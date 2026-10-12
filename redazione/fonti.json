@@ -1,0 +1,35 @@
+{
+  "nota": "Livello 1: basta una fonte. Livello 2: servono due testate indipendenti (o una di livello 1). Vietate: mai usabili. Un dominio non in elenco vale come livello 3: da solo non basta mai.",
+  "livello_1": [
+    "reuters.com", "apnews.com", "bloomberg.com", "ft.com", "wsj.com", "cnbc.com", "nytimes.com", "economist.com",
+    "ansa.it", "ilsole24ore.com", "corriere.it", "repubblica.it", "radiocor.ilsole24ore.com", "borsaitaliana.it",
+    "teleborsa.it", "federalreserve.gov", "bls.gov", "bea.gov", "census.gov", "treasury.gov", "home.treasury.gov",
+    "ecb.europa.eu", "bancaditalia.it", "istat.it", "ec.europa.eu", "consilium.europa.eu", "europa.eu", "imf.org",
+    "opec.org", "eia.gov", "iea.org", "sec.gov", "consob.it", "whitehouse.gov", "centcom.mil", "defense.gov",
+    "nikkei.com", "asia.nikkei.com", "scmp.com", "koreaherald.com", "afp.com", "bbc.com", "bbc.co.uk", "aljazeera.com",
+    "lemonde.fr", "handelsblatt.com", "faz.net", "politico.com", "politico.eu", "axios.com", "barrons.com",
+    "marketwatch.com", "investors.jpmorganchase.com", "goldmansachs.com", "tsmc.com", "pr.tsmc.com", "asml.com"
+  ],
+  "livello_2": [
+    "thestreet.com", "milanofinanza.it", "investinglive.com", "tradingeconomics.com", "investing.com", "fxstreet.com",
+    "forexlive.com", "newsquawk.com", "finance.yahoo.com", "fortune.com", "businessinsider.com", "forbes.com",
+    "forbes.it", "money.it", "soldionline.it", "ilgiornaleditalia.it", "agi.it", "adnkronos.com", "gcaptain.com",
+    "lloydslist.com", "argusmedia.com", "spglobal.com", "kpler.com", "theguardian.com", "time.com", "cbsnews.com",
+    "nbcnews.com", "abcnews.go.com", "foxbusiness.com", "seekingalpha.com", "benzinga.com", "zacks.com",
+    "fool.com", "kitco.com", "oilprice.com", "rigzone.com", "theblock.co", "coindesk.com", "nasdaq.com",
+    "cmegroup.com", "financialjuice.com", "stocktwits.com", "dowjones.com", "morningstar.com", "lsegplc.com",
+    "saxo.com", "home.saxo", "ig.com", "admiralmarkets.com", "cmcmarkets.com", "babypips.com", "kyivpost.com",
+    "timesofisrael.com", "jpost.com", "gulfnews.com", "thenationalnews.com", "arabnews.com", "joongang.co.kr",
+    "koreajoongangdaily.joins.com", "fortuneita.com", "quifinanza.it", "wallstreetitalia.com", "firstonline.info"
+  ],
+  "vietate": [
+    "riotimesonline.com", "sundayguardianlive.com", "armenpress.am", "boltflight.com", "heygotrade.com",
+    "tradingkey.com", "stockopedia.com", "medium.com", "substack.com", "reddit.com", "x.com", "twitter.com",
+    "facebook.com", "youtube.com", "tiktok.com", "wikipedia.org", "msn.com", "news.google.com", "zerohedge.com"
+  ],
+  "regole": [
+    "Una notizia ripresa da un'altra testata (es. 'Reuters via X') vale come la fonte originale solo se si apre l'articolo originale; altrimenti vale il livello di chi ripubblica.",
+    "Comunicati di società, banche centrali e istituzioni: livello 1 per i fatti che riguardano loro stessi.",
+    "L'orario di un aggiornamento in un live blog è l'orario di pubblicazione, non dell'evento: l'ora dell'evento serve una fonte che la indichi."
+  ]
+}

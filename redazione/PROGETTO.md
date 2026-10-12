@@ -43,3 +43,4 @@ Scrivere a Claude, dall'app, in questa conversazione o in una nuova: "Gommberg: 
 - 2026-10-12: tolto il focus VWCE.
 - 2026-10-12: pubblicazione su GitHub Pages perché la rete aziendale blocca claude.ai; kit e registro spostati da Google Drive al repository (lettura esatta dei file, niente trascrizioni).
 - 2026-10-12: revisione mirata con modello più economico al posto della verifica completa (vedi ISTRUZIONI, paragrafo 10).
+- 2026-10-12, dopo il collaudo: affidabilità prima di tutto. Fonti a livelli (`fonti.json`), una scheda con fonte, data e citazione per ogni fatto (`fatti.json`, archiviata in `redazione/fatti/`), controlli automatici su fonti, freschezza e dati (`controlli_fatti.py`, `controlli_dati.py`), revisione rafforzata (Sonnet, fino a 40 verifiche su tutte le schede principali), pubblicazione automatica solo se tutti i controlli passano, altrimenti bozza e notifica a Paolo; errata corrige nell'edizione successiva.
