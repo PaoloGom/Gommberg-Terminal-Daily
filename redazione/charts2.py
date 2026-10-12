@@ -37,25 +37,5 @@ ax.set_xticks([-1, 0, 1]); ax.set_xticklabels(["-1%", "0", "+1%"])
 ax.set_title("Indici: variazione settimana 5-9 ottobre")
 fig.tight_layout(pad=0.4); fig.savefig("c_week.png", dpi=170); fig.savefig("c_week.svg"); plt.close(fig)
 
-# 2. La scommessa: range ±1σ e previsione puntuale, in % dalla chiusura del 9/10
-fc = [  # nome, range basso %, range alto %, previsione %
-    ("MSCI ACWI (ETF)", -1.6, 1.6, 0.2),
-    ("S&P 500", -2.1, 2.1, 0.4),
-    ("Euro Stoxx 50", -1.7, 1.7, 0.9),
-    ("Brent future", -6.6, 7.1, -2.6),
-    ("EUR/USD", -0.7, 0.7, -0.2),
-]
-fig, ax = plt.subplots(figsize=(7.3, 1.85))
-for y, (n, lo, hi, p) in enumerate(reversed(fc)):
-    ax.plot([lo, hi], [y, y], color="#D9D9D9", lw=7, solid_capstyle="butt")
-    ax.plot([0], [y], marker="|", ms=12, color=INK, mew=1.4)
-    ax.plot([p], [y], marker="D", ms=6.5, color=POS if p >= 0 else NEG, zorder=3)
-    ax.text(p + (0.45 if p >= 0 else -0.45), y + 0.02, it(p) + "%", ha="left" if p >= 0 else "right", va="center", fontsize=7.2, color=POS if p >= 0 else NEG, weight="bold")
-ax.set_yticks(range(len(fc))); ax.set_yticklabels([f[0] for f in reversed(fc)], fontsize=7.5)
-ax.axvline(0, color="#888888", lw=0.6, ls=":")
-ax.set_xlim(-8, 8); ax.set_ylim(-0.6, len(fc) - 0.15)
-ax.set_xticks([-6, -4, -2, 0, 2, 4, 6]); ax.set_xticklabels(["-6%", "-4%", "-2%", "0", "+2%", "+4%", "+6%"])
-ax.grid(axis="y", visible=False)
-ax.set_title("Previsione al 16/10 (rombo) e range atteso (barra), in % dalla chiusura del 9/10", pad=8)
-fig.tight_layout(pad=0.4); fig.savefig("c_forecast.png", dpi=170); fig.savefig("c_forecast.svg"); plt.close(fig)
+# 2. Il grafico della scommessa (c_forecast.png/.svg) NON si fa più qui: lo disegna scommessa/grafico.py (vedi ISTRUZIONI, paragrafo 4).
 print("ok")

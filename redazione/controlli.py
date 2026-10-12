@@ -32,6 +32,22 @@ try:
                 problemi.append(f"Edizione {v.get('numero')}: manca il campo {k}")
 except Exception as e:
     problemi.append(f"edizioni.json non valido: {e}")
+# Testata: numero e data devono essere quelli dell'edizione (errori di set_meta o di data)
+try:
+    voce = next(v for v in voci if v["numero"] == numero)
+    import datetime as _dt
+    _d = _dt.date.fromisoformat(voce["data"])
+    _mesi = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre",
+             "novembre", "dicembre"]
+    pag1 = testo.split("\f")[0]
+    if f"Edizione n. {numero:03d}" not in pag1:
+        problemi.append(f"La testata di pagina 1 non riporta 'Edizione n. {numero:03d}'")
+    if f"{_d.day} {_mesi[_d.month - 1]} {_d.year}" not in pag1:
+        problemi.append(f"La testata di pagina 1 non riporta la data {_d.day} {_mesi[_d.month - 1]} {_d.year}")
+    if "pdf/" + voce["data"] not in voce.get("file", ""):
+        problemi.append("Il nome del file in edizioni.json non inizia con la data dell'edizione")
+except StopIteration:
+    pass
 print(f"Pagine: {pagine} | n.d.: {nd}")
 if problemi:
     print("PROBLEMI:\n- " + "\n- ".join(problemi)); sys.exit(1)

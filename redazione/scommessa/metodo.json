@@ -1,0 +1,62 @@
+{
+  "versione": "1.0",
+  "in_vigore_dal": "2026-10-19",
+  "backtest_di_riferimento": "backtest/risultati_2026-10-12.json",
+  "orizzonte": "dalla chiusura del venerdì precedente alla chiusura del venerdì della settimana (5 sedute)",
+  "range_pubblicato": [
+    0.16,
+    0.84
+  ],
+  "previsione_modello": "nessuna deriva: la mediana del modello è la chiusura di partenza (passeggiata casuale).",
+  "strumenti": {
+    "acwi": {
+      "vol": "rv20",
+      "forma": "normale",
+      "nota": "storia breve (100 sedute): la volatilità a 20 sedute è comunque calcolabile"
+    },
+    "spx": {
+      "vol": "rv20",
+      "forma": "normale"
+    },
+    "sx5e": {
+      "vol": "rv20",
+      "forma": "normale"
+    },
+    "ust10": {
+      "vol": "rv20",
+      "forma": "normale"
+    },
+    "ust2": {
+      "vol": "rv20",
+      "forma": "normale"
+    },
+    "brent": {
+      "vol": "rv20",
+      "forma": "normale",
+      "nota": "serie continua del future: i cambi di contratto possono creare salti non di mercato"
+    },
+    "eurusd": {
+      "vol": "rv20",
+      "forma": "normale"
+    }
+  },
+  "redazione": {
+    "scarto_minimo_in_sigma": 0.1,
+    "scarto_massimo_in_sigma": 0.5,
+    "regola": "La scommessa richiede una direzione per ogni strumento: la previsione pubblicata è della redazione e si sposta dalla chiusura di partenza tra 0,1 e 0,5 deviazioni standard, con un motivo scritto (catalizzatore o tesi). Il range pubblicato resta quello del modello, centrato sulla chiusura di partenza: la redazione sceglie la direzione, il modello misura l'incertezza."
+  },
+  "regola_di_adozione": "Un metodo nuovo sostituisce quello in vigore solo se, fuori campione dal 2011: (1) come specifica unica per tutti gli strumenti, riduce la perdita quantile (in unità di sigma) con t di Diebold-Mariano aggregato >= 2 e positivo anche solo dal 2020; oppure (2) per un singolo strumento, con t >= 2,9 (correzione di Bonferroni per circa 15 candidati) e miglioramento positivo dal 2020. Tra più candidati che passano vince quello con t più alto. Un difetto di calibrazione (copertura del 68% fuori da 63-73% su almeno 300 settimane) va corretto anche senza test di perdita.",
+  "candidato_in_osservazione": {
+    "metodo": "blend|t5",
+    "esito_2026-10-12": "migliora 6 strumenti su 6 (0,3-1,0%) e porta la copertura del 90% da 88% a 90-92%, ma il test aggregato non supera la soglia (t 1,6; dal 2020 t 0,8). Si ritesta ogni 26 settimane."
+  },
+  "par_direzione": {
+    "acwi": 0.57,
+    "spx": 0.58,
+    "sx5e": 0.55,
+    "ust10": 0.5,
+    "ust2": 0.5,
+    "brent": 0.5,
+    "eurusd": 0.5
+  }
+}

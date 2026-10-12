@@ -1,0 +1,235 @@
+{
+  "schema": 2,
+  "versione_metodo": "1.0",
+  "data_pronostico": "2026-10-05",
+  "settimana": "2026-10-05/2026-10-09",
+  "origine": "2026-10-02",
+  "verdetto_previsto": "2026-10-12",
+  "range_pubblicato": "16-84% (circa 2 settimane su 3 la chiusura cade dentro)",
+  "strumenti": {
+    "acwi": {
+      "nome": "MSCI ACWI (ETF)",
+      "unita": "$",
+      "tipo": "prezzo",
+      "base": 160.09,
+      "data_base": "2026-10-02",
+      "sigma": 0.016859514232149958,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 155.71146696690164,
+        "0.1": 156.6681415642336,
+        "0.16": 157.4282942911187,
+        "0.25": 158.27983713469786,
+        "0.5": 160.09,
+        "0.75": 161.9208647415375,
+        "0.84": 162.7967082753678,
+        "0.9": 163.58659676506244,
+        "0.95": 164.59165531750926
+      },
+      "mediana_modello": 160.09,
+      "range": [
+        157.4282942911187,
+        162.7967082753678
+      ],
+      "previsione_redazione": 161.0,
+      "scarto_redazione_sigma": 0.336,
+      "motivo_redazione": "",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.6316408503717271
+    },
+    "spx": {
+      "nome": "S&P 500",
+      "unita": "punti",
+      "tipo": "prezzo",
+      "base": 7722.72,
+      "data_base": "2026-10-02",
+      "sigma": 0.014538214326882402,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 7540.23537988303,
+        "0.1": 7580.166478363264,
+        "0.16": 7611.870919155388,
+        "0.25": 7647.362040314881,
+        "0.5": 7722.72,
+        "0.75": 7798.820545436646,
+        "0.84": 7835.18333821374,
+        "0.9": 7867.954400294091,
+        "0.95": 7909.621012298582
+      },
+      "mediana_modello": 7722.72,
+      "range": [
+        7611.870919155388,
+        7835.18333821374
+      ],
+      "previsione_redazione": 7779.061808503986,
+      "scarto_redazione_sigma": 0.5,
+      "motivo_redazione": "",
+      "aggiustata": true,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.6914624612740131
+    },
+    "sx5e": {
+      "nome": "Euro Stoxx 50",
+      "unita": "punti",
+      "tipo": "prezzo",
+      "base": 6257.4,
+      "data_base": "2026-10-02",
+      "sigma": 0.018595703210518354,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 6068.901116451271,
+        "0.1": 6110.04055604008,
+        "0.16": 6142.747512775741,
+        "0.25": 6179.406011213424,
+        "0.5": 6257.4,
+        "0.75": 6336.378397688629,
+        "0.84": 6374.192440526812,
+        "0.9": 6408.313398393611,
+        "0.95": 6451.7536220618995
+      },
+      "mediana_modello": 6257.4,
+      "range": [
+        6142.747512775741,
+        6374.192440526812
+      ],
+      "previsione_redazione": 6245.7747370200705,
+      "scarto_redazione_sigma": -0.1,
+      "motivo_redazione": "",
+      "aggiustata": true,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.460172162722971
+    },
+    "ust10": {
+      "nome": "Treasury 10 anni",
+      "unita": "%",
+      "tipo": "tasso",
+      "base": 5.28,
+      "data_base": "2026-10-02",
+      "sigma": 11.931272486951858,
+      "sigma_unita": "punti base",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 5.083748031756909,
+        "0.1": 5.127094590654076,
+        "0.16": 5.161348520186271,
+        "0.25": 5.199524790007545,
+        "0.5": 5.28,
+        "0.75": 5.3604752099924555,
+        "0.84": 5.398651479813729,
+        "0.9": 5.432905409345924,
+        "0.95": 5.476251968243091
+      },
+      "mediana_modello": 5.28,
+      "range": [
+        5.161348520186271,
+        5.398651479813729
+      ],
+      "previsione_redazione": 5.25,
+      "scarto_redazione_sigma": -0.251,
+      "motivo_redazione": "",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.4007369452302379
+    },
+    "ust2": {
+      "nome": "Treasury 2 anni",
+      "unita": "%",
+      "tipo": "tasso",
+      "base": 4.83,
+      "data_base": "2026-10-02",
+      "sigma": 14.787530308729009,
+      "sigma_unita": "punti base",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 4.586766771380323,
+        "0.1": 4.6404901738231015,
+        "0.16": 4.682944239112813,
+        "0.25": 4.7302596237604835,
+        "0.5": 4.83,
+        "0.75": 4.929740376239517,
+        "0.84": 4.977055760887187,
+        "0.9": 5.019509826176899,
+        "0.95": 5.073233228619677
+      },
+      "mediana_modello": 4.83,
+      "range": [
+        4.682944239112813,
+        4.977055760887187
+      ],
+      "previsione_redazione": 4.844787530308729,
+      "scarto_redazione_sigma": 0.1,
+      "motivo_redazione": "",
+      "aggiustata": true,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.539827837277029
+    },
+    "brent": {
+      "nome": "Brent future",
+      "unita": "$",
+      "tipo": "prezzo",
+      "base": 102.25,
+      "data_base": "2026-10-02",
+      "sigma": 0.07688511082732735,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 90.10323256719259,
+        "0.1": 92.65552284985132,
+        "0.16": 94.72346863636122,
+        "0.25": 97.08264011376059,
+        "0.5": 102.25,
+        "0.75": 107.69239987446622,
+        "0.84": 110.37457401540557,
+        "0.9": 112.83798502699591,
+        "0.95": 116.03426649763486
+      },
+      "mediana_modello": 102.25,
+      "range": [
+        94.72346863636122,
+        110.37457401540557
+      ],
+      "previsione_redazione": 98.39384384096297,
+      "scarto_redazione_sigma": -0.5,
+      "motivo_redazione": "",
+      "aggiustata": true,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.3085375387259869
+    },
+    "eurusd": {
+      "nome": "EUR/USD",
+      "unita": "",
+      "tipo": "prezzo",
+      "base": 1.1253,
+      "data_base": "2026-10-02",
+      "sigma": 0.006003988562182978,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 1.1142415891898332,
+        "0.1": 1.1166746940365078,
+        "0.16": 1.118601174096711,
+        "0.25": 1.1207521675044825,
+        "0.5": 1.1253,
+        "0.75": 1.1298662868701839,
+        "0.84": 1.1320389423178983,
+        "0.9": 1.133991928681246,
+        "0.95": 1.1364681612007759
+      },
+      "mediana_modello": 1.1253,
+      "range": [
+        1.118601174096711,
+        1.1320389423178983
+      ],
+      "previsione_redazione": 1.126,
+      "scarto_redazione_sigma": 0.104,
+      "motivo_redazione": "",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.5412466746333008
+    }
+  }
+}

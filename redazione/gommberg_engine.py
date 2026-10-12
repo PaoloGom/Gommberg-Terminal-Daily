@@ -79,12 +79,21 @@ GIORNI = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato",
 EDIZIONE_1 = __import__("datetime").date(2026, 10, 12)   # n. 001 = lunedì 12 ottobre 2026
 
 
+# Giorni senza edizione: borse USA ed europee chiuse insieme (Natale, Capodanno, Venerdì Santo).
+# Non contano nella numerazione. Aggiornare ogni anno (vedi ISTRUZIONI, paragrafo 6, punto 0).
+FESTIVI = {"2026-12-25", "2027-01-01", "2027-03-26", "2028-04-14"}
+
+
+def giorno_di_uscita(d):
+    return d.weekday() < 5 and d.isoformat() not in FESTIVI
+
+
 def numero_edizione(d):
-    """Numero progressivo = giorni lun-ven dal 12/10/2026 al giorno d, estremi inclusi."""
+    """Numero progressivo = giorni di uscita (lun-ven, esclusi FESTIVI) dal 12/10/2026 al giorno d, estremi inclusi."""
     import datetime as dt
     n, x = 0, EDIZIONE_1
     while x <= d:
-        if x.weekday() < 5:
+        if giorno_di_uscita(x):
             n += 1
         x += dt.timedelta(days=1)
     return n
