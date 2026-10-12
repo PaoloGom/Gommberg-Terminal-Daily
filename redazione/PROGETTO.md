@@ -29,7 +29,7 @@ Scrivere a Claude, dall'app, in questa conversazione o in una nuova: "Gommberg: 
 - 2026-10-12: edizione #001 pubblicata. Sito GitHub attivo. Automazione lun-ven alle 9:00.
 
 ## Prossimi passi
-- [ ] Collaudo end-to-end dal cloud (in corso il 12/10).
+- [x] Collaudo end-to-end dal cloud superato il 12/10 (esito in `redazione/collaudi/`).
 - [ ] Prima settimana: verificare ogni mattina esito, tempi e qualità; correggere il kit.
 - [ ] Lunedì 19/10: primo verdetto della scommessa.
 

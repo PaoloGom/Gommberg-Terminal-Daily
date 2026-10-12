@@ -39,38 +39,5 @@
       "Bid-to-cover",
       "Periodo di silenzio"
     ]
-  },
-  {
-    "numero": 0,
-    "data": "2026-10-12",
-    "titolo": "[COLLAUDO] Il Brent torna sopra 106 $, Wall Street resta ferma alla vigilia delle trimestrali bancarie",
-    "sommario": [
-      "Brent future a 106,80 $ (+2,0% da venerdì): il rialzo del pomeriggio cancella il calo del mattino.",
-      "Wall Street piatta all'apertura, con vendite sulle infrastrutture AI (Lumentum -7,4%, SanDisk -7%); domani tocca alle banche.",
-      "La scommessa al primo giorno: S&P 500 fermo, ma il Brent sale (+2,0%) mentre noi prevedevamo -2,6%."
-    ],
-    "file": "pdf/2026-10-12-gommberg-collaudo.pdf",
-    "nome": "2026-10-12 Gommberg Terminal Daily COLLAUDO.pdf",
-    "pagine": 6,
-    "notizie": [
-      "Brent sopra 106 $: cancellato il calo del mattino",
-      "MPS, CdA a Borsa chiusa: sul tavolo anche il rinvio dell'assemblea",
-      "Vendite sulle infrastrutture AI, Adobe e Salesforce in direzioni opposte",
-      "Microsoft: il chip Maia 300 punta a oltre 1 milione di unità",
-      "La UE sanziona quasi 1.600 soggetti; al Senato USA fronte contro il diesel russo",
-      "Delta rinvia il volo per Riad, dimezzati i voli dell'aeroporto",
-      "Nobel per l'economia a Robert Hall e Michael Woodford",
-      "SpaceX compra spettro per circa 8 miliardi di dollari"
-    ],
-    "temi_deep_dive": {
-      "treasury": "mercato chiuso per il Columbus Day, livelli del 9/10 invariati",
-      "iran": "nessuna svolta; traffico aereo saudita dimezzato, Delta rinvia Riad",
-      "petrolio": "future sopra 106 $, cancellato il calo del mattino; fisico EIA fermo al 6/10",
-      "eurusd": "sotto 1,12 (1,1176 alle 17:17)"
-    },
-    "glossario": [
-      "Nanometro (nm)",
-      "Chiplet"
-    ]
   }
 ]

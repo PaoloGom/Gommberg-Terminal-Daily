@@ -1,4 +1,0 @@
-Diagnosi collegamento - 2026-10-12T15:03:29Z (UTC)
-Passo 1: strumenti trovati -> add_repo: NESSUNO (ToolSearch "add_repo": "No matching deferred tools found"; ricerca "add_repo list_repos" restituisce solo mcp__github__list_repository_collaborators). Google_Drive: copy_file, create_file, download_file_content, get_file_metadata, get_file_permissions, list_recent_files, read_file_content, search_files, share_file, trash_file, update_file. Artifact: Artifact, ArtifactComments, ArtifactData.
-Passo 2: add_repo NON eseguito - strumento non disponibile in questa sessione.
-Passo 3: git clone --depth 1 https://github.com/PaoloGom/Gommberg-Terminal-Daily -> successo ("Cloning into '/home/claude/gtd'...", exit 0).

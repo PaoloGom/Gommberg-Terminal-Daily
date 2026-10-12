@@ -101,8 +101,16 @@ Chi legge ogni giorno non deve ritrovare le stesse cose. Prima di scrivere, legg
 4. Archivio online: strumento Artifact `action: "read"` con `url` dell'archivio (serve a registrare la lettura, senza la quale la pubblicazione viene rifiutata), poi `action: "publish"` con `url`, `file_path` = `/home/claude/gtd/redazione/archivio_claude.html` (la pagina dell'archivio, da non modificare), `files` = {"edizioni.json": "/home/claude/gtd/edizioni.json", "pdf/AAAA-MM-GG-gommberg-NNN.pdf": "<percorso del pdf>"}. Non passare `capabilities` né `icon`. Se la pubblicazione viene rifiutata perché esiste una versione più recente, la pagina non è cambiata: ripubblica una volta con gli stessi parametri. Verifica con `action: "list"`, `scope: "files"`: devono esserci il nuovo PDF e il nuovo edizioni.json.
 5. Se un passaggio fallisce, riprova una volta; se fallisce ancora consegna comunque il PDF in chat e scrivi nel messaggio finale cosa non è stato aggiornato.
 ## 10. Revisione mirata (compromesso tra accuratezza e costo)
-I numeri di mercato non si rivedono a mano: vengono da API e da calcoli in codice, e `controlli.py` blocca gli errori meccanici. La revisione si concentra dove si sbaglia davvero: fatti di cronaca, date, orari, consensi, attribuzioni di causa, ripetizioni.
+I numeri di mercato presi dalle API (FMP, Alpha Vantage) non si rivedono a mano: vengono da calcoli in codice; e `controlli.py` blocca gli errori meccanici. La revisione si concentra dove si sbaglia davvero: fatti di cronaca, date, orari, consensi, attribuzioni di causa, ripetizioni, e i numeri presi da fonti web (livelli intraday, cifre delle notizie).
 - Se lo strumento Agent è disponibile: un solo agente revisore con `model: "sonnet"`, che non ha scritto il numero. Gli passi il testo del PDF (pdftotext) e l'elenco notizie dell'edizione precedente. Compito: verificare sul web al massimo 20 affermazioni, scelte tra quelle non prese dalle API (in priorità: top story, top news, orari e consensi dell'agenda, cifre su Iran e petrolio, catalizzatori conclusi), segnalare ripetizioni senza novità rispetto a ieri, e restituire SOLO gli errori bloccanti con fonte. Niente riscritture di stile.
 - Il lunedì il revisore controlla in più il verdetto della scommessa e il nuovo pronostico (i calcoli si rifanno in codice).
 - Senza Agent: controllo tu le stesse affermazioni, con lo stesso limite.
 - Correggi tutto ciò che è bloccante; se una verifica non è conclusiva, togli il dettaglio o attribuiscilo alla fonte.
+## 11. Note pratiche dal collaudo del 12/10
+- Ora corrente: se non c'è uno strumento dedicato, usa `TZ=Europe/Rome date`.
+- Il numero di edizione lo calcola `set_meta`; non forzarlo mai a mano.
+- FMP non dà il WTI (CLUSD) né gli indici intraday: prendili da fonti web con l'orario (es. Reuters, TheStreet, CNBC) e falli rientrare nella revisione.
+- Alpha Vantage: una chiamata al secondo, chiamale una dopo l'altra; la serie BRENT EIA si aggiorna con qualche giorno di ritardo, normale.
+- Le chiusure europee di oggi non esistono la mattina: nel ticker e nel cruscotto usa le chiusure della seduta precedente e i dati di stamattina con l'ora.
+- Consensi divergenti tra fonti (es. EPS delle banche): non riportarli.
+- Tempi del collaudo: circa 20 minuti dall'avvio alla pubblicazione, revisore compreso (17 affermazioni verificate, 9 errori bloccanti trovati e corretti).
