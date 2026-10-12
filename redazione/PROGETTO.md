@@ -39,6 +39,7 @@ Scrivere a Claude, dall'app, in questa conversazione o in una nuova: "Gommberg: 
 - Metodo 1.0 dal 19/10/2026: volatilità delle ultime 20 sedute, distribuzione normale, range = base +- 1 sigma, uguale per tutti gli strumenti; direzione della redazione obbligatoria, tra 0,1 e 0,5 sigma.
 - Backtest 2014-2026 (12/10/2026): nessun segnale di direzione batte la passeggiata casuale; il range in vigore è calibrato (68-72%); il VIX dava range troppo larghi sull'S&P 500 (82%) ed è stato tolto; il candidato "miscela + Student-t" è in osservazione (non supera ancora la soglia statistica). Audit indipendente superato dopo una correzione.
 - Misure dal vivo in `scommessa/PAGELLA.md` (generata ogni lunedì). Prima revisione del metodo: aprile 2027 (26 settimane).
+- Pag. 6 costruita da `scommessa/pagina6.py`: tabelle, grafico e pagella vengono dai file, nessun numero a mano. Collaudo del laboratorio dal cloud superato il 12/10 (rapporto in `collaudi/`).
 
 ## Idee per il futuro
 - **Articoli ad hoc**: sezione separata del sito per approfondimenti fuori dal quotidiano (es. "Perché il 10 anni USA è al 5%"). Proposta: cartella `articoli/`, una pagina per articolo, elenco nel sito sotto le edizioni. Si scrivono su richiesta.

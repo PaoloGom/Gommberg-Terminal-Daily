@@ -55,44 +55,72 @@ Usa `PageBreak()` tra le pagine. Se un'appendice non ha novità: "Nessuna novit�
 - Regole di verità: ogni numero viene da una fonte recuperata oggi o da un calcolo in codice. Fonti in disaccordo: indica la fonte o ometti. Consensi divergenti (es. EPS delle banche): non riportarli se non confermati da due fonti. Non attribuire cause a un movimento di mercato senza una fonte che le indichi. Distingui piani e proposte da decisioni prese.
 
 ## 4. La scommessa della settimana (la parte che i lettori aspettano)
-È un laboratorio a sé: `redazione/scommessa/`. Prima di toccarlo leggi `scommessa/METODO.md` (metodo, backtest, regole) e `scommessa/metodo.json` (configurazione in vigore). Tutti i numeri della scommessa li producono gli script: niente calcoli a mano, niente range inventati. Registro delle settimane: `redazione/pronostici/AAAA-MM-GG-settimana.json` (la data è quella del lunedì). File e script si eseguono dalla cartella `/home/claude/gtd/redazione/scommessa`.
+È un laboratorio a sé: `redazione/scommessa/`. Prima di toccarlo leggi:
+- `scommessa/METODO.md`: metodo, backtest, regole;
+- `scommessa/metodo.json`: la configurazione in vigore.
+
+**Regole generali:**
+- Tutti i numeri della scommessa (range, sigma, probabilità, verdetto, pagella) li producono gli script, e pag. 6 la costruisce `pagina6.py`: niente calcoli o tabelle a mano.
+- Per pag. 6 vale questo paragrafo, non la pag. 6 dell'edizione modello.
+- Gli script si lanciano dentro il repository (`cd /home/claude/gtd/redazione/scommessa`), perché `dati/`, `registro.csv`, `PAGELLA.md`, `pagella.json` e `../pronostici/` vanno committati.
+- Grafici e PDF vanno nella cartella di lavoro (`mkdir -p /home/claude/lavoro`).
+- Registro delle settimane: `redazione/pronostici/AAAA-MM-GG-settimana.json`, con la data del lunedì.
+- Chiavi uguali ovunque: `acwi`, `spx`, `sx5e`, `ust10`, `ust2`, `brent`, `eurusd` (più `vix` solo in `nuovi.json`).
 
 **Lunedì (o primo giorno di borsa della settimana):**
-1. **Aggiorna la storia.** Con i dati scaricati per l'edizione, scrivi `nuovi.json` con le chiusure ufficiali dei giorni mancanti (mai valori intraday), chiavi: `spx`, `sx5e`, `vix`, `brent_future` (FMP), `ust10`, `ust2` (FMP treasury-rates, colonne year10 e year2), `eurusd` e `acwi` (Alpha Vantage). Formato: `{"spx": [["2026-10-16", 7850.12], ...], ...}`. Poi lancia `python3 aggiorna_dati.py nuovi.json`.
-2. **Verdetto della settimana chiusa.** Lancia `python3 valuta.py --settimana ../pronostici/<lunedì scorso>-settimana.json --verdetto --json verdetto.json`. Se venerdì le borse erano chiuse, aggiungi `--festivo`. Lo script aggiorna `registro.csv` e `PAGELLA.md`. Se si ferma per dati mancanti, aggiorna i dati: non aggirarlo.
-3. **Pronostico nuovo.** Scrivi `redazione.json` con una previsione per ciascuno dei 7 strumenti (`acwi`, `spx`, `sx5e`, `ust10`, `ust2`, `brent`, `eurusd`): `{"spx": {"previsione": 7900, "motivo": "una riga: catalizzatore o tesi"}, ...}`.
-   - La direzione è obbligatoria, ed è la vera scommessa: sceglila guardando agenda, notizie e scenari, non per abitudine.
-   - Lo script tiene lo scarto tra 0,1 e 0,5 sigma.
-   - Lancia `python3 pronostico.py --origine <venerdì scorso> --redazione redazione.json`. Scrive `../pronostici/<lunedì>-settimana.json`.
-4. **Grafico.** `python3 grafico.py ../pronostici/<lunedì>-settimana.json /home/claude/lavoro/c_forecast.png`. Scrive PNG e SVG.
-5. **Pag. 6:**
-   - **Titolo:** "La scommessa della settimana: dove chiudiamo venerdì <data>".
-   - **Sottotitolo:** una frase con la tesi della settimana (stile dek).
-   - **Grafico.**
-   - **Tabella:** Strumento | Chiusura di venerdì | Previsione | Range atteso | Prob. rialzo* | Il perché.
-     - Previsione = `previsione_redazione`.
-     - Range = `range`.
-     - Prob. = `prob_rialzo_redazione`.
-     - Il perché = `motivo_redazione`.
-     - Per i Treasury la colonna si chiama "rialzo del rendimento".
-   - **Box "Le regole del gioco":** 1 punto per la direzione, 1 punto se la chiusura cade nel range; il range contiene la chiusura circa 2 settimane su 3; senza abilità si fanno in media circa 8,5 punti su 14 (il "par").
-   - **Box "La pagella":**
-     - il verdetto della settimana precedente da `verdetto.json`, per esempio "Settimana 12-16 ottobre: 9 punti su 14 (par 8,5); direzione 5 su 7, range 4 su 7";
-     - il totale stagionale e la copertura reale del range, da `PAGELLA.md`;
-     - le eventuali note del verdetto (festivo, cambio di contratto del Brent).
-   - **Nota sotto la tabella:** "* Probabilità implicite nella nostra previsione: il modello da solo non vede né rialzo né ribasso. Metodo e risultati storici nella scheda del progetto."
+1. **Aggiorna la storia.** Scrivi `nuovi.json` con le chiusure ufficiali dei giorni dopo l'ultima data di ogni file in `dati/`, fino a venerdì compreso. Formato: `{"spx": [["2026-10-16", 7850.12], ...], ...}`.
+   - **Fonti:**
+     - `spx`, `sx5e`, `vix`: FMP `index-historical-price-eod-light` con from/to;
+     - `brent`: FMP `commodities-historical-price-eod-light`, simbolo BZUSD;
+     - `ust10`, `ust2`: FMP `treasury-rates`, colonne year10 e year2;
+     - `eurusd`: Alpha Vantage `FX_DAILY`, colonna close. Non FMP forex, che ha anche righe del weekend;
+     - `acwi`: Alpha Vantage `TIME_SERIES_DAILY`.
+   - **Mai la riga con la data di oggi:** FMP la restituisce già, ma è un valore intraday. Lo script la rifiuta.
+   - **Poi:** `python3 aggiorna_dati.py nuovi.json`. Valida tutto prima di scrivere.
+2. **Verdetto della settimana chiusa.** `python3 valuta.py --settimana ../pronostici/<lunedì scorso>-settimana.json --verdetto --json /home/claude/lavoro/verdetto.json`.
+   - Se venerdì un mercato era chiuso, aggiungi `--festivo <chiavi separate da virgole>` (per esempio `--festivo ust10,ust2`), oppure `--festivo tutti`.
+   - Lo script aggiorna `registro.csv`, `PAGELLA.md` e `pagella.json`.
+   - Se si ferma per dati mancanti, aggiorna i dati: non aggirarlo.
+   - Il primo lunedì del metodo (19/10/2026) il verdetto riguarda il file `2026-10-12-settimana.json`.
+3. **Pronostico nuovo.**
+   - **Livelli possibili:** `python3 pronostico.py --origine <venerdì scorso> --prova` stampa sigma e i livelli a +-0,1, 0,3 e 0,5 sigma.
+   - **`redazione.json`:** una previsione dentro quei limiti per ciascuno dei 7 strumenti, con un motivo di una riga, per esempio `{"spx": {"previsione": 7845, "motivo": "Banche solide e CPI in linea"}, ...}`.
+     - Nel motivo niente segni +/- davanti ai numeri.
+     - La direzione è obbligatoria, ed è la vera scommessa: sceglila guardando agenda, notizie e scenari, non per abitudine.
+   - **Poi:** `python3 pronostico.py --origine <venerdì scorso> --redazione redazione.json`.
+     - Scrive `../pronostici/<lunedì>-settimana.json`.
+     - Non sovrascrive mai un registro esistente: `--forza` si usa solo per correggere un errore della stessa mattina, prima della pubblicazione.
+     - Se una previsione esce "AGGIUSTATA", il livello pubblicato è quello del registro: il motivo deve restare vero.
+4. **Grafico:** `python3 grafico.py ../pronostici/<lunedì>-settimana.json /home/claude/lavoro/c_forecast.png`. Scrive PNG e SVG.
+5. **Pag. 6.** Nello script dell'edizione:
+   ```python
+   import sys, json; sys.path.insert(0, "/home/claude/gtd/redazione/scommessa")
+   from pagina6 import pagina6_lunedi
+   story += pagina6_lunedi(reg, verdetto, pagella, tesi="<una frase con la tesi della settimana>",
+                           grafico="c_forecast.png", settimana_prec="<es. 12-16 ottobre>")
+   ```
+   - `reg`, `verdetto`, `pagella` sono i JSON caricati: registro nuovo, `verdetto.json`, `pagella.json`.
+   - `verdetto` è None se non c'è una settimana precedente.
+   - Poi Glossario e Fonti come sempre.
 
 **Martedì-venerdì:**
-- Scrivi `attuali.json` con l'ultimo valore di ogni strumento e la sua data, per esempio `{"spx": [7830.1, "2026-10-20"], ...}`. Prendi le chiusure del giorno prima, o i livelli di stamattina con l'ora per future e cambi. Poi lancia:
-  - `python3 valuta.py --settimana ../pronostici/<lunedì>-settimana.json --attuali attuali.json --json stato.json`;
-  - `python3 grafico.py ../pronostici/<lunedì>-settimana.json /home/claude/lavoro/c_forecast.png stato.json`.
-- **Pag. 6:** "La scommessa della settimana: a che punto siamo", con il grafico (il cerchio è il livello attuale) e una tabella dai campi di `stato.json`: Strumento | Base | Previsione | Ultimo | Var. da base | Dentro il range? | Sulla strada giusta?.
-- La previsione NON si cambia mai durante la settimana.
-- Il venerdì aggiungi "Verdetto lunedì" e una frase autoironica se stiamo sbagliando.
+1. **`attuali.json`:** l'ultimo valore di ogni strumento con data, e ora se è un livello di stamattina. Per esempio `{"spx": [7830.1, "2026-10-19"], "brent": [104.2, "2026-10-20", "08:15"], ...}`.
+   - Uno strumento senza valore nuovo si omette: lo script usa la base e lo segna come fermo.
+   - Le chiavi sbagliate fanno fermare lo script.
+2. **Poi lancia:**
+   - `python3 valuta.py --settimana ../pronostici/<lunedì>-settimana.json --attuali attuali.json --json /home/claude/lavoro/stato.json`;
+   - `python3 grafico.py ../pronostici/<lunedì>-settimana.json /home/claude/lavoro/c_forecast.png /home/claude/lavoro/stato.json`.
+3. **Pag. 6:** `from pagina6 import pagina6_settimana`, poi `story += pagina6_settimana(reg, stato, tesi="<una frase: a che punto siamo>", grafico="c_forecast.png", venerdi=<True il venerdì>)`.
+   - La previsione non cambia mai durante la settimana.
+   - Il venerdì il box ricorda il verdetto di lunedì. Nella tesi è ammessa una frase autoironica se stiamo sbagliando.
 - In prima pagina, nel box "In 30 secondi", il terzo punto può ricordare dove siamo sulla scommessa quando è rilevante.
 
+**Collaudi e prove:** non scrivono mai nel registro vero.
+- Per il verdetto si usa `--prova`, che calcola senza scrivere `registro.csv` né `PAGELLA.md`.
+- Il pronostico va in una cartella fuori dal repository, con `--uscita`.
+
 **Revisione periodica.** Il lavoro più dettagliato lo fa Claude su richiesta di Paolo. Ogni 26 settimane (la prima ad aprile 2027), o se la copertura dal vivo in `PAGELLA.md` esce da 55-80% dopo almeno 20 settimane:
-- si rilancia `backtest.py`;
+- si rilancia `backtest.py` sullo storico completo (vedi METODO.md);
 - si applica la regola di adozione di `metodo.json`;
 - si aggiorna `METODO.md`.
 
@@ -134,7 +162,7 @@ Chi legge ogni giorno non deve ritrovare le stesse cose. Prima di scrivere, legg
 1. Copia il PDF finale in `/home/claude/gtd/pdf/AAAA-MM-GG-gommberg-NNN.pdf` (nome senza spazi né "#").
 2. Aggiungi a `/home/claude/gtd/edizioni.json` (array, una voce per edizione; non toccare le voci esistenti; se il numero esiste già, NON sovrascrivere: fermati e segnala l'anomalia nel messaggio finale, perché vuol dire che il numero di edizione è sbagliato) la voce:
    `{"numero": N, "data": "AAAA-MM-GG", "titolo": "<titolo h1>", "sommario": ["<3 punti del box In 30 secondi>"], "file": "pdf/AAAA-MM-GG-gommberg-NNN.pdf", "nome": "AAAA-MM-GG Gommberg Terminal Daily #NNN.pdf", "pagine": 6, "notizie": ["<8 titoli top news>"], "temi_deep_dive": {"treasury": "...", "iran": "...", "petrolio": "...", "eurusd": "..."}, "glossario": ["<voci spiegate in questo numero>"]}`. Testo semplice senza tag HTML (scrivi S&P, non &amp;).
-3. Commit e push: `git -C /home/claude/gtd config user.name "PaoloGom"`, `git -C /home/claude/gtd config user.email "PaoloGom@users.noreply.github.com"` (mai l'email personale), copia `fatti.json` in `redazione/fatti/AAAA-MM-GG.json` (registro delle fonti di ogni edizione, serve per gli errata), `git -C /home/claude/gtd add pdf edizioni.json redazione/pronostici redazione/fatti redazione/scommessa`, commit "Edizione #NNN - AAAA-MM-GG", `git -C /home/claude/gtd push origin main`. Se il push è rifiutato perché il remoto è avanti: `git pull --rebase origin main` e ripeti una volta. Verifica con `git -C /home/claude/gtd log origin/main -1`. Il sito si aggiorna da solo in 1-2 minuti.
+3. Commit e push: `git -C /home/claude/gtd config user.name "PaoloGom"`, `git -C /home/claude/gtd config user.email "PaoloGom@users.noreply.github.com"` (mai l'email personale), copia `fatti.json` in `redazione/fatti/AAAA-MM-GG.json` (registro delle fonti di ogni edizione, serve per gli errata), `git -C /home/claude/gtd add pdf edizioni.json redazione/pronostici redazione/fatti redazione/scommessa` (mai `redazione/collaudi` con dati di prova nel registro), commit "Edizione #NNN - AAAA-MM-GG", `git -C /home/claude/gtd push origin main`. Se il push è rifiutato perché il remoto è avanti: `git pull --rebase origin main` e ripeti una volta. Verifica con `git -C /home/claude/gtd log origin/main -1`. Il sito si aggiorna da solo in 1-2 minuti.
 4. Archivio online: strumento Artifact `action: "read"` con `url` dell'archivio (serve a registrare la lettura, senza la quale la pubblicazione viene rifiutata), poi `action: "publish"` con `url`, `file_path` = `/home/claude/gtd/redazione/archivio_claude.html` (la pagina dell'archivio, da non modificare), `files` = {"edizioni.json": "/home/claude/gtd/edizioni.json", "pdf/AAAA-MM-GG-gommberg-NNN.pdf": "<percorso del pdf>"}. Non passare `capabilities` né `icon`. Se la pubblicazione viene rifiutata perché esiste una versione più recente, la pagina non è cambiata: ripubblica con gli stessi parametri (fino a due volte). Verifica con `action: "list"`, `scope: "files"`: devono esserci il nuovo PDF e il nuovo edizioni.json.
 5. Se un passaggio fallisce, riprova una volta; se fallisce ancora consegna comunque il PDF in chat e scrivi nel messaggio finale cosa non è stato aggiornato.
 ## 10. Revisione rafforzata

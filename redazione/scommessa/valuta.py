@@ -21,6 +21,7 @@ from motore import QUANTILI, carica, pinball, punti_lettori, salva_json
 QUI = os.path.dirname(os.path.abspath(__file__))
 REGISTRO = os.path.join(QUI, "registro.csv")
 PAGELLA = os.path.join(QUI, "PAGELLA.md")
+PAGELLA_JSON = os.path.join(QUI, "pagella.json")
 PAR_DENTRO = 0.68  # probabilità attesa di cadere nel range 16-84%
 PAR_DIREZIONE = json.load(open(os.path.join(QUI, "metodo.json"), encoding="utf-8"))["par_direzione"]
 AZIONARI = ["acwi", "spx", "sx5e"]
@@ -35,13 +36,18 @@ def segno(x, eps=1e-12):
 
 
 def stato(reg, attuali):
+    ignote = set(attuali) - set(reg["strumenti"])
+    if ignote:
+        raise SystemExit(f"chiavi sconosciute in attuali.json: {sorted(ignote)} (ammesse: {sorted(reg['strumenti'])})")
     righe = {}
     for k, v in reg["strumenti"].items():
         if k in attuali:
-            ultimo, data = attuali[k]
+            ultimo, data = float(attuali[k][0]), " ".join(str(x) for x in attuali[k][1:])
+            fonte = "attuali.json"
         else:
             s = carica(k)
             ultimo, data = float(s.iloc[-1]), str(s.index[-1].date())
+            fonte = "dati/ (nessun valore nuovo)"
         base, prev = v["base"], v["previsione_redazione"]
         lo, hi = v["range"]
         var = x_da_livello(base, ultimo, v["tipo"])
@@ -50,20 +56,21 @@ def stato(reg, attuali):
                     "var": var * 100 if v["tipo"] == "prezzo" else var,
                     "var_unita": "%" if v["tipo"] == "prezzo" else "pb",
                     "dentro_range": bool(lo <= ultimo <= hi),
-                    "strada_giusta": None if dir_prev == 0 else bool(segno(ultimo - base) == dir_prev)}
+                    "strada_giusta": None if dir_prev == 0 or ultimo == base else bool(segno(ultimo - base) == dir_prev),
+                    "fonte": fonte}
     return righe
 
 
-def verdetto(reg, festivo=False):
+def verdetto(reg, festivo=(), prova=False):
     ven = pd.Timestamp(reg["settimana"].split("/")[1])
     righe, nuove = {}, []
     for k, v in reg["strumenti"].items():
         s = carica(k)
         s = s[s.index <= ven]
         data_fin = s.index[-1]
-        if data_fin != ven and not festivo:
+        if data_fin != ven and not (festivo == "tutti" or k in festivo):
             raise SystemExit(f"{k}: manca la chiusura di venerdì {ven.date()} (ultima {data_fin.date()}): aggiorna dati/ "
-                             "oppure, se venerdì la borsa era chiusa, rilancia con --festivo")
+                             f"oppure, se venerdì quel mercato era chiuso, rilancia con --festivo {k} (o --festivo tutti)")
         fin = float(s.iloc[-1])
         base, prev, tipo = v["base"], v["previsione_redazione"], v["tipo"]
         lo, hi = v["range"]
@@ -88,6 +95,12 @@ def verdetto(reg, festivo=False):
         righe[k] = r
         nuove.append(r)
     df_new = pd.DataFrame(nuove)
+    if prova:
+        tot = int(df_new["punto_direzione"].sum() + df_new["punto_range"].sum())
+        return righe, {"punti": tot, "su": 2 * len(df_new), "direzione": int(df_new["punto_direzione"].sum()),
+                       "range": int(df_new["punto_range"].sum()),
+                       "par": round(sum(PAR_DENTRO + PAR_DIREZIONE.get(k, 0.5) for k in df_new["strumento"]), 1),
+                       "prova": True}
     if os.path.exists(REGISTRO):
         old = pd.read_csv(REGISTRO)
         old = old[old["settimana"] != reg["settimana"]]
@@ -142,6 +155,9 @@ def scrivi_pagella(df):
     for k, g in df.groupby("nome"):
         L.append(f"| {k} | {len(g)} | {100 * g['punto_range'].mean():.0f}% | {100 * g['punto_direzione'].mean():.0f}% |")
     open(PAGELLA, "w", encoding="utf-8").write("\n".join(L) + "\n")
+    salva_json({"settimane": n_sett, "punti": punti, "su": su, "par": par, "copertura_range_%": round(cop, 1),
+                "direzione_giusta_%": round(dirr, 1), "abilita_redazione_%": round(skill, 2),
+                "t_dm": None if t != t else round(float(t), 2)}, PAGELLA_JSON)
 
 
 def main():
@@ -150,11 +166,12 @@ def main():
     ap.add_argument("--attuali")
     ap.add_argument("--verdetto", action="store_true")
     ap.add_argument("--json")
-    ap.add_argument("--festivo", action="store_true", help="venerdì a borse chiuse: vale l'ultima chiusura della settimana")
+    ap.add_argument("--festivo", default="", help="strumenti con il mercato chiuso venerdì, separati da virgole, oppure 'tutti'")
+    ap.add_argument("--prova", action="store_true", help="calcola il verdetto senza scrivere registro.csv e PAGELLA.md (collaudi)")
     a = ap.parse_args()
     reg = json.load(open(a.settimana, encoding="utf-8"))
     if a.verdetto:
-        righe, tot = verdetto(reg, a.festivo)
+        righe, tot = verdetto(reg, a.festivo if a.festivo == 'tutti' else [x for x in a.festivo.split(',') if x], a.prova)
         out = {"righe": righe, "totale": tot}
         print(f"Verdetto {reg['settimana']}: {tot['punti']} punti su {tot['su']} (direzione {tot['direzione']}, "
               f"range {tot['range']}; par {tot['par']})")

@@ -99,16 +99,39 @@ def pronostica(origine: pd.Timestamp, redazione: dict):
     return out
 
 
+def prova(origine):
+    """Sigma e livelli a +-0,1 / 0,3 / 0,5 sigma per scegliere la previsione della redazione."""
+    vix_d = carica("vix")
+    print(f"{'Strumento':18s} {'base':>10s} {'sigma':>9s}   giù 0,5 / 0,3 / 0,1   |   su 0,1 / 0,3 / 0,5")
+    for k, info in STRUMENTI.items():
+        s = carica(k)
+        s = s[s.index <= origine]
+        r = variazioni_giornaliere(s, info["tipo"])
+        sg = sigma_alla_data(k, METODO["strumenti"][k]["vol"], r, origine, vix_d)
+        b = float(s.iloc[-1])
+        liv = [livello(b, m * sg, info["tipo"]) for m in (-0.5, -0.3, -0.1, 0.1, 0.3, 0.5)]
+        su = f"{sg:.4f}" if info["tipo"] == "prezzo" else f"{sg:.1f} pb"
+        print(f"{k:18s} {b:10.4f} {su:>9s}   " + " / ".join(f"{x:.4f}" for x in liv[:3]) + "   |   " +
+              " / ".join(f"{x:.4f}" for x in liv[3:]))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--origine", required=True)
-    ap.add_argument("--redazione", required=True)
+    ap.add_argument("--redazione")
     ap.add_argument("--uscita", default=os.path.join(QUI, "..", "pronostici"))
+    ap.add_argument("--prova", action="store_true", help="stampa sigma e livelli possibili senza scrivere nulla")
+    ap.add_argument("--forza", action="store_true", help="sovrascrive un registro esistente (solo per correggere un errore)")
     a = ap.parse_args()
     origine = pd.Timestamp(a.origine)
     if origine.dayofweek != 4:
         raise SystemExit("--origine deve essere un venerdì (l'ultima chiusura della settimana precedente)")
-    red = json.load(open(a.redazione, encoding="utf-8"))
+    red = json.load(open(a.redazione, encoding="utf-8")) if a.redazione else {}
+    if a.prova:
+        prova(origine)
+        return
+    if not a.redazione:
+        raise SystemExit("serve --redazione (oppure --prova per vedere sigma e livelli)")
     st = pronostica(origine, red)
     lun = (origine + pd.Timedelta(days=3)).date()
     ven = (origine + pd.Timedelta(days=7)).date()
@@ -117,11 +140,13 @@ def main():
            "range_pubblicato": "16-84% (circa 2 settimane su 3 la chiusura cade dentro)", "strumenti": st}
     os.makedirs(a.uscita, exist_ok=True)
     nome = os.path.join(a.uscita, f"{lun}-settimana.json")
+    if os.path.exists(nome) and not a.forza:
+        raise SystemExit(f"{nome} esiste già: il pronostico della settimana non si riscrive (usa --forza solo per correggere un errore)")
     salva_json(reg, nome)
     print("scritto", nome)
     for k, v in st.items():
-        print(f"{v['nome']:18s} base {v['base']:.4g} range {v['range'][0]:.4g}-{v['range'][1]:.4g} "
-              f"redazione {v['previsione_redazione']:.4g} (scarto {v['scarto_redazione_sigma']:+.2f} sigma"
+        print(f"{v['nome']:18s} base {v['base']:.4f} range {v['range'][0]:.4f}-{v['range'][1]:.4f} "
+              f"redazione {v['previsione_redazione']:.4f} (scarto {v['scarto_redazione_sigma']:+.2f} sigma"
               f"{', AGGIUSTATA' if v['aggiustata'] else ''}) p_rialzo {v['prob_rialzo_redazione']:.0%} [{v['metodo']}]")
 
 

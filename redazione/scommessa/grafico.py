@@ -51,7 +51,7 @@ def disegna(reg, out, stato=None):
             a = stato[k]["ultimo"]
             xa = max(-1.9, min(1.9, pos(a)))
             ax.plot([xa], [y], marker="o", ms=8.5, mfc="none", mec=ORANGE, mew=1.7, zorder=4)
-            ax.text(xa, y + 0.36, fmt(a, k), ha="center", va="bottom", fontsize=6.5, color=ORANGE)
+            ax.text(xa + 0.12, y + 0.18, fmt(a, k), ha="left", va="bottom", fontsize=6.3, color=ORANGE)
     ax.set_yticks(range(len(ORDINE)))
     ax.set_yticklabels([st[k]["nome"] for k in reversed(ORDINE)], fontsize=7.5)
     ax.tick_params(axis="y", length=0)
@@ -62,6 +62,8 @@ def disegna(reg, out, stato=None):
              "partenza. Rombo: la nostra previsione." + (" Cerchio: oggi." if stato else ""),
              fontsize=6.6, color="#555555", ha="left", va="bottom")
     fig.tight_layout(pad=0.4, rect=(0, 0.08, 1, 1))
+    import os
+    os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
     fig.savefig(out, dpi=170)
     fig.savefig(out[:-4] + ".svg")
     plt.close(fig)

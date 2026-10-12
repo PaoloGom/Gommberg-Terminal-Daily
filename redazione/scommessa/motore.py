@@ -30,7 +30,7 @@ STRUMENTI = {
     "sx5e":   {"nome": "Euro Stoxx 50", "file": "sx5e.csv", "tipo": "prezzo", "unita": "punti"},
     "ust10":  {"nome": "Treasury 10 anni", "file": "ust10.csv", "tipo": "tasso", "unita": "%"},
     "ust2":   {"nome": "Treasury 2 anni", "file": "ust2.csv", "tipo": "tasso", "unita": "%"},
-    "brent":  {"nome": "Brent future", "file": "brent_future.csv", "tipo": "prezzo", "unita": "$"},
+    "brent":  {"nome": "Brent future", "file": "brent.csv", "tipo": "prezzo", "unita": "$"},
     "eurusd": {"nome": "EUR/USD", "file": "eurusd.csv", "tipo": "prezzo", "unita": ""},
 }
 
