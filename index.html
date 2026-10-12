@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Gommberg Terminal Daily</title>
+<meta name="description" content="I mercati globali ogni mattina in 6 pagine: notizie, indici, Treasury, petrolio, cambi e la nostra scommessa sulla chiusura del venerdì.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Gommberg Terminal Daily">
+<meta property="og:description" content="I mercati globali ogni mattina in 6 pagine, con la scommessa sulla chiusura del venerdì.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://paologom.github.io/gommberg-terminal-daily/assets/copertina.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0E0E0E">
+<link rel="icon" href="assets/icona.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: black terminal masthead, then the latest edition as front page, then a dated ledger of past editions */
+:root {
+  --paper: #FBFAF8;
+  --ink: #141414;
+  --muted: #5E5A55;
+  --rule: #DEDAD4;
+  --panel: #F1EEE9;
+  --orange: #F26B1D;
+  --orange-ink: #B84A0C;
+  --bar: #0E0E0E;
+  --bar-ink: #F5F3EF;
+  --bar-muted: #A39C93;
+  --sheet: #FFFFFF;
+  --shadow: rgba(20, 16, 10, .12);
+  --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121110; --ink: #EDEAE5; --muted: #A49E96; --rule: #2E2B28; --panel: #1C1A18;
+    --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-ink: #F5F3EF; --bar-muted: #8F8880;
+    --sheet: #FFFFFF; --shadow: rgba(0, 0, 0, .5); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121110; --ink: #EDEAE5; --muted: #A49E96; --rule: #2E2B28; --panel: #1C1A18;
+  --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-ink: #F5F3EF; --bar-muted: #8F8880;
+  --sheet: #FFFFFF; --shadow: rgba(0, 0, 0, .5); color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; }
+
+/* Masthead */
+.mast { background: var(--bar); color: var(--bar-ink); border-bottom: 3px solid var(--orange); }
+.mast .wrap { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 24px; padding-block: 18px 14px; }
+.logo { font-family: var(--display); font-stretch: 75%; font-weight: 900; font-size: clamp(30px, 6vw, 46px); line-height: .9; letter-spacing: .01em; margin: 0; }
+.logo b { color: var(--orange); font-weight: 900; }
+.logo span { font-weight: 600; }
+.mast .sub { font-family: var(--mono); font-size: 12px; color: var(--bar-muted); letter-spacing: .06em; text-transform: uppercase; margin-top: 6px; }
+.mast .now { font-family: var(--mono); font-size: 12px; color: var(--bar-muted); text-align: right; text-transform: uppercase; letter-spacing: .06em; }
+.mast .now strong { color: var(--bar-ink); font-weight: 500; }
+
+/* Section labels */
+.label { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--orange-ink); display: flex; align-items: center; gap: 10px; }
+.label::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+
+/* Latest edition */
+main { padding-block: 28px 56px; display: grid; gap: 40px; }
+.front { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 32px; align-items: start; }
+.front > * { min-width: 0; }
+.meta { font-family: var(--mono); font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 14px; }
+.meta .num { color: var(--ink); font-weight: 500; }
+h2.headline { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: clamp(26px, 3.6vw, 36px); line-height: 1.08; margin: 10px 0 0; text-wrap: balance; }
+.brief { margin: 20px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 62ch; }
+.brief li { display: grid; grid-template-columns: 10px 1fr; gap: 10px; }
+.brief li::before { content: ""; width: 7px; height: 7px; background: var(--orange); margin-top: .62em; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.btn { font-family: var(--mono); font-size: 13px; letter-spacing: .04em; text-transform: uppercase; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); padding: 10px 16px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn:hover { border-color: var(--orange); }
+.btn:focus-visible, .row:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+.btn[disabled] { opacity: .5; cursor: default; }
+.note { font-size: 13px; color: var(--muted); margin-top: 10px; min-height: 1.4em; }
+
+/* Reader */
+.reader { background: var(--panel); border: 1px solid var(--rule); padding: 14px; }
+.reader-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-family: var(--mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+.pager { display: flex; align-items: center; gap: 8px; }
+.pager button { font-family: var(--mono); font-size: 14px; width: 34px; height: 30px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); cursor: pointer; }
+.pager button:disabled { opacity: .4; cursor: default; }
+.sheet { background: var(--sheet); box-shadow: 0 6px 24px var(--shadow); aspect-ratio: 210 / 297; max-width: 100%; position: relative; overflow: hidden; }
+.sheet canvas { width: 100%; height: 100%; display: block; }
+.sheet .wait { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono); font-size: 13px; color: #5E5A55; text-align: center; padding: 20px; }
+
+/* Ledger */
+.ledger { display: grid; gap: 0; margin-top: 14px; }
+.row { display: grid; grid-template-columns: 70px 150px minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding-block: 14px; border-bottom: 1px solid var(--rule); text-decoration: none; color: inherit; cursor: pointer; background: none; border-top: 0; border-left: 0; border-right: 0; text-align: left; font: inherit; width: 100%; }
+.row:hover .t { color: var(--orange-ink); }
+.row .n { font-family: var(--mono); font-weight: 500; }
+.row .d { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.row .t { font-family: var(--display); font-stretch: 85%; font-weight: 700; font-size: 18px; line-height: 1.25; }
+.row .go { font-family: var(--mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.row[aria-current="true"] .go { color: var(--orange-ink); }
+.empty { color: var(--muted); padding-block: 16px; }
+
+/* About */
+.about { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 18px; }
+.about > div { min-width: 0; }
+.about h3 { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 19px; line-height: 1.2; margin: 0 0 6px; }
+.about p { margin: 0; color: var(--muted); font-size: 15px; max-width: 46ch; }
+.about .k { font-family: var(--mono); font-size: 12px; color: var(--orange-ink); letter-spacing: .08em; text-transform: uppercase; display: block; margin-bottom: 8px; }
+@media (max-width: 820px) { .about { grid-template-columns: 1fr; } }
+footer { border-top: 1px solid var(--rule); }
+footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted); max-width: 1080px; }
+
+@media (max-width: 820px) {
+  .front { grid-template-columns: 1fr; }
+  .row { grid-template-columns: 52px minmax(0, 1fr) auto; }
+  .row .d { grid-column: 2; grid-row: 1; }
+  .row .t { grid-column: 1 / -1; }
+  .row .go { grid-column: 3; grid-row: 1; }
+  .mast .now { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<header class="mast">
+  <div class="wrap">
+    <div>
+      <h1 class="logo"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></h1>
+      <div class="sub">Mercati globali | Rassegna quotidiana | lun-ven</div>
+    </div>
+    <div class="now" id="now">Archivio edizioni</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section aria-labelledby="lbl-latest">
+    <div class="label" id="lbl-latest">Ultima edizione</div>
+    <div class="front" style="margin-top:18px">
+      <div>
+        <div class="meta" id="meta"><span>Caricamento dell'archivio...</span></div>
+        <h2 class="headline" id="headline">Gommberg Terminal Daily</h2>
+        <ul class="brief" id="brief"></ul>
+        <div class="actions">
+          <a class="btn" id="dl" href="#" download>Scarica il PDF</a>
+          <a class="btn ghost" id="open" href="#" target="_blank" rel="noopener">Apri a schermo intero</a>
+        </div>
+        <div class="note" id="note" role="status"></div>
+      </div>
+      <div class="reader" aria-label="Lettore dell'edizione">
+        <div class="reader-bar">
+          <span id="pg">Pagina - di -</span>
+          <div class="pager">
+            <button type="button" id="prev" aria-label="Pagina precedente" disabled>&lsaquo;</button>
+            <button type="button" id="next" aria-label="Pagina successiva" disabled>&rsaquo;</button>
+          </div>
+        </div>
+        <div class="sheet"><canvas id="cv"></canvas><div class="wait" id="wait">Caricamento della pagina...</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="lbl-about">
+    <div class="label" id="lbl-about">Cos'è</div>
+    <div class="about">
+      <div><span class="k">Ogni mattina</span><h3>I mercati in 6 pagine</h3><p>Dal lunedì al venerdì, prima delle 10: cosa muove le borse, cosa è già successo e cosa aspettarsi in settimana, con i numeri verificati sulle fonti.</p></div>
+      <div><span class="k">Dentro</span><h3>Notizie, indici, catalizzatori</h3><p>Le notizie del giorno, gli indici mondiali, l'agenda della settimana e gli approfondimenti su Treasury, Iran, petrolio ed euro/dollaro.</p></div>
+      <div><span class="k">Il gran finale</span><h3>La scommessa del venerdì</h3><p>Ogni lunedì la nostra previsione su dove chiudono i mercati il venerdì. Il lunedì dopo, il verdetto: punti e figuracce compresi.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="lbl-arch">
+    <div class="label" id="lbl-arch">Tutte le edizioni</div>
+    <div class="ledger" id="ledger"><div class="empty">Le edizioni compaiono qui, dalla più recente.</div></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza finanziaria né sollecitazione all'investimento. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+<script>
+(function () {
+  const MESI = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
+  const GIORNI = ["domenica","lunedì","martedì","mercoledì","giovedì","venerdì","sabato"];
+  const $ = (id) => document.getElementById(id);
+  const pad = (n) => String(n).padStart(3, "0");
+  function dataLunga(iso) {
+    const [y, m, d] = iso.split("-").map(Number);
+    const dt = new Date(Date.UTC(y, m - 1, d));
+    return GIORNI[dt.getUTCDay()] + " " + d + " " + MESI[m - 1] + " " + y;
+  }
+  function dataBreve(iso) {
+    const [y, m, d] = iso.split("-").map(Number);
+    return String(d).padStart(2, "0") + "." + String(m).padStart(2, "0") + "." + y;
+  }
+
+  let editions = [], current = null, pdf = null, page = 1, renderTask = null;
+
+  function showEdition(ed) {
+    current = ed;
+    $("meta").innerHTML = "";
+    const parts = [["num", "Edizione n. " + pad(ed.numero)], ["", dataLunga(ed.data)], ["", (ed.pagine || "-") + " pagine"]];
+    for (const [cls, txt] of parts) { const s = document.createElement("span"); if (cls) s.className = cls; s.textContent = txt; $("meta").appendChild(s); }
+    $("headline").textContent = ed.titolo;
+    const ul = $("brief"); ul.innerHTML = "";
+    for (const b of (ed.sommario || [])) { const li = document.createElement("li"); li.textContent = b; ul.appendChild(li); }
+    $("open").href = ed.file;
+    $("dl").href = ed.file; $("dl").setAttribute("download", ed.nome || "");
+    $("note").textContent = ed === editions[0] ? "" : "Stai leggendo un'edizione precedente. La più recente è la n. " + pad(editions[0].numero) + ".";
+    document.querySelectorAll(".row").forEach((r) => r.setAttribute("aria-current", r.dataset.n == ed.numero ? "true" : "false"));
+    loadPdf(ed.file);
+  }
+
+  async function loadPdf(url) {
+    page = 1; pdf = null;
+    $("wait").hidden = false; $("wait").textContent = "Caricamento della pagina...";
+    const lib = window.pdfjsLib;
+    if (!lib) { $("wait").textContent = "Anteprima non disponibile. Usa \"Apri a schermo intero\"."; return; }
+    try {
+      pdf = await lib.getDocument({ url, isEvalSupported: false, disableFontFace: true }).promise;
+      await renderPage();
+    } catch (e) {
+      $("wait").hidden = false;
+      $("wait").textContent = "Anteprima non disponibile. Usa \"Apri a schermo intero\".";
+    }
+  }
+
+  async function renderPage() {
+    if (!pdf) return;
+    const p = await pdf.getPage(page);
+    const cv = $("cv");
+    const box = cv.parentElement.getBoundingClientRect();
+    const base = p.getViewport({ scale: 1 });
+    const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    const vp = p.getViewport({ scale: (box.width / base.width) * dpr });
+    cv.width = Math.floor(vp.width); cv.height = Math.floor(vp.height);
+    if (renderTask) { try { renderTask.cancel(); } catch (e) {} }
+    renderTask = p.render({ canvasContext: cv.getContext("2d"), viewport: vp });
+    try { await renderTask.promise; } catch (e) { return; }
+    $("wait").hidden = true;
+    $("pg").textContent = "Pagina " + page + " di " + pdf.numPages;
+    $("prev").disabled = page <= 1;
+    $("next").disabled = page >= pdf.numPages;
+  }
+
+  $("prev").addEventListener("click", () => { if (page > 1) { page--; renderPage(); } });
+  $("next").addEventListener("click", () => { if (pdf && page < pdf.numPages) { page++; renderPage(); } });
+  let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(renderPage, 200); });
+
+  function buildLedger() {
+    const box = $("ledger"); box.innerHTML = "";
+    if (!editions.length) { box.innerHTML = '<div class="empty">Le edizioni compaiono qui, dalla più recente.</div>'; return; }
+    for (const ed of editions) {
+      const r = document.createElement("button");
+      r.type = "button"; r.className = "row"; r.dataset.n = ed.numero;
+      r.innerHTML = '<span class="n"></span><span class="d"></span><span class="t"></span><span class="go">Leggi</span>';
+      r.querySelector(".n").textContent = "#" + pad(ed.numero);
+      r.querySelector(".d").textContent = dataBreve(ed.data);
+      r.querySelector(".t").textContent = ed.titolo;
+      r.addEventListener("click", () => { showEdition(ed); window.scrollTo({ top: 0, behavior: "smooth" }); });
+      box.appendChild(r);
+    }
+  }
+
+  fetch("edizioni.json", { cache: "no-store" })
+    .then((r) => r.json())
+    .then((list) => {
+      editions = list.slice().sort((a, b) => b.numero - a.numero);
+      buildLedger();
+      if (editions.length) {
+        $("now").innerHTML = "";
+        const a = document.createElement("strong"); a.textContent = editions.length + (editions.length === 1 ? " edizione" : " edizioni");
+        $("now").append("Archivio | ", a);
+        showEdition(editions[0]);
+      }
+    })
+    .catch(() => { $("meta").textContent = "Archivio non raggiungibile. Riprova tra poco."; });
+})();
+</script>
+</body>
+</html>

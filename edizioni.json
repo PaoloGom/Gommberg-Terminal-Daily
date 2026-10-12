@@ -1,0 +1,43 @@
+[
+  {
+    "numero": 1,
+    "data": "2026-10-12",
+    "titolo": "Hormuz, nessun accordo. Wall Street vicina al record aspetta CPI, banche e TSMC",
+    "sommario": [
+      "Wall Street chiude la settimana a +1,2%, a un soffio dal record, nonostante il 10 anni USA salito fino a circa il 5,35% (massimo dal 2002).",
+      "Questa settimana decidono tre test: CPI USA (mer 14:30), trimestrali delle banche (da martedì) e TSMC (gio).",
+      "Iran: Trump esclude attacchi fino al 3 novembre, ma su Hormuz nessun accordo e gli Houthi colpiscono Riad."
+    ],
+    "file": "pdf/2026-10-12-gommberg-001.pdf",
+    "nome": "2026-10-12 Gommberg Terminal Daily #001.pdf",
+    "pagine": 6,
+    "notizie": [
+      "Iran: risposta USA \"inadeguata\", Hormuz resta chiuso",
+      "Weekend di fuoco nel Golfo: petroliere colpite, nave fermata dagli USA",
+      "Greggio in calo su diesel russo e \"tregua energetica\"",
+      "Houthi colpiscono l'aeroporto di Riad",
+      "Kospi -3,65%: pioggia di vendite sui chip",
+      "Risiko: Intesa insiste su MPS, Tata rilancia su Iveco",
+      "Dazi: tregua prorogata, la UE studia un tetto alle ibride cinesi",
+      "Fed: ultima settimana di discorsi prima del silenzio"
+    ],
+    "temi_deep_dive": {
+      "treasury": "10 anni ai massimi dal 2002, +37/+41/+32 pb in un mese su 2/10/30",
+      "iran": "7 condizioni iraniane, nessun accordo su Hormuz, scenari 60/25/15",
+      "petrolio": "fisico 125,44 $ contro future 100,58 $ (6/10)",
+      "eurusd": "1,12 in lieve calo"
+    },
+    "glossario": [
+      "pb",
+      "m/m, a/a",
+      "CPI, PPI",
+      "Treasury, Bund, OAT",
+      "Spread",
+      "VIX",
+      "Brent, WTI",
+      "EPS, guidance",
+      "Bid-to-cover",
+      "Periodo di silenzio"
+    ]
+  }
+]
