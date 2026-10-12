@@ -1,0 +1,19 @@
+{
+  "edizione": 1,
+  "data_pronostico": "2026-10-12",
+  "settimana": "2026-10-12/2026-10-16",
+  "chiusura_riferimento": "2026-10-09",
+  "verdetto_previsto": "2026-10-19 (edizione 6)",
+  "previsioni": [
+    {"strumento": "MSCI ACWI (ETF, USD)", "base": 160.90, "previsione": 161.20, "range": [158.3, 163.5], "prob_rialzo": 0.55, "unita": "$"},
+    {"strumento": "S&P 500", "base": 7811.54, "previsione": 7840, "range": [7650, 7970], "prob_rialzo": 0.58, "unita": "punti"},
+    {"strumento": "Euro Stoxx 50", "base": 6197.10, "previsione": 6250, "range": [6090, 6305], "prob_rialzo": 0.60, "unita": "punti"},
+    {"strumento": "Treasury 10 anni", "base": 5.24, "previsione": 5.22, "range": [5.12, 5.36], "prob_rialzo": 0.45, "unita": "%"},
+    {"strumento": "Treasury 2 anni", "base": 4.80, "previsione": 4.78, "range": [4.66, 4.94], "prob_rialzo": 0.45, "unita": "%"},
+    {"strumento": "Brent future", "base": 104.72, "previsione": 102.00, "range": [98, 112], "prob_rialzo": 0.35, "unita": "$"},
+    {"strumento": "EUR/USD", "base": 1.1201, "previsione": 1.1180, "range": [1.1130, 1.1270], "prob_rialzo": 0.40, "unita": ""}
+  ],
+  "regole_verdetto": "Per ogni strumento: direzione corretta (segno della variazione reale rispetto alla base uguale al segno della previsione) = 1 punto; chiusura del venerdì dentro il range = 1 punto. Massimo 14 punti a settimana.",
+  "punteggio_stagionale_prima_di_questa_settimana": {"punti": 0, "su": 0},
+  "fonti_dati": "FMP (indici, Treasury, Brent future), Alpha Vantage (ACWI, EUR/USD)"
+}
