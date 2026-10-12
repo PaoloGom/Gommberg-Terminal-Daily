@@ -43,6 +43,7 @@ problemi, avvisi = [], []
 ids = [f.get("id") for f in fatti]
 if len(ids) != len(set(ids)):
     problemi.append("id duplicati nelle schede")
+fatti = [f for f in fatti if not f.get("scartata")]
 for f in fatti:
     i, sez = f.get("id", "?"), f.get("sezione", "")
     fonti = f.get("fonti") or []
@@ -92,5 +93,7 @@ print(f"Schede: {len(fatti)} | ultima edizione: {ultima} | avvisi: {len(avvisi)}
 for a in avvisi:
     print("AVVISO: " + a)
 if problemi:
-    print("PROBLEMI:\n- " + "\n- ".join(problemi)); sys.exit(1)
+    respinti = sorted({p.split(":")[0] for p in problemi if p.split(":")[0] in ids})
+    print("PROBLEMI:\n- " + "\n- ".join(problemi))
+    print("DA_TOGLIERE: " + ",".join(respinti)); sys.exit(1)
 print("OK: schede dei fatti in regola")
