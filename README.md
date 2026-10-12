@@ -2,7 +2,7 @@
 
 **I mercati globali ogni mattina in 6 pagine.** Dal lunedì al venerdì, prima delle 10.
 
-**Leggi l'ultima edizione: [paologom.github.io/gommberg-terminal-daily](https://paologom.github.io/gommberg-terminal-daily/)**
+**Leggi l'ultima edizione: [paologom.github.io/Gommberg-Terminal-Daily](https://paologom.github.io/Gommberg-Terminal-Daily/)**
 
 ## Cosa c'è dentro
 
