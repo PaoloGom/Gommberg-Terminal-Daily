@@ -39,5 +39,39 @@
       "Bid-to-cover",
       "Periodo di silenzio"
     ]
+  },
+  {
+    "numero": 2,
+    "data": "2026-10-13",
+    "titolo": "Seul crolla del 5,5% sui chip e frena il Nasdaq. Oggi tocca alle banche americane",
+    "sommario": [
+      "I chip trascinano l'Asia: Kospi -5,5% dopo il -3,65% di lunedì, SK Hynix -10,1%; Tokyo -1,8% alla riapertura dopo il festivo.",
+      "Il petrolio torna sopra 106 $ (+1,8% lunedì) dopo gli attacchi in Arabia Saudita e alle petroliere; stamattina Brent a 105,32 $.",
+      "Scommessa: tutti e 7 gli strumenti sono dentro il range, ma per ora solo l'EUR/USD va nella direzione prevista."
+    ],
+    "file": "pdf/2026-10-13-gommberg-002.pdf",
+    "nome": "2026-10-13 Gommberg Terminal Daily #002.pdf",
+    "pagine": 6,
+    "notizie": [
+      "Kospi, secondo crollo: -5,5% e minimo intraday sotto 6.000",
+      "Riad promette una risposta \"seria\" agli Houthi, Brent a 106 $",
+      "FMI: l'economia ha retto, ma la resilienza è sotto sforzo",
+      "MPS boccia il rilancio di Intesa: premio \"limitato\"",
+      "Broadcom, Hock Tan: \"molti investitori non sanno in cosa investono\"",
+      "Tregua energetica in dubbio, il petrolio perde un freno",
+      "LVMH, ricavi del trimestre +1%: la Cina frena ancora",
+      "Inflazione tedesca confermata al 3,3%"
+    ],
+    "temi_deep_dive": {
+      "treasury": "mercato chiuso per Columbus Day, livelli al 9/10 invariati, soglia 5,30-5,35%",
+      "iran": "Riad promette una risposta seria agli Houthi; scenari invariati 60/25/15",
+      "petrolio": "Brent future 106,65 $ lunedì (+1,8%), fisico EIA fermo al 6/10",
+      "eurusd": "chiusura 1,1156 sotto il minimo del 5/10, minimo a 52 settimane 1,1153"
+    },
+    "glossario": [
+      "FMI",
+      "TWD",
+      "LSEG"
+    ]
   }
 ]
