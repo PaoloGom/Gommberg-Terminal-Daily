@@ -192,6 +192,7 @@ Paolo non riceve messaggi di revisione, bozze o richieste di decisione: la redaz
 - Alpha Vantage: una chiamata al secondo, chiamale una dopo l'altra; la serie BRENT EIA si aggiorna con qualche giorno di ritardo, normale.
 - Le chiusure europee di oggi non esistono la mattina: nel ticker e nel cruscotto usa le chiusure della seduta precedente e i dati di stamattina con l'ora.
 - Consensi divergenti tra fonti (es. EPS delle banche): non riportarli.
+- Accesso in scrittura (lezione del 13-14/10): l'attività programmata eredita il permesso di push dalla sessione che la crea. Se va ricreata, crearla da una sessione con il repository agganciato in scrittura. Nel run mai add_repo né altri strumenti che chiedono approvazioni: senza nessuno davanti la sessione si ferma (14/10, run chiuso dopo 25 secondi, edizione recuperata alle 10:15).
 - Tempi del collaudo: circa 20 minuti dall'avvio alla pubblicazione, revisore compreso (17 affermazioni verificate, 9 errori bloccanti trovati e corretti).
 
 ## 13. Budget di token (la redazione ha un tetto settimanale)
