@@ -1,0 +1,492 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Wall Street chiude piatta alla vigilia del CPI (S&P 500 -0,02%): conti bancari contrastati e chip in calo per timori sulla concorrenza cinese; Brent a 106,41 $ stamattina.",
+  "data_evento": "2026-10-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/13/wall-street-fiacca-tra-scambi-volatili-dopo-i-conti-delle-grandi-banche-giu-i-titoli-dei-chip-209.html",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "riacceso i timori sulla concorrenza proveniente dalla Cina"
+   },
+   {
+    "testata": "Wells Fargo (SEC)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000072971/000007297126000318/wfc3qer10-13x26ex991xrelea.htm",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "Wells Fargo Reports Third Quarter 2026 Net Income of $6.0 billion, or $1.87 per Diluted Share"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-14-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610140743597132",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Il greggio Brent si apprezza dello 0,68%, portandosi a 106,41 dollari al barile"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore 14/10"
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Houthi: missile verso Dammam intercettato; esplosione e incendio limitato in un edificio Aramco a Dhahran, nessun ferito secondo SPA. La coalizione saudita colpisce siti petroliferi houthi a Sanaa, Dhamar e Saada; gli Houthi definiscono gli impianti Aramco obiettivo legittimo.",
+  "data_evento": "2026-10-13",
+  "novita": "Tema Houthi/Riad già uscito: sviluppo nuovo = attacco a Dhahran e raid sauditi su Sanaa",
+  "fonti": [
+   {
+    "testata": "Fox News (cita Reuters)",
+    "url": "https://www.foxnews.com/live-news/us-iran-war-saudi-arabia-trump-houthis-10-13-26",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "Interception and destruction of a ballistic missile launched by the terrorist Houthi militia towards the city of Dammam."
+   },
+   {
+    "testata": "CBS News",
+    "url": "https://www.cbsnews.com/live-updates/iran-war-us-trump-saudi-arabia-houthi/",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "a legitimate target for our forces"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-14-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610140743597132",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Il greggio Brent si apprezza dello 0,68%, portandosi a 106,41 dollari al barile"
+   }
+  ],
+  "scartata": true,
+  "verifica": "non_conclusivo",
+  "nota_revisore": "un solo livello 2; tolta dal PDF"
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Goldman Sachs: utile per azione 17,01 $, ricavi netti 18,68 mld, utile 5,29 mld; Wells Fargo EPS 1,87 $ con ricavi 21,87 mld; Citigroup ricavi 23,8 mld (+8%) e EPS 2,85 $.",
+  "data_evento": "2026-10-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Goldman Sachs (SEC)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000886982/000088698226000529/a3q26gsearningsresults.htm",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "Goldman Sachs Reports Third Quarter Earnings Per Common Share of $17.01"
+   },
+   {
+    "testata": "Wells Fargo (SEC)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000072971/000007297126000318/wfc3qer10-13x26ex991xrelea.htm",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "Wells Fargo Reports Third Quarter 2026 Net Income of $6.0 billion, or $1.87 per Diluted Share"
+   },
+   {
+    "testata": "Citigroup (SEC)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000831001/000110465926115323/c-ex99d1.htm",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "the best third-quarter revenue in a decade, positive operating leverage and meaningful improvement in our returns"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore 14/10"
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Chip ancora sotto pressione a Wall Street: tornano i timori sulla concorrenza cinese (CXMT) nelle memorie.",
+  "data_evento": "2026-10-13",
+  "novita": "Chip/Kospi già usciti il 13/10: sviluppo nuovo = fattore CXMT e chiusura USA",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/13/wall-street-fiacca-tra-scambi-volatili-dopo-i-conti-delle-grandi-banche-giu-i-titoli-dei-chip-209.html",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "riacceso i timori sulla concorrenza proveniente dalla Cina"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/la-diretta-da-wall-street-futures-sulle-borse-usa-contrastati-occhi-puntati-sulle-trimestrali-delle-banche-202610131442457850",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "Dow Jones: down 180.45 points (-0.35%) to 51,670.10"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore 14/10"
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "ASML: terzo trimestre con ricavi di 11,7 mld €, margine lordo 57,5%; guidance 2026 alzata a 44-45 mld €; il CEO avverte che l'offerta 2027-28 non basterà a soddisfare la domanda dei clienti.",
+  "data_evento": "2026-10-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/14/asml-solida-trimestrale-e-alza-guidance-ma-offerta-insufficiente-per-il-2027-28-17.html",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "non sarà sufficiente a soddisfare pienamente la domanda dei nostri clienti"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-14-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610140743597132",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "ASML raised its 2026 revenue outlook"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore 14/10"
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Cina, settembre: export +36,3% a/a contro +25,5% atteso; PPI +5,0% a/a contro 4,4% atteso (Reuters: consenso 4,5%).",
+  "data_evento": "2026-10-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Investing.com (Reuters)",
+    "url": "https://www.investing.com/news/stock-market-news/asia-stocks-edge-higher-as-chipmakers-rebound-china-trade-beats-forecasts-4947949",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "China's exports surged 36.3% year-on-year in September, beating the 25.5% forecast."
+   },
+   {
+    "testata": "Investing.com Italia",
+    "url": "https://it.investing.com/news/economic-indicators/linflazione-cpi-cinese-cresce-meno-del-previsto-a-settembre-ppi-ai-massimi-da-4-anni-3586975",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "PPI è cresciuto del 5,0% su base annua a settembre, ben oltre le aspettative del 4,4%."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore 14/10"
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "testo": "Spagna, settembre: inflazione armonizzata (HICP) finale al 5,0% (da 4,6%), core al 3,1% (da 2,9%).",
+  "data_evento": "2026-10-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Investing.com (Reuters)",
+    "url": "https://www.investing.com/news/economic-indicators/spains-final-12month-euharmonised-inflation-at-5-in-september-4948193",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "rose to 5.0% in September, up from 4.6% in the period through August."
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/spain-september-cpi-confirmed-at-4-9-as-rising-core-inflation-adds-to-ecb-rate-hike-pressure/",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Core annual inflation climbed to 3.1% in September from 2.9% previously."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore 14/10"
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "testo": "Alla vigilia del CPI USA il mercato prezza il 22% di probabilità di un rialzo Fed a ottobre; Treasury a 10 anni a 5,221% e a 30 anni a 5,569% stamattina.",
+  "data_evento": "2026-10-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Investing.com (Reuters)",
+    "url": "https://www.investing.com/news/economy-news/asia-shares-edge-up-as-chip-selloff-eases-us-cpi-awaited-4947869",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Investors priced in a 22% chance of an October interest rate hike ahead of the CPI data"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-14-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610140743597132",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Markets price a 20% probability of a Fed hike at the 27–28 October meeting."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore 14/10"
+ },
+ {
+  "id": "C01",
+  "sezione": "catalizzatori",
+  "testo": "Goldman Sachs Q3: EPS 17,01 $, utile sopra le attese; +4% in apertura, chiude -0,2%.",
+  "data_evento": "2026-10-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Goldman Sachs (SEC)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000886982/000088698226000529/a3q26gsearningsresults.htm",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "Goldman Sachs Reports Third Quarter Earnings Per Common Share of $17.01"
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.clickondetroit.com/news/2026/10/13/south-koreas-kospi-index-sinks-more-than-7-on-sell-off-of-semiconductor-shares-over-ai-boom-worries/",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "Goldman Sachs jumped more than 4% at the open after its July–September profit beat expectations, then finished down 0.2%."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore 14/10"
+ },
+ {
+  "id": "C02",
+  "sezione": "catalizzatori",
+  "testo": "Wells Fargo Q3: EPS 1,87 $, ricavi 21,87 mld sotto le stime; titolo -3,1%.",
+  "data_evento": "2026-10-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Wells Fargo (SEC)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000072971/000007297126000318/wfc3qer10-13x26ex991xrelea.htm",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "Wells Fargo Reports Third Quarter 2026 Net Income of $6.0 billion, or $1.87 per Diluted Share"
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.clickondetroit.com/news/2026/10/13/south-koreas-kospi-index-sinks-more-than-7-on-sell-off-of-semiconductor-shares-over-ai-boom-worries/",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "Wells Fargo fell 3.1% after weaker-than-expected revenue, even though profit beat estimates."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore 14/10"
+ },
+ {
+  "id": "C03",
+  "sezione": "catalizzatori",
+  "testo": "Citigroup Q3: ricavi 23,8 mld (+8%), EPS 2,85 $, miglior terzo trimestre per ricavi in un decennio; titolo -3,4% a metà seduta secondo Reuters.",
+  "data_evento": "2026-10-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Citigroup (SEC)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000831001/000110465926115323/c-ex99d1.htm",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "the best third-quarter revenue in a decade, positive operating leverage and meaningful improvement in our returns"
+   },
+   {
+    "testata": "Reuters (GV Wire)",
+    "url": "https://gvwire.com/2026/10/13/wall-street-edges-lower-as-chips-fall-markets-assess-big-bank-earnings/",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "Citigroup fell 3.4% even though it beat profit estimates."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore 14/10"
+ },
+ {
+  "id": "C04",
+  "sezione": "catalizzatori",
+  "testo": "Johnson & Johnson Q3: vendite 25,4 mld (+5,9%), guidance 2026 alzata, onere straordinario sulle cause talco; titolo -6,8% a metà seduta secondo Reuters.",
+  "data_evento": "2026-10-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Johnson & Johnson (SEC)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000200406/000020040626000189/a2026q3exhibit991.htm",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "Johnson & Johnson reports Q3 2026 results, raises 2026 guidance"
+   },
+   {
+    "testata": "Reuters (GV Wire)",
+    "url": "https://gvwire.com/2026/10/13/wall-street-edges-lower-as-chips-fall-markets-assess-big-bank-earnings/",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "Shares fell 6.8% despite topping profit estimates."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore 14/10"
+ },
+ {
+  "id": "C05",
+  "sezione": "catalizzatori",
+  "testo": "UnitedHealth Q3: ricavi 112,7 mld, EPS rettificato 4,69 $, outlook 2026 alzato (EPS rettificato di almeno 20,50 $); titolo fino a +5,6%, chiude -0,2%.",
+  "data_evento": "2026-10-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "UnitedHealth (SEC)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000731766/000073176626000255/earningsrelease3q26unh.htm",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "UnitedHealth Group (NYSE: UNH) today reported third quarter 2026 results and raised guidance for full year 2026."
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.clickondetroit.com/news/2026/10/13/south-koreas-kospi-index-sinks-more-than-7-on-sell-off-of-semiconductor-shares-over-ai-boom-worries/",
+    "data_pubblicazione": "2026-10-13",
+    "citazione": "Its stock rallied as much as 5.6% before finishing down 0.2%."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore 14/10"
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Mer 14 ottobre 14:30 Roma: CPI USA settembre, consenso headline +0,6% m/m e +3,6% a/a, core +0,2% m/m e +2,5% a/a.",
+  "data_evento": "2026-10-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-14-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610140743597132",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Consensus is +0.6% m/m and +3.6% y/y headline, and +0.2% m/m and +2.5% y/y core."
+   },
+   {
+    "testata": "Trading Economics",
+    "url": "https://tradingeconomics.com/united-states/calendar",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "CPI YoY (Sep) 3.6%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore 14/10"
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Mer 14: trimestrali Bank of America, Morgan Stanley e BlackRock (Q3 2026); Beige Book Fed alle 20:00.",
+  "data_evento": "2026-10-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/14/eventi-e-scadenze-del-14-ottobre-2026-13.html",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Risultati di periodo di Bank of America, BlackRock (Q3 2026) e Morgan Stanley."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-14-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610140743597132",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "20:00: Beige Book."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "non verificato nel dettaglio: il revisore ha controllato solo l'evento principale (limite 25)"
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "testo": "Gio 15 ottobre 08:00 Roma: conference call TSMC sui risultati del terzo trimestre (14:00 a Taiwan).",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "TSMC Investor Relations",
+    "url": "https://investor.tsmc.com/quarterly-results",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "will be held on Thursday, October 15, 2026, at 14:00 Taiwan time/ 2:00 Eastern Time."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore 14/10"
+ },
+ {
+  "id": "A04",
+  "sezione": "agenda",
+  "testo": "Gio 15 ottobre 14:30 Roma: vendite al dettaglio USA settembre, consenso +0,3% m/m (precedente +1,2%); PPI USA settembre.",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/week-ahead-us-inflation-and-retail-sales-lead-a-busy-economic-calendar-be-aware/",
+    "data_pubblicazione": "2026-10-09",
+    "citazione": "US retail sales, m/m +0.3% +1.2%"
+   },
+   {
+    "testata": "Trading Economics",
+    "url": "https://tradingeconomics.com/united-states/calendar",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Retail Sales MoM (Sep) 1.2% 0.3%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "non verificato nel dettaglio: il revisore ha controllato solo l'evento principale (limite 25)"
+ },
+ {
+  "id": "A05",
+  "sezione": "agenda",
+  "testo": "Ven 16 ottobre ~05:30 Roma: intervento del presidente della Fed Warsh.",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Trading Economics",
+    "url": "https://tradingeconomics.com/united-states/calendar",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Fed Chair Warsh speech"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/week-ahead-us-inflation-and-retail-sales-lead-a-busy-economic-calendar-be-aware/",
+    "data_pubblicazione": "2026-10-09",
+    "citazione": "Forecasts and previous readings reflect the calendar supplied on October 9 and may change before release."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "non verificato nel dettaglio: il revisore ha controllato solo l'evento principale (limite 25)"
+ },
+ {
+  "id": "S01",
+  "sezione": "macro",
+  "testo": "Stamattina 14/10 ore 07:35: future S&P 500 +0,17%, Nasdaq 100 +0,07%, Euro Stoxx 50 +0,18%; Brent 106,41 $ (+0,68%), WTI 94,75 $ (+0,65%); chiusura 13/10 WTI 94,14 $, Brent 105,69 $.",
+  "data_evento": "2026-10-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-14-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610140743597132",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Nasdaq 100 future: +0.07%. S&P 500 future: +0.17%."
+   },
+   {
+    "testata": "Investing.com Italia",
+    "url": "https://it.investing.com/news/commodities-news/borse-asia-in-lieve-rialzo-su-tregua-selloff-chip-attesaper-inflazione-usa-3587158",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "gli E-mini dell'S&P 500, aumentano dello 0,11%."
+   }
+  ]
+ },
+ {
+  "id": "S02",
+  "sezione": "macro",
+  "testo": "Asia 14/10: borse in lieve rialzo con il rimbalzo dei chip; Tokyo apre +0,28%. EUR/USD circa 1,1202 (Reuters).",
+  "data_evento": "2026-10-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://ansa.it/sito/notizie/topnews/2026/10/14/borsa-tokyo-apertura-in-lieve-rialzo-028_c8198b3e-c45f-4fe3-a7b2-383b83f66b29.html",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Borsa: Tokyo, apertura in lieve rialzo (+0,28%)"
+   },
+   {
+    "testata": "Investing.com (Reuters)",
+    "url": "https://www.investing.com/news/stock-market-news/asia-stocks-edge-higher-as-chipmakers-rebound-china-trade-beats-forecasts-4947949",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Asian stocks edged higher on Wednesday as semiconductor shares recovered."
+   }
+  ]
+ },
+ {
+  "id": "S03",
+  "sezione": "macro",
+  "testo": "Euro: poco mosso a 1,1202 dollari stamattina; l'euro sale sopra 1,12 dopo i commenti di Wunsch (BCE).",
+  "data_evento": "2026-10-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Investing.com (Reuters)",
+    "url": "https://www.investing.com/news/economy-news/asia-shares-edge-up-as-chip-selloff-eases-us-cpi-awaited-4947869",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Euro: little changed at $1.1202."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-14-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610140743597132",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Probabilmente dovremo procedere a un altro rialzo"
+   }
+  ]
+ }
+]

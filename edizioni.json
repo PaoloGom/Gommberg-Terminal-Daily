@@ -1,77 +1,110 @@
 [
-  {
-    "numero": 1,
-    "data": "2026-10-12",
-    "titolo": "Hormuz, nessun accordo. Wall Street vicina al record aspetta CPI, banche e TSMC",
-    "sommario": [
-      "Wall Street chiude la settimana a +1,2%, a un soffio dal record, nonostante il 10 anni USA salito fino a circa il 5,35% (massimo dal 2002).",
-      "Questa settimana decidono tre test: CPI USA (mer 14:30), trimestrali delle banche (da martedì) e TSMC (gio).",
-      "Iran: Trump esclude attacchi fino al 3 novembre, ma su Hormuz nessun accordo e gli Houthi colpiscono Riad."
-    ],
-    "file": "pdf/2026-10-12-gommberg-001.pdf",
-    "nome": "2026-10-12 Gommberg Terminal Daily #001.pdf",
-    "pagine": 6,
-    "notizie": [
-      "Iran: risposta USA \"inadeguata\", Hormuz resta chiuso",
-      "Weekend di fuoco nel Golfo: petroliere colpite, nave fermata dagli USA",
-      "Greggio in calo su diesel russo e \"tregua energetica\"",
-      "Houthi colpiscono l'aeroporto di Riad",
-      "Kospi -3,65%: pioggia di vendite sui chip",
-      "Risiko: Intesa insiste su MPS, Tata rilancia su Iveco",
-      "Dazi: tregua prorogata, la UE studia un tetto alle ibride cinesi",
-      "Fed: ultima settimana di discorsi prima del silenzio"
-    ],
-    "temi_deep_dive": {
-      "treasury": "10 anni ai massimi dal 2002, +37/+41/+32 pb in un mese su 2/10/30",
-      "iran": "7 condizioni iraniane, nessun accordo su Hormuz, scenari 60/25/15",
-      "petrolio": "fisico 125,44 $ contro future 100,58 $ (6/10)",
-      "eurusd": "1,12 in lieve calo"
-    },
-    "glossario": [
-      "pb",
-      "m/m, a/a",
-      "CPI, PPI",
-      "Treasury, Bund, OAT",
-      "Spread",
-      "VIX",
-      "Brent, WTI",
-      "EPS, guidance",
-      "Bid-to-cover",
-      "Periodo di silenzio"
-    ]
+ {
+  "numero": 1,
+  "data": "2026-10-12",
+  "titolo": "Hormuz, nessun accordo. Wall Street vicina al record aspetta CPI, banche e TSMC",
+  "sommario": [
+   "Wall Street chiude la settimana a +1,2%, a un soffio dal record, nonostante il 10 anni USA salito fino a circa il 5,35% (massimo dal 2002).",
+   "Questa settimana decidono tre test: CPI USA (mer 14:30), trimestrali delle banche (da martedì) e TSMC (gio).",
+   "Iran: Trump esclude attacchi fino al 3 novembre, ma su Hormuz nessun accordo e gli Houthi colpiscono Riad."
+  ],
+  "file": "pdf/2026-10-12-gommberg-001.pdf",
+  "nome": "2026-10-12 Gommberg Terminal Daily #001.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Iran: risposta USA \"inadeguata\", Hormuz resta chiuso",
+   "Weekend di fuoco nel Golfo: petroliere colpite, nave fermata dagli USA",
+   "Greggio in calo su diesel russo e \"tregua energetica\"",
+   "Houthi colpiscono l'aeroporto di Riad",
+   "Kospi -3,65%: pioggia di vendite sui chip",
+   "Risiko: Intesa insiste su MPS, Tata rilancia su Iveco",
+   "Dazi: tregua prorogata, la UE studia un tetto alle ibride cinesi",
+   "Fed: ultima settimana di discorsi prima del silenzio"
+  ],
+  "temi_deep_dive": {
+   "treasury": "10 anni ai massimi dal 2002, +37/+41/+32 pb in un mese su 2/10/30",
+   "iran": "7 condizioni iraniane, nessun accordo su Hormuz, scenari 60/25/15",
+   "petrolio": "fisico 125,44 $ contro future 100,58 $ (6/10)",
+   "eurusd": "1,12 in lieve calo"
   },
-  {
-    "numero": 2,
-    "data": "2026-10-13",
-    "titolo": "Seul crolla del 5,5% sui chip e frena il Nasdaq. Oggi tocca alle banche americane",
-    "sommario": [
-      "I chip trascinano l'Asia: Kospi -5,5% dopo il -3,65% di lunedì, SK Hynix -10,1%; Tokyo -1,8% alla riapertura dopo il festivo.",
-      "Il petrolio torna sopra 106 $ (+1,8% lunedì) dopo gli attacchi in Arabia Saudita e alle petroliere; stamattina Brent a 105,32 $.",
-      "Scommessa: tutti e 7 gli strumenti sono dentro il range, ma per ora solo l'EUR/USD va nella direzione prevista."
-    ],
-    "file": "pdf/2026-10-13-gommberg-002.pdf",
-    "nome": "2026-10-13 Gommberg Terminal Daily #002.pdf",
-    "pagine": 6,
-    "notizie": [
-      "Kospi, secondo crollo: -5,5% e minimo intraday sotto 6.000",
-      "Riad promette una risposta \"seria\" agli Houthi, Brent a 106 $",
-      "FMI: l'economia ha retto, ma la resilienza è sotto sforzo",
-      "MPS boccia il rilancio di Intesa: premio \"limitato\"",
-      "Broadcom, Hock Tan: \"molti investitori non sanno in cosa investono\"",
-      "Tregua energetica in dubbio, il petrolio perde un freno",
-      "LVMH, ricavi del trimestre +1%: la Cina frena ancora",
-      "Inflazione tedesca confermata al 3,3%"
-    ],
-    "temi_deep_dive": {
-      "treasury": "mercato chiuso per Columbus Day, livelli al 9/10 invariati, soglia 5,30-5,35%",
-      "iran": "Riad promette una risposta seria agli Houthi; scenari invariati 60/25/15",
-      "petrolio": "Brent future 106,65 $ lunedì (+1,8%), fisico EIA fermo al 6/10",
-      "eurusd": "chiusura 1,1156 sotto il minimo del 5/10, minimo a 52 settimane 1,1153"
-    },
-    "glossario": [
-      "FMI",
-      "TWD",
-      "LSEG"
-    ]
-  }
+  "glossario": [
+   "pb",
+   "m/m, a/a",
+   "CPI, PPI",
+   "Treasury, Bund, OAT",
+   "Spread",
+   "VIX",
+   "Brent, WTI",
+   "EPS, guidance",
+   "Bid-to-cover",
+   "Periodo di silenzio"
+  ]
+ },
+ {
+  "numero": 2,
+  "data": "2026-10-13",
+  "titolo": "Seul crolla del 5,5% sui chip e frena il Nasdaq. Oggi tocca alle banche americane",
+  "sommario": [
+   "I chip trascinano l'Asia: Kospi -5,5% dopo il -3,65% di lunedì, SK Hynix -10,1%; Tokyo -1,8% alla riapertura dopo il festivo.",
+   "Il petrolio torna sopra 106 $ (+1,8% lunedì) dopo gli attacchi in Arabia Saudita e alle petroliere; stamattina Brent a 105,32 $.",
+   "Scommessa: tutti e 7 gli strumenti sono dentro il range, ma per ora solo l'EUR/USD va nella direzione prevista."
+  ],
+  "file": "pdf/2026-10-13-gommberg-002.pdf",
+  "nome": "2026-10-13 Gommberg Terminal Daily #002.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Kospi, secondo crollo: -5,5% e minimo intraday sotto 6.000",
+   "Riad promette una risposta \"seria\" agli Houthi, Brent a 106 $",
+   "FMI: l'economia ha retto, ma la resilienza è sotto sforzo",
+   "MPS boccia il rilancio di Intesa: premio \"limitato\"",
+   "Broadcom, Hock Tan: \"molti investitori non sanno in cosa investono\"",
+   "Tregua energetica in dubbio, il petrolio perde un freno",
+   "LVMH, ricavi del trimestre +1%: la Cina frena ancora",
+   "Inflazione tedesca confermata al 3,3%"
+  ],
+  "temi_deep_dive": {
+   "treasury": "mercato chiuso per Columbus Day, livelli al 9/10 invariati, soglia 5,30-5,35%",
+   "iran": "Riad promette una risposta seria agli Houthi; scenari invariati 60/25/15",
+   "petrolio": "Brent future 106,65 $ lunedì (+1,8%), fisico EIA fermo al 6/10",
+   "eurusd": "chiusura 1,1156 sotto il minimo del 5/10, minimo a 52 settimane 1,1153"
+  },
+  "glossario": [
+   "FMI",
+   "TWD",
+   "LSEG"
+  ]
+ },
+ {
+  "numero": 3,
+  "data": "2026-10-14",
+  "titolo": "Banche miste e chip ancora sotto pressione: Wall Street ferma aspetta il CPI di oggi",
+  "sommario": [
+   "Goldman Sachs batte sull'utile (17,01 $ per azione), Wells Fargo delude sui ricavi (21,87 mld, titolo -3,1%): i conti delle banche non spostano l'indice.",
+   "Oggi il CPI USA alle 14:30: attese +0,6% m/m e +3,6% a/a sull'indice generale, +0,2% m/m sul core.",
+   "Scommessa: 3 strumenti su 7 sulla strada giusta (Treasury 2 e 10 anni, EUR/USD), tutti e 7 dentro il range."
+  ],
+  "file": "pdf/2026-10-14-gommberg-003.pdf",
+  "nome": "2026-10-14 Gommberg Terminal Daily #003.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Conti misti: Goldman batte, Wells Fargo delude, Citi segna ricavi in crescita dell'8%",
+   "Chip ancora in calo: tornano i timori sulla cinese CXMT",
+   "ASML alza la guidance 2026, ma l'offerta 2027-28 non basterà",
+   "Cina: export a +36,3% a settembre, prezzi alla produzione al 5,0%",
+   "Spagna: inflazione armonizzata finale al 5,0%, core al 3,1%",
+   "Alla vigilia del CPI il mercato prezza il 22% di un rialzo a ottobre"
+  ],
+  "temi_deep_dive": {
+   "treasury": "10 anni a 5,21%, curva in calo di 5-10 pb in due settimane, soglia 5,30%",
+   "iran": "nessuna novità verificata, scenari 60/25/15 invariati",
+   "petrolio": "Brent 105,69 $ (13/10), 106,41 $ stamattina, +5% in una settimana",
+   "eurusd": "rimbalzo a 1,1198 dopo la chiusura di lunedì a 1,1153"
+  },
+  "glossario": [
+   "HICP",
+   "CXMT",
+   "Beige Book",
+   "Core"
+  ]
+ }
 ]
