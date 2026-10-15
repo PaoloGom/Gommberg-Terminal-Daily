@@ -1,0 +1,415 @@
+{
+ "nota": "Sigle e termini dell'edizione. ovvio=true: mai spiegati. ovvio=false: spiegati tra parentesi alla PRIMA occorrenza dell'edizione, una volta sola, con 'breve' (max 6 parole). Varianti: altre grafie riconosciute dal controllo. Gli indici del cruscotto e 'future' sono segnati ovvi perché il cruscotto li colloca per area; nel testo, alla prima occorrenza fuori tabella, si può comunque aggiungere il paese (es. 'il Kospi di Seul').",
+ "voci": [
+  {
+   "sigla": "Fed",
+   "breve": "banca centrale USA",
+   "ovvio": true
+  },
+  {
+   "sigla": "BCE",
+   "breve": "Banca centrale europea",
+   "ovvio": true
+  },
+  {
+   "sigla": "PIL",
+   "breve": "prodotto interno lordo",
+   "ovvio": true
+  },
+  {
+   "sigla": "S&P 500",
+   "breve": "500 maggiori società USA",
+   "ovvio": true
+  },
+  {
+   "sigla": "Nasdaq",
+   "breve": "borsa USA a forte peso tecnologico",
+   "ovvio": true
+  },
+  {
+   "sigla": "Dow Jones",
+   "breve": "30 grandi società USA",
+   "ovvio": true,
+   "varianti": [
+    "Dow"
+   ]
+  },
+  {
+   "sigla": "ETF",
+   "breve": "fondo quotato che replica un indice",
+   "ovvio": true
+  },
+  {
+   "sigla": "USA",
+   "breve": "Stati Uniti",
+   "ovvio": true
+  },
+  {
+   "sigla": "UE",
+   "breve": "Unione europea",
+   "ovvio": true
+  },
+  {
+   "sigla": "FMI",
+   "breve": "Fondo monetario internazionale",
+   "ovvio": true
+  },
+  {
+   "sigla": "AI",
+   "breve": "intelligenza artificiale",
+   "ovvio": true
+  },
+  {
+   "sigla": "CPI",
+   "breve": "inflazione al consumo USA",
+   "ovvio": false
+  },
+  {
+   "sigla": "PCE",
+   "breve": "inflazione dei consumi, misura Fed",
+   "ovvio": false
+  },
+  {
+   "sigla": "PPI",
+   "breve": "prezzi alla produzione",
+   "ovvio": false
+  },
+  {
+   "sigla": "core",
+   "breve": "esclusi energia e alimentari",
+   "ovvio": false
+  },
+  {
+   "sigla": "HICP",
+   "breve": "inflazione armonizzata europea",
+   "ovvio": false,
+   "varianti": [
+    "IPCA"
+   ]
+  },
+  {
+   "sigla": "payrolls",
+   "breve": "nuovi posti di lavoro USA",
+   "ovvio": false,
+   "varianti": [
+    "NFP"
+   ]
+  },
+  {
+   "sigla": "JOLTS",
+   "breve": "posti di lavoro vacanti USA",
+   "ovvio": false
+  },
+  {
+   "sigla": "PMI",
+   "breve": "sondaggio sui direttori acquisti",
+   "ovvio": false
+  },
+  {
+   "sigla": "ISM",
+   "breve": "sondaggio USA sulle imprese",
+   "ovvio": false
+  },
+  {
+   "sigla": "ZEW",
+   "breve": "fiducia degli analisti tedeschi",
+   "ovvio": false
+  },
+  {
+   "sigla": "Ifo",
+   "breve": "fiducia delle imprese tedesche",
+   "ovvio": false
+  },
+  {
+   "sigla": "FOMC",
+   "breve": "comitato Fed che decide i tassi",
+   "ovvio": false
+  },
+  {
+   "sigla": "BoJ",
+   "breve": "Banca del Giappone",
+   "ovvio": false
+  },
+  {
+   "sigla": "BoE",
+   "breve": "Banca d'Inghilterra",
+   "ovvio": false
+  },
+  {
+   "sigla": "PBoC",
+   "breve": "banca centrale cinese",
+   "ovvio": false
+  },
+  {
+   "sigla": "Beige Book",
+   "breve": "rapporto Fed sulle economie locali",
+   "ovvio": false
+  },
+  {
+   "sigla": "dot plot",
+   "breve": "previsioni sui tassi dei membri Fed",
+   "ovvio": false
+  },
+  {
+   "sigla": "CME FedWatch",
+   "breve": "probabilità sui tassi dai future",
+   "ovvio": false,
+   "varianti": [
+    "FedWatch"
+   ]
+  },
+  {
+   "sigla": "QE",
+   "breve": "acquisti di titoli della banca centrale",
+   "ovvio": false
+  },
+  {
+   "sigla": "QT",
+   "breve": "riduzione del bilancio della banca centrale",
+   "ovvio": false
+  },
+  {
+   "sigla": "pb",
+   "breve": "punti base, 0,01 punti percentuali",
+   "ovvio": false
+  },
+  {
+   "sigla": "UST",
+   "breve": "titoli di Stato USA",
+   "ovvio": false,
+   "varianti": [
+    "Treasury"
+   ]
+  },
+  {
+   "sigla": "BTP",
+   "breve": "titoli di Stato italiani",
+   "ovvio": false
+  },
+  {
+   "sigla": "Bund",
+   "breve": "titoli di Stato tedeschi",
+   "ovvio": false
+  },
+  {
+   "sigla": "OAT",
+   "breve": "titoli di Stato francesi",
+   "ovvio": false
+  },
+  {
+   "sigla": "Gilt",
+   "breve": "titoli di Stato britannici",
+   "ovvio": false
+  },
+  {
+   "sigla": "JGB",
+   "breve": "titoli di Stato giapponesi",
+   "ovvio": false
+  },
+  {
+   "sigla": "TIPS",
+   "breve": "Treasury indicizzati all'inflazione",
+   "ovvio": false
+  },
+  {
+   "sigla": "breakeven",
+   "breve": "inflazione attesa implicita nei titoli",
+   "ovvio": false
+  },
+  {
+   "sigla": "term premium",
+   "breve": "premio per prestare a lungo",
+   "ovvio": false,
+   "varianti": [
+    "premio a termine"
+   ]
+  },
+  {
+   "sigla": "Par yield",
+   "breve": "rendimento di un titolo a 100",
+   "ovvio": false
+  },
+  {
+   "sigla": "spread",
+   "breve": "differenza di rendimento tra due titoli",
+   "ovvio": false
+  },
+  {
+   "sigla": "CDS",
+   "breve": "assicurazione contro l'insolvenza",
+   "ovvio": false
+  },
+  {
+   "sigla": "high yield",
+   "breve": "obbligazioni ad alto rischio",
+   "ovvio": false
+  },
+  {
+   "sigla": "investment grade",
+   "breve": "obbligazioni con rating elevato",
+   "ovvio": false
+  },
+  {
+   "sigla": "VIX",
+   "breve": "volatilità attesa sull'S&P 500",
+   "ovvio": false
+  },
+  {
+   "sigla": "ACWI",
+   "breve": "indice azionario mondiale MSCI",
+   "ovvio": false
+  },
+  {
+   "sigla": "Euro Stoxx 50",
+   "breve": "50 maggiori società dell'eurozona",
+   "ovvio": true,
+   "varianti": [
+    "EURO STOXX 50"
+   ]
+  },
+  {
+   "sigla": "FTSE MIB",
+   "breve": "indice principale di Piazza Affari",
+   "ovvio": true
+  },
+  {
+   "sigla": "FTSE 100",
+   "breve": "indice principale di Londra",
+   "ovvio": true
+  },
+  {
+   "sigla": "DAX",
+   "breve": "indice principale di Francoforte",
+   "ovvio": true
+  },
+  {
+   "sigla": "CAC 40",
+   "breve": "indice principale di Parigi",
+   "ovvio": true
+  },
+  {
+   "sigla": "Russell 2000",
+   "breve": "piccole società USA",
+   "ovvio": true
+  },
+  {
+   "sigla": "Nikkei",
+   "breve": "indice principale di Tokyo",
+   "ovvio": true
+  },
+  {
+   "sigla": "Hang Seng",
+   "breve": "indice principale di Hong Kong",
+   "ovvio": true
+  },
+  {
+   "sigla": "Kospi",
+   "breve": "indice principale di Seul",
+   "ovvio": true
+  },
+  {
+   "sigla": "DXY",
+   "breve": "indice del dollaro",
+   "ovvio": false
+  },
+  {
+   "sigla": "carry trade",
+   "breve": "debito in valuta a basso tasso",
+   "ovvio": false
+  },
+  {
+   "sigla": "Brent",
+   "breve": "petrolio di riferimento europeo",
+   "ovvio": false
+  },
+  {
+   "sigla": "WTI",
+   "breve": "petrolio di riferimento USA",
+   "ovvio": false
+  },
+  {
+   "sigla": "OPEC",
+   "breve": "paesi esportatori di petrolio",
+   "ovvio": false,
+   "varianti": [
+    "OPEC+"
+   ]
+  },
+  {
+   "sigla": "EIA",
+   "breve": "agenzia USA per l'energia",
+   "ovvio": false
+  },
+  {
+   "sigla": "AIE",
+   "breve": "Agenzia internazionale dell'energia",
+   "ovvio": false,
+   "varianti": [
+    "IEA"
+   ]
+  },
+  {
+   "sigla": "GNL",
+   "breve": "gas naturale liquefatto",
+   "ovvio": false,
+   "varianti": [
+    "LNG"
+   ]
+  },
+  {
+   "sigla": "TTF",
+   "breve": "prezzo del gas europeo",
+   "ovvio": false
+  },
+  {
+   "sigla": "EPS",
+   "breve": "utile per azione",
+   "ovvio": false
+  },
+  {
+   "sigla": "P/E",
+   "breve": "prezzo diviso utili",
+   "ovvio": false
+  },
+  {
+   "sigla": "guidance",
+   "breve": "previsioni dell'azienda",
+   "ovvio": false
+  },
+  {
+   "sigla": "IPO",
+   "breve": "prima quotazione in borsa",
+   "ovvio": false
+  },
+  {
+   "sigla": "buyback",
+   "breve": "riacquisto di azioni proprie",
+   "ovvio": false
+  },
+  {
+   "sigla": "SEC",
+   "breve": "autorità di borsa USA",
+   "ovvio": false
+  },
+  {
+   "sigla": "GPU",
+   "breve": "processori grafici per l'AI",
+   "ovvio": false
+  },
+  {
+   "sigla": "HBM",
+   "breve": "memorie ad alta velocità per l'AI",
+   "ovvio": false
+  },
+  {
+   "sigla": "TSMC",
+   "breve": "primo produttore mondiale di chip",
+   "ovvio": false
+  },
+  {
+   "sigla": "future",
+   "breve": "contratto a termine quotato",
+   "ovvio": true
+  }
+ ]
+}

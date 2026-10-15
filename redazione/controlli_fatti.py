@@ -3,7 +3,9 @@ Uso: python3 controlli_fatti.py <fatti.json> <edizioni.json> <data AAAA-MM-GG> [
 Esce con codice 1 e l'elenco dei problemi se qualcosa non va.
 
 Schema di fatti.json: lista di schede
-{"id": "N01", "sezione": "top_story|top_news|catalizzatori|agenda|macro|deep_dive|scommessa",
+{"id": "N01", "sezione": "top_story|top_news|catalizzatori|agenda|macro|deep_dive|scommessa"
+   (nomi v6 ammessi: notizie=top_news, calendario=catalizzatori, termometri/lettura=macro, approfondimento=deep_dive),
+ "tipo": "C" solo per una causa specifica di un movimento (la citazione deve contenere il nesso; nel PDF "secondo <testata>"),
  "testo": "il fatto come appare nel PDF", "data_evento": "AAAA-MM-GG",
  "novita": "per un tema già uscito: qual è lo sviluppo nuovo (altrimenti null)",
  "fonti": [{"testata": "Reuters", "url": "https://...", "data_pubblicazione": "AAAA-MM-GG", "citazione": "frase originale"}],
@@ -44,8 +46,12 @@ ids = [f.get("id") for f in fatti]
 if len(ids) != len(set(ids)):
     problemi.append("id duplicati nelle schede")
 fatti = [f for f in fatti if not f.get("scartata")]
+ALIAS = {"notizie": "top_news", "calendario": "catalizzatori", "termometri": "macro", "lettura": "macro",
+         "approfondimento": "deep_dive", "approfondimenti": "deep_dive"}
 for f in fatti:
-    i, sez = f.get("id", "?"), f.get("sezione", "")
+    i, sez = f.get("id", "?"), ALIAS.get(f.get("sezione", ""), f.get("sezione", ""))
+    if f.get("tipo") == "C" and not prima_revisione and f.get("verifica") is None:
+        problemi.append(f"{i}: causa (tipo C) non verificata dal revisore")
     fonti = f.get("fonti") or []
     if not f.get("testo") or not f.get("data_evento"):
         problemi.append(f"{i}: mancano testo o data_evento"); continue

@@ -7,11 +7,27 @@ dati.json: {"oggi": "AAAA-MM-GG", "ora_roma": "HH:MM",
 Esce con codice 1 se c'è un problema bloccante."""
 import datetime as dt, json, sys
 
-# Ora di chiusura in ora di Roma (CET/CEST): prima di quest'ora il dato di oggi non è una chiusura.
-CHIUSURA = {"USA": "22:00", "EU": "17:40", "UK": "17:40", "JP": "08:00", "HK": "10:15", "KR": "08:45",
-            "CN": "08:05", "UST": "22:00", "FX": None, "COMM": None}
+from zoneinfo import ZoneInfo
+
+# Chiusura locale di ogni mercato (con un margine per l'asta finale), convertita in ora di Roma per la data di oggi:
+# prima di quell'ora il dato di oggi non è una chiusura. Il fuso cambia in date diverse (USA, Europa, Asia senza ora legale).
+LOCALE = {"USA": ("America/New_York", "16:15"), "UST": ("America/New_York", "17:00"), "EU": ("Europe/Rome", "17:45"),
+          "UK": ("Europe/London", "16:45"), "JP": ("Asia/Tokyo", "15:45"), "HK": ("Asia/Hong_Kong", "16:15"),
+          "KR": ("Asia/Seoul", "15:45"), "CN": ("Asia/Shanghai", "15:15"), "FX": None, "COMM": None}
 d = json.load(open(sys.argv[1], encoding="utf-8"))
 oggi = dt.date.fromisoformat(d["oggi"]); ora = d["ora_roma"]
+
+
+def chiusura_roma(mercato):
+    v = LOCALE.get(mercato)
+    if not v:
+        return None
+    h, m = map(int, v[1].split(":"))
+    loc = dt.datetime(oggi.year, oggi.month, oggi.day, h, m, tzinfo=ZoneInfo(v[0]))
+    return loc.astimezone(ZoneInfo("Europe/Rome")).strftime("%H:%M")
+
+
+CHIUSURA = {k: chiusura_roma(k) for k in LOCALE}
 problemi, avvisi = [], []
 for nome, s in d["serie"].items():
     u = s["ultimi"]
