@@ -106,5 +106,38 @@
    "Beige Book",
    "Core"
   ]
+ },
+ {
+  "numero": 4,
+  "data": "2026-10-15",
+  "titolo": "CPI sopra le attese, Wall Street cede l'1,1% e l'Asia crolla: Kospi -8,7%, Nikkei -4,9%",
+  "sommario": [
+   "CPI USA a +3,7% annuo contro 3,6% atteso, core a +2,6% contro 2,5%: probabilità di rialzo Fed a ottobre al 35-47% a seconda della fonte, dal 22% del giorno prima.",
+   "S&P 500 -1,11%, Nasdaq -1,88%, tecnologia -3,00%. Stamattina alle 08:11 Kospi -8,68% e Nikkei -4,89%.",
+   "Scommessa: tutti e 7 i mercati ancora dentro il range, ma solo 2 su 7 sulla strada giusta (Treasury 10 anni e Brent)."
+  ],
+  "file": "pdf/2026-10-15-gommberg-004.pdf",
+  "nome": "2026-10-15 Gommberg Terminal Daily #004.pdf",
+  "pagine": 6,
+  "notizie": [
+   "CPI USA di settembre sopra le attese: 3,7% annuo, core 2,6%",
+   "S&P 500 -1,11%, Nasdaq -1,88%: tecnologia a -3,00%",
+   "Seul -8,68% e Tokyo -4,89% nella notte",
+   "SoftBank -10%, Kioxia e Advantest -11% a Tokyo",
+   "Rialzo a ottobre: probabilità al 35-47% dopo il CPI",
+   "BofA delude, Morgan Stanley corre nel trading",
+   "TSMC: utile +68,7% e ricavi +50,9% nel terzo trimestre"
+  ],
+  "temi_deep_dive": {
+   "treasury": "il picco post-CPI (10 anni 5,33% in serata) non regge, chiusura 5,19%",
+   "iran": "nessuna novità verificata, scenari 60/25/15 invariati",
+   "petrolio": "Brent future 106,06 $ (14/10), 104,39 $ stamattina; fisico EIA 125,44 $ al 6/10",
+   "eurusd": "chiusura 1,1156 dopo il CPI, recupero a 1,1216 stamattina"
+  },
+  "glossario": [
+   "Kospi",
+   "CME FedWatch",
+   "Par yield"
+  ]
  }
 ]

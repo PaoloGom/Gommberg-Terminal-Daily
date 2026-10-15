@@ -1,0 +1,438 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "CPI USA settembre: +0,6% m/m, +3,7% a/a (atteso 3,6%), core +0,3% m/m (atteso 0,2%) e +2,6% a/a (atteso 2,5%); energia/benzina trainano",
+  "data_evento": "2026-10-14",
+  "novita": "Il 14/10 il CPI era atteso: ora è uscito sopra le attese",
+  "fonti": [
+   {
+    "testata": "TheStreet",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-14-2026",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "The consumer price index rose 0.6% in September from the previous month, while its year-over-year gain reached 3.7%."
+   },
+   {
+    "testata": "Axios",
+    "url": "https://www.axios.com/2026/10/14/inflation-warning-sign-cpi",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Higher energy costs are beginning to seep into broader services prices"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/us-september-cpi-vs-3-6-expected-0/",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "The euro is immediately lower on the report as the US dollar jumps across the board."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "T02",
+  "sezione": "top_news",
+  "testo": "Wall Street 14/10: S&P 500 -1,11% a 7.718,94, Nasdaq -1,88% a 26.692,87, Dow -0,09%, Russell 2000 -1,93%; tecnologia -3,00%, sanità +2,44%, beni di consumo base +2,21%",
+  "data_evento": "2026-10-14",
+  "novita": "Ieri Wall Street era piatta, oggi calo",
+  "fonti": [
+   {
+    "testata": "TheStreet",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-14-2026",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Russell 2000, Nasdaq fall 2% on hot inflation data"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/la-diretta-da-wall-street-futures-sulle-borse-usa-deboli-dopo-la-nuova-accelerata-dell-inflazione-202610141453292038",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "penalizzato dalle vendite nel settore dell'intelligenza artificiale"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "T03",
+  "sezione": "top_news",
+  "testo": "Asia 15/10 ore 08:11: Nikkei -4,89%, Kospi -8,68%, Hang Seng -1,32%; vendite diffuse guidate dall'AI",
+  "data_evento": "2026-10-15",
+  "novita": "Sviluppo: Kospi oltre -8% e Nikkei -5%",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/teleborsa/commenti/tonfo-di-kospi-e-nikkei-trascinati-al-ribasso-dalle-forti-vendite-sui-titoli-legati-all-ai-21_2026-10-15_TLB.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "A Tokyo, forte calo del Nikkei 225 (-4,89%)"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/15/borsa-tokyo-in-forte-calo-nikkei-perde-oltre-il-4_5dd4b1f9-ab41-49dc-91fe-4eff2ad4a57e.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Vendite diffuse in tutta l'Asia"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "T04",
+  "sezione": "top_news",
+  "testo": "Chip Tokyo: SoftBank quasi -10%, Kioxia -11%, Advantest circa -11%, Tokyo Electron circa -6,5%; analista BNP cita CXMT",
+  "data_evento": "2026-10-15",
+  "novita": "CXMT già uscito: sviluppo = contagio a Giappone e Corea",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/15/borsa-tokyo-in-forte-calo-nikkei-perde-oltre-il-4_5dd4b1f9-ab41-49dc-91fe-4eff2ad4a57e.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "A guidare le perdite a Tokyo sono i titoli legati all'intelligenza artificiale"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/asia-al-tappeto-kospi-7-ai-inflazione-tassi-e-guerre-spaventano-i-mercati-202610150740036249",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "In questo momento gli investitori stanno entrando nel panico."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "T05",
+  "sezione": "top_news",
+  "testo": "Probabilità rialzo Fed ottobre: 47% (Axios), 35% (Yahoo), 22% il giorno prima; 2 anni +12 pb dopo il dato",
+  "data_evento": "2026-10-14",
+  "novita": "Ieri 22%: ora 35-47%",
+  "fonti": [
+   {
+    "testata": "Axios",
+    "url": "https://www.axios.com/2026/10/14/inflation-warning-sign-cpi",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Higher energy costs are beginning to seep into broader services prices"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/economy/policy/articles/fed-interest-rate-hike-seems-195052044.html",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "We are in 'when' not 'if' territory when it comes to the next Fed rate increase."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "T06",
+  "sezione": "top_news",
+  "testo": "BofA utile netto 6,9 mld $, onere 1,2 mld $; Morgan Stanley EPS 3,03 $, ricavi 20,33 mld $, trading azionario +41%; BlackRock utile 1,66 mld $ (+25%)",
+  "data_evento": "2026-10-14",
+  "novita": "Il 14/10 BofA e MS non erano usciti",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/blackrock-nel-terzo-trimestre-l-utile-sale-a-1-66-miliardi-di-dollari-25-asset-under-management-su-a-202610141321324909",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Bofa delude mentre Morgan Stanley corre nel trading"
+   },
+   {
+    "testata": "FIRSTonline",
+    "url": "https://www.firstonline.info/trimestrali-usa-la-maxi-sanzione-del-tesoro-pesa-sui-risultati-di-bofa-cifra-record-per-il-patrimonio-di-blackrock-sale-lutile-per-morgan-stanley/",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "onere straordinario e non deducibile di 1,2 miliardi di dollari"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "T07",
+  "sezione": "top_news",
+  "testo": "TSMC Q3: ricavi 1.494,24 mld NT$ (+50,9%), utile netto 763,06 mld (+68,7%) sopra stima LSEG 746,3 mld; 2 nm 8% dei ricavi wafer, 3 nm 33%",
+  "data_evento": "2026-10-15",
+  "novita": "Non ancora uscita ieri",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/tsmc-l-utile-del-terzo-trimestre-balza-del-69percent-superate-le-attese-11.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "ha chiuso il terzo trimestre 2026 con ricavi consolidati pari a 1.494,24 miliardi di dollari taiwanesi"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "C01",
+  "sezione": "catalizzatori",
+  "testo": "BofA 14/10: utile netto 6,9 mld $, sanzione/onere 1,2 mld $; titolo in calo",
+  "data_evento": "2026-10-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/blackrock-nel-terzo-trimestre-l-utile-sale-a-1-66-miliardi-di-dollari-25-asset-under-management-su-a-202610141321324909",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Bofa delude mentre Morgan Stanley corre nel trading"
+   },
+   {
+    "testata": "TheStreet",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-14-2026",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Bank of America shares fell after federal regulators fined the company more than $1.2 billion"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "C02",
+  "sezione": "catalizzatori",
+  "testo": "Morgan Stanley 14/10 EPS 3,03 $, ricavi 20,33 mld $, trading azionario +41%; BlackRock utile 1,66 mld $",
+  "data_evento": "2026-10-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "SEC",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000895421/000089542126000288/a3q26msearningsrelease.htm",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Morgan Stanley reported another strong quarter with net revenues of $20.3 billion, EPS of $3.03 and a ROTCE of 22.6%."
+   },
+   {
+    "testata": "FIRSTonline",
+    "url": "https://www.firstonline.info/trimestrali-usa-la-maxi-sanzione-del-tesoro-pesa-sui-risultati-di-bofa-cifra-record-per-il-patrimonio-di-blackrock-sale-lutile-per-morgan-stanley/",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "ottime performance dei servizi di consulenza e trading"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "C03",
+  "sezione": "catalizzatori",
+  "testo": "Treasury 10 anni 14/10: massimo serale 5,333%, chiusura par 5,19%; 15/10 mattina 5,104%",
+  "data_evento": "2026-10-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://ca.investing.com/news/economy-news/us-treasury-yields-slide-after-cpidriven-spike-4881870",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "The benchmark 10-year yield fell 1.6% to 5.104% after rising as high as 5.333% on Wednesday evening."
+   },
+   {
+    "testata": "TheStreet",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-14-2026",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Treasury yields rose after the inflation report fueled concerns that the Federal Reserve could raise interest rates again"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "C04",
+  "sezione": "catalizzatori",
+  "testo": "EUR/USD 14/10: dollaro in rialzo su tutta la linea dopo il CPI; attese di ulteriori rialzi dei tassi; chiusura 1,1156",
+  "data_evento": "2026-10-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FXStreet",
+    "url": "https://www.fxstreet.com/news/euro-plunges-to-17-month-low-as-hot-us-inflation-fuels-fed-rate-hike-bets-202610141306",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "reinforcing expectations of further interest rate hikes"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/us-september-cpi-vs-3-6-expected-0/",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "The euro is immediately lower on the report as the US dollar jumps across the board."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "C05",
+  "sezione": "catalizzatori",
+  "testo": "Petrolio 14/10: Brent future 106,06 $, WTI circa 95 $ (15:17 ET); TheStreet: prezzi energia legati alla guerra in Iran hanno trainato il CPI",
+  "data_evento": "2026-10-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "TheStreet",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-14-2026",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "brought on by the geopolitical impacts of the months-long Iran War"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/commodities/oil-catch-up-price-gains-as-houthis-strike-aramco-and-iran-flags-new-tactics-against-tankers",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Oil rose Wednesday as Houthis struck Aramco's Dhahran offices and Iran said new tactics aim to keep prices high."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "M01",
+  "sezione": "macro",
+  "testo": "Una strategist (via MF) ritiene il dato CPI non abbastanza forte da rilanciare ipotesi rialzo ottobre",
+  "data_evento": "2026-10-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/la-diretta-da-wall-street-futures-sulle-borse-usa-deboli-dopo-la-nuova-accelerata-dell-inflazione-202610141453292038",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "il rapporto odierno non è abbastanza forte da rilanciare l'ipotesi di un aumento dei tassi a ottobre"
+   },
+   {
+    "testata": "Axios",
+    "url": "https://www.axios.com/2026/10/14/inflation-warning-sign-cpi",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Higher energy costs are beginning to seep into broader services prices"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Produzione industriale area euro agosto 15/10 11:00, 0,0% m/m, prec -0,1%",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/appuntamenti-macroeconomici-del-15-ottobre-2026-25.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "11:00 Unione Europea Produzione industriale, mensile 0% -0,1%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Vendite al dettaglio USA 15/10 14:30: +0,3% m/m, prec +1,2%",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/appuntamenti-macroeconomici-del-15-ottobre-2026-25.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "14:30 USA Vendite al dettaglio, mensile 0,3% 1,2%"
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/us-retail-sales-september-2026-preview",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "The consensus calls for a 0.3% rise month on month, after August's strong jump."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "testo": "PPI USA 15/10 14:30: +0,6% m/m, prec +0,4%",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/appuntamenti-macroeconomici-del-15-ottobre-2026-25.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "14:30 USA Prezzi alla produzione, mensile 0,6% 0,4%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "A04",
+  "sezione": "agenda",
+  "testo": "Sussidi disoccupazione 15/10 14:30: 199 mila, prec 197 mila",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/appuntamenti-macroeconomici-del-15-ottobre-2026-25.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "14:30 USA Richieste settimanali sussidi di disoccupazione 199K 197K"
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/us-initial-jobless-claims-forecast-15-october-2026",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Forecasts range from 195K to 200K."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "A05",
+  "sezione": "agenda",
+  "testo": "Philly Fed 15/10 14:30: 27,8 (Teleborsa) o 26,5 (Admiral), prec 37,8",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/appuntamenti-macroeconomici-del-15-ottobre-2026-25.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "14:30 USA Indice PhillyFed 27,8 punti 37,8 punti"
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/us-initial-jobless-claims-forecast-15-october-2026",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Consensus is 26.5, and the previous reading was 37.8."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "A06",
+  "sezione": "agenda",
+  "testo": "Assemblee FMI-Banca Mondiale, G7 e G20 a Bangkok 12-17 ottobre",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Banca d'Italia",
+    "url": "https://www.bancaditalia.it/media/agenda/2026-10-12_world-bank-imf-g7-and-g20-meetings-in-bangkok-thailand/",
+    "data_pubblicazione": "2026-10-12",
+    "citazione": "Banca d'Italia is taking part in a series of events scheduled on the sidelines of the Annual meetings"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ },
+ {
+  "id": "A08",
+  "sezione": "agenda",
+  "testo": "Produzione industriale USA 16/10 15:15: +0,4% m/m, prec 0,0%",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/12/appuntamenti-macroeconomici-settimana-del-12-ottobre-2026-23_TLB-AUTO.html",
+    "data_pubblicazione": "2026-10-12",
+    "citazione": "15:15 USA Produzione industriale, mensile 0,4% 0%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "revisore indipendente 15/10"
+ }
+]
