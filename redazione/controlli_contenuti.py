@@ -2,7 +2,11 @@
   python3 controlli_contenuti.py <pdf> [--voce voce_indice.json] [--dati dati.json] [--fatti fatti.json] [--repo /home/claude/gtd]
 Regole (ISTRUZIONI §5 e §7), ognuna generale:
  estremi   ogni indice principale in dati.json (obbligatori: S&P 500, Nasdaq, Euro Stoxx 50, Nikkei 225, Kospi, Hang Seng)
-           con |var| >= 3% compare con la sua cifra nel PDF; un obbligatorio assente da dati.json = ERRORE.
+           con |var| >= 3% compare con la sua cifra in PRIMA PAGINA (dopo il ticker); un obbligatorio assente = ERRORE.
+ rari      il movimento più raro di contesto.py (contesto.json, solo se capita meno di una seduta su 20) è citato in
+           prima pagina.
+ aperture  registro {"sezione": "prime_pagine"} in fatti.json: almeno 3 testate con la loro apertura; se la top story
+           non concorda con la maggioranza, serve il "motivo" (§2).
  perche    PERCHÉ = causa con fonte ("secondo"), meccanismo ("di solito", "in genere"), lettura della redazione o
            "causa non chiarita" (solo se il registro dell'anomalia ha tutte le ipotesi "non torna"); "le fonti non
            spiegano" è un ERRORE in qualunque sezione del PDF;
@@ -26,7 +30,7 @@ VOCE_P, DATI_P, FATTI_P = opt("--voce", f"{LAV}/voce_indice.json"), opt("--dati"
 REPO = opt("--repo", os.environ.get("GTD_REPO", "/home/claude/gtd"))
 carica = lambda p: json.load(open(p, encoding="utf-8")) if p and os.path.exists(p) else None
 VOCE, DATI, FATTI = carica(VOCE_P) or {}, carica(DATI_P), carica(FATTI_P) or []
-SCHEDE = [f for f in FATTI if isinstance(f, dict) and f.get("sezione") != "anomalia" and not f.get("scartata")]
+SCHEDE = [f for f in FATTI if isinstance(f, dict) and f.get("sezione") not in ("anomalia", "prime_pagine") and not f.get("scartata")]
 ERR, AVV = [], []
 MESI = "gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre"
 GIORNI = "oggi|domani|lunedì|martedì|mercoledì|giovedì|venerdì|lun|mar|mer|gio|ven"
@@ -42,6 +46,8 @@ PAG = RAW.split("\f")
 FRASI15 = [f for b in re.split(r"\n\s*\n", "\n\n".join(PAG[:5])) for f in
            re.split(r"(?<=[.;])\s+(?=[A-Z0-9ÀÈÉÌÒÙ\"(])", re.sub(r"\s+", " ", b).strip()) if f]
 TUTTO = re.sub(r"\s+", " ", RAW)
+_p1 = PAG[0] if PAG else ""
+PRIMA = re.sub(r"\s+", " ", _p1[_p1.find("TOP STORY"):] if "TOP STORY" in _p1 else _p1)
 it = lambda x, d: f"{x:.{d}f}".replace(".", ",")
 
 
@@ -71,8 +77,32 @@ if DATI:
         if s.get("nd") or var is None or abs(var) < 3:
             continue
         cand = {it(abs(var), 2), it(abs(var), 1)}
-        if not any(re.search(r"(?<![\d,])[+-]?" + re.escape(c) + r"\s?%", TUTTO) for c in cand):
-            ERR.append(f"estremi: {k} {var:+.2f}% (movimento oltre il 3%) non compare nel PDF: va citato con la cifra")
+        if not any(re.search(r"(?<![\d,])[+-]?" + re.escape(c) + r"\s?%", PRIMA) for c in cand):
+            ERR.append(f"estremi: {k} {var:+.2f}% (movimento oltre il 3%) non compare in prima pagina: va citato con la cifra "
+                       "(top story, In 30 secondi o una notizia), non solo nel cruscotto")
+
+# ---------- rari e aperture (prima pagina) ----------
+PAROLE = {"S&P 500": r"s&p", "Euro Stoxx 50": r"stoxx|borse europee", "ACWI": r"azionario mondiale|acwi",
+          "Brent future": r"brent|petrolio", "EUR/USD": r"euro|dollaro", "VIX": r"vix|volatilit",
+          "Treasury 10 anni": r"treasury|rendiment", "Treasury 2 anni": r"treasury|rendiment|2 anni"}
+CTX = carica(f"{LAV}/contesto.json")
+if CTX:
+    rari = [m for m in CTX.get("movimenti", []) if abs(m.get("z", 0)) >= 2 and m["serie"] in PAROLE]
+    if rari:
+        m = max(rari, key=lambda x: abs(x["z"]))
+        if not re.search(PAROLE[m["serie"]], PRIMA, re.I):
+            ERR.append(f"rari: {m['serie']} {m.get('frase_da', '')} ({m.get('rarita', '')}): il movimento più raro del giorno "
+                       "va citato in prima pagina con la sua misura storica")
+reg_pp = [f for f in FATTI if isinstance(f, dict) and f.get("sezione") == "prime_pagine"]
+if not reg_pp:
+    ERR.append("aperture: manca il registro delle aperture in fatti.json: {\"id\": \"P1\", \"sezione\": \"prime_pagine\", "
+               "\"testate\": [{\"testata\": ..., \"apertura\": ...}], \"concorda\": true|false, \"motivo\": ...} (§2, §6.2)")
+else:
+    r = reg_pp[0]
+    if len([t for t in r.get("testate", []) if t.get("testata") and t.get("apertura")]) < 3:
+        ERR.append("aperture: servono almeno 3 testate, ognuna con 'testata' e 'apertura'")
+    if r.get("concorda") is False and not (r.get("motivo") or "").strip():
+        ERR.append("aperture: la top story non è l'apertura della maggioranza delle testate: scrivi il 'motivo' della scelta")
 
 # ---------- perche / quindi (B6) ----------
 OSSERVABILE = re.compile(r"\d+(?:[.,]\d+)?\s?(?:%|pb|\$|€|mld|mila|punti)|\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+,\d+|"

@@ -53,7 +53,7 @@ problemi, avvisi = [], []
 ids = [f.get("id") for f in fatti]
 if len(ids) != len(set(ids)):
     problemi.append("id duplicati nelle schede")
-fatti = [f for f in fatti if not f.get("scartata") and f.get("sezione") != "anomalia"]  # registro anomalie: controlli_contenuti.py
+fatti = [f for f in fatti if not f.get("scartata") and f.get("sezione") not in ("anomalia", "prime_pagine")]  # registri: controlli_contenuti.py
 ALIAS = {"notizie": "top_news", "calendario": "catalizzatori", "termometri": "macro", "lettura": "macro",
          "approfondimento": "deep_dive", "approfondimenti": "deep_dive"}
 for f in fatti:
