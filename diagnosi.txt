@@ -3,3 +3,4 @@
 19:20:52 PASSO 3 nessun bls (10 risultati tutti akrostec.com)
 19:20:54 PASSO 4 saltato: nessun URL bls.gov nei risultati, nessun WebFetch (regola: mai URL a mano)
 19:21:18 PASSO 5 nessun reuters.com; WebFetch ok su gbm.com (primo risultato finanziario): articolo del 01/10/2026, non del 16/10
+19:21:27 PASSO 6 Alpha Vantage ok: SPY 771.79 (+0.2846%) ultimo giorno 2026-10-15
