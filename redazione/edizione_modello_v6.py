@@ -82,8 +82,8 @@ C = {
         "freccia": "Secondo Axios i rincari dell'energia cominciano a passare ai prezzi dei servizi.",  # tipo C, scheda T01 (Axios, liv. 1)
     },
     # una frase che legge insieme tassi, dollaro, oro, petrolio e borse (o dice che non si legano): stima redazionale
-    "quadro": "Il quadro: 2 anni e dollaro salgono con le attese su una Fed più dura, il 10 anni scende, i tecnologici "
-              "cedono e i difensivi salgono, Brent e oro quasi fermi: i mercati non leggono il CPI allo stesso modo "
+    "quadro": "2 anni e dollaro salgono con le attese su una Fed più dura, il 10 anni scende, i tecnologici "
+              "cedono e i difensivi salgono, petrolio e oro quasi fermi: i mercati non leggono il CPI allo stesso modo "
               "(stima redazionale).",
     "in30": [
         # le 3 cose più importanti DOPO la top story: mai la top story né le sue reazioni di mercato (controlli_temi.py)

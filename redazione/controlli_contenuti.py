@@ -60,13 +60,13 @@ if DATI:
     for nome, rx in OBBLIGATORI.items():
         if not any(re.search(rx, k, re.I) for k in serie):
             ERR.append(f"estremi: {nome} assente da dati.json (indice principale: chiusura dell'ultima seduta conclusa, "
-                       "o 'var' con fonte e orario se la seduta è in corso; APP_DATI.md)")
+                       "o 'var' con fonte e orario, o 'nd' col motivo: APP_DATI.md §6)")
     for k, s in serie.items():
         if s.get("mercato") not in ("USA", "EU", "UK", "JP", "HK", "KR", "CN") or s.get("tipo_var") == "punti":
             continue
         u = s.get("ultimi") or []
         var = s.get("var") if s.get("var") is not None else ((u[0][1] / u[1][1] - 1) * 100 if len(u) >= 2 and u[1][1] else None)
-        if var is None or abs(var) < 3:
+        if s.get("nd") or var is None or abs(var) < 3:
             continue
         cand = {it(abs(var), 2), it(abs(var), 1)}
         if not any(re.search(r"(?<![\d,])[+-]?" + re.escape(c) + r"\s?%", TUTTO) for c in cand):

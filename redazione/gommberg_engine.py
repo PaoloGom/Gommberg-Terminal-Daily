@@ -37,6 +37,7 @@ S = {
     "kicker": ParagraphStyle("k", fontName="Cond-B", fontSize=7.5, textColor=ORANGE, leading=9, spaceBefore=8, spaceAfter=1),
     "h1": ParagraphStyle("h1", fontName="Body-B", fontSize=21, leading=24, textColor=INK, spaceAfter=5),
     "dek": ParagraphStyle("dek", fontName="Body", fontSize=9, leading=12.5, textColor=GREY, spaceAfter=6),
+    "quadro": ParagraphStyle("quadro", fontName="Body", fontSize=8.3, leading=11, textColor=INK, spaceBefore=1, spaceAfter=4),
     "h2": ParagraphStyle("h2", fontName="Cond-B", fontSize=10.5, leading=13, textColor=INK, spaceBefore=7, spaceAfter=3),
     "body": ParagraphStyle("b", fontName="Body", fontSize=8.3, leading=11.6, textColor=INK, spaceAfter=4),
     "bul": ParagraphStyle("bul", fontName="Body", fontSize=8.3, leading=11.6, textColor=INK, leftIndent=9,
@@ -972,6 +973,8 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
     st += [P(t.get("kicker", "Top story").upper(), "kicker"), titolo_h1(t["titolo"]), P(signcol(t["dek"]), "dek")]
     if t.get("freccia"):
         st.append(arrow(t["freccia"]))
+    if C.get("quadro"):   # una frase che legge insieme gli asset (B7): una riga sobria sotto la top story
+        st.append(Paragraph(f'<font color="#F26B1D"><b>IL QUADRO</b></font>&nbsp;&nbsp;{signcol(C["quadro"])}', S["quadro"]))
     st += [Spacer(1, 3), side_by_side([box("In 30 secondi", C["in30"], width=CW * 0.56 - 5 * mm)],
                                       [box("Stamattina", C["stamattina"], width=CW * 0.44)], CW * 0.56)]
     st += section("Le notizie del giorno", "Top news")
@@ -1096,6 +1099,11 @@ def voce_indice(C, stato=None, reg=None, ripetizioni=None):
             sc["dettaglio"] = [[r["nome"], "su" if r["var"] > 0 else "giù" if r["var"] < 0 else "fermo",
                                 r["strada_giusta"], r["dentro_range"]] for r in rr.values()]
         v["scommessa"] = sc
+    try:   # campi per i controlli (temi strutturati, quadro, Stamattina, moduli): edizioni_voce.py li ignora
+        import extra_voce
+        v.update(extra_voce.campi(C, v))
+    except ImportError:
+        pass
     return v
 
 
