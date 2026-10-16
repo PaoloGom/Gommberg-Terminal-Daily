@@ -244,8 +244,8 @@ C = {
                    ["10 anni meno 2 anni", "51 pb", "42 pb", "37 pb", "-14 pb", "-5 pb"]],
          "larghezze": [40, 26, 26, 26, 32, 32],
          # B1: la causa si confronta con la forma della curva. Un'inflazione più alta spiega il breve, non il lungo in calo:
-         # dirlo, con le alternative etichettate, dopo la ricerca registrata in fatti.json (sezione "anomalia")
-         "perche": "Di solito il breve segue le attese sulla Fed, salite col CPI; il calo del lungo non torna con un'inflazione più alta: causa non chiarita (ipotesi redazionali: acquisti rifugio dopo le vendite sui tecnologici o un premio a termine (premio per prestare a lungo) più basso).",
+         # dirlo e dare la lettura della redazione che regge alla prova dei prezzi (registro "anomalia" in fatti.json, §6.2c)
+         "perche": "Di solito il breve segue le attese sulla Fed, salite col CPI; il calo del lungo non torna con un'inflazione più alta. Lettura della redazione: acquisti rifugio dopo le vendite sui tecnologici, come dicono oro in rialzo e VIX in salita; meno probabile un premio a termine (premio per prestare a lungo) più basso, che non spiega il calo delle borse.",
          "quindi": "Se il 10 anni torna verso il 5,30-5,35%, toccato in serata, la curva racconta di nuovo l'inflazione; sotto il 5,10% di stamattina prevale il rifugio.",
          "lettura": "Lo stesso dato letto in due modi: il breve prezza una Fed più dura, il lungo no. Il 10 anni chiude "
                     "sotto i livelli di fine settembre e cala ancora stamattina.",

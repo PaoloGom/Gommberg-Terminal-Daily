@@ -3,7 +3,9 @@
 Regole (ISTRUZIONI §5 e §7), ognuna generale:
  estremi   ogni indice principale in dati.json (obbligatori: S&P 500, Nasdaq, Euro Stoxx 50, Nikkei 225, Kospi, Hang Seng)
            con |var| >= 3% compare con la sua cifra nel PDF; un obbligatorio assente da dati.json = ERRORE.
- perche    PERCHÉ = causa con fonte ("secondo"), meccanismo ("di solito", "in genere") o "causa non chiarita";
+ perche    PERCHÉ = causa con fonte ("secondo"), meccanismo ("di solito", "in genere"), lettura della redazione o
+           "causa non chiarita" (solo se il registro dell'anomalia ha tutte le ipotesi "non torna"); "le fonti non
+           spiegano" è un ERRORE in qualunque sezione del PDF;
            E QUINDI = qualcosa di osservabile: una cifra, una data, un orario, "oggi/domani/<giorno>" o un rimando.
  prob      una probabilità ha orizzonte (mese, data, riunione, N anni), metodo (future, FedWatch, CDS, sondaggio, stima
            redazionale...) e fonte (secondo X, (X)). Pag. 1-5.
@@ -75,7 +77,7 @@ if DATI:
 # ---------- perche / quindi (B6) ----------
 OSSERVABILE = re.compile(r"\d+(?:[.,]\d+)?\s?(?:%|pb|\$|€|mld|mila|punti)|\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+,\d+|"
                          r"\b\d{1,2}[:/]\d{2}\b|\b\d{1,2} (?:" + MESI + r")\b|\b(?:" + GIORNI + r")\b|→ ?pag", re.I)
-CAUSA = re.compile(r"\bsecondo\b|di solito|in genere|causa non chiarita|\bM\d{2}\b", re.I)
+CAUSA = re.compile(r"\bsecondo\b|di solito|in genere|lettura della redazione|causa non chiarita|\bM\d{2}\b", re.I)
 VUOTO = re.compile(r"fonti(?: di oggi)? non (?:danno|indicano|spiegano|forniscono)|non danno una spiegazione", re.I)
 moduli = VOCE.get("moduli_redazione")
 if moduli is None:  # dal PDF: blocchi PERCHÉ / E QUINDI
@@ -93,9 +95,9 @@ for i, m in enumerate(moduli, 1):
         ERR.append(f"perche: modulo {nome} senza perche o quindi"); continue
     if VUOTO.search(p):
         ERR.append(f"perche: modulo {nome}: 'le fonti non spiegano' non è un perché: dopo la ricerca registrata "
-                   "(anomalia) scrivi 'causa non chiarita' + cosa guardare, o la spiegazione attribuita")
+                   "(anomalia, §6.2c) scrivi la causa attribuita o la lettura della redazione con i prezzi che la sostengono")
     elif not CAUSA.search(p):
-        ERR.append(f"perche: modulo {nome}: serve la causa con fonte ('secondo X'), un meccanismo o 'causa non chiarita': \"{p[:70]}\"")
+        ERR.append(f"perche: modulo {nome}: serve la causa con fonte ('secondo X'), un meccanismo o la lettura della redazione: \"{p[:70]}\"")
     if not OSSERVABILE.search(q):
         ERR.append(f"quindi: modulo {nome}: serve una cosa osservabile (livello, data, orario, evento in agenda): \"{q[:70]}\"")
 
@@ -122,6 +124,11 @@ for s in FRASI15:
              for t, _ in testo_schede())
     if not ok:
         (ERR if forte else AVV).append(f"record: nessuna scheda dice \"{(forte or debole).group(0)}\": \"{s[:80]}\"")
+
+# ---------- "le fonti non spiegano" in qualunque sezione ----------
+_vuoto = VUOTO.search(re.sub(r"\s+", " ", RAW))
+if _vuoto:
+    ERR.append("perche: \"" + _vuoto.group(0) + "\" nel PDF: dopo la ricerca (§6.2c) va la causa attribuita o la lettura della redazione")
 
 # ---------- anomalie (P7) ----------
 def sorprese():
@@ -161,11 +168,24 @@ if DATI:
     registro = [f for f in FATTI if isinstance(f, dict) and f.get("sezione") == "anomalia"]
     ids_c = {f.get("id") for f in SCHEDE if f.get("tipo") == "C"}
     for a in registro:
-        if not a.get("ricerche") or not (a.get("esito") == "non chiarita" or a.get("esito") in ids_c):
-            ERR.append(f"anomalie: voce {a.get('id')} incompleta: servono 'ricerche' (le query) ed 'esito' = id di una scheda C o \"non chiarita\"")
+        ip, es = a.get("ipotesi") or [], a.get("esito")
+        esiti = [x.get("prezzi") for x in ip]
+        if not a.get("ricerche") or not (es in ids_c or es in ("ipotesi", "non chiarita")):
+            ERR.append(f"anomalie: voce {a.get('id')} incompleta: servono 'ricerche' (le query) ed 'esito' = id di una scheda C, "
+                       "\"ipotesi\" o \"non chiarita\" (§6.2c)")
+        elif es in ("ipotesi", "non chiarita") and (len(ip) < 2 or any(e not in ("torna", "in parte", "non torna") for e in esiti)):
+            ERR.append(f"anomalie: voce {a.get('id')}: con esito \"{es}\" servono almeno 2 'ipotesi', ognuna con 'causa', "
+                       "'prevede' e 'prezzi' = torna | in parte | non torna")
+        elif es == "ipotesi" and not any(e in ("torna", "in parte") for e in esiti):
+            ERR.append(f"anomalie: voce {a.get('id')}: esito \"ipotesi\" ma nessuna ipotesi torna con i prezzi: rivedi le ipotesi")
+        elif es == "non chiarita" and any(e in ("torna", "in parte") for e in esiti):
+            ERR.append(f"anomalie: voce {a.get('id')}: \"non chiarita\" ma un'ipotesi torna con i prezzi: pubblicala come "
+                       "lettura della redazione (esito \"ipotesi\")")
+        elif es in ids_c and any(x.get("fonte") == es and x.get("prezzi") == "non torna" for x in ip):
+            AVV.append(f"anomalie: voce {a.get('id')}: la causa di {es} non torna con i prezzi: nel PDF va detto")
     if anomale and not registro:
         ERR.append(f"anomalie: fatto controintuitivo ({anomale[0][:90]}) senza registro: aggiungi a fatti.json "
-                   "{\"id\": \"A1\", \"sezione\": \"anomalia\", \"fatto\": ..., \"ricerche\": [...], \"esito\": \"C0x\" | \"non chiarita\"}")
+                   "{\"id\": \"A1\", \"sezione\": \"anomalia\", \"fatto\": ..., \"ricerche\": [...], \"ipotesi\": [...], \"esito\": ...} (§6.2c)")
 
 # ---------- stamattina (P10) ----------
 def blocco_stamattina(raw):
