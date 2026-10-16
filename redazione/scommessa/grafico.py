@@ -32,40 +32,61 @@ def fmt(v, k):
     return s + ("%" if k.startswith("ust") else "")
 
 
+def _box(fig, xpx, ypx, w_pt, h_pt):
+    k = fig.dpi / 72
+    return (xpx - w_pt * k / 2, ypx - h_pt * k / 2, xpx + w_pt * k / 2, ypx + h_pt * k / 2)
+
+
+def _urta(a, b, pad=1.5):
+    return not (a[2] + pad <= b[0] or b[2] + pad <= a[0] or a[3] + pad <= b[1] or b[3] + pad <= a[1])
+
+
+def _piazza(ax, ostacoli, xy, testo, candidati, **kw):
+    """Prova le posizioni candidate (offset in punti, ha, va) nell'ordine dato e tiene la prima che non tocca nessun
+    simbolo o etichetta già piazzata e resta nel grafico; se nessuna è libera, quella con meno sovrapposizione.
+    Deterministico: stesso input, stesso risultato."""
+    fig = ax.figure; r = fig.canvas.get_renderer(); cornice = ax.get_window_extent(r)
+    migliore = None
+    for dx, dy, ha, va in candidati:
+        t = ax.annotate(testo, xy, xytext=(dx, dy), textcoords="offset points", ha=ha, va=va, **kw)
+        e = t.get_window_extent(r); bb = (e.x0, e.y0, e.x1, e.y1)
+        fuori = bb[0] < cornice.x0 - 40 or bb[2] > cornice.x1 + 40
+        n = sum(_urta(bb, o) for o in ostacoli) + (5 if fuori else 0)
+        if n == 0:
+            ostacoli.append(bb)
+            if migliore:
+                migliore[0].remove()
+            return t
+        if migliore is None or n < migliore[1]:
+            if migliore:
+                migliore[0].remove()
+            migliore = (t, n, bb)
+        else:
+            t.remove()
+    ostacoli.append(migliore[2])
+    return migliore[0]
+
+
 def disegna(reg, out, stato=None):
     st = reg["strumenti"]
     fig, ax = plt.subplots(figsize=(LARGO, float(__import__("os").environ.get("GTD_ALTO_GRAFICO", "1.85"))))  # solo impaginazione
+    righe = []
     for y, k in enumerate(reversed(ORDINE)):
         v = st[k]
         b, t = v["base"], v["tipo"]
         lo, hi = v["range"]
         s = (x(b, hi, t) - x(b, lo, t)) / 2 or 1.0          # mezza ampiezza del range = 1 unità
-
-        def pos(liv):
-            return x(b, liv, t) / s
+        pos = (lambda b_, t_, s_: (lambda liv: x(b_, liv, t_) / s_))(b, t, s)
         ax.plot([pos(lo), pos(hi)], [y, y], color=BAR, lw=8, solid_capstyle="butt", zorder=1)
         ax.plot([0], [y], marker="|", ms=13, color=INK, mew=1.5, zorder=2)
-        xa = None
+        p = v["previsione_redazione"]
+        ax.plot([pos(p)], [y], marker="D", ms=6, color=POS if p > b else NEG, zorder=3)
+        xa = a = None
         if stato and k in stato:
             a = stato[k]["ultimo"]
             xa = max(-1.9, min(1.9, pos(a)))
-        # estremi del range accanto alla barra; se il cerchio di oggi ci cade vicino, l'estremo va sotto la barra
-        for liv, lato in ((lo, -1), (hi, 1)):
-            xe = pos(liv)
-            testo_e = fmt(liv, k)
-            vicino = xe + 0.06 * lato, xe + (0.06 + 0.045 * len(testo_e)) * lato   # spazio dell'etichetta a lato
-            if xa is not None and min(vicino) < xa + 0.11 and max(vicino) > xa - 0.11:   # il cerchio la coprirebbe
-                ax.annotate(fmt(liv, k), (xe, y), xytext=(0, -6), textcoords="offset points", ha="center", va="top",
-                            fontsize=FS_VAL, color="#555555")
-            else:
-                ax.text(xe + 0.06 * lato, y, fmt(liv, k), ha="left" if lato > 0 else "right", va="center",
-                        fontsize=FS_VAL, color="#555555")
-        p = v["previsione_redazione"]
-        ax.plot([pos(p)], [y], marker="D", ms=6, color=POS if p > b else NEG, zorder=3)
-        if xa is not None:
             ax.plot([xa], [y], marker="o", ms=8.5, mfc="none", mec=ORANGE, mew=1.7, zorder=4)
-            ax.annotate(fmt(a, k), (xa, y), xytext=(0, 6), textcoords="offset points", ha="center", va="bottom",
-                        fontsize=FS_VAL, color="#B4470F", fontweight="bold")
+        righe.append((y, k, pos(lo), pos(hi), lo, hi, pos(p), xa, a))
     ax.set_yticks(range(len(ORDINE)))
     ax.set_yticklabels([st[k]["nome"] for k in reversed(ORDINE)], fontsize=7)
     ax.tick_params(axis="y", length=0)
@@ -76,6 +97,30 @@ def disegna(reg, out, stato=None):
              "partenza. Rombo: la nostra previsione." + (" Cerchio: oggi." if stato else ""),
              fontsize=FS_NOTA, color="#555555", ha="left", va="bottom")
     fig.tight_layout(pad=0.4, rect=(0, 0.08, 1, 1))
+    fig.canvas.draw()
+    # Etichette dopo l'impaginazione: le collisioni si calcolano in pixel contro tacca, rombo, cerchio e le etichette
+    # già piazzate (prima gli estremi del range, poi il livello di oggi), sempre nello stesso ordine.
+    tr = ax.transData.transform
+    ostacoli = []
+    for y, k, xl, xh, lo, hi, xp, xa, a in righe:
+        ostacoli.append(_box(fig, *tr((0, y)), 3, 13))            # tacca
+        ostacoli.append(_box(fig, *tr((xp, y)), 6.5, 6.5))        # rombo
+        if xa is not None:
+            ostacoli.append(_box(fig, *tr((xa, y)), 10.5, 10.5))  # cerchio
+    est = dict(fontsize=FS_VAL, color="#555555")
+    for y, k, xl, xh, lo, hi, xp, xa, a in righe:
+        _piazza(ax, ostacoli, (xl, y), fmt(lo, k), [(-4, 0, "right", "center"), (0, -7, "center", "top"),
+                                                    (0, 7, "center", "bottom"), (-14, 0, "right", "center")], **est)
+        _piazza(ax, ostacoli, (xh, y), fmt(hi, k), [(4, 0, "left", "center"), (0, -7, "center", "top"),
+                                                    (0, 7, "center", "bottom"), (14, 0, "left", "center")], **est)
+    oggi = dict(fontsize=FS_VAL, color="#B4470F", fontweight="bold")
+    for y, k, xl, xh, lo, hi, xp, xa, a in righe:
+        if xa is None:
+            continue
+        _piazza(ax, ostacoli, (xa, y), fmt(a, k),
+                [(0, 7, "center", "bottom"), (-5, 7, "right", "bottom"), (5, 7, "left", "bottom"),
+                 (0, -7, "center", "top"), (-5, -7, "right", "top"), (5, -7, "left", "top"),
+                 (-8, 0, "right", "center"), (8, 0, "left", "center")], **oggi)
     import os
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
     fig.savefig(out, dpi=170)
