@@ -757,7 +757,7 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
     voci = [("mercati", "Mercati", C.get("mercati_titolo", "Cruscotto, tassi e temi aperti")),
             ("agenda", "Agenda", C.get("agenda_titolo", "Ieri in calendario e in arrivo"))]
     voci += [(a["chiave"], a["tema"], a.get("breve", a["titolo"])) for a in C["approfondimenti"]]
-    if stato:
+    if stato and not C["scommessa"].get("lunedi"):
         ok = sum(1 for r in stato["righe"].values() if r["strada_giusta"])
         voci.append(("scommessa", "La scommessa", f"{ok}/7 sulla strada giusta"))
     else:
@@ -800,11 +800,17 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
     st.append(PageBreak())
     # ---------- Pag. 6 ----------
     import sys as _s, os as _o
-    _s.path.insert(0, _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), "scommessa"))
+    _rep = _o.path.join(_o.environ.get("GTD_REPO", "/home/claude/gtd"), "redazione", "scommessa")
+    _s.path.insert(0, _rep if _o.path.isdir(_rep) else _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), "scommessa"))
     from pagina6 import pagina6_lunedi, pagina6_settimana
     sc = C["scommessa"]
+    if "lunedi" not in sc:
+        raise SystemExit('C["scommessa"]["lunedi"] mancante: True il primo giorno di borsa della settimana, altrimenti False')
+    if not sc["lunedi"] and stato is None:
+        raise SystemExit("Scommessa mar-ven senza stato.json nella cartella di lavoro: lancia prima valuta.py --attuali "
+                         "(ISTRUZIONI par. 4). Nessuna pag. 6 del lunedì per sbaglio.")
     st.append(ancora("scommessa"))
-    if stato is None:
+    if sc["lunedi"]:
         st += pagina6_lunedi(reg, verdetto, pagella, tesi=sc["tesi"], grafico="c_forecast.png",
                              settimana_prec=sc.get("settimana_prec"))
     else:

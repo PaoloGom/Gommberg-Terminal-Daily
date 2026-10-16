@@ -5,7 +5,9 @@ Uso: python3 controlli_testo.py <pdf> [--json uscita.json]
   AVVISO per ogni riga che li contiene senza "secondo": ammessi solo con scheda C in fatti.json e "secondo <testata>".
 - Sigle (redazione/glossario.json, ovvio=false): AVVISO se compaiono ma non sono mai spiegate tra parentesi,
   o se sono spiegate più di una volta. Stampa anche l'elenco delle sigle spiegate (va in edizioni.json, campo glossario).
-Esce con codice 1 solo per l'errore sulle righe "→"."""
+BLOCCANTI (codice 1): più di 5 righe "→"; una riga "→" oltre 20 parole; una sigla non ovvia la cui prima occorrenza
+(dopo il ticker) non è spiegata tra parentesi; un connettivo causale in una frase con un movimento di mercato senza
+"secondo <testata>". Le sigle spiegate due volte sono solo un avviso."""
 import json, os, re, subprocess, sys
 
 QUI = os.path.dirname(os.path.abspath(__file__))
@@ -25,41 +27,56 @@ def frecce(t):
     flat = re.sub(r"\s+", " ", t)
     for m in re.finditer(r"→\s*([^→]{0,240})", flat):
         seg = m.group(1).strip()
-        if not seg or re.match(r"pag\.?\s*\d", seg, re.I):
+        if not seg or re.match(r"pag\.?\s*\d|(Lun|Mar|Mer|Gio|Ven|Sab|Dom) \d", seg, re.I):
             continue  # rimando o intestazione di colonna
         frase = re.split(r"(?<=[.!?])\s", seg)[0]
         righe.append(frase)
     return righe
 
 
-def connettivi(t_layout):
+MOVIMENTO = re.compile(r"[+-]\d|\b(sal[ei]|salgono|scend[eo]|scendono|cal[ai]|calano|cede|cedono|guadagn|perd[eo]|"
+                       r"rialz|ribass|vendite|acquisti|chiude|chiusura|rimbalz|crolla|corre|tonfo)", re.I)
+
+
+def frasi(t):
+    flat = re.sub(r"\s+", " ", t)
+    return [f.strip() for f in re.split(r"(?<=[.;!?])\s+", flat) if f.strip()]
+
+
+def connettivi(t):
+    """Frasi con un connettivo causale e un movimento di mercato, senza 'secondo <testata>' né forma M/S."""
     sospetti = []
-    for r in t_layout.split("\n"):
-        r = " ".join(r.split())
-        if not r or ESENZIONI.search(r):
+    for f in frasi(t):
+        if ESENZIONI.search(f) or not MOVIMENTO.search(f):
             continue
         for c in CONNETTIVI:
-            if re.search(c, r, re.I):
-                sospetti.append(r[:110]); break
+            if re.search(c, f, re.I):
+                sospetti.append(f[:130]); break
     return sospetti
 
 
 def sigle(t):
+    """Prima occorrenza (dopo il ticker, cioè dopo 'TOP STORY') di ogni sigla non ovvia: deve avere la parentesi."""
     g = json.load(open(os.path.join(QUI, "glossario.json"), encoding="utf-8"))["voci"]
     flat = re.sub(r"\s+", " ", t)
+    m = re.search(r"TOP STORY", flat)
+    corpo = flat[m.end():] if m else flat
     mai, doppie, spiegate = [], [], []
     for v in g:
         if v.get("ovvio"):
             continue
         nomi = [v["sigla"]] + v.get("varianti", [])
         pat = "|".join(re.escape(n) for n in nomi)
-        occ = re.findall(rf"(?<![\w/])(?:{pat})(?![\w/])", flat)
-        if not occ:
+        rx = re.compile(rf"(?<![\w/])(?:{pat})(?![\w/])")
+        prima = rx.search(corpo)
+        if not prima:
             continue
-        spieg = len(re.findall(rf"(?<![\w/])(?:{pat})(?![\w/]) ?\((?=[^)]*\s)[^)]{{3,60}}\)", flat)) + \
-            len(re.findall(rf"\([^()]{{0,40}}(?<![\w/])(?:{pat})(?![\w/])\)", flat))
-        if spieg == 0:
-            mai.append(v["sigla"])
+        dopo = corpo[prima.end():prima.end() + 70]
+        prima_ok = bool(re.match(r"(?: [\w/-]+){0,2} ?\((?=[^)]*\s)[^)]{3,60}\)", dopo)) or \
+            bool(re.search(r"\([^()]{0,40}$", corpo[max(0, prima.start() - 45):prima.start()]))
+        spieg = len(re.findall(rf"(?<![\w/])(?:{pat})(?![\w/]) ?\((?=[^)]*\s)[^)]{{3,60}}\)", corpo))
+        if not prima_ok:
+            mai.append(f"{v['sigla']} ({corpo[max(0, prima.start() - 25):prima.end() + 15].strip()})")
         else:
             spiegate.append(v["sigla"])
             if spieg > 1:
@@ -72,23 +89,25 @@ def main():
     t, tl = testo(pdf), testo(pdf, layout=True)
     fr = frecce(t)
     lunghe = [f for f in fr if len(f.split()) > 20]
-    sos = connettivi(tl)
+    sos = connettivi(t)
     mai, doppie, spiegate = sigle(t)
-    print(f"Righe →: {len(fr)} (max {MAX_FRECCE}) | connettivi sospetti: {len(sos)} | sigle non spiegate: {len(mai)}")
-    for f in lunghe[:2]:
-        print(f"AVVISO: riga → oltre 20 parole: {f[:90]}")
-    for s in sos[:4]:
-        print(f"AVVISO: causa senza 'secondo <testata>'? {s}")
-    if mai:
-        print("AVVISO: sigle mai spiegate tra parentesi: " + ", ".join(mai)[:140])
+    print(f"Righe →: {len(fr)} (max {MAX_FRECCE}) | cause senza fonte: {len(sos)} | sigle non spiegate: {len(mai)}")
+    errori = []
+    if len(fr) > MAX_FRECCE:
+        errori.append(f"{len(fr)} righe → (massimo {MAX_FRECCE}): tieni solo quelle dove il perché non è ovvio")
+    errori += [f"riga → oltre 20 parole: {f[:100]}" for f in lunghe]
+    errori += [f"causa senza 'secondo <testata>': {x}" for x in sos]
+    errori += [f"sigla non spiegata alla prima occorrenza: {x}" for x in mai]
+    for e in errori[:6]:
+        print("ERRORE: " + e[:155])
     if doppie:
         print("AVVISO: sigle spiegate più di una volta: " + ", ".join(doppie)[:140])
     print("Sigle spiegate (campo glossario): " + (", ".join(spiegate) or "-")[:150])
     if "--json" in sys.argv:
         json.dump({"frecce": fr, "connettivi": sos, "sigle_mai_spiegate": mai, "sigle_doppie": doppie,
-                   "glossario": spiegate}, open(sys.argv[sys.argv.index("--json") + 1], "w"), ensure_ascii=False, indent=1)
-    if len(fr) > MAX_FRECCE:
-        print(f"ERRORE: {len(fr)} righe → (massimo {MAX_FRECCE}): tieni solo quelle dove il perché non è ovvio")
+                   "glossario": spiegate, "errori": errori},
+                  open(sys.argv[sys.argv.index("--json") + 1], "w"), ensure_ascii=False, indent=1)
+    if errori:
         sys.exit(1)
 
 

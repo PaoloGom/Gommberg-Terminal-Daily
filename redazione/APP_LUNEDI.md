@@ -25,14 +25,9 @@ Scrivi `/home/claude/lavoro/nuovi.json` con le chiusure ufficiali dei giorni dop
 
 ## 4. Grafico e pag. 6
 - `python3 grafico.py ../pronostici/<lunedì>-settimana.json /home/claude/lavoro/c_forecast.png` (PNG e SVG).
-- Nello script dell'edizione (box "Le regole del gioco" completo il lunedì):
-  ```python
-  import sys, json; sys.path.insert(0, "/home/claude/gtd/redazione/scommessa")
-  from pagina6 import pagina6_lunedi
-  story += pagina6_lunedi(reg, verdetto, pagella, tesi="<la tesi della settimana in una frase>",
-                          grafico="c_forecast.png", settimana_prec="<es. 12-16 ottobre>")
-  ```
-  `reg`, `verdetto`, `pagella` = JSON caricati (registro nuovo, `verdetto.json`, `pagella.json`); `verdetto` è None se non c'è una settimana precedente.
+- Nel modello dell'edizione: `REG = "<lunedì>-settimana.json"` (il registro NUOVO) e
+  `C["scommessa"] = {"tesi": "<la tesi della settimana in una frase>", "lunedi": True, "venerdi": False, "settimana_prec": "<es. 12-16 ottobre>"}`.
+  Il motore costruisce pag. 6 del lunedì (box "Le regole del gioco" completo) da `verdetto.json` in `/home/claude/lavoro` e da `redazione/scommessa/pagella.json`; senza settimana precedente il verdetto manca e la pagella lo dice. Render: `cd /home/claude/lavoro && python3 edizione_AAAA-MM-GG.py /home/claude/lavoro "<pdf>"`.
 - In `edizioni_voce.py` usa `--verdetto /home/claude/lavoro/verdetto.json` e il registro NUOVO: strada e range della settimana nuova restano null.
 - Il revisore controlla che tabella e pagella di pag. 6 riportino esattamente `verdetto.json` e il registro.
 - Pag. 1: "La settimana scorsa" al posto di "Ieri in calendario" (max 5 righe); 1 sett. del cruscotto = settimana intera.

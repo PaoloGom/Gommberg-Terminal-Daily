@@ -12,8 +12,8 @@ import json
 import os
 import sys
 
-QUI = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, QUI)
+REPO = os.path.join(os.environ.get("GTD_REPO", "/home/claude/gtd"), "redazione")   # kit e registri (mai la copia)
+sys.path.insert(0, REPO)
 from gommberg_engine import *  # noqa: E402,F403
 
 LAVORO = sys.argv[1] if len(sys.argv) > 1 else "."
@@ -50,8 +50,7 @@ UST_MESE = [  # data, 2 anni, 10 anni, 30 anni (curva par del Tesoro, FMP)
     ("10-08", 4.75, 5.22, 5.60), ("10-09", 4.80, 5.24, 5.60), ("10-13", 4.79, 5.21, 5.56), ("10-14", 4.82, 5.19, 5.52)]
 CONTAGIO = [  # (etichetta, var %): Wall Street 14/10 (TheStreet), Asia 15/10 (Teleborsa 08:11, ANSA, Milano Finanza)
     ("Tecnologia S&P 500 (14/10)", -3.00), ("Nasdaq (14/10)", -1.88), ("Hang Seng (08:11)", -1.32),
-    ("Nikkei 225 (08:11)", -4.89), ("Tokyo Electron (apertura, circa)", -6.5), ("Kospi (08:11)", -8.68),
-    ("SoftBank (quasi)", -10.0), ("Kioxia (circa)", -11.0), ("Advantest (circa)", -11.0)]
+    ("Nikkei 225 (08:11)", -4.89), ("Kospi (08:11)", -8.68)]   # nei grafici solo valori esatti: i "circa" restano nel testo
 NIKKEI = [("07-01", 70474.96), ("07-15", 68751.51), ("07-17", 64141.12), ("07-23", 66422.60), ("07-29", 61434.19),
           ("07-31", 64362.02), ("08-05", 66300.44), ("08-13", 68308.59), ("08-17", 69220.25), ("08-19", 65326.42),
           ("08-27", 66131.98), ("09-02", 64325.64), ("09-07", 66399.84), ("09-15", 63484.10), ("09-18", 65018.95),
@@ -65,7 +64,7 @@ C = {
     "data": OGGI,
     "temi": ["Inflazione", "Fed", "Tassi", "Chip", "Asia", "Trimestrali"],
     "glossario": ["CPI", "pb", "AI", "DRAM", "CXMT", "EPS", "ROTCE", "BTP", "Bund", "VIX", "CME FedWatch", "WTI"],
-    "meccanismi": ["curva_breve_fed"],    # id di redazione/meccanismi.json usati nelle righe M
+    "meccanismi": ["M26"],    # id di redazione/meccanismi.json usati nelle righe M
 
     "ticker": [("MSCI ACWI (ETF)", "158,75 $", "-1,2% g"), ("S&amp;P 500", "7.718,94", "-1,1% g"),
                ("EURO STOXX 50", "6.162,90", "-0,3% g"), ("UST 10 ANNI", "5,19%", "-2 pb g"),
@@ -73,12 +72,11 @@ C = {
 
     "top": {
         "titolo": "Inflazione USA sopra le attese: torna in gioco il rialzo Fed di ottobre",
-        "dek": "A settembre l'indice dei prezzi al consumo (CPI) sale del 3,7% annuo contro il 3,6% atteso; il core, "
-               "senza energia e alimentari, del 2,6% contro il 2,5%. La probabilità di un rialzo dei tassi Fed il 27-28 "
-               "ottobre passa dal 22% al 35-47% a seconda della fonte (CME FedWatch, la stima ricavata dai future, "
-               "via Axios e Yahoo Finance). Wall Street chiude in calo e stamattina le vendite si estendono all'Asia.",
-        "freccia": "Secondo TheStreet gran parte della spinta viene dall'energia legata alla guerra in Iran, soprattutto "
-                   "la benzina.",                                                           # tipo C, scheda T01/C05
+        "dek": "A settembre l'indice dei prezzi al consumo (CPI) sale del 3,7% annuo contro il 3,6% atteso; il core "
+               "(senza energia e alimentari) del 2,6% contro il 2,5%. La probabilità di un rialzo dei tassi Fed il 27-28 "
+               "ottobre sale al 47% secondo Axios, dal 22% del giorno prima (CME FedWatch, la stima ricavata dai "
+               "future). Wall Street chiude in calo e stamattina le vendite si estendono all'Asia.",
+        "freccia": "Secondo Axios i rincari dell'energia cominciano a passare ai prezzi dei servizi.",  # tipo C, scheda T01 (Axios, liv. 1)
     },
     "in30": [
         "Wall Street cede: S&amp;P 500 -1,11%, Nasdaq -1,88%, con il settore tecnologico in testa ai ribassi.",
@@ -88,7 +86,7 @@ C = {
     ],
     "stamattina": [
         "Asia alle 08:11: Kospi -8,68%, Nikkei -4,89%, Hang Seng -1,32%",
-        "Brent future alle 08:29: 104,39 $ (-1,6%)",
+        "Brent future (petrolio europeo) alle 08:29: 104,39 $ (-1,6%)",
         "EUR/USD alle 09:12: 1,1216",
         "Treasury 10 anni in mattinata: 5,10% (Investing.com)",
     ],
@@ -99,7 +97,7 @@ C = {
          "rimando": "treasury"},
         {"tag": "Fed", "titolo": "Mercato diviso sul rialzo di ottobre",
          "testo": "Per una strategist citata da Milano Finanza il dato non basta a rilanciare davvero l'ipotesi di "
-                  "ottobre; per Yahoo Finance sul prossimo rialzo ci si chiede ormai \"quando\", non \"se\"."},
+                  "ottobre; secondo Axios i future la vedono invece più probabile di ieri."},
         {"tag": "Wall Street", "titolo": "Tecnologia -3,00%, difensivi in rialzo",
          "testo": "In rialzo sanità (+2,44%) e beni di consumo base (+2,21%). Russell 2000 -1,93%, Dow Jones -0,09%. "
                   "Milano Finanza parla di vendite sull'AI.", "rimando": "mercati"},
@@ -111,11 +109,11 @@ C = {
                   "la sanzione del Tesoro USA.", "rimando": "banche"},
         {"tag": "Valute", "titolo": "Il dollaro si rafforza su tutta la linea",
          "testo": "L'euro scende subito dopo il dato (investingLive) e chiude in calo; stamattina recupera."},
-        {"tag": "Petrolio", "titolo": "WTI ai massimi da tre settimane",
-         "testo": "In seduta il WTI, il petrolio di riferimento USA, sale a circa 95 $; il Brent future chiude in "
+        {"tag": "Petrolio", "titolo": "Petrolio USA (WTI) ai massimi da tre settimane",
+         "testo": "In seduta il WTI sale a circa 95 $; il Brent future chiude in "
                   "lieve rialzo e stamattina scende."},
         {"tag": "Europa", "titolo": "Londra in rialzo, Milano ed Euro Stoxx in calo",
-         "testo": "Piazza Affari chiude in calo (ANSA), Londra sale. Lo spread tra BTP e Bund tedesco si allarga di "
+         "testo": "Piazza Affari chiude in calo (ANSA), Londra sale. Lo spread tra BTP e Bund (titoli di Stato italiani e tedeschi) si allarga di "
                   "2 punti base (pb) secondo Teleborsa.", "rimando": "mercati"},
     ],
 
@@ -146,7 +144,7 @@ C = {
         ("Cambi", [["EUR/USD", "1,1156", "-0,4%", "-0,4%", "-3,4%", "-"]]),
         ("Materie prime", [["Brent future", "106,06 $", "+0,4%", "+1,3%", "+0,4%", "-"],
                            ["Oro (spot, $/oncia)", "4.162,84", "0,0%", "+0,4%", "-4,2%", "-"]]),
-        ("Volatilità", [["VIX", "16,87", "+1,60", "+2,03", "-0,23", "Massimo dal 16/9"]]),
+        ("Volatilità", [["VIX (volatilità attesa)", "16,87", "+1,60", "+2,03", "-0,23", "Massimo dal 16/9"]]),
     ],
     "cross_nota": "Fonte: FMP, Alpha Vantage (EUR/USD, oro), Teleborsa (BTP, spread). 1 mese = sul 14/9. VIX = volatilità "
                   "attesa sull'S&amp;P 500.",
@@ -154,7 +152,6 @@ C = {
         ("Fed e tassi", "Riunione 27-28 ottobre", "Rialzo di ottobre di nuovo in gioco", "su", "Dati USA delle 14:30"),
         ("Inflazione USA", "In accelerazione", "Energia nei servizi (Axios)", "su", "Prezzi alla produzione (PPI)"),
         ("AI e chip", "Rally concentrato", "Vendite da Wall Street all'Asia", "giu", "Nasdaq e Kospi"),
-        ("Trimestrali", "Banche e TSMC usciti", "Banche divise", "mista", "Titoli bancari"),
         ("Dollaro", "EUR/USD sotto 1,12", "Più forte dopo il CPI", "su", "Treasury a 2 anni"),
         ("Petrolio", "Brent sopra 104 $", "WTI ai massimi da 3 settimane", "mista", "Prezzi della benzina"),
     ],
@@ -244,11 +241,11 @@ C = {
                    ["20 anni", "5,71%", "5,60%", "5,57%", "-14 pb", "-3 pb"],
                    ["10 anni meno 2 anni", "51 pb", "42 pb", "37 pb", "-14 pb", "-5 pb"]],
          "larghezze": [40, 26, 26, 26, 32, 32],
-         "lettura": "Per il rialzo del breve TheStreet indica i timori di un nuovo rialzo Fed; per il calo del lungo "
-                    "le fonti di oggi non danno una spiegazione verificata. Il 10 anni chiude sotto i livelli di fine "
+         "lettura": "Per il rialzo del breve e il calo del lungo le fonti di oggi non danno una spiegazione "
+                    "verificata. Il 10 anni chiude sotto i livelli di fine "
                     "settembre e cala ancora stamattina. <b>Soglia:</b> 5,30-5,35%, toccata ma mai tenuta a fine seduta.",
-         "freccia": "Di solito il 2 anni segue le attese sulla Fed più del 10 anni; ieri si è mosso quasi solo lui."},
-        # ↑ riga M: id "curva_breve_fed" (da inserire in redazione/meccanismi.json quando esisterà)
+         "freccia": "Di solito il 2 anni segue la Fed più del 10 anni: ieri è salito, il 10 anni è sceso."},
+        # ↑ riga M: id "M26" di redazione/meccanismi.json
         {"chiave": "chip", "tema": "Chip e Asia", "breve": "TSMC batte le stime, l'Asia vende",
          "titolo": "TSMC batte le stime, ma l'Asia vende i chip",
          "formato": "due_grafici",
@@ -270,7 +267,7 @@ C = {
                    ["Quota dei ricavi da wafer a 3 nanometri", "33%", "-", "-"]],
          "larghezze": [70, 30, 36, 46],
          "lettura": "Le vendite partite ieri dal settore tecnologico di Wall Street si sono estese stamattina all'Asia, "
-                    "con i cali più forti sui titoli dei semiconduttori e sulle borse dove pesano di più: Seul e Tokyo.",
+                    "con i cali più forti sui titoli dei semiconduttori e sulle borse dove i chip contano di più: Seul e Tokyo.",
          "punti": ["<b>Tokyo.</b> SoftBank perde quasi il 10%, Kioxia e Advantest circa l'11%; Tokyo Electron circa il "
                    "6,5% in apertura (ANSA, Milano Finanza).",
                    "<b>Il timore.</b> Un analista di BNP Paribas AM cita l'annuncio di CXMT (produttore cinese di "
@@ -283,7 +280,8 @@ C = {
     # ---------- Pag. 6 ----------
     "scommessa": {"tesi": "il CPI e i tecnologici mettono sotto pressione le borse: tutti e 7 i mercati sono ancora "
                           "dentro il range, ma solo Treasury 10 anni e Brent vanno nella direzione prevista.",
-                  "venerdi": False},
+                  "lunedi": False,     # True il primo giorno di borsa della settimana (pagina6_lunedi + verdetto.json)
+                  "venerdi": False, "settimana_prec": None},   # settimana_prec solo il lunedì, es. "12-16 ottobre"
     "parole": [("Appiattimento della curva", "La distanza tra i rendimenti a lunga e a breve scadenza si riduce: "
                                              "il breve sale più del lungo, o il lungo scende di più."),
                ("Inflazione core", "L'inflazione senza energia e alimentari, le voci più volatili: mostra la tendenza "
@@ -294,7 +292,7 @@ C = {
         ("Dati di mercato", "Financial Modeling Prep (indici USA e Asia, VIX, Brent future, curva par del Tesoro USA); "
                             "Alpha Vantage (EUR/USD, ACWI, oro spot); ANSA (FTSE MIB); Teleborsa (BTP, spread BTP-Bund, "
                             "Asia delle 08:11)."),
-        ("Pag. 1 e 2", "TheStreet, Axios, Yahoo Finance, Milano Finanza, investingLive, FXStreet, Investing.com, ANSA, "
+        ("Pag. 1 e 2", "TheStreet, Axios, Milano Finanza, investingLive, FXStreet, Investing.com, ANSA, "
                        "Teleborsa."),
         ("Calendario e agenda", "Teleborsa, Admiral Markets, Banca d'Italia, Federal Reserve."),
         ("Approfondimenti", "Banche: comunicato Morgan Stanley (SEC), Milano Finanza, FIRSTonline, TheStreet. Treasury: "
@@ -307,10 +305,10 @@ C = {
 # ================================ COMPOSIZIONE (non toccare) ================================
 if __name__ == "__main__":
     set_meta(OGGI, NOTA_DATI)
-    reg = json.load(open(os.path.join(QUI, "pronostici", REG), encoding="utf-8"))
+    reg = json.load(open(os.path.join(REPO, "pronostici", REG), encoding="utf-8"))
     stato = json.load(open("stato.json", encoding="utf-8")) if os.path.exists("stato.json") else None
     verdetto = json.load(open("verdetto.json", encoding="utf-8")) if os.path.exists("verdetto.json") else None
-    pagella_p = os.path.join(QUI, "scommessa", "pagella.json")
+    pagella_p = os.path.join(REPO, "scommessa", "pagella.json")
     pagella = json.load(open(pagella_p, encoding="utf-8")) if os.path.exists(pagella_p) else None
     out = USCITA or nome_file(OGGI)
     render_v6(out, lambda: edizione_v6(C, stato=stato, reg=reg, verdetto=verdetto, pagella=pagella))

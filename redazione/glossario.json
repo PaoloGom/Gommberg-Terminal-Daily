@@ -176,10 +176,7 @@
   {
    "sigla": "UST",
    "breve": "titoli di Stato USA",
-   "ovvio": false,
-   "varianti": [
-    "Treasury"
-   ]
+   "ovvio": false
   },
   {
    "sigla": "BTP",
@@ -232,7 +229,7 @@
   {
    "sigla": "spread",
    "breve": "differenza di rendimento tra due titoli",
-   "ovvio": false
+   "ovvio": true
   },
   {
    "sigla": "CDS",
@@ -404,7 +401,7 @@
   {
    "sigla": "TSMC",
    "breve": "primo produttore mondiale di chip",
-   "ovvio": false
+   "ovvio": true
   },
   {
    "sigla": "future",
