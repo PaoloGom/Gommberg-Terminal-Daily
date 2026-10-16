@@ -53,7 +53,12 @@ else
   echo "[ROSSO] Numeri: manca $L/dati.json (schema di controlli_dati.py, con 'etichette')"; ROSSI+=("Numeri")
 fi
 passo "Scrittura (→, cause, sigle)" 1 python3 "$R/controlli_testo.py" "$PDF" --json "$L/testo.json"
-passo "Ripetizioni (avviso)" 0 python3 "$R/controlli_ripetizioni.py" "$PDF" --json "$L/ripetizioni.json"
+if [ -f "$L/voce_indice.json" ]; then
+  passo "Temi di prima pagina" 1 python3 "$R/controlli_temi.py" "$L/voce_indice.json"
+else
+  echo "[ROSSO] Temi: manca $L/voce_indice.json (lo scrive il render del modello)"; ROSSI+=("Temi")
+fi
+passo "Ripetizioni" 1 python3 "$R/controlli_ripetizioni.py" "$PDF" --json "$L/ripetizioni.json"
 passo "Anteprima" 1 python3 "$R/anteprima.py" "$PDF" "$L/anteprima.png"
 rm -f "$TMP"
 if [ ${#ROSSI[@]} -eq 0 ]; then

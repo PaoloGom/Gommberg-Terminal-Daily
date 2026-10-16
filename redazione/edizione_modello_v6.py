@@ -74,13 +74,14 @@ C = {
         "dek": "A settembre l'indice dei prezzi al consumo (CPI) sale del 3,7% annuo contro il 3,6% atteso; il core "
                "(senza energia e alimentari) del 2,6% contro il 2,5%. La probabilità di un rialzo dei tassi Fed il 27-28 "
                "ottobre sale al 47% secondo Axios, dal 22% del giorno prima (CME FedWatch, la stima ricavata dai "
-               "future). Wall Street chiude in calo e stamattina le vendite si estendono all'Asia.",
+               "future). Wall Street chiude in calo (S&amp;P 500 -1,11%, tecnologici in testa ai ribassi) e stamattina "
+               "vendono anche Tokyo e Seul. [[chip]]",
         "freccia": "Secondo Axios i rincari dell'energia cominciano a passare ai prezzi dei servizi.",  # tipo C, scheda T01 (Axios, liv. 1)
     },
     "in30": [
-        "Wall Street cede: S&amp;P 500 -1,11%, Nasdaq -1,88%, con il settore tecnologico in testa ai ribassi.",
-        "Asia in forte calo stamattina: a Tokyo e Seul guidano le vendite i titoli legati all'intelligenza "
-        "artificiale (AI), secondo Teleborsa. [[chip]]",
+        # le 3 cose più importanti DOPO la top story: mai la top story né le sue reazioni di mercato (controlli_temi.py)
+        "Banche USA divise: BofA sconta l'onere per l'accordo con il Tesoro, Morgan Stanley corre nel trading. [[banche]]",
+        "TSMC batte le stime, ma i conti non fermano le vendite sui chip. [[chip]]",
         "Oggi alle 14:30 vendite al dettaglio e prezzi alla produzione USA: il primo test dopo il CPI. [[agenda]]",
     ],
     "stamattina": [
@@ -158,12 +159,9 @@ C = {
 
     # ---------- Pag. 3-5 ----------
     "agenda_titolo": "Ieri in calendario e in arrivo",
-    "ieri": [        # (quando, evento, dato contro attese, sorpresa +/-/=, → max 8 parole)
-        ("Mer 14, 14:30", "CPI USA settembre, generale m/m", "+0,6% m/m (sul mese prima), atteso +0,6%", "=", "-"),
-        ("Mer 14, 14:30", "CPI USA settembre, generale a/a", "+3,7% a/a (sull'anno prima), atteso 3,6%; agosto 3,4%",
-         "+", "-"),
-        ("Mer 14, 14:30", "CPI USA settembre, core m/m", "+0,3% m/m, atteso +0,2%", "+", "Energia nei servizi, secondo Axios"),
-        ("Mer 14, 14:30", "CPI USA settembre, core a/a", "+2,6% a/a, atteso 2,5%", "+", "-"),
+    "ieri": [        # (quando, evento, dato contro attese, sorpresa +/-/=, → max 8 parole). Casa delle cifre solo per i dati NON raccontati altrove
+        # un dato già raccontato in prima pagina o in un modulo: qui solo sorpresa e rimando, MAI di nuovo le cifre
+        ("Mer 14, 14:30", "CPI USA settembre, generale e core", "Sopra le attese: in prima pagina", "+", "-"),
         ("Mer 14", "Trimestrali BofA, Morgan Stanley, BlackRock", "Esiti divergenti", "", "[[banche]]"),
     ],
     "agenda": [      # (quando Roma, evento, attese, perché conta) - <b> sull'evento chiave

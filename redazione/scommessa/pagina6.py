@@ -93,7 +93,7 @@ def pagina6_settimana(reg, stato, tesi, grafico="c_forecast.png", venerdi=False)
     ven = reg["settimana"].split("/")[1]
     out = section("La scommessa della settimana: a che punto siamo", "Il gran finale  |  Forecast")
     out += [P(f"<b>Il punto:</b> {esc(tesi)}", "dek"), img(grafico, CW), Spacer(1, 3)]
-    rows = [headers("Strumento", "Base", "Previsione", "Ultimo", "Var. da base", "Dentro il range?", "Sulla strada giusta?")]
+    rows = [headers("Strumento", "Base", "Previsione", "Ultimo", "Var. da base", "Dentro il range?", "On track?")]
     for k in ORDINE:
         v, r = st[k], sr[k]
         var = f"{num(r['var'], 2) if r['var_unita'] == '%' else num(r['var'], 0)}"
@@ -107,7 +107,7 @@ def pagina6_settimana(reg, stato, tesi, grafico="c_forecast.png", venerdi=False)
             P(f"La previsione non cambia fino a venerdì {gg_mese(ven)}. \"-\": strumento fermo alla chiusura di partenza.",
               "note"), Spacer(1, 4)]
     righe = [f"Dentro il range oggi: {sum(r['dentro_range'] for r in sr.values())} su 7.",
-             f"Sulla strada giusta oggi: {sum(1 for r in sr.values() if r['strada_giusta'])} su 7"
+             f"On track (direzione giusta) oggi: {sum(1 for r in sr.values() if r['strada_giusta'])} su 7"
              + (": " + ", ".join(esc(st[k]["nome"]) for k in ORDINE if sr[k]["strada_giusta"]) + "."
                 if any(r["strada_giusta"] for r in sr.values()) else ".")]
     if venerdi:

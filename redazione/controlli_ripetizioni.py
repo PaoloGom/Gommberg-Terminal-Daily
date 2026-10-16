@@ -63,6 +63,24 @@ def main():
     if "--json" in sys.argv:
         json.dump({"punteggio": punteggio, "ripetute": rip}, open(sys.argv[sys.argv.index("--json") + 1], "w"),
                   ensure_ascii=False, indent=1)
+    # BLOCCANTE: una cifra "distintiva" (|valore| >= 1, oppure 2 decimali, oppure un livello) in 3+ sezioni.
+    # Le cifre piccole (0,3%, 0,4%...) coincidono spesso per caso tra fatti diversi: restano avvisi.
+    def distintiva(n):
+        import re as _r
+        m = _r.search(r"-?\d[\d.]*(?:,(\d+))?", n)
+        if not m:
+            return False
+        dec = m.group(1) or ""
+        try:
+            v = abs(float(m.group(0).replace(".", "").replace(",", ".")))
+        except ValueError:
+            return False
+        return v >= 1 or len(dec) >= 2
+    gravi = [(n, s) for n, s in peggiori if len(s) >= 3 and distintiva(n)]
+    for n, s in gravi:
+        print(f"ERRORE: {n} in {len(s)} sezioni ({', '.join(s)}): una sola casa per cifra - nelle altre "
+              "sezioni rimanda (\"→ pag. N\") o parla del fatto senza la cifra"[:220])
+    sys.exit(1 if gravi else 0)
 
 
 if __name__ == "__main__":

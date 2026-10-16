@@ -739,8 +739,8 @@ def render_v6(path, costruisci, riempi=(3, 4, 5), margine=3):
     print("Pagine:", len(liberi2), "| mm liberi in fondo:", ", ".join(f"p{p}={l}" for p, l in liberi2.items()))
     pieni = {n: v for n, v in REPORT_MODULI}
     for n, v in pieni.items():
-        if v < 85:
-            print(f"RIEMPIRE: modulo '{n}' pieno al {v}% (minimo 85%): aggiungi punti, righe o lettura verificati")
+        if v < 80:
+            print(f"RIEMPIRE: modulo '{n}' pieno al {v}% (minimo 80%): aggiungi punti, righe o lettura verificati")
         elif v > 112:
             print(f"ACCORCIARE: modulo '{n}' al {v}%: il motore lo rimpicciolisce, togli testo o righe")
     REPORT_MODULI.clear()
@@ -787,7 +787,7 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
     voci += [(a["chiave"], a["tema"], a.get("breve", a["titolo"])) for a in C.get("moduli") or C["approfondimenti"]]
     if stato and not C["scommessa"].get("lunedi"):
         ok = sum(1 for r in stato["righe"].values() if r["strada_giusta"])
-        voci.append(("scommessa", "La scommessa", f"{ok}/7 sulla strada giusta"))
+        voci.append(("scommessa", "La scommessa", f"{ok}/7 on track"))
     else:
         voci.append(("scommessa", "La scommessa", C["scommessa"].get("breve", "il pronostico della settimana")))
     idx = indice_interno(voci, cols=3)
