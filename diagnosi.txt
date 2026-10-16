@@ -3,3 +3,5 @@
 19:15:56 PASSO 3 webfetch bls ERRORE PROVENANCE_REQUIRED: richiesta di permesso per l'URL non risposta in tempo e ritirata
 19:21:10 PASSO 4 webfetch reuters ERRORE PROVENANCE_REQUIRED: richiesta di permesso per l'URL non risposta in tempo e ritirata
 19:21:24 PASSO 5 alphavantage GLOBAL_QUOTE SPY ok price 771.79 (+0.28%) trading day 2026-10-15
+19:21:26 PASSO 6 fine sessione normale
+RIEPILOGO: clone/push ok, WebSearch ok, WebFetch bls+reuters bloccati da PROVENANCE_REQUIRED (permesso non risposto, sessione non presidiata), Alpha Vantage ok
