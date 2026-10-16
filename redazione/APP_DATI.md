@@ -20,6 +20,7 @@ Da leggere se una chiamata dati fallisce o serve un dato nuovo. Ogni dato va in 
 - **Kospi, Shanghai** e borse asiatiche di stamattina: Reuters, Nikkei Asia, Korea Herald, SCMP (livello 1); Trading Economics, investingLive (livello 2, due testate). Sempre con orario, segnati * nel cruscotto.
 - **WTI future**, future sugli indici di stamattina: Reuters, CNBC (livello 1) o TheStreet/investingLive (livello 2), con orario.
 - Dow, Russell e da-inizio-anno USA in alternativa: AP "How major US stock indexes fared" + data.
+- **Treasury 10 anni reale** (solo quando i Treasury sono un tema del giorno, per la scomposizione di `contesto.py`): tasso reale dei TIPS a 10 anni dal Tesoro USA ("Daily Treasury Par Real Yield Curve Rates") o da FRED, via ricerca; ultime due chiusure in `dati.json`, mercato UST.
 - Consensi e calendario: siti ufficiali (Fed, BLS, BEA, BCE, Istat), Reuters, Trading Economics (livello 2).
 
 ## 4. Basi da inizio anno 2026 (ultima chiusura del 2025, verificate su FMP il 15/10/2026)
@@ -32,6 +33,6 @@ Prima dell'ora di chiusura il dato di oggi è intraday. `controlli_dati.py` conv
 ## 6. Regole v6.2 (16/10/2026)
 - Alpha Vantage sempre in serie, una chiamata dopo l'altra (in parallelo dà rate limit). `TIME_SERIES_DAILY` compact = 100 giorni (circa 15k token): solo se la serie serve a un grafico; per la sola chiusura usa `GLOBAL_QUOTE` o FMP.
 - Indici obbligatori in `dati.json`: S&P 500, Nasdaq, Euro Stoxx 50, Nikkei 225, Kospi, Hang Seng (chiusura dell'ultima seduta conclusa; un'Asia chiusa dopo l'edizione di ieri conta). Via sempre praticabile, in ordine: (1) FMP `^N225`, `^KS11`, `^HSI` (storico giornaliero); (2) se FMP non ha la seduta: WebSearch standard "Kospi chiusura oggi" / "Borse asiatiche" su Teleborsa, ANSA, Milano Finanza, Il Sole 24 Ore (articolo con orario) e serie con la sola variazione: `{"mercato": "KR", "tipo": "intraday", "var": -8.68, "ora": "08:11", "fonte": "Teleborsa", "ultimi": []}`; (3) nessuna fonte verificabile: `{"mercato": "KR", "nd": "nessuna fonte con orario", "ultimi": []}` e "n.d." nel cruscotto con la nota. Il controllo non blocca mai l'uscita: blocca solo il dato non verificato.
-- `"macro"` in `dati.json` per i dati del giorno: `[{"nome": "PPI USA a/a", "dato": 6.3, "atteso": 5.3, "caldo_se": "su"}]` ("giu" per sussidi e disoccupazione): serve al controllo delle anomalie.
+- `"macro"` in `dati.json` per i dati del giorno: `[{"nome": "PPI USA a/a", "dato": 6.3, "atteso": 5.3, "caldo_se": "su", "data": "2026-10-15"}]` ("giu" per sussidi e disoccupazione; "data" = giorno di uscita): serve al controllo delle anomalie e alla reazione dei tassi in `contesto.py`.
 - Mai `RETAIL_SALES` o altre serie macro lunghe di Alpha Vantage (30 anni di storia, ~20k token): i dati macro si prendono dalla fonte ufficiale (BLS, Census, BEA, Eurostat...) via ricerca. `FX_DAILY` e `TIME_SERIES_*` sempre con `outputsize=compact`, e solo se serve la serie.
 - Kospi o altro indice estremo con una sola fonte attendibile: serie con `var`, `fonte` e `ora` e scheda `"sezione": "estremo", "fonte_singola": true`; mai "nd" quando una fonte dà il dato.

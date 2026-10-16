@@ -182,6 +182,13 @@
    "testo": "Il rendimento del Treasury a 2 anni segue le attese sui tassi della Fed più da vicino del 10 anni, che dipende anche da crescita e inflazione di lungo periodo e dal premio per la durata; per questo un dato che cambia le attese sulla Fed in genere muove più il 2 anni.",
    "quando": "Spiegare perché dopo un dato macro o una dichiarazione Fed il 2 anni si muove più del 10 anni o in senso opposto (appiattimento o irripidimento).",
    "eccezioni": "Shock su offerta di titoli, conti pubblici o premio a termine (aste, rating, deficit) muovono soprattutto il tratto lungo; vicino a una riunione già scontata il 2 anni può restare fermo."
+  },
+  {
+   "id": "M27",
+   "titolo": "Rendimento reale e inflazione attesa",
+   "testo": "Il rendimento di un titolo di Stato si può dividere in due parti: il rendimento reale, quello dei titoli protetti dall'inflazione (TIPS), e l'inflazione attesa dal mercato (breakeven), cioè la differenza tra i due. Se sale il reale pesano crescita e banca centrale; se sale l'inflazione attesa pesa il timore sui prezzi.",
+   "quando": "Spiegare perché si muove il 10 anni USA quando contesto.py dà la scomposizione.",
+   "eccezioni": "I TIPS sono meno scambiati dei titoli nominali: nei giorni di tensione l'inflazione attesa può muoversi anche per la loro scarsa liquidità."
   }
  ]
 }

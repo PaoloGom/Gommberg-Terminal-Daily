@@ -1,4 +1,4 @@
-# Gommberg Terminal Daily - Istruzioni di redazione v6.4 (nucleo)
+# Gommberg Terminal Daily - Istruzioni di redazione v7.0 (nucleo)
 
 Rassegna mattutina dei mercati in PDF, 6 pagine A4, stile Bloomberg/FT, che Paolo condivide: zero errori. Giornale di FINANZA. Appendici (`APP_*.md`) solo quando `prepara.sh` o un controllo lo dicono.
 
@@ -30,6 +30,7 @@ Tutto dagli script di `redazione/scommessa/`; pag. 6 la fa il motore da `stato.j
 - **Righe "→": max 5**, max 20 parole. **M** meccanismo ("di solito") da `meccanismi.json`; **C** causa con scheda `"tipo": "C"`, "secondo <testata>"; **S** stima etichettata. Mai "pesa", "trascina", "spinto da" su un movimento senza scheda C.
 - **Perché e E quindi**: perché = causa con fonte o meccanismo, mai la parafrasi del dato; E quindi = una cosa osservabile (livello, data, orario, evento in agenda). No: "Il settore non dà un segnale unico". Sì: "oggi alle 15:30 la riapertura del Nasdaq dirà se le vendite si fermano".
 - **Coerenza con i prezzi:** ogni spiegazione deve tornare con gli altri prezzi del giorno; per i tassi confronta la causa con la forma della curva (breve contro lungo). Se non torna, dillo e proponi l'alternativa etichettata (rifugio, premio a termine). No: "inflazione alta, il 10 anni scende". Sì: "l'inflazione spiega il breve, non il lungo in calo: causa non chiarita".
+- **Contesto, non percentuali nude:** `contesto.py` (§6.1; tassi reali: `APP_DATI.md` §3) dice quanto è raro un movimento rispetto all'ultimo anno, chi muove la curva e se il 10 anni sale per il rendimento reale o per l'inflazione attesa. Un movimento notevole si scrive con la sua misura storica ("il calo più forte dal 2 aprile", "capita una seduta su 20"); un dato macro con lo scarto dalle attese e quanto ha reagito il 2 anni (sorpresa presa sul serio o ignorata). Mai z-score, sigma o deviazioni standard nel PDF; le frasi dello script si riscrivono, mai copiate.
 - **Fatti controintuitivi = la notizia da spiegare** (dato caldo e borsa su, inflazione sopra le attese e 10 anni giù): ricerca dedicata (§6.2c), poi spiegazione attribuita o "causa non chiarita" + cosa guardare. Mai "le fonti non lo spiegano".
 - **Scomponi il dato che fa notizia:** inflazione e consumi con generale, core, componente trainante e lettura reale quando c'è.
 - **Probabilità** sempre con orizzonte, metodo e fonte. Sì: "rialzo il 28 ottobre al 47% (CME FedWatch, via Axios)"; "insolvenza cumulata a 5 anni dai CDS". Cifra di fonte diversa dall'edizione precedente: spiega la differenza (fonte, data, metodo).
@@ -39,7 +40,7 @@ Tutto dagli script di `redazione/scommessa/`; pag. 6 la fa il motore da `stato.j
 ## 6. Flusso di ogni mattina
 Lavoro in `/home/claude/lavoro`.
 0. `bash /home/claude/gtd/redazione/prepara.sh`; se stampa USCITA (b) o (c), eseguila.
-1. **Dati:** `dati.json` (schema in testa a `controlli_dati.py`, con `"etichette"` e, per i dati macro del giorno, `"macro"`); `controlli_dati.py dati.json` = OK.
+1. **Dati:** `dati.json` (schema in testa a `controlli_dati.py`, con `"etichette"` e, per i dati macro del giorno, `"macro"`); `controlli_dati.py dati.json` = OK; poi `python3 /home/claude/gtd/redazione/contesto.py dati.json --json contesto.json`: le righe stampate sono materiale per top story, quadro e moduli (§5).
 2. **Ricerca:** due agenti `model: "sonnet"` (o tu): (a) calendario concluso dall'ultima edizione; (b) 10-12 notizie in ordine d'importanza (le scartate sono riserve), future e Asia con orario, agenda con consensi. Solo schede JSON, citazione letterale max 30 parole.
 2c. **Anomalie:** confronta `dati.json` con dati macro e conti; per ogni fatto controintuitivo (max 2) fino a 3 ricerche in inglese e italiano e i 2 articoli più pertinenti. Registra in `fatti.json`: `{"id": "A1", "sezione": "anomalia", "fatto": "...", "ricerche": ["query", ...], "esito": "C03" | "non chiarita"}`.
 3. **fatti.json:** una scheda per fatto non preso dalle API; `controlli_fatti.py fatti.json /home/claude/gtd/edizioni.json AAAA-MM-GG --prima-della-revisione`.
@@ -61,7 +62,8 @@ Non toccare index.html, README.md, assets/.
 4. **Archivio Claude** (dopo la consegna): Artifact `action: "read"` su https://claude.ai/artifact/MuwDrCHDGXuADtKtL7cFcH, poi `action: "publish"` con quell'`url`, `file_path` = `/home/claude/gtd/redazione/archivio_claude.html` (non modificarla), `files` = {"edizioni.json": "/home/claude/gtd/edizioni.json", "pdf/AAAA-MM-GG-gommberg-NNN.pdf": "<pdf>"}, senza `capabilities` né `icon`; 2 tentativi (rifiutata per versione più recente: ripubblica uguale), poi si salta.
 5. Passaggio fallito: riprova una volta, poi consegna comunque.
 
-## 9. Lettori e sigle
+## 9. Lettori: lettura e spiegazione
+Lettori per lo più di media competenza. Ogni pezzo dà il fatto (con il numero) e la lettura (cosa significa, quanto era atteso); se la lettura poggia su un concetto (curva dei tassi, inflazione attesa, premio a termine, carry trade...), una frase lo spiega alla prima comparsa nell'edizione, dal testo di `meccanismi.json` quando c'è. Test: un lettore medio capisce ogni frase senza cercare, un esperto non si annoia.
 Sigla non ovvia: spiegata tra parentesi (max 6 parole) alla PRIMA occorrenza, come in `glossario.json` (nuova: aggiungila). Mai spiegate: Fed, BCE, PIL, S&P 500, Nasdaq, Dow Jones, ETF, USA, UE, FMI.
 
 ## 10. Revisione rafforzata
@@ -69,8 +71,7 @@ Sigla non ovvia: spiegata tra parentesi (max 6 parole) alla PRIMA occorrenza, co
 - **Fino a 25 verifiche:** (1) schede di top story, notizie, calendario e cause C: URL, citazione letterale, data, PDF fedele; (2) evento principale dell'agenda; (3) conferma indipendente della top story; (4) senza aprire pagine: coerenza con i prezzi, probabilità, "record". Scrive in `fatti.json` `verifica` (confermato | errato | non_conclusivo) e `nota_revisore`; un dubbio che resta = si toglie. Lunedì: pag. 6 contro `verdetto.json`.
 
 ## 11. Autocorrezione e cancello
-Paolo non riceve bozze né domande. Si pubblica solo ciò che passa i controlli; il resto si corregge o si toglie, fino a 3 giri (`APP_ERRORI.md`).
-- Nessun controllo impedisce l'uscita: ogni ERRORE si risolve togliendo il non verificato o con "n.d." e nota (`APP_ERRORI.md`).
+Paolo non riceve bozze né domande. Si pubblica solo ciò che passa i controlli: ogni ERRORE si corregge o si risolve togliendo il non verificato (o "n.d." con nota), fino a 3 giri (`APP_ERRORI.md`); nessun controllo impedisce l'uscita.
 - Notizie 6-8 (meno solo se le verificate sono meno); al posto di una scartata la prima riserva verificata. La top story è sempre un fatto confermato.
 - Errata: schede di ieri (`redazione/fatti/`) contro le notizie; un fatto smentito va in `C["errata"]` (edizione, frase sbagliata, corretta, fonte).
 

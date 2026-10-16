@@ -6,7 +6,8 @@ dati.json: {"oggi": "AAAA-MM-GG", "ora_roma": "HH:MM",
                         "tipo": "chiusura|intraday", "seconda_fonte": valore_o_null}}}
 Serie con la sola variazione (seduta asiatica in corso, livello non disponibile): {"mercato": "KR", "tipo": "intraday",
   "var": -8.68, "ora": "08:11", "fonte": "Teleborsa", "ultimi": []}. "macro" (facoltativo, per le anomalie):
-  [{"nome": "PPI USA a/a", "dato": 6.3, "atteso": 5.3, "caldo_se": "su"}] ("giu" per sussidi e disoccupazione).
+  [{"nome": "PPI USA a/a", "dato": 6.3, "atteso": 5.3, "caldo_se": "su", "data": "AAAA-MM-GG"}] ("giu" per sussidi
+  e disoccupazione; "data" = giorno di uscita, serve a contesto.py per la reazione dei tassi).
 Dato non verificabile neanche dal web: {"mercato": "KR", "nd": "<motivo, es. nessuna fonte con orario>", "ultimi": []}
   (ammesso: nel PDF "n.d." con la nota). Indici obbligatori (controlli_contenuti.py): S&P 500, Nasdaq, Euro Stoxx 50, Nikkei 225, Kospi, Hang Seng.
 Esce con codice 1 se c'è un problema bloccante."""

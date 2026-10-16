@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>La scommessa - Gommberg Terminal Daily</title>
+<meta name="description" content="Come funziona la scommessa del venerdì del Gommberg Terminal Daily: il metodo, cosa dice la storia, la pagella dal vivo.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="La scommessa del Gommberg Terminal Daily">
+<meta property="og:description" content="Diciamo dove chiuderanno 7 mercati. Poi contiamo quante volte avevamo ragione.">
+<meta property="og:image" content="https://paologom.github.io/Gommberg-Terminal-Daily/assets/copertina.png">
+<meta name="theme-color" content="#0E0E0E">
+<link rel="icon" href="assets/icona.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Stessi colori, caratteri e testata del sito (index.html) e del PDF. */
+:root {
+  --paper: #FBFAF8; --ink: #141414; --muted: #5E5A55; --rule: #DEDAD4; --panel: #F1EEE9;
+  --orange: #F26B1D; --orange-ink: #B84A0C; --bar: #0E0E0E; --bar-rule: #333; --bar-ink: #F5F3EF; --bar-muted: #A39C93;
+  --up: #12753D; --down: #C0261C; --up-soft: #D8EEDF; --down-soft: #F6DAD6;
+  --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121110; --ink: #EDEAE5; --muted: #A49E96; --rule: #2E2B28; --panel: #1C1A18;
+    --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-rule: #2A2826; --bar-ink: #F5F3EF; --bar-muted: #8F8880;
+    --up: #46CF85; --down: #FF7466; --up-soft: #173524; --down-soft: #3F1C18; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121110; --ink: #EDEAE5; --muted: #A49E96; --rule: #2E2B28; --panel: #1C1A18;
+  --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-rule: #2A2826; --bar-ink: #F5F3EF; --bar-muted: #8F8880;
+  --up: #46CF85; --down: #FF7466; --up-soft: #173524; --down-soft: #3F1C18; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 16px; }
+a { color: inherit; text-underline-offset: 3px; }
+.up { color: var(--up); } .down { color: var(--down); }
+
+.mast { background: var(--bar); color: var(--bar-ink); border-bottom: 3px solid var(--orange); }
+.mast .top > div { min-width: 0; }
+.mast .top { display: flex; justify-content: space-between; align-items: flex-end; gap: 8px 32px; padding-block: 18px 14px; flex-wrap: wrap; }
+.logo { font-family: var(--display); font-stretch: 75%; font-weight: 900; font-size: clamp(20px, 6vw, 46px); line-height: .9; letter-spacing: .01em; margin: 0; white-space: nowrap; }
+.logo a { text-decoration: none; }
+.logo b { color: var(--orange); font-weight: 900; } .logo span { font-weight: 600; }
+.pitch { margin: 8px 0 0; font-size: 15px; line-height: 1.4; }
+.pitch em { font-style: normal; color: var(--orange); }
+.back { font-size: 13px; color: var(--bar-muted); white-space: nowrap; }
+.back:hover { color: var(--bar-ink); }
+
+.kicker { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--orange-ink); margin: 0; line-height: 1.4; }
+.sec-h { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 26px; line-height: 1.1; margin: 4px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--orange); }
+main { padding-block: 32px 56px; display: grid; gap: 52px; }
+
+.hero { max-width: 62ch; }
+.hero h2 { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: clamp(27px, 4vw, 42px); line-height: 1.06; margin: 8px 0 0; text-wrap: balance; }
+.hero p { color: var(--muted); font-size: 17px; margin: 14px 0 0; }
+
+/* Pagella */
+.cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.card { background: var(--panel); border-top: 3px solid var(--ink); padding: 14px 14px 16px; min-width: 0; }
+.card .l { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.card .v { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 34px; line-height: 1.05; margin-top: 6px; }
+.card .t { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 6px; }
+.verdict { margin: 14px 0 0; padding: 12px 14px; border-left: 3px solid var(--orange); background: var(--panel); max-width: 72ch; }
+.verdict b { font-weight: 600; }
+.wait { color: var(--muted); }
+
+/* Come funziona */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 40px; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 12px; }
+.steps li::before { content: counter(s); font-family: var(--display); font-weight: 900; font-size: 30px; line-height: 1; color: var(--orange); }
+.steps h4 { margin: 0; font-size: 17px; font-weight: 600; line-height: 1.3; }
+.steps p { margin: 6px 0 0; color: var(--muted); }
+
+/* Storia */
+.two { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+.prose p { margin: 0 0 14px; max-width: 64ch; }
+.prose p:last-child { margin-bottom: 0; }
+.fact { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--rule); }
+.fact li { display: grid; grid-template-columns: 112px 1fr; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.fact .n { white-space: nowrap; font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 26px; line-height: 1.1; }
+.fact .d { font-size: 14.5px; color: var(--muted); }
+.fact .d b { color: var(--ink); font-weight: 600; }
+
+.rules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.rule { border: 1px solid var(--rule); padding: 16px; }
+.rule h4 { margin: 0 0 6px; font-size: 16px; font-weight: 600; }
+.rule p { margin: 0; color: var(--muted); font-size: 14.5px; }
+
+.words { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; margin: 0; }
+.words div { padding: 10px 0; border-bottom: 1px solid var(--rule); }
+.words dt { font-weight: 600; }
+.words dd { margin: 2px 0 0; color: var(--muted); font-size: 14.5px; }
+
+footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size: 12.5px; color: var(--muted); }
+
+@media (max-width: 860px) {
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .steps, .two, .rules, .words { grid-template-columns: minmax(0, 1fr); }
+  .two { gap: 28px; }
+  .card .v { font-size: 28px; }
+  .fact li { grid-template-columns: 104px 1fr; }
+}
+</style>
+</head>
+<body>
+<header class="mast">
+  <div class="wrap top">
+    <div>
+      <h1 class="logo"><a href="./"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></h1>
+      <p class="pitch">La scommessa del venerdì: <em>il metodo e la pagella</em></p>
+    </div>
+    <a class="back" href="./">&lsaquo; Torna all'ultima edizione</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero" aria-labelledby="h-hero">
+    <p class="kicker">La scommessa del venerdì</p>
+    <h2 id="h-hero">Diciamo dove chiuderanno 7 mercati. Poi contiamo quante volte avevamo ragione.</h2>
+    <p>Ogni lunedì il Gommberg fissa una previsione per la chiusura del venerdì di azionario mondiale, S&amp;P 500, Euro Stoxx 50, Treasury a 10 e a 2 anni, Brent ed euro-dollaro. Non è un gioco a indovinare: è un metodo scritto prima, misurato ogni settimana e pubblicato anche quando ci dà torto.</p>
+  </section>
+
+  <section aria-labelledby="h-pagella">
+    <p class="kicker">Dal vivo</p>
+    <h3 class="sec-h" id="h-pagella">La pagella</h3>
+    <div class="cards" id="cards" aria-live="polite">
+      <div class="card"><div class="l">Settimane giudicate</div><div class="v" id="cSett">-</div><div class="t">dal 19 ottobre 2026</div></div>
+      <div class="card"><div class="l">Punti</div><div class="v" id="cPunti">-</div><div class="t" id="cPar">senza abilità ci si aspetta il par</div></div>
+      <div class="card"><div class="l">Chiusure dentro la forchetta</div><div class="v" id="cRange">-</div><div class="t">obiettivo: 68%, due volte su tre</div></div>
+      <div class="card"><div class="l">Direzione giusta</div><div class="v" id="cDir">-</div><div class="t">a caso: circa 50%</div></div>
+    </div>
+    <p class="verdict" id="verdict"><span class="wait">Caricamento della pagella...</span></p>
+  </section>
+
+  <section aria-labelledby="h-come">
+    <p class="kicker">Il metodo</p>
+    <h3 class="sec-h" id="h-come">Come funziona, in quattro passi</h3>
+    <ol class="steps">
+      <li><div><h4>Si parte dalla chiusura del venerdì</h4><p>Il punto di partenza di ogni mercato è la chiusura ufficiale del venerdì precedente. Il pronostico esce il lunedì mattina e da lì non cambia più: niente correzioni a metà settimana.</p></div></li>
+      <li><div><h4>La forchetta la decide la volatilità</h4><p>Per ogni mercato calcoliamo quanto si è mosso di solito nelle ultime 20 sedute e lo portiamo su una settimana. Ne esce una forchetta di prezzo dentro cui la chiusura del venerdì dovrebbe cadere circa due settimane su tre. Non di più: una forchetta troppo larga indovina sempre ma non dice nulla.</p></div></li>
+      <li><div><h4>La direzione la sceglie la redazione</h4><p>Su o giù, per tutti e 7 i mercati, con un motivo scritto. C'è un limite: la previsione non può allontanarsi dal punto di partenza più di metà dell'oscillazione tipica della settimana. Puntare più forte sarebbe una scommessa contro l'evidenza storica.</p></div></li>
+      <li><div><h4>Il lunedì dopo, il verdetto</h4><p>Un punto se la direzione era giusta, un punto se la chiusura è caduta dentro la forchetta: 14 punti al massimo. Chi tirasse a indovinare ne farebbe in media circa 8,5: è il "par", il punteggio da battere.</p></div></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="h-storia">
+    <p class="kicker">Il collaudo</p>
+    <h3 class="sec-h" id="h-storia">Cosa dice la storia</h3>
+    <div class="two">
+      <div class="prose">
+        <p>Prima di pubblicare la prima scommessa abbiamo rifatto il metodo all'indietro su dodici anni di mercati, circa 600 settimane per ogni strumento, usando ogni volta solo i dati disponibili fino a quel venerdì. È un controllo che si chiama backtest: serve a capire se un'idea avrebbe funzionato prima di fidarsi.</p>
+        <p>Il risultato più importante è anche il più scomodo. <b>Nessuno dei segnali di direzione che abbiamo provato batte il caso</b>: né seguire la tendenza delle ultime settimane, né scommettere sul rimbalzo, né la media storica. Per prevedere dove sarà un mercato fra una settimana, il riferimento più onesto resta il prezzo di oggi.</p>
+        <p>Per questo la vera prova della redazione non è indovinare qualche volta, ma fare meglio di un modello senza opinioni su un numero di settimane abbastanza grande da escludere la fortuna. Lo misuriamo e lo pubblichiamo qui.</p>
+      </div>
+      <ul class="fact" aria-label="I numeri del backtest">
+        <li><span class="n">~600</span><span class="d"><b>settimane per strumento</b> rigiocate dal 2014-2015 al 2026, senza mai usare dati del futuro. Un controllo indipendente ha rieseguito i calcoli.</span></li>
+        <li><span class="n">68-72%</span><span class="d"><b>settimane dentro la forchetta</b>: il metodo in uso è calibrato, l'obiettivo era due su tre.</span></li>
+        <li><span class="n">0 su 3</span><span class="d"><b>segnali di direzione</b> che superano la soglia statistica su qualunque mercato.</span></li>
+        <li><span class="n">82%</span><span class="d"><b>forchetta col VIX sull'S&amp;P 500</b>: troppo larga, quindi scartata. Il VIX incorpora un premio per il rischio e sovrastima i movimenti.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-regole">
+    <p class="kicker">Le garanzie</p>
+    <h3 class="sec-h" id="h-regole">Le regole che non cambiamo a metà</h3>
+    <div class="rules">
+      <div class="rule"><h4>Prima la regola, poi i dati</h4><p>Un metodo nuovo sostituisce quello in uso solo se supera una soglia statistica fissata in anticipo. Un candidato che migliorava tutti i mercati di poco è rimasto fuori: il vantaggio poteva essere fortuna.</p></div>
+      <div class="rule"><h4>Revisione ogni sei mesi</h4><p>Ogni 26 settimane rifacciamo il collaudo e confrontiamo la pagella dal vivo con la storia. La prima revisione è ad aprile 2027, prima se la forchetta smette di funzionare.</p></div>
+      <div class="rule"><h4>Gli errori restano scritti</h4><p>Ogni pronostico è registrato il lunedì e non si modifica. Anche le idee scartate restano documentate, per non riprovarle all'infinito.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-parole">
+    <p class="kicker">In due righe</p>
+    <h3 class="sec-h" id="h-parole">Le parole della scommessa</h3>
+    <dl class="words">
+      <div><dt>Forchetta (range)</dt><dd>L'intervallo di prezzo dove ci aspettiamo la chiusura del venerdì, circa due volte su tre.</dd></div>
+      <div><dt>On track</dt><dd>A metà settimana: il mercato si sta muovendo nella direzione che avevamo previsto.</dd></div>
+      <div><dt>Par</dt><dd>Il punteggio che farebbe chi tira a indovinare, circa 8,5 su 14. Batterlo con costanza è la prova di abilità.</dd></div>
+      <div><dt>Volatilità</dt><dd>Quanto si muove un mercato in una seduta normale. Più è alta, più larga è la forchetta.</dd></div>
+      <div><dt>Passeggiata casuale</dt><dd>L'idea che il prezzo di domani sia il prezzo di oggi più un passo imprevedibile: è il modello senza opinioni con cui ci confrontiamo.</dd></div>
+      <div><dt>Backtest</dt><dd>Rigiocare un metodo sul passato, con i soli dati disponibili allora, per vedere se avrebbe funzionato.</dd></div>
+    </dl>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza finanziaria né sollecitazione all'investimento. Le previsioni sono stime redazionali, misurate e pubblicate a fini di trasparenza.</div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const num = (x, d) => Number(x).toLocaleString("it-IT", { minimumFractionDigits: d, maximumFractionDigits: d });
+  function vuota() {
+    $("verdict").innerHTML = "<b>Il primo verdetto arriva lunedì 19 ottobre 2026.</b> Da quel giorno qui trovi i punti di ogni settimana e quanto spesso abbiamo avuto ragione.";
+  }
+  fetch("redazione/scommessa/pagella.json", { cache: "no-store" })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((p) => {
+      if (!p || !p.settimane) { vuota(); return; }
+      $("cSett").textContent = p.settimane;
+      $("cPunti").textContent = p.punti + " su " + p.su;
+      $("cPunti").className = "v " + (p.punti >= p.par ? "up" : "down");
+      $("cPar").textContent = "il par è " + num(p.par, 1) + " punti";
+      const cop = p["copertura_range_%"], dir = p["direzione_giusta_%"];
+      $("cRange").textContent = num(cop, 0) + "%";
+      $("cDir").textContent = num(dir, 0) + "%";
+      $("cDir").className = "v " + (dir >= 50 ? "up" : "down");
+      let g;
+      if (p.t_dm == null) {
+        const mancano = Math.max(0, 26 - p.settimane);
+        g = "<b>Troppo presto per un giudizio.</b> Per dire se la redazione batte il modello senza opinioni servono almeno 26 settimane" +
+            (mancano ? ": ne mancano " + mancano + "." : ".") + " Fino ad allora i punti di una singola settimana dicono poco: conta la media.";
+      } else if (p.t_dm >= 2) {
+        g = "<b>La redazione batte il modello senza opinioni</b>, con un margine che difficilmente è fortuna.";
+      } else if (p.t_dm <= -2) {
+        g = "<b>Le scelte di direzione stanno peggiorando la previsione.</b> Per regola la redazione riduce la convinzione delle sue scommesse finché il record non cambia.";
+      } else {
+        g = "<b>Nessuna conclusione per ora:</b> la differenza tra la redazione e il modello senza opinioni è ancora compatibile con il caso.";
+      }
+      $("verdict").innerHTML = g;
+    })
+    .catch(vuota);
+})();
+</script>
+</body>
+</html>
