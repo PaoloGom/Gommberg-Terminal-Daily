@@ -163,9 +163,21 @@ h2.headline { font-family: var(--display); font-stretch: 85%; font-weight: 800; 
 .pages button b { display: block; font-size: 13px; color: var(--ink); font-weight: 500; }
 .pages button[aria-current="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
 .pages button[aria-current="true"] b { color: var(--orange); }
-.sheet { background: var(--sheet); box-shadow: 0 6px 24px var(--shadow); aspect-ratio: 210 / 297; max-width: 100%; position: relative; overflow: hidden; touch-action: pan-y; }
+.sheet { background: var(--paper); box-shadow: 0 6px 24px var(--shadow); aspect-ratio: 210 / 297; max-width: 100%; position: relative; overflow: hidden; touch-action: pan-y; }
+.sheet.ok { background: var(--sheet); }
+/* Anteprima non disponibile: riquadro compatto nel colore del tema, niente foglio bianco vuoto */
+.sheet.nopreview { aspect-ratio: auto; box-shadow: none; border: 1px solid var(--rule); background: var(--paper); }
+.sheet.nopreview canvas { display: none; }
+.sheet.nopreview .wait { position: static; padding: 14px 16px; text-align: left; }
+.reader:has(.sheet.nopreview) .pages, .reader:has(.sheet.nopreview) .reader-bar { display: none; }
+@media (min-width: 901px) {
+  .front > .reader { position: sticky; top: 16px; align-self: start; }
+  .sheet { width: min(100%, calc((100vh - 160px) * 210 / 297)); max-height: calc(100vh - 160px); margin-inline: auto; }
+}
+/* Telefono: niente anteprima integrata, bastano i pulsanti (il PDF si apre nel lettore del telefono) */
+@media (max-width: 900px) { .front > .reader { display: none !important; } }
 .sheet canvas { width: 100%; height: 100%; display: block; }
-.sheet .wait { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono); font-size: 13px; color: #5E5A55; text-align: center; padding: 20px; }
+.sheet .wait { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono); font-size: 13px; color: var(--muted); text-align: center; padding: 20px; }
 
 /* Come funziona (left column, under the bet) */
 .how-box { margin-top: 28px; }
@@ -552,7 +564,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     document.querySelectorAll("[data-n]").forEach((r) => r.setAttribute("aria-current", r.dataset.n == ed.numero ? "true" : "false"));
     if (push) history.replaceState(null, "", ed === editions[0] && !params.get("n") ? (DEMO ? "?demo=1" : location.pathname) : linkFor(ed));
     document.title = (ed === editions[0] ? "" : "#" + pad(ed.numero) + " ") + "Gommberg Terminal Daily";
-    loadPdf(ed.file);
+    if (desktop()) loadPdf(ed.file); else pdf = null;
   }
 
   $("copy").addEventListener("click", async () => {
@@ -587,16 +599,17 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   /* ---------- PDF reader ---------- */
   async function loadPdf(url) {
     page = 1; pdf = null; markPages();
+    $("sheet").classList.remove("ok", "nopreview");
     $("wait").hidden = false; $("wait").textContent = "Caricamento della pagina...";
     const lib = window.pdfjsLib;
-    if (!lib) { $("wait").textContent = "Anteprima non disponibile qui. Usa \"Leggi l'edizione\" o \"Scarica PDF\"."; return; }
+    if (!lib) { $("sheet").classList.add("nopreview"); $("wait").textContent = "Anteprima non disponibile qui. Usa \"Leggi l'edizione\" o \"Scarica PDF\"."; return; }
     try {
       const doc = await lib.getDocument({ url, isEvalSupported: false, disableFontFace: true }).promise;
       if (current && current.file !== url) return;
       pdf = doc;
       await renderPage();
     } catch (e) {
-      $("wait").hidden = false;
+      $("wait").hidden = false; $("sheet").classList.add("nopreview");
       $("wait").textContent = "Anteprima non disponibile qui. Usa \"Leggi l'edizione\" o \"Scarica PDF\".";
     }
   }
@@ -612,7 +625,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     if (renderTask) { try { renderTask.cancel(); } catch (e) {} }
     renderTask = p.render({ canvasContext: cv.getContext("2d"), viewport: vp });
     try { await renderTask.promise; } catch (e) { return; }
-    $("wait").hidden = true;
+    $("wait").hidden = true; $("sheet").classList.add("ok");
     $("pg").textContent = "Pagina " + page + " di " + pdf.numPages;
     $("prev").disabled = page <= 1;
     $("next").disabled = page >= pdf.numPages;
@@ -631,7 +644,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   $("sheet").addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
   $("sheet").addEventListener("touchend", (e) => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) goPage(page + (dx < 0 ? 1 : -1)); }, { passive: true });
   let rt, lastW = window.innerWidth;
-  window.addEventListener("resize", () => { if (window.innerWidth === lastW) return; lastW = window.innerWidth; clearTimeout(rt); rt = setTimeout(renderPage, 200); });
+  window.addEventListener("resize", () => { if (window.innerWidth === lastW) return; lastW = window.innerWidth; clearTimeout(rt); rt = setTimeout(() => { if (!desktop()) return; if (pdf) renderPage(); else if (current && window.pdfjsLib) loadPdf(current.file); }, 200); });
 
   /* ---------- Archive ---------- */
   function haystack(ed) {
@@ -643,10 +656,14 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     const h = ed._h || (ed._h = haystack(ed));
     return fold(query).split(/\s+/).filter(Boolean).every((w) => h.includes(w));
   }
+  // Variazione dello S&P 500 del giorno: dal ticker; per le edizioni senza ticker, dalla prima cifra
+  // "S&P 500 +x,y%" del sommario o delle notizie. Così ogni riga che ha il dato lo mostra.
   function spx(ed) {
-    const t = ed.ticker; if (!Array.isArray(t)) return null;
-    const r = t.find((x) => /S&P/.test(x[0]));
-    return r ? r[2] : null;
+    const t = ed.ticker;
+    if (Array.isArray(t)) { const r = t.find((x) => /S&P/.test(x[0])); if (r) return r[2]; }
+    const txt = [ed.titolo, ...(ed.sommario || []), ...(ed.notizie || [])].join(" ");
+    const m = txt.match(/S&P(?:\s*500)?\s*(?:a\s*)?([+\-\u2212]\d+(?:,\d+)?%)/);
+    return m ? m[1].replace("\u2212", "-") + " g" : null;
   }
   function setTema(t) {
     tema = tema === t ? "" : t;
