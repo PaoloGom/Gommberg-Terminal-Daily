@@ -10,6 +10,9 @@ Schema di fatti.json: lista di schede
  "novita": "per un tema già uscito: qual è lo sviluppo nuovo (altrimenti null)",
  "fonti": [{"testata": "Reuters", "url": "https://...", "data_pubblicazione": "AAAA-MM-GG", "citazione": "frase originale"}],
  "verifica": "confermato|errato|non_conclusivo" (scritto dal revisore), "nota_revisore": "..."}
+Fonti "ufficiali" di fonti.json (BLS, Census, BEA, Fed, Tesoro, Eurostat, Istat, BCE, borse): valgono livello 1, bastano da
+ sole. Dati pubblici certi (sezione catalizzatori, mercati, estremo): "fonte_singola": true = una sola fonte non vietata,
+ dichiarata nel PDF ("-7,57% secondo Korea Herald"); un dato del calendario non si toglie mai.
 Registro delle anomalie (passo 2c), nella stessa lista: {"id": "A1", "sezione": "anomalia", "fatto": "PPI sopra le attese,
  10 anni -9 pb", "ricerche": ["treasury yields fall despite PPI", ...], "esito": "C03" | "non chiarita"} (lo controlla
  controlli_contenuti.py)."""
@@ -21,7 +24,9 @@ fatti_p, indice_p, oggi_s = sys.argv[1], sys.argv[2], sys.argv[3]
 prima_revisione = "--prima-della-revisione" in sys.argv
 oggi = dt.date.fromisoformat(oggi_s)
 F = json.load(open(os.path.join(QUI, "fonti.json"), encoding="utf-8"))
-L1, L2, NO = set(F["livello_1"]), set(F["livello_2"]), set(F["vietate"])
+L1, L2, NO = set(F["livello_1"]) | set(F.get("ufficiali", [])), set(F["livello_2"]), set(F["vietate"])
+# dati pubblici certi (calendario macro, chiusure e movimenti di mercato): una sola fonte non vietata basta se dichiarata
+PUBBLICI = {"catalizzatori", "mercati", "estremo"}
 
 
 def livello(url):
@@ -68,8 +73,15 @@ for f in fatti:
         if not s.get("url", "").startswith("http") or not s.get("citazione") or not s.get("data_pubblicazione"):
             problemi.append(f"{i}: fonte senza url, citazione o data di pubblicazione ({s.get('testata')})")
         livelli.append(lv); testate.add((s.get("testata") or s.get("url")).lower())
-    if not (1 in livelli or sum(1 for x in livelli if x == 2) >= 2 and len(testate) >= 2):
-        problemi.append(f"{i}: fonti insufficienti (serve 1 di livello 1 o 2 testate di livello 2; livelli {livelli})")
+    singola = f.get("fonte_singola") and sez in PUBBLICI and 0 not in livelli
+    if singola and 1 not in livelli:
+        avvisi.append(f"{i}: fonte singola dichiarata ({next(iter(testate))}): nel PDF \"secondo <testata>\"")
+    elif not (1 in livelli or sum(1 for x in livelli if x == 2) >= 2 and len(testate) >= 2):
+        if sez == "catalizzatori":
+            problemi.append(f"{i}: dato del calendario: cercalo alla fonte ufficiale (fonti.json \"ufficiali\") o, se impossibile, "
+                            "\"fonte_singola\": true e \"secondo <testata>\" nel PDF; mai toglierlo")
+        else:
+            problemi.append(f"{i}: fonti insufficienti (serve 1 di livello 1 o 2 testate di livello 2; livelli {livelli})")
     ev = dt.date.fromisoformat(f["data_evento"])
     pubs = [dt.date.fromisoformat(s["data_pubblicazione"]) for s in fonti if s.get("data_pubblicazione")]
     if sez == "agenda":
@@ -95,7 +107,9 @@ for f in fatti:
             problemi.append(f"{i}: non verificato dal revisore")
         if v == "errato":
             problemi.append(f"{i}: segnato ERRATO dal revisore: {f.get('nota_revisore', '')}")
-        if v == "non_conclusivo":
+        if v == "non_conclusivo" and sez in PUBBLICI:
+            avvisi.append(f"{i}: dato pubblico non confermato dal revisore: resta con la fonte dichiarata (\"secondo <testata>\")")
+        elif v == "non_conclusivo":
             problemi.append(f"{i}: verifica non conclusiva: togliere il fatto dal PDF o attribuirlo e ripetere la verifica")
 
 print(f"Schede: {len(fatti)} | ultima edizione: {ultima} | avvisi: {len(avvisi)}")

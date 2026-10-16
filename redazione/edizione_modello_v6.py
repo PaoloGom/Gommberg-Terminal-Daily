@@ -82,7 +82,8 @@ C = {
         "freccia": "Secondo Axios i rincari dell'energia cominciano a passare ai prezzi dei servizi.",  # tipo C, scheda T01 (Axios, liv. 1)
     },
     # una frase che legge insieme tassi, dollaro, oro, petrolio e borse (o dice che non si legano): stima redazionale
-    "quadro": "2 anni e dollaro salgono con le attese su una Fed più dura, il 10 anni scende, i tecnologici "
+    "quadro": "2 anni (+3 punti base, pb) e dollaro salgono con le attese su una Fed più dura, il 10 anni scende, "
+              "lo spread tra BTP e Bund (titoli di Stato italiani e tedeschi) si allarga, i tecnologici "
               "cedono e i difensivi salgono, petrolio e oro quasi fermi: i mercati non leggono il CPI allo stesso modo "
               "(stima redazionale).",
     "in30": [
@@ -101,24 +102,26 @@ C = {
     "notizie": [   # 6-8; "tag" = tema dell'elenco chiuso, mai quello della top story né una sua reazione di mercato
         # No: "Treasury: dopo il CPI sale il breve" o "Il dollaro si rafforza dopo il dato" (reazioni alla top story:
         # vanno nel quadro o in un modulo). Sì: fatti con una causa propria. "rimando" = chiave interna, "freccia" = riga →
-        {"tag": "Tecnologia", "titolo": "Wall Street: vendite sull'AI, tecnologia -3,00%",
-         "testo": "Secondo Milano Finanza l'indice è penalizzato dalle vendite sull'intelligenza artificiale; in rialzo "
-                  "sanità (+2,44%) e beni di consumo base (+2,21%). Russell 2000 -1,93%.", "rimando": "mercati"},
+        # ogni notizia porta un fatto nuovo (dato, dichiarazione, società, decisione): mai il cruscotto in parole
+        # (No: "Londra in rialzo, Milano ed Euro Stoxx in calo"); almeno 2 su 6 da macro o società
         {"tag": "Chip", "titolo": "TSMC: utile +68,7% nel terzo trimestre, sopra le stime",
          "testo": "L'utile netto batte la stima degli analisti raccolta da LSEG (Teleborsa). I conti, usciti stamattina, "
                   "non fermano le vendite sui chip in Asia.", "rimando": "chip"},
         {"tag": "Asia", "titolo": "Tokyo: SoftBank perde quasi il 10% in apertura",
          "testo": "Kioxia e Advantest cedono circa l'11% (ANSA, Milano Finanza): le vendite sui titoli dell'AI arrivano "
                   "in Asia.", "rimando": "chip"},
+        {"tag": "Cina", "titolo": "Memorie: il timore è l'annuncio della cinese CXMT",
+         "testo": "Un analista di BNP Paribas AM cita l'annuncio di CXMT, produttore cinese di memorie, sulle DRAM di "
+                  "nuova generazione (Milano Finanza).", "rimando": "chip"},
         {"tag": "Banche", "titolo": "BofA delude, Morgan Stanley corre nel trading",
          "testo": "Sintesi di Milano Finanza sulla seconda giornata di trimestrali bancarie; BofA sconta l'onere per "
                   "la sanzione del Tesoro USA.", "rimando": "banche"},
         {"tag": "Petrolio", "titolo": "Houthi contro gli uffici Aramco, il greggio sale",
          "testo": "Secondo investingLive il petrolio sale dopo l'attacco degli Houthi agli uffici di Dhahran; in seduta il "
                   "WTI (petrolio USA) arriva a circa 95 $, il Brent future chiude in lieve rialzo."},
-        {"tag": "Europa", "titolo": "Londra in rialzo, Milano ed Euro Stoxx in calo",
-         "testo": "Piazza Affari chiude in calo (ANSA), Londra sale. Lo spread tra BTP e Bund (titoli di Stato italiani e tedeschi) si allarga di "
-                  "2 punti base (pb) secondo Teleborsa.", "rimando": "mercati"},
+        {"tag": "Trimestrali", "titolo": "BlackRock: utile in crescita del 25%",
+         "testo": "Il gestore chiude il terzo trimestre con un utile di 1,66 mld $ (FIRSTonline), nella giornata delle "
+                  "grandi banche USA.", "rimando": "banche"},
     ],
 
     # ---------- Pag. 2 ----------

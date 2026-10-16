@@ -976,7 +976,7 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
     if C.get("quadro"):   # una frase che legge insieme gli asset (B7): una riga sobria sotto la top story
         st.append(Paragraph(f'<font color="#F26B1D"><b>IL QUADRO</b></font>&nbsp;&nbsp;{signcol(C["quadro"])}', S["quadro"]))
     st += [Spacer(1, 3), side_by_side([box("In 30 secondi", C["in30"], width=CW * 0.56 - 5 * mm)],
-                                      [box("Stamattina", C["stamattina"], width=CW * 0.44)], CW * 0.56)]
+                                      [box(C.get("stamattina_titolo", "Stamattina"), C["stamattina"], width=CW * 0.44)], CW * 0.56)]
     st += section("Le notizie del giorno", "Top news")
     voci = [("mercati", "Mercati", C.get("mercati_titolo", "Cruscotto, tassi e temi aperti")),
             ("agenda", "Agenda", C.get("agenda_titolo", "Ieri in calendario e in arrivo"))]

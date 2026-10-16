@@ -29,6 +29,9 @@ def campi(C, voce=None):
         "temi_notizie": [n.get("tema") or n.get("tag") for n in C.get("notizie", []) if isinstance(n, dict)],
         "quadro": _txt(C.get("quadro")) or None,
         "stamattina": [_txt(s) for s in C.get("stamattina", [])],
+        "stamattina_titolo": C.get("stamattina_titolo", "Stamattina"),
+        "notizie_testo": [f"{_txt(n.get('titolo'))}. {_txt(n.get('testo'))}" for n in C.get("notizie", []) if isinstance(n, dict)],
+        "brevi": [_txt(m.get("breve") or m.get("titolo")) for m in C.get("moduli", [])],
         "evento_oggi": next((f"{_txt(r[0])} {_txt(r[1])}" for r in C.get("agenda", []) if "<b>" in str(r[1])), None),
         "moduli_redazione": [{
             "chiave": m.get("chiave"), "misura": m.get("misura"), "titolo": _txt(m.get("titolo")),

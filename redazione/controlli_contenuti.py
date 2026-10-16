@@ -174,7 +174,14 @@ def blocco_stamattina(raw):
 
 
 stam = VOCE.get("stamattina") or blocco_stamattina(RAW)
+apertura = VOCE.get("stamattina_titolo", "Stamattina") != "Stamattina" or "COSA GUARDARE ALL'APERTURA" in RAW
+if apertura:   # senza livelli del mattino verificati: soglie ed eventi della giornata, orari liberi
+    stam = []
+elif VOCE.get("stamattina") is not None and not any(re.search(r"\b\d{1,2}[:.]\d{2}\b", s) for s in stam):
+    ERR.append("stamattina: nessun livello con orario del mattino: C[\"stamattina_titolo\"] = \"Cosa guardare all'apertura\" "
+               "e 2-4 soglie o eventi con orario dall'agenda e dalle chiusure")
 for s in stam:
+    s = re.sub(r"(?:[Oo]ggi|[Dd]omani) alle \d{1,2}[:.]\d{2}", "", s)   # rimandi all'agenda (anche da colonne vicine nel PDF)
     ore = re.findall(r"\b(\d{1,2})[:.](\d{2})\b", s)
     for h, mi in ore:
         if not (6 <= int(h) < 9 or (int(h) == 9 and int(mi) < 30)):
@@ -183,7 +190,8 @@ try:
     ed = carica(os.path.join(REPO, "edizioni.json")) or []
     prec = max((v for v in ed if v["numero"] < VOCE.get("numero", 10 ** 6)), key=lambda v: v["numero"], default=None)
     if prec and os.path.exists(os.path.join(REPO, prec["file"])):
-        livelli = lambda xs: set(re.findall(r"\d{1,3}(?:\.\d{3})*,\d{2,4}", " ".join(xs)))
+        # solo prezzi precisi (cambi a 4 decimali, livelli sopra 100 con decimali): rendimenti e % coincidono per caso
+        livelli = lambda xs: set(re.findall(r"(?<![\d.,])(?:\d,\d{4}|\d{1,3}(?:\.\d{3})+,\d{2}|\d{3},\d{2})(?![\d%]|\s?pb)", " ".join(xs)))
         rip = livelli(stam) & livelli(blocco_stamattina(pdftext(os.path.join(REPO, prec["file"]))))
         for x in sorted(rip):
             ERR.append(f"stamattina: {x} era già nella Stamattina della #{prec['numero']:03d}: dato vecchio con orario nuovo")
@@ -215,6 +223,42 @@ if red:
     stampi = {(m.get("misura"), len(m.get("grafici", [])), bool(m.get("righe")), bool(m.get("punti"))) for m in red}
     if len(red) >= 3 and len(stampi) == 1:
         AVV.append("moduli: tutti con lo stesso stampo: varia la composizione secondo il contenuto (§2)")
+    for m in red:   # generalizzazioni smentite dalla tabella o dal grafico del modulo
+        testo = " ".join([m.get("titolo", ""), m.get("perche", ""), m.get("quindi", "")] + m.get("punti", [])).lower()
+        valori = [v for g in m.get("grafici", []) for _, v in (g.get("dati") or [])]
+        valori += [float(c.replace(".", "").replace(",", ".").rstrip("% ")) for r in m.get("righe", [])[1:] for cell in r
+                   for c in re.findall(r"[+-]\d+(?:,\d+)?\s?%", cell)]
+        if re.search(r"(tutt[ei]|le altre)[^.;]{0,30}(in rialzo|salgono|positiv)", testo) and any(v < 0 for v in valori):
+            ERR.append(f"moduli: {m.get('chiave')}: \"tutte/le altre in rialzo\" ma tabella o grafico hanno un calo")
+        if re.search(r"(tutt[ei]|le altre)[^.;]{0,30}(in calo|scendono|negativ)", testo) and any(v > 0 for v in valori):
+            ERR.append(f"moduli: {m.get('chiave')}: \"tutte/le altre in calo\" ma tabella o grafico hanno un rialzo")
+
+# ---------- notizie con un fatto nuovo, indice senza cifre, zero col segno ----------
+ASSET = set("""wall street nasdaq dow jones russell s&p euro stoxx ftse mib dax cac nikkei kospi hang seng shanghai shenzhen
+tokyo seul hong kong milano londra parigi francoforte madrid piazza affari europa asia borsa borse brent wti treasury btp bund vix
+eur usd dollaro euro yen oro petrolio spread indice indici listino listini stato stati uniti""".split())
+FONTI_N = set("secondo ansa teleborsa reuters bloomberg axios thestreet investinglive investing cnbc sole radiocor firstonline "
+              "yahoo finance milano finanza fxstreet admiral markets lseg ap afp".split())
+FATTO = re.compile(r"\butil|ricav|fattur|vendite al dettaglio|inflazion|prezzi|pil\b|occupa|disoccup|sussid|pmi\b|fiducia|produzion|"
+                   r"dichiar|annunc|decid|accord|sanzion|dazi|attacc|guerra|tagli|rialzo dei tassi|debito|insolven|stime|conti|"
+                   r"trimestr|acquisizion|fusion|offert|licenzi|sciopero|elezion|governo|banca central", re.I)
+nt = VOCE.get("notizie_testo") or VOCE.get("notizie") or []
+con_fatto = 0
+for n in nt:
+    propri = [w for w in re.findall(r"(?<![.:] )(?<!^)\b[A-Z][A-Za-z&]{2,}", n) if w.lower() not in ASSET | FONTI_N]
+    estremo = any(abs(float(x.replace(",", "."))) >= 3 for x in re.findall(r"[+-](\d+,\d+)\s?%", n))
+    if FATTO.search(n) or propri or estremo:
+        con_fatto += 1 if (FATTO.search(n) or propri) else 0
+    elif re.search(r"[+-]\d|\b(rialzo|calo|sale|scende|salgono|scendono)\b", n, re.I):
+        ERR.append(f"notizie: \"{n[:70]}\" riscrive il cruscotto: serve un fatto nuovo (dato, dichiarazione, società, decisione)")
+if len(nt) >= 6 and con_fatto < 2:
+    ERR.append(f"notizie: solo {con_fatto} con dati macro o società: almeno 2 su 6")
+for b in VOCE.get("brevi", []):
+    if re.search(r"\d\s?(%|pb|\$)|\d,\d", b):
+        ERR.append(f"indice di pag. 1: \"{b}\" porta una cifra: le voci di 'Nelle pagine interne' non ripetono cifre")
+for z in sorted(set(re.findall(r"[+-]0,0+\s?%", TUTTO))):
+    ERR.append(f"zero col segno: \"{z}\": scrivi 0,0% o \"invariato\", mai un calo o un rialzo")
+
 if "quadro" in VOCE or red is not None:
     if not VOCE.get("quadro"):
         ERR.append("quadro: manca C[\"quadro\"], la frase che legge insieme tassi, dollaro, oro, petrolio e borse (§5)")

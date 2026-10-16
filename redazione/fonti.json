@@ -1,5 +1,11 @@
 {
-  "nota": "Livello 1: basta una fonte. Livello 2: servono due testate indipendenti (o una di livello 1). Vietate: mai usabili. Un dominio non in elenco vale come livello 3: da solo non basta mai.",
+  "nota": "Ufficiali (enti statistici, banche centrali, Tesoro, borse, gestori di indici): fonte primaria, basta da sola (vale livello 1). Livello 1: basta una fonte. Livello 2: due testate indipendenti, oppure una sola dichiarata nel PDF (\"secondo X\") per un dato pubblico certo (calendario, chiusura o movimento di un indice) con \"fonte_singola\": true. Vietate: mai. Fuori elenco = livello 3: da solo mai, salvo fonte_singola su un dato pubblico.",
+  "ufficiali": ["bls.gov", "bea.gov", "census.gov", "dol.gov", "federalreserve.gov", "newyorkfed.org", "philadelphiafed.org",
+    "treasury.gov", "home.treasury.gov", "fiscaldata.treasury.gov", "ecb.europa.eu", "ec.europa.eu", "istat.it", "bancaditalia.it",
+    "destatis.de", "bundesbank.de", "insee.fr", "ons.gov.uk", "bankofengland.co.uk", "boj.or.jp", "stat.go.jp", "stats.gov.cn",
+    "bok.or.kr", "eia.gov", "sec.gov", "consob.it", "borsaitaliana.it", "nasdaq.com", "nyse.com", "cboe.com", "cmegroup.com",
+    "theice.com", "spglobal.com", "stoxx.com", "euronext.com", "deutsche-boerse.com", "londonstockexchange.com", "jpx.co.jp",
+    "krx.co.kr", "hkex.com.hk", "sse.com.cn", "ismworld.org", "conference-board.org"],
   "livello_1": [
     "reuters.com",
     "apnews.com",
