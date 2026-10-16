@@ -2,7 +2,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: black terminal masthead, then the latest edition as front page, then a dated ledger of past editions */
+/* Layout (variant B): black masthead echoing the PDF header (logo left, date and edition right,
+   orange rule), with the 7 closing values as a one-line status bar inside it; then the front page: headline, "In 30 secondi", one primary action, the Friday bet and
+   "Come funziona" in the left column, the PDF reader on the right; then the archive. Kickers in orange
+   capitals as in the PDF. */
 :root {
   --paper: #FBFAF8;
   --ink: #141414;
@@ -12,10 +15,18 @@
   --orange: #F26B1D;
   --orange-ink: #B84A0C;
   --bar: #0E0E0E;
+  --bar-2: #1C1C1C;
+  --bar-rule: #333;
   --bar-ink: #F5F3EF;
   --bar-muted: #A39C93;
   --sheet: #FFFFFF;
   --shadow: rgba(20, 16, 10, .12);
+  --up: #12753D;
+  --down: #C0261C;
+  --up-bar: #3CCB7F;
+  --down-bar: #FF6A5C;
+  --up-soft: #D8EEDF;
+  --down-soft: #F6DAD6;
   --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -23,112 +34,287 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #121110; --ink: #EDEAE5; --muted: #A49E96; --rule: #2E2B28; --panel: #1C1A18;
-    --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-ink: #F5F3EF; --bar-muted: #8F8880;
-    --sheet: #FFFFFF; --shadow: rgba(0, 0, 0, .5); color-scheme: dark;
+    --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-2: #161514; --bar-rule: #2A2826;
+    --bar-ink: #F5F3EF; --bar-muted: #8F8880;
+    --sheet: #FFFFFF; --shadow: rgba(0, 0, 0, .5);
+    --up: #46CF85; --down: #FF7466; --up-soft: #173524; --down-soft: #3F1C18; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #121110; --ink: #EDEAE5; --muted: #A49E96; --rule: #2E2B28; --panel: #1C1A18;
-  --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-ink: #F5F3EF; --bar-muted: #8F8880;
-  --sheet: #FFFFFF; --shadow: rgba(0, 0, 0, .5); color-scheme: dark;
+  --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-2: #161514; --bar-rule: #2A2826;
+  --bar-ink: #F5F3EF; --bar-muted: #8F8880;
+  --sheet: #FFFFFF; --shadow: rgba(0, 0, 0, .5);
+  --up: #46CF85; --down: #FF7466; --up-soft: #173524; --down-soft: #3F1C18; color-scheme: dark;
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
-.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; overflow-x: hidden; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+a { color: inherit; }
+.up { color: var(--up); }
+.down { color: var(--down); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-/* Masthead */
+/* Demo banner */
+.demo { background: repeating-linear-gradient(135deg, #FFE7A8 0 14px, #FFDB80 14px 28px); color: #3A2A00; font-family: var(--mono); font-size: 12.5px; text-align: center; padding: 6px 12px; }
+
+/* Masthead: like the PDF header */
 .mast { background: var(--bar); color: var(--bar-ink); border-bottom: 3px solid var(--orange); }
-.mast .wrap { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 24px; padding-block: 18px 14px; }
-.logo { font-family: var(--display); font-stretch: 75%; font-weight: 900; font-size: clamp(30px, 6vw, 46px); line-height: .9; letter-spacing: .01em; margin: 0; }
+.mast .top { display: flex; justify-content: space-between; align-items: flex-end; gap: 8px 32px; padding-block: 18px 14px; }
+.brand { min-width: 0; overflow: hidden; }
+.logo { font-family: var(--display); font-stretch: 75%; font-weight: 900; font-size: clamp(30px, 5vw, 46px); line-height: .9; letter-spacing: .01em; margin: 0; white-space: nowrap; }
 .logo b { color: var(--orange); font-weight: 900; }
 .logo span { font-weight: 600; }
-.mast .sub { font-family: var(--mono); font-size: 12px; color: var(--bar-muted); letter-spacing: .06em; text-transform: uppercase; margin-top: 6px; }
-.mast .now { font-family: var(--mono); font-size: 12px; color: var(--bar-muted); text-align: right; text-transform: uppercase; letter-spacing: .06em; }
-.mast .now strong { color: var(--bar-ink); font-weight: 500; }
+.pitch { margin: 8px 0 0; font-size: 15px; line-height: 1.4; color: var(--bar-ink); }
+.pitch em { font-style: normal; color: var(--orange); }
+.pitch a { color: var(--bar-muted); text-decoration-color: var(--bar-rule); text-underline-offset: 3px; white-space: nowrap; font-size: 13px; margin-left: 12px; }
+.pitch a:hover { color: var(--bar-ink); }
+.dateline { text-align: right; font-size: 13px; line-height: 1.5; white-space: nowrap; }
+.dateline strong { display: block; font-weight: 600; color: var(--bar-ink); }
+.dateline span { display: block; font-size: 12px; color: var(--bar-muted); }
 
-/* Section labels */
-.label { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--orange-ink); display: flex; align-items: center; gap: 10px; }
-.label::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+/* Status bar: the 7 closes of the edition on one mono line */
+.status { position: relative; }
+.status .tape-scroll { border-top: 1px solid var(--bar-rule); }
+.tape-scroll { display: flex; justify-content: space-between; align-items: center; height: 28px; overflow-x: auto; scrollbar-width: none; font-family: var(--mono); font-size: 11px; white-space: nowrap; }
+.tape-scroll::-webkit-scrollbar { display: none; }
+.tk { flex: none; padding: 0 7px; border-left: 1px solid var(--bar-rule); line-height: 1; }
+.tk:first-child { border-left: 0; padding-left: 0; }
+.tk:last-child { padding-right: 0; }
+.tk .l { color: var(--bar-muted); margin-right: 5px; }
+.tk .v { color: var(--bar-ink); margin-right: 5px; }
+.tk .c { color: var(--bar-muted); }
+.tk .c.up { color: var(--up-bar); }
+.tk .c.down { color: var(--down-bar); }
+.tk.when { color: var(--orange); letter-spacing: .04em; }
 
-/* Latest edition */
-main { padding-block: 28px 56px; display: grid; gap: 40px; }
-.front { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 32px; align-items: start; }
+/* Kickers: orange capitals as in the PDF */
+.kicker { font-family: var(--body); font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--orange-ink); margin: 0; line-height: 1.4; }
+.kick-row { display: flex; align-items: baseline; gap: 6px 12px; flex-wrap: wrap; }
+.kick-row .kmeta { font-family: var(--mono); font-size: 12px; color: var(--muted); display: none; }
+.how2 { margin-left: auto; align-self: center; font-size: 12.5px; color: var(--muted); text-underline-offset: 3px; white-space: nowrap; display: none; }
+.sec-h { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 26px; line-height: 1.1; margin: 4px 0 0; padding-bottom: 8px; border-bottom: 1px solid var(--orange); }
+
+main { padding-block: 28px 56px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 44px; }
+main > section { min-width: 0; }
+
+/* Front page */
+.front { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); gap: 40px; align-items: start; }
 .front > * { min-width: 0; }
-.meta { font-family: var(--mono); font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 14px; }
+.front { grid-template-rows: auto 1fr; }
+.front > .lead-col { grid-column: 1; grid-row: 1; }
+.front > .how-box { grid-column: 1; grid-row: 2; margin-top: 0; }
+.front > .reader { grid-column: 2; grid-row: 1 / span 2; }
+.meta { font-family: var(--mono); font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 14px; }
 .meta .num { color: var(--ink); font-weight: 500; }
-h2.headline { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: clamp(26px, 3.6vw, 36px); line-height: 1.08; margin: 10px 0 0; text-wrap: balance; }
-.brief { margin: 20px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 62ch; }
+h2.headline { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: clamp(25px, 3.4vw, 38px); line-height: 1.06; margin: 8px 0 0; text-wrap: balance; }
+.brief-k { margin-top: 20px; }
+.brief { margin: 8px 0 0; padding: 0; list-style: none; display: grid; gap: 11px; max-width: 62ch; }
 .brief li { display: grid; grid-template-columns: 10px 1fr; gap: 10px; }
 .brief li::before { content: ""; width: 7px; height: 7px; background: var(--orange); margin-top: .62em; }
-.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-.btn { font-family: var(--mono); font-size: 13px; letter-spacing: .04em; text-transform: uppercase; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); padding: 10px 16px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+.tag { font-family: var(--mono); font-size: 12px; border: 1px solid var(--rule); padding: 2px 8px; color: var(--muted); background: transparent; cursor: pointer; line-height: 1.5; }
+.tag:hover { border-color: var(--orange); color: var(--ink); }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.share { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.btn { font-family: var(--mono); font-size: 13px; letter-spacing: .03em; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); padding: 10px 14px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; line-height: 1.2; min-height: 42px; }
 .btn.ghost { background: transparent; color: var(--ink); }
+.btn.sm { font-size: 12px; padding: 6px 10px; min-height: 36px; gap: 6px; border-color: var(--rule); }
+.btn.sm svg { width: 14px; height: 14px; }
+.btn.lead { padding-inline: 20px; }
+.btn svg { width: 16px; height: 16px; flex: none; }
 .btn:hover { border-color: var(--orange); }
-.btn:focus-visible, .row:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
-.btn[disabled] { opacity: .5; cursor: default; }
+.btn:focus-visible, .row:focus-visible, .tag:focus-visible, .chip:focus-visible, .day:focus-visible, .pages button:focus-visible, .pager button:focus-visible, .seg button:focus-visible, summary:focus-visible, input:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
 .note { font-size: 13px; color: var(--muted); margin-top: 10px; min-height: 1.4em; }
+.note a { color: var(--orange-ink); }
+
+/* Friday bet */
+.bet { margin-top: 28px; background: var(--panel); border-left: 3px solid var(--orange); padding: 12px 16px 14px; }
+.bet-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; align-items: baseline; }
+.bet-head h3 { margin: 0; }
+.bet-head .wk { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.score { display: flex; flex-wrap: wrap; gap: 4px 22px; margin-top: 6px; font-size: 14px; color: var(--muted); }
+.score b { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 28px; color: var(--ink); line-height: 1; margin-right: 6px; }
+.instr { display: flex; flex-wrap: wrap; gap: 5px; margin: 10px 0 0; padding: 0; list-style: none; }
+@media (min-width: 421px) { .instr { display: grid; grid-template-columns: repeat(4, max-content); } }
+.instr li { font-family: var(--mono); font-size: 12px; padding: 3px 7px; background: var(--paper); border: 0; white-space: nowrap; line-height: 1.4; }
+.instr li .a { color: var(--ink); margin: 0 4px; }
+.instr li .r { font-weight: 600; }
+.instr li .r.ok { color: var(--up); }
+.instr li .r.ko { color: var(--down); }
+.instr li .r.na { color: var(--muted); }
+.bet-foot { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.45; }
+.bet-foot strong { color: var(--ink); font-weight: 600; }
 
 /* Reader */
-.reader { background: var(--panel); border: 1px solid var(--rule); padding: 14px; }
-.reader-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-family: var(--mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
-.pager { display: flex; align-items: center; gap: 8px; }
-.pager button { font-family: var(--mono); font-size: 14px; width: 34px; height: 30px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); cursor: pointer; }
+.reader { background: var(--panel); padding: 12px; }
+.reader-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: .04em; margin-bottom: 10px; }
+.pager { display: flex; align-items: center; gap: 6px; }
+.pager button { font-family: var(--mono); font-size: 15px; width: 40px; height: 34px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); cursor: pointer; }
 .pager button:disabled { opacity: .4; cursor: default; }
-.sheet { background: var(--sheet); box-shadow: 0 6px 24px var(--shadow); aspect-ratio: 210 / 297; max-width: 100%; position: relative; overflow: hidden; }
+.pages { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; margin: 0 0 10px; padding: 0; list-style: none; }
+.pages button { width: 100%; font-family: var(--mono); font-size: 11px; line-height: 1.2; padding: 6px 2px; border: 1px solid var(--rule); background: var(--paper); color: var(--muted); cursor: pointer; text-align: center; }
+.pages button b { display: block; font-size: 13px; color: var(--ink); font-weight: 500; }
+.pages button[aria-current="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.pages button[aria-current="true"] b { color: var(--orange); }
+.sheet { background: var(--sheet); box-shadow: 0 6px 24px var(--shadow); aspect-ratio: 210 / 297; max-width: 100%; position: relative; overflow: hidden; touch-action: pan-y; }
 .sheet canvas { width: 100%; height: 100%; display: block; }
 .sheet .wait { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono); font-size: 13px; color: #5E5A55; text-align: center; padding: 20px; }
 
-/* Ledger */
-.ledger { display: grid; gap: 0; margin-top: 14px; }
-.row { display: grid; grid-template-columns: 70px 150px minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding-block: 14px; border-bottom: 1px solid var(--rule); text-decoration: none; color: inherit; cursor: pointer; background: none; border-top: 0; border-left: 0; border-right: 0; text-align: left; font: inherit; width: 100%; }
+/* Come funziona (left column, under the bet) */
+.how-box { margin-top: 28px; }
+.note:empty { display: none; }
+.loading .actions, .loading .share { visibility: hidden; }
+.failed .actions, .failed .share, .failed .reader, .failed .brief-k { display: none !important; }
+.failed .front { grid-template-columns: minmax(0, 1fr); }
+.retry { margin-top: 14px; }
+.how-box dl { margin: 12px 0 0; padding-top: 12px; border-top: 1px solid var(--rule); }
+.how-box dt .pp { display: block; font-family: var(--mono); font-stretch: 100%; font-weight: 500; font-size: 11.5px; letter-spacing: .04em; color: var(--orange-ink); margin-bottom: 2px; }
+.how-box dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; }
+.how-box dl > div { min-width: 0; }
+.how-box dt { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 17px; line-height: 1.2; }
+.how-box dd { margin: 2px 0 14px; color: var(--muted); font-size: 14.5px; line-height: 1.5; max-width: 60ch; }
+
+/* Archive */
+.arch-tools { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 16px; align-items: center; margin-top: 16px; max-width: 760px; }
+.search { position: relative; min-width: 0; }
+.search input { width: 100%; font: inherit; font-size: 16px; padding: 10px 12px 10px 38px; border: 1px solid var(--rule); background: var(--sheet); color: #141414; border-radius: 0; -webkit-appearance: none; appearance: none; }
+:root[data-theme="dark"] .search input { background: var(--panel); color: var(--ink); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .search input { background: var(--panel); color: var(--ink); } }
+.search svg { position: absolute; left: 12px; top: 50%; width: 16px; height: 16px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.seg { display: inline-flex; border: 1px solid var(--ink); justify-self: end; }
+.seg button { font-family: var(--mono); font-size: 13px; padding: 10px 14px; border: 0; background: transparent; color: var(--ink); cursor: pointer; min-height: 42px; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.chips { display: flex; gap: 6px; margin-top: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex: none; font-family: var(--mono); font-size: 12.5px; border: 1px solid var(--rule); background: transparent; color: var(--ink); padding: 6px 10px; cursor: pointer; white-space: nowrap; }
+.chip small { color: var(--muted); font-size: 11px; margin-left: 4px; }
+.chip[aria-pressed="true"] { background: var(--orange); border-color: var(--orange); color: #141414; }
+.chip[aria-pressed="true"] small { color: #141414; }
+.count { font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin-top: 12px; min-height: 1.4em; }
+
+.month { border-top: 2px solid var(--ink); margin-top: 18px; }
+.month > summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0 6px; }
+.month > summary::-webkit-details-marker { display: none; }
+.month > summary h3 { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 22px; margin: 0; line-height: 1.1; }
+.month > summary h3::before { content: "+"; font-family: var(--mono); font-weight: 400; color: var(--orange-ink); display: inline-block; width: 1.1em; }
+.month[open] > summary h3::before { content: "-"; }
+.month > summary span { font-family: var(--mono); font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+
+.row { display: grid; grid-template-columns: 74px 52px minmax(0, 1fr) 82px; gap: 14px; align-items: baseline; padding: 12px 0; border: 0; border-bottom: 1px solid var(--rule); color: inherit; cursor: pointer; background: none; text-align: left; font: inherit; width: 100%; }
 .row:hover .t { color: var(--orange-ink); }
-.row .n { font-family: var(--mono); font-weight: 500; }
-.row .d { font-family: var(--mono); font-size: 13px; color: var(--muted); }
-.row .t { font-family: var(--display); font-stretch: 85%; font-weight: 700; font-size: 18px; line-height: 1.25; }
-.row .go { font-family: var(--mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
-.row[aria-current="true"] .go { color: var(--orange-ink); }
+.row .d { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+.row .d b { color: var(--ink); font-weight: 500; }
+.row .n { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.row .t { font-family: var(--display); font-stretch: 85%; font-weight: 700; font-size: 18px; line-height: 1.25; min-width: 0; }
+.row .tg { display: block; font-family: var(--mono); font-size: 11.5px; font-weight: 400; color: var(--muted); margin-top: 4px; font-stretch: 100%; }
+.row .sp { font-family: var(--mono); font-size: 12.5px; text-align: right; white-space: nowrap; }
+.row .sp small { display: block; font-size: 10.5px; color: var(--muted); }
+.row { position: relative; }
+.row[aria-current="true"]::before { content: ""; position: absolute; left: -10px; top: 12px; bottom: 12px; width: 3px; background: var(--orange); }
 .empty { color: var(--muted); padding-block: 16px; }
 
-footer { border-top: 1px solid var(--rule); }
-footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted); max-width: 1080px; }
+/* Calendar */
+.cal-month { margin-top: 18px; border-top: 2px solid var(--ink); padding-top: 10px; }
+.cal-month h3 { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 22px; margin: 0 0 8px; line-height: 1.1; }
+.cal { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; max-width: 560px; }
+.cal .wd { font-family: var(--mono); font-size: 11px; color: var(--muted); text-align: center; padding-bottom: 2px; }
+.day { aspect-ratio: 1.35; border: 1px solid var(--rule); background: transparent; font-family: var(--mono); font-size: 12px; color: var(--muted); padding: 4px 6px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
+.day.has { cursor: pointer; color: var(--ink); background: var(--panel); }
+.day.has.pos { background: var(--up-soft); }
+.day.has.neg { background: var(--down-soft); }
+.day.has:hover { border-color: var(--orange); }
+.day .dv { font-size: 11px; white-space: nowrap; overflow: hidden; }
+.day.dim { opacity: .3; }
+.day[aria-current="true"] { outline: 2px solid var(--ink); outline-offset: -2px; }
+.cal-key { font-size: 13px; color: var(--muted); margin-top: 12px; }
 
-@media (max-width: 820px) {
-  .front { grid-template-columns: 1fr; }
-  .row { grid-template-columns: 52px minmax(0, 1fr) auto; }
-  .row .d { grid-column: 2; grid-row: 1; }
-  .row .t { grid-column: 1 / -1; }
-  .row .go { grid-column: 3; grid-row: 1; }
-  .mast .now { text-align: left; }
+footer { border-top: 1px solid var(--rule); }
+footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted); }
+
+@media (max-width: 900px) {
+  .front { grid-template-columns: 1fr; grid-template-rows: none; gap: 28px; }
+  .front > .lead-col, .front > .how-box, .front > .reader { grid-column: 1; grid-row: auto; }
 }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media (max-width: 760px) {
+  .how-box dl { grid-template-columns: 1fr; }
+  .mast .top { padding-block: 11px 9px; }
+  .logo { font-size: 27px; }
+  .pitch { font-size: 14px; margin-top: 5px; white-space: nowrap; }
+  .pitch a, .dateline { display: none; }
+  .kick-row .kmeta { display: inline; }
+  .how2 { display: inline; }
+  .tape-scroll { height: 27px; font-size: 11.5px; justify-content: flex-start; }
+  .tk { padding: 0 10px; }
+  .status::after { content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 28px; background: linear-gradient(90deg, transparent, var(--bar)); pointer-events: none; }
+  main { padding-top: 14px; }
+  .meta { font-size: 12px; gap: 2px 12px; }
+  .meta .pp { display: none; }
+  h2.headline { font-size: 24px; margin-top: 6px; }
+  .brief-k { margin-top: 12px; }
+  .brief { margin-top: 6px; gap: 8px; font-size: 15px; line-height: 1.45; }
+  .actions { margin-top: 14px; }
+  .row { grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; }
+  .row .d { grid-column: 1; grid-row: 1; }
+  .row .n { display: none; }
+  .row .sp { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+  .row .t { grid-column: 1; grid-row: 2; font-size: 17px; }
+  .arch-tools { grid-template-columns: 1fr; }
+  .seg { justify-self: start; }
+}
+@media (max-width: 420px) {
+  .wrap { padding-inline: 16px; }
+  .pages button span { display: none; }
+  .actions .btn.lead { flex: 1 1 auto; justify-content: center; }
+  .day { aspect-ratio: 1.05; padding: 3px 4px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 </style>
 
+<div class="demo" id="demo" hidden>Modalità prova: archivio con edizioni FINTE generate per il collaudo. I dati non sono reali.</div>
+
 <header class="mast">
-  <div class="wrap">
-    <div>
+  <div class="wrap top">
+    <div class="brand">
       <h1 class="logo"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></h1>
-      <div class="sub">Mercati globali | Rassegna quotidiana | lun-ven</div>
+      <p class="pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.<a href="#cose">Come funziona</a></p>
     </div>
-    <div class="now" id="now">Archivio edizioni</div>
+    <div class="dateline"><strong id="dlDate">&nbsp;</strong><span>Lun-ven, entro le 10</span></div>
+  </div>
+  <div class="wrap status" id="tape" hidden>
+    <div class="tape-scroll" id="tapeRow" role="list" aria-label="Chiusure riportate nell'edizione"></div>
   </div>
 </header>
 
-<main class="wrap">
+<main class="wrap loading" id="main">
   <section aria-labelledby="lbl-latest">
-    <div class="label" id="lbl-latest">Ultima edizione</div>
-    <div class="front" style="margin-top:18px">
-      <div>
-        <div class="meta" id="meta"><span>Caricamento dell'archivio...</span></div>
-        <h2 class="headline" id="headline">Gommberg Terminal Daily</h2>
+    <div class="front">
+      <div class="lead-col">
+        <div class="kick-row"><h2 class="kicker" id="lbl-latest">Ultima edizione</h2><span class="kmeta" id="meta"></span></div>
+        <h2 class="headline" id="headline">Caricamento dell'edizione...</h2>
+        <h3 class="kicker brief-k" id="briefK" hidden>In 30 secondi</h3>
         <ul class="brief" id="brief"></ul>
         <div class="actions">
-          <button class="btn" id="dl" type="button" disabled>Scarica il PDF</button>
-          <a class="btn ghost" id="open" href="#" target="_blank" rel="noopener">Apri a schermo intero</a>
+          <a class="btn lead" id="read" href="#" target="_blank" rel="noopener">Leggi l'edizione</a>
+        </div>
+        <div class="share">
+          <a class="btn ghost sm" id="wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>WhatsApp</a>
+          <button type="button" class="btn ghost sm" id="copy"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M10 14a4 4 0 0 0 5.7 0l3.6-3.6a4 4 0 0 0-5.7-5.7L12 6.3M14 10a4 4 0 0 0-5.7 0l-3.6 3.6a4 4 0 0 0 5.7 5.7l1.6-1.6"/></svg><span>Copia link</span></button>
+          <a class="how2" href="#cose">Come funziona</a>
         </div>
         <div class="note" id="note" role="status"></div>
+
+        <section class="bet" id="bet" aria-labelledby="bet-h" hidden>
+          <div class="bet-head"><h3 class="kicker" id="bet-h">La scommessa del venerdì</h3><span class="wk" id="betWk"></span></div>
+          <div class="score" id="betScore"></div>
+          <ul class="instr" id="betInstr" aria-label="I 7 mercati della scommessa"></ul>
+          <div class="bet-foot" id="betFoot"></div>
+        </section>
+
       </div>
-      <div class="reader" aria-label="Lettore dell'edizione">
+
+      <div class="reader" id="reader" aria-label="Lettore dell'edizione">
         <div class="reader-bar">
           <span id="pg">Pagina - di -</span>
           <div class="pager">
@@ -136,70 +322,269 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
             <button type="button" id="next" aria-label="Pagina successiva" disabled>&rsaquo;</button>
           </div>
         </div>
-        <div class="sheet"><canvas id="cv"></canvas><div class="wait" id="wait">Caricamento della pagina...</div></div>
+        <ol class="pages" id="pages" aria-label="Vai alla pagina">
+          <li><button type="button" data-p="1"><b>1</b><span>Prima</span></button></li>
+          <li><button type="button" data-p="2"><b>2</b><span>Mercati</span></button></li>
+          <li><button type="button" data-p="3"><b>3</b><span>Agenda</span></button></li>
+          <li><button type="button" data-p="4"><b>4</b><span>Approf.</span></button></li>
+          <li><button type="button" data-p="5"><b>5</b><span>Approf.</span></button></li>
+          <li><button type="button" data-p="6"><b>6</b><span>Scommessa</span></button></li>
+        </ol>
+        <div class="sheet" id="sheet"><canvas id="cv"></canvas><div class="wait" id="wait">Caricamento della pagina...</div></div>
+        <div class="actions" style="margin-top:12px"><a class="btn ghost" id="open" href="#" target="_blank" rel="noopener">Apri a schermo intero</a><button class="btn ghost" id="dl" type="button" disabled>Scarica PDF</button></div>
       </div>
+
+      <section class="how-box" id="cose-sec" aria-labelledby="cose">
+        <h2 class="kicker" id="cose">Come funziona</h2>
+        <dl>
+          <div>
+            <dt><span class="pp">Pag. 1</span>Una prima pagina completa</dt>
+            <dd>Come un quotidiano: le chiusure, la notizia principale, In 30 secondi e le notizie del giorno. Se hai un minuto, basta questa.</dd>
+          </div>
+          <div>
+            <dt><span class="pp">Pag. 2</span>Mercati, tassi, temi aperti</dt>
+            <dd>Indici, curve dei tassi, materie prime e cambi, con i termometri dei temi aperti: cosa si muove e cosa è fermo.</dd>
+          </div>
+          <div>
+            <dt><span class="pp">Pag. 3-5</span>Agenda e approfondimenti</dt>
+            <dd>Il calendario dei dati e delle trimestrali, poi gli approfondimenti: scelti ogni mattina sulle notizie del giorno, non su rubriche fisse.</dd>
+          </div>
+          <div>
+            <dt><span class="pp">Pag. 6</span>La scommessa del venerdì</dt>
+            <dd>Il lunedì fissiamo dove chiuderanno 7 mercati il venerdì e li seguiamo giorno per giorno. Il lunedì dopo, il verdetto.</dd>
+          </div>
+        </dl>
+      </section>
     </div>
   </section>
 
-  <section aria-labelledby="lbl-arch">
-    <div class="label" id="lbl-arch">Tutte le edizioni</div>
-    <div class="ledger" id="ledger"><div class="empty">Le edizioni compaiono qui, dalla più recente.</div></div>
+  <section aria-labelledby="lbl-arch" id="archivio">
+    <h2 class="kicker" id="lbl-arch">Archivio</h2>
+    <h3 class="sec-h">Tutte le edizioni</h3>
+    <div class="arch-tools">
+      <label class="search"><span class="sr">Cerca nell'archivio</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Zm5.3-2.2L21 21"/></svg>
+        <input type="search" id="q" placeholder="Cerca: Kospi, CPI, TSMC, 14 ottobre..." autocomplete="off" enterkeyhint="search">
+      </label>
+      <div class="seg" id="vSeg" role="group" aria-label="Vista dell'archivio" hidden>
+        <button type="button" id="vList" aria-pressed="true">Elenco</button>
+        <button type="button" id="vCal" aria-pressed="false">Calendario</button>
+      </div>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Filtra per tema" hidden></div>
+    <div class="count" id="count" role="status"></div>
+    <div id="ledger"><div class="empty">Le edizioni compaiono qui, dalla più recente.</div></div>
   </section>
 </main>
 
 <footer>
-  <div class="wrap">Gommberg Terminal Daily è una rassegna informativa a uso personale. Non costituisce consulenza finanziaria né sollecitazione all'investimento. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</div>
+  <div class="wrap">Gommberg Terminal Daily è una rassegna informativa a uso personale. Non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
 <script>
 (function () {
+  "use strict";
   const MESI = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
   const GIORNI = ["domenica","lunedì","martedì","mercoledì","giovedì","venerdì","sabato"];
+  const GG = ["dom","lun","mar","mer","gio","ven","sab"];
+  const BREVI = { "MSCI ACWI (ETF)": "ACWI", "S&P 500": "S&P", "Euro Stoxx 50": "Stoxx 50", "Treasury 10 anni": "UST 10a", "Treasury 2 anni": "UST 2a", "Brent future": "Brent", "EUR/USD": "EUR/USD" };
   const $ = (id) => document.getElementById(id);
+  const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
   const pad = (n) => String(n).padStart(3, "0");
-  function dataLunga(iso) {
-    const [y, m, d] = iso.split("-").map(Number);
-    const dt = new Date(Date.UTC(y, m - 1, d));
-    return GIORNI[dt.getUTCDay()] + " " + d + " " + MESI[m - 1] + " " + y;
+  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+  const parts = (iso) => iso.split("-").map(Number);
+  const utc = (iso) => { const [y, m, d] = parts(iso); return new Date(Date.UTC(y, m - 1, d)); };
+  const dataLunga = (iso) => { const dt = utc(iso); return GIORNI[dt.getUTCDay()] + " " + dt.getUTCDate() + " " + MESI[dt.getUTCMonth()] + " " + dt.getUTCFullYear(); };
+  const fold = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const params = new URLSearchParams(location.search);
+  const DEMO = params.get("demo") === "1";
+  const SRC = DEMO ? "edizioni_demo.json" : "edizioni.json";
+  const SOGLIA_ARCHIVIO = 30; // below this many editions: no calendar and no theme chips
+  const desktop = () => window.matchMedia("(min-width: 901px)").matches;
+
+  // Sign of a change string like "+0,6% g", "-2 pb g", "0,0% g", "chiuso lun 12"
+  function segno(s) {
+    const m = String(s || "").trim().match(/^([+-−])?\s*(\d+(?:[.,]\d+)?)/);
+    if (!m) return 0;
+    if (parseFloat(m[2].replace(",", ".")) === 0) return 0;
+    return m[1] === "-" || m[1] === "−" ? -1 : m[1] === "+" ? 1 : 0;
   }
-  function dataBreve(iso) {
-    const [y, m, d] = iso.split("-").map(Number);
-    return String(d).padStart(2, "0") + "." + String(m).padStart(2, "0") + "." + y;
+  const cls = (s) => { const g = segno(s); return g > 0 ? "up" : g < 0 ? "down" : ""; };
+  function settimana(s) {
+    if (!s || s.indexOf("/") < 0) return "";
+    const [a, b] = s.split("/").map(utc);
+    return a.getUTCMonth() === b.getUTCMonth()
+      ? a.getUTCDate() + "-" + b.getUTCDate() + " " + MESI[b.getUTCMonth()]
+      : a.getUTCDate() + " " + MESI[a.getUTCMonth()] + " - " + b.getUTCDate() + " " + MESI[b.getUTCMonth()];
   }
+  const num = (x) => String(x).replace(".", ",");
 
   let editions = [], current = null, pdf = null, page = 1, renderTask = null;
+  let view = "list", tema = "", query = "";
 
-  function showEdition(ed) {
+  /* ---------- URL for one edition ---------- */
+  function linkFor(ed) {
+    const u = new URL(location.href);
+    u.search = ""; u.hash = "";
+    u.searchParams.set("n", ed.numero);
+    if (DEMO) u.searchParams.set("demo", "1");
+    return u.toString();
+  }
+
+  /* ---------- Tape ---------- */
+  // Closing date shown on the tape: optional "ticker_al" (AAAA-MM-GG), else the weekday before the edition
+  function chiusure(ed) {
+    const iso = /^\d{4}-\d{2}-\d{2}$/.test(ed.ticker_al || "") ? ed.ticker_al : null;
+    let d = iso ? utc(iso) : (ed.data ? utc(ed.data) : null);
+    if (!d || isNaN(d)) return "CHIUSURE DELL'EDIZIONE";
+    if (!iso) do { d.setUTCDate(d.getUTCDate() - 1); } while (d.getUTCDay() === 0 || d.getUTCDay() === 6);
+    return "CHIUSURE " + d.getUTCDate() + " " + MESI[d.getUTCMonth()].slice(0, 3).toUpperCase();
+  }
+  const CORTI = { "MSCI ACWI (ETF)": "ACWI", "EURO STOXX 50": "STOXX 50", "UST 10 ANNI": "UST 10A", "BRENT FUTURE": "BRENT" };
+  function tape(ed) {
+    if (!$("tape")) return; // variant without ticker
+    const t = ed.ticker;
+    if (!Array.isArray(t) || !t.length) { $("tape").hidden = true; return; }
+    const row = $("tapeRow"); row.innerHTML = "";
+    const w = el("div", "tk when", chiusure(ed)); w.setAttribute("role", "listitem");
+    w.title = "Chiusure riportate nell'edizione n. " + pad(ed.numero) + ", non quotazioni in tempo reale";
+    row.appendChild(w);
+    for (const it of t) {
+      const [l, v, c] = it;
+      const cell = el("div", "tk"); cell.setAttribute("role", "listitem");
+      cell.appendChild(el("span", "l", CORTI[l] || l));
+      cell.appendChild(el("span", "v", String(v || "").replace(/\s*\$$/, "")));
+      cell.title = l + " " + v + " " + (c || "");
+      cell.appendChild(el("span", "c " + cls(c), String(c || "").replace(/\s+g$/, "").replace(/\s+sett$/, " sett")));
+      row.appendChild(cell);
+    }
+    $("tape").hidden = false;
+  }
+
+  /* ---------- Friday bet ---------- */
+  function bet(ed) {
+    const b = ed.scommessa, v = ed.verdetto;
+    if (!b && !v) { $("bet").hidden = true; return; }
+    $("bet").hidden = false;
+    $("betWk").textContent = b && b.settimana ? "Settimana " + settimana(b.settimana) : "";
+    const sc = $("betScore"); sc.innerHTML = "";
+    const tot = (b && b.su) || 7;
+    if (b && b.strada != null) {
+      const a = el("div"); a.appendChild(el("b", "", b.strada + "/" + tot)); a.append("sulla strada giusta"); sc.appendChild(a);
+    }
+    if (b && b.range != null) {
+      const a = el("div"); a.appendChild(el("b", "", b.range + "/" + tot)); a.append("dentro il range"); sc.appendChild(a);
+    }
+    if (b && b.strada == null && b.range == null) {
+      sc.appendChild(el("div", "", "Pronostico appena fatto: da domani vedi a che punto siamo."));
+    }
+    const ul = $("betInstr"); ul.innerHTML = "";
+    const det = (b && Array.isArray(b.dettaglio)) ? b.dettaglio : [];
+    for (const d of det) {
+      const [nome, dir, strada] = d;
+      const li = el("li");
+      li.appendChild(el("span", "n", BREVI[nome] || nome));
+      li.appendChild(el("span", "a", dir === "su" ? "\u2191" : dir === "giù" ? "\u2193" : "="));
+      li.appendChild(el("span", "r " + (strada === true ? "ok" : strada === false ? "ko" : "na"), strada === true ? "\u2713" : strada === false ? "\u2717" : "-"));
+      const lab = nome + ": previsto in " + (dir === "su" ? "rialzo" : dir === "giù" ? "calo" : "parità") + (strada === true ? ", per ora sulla strada giusta" : strada === false ? ", per ora nella direzione opposta" : ", ancora nessun movimento");
+      li.title = lab; li.setAttribute("aria-label", lab);
+      ul.appendChild(li);
+    }
+    ul.hidden = !det.length;
+    const f = $("betFoot"); f.innerHTML = "";
+    if (v && v.punti != null) {
+      const p = el("div");
+      p.append("Verdetto della settimana " + settimana(v.settimana) + ": ");
+      const s = el("strong", v.punti > (v.par || 8.5) ? "up" : v.punti < (v.par || 8.5) ? "down" : "", v.punti + " punti su " + (v.su || 14));
+      p.appendChild(s); p.append(" (par " + num(v.par || 8.5) + ").");
+      f.appendChild(p);
+    }
+    const st = b && b.stagione;
+    if (det.length) f.appendChild(el("div", "", "Freccia: la direzione scelta lunedì. \u2713 per ora va così, \u2717 per ora va al contrario."));
+    if (Array.isArray(st) && st[1] > 0) f.appendChild(el("div", "", "Stagione: " + st[0] + " punti su " + st[1] + "."));
+    const go = el("button", "tag", "Vai alla pagina 6"); go.type = "button"; go.style.marginTop = "8px";
+    go.addEventListener("click", () => goPage(6, true));
+    f.appendChild(go);
+  }
+
+  /* ---------- Front page ---------- */
+  function showEdition(ed, push) {
     current = ed;
-    $("meta").innerHTML = "";
-    const parts = [["num", "Edizione n. " + pad(ed.numero)], ["", dataLunga(ed.data)], ["", (ed.pagine || "-") + " pagine"]];
-    for (const [cls, txt] of parts) { const s = document.createElement("span"); if (cls) s.className = cls; s.textContent = txt; $("meta").appendChild(s); }
+    const dt = utc(ed.data);
+    $("meta").textContent = "N. " + pad(ed.numero) + " | " + GG[dt.getUTCDay()] + " " + dt.getUTCDate() + " " + MESI[dt.getUTCMonth()].slice(0, 3);
+    $("dlDate").textContent = cap(dataLunga(ed.data)) + "  |  Edizione n. " + pad(ed.numero);
     $("headline").textContent = ed.titolo;
     const ul = $("brief"); ul.innerHTML = "";
-    for (const b of (ed.sommario || [])) { const li = document.createElement("li"); li.textContent = b; ul.appendChild(li); }
-    $("open").href = ed.file;
+    for (const b of (ed.sommario || [])) ul.appendChild(el("li", "", b));
+    $("briefK").hidden = !(ed.sommario || []).length;
+    $("open").href = ed.file; $("read").href = ed.file;
     $("dl").disabled = false;
-    $("note").textContent = ed === editions[0] ? "" : "Stai leggendo un'edizione precedente. La più recente è la n. " + pad(editions[0].numero) + ".";
-    document.querySelectorAll(".row").forEach((r) => r.setAttribute("aria-current", r.dataset.n == ed.numero ? "true" : "false"));
+    const url = linkFor(ed);
+    const txt = "Gommberg Terminal Daily n. " + pad(ed.numero) + ", " + dataLunga(ed.data) + "\n" + ed.titolo + "\n" + url;
+    $("wa").href = "https://wa.me/?text=" + encodeURIComponent(txt);
+    const note = $("note"); note.innerHTML = "";
+    if (ed !== editions[0]) {
+      note.append("Stai leggendo un'edizione precedente. ");
+      const a = el("a", "", "Torna all'ultima, la n. " + pad(editions[0].numero)); a.href = "#";
+      a.addEventListener("click", (e) => { e.preventDefault(); showEdition(editions[0], true); });
+      note.appendChild(a);
+    }
+    if (Array.isArray(ed.errata) && ed.errata.length) note.appendChild(el("div", "", "Errata corrige in questa edizione: " + ed.errata.join(" ")));
+    $("lbl-latest").textContent = ed === editions[0] ? "Ultima edizione" : "Edizione precedente";
+    tape(ed); bet(ed);
+    document.querySelectorAll("[data-n]").forEach((r) => r.setAttribute("aria-current", r.dataset.n == ed.numero ? "true" : "false"));
+    if (push) history.replaceState(null, "", ed === editions[0] && !params.get("n") ? (DEMO ? "?demo=1" : location.pathname) : linkFor(ed));
+    document.title = (ed === editions[0] ? "" : "#" + pad(ed.numero) + " ") + "Gommberg Terminal Daily";
     loadPdf(ed.file);
   }
 
+  $("copy").addEventListener("click", async () => {
+    if (!current) return;
+    const url = linkFor(current);
+    const lab = $("copy").querySelector("span");
+    try { await navigator.clipboard.writeText(url); lab.textContent = "Link copiato"; }
+    catch (e) { window.prompt("Copia il link dell'edizione:", url); }
+    setTimeout(() => { lab.textContent = "Copia link"; }, 2200);
+  });
+  $("dl").addEventListener("click", async () => {
+    if (!current) return;
+    $("note").textContent = "";
+    try {
+      const dl = window.claude && window.claude.use ? await window.claude.use("downloads") : null;
+      if (!dl) { $("note").textContent = "Il download diretto non è disponibile qui: apri il PDF a schermo intero e salvalo da lì."; return; }
+      const blob = await (await fetch(current.file)).blob();
+      await dl.save({ filename: current.nome || current.file.split("/").pop(), data: blob });
+      $("note").textContent = "PDF salvato.";
+    } catch (e) {
+      const c = e && e.code;
+      $("note").textContent = c === "declined" ? "Download annullato." : "Download non riuscito: apri il PDF a schermo intero e salvalo da lì.";
+    }
+  });
+  // Main button: on phones opens the PDF full screen (native viewer), on desktop scrolls to the reader
+  $("read").addEventListener("click", (e) => {
+    if (!desktop()) return;
+    e.preventDefault();
+    $("reader").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  /* ---------- PDF reader ---------- */
   async function loadPdf(url) {
-    page = 1; pdf = null;
+    page = 1; pdf = null; markPages();
     $("wait").hidden = false; $("wait").textContent = "Caricamento della pagina...";
     const lib = window.pdfjsLib;
-    if (!lib) { $("wait").textContent = "Anteprima non disponibile. Usa \"Apri a schermo intero\"."; return; }
+    if (!lib) { $("wait").textContent = "Anteprima non disponibile qui. Usa \"Leggi l'edizione\" o \"Scarica PDF\"."; return; }
     try {
-      pdf = await lib.getDocument({ url, isEvalSupported: false, disableFontFace: true }).promise;
+      const doc = await lib.getDocument({ url, isEvalSupported: false, disableFontFace: true }).promise;
+      if (current && current.file !== url) return;
+      pdf = doc;
       await renderPage();
     } catch (e) {
       $("wait").hidden = false;
-      $("wait").textContent = "Anteprima non disponibile. Usa \"Apri a schermo intero\".";
+      $("wait").textContent = "Anteprima non disponibile qui. Usa \"Leggi l'edizione\" o \"Scarica PDF\".";
     }
   }
-
   async function renderPage() {
     if (!pdf) return;
     const p = await pdf.getPage(page);
@@ -216,54 +601,192 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     $("pg").textContent = "Pagina " + page + " di " + pdf.numPages;
     $("prev").disabled = page <= 1;
     $("next").disabled = page >= pdf.numPages;
+    markPages();
   }
+  function markPages() { document.querySelectorAll("#pages button").forEach((b) => b.setAttribute("aria-current", +b.dataset.p === page ? "true" : "false")); }
+  function goPage(n, scroll) {
+    if (!pdf) return;
+    page = Math.max(1, Math.min(pdf.numPages, n)); renderPage();
+    if (scroll) $("sheet").scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+  $("prev").addEventListener("click", () => goPage(page - 1));
+  $("next").addEventListener("click", () => goPage(page + 1));
+  $("pages").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) goPage(+b.dataset.p); });
+  let x0 = null;
+  $("sheet").addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+  $("sheet").addEventListener("touchend", (e) => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) goPage(page + (dx < 0 ? 1 : -1)); }, { passive: true });
+  let rt, lastW = window.innerWidth;
+  window.addEventListener("resize", () => { if (window.innerWidth === lastW) return; lastW = window.innerWidth; clearTimeout(rt); rt = setTimeout(renderPage, 200); });
 
-  $("prev").addEventListener("click", () => { if (page > 1) { page--; renderPage(); } });
-  $("next").addEventListener("click", () => { if (pdf && page < pdf.numPages) { page++; renderPage(); } });
-  let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(renderPage, 200); });
-
-  $("dl").addEventListener("click", async () => {
-    if (!current) return;
-    $("note").textContent = "";
-    try {
-      const dl = window.claude && window.claude.use ? await window.claude.use("downloads") : null;
-      if (!dl) { $("note").textContent = "Il download diretto non è disponibile qui: apri il PDF a schermo intero e salvalo da lì."; return; }
-      const blob = await (await fetch(current.file)).blob();
-      await dl.save({ filename: current.nome || current.file.split("/").pop(), data: blob });
-      $("note").textContent = "PDF salvato.";
-    } catch (e) {
-      const c = e && e.code;
-      $("note").textContent = c === "declined" ? "Download annullato." : "Download non riuscito: apri il PDF a schermo intero e salvalo da lì.";
+  /* ---------- Archive ---------- */
+  function haystack(ed) {
+    return fold([ed.titolo, dataLunga(ed.data), ed.data, "#" + pad(ed.numero), (ed.sommario || []).join(" "), (ed.notizie || []).join(" "), (ed.temi || []).join(" "), (ed.glossario || []).join(" "), Object.values(ed.temi_deep_dive || {}).join(" ")].join(" "));
+  }
+  function matches(ed) {
+    if (tema && !(ed.temi || []).includes(tema)) return false;
+    if (!query) return true;
+    const h = ed._h || (ed._h = haystack(ed));
+    return fold(query).split(/\s+/).filter(Boolean).every((w) => h.includes(w));
+  }
+  function spx(ed) {
+    const t = ed.ticker; if (!Array.isArray(t)) return null;
+    const r = t.find((x) => /S&P/.test(x[0]));
+    return r ? r[2] : null;
+  }
+  function setTema(t) {
+    tema = tema === t ? "" : t;
+    document.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", (c.dataset.t || "") === tema ? "true" : "false"));
+    buildArchive();
+  }
+  function buildChips() {
+    const big = editions.length >= SOGLIA_ARCHIVIO;
+    $("vSeg").hidden = !big;
+    if (!big && view === "cal") view = "list";
+    const freq = new Map();
+    for (const ed of editions) for (const t of (ed.temi || [])) freq.set(t, (freq.get(t) || 0) + 1);
+    const box = $("chips"); box.innerHTML = "";
+    if (!big || !freq.size) { box.hidden = true; return; }
+    box.hidden = false;
+    const top = [...freq.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 14);
+    const all = el("button", "chip", "Tutti i temi"); all.type = "button"; all.dataset.t = ""; all.setAttribute("aria-pressed", "true");
+    all.addEventListener("click", () => setTema(""));
+    box.appendChild(all);
+    for (const [t, n] of top) {
+      const c = el("button", "chip", t); c.type = "button"; c.dataset.t = t; c.setAttribute("aria-pressed", "false");
+      c.appendChild(el("small", "", String(n)));
+      c.addEventListener("click", () => setTema(t));
+      box.appendChild(c);
     }
-  });
+  }
+  function byMonth(list) {
+    const groups = [];
+    for (const ed of list) {
+      const k = ed.data.slice(0, 7);
+      let g = groups[groups.length - 1];
+      if (!g || g.k !== k) { g = { k, items: [] }; groups.push(g); }
+      g.items.push(ed);
+    }
+    return groups;
+  }
+  const monthName = (k) => { const [y, m] = k.split("-").map(Number); return cap(MESI[m - 1]) + " " + y; };
+  function open(ed) { showEdition(ed, true); window.scrollTo({ top: 0, behavior: "smooth" }); }
 
-  function buildLedger() {
+  function buildArchive() {
     const box = $("ledger"); box.innerHTML = "";
-    if (!editions.length) { box.innerHTML = '<div class="empty">Le edizioni compaiono qui, dalla più recente.</div>'; return; }
-    for (const ed of editions) {
-      const r = document.createElement("button");
-      r.type = "button"; r.className = "row"; r.dataset.n = ed.numero;
-      r.innerHTML = '<span class="n"></span><span class="d"></span><span class="t"></span><span class="go">Leggi</span>';
-      r.querySelector(".n").textContent = "#" + pad(ed.numero);
-      r.querySelector(".d").textContent = dataBreve(ed.data);
-      r.querySelector(".t").textContent = ed.titolo;
-      r.addEventListener("click", () => { showEdition(ed); window.scrollTo({ top: 0, behavior: "smooth" }); });
-      box.appendChild(r);
+    if (!editions.length) { box.appendChild(el("div", "empty", "Le edizioni compaiono qui, dalla più recente.")); $("count").textContent = ""; return; }
+    const filtering = !!(query || tema);
+    const list = editions.filter(matches);
+    $("count").textContent = filtering
+      ? (list.length ? list.length + (list.length === 1 ? " edizione trovata" : " edizioni trovate") : "")
+      : editions.length + (editions.length === 1 ? " edizione" : " edizioni") + ", dalla più recente";
+    if (!list.length) {
+      const e = el("div", "empty", "Nessuna edizione per questa ricerca. Prova con un'altra parola o togli il filtro del tema.");
+      box.appendChild(e); return;
     }
+    if (view === "cal") return buildCalendar(box, filtering ? new Set(list) : null);
+    byMonth(list).forEach((g, i) => {
+      const det = el("details", "month");
+      if (i < 2 || filtering) det.open = true;
+      const sum = el("summary");
+      sum.appendChild(el("h3", "", monthName(g.k)));
+      sum.appendChild(el("span", "", g.items.length + (g.items.length === 1 ? " edizione" : " edizioni")));
+      det.appendChild(sum);
+      for (const ed of g.items) {
+        const r = el("button", "row"); r.type = "button"; r.dataset.n = ed.numero;
+        r.setAttribute("aria-current", current && current.numero === ed.numero ? "true" : "false");
+        const dt = utc(ed.data);
+        const d = el("span", "d"); d.append(GG[dt.getUTCDay()] + " "); d.appendChild(el("b", "", String(dt.getUTCDate()).padStart(2, "0"))); d.append(" " + MESI[dt.getUTCMonth()].slice(0, 3));
+        r.appendChild(d);
+        r.appendChild(el("span", "n", "#" + pad(ed.numero)));
+        const t = el("span", "t", ed.titolo);
+        if ((ed.temi || []).length) t.appendChild(el("span", "tg", ed.temi.slice(0, 4).join("  /  ")));
+        r.appendChild(t);
+        const sp = el("span", "sp"); const c = spx(ed);
+        if (c) { const v = el("span", cls(c), c.replace(/\s*g\b.*$/, "")); sp.appendChild(v); sp.appendChild(el("small", "", "S&P 500")); }
+        r.appendChild(sp);
+        r.addEventListener("click", () => open(ed));
+        det.appendChild(r);
+      }
+      box.appendChild(det);
+    });
   }
 
-  fetch("edizioni.json", { cache: "no-store" })
-    .then((r) => r.json())
-    .then((list) => {
-      editions = list.slice().sort((a, b) => b.numero - a.numero);
-      buildLedger();
-      if (editions.length) {
-        $("now").innerHTML = "";
-        const a = document.createElement("strong"); a.textContent = editions.length + (editions.length === 1 ? " edizione" : " edizioni");
-        $("now").append("Archivio | ", a);
-        showEdition(editions[0]);
+  function buildCalendar(box, keep) {
+    const byDate = new Map(editions.map((e) => [e.data, e]));
+    const months = [...new Set(editions.map((e) => e.data.slice(0, 7)))];
+    const monday = (iso) => { const d = utc(iso); d.setUTCDate(d.getUTCDate() - (d.getUTCDay() + 6) % 7); return d.toISOString().slice(0, 10); };
+    const lo = monday(editions[editions.length - 1].data);
+    const hiW = (() => { const d = utc(editions[0].data); d.setUTCDate(d.getUTCDate() + (5 - d.getUTCDay())); return d.toISOString().slice(0, 10); })();
+    for (const k of months) {
+      const [y, m] = k.split("-").map(Number);
+      const wrap = el("div", "cal-month");
+      wrap.appendChild(el("h3", "", monthName(k)));
+      const grid = el("div", "cal");
+      for (const w of ["lun", "mar", "mer", "gio", "ven"]) grid.appendChild(el("div", "wd", w));
+      const days = new Date(Date.UTC(y, m, 0)).getUTCDate();
+      let started = false;
+      for (let d = 1; d <= days; d++) {
+        const dt = new Date(Date.UTC(y, m - 1, d)); const wd = dt.getUTCDay();
+        if (wd === 0 || wd === 6) continue;
+        const iso = dt.toISOString().slice(0, 10);
+        if (iso < lo || iso > hiW) continue; // only weeks covered by the archive
+        if (!started) { started = true; for (let i = 0; i < wd - 1; i++) grid.appendChild(el("div")); }
+        const ed = byDate.get(iso);
+        const c = el(ed ? "button" : "div", "day");
+        c.appendChild(el("span", "", String(d)));
+        if (ed) {
+          c.type = "button"; c.dataset.n = ed.numero;
+          c.classList.add("has");
+          const ch = spx(ed); const g = segno(ch);
+          if (g > 0) c.classList.add("pos"); else if (g < 0) c.classList.add("neg");
+          if (ch) c.appendChild(el("span", "dv " + cls(ch), ch.replace(/\s*g\b.*$/, "")));
+          if (keep && !keep.has(ed)) c.classList.add("dim");
+          c.setAttribute("aria-label", dataLunga(iso) + ", edizione n. " + pad(ed.numero) + ": " + ed.titolo);
+          c.title = "#" + pad(ed.numero) + " " + ed.titolo;
+          c.setAttribute("aria-current", current && current.numero === ed.numero ? "true" : "false");
+          c.addEventListener("click", () => open(ed));
+        } else c.classList.add("dim");
+        grid.appendChild(c);
       }
+      wrap.appendChild(grid);
+      box.appendChild(wrap);
+    }
+    box.appendChild(el("p", "cal-key", "Ogni casella è un'edizione: verde se il giorno prima l'S&P 500 ha chiuso in rialzo, rossa se in calo. Tocca un giorno per aprirla."));
+  }
+
+  function setView(v) {
+    view = v;
+    $("vList").setAttribute("aria-pressed", v === "list" ? "true" : "false");
+    $("vCal").setAttribute("aria-pressed", v === "cal" ? "true" : "false");
+    buildArchive();
+  }
+  $("vList").addEventListener("click", () => setView("list"));
+  $("vCal").addEventListener("click", () => setView("cal"));
+  let qt; $("q").addEventListener("input", (e) => { clearTimeout(qt); qt = setTimeout(() => { query = e.target.value.trim(); buildArchive(); }, 120); });
+
+  /* ---------- Boot ---------- */
+  function fail(msg, retry) {
+    $("main").classList.remove("loading"); $("main").classList.add("failed");
+    $("headline").textContent = msg;
+    if (retry) {
+      const b = el("button", "btn ghost retry", "Ricarica la pagina"); b.type = "button";
+      b.addEventListener("click", () => location.reload());
+      $("note").innerHTML = ""; $("note").appendChild(b);
+    }
+  }
+  if (DEMO) $("demo").hidden = false;
+  fetch(SRC, { cache: "no-store" })
+    .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then((list) => {
+      editions = (Array.isArray(list) ? list : []).filter((e) => e && e.numero && e.data && e.file).sort((a, b) => b.numero - a.numero);
+      buildChips(); buildArchive();
+      $("main").classList.remove("loading");
+      if (!editions.length) { fail("Ancora nessuna edizione in archivio.", false); return; }
+      const want = parseInt(params.get("n"), 10);
+      const ed = editions.find((e) => e.numero === want) || editions[0];
+      showEdition(ed, false);
+      buildArchive();
     })
-    .catch(() => { $("meta").textContent = "Archivio non raggiungibile. Riprova tra poco."; });
+    .catch(() => fail("Archivio non raggiungibile. Riprova tra qualche minuto.", true));
 })();
 </script>

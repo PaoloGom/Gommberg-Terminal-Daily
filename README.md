@@ -8,12 +8,10 @@
 
 | Pagina | Contenuto |
 |---|---|
-| 1 | Prima pagina: la notizia del giorno, "In 30 secondi", i mercati di stamattina e le 8 top news |
-| 2 | Cruscotto degli indici mondiali, cross-asset e quadro macro |
-| 3 | Catalizzatori conclusi e agenda della settimana |
-| 4 | Scenari, mappa dei rischi e Treasury 2-10-30 anni |
-| 5 | Iran, petrolio, EUR/USD |
-| 6 | La scommessa della settimana: dove chiudono i mercati il venerdì, e il verdetto |
+| 1 | Prima pagina con tutto, come un quotidiano: chiusure, notizia principale, "In 30 secondi" e notizie del giorno |
+| 2 | Mercati, tassi e termometri dei temi aperti |
+| 3-5 | Calendario, agenda e approfondimenti che seguono le notizie del giorno |
+| 6 | La scommessa: dove chiudono 7 mercati il venerdì, con il verdetto del lunedì |
 
 ## Archivio
 
