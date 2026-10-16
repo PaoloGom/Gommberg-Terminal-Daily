@@ -14,11 +14,13 @@ Poi rigenera il PDF e ripeti `controlli_tutti.sh`; il revisore ricontrolla solo 
 - **Dati** (`controlli_dati.py`): un dato respinto si sostituisce con la chiusura precedente indicando la data, o con "n.d." (massimo 8 in tutto il PDF); mai un dato dubbio. Se una serie manca: `APP_DATI.md`.
 - **PDF** (`controlli.py`): pagine diverse da 6, testata sbagliata, trattini lunghi, segnaposto. Meno di 6 pagine: allunga o aggiungi un approfondimento; più di 6: accorcia testi, togli righe d'agenda o un approfondimento. Mai PageBreak in mezzo a pag. 3-5.
 - **Scrittura** (`controlli_testo.py`): più di 5 righe "→": tieni solo quelle dove il perché non è ovvio. Avvisi su connettivi causali: o c'è una scheda C con "secondo <testata>", o riscrivi la frase senza causa (un meccanismo M solo come tendenza, in una frase separata dalla variazione). Sigle non spiegate: aggiungi la parentesi alla prima occorrenza.
-- **Ripetizioni** (`controlli_ripetizioni.py`, avviso): una cifra in 3+ sezioni va lasciata nella sua casa e tolta altrove (pag. 1 riassume, la pagina interna aggiunge).
+- **Ripetizioni** (`controlli_ripetizioni.py`, bloccante): una cifra distintiva oltre 2 volte va lasciata nella sua casa (pag. 1 e la sua pagina) e tolta altrove; gli AVVISI su cifre piccole si ignorano.
+- **Temi** (`controlli_temi.py`, bloccante): una voce di pag. 1 con il tema della top story si sostituisce con la riserva su un altro tema; tema fuori elenco: scegli dall'elenco chiuso di ISTRUZIONI §2.
+- **Contenuti** (`controlli_contenuti.py`, bloccante): estremi = aggiungi la cifra del movimento oltre il 3% (o l'indice mancante in `dati.json`); perché = attribuisci la causa o scrivi "causa non chiarita"; quindi = aggiungi il livello, la data o l'evento da guardare; prob = aggiungi orizzonte, metodo e fonte; record = togli la parola se nessuna scheda la dice; anomalie = scrivi il registro (passo 2c); stamattina = togli il dato fuori finestra o ripreso da ieri; moduli = togli dai punti le cifre della tabella; quadro = scrivi `C["quadro"]`.
 - **Layout** (anteprima): sovrapposizioni o pagine semivuote: accorcia o riduci righe e rigenera.
 
 ## 3. Minimi
-- Notizie da 8 a 6 (la griglia regge 6); se le verificate sono meno di 6, la sezione esce con quelle che ci sono.
+- Notizie 6-8 (la griglia regge 6); se le verificate sono meno di 6, la sezione esce con quelle che ci sono.
 - Calendario e agenda: almeno le righe verificate.
 - Un approfondimento senza fatti verificati si sostituisce con un altro tema (dati di mercato o anomalia del giorno, che non richiedono schede web), mai con "nessuna novità".
 - La top story è sempre un fatto confermato: se cade, diventa top story la notizia confermata più importante.

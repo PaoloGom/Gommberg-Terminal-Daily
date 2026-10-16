@@ -1,10 +1,13 @@
-"""Controllo ripetizioni dentro l'edizione (AVVISO, non bloccante).
+"""Controllo ripetizioni dentro l'edizione (BLOCCANTE per le cifre distintive, AVVISO per le altre).
 Uso: python3 controlli_ripetizioni.py <pdf | testo.txt> [--json uscita.json]
 Divide il testo (pdftotext -layout) nelle sezioni segnate dai kicker (righe tutte maiuscole a margine sinistro)
 e cerca cifre (%, pb, $, livelli con decimali) che compaiono in più sezioni di testo. Le sezioni di soli dati
 (ticker, cruscotto, cross-asset, scommessa, fonti) non contano.
 Punteggio = somma, per ogni cifra ripetuta, delle sezioni in più oltre la prima (0 = nessuna ripetizione).
-Principio v6: un fatto ha una casa; pag. 1 titola e riassume, la pagina interna approfondisce senza ripetere le cifre."""
+Principio v6: un fatto ha una casa; pag. 1 titola e riassume, la pagina interna approfondisce senza ripetere le cifre.
+ERRORE: una cifra distintiva (|valore| >= 1, o 2 decimali, o un livello) con più di 2 OCCORRENZE nel testo (anche nella
+stessa sezione: tabella + punti + perché contano tutte). Sì: 5,10% in prima pagina e nel modulo dei Treasury. No: 5,10% nel
+dek, nella tabella, nel perché e nel quindi dello stesso modulo."""
 import collections, json, re, subprocess, sys
 
 KICKER = re.compile(r"^([A-ZÀÈÉÌÒÙ0-9][A-ZÀÈÉÌÒÙ0-9 &'/.,:+|-]{2,})\s*$")
@@ -36,6 +39,16 @@ def sezioni(t):
         buf.append(riga)
     parti.setdefault(nome, []).append("\n".join(buf))
     return {k: "\n".join(v) for k, v in parti.items()}
+
+
+def occorrenze(t):
+    occ = collections.Counter()
+    for sez, txt in sezioni(t).items():
+        if ESCLUSE.match(sez):
+            continue
+        for n in NUM.findall(txt) + LIV.findall(txt):
+            occ[n.lstrip("+-").replace(" ", "")] += 1
+    return occ
 
 
 def analizza(t):
@@ -75,11 +88,14 @@ def main():
             v = abs(float(m.group(0).replace(".", "").replace(",", ".")))
         except ValueError:
             return False
+        if n.endswith("pb") and not dec:
+            return v >= 10   # 3 pb, 9 pb: coincidenze frequenti tra scadenze diverse della stessa tabella
         return v >= 1 or len(dec) >= 2
-    gravi = [(n, s) for n, s in peggiori if len(s) >= 3 and distintiva(n)]
-    for n, s in gravi:
-        print(f"ERRORE: {n} in {len(s)} sezioni ({', '.join(s)}): una sola casa per cifra - nelle altre "
-              "sezioni rimanda (\"→ pag. N\") o parla del fatto senza la cifra"[:220])
+    occ = occorrenze(t)
+    gravi = [(n, c) for n, c in occ.most_common() if c > 2 and distintiva(n) and not re.fullmatch(r"\d%", n)]
+    for n, c in gravi:
+        print(f"ERRORE: {n} compare {c} volte ({', '.join(rip.get(n, ['una sezione']))}): al massimo 2 (pag. 1 e la "
+              "sua pagina); altrove rimanda (\"→ pag. N\") o parla del fatto senza la cifra"[:230])
     sys.exit(1 if gravi else 0)
 
 

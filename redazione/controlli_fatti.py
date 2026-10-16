@@ -9,7 +9,10 @@ Schema di fatti.json: lista di schede
  "testo": "il fatto come appare nel PDF", "data_evento": "AAAA-MM-GG",
  "novita": "per un tema già uscito: qual è lo sviluppo nuovo (altrimenti null)",
  "fonti": [{"testata": "Reuters", "url": "https://...", "data_pubblicazione": "AAAA-MM-GG", "citazione": "frase originale"}],
- "verifica": "confermato|errato|non_conclusivo" (scritto dal revisore), "nota_revisore": "..."}"""
+ "verifica": "confermato|errato|non_conclusivo" (scritto dal revisore), "nota_revisore": "..."}
+Registro delle anomalie (passo 2c), nella stessa lista: {"id": "A1", "sezione": "anomalia", "fatto": "PPI sopra le attese,
+ 10 anni -9 pb", "ricerche": ["treasury yields fall despite PPI", ...], "esito": "C03" | "non chiarita"} (lo controlla
+ controlli_contenuti.py)."""
 import datetime as dt, json, os, sys
 from urllib.parse import urlparse
 
@@ -45,7 +48,7 @@ problemi, avvisi = [], []
 ids = [f.get("id") for f in fatti]
 if len(ids) != len(set(ids)):
     problemi.append("id duplicati nelle schede")
-fatti = [f for f in fatti if not f.get("scartata")]
+fatti = [f for f in fatti if not f.get("scartata") and f.get("sezione") != "anomalia"]  # registro anomalie: controlli_contenuti.py
 ALIAS = {"notizie": "top_news", "calendario": "catalizzatori", "termometri": "macro", "lettura": "macro",
          "approfondimento": "deep_dive", "approfondimenti": "deep_dive"}
 for f in fatti:

@@ -2,7 +2,9 @@
 # Pubblicazione sul sito: copia PDF e registro fatti, commit, push con verifica PUSH_OK (fino a 3 tentativi).
 # Uso: bash /home/claude/gtd/redazione/pubblica.sh "<pdf>" <N> <AAAA-MM-GG> [fatti.json]
 # Prima: edizioni.json già aggiornato con edizioni_voce.py. Dopo: archivio Claude (Artifact) e messaggio finale.
-# GTD_PROVA=1: stampa i comandi git senza eseguirli (né commit né push). GTD_REPO per un'altra copia del repository.
+# GTD_PROVA=1: stampa i comandi git senza eseguirli (né commit né push); su una copia (GTD_REPO diverso da
+# /home/claude/gtd) copia davvero PDF e registro fatti, così la prova si può verificare. Dopo: SendUserFile, messaggio
+# (messaggio.py), poi Archivio Claude.
 # Ultima riga: "Sito: aggiornato (commit X)" oppure "Sito: NON aggiornato - <errore>".
 set -u
 PDF="${1:?pdf}"; N="${2:?numero}"; DATA="${3:?data}"; FATTI="${4:-/home/claude/lavoro/fatti.json}"
@@ -19,8 +21,9 @@ v = [x for x in json.load(open(p, encoding="utf-8")) if x["numero"] == n]
 assert len(v) == 1 and v[0]["data"] == d and v[0]["file"] == f, "voce assente, duplicata o incoerente"
 EOF
 
-run cp -f "$PDF" "$REPO/$DEST" || fail "copia del PDF"
-if [ -f "$FATTI" ]; then run cp -f "$FATTI" "$REPO/redazione/fatti/${DATA}.json"; else echo "AVVISO: $FATTI assente, registro fatti non copiato"; fi
+copia() { if [ "$PROVA" = "1" ] && [ "$REPO" = "/home/claude/gtd" ]; then echo "[prova] cp $*"; else cp -f "$@"; fi; }
+copia "$PDF" "$REPO/$DEST" || fail "copia del PDF"
+if [ -f "$FATTI" ]; then copia "$FATTI" "$REPO/redazione/fatti/${DATA}.json"; else echo "AVVISO: $FATTI assente, registro fatti non copiato"; fi
 run git -C "$REPO" config user.name "PaoloGom"
 run git -C "$REPO" config user.email "PaoloGom@users.noreply.github.com"
 # Elenco fisso: mai redazione/collaudi (dati di prova)

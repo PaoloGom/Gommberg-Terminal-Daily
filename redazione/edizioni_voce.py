@@ -19,9 +19,9 @@ sys.path.insert(0, QUI)
 import giorni as G  # noqa: E402
 import controlli_ripetizioni as CR  # noqa: E402
 
-TEMI = ["Fed", "BCE", "Inflazione", "Tassi", "Wall Street", "Europa", "Italia", "Asia", "Cina", "Chip", "Tecnologia",
-        "Banche", "Petrolio", "Geopolitica", "Valute", "Dazi", "Trimestrali", "Macro"]
+from controlli_temi import TEMI  # noqa: E402  (elenco chiuso unico, scritto anche in ISTRUZIONI §2)
 FORMATI = {"grafico", "tabella", "due_grafici"}
+DA_MISURA = {"mezzo": "grafico", "doppio": "due_grafici"}   # il motore v6 scrive la misura del modulo
 
 
 def esci(msg):
@@ -100,6 +100,7 @@ def main():
     if fuori or not 3 <= len(w["temi"]) <= 6:
         esci(f"temi: 3-6 tag dall'elenco chiuso {TEMI} (fuori elenco: {fuori})")
     for x in w["approfondimenti"]:
+        x["formato"] = DA_MISURA.get(x.get("formato"), x.get("formato"))
         if set(x) != {"tema", "titolo", "formato"} or x["formato"] not in FORMATI:
             esci(f"approfondimento non valido: {x} (chiavi tema, titolo, formato in {sorted(FORMATI)})")
     mecc = {m["id"] for m in json.load(open(os.path.join(QUI, "meccanismi.json"), encoding="utf-8"))["voci"]}

@@ -28,3 +28,8 @@ Meglio ancora: calcolale in codice dalla serie (from/to sull'ultima settimana di
 
 ## 5. Orari di chiusura (ora di Roma) e intraday
 Prima dell'ora di chiusura il dato di oggi è intraday. `controlli_dati.py` converte con `zoneinfo` la chiusura locale (più un margine per l'asta) in ora di Roma per la data del giorno: in ottobre circa USA 22:15, Europa e Londra 17:45, Tokyo 08:45, Seul 08:45, Shanghai 09:15, Hong Kong 10:15 (i fusi cambiano in date diverse). Le chiusure europee di oggi la mattina non esistono: ticker e cruscotto usano la seduta precedente.
+
+## 6. Regole v6.2 (16/10/2026)
+- Alpha Vantage sempre in serie, una chiamata dopo l'altra (in parallelo dà rate limit). `TIME_SERIES_DAILY` compact = 100 giorni (circa 15k token): solo se la serie serve a un grafico; per la sola chiusura usa `GLOBAL_QUOTE` o FMP.
+- Indici obbligatori in `dati.json`: S&P 500, Nasdaq, Euro Stoxx 50, Nikkei 225, Kospi, Hang Seng (chiusura dell'ultima seduta conclusa; un'Asia chiusa dopo l'edizione di ieri conta). Senza livello: `{"mercato": "KR", "tipo": "intraday", "var": -8.68, "ora": "08:11", "fonte": "Teleborsa", "ultimi": []}`.
+- `"macro"` in `dati.json` per i dati del giorno: `[{"nome": "PPI USA a/a", "dato": 6.3, "atteso": 5.3, "caldo_se": "su"}]` ("giu" per sussidi e disoccupazione): serve al controllo delle anomalie.

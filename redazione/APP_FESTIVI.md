@@ -1,7 +1,7 @@
 # Appendice - Festività e chiusure di borsa
 
 ## 1. Niente edizione
-Se la data è in `FESTIVI` di `gommberg_engine.py` (borse USA ed europee chiuse insieme: Natale, Capodanno, Venerdì Santo), `prepara.sh` dice NIENTE EDIZIONE: manda a Paolo una riga ("Oggi borse chiuse: niente Gommberg, ci rivediamo al prossimo giorno di borsa") e fermati. Questi giorni non contano nella numerazione.
+Se la data è in `FESTIVI` di `gommberg_engine.py` (borse USA ed europee chiuse insieme: Natale, Capodanno, Venerdì Santo), `prepara.sh` dice NIENTE EDIZIONE: uscita (b): manda a Paolo solo la riga "Oggi borse chiuse: niente Gommberg, ci rivediamo al prossimo giorno di borsa". Questi giorni non contano nella numerazione.
 
 ## 2. Chiusure parziali (l'edizione esce)
 - Un mercato chiuso si scrive "chiuso" (o "n.d." con la data dell'ultima chiusura), mai "0,0%".

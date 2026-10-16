@@ -4,8 +4,10 @@ Ogni giorno: copia questo file nella cartella di lavoro, sostituisci SOLO i bloc
 `python3 edizione_modello_v6.py <cartella di lavoro> <pdf di uscita>`: il motore impagina, riempie le 6 pagine
 allungando i grafici scritti come dict, risolve i rimandi e scrive voce_indice.json per edizioni.json.
 Prima: valuta.py (stato.json) e grafico.py (c_forecast.png) nella cartella di lavoro, come da ISTRUZIONI par. 4.
-Regole rapide: un fatto ha una casa sola; in pag. 1 si titola e si rimanda con [[chiave]] (diventa "→ pag. N");
-righe "→" (freccia=...) max 5 in tutto; solo trattino corto; variazioni con segno (il motore le colora).
+Regole rapide: un fatto ha una casa sola (ogni cifra al massimo 2 volte: pag. 1 e la sua pagina); in pag. 1 si titola e
+si rimanda con [[chiave]] (diventa "→ pag. N"); righe "→" (freccia=...) max 5 in tutto; solo trattino corto; variazioni
+con segno (il motore le colora). Temi (top "tema", "in30_temi", "tag" delle notizie) dall'elenco chiuso di ISTRUZIONI §2.
+Il contenuto si compila riscrivendo in un colpo solo il blocco C (uno script o un Write), non con decine di Edit.
 Chiavi di rimando disponibili: mercati, agenda, scommessa + la "chiave" di ogni approfondimento."""
 import datetime as dt
 import json
@@ -70,6 +72,7 @@ C = {
     "ticker": ticker_da_dati("dati.json"),   # dal dati.json del giorno (numeri.py): mai a mano
 
     "top": {
+        "tema": "Inflazione",   # elenco chiuso (ISTRUZIONI §2): nessuna voce di pag. 1 ripete questo tema
         "titolo": "Inflazione USA sopra le attese: torna in gioco il rialzo Fed di ottobre",
         "dek": "A settembre l'indice dei prezzi al consumo (CPI) sale del 3,7% annuo contro il 3,6% atteso; il core "
                "(senza energia e alimentari) del 2,6% contro il 2,5%. La probabilità di un rialzo dei tassi Fed il 27-28 "
@@ -78,37 +81,41 @@ C = {
                "vendono anche Tokyo e Seul. [[chip]]",
         "freccia": "Secondo Axios i rincari dell'energia cominciano a passare ai prezzi dei servizi.",  # tipo C, scheda T01 (Axios, liv. 1)
     },
+    # una frase che legge insieme tassi, dollaro, oro, petrolio e borse (o dice che non si legano): stima redazionale
+    "quadro": "Il quadro: 2 anni e dollaro salgono con le attese su una Fed più dura, il 10 anni scende, i tecnologici "
+              "cedono e i difensivi salgono, Brent e oro quasi fermi: i mercati non leggono il CPI allo stesso modo "
+              "(stima redazionale).",
     "in30": [
         # le 3 cose più importanti DOPO la top story: mai la top story né le sue reazioni di mercato (controlli_temi.py)
         "Banche USA divise: BofA sconta l'onere per l'accordo con il Tesoro, Morgan Stanley corre nel trading. [[banche]]",
         "TSMC batte le stime, ma i conti non fermano le vendite sui chip. [[chip]]",
-        "Oggi alle 14:30 vendite al dettaglio e prezzi alla produzione USA: il primo test dopo il CPI. [[agenda]]",
+        "Oggi alle 14:30 le vendite al dettaglio USA, il primo dato sui consumi di settembre. [[agenda]]",
     ],
+    "in30_temi": ["Banche", "Chip", "Macro"],   # uno per punto, mai il tema della top story
     "stamattina": [
         "Asia alle 08:11: Kospi -8,68%, Nikkei -4,89%, Hang Seng -1,32%",
         "Brent future (petrolio europeo) alle 08:29: 104,39 $ (-1,6%)",
         "EUR/USD alle 09:12: 1,1216",
         "Treasury 10 anni in mattinata: 5,10% (Investing.com)",
     ],
-    "notizie": [   # 6-8; "rimando" = chiave di un pezzo interno, "freccia" = riga → (conta nelle 5)
-        {"tag": "Tassi", "titolo": "Treasury: dopo il CPI sale il breve, scende il lungo",
-         "testo": "Il 2 anni chiude in rialzo, 10 e 30 anni in calo dopo il picco serale. Cosa dice la forma della "
-                  "curva.",
-         "rimando": "treasury"},
-        {"tag": "Wall Street", "titolo": "Tecnologia -3,00%, difensivi in rialzo",
-         "testo": "In rialzo sanità (+2,44%) e beni di consumo base (+2,21%). Russell 2000 -1,93%, Dow Jones -0,09%. "
-                  "Milano Finanza parla di vendite sull'AI.", "rimando": "mercati"},
+    "notizie": [   # 6-8; "tag" = tema dell'elenco chiuso, mai quello della top story né una sua reazione di mercato
+        # No: "Treasury: dopo il CPI sale il breve" o "Il dollaro si rafforza dopo il dato" (reazioni alla top story:
+        # vanno nel quadro o in un modulo). Sì: fatti con una causa propria. "rimando" = chiave interna, "freccia" = riga →
+        {"tag": "Tecnologia", "titolo": "Wall Street: vendite sull'AI, tecnologia -3,00%",
+         "testo": "Secondo Milano Finanza l'indice è penalizzato dalle vendite sull'intelligenza artificiale; in rialzo "
+                  "sanità (+2,44%) e beni di consumo base (+2,21%). Russell 2000 -1,93%.", "rimando": "mercati"},
         {"tag": "Chip", "titolo": "TSMC: utile +68,7% nel terzo trimestre, sopra le stime",
-         "testo": "L'utile netto batte la stima degli analisti raccolta da LSEG (Teleborsa). I conti, usciti stamattina, non fermano le vendite "
-                  "sui chip in Asia.", "rimando": "chip"},
+         "testo": "L'utile netto batte la stima degli analisti raccolta da LSEG (Teleborsa). I conti, usciti stamattina, "
+                  "non fermano le vendite sui chip in Asia.", "rimando": "chip"},
+        {"tag": "Asia", "titolo": "Tokyo: SoftBank perde quasi il 10% in apertura",
+         "testo": "Kioxia e Advantest cedono circa l'11% (ANSA, Milano Finanza): le vendite sui titoli dell'AI arrivano "
+                  "in Asia.", "rimando": "chip"},
         {"tag": "Banche", "titolo": "BofA delude, Morgan Stanley corre nel trading",
          "testo": "Sintesi di Milano Finanza sulla seconda giornata di trimestrali bancarie; BofA sconta l'onere per "
                   "la sanzione del Tesoro USA.", "rimando": "banche"},
-        {"tag": "Valute", "titolo": "Il dollaro si rafforza su tutta la linea",
-         "testo": "L'euro scende subito dopo il dato (investingLive) e chiude in calo; stamattina recupera."},
-        {"tag": "Petrolio", "titolo": "Petrolio USA (WTI) ai massimi da tre settimane",
-         "testo": "In seduta il WTI sale a circa 95 $; il Brent future chiude in "
-                  "lieve rialzo e stamattina scende."},
+        {"tag": "Petrolio", "titolo": "Houthi contro gli uffici Aramco, il greggio sale",
+         "testo": "Secondo investingLive il petrolio sale dopo l'attacco degli Houthi agli uffici di Dhahran; in seduta il "
+                  "WTI (petrolio USA) arriva a circa 95 $, il Brent future chiude in lieve rialzo."},
         {"tag": "Europa", "titolo": "Londra in rialzo, Milano ed Euro Stoxx in calo",
          "testo": "Piazza Affari chiude in calo (ANSA), Londra sale. Lo spread tra BTP e Bund (titoli di Stato italiani e tedeschi) si allarga di "
                   "2 punti base (pb) secondo Teleborsa.", "rimando": "mercati"},
@@ -150,7 +157,7 @@ C = {
         ("Inflazione USA", "In accelerazione", "Energia nei servizi (Axios)", "su", "Prezzi alla produzione (PPI)"),
         ("AI e chip", "Rally concentrato", "Vendite da Wall Street all'Asia", "giu", "Nasdaq e Kospi"),
         ("Dollaro", "EUR/USD 1,1156 in chiusura", "Più forte dopo il CPI", "su", "Treasury a 2 anni"),
-        ("Petrolio", "Brent sopra 104 $", "WTI ai massimi da 3 settimane", "mista", "Prezzi della benzina"),
+        ("Petrolio", "Brent sopra 104 $", "WTI verso 95 $ in seduta", "mista", "Prezzi della benzina"),
     ],
     "fermi": "Iran e Hormuz (nessuna novità verificata dal 13/10), Francia e debito europeo (dal 12/10).",
     "lettura": "Lo stesso dato letto in due modi: i future sui tassi alzano le probabilità di un rialzo a ottobre, i "
@@ -160,8 +167,8 @@ C = {
     # ---------- Pag. 3-5 ----------
     "agenda_titolo": "Ieri in calendario e in arrivo",
     "ieri": [        # (quando, evento, dato contro attese, sorpresa +/-/=, → max 8 parole). Casa delle cifre solo per i dati NON raccontati altrove
-        # un dato già raccontato in prima pagina o in un modulo: qui solo sorpresa e rimando, MAI di nuovo le cifre
-        ("Mer 14, 14:30", "CPI USA settembre, generale e core", "Sopra le attese: in prima pagina", "+", "-"),
+        # il calendario è la tabella di riferimento: dato contro attese SEMPRE; sono notizie e moduli a non ripeterli
+        ("Mer 14, 14:30", "CPI USA settembre, generale e core", "3,7% a/a (atteso 3,6%); core 2,6% (2,5%)", "+", "-"),
         ("Mer 14", "Trimestrali BofA, Morgan Stanley, BlackRock", "Esiti divergenti", "", "[[banche]]"),
     ],
     "agenda": [      # (quando Roma, evento, attese, perché conta) - <b> sull'evento chiave
@@ -189,7 +196,7 @@ C = {
                   ["Rialzo a ottobre (25 pb)", "40%", "2 anni in salita, curva piatta", "Pressione su tecnologici e "
                    "small cap", "Dollaro più forte, sotto 1,11"]],
         "larghezze": [38, 14, 50, 46, 34],
-        "nota": "* Stime redazionali soggettive, più prudenti del mercato: i future danno il rialzo al 47% (Axios). Oggi "
+        "nota": "* Stime redazionali soggettive, più prudenti del mercato: i future danno il rialzo di ottobre al 47% (Axios). Oggi "
                 "vendite al dettaglio e PPI possono spostarle.",
     },
     "moduli": [   # 5 unità: il primo "mezzo" va a pag. 3; pag. 4 e 5: 2 "mezzo" o 1 "doppio" ciascuna. "breve" = voce dell'indice di pag. 1
@@ -201,10 +208,11 @@ C = {
                     "Tesoro USA; titolo in calo (TheStreet)"],
                    ["Morgan Stanley", "Utile per azione (EPS) 3,03 $, ricavi 20,33 mld $", "Trading azionario +41% a "
                     "5,79 mld $; rendimento sul capitale tangibile (ROTCE) 22,6%"],
-                   ["BlackRock", "Utile 1,66 mld $ (+25%)", "Patrimonio gestito a livello record (FIRSTonline)"]],
+                   ["BlackRock", "Utile 1,66 mld $ (+25%)", "Utile in crescita (FIRSTonline)"]],
          "larghezze": [30, 58, 94],
-         "perche": "Secondo Milano Finanza BofA delude per l'onere di 1,2 mld $ legato al Tesoro USA, mentre Morgan Stanley corre nel trading azionario (+41%).",
-         "quindi": "Il settore non dà un segnale unico: le prossime trimestrali diranno se il trading compensa gli oneri straordinari.",
+         # perche = la causa con fonte, non la parafrasi della tabella; quindi = una cosa osservabile (cifra, data, evento)
+         "perche": "Secondo FIRSTonline BofA sconta un onere straordinario e non deducibile, mentre Morgan Stanley beneficia delle ottime performance di consulenza e trading.",
+         "quindi": "Il trading di Morgan Stanley, 5,79 mld $ nel trimestre, è il metro per le banche che pubblicano nei prossimi giorni.",
          "lettura": "La seconda giornata di trimestrali divide le grandi banche: il risultato di BofA è segnato da una "
                     "voce straordinaria, quello di Morgan Stanley dall'attività sui mercati.",
          "fonte": "Fonti: comunicato Morgan Stanley (SEC), Milano Finanza, FIRSTonline, TheStreet."},
@@ -214,9 +222,9 @@ C = {
          "grafico2": {"tipo": "barre", "file": "c_curva_1g.png",
                     "dati": [(k, round((UST_14[k] - UST_13[k]) * 100)) for k in UST_14],
                     "titolo": "Curva Treasury: variazione del 14/10 (pb)", "unita": " pb", "dec": 0, "ordina": False,
-                    "alto": 2.5},
-         "grafico": {"tipo": "linee", "file": "c_ust_mese.png", "x": [d(r[0]) for r in UST_MESE], "largo": 7.3,
-                       "alto": 2.2, "titolo": "Treasury 2, 10 e 30 anni nell'ultimo mese (%)",
+                    "soggetto": "Treasury"},   # misure dal motore: mai "alto"/"largo"
+         "grafico": {"tipo": "linee", "file": "c_ust_mese.png", "x": [d(r[0]) for r in UST_MESE], "soggetto": "Treasury",
+                       "titolo": "Treasury 2, 10 e 30 anni nell'ultimo mese (%)",
                        "serie": [(n, [r[i] for r in UST_MESE], c) for i, n, c in
                                  ((1, "2 anni", "#1F5FA8"), (2, "10 anni", "#F26B1D"), (3, "30 anni", "#111111"))]},
          "punti": ["<b>Il breve.</b> Fino a 3 anni i rendimenti chiudono in rialzo; il 2 anni era salito di circa "
@@ -232,21 +240,22 @@ C = {
                    ["20 anni", "5,71%", "5,60%", "5,57%", "-14 pb", "-3 pb"],
                    ["10 anni meno 2 anni", "51 pb", "42 pb", "37 pb", "-14 pb", "-5 pb"]],
          "larghezze": [40, 26, 26, 26, 32, 32],
-         "perche": "Di solito il 2 anni segue le attese sulla Fed, che il CPI sopra le attese ha alzato; per il calo del lungo le fonti di oggi non danno una spiegazione verificata.",
-         "quindi": "Una curva più piatta indica una Fed attesa più dura nel breve; il livello da guardare resta il 5,30-5,35% del 10 anni.",
-         "lettura": "Per il rialzo del breve e il calo del lungo le fonti di oggi non danno una spiegazione "
-                    "verificata. Il 10 anni chiude sotto i livelli di fine "
-                    "settembre e cala ancora stamattina. <b>Soglia del 10 anni:</b> 5,30-5,35%, toccata ma mai tenuta a fine seduta.",
+         # B1: la causa si confronta con la forma della curva. Un'inflazione più alta spiega il breve, non il lungo in calo:
+         # dirlo, con le alternative etichettate, dopo la ricerca registrata in fatti.json (sezione "anomalia")
+         "perche": "Di solito il breve segue le attese sulla Fed, salite col CPI; il calo del lungo non torna con un'inflazione più alta: causa non chiarita (ipotesi redazionali: acquisti rifugio dopo le vendite sui tecnologici o un premio a termine (premio per prestare a lungo) più basso).",
+         "quindi": "Se il 10 anni torna verso il 5,30-5,35%, toccato in serata, la curva racconta di nuovo l'inflazione; sotto il 5,10% di stamattina prevale il rifugio.",
+         "lettura": "Lo stesso dato letto in due modi: il breve prezza una Fed più dura, il lungo no. Il 10 anni chiude "
+                    "sotto i livelli di fine settembre e cala ancora stamattina.",
          "freccia": "Di solito il 2 anni segue la Fed più del 10 anni: ieri è salito, il 10 anni è sceso."},
         # ↑ riga M: id "M26" di redazione/meccanismi.json
         {"chiave": "chip", "tema": "Chip e Asia", "breve": "TSMC batte le stime, l'Asia vende",
-         "titolo": "TSMC batte le stime, ma l'Asia vende i chip",
+         "titolo": "TSMC batte le stime, ma Nasdaq e Asia vendono i chip",
          "misura": "doppio",
          "grafico": {"tipo": "barre", "file": "c_contagio.png", "dati": CONTAGIO, "ordina": False, "dec": 1,
-                       "largo": 7.3, "alto": 2.2,
+                       "soggetto": "chip",
                        "titolo": "Dalla tecnologia USA ai chip asiatici: variazioni % (14/10 e stamattina)"},
          "grafico2": {"tipo": "linee", "file": "c_nasdaq.png", "x": [d(x) for x, _ in NASDAQ],
-                    "serie": [("Nasdaq", [v for _, v in NASDAQ], "#111111")], "alto": 2.4,
+                    "serie": [("Nasdaq", [v for _, v in NASDAQ], "#111111")], "soggetto": "Nasdaq",
                     "titolo": "Nasdaq Composite: -3,3% dal 6 ottobre",
                     "note": [(d("10-06"), 27599.79, "6/10"), (d("10-14"), 26692.87, "14/10")]},
          "righe": [["TSMC, terzo trimestre", "Valore", "Variazione annua", "Contro le attese"],
@@ -256,10 +265,10 @@ C = {
                    ["Quota dei ricavi da wafer a 3 nanometri", "33%", "-", "-"]],
          "larghezze": [70, 30, 36, 46],
          "perche": "Secondo ANSA le vendite, guidate dai titoli legati all'intelligenza artificiale, si sono estese a tutta l'Asia; a Seul e Tokyo i chip contano molto negli indici.",
-         "quindi": "Conti solidi non bastano quando il timore riguarda tassi e concorrenza: la riapertura del Nasdaq dirà se le vendite si fermano.",
+         "quindi": "Conti solidi non bastano quando il timore riguarda la concorrenza sulle memorie: oggi alle 15:30 la riapertura del Nasdaq dirà se le vendite si fermano.",
          "lettura": "Le vendite partite ieri dal settore tecnologico di Wall Street si sono estese stamattina all'Asia, "
                     "con i cali più forti sui titoli dei semiconduttori e sulle borse dove i chip contano di più: Seul e Tokyo.",
-         "punti": ["<b>Tokyo.</b> SoftBank perde quasi il 10%, Kioxia e Advantest circa l'11%; Tokyo Electron circa il "
+         "punti": ["<b>Tokyo.</b> Dopo SoftBank, Kioxia e Advantest (in prima pagina) cede anche Tokyo Electron, circa il "
                    "6,5% in apertura (ANSA, Milano Finanza).",
                    "<b>Il timore.</b> Un analista di BNP Paribas AM cita l'annuncio di CXMT (produttore cinese di "
                    "memorie) sulle DRAM, le memorie di lavoro, di nuova generazione.",
@@ -303,5 +312,11 @@ if __name__ == "__main__":
     pagella = json.load(open(pagella_p, encoding="utf-8")) if os.path.exists(pagella_p) else None
     out = USCITA or nome_file(OGGI)
     render_v6(out, lambda: edizione_v6(C, stato=stato, reg=reg, verdetto=verdetto, pagella=pagella))
-    json.dump(voce_indice(C, stato, reg), open("voce_indice.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    voce = voce_indice(C, stato, reg)
+    try:   # campi per controlli_temi.py e controlli_contenuti.py (non sovrascrive quelli del motore)
+        import extra_voce
+        voce.update(extra_voce.campi(C, voce))
+    except Exception as e:  # noqa: BLE001
+        print("AVVISO extra_voce:", e)
+    json.dump(voce, open("voce_indice.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(out)

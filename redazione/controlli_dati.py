@@ -4,6 +4,10 @@ dati.json: {"oggi": "AAAA-MM-GG", "ora_roma": "HH:MM",
   "serie": {"S&P 500": {"mercato": "USA|EU|UK|JP|HK|KR|CN|FX|COMM|UST",
                         "ultimi": [["AAAA-MM-GG", valore, volume_o_null], ...],   # dal più recente, almeno 3
                         "tipo": "chiusura|intraday", "seconda_fonte": valore_o_null}}}
+Serie con la sola variazione (seduta asiatica in corso, livello non disponibile): {"mercato": "KR", "tipo": "intraday",
+  "var": -8.68, "ora": "08:11", "fonte": "Teleborsa", "ultimi": []}. "macro" (facoltativo, per le anomalie):
+  [{"nome": "PPI USA a/a", "dato": 6.3, "atteso": 5.3, "caldo_se": "su"}] ("giu" per sussidi e disoccupazione).
+Indici obbligatori (controlli_contenuti.py): S&P 500, Nasdaq, Euro Stoxx 50, Nikkei 225, Kospi, Hang Seng.
 Esce con codice 1 se c'è un problema bloccante."""
 import datetime as dt, json, sys
 
@@ -31,6 +35,10 @@ CHIUSURA = {k: chiusura_roma(k) for k in LOCALE}
 problemi, avvisi = [], []
 for nome, s in d["serie"].items():
     u = s["ultimi"]
+    if not u and s.get("var") is not None:
+        if not (s.get("fonte") and s.get("ora")):
+            problemi.append(f"{nome}: serie con sola variazione senza 'fonte' e 'ora'")
+        continue
     if len(u) < 2:
         problemi.append(f"{nome}: meno di due osservazioni"); continue
     (d0, v0, vol0), (d1, v1, _) = u[0], u[1]
@@ -54,6 +62,11 @@ for nome, s in d["serie"].items():
         scarto = abs(v0 / sf - 1)
         if scarto > 0.005:
             problemi.append(f"{nome}: scarto {100 * scarto:.2f}% con la seconda fonte ({v0} contro {sf})")
+import re  # noqa: E402
+for obb, rx in (("S&P 500", r"s&p ?500"), ("Nasdaq", r"nasdaq"), ("Euro Stoxx 50", r"stoxx ?50"), ("Nikkei 225", r"nikkei"),
+                ("Kospi", r"kospi|seul|seoul"), ("Hang Seng", r"hang ?seng")):
+    if not any(re.search(rx, k, re.I) for k in d["serie"]):
+        problemi.append(f"{obb}: indice principale assente (serve l'ultima seduta conclusa; un movimento oltre il 3% va citato)")
 print(f"Serie controllate: {len(d['serie'])}")
 for a in avvisi:
     print("AVVISO: " + a)

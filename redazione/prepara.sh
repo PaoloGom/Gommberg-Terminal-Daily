@@ -24,8 +24,12 @@ for t in pdftotext pdfinfo pdftoppm qpdf; do command -v $t >/dev/null || DEP="$D
 mkdir -p "$L"
 # file del giorno prima: mai riusarli (dati stantii)
 rm -f "$L"/dati.json "$L"/attuali.json "$L"/stato.json "$L"/verdetto.json "$L"/fatti.json "$L"/voce_indice.json "$L"/nuovi.json "$L"/redazione.json "$L"/edizione_20*.py
-cp -f "$R"/*.py "$L"/ 2>/dev/null
-NK=$(ls "$R"/*.py 2>/dev/null | wc -l)
+# kit: tutti i .py tranne lo stub del vecchio modello (il modello in vigore è edizione_modello_v6.py)
+NK=0
+for f in "$R"/*.py; do
+  case "$(basename "$f")" in edizione_modello_20*.py) continue;; esac
+  cp -f "$f" "$L"/ && NK=$((NK + 1))
+done
 
 # 3. Giorno, numero, appendici, riepilogo (in Python per robustezza)
 GTD_DATA="${1:-}" python3 - "$REPO" "$L" "$NK" "$DEP" <<'EOF'
@@ -45,7 +49,7 @@ cut = lambda s, k=150: s if len(s) <= k else s[:k - 3] + "..."
 if not G.uscita(oggi):
     motivo = "weekend" if oggi.weekday() >= 5 else "festivo (FESTIVI in gommberg_engine.py)"
     print(f"GTD {GG[oggi.weekday()]} {oggi:%d/%m/%Y} ore {ora:%H:%M} Roma: NIENTE EDIZIONE OGGI ({motivo}).")
-    print("Manda a Paolo una riga: \"Oggi borse chiuse: niente Gommberg, ci rivediamo al prossimo giorno di borsa\" e fermati.")
+    print("USCITA (b): manda a Paolo solo la riga \"Oggi borse chiuse: niente Gommberg, ci rivediamo al prossimo giorno di borsa\"; la sessione finisce qui.")
     sys.exit(0)
 
 primo = G.primo_della_settimana(oggi)
@@ -102,7 +106,7 @@ except Exception as e:
 if voci:
     u = max(voci, key=lambda v: v["numero"])
     if any(v["numero"] == n for v in voci):
-        out.append(f"ATTENZIONE: l'edizione #{n:03d} esiste già in edizioni.json: non sovrascrivere, verifica il numero")
+        out.append(f"USCITA (c): l'edizione #{n:03d} esiste già in edizioni.json: messaggio \"nessuna edizione: #{n:03d} già pubblicata\", niente da rifare")
     elif u["numero"] != n - 1:
         out.append(f"Numero: ultima edizione #{u['numero']:03d}, oggi #{n:03d}: usa #{n:03d} (giorni.py) e scrivi nel messaggio finale che mancano uscite intermedie")
     out.append(cut(f"Ultima: #{u['numero']:03d} del {u['data']} - {u['titolo']}"))
@@ -126,7 +130,12 @@ if voci:
         except Exception:
             nf = "?"
         out.append(f"Errata: confronta {nf} schede di redazione/fatti/{u['data']}.json con le notizie di oggi")
-modello = "edizione_modello_v6.py" if os.path.exists(os.path.join(repo, "redazione", "edizione_modello_v6.py")) else "edizione_modello_v5.py"
-out.append(f"Modello: {lav}/{modello} -> copialo in {lav}/edizione_{oggi.isoformat()}.py")
+# artefatti stantii di prove precedenti (file di oggi già nel repository ma edizione non in indice): li sovrascrive pubblica.sh
+if not any(v["numero"] == n for v in voci):
+    st = [p for p in (f"redazione/fatti/{oggi.isoformat()}.json", f"pdf/{oggi.isoformat()}-gommberg-{n:03d}.pdf")
+          if os.path.exists(os.path.join(repo, p))]
+    if st:
+        out.append("Stantii (di una prova, non in edizioni.json; pubblica.sh li sovrascrive, non leggerli): " + ", ".join(st))
+out.append(f"Modello: {lav}/edizione_modello_v6.py -> copialo in {lav}/edizione_{oggi.isoformat()}.py")
 print("\n".join(out[:20]))
 EOF

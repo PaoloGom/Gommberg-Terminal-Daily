@@ -29,6 +29,10 @@ Scrivere a Claude, dall'app, in questa conversazione o in una nuova: "Gommberg: 
 ## Stato
 - 2026-10-12: edizione #001 pubblicata. Sito GitHub attivo. Automazione lun-ven alle 9:00.
 
+## Note pratiche (ex paragrafo 12 delle istruzioni)
+- Il permesso di push viene dalla sessione che crea l'attività programmata: se va ricreata, da una sessione col repository in scrittura.
+- Il prompt fisso dell'attività cita ISTRUZIONI.md per paragrafi (§1-§13): la numerazione resta stabile.
+
 ## Prossimi passi
 - [x] Collaudo end-to-end dal cloud superato il 12/10 (lezioni nel paragrafo 11 delle istruzioni; file di prova rimossi).
 - [ ] Prima settimana: verificare ogni mattina esito, tempi e qualità; correggere il kit.
@@ -54,3 +58,4 @@ Scrivere a Claude, dall'app, in questa conversazione o in una nuova: "Gommberg: 
 - 2026-10-12 sera: Scommessa rifondata come laboratorio (`redazione/scommessa/`): backtest su circa 12 anni, regola di adozione con soglia statistica fissata in anticipo, pagella con punteggi proper, controlli bloccanti su dati e date; festivi esclusi dalla numerazione; orari con zoneinfo; agenda con un evento per riga; fonti di opinione spostate tra le vietate; controllo automatico di numero e data in testata.
 - 2026-10-12, dopo il collaudo: affidabilità prima di tutto. Fonti a livelli (`fonti.json`), una scheda con fonte, data e citazione per ogni fatto (`fatti.json`, archiviata in `redazione/fatti/`), controlli automatici su fonti, freschezza e dati (`controlli_fatti.py`, `controlli_dati.py`), revisione rafforzata (Sonnet, fino a 40 verifiche su tutte le schede principali), pubblicazione solo di ciò che supera i controlli; errata corrige nell'edizione successiva.
 - 2026-10-12: tutto automatico, nessun messaggio di revisione o blocco a Paolo. Ciò che non supera i controlli si corregge o si toglie da solo (fino a 3 giri, notizie di riserva, minimo 6 top news); l'edizione salta solo se mancano repository, dati o PDF. Orario confermato: avvio alle 9:00, uscita verso le 9:45.
+- 2026-10-16, v6.2 (dopo la prova E2E e tre revisioni): tre sole uscite ammesse; temi strutturati da elenco chiuso; ogni cifra al massimo 2 volte; movimenti oltre il 3% sempre citati; perché con causa o "causa non chiarita", quindi osservabile; probabilità con orizzonte, metodo e fonte; registro delle anomalie in fatti.json; frase di quadro trasversale; Stamattina solo prima delle 9:30; consegna prima dell'Archivio Claude; messaggio composto da messaggio.py; v5 in redazione/archivio/; "On track" uniforme.
