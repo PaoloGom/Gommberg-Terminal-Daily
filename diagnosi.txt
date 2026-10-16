@@ -1,3 +1,4 @@
 19:10:25 PASSO 1 clone ok
 19:10:45 PASSO 2 websearch ok 9 risultati
 19:15:56 PASSO 3 webfetch bls ERRORE PROVENANCE_REQUIRED: richiesta di permesso per l'URL non risposta in tempo e ritirata
+19:21:10 PASSO 4 webfetch reuters ERRORE PROVENANCE_REQUIRED: richiesta di permesso per l'URL non risposta in tempo e ritirata
