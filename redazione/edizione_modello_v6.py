@@ -194,10 +194,10 @@ C = {
         "nota": "* Stime redazionali soggettive, più prudenti del mercato: i future danno il rialzo al 47% (Axios). Oggi "
                 "vendite al dettaglio e PPI possono spostarle.",
     },
-    "approfondimenti": [   # 2-3; formato "grafico" | "tabella" | "due_grafici"; "breve" = titolo per l'indice di pag. 1
+    "moduli": [   # 5 unità: il primo "mezzo" va a pag. 3; pag. 4 e 5: 2 "mezzo" o 1 "doppio" ciascuna. "breve" = voce dell'indice di pag. 1
         {"chiave": "banche", "tema": "Trimestrali", "breve": "BofA contro Morgan Stanley",
          "titolo": "Banche USA: BofA sconta la sanzione, Morgan Stanley corre nel trading",
-         "formato": "tabella",
+         "misura": "mezzo",
          "righe": [["Società", "Risultato del terzo trimestre", "Il punto"],
                    ["Bank of America", "Utile netto 6,9 mld $", "Onere straordinario di 1,2 mld $ per l'accordo con il "
                     "Tesoro USA; titolo in calo (TheStreet)"],
@@ -205,26 +205,22 @@ C = {
                     "5,79 mld $; rendimento sul capitale tangibile (ROTCE) 22,6%"],
                    ["BlackRock", "Utile 1,66 mld $ (+25%)", "Patrimonio gestito a livello record (FIRSTonline)"]],
          "larghezze": [30, 58, 94],
+         "perche": "Secondo Milano Finanza BofA delude per l'onere di 1,2 mld $ legato al Tesoro USA, mentre Morgan Stanley corre nel trading azionario (+41%).",
+         "quindi": "Il settore non dà un segnale unico: le prossime trimestrali diranno se il trading compensa gli oneri straordinari.",
          "lettura": "La seconda giornata di trimestrali divide le grandi banche: il risultato di BofA è segnato da una "
                     "voce straordinaria, quello di Morgan Stanley dall'attività sui mercati.",
          "fonte": "Fonti: comunicato Morgan Stanley (SEC), Milano Finanza, FIRSTonline, TheStreet."},
         {"chiave": "treasury", "tema": "Tassi USA", "breve": "curva al minimo dal 28/9",
          "titolo": "Curva Treasury: la distanza tra 10 e 2 anni al minimo dal 28 settembre",
-         "formato": "due_grafici",
-         "img_sx": {"tipo": "barre", "file": "c_curva_1g.png",
+         "misura": "doppio",
+         "grafico2": {"tipo": "barre", "file": "c_curva_1g.png",
                     "dati": [(k, round((UST_14[k] - UST_13[k]) * 100)) for k in UST_14],
                     "titolo": "Curva Treasury: variazione del 14/10 (pb)", "unita": " pb", "dec": 0, "ordina": False,
                     "alto": 2.5},
-         "img_dx": {"tipo": "linee", "file": "c_2_10.png", "x": [d(x) for x, _ in SP_2_10],
-                    "serie": [("10 anni meno 2 anni", [v for _, v in SP_2_10], "#1F5FA8")],
-                    "titolo": "Distanza 10 anni - 2 anni (pb)", "alto": 2.5,
-                    "note": [(d("10-07"), 51, "51"), (d("10-14"), 37, "37")]},
-         "img_sopra": {"tipo": "linee", "file": "c_ust_mese.png", "x": [d(r[0]) for r in UST_MESE], "largo": 7.3,
+         "grafico": {"tipo": "linee", "file": "c_ust_mese.png", "x": [d(r[0]) for r in UST_MESE], "largo": 7.3,
                        "alto": 2.2, "titolo": "Treasury 2, 10 e 30 anni nell'ultimo mese (%)",
                        "serie": [(n, [r[i] for r in UST_MESE], c) for i, n, c in
                                  ((1, "2 anni", "#1F5FA8"), (2, "10 anni", "#F26B1D"), (3, "30 anni", "#111111"))]},
-         "fonte_sx": "Fonte: curva par del Tesoro USA via FMP, 13/10 e 14/10.",
-         "fonte_dx": "Fonte: idem, chiusure 10/9 - 14/10.",
          "punti": ["<b>Il breve.</b> Fino a 3 anni i rendimenti chiudono in rialzo; il 2 anni era salito di circa "
                    "12 pb subito dopo il dato (Axios).",
                    "<b>Il lungo.</b> Dal 7 anni in su chiudono in calo, dopo il picco serale del 10 anni al 5,33% "
@@ -238,6 +234,8 @@ C = {
                    ["20 anni", "5,71%", "5,60%", "5,57%", "-14 pb", "-3 pb"],
                    ["10 anni meno 2 anni", "51 pb", "42 pb", "37 pb", "-14 pb", "-5 pb"]],
          "larghezze": [40, 26, 26, 26, 32, 32],
+         "perche": "Di solito il 2 anni segue le attese sulla Fed, che il CPI sopra le attese ha alzato; per il calo del lungo le fonti di oggi non danno una spiegazione verificata.",
+         "quindi": "Una curva più piatta indica una Fed attesa più dura nel breve; il livello da guardare resta il 5,30-5,35% del 10 anni.",
          "lettura": "Per il rialzo del breve e il calo del lungo le fonti di oggi non danno una spiegazione "
                     "verificata. Il 10 anni chiude sotto i livelli di fine "
                     "settembre e cala ancora stamattina. <b>Soglia del 10 anni:</b> 5,30-5,35%, toccata ma mai tenuta a fine seduta.",
@@ -245,24 +243,22 @@ C = {
         # ↑ riga M: id "M26" di redazione/meccanismi.json
         {"chiave": "chip", "tema": "Chip e Asia", "breve": "TSMC batte le stime, l'Asia vende",
          "titolo": "TSMC batte le stime, ma l'Asia vende i chip",
-         "formato": "due_grafici",
-         "img_sopra": {"tipo": "barre", "file": "c_contagio.png", "dati": CONTAGIO, "ordina": False, "dec": 1,
+         "misura": "doppio",
+         "grafico": {"tipo": "barre", "file": "c_contagio.png", "dati": CONTAGIO, "ordina": False, "dec": 1,
                        "largo": 7.3, "alto": 2.2,
                        "titolo": "Dalla tecnologia USA ai chip asiatici: variazioni % (14/10 e stamattina)"},
-         "img_sx": {"tipo": "linee", "file": "c_nasdaq.png", "x": [d(x) for x, _ in NASDAQ],
+         "grafico2": {"tipo": "linee", "file": "c_nasdaq.png", "x": [d(x) for x, _ in NASDAQ],
                     "serie": [("Nasdaq", [v for _, v in NASDAQ], "#111111")], "alto": 2.4,
                     "titolo": "Nasdaq Composite: -3,3% dal 6 ottobre",
                     "note": [(d("10-06"), 27599.79, "6/10"), (d("10-14"), 26692.87, "14/10")]},
-         "img_dx": {"tipo": "linee", "file": "c_nikkei.png", "x": [d(x) for x, _ in NIKKEI],
-                    "serie": [("Nikkei", [v for _, v in NIKKEI], "#111111")], "alto": 2.4,
-                    "titolo": "Nikkei 225 da luglio", "note": [(d("10-15"), 64425.95, "15/10*")]},
-         "fonte_sx": "Fonte: FMP, chiusure giornaliere.", "fonte_dx": "Fonte: FMP; 15/10 = livello di stamattina.",
          "righe": [["TSMC, terzo trimestre", "Valore", "Variazione annua", "Contro le attese"],
                    ["Ricavi (mld di dollari taiwanesi)", "1.494,24", "+50,9%", "-"],
                    ["Utile netto (mld di dollari taiwanesi)", "763,06", "+68,7%", "Stima LSEG 746,3"],
                    ["Quota dei ricavi da wafer a 2 nanometri", "8%", "-", "-"],
                    ["Quota dei ricavi da wafer a 3 nanometri", "33%", "-", "-"]],
          "larghezze": [70, 30, 36, 46],
+         "perche": "Secondo ANSA le vendite, guidate dai titoli legati all'intelligenza artificiale, si sono estese a tutta l'Asia; a Seul e Tokyo i chip contano molto negli indici.",
+         "quindi": "Conti solidi non bastano quando il timore riguarda tassi e concorrenza: la riapertura del Nasdaq dirà se le vendite si fermano.",
          "lettura": "Le vendite partite ieri dal settore tecnologico di Wall Street si sono estese stamattina all'Asia, "
                     "con i cali più forti sui titoli dei semiconduttori e sulle borse dove i chip contano di più: Seul e Tokyo.",
          "punti": ["<b>Tokyo.</b> SoftBank perde quasi il 10%, Kioxia e Advantest circa l'11%; Tokyo Electron circa il "

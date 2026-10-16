@@ -1,7 +1,7 @@
 from reportlab import rl_config
 rl_config.useA85 = 0   # niente ASCII85: PDF più leggero
 from reportlab.lib.pagesizes import A4
-from reportlab.lib.units import mm
+from reportlab.lib.units import mm, inch
 from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph, Spacer, Table,
@@ -516,6 +516,7 @@ def disegna(spec, extra_mm=0, larghezza_mm=None):
     largo = k.get("largo", 3.55)
     if extra_mm and larghezza_mm:
         k["alto"] = k.get("alto", 2.2) + extra_mm / 25.4 * largo / (larghezza_mm / 25.4)
+    k["alto"] = min(k.get("alto", 2.2), 2.4 if largo > 5 else largo * 0.72)   # proporzioni fisse: niente grafici stirati
     {"linee": linee, "barre": barre}[tipo](f, **k)
     return f
 
@@ -569,13 +570,30 @@ def approfondimento(tema, titolo, formato, chiave=None, **c):
         r0, *rr = c["righe"]
         rows = [headers(*r0)] + [[P(x, "cellb" if j == 0 else "cell") for j, x in enumerate(r)] for r in rr]
         corpo += [Spacer(1, 3), tbl(rows, [w * mm for w in c["larghezze"]]), Spacer(1, 3)]
+    if not (c.get("perche") and c.get("quindi")):
+        raise ValueError(f"approfondimento '{titolo}': mancano 'perche' e/o 'quindi' (obbligatori, 1-2 frasi ciascuno)")
+    corpo += [Spacer(1, 3), perche_quindi(c["perche"], c["quindi"]), Spacer(1, 3)]
     if c.get("lettura"):
         corpo.append(Paragraph("<b>Lettura.</b> " + signcol(c["lettura"]), S["body"]))
     if c.get("fonte"):
         corpo.append(P(c["fonte"], "src"))
     if c.get("freccia"):
         corpo.append(arrow(c["freccia"]))
-    return [CondPageBreak(c.get("spazio", 60) * mm), KeepTogether(testa + corpo), Respiro(6)]
+    # titolo + primo blocco restano insieme; il resto può continuare sulla pagina dopo (niente mezze pagine vuote)
+    return [CondPageBreak(c.get("spazio", 60) * mm), KeepTogether(testa + corpo[:2])] + corpo[2:] + [Respiro(6)]
+
+
+def perche_quindi(perche, quindi):
+    """Box a due colonne sotto i grafici di ogni approfondimento: PERCHÉ (la causa, con fonte se è specifica)
+    e E QUINDI (cosa cambia per chi investe o cosa guardare). 1-2 frasi ciascuno."""
+    cells = [[P("PERCHÉ", "box_t"), Paragraph(signcol(perche), S["nw_b"])],
+             [P("E QUINDI", "box_t"), Paragraph(signcol(quindi), S["nw_b"])]]
+    t = Table([cells], colWidths=[CW / 2] * 2)
+    t.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("BACKGROUND", (0, 0), (-1, -1), TINT),
+                           ("LINEBEFORE", (0, 0), (0, -1), 2.2, ORANGE), ("LINEBEFORE", (1, 0), (1, -1), 2.2, ORANGE),
+                           ("LEFTPADDING", (0, 0), (-1, -1), 7), ("RIGHTPADDING", (0, 0), (-1, -1), 7),
+                           ("TOPPADDING", (0, 0), (-1, -1), 5), ("BOTTOMPADDING", (0, 0), (-1, -1), 6)]))
+    return t
 
 
 def parole(voci):
@@ -706,19 +724,29 @@ def render_v6(path, costruisci, riempi=(3, 4, 5), margine=3):
         pezzi = [k for k, p in elastici.items() if p == pg]
         if pezzi:
             for k in pezzi:
-                AGGIUSTA["extra"][k] = (mm_lib - margine) / len(pezzi)
+                AGGIUSTA["extra"][k] = min((mm_lib - margine) / len(pezzi), 6)   # mai grafici allungati: max 6 mm
         else:
             molle = [i for i, p in AGGIUSTA["pagine_resp"].items() if p == pg and i in MOLLE]
             n = sum(1 for p in AGGIUSTA["pagine_resp"].values() if p == pg)
             if molle:
                 AGGIUSTA["respiro"][(pg, True)] = (mm_lib - margine) / len(molle)
             elif n:
-                AGGIUSTA["respiro"][(pg, False)] = min((mm_lib - margine) / n, 22)
+                AGGIUSTA["respiro"][(pg, False)] = min((mm_lib - margine) / n, 8)
     liberi2 = passo()
     if len(liberi2) != len(liberi) or PAGINE != prima:     # se l'impaginazione cambia, si torna al naturale
         AGGIUSTA.update(extra={}, respiro={})
         liberi2 = passo()
     print("Pagine:", len(liberi2), "| mm liberi in fondo:", ", ".join(f"p{p}={l}" for p, l in liberi2.items()))
+    pieni = {n: v for n, v in REPORT_MODULI}
+    for n, v in pieni.items():
+        if v < 85:
+            print(f"RIEMPIRE: modulo '{n}' pieno al {v}% (minimo 85%): aggiungi punti, righe o lettura verificati")
+        elif v > 112:
+            print(f"ACCORCIARE: modulo '{n}' al {v}%: il motore lo rimpicciolisce, togli testo o righe")
+    REPORT_MODULI.clear()
+    vuote = [f"p{p}={l} mm" for p, l in liberi2.items() if p in (2, 3, 4, 5) and l > 25]
+    if vuote:
+        print("RIEMPIRE:", ", ".join(vuote), "- aggiungi un approfondimento (o righe/punti verificati); mai allungare i grafici")
     print("Rimandi:", PAGINE)
     return liberi2
 
@@ -756,7 +784,7 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
     st += section("Le notizie del giorno", "Top news")
     voci = [("mercati", "Mercati", C.get("mercati_titolo", "Cruscotto, tassi e temi aperti")),
             ("agenda", "Agenda", C.get("agenda_titolo", "Ieri in calendario e in arrivo"))]
-    voci += [(a["chiave"], a["tema"], a.get("breve", a["titolo"])) for a in C["approfondimenti"]]
+    voci += [(a["chiave"], a["tema"], a.get("breve", a["titolo"])) for a in C.get("moduli") or C["approfondimenti"]]
     if stato and not C["scommessa"].get("lunedi"):
         ok = sum(1 for r in stato["righe"].values() if r["strada_giusta"])
         voci.append(("scommessa", "La scommessa", f"{ok}/7 sulla strada giusta"))
@@ -793,10 +821,14 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
         st.append(P(C["agenda_nota"], "note"))
     if C.get("bivio"):
         st += [Respiro(2)] + bivio(**C["bivio"]) + [Respiro(4)]
-    for a in C["approfondimenti"]:
-        a = dict(a)
-        st += approfondimento(a.pop("tema"), a.pop("titolo"), a.pop("formato"), chiave=a.pop("chiave"),
-                              **{k: v for k, v in a.items() if k != "breve"})
+    if C.get("moduli"):          # v6.1: griglia a moduli (pag. 3 in basso, pag. 4 e 5)
+        p3, p45 = approfondimenti_griglia([{k: v for k, v in m.items() if k != "breve"} for m in C["moduli"]])
+        st += p3 + [PageBreak()] + p45
+    else:                        # compatibilità con i modelli precedenti
+        for a in C["approfondimenti"]:
+            a = dict(a)
+            st += approfondimento(a.pop("tema"), a.pop("titolo"), a.pop("formato"), chiave=a.pop("chiave"),
+                                  **{k: v for k, v in a.items() if k != "breve"})
     st.append(PageBreak())
     # ---------- Pag. 6 ----------
     import sys as _s, os as _o
@@ -854,8 +886,9 @@ def voce_indice(C, stato=None, reg=None, ripetizioni=None):
          "notizie": [pulisci(n["titolo"]) for n in C["notizie"]],
          "ticker": [[pulisci(a), b, c] for a, b, c in C["ticker"]],
          "temi": C.get("temi", []),
-         "approfondimenti": [{"tema": a["tema"], "titolo": pulisci(a["titolo"]), "formato": a["formato"]}
-                             for a in C["approfondimenti"]],
+         "approfondimenti": [{"tema": a["tema"], "titolo": pulisci(a["titolo"]),
+                              "formato": a.get("misura") or a.get("formato")}
+                             for a in (C.get("moduli") or C["approfondimenti"])],
          "meccanismi": C.get("meccanismi", []), "parole": [p[0] for p in C.get("parole", [])],
          "glossario": C.get("glossario", []), "errata": C.get("errata"), "ripetizioni": ripetizioni}
     if reg:
@@ -868,3 +901,135 @@ def voce_indice(C, stato=None, reg=None, ripetizioni=None):
                                 r["strada_giusta"], r["dentro_range"]] for r in rr.values()]
         v["scommessa"] = sc
     return v
+
+
+# ======================= Approfondimenti v6.1: griglia a moduli (niente grafici stirati) =======================
+# Pag. 3: agenda in alto + 1 modulo "mezzo" nello spazio restante. Pag. 4 e 5: 2 moduli "mezzo" oppure 1 "doppio".
+# In tutto 5 unità (mezzo = 1, doppio = 2): 3-5 moduli al giorno. Ogni modulo: titolo, grafico a proporzioni fisse
+# accanto a PERCHÉ / E QUINDI, sotto tabella breve o 3 punti, fonte. Il motore impagina, non stira mai i grafici.
+from reportlab.platypus import KeepInFrame
+FH = PH - 37 * mm                      # altezza utile della pagina
+HM = (FH - 6 * mm) / 2                 # altezza di un modulo "mezzo"
+REPORT_MODULI = []
+
+
+def _pq_colonna(perche, quindi, w):
+    righe = [[P("PERCHÉ", "box_t")], [Paragraph(signcol(perche), S["nw_b"])], [Spacer(1, 4)],
+             [P("E QUINDI", "box_t")], [Paragraph(signcol(quindi), S["nw_b"])]]
+    t = Table(righe, colWidths=[w])
+    t.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), TINT), ("LINEBEFORE", (0, 0), (0, -1), 2.2, ORANGE),
+                           ("LEFTPADDING", (0, 0), (-1, -1), 8), ("RIGHTPADDING", (0, 0), (-1, -1), 7),
+                           ("TOPPADDING", (0, 0), (-1, -1), 1.5), ("BOTTOMPADDING", (0, 0), (-1, -1), 1.5),
+                           ("TOPPADDING", (0, 0), (0, 0), 6), ("BOTTOMPADDING", (0, -1), (0, -1), 7)]))
+    return t
+
+
+S["chart_t"] = ParagraphStyle("ct", fontName="Body-B", fontSize=7.8, leading=9.6, textColor=INK, spaceAfter=2)
+
+
+def _grafico_fisso(spec, largo, alto, w):
+    """Grafico a proporzioni fisse (decise dal motore) con il titolo come testo sopra, che va a capo e non si taglia."""
+    if isinstance(spec, str):
+        return [graphic(spec, w)]
+    k = dict(spec); k["largo"], k["alto"] = largo, alto
+    titolo = k.get("titolo", ""); k["titolo"] = ""
+    return ([Paragraph(signcol(titolo), S["chart_t"])] if titolo else []) + [graphic(disegna(k), w)]
+
+
+class _Slot(Flowable):
+    """Contiene un modulo in un'altezza fissa (o in tutto lo spazio rimasto se alto=None).
+    Il contenuto si rimpicciolisce in proporzione se eccede; se è troppo corto lo segnala (va riempito con contenuto)."""
+
+    def __init__(self, nome, contenuto, alto=None):
+        Flowable.__init__(self); self.nome, self.contenuto, self.alto = nome, contenuto, alto
+
+    def wrap(self, aW, aH):
+        h = min(self.alto or aH, aH)
+        natur = sum(f.wrap(aW, 10000)[1] + f.getSpaceBefore() + f.getSpaceAfter() for f in self.contenuto)
+        spazi = [f for f in self.contenuto if isinstance(f, Spacer)]
+        if natur < h and spazi:                # respiro uniforme tra i blocchi, mai grafici più grandi
+            agg = min((h - natur) / len(spazi), 5 * mm)
+            for f in spazi:
+                f.height += agg
+        self.k = KeepInFrame(aW, h, self.contenuto, mode="shrink")
+        self.k.wrapOn(self.canv, aW, h)
+        REPORT_MODULI.append((self.nome, round(natur / h * 100)))
+        self.width, self.height = aW, h
+        return aW, h
+
+    def draw(self):
+        self.k.drawOn(self.canv, 0, self.height - self.k.height)
+
+
+def modulo(tema, titolo, misura="mezzo", chiave=None, grafico=None, grafico2=None, perche=None, quindi=None,
+           punti=None, righe=None, larghezze=None, lettura=None, fonte=None, freccia=None, **_):
+    """Un approfondimento nella griglia. misura: "mezzo" (mezza pagina) o "doppio" (pagina intera).
+    grafico: spec dict ({"tipo": "linee"|"barre", "file", ...}) o file; grafico2 solo per "doppio".
+    perche, quindi: OBBLIGATORI, 1-2 frasi ciascuno. punti: max 3. righe: tabella breve (mezzo max 5 righe dati,
+    doppio max 8), larghezze in mm. lettura: solo doppio. Il motore fissa le misure dei grafici."""
+    if not (perche and quindi):
+        raise ValueError(f"modulo '{titolo}': 'perche' e 'quindi' sono obbligatori")
+    if misura not in ("mezzo", "doppio"):
+        raise ValueError(f"modulo '{titolo}': misura deve essere 'mezzo' o 'doppio'")
+    gap = 5 * mm
+    wl = CW * 0.57; wr = CW - wl - gap
+    c = [P(f"APPROFONDIMENTO  |  {tema.upper()}", "kicker"), Paragraph(signcol(titolo), S["deep_t"]),
+         Table([[""]], colWidths=[CW], rowHeights=[0.6], style=[("LINEABOVE", (0, 0), (-1, -1), 0.8, ORANGE)]),
+         Spacer(1, 4)]
+    pq = _pq_colonna(perche, quindi, wr)
+    if misura == "doppio" and grafico:
+        c += _grafico_fisso(grafico, 7.2, 2.2, CW) + [Spacer(1, 4)]
+        if grafico2:
+            g2 = _grafico_fisso(grafico2, wl / inch, wl / inch * 0.6, wl)
+            c.append(Table([[g2, "", pq]], colWidths=[wl, gap, wr],
+                           style=[("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                                  ("RIGHTPADDING", (0, 0), (-1, -1), 0)]))
+        else:
+            c.append(perche_quindi(perche, quindi))
+    elif grafico:
+        g = _grafico_fisso(grafico, wl / inch, wl / inch * 0.6, wl)
+        c.append(Table([[g, "", pq]], colWidths=[wl, gap, wr],
+                       style=[("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                              ("RIGHTPADDING", (0, 0), (-1, -1), 0)]))
+    else:
+        c.append(perche_quindi(perche, quindi))
+    if righe:
+        mx = 5 if misura == "mezzo" else 8
+        if len(righe) - 1 > mx:
+            raise ValueError(f"modulo '{titolo}': tabella oltre {mx} righe")
+        r0, *rr = righe
+        rows = [headers(*r0)] + [[P(x, "cellb" if j == 0 else "cell") for j, x in enumerate(r)] for r in rr]
+        c += [Spacer(1, 5), tbl(rows, [w * mm for w in larghezze])]
+    if punti:
+        c += [Spacer(1, 5), _colonne(punti[:3])]
+    if lettura:
+        c += [Spacer(1, 4), Paragraph("<b>Lettura.</b> " + signcol(lettura), S["body"])]
+    if freccia:
+        c.append(arrow(freccia))
+    if fonte:
+        c += [Spacer(1, 2), P(fonte, "src")]
+    return c
+
+
+def approfondimenti_griglia(moduli):
+    """moduli: lista di dict (vedi modulo()). Il primo va a pag. 3 (misura mezzo), gli altri riempiono pag. 4-5:
+    in tutto 5 unità (mezzo = 1, doppio = 2). Restituisce (flowables pag. 3, flowables pag. 4-5)."""
+    unita = sum(2 if m.get("misura") == "doppio" else 1 for m in moduli)
+    if not moduli or moduli[0].get("misura", "mezzo") != "mezzo" or unita != 5:
+        raise ValueError(f"approfondimenti: servono 5 unità (mezzo=1, doppio=2) col primo 'mezzo'; ora {unita}. "
+                         "Esempi: 5 mezzi; mezzo + doppio + doppio; mezzo + doppio + mezzo + mezzo.")
+    def blocco(m, alto):
+        m = dict(m); k = m.pop("chiave", None)
+        tema, titolo = m.pop("tema"), m.pop("titolo")
+        corpo = modulo(tema, titolo, chiave=k, **m)
+        return ([ancora(k)] if k else []) + [_Slot(k or titolo, corpo, alto)]
+    p3 = [Spacer(1, 4)] + blocco(moduli[0], None)
+    resto, usate = [], 0
+    for m in moduli[1:]:
+        doppio = m.get("misura") == "doppio"
+        if doppio and usate % 2:
+            raise ValueError("approfondimenti: un modulo 'doppio' deve iniziare in cima a pag. 4 o 5")
+        resto += blocco(m, FH if doppio else HM)
+        usate += 2 if doppio else 1
+        resto.append(PageBreak() if usate % 2 == 0 else Spacer(1, 6 * mm))
+    return p3, resto[:-1] if resto and isinstance(resto[-1], PageBreak) else resto
