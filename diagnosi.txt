@@ -1,3 +1,4 @@
 19:20:14 PASSO 1 clone ok
 19:20:34 PASSO 2 GTD lun 19/10/2026 ore 19:20 Roma | edizione #006 | file: 2026-10-19 Gommberg Terminal Daily #006.pdf
 19:20:52 PASSO 3 nessun bls (10 risultati tutti akrostec.com)
+19:20:54 PASSO 4 saltato: nessun URL bls.gov nei risultati, nessun WebFetch (regola: mai URL a mano)
