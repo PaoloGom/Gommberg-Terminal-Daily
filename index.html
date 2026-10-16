@@ -127,6 +127,8 @@ main > section { min-width: 0; }
 .meta { font-family: var(--mono); font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 14px; }
 .meta .num { color: var(--ink); font-weight: 500; }
 h2.headline { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: clamp(25px, 3.4vw, 38px); line-height: 1.06; margin: 8px 0 0; text-wrap: balance; }
+.dek[hidden] { display: none !important; }
+.dek { font-family: var(--body); font-size: 16px; line-height: 1.45; color: var(--muted); margin: 8px 0 0; max-width: 62ch; }
 .brief-k { margin-top: 20px; }
 .brief { margin: 8px 0 0; padding: 0; list-style: none; display: grid; gap: 11px; max-width: 62ch; }
 .brief li { display: grid; grid-template-columns: 10px 1fr; gap: 10px; }
@@ -286,6 +288,10 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   .actions .btn.lead { flex: 1 1 auto; justify-content: center; }
   .day { aspect-ratio: 1.05; padding: 3px 4px; }
 }
+@media (max-width: 420px) {
+  .logo { font-size: min(27px, 6.1vw); }
+  .dek { font-size: 15px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+}
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 </style>
 </head>
@@ -311,6 +317,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
       <div class="lead-col">
         <div class="kick-row"><h2 class="kicker" id="lbl-latest">Ultima edizione</h2><span class="kmeta" id="meta"></span></div>
         <h2 class="headline" id="headline">Caricamento dell'edizione...</h2>
+        <p class="dek" id="dek" hidden></p>
         <h3 class="kicker brief-k" id="briefK" hidden>In 30 secondi</h3>
         <ul class="brief" id="brief"></ul>
         <div class="actions">
@@ -534,6 +541,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     $("meta").textContent = "N. " + pad(ed.numero) + " | " + GG[dt.getUTCDay()] + " " + dt.getUTCDate() + " " + MESI[dt.getUTCMonth()].slice(0, 3);
     $("dlDate").textContent = cap(dataLunga(ed.data)) + "  |  Edizione n. " + pad(ed.numero);
     $("headline").textContent = ed.titolo;
+    if ($("dek")) { $("dek").textContent = ed.dek || ""; $("dek").hidden = !ed.dek; }
     const ul = $("brief"); ul.innerHTML = "";
     for (const b of (ed.sommario || [])) ul.appendChild(el("li", "", b));
     $("briefK").hidden = !(ed.sommario || []).length;

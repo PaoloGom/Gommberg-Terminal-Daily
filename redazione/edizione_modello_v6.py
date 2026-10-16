@@ -15,6 +15,7 @@ import sys
 REPO = os.path.join(os.environ.get("GTD_REPO", "/home/claude/gtd"), "redazione")   # kit e registri (mai la copia)
 sys.path.insert(0, REPO)
 from gommberg_engine import *  # noqa: E402,F403
+from numeri import ticker_da_dati  # noqa: E402
 
 LAVORO = sys.argv[1] if len(sys.argv) > 1 else "."
 USCITA = sys.argv[2] if len(sys.argv) > 2 else None
@@ -66,9 +67,7 @@ C = {
     "glossario": ["CPI", "pb", "AI", "DRAM", "CXMT", "EPS", "ROTCE", "BTP", "Bund", "VIX", "CME FedWatch", "WTI"],
     "meccanismi": ["M26"],    # id di redazione/meccanismi.json usati nelle righe M
 
-    "ticker": [("MSCI ACWI (ETF)", "158,75 $", "-1,2% g"), ("S&amp;P 500", "7.718,94", "-1,1% g"),
-               ("EURO STOXX 50", "6.162,90", "-0,3% g"), ("UST 10 ANNI", "5,19%", "-2 pb g"),
-               ("BRENT FUTURE", "106,06 $", "+0,4% g"), ("EUR/USD", "1,1156", "-0,4% g"), ("VIX", "16,87", "+1,60 g")],
+    "ticker": ticker_da_dati("dati.json"),   # dal dati.json del giorno (numeri.py): mai a mano
 
     "top": {
         "titolo": "Inflazione USA sopra le attese: torna in gioco il rialzo Fed di ottobre",
@@ -95,9 +94,6 @@ C = {
          "testo": "Il 2 anni chiude in rialzo, 10 e 30 anni in calo dopo il picco serale. Cosa dice la forma della "
                   "curva.",
          "rimando": "treasury"},
-        {"tag": "Fed", "titolo": "Mercato diviso sul rialzo di ottobre",
-         "testo": "Per una strategist citata da Milano Finanza il dato non basta a rilanciare davvero l'ipotesi di "
-                  "ottobre; secondo Axios i future la vedono invece più probabile di ieri."},
         {"tag": "Wall Street", "titolo": "Tecnologia -3,00%, difensivi in rialzo",
          "testo": "In rialzo sanità (+2,44%) e beni di consumo base (+2,21%). Russell 2000 -1,93%, Dow Jones -0,09%. "
                   "Milano Finanza parla di vendite sull'AI.", "rimando": "mercati"},
@@ -152,7 +148,7 @@ C = {
         ("Fed e tassi", "Riunione 27-28 ottobre", "Rialzo di ottobre di nuovo in gioco", "su", "Dati USA delle 14:30"),
         ("Inflazione USA", "In accelerazione", "Energia nei servizi (Axios)", "su", "Prezzi alla produzione (PPI)"),
         ("AI e chip", "Rally concentrato", "Vendite da Wall Street all'Asia", "giu", "Nasdaq e Kospi"),
-        ("Dollaro", "EUR/USD sotto 1,12", "Più forte dopo il CPI", "su", "Treasury a 2 anni"),
+        ("Dollaro", "EUR/USD 1,1156 in chiusura", "Più forte dopo il CPI", "su", "Treasury a 2 anni"),
         ("Petrolio", "Brent sopra 104 $", "WTI ai massimi da 3 settimane", "mista", "Prezzi della benzina"),
     ],
     "fermi": "Iran e Hormuz (nessuna novità verificata dal 13/10), Francia e debito europeo (dal 12/10).",
@@ -163,11 +159,11 @@ C = {
     # ---------- Pag. 3-5 ----------
     "agenda_titolo": "Ieri in calendario e in arrivo",
     "ieri": [        # (quando, evento, dato contro attese, sorpresa +/-/=, → max 8 parole)
-        ("Mer 14, 14:30", "CPI USA settembre, indice generale", "+0,6% m/m (sul mese prima), atteso +0,6%", "=", "-"),
-        ("Mer 14, 14:30", "CPI USA settembre, indice generale", "+3,7% a/a (sull'anno prima), atteso 3,6%; agosto 3,4%",
+        ("Mer 14, 14:30", "CPI USA settembre, generale m/m", "+0,6% m/m (sul mese prima), atteso +0,6%", "=", "-"),
+        ("Mer 14, 14:30", "CPI USA settembre, generale a/a", "+3,7% a/a (sull'anno prima), atteso 3,6%; agosto 3,4%",
          "+", "-"),
-        ("Mer 14, 14:30", "CPI USA settembre, core", "+0,3% m/m, atteso +0,2%; +2,6% a/a, atteso 2,5%", "+",
-         "Energia nei servizi, secondo Axios"),
+        ("Mer 14, 14:30", "CPI USA settembre, core m/m", "+0,3% m/m, atteso +0,2%", "+", "Energia nei servizi, secondo Axios"),
+        ("Mer 14, 14:30", "CPI USA settembre, core a/a", "+2,6% a/a, atteso 2,5%", "+", "-"),
         ("Mer 14", "Trimestrali BofA, Morgan Stanley, BlackRock", "Esiti divergenti", "", "[[banche]]"),
     ],
     "agenda": [      # (quando Roma, evento, attese, perché conta) - <b> sull'evento chiave
@@ -195,7 +191,8 @@ C = {
                   ["Rialzo a ottobre (25 pb)", "40%", "2 anni in salita, curva piatta", "Pressione su tecnologici e "
                    "small cap", "Dollaro più forte, sotto 1,11"]],
         "larghezze": [38, 14, 50, 46, 34],
-        "nota": "* Stime redazionali soggettive. Oggi vendite al dettaglio e PPI possono spostarle.",
+        "nota": "* Stime redazionali soggettive, più prudenti del mercato: i future danno il rialzo al 47% (Axios). Oggi "
+                "vendite al dettaglio e PPI possono spostarle.",
     },
     "approfondimenti": [   # 2-3; formato "grafico" | "tabella" | "due_grafici"; "breve" = titolo per l'indice di pag. 1
         {"chiave": "banche", "tema": "Trimestrali", "breve": "BofA contro Morgan Stanley",
@@ -211,8 +208,8 @@ C = {
          "lettura": "La seconda giornata di trimestrali divide le grandi banche: il risultato di BofA è segnato da una "
                     "voce straordinaria, quello di Morgan Stanley dall'attività sui mercati.",
          "fonte": "Fonti: comunicato Morgan Stanley (SEC), Milano Finanza, FIRSTonline, TheStreet."},
-        {"chiave": "treasury", "tema": "Tassi USA", "breve": "breve su, lungo giù dopo il CPI",
-         "titolo": "Dopo il CPI il 2 anni sale e il 10 anni scende: la curva si appiattisce",
+        {"chiave": "treasury", "tema": "Tassi USA", "breve": "curva al minimo dal 28/9",
+         "titolo": "Curva Treasury: la distanza tra 10 e 2 anni al minimo dal 28 settembre",
          "formato": "due_grafici",
          "img_sx": {"tipo": "barre", "file": "c_curva_1g.png",
                     "dati": [(k, round((UST_14[k] - UST_13[k]) * 100)) for k in UST_14],
@@ -243,7 +240,7 @@ C = {
          "larghezze": [40, 26, 26, 26, 32, 32],
          "lettura": "Per il rialzo del breve e il calo del lungo le fonti di oggi non danno una spiegazione "
                     "verificata. Il 10 anni chiude sotto i livelli di fine "
-                    "settembre e cala ancora stamattina. <b>Soglia:</b> 5,30-5,35%, toccata ma mai tenuta a fine seduta.",
+                    "settembre e cala ancora stamattina. <b>Soglia del 10 anni:</b> 5,30-5,35%, toccata ma mai tenuta a fine seduta.",
          "freccia": "Di solito il 2 anni segue la Fed più del 10 anni: ieri è salito, il 10 anni è sceso."},
         # ↑ riga M: id "M26" di redazione/meccanismi.json
         {"chiave": "chip", "tema": "Chip e Asia", "breve": "TSMC batte le stime, l'Asia vende",
@@ -279,7 +276,7 @@ C = {
 
     # ---------- Pag. 6 ----------
     "scommessa": {"tesi": "il CPI e i tecnologici mettono sotto pressione le borse: tutti e 7 i mercati sono ancora "
-                          "dentro il range, ma solo Treasury 10 anni e Brent vanno nella direzione prevista.",
+                          "dentro il range, ma per ora la direzione ci dà torto quasi ovunque.",
                   "lunedi": False,     # True il primo giorno di borsa della settimana (pagina6_lunedi + verdetto.json)
                   "venerdi": False, "settimana_prec": None},   # settimana_prec solo il lunedì, es. "12-16 ottobre"
     "parole": [("Appiattimento della curva", "La distanza tra i rendimenti a lunga e a breve scadenza si riduce: "

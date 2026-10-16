@@ -32,7 +32,7 @@ def fmt(v, k):
 
 def disegna(reg, out, stato=None):
     st = reg["strumenti"]
-    fig, ax = plt.subplots(figsize=(7.3, 1.85))
+    fig, ax = plt.subplots(figsize=(7.3, float(__import__("os").environ.get("GTD_ALTO_GRAFICO", "1.85"))))  # solo impaginazione
     for y, k in enumerate(reversed(ORDINE)):
         v = st[k]
         b, t = v["base"], v["tipo"]

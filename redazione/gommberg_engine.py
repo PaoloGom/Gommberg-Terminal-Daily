@@ -848,7 +848,7 @@ def voce_indice(C, stato=None, reg=None, ripetizioni=None):
     import re as _re
     d = C["data"]
     pulisci = lambda x: _re.sub(r"<[^>]+>|\[\[\w+\]\]", "", x).replace("&amp;", "&").strip()
-    v = {"numero": numero_edizione(d), "data": d.isoformat(), "titolo": pulisci(C["top"]["titolo"]),
+    v = {"numero": numero_edizione(d), "data": d.isoformat(), "titolo": pulisci(C["top"]["titolo"]), "dek": pulisci(C["top"]["dek"]),
          "sommario": [pulisci(x) for x in C["in30"]],
          "file": f"pdf/{d.isoformat()}-gommberg-{numero_edizione(d):03d}.pdf", "nome": nome_file(d), "pagine": 6,
          "notizie": [pulisci(n["titolo"]) for n in C["notizie"]],

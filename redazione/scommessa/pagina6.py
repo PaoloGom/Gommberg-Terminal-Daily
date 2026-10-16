@@ -107,7 +107,9 @@ def pagina6_settimana(reg, stato, tesi, grafico="c_forecast.png", venerdi=False)
             P(f"La previsione non cambia fino a venerdì {gg_mese(ven)}. \"-\": strumento fermo alla chiusura di partenza.",
               "note"), Spacer(1, 4)]
     righe = [f"Dentro il range oggi: {sum(r['dentro_range'] for r in sr.values())} su 7.",
-             f"Sulla strada giusta oggi: {sum(1 for r in sr.values() if r['strada_giusta'])} su 7."]
+             f"Sulla strada giusta oggi: {sum(1 for r in sr.values() if r['strada_giusta'])} su 7"
+             + (": " + ", ".join(esc(st[k]["nome"]) for k in ORDINE if sr[k]["strada_giusta"]) + "."
+                if any(r["strada_giusta"] for r in sr.values()) else ".")]
     if venerdi:
         righe.append("Verdetto lunedì, con le chiusure di stasera.")
     out.append(side_by_side([_regole(compatto=True)], [box("A che punto siamo", righe, width=CW * 0.5)], CW * 0.5))

@@ -102,7 +102,7 @@ if voci:
     if any(v["numero"] == n for v in voci):
         out.append(f"ATTENZIONE: l'edizione #{n:03d} esiste già in edizioni.json: non sovrascrivere, verifica il numero")
     elif u["numero"] != n - 1:
-        out.append(f"ATTENZIONE: ultima edizione #{u['numero']:03d}, oggi #{n:03d}: numerazione da verificare")
+        out.append(f"Numero: ultima edizione #{u['numero']:03d}, oggi #{n:03d}: usa #{n:03d} (giorni.py) e scrivi nel messaggio finale che mancano uscite intermedie")
     out.append(cut(f"Ultima: #{u['numero']:03d} del {u['data']} - {u['titolo']}"))
     nt = u.get("notizie", [])
     for i in range(0, len(nt), 2):

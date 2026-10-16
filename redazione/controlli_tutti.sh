@@ -47,6 +47,11 @@ if [ -f "$FATTI" ] && [ -n "$DATA" ]; then
 else
   echo "[ROSSO] Fatti: manca $FATTI o la data dell'edizione $N"; ROSSI+=("Fatti")
 fi
+if [ -f "$L/dati.json" ]; then
+  passo "Numeri contro dati.json" 1 python3 "$R/controlli_numeri.py" "$PDF" "$L/dati.json"
+else
+  echo "[ROSSO] Numeri: manca $L/dati.json (schema di controlli_dati.py, con 'etichette')"; ROSSI+=("Numeri")
+fi
 passo "Scrittura (→, cause, sigle)" 1 python3 "$R/controlli_testo.py" "$PDF" --json "$L/testo.json"
 passo "Ripetizioni (avviso)" 0 python3 "$R/controlli_ripetizioni.py" "$PDF" --json "$L/ripetizioni.json"
 passo "Anteprima" 1 python3 "$R/anteprima.py" "$PDF" "$L/anteprima.png"

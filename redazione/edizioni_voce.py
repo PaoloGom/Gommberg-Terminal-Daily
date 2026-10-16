@@ -70,6 +70,7 @@ def main():
     ap.add_argument("--voce", required=True); ap.add_argument("--registro")
     ap.add_argument("--stato"); ap.add_argument("--verdetto"); ap.add_argument("--senza-scommessa", action="store_true")
     ap.add_argument("--sigle"); ap.add_argument("--edizioni", default=os.path.join(os.path.dirname(QUI), "edizioni.json"))
+    ap.add_argument("--dati", default="/home/claude/lavoro/dati.json", help="dati.json del giorno (data delle chiusure del ticker)")
     ap.add_argument("--uscita"); ap.add_argument("--sostituisci", action="store_true")
     a = ap.parse_args()
     import datetime as dt
@@ -122,6 +123,14 @@ def main():
     voce = {"numero": n, "data": a.data, "titolo": w["titolo"], "sommario": w["sommario"],
             "file": f"pdf/{a.data}-gommberg-{n:03d}.pdf", "nome": f"{a.data} Gommberg Terminal Daily #{n:03d}.pdf",
             "pagine": pagine, "notizie": w["notizie"], "ticker": tk}
+    if w.get("dek"):
+        voce["dek"] = re.sub(r"<[^>]+>", "", w["dek"]).replace("&amp;", "&").strip()
+    if os.path.exists(a.dati):
+        import numeri as NU
+        S = json.load(open(a.dati, encoding="utf-8"))["serie"]
+        date = [S[n]["ultimi"][0][0] for _, n, _, _ in NU.TICKER if n in S]
+        if date:
+            voce["ticker_al"] = max(date)
     if not a.senza_scommessa:
         if not a.registro or not (a.stato or a.verdetto):
             esci("scommessa: servono --registro e --stato (mar-ven) o --verdetto (lunedì); oppure --senza-scommessa")

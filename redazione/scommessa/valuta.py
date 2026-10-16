@@ -39,6 +39,14 @@ def stato(reg, attuali):
     ignote = set(attuali) - set(reg["strumenti"])
     if ignote:
         raise SystemExit(f"chiavi sconosciute in attuali.json: {sorted(ignote)} (ammesse: {sorted(reg['strumenti'])})")
+    import datetime as _dt
+    from zoneinfo import ZoneInfo
+    oggi = _dt.datetime.now(ZoneInfo("Europe/Rome")).date().isoformat()
+    for k, x in attuali.items():   # solo validazione degli input: la scommessa si misura su chiusure ufficiali
+        if len(x) > 2:
+            raise SystemExit(f"attuali.json, {k}: c'è un orario ({x[2]}): servono chiusure ufficiali [valore, data], senza ora")
+        if str(x[1]) >= oggi:
+            raise SystemExit(f"attuali.json, {k}: data {x[1]} = oggi o futura: un valore di oggi è intraday, usa la chiusura precedente")
     righe = {}
     for k, v in reg["strumenti"].items():
         if k in attuali:
