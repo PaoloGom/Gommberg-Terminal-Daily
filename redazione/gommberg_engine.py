@@ -43,6 +43,15 @@ S = {
     "tk_c": ParagraphStyle("tc", fontName="Cond", fontSize=6.8, leading=8.4, textColor=colors.HexColor("#BDBDBD")),
 }
 import re
+PAGINE = {}   # chiave -> pagina, riempito da ancora() durante il render (v6)
+RIM_RE = re.compile(r"\[\[(\w+)\]\]")
+
+
+def rimandi(t):
+    """'[[chiave]]' -> '→ pag. N' (N = pagina dell'ancora omonima)."""
+    return RIM_RE.sub(lambda m: f'<font name="Cond-B" color="#B4470F">→ pag. {PAGINE.get(m.group(1), "?")}</font>', t)
+
+
 POS_L, NEG_L, ZERO_L = "#1E7B3A", "#C62828", "#8A8A8A"   # su fondo chiaro
 POS_D, NEG_D, ZERO_D = "#3DDC84", "#FF5A52", "#BDBDBD"   # su fondo scuro (striscia in alto)
 VAR_RE = re.compile(r"(?<![\w,.])([+-]\d[\d.,]*(?:/[+-]?\d[\d.,]*)*(?:\s?%|\s?pb)?|0 pb)")
@@ -51,6 +60,7 @@ VAR_RE = re.compile(r"(?<![\w,.])([+-]\d[\d.,]*(?:/[+-]?\d[\d.,]*)*(?:\s?%|\s?pb
 def signcol(t, dark=False):
     """Colora ogni variazione col suo segno: verde se positiva, rosso se negativa, grigio se zero."""
     pos, neg, zero = (POS_D, NEG_D, ZERO_D) if dark else (POS_L, NEG_L, ZERO_L)
+    t = rimandi(t)
 
     def rep(m):
         tok = m.group(1)
@@ -63,6 +73,7 @@ def signcol(t, dark=False):
 
 
 def P(t, s="body"):
+    t = rimandi(t)
     if s in ("cell", "cellb"):
         t = signcol(t)
     elif s == "tk_c":
@@ -313,3 +324,541 @@ def glossary(terms, cols=2):
                            ("LEFTPADDING", (0, 0), (-1, -1), 0), ("RIGHTPADDING", (0, 0), (-1, -1), 8),
                            ("TOPPADDING", (0, 0), (-1, -1), 1), ("BOTTOMPADDING", (0, 0), (-1, -1), 1)]))
     return t
+
+
+# ================= Componenti v6 (nomi vincolanti: vedi SPEC v6) =================
+from reportlab.platypus import CondPageBreak, Flowable
+
+ORANGE_D = colors.HexColor("#B4470F")      # freccia "→" e rimandi
+S.update({
+    "arrow": ParagraphStyle("ar", fontName="Body-I", fontSize=7.6, leading=10, textColor=colors.HexColor("#4A4A4A"),
+                            leftIndent=9, firstLineIndent=-9, spaceBefore=1, spaceAfter=3),
+    "idx_p": ParagraphStyle("ixp", fontName="Cond-B", fontSize=7, leading=8.5, textColor=ORANGE),
+    "idx_t": ParagraphStyle("ixt", fontName="Cond-B", fontSize=8, leading=9.6, textColor=INK),
+    "lett": ParagraphStyle("lt", fontName="Body", fontSize=8, leading=11, textColor=INK),
+    "tm_f": ParagraphStyle("tmf", fontName="Cond", fontSize=7.4, leading=9.4, textColor=GREY, spaceBefore=2),
+    "deep_t": ParagraphStyle("dt", fontName="Body-B", fontSize=11, leading=13.5, textColor=INK, spaceAfter=3),
+})
+FRECCIA = f'<font name="Body-B" color="#B4470F">→</font>'
+
+# --- Rimandi automatici: ancora("k") segna dove sta un pezzo; nei testi "[[k]]" diventa "→ pag. N" ---
+
+
+class _Ancora(Flowable):
+    def __init__(self, chiave):
+        Flowable.__init__(self); self.chiave = chiave; self.width = self.height = 0
+
+    def draw(self):
+        PAGINE[self.chiave] = self.canv.getPageNumber()
+
+
+def ancora(chiave):
+    return _Ancora(chiave)
+
+
+def pag(chiave):
+    """Numero di pagina dell'ancora (al primo passo '?', al secondo il valore vero)."""
+    return str(PAGINE.get(chiave, "?"))
+
+
+def arrow(testo):
+    """Riga "→" (max 5 per edizione, max 20 parole): perché non ovvio, etichettato M/C/S nel testo se serve."""
+    return Paragraph(f"{FRECCIA}&nbsp;&nbsp;{signcol(testo)}", S["arrow"])
+
+
+def news_grid(items, cols=2, pad=6):
+    """items: tuple (tag, titolo, testo) oppure dict {tag, titolo, testo, rimando="k", freccia="..."}.
+    rimando = chiave di ancora() (o testo libero "pag. 4"); freccia = riga → sotto la notizia."""
+    w = CW / cols
+    cells = []
+    for i, it in enumerate(items, 1):
+        if not isinstance(it, dict):
+            it = dict(zip(("tag", "titolo", "testo"), it))
+        txt = it["testo"] + (f" [[{it['rimando']}]]" if it.get("rimando") else "")
+        txt = signcol(txt)
+        body = [P(it["tag"].upper(), "nw_tag"), Paragraph(signcol(it["titolo"]), S["nw_t"]), Paragraph(txt, S["nw_b"])]
+        if it.get("freccia"):
+            body.append(arrow(it["freccia"]))
+        inner = Table([[P(f"{i:02d}", "num"), body]], colWidths=[9 * mm, w - 9 * mm - 4 * mm])
+        inner.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                                   ("RIGHTPADDING", (0, 0), (-1, -1), 0), ("TOPPADDING", (0, 0), (-1, -1), 0),
+                                   ("BOTTOMPADDING", (0, 0), (-1, -1), 0)]))
+        cells.append(inner)
+    rows = [cells[i:i + cols] for i in range(0, len(cells), cols)]
+    if len(rows[-1]) < cols:
+        rows[-1] += [""] * (cols - len(rows[-1]))
+    t = Table(rows, colWidths=[w] * cols)
+    t.setStyle(TableStyle([("FONTNAME", (0, 0), (-1, -1), "Cond"), ("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 2),
+                           ("RIGHTPADDING", (0, 0), (-1, -1), 6), ("TOPPADDING", (0, 0), (-1, -1), pad - 1),
+                           ("BOTTOMPADDING", (0, 0), (-1, -1), pad), ("LINEBELOW", (0, 0), (-1, -2), 0.4, RULE)]))
+    return t
+
+
+class Elastico(Flowable):
+    """Riempie la pagina: costruisci(pad) -> flowable; sceglie il pad più grande (fino a pad_max) che lascia
+    `riserva` punti per ciò che segue. Usato per la griglia notizie di pag. 1."""
+
+    def __init__(self, costruisci, riserva, pad_min=6, pad_max=16):
+        Flowable.__init__(self)
+        self.c, self.riserva, self.pmin, self.pmax = costruisci, riserva, pad_min, pad_max
+
+    def wrap(self, aW, aH):
+        best = self.c(self.pmin)
+        for pd in range(self.pmin, self.pmax + 1):
+            f = self.c(pd)
+            if f.wrap(aW, aH)[1] > aH - self.riserva:
+                break
+            best = f
+        self.f = best
+        self.width, self.height = best.wrap(aW, aH)
+        return self.width, self.height
+
+    def draw(self):
+        self.f.drawOn(self.canv, 0, 0)
+
+
+def indice_interno(voci, cols=3):
+    """voci = [(pagina, etichetta, titolo), ...]; pagina può essere una chiave di ancora() o un numero."""
+    cells = []
+    for p_, et, tit in voci:
+        n = pag(p_) if isinstance(p_, str) and not p_.isdigit() else p_
+        cells.append([P(f"PAG. {n}  |  {et.upper()}", "idx_p"), Paragraph(signcol(tit), S["idx_t"])])
+    rows = [cells[i:i + cols] for i in range(0, len(cells), cols)]
+    if len(rows[-1]) < cols:
+        rows[-1] += [""] * (cols - len(rows[-1]))
+    t = Table(rows, colWidths=[CW / cols] * cols)
+    t.setStyle(TableStyle([("FONTNAME", (0, 0), (-1, -1), "Cond"), ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                           ("BACKGROUND", (0, 0), (-1, -1), TINT), ("LINEABOVE", (0, 0), (-1, 0), 1.2, INK),
+                           ("LEFTPADDING", (0, 0), (-1, -1), 6), ("RIGHTPADDING", (0, 0), (-1, -1), 6),
+                           ("TOPPADDING", (0, 0), (-1, -1), 4), ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+                           ("LINEAFTER", (0, 0), (-2, -1), 0.4, RULE), ("LINEBELOW", (0, 0), (-1, -2), 0.4, RULE)]))
+    return [P("NELLE PAGINE INTERNE", "kicker"), t]
+
+
+TEND = {"su": ("▲", "in salita"), "giu": ("▼", "in calo"), "fermo": ("■", "stabile")}
+
+
+def termometri(righe, fermi=""):
+    """righe = [(tema, a_che_punto, ultima_novita, tendenza, cosa_guardare)]; tendenza in TEND ('su','giu','fermo')
+    o testo libero. fermi = "Iran (dal 12/10), Francia (dal 13/10)" -> riga finale."""
+    rows = [headers("Tema", "A che punto", "Ultima novità", "Tendenza", "Cosa guardare")]
+    for tema, punto, nov, tend, guarda in righe:
+        s, t = TEND.get(tend, ("", tend))
+        rows.append([P(tema, "cellb"), P(punto, "celln"), P(nov, "cell"),
+                     P(f'<font color="#B4470F">{s}</font> {t}', "celln"), P(guarda, "celln")])
+    out = [tbl(rows, [27 * mm, 38 * mm, 50 * mm, 19 * mm, CW - 134 * mm])]
+    if fermi:
+        out.append(P(f"<b>Fermi:</b> {fermi}", "tm_f"))
+    return out
+
+
+def lettura(testo):
+    """Box compatto 'La lettura' (3-5 righe): il contesto che lega i fatti, solo se aggiunge qualcosa."""
+    t = Table([[P("LA LETTURA", "box_t"), Paragraph(signcol(testo), S["lett"])]], colWidths=[24 * mm, CW - 24 * mm])
+    t.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("BACKGROUND", (0, 0), (-1, -1), TINT),
+                           ("LINEBEFORE", (0, 0), (0, -1), 2.2, ORANGE), ("LEFTPADDING", (0, 0), (-1, -1), 8),
+                           ("RIGHTPADDING", (0, 0), (-1, -1), 8), ("TOPPADDING", (0, 0), (-1, -1), 5),
+                           ("BOTTOMPADDING", (0, 0), (-1, -1), 4)]))
+    return t
+
+
+SORPRESA = {"+": f'<font color="{POS_L}"><b>▲ sopra</b></font>', "-": f'<font color="{NEG_L}"><b>▼ sotto</b></font>',
+            "=": f'<font color="{ZERO_L}"><b>● in linea</b></font>', "": ""}
+
+
+def calendario_ieri(righe):
+    """righe = [(quando, evento, dato_contro_attese, sorpresa '+'/'-'/'='/'' , freccia max 8 parole o '')]."""
+    rows = [headers("Quando", "Evento", "Dato contro attese", "Sorpresa", "→")]
+    for q, ev, dato, sor, fr in righe:
+        rows.append([P(q, "cellb"), P(ev, "cellb"), P(dato, "celln"), P(SORPRESA.get(sor, sor), "celln"), P(fr, "celln")])
+    return tbl(rows, [24 * mm, 44 * mm, 62 * mm, 17 * mm, CW - 147 * mm])
+
+
+def agenda(righe):
+    """righe = [(quando_roma, evento, attese, perche_conta)], max 10, un evento per riga. <b> per l'evento chiave."""
+    rows = [headers("Quando (Roma)", "Evento", "Attese", "Perché conta")]
+    for q, ev, att, perc in righe:
+        rows.append([P(q, "cellb"), P(ev, "cell"), P(att, "celln"), P(perc, "celln")])
+    return tbl(rows, [22 * mm, 62 * mm, 46 * mm, CW - 130 * mm])
+
+
+# --- Riempimento automatico delle pagine (render_v6 a più passi) ---
+AGGIUSTA = {"extra": {}, "respiro": {}, "pagine_resp": {}, "n": 0}
+MOLLE = set()
+
+
+class Respiro(Flowable):
+    """Spazio elastico tra blocchi: al secondo passo si allarga per riempire la pagina (max 22 mm ciascuno).
+    molla=True: prende da sola tutto lo spazio libero della pagina (note ancorate in fondo)."""
+
+    def __init__(self, base=4, molla=False):
+        Flowable.__init__(self)
+        self.base, self.molla, self.i = base, molla, AGGIUSTA["n"]; AGGIUSTA["n"] += 1
+        if molla:
+            MOLLE.add(self.i)
+        self.width = 0
+
+    def wrap(self, aW, aH):
+        pg = AGGIUSTA["pagine_resp"].get(self.i)
+        self.height = self.base + AGGIUSTA["respiro"].get((pg, self.molla), 0) * mm
+        return 0, min(self.height, aH)
+
+    def draw(self):
+        AGGIUSTA["pagine_resp"][self.i] = self.canv.getPageNumber()
+
+
+def disegna(spec, extra_mm=0, larghezza_mm=None):
+    """spec = nome file (grafico già pronto) oppure dict {"tipo": "linee"|"barre", "file": "c_x.png", ...argomenti}.
+    Il motore disegna il grafico e, se serve, lo allunga di extra_mm per riempire la pagina."""
+    if isinstance(spec, str):
+        return spec
+    k = dict(spec); tipo, f = k.pop("tipo"), k.pop("file")
+    largo = k.get("largo", 3.55)
+    if extra_mm and larghezza_mm:
+        k["alto"] = k.get("alto", 2.2) + extra_mm / 25.4 * largo / (larghezza_mm / 25.4)
+    {"linee": linee, "barre": barre}[tipo](f, **k)
+    return f
+
+
+def _colonne(testi):
+    bul = [[Paragraph(signcol(x), S["bul"], bulletText="▪")] for x in testi]
+    t = Table([bul], colWidths=[CW / len(bul)] * len(bul))
+    t.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                           ("RIGHTPADDING", (0, 0), (-1, -1), 8), ("TOPPADDING", (0, 0), (-1, -1), 0)]))
+    return t
+
+
+def approfondimento(tema, titolo, formato, chiave=None, **c):
+    """Un pezzo di approfondimento. formato:
+       "grafico":     img, punti=[str], fonte   (grafico a sinistra, punti a destra)
+       "tabella":     righe=[[intestazioni], ...], larghezze=[mm...], lettura, fonte
+       "due_grafici": img_sx, img_dx, fonte_sx, fonte_dx (punti sotto, in colonne)
+       Facoltativi in tutti: img_sopra (grafico a tutta larghezza in testa), punti, righe+larghezze (tabella),
+       lettura, fonte, freccia (riga →). L'altezza si regola con il parametro alto dei grafici."""
+    testa = [ancora(chiave)] if chiave else []
+    if chiave and any(isinstance(c.get(x), dict) for x in ("img_sopra", "img", "img_sx")):   # allungabile
+        ELASTICI.add(chiave)
+    testa += [P(f"APPROFONDIMENTO  |  {tema.upper()}", "kicker"), Paragraph(signcol(titolo), S["deep_t"]),
+              Table([[""]], colWidths=[CW], rowHeights=[0.6], style=[("LINEABOVE", (0, 0), (-1, -1), 0.8, ORANGE)]),
+              Spacer(1, 3)]
+    corpo = []
+    ex = AGGIUSTA["extra"].get(chiave, 0)
+    wh = (CW - 6 * mm) / 2
+    riga = isinstance(c.get("img"), dict) or isinstance(c.get("img_sx"), dict)
+    if isinstance(c.get("img_sopra"), dict) and riga:
+        ex_sopra, ex = ex * 0.45, ex * 0.55          # spazio extra diviso tra grafico in testa e riga di grafici
+    else:
+        ex_sopra = ex
+    if c.get("img_sopra"):
+        corpo += [img(disegna(c["img_sopra"], ex_sopra, CW / mm), CW), Spacer(1, 3)]
+    if formato == "grafico":
+        w = wh
+        t = Table([[graphic(disegna(c["img"], ex, w / mm), w), [Paragraph(signcol(x), S["bul"], bulletText="▪") for x in c["punti"]]]],
+                  colWidths=[w + 3 * mm, w + 3 * mm])
+        t.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 0)]))
+        corpo.append(t)
+    elif formato == "due_grafici":
+        corpo += [two(disegna(c["img_sx"], ex, wh / mm), P(c.get("fonte_sx", ""), "src"),
+                      disegna(c["img_dx"], ex, wh / mm), P(c.get("fonte_dx", ""), "src")),
+                  Spacer(1, 4)]
+        if c.get("punti"):
+            corpo.append(_colonne(c["punti"]))
+    elif formato != "tabella":
+        raise ValueError(f"formato sconosciuto: {formato}")
+    if c.get("righe"):
+        r0, *rr = c["righe"]
+        rows = [headers(*r0)] + [[P(x, "cellb" if j == 0 else "cell") for j, x in enumerate(r)] for r in rr]
+        corpo += [Spacer(1, 3), tbl(rows, [w * mm for w in c["larghezze"]]), Spacer(1, 3)]
+    if c.get("lettura"):
+        corpo.append(Paragraph("<b>Lettura.</b> " + signcol(c["lettura"]), S["body"]))
+    if c.get("fonte"):
+        corpo.append(P(c["fonte"], "src"))
+    if c.get("freccia"):
+        corpo.append(arrow(c["freccia"]))
+    return [CondPageBreak(c.get("spazio", 60) * mm), KeepTogether(testa + corpo), Respiro(6)]
+
+
+def parole(voci):
+    """voci = [(concetto, spiegazione in 1-2 righe)], 2-3 voci: concetti (non sigle) comparsi nel numero."""
+    cells = [[P(t.upper(), "box_t"), Paragraph(d, S["nw_b"])] for t, d in voci]
+    t = Table([cells], colWidths=[CW / len(cells)] * len(cells))
+    t.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("BACKGROUND", (0, 0), (-1, -1), TINT),
+                           ("LINEBEFORE", (0, 0), (0, -1), 2.2, ORANGE),
+                           ("LINEAFTER", (0, 0), (-2, -1), 1.5, colors.white),
+                           ("LEFTPADDING", (0, 0), (-1, -1), 8), ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+                           ("TOPPADDING", (0, 0), (-1, -1), 6), ("BOTTOMPADDING", (0, 0), (-1, -1), 7)]))
+    return t
+
+
+# --- Grafici standard v6 (PNG + SVG gemello, stile del giornale) ---
+def _plt():
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 7.5, "axes.edgecolor": "#BBBBBB",
+                         "xtick.color": "#555555", "ytick.color": "#333333", "axes.spines.top": False,
+                         "axes.spines.right": False, "axes.grid": True, "grid.color": "#E6E6E6", "grid.linewidth": 0.6,
+                         "axes.titlesize": 8.5, "axes.titleweight": "bold", "axes.titlelocation": "left",
+                         "svg.fonttype": "path"})
+    return plt
+
+
+def _salva(fig, path):
+    fig.tight_layout(pad=0.4); fig.savefig(path, dpi=170); fig.savefig(path[:-4] + ".svg"); fig.clf()
+
+
+def _it(v, dec=1, unita="%"):
+    return (f"{v:+.{dec}f}".replace(".", ",") if v else "0") + unita
+
+
+def barre(path, dati, titolo, unita="%", dec=1, ordina=True, alto=None, largo=3.55):
+    """Barre orizzontali colorate per segno. dati = [(etichetta, valore), ...]."""
+    plt = _plt()
+    d = sorted(dati, key=lambda x: x[1]) if ordina else list(reversed(dati))
+    fig, ax = plt.subplots(figsize=(largo, alto or 0.32 * len(d) + 0.55))
+    col = ["#1E7B3A" if v > 0 else "#C62828" if v < 0 else "#8A8A8A" for _, v in d]
+    ax.barh(range(len(d)), [v for _, v in d], color=col, height=0.62)
+    ax.set_yticks(range(len(d))); ax.set_yticklabels([e for e, _ in d], fontsize=7)
+    span = max(abs(v) for _, v in d) or 1
+    for y, (_, v) in enumerate(d):
+        ax.text(v + (0.03 * span if v >= 0 else -0.03 * span), y, _it(v, dec, unita), va="center",
+                ha="left" if v >= 0 else "right", fontsize=6.6, color=col[y])
+    lo, hi = min(0, min(v for _, v in d)), max(0, max(v for _, v in d))
+    ax.set_xlim(lo - 0.28 * span if lo < 0 else -0.05 * span, hi + 0.28 * span if hi > 0 else 0.05 * span)
+    ax.axvline(0, color="#888888", lw=0.7); ax.grid(axis="y", visible=False)
+    ax.tick_params(axis="x", labelsize=6.5)
+    ax.set_title(titolo)
+    _salva(fig, path); plt.close(fig)
+
+
+def linee(path, x, serie, titolo, unita="", alto=2.2, largo=3.55, zero=False, note=()):
+    """Linee nel tempo o per categoria. x = lista di date/etichette; serie = [(nome, [valori], colore)];
+    note = [(x, y, testo)] etichette con un punto."""
+    plt = _plt()
+    fig, ax = plt.subplots(figsize=(largo, alto))
+    for nome, v, c in serie:
+        if v and isinstance(v[0], tuple):          # serie con date proprie: [(x, y), ...]
+            ax.plot([a for a, _ in v], [b for _, b in v], color=c, lw=1.6, label=nome)
+        else:
+            ax.plot(x, v, color=c, lw=1.6, label=nome)
+    if zero:
+        ax.axhline(0, color="#888888", lw=0.7)
+    for nx, ny, nt in note:
+        ax.plot([nx], [ny], "o", color="#F26B1D", ms=3)
+        ax.annotate(nt, (nx, ny), xytext=(4, 4), textcoords="offset points", fontsize=6.5, color="#333333")
+    if unita:
+        ax.set_ylabel(unita)
+    if len(serie) > 1:
+        ax.legend(frameon=False, fontsize=6.8, loc="best")
+    import datetime as _dt
+    if not x:
+        x = [a for a, _ in serie[0][1]]
+    if x and isinstance(x[0], _dt.date):
+        import matplotlib.dates as mdates
+        ax.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m"))
+        span = (x[-1] - x[0]).days
+        ax.xaxis.set_major_locator(mdates.MonthLocator() if span > 100 else mdates.WeekdayLocator(byweekday=0))
+        if span > 100:
+            ax.xaxis.set_major_formatter(mdates.DateFormatter("%b"))
+    ax.tick_params(labelsize=6.6)
+    ax.set_title(titolo)
+    _salva(fig, path); plt.close(fig)
+
+
+# --- Render a due passi (rimandi esatti) con controllo del riempimento delle pagine ---
+class _Doc(BaseDocTemplate):
+    def handle_pageBegin(self):
+        BaseDocTemplate.handle_pageBegin(self)
+
+    def handle_pageEnd(self):
+        f = self.frame
+        self.liberi.append((self.page, round((f._y - f._y1) / mm)))
+        BaseDocTemplate.handle_pageEnd(self)
+
+
+def render_v6(path, costruisci, riempi=(3, 4, 5), margine=3):
+    """costruisci() -> story. Passo 1: impaginazione naturale. Passo 2: le pagine in `riempi` con spazio libero in
+    fondo vengono riempite allungando i grafici degli approfondimenti (se descritti come dict) o allargando gli spazi
+    Respiro. Passo finale: rimandi "→ pag. N" esatti. Stampa i mm liberi per pagina (obiettivo: 6 pagine, < 10 mm)."""
+    from functools import partial
+    from reportlab.pdfgen.canvas import Canvas
+    AGGIUSTA.update(extra={}, respiro={}, pagine_resp={})
+
+    def passo():
+        AGGIUSTA["n"] = 0
+        doc = _Doc(path, pagesize=A4, leftMargin=M, rightMargin=M, topMargin=22 * mm, bottomMargin=15 * mm,
+                   title=f"Gommberg Terminal Daily #{META['edizione']:03d} - {META['data_lunga']}",
+                   author="Gommberg Terminal Daily", subject="Rassegna mercati globali")
+        doc.liberi = []
+        frame = Frame(M, 15 * mm, PW - 2 * M, PH - 37 * mm, id="f", leftPadding=0, rightPadding=0, topPadding=0,
+                      bottomPadding=0)
+        doc.addPageTemplates([PageTemplate(id="p", frames=[frame], onPage=page)])
+        doc.build(costruisci(), canvasmaker=partial(Canvas, initialFontName="Body", initialFontSize=8))
+        return dict(doc.liberi)
+
+    passo()
+    liberi = passo()          # secondo passo naturale: rimandi già risolti
+    prima = dict(PAGINE)
+    elastici = {k: p for k, p in PAGINE.items() if k in ELASTICI}
+    for pg, mm_lib in liberi.items():
+        if pg not in riempi or mm_lib <= margine:
+            continue
+        pezzi = [k for k, p in elastici.items() if p == pg]
+        if pezzi:
+            for k in pezzi:
+                AGGIUSTA["extra"][k] = (mm_lib - margine) / len(pezzi)
+        else:
+            molle = [i for i, p in AGGIUSTA["pagine_resp"].items() if p == pg and i in MOLLE]
+            n = sum(1 for p in AGGIUSTA["pagine_resp"].values() if p == pg)
+            if molle:
+                AGGIUSTA["respiro"][(pg, True)] = (mm_lib - margine) / len(molle)
+            elif n:
+                AGGIUSTA["respiro"][(pg, False)] = min((mm_lib - margine) / n, 22)
+    liberi2 = passo()
+    if len(liberi2) != len(liberi) or PAGINE != prima:     # se l'impaginazione cambia, si torna al naturale
+        AGGIUSTA.update(extra={}, respiro={})
+        liberi2 = passo()
+    print("Pagine:", len(liberi2), "| mm liberi in fondo:", ", ".join(f"p{p}={l}" for p, l in liberi2.items()))
+    print("Rimandi:", PAGINE)
+    return liberi2
+
+
+ELASTICI = set()   # chiavi degli approfondimenti con almeno un grafico descritto come dict (allungabile)
+
+
+def bivio(titolo, righe, larghezze, nota, kicker="Scenari"):
+    """Il bivio (solo con un evento datato decisivo): righe[0] = intestazioni, poi [scenario, prob, effetti...]."""
+    r0, *rr = righe
+    rows = [headers(*r0)] + [[P(x, "cellb" if j < 2 else "cell") for j, x in enumerate(r)] for r in rr]
+    return [CondPageBreak(45 * mm)] + section(titolo, kicker) + [tbl(rows, [w * mm for w in larghezze]), Spacer(1, 2),
+                                                                P(nota, "note")]
+
+
+def _num(s):
+    try:
+        return float(s.replace("%", "").replace("+", "").replace(".", "").replace(",", ".").strip())
+    except ValueError:
+        return None
+
+
+# ================= Composizione dell'edizione v6: lo script del giorno passa solo i contenuti =================
+def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
+    """C = dizionario dei contenuti (vedi edizione_modello_v6.py). Restituisce la story completa (6 pagine)."""
+    st = []
+    # ---------- Pag. 1 ----------
+    st += ticker(C["ticker"])
+    t = C["top"]
+    st += [P(t.get("kicker", "Top story").upper(), "kicker"), P(t["titolo"], "h1"), P(signcol(t["dek"]), "dek")]
+    if t.get("freccia"):
+        st.append(arrow(t["freccia"]))
+    st += [Spacer(1, 3), side_by_side([box("In 30 secondi", C["in30"], width=CW * 0.56 - 5 * mm)],
+                                      [box("Stamattina", C["stamattina"], width=CW * 0.44)], CW * 0.56)]
+    st += section("Le notizie del giorno", "Top news")
+    voci = [("mercati", "Mercati", C.get("mercati_titolo", "Cruscotto, tassi e temi aperti")),
+            ("agenda", "Agenda", C.get("agenda_titolo", "Ieri in calendario e in arrivo"))]
+    voci += [(a["chiave"], a["tema"], a.get("breve", a["titolo"])) for a in C["approfondimenti"]]
+    if stato:
+        ok = sum(1 for r in stato["righe"].values() if r["strada_giusta"])
+        voci.append(("scommessa", "La scommessa", f"{ok}/7 sulla strada giusta"))
+    else:
+        voci.append(("scommessa", "La scommessa", C["scommessa"].get("breve", "il pronostico della settimana")))
+    idx = indice_interno(voci, cols=3)
+    riserva = sum(f.wrap(CW, PH)[1] + f.getSpaceBefore() + f.getSpaceAfter() for f in idx) + 4
+    st += [Elastico(lambda pd: news_grid(C["notizie"], pad=pd), riserva), Spacer(1, 2)] + idx + [PageBreak()]
+    # ---------- Pag. 2 ----------
+    st.append(ancora("mercati"))
+    st += section("Cruscotto: come stanno andando i mercati", "Mercati")
+    dash = dash_table([headers("Indice", "Ultimo", "Data", "1 g", "1 sett.", "Da inizio anno")] + C["cruscotto"],
+                      [31 * mm, 18 * mm, 11 * mm, 13 * mm, 14 * mm, 17 * mm])
+    bar = [(r[0].replace("&amp;", "&"), _num(r[4])) for _, rr in C["cruscotto"] for r in rr if _num(r[4]) is not None]
+    barre("c_sett.png", bar, C.get("grafico_sett", "Variazione nella settimana"), alto=2.9, largo=2.95)
+    st.append(side_by_side([dash], [img("c_sett.png", CW - 109 * mm), P(C["cruscotto_nota"], "src")], 109 * mm))
+    st += section("Tassi, cambi, materie prime e volatilità", "Cross-asset")
+    st.append(dash_table([headers("Strumento", C.get("cross_data", "Livello"), "1 g", "1 sett.", "1 mese", "Lettura")]
+                         + C["cross"], [31 * mm, 20 * mm, 14 * mm, 14 * mm, 15 * mm, CW - 94 * mm]))
+    if C.get("cross_nota"):
+        st.append(P(C["cross_nota"], "note"))
+    st += section("Termometri: i temi aperti", "Termometri")
+    st += termometri(C["termometri"], C.get("fermi", ""))
+    if C.get("lettura"):
+        st += [Spacer(1, 4), lettura(C["lettura"])]
+    st.append(PageBreak())
+    # ---------- Pag. 3-5: flusso continuo ----------
+    st.append(ancora("agenda"))
+    st += section(C.get("ieri_titolo", "Ieri in calendario"), C.get("ieri_kicker", "Calendario"))
+    st += [calendario_ieri(C["ieri"]), Respiro(2)]
+    st += section(C.get("agenda_sezione", "In arrivo"), C.get("agenda_kicker", "Agenda"))
+    st.append(agenda(C["agenda"]))
+    if C.get("agenda_nota"):
+        st.append(P(C["agenda_nota"], "note"))
+    if C.get("bivio"):
+        st += [Respiro(2)] + bivio(**C["bivio"]) + [Respiro(4)]
+    for a in C["approfondimenti"]:
+        a = dict(a)
+        st += approfondimento(a.pop("tema"), a.pop("titolo"), a.pop("formato"), chiave=a.pop("chiave"),
+                              **{k: v for k, v in a.items() if k != "breve"})
+    st.append(PageBreak())
+    # ---------- Pag. 6 ----------
+    import sys as _s, os as _o
+    _s.path.insert(0, _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), "scommessa"))
+    from pagina6 import pagina6_lunedi, pagina6_settimana
+    sc = C["scommessa"]
+    st.append(ancora("scommessa"))
+    if stato is None:
+        st += pagina6_lunedi(reg, verdetto, pagella, tesi=sc["tesi"], grafico="c_forecast.png",
+                             settimana_prec=sc.get("settimana_prec"))
+    else:
+        st += pagina6_settimana(reg, stato, tesi=sc["tesi"], grafico="c_forecast.png", venerdi=sc.get("venerdi", False))
+    if C.get("parole"):
+        st += section("Parole di oggi", "Per chi legge") + [parole(C["parole"])]
+    st += [Respiro(2, molla=True)] + section("Fonti", "Note")
+    if isinstance(C["fonti"], str):
+        st.append(P(C["fonti"], "src"))
+    else:   # [(sezione, fonti), ...] -> tabella compatta per sezione
+        st.append(tbl([[P(a, "cellb"), P(b, "src")] for a, b in C["fonti"]], [34 * mm, CW - 34 * mm], header=False))
+    if C.get("errata"):
+        st += section("Errata corrige", "Note") + [P(C["errata"], "src")]
+    n_arrow = sum(1 for x in _flat(st) if isinstance(x, Paragraph) and x.style.name == "ar")
+    if n_arrow > 5:
+        print(f"ATTENZIONE: {n_arrow} righe → (massimo 5)")
+    return st
+
+
+def _flat(items):
+    for x in items:
+        if isinstance(x, (list, tuple)):
+            yield from _flat(x)
+        elif isinstance(x, Table):
+            for row in x._cellvalues:
+                yield from _flat(row)
+        elif isinstance(x, KeepTogether):
+            yield from _flat(x._content)
+        else:
+            yield x
+
+
+def voce_indice(C, stato=None, reg=None, ripetizioni=None):
+    """Voce v6 per edizioni.json (campi nuovi generati dal codice)."""
+    import re as _re
+    d = C["data"]
+    pulisci = lambda x: _re.sub(r"<[^>]+>|\[\[\w+\]\]", "", x).replace("&amp;", "&").strip()
+    v = {"numero": numero_edizione(d), "data": d.isoformat(), "titolo": pulisci(C["top"]["titolo"]),
+         "sommario": [pulisci(x) for x in C["in30"]],
+         "file": f"pdf/{d.isoformat()}-gommberg-{numero_edizione(d):03d}.pdf", "nome": nome_file(d), "pagine": 6,
+         "notizie": [pulisci(n["titolo"]) for n in C["notizie"]],
+         "ticker": [[pulisci(a), b, c] for a, b, c in C["ticker"]],
+         "temi": C.get("temi", []),
+         "approfondimenti": [{"tema": a["tema"], "titolo": pulisci(a["titolo"]), "formato": a["formato"]}
+                             for a in C["approfondimenti"]],
+         "meccanismi": C.get("meccanismi", []), "parole": [p[0] for p in C.get("parole", [])],
+         "glossario": C.get("glossario", []), "errata": C.get("errata"), "ripetizioni": ripetizioni}
+    if reg:
+        sc = {"settimana": reg["settimana"], "strada": None, "range": None, "su": 7, "dettaglio": []}
+        if stato:
+            rr = stato["righe"]
+            sc["strada"] = sum(1 for r in rr.values() if r["strada_giusta"])
+            sc["range"] = sum(1 for r in rr.values() if r["dentro_range"])
+            sc["dettaglio"] = [[r["nome"], "su" if r["var"] > 0 else "giù" if r["var"] < 0 else "fermo",
+                                r["strada_giusta"], r["dentro_range"]] for r in rr.values()]
+        v["scommessa"] = sc
+    return v

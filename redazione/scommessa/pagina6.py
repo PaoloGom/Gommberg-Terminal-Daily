@@ -34,7 +34,11 @@ def gg_mese(iso):
     return f"{d.day} {MESI[d.month - 1]}"
 
 
-def _regole():
+def _regole(compatto=False):
+    if compatto:   # mar-ven: 1-2 righe; le regole complete escono il lunedì
+        return box("Le regole del gioco", [
+            "Direzione fissata lunedì per 7 mercati: 1 punto per la direzione, 1 per la chiusura di venerdì nel range "
+            "(massimo 14, par circa 8,5). Regole complete il lunedì."], width=CW * 0.5 - 4 * mm)
     return box("Le regole del gioco", [
         "Ogni lunedì scegliamo una direzione per 7 mercati; la previsione non cambia fino a venerdì.",
         "1 punto per la direzione giusta, 1 punto se la chiusura di venerdì cade nel range: massimo 14.",
@@ -106,5 +110,5 @@ def pagina6_settimana(reg, stato, tesi, grafico="c_forecast.png", venerdi=False)
              f"Sulla strada giusta oggi: {sum(1 for r in sr.values() if r['strada_giusta'])} su 7."]
     if venerdi:
         righe.append("Verdetto lunedì, con le chiusure di stasera.")
-    out.append(side_by_side([_regole()], [box("A che punto siamo", righe, width=CW * 0.5)], CW * 0.5))
+    out.append(side_by_side([_regole(compatto=True)], [box("A che punto siamo", righe, width=CW * 0.5)], CW * 0.5))
     return out

@@ -124,7 +124,7 @@ if voci:
         except Exception:
             nf = "?"
         out.append(f"Errata: confronta {nf} schede di redazione/fatti/{u['data']}.json con le notizie di oggi")
-modello = "edizione_modello_v6.py" if os.path.exists(os.path.join(repo, "redazione", "edizione_modello_v6.py")) else "edizione_modello_2026-10-12.py"
+modello = "edizione_modello_v6.py" if os.path.exists(os.path.join(repo, "redazione", "edizione_modello_v6.py")) else "edizione_modello_v5.py"
 out.append(f"Modello: {lav}/{modello} -> copialo in {lav}/edizione_{oggi.isoformat()}.py")
 print("\n".join(out[:20]))
 EOF
