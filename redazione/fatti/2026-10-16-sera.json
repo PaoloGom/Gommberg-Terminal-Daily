@@ -1,0 +1,616 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Prezzi all'import USA settembre +1,1% m/m (atteso +0,8%), 8,1% a/a; prezzi all'export +2,2% m/m (atteso +1,0%)",
+  "data_evento": "2026-10-16",
+  "novita": "Terzo dato sopra le attese in tre giorni, dopo CPI (14/10) e PPI (15/10)",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/us-september-import-price-index-1-1-vs-0-8-expected/",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "US September import price index +1.1% vs +0.8% expected"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-16-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610160739436815",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "I prezzi export a settembre su base mensile negli Stati Uniti hanno registrato un +2,2%"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/16/appuntamenti-macroeconomici-del-16-ottobre-2026-13.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "14:30 USA: Prezzi export, mensile (atteso 1%; preced. 0,6%)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Auto Ue: proposta Francia-Germania per -90% di CO2 dal 2035, senza obbligo di compensare il 10% restante, con biocarburanti; da integrare nell'iter procedurale",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/economia/dettaglio/auto-merz-in-accordo-proposta-per-uso-carburanti-alternativi-o-biocarburanti-2-nRC_16102026_1813_590198495.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "puntando a una riduzione del 90% delle emissioni di Co2 a partire dal 2035"
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/economia/dettaglio/auto-merz-in-accordo-proposta-per-uso-carburanti-alternativi-o-biocarburanti-2-nRC_16102026_1813_590198495.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "senza l'obbligo di compensare il restante 10%"
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/economia/dettaglio/auto-merz-in-accordo-proposta-per-uso-carburanti-alternativi-o-biocarburanti-2-nRC_16102026_1813_590198495.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Naturalmente, tutto cio' dovra' ora essere integrato nell'iter procedurale."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Satelliti europei: Eutelsat +17% a Parigi, OHB +13%, secondo Radiocor dopo le restrizioni di Starlink all'uso militare",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-3-nRC_16102026_1807_588117709.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "A Parigi Eutelsat segna +17%, mentre la tedesca Ohb +13%."
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-3-nRC_16102026_1807_588117709.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "tornate al centro dell'attenzione dopo le restrizioni introdotte dalla statunitense Starlink all'utilizzo militare"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Cucinelli: terzo trimestre con ricavi in crescita, alza di nuovo le stime; titolo +4,3% a Milano (circa +6% alle 15:30)",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-2-nRC_16102026_1746_556760446.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Tornando a Cucinelli (+4,3%), la maison di Solomeo ha registrato un terzo trimestre con ricavi ancora in crescita"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-16-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610160739436815",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Tra le blue chip corre Brunello Cucinelli (+6% dopo i risultati)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Produzione industriale USA settembre: utilizzo della capacità 76,9%, manifattura +0,3% (atteso +0,3%)",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/releases/g17/current/default.htm",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Capacity utilization moved up to 76.9 percent in September"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/us-september-industrial-production-0-7-vs-0-4-expected/",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Manufacturing output +0.3% vs +0.3% exp"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "UniCredit +1,4% a Milano, Mps +1,2%, Intesa +0,9%; l'ok BCE al controllo di Commerzbank è arrivato ieri",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-2-nRC_16102026_1746_556760446.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "UniCredit (+1,4%), che ha ottenuto ieri l'ok della Bce sul controllo di Commerz."
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/unicredit-via-libera-dalla-bce-all-acquisizione-del-controllo-di-commerzbank-261.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "UniCredit, via libera dalla BCE all'acquisizione del controllo di Commerzbank"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Chip verso la peggior settimana da luglio a Wall Street; secondo Radiocor pesano le preoccupazioni sui costi di finanziamento degli investimenti AI",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/wall-street-anche-dj-in-calo-titoli-chip-verso-peggior-settimana-da-luglio-rco-nRC_16102026_1834_598653256.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Wall Street: anche Dj in calo, titoli chip verso peggior settimana da luglio (RCO)"
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-2-nRC_16102026_1746_556760446.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "preoccupazioni sulla sostenibilita' degli ingenti investimenti nell'AI e sui relativi costi di finanziamento"
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-2-nRC_16102026_1746_556760446.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "tensioni sul gruppo americano CoreWeave (-9,3% a Wall Street)"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "testo": "De' Longhi: perfezionato il closing, sale all'88,02% della divisione professionale (+26,46%) per 662,5 milioni di euro; titolo +4,4% a Milano",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/finanza/dettaglio/de-longhi-perfezionato-closing-per-aumento-quota-a-88-in-divisione-professionale-nRC_16102026_1755_564137056.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "De Longhi: perfezionato closing per aumento quota a 88% in divisione professionale"
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-2-nRC_16102026_1746_556760446.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Fuori dal paniere principale, De' Longhi segna +4,4% dopo l'annuncio dell'acquisizione di un'ulteriore partecipazione"
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-2-nRC_16102026_1746_556760446.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "del 26,46% nella divisione Professional Coffee, per 662,5 milioni di euro."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "testo": "Inflazione area euro settembre (finale): 3,8% a/a, atteso 3,8%, confermata la stima preliminare",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/16/appuntamenti-macroeconomici-del-16-ottobre-2026-13.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "11:00 Unione Europea: Prezzi consumo, annuale (atteso 3,8%; preced. 3,2%)"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/investinglive-european-session-wrap-dollar-slips-as-stocks-steady-and-yields-edge-a-little-higher/",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Eurozone September final CPI +3.8% vs +3.8% y/y prelim"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-16-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610160739436815",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "il tasso di inflazione annuo nell'area dell'euro è stato pari al 3,8% a settembre"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "K02",
+  "sezione": "catalizzatori",
+  "testo": "Prezzi all'import USA settembre +1,1% m/m, atteso +0,8% (Teleborsa 0,9%), 8,1% a/a",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/us-september-import-price-index-1-1-vs-0-8-expected/",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "US September import price index +1.1% vs +0.8% expected"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/16/appuntamenti-macroeconomici-del-16-ottobre-2026-13.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "14:30 USA: Prezzi import, mensile (atteso 0,9%; preced. 0,7%)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "K03",
+  "sezione": "catalizzatori",
+  "testo": "Prezzi all'export USA settembre +2,2% m/m, atteso +1,0%",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-16-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610160739436815",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "I prezzi export a settembre su base mensile negli Stati Uniti hanno registrato un +2,2%"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/16/appuntamenti-macroeconomici-del-16-ottobre-2026-13.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "14:30 USA: Prezzi export, mensile (atteso 1%; preced. 0,6%)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "K04",
+  "sezione": "catalizzatori",
+  "testo": "Produzione industriale USA settembre +0,7% m/m, atteso +0,4%",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/releases/g17/current/default.htm",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Industrial production (IP) increased 0.7 percent in September after edging up 0.1 percent in August."
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/16/appuntamenti-macroeconomici-del-16-ottobre-2026-13.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "15:15 USA: Produzione industriale, mensile (atteso 0,4%; preced. 0%)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Martedì 20 ottobre ore 16:00 tavolo ex Ilva al ministero del Lavoro (misure per il personale)",
+  "data_evento": "2026-10-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/economia/dettaglio/ex-ilva-convocato-il-20-ottobre-il-tavolo-al-ministero-del-lavoro-nRC_16102026_1755_563137056.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Sara' il 20 ottobre alle 16 il prossimo incontro al ministero del Lavoro sulla situazione dell'ex Ilva."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Riunione della Fed (FOMC) 27-28 ottobre",
+  "data_evento": "2026-10-27",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "October 27-28"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "testo": "Giovedì 29 ottobre riunione di politica monetaria della BCE con conferenza stampa",
+  "data_evento": "2026-10-29",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BCE",
+    "url": "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "29/10/2026 Governing Council of the ECB: monetary policy meeting in Frankfurt (Day 2), followed by press conference"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "E01",
+  "sezione": "mercati",
+  "testo": "Chiusure europee 16/10: Euro Stoxx 50 +0,6%; DAX +0,95%, CAC 40 +0,28%, FTSE 100 +0,38%, FTSE MIB +0,93% (49.857 punti); settimana FTSE 100 +3,13%, DAX +2,13%, CAC +1,97%, Ibex +1,54%, FTSE MIB +0,22%",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-3-nRC_16102026_1807_588117709.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "mentre l'Euro Stoxx 50 guadagna lo 0,6%."
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/stocks/european-stocks-finish-higher-posting-weekly-gains-as-u-s-technology-shares-struggle/",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "As London and European traders head home, the major European stock indices are closing higher across the board."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-16-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610160739436815",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Chiusura Milano FTSE MIB +0,9% a 49.857 punti."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "E02",
+  "sezione": "mercati",
+  "testo": "Milano 16/10: spread BTP-Bund 107 pb in calo, BTP 10 anni 4,49% (4,50% per investingLive); Saipem +4,1%, Buzzi +3,9%, Fincantieri +3,4%, Cucinelli +4,3%; Technoprobe -5,1%, Moncler -2,6%",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-16-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610160739436815",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Scende a quota 107 punti lo spread Btp/Bund, con il decennale italiano che si attesta al 4,49%"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/stocks/european-stocks-finish-higher-posting-weekly-gains-as-u-s-technology-shares-struggle/",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Italy: 4.502%, up 0.9 basis point."
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-2-nRC_16102026_1746_556760446.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "In evidenza anche Saipem (+4,1%) e Buzzi (+3,9%)"
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-2-nRC_16102026_1746_556760446.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Technoprobe (-5,1%) registra di nuovo la performance peggiore del paniere"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "E03",
+  "sezione": "mercati",
+  "testo": "Europa 16/10: Rheinmetall +6,3%, Thales +2,8%, BAE Systems +2,6%, BE Semiconductor -4,8%, SAP -1,0%, Stoxx 600 Technology -0,1%, Francoforte e Amsterdam +0,9%, Madrid +0,8%, Parigi e Londra +0,3%",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-3-nRC_16102026_1807_588117709.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Rheinmetall e' salita del 6,3% a Francoforte"
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-3-nRC_16102026_1807_588117709.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Thales del 2,8% a Parigi"
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-3-nRC_16102026_1807_588117709.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Bae Systems del 2,6% a Londra"
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-3-nRC_16102026_1807_588117709.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "di Be Semiconductor ad Amsterdam (-4,8%)"
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-3-nRC_16102026_1807_588117709.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "di Sap a Francoforte (-1%)"
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-3-nRC_16102026_1807_588117709.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "lo Stoxx 600 Technology che non rimbalza dopo la debacle della vigilia e segna -0,1%"
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-3-nRC_16102026_1807_588117709.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Il bilancio vede Francoforte a +0,9%, Amsterdam a +0,9%, Madrid a +0,8%,"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "M01",
+  "sezione": "macro",
+  "testo": "Termometri: dollaro (euro a 1,1256 in giornata, massimo di una settimana, poi 1,1217), chip (peggior settimana da luglio), Europa (rotazione dal tech)",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/investinglive-european-session-wrap-dollar-slips-as-stocks-steady-and-yields-edge-a-little-higher/",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "EUR/USD up 0.3% to 1.1256 in hitting a one-week high"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-16-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610160739436815",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "L'euro sale dello 0,30% a 1,1250 dollari"
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/wall-street-anche-dj-in-calo-titoli-chip-verso-peggior-settimana-da-luglio-rco-nRC_16102026_1834_598653256.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "titoli chip verso peggior settimana da luglio"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "Revisioni di agosto: import da +0,7% a +0,5%, export da +0,6% a +1,2%, produzione industriale da 0,0% a +0,1%; import a/a 8,1% (prec. 7,0%); capacità 76,9%, 2,5 punti sotto la media di lungo periodo",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/us-september-import-price-index-1-1-vs-0-8-expected/",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Prior was +0.7% m/m (revised to +0.5%)"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/us-september-import-price-index-1-1-vs-0-8-expected/",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Prior export prices were +0.6% (revised to +1.2%)"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/central-banks/how-have-interest-rate-expectations-changed-after-this-week-s-events-6/",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "the probabilities for an imminent Federal Reserve rate hike dropped despite the higher than expected inflation data."
+   },
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/releases/g17/current/default.htm",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Industrial production (IP) increased 0.7 percent in September after edging up 0.1 percent in August."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "Europa: rotazione dal tech a difesa, satelliti e moda",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-3-nRC_16102026_1807_588117709.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Rheinmetall e' salita del 6,3% a Francoforte"
+   },
+   {
+    "testata": "Radiocor",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/prima-pagina/dettaglio/borsa-fuga-dal-tech-premia-la--old-economy--milano-09-con-moda-e-difesa-2-nRC_16102026_1746_556760446.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "preoccupazioni sulla sostenibilita' degli ingenti investimenti nell'AI e sui relativi costi di finanziamento"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Brent future 16/10: -0,59% a 105,3 $ alle 10:35, +0,45% a 106,40 $ alle 13:35 (WTI 98,02 $), +3,2% alle 18:58; chiusure dal 14/9: massimo 108,75 $ (15/9), minimo 96,16 $ (29/9)",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-16-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610160739436815",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "future sul Brent -0,59% a 105,3 dollari al barile"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-16-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610160739436815",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Il future sul petrolio Brent sale dello 0,45% a 106,40 dollari al barile"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/commodities/oil-remains-supported-amid-persistent-middle-east-tensions-as-us-weighs-using-mother-of-all-bombs/",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Crude oil continues to edge higher amid escalating Middle East tensions."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale (nessun Agent disponibile): pagine riaperte il 16/10 con richiesta di citazione letterale; citazioni corrette dove non letterali; Ibex +1,54% dal primo fetch della stessa pagina"
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Tre dati USA sopra le attese (CPI, PPI, import-export) e Treasury 10 anni -9 pb il 15/10; attese di rialzo Fed in calo e dollaro debole a mezzogiorno",
+  "ricerche": [
+   "Treasury yields fall despite hot inflation growth concerns Fed rate hike odds October 2026",
+   "dollaro scende nonostante inflazione alta probabilità rialzo Fed ottobre in calo 16 ottobre",
+   "investingLive: How have interest rate expectations changed after this week's events (articolo letto)"
+  ],
+  "esito": "non chiarita"
+ },
+ {
+  "id": "A2",
+  "sezione": "anomalia",
+  "fatto": "Brent +3,2% alle 18:58 dopo il -0,59% delle 10:35",
+  "ricerche": [
+   "oil prices jump Friday Brent $108 Iran Hormuz October 16 2026",
+   "investingLive: Oil remains supported amid persistent Middle East tensions (articolo del 15/10, nessun dato di oggi)",
+   "investingLive: Iran's IRGC orders evacuation of military bases (articolo del 15/10)"
+  ],
+  "esito": "non chiarita"
+ }
+]
