@@ -34,10 +34,16 @@ Scrivere a Claude, dall'app, in questa conversazione o in una nuova: "Gommberg: 
 - Il permesso di push viene dalla sessione che crea l'attività programmata: se va ricreata, da una sessione col repository in scrittura.
 - Il prompt fisso dell'attività cita ISTRUZIONI.md per paragrafi (§1-§13): la numerazione resta stabile.
 
-## Prossimi passi
-- [x] Collaudo end-to-end dal cloud superato il 12/10 (lezioni nel paragrafo 11 delle istruzioni; file di prova rimossi).
-- [ ] Prima settimana: verificare ogni mattina esito, tempi e qualità; correggere il kit.
-- [ ] Lunedì 19/10: primo verdetto della scommessa.
+## Prossimi passi (programma concordato con Paolo il 17/10, in quest'ordine; un cambiamento alla volta, misurato)
+- [x] Collaudo end-to-end dal cloud superato il 12/10.
+- [x] v7.0-7.2 (17/10): contesto.py, lettura e spiegazione, il perché in due fasi, prima pagina con le aperture delle altre testate, pagina del sito sulla scommessa.
+- [ ] Notte del 17/10: prova generale end to end (simula lunedì 19/10, ramo `prova-2026-10-19`), anteprima sul sito solo con `?demo=1` (`edizioni_demo.json`, mai `edizioni.json`).
+- [ ] 1. Lunedì 19/10: rivedere la #006, prima edizione v7.2, e il primo verdetto della scommessa (tempi, regole nuove, inceppi); correggere.
+- [ ] 2. Approfondimenti: un approfondimento = una tesi (il titolo dice cosa significa; la tabella a supporto).
+- [ ] 3. Fonti primarie per i dati ufficiali (comunicato BLS, BEA, Eurostat...), l'agenzia solo d'appoggio.
+- [ ] 4. Un ritorno dai lettori (una domanda sul sito o 3 lettori fidati sentiti il venerdì).
+- [ ] 5. Landing page "più profonda, non più grande", per PC (oggi 4 lettori su 5) e telefono: prima pagina in testo, pagina per edizione con anteprima su WhatsApp, link fisso e feed RSS, fiducia in vista (metodo, errata, pagella). Decisione aperta di Paolo: statistiche dei lettori (GoatCounter, senza cookie) sì o no.
+- [ ] 6. Alla prossima revisione: comprimere ISTRUZIONI.md (da 17 KB sotto i 15) senza togliere regole con un motivo scritto.
 
 ## La Scommessa (sotto-progetto)
 - Obiettivo: range calibrati (la chiusura del venerdì cade nel range circa 2 settimane su 3) e una misura onesta delle scelte della redazione contro un modello senza opinioni.
