@@ -1,0 +1,599 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "PPI USA settembre: +1,3% m/m, +6,3% a/a (atteso 5,3%); core +0,7% m/m e +5,0% a/a; energia +10,8%",
+  "data_evento": "2026-10-15",
+  "novita": "Il PPI delle 14:30 del 15/10 non era uscito: dopo il CPI mostra prezzi alla produzione al ritmo più alto da oltre quattro anni",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-prezzi-alla-produzione-in-forte-rialzo-crescita-record-da-oltre-quattro-anni-179.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "l'indice dei prezzi alla produzione (PPI) è cresciuto dell'1,3% rispetto al mese precedente e del 6,3% su base annua"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-prezzi-alla-produzione-in-forte-rialzo-crescita-record-da-oltre-quattro-anni-179.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Al netto di alimentari ed energia, l'indice ha segnato un incremento dello 0,7% mensile e del 5% annuo"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-prezzi-alla-produzione-in-forte-rialzo-crescita-record-da-oltre-quattro-anni-179.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "A settembre, i prezzi dell'energia sono aumentati del 10,8%"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/appuntamenti-macroeconomici-del-15-ottobre-2026-25.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "14:30 USA: Prezzi produzione, annuale (atteso 5,3%; preced. 5,4%)"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/us-september-ppi-6-3-vs-5-3-expected/",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "US September PPI 6.3% vs 5.3% expected"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Vendite al dettaglio USA settembre +0,8% m/m (atteso +0,3%), agosto rivisto +1,3%; escluse le auto +0,9% (atteso +0,6%)",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-le-vendite-al-dettaglio-crescono-piu-delle-attese-a-settembre-171.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Nel mese di settembre 2026, si è registrata una crescita dello 0,8% su base mensile"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-le-vendite-al-dettaglio-crescono-piu-delle-attese-a-settembre-171.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Il dato comunicato dall'US Census Bureau è superiore alle stime degli analisti (+0,3%)."
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-le-vendite-al-dettaglio-crescono-piu-delle-attese-a-settembre-171.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "escluse le auto, registra un aumento dello 0,9% su base mensile rispetto al +0,6% stimato dagli analisti"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Sussidi di disoccupazione 199 mila (prec. 198 mila); Philly Fed ottobre 20,9 da 37,8, sotto le attese",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-richieste-sussidi-disoccupazione-in-aumento-meno-delle-attese-183.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Nella settimana al 9 ottobre, i claims sono risultati pari a 199 mila unità, in aumento di 1.000 unità rispetto alle 198 mila"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-richieste-sussidi-disoccupazione-in-aumento-meno-delle-attese-183.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "e contro le 200.000 stimate dagli analisti."
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-peggiora-l-attivita-del-settore-manifatturiero-nell-area-di-philadelphia-187.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "si è portato a 20,9 punti dai 37,8 di settembre."
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-peggiora-l-attivita-del-settore-manifatturiero-nell-area-di-philadelphia-187.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Le stime degli analisti indicavano una discesa fino a 28,2 punti."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Titoli AI e debito: Oracle -1,6% in pre-market dopo quasi -9% la seduta prima; obbligazioni di CoreWeave e Oracle ai rendimenti record",
+  "data_evento": "2026-10-15",
+  "novita": "Il 14/10 era stato il crollo dei titoli; il 15/10 emergono il debito e i rendimenti record delle obbligazioni",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/wall-street-sotto-pressione-crollano-i-titoli-ai-tra-timori-sul-debito-e-nuovi-rischi-inflazionistici-191.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Oracle cede l'1,6%, dopo aver perso quasi il 9% nella seduta precedente."
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/wall-street-sotto-pressione-crollano-i-titoli-ai-tra-timori-sul-debito-e-nuovi-rischi-inflazionistici-191.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Sotto pressione anche le obbligazioni delle due società, i cui rendimenti hanno raggiunto livelli record."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Kospi chiude a 5.554,22, -7,57%; trading fermato 20 minuti dal circuit breaker",
+  "data_evento": "2026-10-15",
+  "novita": "Chiusura ufficiale del 15/10, dopo il -8,68% delle 08:11 riportato nell'edizione 004",
+  "fonti": [
+   {
+    "testata": "Korea Herald",
+    "url": "https://www.koreaherald.com/article/10904070",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "The benchmark Kospi tumbled 7.57 percent to close at 5,554.22"
+   },
+   {
+    "testata": "Korea Herald",
+    "url": "https://www.koreaherald.com/article/10904070",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "A circuit breaker followed at 12:38 p.m., halting trading across the market for 20 minutes."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Europa 15/10: Milano -0,72% (Technoprobe -10,33%, STMicroelectronics -3,82%), Londra +1,08%, Parigi +0,78%, Francoforte +0,33%; spread BTP-Bund +108 pb, BTP 4,48%",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/piazza-affari-maglia-nera-in-europa-con-crollo-titoli-tech-223.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Scambi in ribasso per la Borsa di Milano, che accusa una flessione dello 0,72% sul FTSE MIB"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/piazza-affari-maglia-nera-in-europa-con-crollo-titoli-tech-223.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "bilancio decisamente positivo per Londra, che vanta un progresso dell'1,08%"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/piazza-affari-maglia-nera-in-europa-con-crollo-titoli-tech-223.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Si riduce di poco lo spread, che si porta a +108 punti base mentre il rendimento del BTP a 10 anni si attesta al 4,48%"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/piazza-affari-maglia-nera-in-europa-con-crollo-titoli-tech-223.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Le più forti vendite, invece, si sono abbattute su Technoprobe, che ha terminato le contrattazioni a -10,33%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Produzione industriale area euro agosto -0,5% m/m (stime 0,0%), -1,1% a/a; Italia -1,3%, Germania +0,4%",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/4-15102026-ap",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "In August 2026, compared with July 2026, seasonally adjusted industrial production decreased by 0.5% in the euro area"
+   },
+   {
+    "testata": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/4-15102026-ap",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "In August 2026, compared with August 2025, industrial production decreased by 1.1% in the euro area"
+   },
+   {
+    "testata": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/4-15102026-ap",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Italy 0.7 0.3 -0.3 -1.0 0.6 -1.3"
+   },
+   {
+    "testata": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/4-15102026-ap",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Germany -0.9 0.1 1.0 0.3 -1.7 0.4"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/appuntamenti-macroeconomici-del-15-ottobre-2026-25.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "11:00 Unione Europea: Produzione industriale, mensile (atteso 0%; preced. -0,1%)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "testo": "Warsh (Fed) a Bangkok: non anticipa le decisioni delle prossime riunioni, contrario alla forward guidance",
+  "data_evento": "2026-10-16",
+  "novita": "Primo intervento pubblico dopo CPI e PPI",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/asia-al-rimbalzo-dopo-il-selloff-sui-chip-fed-warsh-avverte-niente-scrocconi-fra-le-banche-centrali-202610160734581661",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Non credo sia opportuno dire oggi che cosa potrei fare negli incontri che ci attendono da qui alla fine dell'anno"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/16/listini-asiatici-in-rialzo-con-il-settore-dei-semiconduttori-in-rimonta-3_TLB-AUTO.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "probabilmente il cambiamento più importante per l'economia statunitense e mondiale nella mia vita"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "testo": "Wall Street 15/10: Dow Jones +1,08% a 52.178 punti, S&P 500 a 7.744",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/16/wall-street-positiva-in-scia-alle-parole-di-warsh-1_TLB-AUTO.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "il Dow Jones ha terminato la giornata con un aumento dell'1,08%, a 52.178 punti"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/16/wall-street-positiva-in-scia-alle-parole-di-warsh-1_TLB-AUTO.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "piccolo scatto in avanti per l'S&P-500, che arriva a 7.744 punti."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "testo": "PPI USA settembre +1,3% m/m, +6,3% a/a (atteso 5,3%)",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-prezzi-alla-produzione-in-forte-rialzo-crescita-record-da-oltre-quattro-anni-179.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "l'indice dei prezzi alla produzione (PPI) è cresciuto dell'1,3% rispetto al mese precedente e del 6,3% su base annua"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/appuntamenti-macroeconomici-del-15-ottobre-2026-25.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "14:30 USA: Prezzi produzione, annuale (atteso 5,3%; preced. 5,4%)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "K02",
+  "sezione": "catalizzatori",
+  "testo": "Vendite al dettaglio USA settembre +0,8% m/m, atteso +0,3%",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-le-vendite-al-dettaglio-crescono-piu-delle-attese-a-settembre-171.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Nel mese di settembre 2026, si è registrata una crescita dello 0,8% su base mensile"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-le-vendite-al-dettaglio-crescono-piu-delle-attese-a-settembre-171.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Il dato comunicato dall'US Census Bureau è superiore alle stime degli analisti (+0,3%)."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "K03",
+  "sezione": "catalizzatori",
+  "testo": "Sussidi di disoccupazione 199 mila, prec. 198 mila",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-richieste-sussidi-disoccupazione-in-aumento-meno-delle-attese-183.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Nella settimana al 9 ottobre, i claims sono risultati pari a 199 mila unità, in aumento di 1.000 unità rispetto alle 198 mila"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-richieste-sussidi-disoccupazione-in-aumento-meno-delle-attese-183.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "e contro le 200.000 stimate dagli analisti."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "K04",
+  "sezione": "catalizzatori",
+  "testo": "Philly Fed ottobre 20,9 da 37,8, sotto le attese",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-peggiora-l-attivita-del-settore-manifatturiero-nell-area-di-philadelphia-187.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "si è portato a 20,9 punti dai 37,8 di settembre."
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-peggiora-l-attivita-del-settore-manifatturiero-nell-area-di-philadelphia-187.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Le stime degli analisti indicavano una discesa fino a 28,2 punti."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "K05",
+  "sezione": "catalizzatori",
+  "testo": "Produzione industriale area euro agosto -0,5% m/m, atteso 0,0%",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/4-15102026-ap",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "In August 2026, compared with July 2026, seasonally adjusted industrial production decreased by 0.5% in the euro area"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/appuntamenti-macroeconomici-del-15-ottobre-2026-25.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "11:00 Unione Europea: Produzione industriale, mensile (atteso 0%; preced. -0,1%)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Produzione industriale USA settembre, 15:15: atteso +0,4% m/m, prec. 0,0%",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/16/appuntamenti-macroeconomici-del-16-ottobre-2026-13.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "15:15 USA: Produzione industriale, mensile (atteso 0,4%; preced. 0%)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Prezzi al consumo area euro (finale) settembre, 11:00: atteso 3,8% a/a, prec. 3,2%",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/16/appuntamenti-macroeconomici-del-16-ottobre-2026-13.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "11:00 Unione Europea: Prezzi consumo, annuale (atteso 3,8%; preced. 3,2%)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "testo": "Prezzi all'export USA 14:30: atteso +1,0% m/m, prec. +0,6%; all'import atteso +0,9%, prec. +0,7%",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/16/appuntamenti-macroeconomici-del-16-ottobre-2026-13.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "14:30 USA: Prezzi export, mensile (atteso 1%; preced. 0,6%); Prezzi import, mensile (atteso 0,9%; preced. 0,7%)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "S01",
+  "sezione": "macro",
+  "testo": "Stamattina: Nikkei +1,57% (08:24), Hong Kong +0,5%, Seul +2% (Teleborsa 08:24), Kospi +4,3% (07:30); future Nasdaq +0,2%; Brent -0,66% a 105,22 $, EUR/USD 1,1223",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/16/listini-asiatici-in-rialzo-con-il-settore-dei-semiconduttori-in-rimonta-3_TLB-AUTO.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Pioggia di acquisti sul listino di Tokyo, che mostra un guadagno dell'1,57% sul Nikkei 225."
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/16/listini-asiatici-in-rialzo-con-il-settore-dei-semiconduttori-in-rimonta-3_TLB-AUTO.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Più caute Shenzhen a +0,1% e Hong Kong (+0,5%); effervescente Seul (+2%)."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/asia-al-rimbalzo-dopo-il-selloff-sui-chip-fed-warsh-avverte-niente-scrocconi-fra-le-banche-centrali-202610160734581661",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "alle ore 7:30 italiane il Nikkei sale del 1,8%, Hong Kong dell'1%, il Kospi del 4,3%."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/asia-al-rimbalzo-dopo-il-selloff-sui-chip-fed-warsh-avverte-niente-scrocconi-fra-le-banche-centrali-202610160734581661",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "i futures sul Nasdaq salgono dello 0,2%."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-16-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610160739436815",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "future sul Brent -0,66% a 105,22 dollari al barile; In attesa l'euro sale dello 0,06% a 1,1223 dollari."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "M01",
+  "sezione": "macro",
+  "testo": "Termometri: Fed (Warsh non anticipa), inflazione (PPI), AI (Kospi, debito), dollaro, petrolio",
+  "data_evento": "2026-10-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/asia-al-rimbalzo-dopo-il-selloff-sui-chip-fed-warsh-avverte-niente-scrocconi-fra-le-banche-centrali-202610160734581661",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Non credo sia opportuno dire oggi che cosa potrei fare negli incontri che ci attendono da qui alla fine dell'anno"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-prezzi-alla-produzione-in-forte-rialzo-crescita-record-da-oltre-quattro-anni-179.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "l'indice dei prezzi alla produzione (PPI) è cresciuto dell'1,3% rispetto al mese precedente e del 6,3% su base annua"
+   },
+   {
+    "testata": "Korea Herald",
+    "url": "https://www.koreaherald.com/article/10904070",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "The benchmark Kospi tumbled 7.57 percent to close at 5,554.22"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/wall-street-sotto-pressione-crollano-i-titoli-ai-tra-timori-sul-debito-e-nuovi-rischi-inflazionistici-191.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Sotto pressione anche le obbligazioni delle due società, i cui rendimenti hanno raggiunto livelli record."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "PPI e vendite al dettaglio USA di settembre",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-prezzi-alla-produzione-in-forte-rialzo-crescita-record-da-oltre-quattro-anni-179.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "l'indice dei prezzi alla produzione (PPI) è cresciuto dell'1,3% rispetto al mese precedente e del 6,3% su base annua"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-prezzi-alla-produzione-in-forte-rialzo-crescita-record-da-oltre-quattro-anni-179.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Al netto di alimentari ed energia, l'indice ha segnato un incremento dello 0,7% mensile e del 5% annuo"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/appuntamenti-macroeconomici-del-15-ottobre-2026-25.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "USA Producer prices (PPI) mensile 0,6% atteso, precedente 0,4%; annuale 5,3% atteso, precedente 5,4%"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-le-vendite-al-dettaglio-crescono-piu-delle-attese-a-settembre-171.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Nel mese di settembre 2026, si è registrata una crescita dello 0,8% su base mensile"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/usa-le-vendite-al-dettaglio-crescono-piu-delle-attese-a-settembre-171.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "escluse le auto, registra un aumento dello 0,9% su base mensile rispetto al +0,6% stimato dagli analisti"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "Europa: produzione industriale per paese e seduta di Piazza Affari",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/4-15102026-ap",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "In August 2026, compared with July 2026, seasonally adjusted industrial production decreased by 0.5% in the euro area"
+   },
+   {
+    "testata": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/4-15102026-ap",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Italy 0.7 0.3 -0.3 -1.0 0.6 -1.3"
+   },
+   {
+    "testata": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/4-15102026-ap",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Germany -0.9 0.1 1.0 0.3 -1.7 0.4"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/piazza-affari-maglia-nera-in-europa-con-crollo-titoli-tech-223.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Scambi in ribasso per la Borsa di Milano, che accusa una flessione dello 0,72% sul FTSE MIB"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/15/piazza-affari-maglia-nera-in-europa-con-crollo-titoli-tech-223.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Le più forti vendite, invece, si sono abbattute su Technoprobe, che ha terminato le contrattazioni a -10,33%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "verifica redazionale: pagina aperta, citazione letterale presente, data coerente (nessun Agent disponibile)"
+ }
+]
