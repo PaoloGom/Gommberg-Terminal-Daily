@@ -330,7 +330,6 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   .dek { font-size: 15px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
-.bet-q { margin: 10px 0 2px; padding-top: 8px; border-top: 1px solid var(--rule); font-size: 14px; }
 .bet-more { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--orange-ink); text-underline-offset: 3px; }
 </style>
 <script>window.goatcounter = { no_onload: true };</script>
@@ -422,7 +421,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
           </div>
           <div>
             <dt><span class="pp">Pag. 6</span>La scommessa della settimana</dt>
-            <dd>Il lunedì fissiamo dove chiuderanno 6 mercati il venerdì, più una domanda sul tema della settimana, e li seguiamo giorno per giorno. Il lunedì dopo, il verdetto. <a href="scommessa.html">Il metodo e la pagella</a></dd>
+            <dd>Il lunedì fissiamo dove chiuderanno 6 mercati il venerdì, più lo strumento della settimana, scelto sul tema del momento, e li seguiamo giorno per giorno. Il lunedì dopo, il verdetto. <a href="scommessa.html">Il metodo e la pagella</a></dd>
           </div>
         </dl>
         <div class="trust">
@@ -570,13 +569,14 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     const ul = $("betInstr"); ul.innerHTML = "";
     const det = (b && Array.isArray(b.dettaglio)) ? b.dettaglio : [];
     for (const d of det) {
-      const [nome, dir, strada] = d;
+      const [nome, dir, strada, , variab] = d;
       const li = el("li");
-      li.appendChild(el("span", "n", BREVI[nome] || nome));
+      li.appendChild(el("span", "n", (variab ? "\u2605 " : "") + (BREVI[nome] || nome)));
+      if (variab) li.title = "Lo strumento della settimana";
       li.appendChild(el("span", "a", dir === "su" ? "\u2191" : dir === "giù" ? "\u2193" : "="));
       li.appendChild(el("span", "r " + (strada === true ? "ok" : strada === false ? "ko" : "na"), strada === true ? "\u2713" : strada === false ? "\u2717" : "-"));
       const lab = nome + ": previsto in " + (dir === "su" ? "rialzo" : dir === "giù" ? "calo" : "parità") + (strada === true ? ", per ora on track" : strada === false ? ", per ora nella direzione opposta" : ", ancora nessun movimento");
-      li.title = lab; li.setAttribute("aria-label", lab);
+      li.title = (variab ? "Lo strumento della settimana. " : "") + lab; li.setAttribute("aria-label", lab);
       ul.appendChild(li);
     }
     ul.hidden = !det.length;
@@ -589,17 +589,9 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
       p.appendChild(s); if (par != null) p.append(" (par " + num(par) + ").");
       f.appendChild(p);
     }
-    const dm = ed.domanda;
-    if (dm && dm.testo) {
-      const q = el("div", "bet-q");
-      q.appendChild(el("b", "", "La domanda della settimana: "));
-      q.append(dm.testo + " ");
-      if (dm.esito) q.appendChild(el("strong", "", "Esito: " + dm.esito + "."));
-      else q.appendChild(el("strong", "", "Per noi: " + Math.round(100 * dm.prob) + "%" + (dm.finora ? " (finora: " + dm.finora + ")" : "") + "."));
-      f.appendChild(q);
-    }
     const st = b && b.stagione;
-    if (det.length) f.appendChild(el("div", "", "Freccia: la direzione scelta lunedì. On track \u2713: per ora il mercato va così; \u2717: per ora va al contrario."));
+    if (det.length) f.appendChild(el("div", "", "Freccia: la direzione scelta lunedì. On track \u2713: per ora il mercato va così; \u2717: per ora va al contrario."
+      + (b && b.variabile ? " \u2605 " + b.variabile.nome + ": lo strumento della settimana, conto a parte." : "")));
     if (Array.isArray(st) && st[1] > 0) f.appendChild(el("div", "", "Stagione: " + st[0] + " punti su " + st[1] + "."));
     const go = el("button", "tag", "Vai alla pagina 6"); go.type = "button"; go.style.marginTop = "8px";
     go.addEventListener("click", () => goPage(6, true));

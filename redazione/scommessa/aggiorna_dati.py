@@ -24,7 +24,7 @@ if not nuovi:
     sys.exit(0)
 pulite = {}
 for nome, righe in nuovi.items():
-    if nome not in NOMI:
+    if nome not in NOMI and not (nome.startswith("var_") and os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), "dati", nome + ".csv"))):
         raise SystemExit(f"serie sconosciuta: {nome} (ammesse: {sorted(NOMI)}). Nessun file modificato.")
     out = []
     for d, v in righe:

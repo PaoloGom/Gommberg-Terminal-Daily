@@ -7,7 +7,7 @@
 <meta name="description" content="Come funziona la scommessa della settimana del Gommberg Terminal Daily: il metodo, cosa dice la storia, la pagella dal vivo.">
 <meta name="robots" content="noindex, nofollow">
 <meta property="og:title" content="La scommessa del Gommberg Terminal Daily">
-<meta property="og:description" content="Ogni lunedì, sei previsioni e una domanda. Il lunedì dopo, il conto.">
+<meta property="og:description" content="Ogni lunedì, sette previsioni: sei fisse e una sul tema del momento. Il lunedì dopo, il conto.">
 <meta property="og:image" content="https://paologom.github.io/Gommberg-Terminal-Daily/assets/copertina.png">
 <meta name="theme-color" content="#0E0E0E">
 <link rel="icon" href="assets/icona.svg" type="image/svg+xml">
@@ -129,8 +129,8 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
 <main class="wrap">
   <section class="hero" aria-labelledby="h-hero">
     <p class="kicker">Il metodo e la pagella</p>
-    <h2 id="h-hero">Ogni lunedì, sei previsioni e una domanda. Il lunedì dopo, il conto.</h2>
-    <p>Azionario mondiale, S&amp;P 500, Euro Stoxx 50, Treasury a 10 anni, Brent, euro-dollaro: per ognuno la direzione della settimana e una forchetta di prezzo per la chiusura del venerdì. In più, la domanda della settimana sul tema che muove i mercati. Ogni verdetto resta in archivio.</p>
+    <h2 id="h-hero">Ogni lunedì, sette previsioni: sei fisse e una sul tema del momento. Il lunedì dopo, il conto.</h2>
+    <p>Azionario mondiale, S&amp;P 500, Euro Stoxx 50, Treasury a 10 anni, Brent, euro-dollaro: per ognuno la direzione della settimana e una forchetta di prezzo per la chiusura del venerdì. In più, lo strumento della settimana, scelto sul tema che muove i mercati. Ogni verdetto resta in archivio.</p>
   </section>
 
   <section aria-labelledby="h-pagella">
@@ -162,19 +162,19 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     </ol>
   </section>
 
-  <section aria-labelledby="h-domanda">
-    <p class="kicker">La domanda della settimana</p>
-    <h3 class="sec-h" id="h-domanda">Una domanda, una probabilità, un verdetto</h3>
+  <section aria-labelledby="h-var">
+    <p class="kicker">Lo strumento della settimana</p>
+    <h3 class="sec-h" id="h-var">Il settimo mercato cambia ogni lunedì</h3>
     <div class="two">
       <div class="prose">
-        <p>Ogni lunedì una domanda con risposta sì o no sul tema che muove la settimana: "Il Brent chiuderà venerdì sopra 110 $?", "La Fed alzerà i tassi?". Accanto, la nostra probabilità e quella di riferimento: per un prezzo la calcola il modello della forchetta, per un evento viene dai mercati, con fonte e data.</p>
-        <p>Ogni domanda nasce con la regola che la decide: il dato, la fonte, il giorno. Il venerdì si chiude, il lunedì dopo esce l'esito.</p>
-        <p>Il punteggio premia la probabilità giusta, non solo la risposta indovinata: dire 90% e sbagliare costa molto più che dire 60%. Confrontato con quello del riferimento, dice se la nostra lettura vale più di quella del mercato.</p>
+        <p>Accanto ai sei mercati fissi, ogni lunedì entra in gioco il mercato del momento: l'oro in una settimana di paura, il Nikkei quando si muove l'Asia, un'azione prima di una svolta. Stesse regole: direzione della redazione, forchetta del modello, verdetto il lunedì dopo.</p>
+        <p>Entra solo un mercato che racconta un'altra storia rispetto ai sei fissi: se nell'ultimo anno si è mosso come uno di loro, non passa. Il Nasdaq, gemello dell'S&amp;P 500, resta fuori.</p>
+        <p>Ha una pagella tutta sua, così quella dei sei fissi resta confrontabile settimana dopo settimana.</p>
       </div>
-      <ul class="fact" aria-label="La pagella della domanda">
-        <li><span class="n" id="qN">-</span><span class="d"><b>domande giudicate</b> <span id="qNt">dal 19 ottobre 2026</span></span></li>
-        <li><span class="n" id="qOk">-</span><span class="d"><b>risposte giuste</b>, con la nostra probabilità dalla parte dell'esito</span></li>
-        <li><span class="n" id="qB">-</span><span class="d"><b>il nostro punteggio</b> contro quello del riferimento (più basso è meglio)</span></li>
+      <ul class="fact" aria-label="La pagella dello strumento della settimana">
+        <li><span class="n" id="vN">-</span><span class="d"><b>settimane giudicate</b> <span id="vNt">dal 19 ottobre 2026</span></span></li>
+        <li><span class="n" id="vP">-</span><span class="d"><b>punti</b> <span id="vPt">su 2 a settimana</span></span></li>
+        <li><span class="n" id="vR">-</span><span class="d"><b>chiusure nella forchetta</b>, obiettivo 68%</span></li>
       </ul>
     </div>
   </section>
@@ -232,6 +232,12 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
   fetch("redazione/scommessa/pagella.json", { cache: "no-store" })
     .then((r) => (r.ok ? r.json() : null))
     .then((p) => {
+      const pv = p && p.variabile;
+      if (pv && pv.settimane) {
+        $("vN").textContent = pv.settimane; $("vP").textContent = pv.punti + " su " + pv.su;
+        $("vP").className = "n " + (pv.punti >= pv.par ? "up" : "down"); $("vPt").textContent = "par " + num(pv.par, 1);
+        $("vR").textContent = num(pv["copertura_range_%"], 0) + "%";
+      } else { $("vNt").textContent = "il primo verdetto lunedì 26 ottobre 2026"; }
       if (!p || !p.settimane) { vuota(); return; }
       $("cSett").textContent = p.settimane;
       $("cPunti").textContent = p.punti + " su " + p.su;
@@ -255,19 +261,6 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
       $("verdict").innerHTML = g;
     })
     .catch(vuota);
-  fetch("redazione/scommessa/domande.json", { cache: "no-store" })
-    .then((r) => (r.ok ? r.json() : null))
-    .then((q) => {
-      const s = q && q.sintesi;
-      if (!s || !s.domande) { $("qNt").textContent = "la prima si decide venerdì 23 ottobre 2026"; return; }
-      $("qN").textContent = s.domande;
-      $("qOk").textContent = s.giuste + " su " + s.domande;
-      $("qB").textContent = num(s.brier, 2);
-      $("qB").className = "n " + (s.brier <= s.brier_riferimento ? "up" : "down");
-      $("qB").title = "riferimento: " + num(s.brier_riferimento, 2);
-      $("qB").nextElementSibling.querySelector("b").textContent = "il nostro punteggio, " + num(s.brier, 2) + " contro " + num(s.brier_riferimento, 2);
-    })
-    .catch(() => {});
 })();
 </script>
 </body>

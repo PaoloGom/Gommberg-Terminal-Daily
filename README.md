@@ -11,7 +11,7 @@
 | 1 | Prima pagina con tutto, come un quotidiano: chiusure, notizia principale, "In 30 secondi" e notizie del giorno |
 | 2 | Mercati, tassi e termometri dei temi aperti |
 | 3-5 | Calendario, agenda e approfondimenti che seguono le notizie del giorno |
-| 6 | La scommessa: dove chiudono 6 mercati il venerdì e la domanda della settimana, con il verdetto del lunedì |
+| 6 | La scommessa: dove chiudono 6 mercati e lo strumento della settimana il venerdì, con il verdetto del lunedì |
 
 ## Archivio
 

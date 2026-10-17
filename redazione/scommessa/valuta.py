@@ -93,7 +93,8 @@ def verdetto(reg, festivo=(), prova=False):
         r = {"settimana": reg["settimana"], "strumento": k, "nome": v["nome"], "base": base, "finale": fin,
              "data_finale": str(data_fin.date()), "previsione": prev, "lo": lo, "hi": hi, "punto_direzione": d,
              "punto_range": dentro, "pinball_modello": pm, "pinball_redazione": pr,
-             "z": y / sg if sg else float("nan"), "versione_metodo": reg.get("versione_metodo", "0")}
+             "z": y / sg if sg else float("nan"), "versione_metodo": reg.get("versione_metodo", "0"),
+             "variabile": bool(v.get("variabile", False))}
         note = []
         if str(data_fin.date()) != str(ven.date()):
             note.append(f"mercato chiuso venerdì: vale l'ultima chiusura del {data_fin.date()}")
@@ -102,25 +103,35 @@ def verdetto(reg, festivo=(), prova=False):
         r["nota"] = "; ".join(note)
         righe[k] = r
         nuove.append(r)
-    df_new = pd.DataFrame(nuove)
+    df_all = pd.DataFrame(nuove)
+    df_new = df_all[~df_all["variabile"]]          # i 6 fissi: il totale e la pagella di sempre
+    dv = df_all[df_all["variabile"]]               # lo strumento della settimana: conto a parte
+    extra = {}
+    if len(dv):
+        r0 = dv.iloc[0]
+        extra = {"variabile": {"strumento": r0["strumento"], "nome": r0["nome"], "direzione": int(r0["punto_direzione"]),
+                               "range": int(r0["punto_range"]), "punti": int(r0["punto_direzione"] + r0["punto_range"]),
+                               "su": 2}}
     if prova:
         tot = int(df_new["punto_direzione"].sum() + df_new["punto_range"].sum())
         return righe, {"punti": tot, "su": 2 * len(df_new), "direzione": int(df_new["punto_direzione"].sum()),
                        "range": int(df_new["punto_range"].sum()),
                        "par": round(sum(PAR_DENTRO + PAR_DIREZIONE.get(k, 0.5) for k in df_new["strumento"]), 1),
-                       "prova": True}
+                       "prova": True, **extra}
     if os.path.exists(REGISTRO):
         old = pd.read_csv(REGISTRO)
         old = old[old["settimana"] != reg["settimana"]]
-        df = pd.concat([old, df_new], ignore_index=True)
+        if "variabile" not in old.columns:
+            old["variabile"] = False
+        df = pd.concat([old, df_all], ignore_index=True)
     else:
-        df = df_new
+        df = df_all
     df.to_csv(REGISTRO, index=False)
     scrivi_pagella(df)
     tot = int(df_new["punto_direzione"].sum() + df_new["punto_range"].sum())
     return righe, {"punti": tot, "su": 2 * len(df_new), "direzione": int(df_new["punto_direzione"].sum()),
                    "range": int(df_new["punto_range"].sum()),
-                   "par": round(sum(PAR_DENTRO + PAR_DIREZIONE.get(k, 0.5) for k in df_new["strumento"]), 1)}
+                   "par": round(sum(PAR_DENTRO + PAR_DIREZIONE.get(k, 0.5) for k in df_new["strumento"]), 1), **extra}
 
 
 def hac_t(d, lag=4):
@@ -132,6 +143,10 @@ def hac_t(d, lag=4):
 
 
 def scrivi_pagella(df):
+    df = df.copy()
+    df["variabile"] = df["variabile"].fillna(False).astype(bool) if "variabile" in df.columns else False
+    dv = df[df["variabile"]]
+    df = df[~df["variabile"]]
     sett = df.groupby("settimana").agg(direzione=("punto_direzione", "sum"), range=("punto_range", "sum"),
                                        n=("strumento", "count"), pm=("pinball_modello", "mean"),
                                        pr=("pinball_redazione", "mean"))
@@ -165,7 +180,12 @@ def scrivi_pagella(df):
     open(PAGELLA, "w", encoding="utf-8").write("\n".join(L) + "\n")
     salva_json({"settimane": n_sett, "punti": punti, "su": su, "par": par, "copertura_range_%": round(cop, 1),
                 "direzione_giusta_%": round(dirr, 1), "abilita_redazione_%": round(skill, 2),
-                "t_dm": None if t != t else round(float(t), 2)}, PAGELLA_JSON)
+                "t_dm": None if t != t else round(float(t), 2),
+                "variabile": {"settimane": int(len(dv)), "punti": int(dv["punto_direzione"].sum() + dv["punto_range"].sum()),
+                              "su": int(2 * len(dv)), "par": round(len(dv) * (PAR_DENTRO + 0.5), 1),
+                              "copertura_range_%": round(100 * dv["punto_range"].mean(), 1) if len(dv) else None,
+                              "direzione_giusta_%": round(100 * dv["punto_direzione"].mean(), 1) if len(dv) else None}},
+               PAGELLA_JSON)
 
 
 def main():

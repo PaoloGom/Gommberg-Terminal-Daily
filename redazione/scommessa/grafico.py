@@ -27,7 +27,7 @@ def x(base, liv, tipo):
 
 
 def fmt(v, k):
-    d = {"acwi": 2, "spx": 0, "sx5e": 0, "ust10": 2, "ust2": 2, "brent": 2, "eurusd": 4}[k]
+    d = {"acwi": 2, "spx": 0, "sx5e": 0, "ust10": 2, "ust2": 2, "brent": 2, "eurusd": 4}.get(k, 2)
     s = f"{v:,.{d}f}".replace(",", "X").replace(".", ",").replace("X", ".")
     return s + ("%" if k.startswith("ust") else "")
 
@@ -71,7 +71,7 @@ def disegna(reg, out, stato=None):
     st = reg["strumenti"]
     fig, ax = plt.subplots(figsize=(LARGO, float(__import__("os").environ.get("GTD_ALTO_GRAFICO", "1.85"))))  # solo impaginazione
     righe = []
-    ORD = [k for k in ORDINE if k in st]   # gli strumenti del registro (6 dal metodo 1.1)
+    ORD = [k for k in ORDINE if k in st] + [k for k in st if st[k].get("variabile")]   # 6 fissi + quello della settimana
     for y, k in enumerate(reversed(ORD)):
         v = st[k]
         b, t = v["base"], v["tipo"]
@@ -89,7 +89,7 @@ def disegna(reg, out, stato=None):
             ax.plot([xa], [y], marker="o", ms=8.5, mfc="none", mec=ORANGE, mew=1.7, zorder=4)
         righe.append((y, k, pos(lo), pos(hi), lo, hi, pos(p), xa, a))
     ax.set_yticks(range(len(ORD)))
-    ax.set_yticklabels([st[k]["nome"] for k in reversed(ORD)], fontsize=7)
+    ax.set_yticklabels([("★ " if st[k].get("variabile") else "") + st[k]["nome"] for k in reversed(ORD)], fontsize=7)
     ax.tick_params(axis="y", length=0)
     ax.set_xticks([])
     ax.set_xlim(-2.0, 2.0)

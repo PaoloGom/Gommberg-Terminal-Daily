@@ -2,7 +2,7 @@
 
 Versione del metodo: **1.1**, in vigore dal pronostico di lunedì 19/10/2026. Configurazione in `metodo.json`.
 
-**Registro delle versioni.** 1.0 (12/10/2026): 7 strumenti. 1.1 (17/10/2026, prima del primo pronostico ufficiale): tolto il Treasury a 2 anni, che con il 10 anni andava nella stessa direzione il 77% delle settimane (correlazione 0,83): una scommessa doppia. Range invariato (stesso backtest); par da 8,5 su 14 a 7,3 su 12; soglia di direzione senza abilità invariata (53%). Il verdetto della settimana 12-16/10 resta sul registro a 7 strumenti. Aggiunta la domanda della settimana (sezione 6). Scartata l'idea di sostituire il 2 anni con la pendenza della curva: corretta statisticamente, ma un concetto da addetti ai lavori come scommessa per i lettori.
+**Registro delle versioni.** 1.0 (12/10/2026): 7 strumenti. 1.1 (17/10/2026, prima del primo pronostico ufficiale): tolto il Treasury a 2 anni, che con il 10 anni andava nella stessa direzione il 77% delle settimane (correlazione 0,83): una scommessa doppia. Range invariato (stesso backtest); par da 8,5 su 14 a 7,3 su 12; soglia di direzione senza abilità invariata (53%). Il verdetto della settimana 12-16/10 resta sul registro a 7 strumenti. Aggiunto lo strumento della settimana (sezione 6), con conto a parte. Scartata l'idea di sostituire il 2 anni con la pendenza della curva: corretta statisticamente, ma un concetto da addetti ai lavori come scommessa per i lettori.
 
 ## 1. Cosa promettiamo e cosa no
 La scommessa chiede, per 6 strumenti, dove sarà la chiusura del venerdì.
@@ -112,10 +112,8 @@ Risultati:
   - punteggi in unità di sigma e pagella;
   - controlli bloccanti su date e dati vecchi.
 
-## 6. La domanda della settimana (dal 19/10/2026)
-- **Cosa:** ogni lunedì una domanda sì/no sul tema caldo della settimana, decisa entro venerdì da un dato oggettivo. Script: `domanda.py` (crea, stato, valuta); registro `../pronostici/<lunedì>-domanda.json`, immutabile; pagella `domande.json`.
-- **Due tipi.** "mercato": chiusura sopra o sotto una soglia; la probabilità di riferimento la calcola il modello della forchetta (rv20, normale, deriva zero), la soglia non può essere già decisa (riferimento tra 5% e 95%). "evento": un fatto con fonte ufficiale di risoluzione dentro la settimana; probabilità di riferimento da un prezzo di mercato con fonte e data (es. CME FedWatch), altrimenti 50% dichiarato.
-- **La nostra probabilità:** tra 5% e 95%, mai 50%, con un motivo scritto. È l'opinione della redazione, misurata contro il riferimento.
-- **Regola di risoluzione scritta il lunedì:** dato, fonte, giorno. `domanda.py valuta` rifiuta un esito incoerente con valore e soglia.
-- **Misura:** punteggio di Brier (probabilità meno esito, al quadrato; più basso è meglio), nostro contro riferimento; giuste = probabilità dalla parte dell'esito. Separata dalla pagella dei sei mercati.
-
+## 6. Lo strumento della settimana (dal 19/10/2026)
+- **Cosa:** ogni lunedì, oltre ai 6 fissi, un settimo mercato scelto sul tema del momento (oro, Nikkei, Bitcoin, un'azione, il gas...), con lo stesso gioco: chiusura di partenza, previsione della redazione, forchetta del modello (rv20, normale), on track, verdetto. Conto e pagella a parte (`pagella.json` campo "variabile"), così la pagella dei fissi resta confrontabile.
+- **Ammissione (`variabile.py`):** serie giornaliera dai nostri dati gratuiti (FMP o Alpha Vantage), almeno 60 sedute; nessun doppione: correlazione delle variazioni settimanali dell'ultimo anno sotto 0,7 in valore assoluto con ognuno dei fissi (il Nasdaq contro l'S&P 500, il VIX contro le borse e il 2 anni contro il 10 anni non passano: verificato il 17/10); niente singole azioni nella settimana dei loro conti (forchetta troppo stretta).
+- **Scelta:** parla con il tema della settimana e dice qualcosa che i 6 fissi e il resto del giornale non dicono; il motivo della scelta è scritto nel registro (`motivo_scelta`).
+- **Registro:** la riga dello strumento ha `"variabile": true` nel registro della settimana; `pronostico.py --variabile var_<chiave>`.

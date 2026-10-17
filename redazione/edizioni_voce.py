@@ -45,16 +45,21 @@ def ticker_dal_pdf(pdf):
 
 def scommessa(reg, stato=None, verdetto=None):
     s = reg["strumenti"]
+    fx = [k for k in s if not s[k].get("variabile")]        # i fissi: i conti di sempre
     direz = {k: ("su" if v["previsione_redazione"] > v["base"] else "giù") for k, v in s.items()}
-    out = {"settimana": reg["settimana"], "su": len(s)}
+    out = {"settimana": reg["settimana"], "su": len(fx)}
+    var = [k for k in s if s[k].get("variabile")]
+    if var:
+        out["variabile"] = {"nome": s[var[0]]["nome"], "motivo": s[var[0]].get("motivo_scelta", "")}
     if stato:
         r = stato["righe"]
-        out["strada"] = sum(1 for k in s if r[k]["strada_giusta"] is True)
-        out["range"] = sum(1 for k in s if r[k]["dentro_range"])
-        out["dettaglio"] = [[s[k]["nome"], direz[k], r[k]["strada_giusta"], r[k]["dentro_range"]] for k in s]
+        out["strada"] = sum(1 for k in fx if r[k]["strada_giusta"] is True)
+        out["range"] = sum(1 for k in fx if r[k]["dentro_range"])
+        out["dettaglio"] = [[s[k]["nome"], direz[k], r[k]["strada_giusta"], r[k]["dentro_range"]] + ([True] if k in var else [])
+                            for k in s]
     else:
         out["strada"] = out["range"] = None
-        out["dettaglio"] = [[s[k]["nome"], direz[k], None, None] for k in s]
+        out["dettaglio"] = [[s[k]["nome"], direz[k], None, None] + ([True] if k in var else []) for k in s]
     v = None
     if verdetto:
         t = verdetto["totale"]
@@ -141,14 +146,6 @@ def main():
         voce["scommessa"], v = scommessa(reg, st, ve)
         if v:
             voce["verdetto"] = v
-        # la domanda della settimana (registro accanto a quello della scommessa) e, in settimana, a che punto è
-        dp = os.path.join(os.path.dirname(os.path.abspath(a.registro)), reg["settimana"].split("/")[0] + "-domanda.json")
-        if os.path.exists(dp):
-            d = json.load(open(dp, encoding="utf-8"))
-            voce["domanda"] = {"testo": d["testo"], "prob": d["prob_redazione"], "esito": d.get("esito")}
-            ds = os.path.join(os.path.dirname(os.path.abspath(a.stato)) if a.stato else ".", "domanda_stato.json")
-            if os.path.exists(ds):
-                voce["domanda"]["finora"] = json.load(open(ds, encoding="utf-8")).get("finora")
     voce.update({"temi": w["temi"], "approfondimenti": w["approfondimenti"], "meccanismi": w.get("meccanismi", []),
                  "parole": w.get("parole", []), "ripetizioni": punteggio, "glossario": gloss})
     if w.get("termometri"):

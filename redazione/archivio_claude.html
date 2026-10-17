@@ -377,7 +377,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
           </div>
           <div>
             <dt><span class="pp">Pag. 6</span>La scommessa della settimana</dt>
-            <dd>Il lunedì fissiamo dove chiuderanno 6 mercati il venerdì, più una domanda sul tema della settimana, e li seguiamo giorno per giorno. Il lunedì dopo, il verdetto.</dd>
+            <dd>Il lunedì fissiamo dove chiuderanno 6 mercati il venerdì, più lo strumento della settimana, scelto sul tema del momento, e li seguiamo giorno per giorno. Il lunedì dopo, il verdetto.</dd>
           </div>
         </dl>
       </section>
@@ -509,13 +509,14 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     const ul = $("betInstr"); ul.innerHTML = "";
     const det = (b && Array.isArray(b.dettaglio)) ? b.dettaglio : [];
     for (const d of det) {
-      const [nome, dir, strada] = d;
+      const [nome, dir, strada, , variab] = d;
       const li = el("li");
-      li.appendChild(el("span", "n", BREVI[nome] || nome));
+      li.appendChild(el("span", "n", (variab ? "\u2605 " : "") + (BREVI[nome] || nome)));
+      if (variab) li.title = "Lo strumento della settimana";
       li.appendChild(el("span", "a", dir === "su" ? "\u2191" : dir === "giù" ? "\u2193" : "="));
       li.appendChild(el("span", "r " + (strada === true ? "ok" : strada === false ? "ko" : "na"), strada === true ? "\u2713" : strada === false ? "\u2717" : "-"));
       const lab = nome + ": previsto in " + (dir === "su" ? "rialzo" : dir === "giù" ? "calo" : "parità") + (strada === true ? ", per ora on track" : strada === false ? ", per ora nella direzione opposta" : ", ancora nessun movimento");
-      li.title = lab; li.setAttribute("aria-label", lab);
+      li.title = (variab ? "Lo strumento della settimana. " : "") + lab; li.setAttribute("aria-label", lab);
       ul.appendChild(li);
     }
     ul.hidden = !det.length;

@@ -921,7 +921,10 @@ def render_v6(path, costruisci, riempi=(3, 4, 5), margine=3):
         elif v > 112:
             print(f"ACCORCIARE: modulo '{n}' al {v}%: il motore lo rimpicciolisce, togli testo o righe")
     REPORT_MODULI.clear()
-    vuote = [f"p{p}={l} mm" for p, l in liberi2.items() if p in (1, 2, 3, 4, 5) and l > 15]
+    # lo spazio preso dalla "molla" (note spinte in fondo) è vuoto anche se la pagina sembra piena: conta come libero
+    molle_mm = {pg: v for (pg, m), v in AGGIUSTA["respiro"].items() if m}
+    vuote = [f"p{p}={round(l + molle_mm.get(p, 0))} mm" for p, l in liberi2.items()
+             if p in (1, 2, 3, 4, 5, 6) and l + molle_mm.get(p, 0) > 15]
     if vuote:
         print("RIEMPIRE:", ", ".join(vuote), "- ogni pagina va riempita con contenuto verificato che aggiunge (racconto, "
               "contesto, un'altra notizia, una riga in più); mai grafici allungati né spazi")
@@ -1033,7 +1036,7 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
                                   **{k: v for k, v in a.items() if k != "breve"})
     st.append(PageBreak())
     # ---------- Pag. 6 ----------
-    import sys as _s, os as _o, json, datetime as dt
+    import sys as _s, os as _o
     _rep = _o.path.join(_o.environ.get("GTD_REPO", "/home/claude/gtd"), "redazione", "scommessa")
     _s.path.insert(0, _rep if _o.path.isdir(_rep) else _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), "scommessa"))
     from pagina6 import pagina6_lunedi, pagina6_settimana
@@ -1044,19 +1047,11 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
         raise SystemExit("Scommessa mar-ven senza stato.json nella cartella di lavoro: lancia prima valuta.py --attuali "
                          "(ISTRUZIONI par. 4). Nessuna pag. 6 del lunedì per sbaglio.")
     st.append(ancora("scommessa"))
-    # la domanda della settimana: registri in redazione/pronostici/<lunedì>-domanda.json, stato in domanda_stato.json
-    _lun = reg["settimana"].split("/")[0]
-    _pron = _o.path.join(_o.path.dirname(_rep), "pronostici")
-    _leggi = lambda f: json.load(open(f, encoding="utf-8")) if _o.path.exists(f) else None
-    dom = _leggi(_o.path.join(_pron, f"{_lun}-domanda.json"))
-    _prec = (dt.date.fromisoformat(_lun) - dt.timedelta(days=7)).isoformat()
-    dom_prec = _leggi(_o.path.join(_pron, f"{_prec}-domanda.json"))
     if sc["lunedi"]:
         st += pagina6_lunedi(reg, verdetto, pagella, tesi=sc["tesi"], grafico="c_forecast.png",
-                             settimana_prec=sc.get("settimana_prec"), domanda=dom, domanda_prec=dom_prec)
+                             settimana_prec=sc.get("settimana_prec"))
     else:
-        st += pagina6_settimana(reg, stato, tesi=sc["tesi"], grafico="c_forecast.png", venerdi=sc.get("venerdi", False),
-                                domanda=dom, domanda_stato=_leggi("domanda_stato.json"))
+        st += pagina6_settimana(reg, stato, tesi=sc["tesi"], grafico="c_forecast.png", venerdi=sc.get("venerdi", False))
     if C.get("parole"):
         st += section("Parole di oggi", "Per chi legge") + [parole(C["parole"])]
     st += [Respiro(2, molla=True)] + section("Fonti", "Note")
