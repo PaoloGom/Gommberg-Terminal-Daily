@@ -195,6 +195,9 @@ h2.headline { font-family: var(--display); font-stretch: 85%; font-weight: 800; 
 /* Telefono: niente anteprima integrata, bastano i pulsanti (il PDF si apre nel lettore del telefono) */
 @media (max-width: 900px) { .front > .reader { display: none !important; } }
 .sheet canvas { width: 100%; height: 100%; display: block; }
+/* Schermo intero: il lettore stesso a tutto schermo (mai il file, che alcuni browser scaricano) */
+.reader:fullscreen { background: var(--paper); overflow: auto; padding: 14px max(16px, calc((100vw - (100vh - 200px) * 210 / 297) / 2)); }
+.reader:fullscreen .sheet { width: 100%; max-height: none; }
 .sheet .wait { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono); font-size: 13px; color: var(--muted); text-align: center; padding: 20px; }
 
 /* Come funziona (left column, under the bet) */
@@ -724,6 +727,23 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   let x0 = null;
   $("sheet").addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
   $("sheet").addEventListener("touchend", (e) => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) goPage(page + (dx < 0 ? 1 : -1)); }, { passive: true });
+  // "Apri a schermo intero": il lettore a tutto schermo, con pagine e frecce; senza Fullscreen API resta il link al PDF
+  // Lo stesso per "Leggi l'edizione" su PC (sul telefono il lettore non c'è e il PDF si apre nel lettore del telefono)
+  for (const id of ["open", "read"]) $(id).addEventListener("click", (e) => {
+    const r = $("reader");
+    if (!r.requestFullscreen || !pdf || !desktop()) return;
+    e.preventDefault();
+    if (document.fullscreenElement) document.exitFullscreen(); else r.requestFullscreen().catch(() => window.open($("open").href, "_blank"));
+  });
+  document.addEventListener("fullscreenchange", () => {
+    $("open").textContent = document.fullscreenElement ? "Esci dallo schermo intero" : "Apri a schermo intero";
+    setTimeout(() => { if (pdf) renderPage(); }, 60);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (document.fullscreenElement !== $("reader")) return;
+    if (e.key === "ArrowRight" || e.key === "PageDown") goPage(page + 1);
+    if (e.key === "ArrowLeft" || e.key === "PageUp") goPage(page - 1);
+  });
   let rt, lastW = window.innerWidth;
   window.addEventListener("resize", () => { if (window.innerWidth === lastW) return; lastW = window.innerWidth; clearTimeout(rt); rt = setTimeout(() => { if (!desktop()) return; if (pdf) renderPage(); else if (current && window.pdfjsLib) loadPdf(current.file); }, 200); });
 
