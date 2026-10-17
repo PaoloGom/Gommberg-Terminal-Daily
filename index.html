@@ -16,6 +16,7 @@
 <meta name="twitter:image" content="https://paologom.github.io/Gommberg-Terminal-Daily/assets/copertina.png">
 <meta name="theme-color" content="#0E0E0E">
 <link rel="icon" href="assets/icona.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Gommberg Terminal Daily" href="feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -198,6 +199,18 @@ h2.headline { font-family: var(--display); font-stretch: 85%; font-weight: 800; 
 
 /* Come funziona (left column, under the bet) */
 .how-box { margin-top: 28px; }
+/* Le notizie del giorno (prima pagina in testo) */
+.news-k { margin-top: 26px; }
+.news { margin: 8px 0 0; padding: 0; list-style: none; counter-reset: n; max-width: 62ch; border-top: 1px solid var(--rule); }
+.news li { counter-increment: n; display: grid; grid-template-columns: 30px 1fr; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--rule); font-family: var(--display); font-stretch: 90%; font-weight: 700; font-size: 16px; line-height: 1.3; }
+.news li::before { content: counter(n, decimal-leading-zero); font-weight: 800; color: var(--orange); }
+a.full { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--orange-ink); text-underline-offset: 3px; }
+/* Come lavoriamo */
+.trust { margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--rule); }
+.trust p { margin: 0 0 10px; color: var(--muted); font-size: 14.5px; line-height: 1.5; max-width: 62ch; }
+.trust p b { color: var(--ink); font-weight: 600; }
+.trust .links { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--mono); font-size: 12.5px; }
+.trust .links a { color: var(--orange-ink); text-underline-offset: 3px; }
 .note:empty { display: none; }
 .loading .actions, .loading .share { visibility: hidden; }
 .failed .actions, .failed .share, .failed .reader, .failed .brief-k { display: none !important; }
@@ -351,6 +364,9 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
         </div>
         <div class="how-row"><a class="how2" href="#cose">Come funziona</a></div>
         <div class="note" id="note" role="status"></div>
+        <h3 class="kicker news-k" id="newsK" hidden>Le notizie del giorno</h3>
+        <ol class="news" id="news"></ol>
+        <a class="full" id="newsFull" href="#" hidden>La prima pagina in testo &rsaquo;</a>
 
         <section class="bet" id="bet" aria-labelledby="bet-h" hidden>
           <div class="bet-head"><h3 class="kicker" id="bet-h">La scommessa della settimana</h3><span class="wk" id="betWk"></span></div>
@@ -402,6 +418,11 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
             <dd>Il lunedì fissiamo dove chiuderanno 7 mercati il venerdì e li seguiamo giorno per giorno. Il lunedì dopo, il verdetto. <a href="scommessa.html">Il metodo e la pagella</a></dd>
           </div>
         </dl>
+        <div class="trust">
+          <h3 class="kicker">Come lavoriamo</h3>
+          <p><b>Ogni fatto ha fonte, data e verifica</b> prima di uscire. Le correzioni escono nell'edizione successiva come errata corrige. La scommessa ha una pagella pubblica, settimana per settimana.</p>
+          <div class="links"><a href="ultima/">Link fisso all'ultima edizione</a><a href="feed.xml">Feed RSS</a></div>
+        </div>
       </section>
     </div>
   </section>
@@ -476,6 +497,9 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   }
   const num = (x) => String(x).replace(".", ",");
 
+  let pagine = new Set(); // edizioni con pagina propria (e/NNN.html), generate da redazione/pagine.py
+  const pagina = (ed) => (!DEMO && pagine.has(ed.numero)) ? new URL("e/" + pad(ed.numero) + ".html", location.href).toString() : null;
+  const condividi = (ed) => pagina(ed) || linkFor(ed);
   let editions = [], current = null, pdf = null, page = 1, renderTask = null;
   let view = "list", tema = "", query = "";
 
@@ -575,9 +599,13 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     const ul = $("brief"); ul.innerHTML = "";
     for (const b of (ed.sommario || [])) ul.appendChild(el("li", "", b));
     $("briefK").hidden = !(ed.sommario || []).length;
+    const nl = $("news"); nl.innerHTML = "";
+    for (const t of (ed.notizie || [])) nl.appendChild(el("li", "", t));
+    $("newsK").hidden = !(ed.notizie || []).length;
+    const pg = pagina(ed); $("newsFull").hidden = !pg || !(ed.notizie || []).length; if (pg) $("newsFull").href = pg;
     $("open").href = ed.file; $("read").href = ed.file;
     $("dl").href = ed.file; $("dl").setAttribute("download", ed.nome || "");
-    const url = linkFor(ed);
+    const url = condividi(ed);
     const txt = "Gommberg Terminal Daily n. " + pad(ed.numero) + ", " + dataLunga(ed.data) + "\n" + ed.titolo + "\n" + url;
     const uwa = new URL(url); uwa.searchParams.set("ref", "whatsapp");
     $("wa").href = "https://wa.me/?text=" + encodeURIComponent(txt.replace(url, uwa.toString()));
@@ -600,7 +628,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
 
   $("copy").addEventListener("click", async () => {
     if (!current) return;
-    const url = linkFor(current);
+    const url = condividi(current);
     const lab = $("copy").querySelector("span");
     try { await navigator.clipboard.writeText(url); lab.textContent = "Link copiato"; }
     catch (e) { window.prompt("Copia il link dell'edizione:", url); }
@@ -827,7 +855,9 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     }
   }
   if (DEMO) $("demo").hidden = false;
-  fetch(SRC, { cache: "no-store" })
+  const pagineP = DEMO ? Promise.resolve([]) : fetch("e/pagine.json", { cache: "no-store" }).then((r) => r.ok ? r.json() : []).catch(() => []);
+  Promise.all([fetch(SRC, { cache: "no-store" }), pagineP])
+    .then(([r, pg]) => { pagine = new Set(Array.isArray(pg) ? pg : []); return r; })
     .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then((list) => {
       editions = (Array.isArray(list) ? list : []).filter((e) => e && e.numero && e.data && e.file).sort((a, b) => b.numero - a.numero);
