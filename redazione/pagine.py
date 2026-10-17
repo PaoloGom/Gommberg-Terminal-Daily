@@ -277,34 +277,6 @@ def ultima(ed):
             "Apri l'ultima edizione</a></p></body></html>\n")
 
 
-def parole_pdf(path):
-    """Parole del PDF (testo estratto con pypdf); None se il PDF non si legge."""
-    try:
-        from pypdf import PdfReader
-        testo = " ".join((pg.extract_text() or "") for pg in PdfReader(path).pages)
-        return len(re.findall(r"[A-Za-zÀ-ÿ0-9][\w'’.,%-]*", testo))
-    except Exception:
-        return None
-
-
-def numeri(repo, eds):
-    """e/numeri.json: parole per edizione (calcolate una volta sola, poi riusate)."""
-    path = os.path.join(repo, "e", "numeri.json")
-    try:
-        prima = json.load(open(path, encoding="utf-8")).get("parole", {})
-    except Exception:
-        prima = {}
-    parole = {}
-    for ed in eds:
-        k = str(ed["numero"])
-        n = prima.get(k)
-        if n is None:
-            n = parole_pdf(os.path.join(repo, ed["file"]))
-        if n:
-            parole[k] = n
-    scrivi(path, json.dumps({"parole": parole}, ensure_ascii=False, sort_keys=True) + "\n")
-
-
 def scrivi(path, testo):
     if os.path.exists(path) and open(path, encoding="utf-8").read() == testo:
         return False
@@ -325,7 +297,6 @@ def main():
         succ = eds[i + 1] if i + 1 < len(eds) else None
         cambiati += scrivi(os.path.join(repo, "e", nnn(ed["numero"]) + ".html"), pagina(ed, prec, succ))
         anteprima(ed, os.path.join(repo, "e", nnn(ed["numero"]) + ".png"))
-    numeri(repo, eds)
     rec = list(reversed(eds))
     scrivi(os.path.join(repo, "e", "pagine.json"), json.dumps([e["numero"] for e in rec]) + "\n")
     scrivi(os.path.join(repo, "feed.xml"), feed(rec))
