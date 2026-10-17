@@ -642,7 +642,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     setTimeout(() => { lab.textContent = "Copia link"; }, 2200);
   });
   for (const [id, cosa] of [["read", "letta"], ["open", "schermo intero"], ["dl", "scaricata"]]) {
-    $(id).addEventListener("click", () => { if (current && !(id === "read" && desktop())) conta({ path: "pdf-" + pad(current.numero), title: "PDF n. " + pad(current.numero) + " " + cosa, event: true }); });
+    $(id).addEventListener("click", () => { if (current && !(id === "read" && desktop())) { conta({ path: "pdf-" + pad(current.numero), title: "PDF n. " + pad(current.numero) + " " + cosa, event: true }); conta({ path: "pdf-tutte", title: "PDF aperti (tutte le edizioni)", event: true }); } });
   }
   $("wa").addEventListener("click", () => { if (current) conta({ path: "condividi-whatsapp-" + pad(current.numero), title: "Condivisione WhatsApp n. " + pad(current.numero), event: true }); });
   $("copy").addEventListener("click", () => { if (current) conta({ path: "condividi-link-" + pad(current.numero), title: "Link copiato n. " + pad(current.numero), event: true }); });
@@ -658,6 +658,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   $("vote").addEventListener("click", (e) => {
     const b = e.target.closest("button"); if (!b || !current) return;
     conta({ path: "voto-" + pad(current.numero) + "-" + b.dataset.v, title: "Voto " + b.dataset.v + " n. " + pad(current.numero), event: true });
+    conta({ path: "voto-" + b.dataset.v, title: "Voto " + b.dataset.v + " (tutte le edizioni)", event: true });
     try { localStorage.setItem(votoKey(current), b.dataset.v); } catch (err) {}
     $("vote").querySelectorAll("button").forEach((x) => { x.hidden = true; });
     $("voteQ").textContent = "Grazie del voto."; $("voteQ").classList.add("thx");

@@ -90,11 +90,12 @@ footer{border-top:1px solid var(--rule);padding:22px 0 36px;font-size:13px;color
   box.addEventListener("click", function (e) {
     var b = e.target.closest("button"); if (!b) return;
     conta({ path: "voto-003-" + b.dataset.v, title: "Voto " + b.dataset.v + " n. 003", event: true });
+    conta({ path: "voto-" + b.dataset.v, title: "Voto " + b.dataset.v + " (tutte le edizioni)", event: true });
     try { localStorage.setItem(k, b.dataset.v); } catch (err) {}
     fatto();
   });
   document.querySelectorAll("a[data-pdf]").forEach(function (a) {
-    a.addEventListener("click", function () { conta({ path: "pdf-003", title: "PDF n. 003 " + a.dataset.pdf + " dalla pagina dell'edizione", event: true }); });
+    a.addEventListener("click", function () { conta({ path: "pdf-003", title: "PDF n. 003 " + a.dataset.pdf + " dalla pagina dell'edizione", event: true }); conta({ path: "pdf-tutte", title: "PDF aperti (tutte le edizioni)", event: true }); });
   });
 })();
 </script>
