@@ -59,6 +59,12 @@ for nome, s in d["serie"].items():
         problemi.append(f"{nome}: valore identico alla seduta precedente con volume nullo: dato probabilmente fermo")
     if d0 == oggi and isinstance(vol0, (int, float)) and 0 < vol0 < 1000 and s.get("mercato") not in ("FX", "COMM"):
         avvisi.append(f"{nome}: volume quasi nullo ({vol0}): verificare che il dato sia aggiornato")
+    vol1 = u[1][2] if len(u[1]) > 2 else None
+    if (s.get("mercato") in ("USA", "EU", "UK", "JP", "HK", "KR", "CN") and isinstance(vol0, (int, float))
+            and isinstance(vol1, (int, float)) and vol0 > 0 and vol1 > 0 and vol0 < 0.2 * vol1 and not s.get("seconda_fonte")):
+        problemi.append(f"{nome}: volume della seduta del {d0} pari al {100 * vol0 / vol1:.0f}% della precedente: chiusura "
+                        "probabilmente incompleta (caso Euro Stoxx 50 del 16/10/2026); conferma il livello con una seconda "
+                        "fonte ('seconda_fonte') o usa la chiusura precedente dichiarandolo")
     if v1 and abs(v0 / v1 - 1) > 0.08 and s.get("mercato") not in ("COMM",):
         avvisi.append(f"{nome}: variazione giornaliera {100 * (v0 / v1 - 1):+.1f}%: verificare con una seconda fonte")
     sf = s.get("seconda_fonte")

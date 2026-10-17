@@ -10,6 +10,7 @@ Scrivi `/home/claude/lavoro/nuovi.json` con le chiusure ufficiali dei giorni dop
 - `eurusd`: Alpha Vantage `FX_DAILY`, colonna close (non FMP forex, che ha righe del weekend);
 - `acwi`: Alpha Vantage `TIME_SERIES_DAILY`.
 - **Mai la riga con la data di oggi:** è un valore intraday. Lo script la rifiuta.
+- **Solo chiusure che hanno passato `controlli_dati.py`:** una chiusura del venerdì con volume anomalo (controllo dei volumi) non entra in `nuovi.json` finché una seconda fonte non conferma il livello (il 16/10/2026 FMP ha registrato per l'Euro Stoxx 50 un -0,47% con volume al 7%, mentre l'Europa chiudeva in rialzo).
 - Poi: `python3 aggiorna_dati.py /home/claude/lavoro/nuovi.json` (valida tutto prima di scrivere).
 
 ## 2. Verdetto della settimana chiusa
