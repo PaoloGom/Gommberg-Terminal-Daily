@@ -12,7 +12,12 @@ Dopo queste righe l'edizione aggiunge Glossario e Fonti come sempre.
 import datetime as dt
 from html import escape as esc
 
-from gommberg_engine import P, B, section, tbl, headers, img, box, side_by_side, CW, mm, Spacer
+from gommberg_engine import P, B, section, tbl, headers, img, box, side_by_side, box_pari, CW, mm, Spacer
+from reportlab.platypus import TableStyle
+from reportlab.lib import colors
+
+VAR_BG = colors.HexColor("#FCE7D6")   # riga dello strumento della settimana: lo dice il colore, non il testo
+VAR_INK = colors.HexColor("#B84A0C")
 
 ORDINE = ["acwi", "spx", "sx5e", "ust10", "ust2", "brent", "eurusd"]
 DEC = {"acwi": 2, "spx": 2, "sx5e": 2, "ust10": 2, "ust2": 2, "brent": 2, "eurusd": 4}
@@ -30,7 +35,18 @@ def fissi(st):
 
 
 def nome(v):
-    return ("Della settimana: " if v.get("variabile") else "") + v["nome"]
+    return v["nome"]
+
+
+def evidenzia(t, st, chiavi):
+    """Colora la riga dello strumento della settimana (stesso colore della stellina del grafico)."""
+    for i, k in enumerate(chiavi, start=1):
+        if st[k].get("variabile"):
+            t.setStyle(TableStyle([("BACKGROUND", (0, i), (-1, i), VAR_BG), ("LINEBEFORE", (0, i), (0, i), 2.2, VAR_INK)]))
+    return t
+
+
+NOTA_VAR = " Riga arancione e stellina: lo strumento della settimana, scelto sul tema del momento (conto a parte)."
 
 
 def _par(chiavi):
@@ -44,8 +60,23 @@ def num(v, d):
     return f"{v:,.{d}f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
 
+def dec(k, v):
+    """Decimali secondo la grandezza: così ogni strumento, anche quello della settimana, sta nella sua colonna."""
+    if k in DEC:
+        return DEC[k]
+    a = abs(v)
+    return 4 if a < 10 else 2 if a < 1000 else 0
+
+
+def forchetta(k, lo, hi, unita=None):
+    """Range compatto, unità una volta sola: 4.402 - 4.689 $ (mai a capo)."""
+    d = dec(k, lo) if k in DEC and abs(lo) < 1000 else dec(k, lo) if k not in DEC else 0
+    u = (unita if unita is not None else "$" if k in ("acwi", "brent") else "%" if k.startswith("ust") else "")
+    return f"{num(lo, d)} - {num(hi, d)}" + ("%" if u == "%" else f" {u}" if u else "")
+
+
 def liv(k, v, unita=None):
-    s = num(v, DEC.get(k, 2))
+    s = num(v, dec(k, v))
     if unita is not None:   # lo strumento della settimana porta la sua unità
         return s + ("%" if unita == "%" else f" {unita}" if unita in ("$", "€") else "")
     return s + " $" if k in ("acwi", "brent") else s + "%" if k.startswith("ust") else s
@@ -60,15 +91,15 @@ def _regole(chiavi, compatto=False, variabile=False):
     n, par = len(chiavi), num(_par(chiavi), 1)
     piu = " più lo strumento della settimana (conto a parte)" if variabile else ""
     if compatto:   # mar-ven: 1-2 righe; le regole complete escono il lunedì
-        return box("Le regole del gioco", [
+        return ("Le regole del gioco", [
             f"Direzione fissata lunedì per {n} mercati{piu}: 1 punto per la direzione, 1 per la chiusura di venerdì nel range "
-            f"(massimo {2 * n}, par circa {par}). Regole complete il lunedì."], width=CW * 0.5 - 4 * mm)
-    return box("Le regole del gioco", [
+            f"(massimo {2 * n}, par circa {par}). Regole complete il lunedì."])
+    return ("Le regole del gioco", [
         f"Ogni lunedì scegliamo una direzione per {n} mercati{piu}; la previsione non cambia fino a venerdì.",
         f"1 punto per la direzione giusta, 1 punto se la chiusura di venerdì cade nel range: massimo {2 * n}.",
         f"Il range contiene la chiusura circa 2 settimane su 3. Senza alcuna abilità si fanno in media circa {par} punti "
         f"(il \"par\"): conta battere il par, non fare {2 * n}.",
-    ], width=CW * 0.5 - 4 * mm)
+    ])
 
 
 def _pagella(verdetto, pagella, settimana_prec):
@@ -93,7 +124,7 @@ def _pagella(verdetto, pagella, settimana_prec):
         righe.append(f"Stagione: {pagella['punti']} punti su {pagella['su']} in {pagella['settimane']} settimane "
                      f"(par {num(pagella['par'], 1)}); chiusure dentro il range: {num(pagella['copertura_range_%'], 0)}% "
                      f"(atteso circa 68%).")
-    return box("La pagella", righe, width=CW * 0.5)
+    return ("La pagella", righe)
 
 
 def pagina6_lunedi(reg, verdetto, pagella, tesi, grafico="c_forecast.png", settimana_prec=None):
@@ -108,15 +139,15 @@ def pagina6_lunedi(reg, verdetto, pagella, tesi, grafico="c_forecast.png", setti
         p = round(100 * v["prob_rialzo_redazione"])
         u = v.get("unita") if v.get("variabile") else None
         rows.append([P(esc(nome(v)), "cellb"), P(liv(k, v["base"], u), "celln"), P(liv(k, v["previsione_redazione"], u), "cellb"),
-                     P(f"{liv(k, v['range'][0], u)} - {liv(k, v['range'][1], u)}", "celln"),
+                     P(forchetta(k, v['range'][0], v['range'][1], u), "celln"),
                      P(f"{p}%" + (" (rend.)" if k.startswith("ust") else ""), "celln"),
                      P(esc((v.get("motivo_scelta", "") + " ") if v.get("variabile") else "") + esc(v.get("motivo_redazione", "")), "celln")])
-    out += [tbl(rows, [27 * mm, 21 * mm, 22 * mm, 30 * mm, 18 * mm, CW - 118 * mm]), Spacer(1, 2),
+    out += [evidenzia(tbl(rows, [27 * mm, 21 * mm, 22 * mm, 30 * mm, 18 * mm, CW - 118 * mm]), st, ordine(st)), Spacer(1, 2),
             P("* Probabilità che venerdì la chiusura sia sopra quella di partenza, implicita nella nostra previsione "
               "(per i Treasury: rialzo del rendimento). Il modello da solo non vede né rialzo né ribasso: la direzione è "
               "la nostra scommessa, il range è il modello (volatilità delle ultime 20 sedute). Metodo e risultati storici "
-              "nella scheda del progetto.", "note"), Spacer(1, 4)]
-    out.append(side_by_side([_regole(fissi(st), variabile=len(fissi(st)) < len(ordine(st)))], [_pagella(verdetto, pagella, settimana_prec)], CW * 0.5))
+              "nella scheda del progetto." + (NOTA_VAR if len(fissi(st)) < len(ordine(st)) else ""), "note"), Spacer(1, 4)]
+    out.append(box_pari(_regole(fissi(st), variabile=len(fissi(st)) < len(ordine(st))), _pagella(verdetto, pagella, settimana_prec), CW * 0.5))
     return out
 
 
@@ -136,9 +167,9 @@ def pagina6_settimana(reg, stato, tesi, grafico="c_forecast.png", venerdi=False)
                      P(f"{liv(k, r['ultimo'], u)} <font size=6>({r['data']})</font>", "celln"),
                      P(var if abs(r["var"]) > 1e-12 else "0 pb" if r["var_unita"] == "pb" else "0,00 %", "cell"),
                      P("Sì" if r["dentro_range"] else "No", "celln"), P(strada, "celln")])
-    out += [tbl(rows, [27 * mm, 22 * mm, 22 * mm, 33 * mm, 22 * mm, 23 * mm, CW - 149 * mm]), Spacer(1, 2),
-            P(f"La previsione non cambia fino a venerdì {gg_mese(ven)}. \"-\": strumento fermo alla chiusura di partenza.",
-              "note"), Spacer(1, 4)]
+    out += [evidenzia(tbl(rows, [27 * mm, 22 * mm, 22 * mm, 33 * mm, 22 * mm, 23 * mm, CW - 149 * mm]), st, ordine(st)), Spacer(1, 2),
+            P(f"La previsione non cambia fino a venerdì {gg_mese(ven)}. \"-\": strumento fermo alla chiusura di partenza."
+              + (NOTA_VAR if len(fissi(st)) < len(ordine(st)) else ""), "note"), Spacer(1, 4)]
     fx = fissi(st); n = len(fx)
     righe = [f"Dentro il range oggi: {sum(sr[k]['dentro_range'] for k in fx)} su {n}.",
              f"On track (direzione giusta) oggi: {sum(1 for k in fx if sr[k]['strada_giusta'])} su {n}"
@@ -151,5 +182,5 @@ def pagina6_settimana(reg, stato, tesi, grafico="c_forecast.png", venerdi=False)
                          + (", on track." if r["strada_giusta"] else "." if r["strada_giusta"] is None else ", direzione contraria."))
     if venerdi:
         righe.append("Verdetto lunedì, con le chiusure di stasera.")
-    out.append(side_by_side([_regole(fissi(st), compatto=True, variabile=len(fissi(st)) < len(ordine(st)))], [box("A che punto siamo", righe, width=CW * 0.5)], CW * 0.5))
+    out.append(box_pari(_regole(fissi(st), compatto=True, variabile=len(fissi(st)) < len(ordine(st))), ("A che punto siamo", righe), CW * 0.5))
     return out

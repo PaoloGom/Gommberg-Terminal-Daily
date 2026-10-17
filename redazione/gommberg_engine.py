@@ -305,6 +305,22 @@ def side_by_side(left, right, lw):
     return t
 
 
+def box_pari(sx, dx, lw):
+    """Due riquadri affiancati della stessa altezza: sx/dx = (titolo, [punti]). Lo sfondo è la cella, quindi i due
+    riquadri finiscono sempre alla stessa riga (niente riquadro corto accanto a uno lungo)."""
+    def cella(tit, punti):
+        return [P(tit.upper(), "box_t")] + [Paragraph(signcol(b), S["box_b"], bulletText="▪") for b in punti]
+    gap = 5 * mm
+    t = Table([[cella(*sx), "", cella(*dx)]], colWidths=[lw - gap, gap, CW - lw])
+    t.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("BACKGROUND", (0, 0), (0, 0), TINT),
+                           ("BACKGROUND", (2, 0), (2, 0), TINT), ("LINEBEFORE", (0, 0), (0, 0), 2.2, ORANGE),
+                           ("LINEBEFORE", (2, 0), (2, 0), 2.2, ORANGE), ("LEFTPADDING", (0, 0), (-1, -1), 8),
+                           ("RIGHTPADDING", (0, 0), (-1, -1), 8), ("LEFTPADDING", (1, 0), (1, 0), 0),
+                           ("RIGHTPADDING", (1, 0), (1, 0), 0), ("TOPPADDING", (0, 0), (-1, -1), 6),
+                           ("BOTTOMPADDING", (0, 0), (-1, -1), 6)]))
+    return t
+
+
 def dash_table(groups, widths):
     """Cruscotto: groups = [(nome_gruppo, [[c1, c2, ...], ...]), ...]. Prima colonna in grassetto,
     variazioni colorate per segno. La prima riga di groups[0] precedente = intestazioni da headers()."""

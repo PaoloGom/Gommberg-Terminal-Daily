@@ -27,7 +27,8 @@ def x(base, liv, tipo):
 
 
 def fmt(v, k):
-    d = {"acwi": 2, "spx": 0, "sx5e": 0, "ust10": 2, "ust2": 2, "brent": 2, "eurusd": 4}.get(k, 2)
+    fissi = {"acwi": 2, "spx": 0, "sx5e": 0, "ust10": 2, "ust2": 2, "brent": 2, "eurusd": 4}
+    d = fissi[k] if k in fissi else (4 if abs(v) < 10 else 2 if abs(v) < 1000 else 0)   # stesso criterio di pag. 6
     s = f"{v:,.{d}f}".replace(",", "X").replace(".", ",").replace("X", ".")
     return s + ("%" if k.startswith("ust") else "")
 
@@ -78,7 +79,7 @@ def disegna(reg, out, stato=None):
         lo, hi = v["range"]
         s = (x(b, hi, t) - x(b, lo, t)) / 2 or 1.0          # mezza ampiezza del range = 1 unità
         pos = (lambda b_, t_, s_: (lambda liv: x(b_, liv, t_) / s_))(b, t, s)
-        ax.plot([pos(lo), pos(hi)], [y, y], color=BAR, lw=8, solid_capstyle="butt", zorder=1)
+        ax.plot([pos(lo), pos(hi)], [y, y], color="#F8CBA8" if v.get("variabile") else BAR, lw=8, solid_capstyle="butt", zorder=1)
         ax.plot([0], [y], marker="|", ms=13, color=INK, mew=1.5, zorder=2)
         p = v["previsione_redazione"]
         ax.plot([pos(p)], [y], marker="D", ms=6, color=POS if p > b else NEG, zorder=3)
