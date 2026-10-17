@@ -62,6 +62,9 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .pn{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:13px;border-top:1px solid var(--rule);padding-top:16px}
 .pn a{text-decoration:none;color:var(--muted)}.pn a:hover{color:var(--ink)}
 footer{border-top:1px solid var(--rule);padding:22px 0 36px;font-size:13px;color:var(--muted)}
+.vote{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 30px;font-size:15px;color:var(--muted)}
+.vote button{font-family:var(--mono);font-size:13px;min-height:38px;padding:0 14px;background:transparent;color:var(--ink);border:1px solid var(--rule);cursor:pointer}
+.vote .thx{color:var(--ink)}
 @media (max-width:520px){.mast nav{display:none}.dek{font-size:17px}.btn{flex:1 1 auto;justify-content:center}}
 </style>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
@@ -71,11 +74,30 @@ footer{border-top:1px solid var(--rule);padding:22px 0 36px;font-size:13px;color
 <main class="wrap">
 <p class="kicker">Edizione n. 004</p><p class="meta">Giovedì 15 ottobre 2026 | 6 pagine</p>
 <h1>CPI sopra le attese, Wall Street cede l&#x27;1,1% e l&#x27;Asia crolla: Kospi -8,7%, Nikkei -4,9%</h1>
-<div class="actions"><a class="btn lead" href="../pdf/2026-10-15-gommberg-004.pdf">Leggi l'edizione</a><a class="btn ghost" href="../pdf/2026-10-15-gommberg-004.pdf" download="2026-10-15 Gommberg Terminal Daily #004.pdf">Scarica PDF</a><a class="btn ghost" href="../?n=4">Sfoglia sul sito</a></div>
+<div class="actions"><a class="btn lead" data-pdf="letta" href="../pdf/2026-10-15-gommberg-004.pdf">Leggi l'edizione</a><a class="btn ghost" data-pdf="scaricata" href="../pdf/2026-10-15-gommberg-004.pdf" download="2026-10-15 Gommberg Terminal Daily #004.pdf">Scarica PDF</a><a class="btn ghost" href="../?n=4">Sfoglia sul sito</a></div>
 <section><h2>In 30 secondi</h2><ul class="brief"><li>CPI USA a <span class="up">+3,7%</span> annuo contro 3,6% atteso, core a <span class="up">+2,6%</span> contro 2,5%: probabilità di rialzo Fed a ottobre al 35-47% a seconda della fonte, dal 22% del giorno prima.</li><li>S&amp;P 500 <span class="down">-1,11%</span>, Nasdaq <span class="down">-1,88%</span>, tecnologia <span class="down">-3,00%</span>. Stamattina alle 08:11 Kospi <span class="down">-8,68%</span> e Nikkei <span class="down">-4,89%</span>.</li><li>Scommessa: tutti e 7 i mercati ancora dentro il range, ma solo 2 su 7 sulla strada giusta (Treasury 10 anni e Brent).</li></ul></section>
 <section><h2>Le notizie del giorno</h2><ol class="news"><li><span>CPI USA di settembre sopra le attese: 3,7% annuo, core 2,6%</span></li><li><span>S&amp;P 500 <span class="down">-1,11%</span>, Nasdaq <span class="down">-1,88%</span>: tecnologia a <span class="down">-3,00%</span></span></li><li><span>Seul <span class="down">-8,68%</span> e Tokyo <span class="down">-4,89%</span> nella notte</span></li><li><span>SoftBank <span class="down">-10%</span>, Kioxia e Advantest <span class="down">-11%</span> a Tokyo</span></li><li><span>Rialzo a ottobre: probabilità al 35-47% dopo il CPI</span></li><li><span>BofA delude, Morgan Stanley corre nel trading</span></li><li><span>TSMC: utile <span class="up">+68,7%</span> e ricavi <span class="up">+50,9%</span> nel terzo trimestre</span></li></ol></section>
+<div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
 <div class="pn"><a href="003.html">&lsaquo; N. 003</a><a href="005.html">N. 005 &rsaquo;</a></div>
 </main>
+<script>
+(function () {
+  function conta(o, t) { var g = window.goatcounter; if (g && g.count) { try { g.count(o); } catch (e) {} return; } if ((t || 0) < 20) setTimeout(function () { conta(o, (t || 0) + 1); }, 400); }
+  var k = "gtd-voto-004", v = null, box = document.getElementById("vote"), q = document.getElementById("voteQ");
+  try { v = localStorage.getItem(k); } catch (e) {}
+  function fatto() { box.querySelectorAll("button").forEach(function (b) { b.hidden = true; }); q.textContent = "Grazie del voto."; q.className = "thx"; }
+  box.hidden = false; if (v) fatto();
+  box.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    conta({ path: "voto-004-" + b.dataset.v, title: "Voto " + b.dataset.v + " n. 004", event: true });
+    try { localStorage.setItem(k, b.dataset.v); } catch (err) {}
+    fatto();
+  });
+  document.querySelectorAll("a[data-pdf]").forEach(function (a) {
+    a.addEventListener("click", function () { conta({ path: "pdf-004", title: "PDF n. 004 " + a.dataset.pdf + " dalla pagina dell'edizione", event: true }); });
+  });
+})();
+</script>
 <footer><div class="wrap">Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</div></footer>
 </body>
 </html>

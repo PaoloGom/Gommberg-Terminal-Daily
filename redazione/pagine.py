@@ -153,8 +153,32 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .pn{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:13px;border-top:1px solid var(--rule);padding-top:16px}
 .pn a{text-decoration:none;color:var(--muted)}.pn a:hover{color:var(--ink)}
 footer{border-top:1px solid var(--rule);padding:22px 0 36px;font-size:13px;color:var(--muted)}
+.vote{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 30px;font-size:15px;color:var(--muted)}
+.vote button{font-family:var(--mono);font-size:13px;min-height:38px;padding:0 14px;background:transparent;color:var(--ink);border:1px solid var(--rule);cursor:pointer}
+.vote .thx{color:var(--ink)}
 @media (max-width:520px){.mast nav{display:none}.dek{font-size:17px}.btn{flex:1 1 auto;justify-content:center}}
 """
+
+
+# Voto e aperture del PDF, contati come eventi GoatCounter anonimi (un voto per edizione e per browser)
+VOTO_JS = """<script>
+(function () {
+  function conta(o, t) { var g = window.goatcounter; if (g && g.count) { try { g.count(o); } catch (e) {} return; } if ((t || 0) < 20) setTimeout(function () { conta(o, (t || 0) + 1); }, 400); }
+  var k = "gtd-voto-NNN", v = null, box = document.getElementById("vote"), q = document.getElementById("voteQ");
+  try { v = localStorage.getItem(k); } catch (e) {}
+  function fatto() { box.querySelectorAll("button").forEach(function (b) { b.hidden = true; }); q.textContent = "Grazie del voto."; q.className = "thx"; }
+  box.hidden = false; if (v) fatto();
+  box.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    conta({ path: "voto-NNN-" + b.dataset.v, title: "Voto " + b.dataset.v + " n. NNN", event: true });
+    try { localStorage.setItem(k, b.dataset.v); } catch (err) {}
+    fatto();
+  });
+  document.querySelectorAll("a[data-pdf]").forEach(function (a) {
+    a.addEventListener("click", function () { conta({ path: "pdf-NNN", title: "PDF n. NNN " + a.dataset.pdf + " dalla pagina dell'edizione", event: true }); });
+  });
+})();
+</script>"""
 
 
 def pagina(ed, prec, succ):
@@ -193,8 +217,8 @@ def pagina(ed, prec, succ):
     a(f"<h1>{esc(titolo)}</h1>")
     if ed.get("dek"):
         a(f'<p class="dek">{colora(ed["dek"])}</p>')
-    a(f'<div class="actions"><a class="btn lead" href="{esc(pdf)}">Leggi l\'edizione</a>'
-      f'<a class="btn ghost" href="{esc(pdf)}" download="{esc(ed.get("nome", ""))}">Scarica PDF</a>'
+    a(f'<div class="actions"><a class="btn lead" data-pdf="letta" href="{esc(pdf)}">Leggi l\'edizione</a>'
+      f'<a class="btn ghost" data-pdf="scaricata" href="{esc(pdf)}" download="{esc(ed.get("nome", ""))}">Scarica PDF</a>'
       f'<a class="btn ghost" href="../?n={int(ed["numero"])}">Sfoglia sul sito</a></div>')
     if ed.get("sommario"):
         a('<section><h2>In 30 secondi</h2><ul class="brief">' +
@@ -211,8 +235,11 @@ def pagina(ed, prec, succ):
     nav = []
     nav.append(f'<a href="{nnn(prec["numero"])}.html">&lsaquo; N. {nnn(prec["numero"])}</a>' if prec else "<span></span>")
     nav.append(f'<a href="{nnn(succ["numero"])}.html">N. {nnn(succ["numero"])} &rsaquo;</a>' if succ else '<a href="../">Ultima edizione &rsaquo;</a>')
+    a('<div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span>'
+      '<button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>')
     a(f'<div class="pn">{"".join(nav)}</div>')
     a("</main>")
+    a(VOTO_JS.replace("NNN", n))
     a('<footer><div class="wrap">Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza '
       "finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie "
       "da fonti pubbliche alla data di ciascuna edizione.</div></footer>")

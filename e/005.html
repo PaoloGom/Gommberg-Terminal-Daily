@@ -62,6 +62,9 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .pn{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:13px;border-top:1px solid var(--rule);padding-top:16px}
 .pn a{text-decoration:none;color:var(--muted)}.pn a:hover{color:var(--ink)}
 footer{border-top:1px solid var(--rule);padding:22px 0 36px;font-size:13px;color:var(--muted)}
+.vote{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 30px;font-size:15px;color:var(--muted)}
+.vote button{font-family:var(--mono);font-size:13px;min-height:38px;padding:0 14px;background:transparent;color:var(--ink);border:1px solid var(--rule);cursor:pointer}
+.vote .thx{color:var(--ink)}
 @media (max-width:520px){.mast nav{display:none}.dek{font-size:17px}.btn{flex:1 1 auto;justify-content:center}}
 </style>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
@@ -72,12 +75,31 @@ footer{border-top:1px solid var(--rule);padding:22px 0 36px;font-size:13px;color
 <p class="kicker">Edizione n. 005</p><p class="meta">Venerdì 16 ottobre 2026 | 6 pagine</p>
 <h1>Prezzi alla produzione USA +1,3% in un mese: il rialzo più forte da oltre quattro anni</h1>
 <p class="dek">A settembre l&#x27;indice dei prezzi alla produzione (PPI) sale dell&#x27;1,3% sul mese e del 6,3% sull&#x27;anno contro il 5,3% atteso; il core (senza energia e alimentari) è a <span class="up">+0,7%</span> mensile e <span class="up">+5,0%</span> annuo. Anche le vendite al dettaglio superano le attese. Wall Street chiude comunque in rialzo e i rendimenti dei Treasury a lunga scendono.</p>
-<div class="actions"><a class="btn lead" href="../pdf/2026-10-16-gommberg-005.pdf">Leggi l'edizione</a><a class="btn ghost" href="../pdf/2026-10-16-gommberg-005.pdf" download="2026-10-16 Gommberg Terminal Daily #005.pdf">Scarica PDF</a><a class="btn ghost" href="../?n=5">Sfoglia sul sito</a></div>
+<div class="actions"><a class="btn lead" data-pdf="letta" href="../pdf/2026-10-16-gommberg-005.pdf">Leggi l'edizione</a><a class="btn ghost" data-pdf="scaricata" href="../pdf/2026-10-16-gommberg-005.pdf" download="2026-10-16 Gommberg Terminal Daily #005.pdf">Scarica PDF</a><a class="btn ghost" href="../?n=5">Sfoglia sul sito</a></div>
 <section><h2>In 30 secondi</h2><ul class="brief"><li>Wall Street chiude in rialzo: Dow Jones <span class="up">+1,1%</span> a 52.178 punti, Nasdaq <span class="up">+0,1%</span>, S&amp;P 500 7.744,06 (<span class="up">+0,3%</span>). Il Treasury a 10 anni scende al 5,10% (<span class="down">-9 pb</span>, punti base: centesimi di punto).</li><li>Seul chiude a <span class="down">-7,57%</span> (Kospi, l&#x27;indice sudcoreano) con scambi sospesi 20 minuti; stamattina l&#x27;Asia rimbalza.</li><li>Il presidente della Fed Kevin Warsh non anticipa le mosse dei prossimi mesi. Oggi alle 15:15 produzione industriale USA.</li></ul></section>
 <section><h2>Le notizie del giorno</h2><ol class="news"><li><span>Vendite al dettaglio <span class="up">+0,8%</span>, sopra le attese</span></li><li><span>Sussidi a 199 mila, l&#x27;indice Philly Fed frena</span></li><li><span>Titoli AI: sotto esame il debito</span></li><li><span>Seul chiude a <span class="down">-7,57%</span>, poi l&#x27;Asia rimbalza</span></li><li><span>Milano ultima, Londra e Parigi in rialzo</span></li><li><span>Produzione industriale in calo dello 0,5%</span></li><li><span>Warsh non anticipa le prossime mosse</span></li></ol></section>
 <section><h2>Gli approfondimenti</h2><div class="inside"><div><small>Inflazione USA</small><b>PPI e vendite al dettaglio: settembre supera le attese su più fronti</b></div><div><small>Tassi USA</small><b>Treasury: dopo il PPI i rendimenti scendono dal 5 anni in su</b></div><div><small>Europa</small><b>Europa: Piazza Affari ultima, la produzione industriale cala in Italia e Francia</b></div></div></section>
+<div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
 <div class="pn"><a href="004.html">&lsaquo; N. 004</a><a href="../">Ultima edizione &rsaquo;</a></div>
 </main>
+<script>
+(function () {
+  function conta(o, t) { var g = window.goatcounter; if (g && g.count) { try { g.count(o); } catch (e) {} return; } if ((t || 0) < 20) setTimeout(function () { conta(o, (t || 0) + 1); }, 400); }
+  var k = "gtd-voto-005", v = null, box = document.getElementById("vote"), q = document.getElementById("voteQ");
+  try { v = localStorage.getItem(k); } catch (e) {}
+  function fatto() { box.querySelectorAll("button").forEach(function (b) { b.hidden = true; }); q.textContent = "Grazie del voto."; q.className = "thx"; }
+  box.hidden = false; if (v) fatto();
+  box.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    conta({ path: "voto-005-" + b.dataset.v, title: "Voto " + b.dataset.v + " n. 005", event: true });
+    try { localStorage.setItem(k, b.dataset.v); } catch (err) {}
+    fatto();
+  });
+  document.querySelectorAll("a[data-pdf]").forEach(function (a) {
+    a.addEventListener("click", function () { conta({ path: "pdf-005", title: "PDF n. 005 " + a.dataset.pdf + " dalla pagina dell'edizione", event: true }); });
+  });
+})();
+</script>
 <footer><div class="wrap">Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</div></footer>
 </body>
 </html>

@@ -199,6 +199,11 @@ h2.headline { font-family: var(--display); font-stretch: 85%; font-weight: 800; 
 
 /* Come funziona (left column, under the bet) */
 .how-box { margin-top: 28px; }
+/* Voto dei lettori */
+.vote { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 18px; font-size: 14px; color: var(--muted); }
+.vote button { font-family: var(--mono); font-size: 13px; min-height: 36px; padding: 0 14px; background: transparent; color: var(--ink); border: 1px solid var(--rule); cursor: pointer; }
+.vote button:hover { border-color: var(--ink); }
+.vote .thx { color: var(--ink); }
 /* Le notizie del giorno (prima pagina in testo) */
 .news-k { margin-top: 26px; }
 .news { margin: 8px 0 0; padding: 0; list-style: none; counter-reset: n; max-width: 62ch; border-top: 1px solid var(--rule); }
@@ -367,6 +372,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
         <h3 class="kicker news-k" id="newsK" hidden>Le notizie del giorno</h3>
         <ol class="news" id="news"></ol>
         <a class="full" id="newsFull" href="#" hidden>La prima pagina in testo &rsaquo;</a>
+        <div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
 
         <section class="bet" id="bet" aria-labelledby="bet-h" hidden>
           <div class="bet-head"><h3 class="kicker" id="bet-h">La scommessa della settimana</h3><span class="wk" id="betWk"></span></div>
@@ -500,6 +506,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   let pagine = new Set(); // edizioni con pagina propria (e/NNN.html), generate da redazione/pagine.py
   const pagina = (ed) => (!DEMO && pagine.has(ed.numero)) ? new URL("e/" + pad(ed.numero) + ".html", location.href).toString() : null;
   const condividi = (ed) => pagina(ed) || linkFor(ed);
+  const lette = new Set(); // pagine del lettore già contate in questa visita
   let editions = [], current = null, pdf = null, page = 1, renderTask = null;
   let view = "list", tema = "", query = "";
 
@@ -618,7 +625,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     }
     if (Array.isArray(ed.errata) && ed.errata.length) note.appendChild(el("div", "", "Errata corrige in questa edizione: " + ed.errata.join(" ")));
     $("lbl-latest").textContent = ed === editions[0] ? "Ultima edizione" : "Edizione precedente";
-    tape(ed); bet(ed);
+    tape(ed); bet(ed); votoStato(ed);
     document.querySelectorAll("[data-n]").forEach((r) => r.setAttribute("aria-current", r.dataset.n == ed.numero ? "true" : "false"));
     if (push) conta({ path: "edizione-" + pad(ed.numero), title: "Edizione n. " + pad(ed.numero) + " aperta dall'archivio", event: true });
     if (push) history.replaceState(null, "", ed === editions[0] && !params.get("n") ? (DEMO ? "?demo=1" : location.pathname) : linkFor(ed));
@@ -637,6 +644,24 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   for (const [id, cosa] of [["read", "letta"], ["open", "schermo intero"], ["dl", "scaricata"]]) {
     $(id).addEventListener("click", () => { if (current && !(id === "read" && desktop())) conta({ path: "pdf-" + pad(current.numero), title: "PDF n. " + pad(current.numero) + " " + cosa, event: true }); });
   }
+  $("wa").addEventListener("click", () => { if (current) conta({ path: "condividi-whatsapp-" + pad(current.numero), title: "Condivisione WhatsApp n. " + pad(current.numero), event: true }); });
+  $("copy").addEventListener("click", () => { if (current) conta({ path: "condividi-link-" + pad(current.numero), title: "Link copiato n. " + pad(current.numero), event: true }); });
+  // Voto dei lettori: un voto per edizione e per browser, anonimo
+  const votoKey = (ed) => "gtd-voto-" + pad(ed.numero);
+  function votoStato(ed) {
+    let v = null; try { v = localStorage.getItem(votoKey(ed)); } catch (e) {}
+    $("vote").hidden = DEMO;
+    $("vote").querySelectorAll("button").forEach((b) => { b.hidden = !!v; });
+    $("voteQ").textContent = v ? "Grazie del voto." : "Ti è stata utile questa edizione?";
+    $("voteQ").classList.toggle("thx", !!v);
+  }
+  $("vote").addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b || !current) return;
+    conta({ path: "voto-" + pad(current.numero) + "-" + b.dataset.v, title: "Voto " + b.dataset.v + " n. " + pad(current.numero), event: true });
+    try { localStorage.setItem(votoKey(current), b.dataset.v); } catch (err) {}
+    $("vote").querySelectorAll("button").forEach((x) => { x.hidden = true; });
+    $("voteQ").textContent = "Grazie del voto."; $("voteQ").classList.add("thx");
+  });
   // Main button: on phones opens the PDF full screen (native viewer), on desktop scrolls to the reader
   $("read").addEventListener("click", (e) => {
     if (!desktop()) return;
@@ -675,6 +700,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     try { await renderTask.promise; } catch (e) { return; }
     $("wait").hidden = true; $("sheet").classList.add("ok");
     $("pg").textContent = "Pagina " + page + " di " + pdf.numPages;
+    if (page > 1 && current) { const k = current.numero + "-" + page; if (!lette.has(k)) { lette.add(k); conta({ path: "pagina-" + page + "-" + pad(current.numero), title: "Pagina " + page + " letta, n. " + pad(current.numero), event: true }); } }
     $("prev").disabled = page <= 1;
     $("next").disabled = page >= pdf.numPages;
     markPages();

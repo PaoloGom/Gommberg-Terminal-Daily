@@ -62,6 +62,9 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .pn{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:13px;border-top:1px solid var(--rule);padding-top:16px}
 .pn a{text-decoration:none;color:var(--muted)}.pn a:hover{color:var(--ink)}
 footer{border-top:1px solid var(--rule);padding:22px 0 36px;font-size:13px;color:var(--muted)}
+.vote{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 30px;font-size:15px;color:var(--muted)}
+.vote button{font-family:var(--mono);font-size:13px;min-height:38px;padding:0 14px;background:transparent;color:var(--ink);border:1px solid var(--rule);cursor:pointer}
+.vote .thx{color:var(--ink)}
 @media (max-width:520px){.mast nav{display:none}.dek{font-size:17px}.btn{flex:1 1 auto;justify-content:center}}
 </style>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
@@ -71,11 +74,30 @@ footer{border-top:1px solid var(--rule);padding:22px 0 36px;font-size:13px;color
 <main class="wrap">
 <p class="kicker">Edizione n. 002</p><p class="meta">Martedì 13 ottobre 2026 | 6 pagine</p>
 <h1>Seul crolla del 5,5% sui chip e frena il Nasdaq. Oggi tocca alle banche americane</h1>
-<div class="actions"><a class="btn lead" href="../pdf/2026-10-13-gommberg-002.pdf">Leggi l'edizione</a><a class="btn ghost" href="../pdf/2026-10-13-gommberg-002.pdf" download="2026-10-13 Gommberg Terminal Daily #002.pdf">Scarica PDF</a><a class="btn ghost" href="../?n=2">Sfoglia sul sito</a></div>
+<div class="actions"><a class="btn lead" data-pdf="letta" href="../pdf/2026-10-13-gommberg-002.pdf">Leggi l'edizione</a><a class="btn ghost" data-pdf="scaricata" href="../pdf/2026-10-13-gommberg-002.pdf" download="2026-10-13 Gommberg Terminal Daily #002.pdf">Scarica PDF</a><a class="btn ghost" href="../?n=2">Sfoglia sul sito</a></div>
 <section><h2>In 30 secondi</h2><ul class="brief"><li>I chip trascinano l&#x27;Asia: Kospi <span class="down">-5,5%</span> dopo il <span class="down">-3,65%</span> di lunedì, SK Hynix <span class="down">-10,1%</span>; Tokyo <span class="down">-1,8%</span> alla riapertura dopo il festivo.</li><li>Il petrolio torna sopra 106 $ (<span class="up">+1,8%</span> lunedì) dopo gli attacchi in Arabia Saudita e alle petroliere; stamattina Brent a 105,32 $.</li><li>Scommessa: tutti e 7 gli strumenti sono dentro il range, ma per ora solo l&#x27;EUR/USD va nella direzione prevista.</li></ul></section>
 <section><h2>Le notizie del giorno</h2><ol class="news"><li><span>Kospi, secondo crollo: <span class="down">-5,5%</span> e minimo intraday sotto 6.000</span></li><li><span>Riad promette una risposta &quot;seria&quot; agli Houthi, Brent a 106 $</span></li><li><span>FMI: l&#x27;economia ha retto, ma la resilienza è sotto sforzo</span></li><li><span>MPS boccia il rilancio di Intesa: premio &quot;limitato&quot;</span></li><li><span>Broadcom, Hock Tan: &quot;molti investitori non sanno in cosa investono&quot;</span></li><li><span>Tregua energetica in dubbio, il petrolio perde un freno</span></li><li><span>LVMH, ricavi del trimestre <span class="up">+1%</span>: la Cina frena ancora</span></li><li><span>Inflazione tedesca confermata al 3,3%</span></li></ol></section>
+<div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
 <div class="pn"><a href="001.html">&lsaquo; N. 001</a><a href="003.html">N. 003 &rsaquo;</a></div>
 </main>
+<script>
+(function () {
+  function conta(o, t) { var g = window.goatcounter; if (g && g.count) { try { g.count(o); } catch (e) {} return; } if ((t || 0) < 20) setTimeout(function () { conta(o, (t || 0) + 1); }, 400); }
+  var k = "gtd-voto-002", v = null, box = document.getElementById("vote"), q = document.getElementById("voteQ");
+  try { v = localStorage.getItem(k); } catch (e) {}
+  function fatto() { box.querySelectorAll("button").forEach(function (b) { b.hidden = true; }); q.textContent = "Grazie del voto."; q.className = "thx"; }
+  box.hidden = false; if (v) fatto();
+  box.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    conta({ path: "voto-002-" + b.dataset.v, title: "Voto " + b.dataset.v + " n. 002", event: true });
+    try { localStorage.setItem(k, b.dataset.v); } catch (err) {}
+    fatto();
+  });
+  document.querySelectorAll("a[data-pdf]").forEach(function (a) {
+    a.addEventListener("click", function () { conta({ path: "pdf-002", title: "PDF n. 002 " + a.dataset.pdf + " dalla pagina dell'edizione", event: true }); });
+  });
+})();
+</script>
 <footer><div class="wrap">Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</div></footer>
 </body>
 </html>

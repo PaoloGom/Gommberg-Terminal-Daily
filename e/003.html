@@ -62,6 +62,9 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .pn{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:13px;border-top:1px solid var(--rule);padding-top:16px}
 .pn a{text-decoration:none;color:var(--muted)}.pn a:hover{color:var(--ink)}
 footer{border-top:1px solid var(--rule);padding:22px 0 36px;font-size:13px;color:var(--muted)}
+.vote{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 30px;font-size:15px;color:var(--muted)}
+.vote button{font-family:var(--mono);font-size:13px;min-height:38px;padding:0 14px;background:transparent;color:var(--ink);border:1px solid var(--rule);cursor:pointer}
+.vote .thx{color:var(--ink)}
 @media (max-width:520px){.mast nav{display:none}.dek{font-size:17px}.btn{flex:1 1 auto;justify-content:center}}
 </style>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
@@ -71,11 +74,30 @@ footer{border-top:1px solid var(--rule);padding:22px 0 36px;font-size:13px;color
 <main class="wrap">
 <p class="kicker">Edizione n. 003</p><p class="meta">Mercoledì 14 ottobre 2026 | 6 pagine</p>
 <h1>Banche miste e chip ancora sotto pressione: Wall Street ferma aspetta il CPI di oggi</h1>
-<div class="actions"><a class="btn lead" href="../pdf/2026-10-14-gommberg-003.pdf">Leggi l'edizione</a><a class="btn ghost" href="../pdf/2026-10-14-gommberg-003.pdf" download="2026-10-14 Gommberg Terminal Daily #003.pdf">Scarica PDF</a><a class="btn ghost" href="../?n=3">Sfoglia sul sito</a></div>
+<div class="actions"><a class="btn lead" data-pdf="letta" href="../pdf/2026-10-14-gommberg-003.pdf">Leggi l'edizione</a><a class="btn ghost" data-pdf="scaricata" href="../pdf/2026-10-14-gommberg-003.pdf" download="2026-10-14 Gommberg Terminal Daily #003.pdf">Scarica PDF</a><a class="btn ghost" href="../?n=3">Sfoglia sul sito</a></div>
 <section><h2>In 30 secondi</h2><ul class="brief"><li>Goldman Sachs batte sull&#x27;utile (17,01 $ per azione), Wells Fargo delude sui ricavi (21,87 mld, titolo <span class="down">-3,1%</span>): i conti delle banche non spostano l&#x27;indice.</li><li>Oggi il CPI USA alle 14:30: attese <span class="up">+0,6%</span> m/m e <span class="up">+3,6%</span> a/a sull&#x27;indice generale, <span class="up">+0,2%</span> m/m sul core.</li><li>Scommessa: 3 strumenti su 7 sulla strada giusta (Treasury 2 e 10 anni, EUR/USD), tutti e 7 dentro il range.</li></ul></section>
 <section><h2>Le notizie del giorno</h2><ol class="news"><li><span>Conti misti: Goldman batte, Wells Fargo delude, Citi segna ricavi in crescita dell&#x27;8%</span></li><li><span>Chip ancora in calo: tornano i timori sulla cinese CXMT</span></li><li><span>ASML alza la guidance 2026, ma l&#x27;offerta 2027-28 non basterà</span></li><li><span>Cina: export a <span class="up">+36,3%</span> a settembre, prezzi alla produzione al 5,0%</span></li><li><span>Spagna: inflazione armonizzata finale al 5,0%, core al 3,1%</span></li><li><span>Alla vigilia del CPI il mercato prezza il 22% di un rialzo a ottobre</span></li></ol></section>
+<div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
 <div class="pn"><a href="002.html">&lsaquo; N. 002</a><a href="004.html">N. 004 &rsaquo;</a></div>
 </main>
+<script>
+(function () {
+  function conta(o, t) { var g = window.goatcounter; if (g && g.count) { try { g.count(o); } catch (e) {} return; } if ((t || 0) < 20) setTimeout(function () { conta(o, (t || 0) + 1); }, 400); }
+  var k = "gtd-voto-003", v = null, box = document.getElementById("vote"), q = document.getElementById("voteQ");
+  try { v = localStorage.getItem(k); } catch (e) {}
+  function fatto() { box.querySelectorAll("button").forEach(function (b) { b.hidden = true; }); q.textContent = "Grazie del voto."; q.className = "thx"; }
+  box.hidden = false; if (v) fatto();
+  box.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    conta({ path: "voto-003-" + b.dataset.v, title: "Voto " + b.dataset.v + " n. 003", event: true });
+    try { localStorage.setItem(k, b.dataset.v); } catch (err) {}
+    fatto();
+  });
+  document.querySelectorAll("a[data-pdf]").forEach(function (a) {
+    a.addEventListener("click", function () { conta({ path: "pdf-003", title: "PDF n. 003 " + a.dataset.pdf + " dalla pagina dell'edizione", event: true }); });
+  });
+})();
+</script>
 <footer><div class="wrap">Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</div></footer>
 </body>
 </html>
