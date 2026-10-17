@@ -1246,6 +1246,86 @@ def pertinente(spec, titolo, perche, nome):
                          "(il modulo va senza: perche/quindi a tutta larghezza + tabella o punti).")
 
 
+RUOLI = {"quanto": "la misura del movimento", "perche": "la causa o il meccanismo (confronto con un'altra variabile)",
+         "storia": "il precedente o il contesto lungo", "conseguenza": "cosa cambia, soglie, attese, prossimi eventi",
+         "chi": "chi si muove: composizione, protagonisti, singoli titoli"}
+
+
+def _norm_nome(s):
+    s = re.sub(r"<[^>]+>|\(.*?\)", "", str(s)).lower()
+    s = re.sub(r"\banni\b|\banno\b", "a", s); s = re.sub(r"\bmesi\b|\bmese\b", "m", s)
+    return re.sub(r"[^a-z0-9&]", "", s)
+
+
+def _numeri(s):
+    out = []
+    for m in re.findall(r"[+\-\u2212]?\d+(?:\.\d{3})*(?:,\d+)?", re.sub(r"<[^>]+>", "", str(s))):
+        try:
+            out.append(float(m.replace("\u2212", "-").replace(".", "").replace(",", ".")))
+        except ValueError:
+            pass
+    return out
+
+
+def _nomi_grafico(g):
+    if not isinstance(g, dict):
+        return set()
+    if g.get("tipo") == "barre":
+        return {_norm_nome(k) for k, _ in g.get("dati", [])}
+    return {_norm_nome(s[0]) for s in g.get("serie", [])}
+
+
+def _valori_grafico(g):
+    if not isinstance(g, dict):
+        return [], 1
+    if g.get("tipo") == "barre":
+        return [float(v) for _, v in g.get("dati", []) if v is not None], g.get("dec", 1)
+    return [float(v) for s in g.get("serie", []) for v in s[1] if v is not None], g.get("dec", 2)
+
+
+def ridondanza(titolo, grafico=None, grafico2=None, righe=None, ruolo_righe=None):
+    """Ogni elemento di un approfondimento risponde a una domanda DIVERSA della tesi (RUOLI) e non ripete i numeri di
+    un altro. Errori: (1) due elementi con lo stesso ruolo, o ruolo mancante quando gli elementi sono più di uno;
+    (2) due grafici con più di una serie in comune (stesse scadenze, stessi indici); (3) una colonna della tabella i cui
+    valori sono già in un grafico (almeno 2 e almeno metà della colonna)."""
+    nome = _testo(titolo)
+    el = [("grafico", grafico), ("grafico2", grafico2)]
+    el = [(k, g) for k, g in el if isinstance(g, dict)]
+    n = len(el) + (1 if righe else 0)
+    if n >= 2:
+        ruoli = [(k, g.get("ruolo")) for k, g in el] + ([("righe", ruolo_righe)] if righe else [])
+        manca = [k for k, r in ruoli if r not in RUOLI]
+        if manca:
+            raise ValueError(f"modulo '{nome}': {', '.join(manca)} senza 'ruolo' valido. Ogni elemento risponde a una "
+                             f"domanda diversa della tesi: {', '.join(f'{k} = {v}' for k, v in RUOLI.items())} "
+                             "(grafico['ruolo'], grafico2['ruolo'], ruolo_righe)")
+        visti = {}
+        for k, r in ruoli:
+            if r in visti:
+                raise ValueError(f"modulo '{nome}': {visti[r]} e {k} hanno lo stesso ruolo '{r}': dicono la stessa "
+                                 "cosa. Tieni uno dei due e usa l'altro per un'altra domanda della tesi (o toglilo).")
+            visti[r] = k
+    if len(el) == 2:
+        comuni = _nomi_grafico(el[0][1]) & _nomi_grafico(el[1][1])
+        if len(comuni) > 1:
+            raise ValueError(f"modulo '{nome}': i due grafici mostrano le stesse serie ({', '.join(sorted(comuni))}): "
+                             "il secondo deve aggiungere un'altra variabile, non rivedere la stessa da un altro lato.")
+    if righe and el:
+        r0, *rr = righe
+        for j, testa in enumerate(r0[1:], start=1):
+            col = [x for r in rr if j < len(r) for x in _numeri(r[j])[:1] if x != 0]
+            if len(col) < 2:
+                continue
+            for k, g in el:
+                vals, dec = _valori_grafico(g)
+                tol = 0.5 * 10 ** -dec + 1e-9
+                uguali = sum(1 for x in col if any(abs(x - v) <= tol for v in vals))
+                if uguali >= 2 and uguali * 2 >= len(col):
+                    raise ValueError(f"modulo '{nome}': la colonna '{_testo(testa)}' della tabella ripete {uguali} valori "
+                                     f"già nel {k}. La tabella deve dire altro (livelli, cause, chi, prossimi eventi) "
+                                     "o sparire a favore di testo.")
+
+
 def da_guardare(testo, titolo="DA GUARDARE"):
     """Riquadro a tutta larghezza: DA GUARDARE (cosa confermerebbe o smentirebbe la tesi, e quando) o IL NUMERO."""
     t = Table([[[P(titolo, "box_t"), Paragraph(signcol(testo), S["nw_b"])]]], colWidths=[CW])
@@ -1257,7 +1337,7 @@ def da_guardare(testo, titolo="DA GUARDARE"):
 
 def modulo(tema, titolo, misura="mezzo", chiave=None, grafico=None, grafico2=None, perche=None, quindi=None,
            punti=None, righe=None, larghezze=None, lettura=None, fonte=None, freccia=None, numero=None, testo=None,
-           guardare=None, **_):
+           guardare=None, ruolo_righe=None, **_):
     """Un approfondimento nella griglia. misura: "mezzo" (mezza pagina) o "doppio" (pagina intera).
     grafico: spec dict ({"tipo": "linee"|"barre", "file", "titolo", "soggetto", ...}) o file; grafico2 solo per
     "doppio". soggetto: parola/e del titolo o del perche di cui il grafico parla (senza serie pertinente: niente
@@ -1266,7 +1346,8 @@ def modulo(tema, titolo, misura="mezzo", chiave=None, grafico=None, grafico2=Non
     doppio max 8), larghezze in mm. lettura: solo doppio. Il motore fissa le misure dei grafici (scala 1:1).
     titolo: la TESI (cosa significa), non il fatto. numero: un dato solo che misura la tesi ("Meno di 1 seduta su 5:
     ..."), nella colonna accanto al grafico. testo: 1-3 paragrafi di racconto verificato. guardare: OBBLIGATORIO nel
-    doppio, cosa confermerebbe o smentirebbe la tesi e quando."""
+    doppio, cosa confermerebbe o smentirebbe la tesi e quando. Con più elementi (grafici, tabella) ognuno ha un 'ruolo'
+    diverso (RUOLI: quanto, perche, storia, conseguenza, chi) e non ripete i numeri di un altro (ridondanza())."""
     if not (perche and quindi):
         raise ValueError(f"modulo '{titolo}': 'perche' e 'quindi' sono obbligatori")
     if misura not in ("mezzo", "doppio"):
@@ -1275,6 +1356,7 @@ def modulo(tema, titolo, misura="mezzo", chiave=None, grafico=None, grafico2=Non
         raise ValueError(f"modulo '{titolo}': nel 'doppio' 'guardare' è obbligatorio (cosa confermerebbe o smentirebbe la tesi)")
     for g_ in (grafico, grafico2):
         pertinente(g_, titolo, perche, titolo)
+    ridondanza(titolo, grafico, grafico2 if misura == "doppio" else None, righe, ruolo_righe)
     gap = 5 * mm
     wl = CW * 0.57; wr = CW - wl - gap
     c = [P(f"APPROFONDIMENTO  |  {tema.upper()}", "kicker"), Paragraph(signcol(titolo), S["deep_t"]),

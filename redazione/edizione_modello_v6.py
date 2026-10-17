@@ -226,28 +226,30 @@ C = {
          "grafico2": {"tipo": "barre", "file": "c_curva_1g.png",
                     "dati": [(k, round((UST_14[k] - UST_13[k]) * 100)) for k in UST_14],
                     "titolo": "Curva Treasury: variazione del 14/10 (pb)", "unita": " pb", "dec": 0, "ordina": False,
-                    "soggetto": "Treasury"},   # misure dal motore: mai "alto"/"largo"
+                    "soggetto": "Treasury", "ruolo": "quanto"},   # misure dal motore: mai "alto"/"largo"
+         # ruolo: ogni elemento risponde a una domanda DIVERSA della tesi e non ripete i numeri di un altro (ridondanza()).
+         # Qui: le barre dicono QUANTO si è mossa la curva oggi; la linea la STORIA dell'appiattimento nel mese (una
+         # grandezza diversa: la distanza tra 10 e 2 anni, non di nuovo le stesse scadenze); la tabella è stata tolta
+         # perché ripeteva le variazioni delle barre.
          "grafico": {"tipo": "linee", "file": "c_ust_mese.png", "x": [d(r[0]) for r in UST_MESE], "soggetto": "Treasury",
-                       "titolo": "Treasury 2, 10 e 30 anni nell'ultimo mese (%)",
-                       "serie": [(n, [r[i] for r in UST_MESE], c) for i, n, c in
-                                 ((1, "2 anni", "#1F5FA8"), (2, "10 anni", "#F26B1D"), (3, "30 anni", "#111111"))]},
+                       "titolo": "Distanza tra Treasury 10 e 2 anni nell'ultimo mese (pb)", "ruolo": "storia",
+                       "serie": [("10 anni meno 2 anni", [round((r[2] - r[1]) * 100) for r in UST_MESE], "#F26B1D")]},
          "punti": ["<b>Il breve.</b> Fino a 3 anni i rendimenti chiudono in rialzo; il 2 anni era salito di circa "
                    "12 pb subito dopo il dato (Axios).",
                    "<b>Il lungo.</b> Dal 7 anni in su chiudono in calo, dopo il picco serale del 10 anni al 5,33% "
                    "(Investing.com).",
                    "<b>La curva.</b> La distanza tra 10 e 2 anni torna ai livelli di fine settembre: la curva si "
                    "appiattisce."],
-         "righe": [["Scadenza", "7 ottobre", "13 ottobre", "14 ottobre", "Var. dal 7/10", "Var. 14/10"],
-                   ["3 mesi", "4,22%", "4,26%", "4,28%", "+6 pb", "+2 pb"],
-                   ["1 anno", "4,42%", "4,48%", "4,53%", "+11 pb", "+5 pb"],
-                   ["5 anni", "5,03%", "5,00%", "5,00%", "-3 pb", "0 pb"],
-                   ["20 anni", "5,71%", "5,60%", "5,57%", "-14 pb", "-3 pb"],
-                   ["10 anni meno 2 anni", "51 pb", "42 pb", "37 pb", "-14 pb", "-5 pb"]],
-         "larghezze": [40, 26, 26, 26, 32, 32],
+         # niente tabella: le variazioni per scadenza sono già nelle barre
          # B1: la causa si confronta con la forma della curva. Un'inflazione più alta spiega il breve, non il lungo in calo:
          # dirlo e dare la lettura della redazione che regge alla prova dei prezzi (registro "anomalia" in fatti.json, §6.2c)
          "perche": "Di solito il breve segue le attese sulla Fed, salite col CPI; il calo del lungo non torna con un'inflazione più alta. Lettura della redazione: acquisti rifugio dopo le vendite sui tecnologici, come dicono oro in rialzo e VIX in salita; meno probabile un premio a termine (premio per prestare a lungo) più basso, che non spiega il calo delle borse.",
          "quindi": "Se il 10 anni torna verso il 5,30-5,35%, toccato in serata, la curva racconta di nuovo l'inflazione; sotto il 5,10% di stamattina prevale il rifugio.",
+         # testo: riempie la pagina con racconto che aggiunge (qui la storia del mese, dai dati del grafico), mai spazi vuoti
+         "testo": ["Il mese ha avuto due fasi. Fino al 21 settembre la distanza tra 10 e 2 anni si era quasi dimezzata, "
+                   "da 39 a 20 pb; poi il lungo ha corso più del breve e il 7 ottobre la distanza è salita a 51 pb, il "
+                   "massimo del periodo. Da lì in una settimana ha perso 14 pb ed è tornata a 37 pb, sotto il livello di "
+                   "inizio mese (calcolo della redazione sulla curva del Tesoro)."],
          "lettura": "Lo stesso dato letto in due modi: il breve prezza una Fed più dura, il lungo no. Il 10 anni chiude "
                     "sotto i livelli di fine settembre e cala ancora stamattina.",
          "freccia": "Di solito il 2 anni segue la Fed più del 10 anni: ieri è salito, il 10 anni è sceso.",
@@ -261,10 +263,10 @@ C = {
          "titolo": "Conti solidi non bastano: la paura sui chip vince su TSMC",
          "misura": "doppio",
          "grafico": {"tipo": "barre", "file": "c_contagio.png", "dati": CONTAGIO, "ordina": False, "dec": 1,
-                       "soggetto": "chip",
+                       "soggetto": "chip", "ruolo": "quanto",
                        "titolo": "Dalla tecnologia USA ai chip asiatici: variazioni % (14/10 e stamattina)"},
          "grafico2": {"tipo": "linee", "file": "c_nasdaq.png", "x": [d(x) for x, _ in NASDAQ],
-                    "serie": [("Nasdaq", [v for _, v in NASDAQ], "#111111")], "soggetto": "Nasdaq",
+                    "serie": [("Nasdaq", [v for _, v in NASDAQ], "#111111")], "soggetto": "Nasdaq", "ruolo": "storia",
                     "titolo": "Nasdaq Composite: -3,3% dal 6 ottobre",
                     "note": [(d("10-06"), 27599.79, "6/10"), (d("10-14"), 26692.87, "14/10")]},
          "righe": [["TSMC, terzo trimestre", "Valore", "Variazione annua", "Contro le attese"],
@@ -272,8 +274,8 @@ C = {
                    ["Utile netto (mld di dollari taiwanesi)", "763,06", "+68,7%", "Stima LSEG 746,3"],
                    ["Quota dei ricavi da wafer a 2 nanometri", "8%", "-", "-"],
                    ["Quota dei ricavi da wafer a 3 nanometri", "33%", "-", "-"]],
-         "larghezze": [70, 30, 36, 46],
-         "perche": "Le vendite, guidate dai titoli legati all'intelligenza artificiale, si sono estese a tutta l'Asia (ANSA); a Seul e Tokyo i chip contano molto negli indici.",
+         "larghezze": [70, 30, 36, 46], "ruolo_righe": "perche",   # i conti solidi: la tesi è che non bastano
+         "perche": "Le vendite partite dai tecnologici del Nasdaq, guidate dai titoli legati all'intelligenza artificiale, si sono estese a tutta l'Asia (ANSA); a Seul e Tokyo i chip contano molto negli indici.",
          "quindi": "Conti solidi non bastano quando il timore riguarda la concorrenza sulle memorie: oggi alle 15:30 la riapertura del Nasdaq dirà se le vendite si fermano.",
          "lettura": "Le vendite partite ieri dal settore tecnologico di Wall Street si sono estese stamattina all'Asia, "
                     "con i cali più forti sui titoli dei semiconduttori e sulle borse dove i chip contano di più: Seul e Tokyo.",
