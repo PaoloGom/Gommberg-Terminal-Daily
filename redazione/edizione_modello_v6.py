@@ -228,9 +228,8 @@ C = {
                     "titolo": "Curva Treasury: variazione del 14/10 (pb)", "unita": " pb", "dec": 0, "ordina": False,
                     "soggetto": "Treasury", "ruolo": "quanto"},   # misure dal motore: mai "alto"/"largo"
          # ruolo: ogni elemento risponde a una domanda DIVERSA della tesi e non ripete i numeri di un altro (ridondanza()).
-         # Qui: le barre dicono QUANTO si è mossa la curva oggi; la linea la STORIA dell'appiattimento nel mese (una
-         # grandezza diversa: la distanza tra 10 e 2 anni, non di nuovo le stesse scadenze); la tabella è stata tolta
-         # perché ripeteva le variazioni delle barre.
+         # Qui una delle tante scelte possibili, valida per QUESTA tesi: barre = quanto oggi, linea = la storia del mese.
+         # Non è uno schema da copiare: ogni giorno gli elementi si scelgono dalla tesi del giorno e cambiano.
          "grafico": {"tipo": "linee", "file": "c_ust_mese.png", "x": [d(r[0]) for r in UST_MESE], "soggetto": "Treasury",
                        "titolo": "Distanza tra Treasury 10 e 2 anni nell'ultimo mese (pb)", "ruolo": "storia",
                        "serie": [("10 anni meno 2 anni", [round((r[2] - r[1]) * 100) for r in UST_MESE], "#F26B1D")]},
