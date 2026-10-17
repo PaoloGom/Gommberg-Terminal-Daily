@@ -114,7 +114,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
   <div class="wrap top">
     <div>
       <h1 class="logo"><a href="./"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></h1>
-      <p class="pitch">La scommessa del venerdì: <em>il metodo e la pagella</em></p>
+      <p class="pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p>
     </div>
     <a class="back" href="./">&lsaquo; Torna all'ultima edizione</a>
   </div>
@@ -122,7 +122,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
 
 <main class="wrap">
   <section class="hero" aria-labelledby="h-hero">
-    <p class="kicker">La scommessa del venerdì</p>
+    <p class="kicker">Il metodo e la pagella</p>
     <h2 id="h-hero">Ogni lunedì, sette previsioni. Il lunedì dopo, il conto.</h2>
     <p>Azionario mondiale, S&amp;P 500, Euro Stoxx 50, Treasury a 10 e a 2 anni, Brent, euro-dollaro: per ognuno la direzione della settimana e una forchetta di prezzo per la chiusura del venerdì. Ogni verdetto resta in archivio.</p>
   </section>
@@ -134,7 +134,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
       <div class="card"><div class="l">Settimane giudicate</div><div class="v" id="cSett">-</div><div class="t">dal 19 ottobre 2026</div></div>
       <div class="card"><div class="l">Punti</div><div class="v" id="cPunti">-</div><div class="t" id="cPar">par: 8,5 a settimana</div></div>
       <div class="card"><div class="l">Chiusure nella forchetta</div><div class="v" id="cRange">-</div><div class="t">obiettivo: 68%</div></div>
-      <div class="card"><div class="l">Direzione giusta</div><div class="v" id="cDir">-</div><div class="t">riferimento: 50%</div></div>
+      <div class="card"><div class="l">Direzione giusta</div><div class="v" id="cDir">-</div><div class="t">senza abilità: 53%</div></div>
     </div>
     <p class="verdict" id="verdict"><span class="wait">Caricamento della pagella...</span></p>
   </section>
@@ -160,7 +160,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
         <p>Per questo la direzione la sceglie la redazione, e la pagella misura se la sua scelta vale più del prezzo di partenza.</p>
       </div>
       <ul class="fact" aria-label="I numeri del collaudo">
-        <li><span class="n">12 anni</span><span class="d"><b>di chiusure settimanali</b>, verificate da un controllo indipendente.</span></li>
+        <li><span class="n">12 anni</span><span class="d"><b>di chiusure settimanali</b>; il collaudo è stato rieseguito da un controllo indipendente.</span></li>
         <li><span class="n">~600</span><span class="d"><b>settimane per mercato</b>, ognuna giudicata con i soli dati disponibili allora.</span></li>
         <li><span class="n">68-72%</span><span class="d"><b>chiusure nella forchetta</b>, contro un obiettivo del 68%.</span></li>
       </ul>
@@ -212,7 +212,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
       const cop = p["copertura_range_%"], dir = p["direzione_giusta_%"];
       $("cRange").textContent = num(cop, 0) + "%";
       $("cDir").textContent = num(dir, 0) + "%";
-      $("cDir").className = "v " + (dir >= 50 ? "up" : "down");
+      $("cDir").className = "v " + (dir >= 53 ? "up" : "down");
       let g;
       if (p.t_dm == null) {
         const mancano = Math.max(0, 26 - p.settimane);

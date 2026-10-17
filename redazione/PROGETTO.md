@@ -39,6 +39,7 @@ Scrivere a Claude, dall'app, in questa conversazione o in una nuova: "Gommberg: 
 - [x] v7.0-7.2 (17/10): contesto.py, lettura e spiegazione, il perché in due fasi, prima pagina con le aperture delle altre testate, pagina del sito sulla scommessa.
 - [ ] Notte del 17/10: prova generale end to end (simula lunedì 19/10, ramo `prova-2026-10-19`), anteprima sul sito solo con `?demo=1` (`edizioni_demo.json`, mai `edizioni.json`).
 - [ ] 1. Lunedì 19/10: rivedere la #006, prima edizione v7.2, e il primo verdetto della scommessa (tempi, regole nuove, inceppi); correggere.
+- [ ] 1b. Scommessa, metodo 1.1: sostituire il Treasury a 2 anni con la pendenza della curva (10 anni meno 2 anni). Motivo: nell'ultimo anno 2 e 10 anni sono andati nella stessa direzione il 77% delle settimane (correlazione 0,83), mentre la pendenza è quasi indipendente dal 10 anni (0,19). Collaudo sugli stessi 12 anni, registro della versione in METODO.md, aggiornare scommessa.html. Mai a ridosso di un lunedì.
 - [ ] 2. Approfondimenti: un approfondimento = una tesi (il titolo dice cosa significa; la tabella a supporto).
 - [ ] 3. Fonti primarie per i dati ufficiali (comunicato BLS, BEA, Eurostat...), l'agenzia solo d'appoggio.
 - [ ] 4. Un ritorno dai lettori (una domanda sul sito o 3 lettori fidati sentiti il venerdì).
