@@ -5,7 +5,7 @@
 #   data di oggi o orario = valuta.py si ferma). Scrive stato.json e c_forecast.png nella cartella di lavoro.
 set -eu
 REPO="${GTD_REPO:-/home/claude/gtd}"; R="$REPO/redazione"; L="${GTD_LAVORO:-/home/claude/lavoro}"
-LUN=$(python3 -c "import sys,datetime as d;sys.path.insert(0,'$R');import giorni as G;print(G.lunedi(d.date.fromisoformat('${GTD_DATA:-$(date +%F)}')).isoformat())")
+LUN=$(python3 -c "import sys,datetime as d;sys.path.insert(0,'$R');import giorni as G;print(G.lunedi((d.date.fromisoformat('${GTD_DATA:-}') if '${GTD_DATA:-}' else G.oggi())).isoformat())")
 REG="$R/pronostici/${LUN}-settimana.json"
 [ -f "$REG" ] || { echo "MANCA il registro $REG: vedi APP_LUNEDI.md"; exit 1; }
 [ -f "$L/attuali.json" ] || { echo "MANCA $L/attuali.json"; exit 1; }

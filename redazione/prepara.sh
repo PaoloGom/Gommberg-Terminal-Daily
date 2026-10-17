@@ -40,7 +40,11 @@ sys.path.insert(0, os.path.join(repo, "redazione"))
 import giorni as G
 
 ora = dt.datetime.now(ZoneInfo("Europe/Rome"))
-oggi = dt.date.fromisoformat(os.environ["GTD_DATA"]) if os.environ.get("GTD_DATA") else ora.date()
+oggi = dt.date.fromisoformat(os.environ["GTD_DATA"]) if os.environ.get("GTD_DATA") else G.oggi()
+if G.prova():
+    print(f"PROVA GENERALE: l'edizione vale per {oggi:%d/%m/%Y} (file redazione/PROVA_DATA), oggi è {ora:%d/%m/%Y}. "
+          "Usa questa data ovunque (dati.json \"oggi\", --data, nomi dei file), non quella di `date`; le chiusure sono le ultime "
+          "ufficiali; se una borsa non ha ancora aperto, niente intraday: scrivilo e prosegui.")
 GG = ["lun", "mar", "mer", "gio", "ven", "sab", "dom"]
 n = G.numero(oggi)
 out = []
