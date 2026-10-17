@@ -29,6 +29,8 @@ Poi rigenera il PDF e ripeti `controlli_tutti.sh`; il revisore ricontrolla solo 
 ## 4. Dopo 3 giri
 Togli tutto ciò che è ancora rosso e pubblica il resto. Non si pubblica solo se manca il minimo vitale (repository o API dei dati irraggiungibili, PDF impossibile): nessuna edizione oggi, una riga nel messaggio finale.
 
+**Ridondanza negli approfondimenti** (`stesso ruolo`, `stesse serie`, `la colonna ... ripete`): non cambiare l'etichetta: cambia l'elemento. Tieni quello che misura meglio la tesi; l'altro risponde a un'altra domanda (perche: confronto con la variabile che spiega il movimento o con gli altri mercati, es. Treasury contro Bund, Gilt e JGB: il calo è globale o solo americano?; storia: lo stesso fenomeno nel tempo lungo o un precedente; conseguenza: soglie, attese, probabilità, prossimo evento; chi: singoli titoli, pesi, protagonisti) oppure si toglie e lo spazio va a `testo`.
+
 ## 5. Registro
 Tutte le schede con l'esito della verifica (anche le scartate, con `"scartata": true`) restano in `/home/claude/lavoro/fatti.json`, che `pubblica.sh` copia in `redazione/fatti/AAAA-MM-GG.json`: è la traccia per gli errata, non si mostra a Paolo.
 

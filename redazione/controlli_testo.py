@@ -109,6 +109,11 @@ def main():
     errori += [f"riga → oltre 20 parole: {f[:100]}" for f in lunghe]
     errori += [f"causa senza fonte '(Testata)' in coda: {x}" for x in sos]
     errori += [f"sigla non spiegata alla prima occorrenza: {x}" for x in mai]
+    # Stile delle fonti (§3): la fonte di un fatto firma in coda "(Testata)"; "secondo X" solo fuori parentesi, per stime,
+    # opinioni e citazioni. "(secondo X)" mescola le due forme e toglie protagonismo alla redazione.
+    piatto = re.sub(r"\s+", " ", t)
+    errori += [f"fonte tra parentesi con 'secondo': scrivi \"({m.group(1).strip()})\" ('secondo X' solo per stime e citazioni, fuori parentesi)"
+               for m in re.finditer(r"\(secondo ([^)]{2,40})\)", piatto)]
     for e in errori[:6]:
         print("ERRORE: " + e[:155])
     if doppie:

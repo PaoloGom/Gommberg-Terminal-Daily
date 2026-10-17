@@ -13,7 +13,13 @@ righe = [v.get("titolo", "").strip()]
 if v.get("evento_oggi"):
     righe.append("Da guardare: " + v["evento_oggi"])
 sc = v.get("scommessa") or {}
-if sc.get("su"):
-    righe.append(f"Scommessa: {sc.get('strada', 0)}/{sc['su']} on track, {sc.get('range', 0)}/{sc['su']} nel range")
+ve = v.get("verdetto")
+num = lambda x: f"{x:g}".replace(".", ",")
+if ve:  # lunedì: il verdetto della settimana chiusa, poi il pronostico nuovo
+    var = sc.get("variabile", {}).get("nome")
+    righe.append(f"Scommessa: verdetto {ve['punti']} punti su {ve['su']} (par {num(ve['par'])}); nuovo pronostico su "
+                 f"{sc.get('su', 6)} mercati" + (f" più {var.split(' (')[0].lower()}" if var else ""))
+elif sc.get("su") and sc.get("strada") is not None:
+    righe.append(f"Scommessa: {sc['strada']}/{sc['su']} on track, {sc.get('range', 0)}/{sc['su']} nel range")
 righe.append(sito if sito.startswith("Sito:") else "Sito: " + sito)
 print("\n".join(r.replace("–", "-").replace("—", "-") for r in righe if r)[:600])
