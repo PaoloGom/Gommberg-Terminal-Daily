@@ -79,7 +79,7 @@ C = {
                "ottobre sale al 47% secondo Axios, dal 22% del giorno prima (CME FedWatch, la stima ricavata dai "
                "future). Wall Street chiude in calo (S&amp;P 500 -1,11%, tecnologici in testa ai ribassi) e stamattina "
                "vendono anche Tokyo e Seul. [[chip]]",
-        "freccia": "Secondo Axios i rincari dell'energia cominciano a passare ai prezzi dei servizi.",  # tipo C, scheda T01 (Axios, liv. 1)
+        "freccia": "I rincari dell'energia cominciano a passare ai prezzi dei servizi (Axios).",  # tipo C, scheda T01 (Axios, liv. 1)
     },
     # una frase che legge insieme tassi, dollaro, oro, petrolio e borse (o dice che non si legano): stima redazionale
     "quadro": "2 anni (+3 punti base, pb) e dollaro salgono con le attese su una Fed più dura, il 10 anni scende, "
@@ -117,7 +117,7 @@ C = {
          "testo": "Sintesi di Milano Finanza sulla seconda giornata di trimestrali bancarie; BofA sconta l'onere per "
                   "la sanzione del Tesoro USA.", "rimando": "banche"},
         {"tag": "Petrolio", "titolo": "Houthi contro gli uffici Aramco, il greggio sale",
-         "testo": "Secondo investingLive il petrolio sale dopo l'attacco degli Houthi agli uffici di Dhahran; in seduta il "
+         "testo": "Il petrolio sale dopo l'attacco degli Houthi agli uffici di Dhahran (investingLive); in seduta il "
                   "WTI (petrolio USA) arriva a circa 95 $, il Brent future chiude in lieve rialzo."},
         {"tag": "Trimestrali", "titolo": "BlackRock: utile in crescita del 25%",
          "testo": "Il gestore chiude il terzo trimestre con un utile di 1,66 mld $ (FIRSTonline), nella giornata delle "
@@ -214,7 +214,7 @@ C = {
                    ["BlackRock", "Utile 1,66 mld $ (+25%)", "Utile in crescita (FIRSTonline)"]],
          "larghezze": [30, 58, 94],
          # perche = la causa con fonte, non la parafrasi della tabella; quindi = una cosa osservabile (cifra, data, evento)
-         "perche": "Secondo FIRSTonline BofA sconta un onere straordinario e non deducibile, mentre Morgan Stanley beneficia delle ottime performance di consulenza e trading.",
+         "perche": "BofA sconta un onere straordinario e non deducibile, mentre Morgan Stanley beneficia delle ottime performance di consulenza e trading (FIRSTonline).",
          "quindi": "Il trading di Morgan Stanley, 5,79 mld $ nel trimestre, è il metro per le banche che pubblicano nei prossimi giorni.",
          "lettura": "La seconda giornata di trimestrali divide le grandi banche: il risultato di BofA è segnato da una "
                     "voce straordinaria, quello di Morgan Stanley dall'attività sui mercati.",
@@ -273,7 +273,7 @@ C = {
                    ["Quota dei ricavi da wafer a 2 nanometri", "8%", "-", "-"],
                    ["Quota dei ricavi da wafer a 3 nanometri", "33%", "-", "-"]],
          "larghezze": [70, 30, 36, 46],
-         "perche": "Secondo ANSA le vendite, guidate dai titoli legati all'intelligenza artificiale, si sono estese a tutta l'Asia; a Seul e Tokyo i chip contano molto negli indici.",
+         "perche": "Le vendite, guidate dai titoli legati all'intelligenza artificiale, si sono estese a tutta l'Asia (ANSA); a Seul e Tokyo i chip contano molto negli indici.",
          "quindi": "Conti solidi non bastano quando il timore riguarda la concorrenza sulle memorie: oggi alle 15:30 la riapertura del Nasdaq dirà se le vendite si fermano.",
          "lettura": "Le vendite partite ieri dal settore tecnologico di Wall Street si sono estese stamattina all'Asia, "
                     "con i cali più forti sui titoli dei semiconduttori e sulle borse dove i chip contano di più: Seul e Tokyo.",

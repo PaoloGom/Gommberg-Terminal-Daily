@@ -7,7 +7,7 @@ Regole (ISTRUZIONI §5 e §7), ognuna generale:
            prima pagina.
  aperture  registro {"sezione": "prime_pagine"} in fatti.json: almeno 3 testate con la loro apertura; se la top story
            non concorda con la maggioranza, serve il "motivo" (§2).
- perche    PERCHÉ = causa con fonte ("secondo"), meccanismo ("di solito", "in genere"), lettura della redazione o
+ perche    PERCHÉ = causa con fonte ("(Testata)" in coda o "secondo X"), meccanismo ("di solito", "in genere"), lettura della redazione o
            "causa non chiarita" (solo se il registro dell'anomalia ha tutte le ipotesi "non torna"); "le fonti non
            spiegano" è un ERRORE in qualunque sezione del PDF;
            E QUINDI = qualcosa di osservabile: una cifra, una data, un orario, "oggi/domani/<giorno>" o un rimando.
@@ -107,7 +107,25 @@ else:
 # ---------- perche / quindi (B6) ----------
 OSSERVABILE = re.compile(r"\d+(?:[.,]\d+)?\s?(?:%|pb|\$|€|mld|mila|punti)|\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+,\d+|"
                          r"\b\d{1,2}[:/]\d{2}\b|\b\d{1,2} (?:" + MESI + r")\b|\b(?:" + GIORNI + r")\b|→ ?pag", re.I)
-CAUSA = re.compile(r"\bsecondo\b|di solito|in genere|lettura della redazione|causa non chiarita|\bM\d{2}\b", re.I)
+QUI = os.path.dirname(os.path.abspath(__file__))
+
+def _fonte_tra_parentesi():
+    """Regex dell'attribuzione in coda: "(Reuters)", "(Yahoo Finance, FIRSTonline)", "(dati BLS)"."""
+    nomi = json.load(open(os.path.join(QUI, "fonti.json"), encoding="utf-8")).get("nomi", [])
+    alt = "|".join(sorted((re.escape(n) for n in nomi), key=len, reverse=True))
+    return re.compile(r"\([^()]{0,30}\b(?:" + alt + r")\b[^()]{0,40}\)")
+
+
+FONTE_PAR = _fonte_tra_parentesi()
+CAUSA_T = re.compile(r"\bsecondo\b|di solito|in genere|lettura della redazione|causa non chiarita|\bM\d{2}\b", re.I)
+
+
+class _Causa:
+    def search(self, t):
+        return CAUSA_T.search(t) or FONTE_PAR.search(t)
+
+
+CAUSA = _Causa()
 VUOTO = re.compile(r"fonti(?: di oggi)? non (?:danno|indicano|spiegano|forniscono)|non danno una spiegazione", re.I)
 moduli = VOCE.get("moduli_redazione")
 if moduli is None:  # dal PDF: blocchi PERCHÉ / E QUINDI
@@ -127,7 +145,7 @@ for i, m in enumerate(moduli, 1):
         ERR.append(f"perche: modulo {nome}: 'le fonti non spiegano' non è un perché: dopo la ricerca registrata "
                    "(anomalia, §6.2c) scrivi la causa attribuita o la lettura della redazione con i prezzi che la sostengono")
     elif not CAUSA.search(p):
-        ERR.append(f"perche: modulo {nome}: serve la causa con fonte ('secondo X'), un meccanismo o la lettura della redazione: \"{p[:70]}\"")
+        ERR.append(f"perche: modulo {nome}: serve la causa con fonte ('(Testata)' in coda), un meccanismo o la lettura della redazione: \"{p[:70]}\"")
     if not OSSERVABILE.search(q):
         ERR.append(f"quindi: modulo {nome}: serve una cosa osservabile (livello, data, orario, evento in agenda): \"{q[:70]}\"")
 
