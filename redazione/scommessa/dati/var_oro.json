@@ -1,0 +1,16 @@
+{
+ "nome": "Oro (future, $/oncia)",
+ "tipo": "prezzo",
+ "unita": "$",
+ "motivo_scelta": "Il rifugio che non c'è: l'oro non sale con la paura",
+ "correlazioni": {
+  "acwi": 0.42,
+  "spx": 0.34,
+  "sx5e": 0.35,
+  "ust10": -0.31,
+  "brent": -0.11,
+  "eurusd": 0.5
+ },
+ "sedute": 78,
+ "ultima": "2026-10-16"
+}
