@@ -141,6 +141,14 @@ def main():
         voce["scommessa"], v = scommessa(reg, st, ve)
         if v:
             voce["verdetto"] = v
+        # la domanda della settimana (registro accanto a quello della scommessa) e, in settimana, a che punto è
+        dp = os.path.join(os.path.dirname(os.path.abspath(a.registro)), reg["settimana"].split("/")[0] + "-domanda.json")
+        if os.path.exists(dp):
+            d = json.load(open(dp, encoding="utf-8"))
+            voce["domanda"] = {"testo": d["testo"], "prob": d["prob_redazione"], "esito": d.get("esito")}
+            ds = os.path.join(os.path.dirname(os.path.abspath(a.stato)) if a.stato else ".", "domanda_stato.json")
+            if os.path.exists(ds):
+                voce["domanda"]["finora"] = json.load(open(ds, encoding="utf-8")).get("finora")
     voce.update({"temi": w["temi"], "approfondimenti": w["approfondimenti"], "meccanismi": w.get("meccanismi", []),
                  "parole": w.get("parole", []), "ripetizioni": punteggio, "glossario": gloss})
     if w.get("termometri"):

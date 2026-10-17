@@ -986,7 +986,7 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
     voci += [(a["chiave"], a["tema"], a.get("breve", a["titolo"])) for a in C.get("moduli") or C["approfondimenti"]]
     if stato and not C["scommessa"].get("lunedi"):
         ok = sum(1 for r in stato["righe"].values() if r["strada_giusta"])
-        voci.append(("scommessa", "La scommessa", f"{ok}/7 on track"))
+        voci.append(("scommessa", "La scommessa", f"{ok}/{len(stato['righe'])} on track"))
     else:
         voci.append(("scommessa", "La scommessa", C["scommessa"].get("breve", "il pronostico della settimana")))
     idx = indice_interno(voci, cols=4)
@@ -1033,7 +1033,7 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
                                   **{k: v for k, v in a.items() if k != "breve"})
     st.append(PageBreak())
     # ---------- Pag. 6 ----------
-    import sys as _s, os as _o
+    import sys as _s, os as _o, json, datetime as dt
     _rep = _o.path.join(_o.environ.get("GTD_REPO", "/home/claude/gtd"), "redazione", "scommessa")
     _s.path.insert(0, _rep if _o.path.isdir(_rep) else _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), "scommessa"))
     from pagina6 import pagina6_lunedi, pagina6_settimana
@@ -1044,11 +1044,19 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
         raise SystemExit("Scommessa mar-ven senza stato.json nella cartella di lavoro: lancia prima valuta.py --attuali "
                          "(ISTRUZIONI par. 4). Nessuna pag. 6 del lunedì per sbaglio.")
     st.append(ancora("scommessa"))
+    # la domanda della settimana: registri in redazione/pronostici/<lunedì>-domanda.json, stato in domanda_stato.json
+    _lun = reg["settimana"].split("/")[0]
+    _pron = _o.path.join(_o.path.dirname(_rep), "pronostici")
+    _leggi = lambda f: json.load(open(f, encoding="utf-8")) if _o.path.exists(f) else None
+    dom = _leggi(_o.path.join(_pron, f"{_lun}-domanda.json"))
+    _prec = (dt.date.fromisoformat(_lun) - dt.timedelta(days=7)).isoformat()
+    dom_prec = _leggi(_o.path.join(_pron, f"{_prec}-domanda.json"))
     if sc["lunedi"]:
         st += pagina6_lunedi(reg, verdetto, pagella, tesi=sc["tesi"], grafico="c_forecast.png",
-                             settimana_prec=sc.get("settimana_prec"))
+                             settimana_prec=sc.get("settimana_prec"), domanda=dom, domanda_prec=dom_prec)
     else:
-        st += pagina6_settimana(reg, stato, tesi=sc["tesi"], grafico="c_forecast.png", venerdi=sc.get("venerdi", False))
+        st += pagina6_settimana(reg, stato, tesi=sc["tesi"], grafico="c_forecast.png", venerdi=sc.get("venerdi", False),
+                                domanda=dom, domanda_stato=_leggi("domanda_stato.json"))
     if C.get("parole"):
         st += section("Parole di oggi", "Per chi legge") + [parole(C["parole"])]
     st += [Respiro(2, molla=True)] + section("Fonti", "Note")

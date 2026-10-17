@@ -20,6 +20,18 @@ MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", 
         "novembre", "dicembre"]
 
 
+def ordine(st):
+    """Gli strumenti del registro, nell'ordine di sempre (un registro vecchio può averne uno in più)."""
+    return [k for k in ORDINE if k in st]
+
+
+def _par(chiavi):
+    """Punteggio atteso senza abilità: 0,68 per il range più la quota di direzione di metodo.json."""
+    import json as _j, os as _o
+    pd_ = _j.load(open(_o.path.join(_o.path.dirname(_o.path.abspath(__file__)), "metodo.json"), encoding="utf-8"))["par_direzione"]
+    return sum(0.68 + pd_.get(k, 0.5) for k in chiavi)
+
+
 def num(v, d):
     return f"{v:,.{d}f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
@@ -34,16 +46,17 @@ def gg_mese(iso):
     return f"{d.day} {MESI[d.month - 1]}"
 
 
-def _regole(compatto=False):
+def _regole(chiavi, compatto=False):
+    n, par = len(chiavi), num(_par(chiavi), 1)
     if compatto:   # mar-ven: 1-2 righe; le regole complete escono il lunedì
         return box("Le regole del gioco", [
-            "Direzione fissata lunedì per 7 mercati: 1 punto per la direzione, 1 per la chiusura di venerdì nel range "
-            "(massimo 14, par circa 8,5). Regole complete il lunedì."], width=CW * 0.5 - 4 * mm)
+            f"Direzione fissata lunedì per {n} mercati: 1 punto per la direzione, 1 per la chiusura di venerdì nel range "
+            f"(massimo {2 * n}, par circa {par}). Regole complete il lunedì."], width=CW * 0.5 - 4 * mm)
     return box("Le regole del gioco", [
-        "Ogni lunedì scegliamo una direzione per 7 mercati; la previsione non cambia fino a venerdì.",
-        "1 punto per la direzione giusta, 1 punto se la chiusura di venerdì cade nel range: massimo 14.",
-        "Il range contiene la chiusura circa 2 settimane su 3. Senza alcuna abilità si fanno in media circa 8,5 punti "
-        "(il \"par\"): conta battere il par, non fare 14.",
+        f"Ogni lunedì scegliamo una direzione per {n} mercati; la previsione non cambia fino a venerdì.",
+        f"1 punto per la direzione giusta, 1 punto se la chiusura di venerdì cade nel range: massimo {2 * n}.",
+        f"Il range contiene la chiusura circa 2 settimane su 3. Senza alcuna abilità si fanno in media circa {par} punti "
+        f"(il \"par\"): conta battere il par, non fare {2 * n}.",
     ], width=CW * 0.5 - 4 * mm)
 
 
@@ -65,14 +78,38 @@ def _pagella(verdetto, pagella, settimana_prec):
     return box("La pagella", righe, width=CW * 0.5)
 
 
-def pagina6_lunedi(reg, verdetto, pagella, tesi, grafico="c_forecast.png", settimana_prec=None):
+def pct(p):
+    return f"{round(100 * p)}%"
+
+
+def _domanda(dom=None, prec=None, finora=None):
+    """Riquadro della domanda della settimana: la domanda con la nostra probabilità e quella di riferimento;
+    il lunedì anche l'esito della domanda precedente; in settimana a che punto siamo."""
+    righe = []
+    if prec and prec.get("esito"):
+        righe.append(f"Settimana scorsa: \"{esc(prec['testo'])}\" <b>{prec['esito']}</b>"
+                     + (f" ({esc(str(prec.get('fonte_esito', '')))})" if prec.get("fonte_esito") else "")
+                     + f": avevamo detto {pct(prec['prob_redazione'])}, "
+                     + ("giusta." if prec.get("giusta") else "sbagliata."))
+    if dom:
+        righe.append(f"<b>{esc(dom['testo'])}</b> Per noi: <b>{pct(dom['prob_redazione'])}</b>; "
+                     f"riferimento {pct(dom['prob_riferimento'])} ({esc(dom['fonte_riferimento'])}). "
+                     f"{esc(dom['motivo'])} Si decide con: {esc(dom['fonte_risoluzione'])}.")
+        if finora:
+            righe.append(f"Finora: <b>{finora['finora']}</b> (ultimo {esc(str(finora.get('ultimo', '')))} "
+                         f"del {esc(str(finora.get('data', '')))}, soglia {esc(str(finora.get('soglia', '')))}).")
+    return [box("La domanda della settimana", righe, width=CW), Spacer(1, 4)] if righe else []
+
+
+def pagina6_lunedi(reg, verdetto, pagella, tesi, grafico="c_forecast.png", settimana_prec=None, domanda=None,
+                   domanda_prec=None):
     st = reg["strumenti"]
     ven = reg["settimana"].split("/")[1]
     out = section(f"La scommessa della settimana: dove chiudiamo venerdì {gg_mese(ven)}", "Il gran finale  |  Forecast")
     out += [P(f"<b>La nostra tesi:</b> {esc(tesi)}", "dek"), img(grafico, CW), Spacer(1, 3)]
     rows = [headers("Strumento", f"Chiusura {gg_mese(reg['origine'])}", f"Previsione {gg_mese(ven)}", "Range atteso",
                     "Prob. rialzo*", "Il perché")]
-    for k in ORDINE:
+    for k in ordine(st):
         v = st[k]
         p = round(100 * v["prob_rialzo_redazione"])
         rows.append([P(esc(v["nome"]), "cellb"), P(liv(k, v["base"]), "celln"), P(liv(k, v["previsione_redazione"]), "cellb"),
@@ -84,17 +121,18 @@ def pagina6_lunedi(reg, verdetto, pagella, tesi, grafico="c_forecast.png", setti
               "(per i Treasury: rialzo del rendimento). Il modello da solo non vede né rialzo né ribasso: la direzione è "
               "la nostra scommessa, il range è il modello (volatilità delle ultime 20 sedute). Metodo e risultati storici "
               "nella scheda del progetto.", "note"), Spacer(1, 4)]
-    out.append(side_by_side([_regole()], [_pagella(verdetto, pagella, settimana_prec)], CW * 0.5))
+    out += _domanda(domanda, domanda_prec)
+    out.append(side_by_side([_regole(ordine(st))], [_pagella(verdetto, pagella, settimana_prec)], CW * 0.5))
     return out
 
 
-def pagina6_settimana(reg, stato, tesi, grafico="c_forecast.png", venerdi=False):
+def pagina6_settimana(reg, stato, tesi, grafico="c_forecast.png", venerdi=False, domanda=None, domanda_stato=None):
     st, sr = reg["strumenti"], stato["righe"]
     ven = reg["settimana"].split("/")[1]
     out = section("La scommessa della settimana: a che punto siamo", "Il gran finale  |  Forecast")
     out += [P(f"<b>Il punto:</b> {esc(tesi)}", "dek"), img(grafico, CW), Spacer(1, 3)]
     rows = [headers("Strumento", "Base", "Previsione", "Ultimo", "Var. da base", "Dentro il range?", "On track?")]
-    for k in ORDINE:
+    for k in ordine(st):
         v, r = st[k], sr[k]
         var = f"{num(r['var'], 2) if r['var_unita'] == '%' else num(r['var'], 0)}"
         var = ("+" if r["var"] > 0 else "") + var + (" %" if r["var_unita"] == "%" else " pb")
@@ -106,11 +144,13 @@ def pagina6_settimana(reg, stato, tesi, grafico="c_forecast.png", venerdi=False)
     out += [tbl(rows, [27 * mm, 22 * mm, 22 * mm, 33 * mm, 22 * mm, 23 * mm, CW - 149 * mm]), Spacer(1, 2),
             P(f"La previsione non cambia fino a venerdì {gg_mese(ven)}. \"-\": strumento fermo alla chiusura di partenza.",
               "note"), Spacer(1, 4)]
-    righe = [f"Dentro il range oggi: {sum(r['dentro_range'] for r in sr.values())} su 7.",
-             f"On track (direzione giusta) oggi: {sum(1 for r in sr.values() if r['strada_giusta'])} su 7"
-             + (": " + ", ".join(esc(st[k]["nome"]) for k in ORDINE if sr[k]["strada_giusta"]) + "."
+    n = len(ordine(st))
+    righe = [f"Dentro il range oggi: {sum(r['dentro_range'] for r in sr.values())} su {n}.",
+             f"On track (direzione giusta) oggi: {sum(1 for r in sr.values() if r['strada_giusta'])} su {n}"
+             + (": " + ", ".join(esc(st[k]["nome"]) for k in ordine(st) if sr[k]["strada_giusta"]) + "."
                 if any(r["strada_giusta"] for r in sr.values()) else ".")]
     if venerdi:
         righe.append("Verdetto lunedì, con le chiusure di stasera.")
-    out.append(side_by_side([_regole(compatto=True)], [box("A che punto siamo", righe, width=CW * 0.5)], CW * 0.5))
+    out += _domanda(domanda, None, domanda_stato)
+    out.append(side_by_side([_regole(ordine(st), compatto=True)], [box("A che punto siamo", righe, width=CW * 0.5)], CW * 0.5))
     return out

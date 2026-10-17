@@ -1,9 +1,11 @@
 # La Scommessa della settimana - metodo (documento interno)
 
-Versione del metodo: **1.0**, in vigore dal pronostico di lunedì 19/10/2026. Configurazione in `metodo.json`.
+Versione del metodo: **1.1**, in vigore dal pronostico di lunedì 19/10/2026. Configurazione in `metodo.json`.
+
+**Registro delle versioni.** 1.0 (12/10/2026): 7 strumenti. 1.1 (17/10/2026, prima del primo pronostico ufficiale): tolto il Treasury a 2 anni, che con il 10 anni andava nella stessa direzione il 77% delle settimane (correlazione 0,83): una scommessa doppia. Range invariato (stesso backtest); par da 8,5 su 14 a 7,3 su 12; soglia di direzione senza abilità invariata (53%). Il verdetto della settimana 12-16/10 resta sul registro a 7 strumenti. Aggiunta la domanda della settimana (sezione 6). Scartata l'idea di sostituire il 2 anni con la pendenza della curva: corretta statisticamente, ma un concetto da addetti ai lavori come scommessa per i lettori.
 
 ## 1. Cosa promettiamo e cosa no
-La scommessa chiede, per 7 strumenti, dove sarà la chiusura del venerdì.
+La scommessa chiede, per 6 strumenti, dove sarà la chiusura del venerdì.
 
 Le previsioni di direzione a una settimana hanno poco o nessun potere predittivo, ed è documentato. Lo conferma il nostro backtest (sezione 3). Il valore scientifico della scommessa sta in due cose:
 1. **Un range calibrato:** la chiusura cade nel range 16-84% circa 2 settimane su 3. Né molto di più (range troppo larghi, inutili) né molto di meno (range troppo stretti, presuntuosi).
@@ -12,7 +14,7 @@ Le previsioni di direzione a una settimana hanno poco o nessun potere predittivo
 ## 2. Il modello
 - **Orizzonte:** dalla chiusura del venerdì precedente (la "base") alla chiusura del venerdì. Prezzi in log-rendimenti, Treasury in punti base.
 - **Previsione puntuale del modello:** la base stessa (passeggiata casuale). Nessun segnale testato la batte (sezione 3).
-- **Incertezza, uguale per tutti e 7 gli strumenti:**
+- **Incertezza, uguale per tutti gli strumenti:**
   - sigma settimanale = deviazione standard delle ultime 20 variazioni giornaliere x radice(5);
   - distribuzione normale;
   - range pubblicato = quantili 16% e 84%, cioè base +- 1 sigma, centrato sulla base.
@@ -59,8 +61,8 @@ Risultati:
 - **Correzione dopo l'audit.** Una prima versione del backtest dava come vincente la forma "empirica" su S&P 500 ed Euro Stoxx 50. Il guadagno veniva dalla deriva reintrodotta di nascosto: i quantili delle sorprese non erano centrati. Centrandoli, il vantaggio sparisce (S&P da +2,6% a +0,1%).
 
 ## 4. Come si misura
-- **Per i lettori:** 1 punto per la direzione giusta e 1 punto se la chiusura cade nel range, massimo 14 a settimana.
-  - **Par**, cioè il punteggio atteso senza abilità: circa 8,5 su 14.
+- **Per i lettori:** 1 punto per la direzione giusta e 1 punto se la chiusura cade nel range, massimo 12 a settimana.
+  - **Par**, cioè il punteggio atteso senza abilità: circa 7,3 su 12 (8,5 su 14 nella settimana 12-16/10, a 7 strumenti).
   - Il par tiene conto che sugli azionari "sempre su" indovina il 55-58% delle settimane (`par_direzione` in `metodo.json`).
 - **Per noi** (`valuta.py`, che scrive `registro.csv` e `PAGELLA.md`):
   - copertura reale del range: obiettivo 68%;
@@ -109,3 +111,11 @@ Risultati:
   - direzione obbligatoria della redazione tra 0,1 e 0,5 sigma;
   - punteggi in unità di sigma e pagella;
   - controlli bloccanti su date e dati vecchi.
+
+## 6. La domanda della settimana (dal 19/10/2026)
+- **Cosa:** ogni lunedì una domanda sì/no sul tema caldo della settimana, decisa entro venerdì da un dato oggettivo. Script: `domanda.py` (crea, stato, valuta); registro `../pronostici/<lunedì>-domanda.json`, immutabile; pagella `domande.json`.
+- **Due tipi.** "mercato": chiusura sopra o sotto una soglia; la probabilità di riferimento la calcola il modello della forchetta (rv20, normale, deriva zero), la soglia non può essere già decisa (riferimento tra 5% e 95%). "evento": un fatto con fonte ufficiale di risoluzione dentro la settimana; probabilità di riferimento da un prezzo di mercato con fonte e data (es. CME FedWatch), altrimenti 50% dichiarato.
+- **La nostra probabilità:** tra 5% e 95%, mai 50%, con un motivo scritto. È l'opinione della redazione, misurata contro il riferimento.
+- **Regola di risoluzione scritta il lunedì:** dato, fonte, giorno. `domanda.py valuta` rifiuta un esito incoerente con valore e soglia.
+- **Misura:** punteggio di Brier (probabilità meno esito, al quadrato; più basso è meglio), nostro contro riferimento; giuste = probabilità dalla parte dell'esito. Separata dalla pagella dei sei mercati.
+

@@ -330,6 +330,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   .dek { font-size: 15px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+.bet-q { margin: 10px 0 2px; padding-top: 8px; border-top: 1px solid var(--rule); font-size: 14px; }
 .bet-more { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--orange-ink); text-underline-offset: 3px; }
 </style>
 <script>window.goatcounter = { no_onload: true };</script>
@@ -377,7 +378,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
         <section class="bet" id="bet" aria-labelledby="bet-h" hidden>
           <div class="bet-head"><h3 class="kicker" id="bet-h">La scommessa della settimana</h3><span class="wk" id="betWk"></span></div>
           <div class="score" id="betScore"></div>
-          <ul class="instr" id="betInstr" aria-label="I 7 mercati della scommessa"></ul>
+          <ul class="instr" id="betInstr" aria-label="I mercati della scommessa"></ul>
           <div class="bet-foot" id="betFoot"></div>
           <a class="bet-more" href="scommessa.html">Come funziona e la pagella &rsaquo;</a>
         </section>
@@ -421,7 +422,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
           </div>
           <div>
             <dt><span class="pp">Pag. 6</span>La scommessa della settimana</dt>
-            <dd>Il lunedì fissiamo dove chiuderanno 7 mercati il venerdì e li seguiamo giorno per giorno. Il lunedì dopo, il verdetto. <a href="scommessa.html">Il metodo e la pagella</a></dd>
+            <dd>Il lunedì fissiamo dove chiuderanno 6 mercati il venerdì, più una domanda sul tema della settimana, e li seguiamo giorno per giorno. Il lunedì dopo, il verdetto. <a href="scommessa.html">Il metodo e la pagella</a></dd>
           </div>
         </dl>
         <div class="trust">
@@ -556,7 +557,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     $("bet").hidden = false;
     $("betWk").textContent = b && b.settimana ? "Settimana " + settimana(b.settimana) : "";
     const sc = $("betScore"); sc.innerHTML = "";
-    const tot = (b && b.su) || 7;
+    const tot = (b && b.su) || (b && Array.isArray(b.dettaglio) ? b.dettaglio.length : 6);
     if (b && b.range != null) {
       const a = el("div"); a.appendChild(el("b", "", b.range + "/" + tot)); a.append("dentro il range"); sc.appendChild(a);
     }
@@ -583,9 +584,19 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     if (v && v.punti != null) {
       const p = el("div");
       p.append("Verdetto della settimana " + settimana(v.settimana) + ": ");
-      const s = el("strong", v.punti > (v.par || 8.5) ? "up" : v.punti < (v.par || 8.5) ? "down" : "", v.punti + " punti su " + (v.su || 14));
-      p.appendChild(s); p.append(" (par " + num(v.par || 8.5) + ").");
+      const par = v.par != null ? v.par : null;
+      const s = el("strong", par == null ? "" : v.punti > par ? "up" : v.punti < par ? "down" : "", v.punti + " punti su " + v.su);
+      p.appendChild(s); if (par != null) p.append(" (par " + num(par) + ").");
       f.appendChild(p);
+    }
+    const dm = ed.domanda;
+    if (dm && dm.testo) {
+      const q = el("div", "bet-q");
+      q.appendChild(el("b", "", "La domanda della settimana: "));
+      q.append(dm.testo + " ");
+      if (dm.esito) q.appendChild(el("strong", "", "Esito: " + dm.esito + "."));
+      else q.appendChild(el("strong", "", "Per noi: " + Math.round(100 * dm.prob) + "%" + (dm.finora ? " (finora: " + dm.finora + ")" : "") + "."));
+      f.appendChild(q);
     }
     const st = b && b.stagione;
     if (det.length) f.appendChild(el("div", "", "Freccia: la direzione scelta lunedì. On track \u2713: per ora il mercato va così; \u2717: per ora va al contrario."));

@@ -71,7 +71,8 @@ def disegna(reg, out, stato=None):
     st = reg["strumenti"]
     fig, ax = plt.subplots(figsize=(LARGO, float(__import__("os").environ.get("GTD_ALTO_GRAFICO", "1.85"))))  # solo impaginazione
     righe = []
-    for y, k in enumerate(reversed(ORDINE)):
+    ORD = [k for k in ORDINE if k in st]   # gli strumenti del registro (6 dal metodo 1.1)
+    for y, k in enumerate(reversed(ORD)):
         v = st[k]
         b, t = v["base"], v["tipo"]
         lo, hi = v["range"]
@@ -87,12 +88,12 @@ def disegna(reg, out, stato=None):
             xa = max(-1.9, min(1.9, pos(a)))
             ax.plot([xa], [y], marker="o", ms=8.5, mfc="none", mec=ORANGE, mew=1.7, zorder=4)
         righe.append((y, k, pos(lo), pos(hi), lo, hi, pos(p), xa, a))
-    ax.set_yticks(range(len(ORDINE)))
-    ax.set_yticklabels([st[k]["nome"] for k in reversed(ORDINE)], fontsize=7)
+    ax.set_yticks(range(len(ORD)))
+    ax.set_yticklabels([st[k]["nome"] for k in reversed(ORD)], fontsize=7)
     ax.tick_params(axis="y", length=0)
     ax.set_xticks([])
     ax.set_xlim(-2.0, 2.0)
-    ax.set_ylim(-0.6, len(ORDINE) - 0.35)
+    ax.set_ylim(-0.6, len(ORD) - 0.35)
     fig.text(0.01, 0.01, "Barra: range atteso 16-84% (la chiusura di venerdì ci cade circa 2 settimane su 3). Tacca: chiusura di "
              "partenza. Rombo: la nostra previsione." + (" Cerchio: oggi." if stato else ""),
              fontsize=FS_NOTA, color="#555555", ha="left", va="bottom")

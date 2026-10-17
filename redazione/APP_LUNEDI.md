@@ -1,6 +1,6 @@
 # Appendice - La scommessa del lunedì (o primo giorno di borsa della settimana)
 
-Tutto si lancia da `cd /home/claude/gtd/redazione/scommessa` (perché `dati/`, `registro.csv`, `PAGELLA.md`, `pagella.json` e `../pronostici/` vanno committati). Grafici e PDF in `/home/claude/lavoro`. Registro della settimana: `redazione/pronostici/<data del lunedì>-settimana.json`. Chiavi: `acwi spx sx5e ust10 ust2 brent eurusd` (più `vix` solo in `nuovi.json`). Numeri, tabelle e pagella li fanno gli script: niente a mano.
+Tutto si lancia da `cd /home/claude/gtd/redazione/scommessa` (perché `dati/`, `registro.csv`, `PAGELLA.md`, `pagella.json` e `../pronostici/` vanno committati). Grafici e PDF in `/home/claude/lavoro`. Registro della settimana: `redazione/pronostici/<data del lunedì>-settimana.json`. Chiavi della scommessa (metodo 1.1): `acwi spx sx5e ust10 brent eurusd`; in `nuovi.json` anche `ust2` (serve al verdetto della settimana 12-16/10 e alla storia) e `vix`. Numeri, tabelle e pagella li fanno gli script: niente a mano.
 
 ## 1. Aggiorna la storia
 Scrivi `/home/claude/lavoro/nuovi.json` con le chiusure ufficiali dei giorni dopo l'ultima data di ogni file in `dati/`, fino a venerdì compreso. Formato: `{"spx": [["2026-10-16", 7850.12], ...], ...}`.
@@ -17,12 +17,19 @@ Scrivi `/home/claude/lavoro/nuovi.json` con le chiusure ufficiali dei giorni dop
 `python3 valuta.py --settimana ../pronostici/<lunedì scorso>-settimana.json --verdetto --json /home/claude/lavoro/verdetto.json`
 - Venerdì un mercato era chiuso: aggiungi `--festivo <chiavi separate da virgole>` (es. `--festivo ust10,ust2`) o `--festivo tutti`.
 - Lo script aggiorna `registro.csv`, `PAGELLA.md` e `pagella.json`. Se si ferma per dati mancanti, aggiorna i dati: non aggirarlo.
-- Il primo verdetto del metodo 1.0 (19/10/2026) riguarda `2026-10-12-settimana.json`.
+- Il primo verdetto (19/10/2026) riguarda `2026-10-12-settimana.json`, ancora a 7 strumenti (con `ust2`): attuali e chiusure anche del 2 anni. Dal pronostico del 19/10 gli strumenti sono 6.
+- Domanda della settimana scorsa: `python3 domanda.py valuta --lunedi <lunedì scorso> --esito si|no --valore <chiusura o dato> --fonte "<fonte, data>"` (dato ufficiale o chiusura verificata, §3); aggiorna `domande.json`.
 
 ## 3. Pronostico nuovo
 - `python3 pronostico.py --origine <venerdì scorso> --prova`: stampa sigma e i livelli a +-0,1, 0,3 e 0,5 sigma.
-- Scrivi `/home/claude/lavoro/redazione.json`: per ognuno dei 7 strumenti una previsione dentro quei limiti e un motivo di una riga, es. `{"spx": {"previsione": 7845, "motivo": "Banche solide e CPI in linea"}, ...}`. Nel motivo niente segni +/- davanti ai numeri. La direzione è obbligatoria ed è la vera scommessa: sceglila guardando agenda, notizie e scenari, non per abitudine.
+- Scrivi `/home/claude/lavoro/redazione.json`: per ognuno dei 6 strumenti di `metodo.json` una previsione dentro quei limiti e un motivo di una riga, es. `{"spx": {"previsione": 7845, "motivo": "Banche solide e CPI in linea"}, ...}`. Nel motivo niente segni +/- davanti ai numeri. La direzione è obbligatoria ed è la vera scommessa: sceglila guardando agenda, notizie e scenari, non per abitudine.
 - `python3 pronostico.py --origine <venerdì scorso> --redazione /home/claude/lavoro/redazione.json`: scrive `../pronostici/<lunedì>-settimana.json`. Non sovrascrive mai un registro esistente; `--forza` solo per correggere un errore della stessa mattina, prima della pubblicazione. Una previsione "AGGIUSTATA": vale il livello del registro e il motivo deve restare vero.
+
+## 3b. La domanda della settimana
+- Una domanda sì/no sul tema che muove la settimana (la top story o il catalizzatore in agenda), interessante per il lettore e decisa entro venerdì da un dato oggettivo. Preferisci il tipo "mercato" (soglia su una chiusura: il riferimento lo calcola il modello); "evento" solo con fonte ufficiale di risoluzione e un prezzo di mercato per il riferimento.
+- Ogni elemento verificato come un fatto (§3): base, soglia, data e fonte di risoluzione. La soglia è vicina (il modello non oltre 95/5%); la nostra probabilità ha un motivo che regge alla prova dei prezzi.
+- Scrivi `/home/claude/lavoro/domanda_in.json` (formato in `domanda.py`) e lancia `python3 domanda.py crea --lunedi <lunedì> --file /home/claude/lavoro/domanda_in.json`: controlla i campi e scrive il registro. Il motore la mette in pag. 6 (con l'esito della settimana scorsa) e `edizioni_voce.py` sul sito.
+- Mar-ven: per il tipo "mercato" `python3 domanda.py stato --lunedi <lunedì> --valore <ultima chiusura> --data <data> > /home/claude/lavoro/domanda_stato.json`.
 
 ## 4. Grafico e pag. 6
 - `python3 grafico.py ../pronostici/<lunedì>-settimana.json /home/claude/lavoro/c_forecast.png` (PNG e SVG).

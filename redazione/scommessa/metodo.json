@@ -1,5 +1,5 @@
 {
-  "versione": "1.0",
+  "versione": "1.1",
   "in_vigore_dal": "2026-10-19",
   "backtest_di_riferimento": "backtest/risultati_2026-10-12.json",
   "orizzonte": "dalla chiusura del venerdì precedente alla chiusura del venerdì della settimana (5 sedute)",
@@ -23,10 +23,6 @@
       "forma": "normale"
     },
     "ust10": {
-      "vol": "rv20",
-      "forma": "normale"
-    },
-    "ust2": {
       "vol": "rv20",
       "forma": "normale"
     },
@@ -55,8 +51,20 @@
     "spx": 0.58,
     "sx5e": 0.55,
     "ust10": 0.5,
-    "ust2": 0.5,
     "brent": 0.5,
     "eurusd": 0.5
-  }
+  },
+  "versioni": [
+    {
+      "versione": "1.0",
+      "dal": "2026-10-19 (mai usata per un pronostico)",
+      "strumenti": 7
+    },
+    {
+      "versione": "1.1",
+      "dal": "2026-10-19",
+      "modifica": "tolto il Treasury a 2 anni: con il 10 anni andava nella stessa direzione il 77% delle settimane (correlazione 0,83), una scommessa doppia. Metodo del range invariato (stesso backtest).",
+      "strumenti": 6
+    }
+  ]
 }

@@ -5,7 +5,7 @@ Uso:
 
 - origine: data dell'ultima chiusura nota (il venerdì precedente). I file in dati/ devono arrivare almeno a quella data
   (aggiornali prima con aggiorna_dati.py).
-- redazione.json (obbligatorio): {"spx": {"previsione": 7840, "motivo": "..."}, ...} per tutti i 7 strumenti. È la scommessa:
+- redazione.json (obbligatorio): {"spx": {"previsione": 7840, "motivo": "..."}, ...} per tutti gli strumenti di metodo.json (6 dalla versione 1.1). È la scommessa:
   ogni strumento ha una direzione. Lo scarto dalla chiusura di partenza va da 0,1 a 0,5 sigma (metodo.json): sotto 0,1 viene
   portato a 0,1 nella stessa direzione, sopra 0,5 viene limitato a 0,5.
 Scrive <uscita>/<origine+3gg>-settimana.json e stampa una tabella di controllo. Il grafico si disegna con grafico.py.
@@ -24,6 +24,7 @@ from motore import (STRUMENTI, QUANTILI, carica, variazioni_giornaliere, chiusur
 
 QUI = os.path.dirname(os.path.abspath(__file__))
 METODO = json.load(open(os.path.join(QUI, "metodo.json"), encoding="utf-8"))
+ATTIVI = {k: v for k, v in STRUMENTI.items() if k in METODO["strumenti"]}   # gli strumenti della scommessa in vigore
 
 
 def sigma_alla_data(chiave, vol, r, t, vix_d=None):
@@ -51,7 +52,7 @@ def z_storici(chiave, vol, tipo, s, r, origine, vix_d, settimane=520):
 def pronostica(origine: pd.Timestamp, redazione: dict):
     vix_d = carica("vix")
     out = {}
-    for k, info in STRUMENTI.items():
+    for k, info in ATTIVI.items():
         cfg = METODO["strumenti"][k]
         tipo = info["tipo"]
         s = carica(k)
@@ -103,7 +104,7 @@ def prova(origine):
     """Sigma e livelli a +-0,1 / 0,3 / 0,5 sigma per scegliere la previsione della redazione."""
     vix_d = carica("vix")
     print(f"{'Strumento':18s} {'base':>10s} {'sigma':>9s}   giù 0,5 / 0,3 / 0,1   |   su 0,1 / 0,3 / 0,5")
-    for k, info in STRUMENTI.items():
+    for k, info in ATTIVI.items():
         s = carica(k)
         s = s[s.index <= origine]
         r = variazioni_giornaliere(s, info["tipo"])
