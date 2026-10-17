@@ -98,6 +98,13 @@ else:
     out.append(f"Scommessa: registro {os.path.basename(reg)} ({'ok' if os.path.exists(reg) else 'MANCA: vedi APP_LUNEDI.md'}); "
                f"attuali.json = chiusure ufficiali")
 
+# Memoria delle ricerche (dati difficili: dove sono stati trovati)
+try:
+    r = subprocess.run([sys.executable, os.path.join(repo, "redazione", "ricerche.py"), repo], capture_output=True, text=True, timeout=30)
+    out += [cut(x, 400) for x in r.stdout.strip().splitlines()[:2]]
+except Exception:
+    pass
+
 # Ultima edizione
 try:
     voci = json.load(open(os.path.join(repo, "edizioni.json"), encoding="utf-8"))

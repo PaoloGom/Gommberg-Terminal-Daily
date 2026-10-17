@@ -64,7 +64,7 @@ problemi, avvisi = [], []
 ids = [f.get("id") for f in fatti]
 if len(ids) != len(set(ids)):
     problemi.append("id duplicati nelle schede")
-fatti = [f for f in fatti if not f.get("scartata") and f.get("sezione") not in ("anomalia", "prime_pagine")]  # registri: controlli_contenuti.py
+fatti = [f for f in fatti if not f.get("scartata") and f.get("sezione") not in ("anomalia", "prime_pagine", "ricerca")]  # registri: controlli_contenuti.py
 ALIAS = {"notizie": "top_news", "calendario": "catalizzatori", "termometri": "macro", "lettura": "macro",
          "approfondimento": "deep_dive", "approfondimenti": "deep_dive"}
 for f in fatti:
@@ -98,7 +98,8 @@ for f in fatti:
     singola = f.get("fonte_singola") and sez in PUBBLICI and 0 not in livelli
     if singola and 1 not in livelli:
         avvisi.append(f"{i}: fonte singola dichiarata ({next(iter(testate))}): nel PDF \"(Testata)\" in coda al dato")
-    elif not (1 in livelli or sum(1 for x in livelli if x == 2) >= 2 and len(testate) >= 2):
+    # fonti non in elenco (livello 3) valgono come livello 2: servono due fonti indipendenti che dicono lo stesso
+    elif not (1 in livelli or sum(1 for x in livelli if x in (2, 3)) >= 2 and len(testate) >= 2):
         if sez == "catalizzatori":
             problemi.append(f"{i}: dato del calendario: cercalo alla fonte ufficiale (fonti.json \"ufficiali\") o, se impossibile, "
                             "\"fonte_singola\": true e \"(Testata)\" nel PDF; mai toglierlo")

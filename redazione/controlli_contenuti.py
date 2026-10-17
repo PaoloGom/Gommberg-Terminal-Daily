@@ -30,7 +30,8 @@ VOCE_P, DATI_P, FATTI_P = opt("--voce", f"{LAV}/voce_indice.json"), opt("--dati"
 REPO = opt("--repo", os.environ.get("GTD_REPO", "/home/claude/gtd"))
 carica = lambda p: json.load(open(p, encoding="utf-8")) if p and os.path.exists(p) else None
 VOCE, DATI, FATTI = carica(VOCE_P) or {}, carica(DATI_P), carica(FATTI_P) or []
-SCHEDE = [f for f in FATTI if isinstance(f, dict) and f.get("sezione") not in ("anomalia", "prime_pagine") and not f.get("scartata")]
+SCHEDE = [f for f in FATTI if isinstance(f, dict) and f.get("sezione") not in ("anomalia", "prime_pagine", "ricerca") and not f.get("scartata")]
+RICERCHE = [f for f in FATTI if isinstance(f, dict) and f.get("sezione") == "ricerca"]
 ERR, AVV = [], []
 MESI = "gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre"
 GIORNI = "oggi|domani|lunedì|martedì|mercoledì|giovedì|venerdì|lun|mar|mer|gio|ven"
@@ -300,6 +301,14 @@ if red:
             ERR.append(f"moduli: {m.get('chiave')}: \"tutte/le altre in rialzo\" ma tabella o grafico hanno un calo")
         if re.search(r"(tutt[ei]|le altre)[^.;]{0,30}(in calo|scendono|negativ)", testo) and any(v > 0 for v in valori):
             ERR.append(f"moduli: {m.get('chiave')}: \"tutte/le altre in calo\" ma tabella o grafico hanno un rialzo")
+
+# ---------- dati mancanti: solo dopo la scala di ricerca, e registrati ----------
+_mancano = re.findall(r"\bn\.d\.|nessuna chiusura verificata|non verificat[oa] da fonti|dato non disponibile", TUTTO, re.I)
+_regis = [r for r in RICERCHE if r.get("esito") == "mancante" and len(r.get("ricerche") or []) >= 4]
+if _mancano and len(_regis) < 1:
+    ERR.append(f"dati mancanti nel PDF ({len(_mancano)}: {', '.join(sorted(set(m.lower() for m in _mancano)))}) senza la scala di "
+               "ricerca registrata: per ognuno chi produce il dato, agenzia nazionale, stampa locale in lingua e in inglese, "
+               "ricerca approfondita (§3); poi scheda {\"sezione\": \"ricerca\", \"esito\": \"mancante\", \"ricerche\": [4+]}")
 
 # ---------- notizie con un fatto nuovo, indice senza cifre, zero col segno ----------
 ASSET = set("""wall street nasdaq dow jones russell s&p euro stoxx ftse mib dax cac nikkei kospi hang seng shanghai shenzhen
