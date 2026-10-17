@@ -40,7 +40,11 @@ sys.path.insert(0, os.path.join(repo, "redazione"))
 import giorni as G
 
 ora = dt.datetime.now(ZoneInfo("Europe/Rome"))
-oggi = dt.date.fromisoformat(os.environ["GTD_DATA"]) if os.environ.get("GTD_DATA") else ora.date()
+oggi = dt.date.fromisoformat(os.environ["GTD_DATA"]) if os.environ.get("GTD_DATA") else G.oggi()
+if G.prova():
+    print(f"PROVA GENERALE: l'edizione vale per {oggi:%d/%m/%Y} (file redazione/PROVA_DATA), oggi è {ora:%d/%m/%Y}. "
+          "Usa questa data ovunque (dati.json \"oggi\", --data, nomi dei file), non quella di `date`; le chiusure sono le ultime "
+          "ufficiali; se una borsa non ha ancora aperto, niente intraday: scrivilo e prosegui.")
 GG = ["lun", "mar", "mer", "gio", "ven", "sab", "dom"]
 n = G.numero(oggi)
 out = []
@@ -80,7 +84,7 @@ dicembre_mancante = oggi.month == 12 and not any(f.startswith(str(oggi.year + 1)
 if vicini or buco or dicembre_mancante:
     app.append("APP_FESTIVI.md")
 out.append("Appendici oggi: " + (", ".join(app) if app else "nessuna") +
-           " | se un controllo è rosso: APP_ERRORI.md | se un dato manca: APP_DATI.md")
+           " | se un controllo è rosso: APP_ERRORI.md | se un dato manca: APP_DATI.md e APP_FONTI.md")
 if vicini:
     out.append("Festività: " + "; ".join(vicini))
 if buco:
@@ -97,6 +101,13 @@ if primo:
 else:
     out.append(f"Scommessa: registro {os.path.basename(reg)} ({'ok' if os.path.exists(reg) else 'MANCA: vedi APP_LUNEDI.md'}); "
                f"attuali.json = chiusure ufficiali")
+
+# Memoria delle ricerche (dati difficili: dove sono stati trovati)
+try:
+    r = subprocess.run([sys.executable, os.path.join(repo, "redazione", "ricerche.py"), repo], capture_output=True, text=True, timeout=30)
+    out += [cut(x, 400) for x in r.stdout.strip().splitlines()[:2]]
+except Exception:
+    pass
 
 # Ultima edizione
 try:

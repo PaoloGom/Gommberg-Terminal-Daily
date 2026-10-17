@@ -2,12 +2,13 @@
 Uso: python3 controlli_testo.py <pdf> [--json uscita.json]
 - Righe "→" (escluse quelle di rimando "→ pag. N"): massimo 5 nel PDF -> ERRORE se di più; AVVISO oltre 20 parole.
 - Connettivi causali ("perché", "a causa di", "spinto da", "pesa", "trascina", "sulla scia di", "complice"...):
-  AVVISO per ogni riga che li contiene senza "secondo": ammessi solo con scheda C in fatti.json e "secondo <testata>".
+  AVVISO per ogni riga che li contiene senza fonte: ammessi solo con scheda C in fatti.json e la fonte in coda "(Testata)"
+  (o "secondo X" per stime, opinioni, indiscrezioni).
 - Sigle (redazione/glossario.json, ovvio=false): AVVISO se compaiono ma non sono mai spiegate tra parentesi,
   o se sono spiegate più di una volta. Stampa anche l'elenco delle sigle spiegate (va in edizioni.json, campo glossario).
 BLOCCANTI (codice 1): più di 5 righe "→"; una riga "→" oltre 20 parole; una sigla non ovvia la cui prima occorrenza
 (dopo il ticker) non è spiegata tra parentesi; un connettivo causale in una frase con un movimento di mercato senza
-"secondo <testata>". Le sigle spiegate due volte sono solo un avviso."""
+la fonte "(Testata)". Le sigle spiegate due volte sono solo un avviso."""
 import json, os, re, subprocess, sys
 
 QUI = os.path.dirname(os.path.abspath(__file__))
@@ -15,6 +16,16 @@ MAX_FRECCE = 5
 CONNETTIVI = [r"perch[ée]", r"a causa d", r"spint[oaie] da", r"\bpesa\b", r"\bpesano\b", r"trascin", r"sulla scia d",
               r"\bcomplice\b", r"\bper effetto d", r"\bgrazie a\b", r"\bdopo che\b"]
 ESENZIONI = re.compile(r"Perch[ée] conta|Il perch[ée] |secondo |stima redazionale|lettura della redazione|di solito|in genere|tende a", re.I)
+
+def _fonte_tra_parentesi():
+    """Regex dell'attribuzione in coda: "(Reuters)", "(Yahoo Finance, FIRSTonline)", "(dati BLS)"."""
+    nomi = json.load(open(os.path.join(QUI, "fonti.json"), encoding="utf-8")).get("nomi", [])
+    alt = "|".join(sorted((re.escape(n) for n in nomi), key=len, reverse=True))
+    return re.compile(r"\([^()]{0,30}\b(?:" + alt + r")\b[^()]{0,40}\)")
+
+
+FONTE_PAR = _fonte_tra_parentesi()
+
 
 
 def testo(pdf, layout=False):
@@ -44,10 +55,10 @@ def frasi(t):
 
 
 def connettivi(t):
-    """Frasi con un connettivo causale e un movimento di mercato, senza 'secondo <testata>' né forma M/S."""
+    """Frasi con un connettivo causale e un movimento di mercato, senza fonte "(Testata)" né forma M/S."""
     sospetti = []
     for f in frasi(t):
-        if ESENZIONI.search(f) or not MOVIMENTO.search(f):
+        if ESENZIONI.search(f) or FONTE_PAR.search(f) or not MOVIMENTO.search(f):
             continue
         for c in CONNETTIVI:
             if re.search(c, f, re.I):
@@ -96,7 +107,7 @@ def main():
     if len(fr) > MAX_FRECCE:
         errori.append(f"{len(fr)} righe → (massimo {MAX_FRECCE}): tieni solo quelle dove il perché non è ovvio")
     errori += [f"riga → oltre 20 parole: {f[:100]}" for f in lunghe]
-    errori += [f"causa senza 'secondo <testata>': {x}" for x in sos]
+    errori += [f"causa senza fonte '(Testata)' in coda: {x}" for x in sos]
     errori += [f"sigla non spiegata alla prima occorrenza: {x}" for x in mai]
     for e in errori[:6]:
         print("ERRORE: " + e[:155])

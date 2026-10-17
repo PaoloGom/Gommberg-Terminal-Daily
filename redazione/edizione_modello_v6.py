@@ -79,7 +79,7 @@ C = {
                "ottobre sale al 47% secondo Axios, dal 22% del giorno prima (CME FedWatch, la stima ricavata dai "
                "future). Wall Street chiude in calo (S&amp;P 500 -1,11%, tecnologici in testa ai ribassi) e stamattina "
                "vendono anche Tokyo e Seul. [[chip]]",
-        "freccia": "Secondo Axios i rincari dell'energia cominciano a passare ai prezzi dei servizi.",  # tipo C, scheda T01 (Axios, liv. 1)
+        "freccia": "I rincari dell'energia cominciano a passare ai prezzi dei servizi (Axios).",  # tipo C, scheda T01 (Axios, liv. 1)
     },
     # una frase che legge insieme tassi, dollaro, oro, petrolio e borse (o dice che non si legano): stima redazionale
     "quadro": "2 anni (+3 punti base, pb) e dollaro salgono con le attese su una Fed più dura, il 10 anni scende, "
@@ -117,7 +117,7 @@ C = {
          "testo": "Sintesi di Milano Finanza sulla seconda giornata di trimestrali bancarie; BofA sconta l'onere per "
                   "la sanzione del Tesoro USA.", "rimando": "banche"},
         {"tag": "Petrolio", "titolo": "Houthi contro gli uffici Aramco, il greggio sale",
-         "testo": "Secondo investingLive il petrolio sale dopo l'attacco degli Houthi agli uffici di Dhahran; in seduta il "
+         "testo": "Il petrolio sale dopo l'attacco degli Houthi agli uffici di Dhahran (investingLive); in seduta il "
                   "WTI (petrolio USA) arriva a circa 95 $, il Brent future chiude in lieve rialzo."},
         {"tag": "Trimestrali", "titolo": "BlackRock: utile in crescita del 25%",
          "testo": "Il gestore chiude il terzo trimestre con un utile di 1,66 mld $ (FIRSTonline), nella giornata delle "
@@ -214,13 +214,14 @@ C = {
                    ["BlackRock", "Utile 1,66 mld $ (+25%)", "Utile in crescita (FIRSTonline)"]],
          "larghezze": [30, 58, 94],
          # perche = la causa con fonte, non la parafrasi della tabella; quindi = una cosa osservabile (cifra, data, evento)
-         "perche": "Secondo FIRSTonline BofA sconta un onere straordinario e non deducibile, mentre Morgan Stanley beneficia delle ottime performance di consulenza e trading.",
+         "perche": "BofA sconta un onere straordinario e non deducibile, mentre Morgan Stanley beneficia delle ottime performance di consulenza e trading (FIRSTonline).",
          "quindi": "Il trading di Morgan Stanley, 5,79 mld $ nel trimestre, è il metro per le banche che pubblicano nei prossimi giorni.",
          "lettura": "La seconda giornata di trimestrali divide le grandi banche: il risultato di BofA è segnato da una "
                     "voce straordinaria, quello di Morgan Stanley dall'attività sui mercati.",
          "fonte": "Fonti: comunicato Morgan Stanley (SEC), Milano Finanza, FIRSTonline, TheStreet."},
         {"chiave": "treasury", "tema": "Tassi USA", "breve": "curva al minimo dal 28/9",
-         "titolo": "Curva Treasury: la distanza tra 10 e 2 anni al minimo dal 28 settembre",
+         # titolo = la TESI (cosa significa), non il fatto
+         "titolo": "Il breve crede alla Fed dura, il lungo no: la curva Treasury si appiattisce",
          "misura": "doppio",
          "grafico2": {"tipo": "barre", "file": "c_curva_1g.png",
                     "dati": [(k, round((UST_14[k] - UST_13[k]) * 100)) for k in UST_14],
@@ -249,10 +250,15 @@ C = {
          "quindi": "Se il 10 anni torna verso il 5,30-5,35%, toccato in serata, la curva racconta di nuovo l'inflazione; sotto il 5,10% di stamattina prevale il rifugio.",
          "lettura": "Lo stesso dato letto in due modi: il breve prezza una Fed più dura, il lungo no. Il 10 anni chiude "
                     "sotto i livelli di fine settembre e cala ancora stamattina.",
-         "freccia": "Di solito il 2 anni segue la Fed più del 10 anni: ieri è salito, il 10 anni è sceso."},
+         "freccia": "Di solito il 2 anni segue la Fed più del 10 anni: ieri è salito, il 10 anni è sceso.",
+         # numero: UN dato che misura la tesi, nella colonna accanto al grafico; deve dire qualcosa che il resto non dice
+         "numero": "-14 pb: quanto si è ristretta in una settimana la distanza tra 10 e 2 anni, da 51 a 37 pb.",
+         # guardare (obbligatorio nel doppio): cosa confermerebbe o smentirebbe la tesi, e quando
+         "guardare": "La tesi regge se il 2 anni resta sopra il 10 anni nei movimenti dei prossimi dati; cade se il 10 anni "
+                     "torna verso il 5,30-5,35% toccato in serata: allora la curva racconterebbe di nuovo l'inflazione."},
         # ↑ riga M: id "M26" di redazione/meccanismi.json
         {"chiave": "chip", "tema": "Chip e Asia", "breve": "TSMC batte le stime, l'Asia vende",
-         "titolo": "TSMC batte le stime, ma Nasdaq e Asia vendono i chip",
+         "titolo": "Conti solidi non bastano: la paura sui chip vince su TSMC",
          "misura": "doppio",
          "grafico": {"tipo": "barre", "file": "c_contagio.png", "dati": CONTAGIO, "ordina": False, "dec": 1,
                        "soggetto": "chip",
@@ -267,7 +273,7 @@ C = {
                    ["Quota dei ricavi da wafer a 2 nanometri", "8%", "-", "-"],
                    ["Quota dei ricavi da wafer a 3 nanometri", "33%", "-", "-"]],
          "larghezze": [70, 30, 36, 46],
-         "perche": "Secondo ANSA le vendite, guidate dai titoli legati all'intelligenza artificiale, si sono estese a tutta l'Asia; a Seul e Tokyo i chip contano molto negli indici.",
+         "perche": "Le vendite, guidate dai titoli legati all'intelligenza artificiale, si sono estese a tutta l'Asia (ANSA); a Seul e Tokyo i chip contano molto negli indici.",
          "quindi": "Conti solidi non bastano quando il timore riguarda la concorrenza sulle memorie: oggi alle 15:30 la riapertura del Nasdaq dirà se le vendite si fermano.",
          "lettura": "Le vendite partite ieri dal settore tecnologico di Wall Street si sono estese stamattina all'Asia, "
                     "con i cali più forti sui titoli dei semiconduttori e sulle borse dove i chip contano di più: Seul e Tokyo.",
@@ -277,7 +283,10 @@ C = {
                    "memorie) sulle DRAM, le memorie di lavoro, di nuova generazione.",
                    "<b>Il clima.</b> \"In questo momento gli investitori stanno entrando nel panico\" (Milano Finanza). I "
                    "conti di TSMC, usciti stamattina, non hanno fermato le vendite."],
-         "fonte": "Notizie e conti TSMC: ANSA, Milano Finanza, Teleborsa."},
+         "fonte": "Notizie e conti TSMC: ANSA, Milano Finanza, Teleborsa.",
+         "numero": "+68,7%: la crescita annua dell'utile di TSMC nel trimestre, nel giorno in cui l'Asia vende i chip.",
+         "guardare": "Oggi alle 15:30 la riapertura del Nasdaq: se i chip americani recuperano, la vendita resta asiatica; "
+                     "se scendono ancora, il timore sulle memorie diventa un tema globale."},
     ],
 
     # ---------- Pag. 6 ----------

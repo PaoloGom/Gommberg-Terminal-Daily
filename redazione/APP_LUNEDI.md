@@ -1,6 +1,6 @@
 # Appendice - La scommessa del lunedì (o primo giorno di borsa della settimana)
 
-Tutto si lancia da `cd /home/claude/gtd/redazione/scommessa` (perché `dati/`, `registro.csv`, `PAGELLA.md`, `pagella.json` e `../pronostici/` vanno committati). Grafici e PDF in `/home/claude/lavoro`. Registro della settimana: `redazione/pronostici/<data del lunedì>-settimana.json`. Chiavi: `acwi spx sx5e ust10 ust2 brent eurusd` (più `vix` solo in `nuovi.json`). Numeri, tabelle e pagella li fanno gli script: niente a mano.
+Tutto si lancia da `cd /home/claude/gtd/redazione/scommessa` (perché `dati/`, `registro.csv`, `PAGELLA.md`, `pagella.json` e `../pronostici/` vanno committati). Grafici e PDF in `/home/claude/lavoro`. Registro della settimana: `redazione/pronostici/<data del lunedì>-settimana.json`. Chiavi della scommessa (metodo 1.1): `acwi spx sx5e ust10 brent eurusd`; in `nuovi.json` anche `ust2` (serve al verdetto della settimana 12-16/10 e alla storia) e `vix`. Numeri, tabelle e pagella li fanno gli script: niente a mano.
 
 ## 1. Aggiorna la storia
 Scrivi `/home/claude/lavoro/nuovi.json` con le chiusure ufficiali dei giorni dopo l'ultima data di ogni file in `dati/`, fino a venerdì compreso. Formato: `{"spx": [["2026-10-16", 7850.12], ...], ...}`.
@@ -17,12 +17,19 @@ Scrivi `/home/claude/lavoro/nuovi.json` con le chiusure ufficiali dei giorni dop
 `python3 valuta.py --settimana ../pronostici/<lunedì scorso>-settimana.json --verdetto --json /home/claude/lavoro/verdetto.json`
 - Venerdì un mercato era chiuso: aggiungi `--festivo <chiavi separate da virgole>` (es. `--festivo ust10,ust2`) o `--festivo tutti`.
 - Lo script aggiorna `registro.csv`, `PAGELLA.md` e `pagella.json`. Se si ferma per dati mancanti, aggiorna i dati: non aggirarlo.
-- Il primo verdetto del metodo 1.0 (19/10/2026) riguarda `2026-10-12-settimana.json`.
+- Il primo verdetto (19/10/2026) riguarda `2026-10-12-settimana.json`, ancora a 7 strumenti (con `ust2`): attuali e chiusure anche del 2 anni. Dal pronostico del 19/10 gli strumenti sono 6.
+- Lo strumento della settimana scorsa (se c'era) è nel registro: serve la sua chiusura di venerdì in `nuovi.json` (chiave `var_<chiave>`); il verdetto lo conta a parte.
 
 ## 3. Pronostico nuovo
 - `python3 pronostico.py --origine <venerdì scorso> --prova`: stampa sigma e i livelli a +-0,1, 0,3 e 0,5 sigma.
-- Scrivi `/home/claude/lavoro/redazione.json`: per ognuno dei 7 strumenti una previsione dentro quei limiti e un motivo di una riga, es. `{"spx": {"previsione": 7845, "motivo": "Banche solide e CPI in linea"}, ...}`. Nel motivo niente segni +/- davanti ai numeri. La direzione è obbligatoria ed è la vera scommessa: sceglila guardando agenda, notizie e scenari, non per abitudine.
+- Scrivi `/home/claude/lavoro/redazione.json`: per ognuno dei 6 strumenti di `metodo.json` una previsione dentro quei limiti e un motivo di una riga, es. `{"spx": {"previsione": 7845, "motivo": "Banche solide e CPI in linea"}, ...}`. Nel motivo niente segni +/- davanti ai numeri. La direzione è obbligatoria ed è la vera scommessa: sceglila guardando agenda, notizie e scenari, non per abitudine.
 - `python3 pronostico.py --origine <venerdì scorso> --redazione /home/claude/lavoro/redazione.json`: scrive `../pronostici/<lunedì>-settimana.json`. Non sovrascrive mai un registro esistente; `--forza` solo per correggere un errore della stessa mattina, prima della pubblicazione. Una previsione "AGGIUSTATA": vale il livello del registro e il motivo deve restare vero.
+
+## 3b. Lo strumento della settimana
+- Sceglilo sul tema del momento (la top story, il catalizzatore della settimana): un mercato che racconta qualcosa che i 6 fissi e il resto del giornale non dicono. Non un doppione dei fissi né una scommessa doppia sulla stessa notizia.
+- Prendi circa un anno di chiusure giornaliere dai nostri dati (FMP `chart`/`commodity`/`indexes`, Alpha Vantage `TIME_SERIES_DAILY`, `FX_DAILY`, `DIGITAL_CURRENCY_DAILY`), mai la riga di oggi, in `/home/claude/lavoro/serie_<chiave>.json` (`[["AAAA-MM-GG", valore], ...]`).
+- `python3 variabile.py --chiave <chiave> --nome "<nome per il lettore>" --tipo prezzo --unita "$" --serie /home/claude/lavoro/serie_<chiave>.json --motivo "<perché questa settimana>"`: rifiuta doppioni (correlazione >= 0,7 con un fisso), storia corta e singole azioni nella settimana dei conti (`--conti-in-settimana`). Se rifiuta, scegli un altro mercato.
+- Poi il pronostico con `--variabile var_<chiave>` (anche in `--prova`) e in `redazione.json` anche la riga `var_<chiave>`. Mar-ven la sua ultima chiusura va in `attuali.json` con la chiave `var_<chiave>`; il venerdì sera la chiusura entra in `dati/var_<chiave>.csv` con `aggiorna_dati.py` prima del verdetto.
 
 ## 4. Grafico e pag. 6
 - `python3 grafico.py ../pronostici/<lunedì>-settimana.json /home/claude/lavoro/c_forecast.png` (PNG e SVG).

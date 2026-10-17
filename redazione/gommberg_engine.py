@@ -305,6 +305,22 @@ def side_by_side(left, right, lw):
     return t
 
 
+def box_pari(sx, dx, lw):
+    """Due riquadri affiancati della stessa altezza: sx/dx = (titolo, [punti]). Lo sfondo è la cella, quindi i due
+    riquadri finiscono sempre alla stessa riga (niente riquadro corto accanto a uno lungo)."""
+    def cella(tit, punti):
+        return [P(tit.upper(), "box_t")] + [Paragraph(signcol(b), S["box_b"], bulletText="▪") for b in punti]
+    gap = 5 * mm
+    t = Table([[cella(*sx), "", cella(*dx)]], colWidths=[lw - gap, gap, CW - lw])
+    t.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("BACKGROUND", (0, 0), (0, 0), TINT),
+                           ("BACKGROUND", (2, 0), (2, 0), TINT), ("LINEBEFORE", (0, 0), (0, 0), 2.2, ORANGE),
+                           ("LINEBEFORE", (2, 0), (2, 0), 2.2, ORANGE), ("LEFTPADDING", (0, 0), (-1, -1), 8),
+                           ("RIGHTPADDING", (0, 0), (-1, -1), 8), ("LEFTPADDING", (1, 0), (1, 0), 0),
+                           ("RIGHTPADDING", (1, 0), (1, 0), 0), ("TOPPADDING", (0, 0), (-1, -1), 6),
+                           ("BOTTOMPADDING", (0, 0), (-1, -1), 6)]))
+    return t
+
+
 def dash_table(groups, widths):
     """Cruscotto: groups = [(nome_gruppo, [[c1, c2, ...], ...]), ...]. Prima colonna in grassetto,
     variazioni colorate per segno. La prima riga di groups[0] precedente = intestazioni da headers()."""
@@ -905,7 +921,7 @@ def render_v6(path, costruisci, riempi=(3, 4, 5), margine=3):
             if molle:
                 AGGIUSTA["respiro"][(pg, True)] = (mm_lib - margine) / len(molle)
             elif n:
-                AGGIUSTA["respiro"][(pg, False)] = min((mm_lib - margine) / n, 8)
+                AGGIUSTA["respiro"][(pg, False)] = min((mm_lib - margine) / n, 3)   # aria, non buchi
     liberi2 = passo()
     if len(liberi2) != len(liberi) or PAGINE != prima:     # se l'impaginazione cambia, si torna al naturale
         AGGIUSTA.update(extra={}, respiro={})
@@ -914,19 +930,25 @@ def render_v6(path, costruisci, riempi=(3, 4, 5), margine=3):
     pieni = {n: v for n, v in REPORT_MODULI}
     scarsi = []
     for n, v in pieni.items():
-        if v < 80:
+        if v < 90:
             scarsi.append(f"'{n}' al {v}%")
-            print(f"RIEMPIRE: modulo '{n}' pieno al {v}% (minimo 80%): aggiungi punti, righe o lettura verificati")
+            print(f"RIEMPIRE: '{n}' pieno al {v}% (minimo 90%): aggiungi contenuto verificato che aggiunge "
+                  "(testo, numero, righe, punti); mai spazi o grafici allungati")
         elif v > 112:
             print(f"ACCORCIARE: modulo '{n}' al {v}%: il motore lo rimpicciolisce, togli testo o righe")
     REPORT_MODULI.clear()
-    vuote = [f"p{p}={l} mm" for p, l in liberi2.items() if p in (2, 3, 4, 5) and l > 25]
+    # lo spazio preso dalla "molla" (note spinte in fondo) è vuoto anche se la pagina sembra piena: conta come libero
+    molle_mm = {pg: v for (pg, m), v in AGGIUSTA["respiro"].items() if m}
+    vuote = [f"p{p}={round(l + molle_mm.get(p, 0))} mm" for p, l in liberi2.items()
+             if p in (1, 2, 3, 4, 5, 6) and l + molle_mm.get(p, 0) > 15]
     if vuote:
-        print("RIEMPIRE:", ", ".join(vuote), "- aggiungi un approfondimento (o righe/punti verificati); mai allungare i grafici")
+        print("RIEMPIRE:", ", ".join(vuote), "- ogni pagina va riempita con contenuto verificato che aggiunge (racconto, "
+              "contesto, un'altra notizia, una riga in più); mai grafici allungati né spazi")
+        scarsi += vuote
     print("Rimandi:", PAGINE)
     import os as _os
     if scarsi and _os.environ.get("GTD_RIEMPIMENTO_OK") != "1":
-        raise SystemExit("ERRORE riempimento: moduli sotto l'80% (" + ", ".join(scarsi) + "). Riempili con contenuto "
+        raise SystemExit("ERRORE riempimento: spazi pieni sotto il 90% o pagine con vuoti (" + ", ".join(scarsi) + "). Riempili con contenuto "
                          "verificato (punti, righe, lettura). Solo dopo un tentativo reale, se non c'è altro di "
                          "verificato da dire: GTD_RIEMPIMENTO_OK=1.")
     return liberi2
@@ -983,7 +1005,7 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
     voci += [(a["chiave"], a["tema"], a.get("breve", a["titolo"])) for a in C.get("moduli") or C["approfondimenti"]]
     if stato and not C["scommessa"].get("lunedi"):
         ok = sum(1 for r in stato["righe"].values() if r["strada_giusta"])
-        voci.append(("scommessa", "La scommessa", f"{ok}/7 on track"))
+        voci.append(("scommessa", "La scommessa", f"{ok}/{len(stato['righe'])} on track"))
     else:
         voci.append(("scommessa", "La scommessa", C["scommessa"].get("breve", "il pronostico della settimana")))
     idx = indice_interno(voci, cols=4)
@@ -1117,14 +1139,34 @@ HM = (FH - 6 * mm) / 2                 # altezza di un modulo "mezzo"
 REPORT_MODULI = []
 
 
-def _pq_colonna(perche, quindi, w):
-    """PERCHÉ / E QUINDI in colonna, senza fondo: il fondo lo dà la cella che la contiene, alta quanto il grafico."""
+def _pq_colonna(perche, quindi, w, numero=None):
+    """PERCHÉ / E QUINDI (/ IL NUMERO) in colonna, senza fondo: il fondo lo dà la cella, alta quanto il grafico."""
     righe = [[P("PERCHÉ", "box_t")], [Paragraph(signcol(perche), S["nw_b"])], [Spacer(1, 4)],
              [P("E QUINDI", "box_t")], [Paragraph(signcol(quindi), S["nw_b"])]]
+    if numero:
+        righe += [[Spacer(1, 4)], [P("IL NUMERO", "box_t")], [Paragraph(signcol(numero), S["nw_b"])]]
     t = Table(righe, colWidths=[w - 15])
     t.setStyle(TableStyle([("LEFTPADDING", (0, 0), (-1, -1), 0), ("RIGHTPADDING", (0, 0), (-1, -1), 0),
                            ("TOPPADDING", (0, 0), (-1, -1), 1.5), ("BOTTOMPADDING", (0, 0), (-1, -1), 1.5)]))
     return t
+
+
+class _Riempito(Flowable):
+    """Misura quanto il testo della colonna riempie l'altezza del grafico accanto (regola del riempimento)."""
+
+    def __init__(self, nome, g, pq, wl, wr):
+        Flowable.__init__(self); self.nome, self.g, self.pq, self.wl, self.wr = nome, g, pq, wl, wr
+        self.width = self.height = 0
+
+    def wrap(self, aW, aH):
+        hg = sum(f.wrap(self.wl, 10000)[1] for f in self.g)
+        hp = self.pq.wrap(self.wr - 15, 10000)[1] + 13
+        if hg > 0:
+            REPORT_MODULI.append(("riquadro di '" + _testo(self.nome)[:40] + "'", round(hp / hg * 100)))
+        return 0, 0
+
+    def draw(self):
+        pass
 
 
 def _riga_grafico_pq(g, pq, wl, gap, wr):
@@ -1161,7 +1203,7 @@ class _Slot(Flowable):
         natur = sum(f.wrap(aW, 10000)[1] + f.getSpaceBefore() + f.getSpaceAfter() for f in self.contenuto)
         spazi = [f for f in self.contenuto if isinstance(f, Spacer)]
         if natur < h and spazi:                # respiro uniforme tra i blocchi, mai grafici più grandi
-            agg = min((h - natur) / len(spazi), 5 * mm)
+            agg = min((h - natur) / len(spazi), 1.5 * mm)   # un filo d'aria, non buchi: il vuoto si riempie di contenuto
             for f in spazi:
                 f.height += agg
         self.k = KeepInFrame(aW, h, self.contenuto, mode="shrink")
@@ -1204,18 +1246,33 @@ def pertinente(spec, titolo, perche, nome):
                          "(il modulo va senza: perche/quindi a tutta larghezza + tabella o punti).")
 
 
+def da_guardare(testo, titolo="DA GUARDARE"):
+    """Riquadro a tutta larghezza: DA GUARDARE (cosa confermerebbe o smentirebbe la tesi, e quando) o IL NUMERO."""
+    t = Table([[[P(titolo, "box_t"), Paragraph(signcol(testo), S["nw_b"])]]], colWidths=[CW])
+    t.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), TINT), ("LINEBEFORE", (0, 0), (0, -1), 2.2, ORANGE),
+                           ("LEFTPADDING", (0, 0), (-1, -1), 8), ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+                           ("TOPPADDING", (0, 0), (-1, -1), 5), ("BOTTOMPADDING", (0, 0), (-1, -1), 6)]))
+    return t
+
+
 def modulo(tema, titolo, misura="mezzo", chiave=None, grafico=None, grafico2=None, perche=None, quindi=None,
-           punti=None, righe=None, larghezze=None, lettura=None, fonte=None, freccia=None, **_):
+           punti=None, righe=None, larghezze=None, lettura=None, fonte=None, freccia=None, numero=None, testo=None,
+           guardare=None, **_):
     """Un approfondimento nella griglia. misura: "mezzo" (mezza pagina) o "doppio" (pagina intera).
     grafico: spec dict ({"tipo": "linee"|"barre", "file", "titolo", "soggetto", ...}) o file; grafico2 solo per
     "doppio". soggetto: parola/e del titolo o del perche di cui il grafico parla (senza serie pertinente: niente
     grafico). barre con "livello": True per i livelli (grigio, ultima osservazione arancione).
     perche, quindi: OBBLIGATORI, 1-2 frasi ciascuno. punti: max 3. righe: tabella breve (mezzo max 5 righe dati,
-    doppio max 8), larghezze in mm. lettura: solo doppio. Il motore fissa le misure dei grafici (scala 1:1)."""
+    doppio max 8), larghezze in mm. lettura: solo doppio. Il motore fissa le misure dei grafici (scala 1:1).
+    titolo: la TESI (cosa significa), non il fatto. numero: un dato solo che misura la tesi ("Meno di 1 seduta su 5:
+    ..."), nella colonna accanto al grafico. testo: 1-3 paragrafi di racconto verificato. guardare: OBBLIGATORIO nel
+    doppio, cosa confermerebbe o smentirebbe la tesi e quando."""
     if not (perche and quindi):
         raise ValueError(f"modulo '{titolo}': 'perche' e 'quindi' sono obbligatori")
     if misura not in ("mezzo", "doppio"):
         raise ValueError(f"modulo '{titolo}': misura deve essere 'mezzo' o 'doppio'")
+    if misura == "doppio" and not guardare:
+        raise ValueError(f"modulo '{titolo}': nel 'doppio' 'guardare' è obbligatorio (cosa confermerebbe o smentirebbe la tesi)")
     for g_ in (grafico, grafico2):
         pertinente(g_, titolo, perche, titolo)
     gap = 5 * mm
@@ -1223,19 +1280,17 @@ def modulo(tema, titolo, misura="mezzo", chiave=None, grafico=None, grafico2=Non
     c = [P(f"APPROFONDIMENTO  |  {tema.upper()}", "kicker"), Paragraph(signcol(titolo), S["deep_t"]),
          Table([[""]], colWidths=[CW], rowHeights=[0.6], style=[("LINEABOVE", (0, 0), (-1, -1), 0.8, ORANGE)]),
          Spacer(1, 4)]
-    pq = _pq_colonna(perche, quindi, wr)
+    pq = _pq_colonna(perche, quindi, wr, numero)
+    affianca = (misura == "doppio" and grafico and grafico2) or (misura == "mezzo" and grafico)
     if misura == "doppio" and grafico:
         c += _grafico_fisso(grafico, CW / inch, 2.2, CW) + [Spacer(1, 4)]
-        if grafico2:
-            g2 = _grafico_fisso(grafico2, wl / inch, wl / inch * 0.6, wl)
-            c.append(_riga_grafico_pq(g2, pq, wl, gap, wr))
-        else:
-            c.append(perche_quindi(perche, quindi))
-    elif grafico:
-        g = _grafico_fisso(grafico, wl / inch, wl / inch * 0.6, wl)
-        c.append(_riga_grafico_pq(g, pq, wl, gap, wr))
+    if affianca:
+        g = _grafico_fisso(grafico2 if misura == "doppio" else grafico, wl / inch, wl / inch * 0.6, wl)
+        c += [_Riempito(titolo, g, pq, wl, wr), _riga_grafico_pq(g, pq, wl, gap, wr)]
     else:
         c.append(perche_quindi(perche, quindi))
+        if numero:
+            c += [Spacer(1, 4), da_guardare(numero, "IL NUMERO")]
     if righe:
         mx = 5 if misura == "mezzo" else 8
         if len(righe) - 1 > mx:
@@ -1245,10 +1300,14 @@ def modulo(tema, titolo, misura="mezzo", chiave=None, grafico=None, grafico2=Non
         c += [Spacer(1, 5), tbl(rows, [w * mm for w in larghezze])]
     if punti:
         c += [Spacer(1, 5), _colonne(punti[:3])]
+    for par in (testo or []):
+        c += [Spacer(1, 4), Paragraph(signcol(par), S["body"])]
     if lettura:
         c += [Spacer(1, 4), Paragraph("<b>Lettura.</b> " + signcol(lettura), S["body"])]
     if freccia:
         c.append(arrow(freccia))
+    if guardare:
+        c += [Spacer(1, 6), da_guardare(guardare)]
     if fonte:
         c += [Spacer(1, 2), P(fonte, "src")]
     return c

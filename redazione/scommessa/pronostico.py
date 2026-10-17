@@ -5,7 +5,7 @@ Uso:
 
 - origine: data dell'ultima chiusura nota (il venerdì precedente). I file in dati/ devono arrivare almeno a quella data
   (aggiornali prima con aggiorna_dati.py).
-- redazione.json (obbligatorio): {"spx": {"previsione": 7840, "motivo": "..."}, ...} per tutti i 7 strumenti. È la scommessa:
+- redazione.json (obbligatorio): {"spx": {"previsione": 7840, "motivo": "..."}, ...} per tutti gli strumenti di metodo.json (6 dalla versione 1.1). È la scommessa:
   ogni strumento ha una direzione. Lo scarto dalla chiusura di partenza va da 0,1 a 0,5 sigma (metodo.json): sotto 0,1 viene
   portato a 0,1 nella stessa direzione, sopra 0,5 viene limitato a 0,5.
 Scrive <uscita>/<origine+3gg>-settimana.json e stampa una tabella di controllo. Il grafico si disegna con grafico.py.
@@ -24,6 +24,7 @@ from motore import (STRUMENTI, QUANTILI, carica, variazioni_giornaliere, chiusur
 
 QUI = os.path.dirname(os.path.abspath(__file__))
 METODO = json.load(open(os.path.join(QUI, "metodo.json"), encoding="utf-8"))
+ATTIVI = {k: v for k, v in STRUMENTI.items() if k in METODO["strumenti"]}   # gli strumenti della scommessa in vigore
 
 
 def sigma_alla_data(chiave, vol, r, t, vix_d=None):
@@ -48,11 +49,24 @@ def z_storici(chiave, vol, tipo, s, r, origine, vix_d, settimane=520):
     return np.array(z)
 
 
-def pronostica(origine: pd.Timestamp, redazione: dict):
+def strumenti_settimana(variabile=None):
+    """I 6 fissi più, se c'è, lo strumento della settimana (preparato da variabile.py in dati/var_*.json)."""
+    att = {k: dict(v) for k, v in ATTIVI.items()}
+    if variabile:
+        meta_p = os.path.join(QUI, "dati", variabile + ".json")
+        if not os.path.exists(meta_p):
+            raise SystemExit(f"{variabile}: manca {meta_p}: prepara lo strumento con variabile.py")
+        m = json.load(open(meta_p, encoding="utf-8"))
+        att[variabile] = {"nome": m["nome"], "tipo": m["tipo"], "unita": m.get("unita", ""), "variabile": True,
+                          "motivo_scelta": m.get("motivo_scelta", "")}
+    return att
+
+
+def pronostica(origine: pd.Timestamp, redazione: dict, variabile=None):
     vix_d = carica("vix")
     out = {}
-    for k, info in STRUMENTI.items():
-        cfg = METODO["strumenti"][k]
+    for k, info in strumenti_settimana(variabile).items():
+        cfg = METODO["strumenti"].get(k, {"vol": "rv20", "forma": "normale"})   # lo strumento variabile: il metodo base
         tipo = info["tipo"]
         s = carica(k)
         s = s[s.index <= origine]
@@ -96,18 +110,20 @@ def pronostica(origine: pd.Timestamp, redazione: dict):
             "prob_rialzo_modello": 0.5,
             "prob_rialzo_redazione": prob_rialzo(tilt, sg, cfg["forma"]),
         }
+        if info.get("variabile"):
+            out[k].update(variabile=True, motivo_scelta=info.get("motivo_scelta", ""))
     return out
 
 
-def prova(origine):
+def prova(origine, variabile=None):
     """Sigma e livelli a +-0,1 / 0,3 / 0,5 sigma per scegliere la previsione della redazione."""
     vix_d = carica("vix")
     print(f"{'Strumento':18s} {'base':>10s} {'sigma':>9s}   giù 0,5 / 0,3 / 0,1   |   su 0,1 / 0,3 / 0,5")
-    for k, info in STRUMENTI.items():
+    for k, info in strumenti_settimana(variabile).items():
         s = carica(k)
         s = s[s.index <= origine]
         r = variazioni_giornaliere(s, info["tipo"])
-        sg = sigma_alla_data(k, METODO["strumenti"][k]["vol"], r, origine, vix_d)
+        sg = sigma_alla_data(k, METODO["strumenti"].get(k, {"vol": "rv20"})["vol"], r, origine, vix_d)
         b = float(s.iloc[-1])
         liv = [livello(b, m * sg, info["tipo"]) for m in (-0.5, -0.3, -0.1, 0.1, 0.3, 0.5)]
         su = f"{sg:.4f}" if info["tipo"] == "prezzo" else f"{sg:.1f} pb"
@@ -122,17 +138,18 @@ def main():
     ap.add_argument("--uscita", default=os.path.join(QUI, "..", "pronostici"))
     ap.add_argument("--prova", action="store_true", help="stampa sigma e livelli possibili senza scrivere nulla")
     ap.add_argument("--forza", action="store_true", help="sovrascrive un registro esistente (solo per correggere un errore)")
+    ap.add_argument("--variabile", help="lo strumento della settimana (var_<chiave>, preparato con variabile.py)")
     a = ap.parse_args()
     origine = pd.Timestamp(a.origine)
     if origine.dayofweek != 4:
         raise SystemExit("--origine deve essere un venerdì (l'ultima chiusura della settimana precedente)")
     red = json.load(open(a.redazione, encoding="utf-8")) if a.redazione else {}
     if a.prova:
-        prova(origine)
+        prova(origine, a.variabile)
         return
     if not a.redazione:
         raise SystemExit("serve --redazione (oppure --prova per vedere sigma e livelli)")
-    st = pronostica(origine, red)
+    st = pronostica(origine, red, a.variabile)
     lun = (origine + pd.Timedelta(days=3)).date()
     ven = (origine + pd.Timedelta(days=7)).date()
     reg = {"schema": 2, "versione_metodo": METODO["versione"], "data_pronostico": str(lun),

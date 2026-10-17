@@ -45,16 +45,21 @@ def ticker_dal_pdf(pdf):
 
 def scommessa(reg, stato=None, verdetto=None):
     s = reg["strumenti"]
+    fx = [k for k in s if not s[k].get("variabile")]        # i fissi: i conti di sempre
     direz = {k: ("su" if v["previsione_redazione"] > v["base"] else "giù") for k, v in s.items()}
-    out = {"settimana": reg["settimana"], "su": len(s)}
+    out = {"settimana": reg["settimana"], "su": len(fx)}
+    var = [k for k in s if s[k].get("variabile")]
+    if var:
+        out["variabile"] = {"nome": s[var[0]]["nome"], "motivo": s[var[0]].get("motivo_scelta", "")}
     if stato:
         r = stato["righe"]
-        out["strada"] = sum(1 for k in s if r[k]["strada_giusta"] is True)
-        out["range"] = sum(1 for k in s if r[k]["dentro_range"])
-        out["dettaglio"] = [[s[k]["nome"], direz[k], r[k]["strada_giusta"], r[k]["dentro_range"]] for k in s]
+        out["strada"] = sum(1 for k in fx if r[k]["strada_giusta"] is True)
+        out["range"] = sum(1 for k in fx if r[k]["dentro_range"])
+        out["dettaglio"] = [[s[k]["nome"], direz[k], r[k]["strada_giusta"], r[k]["dentro_range"]] + ([True] if k in var else [])
+                            for k in s]
     else:
         out["strada"] = out["range"] = None
-        out["dettaglio"] = [[s[k]["nome"], direz[k], None, None] for k in s]
+        out["dettaglio"] = [[s[k]["nome"], direz[k], None, None] + ([True] if k in var else []) for k in s]
     v = None
     if verdetto:
         t = verdetto["totale"]
@@ -132,6 +137,8 @@ def main():
         date = [S[n]["ultimi"][0][0] for _, n, _, _ in NU.TICKER if n in S]
         if date:
             voce["ticker_al"] = max(date)
+            if min(date) != max(date):
+                voce["ticker_dal"] = min(date)  # un dato più vecchio (borsa chiusa, chiusura non ancora uscita): il sito lo dichiara
     if not a.senza_scommessa:
         if not a.registro or not (a.stato or a.verdetto):
             esci("scommessa: servono --registro e --stato (mar-ven) o --verdetto (lunedì); oppure --senza-scommessa")

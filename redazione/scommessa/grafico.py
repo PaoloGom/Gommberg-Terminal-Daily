@@ -27,7 +27,8 @@ def x(base, liv, tipo):
 
 
 def fmt(v, k):
-    d = {"acwi": 2, "spx": 0, "sx5e": 0, "ust10": 2, "ust2": 2, "brent": 2, "eurusd": 4}[k]
+    fissi = {"acwi": 2, "spx": 0, "sx5e": 0, "ust10": 2, "ust2": 2, "brent": 2, "eurusd": 4}
+    d = fissi[k] if k in fissi else (4 if abs(v) < 10 else 2 if abs(v) < 1000 else 0)   # stesso criterio di pag. 6
     s = f"{v:,.{d}f}".replace(",", "X").replace(".", ",").replace("X", ".")
     return s + ("%" if k.startswith("ust") else "")
 
@@ -71,13 +72,14 @@ def disegna(reg, out, stato=None):
     st = reg["strumenti"]
     fig, ax = plt.subplots(figsize=(LARGO, float(__import__("os").environ.get("GTD_ALTO_GRAFICO", "1.85"))))  # solo impaginazione
     righe = []
-    for y, k in enumerate(reversed(ORDINE)):
+    ORD = [k for k in ORDINE if k in st] + [k for k in st if st[k].get("variabile")]   # 6 fissi + quello della settimana
+    for y, k in enumerate(reversed(ORD)):
         v = st[k]
         b, t = v["base"], v["tipo"]
         lo, hi = v["range"]
         s = (x(b, hi, t) - x(b, lo, t)) / 2 or 1.0          # mezza ampiezza del range = 1 unità
         pos = (lambda b_, t_, s_: (lambda liv: x(b_, liv, t_) / s_))(b, t, s)
-        ax.plot([pos(lo), pos(hi)], [y, y], color=BAR, lw=8, solid_capstyle="butt", zorder=1)
+        ax.plot([pos(lo), pos(hi)], [y, y], color="#F8CBA8" if v.get("variabile") else BAR, lw=8, solid_capstyle="butt", zorder=1)
         ax.plot([0], [y], marker="|", ms=13, color=INK, mew=1.5, zorder=2)
         p = v["previsione_redazione"]
         ax.plot([pos(p)], [y], marker="D", ms=6, color=POS if p > b else NEG, zorder=3)
@@ -87,12 +89,12 @@ def disegna(reg, out, stato=None):
             xa = max(-1.9, min(1.9, pos(a)))
             ax.plot([xa], [y], marker="o", ms=8.5, mfc="none", mec=ORANGE, mew=1.7, zorder=4)
         righe.append((y, k, pos(lo), pos(hi), lo, hi, pos(p), xa, a))
-    ax.set_yticks(range(len(ORDINE)))
-    ax.set_yticklabels([st[k]["nome"] for k in reversed(ORDINE)], fontsize=7)
+    ax.set_yticks(range(len(ORD)))
+    ax.set_yticklabels([("★ " if st[k].get("variabile") else "") + st[k]["nome"] for k in reversed(ORD)], fontsize=7)
     ax.tick_params(axis="y", length=0)
     ax.set_xticks([])
     ax.set_xlim(-2.0, 2.0)
-    ax.set_ylim(-0.6, len(ORDINE) - 0.35)
+    ax.set_ylim(-0.6, len(ORD) - 0.35)
     fig.text(0.01, 0.01, "Barra: range atteso 16-84% (la chiusura di venerdì ci cade circa 2 settimane su 3). Tacca: chiusura di "
              "partenza. Rombo: la nostra previsione." + (" Cerchio: oggi." if stato else ""),
              fontsize=FS_NOTA, color="#555555", ha="left", va="bottom")

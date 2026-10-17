@@ -37,6 +37,20 @@ def primo_della_settimana(d):
     return bool(giorni) and giorni[0] == d
 
 
+def prova():
+    """Data di una prova generale: redazione/PROVA_DATA (una riga AAAA-MM-GG) fa valere quella data per l'edizione.
+    Si crea solo per una prova e si toglie subito dopo; senza il file vale l'orologio di Roma."""
+    p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "PROVA_DATA")
+    if os.path.exists(p):
+        return dt.date.fromisoformat(open(p, encoding="utf-8").read().strip())
+    return None
+
+
+def oggi():
+    from zoneinfo import ZoneInfo
+    return prova() or dt.datetime.now(ZoneInfo("Europe/Rome")).date()
+
+
 def lunedi(d):
     return d - dt.timedelta(days=d.weekday())
 

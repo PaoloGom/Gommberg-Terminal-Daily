@@ -5,14 +5,17 @@ Esce con codice 1 e l'elenco dei problemi se qualcosa non va.
 Schema di fatti.json: lista di schede
 {"id": "N01", "sezione": "top_story|top_news|catalizzatori|agenda|macro|deep_dive|scommessa"
    (nomi v6 ammessi: notizie=top_news, calendario=catalizzatori, termometri/lettura=macro, approfondimento=deep_dive),
- "tipo": "C" solo per una causa specifica di un movimento (la citazione deve contenere il nesso; nel PDF "secondo <testata>"),
+ "tipo": "C" solo per una causa specifica di un movimento (la citazione deve contenere il nesso; nel PDF "(Testata)" in coda),
+ "tipo": "U" per un dato ufficiale (dato macro, decisione di banca centrale, asta, comunicato): serve una fonte
+   "ufficiali" di fonti.json; l'agenzia solo d'appoggio. Se il sito ufficiale non si raggiunge dopo ricerche vere:
+   "ufficiale_cercato": ["ricerca 1", "ricerca 2"] e il dato esce attribuito "(Reuters)".
  "testo": "il fatto come appare nel PDF", "data_evento": "AAAA-MM-GG",
  "novita": "per un tema già uscito: qual è lo sviluppo nuovo (altrimenti null)",
  "fonti": [{"testata": "Reuters", "url": "https://...", "data_pubblicazione": "AAAA-MM-GG", "citazione": "frase originale"}],
  "verifica": "confermato|errato|non_conclusivo" (scritto dal revisore), "nota_revisore": "..."}
 Fonti "ufficiali" di fonti.json (BLS, Census, BEA, Fed, Tesoro, Eurostat, Istat, BCE, borse): valgono livello 1, bastano da
  sole. Dati pubblici certi (sezione catalizzatori, mercati, estremo): "fonte_singola": true = una sola fonte non vietata,
- dichiarata nel PDF ("-7,57% secondo Korea Herald"); un dato del calendario non si toglie mai.
+ dichiarata nel PDF ("-7,57% (Korea Herald)"); un dato del calendario non si toglie mai.
 Registro delle anomalie (passo 2c), nella stessa lista: {"id": "A1", "sezione": "anomalia", "fatto": "PPI sopra le attese,
  10 anni -9 pb", "ricerche": ["treasury yields fall despite PPI", ...], "esito": "C03" | "non chiarita"} (lo controlla
  controlli_contenuti.py)."""
@@ -27,6 +30,14 @@ F = json.load(open(os.path.join(QUI, "fonti.json"), encoding="utf-8"))
 L1, L2, NO = set(F["livello_1"]) | set(F.get("ufficiali", [])), set(F["livello_2"]), set(F["vietate"])
 # dati pubblici certi (calendario macro, chiusure e movimenti di mercato): una sola fonte non vietata basta se dichiarata
 PUBBLICI = {"catalizzatori", "mercati", "estremo"}
+
+
+UFF = set(F.get("ufficiali", []))
+
+
+def dominio_ufficiale(url):
+    h = (urlparse(url).hostname or "").lower().split(".")
+    return any(".".join(h[i:]) in UFF for i in range(len(h) - 1))
 
 
 def livello(url):
@@ -53,7 +64,7 @@ problemi, avvisi = [], []
 ids = [f.get("id") for f in fatti]
 if len(ids) != len(set(ids)):
     problemi.append("id duplicati nelle schede")
-fatti = [f for f in fatti if not f.get("scartata") and f.get("sezione") not in ("anomalia", "prime_pagine")]  # registri: controlli_contenuti.py
+fatti = [f for f in fatti if not f.get("scartata") and f.get("sezione") not in ("anomalia", "prime_pagine", "ricerca")]  # registri: controlli_contenuti.py
 ALIAS = {"notizie": "top_news", "calendario": "catalizzatori", "termometri": "macro", "lettura": "macro",
          "approfondimento": "deep_dive", "approfondimenti": "deep_dive"}
 for f in fatti:
@@ -73,13 +84,25 @@ for f in fatti:
         if not s.get("url", "").startswith("http") or not s.get("citazione") or not s.get("data_pubblicazione"):
             problemi.append(f"{i}: fonte senza url, citazione o data di pubblicazione ({s.get('testata')})")
         livelli.append(lv); testate.add((s.get("testata") or s.get("url")).lower())
+    if f.get("tipo") == "U" or sez == "catalizzatori":
+        uff = any(dominio_ufficiale(s.get("url", "")) for s in fonti)
+        if not uff:
+            cercato = f.get("ufficiale_cercato") or []
+            if len(cercato) >= 2:
+                avvisi.append(f"{i}: dato ufficiale senza il comunicato (cercato: {'; '.join(cercato[:2])}): "
+                              "nel PDF attribuito \"(Testata)\"")
+            else:
+                problemi.append(f"CERCA {i}: dato ufficiale senza fonte ufficiale (non si toglie): cerca il comunicato (es. \"BLS CPI September "
+                                "2026 news release\", \"Eurostat flash estimate euro area inflation\") e aggiungilo alle fonti; "
+                                "l'agenzia resta solo d'appoggio. Se dopo 2 ricerche vere non esce: \"ufficiale_cercato\"")
     singola = f.get("fonte_singola") and sez in PUBBLICI and 0 not in livelli
     if singola and 1 not in livelli:
-        avvisi.append(f"{i}: fonte singola dichiarata ({next(iter(testate))}): nel PDF \"secondo <testata>\"")
-    elif not (1 in livelli or sum(1 for x in livelli if x == 2) >= 2 and len(testate) >= 2):
+        avvisi.append(f"{i}: fonte singola dichiarata ({next(iter(testate))}): nel PDF \"(Testata)\" in coda al dato")
+    # fonti non in elenco (livello 3) valgono come livello 2: servono due fonti indipendenti che dicono lo stesso
+    elif not (1 in livelli or sum(1 for x in livelli if x in (2, 3)) >= 2 and len(testate) >= 2):
         if sez == "catalizzatori":
             problemi.append(f"{i}: dato del calendario: cercalo alla fonte ufficiale (fonti.json \"ufficiali\") o, se impossibile, "
-                            "\"fonte_singola\": true e \"secondo <testata>\" nel PDF; mai toglierlo")
+                            "\"fonte_singola\": true e \"(Testata)\" nel PDF; mai toglierlo")
         else:
             problemi.append(f"{i}: fonti insufficienti (serve 1 di livello 1 o 2 testate di livello 2; livelli {livelli})")
     ev = dt.date.fromisoformat(f["data_evento"])
@@ -108,7 +131,7 @@ for f in fatti:
         if v == "errato":
             problemi.append(f"{i}: segnato ERRATO dal revisore: {f.get('nota_revisore', '')}")
         if v == "non_conclusivo" and sez in PUBBLICI:
-            avvisi.append(f"{i}: dato pubblico non confermato dal revisore: resta con la fonte dichiarata (\"secondo <testata>\")")
+            avvisi.append(f"{i}: dato pubblico non confermato dal revisore: resta con la fonte dichiarata (\"(Testata)\")")
         elif v == "non_conclusivo":
             problemi.append(f"{i}: verifica non conclusiva: togliere il fatto dal PDF o attribuirlo e ripetere la verifica")
 

@@ -377,7 +377,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
         <section class="bet" id="bet" aria-labelledby="bet-h" hidden>
           <div class="bet-head"><h3 class="kicker" id="bet-h">La scommessa della settimana</h3><span class="wk" id="betWk"></span></div>
           <div class="score" id="betScore"></div>
-          <ul class="instr" id="betInstr" aria-label="I 7 mercati della scommessa"></ul>
+          <ul class="instr" id="betInstr" aria-label="I mercati della scommessa"></ul>
           <div class="bet-foot" id="betFoot"></div>
           <a class="bet-more" href="scommessa.html">Come funziona e la pagella &rsaquo;</a>
         </section>
@@ -417,16 +417,16 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
           </div>
           <div>
             <dt><span class="pp">Pag. 3-5</span>Agenda e approfondimenti</dt>
-            <dd>Il calendario dei dati e delle trimestrali, poi gli approfondimenti, scelti ogni mattina sulle notizie del giorno.</dd>
+            <dd>Il calendario dei dati e delle trimestrali, poi gli approfondimenti, scelti ogni mattina sulle notizie del giorno: ognuno sostiene una tesi, con il numero che la regge e cosa guardare dopo.</dd>
           </div>
           <div>
             <dt><span class="pp">Pag. 6</span>La scommessa della settimana</dt>
-            <dd>Il lunedì fissiamo dove chiuderanno 7 mercati il venerdì e li seguiamo giorno per giorno. Il lunedì dopo, il verdetto. <a href="scommessa.html">Il metodo e la pagella</a></dd>
+            <dd>Il lunedì fissiamo dove chiuderanno 6 mercati il venerdì, più lo strumento della settimana, scelto sul tema del momento, e li seguiamo giorno per giorno. Il lunedì dopo, il verdetto. <a href="scommessa.html">Il metodo e la pagella</a></dd>
           </div>
         </dl>
         <div class="trust">
           <h3 class="kicker">Come lavoriamo</h3>
-          <p><b>Ogni fatto ha fonte, data e verifica</b> prima di uscire. Le correzioni escono nell'edizione successiva come errata corrige. La scommessa ha una pagella pubblica, settimana per settimana.</p>
+          <p><b>Ogni fatto ha fonte, data e verifica</b> prima di uscire; i dati ufficiali si prendono dal comunicato di chi li produce. Le correzioni escono nell'edizione successiva come errata corrige. La scommessa ha una pagella pubblica, settimana per settimana.</p>
           <div class="links"><a href="numeri.html">I numeri del Gommberg</a><a href="ultima/">Link fisso all'ultima edizione</a><a href="feed.xml">Feed RSS</a></div>
         </div>
       </section>
@@ -526,7 +526,10 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     let d = iso ? utc(iso) : (ed.data ? utc(ed.data) : null);
     if (!d || isNaN(d)) return "CHIUSURE DELL'EDIZIONE";
     if (!iso) do { d.setUTCDate(d.getUTCDate() - 1); } while (d.getUTCDay() === 0 || d.getUTCDay() === 6);
-    return "CHIUSURE " + d.getUTCDate() + " " + MESI[d.getUTCMonth()].slice(0, 3).toUpperCase();
+    const g = (x) => x.getUTCDate() + " " + MESI[x.getUTCMonth()].slice(0, 3).toUpperCase();
+    const dal = iso && /^\d{4}-\d{2}-\d{2}$/.test(ed.ticker_dal || "") && ed.ticker_dal < iso ? utc(ed.ticker_dal) : null;
+    if (dal) return "CHIUSURE " + (dal.getUTCMonth() === d.getUTCMonth() ? dal.getUTCDate() : g(dal)) + "-" + g(d);
+    return "CHIUSURE " + g(d);
   }
   const CORTI = { "MSCI ACWI (ETF)": "ACWI", "EURO STOXX 50": "STOXX 50", "UST 10 ANNI": "UST 10A", "BRENT FUTURE": "BRENT" };
   function tape(ed) {
@@ -556,7 +559,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     $("bet").hidden = false;
     $("betWk").textContent = b && b.settimana ? "Settimana " + settimana(b.settimana) : "";
     const sc = $("betScore"); sc.innerHTML = "";
-    const tot = (b && b.su) || 7;
+    const tot = (b && b.su) || (b && Array.isArray(b.dettaglio) ? b.dettaglio.length : 6);
     if (b && b.range != null) {
       const a = el("div"); a.appendChild(el("b", "", b.range + "/" + tot)); a.append("dentro il range"); sc.appendChild(a);
     }
@@ -569,13 +572,14 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     const ul = $("betInstr"); ul.innerHTML = "";
     const det = (b && Array.isArray(b.dettaglio)) ? b.dettaglio : [];
     for (const d of det) {
-      const [nome, dir, strada] = d;
+      const [nome, dir, strada, , variab] = d;
       const li = el("li");
-      li.appendChild(el("span", "n", BREVI[nome] || nome));
+      li.appendChild(el("span", "n", (variab ? "\u2605 " : "") + (BREVI[nome] || nome)));
+      if (variab) li.title = "Lo strumento della settimana";
       li.appendChild(el("span", "a", dir === "su" ? "\u2191" : dir === "giù" ? "\u2193" : "="));
       li.appendChild(el("span", "r " + (strada === true ? "ok" : strada === false ? "ko" : "na"), strada === true ? "\u2713" : strada === false ? "\u2717" : "-"));
       const lab = nome + ": previsto in " + (dir === "su" ? "rialzo" : dir === "giù" ? "calo" : "parità") + (strada === true ? ", per ora on track" : strada === false ? ", per ora nella direzione opposta" : ", ancora nessun movimento");
-      li.title = lab; li.setAttribute("aria-label", lab);
+      li.title = (variab ? "Lo strumento della settimana. " : "") + lab; li.setAttribute("aria-label", lab);
       ul.appendChild(li);
     }
     ul.hidden = !det.length;
@@ -583,12 +587,14 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     if (v && v.punti != null) {
       const p = el("div");
       p.append("Verdetto della settimana " + settimana(v.settimana) + ": ");
-      const s = el("strong", v.punti > (v.par || 8.5) ? "up" : v.punti < (v.par || 8.5) ? "down" : "", v.punti + " punti su " + (v.su || 14));
-      p.appendChild(s); p.append(" (par " + num(v.par || 8.5) + ").");
+      const par = v.par != null ? v.par : null;
+      const s = el("strong", par == null ? "" : v.punti > par ? "up" : v.punti < par ? "down" : "", v.punti + " punti su " + v.su);
+      p.appendChild(s); if (par != null) p.append(" (par " + num(par) + ").");
       f.appendChild(p);
     }
     const st = b && b.stagione;
-    if (det.length) f.appendChild(el("div", "", "Freccia: la direzione scelta lunedì. On track \u2713: per ora il mercato va così; \u2717: per ora va al contrario."));
+    if (det.length) f.appendChild(el("div", "", "Freccia: la direzione scelta lunedì. On track \u2713: per ora il mercato va così; \u2717: per ora va al contrario."
+      + (b && b.variabile ? " \u2605 " + b.variabile.nome + ": lo strumento della settimana, conto a parte." : "")));
     if (Array.isArray(st) && st[1] > 0) f.appendChild(el("div", "", "Stagione: " + st[0] + " punti su " + st[1] + "."));
     const go = el("button", "tag", "Vai alla pagina 6"); go.type = "button"; go.style.marginTop = "8px";
     go.addEventListener("click", () => goPage(6, true));
