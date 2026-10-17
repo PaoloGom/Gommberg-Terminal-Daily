@@ -136,7 +136,7 @@ def main():
         if not a.registro or not (a.stato or a.verdetto):
             esci("scommessa: servono --registro e --stato (mar-ven) o --verdetto (lunedì); oppure --senza-scommessa")
         reg = json.load(open(a.registro, encoding="utf-8"))
-        st = json.load(open(a.stato, encoding="utf-8")) if a.stato else None
+        st = json.load(open(a.stato, encoding="utf-8")) if a.stato and os.path.exists(a.stato) else None  # il lunedì non c'è
         ve = json.load(open(a.verdetto, encoding="utf-8")) if a.verdetto else None
         voce["scommessa"], v = scommessa(reg, st, ve)
         if v:
