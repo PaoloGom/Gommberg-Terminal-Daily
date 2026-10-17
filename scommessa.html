@@ -7,7 +7,7 @@
 <meta name="description" content="Come funziona la scommessa del venerdì del Gommberg Terminal Daily: il metodo, cosa dice la storia, la pagella dal vivo.">
 <meta name="robots" content="noindex, nofollow">
 <meta property="og:title" content="La scommessa del Gommberg Terminal Daily">
-<meta property="og:description" content="Diciamo dove chiuderanno 7 mercati. Poi contiamo quante volte avevamo ragione.">
+<meta property="og:description" content="Ogni lunedì, sette previsioni. Il lunedì dopo, il conto.">
 <meta property="og:image" content="https://paologom.github.io/Gommberg-Terminal-Daily/assets/copertina.png">
 <meta name="theme-color" content="#0E0E0E">
 <link rel="icon" href="assets/icona.svg" type="image/svg+xml">
@@ -123,8 +123,8 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
 <main class="wrap">
   <section class="hero" aria-labelledby="h-hero">
     <p class="kicker">La scommessa del venerdì</p>
-    <h2 id="h-hero">Diciamo dove chiuderanno 7 mercati. Poi contiamo quante volte avevamo ragione.</h2>
-    <p>Ogni lunedì il Gommberg fissa una previsione per la chiusura del venerdì di azionario mondiale, S&amp;P 500, Euro Stoxx 50, Treasury a 10 e a 2 anni, Brent ed euro-dollaro. Non è un gioco a indovinare: è un metodo scritto prima, misurato ogni settimana e pubblicato anche quando ci dà torto.</p>
+    <h2 id="h-hero">Ogni lunedì, sette previsioni. Il lunedì dopo, il conto.</h2>
+    <p>Azionario mondiale, S&amp;P 500, Euro Stoxx 50, Treasury a 10 e a 2 anni, Brent, euro-dollaro: per ognuno la direzione della settimana e una forchetta di prezzo per la chiusura del venerdì. Ogni verdetto resta in archivio.</p>
   </section>
 
   <section aria-labelledby="h-pagella">
@@ -132,68 +132,65 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     <h3 class="sec-h" id="h-pagella">La pagella</h3>
     <div class="cards" id="cards" aria-live="polite">
       <div class="card"><div class="l">Settimane giudicate</div><div class="v" id="cSett">-</div><div class="t">dal 19 ottobre 2026</div></div>
-      <div class="card"><div class="l">Punti</div><div class="v" id="cPunti">-</div><div class="t" id="cPar">senza abilità ci si aspetta il par</div></div>
-      <div class="card"><div class="l">Chiusure dentro la forchetta</div><div class="v" id="cRange">-</div><div class="t">obiettivo: 68%, due volte su tre</div></div>
-      <div class="card"><div class="l">Direzione giusta</div><div class="v" id="cDir">-</div><div class="t">a caso: circa 50%</div></div>
+      <div class="card"><div class="l">Punti</div><div class="v" id="cPunti">-</div><div class="t" id="cPar">par: 8,5 a settimana</div></div>
+      <div class="card"><div class="l">Chiusure nella forchetta</div><div class="v" id="cRange">-</div><div class="t">obiettivo: 68%</div></div>
+      <div class="card"><div class="l">Direzione giusta</div><div class="v" id="cDir">-</div><div class="t">riferimento: 50%</div></div>
     </div>
     <p class="verdict" id="verdict"><span class="wait">Caricamento della pagella...</span></p>
   </section>
 
   <section aria-labelledby="h-come">
     <p class="kicker">Il metodo</p>
-    <h3 class="sec-h" id="h-come">Come funziona, in quattro passi</h3>
+    <h3 class="sec-h" id="h-come">Quattro passi</h3>
     <ol class="steps">
-      <li><div><h4>Si parte dalla chiusura del venerdì</h4><p>Il punto di partenza di ogni mercato è la chiusura ufficiale del venerdì precedente. Il pronostico esce il lunedì mattina e da lì non cambia più: niente correzioni a metà settimana.</p></div></li>
-      <li><div><h4>La forchetta la decide la volatilità</h4><p>Per ogni mercato calcoliamo quanto si è mosso di solito nelle ultime 20 sedute e lo portiamo su una settimana. Ne esce una forchetta di prezzo dentro cui la chiusura del venerdì dovrebbe cadere circa due settimane su tre. Non di più: una forchetta troppo larga indovina sempre ma non dice nulla.</p></div></li>
-      <li><div><h4>La direzione la sceglie la redazione</h4><p>Su o giù, per tutti e 7 i mercati, con un motivo scritto. C'è un limite: la previsione non può allontanarsi dal punto di partenza più di metà dell'oscillazione tipica della settimana. Puntare più forte sarebbe una scommessa contro l'evidenza storica.</p></div></li>
-      <li><div><h4>Il lunedì dopo, il verdetto</h4><p>Un punto se la direzione era giusta, un punto se la chiusura è caduta dentro la forchetta: 14 punti al massimo. Chi tirasse a indovinare ne farebbe in media circa 8,5: è il "par", il punteggio da battere.</p></div></li>
+      <li><div><h4>La base</h4><p>Il punto di partenza è la chiusura ufficiale del venerdì precedente. Il pronostico esce il lunedì e resta fermo fino al verdetto.</p></div></li>
+      <li><div><h4>La forchetta</h4><p>Nasce dalla volatilità delle ultime 20 sedute, portata su una settimana: la chiusura del venerdì vi cade circa due volte su tre.</p></div></li>
+      <li><div><h4>La direzione</h4><p>Su o giù per ogni mercato, scelta dalla redazione con un motivo scritto. Lo spostamento dalla base arriva al massimo a metà dell'oscillazione settimanale tipica.</p></div></li>
+      <li><div><h4>Il verdetto</h4><p>Un punto per la direzione giusta, uno per la chiusura nella forchetta: 14 al massimo. Il par, cioè il punteggio atteso senza abilità, è 8,5.</p></div></li>
     </ol>
   </section>
 
   <section aria-labelledby="h-storia">
     <p class="kicker">Il collaudo</p>
-    <h3 class="sec-h" id="h-storia">Cosa dice la storia</h3>
+    <h3 class="sec-h" id="h-storia">Dodici anni di mercati</h3>
     <div class="two">
       <div class="prose">
-        <p>Prima di pubblicare la prima scommessa abbiamo rifatto il metodo all'indietro su dodici anni di mercati, circa 600 settimane per ogni strumento, usando ogni volta solo i dati disponibili fino a quel venerdì. È un controllo che si chiama backtest: serve a capire se un'idea avrebbe funzionato prima di fidarsi.</p>
-        <p>Il risultato più importante è anche il più scomodo. <b>Nessuno dei segnali di direzione che abbiamo provato batte il caso</b>: né seguire la tendenza delle ultime settimane, né scommettere sul rimbalzo, né la media storica. Per prevedere dove sarà un mercato fra una settimana, il riferimento più onesto resta il prezzo di oggi.</p>
-        <p>Per questo la vera prova della redazione non è indovinare qualche volta, ma fare meglio di un modello senza opinioni su un numero di settimane abbastanza grande da escludere la fortuna. Lo misuriamo e lo pubblichiamo qui.</p>
+        <p>Il metodo è stato verificato su dodici anni di dati, dal 2014 al 2026, usando ogni settimana solo le informazioni disponibili quel venerdì.</p>
+        <p>La forchetta funziona: contiene la chiusura nel 68-72% delle settimane, in linea con l'obiettivo. La direzione no: nessun segnale sistematico, dalla tendenza delle ultime settimane alla media storica, fa meglio del prezzo di partenza.</p>
+        <p>Per questo la direzione la sceglie la redazione, e la pagella misura se la sua scelta vale più del prezzo di partenza.</p>
       </div>
-      <ul class="fact" aria-label="I numeri del backtest">
-        <li><span class="n">~600</span><span class="d"><b>settimane per strumento</b> rigiocate dal 2014-2015 al 2026, senza mai usare dati del futuro. Un controllo indipendente ha rieseguito i calcoli.</span></li>
-        <li><span class="n">68-72%</span><span class="d"><b>settimane dentro la forchetta</b>: il metodo in uso è calibrato, l'obiettivo era due su tre.</span></li>
-        <li><span class="n">0 su 3</span><span class="d"><b>segnali di direzione</b> che superano la soglia statistica su qualunque mercato.</span></li>
-        <li><span class="n">82%</span><span class="d"><b>forchetta col VIX sull'S&amp;P 500</b>: troppo larga, quindi scartata. Il VIX incorpora un premio per il rischio e sovrastima i movimenti.</span></li>
+      <ul class="fact" aria-label="I numeri del collaudo">
+        <li><span class="n">12 anni</span><span class="d"><b>di chiusure settimanali</b>, verificate da un controllo indipendente.</span></li>
+        <li><span class="n">~600</span><span class="d"><b>settimane per mercato</b>, ognuna giudicata con i soli dati disponibili allora.</span></li>
+        <li><span class="n">68-72%</span><span class="d"><b>chiusure nella forchetta</b>, contro un obiettivo del 68%.</span></li>
       </ul>
     </div>
   </section>
 
   <section aria-labelledby="h-regole">
-    <p class="kicker">Le garanzie</p>
-    <h3 class="sec-h" id="h-regole">Le regole che non cambiamo a metà</h3>
+    <p class="kicker">Le regole</p>
+    <h3 class="sec-h" id="h-regole">Cosa non cambia</h3>
     <div class="rules">
-      <div class="rule"><h4>Prima la regola, poi i dati</h4><p>Un metodo nuovo sostituisce quello in uso solo se supera una soglia statistica fissata in anticipo. Un candidato che migliorava tutti i mercati di poco è rimasto fuori: il vantaggio poteva essere fortuna.</p></div>
-      <div class="rule"><h4>Revisione ogni sei mesi</h4><p>Ogni 26 settimane rifacciamo il collaudo e confrontiamo la pagella dal vivo con la storia. La prima revisione è ad aprile 2027, prima se la forchetta smette di funzionare.</p></div>
-      <div class="rule"><h4>Gli errori restano scritti</h4><p>Ogni pronostico è registrato il lunedì e non si modifica. Anche le idee scartate restano documentate, per non riprovarle all'infinito.</p></div>
+      <div class="rule"><h4>Soglia decisa prima</h4><p>Un metodo nuovo sostituisce quello in uso solo se supera una soglia statistica fissata in anticipo.</p></div>
+      <div class="rule"><h4>Revisione ogni sei mesi</h4><p>Ogni 26 settimane il collaudo si ripete e si confronta con la pagella dal vivo. La prossima: aprile 2027.</p></div>
+      <div class="rule"><h4>Registro immutabile</h4><p>Ogni pronostico è registrato il lunedì e non si modifica.</p></div>
     </div>
   </section>
 
   <section aria-labelledby="h-parole">
-    <p class="kicker">In due righe</p>
+    <p class="kicker">Glossario</p>
     <h3 class="sec-h" id="h-parole">Le parole della scommessa</h3>
     <dl class="words">
-      <div><dt>Forchetta (range)</dt><dd>L'intervallo di prezzo dove ci aspettiamo la chiusura del venerdì, circa due volte su tre.</dd></div>
-      <div><dt>On track</dt><dd>A metà settimana: il mercato si sta muovendo nella direzione che avevamo previsto.</dd></div>
-      <div><dt>Par</dt><dd>Il punteggio che farebbe chi tira a indovinare, circa 8,5 su 14. Batterlo con costanza è la prova di abilità.</dd></div>
-      <div><dt>Volatilità</dt><dd>Quanto si muove un mercato in una seduta normale. Più è alta, più larga è la forchetta.</dd></div>
-      <div><dt>Passeggiata casuale</dt><dd>L'idea che il prezzo di domani sia il prezzo di oggi più un passo imprevedibile: è il modello senza opinioni con cui ci confrontiamo.</dd></div>
-      <div><dt>Backtest</dt><dd>Rigiocare un metodo sul passato, con i soli dati disponibili allora, per vedere se avrebbe funzionato.</dd></div>
+      <div><dt>Forchetta</dt><dd>L'intervallo di prezzo in cui è attesa la chiusura del venerdì, circa due volte su tre.</dd></div>
+      <div><dt>On track</dt><dd>A metà settimana, il mercato si muove nella direzione prevista.</dd></div>
+      <div><dt>Par</dt><dd>Il punteggio atteso senza abilità: 8,5 su 14.</dd></div>
+      <div><dt>Volatilità</dt><dd>Quanto si muove un mercato in una seduta normale. Più è alta, più è larga la forchetta.</dd></div>
     </dl>
   </section>
 </main>
 
 <footer>
-  <div class="wrap">Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza finanziaria né sollecitazione all'investimento. Le previsioni sono stime redazionali, misurate e pubblicate a fini di trasparenza.</div>
+  <div class="wrap">Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza finanziaria né sollecitazione all'investimento. Le previsioni sono stime redazionali.</div>
 </footer>
 
 <script>
@@ -202,7 +199,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
   const $ = (id) => document.getElementById(id);
   const num = (x, d) => Number(x).toLocaleString("it-IT", { minimumFractionDigits: d, maximumFractionDigits: d });
   function vuota() {
-    $("verdict").innerHTML = "<b>Il primo verdetto arriva lunedì 19 ottobre 2026.</b> Da quel giorno qui trovi i punti di ogni settimana e quanto spesso abbiamo avuto ragione.";
+    $("verdict").innerHTML = "<b>Primo verdetto lunedì 19 ottobre 2026.</b>";
   }
   fetch("redazione/scommessa/pagella.json", { cache: "no-store" })
     .then((r) => (r.ok ? r.json() : null))
@@ -211,7 +208,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
       $("cSett").textContent = p.settimane;
       $("cPunti").textContent = p.punti + " su " + p.su;
       $("cPunti").className = "v " + (p.punti >= p.par ? "up" : "down");
-      $("cPar").textContent = "il par è " + num(p.par, 1) + " punti";
+      $("cPar").textContent = "par: " + num(p.par, 1);
       const cop = p["copertura_range_%"], dir = p["direzione_giusta_%"];
       $("cRange").textContent = num(cop, 0) + "%";
       $("cDir").textContent = num(dir, 0) + "%";
@@ -219,14 +216,13 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
       let g;
       if (p.t_dm == null) {
         const mancano = Math.max(0, 26 - p.settimane);
-        g = "<b>Troppo presto per un giudizio.</b> Per dire se la redazione batte il modello senza opinioni servono almeno 26 settimane" +
-            (mancano ? ": ne mancano " + mancano + "." : ".") + " Fino ad allora i punti di una singola settimana dicono poco: conta la media.";
+        g = "<b>Giudizio statistico dopo 26 settimane</b>" + (mancano ? ": ne mancano " + mancano + "." : ".");
       } else if (p.t_dm >= 2) {
-        g = "<b>La redazione batte il modello senza opinioni</b>, con un margine che difficilmente è fortuna.";
+        g = "<b>La redazione batte il prezzo di partenza</b>, con un margine statisticamente solido.";
       } else if (p.t_dm <= -2) {
-        g = "<b>Le scelte di direzione stanno peggiorando la previsione.</b> Per regola la redazione riduce la convinzione delle sue scommesse finché il record non cambia.";
+        g = "<b>Le scelte di direzione peggiorano la previsione:</b> per regola lo spostamento scende al minimo finché il dato non cambia.";
       } else {
-        g = "<b>Nessuna conclusione per ora:</b> la differenza tra la redazione e il modello senza opinioni è ancora compatibile con il caso.";
+        g = "<b>Nessuna differenza significativa</b> tra le scelte della redazione e il prezzo di partenza.";
       }
       $("verdict").innerHTML = g;
     })
