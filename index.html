@@ -314,9 +314,11 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 .bet-more { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--orange-ink); text-underline-offset: 3px; }
 </style>
+<script>window.goatcounter = { no_onload: true };</script>
+<script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
-<div class="demo" id="demo" hidden>Modalità prova: anteprima dell'edizione #006 di collaudo (lunedì 19 ottobre simulato il 17 ottobre), non pubblicata. Dati reali di venerdì 16 ottobre.</div>
+<div class="demo" id="demo" hidden>Modalità prova: anteprima di collaudo, non pubblicata.</div>
 
 <header class="mast">
   <div class="wrap top">
@@ -447,6 +449,13 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   const params = new URLSearchParams(location.search);
   const DEMO = params.get("demo") === "1";
   const SRC = DEMO ? "edizioni_demo.json" : "edizioni.json";
+  // Statistiche dei lettori (GoatCounter, senza cookie): mai in modalità prova
+  function conta(o, tent) {
+    if (DEMO) return;
+    const g = window.goatcounter;
+    if (g && typeof g.count === "function") { try { g.count(o); } catch (e) {} return; }
+    if ((tent || 0) < 20) setTimeout(() => conta(o, (tent || 0) + 1), 400);
+  }
   const SOGLIA_ARCHIVIO = 30; // below this many editions: no calendar and no theme chips
   const desktop = () => window.matchMedia("(min-width: 901px)").matches;
 
@@ -570,7 +579,8 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     $("dl").href = ed.file; $("dl").setAttribute("download", ed.nome || "");
     const url = linkFor(ed);
     const txt = "Gommberg Terminal Daily n. " + pad(ed.numero) + ", " + dataLunga(ed.data) + "\n" + ed.titolo + "\n" + url;
-    $("wa").href = "https://wa.me/?text=" + encodeURIComponent(txt);
+    const uwa = new URL(url); uwa.searchParams.set("ref", "whatsapp");
+    $("wa").href = "https://wa.me/?text=" + encodeURIComponent(txt.replace(url, uwa.toString()));
     const note = $("note"); note.innerHTML = "";
     if (ed !== editions[0]) {
       note.append("Stai leggendo un'edizione precedente. ");
@@ -582,6 +592,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     $("lbl-latest").textContent = ed === editions[0] ? "Ultima edizione" : "Edizione precedente";
     tape(ed); bet(ed);
     document.querySelectorAll("[data-n]").forEach((r) => r.setAttribute("aria-current", r.dataset.n == ed.numero ? "true" : "false"));
+    if (push) conta({ path: "edizione-" + pad(ed.numero), title: "Edizione n. " + pad(ed.numero) + " aperta dall'archivio", event: true });
     if (push) history.replaceState(null, "", ed === editions[0] && !params.get("n") ? (DEMO ? "?demo=1" : location.pathname) : linkFor(ed));
     document.title = (ed === editions[0] ? "" : "#" + pad(ed.numero) + " ") + "Gommberg Terminal Daily";
     if (desktop()) loadPdf(ed.file); else pdf = null;
@@ -595,6 +606,9 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     catch (e) { window.prompt("Copia il link dell'edizione:", url); }
     setTimeout(() => { lab.textContent = "Copia link"; }, 2200);
   });
+  for (const [id, cosa] of [["read", "letta"], ["open", "schermo intero"], ["dl", "scaricata"]]) {
+    $(id).addEventListener("click", () => { if (current && !(id === "read" && desktop())) conta({ path: "pdf-" + pad(current.numero), title: "PDF n. " + pad(current.numero) + " " + cosa, event: true }); });
+  }
   // Main button: on phones opens the PDF full screen (native viewer), on desktop scrolls to the reader
   $("read").addEventListener("click", (e) => {
     if (!desktop()) return;
@@ -824,6 +838,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
       const ed = editions.find((e) => e.numero === want) || editions[0];
       showEdition(ed, false);
       buildArchive();
+      conta({ path: location.pathname + (want ? "?n=" + want : ""), title: document.title });
     })
     .catch(() => fail("Archivio non raggiungibile. Riprova tra qualche minuto.", true));
 })();
