@@ -14,7 +14,7 @@ QUI = os.path.dirname(os.path.abspath(__file__))
 MAX_FRECCE = 5
 CONNETTIVI = [r"perch[ée]", r"a causa d", r"spint[oaie] da", r"\bpesa\b", r"\bpesano\b", r"trascin", r"sulla scia d",
               r"\bcomplice\b", r"\bper effetto d", r"\bgrazie a\b", r"\bdopo che\b"]
-ESENZIONI = re.compile(r"Perch[ée] conta|secondo |stima redazionale|di solito|in genere|tende a", re.I)
+ESENZIONI = re.compile(r"Perch[ée] conta|secondo |stima redazionale|lettura della redazione|di solito|in genere|tende a", re.I)
 
 
 def testo(pdf, layout=False):
