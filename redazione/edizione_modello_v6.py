@@ -220,7 +220,8 @@ C = {
                     "voce straordinaria, quello di Morgan Stanley dall'attività sui mercati.",
          "fonte": "Fonti: comunicato Morgan Stanley (SEC), Milano Finanza, FIRSTonline, TheStreet."},
         {"chiave": "treasury", "tema": "Tassi USA", "breve": "curva al minimo dal 28/9",
-         "titolo": "Curva Treasury: la distanza tra 10 e 2 anni al minimo dal 28 settembre",
+         # titolo = la TESI (cosa significa), non il fatto
+         "titolo": "Il breve crede alla Fed dura, il lungo no: la curva Treasury si appiattisce",
          "misura": "doppio",
          "grafico2": {"tipo": "barre", "file": "c_curva_1g.png",
                     "dati": [(k, round((UST_14[k] - UST_13[k]) * 100)) for k in UST_14],
@@ -249,10 +250,15 @@ C = {
          "quindi": "Se il 10 anni torna verso il 5,30-5,35%, toccato in serata, la curva racconta di nuovo l'inflazione; sotto il 5,10% di stamattina prevale il rifugio.",
          "lettura": "Lo stesso dato letto in due modi: il breve prezza una Fed più dura, il lungo no. Il 10 anni chiude "
                     "sotto i livelli di fine settembre e cala ancora stamattina.",
-         "freccia": "Di solito il 2 anni segue la Fed più del 10 anni: ieri è salito, il 10 anni è sceso."},
+         "freccia": "Di solito il 2 anni segue la Fed più del 10 anni: ieri è salito, il 10 anni è sceso.",
+         # numero: UN dato che misura la tesi, nella colonna accanto al grafico; deve dire qualcosa che il resto non dice
+         "numero": "-14 pb: quanto si è ristretta in una settimana la distanza tra 10 e 2 anni, da 51 a 37 pb.",
+         # guardare (obbligatorio nel doppio): cosa confermerebbe o smentirebbe la tesi, e quando
+         "guardare": "La tesi regge se il 2 anni resta sopra il 10 anni nei movimenti dei prossimi dati; cade se il 10 anni "
+                     "torna verso il 5,30-5,35% toccato in serata: allora la curva racconterebbe di nuovo l'inflazione."},
         # ↑ riga M: id "M26" di redazione/meccanismi.json
         {"chiave": "chip", "tema": "Chip e Asia", "breve": "TSMC batte le stime, l'Asia vende",
-         "titolo": "TSMC batte le stime, ma Nasdaq e Asia vendono i chip",
+         "titolo": "Conti solidi non bastano: la paura sui chip vince su TSMC",
          "misura": "doppio",
          "grafico": {"tipo": "barre", "file": "c_contagio.png", "dati": CONTAGIO, "ordina": False, "dec": 1,
                        "soggetto": "chip",
@@ -277,7 +283,10 @@ C = {
                    "memorie) sulle DRAM, le memorie di lavoro, di nuova generazione.",
                    "<b>Il clima.</b> \"In questo momento gli investitori stanno entrando nel panico\" (Milano Finanza). I "
                    "conti di TSMC, usciti stamattina, non hanno fermato le vendite."],
-         "fonte": "Notizie e conti TSMC: ANSA, Milano Finanza, Teleborsa."},
+         "fonte": "Notizie e conti TSMC: ANSA, Milano Finanza, Teleborsa.",
+         "numero": "+68,7%: la crescita annua dell'utile di TSMC nel trimestre, nel giorno in cui l'Asia vende i chip.",
+         "guardare": "Oggi alle 15:30 la riapertura del Nasdaq: se i chip americani recuperano, la vendita resta asiatica; "
+                     "se scendono ancora, il timore sulle memorie diventa un tema globale."},
     ],
 
     # ---------- Pag. 6 ----------
