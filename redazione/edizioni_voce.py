@@ -137,6 +137,8 @@ def main():
         date = [S[n]["ultimi"][0][0] for _, n, _, _ in NU.TICKER if n in S]
         if date:
             voce["ticker_al"] = max(date)
+            if min(date) != max(date):
+                voce["ticker_dal"] = min(date)  # un dato più vecchio (borsa chiusa, chiusura non ancora uscita): il sito lo dichiara
     if not a.senza_scommessa:
         if not a.registro or not (a.stato or a.verdetto):
             esci("scommessa: servono --registro e --stato (mar-ven) o --verdetto (lunedì); oppure --senza-scommessa")

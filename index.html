@@ -526,7 +526,10 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     let d = iso ? utc(iso) : (ed.data ? utc(ed.data) : null);
     if (!d || isNaN(d)) return "CHIUSURE DELL'EDIZIONE";
     if (!iso) do { d.setUTCDate(d.getUTCDate() - 1); } while (d.getUTCDay() === 0 || d.getUTCDay() === 6);
-    return "CHIUSURE " + d.getUTCDate() + " " + MESI[d.getUTCMonth()].slice(0, 3).toUpperCase();
+    const g = (x) => x.getUTCDate() + " " + MESI[x.getUTCMonth()].slice(0, 3).toUpperCase();
+    const dal = iso && /^\d{4}-\d{2}-\d{2}$/.test(ed.ticker_dal || "") && ed.ticker_dal < iso ? utc(ed.ticker_dal) : null;
+    if (dal) return "CHIUSURE " + (dal.getUTCMonth() === d.getUTCMonth() ? dal.getUTCDate() : g(dal)) + "-" + g(d);
+    return "CHIUSURE " + g(d);
   }
   const CORTI = { "MSCI ACWI (ETF)": "ACWI", "EURO STOXX 50": "STOXX 50", "UST 10 ANNI": "UST 10A", "BRENT FUTURE": "BRENT" };
   function tape(ed) {
