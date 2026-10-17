@@ -71,6 +71,11 @@ main { padding-block: 32px 56px; display: grid; gap: 52px; }
 .verdict b { font-weight: 600; }
 .wait { color: var(--muted); }
 
+.howto { margin: 18px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 28px; border-top: 1px solid var(--rule); padding-top: 14px; }
+.howto h4 { grid-column: 1 / -1; margin: 0 0 8px; font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.howto dt { font-weight: 600; font-size: 14.5px; }
+.howto dd { margin: 3px 0 12px; color: var(--muted); font-size: 14px; }
+
 /* Come funziona */
 .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 40px; counter-reset: s; }
 .steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 12px; }
@@ -102,7 +107,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
 
 @media (max-width: 860px) {
   .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .steps, .two, .rules, .words { grid-template-columns: minmax(0, 1fr); }
+  .steps, .two, .rules, .words, .howto { grid-template-columns: minmax(0, 1fr); }
   .two { gap: 28px; }
   .card .v { font-size: 28px; }
   .fact li { grid-template-columns: 104px 1fr; }
@@ -137,6 +142,12 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
       <div class="card"><div class="l">Direzione giusta</div><div class="v" id="cDir">-</div><div class="t">senza abilità: 53%</div></div>
     </div>
     <p class="verdict" id="verdict"><span class="wait">Caricamento della pagella...</span></p>
+    <div class="howto">
+      <h4>Come leggere la pagella</h4>
+      <div><dl><dt>Punti e par</dt><dd>Ogni settimana valgono fino a 14 punti. Il par, 8,5, è la media di chi scommettesse senza alcuna informazione: circa due terzi di punto per mercato dalla forchetta, circa mezzo dalla direzione. Restare sopra il par nel tempo è il segno dell'abilità.</dd></dl></div>
+      <div><dl><dt>Forchetta, obiettivo 68%</dt><dd>La forchetta è larga quanto l'oscillazione tipica della settimana, sopra e sotto il punto di partenza: per costruzione contiene la chiusura circa due volte su tre. Molto più spesso significherebbe forchette troppo larghe, molto meno troppo strette.</dd></dl></div>
+      <div><dl><dt>Direzione, 53% senza abilità</dt><dd>A caso la direzione si indovina una volta su due; sulle borse un po' di più, perché salgono nel 55-58% delle settimane. Sui sette mercati la media è 53%.</dd></dl></div>
+    </div>
   </section>
 
   <section aria-labelledby="h-come">
@@ -162,7 +173,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
       <ul class="fact" aria-label="I numeri del collaudo">
         <li><span class="n">12 anni</span><span class="d"><b>di chiusure settimanali</b>; il collaudo è stato rieseguito da un controllo indipendente.</span></li>
         <li><span class="n">~600</span><span class="d"><b>settimane per mercato</b>, ognuna giudicata con i soli dati disponibili allora.</span></li>
-        <li><span class="n">68-72%</span><span class="d"><b>chiusure nella forchetta</b>, contro un obiettivo del 68%.</span></li>
+        <li><span class="n">68-72%</span><span class="d"><b>delle settimane con la chiusura nella forchetta</b>, a seconda del mercato: in linea con il 68% per cui è costruita.</span></li>
       </ul>
     </div>
   </section>
@@ -183,7 +194,6 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     <dl class="words">
       <div><dt>Forchetta</dt><dd>L'intervallo di prezzo in cui è attesa la chiusura del venerdì, circa due volte su tre.</dd></div>
       <div><dt>On track</dt><dd>A metà settimana, il mercato si muove nella direzione prevista.</dd></div>
-      <div><dt>Par</dt><dd>Il punteggio atteso senza abilità: 8,5 su 14.</dd></div>
       <div><dt>Volatilità</dt><dd>Quanto si muove un mercato in una seduta normale. Più è alta, più è larga la forchetta.</dd></div>
     </dl>
   </section>
