@@ -80,7 +80,7 @@ dicembre_mancante = oggi.month == 12 and not any(f.startswith(str(oggi.year + 1)
 if vicini or buco or dicembre_mancante:
     app.append("APP_FESTIVI.md")
 out.append("Appendici oggi: " + (", ".join(app) if app else "nessuna") +
-           " | se un controllo è rosso: APP_ERRORI.md | se un dato manca: APP_DATI.md")
+           " | se un controllo è rosso: APP_ERRORI.md | se un dato manca: APP_DATI.md e APP_FONTI.md")
 if vicini:
     out.append("Festività: " + "; ".join(vicini))
 if buco:

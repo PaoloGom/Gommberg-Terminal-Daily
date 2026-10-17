@@ -24,10 +24,15 @@ EOF
 copia() { if [ "$PROVA" = "1" ] && [ "$REPO" = "/home/claude/gtd" ]; then echo "[prova] cp $*"; else cp -f "$@"; fi; }
 copia "$PDF" "$REPO/$DEST" || fail "copia del PDF"
 if [ -f "$FATTI" ]; then copia "$FATTI" "$REPO/redazione/fatti/${DATA}.json"; else echo "AVVISO: $FATTI assente, registro fatti non copiato"; fi
+# Pagine del sito generate da edizioni.json: pagina per edizione con anteprima WhatsApp, feed RSS, link fisso
+if [ -f "$REPO/redazione/pagine.py" ]; then
+  python3 "$REPO/redazione/pagine.py" "$REPO" | tail -1 || echo "AVVISO: pagine.py non riuscito, il sito ripiega su ?n=N"
+fi
 run git -C "$REPO" config user.name "PaoloGom"
 run git -C "$REPO" config user.email "PaoloGom@users.noreply.github.com"
 # Elenco fisso: mai redazione/collaudi (dati di prova)
 run git -C "$REPO" add pdf edizioni.json redazione/pronostici redazione/fatti redazione/scommessa || fail "git add"
+for f in e feed.xml ultima; do [ -e "$REPO/$f" ] && run git -C "$REPO" add "$f"; done
 # File del kit che la redazione può aggiornare (git add ignora quelli invariati)
 for f in redazione/glossario.json redazione/meccanismi.json redazione/APP_DATI.md redazione/gommberg_engine.py \
          redazione/prepara.sh redazione/giorni.py; do
