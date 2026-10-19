@@ -293,5 +293,176 @@
    "Brent",
    "guidance"
   ]
+ },
+ {
+  "numero": 6,
+  "data": "2026-10-19",
+  "titolo": "Il debito dell'AI fa più paura dei conti: il Nasdaq perde il 4,5% in una settimana",
+  "sommario": [
+   "Il greggio ai massimi da maggio scende con le sanzioni alla Russia sospese, ma i rischi nel Golfo restano.",
+   "Dati caldi ma rendimenti in forte calo: il Treasury fa da rifugio.",
+   "Mercoledì sera i conti di Tesla e Meta mettono alla prova le spese in AI."
+  ],
+  "file": "pdf/2026-10-19-gommberg-006.pdf",
+  "nome": "2026-10-19 Gommberg Terminal Daily #006.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Brent a 110 $ per la prima volta da maggio",
+   "Trump sospende le sanzioni sulla Russia",
+   "Prezzi all'import USA +1,1% a settembre",
+   "Produzione industriale USA +0,7%, sopra le attese",
+   "Cucinelli alza la stima 2026, titolo +4,3%",
+   "Seul rimbalza del 2,05% dopo il crollo",
+   "Fed ferma il 27-28 ottobre: il mercato ci crede all'82,8%"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "157,74 $",
+    "-0,9% g"
+   ],
+   [
+    "S&P 500",
+    "7.659,44",
+    "-1,1% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.188,40",
+    "+0,4% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "5,09%",
+    "-1 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "109,86 $",
+    "+3,7% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1239",
+    "+0,2% g"
+   ],
+   [
+    "VIX",
+    "19,99",
+    "+3,53 g"
+   ]
+  ],
+  "dek": "Venerdì il Nasdaq cede il 2,1% e il VIX (volatilità attesa sull'S&P 500) sale a 19,99, il balzo più forte dal 5 giugno. Il timore è che le società dell'intelligenza artificiale (AI) molto indebitate non facciano utili in tempo per ripagare i prestiti, mentre i costi di finanziamento salgono (Reuters): CoreWeave perde il 12% e i suoi bond rendono oltre il 15%. Stamattina Tokyo e Seul hanno aperto in forte calo.",
+  "ticker_al": "2026-10-16",
+  "ticker_dal": "2026-10-15",
+  "scommessa": {
+   "settimana": "2026-10-19/2026-10-23",
+   "su": 6,
+   "variabile": {
+    "nome": "Oro (future, $/oncia)",
+    "motivo": "Credito sull'AI, petrolio a 110 $ e Fed in bilico: l'oro dice se i mercati cercano un rifugio"
+   },
+   "strada": null,
+   "range": null,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     null,
+     null
+    ],
+    [
+     "S&P 500",
+     "su",
+     null,
+     null
+    ],
+    [
+     "Euro Stoxx 50",
+     "giù",
+     null,
+     null
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     null,
+     null
+    ],
+    [
+     "Brent future",
+     "giù",
+     null,
+     null
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     null,
+     null
+    ],
+    [
+     "Oro (future, $/oncia)",
+     "su",
+     null,
+     null,
+     true
+    ]
+   ]
+  },
+  "verdetto": {
+   "settimana": "2026-10-12/2026-10-16",
+   "punti": 7,
+   "su": 14,
+   "direzione": 2,
+   "range": 5,
+   "par": 8.5
+  },
+  "temi": [
+   "Credito",
+   "Petrolio",
+   "Tassi",
+   "Fed",
+   "Inflazione",
+   "Trimestrali"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Petrolio",
+    "titolo": "Il petrolio ai massimi da maggio perde terreno quando Washington sospende le sanzioni sulla Russia",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Credito",
+    "titolo": "Il mercato non punisce i conti dell'AI ma i prestiti che la finanziano",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Tassi USA",
+    "titolo": "Dati caldi, rendimenti in calo: il Treasury fa da rifugio, non da termometro dell'inflazione",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [
+   "M26",
+   "M14"
+  ],
+  "parole": [
+   "Rifugio",
+   "Premio di rischio",
+   "Curva dei rendimenti"
+  ],
+  "ripetizioni": 11,
+  "glossario": [
+   "CPI",
+   "CME FedWatch",
+   "pb",
+   "BTP",
+   "VIX",
+   "ACWI",
+   "Brent",
+   "WTI",
+   "SEC"
+  ]
  }
 ]

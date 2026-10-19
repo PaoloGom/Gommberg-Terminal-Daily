@@ -1,0 +1,18 @@
+{
+  "settimane": 1,
+  "punti": 7,
+  "su": 14,
+  "par": 8.5,
+  "copertura_range_%": 71.4,
+  "direzione_giusta_%": 28.6,
+  "abilita_redazione_%": -14.07,
+  "t_dm": null,
+  "variabile": {
+    "settimane": 0,
+    "punti": 0,
+    "su": 0,
+    "par": 0.0,
+    "copertura_range_%": null,
+    "direzione_giusta_%": null
+  }
+}

@@ -1,0 +1,16 @@
+{
+ "nome": "Oro (future, $/oncia)",
+ "tipo": "prezzo",
+ "unita": "$",
+ "motivo_scelta": "Credito sull'AI, petrolio a 110 $ e Fed in bilico: l'oro dice se i mercati cercano un rifugio",
+ "correlazioni": {
+  "acwi": 0.5,
+  "spx": 0.47,
+  "sx5e": 0.26,
+  "ust10": -0.28,
+  "brent": -0.1,
+  "eurusd": 0.58
+ },
+ "sedute": 130,
+ "ultima": "2026-10-16"
+}

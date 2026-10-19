@@ -1,0 +1,394 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Nasdaq -2,1% venerdì e -4,5% in settimana; VIX a 19,99; timori sul debito delle società dell'AI",
+  "data_evento": "2026-10-16",
+  "fonti": [
+   {
+    "testata": "Reuters (Central Oregon Daily)",
+    "url": "https://www.centraloregondaily.com/news/consumer/s-p-500-nasdaq-set-for-steep-weekly-losses-as-ai-jitters-rattle-investors/article_937c5b9d-21b7-5a65-94b8-d8c4fe61fbff.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "concerns that debt-laden AI infrastructure companies may not turn profits in time to repay debts"
+   },
+   {
+    "testata": "EFE (Infobae)",
+    "url": "https://infobae.com/america/agencias/2026/10/16/wall-street-cae-lastrado-por-el-nasdaq-que-pierde-un-45-en-la-semana",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "el Nasdaq cedió un 2,15 %, hasta las 26.140 unidades"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Citazione e data corrispondono alla fonte letta; PDF fedele alla scheda."
+ },
+ {
+  "id": "C01",
+  "sezione": "top_story",
+  "tipo": "C",
+  "testo": "Le vendite sul Nasdaq: timore che le società AI molto indebitate non facciano utili in tempo per ripagare i prestiti, con costi di finanziamento in salita (Reuters)",
+  "data_evento": "2026-10-16",
+  "fonti": [
+   {
+    "testata": "Reuters (Central Oregon Daily)",
+    "url": "https://www.centraloregondaily.com/news/consumer/s-p-500-nasdaq-set-for-steep-weekly-losses-as-ai-jitters-rattle-investors/article_937c5b9d-21b7-5a65-94b8-d8c4fe61fbff.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "concerns that debt-laden AI infrastructure companies may not turn profits in time to repay debts, particularly with borrowing costs expected to rise."
+   },
+   {
+    "testata": "EFE (Infobae)",
+    "url": "https://infobae.com/america/agencias/2026/10/16/wall-street-cae-lastrado-por-el-nasdaq-que-pierde-un-45-en-la-semana",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "los temores sobre el endeudamiento para financiar la expansión de la infraestructura de la inteligencia artificial"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Citazione e data corrispondono alla fonte letta; PDF fedele alla scheda."
+ },
+ {
+  "id": "C02",
+  "sezione": "top_news",
+  "testo": "CoreWeave -12% venerdì (circa -25% in cinque sedute), bond oltre il 15% di rendimento (Reuters)",
+  "data_evento": "2026-10-16",
+  "fonti": [
+   {
+    "testata": "Reuters (Central Oregon Daily)",
+    "url": "https://www.centraloregondaily.com/news/consumer/s-p-500-nasdaq-set-for-steep-weekly-losses-as-ai-jitters-rattle-investors/article_937c5b9d-21b7-5a65-94b8-d8c4fe61fbff.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Nvidia-backed CoreWeave slumped 12%, bringing its loss over the past five sessions to about 25%."
+   },
+   {
+    "testata": "EFE (Infobae)",
+    "url": "https://infobae.com/america/agencias/2026/10/16/wall-street-cae-lastrado-por-el-nasdaq-que-pierde-un-45-en-la-semana",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "se desplomó hoy un 11,91 % y acumuló una caída semanal del 26,15 %"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Citazione e data corrispondono alla fonte letta; PDF fedele alla scheda."
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "tipo": "C",
+  "testo": "Brent a 109,86 $ (+3,7%), massimo da maggio, per i rischi di offerta in Medio Oriente (Bloomberg)",
+  "data_evento": "2026-10-16",
+  "fonti": [
+   {
+    "testata": "Bloomberg (Rigzone)",
+    "url": "https://www.rigzone.com/news/wire/brent_oil_hits_110_as_supply_risks_mount-16-oct-2026-184870-article/",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Brent oil hit $110 a barrel for the first time since May as prospects for imminent supply relief dwindle"
+   },
+   {
+    "testata": "Reuters (Central Oregon Daily)",
+    "url": "https://www.centraloregondaily.com/news/consumer/s-p-500-nasdaq-set-for-steep-weekly-losses-as-ai-jitters-rattle-investors/article_937c5b9d-21b7-5a65-94b8-d8c4fe61fbff.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Investors on Friday were also watching oil prices jump more than 3% due to Middle East supply worries."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Citazione e data corrispondono alla fonte letta; PDF fedele alla scheda."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Sanzioni sulla Russia sospese da Trump: Brent -1,8% a 107,86 $ (AP), Rubio parla di fino a 60 giorni di analisi",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "AP (WSLS)",
+    "url": "https://www.wsls.com/business/2026/10/19/asian-shares-are-mixed-with-tech-stocks-volatile-and-oil-falls-on-trumps-russian-sanctions-waiver/",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Brent: falling 1.8% to $107.86 per barrel."
+   },
+   {
+    "testata": "Reuters (Business Standard)",
+    "url": "https://business-standard.com/amp/markets/news/asian-stocks-skid-on-ai-worries-wall-street-and-bonds-aided-by-oil-slip-126101900040_1.html",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Brent futures still fell 1.6% to $108.06 a barrel"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Citazione e data corrispondono alla fonte letta; PDF fedele alla scheda."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "tipo": "U",
+  "testo": "Prezzi all'import USA settembre +1,1% m/m e +8,1% su 12 mesi; prezzi all'export +2,2%",
+  "data_evento": "2026-10-16",
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/news.release/archives/ximpim_10162026.htm",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "U.S. import prices increased 1.1 percent in September"
+   },
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/news.release/archives/ximpim_10162026.htm",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Prices for U.S. exports increased 2.2 percent in September after rising 1.2 percent the previous month."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Citazione e data corrispondono alla fonte letta; PDF fedele alla scheda."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "tipo": "U",
+  "testo": "Produzione industriale USA settembre +0,7% m/m (atteso +0,4%); utilizzo della capacità 76,9% da 76,4%",
+  "data_evento": "2026-10-16",
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/releases/G17/20261016/g17.txt",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "For release at 9:15 a.m. (EDT)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Citazione e data corrispondono alla fonte letta; PDF fedele alla scheda."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Cucinelli alza la stima 2026 a circa +12% a cambi costanti; il titolo chiude a +4,28%",
+  "data_evento": "2026-10-16",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/16/brunello-cucinelli-vola-in-borsa-mentre-analisti-apprezzano-dati-sopra-le-attese-e-visibilita-117.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "vendite del terzo trimestre superiori alle attese del mercato"
+   },
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://stream24.ilsole24ore.com/video/radiocor/la-borsa-indici-16-ottobre-2026/AJiNmKmB",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Brunello Cucinelli: +4,28%"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Citazione e data corrispondono alla fonte letta; PDF fedele alla scheda."
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "testo": "Fed: il mercato vede tassi fermi il 27-28 ottobre all'82,8% (CME FedWatch, rilevazione del 16/10); Barclays attende rialzi di 25 pb a dicembre e gennaio",
+  "data_evento": "2026-10-16",
+  "fonti": [
+   {
+    "testata": "EFE (Infobae)",
+    "url": "https://infobae.com/america/agencias/2026/10/16/wall-street-cae-lastrado-por-el-nasdaq-que-pierde-un-45-en-la-semana",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "la herramienta FedWatch sitúa en el 82,8 % la probabilidad de que el banco central mantenga los tipos sin cambios."
+   },
+   {
+    "testata": "Reuters (Central Oregon Daily)",
+    "url": "https://www.centraloregondaily.com/news/consumer/s-p-500-nasdaq-set-for-steep-weekly-losses-as-ai-jitters-rattle-investors/article_937c5b9d-21b7-5a65-94b8-d8c4fe61fbff.html",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Markets increasingly expect the Fed to keep interest rates unchanged this month."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Citazione e data corrispondono alla fonte letta; PDF fedele alla scheda."
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "tipo": "U",
+  "testo": "Prezzi all'import USA settembre +1,1% m/m (atteso +0,8-1,0%, fonti discordanti)",
+  "data_evento": "2026-10-16",
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/news.release/archives/ximpim_10162026.htm",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "U.S. import prices increased 1.1 percent in September"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Citazione e data corrispondono alla fonte letta; PDF fedele alla scheda."
+ },
+ {
+  "id": "K02",
+  "sezione": "catalizzatori",
+  "tipo": "U",
+  "testo": "Produzione industriale USA settembre +0,7% m/m, atteso +0,4%",
+  "data_evento": "2026-10-16",
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/releases/G17/20261016/g17.txt",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "For release at 9:15 a.m. (EDT)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Citazione e data corrispondono alla fonte letta; PDF fedele alla scheda."
+ },
+ {
+  "id": "K03",
+  "sezione": "catalizzatori",
+  "tipo": "U",
+  "testo": "Inflazione area euro (finale) settembre 3,8% a/a, atteso 3,8%, prec. 3,2%",
+  "data_evento": "2026-10-16",
+  "ufficiale_cercato": [
+   "Eurostat euro indicators annual inflation euro area 3.8% September 2026 ec.europa.eu",
+   "Eurostat euro area annual inflation September 2026 final HICP 16 October"
+  ],
+  "fonti": [
+   {
+    "testata": "Eunews",
+    "url": "https://www.eunews.it/en/2026/10/16/euro-area-and-eu-september-inflation-confirmed-up-at-3-8-per-cent/",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "put the annual inflation rate in September at 3.8 per cent"
+   }
+  ],
+  "fonte_singola": true,
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Fonte singola dichiarata (Eunews): nel PDF resta senza dato oltre la fonte."
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "tipo": "U",
+  "testo": "Mer 21, 08:00: CPI Regno Unito settembre (ONS)",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "ONS",
+    "url": "https://www.ons.gov.uk/releases/consumerpriceinflationukseptember2026timeseries",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Release date: 21 October 2026 7:00am"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Citazione e data corrispondono alla fonte letta; PDF fedele alla scheda."
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Mer 21, dopo la chiusura USA: trimestrale Tesla (webcast 17:30 ET, 23:30 a Roma)",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "Tesla (SEC)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0001318605/000162828026064366/exhibit991111111.htm",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Tesla will post its financial results for the third quarter of 2026 after market close on Wednesday, October 21, 2026."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Orari verificati sul comunicato SEC (17:30 ET)."
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "testo": "Mer 21, dopo la chiusura USA: trimestrale Meta (conference call 16:30 ET)",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "Meta",
+    "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-to-Announce-Third-Quarter-2026-Results/default.aspx",
+    "data_pubblicazione": "2026-10-12",
+    "citazione": "the company's third quarter 2026 financial results will be released after market close on Wednesday, October 21st, 2026."
+   },
+   {
+    "testata": "Finviz",
+    "url": "https://finviz.com/news/401445/meta-to-announce-third-quarter-2026-results",
+    "data_pubblicazione": "2026-10-12",
+    "citazione": "the company's third quarter 2026 financial results will be released after market close on Wednesday, October 21st, 2026."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Orario call verificato su investor.atmeta.com (16:30 ET)."
+ },
+ {
+  "id": "A05",
+  "sezione": "agenda",
+  "tipo": "U",
+  "testo": "Gio 29: seconda giornata della riunione BCE (28-29 ottobre), con conferenza stampa",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "BCE",
+    "url": "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Governing Council of the ECB: monetary policy meeting in Frankfurt (Day 2), followed by press conference"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Citazione e data corrispondono alla fonte letta; PDF fedele alla scheda."
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "Kospi chiude a 5.668,05 (+2,05%) il 16/10; stranieri compratori netti per 345,6 miliardi di won, prima volta in nove sedute",
+  "data_evento": "2026-10-16",
+  "fonti": [
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/finance/2026/10/17/kospi-rebounds-after-eight-sessions-on-foreign-buying",
+    "data_pubblicazione": "2026-10-17",
+    "citazione": "KOSPI rebounds after eight sessions on foreign buying"
+   }
+  ],
+  "fonte_singola": true,
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Fonte singola dichiarata."
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "concorda": true,
+  "motivo": "Le aperture di agenzia (versioni online, non le cover cartacee) puntano sui dubbi sul finanziamento dell'AI e sul petrolio.",
+  "testate": [
+   {
+    "testata": "Reuters (via Central Oregon Daily)",
+    "apertura": "Wall Street tumbles as worries about AI trade and high oil prices weigh"
+   },
+   {
+    "testata": "Reuters (via Business Standard)",
+    "apertura": "Asian stocks skid on AI worries, Wall Street and bonds aided by oil slip"
+   },
+   {
+    "testata": "Associated Press (via WSLS)",
+    "apertura": "Asian shares are mixed with tech stocks volatile, and oil falls on Trump's Russian sanctions waiver"
+   }
+  ],
+  "novita": null
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "esito": "mancante",
+  "testo": "Storico a 1 settimana e da inizio anno per Kospi, FTSE MIB e ACWI: non disponibile nei dati a disposizione",
+  "ricerche": [
+   "FMP chart/quote ^KS11: accesso negato dal piano",
+   "FMP chart/quote FTSEMIB.MI: accesso negato dal piano",
+   "Alpha Vantage INDEX_DATA: indici non abilitati",
+   "Ricerca web chiusure Kospi e FTSE MIB del 16/10: solo il dato giornaliero (Seoul Economic Daily, ANSA)"
+  ],
+  "novita": null
+ }
+]
