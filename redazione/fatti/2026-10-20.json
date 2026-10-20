@@ -1,0 +1,764 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Disordini in Francia: CAC 40 -1,1%, STOXX 600 -0,9%, banche francesi -2,5/-3,4%, FTSE MIB -1,55% (19/10)",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "Reuters (Yahoo Finance)",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/french-stocks-slide-violent-protests-071639032.html",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "French equities led losses in Europe on Monday"
+   },
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/european-shares-slip-as-france-unrest-dents-sentiment-ce785cdbdd8ff42c",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "French equities suffered their worst day in nearly two weeks on Monday, weighing on European shares"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/19/borsa-milano-chiude-in-ribasso-155_c7cc1eed-01ab-4dc9-99d3-17e3b6def870.html",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "L'indice Ftse Mib ha terminato le seduta in calo dell'1,55% a 49.086 punti."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "C01",
+  "sezione": "top_story",
+  "testo": "Le Borse europee scendono per le rivolte del weekend in Francia, scatenate dai rincari e dai servizi pubblici peggiori, in un paese già alle prese con crescita debole e debito (Reuters)",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/european-shares-slip-as-france-unrest-dents-sentiment-ce785cdbdd8ff42c",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Triggered by rising prices and worsening public services, the protests have soured investor sentiment towards a country already grappling with weak growth and rising debt."
+   },
+   {
+    "testata": "Reuters (Yahoo Finance)",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/french-stocks-slide-violent-protests-071639032.html",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "French equities led losses in Europe on Monday"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "C02",
+  "sezione": "top_story",
+  "testo": "Il rischio politico si traduce in volatilità di breve periodo (UBS Global Wealth Management)",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/european-shares-slip-as-france-unrest-dents-sentiment-ce785cdbdd8ff42c",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "There is clearly political risk and that is going to mean you get near-term volatility."
+   },
+   {
+    "testata": "Reuters (Yahoo Finance)",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/french-stocks-slide-violent-protests-071639032.html",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "French equities led losses in Europe on Monday"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Barclays -3,5%, minimo da metà giugno, dopo il Financial Times: la Bank of England esamina se trader abbiano presentato in modo errato prestiti illiquidi di private credit; conti giovedì 22 ottobre",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/european-shares-slip-as-france-unrest-dents-sentiment-ce785cdbdd8ff42c",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Among individual movers, Barclays dropped 3.5% to hit its lowest since mid June."
+   },
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/barclays-slump-in-london-boe-shines-a-spotlight-on-private-credit-AJTfB6nB",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Barclays shares fall in London as the BoE turns the spotlight on private credit"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Gli Houthi rivendicano sei attacchi in 48 ore contro obiettivi sauditi; Riad rinvia al 2027 il Future Investment Initiative, previsto il 26-29 ottobre",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "Xinhua",
+    "url": "https://english.news.cn/20261020/708046df596b4fdbb14e1288c5625501/c.html",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Roundup: Houthis claim new attacks on Saudi Arabia as Riyadh postpones its flagship investment conference"
+   },
+   {
+    "testata": "CNN",
+    "url": "https://www.cnn.com/2026/10/19/economy/saudi-arabia-cancels-investment-conference-houthi-attacks",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Saudi Arabia cancels next week's 'Davos in the Desert' conference after series of Houthi attacks"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Elice, gruppo sudcoreano di infrastrutture per l'AI, debutta in Borsa a Seul quasi il 30% sotto il prezzo di collocamento",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Reuters (Yahoo Finance)",
+    "url": "https://finance.yahoo.com/markets/world-indices/articles/asian-shares-tumble-oil-rises-021045839.html",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Shares in South Korean AI infrastructure company Elice Group plunged nearly 30% below their initial public offering price"
+   },
+   {
+    "testata": "Invezz",
+    "url": "https://invezz.com/news/2026/10/20/heres-why-kospi-and-nikkei-225-are-falling-sharply-on-october-20/",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Here's why KOSPI and Nikkei 225 are falling sharply on October 20"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Il Wall Street Journal: Putin propone un vertice a tre con Trump e Xi sull'Ucraina, senza Zelensky",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/10/19/putin-trump-xi-ukraine-war-energy.html",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Putin reportedly proposes three-way summit with Trump and Xi on Ukraine war — without Zelenskyy"
+   },
+   {
+    "testata": "Yahoo News (WSJ)",
+    "url": "https://www.yahoo.com/news/politics/articles/wsj-putin-proposes-summit-trump-233645590.html",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "WSJ: Putin Proposes Summit With Trump, Xi on Ukraine"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "BTP Valore e BTP Valore Insieme: 4,6 miliardi di euro di ordini nel primo giorno; il collocamento chiude venerdì 23 ottobre alle 13, salvo chiusura anticipata",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/19/btp-valore-il-doppio-collocamento-chiude-il-primo-giorno-a-4-6-miliardi-di-euro-239.html",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "BTP Valore, il doppio collocamento chiude il primo giorno a 4,6 miliardi di euro"
+   },
+   {
+    "testata": "La Voce d'Italia",
+    "url": "https://lavoceditalia.com/2026/10/19/837899/ordini-btp-valore-a-34-mld-per-btp-insieme-119-mld-in-primo-giorno/",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Ordini Btp Valore a 3,4 mld, per Btp Insieme 1,19 mld in primo giorno"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Amazon sale di circa il 5% e recupera la perdita della scorsa settimana dopo che Morgan Stanley l'ha indicata tra i titoli preferiti",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance (AP)",
+    "url": "https://ca.finance.yahoo.com/news/palantir-datadog-and-chip-stocks-bounce-back-as-amazon-lifts-wall-street-204043191.html",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Shares climbed 5%, recovering last week's losses after Morgan Stanley named the company a top pick."
+   },
+   {
+    "testata": "TheStreet",
+    "url": "https://pro.thestreet.com/market-commentary/tech-bounces-back-but-rising-yields-pressure-non-tech",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Tech Bounces Back but Rising Yields Pressure Non-Tech"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono. Articolo Yahoo/AP riaperto: \"Shares climbed 5%, recovering last week's losses after Morgan Stanley named the company a top pick.\""
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "testo": "Cina, terzo trimestre: PIL +4,5% annuo (atteso 4,4%); a settembre vendite al dettaglio +1,1% (atteso 0,5-0,6%), produzione industriale +5,5% (atteso 5,4-5,5%)",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/10/19/chinas-economic-growth-quickens-to-4point6percent-as-exports-surge-stimulus-rolls-out.html",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "China's third-quarter economic growth quickens to 4.5% as exports surge, beating estimates"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/china-q3-gdp-beats-forecasts-at-4-5-retail-sales-grow-at-fastest-pace-since-march/",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "China Q3 GDP beats forecasts at 4.5%, retail sales grow at fastest pace since March"
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "ufficiale_cercato": [
+   "NBS China Q3 2026 GDP press release",
+   "National Bureau of Statistics China third quarter 2026 GDP 4.5 percent press release stats.gov.cn"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "K02",
+  "sezione": "catalizzatori",
+  "testo": "USA, indice NAHB della fiducia dei costruttori edili a ottobre 29 (atteso 31; precedente 32)",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/stock-market-news/us-economic-calendar-preview-key-releases-for-the-week-of-oct-1923-2026-93CH-4958178",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "NAHB Housing Index"
+   },
+   {
+    "testata": "TheStreet",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-oct-19-2026-nasdaq-futures-climb-as-tech-rebound-from-sell-off",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Homebuilder sentiment fell to 29"
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "ufficiale_cercato": [
+   "NAHB housing market index October 2026 29 lowest since 2012 forecast",
+   "NAHB HMI October 2026 builder confidence 29 press release"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "K03",
+  "sezione": "catalizzatori",
+  "testo": "Germania, prezzi alla produzione di settembre +6,7% annuo (atteso 6,3%)",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Destatis",
+    "url": "https://www.destatis.de/DE/Presse/Pressemitteilungen/2026/10/PD26_373_61241.html",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Erzeugerpreise im September 2026: +6,7 % gegenüber September 2025"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-20-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610200832176017",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "i prezzi alla produzione dei prodotti industriali sono aumentati del 6,7% su base annua a settembre"
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Mar 20, 11:00 indice Zew tedesco di ottobre",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-20-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610200832176017",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Alle 11 sempre dalla Germania arriva l'indice Zew di ottobre."
+   },
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---19th-23rd-october-2026",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "EU/German ZEW Survey (Oct)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Mar 20, 14:30 cantieri e permessi edilizi USA di settembre (attesi 1,30 e 1,395 milioni)",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/stock-market-news/us-economic-calendar-preview-key-releases-for-the-week-of-oct-1923-2026-93CH-4958178",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "Housing Starts (Sep)"
+   },
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---19th-23rd-october-2026",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "US Building Permits (Sep)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "testo": "Mar 20, dopo la chiusura di Wall Street: Netflix e SpaceX; GM, 3M e Halliburton prima dell'apertura",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---19th-23rd-october-2026",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "Earnings: GE Aerospace, General Motors, RTX, Northrop Grumman, Hasbro, Netflix"
+   },
+   {
+    "testata": "Reuters (Yahoo Finance)",
+    "url": "https://finance.yahoo.com/markets/world-indices/articles/asian-shares-tumble-oil-rises-021045839.html",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Netflix is expected to report slowing Q3 revenue growth."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono. SpaceX: conti Q3 martedì 20/10 dopo la chiusura (basenor.com)."
+ },
+ {
+  "id": "A04",
+  "sezione": "agenda",
+  "testo": "Mer 21, dopo la chiusura di Wall Street: Tesla, Meta, IBM, Texas Instruments",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---19th-23rd-october-2026",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "Earnings: Abbott, NextEra, CME, AT&T, Tesla, IBM, Meta, Texas Instruments"
+   },
+   {
+    "testata": "TheStreet",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-oct-19-2026-nasdaq-futures-climb-as-tech-rebound-from-sell-off",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Wednesday, Oct. 21 (after close): Tesla, Meta, IBM, Texas Instruments."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "A05",
+  "sezione": "agenda",
+  "testo": "Gio 22, 14:30 sussidi di disoccupazione USA (attesi 200 mila; precedente 199 mila)",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/stock-market-news/us-economic-calendar-preview-key-releases-for-the-week-of-oct-1923-2026-93CH-4958178",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "Initial Jobless Claims"
+   },
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---19th-23rd-october-2026",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "US Jobless Claims (Oct/17)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "A06",
+  "sezione": "agenda",
+  "testo": "Gio 22: conti trimestrali di Barclays",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/barclays-slump-in-london-boe-shines-a-spotlight-on-private-credit-AJTfB6nB",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Barclays shares fall in London as the BoE turns the spotlight on private credit"
+   },
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/european-shares-slip-as-france-unrest-dents-sentiment-ce785cdbdd8ff42c",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "SAP, Barclays and Nokia report later this week."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "A07",
+  "sezione": "agenda",
+  "testo": "Ven 23, 15:45 indici PMI S&P Global USA di ottobre (servizi atteso 58,0; manifattura 55,5)",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/stock-market-news/us-economic-calendar-preview-key-releases-for-the-week-of-oct-1923-2026-93CH-4958178",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "S&P Global Services PMI (Oct)"
+   },
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---19th-23rd-october-2026",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "Global Flash PMIs (Oct)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "A08",
+  "sezione": "agenda",
+  "testo": "Ven 23: revisione del rating della Francia di Moody's; S&P sulla Germania, Scope sull'Italia",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---19th-23rd-october-2026",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "Credit Ratings: Moody's on France; S&P on Germany; Scope on Italy"
+   },
+   {
+    "testata": "Agenparl (AFP)",
+    "url": "https://agenparl.eu/2026/10/19/francia-i-disordini-pesano-sulle-borse-europee-vendite-su-banche-e-difesa-coprifuoco-in-due-zone-di-parigi/",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Francia, i disordini pesano sulle Borse europee: vendite su banche e difesa, coprifuoco in due zone di Parigi"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "A09",
+  "sezione": "agenda",
+  "testo": "Mar 20: tasso di riferimento sui prestiti (LPR) della Cina di ottobre",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---19th-23rd-october-2026",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "Chinese LPR (Oct)"
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/stock-market-news/us-economic-calendar-preview-key-releases-for-the-week-of-oct-1923-2026-93CH-4958178",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "Chinese LPR"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "D1",
+  "sezione": "deep_dive",
+  "testo": "Cina, primi nove mesi: PIL +4,6%, dentro l'obiettivo annuale 4,5-5%",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/international/2026/10/19/chinas-third-quarter-gdp-grows-45-percent-beating-forecasts",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "China's Third-Quarter GDP Grows 4.5%, Beating Forecasts"
+   },
+   {
+    "testata": "SANA",
+    "url": "https://sana.sy/en/economic/2352161/",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "China's economy grows 4.6% in first nine months"
+   }
+  ],
+  "novita": null
+ },
+ {
+  "id": "D2",
+  "sezione": "deep_dive",
+  "testo": "Borse europee 19/10: CAC 40 -1,1%, DAX -1,2%, IBEX 35 -1,5%, STOXX 600 -0,9%; bancari italiani: Banco BPM -3,7%, Intesa -2,2%, UniCredit -2,1%",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "Agenparl (AFP)",
+    "url": "https://agenparl.eu/2026/10/19/francia-i-disordini-pesano-sulle-borse-europee-vendite-su-banche-e-difesa-coprifuoco-in-due-zone-di-parigi/",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Francia, i disordini pesano sulle Borse europee: vendite su banche e difesa, coprifuoco in due zone di Parigi"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-19-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610190734137681",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Borse oggi in diretta"
+   },
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/european-shares-slip-as-france-unrest-dents-sentiment-ce785cdbdd8ff42c",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "France's blue-chip CAC 40 index fell 1.1%, while the pan-European STOXX 600 index slipped 0.9% to 639.1 points."
+   }
+  ],
+  "novita": null
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "Spread sul Bund in chiusura il 19/10: OAT francese 147 pb, BTP 112 pb; BTP a 10 anni al 4,58% (Milano Finanza)",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-19-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610190734137681",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "BTP-Bund spread close 112 points; OAT-Bund spread 147 points"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true
+ },
+ {
+  "id": "M02",
+  "sezione": "estremo",
+  "testo": "Alle 07:02 Kospi -3,92% e Nikkei 225 -0,98% (Reuters)",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Reuters (Yahoo Finance)",
+    "url": "https://finance.yahoo.com/markets/world-indices/articles/asian-shares-tumble-oil-rises-021045839.html",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "South Korea's KOSPI tumbled 3.92%."
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true
+ },
+ {
+  "id": "M03",
+  "sezione": "mercati",
+  "testo": "Alle 07:02: future S&P 500 +0,12% a 7.743,5; future Euro Stoxx 50 -0,57%; Brent 109,64 $; EUR/USD 1,1229; oro spot 4.145,25 $ (Reuters)",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Reuters (Yahoo Finance)",
+    "url": "https://finance.yahoo.com/markets/world-indices/articles/asian-shares-tumble-oil-rises-021045839.html",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "S&P 500 e-minis +0.12% to 7,743.5"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true
+ },
+ {
+  "id": "M04",
+  "sezione": "mercati",
+  "testo": "Hong Kong chiusa lunedì 19 ottobre per la festa del Chung Yeung: ultimo dato dell'Hang Seng del 16/10",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "Tiger Brokers",
+    "url": "https://www.itiger.com/news/1176122685",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Reminder: Hong Kong Market Will Be Closed on Monday, October 19, for the Double Ninth Festival"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true
+ },
+ {
+  "id": "M05",
+  "sezione": "mercati",
+  "testo": "Kospi chiude il 19/10 a 5.768,01 (+1,76%)",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/finance/2026/10/20/kospi-slides-more-than-2-percent-despite-us-chip-rebound",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Prior close: 5,768.01"
+   },
+   {
+    "testata": "Invezz",
+    "url": "https://invezz.com/news/2026/10/20/heres-why-kospi-and-nikkei-225-are-falling-sharply-on-october-20/",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "a day after a 1.76% rebound on Monday"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true
+ },
+ {
+  "id": "M06",
+  "sezione": "mercati",
+  "testo": "FTSE MIB chiude il 19/10 a 49.086 punti (-1,55%), dopo i 49.857 del 16/10 (+0,93%)",
+  "data_evento": "2026-10-19",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/19/borsa-milano-chiude-in-ribasso-155_c7cc1eed-01ab-4dc9-99d3-17e3b6def870.html",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "L'indice Ftse Mib ha terminato le seduta in calo dell'1,55% a 49.086 punti."
+   },
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/ftse-mib-a-49857-punti-093-cosa-segnala-la-chiusura-di-milano",
+    "data_pubblicazione": "2026-10-16",
+    "citazione": "Ftse Mib a 49.857 punti (+0,93%): cosa segnala la chiusura di Milano"
+   }
+  ],
+  "novita": null
+ },
+ {
+  "id": "C03",
+  "sezione": "top_news",
+  "testo": "Corea: il Kospi cede oltre il 3% nonostante il rimbalzo dei chip USA (indice dei semiconduttori di Filadelfia +1,61% lunedì), per le vendite nette di stranieri e istituzioni e per i rendimenti USA in rialzo (Seoul Economic Daily, Korea Herald)",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/finance/2026/10/20/kospi-slides-more-than-2-percent-despite-us-chip-rebound",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Foreign and institutional selling outweighed a U.S. chip rebound overnight."
+   },
+   {
+    "testata": "The Herald Business",
+    "url": "https://biz.heraldcorp.com/article/10908217",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Foreign investors net sold 190 billion won and institutions net sold 180 billion won."
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "testo": "",
+  "data_evento": "2026-10-20",
+  "fonti": [],
+  "concorda": false,
+  "motivo": "Le aperture di Asia e USA puntano sui tecnologici e sui conti dell'AI; noi apriamo sulla Francia perché a Piazza Affari e in Europa è il movimento più ampio e quello che pesa sulle banche italiane.",
+  "testate": [
+   {
+    "testata": "Reuters (via MarketScreener)",
+    "apertura": "European shares slip as France unrest dents sentiment"
+   },
+   {
+    "testata": "Reuters (via Yahoo Finance)",
+    "apertura": "European shares slip on French unrest; earnings in focus"
+   },
+   {
+    "testata": "Reuters (via Yahoo Finance, Tokyo)",
+    "apertura": "Shares stumble, oil rises as investors await AI sector earnings"
+   },
+   {
+    "testata": "CNBC",
+    "apertura": "Stock futures mixed after tech shares rebound to start the week"
+   },
+   {
+    "testata": "Agenparl (AFP)",
+    "apertura": "Francia, i disordini pesano sulle Borse europee: vendite su banche e difesa"
+   }
+  ]
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "testo": "Kospi -3,9% alle 07:02 mentre i chip USA salgono",
+  "data_evento": "2026-10-20",
+  "fonti": [],
+  "ricerche": [
+   "Kospi closes October 20 2026 foreign selling chip stocks close",
+   "Kospi Nikkei close Tuesday October 20 2026",
+   "Seoul shares close sharply lower Yonhap Kospi ends Tuesday chip foreign selling",
+   "Here's why KOSPI and Nikkei 225 are falling sharply on October 20"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Vendite nette di stranieri e istituzioni sui titoli dei chip",
+    "fonte": "C03",
+    "prevede": "Azioni coreane in calo, titoli dei chip i più colpiti, privati compratori",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Rendimenti USA in rialzo e instabilità in Francia riducono la voglia di rischio",
+    "fonte": null,
+    "prevede": "Rendimenti USA su, Borse europee giù, VIX e oro non in forte rialzo",
+    "prezzi": "in parte"
+   },
+   {
+    "causa": "Cautela prima dei conti di Meta e Tesla",
+    "fonte": null,
+    "prevede": "Poca direzione prima dei conti, non un calo del 4%",
+    "prezzi": "non torna"
+   }
+  ],
+  "esito": "C03"
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "testo": "FTSE MIB: variazione a una settimana e da inizio anno non disponibili",
+  "data_evento": "2026-10-20",
+  "fonti": [],
+  "ricerche": [
+   "FMP FTSEMIB.MI index-historical-price-eod-light: piano non incluso",
+   "Piazza Affari chiusura 12 ottobre 2026 Ftse Mib punti",
+   "Ftse Mib da inizio anno 2026 performance ottobre punti",
+   "Borsa Milano chiude 16 ottobre 2026 Ftse Mib punti chiusura"
+  ],
+  "esito": "mancante"
+ }
+]

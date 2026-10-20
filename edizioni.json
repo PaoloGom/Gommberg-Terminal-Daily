@@ -464,5 +464,166 @@
    "WTI",
    "SEC"
   ]
+ },
+ {
+  "numero": 7,
+  "data": "2026-10-20",
+  "titolo": "Disordini in Francia: lo spread sale e le Borse europee cedono circa l'1%",
+  "sommario": [
+   "Il Nasdaq rimbalza con Amazon e i chip, ma Seul continua a vendere i semiconduttori.",
+   "Cina: il PIL del terzo trimestre batte le attese, ma investimenti e immobili frenano.",
+   "Questa settimana i conti di Netflix, Tesla, Meta e IBM e il rating della Francia."
+  ],
+  "file": "pdf/2026-10-20-gommberg-007.pdf",
+  "nome": "2026-10-20 Gommberg Terminal Daily #007.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Barclays perde il 3,5% dopo l'indiscrezione sul private credit",
+   "Houthi: sei attacchi in 48 ore contro l'Arabia Saudita",
+   "Seul, debutto choc in Borsa per Elice: quasi -30% sul prezzo di collocamento",
+   "Putin propone un vertice a tre con Trump e Xi sull'Ucraina",
+   "BTP Valore, 4,6 miliardi di ordini nel primo giorno",
+   "Amazon recupera la perdita della settimana dopo la promozione di Morgan Stanley"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "158,12 $",
+    "+0,2% g"
+   ],
+   [
+    "S&P 500",
+    "7.690,73",
+    "+0,4% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.112,10",
+    "-0,8% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "5,15%",
+    "+6 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "109,55 $",
+    "-0,3% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1210",
+    "-0,3% g"
+   ],
+   [
+    "VIX",
+    "18,44",
+    "-1,55 g"
+   ]
+  ],
+  "dek": "Dopo un weekend di rivolte per i rincari e per i servizi pubblici peggiorati, con coprifuoco parziali a Parigi, Lille e Nizza, lunedì il CAC 40 perde l'1,1% e lo STOXX 600, l'indice dei 600 maggiori titoli europei, lo 0,9%; le banche francesi cedono tra il 2,5% e il 3,4% (Reuters). Lo spread tra OAT (titoli di Stato francesi) e Bund (titoli di Stato tedeschi) chiude a 147 pb (punti base, centesimi di punto percentuale), contro i 112 del BTP (titoli di Stato italiani): Parigi paga più di Roma per finanziarsi (Milano Finanza).",
+  "ticker_al": "2026-10-19",
+  "scommessa": {
+   "settimana": "2026-10-19/2026-10-23",
+   "su": 6,
+   "variabile": {
+    "nome": "Oro (future, $/oncia)",
+    "motivo": "Credito sull'AI, petrolio a 110 $ e Fed in bilico: l'oro dice se i mercati cercano un rifugio"
+   },
+   "strada": 5,
+   "range": 6,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     true,
+     true
+    ],
+    [
+     "S&P 500",
+     "su",
+     true,
+     true
+    ],
+    [
+     "Euro Stoxx 50",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "Brent future",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Oro (future, $/oncia)",
+     "su",
+     false,
+     true,
+     true
+    ]
+   ]
+  },
+  "temi": [
+   "Europa",
+   "Chip",
+   "Cina",
+   "Petrolio",
+   "Banche",
+   "Trimestrali"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Cina",
+    "titolo": "La Cina accelera grazie all'export, mentre gli investimenti continuano a frenare",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Chip",
+    "titolo": "Seul non crede al rimbalzo di Nasdaq e chip americani: a vendere sono stranieri e istituzioni",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Europa",
+    "titolo": "Il rischio Francia ora costa più del rischio Italia: Parigi paga 35 punti base in più di Roma",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [
+   "M13",
+   "M17"
+  ],
+  "parole": [
+   "Rating",
+   "Private credit",
+   "Ampiezza di mercato"
+  ],
+  "ripetizioni": 4,
+  "glossario": [
+   "PMI",
+   "ZEW",
+   "pb",
+   "BTP",
+   "Bund",
+   "OAT",
+   "VIX",
+   "ACWI",
+   "Brent"
+  ]
  }
 ]
