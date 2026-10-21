@@ -625,5 +625,168 @@
    "ACWI",
    "Brent"
   ]
+ },
+ {
+  "numero": 8,
+  "data": "2026-10-21",
+  "titolo": "Il petrolio torna sopra i 110 $ mentre le borse tentano il rimbalzo",
+  "sommario": [
+   "L'inflazione britannica accelera con i carburanti e rafforza l'attesa di un rialzo a novembre della Bank of England.",
+   "Super Micro e SpaceX riaccendono i titoli dell'intelligenza artificiale: Seul sale più di Tokyo.",
+   "Wall Street si divide: il Dow corre con la sanità, il Nasdaq resta fermo."
+  ],
+  "file": "pdf/2026-10-21-gommberg-008.pdf",
+  "nome": "2026-10-21 Gommberg Terminal Daily #008.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Super Micro alza la guida e vola dopo la chiusura",
+   "SpaceX batte le stime e apre alla fusione con Tesla",
+   "Seul: Elice rimbalza il giorno dopo il crollo",
+   "Francia: il divario con la Germania supera 1,5 punti percentuali",
+   "Netflix cede il 5,6% fuori orario dopo i conti",
+   "Generali elimina il ruolo di direttore generale"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "158,77 $",
+    "+0,4% g"
+   ],
+   [
+    "S&P 500",
+    "7.712,57",
+    "+0,3% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.112,10",
+    "-0,8% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "5,12%",
+    "-3 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "108,79 $",
+    "-0,7% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1236",
+    "+0,2% g"
+   ],
+   [
+    "VIX",
+    "17,31",
+    "-1,13 g"
+   ]
+  ],
+  "dek": "Dopo aver sfiorato martedì i 112 $, il massimo dall'inizio della guerra con l'Iran (Il Sole 24 Ore), il Brent (petrolio di riferimento europeo) risale stamattina oltre quella soglia, mentre i future su Europa e Stati Uniti indicano un'apertura positiva (Milano Finanza).",
+  "ticker_al": "2026-10-20",
+  "ticker_dal": "2026-10-19",
+  "scommessa": {
+   "settimana": "2026-10-19/2026-10-23",
+   "su": 6,
+   "variabile": {
+    "nome": "Oro (future, $/oncia)",
+    "motivo": "Credito sull'AI, petrolio a 110 $ e Fed in bilico: l'oro dice se i mercati cercano un rifugio"
+   },
+   "strada": 5,
+   "range": 6,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     true,
+     true
+    ],
+    [
+     "S&P 500",
+     "su",
+     true,
+     true
+    ],
+    [
+     "Euro Stoxx 50",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "Brent future",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Oro (future, $/oncia)",
+     "su",
+     false,
+     true,
+     true
+    ]
+   ]
+  },
+  "temi": [
+   "Petrolio",
+   "Inflazione",
+   "Wall Street",
+   "Chip",
+   "Europa",
+   "Trimestrali"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Inflazione",
+    "titolo": "Regno Unito: i carburanti spingono l'inflazione e avvicinano il rialzo della Bank of England",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Wall Street",
+    "titolo": "Dopo il rimbalzo dei tecnologici, ieri la guida di Wall Street è passata a sanità e piccole imprese",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Petrolio",
+    "titolo": "Il Brent corre tra speranze di accordo e attacchi alle petroliere: in un mese ha oscillato senza una direzione",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [
+   "M10",
+   "M11"
+  ],
+  "parole": [
+   "Escursione",
+   "Differenziale (spread)",
+   "Guidance"
+  ],
+  "ripetizioni": 7,
+  "glossario": [
+   "core",
+   "PMI",
+   "ZEW",
+   "pb",
+   "BTP",
+   "Bund",
+   "VIX",
+   "ACWI",
+   "Brent",
+   "EIA"
+  ]
  }
 ]

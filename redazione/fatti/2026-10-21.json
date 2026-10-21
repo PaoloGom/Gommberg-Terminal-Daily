@@ -1,0 +1,821 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Il Brent torna sopra i 110 $ stamattina dopo aver sfiorato martedì i 112 $, massimo dall'inizio della guerra con l'Iran; Wall Street chiude divisa (Dow +1,02%, Nasdaq fermo)",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/stock-market-index-performance-on-wednesday-21-october-2026-AJ8wCvpB",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "approaching its highest price since the start of the war with Iran in late February."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/cina-in-rosso-petrolio-oltre-110-dollari-nikkei-e-kospi-in-corsa-grazie-super-micro-e-tesla-202610210742049416",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Il petrolio Wti americano è salito mercoledì verso i 99 dollari al barile (Brent a 110 dollari)"
+   }
+  ],
+  "novita": "Brent di nuovo oltre i 110 $ dopo il quasi-massimo di martedì",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "C01",
+  "sezione": "top_story",
+  "testo": "Pesano gli attacchi alle petroliere: almeno 18 navi colpite in due settimane (Trading Economics); per Morgan Stanley gli attacchi vicino a Hormuz sono saliti fino a 12 a settimana (Milano Finanza)",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "Trading Economics",
+    "url": "https://tradingeconomics.com/commodity/brent-crude-oil/news/535310",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "At least 18 vessels have also come under attack in the Strait of Hormuz over the past two weeks."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-21-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610210743514745",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "quota 12 a settimana"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "Wall Street 20/10: S&P 500 +0,28% a 7.713, Dow +1,02% a 52.497, Nasdaq 100 -0,13%; Russell 2000 +1,67% (Newsquawk)",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-daily-european-equity-opening-news---21st-october-2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "CLOSES: SPX +0.28% at 7,713, NDX -0.13% at 29,490, DJI +1.02% at 52,497, RUT +1.67% at 2,774"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "M02",
+  "sezione": "mercati",
+  "testo": "FTSE MIB chiude il 20/10 a 49.071 punti (-0,03%); spread BTP-Bund a 112,4 punti (ANSA)",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/20/borsa-milano-chiude-quasi-invariata-ftse-mib-003_7e80bf72-59e5-42e3-b231-65503ffaee86.html",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Borsa: Milano chiude quasi invariata, Ftse Mib -0,03%"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/10/20/lo-spread-btp-bund-a-1124-punti_41493d8b-d9bb-471a-ad5f-0add72a1256c.html",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Lo spread Btp-Bund a 112,4 punti"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "M03",
+  "sezione": "mercati",
+  "testo": "Spread OAT-Bund a circa 152 pb il 20/10 (Milano Finanza); BTP a 10 anni al 4,52% in mattinata (Milano Finanza)",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borsa-commento-di-chiusura-202610201828015319",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Il differenziale OAT-Bund è a circa 152 punti base"
+   },
+   {
+    "testata": "Ideal Investisseur",
+    "url": "https://www.ideal-investisseur.fr/en/markets/oat-bund-spread.html",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "OAT / Bund spread today: 150.8 bps as of Oct 20, 2026"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "M04",
+  "sezione": "mercati",
+  "testo": "Euro Stoxx 50: chiusura del 20/10 non confermata (FMP e Newsquawk discordano), resta quella del 19/10 a 6.112,10",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-daily-european-equity-opening-news---21st-october-2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "CLOSES: SPX +0.28% at 7,713, NDX -0.13% at 29,490, DJI +1.02% at 52,497, RUT +1.67% at 2,774"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "M05",
+  "sezione": "estremo",
+  "testo": "Kospi chiude il 20/10 a 5.553,08 (-3,73%); stamattina alle 07:30 +2,5% (Milano Finanza)",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "KuCoin News",
+    "url": "https://www.kucoin.com/news/flash/kospi-closes-down-3-73-to-5553-08-on-october-20",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "KOSPI closes down 3.73% to 5,553.08 on October 20."
+   },
+   {
+    "testata": "UPI",
+    "url": "https://www.upi.com/Top_News/World-News/2026/10/20/kospi-stock-market/4271792535873/",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "South Korea's Kospi plunges 3.73%, erasing two-day rebound"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "M06",
+  "sezione": "mercati",
+  "testo": "Alle 07:30 Nikkei +1%, Kospi +2,5%, Hong Kong -0,5%, Shanghai -0,4%; future Nasdaq +0,7% (Milano Finanza)",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/cina-in-rosso-petrolio-oltre-110-dollari-nikkei-e-kospi-in-corsa-grazie-super-micro-e-tesla-202610210742049416",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "il Nikkei guadagna l’1% alle oe 7:30 italiane, il Kospi il 2,5%"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/cina-in-rosso-petrolio-oltre-110-dollari-nikkei-e-kospi-in-corsa-grazie-super-micro-e-tesla-202610210742049416",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Hong Kong -0,5%, Shanghai -0,4%"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "M07",
+  "sezione": "mercati",
+  "testo": "Alle 07:43: future Euro Stoxx 50 +0,34%, S&P 500 +0,31%, Dow +0,17%; Brent 110,22 $ (+1,31%), WTI 99 $; euro -0,11% sul dollaro (Milano Finanza)",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-21-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610210743514745",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Brent: +1,31% a 110,22 dollari"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "M08",
+  "sezione": "mercati",
+  "testo": "Hong Kong chiusa lunedì 19 ottobre per la festa del Chung Yeung: Hang Seng a 23.867,75 il 20/10 contro 24.186,84 del 16/10",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Tiger Brokers",
+    "url": "https://www.itiger.com/news/1176122685",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Reminder: Hong Kong Market Will Be Closed on Monday, October 19, for the Double Ninth Festival"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Super Micro sale di quasi il 17% fuori orario dopo aver alzato nettamente le previsioni sul primo trimestre e sui margini; in Asia i risultati riaccendono i titoli dell'AI",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-daily-european-equity-opening-news---21st-october-2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Shares surged almost 17% in extended trading after it sharply raised its Q1 outlook"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/cina-in-rosso-petrolio-oltre-110-dollari-nikkei-e-kospi-in-corsa-grazie-super-micro-e-tesla-202610210742049416",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "i risultati del produttore di server Super Micro Computer"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "C02",
+  "sezione": "top_news",
+  "testo": "Kospi in rialzo stamattina perché i conti di Super Micro e SpaceX hanno restituito fiducia agli investitori (KED Global, Milano Finanza)",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "KED Global",
+    "url": "https://www.kedglobal.com/korean-stock-market/newsView/ked202610210002",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "as strong earnings from US AI server provider Super Micro Computer Inc. and SpaceX restored investor confidence."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/cina-in-rosso-petrolio-oltre-110-dollari-nikkei-e-kospi-in-corsa-grazie-super-micro-e-tesla-202610210742049416",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "i risultati del produttore di server Super Micro Computer"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "SpaceX sale del 9,3% fuori orario dopo conti sopra le stime; Musk parla di comitati speciali per valutare una fusione con Tesla",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/10/20/spacex-spcx-earnings-live-updates-q3-2026html.html",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Musk says Tesla and SpaceX formed special committees to discuss merger: Live updates"
+   },
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-daily-european-equity-opening-news---21st-october-2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "SpaceX shares rose 9.3% in extended trading after a sharp increase in AI revenue drove a swing to profit"
+   }
+  ],
+  "novita": "Prima volta che SpaceX e Tesla parlano di fusione con comitati speciali",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Seul: Elice, caduta del 32% al debutto martedì, sale fino al limite giornaliero (+29,9%) mercoledì",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/stock-market-index-performance-on-wednesday-21-october-2026-AJ8wCvpB",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Its shares hit the daily upper limit, rising by 29.9 per cent."
+   }
+  ],
+  "novita": "Rimbalzo del titolo il giorno dopo il crollo del debutto già raccontato",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Francia: il differenziale OAT-Bund a 10 anni ha chiuso sopra 1,5 punti percentuali per la prima volta dal gennaio 2012; per Olli Rehn si è allargato in qualche misura",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-21-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610210743514745",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "ha chiuso sopra 1,5 punti percentuali per la prima volta dal gennaio 2012"
+   },
+   {
+    "testata": "Bloomberg",
+    "url": "https://www.bloomberg.com/news/articles/2026-10-20/ecb-s-rehn-says-french-spread-to-germany-has-widened-somewhat",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "ECB's Rehn Says French Spread to Germany Has Widened 'Somewhat'"
+   }
+  ],
+  "novita": "Nuovo massimo dal 2012 dopo i 147 pb del 19/10",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Netflix -5,6% fuori orario: ricavi in crescita al ritmo più lento da tre anni e previsioni deboli per il quarto trimestre",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-daily-european-equity-opening-news---21st-october-2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Netflix shares fell 5.6% in extended trading after it reported its slowest revenue growth in three years"
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/stock-market-news/us-economic-calendar-preview-key-releases-for-the-week-of-oct-1923-2026-93CH-4958178",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Netflix reported a profit beat, but its shares fell over 5% after hours on soft current-quarter revenue guidance."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Generali: il cda elimina il ruolo di direttore generale; dal 31 dicembre lasciano Marco Sesana e Jaime Anchústegui, deleghe a Giulio Terzariol",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/20/generali-via-libera-del-cda-all-evoluzione-dell-assetto-organizzativo-di-gruppo-217.html",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Con effetto dal 31 dicembre 2026, Marco Sesana e Jaime Anchústegui lasceranno il Gruppo."
+   },
+   {
+    "testata": "Investing.com (Reuters)",
+    "url": "https://it.investing.com/news/stock-market-news/generali-rivede-struttura-di-vertice-elimina-ruolo-direttore-generale-3596914",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Generali rivede struttura di vertice, elimina ruolo direttore generale"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "C03",
+  "sezione": "deep_dive",
+  "testo": "Il contributo maggiore all'inflazione britannica viene dai trasporti, in particolare i carburanti: benzina +8,2 pence al litro tra agosto e settembre, diesel +10,7 (ONS)",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "ONS",
+    "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/september2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "The largest upward contribution came from transport, particularly motor fuels."
+   },
+   {
+    "testata": "ONS",
+    "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/september2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "The average price of petrol rose by 8.2 pence per litre between August and September 2026"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "Prima del dato il rialzo della Bank of England di novembre era quasi del tutto scontato dal mercato (investingLive, FXStreet)",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/heads-up-uk-september-cpi-inflation-report-due-today-boe-rate-hike-for-november-almost-fully-priced-in/",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "markets are already heavily anticipating another BOE rate hike in November"
+   },
+   {
+    "testata": "FXStreet",
+    "url": "https://www.fxstreet.com/news/uk-cpi-set-to-accelerate-paving-the-way-for-a-boe-interest-rate-hike-in-november-202610210200",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "UK CPI set to accelerate, paving the way for a BoE interest rate hike in November"
+   }
+  ],
+  "novita": "Primo dato sul rialzo di novembre",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "Inflazione britannica a settembre: generale 3,5% (atteso 3,4%, agosto 3,1%); core 2,8% (agosto 2,6%, atteso 2,8%); servizi 3,7% (agosto 3,4%, atteso 3,6%)",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "ONS",
+    "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/september2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "The Consumer Prices Index (CPI) rose by 3.5% in the 12 months to September 2026, up from 3.1% the previous month."
+   },
+   {
+    "testata": "Investing.com (Reuters)",
+    "url": "https://investing.com/news/economy-news/uk-inflation-picks-up-more-than-expected-to-35-in-september-4961639",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "UK inflation jumps to highest in nearly a year at 3.5%"
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "D03",
+  "sezione": "mercati",
+  "testo": "Wall Street 20/10: sanità +2,34%, immobiliare +1,7%, comunicazioni -0,89% (Newsquawk)",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-daily-european-equity-opening-news---21st-october-2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "CLOSES: SPX +0.28% at 7,713, NDX -0.13% at 29,490, DJI +1.02% at 52,497, RUT +1.67% at 2,774"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Le scorte USA di greggio sono calate di 4,9 milioni di barili nella settimana al 16 ottobre, stima API (Milano Finanza)",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-21-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610210743514745",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "le scorte statunitensi di greggio sono calate di 4,9 milioni di barili"
+   },
+   {
+    "testata": "Business Recorder (Reuters)",
+    "url": "https://www.brecorder.com/news/40445237/oil-rises-on-middle-east-supply-worries",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "According to market sources citing API data, US crude stocks fell by 4.9 million barrels in the week ended October 16."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "testo": "Il Brent cede lo 0,7% martedì su speranze di diplomazia tra Usa e Iran, mentre gli attacchi alle petroliere continuano (Trading Economics)",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Trading Economics",
+    "url": "https://tradingeconomics.com/commodity/brent-crude-oil/news/535310",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Brent Falls on Hopes of US-Iran Diplomacy"
+   },
+   {
+    "testata": "Business Recorder (Reuters)",
+    "url": "https://www.brecorder.com/news/40445237/oil-rises-on-middle-east-supply-worries",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "We believe this is a mix of profit taking and optimistic hopes of a Qatar- or Pakistan-brokered deal,"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "testo": "Germania, indice ZEW di ottobre 28,1 (atteso 30,2; settembre 34,7)",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borsa-commento-di-chiusura-202610201828015319",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "l'indice Zew sul clima economico in Germania è sceso a 28,1 punti a ottobre dai 34,7 punti di settembre."
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "ufficiale_cercato": [
+   "ZEW Economic Sentiment October 2026 28.1 press release",
+   "German ZEW economic sentiment October 2026 falls to 28.1 expectations 30.2"
+  ],
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "K02",
+  "sezione": "catalizzatori",
+  "testo": "USA, settembre: nuovi cantieri residenziali -5,2% m/m (sotto le attese), permessi -0,2%",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borsa-commento-di-chiusura-202610201828015319",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "i nuovi cantieri residenziali sono diminuiti del 5,2% a settembre rispetto al mese precedente"
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "ufficiale_cercato": [
+   "Census Bureau New Residential Construction September 2026 housing starts press release",
+   "US housing starts September 2026 fell 5.2% annual rate million building permits expectations"
+  ],
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "K03",
+  "sezione": "catalizzatori",
+  "testo": "Cina, tassi di riferimento sui prestiti a 1 e 5 anni invariati a 3,00% e 3,50%, per il 17° mese",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "FXStreet",
+    "url": "https://www.fxstreet.com/news/confirmed-pboc-leaves-loan-prime-rates-unchanged-in-october-202610200102",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "The one-year and five-year LPRs were at 3.00% and 3.50%, respectively."
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/investinglive-asia-pacific-market-news-china-holds-rates/",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "investingLive Asia-Pacific market news: China holds rates"
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "ufficiale_cercato": [
+   "China loan prime rate October 20 2026 LPR unchanged PBOC",
+   "PBOC LPR 1-year 5-year October 2026 loan prime rate held"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "K05",
+  "sezione": "catalizzatori",
+  "testo": "Regno Unito, inflazione di settembre 3,5% a/a (atteso 3,4%), core 2,8%",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "ONS",
+    "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/september2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "The Consumer Prices Index (CPI) rose by 3.5% in the 12 months to September 2026, up from 3.1% the previous month."
+   },
+   {
+    "testata": "Investing.com (Reuters)",
+    "url": "https://investing.com/news/economy-news/uk-inflation-picks-up-more-than-expected-to-35-in-september-4961639",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "UK inflation jumps to highest in nearly a year at 3.5%"
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Mer 21, 16:30 scorte petrolifere USA (EIA); API: -4,9 milioni di barili nella settimana al 16 ottobre",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/stock-market-news/us-economic-calendar-preview-key-releases-for-the-week-of-oct-1923-2026-93CH-4958178",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "EIA Crude Inventories"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-21-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610210743514745",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "le scorte statunitensi di greggio sono calate di 4,9 milioni di barili"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "A04",
+  "sezione": "agenda",
+  "testo": "Mer 21, dopo la chiusura di Wall Street: Tesla, Meta, IBM, Texas Instruments",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---19th-23rd-october-2026",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "Earnings: Abbott, NextEra, CME, AT&T, Tesla, IBM, Meta, Texas Instruments"
+   },
+   {
+    "testata": "TheStreet",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-oct-19-2026-nasdaq-futures-climb-as-tech-rebound-from-sell-off",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Wednesday, Oct. 21 (after close): Tesla, Meta, IBM, Texas Instruments."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "A05",
+  "sezione": "agenda",
+  "testo": "Gio 22, 14:30 sussidi di disoccupazione USA (attesi 200 mila; precedente 199 mila)",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/stock-market-news/us-economic-calendar-preview-key-releases-for-the-week-of-oct-1923-2026-93CH-4958178",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "Initial Jobless Claims"
+   },
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---19th-23rd-october-2026",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "US Jobless Claims (Oct/17)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "A06",
+  "sezione": "agenda",
+  "testo": "Gio 22: conti trimestrali di Barclays",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/barclays-slump-in-london-boe-shines-a-spotlight-on-private-credit-AJTfB6nB",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Barclays shares fall in London as the BoE turns the spotlight on private credit"
+   },
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/european-shares-slip-as-france-unrest-dents-sentiment-ce785cdbdd8ff42c",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "SAP, Barclays and Nokia report later this week."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "A07",
+  "sezione": "agenda",
+  "testo": "Ven 23, 15:45 indici PMI S&P Global USA di ottobre (servizi atteso 58,0; manifattura 55,5)",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/stock-market-news/us-economic-calendar-preview-key-releases-for-the-week-of-oct-1923-2026-93CH-4958178",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "S&P Global Services PMI (Oct)"
+   },
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---19th-23rd-october-2026",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "Global Flash PMIs (Oct)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "A08",
+  "sezione": "agenda",
+  "testo": "Ven 23: rating della Francia di Moody's; S&P sulla Germania, Scope sull'Italia",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---19th-23rd-october-2026",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "Credit Ratings: Moody's on France; S&P on Germany; Scope on Italy"
+   },
+   {
+    "testata": "Agenparl (AFP)",
+    "url": "https://agenparl.eu/2026/10/19/francia-i-disordini-pesano-sulle-borse-europee-vendite-su-banche-e-difesa-coprifuoco-in-due-zone-di-parigi/",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Francia, i disordini pesano sulle Borse europee: vendite su banche e difesa, coprifuoco in due zone di Parigi"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "C04",
+  "sezione": "deep_dive",
+  "testo": "I rendimenti dei Treasury scendono dopo i dati deboli sui cantieri residenziali (CNBC, Investing.com)",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/10/20/us-treasury-yields-investors-economy.html",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "10-year Treasury yield moves lower after weak housing data"
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/analysis/us-10year-treasury-yield-slips-as-housing-starts-fall-52-200689930",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "US 10-Year Treasury Yield Slips as Housing Starts Fall 5.2%"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le citazioni delle fonti indicate: data, cifre e attribuzione coincidono."
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "testo": "Inflazione britannica sopra le attese ma Treasury a 10 anni -3 pb e S&P 500 +0,28%",
+  "data_evento": "2026-10-21",
+  "fonti": [],
+  "fatto": "Regno Unito: inflazione 3,5% contro 3,4% atteso, ma il rendimento del Treasury a 10 anni scende di 3 pb e l'S&P 500 sale dello 0,28%",
+  "ricerche": [
+   "UK inflation September 2026 CPI ONS released today expected",
+   "Treasury yields fall Tuesday October 20 2026 10-year 30-year why bond market"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Il dato britannico non muove i Treasury: il calo dei rendimenti USA del 20/10 segue i dati deboli sui cantieri",
+    "fonte": "C04",
+    "prevede": "Rendimenti USA in calo il 20/10, prima del dato britannico, e sterlina/Gilt più sensibili",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Il petrolio più caro alza l'inflazione attesa e quindi i rendimenti",
+    "fonte": null,
+    "prevede": "Rendimenti lunghi in rialzo con il Brent",
+    "prezzi": "non torna"
+   }
+  ],
+  "esito": "C04"
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "testo": "",
+  "data_evento": "2026-10-21",
+  "fonti": [],
+  "concorda": true,
+  "motivo": "Le aperture combinano petrolio sopra i 110 $ e conti dell'AI; apriamo sul petrolio, presente in tutti i titoli e legato a inflazione e tassi.",
+  "testate": [
+   {
+    "testata": "Reuters (via Business Recorder)",
+    "apertura": "Oil rises on Middle East supply worries"
+   },
+   {
+    "testata": "FIRSTonline",
+    "apertura": "Borse oggi tentano il rimbalzo. Ottimismo per l'AI dopo trimestrali oltre le attese. Ma il petrolio resta sopra 110 dollari"
+   },
+   {
+    "testata": "Milano Finanza",
+    "apertura": "Cina in rosso, petrolio oltre 110 dollari: Nikkei e Kospi in corsa grazie Super Micro e Tesla"
+   },
+   {
+    "testata": "Il Sole 24 Ore",
+    "apertura": "Stock markets: mixed performance in Asia. Brent crude continues to rise"
+   }
+  ]
+ }
+]
