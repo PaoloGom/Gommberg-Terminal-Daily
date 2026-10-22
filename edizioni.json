@@ -788,5 +788,170 @@
    "Brent",
    "EIA"
   ]
+ },
+ {
+  "numero": 9,
+  "data": "2026-10-22",
+  "titolo": "Il petrolio sale sopra i 110 $ mentre gli USA fanno partire diplomatici dall'Arabia Saudita",
+  "sommario": [
+   "L'Asia vende AI e chip nonostante il rialzo di Wall Street.",
+   "Meta, Tesla e IBM battono le stime, ma il mercato guarda la spesa in investimenti.",
+   "La Francia paga più dell'Italia per finanziarsi e domani sera decide Moody's."
+  ],
+  "file": "pdf/2026-10-22-gommberg-009.pdf",
+  "nome": "2026-10-22 Gommberg Terminal Daily #009.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Meta batte i ricavi e vara il frazionamento 2 a 1",
+   "Tesla batte le stime e taglia le spese in investimenti per il 2026",
+   "IBM sopra le attese, confermata la crescita dei ricavi 2026",
+   "SAP supera i 10 miliardi di ricavi trimestrali per la prima volta",
+   "Nestlé accelera: crescita organica sopra le stime",
+   "Corea: la banca centrale lascia i tassi fermi, a novembre si scommette sul rialzo"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "159,56 $",
+    "+0,5% g"
+   ],
+   [
+    "S&P 500",
+    "7.757,17",
+    "+0,6% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.204,52",
+    "+1,4% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "5,13%",
+    "+1 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "108,82 $",
+    "0,0% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1232",
+    "0,0% g"
+   ],
+   [
+    "VIX",
+    "16,68",
+    "-0,63 g"
+   ]
+  ],
+  "dek": "Dopo i nuovi attacchi attribuiti agli Houthi in Arabia Saudita (un morto all'aeroporto di Dammam, due in un attacco con drone a un giacimento), gli USA hanno ordinato ad alcuni diplomatici e familiari di lasciare il Paese (Reuters). Il petrolio sale, i future europei scendono e l'Asia vende i titoli dell'intelligenza artificiale (AI) il giorno dopo il rialzo di Wall Street.",
+  "ticker_al": "2026-10-21",
+  "scommessa": {
+   "settimana": "2026-10-19/2026-10-23",
+   "su": 6,
+   "variabile": {
+    "nome": "Oro (future, $/oncia)",
+    "motivo": "Credito sull'AI, petrolio a 110 $ e Fed in bilico: l'oro dice se i mercati cercano un rifugio"
+   },
+   "strada": 4,
+   "range": 6,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     true,
+     true
+    ],
+    [
+     "S&P 500",
+     "su",
+     true,
+     true
+    ],
+    [
+     "Euro Stoxx 50",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "Brent future",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Oro (future, $/oncia)",
+     "su",
+     false,
+     true,
+     true
+    ]
+   ]
+  },
+  "temi": [
+   "Petrolio",
+   "Chip",
+   "Trimestrali",
+   "Europa",
+   "Asia",
+   "Fed"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Trimestrali",
+    "titolo": "Conti sopra le attese, ma l'Asia guarda la spesa: Tesla taglia, Meta resta alta",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Asia e chip",
+    "titolo": "Wall Street sale sull'AI, l'Asia vende: i dubbi sul costo del debito battono i conti",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Europa",
+    "titolo": "La Francia paga più dell'Italia per finanziarsi: venerdì Moody's mette alla prova il mercato",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [
+   "M10",
+   "M13",
+   "M17"
+  ],
+  "parole": [
+   "Capex",
+   "Declassamento (downgrade)",
+   "Frazionamento (split)"
+  ],
+  "ripetizioni": 2,
+  "glossario": [
+   "core",
+   "PMI",
+   "pb",
+   "BTP",
+   "Bund",
+   "OAT",
+   "VIX",
+   "ACWI",
+   "Brent",
+   "EIA",
+   "EPS",
+   "capex"
+  ]
  }
 ]

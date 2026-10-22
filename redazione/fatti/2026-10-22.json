@@ -1,0 +1,713 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Il Brent sale oltre i 111 $ dopo i nuovi attacchi attribuiti agli Houthi in Arabia Saudita; gli USA ordinano a diplomatici e familiari di lasciare il Paese",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-22-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610220737239966",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Borse oggi in diretta | Europa attesa in netto calo per i timori sugli investimenti in AI"
+   },
+   {
+    "testata": "Trading Economics",
+    "url": "https://tradingeconomics.com/commodity/brent-crude-oil",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "drone attack on Saudi Aramco's Shaybah oil field killed two people"
+   },
+   {
+    "testata": "Reuters",
+    "url": "https://www.marketscreener.com/news/oil-rises-as-us-orders-diplomats-to-leave-saudi-arabia-amid-escalating-tensions-ce785cd9df89ff21",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "more attacks by the Houthis in Saudi Arabia prompted the United States to order some diplomats"
+   },
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/european-pre-market-summary-22nd-october-2026-",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Trump said embassy staff were told to depart"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Evento confermato da Reuters (AOL/MarketScreener) e The National/ABC/Japan Times; Reuters dà Brent 110,11 $ (+1,2%), il 111,13 $ è solo del live Milano Finanza delle 08:32, e Reuters parla di 'alcuni' diplomatici e familiari (non tutti), mentre Trump ha detto di non sapere se siano partiti: ammorbidire 'oltre i 111' e 'diplomatici'."
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "Euro Stoxx 50 chiude il 21/10 a 6.204,52 (+1,35%) contro 6.121,66 il 20/10 (STOXX)",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "finanzen.net",
+    "url": "https://www.finanzen.net/nachricht/aktien/freundlicher-handel-in-europa-euro-stoxx-50-schliesst-in-der-gewinnzone-15999015",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Zum Handelsschluss tendierte der Euro STOXX 50 im STOXX-Handel 1,35 Prozent fester bei 6.204,52 Punkten."
+   },
+   {
+    "testata": "finanzen.ch",
+    "url": "https://www.finanzen.ch/nachrichten/aktien/euro-stoxx-50-handel-aktuell-euro-stoxx-50-letztendlich-mit-positivem-vorzeichen-1036649960",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Am Mittwoch sprang der Euro STOXX 50 via STOXX letztendlich um 1.35 Prozent auf 6'204.52 Punkte an."
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false
+ },
+ {
+  "id": "M02",
+  "sezione": "mercati",
+  "testo": "FTSE MIB chiude il 21/10 a 49.644 (+1,17%); spread BTP-Bund a 119 pb (+6), BTP a 10 anni al 4,60%",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/21/chiusura-positiva-per-l-azionario-europeo-rendimento-oat-decennale-sale-al-5percent-245.html",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Pesante l'aumento dello spread, che si attesta a +119 punti base"
+   },
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/borsa-italiana-commento-giornata-21-ottobre-2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "ha messo a segno un progresso dell'1,17% a 49.644 punti"
+   }
+  ],
+  "novita": null
+ },
+ {
+  "id": "M03",
+  "sezione": "estremo",
+  "testo": "Nikkei 225 chiude il 22/10 a 62.942 (-2,60%); Kospi a 5.581,98 (-2,68%) (Trading Economics)",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Trading Economics",
+    "url": "https://tradingeconomics.com/japan/stock-market",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "rising oil prices following a deadly attack on a Saudi oil field added to concerns over supply disruptions and inflation."
+   },
+   {
+    "testata": "Trading Economics",
+    "url": "https://tradingeconomics.com/south-korea/stock-market",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "concerns over the profitability of AI infrastructure investments weighed on technology shares"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true
+ },
+ {
+  "id": "M04",
+  "sezione": "mercati",
+  "testo": "Alle 06:43 Hang Seng -2,7% (23.003,17) e Shanghai -0,9% (AP, Il Sole 24 Ore); Hong Kong quasi -3% alle 07:30 (Milano Finanza)",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.news4jax.com/business/2026/10/22/asian-shares-retreat-after-strong-profits-lead-a-rally-on-wall-street/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Asian shares and U.S. futures retreated on Thursday"
+   },
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/stock-market-indices-thursday-22-october-2026-AJHFb2qB",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Asian share markets fell following the rise on Wall Street"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/giovedi-nero-in-asia-la-cina-entra-in-mercato-orso-gli-investitori-retail-fuggono-dalla-borsa-202610220743274910",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "In questo momento è una crisi di fiducia, non una crisi dell'economia"
+   }
+  ],
+  "novita": null
+ },
+ {
+  "id": "M05",
+  "sezione": "mercati",
+  "testo": "Alle 08:32 future Euro Stoxx 50 -0,92%, S&P 500 -0,67%, Brent 111,13 $ (+2,12%), Treasury 10 anni 5,086%, BTP 4,59%, OAT 5,009% (Milano Finanza)",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-22-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610220737239966",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Borse oggi in diretta | Europa attesa in netto calo per i timori sugli investimenti in AI"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true
+ },
+ {
+  "id": "M06",
+  "sezione": "macro",
+  "testo": "Fed 27-28 ottobre: probabilità di rialzo a ottobre al 16% e a dicembre al 90% (CME FedWatch, Milano Finanza)",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-22-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610220737239966",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "La Fed riunita il 27-28 ottobre ha una probabilità di rialzo stimata al 16%."
+   },
+   {
+    "testata": "Southeast AgNet",
+    "url": "https://southeastagnet.com/2026/10/20/fed-interest-rate-hike-forecast-cme-fedwatch/",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "15% (ottobre), 90% (dicembre)"
+   }
+  ],
+  "novita": null
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Meta: ricavi del terzo trimestre 64,6 mld $, utile per azione 3,83 $ dopo un onere legale; frazionamento 2 a 1 tramite azioni senza voto da fine gennaio",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/meta-stock-jumps-3-hours-212549647.html",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Meta narrowed and raised the lower end of its 2026 capital expenditures guidance to $135 billion to $145 billion"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/stocks/more-on-meta-earnings-call-plans-effective-2-for-1-split-via-non-voting-shares-confirms-9-9b-q3-legal-charge/",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "The company confirmed the $9.9 billion legal charge was booked in the third quarter."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Ricavi 64,60 mld, EPS 3,83, onere legale 9,89 mld, capex 135-145 mld e Classe C senza voto confermati dal comunicato 8-K (SEC) del 21/10, ma il comunicato dice 'gennaio 2027' con date da fissare, non 'da fine gennaio'."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Tesla: utile per azione rettificato 0,48 $ contro 0,45 atteso, ricavi 28,05 mld $, spesa in investimenti 2026 tagliata a circa 20 mld $",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/earnings/tesla-stock-up-after-hours-on-results-beat-improved-automotive-gross-margin-4963976",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Tesla earned 48 cents per share on an adjusted basis"
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/company-news/tesla-q3-2026-slides-margins-improve-as-capex-doubles-for-ai-push-93CH-4964383",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Management's decision to cut full-year capex guidance to approximately $20 billion"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/q3-earnings-beats-meta-tesla-205600481.html",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "(nessuna citazione letterale disponibile: dato da sintesi del fetch) EPS 3,83 vs 3,45 stima, ricavi 64,6 mld, +3,9% after hours"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "EPS rettificato 0,48 vs 0,45 e ricavi 28,05 mld confermati (Investing.com); taglio capex a circa 20 mld da oltre 25 confermato da Investing/BigGo, mentre Electrek e Forbes non lo riportano e il movimento after-hours è discordante (-2,2% vs +1,5%), quindi il testo 'alternato' è prudente ma corretto."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "IBM: utile per azione rettificato 2,95 $, ricavi 17,1 mld $, sopra le stime; crescita dei ricavi 2026 al 4-5% confermata; titolo in calo dopo la chiusura",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-ibm-beats-q3-2026-estimates-shares-slip-after-hours-93CH-4964321",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Shares rose 3.96% in the regular session to $251.49, then fell 3.66% after hours to $242.25."
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/q3-earnings-beats-meta-tesla-205600481.html",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "full-year revenue growth of between 4-5%"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Comunicato IBM 8-K del 21/10: EPS operativo 2,95 $, ricavi 17,1 mld, crescita ricavi 4-5% a cambi costanti invariata, free cash flow rivisto al rialzo; 'sopra le stime' e il calo after-hours (-3,66% secondo Investing.com) non verificati in modo indipendente."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "SAP: ricavi trimestrali sopra i 10 miliardi per la prima volta, guidance 2026 ristretta verso l'alto",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/earnings/sap-shares-climb-after-q3-earnings-beat-and-upbeat-cloud-revenue-outlook-4964043",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "rose over 4% in after-hours trading Wednesday"
+   },
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-daily-european-equity-opening-news---22nd-october-2026",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "SAP: Q3 beat. Cloud backlog rose; FY26 guidance reaffirmed (da sintesi della pagina)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Ricavi 10,3 mld € primi sopra 10 mld e guidance 2026 ristretta verso la parte alta del range confermati da Investing.com e Newsquawk (la citazione in scheda 'reaffirmed' è parziale)."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Nestlé: crescita organica del terzo trimestre +4,0% contro 3,4% atteso; guidance 2026 +3-4% confermata",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/earnings/nestle-q3-sales-growth-picks-up-on-volumes-2026-guidance-maintained-4964629",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "continued to expect 2026 organic growth of 3% to 4%"
+   },
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/nestle-nesn-sw-9m-chf-real-internal-growth-19",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "organic growth 4.0% (exp. 3.4%). Reaffirms FY26 guidance."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Crescita organica 4,0% (attesa 3,4%) e guidance 3-4% mantenuta confermate da Investing.com e Newsquawk del 22/10."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Banca di Corea: tasso base fermo al 3,00% dopo i rialzi di luglio e agosto; rialzo a novembre possibile",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/central-banks/bank-of-korea-holds-rate-at-3-after-back-to-back-hikes-keeps-door-open-to-november-move/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "The Bank of Korea held its policy rate at 3.00%"
+   },
+   {
+    "testata": "SBS News",
+    "url": "https://news.sbs.co.kr/english/article.do?news_id=N1008810069",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "to monitor the impact of the two previous rate hikes"
+   },
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-daily-european-equity-opening-news---22nd-october-2026",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "The Bank of Korea held rates unanimously (da sintesi della pagina)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Banca di Corea ferma al 3,00% dopo i rialzi di luglio e agosto, voto unanime, rialzo a novembre in vista: confermato da SBS, investingLive e Newsquawk del 22/10."
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "testo": "Scorte di greggio USA (EIA, settimana al 16/10): -3,06 mln barili contro -0,82 mln atteso",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "BOE Report (Reuters)",
+    "url": "https://boereport.com/2026/10/21/us-crude-and-gasoline-stocks-fall-distillates-rise-eia-says/",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Crude inventories fell by 3.06 million barrels to 412.5 million barrels in the week ended October 16"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "EIA weekly petroleum status report 21 October 2026 crude inventories",
+   "EIA crude oil stocks week ending October 16 2026 eia.gov",
+   "US crude inventories fell 3.06 million barrels EIA October 16 2026"
+  ],
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Scorte di greggio -3,061 mln barili nella settimana al 16/10 contro circa -0,8 mln atteso, pubblicate il 21/10 (Trading Economics); fonte ufficiale EIA non letta direttamente."
+ },
+ {
+  "id": "K02",
+  "sezione": "catalizzatori",
+  "testo": "Banca di Corea, 22/10: tasso base invariato al 3,00%, come atteso",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/central-banks/bank-of-korea-holds-rate-at-3-after-back-to-back-hikes-keeps-door-open-to-november-move/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "The Bank of Korea held its policy rate at 3.00%"
+   },
+   {
+    "testata": "SBS News",
+    "url": "https://news.sbs.co.kr/english/article.do?news_id=N1008810069",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "to monitor the impact of the two previous rate hikes"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "Bank of Korea base rate decision October 22 2026 press release bok.or.kr",
+   "Bank of Korea monetary policy board October 2026 base rate 3.00%"
+  ],
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Decisione Banca di Corea del 22/10 al 3,00% 'come atteso' confermata da SBS, investingLive (34 analisti Reuters) e Newsquawk."
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Gio 22, 14:30: sussidi di disoccupazione USA, atteso 200 mila (prec. 199 mila)",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/stock-market-news/us-economic-calendar-preview-key-releases-for-the-week-of-oct-1923-2026-93CH-4958178",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Thu Oct 22 8:30 AM Initial Jobless Claims, forecast 200K, previous 199K"
+   },
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/week-in-focus-19-23rd-october-2026-highlights-include-uk-japan-and-canada-inflation-china-activity-data-and-global-flash-pmis-",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "BoK widely expected to hold at 3.00% after back-to-back hikes in July and August"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Sussidi di disoccupazione giovedì 22/10 alle 8:30 ET (14:30 Roma), consenso 200 mila, precedente 199 mila: confermato da TD Economics e calendari; la seconda citazione in scheda (BoK) non riguarda l'evento."
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Ven 23: PMI flash area euro, manifattura 52,5-53,2 (prec. 52,9), servizi 52,5-53,3 (prec. 53,0)",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/week-in-focus-19-23rd-october-2026-highlights-include-uk-japan-and-canada-inflation-china-activity-data-and-global-flash-pmis-",
+    "data_pubblicazione": "2026-10-18",
+    "citazione": "Eurozone manufacturing expected at 52.5-53.2 (prev. 52.9), services 52.5-53.3 (prev. 53)"
+   },
+   {
+    "testata": "MQL5",
+    "url": "https://www.mql5.com/en/blogs/post/777895",
+    "data_pubblicazione": "2026-10-17",
+    "citazione": "Release schedule: Friday, October 23, 2026 (UTC)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Newsquawk Week in Focus conferma PMI flash area euro con manifattura 52,5-53,2 (prec. 52,9) e servizi 52,5-53,3 (prec. 53); la citazione MQL5 non è letterale."
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "testo": "Ven 23, 15:45: PMI flash USA (servizi 58,0, manifattura 55,5); 16:00 Michigan, attese di inflazione a 1 anno 4,7%",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/stock-market-news/us-economic-calendar-preview-key-releases-for-the-week-of-oct-1923-2026-93CH-4958178",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "Fri Oct 23 9:45 AM S&P Global Services PMI forecast 58.0 previous 58.8"
+   },
+   {
+    "testata": "MQL5",
+    "url": "https://www.mql5.com/en/blogs/post/777895",
+    "data_pubblicazione": "2026-10-17",
+    "citazione": "Release schedule: Friday, October 23, 2026 (UTC)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Corretto nel PDF: tolto il consenso non trovato, resta solo il precedente 4,7% e i PMI flash confermati."
+ },
+ {
+  "id": "A04",
+  "sezione": "agenda",
+  "testo": "Ven 23, dopo la chiusura delle borse europee: Moody's rivede il rating della Francia (Aa3, outlook negativo)",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-frances-debt-strains-ai-in-focus-4964608",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "topped 5% for the first time since 2002"
+   },
+   {
+    "testata": "Borsa Italiana (Radiocor)",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/economia/dettaglio/moody-s-calendario-revisioni-rating-2026-nRC_13092026_0810_41135920.html",
+    "data_pubblicazione": "2026-09-13",
+    "citazione": "Francia 23 ottobre"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Corretto nel PDF: data 23/10 sera, Aa3 e outlook negativo confermati; tolta la formulazione di declassamento atteso/già scontato."
+ },
+ {
+  "id": "A05",
+  "sezione": "agenda",
+  "testo": "Mer 28, 19:00: decisione della Fed; 94 economisti su 100 attendono tassi invariati (sondaggio Reuters 16-20/10)",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Mitrade",
+    "url": "https://www.mitrade.com/insights/more/Central-Banks/fed-october-hold-december-hike-20261022J1428",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "94 of 100 economists expecting no change on October 28"
+   },
+   {
+    "testata": "Money.it",
+    "url": "https://www.money.it/il-dollaro-interrompe-quattro-settimane-di-rialzi-dopo-warsh-la-partita-di-ottobre-si-gioca-tra-fed-e-bce-a-24-ore-di-distanza",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "citazione letterale non disponibile (FedWatch ~84% hold 28/10; FXStreet ~16% rialzo; dicembre ~90%)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Sondaggio Reuters 16-20/10: 94 economisti su 100 attendono tassi invariati il 28/10, decisione alle 14:00 ET (19:00 Roma), confermato da Mitrade e Reuters/Investing; la citazione Money.it in scheda è un segnaposto non letterale."
+ },
+ {
+  "id": "A06",
+  "sezione": "agenda",
+  "testo": "Gio 29, 14:15: decisione della BCE sui tassi",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "LiteFinance",
+    "url": "https://www.litefinance.org/blog/analysts-opinions/weekly-economic-calendar-for-26102026-01112026/",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "No major macroeconomic statistics are scheduled for release."
+   },
+   {
+    "testata": "Money.it",
+    "url": "https://www.money.it/il-dollaro-interrompe-quattro-settimane-di-rialzi-dopo-warsh-la-partita-di-ottobre-si-gioca-tra-fed-e-bce-a-24-ore-di-distanza",
+    "data_pubblicazione": "2026-10-19",
+    "citazione": "citazione letterale non disponibile (FedWatch ~84% hold 28/10; FXStreet ~16% rialzo; dicembre ~90%)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "BCE giovedì 29/10 alle 14:15 CET confermato (Admiral Markets); le citazioni in scheda (LiteFinance, Money.it) non lo dicono e vanno sostituite con una fonte BCE o equivalente."
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "L'OAT francese a 10 anni supera il 5% per la prima volta dal 2002; spread sul Bund a 160 pb, massimo dalla crisi 2009-2011",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "FXStreet",
+    "url": "https://www.fxstreet.com/news/frances-10-year-bond-yield-climbs-above-5-stirring-fears-of-a-credit-crisis-202610210956",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "to levels above 5% for the first time since 2002"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-frances-debt-strains-ai-in-focus-4964608",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "topped 5% for the first time since 2002"
+   }
+  ],
+  "novita": null
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "Spread OAT-Bund circa 152 pb e BTP-Bund 112,4 pb nelle chiusure del 20/10",
+  "data_evento": "2026-10-20",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borsa-commento-di-chiusura-202610201828015319",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Il differenziale OAT-Bund è a circa 152 punti base"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/10/20/lo-spread-btp-bund-a-1124-punti_41493d8b-d9bb-471a-ad5f-0add72a1256c.html",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Lo spread Btp-Bund a 112,4 punti"
+   }
+  ],
+  "novita": null
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Spesa in investimenti 2026: Meta 135-145 mld $ (ristretta da 130-145), Tesla circa 20 mld $; onere legale di Meta di circa 10 mld $",
+  "data_evento": "2026-10-21",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/meta-stock-jumps-3-hours-212549647.html",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Meta narrowed and raised the lower end of its 2026 capital expenditures guidance to $135 billion to $145 billion"
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/company-news/tesla-q3-2026-slides-margins-improve-as-capex-doubles-for-ai-push-93CH-4964383",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Management's decision to cut full-year capex guidance to approximately $20 billion"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/stocks/more-on-meta-earnings-call-plans-effective-2-for-1-split-via-non-voting-shares-confirms-9-9b-q3-legal-charge/",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "The company confirmed the $9.9 billion legal charge was booked in the third quarter."
+   }
+  ],
+  "novita": null
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Tokyo 22/10: SoftBank -5,6%, Tokyo Electron -5,9%",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/stock-market-indices-thursday-22-october-2026-AJHFb2qB",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "fears that the construction of data centres may slow down, as borrowing costs continue to rise"
+   }
+  ],
+  "novita": null
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "testo": "Shanghai allunga a dieci settimane la serie di cali; il CSI 300 è in mercato orso, circa -20% dal picco di giugno",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/central-banks/bank-of-korea-holds-rate-at-3-after-back-to-back-hikes-keeps-door-open-to-november-move/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "The Bank of Korea held its policy rate at 3.00%"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/giovedi-nero-in-asia-la-cina-entra-in-mercato-orso-gli-investitori-retail-fuggono-dalla-borsa-202610220743274910",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "In questo momento è una crisi di fiducia, non una crisi dell'economia"
+   }
+  ],
+  "novita": null
+ },
+ {
+  "id": "C02",
+  "sezione": "deep_dive",
+  "testo": "Le vendite asiatiche sui titoli AI e chip arrivano dopo il taglio del capex di Tesla e dal timore che i data center rallentino con costi di finanziamento in salita; il petrolio caro dopo l'attacco a un giacimento saudita alimenta i timori su forniture e inflazione",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/stock-market-indices-thursday-22-october-2026-AJHFb2qB",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "fears that the construction of data centres may slow down, as borrowing costs continue to rise"
+   },
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-daily-european-equity-opening-news---22nd-october-2026",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "AI and semiconductor names were sold after Tesla cut capex guidance"
+   },
+   {
+    "testata": "Trading Economics",
+    "url": "https://tradingeconomics.com/japan/stock-market",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "rising oil prices following a deadly attack on a Saudi oil field added to concerns over supply disruptions and inflation."
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Il Sole 24 Ore ('fears that the construction of data centres may slow down, as borrowing costs continue to rise') e Newsquawk ('AI and semiconductor names were sold after Tesla cut capex guidance') confermati alla lettera; la citazione Trading Economics sul petrolio non è stata riletta."
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "testo": "Wall Street sale (S&P 500 +0,58%) ma l'Asia perde fino al 2,7%",
+  "data_evento": "2026-10-22",
+  "fonti": [],
+  "fatto": "Il 22/10 Kospi -2,7%, Nikkei -2,6% e Hong Kong -2,7% dopo il rialzo di Wall Street del 21/10 trainato dai conti dell'AI",
+  "ricerche": [
+   "Asian markets October 22 2026 Nikkei Kospi Hang Seng stocks",
+   "Kospi closes Samsung SK Hynix Bank of Korea holds rate 3.00% October 22",
+   "Nikkei 225 closes Thursday Tokyo Electron SoftBank Oct. 22 2026",
+   "why asian stocks crashing today oil tops 111"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Timore che i data center rallentino con costi di finanziamento in salita e taglio del capex di Tesla",
+    "fonte": "C02",
+    "prevede": "Chip e AI in calo, rendimenti lunghi alti",
+    "prezzi": "in parte"
+   },
+   {
+    "causa": "Fuga verso i rifugi per il petrolio e la geopolitica",
+    "fonte": null,
+    "prevede": "Oro e dollaro in rialzo, rendimenti in calo",
+    "prezzi": "non torna"
+   }
+  ],
+  "esito": "C02"
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "testo": "",
+  "data_evento": "2026-10-22",
+  "fonti": [],
+  "concorda": false,
+  "motivo": "Milano Finanza e Il Sole 24 Ore aprono sul calo dell'Asia e dell'AI, Reuters sul petrolio; apriamo sul petrolio perché l'ordine USA di far partire i diplomatici è la notizia nuova, con il Brent sopra i 111 $, mentre l'Asia (sotto il 3% sui principali indici) ha in30 e un approfondimento.",
+  "testate": [
+   {
+    "testata": "Milano Finanza",
+    "apertura": "Borse europee attese in netto calo per i timori sugli investimenti in AI"
+   },
+   {
+    "testata": "Il Sole 24 Ore",
+    "apertura": "Stock markets: Asia down following Wall Street's rally. Oil prices up"
+   },
+   {
+    "testata": "Reuters (via MarketScreener)",
+    "apertura": "Oil rises as US orders diplomats to leave Saudi Arabia amid escalating tensions"
+   }
+  ]
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "Storico a 1 settimana e da inizio anno per FTSE MIB, Euro Stoxx 50 (1 sett.), Hong Kong, ACWI (da inizio anno)",
+  "testo": "",
+  "data_evento": "2026-10-22",
+  "fonti": [],
+  "ricerche": [
+   "Borsa Milano chiude 16 ottobre 2026 Ftse Mib punti",
+   "Euro Stoxx 50 Schluss 16. Oktober 2026 Punkte STOXX",
+   "FTSE MIB dall'inizio dell'anno 2026 performance chiusura 2025 punti",
+   "FMP ^FTSEMIB ^HSI ACWI storico (piano non incluso)"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "-",
+   "url": "-"
+  }
+ }
+]

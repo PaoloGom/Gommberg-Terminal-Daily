@@ -407,6 +407,11 @@
    "sigla": "future",
    "breve": "contratto a termine quotato",
    "ovvio": true
+  },
+  {
+   "sigla": "capex",
+   "breve": "spesa in investimenti",
+   "ovvio": false
   }
  ]
 }
