@@ -16,7 +16,7 @@ Copia `edizione_modello_v6.py` in `/home/claude/lavoro/edizione_AAAA-MM-GG.py`; 
 - **Pag. 3-5.** `ieri`: eventi programmati, sempre dato contro attese; un dato uscito non si toglie mai. `agenda`: max 10 righe, "-" senza consenso, il venerdì anche il lunedì. `bivio` solo con un evento decisivo vicino. `moduli`: 5 unità, il primo "mezzo" chiude pag. 3, pag. 4 e 5 = 2 "mezzo" o 1 "doppio". Ogni modulo: `perche`, `quindi` (§5), `righe` (mezzo max 5, doppio max 8), `punti` max 3 non ripetuti, `fonte`, grafici con `"soggetto"`; stampi vari, mai tutti uguali. Max 1 modulo sul tema della top story, con angolo nuovo; preferisci l'anomalia del giorno. Barre di livelli: `"livello": True`.
 - **Un approfondimento = una tesi:** il `titolo` dice cosa significa, non cosa è successo (No: "Il Brent torna sopra i livelli di settembre". Sì: "Il petrolio rimette l'inflazione sul tavolo della Fed"); grafici, tabella e punti solo se la provano, **ognuno su una domanda diversa della tesi** (`ruolo`: quanto, perche, storia, conseguenza, chi; mai due volte la stessa grandezza sullo stesso periodo né una tabella che ripete un grafico: il motore lo blocca, No: 2-10-30 anni in linea + le stesse scadenze in barre + la stessa variazione in tabella; gli elementi si scelgono ogni giorno dalla tesi, mai uno schema fisso); `testo` (1-3 paragrafi) dà il contesto che i grafici non dicono; `numero` = UN dato che misura la tesi e dice ciò che il resto non dice (Sì: "Meno di 1 seduta su 5: quante volte nell'ultimo anno il VIX ha chiuso sopra 20"); `guardare` (obbligatorio nel doppio) = cosa confermerebbe o smentirebbe la tesi, e quando.
 - **Riempimento (ogni pagina, ogni riquadro):** lo spazio porta contenuto verificato che aggiunge (racconto, contesto, il numero, un'altra notizia, una riga), mai spazi, a capo o grafici allungati, mai ripetizioni (§7). Ciò che varia ogni giorno rientra negli stessi spazi e nella stessa struttura. Il motore misura pagine e riquadri: sotto il 90% ERRORE; prima ricerche mirate per avere altro da dire, solo dopo `GTD_RIEMPIMENTO_OK=1`.
-- **Pag. 6** `scommessa` (§4), `fonti`, `errata` se serve; `parole` solo senza errata.
+- **Pag. 6** `scommessa` (§4), `fonti`, `parole`.
 
 ## 3. Fonti e verità
 - Dati di mercato: FMP e Alpha Vantage chiamati oggi (Alpha Vantage in serie; serie lunghe solo per un grafico), calcoli in codice. **Chiusure ovunque; intraday solo in "Stamattina" e nell'Asia segnata *, con orario.** Una riga con la data di oggi è intraday.
@@ -74,7 +74,7 @@ Un revisore `model: "sonnet"` che non ha scritto il numero (senza Agent: tu) ric
 ## 11. Autocorrezione e cancello
 Paolo non riceve bozze né domande. Si pubblica solo ciò che passa i controlli: ogni ERRORE si corregge o si risolve togliendo il non verificato, fino a 3 giri (`APP_ERRORI.md`).
 - Notizie 6-8 (meno solo se le verificate sono meno); al posto di una scartata la prima riserva verificata. La top story è sempre un fatto confermato.
-- Errata: schede di ieri (`redazione/fatti/`) contro le notizie; un fatto smentito va in `C["errata"]` (edizione, frase sbagliata, corretta, fonte).
+- Correzioni: schede di ieri (`redazione/fatti/`) contro le notizie; mai errata corrige; errore piccolo: nessuna menzione; sostanziale: il fatto giusto in una frase, senza rimandi a ieri (`APP_ERRORI.md` §6).
 
 ## 12. Note pratiche
 In `PROGETTO.md` (permessi dell'attività programmata).

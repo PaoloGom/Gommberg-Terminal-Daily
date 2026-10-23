@@ -1075,8 +1075,7 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
         st.append(P(C["fonti"], "src"))
     else:   # [(sezione, fonti), ...] -> tabella compatta per sezione
         st.append(tbl([[P(a, "cellb"), P(b, "src")] for a, b in C["fonti"]], [34 * mm, CW - 34 * mm], header=False))
-    if C.get("errata"):
-        st += section("Errata corrige", "Note") + [P(C["errata"], "src")]
+    # Niente "Errata corrige" (decisione di Paolo, 23/10): le correzioni sostanziali vanno nel testo (APP_ERRORI.md §6)
     n_arrow = sum(1 for x in _flat(st) if isinstance(x, Paragraph) and x.style.name == "ar")
     if n_arrow > 5:
         print(f"ATTENZIONE: {n_arrow} righe → (massimo 5)")

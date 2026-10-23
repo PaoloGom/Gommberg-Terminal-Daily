@@ -7,7 +7,7 @@ voce.json (piccolo, scritto dalla redazione):
   {"titolo": "<h1>", "sommario": ["<3 punti di In 30 secondi>"], "notizie": ["<6-8 titoli>"],
    "temi": ["Fed", "Chip", ...], "approfondimenti": [{"tema": "Tassi", "titolo": "...", "formato": "grafico"}],
    "meccanismi": ["M05"], "parole": ["term premium"], "termometri": [["Fed/tassi", "novità"], ["Iran", "fermo dal 12/10"]],
-   "glossario": ["CPI", ...] (facoltativo se c'è --sigle), "errata": [] (facoltativo)}
+   "glossario": ["CPI", ...] (facoltativo se c'è --sigle)}
 Calcolati qui: numero (dal calendario), file, nome, pagine (pdfinfo), ticker (letto dal PDF), scommessa (da stato.json o
 verdetto.json + registro), ripetizioni (controlli_ripetizioni), glossario (da --sigle, uscita json di controlli_testo).
 Rifiuta: numero già presente, data già presente, campi mancanti o fuori elenco. GTD_PROVA=1: stampa la voce senza scrivere.
@@ -152,8 +152,8 @@ def main():
                  "parole": w.get("parole", []), "ripetizioni": punteggio, "glossario": gloss})
     if w.get("termometri"):
         voce["termometri"] = w["termometri"]
-    if w.get("errata"):   # sempre un elenco di frasi (una stringa sola verrebbe letta lettera per lettera)
-        voce["errata"] = [w["errata"]] if isinstance(w["errata"], str) else list(w["errata"])
+    if w.get("errata"):   # niente errata corrige (APP_ERRORI.md §6): il campo si ignora
+        print("AVVISO: voce.json contiene errata: ignorato (le correzioni sostanziali vanno nel testo)")
     ag = w.get("agenda") or []           # da extra_voce.py: "In arrivo" di pag. 3, mostrata sul sito
     if isinstance(ag, list) and ag:
         ok = all(isinstance(x, dict) and {"quando", "evento", "attese", "perche", "chiave"} <= set(x) for x in ag)

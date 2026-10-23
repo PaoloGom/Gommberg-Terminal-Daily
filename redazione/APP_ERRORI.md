@@ -1,4 +1,4 @@
-# Appendice - Autocorrezione, cancello ed errata (tutto automatico)
+# Appendice - Autocorrezione, cancello e correzioni (tutto automatico)
 
 Paolo non riceve messaggi di revisione, bozze o richieste di decisione: la redazione si corregge da sola e pubblica solo ciò che è verificato. Mai PushNotification; l'unico messaggio è la consegna finale.
 
@@ -32,7 +32,10 @@ Togli tutto ciò che è ancora rosso e pubblica il resto. Non si pubblica solo s
 **Ridondanza negli approfondimenti** (`stesso ruolo`, `stesse serie`, `la colonna ... ripete`): non cambiare l'etichetta: cambia l'elemento. Tieni quello che misura meglio la tesi; l'altro risponde a un'altra domanda della stessa tesi, oppure si toglie e lo spazio va a `testo`. Come scegliere: chiediti cosa manca al lettore per credere alla tesi di oggi. Gli spunti che seguono servono ad allargare lo sguardo, non sono uno schema: un confronto con un altro mercato o un'altra variabile, un precedente storico, chi si è mosso di più, cosa prezza il mercato per i prossimi giorni, un dato di flussi o di posizionamento. La scelta dipende dalla tesi del giorno e cambia da un'edizione all'altra: la stessa combinazione di grafici sullo stesso tema in giorni vicini è una ripetizione (§7).
 
 ## 5. Registro
-Tutte le schede con l'esito della verifica (anche le scartate, con `"scartata": true`) restano in `/home/claude/lavoro/fatti.json`, che `pubblica.sh` copia in `redazione/fatti/AAAA-MM-GG.json`: è la traccia per gli errata, non si mostra a Paolo.
+Tutte le schede con l'esito della verifica (anche le scartate, con `"scartata": true`) restano in `/home/claude/lavoro/fatti.json`, che `pubblica.sh` copia in `redazione/fatti/AAAA-MM-GG.json`: è la traccia per le correzioni, non si mostra a Paolo.
 
-## 6. Errata corrige
-Ogni mattina, prima di scrivere, confronta i fatti dell'edizione precedente (`redazione/fatti/<data>.json`, lo indica `prepara.sh`) con le notizie di oggi. Se uno si è rivelato sbagliato (smentita, dato rivisto, fonte che corregge): paragrafo "Errata corrige" a pag. 6 sotto le Fonti (edizione, frase sbagliata, frase corretta, fonte) e campo `errata` in `voce.json` (finisce in `edizioni.json`). I PDF già pubblicati non si modificano.
+## 6. Correzioni (mai un box "Errata corrige")
+Ogni mattina, prima di scrivere, confronta i fatti dell'edizione precedente (`redazione/fatti/<data>.json`, lo indica `prepara.sh`) con le notizie di oggi. Il Gommberg non pubblica errata corrige: né nel PDF, né sul sito, né in `voce.json`. I PDF già pubblicati non si modificano.
+- **Errore piccolo** (un numero impreciso che non cambia la lettura, es. la chiusura di un indice al posto del dato della mattina): nessuna menzione. Si annota nella scheda di ieri (`"correzione"`: dato giusto e fonte) e, se il dato serve oggi, si usa quello giusto.
+- **Errore sostanziale** (fatto falso o smentito, direzione sbagliata, dato su cui poggiava un ragionamento): una frase nel punto naturale dell'edizione di oggi, che dà il fatto giusto come una notizia, con la sua scheda in `fatti.json`. Mai rimandi all'edizione precedente ("come indicato ieri", "non X ma Y", "correggiamo"). Sì: "Il Kospi giovedì ha chiuso a -3,52% (KED Global)".
+- **Scommessa:** registro e pagella usano sempre il dato giusto, senza menzione.

@@ -140,7 +140,7 @@ if voci:
             nf = len([f for f in json.load(open(fp, encoding="utf-8")) if isinstance(f, dict) and not f.get("scartata")])
         except Exception:
             nf = "?"
-        out.append(f"Errata: confronta {nf} schede di redazione/fatti/{u['data']}.json con le notizie di oggi")
+        out.append(f"Correzioni (§6 APP_ERRORI, mai errata): confronta {nf} schede di redazione/fatti/{u['data']}.json con le notizie di oggi")
 # artefatti stantii di prove precedenti (file di oggi già nel repository ma edizione non in indice): li sovrascrive pubblica.sh
 if not any(v["numero"] == n for v in voci):
     st = [p for p in (f"redazione/fatti/{oggi.isoformat()}.json", f"pdf/{oggi.isoformat()}-gommberg-{n:03d}.pdf")

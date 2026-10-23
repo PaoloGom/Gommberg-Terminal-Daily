@@ -213,9 +213,6 @@ h2.headline { font-family: var(--display); font-stretch: 85%; font-weight: 800; 
 .news li { counter-increment: n; display: grid; grid-template-columns: 30px 1fr; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--rule); font-family: var(--display); font-stretch: 90%; font-weight: 700; font-size: 16px; line-height: 1.3; }
 .news li::before { content: counter(n, decimal-leading-zero); font-weight: 800; color: var(--orange); }
 a.full { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--orange-ink); text-underline-offset: 3px; }
-.errata { margin: 12px 0 0; font-size: 13px; line-height: 1.45; color: var(--muted); max-width: 62ch; }
-.errata[hidden] { display: none !important; }
-.errata b { color: var(--ink); font-weight: 600; }
 /* Agenda */
 .agenda { margin-top: 28px; max-width: 62ch; }
 .agenda[hidden] { display: none !important; }
@@ -397,7 +394,6 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
         <h3 class="kicker news-k" id="newsK" hidden>Le notizie del giorno</h3>
         <ol class="news" id="news"></ol>
         <a class="full" id="newsFull" href="#" hidden>La prima pagina in testo &rsaquo;</a>
-        <p class="errata" id="errata" hidden></p>
         <div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
 
         <section class="agenda" id="agenda" aria-labelledby="ag-h" hidden>
@@ -718,10 +714,6 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
       a.addEventListener("click", (e) => { e.preventDefault(); showEdition(editions[0], true); });
       note.appendChild(a);
     }
-    const err = typeof ed.errata === "string" ? [ed.errata] : (Array.isArray(ed.errata) ? ed.errata : []);
-    const er = $("errata"); er.innerHTML = "";
-    if (err.length) { er.appendChild(el("b", "", "Errata corrige. ")); er.append(err.join(" ")); }
-    er.hidden = !err.length;
     $("lbl-latest").textContent = ed === editions[0] ? "Ultima edizione" : "Edizione precedente";
     tape(ed); agenda(ed); bet(ed); votoStato(ed);
     document.querySelectorAll("[data-n]").forEach((r) => r.setAttribute("aria-current", r.dataset.n == ed.numero ? "true" : "false"));

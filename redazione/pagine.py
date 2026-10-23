@@ -152,7 +152,6 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .sigle{display:flex;flex-wrap:wrap;gap:8px}.sigle a{display:inline-block;border:1px solid var(--rule);padding:6px 10px;font-size:14px;color:var(--muted);text-decoration:none;line-height:1.35}
 .sigle a b{color:var(--ink);font-weight:600;margin-right:4px}.sigle a:hover{border-color:var(--orange)}
 .tutte{margin:12px 0 0;font-size:14px}.tutte a{color:var(--orange-ink)}
-.errata{background:var(--panel);border-left:3px solid var(--orange);padding:12px 14px;font-size:15px}
 .pn{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:13px;border-top:1px solid var(--rule);padding-top:16px}
 .pn a{text-decoration:none;color:var(--muted)}.pn a:hover{color:var(--ink)}
 footer{border-top:1px solid var(--rule);padding:22px 0 36px;font-size:13px;color:var(--muted)}
@@ -249,8 +248,6 @@ def pagina(ed, prec, succ):
         a('<section><h2>Le sigle di questa edizione</h2><div class="sigle">' +
           "".join(f'<a href="../basi.html#{ancora(s)}"><b>{esc(s)}</b> {esc(b)}</a>' for s, b in sigle) +
           '</div><p class="tutte"><a href="../basi.html">Tutte le sigle e i meccanismi &rsaquo;</a></p></section>')
-    if ed.get("errata"):
-        a('<section><p class="errata"><b>Errata corrige.</b> ' + " ".join(colora(x) for x in ([ed["errata"]] if isinstance(ed["errata"], str) else ed["errata"])) + "</p></section>")
     nav = []
     nav.append(f'<a href="{nnn(prec["numero"])}.html">&lsaquo; N. {nnn(prec["numero"])}</a>' if prec else "<span></span>")
     nav.append(f'<a href="{nnn(succ["numero"])}.html">N. {nnn(succ["numero"])} &rsaquo;</a>' if succ else '<a href="../">Ultima edizione &rsaquo;</a>')
