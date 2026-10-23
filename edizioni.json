@@ -1,989 +1,989 @@
 [
-  {
-    "numero": 1,
-    "data": "2026-10-12",
-    "titolo": "Hormuz, nessun accordo. Wall Street vicina al record aspetta CPI, banche e TSMC",
-    "sommario": [
-      "Wall Street chiude la settimana a +1,2%, a un soffio dal record, nonostante il 10 anni USA salito fino a circa il 5,35% (massimo dal 2002).",
-      "Questa settimana decidono tre test: CPI USA (mer 14:30), trimestrali delle banche (da martedì) e TSMC (gio).",
-      "Iran: Trump esclude attacchi fino al 3 novembre, ma su Hormuz nessun accordo e gli Houthi colpiscono Riad."
-    ],
-    "file": "pdf/2026-10-12-gommberg-001.pdf",
-    "nome": "2026-10-12 Gommberg Terminal Daily #001.pdf",
-    "pagine": 6,
-    "notizie": [
-      "Iran: risposta USA \"inadeguata\", Hormuz resta chiuso",
-      "Weekend di fuoco nel Golfo: petroliere colpite, nave fermata dagli USA",
-      "Greggio in calo su diesel russo e \"tregua energetica\"",
-      "Houthi colpiscono l'aeroporto di Riad",
-      "Kospi -3,65%: pioggia di vendite sui chip",
-      "Risiko: Intesa insiste su MPS, Tata rilancia su Iveco",
-      "Dazi: tregua prorogata, la UE studia un tetto alle ibride cinesi",
-      "Fed: ultima settimana di discorsi prima del silenzio"
-    ],
-    "temi_deep_dive": {
-      "treasury": "10 anni ai massimi dal 2002, +37/+41/+32 pb in un mese su 2/10/30",
-      "iran": "7 condizioni iraniane, nessun accordo su Hormuz, scenari 60/25/15",
-      "petrolio": "fisico 125,44 $ contro future 100,58 $ (6/10)",
-      "eurusd": "1,12 in lieve calo"
-    },
-    "glossario": [
-      "pb",
-      "m/m, a/a",
-      "CPI, PPI",
-      "Treasury, Bund, OAT",
-      "Spread",
-      "VIX",
-      "Brent, WTI",
-      "EPS, guidance",
-      "Bid-to-cover",
-      "Periodo di silenzio"
-    ],
-    "temi": [
-      "Geopolitica",
-      "Petrolio",
-      "Tassi",
-      "Chip",
-      "Asia",
-      "Valute"
-    ]
+ {
+  "numero": 1,
+  "data": "2026-10-12",
+  "titolo": "Hormuz, nessun accordo. Wall Street vicina al record aspetta CPI, banche e TSMC",
+  "sommario": [
+   "Wall Street chiude la settimana a +1,2%, a un soffio dal record, nonostante il 10 anni USA salito fino a circa il 5,35% (massimo dal 2002).",
+   "Questa settimana decidono tre test: CPI USA (mer 14:30), trimestrali delle banche (da martedì) e TSMC (gio).",
+   "Iran: Trump esclude attacchi fino al 3 novembre, ma su Hormuz nessun accordo e gli Houthi colpiscono Riad."
+  ],
+  "file": "pdf/2026-10-12-gommberg-001.pdf",
+  "nome": "2026-10-12 Gommberg Terminal Daily #001.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Iran: risposta USA \"inadeguata\", Hormuz resta chiuso",
+   "Weekend di fuoco nel Golfo: petroliere colpite, nave fermata dagli USA",
+   "Greggio in calo su diesel russo e \"tregua energetica\"",
+   "Houthi colpiscono l'aeroporto di Riad",
+   "Kospi -3,65%: pioggia di vendite sui chip",
+   "Risiko: Intesa insiste su MPS, Tata rilancia su Iveco",
+   "Dazi: tregua prorogata, la UE studia un tetto alle ibride cinesi",
+   "Fed: ultima settimana di discorsi prima del silenzio"
+  ],
+  "temi_deep_dive": {
+   "treasury": "10 anni ai massimi dal 2002, +37/+41/+32 pb in un mese su 2/10/30",
+   "iran": "7 condizioni iraniane, nessun accordo su Hormuz, scenari 60/25/15",
+   "petrolio": "fisico 125,44 $ contro future 100,58 $ (6/10)",
+   "eurusd": "1,12 in lieve calo"
   },
-  {
-    "numero": 2,
-    "data": "2026-10-13",
-    "titolo": "Seul crolla del 5,5% sui chip e frena il Nasdaq. Oggi tocca alle banche americane",
-    "sommario": [
-      "I chip trascinano l'Asia: Kospi -5,5% dopo il -3,65% di lunedì, SK Hynix -10,1%; Tokyo -1,8% alla riapertura dopo il festivo.",
-      "Il petrolio torna sopra 106 $ (+1,8% lunedì) dopo gli attacchi in Arabia Saudita e alle petroliere; stamattina Brent a 105,32 $.",
-      "Scommessa: tutti e 7 gli strumenti sono dentro il range, ma per ora solo l'EUR/USD va nella direzione prevista."
-    ],
-    "file": "pdf/2026-10-13-gommberg-002.pdf",
-    "nome": "2026-10-13 Gommberg Terminal Daily #002.pdf",
-    "pagine": 6,
-    "notizie": [
-      "Kospi, secondo crollo: -5,5% e minimo intraday sotto 6.000",
-      "Riad promette una risposta \"seria\" agli Houthi, Brent a 106 $",
-      "FMI: l'economia ha retto, ma la resilienza è sotto sforzo",
-      "MPS boccia il rilancio di Intesa: premio \"limitato\"",
-      "Broadcom, Hock Tan: \"molti investitori non sanno in cosa investono\"",
-      "Tregua energetica in dubbio, il petrolio perde un freno",
-      "LVMH, ricavi del trimestre +1%: la Cina frena ancora",
-      "Inflazione tedesca confermata al 3,3%"
-    ],
-    "temi_deep_dive": {
-      "treasury": "mercato chiuso per Columbus Day, livelli al 9/10 invariati, soglia 5,30-5,35%",
-      "iran": "Riad promette una risposta seria agli Houthi; scenari invariati 60/25/15",
-      "petrolio": "Brent future 106,65 $ lunedì (+1,8%), fisico EIA fermo al 6/10",
-      "eurusd": "chiusura 1,1156 sotto il minimo del 5/10, minimo a 52 settimane 1,1153"
-    },
-    "glossario": [
-      "FMI",
-      "TWD",
-      "LSEG"
-    ],
-    "temi": [
-      "Chip",
-      "Asia",
-      "Petrolio",
-      "Geopolitica",
-      "Banche",
-      "Tassi"
-    ]
+  "glossario": [
+   "pb",
+   "m/m, a/a",
+   "CPI, PPI",
+   "Treasury, Bund, OAT",
+   "Spread",
+   "VIX",
+   "Brent, WTI",
+   "EPS, guidance",
+   "Bid-to-cover",
+   "Periodo di silenzio"
+  ],
+  "temi": [
+   "Geopolitica",
+   "Petrolio",
+   "Tassi",
+   "Chip",
+   "Asia",
+   "Valute"
+  ]
+ },
+ {
+  "numero": 2,
+  "data": "2026-10-13",
+  "titolo": "Seul crolla del 5,5% sui chip e frena il Nasdaq. Oggi tocca alle banche americane",
+  "sommario": [
+   "I chip trascinano l'Asia: Kospi -5,5% dopo il -3,65% di lunedì, SK Hynix -10,1%; Tokyo -1,8% alla riapertura dopo il festivo.",
+   "Il petrolio torna sopra 106 $ (+1,8% lunedì) dopo gli attacchi in Arabia Saudita e alle petroliere; stamattina Brent a 105,32 $.",
+   "Scommessa: tutti e 7 gli strumenti sono dentro il range, ma per ora solo l'EUR/USD va nella direzione prevista."
+  ],
+  "file": "pdf/2026-10-13-gommberg-002.pdf",
+  "nome": "2026-10-13 Gommberg Terminal Daily #002.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Kospi, secondo crollo: -5,5% e minimo intraday sotto 6.000",
+   "Riad promette una risposta \"seria\" agli Houthi, Brent a 106 $",
+   "FMI: l'economia ha retto, ma la resilienza è sotto sforzo",
+   "MPS boccia il rilancio di Intesa: premio \"limitato\"",
+   "Broadcom, Hock Tan: \"molti investitori non sanno in cosa investono\"",
+   "Tregua energetica in dubbio, il petrolio perde un freno",
+   "LVMH, ricavi del trimestre +1%: la Cina frena ancora",
+   "Inflazione tedesca confermata al 3,3%"
+  ],
+  "temi_deep_dive": {
+   "treasury": "mercato chiuso per Columbus Day, livelli al 9/10 invariati, soglia 5,30-5,35%",
+   "iran": "Riad promette una risposta seria agli Houthi; scenari invariati 60/25/15",
+   "petrolio": "Brent future 106,65 $ lunedì (+1,8%), fisico EIA fermo al 6/10",
+   "eurusd": "chiusura 1,1156 sotto il minimo del 5/10, minimo a 52 settimane 1,1153"
   },
-  {
-    "numero": 3,
-    "data": "2026-10-14",
-    "titolo": "Banche miste e chip ancora sotto pressione: Wall Street ferma aspetta il CPI di oggi",
-    "sommario": [
-      "Goldman Sachs batte sull'utile (17,01 $ per azione), Wells Fargo delude sui ricavi (21,87 mld, titolo -3,1%): i conti delle banche non spostano l'indice.",
-      "Oggi il CPI USA alle 14:30: attese +0,6% m/m e +3,6% a/a sull'indice generale, +0,2% m/m sul core.",
-      "Scommessa: 3 strumenti su 7 sulla strada giusta (Treasury 2 e 10 anni, EUR/USD), tutti e 7 dentro il range."
-    ],
-    "file": "pdf/2026-10-14-gommberg-003.pdf",
-    "nome": "2026-10-14 Gommberg Terminal Daily #003.pdf",
-    "pagine": 6,
-    "notizie": [
-      "Conti misti: Goldman batte, Wells Fargo delude, Citi segna ricavi in crescita dell'8%",
-      "Chip ancora in calo: tornano i timori sulla cinese CXMT",
-      "ASML alza la guidance 2026, ma l'offerta 2027-28 non basterà",
-      "Cina: export a +36,3% a settembre, prezzi alla produzione al 5,0%",
-      "Spagna: inflazione armonizzata finale al 5,0%, core al 3,1%",
-      "Alla vigilia del CPI il mercato prezza il 22% di un rialzo a ottobre"
-    ],
-    "temi_deep_dive": {
-      "treasury": "10 anni a 5,21%, curva in calo di 5-10 pb in due settimane, soglia 5,30%",
-      "iran": "nessuna novità verificata, scenari 60/25/15 invariati",
-      "petrolio": "Brent 105,69 $ (13/10), 106,41 $ stamattina, +5% in una settimana",
-      "eurusd": "rimbalzo a 1,1198 dopo la chiusura di lunedì a 1,1153"
-    },
-    "glossario": [
-      "HICP",
-      "CXMT",
-      "Beige Book",
-      "Core"
-    ],
-    "temi": [
-      "Banche",
-      "Trimestrali",
-      "Chip",
-      "Inflazione",
-      "Cina",
-      "Tassi"
-    ]
+  "glossario": [
+   "FMI",
+   "TWD",
+   "LSEG"
+  ],
+  "temi": [
+   "Chip",
+   "Asia",
+   "Petrolio",
+   "Geopolitica",
+   "Banche",
+   "Tassi"
+  ]
+ },
+ {
+  "numero": 3,
+  "data": "2026-10-14",
+  "titolo": "Banche miste e chip ancora sotto pressione: Wall Street ferma aspetta il CPI di oggi",
+  "sommario": [
+   "Goldman Sachs batte sull'utile (17,01 $ per azione), Wells Fargo delude sui ricavi (21,87 mld, titolo -3,1%): i conti delle banche non spostano l'indice.",
+   "Oggi il CPI USA alle 14:30: attese +0,6% m/m e +3,6% a/a sull'indice generale, +0,2% m/m sul core.",
+   "Scommessa: 3 strumenti su 7 sulla strada giusta (Treasury 2 e 10 anni, EUR/USD), tutti e 7 dentro il range."
+  ],
+  "file": "pdf/2026-10-14-gommberg-003.pdf",
+  "nome": "2026-10-14 Gommberg Terminal Daily #003.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Conti misti: Goldman batte, Wells Fargo delude, Citi segna ricavi in crescita dell'8%",
+   "Chip ancora in calo: tornano i timori sulla cinese CXMT",
+   "ASML alza la guidance 2026, ma l'offerta 2027-28 non basterà",
+   "Cina: export a +36,3% a settembre, prezzi alla produzione al 5,0%",
+   "Spagna: inflazione armonizzata finale al 5,0%, core al 3,1%",
+   "Alla vigilia del CPI il mercato prezza il 22% di un rialzo a ottobre"
+  ],
+  "temi_deep_dive": {
+   "treasury": "10 anni a 5,21%, curva in calo di 5-10 pb in due settimane, soglia 5,30%",
+   "iran": "nessuna novità verificata, scenari 60/25/15 invariati",
+   "petrolio": "Brent 105,69 $ (13/10), 106,41 $ stamattina, +5% in una settimana",
+   "eurusd": "rimbalzo a 1,1198 dopo la chiusura di lunedì a 1,1153"
   },
-  {
-    "numero": 4,
-    "data": "2026-10-15",
-    "titolo": "CPI sopra le attese, Wall Street cede l'1,1% e l'Asia crolla: Kospi -8,7%, Nikkei -4,9%",
-    "sommario": [
-      "CPI USA a +3,7% annuo contro 3,6% atteso, core a +2,6% contro 2,5%: probabilità di rialzo Fed a ottobre al 35-47% a seconda della fonte, dal 22% del giorno prima.",
-      "S&P 500 -1,11%, Nasdaq -1,88%, tecnologia -3,00%. Stamattina alle 08:11 Kospi -8,68% e Nikkei -4,89%.",
-      "Scommessa: tutti e 7 i mercati ancora dentro il range, ma solo 2 su 7 sulla strada giusta (Treasury 10 anni e Brent)."
-    ],
-    "file": "pdf/2026-10-15-gommberg-004.pdf",
-    "nome": "2026-10-15 Gommberg Terminal Daily #004.pdf",
-    "pagine": 6,
-    "notizie": [
-      "CPI USA di settembre sopra le attese: 3,7% annuo, core 2,6%",
-      "S&P 500 -1,11%, Nasdaq -1,88%: tecnologia a -3,00%",
-      "Seul -8,68% e Tokyo -4,89% nella notte",
-      "SoftBank -10%, Kioxia e Advantest -11% a Tokyo",
-      "Rialzo a ottobre: probabilità al 35-47% dopo il CPI",
-      "BofA delude, Morgan Stanley corre nel trading",
-      "TSMC: utile +68,7% e ricavi +50,9% nel terzo trimestre"
-    ],
-    "temi_deep_dive": {
-      "treasury": "il picco post-CPI (10 anni 5,33% in serata) non regge, chiusura 5,19%",
-      "iran": "nessuna novità verificata, scenari 60/25/15 invariati",
-      "petrolio": "Brent future 106,06 $ (14/10), 104,39 $ stamattina; fisico EIA 125,44 $ al 6/10",
-      "eurusd": "chiusura 1,1156 dopo il CPI, recupero a 1,1216 stamattina"
-    },
-    "glossario": [
-      "Kospi",
-      "CME FedWatch",
-      "Par yield"
-    ],
-    "temi": [
-      "Inflazione",
-      "Fed",
-      "Wall Street",
-      "Asia",
-      "Chip",
-      "Banche"
-    ]
+  "glossario": [
+   "HICP",
+   "CXMT",
+   "Beige Book",
+   "Core"
+  ],
+  "temi": [
+   "Banche",
+   "Trimestrali",
+   "Chip",
+   "Inflazione",
+   "Cina",
+   "Tassi"
+  ]
+ },
+ {
+  "numero": 4,
+  "data": "2026-10-15",
+  "titolo": "CPI sopra le attese, Wall Street cede l'1,1% e l'Asia crolla: Kospi -8,7%, Nikkei -4,9%",
+  "sommario": [
+   "CPI USA a +3,7% annuo contro 3,6% atteso, core a +2,6% contro 2,5%: probabilità di rialzo Fed a ottobre al 35-47% a seconda della fonte, dal 22% del giorno prima.",
+   "S&P 500 -1,11%, Nasdaq -1,88%, tecnologia -3,00%. Stamattina alle 08:11 Kospi -8,68% e Nikkei -4,89%.",
+   "Scommessa: tutti e 7 i mercati ancora dentro il range, ma solo 2 su 7 sulla strada giusta (Treasury 10 anni e Brent)."
+  ],
+  "file": "pdf/2026-10-15-gommberg-004.pdf",
+  "nome": "2026-10-15 Gommberg Terminal Daily #004.pdf",
+  "pagine": 6,
+  "notizie": [
+   "CPI USA di settembre sopra le attese: 3,7% annuo, core 2,6%",
+   "S&P 500 -1,11%, Nasdaq -1,88%: tecnologia a -3,00%",
+   "Seul -8,68% e Tokyo -4,89% nella notte",
+   "SoftBank -10%, Kioxia e Advantest -11% a Tokyo",
+   "Rialzo a ottobre: probabilità al 35-47% dopo il CPI",
+   "BofA delude, Morgan Stanley corre nel trading",
+   "TSMC: utile +68,7% e ricavi +50,9% nel terzo trimestre"
+  ],
+  "temi_deep_dive": {
+   "treasury": "il picco post-CPI (10 anni 5,33% in serata) non regge, chiusura 5,19%",
+   "iran": "nessuna novità verificata, scenari 60/25/15 invariati",
+   "petrolio": "Brent future 106,06 $ (14/10), 104,39 $ stamattina; fisico EIA 125,44 $ al 6/10",
+   "eurusd": "chiusura 1,1156 dopo il CPI, recupero a 1,1216 stamattina"
   },
-  {
-    "numero": 5,
-    "data": "2026-10-16",
-    "titolo": "Prezzi alla produzione USA +1,3% in un mese: il rialzo più forte da oltre quattro anni",
-    "sommario": [
-      "Wall Street chiude in rialzo: Dow Jones +1,1% a 52.178 punti, Nasdaq +0,1%, S&P 500 7.744,06 (+0,3%). Il Treasury a 10 anni scende al 5,10% (-9 pb, punti base: centesimi di punto).",
-      "Seul chiude a -7,57% (Kospi, l'indice sudcoreano) con scambi sospesi 20 minuti; stamattina l'Asia rimbalza.",
-      "Il presidente della Fed Kevin Warsh non anticipa le mosse dei prossimi mesi. Oggi alle 15:15 produzione industriale USA."
+  "glossario": [
+   "Kospi",
+   "CME FedWatch",
+   "Par yield"
+  ],
+  "temi": [
+   "Inflazione",
+   "Fed",
+   "Wall Street",
+   "Asia",
+   "Chip",
+   "Banche"
+  ]
+ },
+ {
+  "numero": 5,
+  "data": "2026-10-16",
+  "titolo": "Prezzi alla produzione USA +1,3% in un mese: il rialzo più forte da oltre quattro anni",
+  "sommario": [
+   "Wall Street chiude in rialzo: Dow Jones +1,1% a 52.178 punti, Nasdaq +0,1%, S&P 500 7.744,06 (+0,3%). Il Treasury a 10 anni scende al 5,10% (-9 pb, punti base: centesimi di punto).",
+   "Seul chiude a -7,57% (Kospi, l'indice sudcoreano) con scambi sospesi 20 minuti; stamattina l'Asia rimbalza.",
+   "Il presidente della Fed Kevin Warsh non anticipa le mosse dei prossimi mesi. Oggi alle 15:15 produzione industriale USA."
+  ],
+  "file": "pdf/2026-10-16-gommberg-005.pdf",
+  "nome": "2026-10-16 Gommberg Terminal Daily #005.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Vendite al dettaglio +0,8%, sopra le attese",
+   "Sussidi a 199 mila, l'indice Philly Fed frena",
+   "Titoli AI: sotto esame il debito",
+   "Seul chiude a -7,57%, poi l'Asia rimbalza",
+   "Milano ultima, Londra e Parigi in rialzo",
+   "Produzione industriale in calo dello 0,5%",
+   "Warsh non anticipa le prossime mosse"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "159,23 $",
+    "+0,3% g"
+   ],
+   [
+    "S&P 500",
+    "7.744,06",
+    "+0,3% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.188,40",
+    "+0,4% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "5,10%",
+    "-9 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "105,92 $",
+    "-0,1% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1218",
+    "+0,6% g"
+   ],
+   [
+    "VIX",
+    "16,46",
+    "-0,41 g"
+   ]
+  ],
+  "dek": "A settembre l'indice dei prezzi alla produzione (PPI) sale dell'1,3% sul mese e del 6,3% sull'anno contro il 5,3% atteso; il core (senza energia e alimentari) è a +0,7% mensile e +5,0% annuo. Anche le vendite al dettaglio superano le attese. Wall Street chiude comunque in rialzo e i rendimenti dei Treasury a lunga scendono.",
+  "ticker_al": "2026-10-15",
+  "scommessa": {
+   "settimana": "2026-10-12/2026-10-16",
+   "su": 7,
+   "strada": 2,
+   "range": 6,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     false,
+     true
     ],
-    "file": "pdf/2026-10-16-gommberg-005.pdf",
-    "nome": "2026-10-16 Gommberg Terminal Daily #005.pdf",
-    "pagine": 6,
-    "notizie": [
-      "Vendite al dettaglio +0,8%, sopra le attese",
-      "Sussidi a 199 mila, l'indice Philly Fed frena",
-      "Titoli AI: sotto esame il debito",
-      "Seul chiude a -7,57%, poi l'Asia rimbalza",
-      "Milano ultima, Londra e Parigi in rialzo",
-      "Produzione industriale in calo dello 0,5%",
-      "Warsh non anticipa le prossime mosse"
+    [
+     "S&P 500",
+     "su",
+     false,
+     true
     ],
-    "ticker": [
-      [
-        "MSCI ACWI (ETF)",
-        "159,23 $",
-        "+0,3% g"
-      ],
-      [
-        "S&P 500",
-        "7.744,06",
-        "+0,3% g"
-      ],
-      [
-        "EURO STOXX 50",
-        "6.188,40",
-        "+0,4% g"
-      ],
-      [
-        "UST 10 ANNI",
-        "5,10%",
-        "-9 pb g"
-      ],
-      [
-        "BRENT FUTURE",
-        "105,92 $",
-        "-0,1% g"
-      ],
-      [
-        "EUR/USD",
-        "1,1218",
-        "+0,6% g"
-      ],
-      [
-        "VIX",
-        "16,46",
-        "-0,41 g"
-      ]
+    [
+     "Euro Stoxx 50",
+     "su",
+     false,
+     true
     ],
-    "dek": "A settembre l'indice dei prezzi alla produzione (PPI) sale dell'1,3% sul mese e del 6,3% sull'anno contro il 5,3% atteso; il core (senza energia e alimentari) è a +0,7% mensile e +5,0% annuo. Anche le vendite al dettaglio superano le attese. Wall Street chiude comunque in rialzo e i rendimenti dei Treasury a lunga scendono.",
-    "ticker_al": "2026-10-15",
-    "scommessa": {
-      "settimana": "2026-10-12/2026-10-16",
-      "su": 7,
-      "strada": 2,
-      "range": 6,
-      "dettaglio": [
-        [
-          "MSCI ACWI (ETF)",
-          "su",
-          false,
-          true
-        ],
-        [
-          "S&P 500",
-          "su",
-          false,
-          true
-        ],
-        [
-          "Euro Stoxx 50",
-          "su",
-          false,
-          true
-        ],
-        [
-          "Treasury 10 anni",
-          "giù",
-          true,
-          false
-        ],
-        [
-          "Treasury 2 anni",
-          "giù",
-          true,
-          true
-        ],
-        [
-          "Brent future",
-          "giù",
-          false,
-          true
-        ],
-        [
-          "EUR/USD",
-          "giù",
-          false,
-          true
-        ]
-      ]
-    },
-    "temi": [
-      "Inflazione",
-      "Fed",
-      "Tassi",
-      "Chip",
-      "Asia",
-      "Europa"
+    [
+     "Treasury 10 anni",
+     "giù",
+     true,
+     false
     ],
-    "approfondimenti": [
-      {
-        "tema": "Inflazione USA",
-        "titolo": "PPI e vendite al dettaglio: settembre supera le attese su più fronti",
-        "formato": "tabella"
-      },
-      {
-        "tema": "Tassi USA",
-        "titolo": "Treasury: dopo il PPI i rendimenti scendono dal 5 anni in su",
-        "formato": "due_grafici"
-      },
-      {
-        "tema": "Europa",
-        "titolo": "Europa: Piazza Affari ultima, la produzione industriale cala in Italia e Francia",
-        "formato": "due_grafici"
-      }
+    [
+     "Treasury 2 anni",
+     "giù",
+     true,
+     true
     ],
-    "meccanismi": [],
-    "parole": [
-      "Prezzi alla produzione",
-      "Circuit breaker",
-      "Pre-market"
+    [
+     "Brent future",
+     "giù",
+     false,
+     true
     ],
-    "ripetizioni": 39,
-    "glossario": [
-      "PPI",
-      "core",
-      "pb",
-      "BTP",
-      "Bund",
-      "VIX",
-      "ACWI",
-      "Brent",
-      "guidance"
+    [
+     "EUR/USD",
+     "giù",
+     false,
+     true
     ]
+   ]
   },
-  {
-    "numero": 6,
-    "data": "2026-10-19",
-    "titolo": "Il debito dell'AI fa più paura dei conti: il Nasdaq perde il 4,5% in una settimana",
-    "sommario": [
-      "Il greggio ai massimi da maggio scende con le sanzioni alla Russia sospese, ma i rischi nel Golfo restano.",
-      "Dati caldi ma rendimenti in forte calo: il Treasury fa da rifugio.",
-      "Mercoledì sera i conti di Tesla e Meta mettono alla prova le spese in AI."
+  "temi": [
+   "Inflazione",
+   "Fed",
+   "Tassi",
+   "Chip",
+   "Asia",
+   "Europa"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Inflazione USA",
+    "titolo": "PPI e vendite al dettaglio: settembre supera le attese su più fronti",
+    "formato": "tabella"
+   },
+   {
+    "tema": "Tassi USA",
+    "titolo": "Treasury: dopo il PPI i rendimenti scendono dal 5 anni in su",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Europa",
+    "titolo": "Europa: Piazza Affari ultima, la produzione industriale cala in Italia e Francia",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [],
+  "parole": [
+   "Prezzi alla produzione",
+   "Circuit breaker",
+   "Pre-market"
+  ],
+  "ripetizioni": 39,
+  "glossario": [
+   "PPI",
+   "core",
+   "pb",
+   "BTP",
+   "Bund",
+   "VIX",
+   "ACWI",
+   "Brent",
+   "guidance"
+  ]
+ },
+ {
+  "numero": 6,
+  "data": "2026-10-19",
+  "titolo": "Il debito dell'AI fa più paura dei conti: il Nasdaq perde il 4,5% in una settimana",
+  "sommario": [
+   "Il greggio ai massimi da maggio scende con le sanzioni alla Russia sospese, ma i rischi nel Golfo restano.",
+   "Dati caldi ma rendimenti in forte calo: il Treasury fa da rifugio.",
+   "Mercoledì sera i conti di Tesla e Meta mettono alla prova le spese in AI."
+  ],
+  "file": "pdf/2026-10-19-gommberg-006.pdf",
+  "nome": "2026-10-19 Gommberg Terminal Daily #006.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Brent a 110 $ per la prima volta da maggio",
+   "Trump sospende le sanzioni sulla Russia",
+   "Prezzi all'import USA +1,1% a settembre",
+   "Produzione industriale USA +0,7%, sopra le attese",
+   "Cucinelli alza la stima 2026, titolo +4,3%",
+   "Seul rimbalza del 2,05% dopo il crollo",
+   "Fed ferma il 27-28 ottobre: il mercato ci crede all'82,8%"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "157,74 $",
+    "-0,9% g"
+   ],
+   [
+    "S&P 500",
+    "7.659,44",
+    "-1,1% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.188,40",
+    "+0,4% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "5,09%",
+    "-1 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "109,86 $",
+    "+3,7% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1239",
+    "+0,2% g"
+   ],
+   [
+    "VIX",
+    "19,99",
+    "+3,53 g"
+   ]
+  ],
+  "dek": "Venerdì il Nasdaq cede il 2,1% e il VIX (volatilità attesa sull'S&P 500) sale a 19,99, il balzo più forte dal 5 giugno. Il timore è che le società dell'intelligenza artificiale (AI) molto indebitate non facciano utili in tempo per ripagare i prestiti, mentre i costi di finanziamento salgono (Reuters): CoreWeave perde il 12% e i suoi bond rendono oltre il 15%. Stamattina Tokyo e Seul hanno aperto in forte calo.",
+  "ticker_al": "2026-10-16",
+  "ticker_dal": "2026-10-15",
+  "scommessa": {
+   "settimana": "2026-10-19/2026-10-23",
+   "su": 6,
+   "variabile": {
+    "nome": "Oro (future, $/oncia)",
+    "motivo": "Credito sull'AI, petrolio a 110 $ e Fed in bilico: l'oro dice se i mercati cercano un rifugio"
+   },
+   "strada": null,
+   "range": null,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     null,
+     null
     ],
-    "file": "pdf/2026-10-19-gommberg-006.pdf",
-    "nome": "2026-10-19 Gommberg Terminal Daily #006.pdf",
-    "pagine": 6,
-    "notizie": [
-      "Brent a 110 $ per la prima volta da maggio",
-      "Trump sospende le sanzioni sulla Russia",
-      "Prezzi all'import USA +1,1% a settembre",
-      "Produzione industriale USA +0,7%, sopra le attese",
-      "Cucinelli alza la stima 2026, titolo +4,3%",
-      "Seul rimbalza del 2,05% dopo il crollo",
-      "Fed ferma il 27-28 ottobre: il mercato ci crede all'82,8%"
+    [
+     "S&P 500",
+     "su",
+     null,
+     null
     ],
-    "ticker": [
-      [
-        "MSCI ACWI (ETF)",
-        "157,74 $",
-        "-0,9% g"
-      ],
-      [
-        "S&P 500",
-        "7.659,44",
-        "-1,1% g"
-      ],
-      [
-        "EURO STOXX 50",
-        "6.188,40",
-        "+0,4% g"
-      ],
-      [
-        "UST 10 ANNI",
-        "5,09%",
-        "-1 pb g"
-      ],
-      [
-        "BRENT FUTURE",
-        "109,86 $",
-        "+3,7% g"
-      ],
-      [
-        "EUR/USD",
-        "1,1239",
-        "+0,2% g"
-      ],
-      [
-        "VIX",
-        "19,99",
-        "+3,53 g"
-      ]
+    [
+     "Euro Stoxx 50",
+     "giù",
+     null,
+     null
     ],
-    "dek": "Venerdì il Nasdaq cede il 2,1% e il VIX (volatilità attesa sull'S&P 500) sale a 19,99, il balzo più forte dal 5 giugno. Il timore è che le società dell'intelligenza artificiale (AI) molto indebitate non facciano utili in tempo per ripagare i prestiti, mentre i costi di finanziamento salgono (Reuters): CoreWeave perde il 12% e i suoi bond rendono oltre il 15%. Stamattina Tokyo e Seul hanno aperto in forte calo.",
-    "ticker_al": "2026-10-16",
-    "ticker_dal": "2026-10-15",
-    "scommessa": {
-      "settimana": "2026-10-19/2026-10-23",
-      "su": 6,
-      "variabile": {
-        "nome": "Oro (future, $/oncia)",
-        "motivo": "Credito sull'AI, petrolio a 110 $ e Fed in bilico: l'oro dice se i mercati cercano un rifugio"
-      },
-      "strada": null,
-      "range": null,
-      "dettaglio": [
-        [
-          "MSCI ACWI (ETF)",
-          "su",
-          null,
-          null
-        ],
-        [
-          "S&P 500",
-          "su",
-          null,
-          null
-        ],
-        [
-          "Euro Stoxx 50",
-          "giù",
-          null,
-          null
-        ],
-        [
-          "Treasury 10 anni",
-          "giù",
-          null,
-          null
-        ],
-        [
-          "Brent future",
-          "giù",
-          null,
-          null
-        ],
-        [
-          "EUR/USD",
-          "giù",
-          null,
-          null
-        ],
-        [
-          "Oro (future, $/oncia)",
-          "su",
-          null,
-          null,
-          true
-        ]
-      ]
-    },
-    "verdetto": {
-      "settimana": "2026-10-12/2026-10-16",
-      "punti": 7,
-      "su": 14,
-      "direzione": 2,
-      "range": 5,
-      "par": 8.5
-    },
-    "temi": [
-      "Credito",
-      "Petrolio",
-      "Tassi",
-      "Fed",
-      "Inflazione",
-      "Trimestrali"
+    [
+     "Treasury 10 anni",
+     "giù",
+     null,
+     null
     ],
-    "approfondimenti": [
-      {
-        "tema": "Petrolio",
-        "titolo": "Il petrolio ai massimi da maggio perde terreno quando Washington sospende le sanzioni sulla Russia",
-        "formato": "grafico"
-      },
-      {
-        "tema": "Credito",
-        "titolo": "Il mercato non punisce i conti dell'AI ma i prestiti che la finanziano",
-        "formato": "due_grafici"
-      },
-      {
-        "tema": "Tassi USA",
-        "titolo": "Dati caldi, rendimenti in calo: il Treasury fa da rifugio, non da termometro dell'inflazione",
-        "formato": "due_grafici"
-      }
+    [
+     "Brent future",
+     "giù",
+     null,
+     null
     ],
-    "meccanismi": [
-      "M26",
-      "M14"
+    [
+     "EUR/USD",
+     "giù",
+     null,
+     null
     ],
-    "parole": [
-      "Rifugio",
-      "Premio di rischio",
-      "Curva dei rendimenti"
-    ],
-    "ripetizioni": 11,
-    "glossario": [
-      "CPI",
-      "CME FedWatch",
-      "pb",
-      "BTP",
-      "VIX",
-      "ACWI",
-      "Brent",
-      "WTI",
-      "SEC"
+    [
+     "Oro (future, $/oncia)",
+     "su",
+     null,
+     null,
+     true
     ]
+   ]
   },
-  {
-    "numero": 7,
-    "data": "2026-10-20",
-    "titolo": "Disordini in Francia: lo spread sale e le Borse europee cedono circa l'1%",
-    "sommario": [
-      "Il Nasdaq rimbalza con Amazon e i chip, ma Seul continua a vendere i semiconduttori.",
-      "Cina: il PIL del terzo trimestre batte le attese, ma investimenti e immobili frenano.",
-      "Questa settimana i conti di Netflix, Tesla, Meta e IBM e il rating della Francia."
-    ],
-    "file": "pdf/2026-10-20-gommberg-007.pdf",
-    "nome": "2026-10-20 Gommberg Terminal Daily #007.pdf",
-    "pagine": 6,
-    "notizie": [
-      "Barclays perde il 3,5% dopo l'indiscrezione sul private credit",
-      "Houthi: sei attacchi in 48 ore contro l'Arabia Saudita",
-      "Seul, debutto choc in Borsa per Elice: quasi -30% sul prezzo di collocamento",
-      "Putin propone un vertice a tre con Trump e Xi sull'Ucraina",
-      "BTP Valore, 4,6 miliardi di ordini nel primo giorno",
-      "Amazon recupera la perdita della settimana dopo la promozione di Morgan Stanley"
-    ],
-    "ticker": [
-      [
-        "MSCI ACWI (ETF)",
-        "158,12 $",
-        "+0,2% g"
-      ],
-      [
-        "S&P 500",
-        "7.690,73",
-        "+0,4% g"
-      ],
-      [
-        "EURO STOXX 50",
-        "6.112,10",
-        "-0,8% g"
-      ],
-      [
-        "UST 10 ANNI",
-        "5,15%",
-        "+6 pb g"
-      ],
-      [
-        "BRENT FUTURE",
-        "109,55 $",
-        "-0,3% g"
-      ],
-      [
-        "EUR/USD",
-        "1,1210",
-        "-0,3% g"
-      ],
-      [
-        "VIX",
-        "18,44",
-        "-1,55 g"
-      ]
-    ],
-    "dek": "Dopo un weekend di rivolte per i rincari e per i servizi pubblici peggiorati, con coprifuoco parziali a Parigi, Lille e Nizza, lunedì il CAC 40 perde l'1,1% e lo STOXX 600, l'indice dei 600 maggiori titoli europei, lo 0,9%; le banche francesi cedono tra il 2,5% e il 3,4% (Reuters). Lo spread tra OAT (titoli di Stato francesi) e Bund (titoli di Stato tedeschi) chiude a 147 pb (punti base, centesimi di punto percentuale), contro i 112 del BTP (titoli di Stato italiani): Parigi paga più di Roma per finanziarsi (Milano Finanza).",
-    "ticker_al": "2026-10-19",
-    "scommessa": {
-      "settimana": "2026-10-19/2026-10-23",
-      "su": 6,
-      "variabile": {
-        "nome": "Oro (future, $/oncia)",
-        "motivo": "Credito sull'AI, petrolio a 110 $ e Fed in bilico: l'oro dice se i mercati cercano un rifugio"
-      },
-      "strada": 5,
-      "range": 6,
-      "dettaglio": [
-        [
-          "MSCI ACWI (ETF)",
-          "su",
-          true,
-          true
-        ],
-        [
-          "S&P 500",
-          "su",
-          true,
-          true
-        ],
-        [
-          "Euro Stoxx 50",
-          "giù",
-          true,
-          true
-        ],
-        [
-          "Treasury 10 anni",
-          "giù",
-          false,
-          true
-        ],
-        [
-          "Brent future",
-          "giù",
-          true,
-          true
-        ],
-        [
-          "EUR/USD",
-          "giù",
-          true,
-          true
-        ],
-        [
-          "Oro (future, $/oncia)",
-          "su",
-          false,
-          true,
-          true
-        ]
-      ]
-    },
-    "temi": [
-      "Europa",
-      "Chip",
-      "Cina",
-      "Petrolio",
-      "Banche",
-      "Trimestrali"
-    ],
-    "approfondimenti": [
-      {
-        "tema": "Cina",
-        "titolo": "La Cina accelera grazie all'export, mentre gli investimenti continuano a frenare",
-        "formato": "grafico"
-      },
-      {
-        "tema": "Chip",
-        "titolo": "Seul non crede al rimbalzo di Nasdaq e chip americani: a vendere sono stranieri e istituzioni",
-        "formato": "due_grafici"
-      },
-      {
-        "tema": "Europa",
-        "titolo": "Il rischio Francia ora costa più del rischio Italia: Parigi paga 35 punti base in più di Roma",
-        "formato": "due_grafici"
-      }
-    ],
-    "meccanismi": [
-      "M13",
-      "M17"
-    ],
-    "parole": [
-      "Rating",
-      "Private credit",
-      "Ampiezza di mercato"
-    ],
-    "ripetizioni": 4,
-    "glossario": [
-      "PMI",
-      "ZEW",
-      "pb",
-      "BTP",
-      "Bund",
-      "OAT",
-      "VIX",
-      "ACWI",
-      "Brent"
-    ]
+  "verdetto": {
+   "settimana": "2026-10-12/2026-10-16",
+   "punti": 7,
+   "su": 14,
+   "direzione": 2,
+   "range": 5,
+   "par": 8.5
   },
-  {
-    "numero": 8,
-    "data": "2026-10-21",
-    "titolo": "Il petrolio torna sopra i 110 $ mentre le borse tentano il rimbalzo",
-    "sommario": [
-      "L'inflazione britannica accelera con i carburanti e rafforza l'attesa di un rialzo a novembre della Bank of England.",
-      "Super Micro e SpaceX riaccendono i titoli dell'intelligenza artificiale: Seul sale più di Tokyo.",
-      "Wall Street si divide: il Dow corre con la sanità, il Nasdaq resta fermo."
+  "temi": [
+   "Credito",
+   "Petrolio",
+   "Tassi",
+   "Fed",
+   "Inflazione",
+   "Trimestrali"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Petrolio",
+    "titolo": "Il petrolio ai massimi da maggio perde terreno quando Washington sospende le sanzioni sulla Russia",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Credito",
+    "titolo": "Il mercato non punisce i conti dell'AI ma i prestiti che la finanziano",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Tassi USA",
+    "titolo": "Dati caldi, rendimenti in calo: il Treasury fa da rifugio, non da termometro dell'inflazione",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [
+   "M26",
+   "M14"
+  ],
+  "parole": [
+   "Rifugio",
+   "Premio di rischio",
+   "Curva dei rendimenti"
+  ],
+  "ripetizioni": 11,
+  "glossario": [
+   "CPI",
+   "CME FedWatch",
+   "pb",
+   "BTP",
+   "VIX",
+   "ACWI",
+   "Brent",
+   "WTI",
+   "SEC"
+  ]
+ },
+ {
+  "numero": 7,
+  "data": "2026-10-20",
+  "titolo": "Disordini in Francia: lo spread sale e le Borse europee cedono circa l'1%",
+  "sommario": [
+   "Il Nasdaq rimbalza con Amazon e i chip, ma Seul continua a vendere i semiconduttori.",
+   "Cina: il PIL del terzo trimestre batte le attese, ma investimenti e immobili frenano.",
+   "Questa settimana i conti di Netflix, Tesla, Meta e IBM e il rating della Francia."
+  ],
+  "file": "pdf/2026-10-20-gommberg-007.pdf",
+  "nome": "2026-10-20 Gommberg Terminal Daily #007.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Barclays perde il 3,5% dopo l'indiscrezione sul private credit",
+   "Houthi: sei attacchi in 48 ore contro l'Arabia Saudita",
+   "Seul, debutto choc in Borsa per Elice: quasi -30% sul prezzo di collocamento",
+   "Putin propone un vertice a tre con Trump e Xi sull'Ucraina",
+   "BTP Valore, 4,6 miliardi di ordini nel primo giorno",
+   "Amazon recupera la perdita della settimana dopo la promozione di Morgan Stanley"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "158,12 $",
+    "+0,2% g"
+   ],
+   [
+    "S&P 500",
+    "7.690,73",
+    "+0,4% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.112,10",
+    "-0,8% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "5,15%",
+    "+6 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "109,55 $",
+    "-0,3% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1210",
+    "-0,3% g"
+   ],
+   [
+    "VIX",
+    "18,44",
+    "-1,55 g"
+   ]
+  ],
+  "dek": "Dopo un weekend di rivolte per i rincari e per i servizi pubblici peggiorati, con coprifuoco parziali a Parigi, Lille e Nizza, lunedì il CAC 40 perde l'1,1% e lo STOXX 600, l'indice dei 600 maggiori titoli europei, lo 0,9%; le banche francesi cedono tra il 2,5% e il 3,4% (Reuters). Lo spread tra OAT (titoli di Stato francesi) e Bund (titoli di Stato tedeschi) chiude a 147 pb (punti base, centesimi di punto percentuale), contro i 112 del BTP (titoli di Stato italiani): Parigi paga più di Roma per finanziarsi (Milano Finanza).",
+  "ticker_al": "2026-10-19",
+  "scommessa": {
+   "settimana": "2026-10-19/2026-10-23",
+   "su": 6,
+   "variabile": {
+    "nome": "Oro (future, $/oncia)",
+    "motivo": "Credito sull'AI, petrolio a 110 $ e Fed in bilico: l'oro dice se i mercati cercano un rifugio"
+   },
+   "strada": 5,
+   "range": 6,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     true,
+     true
     ],
-    "file": "pdf/2026-10-21-gommberg-008.pdf",
-    "nome": "2026-10-21 Gommberg Terminal Daily #008.pdf",
-    "pagine": 6,
-    "notizie": [
-      "Super Micro alza la guida e vola dopo la chiusura",
-      "SpaceX batte le stime e apre alla fusione con Tesla",
-      "Seul: Elice rimbalza il giorno dopo il crollo",
-      "Francia: il divario con la Germania supera 1,5 punti percentuali",
-      "Netflix cede il 5,6% fuori orario dopo i conti",
-      "Generali elimina il ruolo di direttore generale"
+    [
+     "S&P 500",
+     "su",
+     true,
+     true
     ],
-    "ticker": [
-      [
-        "MSCI ACWI (ETF)",
-        "158,77 $",
-        "+0,4% g"
-      ],
-      [
-        "S&P 500",
-        "7.712,57",
-        "+0,3% g"
-      ],
-      [
-        "EURO STOXX 50",
-        "6.112,10",
-        "-0,8% g"
-      ],
-      [
-        "UST 10 ANNI",
-        "5,12%",
-        "-3 pb g"
-      ],
-      [
-        "BRENT FUTURE",
-        "108,79 $",
-        "-0,7% g"
-      ],
-      [
-        "EUR/USD",
-        "1,1236",
-        "+0,2% g"
-      ],
-      [
-        "VIX",
-        "17,31",
-        "-1,13 g"
-      ]
+    [
+     "Euro Stoxx 50",
+     "giù",
+     true,
+     true
     ],
-    "dek": "Dopo aver sfiorato martedì i 112 $, il massimo dall'inizio della guerra con l'Iran (Il Sole 24 Ore), il Brent (petrolio di riferimento europeo) risale stamattina oltre quella soglia, mentre i future su Europa e Stati Uniti indicano un'apertura positiva (Milano Finanza).",
-    "ticker_al": "2026-10-20",
-    "ticker_dal": "2026-10-19",
-    "scommessa": {
-      "settimana": "2026-10-19/2026-10-23",
-      "su": 6,
-      "variabile": {
-        "nome": "Oro (future, $/oncia)",
-        "motivo": "Credito sull'AI, petrolio a 110 $ e Fed in bilico: l'oro dice se i mercati cercano un rifugio"
-      },
-      "strada": 5,
-      "range": 6,
-      "dettaglio": [
-        [
-          "MSCI ACWI (ETF)",
-          "su",
-          true,
-          true
-        ],
-        [
-          "S&P 500",
-          "su",
-          true,
-          true
-        ],
-        [
-          "Euro Stoxx 50",
-          "giù",
-          true,
-          true
-        ],
-        [
-          "Treasury 10 anni",
-          "giù",
-          false,
-          true
-        ],
-        [
-          "Brent future",
-          "giù",
-          true,
-          true
-        ],
-        [
-          "EUR/USD",
-          "giù",
-          true,
-          true
-        ],
-        [
-          "Oro (future, $/oncia)",
-          "su",
-          false,
-          true,
-          true
-        ]
-      ]
-    },
-    "temi": [
-      "Petrolio",
-      "Inflazione",
-      "Wall Street",
-      "Chip",
-      "Europa",
-      "Trimestrali"
+    [
+     "Treasury 10 anni",
+     "giù",
+     false,
+     true
     ],
-    "approfondimenti": [
-      {
-        "tema": "Inflazione",
-        "titolo": "Regno Unito: i carburanti spingono l'inflazione e avvicinano il rialzo della Bank of England",
-        "formato": "grafico"
-      },
-      {
-        "tema": "Wall Street",
-        "titolo": "Dopo il rimbalzo dei tecnologici, ieri la guida di Wall Street è passata a sanità e piccole imprese",
-        "formato": "due_grafici"
-      },
-      {
-        "tema": "Petrolio",
-        "titolo": "Il Brent corre tra speranze di accordo e attacchi alle petroliere: in un mese ha oscillato senza una direzione",
-        "formato": "due_grafici"
-      }
+    [
+     "Brent future",
+     "giù",
+     true,
+     true
     ],
-    "meccanismi": [
-      "M10",
-      "M11"
+    [
+     "EUR/USD",
+     "giù",
+     true,
+     true
     ],
-    "parole": [
-      "Escursione",
-      "Differenziale (spread)",
-      "Guidance"
-    ],
-    "ripetizioni": 7,
-    "glossario": [
-      "core",
-      "PMI",
-      "ZEW",
-      "pb",
-      "BTP",
-      "Bund",
-      "VIX",
-      "ACWI",
-      "Brent",
-      "EIA"
+    [
+     "Oro (future, $/oncia)",
+     "su",
+     false,
+     true,
+     true
     ]
+   ]
   },
-  {
-    "numero": 9,
-    "data": "2026-10-22",
-    "titolo": "Il petrolio sale sopra i 110 $ mentre gli USA fanno partire diplomatici dall'Arabia Saudita",
-    "sommario": [
-      "L'Asia vende AI e chip nonostante il rialzo di Wall Street.",
-      "Meta, Tesla e IBM battono le stime, ma il mercato guarda la spesa in investimenti.",
-      "La Francia paga più dell'Italia per finanziarsi e domani sera decide Moody's."
+  "temi": [
+   "Europa",
+   "Chip",
+   "Cina",
+   "Petrolio",
+   "Banche",
+   "Trimestrali"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Cina",
+    "titolo": "La Cina accelera grazie all'export, mentre gli investimenti continuano a frenare",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Chip",
+    "titolo": "Seul non crede al rimbalzo di Nasdaq e chip americani: a vendere sono stranieri e istituzioni",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Europa",
+    "titolo": "Il rischio Francia ora costa più del rischio Italia: Parigi paga 35 punti base in più di Roma",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [
+   "M13",
+   "M17"
+  ],
+  "parole": [
+   "Rating",
+   "Private credit",
+   "Ampiezza di mercato"
+  ],
+  "ripetizioni": 4,
+  "glossario": [
+   "PMI",
+   "ZEW",
+   "pb",
+   "BTP",
+   "Bund",
+   "OAT",
+   "VIX",
+   "ACWI",
+   "Brent"
+  ]
+ },
+ {
+  "numero": 8,
+  "data": "2026-10-21",
+  "titolo": "Il petrolio torna sopra i 110 $ mentre le borse tentano il rimbalzo",
+  "sommario": [
+   "L'inflazione britannica accelera con i carburanti e rafforza l'attesa di un rialzo a novembre della Bank of England.",
+   "Super Micro e SpaceX riaccendono i titoli dell'intelligenza artificiale: Seul sale più di Tokyo.",
+   "Wall Street si divide: il Dow corre con la sanità, il Nasdaq resta fermo."
+  ],
+  "file": "pdf/2026-10-21-gommberg-008.pdf",
+  "nome": "2026-10-21 Gommberg Terminal Daily #008.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Super Micro alza la guida e vola dopo la chiusura",
+   "SpaceX batte le stime e apre alla fusione con Tesla",
+   "Seul: Elice rimbalza il giorno dopo il crollo",
+   "Francia: il divario con la Germania supera 1,5 punti percentuali",
+   "Netflix cede il 5,6% fuori orario dopo i conti",
+   "Generali elimina il ruolo di direttore generale"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "158,77 $",
+    "+0,4% g"
+   ],
+   [
+    "S&P 500",
+    "7.712,57",
+    "+0,3% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.112,10",
+    "-0,8% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "5,12%",
+    "-3 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "108,79 $",
+    "-0,7% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1236",
+    "+0,2% g"
+   ],
+   [
+    "VIX",
+    "17,31",
+    "-1,13 g"
+   ]
+  ],
+  "dek": "Dopo aver sfiorato martedì i 112 $, il massimo dall'inizio della guerra con l'Iran (Il Sole 24 Ore), il Brent (petrolio di riferimento europeo) risale stamattina oltre quella soglia, mentre i future su Europa e Stati Uniti indicano un'apertura positiva (Milano Finanza).",
+  "ticker_al": "2026-10-20",
+  "ticker_dal": "2026-10-19",
+  "scommessa": {
+   "settimana": "2026-10-19/2026-10-23",
+   "su": 6,
+   "variabile": {
+    "nome": "Oro (future, $/oncia)",
+    "motivo": "Credito sull'AI, petrolio a 110 $ e Fed in bilico: l'oro dice se i mercati cercano un rifugio"
+   },
+   "strada": 5,
+   "range": 6,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     true,
+     true
     ],
-    "file": "pdf/2026-10-22-gommberg-009.pdf",
-    "nome": "2026-10-22 Gommberg Terminal Daily #009.pdf",
-    "pagine": 6,
-    "notizie": [
-      "Meta batte i ricavi e vara il frazionamento 2 a 1",
-      "Tesla batte le stime e taglia le spese in investimenti per il 2026",
-      "IBM sopra le attese, confermata la crescita dei ricavi 2026",
-      "SAP supera i 10 miliardi di ricavi trimestrali per la prima volta",
-      "Nestlé accelera: crescita organica sopra le stime",
-      "Corea: la banca centrale lascia i tassi fermi, a novembre si scommette sul rialzo"
+    [
+     "S&P 500",
+     "su",
+     true,
+     true
     ],
-    "ticker": [
-      [
-        "MSCI ACWI (ETF)",
-        "159,56 $",
-        "+0,5% g"
-      ],
-      [
-        "S&P 500",
-        "7.757,17",
-        "+0,6% g"
-      ],
-      [
-        "EURO STOXX 50",
-        "6.204,52",
-        "+1,4% g"
-      ],
-      [
-        "UST 10 ANNI",
-        "5,13%",
-        "+1 pb g"
-      ],
-      [
-        "BRENT FUTURE",
-        "108,82 $",
-        "0,0% g"
-      ],
-      [
-        "EUR/USD",
-        "1,1232",
-        "0,0% g"
-      ],
-      [
-        "VIX",
-        "16,68",
-        "-0,63 g"
-      ]
+    [
+     "Euro Stoxx 50",
+     "giù",
+     true,
+     true
     ],
-    "dek": "Dopo i nuovi attacchi attribuiti agli Houthi in Arabia Saudita (un morto all'aeroporto di Dammam, due in un attacco con drone a un giacimento), gli USA hanno ordinato ad alcuni diplomatici e familiari di lasciare il Paese (Reuters). Il petrolio sale, i future europei scendono e l'Asia vende i titoli dell'intelligenza artificiale (AI) il giorno dopo il rialzo di Wall Street.",
-    "ticker_al": "2026-10-21",
-    "scommessa": {
-      "settimana": "2026-10-19/2026-10-23",
-      "su": 6,
-      "variabile": {
-        "nome": "Oro (future, $/oncia)",
-        "motivo": "Credito sull'AI, petrolio a 110 $ e Fed in bilico: l'oro dice se i mercati cercano un rifugio"
-      },
-      "strada": 4,
-      "range": 6,
-      "dettaglio": [
-        [
-          "MSCI ACWI (ETF)",
-          "su",
-          true,
-          true
-        ],
-        [
-          "S&P 500",
-          "su",
-          true,
-          true
-        ],
-        [
-          "Euro Stoxx 50",
-          "giù",
-          false,
-          true
-        ],
-        [
-          "Treasury 10 anni",
-          "giù",
-          false,
-          true
-        ],
-        [
-          "Brent future",
-          "giù",
-          true,
-          true
-        ],
-        [
-          "EUR/USD",
-          "giù",
-          true,
-          true
-        ],
-        [
-          "Oro (future, $/oncia)",
-          "su",
-          false,
-          true,
-          true
-        ]
-      ]
-    },
-    "temi": [
-      "Petrolio",
-      "Chip",
-      "Trimestrali",
-      "Europa",
-      "Asia",
-      "Fed"
+    [
+     "Treasury 10 anni",
+     "giù",
+     false,
+     true
     ],
-    "approfondimenti": [
-      {
-        "tema": "Trimestrali",
-        "titolo": "Conti sopra le attese, ma l'Asia guarda la spesa: Tesla taglia, Meta resta alta",
-        "formato": "grafico"
-      },
-      {
-        "tema": "Asia e chip",
-        "titolo": "Wall Street sale sull'AI, l'Asia vende: i dubbi sul costo del debito battono i conti",
-        "formato": "due_grafici"
-      },
-      {
-        "tema": "Europa",
-        "titolo": "La Francia paga più dell'Italia per finanziarsi: venerdì Moody's mette alla prova il mercato",
-        "formato": "due_grafici"
-      }
+    [
+     "Brent future",
+     "giù",
+     true,
+     true
     ],
-    "meccanismi": [
-      "M10",
-      "M13",
-      "M17"
+    [
+     "EUR/USD",
+     "giù",
+     true,
+     true
     ],
-    "parole": [
-      "Capex",
-      "Declassamento (downgrade)",
-      "Frazionamento (split)"
-    ],
-    "ripetizioni": 2,
-    "glossario": [
-      "core",
-      "PMI",
-      "pb",
-      "BTP",
-      "Bund",
-      "OAT",
-      "VIX",
-      "ACWI",
-      "Brent",
-      "EIA",
-      "EPS",
-      "capex"
+    [
+     "Oro (future, $/oncia)",
+     "su",
+     false,
+     true,
+     true
     ]
-  }
+   ]
+  },
+  "temi": [
+   "Petrolio",
+   "Inflazione",
+   "Wall Street",
+   "Chip",
+   "Europa",
+   "Trimestrali"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Inflazione",
+    "titolo": "Regno Unito: i carburanti spingono l'inflazione e avvicinano il rialzo della Bank of England",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Wall Street",
+    "titolo": "Dopo il rimbalzo dei tecnologici, ieri la guida di Wall Street è passata a sanità e piccole imprese",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Petrolio",
+    "titolo": "Il Brent corre tra speranze di accordo e attacchi alle petroliere: in un mese ha oscillato senza una direzione",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [
+   "M10",
+   "M11"
+  ],
+  "parole": [
+   "Escursione",
+   "Differenziale (spread)",
+   "Guidance"
+  ],
+  "ripetizioni": 7,
+  "glossario": [
+   "core",
+   "PMI",
+   "ZEW",
+   "pb",
+   "BTP",
+   "Bund",
+   "VIX",
+   "ACWI",
+   "Brent",
+   "EIA"
+  ]
+ },
+ {
+  "numero": 9,
+  "data": "2026-10-22",
+  "titolo": "Il petrolio sale sopra i 110 $ mentre gli USA fanno partire diplomatici dall'Arabia Saudita",
+  "sommario": [
+   "L'Asia vende AI e chip nonostante il rialzo di Wall Street.",
+   "Meta, Tesla e IBM battono le stime, ma il mercato guarda la spesa in investimenti.",
+   "La Francia paga più dell'Italia per finanziarsi e domani sera decide Moody's."
+  ],
+  "file": "pdf/2026-10-22-gommberg-009.pdf",
+  "nome": "2026-10-22 Gommberg Terminal Daily #009.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Meta batte i ricavi e vara il frazionamento 2 a 1",
+   "Tesla batte le stime e taglia le spese in investimenti per il 2026",
+   "IBM sopra le attese, confermata la crescita dei ricavi 2026",
+   "SAP supera i 10 miliardi di ricavi trimestrali per la prima volta",
+   "Nestlé accelera: crescita organica sopra le stime",
+   "Corea: la banca centrale lascia i tassi fermi, a novembre si scommette sul rialzo"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "159,56 $",
+    "+0,5% g"
+   ],
+   [
+    "S&P 500",
+    "7.757,17",
+    "+0,6% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.204,52",
+    "+1,4% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "5,13%",
+    "+1 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "108,82 $",
+    "0,0% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1232",
+    "0,0% g"
+   ],
+   [
+    "VIX",
+    "16,68",
+    "-0,63 g"
+   ]
+  ],
+  "dek": "Dopo i nuovi attacchi attribuiti agli Houthi in Arabia Saudita (un morto all'aeroporto di Dammam, due in un attacco con drone a un giacimento), gli USA hanno ordinato ad alcuni diplomatici e familiari di lasciare il Paese (Reuters). Il petrolio sale, i future europei scendono e l'Asia vende i titoli dell'intelligenza artificiale (AI) il giorno dopo il rialzo di Wall Street.",
+  "ticker_al": "2026-10-21",
+  "scommessa": {
+   "settimana": "2026-10-19/2026-10-23",
+   "su": 6,
+   "variabile": {
+    "nome": "Oro (future, $/oncia)",
+    "motivo": "Credito sull'AI, petrolio a 110 $ e Fed in bilico: l'oro dice se i mercati cercano un rifugio"
+   },
+   "strada": 4,
+   "range": 6,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     true,
+     true
+    ],
+    [
+     "S&P 500",
+     "su",
+     true,
+     true
+    ],
+    [
+     "Euro Stoxx 50",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "Brent future",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Oro (future, $/oncia)",
+     "su",
+     false,
+     true,
+     true
+    ]
+   ]
+  },
+  "temi": [
+   "Petrolio",
+   "Chip",
+   "Trimestrali",
+   "Europa",
+   "Asia",
+   "Fed"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Trimestrali",
+    "titolo": "Conti sopra le attese, ma l'Asia guarda la spesa: Tesla taglia, Meta resta alta",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Asia e chip",
+    "titolo": "Wall Street sale sull'AI, l'Asia vende: i dubbi sul costo del debito battono i conti",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Europa",
+    "titolo": "La Francia paga più dell'Italia per finanziarsi: venerdì Moody's mette alla prova il mercato",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [
+   "M10",
+   "M13",
+   "M17"
+  ],
+  "parole": [
+   "Capex",
+   "Declassamento (downgrade)",
+   "Frazionamento (split)"
+  ],
+  "ripetizioni": 2,
+  "glossario": [
+   "core",
+   "PMI",
+   "pb",
+   "BTP",
+   "Bund",
+   "OAT",
+   "VIX",
+   "ACWI",
+   "Brent",
+   "EIA",
+   "EPS",
+   "capex"
+  ]
+ }
 ]
