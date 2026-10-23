@@ -152,8 +152,8 @@ def main():
                  "parole": w.get("parole", []), "ripetizioni": punteggio, "glossario": gloss})
     if w.get("termometri"):
         voce["termometri"] = w["termometri"]
-    if w.get("errata"):
-        voce["errata"] = w["errata"]
+    if w.get("errata"):   # sempre un elenco di frasi (una stringa sola verrebbe letta lettera per lettera)
+        voce["errata"] = [w["errata"]] if isinstance(w["errata"], str) else list(w["errata"])
     ag = w.get("agenda") or []           # da extra_voce.py: "In arrivo" di pag. 3, mostrata sul sito
     if isinstance(ag, list) and ag:
         ok = all(isinstance(x, dict) and {"quando", "evento", "attese", "perche", "chiave"} <= set(x) for x in ag)

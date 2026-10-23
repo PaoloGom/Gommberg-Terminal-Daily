@@ -21,6 +21,44 @@
    "Dazi: tregua prorogata, la UE studia un tetto alle ibride cinesi",
    "Fed: ultima settimana di discorsi prima del silenzio"
   ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "160,90 $",
+    "+0,7% g"
+   ],
+   [
+    "S&P 500",
+    "7.811,54",
+    "+0,6% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.197,10",
+    "+0,6% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "5,24%",
+    "+2 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "104,72 $",
+    "+0,4% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1201",
+    "-0,1% g"
+   ],
+   [
+    "VIX",
+    "14,84",
+    "-0,57 g"
+   ]
+  ],
+  "ticker_al": "2026-10-09",
   "temi_deep_dive": {
    "treasury": "10 anni ai massimi dal 2002, +37/+41/+32 pb in un mese su 2/10/30",
    "iran": "7 condizioni iraniane, nessun accordo su Hormuz, scenari 60/25/15",
@@ -70,6 +108,44 @@
    "LVMH, ricavi del trimestre +1%: la Cina frena ancora",
    "Inflazione tedesca confermata al 3,3%"
   ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "160,90 $",
+    "+0,7% g (9/10)"
+   ],
+   [
+    "S&P 500",
+    "7.807,24",
+    "-0,1% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.191,60",
+    "-0,1% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "5,24%",
+    "chiuso lun 12"
+   ],
+   [
+    "BRENT FUTURE",
+    "106,65 $",
+    "+1,8% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1156",
+    "-0,4% g"
+   ],
+   [
+    "VIX",
+    "15,21",
+    "+0,37 g"
+   ]
+  ],
+  "ticker_al": "2026-10-12",
   "temi_deep_dive": {
    "treasury": "mercato chiuso per Columbus Day, livelli al 9/10 invariati, soglia 5,30-5,35%",
    "iran": "Riad promette una risposta seria agli Houthi; scenari invariati 60/25/15",
@@ -110,6 +186,44 @@
    "Spagna: inflazione armonizzata finale al 5,0%, core al 3,1%",
    "Alla vigilia del CPI il mercato prezza il 22% di un rialzo a ottobre"
   ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "160,69 $",
+    "0,0% g"
+   ],
+   [
+    "S&P 500",
+    "7.805,45",
+    "-0,02% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.184,40",
+    "-0,1% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "5,21%",
+    "-3 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "105,69 $",
+    "-0,9% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1198",
+    "+0,4% g"
+   ],
+   [
+    "VIX",
+    "15,27",
+    "+0,06 g"
+   ]
+  ],
+  "ticker_al": "2026-10-13",
   "temi_deep_dive": {
    "treasury": "10 anni a 5,21%, curva in calo di 5-10 pb in due settimane, soglia 5,30%",
    "iran": "nessuna novità verificata, scenari 60/25/15 invariati",
@@ -152,6 +266,44 @@
    "BofA delude, Morgan Stanley corre nel trading",
    "TSMC: utile +68,7% e ricavi +50,9% nel terzo trimestre"
   ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "158,75 $",
+    "-1,2% g"
+   ],
+   [
+    "S&P 500",
+    "7.718,94",
+    "-1,1% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.162,90",
+    "-0,3% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "5,19%",
+    "-2 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "106,06 $",
+    "+0,4% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1156",
+    "-0,4% g"
+   ],
+   [
+    "VIX",
+    "16,87",
+    "+1,60 g"
+   ]
+  ],
+  "ticker_al": "2026-10-14",
   "temi_deep_dive": {
    "treasury": "il picco post-CPI (10 anni 5,33% in serata) non regge, chiusura 5,19%",
    "iran": "nessuna novità verificata, scenari 60/25/15 invariati",
@@ -192,6 +344,29 @@
    "Milano ultima, Londra e Parigi in rialzo",
    "Produzione industriale in calo dello 0,5%",
    "Warsh non anticipa le prossime mosse"
+  ],
+  "agenda": [
+   {
+    "quando": "Ven 16, 11:00",
+    "evento": "Prezzi al consumo area euro (settembre, finale)",
+    "attese": "3,8% a/a; prec. 3,2%",
+    "perche": "Inflazione europea dopo il dato USA",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 16, 14:30",
+    "evento": "Prezzi all'export e all'import USA (settembre)",
+    "attese": "export +1,0%, import +0,9% m/m",
+    "perche": "Prezzi alle frontiere, dopo il PPI",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 16, 15:15",
+    "evento": "Produzione industriale USA (settembre)",
+    "attese": "+0,4% m/m; prec. 0,0%",
+    "perche": "Evento n.1: attività reale dopo PPI e consumi",
+    "chiave": true
+   }
   ],
   "ticker": [
    [
@@ -346,6 +521,36 @@
    "Cucinelli alza la stima 2026, titolo +4,3%",
    "Seul rimbalza del 2,05% dopo il crollo",
    "Fed ferma il 27-28 ottobre: il mercato ci crede all'82,8%"
+  ],
+  "agenda": [
+   {
+    "quando": "Mer 21, 08:00",
+    "evento": "CPI Regno Unito (settembre)",
+    "attese": "",
+    "perche": "Inflazione britannica dopo i dati dell'area euro",
+    "chiave": false
+   },
+   {
+    "quando": "Mer 21, 22:30",
+    "evento": "Trimestrale Meta (call 16:30 ET)",
+    "attese": "",
+    "perche": "Evento n.1: spesa in AI dei grandi",
+    "chiave": true
+   },
+   {
+    "quando": "Mer 21, 23:30",
+    "evento": "Trimestrale Tesla (webcast 17:30 ET)",
+    "attese": "",
+    "perche": "Domanda e margini",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 29",
+    "evento": "Riunione BCE, seconda giornata (28-29)",
+    "attese": "",
+    "perche": "Prima decisione dopo l'inflazione dell'area euro",
+    "chiave": false
+   }
   ],
   "ticker": [
    [
@@ -517,6 +722,71 @@
    "BTP Valore, 4,6 miliardi di ordini nel primo giorno",
    "Amazon recupera la perdita della settimana dopo la promozione di Morgan Stanley"
   ],
+  "agenda": [
+   {
+    "quando": "Mar 20, 11:00",
+    "evento": "Indice ZEW (fiducia degli analisti tedeschi, ottobre)",
+    "attese": "",
+    "perche": "Umore tedesco dopo i prezzi alla produzione",
+    "chiave": false
+   },
+   {
+    "quando": "Mar 20, 14:30",
+    "evento": "Cantieri e permessi edilizi USA (settembre)",
+    "attese": "1,30 e 1,395 mln; prec. 1,275 e 1,403 mln",
+    "perche": "Immobiliare dopo la fiducia dei costruttori a 29",
+    "chiave": false
+   },
+   {
+    "quando": "Mar 20",
+    "evento": "Cina, tasso di riferimento sui prestiti (LPR, ottobre)",
+    "attese": "",
+    "perche": "Se Pechino aggiunge sostegno dopo il PIL",
+    "chiave": false
+   },
+   {
+    "quando": "Mar 20, dopo la chiusura USA",
+    "evento": "Netflix e SpaceX",
+    "attese": "Ricavi SpaceX attesi 12,74 mld $ (Reuters)",
+    "perche": "Conti di due titoli molto seguiti",
+    "chiave": false
+   },
+   {
+    "quando": "Mer 21, dopo la chiusura USA",
+    "evento": "Tesla, Meta, IBM, Texas Instruments",
+    "attese": "",
+    "perche": "Evento n.1: la spesa per l'AI dei giganti tech",
+    "chiave": true
+   },
+   {
+    "quando": "Gio 22, 14:30",
+    "evento": "Sussidi di disoccupazione USA",
+    "attese": "200 mila; prec. 199 mila",
+    "perche": "Tenuta del lavoro",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 22",
+    "evento": "Conti trimestrali di Barclays",
+    "attese": "",
+    "perche": "Dopo l'esame della Bank of England",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 23, 15:45",
+    "evento": "PMI (indice dei direttori acquisti) S&P Global USA (sondaggio sui direttori acquisti, ottobre)",
+    "attese": "Servizi 58,0, manifattura 55,5; prec. 58,8 e 55,9",
+    "perche": "Attività delle imprese",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 23",
+    "evento": "Rating: Moody's sulla Francia, S&P sulla Germania, Scope sull'Italia",
+    "attese": "",
+    "perche": "Test per lo spread francese",
+    "chiave": false
+   }
+  ],
   "ticker": [
    [
     "MSCI ACWI (ETF)",
@@ -677,6 +947,50 @@
    "Francia: il divario con la Germania supera 1,5 punti percentuali",
    "Netflix cede il 5,6% fuori orario dopo i conti",
    "Generali elimina il ruolo di direttore generale"
+  ],
+  "agenda": [
+   {
+    "quando": "Mer 21, 16:30",
+    "evento": "Scorte petrolifere USA (EIA, agenzia USA per l'energia)",
+    "attese": "Stima dell'American Petroleum Institute: in calo",
+    "perche": "Conferma la tensione sull'offerta",
+    "chiave": false
+   },
+   {
+    "quando": "Mer 21, dopo la chiusura di Wall Street",
+    "evento": "Conti Tesla, Meta, IBM, Texas Instruments",
+    "attese": "",
+    "perche": "Evento n.1: dicono se l'AI torna a guidare",
+    "chiave": true
+   },
+   {
+    "quando": "Gio 22, 14:30",
+    "evento": "Sussidi di disoccupazione USA",
+    "attese": "200 mila; prec. 199 mila",
+    "perche": "Tenuta del lavoro",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 22",
+    "evento": "Conti trimestrali di Barclays",
+    "attese": "",
+    "perche": "Banca sotto esame per il private credit",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 23, 15:45",
+    "evento": "Indici PMI (sondaggio sui direttori acquisti) S&P Global USA (ottobre)",
+    "attese": "Servizi 58,0; manifattura 55,5",
+    "perche": "Attività del settore privato",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 23",
+    "evento": "Rating Francia (Moody's), Germania (S&P), Italia (Scope)",
+    "attese": "",
+    "perche": "Costo del debito francese",
+    "chiave": false
+   }
   ],
   "ticker": [
    [
@@ -840,6 +1154,64 @@
    "SAP supera i 10 miliardi di ricavi trimestrali per la prima volta",
    "Nestlé accelera: crescita organica sopra le stime",
    "Corea: la banca centrale lascia i tassi fermi, a novembre si scommette sul rialzo"
+  ],
+  "agenda": [
+   {
+    "quando": "Gio 22, 14:30",
+    "evento": "Sussidi di disoccupazione USA",
+    "attese": "200 mila; prec. 199 mila",
+    "perche": "Tenuta del lavoro prima della Fed",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 22",
+    "evento": "Conti di Procter & Gamble, Lockheed Martin, Union Pacific, Spotify, Blackstone, Valero",
+    "attese": "",
+    "perche": "Orari non verificati (Newsquawk)",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 23, mattina",
+    "evento": "PMI (sondaggio sui direttori acquisti) flash dell'area euro (ottobre)",
+    "attese": "Manifattura 52,5-53,2; servizi 52,5-53,3; prec. 52,9 e 53,0",
+    "perche": "Indizio sui prezzi in vista della BCE di giovedì 29",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 23, 15:45",
+    "evento": "PMI flash USA (ottobre)",
+    "attese": "Servizi 58,0; manifattura 55,5; prec. 58,8 e 55,9",
+    "perche": "Attività delle imprese",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 23, 16:00",
+    "evento": "Fiducia Michigan, attese di inflazione a 1 anno",
+    "attese": "prec. 4,7%",
+    "perche": "Aspettative dei consumatori",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 23, sera",
+    "evento": "Moody's rivede il rating della Francia (Aa3, outlook negativo)",
+    "attese": "",
+    "perche": "Evento n.1: il rendimento è già sopra quello dell'Italia",
+    "chiave": true
+   },
+   {
+    "quando": "Mer 28, 19:00",
+    "evento": "Fed, decisione sui tassi (riunione 27-28)",
+    "attese": "Invarianza attesa da 94 economisti su 100",
+    "perche": "Reuters, sondaggio 16-20/10",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 29, 14:15",
+    "evento": "BCE, decisione sui tassi",
+    "attese": "",
+    "perche": "Giorno dopo la Fed",
+    "chiave": false
+   }
   ],
   "ticker": [
    [
@@ -1006,6 +1378,29 @@
    "Fed: per il 28 ottobre i future vedono una pausa, il rialzo resta in gioco",
    "Iran: i Pasdaran minacciano le basi USA se la flotta continua a scortare le navi"
   ],
+  "agenda": [
+   {
+    "quando": "Ven 23, dopo la chiusura",
+    "evento": "Moody's rivede il rating della Francia",
+    "attese": "Aa3 con outlook negativo",
+    "perche": "Evento n.1: conferma, taglio ad A1 o cambio di outlook",
+    "chiave": true
+   },
+   {
+    "quando": "Mer 28, 19:00",
+    "evento": "Decisione della Fed (riunione 27-28 ottobre)",
+    "attese": "Tasso al 3,75-4,00%",
+    "perche": "Pausa o rialzo di 25 pb",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 29",
+    "evento": "Decisione della BCE (riunione 28-29 ottobre)",
+    "attese": "",
+    "perche": "Il tasso sui depositi è al 2,50%",
+    "chiave": false
+   }
+  ],
   "ticker": [
    [
     "MSCI ACWI (ETF)",
@@ -1146,6 +1541,8 @@
    "IPO",
    "buyback"
   ],
-  "errata": "Edizione #009 (22/10): Kospi e Nikkei erano dati della mattina (5.581,98, -2,7%, e 62.942,00, -2,6%). Chiusure: Kospi 5.533,77 (-3,52%), Nikkei 62.907,84 (-2,65%) (KED Global, FMP)."
+  "errata": [
+   "Edizione #009 (22/10): Kospi e Nikkei erano dati della mattina (5.581,98, -2,7%, e 62.942,00, -2,6%). Chiusure: Kospi 5.533,77 (-3,52%), Nikkei 62.907,84 (-2,65%) (KED Global, FMP)."
+  ]
  }
 ]

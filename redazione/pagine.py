@@ -250,7 +250,7 @@ def pagina(ed, prec, succ):
           "".join(f'<a href="../basi.html#{ancora(s)}"><b>{esc(s)}</b> {esc(b)}</a>' for s, b in sigle) +
           '</div><p class="tutte"><a href="../basi.html">Tutte le sigle e i meccanismi &rsaquo;</a></p></section>')
     if ed.get("errata"):
-        a('<section><p class="errata"><b>Errata corrige.</b> ' + " ".join(colora(x) for x in ed["errata"]) + "</p></section>")
+        a('<section><p class="errata"><b>Errata corrige.</b> ' + " ".join(colora(x) for x in ([ed["errata"]] if isinstance(ed["errata"], str) else ed["errata"])) + "</p></section>")
     nav = []
     nav.append(f'<a href="{nnn(prec["numero"])}.html">&lsaquo; N. {nnn(prec["numero"])}</a>' if prec else "<span></span>")
     nav.append(f'<a href="{nnn(succ["numero"])}.html">N. {nnn(succ["numero"])} &rsaquo;</a>' if succ else '<a href="../">Ultima edizione &rsaquo;</a>')

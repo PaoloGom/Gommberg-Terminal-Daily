@@ -58,6 +58,9 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .inside{display:grid;gap:10px}.inside div{background:var(--panel);padding:12px 14px}
 .inside small{display:block;font-family:var(--mono);font-size:12px;color:var(--orange-ink);text-transform:uppercase;letter-spacing:.04em}
 .inside b{font-weight:600}
+.sigle{display:flex;flex-wrap:wrap;gap:8px}.sigle a{display:inline-block;border:1px solid var(--rule);padding:6px 10px;font-size:14px;color:var(--muted);text-decoration:none;line-height:1.35}
+.sigle a b{color:var(--ink);font-weight:600;margin-right:4px}.sigle a:hover{border-color:var(--orange)}
+.tutte{margin:12px 0 0;font-size:14px}.tutte a{color:var(--orange-ink)}
 .errata{background:var(--panel);border-left:3px solid var(--orange);padding:12px 14px;font-size:15px}
 .pn{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:13px;border-top:1px solid var(--rule);padding-top:16px}
 .pn a{text-decoration:none;color:var(--muted)}.pn a:hover{color:var(--ink)}
@@ -77,6 +80,7 @@ footer{border-top:1px solid var(--rule);padding:22px 0 36px;font-size:13px;color
 <div class="actions"><a class="btn lead" data-pdf="letta" href="../pdf/2026-10-15-gommberg-004.pdf">Leggi l'edizione</a><a class="btn ghost" data-pdf="scaricata" href="../pdf/2026-10-15-gommberg-004.pdf" download="2026-10-15 Gommberg Terminal Daily #004.pdf">Scarica PDF</a><a class="btn ghost" href="../?n=4">Sfoglia sul sito</a></div>
 <section><h2>In 30 secondi</h2><ul class="brief"><li>CPI USA a <span class="up">+3,7%</span> annuo contro 3,6% atteso, core a <span class="up">+2,6%</span> contro 2,5%: probabilità di rialzo Fed a ottobre al 35-47% a seconda della fonte, dal 22% del giorno prima.</li><li>S&amp;P 500 <span class="down">-1,11%</span>, Nasdaq <span class="down">-1,88%</span>, tecnologia <span class="down">-3,00%</span>. Stamattina alle 08:11 Kospi <span class="down">-8,68%</span> e Nikkei <span class="down">-4,89%</span>.</li><li>Scommessa: tutti e 7 i mercati ancora dentro il range, ma solo 2 su 7 sulla strada giusta (Treasury 10 anni e Brent).</li></ul></section>
 <section><h2>Le notizie del giorno</h2><ol class="news"><li><span>CPI USA di settembre sopra le attese: 3,7% annuo, core 2,6%</span></li><li><span>S&amp;P 500 <span class="down">-1,11%</span>, Nasdaq <span class="down">-1,88%</span>: tecnologia a <span class="down">-3,00%</span></span></li><li><span>Seul <span class="down">-8,68%</span> e Tokyo <span class="down">-4,89%</span> nella notte</span></li><li><span>SoftBank <span class="down">-10%</span>, Kioxia e Advantest <span class="down">-11%</span> a Tokyo</span></li><li><span>Rialzo a ottobre: probabilità al 35-47% dopo il CPI</span></li><li><span>BofA delude, Morgan Stanley corre nel trading</span></li><li><span>TSMC: utile <span class="up">+68,7%</span> e ricavi <span class="up">+50,9%</span> nel terzo trimestre</span></li></ol></section>
+<section><h2>Le sigle di questa edizione</h2><div class="sigle"><a href="../basi.html#g-cme-fedwatch"><b>CME FedWatch</b> probabilità sui tassi dai future</a><a href="../basi.html#g-par-yield"><b>Par yield</b> rendimento di un titolo a 100</a></div><p class="tutte"><a href="../basi.html">Tutte le sigle e i meccanismi &rsaquo;</a></p></section>
 <div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
 <div class="pn"><a href="003.html">&lsaquo; N. 003</a><a href="005.html">N. 005 &rsaquo;</a></div>
 </main>

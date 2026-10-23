@@ -58,6 +58,9 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .inside{display:grid;gap:10px}.inside div{background:var(--panel);padding:12px 14px}
 .inside small{display:block;font-family:var(--mono);font-size:12px;color:var(--orange-ink);text-transform:uppercase;letter-spacing:.04em}
 .inside b{font-weight:600}
+.sigle{display:flex;flex-wrap:wrap;gap:8px}.sigle a{display:inline-block;border:1px solid var(--rule);padding:6px 10px;font-size:14px;color:var(--muted);text-decoration:none;line-height:1.35}
+.sigle a b{color:var(--ink);font-weight:600;margin-right:4px}.sigle a:hover{border-color:var(--orange)}
+.tutte{margin:12px 0 0;font-size:14px}.tutte a{color:var(--orange-ink)}
 .errata{background:var(--panel);border-left:3px solid var(--orange);padding:12px 14px;font-size:15px}
 .pn{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:13px;border-top:1px solid var(--rule);padding-top:16px}
 .pn a{text-decoration:none;color:var(--muted)}.pn a:hover{color:var(--ink)}
@@ -77,6 +80,7 @@ footer{border-top:1px solid var(--rule);padding:22px 0 36px;font-size:13px;color
 <div class="actions"><a class="btn lead" data-pdf="letta" href="../pdf/2026-10-14-gommberg-003.pdf">Leggi l'edizione</a><a class="btn ghost" data-pdf="scaricata" href="../pdf/2026-10-14-gommberg-003.pdf" download="2026-10-14 Gommberg Terminal Daily #003.pdf">Scarica PDF</a><a class="btn ghost" href="../?n=3">Sfoglia sul sito</a></div>
 <section><h2>In 30 secondi</h2><ul class="brief"><li>Goldman Sachs batte sull&#x27;utile (17,01 $ per azione), Wells Fargo delude sui ricavi (21,87 mld, titolo <span class="down">-3,1%</span>): i conti delle banche non spostano l&#x27;indice.</li><li>Oggi il CPI USA alle 14:30: attese <span class="up">+0,6%</span> m/m e <span class="up">+3,6%</span> a/a sull&#x27;indice generale, <span class="up">+0,2%</span> m/m sul core.</li><li>Scommessa: 3 strumenti su 7 sulla strada giusta (Treasury 2 e 10 anni, EUR/USD), tutti e 7 dentro il range.</li></ul></section>
 <section><h2>Le notizie del giorno</h2><ol class="news"><li><span>Conti misti: Goldman batte, Wells Fargo delude, Citi segna ricavi in crescita dell&#x27;8%</span></li><li><span>Chip ancora in calo: tornano i timori sulla cinese CXMT</span></li><li><span>ASML alza la guidance 2026, ma l&#x27;offerta 2027-28 non basterà</span></li><li><span>Cina: export a <span class="up">+36,3%</span> a settembre, prezzi alla produzione al 5,0%</span></li><li><span>Spagna: inflazione armonizzata finale al 5,0%, core al 3,1%</span></li><li><span>Alla vigilia del CPI il mercato prezza il 22% di un rialzo a ottobre</span></li></ol></section>
+<section><h2>Le sigle di questa edizione</h2><div class="sigle"><a href="../basi.html#g-hicp"><b>HICP</b> inflazione armonizzata europea</a><a href="../basi.html#g-beige-book"><b>Beige Book</b> rapporto Fed sulle economie locali</a><a href="../basi.html#g-core"><b>core</b> esclusi energia e alimentari</a></div><p class="tutte"><a href="../basi.html">Tutte le sigle e i meccanismi &rsaquo;</a></p></section>
 <div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
 <div class="pn"><a href="002.html">&lsaquo; N. 002</a><a href="004.html">N. 004 &rsaquo;</a></div>
 </main>
