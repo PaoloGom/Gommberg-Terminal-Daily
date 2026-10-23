@@ -248,6 +248,7 @@ a.full { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--
 .chip[aria-pressed="true"] { background: var(--orange); border-color: var(--orange); color: #141414; }
 .chip[aria-pressed="true"] small { color: #141414; }
 .count { font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin-top: 12px; min-height: 1.4em; }
+.count .clr { font: inherit; color: var(--orange-ink); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 
 .month { border-top: 2px solid var(--ink); margin-top: 18px; }
 .month > summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0 6px; }
@@ -511,7 +512,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   const condividi = (ed) => pagina(ed) || linkFor(ed);
   const lette = new Set(); // pagine del lettore già contate in questa visita
   let editions = [], current = null, pdf = null, page = 1, renderTask = null;
-  let view = "list", tema = "", query = "";
+  let view = "list", tema = params.get("tema") || "", query = "";
 
   /* ---------- URL for one edition ---------- */
   function linkFor(ed) {
@@ -781,11 +782,11 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     if (!big || !freq.size) { box.hidden = true; return; }
     box.hidden = false;
     const top = [...freq.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 14);
-    const all = el("button", "chip", "Tutti i temi"); all.type = "button"; all.dataset.t = ""; all.setAttribute("aria-pressed", "true");
+    const all = el("button", "chip", "Tutti i temi"); all.type = "button"; all.dataset.t = ""; all.setAttribute("aria-pressed", tema ? "false" : "true");
     all.addEventListener("click", () => setTema(""));
     box.appendChild(all);
     for (const [t, n] of top) {
-      const c = el("button", "chip", t); c.type = "button"; c.dataset.t = t; c.setAttribute("aria-pressed", "false");
+      const c = el("button", "chip", t); c.type = "button"; c.dataset.t = t; c.setAttribute("aria-pressed", t === tema ? "true" : "false");
       c.appendChild(el("small", "", String(n)));
       c.addEventListener("click", () => setTema(t));
       box.appendChild(c);
@@ -810,8 +811,13 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     const filtering = !!(query || tema);
     const list = editions.filter(matches);
     $("count").textContent = filtering
-      ? (list.length ? list.length + (list.length === 1 ? " edizione trovata" : " edizioni trovate") : "")
+      ? (list.length ? list.length + (list.length === 1 ? " edizione trovata" : " edizioni trovate") + (tema && !query ? " sul tema " + tema : "") : "")
       : editions.length + (editions.length === 1 ? " edizione" : " edizioni") + ", dalla più recente";
+    if (tema && $("chips").hidden) {
+      const x = el("button", "clr", "Tutte le edizioni"); x.type = "button";
+      x.addEventListener("click", () => setTema(""));
+      $("count").appendChild(document.createTextNode("  ")); $("count").appendChild(x);
+    }
     if (!list.length) {
       const e = el("div", "empty", "Nessuna edizione per questa ricerca. Prova con un'altra parola o togli il filtro del tema.");
       box.appendChild(e); return;
@@ -921,6 +927,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
       const ed = editions.find((e) => e.numero === want) || editions[0];
       showEdition(ed, false);
       buildArchive();
+      if (tema) requestAnimationFrame(() => $("archivio").scrollIntoView({ block: "start" }));
       conta({ path: location.pathname + (want ? "?n=" + want : ""), title: document.title });
     })
     .catch(() => fail("Archivio non raggiungibile. Riprova tra qualche minuto.", true));

@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>I numeri - Gommberg Terminal Daily</title>
-<meta name="description" content="I numeri del Gommberg Terminal Daily: lettori, lavoro della redazione, scommessa della settimana.">
+<meta name="description" content="I numeri del Gommberg Terminal Daily: lettori, temi trattati, scommessa della settimana.">
 <meta name="robots" content="noindex, nofollow">
 <meta property="og:title" content="I numeri del Gommberg Terminal Daily">
-<meta property="og:description" content="Letture, parole scritte, previsioni: il Gommberg Terminal Daily in numeri.">
+<meta property="og:description" content="Letture, temi della settimana, previsioni: il Gommberg Terminal Daily in numeri.">
 <meta property="og:image" content="https://paologom.github.io/Gommberg-Terminal-Daily/assets/copertina.png">
 <meta name="theme-color" content="#0E0E0E">
 <link rel="icon" href="assets/icona.svg" type="image/svg+xml">
@@ -99,6 +99,27 @@ main { gap: 56px; }
 .src { margin: 16px 0 0; font-size: 14.5px; color: var(--muted); max-width: 72ch; }
 .src b { color: var(--ink); font-weight: 600; }
 .more { display: inline-block; margin-top: 14px; font-size: 14px; color: var(--orange-ink); }
+/* Di cosa abbiamo scritto: temi x settimane */
+.temi { margin-top: 28px; }
+.temi .lead { font-family: var(--display); font-stretch: 90%; font-weight: 700; font-size: 19px; line-height: 1.3; margin: 0 0 14px; max-width: 60ch; text-wrap: pretty; }
+.temi .lead em { font-style: normal; color: var(--orange-ink); }
+.tgrid { display: grid; grid-template-columns: minmax(110px, auto) repeat(var(--w), 84px) 64px; gap: 4px; align-items: center; width: max-content; max-width: 100%; }
+.tgrid .h { font-family: var(--mono); font-size: 11.5px; color: var(--muted); text-align: center; padding-bottom: 4px; line-height: 1.25; }
+.tgrid .h.now { color: var(--orange-ink); font-weight: 500; }
+.tgrid .h.tot { text-align: right; }
+.tgrid a.tn { font-weight: 600; font-size: 14.5px; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 6px; }
+.tgrid a.tn:hover { color: var(--orange-ink); text-decoration: underline; }
+.tgrid .c { height: 30px; display: grid; place-items: center; font-family: var(--mono); font-size: 12px; background: var(--panel); color: var(--muted); }
+.tgrid .c.on { color: var(--ink); }
+.tgrid .c.full { color: #fff; font-weight: 500; }
+.tgrid .n { font-family: var(--mono); font-size: 12.5px; text-align: right; color: var(--muted); }
+.temi .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; font-size: 12.5px; color: var(--muted); }
+.temi .legend i { display: inline-block; width: 12px; height: 12px; vertical-align: -1px; margin-right: 6px; }
+@media (max-width: 860px) {
+  .tgrid { grid-template-columns: minmax(78px, auto) repeat(var(--w), minmax(28px, 60px)) 40px; gap: 3px; width: 100%; justify-content: start; }
+  .tgrid a.tn { font-size: 13.5px; } .tgrid .c { height: 28px; font-size: 11.5px; } .tgrid .h { font-size: 10.5px; }
+  .temi .lead { font-size: 17px; }
+}
 footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size: 12.5px; color: var(--muted); }
 @media (max-width: 860px) {
   .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -156,6 +177,12 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     <h3 class="sec-h" id="h-red">La redazione</h3>
     <div class="cards three">
       <div class="card"><div class="l">Edizioni pubblicate</div><div class="v" id="rEd">-</div><div class="t" id="rEdT">-</div></div>
+    </div>
+    <div class="temi" aria-labelledby="h-temi">
+      <p class="sub" id="h-temi">Di cosa abbiamo scritto</p>
+      <p class="lead" id="tLead"></p>
+      <div class="tgrid" id="tGrid" aria-label="Temi trattati, settimana per settimana"></div>
+      <div class="legend"><span><i style="background:var(--panel)"></i>assente</span><span><i style="background:color-mix(in srgb, var(--orange) 45%, var(--panel))"></i>in alcune edizioni</span><span><i style="background:var(--orange)"></i>in tutte le edizioni della settimana</span></div>
     </div>
     <p class="src" id="rSrc"></p>
   </section>
@@ -217,6 +244,47 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     /* ---------- Redazione ---------- */
     $("rEd").textContent = it(eds.length);
     if (eds.length) $("rEdT").textContent = "dal " + giorno(eds[eds.length - 1].data) + " " + eds[eds.length - 1].data.slice(0, 4);
+
+
+    /* ---------- Di cosa abbiamo scritto ---------- */
+    (function temi() {
+      const lunIso = (s) => { const d = utc(s); d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7)); return iso(d); };
+      const conTemi = eds.filter((e) => Array.isArray(e.temi) && e.temi.length);
+      if (!conTemi.length) { $("h-temi").parentNode.hidden = true; return; }
+      const W = [...new Set(conTemi.map((e) => lunIso(e.data)))].sort().slice(-8);      // ultime 8 settimane
+      const perW = W.map((w) => conTemi.filter((e) => lunIso(e.data) === w));
+      const tot = new Map();
+      perW.forEach((l) => l.forEach((e) => e.temi.forEach((x) => tot.set(x, (tot.get(x) || 0) + 1))));
+      const ultima = perW[perW.length - 1];
+      const nUlt = (x) => ultima.filter((e) => e.temi.includes(x)).length;
+      const righe = [...tot.entries()].sort((a, b) => b[1] - a[1] || nUlt(b[0]) - nUlt(a[0]) || a[0].localeCompare(b[0])).slice(0, 8).map((x) => x[0]);
+      const corrente = W[W.length - 1] === lunIso(oggiIso);
+      const etW = (w, i) => { if (i === W.length - 1 && corrente) return "questa<br>sett."; const a = utc(w), b = utc(w); b.setUTCDate(b.getUTCDate() + 4);
+        return a.getUTCDate() + "-" + b.getUTCDate() + "<br>" + MESI[b.getUTCMonth()]; };
+      const g = $("tGrid"); g.style.setProperty("--w", W.length);
+      let h = '<div></div>' + W.map((w, i) => '<div class="h' + (i === W.length - 1 && corrente ? " now" : "") + '">' + etW(w, i) + "</div>").join("") + '<div class="h tot">totale</div>';
+      for (const x of righe) {
+        h += '<a class="tn" href="./?tema=' + encodeURIComponent(x) + '#archivio" title="Le edizioni sul tema ' + esc(x) + '">' + esc(x) + "</a>";
+        perW.forEach((l, i) => {
+          const n = l.filter((e) => e.temi.includes(x)).length, q = l.length ? n / l.length : 0;
+          const bg = n ? (q >= 1 ? "var(--orange)" : "color-mix(in srgb, var(--orange) " + Math.round(18 + 50 * q) + "%, var(--panel))") : "var(--panel)";
+          h += '<div class="c' + (n ? " on" : "") + (q >= 1 ? " full" : "") + '" style="background:' + bg + '" title="' + esc(x) + ": " + n + " su " + l.length + ' edizioni">' + (n ? n + "/" + l.length : "") + "</div>";
+        });
+        h += '<div class="n">' + it(tot.get(x)) + "</div>";
+      }
+      g.innerHTML = h;
+      // Il titoletto: cosa domina la settimana più recente e cosa è nuovo rispetto alla precedente
+      const pieni = righe.concat([...tot.keys()].filter((x) => !righe.includes(x))).filter((x) => ultima.length && nUlt(x) === ultima.length);
+      const prima = perW.length > 1 ? perW[perW.length - 2] : [];
+      const nuovi = [...new Set(ultima.flatMap((e) => e.temi))].filter((x) => prima.length && !prima.some((e) => e.temi.includes(x)));
+      const elenco = (a) => a.length === 1 ? "<em>" + esc(a[0]) + "</em>" : a.slice(0, -1).map((x) => "<em>" + esc(x) + "</em>").join(", ") + " e <em>" + esc(a[a.length - 1]) + "</em>";
+      const quando = corrente ? "Questa settimana" : "Nell'ultima settimana";
+      let lead = "";
+      if (pieni.length) lead = quando + " " + elenco(pieni.slice(0, 3)) + (pieni.length === 1 ? " è stato" : " sono stati") + " in ogni edizione";
+      else { const top = righe.slice().sort((a, b) => nUlt(b) - nUlt(a))[0]; lead = quando + " il tema più seguito è <em>" + esc(top) + "</em>"; }
+      if (nuovi.length) lead += "; " + (nuovi.length === 1 ? "nuovo rispetto alla settimana prima: " : "nuovi rispetto alla settimana prima: ") + elenco(nuovi.slice(0, 2));
+      $("tLead").innerHTML = lead + ".";
+    })();
 
     // Le fonti principali (nomi, senza conteggi)
     const fatti = await Promise.all(eds.slice(0, 20).map((e) => fetch("redazione/fatti/" + e.data + ".json", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).catch(() => null)));
