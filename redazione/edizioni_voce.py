@@ -154,6 +154,13 @@ def main():
         voce["termometri"] = w["termometri"]
     if w.get("errata"):
         voce["errata"] = w["errata"]
+    ag = w.get("agenda") or []           # da extra_voce.py: "In arrivo" di pag. 3, mostrata sul sito
+    if isinstance(ag, list) and ag:
+        ok = all(isinstance(x, dict) and {"quando", "evento", "attese", "perche", "chiave"} <= set(x) for x in ag)
+        if ok and not re.search(r"<[a-z/]|[\u2013\u2014]", json.dumps(ag, ensure_ascii=False)):
+            voce["agenda"] = ag[:10]
+        else:
+            print("AVVISO: agenda non conforme, non riportata sul sito")
 
     sc = voce.get("scommessa", {})
     print(f"Voce #{n:03d} {a.data}: {pagine} pagine, {len(tk)} caselle ticker, {len(w['notizie'])} notizie, "

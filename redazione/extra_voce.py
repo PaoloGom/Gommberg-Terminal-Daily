@@ -20,6 +20,19 @@ def _grafico(g):
     return {"titolo": _txt(g.get("titolo")), "tipo": g.get("tipo"), "soggetto": g.get("soggetto"), "dati": dati}
 
 
+def agenda(righe):
+    """Righe di "In arrivo" (pag. 3) per il sito: testo semplice, la riga in grassetto è l'evento chiave."""
+    out = []
+    for r in righe or []:
+        r = list(r) + ["", "", "", ""]
+        c = [re.sub(r"\s+", " ", _txt(x)).strip() for x in r[:4]]
+        if not c[0] or not c[1]:
+            continue
+        out.append({"quando": c[0], "evento": c[1], "attese": "" if c[2] in ("-", "") else c[2],
+                    "perche": c[3], "chiave": "<b>" in str(r[1]) or "<b>" in str(r[0])})
+    return out
+
+
 def campi(C, voce=None):
     voce = voce or {}
     top = C.get("top") or {}
@@ -32,6 +45,7 @@ def campi(C, voce=None):
         "stamattina_titolo": C.get("stamattina_titolo", "Stamattina"),
         "notizie_testo": [f"{_txt(n.get('titolo'))}. {_txt(n.get('testo'))}" for n in C.get("notizie", []) if isinstance(n, dict)],
         "brevi": [_txt(m.get("breve") or m.get("titolo")) for m in C.get("moduli", [])],
+        "agenda": agenda(C.get("agenda", [])),
         "evento_oggi": next((f"{_txt(r[0])} {_txt(r[1])}" for r in C.get("agenda", []) if "<b>" in str(r[1])), None),
         "moduli_redazione": [{
             "chiave": m.get("chiave"), "misura": m.get("misura"), "titolo": _txt(m.get("titolo")),

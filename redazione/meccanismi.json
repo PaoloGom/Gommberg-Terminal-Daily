@@ -1,9 +1,10 @@
 {
- "nota": "Meccanismi generali (tipo M) ammessi nelle righe '→' e nel testo. Si scrivono come tendenza ('di solito', 'in genere'), mai come causa di un movimento di ieri: per quello serve una scheda C in fatti.json. Una M non sta nella stessa frase di una variazione di ieri, salvo come contrasto ('di solito X; ieri no'). Se il caso rientra nelle eccezioni, la M non si usa. In edizioni.json si registrano gli id usati.",
+ "nota": "Meccanismi generali (tipo M) ammessi nelle righe '→' e nel testo. Si scrivono come tendenza ('di solito', 'in genere'), mai come causa di un movimento di ieri: per quello serve una scheda C in fatti.json. Una M non sta nella stessa frase di una variazione di ieri, salvo come contrasto ('di solito X; ieri no'). Se il caso rientra nelle eccezioni, la M non si usa. In edizioni.json si registrano gli id usati. 'area' raggruppa le voci nella pagina pubblica Le basi (basi.html): una tra Tassi e obbligazioni, Dati e attese, Borse, Valute, Energia e materie prime, Commercio.",
  "voci": [
   {
    "id": "M01",
    "titolo": "Prezzo e rendimento delle obbligazioni",
+   "area": "Tassi e obbligazioni",
    "testo": "Prezzo e rendimento di un'obbligazione a tasso fisso si muovono in senso opposto; a parità di variazione del rendimento, il prezzo dei titoli più lunghi si muove di più.",
    "quando": "Spiegare perché un rialzo dei rendimenti significa perdite per chi detiene titoli di Stato, soprattutto a lunga scadenza.",
    "eccezioni": "Non vale per i titoli a tasso variabile; per gli indicizzati all'inflazione conta il rendimento reale."
@@ -11,6 +12,7 @@
   {
    "id": "M02",
    "titolo": "Scadenze brevi e lunghe",
+   "area": "Tassi e obbligazioni",
    "testo": "Il rendimento a 2 anni riflette soprattutto le attese sui tassi della banca centrale nei due anni successivi; quello a 10 anni include anche crescita e inflazione attese e un premio per il rischio di durata (term premium).",
    "quando": "Leggere un movimento del 2 anni diverso da quello del 10 anni.",
    "eccezioni": "Con acquisti o vendite di titoli da parte della banca centrale (QE o QT) o forti emissioni, il tratto lungo può muoversi per offerta e domanda di titoli più che per le attese."
@@ -18,6 +20,7 @@
   {
    "id": "M03",
    "titolo": "Curva invertita",
+   "area": "Tassi e obbligazioni",
    "testo": "Negli USA una curva invertita (2 anni sopra 10 anni) ha preceduto in passato le recessioni, ma con anticipi molto variabili; è un segnale storico, non un orologio.",
    "quando": "Commentare l'inclinazione della curva Treasury.",
    "eccezioni": "L'inversione 2022-2024 è durata a lungo senza una recessione USA nello stesso periodo: non usarla come previsione."
@@ -25,6 +28,7 @@
   {
    "id": "M04",
    "titolo": "Conta la sorpresa, non il livello",
+   "area": "Dati e attese",
    "testo": "I mercati reagiscono soprattutto alla differenza tra un dato e le attese (il consenso), perché le attese sono già nei prezzi.",
    "quando": "Spiegare perché un dato 'buono' o 'cattivo' non muove i mercati nel verso atteso.",
    "eccezioni": "Le revisioni dei mesi precedenti e le componenti (es. core contro headline) possono contare più del dato principale."
@@ -32,6 +36,7 @@
   {
    "id": "M05",
    "titolo": "Inflazione sopra le attese e tassi",
+   "area": "Dati e attese",
    "testo": "Un dato d'inflazione sopra le attese in genere fa salire le attese sui tassi ufficiali e i rendimenti a breve.",
    "quando": "Contesto prima o dopo CPI, PCE, HICP.",
    "eccezioni": "Se la sorpresa viene solo da energia o voci volatili e il core è in linea, l'effetto sui tassi attesi è di solito minore."
@@ -39,6 +44,7 @@
   {
    "id": "M06",
    "titolo": "Tassi reali e valutazioni azionarie",
+   "area": "Borse",
    "testo": "A parità di utili attesi, tassi reali più alti riducono il valore attuale degli utili futuri, quindi pesano di più sui titoli il cui valore dipende da utili lontani (molti tecnologici).",
    "quando": "Spiegare perché tecnologia e titoli 'growth' sono più sensibili ai rendimenti.",
    "eccezioni": "Se i rendimenti salgono perché la crescita attesa migliora, le azioni possono salire insieme ai tassi."
@@ -46,6 +52,7 @@
   {
    "id": "M07",
    "titolo": "Correlazione tra azioni e obbligazioni",
+   "area": "Borse",
    "testo": "Il segno della correlazione tra azioni e titoli di Stato non è stabile: tende a essere negativa quando il rischio dominante è la crescita, positiva quando domina l'inflazione.",
    "quando": "Spiegare giornate in cui azioni e obbligazioni scendono insieme.",
    "eccezioni": "Nel breve periodo può cambiare segno di giorno in giorno: non trarne conclusioni da una sola seduta."
@@ -53,6 +60,7 @@
   {
    "id": "M08",
    "titolo": "Differenziale dei tassi e cambio",
+   "area": "Valute",
    "testo": "A parità di altri fattori, se i rendimenti a breve USA salgono rispetto a quelli dell'eurozona il dollaro tende a rafforzarsi contro l'euro.",
    "quando": "Leggere EUR/USD dopo dati o decisioni di Fed e BCE.",
    "eccezioni": "In fasi di dubbi sulla politica o sui conti pubblici USA (es. aprile 2025) il dollaro può indebolirsi anche con rendimenti USA in rialzo."
@@ -60,6 +68,7 @@
   {
    "id": "M09",
    "titolo": "Valute rifugio",
+   "area": "Valute",
    "testo": "Nelle fasi di forte avversione al rischio dollaro, yen e franco svizzero tendono ad apprezzarsi per la domanda di liquidità; yen e franco anche per la chiusura delle posizioni finanziate in quelle valute a basso tasso (carry trade).",
    "quando": "Leggere i cambi in una giornata di stress.",
    "eccezioni": "Quando lo shock nasce negli USA il dollaro può non fare da rifugio; lo yen dipende anche dalle mosse della BoJ."
@@ -67,6 +76,7 @@
   {
    "id": "M10",
    "titolo": "Petrolio e inflazione",
+   "area": "Energia e materie prime",
    "testo": "Un rialzo del petrolio passa in fretta all'inflazione complessiva tramite i carburanti; sull'inflazione core arriva più lentamente e in misura minore.",
    "quando": "Collegare petrolio e prossimi dati d'inflazione.",
    "eccezioni": "Le banche centrali tendono a 'guardare oltre' uno shock d'offerta se le attese d'inflazione restano stabili; se salgono, no."
@@ -74,6 +84,7 @@
   {
    "id": "M11",
    "titolo": "Shock d'offerta o di domanda",
+   "area": "Energia e materie prime",
    "testo": "Un rialzo del petrolio per carenza di offerta pesa in genere su crescita e borse dei paesi importatori (Europa, Giappone); un rialzo dovuto a domanda forte può invece accompagnarsi a borse in salita.",
    "quando": "Distinguere la natura di un movimento del petrolio.",
    "eccezioni": "I titoli energetici beneficiano in entrambi i casi; per i paesi esportatori l'effetto è opposto."
@@ -81,6 +92,7 @@
   {
    "id": "M12",
    "titolo": "Future e fisico",
+   "area": "Energia e materie prime",
    "testo": "Quando il petrolio a consegna vicina costa più di quello a consegna lontana (backwardation) il mercato segnala scarsità immediata; il contrario (contango) tende a indicare scorte abbondanti. Il confronto vale solo tra prezzi della stessa data.",
    "quando": "Spiegare la distanza tra Brent fisico e Brent future.",
    "eccezioni": "Mai confrontare il fisico EIA (pubblicato con giorni di ritardo) con il future di oggi: date diverse. Il Brent future pubblicato è una serie continua: al cambio di contratto può esserci un salto che non è un movimento di mercato."
@@ -88,6 +100,7 @@
   {
    "id": "M13",
    "titolo": "Spread BTP-Bund",
+   "area": "Tassi e obbligazioni",
    "testo": "Lo spread BTP-Bund è il rendimento in più chiesto per prestare all'Italia invece che alla Germania; in genere si allarga nelle fasi di stress sul debito o sull'eurozona e si restringe quando il rischio percepito cala.",
    "quando": "Leggere il rischio Italia nel cross-asset.",
    "eccezioni": "Può muoversi anche per fattori tecnici (offerta di titoli, liquidità, decisioni di rating) senza una notizia sull'Italia."
@@ -95,6 +108,7 @@
   {
    "id": "M14",
    "titolo": "Cosa misura il VIX",
+   "area": "Borse",
    "testo": "Il VIX misura la volatilità attesa per 30 giorni ricavata dai prezzi delle opzioni sull'S&P 500; tende a salire quando la borsa scende, e in media supera la volatilità che poi si realizza.",
    "quando": "Spiegare un movimento del VIX o il suo livello.",
    "eccezioni": "Non è una previsione della direzione della borsa; può salire anche con l'indice in rialzo prima di eventi attesi."
@@ -102,6 +116,7 @@
   {
    "id": "M15",
    "titolo": "Trimestrali: attese e guidance",
+   "area": "Dati e attese",
    "testo": "Il titolo reagisce soprattutto al confronto tra risultati e attese e alle previsioni dell'azienda (guidance), non alla crescita in sé: un utile record può accompagnarsi a un calo se la guidance delude.",
    "quando": "Commentare la reazione a una trimestrale.",
    "eccezioni": "Le stime di consenso divergono tra fonti: la sorpresa si cita solo se il consenso è confermato da due fonti."
@@ -109,6 +124,7 @@
   {
    "id": "M16",
    "titolo": "Concentrazione degli indici",
+   "area": "Borse",
    "testo": "S&P 500 e Nasdaq sono ponderati per capitalizzazione: pochi grandi titoli possono determinare gran parte della variazione dell'indice, che così può divergere dal titolo medio o dal Russell 2000.",
    "quando": "Spiegare divergenze tra indici o tra indice e ampiezza del mercato.",
    "eccezioni": "Per dire quali titoli hanno mosso l'indice ieri serve una fonte (scheda C)."
@@ -116,6 +132,7 @@
   {
    "id": "M17",
    "titolo": "Asia e semiconduttori",
+   "area": "Borse",
    "testo": "Kospi e borsa di Taiwan hanno un peso molto alto nei semiconduttori, quindi tendono a muoversi in linea con i titoli dei chip USA della sera prima.",
    "quando": "Contesto per le borse asiatiche di stamattina.",
    "eccezioni": "Notizie locali (politica, valuta, dati di export) possono prevalere; il legame va dichiarato come tendenza."
@@ -123,6 +140,7 @@
   {
    "id": "M18",
    "titolo": "Yen e Nikkei",
+   "area": "Valute",
    "testo": "Uno yen più debole tende a sostenere il Nikkei perché aumenta il valore in yen degli utili degli esportatori.",
    "quando": "Contesto per Tokyo.",
    "eccezioni": "La relazione è instabile; in fasi di stress globale yen forte e Nikkei debole possono avere la stessa origine (avversione al rischio)."
@@ -130,6 +148,7 @@
   {
    "id": "M19",
    "titolo": "Dati sul lavoro USA",
+   "area": "Dati e attese",
    "testo": "Dati sul lavoro più forti delle attese in genere fanno salire i rendimenti a breve perché riducono i tagli dei tassi attesi; l'effetto sulle azioni è ambiguo: buona notizia per gli utili, cattiva per i tassi.",
    "quando": "Prima o dopo payrolls, JOLTS, richieste di sussidi.",
    "eccezioni": "Quando la preoccupazione principale è la recessione, un dato forte può far salire anche le azioni."
@@ -137,6 +156,7 @@
   {
    "id": "M20",
    "titolo": "Probabilità dai future sui tassi",
+   "area": "Tassi e obbligazioni",
    "testo": "Le probabilità di una mossa della banca centrale (es. CME FedWatch) sono ricavate dai prezzi dei future sui tassi: riflettono le scommesse del mercato, cambiano in fretta con i dati e non sono previsioni ufficiali.",
    "quando": "Riportare le attese su Fed o BCE.",
    "eccezioni": "Fonti diverse danno probabilità diverse: citare la fonte o un intervallo."
@@ -144,6 +164,7 @@
   {
    "id": "M21",
    "titolo": "Banche e tassi",
+   "area": "Borse",
    "testo": "Una curva più ripida e tassi più alti in genere aumentano il margine d'interesse delle banche; tassi troppo alti però aumentano il rischio sui crediti e le perdite sui titoli in portafoglio.",
    "quando": "Contesto per le trimestrali bancarie e per i titoli bancari.",
    "eccezioni": "Commissioni, trading e accantonamenti possono pesare più del margine d'interesse in un singolo trimestre."
@@ -151,6 +172,7 @@
   {
    "id": "M22",
    "titolo": "Aste di titoli di Stato",
+   "area": "Tassi e obbligazioni",
    "testo": "Un'asta con domanda debole (rapporto tra domanda e offerta basso, rendimento assegnato sopra il rendimento when-issued atteso poco prima dell'asta, cioè una 'coda') può far salire i rendimenti di quella scadenza; l'effetto è spesso temporaneo.",
    "quando": "Commentare le aste Treasury o BTP in calendario.",
    "eccezioni": "Per attribuire a un'asta il movimento di ieri serve una fonte (scheda C)."
@@ -158,6 +180,7 @@
   {
    "id": "M23",
    "titolo": "Oro e tassi reali",
+   "area": "Energia e materie prime",
    "testo": "L'oro non paga interessi: in genere beneficia di tassi reali in calo e della domanda di beni rifugio.",
    "quando": "Contesto per l'oro nel cross-asset.",
    "eccezioni": "Dal 2022 la relazione con i tassi reali si è indebolita per gli acquisti delle banche centrali: l'oro è salito anche con tassi reali alti."
@@ -165,6 +188,7 @@
   {
    "id": "M24",
    "titolo": "Dazi",
+   "area": "Commercio",
    "testo": "Un dazio aumenta il costo dei beni importati: il peso si divide tra importatori e consumatori del paese che lo impone e margini degli esportatori, in proporzioni che variano per settore.",
    "quando": "Contesto per notizie su dazi e commercio.",
    "eccezioni": "L'effetto su cambi e borse non ha un segno costante: non dare per scontato il verso."
@@ -172,6 +196,7 @@
   {
    "id": "M25",
    "titolo": "Future prima dell'apertura",
+   "area": "Borse",
    "testo": "I future sugli indici scambiano quasi tutto il giorno e anticipano l'apertura, ma il loro movimento di prima mattina non è una previsione della chiusura.",
    "quando": "Box 'Stamattina'.",
    "eccezioni": "A volumi bassi (notte, festivi) il prezzo dei future è meno informativo."
@@ -179,6 +204,7 @@
   {
    "id": "M26",
    "titolo": "Il 2 anni e la banca centrale",
+   "area": "Tassi e obbligazioni",
    "testo": "Il rendimento del Treasury a 2 anni segue le attese sui tassi della Fed più da vicino del 10 anni, che dipende anche da crescita e inflazione di lungo periodo e dal premio per la durata; per questo un dato che cambia le attese sulla Fed in genere muove più il 2 anni.",
    "quando": "Spiegare perché dopo un dato macro o una dichiarazione Fed il 2 anni si muove più del 10 anni o in senso opposto (appiattimento o irripidimento).",
    "eccezioni": "Shock su offerta di titoli, conti pubblici o premio a termine (aste, rating, deficit) muovono soprattutto il tratto lungo; vicino a una riunione già scontata il 2 anni può restare fermo."
@@ -186,6 +212,7 @@
   {
    "id": "M27",
    "titolo": "Rendimento reale e inflazione attesa",
+   "area": "Tassi e obbligazioni",
    "testo": "Il rendimento di un titolo di Stato si può dividere in due parti: il rendimento reale, quello dei titoli protetti dall'inflazione (TIPS), e l'inflazione attesa dal mercato (breakeven), cioè la differenza tra i due. Se sale il reale pesano crescita e banca centrale; se sale l'inflazione attesa pesa il timore sui prezzi.",
    "quando": "Spiegare perché si muove il 10 anni USA quando contesto.py dà la scomposizione.",
    "eccezioni": "I TIPS sono meno scambiati dei titoli nominali: nei giorni di tensione l'inflazione attesa può muoversi anche per la loro scarsa liquidità."

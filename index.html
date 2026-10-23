@@ -213,6 +213,24 @@ h2.headline { font-family: var(--display); font-stretch: 85%; font-weight: 800; 
 .news li { counter-increment: n; display: grid; grid-template-columns: 30px 1fr; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--rule); font-family: var(--display); font-stretch: 90%; font-weight: 700; font-size: 16px; line-height: 1.3; }
 .news li::before { content: counter(n, decimal-leading-zero); font-weight: 800; color: var(--orange); }
 a.full { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--orange-ink); text-underline-offset: 3px; }
+/* Agenda */
+.agenda { margin-top: 28px; max-width: 62ch; }
+.agenda[hidden] { display: none !important; }
+.ag-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; align-items: baseline; }
+.ag-head h3 { margin: 0; }
+.ag-head span { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.ag-list { margin: 8px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--rule); }
+.ag-day { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding: 12px 0 4px; }
+.ag-day:first-child { padding-top: 10px; }
+.ag-row { display: grid; grid-template-columns: 62px 1fr; gap: 10px; padding: 7px 0 7px; border-bottom: 1px solid var(--rule); }
+.ag-row .h { font-family: var(--mono); font-size: 12.5px; color: var(--muted); padding-top: 2px; }
+.ag-row .e { font-family: var(--display); font-stretch: 90%; font-weight: 700; font-size: 15.5px; line-height: 1.3; }
+.ag-row .a { display: block; font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 3px; font-weight: 400; font-stretch: 100%; }
+.ag-row.key { background: var(--panel); box-shadow: inset 3px 0 0 var(--orange); padding-inline: 10px; margin-inline: -10px; }
+.ag-row.key .h { color: var(--orange-ink); }
+.ag-row .p { display: block; font-family: var(--body); font-stretch: 100%; font-weight: 400; font-size: 13.5px; color: var(--ink); margin-top: 4px; line-height: 1.4; }
+.ag-row .p b { color: var(--orange-ink); font-weight: 600; }
+.ag-more { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--orange-ink); text-underline-offset: 3px; background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit; text-decoration: underline; }
 /* Come lavoriamo */
 .trust { margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--rule); }
 .trust p { margin: 0 0 10px; color: var(--muted); font-size: 14.5px; line-height: 1.5; max-width: 62ch; }
@@ -378,6 +396,12 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
         <a class="full" id="newsFull" href="#" hidden>La prima pagina in testo &rsaquo;</a>
         <div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
 
+        <section class="agenda" id="agenda" aria-labelledby="ag-h" hidden>
+          <div class="ag-head"><h3 class="kicker" id="ag-h">In agenda</h3><span id="agMeta"></span></div>
+          <ul class="ag-list" id="agList"></ul>
+          <button type="button" class="ag-more" id="agMore">L'agenda completa a pag. 3 &rsaquo;</button>
+        </section>
+
         <section class="bet" id="bet" aria-labelledby="bet-h" hidden>
           <div class="bet-head"><h3 class="kicker" id="bet-h">La scommessa della settimana</h3><span class="wk" id="betWk"></span></div>
           <div class="score" id="betScore"></div>
@@ -431,7 +455,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
         <div class="trust">
           <h3 class="kicker">Come lavoriamo</h3>
           <p><b>Ogni fatto ha fonte, data e verifica</b> prima di uscire; i dati ufficiali si prendono dal comunicato di chi li produce. La scommessa ha una pagella pubblica, settimana per settimana.</p>
-          <div class="links"><a href="numeri.html">I numeri del Gommberg</a><a href="ultima/">Link fisso all'ultima edizione</a><a href="feed.xml">Feed RSS</a></div>
+          <div class="links"><a href="basi.html">Le basi: sigle e meccanismi</a><a href="numeri.html">I numeri del Gommberg</a><a href="ultima/">Link fisso all'ultima edizione</a><a href="feed.xml">Feed RSS</a></div>
         </div>
       </section>
     </div>
@@ -605,6 +629,63 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     f.appendChild(go);
   }
 
+  /* ---------- Agenda ---------- */
+  // "In arrivo" di pag. 3: si mostrano solo gli appuntamenti da oggi in poi (per l'ultima edizione)
+  const GSET = { lun: 1, mar: 2, mer: 3, gio: 4, ven: 5, sab: 6, dom: 0 };
+  const GIORNI_L = GIORNI;
+  function agData(q, ed) {
+    const m = /^(lun|mar|mer|gio|ven|sab|dom)\w*\s+(\d{1,2})/i.exec(q || ""); if (!m) return null;
+    const d0 = utc(ed.data), g = +m[2];
+    let d = new Date(Date.UTC(d0.getUTCFullYear(), d0.getUTCMonth(), g));
+    if (g < d0.getUTCDate() - 7) d = new Date(Date.UTC(d0.getUTCFullYear(), d0.getUTCMonth() + 1, g));
+    return d;
+  }
+  function oggiRoma() {
+    const s = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Rome", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+    return utc(s);
+  }
+  function agenda(ed) {
+    const box = $("agenda"), rows = Array.isArray(ed.agenda) ? ed.agenda : [];
+    const oggi = oggiRoma(), ultima = ed === editions[0];
+    const vis = rows.map((r) => ({ r, d: agData(r.quando, ed) })).filter((x) => !ultima || !x.d || x.d >= oggi);
+    if (!vis.length) { box.hidden = true; return; }
+    const MAX = 6, list = $("agList"); list.innerHTML = "";
+    let giorno = null;
+    vis.slice(0, MAX).forEach(({ r, d }) => {
+      const k = d ? d.getTime() : r.quando;
+      if (k !== giorno) {
+        giorno = k;
+        let lab = r.quando.split(",")[0];
+        if (d) {
+          const diff = Math.round((d - oggi) / 864e5);
+          lab = (ultima && diff === 0 ? "Oggi, " : ultima && diff === 1 ? "Domani, " : "") + GIORNI_L[d.getUTCDay()] + " " + d.getUTCDate() + (d.getUTCMonth() !== oggi.getUTCMonth() ? " " + MESI[d.getUTCMonth()] : "");
+        }
+        list.appendChild(el("li", "ag-day", lab));
+      }
+      const ora = (r.quando.split(",").slice(1).join(",").trim()) || "-";
+      const key = r.chiave || /^evento n\.?\s*1/i.test(r.perche || "");
+      const li = el("li", "ag-row" + (key ? " key" : ""));
+      li.appendChild(el("span", "h", ora.replace(/^dopo la chiusura.*$/i, "sera").replace(/ di Wall Street| USA$/i, "")));
+      const e = el("div", "e", r.evento);
+      if (r.attese && !/^n\.?d\.?$/i.test(r.attese)) e.appendChild(el("span", "a", "Attese: " + r.attese));
+      if (key) {
+        const p = el("span", "p"); p.appendChild(el("b", "", "Il più atteso. "));
+        p.append(String(r.perche || "").replace(/^evento n\.?\s*1\s*:?\s*/i, "").replace(/^./, (c) => c.toUpperCase()));
+        e.appendChild(p);
+      }
+      li.appendChild(e); list.appendChild(li);
+    });
+    const altri = vis.length - Math.min(vis.length, MAX);
+    $("agMore").textContent = (altri > 0 ? "Altri " + altri + " appuntamenti nell'agenda completa a pag. 3" : "L'agenda completa a pag. 3") + " \u203a";
+    $("agMeta").textContent = ultima ? "dall'edizione n. " + pad(ed.numero) : "come nell'edizione n. " + pad(ed.numero);
+    box.hidden = false;
+  }
+  $("agMore").addEventListener("click", () => {
+    if (!current) return;
+    if (desktop() && pdf) { goPage(3, true); return; }
+    window.open(current.file + "#page=3", "_blank", "noopener");
+  });
+
   /* ---------- Front page ---------- */
   function showEdition(ed, push) {
     current = ed;
@@ -635,7 +716,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     }
     if (Array.isArray(ed.errata) && ed.errata.length) note.appendChild(el("div", "", "Errata corrige in questa edizione: " + ed.errata.join(" ")));
     $("lbl-latest").textContent = ed === editions[0] ? "Ultima edizione" : "Edizione precedente";
-    tape(ed); bet(ed); votoStato(ed);
+    tape(ed); agenda(ed); bet(ed); votoStato(ed);
     document.querySelectorAll("[data-n]").forEach((r) => r.setAttribute("aria-current", r.dataset.n == ed.numero ? "true" : "false"));
     if (push) conta({ path: "edizione-" + pad(ed.numero), title: "Edizione n. " + pad(ed.numero) + " aperta dall'archivio", event: true });
     if (push) history.replaceState(null, "", ed === editions[0] && !params.get("n") ? (DEMO ? "?demo=1" : location.pathname) : linkFor(ed));

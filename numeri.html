@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>I numeri - Gommberg Terminal Daily</title>
-<meta name="description" content="I numeri del Gommberg Terminal Daily: lettori, lavoro della redazione, scommessa della settimana.">
+<meta name="description" content="I numeri del Gommberg Terminal Daily: lettori, mercati e record dal primo numero, scommessa della settimana.">
 <meta name="robots" content="noindex, nofollow">
 <meta property="og:title" content="I numeri del Gommberg Terminal Daily">
-<meta property="og:description" content="Letture, parole scritte, previsioni: il Gommberg Terminal Daily in numeri.">
+<meta property="og:description" content="Letture, mercati dal primo numero, previsioni: il Gommberg Terminal Daily in numeri.">
 <meta property="og:image" content="https://paologom.github.io/Gommberg-Terminal-Daily/assets/copertina.png">
 <meta name="theme-color" content="#0E0E0E">
 <link rel="icon" href="assets/icona.svg" type="image/svg+xml">
@@ -44,7 +44,7 @@ a { color: inherit; text-underline-offset: 3px; }
 
 .mast { background: var(--bar); color: var(--bar-ink); border-bottom: 3px solid var(--orange); }
 .mast .top > div { min-width: 0; }
-.mast .lette { display: flex; justify-content: space-between; align-items: flex-end; gap: 8px 32px; padding-block: 18px 14px; flex-wrap: wrap; }
+.mast .top { display: flex; justify-content: space-between; align-items: flex-end; gap: 8px 32px; padding-block: 18px 14px; flex-wrap: wrap; }
 .logo { font-family: var(--display); font-stretch: 75%; font-weight: 900; font-size: clamp(20px, 6vw, 46px); line-height: .9; letter-spacing: .01em; margin: 0; white-space: nowrap; }
 .logo a { text-decoration: none; }
 .logo b { color: var(--orange); font-weight: 900; } .logo span { font-weight: 600; }
@@ -79,7 +79,6 @@ main { padding-block: 32px 56px; display: grid; gap: 52px; }
 /* I numeri */
 main { gap: 56px; }
 .cards.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-#h-red + .cards.three { grid-template-columns: minmax(0, 260px); }
 .card .v small { font-size: .5em; font-weight: 700; color: var(--muted); margin-left: 4px; }
 .two-col { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 40px; margin-top: 26px; align-items: start; }
 .sub { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
@@ -99,6 +98,19 @@ main { gap: 56px; }
 .src { margin: 16px 0 0; font-size: 14.5px; color: var(--muted); max-width: 72ch; }
 .src b { color: var(--ink); font-weight: 600; }
 .more { display: inline-block; margin-top: 14px; font-size: 14px; color: var(--orange-ink); }
+.lede { color: var(--muted); margin: -4px 0 0; font-size: 15px; }
+.lede b { color: var(--ink); font-weight: 600; }
+table.dal { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.dal th { font-size: 11.5px; font-weight: 500; font-family: var(--mono); color: var(--muted); text-align: right; padding: 0 0 6px 8px; border-bottom: 1px solid var(--ink); white-space: nowrap; }
+.dal th:first-child { text-align: left; padding-left: 0; }
+.dal td { padding: 9px 0 9px 8px; border-bottom: 1px solid var(--rule); text-align: right; font-family: var(--mono); font-size: 13px; white-space: nowrap; }
+.dal td:first-child { text-align: left; padding-left: 0; font-family: var(--body); font-weight: 600; font-size: 14.5px; white-space: normal; }
+.dal td.v { font-weight: 500; font-size: 13.5px; }
+.dal td.v.up { color: var(--up); } .dal td.v.down { color: var(--down); }
+.lette .rl { display: block; font-size: 13px; font-weight: 600; color: var(--muted); font-family: var(--body); margin: 0; }
+.lette a.rv { display: inline-block; font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 26px; line-height: 1.1; margin-top: 2px; text-decoration: none; }
+.lette a.rv:hover { text-decoration: underline; }
+.lette a.rv.down { color: var(--down); } .lette a.rv.up { color: var(--up); }
 footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size: 12.5px; color: var(--muted); }
 @media (max-width: 860px) {
   .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -153,9 +165,17 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
 
   <section aria-labelledby="h-red">
     <p class="kicker">La testata</p>
-    <h3 class="sec-h" id="h-red">La redazione</h3>
-    <div class="cards three">
-      <div class="card"><div class="l">Edizioni pubblicate</div><div class="v" id="rEd">-</div><div class="t" id="rEdT">-</div></div>
+    <h3 class="sec-h" id="h-red">Dal primo numero</h3>
+    <p class="lede" id="rEdT">&nbsp;</p>
+    <div class="two-col">
+      <div>
+        <p class="sub" id="dalSub">I mercati</p>
+        <table class="dal" id="dal" aria-describedby="dalSub"><tbody><tr><td class="empty">Caricamento...</td></tr></tbody></table>
+      </div>
+      <div>
+        <p class="sub">I record</p>
+        <ol class="lette" id="rec"><li><span>Caricamento...</span></li></ol>
+      </div>
     </div>
     <p class="src" id="rSrc"></p>
   </section>
@@ -214,9 +234,51 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     const eds = list.filter((e) => e && e.numero && e.data && e.file).sort((a, b) => b.numero - a.numero);
     const oggi = new Date(), oggiIso = iso(new Date(Date.UTC(oggi.getFullYear(), oggi.getMonth(), oggi.getDate())));
 
-    /* ---------- Redazione ---------- */
-    $("rEd").textContent = it(eds.length);
-    if (eds.length) $("rEdT").textContent = "dal " + giorno(eds[eds.length - 1].data) + " " + eds[eds.length - 1].data.slice(0, 4);
+    /* ---------- Dal primo numero ---------- */
+    const pagP = fetch("e/pagine.json", { cache: "no-store" }).then((r) => r.ok ? r.json() : []).catch(() => []);
+    if (eds.length) $("rEdT").innerHTML = "<b>" + it(eds.length) + (eds.length === 1 ? " edizione" : " edizioni") + "</b> dal " + giorno(eds[eds.length - 1].data) + " " + eds[eds.length - 1].data.slice(0, 4) + ", con le chiusure riportate in ciascuna.";
+    const num = (s) => { const m = /[-+]?[\d.]+(?:,\d+)?/.exec(String(s || "").replace(/\s/g, "")); return m ? parseFloat(m[0].replace(/\./g, "").replace(",", ".")) : null; };
+    const fmtIt = (v, d) => v.toLocaleString("it-IT", { minimumFractionDigits: d, maximumFractionDigits: d });
+    const decim = (s) => { const m = /,(\d+)/.exec(String(s)); return m ? m[1].length : 0; };
+    const NOMI = { "MSCI ACWI (ETF)": "Azioni mondo ($)", "S&P 500": "S&P 500", "EURO STOXX 50": "Euro Stoxx 50", "UST 10 ANNI": "Treasury 10 anni", "BRENT FUTURE": "Brent ($)", "EUR/USD": "EUR/USD", "VIX": "VIX" };
+    const senzaU = (s) => String(s || "").replace(/\s*\$$/, "");
+    const conT = eds.filter((e) => Array.isArray(e.ticker) && e.ticker.length).slice().reverse();   // dal più vecchio
+    const linkEd = (e, pg) => pg.has(e.numero) ? "e/" + pad(e.numero) + ".html" : "./?n=" + e.numero;
+    if (conT.length >= 2) {
+      const a = conT[0], z = conT[conT.length - 1];
+      const al = (e) => e.ticker_al ? giorno(e.ticker_al) : giorno(e.data);
+      let h = "<thead><tr><th>Mercato</th><th>n. " + pad(a.numero) + "<br>" + al(a) + "</th><th>n. " + pad(z.numero) + "<br>" + al(z) + "</th><th>Var.</th></tr></thead><tbody>";
+      for (const [l, v0] of a.ticker) {
+        const r1 = z.ticker.find((x) => x[0] === l); if (!r1) continue;
+        const x0 = num(v0), x1 = num(r1[1]); if (x0 == null || x1 == null) continue;
+        let d, txt;
+        if (/%/.test(v0)) { d = Math.round((x1 - x0) * 100); txt = (d > 0 ? "+" : "") + d + " pb"; }
+        else if (l === "VIX") { d = x1 - x0; txt = (d > 0 ? "+" : "") + fmtIt(d, 2); }
+        else { d = (x1 / x0 - 1) * 100; txt = (Math.round(d * 10) > 0 ? "+" : "") + fmtIt(d, 1) + "%"; }
+        const c = Math.abs(d) < 1e-9 || txt.replace(/[^1-9]/g, "") === "" ? "" : d > 0 ? "up" : "down";
+        h += "<tr><td>" + esc(NOMI[l] || l) + "</td><td>" + esc(senzaU(v0)) + "</td><td>" + esc(senzaU(r1[1])) + '</td><td class="v ' + c + '">' + txt + "</td></tr>";
+      }
+      $("dal").innerHTML = h + "</tbody>";
+    } else $("dal").innerHTML = '<tbody><tr><td class="empty">Il confronto parte dalla seconda edizione.</td></tr></tbody>';
+
+    /* ---------- I record ---------- */
+    pagP.then((P) => {
+      const pg = new Set(Array.isArray(P) ? P : []);
+      const visti = new Set(), punti = [];
+      for (const e of conT) {           // una sola volta per seduta: vale la prima edizione che l'ha riportata
+        const k = e.ticker_al || e.data; if (visti.has(k)) continue; visti.add(k); punti.push(e);
+      }
+      const val = (e, l, col) => { const r = e.ticker.find((x) => x[0] === l); return r ? { s: r[col], v: num(r[col]), e, g: /\bg\b/.test(r[2] || "") } : null; };
+      const scegli = (l, col, peggio, soloG) => punti.map((e) => val(e, l, col)).filter((x) => x && x.v != null && (!soloG || x.g))
+        .reduce((b, x) => !b || (peggio ? x.v < b.v : x.v > b.v) ? x : b, null);
+      const R = [
+        ["La seduta peggiore dell'S&P 500", scegli("S&P 500", 2, true, true), (x) => x.s.replace(/\s*g$/, ""), "down"],
+        ["Il Brent più caro", scegli("BRENT FUTURE", 1, false), (x) => x.s],
+        ["Il VIX più alto", scegli("VIX", 1, false), (x) => x.s]
+      ].filter((r) => r[1]);
+      $("rec").innerHTML = R.length ? R.map(([t, x, f, c]) => '<li><div><span class="rl">' + esc(t) + '</span><a class="rv ' + (c || "") + '" href="' + linkEd(x.e, pg) + '" title="Apri l\'edizione n. ' + pad(x.e.numero) + '">' + esc(f(x)) + "</a><span>chiusura del " + giorno(x.e.ticker_al || x.e.data) + ", raccontata nel n. " + pad(x.e.numero) + "</span></div></li>").join("")
+        : '<li class="empty" style="display:block">I record si formano con le prime edizioni.</li>';
+    });
 
     // Le fonti principali (nomi, senza conteggi)
     const fatti = await Promise.all(eds.slice(0, 20).map((e) => fetch("redazione/fatti/" + e.data + ".json", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).catch(() => null)));

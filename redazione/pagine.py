@@ -12,7 +12,7 @@ e inoltre:
 Uso: python3 redazione/pagine.py [cartella del repository]   (default: la cartella sopra a questo file)
 Idempotente: rigenera tutto da edizioni.json; i PNG di edizioni già presenti si riscrivono solo se cambiano.
 """
-import html, io, json, os, re, sys
+import html, io, json, os, re, sys, unicodedata
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from email.utils import format_datetime
@@ -149,6 +149,9 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .inside{display:grid;gap:10px}.inside div{background:var(--panel);padding:12px 14px}
 .inside small{display:block;font-family:var(--mono);font-size:12px;color:var(--orange-ink);text-transform:uppercase;letter-spacing:.04em}
 .inside b{font-weight:600}
+.sigle{display:flex;flex-wrap:wrap;gap:8px}.sigle a{display:inline-block;border:1px solid var(--rule);padding:6px 10px;font-size:14px;color:var(--muted);text-decoration:none;line-height:1.35}
+.sigle a b{color:var(--ink);font-weight:600;margin-right:4px}.sigle a:hover{border-color:var(--orange)}
+.tutte{margin:12px 0 0;font-size:14px}.tutte a{color:var(--orange-ink)}
 .errata{background:var(--panel);border-left:3px solid var(--orange);padding:12px 14px;font-size:15px}
 .pn{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:13px;border-top:1px solid var(--rule);padding-top:16px}
 .pn a{text-decoration:none;color:var(--muted)}.pn a:hover{color:var(--ink)}
@@ -180,6 +183,16 @@ VOTO_JS = """<script>
   });
 })();
 </script>"""
+
+
+def ancora(s):
+    """Stessa ancora di basi.html (Glossario): minuscole, senza accenti, solo lettere e cifre unite da '-'."""
+    s = unicodedata.normalize("NFD", str(s).lower())
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    return "g-" + re.sub(r"[^a-z0-9]+", "-", s).strip("-")
+
+
+GLOSSARIO = {}   # sigla in minuscolo -> (sigla, breve), solo le voci non ovvie; riempito in main()
 
 
 def pagina(ed, prec, succ):
@@ -231,6 +244,11 @@ def pagina(ed, prec, succ):
         a('<section><h2>Gli approfondimenti</h2><div class="inside">' +
           "".join(f'<div><small>{esc(x.get("tema", ""))}</small><b>{colora(x.get("titolo", ""))}</b></div>'
                   for x in ed["approfondimenti"]) + "</div></section>")
+    sigle = [GLOSSARIO[s.lower()] for s in dict.fromkeys(ed.get("glossario") or []) if s.lower() in GLOSSARIO]
+    if sigle:
+        a('<section><h2>Le sigle di questa edizione</h2><div class="sigle">' +
+          "".join(f'<a href="../basi.html#{ancora(s)}"><b>{esc(s)}</b> {esc(b)}</a>' for s, b in sigle) +
+          '</div><p class="tutte"><a href="../basi.html">Tutte le sigle e i meccanismi &rsaquo;</a></p></section>')
     if ed.get("errata"):
         a('<section><p class="errata"><b>Errata corrige.</b> ' + " ".join(colora(x) for x in ed["errata"]) + "</p></section>")
     nav = []
@@ -290,6 +308,12 @@ def main():
     eds = [e for e in json.load(open(os.path.join(repo, "edizioni.json"), encoding="utf-8"))
            if e.get("numero") and e.get("data") and e.get("file") and e.get("titolo")]
     eds.sort(key=lambda e: e["numero"])
+    try:
+        for v in json.load(open(os.path.join(repo, "redazione", "glossario.json"), encoding="utf-8"))["voci"]:
+            if not v.get("ovvio") and v.get("sigla") and v.get("breve"):
+                GLOSSARIO[v["sigla"].lower()] = (v["sigla"], v["breve"])
+    except (OSError, ValueError, KeyError):
+        pass
     os.makedirs(os.path.join(repo, "e"), exist_ok=True)
     cambiati = 0
     for i, ed in enumerate(eds):

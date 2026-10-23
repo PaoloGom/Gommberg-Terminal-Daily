@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Le basi - Gommberg Terminal Daily</title>
+<meta name="description" content="Le basi dei mercati: le sigle e i meccanismi che il Gommberg Terminal Daily usa ogni mattina, spiegati in poche righe.">
+
+<meta property="og:title" content="Le basi dei mercati - Gommberg Terminal Daily">
+<meta property="og:description" content="Le sigle e i meccanismi dei mercati, spiegati in poche righe.">
+<meta property="og:image" content="https://paologom.github.io/Gommberg-Terminal-Daily/assets/copertina.png">
+<meta name="theme-color" content="#0E0E0E">
+<link rel="icon" href="assets/icona.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Stessi colori, caratteri e testata del sito (index.html) e del PDF. */
+:root {
+  --paper: #FBFAF8; --ink: #141414; --muted: #5E5A55; --rule: #DEDAD4; --panel: #F1EEE9;
+  --orange: #F26B1D; --orange-ink: #B84A0C; --bar: #0E0E0E; --bar-rule: #333; --bar-ink: #F5F3EF; --bar-muted: #A39C93;
+  --up: #12753D; --down: #C0261C; --up-soft: #D8EEDF; --down-soft: #F6DAD6;
+  --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121110; --ink: #EDEAE5; --muted: #A49E96; --rule: #2E2B28; --panel: #1C1A18;
+    --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-rule: #2A2826; --bar-ink: #F5F3EF; --bar-muted: #8F8880;
+    --up: #46CF85; --down: #FF7466; --up-soft: #173524; --down-soft: #3F1C18; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121110; --ink: #EDEAE5; --muted: #A49E96; --rule: #2E2B28; --panel: #1C1A18;
+  --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-rule: #2A2826; --bar-ink: #F5F3EF; --bar-muted: #8F8880;
+  --up: #46CF85; --down: #FF7466; --up-soft: #173524; --down-soft: #3F1C18; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 16px; }
+a { color: inherit; text-underline-offset: 3px; }
+.up { color: var(--up); } .down { color: var(--down); }
+
+.mast { background: var(--bar); color: var(--bar-ink); border-bottom: 3px solid var(--orange); }
+.mast .top > div { min-width: 0; }
+.mast .top { display: flex; justify-content: space-between; align-items: flex-end; gap: 8px 32px; padding-block: 18px 14px; flex-wrap: wrap; }
+.logo { font-family: var(--display); font-stretch: 75%; font-weight: 900; font-size: clamp(20px, 6vw, 46px); line-height: .9; letter-spacing: .01em; margin: 0; white-space: nowrap; }
+.logo a { text-decoration: none; }
+.logo b { color: var(--orange); font-weight: 900; } .logo span { font-weight: 600; }
+.pitch { margin: 8px 0 0; font-size: 15px; line-height: 1.4; }
+.pitch em { font-style: normal; color: var(--orange); }
+.back { font-size: 13px; color: var(--bar-muted); white-space: nowrap; }
+.back:hover { color: var(--bar-ink); }
+
+.kicker { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--orange-ink); margin: 0; line-height: 1.4; }
+.sec-h { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 26px; line-height: 1.1; margin: 4px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--orange); }
+main { padding-block: 32px 56px; display: grid; gap: 52px; }
+
+.hero { max-width: 62ch; }
+.hero h2 { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: clamp(27px, 4vw, 42px); line-height: 1.06; margin: 8px 0 0; text-wrap: balance; }
+.hero p:not(.kicker) { color: var(--muted); font-size: 17px; margin: 14px 0 0; }
+
+main { padding-block: 32px 56px; display: grid; gap: 52px; }
+.hero h2 { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: clamp(28px, 4vw, 40px); line-height: 1.06; margin: 4px 0 0; text-wrap: balance; }
+.hero p { color: var(--muted); font-size: 16.5px; margin: 10px 0 0; max-width: 62ch; }
+.find { margin-top: 18px; display: flex; align-items: center; gap: 10px; border: 1px solid var(--rule); background: var(--paper); padding: 0 12px; max-width: 520px; }
+.find:focus-within { border-color: var(--orange); }
+.find svg { width: 18px; height: 18px; color: var(--muted); flex: none; }
+.find input { border: 0; outline: 0; background: transparent; color: var(--ink); font: inherit; font-size: 16px; padding: 11px 0; width: 100%; }
+.jump { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 12px; font-family: var(--mono); font-size: 12.5px; }
+.jump a { color: var(--orange-ink); }
+.count { font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin: -4px 0 12px; min-height: 1.4em; }
+
+/* Glossario */
+.gl { columns: 3 260px; column-gap: 36px; }
+.gl .let { break-inside: avoid; margin: 0 0 14px; }
+.gl .let h4 { font-family: var(--display); font-stretch: 85%; font-weight: 900; font-size: 22px; color: var(--orange); margin: 0 0 2px; line-height: 1.2; border-bottom: 1px solid var(--rule); padding-bottom: 2px; }
+.gl dl { margin: 0; }
+.gl .t { break-inside: avoid; padding: 7px 0; border-bottom: 1px solid var(--rule); scroll-margin-top: 20px; }
+.gl dt { font-family: var(--display); font-stretch: 90%; font-weight: 700; font-size: 16px; line-height: 1.25; }
+.gl dd { margin: 2px 0 0; color: var(--muted); font-size: 14.5px; line-height: 1.4; }
+.gl dd a, .mc .u a, .gl .u a { color: var(--orange-ink); }
+.gl .u, .mc .u { display: block; font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 3px; }
+.gl .t:target, .mc article:target, .gl .t.hit, .mc article.hit { background: var(--panel); box-shadow: inset 3px 0 0 var(--orange); padding-left: 10px; }
+
+/* Meccanismi */
+.area { margin-top: 26px; }
+.area:first-of-type { margin-top: 4px; }
+.area h4 { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.mc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.mc article { background: var(--panel); border-top: 3px solid var(--ink); padding: 12px 14px 14px; min-width: 0; scroll-margin-top: 20px; }
+.mc h5 { font-family: var(--display); font-stretch: 90%; font-weight: 800; font-size: 17px; line-height: 1.2; margin: 0; }
+.mc p { margin: 6px 0 0; font-size: 14.5px; line-height: 1.5; }
+.empty { color: var(--muted); font-size: 14.5px; }
+footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size: 12.5px; color: var(--muted); }
+@media (max-width: 860px) { .mc { grid-template-columns: minmax(0, 1fr); } }
+</style>
+<script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</head>
+<body>
+<header class="mast">
+  <div class="wrap top">
+    <div>
+      <h1 class="logo"><a href="./"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></h1>
+      <p class="pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p>
+    </div>
+    <a class="back" href="./">&lsaquo; Torna all'ultima edizione</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero" aria-labelledby="h-hero">
+    <p class="kicker">Le basi</p>
+    <h2 id="h-hero">Le parole e i meccanismi dei mercati</h2>
+    <p>Le sigle che usiamo ogni mattina, in poche parole, e i meccanismi che tornano più spesso nelle nostre letture.</p>
+    <label class="find"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Zm5.3-2.2L21 21"/></svg>
+      <span class="sr" style="position:absolute;left:-9999px">Cerca</span><input type="search" id="q" placeholder="Cerca: spread, VIX, core, curva..." autocomplete="off" enterkeyhint="search"></label>
+    <nav class="jump" aria-label="Sezioni"><a href="#glossario">Glossario</a><a href="#meccanismi">I meccanismi</a></nav>
+  </section>
+
+  <section aria-labelledby="glossario">
+    <p class="kicker">Glossario</p>
+    <h3 class="sec-h" id="glossario">Le sigle e i termini</h3>
+    <div class="count" id="gCount"></div>
+    <div class="gl" id="gl"><p class="empty">Caricamento...</p></div>
+  </section>
+
+  <section aria-labelledby="meccanismi">
+    <p class="kicker">Come funziona</p>
+    <h3 class="sec-h" id="meccanismi">I meccanismi</h3>
+    <div class="count" id="mCount"></div>
+    <div id="mc"><p class="empty">Caricamento...</p></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza finanziaria né sollecitazione all'investimento.</div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const MESI = ["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"];
+  const pad = (n) => String(n).padStart(3, "0");
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  const fold = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const ancora = (s) => "g-" + fold(s).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const cap = (s) => String(s || "").replace(/^./, (c) => c.toUpperCase());
+  const ok = (r) => r.ok ? r.json() : Promise.reject(r.status);
+  Promise.all([
+    fetch("redazione/glossario.json", { cache: "no-store" }).then(ok),
+    fetch("redazione/meccanismi.json", { cache: "no-store" }).then(ok),
+    fetch("edizioni.json", { cache: "no-store" }).then(ok).catch(() => []),
+    fetch("e/pagine.json", { cache: "no-store" }).then(ok).catch(() => [])
+  ]).then(([G, M, E, P]) => {
+    const pagine = new Set(Array.isArray(P) ? P : []);
+    const eds = (Array.isArray(E) ? E : []).filter((e) => e && e.numero).sort((a, b) => b.numero - a.numero);
+    const link = (e) => pagine.has(e.numero) ? "e/" + pad(e.numero) + ".html" : "./?n=" + e.numero;
+    const quando = (e) => { const [, m, d] = e.data.split("-").map(Number); return d + " " + MESI[m - 1]; };
+    const nel = (lista) => lista.length ? "Nel Gommberg: " + lista.slice(0, 3).map((e) => '<a href="' + link(e) + '" title="Edizione del ' + quando(e) + '">n. ' + pad(e.numero) + "</a>").join("  ") : "";
+
+    /* ---------- Meccanismi ---------- */
+    const mv = (M.voci || []).filter((v) => v && v.id && v.titolo && v.testo);
+    const usoM = (id) => eds.filter((e) => (e.meccanismi || []).includes(id));
+    const ORD = ["Tassi e obbligazioni", "Dati e attese", "Borse", "Valute", "Energia e materie prime", "Commercio"];
+    const aree = [...new Set(mv.map((v) => v.area || "Altri"))].sort((a, b) => (ORD.indexOf(a) + 1 || 99) - (ORD.indexOf(b) + 1 || 99));
+
+    /* ---------- Glossario ---------- */
+    const gv = (G.voci || []).filter((v) => v && v.sigla && v.breve).sort((a, b) => fold(a.sigla).localeCompare(fold(b.sigla), "it"));
+    const usoG = (s) => eds.filter((e) => (e.glossario || []).some((x) => fold(x) === fold(s)) || (e.parole || []).some((x) => fold(x).split(" (")[0] === fold(s)));
+    // Il meccanismo collegato: la sigla compare nel titolo di un meccanismo
+    const mecDi = (s) => mv.find((m) => new RegExp("(^|[^\\w])" + s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "([^\\w]|$)", "i").test(m.titolo));
+
+    function disegna(q) {
+      const f = fold(q).trim();
+      const g = gv.filter((v) => !f || fold(v.sigla + " " + v.breve + " " + (v.varianti || []).join(" ")).includes(f));
+      const gruppi = new Map();
+      for (const v of g) { const l = /[a-z]/.test(fold(v.sigla)[0]) ? fold(v.sigla)[0].toUpperCase() : "#"; if (!gruppi.has(l)) gruppi.set(l, []); gruppi.get(l).push(v); }
+      $("gl").innerHTML = g.length ? [...gruppi].map(([l, vs]) => '<div class="let"><h4>' + l + "</h4><dl>" + vs.map((v) => {
+        const m = v.ovvio ? null : mecDi(v.sigla), u = nel(usoG(v.sigla));
+        return '<div class="t" id="' + ancora(v.sigla) + '"><dt>' + esc(v.sigla) + "</dt><dd>" + esc(cap(v.breve)) + (m ? '. <a href="#' + m.id + '">Come funziona &rsaquo;</a>' : "") + (u ? '<span class="u">' + u + "</span>" : "") + "</dd></div>";
+      }).join("") + "</dl></div>").join("") : '<p class="empty">Nessuna voce per questa ricerca.</p>';
+      $("gCount").textContent = f ? g.length + (g.length === 1 ? " voce" : " voci") : gv.length + " voci, dalla A alla Z";
+
+      const m = mv.filter((v) => !f || fold(v.titolo + " " + v.testo + " " + (v.area || "")).includes(f));
+      $("mc").innerHTML = m.length ? aree.map((a) => { const vs = m.filter((v) => (v.area || "Altri") === a); if (!vs.length) return "";
+        return '<div class="area"><h4>' + esc(a) + '</h4><div class="mc">' + vs.map((v) => { const u = nel(usoM(v.id));
+          return '<article id="' + v.id + '"><h5>' + esc(v.titolo) + "</h5><p>" + esc(v.testo) + "</p>" + (u ? '<span class="u">' + u + "</span>" : "") + "</article>"; }).join("") + "</div></div>"; }).join("")
+        : '<p class="empty">Nessun meccanismo per questa ricerca.</p>';
+      $("mCount").textContent = f ? m.length + (m.length === 1 ? " meccanismo" : " meccanismi") : mv.length + " meccanismi, in " + aree.length + " aree";
+    }
+    const q0 = new URLSearchParams(location.search).get("q") || "";
+    $("q").value = q0; disegna(q0);
+    let tm; $("q").addEventListener("input", () => { clearTimeout(tm); tm = setTimeout(() => disegna($("q").value), 120); });
+    if (location.hash) { const t = document.getElementById(decodeURIComponent(location.hash.slice(1))); if (t) { t.classList.add("hit"); requestAnimationFrame(() => t.scrollIntoView({ block: "center" })); } }
+  }).catch(() => { $("gl").innerHTML = '<p class="empty">Dati non raggiungibili. Riprova tra qualche minuto.</p>'; $("mc").innerHTML = ""; });
+})();
+</script>
+</body>
+</html>
