@@ -985,5 +985,167 @@
    "EPS",
    "capex"
   ]
+ },
+ {
+  "numero": 10,
+  "data": "2026-10-23",
+  "titolo": "L'AI chiede troppo capitale: Nasdaq -2,6%, chip -6,7%, i Treasury volano",
+  "sommario": [
+   "Francia: oggi a mercati chiusi Moody's rivede il rating; l'OAT (titoli di Stato francesi) è già sopra il 5%.",
+   "Petrolio ai massimi da maggio: si teme un nuovo attacco USA all'Iran dopo il voto del 3 novembre.",
+   "L'oro scende con i Treasury in rialzo: stavolta non fa il rifugio."
+  ],
+  "file": "pdf/2026-10-23-gommberg-010.pdf",
+  "nome": "2026-10-23 Gommberg Terminal Daily #010.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Eni: utile adjusted a 2,8 miliardi, dividendo straordinario e più riacquisti di azioni",
+   "Kering: ricavi fermi, Gucci ancora in calo, il titolo cede circa il 10%",
+   "SK Hynix rinuncia alla quotazione USA di Solidigm",
+   "Trump invoca il Defense Production Act per petrolio e raffinazione",
+   "Fed: per il 28 ottobre i future vedono una pausa, il rialzo resta in gioco",
+   "Iran: i Pasdaran minacciano le basi USA se la flotta continua a scortare le navi"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "157,41 $",
+    "-1,3% g"
+   ],
+   [
+    "S&P 500",
+    "7.663,43",
+    "-1,2% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.098,30",
+    "-1,7% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "4,96%",
+    "-17 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "113,17 $",
+    "+4,0% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1217",
+    "-0,1% g"
+   ],
+   [
+    "VIX",
+    "19,03",
+    "+2,35 g"
+   ]
+  ],
+  "dek": "Giovedì il Nasdaq perde il 2,60%, il calo più forte dal 5 giugno, e i semiconduttori il 6,7%. Meta cede il 7% pur battendo le attese, con il primo flusso di cassa negativo in oltre dieci anni (Reuters); il capo di Nvidia, Jensen Huang, parla di carenza di capitale (Yahoo Finance). Seul perde il 3,52% e Hong Kong il 3,03%; il Treasury a 10 anni (titolo di Stato USA) scende di 17 punti base (pb), sotto il 5%.",
+  "ticker_al": "2026-10-22",
+  "scommessa": {
+   "settimana": "2026-10-19/2026-10-23",
+   "su": 6,
+   "variabile": {
+    "nome": "Oro (future, $/oncia)",
+    "motivo": "Credito sull'AI, petrolio a 110 $ e Fed in bilico: l'oro dice se i mercati cercano un rifugio"
+   },
+   "strada": 4,
+   "range": 5,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     false,
+     true
+    ],
+    [
+     "S&P 500",
+     "su",
+     true,
+     true
+    ],
+    [
+     "Euro Stoxx 50",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     true,
+     false
+    ],
+    [
+     "Brent future",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Oro (future, $/oncia)",
+     "su",
+     false,
+     false,
+     true
+    ]
+   ]
+  },
+  "temi": [
+   "Tecnologia",
+   "Tassi",
+   "Petrolio",
+   "Credito",
+   "Materie prime",
+   "Asia"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Credito",
+    "titolo": "Francia, il verdetto di Moody's arriva con l'OAT oltre il 5%",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Materie prime",
+    "titolo": "Quando si vende per fare cassa anche l'oro scende, con i Treasury in rialzo",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Chip",
+    "titolo": "Il mercato chiede il conto dell'AI: il problema non è la domanda, è chi la finanzia",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [
+   "M23"
+  ],
+  "parole": [],
+  "ripetizioni": 1,
+  "glossario": [
+   "core",
+   "PMI",
+   "CME FedWatch",
+   "pb",
+   "BTP",
+   "Bund",
+   "OAT",
+   "CDS",
+   "investment grade",
+   "VIX",
+   "ACWI",
+   "Brent",
+   "IPO",
+   "buyback"
+  ],
+  "errata": "Edizione #009 (22/10): Kospi e Nikkei erano dati della mattina (5.581,98, -2,7%, e 62.942,00, -2,6%). Chiusure: Kospi 5.533,77 (-3,52%), Nikkei 62.907,84 (-2,65%) (KED Global, FMP)."
  }
 ]

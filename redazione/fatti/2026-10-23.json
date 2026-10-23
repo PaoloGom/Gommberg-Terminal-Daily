@@ -1,0 +1,840 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Giovedì il Nasdaq perde il 2,60% e i semiconduttori il 6,7%: Meta cede il 7% con il primo flusso di cassa negativo in oltre dieci anni, Huang (Nvidia) parla di carenza di capitale; il Treasury a 10 anni scende sotto il 5%",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/investinglive-americas-fx-news-wrap-22-oct-nasdaq-sinks-as-ai-worries-bite-treasury-yields-tumble/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Nasdaq sinks as AI worries bite; Treasury yields tumble"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://sg.finance.yahoo.com/news/tech-stocks-fall-nvidia-boss-152634625.html",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Tech stocks fall as Nvidia boss warns of AI funding slowdown"
+   },
+   {
+    "testata": "Reuters (Honolulu Star-Advertiser)",
+    "url": "https://www.staradvertiser.com/2026/10/22/breaking-news/nasdaq-plunges-2-6-as-ai-spending-fears-spark-tech-selloff/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Nasdaq plunges 2.6% as AI spending fears spark tech selloff"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/meta-trascina-l-asia-in-rosso-il-selloff-su-tech-e-ai-scatena-la-folle-corsa-ai-beni-rifugio-202610230752571368",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Meta trascina l'Asia in rosso: il selloff su tech e AI scatena la folle corsa ai beni rifugio"
+   }
+  ],
+  "novita": "#009 riportava i conti di Meta di mercoledì sera; lo sviluppo nuovo è il -7% del titolo, il flusso di cassa negativo, le parole di Huang e il -2,60% del Nasdaq",
+  "verifica": "confermato",
+  "nota_revisore": "4 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "C01",
+  "sezione": "top_story",
+  "testo": "La vendita sull'AI sposta capitali verso i titoli di Stato (Milano Finanza)",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/meta-trascina-l-asia-in-rosso-il-selloff-su-tech-e-ai-scatena-la-folle-corsa-ai-beni-rifugio-202610230752571368",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "il selloff su tech e AI scatena la folle corsa ai beni rifugio"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/investinglive-americas-fx-news-wrap-22-oct-nasdaq-sinks-as-ai-worries-bite-treasury-yields-tumble/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Nasdaq sinks as AI worries bite; Treasury yields tumble"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "C02",
+  "sezione": "deep_dive",
+  "testo": "La vendita nasce dai dubbi sul finanziamento dell'AI, riaccesi dai conti di Meta e dalle parole di Huang (Yahoo Finance)",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://sg.finance.yahoo.com/news/tech-stocks-fall-nvidia-boss-152634625.html",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Tech stocks fall as Nvidia boss warns of AI funding slowdown"
+   },
+   {
+    "testata": "Reuters (Honolulu Star-Advertiser)",
+    "url": "https://www.staradvertiser.com/2026/10/22/breaking-news/nasdaq-plunges-2-6-as-ai-spending-fears-spark-tech-selloff/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "AI spending fears spark tech selloff"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "C03",
+  "sezione": "deep_dive",
+  "testo": "Kitco indica come fattori dominanti la pressione delle liquidazioni e le attese di nuove strette monetarie",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-10-22/precious-metals-tumble-despite-falling-yields-hormuz-tensions-intensify",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "liquidation pressure and the outlook for further monetary tightening remained dominant considerations"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/investinglive-americas-fx-news-wrap-22-oct-nasdaq-sinks-as-ai-worries-bite-treasury-yields-tumble/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Oro 4.021,61 (-2,88%) ... Argento -5,87% ... Rame -2,68%"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "C04",
+  "sezione": "deep_dive",
+  "testo": "I rendimenti francesi salgono mentre si attende la revisione di Moody's (FinanceFeeds)",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "FinanceFeeds",
+    "url": "https://financefeeds.com/euro-near-1-12-as-french-bond-spread-tops-150bp-before-moodys-friday-review/",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "French Bond Spread Tops 150bp Before Moody's Friday Review"
+   },
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/stock-market-indices-friday-23-october-2026-AJwiGEsB",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Moody's was due to rate French public debt that evening"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Eni: utile netto adjusted 2,8 miliardi (+125%), buyback +12% a 3,8 miliardi, dividendo straordinario di 0,46 euro a dicembre",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "AGI",
+    "url": "https://www.agi.it/economia/news/2026-10-23/eni-trimestrale-utile-dividendo-39667441/",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Eni: utile a 2,8 miliardi e dividendo straordinario a dicembre"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/23/eni-risultati-terzo-trimestre-migliorano-le-prospettive-per-il-2026-9.html",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Eni, risultati terzo trimestre migliorano le prospettive per il 2026"
+   },
+   {
+    "testata": "Il Giornale d'Italia",
+    "url": "https://www.ilgiornaleditalia.it/news/mondo-imprese/832010/eni-utile-netto-adjusted-a-2-8-miliardi-nel-terzo-trimestre-2026-dividendo-extra-di-0-46-e-buyback-a-3-8-miliardi.html",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Eni, utile netto adjusted a €2,8 miliardi nel terzo trimestre 2026, dividendo extra di €0,46 e buyback a €3,8 miliardi"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "3 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Kering: ricavi del terzo trimestre 3,35 miliardi, stabili; Gucci -6% a parità di perimetro; il titolo cede circa il 10% a Parigi",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/10/22/kering-ricavi-stabili-ma-soffre-ancora-gucci_693b3f82-6b4a-4a70-a532-e9fd4041b17a.html",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Kering, ricavi stabili ma soffre ancora Gucci"
+   },
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/stock-market-indices-friday-23-october-2026-AJwiGEsB",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Kering fell about 10% after weak January-September sales"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "SK Hynix sospende la valutazione di una IPO USA per Solidigm, citando le condizioni dei mercati dei capitali",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/meta-trascina-l-asia-in-rosso-il-selloff-su-tech-e-ai-scatena-la-folle-corsa-ai-beni-rifugio-202610230752571368",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "SK Hynix ... non quoterà Solidigm negli USA, citando le recenti condizioni dei mercati dei capitali"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/23/le-borse-asiatiche-recuperano-nel-finale-con-inversione-di-sk-hynix-in-corea-19.html",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Le Borse asiatiche recuperano nel finale con inversione di SK Hynix in Corea"
+   },
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/10/23/sk-hynix-solidigm-ipo-.html",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "SK Hynix shares jump over 4% after early losses as chipmaker scraps Solidigm IPO plans"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "3 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Trump dichiara petrolio e raffinazione essenziali alla difesa nazionale e invoca il Defense Production Act; il documento non indica progetti da finanziare",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/10/22/trump-defense-production-act.html",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Trump invokes Cold War era Defense Production Act for oil production, refining"
+   },
+   {
+    "testata": "Reuters (BOE Report)",
+    "url": "https://boereport.com/2026/10/22/trump-invokes-cold-war-era-defense-production-act-for-oil-production-refining/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "are essential to national defense"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Fed: tasso al 3,75-4,00%; per il 28 ottobre i future danno pausa all'84% e rialzo di 25 pb al 16%; nuovo aumento atteso a dicembre",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-10-22/precious-metals-tumble-despite-falling-yields-hormuz-tensions-intensify",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "pausa il 27-28 ottobre (circa 84%) e un rialzo di 25 punti base (circa 16%)"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-22-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610220737239966",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "La Fed riunita il 27-28 ottobre ha una probabilità di rialzo stimata al 16%."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Iran: i Pasdaran minacciano di colpire le basi USA nella regione se le scorte navali a Hormuz continuano",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Times of Israel",
+    "url": "https://www.timesofisrael.com/liveblog_entry/irgc-threatens-to-hit-american-bases-in-region-if-us-keeps-escorting-ships-through-hormuz/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "IRGC threatens to hit American bases in region if US keeps escorting ships through Hormuz"
+   },
+   {
+    "testata": "Malay Mail (Reuters)",
+    "url": "https://www.malaymail.com/news/malaysia/2026/10/22/iran-warns-it-will-hit-us-bases-if-hormuz-ship-escorts-continue/240199",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Iran warns it will hit US bases if Hormuz ship escorts continue"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "Kospi chiude il 23/10 a 5.550,30 (+0,30%) dopo 5.533,77 (-3,52%) del 22/10; minimo intraday a -4,1%",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Asia Business Daily",
+    "url": "https://view.asiae.co.kr/en/article/2026102316141192290",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "KOSPI Reclaims 5,500; SK hynix Rises on 'Solidigm IPO Withdrawal'"
+   },
+   {
+    "testata": "KED Global",
+    "url": "https://www.kedglobal.com/korean-stock-market/newsView/ked202610230002",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Kospi reverses 4% drop to close higher as SK Hynix rebounds"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/23/le-borse-asiatiche-recuperano-nel-finale-con-inversione-di-sk-hynix-in-corea-19.html",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Kospi pared losses that had reached 4.1%"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "3 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "M02",
+  "sezione": "mercati",
+  "testo": "FTSE MIB chiude il 22/10 a 48.384 (-2,54%); spread BTP-Bund a 124 pb, BTP 10 anni al 4,57%",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/22/lo-spread-tra-btp-e-bund-chiude-in-rialzo-a-124-punti_8d4c4784-914f-41b3-a16d-cf6f35f3c517.html",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Lo spread tra Btp e Bund chiude in rialzo a 124 punti"
+   },
+   {
+    "testata": "Borsa: Milano chiude in forte calo del 2,54% (ANSA)",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/22/borsa-milano-chiude-in-forte-calo-del-254_c320e2b4-db72-4649-9a71-96569f5788d3.html",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Borsa: Milano chiude in forte calo del 2,54%"
+   },
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/borsa-italiana-commento-giornata-22-ottobre-2026",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Borsa Italiana, il commento della seduta del 22 ottobre 2026"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "3 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "M03",
+  "sezione": "mercati",
+  "testo": "Hang Seng chiude il 22/10 a 22.934,69 (-3,03%) sotto i 23.000 punti, minimo da tre mesi",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://it.investing.com/news/stock-market-news/un-ottobre-brutale-per-lasia-dove-vanno-i-soldi-e-cosa-sanno-3600010",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "ai minimi da tre mesi"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-22-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610220737239966",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Borse oggi in diretta | Europa attesa in netto calo per i timori sugli investimenti in AI"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "M04",
+  "sezione": "mercati",
+  "testo": "Asia alle 07:40: Nikkei -0,7%, Kospi -0,7%, Shanghai -0,25%; Hong Kong appena sopra la parità",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/meta-trascina-l-asia-in-rosso-il-selloff-su-tech-e-ai-scatena-la-folle-corsa-ai-beni-rifugio-202610230752571368",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Meta trascina l'Asia in rosso"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "non_conclusivo",
+  "nota_revisore": "Fonte unica o dato U senza conferma ufficiale: resta attribuito con la testata nel PDF."
+ },
+ {
+  "id": "M05",
+  "sezione": "mercati",
+  "testo": "Brent future a 114,33 $ alle 07:35 (+1,0%), massimo da cinque mesi; FTSE MIB +0,22%, DAX -0,03%, CAC 40 -0,18% in apertura (07:35)",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-23-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610230737109903",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Borse oggi in diretta 23 ottobre 2026"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "non_conclusivo",
+  "nota_revisore": "Fonte unica o dato U senza conferma ufficiale: resta attribuito con la testata nel PDF."
+ },
+ {
+  "id": "M06",
+  "sezione": "mercati",
+  "testo": "Yen a 156,9 per dollaro alle 07:40, il livello più forte da un mese",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/meta-trascina-l-asia-in-rosso-il-selloff-su-tech-e-ai-scatena-la-folle-corsa-ai-beni-rifugio-202610230752571368",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Meta trascina l'Asia in rosso"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "non_conclusivo",
+  "nota_revisore": "Fonte unica o dato U senza conferma ufficiale: resta attribuito con la testata nel PDF."
+ },
+ {
+  "id": "M07",
+  "sezione": "mercati",
+  "testo": "Giovedì 22/10: oro spot -2,88% (4.021 $), argento -5,9%, rame -2,68%, bitcoin -3,34%; Nasdaq 100 -2,90%; Apple +1,23%",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/investinglive-americas-fx-news-wrap-22-oct-nasdaq-sinks-as-ai-worries-bite-treasury-yields-tumble/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Oro: 4.021,61 (-2,88%) ... Argento: 54,55 (-5,87%)"
+   },
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-10-22/precious-metals-tumble-despite-falling-yields-hormuz-tensions-intensify",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Oro spot -119,10 $ (-2,88%), argento -5,90%"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "M08",
+  "sezione": "mercati",
+  "testo": "Moody's: Francia Aa3 outlook negativo, prossima revisione 23/10; S&P A+ stabile, Fitch A+ stabile",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Agence France Trésor",
+    "url": "https://www.aft.gouv.fr/en/frances-credit-ratings",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Moody's Aa3 Negative 10 April 2026 23 October 2026"
+   },
+   {
+    "testata": "FinanceFeeds",
+    "url": "https://financefeeds.com/euro-near-1-12-as-french-bond-spread-tops-150bp-before-moodys-friday-review/",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Moody's currently rates France Aa3 with a negative outlook"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "M09",
+  "sezione": "mercati",
+  "testo": "OAT francese a 10 anni al 5,06% (massimo da 24 anni), spread sul Bund circa 174 pb, CDS a 5 anni oltre 100 pb (prima volta dal 2012)",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/stock-market-indices-friday-23-october-2026-AJwiGEsB",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Ten-year French yield: 5.06%, with the spread around 174 basis points"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-23-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610230737109903",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "CDS Francia a 5 anni oltre 100 punti base, primo superamento dal 2012"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "M10",
+  "sezione": "mercati",
+  "testo": "Brent ai massimi da maggio; gli investitori temono un possibile nuovo attacco USA all'Iran dopo il voto di metà mandato",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/stock-market-indices-friday-23-october-2026-AJwiGEsB",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Crude oil at its highest since May"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-23-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610230737109903",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "indiscrezioni su possibili nuove operazioni USA-Israele contro l'Iran dopo il voto USA del 3 novembre"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "M11",
+  "sezione": "mercati",
+  "testo": "Nasdaq: peggior giorno dal 5 giugno; Nasdaq 100 -2,90% (peggiore dal 23 giugno); CoreWeave -10,06%, Nvidia -4,40%; stima di circa 1.200 miliardi di valore persi dal Nasdaq 100",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/investinglive-americas-fx-news-wrap-22-oct-nasdaq-sinks-as-ai-worries-bite-treasury-yields-tumble/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Nasdaq Composite ... il peggior giorno dal 5 giugno"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://sg.finance.yahoo.com/news/tech-stocks-fall-nvidia-boss-152634625.html",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "erasing an estimated $1.2tn in value"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "M12",
+  "sezione": "mercati",
+  "testo": "Meta -7,0% dopo i conti, primo flusso di cassa negativo in oltre dieci anni; indice dei semiconduttori SOX -6,7%, peggiore dal 23 giugno",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Reuters (Honolulu Star-Advertiser)",
+    "url": "https://www.staradvertiser.com/2026/10/22/breaking-news/nasdaq-plunges-2-6-as-ai-spending-fears-spark-tech-selloff/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "first cash outflow in more than a decade"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/investinglive-americas-fx-news-wrap-22-oct-nasdaq-sinks-as-ai-worries-bite-treasury-yields-tumble/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Meta ha perso circa il 7% per i piani di spesa"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "testo": "Sussidi di disoccupazione USA (settimana al 17/10): 194 mila contro 200 mila attesi; continue 1,728 milioni",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/investinglive-americas-fx-news-wrap-22-oct-nasdaq-sinks-as-ai-worries-bite-treasury-yields-tumble/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Le richieste iniziali di sussidi sono scese a 194.000 (attese 200.000)"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-22-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610220737239966",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Richieste di sussidi di disoccupazione Usa: 194.000 (attese 200.000)"
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "DOL unemployment insurance weekly claims news release October 22 2026",
+   "\"week ending October 17\" initial claims 194,000 Department of Labor release"
+  ],
+  "verifica": "non_conclusivo",
+  "nota_revisore": "Fonte unica o dato U senza conferma ufficiale: resta attribuito con la testata nel PDF."
+ },
+ {
+  "id": "K02",
+  "sezione": "catalizzatori",
+  "testo": "Prezzi al consumo core Giappone settembre 2,1% a/a, in linea con le attese, massimo dell'anno",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/23/le-borse-asiatiche-recuperano-nel-finale-con-inversione-di-sk-hynix-in-corea-19.html",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Japan core inflation for September rose to 2.1%, highest this year, in line with expectations"
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "Japan core CPI September 2026 statistics bureau 2.1% October 23",
+   "Japan core inflation September 2026 stat.go.jp"
+  ],
+  "verifica": "non_conclusivo",
+  "nota_revisore": "Fonte unica o dato U senza conferma ufficiale: resta attribuito con la testata nel PDF."
+ },
+ {
+  "id": "K03",
+  "sezione": "catalizzatori",
+  "testo": "PMI composito eurozona flash ottobre 51,9 contro 52,7 atteso (prec. 53,1); Francia 48,4, minimo da quattro mesi",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "FXStreet",
+    "url": "https://www.fxstreet.com/news/eurozone-hcob-composite-pmi-declines-to-519-in-october-vs-527-expected-202610230806",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Eurozone HCOB Composite PMI declines to 51.9 in October vs. 52.7 expected"
+   },
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/stock-market-indices-friday-23-october-2026-AJwiGEsB",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "French PMI fell to 48.4, its lowest in four months"
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "HCOB flash eurozone PMI October 2026 composite manufacturing services",
+   "HCOB Flash Eurozone PMI S&P Global press release October 2026"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Ven 23, dopo la chiusura delle borse europee: Moody's rivede il rating della Francia (Aa3, outlook negativo)",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Agence France Trésor",
+    "url": "https://www.aft.gouv.fr/en/frances-credit-ratings",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Moody's Aa3 Negative Next rating date 23 October 2026"
+   },
+   {
+    "testata": "FinanceFeeds",
+    "url": "https://financefeeds.com/euro-near-1-12-as-french-bond-spread-tops-150bp-before-moodys-friday-review/",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "decisions are typically published after European market hours"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "A05",
+  "sezione": "agenda",
+  "testo": "Mer 28, 19:00 (14:00 a Washington): decisione della Fed, riunione 27-28 ottobre; tasso al 3,75-4,00%",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/2026-october.htm",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Two-day meeting, October 27 - 28"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-22-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610220737239966",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "La Fed ha alzato i tassi di 25 punti base, al 3,75-4%"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "A06",
+  "sezione": "agenda",
+  "testo": "Gio 29: decisione della BCE (riunione 28-29 ottobre); tasso sui depositi al 2,50%",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "BCE",
+    "url": "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Governing Council of the ECB: monetary policy meeting in Frankfurt (Day 2), followed by press conference"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-22-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610220737239966",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "rialzo di 25 punti base di settembre, con tasso sui depositi al 2,5%"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero."
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "testo": "Oro -2,2% con rendimenti Treasury in forte calo e VIX in rialzo",
+  "data_evento": "2026-10-22",
+  "fonti": [],
+  "fatto": "Il 22/10 l'oro perde il 2,2% (future; spot -2,88%) mentre il Treasury a 10 anni scende di 17 pb e il VIX sale: di solito l'oro beneficia di tassi in calo e rifugio",
+  "ricerche": [
+   "gold price falls October 22 2026 why gold drops despite stock selloff Treasury yields",
+   "Kitco precious metals tumble despite falling yields Hormuz tensions intensify",
+   "investingLive Americas FX news wrap 22 Oct Nasdaq sinks Treasury yields tumble"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Liquidazioni di posizioni e vendita per fare cassa",
+    "fonte": "C03",
+    "prevede": "In calo insieme all'oro anche argento, rame, bitcoin",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Timore di nuove strette Fed per il petrolio alto",
+    "fonte": null,
+    "prevede": "Rendimenti in rialzo, dollaro forte",
+    "prezzi": "non torna"
+   },
+   {
+    "causa": "Corsa ai rifugi",
+    "fonte": null,
+    "prevede": "Oro in rialzo",
+    "prezzi": "non torna"
+   }
+  ],
+  "esito": "C03"
+ },
+ {
+  "id": "A2",
+  "sezione": "anomalia",
+  "testo": "Sussidi USA sotto le attese e 2 anni in forte calo",
+  "data_evento": "2026-10-22",
+  "fonti": [],
+  "fatto": "Sussidi di disoccupazione 194 mila contro 200 mila attesi (più caldo del previsto), ma il Treasury a 2 anni scende di 16 pb",
+  "ricerche": [
+   "investingLive Americas FX news wrap 22 Oct Nasdaq sinks Treasury yields tumble",
+   "Meta trascina l'Asia in rosso selloff tech AI beni rifugio"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Il dato sul lavoro è passato in secondo piano rispetto alla domanda di titoli sicuri dopo la vendita sull'AI",
+    "fonte": "C01",
+    "prevede": "Rendimenti in calo su tutta la curva, VIX in rialzo, azioni in calo",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Il dato caldo spinge i rendimenti su",
+    "fonte": null,
+    "prevede": "2 anni in rialzo",
+    "prezzi": "non torna"
+   }
+  ],
+  "esito": "C01"
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "testo": "",
+  "data_evento": "2026-10-23",
+  "fonti": [],
+  "concorda": true,
+  "motivo": "Milano Finanza, Reuters e Yahoo Finance aprono sulla vendita dei tecnologici e sui timori per il finanziamento dell'AI; Il Sole 24 Ore apre su Asia e petrolio, che ha un posto in In 30 secondi.",
+  "testate": [
+   {
+    "testata": "Milano Finanza",
+    "apertura": "Meta trascina l'Asia in rosso: il selloff su tech e AI scatena la folle corsa ai beni rifugio"
+   },
+   {
+    "testata": "Reuters (Star-Advertiser)",
+    "apertura": "Nasdaq plunges 2.6% as AI spending fears spark tech selloff"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "apertura": "Tech stocks fall as Nvidia boss warns of AI funding slowdown"
+   },
+   {
+    "testata": "Il Sole 24 Ore",
+    "apertura": "Stock market: Asia still down. Oil at its highest since May"
+   }
+  ]
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "Kospi chiusura 23/10 e 22/10",
+  "testo": "",
+  "data_evento": "2026-10-23",
+  "fonti": [],
+  "ricerche": [
+   "Kospi chiusura 22 ottobre 2026 borse asiatiche",
+   "Kospi closes Thursday October 22 2026 South Korea stocks chip selloff",
+   "Kospi 5,550.30 closes October 23 SK Hynix Solidigm Seoul stocks close"
+  ],
+  "esito": "trovato",
+  "fonte": {
+   "testata": "Asia Business Daily / KED Global",
+   "url": "https://view.asiae.co.kr/en/article/2026102316141192290"
+  }
+ },
+ {
+  "id": "R2",
+  "sezione": "ricerca",
+  "dato": "Chiusura FTSE 100 22/10 (seconda fonte), Euro Stoxx 50 22/10 (seconda fonte)",
+  "testo": "",
+  "data_evento": "2026-10-22",
+  "fonti": [],
+  "ricerche": [
+   "FTSE 100 closes Thursday 22 October 2026 London stocks close points",
+   "FTSE 100 Schluss 22. Oktober 2026 London Aktien Handelsende",
+   "Euro STOXX 50 Handelsschluss 22.10.2026 Punkte STOXX",
+   "Euro STOXX 50 letztendlich 22.10.2026 Donnerstag finanzen.net"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "-",
+   "url": "-"
+  }
+ }
+]
