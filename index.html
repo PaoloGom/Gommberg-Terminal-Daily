@@ -239,6 +239,10 @@ a.full { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--
 .trust .links a { color: var(--orange-ink); text-underline-offset: 3px; }
 .note:empty { display: none; }
 .loading .actions, .loading .share { visibility: hidden; }
+.nojs { display: none; margin: 10px 0 0; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.nojs a { color: var(--orange-ink); text-underline-offset: 3px; display: inline-block; padding: 8px 2px; }
+.loading .nojs { display: block; opacity: 0; animation: nojs-in 0s linear 1.5s forwards; } /* compare solo se il caricamento tarda (o senza JavaScript) */
+@keyframes nojs-in { to { opacity: 1; } }
 .failed .actions, .failed .share, .failed .reader, .failed .brief-k { display: none !important; }
 .failed .front { grid-template-columns: minmax(0, 1fr); }
 .retry { margin-top: 14px; }
@@ -379,6 +383,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
       <div class="lead-col">
         <div class="kick-row"><h2 class="kicker" id="lbl-latest">Ultima edizione</h2><span class="kmeta" id="meta"></span></div>
         <h2 class="headline" id="headline">Caricamento dell'edizione...</h2>
+        <p class="nojs">Se la pagina non si carica: <a href="ultima/">l'ultima edizione in PDF</a> | <a href="feed.xml">Feed RSS</a></p>
         <p class="dek" id="dek" hidden></p>
         <h3 class="kicker brief-k" id="briefK" hidden>In 30 secondi</h3>
         <ul class="brief" id="brief"></ul>
@@ -484,8 +489,6 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   <div class="wrap">Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
 <script>
 (function () {
   "use strict";
@@ -761,11 +764,21 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   });
 
   /* ---------- PDF reader ---------- */
+  // pdf.js serve solo al lettore su PC: si scarica dopo che l'edizione è comparsa, mai sul telefono e mai prima del contenuto
+  const PDFJS = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/";
+  let pdfjsPronto = null;
+  const caricaScript = (src) => new Promise((ok, ko) => { const s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = () => ko(new Error(src)); document.head.appendChild(s); });
+  function ensurePdfjs() {
+    if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+    if (!pdfjsPronto) pdfjsPronto = caricaScript(PDFJS + "pdf.min.js").then(() => caricaScript(PDFJS + "pdf.worker.min.js")).then(() => window.pdfjsLib).catch(() => { pdfjsPronto = null; return null; });
+    return pdfjsPronto;
+  }
   async function loadPdf(url) {
     page = 1; pdf = null; markPages();
     $("sheet").classList.remove("ok", "nopreview");
     $("wait").hidden = false; $("wait").textContent = "Caricamento della pagina...";
-    const lib = window.pdfjsLib;
+    const lib = await ensurePdfjs();
+    if (current && current.file !== url) return;
     if (!lib) { $("sheet").classList.add("nopreview"); $("wait").textContent = "Anteprima non disponibile qui. Usa \"Leggi l'edizione\" o \"Scarica PDF\"."; return; }
     try {
       const doc = await lib.getDocument({ url, isEvalSupported: false, disableFontFace: true }).promise;
@@ -791,10 +804,24 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     try { await renderTask.promise; } catch (e) { return; }
     $("wait").hidden = true; $("sheet").classList.add("ok");
     $("pg").textContent = "Pagina " + page + " di " + pdf.numPages;
+    if (current && desktop()) leggeLettore(page);
     if (page > 1 && current) { const k = current.numero + "-" + page; if (!lette.has(k)) { lette.add(k); conta({ path: "pagina-" + page + "-" + pad(current.numero), title: "Pagina " + page + " letta, n. " + pad(current.numero), event: true }); } }
     $("prev").disabled = page <= 1;
     $("next").disabled = page >= pdf.numPages;
     markPages();
+  }
+  // Lettura nel lettore integrato (PC): una volta per visita e per edizione, quando la pag. 1 resta visibile 10 secondi o si cambia pagina.
+  // Evento "lettore-NNN" a parte: "pdf-NNN" resta com'è, così la serie storica non si rompe.
+  let lettoreTimer = null;
+  function leggeLettore(p) {
+    if (!current) return;
+    const k = "L" + current.numero;
+    if (lette.has(k)) return;
+    const n = current.numero;
+    const segna = () => { if (lette.has(k)) return; lette.add(k); clearTimeout(lettoreTimer); conta({ path: "lettore-" + pad(n), title: "Lettore n. " + pad(n), event: true }); };
+    clearTimeout(lettoreTimer);
+    if (p > 1) { segna(); return; }
+    lettoreTimer = setTimeout(() => { if (current && current.numero === n) segna(); }, 10000);
   }
   function markPages() { document.querySelectorAll("#pages button").forEach((b) => b.setAttribute("aria-current", +b.dataset.p === page ? "true" : "false")); }
   function goPage(n, scroll) {
@@ -826,7 +853,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     if (e.key === "ArrowLeft" || e.key === "PageUp") goPage(page - 1);
   });
   let rt, lastW = window.innerWidth;
-  window.addEventListener("resize", () => { if (window.innerWidth === lastW) return; lastW = window.innerWidth; clearTimeout(rt); rt = setTimeout(() => { if (!desktop()) return; if (pdf) renderPage(); else if (current && window.pdfjsLib) loadPdf(current.file); }, 200); });
+  window.addEventListener("resize", () => { if (window.innerWidth === lastW) return; lastW = window.innerWidth; clearTimeout(rt); rt = setTimeout(() => { if (!desktop()) return; if (pdf) renderPage(); else if (current) loadPdf(current.file); }, 200); });
 
   /* ---------- Archive ---------- */
   function haystack(ed) {

@@ -328,7 +328,10 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     const somma = aperture.reduce((s, x) => s + (x || 0), 0);
     $("kPdf").textContent = pdfTot == null ? "-" : it(Math.max(pdfTot, somma));
     const top = recenti.map((e, i) => ({ e, n: aperture[i] || 0 })).filter((x) => x.n > 0).sort((a, b) => b.n - a.n || b.e.numero - a.e.numero).slice(0, 3);
-    $("top").innerHTML = top.length
+    const senzaDati = aperture.length > 0 && aperture.every((x) => x == null); // contatore non raggiungibile (ad-blocker, rete): non è "nessuna lettura"
+    $("top").innerHTML = senzaDati
+      ? '<li class="empty" style="display:block">-</li>'
+      : top.length
       ? top.map((x) => '<li><div><a href="e/' + pad(x.e.numero) + '.html">' + esc(x.e.titolo) + "</a><span>n. " + pad(x.e.numero) + " | " + giorno(x.e.data) + "</span></div></li>").join("")
       : '<li class="empty" style="display:block">La classifica si forma con le prime letture.</li>';
   }).catch(() => { $("top").innerHTML = '<li class="empty" style="display:block">Dati non raggiungibili. Riprova tra qualche minuto.</li>'; });
