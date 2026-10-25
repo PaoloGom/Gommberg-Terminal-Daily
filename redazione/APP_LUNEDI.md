@@ -4,6 +4,7 @@ Tutto si lancia da `cd /home/claude/gtd/redazione/scommessa` (perché `dati/`, `
 
 ## 1. Aggiorna la storia
 Scrivi `/home/claude/lavoro/nuovi.json` con le chiusure ufficiali dei giorni dopo l'ultima data di ogni file in `dati/`, fino a venerdì compreso. Formato: `{"spx": [["2026-10-16", 7850.12], ...], ...}`.
+- **Temporanea, valida fino al 30/10/2026 (poi togliere):** `dati/sx5e.csv` è già verificato fino al 23/10 (due fonti). Non mettere `sx5e` in `nuovi.json`: FMP `^STOXX50E` non dà la chiusura (livelli sbagliati quasi ogni giorno, anche di segno; ad esempio il 16/10 dà 6.161,9 contro 6.204,23). Il revisore controlla che in pag. 6 l'Euro Stoxx 50 finisca a 6.068,22 (23/10). Venerdì 30/10 la chiusura dell'Euro Stoxx si prende da dpa-AFX "Aktien Europa Schluss" più Investing.com o stoxx.com, concordi entro lo 0,05%.
 - `spx`, `sx5e`, `vix`: FMP `indexes` endpoint `index-historical-price-eod-light` (^GSPC, ^STOXX50E, ^VIX) con from/to;
 - `brent`: FMP `commodity` endpoint `commodities-historical-price-eod-light`, simbolo BZUSD;
 - `ust10`, `ust2`: FMP `economics` endpoint `treasury-rates`, colonne year10 e year2;
