@@ -1,0 +1,776 @@
+{
+ "nota": "Contenuti per il sito (basi.html). Non lo legge la redazione: il PDF e i controlli usano solo glossario.json. Chiave = sigla di glossario.json, oppure voce nuova con breve. tipo/esteso/spiega/mecc(id di meccanismi.json)/fonte [nome,url]/titolo (come si mostra).",
+ "tipi": [
+  "Indici",
+  "Istituzioni",
+  "Dati e inflazione",
+  "Tassi e obbligazioni",
+  "Aziende e strumenti",
+  "Materie prime"
+ ],
+ "voci": {
+  "ACWI": {
+   "tipo": "Indici",
+   "spiega": "Indice MSCI delle azioni di oltre 40 paesi, sviluppati ed emergenti: misura l'andamento della borsa mondiale. Nelle edizioni è il termometro globale.",
+   "esteso": "MSCI All Country World Index",
+   "mecc": "M16",
+   "fonte": [
+    "MSCI",
+    "https://www.msci.com/our-solutions/indexes/acwi"
+   ]
+  },
+  "AI": {
+   "tipo": "Aziende e strumenti",
+   "spiega": "Software che impara dai dati per svolgere compiti che richiedono giudizio: scrivere, tradurre, riconoscere immagini. Per i mercati conta soprattutto per la spesa in chip e data center.",
+   "esteso": "Artificial intelligence"
+  },
+  "AIE": {
+   "tipo": "Istituzioni",
+   "spiega": "Organizzazione dei paesi consumatori di energia, con sede a Parigi. Ogni mese pubblica stime su domanda e offerta di petrolio e gas.",
+   "esteso": "International Energy Agency (IEA)",
+   "mecc": "M11",
+   "fonte": [
+    "AIE",
+    "https://www.iea.org"
+   ]
+  },
+  "BCE": {
+   "tipo": "Istituzioni",
+   "spiega": "Banca centrale dei paesi che usano l'euro. Fissa i tassi d'interesse nell'area euro; il Consiglio direttivo decide circa ogni sei settimane.",
+   "esteso": "Banca centrale europea",
+   "fonte": [
+    "BCE",
+    "https://www.ecb.europa.eu"
+   ]
+  },
+  "Beige Book": {
+   "tipo": "Istituzioni",
+   "spiega": "Rapporto della Fed, otto volte l'anno, con le impressioni delle imprese di ogni area degli USA su economia, prezzi e lavoro. Esce circa due settimane prima della riunione del FOMC.",
+   "esteso": "Rapporto della Fed",
+   "fonte": [
+    "Federal Reserve",
+    "https://www.federalreserve.gov/monetarypolicy/publications/beige-book-default.htm"
+   ]
+  },
+  "BoE": {
+   "tipo": "Istituzioni",
+   "spiega": "Banca centrale del Regno Unito. Il suo comitato di politica monetaria decide il tasso ufficiale, il Bank Rate.",
+   "esteso": "Bank of England",
+   "fonte": [
+    "Bank of England",
+    "https://www.bankofengland.co.uk"
+   ]
+  },
+  "BoJ": {
+   "tipo": "Istituzioni",
+   "spiega": "Banca centrale del Giappone. Le sue decisioni sui tassi muovono lo yen e il Nikkei.",
+   "esteso": "Bank of Japan",
+   "mecc": "M18",
+   "fonte": [
+    "Bank of Japan",
+    "https://www.boj.or.jp/en/"
+   ]
+  },
+  "breakeven": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Inflazione che il mercato si aspetta nei prossimi anni, ricavata dalla differenza tra il rendimento di un titolo normale e quello di un titolo indicizzato all'inflazione, con la stessa scadenza.",
+   "esteso": "Breakeven inflation",
+   "mecc": "M27",
+   "titolo": "Breakeven"
+  },
+  "Brent": {
+   "tipo": "Materie prime",
+   "spiega": "Petrolio estratto nel Mare del Nord, il cui prezzo è il riferimento per Europa, Africa e Medio Oriente. Nelle edizioni è il future più vicino.",
+   "esteso": "Petrolio del Mare del Nord",
+   "mecc": "M10",
+   "fonte": [
+    "ICE",
+    "https://www.ice.com"
+   ]
+  },
+  "BTP": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Titoli di Stato italiani a medio-lungo termine. Il BTP a 10 anni è il riferimento per il costo del debito italiano.",
+   "esteso": "Buoni del Tesoro Poliennali",
+   "mecc": "M13",
+   "fonte": [
+    "Dipartimento del Tesoro",
+    "https://www.dt.mef.gov.it"
+   ]
+  },
+  "Bund": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "I titoli di Stato più sicuri dell'eurozona. Il Bund a 10 anni è il riferimento per l'Europa e il confronto per lo spread dei BTP.",
+   "esteso": "Titoli di Stato tedeschi",
+   "mecc": "M13",
+   "fonte": [
+    "Deutsche Finanzagentur",
+    "https://www.deutsche-finanzagentur.de/en/"
+   ]
+  },
+  "buyback": {
+   "tipo": "Aziende e strumenti",
+   "spiega": "La società ricompra azioni proprie sul mercato: le azioni in circolazione diminuiscono e l'utile per azione sale.",
+   "esteso": "Riacquisto di azioni proprie",
+   "fonte": [
+    "Borsa Italiana",
+    "https://www.borsaitaliana.it/borsa/glossario.html"
+   ],
+   "titolo": "Buyback"
+  },
+  "CAC 40": {
+   "tipo": "Indici",
+   "spiega": "Indice delle 40 maggiori società quotate a Parigi.",
+   "esteso": "Cotation Assistée en Continu",
+   "fonte": [
+    "Euronext",
+    "https://live.euronext.com"
+   ]
+  },
+  "capex": {
+   "tipo": "Aziende e strumenti",
+   "spiega": "Spesa di un'azienda per impianti, macchinari, data center. Quando sale molto, come per l'AI, pesa sui conti ma segnala fiducia nella domanda.",
+   "esteso": "Capital expenditure",
+   "titolo": "Capex"
+  },
+  "carry trade": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Ci si indebita in una valuta con tassi bassi, spesso lo yen, per investire in una con tassi alti. Rende finché i cambi stanno fermi; se la valuta del prestito sale, si perde.",
+   "esteso": "Operazione di carry",
+   "mecc": "M18",
+   "titolo": "Carry trade"
+  },
+  "CDS": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Contratto che protegge da un'insolvenza: chi lo compra paga un premio, chi lo vende risarcisce se l'emittente non paga. Il prezzo misura il rischio percepito.",
+   "esteso": "Credit default swap",
+   "fonte": [
+    "Borsa Italiana",
+    "https://www.borsaitaliana.it/borsa/glossario.html"
+   ]
+  },
+  "CME FedWatch": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Strumento del CME che ricava dai future sui tassi la probabilità di ogni decisione della Fed alla prossima riunione.",
+   "esteso": "Strumento del CME",
+   "mecc": "M20",
+   "fonte": [
+    "CME Group",
+    "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html"
+   ]
+  },
+  "core": {
+   "tipo": "Dati e inflazione",
+   "spiega": "Indice dei prezzi senza energia e alimentari, che oscillano molto. Mostra la tendenza di fondo dell'inflazione e pesa di più sulle decisioni delle banche centrali.",
+   "esteso": "Inflazione di fondo",
+   "mecc": "M05",
+   "titolo": "Core"
+  },
+  "CPI": {
+   "tipo": "Dati e inflazione",
+   "spiega": "Indice dei prezzi al consumo: misura quanto cambiano i prezzi di un paniere di beni e servizi. Negli USA lo pubblica il BLS ogni mese ed è il dato sull'inflazione più seguito.",
+   "esteso": "Consumer Price Index",
+   "mecc": "M05",
+   "fonte": [
+    "BLS",
+    "https://www.bls.gov/cpi/"
+   ]
+  },
+  "Curva dei rendimenti": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Grafico dei rendimenti dei titoli di Stato per scadenza, dalla più breve alla più lunga. Di solito sale; quando i tassi corti superano i lunghi si dice invertita.",
+   "esteso": "Yield curve",
+   "mecc": "M03",
+   "breve": "rendimenti dei titoli di Stato per scadenza"
+  },
+  "DAX": {
+   "tipo": "Indici",
+   "spiega": "Indice delle 40 maggiori società quotate a Francoforte.",
+   "esteso": "Deutscher Aktienindex",
+   "fonte": [
+    "Deutsche Börse",
+    "https://www.deutsche-boerse.com"
+   ]
+  },
+  "dot plot": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Grafico con le previsioni sui tassi di ognuno dei membri del FOMC, un punto per persona. Esce quattro volte l'anno insieme alle proiezioni economiche.",
+   "esteso": "Grafico a punti della Fed",
+   "mecc": "M20",
+   "fonte": [
+    "Federal Reserve",
+    "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+   ],
+   "titolo": "Dot plot"
+  },
+  "Dow Jones": {
+   "tipo": "Indici",
+   "spiega": "Indice di 30 grandi società USA, pesate per prezzo delle azioni e non per dimensione.",
+   "esteso": "Dow Jones Industrial Average",
+   "fonte": [
+    "S&P Dow Jones Indices",
+    "https://www.spglobal.com/spdji/en/"
+   ]
+  },
+  "DXY": {
+   "tipo": "Indici",
+   "spiega": "Valore del dollaro contro un paniere di sei valute: euro, yen, sterlina, dollaro canadese, corona svedese, franco svizzero. L'euro pesa più della metà.",
+   "esteso": "Dollar Index",
+   "mecc": "M08",
+   "fonte": [
+    "ICE",
+    "https://www.ice.com"
+   ]
+  },
+  "EIA": {
+   "tipo": "Istituzioni",
+   "spiega": "Agenzia statistica USA per l'energia. Ogni settimana pubblica le scorte di petrolio, un dato che muove il prezzo.",
+   "esteso": "Energy Information Administration",
+   "mecc": "M10",
+   "fonte": [
+    "EIA",
+    "https://www.eia.gov"
+   ]
+  },
+  "EPS": {
+   "tipo": "Aziende e strumenti",
+   "spiega": "Utile per azione: l'utile netto diviso per il numero di azioni. È il numero che il mercato confronta con le attese in ogni trimestrale.",
+   "esteso": "Earnings per share",
+   "mecc": "M15",
+   "fonte": [
+    "Borsa Italiana",
+    "https://www.borsaitaliana.it/borsa/glossario.html"
+   ]
+  },
+  "ETF": {
+   "tipo": "Aziende e strumenti",
+   "spiega": "Fondo quotato in borsa che replica un indice e si compra come un'azione, di solito a costi bassi.",
+   "esteso": "Exchange traded fund",
+   "fonte": [
+    "Borsa Italiana",
+    "https://www.borsaitaliana.it/borsa/glossario.html"
+   ]
+  },
+  "Euro Stoxx 50": {
+   "tipo": "Indici",
+   "spiega": "Indice delle 50 maggiori società dell'eurozona. Nelle edizioni è il termometro dell'Europa.",
+   "esteso": "Indice delle blue chip dell'eurozona",
+   "fonte": [
+    "STOXX",
+    "https://www.stoxx.com"
+   ]
+  },
+  "Fed": {
+   "tipo": "Istituzioni",
+   "spiega": "Banca centrale degli USA. Decide il tasso di riferimento tramite il FOMC, con l'obiettivo di prezzi stabili e piena occupazione.",
+   "esteso": "Federal Reserve",
+   "mecc": "M20",
+   "fonte": [
+    "Federal Reserve",
+    "https://www.federalreserve.gov"
+   ]
+  },
+  "FMI": {
+   "tipo": "Istituzioni",
+   "spiega": "Istituzione di quasi tutti i paesi del mondo. Pubblica previsioni su crescita e debito e presta ai paesi in difficoltà.",
+   "esteso": "Fondo monetario internazionale",
+   "fonte": [
+    "IMF",
+    "https://www.imf.org"
+   ]
+  },
+  "FOMC": {
+   "tipo": "Istituzioni",
+   "spiega": "Il comitato della Fed che decide i tassi. Si riunisce otto volte l'anno e il comunicato esce alle 14 di New York.",
+   "esteso": "Federal Open Market Committee",
+   "mecc": "M20",
+   "fonte": [
+    "Federal Reserve",
+    "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+   ]
+  },
+  "FTSE 100": {
+   "tipo": "Indici",
+   "spiega": "Indice delle 100 maggiori società quotate a Londra, in sterline: molte sono multinazionali dell'energia, della finanza e dei beni di consumo.",
+   "esteso": "Financial Times Stock Exchange 100",
+   "fonte": [
+    "FTSE Russell",
+    "https://www.lseg.com/en/ftse-russell"
+   ]
+  },
+  "FTSE MIB": {
+   "tipo": "Indici",
+   "spiega": "Indice delle 40 maggiori società quotate a Piazza Affari. Banche ed energia pesano molto.",
+   "esteso": "Milano Italia Borsa",
+   "fonte": [
+    "Borsa Italiana",
+    "https://www.borsaitaliana.it"
+   ]
+  },
+  "future": {
+   "tipo": "Aziende e strumenti",
+   "spiega": "Contratto per comprare o vendere un'attività a un prezzo fissato oggi, con consegna futura. Quelli sugli indici si trattano quasi tutta la notte e anticipano l'apertura.",
+   "esteso": "Contratto a termine",
+   "mecc": "M25",
+   "fonte": [
+    "Borsa Italiana",
+    "https://www.borsaitaliana.it/borsa/glossario.html"
+   ],
+   "titolo": "Future"
+  },
+  "Gilt": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "I titoli di Stato britannici. Il Gilt a 10 anni è il riferimento per il Regno Unito.",
+   "esteso": "Titoli di Stato britannici",
+   "fonte": [
+    "UK Debt Management Office",
+    "https://www.dmo.gov.uk"
+   ]
+  },
+  "GNL": {
+   "tipo": "Materie prime",
+   "spiega": "Gas raffreddato a circa -160 gradi per trasportarlo in nave. È diventato centrale per le forniture all'Europa.",
+   "esteso": "Gas naturale liquefatto"
+  },
+  "GPU": {
+   "tipo": "Aziende e strumenti",
+   "spiega": "Processore nato per la grafica, oggi il chip più usato per addestrare e far funzionare l'intelligenza artificiale.",
+   "esteso": "Graphics processing unit",
+   "mecc": "M17"
+  },
+  "guidance": {
+   "tipo": "Aziende e strumenti",
+   "spiega": "Previsioni che l'azienda stessa dà su ricavi e utili dei prossimi trimestri. Spesso muove il titolo più dei risultati già usciti.",
+   "esteso": "Previsioni dell'azienda",
+   "mecc": "M15",
+   "titolo": "Guidance"
+  },
+  "Hang Seng": {
+   "tipo": "Indici",
+   "spiega": "Indice delle maggiori società quotate a Hong Kong.",
+   "esteso": "Hang Seng Index",
+   "fonte": [
+    "Hang Seng Indexes",
+    "https://www.hsi.com.hk"
+   ]
+  },
+  "HBM": {
+   "tipo": "Aziende e strumenti",
+   "spiega": "Memoria molto veloce, impilata accanto ai chip per l'AI. La producono in pochi: SK Hynix, Samsung e Micron.",
+   "esteso": "High bandwidth memory",
+   "mecc": "M17"
+  },
+  "HICP": {
+   "tipo": "Dati e inflazione",
+   "spiega": "Indice dei prezzi al consumo calcolato con le stesse regole in tutta l'Unione europea. È la misura di inflazione che guarda la BCE.",
+   "esteso": "Harmonised Index of Consumer Prices (in italiano IPCA)",
+   "mecc": "M05",
+   "fonte": [
+    "Eurostat",
+    "https://ec.europa.eu/eurostat/web/hicp"
+   ]
+  },
+  "high yield": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Obbligazioni di aziende con rating basso, sotto BBB-: pagano di più perché il rischio di insolvenza è più alto.",
+   "esteso": "Obbligazioni ad alto rendimento",
+   "fonte": [
+    "Borsa Italiana",
+    "https://www.borsaitaliana.it/borsa/glossario.html"
+   ],
+   "titolo": "High yield"
+  },
+  "Ifo": {
+   "tipo": "Dati e inflazione",
+   "spiega": "Indice dell'istituto Ifo di Monaco: sondaggio mensile sulla fiducia delle imprese tedesche. Sopra le attese è un buon segno per la Germania.",
+   "esteso": "Ifo Business Climate",
+   "mecc": "M04",
+   "fonte": [
+    "Ifo",
+    "https://www.ifo.de/en"
+   ]
+  },
+  "investment grade": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Obbligazioni con rating da BBB- in su: rischio d'insolvenza basso e rendimenti più contenuti.",
+   "esteso": "Obbligazioni di qualità",
+   "fonte": [
+    "Borsa Italiana",
+    "https://www.borsaitaliana.it/borsa/glossario.html"
+   ],
+   "titolo": "Investment grade"
+  },
+  "IPO": {
+   "tipo": "Aziende e strumenti",
+   "spiega": "Prima vendita al pubblico delle azioni di una società, che si quota in borsa.",
+   "esteso": "Initial public offering",
+   "fonte": [
+    "Borsa Italiana",
+    "https://www.borsaitaliana.it/borsa/glossario.html"
+   ]
+  },
+  "ISM": {
+   "tipo": "Dati e inflazione",
+   "spiega": "Sondaggio mensile USA sui direttori acquisti di industria e servizi. Sopra 50 indica espansione, sotto 50 contrazione.",
+   "esteso": "Institute for Supply Management",
+   "mecc": "M04",
+   "fonte": [
+    "ISM",
+    "https://www.ismworld.org"
+   ]
+  },
+  "JGB": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Titoli di Stato giapponesi. Il loro rendimento influenza lo yen e i carry trade.",
+   "esteso": "Japanese government bond",
+   "mecc": "M18",
+   "fonte": [
+    "Ministero delle Finanze del Giappone",
+    "https://www.mof.go.jp/english/"
+   ]
+  },
+  "JOLTS": {
+   "tipo": "Dati e inflazione",
+   "spiega": "Rilevazione mensile del BLS sui posti di lavoro vacanti e su assunzioni e licenziamenti. Mostra quanto è teso il mercato del lavoro USA.",
+   "esteso": "Job Openings and Labor Turnover Survey",
+   "mecc": "M19",
+   "fonte": [
+    "BLS",
+    "https://www.bls.gov/jlt/"
+   ]
+  },
+  "Kospi": {
+   "tipo": "Indici",
+   "spiega": "Indice della borsa di Seul. Pesano molto Samsung e i produttori di chip.",
+   "esteso": "Korea Composite Stock Price Index",
+   "mecc": "M17",
+   "fonte": [
+    "Korea Exchange",
+    "https://global.krx.co.kr"
+   ]
+  },
+  "Nasdaq": {
+   "tipo": "Indici",
+   "spiega": "Borsa USA a forte peso tecnologico. L'indice Nasdaq Composite comprende migliaia di società.",
+   "esteso": "Nasdaq Composite",
+   "mecc": "M16",
+   "fonte": [
+    "Nasdaq",
+    "https://www.nasdaq.com"
+   ]
+  },
+  "Nasdaq 100": {
+   "tipo": "Indici",
+   "spiega": "Indice delle 100 maggiori società non finanziarie del Nasdaq. Apple, Microsoft e Nvidia pesano molto.",
+   "esteso": "Nasdaq-100",
+   "mecc": "M16",
+   "fonte": [
+    "Nasdaq",
+    "https://www.nasdaq.com"
+   ],
+   "breve": "100 maggiori società non finanziarie del Nasdaq"
+  },
+  "Nikkei": {
+   "tipo": "Indici",
+   "spiega": "Indice di 225 grandi società quotate a Tokyo, pesate per prezzo.",
+   "esteso": "Nikkei 225",
+   "mecc": "M18",
+   "fonte": [
+    "Nikkei",
+    "https://indexes.nikkei.co.jp/en/nkave"
+   ]
+  },
+  "OAT": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Titoli di Stato francesi. Lo spread tra OAT e Bund misura il rischio percepito sulla Francia.",
+   "esteso": "Obligations assimilables du Trésor",
+   "fonte": [
+    "Agence France Trésor",
+    "https://www.aft.gouv.fr/en"
+   ]
+  },
+  "OPEC": {
+   "tipo": "Materie prime",
+   "spiega": "Organizzazione dei paesi esportatori di petrolio. Con l'OPEC+, che include la Russia, decide quanto petrolio produrre.",
+   "esteso": "Organization of the Petroleum Exporting Countries",
+   "mecc": "M11",
+   "fonte": [
+    "OPEC",
+    "https://www.opec.org"
+   ]
+  },
+  "P/E": {
+   "tipo": "Aziende e strumenti",
+   "spiega": "Prezzo dell'azione diviso utile per azione: quanti anni di utili servono per ripagare il prezzo. Più è alto, più il mercato si aspetta crescita.",
+   "esteso": "Price/earnings",
+   "mecc": "M06",
+   "fonte": [
+    "Borsa Italiana",
+    "https://www.borsaitaliana.it/borsa/glossario.html"
+   ]
+  },
+  "Par yield": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Rendimento di un titolo emesso e rimborsato alla pari, cioè a 100. È la curva che pubblica ogni giorno il Tesoro USA.",
+   "esteso": "Treasury Par Yield Curve",
+   "mecc": "M01",
+   "fonte": [
+    "US Treasury",
+    "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+   ]
+  },
+  "payrolls": {
+   "tipo": "Dati e inflazione",
+   "spiega": "Posti di lavoro creati negli USA nel mese precedente, esclusa l'agricoltura. Esce di solito il primo venerdì del mese e muove tassi e dollaro.",
+   "esteso": "Non-farm payrolls (NFP)",
+   "mecc": "M19",
+   "fonte": [
+    "BLS",
+    "https://www.bls.gov/ces/"
+   ],
+   "titolo": "Payrolls"
+  },
+  "pb": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Un centesimo di punto percentuale: 25 pb sono 0,25%. Si usa per le variazioni dei tassi e per gli spread.",
+   "esteso": "Punti base",
+   "mecc": "M01"
+  },
+  "PBoC": {
+   "tipo": "Istituzioni",
+   "spiega": "Banca centrale cinese: gestisce il tasso di riferimento e orienta il cambio dello yuan.",
+   "esteso": "People's Bank of China",
+   "fonte": [
+    "PBoC",
+    "http://www.pbc.gov.cn/en/"
+   ]
+  },
+  "PCE": {
+   "tipo": "Dati e inflazione",
+   "spiega": "Indice dei prezzi delle spese per consumi, pubblicato dal BEA. È la misura di inflazione che la Fed preferisce per il suo obiettivo del 2%.",
+   "esteso": "Personal consumption expenditures price index",
+   "mecc": "M05",
+   "fonte": [
+    "BEA",
+    "https://www.bea.gov/data/personal-consumption-expenditures-price-index"
+   ]
+  },
+  "PIL": {
+   "tipo": "Dati e inflazione",
+   "spiega": "Valore dei beni e dei servizi prodotti in un paese in un periodo. Due trimestri di calo di fila indicano una recessione tecnica.",
+   "esteso": "Prodotto interno lordo"
+  },
+  "PMI": {
+   "tipo": "Dati e inflazione",
+   "spiega": "Sondaggio sui direttori acquisti delle imprese. Sopra 50 l'attività cresce, sotto 50 cala. Esce prima dei dati ufficiali.",
+   "esteso": "Purchasing managers' index",
+   "mecc": "M04",
+   "fonte": [
+    "S&P Global PMI",
+    "https://www.pmi.spglobal.com"
+   ]
+  },
+  "PPI": {
+   "tipo": "Dati e inflazione",
+   "spiega": "Prezzi alla produzione: quanto costa alle imprese produrre i beni. Spesso anticipa l'inflazione al consumo.",
+   "esteso": "Producer price index",
+   "mecc": "M05",
+   "fonte": [
+    "BLS",
+    "https://www.bls.gov/ppi/"
+   ]
+  },
+  "QE": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Acquisti di titoli di Stato da parte della banca centrale per abbassare i tassi lunghi e immettere liquidità.",
+   "esteso": "Quantitative easing",
+   "fonte": [
+    "Borsa Italiana",
+    "https://www.borsaitaliana.it/borsa/glossario.html"
+   ]
+  },
+  "QT": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Il contrario del QE: la banca centrale lascia scadere i titoli in bilancio o li vende, e ritira liquidità.",
+   "esteso": "Quantitative tightening",
+   "fonte": [
+    "Borsa Italiana",
+    "https://www.borsaitaliana.it/borsa/glossario.html"
+   ]
+  },
+  "Rating": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Giudizio di un'agenzia (S&P, Moody's, Fitch) sulla capacità di uno Stato o di un'azienda di ripagare i debiti. Va da AAA, il migliore, fino all'insolvenza.",
+   "esteso": "Giudizio di credito",
+   "fonte": [
+    "Borsa Italiana",
+    "https://www.borsaitaliana.it/borsa/glossario.html"
+   ],
+   "breve": "giudizio sulla solidità di un debitore"
+  },
+  "Rendimento": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Quanto rende un'obbligazione tenuta fino a scadenza, in percentuale annua. Quando il prezzo sale il rendimento scende, e viceversa.",
+   "esteso": "Yield",
+   "mecc": "M01",
+   "breve": "resa annua di un'obbligazione"
+  },
+  "Russell 2000": {
+   "tipo": "Indici",
+   "spiega": "Indice di 2.000 piccole società USA, più sensibili all'economia interna e ai tassi.",
+   "esteso": "Russell 2000 Index",
+   "fonte": [
+    "FTSE Russell",
+    "https://www.lseg.com/en/ftse-russell"
+   ]
+  },
+  "S&P 500": {
+   "tipo": "Indici",
+   "spiega": "Indice delle 500 maggiori società USA per capitalizzazione: la misura più usata della borsa americana.",
+   "esteso": "Standard & Poor's 500",
+   "mecc": "M16",
+   "fonte": [
+    "S&P Dow Jones Indices",
+    "https://www.spglobal.com/spdji/en/"
+   ]
+  },
+  "SEC": {
+   "tipo": "Istituzioni",
+   "spiega": "Autorità USA che vigila su borse e società quotate.",
+   "esteso": "Securities and Exchange Commission",
+   "fonte": [
+    "SEC",
+    "https://www.sec.gov"
+   ]
+  },
+  "spread": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Differenza di rendimento tra due titoli. Il più citato è quello tra BTP e Bund a 10 anni, in punti base.",
+   "esteso": "Differenziale di rendimento",
+   "mecc": "M13",
+   "fonte": [
+    "Borsa Italiana",
+    "https://www.borsaitaliana.it/borsa/glossario.html"
+   ],
+   "titolo": "Spread"
+  },
+  "term premium": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Compenso extra che chiede chi presta a lungo termine invece di rinnovare prestiti brevi. Se sale, i tassi lunghi aumentano anche senza mosse della banca centrale.",
+   "esteso": "Premio a termine",
+   "mecc": "M02",
+   "titolo": "Term premium"
+  },
+  "TIPS": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Titoli del Tesoro USA il cui capitale cresce con l'inflazione. Il loro rendimento è il tasso reale.",
+   "esteso": "Treasury Inflation-Protected Securities",
+   "mecc": "M27",
+   "fonte": [
+    "US Treasury",
+    "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+   ]
+  },
+  "Treasury": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Titoli di Stato USA emessi dal Dipartimento del Tesoro: bill (fino a un anno), note (da 2 a 10 anni) e bond (20-30 anni). Il 10 anni è il tasso più seguito al mondo.",
+   "esteso": "Titoli di Stato USA",
+   "mecc": "M01",
+   "fonte": [
+    "US Treasury",
+    "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+   ],
+   "breve": "titoli di Stato USA"
+  },
+  "TSMC": {
+   "tipo": "Aziende e strumenti",
+   "spiega": "Il primo produttore mondiale di chip per conto terzi: fabbrica quelli di Apple e Nvidia.",
+   "esteso": "Taiwan Semiconductor Manufacturing Company",
+   "mecc": "M17",
+   "fonte": [
+    "TSMC",
+    "https://www.tsmc.com"
+   ]
+  },
+  "ASML": {
+   "tipo": "Aziende e strumenti",
+   "spiega": "Società olandese, unica a produrre le macchine per fabbricare i chip più avanzati. Pesa molto sull'Euro Stoxx 50.",
+   "esteso": "ASML Holding",
+   "mecc": "M17",
+   "fonte": [
+    "ASML",
+    "https://www.asml.com"
+   ],
+   "breve": "macchine per produrre chip"
+  },
+  "MSCI": {
+   "tipo": "Indici",
+   "spiega": "Società che calcola indici azionari globali, come l'ACWI. I suoi indici sono la base di molti ETF.",
+   "esteso": "Morgan Stanley Capital International",
+   "fonte": [
+    "MSCI",
+    "https://www.msci.com"
+   ],
+   "breve": "società degli indici azionari globali"
+  },
+  "TTF": {
+   "tipo": "Materie prime",
+   "spiega": "Mercato olandese del gas: il suo prezzo, in euro per megawattora, è il riferimento per l'Europa.",
+   "esteso": "Title Transfer Facility",
+   "fonte": [
+    "ICE",
+    "https://www.ice.com"
+   ]
+  },
+  "UE": {
+   "tipo": "Istituzioni",
+   "spiega": "Unione di 27 paesi europei.",
+   "esteso": "Unione europea"
+  },
+  "USA": {
+   "tipo": "Istituzioni",
+   "spiega": "Stati Uniti d'America.",
+   "esteso": "Stati Uniti d'America"
+  },
+  "UST": {
+   "tipo": "Tassi e obbligazioni",
+   "spiega": "Abbreviazione di Treasury. 'UST 10 anni' indica il rendimento del titolo decennale.",
+   "esteso": "US Treasuries",
+   "mecc": "M01",
+   "fonte": [
+    "US Treasury",
+    "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+   ]
+  },
+  "VIX": {
+   "tipo": "Indici",
+   "spiega": "Volatilità attesa dell'S&P 500 nei successivi 30 giorni, ricavata dalle opzioni. Sopra 30 segnala forte tensione: è detto indice della paura.",
+   "esteso": "CBOE Volatility Index",
+   "mecc": "M14",
+   "fonte": [
+    "Cboe",
+    "https://www.cboe.com/tradable_products/vix/"
+   ]
+  },
+  "WTI": {
+   "tipo": "Materie prime",
+   "spiega": "Petrolio USA di riferimento, consegnato a Cushing, in Oklahoma. Il prezzo che si cita è quello del future più vicino.",
+   "esteso": "West Texas Intermediate",
+   "mecc": "M10",
+   "fonte": [
+    "CME Group",
+    "https://www.cmegroup.com"
+   ]
+  },
+  "ZEW": {
+   "tipo": "Dati e inflazione",
+   "spiega": "Indice dell'istituto ZEW di Mannheim: sondaggio tra analisti e investitori sulle attese per l'economia tedesca.",
+   "esteso": "Zentrum für Europäische Wirtschaftsforschung",
+   "mecc": "M04",
+   "fonte": [
+    "ZEW",
+    "https://www.zew.de/en"
+   ]
+  }
+ }
+}
