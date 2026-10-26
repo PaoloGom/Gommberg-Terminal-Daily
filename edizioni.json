@@ -1743,10 +1743,17 @@
     "chiave": false
    },
    {
-    "quando": "Ven 30",
-    "evento": "Conti di Exxon Mobil e Chevron",
+    "quando": "Ven 30, 11:30",
+    "evento": "Conti di Exxon Mobil (call alle 14:30)",
     "attese": "",
     "perche": "Il petrolio nei bilanci",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 30, ora da confermare",
+    "evento": "Conti di Chevron (la call di solito è alle 16:00)",
+    "attese": "",
+    "perche": "Come Exxon: il petrolio nei bilanci",
     "chiave": false
    }
   ]
