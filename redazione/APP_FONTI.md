@@ -12,11 +12,16 @@
 - Si arriva al sito ufficiale **solo via ricerca**: WebSearch con nome della fonte + dato + data ("BLS CPI September 2026 news release", "Istat inflazione settembre 2026 comunicato"), poi WebFetch del link restituito. Il comunicato BLS esce spesso come PDF su dol.gov (ufficiale). Scarta gli aggregatori vietati.
 - Se dopo 2 ricerche vere il comunicato non esce: `"ufficiale_cercato": [le ricerche]` e il dato esce attribuito "(Reuters)". `controlli_fatti.py` blocca con CERCA e non toglie mai il dato.
 
-## 2b. Agenda: ogni riga con un orario (regola del 26/10/2026)
-- **Formato identico per ogni riga:** `quando` = giorno e UN solo orario di Roma ("Ven 30, 14:30"), `evento` = solo il nome, breve e senza parentesi ("Conti di Exxon Mobil"). Niente orari secondari o dettagli tra parentesi nell'evento (un dettaglio utile va in `perche`). Un evento per riga: due eventi nella stessa riga si dividono.
-- **L'ora viene da una fonte che la dice**: calendario dell'ente o comunicato dell'azienda (non aggregatori). Per le trimestrali si scrive l'ora della conference call, uguale per tutte, così le righe sono confrontabili (ExxonMobil 8:30 CT, Chevron 11:00 ET). Conversione in codice o con `TZ=Europe/Rome`: USA e Europa cambiano ora in date diverse (nel 2026 l'Europa il 25/10, gli USA l'1/11: fino al 31/10 la differenza con New York è di 5 ore, poi 6).
-- **Se nessuna fonte seria dà l'ora**, la riga non salta e non inventa: scrive la fascia "prima dell'apertura USA", "dopo la chiusura USA" o "in giornata" seguita da "(ora da confermare)", e tenta una seconda ricerca sul sito dell'azienda. Mai un'ora presa da articoli automatici (ad-hoc-news, finanzen, aggregatori con "AI" nel nome).
-- Il revisore controlla che nessuna riga dell'agenda sia senza ora o fascia.
+## 2b. Agenda: ogni riga con un orario in ora italiana (regola del 26/10/2026)
+**Formato identico per ogni riga:** `quando` = giorno + UN solo orario di Roma ("Ven 30, 14:30"); `evento` = solo il nome, breve, senza parentesi, senza ";" e senza orari ("Conti di Exxon Mobil"); un dettaglio utile va in `perche`. Un evento per riga: due eventi insieme si dividono. Sempre ora di Roma, mai ET, CT, UTC, EDT, PT nel testo.
+
+**Scala dell'orario, in quest'ordine (si ferma al primo gradino che funziona):**
+1. **Ora esatta da fonte che la dice** (calendario dell'ente, comunicato o avviso dell'azienda, non aggregatori), convertita in ora di Roma con `TZ=Europe/Rome` o in codice. Per le trimestrali si scrive l'ora della conference call, uguale per tutte (ExxonMobil 8:30 CT, Chevron 11:00 ET). USA e Europa cambiano ora in date diverse (nel 2026 l'Europa il 25/10, gli USA l'1/11): fino al 31/10 New York è 5 ore indietro, dopo 6 (dal 29/3 al 4/4 e dal 25/10 all'1/11 le sedute USA aprono alle 14:30 e chiudono alle 21:00; nel resto dell'anno 15:30 e 22:00).
+2. **Seconda ricerca** (una sola) sul sito dell'azienda o dell'ente: area investitori, "events", calendario ufficiale. Mai un'ora ricavata da articoli automatici (ad-hoc-news, finanzen, aggregatori con "AI" nel nome).
+3. **Fascia, solo da questa lista chiusa**, scritta nel campo `quando` dopo il giorno: "prima dell'apertura USA", "dopo la chiusura USA", "in mattinata", "nel pomeriggio", "in serata". Si usa solo se la fonte dice almeno se è prima o dopo la seduta; mai "ora da confermare" né altre formule.
+4. **Nessuna fonte nemmeno sulla fascia:** la riga non entra in agenda (meglio una riga in meno che un orario inventato) e va in una nota del revisore.
+
+Controlli: `edizioni_voce.py` segnala come AVVISO ogni riga con orario non in lista, parentesi, ";" o fusi orari stranieri (dopo 5 edizioni senza falsi positivi diventa ERRORE). Il revisore verifica che nessuna riga sia senza orario o fascia.
 
 ## 3. Fiducia e citazioni
 - Ufficiali e livello 1: ne basta una. Livello 2, e ogni fonte seria non in elenco: due indipendenti che danno lo stesso numero. Vietate: mai.

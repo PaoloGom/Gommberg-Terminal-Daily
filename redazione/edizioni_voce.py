@@ -159,6 +159,13 @@ def main():
         ok = all(isinstance(x, dict) and {"quando", "evento", "attese", "perche", "chiave"} <= set(x) for x in ag)
         if ok and not re.search(r"<[a-z/]|[\u2013\u2014]", json.dumps(ag, ensure_ascii=False)):
             voce["agenda"] = ag[:10]
+            # Formato dell'agenda (APP_FONTI 2b): AVVISO finché non ci sono 5 edizioni senza falsi positivi.
+            QUANDO = re.compile(r"^(Lun|Mar|Mer|Gio|Ven|Sab|Dom) \d{1,2}, (\d{1,2}:\d{2}|prima dell'apertura USA|dopo la chiusura USA|in mattinata|nel pomeriggio|in serata)$")
+            for i, x in enumerate(ag[:10], 1):
+                if not QUANDO.match(str(x["quando"]).strip()):
+                    print(f"AVVISO: agenda riga {i}: 'quando' fuori formato (giorno + un'ora di Roma o una fascia della lista): \"{x['quando']}\"")
+                if re.search(r"[();]|\b\d{1,2}[:.]\d{2}\b|\b(ET|CT|EDT|EST|UTC|GMT|PT)\b", str(x["evento"])):
+                    print(f"AVVISO: agenda riga {i}: 'evento' con parentesi, \";\", orari o fusi stranieri: \"{x['evento']}\"")
         else:
             print("AVVISO: agenda non conforme, non riportata sul sito")
 
