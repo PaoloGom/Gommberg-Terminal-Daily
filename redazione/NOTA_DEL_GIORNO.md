@@ -1,0 +1,4 @@
+# Note di Paolo valide per un solo giorno
+Formato: una riga per nota, `AAAA-MM-GG: testo`. `prepara.sh` stampa solo le righe con la data di oggi; le altre non hanno effetto. Non sono regole: da domani si torna alla struttura abituale.
+
+2026-10-27: Su richiesta dei lettori, solo per questa edizione, un approfondimento sul Brasile dopo il ballottaggio vinto da Lula. Se c'è spazio, un modulo nella struttura abituale (dati e lettura, perché, e quindi) al posto del modulo meno importante, così le unità restano 5. Con gli indici e gli asset più significativi (Ibovespa, real, e ciò che serve a spiegare l'impatto) letti sulle chiusure della seduta di San Paolo del 26/10, non sul segnale dell'ETF di Tokyo (pochi volumi); dati con le regole di sempre (due fonti concordi). Spiega l'impatto, senza previsioni.
