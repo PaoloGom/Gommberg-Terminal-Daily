@@ -13,10 +13,9 @@
 - Se dopo 2 ricerche vere il comunicato non esce: `"ufficiale_cercato": [le ricerche]` e il dato esce attribuito "(Reuters)". `controlli_fatti.py` blocca con CERCA e non toglie mai il dato.
 
 ## 2b. Agenda: ogni riga con un orario (regola del 26/10/2026)
-- **Un evento per riga**, con giorno e ora di Roma ("Ven 30, 11:30: ..."). Due eventi nella stessa riga (come "Gio 29, 13:30: PCE; ven 30: Exxon e Chevron") rompono l'omogeneità della sezione: si dividono.
-- **L'ora viene da una fonte che la dice**: calendario dell'ente o area investitori dell'azienda (es. ExxonMobil: comunicato 5:30 CT = 11:30 a Roma; call 8:30 CT = 14:30). Conversione in codice o con `TZ=Europe/Rome`, ricordando che USA e Europa cambiano ora in date diverse (nel 2026 l'Europa il 25/10, gli USA l'1/11: fino al 31/10 la differenza con New York è di 5 ore, poi 6).
+- **Formato identico per ogni riga:** `quando` = giorno e UN solo orario di Roma ("Ven 30, 14:30"), `evento` = solo il nome, breve e senza parentesi ("Conti di Exxon Mobil"). Niente orari secondari o dettagli tra parentesi nell'evento (un dettaglio utile va in `perche`). Un evento per riga: due eventi nella stessa riga si dividono.
+- **L'ora viene da una fonte che la dice**: calendario dell'ente o comunicato dell'azienda (non aggregatori). Per le trimestrali si scrive l'ora della conference call, uguale per tutte, così le righe sono confrontabili (ExxonMobil 8:30 CT, Chevron 11:00 ET). Conversione in codice o con `TZ=Europe/Rome`: USA e Europa cambiano ora in date diverse (nel 2026 l'Europa il 25/10, gli USA l'1/11: fino al 31/10 la differenza con New York è di 5 ore, poi 6).
 - **Se nessuna fonte seria dà l'ora**, la riga non salta e non inventa: scrive la fascia "prima dell'apertura USA", "dopo la chiusura USA" o "in giornata" seguita da "(ora da confermare)", e tenta una seconda ricerca sul sito dell'azienda. Mai un'ora presa da articoli automatici (ad-hoc-news, finanzen, aggregatori con "AI" nel nome).
-- Le righe di una stessa azienda con più eventi (comunicato e call) si scrivono come una riga sola con le due ore: "Ven 30, 11:30 comunicato e 14:30 call: Exxon Mobil".
 - Il revisore controlla che nessuna riga dell'agenda sia senza ora o fascia.
 
 ## 3. Fiducia e citazioni

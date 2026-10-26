@@ -1709,23 +1709,23 @@
   "agenda": [
    {
     "quando": "Mer 28, 19:00",
-    "evento": "Decisione della Fed sui tassi (conferenza di Warsh alle 19:30)",
+    "evento": "Decisione della Fed sui tassi",
     "attese": "Tassi al 3,75-4,00%; pausa attesa",
-    "perche": "Evento n.1: dice se il rialzo di dicembre resta in gioco",
+    "perche": "Evento n.1: dice se il rialzo di dicembre resta in gioco; conferenza di Warsh alle 19:30",
     "chiave": true
    },
    {
-    "quando": "Mer 28, sera",
-    "evento": "Microsoft e Alphabet dopo la chiusura USA",
+    "quando": "Mer 28, dopo la chiusura USA",
+    "evento": "Conti di Microsoft e Alphabet",
     "attese": "",
     "perche": "Spesa in AI e ritorni",
     "chiave": false
    },
    {
     "quando": "Gio 29, 13:30",
-    "evento": "Inflazione PCE (dei consumi, misura Fed) di settembre (USA)",
+    "evento": "Inflazione PCE di settembre",
     "attese": "",
-    "perche": "Misura d'inflazione seguita dalla Fed",
+    "perche": "Inflazione dei consumi negli USA, la misura che segue la Fed",
     "chiave": false
    },
    {
@@ -1736,22 +1736,22 @@
     "chiave": false
    },
    {
-    "quando": "Gio 29, sera",
-    "evento": "Amazon dopo la chiusura USA",
+    "quando": "Gio 29, dopo la chiusura USA",
+    "evento": "Conti di Amazon",
     "attese": "",
     "perche": "Spesa in AI e cloud",
     "chiave": false
    },
    {
-    "quando": "Ven 30, 11:30",
-    "evento": "Conti di Exxon Mobil (call alle 14:30)",
+    "quando": "Ven 30, 14:30",
+    "evento": "Conti di Exxon Mobil",
     "attese": "",
     "perche": "Il petrolio nei bilanci",
     "chiave": false
    },
    {
-    "quando": "Ven 30, ora da confermare",
-    "evento": "Conti di Chevron (la call di solito è alle 16:00)",
+    "quando": "Ven 30, 16:00",
+    "evento": "Conti di Chevron",
     "attese": "",
     "perche": "Come Exxon: il petrolio nei bilanci",
     "chiave": false
