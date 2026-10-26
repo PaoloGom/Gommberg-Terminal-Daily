@@ -12,6 +12,13 @@
 - Si arriva al sito ufficiale **solo via ricerca**: WebSearch con nome della fonte + dato + data ("BLS CPI September 2026 news release", "Istat inflazione settembre 2026 comunicato"), poi WebFetch del link restituito. Il comunicato BLS esce spesso come PDF su dol.gov (ufficiale). Scarta gli aggregatori vietati.
 - Se dopo 2 ricerche vere il comunicato non esce: `"ufficiale_cercato": [le ricerche]` e il dato esce attribuito "(Reuters)". `controlli_fatti.py` blocca con CERCA e non toglie mai il dato.
 
+## 2b. Agenda: ogni riga con un orario (regola del 26/10/2026)
+- **Un evento per riga**, con giorno e ora di Roma ("Ven 30, 11:30: ..."). Due eventi nella stessa riga (come "Gio 29, 13:30: PCE; ven 30: Exxon e Chevron") rompono l'omogeneità della sezione: si dividono.
+- **L'ora viene da una fonte che la dice**: calendario dell'ente o area investitori dell'azienda (es. ExxonMobil: comunicato 5:30 CT = 11:30 a Roma; call 8:30 CT = 14:30). Conversione in codice o con `TZ=Europe/Rome`, ricordando che USA e Europa cambiano ora in date diverse (nel 2026 l'Europa il 25/10, gli USA l'1/11: fino al 31/10 la differenza con New York è di 5 ore, poi 6).
+- **Se nessuna fonte seria dà l'ora**, la riga non salta e non inventa: scrive la fascia "prima dell'apertura USA", "dopo la chiusura USA" o "in giornata" seguita da "(ora da confermare)", e tenta una seconda ricerca sul sito dell'azienda. Mai un'ora presa da articoli automatici (ad-hoc-news, finanzen, aggregatori con "AI" nel nome).
+- Le righe di una stessa azienda con più eventi (comunicato e call) si scrivono come una riga sola con le due ore: "Ven 30, 11:30 comunicato e 14:30 call: Exxon Mobil".
+- Il revisore controlla che nessuna riga dell'agenda sia senza ora o fascia.
+
 ## 3. Fiducia e citazioni
 - Ufficiali e livello 1: ne basta una. Livello 2, e ogni fonte seria non in elenco: due indipendenti che danno lo stesso numero. Vietate: mai.
 - Un dato pubblico certo (calendario, chiusura o movimento di un indice) con una sola fonte attendibile: si pubblica dichiarato, "-7,57% (Korea Herald)", scheda `"fonte_singola": true`.
