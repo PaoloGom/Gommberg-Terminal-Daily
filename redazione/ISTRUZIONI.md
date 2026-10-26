@@ -2,7 +2,7 @@
 
 Rassegna mattutina dei mercati, PDF di 6 pagine A4 stile Bloomberg/FT che Paolo condivide: zero errori. Giornale di FINANZA. Appendici (`APP_*.md`) solo quando `prepara.sh`, un controllo o questo file lo dicono.
 
-**Uscite ammesse (le sole tre):** (a) PDF consegnato con SendUserFile + messaggio (§6.7); (b) giorno senza borsa: la sola riga NIENTE EDIZIONE di `prepara.sh`; (c) "nessuna edizione: <motivo>" dopo 3 tentativi (repository: 3 clone a 30 s; API dei dati; PDF) o edizione già pubblicata. Mai `add_repo`, PushNotification o strumenti che chiedono approvazione. Mai "sito aggiornato" senza PUSH_OK.
+**Uscite ammesse (le sole tre):** (a) PDF consegnato con SendUserFile + messaggio (§6.7); (b) giorno senza borsa: la sola riga NIENTE EDIZIONE di `prepara.sh`; (c) "nessuna edizione: <motivo>" dopo 3 tentativi o edizione già pubblicata. Sito aggiornato solo con PUSH_OK. Mai `add_repo`, PushNotification o strumenti che chiedono approvazione.
 
 ## 1. Identità e file
 Testata, numero e nome file li fa il codice (`set_meta`, `nome_file`): mai a mano.
@@ -44,7 +44,7 @@ Script in `redazione/scommessa/`; pag. 6 la fa il motore da `stato.json`. Sei me
 Lavoro in `/home/claude/lavoro`, orari di Roma (`zoneinfo`).
 0. `bash /home/claude/gtd/redazione/prepara.sh`; se stampa USCITA (b) o (c), eseguila. Le righe "Ricerche" dicono dove sono stati trovati i dati difficili.
 1. **Dati:** `dati.json` (schema in `controlli_dati.py`, con `"etichette"` e i `"macro"` del giorno); `controlli_dati.py dati.json` = OK; poi `python3 /home/claude/gtd/redazione/contesto.py dati.json --json contesto.json`: materiale per top story, quadro e moduli.
-2. **Ricerca:** due agenti `model: "sonnet"` (o tu): (a) calendario concluso dall'ultima edizione; (b) aperture delle testate di riferimento, 10-12 notizie in ordine d'importanza (le scartate sono riserve), future e Asia con orario, agenda con consensi. Schede JSON, citazione letterale max 30 parole.
+2. **Ricerca:** due agenti `model: "sonnet"` (o tu): (a) calendario concluso dall'ultima edizione; (b) cosa muove i mercati globali (geopolitica compresa) e le aperture delle testate di riferimento: 10-12 notizie per importanza (le scartate sono riserve), future e Asia con orario, agenda con consensi. Schede JSON, citazione letterale max 30 parole.
 2c. **Il perché** (max 2 casi): (A) fino a 4 ricerche mirate col fatto e la data e sui resoconti di fine seduta (Reuters, AP, CNBC, Radiocor); i titoli di Bloomberg, FT, WSJ orientano, la causa si conferma su un articolo aperto; (B) 2-3 ipotesi, ognuna con cosa prevede sui prezzi, confrontate con `dati.json` e `contesto.py`. Registro "anomalia" in `fatti.json` (schema in `APP_FONTI.md` §4).
 3. **fatti.json:** una scheda per fatto non preso dalle API; `controlli_fatti.py fatti.json /home/claude/gtd/edizioni.json AAAA-MM-GG --prima-della-revisione`.
 4. **Stesura:** blocco `C` (§2), scommessa (§4), `python3 edizione_AAAA-MM-GG.py /home/claude/lavoro "<pdf>"` (scrive `voce_indice.json`), poi `qpdf --object-streams=generate --compress-streams=y`.
