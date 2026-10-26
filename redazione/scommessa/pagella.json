@@ -1,18 +1,18 @@
 {
-  "settimane": 1,
-  "punti": 8,
-  "su": 14,
-  "par": 8.5,
-  "copertura_range_%": 71.4,
-  "direzione_giusta_%": 42.9,
-  "abilita_redazione_%": -13.59,
+  "settimane": 2,
+  "punti": 16,
+  "su": 26,
+  "par": 15.7,
+  "copertura_range_%": 76.9,
+  "direzione_giusta_%": 46.2,
+  "abilita_redazione_%": -7.41,
   "t_dm": null,
   "variabile": {
-    "settimane": 0,
+    "settimane": 1,
     "punti": 0,
-    "su": 0,
-    "par": 0.0,
-    "copertura_range_%": null,
-    "direzione_giusta_%": null
+    "su": 2,
+    "par": 1.2,
+    "copertura_range_%": 0.0,
+    "direzione_giusta_%": 0.0
   }
 }

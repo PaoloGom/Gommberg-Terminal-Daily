@@ -1,0 +1,587 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Venerdì il Brent future ha chiuso a 116,72 $ (+3,1%), il livello più alto dal 29 aprile; stamattina in Asia il greggio cala di oltre l'1%, dopo il balzo da meno di 97 $ di inizio ottobre",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://live.euronext.com/en/financial-news/oil-prices-jump-3-houthi-attacks-oil-spill-highest-settlement-april",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Brent crude futures settled at $116.72 a barrel, up $3.55 or 3.14%, their highest since April 29."
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/10/26/shares-are-mixed-in-asia-after-a-decline-on-wall-street-and-oil-prices-fall-more-than-1/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "The price of Brent crude, the international standard, fell 1.4% to $110.12 a barrel."
+   }
+  ],
+  "novita": "Nuovo massimo dal 29 aprile per il Brent (venerdì mattina 114,33 $) dopo gli attacchi Houthi in Arabia Saudita; lunedì cala in Asia",
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "C01",
+  "sezione": "top_story",
+  "testo": "Pesano gli attacchi degli Houthi in Arabia Saudita, che alimentano i timori di nuove interruzioni delle forniture (Reuters)",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://live.euronext.com/en/financial-news/oil-prices-jump-3-houthi-attacks-oil-spill-highest-settlement-april",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "after Houthi attacks in Saudi Arabia stoked concerns over further disruption to energy supplies"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "T02",
+  "sezione": "top_story",
+  "testo": "Wall Street ha chiuso la settimana in calo (S&P 500 -0,5% venerdì); mercoledì la Fed e i conti di Alphabet e Microsoft",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/stocks/dow-leads-stocks-lower-small-caps-win-the-week",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "S&P 500 7,623.68 (-0.52%), week -0.47%"
+   },
+   {
+    "testata": "TheStreet",
+    "url": "https://pro.thestreet.com/market-commentary/the-week-ahead-can-big-tech-earnings-save-the-day",
+    "data_pubblicazione": "2026-10-25",
+    "citazione": "the decision Wednesday at 2pm ET followed by Chair Warsh's press conference at 2.30pm."
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Moody's conferma la Francia ad Aa3, outlook negativo; il mercato scontava un taglio ad A+; il rating assume un bilancio 2027 per ridurre il deficit, 5,4% del PIL nel 2026",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Xinhua",
+    "url": "https://english.news.cn/europe/20261024/d1d10ce3932147e3aa5eb7cd83abab2f/c.html",
+    "data_pubblicazione": "2026-10-24",
+    "citazione": "Moody's on Friday affirmed France's sovereign credit rating at Aa3 with a negative outlook."
+   },
+   {
+    "testata": "SBS (Yonhap)",
+    "url": "https://news.sbs.co.kr/amp/news.amp?news_id=N1008813335",
+    "data_pubblicazione": "2026-10-24",
+    "citazione": "Moody's Defies Market Expectations to Maintain France's Credit Rating at Aa3"
+   }
+  ],
+  "novita": "Verdetto di Moody's arrivato venerdì sera: Aa3 confermato, outlook negativo (ieri era atteso)",
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "AT&T, Verizon e T-Mobile perdono circa il 4-5% prima dell'apertura di venerdì dopo il rapporto di Bloomberg: SpaceX cerca l'accesso ad almeno 80.000 siti per celle",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/analysis/spacexs-80-billion-wireless-ambition-threatens-att-verizon-and-tmobile-200690161",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "the company is seeking access to at least 80,000 cell sites across the United States."
+   },
+   {
+    "testata": "Benzinga",
+    "url": "https://www.benzinga.com/trading-ideas/movers/26/10/62562193/att-stock-tumbles-as-spacex-eyes-80000-cell-sites",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "AT&T stock tumbles as SpaceX eyes 80,000 cell sites"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "American Express alza la previsione di utile e taglia circa 3.500 posti (5% del personale); il titolo cede il 3,7% a 313,22 $",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/amex-raised-profit-forecast-announced-141049207.html",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "AmEx raised its profit forecast and announced job cuts; shares -3.68% to $313.22"
+   },
+   {
+    "testata": "Benzinga",
+    "url": "https://www.benzinga.com/markets/earnings/26/10/62559315/american-express-raises-profit-outlook-but-layoff-plans-and-rising-costs-draw-scrutiny",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "American Express raises profit outlook but layoff plans and rising costs draw scrutiny"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Michigan: fiducia dei consumatori finale di ottobre a 48,0 (48,1 a settembre)",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "ABC News",
+    "url": "https://www.whio.com/news/business/consumer-sentiment-nears-all-time-low-ahead-midterms/IW33V5WUDEYBVLWYP7SEL2NV4I/",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "The final reading of the University of Michigan index registered at 48.0 in October."
+   },
+   {
+    "testata": "TheStreet",
+    "url": "https://pro.thestreet.com/market-commentary/consumer-sentiment-revised-up-but-still-second-worst-ever-as-inflation-fears-climb",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Consumer Sentiment Revised Up but Still Second Worst Ever as Inflation Fears Climb"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Piazza Affari chiude in rialzo: Eni +5,8% dopo i conti, Stellantis -6,3%; Technoprobe, Stm e Prysmian pesano per i timori sugli investimenti in AI",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/10/23/borsa-milano-chiude-positiva-scivola-stellantis_9a2a5754-a852-4ad5-8c37-e40fe25d768a.html",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "In fondo al listino scivola Stellantis (-6,3%)"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/10/23/borsa-milano-chiude-positiva-scivola-stellantis_9a2a5754-a852-4ad5-8c37-e40fe25d768a.html",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "A Piazza Affari corre l'energia con Eni (+5,8%), dopo i risultati finanziari"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "PMI flash USA ottobre: composito 57,6 (58,4 a settembre), servizi 57,9 (58,8), manifattura 56,0 (55,9); prezzi di vendita al rialzo più forte in oltre quattro anni, occupazione al ritmo più alto da giugno 2022 salvo il salto di settembre",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "S&P Global",
+    "url": "https://www.pmi.spglobal.com/Public/Home/PressRelease/07d16568e63346999890940d47639cd9",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "The result is the sharpest increase in selling prices for over four years."
+   },
+   {
+    "testata": "S&P Global",
+    "url": "https://www.pmi.spglobal.com/Public/Home/PressRelease/07d16568e63346999890940d47639cd9",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Employment rose in October at the fastest rate since June 2022"
+   }
+  ],
+  "novita": "Dettaglio dei PMI USA di venerdì, non coperto ieri",
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "PMI flash area euro ottobre: composito 51,9 (53,1), servizi 51,7 (53,0), manifattura 52,4 (52,9); la produzione francese torna in contrazione; in Germania e Francia i prezzi di vendita salgono meno che a settembre",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "S&P Global",
+    "url": "https://www.pmi.spglobal.com/Public/Home/PressRelease/460d8e59c101498493559df807c62014",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "French private sector output moved back into contraction in October"
+   },
+   {
+    "testata": "S&P Global",
+    "url": "https://www.pmi.spglobal.com/Public/Home/PressRelease/460d8e59c101498493559df807c62014",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Both Germany and France posted weaker increases in selling prices than in September."
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Atteso area euro composito 52,7; atteso USA servizi 58,0 e manifattura 55,5",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "FXStreet",
+    "url": "https://www.fxstreet.com/news/eurozone-hcob-composite-pmi-declines-to-519-in-october-vs-527-expected-202610230806",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Eurozone HCOB Composite PMI declines to 51.9 in October vs. 52.7 expected"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/us-s-p-global-flash-october-services-pmi-57-9-vs-58-0-expected/",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "US S&P Global flash October services PMI 57.9 vs 58.0 expected"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Fed: tasso al 3,75-4,00% dopo il rialzo di 25 pb del 16 settembre, voto 12-0; per il Comitato del 28 ottobre i future danno il rialzo al 5% e per dicembre all'80% circa (LSEG)",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+    "data_pubblicazione": "2026-09-16",
+    "citazione": "The Committee decided to raise the target range for the federal funds rate by 1/4 percentage point to 3-3/4 to 4 percent"
+   },
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40445900/wall-street-week-ahead-earnings-fed-meeting-pose-pivotal-tests-for-rickety-ai-market-rally",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "Fed fund futures late on Thursday suggested only a 5 percent chance the Fed will hike again"
+   },
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40445900/wall-street-week-ahead-earnings-fed-meeting-pose-pivotal-tests-for-rickety-ai-market-rally",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "futures suggesting an 80 percent probability of such a move then"
+   }
+  ],
+  "novita": "Probabilità dei future aggiornate: rialzo il 28 ottobre 5%, dicembre 80% (giovedì scorso 16% e 90% secondo CME FedWatch)",
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "D06",
+  "sezione": "deep_dive",
+  "testo": "Il Kospi chiude il 26/10 a 5.469,6 (-80,71 punti, -1,5%), quasi il 40% sotto il picco di giugno; Kosdaq -3,3% a 727,2; ribassi 793 contro 100 rialzi",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Ajupress",
+    "url": "https://www.ajupress.com/view/20261026153455462",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "The index shed 80.71 points, or 1.5 percent, to 5,469.6, off nearly 40 percent from its June peak."
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/10/26/shares-are-mixed-in-asia-after-a-decline-on-wall-street-and-oil-prices-fall-more-than-1/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "The Kospi in Seoul dropped 1.5% to 5,469.47."
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "C02",
+  "sezione": "mercati",
+  "testo": "Secondo gli operatori il sostegno agli acquisti si è assottigliato da quando Samsung Electronics e SK Hynix hanno concluso grandi programmi di riacquisto, che assorbivano le vendite degli stranieri (Ajupress)",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Ajupress",
+    "url": "https://www.ajupress.com/view/20261026153455462",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "buying support has thinned since Samsung Electronics and SK hynix completed large share buyback programs"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "D07",
+  "sezione": "mercati",
+  "testo": "Kospi: stranieri venditori netti per 816,5 mld di won, istituzioni compratrici per 698,9 mld, privati per 77,3 mld; Samsung -1,2% a 213.000 won, SK Hynix -0,2% a 1.275.000, Hyundai Motor -2,5%, KB Financial -3,8%; won a 1.323,1 per dollaro; SK Hynix riporta mercoledì",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Ajupress",
+    "url": "https://www.ajupress.com/view/20261026153455462",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "Foreigners sold a net 816.5 billion won ($617.1 million) of KOSPI shares."
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "D08",
+  "sezione": "mercati",
+  "testo": "Tokyo: Nikkei 225 -0,8% a 62.189,65, titoli dei produttori di chip e tecnologia di nuovo sotto vendita; Shanghai +0,2%",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/10/26/shares-are-mixed-in-asia-after-a-decline-on-wall-street-and-oil-prices-fall-more-than-1/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "shares of computer chipmakers and other tech firms came under renewed selling pressure"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "FTSE MIB chiude il 23/10 a 48.558 (+0,36%); spread BTP-Bund a 122 pb (124 la vigilia), BTP 10 anni al 4,56%",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/23/borsa-milano-chiude-in-rialzo-dello-036_519675cf-47a7-4a14-8749-97d92ad421df.html",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "L'ultimo indice Ftse Mib guadagna lo 0,36% a 48.558 punti."
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/23/lo-spread-tra-btp-e-bund-chiude-in-calo-a-122-punti_3af67cb2-449f-43e2-877d-9c6de5e85cd4.html",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Il differenziale tra i due titoli di Stato scende a 122 punti"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "M02",
+  "sezione": "mercati",
+  "testo": "Venerdì 23/10 Wall Street: Dow -1,24%, S&P 500 -0,52% a 7.623,68, Nasdaq -0,21%, Russell 2000 -0,29%",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/stocks/dow-leads-stocks-lower-small-caps-win-the-week",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Dow -1.24%; S&P 500 7,623.68 (-0.52%); Nasdaq 25,955.34 (-0.21%); Russell 2,775.90 (-0.29%)"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Mer 28, 19:00 (14:00 a Washington): decisione della Fed, riunione 27-28 ottobre; tasso al 3,75-4,00%; conferenza di Warsh",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/2026-october.htm",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Two-day meeting, October 27 - 28"
+   },
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40445900/wall-street-week-ahead-earnings-fed-meeting-pose-pivotal-tests-for-rickety-ai-market-rally",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "he will be watching for any hints about the rate path at Fed Chair Kevin Warsh's press conference"
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Mer 28, dopo la chiusura USA: Microsoft e Alphabet; giovedì 29 Amazon",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "TheStreet",
+    "url": "https://pro.thestreet.com/market-commentary/the-week-ahead-can-big-tech-earnings-save-the-day",
+    "data_pubblicazione": "2026-10-25",
+    "citazione": "Alphabet and Microsoft report Wednesday; Amazon Thursday"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/stocks/earnings-macro-week-ahead-the-fed-and-big-tech-report-on-the-same-day/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "Alphabet and Microsoft Wednesday, Amazon Thursday"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "A04",
+  "sezione": "agenda",
+  "testo": "Gio 29: decisione della BCE (riunione 28-29 ottobre); tasso sui depositi al 2,50%",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "BCE",
+    "url": "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "Governing Council of the ECB: monetary policy meeting in Frankfurt (Day 2), followed by press conference"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-22-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610220737239966",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "rialzo di 25 punti base di settembre, con tasso sui depositi al 2,5%"
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "A05",
+  "sezione": "agenda",
+  "testo": "Gio 29, 13:30: inflazione PCE di settembre (USA); ven 30: conti di Exxon Mobil e Chevron",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/stocks/earnings-macro-week-ahead-the-fed-and-big-tech-report-on-the-same-day/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "Thursday, Oct 29 (September PCE)"
+   },
+   {
+    "testata": "TheStreet",
+    "url": "https://pro.thestreet.com/market-commentary/the-week-ahead-can-big-tech-earnings-save-the-day",
+    "data_pubblicazione": "2026-10-25",
+    "citazione": "Thursday's September PCE report; Friday: Exxon Mobil and Chevron"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "D09",
+  "sezione": "deep_dive",
+  "testo": "Probabilità di mercato: pausa della Fed a ottobre 91% (TheStreet; investingLive 90-92%), rialzo a dicembre 78% (TheStreet; investingLive circa 85%); BofA vede rialzi a dicembre e marzo anche con pausa; PCE di settembre giovedì, core +0,3% e 3,1% annuo (stima BofA)",
+  "data_evento": "2026-10-25",
+  "fonti": [
+   {
+    "testata": "TheStreet",
+    "url": "https://pro.thestreet.com/market-commentary/the-week-ahead-can-big-tech-earnings-save-the-day",
+    "data_pubblicazione": "2026-10-25",
+    "citazione": "October now a 91% chance of a hold, and December a 78% chance of a hike."
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/stocks/earnings-macro-week-ahead-the-fed-and-big-tech-report-on-the-same-day/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "hold odds 90-92%, December about 85%"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "Fonti aperte nella sessione di oggi: citazione, data e cifra coerenti con il testo del PDF."
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "testo": "",
+  "data_evento": "2026-10-26",
+  "fonti": [],
+  "concorda": false,
+  "motivo": "AP apre su Asia contrastata e petrolio in calo e CNBC sui future dopo la settimana negativa di Wall Street; Milano Finanza apre sul live con Moody's sulla Francia e sull'Iran. La nostra apertura è il Brent ai massimi dal 29 aprile alla vigilia della Fed: è il prezzo che lega le notizie, citato anche da AP.",
+  "testate": [
+   {
+    "testata": "AP",
+    "apertura": "Shares are mixed in Asia after a decline on Wall Street, and oil prices fall more than 1%"
+   },
+   {
+    "testata": "CNBC",
+    "apertura": "Stock futures climb as traders try to recover from the S&P 500's losing week"
+   },
+   {
+    "testata": "Milano Finanza",
+    "apertura": "Borse oggi in diretta 26 ottobre: Moody's conferma la Francia, Trump e Iran"
+   }
+  ]
+ },
+ {
+  "id": "R3",
+  "sezione": "ricerca",
+  "dato": "Kospi chiusura 26/10 (seconda fonte)",
+  "testo": "",
+  "data_evento": "2026-10-26",
+  "fonti": [],
+  "ricerche": [
+   "SK hynix third-quarter earnings October 28 2026 Kospi foreign selling",
+   "Kospi closes October 26 2026 5,469"
+  ],
+  "esito": "trovato",
+  "fonte": {
+   "testata": "Ajupress",
+   "url": "https://www.ajupress.com/view/20261026153455462"
+  }
+ },
+ {
+  "id": "R4",
+  "sezione": "ricerca",
+  "dato": "FTSE MIB e Kospi: chiusure del 23/9/2026 e di fine 2025 (variazioni a 1 mese e da inizio anno); ACWI da inizio anno",
+  "testo": "",
+  "data_evento": "2026-10-26",
+  "fonti": [],
+  "ricerche": [
+   "FTSE MIB chiusura 23 settembre 2026 Piazza Affari",
+   "Kospi closing September 23 2026 Seoul stocks close",
+   "FTSE MIB chiusura 30 dicembre 2025 Borsa Milano chiude anno",
+   "Kospi ends 2025 closing level December 30 2025 annual gain",
+   "Teleborsa FTSE MIB 23 settembre 2026 chiusura punti",
+   "Korea JoongAng Daily Kospi closes September 23"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "-",
+   "url": "-"
+  }
+ }
+]

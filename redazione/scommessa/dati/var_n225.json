@@ -1,0 +1,16 @@
+{
+ "nome": "Nikkei 225",
+ "tipo": "prezzo",
+ "unita": "punti",
+ "motivo_scelta": "Tokyo vende i chip da tre sedute: la paura sull'AI è globale?",
+ "correlazioni": {
+  "acwi": 0.55,
+  "spx": 0.59,
+  "sx5e": 0.41,
+  "ust10": 0.25,
+  "brent": -0.53,
+  "eurusd": -0.42
+ },
+ "sedute": 99,
+ "ultima": "2026-10-23"
+}

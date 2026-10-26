@@ -1,0 +1,237 @@
+{
+  "schema": 2,
+  "versione_metodo": "1.1",
+  "data_pronostico": "2026-10-26",
+  "settimana": "2026-10-26/2026-10-30",
+  "origine": "2026-10-23",
+  "verdetto_previsto": "2026-11-02",
+  "range_pubblicato": "16-84% (circa 2 settimane su 3 la chiusura cade dentro)",
+  "strumenti": {
+    "acwi": {
+      "nome": "MSCI ACWI (ETF)",
+      "unita": "$",
+      "tipo": "prezzo",
+      "base": 156.8,
+      "data_base": "2026-10-23",
+      "sigma": 0.014645507839066593,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 153.06786593207894,
+        "0.1": 153.88447128423644,
+        "0.16": 154.53286114117475,
+        "0.25": 155.25871631794112,
+        "0.5": 156.8,
+        "0.75": 158.3565843070088,
+        "0.84": 159.10039986601325,
+        "0.9": 159.77076695794295,
+        "0.95": 160.6231317741746
+      },
+      "mediana_modello": 156.8,
+      "range": [
+        154.53286114117475,
+        159.10039986601325
+      ],
+      "previsione_redazione": 157.49,
+      "scarto_redazione_sigma": 0.3,
+      "motivo_redazione": "Future in rialzo e conti di Microsoft e Alphabet mercoledì",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.6178386065533046
+    },
+    "spx": {
+      "nome": "S&P 500",
+      "unita": "punti",
+      "tipo": "prezzo",
+      "base": 7623.68,
+      "data_base": "2026-10-23",
+      "sigma": 0.013970835755703714,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 7450.485610532429,
+        "0.1": 7488.397676848745,
+        "0.16": 7518.493496656414,
+        "0.25": 7552.178066109544,
+        "0.5": 7623.68,
+        "0.75": 7695.8588944315525,
+        "0.84": 7730.338101409151,
+        "0.9": 7761.4062781529765,
+        "0.95": 7800.900475565993
+      },
+      "mediana_modello": 7623.68,
+      "range": [
+        7518.493496656414,
+        7730.338101409151
+      ],
+      "previsione_redazione": 7655.699999999999,
+      "scarto_redazione_sigma": 0.3,
+      "motivo_redazione": "Future in rialzo, Fed attesa in pausa e grandi tecnologici in arrivo",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.617912103293152
+    },
+    "sx5e": {
+      "nome": "Euro Stoxx 50",
+      "unita": "punti",
+      "tipo": "prezzo",
+      "base": 6068.22,
+      "data_base": "2026-10-23",
+      "sigma": 0.019960757744365995,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 5872.22020713708,
+        "0.1": 5914.959061420682,
+        "0.16": 5948.95267885302,
+        "0.25": 5987.06907929711,
+        "0.5": 6068.22,
+        "0.75": 6150.47086991739,
+        "0.84": 6189.87844688986,
+        "0.9": 6225.452042191415,
+        "0.95": 6270.761768035379
+      },
+      "mediana_modello": 6068.22,
+      "range": [
+        5948.95267885302,
+        6189.87844688986
+      ],
+      "previsione_redazione": 6104.67,
+      "scarto_redazione_sigma": 0.3,
+      "motivo_redazione": "Future in rialzo lunedì e Francia confermata da Moody's",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.6179211308796708
+    },
+    "ust10": {
+      "nome": "Treasury 10 anni",
+      "unita": "%",
+      "tipo": "tasso",
+      "base": 5.0,
+      "data_base": "2026-10-23",
+      "sigma": 12.563522804657879,
+      "sigma_unita": "punti base",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 4.79334843947471,
+        "0.1": 4.838991976809354,
+        "0.16": 4.875061057060225,
+        "0.25": 4.915260326419036,
+        "0.5": 5.0,
+        "0.75": 5.084739673580964,
+        "0.84": 5.124938942939775,
+        "0.9": 5.161008023190646,
+        "0.95": 5.20665156052529
+      },
+      "mediana_modello": 5.0,
+      "range": [
+        4.875061057060225,
+        5.124938942939775
+      ],
+      "previsione_redazione": 4.9623,
+      "scarto_redazione_sigma": -0.3,
+      "motivo_redazione": "Rendimento in calo lunedì mattina e Fed attesa in pausa",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.38205994689646944
+    },
+    "brent": {
+      "nome": "Brent future",
+      "unita": "$",
+      "tipo": "prezzo",
+      "base": 116.72,
+      "data_base": "2026-10-23",
+      "sigma": 0.0652235273556508,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 104.84622455924922,
+        "0.1": 107.36031321232583,
+        "0.16": 109.38960347654564,
+        "0.25": 111.69649239206602,
+        "0.5": 116.72,
+        "0.75": 121.96943796748718,
+        "0.84": 124.54161974287662,
+        "0.9": 126.895665561787,
+        "0.95": 129.93847377214087
+      },
+      "mediana_modello": 116.72,
+      "range": [
+        109.38960347654564,
+        124.54161974287662
+      ],
+      "previsione_redazione": 113.5,
+      "scarto_redazione_sigma": -0.429,
+      "motivo_redazione": "Trump parla di accordo o fine del conflitto con l'Iran: il greggio perde premio",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.33399411481008423
+    },
+    "eurusd": {
+      "nome": "EUR/USD",
+      "unita": "",
+      "tipo": "prezzo",
+      "base": 1.1202,
+      "data_base": "2026-10-23",
+      "sigma": 0.00742464316612674,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 1.106602808633042,
+        "0.1": 1.109591775344566,
+        "0.16": 1.1119594683816492,
+        "0.25": 1.1146042342908289,
+        "0.5": 1.1202,
+        "0.75": 1.1258238587245293,
+        "0.84": 1.128501600715997,
+        "0.9": 1.1309096443242175,
+        "0.95": 1.133964264513373
+      },
+      "mediana_modello": 1.1202,
+      "range": [
+        1.1119594683816492,
+        1.128501600715997
+      ],
+      "previsione_redazione": 1.1227,
+      "scarto_redazione_sigma": 0.3,
+      "motivo_redazione": "Fed in pausa e dollaro senza spinta lunedì mattina",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.6180072061856391
+    },
+    "var_n225": {
+      "nome": "Nikkei 225",
+      "unita": "punti",
+      "tipo": "prezzo",
+      "base": 62693.16,
+      "data_base": "2026-10-23",
+      "sigma": 0.041986522960125026,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 58509.589635981014,
+        "0.1": 59408.92434296961,
+        "0.16": 60129.37687490812,
+        "0.25": 60942.62643886851,
+        "0.5": 62693.16,
+        "0.75": 64493.97639151987,
+        "0.84": 65366.25714519524,
+        "0.9": 66158.95430280962,
+        "0.95": 67175.86527676728
+      },
+      "mediana_modello": 62693.16,
+      "range": [
+        60129.37687490812,
+        65366.25714519524
+      ],
+      "previsione_redazione": 62430.0,
+      "scarto_redazione_sigma": -0.1,
+      "motivo_redazione": "Terzo calo di fila lunedì: tendenza debole fino ai conti di SK Hynix",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.4600987091947046,
+      "variabile": true,
+      "motivo_scelta": "Tokyo vende i chip da tre sedute: la paura sull'AI è globale?"
+    }
+  }
+}

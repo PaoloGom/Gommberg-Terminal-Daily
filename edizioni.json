@@ -1541,5 +1541,214 @@
    "IPO",
    "buyback"
   ]
+ },
+ {
+  "numero": 11,
+  "data": "2026-10-26",
+  "titolo": "Il greggio ai massimi dal 29 aprile apre la settimana della Fed",
+  "sommario": [
+   "Mercoledì la Fed decide sui tassi: la pausa è attesa, il rialzo di dicembre resta in gioco.",
+   "Seul e Tokyo vendono ancora i chip alla vigilia dei conti di SK Hynix, Microsoft e Alphabet.",
+   "I sondaggi PMI (sondaggio sui direttori acquisti) mostrano prezzi in accelerazione negli USA e attività in frenata in area euro."
+  ],
+  "file": "pdf/2026-10-26-gommberg-011.pdf",
+  "nome": "2026-10-26 Gommberg Terminal Daily #011.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Moody's conferma la Francia ad Aa3, outlook negativo",
+   "SpaceX cerca almeno 80.000 siti per le celle: telecom USA in calo",
+   "American Express alza la guida ma taglia il 5% del personale",
+   "Michigan: fiducia dei consumatori USA a 48,0",
+   "Piazza Affari in rialzo con Eni, giù Stellantis"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "156,80 $",
+    "-0,4% g"
+   ],
+   [
+    "S&P 500",
+    "7.623,68",
+    "-0,5% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.068,22",
+    "-0,3% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "5,00%",
+    "+4 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "116,72 $",
+    "+3,1% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1202",
+    "-0,1% g"
+   ],
+   [
+    "VIX",
+    "19,45",
+    "+0,42 g"
+   ]
+  ],
+  "dek": "Venerdì il Brent future (petrolio di riferimento europeo) ha chiuso a 116,72 $ (+3,1%), il livello più alto dal 29 aprile, dopo gli attacchi degli Houthi in Arabia Saudita (Reuters). Stamattina in Asia il greggio cala di oltre l'1% (AP), dopo il balzo da meno di 97 $ di inizio ottobre. Il prezzo arriva alla vigilia della decisione della Fed e di tre giorni di conti dei grandi gruppi tecnologici: Wall Street ha chiuso la settimana in calo (S&P 500 -0,5% venerdì).",
+  "ticker_al": "2026-10-23",
+  "scommessa": {
+   "settimana": "2026-10-26/2026-10-30",
+   "su": 6,
+   "variabile": {
+    "nome": "Nikkei 225",
+    "motivo": "Tokyo vende i chip da tre sedute: la paura sull'AI è globale?"
+   },
+   "strada": null,
+   "range": null,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     null,
+     null
+    ],
+    [
+     "S&P 500",
+     "su",
+     null,
+     null
+    ],
+    [
+     "Euro Stoxx 50",
+     "su",
+     null,
+     null
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     null,
+     null
+    ],
+    [
+     "Brent future",
+     "giù",
+     null,
+     null
+    ],
+    [
+     "EUR/USD",
+     "su",
+     null,
+     null
+    ],
+    [
+     "Nikkei 225",
+     "giù",
+     null,
+     null,
+     true
+    ]
+   ]
+  },
+  "verdetto": {
+   "settimana": "2026-10-19/2026-10-23",
+   "punti": 8,
+   "su": 12,
+   "direzione": 3,
+   "range": 5,
+   "par": 7.3
+  },
+  "temi": [
+   "Petrolio",
+   "Fed",
+   "Chip",
+   "Credito",
+   "Inflazione",
+   "Trimestrali"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Macro",
+    "titolo": "Prezzi USA in accelerazione, attività europea in frenata: i PMI di ottobre divergono",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Fed",
+    "titolo": "Il Treasury a 2 anni rende quasi 70 pb più del tetto dei tassi Fed: il mercato scommette su rialzi, non su una pausa lunga",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Chip e Asia",
+    "titolo": "A Seul il calo non ha più chi lo assorbe: finiti i riacquisti di Samsung e SK Hynix, le vendite estere pesano di più",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [
+   "M26",
+   "M11"
+  ],
+  "parole": [
+   "Aa3",
+   "PMI"
+  ],
+  "ripetizioni": 4,
+  "glossario": [
+   "PCE",
+   "core",
+   "PMI",
+   "pb",
+   "VIX",
+   "ACWI",
+   "Brent"
+  ],
+  "agenda": [
+   {
+    "quando": "Mer 28, 19:00",
+    "evento": "Decisione della Fed sui tassi (conferenza di Warsh alle 19:30)",
+    "attese": "Tassi al 3,75-4,00%; pausa attesa",
+    "perche": "Evento n.1: dice se il rialzo di dicembre resta in gioco",
+    "chiave": true
+   },
+   {
+    "quando": "Mer 28, sera",
+    "evento": "Microsoft e Alphabet dopo la chiusura USA",
+    "attese": "",
+    "perche": "Spesa in AI e ritorni",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 29, 13:30",
+    "evento": "Inflazione PCE (dei consumi, misura Fed) di settembre (USA)",
+    "attese": "",
+    "perche": "Misura d'inflazione seguita dalla Fed",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 29, 14:15",
+    "evento": "Decisione della BCE sui tassi",
+    "attese": "",
+    "perche": "Depositi al 2,50%",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 29, sera",
+    "evento": "Amazon dopo la chiusura USA",
+    "attese": "",
+    "perche": "Spesa in AI e cloud",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 30",
+    "evento": "Conti di Exxon Mobil e Chevron",
+    "attese": "",
+    "perche": "Il petrolio nei bilanci",
+    "chiave": false
+   }
+  ]
  }
 ]
