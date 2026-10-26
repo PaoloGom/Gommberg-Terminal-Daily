@@ -5,8 +5,9 @@ Regole (ISTRUZIONI §5 e §7), ognuna generale:
            con |var| >= 3% compare con la sua cifra in PRIMA PAGINA (dopo il ticker); un obbligatorio assente = ERRORE.
  rari      il movimento più raro di contesto.py (contesto.json, solo se capita meno di una seduta su 20) è citato in
            prima pagina.
- aperture  registro {"sezione": "prime_pagine"} in fatti.json: almeno 3 testate con la loro apertura; se la top story
-           non concorda con la maggioranza, serve il "motivo" (§2).
+ aperture  registro {"sezione": "prime_pagine"} in fatti.json: almeno 3 testate con le loro storie (o l'apertura); se la top
+           story non concorda con la maggioranza, serve il "motivo" (§2). AVVISO: manca il flusso della notte, manca "fuori"
+           (storie forti altrove che non copriamo), meno di 2 testate tra quelle indicate dalla regola.
  perche    PERCHÉ = causa con fonte ("(Testata)" in coda o "secondo X"), meccanismo ("di solito", "in genere"), lettura della redazione o
            "causa non chiarita" (solo se il registro dell'anomalia ha tutte le ipotesi "non torna"); "le fonti non
            spiegano" è un ERRORE in qualunque sezione del PDF;
@@ -100,8 +101,19 @@ if not reg_pp:
                "\"testate\": [{\"testata\": ..., \"apertura\": ...}], \"concorda\": true|false, \"motivo\": ...} (§2, §6.2)")
 else:
     r = reg_pp[0]
-    if len([t for t in r.get("testate", []) if t.get("testata") and t.get("apertura")]) < 3:
-        ERR.append("aperture: servono almeno 3 testate, ognuna con 'testata' e 'apertura'")
+    ok_t = [t for t in r.get("testate", []) if t.get("testata") and (t.get("apertura") or t.get("storie"))]
+    if len(ok_t) < 3:
+        ERR.append("aperture: servono almeno 3 testate, ognuna con 'testata' e 'storie' (o 'apertura')")
+    # Lettura del mondo (ISTRUZIONI §2): AVVISO finché non ci sono 5 edizioni senza falsi positivi.
+    if not [x for x in r.get("flusso", []) if str(x).strip()]:
+        AVV.append("aperture: manca 'flusso' (titoli più forti della notte, APP_FONTI §1)")
+    if "fuori" not in r:
+        AVV.append("aperture: manca 'fuori' (storie forti altrove che non copriamo, col motivo; [] se nessuna)")
+    elif any(not (x.get("storia") and x.get("motivo")) for x in r["fuori"] if isinstance(x, dict)):
+        AVV.append("aperture: ogni voce di 'fuori' vuole 'storia' e 'motivo'")
+    RIF = re.compile(r"reuters|financial times|\bft\b|bloomberg|sole 24|nikkei", re.I)
+    if len([t for t in ok_t if RIF.search(t["testata"])]) < 2:
+        AVV.append("aperture: servono almeno 2 testate tra Reuters, FT o Bloomberg, Sole 24 Ore, Nikkei Asia (titoli via ricerca)")
     if r.get("concorda") is False and not (r.get("motivo") or "").strip():
         ERR.append("aperture: la top story non è l'apertura della maggioranza delle testate: scrivi il 'motivo' della scelta")
 
