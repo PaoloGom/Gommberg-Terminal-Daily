@@ -344,20 +344,6 @@ if "quadro" in VOCE or red is not None:
 else:
     AVV.append("quadro: voce_indice.json senza i campi di redazione (modello vecchio?)")
 
-# Eventi non economici del calendario (APP_FONTI 1b): AVVISO se nessuna delle parole compare nel PDF
-try:
-    import datetime as _dt
-    _m = re.search(r"(\d{4}-\d{2}-\d{2})", os.path.basename(PDF))
-    _oggi = _dt.date.fromisoformat(_m.group(1)) if _m else None
-    _cal = json.load(open(os.path.join(REPO, "redazione", "calendario_eventi.json"), encoding="utf-8")) if _oggi else []
-    _tutto = (TUTTO if "TUTTO" in globals() else "").lower()
-    for _e in _cal:
-        _d = _dt.date.fromisoformat(_e["data"])
-        if _oggi - _dt.timedelta(days=3) <= _d <= _oggi and _e.get("parole") and not any(w.lower() in _tutto for w in _e["parole"]):
-            AVV.append(f"calendario eventi: \"{_e['evento'][:70]}\" ({_e['data']}) non compare nel PDF: coprirlo o scrivere perché no (APP_FONTI 1b)")
-except Exception as _x:
-    AVV.append(f"calendario eventi: controllo non eseguito ({_x})")
-
 print(f"Contenuti: {len(ERR)} errori, {len(AVV)} avvisi")
 for e in ERR:
     print("ERRORE:", e[:230])

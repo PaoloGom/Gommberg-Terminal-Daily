@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Avvio della redazione: dipendenze, cartella di lavoro, giorno, numero, appendici, riepilogo dell'ultima edizione.
 # Uso: bash /home/claude/gtd/redazione/prepara.sh [AAAA-MM-GG]   (data facoltativa, per le prove)
-# Variabili: GTD_REPO (default /home/claude/gtd), GTD_LAVORO (default /home/claude/lavoro). Output <= 24 righe.
+# Variabili: GTD_REPO (default /home/claude/gtd), GTD_LAVORO (default /home/claude/lavoro). Output <= 20 righe.
 set -u
 REPO="${GTD_REPO:-/home/claude/gtd}"; R="$REPO/redazione"; L="${GTD_LAVORO:-/home/claude/lavoro}"
 
@@ -85,16 +85,6 @@ if vicini or buco or dicembre_mancante:
     app.append("APP_FESTIVI.md")
 out.append("Appendici oggi: " + (", ".join(app) if app else "nessuna") +
            " | se un controllo è rosso: APP_ERRORI.md | se un dato manca: APP_DATI.md e APP_FONTI.md")
-# Eventi non economici (elezioni, voti, vertici, decisioni politiche): calendario_eventi.json, APP_FONTI §1b
-try:
-    ev = json.load(open(os.path.join(repo, "redazione", "calendario_eventi.json"), encoding="utf-8"))
-    vic = [e for e in ev if ieri <= dt.date.fromisoformat(e["data"]) <= oggi + dt.timedelta(days=3)]
-    if vic:
-        out.append(cut("EVENTI NON ECONOMICI (APP_FONTI 1b): " + "; ".join(f"{e['data'][8:]}/{e['data'][5:7]} {e['evento']} [{e.get('stato', '')}]" for e in vic), 700))
-    if primo or buco or oggi.weekday() == 0:
-        out.append("SWEEP DEL WEEKEND (APP_FONTI 1b), PRIMA delle notizie: 3 ricerche su cio' che e' successo dal venerdi' sera (voti e decisioni politiche, attacchi, mosse notturne di cambi, ETF e future)")
-except Exception:
-    pass
 if vicini:
     out.append("Festività: " + "; ".join(vicini))
 if buco:
@@ -158,5 +148,5 @@ if not any(v["numero"] == n for v in voci):
     if st:
         out.append("Stantii (di una prova, non in edizioni.json; pubblica.sh li sovrascrive, non leggerli): " + ", ".join(st))
 out.append(f"Modello: {lav}/edizione_modello_v6.py -> copialo in {lav}/edizione_{oggi.isoformat()}.py")
-print("\n".join(out[:24]))
+print("\n".join(out[:20]))
 EOF
