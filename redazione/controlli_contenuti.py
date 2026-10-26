@@ -111,9 +111,10 @@ else:
         AVV.append("aperture: manca 'fuori' (storie forti altrove che non copriamo, col motivo; [] se nessuna)")
     elif any(not (x.get("storia") and x.get("motivo")) for x in r["fuori"] if isinstance(x, dict)):
         AVV.append("aperture: ogni voce di 'fuori' vuole 'storia' e 'motivo'")
-    RIF = re.compile(r"reuters|financial times|\bft\b|bloomberg|sole 24|nikkei", re.I)
-    if len([t for t in ok_t if RIF.search(t["testata"])]) < 2:
-        AVV.append("aperture: servono almeno 2 testate tra Reuters, FT o Bloomberg, Sole 24 Ore, Nikkei Asia (titoli via ricerca)")
+    GLO = re.compile(r"reuters|financial times|\bft\b|bloomberg", re.I)
+    ITA = re.compile(r"sole 24|milano finanza", re.I)
+    if len([t for t in ok_t if GLO.search(t["testata"])]) < 2 or not [t for t in ok_t if ITA.search(t["testata"])]:
+        AVV.append("aperture: servono 2 testate tra Reuters, FT, Bloomberg e 1 tra Sole 24 Ore, Milano Finanza (titoli via ricerca)")
     if r.get("concorda") is False and not (r.get("motivo") or "").strip():
         ERR.append("aperture: la top story non è l'apertura della maggioranza delle testate: scrivi il 'motivo' della scelta")
 
