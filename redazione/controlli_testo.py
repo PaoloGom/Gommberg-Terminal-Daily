@@ -114,6 +114,7 @@ def main():
     piatto = re.sub(r"\s+", " ", t)
     errori += [f"fonte tra parentesi con 'secondo': scrivi \"({m.group(1).strip()})\" ('secondo X' solo per stime e citazioni, fuori parentesi)"
                for m in re.finditer(r"\(secondo ([^)]{2,40})\)", piatto)]
+    errori += ["etichetta 'stima redazionale' vietata: scrivi la frase senza etichetta" for _ in re.finditer(r"stim[ae] redazional", piatto, re.I)]
     for e in errori[:6]:
         print("ERRORE: " + e[:155])
     if doppie:

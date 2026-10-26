@@ -81,11 +81,10 @@ C = {
                "vendono anche Tokyo e Seul. [[chip]]",
         "freccia": "I rincari dell'energia cominciano a passare ai prezzi dei servizi (Axios).",  # tipo C, scheda T01 (Axios, liv. 1)
     },
-    # una frase che legge insieme tassi, dollaro, oro, petrolio e borse (o dice che non si legano): stima redazionale
+    # una frase che legge insieme tassi, dollaro, oro, petrolio e borse (o dice che non si legano)
     "quadro": "2 anni (+3 punti base, pb) e dollaro salgono con le attese su una Fed più dura, il 10 anni scende, "
               "lo spread tra BTP e Bund (titoli di Stato italiani e tedeschi) si allarga, i tecnologici "
-              "cedono e i difensivi salgono, petrolio e oro quasi fermi: i mercati non leggono il CPI allo stesso modo "
-              "(stima redazionale).",
+              "cedono e i difensivi salgono, petrolio e oro quasi fermi: i mercati non leggono il CPI allo stesso modo.",
     "in30": [
         # le 3 cose più importanti DOPO la top story: mai la top story né le sue reazioni di mercato (controlli_temi.py)
         "Banche USA divise: BofA sconta l'onere per l'accordo con il Tesoro, Morgan Stanley corre nel trading. [[banche]]",
@@ -165,7 +164,7 @@ C = {
     "fermi": "Iran e Hormuz (nessuna novità verificata dal 13/10), Francia e debito europeo (dal 12/10).",
     "lettura": "Lo stesso dato letto in due modi: i future sui tassi alzano le probabilità di un rialzo a ottobre, i "
                "titoli di Stato a lunga chiudono con rendimenti più bassi; in borsa cedono i tecnologici e salgono i "
-               "difensivi. Stima redazionale: senza conferme da PPI e vendite il mercato resta diviso.",
+               "difensivi. Senza conferme da PPI e vendite il mercato resta diviso.",
 
     # ---------- Pag. 3-5 ----------
     "agenda_titolo": "Ieri in calendario e in arrivo",
