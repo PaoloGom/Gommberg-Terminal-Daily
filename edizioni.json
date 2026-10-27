@@ -1757,5 +1757,238 @@
     "chiave": false
    }
   ]
+ },
+ {
+  "numero": 12,
+  "data": "2026-10-27",
+  "titolo": "La quotazione di Anthropic riaccende l'AI: Seul +3,1%, chip USA +2,8%",
+  "sommario": [
+   "Brasile: la vittoria di Lula al ballottaggio manda in crisi borsa e valuta, per i timori sui conti pubblici.",
+   "Mercoledì la Fed: la pausa è attesa, ma il rialzo di dicembre è in gran parte nei prezzi.",
+   "Il petrolio cala con il dialogo a Teheran, ma il mercato resta fragile."
+  ],
+  "file": "pdf/2026-10-27-gommberg-012.pdf",
+  "nome": "2026-10-27 Gommberg Terminal Daily #012.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Brasile: Lula rieletto, San Paolo perde quasi il 14% e il dollaro sale dell'8%",
+   "Iveco: l'OPA di Tata Motors chiude con l'87,8% di adesioni",
+   "Unipol: aumento di capitale da 2,5 miliardi sottoscritto al 98,42%",
+   "Cina: gli utili industriali crescono del 14,4% a settembre",
+   "Petrolio: incontro a Teheran e greggio in calo, ma Hormuz resta a metà traffico",
+   "Meta: prospetto per un'offerta di azioni da 22,5 miliardi di dollari"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "157,57 $",
+    "+0,5% g"
+   ],
+   [
+    "S&P 500",
+    "7.676,77",
+    "+0,7% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.116,23",
+    "+0,8% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "5,00%",
+    "0 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "115,81 $",
+    "-0,8% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1172",
+    "-0,3% g"
+   ],
+   [
+    "VIX",
+    "18,39",
+    "-1,06 g"
+   ]
+  ],
+  "dek": "Lunedì Anthropic ha reso pubblico il prospetto per la quotazione al Nasdaq: ricavi in rapida crescita e una perdita ampia (Reuters). I chip americani hanno guadagnato il 2,8%, il maggior rialzo in un giorno da un mese, e stamattina salgono Seul (+3,1%) e Tokyo (+1,7%). Il rimbalzo arriva alla vigilia della Fed, mercoledì 28, e dei conti di Alphabet e Microsoft (mercoledì) e Amazon (giovedì).",
+  "ticker_al": "2026-10-26",
+  "scommessa": {
+   "settimana": "2026-10-26/2026-10-30",
+   "su": 6,
+   "variabile": {
+    "nome": "Nikkei 225",
+    "motivo": "Tokyo vende i chip da tre sedute: la paura sull'AI è globale?"
+   },
+   "strada": 4,
+   "range": 6,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     true,
+     true
+    ],
+    [
+     "S&P 500",
+     "su",
+     true,
+     true
+    ],
+    [
+     "Euro Stoxx 50",
+     "su",
+     true,
+     true
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     null,
+     true
+    ],
+    [
+     "Brent future",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "EUR/USD",
+     "su",
+     false,
+     true
+    ],
+    [
+     "Nikkei 225",
+     "giù",
+     true,
+     true,
+     true
+    ]
+   ]
+  },
+  "temi": [
+   "Tecnologia",
+   "Geopolitica",
+   "Fed",
+   "Petrolio",
+   "Asia"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Banche centrali",
+    "titolo": "Tre banche centrali su quattro restano ferme: il rialzo si gioca a dicembre",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Brasile",
+    "titolo": "Il Brasile valuta i conti pubblici, non il voto: ora serve un segnale del governo",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Tecnologia",
+    "titolo": "Il rimbalzo dell'AI dipende dal capitale: Anthropic e Meta chiedono decine di miliardi ai mercati",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [],
+  "parole": [
+   "Circuit breaker",
+   "Prospetto",
+   "Rischio fiscale"
+  ],
+  "ripetizioni": 3,
+  "glossario": [
+   "CPI",
+   "PCE",
+   "core",
+   "Ifo",
+   "CME FedWatch",
+   "pb",
+   "BTP",
+   "Bund",
+   "VIX",
+   "ACWI",
+   "Brent",
+   "IPO",
+   "SEC"
+  ],
+  "agenda": [
+   {
+    "quando": "Mar 27",
+    "evento": "Elezioni in Israele",
+    "attese": "",
+    "perche": "Rischio geopolitico in Medio Oriente",
+    "chiave": false
+   },
+   {
+    "quando": "Mar 27, 13:30",
+    "evento": "Ordini di beni durevoli USA (settembre)",
+    "attese": "+1,6% m/m",
+    "perche": "Investimenti delle imprese",
+    "chiave": false
+   },
+   {
+    "quando": "Mar 27, 15:00",
+    "evento": "Fiducia dei consumatori USA, Conference Board (ottobre)",
+    "attese": "80,5",
+    "perche": "Tenuta dei consumi",
+    "chiave": false
+   },
+   {
+    "quando": "Mer 28, 02:00",
+    "evento": "Banca centrale della Nuova Zelanda",
+    "attese": "Rialzo a 3,00%",
+    "perche": "L'unico rialzo atteso della settimana",
+    "chiave": false
+   },
+   {
+    "quando": "Mer 28, 19:00",
+    "evento": "Decisione della Fed",
+    "attese": "Tassi invariati al 3,75-4,00%",
+    "perche": "Evento n.1: dice se il rialzo di dicembre resta il caso base",
+    "chiave": true
+   },
+   {
+    "quando": "Mer 28, dopo la chiusura USA",
+    "evento": "Conti di Microsoft e Alphabet",
+    "attese": "",
+    "perche": "Spesa in AI e ritorni",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 29, 13:30",
+    "evento": "Inflazione PCE (prezzi dei consumi), indice core (senza energia e cibo), e PIL del 3° trimestre",
+    "attese": "PCE core +0,3% m/m; PIL +3,0% annualizzato",
+    "perche": "Inflazione che segue la Fed",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 29, 14:15",
+    "evento": "Decisione della BCE",
+    "attese": "Invariati",
+    "perche": "Il rialzo è atteso a dicembre",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 29, dopo la chiusura USA",
+    "evento": "Conti di Amazon",
+    "attese": "",
+    "perche": "Spesa in AI e cloud",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 30",
+    "evento": "Decisione della Bank of Japan",
+    "attese": "Invariati",
+    "perche": "Segnali su un rialzo a dicembre",
+    "chiave": false
+   }
+  ]
  }
 ]

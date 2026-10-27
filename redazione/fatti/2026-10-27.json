@@ -1,0 +1,1087 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Anthropic ha reso pubblico il prospetto per la quotazione al Nasdaq; i chip americani guadagnano il 2,8% e salgono Seul (+3,1%) e Tokyo (+1,7%)",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40446086/asian-stocks-surge-as-anthropic-ipo-lifts-sentiment-ahead-of-earnings-central-banks",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "AI bellwether Anthropic's eagerly anticipated IPO filing lifted risk appetite ahead of tech earnings"
+   },
+   {
+    "testata": "Yonhap (Korea Times)",
+    "url": "https://koreatimes.co.kr/economy/20261027/seoul-stocks-rebound-as-anthropic-ipo-revives-ai-investment-sentiment",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Investor sentiment improved after AI startup Anthropic disclosed strong revenue growth in its U.S. initial public offering"
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.clickondetroit.com/business/2026/10/27/asian-stocks-advance-following-a-rally-on-wall-street-and-oil-prices-fall/",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "South Korea's Kospi jumped more than 4% and closed 3.1% higher at 5,638.34."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "C01",
+  "sezione": "top_story",
+  "testo": "Il rimbalzo nasce dal prospetto: ricavi in rapida crescita, perdita ampia ma in gran parte contabile (Reuters)",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40446086/asian-stocks-surge-as-anthropic-ipo-lifts-sentiment-ahead-of-earnings-central-banks",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "AI bellwether Anthropic's eagerly anticipated IPO filing lifted risk appetite ahead of tech earnings"
+   },
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/anthropic-has-filed-its-prospectus-with-the-nasdaq-for-its-ipo-AJ3BXkuB",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "a large part of this stems from a non-cash accounting adjustment"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "T02",
+  "sezione": "top_story",
+  "testo": "I chip americani guadagnano il 2,8%, il maggior rialzo in un giorno da un mese",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40446086/asian-stocks-surge-as-anthropic-ipo-lifts-sentiment-ahead-of-earnings-central-banks",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Nasdaq futures was up 0.4% after US chip stocks rose 2.8% in overnight trade, clocking its biggest one-day jump in a month."
+   },
+   {
+    "testata": "HDFC Sky",
+    "url": "https://hdfcsky.com/news/nasdaq-jumps-0-82percent-as-anthropic-ipo-filing-revives-ai-trade-lifting-us-stocks-october-27-2026",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "The Philadelphia Semiconductor Index (SOX) opened at 10,843.37 and closed at 11,083.47, gaining 304.01 points, or 2.82%."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "T03",
+  "sezione": "top_story",
+  "testo": "Tokyo +1,7% e Seul +3,1% in chiusura; vigilia di Fed e conti di Alphabet, Microsoft e Amazon",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.clickondetroit.com/business/2026/10/27/asian-stocks-advance-following-a-rally-on-wall-street-and-oil-prices-fall/",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Tokyo's Nikkei 225 added 1.7% to 63,268.37."
+   },
+   {
+    "testata": "Yonhap (Korea Times)",
+    "url": "https://korean-vibe.com/article/179567246213722",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "The benchmark Korea Composite Stock Price Index (KOSPI) gained 168.87 points, or 3.09 percent, to close at 5,638.34."
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://it.investing.com/news/economic-indicators/i-futures-azionari-usa-salgono-sullonda-dellipo-di-anthropic-3607233",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "La Fed è inoltre pronta ad avviare martedì una riunione di due giorni"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Brasile: Lula rieletto con il 51,8%; Ibovespa -13,88% a 176.608 punti, scambi sospesi 30 minuti; dollaro +8,21% a 5,40 reais; lo sconfitto non riconosce il risultato",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Money Times",
+    "url": "https://www.moneytimes.com.br/ibovespa-26-10-26-lils/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "o principal índice da bolsa brasileira terminou as negociações com queda de 13,88%, aos 176.608,23"
+   },
+   {
+    "testata": "AgoraRN",
+    "url": "https://agorarn.com.br/politica/mercado-financeiro-reeleicao-lula/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "O Ibovespa caiu 13,88%, aos 176.608,23 pontos, enquanto o dólar comercial subiu 8,21% e terminou cotado a R$ 5,403."
+   },
+   {
+    "testata": "Fox News",
+    "url": "https://www.foxnews.com/world/conservative-wave-hits-roadblock-brazil-lula-holds-off-bolsonaro-challenge",
+    "data_pubblicazione": "2026-10-25",
+    "citazione": "With 100% of the vote counted, Lula won 51.8% of the vote, defeating Bolsonaro by nearly 4.4 million votes."
+   },
+   {
+    "testata": "Money Times",
+    "url": "https://www.moneytimes.com.br/ibovespa-26-10-26-lils/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "a vitória de Lula com 51,79% dos votos válidos ante 48,21% do adversário Flávio Bolsonaro (PL)"
+   },
+   {
+    "testata": "Fox News",
+    "url": "https://www.foxnews.com/world/conservative-wave-hits-roadblock-brazil-lula-holds-off-bolsonaro-challenge",
+    "data_pubblicazione": "2026-10-25",
+    "citazione": "Bolsonaro has refused to concede and has called for the election results to be annulled."
+   },
+   {
+    "testata": "Estado do Pará",
+    "url": "https://estadodoparaonline.com/dolar-dispara-821-e-bolsa-tem-maior-queda-desde-2020-apos-reeleicao-de-lula/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "quando o Ibovespa cai 10% em relação ao fechamento anterior, as negociações são suspensas por 30 minutos."
+   }
+  ],
+  "novita": "Esito del ballottaggio del 25/10 e reazione dei mercati del 26/10, dopo l'edizione #011",
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Iveco: l'OPA di Tata Motors chiude con l'87,8% di adesioni; 97 milioni di richieste nell'ultimo giorno",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/26/opa-iveco-adesioni-all-87-81percent-nell-ultimo-giorno-243.html",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "pari al 87,81% circa sul totale degli strumenti oggetto di offerta"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/26/opa-iveco-adesioni-all-87-81percent-nell-ultimo-giorno-243.html",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "oggi 26 ottobre, ultimo giorno di adesioni, sono state presentate 97.078.765 richieste"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Unipol: aumento di capitale sottoscritto al 98,42%, diritti inoptati in Borsa il 28 e 29 ottobre, finalizzato all'acquisto di sportelli Mps",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/10/26/laumento-di-unipol-per-mps-sottoscritto-al-984_60f8a881-668a-4d22-9d1c-391745552a32.html",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "con la sottoscrizione del 98,42% del totale delle azioni offerte"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/10/26/laumento-di-unipol-per-mps-sottoscritto-al-984_60f8a881-668a-4d22-9d1c-391745552a32.html",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "I diritti di opzione non esercitati, si legge in una nota, saranno offerti in Borsa il 28 e il 29 ottobre 2026"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/10/26/laumento-di-unipol-per-mps-sottoscritto-al-984_60f8a881-668a-4d22-9d1c-391745552a32.html",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "aumento di capitale di Unipol finalizzato all'acquisto degli sportelli di Mps"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Cina: utili industriali +14,4% a settembre, il rialzo più forte da giugno; +15,5% nei nove mesi; trainano AI, elettronica e semiconduttori",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Global Times",
+    "url": "https://www.globaltimes.cn/page/202610/1373039.shtml",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Profits increased 14.4 percent year-on-year in September."
+   },
+   {
+    "testata": "Global Times",
+    "url": "https://www.globaltimes.cn/page/202610/1373039.shtml",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "The increase was partly driven by rising demand for AI computing power and advanced memory technologies."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://milanofinanza.it/news/cina-in-rosso-gli-utili-industriali-crescono-del-14-4-ma-le-borse-arretrano-che-cosa-si-cela-dietro-i-202610270750503616",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Gli utili delle imprese industriali cinesi hanno registrato a settembre la crescita più sostenuta da giugno"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://milanofinanza.it/news/cina-in-rosso-gli-utili-industriali-crescono-del-14-4-ma-le-borse-arretrano-che-cosa-si-cela-dietro-i-202610270750503616",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Nei primi nove mesi dell'anno, gli utili industriali sono cresciuti del 15,5%,"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Petrolio: Arabia Saudita, Turchia e Pakistan a Teheran; Brent in calo tra 0,5% e 0,9%; Houthi contro l'Arabia Saudita; Hormuz al 60% del normale",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40446084/oil-eases-on-middle-east-diplomacy-hopes-saudi-attacks-keep-supply-worries-alive",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Saudi Arabia, Turkiye and Pakistan held talks with Iranian officials in Tehran on Monday"
+   },
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40446084/oil-eases-on-middle-east-diplomacy-hopes-saudi-attacks-keep-supply-worries-alive",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Brent crude futures were down $1, or 0.86%, at $114.81 a barrel by 0418 GMT"
+   },
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40446084/oil-eases-on-middle-east-diplomacy-hopes-saudi-attacks-keep-supply-worries-alive",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Scope for peace looked fragile, however, with renewed attacks by Houthis on key producer Saudi Arabia."
+   },
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40446084/oil-eases-on-middle-east-diplomacy-hopes-saudi-attacks-keep-supply-worries-alive",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "flows through the Strait of Hormuz were just about 60% of their normal level"
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.clickondetroit.com/business/2026/10/27/asian-stocks-advance-following-a-rally-on-wall-street-and-oil-prices-fall/",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Brent crude oil, the international standard, fell 0.5% to $110.21 a barrel."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Meta: prospetto SEC del 26 ottobre per azioni ordinarie da 22,5 miliardi; piano complessivo fino a 95 miliardi (Reuters)",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "SEC",
+    "url": "https://www.sec.gov/Archives/edgar/data/0001326801/000119312526431040/d94886d424b5.htm",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "The forward sellers referred to below are offering $22,500,000,000 of shares of our Class A Common Stock"
+   },
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40446086/asian-stocks-surge-as-anthropic-ipo-lifts-sentiment-ahead-of-earnings-central-banks",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Also boosting sentiment was Meta Platforms' plans to raise up to $95 billion in its largest-ever equity fundraising."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "testo": "Ifo ottobre 90,2 (atteso 90,1; prec. 89,9)",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "ifo",
+    "url": "https://www.ifo.de/umfrage/ifo-geschaeftsklima-deutschland",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Der ifo Geschäftsklimaindex stieg im Oktober auf 90,2 Punkte, nach 89,9 im September."
+   },
+   {
+    "testata": "Investire.biz",
+    "url": "https://investire.biz/market-mover/market-mover-26-31-ottobre-2026-banche-centrali-e-crescita",
+    "data_pubblicazione": "2026-10-25",
+    "citazione": "in lieve miglioramento a 90,1 punti"
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "ufficiale_cercato": [
+   "ifo Geschäftsklima Oktober 2026 ifo.de",
+   "ifo Index Oktober 2026 Geschäftsklima gestiegen gesunken 26. Oktober"
+  ],
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Elezioni in Israele, martedì 27 ottobre",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://www.internazionale.it/ultime-notizie-reuters/2026/07/12/israel-s-election-will-be-held-on-october-27-coalition-head-says",
+    "data_pubblicazione": "2026-07-12",
+    "citazione": "Israel's election will be held on October 27, coalition head says"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-27-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610270811036635",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "oggi 27 ottobre si tengono le elezioni in Israele"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta (A07: orario 14:15 confermato, conferenza rimossa)."
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Beni durevoli USA 13:30 (+1,6% m/m) e Conference Board 15:00 (80,5)",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Investire.biz",
+    "url": "https://investire.biz/market-mover/market-mover-26-31-ottobre-2026-banche-centrali-e-crescita",
+    "data_pubblicazione": "2026-10-25",
+    "citazione": "in crescita dell'1,6% mensile"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-27-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610270811036635",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "alle 13:30 degli ordini di beni durevoli preliminari a settembre degli Stati Uniti"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta (A07: orario 14:15 confermato, conferenza rimossa)."
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "testo": "RBNZ mercoledì 28 alle 02:00: rialzo a 3,00%",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/central-bank-super-week-october-2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Hike to 3.00% (about 80% to 85% priced)"
+   },
+   {
+    "testata": "Investire.biz",
+    "url": "https://investire.biz/market-mover/market-mover-26-31-ottobre-2026-banche-centrali-e-crescita",
+    "data_pubblicazione": "2026-10-25",
+    "citazione": "Martedì 27 ottobre"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "A04",
+  "sezione": "agenda",
+  "testo": "Fed mercoledì 28 alle 19:00: tassi invariati al 3,75-4,00%",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Investire.biz",
+    "url": "https://investire.biz/market-mover/market-mover-26-31-ottobre-2026-banche-centrali-e-crescita",
+    "data_pubblicazione": "2026-10-25",
+    "citazione": "alle 19:00 la Fed decide sui tassi"
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/central-bank-super-week-october-2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Hold (about 15% hike odds)"
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "ufficiale_cercato": [
+   "Fed October 2026 FOMC meeting calendar federalreserve.gov",
+   "CME FedWatch December rate hike probability Fed October 28 meeting hold Warsh"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta (A07: orario 14:15 confermato, conferenza rimossa)."
+ },
+ {
+  "id": "A05",
+  "sezione": "agenda",
+  "testo": "Conti di Microsoft e Alphabet mercoledì, di Amazon giovedì",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://it.investing.com/news/economic-indicators/i-futures-azionari-usa-salgono-sullonda-dellipo-di-anthropic-3607233",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Alphabet Inc (NASDAQ:GOOGL) e Microsoft Corporation (NASDAQ:MSFT) comunicheranno i risultati del trimestre di settembre"
+   },
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40446086/asian-stocks-surge-as-anthropic-ipo-lifts-sentiment-ahead-of-earnings-central-banks",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Traders are pricing in a hike from the Fed in December."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta (A07: orario 14:15 confermato, conferenza rimossa)."
+ },
+ {
+  "id": "A06",
+  "sezione": "agenda",
+  "testo": "PIL USA +3,0% annualizzato e PCE core +0,3% giovedì 29 alle 13:30",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Investire.biz",
+    "url": "https://investire.biz/market-mover/market-mover-26-31-ottobre-2026-banche-centrali-e-crescita",
+    "data_pubblicazione": "2026-10-25",
+    "citazione": "prevista al +3,0% trimestrale annualizzato"
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://it.investing.com/news/economic-indicators/i-futures-azionari-usa-salgono-sullonda-dellipo-di-anthropic-3607233",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Amazon presenta i dati la settimana successiva, giovedì"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "A07",
+  "sezione": "agenda",
+  "testo": "BCE giovedì 29 alle 14:15, tassi invariati",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Investire.biz",
+    "url": "https://investire.biz/market-mover/market-mover-26-31-ottobre-2026-banche-centrali-e-crescita",
+    "data_pubblicazione": "2026-10-25",
+    "citazione": "La BCE decide alle 14:15"
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/central-bank-super-week-october-2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Hold (70 of 73 economists)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta (A07: orario 14:15 confermato, conferenza rimossa)."
+ },
+ {
+  "id": "A08",
+  "sezione": "agenda",
+  "testo": "Bank of Japan venerdì 30, tassi invariati",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/central-bank-super-week-october-2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Swaps priced under 5% odds of a BoJ hike to 1.50% on 30 October"
+   },
+   {
+    "testata": "Investire.biz",
+    "url": "https://investire.biz/market-mover/market-mover-26-31-ottobre-2026-banche-centrali-e-crescita",
+    "data_pubblicazione": "2026-10-25",
+    "citazione": "venerdì 30"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta (A07: orario 14:15 confermato, conferenza rimossa)."
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "Asia 27/10 (Kospi 5.638,34; Nikkei 63.268,37; Hang Seng 23.077,56), Treasury 10 anni 4,98%, 2 anni 4,71%, euro 1,1157 alle 08:10 (AP)",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.clickondetroit.com/business/2026/10/27/asian-stocks-advance-following-a-rally-on-wall-street-and-oil-prices-fall/",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Hong Kong's Hang Seng gave up early gains, slipping 0.6% to 23,077.56,"
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.clickondetroit.com/business/2026/10/27/asian-stocks-advance-following-a-rally-on-wall-street-and-oil-prices-fall/",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "The yield on the 10-year Treasury eased to 4.98% from 5.00% late Friday."
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.clickondetroit.com/business/2026/10/27/asian-stocks-advance-following-a-rally-on-wall-street-and-oil-prices-fall/",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "The euro slipped to $1.1157 from $1.1176."
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true
+ },
+ {
+  "id": "M02",
+  "sezione": "mercati",
+  "testo": "Future alle 08:11: Euro Stoxx 50 -0,67%, S&P 500 -0,13% (Milano Finanza)",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-27-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610270811036635",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Borse europee attese in calo (-0,67% il future sull'Eurostoxx50) in avvio di seduta"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true
+ },
+ {
+  "id": "M03",
+  "sezione": "mercati",
+  "testo": "BTP-Bund 112 pb, BTP 10 anni 4,48% (Soldionline)",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Soldionline",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/ftse-mib-129-balzo-avio-e-technoprobe-spread-giu-a-112",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "lo spread tra Btp e Bund ha archiviato la giornata in forte calo a 112 punti"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true
+ },
+ {
+  "id": "M04",
+  "sezione": "mercati",
+  "testo": "Euro Stoxx 50 6.116,23 (+0,79%) a fine seduta del 26/10 (dpa-AFX)",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "dpa-AFX",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-gewinne-sinkende-oelpreise-12182274",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "Der EuroStoxx 50 erholte sich mit einem Anstieg um 0,79 Prozent auf 6.116,23 Punkte von seinem niedrigsten Stand seit Juni."
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true
+ },
+ {
+  "id": "M05",
+  "sezione": "mercati",
+  "testo": "Brent vicino ai massimi da aprile (Reuters)",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40446084/oil-eases-on-middle-east-diplomacy-hopes-saudi-attacks-keep-supply-worries-alive",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Brent crude futures were down $1, or 0.86%, at $114.81 a barrel by 0418 GMT"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true
+ },
+ {
+  "id": "M06",
+  "sezione": "mercati",
+  "testo": "Storia: dal 2002 l'Ibovespa è sceso il primo giorno dopo 4 ballottaggi su 6 e ha sempre chiuso la prima settimana in rialzo (NeoFeed, Elos Ayta)",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "NeoFeed",
+    "url": "https://neofeed.com.br/negocios/bolsa-despenca-com-vitoria-de-lula-mas-passado-mostra-que-ressaca-eleitoral-pode-ser-curta/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "o Ibovespa caiu no primeiro pregão após o segundo turno em quatro das seis eleições presidenciais desde 2002"
+   },
+   {
+    "testata": "NeoFeed",
+    "url": "https://neofeed.com.br/negocios/bolsa-despenca-com-vitoria-de-lula-mas-passado-mostra-que-ressaca-eleitoral-pode-ser-curta/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "em todas as ocasiões, o principal índice da B3 fechou em alta na primeira semana após a votação"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true
+ },
+ {
+  "id": "M07",
+  "sezione": "mercati",
+  "testo": "Dollaro/real: maggior rialzo in un giorno dal gennaio 1999; massimo del giorno vicino a 5,60 reais",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Estado do Pará",
+    "url": "https://estadodoparaonline.com/dolar-dispara-821-e-bolsa-tem-maior-queda-desde-2020-apos-reeleicao-de-lula/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "Foi a maior alta percentual do dólar em um único dia desde janeiro de 1999."
+   },
+   {
+    "testata": "Money Times",
+    "url": "https://www.moneytimes.com.br/dolar-26-10-26-lils/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "O dólar chegou a saltar 12,25%, a R$ 5,6049, nos primeiros minutos do pregão"
+   }
+  ],
+  "novita": null,
+  "nota": "Money Times riporta 1999 nel pannello e 2026 nel testo: il riferimento al 1999 poggia su Estado do Pará"
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "Reuters: 94 economisti su 100 vedono la Fed ferma a ottobre, tutti e 100 il rialzo a dicembre; CME FedWatch 90% pausa, 76,2% rialzo dicembre (Mitrade: 82,8%)",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Seoul Economic Daily (Reuters)",
+    "url": "https://en.sedaily.com/international/2026/10/26/us-economists-see-fed-holding-rates-on-the-28th-hiking-in",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "All 100 projected the central bank would raise rates at the Dec. 8-9 meeting of the Federal Open Market Committee."
+   },
+   {
+    "testata": "Mitrade",
+    "url": "https://www.mitrade.com/insights/more/Central-Banks/fed-october-hold-december-hike-20261022J1428",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "A Reuters poll run October 16-20 found 94 of 100 economists expecting the Fed to hold at 3.75-4.00% on October 28"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "BCE: 70 economisti su 73 per la pausa, 64 su 73 per il rialzo a dicembre; BoJ: swap sotto il 5% a ottobre e circa 80% il 18 dicembre; RBNZ: rialzo a 3,00% scontato per 80-85%; picco depositi BCE 2,75% per 40 su 70",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/central-bank-super-week-october-2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "64 of 73 expect a 25 bp hike in December."
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/central-bank-super-week-october-2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "Swaps priced about 80% odds of a hike on 18 December"
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/central-bank-super-week-october-2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "40 of 70 see the deposit rate peaking at 2.75%."
+   },
+   {
+    "testata": "Investire.biz",
+    "url": "https://investire.biz/market-mover/market-mover-26-31-ottobre-2026-banche-centrali-e-crescita",
+    "data_pubblicazione": "2026-10-25",
+    "citazione": "La BCE decide alle 14:15, con il tasso principale atteso stabile al 2,65%"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Citi vede il rialzo Fed a dicembre; Gapen (Morgan Stanley) vede rischi verso più rialzi; inflazione settembre USA 3,7%, area euro 3,8%, Canada 3,1%",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/central-bank-super-week-october-2026",
+    "data_pubblicazione": "2026-10-21",
+    "citazione": "expects a 25 bp Fed hike in December after the hot September CPI"
+   },
+   {
+    "testata": "Mitrade",
+    "url": "https://www.mitrade.com/insights/more/Central-Banks/fed-october-hold-december-hike-20261022J1428",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "The risks are in the direction of a Fed that ultimately needs to hike rates more than we expect."
+   }
+  ],
+  "novita": null
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Brasile 26/10: Ibovespa, dollaro, circuit breaker, minimo del giorno oltre -17%, tassi a termine +200 pb, Morgan Stanley R$ 6",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Money Times",
+    "url": "https://www.moneytimes.com.br/dolar-26-10-26-lils/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "Morgan Stanley prevê dólar a R$ 6 caso não haja uma sinalização de ajuste nas contas públicas"
+   },
+   {
+    "testata": "Money Times",
+    "url": "https://www.moneytimes.com.br/dolar-26-10-26-lils/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "o dólar encerrou cotado a R$ 5,4029 no mercado à vista, com salto de 8,21%"
+   },
+   {
+    "testata": "Estado do Pará",
+    "url": "https://estadodoparaonline.com/dolar-dispara-821-e-bolsa-tem-maior-queda-desde-2020-apos-reeleicao-de-lula/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "O dólar disparou 8,21% nesta segunda-feira (26) e encerrou o dia cotado a R$ 5,4027"
+   },
+   {
+    "testata": "AgoraRN",
+    "url": "https://agorarn.com.br/politica/mercado-financeiro-reeleicao-lula/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "O vencimento para janeiro de 2033 indicava taxa de 15,24% ao ano no fim da tarde, ante 12,65% no fechamento anterior."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "testo": "Causa: ribaltamento delle posizioni dopo il primo turno e timori su spesa, debito e linea economica (Nomad, Convexa)",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Money Times",
+    "url": "https://www.moneytimes.com.br/ibovespa-26-10-26-lils/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "evidenciando a cautela dos investidores em relação às futuras diretrizes econômicas e fiscais do país"
+   },
+   {
+    "testata": "Money Times",
+    "url": "https://www.moneytimes.com.br/ibovespa-26-10-26-lils/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "a forte reprecificação dos ativos reflete preocupações com a trajetória fiscal"
+   },
+   {
+    "testata": "AgoraRN",
+    "url": "https://agorarn.com.br/politica/mercado-financeiro-reeleicao-lula/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "Depois do primeiro turno, parte dos investidores passou a apostar em uma vitória de Flávio Bolsonaro (PL)"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: attribuzione errata (Nomad/Convexa = timori fiscali; ribaltamento posizioni = AgoraRN). Testo PDF corretto."
+ },
+ {
+  "id": "D06",
+  "sezione": "mercati",
+  "testo": "Banche più colpite; Vale e Suzano in rialzo; il Tesoro cancella le aste del 27 e 29 ottobre",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "AgoraRN",
+    "url": "https://agorarn.com.br/politica/mercado-financeiro-reeleicao-lula/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "Os papéis do Banco do Brasil caíram 29,33%. BTG Pactual recuou 24,83%, Bradesco perdeu 21,70% e Itaú Unibanco caiu 13,66%."
+   },
+   {
+    "testata": "AgoraRN",
+    "url": "https://agorarn.com.br/politica/mercado-financeiro-reeleicao-lula/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "A Vale avançou 4,01%, e a Suzano, que recebe parte relevante de suas receitas em moeda estrangeira, subiu 9,85%."
+   },
+   {
+    "testata": "AgoraRN",
+    "url": "https://agorarn.com.br/politica/mercado-financeiro-reeleicao-lula/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "O Tesouro Nacional cancelou leilões de títulos prefixados e vinculados à inflação previstos para terça-feira 27"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "D07",
+  "sezione": "deep_dive",
+  "testo": "Europa: Telefónica quasi -7% (dpa-AFX), 25,6% dei ricavi in Brasile, JPMorgan Underweight; Tim -2,4%, circa 30% dei ricavi e 46,8% dell'ebitda; Buzzi -0,5%; Stellantis +3,8%",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/brasile-quali-titoli-italiani-ed-europei-rischiano-di-piu-con-l-indebolimento-del-real-dopo-la-vittoria-202610261324315427",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "Nel primo semestre 2025, Telefónica Brasil contribuiva per il 25,6% ai ricavi consolidati del gruppo."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/brasile-quali-titoli-italiani-ed-europei-rischiano-di-piu-con-l-indebolimento-del-real-dopo-la-vittoria-202610261324315427",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "il Paese rappresenta il 46,8% dell'ebitda"
+   },
+   {
+    "testata": "dpa-AFX",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-gewinne-sinkende-oelpreise-12182274",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "die Titel von Telefonica waren dort mit einem Kursrutsch um fast sieben Prozent der größte negative Ausreißer."
+   },
+   {
+    "testata": "dpa-AFX",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-gewinne-sinkende-oelpreise-12182274",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "Die US-Bank JPMorgan hatte die Aktien des spanischen Telekom-Riesen unter Verweis auf Kreditrisiken auf \"Underweight\" abgestuft."
+   },
+   {
+    "testata": "Soldionline",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/ftse-mib-129-balzo-avio-e-technoprobe-spread-giu-a-112",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "giornata in calo per Tim (-2,4%)"
+   },
+   {
+    "testata": "Soldionline",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/ftse-mib-129-balzo-avio-e-technoprobe-spread-giu-a-112",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "In evidenza anche Prysmian e Stellantis (entrambe a +3,8%)"
+   },
+   {
+    "testata": "Soldionline",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/ftse-mib-129-balzo-avio-e-technoprobe-spread-giu-a-112",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "Più deboli anche Lottomatica e Buzzi (entrambe a -0,5%)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: parti non verificate rimosse dal PDF e dalla scheda."
+ },
+ {
+  "id": "D08",
+  "sezione": "mercati",
+  "testo": "Capital Economics: debito/PIL da 82,5% a circa 95% nel 2030, Selic ferma al 13,75%, crescita 1,3% contro 2,7%; Jackson: la vittoria metterà in evidenza le finanze pubbliche",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Money Times",
+    "url": "https://www.moneytimes.com.br/lula-reeleito-capital-economics-ve-divida-rumo-a-95-do-pib-e-freio-nos-cortes-da-selic/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "A consultoria projeta que a dívida passe de aproximadamente 82,5% do Produto Interno Bruto (PIB) em 2026 para cerca de 95%"
+   },
+   {
+    "testata": "Money Times",
+    "url": "https://www.moneytimes.com.br/lula-reeleito-capital-economics-ve-divida-rumo-a-95-do-pib-e-freio-nos-cortes-da-selic/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "A projeção é de manutenção da taxa em 13,75% ao ano nas duas reuniões restantes de 2026."
+   },
+   {
+    "testata": "Money Times",
+    "url": "https://www.moneytimes.com.br/lula-reeleito-capital-economics-ve-divida-rumo-a-95-do-pib-e-freio-nos-cortes-da-selic/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "A Capital Economics projeta crescimento médio de 1,3% ao ano no próximo mandato, ante 2,7% no atual."
+   },
+   {
+    "testata": "Money Times",
+    "url": "https://www.moneytimes.com.br/lula-reeleito-capital-economics-ve-divida-rumo-a-95-do-pib-e-freio-nos-cortes-da-selic/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "A vitória de Lula colocará os problemas das finanças públicas do Brasil em evidência"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "D09",
+  "sezione": "deep_dive",
+  "testo": "Brasile: al primo turno del 4 ottobre Bolsonaro era avanti di oltre 2,2 milioni di voti; Zanin/Genial: nomina di un ministro credibile per evitare la \"bola de neve\"",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Fox News",
+    "url": "https://www.foxnews.com/world/conservative-wave-hits-roadblock-brazil-lula-holds-off-bolsonaro-challenge",
+    "data_pubblicazione": "2026-10-25",
+    "citazione": "with 47% of the vote to Lula's 45%"
+   },
+   {
+    "testata": "NeoFeed",
+    "url": "https://neofeed.com.br/negocios/bolsa-despenca-com-vitoria-de-lula-mas-passado-mostra-que-ressaca-eleitoral-pode-ser-curta/",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "a situação pode se deteriorar em termos de expectativas e criar uma bola de neve"
+   }
+  ],
+  "novita": null
+ },
+ {
+  "id": "D10",
+  "sezione": "deep_dive",
+  "testo": "Anthropic: S-1 pubblico, Nasdaq ANT, ricavi 16,3 mld contro 1,2 mld, perdita 80,7 mld in gran parte non monetaria, raccolta 85-100 mld, roadshow settimana del 9 novembre, Goldman Sachs e Morgan Stanley, valutazione intorno a 1.500 mld, bozza riservata a giugno, SpaceX a giugno con 85,7 mld raccolti",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/anthropic-has-filed-its-prospectus-with-the-nasdaq-for-its-ipo-AJ3BXkuB",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "revenue stood at $16.3 billion, compared with $1.2 billion in the same period the previous year."
+   },
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/anthropic-has-filed-its-prospectus-with-the-nasdaq-for-its-ipo-AJ3BXkuB",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "The timetable now calls for the roadshow to begin in the week of 9 November."
+   },
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/anthropic-has-filed-its-prospectus-with-the-nasdaq-for-its-ipo-AJ3BXkuB",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "could be aiming for a figure of between 85 and 100 billion dollars."
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://it.investing.com/news/stock-market-news/anthropic-presenta-domanda-per-ipo-al-nasdaq-con-ricavi-a-163-miliardi-3606444",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "Anthropic ha registrato una perdita netta di $80,7 miliardi nel primo semestre"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: parti non verificate rimosse dal PDF e dalla scheda."
+ },
+ {
+  "id": "D11",
+  "sezione": "deep_dive",
+  "testo": "Meta: offerta concorrente di 250 milioni di Series A Depositary Shares; regolamento a termine entro il 19 novembre 2027; capex AI fino a 145 mld e Alphabet 85 mld a giugno (Dow Jones)",
+  "data_evento": "2026-10-26",
+  "fonti": [
+   {
+    "testata": "SEC",
+    "url": "https://www.sec.gov/Archives/edgar/data/0001326801/000119312526431040/d94886d424b5.htm",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "Concurrently with this offering, we expect to offer 250,000,000 of our Series A Depositary Shares"
+   },
+   {
+    "testata": "MarketScreener (Dow Jones)",
+    "url": "https://www.marketscreener.com/news/meta-platforms-slips-on-report-of-plans-for-multibillion-dollar-offering-to-fund-ai-buildout-ce7f5dd2d98df523",
+    "data_pubblicazione": "2026-06-05",
+    "citazione": "it expects to increase its AI-related capital expenditures to as much as $145 billion this year"
+   },
+   {
+    "testata": "MarketScreener (Dow Jones)",
+    "url": "https://www.marketscreener.com/news/meta-platforms-slips-on-report-of-plans-for-multibillion-dollar-offering-to-fund-ai-buildout-ce7f5dd2d98df523",
+    "data_pubblicazione": "2026-06-05",
+    "citazione": "Google-parent Alphabet looked to raise $85 billion from equity offerings this week"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Verificato dal revisore indipendente su fonte aperta."
+ },
+ {
+  "id": "D12",
+  "sezione": "deep_dive",
+  "testo": "Ameriprise: gli investitori vorranno prove che la domanda si allarga",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40446086/asian-stocks-surge-as-anthropic-ipo-lifts-sentiment-ahead-of-earnings-central-banks",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Given the increased AI scrutiny of late and circular arrangements, investors will want evidence that demand is broadening"
+   },
+   {
+    "testata": "HDFC Sky",
+    "url": "https://hdfcsky.com/news/nasdaq-jumps-0-82percent-as-anthropic-ipo-filing-revives-ai-trade-lifting-us-stocks-october-27-2026",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "The Philadelphia Semiconductor Index (SOX) opened at 10,843.37 and closed at 11,083.47, gaining 304.01 points, or 2.82%."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: parti non verificate rimosse dal PDF e dalla scheda."
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "testo": "",
+  "data_evento": "2026-10-26",
+  "fonti": [],
+  "concorda": false,
+  "motivo": "AP apre su Asia in rialzo con l'IPO di Anthropic e petrolio in calo; Reuters su Asia e prospetto Anthropic prima di conti e banche centrali; Milano Finanza sul crollo della borsa brasiliana dopo Lula e sul prospetto Anthropic. La nostra apertura è la quotazione di Anthropic che muove chip e Asia, come AP e Reuters; il Brasile, apertura di Milano Finanza, è la prima notizia della giornata e un approfondimento (richiesta di Paolo).",
+  "testate": [
+   {
+    "testata": "AP",
+    "apertura": "Asian stocks advance following a rally on Wall Street and oil prices fall"
+   },
+   {
+    "testata": "Reuters",
+    "apertura": "Asian stocks surge as Anthropic IPO lifts sentiment ahead of earnings, central banks"
+   },
+   {
+    "testata": "Milano Finanza",
+    "apertura": "Cos'è successo oggi sui mercati: dal crollo della borsa in Brasile al prospetto per l'IPO di Anthropic"
+   },
+   {
+    "testata": "Money Times",
+    "apertura": "Ibovespa fecha em queda de 13,88% e dólar a R$ 5,40 após reeleição de Lula"
+   }
+  ],
+  "flusso": [
+   "Anthropic deposita il prospetto pubblico (Nasdaq, ANT)",
+   "Lula rieletto, crollo di borsa e real",
+   "Meta prospetto da 22,5 miliardi"
+  ],
+  "fuori": [
+   {
+    "storia": "Elezioni in Israele",
+    "motivo": "Voto di oggi, esito non noto: in agenda"
+   }
+  ]
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "Da inizio anno 2026 di ACWI, Euro Stoxx 50 e FTSE MIB",
+  "testo": "",
+  "data_evento": "2026-10-26",
+  "fonti": [],
+  "ricerche": [
+   "FTSE MIB chiusura 30 dicembre 2025 fine anno 2025 punti performance annua",
+   "FTSE MIB performance annuali 2026 da inizio anno Borsa Italiana",
+   "Euro STOXX 50 da inizio anno 2026 Seit Jahresbeginn",
+   "EURO STOXX 50 historical data close 26 Oct 2026 investing.com"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "-",
+   "url": "-"
+  }
+ }
+]
