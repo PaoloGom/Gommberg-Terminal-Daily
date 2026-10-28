@@ -1,0 +1,824 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Il Kospi di Seul guadagna il 6,63% e chiude a 6.012,44 punti dopo i conti record di SK Hynix: utile operativo di 83,33 trilioni di won contro i 76,96 attesi (FnGuide)",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Yonhap",
+    "url": "https://korean-vibe.com/article/179567243581640",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "The benchmark Korea Composite Stock Price Index (KOSPI) gained 374.1 points, or 6.63 percent, to close at 6,012.44"
+   },
+   {
+    "testata": "Korea JoongAng Daily",
+    "url": "https://www.koreajoongangdaily.com/business/sk-hynixs-q3-operating-profit-surges-more-than-sevenfold-to-record-628b/12941760",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "posted another record quarterly operating profit of 83.33 trillion won ($62.8 billion)"
+   },
+   {
+    "testata": "Asia Business Daily",
+    "url": "https://view.asiae.co.kr/en/article/2026102815333646435",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "KOSPI closes up 374.1 points at 6,012.44 (up 6.63%)"
+   },
+   {
+    "testata": "Ajou Press",
+    "url": "https://www.ajupress.com/view/20261028000619602",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "The results beat the FnGuide market consensus of 76.96 trillion won in operating profit"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Chiusura confermata da Yonhap, Asia Business Daily e Seoul Economic Daily (6.012,44); AP riporta 6.023,73 (+6,8%) in un aggiornamento precedente alla chiusura finale: vale la chiusura ufficiale.",
+  "novita": null
+ },
+ {
+  "id": "C01",
+  "sezione": "top_story",
+  "tipo": "C",
+  "testo": "I conti di SK Hynix hanno attenuato il timore di un picco del ciclo dei chip di memoria (Yonhap)",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Yonhap",
+    "url": "https://korean-vibe.com/article/179567243581640",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "easing concerns about the sustainability of the AI-driven rally and a potential peak in the memory chip cycle"
+   },
+   {
+    "testata": "Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261028/sk-hynix-eases-ai-peak-fears-pushing-kospi-above-6000",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "SK hynix eases AI peak fears, pushing KOSPI above 6,000"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Causa attribuita da Yonhap e dal titolo del Korea Times; coerente con i prezzi (Taiex +2%, Nikkei +1,1%, VIX e Treasury 10 anni stabili).",
+  "novita": null
+ },
+ {
+  "id": "T02",
+  "sezione": "top_story",
+  "testo": "SK Hynix sale di circa l'11% e Samsung Electronics di circa il 9% a Seul; Tokyo chiude a +1,1%",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/10/28/shares-in-asia-rise-after-a-rally-on-wall-street-and-oil-prices-gain-more-than-1/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Memory chipmaker SK Hynix jumped 11.4% to its highest level in two weeks"
+   },
+   {
+    "testata": "Yonhap",
+    "url": "https://korean-vibe.com/article/179567243581640",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "chip giant SK hynix soared 10.89 percent to 1.49 million won."
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/10/28/shares-in-asia-rise-after-a-rally-on-wall-street-and-oil-prices-gain-more-than-1/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Japan’s benchmark Nikkei 225 rallied 1.1% to 63,954.19."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "AP (intraday, 11,4% e 9,1%) e Yonhap (chiusura, 10,89% e 9,01%) concordano: scritto 'circa'.",
+  "novita": null
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Boeing: perdita rettificata di 34 centesimi per azione contro i 21 attesi; il titolo cede quasi il 10%; l'obiettivo di 47 aerei 737 al mese slitta a inizio 2027 e il flusso di cassa del 2027 è visto a 3 miliardi contro i 5,5 attesi",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Reuters (Spokesman-Review)",
+    "url": "https://www.spokesman.com/stories/2026/oct/27/boeing-shares-plunge-on-slower-than-expected-737-p/",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Boeing now expects to reach its 737 production rate target of 47 jets a month in early 2027."
+   },
+   {
+    "testata": "Reuters (Spokesman-Review)",
+    "url": "https://www.spokesman.com/stories/2026/oct/27/boeing-shares-plunge-on-slower-than-expected-737-p/",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "It now expects $3 billion next year, rather than the analyst consensus for $5.5 billion, according to LSEG data."
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/10/28/shares-in-asia-rise-after-a-rally-on-wall-street-and-oil-prices-gain-more-than-1/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Boeing fell 10.7% after reporting a larger loss for the latest quarter than analysts expected."
+   },
+   {
+    "testata": "Euronews",
+    "url": "https://www.euronews.com/2026/10/28/boeing-shares-tumble-after-it-releases-cautious-growth-forecast",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Boeing shares slumped around 9% on Tuesday"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Spokesman-Review/Reuters, AP ed Euronews concordano; il calo va dal 9,6% al 10,7% a seconda dell'ora: scritto 'quasi il 10%'.",
+  "novita": null
+ },
+ {
+  "id": "C02",
+  "sezione": "top_news",
+  "tipo": "C",
+  "testo": "Boeing cala per lo slittamento della produzione del 737 e il flusso di cassa più debole del previsto, non per la perdita in sé (Reuters)",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Reuters (Spokesman-Review)",
+    "url": "https://www.spokesman.com/stories/2026/oct/27/boeing-shares-plunge-on-slower-than-expected-737-p/",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Boeing shares plunge on slower-than-expected 737 production, weaker free cash flow outlook"
+   },
+   {
+    "testata": "Euronews",
+    "url": "https://www.euronews.com/2026/10/28/boeing-shares-tumble-after-it-releases-cautious-growth-forecast",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Boeing shares tumble after it releases cautious growth forecast"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Titolo Reuters e titolo Euronews attribuiscono il calo alla produzione e alle previsioni.",
+  "novita": null
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "HSBC pesa su Londra dopo una trimestrale inferiore alle attese; il FTSE 100 chiude in calo dello 0,75% mentre le altre borse europee salgono",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/27/le-borse-europee-chiudono-in-rialzo-ad-eccezione-di-londra-che-soffre-il-tonfo-di-hsbc-229.html",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "dopo una trimestrale inferiore alle attese"
+   },
+   {
+    "testata": "dpa-AFX (ariva.de)",
+    "url": "https://www.ariva.de/news/aktien-europa-schluss-eurostoxx-prescht-ins-plus-vor-12183821",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "einiger enttäuschender Quartalsberichte"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Teleborsa (livello 1) e dpa-AFX; FTSE 100 -0,75% a 10.686,54 da FMP e dpa-AFX.",
+  "novita": null
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Israele: dopo il voto del 27 ottobre nessun blocco raggiunge la maggioranza; Netanyahu e lo sfidante Eisenkot restano lontani dai 61 seggi",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/10/28/israel-election-netanyahu-trump-gaza-.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Israel election appears to have no clear winner with Netanyahu, opponent Eisenkot far short of majorities"
+   },
+   {
+    "testata": "CNN",
+    "url": "https://www.cnn.com/2026/10/27/world/live-news/israel-elections-live-results-latest-votes-intl",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Israeli election results: No clear winner as exit polls suggest rebuke for Netanyahu"
+   },
+   {
+    "testata": "Ynet",
+    "url": "https://www.ynetnews.com/article/skd97fc2gl",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Channel 12 projects 52 seats for the change bloc against Netanyahu's 50, while Channel 13 gives it 53"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Tre testate concordano sull'assenza di una maggioranza; i seggi sono exit poll e cambiano con lo spoglio: nel PDF solo la mancanza di maggioranza.",
+  "novita": null
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Petrolio: dopo la chiusura in calo a New York, stamattina il Brent guadagna l'1,5% e il greggio USA l'1,6%",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/10/28/shares-in-asia-rise-after-a-rally-on-wall-street-and-oil-prices-gain-more-than-1/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "In other dealings Wednesday, Brent crude oil, the international standard, rose 1.5% to $111.10 a barrel."
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/10/28/shares-in-asia-rise-after-a-rally-on-wall-street-and-oil-prices-gain-more-than-1/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "U.S. benchmark crude gained 1.6%, to $101.46 per barrel."
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/10/27/borsa-milano-chiude-a-090-in-evidenza-stm_8e4f71da-0087-4b0b-9511-806af924c9ad.html",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Il petrolio chiude in calo a New York a 99,90 dollari"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Solo le variazioni percentuali nel PDF: il livello del Brent AP (111,10) differisce dal future FMP usato nel cruscotto (113,88).",
+  "novita": null
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "La banca centrale della Nuova Zelanda lascia i tassi al 2,75% con un voto di 4 a 3 mentre il mercato scontava un rialzo di 25 punti base",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/central-banks/rbnz-holds-ocr-at-2-75-in-surprise-4-3-vote-says-tighter-policy-still-likely/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "the Monetary Policy Committee split 4-3"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/central-banks/rbnz-holds-ocr-at-2-75-in-surprise-4-3-vote-says-tighter-policy-still-likely/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Markets had priced roughly a 90% chance of a hike ahead of the decision"
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/10/28/shares-in-asia-rise-after-a-rally-on-wall-street-and-oil-prices-gain-more-than-1/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "the Reserve Bank of New Zealand surprised market watchers by keeping its benchmark interest rate at 2.75%."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "investingLive (livello 2) e AP concordano; il comunicato RBNZ non si è potuto aprire (errore del sito).",
+  "novita": null
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Fiducia dei consumatori USA a 91,7 a ottobre, il primo rialzo in quattro mesi, contro gli 80,4 attesi dagli economisti",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/economy/articles/us-consumer-confidence-unexpectedly-sees-152037367.html",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "jumped to 91.7 in October"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/economy/articles/us-consumer-confidence-unexpectedly-sees-152037367.html",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "had expected the consumer confidence index to dip to 80.4"
+   },
+   {
+    "testata": "Bloomberg",
+    "url": "https://www.bloomberg.com/news/articles/2026-10-27/us-consumer-confidence-increases-for-first-time-in-four-months",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "US Consumer Confidence Rises for First Time in Four Months"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Yahoo Finance e titolo Bloomberg concordano su dato e direzione.",
+  "novita": null
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "tipo": "U",
+  "testo": "Fiducia dei consumatori Conference Board, ottobre: 91,7 (atteso 80,4; settembre rivisto a 84,2)",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/economy/articles/us-consumer-confidence-unexpectedly-sees-152037367.html",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "jumped to 91.7 in October"
+   }
+  ],
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "Conference Board Consumer Confidence Index October 2026 press release 91.7",
+   "US consumer confidence Conference Board index October 27 2026 falls rises economists expected"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Comunicato Conference Board non raggiunto; dato attribuito a Yahoo Finance.",
+  "novita": null
+ },
+ {
+  "id": "K02",
+  "sezione": "catalizzatori",
+  "tipo": "U",
+  "testo": "Boeing, terzo trimestre: perdita rettificata di 0,34 dollari per azione (attesa 0,21)",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "Reuters (Spokesman-Review)",
+    "url": "https://www.spokesman.com/stories/2026/oct/27/boeing-shares-plunge-on-slower-than-expected-737-p/",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Boeing reported an adjusted loss of 34 cents per share for the quarter through September,"
+   }
+  ],
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "Boeing third quarter 2026 loss shares fall",
+   "Boeing quarterly loss 737 777X charge October 28 2026 stock tumbles"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Comunicato Boeing non aperto; dato attribuito a Reuters.",
+  "novita": null
+ },
+ {
+  "id": "K03",
+  "sezione": "catalizzatori",
+  "tipo": "U",
+  "testo": "Banca centrale della Nuova Zelanda: tasso ufficiale invariato al 2,75% (atteso rialzo a 3,00%)",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/central-banks/rbnz-holds-ocr-at-2-75-in-surprise-4-3-vote-says-tighter-policy-still-likely/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Markets had priced roughly a 90% chance of a hike ahead of the decision"
+   }
+  ],
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "Reserve Bank of New Zealand official cash rate decision 28 October 2026 holds 2.75% surprise",
+   "RBNZ OCR decision October 28 2026 Reserve Bank of New Zealand monetary policy review holds"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Comunicato RBNZ non raggiunto (errore del sito); dato attribuito a investingLive.",
+  "novita": null
+ },
+ {
+  "id": "K04",
+  "sezione": "catalizzatori",
+  "testo": "Elezioni in Israele: nessun blocco raggiunge i 61 seggi di maggioranza (exit poll)",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/10/28/israel-election-netanyahu-trump-gaza-.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Israel election appears to have no clear winner with Netanyahu, opponent Eisenkot far short of majorities"
+   }
+  ],
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "Israel election results October 27 2026 exit polls Netanyahu Knesset",
+   "Israel election Eisenkot Netanyahu exit polls seats result October 28"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Esito provvisorio: exit poll.",
+  "novita": null
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Decisione della Fed sui tassi, mercoledì 28 ottobre alle 19:00 ora di Roma (14:00 a New York); attesi tassi invariati al 3,75-4,00%",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/2026-october.htm",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Two-day meeting, October 27 - 28"
+   },
+   {
+    "testata": "Seoul Economic Daily (Reuters)",
+    "url": "https://en.sedaily.com/international/2026/10/26/us-economists-see-fed-holding-rates-on-the-28th-hiking-in",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "All 100 projected the central bank would raise rates at the Dec. 8-9 meeting of the Federal Open Market Committee."
+   },
+   {
+    "testata": "Mitrade (Reuters)",
+    "url": "https://www.mitrade.com/insights/more/Central-Banks/fed-october-hold-december-hike-20261022J1428",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "A Reuters poll run October 16-20 found 94 of 100 economists expecting the Fed to hold at 3.75-4.00% on October 28"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Orario e conferenza stampa dalla pagina Fed; sondaggio Reuters (94 su 100 per la pausa) dalla scheda D01 del 27/10.",
+  "novita": null
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Conferenza stampa del presidente della Fed Warsh, mercoledì 28 ottobre alle 20:30 ora di Roma",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/2026-october.htm",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "FOMC Press Conference"
+   },
+   {
+    "testata": "Onvista (dpa-AFX)",
+    "url": "https://www.onvista.de/news/2026/10-27-roundup-aktien-frankfurt-schluss-dax-steigt-vor-tech-zahlen-und-zinsentscheiden-0-10-26569046",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Am Mittwoch jene der US-Notenbank Fed"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "14:30 New York = 20:30 Roma (USA ancora all'ora legale fino all'1/11).",
+  "novita": null
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "testo": "Conti di Microsoft, mercoledì 28 ottobre dopo la chiusura di Wall Street",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://in.investing.com/news/stock-market-news/microsoft-google-ford-and-more-set-to-report-earnings-wednesday-93CH-5657888",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Earnings After the Close"
+   },
+   {
+    "testata": "Onvista (dpa-AFX)",
+    "url": "https://www.onvista.de/news/2026/10-27-roundup-aktien-frankfurt-schluss-dax-steigt-vor-tech-zahlen-und-zinsentscheiden-0-10-26569046",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Mit den Quartalszahlen von Alphabet und Microsoft am Mittwoch"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Fascia 'dopo la chiusura USA' da Investing.com.",
+  "novita": null
+ },
+ {
+  "id": "A04",
+  "sezione": "agenda",
+  "testo": "Conti di Alphabet, mercoledì 28 ottobre dopo la chiusura di Wall Street",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://in.investing.com/news/stock-market-news/microsoft-google-ford-and-more-set-to-report-earnings-wednesday-93CH-5657888",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Earnings After the Close"
+   },
+   {
+    "testata": "Onvista (dpa-AFX)",
+    "url": "https://www.onvista.de/news/2026/10-27-roundup-aktien-frankfurt-schluss-dax-steigt-vor-tech-zahlen-und-zinsentscheiden-0-10-26569046",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Mit den Quartalszahlen von Alphabet und Microsoft am Mittwoch"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Fascia 'dopo la chiusura USA' da Investing.com.",
+  "novita": null
+ },
+ {
+  "id": "A05",
+  "sezione": "agenda",
+  "tipo": "U",
+  "testo": "PIL USA, stima anticipata del terzo trimestre, giovedì 29 ottobre alle 13:30 ora di Roma",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "BEA",
+    "url": "https://www.bea.gov/node/43002",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "GDP (Advance Estimate), 3rd Quarter 2026"
+   },
+   {
+    "testata": "BEA",
+    "url": "https://www.bea.gov/node/43002",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "October 29 08:30:am"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "8:30 a New York = 13:30 a Roma.",
+  "novita": null
+ },
+ {
+  "id": "A06",
+  "sezione": "agenda",
+  "tipo": "U",
+  "testo": "Decisione della BCE sui tassi con conferenza stampa, giovedì 29 ottobre nel pomeriggio",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "BCE",
+    "url": "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Governing Council of the ECB: monetary policy meeting in Frankfurt (Day 2), followed by press conference"
+   },
+   {
+    "testata": "Onvista (dpa-AFX)",
+    "url": "https://www.onvista.de/news/2026/10-27-roundup-aktien-frankfurt-schluss-dax-steigt-vor-tech-zahlen-und-zinsentscheiden-0-10-26569046",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "gefolgt von der Europäischen Zentralbank am Donnerstag"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Il calendario BCE non indica l'ora: fascia 'nel pomeriggio' (le decisioni BCE sono sempre nel primo pomeriggio).",
+  "novita": null
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "Asia 28/10: Nikkei 225 +1,1% a 63.954,19, Hang Seng +0,2% a 23.089,22 (alle 07:30), Shanghai +0,5% a 3.666,50; Taiex +2%",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/10/28/shares-in-asia-rise-after-a-rally-on-wall-street-and-oil-prices-gain-more-than-1/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Japan’s benchmark Nikkei 225 rallied 1.1% to 63,954.19."
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/10/28/shares-in-asia-rise-after-a-rally-on-wall-street-and-oil-prices-gain-more-than-1/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "In Hong Kong, the Hang Seng recovered 0.2% to 23,089.22 after erasing earlier losses,[…]"
+   }
+  ],
+  "fonte_singola": true,
+  "novita": null
+ },
+ {
+  "id": "M02",
+  "sezione": "mercati",
+  "testo": "Euro Stoxx 50: 6.164,69 il 27/10 (+0,79%), 6.116,23 il 26/10 (dpa-AFX)",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "dpa-AFX (ariva.de)",
+    "url": "https://www.ariva.de/news/aktien-europa-schluss-eurostoxx-prescht-ins-plus-vor-12183821",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "EuroStoxx 50 ging 0,79 Prozent höher bei 6.164,69 Punkten aus dem Handel"
+   },
+   {
+    "testata": "dpa-AFX (ariva.de)",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-gewinne-sinkende-oelpreise-12182274",
+    "data_pubblicazione": "2026-10-26",
+    "citazione": "Der EuroStoxx 50 stieg um 0,79 Prozent auf 6.116,23 Punkte."
+   }
+  ],
+  "fonte_singola": true,
+  "novita": null
+ },
+ {
+  "id": "M03",
+  "sezione": "mercati",
+  "testo": "FTSE MIB 27/10: 49.627 punti, +0,90% (ANSA); Stm +7,11%, Eni -2,58%",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/10/27/borsa-milano-chiude-a-090-in-evidenza-stm_8e4f71da-0087-4b0b-9511-806af924c9ad.html",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Borsa: Milano chiude a +0,90%, in evidenza Stm"
+   }
+  ],
+  "fonte_singola": true,
+  "novita": null
+ },
+ {
+  "id": "M04",
+  "sezione": "mercati",
+  "testo": "Spread BTP-Bund a 113,8 punti base il 27/10 (+2 pb circa); BTP 10 anni al 4,49%",
+  "data_evento": "2026-10-27",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/27/lo-spread-tra-btp-e-bund-chiude-1138-punti-base_607dd4ba-42ef-443d-b484-0581e0427a14.html",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "sale di un punto base al 4,49 per cento"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/27/lo-spread-tra-btp-e-bund-chiude-1138-punti-base_607dd4ba-42ef-443d-b484-0581e0427a14.html",
+    "data_pubblicazione": "2026-10-27",
+    "citazione": "Lo spread tra Btp e Bund chiude 113,8 punti base"
+   }
+  ],
+  "fonte_singola": true,
+  "novita": null
+ },
+ {
+  "id": "M05",
+  "sezione": "mercati",
+  "testo": "Kospi da inizio 2026: base 4.214,17 (chiusura del 30/12/2025)",
+  "data_evento": "2025-12-30",
+  "fonti": [
+   {
+    "testata": "Korea Times",
+    "url": "https://www.koreatimes.co.kr/amp/economy/policy/20251230/korean-stock-market-finishes-2025-on-high-note",
+    "data_pubblicazione": "2025-12-30",
+    "citazione": "closing at 4,214.17 points on Tuesday, the last trading day of 2025"
+   }
+  ],
+  "fonte_singola": true,
+  "novita": null
+ },
+ {
+  "id": "M06",
+  "sezione": "mercati",
+  "testo": "Stamattina alle 07:30: greggio USA a 101,46 dollari (+1,6%), Treasury 10 anni al 4,99%, S&P 500 a 1,2% dal record",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/10/28/shares-in-asia-rise-after-a-rally-on-wall-street-and-oil-prices-gain-more-than-1/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "U.S. benchmark crude gained 1.6%, to $101.46 per barrel."
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/10/28/shares-in-asia-rise-after-a-rally-on-wall-street-and-oil-prices-gain-more-than-1/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "The yield on the 10-year Treasury edged down to 4.99% from 5.00% late Monday."
+   }
+  ],
+  "fonte_singola": true,
+  "novita": null
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "SK Hynix terzo trimestre: utile operativo 83,33 trilioni di won (+632% annuo, atteso 76,96), ricavi 104,62 trilioni (+328%, attesi 98,23), margine operativo 79,7%, utile netto 39,78 trilioni contro 61,29 attesi",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Korea JoongAng Daily",
+    "url": "https://www.koreajoongangdaily.com/business/sk-hynixs-q3-operating-profit-surges-more-than-sevenfold-to-record-628b/12941760",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Revenue for the quarter rose 328 percent on-year to 104.62 trillion won"
+   },
+   {
+    "testata": "Ajou Press",
+    "url": "https://www.ajupress.com/view/20261028000619602",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "The results beat the FnGuide market consensus of 76.96 trillion won in operating profit"
+   },
+   {
+    "testata": "Ajou Press",
+    "url": "https://www.ajupress.com/view/20261028000619602",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "delivering a staggering operating margin of 79.7 percent"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Utile netto 39,78 e attesa 61,29 solo su JoongAng (non su Ajou): nel PDF attribuiti a JoongAng.",
+  "novita": null
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "Fed: dal rialzo di 25 punti base di settembre, il primo dal 2023, i tassi sono al 3,75-4,00%",
+  "data_evento": "2026-10-16",
+  "novita": "Ultimo livello prima della riunione di oggi",
+  "fonti": [
+   {
+    "testata": "Mitrade (Reuters)",
+    "url": "https://www.mitrade.com/insights/more/Central-Banks/fed-october-hold-december-hike-20261022J1428",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "A Reuters poll run October 16-20 found 94 of 100 economists expecting the Fed to hold at 3.75-4.00% on October 28"
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/10/28/shares-in-asia-rise-after-a-rally-on-wall-street-and-oil-prices-gain-more-than-1/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "The Fed last month hiked the fed funds rate for the first time in three years in hopes of slowing inflation"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Intervallo e rialzo di settembre confermati da due testate."
+ },
+ {
+  "id": "D03",
+  "sezione": "mercati",
+  "testo": "Samsung Electronics riporta i conti del terzo trimestre giovedì; Kioxia venerdì",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/10/28/shares-in-asia-rise-after-a-rally-on-wall-street-and-oil-prices-gain-more-than-1/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "It is set to report its third-quarter earnings Thursday."
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/10/28/shares-in-asia-rise-after-a-rally-on-wall-street-and-oil-prices-gain-more-than-1/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Semiconductor maker Kioxia Holdings climbed 9.6% ahead of its quarterly earnings report on Friday."
+   }
+  ],
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Il soggetto della prima frase è Samsung (frase precedente AP).",
+  "novita": null
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "testo": "",
+  "data_evento": "2026-10-28",
+  "fonti": [],
+  "flusso": [
+   "SK hynix e Kospi oltre 6.000 (Korea Times, 07:44 Roma)",
+   "Asiatiche in rialzo dopo Wall Street, petrolio +1% (AP, 07:30 Roma)",
+   "Elezioni in Israele senza vincitore (CNBC, 28/10)",
+   "Boeing -10% su produzione 737 (Euronews, 28/10)"
+  ],
+  "testate": [
+   {
+    "testata": "AP",
+    "storie": [
+     "Asia in rialzo dopo il rally di Wall Street e petrolio in crescita",
+     "Kospi +6,8% con SK Hynix",
+     "Boeing -10,7% per una perdita superiore alle attese",
+     "RBNZ lascia i tassi al 2,75%"
+    ]
+   },
+   {
+    "testata": "CNBC",
+    "storie": [
+     "SK Hynix shares soar as third-quarter profit beats",
+     "Israele: nessun vincitore chiaro alle elezioni",
+     "Titoli in movimento dopo la chiusura: Visa, Robinhood, NXP, Seagate"
+    ]
+   },
+   {
+    "testata": "Korea Times",
+    "storie": [
+     "SK hynix allenta i timori sul picco dell'AI e spinge il Kospi sopra 6.000",
+     "Seul apre in forte rialzo su SK hynix"
+    ]
+   },
+   {
+    "testata": "Euronews",
+    "storie": [
+     "Boeing in calo dopo previsioni prudenti",
+     "Conti di SK hynix e fiducia sull'AI"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Broadcom e il finanziamento da 63 miliardi di dollari per i chip venduti ad Anthropic",
+    "motivo": "annunciato lunedì 26 ottobre: era già nei prezzi di martedì e nell'edizione di ieri"
+   },
+   {
+    "storia": "Visa, Robinhood, NXP e Seagate dopo la chiusura di Wall Street",
+    "motivo": "troppo piccola e senza dati verificati prima dell'uscita"
+   }
+  ],
+  "concorda": true,
+  "motivo": "La nostra apertura è l'effetto dei conti SK Hynix su Seul, come AP, CNBC e Korea Times; Israele e Boeing sono in prima pagina."
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Fiducia dei consumatori USA a 91,7 contro 80,4 attesi, ma Treasury 10 anni invariato (-1 pb) e dollaro in rialzo moderato",
+  "ricerche": [
+   "US consumer confidence Conference Board index October 27 2026 falls rises economists expected",
+   "Conference Board Consumer Confidence Index October 2026 press release 91.7"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Il dato è arrivato in una seduta dominata dall'attesa della Fed e dai conti dei grandi titoli AI: il mercato ha guardato altro",
+    "fonte": null,
+    "prevede": "rendimenti fermi e rialzo concentrato sui tecnologici",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Il dato rimbalza dal minimo di settembre senza cambiare le attese sui tassi: per il mercato conta di più la decisione della Fed",
+    "fonte": null,
+    "prevede": "rendimenti lunghi fermi e dollaro stabile",
+    "prezzi": "in parte"
+   }
+  ],
+  "esito": "ipotesi"
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "FTSE MIB: variazione a 1 settimana e da inizio anno; ACWI da inizio anno",
+  "testo": "",
+  "data_evento": "2026-10-28",
+  "fonti": [],
+  "ricerche": [
+   "FTSE MIB da inizio anno 2026 performance chiusura 2025 punti Borsa Italiana ottobre",
+   "Borsa Milano chiude 26 ottobre 2026 Ftse Mib punti ANSA",
+   "Borsa Milano chiude 26 ottobre Ftse Mib Brasile Lula spread chiusura lunedì",
+   "Borsa Milano chiusura 27 ottobre 2026 Ftse Mib spread",
+   "FTSE MIB chiusura 30 dicembre 2025 fine anno 2025 punti performance annua (26/10)",
+   "Euro STOXX 50 da inizio anno 2026 Seit Jahresbeginn (26/10)"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "-",
+   "url": "-"
+  }
+ }
+]

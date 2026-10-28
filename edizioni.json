@@ -1990,5 +1990,206 @@
     "chiave": false
    }
   ]
+ },
+ {
+  "numero": 13,
+  "data": "2026-10-28",
+  "titolo": "Con SK Hynix Seul vola: i conti record dei chip allontanano il timore del picco",
+  "sommario": [
+   "Fed: alle 19:00 la decisione sui tassi, la prima riunione dopo il rialzo di settembre.",
+   "Boeing delude: la perdita supera le attese e il piano di produzione del 737 slitta.",
+   "Treasury: a poche ore dalla Fed il 2 anni dice che il mercato attende anche altri rialzi, non solo la pausa."
+  ],
+  "file": "pdf/2026-10-28-gommberg-013.pdf",
+  "nome": "2026-10-28 Gommberg Terminal Daily #013.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Boeing: perdita oltre le attese, il titolo cede quasi il 10%",
+   "HSBC pesa su Londra dopo una trimestrale sotto le attese",
+   "Israele: dal voto nessun blocco ha la maggioranza",
+   "Il greggio rimbalza dopo il calo di ieri",
+   "Nuova Zelanda: tassi fermi a sorpresa",
+   "USA: la fiducia dei consumatori sale oltre le attese"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "158,61 $",
+    "+0,7% g"
+   ],
+   [
+    "S&P 500",
+    "7.722,60",
+    "+0,6% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.164,69",
+    "+0,8% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "4,99%",
+    "-1 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "113,88 $",
+    "-1,7% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1122",
+    "-0,4% g"
+   ],
+   [
+    "VIX",
+    "17,52",
+    "-0,87 g"
+   ]
+  ],
+  "dek": "Il Kospi (indice di Seul) sale del 6,63% e chiude a 6.012,44 punti dopo i conti del terzo trimestre di SK Hynix: utile operativo record di 83,33 trilioni di won, sopra le attese degli analisti. Il titolo guadagna circa l'11% e Samsung Electronics circa il 9%; Tokyo chiude a +1,1%. Alle 19:00 la decisione della Fed sui tassi.",
+  "ticker_al": "2026-10-27",
+  "scommessa": {
+   "settimana": "2026-10-26/2026-10-30",
+   "su": 6,
+   "variabile": {
+    "nome": "Nikkei 225",
+    "motivo": "Tokyo vende i chip da tre sedute: la paura sull'AI è globale?"
+   },
+   "strada": 5,
+   "range": 6,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     true,
+     true
+    ],
+    [
+     "S&P 500",
+     "su",
+     true,
+     true
+    ],
+    [
+     "Euro Stoxx 50",
+     "su",
+     true,
+     true
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Brent future",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "EUR/USD",
+     "su",
+     false,
+     true
+    ],
+    [
+     "Nikkei 225",
+     "giù",
+     false,
+     true,
+     true
+    ]
+   ]
+  },
+  "temi": [
+   "Chip",
+   "Fed",
+   "Trimestrali",
+   "Geopolitica",
+   "Petrolio",
+   "Tassi"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Trimestrali",
+    "titolo": "Boeing: il titolo paga il calendario del 737, non la perdita",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Chip",
+    "titolo": "Con i conti di SK Hynix la memoria per l'AI smentisce chi temeva il picco",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Tassi USA",
+    "titolo": "A poche ore dalla Fed il 2 anni dice che il mercato attende anche altri rialzi, non solo la pausa",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [
+   "M26"
+  ],
+  "parole": [
+   "Sidecar",
+   "Consenso degli analisti",
+   "Limite alto dell'intervallo Fed"
+  ],
+  "ripetizioni": 6,
+  "glossario": [
+   "pb",
+   "BTP",
+   "VIX",
+   "ACWI",
+   "Brent",
+   "WTI"
+  ],
+  "agenda": [
+   {
+    "quando": "Mer 28, 19:00",
+    "evento": "Decisione della Fed sui tassi",
+    "attese": "Invariati al 3,75-4,00%",
+    "perche": "Evento n.1: prima riunione dopo il rialzo di settembre",
+    "chiave": true
+   },
+   {
+    "quando": "Mer 28, 20:30",
+    "evento": "Conferenza stampa del presidente Warsh",
+    "attese": "",
+    "perche": "Il tono sulle prossime riunioni",
+    "chiave": false
+   },
+   {
+    "quando": "Mer 28, dopo la chiusura USA",
+    "evento": "Conti di Microsoft",
+    "attese": "",
+    "perche": "Domanda e investimenti legati all'AI",
+    "chiave": false
+   },
+   {
+    "quando": "Mer 28, dopo la chiusura USA",
+    "evento": "Conti di Alphabet",
+    "attese": "",
+    "perche": "Domanda e investimenti legati all'AI",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 29, 13:30",
+    "evento": "PIL USA, terzo trimestre",
+    "attese": "",
+    "perche": "Tenuta dell'economia dopo il rialzo dei tassi",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 29, nel pomeriggio",
+    "evento": "Decisione della BCE sui tassi",
+    "attese": "",
+    "perche": "Dopo la Fed e prima della Banca del Giappone di venerdì",
+    "chiave": false
+   }
+  ]
  }
 ]
