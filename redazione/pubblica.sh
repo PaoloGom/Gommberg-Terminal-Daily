@@ -33,9 +33,9 @@ run git -C "$REPO" config user.email "PaoloGom@users.noreply.github.com"
 # Elenco fisso: mai redazione/collaudi (dati di prova)
 run git -C "$REPO" add pdf edizioni.json redazione/pronostici redazione/fatti redazione/scommessa || fail "git add"
 for f in e feed.xml ultima; do [ -e "$REPO/$f" ] && run git -C "$REPO" add "$f"; done
-# File del kit che la redazione può aggiornare (git add ignora quelli invariati)
-for f in redazione/glossario.json redazione/meccanismi.json redazione/APP_DATI.md redazione/gommberg_engine.py \
-         redazione/prepara.sh redazione/giorni.py; do
+# Dati del kit che la redazione può arricchire (git add ignora quelli invariati). Regole, script e motore no:
+# cambiano solo con la manutenzione e il banco di prova (CLAUDE.md); un inceppo si annota in fatti.json.
+for f in redazione/glossario.json redazione/meccanismi.json; do
   [ -e "$REPO/$f" ] && run git -C "$REPO" add "$f"
 done
 if [ "$PROVA" != "1" ] && git -C "$REPO" diff --cached --quiet; then

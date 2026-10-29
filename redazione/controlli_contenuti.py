@@ -123,14 +123,8 @@ OSSERVABILE = re.compile(r"\d+(?:[.,]\d+)?\s?(?:%|pb|\$|€|mld|mila|punti)|\d{1
                          r"\b\d{1,2}[:/]\d{2}\b|\b\d{1,2} (?:" + MESI + r")\b|\b(?:" + GIORNI + r")\b|→ ?pag", re.I)
 QUI = os.path.dirname(os.path.abspath(__file__))
 
-def _fonte_tra_parentesi():
-    """Regex dell'attribuzione in coda: "(Reuters)", "(Yahoo Finance, FIRSTonline)", "(dati BLS)"."""
-    nomi = json.load(open(os.path.join(QUI, "fonti.json"), encoding="utf-8")).get("nomi", [])
-    alt = "|".join(sorted((re.escape(n) for n in nomi), key=len, reverse=True))
-    return re.compile(r"\([^()]{0,30}\b(?:" + alt + r")\b[^()]{0,40}\)")
-
-
-FONTE_PAR = _fonte_tra_parentesi()
+sys.path.insert(0, QUI)
+from citazioni import FONTE_PAR  # la regola delle fonti nel testo vive in citazioni.py
 CAUSA_T = re.compile(r"\bsecondo\b|di solito|in genere|lettura della redazione|causa non chiarita|\bM\d{2}\b", re.I)
 
 

@@ -16,4 +16,4 @@ Se la data è in `FESTIVI` di `gommberg_engine.py` (borse USA ed europee chiuse 
 `prepara.sh` contiene le chiusure parziali note fino a settembre 2027 (Thanksgiving, MLK, Presidents' Day, Lunedì dell'Angelo, Memorial Day, Juneteenth, Independence Day, Labor Day, vigilie). Le borse asiatiche hanno festività proprie (Golden Week in Giappone e Cina, Capodanno lunare): in quei giorni la riga Asia del cruscotto indica "chiuso".
 
 ## 4. Ogni dicembre
-Aggiungi a `FESTIVI` in `gommberg_engine.py` le date dell'anno dopo in cui USA ed Europa sono chiuse insieme (Natale, Capodanno, Venerdì Santo; Santo Stefano solo se anche NYSE è chiusa), aggiorna le chiusure parziali in `prepara.sh` e segnalalo nel messaggio finale. Il numero di edizione si ricalcola da solo (`giorni.py` legge `FESTIVI` dal motore).
+Le date dell'anno dopo (`FESTIVI` in `gommberg_engine.py`, chiusure parziali in `prepara.sh`) le aggiunge la manutenzione (coda in `PROGETTO.md`). Se a dicembre mancano, la redazione lo annota come inceppo; il numero di edizione si ricalcola da solo (`giorni.py`).

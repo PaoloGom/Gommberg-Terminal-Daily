@@ -25,7 +25,7 @@ Da leggere se una chiamata dati fallisce o serve un dato nuovo. Ogni dato va in 
 
 ## 4. Basi da inizio anno 2026 (ultima chiusura del 2025, verificate su FMP il 15/10/2026)
 S&P 500 6.845,49 (31/12) | Nasdaq 23.241,99 (31/12) | Dow 48.063,28 (31/12) | Russell 2000 2.481,91 (31/12) | Euro Stoxx 50 5.796,22 (30/12) | FTSE 100 9.931,38 (31/12) | Nikkei 50.339,48 (30/12) | Hang Seng 25.630,55 (31/12). FTSE MIB e Kospi: da fonte web, una volta, poi annotala qui.
-Meglio ancora: calcolale in codice dalla serie (from/to sull'ultima settimana di dicembre). Dal primo giorno di borsa di gennaio si usano le basi dell'anno appena chiuso: mai quelle dell'anno prima. Ogni gennaio aggiorna questa tabella.
+Meglio ancora: calcolale in codice dalla serie (from/to sull'ultima settimana di dicembre). Dal primo giorno di borsa di gennaio si usano le basi dell'anno appena chiuso: mai quelle dell'anno prima (la tabella la aggiorna la manutenzione; se manca, calcolale dalla serie e annota l'inceppo).
 
 ## 5. Orari di chiusura (ora di Roma) e intraday
 Prima dell'ora di chiusura il dato di oggi è intraday. `controlli_dati.py` converte con `zoneinfo` la chiusura locale (più un margine per l'asta) in ora di Roma per la data del giorno: in ottobre circa USA 22:15, Europa e Londra 17:45, Tokyo 08:45, Seul 08:45, Shanghai 09:15, Hong Kong 10:15 (i fusi cambiano in date diverse). Le chiusure europee di oggi la mattina non esistono: ticker e cruscotto usano la seduta precedente.

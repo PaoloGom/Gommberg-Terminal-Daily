@@ -64,7 +64,7 @@ problemi, avvisi = [], []
 ids = [f.get("id") for f in fatti]
 if len(ids) != len(set(ids)):
     problemi.append("id duplicati nelle schede")
-fatti = [f for f in fatti if not f.get("scartata") and f.get("sezione") not in ("anomalia", "prime_pagine", "ricerca")]  # registri: controlli_contenuti.py
+fatti = [f for f in fatti if not f.get("scartata") and f.get("sezione") not in ("anomalia", "prime_pagine", "ricerca", "inceppo")]  # registri: controlli_contenuti.py
 ALIAS = {"notizie": "top_news", "calendario": "catalizzatori", "termometri": "macro", "lettura": "macro",
          "approfondimento": "deep_dive", "approfondimenti": "deep_dive"}
 for f in fatti:
@@ -90,14 +90,14 @@ for f in fatti:
             cercato = f.get("ufficiale_cercato") or []
             if len(cercato) >= 2:
                 avvisi.append(f"{i}: dato ufficiale senza il comunicato (cercato: {'; '.join(cercato[:2])}): "
-                              "nel PDF attribuito \"(Testata)\"")
+                              "nel PDF attribuito alla testata (§5: parentesi solo se è la notizia del paragrafo)")
             else:
                 problemi.append(f"CERCA {i}: dato ufficiale senza fonte ufficiale (non si toglie): cerca il comunicato (es. \"BLS CPI September "
                                 "2026 news release\", \"Eurostat flash estimate euro area inflation\") e aggiungilo alle fonti; "
                                 "l'agenzia resta solo d'appoggio. Se dopo 2 ricerche vere non esce: \"ufficiale_cercato\"")
     singola = f.get("fonte_singola") and sez in PUBBLICI and 0 not in livelli
     if singola and 1 not in livelli:
-        avvisi.append(f"{i}: fonte singola dichiarata ({next(iter(testate))}): nel PDF \"(Testata)\" in coda al dato")
+        avvisi.append(f"{i}: fonte singola dichiarata ({next(iter(testate))}): in 'Fonti'; tra parentesi solo se è la notizia o la causa del paragrafo (§5, citazioni.py)")
     # fonti non in elenco (livello 3) valgono come livello 2: servono due fonti indipendenti che dicono lo stesso
     elif not (1 in livelli or sum(1 for x in livelli if x in (2, 3)) >= 2 and len(testate) >= 2):
         if sez == "catalizzatori":
@@ -131,7 +131,7 @@ for f in fatti:
         if v == "errato":
             problemi.append(f"{i}: segnato ERRATO dal revisore: {f.get('nota_revisore', '')}")
         if v == "non_conclusivo" and sez in PUBBLICI:
-            avvisi.append(f"{i}: dato pubblico non confermato dal revisore: resta con la fonte dichiarata (\"(Testata)\")")
+            avvisi.append(f"{i}: dato pubblico non confermato dal revisore: resta con la fonte dichiarata in 'Fonti' (§5)")
         elif v == "non_conclusivo":
             problemi.append(f"{i}: verifica non conclusiva: togliere il fatto dal PDF o attribuirlo e ripetere la verifica")
 

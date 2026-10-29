@@ -1,4 +1,4 @@
-# Gommberg Terminal Daily - Istruzioni di redazione v7.3 (nucleo)
+# Gommberg Terminal Daily - Istruzioni di redazione v7.6 (nucleo)
 
 Rassegna mattutina dei mercati, PDF di 6 pagine A4 stile Bloomberg/FT che Paolo condivide: zero errori. Giornale di FINANZA. Appendici (`APP_*.md`) solo quando `prepara.sh`, un controllo o questo file lo dicono.
 
@@ -30,7 +30,7 @@ Script in `redazione/scommessa/`; pag. 6 la fa il motore da `stato.json`. Sei me
 ## 5. Stile e interpretazione
 - Solo trattino corto "-". Variazioni con segno (il motore le colora). Numeri all'italiana. "&amp;" nei Paragraph. Orari di Roma.
 - **Righe "→": max 5**, max 20 parole: **M** meccanismo ("di solito", `meccanismi.json`), **C** causa con scheda `"tipo": "C"` e fonte in coda, **S** stima etichettata. Mai "pesa", "trascina", "spinto da" su un movimento senza scheda C.
-- **Come si cita: la voce è nostra, la fonte firma, ma poco.** Dati, eventi, notizie confermate da 2+ testate: nessuna fonte nella frase (sta nella riga "Fonti"). In coda "(Reuters)" solo per la causa di un movimento, una notizia o un dato da fonte singola: UNA testata, una parentesi per paragrafo. "Secondo X" solo se il nome è parte della notizia (stime, opinioni, citazioni), mai in apertura. La lettura della redazione non ha fonte né etichette.
+- **Come si cita: la voce è nostra.** Dati, eventi, comunicati e notizie confermate: nessuna fonte nella frase (sta nella riga "Fonti"). "(Reuters)" in coda solo per la causa di un movimento o una notizia da fonte singola: una testata per parentesi, una per paragrafo, massimo 4 per pagina, mai fornitori di dati (`citazioni.py`). "Secondo X" solo se il nome è parte della notizia (stime, opinioni, citazioni), mai in apertura. La lettura della redazione non ha fonte né etichette.
 - **Perché e E quindi:** perché = causa con fonte o meccanismo, mai la parafrasi del dato; E quindi = una cosa osservabile (livello, data, orario, evento). Sì: "oggi alle 15:30 la riapertura del Nasdaq dirà se le vendite si fermano".
 - **Coerenza con i prezzi:** ogni spiegazione, anche di una grande testata, torna con gli altri prezzi (per i tassi, con la forma della curva).
 - **Contesto, non percentuali nude** (`contesto.py`; tassi reali `APP_DATI.md` §3): un movimento notevole con la sua misura storica ("il calo più forte dal 2 aprile", "capita una seduta su 20"), chi muove la curva, rendimento reale o inflazione attesa; un dato macro con lo scarto dalle attese e la reazione del 2 anni. Mai z-score o sigma; le frasi dello script si riscrivono.
@@ -74,6 +74,7 @@ Un revisore `model: "sonnet"` che non ha scritto il numero (senza Agent: tu) ric
 ## 11. Autocorrezione e cancello
 Paolo non riceve bozze né domande. Si pubblica solo ciò che passa i controlli: ogni ERRORE si corregge o si risolve togliendo il non verificato, fino a 3 giri (`APP_ERRORI.md`).
 - Notizie 6-8 (meno solo se le verificate sono meno); al posto di una scartata la prima riserva verificata. La top story è sempre un fatto confermato.
+- **Inceppi:** un controllo, script o regola che sbaglia non blocca il numero e non si corregge nel repository: si aggira solo nella copia di lavoro e si annota sempre in `fatti.json` (`{"id": "K1", "sezione": "inceppo", "dove": "controlli_testo.py", "cosa": "...", "aggirato": "..."}`). Lo risolve la manutenzione.
 - Correzioni: schede di ieri (`redazione/fatti/`) contro le notizie; mai errata corrige; errore piccolo: nessuna menzione; sostanziale: il fatto giusto in una frase, senza rimandi a ieri (`APP_ERRORI.md` §6).
 
 ## 12. Note pratiche

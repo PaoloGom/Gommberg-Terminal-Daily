@@ -145,7 +145,7 @@ def page(c, doc):
     c.setStrokeColor(RULE); c.setLineWidth(0.5); c.line(M, 11 * mm, PW - M, 11 * mm)
     c.setFont("Cond", 6.8); c.setFillColor(GREY)
     c.drawString(M, 7 * mm, "Solo a scopo informativo, non è consulenza finanziaria. "
-                            "Le probabilità sono stime redazionali soggettive.")
+                            "Le probabilità sono stime soggettive.")
     c.drawRightString(PW - M, 7 * mm, f"#{META['edizione']:03d}  |  {META['data_iso']}  |  pag. {doc.page}")
     c.restoreState()
 

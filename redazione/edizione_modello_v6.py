@@ -146,7 +146,7 @@ C = {
         ("Tassi", [["Treasury 2 anni", "4,82%", "+3 pb", "+2 pb", "+17 pb", "Sale con le attese sulla Fed [[treasury]]"],
                    ["Treasury 10 anni", "5,19%", "-2 pb", "-5 pb", "+22 pb", "-"],
                    ["Treasury 30 anni", "5,52%", "-4 pb", "-8 pb", "+18 pb", "-"],
-                   ["Spread BTP-Bund", "110 pb", "+2 pb", "n.d.", "n.d.", "BTP 10 anni al 4,57% (Teleborsa)"]]),
+                   ["Spread BTP-Bund", "110 pb", "+2 pb", "n.d.", "n.d.", "BTP 10 anni al 4,57%"]]),
         ("Cambi", [["EUR/USD", "1,1156", "-0,4%", "-0,4%", "-3,4%", "-"]]),
         ("Materie prime", [["Brent future", "106,06 $", "+0,4%", "+1,3%", "+0,4%", "-"],
                            ["Oro (spot, $/oncia)", "4.162,84", "0,0%", "+0,4%", "-4,2%", "-"]]),
@@ -178,10 +178,10 @@ C = {
          "Tenuta dell'industria europea"),
         ("<b>Gio 15, 14:30</b>", "<b>Vendite al dettaglio USA (settembre)</b>", "<b>+0,3% m/m; prec. +1,2%</b>",
          "<b>Evento n.1:</b> primi consumi dopo il CPI"),
-        ("Gio 15, 14:30", "Prezzi alla produzione USA (PPI, settembre)", "+0,6% m/m (Teleborsa); prec. +0,4%",
+        ("Gio 15, 14:30", "Prezzi alla produzione USA (PPI, settembre)", "+0,6% m/m; prec. +0,4%",
          "Se l'energia passa a monte della filiera"),
         ("Gio 15, 14:30", "Sussidi di disoccupazione settimanali", "199 mila; prec. 197 mila", "Tenuta del lavoro"),
-        ("Gio 15, 14:30", "Indice Philadelphia Fed (ottobre)", "27,8 (Teleborsa) o 26,5 (Admiral); prec. 37,8",
+        ("Gio 15, 14:30", "Indice Philadelphia Fed (ottobre)", "26,5-27,8; prec. 37,8",
          "Industria manifatturiera USA"),
         ("Gio 15", "Assemblee FMI-Banca Mondiale, G7 e G20 (Bangkok, fino al 17)", "-",
          "Messaggi su debito, inflazione, energia"),
@@ -198,7 +198,7 @@ C = {
                   ["Rialzo a ottobre (25 pb)", "40%", "2 anni in salita, curva piatta", "Pressione su tecnologici e "
                    "small cap", "Dollaro più forte, sotto 1,11"]],
         "larghezze": [38, 14, 50, 46, 34],
-        "nota": "* Stime redazionali soggettive, più prudenti del mercato: i future danno il rialzo di ottobre al 47% (Axios). Oggi "
+        "nota": "* Stime soggettive, più prudenti del mercato: i future danno il rialzo di ottobre al 47% (Axios). Oggi "
                 "vendite al dettaglio e PPI possono spostarle.",
     },
     "moduli": [   # 5 unità: il primo "mezzo" va a pag. 3; pag. 4 e 5: 2 "mezzo" o 1 "doppio" ciascuna. "breve" = voce dell'indice di pag. 1

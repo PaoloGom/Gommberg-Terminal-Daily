@@ -257,7 +257,7 @@ def pagina(ed, prec, succ):
     a("</main>")
     a(VOTO_JS.replace("NNN", n))
     a('<footer><div class="wrap">Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza '
-      "finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie "
+      "finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime soggettive. Dati e notizie "
       "da fonti pubbliche alla data di ciascuna edizione.</div></footer>")
     a("</body>\n</html>\n")
     return "\n".join(p)
