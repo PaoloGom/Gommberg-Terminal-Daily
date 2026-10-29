@@ -1,0 +1,1177 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "La Fed lascia i tassi al 3,75-4,00% con 10 voti contro 2: Lisa Cook e Beth Hammack avrebbero alzato di un quarto di punto",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent"
+   },
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack, who preferred to raise"
+   },
+   {
+    "testata": "Kiplinger",
+    "url": "https://www.kiplinger.com/investing/live/fed-meeting-updates-and-commentary-october-2026",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Fed Governor Lisa Cook and Cleveland Fed President Beth Hammack dissented in favor of a quarter-percentage-point rate hike."
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-october-28-dow-sp-500-nasdaq-fed-meeting-decision-big-tech-earnings-130508769.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "The Federal Reserve voted 10-2 on Wednesday to hold interest rates steady in the 3.75% to 4% range"
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/warsh-press-conference-october-2026",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Futures priced about an 85% chance of a December hike, although Warsh gave markets very little signal."
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "T02",
+  "sezione": "top_story",
+  "testo": "Probabilità di un rialzo a dicembre: circa 78% (Reuters), circa 85% (Yahoo Finance)",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "The probability of a December hike remains around 78%"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-october-28-dow-sp-500-nasdaq-fed-meeting-decision-big-tech-earnings-130508769.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Traders see about an 85% chance that the Fed raises its benchmark rate by a quarter point at its next meeting on Dec. 9"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Due stime diverse (78% Reuters, 85% Yahoo/Bloomberg e Admiral): il PDF le riporta entrambe, attribuite."
+ },
+ {
+  "id": "C01",
+  "sezione": "top_story",
+  "testo": "Il 2 anni scende perché i mercati hanno letto la conferenza di Warsh come morbida (Reuters)",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "As for Warsh, markets took his press conference as dovish overall."
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "All of which saw 2-year yields drop about 6 basis points late in NY, while the long end has joined the rally in Asian time."
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/fomc-october-2026-fed-holds-rates",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Short-term yields fell during the press conference, while long-term yields rose."
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Nesso 'dovish' solo su Reuters (Morning Bid); la direzione (2 anni giù, 10 anni su) è confermata anche da Admiral Markets e dai dati del Tesoro (2 anni -3 pb, 10 anni +6 pb)."
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Alphabet perde il 10% dopo i conti: ricavi in linea, utile sotto le stime in parte per perdite sulla carta, flusso di cassa negativo di 9 miliardi con investimenti in forte crescita",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Alphabet is the villain of the piece as its shares shed 10% after hours, or a cool $396 billion in market value."
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Revenues came in line but net income missed as did EPS, though that was in part due to paper losses on stock holdings"
+   },
+   {
+    "testata": "AP (Euronews)",
+    "url": "https://www.euronews.com/2026/10/29/shares-and-us-futures-mixed-after-google-parent-alphabets-earnings-disappoint",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Shares of Google parent company Alphabet Inc. fell about 10% in after-hours trading."
+   },
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/10/28/alphabet-googl-earnings-q3-2026.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Alphabet sinks 10% as it holds 2026 capex unchanged, expects significant increase in 2027"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "C02",
+  "sezione": "top_news",
+  "testo": "A spaventare gli investitori è il flusso di cassa negativo di 9 miliardi di dollari con investimenti in forte crescita (Reuters)",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Investors seemed particularly spooked by a negative cash flow of $9 billion as capex surges,"
+   },
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/10/28/alphabet-googl-earnings-q3-2026.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Alphabet sinks 10% as it holds 2026 capex unchanged, expects significant increase in 2027"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Microsoft: utile per azione 4,89 dollari contro 4,73 attesi, ricavi 92,28 miliardi contro 90,63, cloud 63,9 miliardi contro 61,62; flusso di cassa libero quasi 19 miliardi; titolo in rialzo dopo la chiusura",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-october-28-dow-sp-500-nasdaq-fed-meeting-decision-big-tech-earnings-130508769.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "For the quarter, Microsoft saw earnings per share (EPS) of $4.89 on revenue of $92.28 billion."
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-october-28-dow-sp-500-nasdaq-fed-meeting-decision-big-tech-earnings-130508769.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Cloud revenue accelerated during the quarter, coming in at $63.9 billion versus Wall Street estimates of $61.62 billion."
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Microsoft, on the other hand, generated almost $19 billion in free cash flow, helping lift its shares 2.9% after hours"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Il Kospi cede l'1,24% a 5.937,66 punti e Samsung Electronics il 4,13% dopo i conti; l'utile operativo di 107,4 trilioni di won era già noto dall'8 ottobre",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "Yonhap (K-Vibe)",
+    "url": "https://korean-vibe.com/article/179566043716776",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "The benchmark Korea Composite Stock Price Index (KOSPI) lost 74.78 points to close at 5,937.66"
+   },
+   {
+    "testata": "Yonhap (K-Vibe)",
+    "url": "https://korean-vibe.com/article/179566043716776",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Top market cap Samsung Electronics shed 4.13 percent to 232,000 won, after opening higher"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/29/seduta-mista-per-le-borse-asiatiche-con-focus-sull-ai-bene-tokyo-scende-seul-15.html",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Senza direzione Hong Kong (+0,05%); in rosso Seul (-1,24%)."
+   },
+   {
+    "testata": "eDaily",
+    "url": "https://en.edaily.co.kr/news/eda202610295475/",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "SamsungElectronics disclosed its third-quarter revenue and operating profit through preliminary earnings on the 8th,"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "C03",
+  "sezione": "top_news",
+  "testo": "A deludere è il piano per gli azionisti di Samsung: utile e dividendo erano già nei prezzi (Yonhap)",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "Yonhap (K-Vibe)",
+    "url": "https://korean-vibe.com/article/179566043716776",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "(LEAD) Seoul shares down 1.24 pct as Samsung disappoints on shareholder returns"
+   },
+   {
+    "testata": "eDaily",
+    "url": "https://en.edaily.co.kr/news/eda202610295475/",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "related expectations were already reflected in the stock price"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Oracle sale di circa l'11% con l'obiettivo di 225 miliardi di ricavi per l'esercizio 2030 e un tetto di 20 miliardi ai nuovi finanziamenti",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/10/28/oracle-forecast-growth-2030.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Oracle stock pops 11% as long-term revenue forecast and clarity on financing ease debt concerns"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/stocks/icymi-oracle-jumps-around-11-on-225bn-2030-revenue-goal-and-20bn-cap-on-new-funding/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "ICYMI: Oracle jumps around 11% on $225bn 2030 revenue goal and $20bn cap on new funding"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-october-28-dow-sp-500-nasdaq-fed-meeting-decision-big-tech-earnings-130508769.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "144.54 +14.01 (+10.73%)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "C04",
+  "sezione": "top_news",
+  "testo": "Il titolo Oracle sale perché il tetto ai nuovi finanziamenti ha attenuato i timori sul debito (CNBC)",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/10/28/oracle-forecast-growth-2030.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Oracle stock pops 11% as long-term revenue forecast and clarity on financing ease debt concerns"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/stocks/icymi-oracle-jumps-around-11-on-225bn-2030-revenue-goal-and-20bn-cap-on-new-funding/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "ICYMI: Oracle jumps around 11% on $225bn 2030 revenue goal and $20bn cap on new funding"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Iran: Trump conferma colloqui tramite intermediari ma ne dice incerto l'esito; Brent -1,2% a 110,32 dollari e greggio USA -1,3% a 101,46",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "AP (Euronews)",
+    "url": "https://www.euronews.com/2026/10/29/shares-and-us-futures-mixed-after-google-parent-alphabets-earnings-disappoint",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "In other dealings early Thursday, Brent crude oil, the international standard, fell 1.2% to $110.32 per barrel."
+   },
+   {
+    "testata": "AP (Euronews)",
+    "url": "https://www.euronews.com/2026/10/29/shares-and-us-futures-mixed-after-google-parent-alphabets-earnings-disappoint",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Benchmark US crude fell 1.3% to $101.46 per barrel."
+   },
+   {
+    "testata": "UNN (Bloomberg)",
+    "url": "https://unn.ua/en/news/oil-prices-decline-wti-falls-to-dollar10191-per-barrel-brent-trades-at-dollar11532",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "U.S. President Donald Trump confirmed that the talks are taking place through intermediaries"
+   },
+   {
+    "testata": "UNN (Bloomberg)",
+    "url": "https://unn.ua/en/news/oil-prices-decline-wti-falls-to-dollar10191-per-barrel-brent-trades-at-dollar11532",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "We will find out whether the talks can be successful"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "C05",
+  "sezione": "top_news",
+  "testo": "I contatti diplomatici tra USA e Iran frenano il petrolio (UNN)",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "UNN (Bloomberg)",
+    "url": "https://unn.ua/en/news/oil-prices-decline-wti-falls-to-dollar10191-per-barrel-brent-trades-at-dollar11532",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Traders are assessing the prospects for an agreement that could prevent new U.S. strikes on Tehran."
+   },
+   {
+    "testata": "The National",
+    "url": "https://www.thenationalnews.com/business/energy/2026/10/29/oil-prices-decline-after-diplomatic-push-in-iran-war/",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Oil prices decline after diplomatic push in Iran war"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Stellantis: ricavi netti 37,6 miliardi (+1%), perdita netta 0,5 miliardi (-90%), guidance 2026 confermata, flusso di cassa industriale positivo nel 2027; il titolo guadagna il 15,69% e chiude a 4,29 euro",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/28/stellantis-perdita-netta-in-calo-del-90percent-nel-terzo-trimestre-confermata-la-guidance-2026-21.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Stellantis conferma la guidance per il 2026, così come un flusso di cassa industriale positivo nel 2027."
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/28/stellantis-perdita-netta-in-calo-del-90percent-nel-terzo-trimestre-confermata-la-guidance-2026-21.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "La perdita netta nel terzo trimestre del 2026 è stata pari a 0,5 miliardi di euro"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://it.investing.com/news/stock-market-news/stellantis-conferma-guidance-2026-in-trim3-ricavi-1-ridotta-a-05-mld-perdita-3610061",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Stellantis conferma guidance 2026, in trim3 ricavi +1%, ridotta a 0,5 mld perdita"
+   },
+   {
+    "testata": "money.it",
+    "url": "https://www.money.it/piazza-affari-chiude-a-040-stellantis-balza-28-10-2026",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "che guadagna il 15,69% e chiude a 4,29 euro"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "C06",
+  "sezione": "top_news",
+  "testo": "Il titolo Stellantis balza dopo i conti del terzo trimestre (Teleborsa)",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/28/stellantis-perdita-netta-in-calo-del-90percent-nel-terzo-trimestre-confermata-la-guidance-2026-21.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Brilla Stellantis dopo i conti"
+   },
+   {
+    "testata": "money.it",
+    "url": "https://www.money.it/piazza-affari-chiude-a-040-stellantis-balza-28-10-2026",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "che guadagna il 15,69% e chiude a 4,29 euro"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "Asia alle 08:06 del 29/10: Nikkei 225 +1,05%, Hang Seng +0,05%, Kospi -1,24% (Teleborsa)",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/29/seduta-mista-per-le-borse-asiatiche-con-focus-sull-ai-bene-tokyo-scende-seul-15.html",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Giornata di guadagni per la Borsa di Tokyo, con il Nikkei 225 che mostra una plusvalenza dell'1,05%"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/29/seduta-mista-per-le-borse-asiatiche-con-focus-sull-ai-bene-tokyo-scende-seul-15.html",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Senza direzione Hong Kong (+0,05%); in rosso Seul (-1,24%)."
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "M02",
+  "sezione": "mercati",
+  "testo": "Kospi chiude il 29/10 a 5.937,66 (-1,24%) (Yonhap)",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "Yonhap (K-Vibe)",
+    "url": "https://korean-vibe.com/article/179566043716776",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "The benchmark Korea Composite Stock Price Index (KOSPI) lost 74.78 points to close at 5,937.66"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Chiusura Yonhap (K-Vibe) 5.937,66; coerente con la variazione -1,24% di Teleborsa alle 08:06."
+ },
+ {
+  "id": "M03",
+  "sezione": "mercati",
+  "testo": "Kospi 23/10: chiusura 5.550,30, base della variazione a una settimana",
+  "data_evento": "2026-10-23",
+  "fonti": [
+   {
+    "testata": "Asia Business Daily",
+    "url": "https://view.asiae.co.kr/en/article/2026102316141192290",
+    "data_pubblicazione": "2026-10-23",
+    "citazione": "KOSPI Reclaims 5,500; SK hynix Rises on 'Solidigm IPO Withdrawal'"
+   }
+  ],
+  "novita": "Base di calcolo già verificata nell'edizione del 23/10",
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Base già verificata nell'edizione del 23/10 (scheda M01 del 23/10)."
+ },
+ {
+  "id": "M04",
+  "sezione": "mercati",
+  "testo": "Kospi da inizio 2026: base 4.214,17 (chiusura del 30/12/2025)",
+  "data_evento": "2025-12-30",
+  "fonti": [
+   {
+    "testata": "Korea Times",
+    "url": "https://www.koreatimes.co.kr/amp/economy/policy/20251230/korean-stock-market-finishes-2025-on-high-note",
+    "data_pubblicazione": "2025-12-30",
+    "citazione": "closing at 4,214.17 points on Tuesday, the last trading day of 2025"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Base già verificata nell'edizione del 28/10 (scheda M05)."
+ },
+ {
+  "id": "M05",
+  "sezione": "mercati",
+  "testo": "Euro Stoxx 50 chiude a 6.167,81 il 28/10; FTSE 100 a 10.694,50 (dpa-AFX)",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "dpa-AFX (ariva.de)",
+    "url": "https://www.ariva.de/news/aktien-europa-schluss-wenig-bewegt-vor-fed-entscheid-12185564",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Der Leitindex der Eurozone ging aber 0,05 Prozent höher bei 6.167,81 Punkten aus dem Handel."
+   },
+   {
+    "testata": "dpa-AFX (ariva.de)",
+    "url": "https://www.ariva.de/news/aktien-europa-schluss-wenig-bewegt-vor-fed-entscheid-12185564",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Der britische FTSE 100 schloss 0,07 Prozent höher bei 10.694,50 Punkten."
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "M06",
+  "sezione": "mercati",
+  "testo": "FTSE MIB chiude il 28/10 a 49.824 punti (+0,40%) (ANSA)",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/28/borsa-milano-chiude-in-rialzo-040_be4d6c63-3b6c-43e4-936b-adce607e1935.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "L'indice Ftse Mib ha guadagnato lo 0,40% a 49.824 punti."
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "M07",
+  "sezione": "mercati",
+  "testo": "Spread BTP-Bund a 114,8 punti base il 28/10 (+1 pb); BTP 10 anni al 4,51% (ANSA)",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/28/lo-spread-btp-bund-chiude-in-rialzo-a-1148-punti_fb0691fd-efe8-40fb-a7f4-0e8f5a4eaf86.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Lo spread fra Btp e Bund ha chiuso la seduta in rialzo a 114,8 punti base da 113,8 della chiusura di martedì."
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/28/lo-spread-btp-bund-chiude-in-rialzo-a-1148-punti_fb0691fd-efe8-40fb-a7f4-0e8f5a4eaf86.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Il rendimento del decennale italiano è salito al 4,51 per cento."
+   }
+  ],
+  "novita": null,
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Disoccupazione in Italia (settembre), giovedì 29 ottobre alle 10:00 ora di Roma; atteso 6,2%, precedente 6,2%",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/29/appuntamenti-macroeconomici-del-29-ottobre-2026-21.html",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "10:00 Italia: Tasso disoccupazione (atteso 6,2%; preced. 6,2%)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Fiducia dei consumatori UE (ottobre), giovedì 29 ottobre alle 11:00 ora di Roma; atteso -17,9, precedente -16,5",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/29/appuntamenti-macroeconomici-del-29-ottobre-2026-21.html",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "11:00 Unione Europea: Fiducia consumatori (atteso -17,9 punti; preced. -16,5 punti)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "testo": "PIL USA, prima stima del terzo trimestre, giovedì 29 ottobre alle 13:30 ora di Roma; atteso 3,2%, precedente 2,2%",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "BEA",
+    "url": "https://www.bea.gov/node/43002",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "GDP (Advance Estimate), 3rd Quarter 2026"
+   },
+   {
+    "testata": "BEA",
+    "url": "https://www.bea.gov/node/43002",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "October 29 08:30:am"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/29/appuntamenti-macroeconomici-del-29-ottobre-2026-21.html",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "13:30 USA: PIL, trimestrale (atteso 3,2%; preced. 2,2%)"
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Orario dal BEA (scheda A05 del 28/10, verificata) e da Teleborsa riletta il 29/10."
+ },
+ {
+  "id": "A04",
+  "sezione": "agenda",
+  "testo": "Prezzi PCE USA (settembre), giovedì 29 ottobre alle 13:30 ora di Roma",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/economia-politica/agenda-economica-del-29-ottobre-2026",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Deflatore dei consumi a settembre 2026 (ore 13.30)."
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "US Q3 GDP, September personal spending and PCE inflation"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "A05",
+  "sezione": "agenda",
+  "testo": "Sussidi di disoccupazione settimanali USA, giovedì 29 ottobre alle 13:30 ora di Roma; atteso 199 mila, precedente 194 mila",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/29/appuntamenti-macroeconomici-del-29-ottobre-2026-21.html",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "13:30 USA: Richieste sussidi disoccupazione, settimanale (atteso 199K unità; preced. 194K unità)"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "A06",
+  "sezione": "agenda",
+  "testo": "Decisione della BCE sui tassi, giovedì 29 ottobre alle 14:15 ora di Roma; depositi attesi invariati al 2,50%",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "BCE",
+    "url": "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Governing Council of the ECB: monetary policy meeting in Frankfurt (Day 2), followed by press conference"
+   },
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/economia-politica/agenda-economica-del-29-ottobre-2026",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Comunicazione delle decisioni di politica monetaria (ore 14.15)."
+   },
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/economia-politica/agenda-economica-del-29-ottobre-2026",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "il tasso sui depositi dovrebbe essere confermato al 2,5%."
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Orario 14:15 da SoldiOnline riletto il 29/10; calendario BCE verificato il 28/10."
+ },
+ {
+  "id": "A07",
+  "sezione": "agenda",
+  "testo": "Conferenza stampa di Christine Lagarde, giovedì 29 ottobre alle 14:45 ora di Roma",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "BCE",
+    "url": "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Governing Council of the ECB: monetary policy meeting in Frankfurt (Day 2), followed by press conference"
+   },
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/economia-politica/agenda-economica-del-29-ottobre-2026",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Conferenza stampa di Christine Lagarde a commento delle decisioni di politica monetaria (ore 14.45)."
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Orario 14:45 da SoldiOnline riletto il 29/10; calendario BCE verificato il 28/10."
+ },
+ {
+  "id": "A08",
+  "sezione": "agenda",
+  "testo": "Conti di Caterpillar, giovedì 29 ottobre prima dell'apertura di Wall Street",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/economia-politica/agenda-economica-del-29-ottobre-2026",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Caterpillar (3° trimestre 2026 – Comunicato prima dell'apertura di Wall Street)"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Earnings include Amazon, Intel, Caterpillar, Bristol-Myers, Eli Lilly, Merck and Starbucks"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "A09",
+  "sezione": "agenda",
+  "testo": "Conti di Amazon, giovedì 29 ottobre dopo la chiusura di Wall Street",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/economia-politica/agenda-economica-del-29-ottobre-2026",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Amazon.com (3° trimestre 2026 – Comunicato dopo la chiusura di Wall Street)"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Earnings include Amazon, Intel, Caterpillar, Bristol-Myers, Eli Lilly, Merck and Starbucks"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "A10",
+  "sezione": "agenda",
+  "testo": "Conti di Intel, giovedì 29 ottobre dopo la chiusura di Wall Street",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/economia-politica/agenda-economica-del-29-ottobre-2026",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Intel (3° trimestre 2026 – Comunicato dopo la chiusura di Wall Street)"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Earnings include Amazon, Intel, Caterpillar, Bristol-Myers, Eli Lilly, Merck and Starbucks"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "K01",
+  "sezione": "top_news",
+  "testo": "Conti di Samsung Electronics del terzo trimestre: utile operativo 107,4 trilioni di won, anticipato il 8 ottobre",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/finance/2026/10/08/samsung-electronics-posts-record-107-trillion-won-quarterly",
+    "data_pubblicazione": "2026-10-08",
+    "citazione": "preliminary third-quarter revenue on a consolidated basis came to 195 trillion won and operating profit to 107.4 trillion won"
+   },
+   {
+    "testata": "eDaily",
+    "url": "https://en.edaily.co.kr/news/eda202610295475/",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "operating profit of 107.4405 trillion won."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "Stellantis terzo trimestre: ricavi 37,6 miliardi (+1%), perdita netta 0,5 miliardi, utile operativo rettificato 0,3 miliardi con margine 0,7% (+50 pb), flusso di cassa industriale -4,0 miliardi (+0,3), liquidità 42,7 miliardi (26% dei ricavi), dazi 1,0 miliardi (0,6 già sostenuti), 40% dei 6 miliardi di efficienze entro fine anno",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/28/stellantis-perdita-netta-in-calo-del-90percent-nel-terzo-trimestre-confermata-la-guidance-2026-21.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Stellantis chiude il terzo trimestre 2026, con ricavi netti in crescita dell’1% su base annua e pari a 37,6 miliardi di euro."
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/28/stellantis-perdita-netta-in-calo-del-90percent-nel-terzo-trimestre-confermata-la-guidance-2026-21.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "con un margine AOI dello 0,7%, in crescita di 50 punti base su base annua."
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/28/stellantis-perdita-netta-in-calo-del-90percent-nel-terzo-trimestre-confermata-la-guidance-2026-21.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "attestandosi a -4,0 miliardi di euro nel terzo trimestre del 2026"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/28/stellantis-perdita-netta-in-calo-del-90percent-nel-terzo-trimestre-confermata-la-guidance-2026-21.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "La liquidità disponibile industriale si è attestata a 42,7 miliardi di euro, pari al 26% dei ricavi netti degli ultimi 12 mesi"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/28/stellantis-perdita-netta-in-calo-del-90percent-nel-terzo-trimestre-confermata-la-guidance-2026-21.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "I costi netti relativi ai dazi per l’intero esercizio sono stimati a 1,0 miliardi di euro,"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/28/stellantis-perdita-netta-in-calo-del-90percent-nel-terzo-trimestre-confermata-la-guidance-2026-21.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "siamo sulla rotta per implementare entro fine anno almeno il 40% dei 6 miliardi di euro di efficienze complessive"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "Dopo settimane sui minimi decennali, il titolo Stellantis (Teleborsa)",
+  "data_evento": "2026-09-30",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/teleborsa/finanza/stellantis-filosa-fiducioso-su-outlook-e-rilancio-ma-titolo-resta-sui-minimi-decennali-319_2026-09-30_TLB.html?lang=it",
+    "data_pubblicazione": "2026-09-30",
+    "citazione": "Affermazioni che giungono mentre il titolo tocca i minimi decennali."
+   }
+  ],
+  "novita": "Contesto per il rimbalzo del 28/10",
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Comunicato Fed: attività in espansione a ritmo forte, inflazione elevata, assunzioni al passo con la forza lavoro",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Economic activity is expanding at a strong pace."
+   },
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Inflation remains elevated."
+   },
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Job gains have kept pace with the workforce, and the unemployment rate has changed little."
+   }
+  ],
+  "novita": null,
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Warsh: condizioni finanziarie più strette ma \"unwilling and unable to call them tight\"",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/warsh-press-conference-october-2026",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "While overall financial conditions are tighter, I'm unwilling and unable to call them tight,"
+   },
+   {
+    "testata": "Briefs",
+    "url": "https://www.briefs.co/news/warsh-keeps-december-hike-in-play-leans-hawkish-without-hard/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "While overall financial conditions are tighter, I'm unwilling and unable to call them tight,"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "testo": "Dal 2027 una delle otto riunioni FOMC sarà dedicata alla strategia, senza voto sui tassi né comunicato; intervalli di 12-13 settimane tra le riunioni (Reuters)",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "one of the eight FOMC meetings next year would be for formulating \"strategy\" with no policy decision."
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "This will mean gaps of 12 to 13 weeks between meetings, increasing the importance of each policy decision."
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-october-28-dow-sp-500-nasdaq-fed-meeting-decision-big-tech-earnings-130508769.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "But in 2027, one meeting will focus exclusively on broad monetary policy strategy"
+   },
+   {
+    "testata": "Kiplinger",
+    "url": "https://www.kiplinger.com/investing/live/fed-meeting-updates-and-commentary-october-2026",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "one of the meetings in 2027 will be dedicated exclusively to \"broad monetary policy strategy,\" Warsh explains."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "D06",
+  "sezione": "deep_dive",
+  "testo": "Alphabet: gli analisti sospettano che il trimestre in corso sarà ancora peggiore sul flusso di cassa; perdite sulla carta su partecipazioni, SpaceX compresa",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "and analysts suspect this quarter will be even worse."
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Revenues came in line but net income missed as did EPS, though that was in part due to paper losses on stock holdings"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-october-28-dow-sp-500-nasdaq-fed-meeting-decision-big-tech-earnings-130508769.html",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Earnings per share came to $2.12 a share, compared with the $2.99 forecast by analysts."
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "D07",
+  "sezione": "deep_dive",
+  "testo": "Samsung e la spesa dei hyperscaler; Nasdaq future in calo di oltre l'1% in Asia in attesa di Amazon e Intel; Asia tra grandi gruppi del cloud e Fed di Warsh (Reuters)",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Huge hyperscaler capex is clearly great for equipment makers such as Samsung,"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "The Alphabet miss has dominated in Asia with Nasdaq futures down more than 1%"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "The story so far in Asia has featured hyperscalers and Fed Chair Warsh,"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/morning-bid-in-the-ai-alphabet-cash-is-king-4981514",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "as the market rewarded those able to fund their own capex."
+   },
+   {
+    "testata": "AP (Euronews)",
+    "url": "https://www.euronews.com/2026/10/29/shares-and-us-futures-mixed-after-google-parent-alphabets-earnings-disappoint",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "the yield on the 10-year US Treasury eased to below 5.00% after briefly jumping to around 5.04% Wednesday"
+   }
+  ],
+  "novita": null,
+  "verifica": "confermato",
+  "nota_revisore": "Pagina aperta e citazione letterale riletta il 29/10; cifre coerenti con dati.json e con il PDF."
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "testo": "",
+  "data_evento": "2026-10-29",
+  "fonti": [],
+  "flusso": [
+   "Alphabet cede il 10% dopo i conti, future Nasdaq giù (Reuters, notte)",
+   "Borse asiatiche contrastate dopo Alphabet e Samsung (AP, 08:00 Roma)",
+   "Seduta mista in Asia con focus sull'AI (Teleborsa, 08:06 Roma)",
+   "Seul in calo, Samsung delude sul piano per gli azionisti (Yonhap, 08:21 Roma)"
+  ],
+  "testate": [
+   {
+    "testata": "Reuters",
+    "storie": [
+     "Morning Bid: nell'alfabeto dell'AI la cassa è re",
+     "Asia in calo dopo i conti di Alphabet e Samsung",
+     "Il future Nasdaq perde oltre l'1%"
+    ]
+   },
+   {
+    "testata": "AP",
+    "storie": [
+     "Borse asiatiche e future USA contrastati dopo i conti di Alphabet",
+     "Petrolio in calo sui contatti con l'Iran",
+     "Samsung -5,4% malgrado i conti"
+    ]
+   },
+   {
+    "testata": "CNBC",
+    "storie": [
+     "Alphabet cede il 10% e tiene invariata la spesa 2026",
+     "Oracle +11% sull'obiettivo 2030",
+     "Titoli in movimento dopo la chiusura: Alphabet, Microsoft, Chipotle, ServiceNow"
+    ]
+   },
+   {
+    "testata": "Teleborsa",
+    "storie": [
+     "Seduta mista per le borse asiatiche con focus sull'AI",
+     "Stellantis: perdita netta -90%, guidance confermata"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Intesa Sanpaolo: via libera preliminare della BCE all'offerta su Monte dei Paschi",
+    "motivo": "notizia del 27-28 ottobre, senza movimento di mercato verificabile oltre al titolo; la BCE decide oggi sui tassi"
+   },
+   {
+    "storia": "Decisione della Banca del Giappone di venerdì 30 ottobre",
+    "motivo": "in agenda venerdì, non ancora un fatto"
+   },
+   {
+    "storia": "Vertiv +17% ed Enphase -17% prima del voto della Fed",
+    "motivo": "troppo piccola e senza dati verificati dopo l'edizione di ieri"
+   }
+  ],
+  "concorda": false,
+  "motivo": "Le agenzie aprono con Alphabet e Samsung, la notte dell'AI; la top story è la Fed perché sposta i tassi (10 anni sopra il 5%, 2 anni in calo) e legge la BCE di oggi; Alphabet è la prima notizia e ha la pag. 5."
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Dopo la Fed morbida il Treasury a 2 anni scende ma il 10 anni sale oltre il 5%: la curva si ripidisce di 9 pb",
+  "ricerche": [
+   "Treasury 10-year yield above 5% after Fed Warsh press conference 2-year yield falls curve steepens why",
+   "Warsh press conference dovish Treasury 2-year yield falls after Fed holds October 28 2026",
+   "Warsh \"unwilling and unable\" call financial conditions tight press conference October 28"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Il tono morbido abbassa le attese sui tassi a breve, ma il comunicato descrive attività forte e inflazione elevata: il lungo non segue",
+    "fonte": "C01",
+    "prevede": "2 anni in calo, 10 anni stabile o in rialzo, curva più ripida",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Meno riunioni dal 2027 e nessun punto del presidente nelle proiezioni aumentano l'incertezza sul sentiero dei tassi e il compenso per prestare a lungo",
+    "fonte": null,
+    "prevede": "10 anni in rialzo, euro e oro deboli",
+    "prezzi": "in parte"
+   }
+  ],
+  "esito": "ipotesi"
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "FTSE MIB: variazione a 1 settimana e da inizio anno; ACWI da inizio anno",
+  "testo": "",
+  "data_evento": "2026-10-29",
+  "fonti": [],
+  "ricerche": [
+   "FTSE MIB da inizio anno 2026 performance chiusura 2025 punti Borsa Italiana ottobre",
+   "Borsa Milano chiude 26 ottobre 2026 Ftse Mib punti ANSA",
+   "Borsa Milano chiusura 27 ottobre 2026 Ftse Mib spread",
+   "FTSE MIB chiusura 30 dicembre 2025 fine anno 2025 punti performance annua (26/10)",
+   "Euro STOXX 50 da inizio anno 2026 Seit Jahresbeginn (26/10)"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "-",
+   "url": "-"
+  }
+ },
+ {
+  "id": "R2",
+  "sezione": "ricerca",
+  "dato": "Nikkei 225 e Hang Seng: livello alle 08:06 del 29/10 (la fonte dà solo la variazione)",
+  "testo": "",
+  "data_evento": "2026-10-29",
+  "fonti": [],
+  "ricerche": [
+   "Nikkei 225 closes Thursday October 29 2026 Tokyo stocks close",
+   "Nikkei closes 64,659 Tokyo stocks fourth day Thursday",
+   "Tokyo stocks close higher Nikkei Kyodo Jiji October 29 2026 SoftBank Advantest Samsung",
+   "Borsa Tokyo chiude Nikkei +1,1% Seul Kospi -1,2% Samsung Teleborsa Radiocor 29 ottobre"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "-",
+   "url": "-"
+  }
+ },
+ {
+  "id": "R3",
+  "sezione": "ricerca",
+  "dato": "Spread BTP-Bund a una settimana e a un mese",
+  "testo": "",
+  "data_evento": "2026-10-29",
+  "fonti": [],
+  "ricerche": [
+   "spread Btp Bund chiude 28 ottobre 2026 punti base rendimento Btp decennale",
+   "Borsa Milano chiude mercoledì 28 ottobre Ftse Mib Fed Warsh spread Btp-Bund",
+   "Borsa Milano chiusura Ftse Mib 28 ottobre 2026 Radiocor Piazza Affari Fed",
+   "Borsa Milano chiusura 27 ottobre 2026 Ftse Mib spread"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "-",
+   "url": "-"
+  }
+ }
+]
