@@ -34,7 +34,7 @@ run git -C "$REPO" config user.email "PaoloGom@users.noreply.github.com"
 run git -C "$REPO" add pdf edizioni.json redazione/pronostici redazione/fatti redazione/scommessa || fail "git add"
 for f in e feed.xml ultima; do [ -e "$REPO/$f" ] && run git -C "$REPO" add "$f"; done
 # Dati del kit che la redazione può arricchire (git add ignora quelli invariati). Regole, script e motore no:
-# cambiano solo con la manutenzione e il banco di prova (CLAUDE.md); un inceppo si annota in fatti.json.
+# cambiano solo con la manutenzione e il banco di prova (MANUTENZIONE.md); un inceppo si annota in fatti.json.
 for f in redazione/glossario.json redazione/meccanismi.json; do
   [ -e "$REPO/$f" ] && run git -C "$REPO" add "$f"
 done
