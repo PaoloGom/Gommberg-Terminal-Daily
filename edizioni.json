@@ -2427,5 +2427,200 @@
     "chiave": false
    }
   ]
+ },
+ {
+  "numero": 15,
+  "data": "2026-10-30",
+  "titolo": "Alphabet fa il peggior giorno della sua storia e il dubbio sull'AI passa da Wall Street all'Asia",
+  "sommario": [
+   "Hormuz: Teheran parla di petroliere su mine, Washington smentisce; il greggio resta alto.",
+   "La Borsa cinese si avvia alla dodicesima settimana di perdite consecutive.",
+   "Stamattina escono i dati sulla crescita di Italia, Germania e area euro."
+  ],
+  "file": "pdf/2026-10-30-gommberg-015.pdf",
+  "nome": "2026-10-30 Gommberg Terminal Daily #015.pdf",
+  "pagine": 6,
+  "notizie": [
+   "BCE: tassi invariati al 2,5%",
+   "Hormuz: Brent oltre 112 $ tra mine e smentite",
+   "Borsa cinese: dodicesima settimana di perdite",
+   "Wall Street: Ford +12,4%, Caterpillar -9,3%",
+   "Giappone: la Banca del Giappone lascia i tassi fermi",
+   "Stagione dei conti USA: l'81% batte le attese"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "158,81 $",
+    "-0,3% g"
+   ],
+   [
+    "S&P 500",
+    "7.720,39",
+    "-0,3% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.207,07",
+    "+0,6% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "4,98%",
+    "-7 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "110,80 $",
+    "-0,8% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1178",
+    "+0,2% g"
+   ],
+   [
+    "VIX",
+    "17,20",
+    "+0,29 g"
+   ]
+  ],
+  "dek": "Il titolo di Alphabet perde il 12,6% dopo ricavi sotto le attese; il Nasdaq cede l'1,4%, mentre l'S&P 500 limita il calo allo 0,3%. Dopo la chiusura Amazon scende di circa il 7% e Intel di oltre il 20%; stamattina Seul chiude a -3,5% e Tokyo a -2,1%, e i future sul Nasdaq 100 segnano -1,9%.",
+  "ticker_al": "2026-10-29",
+  "scommessa": {
+   "settimana": "2026-10-26/2026-10-30",
+   "su": 6,
+   "variabile": {
+    "nome": "Nikkei 225",
+    "motivo": "Tokyo vende i chip da tre sedute: la paura sull'AI è globale?"
+   },
+   "strada": 5,
+   "range": 5,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     true,
+     true
+    ],
+    [
+     "S&P 500",
+     "su",
+     true,
+     true
+    ],
+    [
+     "Euro Stoxx 50",
+     "su",
+     true,
+     false
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Brent future",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "EUR/USD",
+     "su",
+     false,
+     true
+    ],
+    [
+     "Nikkei 225",
+     "giù",
+     false,
+     true,
+     true
+    ]
+   ]
+  },
+  "temi": [
+   "Tecnologia",
+   "Chip",
+   "Petrolio",
+   "Cina",
+   "Trimestrali",
+   "Tassi"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Trimestrali",
+    "titolo": "Amazon: il cloud accelera ma la spesa per l'AI divora la cassa",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Chip",
+    "titolo": "Il mercato smette di pagare la promessa dell'AI e chiede il conto dei ricavi",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Tassi",
+    "titolo": "Il PIL USA batte le attese ma i rendimenti scendono: petrolio e rifugio pesano più del dato",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [],
+  "parole": [
+   "Free cash flow",
+   "Capex"
+  ],
+  "ripetizioni": 5,
+  "glossario": [
+   "PCE",
+   "core",
+   "ISM",
+   "BoJ",
+   "pb",
+   "VIX",
+   "ACWI",
+   "Brent",
+   "guidance",
+   "capex"
+  ],
+  "agenda": [
+   {
+    "quando": "Ven 30, 10:00",
+    "evento": "PIL Italia terzo trimestre",
+    "attese": "",
+    "perche": "Stima preliminare sulla crescita",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 30, 10:00",
+    "evento": "PIL Germania terzo trimestre",
+    "attese": "",
+    "perche": "Stima preliminare sulla crescita",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 30, 11:00",
+    "evento": "PIL area euro terzo trimestre",
+    "attese": "",
+    "perche": "Evento n.1: crescita dopo la BCE",
+    "chiave": true
+   },
+   {
+    "quando": "Ven 30, 14:30",
+    "evento": "Apertura di Wall Street",
+    "attese": "",
+    "perche": "Reazione ad Amazon e Intel",
+    "chiave": false
+   },
+   {
+    "quando": "Lun 2, 16:00",
+    "evento": "ISM (sondaggio sulle imprese) industria",
+    "attese": "",
+    "perche": "Attività dell'industria",
+    "chiave": false
+   }
+  ]
  }
 ]

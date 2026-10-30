@@ -1,0 +1,413 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Alphabet perde il 12,6% dopo ricavi sotto le attese; Nasdaq -1,4%, S&P 500 -0,3%, Dow -0,25%",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://kdhnews.com/news/nation/historic-drop-for-alphabets-stock-drags-the-us-market-lower/article_15b031bf-8d35-51c8-8eaa-93b88b73d287.html",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "the Class A shares of its stock fell 12.6% for their worst day since they began trading more than 20 years ago."
+   },
+   {
+    "testata": "AP",
+    "url": "https://kdhnews.com/news/nation/historic-drop-for-alphabets-stock-drags-the-us-market-lower/article_15b031bf-8d35-51c8-8eaa-93b88b73d287.html",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "The Nasdaq composite tumbled 1.4%, while the Dow Jones Industrial Average dropped 132 points, or 0.3%."
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/30/wall-street-sottotono-frenata-dal-tech-11.html",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "depressa nel finale l'S&P-500, che chiude sotto i livelli della vigilia a 7.720 punti."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "T02",
+  "sezione": "top_story",
+  "testo": "Dopo la chiusura Amazon (utile per azione sotto le attese, cassa assorbita dagli investimenti) e Intel perdono rispettivamente circa il 7% e oltre il 20%",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "CMC Markets",
+    "url": "https://www.cmcmarkets.com/en-au/market-news/amazon-q3-2026-earnings",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Infrastructure investment, primarily associated with AI, more than absorbed the cash coming through the business."
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/30/wall-street-sottotono-frenata-dal-tech-11.html",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "le cui azioni sono crollate rispettivamente del 7% e del 23% nell'after-hours"
+   }
+  ],
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "T03",
+  "sezione": "top_story",
+  "testo": "Kospi -3,48% a 5.730,74; Nikkei 225 a 63.290,10 (-1.369,36 punti, -2,1%); future Nasdaq 100 -1,89% in mattinata",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "Kyunghyang",
+    "url": "https://www.khan.co.kr/en/article/202610301622007/",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "According to the Korea Exchange on the 30th, the Kospi index closed at 5,730.74, down 206.92 points (3.48%) from the previous session."
+   },
+   {
+    "testata": "AjuPress",
+    "url": "https://www.ajupress.com/view/20261030153229938",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "In Tokyo, the Nikkei 225 fell 1,369.36 points to 63,290.1."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-30-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610300831365967",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "in avvio di seduta di riflesso al future sul Nasdaq 100 (-1,89%)"
+   }
+  ],
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "N01",
+  "sezione": "catalizzatori",
+  "testo": "BCE: tassi invariati al 2,5%",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-29-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610290746118994",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "poco dopo il board dell'istituto ha comunicato di aver lasciato i tassi di interesse invariati al 2,5%."
+   }
+  ],
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "ECB holds rates October 29 2026 Lagarde press conference December hike",
+   "BCE riunione 29 ottobre 2026 tassi decisione Lagarde"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Hormuz: le Guardie della Rivoluzione parlano di tre petroliere colpite da mine, CENTCOM smentisce; Brent di dicembre in scadenza oggi; Brent future oltre 112 $",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "FinanceFeeds",
+    "url": "https://financefeeds.com/brent-crude-oil-price-116-friday-hormuz-mine-strikes-december-expiry-fourth-monthly-gain-bull-120-bear-108/",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "US Central Command rejected the claims and said the main transit routes had been cleared."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-30-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610300831365967",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Il future sul Brent si porta sopra 112 dollari al barile (+1,2%)."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "N03",
+  "sezione": "mercati",
+  "testo": "CSI 300 ai minimi da un anno a metà seduta",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40446667/china-stocks-slip-set-for-12th-straight-weekly-loss-on-ai-led-selloff",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "China's blue-chip CSI300 Index dropped 0.4% to a one-year low by the lunch break"
+   },
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40446667/china-stocks-slip-set-for-12th-straight-weekly-loss-on-ai-led-selloff",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "some stocks are increasingly treating the spending peak as a permanent earnings burden"
+   }
+  ],
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "N04",
+  "sezione": "mercati",
+  "testo": "Ford +12,4%, Caterpillar -9,3%, Marvell -13,2% sulle trattative per comprare Lumentum",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://www.freemalaysiatoday.com/category/business/2026/10/30/wall-street-ends-lower-as-revenue-misses-revive-ai-jitters",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Ford gained 12.4% following the automaker's third-quarter revenue beating forecasts."
+   },
+   {
+    "testata": "Reuters",
+    "url": "https://www.freemalaysiatoday.com/category/business/2026/10/30/wall-street-ends-lower-as-revenue-misses-revive-ai-jitters",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Marvell Technology slumped 13.2% after media reports said the company was in advanced talks to buy"
+   }
+  ],
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "La Banca del Giappone lascia i tassi fermi; dollaro/yen a 157,57",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/stock-market-indices-friday-30-october-2026-AJD2hvyB",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "there were no surprises from the Bank of Japan, which, as expected, left interest rates unchanged"
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/stock-market-news/asia-stocks-tumble-as-ai-spending-concerns-deepen-boj-holds-rates-4985759",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "the Bank of Japan held interest rates steady as expected."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "FTSE MIB +0,36% a 50.002",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/29/borsa-milano-chiude-in-rialzo-ftse-mib-036_20356345-a5c4-4389-97b1-a3a08d8eea09.html",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Seduta positiva per la Borsa di Milano: l'indice Ftse Mib ha concluso in aumento dello 0,36% a 50.002 punti."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "Euro Stoxx 50 29/10: 6.207,07 (+0,64%)",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "dpa-AFX",
+    "url": "https://www.finanzen.ch/nachrichten/aktien/aktien-europa-schluss-gewinne-im-gegensatz-zu-den-us-boersen-1036686516",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "6.207,07 Punkten"
+   }
+  ],
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "testo": "PIL USA terzo trimestre +3,4% annualizzato (atteso 3,2%)",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "Trading Economics",
+    "url": "https://tradingeconomics.com/united-states/gdp-growth/forecast",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "The US economy expanded an annualized 3.4% in Q3 2026, the most in a year"
+   }
+  ],
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "BEA personal income outlays September 2026 PCE price index",
+   "PIL USA T3 prima stima BEA 29 ottobre 2026"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "K02",
+  "sezione": "catalizzatori",
+  "testo": "PCE settembre 3,6% a/a (atteso 3,6%), core 3,1%",
+  "data_evento": "2026-10-29",
+  "fonti": [
+   {
+    "testata": "Trading Economics",
+    "url": "https://tradingeconomics.com/united-states/pce-price-index-annual-change",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "US PCE inflation accelerated to 3.6% year-on-year in September 2026 from 3.4% in August, in line with market expectations."
+   }
+  ],
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "BEA personal income outlays September 2026 PCE price index",
+   "PCE inflation September 2026 core PCE rose economists expected Thursday"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "K03",
+  "sezione": "catalizzatori",
+  "testo": "Ven 30 ottobre, ore 10:00 PIL Italia e Germania, ore 11:00 PIL area euro (terzo trimestre)",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-30-ottobre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202610300831365967",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Alle 10 tocca al pil del terzo trimestre dell'Italia e della Germania"
+   }
+  ],
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "Eurostat flash GDP third quarter 2026 euro area",
+   "Istat Pil terzo trimestre 2026 stima preliminare 30 ottobre"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "K05",
+  "sezione": "catalizzatori",
+  "testo": "Lun 2 novembre, ore 16:00: ISM manifatturiero USA",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "ISM",
+    "url": "https://ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "The ISM Manufacturing PMI® Report is released on the first business day of the month at 10:00 a.m. (EST)."
+   }
+  ],
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "testo": "",
+  "data_evento": "2026-10-30",
+  "fonti": [],
+  "flusso": [
+   "Wall Street chiude in calo per i ricavi sotto le attese e i timori sull'AI (Reuters, notte)",
+   "Amazon e Intel crollano dopo la chiusura (Teleborsa, mattina)",
+   "Asia in calo, la BoJ lascia i tassi fermi (Investing.com, 02:08)",
+   "Hormuz: mine e smentite, Brent oltre 112 $ (Milano Finanza, mattina)"
+  ],
+  "testate": [
+   {
+    "testata": "Reuters",
+    "storie": [
+     "Wall Street chiude in calo: i ricavi sotto le attese riaccendono i timori sull'AI",
+     "Cina verso la dodicesima settimana di perdite",
+     "Marvell cede il 13,2% sulle trattative per Lumentum"
+    ]
+   },
+   {
+    "testata": "Il Sole 24 Ore",
+    "storie": [
+     "Il selloff tech dilaga dagli USA all'Asia dopo Google",
+     "La BoJ lascia i tassi fermi",
+     "Borsa di Milano chiude sopra 50.000 punti"
+    ]
+   },
+   {
+    "testata": "Milano Finanza",
+    "storie": [
+     "Borse: tech giù, future Nasdaq 100 in calo",
+     "BCE: tassi invariati",
+     "Brent sopra 112 $"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Assemblea MPS boccia la fusione con Mediobanca",
+    "motivo": "una sola lettura non verificata a sufficienza oggi"
+   },
+   {
+    "storia": "Possibile attacco hacker a Binance",
+    "motivo": "singola fonte non verificata"
+   },
+   {
+    "storia": "Trump valuta nuove opzioni militari contro l'Iran",
+    "motivo": "fonte secondaria, non aperta all'originale"
+   }
+  ],
+  "concorda": true,
+  "motivo": "Le tre testate aprono sul calo dei tecnologici dopo Alphabet come la nostra prima pagina.",
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "testo": "PIL USA sopra le attese ma rendimenti Treasury in calo (10 anni -7 pb)",
+  "data_evento": "2026-10-29",
+  "fonti": [],
+  "ricerche": [
+   "Treasury yields fall despite strong GDP October 29 2026",
+   "Treasury 10-year yield 4.94% Alphabet flight to safety AP",
+   "rendimenti Treasury calo dopo Alphabet PIL USA 29 ottobre"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Calo del petrolio e acquisti di rifugio dopo Alphabet",
+    "fonte": null,
+    "prevede": "Rendimenti giù su tutta la curva, VIX poco mosso",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Dato PIL già prezzato dopo la Fed del 28/10",
+    "fonte": null,
+    "prevede": "Rendimenti fermi",
+    "prezzi": "non torna"
+   }
+  ],
+  "esito": "ipotesi",
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "testo": "FTSE MIB e ACWI: variazione da inizio anno",
+  "data_evento": "2026-10-30",
+  "fonti": [],
+  "ricerche": [
+   "Piazza Affari chiusura 29 ottobre 2026 FTSE MIB spread BTP Bund",
+   "Borsa Milano chiude 23 ottobre 2026 Ftse Mib punti ANSA",
+   "FTSE MIB da inizio anno 2026 Piazza Affari 29 ottobre chiude 50.002 punti",
+   "FTSE MIB da inizio anno 2026 performance chiusura 2025 punti (27/10)",
+   "ACWI da inizio anno 2026 (29/10)"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "-",
+   "url": "-"
+  },
+  "verifica": "confermato",
+  "nota_revisore": "Controllo incrociato con le chiusure FMP e con almeno un'altra lettura; le citazioni sono state riportate dalla lettura delle pagine e non confrontate carattere per carattere sul testo grezzo."
+ }
+]
