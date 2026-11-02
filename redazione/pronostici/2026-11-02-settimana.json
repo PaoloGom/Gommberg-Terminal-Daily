@@ -1,0 +1,237 @@
+{
+  "schema": 2,
+  "versione_metodo": "1.1",
+  "data_pronostico": "2026-11-02",
+  "settimana": "2026-11-02/2026-11-06",
+  "origine": "2026-10-30",
+  "verdetto_previsto": "2026-11-09",
+  "range_pubblicato": "16-84% (circa 2 settimane su 3 la chiusura cade dentro)",
+  "strumenti": {
+    "acwi": {
+      "nome": "MSCI ACWI (ETF)",
+      "unita": "$",
+      "tipo": "prezzo",
+      "base": 156.04,
+      "data_base": "2026-10-30",
+      "sigma": 0.016627294745450293,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 151.8302193453025,
+        "0.1": 152.75016053650762,
+        "0.16": 153.48107051501347,
+        "0.25": 154.2997971558173,
+        "0.5": 156.04,
+        "0.75": 157.7998289616159,
+        "0.84": 158.64159350920238,
+        "0.9": 159.40069401223744,
+        "0.95": 160.36650480379694
+      },
+      "mediana_modello": 156.04,
+      "range": [
+        153.48107051501347,
+        158.64159350920238
+      ],
+      "previsione_redazione": 156.3,
+      "scarto_redazione_sigma": 0.1,
+      "motivo_redazione": "Seul già in rimbalzo dopo i chip",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.5398785280058099
+    },
+    "spx": {
+      "nome": "S&P 500",
+      "unita": "punti",
+      "tipo": "prezzo",
+      "base": 7580.07,
+      "data_base": "2026-10-30",
+      "sigma": 0.01659967037297981,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 7375.903523780144,
+        "0.1": 7420.519742506811,
+        "0.16": 7455.967819941774,
+        "0.25": 7495.674545593466,
+        "0.5": 7580.07,
+        "0.75": 7665.415681458304,
+        "0.84": 7706.237820826418,
+        "0.9": 7743.05078332554,
+        "0.95": 7789.88784487966
+      },
+      "mediana_modello": 7580.07,
+      "range": [
+        7455.967819941774,
+        7706.237820826418
+      ],
+      "previsione_redazione": 7592.6631155270625,
+      "scarto_redazione_sigma": 0.1,
+      "motivo_redazione": "Rimbalzo tecnico dopo il calo di venerdì",
+      "aggiustata": true,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.539827837277029
+    },
+    "sx5e": {
+      "nome": "Euro Stoxx 50",
+      "unita": "punti",
+      "tipo": "prezzo",
+      "base": 6131.31,
+      "data_base": "2026-10-30",
+      "sigma": 0.01974823899164526,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 5935.3468492998445,
+        "0.1": 5978.083571578302,
+        "0.16": 6012.0731447269,
+        "0.25": 6050.182551759587,
+        "0.5": 6131.31,
+        "0.75": 6213.525293574285,
+        "0.84": 6252.91166809443,
+        "0.9": 6288.463830587585,
+        "0.95": 6333.74312750309
+      },
+      "mediana_modello": 6131.31,
+      "range": [
+        6012.0731447269,
+        6252.91166809443
+      ],
+      "previsione_redazione": 6119.21,
+      "scarto_redazione_sigma": -0.1,
+      "motivo_redazione": "ASML e Infineon in calo dopo Intel",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.4601600401873755
+    },
+    "ust10": {
+      "nome": "Treasury 10 anni",
+      "unita": "%",
+      "tipo": "tasso",
+      "base": 4.94,
+      "data_base": "2026-10-30",
+      "sigma": 12.407552878027678,
+      "sigma_unita": "punti base",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 4.7359139164698405,
+        "0.1": 4.780990811845863,
+        "0.16": 4.816612112291035,
+        "0.25": 4.856312327587545,
+        "0.5": 4.94,
+        "0.75": 5.023687672412456,
+        "0.84": 5.0633878877089655,
+        "0.9": 5.099009188154138,
+        "0.95": 5.14408608353016
+      },
+      "mediana_modello": 4.94,
+      "range": [
+        4.816612112291035,
+        5.0633878877089655
+      ],
+      "previsione_redazione": 4.927592447121973,
+      "scarto_redazione_sigma": -0.1,
+      "motivo_redazione": "Rifugio nei Treasury se i chip calano",
+      "aggiustata": true,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.460172162722971
+    },
+    "brent": {
+      "nome": "Brent future",
+      "unita": "$",
+      "tipo": "prezzo",
+      "base": 113.43,
+      "data_base": "2026-10-30",
+      "sigma": 0.047063972360501354,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 104.9802839829246,
+        "0.1": 106.79071655563106,
+        "0.16": 108.24344039589622,
+        "0.25": 109.88581043036865,
+        "0.5": 113.43,
+        "0.75": 117.08850168742244,
+        "0.84": 118.86507720875989,
+        "0.9": 120.48205419894771,
+        "0.95": 122.559821824189
+      },
+      "mediana_modello": 113.43,
+      "range": [
+        108.24344039589622,
+        118.86507720875989
+      ],
+      "previsione_redazione": 110.791928079428,
+      "scarto_redazione_sigma": -0.5,
+      "motivo_redazione": "Piano del Qatar su Hormuz: premio di rischio giù",
+      "aggiustata": true,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.3085375387259869
+    },
+    "eurusd": {
+      "nome": "EUR/USD",
+      "unita": "",
+      "tipo": "prezzo",
+      "base": 1.1158,
+      "data_base": "2026-10-30",
+      "sigma": 0.007089503964549997,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 1.1028640083170187,
+        "0.1": 1.1057082407667767,
+        "0.16": 1.1079610378635105,
+        "0.25": 1.110477206465046,
+        "0.5": 1.1158,
+        "0.75": 1.1211483070086665,
+        "0.84": 1.1236944237685118,
+        "0.9": 1.1259838663557593,
+        "0.95": 1.1288877237909836
+      },
+      "mediana_modello": 1.1158,
+      "range": [
+        1.1079610378635105,
+        1.1236944237685118
+      ],
+      "previsione_redazione": 1.115,
+      "scarto_redazione_sigma": -0.101,
+      "motivo_redazione": "Dollaro sostenuto da Fed e rifugio",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.45970851685028125
+    },
+    "var_oro": {
+      "nome": "Oro (future, $/oncia)",
+      "unita": "$",
+      "tipo": "prezzo",
+      "base": 3898.9,
+      "data_base": "2026-10-30",
+      "sigma": 0.026877214334258017,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 3730.287761702704,
+        "0.1": 3766.8907482331783,
+        "0.16": 3796.069557206987,
+        "0.25": 3828.855971014926,
+        "0.5": 3898.9,
+        "0.75": 3970.2253950206737,
+        "0.84": 4004.5159818369257,
+        "0.9": 4035.535465723308,
+        "0.95": 4075.1336575335026
+      },
+      "mediana_modello": 3898.9,
+      "range": [
+        3796.069557206987,
+        4004.5159818369257
+      ],
+      "previsione_redazione": 3930.4599999999996,
+      "scarto_redazione_sigma": 0.3,
+      "motivo_redazione": "Dopo la vendita forzata, rimbalzo sopra 3.900",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.6178949759759071,
+      "variabile": true,
+      "motivo_scelta": "Oro venduto con le azioni: rifugio o cassa?"
+    }
+  }
+}

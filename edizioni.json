@@ -2622,5 +2622,214 @@
     "chiave": false
    }
   ]
+ },
+ {
+  "numero": 16,
+  "data": "2026-11-02",
+  "titolo": "Intel crolla e i chip affondano: Wall Street ha la peggior seduta da giugno",
+  "sommario": [
+   "L'oro vende insieme alle azioni: la cassa conta più del rifugio.",
+   "L'area euro cresce più del previsto, ma l'Europa chiude in calo su chip e banche.",
+   "Questa settimana: Apple, elezioni USA, Bank of England e il lavoro di ottobre."
+  ],
+  "file": "pdf/2026-11-02-gommberg-016.pdf",
+  "nome": "2026-11-02 Gommberg Terminal Daily #016.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Amplifon, il peggiore del FTSE MIB dopo i conti",
+   "NatWest cede quasi il 9% sui margini del prossimo anno",
+   "Hormuz: l'Iran propone un piano mediato dal Qatar",
+   "Chip coreani in rialzo: SK hynix e Samsung",
+   "Difensivi in controtendenza: AstraZeneca sale del 7%",
+   "Area euro: il PIL del terzo trimestre cresce dello 0,4%"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "156,04 $",
+    "-1,7% g"
+   ],
+   [
+    "S&P 500",
+    "7.580,07",
+    "-1,8% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.131,31",
+    "-1,2% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "4,94%",
+    "-4 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "113,43 $",
+    "+2,4% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1158",
+    "-0,2% g"
+   ],
+   [
+    "VIX",
+    "19,42",
+    "+2,22 g"
+   ]
+  ],
+  "dek": "Venerdì l'S&P 500 ha perso l'1,8% e il Nasdaq il 2,9%. Intel ha lasciato sul terreno il 28,6%, il calo più forte dal 1974, dopo una guidance (le previsioni dell'azienda) sul quarto trimestre inferiore alle attese: gli investitori, osserva un gestore citato dall'AP, passano dalla fase delle speranze sull'AI a quella delle prove. Stamattina Seul rimbalza (Kospi +2,2%), Tokyo cede appena lo 0,3%.",
+  "ticker_al": "2026-10-30",
+  "scommessa": {
+   "settimana": "2026-11-02/2026-11-06",
+   "su": 6,
+   "variabile": {
+    "nome": "Oro (future, $/oncia)",
+    "motivo": "Oro venduto con le azioni: rifugio o cassa?"
+   },
+   "strada": null,
+   "range": null,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     null,
+     null
+    ],
+    [
+     "S&P 500",
+     "su",
+     null,
+     null
+    ],
+    [
+     "Euro Stoxx 50",
+     "giù",
+     null,
+     null
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     null,
+     null
+    ],
+    [
+     "Brent future",
+     "giù",
+     null,
+     null
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     null,
+     null
+    ],
+    [
+     "Oro (future, $/oncia)",
+     "su",
+     null,
+     null,
+     true
+    ]
+   ]
+  },
+  "verdetto": {
+   "settimana": "2026-10-26/2026-10-30",
+   "punti": 9,
+   "su": 12,
+   "direzione": 3,
+   "range": 6,
+   "par": 7.3
+  },
+  "temi": [
+   "Chip",
+   "Materie prime",
+   "Europa",
+   "Geopolitica",
+   "Fed",
+   "Asia"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Europa",
+    "titolo": "L'Europa cade su chip e banche, non sulla crescita",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Chip",
+    "titolo": "La paura dei chip è americana: Wall Street vende Intel, Seul compra",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Materie prime",
+    "titolo": "Venerdì l'oro ha venduto come un'azione: la cassa conta più del rifugio",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [],
+  "parole": [
+   "Guidance",
+   "Vendita forzata",
+   "Titoli difensivi"
+  ],
+  "ripetizioni": 3,
+  "glossario": [
+   "ISM",
+   "pb",
+   "BTP",
+   "Bund",
+   "VIX",
+   "ACWI",
+   "Brent",
+   "guidance"
+  ],
+  "agenda": [
+   {
+    "quando": "Lun 2, 16:00",
+    "evento": "ISM (sondaggio sulle imprese) manifatturiero USA, ottobre",
+    "attese": "",
+    "perche": "Attività dell'industria dopo la vendita sui chip",
+    "chiave": false
+   },
+   {
+    "quando": "Lun 2, 23:00",
+    "evento": "Conti di Apple",
+    "attese": "",
+    "perche": "Evento n.1: dopo Intel e Amazon, i grandi clienti dei chip",
+    "chiave": true
+   },
+   {
+    "quando": "Mar 3, in serata",
+    "evento": "Elezioni USA di metà mandato",
+    "attese": "",
+    "perche": "Un Congresso democratico potrebbe portare più controlli su AI e banche (Reuters)",
+    "chiave": false
+   },
+   {
+    "quando": "Mer 4, 16:00",
+    "evento": "ISM servizi USA, ottobre",
+    "attese": "",
+    "perche": "Attività dei servizi",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 5, 13:00",
+    "evento": "Decisione della Bank of England",
+    "attese": "",
+    "perche": "Tassi nel Regno Unito, oggi al 3,75%",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 6, 14:30",
+    "evento": "Occupazione USA (ottobre)",
+    "attese": "",
+    "perche": "Posti di lavoro: peso sulla Fed di dicembre",
+    "chiave": false
+   }
+  ]
  }
 ]

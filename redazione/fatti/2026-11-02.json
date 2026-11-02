@@ -1,0 +1,478 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Venerdì S&P 500 -1,8% a 7.580,07 (peggior seduta da giugno), Nasdaq -2,9% a 25.437,00, Dow -1,1%; Intel -28,6%, peggior calo dal 1974",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.ajc.com/news/2026/10/wall-street-tumbles-to-its-worst-day-since-june-after-the-sell-off-for-tech-stocks-deepens/",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Wall Street tumbles to its worst day since June after the sell-off for tech stocks deepens"
+   },
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-10-30/gold-falls-below-3900-silver-tumbles-wall-street-selloff-triggers",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "S&P 500: Down 1.8% to 7,580.07, its largest daily decline since June."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "T02",
+  "sezione": "top_story",
+  "testo": "Intel: guidance sul quarto trimestre sotto le attese (ricavi 15-16 mld $ contro circa 17, utile per azione rettificato 0,25 $ contro 0,43, margine lordo 38% contro 42,8%)",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/stocks/intel-shares-tumble-around-15-the-narrative-is-weak-q4-guidance-overshadows-q3-profit-beat/",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Adjusted EPS: $0.25 vs. $0.43"
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.ajc.com/news/2026/10/wall-street-tumbles-to-its-worst-day-since-june-after-the-sell-off-for-tech-stocks-deepens/",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Intel's profit forecast for the final quarter fell short of expectations."
+   }
+  ],
+  "novita": "Prima edizione dopo la chiusura di venerdì: il titolo ha perso il 28,6% e la guidance completa è nota",
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "T03",
+  "sezione": "top_story",
+  "testo": "Gli investitori passano dalla fase delle speranze sull'AI a quella delle prove: pesano Intel, i costi di Amazon e il crollo di Alphabet",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.ajc.com/news/2026/10/wall-street-tumbles-to-its-worst-day-since-june-after-the-sell-off-for-tech-stocks-deepens/",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "We're moving out of the hopes and dreams phase of the AI trade and into the 'show me' phase."
+   },
+   {
+    "testata": "Reuters (via Kitco)",
+    "url": "https://www.kitco.com/news/off-the-wire/2026-10-30/wall-st-week-ahead-midterm-elections-earnings-jobs-data-loom-ai-wary",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Alphabet's cash burn and weak revenue triggered the latest selloff."
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/stocks/intel-shares-tumble-around-15-the-narrative-is-weak-q4-guidance-overshadows-q3-profit-beat/",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Adjusted EPS: $0.25 vs. $0.43"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "Kospi +2,24% a 5.859,08 al 2/11; SK hynix +3,81%, Samsung +1,78% (Korea Times)",
+  "data_evento": "2026-11-02",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261102/kospi-rallies-over-2-as-investors-look-past-us-tech-rout",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "The KOSPI closed at 5,859.08 on Monday, up 2.24 percent, after institutional buying reversed early losses."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "M02",
+  "sezione": "mercati",
+  "testo": "Nikkei 225 a 63.081,86 (-0,33%) al 2/11",
+  "data_evento": "2026-11-02",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "FMP (indice ^N225)",
+    "url": "https://financialmodelingprep.com/",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Japan's Nikkei fell 0.33%, while South Korea's KOSPI rose 2.24%."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo. Nikkei -0,33%: FMP e titolo di un lancio di agenzia coincidono."
+ },
+ {
+  "id": "M03",
+  "sezione": "mercati",
+  "testo": "Euro Stoxx 50 a 6.131,31 (-1,22%) il 30/10; ASML e Infineon oltre -6%, NatWest quasi -9%, Santander e BBVA quasi -4%, AstraZeneca +7%, Sanofi quasi +5% (dpa-AFX)",
+  "data_evento": "2026-10-30",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "dpa-AFX",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-verluste-im-sog-weltweiter-12189235",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Die KI-Euphorie bekommt Risse"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "M04",
+  "sezione": "mercati",
+  "testo": "FTSE MIB circa -1% a 49.501 il 30/10; Amplifon -14,5% a 11,17 euro dopo i conti, STMicroelectronics -5,27%, Technoprobe -8,95%",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/borsa-italiana-commento-giornata-30-ottobre-2026",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Amplifon: Worst performer on the FTSE MIB, down 14.5% to 11.17 euros."
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/10/30/borsa-milano-in-calo-scivola-amplifon_e01f5acb-539f-49f4-8adf-6910b5c19d51.html",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Borsa: Milano in calo, scivola Amplifon"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "M05",
+  "sezione": "mercati",
+  "testo": "Spread BTP-Bund a 118 punti base in chiusura il 30/10, rendimento del BTP a 10 anni al 4,51%",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/10/30/lo-spread-tra-btp-e-bund-chiude-in-lieve-rialzo-a-118-punti-base_9c1ccf87-639a-4602-8527-9c9ec1842183.html",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Lo spread tra Btp e Bund chiude in lieve rialzo a 118 punti base"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Brent in calo stamattina mentre l'Iran dice che un piano mediato dal Qatar potrebbe riaprire Hormuz in due giorni",
+  "data_evento": "2026-11-02",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/commodities/oil-slips-as-iran-says-qatar-brokered-plan-could-reopen-hormuz-in-two-days/",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Oil slips as Iran says Qatar-brokered plan could reopen Hormuz in two days"
+   },
+   {
+    "testata": "FinanceFeeds",
+    "url": "https://financefeeds.com/brent-crude-oil-price-110-monday-after-opec-plus-holds-december-targets-29-november-2027-meeting-bull-120-bear-104/",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Iran's foreign minister said a Qatari-brokered plan could reopen the Strait of Hormuz within two days"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo. Fonti: investingLive (solo titolo, pagina non aprivabile) e FinanceFeeds; tolta l'affermazione sulla risposta di Washington (fonte unica non affidabile)."
+ },
+ {
+  "id": "N06",
+  "sezione": "catalizzatori",
+  "testo": "PIL area euro terzo trimestre +0,4% t/t, il doppio delle attese; Germania e Spagna in crescita, Italia ferma, Francia -0,1% (Eurostat)",
+  "data_evento": "2026-10-30",
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "Eurostat GDP up by 0.4% in the euro area third quarter 2026 preliminary flash estimate",
+   "Eurozone GDP third quarter 2026 flash estimate Eurostat October 30"
+  ],
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/30/scivola-piazza-affari-assieme-alle-altre-borse-europee-97.html",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Eurozone Q3 2026 GDP grew 0.4%, twice analyst expectations (Eurostat)."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "N07",
+  "sezione": "mercati",
+  "testo": "Oro future -3,3% a 3.898,9 $ e argento oltre -6% venerdì: vendite forzate dopo il calo delle azioni, con la Fed ferma a 3,75-4,00% e due voti per il rialzo",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-10-30/gold-falls-below-3900-silver-tumbles-wall-street-selloff-triggers",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "forced liquidation, portfolio rebalancing"
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/fomc-october-2026-fed-holds-rates",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "FOMC October 2026: Fed Holds Rates in a 10-2 Vote as Markets Price a December Hike"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "C03",
+  "sezione": "mercati",
+  "testo": "L'oro cede con le azioni: vendita forzata che ha prevalso sul rifugio (Kitco)",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-10-30/gold-falls-below-3900-silver-tumbles-wall-street-selloff-triggers",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "A tech-led equity selloff intensified selling across precious metals."
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/fomc-october-2026-fed-holds-rates",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Fed Holds Rates in a 10-2 Vote as Markets Price a December Hike"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "testo": "Lun 2 novembre, ore 16:00: ISM manifatturiero USA (ottobre)",
+  "data_evento": "2026-10-30",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---2nd-6th-november-2026",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Monday (2 Nov): Global Manufacturing PMI Final (Oct), US ISM Manufacturing PMI (Oct)"
+   }
+  ],
+  "ufficiale_cercato": [
+   "ISM manufacturing PMI October 2026 forecast Monday November 2",
+   "ISM manufacturing PMI October 2026 consensus expected previous September reading"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "K02",
+  "sezione": "catalizzatori",
+  "testo": "Lun 2 novembre, ore 23:00: conti di Apple (14:00 ora del Pacifico)",
+  "data_evento": "2026-10-30",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "MacTrast",
+    "url": "https://www.mactrast.com/2026/10/apple-to-announce-fiscal-q4-2026-earnings-on-november-2/",
+    "data_pubblicazione": "2026-10-06",
+    "citazione": "Apple will report its fiscal Q4 2026 earnings on Monday, November 2, 2026, at 2:00 p.m. Pacific Time"
+   },
+   {
+    "testata": "Reuters (via Kitco)",
+    "url": "https://www.kitco.com/news/off-the-wire/2026-10-30/wall-st-week-ahead-midterm-elections-earnings-jobs-data-loom-ai-wary",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Apple reports Monday"
+   }
+  ],
+  "ufficiale_cercato": [
+   "Apple earnings Monday November 2 2026 after the bell expectations iPhone",
+   "Apple Q4 2026 earnings date time"
+  ],
+  "novita": "L'azienda ha fissato la data il 6 ottobre; l'evento è in agenda oggi, dopo la chiusura di Wall Street",
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "K03",
+  "sezione": "catalizzatori",
+  "testo": "Mar 3 novembre, in serata: elezioni di metà mandato USA",
+  "data_evento": "2026-10-30",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Reuters (via Kitco)",
+    "url": "https://www.kitco.com/news/off-the-wire/2026-10-30/wall-st-week-ahead-midterm-elections-earnings-jobs-data-loom-ai-wary",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Tuesday's elections will determine whether Democrats can take control of Congress from Republicans."
+   }
+  ],
+  "ufficiale_cercato": [
+   "week ahead November 2 2026 midterm elections jobs report earnings Palantir AMD markets",
+   "Wall St Week Ahead midterm elections"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "K04",
+  "sezione": "catalizzatori",
+  "testo": "Mer 4 novembre, ore 16:00: ISM servizi USA (ottobre)",
+  "data_evento": "2026-10-30",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---2nd-6th-november-2026",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Wednesday (4 Nov): ... ISM Services PMI (Oct)"
+   }
+  ],
+  "ufficiale_cercato": [
+   "week ahead November 2 2026 midterm elections jobs report earnings Palantir AMD markets",
+   "Newsquawk Weekly Economic Calendar 2nd-6th November 2026"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "K05",
+  "sezione": "catalizzatori",
+  "testo": "Gio 5 novembre, ore 13:00: decisione della Bank of England",
+  "data_evento": "2026-11-02",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "FinanceCalendar",
+    "url": "https://www.financecalendar.com/event/bank-of-england-mpc-rate-decision-november-2026/",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Thursday, 5 November 2026 at 12:00 GMT"
+   }
+  ],
+  "ufficiale_cercato": [
+   "Bank of England interest rate decision 5 November 2026 expectations time",
+   "Bank of England MPC rate decision November 2026"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "K06",
+  "sezione": "catalizzatori",
+  "testo": "Ven 6 novembre, ore 14:30: occupazione USA (ottobre)",
+  "data_evento": "2026-10-30",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---2nd-6th-november-2026",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Friday (6 Nov): US Jobs Report (Oct)"
+   }
+  ],
+  "ufficiale_cercato": [
+   "week ahead November 2 2026 jobs report",
+   "Newsquawk Weekly Economic Calendar 2nd-6th November 2026"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo. L'ora 14:30 è la convenzione 8:30 ET, non da fonte ufficiale (BLS non raggiunto via ricerca)."
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Wall Street tumbles to its worst day since June after the sell-off for tech stocks deepens (AP, 30/10 sera)",
+   "Gold falls below $3,900, silver tumbles as Wall Street selloff triggers liquidation (Kitco, 30/10 sera)",
+   "KOSPI rallies over 2% as investors look past US tech rout (Korea Times, 2/11 mattina)",
+   "Oil slips as Iran says Qatar-brokered plan could reopen Hormuz in two days (investingLive, 2/11 mattina)"
+  ],
+  "testate": [
+   {
+    "testata": "AP",
+    "storie": [
+     "Wall Street tumbles to its worst day since June after the sell-off for tech stocks deepens",
+     "Intel plunges 28.6%, worst drop since 1974",
+     "Amazon's AI spending and cash burn weigh on tech"
+    ]
+   },
+   {
+    "testata": "Reuters (via Kitco)",
+    "storie": [
+     "Wall St Week Ahead: Midterm elections, earnings, jobs data loom for AI-wary market",
+     "Fed held rates steady and upgraded its view of the economy",
+     "Alphabet's cash burn and weak revenue triggered the latest selloff"
+    ]
+   },
+   {
+    "testata": "Teleborsa",
+    "storie": [
+     "Amplia le perdite Wall Street su crollo del tech",
+     "Scivola Piazza Affari assieme alle altre Borse europee",
+     "PIL eurozona +0,4% nel terzo trimestre"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Binance hackerata, bitcoin sotto 77.000 $",
+    "motivo": "senza una seconda lettura nel flusso e fuori dal perimetro dei mercati tradizionali"
+   },
+   {
+    "storia": "Elezioni USA di metà mandato",
+    "motivo": "in agenda: la prova di mercato arriva dopo l'uscita, nella notte tra martedì e mercoledì"
+   }
+  ],
+  "concorda": true,
+  "motivo": "AP e Reuters aprono su Wall Street e sull'AI; la nostra top story segue lo stesso filo (Intel e i chip).",
+  "verifica": "confermato",
+  "nota_revisore": "Titoli delle testate presi dai risultati di ricerca del 2/11; Reuters e Bloomberg non aperte per intero (Bloomberg bloccato da robots): concordanza dedotta dai titoli."
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Oro -3,3% e argento -6% nel giorno in cui i Treasury salgono (10 anni -4 pb) e il VIX sale",
+  "ricerche": [
+   "gold falls 3% Friday October 30 2026 why dollar yields gold price drop",
+   "gold slumps spot gold biggest daily drop Friday liquidation tech selloff October 30"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Vendita forzata per fare cassa dopo il calo delle azioni",
+    "fonte": null,
+    "prevede": "oro e argento giù con azioni, VIX su, rendimenti giù",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Scommesse sul rialzo Fed di dicembre",
+    "fonte": null,
+    "prevede": "rendimenti Treasury su",
+    "prezzi": "non torna"
+   }
+  ],
+  "esito": "ipotesi",
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "FTSE MIB, ACWI e Kospi: variazione da inizio anno",
+  "ricerche": [
+   "FTSE MIB variazione da inizio anno 2026",
+   "ACWI da inizio anno 2026",
+   "Da inizio anno 2026 di ACWI, Euro Stoxx 50 e FTSE MIB (27/10)",
+   "FTSE MIB: variazione a 1 settimana e da inizio anno (29/10)"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "-",
+   "url": ""
+  },
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo."
+ }
+]
