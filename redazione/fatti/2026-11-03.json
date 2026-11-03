@@ -1,0 +1,743 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Lunedì Nasdaq -1,1% a 25.164,32, Dow +0,4% a 51.983,98, S&P 500 -0,5%; il Nasdaq 100 scende di almeno il 10% dal picco (correzione) mentre il Brent perde il 7,6%",
+  "data_evento": "2026-11-02",
+  "fonti": [
+   {
+    "testata": "AFP",
+    "url": "https://sg.finance.yahoo.com/news/stocks-mostly-down-ai-concerns-025549675.html",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Instead, the Nasdaq handed back the entire opening bounce and broke Friday's lows,"
+   },
+   {
+    "testata": "XTB",
+    "url": "https://www.xtb.com/int/market-analysis/news-and-research/morning-wrap-stock-indices-fall-again-oil-tries-to-rebound-following-us-strike-on-iran-s-qeshm-island-03-11-2026",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "The Nasdaq 100 extended its losses yesterday and re-entered correction territory, falling 10% from its October peak."
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://uk.investing.com/news/stock-market-news/asia-stocks-mixed-as-apple-outlook-weighs-rba-raises-rates-to-18yr-high-4951021",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "oil prices fell more than 7% on Monday on hopes for progress in U.S.-Iran peace talks."
+   }
+  ],
+  "novita": "Prima edizione dopo la chiusura di lunedì 2/11: Nasdaq 100 in correzione e Brent -7,6%",
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; più fonti concordi."
+ },
+ {
+  "id": "T02",
+  "sezione": "mercati",
+  "testo": "Stephen Innes (SPI Asset Management): il crollo del greggio avrebbe dovuto essere benzina per i titoli di crescita; la vendita è guidata da qualcosa di più profondo di petrolio, rendimenti o dollaro",
+  "data_evento": "2026-11-02",
+  "fonti": [
+   {
+    "testata": "AFP",
+    "url": "https://sg.finance.yahoo.com/news/stocks-mostly-down-ai-concerns-025549675.html",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "collapse in crude should have been rocket fuel for the battered growth trade"
+   }
+  ],
+  "novita": "Lettura di un gestore sul giorno del crollo del petrolio",
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; fonte singola ammessa per la sezione (fonte_singola), attribuita nel testo."
+ },
+ {
+  "id": "T03",
+  "sezione": "top_story",
+  "testo": "Kospi -3,59% alla chiusura di stamattina; Samsung e SK hynix in calo di circa il 4% in mattinata",
+  "data_evento": "2026-11-03",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://uk.investing.com/news/stock-market-news/asia-stocks-mixed-as-apple-outlook-weighs-rba-raises-rates-to-18yr-high-4951021",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "South Korea's KOSPI led declines in Asia, with the benchmark dropping nearly 4%."
+   },
+   {
+    "testata": "AFP",
+    "url": "https://sg.finance.yahoo.com/news/stocks-mostly-down-ai-concerns-025549675.html",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Seoul-listed SK hynix and Samsung tanked around four percent, dragging the Kospi down more than two percent."
+   }
+  ],
+  "fonte_singola": true,
+  "novita": "Seul chiude in forte calo dopo il rimbalzo di lunedì",
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; più fonti concordi."
+ },
+ {
+  "id": "C01",
+  "sezione": "top_story",
+  "tipo": "C",
+  "testo": "La vendita sui tecnologici nasce dai timori sulle enormi somme investite nell'intelligenza artificiale (AFP)",
+  "data_evento": "2026-11-02",
+  "fonti": [
+   {
+    "testata": "AFP",
+    "url": "https://sg.finance.yahoo.com/news/stocks-mostly-down-ai-concerns-025549675.html",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Investor fears about the vast sums being invested in the artificial intelligence complex"
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://uk.investing.com/news/stock-market-news/asia-stocks-mixed-as-apple-outlook-weighs-rba-raises-rates-to-18yr-high-4951021",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "with investors also assessing whether heavy spending on artificial intelligence will deliver sufficient returns."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; più fonti concordi."
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "Kospi -3,59% al 3/11 alla chiusura (07:30 Roma); Nikkei chiuso per la festa nazionale (Culture Day)",
+  "data_evento": "2026-11-03",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://uk.investing.com/news/stock-market-news/asia-stocks-mixed-as-apple-outlook-weighs-rba-raises-rates-to-18yr-high-4951021",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "South Korea's KOSPI led declines in Asia, with the benchmark dropping nearly 4%."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; fonte singola ammessa per la sezione (fonte_singola), attribuita nel testo."
+ },
+ {
+  "id": "M02",
+  "sezione": "mercati",
+  "testo": "Euro Stoxx 50 +0,73% a 6.176,06 e FTSE 100 +0,29% a 10.761,33 il 2/11 (dpa-AFX)",
+  "data_evento": "2026-11-02",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "dpa-AFX",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-gewinne-dominieren-dank-12191493",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Der EuroStoxx 50 baute mit den erholten US-Börsen seinen Gewinn aus und schloss 0,73 Prozent höher bei 6.176,06 Punkten."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; fonte singola ammessa per la sezione (fonte_singola), attribuita nel testo."
+ },
+ {
+  "id": "M03",
+  "sezione": "mercati",
+  "testo": "FTSE MIB +0,9% a 49.947 il 2/11 (ANSA)",
+  "data_evento": "2026-11-02",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/02/borsa-milano-chiude-in-deciso-rialzo-09_116d3b52-aed6-4029-bb51-51556553ca0a.html",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Chiusura in netto rialzo per Piazza Affari."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; fonte singola ammessa per la sezione (fonte_singola), attribuita nel testo."
+ },
+ {
+  "id": "M04",
+  "sezione": "mercati",
+  "testo": "Spread BTP-Bund a 113 punti base in chiusura il 2/11 (-6), rendimento del BTP a 10 anni al 4,42% (ANSA)",
+  "data_evento": "2026-11-02",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/02/lo-spread-btp-bund-chiude-in-calo-di-quasi-6-punti-a-quota-113_6676e9b0-00f2-4936-85c9-d4aec3522af5.html",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Lo spread Btp-Bund chiude in calo di quasi 6 punti, a quota 113"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; fonte singola ammessa per la sezione (fonte_singola), attribuita nel testo."
+ },
+ {
+  "id": "M05",
+  "sezione": "mercati",
+  "testo": "Nikkei 225 a 63.081,86 (-0,33%) al 2/11 (Teleborsa via SoldiOnline)",
+  "data_evento": "2026-11-02",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/borsa-italiana-commento-giornata-2-novembre-2026",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "Tokyo: Nikkei -0,33% a 63.082"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; fonte singola ammessa per la sezione (fonte_singola), attribuita nel testo."
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Apple: conti sopra le attese ma margine lordo in calo nel trimestre ottobre-dicembre, per il rincaro delle memorie; titolo in calo dopo i conti",
+  "data_evento": "2026-11-02",
+  "fonti": [
+   {
+    "testata": "AFP",
+    "url": "https://sg.finance.yahoo.com/news/stocks-mostly-down-ai-concerns-025549675.html",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "but warned that its gross margin -- the percentage of sales left after output costs -- would drop in October-December."
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://uk.investing.com/news/stock-market-news/asia-stocks-mixed-as-apple-outlook-weighs-rba-raises-rates-to-18yr-high-4951021",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "the iPhone maker forecast lower gross margins for the crucial holiday quarter, citing rising memory-chip costs"
+   }
+  ],
+  "novita": "Conti pubblicati lunedì dopo la chiusura",
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; più fonti concordi."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "tipo": "U",
+  "testo": "Australia: la banca centrale alza i tassi dal 4,60% al 4,85%, quinto rialzo del 2026, massimo dal 2008; voto 6-3",
+  "data_evento": "2026-11-03",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://uk.investing.com/news/stock-market-news/asia-stocks-mixed-as-apple-outlook-weighs-rba-raises-rates-to-18yr-high-4951021",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "The decision was split, with six board members voting for a hike and three preferring to leave rates unchanged."
+   },
+   {
+    "testata": "XTB",
+    "url": "https://www.xtb.com/int/market-analysis/news-and-research/morning-wrap-stock-indices-fall-again-oil-tries-to-rebound-following-us-strike-on-iran-s-qeshm-island-03-11-2026",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "raised interest rates for the fifth time in 2026, from 4.60% to 4.85%."
+   }
+  ],
+  "ufficiale_cercato": [
+   "RBA cash rate decision 3 November 2026 raises to 4.85%",
+   "Reserve Bank of Australia monetary policy decision November 2026"
+  ],
+  "novita": "Decisione di stanotte",
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; più fonti concordi."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Iran: negoziatori a Doha tre giorni, quadro d'accordo (funzionario informato); la Guida suprema avrebbe dato il via libera ai negoziati",
+  "data_evento": "2026-11-02",
+  "fonti": [
+   {
+    "testata": "dpa-AFX",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-gewinne-dominieren-dank-12191493",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Der oberste Führer des Iran, Modschtaba Chamenei, habe grünes Licht für Verhandlungen gegeben"
+   },
+   {
+    "testata": "Fox News",
+    "url": "https://foxnews.com/live-news/iran-war-news-trump-midterms-peace-deal-israel-november-2",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Iranian negotiators spent three consecutive days in Doha, Qatar, and departed Sunday after arriving at a framework for an agreement"
+   }
+  ],
+  "novita": "Prima: piano mediato dal Qatar (2/11); oggi: via libera della Guida suprema",
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; più fonti concordi."
+ },
+ {
+  "id": "N04",
+  "sezione": "mercati",
+  "testo": "Alstom -26% a fine seduta dopo il taglio dell'obiettivo di margine 2026/27, per ritardi nelle consegne di treni elettrici a due piani (dpa-AFX)",
+  "data_evento": "2026-11-02",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "dpa-AFX",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-gewinne-dominieren-dank-12191493",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Der Bahntechnikkonzern strich sein Margenziel für das Geschäftsjahr 2026/27 massiv zusammen."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; fonte singola ammessa per la sezione (fonte_singola), attribuita nel testo."
+ },
+ {
+  "id": "N05",
+  "sezione": "mercati",
+  "testo": "Forvia +5,4% dopo i conti dei nove mesi, previsioni confermate (dpa-AFX)",
+  "data_evento": "2026-11-02",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "dpa-AFX",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-gewinne-dominieren-dank-12191493",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Für die Aktien von Forvia ging es nach der Bekanntgabe von Geschäftszahlen um 5,4 Prozent aufwärts."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; fonte singola ammessa per la sezione (fonte_singola), attribuita nel testo."
+ },
+ {
+  "id": "N06",
+  "sezione": "catalizzatori",
+  "tipo": "U",
+  "testo": "Cina: dal 15 novembre la riserva obbligatoria sui depositi in valuta estera sale al 6% dal 4%",
+  "data_evento": "2026-11-03",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://uk.investing.com/news/stock-market-news/asia-stocks-mixed-as-apple-outlook-weighs-rba-raises-rates-to-18yr-high-4951021",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "would raise the foreign exchange deposit reserve ratio for financial institutions to 6% from 4%, effective November 15"
+   }
+  ],
+  "ufficiale_cercato": [
+   "PBOC foreign exchange deposit reserve ratio 6% November 15 2026",
+   "People's Bank of China raises FX reserve requirement ratio"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; fonte singola ammessa per la sezione (fonte_singola), attribuita nel testo."
+ },
+ {
+  "id": "N07",
+  "sezione": "mercati",
+  "testo": "Petrolio -7,6% lunedì (Brent a 104,77 $) sulle speranze di progressi nei colloqui USA-Iran; stamattina il Wall Street Journal riferisce di un attacco USA all'isola di Qeshm",
+  "data_evento": "2026-11-02",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://uk.investing.com/news/stock-market-news/asia-stocks-mixed-as-apple-outlook-weighs-rba-raises-rates-to-18yr-high-4951021",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "oil prices fell more than 7% on Monday on hopes for progress in U.S.-Iran peace talks."
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://uk.investing.com/news/stock-market-news/asia-stocks-mixed-as-apple-outlook-weighs-rba-raises-rates-to-18yr-high-4951021",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "However, a Wall Street Journal report said that the U.S. attacked Iran's Qeshm Island on Monday."
+   },
+   {
+    "testata": "XTB",
+    "url": "https://www.xtb.com/int/market-analysis/news-and-research/morning-wrap-stock-indices-fall-again-oil-tries-to-rebound-following-us-strike-on-iran-s-qeshm-island-03-11-2026",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "Brent oil futures rise almost 1.5% above $105.70 per barrel"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; più fonti concordi."
+ },
+ {
+  "id": "C02",
+  "sezione": "mercati",
+  "tipo": "C",
+  "testo": "Il petrolio scende sulle speranze di progressi nei colloqui tra Stati Uniti e Iran (Investing.com)",
+  "data_evento": "2026-11-02",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://uk.investing.com/news/stock-market-news/asia-stocks-mixed-as-apple-outlook-weighs-rba-raises-rates-to-18yr-high-4951021",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "oil prices fell more than 7% on Monday on hopes for progress in U.S.-Iran peace talks."
+   },
+   {
+    "testata": "AFP",
+    "url": "https://sg.finance.yahoo.com/news/stocks-mostly-down-ai-concerns-025549675.html",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "US President Donald Trump on Monday signalled progress in talks"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; più fonti concordi."
+ },
+ {
+  "id": "M06",
+  "sezione": "mercati",
+  "testo": "Air France-KLM +4,8%, IAG +3,8%, Ryanair oltre +5% (attesi 2 mld di euro di carburante in più l'anno prossimo), petroliferi in fondo allo Stoxx Europe 600 il 2/11 (dpa-AFX)",
+  "data_evento": "2026-11-02",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "dpa-AFX",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-gewinne-dominieren-dank-12191493",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "So stiegen die Papiere von Air France-KLM um 4,8 Prozent und jene der Airline-Holding IAG um 3,8 Prozent."
+   },
+   {
+    "testata": "dpa-AFX",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-gewinne-dominieren-dank-12191493",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Für das kommende Jahr rechnet Ryanair mit zwei Milliarden Euro höheren Treibstoffkosten"
+   },
+   {
+    "testata": "dpa-AFX",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-gewinne-dominieren-dank-12191493",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Am unteren Ende des marktbreiten Stoxx Europe 600 lagen hingegen die Ölwerte"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; più fonti concordi."
+ },
+ {
+  "id": "D01",
+  "sezione": "mercati",
+  "testo": "Colloqui: Vance parla di qualche progresso, Trump dice che gli USA trattano da una posizione di forza; un esperto della National Australia Bank osserva che le posizioni non sono cambiate in modo sostanziale",
+  "data_evento": "2026-11-02",
+  "fonti": [
+   {
+    "testata": "AFP",
+    "url": "https://sg.finance.yahoo.com/news/stocks-mostly-down-ai-concerns-025549675.html",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Even a more than seven percent plunge in oil prices Monday was unable to provide support."
+   },
+   {
+    "testata": "AFP",
+    "url": "https://sg.finance.yahoo.com/news/stocks-mostly-down-ai-concerns-025549675.html",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "It is worth noting that the US and Iran's positions have not materially changed,"
+   },
+   {
+    "testata": "AFP",
+    "url": "https://sg.finance.yahoo.com/news/stocks-mostly-down-ai-concerns-025549675.html",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "\"We've certainly made some progress. We'll see if we can make some more,\" Vance told reporters on Monday."
+   },
+   {
+    "testata": "AFP",
+    "url": "https://sg.finance.yahoo.com/news/stocks-mostly-down-ai-concerns-025549675.html",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "But here's the thing: we're dealing from total strength. We can end it at any time."
+   }
+  ],
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; più fonti concordi."
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "tipo": "U",
+  "testo": "Lun 2 novembre, 16:00: ISM manifatturiero USA (ottobre) 55,5 contro 54,6 atteso; settembre 54,5; produzione 59,0, occupazione 52,4, prezzi pagati 75,2 (77,9 a settembre); 12 industrie su 18 in crescita",
+  "data_evento": "2026-11-02",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "ISM (comunicato)",
+    "url": "https://www.prnewswire.com/news-releases/manufacturing-pmi-at-55-5-october-2026-ism-manufacturing-pmi-report-302925617.html",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "The Manufacturing PMI® registered 55.5 percent in October, 1 percentage point above the September figure of 54.5 percent."
+   },
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---2nd-6th-november-2026",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "US ISM Manufacturing PMI (Oct)"
+   }
+  ],
+  "ufficiale_cercato": [
+   "ISM Manufacturing PMI October 2026 report",
+   "ISM manufacturing October 2026 55.5 expectations"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; più fonti concordi."
+ },
+ {
+  "id": "K02",
+  "sezione": "catalizzatori",
+  "testo": "Lun 2 novembre, 23:00: conti di Apple, sopra le attese; margine lordo in calo nel trimestre di fine anno",
+  "data_evento": "2026-11-02",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "MacTrast",
+    "url": "https://www.mactrast.com/2026/10/apple-to-announce-fiscal-q4-2026-earnings-on-november-2/",
+    "data_pubblicazione": "2026-10-06",
+    "citazione": "Apple will report its fiscal Q4 2026 earnings on Monday, November 2, 2026, at 2:00 p.m. Pacific Time"
+   },
+   {
+    "testata": "Reuters (via Kitco)",
+    "url": "https://www.kitco.com/news/off-the-wire/2026-10-30/wall-st-week-ahead-midterm-elections-earnings-jobs-data-loom-ai-wary",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Apple reports Monday"
+   },
+   {
+    "testata": "AFP",
+    "url": "https://sg.finance.yahoo.com/news/stocks-mostly-down-ai-concerns-025549675.html",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "but warned that its gross margin -- the percentage of sales left after output costs -- would drop in October-December."
+   }
+  ],
+  "ufficiale_cercato": [
+   "Apple fiscal Q4 2026 results press release",
+   "Apple Q4 2026 earnings November 2"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; più fonti concordi."
+ },
+ {
+  "id": "K07",
+  "sezione": "catalizzatori",
+  "tipo": "U",
+  "testo": "Mar 3 novembre, 16:00: posti vacanti USA (JOLTS, settembre); agosto 7,1 milioni",
+  "data_evento": "2026-11-03",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/news.release/archives/jolts_09292026.htm",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "scheduled to be published on Tuesday, November 3, 2026, at 10:00 a.m. (ET)."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; fonte singola ammessa per la sezione (fonte_singola), attribuita nel testo."
+ },
+ {
+  "id": "K08",
+  "sezione": "catalizzatori",
+  "testo": "Mar 3 novembre, dopo la chiusura USA: conti di AMD",
+  "data_evento": "2026-11-03",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "XTB",
+    "url": "https://www.xtb.com/int/market-analysis/news-and-research/morning-wrap-stock-indices-fall-again-oil-tries-to-rebound-following-us-strike-on-iran-s-qeshm-island-03-11-2026",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "AMD and Arista Networks will release their results after the closing bell."
+   }
+  ],
+  "ufficiale_cercato": [
+   "AMD third quarter 2026 earnings date",
+   "AMD Q3 2026 financial results conference call"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; fonte singola ammessa per la sezione (fonte_singola), attribuita nel testo."
+ },
+ {
+  "id": "K03",
+  "sezione": "catalizzatori",
+  "testo": "Mar 3 novembre, in serata: elezioni di metà mandato USA; un Congresso democratico potrebbe portare più controlli su AI e banche (Reuters)",
+  "data_evento": "2026-11-02",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Fox News",
+    "url": "https://foxnews.com/live-news/iran-war-news-trump-midterms-peace-deal-israel-november-2",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "ahead of Tuesday's midterm elections"
+   },
+   {
+    "testata": "Reuters (via Kitco)",
+    "url": "https://www.kitco.com/news/off-the-wire/2026-10-30/wall-st-week-ahead-midterm-elections-earnings-jobs-data-loom-ai-wary",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Tuesday's elections will determine whether Democrats can take control of Congress from Republicans."
+   }
+  ],
+  "ufficiale_cercato": [
+   "week ahead November 2 2026 midterm elections jobs report earnings Palantir AMD markets",
+   "Wall St Week Ahead midterm elections"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; più fonti concordi."
+ },
+ {
+  "id": "K04",
+  "sezione": "catalizzatori",
+  "testo": "Mer 4 novembre, ore 16:00: ISM servizi USA (ottobre)",
+  "data_evento": "2026-11-03",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---2nd-6th-november-2026",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "Wednesday (4 Nov): ... ISM Services PMI (Oct)"
+   }
+  ],
+  "ufficiale_cercato": [
+   "week ahead November 2 2026 midterm elections jobs report earnings Palantir AMD markets",
+   "Newsquawk Weekly Economic Calendar 2nd-6th November 2026"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; fonte singola ammessa per la sezione (fonte_singola), attribuita nel testo."
+ },
+ {
+  "id": "K05",
+  "sezione": "catalizzatori",
+  "testo": "Gio 5 novembre, ore 13:00: decisione della Bank of England",
+  "data_evento": "2026-11-02",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "FinanceCalendar",
+    "url": "https://www.financecalendar.com/event/bank-of-england-mpc-rate-decision-november-2026/",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Thursday, 5 November 2026 at 12:00 GMT"
+   }
+  ],
+  "ufficiale_cercato": [
+   "Bank of England interest rate decision 5 November 2026 expectations time",
+   "Bank of England MPC rate decision November 2026"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; fonte singola ammessa per la sezione (fonte_singola), attribuita nel testo."
+ },
+ {
+  "id": "K06",
+  "sezione": "catalizzatori",
+  "testo": "Ven 6 novembre, ore 14:30: occupazione USA (ottobre)",
+  "data_evento": "2026-11-03",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/newsquawk-weekly-economic-calendar---2nd-6th-november-2026",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "Friday (6 Nov): US Jobs Report (Oct)"
+   }
+  ],
+  "ufficiale_cercato": [
+   "week ahead November 2 2026 jobs report",
+   "Newsquawk Weekly Economic Calendar 2nd-6th November 2026"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; fonte singola ammessa per la sezione (fonte_singola), attribuita nel testo."
+ },
+ {
+  "id": "K09",
+  "sezione": "macro",
+  "testo": "Fed ferma dal 28/10; area euro PIL terzo trimestre uscito il 30/10 (fermi)",
+  "data_evento": "2026-10-30",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/10/30/scivola-piazza-affari-assieme-alle-altre-borse-europee-97.html",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "Eurozone Q3 2026 GDP grew 0.4%, twice analyst expectations (Eurostat)."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione; fonte singola ammessa per la sezione (fonte_singola), attribuita nel testo."
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Nasdaq -1,1% e VIX in rialzo nel giorno in cui il Brent perde il 7,6% e il Treasury a 10 anni scende di 3 pb",
+  "ricerche": [
+   "Wall Street Monday November 2 2026 close Apple oil Brent plunges",
+   "stock market today Wall Street Monday Nasdaq falls oil Brent drops Iran Hormuz",
+   "Nasdaq 100 correction 10% from peak Monday tech selloff"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Timori sulle somme investite in AI e sul ritorno degli investimenti",
+    "fonte": "C01",
+    "prevede": "vendita concentrata su tecnologici e chip, Dow su, VIX su, petrolio e rendimenti non decisivi",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Rialzo dei rendimenti (costo del denaro)",
+    "fonte": null,
+    "prevede": "Treasury 10 anni in salita",
+    "prezzi": "non torna"
+   },
+   {
+    "causa": "Prezzo del petrolio e inflazione",
+    "fonte": null,
+    "prevede": "azioni su con il greggio in calo",
+    "prezzi": "non torna"
+   }
+  ],
+  "esito": "C01"
+ },
+ {
+  "id": "A2",
+  "sezione": "anomalia",
+  "fatto": "Brent -7,6% in una seduta (calo più raro del mese)",
+  "ricerche": [
+   "oil biggest drop Monday Iran supreme leader approves talks Qatar Brent settles Reuters November 2",
+   "oil prices tumble Iran talks Hormuz Gulf exports resume Brent $104 biggest one-day drop"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Speranze di progressi nei colloqui USA-Iran",
+    "fonte": "C02",
+    "prevede": "greggio giù, compagnie aeree su, petroliferi giù, rendimenti giù",
+    "prezzi": "torna"
+   }
+  ],
+  "esito": "C02"
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "FTSE MIB, ACWI, Kospi: variazione a 1 settimana e da inizio anno; livello del Kospi del 3/11",
+  "ricerche": [
+   "Kospi 5,648.79",
+   "Kospi closes 5,666 Samsung SK hynix Tuesday Seoul stocks close",
+   "Kospi closes November 3 2026",
+   "Seoul stocks close sharply lower chip shares Samsung SK hynix Kospi Nov. 3 Yonhap"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "-",
+   "url": ""
+  }
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Stocks mostly down as AI concerns top plunge in oil prices (AFP, 3/11 mattina)",
+   "Asia stocks fall as Apple outlook weighs; RBA raises rates to 18-yr high (Investing.com, 3/11 06:28 Londra)",
+   "Morning wrap: Stock Indices Fall Again, Oil Tries To Rebound Following US Strike on Iran's Qeshm Island (XTB, 3/11 07:00)"
+  ],
+  "testate": [
+   {
+    "testata": "AFP (Yahoo Finance)",
+    "storie": [
+     "Stocks mostly down as AI concerns top plunge in oil prices",
+     "Apple warns of lower gross margin",
+     "Anthropic revenue surge and listing plans"
+    ]
+   },
+   {
+    "testata": "Investing.com",
+    "storie": [
+     "Asia stocks fall as Apple outlook weighs; RBA raises rates",
+     "Kospi leads declines in Asia",
+     "WSJ: US attacked Iran's Qeshm Island"
+    ]
+   },
+   {
+    "testata": "ANSA",
+    "storie": [
+     "Borsa: l'Europa chiude in rialzo guardando ai negoziati in Iran",
+     "Borsa: Europa corre col crollo del petrolio, Milano +1,2%",
+     "Lo spread Btp-Bund chiude in calo di quasi 6 punti, a quota 113"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Anthropic: ricavi trimestrali e quotazione a Wall Street entro novembre",
+    "motivo": "fonte singola (AFP) e senza una prova di mercato prima dell'uscita"
+   },
+   {
+    "storia": "Elezioni USA di metà mandato",
+    "motivo": "in agenda: la prova di mercato arriva dopo l'uscita"
+   }
+  ],
+  "concorda": true,
+  "motivo": "AFP e Investing.com aprono sul calo dei tecnologici con il petrolio in forte ribasso, come la nostra prima pagina; ANSA apre sull'Europa e sul petrolio."
+ }
+]

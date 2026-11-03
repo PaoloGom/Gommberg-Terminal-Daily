@@ -2831,5 +2831,207 @@
     "chiave": false
    }
   ]
+ },
+ {
+  "numero": 17,
+  "data": "2026-11-03",
+  "titolo": "Il petrolio crolla ma il Nasdaq 100 entra in correzione: la vendita è sull'AI",
+  "sommario": [
+   "Il greggio scende sulle speranze di pace con l'Iran, ma stamattina risale dopo la notizia di un attacco americano all'isola di Qeshm.",
+   "L'industria americana accelera ma i prezzi pagati dalle imprese scendono, e i Treasury non si spaventano.",
+   "Oggi le elezioni americane di metà mandato e, nel pomeriggio, i posti di lavoro vacanti."
+  ],
+  "file": "pdf/2026-11-03-gommberg-017.pdf",
+  "nome": "2026-11-03 Gommberg Terminal Daily #017.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Apple: conti sopra le attese, ma il margine lordo scenderà",
+   "Australia: la banca centrale alza i tassi al 4,85%",
+   "Iran: via libera della Guida suprema ai negoziati con Washington",
+   "Alstom crolla del 26% dopo il taglio del margine",
+   "Forvia sale del 5,4% dopo i conti dei nove mesi",
+   "Cina: più riserva obbligatoria sui depositi in valuta estera"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "155,84 $",
+    "-0,1% g"
+   ],
+   [
+    "S&P 500",
+    "7.541,40",
+    "-0,5% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.176,06",
+    "+0,7% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "4,91%",
+    "-3 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "104,77 $",
+    "-7,6% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1185",
+    "+0,2% g"
+   ],
+   [
+    "VIX",
+    "21,15",
+    "+1,73 g"
+   ]
+  ],
+  "dek": "Lunedì il Brent (il petrolio di riferimento europeo) perde il 7,6% sulle speranze di un accordo tra Stati Uniti e Iran, ma Wall Street non ne approfitta: il Nasdaq cede l'1,1% e il Nasdaq 100 scende di almeno il 10% dal massimo, la soglia della correzione, mentre il Dow sale dello 0,4%. Stamattina il Kospi di Seul perde il 3,6%. Stephen Innes, di SPI Asset Management, dice che la vendita è ora guidata da qualcosa di più profondo di petrolio, rendimenti o dollaro.",
+  "ticker_al": "2026-11-02",
+  "scommessa": {
+   "settimana": "2026-11-02/2026-11-06",
+   "su": 6,
+   "variabile": {
+    "nome": "Oro (future, $/oncia)",
+    "motivo": "Oro venduto con le azioni: rifugio o cassa?"
+   },
+   "strada": 2,
+   "range": 5,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     false,
+     true
+    ],
+    [
+     "S&P 500",
+     "su",
+     false,
+     true
+    ],
+    [
+     "Euro Stoxx 50",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Brent future",
+     "giù",
+     true,
+     false
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "Oro (future, $/oncia)",
+     "su",
+     true,
+     true,
+     true
+    ]
+   ]
+  },
+  "temi": [
+   "Wall Street",
+   "Petrolio",
+   "Tecnologia",
+   "Tassi",
+   "Europa",
+   "Geopolitica"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Tassi",
+    "titolo": "L'industria USA accelera senza nuova spinta dai prezzi: il dato che non spaventa i Treasury",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Petrolio",
+    "titolo": "Il Brent scommette sulla pace: perde 9 dollari in un giorno, ma il negoziato non è chiuso",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Chip",
+    "titolo": "Il petrolio non salva il Nasdaq: la vendita riguarda i giganti dell'AI, non tutto il mercato",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [],
+  "parole": [
+   "Correzione",
+   "Margine lordo",
+   "Riserva obbligatoria"
+  ],
+  "ripetizioni": 1,
+  "glossario": [
+   "JOLTS",
+   "PMI",
+   "ISM",
+   "pb",
+   "BTP",
+   "Bund",
+   "VIX",
+   "ACWI",
+   "Brent"
+  ],
+  "agenda": [
+   {
+    "quando": "Mar 3, 16:00",
+    "evento": "Posti vacanti USA (JOLTS, settembre)",
+    "attese": "-; prec. 7,1 mln (agosto)",
+    "perche": "Domanda di lavoro prima del dato di venerdì",
+    "chiave": false
+   },
+   {
+    "quando": "Mar 3, in serata",
+    "evento": "Elezioni USA di metà mandato",
+    "attese": "",
+    "perche": "Evento n.1: un Congresso democratico potrebbe portare più controlli su AI e banche (Reuters)",
+    "chiave": true
+   },
+   {
+    "quando": "Mar 3, dopo la chiusura USA",
+    "evento": "Conti di AMD",
+    "attese": "",
+    "perche": "Test per i chip dell'AI dopo la vendita di ieri",
+    "chiave": false
+   },
+   {
+    "quando": "Mer 4, 16:00",
+    "evento": "ISM servizi USA (ottobre)",
+    "attese": "",
+    "perche": "Attività dei servizi",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 5, 13:00",
+    "evento": "Decisione della Bank of England",
+    "attese": "",
+    "perche": "Politica monetaria britannica",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 6, 14:30",
+    "evento": "Occupazione USA (ottobre)",
+    "attese": "",
+    "perche": "Mercato del lavoro prima della Fed",
+    "chiave": false
+   }
+  ]
  }
 ]
