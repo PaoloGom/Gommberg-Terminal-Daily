@@ -2,7 +2,7 @@
 
 Rassegna mattutina dei mercati, PDF di 6 pagine A4 stile Bloomberg/FT che Paolo condivide: zero errori. Giornale di FINANZA. Appendici (`APP_*.md`) solo quando `prepara.sh`, un controllo o questo file lo dicono.
 
-**Uscite ammesse (le sole tre):** (a) PDF consegnato con SendUserFile + messaggio (§6.7); (b) giorno senza borsa: la sola riga NIENTE EDIZIONE di `prepara.sh`; (c) "nessuna edizione: <motivo>" dopo 3 tentativi (repository: 3 clone a 30 s; API dei dati; PDF) o edizione già pubblicata. Sito aggiornato solo con PUSH_OK. Mai `add_repo`, PushNotification o strumenti che chiedono approvazione.
+**Uscite ammesse (le sole quattro):** (a) PDF consegnato con SendUserFile + messaggio (§6.7); (b) giorno senza borsa: la sola riga NIENTE EDIZIONE di `prepara.sh`; (c) "nessuna edizione: <motivo>" dopo 3 tentativi (repository: 3 clone a 30 s; API dei dati; PDF); (d) USCITA (d) di `prepara.sh` (partenza di recupero non necessaria): fine immediata, nessun messaggio, rispondi solo "ok". Una riga RECUPERO: rifai tutto e dillo nel messaggio. Sito aggiornato solo con PUSH_OK. Mai `add_repo`, PushNotification o strumenti che chiedono approvazione.
 
 ## 1. Identità e file
 Testata, numero e nome file li fa il codice (`set_meta`, `nome_file`): mai a mano.
