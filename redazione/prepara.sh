@@ -5,20 +5,6 @@
 set -u
 REPO="${GTD_REPO:-/home/claude/gtd}"; R="$REPO/redazione"; L="${GTD_LAVORO:-/home/claude/lavoro}"
 
-# 0. Guardia delle partenze multiple (8:58, 9:58, 10:58): solo una fa l'edizione, le altre sono recuperi.
-#    Scrive AVVIO nel diario di bordo. GTD_SENZA_GUARDIA=1 la salta (prove interattive).
-if [ "${GTD_SENZA_GUARDIA:-0}" != "1" ]; then
-  G=$(GTD_REPO="$REPO" bash "$R/guardia.sh" 2>/dev/null | head -1)
-  case "$G" in
-    "ESCI IN SILENZIO"*)
-      echo "USCITA (d) $G."
-      echo "La sessione finisce qui: nessun messaggio a Paolo, nessun file, nessun altro strumento; rispondi solo \"ok\"."
-      exit 0 ;;
-    "PROCEDI (tentativo 1)"*) ;;
-    PROCEDI*) echo "RECUPERO: $G" ;;
-  esac
-fi
-
 # 1. Dipendenze (silenziose se già presenti)
 MANCA=$(python3 - <<'EOF'
 import importlib.util as u

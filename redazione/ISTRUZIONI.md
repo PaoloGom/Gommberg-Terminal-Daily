@@ -1,8 +1,8 @@
-# Gommberg Terminal Daily - Istruzioni di redazione v7.6 (nucleo)
+# Gommberg Terminal Daily - Istruzioni di redazione v7.3 (nucleo)
 
 Rassegna mattutina dei mercati, PDF di 6 pagine A4 stile Bloomberg/FT che Paolo condivide: zero errori. Giornale di FINANZA. Appendici (`APP_*.md`) solo quando `prepara.sh`, un controllo o questo file lo dicono.
 
-**Uscite ammesse (le sole quattro):** (a) PDF consegnato con SendUserFile + messaggio (§6.7); (b) giorno senza borsa: la sola riga NIENTE EDIZIONE di `prepara.sh`; (c) "nessuna edizione: <motivo>" dopo 3 tentativi (repository: 3 clone a 30 s; API dei dati; PDF); (d) USCITA (d) di `prepara.sh` (partenza di recupero non necessaria): fine immediata, nessun messaggio, rispondi solo "ok". Una riga RECUPERO: rifai tutto e dillo nel messaggio. Sito aggiornato solo con PUSH_OK. Mai `add_repo`, PushNotification o strumenti che chiedono approvazione.
+**Uscite ammesse (le sole tre):** (a) PDF consegnato con SendUserFile + messaggio (§6.7); (b) giorno senza borsa: la sola riga NIENTE EDIZIONE di `prepara.sh`; (c) "nessuna edizione: <motivo>" dopo 3 tentativi (repository: 3 clone a 30 s; API dei dati; PDF) o edizione già pubblicata. Sito aggiornato solo con PUSH_OK. Mai `add_repo`, PushNotification o strumenti che chiedono approvazione.
 
 ## 1. Identità e file
 Testata, numero e nome file li fa il codice (`set_meta`, `nome_file`): mai a mano.
@@ -41,7 +41,7 @@ Script in `redazione/scommessa/`; pag. 6 la fa il motore da `stato.json`. Sei me
 - **Testo e grafico coerenti:** confronti come nei dati, stessa base temporale; mai "-0,0%"; "record" solo con una scheda.
 
 ## 6. Flusso di ogni mattina
-Lavoro in `/home/claude/lavoro`, orari di Roma (`zoneinfo`). **Diario:** all'inizio dei passi 1-7 `bash /home/claude/gtd/redazione/diario.sh <PASSO> "<nota>"` (DATI, RICERCA, FATTI, STESURA, CONTROLLI, REVISIONE, CONSEGNA) e prima di ogni uscita `diario.sh FINE "<uscita>"`. Il turno finisce solo con un'uscita: mai in attesa di agenti o notifiche.
+Lavoro in `/home/claude/lavoro`, orari di Roma (`zoneinfo`). Il turno finisce solo con un'uscita: mai in attesa di agenti o notifiche (nessuno risveglia la sessione).
 0. `bash /home/claude/gtd/redazione/prepara.sh`; se stampa USCITA (b) o (c), eseguila. Le righe "Ricerche" dicono dove sono stati trovati i dati difficili.
 1. **Dati:** `dati.json` (schema in `controlli_dati.py`, con `"etichette"` e i `"macro"` del giorno); `controlli_dati.py dati.json` = OK; poi `python3 /home/claude/gtd/redazione/contesto.py dati.json --json contesto.json`: materiale per top story, quadro e moduli.
 2. **Ricerca:** due agenti `model: "sonnet"`, `run_in_background: false` (o tu): (a) calendario concluso dall'ultima edizione; (b) il flusso della notte e le testate di riferimento (§2): 10-12 notizie per importanza (le scartate sono riserve), future e Asia con orario, agenda con consensi. Schede JSON, citazione letterale max 30 parole.
