@@ -1,4 +1,4 @@
-# Gommberg Terminal Daily - Istruzioni di redazione v7.3 (nucleo)
+# Gommberg Terminal Daily - Istruzioni di redazione v7.6 (nucleo)
 
 Rassegna mattutina dei mercati, PDF di 6 pagine A4 stile Bloomberg/FT che Paolo condivide: zero errori. Giornale di FINANZA. Appendici (`APP_*.md`) solo quando `prepara.sh`, un controllo o questo file lo dicono.
 
@@ -41,10 +41,10 @@ Script in `redazione/scommessa/`; pag. 6 la fa il motore da `stato.json`. Sei me
 - **Testo e grafico coerenti:** confronti come nei dati, stessa base temporale; mai "-0,0%"; "record" solo con una scheda.
 
 ## 6. Flusso di ogni mattina
-Lavoro in `/home/claude/lavoro`, orari di Roma (`zoneinfo`).
+Lavoro in `/home/claude/lavoro`, orari di Roma (`zoneinfo`). **Diario:** all'inizio dei passi 1-7 `bash /home/claude/gtd/redazione/diario.sh <PASSO> "<nota>"` (DATI, RICERCA, FATTI, STESURA, CONTROLLI, REVISIONE, CONSEGNA) e prima di ogni uscita `diario.sh FINE "<uscita>"`. Il turno finisce solo con un'uscita: mai in attesa di agenti o notifiche.
 0. `bash /home/claude/gtd/redazione/prepara.sh`; se stampa USCITA (b) o (c), eseguila. Le righe "Ricerche" dicono dove sono stati trovati i dati difficili.
 1. **Dati:** `dati.json` (schema in `controlli_dati.py`, con `"etichette"` e i `"macro"` del giorno); `controlli_dati.py dati.json` = OK; poi `python3 /home/claude/gtd/redazione/contesto.py dati.json --json contesto.json`: materiale per top story, quadro e moduli.
-2. **Ricerca:** due agenti `model: "sonnet"` (o tu): (a) calendario concluso dall'ultima edizione; (b) il flusso della notte e le testate di riferimento (§2): 10-12 notizie per importanza (le scartate sono riserve), future e Asia con orario, agenda con consensi. Schede JSON, citazione letterale max 30 parole.
+2. **Ricerca:** due agenti `model: "sonnet"`, `run_in_background: false` (o tu): (a) calendario concluso dall'ultima edizione; (b) il flusso della notte e le testate di riferimento (§2): 10-12 notizie per importanza (le scartate sono riserve), future e Asia con orario, agenda con consensi. Schede JSON, citazione letterale max 30 parole.
 2c. **Il perché** (max 2 casi): (A) fino a 4 ricerche mirate col fatto e la data e sui resoconti di fine seduta (Reuters, AP, CNBC, Radiocor); i titoli di Bloomberg, FT, WSJ orientano, la causa si conferma su un articolo aperto; (B) 2-3 ipotesi, ognuna con cosa prevede sui prezzi, confrontate con `dati.json` e `contesto.py`. Registro "anomalia" in `fatti.json` (schema in `APP_FONTI.md` §4).
 3. **fatti.json:** una scheda per fatto non preso dalle API; `controlli_fatti.py fatti.json /home/claude/gtd/edizioni.json AAAA-MM-GG --prima-della-revisione`.
 4. **Stesura:** blocco `C` (§2), scommessa (§4), `python3 edizione_AAAA-MM-GG.py /home/claude/lavoro "<pdf>"` (scrive `voce_indice.json`), poi `qpdf --object-streams=generate --compress-streams=y`.
@@ -69,7 +69,7 @@ Lettori per lo più di media competenza. Ogni pezzo dà il fatto (con il numero)
 Sigla non ovvia: spiegata tra parentesi (max 6 parole) alla PRIMA occorrenza, come in `glossario.json` (nuova: aggiungila). Mai spiegate: le sigle `ovvio` di `glossario.json`.
 
 ## 10. Revisione rafforzata
-Un revisore `model: "sonnet"` che non ha scritto il numero (senza Agent: tu) riceve pdftotext, `fatti.json`, `fonti.json`, notizie di ieri. **Fino a 25 verifiche:** (1) schede di top story, notizie, calendario e cause C: URL, citazione letterale, data, PDF fedele; (2) evento principale dell'agenda; (3) conferma indipendente della top story; (4) senza aprire pagine: coerenza con i prezzi, probabilità, "record". Scrive `verifica` (confermato | errato | non_conclusivo) e `nota_revisore`; un dubbio che resta si toglie. Lunedì anche pag. 6 contro `verdetto.json`.
+Un revisore `model: "sonnet"`, `run_in_background: false`, che non ha scritto il numero (senza Agent: tu) riceve pdftotext, `fatti.json`, `fonti.json`, notizie di ieri. **Fino a 25 verifiche:** (1) schede di top story, notizie, calendario e cause C: URL, citazione letterale, data, PDF fedele; (2) evento principale dell'agenda; (3) conferma indipendente della top story; (4) senza aprire pagine: coerenza con i prezzi, probabilità, "record". Scrive `verifica` (confermato | errato | non_conclusivo) e `nota_revisore`; un dubbio che resta si toglie. Lunedì anche pag. 6 contro `verdetto.json`.
 
 ## 11. Autocorrezione e cancello
 Paolo non riceve bozze né domande. Si pubblica solo ciò che passa i controlli: ogni ERRORE si corregge o si risolve togliendo il non verificato, fino a 3 giri (`APP_ERRORI.md`).
