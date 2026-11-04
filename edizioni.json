@@ -3033,5 +3033,226 @@
     "chiave": false
    }
   ]
+ },
+ {
+  "numero": 18,
+  "data": "2026-11-04",
+  "titolo": "I democratici conquistano il Congresso: le borse temono regole più dure per l'AI",
+  "sommario": [
+   "Nell'area euro l'inflazione sale ancora; a dicembre la BCE torna a decidere sui tassi.",
+   "AMD supera le stime e indica un quarto trimestre in forte crescita.",
+   "Piazza Affari resiste al calo europeo grazie a Intesa Sanpaolo e Ferrari."
+  ],
+  "file": "pdf/2026-11-04-gommberg-018.pdf",
+  "nome": "2026-11-04 Gommberg Terminal Daily #018.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Eurozona: l'inflazione sale ancora a ottobre, ai livelli del 2023",
+   "AMD: ricavi a 13,38 miliardi di dollari, sopra le stime",
+   "Intesa Sanpaolo: stima di utile 2026 «ben oltre» 10 miliardi",
+   "Ferrari alza le previsioni 2026 dopo un trimestre sopra le stime",
+   "Greggio: le forniture dal Golfo restano sostenute dopo i raid su Qeshm",
+   "Lottomatica conferma le previsioni 2026 nella parte alta"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "155,87 $",
+    "0,0% g"
+   ],
+   [
+    "S&P 500",
+    "7.568,92",
+    "+0,4% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.144,56",
+    "-0,5% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "4,95%",
+    "+4 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "103,60 $",
+    "-1,1% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1193",
+    "+0,1% g"
+   ],
+   [
+    "VIX",
+    "20,83",
+    "-0,32 g"
+   ]
+  ],
+  "dek": "Nella notte americana CBS News ha proiettato la vittoria dei democratici alla Camera e al Senato. Per gli investitori il rischio è una stretta su data center e intelligenza artificiale (AI): a Seul il Kospi ha toccato -4% in mattinata e ha chiuso in rialzo, Tokyo cede l'1,4% (Milano Finanza), Hong Kong sale dell'1,7% dopo le misure di Pechino a sostegno delle azioni. I future su Wall Street cedono in mattinata (Milano Finanza).",
+  "ticker_al": "2026-11-03",
+  "scommessa": {
+   "settimana": "2026-11-02/2026-11-06",
+   "su": 6,
+   "variabile": {
+    "nome": "Oro (future, $/oncia)",
+    "motivo": "Oro venduto con le azioni: rifugio o cassa?"
+   },
+   "strada": 1,
+   "range": 5,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     false,
+     true
+    ],
+    [
+     "S&P 500",
+     "su",
+     false,
+     true
+    ],
+    [
+     "Euro Stoxx 50",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "Brent future",
+     "giù",
+     true,
+     false
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "Oro (future, $/oncia)",
+     "su",
+     true,
+     true,
+     true
+    ]
+   ]
+  },
+  "temi": [
+   "Tecnologia",
+   "Inflazione",
+   "Chip",
+   "Italia",
+   "Petrolio",
+   "Banche"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Inflazione",
+    "titolo": "L'inflazione dell'euro è quasi tutta energia: il nucleo non si muove",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Tecnologia",
+    "titolo": "Il voto americano mette alla prova i chip, ma il Kospi regge",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Chip",
+    "titolo": "AMD batte le stime e guida il quarto trimestre a 17 miliardi: la domanda di chip per l'AI non si è fermata",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Italia",
+    "titolo": "Milano tiene perché le sue trimestrali battono le attese, mentre l'Europa cede",
+    "formato": "grafico"
+   }
+  ],
+  "meccanismi": [
+   "M17",
+   "M10"
+  ],
+  "parole": [
+   "Data center",
+   "Guidance",
+   "Maggioranza al Congresso"
+  ],
+  "ripetizioni": 3,
+  "glossario": [
+   "core",
+   "JOLTS",
+   "PMI",
+   "ISM",
+   "pb",
+   "BTP",
+   "Bund",
+   "VIX",
+   "ACWI",
+   "Brent",
+   "EIA",
+   "EPS",
+   "guidance"
+  ],
+  "agenda": [
+   {
+    "quando": "Mer 4, 14:15",
+    "evento": "Occupati privati USA (ottobre)",
+    "attese": "",
+    "perche": "Primo dato sul lavoro della settimana",
+    "chiave": false
+   },
+   {
+    "quando": "Mer 4, 14:20",
+    "evento": "Intervento di Philip Lane (BCE)",
+    "attese": "",
+    "perche": "Indizi dopo il dato sull'inflazione",
+    "chiave": false
+   },
+   {
+    "quando": "Mer 4, 14:30",
+    "evento": "Bilancia commerciale USA (settembre)",
+    "attese": "",
+    "perche": "Import ed export",
+    "chiave": false
+   },
+   {
+    "quando": "Mer 4, 15:30",
+    "evento": "Apertura di Wall Street",
+    "attese": "",
+    "perche": "Prima prova dopo voto e conti AMD",
+    "chiave": false
+   },
+   {
+    "quando": "Mer 4, 15:45",
+    "evento": "PMI (sondaggio sui direttori acquisti) servizi finale USA",
+    "attese": "",
+    "perche": "Attività dei servizi",
+    "chiave": false
+   },
+   {
+    "quando": "Mer 4, 16:00",
+    "evento": "ISM servizi USA (ottobre)",
+    "attese": "",
+    "perche": "Evento n.1: dopo JOLTS e ordini sopra le attese",
+    "chiave": true
+   },
+   {
+    "quando": "Mer 4, 16:30",
+    "evento": "Scorte settimanali di petrolio USA (EIA)",
+    "attese": "",
+    "perche": "Domanda di greggio",
+    "chiave": false
+   }
+  ]
  }
 ]

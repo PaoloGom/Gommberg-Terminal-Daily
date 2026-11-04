@@ -1,0 +1,474 @@
+[
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "CBS News ha proiettato la vittoria dei democratici alla Camera e al Senato",
+  "data_evento": "2026-11-03",
+  "novita": "Esito delle elezioni USA di metà mandato, dopo l'edizione di ieri",
+  "fonti": [
+   {
+    "testata": "CBS News",
+    "url": "https://www.cbsnews.com/live-updates/election-day-2026-midterms/",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Democrats will gain control of the House, CBS News projects."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-04-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611040801069383",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "I Democratici hanno conquistato la maggioranza sia al Senato sia alla Camera"
+   },
+   {
+    "testata": "Korea JoongAng Daily",
+    "url": "https://www.koreajoongangdaily.com/business/kospi-closes-higher-on-early-us-midterm-election-outcome/12955854",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Early results pointed to Democrats regaining control of both the Senate and the House"
+   }
+  ]
+ },
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "C01",
+  "sezione": "top_story",
+  "tipo": "C",
+  "testo": "Il timore è una stretta sui data center dell'AI: la vittoria democratica fa temere maggiore regolamentazione su data center, AI e tech",
+  "data_evento": "2026-11-04",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-04-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611040801069383",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "fa temere una maggiore regolamentazione su data center, intelligenza artificiale e tech"
+   },
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/finance/2026/11/04/kospi-swings-7-percent-before-closing-higher-as-us",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Investors worried that AI data center construction could face heavier environmental rules and permitting burdens."
+   },
+   {
+    "testata": "Korea JoongAng Daily",
+    "url": "https://www.koreajoongangdaily.com/business/kospi-closes-higher-on-early-us-midterm-election-outcome/12955854",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "investors feared reduced AI investment because of tighter AI data center rules"
+   }
+  ]
+ },
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "Kospi: apertura 5.786,13 (+2,43%), minimo 5.421,72, chiusura 5.683,80 (+0,62%) dopo -3,59% del giorno prima",
+  "data_evento": "2026-11-04",
+  "novita": "Seul chiude in rialzo dopo un minimo a -4,0% sul timore AI",
+  "fonte_singola": false,
+  "fonti": [
+   {
+    "testata": "Asia Business Daily",
+    "url": "https://view.asiae.co.kr/en/article/2026110416000686163",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Volatile KOSPI Closes Slightly Higher"
+   },
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/finance/2026/11/04/kospi-swings-7-percent-before-closing-higher-as-us",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "KOSPI, November 4, 2026 Close: 5,683.80, up 35.01 points (0.62%)"
+   },
+   {
+    "testata": "Korea JoongAng Daily",
+    "url": "https://www.koreajoongangdaily.com/business/kospi-closes-higher-on-early-us-midterm-election-outcome/12955854",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "intraday low of 5,421.72 at 12:45 p.m."
+   }
+  ]
+ },
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "M02",
+  "sezione": "mercati",
+  "testo": "Nikkei 225 in calo dell'1,4% alla chiusura del 4/11 (Giappone chiuso il 3/11)",
+  "data_evento": "2026-11-04",
+  "novita": "Tokyo cede dopo il voto USA",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/nikkei-in-rosso-con-lo-tsunami-dem-ma-la-cina-corre-dopo-l-intervento-di-pechino-202611040751029009",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Nikkei 225: in calo oltre il 4% in apertura, poi ridotto a -1,66% alle 7:30"
+   },
+   {
+    "testata": "Share Talk",
+    "url": "https://www.share-talk.com/what-happened-overnight-wednesday-4th-november-2026/",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Nikkei 225: -1,4%, al livello più basso dall'inizio di maggio"
+   }
+  ]
+ },
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "M03",
+  "sezione": "mercati",
+  "testo": "Hang Seng chiude a 23.919,5 punti (+2,25% secondo Teleborsa; +1,7% sul dato FMP della seduta precedente)",
+  "data_evento": "2026-11-04",
+  "novita": "Hong Kong sale; Pechino rafforza gli strumenti per i riacquisti di azioni",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/11/04/borsa-andamento-brillante-per-hong-kong-in-accelerazione-del-2-25percent-97_TLB-1LINER.html",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "termina la sessione a 23.919,5 punti"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/nikkei-in-rosso-con-lo-tsunami-dem-ma-la-cina-corre-dopo-l-intervento-di-pechino-202611040751029009",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "La Banca centrale cinese (PBoC) ha potenziato gli strumenti di finanziamento per i buyback"
+   }
+  ]
+ },
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "M04",
+  "sezione": "mercati",
+  "testo": "FTSE MIB chiude a 49.941 punti il 3/11 (-0,01%) e a 49.947 il 2/11; Euro Stoxx 50 a 6.144,56 (-0,51%); FTSE 100 a 10.638,43 (-1,14%)",
+  "data_evento": "2026-11-03",
+  "novita": "Milano tiene, l'Europa cede",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/03/borsa-milano-chiude-quasi-in-parita-001_2aa0d259-759c-4808-8eb1-37b9f2a900fb.html",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "Borsa: Milano chiude quasi in parità, -0,01%"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/02/borsa-milano-chiude-in-deciso-rialzo-09_116d3b52-aed6-4029-bb51-51556553ca0a.html",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Borsa: Milano chiude in deciso rialzo (+0,9%)"
+   },
+   {
+    "testata": "dpa-AFX (ariva.de)",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-verluste-london-leidet-12193263",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "Zum Handelsende notierte der EuroStoxx 50 0,51 Prozent tiefer bei 6.144,56 Punkten."
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/11/03/chiusura-negativa-per-l-azionario-europeo-piazza-affari-tiene-sostenuta-dalle-trimestrali-215.html",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "FTSE MIB: 49.942 punti, chiusura sulla parità"
+   }
+  ]
+ },
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "T02",
+  "sezione": "top_news",
+  "tipo": "U",
+  "testo": "Eurozona: inflazione al 4,0% a ottobre (stima preliminare Eurostat), dal 3,8% di settembre (massimo dal 2023)",
+  "data_evento": "2026-11-04",
+  "novita": "Dato di ottobre uscito oggi alle 11:00",
+  "ufficiale_cercato": [
+   "Eurostat euro indicators flash estimate October 2026 euro area annual inflation 4.0% energy services",
+   "inflazione eurozona ottobre 2026 stima preliminare Eurostat 4 novembre"
+  ],
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/04/-linflazione-e-salita-al-4-nelleurozona-a-ottobre-_0fa71671-f775-47cf-b457-9c879ad72b4e.html",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "L'inflazione annua nell'Eurozona è salita al 4% a ottobre"
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://it.investing.com/news/stock-market-news/bce-con-linflazione-al-4-gli-analisti-puntano-sullultimo-rialzo-dei-tassi-a-dicembre-3627129",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "4%, dal 3,8% di settembre"
+   }
+  ]
+ },
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "T03",
+  "sezione": "macro",
+  "testo": "Area euro, ottobre: core 2,5% (invariato), energia +20,8% (18,9% a settembre), servizi 3,3% (3,2%), prezzi +0,4% su mese (+0,6% a settembre); inflazione generale al massimo dal 2023 e doppio dell'obiettivo BCE",
+  "data_evento": "2026-11-04",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://it.investing.com/news/stock-market-news/bce-con-linflazione-al-4-gli-analisti-puntano-sullultimo-rialzo-dei-tassi-a-dicembre-3627129",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Energia: +20,8% su base annua (18,9% a settembre)"
+   },
+   {
+    "testata": "La Mescolanza",
+    "url": "https://www.lamescolanza.com/2026/11/04/inflazione-nuova-fiammata-in-europa-prezzi-al-4-italia-al-56-la-bce-verso-unaltra-stretta/",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Services: 3.3%, up from 3.2%."
+   }
+  ]
+ },
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "T04",
+  "sezione": "macro",
+  "testo": "BCE: tasso sui depositi al 2,50% dopo i rialzi di giugno e settembre, tassi fermi il 29 ottobre; prossima riunione il 17 dicembre",
+  "data_evento": "2026-11-04",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://it.investing.com/news/stock-market-news/bce-con-linflazione-al-4-gli-analisti-puntano-sullultimo-rialzo-dei-tassi-a-dicembre-3627129",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "tasso sui depositi al 2,50%, dopo i rialzi di giugno e settembre"
+   },
+   {
+    "testata": "La Mescolanza",
+    "url": "https://www.lamescolanza.com/2026/11/04/inflazione-nuova-fiammata-in-europa-prezzi-al-4-italia-al-56-la-bce-verso-unaltra-stretta/",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Harmonised index (HICP, comparable with the euro area): 5.6%."
+   }
+  ]
+ },
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "T05",
+  "sezione": "top_news",
+  "testo": "AMD: ricavi del terzo trimestre 13,38 mld $ (stima 13,06), EPS rettificato 2,09 $ (1,94), ricavi del quarto trimestre intorno a 17 mld $; titolo +7% dopo la chiusura; data center +97%",
+  "data_evento": "2026-11-03",
+  "novita": "Conti usciti dopo la chiusura di ieri",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-amd-tops-q3-2026-estimates-as-stock-jumps-after-hours-93CH-4996894",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "Revenue: $13.38B vs. $13.06B consensus"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-november-3-dow-sp-500-nasdaq-midterms-amd-earnings-141143244.html",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "reported its third quarter results after the bell on Tuesday, beating expectations on the top and bottom lines."
+   }
+  ]
+ },
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "T06",
+  "sezione": "deep_dive",
+  "testo": "AMD: margine lordo 56% (+190 pb annui), EPS contabile 1,46 $ con onere non monetario di 1,1 mld $ per warrant; ieri Nvidia +2%, Broadcom +3%, SOXX +2,5%; margine lordo previsto per il quarto trimestre intorno al 55%",
+  "data_evento": "2026-11-03",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-amd-tops-q3-2026-estimates-as-stock-jumps-after-hours-93CH-4996894",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "GAAP EPS was $1.46, including a $1.1B non-cash warrant charge."
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-dow-futures-130822524.html",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "The iShares Semiconductor ETF (SOXX) gained 2.5%."
+   }
+  ]
+ },
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "T07",
+  "sezione": "top_news",
+  "testo": "Intesa Sanpaolo: stima di utile netto 2026 migliorata a «ben oltre» 10 miliardi dopo conti sopra le attese; Lottomatica conferma la guidance 2026 nella parte alta (EBITDA +19% nei nove mesi); Ferrari alza le previsioni 2026",
+  "data_evento": "2026-11-03",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/11/03/chiusura-negativa-per-l-azionario-europeo-piazza-affari-tiene-sostenuta-dalle-trimestrali-215.html",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "Intesa Sanpaolo: stima di utile netto 2026 migliorata a ben oltre 10 miliardi"
+   }
+  ]
+ },
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "T09",
+  "sezione": "top_news",
+  "testo": "Petrolio: i raid USA su Qeshm non hanno interrotto le forniture; le parti esaminano le ultime proposte dei mediatori del Qatar",
+  "data_evento": "2026-11-03",
+  "novita": "Sviluppo sulle forniture dopo l'attacco su Qeshm",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/11/03/chiusura-negativa-per-l-azionario-europeo-piazza-affari-tiene-sostenuta-dalle-trimestrali-215.html",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "i raid statunitensi su Qeshm non hanno interrotto le forniture"
+   }
+  ]
+ },
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "T10",
+  "sezione": "catalizzatori",
+  "tipo": "U",
+  "testo": "JOLTS settembre: 7,52 milioni di posti vacanti (atteso 7,10); ordini all'industria USA +1,8% m/m (atteso +1,2%)",
+  "data_evento": "2026-11-03",
+  "novita": null,
+  "ufficiale_cercato": [
+   "US factory orders September 2026 Census Bureau November 3 durable goods orders rose",
+   "Census Bureau Full Report on Manufacturers' Shipments, Inventories, and Orders September 2026 new orders"
+  ],
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/news.release/jolts.nr0.htm?stream=top",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "The number of job openings was little changed at 7.5 million in September"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://teleborsa.ansa.it/notiziario/economia/usa-offerte-di-posti-di-lavoro-in-aumento-oltre-le-attese-a-settembre/",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "il numero di posizioni lavorative aperte negli Stati Uniti è aumentato di 333.000 unità, raggiungendo quota 7,52 milioni"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/11/03/usa-ordini-industria-accelerano-a-settembre-167.html",
+    "data_pubblicazione": "2026-11-03",
+    "citazione": "Crescono più delle attese gli ordinativi all'industria statunitensi."
+   }
+  ]
+ },
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "T11",
+  "sezione": "catalizzatori",
+  "testo": "Agenda del 4 novembre: 14:15 occupati privati USA, 14:20 Lane (BCE), 14:30 bilancia commerciale USA, 15:45 PMI servizi USA, 16:00 ISM servizi, 16:30 scorte petrolio USA; consigli di Leonardo, Bper, Finecobank, Nexi",
+  "data_evento": "2026-11-04",
+  "novita": null,
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-04-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611040801069383",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "14:15: occupati ADP di ottobre, USA."
+   }
+  ],
+  "ufficiale_cercato": [
+   "Borse oggi 4 novembre 2026 agenda macro ISM servizi ADP Piazza Affari apertura",
+   "Appuntamenti macroeconomici del 4 novembre 2026 Teleborsa"
+  ]
+ },
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "T12",
+  "sezione": "mercati",
+  "testo": "Midterm: reazioni di tassi e valute: Treasury 10 anni da 4,95% a 4,92%, euro a 1,123, indice del dollaro sotto 101,5; Kospi, Samsung e SK hynix; won a 1.341,5 per dollaro",
+  "data_evento": "2026-11-04",
+  "novita": null,
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/nikkei-in-rosso-con-lo-tsunami-dem-ma-la-cina-corre-dopo-l-intervento-di-pechino-202611040751029009",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Il rendimento del Treasury decennale scende dal 4,95% al 4,92%"
+   },
+   {
+    "testata": "Korea JoongAng Daily",
+    "url": "https://www.koreajoongangdaily.com/business/kospi-closes-higher-on-early-us-midterm-election-outcome/12955854",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "The won weakened by 0.5 won to 1,341.5 per dollar as of 3:30 p.m."
+   }
+  ]
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Nikkei in rosso con lo tsunami dem, ma la Cina corre dopo l'intervento di Pechino (Milano Finanza, 4/11 07:51)",
+   "L'inflazione è salita al 4% nell'Eurozona a ottobre (ANSA, 4/11 11:00)",
+   "AMD tops Q3 2026 estimates as stock jumps after hours (Investing.com, 4/11 mattina)"
+  ],
+  "testate": [
+   {
+    "testata": "Milano Finanza",
+    "storie": [
+     "Elezioni USA: tsunami democratico, Nikkei in rosso, Cina in rialzo",
+     "Borse oggi in diretta 4 novembre",
+     "Ferrari: target alzati da JP Morgan e RBC"
+    ]
+   },
+   {
+    "testata": "ANSA",
+    "storie": [
+     "Inflazione al 4% nell'Eurozona a ottobre",
+     "Borsa: Milano chiude quasi in parità, -0,01%",
+     "Borsa: Milano corre con banche e BTP"
+    ]
+   },
+   {
+    "testata": "Teleborsa",
+    "storie": [
+     "Chiusura negativa per l'azionario europeo, Piazza Affari tiene sostenuta dalle trimestrali",
+     "Wall Street contrastata tra trimestrali e voto mid-term",
+     "Hong Kong in accelerazione del 2,25%"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Conti Palantir e Apple (3/11)",
+    "motivo": "troppo piccola rispetto alla top story; Apple era già in edizione ieri; Palantir senza fonte ufficiale raggiunta"
+   },
+   {
+    "storia": "Trump e nuovo intervento in Iran",
+    "motivo": "senza prova di mercato prima dell'uscita: la prova è nel Brent all'apertura delle 15:30"
+   }
+  ],
+  "concorda": true,
+  "motivo": "Le aperture di Milano Finanza e ANSA sono voto e inflazione: coperti in pag. 1."
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "FTSE MIB: 1 settimana e da inizio anno; Kospi: 1 settimana; ACWI: da inizio anno",
+  "ricerche": [
+   "Borsa Milano chiude 2 novembre 2026 Ftse Mib punti da inizio anno spread Btp Bund",
+   "FTSE MIB da inizio anno 2026 performance +% chiusura 2025 49.941 punti",
+   "Piazza Affari chiude il 2025 Ftse Mib ultima seduta 30 dicembre 2025 punti rialzo annuo",
+   "Borsa: Milano chiude 30 ottobre 2026 Ftse Mib ANSA",
+   "KOSPI closes October 30 2026 Seoul Economic Daily",
+   "FMP quote-change ACWI (negato dal piano)"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "-",
+   "url": ""
+  }
+ }
+]
