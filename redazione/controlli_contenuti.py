@@ -20,7 +20,9 @@ Regole (ISTRUZIONI §5 e §7), ognuna generale:
            S&P +0,5% su dato caldo; il contrario su dato freddo) = serve una voce {"sezione": "anomalia"} in fatti.json.
  stamattina  orari tra le 06:00 e le 09:29 di Roma; un livello già nella Stamattina dell'edizione precedente = ERRORE.
  moduli    i punti non ripetono le cifre della tabella; graduatorie del testo coerenti con i dati del grafico; moduli tutti
-           con lo stesso stampo = AVVISO; quadro trasversale (C["quadro"]) presente."""
+           con lo stesso stampo = AVVISO; quadro trasversale (C["quadro"]) presente.
+ agenda    almeno metà delle righe con un dato o una decisione (non conti, discorsi, aperture, elezioni, verbali) ha il
+           consenso in "attese": è il metro con cui il lettore giudica il dato (§2)."""
 import json, os, re, subprocess, sys
 
 ARG = sys.argv[1:]
@@ -314,6 +316,18 @@ if red:
             ERR.append(f"moduli: {m.get('chiave')}: \"tutte/le altre in rialzo\" ma tabella o grafico hanno un calo")
         if re.search(r"(tutt[ei]|le altre)[^.;]{0,30}(in calo|scendono|negativ)", testo) and any(v > 0 for v in valori):
             ERR.append(f"moduli: {m.get('chiave')}: \"tutte/le altre in calo\" ma tabella o grafico hanno un rialzo")
+
+# ---------- agenda: il consenso è il metro del dato ----------
+NON_DATO = re.compile(r"conti|trimestral|apertura|chiusura|intervento|discors|conferenz|parla|audizion|testimonianz|elezion|"
+                      r"voto|riunione|vertice|summit|asta|verbal|minute|scadenz|festiv|sciopero", re.I)
+CONSENSO = re.compile(r"\d|invariat|fermi|rialzo|taglio|stabil|aumento|riduzione", re.I)
+_righe_dato = [a for a in (VOCE.get("agenda") or []) if isinstance(a, dict) and not NON_DATO.search(a.get("evento", ""))]
+_con = [a for a in _righe_dato if CONSENSO.search(a.get("attese") or "")]
+if len(_righe_dato) >= 2 and len(_con) * 2 < len(_righe_dato):
+    _senza = [a.get("evento", "")[:30] for a in _righe_dato if a not in _con]
+    ERR.append(f"agenda: consenso solo per {len(_con)} dati o decisioni su {len(_righe_dato)}: cercalo per ognuno (una ricerca: "
+               f"\"<dato> forecast consensus <mese>\", calendari di Investing.com, Reuters, FXStreet, Teleborsa); senza: "
+               f"{'; '.join(_senza[:4])}. Mai togliere righe per passare: dopo 3 giri vale com'è")
 
 # ---------- dati mancanti: solo dopo la scala di ricerca, e registrati ----------
 _mancano = re.findall(r"\bn\.d\.|nessuna chiusura verificata|non verificat[oa] da fonti|dato non disponibile", TUTTO, re.I)
