@@ -3254,5 +3254,179 @@
     "chiave": false
    }
   ]
+ },
+ {
+  "numero": 19,
+  "data": "2026-11-05",
+  "titolo": "Dopo il voto USA il mercato scommette sulla fine della guerra in Iran: il petrolio crolla, Wall Street vola",
+  "sommario": [
+   "Le banche europee guidano il rialzo del Vecchio Continente.",
+   "Seul crolla sui timori di regole più dure per l'AI: i chip restano indietro.",
+   "Domani il rapporto sul lavoro USA, il primo dato dopo il voto."
+  ],
+  "file": "pdf/2026-11-05-gommberg-019.pdf",
+  "nome": "2026-11-05 Gommberg Terminal Daily #019.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Novo Nordisk alza le previsioni 2026 e sale del 5,6%",
+   "Heidelberg Materials: ricavi sopra le attese, il titolo sale del 9,6%",
+   "USA, servizi: ordini in calo, prezzi ancora alti",
+   "Dopo l'inflazione cresce l'attesa di un rialzo BCE a dicembre",
+   "Bank of England: oggi il primo rialzo dei tassi in tre anni"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "158,48 $",
+    "+1,7% g"
+   ],
+   [
+    "S&P 500",
+    "7.688,62",
+    "+1,6% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.265,71",
+    "+2,0% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "4,90%",
+    "-5 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "94,62 $",
+    "-8,7% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1227",
+    "+0,3% g"
+   ],
+   [
+    "VIX",
+    "16,61",
+    "-4,22 g"
+   ]
+  ],
+  "dek": "Il Brent (petrolio di riferimento europeo) perde l'8,7% a 94,62 $ e il WTI (petrolio di riferimento USA) l'8,3%: dopo le elezioni di metà mandato gli investitori puntano su una fine più rapida del conflitto con l'Iran (Rigzone). Il Dow Jones guadagna il 3,03%, la miglior giornata dopo un voto di metà mandato da 44 anni, e il VIX (volatilità attesa sull'S&P 500) perde 4,2 punti: un calo così non si vedeva dall'8 aprile. L'eccezione sono i chip, sotto pressione in Asia.",
+  "ticker_al": "2026-11-04",
+  "scommessa": {
+   "settimana": "2026-11-02/2026-11-06",
+   "su": 6,
+   "variabile": {
+    "nome": "Oro (future, $/oncia)",
+    "motivo": "Oro venduto con le azioni: rifugio o cassa?"
+   },
+   "strada": 4,
+   "range": 4,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     true,
+     true
+    ],
+    [
+     "S&P 500",
+     "su",
+     true,
+     true
+    ],
+    [
+     "Euro Stoxx 50",
+     "giù",
+     false,
+     false
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Brent future",
+     "giù",
+     true,
+     false
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "Oro (future, $/oncia)",
+     "su",
+     true,
+     false,
+     true
+    ]
+   ]
+  },
+  "temi": [
+   "Geopolitica",
+   "Banche",
+   "Chip",
+   "Tassi",
+   "Trimestrali",
+   "Macro"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Banche",
+    "titolo": "Le banche europee guidano il rialzo: il voto USA riapre la porta agli investitori",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Tassi",
+    "titolo": "Il petrolio abbassa i rendimenti a lungo ma non a breve: la Fed di dicembre resta in gioco",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Chip",
+    "titolo": "Il rialzo del 4 novembre lascia indietro i chip: il Nasdaq è ancora sotto di oltre il 4% sull'1 ottobre",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [],
+  "parole": [
+   "Memorie HBM",
+   "Indice VIX",
+   "Banche domestiche"
+  ],
+  "ripetizioni": 1,
+  "glossario": [
+   "ISM",
+   "CME FedWatch",
+   "pb",
+   "BTP",
+   "Bund",
+   "VIX",
+   "ACWI",
+   "Brent",
+   "WTI",
+   "HBM"
+  ],
+  "agenda": [
+   {
+    "quando": "Gio 5, 13:00",
+    "evento": "Decisione della Bank of England",
+    "attese": "4,00% da 3,75%; voto 7-2 (Reuters)",
+    "perche": "Evento n.1: primo rialzo in tre anni",
+    "chiave": true
+   },
+   {
+    "quando": "Ven 6, 14:30",
+    "evento": "Occupazione USA di ottobre (BLS)",
+    "attese": "+65 mila posti; disoccupazione 4,2%; prec. +29 mila",
+    "perche": "Primo dato sul lavoro dopo il voto",
+    "chiave": false
+   }
+  ]
  }
 ]

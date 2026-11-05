@@ -1,0 +1,500 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Il Brent chiude a 94,62 $ (-8,7%) e il WTI a 88,12 $ (-8,3%) il 4 novembre: gli investitori scommettono che la vittoria dei democratici acceleri la fine della guerra con l'Iran",
+  "data_evento": "2026-11-04",
+  "novita": "Crollo del greggio dopo il voto: sviluppo successivo all'edizione di ieri",
+  "fonti": [
+   {
+    "testata": "Rigzone",
+    "url": "https://www.rigzone.com/news/wire/oil_plunges_as_election_shifts_iran_outlook-04-nov-2026-185012-article/",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Brent (contratto gennaio) -8,7% a 94,62 $; WTI (dicembre) -8,3% a 88,12 $; scommessa su una fine più rapida della guerra con l'Iran dopo la sweep democratica"
+   },
+   {
+    "testata": "TheStreet",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-nov-04-2026",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "They appear to be bidding on a cessation of the geopolitical uncertainty which has roiled oil markets in recent months"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026)."
+ },
+ {
+  "id": "C01",
+  "sezione": "top_story",
+  "testo": "Dopo il voto il vicepresidente Vance ha attribuito le sconfitte repubblicane alla guerra, e il mercato scommette su una sua fine più rapida",
+  "data_evento": "2026-11-04",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Rigzone",
+    "url": "https://www.rigzone.com/news/wire/oil_plunges_as_election_shifts_iran_outlook-04-nov-2026-185012-article/",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Dopo il voto Vance ha attribuito le sconfitte repubblicane al conflitto all'estero; gli investitori si sono riposizionati su una fine della guerra più rapida del previsto"
+   },
+   {
+    "testata": "TheStreet",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-nov-04-2026",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "They appear to be bidding on a cessation of the geopolitical uncertainty which has roiled oil markets in recent months"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026).",
+  "tipo": "C"
+ },
+ {
+  "id": "T02",
+  "sezione": "top_news",
+  "testo": "Il Dow Jones sale del 3,03% a 53.356,12: la miglior giornata dopo le elezioni di metà mandato da 44 anni",
+  "data_evento": "2026-11-04",
+  "novita": "Chiusura del 4 novembre, successiva all'edizione di ieri",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-nov-4-221001197.html",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Il Dow ha registrato il suo best post-midterm performance in 44 years; election uncertainty dissipated"
+   },
+   {
+    "testata": "TheStreet",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-nov-04-2026",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Dow Jones: 53.356,12 punti, +1.569,40 (+3,03%)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026)."
+ },
+ {
+  "id": "E01",
+  "sezione": "estremo",
+  "testo": "Il Kospi chiude a 5.383,80 (-5,28%) il 5 novembre; Samsung Electronics -7,57%, SK hynix -9,46%",
+  "data_evento": "2026-11-05",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261105/kospi-tumbles-as-democrat-sweep-fuels-ai-infrastructure-concerns",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "The KOSPI closed at 5,383.80, down 5.28 percent; The decline was driven largely by a rout in Samsung Electronics and SK hynix"
+   },
+   {
+    "testata": "FinancialJuice",
+    "url": "https://features.financialjuice.com/2026/11/05/chips-slide-on-us-regulation-fears-china-tech-stocks-rally-asia-market-wrap/",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Samsung and SK Hynix each dropped more than 7% on concerns about tighter US data center regulations, pulling South Korea's Kospi down 5.2%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026).",
+  "fonte_singola": false
+ },
+ {
+  "id": "C02",
+  "sezione": "top_news",
+  "testo": "Il Kospi crolla perché la vittoria democratica fa temere regole più dure su intelligenza artificiale e data center, e perché i chip USA hanno perso terreno nella notte (Nvidia -3,17%, Micron -7%)",
+  "data_evento": "2026-11-05",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261105/kospi-tumbles-as-democrat-sweep-fuels-ai-infrastructure-concerns",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Il calo è legato alla vittoria democratica nelle elezioni di metà mandato e ai timori di una regolamentazione più stringente su AI e data center; Nvidia -3,17%, Micron -7%, SanDisk -7,91%"
+   },
+   {
+    "testata": "FinancialJuice",
+    "url": "https://features.financialjuice.com/2026/11/05/chips-slide-on-us-regulation-fears-china-tech-stocks-rally-asia-market-wrap/",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Samsung and SK Hynix each dropped more than 7% on concerns about tighter US data center regulations"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026).",
+  "tipo": "C"
+ },
+ {
+  "id": "E02",
+  "sezione": "estremo",
+  "testo": "L'Hang Seng chiude a 24.791 (+3,64%) il 5 novembre; Tencent e Alibaba oltre il 6%, Hang Seng Tech +5%",
+  "data_evento": "2026-11-05",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FinancialJuice",
+    "url": "https://features.financialjuice.com/2026/11/05/chips-slide-on-us-regulation-fears-china-tech-stocks-rally-asia-market-wrap/",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Tencent and Alibaba each gained more than 6%, lifting the Hang Seng Tech Index 5%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026).",
+  "fonte_singola": true
+ },
+ {
+  "id": "T03",
+  "sezione": "top_news",
+  "testo": "Novo Nordisk sale del 5,6% dopo un utile operativo rettificato del terzo trimestre sopra le attese e il rialzo delle previsioni annuali su ricavi e utili",
+  "data_evento": "2026-11-04",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://au.investing.com/news/stock-market-news/european-shares-jump-over-1-after-democrats-sweep-us-congress-novo-nordisk-surges-4743987",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Novo Nordisk +5,6% dopo un utile operativo rettificato del terzo trimestre superiore alle attese e un rialzo delle previsioni annuali su ricavi e utili"
+   },
+   {
+    "testata": "dpa-AFX (onvista)",
+    "url": "https://www.onvista.de/news/2026/11-04-roundup-aktien-europa-schluss-deutliche-gewinne-nach-us-zwischenwahlen-0-10-26572549",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Novo Nordisk gained 5.6% after raising its annual forecast"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026)."
+ },
+ {
+  "id": "T04",
+  "sezione": "top_news",
+  "testo": "Heidelberg Materials sale del 9,6% dopo ricavi trimestrali sopra le attese",
+  "data_evento": "2026-11-04",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://au.investing.com/news/stock-market-news/european-shares-jump-over-1-after-democrats-sweep-us-congress-novo-nordisk-surges-4743987",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Heidelberg Materials +9,6% (ricavi trimestrali sopra le attese)"
+   },
+   {
+    "testata": "dpa-AFX (onvista)",
+    "url": "https://www.onvista.de/news/2026/11-04-roundup-aktien-europa-schluss-deutliche-gewinne-nach-us-zwischenwahlen-0-10-26572549",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Heidelberg Materials jumped 9.6% on a strong quarterly report"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026)."
+ },
+ {
+  "id": "T05",
+  "sezione": "top_news",
+  "testo": "L'indice ISM dei servizi USA a ottobre: nuovi ordini a 55,9 da 59,8, prezzi pagati a 73,0 da 74,0, occupazione a 51,4",
+  "data_evento": "2026-11-04",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "wxerfm.com (Reuters)",
+    "url": "https://wxerfm.com/2026/11/04/us-services-sector-activity-cools-slightly-in-october-inflation-remains-elevated/",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "growth slowed marginally in October amid a moderation in new orders; supply chains remained strained, keeping prices for inputs elevated"
+   },
+   {
+    "testata": "Verified Investing",
+    "url": "https://verifiedinvesting.com/blogs/us-economic-metrics/ism-services-october-2026",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "ISM Services PMI October 2026: 54.5 Headline, 3.9-Point New Orders Drop"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026).",
+  "ufficiale_cercato": [
+   "ISM Services PMI October 2026 report ismworld.org Services PMI at 54.5%",
+   "\"Services PMI\" \"October 2026 ISM\" Services PMI Report prnewswire Institute for Supply Management"
+  ]
+ },
+ {
+  "id": "T06",
+  "sezione": "top_news",
+  "testo": "Dopo l'inflazione dell'eurozona al massimo da tre anni cresce l'attesa di un rialzo dei tassi BCE a dicembre",
+  "data_evento": "2026-11-04",
+  "novita": "Sviluppo: l'inflazione di ieri alza l'attesa su un rialzo BCE a dicembre",
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://au.investing.com/news/stock-market-news/european-shares-jump-over-1-after-democrats-sweep-us-congress-novo-nordisk-surges-4743987",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "l'inflazione dell'eurozona è salita al massimo di tre anni, aumentando la probabilità di un nuovo rialzo dei tassi BCE a dicembre"
+   },
+   {
+    "testata": "dpa-AFX (onvista)",
+    "url": "https://www.onvista.de/news/2026/11-04-roundup-aktien-europa-schluss-deutliche-gewinne-nach-us-zwischenwahlen-0-10-26572549",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "ING analysts said October inflation data raised the chance of a December rate hike"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026)."
+ },
+ {
+  "id": "T07",
+  "sezione": "top_news",
+  "testo": "Il Regno Unito: la Bank of England decide oggi e gli economisti si aspettano un rialzo di 25 punti base al 4,00%, con un voto 7-2",
+  "data_evento": "2026-11-04",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "IG",
+    "url": "https://www.ig.com/uk/news-and-trade-ideas/bank-of-england-preview-first-rate-hike-in-three-years-looks-all-but-certain-261102",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "investors and most analysts expecting the Monetary Policy Committee (MPC) to lift Bank Rate by 25bps to 4%"
+   },
+   {
+    "testata": "Reuters (933thedrive.com)",
+    "url": "https://www.933thedrive.com/2026/11/04/bank-of-england-poised-to-hike-rates-for-first-time-in-3-years/",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "The Bank of England is widely expected to raise interest rates for the first time in three years on Thursday"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026)."
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "L'Euro Stoxx Banks sale del 4,6% il 4 novembre, il balzo più netto dall'inizio di aprile; Intesa Sanpaolo +5,45% e UniCredit +5,48% a Milano",
+  "data_evento": "2026-11-04",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://au.investing.com/news/stock-market-news/european-shares-jump-over-1-after-democrats-sweep-us-congress-novo-nordisk-surges-4743987",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Euro STOXX Banks +4,6%, il balzo giornaliero più netto dall'inizio di aprile"
+   },
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/ftse-mib-218-a-51031-punti-cosa-ha-spinto-il-rialzo-di-milano",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Intesa ha guadagnato il 5,45% e UniCredit il 5,48%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026)."
+ },
+ {
+  "id": "C03",
+  "sezione": "mercati",
+  "testo": "Le banche europee salgono perché gli investitori rientrano sugli istituti legati all'economia interna, rimasti indietro nel 2026, e perché la vittoria democratica limita la capacità dell'amministrazione Trump di imporre sanzioni alle banche europee",
+  "data_evento": "2026-11-04",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://au.investing.com/news/stock-market-news/european-shares-jump-over-1-after-democrats-sweep-us-congress-novo-nordisk-surges-4743987",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Banche trainate dal rientro degli investitori su istituti orientati al mercato interno, rimasti indietro nel 2026; secondo Morningstar la vittoria democratica limita la capacità dell'amministrazione Trump di imporre requisiti o sanzioni"
+   },
+   {
+    "testata": "dpa-AFX (onvista)",
+    "url": "https://www.onvista.de/news/2026/11-04-roundup-aktien-europa-schluss-deutliche-gewinne-nach-us-zwischenwahlen-0-10-26572549",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Banks benefited from investors rotating out of tech and US stocks, and from rising ECB rate expectations"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026).",
+  "tipo": "C"
+ },
+ {
+  "id": "M02",
+  "sezione": "mercati",
+  "testo": "Il FTSE MIB chiude a 51.031 (+2,18%); spread BTP-Bund a 106 punti base (-6) e BTP a 10 anni al 4,34% (Teleborsa)",
+  "data_evento": "2026-11-04",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/11/04/chiusura-in-rialzo-per-le-borse-europee-con-le-banche-protagoniste-227.html",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "FTSE MIB 51.031 +2,18%; spread BTP-Bund 106 pb in calo di 6; BTP 10 anni 4,34%"
+   },
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/ftse-mib-218-a-51031-punti-cosa-ha-spinto-il-rialzo-di-milano",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "+2,18% a 51.031 punti"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026).",
+  "fonte_singola": false
+ },
+ {
+  "id": "P01",
+  "sezione": "catalizzatori",
+  "testo": "Giovedì 5 novembre alle 13:00 ora di Roma (12:00 nel Regno Unito) la decisione della Bank of England: attesa 4,00% da 3,75%",
+  "data_evento": "2026-11-05",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Bank of England",
+    "url": "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates?ref=latamalpha.com",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Next due: 5 November 2026"
+   },
+   {
+    "testata": "IG",
+    "url": "https://www.ig.com/uk/news-and-trade-ideas/bank-of-england-preview-first-rate-hike-in-three-years-looks-all-but-certain-261102",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "MPC to lift Bank Rate by 25bps to 4%; decisione giovedì alle 12:00 (ora del Regno Unito)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026)."
+ },
+ {
+  "id": "P02",
+  "sezione": "agenda",
+  "testo": "Venerdì 6 novembre alle 14:30 ora di Roma il rapporto sull'occupazione USA di ottobre: consenso 65 mila posti, disoccupazione al 4,2%; a settembre +29 mila",
+  "data_evento": "2026-11-06",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/schedule/news_release/empsit.htm?mod=article_inline",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "October 2026 | Nov. 06, 2026 | 08:30 AM"
+   },
+   {
+    "testata": "Discovery Alert",
+    "url": "https://discoveryalert.com/news/gold-price-dollar-yields-fed-hike-november-2026/",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Consenso Reuters 65.000 posti, disoccupazione 4,2%; a settembre 29.000"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026)."
+ },
+ {
+  "id": "M03",
+  "sezione": "mercati",
+  "testo": "Il Treasury a 10 anni chiude al 4,90% (-5 pb) e il 2 anni al 4,58% (-3 pb); l'82% di probabilità di un rialzo Fed a dicembre secondo CME FedWatch",
+  "data_evento": "2026-11-04",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Discovery Alert",
+    "url": "https://discoveryalert.com/news/gold-price-dollar-yields-fed-hike-november-2026/",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Il Treasury a 10 anni è calato di 6 pb; secondo il CME FedWatch 82% di probabilità di un rialzo a dicembre"
+   },
+   {
+    "testata": "Hackernoon",
+    "url": "https://hackernoon.com/fed-holds-rates-at-375percent-400percent-in-a-10-2-vote-how-qqq-spy-and-bitcoin-reacted",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "Target sui fondi federali al 3,75%-4,00%, voto 10-2 con Cook e Hammack per un ulteriore rialzo; riunione di dicembre 8-9"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazioni, date e cifre riletti sulle pagine aperte in redazione (4-5/11/2026).",
+  "fonte_singola": true
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Dow +3% nel miglior giorno post-midterm da 44 anni (Yahoo Finance, 4/11 sera)",
+   "Petrolio sotto 100 $ con la speranza di fine della guerra in Iran (NBC News, Axios, 4/11)",
+   "Kospi -5% sui timori per l'AI dopo il voto (Korea Times, 5/11 ore 08:26)"
+  ],
+  "testate": [
+   {
+    "testata": "Yahoo Finance",
+    "storie": [
+     "Dow +3% nel miglior giorno dopo le elezioni di metà mandato da 44 anni"
+    ]
+   },
+   {
+    "testata": "CNBC",
+    "storie": [
+     "Dow +1.500 punti, miglior giorno da aprile 2025, con la vittoria democratica e il petrolio in calo"
+    ]
+   },
+   {
+    "testata": "Axios",
+    "storie": [
+     "Il petrolio crolla dopo il post di Vance sulla guerra in Iran"
+    ]
+   },
+   {
+    "testata": "Bloomberg",
+    "storie": [
+     "Le azioni europee salgono dopo il voto USA",
+     "Le banche europee rimbalzano con i risultati delle elezioni"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Bank of England: rialzo atteso oggi",
+    "motivo": "in agenda: la decisione è oggi alle 13:00, la prova di mercato è dopo l'uscita"
+   }
+  ],
+  "concorda": true,
+  "motivo": ""
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Wall Street sale e il Dow guadagna il 3%, ma il Kospi perde il 5% e i chip americani cedono",
+  "ricerche": [
+   "Kospi closes 4 November 2026 SK Hynix Samsung chipmakers",
+   "Asian markets Thursday Nikkei Kospi Hang Seng open after Wall Street rally November 5"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Timori di regole più dure su data center e AI dopo la vittoria democratica",
+    "fonte": "C02",
+    "prevede": "Chip in calo, resto del mercato in rialzo, Nasdaq in ritardo",
+    "prezzi": "torna"
+   }
+  ],
+  "esito": "C02"
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "Euro Stoxx 50: chiusura del 4/11",
+  "ricerche": [
+   "Aktien Europa Schluss 04.11.26 Euro Stoxx 50",
+   "Euro Stoxx 50 chiusura 4 novembre 2026",
+   "Teleborsa Borse europee chiusura 4 novembre 2026 Euro Stoxx 50",
+   "\"Euro Stoxx 50\" closed Wednesday 4 November 2026"
+  ],
+  "esito": "trovato",
+  "fonte": {
+   "testata": "dpa-AFX (onvista)",
+   "url": "https://www.onvista.de/news/2026/11-04-roundup-aktien-europa-schluss-deutliche-gewinne-nach-us-zwischenwahlen-0-10-26572549"
+  }
+ },
+ {
+  "id": "R2",
+  "sezione": "ricerca",
+  "dato": "FTSE MIB: variazione a 1 settimana e da inizio anno",
+  "ricerche": [
+   "Piazza Affari chiude 4 novembre 2026 Ftse Mib spread Btp Bund",
+   "Euro Stoxx 50 chiusura 4 novembre 2026 Borsa Milano Ftse Mib chiude",
+   "Ftse Mib chiusura 28 ottobre 2026 punti Piazza Affari",
+   "Ftse Mib da inizio anno 2026 performance novembre chiusura 2025 punti"
+  ],
+  "esito": "mancante"
+ },
+ {
+  "id": "R3",
+  "sezione": "ricerca",
+  "dato": "Kospi: variazione a 1 settimana e da inizio anno",
+  "ricerche": [
+   "Kospi closes 4 November 2026 SK Hynix Samsung chipmakers",
+   "Kospi closes November 5 2026",
+   "Kospi closes October 28 2026 points",
+   "Kospi year to date 2026 gain since end of 2025 close 4,214"
+  ],
+  "esito": "mancante"
+ }
+]
