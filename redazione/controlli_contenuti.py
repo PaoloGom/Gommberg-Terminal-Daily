@@ -133,7 +133,7 @@ def _fonte_tra_parentesi():
 
 
 FONTE_PAR = _fonte_tra_parentesi()
-CAUSA_T = re.compile(r"\bsecondo\b|di solito|in genere|lettura della redazione|causa non chiarita|\bM\d{2}\b", re.I)
+CAUSA_T = re.compile(r"\bsecondo\b|di solito|in genere|lettura della redazione|per noi|la nostra lettura|leggiamo|a nostro (?:giudizio|avviso)|causa non chiarita|\bM\d{2}\b", re.I)
 
 
 class _Causa:

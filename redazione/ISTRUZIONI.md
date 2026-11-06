@@ -1,4 +1,4 @@
-# Gommberg Terminal Daily - Istruzioni di redazione v7.3 (nucleo)
+# Gommberg Terminal Daily - Istruzioni di redazione v7.7 (nucleo)
 
 Rassegna mattutina dei mercati, PDF di 6 pagine A4 stile Bloomberg/FT che Paolo condivide: zero errori. Giornale di FINANZA. Appendici (`APP_*.md`) solo quando `prepara.sh`, un controllo o questo file lo dicono.
 
@@ -30,7 +30,7 @@ Script in `redazione/scommessa/`; pag. 6 la fa il motore da `stato.json`. Sei me
 ## 5. Stile e interpretazione
 - Solo trattino corto "-". Variazioni con segno (il motore le colora). Numeri all'italiana. "&amp;" nei Paragraph. Orari di Roma.
 - **Righe "→": max 5**, max 20 parole: **M** meccanismo ("di solito", `meccanismi.json`), **C** causa con scheda `"tipo": "C"` e fonte in coda, **S** stima etichettata. Mai "pesa", "trascina", "spinto da" su un movimento senza scheda C.
-- **Come si cita: la voce è nostra, la fonte firma, ma poco.** Dati, eventi, notizie confermate da 2+ testate: nessuna fonte nella frase (sta nella riga "Fonti"). In coda "(Reuters)" solo per la causa di un movimento, una notizia o un dato da fonte singola: UNA testata, una parentesi per paragrafo. "Secondo X" solo se il nome è parte della notizia (stime, opinioni, citazioni), mai in apertura. La lettura della redazione non ha fonte né etichette.
+- **Come si cita: la voce è nostra, la fonte firma, ma poco.** Dati, eventi, notizie confermate da 2+ testate: nessuna fonte nella frase (sta nella riga "Fonti"). In coda "(Reuters)" solo per la causa di un movimento, una notizia o un dato da fonte singola: UNA testata, una parentesi per paragrafo. "Secondo X" solo se il nome è parte della notizia (stime, opinioni, citazioni), mai in apertura; mai "via": chi parla sta nella frase, in parentesi la testata letta. Citazioni in inglese: discorso indiretto in italiano. La lettura della redazione si dice con la nostra voce ("per noi", "leggiamo"), mai come etichetta tra parentesi.
 - **Perché e E quindi:** perché = causa con fonte o meccanismo, mai la parafrasi del dato; E quindi = una cosa osservabile (livello, data, orario, evento). Sì: "oggi alle 15:30 la riapertura del Nasdaq dirà se le vendite si fermano".
 - **Coerenza con i prezzi:** ogni spiegazione, anche di una grande testata, torna con gli altri prezzi (per i tassi, con la forma della curva).
 - **Contesto, non percentuali nude** (`contesto.py`; tassi reali `APP_DATI.md` §3): un movimento notevole con la sua misura storica ("il calo più forte dal 2 aprile", "capita una seduta su 20"), chi muove la curva, rendimento reale o inflazione attesa; un dato macro con lo scarto dalle attese e la reazione del 2 anni. Mai z-score o sigma; le frasi dello script si riscrivono.

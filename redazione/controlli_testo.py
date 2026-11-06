@@ -15,7 +15,10 @@ QUI = os.path.dirname(os.path.abspath(__file__))
 MAX_FRECCE = 5
 CONNETTIVI = [r"perch[ée]", r"a causa d", r"spint[oaie] da", r"\bpesa\b", r"\bpesano\b", r"trascin", r"sulla scia d",
               r"\bcomplice\b", r"\bper effetto d", r"\bgrazie a\b", r"\bdopo che\b"]
-ESENZIONI = re.compile(r"Perch[ée] conta|Il perch[ée] |secondo |stima redazionale|lettura della redazione|di solito|in genere|tende a", re.I)
+# La voce della redazione ("per noi", "leggiamo") vale come lettura dichiarata: niente etichette né parentesi (v7.7).
+VOCE_RED = r"per noi|la nostra lettura|leggiamo|a nostro (?:giudizio|avviso)|lettura della redazione"
+ESENZIONI = re.compile(r"Perch[ée] conta|Il perch[ée] |secondo |stima redazionale|di solito|in genere|tende a|" + VOCE_RED, re.I)
+INGLESE = re.compile(r"\b(?:the|of|and|is|are|they're|it's|we|our|some|will|way|total|with|for|to)\b", re.I)
 
 def _fonte_tra_parentesi():
     """Regex dell'attribuzione in coda: "(Reuters)", "(Yahoo Finance, FIRSTonline)", "(dati BLS)"."""
@@ -115,6 +118,13 @@ def main():
     errori += [f"fonte tra parentesi con 'secondo': scrivi \"({m.group(1).strip()})\" ('secondo X' solo per stime e citazioni, fuori parentesi)"
                for m in re.finditer(r"\(secondo ([^)]{2,40})\)", piatto)]
     errori += ["etichetta 'stima redazionale' vietata: scrivi la frase senza etichetta" for _ in re.finditer(r"stim[ae] redazional", piatto, re.I)]
+    # v7.7: meno parentesi, voce più nostra. Etichetta tra parentesi, doppia attribuzione e citazioni in inglese.
+    errori += ["etichetta '(lettura della redazione)' vietata: dilla con la nostra voce ('per noi', 'leggiamo'), senza parentesi"
+               for _ in re.finditer(r"\(\s*lettura della redazione", piatto, re.I)]
+    errori += [f"doppia attribuzione '{m.group(0)[:50]}': chi parla va nella frase ('secondo X'), tra parentesi una sola testata, senza 'via'"
+               for m in re.finditer(r"\([^()]{0,40}\bvia\b[^()]{0,40}\)", piatto)]
+    errori += [f"citazione in inglese «{m.group(1)[:40]}»: rendila in italiano come discorso indiretto, senza «»"
+               for m in re.finditer(r"«([^»]{3,160})»", piatto) if len(INGLESE.findall(m.group(1))) >= 2]
     for e in errori[:6]:
         print("ERRORE: " + e[:155])
     if doppie:
