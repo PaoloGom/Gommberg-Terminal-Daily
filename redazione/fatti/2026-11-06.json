@@ -1,0 +1,712 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Wall Street chiude in forte calo giovedì 5 novembre: Nasdaq Composite -5,52% a 24.315,00, S&P 500 -4,36% a 7.353,73, Dow Jones -3,44% a 51.523,06, indice dei chip SOX -12,25%",
+  "data_evento": "2026-11-05",
+  "novita": "Sviluppo successivo all'edizione di ieri",
+  "fonti": [
+   {
+    "testata": "Fox Business",
+    "url": "https://www.foxbusiness.com/markets/stocks-nov-5-2026",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Dow Jones: down 1,833.06 points (-3.44%) to 51,523.06; S&P 500: down 334.89 points (-4.36%) to 7,353.73; Nasdaq Composite: down 1,421.52 points (-5.52%) to 24,314.997"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/article/chip-stocks-slaughtered-as-wall-street-suffers-worst-post-midterm-day-since-1896-213204256.html",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Chip stocks slaughtered as Wall Street suffers worst post-midterm day since 1896"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: non_conclusivo (Tre indici e punti coperti da Fox; il SOX -12,25% non compare in nessuna citazione (Yahoo e' solo un titolo).); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "C01",
+  "sezione": "top_story",
+  "testo": "Le testate leggono il calo come un riprezzamento dell'AI dopo il voto di metà mandato: il timore è che i Democratici rallentino la costruzione dei data center",
+  "data_evento": "2026-11-05",
+  "novita": "Sviluppo successivo all'edizione di ieri",
+  "fonti": [
+   {
+    "testata": "Fox Business",
+    "url": "https://www.foxbusiness.com/markets/stocks-nov-5-2026",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "markets are pricing in the midterm results; the AI infrastructure buildout will become slower and more expensive"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/asia-stocks-to-drop-after-ai-rout-rocks-us-markets-5006125",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "This looks more like a reassessment of AI policy risk than a reassessment of the AI cycle."
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: confermato (Fox (eToro) e Reuters contengono la lettura 'riprezzamento/rischio politico AI'; ma sono voci di analisti, non 'le testate', e 'Democratici' e' implicito.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "T02",
+  "sezione": "top_news",
+  "testo": "Il Nasdaq Composite entra in correzione: oltre il 10% sotto il record del 6 ottobre",
+  "data_evento": "2026-11-05",
+  "novita": "Sviluppo successivo all'edizione di ieri",
+  "fonti": [
+   {
+    "testata": "Fox Business",
+    "url": "https://www.foxbusiness.com/markets/stocks-nov-5-2026",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "put the index in correction territory, at least 10% below its Oct. 6 record close"
+   },
+   {
+    "testata": "CNN (KSL)",
+    "url": "https://www.ksl.com/article/51643962/massive-tech-sell-off-wipes-25-trillion-from-the-stock-market",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Nasdaq Composite: -5,52%, in correzione e oltre il 10% sotto il massimo storico del 6 ottobre"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: confermato (Fox: almeno -10% sotto il record del 6/10 in chiusura; CNN concorda.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "T03",
+  "sezione": "top_news",
+  "testo": "Qualcomm perde circa il 9,5% dopo conti sotto le attese: pesano i costi più alti della memoria",
+  "data_evento": "2026-11-05",
+  "novita": "Sviluppo successivo all'edizione di ieri",
+  "fonti": [
+   {
+    "testata": "The National",
+    "url": "https://www.thenationalnews.com/business/markets/2026/11/06/nasdaq-plunges-5-as-investors-dump-ai-stocks-after-midterms/",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Qualcomm -9,49%"
+   },
+   {
+    "testata": "CNN (KSL)",
+    "url": "https://www.ksl.com/article/51643962/massive-tech-sell-off-wipes-25-trillion-from-the-stock-market",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Qualcomm: -9,5% dopo aver mancato le stime, per i costi più alti della memoria"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: confermato (CNN contiene sia -9,5% sia la causa (stime mancate, costi memoria piu' alti); The National -9,49%.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "T04",
+  "sezione": "top_news",
+  "testo": "AppLovin sale del 30,2% dopo utili e ricavi sopra le attese e un piano di riacquisto di azioni fino a 3,6 miliardi di dollari",
+  "data_evento": "2026-11-05",
+  "novita": "Sviluppo successivo all'edizione di ieri",
+  "fonti": [
+   {
+    "testata": "AP (Spectrum News)",
+    "url": "https://spectrumlocalnews.com/us/snplus/business/2026/11/05/stock-market-ai-chip-selloff",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "AppLovin: +30,2%, dopo utili e ricavi superiori alle attese e un piano di riacquisto azioni fino a 3,6 miliardi di dollari"
+   },
+   {
+    "testata": "Yahoo Finance (cronaca)",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-5-dow-sp-500-nasdaq-plunge-chip-stocks-melt-down-193726491.html",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "AppLovin (+23% pre-market dopo i conti)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: non_conclusivo (+30,2% e buyback 3,6 mld in AP, ma l'orario 11:16 NY non e' in nessuna citazione (Yahoo dice +23% pre-market).); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "T05",
+  "sezione": "top_news",
+  "testo": "Seul: il Kospi chiude a 5.059,69 (-6,02%) dopo un blocco automatico delle contrattazioni; il governo sospende il requisito di garanzia del 140% sui prestiti per comprare titoli (margin loan)",
+  "data_evento": "2026-11-06",
+  "novita": "Sviluppo successivo all'edizione di ieri",
+  "fonti": [
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/finance/2026/11/06/kospi-plunges-602-percent-to-close-at-505969",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "The KOSPI closed at 5,059.69, down 324.11 points, or 6.02%."
+   },
+   {
+    "testata": "TechFlow",
+    "url": "https://www.techflowpost.com/en-US/newsletter/143349",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "11th time this year"
+   },
+   {
+    "testata": "FinancialJuice",
+    "url": "https://features.financialjuice.com/2026/11/06/ai-selloff-deepens-across-asia-governments-move-to-stabilize-markets-asia-market-wrap/",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Korea temporarily suspended the 140% collateral requirement on margin loans"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: non_conclusivo (Kospi 5.059,69 -6,02%, 'undicesimo' e margin 140% sostenuti; i 20 minuti di blocco non compaiono e '11th time' non dice cosa sia l'undicesimo.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "T06",
+  "sezione": "top_news",
+  "testo": "Il Brent chiude a 98,29 $ (+3,9%) giovedì, dopo il -8,7% di mercoledì",
+  "data_evento": "2026-11-05",
+  "novita": "Sviluppo successivo all'edizione di ieri",
+  "fonti": [
+   {
+    "testata": "AP (KSAT)",
+    "url": "https://www.ksat.com/business/2026/11/06/japans-nikkei-falls-more-than-6-as-asian-benchmarks-tumble-after-wall-street-drop/",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Brent: +3,88%, a 98,29 dollari al barile"
+   },
+   {
+    "testata": "Yahoo Finance (cronaca)",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-5-dow-sp-500-nasdaq-plunge-chip-stocks-melt-down-193726491.html",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Brent sopra i 97-98 dollari al barile e WTI intorno a 90"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: non_conclusivo (Brent 98,29 +3,88% confermato da AP; il -8,7% di mercoledi' non e' in alcuna citazione.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "T07",
+  "sezione": "top_news",
+  "testo": "Il Nikkei chiude a 57.410,91 (-6,00%), il Kospi a 5.059,69 (-6,02%) e Hang Seng -1% in seduta",
+  "data_evento": "2026-11-06",
+  "novita": "Sviluppo successivo all'edizione di ieri",
+  "fonti": [
+   {
+    "testata": "Reuters (Business Standard)",
+    "url": "https://www.business-standard.com/amp/markets/news/asian-markets-crash-as-ai-rout-rocks-us-markets-kospi-plunges-8-126110600087_1.html",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Nikkei circa -6%, Kospi oltre -8% con circuit breaker poi circa -7%"
+   },
+   {
+    "testata": "TechFlow",
+    "url": "https://www.techflowpost.com/en-US/newsletter/143349",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Nikkei closing: 57,410.91, down 6.00%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: non_conclusivo (Nikkei confermato; Hang Seng -1% assente dalle citazioni; Reuters parla di Kospi -8%/-7% intraday, la chiusura -6,02% non e' in queste fonti.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "Il VIX arriva a 28,18, il livello più alto da sette mesi",
+  "data_evento": "2026-11-05",
+  "novita": "Sviluppo successivo all'edizione di ieri",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/article/chip-stocks-slaughtered-as-wall-street-suffers-worst-post-midterm-day-since-1896-213204256.html",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "It took the Nasdaq Composite six minutes to erase its entire post-election rally."
+   },
+   {
+    "testata": "Yahoo Finance (cronaca, sera)",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-5-dow-sp-500-nasdaq-oil-rises-chip-stocks-141439950.html",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "VIX: highest level since March 31"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: non_conclusivo (Nessuna citazione sulla media a 200 giorni; VIX 'massimo dal 31/3' ok ma 28,18 non e' nella citazione.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "Il 5 giugno 2026 il Nasdaq perse il 4,18% dopo il rapporto sul lavoro e i timori di rialzi Fed, in un mercato giudicato «way overbought»",
+  "data_evento": "2026-06-05",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "GV Wire (Reuters)",
+    "url": "https://gvwire.com/2026/06/05/wall-street-ends-sharply-lower-as-chips-slide-jobs-data-fuels-rate-hike-fears/",
+    "data_pubblicazione": "2026-06-05",
+    "citazione": "The semiconductor sector was way overbought."
+   },
+   {
+    "testata": "Business Today",
+    "url": "https://businesstoday.in/markets/stocks/story/us-stock-market-news-why-nasdaq-sp-500-witnessed-its-worst-day-of-year-factors-behind-fall-535252-2026-06-06",
+    "data_pubblicazione": "2026-06-06",
+    "citazione": "fanning fears that the Federal Reserve might push forward with further interest rate hikes"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: non_conclusivo (Citazioni coprono solo 'way overbought' e timori di rialzi Fed; -4,18%, 25.709,43, 172.000 posti e 'peggiore dal marzo 2020' non sono in citazione.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Retail: vendite nette per 358 milioni di dollari in azioni singole USA alle 14:58 ET di giovedì, il massimo dal 17 marzo 2020 (502 milioni)",
+  "data_evento": "2026-11-05",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance (Vanda)",
+    "url": "https://finance.yahoo.com/markets/article/retail-traders-dump-358-million-in-stocks-in-biggest-selling-day-since-2020-205924608.html",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Everyday investors sold a net $358 million in individual US stocks on Thursday as of 2:58 p.m. ET,"
+   },
+   {
+    "testata": "Yahoo Finance (cronaca)",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-5-dow-sp-500-nasdaq-plunge-chip-stocks-melt-down-193726491.html",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "This is what we would call a total capitulation by retail investors,"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: non_conclusivo (358 mln alle 14:58 ET ok (Vanda); 502 mln e la data 17/3/2020 non sono nella citazione (solo nell'URL 'since 2020').); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "D04",
+  "sezione": "mercati",
+  "testo": "Nomura: «They're shooting the generals»; vendite forzate di strategie sistematiche e a leva; alcuni hanno comprato ETF a leva su Nasdaq e chip",
+  "data_evento": "2026-11-05",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance (cronaca)",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-5-dow-sp-500-nasdaq-plunge-chip-stocks-melt-down-193726491.html",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "They're shooting the generals,"
+   }
+  ],
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: non_conclusivo (Fonte singola: citata solo la frase di Nomura; vendite forzate e acquisti di ETF a leva non sono nella citazione.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "testo": "Goldman, ottobre: leva netta degli hedge fund -4,2 punti a 73,4%, leva lorda vicina al 310%; long ridotti 3,5 volte più in fretta dei nuovi short; il SOX perde il 15,4% in ottobre",
+  "data_evento": "2026-10-31",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Hedgeweek",
+    "url": "https://hedgeweek.com/news/hedge-funds-slash-leverage-at-fastest-pace-since-march-amid-october-losses",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Hedge funds reduced leverage at the fastest pace since March"
+   },
+   {
+    "testata": "Forbes",
+    "url": "https://www.forbes.com/sites/jonmarkman/2026/11/02/hedge-funds-reversed-all-their-2025-ai-stock-buying-in-five-days/",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "gross leverage remained near 310%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: non_conclusivo (In citazione solo 'ritmo piu' rapido da marzo' e leva lorda ~310%; -4,2 pt, 73,4%, 3,5x e SOX -15,4% non verificabili.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "D06",
+  "sezione": "deep_dive",
+  "testo": "Texas: il 21 settembre il governatore Abbott ordina di non rilasciare nuovi permessi ambientali ai data center",
+  "data_evento": "2026-09-21",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Texas Tribune",
+    "url": "https://www.texastribune.org/2026/09/21/texas-data-center-moratorium-water-energy/",
+    "data_pubblicazione": "2026-09-21",
+    "citazione": "Until they do, TCEQ will issue no permits sought by data center projects."
+   },
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/09/21/texas-governor-abbott-ai-data-center-permits.html",
+    "data_pubblicazione": "2026-09-21",
+    "citazione": "Texas Gov. Abbott orders data center permit halt weeks after issuing moratorium"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: non_conclusivo (Sostenuto solo lo stop ai permessi (TCEQ, 21/9, CNBC); il blocco del 3 agosto sulle connessioni alla rete e l'audit non compaiono.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "D07",
+  "sezione": "deep_dive",
+  "testo": "Voto del 3 novembre: in 40 delle 41 misure locali sui data center gli elettori hanno scelto restrizioni o respinto proposte favorevoli",
+  "data_evento": "2026-11-03",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Fox Business (referendum)",
+    "url": "https://foxbusiness.com/politics/data-centers-ballot-voters-sent-unmistakable-message",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "backed restrictions or rejected pro-development measures in all but one of 41 local ballot measures"
+   },
+   {
+    "testata": "Forbes (referendum)",
+    "url": "https://www.forbes.com/sites/zacharyfolk/2026/11/04/heres-where-voters-are-rejecting-data-centers-at-the-ballot-full-list/",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Here's Where Voters Are Rejecting Data Centers On Midterm Ballots (Full List)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: confermato (Fox: 'all but one of 41 local ballot measures' = 40 su 41; voto del 3/11 coerente.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "D08",
+  "sezione": "deep_dive",
+  "testo": "In campagna la democratica Gina Hinojosa in Texas chiedeva una moratoria sui data center",
+  "data_evento": "2026-11-03",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "CNN (WPSD)",
+    "url": "https://www.wpsdlocal6.com/news/stocks-plunge-as-midterm-results-send-ai-trade-into-a-tailspin/article_825ec16d-a499-4dd8-b08d-8a1bd2642592.html",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "campaigned on a temporary data center moratorium and eliminating certain tax incentives"
+   },
+   {
+    "testata": "Briefs Finance",
+    "url": "https://www.briefs.co/news/chip-stocks-plunge-after-democrats-win-midterms-data-center/",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "an immediate moratorium on building them"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: non_conclusivo (La citazione CNN non nomina Hinojosa ne' la vittoria; Briefs parla di moratoria 'immediata', non 'temporanea'.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "D09",
+  "sezione": "deep_dive",
+  "testo": "Morgan Stanley (luglio 2025): capex dei data center circa 2.900 miliardi di dollari nel 2025-28, flussi dei grandi gruppi circa 1.400, «financing gap» di 1.500 miliardi da coprire con capitale esterno",
+  "data_evento": "2025-07-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Morgan Stanley Research",
+    "url": "https://www.morganstanley.com/content/dam/msdotcom/en/assets/pdfs/Research_Bridging-Data-Center-Gap.pdf",
+    "data_pubblicazione": "2025-07-16",
+    "citazione": "we see a $1.5tr financing gap that needs to be met by external capital"
+   },
+   {
+    "testata": "Morgan Stanley (Thoughts on the Market)",
+    "url": "https://www.morganstanley.com/insights/podcasts/thoughts-on-the-market/credit-markets-ai-financing-gap-vishy-tirupattur-vishwas-patkar",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "credit markets AI financing gap"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: non_conclusivo (Gap di 1.500 mld confermato; 2.900 e 1.400 mld non in citazione (aritmetica coerente); la seconda fonte e' solo un titolo di podcast del 2026.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "D10",
+  "sezione": "deep_dive",
+  "testo": "BIS, rapporto annuale del 28 giugno 2026: i termini dei finanziamenti circolari sono di solito poco trasparenti, con il rischio che lo stesso bene sia dato in garanzia più volte",
+  "data_evento": "2026-06-28",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "TheNextWeb",
+    "url": "https://thenextweb.com/news/bis-ai-bust-credit-risk-2008-circular-financing",
+    "data_pubblicazione": "2026-06-28",
+    "citazione": "The terms of such deals are typically poorly disclosed, with risks of the same asset being pledged multiple times."
+   },
+   {
+    "testata": "TFTC",
+    "url": "https://www.tftc.io/bis-annual-report-2026-ai-bubble-circular-financing-sovereign-debt",
+    "data_pubblicazione": "2026-06-28",
+    "citazione": "BIS Annual Report 2026: AI bubble, circular financing"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: confermato (Citazione identica al testo; attribuzione al BIS regge su URL e titolo TFTC, la data e' quella dell'articolo.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "D11",
+  "sezione": "deep_dive",
+  "testo": "Oracle: CDS a 5 anni a un record di 288 pb il 15 ottobre; CoreWeave oltre 1.000 pb",
+  "data_evento": "2026-10-15",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance (CDS)",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/ai-credit-default-insurance-costs-140727215.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "Oracle CDS 5 anni +26 pb a record 288 pb (S&P Global Market Intelligence); CoreWeave CDS oltre 1.000 pb (LSEG)"
+   },
+   {
+    "testata": "CNBC (CDS)",
+    "url": "https://www.cnbc.com/2026/10/15/coreweave-credit-default-swaps-hit-distress-levels-as-investors-sour-on-ai-debt.html",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "CoreWeave credit default swaps hit distress levels as investors sour on AI debt"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: confermato (Yahoo: Oracle +26 pb a record 288 pb (S&P GMI), CoreWeave oltre 1.000 pb (LSEG), 15/10.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "D12",
+  "sezione": "deep_dive",
+  "testo": "Yahoo: gli investitori chiedono rendimenti più alti alle società molto indebitate che costruiscono data center",
+  "data_evento": "2026-11-05",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/article/chip-stocks-slaughtered-as-wall-street-suffers-worst-post-midterm-day-since-1896-213204256.html",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Investors have also been demanding higher yields from the heavily borrowed companies building out data centers."
+   },
+   {
+    "testata": "Yahoo Finance (cronaca, sera)",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-5-dow-sp-500-nasdaq-oil-rises-chip-stocks-141439950.html",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "VIX: highest level since March 31"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: confermato (Frase Yahoo identica al testo della scheda.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "D13",
+  "sezione": "deep_dive",
+  "testo": "Il 4 novembre il Dow sale del 3,03% (+1.569 punti), ma Nvidia perde il 3,2% e Micron il 7%; giovedì il Dow cede 1.833 punti",
+  "data_evento": "2026-11-04",
+  "novita": "Rotazione già in corso mercoledì",
+  "fonti": [
+   {
+    "testata": "AP (Spectrum News)",
+    "url": "https://spectrumlocalnews.com/us/snplus/business/2026/11/05/stock-market-ai-chip-selloff",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Nvidia: -8,3%, dopo il -3,2% del giorno precedente"
+   },
+   {
+    "testata": "Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261105/kospi-tumbles-as-democrat-sweep-fuels-ai-infrastructure-concerns",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Nvidia -3,17%, Micron -7%, SanDisk -7,91%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: non_conclusivo (Nvidia -3,2% e Micron -7% mercoledi' ok; Dow +3,03% (+1.569) non in citazione (coerente con -1.833 di giovedi'); AP da' Nvidia -8,3% giovedi' contro -9,26% di F); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "D14",
+  "sezione": "deep_dive",
+  "testo": "Fox e The National: Nvidia -9,26%, Meta -3,96%, Amazon -2,19%; Nebius -14,94%",
+  "data_evento": "2026-11-05",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Fox Business",
+    "url": "https://www.foxbusiness.com/markets/stocks-nov-5-2026",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Nvidia: -9.26% to 181.60; Meta: -3.96%; Amazon: -2.19%; Nebius fell more than 14%"
+   },
+   {
+    "testata": "The National",
+    "url": "https://www.thenationalnews.com/business/markets/2026/11/06/nasdaq-plunges-5-as-investors-dump-ai-stocks-after-midterms/",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Nebius -14,94%, Meta -3,96%, Amazon -2,19%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: non_conclusivo (Cifre in Fox e The National ok, ma la scheda attribuisce a 'Fox e CNN': CNN non e' tra le fonti. AP (D13) riporta Nvidia -8,3%: discrepanza da spiegare.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "D15",
+  "sezione": "deep_dive",
+  "testo": "Il governo Trump ha puntato sull'accelerazione dei permessi federali per i data center (ordine esecutivo e piano d'azione sull'AI, luglio 2025)",
+  "data_evento": "2025-07-24",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "White & Case",
+    "url": "https://www.whitecase.com/insight-alert/trump-administration-issues-executive-order-streamline-data-center-development",
+    "data_pubblicazione": "2025-07-24",
+    "citazione": "Trump administration issues executive order to streamline data center development"
+   },
+   {
+    "testata": "Greenberg Traurig",
+    "url": "https://www.gtlaw.com/en/insights/2025/7/trump-administration-seeks-to-streamline-federal-permitting-for-data-centers-with-new-executive-order-and-action-plan",
+    "data_pubblicazione": "2025-07-24",
+    "citazione": "Trump administration seeks to streamline federal permitting for data centers with new executive order and action plan"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: confermato (I due titoli dei law firm sostengono ordine esecutivo e piano d'azione per snellire i permessi federali, 24/7/2025.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "D16",
+  "sezione": "deep_dive",
+  "testo": "Europa: i future sull'Euro Stoxx 50 scendono dell'1% alle 07:52",
+  "data_evento": "2026-11-06",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com, Europa)",
+    "url": "https://www.investing.com/news/stock-market-news/european-shares-set-to-fall-as-global-ai-rout-gathers-pace-5006641",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Future Euro Stoxx 50 -1% alle 6:52 GMT"
+   },
+   {
+    "testata": "Reuters (Business Standard)",
+    "url": "https://www.business-standard.com/amp/markets/news/asian-markets-crash-as-ai-rout-rocks-us-markets-kospi-plunges-8-126110600087_1.html",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Wall Street futures ... European shares were set to open lower on Friday amid a global market rout"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: confermato (06:52 GMT = 07:52 Roma (CET), future -1%: coerente.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Venerdì 6 novembre alle 14:30 ora di Roma: rapporto sull'occupazione USA di ottobre, stime +59-65 mila posti, disoccupazione 4,2%; a settembre +29 mila",
+  "data_evento": "2026-11-06",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Kiplinger",
+    "url": "https://www.kiplinger.com/investing/economy/jobs-report-october-2026-what-to-expect",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Economists expect the U.S. to have added 59,000 new jobs in October"
+   },
+   {
+    "testata": "Thrive in Markets",
+    "url": "https://thriveinmarkets.com/calendar/dates/nfp-2026/",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Next NFP release: Fri 6 Nov 2026, 13:30 UTC"
+   },
+   {
+    "testata": "Finance Calendar",
+    "url": "https://www.financecalendar.com/event/us-employment-situation-non-farm-payrolls-november-2026/",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "US Employment Situation (Non-Farm Payrolls) November 2026"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: non_conclusivo (Kiplinger +59 mila e 13:30 UTC = 14:30 Roma ok; +65 mila, disoccupazione 4,2% e settembre +29 mila non sono in citazione.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Martedì 10 novembre alle 14:30 ora di Roma: CPI USA di ottobre",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "| October 2026 | Nov. 10, 2026 | 08:30 AM |"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: confermato (BLS 10/11 08:30 ET = 14:30 Roma (EST dopo il 1/11); martedi' corretto.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "testo": "Mercoledì 9 dicembre: decisione della Fed (riunione 8-9 dicembre)",
+  "data_evento": "2026-12-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/2026-december.htm",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Two-day meeting, December 8 - 9"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: confermato (Fed 8-9 dicembre; mercoledi' 9 dicembre corretto, decisione il secondo giorno e' prassi.); testo ridotto ai soli dettagli verificati sulle pagine intere (ricerca_cause.md, ricerca_dati.md) o calcolati dalle chiusure."
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Dow -1.833 punti, Nasdaq in correzione (Fox Business, 5/11 ore 22:43 Roma)",
+   "Nasdaq -5,5%, chip -12% dopo il voto (Yahoo Finance, 5/11 sera)",
+   "Asia: Nikkei -6%, Kospi -8% con circuit breaker (Reuters, 6/11 ore 03:24 Roma)"
+  ],
+  "testate": [
+   {
+    "testata": "Fox Business",
+    "storie": [
+     "Nasdaq crolla del 5% e il Dow perde oltre 1.800 punti",
+     "Nasdaq in correzione"
+    ]
+   },
+   {
+    "testata": "Yahoo Finance",
+    "storie": [
+     "Chip massacrati nel peggiore post-elezioni dal 1896"
+    ]
+   },
+   {
+    "testata": "CNN",
+    "storie": [
+     "Vendita di 2.500 miliardi di dollari dopo il voto di metà mandato"
+    ]
+   },
+   {
+    "testata": "Reuters",
+    "storie": [
+     "Asia crolla dopo il tonfo dell'AI a Wall Street"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Rapporto occupazione USA di oggi",
+    "motivo": "in agenda: 14:30, dopo l'uscita"
+   }
+  ],
+  "concorda": true,
+  "motivo": "Tutte le testate aprono con il crollo del Nasdaq dopo il voto"
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Il Dow sale del 3% mercoledì e il Nasdaq perde il 5,5% giovedì: chip in calo anche mentre il resto del mercato sale",
+  "ricerche": [
+   "stocks close Nasdaq S&P 500 Dow November 5 2026 selloff chips data centers",
+   "Reuters Wall Street tumbles AI data center stocks midterm elections Qualcomm Nasdaq correction analysts",
+   "Goldman Sachs prime brokerage hedge funds selling tech semiconductors gross leverage November 5 2026",
+   "data center moratorium New York Abbott Texas pause approvals data centers electricity prices voters referendum 2026"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Riprezzamento dell'AI dopo il voto: tempo e premio al rischio",
+    "fonte": "C01",
+    "prevede": "Calo più forte per chip e società che costruiscono data center che per chi li compra; rendimenti Treasury non in rialzo",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Qualcomm e conti sotto le attese",
+    "fonte": "T03",
+    "prevede": "Calo concentrato su Qualcomm, non su tutto il settore",
+    "prezzi": "in parte"
+   },
+   {
+    "causa": "Petrolio e Iran",
+    "fonte": null,
+    "prevede": "Rendimenti in rialzo e inflazione attesa più alta",
+    "prezzi": "non torna"
+   }
+  ],
+  "esito": "C01"
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "Euro Stoxx 50: chiusura del 5/11 (seconda fonte)",
+  "ricerche": [
+   "Aktien Europa Schluss 05.11.26 Euro Stoxx 50",
+   "Euro Stoxx 50 chiusura 5 novembre 2026",
+   "Teleborsa Borse europee chiusura 5 novembre 2026",
+   "\"Euro Stoxx 50\" closed Thursday 5 November 2026"
+  ],
+  "esito": "trovato",
+  "fonte": {
+   "testata": "dpa-AFX (finanznachrichten)",
+   "url": "https://www.finanznachrichten.de/nachrichten-2026-11/70050465-roundup-aktien-europa-schluss-ins-minus-gedreht-ausverkauf-bei-us-techwerten-016.htm"
+  }
+ }
+]

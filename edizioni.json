@@ -3428,5 +3428,185 @@
     "chiave": false
    }
   ]
+ },
+ {
+  "numero": 20,
+  "data": "2026-11-06",
+  "titolo": "Repricing AI: (Mid)term the Trump Trade",
+  "sommario": [
+   "Chi ha venduto: i fondi riducevano il rischio da ottobre, giovedì ha ceduto anche il piccolo risparmiatore.",
+   "Il debito che finanzia l'AI è la prova che conta: se il calo passa al credito, lo diranno spread e assicurazioni sul default.",
+   "Oggi alle 14:30 il rapporto sul lavoro USA, il secondo esame per i chip dopo il 5 giugno."
+  ],
+  "file": "pdf/2026-11-06-gommberg-020.pdf",
+  "nome": "2026-11-06 Gommberg Terminal Daily #020.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Qualcomm perde circa il 9,5% dopo conti sotto le attese",
+   "AppLovin sale del 30% dopo i conti, controcorrente",
+   "Seul ferma il mercato e allenta i prestiti a margine",
+   "Il Brent risale a 98,29 $ ma non spiega il calo",
+   "Mercoledì, con il Dow a +3%, Micron perdeva il 7%"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "152,43 $",
+    "-3,8% g"
+   ],
+   [
+    "S&P 500",
+    "7.353,73",
+    "-4,4% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.231,54",
+    "-0,5% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "4,84%",
+    "-6 pb g"
+   ],
+   [
+    "BRENT FUTURE",
+    "98,29 $",
+    "+3,9% g"
+   ],
+   [
+    "EUR/USD",
+    "1,1219",
+    "-0,1% g"
+   ],
+   [
+    "VIX",
+    "28,18",
+    "+11,57 g"
+   ]
+  ],
+  "ticker_al": "2026-11-05",
+  "scommessa": {
+   "settimana": "2026-11-02/2026-11-06",
+   "su": 6,
+   "variabile": {
+    "nome": "Oro (future, $/oncia)",
+    "motivo": "Oro venduto con le azioni: rifugio o cassa?"
+   },
+   "strada": 2,
+   "range": 3,
+   "dettaglio": [
+    [
+     "MSCI ACWI (ETF)",
+     "su",
+     false,
+     false
+    ],
+    [
+     "S&P 500",
+     "su",
+     false,
+     false
+    ],
+    [
+     "Euro Stoxx 50",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Brent future",
+     "giù",
+     true,
+     false
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "Oro (future, $/oncia)",
+     "su",
+     true,
+     false,
+     true
+    ]
+   ]
+  },
+  "temi": [
+   "Tecnologia",
+   "Wall Street",
+   "Chip",
+   "Credito",
+   "Macro",
+   "Asia"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Wall Street",
+    "titolo": "Il carburante era già nel mercato: i fondi vendevano da ottobre, giovedì ha ceduto il piccolo risparmiatore",
+    "formato": "tabella"
+   },
+   {
+    "tema": "Chip",
+    "titolo": "Il voto non cambia gli utili dell'AI: cambia il prezzo che il mercato dà all'attesa",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Credito",
+    "titolo": "La prova vera dell'AI non è il Nasdaq: è il debito che la finanzia",
+    "formato": "tabella"
+   },
+   {
+    "tema": "Macro",
+    "titolo": "Una seduta da record non fa un ribasso: contano tre prove nei prossimi giorni",
+    "formato": "tabella"
+   }
+  ],
+  "meccanismi": [
+   "M06"
+  ],
+  "parole": [
+   "Riprezzamento",
+   "Correzione",
+   "Finanziamento circolare"
+  ],
+  "ripetizioni": 4,
+  "glossario": [
+   "CPI",
+   "pb",
+   "BTP",
+   "Bund",
+   "CDS",
+   "VIX",
+   "ACWI",
+   "Brent"
+  ],
+  "termometri": [
+   [
+    "AI e data center",
+    "Nasdaq in correzione"
+   ],
+   [
+    "Debito dell'AI",
+    "CDS di Oracle al record (15/10)"
+   ],
+   [
+    "Fed e tassi",
+    "Riunione 8-9 dicembre"
+   ],
+   [
+    "Dollaro e rifugi",
+    "EUR/USD 1,1187 stamattina"
+   ]
+  ]
  }
 ]
