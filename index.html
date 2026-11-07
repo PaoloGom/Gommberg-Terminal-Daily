@@ -64,6 +64,7 @@ a { color: inherit; }
 .mast .top { display: flex; justify-content: space-between; align-items: flex-end; gap: 8px 32px; padding-block: 18px 12px; }
 .brand { min-width: 0; }
 .logo { font-family: var(--display); font-stretch: 75%; font-weight: 900; font-size: clamp(28px, 4.4vw, 44px); line-height: .9; letter-spacing: .01em; margin: 0; white-space: nowrap; }
+.logo a { color: inherit; text-decoration: none; }
 .logo b { color: var(--orange); font-weight: 900; }
 .logo span { font-weight: 600; }
 .pitch { margin: 8px 0 0; font-size: 15px; line-height: 1.4; color: var(--bar-soft); }
@@ -266,7 +267,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
 <header class="mast">
   <div class="wrap top">
     <div class="brand">
-      <h1 class="logo"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></h1>
+      <h1 class="logo"><a href="./" id="home" title="Torna all'ultima edizione"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></h1>
       <p class="pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p>
     </div>
     <div class="dateline"><strong id="dlDate">&nbsp;</strong>Lun-ven, entro le 10</div>
@@ -358,7 +359,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
 <footer>
   <div class="wrap">
     <nav class="links" aria-label="Le pagine del sito"><a href="archivio.html">Archivio</a><a href="basi.html">Le basi</a><a href="numeri.html">I numeri</a><a href="scommessa.html">La scommessa</a><a href="feed.xml">Feed RSS</a></nav>
-    <p class="ai">Testi generati con l'intelligenza artificiale e pubblicati in automatico. Responsabile editoriale: Paolo Gommellini.</p>
+    <p class="ai">Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.</p>
     <p class="legal">Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</p>
   </div>
 </footer>
@@ -640,6 +641,13 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     try { localStorage.setItem(votoKey(current), b.dataset.v); } catch (err) {}
     $("vote").querySelectorAll("button").forEach((x) => { x.hidden = true; });
     $("voteQ").textContent = "Grazie del voto."; $("voteQ").classList.add("thx");
+  });
+  // Il logo riporta sempre all'ultima edizione, in cima alla pagina
+  $("home").addEventListener("click", (e) => {
+    if (!editions.length) return;
+    e.preventDefault();
+    if (current !== editions[0]) showEdition(editions[0], true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
   // "Come funziona": si apre anche da un link #cose
   if (location.hash === "#cose") $("cose").open = true;

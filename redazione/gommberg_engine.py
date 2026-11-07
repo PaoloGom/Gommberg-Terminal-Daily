@@ -148,8 +148,9 @@ def page(c, doc):
                             "Le probabilità sono stime soggettive.")
     c.drawRightString(PW - M, 7 * mm, f"#{META['edizione']:03d}  |  {META['data_iso']}  |  pag. {doc.page}")
     # AI Act, art. 50 (v7.8): dichiarazione dell'uso dell'IA, su ogni pagina
-    c.drawString(M, 3.9 * mm, "Testi generati con l'intelligenza artificiale e pubblicati in automatico. "
-                              "Responsabile editoriale: Paolo Gommellini.")
+    c.setFont("Cond", 6.3)   # la riga intera sta nei 182 mm utili (a 6,8 pt ne servirebbero 189)
+    c.drawString(M, 3.9 * mm, "Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con "
+                              "l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.")
     c.restoreState()
 
 
