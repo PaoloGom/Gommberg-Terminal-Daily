@@ -256,7 +256,7 @@ def pagina(ed, prec, succ):
     a(f'<div class="pn">{"".join(nav)}</div>')
     a("</main>")
     a(VOTO_JS.replace("NNN", n))
-    a('<footer><div class="wrap">Il Gommberg Terminal Daily è scritto con l\'intelligenza artificiale (Claude, di Anthropic) e pubblicato in automatico, sotto la responsabilità editoriale di Paolo Gommellini. Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza '
+    a('<footer><div class="wrap">Testi generati con l\'intelligenza artificiale e pubblicati in automatico. Responsabile editoriale: Paolo Gommellini. Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza '
       "finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie "
       "da fonti pubbliche alla data di ciascuna edizione.</div></footer>")
     a("</body>\n</html>\n")

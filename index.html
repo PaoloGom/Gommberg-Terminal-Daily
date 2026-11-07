@@ -84,31 +84,31 @@ a { color: inherit; }
 .tk.when { color: var(--orange); }
 
 /* ---------- Il palco: l'edizione di oggi ---------- */
-.stage { background: var(--bar); color: var(--bar-ink); border-bottom: 3px solid var(--orange); }
+.stage { background: var(--paper); color: var(--ink); border-bottom: 1px solid var(--ink); }
 .stage .grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 56px; align-items: start; padding-block: 30px 40px; }
 .stage .grid > * { min-width: 0; }
-.ed-meta { font-family: var(--mono); font-size: 13px; color: var(--bar-muted); display: flex; flex-wrap: wrap; gap: 4px 16px; }
-.ed-meta .lab { color: var(--orange); }
+.ed-meta { font-family: var(--mono); font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.ed-meta .lab { color: var(--orange-ink); }
 h2.headline { font-family: var(--display); font-stretch: 78%; font-weight: 800; font-size: clamp(34px, 5vw, 64px); }
 h2.headline.long { font-size: clamp(30px, 3.7vw, 48px); line-height: 1.02; }
-h2.headline { line-height: .98; letter-spacing: -.005em; margin: 14px 0 0; text-wrap: balance; color: var(--bar-ink); }
-.dek { font-size: 17px; line-height: 1.5; color: var(--bar-soft); margin: 16px 0 0; max-width: 58ch; }
-.brief-k { font-family: var(--mono); font-size: 12.5px; color: var(--orange); margin: 26px 0 0; font-weight: 500; }
-.brief { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 60ch; border-top: 1px solid var(--bar-rule); padding-top: 14px; }
-.brief li { display: grid; grid-template-columns: 14px 1fr; gap: 10px; color: var(--bar-ink); font-size: 16.5px; line-height: 1.5; }
+h2.headline { line-height: .98; letter-spacing: -.005em; margin: 14px 0 0; text-wrap: balance; color: var(--ink); }
+.dek { font-size: 17px; line-height: 1.5; color: var(--muted); margin: 16px 0 0; max-width: 58ch; }
+.brief-k { font-family: var(--mono); font-size: 12.5px; color: var(--orange-ink); margin: 26px 0 0; font-weight: 500; }
+.brief { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 60ch; border-top: 1px solid var(--rule); padding-top: 14px; }
+.brief li { display: grid; grid-template-columns: 14px 1fr; gap: 10px; color: var(--ink); font-size: 16.5px; line-height: 1.5; }
 .brief li::before { content: ""; width: 7px; height: 7px; background: var(--orange); margin-top: .66em; }
 .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; align-items: stretch; }
-.btn { font-family: var(--mono); font-size: 13.5px; letter-spacing: .02em; border: 1px solid var(--bar-ink); background: transparent; color: var(--bar-ink); padding: 11px 16px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; line-height: 1.2; min-height: 46px; }
+.btn { font-family: var(--mono); font-size: 13.5px; letter-spacing: .02em; border: 1px solid var(--ink); background: transparent; color: var(--ink); padding: 11px 16px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; line-height: 1.2; min-height: 46px; }
 .btn svg { width: 17px; height: 17px; flex: none; }
-.btn.lead { background: var(--orange); border-color: var(--orange); color: #141414; font-weight: 500; padding-inline: 24px; }
-.btn.lead:hover { background: #FF8A45; border-color: #FF8A45; }
-.btn.ghost { border-color: var(--bar-rule); color: var(--bar-soft); }
-.btn.ghost:hover { border-color: var(--bar-ink); color: var(--bar-ink); }
-.note { font-size: 13.5px; color: var(--bar-soft); margin-top: 14px; }
+.btn.lead { background: var(--ink); border-color: var(--ink); color: var(--paper); font-weight: 500; padding-inline: 26px; }
+.btn.lead:hover { background: var(--orange); border-color: var(--orange); color: #141414; }
+.btn.ghost { border-color: var(--rule); color: var(--ink); }
+.btn.ghost:hover { border-color: var(--ink); }
+.note { font-size: 13.5px; color: var(--muted); margin-top: 14px; }
 .note:empty { display: none; }
-.note a { color: var(--orange); }
-.nojs { display: none; margin: 12px 0 0; font-family: var(--mono); font-size: 13px; color: var(--bar-muted); }
-.nojs a { color: var(--orange); }
+.note a { color: var(--orange-ink); }
+.nojs { display: none; margin: 12px 0 0; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.nojs a { color: var(--orange-ink); }
 .loading .actions { visibility: hidden; }
 .loading .nojs { display: block; opacity: 0; animation: nojs-in 0s linear 1.5s forwards; }
 @keyframes nojs-in { to { opacity: 1; } }
@@ -117,66 +117,66 @@ h2.headline { line-height: .98; letter-spacing: -.005em; margin: 14px 0 0; text-
 .retry { margin-top: 16px; }
 
 /* Il lettore: la pagina vera dell'edizione, bianca sul nero */
-.reader { background: var(--bar-2); padding: 14px; }
+.reader { background: var(--panel); padding: 14px; }
 .reader-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
 .pages { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; margin: 0; padding: 0; list-style: none; flex: 1; }
-.pages button { width: 100%; font-family: var(--mono); font-size: 11px; line-height: 1.2; padding: 6px 2px; border: 1px solid var(--bar-rule); background: transparent; color: var(--bar-muted); cursor: pointer; text-align: center; }
-.pages button b { display: block; font-size: 13px; color: var(--bar-ink); font-weight: 500; }
-.pages button:hover { border-color: var(--bar-muted); }
-.pages button[aria-current="true"] { border-color: var(--orange); background: var(--orange); color: #141414; }
-.pages button[aria-current="true"] b { color: #141414; }
-.sheet { background: var(--sheet); box-shadow: 0 18px 50px rgba(0, 0, 0, .55); aspect-ratio: 210 / 297; position: relative; overflow: hidden; touch-action: pan-y; width: min(100%, max(320px, calc((100vh - 300px) * 210 / 297))); margin-inline: auto; }
-.sheet.nopreview { aspect-ratio: auto; box-shadow: none; border: 1px solid var(--bar-rule); background: transparent; }
+.pages button { width: 100%; font-family: var(--mono); font-size: 11px; line-height: 1.2; padding: 6px 2px; border: 1px solid var(--rule); background: var(--paper); color: var(--muted); cursor: pointer; text-align: center; }
+.pages button b { display: block; font-size: 13px; color: var(--ink); font-weight: 500; }
+.pages button:hover { border-color: var(--ink); }
+.pages button[aria-current="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.pages button[aria-current="true"] b { color: var(--orange); }
+.sheet { background: var(--sheet); box-shadow: 0 8px 28px var(--shadow); outline: 1px solid var(--rule); aspect-ratio: 210 / 297; position: relative; overflow: hidden; touch-action: pan-y; width: min(100%, max(300px, calc(min(600px, 100vh - 320px) * 210 / 297))); margin-inline: auto; }
+.sheet.nopreview { aspect-ratio: auto; box-shadow: none; outline: 0; border: 1px solid var(--rule); background: var(--paper); }
 .sheet.nopreview canvas { display: none; }
 .sheet.nopreview .wait { position: static; padding: 14px 16px; text-align: left; }
 .reader:has(.sheet.nopreview) .reader-bar { display: none; }
 .sheet canvas { width: 100%; height: 100%; display: block; }
 .sheet .wait { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono); font-size: 13px; color: var(--muted); text-align: center; padding: 20px; }
-.reader-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 12px; font-family: var(--mono); font-size: 12px; color: var(--bar-muted); }
+.reader-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 12px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
 .reader-foot .links { display: flex; gap: 8px; }
 .reader-foot .btn { min-height: 38px; padding: 7px 12px; font-size: 12.5px; }
 .pager { display: flex; gap: 6px; }
-.pager button { font-family: var(--mono); font-size: 15px; width: 38px; height: 34px; border: 1px solid var(--bar-rule); background: transparent; color: var(--bar-ink); cursor: pointer; }
+.pager button { font-family: var(--mono); font-size: 15px; width: 38px; height: 34px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); cursor: pointer; }
 .pager button:disabled { opacity: .35; cursor: default; }
-.reader:fullscreen { background: var(--bar); overflow: auto; padding: 14px max(16px, calc((100vw - (100vh - 200px) * 210 / 297) / 2)); }
+.reader:fullscreen { background: var(--paper); overflow: auto; padding: 14px max(16px, calc((100vw - (100vh - 200px) * 210 / 297) / 2)); }
 .reader:fullscreen .sheet { width: 100%; }
 @media (max-width: 900px) { .stage .reader { display: none !important; } }
 
 /* ---------- Su carta: la giornata ---------- */
 main { padding-block: 40px 24px; }
 .kicker { font-family: var(--body); font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--orange-ink); margin: 0; line-height: 1.4; }
-.day-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+.day-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; align-items: start; }
+.day-grid.no-ag { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 56px; }
 .day-grid > * { min-width: 0; }
-.news { margin: 10px 0 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
+.news { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
 .news li { border-bottom: 1px solid var(--rule); }
-.news a { display: grid; grid-template-columns: 34px 1fr auto; gap: 8px; align-items: baseline; padding: 11px 0; text-decoration: none; font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 18px; line-height: 1.28; }
+.news a { display: grid; grid-template-columns: 28px 1fr; gap: 8px; align-items: baseline; padding: 11px 0; text-decoration: none; font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 17px; line-height: 1.28; }
 .news a .i { font-family: var(--mono); font-weight: 500; font-size: 13px; color: var(--orange-ink); font-stretch: 100%; }
-.news a .go { font-family: var(--mono); font-weight: 400; font-size: 12px; color: var(--muted); font-stretch: 100%; white-space: nowrap; }
+.news a .go { display: none; font-family: var(--mono); font-weight: 400; font-size: 12px; color: var(--muted); font-stretch: 100%; white-space: nowrap; }
 .news a:hover .t { color: var(--orange-ink); }
 .vote { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 22px; font-size: 14px; color: var(--muted); }
 .vote button { font-family: var(--mono); font-size: 13px; min-height: 38px; padding: 0 16px; background: transparent; color: var(--ink); border: 1px solid var(--rule); cursor: pointer; }
 .vote button:hover { border-color: var(--ink); }
 .vote .thx { color: var(--ink); }
-.side { display: grid; gap: 34px; }
-.box-h { display: flex; justify-content: space-between; align-items: baseline; gap: 4px 12px; flex-wrap: wrap; }
+.box-h { display: flex; justify-content: space-between; align-items: baseline; gap: 4px 12px; flex-wrap: wrap; min-height: 22px; margin-bottom: 10px; }
 .box-h span { font-family: var(--mono); font-size: 12px; color: var(--muted); }
 /* Agenda */
-.ag-list { margin: 10px 0 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
+.ag-list { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
 .ag-day { font-size: 12px; font-weight: 600; color: var(--muted); padding: 12px 0 4px; }
 .ag-row { display: grid; grid-template-columns: 58px 1fr; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--rule); }
 .ag-row .h { font-family: var(--mono); font-size: 12.5px; color: var(--muted); padding-top: 2px; }
 .ag-row .e { font-family: var(--display); font-stretch: 90%; font-weight: 700; font-size: 16px; line-height: 1.3; }
 .ag-row .a { display: block; font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 3px; font-weight: 400; font-stretch: 100%; }
-.ag-row.key { background: var(--panel); box-shadow: inset 3px 0 0 var(--orange); padding-inline: 10px; margin-inline: -10px; }
+.ag-row.key { background: var(--panel); box-shadow: inset 3px 0 0 var(--orange); padding-inline: 12px 8px; }
 .ag-row.key .h { color: var(--orange-ink); }
 .ag-row .p { display: block; font-family: var(--body); font-stretch: 100%; font-weight: 400; font-size: 13.5px; color: var(--ink); margin-top: 4px; line-height: 1.4; }
 .ag-row .p b { color: var(--orange-ink); font-weight: 600; }
 .lnk { display: inline-block; margin-top: 10px; font-size: 13.5px; color: var(--orange-ink); text-underline-offset: 3px; background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit; text-decoration: underline; }
 /* Scommessa: una riga per mercato */
-.score { display: flex; flex-wrap: wrap; gap: 4px 28px; margin-top: 10px; font-size: 14px; color: var(--muted); }
+.score { display: flex; flex-wrap: wrap; gap: 4px 28px; border-top: 2px solid var(--ink); padding-top: 10px; font-size: 14px; color: var(--muted); }
 .score b { font-family: var(--display); font-stretch: 80%; font-weight: 800; font-size: 34px; color: var(--ink); line-height: 1; margin-right: 6px; }
 .bet-t { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
-.bet-t th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: 11.5px; color: var(--muted); padding: 0 0 6px; border-bottom: 2px solid var(--ink); }
+.bet-t th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: 11.5px; color: var(--muted); padding: 0 0 6px; border-bottom: 1px solid var(--ink); }
 .bet-t th:not(:first-child), .bet-t td:not(:first-child) { text-align: right; }
 .bet-t td { padding: 7px 0; border-bottom: 1px solid var(--rule); }
 .bet-t td:first-child { font-weight: 500; }
@@ -187,19 +187,15 @@ main { padding-block: 40px 24px; }
 .bet-foot { font-size: 13px; color: var(--muted); margin-top: 10px; line-height: 1.45; }
 .bet-foot strong { color: var(--ink); font-weight: 600; }
 
-/* La settimana */
-.week { margin-top: 56px; }
-.wk-list { margin: 10px 0 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
-.wk-list a { display: grid; grid-template-columns: 136px minmax(0, 1fr) 72px; gap: 16px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
+/* Le ultime edizioni: sempre 5, a scorrimento (il lunedì non resta un solo giorno) */
+.week { margin-top: 52px; border-top: 1px solid var(--ink); padding-top: 22px; }
+.wk-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 28px; }
+.wk-list a { display: block; border-top: 2px solid var(--ink); padding-top: 10px; text-decoration: none; }
 .wk-list a:hover .t { color: var(--orange-ink); }
-.wk-list .d { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
-.wk-list .d b { color: var(--ink); font-weight: 500; }
-.wk-list .t { font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 18px; line-height: 1.25; }
-.wk-list .sp { font-family: var(--mono); font-size: 12.5px; text-align: right; white-space: nowrap; }
-.wk-list .sp small { display: block; font-size: 10.5px; color: var(--muted); }
-.wk-list a[aria-current="true"] .d b { color: var(--orange-ink); }
-.wk-more { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; margin-top: 12px; font-size: 14px; }
-.wk-more a { color: var(--orange-ink); text-underline-offset: 3px; }
+.wk-list .d { display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
+.wk-list .t { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-top: 6px; font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 17px; line-height: 1.25; }
+.wk-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px 20px; flex-wrap: wrap; margin-bottom: 12px; }
+.wk-head a { font-size: 14px; color: var(--orange-ink); text-underline-offset: 3px; }
 
 /* Come funziona: una riga, il resto si apre */
 .how { margin-top: 56px; border-top: 2px solid var(--ink); }
@@ -219,19 +215,21 @@ main { padding-block: 40px 24px; }
 .how .trust b { color: var(--ink); font-weight: 600; }
 
 /* ---------- Piè di pagina ---------- */
-footer { margin-top: 40px; background: var(--bar); color: var(--bar-soft); }
+footer { margin-top: 40px; border-top: 2px solid var(--ink); color: var(--muted); }
 footer .wrap { padding-block: 26px 34px; display: grid; gap: 16px; }
 footer .links { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--mono); font-size: 13px; }
-footer .links a { color: var(--bar-ink); text-decoration-color: var(--bar-rule); text-underline-offset: 3px; }
-footer .links a:hover { color: var(--orange); }
+footer .links a { color: var(--ink); text-underline-offset: 3px; }
+footer .links a:hover { color: var(--orange-ink); }
 footer p { margin: 0; font-size: 13px; line-height: 1.55; max-width: 92ch; }
-footer .ai { color: var(--bar-ink); }
-footer .legal { color: var(--bar-muted); font-size: 12.5px; }
+footer .ai { color: var(--ink); }
+footer .legal { color: var(--muted); font-size: 12.5px; }
 
 /* ---------- Schermi stretti ---------- */
 @media (max-width: 900px) {
   .stage .grid { grid-template-columns: 1fr; gap: 0; padding-block: 24px 30px; }
-  .day-grid { grid-template-columns: 1fr; gap: 40px; }
+  .day-grid, .day-grid.no-ag { grid-template-columns: 1fr; gap: 40px; }
+  .wk-list { grid-template-columns: 1fr; gap: 0; }
+  .wk-list a { border-top: 1px solid var(--rule); padding: 10px 0; }
   .how dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 760px) {
@@ -253,10 +251,6 @@ footer .legal { color: var(--bar-muted); font-size: 12.5px; }
   main { padding-top: 30px; }
   .news a { font-size: 17px; grid-template-columns: 30px 1fr; }
   .news a .go { display: none; }
-  .wk-list a { grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; }
-  .wk-list .d { grid-column: 1; grid-row: 1; }
-  .wk-list .t { grid-column: 1; grid-row: 2; font-size: 17px; }
-  .wk-list .sp { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
   .how > summary .s em { display: none; }
   .how dl { grid-template-columns: 1fr; }
 }
@@ -321,35 +315,32 @@ footer .legal { color: var(--bar-muted); font-size: 12.5px; }
 </section>
 
 <main class="wrap">
-  <div class="day-grid">
+  <div class="day-grid" id="dayGrid">
     <section aria-labelledby="newsK">
-      <h2 class="kicker" id="newsK" hidden>Le notizie del giorno</h2>
+      <div class="box-h"><h2 class="kicker" id="newsK">Le notizie del giorno</h2></div>
       <ol class="news" id="news"></ol>
       <a class="lnk" id="newsFull" href="#" hidden>La prima pagina in testo</a>
       <div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
     </section>
 
-    <div class="side">
-      <section id="agenda" aria-labelledby="ag-h" hidden>
-        <div class="box-h"><h2 class="kicker" id="ag-h">In agenda</h2><span id="agMeta"></span></div>
-        <ul class="ag-list" id="agList"></ul>
-        <button type="button" class="lnk" id="agMore">L'agenda completa a pag. 3</button>
-      </section>
+    <section id="agenda" aria-labelledby="ag-h" hidden>
+      <div class="box-h"><h2 class="kicker" id="ag-h">In agenda</h2><span id="agMeta"></span></div>
+      <ul class="ag-list" id="agList"></ul>
+      <button type="button" class="lnk" id="agMore">L'agenda completa a pag. 3</button>
+    </section>
 
-      <section id="bet" aria-labelledby="bet-h" hidden>
-        <div class="box-h"><h2 class="kicker" id="bet-h">La scommessa della settimana</h2><span id="betWk"></span></div>
-        <div class="score" id="betScore"></div>
-        <table class="bet-t" id="betT"><thead><tr><th scope="col">Mercato</th><th scope="col">Previsione</th><th scope="col">Per ora</th></tr></thead><tbody id="betRows"></tbody></table>
-        <div class="bet-foot" id="betFoot"></div>
-        <a class="lnk" href="scommessa.html">Il metodo e la pagella</a>
-      </section>
-    </div>
+    <section id="bet" aria-labelledby="bet-h" hidden>
+      <div class="box-h"><h2 class="kicker" id="bet-h">La scommessa della settimana</h2><span id="betWk"></span></div>
+      <div class="score" id="betScore"></div>
+      <table class="bet-t" id="betT"><thead><tr><th scope="col">Mercato</th><th scope="col">Previsione</th><th scope="col">Per ora</th></tr></thead><tbody id="betRows"></tbody></table>
+      <div class="bet-foot" id="betFoot"></div>
+      <a class="lnk" href="scommessa.html">Il metodo e la pagella</a>
+    </section>
   </div>
 
-  <section class="week" aria-labelledby="wk-h">
-    <h2 class="kicker" id="wk-h">Questa settimana</h2>
+  <section class="week" id="weekSec" aria-labelledby="wk-h">
+    <div class="wk-head"><h2 class="kicker" id="wk-h">Le ultime edizioni</h2><a href="archivio.html" id="archLink">Tutto l'archivio</a></div>
     <ul class="wk-list" id="wkList"></ul>
-    <div class="wk-more"><a href="archivio.html" id="archLink">Tutto l'archivio</a><a href="ultima/">Link fisso all'ultima edizione</a></div>
   </section>
 
   <details class="how" id="cose">
@@ -367,7 +358,7 @@ footer .legal { color: var(--bar-muted); font-size: 12.5px; }
 <footer>
   <div class="wrap">
     <nav class="links" aria-label="Le pagine del sito"><a href="archivio.html">Archivio</a><a href="basi.html">Le basi</a><a href="numeri.html">I numeri</a><a href="scommessa.html">La scommessa</a><a href="feed.xml">Feed RSS</a></nav>
-    <p class="ai">Il Gommberg Terminal Daily è scritto con l'intelligenza artificiale (Claude, di Anthropic) e pubblicato in automatico, sotto la responsabilità editoriale di Paolo Gommellini.</p>
+    <p class="ai">Testi generati con l'intelligenza artificiale e pubblicati in automatico. Responsabile editoriale: Paolo Gommellini.</p>
     <p class="legal">Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</p>
   </div>
 </footer>
@@ -507,8 +498,9 @@ footer .legal { color: var(--bar-muted); font-size: 12.5px; }
     const box = $("agenda"), rows = Array.isArray(ed.agenda) ? ed.agenda : [];
     const oggi = oggiRoma(), ultima = ed === editions[0];
     const vis = rows.map((r) => ({ r, d: agData(r.quando, ed) })).filter((x) => !ultima || !x.d || x.d >= oggi);
+    $("dayGrid").classList.toggle("no-ag", !vis.length);
     if (!vis.length) { box.hidden = true; return; }
-    const MAX = 6, list = $("agList"); list.innerHTML = "";
+    const MAX = 4, list = $("agList"); list.innerHTML = "";
     let giorno = null;
     vis.slice(0, MAX).forEach(({ r, d }) => {
       const k = d ? d.getTime() : r.quando;
@@ -536,7 +528,7 @@ footer .legal { color: var(--bar-muted); font-size: 12.5px; }
     });
     const altri = vis.length - Math.min(vis.length, MAX);
     $("agMore").textContent = altri > 0 ? "Altri " + altri + " appuntamenti nell'agenda completa a pag. 3" : "L'agenda completa a pag. 3";
-    $("agMeta").textContent = "dall'edizione n. " + pad(ed.numero);
+    $("agMeta").textContent = "";
     box.hidden = false;
   }
   // Apre una pagina dell'edizione: sul PC nel lettore del palco, sul telefono nel PDF
@@ -556,21 +548,23 @@ footer .legal { color: var(--bar-muted); font-size: 12.5px; }
     return m ? m[1].replace("−", "-") + " g" : null;
   }
 
-  /* ---------- Questa settimana ---------- */
-  function settimanaCorrente() {
+  /* ---------- Le ultime edizioni: le 5 precedenti a quella mostrata, sempre piene ---------- */
+  function ultimeEdizioni(ed) {
     const ul = $("wkList"); ul.innerHTML = "";
-    for (const ed of editions.slice(0, 5)) {
-      const li = el("li"), a = el("a"); a.href = linkFor(ed); a.dataset.n = ed.numero;
-      const dt = utc(ed.data);
-      const d = el("span", "d"); d.append(GG[dt.getUTCDay()] + " "); d.appendChild(el("b", "", String(dt.getUTCDate()).padStart(2, "0"))); d.append(" " + MESI[dt.getUTCMonth()].slice(0, 3) + "  #" + pad(ed.numero));
+    const i = editions.indexOf(ed);
+    const dopo = editions.slice(i + 1, i + 6);
+    const lista = dopo.length >= 3 ? dopo : editions.filter((e) => e !== ed).slice(0, 5);
+    for (const e of lista) {
+      const li = el("li"), a = el("a"); a.href = linkFor(e);
+      const dt = utc(e.data);
+      const d = el("span", "d"); d.appendChild(el("span", "", GG[dt.getUTCDay()] + " " + dt.getUTCDate() + " " + MESI[dt.getUTCMonth()].slice(0, 3) + "  #" + pad(e.numero)));
+      const c = spx(e); if (c) d.appendChild(el("span", cls(c), "S&P " + c.replace(/\s*g\b.*$/, "")));
       a.appendChild(d);
-      a.appendChild(el("span", "t", ed.titolo));
-      const sp = el("span", "sp"); const c = spx(ed);
-      if (c) { sp.appendChild(el("span", cls(c), c.replace(/\s*g\b.*$/, ""))); sp.appendChild(el("small", "", "S&P 500")); }
-      a.appendChild(sp);
-      a.addEventListener("click", (e) => { e.preventDefault(); showEdition(ed, true); window.scrollTo({ top: 0, behavior: "smooth" }); });
+      a.appendChild(el("span", "t", e.titolo));
+      a.addEventListener("click", (ev) => { ev.preventDefault(); showEdition(e, true); window.scrollTo({ top: 0, behavior: "smooth" }); });
       li.appendChild(a); ul.appendChild(li);
     }
+    $("weekSec").hidden = !lista.length;
     $("archLink").textContent = "Tutto l'archivio: " + editions.length + (editions.length === 1 ? " edizione" : " edizioni");
   }
 
@@ -595,7 +589,7 @@ footer .legal { color: var(--bar-muted); font-size: 12.5px; }
       a.addEventListener("click", (e) => { if (desktop() && pdf) { e.preventDefault(); apriPagina(1); } });
       li.appendChild(a); nl.appendChild(li);
     });
-    $("newsK").hidden = !(ed.notizie || []).length;
+    
     const pg = pagina(ed); $("newsFull").hidden = !pg || !(ed.notizie || []).length; if (pg) $("newsFull").href = pg;
     $("open").href = ed.file; $("read").href = ed.file;
     $("dl").href = ed.file; $("dl").setAttribute("download", ed.nome || "");
@@ -611,8 +605,7 @@ footer .legal { color: var(--bar-muted); font-size: 12.5px; }
       note.appendChild(a);
     }
     $("lbl-latest").textContent = ed === editions[0] ? "Ultima edizione" : "Edizione precedente";
-    tape(ed); agenda(ed); bet(ed); votoStato(ed);
-    document.querySelectorAll("#wkList a").forEach((r) => r.setAttribute("aria-current", r.dataset.n == ed.numero ? "true" : "false"));
+    tape(ed); agenda(ed); bet(ed); votoStato(ed); ultimeEdizioni(ed);
     if (push) conta({ path: "edizione-" + pad(ed.numero), title: "Edizione n. " + pad(ed.numero) + " aperta dall'archivio", event: true });
     if (push) history.replaceState(null, "", ed === editions[0] ? (DEMO ? "?demo=1" : location.pathname) : linkFor(ed));
     document.title = (ed === editions[0] ? "" : "#" + pad(ed.numero) + " ") + "Gommberg Terminal Daily";
@@ -747,7 +740,6 @@ footer .legal { color: var(--bar-muted); font-size: 12.5px; }
       editions = (Array.isArray(list) ? list : []).filter((e) => e && e.numero && e.data && e.file).sort((a, b) => b.numero - a.numero);
       document.body.classList.remove("loading");
       if (!editions.length) { fail("Ancora nessuna edizione in archivio.", false); return; }
-      settimanaCorrente();
       const want = parseInt(params.get("n"), 10);
       showEdition(editions.find((e) => e.numero === want) || editions[0], false);
       conta({ path: location.pathname + (want ? "?n=" + want : ""), title: document.title });
