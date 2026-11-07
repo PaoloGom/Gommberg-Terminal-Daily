@@ -139,8 +139,19 @@ h2.headline { line-height: .98; letter-spacing: -.005em; margin: 14px 0 0; text-
 .pager { display: flex; gap: 6px; }
 .pager button { font-family: var(--mono); font-size: 15px; width: 38px; height: 34px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); cursor: pointer; }
 .pager button:disabled { opacity: .35; cursor: default; }
-.reader:fullscreen { background: var(--paper); overflow: auto; padding: 14px max(16px, calc((100vw - (100vh - 200px) * 210 / 297) / 2)); }
-.reader:fullscreen .sheet { width: 100%; }
+.viewer { position: fixed; inset: 0; z-index: 50; background: #E9E6E1; display: flex; flex-direction: column; }
+.v-bar { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 18px; background: var(--paper); border-bottom: 1px solid var(--rule); font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.v-bar .grp { display: flex; align-items: center; gap: 6px; }
+.v-bar button, .v-bar a { font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--rule); min-height: 36px; padding: 0 12px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; }
+.v-bar button:hover, .v-bar a:hover { border-color: var(--ink); }
+.v-bar button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.v-bar .z { min-width: 54px; text-align: center; color: var(--ink); }
+.v-bar .close { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.v-scroll { flex: 1; overflow: auto; padding: 24px 24px 48px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.v-scroll canvas { display: block; background: #fff; box-shadow: 0 6px 22px rgba(20, 16, 10, .16); max-width: none; }
+.v-scroll.pan { cursor: grab; }
+:root[data-theme="dark"] .viewer { background: #0B0A09; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .viewer { background: #0B0A09; } }
 @media (max-width: 900px) { .stage .reader { display: none !important; } }
 
 /* ---------- Su carta: la giornata ---------- */
@@ -363,6 +374,21 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     <p class="legal">Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</p>
   </div>
 </footer>
+
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Edizione a schermo intero" hidden>
+  <div class="v-bar">
+    <div class="grp"><span id="vPg">Pagina 1 di 6</span></div>
+    <div class="grp">
+      <button type="button" id="vOut" aria-label="Riduci">&minus;</button>
+      <span class="z" id="vZ">100%</span>
+      <button type="button" id="vIn" aria-label="Ingrandisci">+</button>
+      <button type="button" id="vFitW" aria-pressed="true">Adatta alla larghezza</button>
+      <button type="button" id="vFitP" aria-pressed="false">Pagina intera</button>
+    </div>
+    <div class="grp"><a id="vPdf" href="#" target="_blank" rel="noopener">Apri il PDF</a><button type="button" class="close" id="vClose">Chiudi</button></div>
+  </div>
+  <div class="v-scroll" id="vScroll"></div>
+</div>
 
 <script>
 (function () {
@@ -715,21 +741,79 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   let x0 = null;
   $("sheet").addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
   $("sheet").addEventListener("touchend", (e) => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) goPage(page + (dx < 0 ? 1 : -1)); }, { passive: true });
-  // "Leggi l'edizione" e "Schermo intero" su PC: il lettore a tutto schermo; sul telefono il PDF nel lettore del telefono
-  for (const id of ["open", "read"]) $(id).addEventListener("click", (e) => {
-    const r = $("reader");
-    if (!r.requestFullscreen || !pdf || !desktop()) return;
-    e.preventDefault();
-    if (document.fullscreenElement) document.exitFullscreen(); else r.requestFullscreen().catch(() => window.open($("open").href, "_blank"));
-  });
-  document.addEventListener("fullscreenchange", () => {
-    $("open").textContent = document.fullscreenElement ? "Esci" : "Schermo intero";
-    setTimeout(() => { if (pdf) renderPage(); }, 60);
-  });
+  /* ---------- Lettura a schermo intero (PC): tutte le pagine una sotto l'altra, con lo zoom ---------- */
+  // Prima la pagina si adattava all'altezza dello schermo e su un monitor largo il testo restava minuscolo.
+  // Ora si parte adattando alla larghezza (fino a 1100 px), con + e -, Ctrl + rotella o pizzico sul touchpad.
+  let vZoom = 1, vFit = "w", vTimer = null, vObs = null;
+  const vLarghezza = () => {
+    const sc = $("vScroll"), disp = sc.clientWidth - 48;
+    if (vFit === "p") return Math.min(disp, (sc.clientHeight - 48) * 210 / 297);
+    return Math.min(disp, 1100) * vZoom;
+  };
+  async function vRender(keep) {
+    if (!pdf) return;
+    const sc = $("vScroll");
+    const rel = keep && sc.scrollHeight ? sc.scrollTop / sc.scrollHeight : null;
+    const w = vLarghezza(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    $("vZ").textContent = vFit === "p" ? "pagina" : Math.round(vZoom * 100) + "%";
+    $("vFitW").setAttribute("aria-pressed", vFit === "w" && vZoom === 1 ? "true" : "false");
+    $("vFitP").setAttribute("aria-pressed", vFit === "p" ? "true" : "false");
+    sc.innerHTML = "";
+    if (vObs) vObs.disconnect();
+    vObs = new IntersectionObserver((es) => { for (const e of es) if (e.isIntersecting) $("vPg").textContent = "Pagina " + e.target.dataset.p + " di " + pdf.numPages; }, { root: sc, threshold: 0.5 });
+    const tele = [];
+    for (let n = 1; n <= pdf.numPages; n++) {
+      const cv = document.createElement("canvas"); cv.dataset.p = n;
+      cv.style.width = Math.round(w) + "px"; cv.style.height = Math.round(w * 297 / 210) + "px";
+      sc.appendChild(cv); vObs.observe(cv); tele.push(cv);
+    }
+    if (rel != null) sc.scrollTop = rel * sc.scrollHeight;
+    for (const cv of tele) {   // le pagine si disegnano in ordine: la prima compare subito
+      const p = await pdf.getPage(+cv.dataset.p);
+      const base = p.getViewport({ scale: 1 }), vp = p.getViewport({ scale: (w / base.width) * dpr });
+      cv.width = Math.floor(vp.width); cv.height = Math.floor(vp.height);
+      cv.style.height = Math.round(w * base.height / base.width) + "px";
+      await p.render({ canvasContext: cv.getContext("2d"), viewport: vp }).promise.catch(() => {});
+    }
+  }
+  const vRidisegna = () => { clearTimeout(vTimer); vTimer = setTimeout(() => vRender(true), 120); };
+  function vZoomA(z) { vFit = "w"; vZoom = Math.max(0.6, Math.min(2.5, z)); vRidisegna(); }
+  async function apriLettura(n) {
+    if (!pdf) return false;
+    $("viewer").hidden = false; document.body.style.overflow = "hidden";
+    $("vPdf").href = current ? current.file : "#";
+    if ($("viewer").requestFullscreen) { try { await $("viewer").requestFullscreen(); } catch (e) {} }
+    await vRender(false);
+    const t = $("vScroll").querySelector('canvas[data-p="' + (n || 1) + '"]'); if (t) t.scrollIntoView({ block: "start" });
+    if (current) conta({ path: "lettura-" + pad(current.numero), title: "Lettura a schermo intero n. " + pad(current.numero), event: true });
+    $("vClose").focus();
+    return true;
+  }
+  function chiudiLettura() {
+    if ($("viewer").hidden) return;
+    $("viewer").hidden = true; document.body.style.overflow = ""; $("vScroll").innerHTML = "";
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+  }
+  $("vIn").addEventListener("click", () => vZoomA((vFit === "p" ? 0.7 : vZoom) * 1.2));
+  $("vOut").addEventListener("click", () => vZoomA((vFit === "p" ? 0.7 : vZoom) / 1.2));
+  $("vFitW").addEventListener("click", () => { vFit = "w"; vZoom = 1; vRidisegna(); });
+  $("vFitP").addEventListener("click", () => { vFit = "p"; vRidisegna(); });
+  $("vClose").addEventListener("click", chiudiLettura);
+  $("vScroll").addEventListener("wheel", (e) => { if (!e.ctrlKey) return; e.preventDefault(); vZoomA((vFit === "p" ? 0.7 : vZoom) * (e.deltaY < 0 ? 1.1 : 1 / 1.1)); }, { passive: false });
+  document.addEventListener("fullscreenchange", () => { if (!document.fullscreenElement && !$("viewer").hidden) chiudiLettura(); });
   document.addEventListener("keydown", (e) => {
-    if (document.fullscreenElement !== $("reader")) return;
-    if (e.key === "ArrowRight" || e.key === "PageDown") goPage(page + 1);
-    if (e.key === "ArrowLeft" || e.key === "PageUp") goPage(page - 1);
+    if ($("viewer").hidden) return;
+    if (e.key === "Escape") chiudiLettura();
+    if (e.key === "+" || e.key === "=") vZoomA((vFit === "p" ? 0.7 : vZoom) * 1.2);
+    if (e.key === "-") vZoomA((vFit === "p" ? 0.7 : vZoom) / 1.2);
+  });
+  window.addEventListener("resize", () => { if (!$("viewer").hidden) vRidisegna(); });
+  // "Leggi l'edizione" e "Schermo intero" su PC aprono la lettura dalla pagina che si sta guardando;
+  // sul telefono (o senza anteprima) il link apre il PDF nel lettore del dispositivo
+  for (const id of ["open", "read"]) $(id).addEventListener("click", (e) => {
+    if (!pdf || !desktop()) return;
+    e.preventDefault();
+    apriLettura(id === "read" ? 1 : page);
   });
   let rt, lastW = window.innerWidth;
   window.addEventListener("resize", () => { if (window.innerWidth === lastW) return; lastW = window.innerWidth; clearTimeout(rt); rt = setTimeout(() => { if (!desktop()) return; if (pdf) renderPage(); else if (current) loadPdf(current.file); }, 200); });
