@@ -365,7 +365,7 @@ for z in sorted(set(re.findall(r"[+-]0,0+\s?%", TUTTO))):
 
 if "quadro" in VOCE or red is not None:
     if not VOCE.get("quadro"):
-        ERR.append("quadro: manca C[\"quadro\"], la frase che legge insieme tassi, dollaro, oro, petrolio e borse (§5)")
+        ERR.append("quadro: manca C[\"quadro\"], 2-3 frasi che leggono insieme tassi, dollaro, oro, petrolio e borse (§2)")
     elif VOCE["quadro"][:40] not in TUTTO:
         AVV.append("quadro: la frase non compare nel PDF (motore da aggiornare?)")
 else:

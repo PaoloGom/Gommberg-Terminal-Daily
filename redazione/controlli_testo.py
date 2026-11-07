@@ -123,10 +123,24 @@ def main():
                for _ in re.finditer(r"\(\s*lettura della redazione", piatto, re.I)]
     errori += [f"doppia attribuzione '{m.group(0)[:50]}': chi parla va nella frase ('secondo X'), tra parentesi una sola testata, senza 'via'"
                for m in re.finditer(r"\([^()]{0,40}\bvia\b[^()]{0,40}\)", piatto)]
-    errori += [f"citazione in inglese «{m.group(1)[:40]}»: rendila in italiano come discorso indiretto, senza «»"
-               for m in re.finditer(r"«([^»]{3,160})»", piatto) if len(INGLESE.findall(m.group(1))) >= 2]
+    # v7.8: le citazioni in inglese restano in originale (i lettori lo leggono), ma brevi: oltre 15 parole è un avviso.
+    avvisi = [f"citazione in inglese oltre 15 parole: accorciala «{m.group(1)[:40]}»"
+              for m in re.finditer(r"«([^»]{3,300})»", piatto)
+              if len(INGLESE.findall(m.group(1))) >= 2 and len(m.group(1).split()) > 15]
+    # v7.8 (§9.2): frasi in prosa oltre 40 parole. Solo avviso: il testo estratto unisce a volte righe di tabella.
+    def _prosa(f):   # esclude i frammenti con intestazioni, tabelle o colonne unite dall'estrazione
+        f = re.sub(r"^(?:IL QUADRO|PERCH[ÉE]|E QUINDI|DA GUARDARE|IL NUMERO)\s+", "", f)
+        if re.search(r"\||[▲▼■]|\b[A-ZÀ-Ú]{3,}(?: [A-ZÀ-Ú]{3,})+\b|\d{2}/\d{2}.*\d{2}/\d{2}", f):
+            return None
+        if sum(1 for w in f.split() if re.fullmatch(r"[+-]?[\d.,]+%?", w)) >= 6:
+            return None
+        return f
+    lunghe_prosa = [g for g in (_prosa(f) for f in frasi(piatto) if len(f.split()) > 40) if g and len(g.split()) > 40]
+    avvisi += [f"frase oltre 40 parole, spezzala (§9.2): {f[:90]}" for f in lunghe_prosa[:3]]
     for e in errori[:6]:
         print("ERRORE: " + e[:155])
+    for a in avvisi:
+        print("AVVISO: " + a[:155])
     if doppie:
         print("AVVISO: sigle spiegate più di una volta: " + ", ".join(doppie)[:140])
     print("Sigle spiegate (campo glossario): " + (", ".join(spiegate) or "-")[:150])

@@ -1383,8 +1383,8 @@ def modulo(tema, titolo, misura="mezzo", chiave=None, grafico=None, grafico2=Non
         c += [Spacer(1, 5), _colonne(punti[:3])]
     for par in (testo or []):
         c += [Spacer(1, 4), Paragraph(signcol(par), S["body"])]
-    if lettura:
-        c += [Spacer(1, 4), Paragraph("<b>Lettura.</b> " + signcol(lettura), S["body"])]
+    if lettura:   # v7.8: la tesi si dice una volta (titolo); la chiusura "Lettura." la ripeteva
+        raise ValueError(f"modulo '{titolo}': campo 'lettura' non più ammesso (§9.3): togli il campo e usa lo spazio per un fatto o un perché nuovo")
     if freccia:
         c.append(arrow(freccia))
     if guardare:

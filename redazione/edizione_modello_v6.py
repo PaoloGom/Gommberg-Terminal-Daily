@@ -67,7 +67,7 @@ C = {
     "data": OGGI,
     "temi": ["Inflazione", "Fed", "Tassi", "Chip", "Asia", "Trimestrali"],
     "glossario": ["CPI", "pb", "AI", "DRAM", "CXMT", "EPS", "ROTCE", "BTP", "Bund", "VIX", "CME FedWatch", "WTI"],
-    "meccanismi": ["M26"],    # id di redazione/meccanismi.json usati nelle righe M
+    "meccanismi": [],    # id di redazione/meccanismi.json usati nelle righe M (qui nessuna)
 
     "ticker": ticker_da_dati("dati.json"),   # dal dati.json del giorno (numeri.py): mai a mano
 
@@ -81,10 +81,11 @@ C = {
                "vendono anche Tokyo e Seul. [[chip]]",
         "freccia": "I rincari dell'energia cominciano a passare ai prezzi dei servizi (Axios).",  # tipo C, scheda T01 (Axios, liv. 1)
     },
-    # una frase che legge insieme tassi, dollaro, oro, petrolio e borse (o dice che non si legano)
-    "quadro": "2 anni (+3 punti base, pb) e dollaro salgono con le attese su una Fed più dura, il 10 anni scende, "
-              "lo spread tra BTP e Bund (titoli di Stato italiani e tedeschi) si allarga, i tecnologici "
-              "cedono e i difensivi salgono, petrolio e oro quasi fermi: i mercati non leggono il CPI allo stesso modo.",
+    # 2-3 frasi brevi: prima la lettura (cosa dicono insieme tassi, dollaro, oro, petrolio e borse, o che non si legano),
+    # poi i prezzi che la provano
+    "quadro": "I mercati non leggono il CPI allo stesso modo. Il 2 anni (+3 punti base, pb) e il dollaro salgono con "
+              "le attese su una Fed più dura, ma il 10 anni scende e lo spread tra titoli di Stato italiani e tedeschi "
+              "si allarga. In borsa cedono i tecnologici e salgono i difensivi; petrolio e oro quasi fermi.",
     "in30": [
         # le 3 cose più importanti DOPO la top story: mai la top story né le sue reazioni di mercato (controlli_temi.py)
         "Banche USA divise: BofA sconta l'onere per l'accordo con il Tesoro, Morgan Stanley corre nel trading. [[banche]]",
@@ -215,8 +216,7 @@ C = {
          # perche = la causa con fonte, non la parafrasi della tabella; quindi = una cosa osservabile (cifra, data, evento)
          "perche": "BofA sconta un onere straordinario e non deducibile, mentre Morgan Stanley beneficia delle ottime performance di consulenza e trading (FIRSTonline).",
          "quindi": "Il trading di Morgan Stanley, 5,79 mld $ nel trimestre, è il metro per le banche che pubblicano nei prossimi giorni.",
-         "lettura": "La seconda giornata di trimestrali divide le grandi banche: il risultato di BofA è segnato da una "
-                    "voce straordinaria, quello di Morgan Stanley dall'attività sui mercati.",
+         # niente "lettura": la tesi sta nel titolo e si dice una volta (§9.3; il motore rifiuta il campo)
          "fonte": "Fonti: comunicato Morgan Stanley (SEC), Milano Finanza, FIRSTonline, TheStreet."},
         {"chiave": "treasury", "tema": "Tassi USA", "breve": "curva al minimo dal 28/9",
          # titolo = la TESI (cosa significa), non il fatto
@@ -241,22 +241,19 @@ C = {
          # niente tabella: le variazioni per scadenza sono già nelle barre
          # B1: la causa si confronta con la forma della curva. Un'inflazione più alta spiega il breve, non il lungo in calo:
          # dirlo e dare la lettura della redazione che regge alla prova dei prezzi (registro "anomalia" in fatti.json, §6.2c)
-         "perche": "Di solito il breve segue le attese sulla Fed, salite col CPI; il calo del lungo non torna con un'inflazione più alta. Lettura della redazione: acquisti rifugio dopo le vendite sui tecnologici, come dicono oro in rialzo e VIX in salita; meno probabile un premio a termine (premio per prestare a lungo) più basso, che non spiega il calo delle borse.",
+         "perche": "Di solito il breve segue le attese sulla Fed, salite col CPI. Il lungo però scende, e un'inflazione più alta non lo spiega. Per noi sono acquisti rifugio dopo le vendite sui tecnologici: lo dicono oro e VIX in rialzo.",
          "quindi": "Se il 10 anni torna verso il 5,30-5,35%, toccato in serata, la curva racconta di nuovo l'inflazione; sotto il 5,10% di stamattina prevale il rifugio.",
          # testo: riempie la pagina con racconto che aggiunge (qui la storia del mese, dai dati del grafico), mai spazi vuoti
          "testo": ["Il mese ha avuto due fasi. Fino al 21 settembre la distanza tra 10 e 2 anni si era quasi dimezzata, "
                    "da 39 a 20 pb; poi il lungo ha corso più del breve e il 7 ottobre la distanza è salita a 51 pb, il "
                    "massimo del periodo. Da lì in una settimana ha perso 14 pb ed è tornata a 37 pb, sotto il livello di "
-                   "inizio mese (calcolo della redazione sulla curva del Tesoro)."],
-         "lettura": "Lo stesso dato letto in due modi: il breve prezza una Fed più dura, il lungo no. Il 10 anni chiude "
-                    "sotto i livelli di fine settembre e cala ancora stamattina.",
-         "freccia": "Di solito il 2 anni segue la Fed più del 10 anni: ieri è salito, il 10 anni è sceso.",
+                   "inizio mese."],
+         # niente riga → qui: avrebbe ripetuto il perché. La riga → solo se aggiunge un meccanismo che il pezzo non dice.
          # numero: UN dato che misura la tesi, nella colonna accanto al grafico; deve dire qualcosa che il resto non dice
          "numero": "-14 pb: quanto si è ristretta in una settimana la distanza tra 10 e 2 anni, da 51 a 37 pb.",
          # guardare (obbligatorio nel doppio): cosa confermerebbe o smentirebbe la tesi, e quando
          "guardare": "La tesi regge se il 2 anni resta sopra il 10 anni nei movimenti dei prossimi dati; cade se il 10 anni "
                      "torna verso il 5,30-5,35% toccato in serata: allora la curva racconterebbe di nuovo l'inflazione."},
-        # ↑ riga M: id "M26" di redazione/meccanismi.json
         {"chiave": "chip", "tema": "Chip e Asia", "breve": "TSMC batte le stime, l'Asia vende",
          "titolo": "Conti solidi non bastano: la paura sui chip vince su TSMC",
          "misura": "doppio",
@@ -275,8 +272,6 @@ C = {
          "larghezze": [70, 30, 36, 46], "ruolo_righe": "perche",   # i conti solidi: la tesi è che non bastano
          "perche": "Le vendite partite dai tecnologici del Nasdaq, guidate dai titoli legati all'intelligenza artificiale, si sono estese a tutta l'Asia (ANSA); a Seul e Tokyo i chip contano molto negli indici.",
          "quindi": "Conti solidi non bastano quando il timore riguarda la concorrenza sulle memorie: oggi alle 15:30 la riapertura del Nasdaq dirà se le vendite si fermano.",
-         "lettura": "Le vendite partite ieri dal settore tecnologico di Wall Street si sono estese stamattina all'Asia, "
-                    "con i cali più forti sui titoli dei semiconduttori e sulle borse dove i chip contano di più: Seul e Tokyo.",
          "punti": ["<b>Tokyo.</b> Dopo SoftBank, Kioxia e Advantest (in prima pagina) cede anche Tokyo Electron, circa il "
                    "6,5% in apertura (ANSA, Milano Finanza).",
                    "<b>Il timore.</b> Un analista di BNP Paribas AM cita l'annuncio di CXMT (produttore cinese di "
