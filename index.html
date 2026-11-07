@@ -271,6 +271,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
 </style>
 <script>window.goatcounter = { no_onload: true };</script>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="stylesheet" href="assets/sito.css">
 </head>
 <body class="loading" id="main">
 <div class="demo" id="demo" hidden>Modalità prova: anteprima di collaudo, non pubblicata.</div>
@@ -281,7 +282,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       <h1 class="logo"><a href="./" id="home" title="Torna all'ultima edizione"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></h1>
       <p class="pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p>
     </div>
-    <div class="dateline"><strong id="dlDate">&nbsp;</strong>Lun-ven, entro le 10</div>
+    <nav class="gn-nav" aria-label="Sezioni del sito"><a href="./" aria-current="page">Ultima edizione</a><a href="archivio.html">Archivio</a><a href="basi.html">Le basi</a><a href="scommessa.html">La scommessa</a><a href="numeri.html">I numeri</a><a href="progetto.html">Il progetto</a></nav><span id="dlDate" hidden></span>
   </div>
   <div class="wrap tape" id="tape" hidden>
     <div class="tape-row" id="tapeRow" role="list" aria-label="Chiusure riportate nell'edizione"></div>
@@ -367,13 +368,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   </details>
 </main>
 
-<footer>
-  <div class="wrap">
-    <nav class="links" aria-label="Le pagine del sito"><a href="archivio.html">Archivio</a><a href="basi.html">Le basi</a><a href="numeri.html">I numeri</a><a href="scommessa.html">La scommessa</a><a href="feed.xml">Feed RSS</a></nav>
-    <p class="ai">Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.</p>
-    <p class="legal">Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</p>
-  </div>
-</footer>
+<footer class="gf"><div class="gf-in"><nav class="gf-links" aria-label="Le pagine del sito"><a href="./">Ultima edizione</a><a href="archivio.html">Archivio</a><a href="basi.html">Le basi</a><a href="scommessa.html">La scommessa</a><a href="numeri.html">I numeri</a><a href="progetto.html">Il progetto</a><a href="feed.xml">Feed RSS</a></nav><p class="gf-ai">Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.</p><p class="gf-legal">Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</p></div></footer>
 
 <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Edizione a schermo intero" hidden>
   <div class="v-bar">
@@ -838,6 +833,8 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       if (!editions.length) { fail("Ancora nessuna edizione in archivio.", false); return; }
       const want = parseInt(params.get("n"), 10);
       showEdition(editions.find((e) => e.numero === want) || editions[0], false);
+      // ?leggi=1 (dalla pagina dell'edizione, da PC): apre subito la lettura a schermo intero
+      if (params.get("leggi") === "1" && desktop()) { let t = 0; const iv = setInterval(() => { if (pdf) { clearInterval(iv); apriLettura(1); } else if (++t > 60) clearInterval(iv); }, 250); }
       conta({ path: location.pathname + (want ? "?n=" + want : ""), title: document.title });
     })
     .catch(() => fail("Archivio non raggiungibile. Riprova tra qualche minuto.", true));

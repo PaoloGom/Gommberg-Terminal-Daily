@@ -16,6 +16,7 @@ import html, io, json, os, re, sys, unicodedata
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from email.utils import format_datetime
+from urllib.parse import quote
 
 BASE = "https://paologom.github.io/Gommberg-Terminal-Daily/"
 GC = "https://gommberg.goatcounter.com/count"
@@ -126,11 +127,6 @@ CSS = """
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;overflow-x:hidden}
 a{color:inherit}.up{color:var(--up);font-weight:500}.down{color:var(--down);font-weight:500}
 .wrap{max-width:760px;margin:0 auto;padding-inline:20px}
-.mast{background:var(--bar);color:var(--bar-ink);border-bottom:3px solid var(--orange)}
-.mast .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:14px}
-.logo{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.01em;text-decoration:none;white-space:nowrap}
-.logo b{color:var(--orange)}.logo span{font-weight:600}
-.mast nav{font-family:var(--mono);font-size:13px;color:var(--bar-muted)}.mast nav a{text-decoration:none}.mast nav a:hover{color:var(--bar-ink)}
 main{padding-block:36px 56px}
 .kicker{font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink);margin:0 0 8px}
 .meta{font-family:var(--mono);font-size:13px;color:var(--muted);margin:0 0 10px}
@@ -138,7 +134,8 @@ h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,6vw,44px);lin
 .dek{font-size:18px;color:var(--muted);margin:0 0 22px}
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 34px}
 .btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;font-family:var(--mono);font-size:14px;text-decoration:none;border:1px solid var(--ink)}
-.btn.lead{background:var(--ink);color:var(--paper)}.btn.ghost{background:transparent}
+.btn.lead{background:var(--ink);color:var(--paper)}.btn.ghost{background:transparent;color:var(--ink);cursor:pointer;gap:8px}
+.btn svg{width:18px;height:18px;flex:none}
 section{margin:0 0 30px}
 h2{font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink);margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
 ul.brief{list-style:none;margin:0;padding:0}ul.brief li{position:relative;padding-left:20px;margin:0 0 12px}
@@ -150,15 +147,15 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .inside small{display:block;font-family:var(--mono);font-size:12px;color:var(--orange-ink);text-transform:uppercase;letter-spacing:.04em}
 .inside b{font-weight:600}
 .sigle{display:flex;flex-wrap:wrap;gap:8px}.sigle a{display:inline-block;border:1px solid var(--rule);padding:6px 10px;font-size:14px;color:var(--muted);text-decoration:none;line-height:1.35}
-.sigle a b{color:var(--ink);font-weight:600;margin-right:4px}.sigle a:hover{border-color:var(--orange)}
+.sigle a b{color:var(--ink);font-weight:600;margin-right:4px}.sigle a:hover{border-color:var(--orange);color:var(--ink)}
+.sigle a:after{content:"\203A";margin-left:6px;color:var(--orange-ink);font-weight:600}
 .tutte{margin:12px 0 0;font-size:14px}.tutte a{color:var(--orange-ink)}
 .pn{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:13px;border-top:1px solid var(--rule);padding-top:16px}
 .pn a{text-decoration:none;color:var(--muted)}.pn a:hover{color:var(--ink)}
-footer{border-top:1px solid var(--rule);padding:22px 0 36px;font-size:13px;color:var(--muted)}
 .vote{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 30px;font-size:15px;color:var(--muted)}
 .vote button{font-family:var(--mono);font-size:13px;min-height:38px;padding:0 14px;background:transparent;color:var(--ink);border:1px solid var(--rule);cursor:pointer}
 .vote .thx{color:var(--ink)}
-@media (max-width:520px){.mast nav{display:none}.dek{font-size:17px}.btn{flex:1 1 auto;justify-content:center}}
+@media (max-width:520px){.dek{font-size:17px}.btn.lead{flex:1 1 auto;justify-content:center}.btn.ghost{width:46px;padding:0;justify-content:center}.btn.ghost span{display:none}.btn[data-pdf="scaricata"]{display:none}}
 """
 
 
@@ -177,6 +174,15 @@ VOTO_JS = """<script>
     try { localStorage.setItem(k, b.dataset.v); } catch (err) {}
     fatto();
   });
+  var cp = document.getElementById("copy");
+  if (cp) cp.addEventListener("click", function () {
+    var u = cp.dataset.url, l = cp.querySelector("span"), ok = function () { l.textContent = "Copiato"; setTimeout(function () { l.textContent = "Copia link"; }, 1800); };
+    if (navigator.clipboard) navigator.clipboard.writeText(u).then(ok, function () { prompt("Copia il link:", u); }); else prompt("Copia il link:", u);
+  });
+  // Da PC "Leggi l'edizione" apre la lettura a schermo intero con lo zoom (sul telefono resta il PDF)
+  if (window.matchMedia("(min-width: 901px)").matches) {
+    var lead = document.querySelector("a.btn.lead"); if (lead) lead.href = "../?n=" + parseInt("NNN", 10) + "&leggi=1";
+  }
   document.querySelectorAll("a[data-pdf]").forEach(function (a) {
     a.addEventListener("click", function () { conta({ path: "pdf-NNN", title: "PDF n. NNN " + a.dataset.pdf + " dalla pagina dell'edizione", event: true }); conta({ path: "pdf-tutte", title: "PDF aperti (tutte le edizioni)", event: true }); });
   });
@@ -191,7 +197,48 @@ def ancora(s):
     return "g-" + re.sub(r"[^a-z0-9]+", "-", s).strip("-")
 
 
+SVG_WA = ('<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>')
+SVG_LINK = ('<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M10 14a4 4 0 0 0 5.7 0l3.6-3.6a4 4 0 0 0-5.7-5.7L12 6.3M14 10a4 4 0 0 0-5.7 0l-3.6 3.6a4 4 0 0 0 5.7 5.7l1.6-1.6"/></svg>')
+
+
 GLOSSARIO = {}   # sigla in minuscolo -> (sigla, breve), solo le voci non ovvie; riempito in main()
+
+
+# ---------------------------------------------------------------- testata, menu e piè di pagina comuni
+# Stessi elementi su tutte le pagine del sito (stile in assets/sito.css). root = "" per le pagine
+# nella cartella principale, "../" per quelle in e/. attivo = la voce del menu da evidenziare.
+MENU = (("", "Ultima edizione"), ("archivio.html", "Archivio"), ("basi.html", "Le basi"),
+        ("scommessa.html", "La scommessa"), ("numeri.html", "I numeri"), ("progetto.html", "Il progetto"))
+RIGA_AI = ("Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza "
+           "artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.")
+LEGALE = ("Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. "
+          "Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.")
+
+
+def _href(root, h):
+    return (root + h) if h else (root or "./")
+
+
+def menu(root="", attivo=None):
+    voci = []
+    for h, t in MENU:
+        cur = ' aria-current="page"' if h == attivo else ""
+        voci.append(f'<a href="{_href(root, h)}"{cur}>{t}</a>')
+    return '<nav class="gn-nav" aria-label="Sezioni del sito">' + "".join(voci) + "</nav>"
+
+
+def testata(root="", attivo=None):
+    return ('<header class="gn-mast"><div class="gn-top"><div class="gn-brand">'
+            f'<p class="gn-logo"><a href="{root or "./"}" title="Torna all\'ultima edizione"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></p>'
+            '<p class="gn-pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p></div>'
+            f'{menu(root, attivo)}</div></header>')
+
+
+def piede(root="", nota=""):
+    link = "".join(f'<a href="{_href(root, h)}">{t}</a>' for h, t in MENU)
+    return ('<footer class="gf"><div class="gf-in">'
+            f'<nav class="gf-links" aria-label="Le pagine del sito">{link}<a href="{root}feed.xml">Feed RSS</a></nav>'
+            f'<p class="gf-ai">{RIGA_AI}</p><p class="gf-legal">{LEGALE}{(" " + nota) if nota else ""}</p></div></footer>')
 
 
 def pagina(ed, prec, succ):
@@ -217,14 +264,14 @@ def pagina(ed, prec, succ):
     a('<meta name="twitter:card" content="summary_large_image">')
     a('<meta name="theme-color" content="#0E0E0E">')
     a('<link rel="icon" href="../assets/icona.svg" type="image/svg+xml">')
+    a('<link rel="stylesheet" href="../assets/sito.css">')
     a('<link rel="alternate" type="application/rss+xml" title="Gommberg Terminal Daily" href="../feed.xml">')
     a('<link rel="preconnect" href="https://fonts.googleapis.com">')
     a('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">')
     a(f"<style>{CSS}</style>")
     a(f'<script data-goatcounter="{GC}" async src="https://gc.zgo.at/count.js"></script>')
     a("</head>\n<body>")
-    a('<header class="mast"><div class="wrap"><a class="logo" href="../"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a>'
-      '<nav><a href="../archivio.html">Tutte le edizioni</a></nav></div></header>')
+    a(testata("../"))
     a('<main class="wrap">')
     a(f'<p class="kicker">Edizione n. {n}</p><p class="meta">{esc(data.capitalize())} | {ed.get("pagine", 6)} pagine</p>')
     a(f"<h1>{esc(titolo)}</h1>")
@@ -232,7 +279,8 @@ def pagina(ed, prec, succ):
         a(f'<p class="dek">{colora(ed["dek"])}</p>')
     a(f'<div class="actions"><a class="btn lead" data-pdf="letta" href="{esc(pdf)}">Leggi l\'edizione</a>'
       f'<a class="btn ghost" data-pdf="scaricata" href="{esc(pdf)}" download="{esc(ed.get("nome", ""))}">Scarica PDF</a>'
-      f'<a class="btn ghost" href="../?n={int(ed["numero"])}">Sfoglia sul sito</a></div>')
+      f'<a class="btn ghost" href="https://wa.me/?text={quote(titolo + " " + url)}" target="_blank" rel="noopener" aria-label="Condividi su WhatsApp">{SVG_WA}<span>WhatsApp</span></a>'
+      f'<button type="button" class="btn ghost" id="copy" data-url="{esc(url)}" aria-label="Copia il link">{SVG_LINK}<span>Copia link</span></button></div>')
     if ed.get("sommario"):
         a('<section><h2>In 30 secondi</h2><ul class="brief">' +
           "".join(f"<li>{colora(s)}</li>" for s in ed["sommario"]) + "</ul></section>")
@@ -256,9 +304,7 @@ def pagina(ed, prec, succ):
     a(f'<div class="pn">{"".join(nav)}</div>')
     a("</main>")
     a(VOTO_JS.replace("NNN", n))
-    a('<footer><div class="wrap">Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l\'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale. È una rassegna informativa sui mercati. Non costituisce consulenza '
-      "finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie "
-      "da fonti pubbliche alla data di ciascuna edizione.</div></footer>")
+    a(piede("../"))
     a("</body>\n</html>\n")
     return "\n".join(p)
 

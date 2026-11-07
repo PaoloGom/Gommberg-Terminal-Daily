@@ -19,6 +19,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0E0E0E">
 <link rel="icon" href="../assets/icona.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/sito.css">
 <link rel="alternate" type="application/rss+xml" title="Gommberg Terminal Daily" href="../feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -35,11 +36,6 @@
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;overflow-x:hidden}
 a{color:inherit}.up{color:var(--up);font-weight:500}.down{color:var(--down);font-weight:500}
 .wrap{max-width:760px;margin:0 auto;padding-inline:20px}
-.mast{background:var(--bar);color:var(--bar-ink);border-bottom:3px solid var(--orange)}
-.mast .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:14px}
-.logo{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.01em;text-decoration:none;white-space:nowrap}
-.logo b{color:var(--orange)}.logo span{font-weight:600}
-.mast nav{font-family:var(--mono);font-size:13px;color:var(--bar-muted)}.mast nav a{text-decoration:none}.mast nav a:hover{color:var(--bar-ink)}
 main{padding-block:36px 56px}
 .kicker{font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink);margin:0 0 8px}
 .meta{font-family:var(--mono);font-size:13px;color:var(--muted);margin:0 0 10px}
@@ -47,7 +43,8 @@ h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,6vw,44px);lin
 .dek{font-size:18px;color:var(--muted);margin:0 0 22px}
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 34px}
 .btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;font-family:var(--mono);font-size:14px;text-decoration:none;border:1px solid var(--ink)}
-.btn.lead{background:var(--ink);color:var(--paper)}.btn.ghost{background:transparent}
+.btn.lead{background:var(--ink);color:var(--paper)}.btn.ghost{background:transparent;color:var(--ink);cursor:pointer;gap:8px}
+.btn svg{width:18px;height:18px;flex:none}
 section{margin:0 0 30px}
 h2{font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink);margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
 ul.brief{list-style:none;margin:0;padding:0}ul.brief li{position:relative;padding-left:20px;margin:0 0 12px}
@@ -59,25 +56,25 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .inside small{display:block;font-family:var(--mono);font-size:12px;color:var(--orange-ink);text-transform:uppercase;letter-spacing:.04em}
 .inside b{font-weight:600}
 .sigle{display:flex;flex-wrap:wrap;gap:8px}.sigle a{display:inline-block;border:1px solid var(--rule);padding:6px 10px;font-size:14px;color:var(--muted);text-decoration:none;line-height:1.35}
-.sigle a b{color:var(--ink);font-weight:600;margin-right:4px}.sigle a:hover{border-color:var(--orange)}
+.sigle a b{color:var(--ink);font-weight:600;margin-right:4px}.sigle a:hover{border-color:var(--orange);color:var(--ink)}
+.sigle a:after{content:"A";margin-left:6px;color:var(--orange-ink);font-weight:600}
 .tutte{margin:12px 0 0;font-size:14px}.tutte a{color:var(--orange-ink)}
 .pn{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:13px;border-top:1px solid var(--rule);padding-top:16px}
 .pn a{text-decoration:none;color:var(--muted)}.pn a:hover{color:var(--ink)}
-footer{border-top:1px solid var(--rule);padding:22px 0 36px;font-size:13px;color:var(--muted)}
 .vote{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 30px;font-size:15px;color:var(--muted)}
 .vote button{font-family:var(--mono);font-size:13px;min-height:38px;padding:0 14px;background:transparent;color:var(--ink);border:1px solid var(--rule);cursor:pointer}
 .vote .thx{color:var(--ink)}
-@media (max-width:520px){.mast nav{display:none}.dek{font-size:17px}.btn{flex:1 1 auto;justify-content:center}}
+@media (max-width:520px){.dek{font-size:17px}.btn.lead{flex:1 1 auto;justify-content:center}.btn.ghost{width:46px;padding:0;justify-content:center}.btn.ghost span{display:none}.btn[data-pdf="scaricata"]{display:none}}
 </style>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
-<header class="mast"><div class="wrap"><a class="logo" href="../"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a><nav><a href="../archivio.html">Tutte le edizioni</a></nav></div></header>
+<header class="gn-mast"><div class="gn-top"><div class="gn-brand"><p class="gn-logo"><a href="../" title="Torna all'ultima edizione"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></p><p class="gn-pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p></div><nav class="gn-nav" aria-label="Sezioni del sito"><a href="../">Ultima edizione</a><a href="../archivio.html">Archivio</a><a href="../basi.html">Le basi</a><a href="../scommessa.html">La scommessa</a><a href="../numeri.html">I numeri</a><a href="../progetto.html">Il progetto</a></nav></div></header>
 <main class="wrap">
 <p class="kicker">Edizione n. 014</p><p class="meta">Giovedì 29 ottobre 2026 | 6 pagine</p>
 <h1>Fed ferma, ma con due voti per il rialzo: tutto ruota attorno a dicembre</h1>
 <p class="dek">La Fed lascia i tassi al 3,75-4,00% con 10 voti contro 2: Lisa Cook e Beth Hammack avrebbero alzato di un quarto di punto. Il presidente Warsh non si impegna su dicembre, rialzo che i future danno tra il 78% (Reuters) e l&#x27;85% (Yahoo Finance): la conferenza viene letta come morbida, il 2 anni scende di 3 punti base (pb) e il 10 anni sale di 6, a 5,05%. Wall Street chiude in rialzo dello 0,3%.</p>
-<div class="actions"><a class="btn lead" data-pdf="letta" href="../pdf/2026-10-29-gommberg-014.pdf">Leggi l'edizione</a><a class="btn ghost" data-pdf="scaricata" href="../pdf/2026-10-29-gommberg-014.pdf" download="2026-10-29 Gommberg Terminal Daily #014.pdf">Scarica PDF</a><a class="btn ghost" href="../?n=14">Sfoglia sul sito</a></div>
+<div class="actions"><a class="btn lead" data-pdf="letta" href="../pdf/2026-10-29-gommberg-014.pdf">Leggi l'edizione</a><a class="btn ghost" data-pdf="scaricata" href="../pdf/2026-10-29-gommberg-014.pdf" download="2026-10-29 Gommberg Terminal Daily #014.pdf">Scarica PDF</a><a class="btn ghost" href="https://wa.me/?text=Fed%20ferma%2C%20ma%20con%20due%20voti%20per%20il%20rialzo%3A%20tutto%20ruota%20attorno%20a%20dicembre%20https%3A//paologom.github.io/Gommberg-Terminal-Daily/e/014.html" target="_blank" rel="noopener" aria-label="Condividi su WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span>WhatsApp</span></a><button type="button" class="btn ghost" id="copy" data-url="https://paologom.github.io/Gommberg-Terminal-Daily/e/014.html" aria-label="Copia il link"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M10 14a4 4 0 0 0 5.7 0l3.6-3.6a4 4 0 0 0-5.7-5.7L12 6.3M14 10a4 4 0 0 0-5.7 0l-3.6 3.6a4 4 0 0 0 5.7 5.7l1.6-1.6"/></svg><span>Copia link</span></button></div>
 <section><h2>In 30 secondi</h2><ul class="brief"><li>Alphabet crolla dopo i conti e Microsoft sale: il mercato premia chi finanzia da sé la spesa per l&#x27;AI.</li><li>Oggi alle 14:15 la BCE decide sui tassi, con gli occhi già su dicembre.</li><li>Stellantis vola in Borsa dopo i conti: la perdita si restringe e la guidance (le previsioni aziendali) resta.</li></ul></section>
 <section><h2>Le notizie del giorno</h2><ol class="news"><li><span>Alphabet perde il 10% dopo i conti</span></li><li><span>Microsoft: conti sopra le attese, il titolo sale</span></li><li><span>Samsung: utile record, ma Seul chiude in calo</span></li><li><span>Oracle: <span class="up">+11%</span> con l&#x27;obiettivo di 225 miliardi di ricavi</span></li><li><span>Iran: i contatti con gli USA frenano il petrolio</span></li><li><span>Stellantis: perdita ridotta del 90%, il titolo balza del 15,7%</span></li></ol></section>
 <section><h2>Gli approfondimenti</h2><div class="inside"><div><small>Trimestrali</small><b>Stellantis rimbalza: il mercato premia la perdita ridotta e la guidance, non la cassa</b></div><div><small>Tassi</small><b>La Fed morbida ferma il breve ma non il lungo: la curva Treasury si ripidisce</b></div><div><small>Tecnologia</small><b>Il mercato premia chi si paga da solo la spesa per l&#x27;AI e punisce chi la finanzia con la cassa</b></div></div></section>
@@ -99,11 +96,20 @@ footer{border-top:1px solid var(--rule);padding:22px 0 36px;font-size:13px;color
     try { localStorage.setItem(k, b.dataset.v); } catch (err) {}
     fatto();
   });
+  var cp = document.getElementById("copy");
+  if (cp) cp.addEventListener("click", function () {
+    var u = cp.dataset.url, l = cp.querySelector("span"), ok = function () { l.textContent = "Copiato"; setTimeout(function () { l.textContent = "Copia link"; }, 1800); };
+    if (navigator.clipboard) navigator.clipboard.writeText(u).then(ok, function () { prompt("Copia il link:", u); }); else prompt("Copia il link:", u);
+  });
+  // Da PC "Leggi l'edizione" apre la lettura a schermo intero con lo zoom (sul telefono resta il PDF)
+  if (window.matchMedia("(min-width: 901px)").matches) {
+    var lead = document.querySelector("a.btn.lead"); if (lead) lead.href = "../?n=" + parseInt("014", 10) + "&leggi=1";
+  }
   document.querySelectorAll("a[data-pdf]").forEach(function (a) {
     a.addEventListener("click", function () { conta({ path: "pdf-014", title: "PDF n. 014 " + a.dataset.pdf + " dalla pagina dell'edizione", event: true }); conta({ path: "pdf-tutte", title: "PDF aperti (tutte le edizioni)", event: true }); });
   });
 })();
 </script>
-<footer><div class="wrap">Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale. È una rassegna informativa sui mercati. Non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</div></footer>
+<footer class="gf"><div class="gf-in"><nav class="gf-links" aria-label="Le pagine del sito"><a href="../">Ultima edizione</a><a href="../archivio.html">Archivio</a><a href="../basi.html">Le basi</a><a href="../scommessa.html">La scommessa</a><a href="../numeri.html">I numeri</a><a href="../progetto.html">Il progetto</a><a href="../feed.xml">Feed RSS</a></nav><p class="gf-ai">Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.</p><p class="gf-legal">Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</p></div></footer>
 </body>
 </html>
