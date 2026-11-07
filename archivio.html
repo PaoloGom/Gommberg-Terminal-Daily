@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Archivio | Gommberg Terminal Daily</title>
+<meta name="description" content="Tutte le edizioni del Gommberg Terminal Daily, dalla più recente: cerca per parola, data o tema.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Archivio | Gommberg Terminal Daily">
+<meta property="og:description" content="Tutte le edizioni, dalla più recente: cerca per parola, data o tema.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://paologom.github.io/Gommberg-Terminal-Daily/assets/copertina.png">
+<meta name="theme-color" content="#0E0E0E">
+<link rel="icon" href="assets/icona.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Gommberg Terminal Daily" href="feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Archivio: stesse regole di colori, caratteri e testata della homepage. */
+:root {
+  --paper: #FBFAF8; --ink: #141414; --muted: #5E5A55; --rule: #DEDAD4; --panel: #F1EEE9;
+  --orange: #F26B1D; --orange-ink: #B84A0C; --bar: #0E0E0E; --bar-rule: #2F2D2B; --bar-ink: #F5F3EF; --bar-soft: #D6D1C9; --bar-muted: #A39C93;
+  --sheet: #FFFFFF; --up: #12753D; --down: #C0261C; --up-soft: #D8EEDF; --down-soft: #F6DAD6;
+  --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121110; --ink: #EDEAE5; --muted: #A49E96; --rule: #2E2B28; --panel: #1C1A18;
+    --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-rule: #2A2826;
+    --up: #46CF85; --down: #FF7466; --up-soft: #173524; --down-soft: #3F1C18; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121110; --ink: #EDEAE5; --muted: #A49E96; --rule: #2E2B28; --panel: #1C1A18;
+  --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-rule: #2A2826;
+  --up: #46CF85; --down: #FF7466; --up-soft: #173524; --down-soft: #3F1C18; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; overflow-x: hidden; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 24px; }
+a { color: inherit; text-underline-offset: 3px; }
+.up { color: var(--up); } .down { color: var(--down); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+
+.mast { background: var(--bar); color: var(--bar-ink); border-bottom: 3px solid var(--orange); }
+.mast .top { display: flex; justify-content: space-between; align-items: flex-end; gap: 8px 32px; padding-block: 18px 14px; flex-wrap: wrap; }
+.logo { font-family: var(--display); font-stretch: 75%; font-weight: 900; font-size: clamp(28px, 4.4vw, 44px); line-height: .9; letter-spacing: .01em; margin: 0; white-space: nowrap; }
+.logo a { text-decoration: none; }
+.logo b { color: var(--orange); font-weight: 900; } .logo span { font-weight: 600; }
+.pitch { margin: 8px 0 0; font-size: 15px; line-height: 1.4; color: var(--bar-soft); }
+.pitch em { font-style: normal; color: var(--orange); }
+.back { font-size: 13px; color: var(--bar-muted); white-space: nowrap; }
+.back:hover { color: var(--bar-ink); }
+
+main { padding-block: 36px 40px; }
+h2.page-h { font-family: var(--display); font-stretch: 80%; font-weight: 800; font-size: clamp(32px, 4.4vw, 48px); line-height: 1; margin: 0; }
+.lede { color: var(--muted); margin: 10px 0 0; max-width: 62ch; }
+.tools { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 16px; align-items: center; margin-top: 24px; max-width: 760px; }
+.search { position: relative; min-width: 0; }
+.search input { width: 100%; font: inherit; font-size: 16px; padding: 11px 12px 11px 40px; border: 1px solid var(--rule); background: var(--sheet); color: #141414; border-radius: 0; -webkit-appearance: none; appearance: none; }
+:root[data-theme="dark"] .search input { background: var(--panel); color: var(--ink); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .search input { background: var(--panel); color: var(--ink); } }
+.search svg { position: absolute; left: 13px; top: 50%; width: 16px; height: 16px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.seg { display: inline-flex; border: 1px solid var(--ink); justify-self: end; }
+.seg button { font-family: var(--mono); font-size: 13px; padding: 10px 14px; border: 0; background: transparent; color: var(--ink); cursor: pointer; min-height: 44px; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.chip { font-family: var(--mono); font-size: 12.5px; border: 1px solid var(--rule); background: transparent; color: var(--ink); padding: 6px 10px; cursor: pointer; white-space: nowrap; }
+.chip small { color: var(--muted); font-size: 11px; margin-left: 4px; }
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--orange); border-color: var(--orange); color: #141414; }
+.chip[aria-pressed="true"] small { color: #141414; }
+.count { font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin-top: 14px; min-height: 1.4em; }
+.count .clr { font: inherit; color: var(--orange-ink); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.month { border-top: 2px solid var(--ink); margin-top: 20px; }
+.month > summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0 6px; }
+.month > summary::-webkit-details-marker { display: none; }
+.month > summary h3 { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 22px; margin: 0; line-height: 1.1; }
+.month > summary h3::before { content: "+"; font-family: var(--mono); font-weight: 400; color: var(--orange-ink); display: inline-block; width: 1.1em; }
+.month[open] > summary h3::before { content: "-"; }
+.month > summary span { font-family: var(--mono); font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+.row { display: grid; grid-template-columns: 136px minmax(0, 1fr) 82px; gap: 16px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.row .d { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+.row .d b { color: var(--ink); font-weight: 500; }
+.row .t { font-family: var(--display); font-stretch: 85%; font-weight: 700; font-size: 18px; line-height: 1.25; text-decoration: none; display: block; }
+.row .t:hover { color: var(--orange-ink); }
+.row .tg { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-top: 6px; }
+.row .tg button { font-family: var(--mono); font-size: 11.5px; color: var(--muted); background: none; border: 1px solid var(--rule); padding: 1px 7px; cursor: pointer; }
+.row .tg button:hover { color: var(--ink); border-color: var(--ink); }
+.row .sp { font-family: var(--mono); font-size: 12.5px; text-align: right; white-space: nowrap; }
+.row .sp small { display: block; font-size: 10.5px; color: var(--muted); }
+.empty { color: var(--muted); padding-block: 16px; }
+.cal-month { margin-top: 20px; border-top: 2px solid var(--ink); padding-top: 10px; }
+.cal-month h3 { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 22px; margin: 0 0 8px; line-height: 1.1; }
+.cal { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; max-width: 560px; }
+.cal .wd { font-family: var(--mono); font-size: 11px; color: var(--muted); text-align: center; padding-bottom: 2px; }
+.day { aspect-ratio: 1.35; border: 1px solid var(--rule); background: transparent; font-family: var(--mono); font-size: 12px; color: var(--muted); padding: 4px 6px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; text-decoration: none; }
+a.day { color: var(--ink); background: var(--panel); }
+a.day.pos { background: var(--up-soft); }
+a.day.neg { background: var(--down-soft); }
+a.day:hover { border-color: var(--orange); }
+.day .dv { font-size: 11px; white-space: nowrap; overflow: hidden; }
+.day.dim { opacity: .3; }
+.cal-key { font-size: 13px; color: var(--muted); margin-top: 12px; }
+
+footer { margin-top: 24px; background: var(--bar); color: var(--bar-soft); }
+footer .wrap { padding-block: 26px 34px; display: grid; gap: 16px; }
+footer .links { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--mono); font-size: 13px; }
+footer .links a { color: var(--bar-ink); text-decoration-color: var(--bar-rule); }
+footer .links a:hover { color: var(--orange); }
+footer p { margin: 0; font-size: 13px; line-height: 1.55; max-width: 92ch; }
+footer .ai { color: var(--bar-ink); }
+footer .legal { color: var(--bar-muted); font-size: 12.5px; }
+
+@media (max-width: 760px) {
+  .wrap { padding-inline: 18px; }
+  .back { display: none; }
+  .tools { grid-template-columns: 1fr; }
+  .seg { justify-self: start; }
+  .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { flex: none; }
+  .row { grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; }
+  .row .d { grid-column: 1; grid-row: 1; }
+  .row .main { grid-column: 1; grid-row: 2; }
+  .row .t { font-size: 17px; }
+  .row .sp { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+  .day { aspect-ratio: 1.05; padding: 3px 4px; }
+}
+</style>
+<script>window.goatcounter = { no_onload: true };</script>
+<script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</head>
+<body>
+<header class="mast">
+  <div class="wrap top">
+    <div>
+      <h1 class="logo"><a href="./"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></h1>
+      <p class="pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p>
+    </div>
+    <a class="back" href="./">&lsaquo; Torna all'ultima edizione</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <h2 class="page-h">Tutte le edizioni</h2>
+  <p class="lede" id="lede">Dalla più recente. Cerca una parola, una data o un'azienda, oppure scegli un tema.</p>
+  <div class="tools">
+    <label class="search"><span class="sr">Cerca nell'archivio</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Zm5.3-2.2L21 21"/></svg>
+      <input type="search" id="q" placeholder="Cerca: Kospi, CPI, TSMC, 14 ottobre..." autocomplete="off" enterkeyhint="search">
+    </label>
+    <div class="seg" id="vSeg" role="group" aria-label="Vista dell'archivio" hidden>
+      <button type="button" id="vList" aria-pressed="true">Elenco</button>
+      <button type="button" id="vCal" aria-pressed="false">Calendario</button>
+    </div>
+  </div>
+  <div class="chips" id="chips" role="group" aria-label="Filtra per tema" hidden></div>
+  <div class="count" id="count" role="status"></div>
+  <div id="ledger"><div class="empty">Caricamento dell'archivio...</div></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav class="links" aria-label="Le pagine del sito"><a href="./">Ultima edizione</a><a href="basi.html">Le basi</a><a href="numeri.html">I numeri</a><a href="scommessa.html">La scommessa</a><a href="feed.xml">Feed RSS</a></nav>
+    <p class="ai">Il Gommberg Terminal Daily è scritto con l'intelligenza artificiale (Claude, di Anthropic) e pubblicato in automatico, sotto la responsabilità editoriale di Paolo Gommellini.</p>
+    <p class="legal">Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  const MESI = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
+  const GIORNI = ["domenica","lunedì","martedì","mercoledì","giovedì","venerdì","sabato"];
+  const GG = ["dom","lun","mar","mer","gio","ven","sab"];
+  const $ = (id) => document.getElementById(id);
+  const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+  const pad = (n) => String(n).padStart(3, "0");
+  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+  const utc = (iso) => { const [y, m, d] = iso.split("-").map(Number); return new Date(Date.UTC(y, m - 1, d)); };
+  const dataLunga = (iso) => { const dt = utc(iso); return GIORNI[dt.getUTCDay()] + " " + dt.getUTCDate() + " " + MESI[dt.getUTCMonth()] + " " + dt.getUTCFullYear(); };
+  const fold = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const params = new URLSearchParams(location.search);
+  const SOGLIA_CAL = 30; // il calendario serve da 30 edizioni in su
+  let editions = [], view = "list", tema = params.get("tema") || "", query = params.get("q") || "";
+  function conta(o, tent) {
+    const g = window.goatcounter;
+    if (g && typeof g.count === "function") { try { g.count(o); } catch (e) {} return; }
+    if ((tent || 0) < 20) setTimeout(() => conta(o, (tent || 0) + 1), 400);
+  }
+  function segno(s) {
+    const m = String(s || "").trim().match(/^([+-−])?\s*(\d+(?:[.,]\d+)?)/);
+    if (!m || parseFloat(m[2].replace(",", ".")) === 0) return 0;
+    return m[1] === "-" || m[1] === "−" ? -1 : m[1] === "+" ? 1 : 0;
+  }
+  const cls = (s) => { const g = segno(s); return g > 0 ? "up" : g < 0 ? "down" : ""; };
+  const link = (ed) => "./?n=" + ed.numero;
+  function spx(ed) {
+    const t = ed.ticker;
+    if (Array.isArray(t)) { const r = t.find((x) => /S&P/.test(x[0])); if (r) return r[2]; }
+    const txt = [ed.titolo, ...(ed.sommario || []), ...(ed.notizie || [])].join(" ");
+    const m = txt.match(/S&P(?:\s*500)?\s*(?:a\s*)?([+\-−]\d+(?:,\d+)?%)/);
+    return m ? m[1].replace("−", "-") + " g" : null;
+  }
+  function haystack(ed) {
+    return fold([ed.titolo, ed.dek, dataLunga(ed.data), ed.data, "#" + pad(ed.numero), (ed.sommario || []).join(" "), (ed.notizie || []).join(" "), (ed.temi || []).join(" "), (ed.glossario || []).join(" "), ((ed.approfondimenti || []).map((a) => a.titolo)).join(" ")].join(" "));
+  }
+  function matches(ed) {
+    if (tema && !(ed.temi || []).includes(tema)) return false;
+    if (!query) return true;
+    const h = ed._h || (ed._h = haystack(ed));
+    return fold(query).split(/\s+/).filter(Boolean).every((w) => h.includes(w));
+  }
+  function setTema(t) {
+    tema = tema === t ? "" : t;
+    document.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", (c.dataset.t || "") === tema ? "true" : "false"));
+    const u = new URL(location.href); if (tema) u.searchParams.set("tema", tema); else u.searchParams.delete("tema"); history.replaceState(null, "", u);
+    if (tema) conta({ path: "archivio-tema-" + fold(tema).replace(/\W+/g, "-"), title: "Archivio, tema " + tema, event: true });
+    build();
+  }
+  function chips() {
+    const freq = new Map();
+    for (const ed of editions) for (const t of (ed.temi || [])) freq.set(t, (freq.get(t) || 0) + 1);
+    const box = $("chips"); box.innerHTML = "";
+    if (!freq.size) { box.hidden = true; return; }
+    box.hidden = false;
+    const all = el("button", "chip", "Tutti i temi"); all.type = "button"; all.dataset.t = ""; all.setAttribute("aria-pressed", tema ? "false" : "true");
+    all.addEventListener("click", () => setTema(""));
+    box.appendChild(all);
+    for (const [t, n] of [...freq.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 16)) {
+      const c = el("button", "chip", t); c.type = "button"; c.dataset.t = t; c.setAttribute("aria-pressed", t === tema ? "true" : "false");
+      c.appendChild(el("small", "", String(n)));
+      c.addEventListener("click", () => setTema(t));
+      box.appendChild(c);
+    }
+  }
+  function byMonth(list) {
+    const groups = [];
+    for (const ed of list) {
+      const k = ed.data.slice(0, 7);
+      let g = groups[groups.length - 1];
+      if (!g || g.k !== k) { g = { k, items: [] }; groups.push(g); }
+      g.items.push(ed);
+    }
+    return groups;
+  }
+  const monthName = (k) => { const [y, m] = k.split("-").map(Number); return cap(MESI[m - 1]) + " " + y; };
+  function build() {
+    const box = $("ledger"); box.innerHTML = "";
+    if (!editions.length) { box.appendChild(el("div", "empty", "Ancora nessuna edizione in archivio.")); return; }
+    const filtering = !!(query || tema);
+    const list = editions.filter(matches);
+    $("count").textContent = filtering
+      ? (list.length ? list.length + (list.length === 1 ? " edizione trovata" : " edizioni trovate") + (tema ? " sul tema " + tema : "") : "")
+      : editions.length + (editions.length === 1 ? " edizione" : " edizioni") + ", dalla più recente";
+    if (!list.length) { box.appendChild(el("div", "empty", "Nessuna edizione per questa ricerca. Prova con un'altra parola o togli il filtro del tema.")); return; }
+    if (view === "cal") return calendario(box, filtering ? new Set(list) : null);
+    byMonth(list).forEach((g, i) => {
+      const det = el("details", "month"); if (i < 3 || filtering) det.open = true;
+      const sum = el("summary");
+      sum.appendChild(el("h3", "", monthName(g.k)));
+      sum.appendChild(el("span", "", g.items.length + (g.items.length === 1 ? " edizione" : " edizioni")));
+      det.appendChild(sum);
+      for (const ed of g.items) {
+        const r = el("div", "row"), dt = utc(ed.data);
+        const d = el("span", "d"); d.append(GG[dt.getUTCDay()] + " "); d.appendChild(el("b", "", String(dt.getUTCDate()).padStart(2, "0"))); d.append(" " + MESI[dt.getUTCMonth()].slice(0, 3) + "  #" + pad(ed.numero));
+        r.appendChild(d);
+        const m = el("div", "main");
+        const a = el("a", "t", ed.titolo); a.href = link(ed); m.appendChild(a);
+        if ((ed.temi || []).length) {
+          const tg = el("div", "tg");
+          for (const t of ed.temi.slice(0, 4)) { const b = el("button", "", t); b.type = "button"; b.title = "Tutte le edizioni sul tema " + t; b.addEventListener("click", () => { setTema(t); window.scrollTo({ top: 0, behavior: "smooth" }); }); tg.appendChild(b); }
+          m.appendChild(tg);
+        }
+        r.appendChild(m);
+        const sp = el("span", "sp"), c = spx(ed);
+        if (c) { sp.appendChild(el("span", cls(c), c.replace(/\s*g\b.*$/, ""))); sp.appendChild(el("small", "", "S&P 500")); }
+        r.appendChild(sp);
+        det.appendChild(r);
+      }
+      box.appendChild(det);
+    });
+  }
+  function calendario(box, keep) {
+    const byDate = new Map(editions.map((e) => [e.data, e]));
+    const months = [...new Set(editions.map((e) => e.data.slice(0, 7)))];
+    const monday = (iso) => { const d = utc(iso); d.setUTCDate(d.getUTCDate() - (d.getUTCDay() + 6) % 7); return d.toISOString().slice(0, 10); };
+    const lo = monday(editions[editions.length - 1].data);
+    const hiW = (() => { const d = utc(editions[0].data); d.setUTCDate(d.getUTCDate() + (5 - d.getUTCDay())); return d.toISOString().slice(0, 10); })();
+    for (const k of months) {
+      const [y, m] = k.split("-").map(Number);
+      const wrap = el("div", "cal-month"); wrap.appendChild(el("h3", "", monthName(k)));
+      const grid = el("div", "cal");
+      for (const w of ["lun", "mar", "mer", "gio", "ven"]) grid.appendChild(el("div", "wd", w));
+      const days = new Date(Date.UTC(y, m, 0)).getUTCDate(); let started = false;
+      for (let d = 1; d <= days; d++) {
+        const dt = new Date(Date.UTC(y, m - 1, d)), wd = dt.getUTCDay();
+        if (wd === 0 || wd === 6) continue;
+        const iso = dt.toISOString().slice(0, 10);
+        if (iso < lo || iso > hiW) continue;
+        if (!started) { started = true; for (let i = 0; i < wd - 1; i++) grid.appendChild(el("div")); }
+        const ed = byDate.get(iso);
+        const c = el(ed ? "a" : "div", "day"); c.appendChild(el("span", "", String(d)));
+        if (ed) {
+          c.href = link(ed);
+          const ch = spx(ed), g = segno(ch);
+          if (g > 0) c.classList.add("pos"); else if (g < 0) c.classList.add("neg");
+          if (ch) c.appendChild(el("span", "dv " + cls(ch), ch.replace(/\s*g\b.*$/, "")));
+          if (keep && !keep.has(ed)) c.classList.add("dim");
+          c.setAttribute("aria-label", dataLunga(iso) + ", edizione n. " + pad(ed.numero) + ": " + ed.titolo);
+          c.title = "#" + pad(ed.numero) + " " + ed.titolo;
+        } else c.classList.add("dim");
+        grid.appendChild(c);
+      }
+      wrap.appendChild(grid); box.appendChild(wrap);
+    }
+    box.appendChild(el("p", "cal-key", "Ogni casella è un'edizione: verde se il giorno prima l'S&P 500 ha chiuso in rialzo, rossa se in calo."));
+  }
+  function setView(v) {
+    view = v;
+    $("vList").setAttribute("aria-pressed", v === "list" ? "true" : "false");
+    $("vCal").setAttribute("aria-pressed", v === "cal" ? "true" : "false");
+    build();
+  }
+  $("vList").addEventListener("click", () => setView("list"));
+  $("vCal").addEventListener("click", () => setView("cal"));
+  $("q").value = query;
+  let qt; $("q").addEventListener("input", (e) => { clearTimeout(qt); qt = setTimeout(() => { query = e.target.value.trim(); build(); }, 120); });
+  fetch("edizioni.json", { cache: "no-store" })
+    .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then((list) => {
+      editions = (Array.isArray(list) ? list : []).filter((e) => e && e.numero && e.data && e.file).sort((a, b) => b.numero - a.numero);
+      $("vSeg").hidden = editions.length < SOGLIA_CAL;
+      chips(); build();
+      conta({ path: location.pathname, title: document.title });
+    })
+    .catch(() => { $("ledger").innerHTML = ""; $("ledger").appendChild(el("div", "empty", "Archivio non raggiungibile. Riprova tra qualche minuto.")); });
+})();
+</script>
+</body>
+</html>

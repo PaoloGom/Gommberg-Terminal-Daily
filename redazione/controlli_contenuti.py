@@ -371,6 +371,22 @@ if "quadro" in VOCE or red is not None:
 else:
     AVV.append("quadro: voce_indice.json senza i campi di redazione (modello vecchio?)")
 
+# ---------- stessa struttura per ogni edizione (v7.8): i campi che il sito mostra ----------
+# Un'edizione nata fuori dal modello standard (per esempio su richiesta) usciva senza agenda né sottotitolo e il sito
+# nascondeva i riquadri in silenzio (#020). Qualunque sia l'origine dell'edizione, questi campi devono esserci.
+if VOCE:
+    for k, cosa in (("titolo", "titolo della notizia principale"), ("dek", "sottotitolo (dek)"), ("sommario", "In 30 secondi"),
+                    ("notizie", "notizie del giorno"), ("agenda", "agenda di pag. 3"), ("temi", "temi"),
+                    ("approfondimenti", "approfondimenti")):
+        if not VOCE.get(k):
+            ERR.append(f"sito: manca '{k}' ({cosa}) in voce_indice.json: l'edizione deve uscire dal modello standard, "
+                       "con la stessa struttura di ogni giorno")
+    ag = VOCE.get("agenda") or []
+    if ag and not (isinstance(ag, list) and all(isinstance(x, dict) and {"quando", "evento", "attese", "perche", "chiave"} <= set(x) for x in ag)
+                   and not re.search(r"<[a-z/]|[\u2013\u2014]", json.dumps(ag, ensure_ascii=False))):
+        ERR.append("sito: l'agenda non è nel formato del sito (righe con quando, evento, attese, perche, chiave; niente tag "
+                   "HTML né trattini lunghi): sul sito non comparirebbe")
+
 # ---------- grafici già usciti (v7.8, §2): ogni giorno si deve imparare qualcosa di nuovo ----------
 def _norm(xs):
     return {re.sub(r"[^a-z0-9]", "", str(x).lower()) for x in xs or [] if str(x).strip()}

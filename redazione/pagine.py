@@ -224,7 +224,7 @@ def pagina(ed, prec, succ):
     a(f'<script data-goatcounter="{GC}" async src="https://gc.zgo.at/count.js"></script>')
     a("</head>\n<body>")
     a('<header class="mast"><div class="wrap"><a class="logo" href="../"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a>'
-      '<nav><a href="../#archivio">Tutte le edizioni</a></nav></div></header>')
+      '<nav><a href="../archivio.html">Tutte le edizioni</a></nav></div></header>')
     a('<main class="wrap">')
     a(f'<p class="kicker">Edizione n. {n}</p><p class="meta">{esc(data.capitalize())} | {ed.get("pagine", 6)} pagine</p>')
     a(f"<h1>{esc(titolo)}</h1>")
@@ -256,7 +256,7 @@ def pagina(ed, prec, succ):
     a(f'<div class="pn">{"".join(nav)}</div>')
     a("</main>")
     a(VOTO_JS.replace("NNN", n))
-    a('<footer><div class="wrap">Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza '
+    a('<footer><div class="wrap">Il Gommberg Terminal Daily è scritto con l\'intelligenza artificiale (Claude, di Anthropic) e pubblicato in automatico, sotto la responsabilità editoriale di Paolo Gommellini. Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza '
       "finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie "
       "da fonti pubbliche alla data di ciascuna edizione.</div></footer>")
     a("</body>\n</html>\n")

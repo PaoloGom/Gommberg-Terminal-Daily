@@ -147,6 +147,9 @@ def page(c, doc):
     c.drawString(M, 7 * mm, "Solo a scopo informativo, non è consulenza finanziaria. "
                             "Le probabilità sono stime soggettive.")
     c.drawRightString(PW - M, 7 * mm, f"#{META['edizione']:03d}  |  {META['data_iso']}  |  pag. {doc.page}")
+    # AI Act, art. 50 (v7.8): dichiarazione dell'uso dell'IA, su ogni pagina
+    c.drawString(M, 3.9 * mm, "Scritto con l'intelligenza artificiale (Claude, di Anthropic) e pubblicato in automatico, "
+                              "sotto la responsabilità editoriale di Paolo Gommellini.")
     c.restoreState()
 
 

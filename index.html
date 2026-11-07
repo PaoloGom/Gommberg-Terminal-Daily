@@ -20,31 +20,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout (variant B): black masthead echoing the PDF header (logo left, date and edition right,
-   orange rule), with the 7 closing values as a one-line status bar inside it; then the front page: headline, "In 30 secondi", one primary action, the Friday bet and
-   "Come funziona" in the left column, the PDF reader on the right; then the archive. Kickers in orange
-   capitals as in the PDF. */
+/* Homepage v2 (7/11/2026): due livelli.
+   1) Il palco scuro, continuazione della testata come nel PDF: l'edizione di oggi a caratteri grandi a sinistra,
+      la pagina vera dell'edizione (lettore) a destra, bianca sul nero. È l'unico elemento "forte" della pagina.
+   2) Su carta, calmo: notizie, agenda, scommessa; poi la settimana, come funziona e il piè di pagina.
+   La versione precedente resta in classica.html (ritorno: copiarla su index.html). */
 :root {
-  --paper: #FBFAF8;
-  --ink: #141414;
-  --muted: #5E5A55;
-  --rule: #DEDAD4;
-  --panel: #F1EEE9;
-  --orange: #F26B1D;
-  --orange-ink: #B84A0C;
-  --bar: #0E0E0E;
-  --bar-2: #1C1C1C;
-  --bar-rule: #333;
-  --bar-ink: #F5F3EF;
-  --bar-muted: #A39C93;
-  --sheet: #FFFFFF;
-  --shadow: rgba(20, 16, 10, .12);
-  --up: #12753D;
-  --down: #C0261C;
-  --up-bar: #3CCB7F;
-  --down-bar: #FF6A5C;
-  --up-soft: #D8EEDF;
-  --down-soft: #F6DAD6;
+  --paper: #FBFAF8; --ink: #141414; --muted: #5E5A55; --rule: #DEDAD4; --panel: #F1EEE9;
+  --orange: #F26B1D; --orange-ink: #B84A0C;
+  --bar: #0E0E0E; --bar-2: #1A1918; --bar-rule: #2F2D2B; --bar-ink: #F5F3EF; --bar-soft: #D6D1C9; --bar-muted: #A39C93;
+  --sheet: #FFFFFF; --shadow: rgba(20, 16, 10, .12);
+  --up: #12753D; --down: #C0261C; --up-bar: #3CCB7F; --down-bar: #FF6A5C;
   --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -53,51 +39,40 @@
   :root:not([data-theme="light"]) {
     --paper: #121110; --ink: #EDEAE5; --muted: #A49E96; --rule: #2E2B28; --panel: #1C1A18;
     --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-2: #161514; --bar-rule: #2A2826;
-    --bar-ink: #F5F3EF; --bar-muted: #8F8880;
-    --sheet: #FFFFFF; --shadow: rgba(0, 0, 0, .5);
-    --up: #46CF85; --down: #FF7466; --up-soft: #173524; --down-soft: #3F1C18; color-scheme: dark;
+    --up: #46CF85; --down: #FF7466; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #121110; --ink: #EDEAE5; --muted: #A49E96; --rule: #2E2B28; --panel: #1C1A18;
   --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-2: #161514; --bar-rule: #2A2826;
-  --bar-ink: #F5F3EF; --bar-muted: #8F8880;
-  --sheet: #FFFFFF; --shadow: rgba(0, 0, 0, .5);
-  --up: #46CF85; --down: #FF7466; --up-soft: #173524; --down-soft: #3F1C18; color-scheme: dark;
+  --up: #46CF85; --down: #FF7466; color-scheme: dark;
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; overflow-x: hidden; }
-.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 24px; }
 a { color: inherit; }
 .up { color: var(--up); }
 .down { color: var(--down); }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-
-/* Demo banner */
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
 .demo { background: repeating-linear-gradient(135deg, #FFE7A8 0 14px, #FFDB80 14px 28px); color: #3A2A00; font-family: var(--mono); font-size: 12.5px; text-align: center; padding: 6px 12px; }
 
-/* Masthead: like the PDF header */
-.mast { background: var(--bar); color: var(--bar-ink); border-bottom: 3px solid var(--orange); }
-.mast .top { display: flex; justify-content: space-between; align-items: flex-end; gap: 8px 32px; padding-block: 18px 14px; }
-.brand { min-width: 0; overflow: hidden; }
-.logo { font-family: var(--display); font-stretch: 75%; font-weight: 900; font-size: clamp(30px, 5vw, 46px); line-height: .9; letter-spacing: .01em; margin: 0; white-space: nowrap; }
+/* ---------- Testata ---------- */
+.mast { background: var(--bar); color: var(--bar-ink); }
+.mast .top { display: flex; justify-content: space-between; align-items: flex-end; gap: 8px 32px; padding-block: 18px 12px; }
+.brand { min-width: 0; }
+.logo { font-family: var(--display); font-stretch: 75%; font-weight: 900; font-size: clamp(28px, 4.4vw, 44px); line-height: .9; letter-spacing: .01em; margin: 0; white-space: nowrap; }
 .logo b { color: var(--orange); font-weight: 900; }
 .logo span { font-weight: 600; }
-.pitch { margin: 8px 0 0; font-size: 15px; line-height: 1.4; color: var(--bar-ink); }
+.pitch { margin: 8px 0 0; font-size: 15px; line-height: 1.4; color: var(--bar-soft); }
 .pitch em { font-style: normal; color: var(--orange); }
-.pitch a { color: var(--bar-muted); text-decoration-color: var(--bar-rule); text-underline-offset: 3px; white-space: nowrap; font-size: 13px; margin-left: 12px; }
-.pitch a:hover { color: var(--bar-ink); }
-.dateline { text-align: right; font-size: 13px; line-height: 1.5; white-space: nowrap; }
+.dateline { text-align: right; font-size: 13px; line-height: 1.5; white-space: nowrap; color: var(--bar-muted); }
 .dateline strong { display: block; font-weight: 600; color: var(--bar-ink); }
-.dateline span { display: block; font-size: 12px; color: var(--bar-muted); }
-
-/* Status bar: the 7 closes of the edition on one mono line */
-.status { position: relative; }
-.status .tape-scroll { border-top: 1px solid var(--bar-rule); }
-.tape-scroll { display: flex; justify-content: space-between; align-items: center; height: 28px; overflow-x: auto; scrollbar-width: none; font-family: var(--mono); font-size: 11px; white-space: nowrap; }
-.tape-scroll::-webkit-scrollbar { display: none; }
+.tape { position: relative; border-top: 1px solid var(--bar-rule); }
+.tape-row { display: flex; justify-content: space-between; align-items: center; height: 30px; overflow-x: auto; scrollbar-width: none; font-family: var(--mono); font-size: 11px; white-space: nowrap; }
+.tape-row::-webkit-scrollbar { display: none; }
 .tk { flex: none; padding: 0 7px; border-left: 1px solid var(--bar-rule); line-height: 1; }
 .tk:first-child { border-left: 0; padding-left: 0; }
 .tk:last-child { padding-right: 0; }
@@ -106,387 +81,295 @@ a { color: inherit; }
 .tk .c { color: var(--bar-muted); }
 .tk .c.up { color: var(--up-bar); }
 .tk .c.down { color: var(--down-bar); }
-.tk.when { color: var(--orange); letter-spacing: .04em; }
+.tk.when { color: var(--orange); }
 
-/* Kickers: orange capitals as in the PDF */
-.kicker { font-family: var(--body); font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--orange-ink); margin: 0; line-height: 1.4; }
-.kick-row { display: flex; align-items: baseline; gap: 6px 12px; flex-wrap: wrap; }
-.kick-row .kmeta { font-family: var(--mono); font-size: 12px; color: var(--muted); display: none; }
-.how2 { margin-left: auto; align-self: center; font-size: 12.5px; color: var(--muted); text-underline-offset: 3px; white-space: nowrap; display: none; }
-.sec-h { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 26px; line-height: 1.1; margin: 4px 0 0; padding-bottom: 8px; border-bottom: 1px solid var(--orange); }
+/* ---------- Il palco: l'edizione di oggi ---------- */
+.stage { background: var(--bar); color: var(--bar-ink); border-bottom: 3px solid var(--orange); }
+.stage .grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 56px; align-items: start; padding-block: 30px 40px; }
+.stage .grid > * { min-width: 0; }
+.ed-meta { font-family: var(--mono); font-size: 13px; color: var(--bar-muted); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.ed-meta .lab { color: var(--orange); }
+h2.headline { font-family: var(--display); font-stretch: 78%; font-weight: 800; font-size: clamp(34px, 5vw, 64px); }
+h2.headline.long { font-size: clamp(30px, 3.7vw, 48px); line-height: 1.02; }
+h2.headline { line-height: .98; letter-spacing: -.005em; margin: 14px 0 0; text-wrap: balance; color: var(--bar-ink); }
+.dek { font-size: 17px; line-height: 1.5; color: var(--bar-soft); margin: 16px 0 0; max-width: 58ch; }
+.brief-k { font-family: var(--mono); font-size: 12.5px; color: var(--orange); margin: 26px 0 0; font-weight: 500; }
+.brief { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 60ch; border-top: 1px solid var(--bar-rule); padding-top: 14px; }
+.brief li { display: grid; grid-template-columns: 14px 1fr; gap: 10px; color: var(--bar-ink); font-size: 16.5px; line-height: 1.5; }
+.brief li::before { content: ""; width: 7px; height: 7px; background: var(--orange); margin-top: .66em; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; align-items: stretch; }
+.btn { font-family: var(--mono); font-size: 13.5px; letter-spacing: .02em; border: 1px solid var(--bar-ink); background: transparent; color: var(--bar-ink); padding: 11px 16px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; line-height: 1.2; min-height: 46px; }
+.btn svg { width: 17px; height: 17px; flex: none; }
+.btn.lead { background: var(--orange); border-color: var(--orange); color: #141414; font-weight: 500; padding-inline: 24px; }
+.btn.lead:hover { background: #FF8A45; border-color: #FF8A45; }
+.btn.ghost { border-color: var(--bar-rule); color: var(--bar-soft); }
+.btn.ghost:hover { border-color: var(--bar-ink); color: var(--bar-ink); }
+.note { font-size: 13.5px; color: var(--bar-soft); margin-top: 14px; }
+.note:empty { display: none; }
+.note a { color: var(--orange); }
+.nojs { display: none; margin: 12px 0 0; font-family: var(--mono); font-size: 13px; color: var(--bar-muted); }
+.nojs a { color: var(--orange); }
+.loading .actions { visibility: hidden; }
+.loading .nojs { display: block; opacity: 0; animation: nojs-in 0s linear 1.5s forwards; }
+@keyframes nojs-in { to { opacity: 1; } }
+.failed .actions, .failed .reader, .failed .brief-k { display: none !important; }
+.failed .stage .grid { grid-template-columns: 1fr; }
+.retry { margin-top: 16px; }
 
-main { padding-block: 28px 56px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 44px; }
-main > section { min-width: 0; }
-
-/* Front page */
-.front { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); gap: 40px; align-items: start; }
-.front > * { min-width: 0; }
-.front { grid-template-rows: auto 1fr; }
-.front > .lead-col { grid-column: 1; grid-row: 1; }
-.front > .how-box { grid-column: 1; grid-row: 2; margin-top: 0; }
-.front > .reader { grid-column: 2; grid-row: 1 / span 2; }
-.meta { font-family: var(--mono); font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 14px; }
-.meta .num { color: var(--ink); font-weight: 500; }
-h2.headline { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: clamp(25px, 3.4vw, 38px); line-height: 1.06; margin: 8px 0 0; text-wrap: balance; }
-.dek[hidden] { display: none !important; }
-.dek { font-family: var(--body); font-size: 16px; line-height: 1.45; color: var(--muted); margin: 8px 0 0; max-width: 62ch; }
-.brief-k { margin-top: 20px; }
-.brief { margin: 8px 0 0; padding: 0; list-style: none; display: grid; gap: 11px; max-width: 62ch; }
-.brief li { display: grid; grid-template-columns: 10px 1fr; gap: 10px; }
-.brief li::before { content: ""; width: 7px; height: 7px; background: var(--orange); margin-top: .62em; }
-.tag { font-family: var(--mono); font-size: 12px; border: 1px solid var(--rule); padding: 2px 8px; color: var(--muted); background: transparent; cursor: pointer; line-height: 1.5; }
-.tag:hover { border-color: var(--orange); color: var(--ink); }
-.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-.actions { align-items: stretch; }
-.share { display: flex; gap: 8px; }
-.share .btn.sm { min-height: 42px; padding: 8px 12px; }
-.how-row { margin-top: 10px; }
-.btn { font-family: var(--mono); font-size: 13px; letter-spacing: .03em; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); padding: 10px 14px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; line-height: 1.2; min-height: 42px; }
-.btn.ghost { background: transparent; color: var(--ink); }
-.btn.sm { font-size: 12px; padding: 6px 10px; min-height: 36px; gap: 6px; border-color: var(--rule); }
-.btn.sm svg { width: 14px; height: 14px; }
-.btn.lead { padding-inline: 20px; }
-.btn svg { width: 16px; height: 16px; flex: none; }
-.btn:hover { border-color: var(--orange); }
-.btn:focus-visible, .row:focus-visible, .tag:focus-visible, .chip:focus-visible, .day:focus-visible, .pages button:focus-visible, .pager button:focus-visible, .seg button:focus-visible, summary:focus-visible, input:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
-.note { font-size: 13px; color: var(--muted); margin-top: 10px; min-height: 1.4em; }
-.note a { color: var(--orange-ink); }
-
-/* Friday bet */
-.bet { margin-top: 28px; background: var(--panel); border-left: 3px solid var(--orange); padding: 12px 16px 14px; }
-.bet-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; align-items: baseline; }
-.bet-head h3 { margin: 0; }
-.bet-head .wk { font-family: var(--mono); font-size: 12px; color: var(--muted); }
-.score { display: flex; flex-wrap: wrap; gap: 4px 22px; margin-top: 6px; font-size: 14px; color: var(--muted); }
-.score b { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 28px; color: var(--ink); line-height: 1; margin-right: 6px; }
-.instr { display: flex; flex-wrap: wrap; gap: 5px; margin: 10px 0 0; padding: 0; list-style: none; }
-@media (min-width: 421px) { .instr { display: grid; grid-template-columns: repeat(4, max-content); } }
-.instr li { font-family: var(--mono); font-size: 12px; padding: 3px 7px; background: var(--paper); border: 0; white-space: nowrap; line-height: 1.4; }
-.instr li .a { color: var(--ink); margin: 0 4px; }
-.instr li .r { font-weight: 600; }
-.instr li .r.ok { color: var(--up); }
-.instr li .r.ko { color: var(--down); }
-.instr li .r.na { color: var(--muted); }
-.bet-foot { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.45; }
-.bet-foot strong { color: var(--ink); font-weight: 600; }
-
-/* Reader */
-.reader { background: var(--panel); padding: 12px; }
-.reader-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: .04em; margin-bottom: 10px; }
-.pager { display: flex; align-items: center; gap: 6px; }
-.pager button { font-family: var(--mono); font-size: 15px; width: 40px; height: 34px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); cursor: pointer; }
-.pager button:disabled { opacity: .4; cursor: default; }
-.pages { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; margin: 0 0 10px; padding: 0; list-style: none; }
-.pages button { width: 100%; font-family: var(--mono); font-size: 11px; line-height: 1.2; padding: 6px 2px; border: 1px solid var(--rule); background: var(--paper); color: var(--muted); cursor: pointer; text-align: center; }
-.pages button b { display: block; font-size: 13px; color: var(--ink); font-weight: 500; }
-.pages button[aria-current="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
-.pages button[aria-current="true"] b { color: var(--orange); }
-.sheet { background: var(--paper); box-shadow: 0 6px 24px var(--shadow); aspect-ratio: 210 / 297; max-width: 100%; position: relative; overflow: hidden; touch-action: pan-y; }
-.sheet.ok { background: var(--sheet); }
-/* Anteprima non disponibile: riquadro compatto nel colore del tema, niente foglio bianco vuoto */
-.sheet.nopreview { aspect-ratio: auto; box-shadow: none; border: 1px solid var(--rule); background: var(--paper); }
+/* Il lettore: la pagina vera dell'edizione, bianca sul nero */
+.reader { background: var(--bar-2); padding: 14px; }
+.reader-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.pages { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; margin: 0; padding: 0; list-style: none; flex: 1; }
+.pages button { width: 100%; font-family: var(--mono); font-size: 11px; line-height: 1.2; padding: 6px 2px; border: 1px solid var(--bar-rule); background: transparent; color: var(--bar-muted); cursor: pointer; text-align: center; }
+.pages button b { display: block; font-size: 13px; color: var(--bar-ink); font-weight: 500; }
+.pages button:hover { border-color: var(--bar-muted); }
+.pages button[aria-current="true"] { border-color: var(--orange); background: var(--orange); color: #141414; }
+.pages button[aria-current="true"] b { color: #141414; }
+.sheet { background: var(--sheet); box-shadow: 0 18px 50px rgba(0, 0, 0, .55); aspect-ratio: 210 / 297; position: relative; overflow: hidden; touch-action: pan-y; width: min(100%, max(320px, calc((100vh - 300px) * 210 / 297))); margin-inline: auto; }
+.sheet.nopreview { aspect-ratio: auto; box-shadow: none; border: 1px solid var(--bar-rule); background: transparent; }
 .sheet.nopreview canvas { display: none; }
 .sheet.nopreview .wait { position: static; padding: 14px 16px; text-align: left; }
-.reader:has(.sheet.nopreview) .pages, .reader:has(.sheet.nopreview) .reader-bar { display: none; }
-@media (min-width: 901px) {
-  .front > .reader { position: sticky; top: 16px; align-self: start; }
-  .sheet { width: min(100%, calc((100vh - 160px) * 210 / 297)); max-height: calc(100vh - 160px); margin-inline: auto; }
-}
-/* Telefono: niente anteprima integrata, bastano i pulsanti (il PDF si apre nel lettore del telefono) */
-@media (max-width: 900px) { .front > .reader { display: none !important; } }
+.reader:has(.sheet.nopreview) .reader-bar { display: none; }
 .sheet canvas { width: 100%; height: 100%; display: block; }
-/* Schermo intero: il lettore stesso a tutto schermo (mai il file, che alcuni browser scaricano) */
-.reader:fullscreen { background: var(--paper); overflow: auto; padding: 14px max(16px, calc((100vw - (100vh - 200px) * 210 / 297) / 2)); }
-.reader:fullscreen .sheet { width: 100%; max-height: none; }
 .sheet .wait { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono); font-size: 13px; color: var(--muted); text-align: center; padding: 20px; }
+.reader-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 12px; font-family: var(--mono); font-size: 12px; color: var(--bar-muted); }
+.reader-foot .links { display: flex; gap: 8px; }
+.reader-foot .btn { min-height: 38px; padding: 7px 12px; font-size: 12.5px; }
+.pager { display: flex; gap: 6px; }
+.pager button { font-family: var(--mono); font-size: 15px; width: 38px; height: 34px; border: 1px solid var(--bar-rule); background: transparent; color: var(--bar-ink); cursor: pointer; }
+.pager button:disabled { opacity: .35; cursor: default; }
+.reader:fullscreen { background: var(--bar); overflow: auto; padding: 14px max(16px, calc((100vw - (100vh - 200px) * 210 / 297) / 2)); }
+.reader:fullscreen .sheet { width: 100%; }
+@media (max-width: 900px) { .stage .reader { display: none !important; } }
 
-/* Come funziona (left column, under the bet) */
-.how-box { margin-top: 28px; }
-/* Voto dei lettori */
-.vote { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 18px; font-size: 14px; color: var(--muted); }
-.vote button { font-family: var(--mono); font-size: 13px; min-height: 36px; padding: 0 14px; background: transparent; color: var(--ink); border: 1px solid var(--rule); cursor: pointer; }
+/* ---------- Su carta: la giornata ---------- */
+main { padding-block: 40px 24px; }
+.kicker { font-family: var(--body); font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--orange-ink); margin: 0; line-height: 1.4; }
+.day-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+.day-grid > * { min-width: 0; }
+.news { margin: 10px 0 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
+.news li { border-bottom: 1px solid var(--rule); }
+.news a { display: grid; grid-template-columns: 34px 1fr auto; gap: 8px; align-items: baseline; padding: 11px 0; text-decoration: none; font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 18px; line-height: 1.28; }
+.news a .i { font-family: var(--mono); font-weight: 500; font-size: 13px; color: var(--orange-ink); font-stretch: 100%; }
+.news a .go { font-family: var(--mono); font-weight: 400; font-size: 12px; color: var(--muted); font-stretch: 100%; white-space: nowrap; }
+.news a:hover .t { color: var(--orange-ink); }
+.vote { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 22px; font-size: 14px; color: var(--muted); }
+.vote button { font-family: var(--mono); font-size: 13px; min-height: 38px; padding: 0 16px; background: transparent; color: var(--ink); border: 1px solid var(--rule); cursor: pointer; }
 .vote button:hover { border-color: var(--ink); }
 .vote .thx { color: var(--ink); }
-/* Le notizie del giorno (prima pagina in testo) */
-.news-k { margin-top: 26px; }
-.news { margin: 8px 0 0; padding: 0; list-style: none; counter-reset: n; max-width: 62ch; border-top: 1px solid var(--rule); }
-.news li { counter-increment: n; display: grid; grid-template-columns: 30px 1fr; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--rule); font-family: var(--display); font-stretch: 90%; font-weight: 700; font-size: 16px; line-height: 1.3; }
-.news li::before { content: counter(n, decimal-leading-zero); font-weight: 800; color: var(--orange); }
-a.full { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--orange-ink); text-underline-offset: 3px; }
+.side { display: grid; gap: 34px; }
+.box-h { display: flex; justify-content: space-between; align-items: baseline; gap: 4px 12px; flex-wrap: wrap; }
+.box-h span { font-family: var(--mono); font-size: 12px; color: var(--muted); }
 /* Agenda */
-.agenda { margin-top: 28px; max-width: 62ch; }
-.agenda[hidden] { display: none !important; }
-.ag-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; align-items: baseline; }
-.ag-head h3 { margin: 0; }
-.ag-head span { font-family: var(--mono); font-size: 12px; color: var(--muted); }
-.ag-list { margin: 8px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--rule); }
-.ag-day { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding: 12px 0 4px; }
-.ag-day:first-child { padding-top: 10px; }
-.ag-row { display: grid; grid-template-columns: 62px 1fr; gap: 10px; padding: 7px 0 7px; border-bottom: 1px solid var(--rule); }
+.ag-list { margin: 10px 0 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
+.ag-day { font-size: 12px; font-weight: 600; color: var(--muted); padding: 12px 0 4px; }
+.ag-row { display: grid; grid-template-columns: 58px 1fr; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--rule); }
 .ag-row .h { font-family: var(--mono); font-size: 12.5px; color: var(--muted); padding-top: 2px; }
-.ag-row .e { font-family: var(--display); font-stretch: 90%; font-weight: 700; font-size: 15.5px; line-height: 1.3; }
+.ag-row .e { font-family: var(--display); font-stretch: 90%; font-weight: 700; font-size: 16px; line-height: 1.3; }
 .ag-row .a { display: block; font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 3px; font-weight: 400; font-stretch: 100%; }
 .ag-row.key { background: var(--panel); box-shadow: inset 3px 0 0 var(--orange); padding-inline: 10px; margin-inline: -10px; }
 .ag-row.key .h { color: var(--orange-ink); }
 .ag-row .p { display: block; font-family: var(--body); font-stretch: 100%; font-weight: 400; font-size: 13.5px; color: var(--ink); margin-top: 4px; line-height: 1.4; }
 .ag-row .p b { color: var(--orange-ink); font-weight: 600; }
-.ag-more { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--orange-ink); text-underline-offset: 3px; background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit; text-decoration: underline; }
-/* Come lavoriamo */
-.trust { margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--rule); }
-.trust p { margin: 0 0 10px; color: var(--muted); font-size: 14.5px; line-height: 1.5; max-width: 62ch; }
-.trust p b { color: var(--ink); font-weight: 600; }
-.trust .links { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--mono); font-size: 12.5px; }
-.trust .links a { color: var(--orange-ink); text-underline-offset: 3px; }
-.note:empty { display: none; }
-.loading .actions, .loading .share { visibility: hidden; }
-.nojs { display: none; margin: 10px 0 0; font-family: var(--mono); font-size: 13px; color: var(--muted); }
-.nojs a { color: var(--orange-ink); text-underline-offset: 3px; display: inline-block; padding: 8px 2px; }
-.loading .nojs { display: block; opacity: 0; animation: nojs-in 0s linear 1.5s forwards; } /* compare solo se il caricamento tarda (o senza JavaScript) */
-@keyframes nojs-in { to { opacity: 1; } }
-.failed .actions, .failed .share, .failed .reader, .failed .brief-k { display: none !important; }
-.failed .front { grid-template-columns: minmax(0, 1fr); }
-.retry { margin-top: 14px; }
-.how-box dl { margin: 12px 0 0; padding-top: 12px; border-top: 1px solid var(--rule); }
-.how-box dt .pp { display: block; font-family: var(--mono); font-stretch: 100%; font-weight: 500; font-size: 11.5px; letter-spacing: .04em; color: var(--orange-ink); margin-bottom: 2px; }
-.how-box dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; }
-.how-box dl > div { min-width: 0; }
-.how-box dt { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 17px; line-height: 1.2; }
-.how-box dd { margin: 2px 0 14px; color: var(--muted); font-size: 14.5px; line-height: 1.5; max-width: 60ch; }
+.lnk { display: inline-block; margin-top: 10px; font-size: 13.5px; color: var(--orange-ink); text-underline-offset: 3px; background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit; text-decoration: underline; }
+/* Scommessa: una riga per mercato */
+.score { display: flex; flex-wrap: wrap; gap: 4px 28px; margin-top: 10px; font-size: 14px; color: var(--muted); }
+.score b { font-family: var(--display); font-stretch: 80%; font-weight: 800; font-size: 34px; color: var(--ink); line-height: 1; margin-right: 6px; }
+.bet-t { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
+.bet-t th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: 11.5px; color: var(--muted); padding: 0 0 6px; border-bottom: 2px solid var(--ink); }
+.bet-t th:not(:first-child), .bet-t td:not(:first-child) { text-align: right; }
+.bet-t td { padding: 7px 0; border-bottom: 1px solid var(--rule); }
+.bet-t td:first-child { font-weight: 500; }
+.bet-t tr.var td:first-child::before { content: ""; display: inline-block; width: 8px; height: 8px; background: var(--orange); margin-right: 8px; vertical-align: 1px; }
+.bet-t .ok { color: var(--up); font-weight: 600; }
+.bet-t .ko { color: var(--down); font-weight: 600; }
+.bet-t .na { color: var(--muted); }
+.bet-foot { font-size: 13px; color: var(--muted); margin-top: 10px; line-height: 1.45; }
+.bet-foot strong { color: var(--ink); font-weight: 600; }
 
-/* Archive */
-.arch-tools { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 16px; align-items: center; margin-top: 16px; max-width: 760px; }
-.search { position: relative; min-width: 0; }
-.search input { width: 100%; font: inherit; font-size: 16px; padding: 10px 12px 10px 38px; border: 1px solid var(--rule); background: var(--sheet); color: #141414; border-radius: 0; -webkit-appearance: none; appearance: none; }
-:root[data-theme="dark"] .search input { background: var(--panel); color: var(--ink); }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .search input { background: var(--panel); color: var(--ink); } }
-.search svg { position: absolute; left: 12px; top: 50%; width: 16px; height: 16px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
-.seg { display: inline-flex; border: 1px solid var(--ink); justify-self: end; }
-.seg button { font-family: var(--mono); font-size: 13px; padding: 10px 14px; border: 0; background: transparent; color: var(--ink); cursor: pointer; min-height: 42px; }
-.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
-.chips { display: flex; gap: 6px; margin-top: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
-.chips::-webkit-scrollbar { display: none; }
-.chip { flex: none; font-family: var(--mono); font-size: 12.5px; border: 1px solid var(--rule); background: transparent; color: var(--ink); padding: 6px 10px; cursor: pointer; white-space: nowrap; }
-.chip small { color: var(--muted); font-size: 11px; margin-left: 4px; }
-.chip[aria-pressed="true"] { background: var(--orange); border-color: var(--orange); color: #141414; }
-.chip[aria-pressed="true"] small { color: #141414; }
-.count { font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin-top: 12px; min-height: 1.4em; }
-.count .clr { font: inherit; color: var(--orange-ink); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+/* La settimana */
+.week { margin-top: 56px; }
+.wk-list { margin: 10px 0 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
+.wk-list a { display: grid; grid-template-columns: 136px minmax(0, 1fr) 72px; gap: 16px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
+.wk-list a:hover .t { color: var(--orange-ink); }
+.wk-list .d { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+.wk-list .d b { color: var(--ink); font-weight: 500; }
+.wk-list .t { font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 18px; line-height: 1.25; }
+.wk-list .sp { font-family: var(--mono); font-size: 12.5px; text-align: right; white-space: nowrap; }
+.wk-list .sp small { display: block; font-size: 10.5px; color: var(--muted); }
+.wk-list a[aria-current="true"] .d b { color: var(--orange-ink); }
+.wk-more { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; margin-top: 12px; font-size: 14px; }
+.wk-more a { color: var(--orange-ink); text-underline-offset: 3px; }
 
-.month { border-top: 2px solid var(--ink); margin-top: 18px; }
-.month > summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0 6px; }
-.month > summary::-webkit-details-marker { display: none; }
-.month > summary h3 { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 22px; margin: 0; line-height: 1.1; }
-.month > summary h3::before { content: "+"; font-family: var(--mono); font-weight: 400; color: var(--orange-ink); display: inline-block; width: 1.1em; }
-.month[open] > summary h3::before { content: "-"; }
-.month > summary span { font-family: var(--mono); font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+/* Come funziona: una riga, il resto si apre */
+.how { margin-top: 56px; border-top: 2px solid var(--ink); }
+.how > summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 14px 0; }
+.how > summary::-webkit-details-marker { display: none; }
+.how > summary .s { font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 19px; }
+.how > summary .s em { font-style: normal; color: var(--muted); font-weight: 500; font-family: var(--body); font-size: 15px; margin-left: 10px; font-stretch: 100%; }
+.how > summary .x { font-family: var(--mono); font-size: 13px; color: var(--orange-ink); white-space: nowrap; }
+.how[open] > summary .x::after { content: " -"; }
+.how:not([open]) > summary .x::after { content: " +"; }
+.how dl { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 28px; margin: 0; padding: 6px 0 4px; }
+.how dl > div { min-width: 0; }
+.how dt { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 17px; line-height: 1.2; }
+.how dt .pp { display: block; font-family: var(--mono); font-weight: 500; font-size: 11.5px; color: var(--orange-ink); margin-bottom: 3px; font-stretch: 100%; }
+.how dd { margin: 4px 0 16px; color: var(--muted); font-size: 14.5px; line-height: 1.5; }
+.how .trust { border-top: 1px solid var(--rule); padding: 14px 0 18px; color: var(--muted); font-size: 14.5px; max-width: 80ch; }
+.how .trust b { color: var(--ink); font-weight: 600; }
 
-.row { display: grid; grid-template-columns: 74px 52px minmax(0, 1fr) 82px; gap: 14px; align-items: baseline; padding: 12px 0; border: 0; border-bottom: 1px solid var(--rule); color: inherit; cursor: pointer; background: none; text-align: left; font: inherit; width: 100%; }
-.row:hover .t { color: var(--orange-ink); }
-.row .d { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
-.row .d b { color: var(--ink); font-weight: 500; }
-.row .n { font-family: var(--mono); font-size: 13px; color: var(--muted); }
-.row .t { font-family: var(--display); font-stretch: 85%; font-weight: 700; font-size: 18px; line-height: 1.25; min-width: 0; }
-.row .tg { display: block; font-family: var(--mono); font-size: 11.5px; font-weight: 400; color: var(--muted); margin-top: 4px; font-stretch: 100%; }
-.row .sp { font-family: var(--mono); font-size: 12.5px; text-align: right; white-space: nowrap; }
-.row .sp small { display: block; font-size: 10.5px; color: var(--muted); }
-.row { position: relative; }
-.row[aria-current="true"]::before { content: ""; position: absolute; left: -10px; top: 12px; bottom: 12px; width: 3px; background: var(--orange); }
-.empty { color: var(--muted); padding-block: 16px; }
+/* ---------- Piè di pagina ---------- */
+footer { margin-top: 40px; background: var(--bar); color: var(--bar-soft); }
+footer .wrap { padding-block: 26px 34px; display: grid; gap: 16px; }
+footer .links { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--mono); font-size: 13px; }
+footer .links a { color: var(--bar-ink); text-decoration-color: var(--bar-rule); text-underline-offset: 3px; }
+footer .links a:hover { color: var(--orange); }
+footer p { margin: 0; font-size: 13px; line-height: 1.55; max-width: 92ch; }
+footer .ai { color: var(--bar-ink); }
+footer .legal { color: var(--bar-muted); font-size: 12.5px; }
 
-/* Calendar */
-.cal-month { margin-top: 18px; border-top: 2px solid var(--ink); padding-top: 10px; }
-.cal-month h3 { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 22px; margin: 0 0 8px; line-height: 1.1; }
-.cal { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; max-width: 560px; }
-.cal .wd { font-family: var(--mono); font-size: 11px; color: var(--muted); text-align: center; padding-bottom: 2px; }
-.day { aspect-ratio: 1.35; border: 1px solid var(--rule); background: transparent; font-family: var(--mono); font-size: 12px; color: var(--muted); padding: 4px 6px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
-.day.has { cursor: pointer; color: var(--ink); background: var(--panel); }
-.day.has.pos { background: var(--up-soft); }
-.day.has.neg { background: var(--down-soft); }
-.day.has:hover { border-color: var(--orange); }
-.day .dv { font-size: 11px; white-space: nowrap; overflow: hidden; }
-.day.dim { opacity: .3; }
-.day[aria-current="true"] { outline: 2px solid var(--ink); outline-offset: -2px; }
-.cal-key { font-size: 13px; color: var(--muted); margin-top: 12px; }
-
-footer { border-top: 1px solid var(--rule); }
-footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted); }
-
+/* ---------- Schermi stretti ---------- */
 @media (max-width: 900px) {
-  .front { grid-template-columns: 1fr; grid-template-rows: none; gap: 28px; }
-  .front > .lead-col, .front > .how-box, .front > .reader { grid-column: 1; grid-row: auto; }
+  .stage .grid { grid-template-columns: 1fr; gap: 0; padding-block: 24px 30px; }
+  .day-grid { grid-template-columns: 1fr; gap: 40px; }
+  .how dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 760px) {
-  .how-box dl { grid-template-columns: 1fr; }
-  .mast .top { padding-block: 11px 9px; }
-  .logo { font-size: 27px; }
-  .pitch { font-size: 14px; margin-top: 5px; white-space: nowrap; }
-  .pitch a, .dateline { display: none; }
-  .kick-row .kmeta { display: inline; }
-  .how2 { display: inline; }
-  .tape-scroll { height: 27px; font-size: 11.5px; justify-content: flex-start; }
+  .wrap { padding-inline: 18px; }
+  .mast .top { padding-block: 12px 9px; }
+  .pitch { font-size: 14px; margin-top: 5px; }
+  .dateline { display: none; }
+  .tape-row { justify-content: flex-start; height: 29px; }
   .tk { padding: 0 10px; }
-  .status::after { content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 28px; background: linear-gradient(90deg, transparent, var(--bar)); pointer-events: none; }
-  main { padding-top: 14px; }
-  .meta { font-size: 12px; gap: 2px 12px; }
-  .meta .pp { display: none; }
-  h2.headline { font-size: 24px; margin-top: 6px; }
-  .brief-k { margin-top: 12px; }
-  .brief { margin-top: 6px; gap: 8px; font-size: 15px; line-height: 1.45; }
-  .actions { margin-top: 14px; }
-  .row { grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; }
-  .row .d { grid-column: 1; grid-row: 1; }
-  .row .n { display: none; }
-  .row .sp { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
-  .row .t { grid-column: 1; grid-row: 2; font-size: 17px; }
-  .arch-tools { grid-template-columns: 1fr; }
-  .seg { justify-self: start; }
-}
-@media (max-width: 420px) {
-  .wrap { padding-inline: 16px; }
-  .pages button span { display: none; }
-  .actions { flex-wrap: nowrap; }
+  .tape::after { content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 36px; background: linear-gradient(90deg, transparent, var(--bar)); pointer-events: none; }
+  h2.headline { font-size: clamp(30px, 8.6vw, 40px); margin-top: 10px; }
+  .dek { font-size: 15.5px; margin-top: 12px; }
+  .brief-k { margin-top: 20px; }
+  .brief li { font-size: 15.5px; }
+  .actions { margin-top: 22px; flex-wrap: nowrap; }
   .actions .btn.lead { flex: 1 1 auto; justify-content: center; }
-  .share .btn.sm { width: 42px; padding: 0; justify-content: center; }
-  .share .btn.sm span { display: none; }
-  .share .btn.sm svg { width: 18px; height: 18px; }
-  .day { aspect-ratio: 1.05; padding: 3px 4px; }
+  .actions .btn.ghost { width: 46px; padding: 0; justify-content: center; }
+  .actions .btn.ghost span { display: none; }
+  main { padding-top: 30px; }
+  .news a { font-size: 17px; grid-template-columns: 30px 1fr; }
+  .news a .go { display: none; }
+  .wk-list a { grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; }
+  .wk-list .d { grid-column: 1; grid-row: 1; }
+  .wk-list .t { grid-column: 1; grid-row: 2; font-size: 17px; }
+  .wk-list .sp { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+  .how > summary .s em { display: none; }
+  .how dl { grid-template-columns: 1fr; }
 }
-@media (max-width: 420px) {
-  .logo { font-size: min(27px, 6.1vw); }
-  .dek { font-size: 15px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-}
+@media (max-width: 400px) { .logo { font-size: min(28px, 7vw); } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
-.bet-more { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--orange-ink); text-underline-offset: 3px; }
 </style>
 <script>window.goatcounter = { no_onload: true };</script>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
-<body>
+<body class="loading" id="main">
 <div class="demo" id="demo" hidden>Modalità prova: anteprima di collaudo, non pubblicata.</div>
 
 <header class="mast">
   <div class="wrap top">
     <div class="brand">
       <h1 class="logo"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></h1>
-      <p class="pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.<a href="#cose">Come funziona</a></p>
+      <p class="pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p>
     </div>
-    <div class="dateline"><strong id="dlDate">&nbsp;</strong><span>Lun-ven, entro le 10</span></div>
+    <div class="dateline"><strong id="dlDate">&nbsp;</strong>Lun-ven, entro le 10</div>
   </div>
-  <div class="wrap status" id="tape" hidden>
-    <div class="tape-scroll" id="tapeRow" role="list" aria-label="Chiusure riportate nell'edizione"></div>
+  <div class="wrap tape" id="tape" hidden>
+    <div class="tape-row" id="tapeRow" role="list" aria-label="Chiusure riportate nell'edizione"></div>
   </div>
 </header>
 
-<main class="wrap loading" id="main">
-  <section aria-labelledby="lbl-latest">
-    <div class="front">
-      <div class="lead-col">
-        <div class="kick-row"><h2 class="kicker" id="lbl-latest">Ultima edizione</h2><span class="kmeta" id="meta"></span></div>
-        <h2 class="headline" id="headline">Caricamento dell'edizione...</h2>
-        <p class="nojs">Se la pagina non si carica: <a href="ultima/">l'ultima edizione in PDF</a> | <a href="feed.xml">Feed RSS</a></p>
-        <p class="dek" id="dek" hidden></p>
-        <h3 class="kicker brief-k" id="briefK" hidden>In 30 secondi</h3>
-        <ul class="brief" id="brief"></ul>
-        <div class="actions">
-          <a class="btn lead" id="read" href="#" target="_blank" rel="noopener">Leggi l'edizione</a>
-          <div class="share">
-            <a class="btn ghost sm" id="wa" aria-label="Condividi su WhatsApp" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span>WhatsApp</span></a>
-            <button type="button" class="btn ghost sm" id="copy" aria-label="Copia il link"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M10 14a4 4 0 0 0 5.7 0l3.6-3.6a4 4 0 0 0-5.7-5.7L12 6.3M14 10a4 4 0 0 0-5.7 0l-3.6 3.6a4 4 0 0 0 5.7 5.7l1.6-1.6"/></svg><span>Copia link</span></button>
-          </div>
-        </div>
-        <div class="how-row"><a class="how2" href="#cose">Come funziona</a></div>
-        <div class="note" id="note" role="status"></div>
-        <h3 class="kicker news-k" id="newsK" hidden>Le notizie del giorno</h3>
-        <ol class="news" id="news"></ol>
-        <a class="full" id="newsFull" href="#" hidden>La prima pagina in testo &rsaquo;</a>
-        <div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
-
-        <section class="agenda" id="agenda" aria-labelledby="ag-h" hidden>
-          <div class="ag-head"><h3 class="kicker" id="ag-h">In agenda</h3><span id="agMeta"></span></div>
-          <ul class="ag-list" id="agList"></ul>
-          <button type="button" class="ag-more" id="agMore">L'agenda completa a pag. 3 &rsaquo;</button>
-        </section>
-
-        <section class="bet" id="bet" aria-labelledby="bet-h" hidden>
-          <div class="bet-head"><h3 class="kicker" id="bet-h">La scommessa della settimana</h3><span class="wk" id="betWk"></span></div>
-          <div class="score" id="betScore"></div>
-          <ul class="instr" id="betInstr" aria-label="I mercati della scommessa"></ul>
-          <div class="bet-foot" id="betFoot"></div>
-          <a class="bet-more" href="scommessa.html">Come funziona e la pagella &rsaquo;</a>
-        </section>
-
+<section class="stage" aria-labelledby="headline">
+  <div class="wrap grid">
+    <div class="lead-col">
+      <div class="ed-meta"><span class="lab" id="lbl-latest">Ultima edizione</span><span id="meta"></span></div>
+      <h2 class="headline" id="headline">Caricamento dell'edizione...</h2>
+      <p class="nojs">Se la pagina non si carica: <a href="ultima/">l'ultima edizione in PDF</a> | <a href="feed.xml">Feed RSS</a></p>
+      <p class="dek" id="dek" hidden></p>
+      <h3 class="brief-k" id="briefK" hidden>In 30 secondi</h3>
+      <ul class="brief" id="brief"></ul>
+      <div class="actions">
+        <a class="btn lead" id="read" href="#" target="_blank" rel="noopener">Leggi l'edizione</a>
+        <a class="btn ghost" id="wa" aria-label="Condividi su WhatsApp" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span>WhatsApp</span></a>
+        <button type="button" class="btn ghost" id="copy" aria-label="Copia il link"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M10 14a4 4 0 0 0 5.7 0l3.6-3.6a4 4 0 0 0-5.7-5.7L12 6.3M14 10a4 4 0 0 0-5.7 0l-3.6 3.6a4 4 0 0 0 5.7 5.7l1.6-1.6"/></svg><span>Copia link</span></button>
       </div>
+      <div class="note" id="note" role="status"></div>
+    </div>
 
-      <div class="reader" id="reader" aria-label="Lettore dell'edizione">
-        <div class="reader-bar">
-          <span id="pg">Pagina - di -</span>
-          <div class="pager">
-            <button type="button" id="prev" aria-label="Pagina precedente" disabled>&lsaquo;</button>
-            <button type="button" id="next" aria-label="Pagina successiva" disabled>&rsaquo;</button>
-          </div>
-        </div>
+    <div class="reader" id="reader" aria-label="Lettore dell'edizione">
+      <div class="reader-bar">
         <ol class="pages" id="pages" aria-label="Vai alla pagina">
-          <li><button type="button" data-p="1"><b>1</b><span>Prima</span></button></li>
-          <li><button type="button" data-p="2"><b>2</b><span>Mercati</span></button></li>
-          <li><button type="button" data-p="3"><b>3</b><span>Agenda</span></button></li>
-          <li><button type="button" data-p="4"><b>4</b><span>Approf.</span></button></li>
-          <li><button type="button" data-p="5"><b>5</b><span>Approf.</span></button></li>
-          <li><button type="button" data-p="6"><b>6</b><span>Scommessa</span></button></li>
+          <li><button type="button" data-p="1"><b>1</b>Prima</button></li>
+          <li><button type="button" data-p="2"><b>2</b>Mercati</button></li>
+          <li><button type="button" data-p="3"><b>3</b>Agenda</button></li>
+          <li><button type="button" data-p="4"><b>4</b>Analisi</button></li>
+          <li><button type="button" data-p="5"><b>5</b>Analisi</button></li>
+          <li><button type="button" data-p="6"><b>6</b>Scommessa</button></li>
         </ol>
-        <div class="sheet" id="sheet"><canvas id="cv"></canvas><div class="wait" id="wait">Caricamento della pagina...</div></div>
-        <div class="actions" style="margin-top:12px"><a class="btn ghost" id="open" href="#" target="_blank" rel="noopener">Apri a schermo intero</a><a class="btn ghost" id="dl" href="#" download>Scarica PDF</a></div>
       </div>
+      <div class="sheet" id="sheet"><canvas id="cv"></canvas><div class="wait" id="wait">Caricamento della pagina...</div></div>
+      <div class="reader-foot">
+        <div class="pager"><button type="button" id="prev" aria-label="Pagina precedente" disabled>&lsaquo;</button><button type="button" id="next" aria-label="Pagina successiva" disabled>&rsaquo;</button></div>
+        <span id="pg">Pagina - di -</span>
+        <div class="links"><a class="btn ghost" id="open" href="#" target="_blank" rel="noopener">Schermo intero</a><a class="btn ghost" id="dl" href="#" download>Scarica PDF</a></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <section class="how-box" id="cose-sec" aria-labelledby="cose">
-        <h2 class="kicker" id="cose">Come funziona</h2>
-        <dl>
-          <div>
-            <dt><span class="pp">Pag. 1</span>Una prima pagina completa</dt>
-            <dd>Le chiusure, la notizia principale, In 30 secondi e le notizie del giorno: tutta la giornata in una pagina.</dd>
-          </div>
-          <div>
-            <dt><span class="pp">Pag. 2</span>Mercati, tassi, temi aperti</dt>
-            <dd>Indici, curve dei tassi, materie prime e cambi, con i termometri dei temi aperti: cosa si muove e cosa è fermo.</dd>
-          </div>
-          <div>
-            <dt><span class="pp">Pag. 3-5</span>Agenda e approfondimenti</dt>
-            <dd>Il calendario dei dati e delle trimestrali, poi gli approfondimenti, scelti ogni mattina sulle notizie del giorno: ognuno sostiene una tesi, con il numero che la regge e cosa guardare dopo.</dd>
-          </div>
-          <div>
-            <dt><span class="pp">Pag. 6</span>La scommessa della settimana</dt>
-            <dd>Il lunedì fissiamo dove chiuderanno 6 mercati il venerdì, più lo strumento della settimana, scelto sul tema del momento, e li seguiamo giorno per giorno. Il lunedì dopo, il verdetto. <a href="scommessa.html">Il metodo e la pagella</a></dd>
-          </div>
-        </dl>
-        <div class="trust">
-          <h3 class="kicker">Come lavoriamo</h3>
-          <p><b>Ogni fatto ha fonte, data e verifica</b> prima di uscire; i dati ufficiali si prendono dal comunicato di chi li produce. La scommessa ha una pagella pubblica, settimana per settimana.</p>
-          <div class="links"><a href="basi.html">Le basi: sigle e meccanismi</a><a href="numeri.html">I numeri del Gommberg</a><a href="ultima/">Link fisso all'ultima edizione</a><a href="feed.xml">Feed RSS</a></div>
-        </div>
+<main class="wrap">
+  <div class="day-grid">
+    <section aria-labelledby="newsK">
+      <h2 class="kicker" id="newsK" hidden>Le notizie del giorno</h2>
+      <ol class="news" id="news"></ol>
+      <a class="lnk" id="newsFull" href="#" hidden>La prima pagina in testo</a>
+      <div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
+    </section>
+
+    <div class="side">
+      <section id="agenda" aria-labelledby="ag-h" hidden>
+        <div class="box-h"><h2 class="kicker" id="ag-h">In agenda</h2><span id="agMeta"></span></div>
+        <ul class="ag-list" id="agList"></ul>
+        <button type="button" class="lnk" id="agMore">L'agenda completa a pag. 3</button>
+      </section>
+
+      <section id="bet" aria-labelledby="bet-h" hidden>
+        <div class="box-h"><h2 class="kicker" id="bet-h">La scommessa della settimana</h2><span id="betWk"></span></div>
+        <div class="score" id="betScore"></div>
+        <table class="bet-t" id="betT"><thead><tr><th scope="col">Mercato</th><th scope="col">Previsione</th><th scope="col">Per ora</th></tr></thead><tbody id="betRows"></tbody></table>
+        <div class="bet-foot" id="betFoot"></div>
+        <a class="lnk" href="scommessa.html">Il metodo e la pagella</a>
       </section>
     </div>
+  </div>
+
+  <section class="week" aria-labelledby="wk-h">
+    <h2 class="kicker" id="wk-h">Questa settimana</h2>
+    <ul class="wk-list" id="wkList"></ul>
+    <div class="wk-more"><a href="archivio.html" id="archLink">Tutto l'archivio</a><a href="ultima/">Link fisso all'ultima edizione</a></div>
   </section>
 
-  <section aria-labelledby="lbl-arch" id="archivio">
-    <h2 class="kicker" id="lbl-arch">Archivio</h2>
-    <h3 class="sec-h">Tutte le edizioni</h3>
-    <div class="arch-tools">
-      <label class="search"><span class="sr">Cerca nell'archivio</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Zm5.3-2.2L21 21"/></svg>
-        <input type="search" id="q" placeholder="Cerca: Kospi, CPI, TSMC, 14 ottobre..." autocomplete="off" enterkeyhint="search">
-      </label>
-      <div class="seg" id="vSeg" role="group" aria-label="Vista dell'archivio" hidden>
-        <button type="button" id="vList" aria-pressed="true">Elenco</button>
-        <button type="button" id="vCal" aria-pressed="false">Calendario</button>
-      </div>
-    </div>
-    <div class="chips" id="chips" role="group" aria-label="Filtra per tema" hidden></div>
-    <div class="count" id="count" role="status"></div>
-    <div id="ledger"><div class="empty">Le edizioni compaiono qui, dalla più recente.</div></div>
-  </section>
+  <details class="how" id="cose">
+    <summary><span class="s">Come funziona il Gommberg<em>Sei pagine, la stessa struttura ogni mattina</em></span><span class="x">Apri</span></summary>
+    <dl>
+      <div><dt><span class="pp">Pag. 1</span>Una prima pagina completa</dt><dd>Le chiusure, la notizia principale, In 30 secondi e le notizie del giorno: tutta la giornata in una pagina.</dd></div>
+      <div><dt><span class="pp">Pag. 2</span>Mercati, tassi, temi aperti</dt><dd>Indici, curve dei tassi, materie prime e cambi, con i termometri dei temi aperti: cosa si muove e cosa è fermo.</dd></div>
+      <div><dt><span class="pp">Pag. 3-5</span>Agenda e approfondimenti</dt><dd>Il calendario dei dati e delle trimestrali, poi gli approfondimenti scelti sulle notizie del giorno: ognuno sostiene una tesi, con il numero che la regge e cosa guardare dopo.</dd></div>
+      <div><dt><span class="pp">Pag. 6</span>La scommessa della settimana</dt><dd>Il lunedì fissiamo dove chiuderanno 6 mercati il venerdì, più lo strumento della settimana, e li seguiamo giorno per giorno. Il lunedì dopo, il verdetto.</dd></div>
+    </dl>
+    <p class="trust"><b>Ogni fatto ha fonte, data e verifica</b> prima di uscire; i dati ufficiali si prendono dal comunicato di chi li produce. La scommessa ha una pagella pubblica, settimana per settimana.</p>
+  </details>
 </main>
 
 <footer>
-  <div class="wrap">Gommberg Terminal Daily è una rassegna informativa sui mercati. Non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</div>
+  <div class="wrap">
+    <nav class="links" aria-label="Le pagine del sito"><a href="archivio.html">Archivio</a><a href="basi.html">Le basi</a><a href="numeri.html">I numeri</a><a href="scommessa.html">La scommessa</a><a href="feed.xml">Feed RSS</a></nav>
+    <p class="ai">Il Gommberg Terminal Daily è scritto con l'intelligenza artificiale (Claude, di Anthropic) e pubblicato in automatico, sotto la responsabilità editoriale di Paolo Gommellini.</p>
+    <p class="legal">Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</p>
+  </div>
 </footer>
 
 <script>
@@ -495,18 +378,18 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   const MESI = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
   const GIORNI = ["domenica","lunedì","martedì","mercoledì","giovedì","venerdì","sabato"];
   const GG = ["dom","lun","mar","mer","gio","ven","sab"];
-  const BREVI = { "MSCI ACWI (ETF)": "ACWI", "S&P 500": "S&P", "Euro Stoxx 50": "Stoxx 50", "Treasury 10 anni": "UST 10a", "Treasury 2 anni": "UST 2a", "Brent future": "Brent", "EUR/USD": "EUR/USD" };
   const $ = (id) => document.getElementById(id);
   const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
   const pad = (n) => String(n).padStart(3, "0");
   const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-  const parts = (iso) => iso.split("-").map(Number);
-  const utc = (iso) => { const [y, m, d] = parts(iso); return new Date(Date.UTC(y, m - 1, d)); };
+  const utc = (iso) => { const [y, m, d] = iso.split("-").map(Number); return new Date(Date.UTC(y, m - 1, d)); };
   const dataLunga = (iso) => { const dt = utc(iso); return GIORNI[dt.getUTCDay()] + " " + dt.getUTCDate() + " " + MESI[dt.getUTCMonth()] + " " + dt.getUTCFullYear(); };
-  const fold = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
   const params = new URLSearchParams(location.search);
   const DEMO = params.get("demo") === "1";
   const SRC = DEMO ? "edizioni_demo.json" : "edizioni.json";
+  // Vecchi link con ?tema=: l'archivio ora ha una pagina sua
+  if (params.get("tema")) { location.replace("archivio.html?tema=" + encodeURIComponent(params.get("tema"))); return; }
+  if (location.hash === "#archivio") { location.replace("archivio.html"); return; }
   // Statistiche dei lettori (GoatCounter, senza cookie): mai in modalità prova
   function conta(o, tent) {
     if (DEMO) return;
@@ -514,14 +397,10 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     if (g && typeof g.count === "function") { try { g.count(o); } catch (e) {} return; }
     if ((tent || 0) < 20) setTimeout(() => conta(o, (tent || 0) + 1), 400);
   }
-  const SOGLIA_ARCHIVIO = 30; // below this many editions: no calendar and no theme chips
   const desktop = () => window.matchMedia("(min-width: 901px)").matches;
-
-  // Sign of a change string like "+0,6% g", "-2 pb g", "0,0% g", "chiuso lun 12"
   function segno(s) {
     const m = String(s || "").trim().match(/^([+-−])?\s*(\d+(?:[.,]\d+)?)/);
-    if (!m) return 0;
-    if (parseFloat(m[2].replace(",", ".")) === 0) return 0;
+    if (!m || parseFloat(m[2].replace(",", ".")) === 0) return 0;
     return m[1] === "-" || m[1] === "−" ? -1 : m[1] === "+" ? 1 : 0;
   }
   const cls = (s) => { const g = segno(s); return g > 0 ? "up" : g < 0 ? "down" : ""; };
@@ -536,43 +415,36 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
 
   let pagine = new Set(); // edizioni con pagina propria (e/NNN.html), generate da redazione/pagine.py
   const pagina = (ed) => (!DEMO && pagine.has(ed.numero)) ? new URL("e/" + pad(ed.numero) + ".html", location.href).toString() : null;
-  const condividi = (ed) => pagina(ed) || linkFor(ed);
-  const lette = new Set(); // pagine del lettore già contate in questa visita
-  let editions = [], current = null, pdf = null, page = 1, renderTask = null;
-  let view = "list", tema = params.get("tema") || "", query = "";
-
-  /* ---------- URL for one edition ---------- */
   function linkFor(ed) {
-    const u = new URL(location.href);
-    u.search = ""; u.hash = "";
-    u.searchParams.set("n", ed.numero);
-    if (DEMO) u.searchParams.set("demo", "1");
+    const u = new URL(location.href); u.search = ""; u.hash = "";
+    u.searchParams.set("n", ed.numero); if (DEMO) u.searchParams.set("demo", "1");
     return u.toString();
   }
+  const condividi = (ed) => pagina(ed) || linkFor(ed);
+  const lette = new Set();
+  let editions = [], current = null, pdf = null, page = 1, renderTask = null;
 
-  /* ---------- Tape ---------- */
-  // Closing date shown on the tape: optional "ticker_al" (AAAA-MM-GG), else the weekday before the edition
+  /* ---------- Ticker ---------- */
   function chiusure(ed) {
     const iso = /^\d{4}-\d{2}-\d{2}$/.test(ed.ticker_al || "") ? ed.ticker_al : null;
     let d = iso ? utc(iso) : (ed.data ? utc(ed.data) : null);
-    if (!d || isNaN(d)) return "CHIUSURE DELL'EDIZIONE";
+    if (!d || isNaN(d)) return "Chiusure dell'edizione";
     if (!iso) do { d.setUTCDate(d.getUTCDate() - 1); } while (d.getUTCDay() === 0 || d.getUTCDay() === 6);
-    const g = (x) => x.getUTCDate() + " " + MESI[x.getUTCMonth()].slice(0, 3).toUpperCase();
+    const g = (x) => x.getUTCDate() + " " + MESI[x.getUTCMonth()].slice(0, 3);
     const dal = iso && /^\d{4}-\d{2}-\d{2}$/.test(ed.ticker_dal || "") && ed.ticker_dal < iso ? utc(ed.ticker_dal) : null;
-    if (dal) return "CHIUSURE " + (dal.getUTCMonth() === d.getUTCMonth() ? dal.getUTCDate() : g(dal)) + "-" + g(d);
-    return "CHIUSURE " + g(d);
+    if (dal) return "Chiusure " + (dal.getUTCMonth() === d.getUTCMonth() ? dal.getUTCDate() : g(dal)) + "-" + g(d);
+    return "Chiusure " + g(d);
   }
-  const CORTI = { "MSCI ACWI (ETF)": "ACWI", "EURO STOXX 50": "STOXX 50", "UST 10 ANNI": "UST 10A", "BRENT FUTURE": "BRENT" };
+  // Nomi brevi del ticker allineati al lessico del PDF
+  const CORTI = { "MSCI ACWI (ETF)": "ACWI", "EURO STOXX 50": "Stoxx 50", "UST 10 ANNI": "Treasury 10a", "BRENT FUTURE": "Brent", "S&P 500": "S&P 500", "EUR/USD": "EUR/USD", "VIX": "VIX" };
   function tape(ed) {
-    if (!$("tape")) return; // variant without ticker
     const t = ed.ticker;
     if (!Array.isArray(t) || !t.length) { $("tape").hidden = true; return; }
     const row = $("tapeRow"); row.innerHTML = "";
     const w = el("div", "tk when", chiusure(ed)); w.setAttribute("role", "listitem");
     w.title = "Chiusure riportate nell'edizione n. " + pad(ed.numero) + ", non quotazioni in tempo reale";
     row.appendChild(w);
-    for (const it of t) {
-      const [l, v, c] = it;
+    for (const [l, v, c] of t) {
       const cell = el("div", "tk"); cell.setAttribute("role", "listitem");
       cell.appendChild(el("span", "l", CORTI[l] || l));
       cell.appendChild(el("span", "v", String(v || "").replace(/\s*\$$/, "")));
@@ -583,59 +455,44 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     $("tape").hidden = false;
   }
 
-  /* ---------- Friday bet ---------- */
+  /* ---------- Scommessa: una riga per mercato ---------- */
   function bet(ed) {
     const b = ed.scommessa, v = ed.verdetto;
     if (!b && !v) { $("bet").hidden = true; return; }
     $("bet").hidden = false;
-    $("betWk").textContent = b && b.settimana ? "Settimana " + settimana(b.settimana) : "";
+    $("betWk").textContent = b && b.settimana ? settimana(b.settimana) : "";
     const sc = $("betScore"); sc.innerHTML = "";
-    const tot = (b && b.su) || (b && Array.isArray(b.dettaglio) ? b.dettaglio.length : 6);
-    if (b && b.range != null) {
-      const a = el("div"); a.appendChild(el("b", "", b.range + "/" + tot)); a.append("dentro il range"); sc.appendChild(a);
-    }
-    if (b && b.strada != null) {
-      const a = el("div"); a.appendChild(el("b", "", b.strada + "/" + tot)); a.append("on track"); sc.appendChild(a);
-    }
-    if (b && b.strada == null && b.range == null) {
-      sc.appendChild(el("div", "", "Pronostico appena fatto: da domani vedi a che punto siamo."));
-    }
-    const ul = $("betInstr"); ul.innerHTML = "";
     const det = (b && Array.isArray(b.dettaglio)) ? b.dettaglio : [];
+    const fissi = det.filter((d) => !d[4]);
+    const tot = (b && b.su && b.su < 7 ? b.su : fissi.length) || 6;
+    if (b && b.range != null) { const a = el("div"); a.appendChild(el("b", "", b.range + "/" + tot)); a.append("dentro il range"); sc.appendChild(a); }
+    if (b && b.strada != null) { const a = el("div"); a.appendChild(el("b", "", b.strada + "/" + tot)); a.append("on track"); sc.appendChild(a); }
+    if (b && b.strada == null && b.range == null) sc.appendChild(el("div", "", "Pronostico appena fatto: da domani vedi a che punto siamo."));
+    const tb = $("betRows"); tb.innerHTML = "";
     for (const d of det) {
       const [nome, dir, strada, , variab] = d;
-      const li = el("li");
-      li.appendChild(el("span", "n", (variab ? "\u2605 " : "") + (BREVI[nome] || nome)));
-      if (variab) li.title = "Lo strumento della settimana";
-      li.appendChild(el("span", "a", dir === "su" ? "\u2191" : dir === "giù" ? "\u2193" : "="));
-      li.appendChild(el("span", "r " + (strada === true ? "ok" : strada === false ? "ko" : "na"), strada === true ? "\u2713" : strada === false ? "\u2717" : "-"));
-      const lab = nome + ": previsto in " + (dir === "su" ? "rialzo" : dir === "giù" ? "calo" : "parità") + (strada === true ? ", per ora on track" : strada === false ? ", per ora nella direzione opposta" : ", ancora nessun movimento");
-      li.title = (variab ? "Lo strumento della settimana. " : "") + lab; li.setAttribute("aria-label", lab);
-      ul.appendChild(li);
+      const tr = el("tr", variab ? "var" : "");
+      const n = el("td", "", nome); if (variab) n.title = "Lo strumento della settimana, conto a parte";
+      tr.appendChild(n);
+      tr.appendChild(el("td", "", dir === "su" ? "↑ rialzo" : dir === "giù" ? "↓ calo" : "= parità"));
+      tr.appendChild(el("td", strada === true ? "ok" : strada === false ? "ko" : "na", strada === true ? "on track" : strada === false ? "contro" : "-"));
+      tb.appendChild(tr);
     }
-    ul.hidden = !det.length;
+    $("betT").hidden = !det.length;
     const f = $("betFoot"); f.innerHTML = "";
     if (v && v.punti != null) {
-      const p = el("div");
-      p.append("Verdetto della settimana " + settimana(v.settimana) + ": ");
+      const p = el("div"); p.append("Verdetto della settimana " + settimana(v.settimana) + ": ");
       const par = v.par != null ? v.par : null;
-      const s = el("strong", par == null ? "" : v.punti > par ? "up" : v.punti < par ? "down" : "", v.punti + " punti su " + v.su);
-      p.appendChild(s); if (par != null) p.append(" (par " + num(par) + ").");
+      p.appendChild(el("strong", par == null ? "" : v.punti > par ? "up" : v.punti < par ? "down" : "", v.punti + " punti su " + v.su));
+      if (par != null) p.append(" (par " + num(par) + ").");
       f.appendChild(p);
     }
+    if (det.some((d) => d[4])) f.appendChild(el("div", "", "Il quadratino arancione segna lo strumento della settimana, che ha un conto a parte."));
     const st = b && b.stagione;
-    if (det.length) f.appendChild(el("div", "", "Freccia: la direzione scelta lunedì. On track \u2713: per ora il mercato va così; \u2717: per ora va al contrario."
-      + (b && b.variabile ? " \u2605 " + b.variabile.nome + ": lo strumento della settimana, conto a parte." : "")));
     if (Array.isArray(st) && st[1] > 0) f.appendChild(el("div", "", "Stagione: " + st[0] + " punti su " + st[1] + "."));
-    const go = el("button", "tag", "Vai alla pagina 6"); go.type = "button"; go.style.marginTop = "8px";
-    go.addEventListener("click", () => goPage(6, true));
-    f.appendChild(go);
   }
 
   /* ---------- Agenda ---------- */
-  // "In arrivo" di pag. 3: si mostrano solo gli appuntamenti da oggi in poi (per l'ultima edizione)
-  const GSET = { lun: 1, mar: 2, mer: 3, gio: 4, ven: 5, sab: 6, dom: 0 };
-  const GIORNI_L = GIORNI;
   function agData(q, ed) {
     const m = /^(lun|mar|mer|gio|ven|sab|dom)\w*\s+(\d{1,2})/i.exec(q || ""); if (!m) return null;
     const d0 = utc(ed.data), g = +m[2];
@@ -644,8 +501,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     return d;
   }
   function oggiRoma() {
-    const s = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Rome", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
-    return utc(s);
+    return utc(new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Rome", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date()));
   }
   function agenda(ed) {
     const box = $("agenda"), rows = Array.isArray(ed.agenda) ? ed.agenda : [];
@@ -661,7 +517,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
         let lab = r.quando.split(",")[0];
         if (d) {
           const diff = Math.round((d - oggi) / 864e5);
-          lab = (ultima && diff === 0 ? "Oggi, " : ultima && diff === 1 ? "Domani, " : "") + GIORNI_L[d.getUTCDay()] + " " + d.getUTCDate() + (d.getUTCMonth() !== oggi.getUTCMonth() ? " " + MESI[d.getUTCMonth()] : "");
+          lab = (ultima && diff === 0 ? "Oggi, " : ultima && diff === 1 ? "Domani, " : "") + GIORNI[d.getUTCDay()] + " " + d.getUTCDate() + (d.getUTCMonth() !== oggi.getUTCMonth() ? " " + MESI[d.getUTCMonth()] : "");
         }
         list.appendChild(el("li", "ag-day", lab));
       }
@@ -679,29 +535,66 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
       li.appendChild(e); list.appendChild(li);
     });
     const altri = vis.length - Math.min(vis.length, MAX);
-    $("agMore").textContent = (altri > 0 ? "Altri " + altri + " appuntamenti nell'agenda completa a pag. 3" : "L'agenda completa a pag. 3") + " \u203a";
-    $("agMeta").textContent = ultima ? "dall'edizione n. " + pad(ed.numero) : "come nell'edizione n. " + pad(ed.numero);
+    $("agMore").textContent = altri > 0 ? "Altri " + altri + " appuntamenti nell'agenda completa a pag. 3" : "L'agenda completa a pag. 3";
+    $("agMeta").textContent = "dall'edizione n. " + pad(ed.numero);
     box.hidden = false;
   }
-  $("agMore").addEventListener("click", () => {
+  // Apre una pagina dell'edizione: sul PC nel lettore del palco, sul telefono nel PDF
+  function apriPagina(n) {
     if (!current) return;
-    if (desktop() && pdf) { goPage(3, true); return; }
-    window.open(current.file + "#page=3", "_blank", "noopener");
-  });
+    if (desktop() && pdf) { goPage(n); $("reader").scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+    window.open(current.file + "#page=" + n, "_blank", "noopener");
+  }
+  $("agMore").addEventListener("click", () => apriPagina(3));
 
-  /* ---------- Front page ---------- */
+  /* ---------- Variazione dello S&P 500 per edizione ---------- */
+  function spx(ed) {
+    const t = ed.ticker;
+    if (Array.isArray(t)) { const r = t.find((x) => /S&P/.test(x[0])); if (r) return r[2]; }
+    const txt = [ed.titolo, ...(ed.sommario || []), ...(ed.notizie || [])].join(" ");
+    const m = txt.match(/S&P(?:\s*500)?\s*(?:a\s*)?([+\-−]\d+(?:,\d+)?%)/);
+    return m ? m[1].replace("−", "-") + " g" : null;
+  }
+
+  /* ---------- Questa settimana ---------- */
+  function settimanaCorrente() {
+    const ul = $("wkList"); ul.innerHTML = "";
+    for (const ed of editions.slice(0, 5)) {
+      const li = el("li"), a = el("a"); a.href = linkFor(ed); a.dataset.n = ed.numero;
+      const dt = utc(ed.data);
+      const d = el("span", "d"); d.append(GG[dt.getUTCDay()] + " "); d.appendChild(el("b", "", String(dt.getUTCDate()).padStart(2, "0"))); d.append(" " + MESI[dt.getUTCMonth()].slice(0, 3) + "  #" + pad(ed.numero));
+      a.appendChild(d);
+      a.appendChild(el("span", "t", ed.titolo));
+      const sp = el("span", "sp"); const c = spx(ed);
+      if (c) { sp.appendChild(el("span", cls(c), c.replace(/\s*g\b.*$/, ""))); sp.appendChild(el("small", "", "S&P 500")); }
+      a.appendChild(sp);
+      a.addEventListener("click", (e) => { e.preventDefault(); showEdition(ed, true); window.scrollTo({ top: 0, behavior: "smooth" }); });
+      li.appendChild(a); ul.appendChild(li);
+    }
+    $("archLink").textContent = "Tutto l'archivio: " + editions.length + (editions.length === 1 ? " edizione" : " edizioni");
+  }
+
+  /* ---------- L'edizione ---------- */
   function showEdition(ed, push) {
     current = ed;
     const dt = utc(ed.data);
-    $("meta").textContent = "N. " + pad(ed.numero) + " | " + GG[dt.getUTCDay()] + " " + dt.getUTCDate() + " " + MESI[dt.getUTCMonth()].slice(0, 3);
+    $("meta").textContent = "N. " + pad(ed.numero) + "  |  " + cap(GIORNI[dt.getUTCDay()]) + " " + dt.getUTCDate() + " " + MESI[dt.getUTCMonth()];
     $("dlDate").textContent = cap(dataLunga(ed.data)) + "  |  Edizione n. " + pad(ed.numero);
     $("headline").textContent = ed.titolo;
-    if ($("dek")) { $("dek").textContent = ed.dek || ""; $("dek").hidden = !ed.dek; }
+    $("headline").classList.toggle("long", (ed.titolo || "").length > 64);   // i titoli lunghi scendono di corpo: mai 5 righe
+    $("dek").textContent = ed.dek || ""; $("dek").hidden = !ed.dek;
     const ul = $("brief"); ul.innerHTML = "";
     for (const b of (ed.sommario || [])) ul.appendChild(el("li", "", b));
     $("briefK").hidden = !(ed.sommario || []).length;
     const nl = $("news"); nl.innerHTML = "";
-    for (const t of (ed.notizie || [])) nl.appendChild(el("li", "", t));
+    (ed.notizie || []).forEach((t, i) => {
+      const li = el("li"), a = el("a"); a.href = ed.file + "#page=1"; a.target = "_blank"; a.rel = "noopener";
+      a.appendChild(el("span", "i", String(i + 1).padStart(2, "0")));
+      a.appendChild(el("span", "t", t));
+      a.appendChild(el("span", "go", "pag. 1"));
+      a.addEventListener("click", (e) => { if (desktop() && pdf) { e.preventDefault(); apriPagina(1); } });
+      li.appendChild(a); nl.appendChild(li);
+    });
     $("newsK").hidden = !(ed.notizie || []).length;
     const pg = pagina(ed); $("newsFull").hidden = !pg || !(ed.notizie || []).length; if (pg) $("newsFull").href = pg;
     $("open").href = ed.file; $("read").href = ed.file;
@@ -713,32 +606,31 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     const note = $("note"); note.innerHTML = "";
     if (ed !== editions[0]) {
       note.append("Stai leggendo un'edizione precedente. ");
-      const a = el("a", "", "Torna all'ultima, la n. " + pad(editions[0].numero)); a.href = "#";
+      const a = el("a", "", "Torna all'ultima, la n. " + pad(editions[0].numero)); a.href = "./";
       a.addEventListener("click", (e) => { e.preventDefault(); showEdition(editions[0], true); });
       note.appendChild(a);
     }
     $("lbl-latest").textContent = ed === editions[0] ? "Ultima edizione" : "Edizione precedente";
     tape(ed); agenda(ed); bet(ed); votoStato(ed);
-    document.querySelectorAll("[data-n]").forEach((r) => r.setAttribute("aria-current", r.dataset.n == ed.numero ? "true" : "false"));
+    document.querySelectorAll("#wkList a").forEach((r) => r.setAttribute("aria-current", r.dataset.n == ed.numero ? "true" : "false"));
     if (push) conta({ path: "edizione-" + pad(ed.numero), title: "Edizione n. " + pad(ed.numero) + " aperta dall'archivio", event: true });
-    if (push) history.replaceState(null, "", ed === editions[0] && !params.get("n") ? (DEMO ? "?demo=1" : location.pathname) : linkFor(ed));
+    if (push) history.replaceState(null, "", ed === editions[0] ? (DEMO ? "?demo=1" : location.pathname) : linkFor(ed));
     document.title = (ed === editions[0] ? "" : "#" + pad(ed.numero) + " ") + "Gommberg Terminal Daily";
     if (desktop()) loadPdf(ed.file); else pdf = null;
   }
 
   $("copy").addEventListener("click", async () => {
     if (!current) return;
-    const url = condividi(current);
-    const lab = $("copy").querySelector("span");
+    const url = condividi(current), lab = $("copy").querySelector("span");
     try { await navigator.clipboard.writeText(url); lab.textContent = "Link copiato"; }
     catch (e) { window.prompt("Copia il link dell'edizione:", url); }
     setTimeout(() => { lab.textContent = "Copia link"; }, 2200);
+    conta({ path: "condividi-link-" + pad(current.numero), title: "Link copiato n. " + pad(current.numero), event: true });
   });
   for (const [id, cosa] of [["read", "letta"], ["open", "schermo intero"], ["dl", "scaricata"]]) {
     $(id).addEventListener("click", () => { if (current && !(id === "read" && desktop())) { conta({ path: "pdf-" + pad(current.numero), title: "PDF n. " + pad(current.numero) + " " + cosa, event: true }); conta({ path: "pdf-tutte", title: "PDF aperti (tutte le edizioni)", event: true }); } });
   }
   $("wa").addEventListener("click", () => { if (current) conta({ path: "condividi-whatsapp-" + pad(current.numero), title: "Condivisione WhatsApp n. " + pad(current.numero), event: true }); });
-  $("copy").addEventListener("click", () => { if (current) conta({ path: "condividi-link-" + pad(current.numero), title: "Link copiato n. " + pad(current.numero), event: true }); });
   // Voto dei lettori: un voto per edizione e per browser, anonimo
   const votoKey = (ed) => "gtd-voto-" + pad(ed.numero);
   function votoStato(ed) {
@@ -756,15 +648,10 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     $("vote").querySelectorAll("button").forEach((x) => { x.hidden = true; });
     $("voteQ").textContent = "Grazie del voto."; $("voteQ").classList.add("thx");
   });
-  // Main button: on phones opens the PDF full screen (native viewer), on desktop scrolls to the reader
-  $("read").addEventListener("click", (e) => {
-    if (!desktop()) return;
-    e.preventDefault();
-    $("reader").scrollIntoView({ behavior: "smooth", block: "start" });
-  });
+  // "Come funziona": si apre anche da un link #cose
+  if (location.hash === "#cose") $("cose").open = true;
 
-  /* ---------- PDF reader ---------- */
-  // pdf.js serve solo al lettore su PC: si scarica dopo che l'edizione è comparsa, mai sul telefono e mai prima del contenuto
+  /* ---------- Lettore PDF (solo PC) ---------- */
   const PDFJS = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/";
   let pdfjsPronto = null;
   const caricaScript = (src) => new Promise((ok, ko) => { const s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = () => ko(new Error(src)); document.head.appendChild(s); });
@@ -773,50 +660,42 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     if (!pdfjsPronto) pdfjsPronto = caricaScript(PDFJS + "pdf.min.js").then(() => caricaScript(PDFJS + "pdf.worker.min.js")).then(() => window.pdfjsLib).catch(() => { pdfjsPronto = null; return null; });
     return pdfjsPronto;
   }
+  const NOPREV = "Anteprima non disponibile: apri l'edizione con \"Leggi l'edizione\" o \"Scarica PDF\".";
   async function loadPdf(url) {
     page = 1; pdf = null; markPages();
-    $("sheet").classList.remove("ok", "nopreview");
+    $("sheet").classList.remove("nopreview");
     $("wait").hidden = false; $("wait").textContent = "Caricamento della pagina...";
     const lib = await ensurePdfjs();
     if (current && current.file !== url) return;
-    if (!lib) { $("sheet").classList.add("nopreview"); $("wait").textContent = "Anteprima non disponibile qui. Usa \"Leggi l'edizione\" o \"Scarica PDF\"."; return; }
+    if (!lib) { $("sheet").classList.add("nopreview"); $("wait").textContent = NOPREV; return; }
     try {
       const doc = await lib.getDocument({ url, isEvalSupported: false, disableFontFace: true }).promise;
       if (current && current.file !== url) return;
-      pdf = doc;
-      await renderPage();
-    } catch (e) {
-      $("wait").hidden = false; $("sheet").classList.add("nopreview");
-      $("wait").textContent = "Anteprima non disponibile qui. Usa \"Leggi l'edizione\" o \"Scarica PDF\".";
-    }
+      pdf = doc; await renderPage();
+    } catch (e) { $("wait").hidden = false; $("sheet").classList.add("nopreview"); $("wait").textContent = NOPREV; }
   }
   async function renderPage() {
     if (!pdf) return;
     const p = await pdf.getPage(page);
-    const cv = $("cv");
-    const box = cv.parentElement.getBoundingClientRect();
-    const base = p.getViewport({ scale: 1 });
-    const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    const cv = $("cv"), box = cv.parentElement.getBoundingClientRect();
+    const base = p.getViewport({ scale: 1 }), dpr = Math.min(window.devicePixelRatio || 1, 2.5);
     const vp = p.getViewport({ scale: (box.width / base.width) * dpr });
     cv.width = Math.floor(vp.width); cv.height = Math.floor(vp.height);
     if (renderTask) { try { renderTask.cancel(); } catch (e) {} }
     renderTask = p.render({ canvasContext: cv.getContext("2d"), viewport: vp });
     try { await renderTask.promise; } catch (e) { return; }
-    $("wait").hidden = true; $("sheet").classList.add("ok");
+    $("wait").hidden = true;
     $("pg").textContent = "Pagina " + page + " di " + pdf.numPages;
     if (current && desktop()) leggeLettore(page);
     if (page > 1 && current) { const k = current.numero + "-" + page; if (!lette.has(k)) { lette.add(k); conta({ path: "pagina-" + page + "-" + pad(current.numero), title: "Pagina " + page + " letta, n. " + pad(current.numero), event: true }); } }
-    $("prev").disabled = page <= 1;
-    $("next").disabled = page >= pdf.numPages;
+    $("prev").disabled = page <= 1; $("next").disabled = page >= pdf.numPages;
     markPages();
   }
-  // Lettura nel lettore integrato (PC): una volta per visita e per edizione, quando la pag. 1 resta visibile 10 secondi o si cambia pagina.
-  // Evento "lettore-NNN" a parte: "pdf-NNN" resta com'è, così la serie storica non si rompe.
+  // Lettura nel lettore (PC): una volta per visita e per edizione, dopo 10 secondi sulla pag. 1 o a un cambio di pagina
   let lettoreTimer = null;
   function leggeLettore(p) {
     if (!current) return;
-    const k = "L" + current.numero;
-    if (lette.has(k)) return;
+    const k = "L" + current.numero; if (lette.has(k)) return;
     const n = current.numero;
     const segna = () => { if (lette.has(k)) return; lette.add(k); clearTimeout(lettoreTimer); conta({ path: "lettore-" + pad(n), title: "Lettore n. " + pad(n), event: true }); };
     clearTimeout(lettoreTimer);
@@ -824,19 +703,14 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     lettoreTimer = setTimeout(() => { if (current && current.numero === n) segna(); }, 10000);
   }
   function markPages() { document.querySelectorAll("#pages button").forEach((b) => b.setAttribute("aria-current", +b.dataset.p === page ? "true" : "false")); }
-  function goPage(n, scroll) {
-    if (!pdf) return;
-    page = Math.max(1, Math.min(pdf.numPages, n)); renderPage();
-    if (scroll) $("sheet").scrollIntoView({ behavior: "smooth", block: "center" });
-  }
+  function goPage(n) { if (!pdf) return; page = Math.max(1, Math.min(pdf.numPages, n)); renderPage(); }
   $("prev").addEventListener("click", () => goPage(page - 1));
   $("next").addEventListener("click", () => goPage(page + 1));
   $("pages").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) goPage(+b.dataset.p); });
   let x0 = null;
   $("sheet").addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
   $("sheet").addEventListener("touchend", (e) => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) goPage(page + (dx < 0 ? 1 : -1)); }, { passive: true });
-  // "Apri a schermo intero": il lettore a tutto schermo, con pagine e frecce; senza Fullscreen API resta il link al PDF
-  // Lo stesso per "Leggi l'edizione" su PC (sul telefono il lettore non c'è e il PDF si apre nel lettore del telefono)
+  // "Leggi l'edizione" e "Schermo intero" su PC: il lettore a tutto schermo; sul telefono il PDF nel lettore del telefono
   for (const id of ["open", "read"]) $(id).addEventListener("click", (e) => {
     const r = $("reader");
     if (!r.requestFullscreen || !pdf || !desktop()) return;
@@ -844,7 +718,7 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
     if (document.fullscreenElement) document.exitFullscreen(); else r.requestFullscreen().catch(() => window.open($("open").href, "_blank"));
   });
   document.addEventListener("fullscreenchange", () => {
-    $("open").textContent = document.fullscreenElement ? "Esci dallo schermo intero" : "Apri a schermo intero";
+    $("open").textContent = document.fullscreenElement ? "Esci" : "Schermo intero";
     setTimeout(() => { if (pdf) renderPage(); }, 60);
   });
   document.addEventListener("keydown", (e) => {
@@ -855,164 +729,9 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   let rt, lastW = window.innerWidth;
   window.addEventListener("resize", () => { if (window.innerWidth === lastW) return; lastW = window.innerWidth; clearTimeout(rt); rt = setTimeout(() => { if (!desktop()) return; if (pdf) renderPage(); else if (current) loadPdf(current.file); }, 200); });
 
-  /* ---------- Archive ---------- */
-  function haystack(ed) {
-    return fold([ed.titolo, dataLunga(ed.data), ed.data, "#" + pad(ed.numero), (ed.sommario || []).join(" "), (ed.notizie || []).join(" "), (ed.temi || []).join(" "), (ed.glossario || []).join(" "), Object.values(ed.temi_deep_dive || {}).join(" ")].join(" "));
-  }
-  function matches(ed) {
-    if (tema && !(ed.temi || []).includes(tema)) return false;
-    if (!query) return true;
-    const h = ed._h || (ed._h = haystack(ed));
-    return fold(query).split(/\s+/).filter(Boolean).every((w) => h.includes(w));
-  }
-  // Variazione dello S&P 500 del giorno: dal ticker; per le edizioni senza ticker, dalla prima cifra
-  // "S&P 500 +x,y%" del sommario o delle notizie. Così ogni riga che ha il dato lo mostra.
-  function spx(ed) {
-    const t = ed.ticker;
-    if (Array.isArray(t)) { const r = t.find((x) => /S&P/.test(x[0])); if (r) return r[2]; }
-    const txt = [ed.titolo, ...(ed.sommario || []), ...(ed.notizie || [])].join(" ");
-    const m = txt.match(/S&P(?:\s*500)?\s*(?:a\s*)?([+\-\u2212]\d+(?:,\d+)?%)/);
-    return m ? m[1].replace("\u2212", "-") + " g" : null;
-  }
-  function setTema(t) {
-    tema = tema === t ? "" : t;
-    document.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", (c.dataset.t || "") === tema ? "true" : "false"));
-    buildArchive();
-  }
-  function buildChips() {
-    const big = editions.length >= SOGLIA_ARCHIVIO;
-    $("vSeg").hidden = !big;
-    if (!big && view === "cal") view = "list";
-    const freq = new Map();
-    for (const ed of editions) for (const t of (ed.temi || [])) freq.set(t, (freq.get(t) || 0) + 1);
-    const box = $("chips"); box.innerHTML = "";
-    if (!big || !freq.size) { box.hidden = true; return; }
-    box.hidden = false;
-    const top = [...freq.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 14);
-    const all = el("button", "chip", "Tutti i temi"); all.type = "button"; all.dataset.t = ""; all.setAttribute("aria-pressed", tema ? "false" : "true");
-    all.addEventListener("click", () => setTema(""));
-    box.appendChild(all);
-    for (const [t, n] of top) {
-      const c = el("button", "chip", t); c.type = "button"; c.dataset.t = t; c.setAttribute("aria-pressed", t === tema ? "true" : "false");
-      c.appendChild(el("small", "", String(n)));
-      c.addEventListener("click", () => setTema(t));
-      box.appendChild(c);
-    }
-  }
-  function byMonth(list) {
-    const groups = [];
-    for (const ed of list) {
-      const k = ed.data.slice(0, 7);
-      let g = groups[groups.length - 1];
-      if (!g || g.k !== k) { g = { k, items: [] }; groups.push(g); }
-      g.items.push(ed);
-    }
-    return groups;
-  }
-  const monthName = (k) => { const [y, m] = k.split("-").map(Number); return cap(MESI[m - 1]) + " " + y; };
-  function open(ed) { showEdition(ed, true); window.scrollTo({ top: 0, behavior: "smooth" }); }
-
-  function buildArchive() {
-    const box = $("ledger"); box.innerHTML = "";
-    if (!editions.length) { box.appendChild(el("div", "empty", "Le edizioni compaiono qui, dalla più recente.")); $("count").textContent = ""; return; }
-    const filtering = !!(query || tema);
-    const list = editions.filter(matches);
-    $("count").textContent = filtering
-      ? (list.length ? list.length + (list.length === 1 ? " edizione trovata" : " edizioni trovate") + (tema && !query ? " sul tema " + tema : "") : "")
-      : editions.length + (editions.length === 1 ? " edizione" : " edizioni") + ", dalla più recente";
-    if (tema && $("chips").hidden) {
-      const x = el("button", "clr", "Tutte le edizioni"); x.type = "button";
-      x.addEventListener("click", () => setTema(""));
-      $("count").appendChild(document.createTextNode("  ")); $("count").appendChild(x);
-    }
-    if (!list.length) {
-      const e = el("div", "empty", "Nessuna edizione per questa ricerca. Prova con un'altra parola o togli il filtro del tema.");
-      box.appendChild(e); return;
-    }
-    if (view === "cal") return buildCalendar(box, filtering ? new Set(list) : null);
-    byMonth(list).forEach((g, i) => {
-      const det = el("details", "month");
-      if (i < 2 || filtering) det.open = true;
-      const sum = el("summary");
-      sum.appendChild(el("h3", "", monthName(g.k)));
-      sum.appendChild(el("span", "", g.items.length + (g.items.length === 1 ? " edizione" : " edizioni")));
-      det.appendChild(sum);
-      for (const ed of g.items) {
-        const r = el("button", "row"); r.type = "button"; r.dataset.n = ed.numero;
-        r.setAttribute("aria-current", current && current.numero === ed.numero ? "true" : "false");
-        const dt = utc(ed.data);
-        const d = el("span", "d"); d.append(GG[dt.getUTCDay()] + " "); d.appendChild(el("b", "", String(dt.getUTCDate()).padStart(2, "0"))); d.append(" " + MESI[dt.getUTCMonth()].slice(0, 3));
-        r.appendChild(d);
-        r.appendChild(el("span", "n", "#" + pad(ed.numero)));
-        const t = el("span", "t", ed.titolo);
-        if ((ed.temi || []).length) t.appendChild(el("span", "tg", ed.temi.slice(0, 4).join("  /  ")));
-        r.appendChild(t);
-        const sp = el("span", "sp"); const c = spx(ed);
-        if (c) { const v = el("span", cls(c), c.replace(/\s*g\b.*$/, "")); sp.appendChild(v); sp.appendChild(el("small", "", "S&P 500")); }
-        r.appendChild(sp);
-        r.addEventListener("click", () => open(ed));
-        det.appendChild(r);
-      }
-      box.appendChild(det);
-    });
-  }
-
-  function buildCalendar(box, keep) {
-    const byDate = new Map(editions.map((e) => [e.data, e]));
-    const months = [...new Set(editions.map((e) => e.data.slice(0, 7)))];
-    const monday = (iso) => { const d = utc(iso); d.setUTCDate(d.getUTCDate() - (d.getUTCDay() + 6) % 7); return d.toISOString().slice(0, 10); };
-    const lo = monday(editions[editions.length - 1].data);
-    const hiW = (() => { const d = utc(editions[0].data); d.setUTCDate(d.getUTCDate() + (5 - d.getUTCDay())); return d.toISOString().slice(0, 10); })();
-    for (const k of months) {
-      const [y, m] = k.split("-").map(Number);
-      const wrap = el("div", "cal-month");
-      wrap.appendChild(el("h3", "", monthName(k)));
-      const grid = el("div", "cal");
-      for (const w of ["lun", "mar", "mer", "gio", "ven"]) grid.appendChild(el("div", "wd", w));
-      const days = new Date(Date.UTC(y, m, 0)).getUTCDate();
-      let started = false;
-      for (let d = 1; d <= days; d++) {
-        const dt = new Date(Date.UTC(y, m - 1, d)); const wd = dt.getUTCDay();
-        if (wd === 0 || wd === 6) continue;
-        const iso = dt.toISOString().slice(0, 10);
-        if (iso < lo || iso > hiW) continue; // only weeks covered by the archive
-        if (!started) { started = true; for (let i = 0; i < wd - 1; i++) grid.appendChild(el("div")); }
-        const ed = byDate.get(iso);
-        const c = el(ed ? "button" : "div", "day");
-        c.appendChild(el("span", "", String(d)));
-        if (ed) {
-          c.type = "button"; c.dataset.n = ed.numero;
-          c.classList.add("has");
-          const ch = spx(ed); const g = segno(ch);
-          if (g > 0) c.classList.add("pos"); else if (g < 0) c.classList.add("neg");
-          if (ch) c.appendChild(el("span", "dv " + cls(ch), ch.replace(/\s*g\b.*$/, "")));
-          if (keep && !keep.has(ed)) c.classList.add("dim");
-          c.setAttribute("aria-label", dataLunga(iso) + ", edizione n. " + pad(ed.numero) + ": " + ed.titolo);
-          c.title = "#" + pad(ed.numero) + " " + ed.titolo;
-          c.setAttribute("aria-current", current && current.numero === ed.numero ? "true" : "false");
-          c.addEventListener("click", () => open(ed));
-        } else c.classList.add("dim");
-        grid.appendChild(c);
-      }
-      wrap.appendChild(grid);
-      box.appendChild(wrap);
-    }
-    box.appendChild(el("p", "cal-key", "Ogni casella è un'edizione: verde se il giorno prima l'S&P 500 ha chiuso in rialzo, rossa se in calo. Tocca un giorno per aprirla."));
-  }
-
-  function setView(v) {
-    view = v;
-    $("vList").setAttribute("aria-pressed", v === "list" ? "true" : "false");
-    $("vCal").setAttribute("aria-pressed", v === "cal" ? "true" : "false");
-    buildArchive();
-  }
-  $("vList").addEventListener("click", () => setView("list"));
-  $("vCal").addEventListener("click", () => setView("cal"));
-  let qt; $("q").addEventListener("input", (e) => { clearTimeout(qt); qt = setTimeout(() => { query = e.target.value.trim(); buildArchive(); }, 120); });
-
-  /* ---------- Boot ---------- */
+  /* ---------- Avvio ---------- */
   function fail(msg, retry) {
-    $("main").classList.remove("loading"); $("main").classList.add("failed");
+    document.body.classList.remove("loading"); document.body.classList.add("failed");
     $("headline").textContent = msg;
     if (retry) {
       const b = el("button", "btn ghost retry", "Ricarica la pagina"); b.type = "button";
@@ -1023,18 +742,14 @@ footer .wrap { padding-block: 18px 28px; font-size: 12.5px; color: var(--muted);
   if (DEMO) $("demo").hidden = false;
   const pagineP = DEMO ? Promise.resolve([]) : fetch("e/pagine.json", { cache: "no-store" }).then((r) => r.ok ? r.json() : []).catch(() => []);
   Promise.all([fetch(SRC, { cache: "no-store" }), pagineP])
-    .then(([r, pg]) => { pagine = new Set(Array.isArray(pg) ? pg : []); return r; })
-    .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(([r, pg]) => { pagine = new Set(Array.isArray(pg) ? pg : []); if (!r.ok) throw new Error(r.status); return r.json(); })
     .then((list) => {
       editions = (Array.isArray(list) ? list : []).filter((e) => e && e.numero && e.data && e.file).sort((a, b) => b.numero - a.numero);
-      buildChips(); buildArchive();
-      $("main").classList.remove("loading");
+      document.body.classList.remove("loading");
       if (!editions.length) { fail("Ancora nessuna edizione in archivio.", false); return; }
+      settimanaCorrente();
       const want = parseInt(params.get("n"), 10);
-      const ed = editions.find((e) => e.numero === want) || editions[0];
-      showEdition(ed, false);
-      buildArchive();
-      if (tema) requestAnimationFrame(() => $("archivio").scrollIntoView({ block: "start" }));
+      showEdition(editions.find((e) => e.numero === want) || editions[0], false);
       conta({ path: location.pathname + (want ? "?n=" + want : ""), title: document.title });
     })
     .catch(() => fail("Archivio non raggiungibile. Riprova tra qualche minuto.", true));

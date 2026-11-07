@@ -267,7 +267,7 @@ C = {
                        "sottotitolo": "variazioni % del 14/10 e di stamattina"},
          "grafico2": {"tipo": "linee", "file": "c_nasdaq.png", "x": [d(x) for x, _ in NASDAQ],
                     "serie": [("Nasdaq", [v for _, v in NASDAQ], "#111111")], "soggetto": "Nasdaq", "ruolo": "storia",
-                    "titolo": "Il Nasdaq perde il 3,3% dal record del 6 ottobre", "sottotitolo": "Nasdaq Composite, punti",
+                    "titolo": "Il Nasdaq perde il 3,3% dal massimo del 6 ottobre", "sottotitolo": "Nasdaq Composite, punti",
                     "eventi": [(d("10-14"), "CPI")],   # segna l'evento di cui parla il testo (v7.8); soglie = [(livello, "testo")]
                     "note": [(d("10-06"), 27599.79, "6/10"), (d("10-14"), 26692.87, "14/10")]},
          "righe": [["TSMC, terzo trimestre", "Valore", "Variazione annua", "Contro le attese"],
