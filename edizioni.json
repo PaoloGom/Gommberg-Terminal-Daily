@@ -3432,7 +3432,7 @@
  {
   "numero": 20,
   "data": "2026-11-06",
-  "titolo": "Repricing AI: (Mid)term the Trump Trade",
+  "titolo": "Repricing AI: (Mid)term the Trump Trade - dopo il voto il Nasdaq perde il 5,5% e i chip il 12%",
   "sommario": [
    "Chi ha venduto: i fondi riducevano il rischio da ottobre, giovedì ha ceduto anche il piccolo risparmiatore.",
    "Il debito che finanzia l'AI è la prova che conta: se il calo passa al credito, lo diranno spread e assicurazioni sul default.",
@@ -3607,6 +3607,23 @@
     "Dollaro e rifugi",
     "EUR/USD 1,1187 stamattina"
    ]
+  ],
+  "dek": "Dopo le elezioni di metà mandato e il rimbalzo di mercoledì, il Nasdaq perde il 5,52% (S&P 500 -4,4%, Dow Jones -3,44%), la peggiore seduta dall'aprile 2025, ed è in correzione; l'indice dei chip SOX (i 30 maggiori titoli del settore) cede il 12,25%. Il mercato non rivede gli utili: rivede quanto paga oggi ricavi più lontani e più incerti, perché i data center, che l'amministrazione Trump aveva spinto con permessi federali più rapidi, sono diventati un tema di voto.",
+  "agenda": [
+   {
+    "quando": "Ven 6, 14:30",
+    "evento": "Rapporto sull'occupazione USA di ottobre",
+    "attese": "+59-65 mila posti; disoccupazione 4,2%; prec. +29 mila",
+    "perche": "Evento n.1: il 5 giugno un dato forte sul lavoro fece perdere il 4,18% al Nasdaq",
+    "chiave": true
+   },
+   {
+    "quando": "Ven 6, 15:30",
+    "evento": "Apertura di Wall Street",
+    "attese": "",
+    "perche": "Dirà se i chip rimbalzano o scendono ancora",
+    "chiave": false
+   }
   ]
  }
 ]

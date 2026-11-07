@@ -498,7 +498,11 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   function agenda(ed) {
     const box = $("agenda"), rows = Array.isArray(ed.agenda) ? ed.agenda : [];
     const oggi = oggiRoma(), ultima = ed === editions[0];
-    const vis = rows.map((r) => ({ r, d: agData(r.quando, ed) })).filter((x) => !ultima || !x.d || x.d >= oggi);
+    const tutte = rows.map((r) => ({ r, d: agData(r.quando, ed) }));
+    let vis = tutte.filter((x) => !ultima || !x.d || x.d >= oggi);
+    // Nel fine settimana gli appuntamenti dell'ultima edizione sono passati: si mostrano comunque, come agenda di quella giornata
+    const conclusa = ultima && !vis.length && tutte.length > 0;
+    if (conclusa) vis = tutte;
     $("dayGrid").classList.toggle("no-ag", !vis.length);
     if (!vis.length) { box.hidden = true; return; }
     const MAX = 4, list = $("agList"); list.innerHTML = "";
@@ -529,7 +533,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     });
     const altri = vis.length - Math.min(vis.length, MAX);
     $("agMore").textContent = altri > 0 ? "Altri " + altri + " appuntamenti nell'agenda completa a pag. 3" : "L'agenda completa a pag. 3";
-    $("agMeta").textContent = "";
+    $("agMeta").textContent = conclusa ? "giornata conclusa" : "";
     box.hidden = false;
   }
   // Apre una pagina dell'edizione: sul PC nel lettore del palco, sul telefono nel PDF
