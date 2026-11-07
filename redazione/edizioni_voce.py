@@ -152,6 +152,10 @@ def main():
                  "parole": w.get("parole", []), "ripetizioni": punteggio, "glossario": gloss})
     if w.get("termometri"):
         voce["termometri"] = w["termometri"]
+    graf = [{k: g.get(k) for k in ("tipo", "titolo", "serie", "x0", "x1", "etichette")}
+            for m in w.get("moduli_redazione") or [] for g in m.get("grafici", [])]
+    if graf:   # v7.8: firme dei grafici, per non ripetere lo stesso grafico nei giorni successivi
+        voce["grafici"] = graf
     if w.get("errata"):   # niente errata corrige (APP_ERRORI.md §6): il campo si ignora
         print("AVVISO: voce.json contiene errata: ignorato (le correzioni sostanziali vanno nel testo)")
     ag = w.get("agenda") or []           # da extra_voce.py: "In arrivo" di pag. 3, mostrata sul sito

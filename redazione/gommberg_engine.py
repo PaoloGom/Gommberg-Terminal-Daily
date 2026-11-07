@@ -571,7 +571,9 @@ def disegna(spec, extra_mm=0, larghezza_mm=None):
     Il motore disegna il grafico e, se serve, lo allunga di extra_mm per riempire la pagina."""
     if isinstance(spec, str):
         return spec
-    k = dict(spec); tipo, f = k.pop("tipo"), k.pop("file"); k.pop("soggetto", None)
+    k = dict(spec); tipo, f = k.pop("tipo"), k.pop("file"); k.pop("soggetto", None); k.pop("sottotitolo", None)
+    if tipo == "barre" and "unita" not in k:   # v7.8: senza unità il motore metteva "%" (caso #012, ricavi in miliardi)
+        raise ValueError(f"grafico {f}: manca 'unita' (es. \"%\", \" pb\", \" mld $\"): dichiarala sempre")
     if larghezza_mm:                       # scala 1:1: la figura è larga quanto lo spazio che occupa
         k["largo"] = larghezza_mm / 25.4
     largo = k.get("largo", 3.55)
@@ -646,10 +648,19 @@ def approfondimento(tema, titolo, formato, chiave=None, **c):
     return [CondPageBreak(c.get("spazio", 60) * mm), KeepTogether(testa + corpo[:2])] + corpo[2:] + [Respiro(6)]
 
 
+def titolo_grafico(spec):
+    """v7.8: titolo = il messaggio del grafico; sottotitolo (facoltativo) = misura e periodo, in grigio sulla stessa riga."""
+    tit = spec.get("titolo", "") if isinstance(spec, dict) else ""
+    sub = spec.get("sottotitolo", "") if isinstance(spec, dict) else ""
+    if not tit:
+        return []
+    testo = signcol(tit) + (f' <font name="Body" color="#666666" size="7">{sub}</font>' if sub else "")
+    return [Paragraph(testo, S["chart_t"])]
+
+
 def _figura(spec, w, extra_mm=0):
     """Grafico (legacy approfondimento) con il titolo come Paragraph sopra, disegnato in scala 1:1."""
-    tit = spec.get("titolo", "") if isinstance(spec, dict) else ""
-    return ([Paragraph(signcol(tit), S["chart_t"])] if tit else []) + [graphic(disegna(spec, extra_mm, w / mm), w)]
+    return titolo_grafico(spec) + [graphic(disegna(spec, extra_mm, w / mm), w)]
 
 
 def perche_quindi(perche, quindi):
@@ -808,9 +819,11 @@ def _colore_linea(c, i, n):
     return c
 
 
-def linee(path, x, serie, titolo="", unita="", alto=2.2, largo=3.55, zero=False, note=(), dec=None, **_):
+def linee(path, x, serie, titolo="", unita="", alto=2.2, largo=3.55, zero=False, note=(), dec=None, soglie=(),
+          eventi=(), **_):
     """Linee nel tempo o per categoria. x = lista di date/etichette; serie = [(nome, [valori], colore)];
-    note = [(x, y, testo)] etichette con un punto. L'ultima osservazione di ogni serie ha un punto e il valore
+    note = [(x, y, testo)] etichette con un punto; soglie = [(valore, testo)] linee orizzontali tratteggiate (il livello
+    che usano "E quindi" o "Da guardare"); eventi = [(x, testo)] linee verticali tratteggiate (il voto, la Fed...). L'ultima osservazione di ogni serie ha un punto e il valore
     (in arancione se la serie è una sola). Il titolo NON si disegna qui."""
     plt = _plt()
     import datetime as _dt
@@ -826,6 +839,14 @@ def linee(path, x, serie, titolo="", unita="", alto=2.2, largo=3.55, zero=False,
         ultimi.append([xs[-1], ys[-1], "#B4470F" if len(serie) == 1 else c])
     if zero:
         ax.axhline(0, color="#888888", lw=0.7)
+    for sv, st in soglie:
+        ax.axhline(sv, color="#888888", lw=0.8, ls=(0, (3, 2)), zorder=1)
+        ax.annotate(st, (0, sv), xycoords=("axes fraction", "data"), xytext=(2, 2), textcoords="offset points",
+                    fontsize=FS_VAL, color="#555555", va="bottom")
+    for ex, et in eventi:
+        ax.axvline(ex, color="#888888", lw=0.8, ls=(0, (3, 2)), zorder=1)
+        ax.annotate(et, (ex, 1), xycoords=("data", "axes fraction"), xytext=(2, -2), textcoords="offset points",
+                    fontsize=FS_VAL, color="#555555", va="top")
     for nx, ny, nt in note:
         ax.plot([nx], [ny], "o", color=ORANGE_HEX, ms=3)
         ax.annotate(nt, (nx, ny), xytext=(4, 4), textcoords="offset points", fontsize=FS_VAL, color="#333333")
@@ -949,7 +970,7 @@ def render_v6(path, costruisci, riempi=(3, 4, 5), margine=3):
     import os as _os
     if scarsi and _os.environ.get("GTD_RIEMPIMENTO_OK") != "1":
         raise SystemExit("ERRORE riempimento: spazi pieni sotto il 90% o pagine con vuoti (" + ", ".join(scarsi) + "). Riempili con contenuto "
-                         "verificato (punti, righe, lettura). Solo dopo un tentativo reale, se non c'è altro di "
+                         "verificato (un fatto o un perché nuovo, punti, righe). Solo dopo un tentativo reale, se non c'è altro di "
                          "verificato da dire: GTD_RIEMPIMENTO_OK=1.")
     return liberi2
 
@@ -1186,8 +1207,7 @@ def _grafico_fisso(spec, largo, alto, w):
         return [graphic(spec, w)]
     k = dict(spec); k["largo"], k["alto"] = largo, alto
     k.pop("soggetto", None)
-    titolo = k.get("titolo", "")
-    return ([Paragraph(signcol(titolo), S["chart_t"])] if titolo else []) + [graphic(disegna(k), w)]
+    return titolo_grafico(k) + [graphic(disegna(k), w)]
 
 
 class _Slot(Flowable):

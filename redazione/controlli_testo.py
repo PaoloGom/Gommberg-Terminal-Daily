@@ -137,6 +137,12 @@ def main():
         return f
     lunghe_prosa = [g for g in (_prosa(f) for f in frasi(piatto) if len(f.split()) > 40) if g and len(g.split()) > 40]
     avvisi += [f"frase oltre 40 parole, spezzala (§9.2): {f[:90]}" for f in lunghe_prosa[:3]]
+    # v7.8 (§9.4): lessico di casa (glossario.json, "lessico"): un concetto, un nome.
+    lex = json.load(open(os.path.join(QUI, "glossario.json"), encoding="utf-8")).get("lessico", {}).get("voci", [])
+    for v in lex:
+        trovate = [m.group(0) for rx in v.get("evita", []) for m in re.finditer(rx, piatto, re.I)]
+        if len(trovate) > v.get("max", 0):
+            avvisi.append(f"lessico: \"{trovate[0]}\" ({len(trovate)} volte): scrivi \"{v['termine']}\"")
     for e in errori[:6]:
         print("ERRORE: " + e[:155])
     for a in avvisi:

@@ -224,13 +224,15 @@ C = {
          "misura": "doppio",
          "grafico2": {"tipo": "barre", "file": "c_curva_1g.png",
                     "dati": [(k, round((UST_14[k] - UST_13[k]) * 100)) for k in UST_14],
-                    "titolo": "Curva Treasury: variazione del 14/10 (pb)", "unita": " pb", "dec": 0, "ordina": False,
+                    "titolo": "Salgono le scadenze brevi, scendono le lunghe",
+                    "sottotitolo": "Curva Treasury, variazione del 14/10 (pb)", "unita": " pb", "dec": 0, "ordina": False,
                     "soggetto": "Treasury", "ruolo": "quanto"},   # misure dal motore: mai "alto"/"largo"
          # ruolo: ogni elemento risponde a una domanda DIVERSA della tesi e non ripete i numeri di un altro (ridondanza()).
          # Qui una delle tante scelte possibili, valida per QUESTA tesi: barre = quanto oggi, linea = la storia del mese.
          # Non è uno schema da copiare: ogni giorno gli elementi si scelgono dalla tesi del giorno e cambiano.
          "grafico": {"tipo": "linee", "file": "c_ust_mese.png", "x": [d(r[0]) for r in UST_MESE], "soggetto": "Treasury",
-                       "titolo": "Distanza tra Treasury 10 e 2 anni nell'ultimo mese (pb)", "ruolo": "storia",
+                       "titolo": "La distanza tra 10 e 2 anni torna ai livelli di fine settembre",
+                       "sottotitolo": "10 anni meno 2 anni, ultimo mese (pb)", "ruolo": "storia",
                        "serie": [("10 anni meno 2 anni", [round((r[2] - r[1]) * 100) for r in UST_MESE], "#F26B1D")]},
          "punti": ["<b>Il breve.</b> Fino a 3 anni i rendimenti chiudono in rialzo; il 2 anni era salito di circa "
                    "12 pb subito dopo il dato (Axios).",
@@ -259,10 +261,14 @@ C = {
          "misura": "doppio",
          "grafico": {"tipo": "barre", "file": "c_contagio.png", "dati": CONTAGIO, "ordina": False, "dec": 1,
                        "soggetto": "chip", "ruolo": "quanto",
-                       "titolo": "Dalla tecnologia USA ai chip asiatici: variazioni % (14/10 e stamattina)"},
+                       "unita": "%",
+                       # titolo = cosa mostra il grafico; sottotitolo = misura e periodo (v7.8)
+                       "titolo": "Le vendite partono dalla tecnologia USA e arrivano ai chip asiatici",
+                       "sottotitolo": "variazioni % del 14/10 e di stamattina"},
          "grafico2": {"tipo": "linee", "file": "c_nasdaq.png", "x": [d(x) for x, _ in NASDAQ],
                     "serie": [("Nasdaq", [v for _, v in NASDAQ], "#111111")], "soggetto": "Nasdaq", "ruolo": "storia",
-                    "titolo": "Nasdaq Composite: -3,3% dal 6 ottobre",
+                    "titolo": "Il Nasdaq perde il 3,3% dal record del 6 ottobre", "sottotitolo": "Nasdaq Composite, punti",
+                    "eventi": [(d("10-14"), "CPI")],   # segna l'evento di cui parla il testo (v7.8); soglie = [(livello, "testo")]
                     "note": [(d("10-06"), 27599.79, "6/10"), (d("10-14"), 26692.87, "14/10")]},
          "righe": [["TSMC, terzo trimestre", "Valore", "Variazione annua", "Contro le attese"],
                    ["Ricavi (mld di dollari taiwanesi)", "1.494,24", "+50,9%", "-"],

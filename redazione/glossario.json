@@ -413,5 +413,62 @@
    "breve": "spesa in investimenti",
    "ovvio": false
   }
- ]
+ ],
+ "lessico": {
+  "nota": "v7.8: un concetto, un nome. 'termine' = come lo scriviamo; 'evita' = espressioni regolari delle varianti da non usare (il controllo del testo le segnala come AVVISO). Nuovo tema con più nomi: aggiungi una voce.",
+  "voci": [
+   {
+    "termine": "spread BTP-Bund",
+    "evita": [
+     "spread Italia-Germania",
+     "spread tra (?:i )?BTP e (?:i )?Bund",
+     "BTP \\([^)]*\\) su Bund"
+    ]
+   },
+   {
+    "termine": "Nasdaq (= sempre il Composite); Nasdaq 100 per esteso",
+    "evita": [
+     "Nasdaq-100"
+    ]
+   },
+   {
+    "termine": "flusso di cassa (contro: debito)",
+    "evita": [
+     "(?<!flusso di )(?<!flussi di )\\bcon la cassa\\b"
+    ]
+   },
+   {
+    "termine": "previsioni (guidance tra parentesi solo la prima volta)",
+    "evita": [
+     "\\bguidance\\b(?![^.]*\\bprevision)"
+    ],
+    "max": 1
+   },
+   {
+    "termine": "investimenti nell'AI",
+    "evita": [
+     "\\bcapex\\b",
+     "spesa in conto capitale"
+    ]
+   },
+   {
+    "termine": "titoli dell'AI (storia AI) / tecnologici (settore)",
+    "evita": [
+     "\\bbig tech\\b"
+    ]
+   },
+   {
+    "termine": "on track",
+    "evita": [
+     "sulla strada giusta"
+    ]
+   },
+   {
+    "termine": "future",
+    "evita": [
+     "\\bfutures\\b"
+    ]
+   }
+  ]
+ }
 }

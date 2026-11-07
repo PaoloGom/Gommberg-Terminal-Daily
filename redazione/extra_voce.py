@@ -17,7 +17,12 @@ def _grafico(g):
             dati = [[_txt(a), float(b)] for a, b in dati]
         except (TypeError, ValueError):
             dati = None
-    return {"titolo": _txt(g.get("titolo")), "tipo": g.get("tipo"), "soggetto": g.get("soggetto"), "dati": dati}
+    x = g.get("x") or []
+    serie = [_txt(z[0]) for z in g.get("serie", []) if isinstance(z, (list, tuple)) and z]
+    return {"titolo": _txt(g.get("titolo")), "tipo": g.get("tipo"), "soggetto": g.get("soggetto"), "dati": dati,
+            # v7.8: firma per riconoscere lo stesso grafico nelle edizioni successive (controlli_contenuti.py)
+            "serie": serie, "x0": str(x[0]) if x else None, "x1": str(x[-1]) if x else None,
+            "etichette": [a for a, _ in dati] if dati else []}
 
 
 def agenda(righe):

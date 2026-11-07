@@ -371,6 +371,43 @@ if "quadro" in VOCE or red is not None:
 else:
     AVV.append("quadro: voce_indice.json senza i campi di redazione (modello vecchio?)")
 
+# ---------- grafici già usciti (v7.8, §2): ogni giorno si deve imparare qualcosa di nuovo ----------
+def _norm(xs):
+    return {re.sub(r"[^a-z0-9]", "", str(x).lower()) for x in xs or [] if str(x).strip()}
+
+
+def _stesso_grafico(g, h):
+    if g.get("tipo") != h.get("tipo"):
+        return False
+    if g.get("tipo") == "barre":
+        a, b = _norm(g.get("etichette")), _norm(h.get("etichette"))
+        return len(a) >= 3 and len(a & b) / len(a | b) >= 0.6
+    a, b = _norm(g.get("serie")), _norm(h.get("serie"))
+    if not a or a != b:
+        return False
+    try:   # stesse serie su un periodo simile (stesso inizio o durata entro il 50%)
+        d = lambda z: dt.date.fromisoformat(str(z)[:10])
+        lg, lh = (d(g["x1"]) - d(g["x0"])).days, (d(h["x1"]) - d(h["x0"])).days
+        return g["x0"] == h["x0"] or abs(lg - lh) <= 0.5 * max(lg, lh, 1)
+    except Exception:  # noqa: BLE001
+        return True
+
+
+try:
+    import datetime as dt
+    ed = carica(os.path.join(REPO, "edizioni.json")) or []
+    prima = sorted((v for v in ed if v["numero"] < VOCE.get("numero", 10 ** 6)), key=lambda v: -v["numero"])[:3]
+    for m in red or []:
+        for g in m.get("grafici", []):
+            for i, v in enumerate(prima):
+                if any(_stesso_grafico(g, h) for h in v.get("grafici", [])):
+                    msg = (f"grafici: \"{g.get('titolo', '')[:60]}\" ripete un grafico della #{v['numero']:03d}: "
+                           "cambia taglio (periodo, confronto, soglia) o scegli un altro grafico che provi la tesi")
+                    (ERR if i == 0 else AVV).append(msg)
+                    break
+except Exception as e:  # noqa: BLE001
+    AVV.append(f"grafici: confronto con le edizioni precedenti non riuscito ({e})")
+
 print(f"Contenuti: {len(ERR)} errori, {len(AVV)} avvisi")
 for e in ERR:
     print("ERRORE:", e[:230])
