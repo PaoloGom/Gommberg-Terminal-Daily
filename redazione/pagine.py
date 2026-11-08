@@ -94,7 +94,7 @@ def anteprima(ed, path):
     t = ed.get("ticker") or []
     if t:
         fl, fv, fc = f("DejaVuSansMono.ttf", 18), f("DejaVuSans-Bold.ttf", 26), f("DejaVuSansMono-Bold.ttf", 20)
-        corti = {"MSCI ACWI (ETF)": "ACWI", "EURO STOXX 50": "STOXX 50", "UST 10 ANNI": "UST 10A", "BRENT FUTURE": "BRENT"}
+        corti = {"MSCI ACWI (ETF)": "MONDO", "EURO STOXX 50": "STOXX 50", "UST 10 ANNI": "UST 10A", "BRENT FUTURE": "BRENT"}
         cols = t[:5]
         cw = (W - 2 * x) / len(cols)
         y0 = H - 150

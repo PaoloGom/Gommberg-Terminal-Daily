@@ -272,6 +272,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
 <script>window.goatcounter = { no_onload: true };</script>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="stylesheet" href="assets/sito.css">
+<script src="assets/mercati.js"></script>
 </head>
 <body class="loading" id="main">
 <div class="demo" id="demo" hidden>Modalità prova: anteprima di collaudo, non pubblicata.</div>
@@ -461,9 +462,9 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     row.appendChild(w);
     for (const [l, v, c] of t) {
       const cell = el("div", "tk"); cell.setAttribute("role", "listitem");
-      cell.appendChild(el("span", "l", CORTI[l] || l));
+      const lab = el("span", "l", CORTI[l] || l); cell.appendChild(lab);
       cell.appendChild(el("span", "v", String(v || "").replace(/\s*\$$/, "")));
-      cell.title = (/ACWI/i.test(l) ? "Borsa mondiale (indice MSCI ACWI) " : l + " ") + v + " " + (c || "");
+      if (window.GM) GM.segna(lab, l);
       cell.appendChild(el("span", "c " + cls(c), String(c || "").replace(/\s+g$/, "").replace(/\s+sett$/, " sett")));
       row.appendChild(cell);
     }
@@ -487,7 +488,9 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     for (const d of det) {
       const [nome, dir, strada, , variab] = d;
       const tr = el("tr", variab ? "var" : "");
-      const n = el("td", "", nome); if (variab) n.title = "Lo strumento della settimana, conto a parte";
+      const n = el("td", "", window.GM ? GM.nome(nome) : nome);
+      if (window.GM && GM.spiega(nome)) { const sp = el("span", "", n.textContent); n.textContent = ""; n.appendChild(sp); GM.segna(sp, nome); }
+      if (variab) n.title = "Lo strumento della settimana, conto a parte";
       tr.appendChild(n);
       tr.appendChild(el("td", "", dir === "su" ? "↑ rialzo" : dir === "giù" ? "↓ calo" : "= parità"));
       tr.appendChild(el("td", strada === true ? "ok" : strada === false ? "ko" : "na", strada === true ? "on track" : strada === false ? "contro" : "-"));
