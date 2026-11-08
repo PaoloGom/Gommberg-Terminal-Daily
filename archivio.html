@@ -172,16 +172,33 @@ rect.na { fill: transparent; stroke: var(--rule); stroke-dasharray: 2 2; }
 .ax-tip .tl { display: block; font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 15px; line-height: 1.25; }
 .ax-tip .tc { display: block; margin-top: 6px; font-family: var(--mono); font-size: 10.5px; opacity: .6; }
 
-.ax-bar { position: sticky; top: 0; z-index: 5; margin-top: 30px; padding: 12px 0; background: var(--paper); border-bottom: 1px solid var(--ink); display: grid; grid-template-columns: minmax(240px, 380px) minmax(0, 1fr); gap: 12px 18px; align-items: center; }
+.ax-bar { position: sticky; top: 0; z-index: 5; margin-top: 30px; padding: 12px 0; background: var(--paper); border-bottom: 1px solid var(--ink); display: grid; grid-template-columns: minmax(240px, 420px) auto; gap: 10px 12px; align-items: center; }
 .ax-search { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 14px; border: 1px solid var(--ink); background: var(--sheet); }
 .ax-search svg { width: 18px; height: 18px; color: var(--muted); flex: none; }
 .ax-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 16px; color: var(--ink); }
-.ax-temi { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; mask-image: linear-gradient(90deg, #000 92%, transparent); }
-.ax-temi::-webkit-scrollbar { display: none; }
-.ax-temi button { flex: none; height: 32px; padding: 0 11px; border: 1px solid var(--rule); background: transparent; color: var(--ink); font-family: var(--mono); font-size: 12.5px; cursor: pointer; }
-.ax-temi button small { color: var(--muted); margin-left: 4px; }
-.ax-temi button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-.ax-temi button[aria-pressed="true"] small { color: inherit; opacity: .7; }
+.ax-tema { position: relative; justify-self: start; }
+.ax-tbtn { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 14px; border: 1px solid var(--ink); background: var(--sheet); color: var(--ink); font-family: var(--mono); font-size: 13.5px; cursor: pointer; }
+.ax-tbtn b { font-weight: 600; }
+.ax-tbtn.on { background: var(--ink); color: var(--paper); }
+.ax-tbtn .ar { color: var(--orange-ink); transition: transform .15s; }
+.ax-tbtn.on .ar { color: var(--orange); }
+.ax-tbtn[aria-expanded="true"] .ar { transform: rotate(180deg); }
+.ax-pan { position: absolute; z-index: 8; top: calc(100% + 6px); left: 0; width: min(720px, calc(100vw - 40px)); background: var(--sheet); border: 1px solid var(--ink); box-shadow: 0 10px 28px rgba(0,0,0,.12); padding: 14px; }
+.ax-pan p { margin: 0 0 10px; font-size: 13px; color: var(--muted); }
+.ax-pgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.ax-pgrid button { display: grid; gap: 6px; text-align: left; padding: 9px 10px 8px; border: 1px solid var(--rule); background: transparent; color: var(--ink); cursor: pointer; font: inherit; }
+.ax-pgrid button:hover { border-color: var(--ink); }
+.ax-pgrid button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.ax-pgrid .tn { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; font-weight: 500; }
+.ax-pgrid .tn small { font-family: var(--mono); font-size: 12px; color: var(--muted); font-weight: 400; }
+.ax-pgrid button[aria-pressed="true"] .tn small { color: inherit; opacity: .7; }
+.ax-pgrid .tb { height: 3px; background: var(--rule); }
+.ax-pgrid .tb i { display: block; height: 100%; background: var(--orange); }
+.ax-pgrid .all { grid-column: 1 / -1; }
+.ax-sum { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.ax-sum b { font-family: var(--body); font-size: 14px; font-weight: 600; color: var(--ink); }
+.ax-sum button { border: 0; background: none; padding: 0; color: var(--orange-ink); font: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 860px) { .ax-tema { justify-self: stretch; } .ax-tbtn { width: 100%; justify-content: space-between; } .ax-pan { width: 100%; } .ax-pgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .ax-count { font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin: 12px 0 4px; min-height: 18px; }
 
 .ax-month { border-bottom: 1px solid var(--rule); }
@@ -259,7 +276,8 @@ rect.na.fut { stroke: var(--rule); opacity: .5; }
       <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Zm5.3-2.2L21 21"/></svg>
       <input type="search" id="axQ" placeholder="Cerca: Kospi, CPI, TSMC, 14 ottobre..." autocomplete="off" enterkeyhint="search">
     </label>
-    <div class="ax-temi" id="axTemi" role="group" aria-label="Filtra per tema"></div>
+    <div class="ax-tema"><button type="button" class="ax-tbtn" id="axTbtn" aria-expanded="false" aria-controls="axPan"><span>Tema: <b id="axTlbl">tutti</b></span><span class="ar">▾</span></button>
+      <div class="ax-pan" id="axPan" hidden><p>Scegli un tema: sulla mappa restano accese le sedute in cui se ne è parlato.</p><div class="ax-pgrid" id="axPgrid"></div></div></div>
   </div>
   <div class="ax-count" id="axCount" role="status"></div>
   <div id="axList"></div>
@@ -274,7 +292,6 @@ rect.na.fut { stroke: var(--rule); opacity: .5; }
   // Riferimento di mercato unico del sito: azionario mondiale (MSCI ACWI), campo m = [chiusura, variazione del giorno].
   const MESI = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
   const GG = ["dom","lun","mar","mer","gio","ven","sab"];
-  const TEMI = ["Fed","BCE","Inflazione","Tassi","Wall Street","Europa","Italia","Asia","Cina","Chip","Tecnologia","Banche","Petrolio","Geopolitica","Valute","Dazi","Trimestrali","Macro","Credito","Materie prime"];
   const $ = (id) => document.getElementById(id);
   const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
   const NS = "http://www.w3.org/2000/svg";
@@ -390,19 +407,27 @@ rect.na.fut { stroke: var(--rule); opacity: .5; }
     requestAnimationFrame(() => { box.scrollLeft = ultimo ? Math.max(0, +ultimo.getAttribute("x") - box.clientWidth + 60) : box.scrollWidth; });
   }
 
-  /* ---------- Temi: l'elenco chiuso della redazione, tutti quelli usati, con i conteggi ---------- */
+  /* ---------- Temi: tutti quelli presenti nei dati (l'elenco può crescere), in un pannello ---------- */
   function temi() {
     const c = new Map(); eds.forEach((e) => (e.temi || []).forEach((t) => c.set(t, (c.get(t) || 0) + 1)));
-    const box = $("axTemi"); box.innerHTML = "";
-    const btn = (lbl, val, n) => {
-      const b = el("button", "", lbl); b.type = "button"; if (n != null) b.appendChild(el("small", "", n));
-      b.setAttribute("aria-pressed", tema === val ? "true" : "false");
-      b.addEventListener("click", () => { tema = tema === val && val ? "" : val; aggiorna(); }); box.appendChild(b);
+    const grid = $("axPgrid"); grid.innerHTML = "";
+    const btn = (val, n) => {
+      const b = el("button", val ? "" : "all"); b.type = "button"; b.setAttribute("aria-pressed", tema === val ? "true" : "false");
+      const tn = el("span", "tn", val || "Tutti i temi"); if (n != null) tn.appendChild(el("small", "", n)); b.appendChild(tn);
+      if (n != null) { const tb = el("span", "tb"), i = el("i"); i.style.width = Math.round(100 * n / eds.length) + "%"; tb.appendChild(i); b.appendChild(tb); }
+      b.addEventListener("click", () => { tema = val; pannello(false); aggiorna(); }); grid.appendChild(b);
     };
-    btn("Tutti i temi", "", null);
-    const noti = TEMI.filter((t) => c.get(t)), altri = [...c.keys()].filter((t) => !TEMI.includes(t));
-    [...noti, ...altri].sort((a, b) => c.get(b) - c.get(a)).forEach((t) => btn(t, t, c.get(t)));
+    btn("", null);
+    [...c.keys()].sort((a, b) => c.get(b) - c.get(a) || a.localeCompare(b)).forEach((t) => btn(t, c.get(t)));
+    $("axTlbl").textContent = tema || "tutti"; $("axTbtn").classList.toggle("on", !!tema);
   }
+  function pannello(apri) {
+    $("axPan").hidden = !apri; $("axTbtn").setAttribute("aria-expanded", apri ? "true" : "false");
+  }
+  $("axTbtn").addEventListener("click", (ev) => { ev.stopPropagation(); pannello($("axPan").hidden); });
+  $("axPan").addEventListener("click", (ev) => ev.stopPropagation());
+  document.addEventListener("click", () => pannello(false));
+  document.addEventListener("keydown", (ev) => { if (ev.key === "Escape") pannello(false); });
 
   /* ---------- Elenco per mese: le righe si costruiscono solo quando il mese si apre ---------- */
   function righe(ul, list) {
@@ -420,7 +445,14 @@ rect.na.fut { stroke: var(--rule); opacity: .5; }
   function elenco() {
     const box = $("axList"); box.innerHTML = "";
     const lista = eds.filter(passa), filtro = !!(tema || query);
-    $("axCount").textContent = filtro ? lista.length + (lista.length === 1 ? " edizione trovata" : " edizioni trovate") + (tema ? " | tema " + tema : "") : "Dalla più recente | a destra, la borsa mondiale del giorno | tocca un mese per aprirlo";
+    const cnt = $("axCount"); cnt.innerHTML = "";
+    if (tema && !query) {
+      const s = el("span", "ax-sum"), d = utc(lista.length ? lista[0].d : eds[0].d);
+      s.appendChild(el("b", "", tema + ": " + lista.length + (lista.length === 1 ? " edizione" : " edizioni") + " su " + eds.length));
+      if (lista.length) s.appendChild(el("span", "", "la più recente " + d.getUTCDate() + " " + MESI[d.getUTCMonth()] + " " + d.getUTCFullYear()));
+      const x = el("button", "", "togli il tema"); x.type = "button"; x.addEventListener("click", () => { tema = ""; aggiorna(); }); s.appendChild(x);
+      cnt.appendChild(s);
+    } else cnt.textContent = filtro ? lista.length + (lista.length === 1 ? " edizione trovata" : " edizioni trovate") + (tema ? " | tema " + tema : "") : "Dalla più recente | a destra, la borsa mondiale del giorno | tocca un mese per aprirlo";
     if (!lista.length) { box.appendChild(el("p", "ax-empty", testiP && !testi ? "Cerco..." : "Nessuna edizione. Prova con un'altra parola o togli il tema.")); return; }
     const mesi = new Map(); lista.forEach((e) => { const k = e.d.slice(0, 7); if (!mesi.has(k)) mesi.set(k, []); mesi.get(k).push(e); });
     let primo = true, anno = null;
