@@ -39,7 +39,8 @@
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
-.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 16px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 24px; }
+@media (max-width: 760px) { .wrap { padding-inline: 18px; } }
 a { color: inherit; text-underline-offset: 3px; }
 .up { color: var(--up); } .down { color: var(--down); }
 
@@ -136,9 +137,8 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
 
 <main class="wrap">
   <section class="hero" aria-labelledby="h-hero">
-    <p class="kicker">Le basi</p>
-    <h2 id="h-hero">Le parole e i meccanismi dei mercati</h2>
-    <p>Ogni sigla che incontri nel Gommberg, con il nome per esteso e una spiegazione in due righe. Poi i meccanismi che tornano più spesso nelle letture.</p>
+    <p class="pg-kick">Le basi</p>
+    <h2 id="h-hero" class="pg-h"><span id="bN">Le parole dei mercati.</span><em>Ogni sigla del Gommberg spiegata in due righe, e i meccanismi che tornano più spesso.</em></h2>
     <div class="tools">
       <label class="find"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Zm5.3-2.2L21 21"/></svg>
         <span class="sr" style="position:absolute;left:-9999px">Cerca una sigla o un termine</span><input type="search" id="q" placeholder="Cerca: CPI, spread, curva..." autocomplete="off" enterkeyhint="search"></label>
@@ -255,6 +255,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
       $("gCount").textContent = (f || st.tipo || st.piu) ? g.length + (g.length === 1 ? " voce" : " voci") + (st.tipo ? " in " + st.tipo : "")
         : g.length + " voci in ordine alfabetico, più " + note_ + " sigle molto note";
       $("piuT").textContent = "Mostra anche le sigle più note (" + note_ + ")";
+      if (!f && !st.tipo && !st.piu) $("bN").textContent = (tutte - note_) + " parole" + (mv.length ? " e " + mv.length + " meccanismi." : ".");
       const az = [...Array(26)].map((_, i) => String.fromCharCode(65 + i));
       $("az").innerHTML = az.map((l) => gruppi.has(l) ? '<a href="#L-' + l + '">' + l + "</a>" : "<span>" + l + "</span>").join("");
 
