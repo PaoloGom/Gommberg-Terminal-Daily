@@ -145,7 +145,9 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
 .ax-stats span { display: block; margin-top: 6px; font-size: 13px; line-height: 1.35; color: var(--muted); }
 .ax-stats a { color: inherit; }
 
-.ax-map { margin-top: 34px; }
+.ax-map { margin-top: 34px; position: relative; }
+.ax-mnote { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
+.ax-mnote b { color: var(--ink); font-weight: 600; }
 .ax-maphead { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px 20px; font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 10px; }
 .ax-leg { display: inline-flex; align-items: center; gap: 3px; flex-wrap: wrap; }
 .ax-leg i { width: 12px; height: 12px; display: inline-block; }
@@ -161,7 +163,8 @@ svg.ax-svg text { font-family: var(--mono); font-size: 11px; fill: var(--muted);
 .z, rect.z { background: #E4E0DA; fill: #E4E0DA; }
 .u1, rect.u1 { background: #A9D8B8; fill: #A9D8B8; } .u2, rect.u2 { background: #4FA572; fill: #4FA572; } .u3, rect.u3 { background: #0F6B37; fill: #0F6B37; }
 rect.na { fill: transparent; stroke: var(--rule); stroke-dasharray: 2 2; }
-.ax-tip { position: absolute; pointer-events: none; z-index: 3; max-width: 280px; background: var(--ink); color: var(--paper); padding: 8px 10px; font-size: 13px; line-height: 1.35; transform: translate(-50%, calc(-100% - 10px)); }
+.ax-tip { position: absolute; pointer-events: none; z-index: 6; width: max-content; max-width: 300px; background: var(--ink); color: var(--paper); padding: 8px 10px; font-size: 13px; line-height: 1.35; transform: translate(-50%, calc(-100% - 10px)); }
+.ax-tip.sotto { transform: translate(-50%, 10px); }
 .ax-tip small { display: block; font-family: var(--mono); font-size: 11px; opacity: .75; margin-bottom: 3px; }
 
 .ax-bar { position: sticky; top: 0; z-index: 5; margin-top: 30px; padding: 12px 0; background: var(--paper); border-bottom: 1px solid var(--ink); display: grid; grid-template-columns: minmax(240px, 380px) minmax(0, 1fr); gap: 12px 18px; align-items: center; }
@@ -183,8 +186,8 @@ rect.na { fill: transparent; stroke: var(--rule); stroke-dasharray: 2 2; }
 .ax-month .mstrip { display: flex; gap: 2px; flex-wrap: wrap; }
 .ax-month .mstrip i { width: 10px; height: 18px; }
 .ax-month .mc { font-family: var(--mono); font-size: 12.5px; color: var(--muted); white-space: nowrap; }
-.ax-month .mv { font-family: var(--mono); font-size: 13px; white-space: nowrap; min-width: 64px; text-align: right; }
-.ax-month .mv small { display: block; font-size: 10.5px; color: var(--muted); }
+.ax-month .mv { font-family: var(--mono); font-size: 13px; white-space: nowrap; min-width: 110px; text-align: right; }
+.ax-month .mv small { font-size: 12.5px; color: var(--muted); }
 .ax-month .mx { font-family: var(--mono); color: var(--orange-ink); width: 14px; text-align: center; }
 .ax-month .mx { font-size: 20px; line-height: 1; transition: transform .15s; }
 .ax-month[open] .mx { transform: rotate(90deg); }
@@ -240,8 +243,9 @@ rect.na.fut { stroke: var(--rule); opacity: .5; }
   </section>
 
   <section class="ax-map" aria-label="Mappa delle sedute">
-    <div class="ax-maphead"><div class="ax-years" id="axYears" role="group" aria-label="Periodo della mappa" hidden></div><span class="ax-leg"><span>calo</span><i class="d3"></i><i class="d2"></i><i class="d1"></i><i class="z"></i><i class="u1"></i><i class="u2"></i><i class="u3"></i><span>rialzo</span><span class="ax-legn">azionario mondiale (MSCI ACWI) nel giorno raccontato</span></span></div>
-    <div class="ax-mapbox" id="axMapBox"><div class="ax-tip" id="axTip" hidden></div></div>
+    <div class="ax-maphead"><div class="ax-years" id="axYears" role="group" aria-label="Periodo della mappa" hidden></div><span class="ax-leg"><span>calo</span><i class="d3"></i><i class="d2"></i><i class="d1"></i><i class="z"></i><i class="u1"></i><i class="u2"></i><i class="u3"></i><span>rialzo</span><span class="ax-legn">borsa mondiale nel giorno raccontato</span></span></div>
+    <div class="ax-mapbox" id="axMapBox"></div><div class="ax-tip" id="axTip" hidden></div>
+    <p class="ax-mnote"><b>Mondo</b> = la borsa mondiale: l'indice MSCI ACWI, circa 2.500 aziende di 47 paesi. È il nostro termometro unico in tutto il sito.</p>
   </section>
 
   <div class="ax-bar" id="axBar">
@@ -310,7 +314,7 @@ rect.na.fut { stroke: var(--rule); opacity: .5; }
     const s = $("axStats"); s.innerHTML = "";
     const box = (b, cls, t) => { const d = el("div"); d.appendChild(el("b", cls, b)); d.appendChild(el("span", "", t)); s.appendChild(d); };
     const conM = eds.filter((e) => e.m && e.m[0] != null);
-    if (conM.length >= 2) { const c = (conM[0].m[0] / conM[conM.length - 1].m[0] - 1) * 100; box(sgn(c, 1), c >= 0 ? "up" : "down", "l'azionario mondiale dal n. " + pad(conM[conM.length - 1].n)); }
+    if (conM.length >= 2) { const c = (conM[0].m[0] / conM[conM.length - 1].m[0] - 1) * 100; box(sgn(c, 1), c >= 0 ? "up" : "down", "la borsa mondiale dal n. " + pad(conM[conM.length - 1].n)); }
     box(String(eds.filter((e) => g(e) != null && Math.abs(g(e)) >= 1.5).length), "", "sedute mosse oltre l'1,5%, in su o in giù");
     const c = new Map(); eds.forEach((e) => (e.temi || []).forEach((t) => c.set(t, (c.get(t) || 0) + 1)));
     const top = [...c.entries()].sort((a, b) => b[1] - a[1])[0];
@@ -356,10 +360,15 @@ rect.na.fut { stroke: var(--rule); opacity: .5; }
         r.dataset.n = e.n; if (!passa(e)) r.classList.add("dim");
         const show = () => {
           tip.innerHTML = "";
-          tip.appendChild(el("small", "", GG[day.getUTCDay()] + " " + day.getUTCDate() + " " + MESI[day.getUTCMonth()].slice(0, 3) + " " + day.getUTCFullYear() + " | n. " + pad(e.n) + (g(e) != null ? " | mondo " + sgn(g(e), 1) : "")));
+          tip.appendChild(el("small", "", GG[day.getUTCDay()] + " " + day.getUTCDate() + " " + MESI[day.getUTCMonth()].slice(0, 3) + " " + day.getUTCFullYear() + " | n. " + pad(e.n) + (g(e) != null ? " | Mondo " + sgn(g(e), 1) : "")));
           tip.appendChild(document.createTextNode(e.t));
-          const bb = box.getBoundingClientRect(), rb = r.getBoundingClientRect();
-          tip.style.left = Math.min(Math.max(rb.left - bb.left + box.scrollLeft + C / 2, 140), box.scrollWidth - 140) + "px"; tip.style.top = (rb.top - bb.top) + "px"; tip.hidden = false;
+          const host = box.parentElement.getBoundingClientRect(), rb = r.getBoundingClientRect();
+          tip.hidden = false;
+          const half = Math.min(tip.offsetWidth, host.width) / 2, cx = rb.left - host.left + rb.width / 2;
+          tip.style.left = Math.min(Math.max(cx, half), host.width - half) + "px";
+          const sotto = rb.top - host.top < 70;   // righe in alto: il riquadro va sotto la casella
+          tip.classList.toggle("sotto", sotto);
+          tip.style.top = (sotto ? rb.bottom - host.top : rb.top - host.top) + "px";
         };
         r.addEventListener("mouseenter", show); r.addEventListener("mouseleave", () => { tip.hidden = true; });
         r.addEventListener("click", () => { location.href = "./?n=" + e.n; });
@@ -401,7 +410,7 @@ rect.na.fut { stroke: var(--rule); opacity: .5; }
   function elenco() {
     const box = $("axList"); box.innerHTML = "";
     const lista = eds.filter(passa), filtro = !!(tema || query);
-    $("axCount").textContent = filtro ? lista.length + (lista.length === 1 ? " edizione trovata" : " edizioni trovate") + (tema ? " | tema " + tema : "") : "Dalla più recente | tocca un mese per aprirlo";
+    $("axCount").textContent = filtro ? lista.length + (lista.length === 1 ? " edizione trovata" : " edizioni trovate") + (tema ? " | tema " + tema : "") : "Dalla più recente | a destra, la borsa mondiale del giorno | tocca un mese per aprirlo";
     if (!lista.length) { box.appendChild(el("p", "ax-empty", testiP && !testi ? "Cerco..." : "Nessuna edizione. Prova con un'altra parola o togli il tema.")); return; }
     const mesi = new Map(); lista.forEach((e) => { const k = e.d.slice(0, 7); if (!mesi.has(k)) mesi.set(k, []); mesi.get(k).push(e); });
     let primo = true, anno = null;
@@ -414,7 +423,7 @@ rect.na.fut { stroke: var(--rule); opacity: .5; }
       const strip = el("span", "mstrip"); [...list].reverse().forEach((e) => strip.appendChild(el("i", classe(g(e))))); s.appendChild(strip);
       s.appendChild(el("span", "mc", list.length + (list.length === 1 ? " edizione" : " edizioni")));
       const mv = el("span", "mv"), a = list[list.length - 1], b = list[0];
-      if (!filtro && a.m && b.m && list.length > 1) { const ch = (b.m[0] / a.m[0] - 1) * 100; mv.appendChild(el("span", ch >= 0 ? "up" : "down", sgn(ch, 1))); mv.appendChild(el("small", "", "mondo, nel mese")); }
+      if (!filtro && a.m && b.m && list.length > 1) { const ch = (b.m[0] / a.m[0] - 1) * 100; mv.appendChild(el("small", "", "Mondo ")); mv.appendChild(el("span", ch >= 0 ? "up" : "down", sgn(ch, 1))); mv.title = "Borsa mondiale nel mese"; }
       s.appendChild(mv); s.appendChild(el("span", "mx", "›"));
       det.appendChild(s);
       const ul = el("ul", "ax-rows"); det.appendChild(ul);

@@ -451,7 +451,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     return "Chiusure " + g(d);
   }
   // Nomi brevi del ticker allineati al lessico del PDF
-  const CORTI = { "MSCI ACWI (ETF)": "ACWI", "EURO STOXX 50": "Stoxx 50", "UST 10 ANNI": "Treasury 10a", "BRENT FUTURE": "Brent", "S&P 500": "S&P 500", "EUR/USD": "EUR/USD", "VIX": "VIX" };
+  const CORTI = { "MSCI ACWI (ETF)": "Mondo", "EURO STOXX 50": "Stoxx 50", "UST 10 ANNI": "Treasury 10a", "BRENT FUTURE": "Brent", "S&P 500": "S&P 500", "EUR/USD": "EUR/USD", "VIX": "VIX" };
   function tape(ed) {
     const t = ed.ticker;
     if (!Array.isArray(t) || !t.length) { $("tape").hidden = true; return; }
@@ -463,7 +463,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       const cell = el("div", "tk"); cell.setAttribute("role", "listitem");
       cell.appendChild(el("span", "l", CORTI[l] || l));
       cell.appendChild(el("span", "v", String(v || "").replace(/\s*\$$/, "")));
-      cell.title = l + " " + v + " " + (c || "");
+      cell.title = (/ACWI/i.test(l) ? "Borsa mondiale (indice MSCI ACWI) " : l + " ") + v + " " + (c || "");
       cell.appendChild(el("span", "c " + cls(c), String(c || "").replace(/\s+g$/, "").replace(/\s+sett$/, " sett")));
       row.appendChild(cell);
     }
@@ -583,7 +583,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       const li = el("li"), a = el("a"); a.href = linkFor(e);
       const dt = utc(e.data);
       const d = el("span", "d"); d.appendChild(el("span", "", GG[dt.getUTCDay()] + " " + dt.getUTCDate() + " " + MESI[dt.getUTCMonth()].slice(0, 3) + "  #" + pad(e.numero)));
-      const c = spx(e); if (c) d.appendChild(el("span", cls(c), "ACWI " + c.replace(/\s*g\b.*$/, "")));
+      const c = spx(e); if (c) d.appendChild(el("span", cls(c), "Mondo " + c.replace(/\s*g\b.*$/, "")));
       a.appendChild(d);
       a.appendChild(el("span", "t", e.titolo));
       a.addEventListener("click", (ev) => { ev.preventDefault(); showEdition(e, true); window.scrollTo({ top: 0, behavior: "smooth" }); });

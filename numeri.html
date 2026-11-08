@@ -235,7 +235,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     const num = (s) => { const m = /[-+]?[\d.]+(?:,\d+)?/.exec(String(s || "").replace(/\s/g, "")); return m ? parseFloat(m[0].replace(/\./g, "").replace(",", ".")) : null; };
     const fmtIt = (v, d) => v.toLocaleString("it-IT", { minimumFractionDigits: d, maximumFractionDigits: d });
     const decim = (s) => { const m = /,(\d+)/.exec(String(s)); return m ? m[1].length : 0; };
-    const NOMI = { "MSCI ACWI (ETF)": "Azioni mondo ($)", "S&P 500": "S&P 500", "EURO STOXX 50": "Euro Stoxx 50", "UST 10 ANNI": "Treasury 10 anni", "BRENT FUTURE": "Brent ($)", "EUR/USD": "EUR/USD", "VIX": "VIX" };
+    const NOMI = { "MSCI ACWI (ETF)": "Borsa mondiale ($)", "S&P 500": "S&P 500", "EURO STOXX 50": "Euro Stoxx 50", "UST 10 ANNI": "Treasury 10 anni", "BRENT FUTURE": "Brent ($)", "EUR/USD": "EUR/USD", "VIX": "VIX" };
     const senzaU = (s) => String(s || "").replace(/\s*\$$/, "");
     const conT = eds.filter((e) => Array.isArray(e.ticker) && e.ticker.length).slice().reverse();   // dal più vecchio
     const linkEd = (e, pg) => pg.has(e.numero) ? "e/" + pad(e.numero) + ".html" : "./?n=" + e.numero;
@@ -267,7 +267,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
       const scegli = (l, col, peggio, soloG) => punti.map((e) => val(e, l, col)).filter((x) => x && x.v != null && (!soloG || x.g))
         .reduce((b, x) => !b || (peggio ? x.v < b.v : x.v > b.v) ? x : b, null);
       const R = [
-        ["La seduta peggiore dell'azionario mondiale", scegli("MSCI ACWI (ETF)", 2, true, true), (x) => x.s.replace(/\s*g$/, ""), "down"],
+        ["La seduta peggiore della borsa mondiale", scegli("MSCI ACWI (ETF)", 2, true, true), (x) => x.s.replace(/\s*g$/, ""), "down"],
         ["Il Brent più caro", scegli("BRENT FUTURE", 1, false), (x) => x.s],
         ["Il VIX più alto", scegli("VIX", 1, false), (x) => x.s]
       ].filter((r) => r[1]);
