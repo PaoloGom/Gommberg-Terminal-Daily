@@ -413,6 +413,17 @@ def dati_sito(repo, rec):
     scrivi(os.path.join(repo, "dati", "indice.json"), js(indice))
     scrivi(os.path.join(repo, "dati", "cerca.json"), js(cerca))
     scrivi(os.path.join(repo, "dati", "recenti.json"), js({"totale": len(rec), "edizioni": rec[:RECENTI]}))
+    # numeri della redazione per "Il progetto": fatti verificati e fonti citate, dal registro dei fatti di ogni giorno
+    import glob
+    giorni, fatti, fonti = 0, 0, 0
+    for f in glob.glob(os.path.join(repo, "redazione", "fatti", "*.json")):
+        try:
+            d = json.load(open(f, encoding="utf-8"))
+        except Exception:
+            continue
+        giorni += 1; fatti += len(d); fonti += sum(len(x.get("fonti") or []) for x in d if isinstance(x, dict))
+    scrivi(os.path.join(repo, "dati", "redazione.json"), js({"edizioni": len(rec), "giorni_registro": giorni, "fatti": fatti, "fonti": fonti,
+                                                             "fatti_al_giorno": round(fatti / giorni) if giorni else 0}))
     campi = ("numero", "data", "ticker_al", "titolo", "file", "ticker", "glossario", "meccanismi", "parole")
     scrivi(os.path.join(repo, "dati", "storico.json"), js([{k: e[k] for k in campi if e.get(k)} for e in rec]))
 

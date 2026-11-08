@@ -5,11 +5,11 @@
 <link rel="canonical" href="https://paologom.github.io/Gommberg-Terminal-Daily/progetto.html">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Il progetto - Gommberg Terminal Daily</title>
-<meta name="description" content="Cos'è il Gommberg Terminal Daily, chi c'è dietro e come nasce ogni mattina una rassegna dei mercati scritta con l'intelligenza artificiale.">
+<meta name="description" content="Come nasce ogni mattina il Gommberg Terminal Daily: centinaia di fatti verificati con le loro fonti, oltre 50 controlli automatici, un manuale di stile e una previsione che si mette in gioco ogni settimana.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://paologom.github.io/Gommberg-Terminal-Daily/progetto.html">
 <meta property="og:title" content="Il progetto - Gommberg Terminal Daily">
-<meta property="og:description" content="Una rassegna dei mercati globali in 6 pagine, ogni mattina. Come nasce e chi ne risponde.">
+<meta property="og:description" content="Sei pagine ogni mattina. Dietro, una redazione intera: fatti verificati, controlli automatici, un manuale di stile.">
 <meta property="og:image" content="https://paologom.github.io/Gommberg-Terminal-Daily/assets/copertina.png">
 <meta name="theme-color" content="#0E0E0E">
 <link rel="icon" href="assets/icona.svg" type="image/svg+xml">
@@ -17,34 +17,61 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-:root{--paper:#FAF8F4;--ink:#141414;--muted:#6B655E;--rule:#DEDAD4;--panel:#F1EEE9;--orange:#F26B1D;--orange-ink:#B84A0C;
+:root{--paper:#FAF8F4;--sheet:#FFFFFF;--ink:#141414;--muted:#6B655E;--rule:#DEDAD4;--panel:#F1EEE9;--orange:#F26B1D;--orange-ink:#B84A0C;
 --bar:#0E0E0E;--bar-ink:#F5F3EF;--bar-soft:#D6D1C9;--bar-muted:#A39C93;
---display:"Archivo","Arial Narrow","Helvetica Neue",Arial,sans-serif;--body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
---mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
-@media (prefers-color-scheme:dark){:root{--paper:#121110;--ink:#EDEAE5;--muted:#A49E96;--rule:#2E2B28;--panel:#1C1A18;--orange:#FF7A2E;--orange-ink:#FF9A5C;--bar:#050505;color-scheme:dark}}
+--display:"Archivo","Arial Narrow","Helvetica Neue",Arial,sans-serif;--body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root{--paper:#121110;--sheet:#1A1816;--ink:#EDEAE5;--muted:#A49E96;--rule:#2E2B28;--panel:#1C1A18;--orange:#FF7A2E;--orange-ink:#FF9A5C;--bar:#050505;color-scheme:dark}}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.6}
 a{color:inherit}
-main{max-width:1180px;margin:0 auto;padding:34px 24px 24px}
-main > *{max-width:760px}
-main > h1.pg-h{max-width:none}
-@media (max-width:760px){main{padding-inline:18px}}
-.kicker{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--orange-ink);margin:0 0 8px}
-h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,6vw,44px);line-height:1.08;letter-spacing:-.015em;margin:0 0 16px}
-.lede{font-size:19px;color:var(--muted);margin:0 0 36px}
-h2{font-family:var(--display);font-weight:700;font-size:22px;line-height:1.25;margin:36px 0 10px;padding-top:14px;border-top:1px solid var(--rule)}
-p{margin:0 0 14px}
-ol.steps{list-style:none;margin:6px 0 0;padding:0;counter-reset:s}
-ol.steps li{counter-increment:s;display:grid;grid-template-columns:36px 1fr;gap:4px;margin:0 0 14px}
-ol.steps li:before{content:counter(s);font-family:var(--display);font-weight:800;font-size:22px;line-height:1.3;color:var(--orange)}
-ol.steps b{font-weight:600}
-.map{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:8px 0 0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:24px}
+@media (max-width:760px){.wrap{padding-inline:18px}}
+main{padding-block:34px 24px}
+.sec{margin-top:64px}
+.sec-k{font-family:var(--mono);font-size:12.5px;color:var(--orange-ink);margin:0 0 6px}
+.sec h3{font-family:var(--display);font-stretch:82%;font-weight:900;font-size:clamp(28px,3.6vw,40px);line-height:1.02;letter-spacing:-.01em;margin:0 0 18px;max-width:24ch}
+.sec .lead{font-size:17.5px;color:var(--muted);max-width:62ch;margin:0 0 26px}
+/* i numeri della macchina */
+.big{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border-top:2px solid var(--ink)}
+.big div{padding:18px 18px 6px 0;border-right:1px solid var(--rule);margin-right:18px}
+.big div:last-child{border-right:0;margin-right:0}
+.big b{display:block;font-family:var(--display);font-stretch:80%;font-weight:900;font-size:clamp(40px,4.6vw,60px);line-height:.95;letter-spacing:-.02em}
+.big b small{font-size:.5em;font-weight:800;margin-left:2px}
+.big span{display:block;margin-top:10px;font-size:14px;line-height:1.4;color:var(--muted)}
+.big span strong{color:var(--ink);font-weight:600}
+/* la catena: sei stazioni */
+.chain{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;counter-reset:c}
+.chain li{counter-increment:c;background:var(--sheet);padding:18px 20px 20px;border-top:3px solid var(--ink);position:relative}
+.chain li:before{content:"0" counter(c);font-family:var(--mono);font-size:12px;color:var(--orange-ink)}
+.chain h4{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:21px;line-height:1.15;margin:6px 0 8px}
+.chain p{margin:0;font-size:14.5px;line-height:1.5;color:var(--muted)}
+.chain p b{color:var(--ink);font-weight:600}
+.chain li.stop{border-top-color:var(--orange)}
+.chain-note{margin:14px 0 0;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+/* tre differenze */
+.diff{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.diff div{border-top:1px solid var(--ink);padding-top:14px}
+.diff h4{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:22px;line-height:1.15;margin:0 0 8px}
+.diff p{margin:0;font-size:15px;color:var(--muted)}
+.diff a{color:var(--orange-ink)}
+/* chi c'è dietro */
+.who{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.who p{margin:0 0 12px;max-width:58ch}
+.who .box{background:var(--bar);color:var(--bar-soft);padding:20px 22px;font-size:14.5px}
+.who .box b{color:var(--bar-ink);font-weight:600;display:block;margin-bottom:6px;font-family:var(--display);font-stretch:85%;font-size:19px}
+/* mappa e feed */
+.map{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 .map a{display:block;background:var(--panel);padding:14px 16px;text-decoration:none;border-top:2px solid var(--ink)}
 .map a b{display:block;font-family:var(--display);font-weight:700;font-size:18px}
-.map a span{font-size:14.5px;color:var(--muted);line-height:1.45;display:block;margin-top:2px}
+.map a span{font-size:14px;color:var(--muted);line-height:1.45;display:block;margin-top:2px}
 .map a:hover b{color:var(--orange-ink)}
-.cta{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;font-family:var(--mono);font-size:14px;text-decoration:none;background:var(--ink);color:var(--paper);margin-top:4px}
-@media (max-width:560px){.map{grid-template-columns:1fr}.lede{font-size:17px}}
+.cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;margin-top:56px;padding:22px 24px;background:var(--bar);color:var(--bar-ink)}
+.cta p{margin:0;font-size:15px;color:var(--bar-soft);max-width:60ch}
+.cta p b{color:var(--bar-ink)}
+.cta a{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;background:var(--orange);color:#141414;font-family:var(--mono);font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap}
+@media (max-width:960px){.big{grid-template-columns:repeat(2,minmax(0,1fr))}.big div{border-right:0;margin-right:0;border-bottom:1px solid var(--rule);padding-bottom:16px}
+.chain,.diff,.who{grid-template-columns:1fr}.map{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:600px) and (max-width:960px){.chain{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="stylesheet" href="assets/sito.css">
@@ -52,41 +79,86 @@ ol.steps b{font-weight:600}
 <body>
 <header class="gn-mast"><div class="gn-top"><div class="gn-brand"><p class="gn-logo"><a href="./" title="Torna all'ultima edizione"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></p><p class="gn-pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p></div><nav class="gn-nav" aria-label="Sezioni del sito"><a href="./">Ultima edizione</a><a href="archivio.html">Archivio</a><a href="glossario.html">Glossario</a><a href="scommessa.html">La scommessa</a><a href="numeri.html">I numeri</a><a href="progetto.html" aria-current="page">Il progetto</a></nav></div></header>
 
-<main>
+<main class="wrap">
   <p class="pg-kick">Il progetto</p>
-  <h1 class="pg-h"><span>I mercati in dieci minuti.</span><em>Ogni mattina cosa è successo sui mercati globali e perché, in sei pagine. Per chi vuole capire, non solo sapere quanto ha fatto la borsa.</em></h1>
+  <h1 class="pg-h"><span>Sei pagine. Dietro, una redazione intera.</span><em>Ogni mattina il Gommberg legge i mercati di tutto il mondo, verifica ogni fatto, lo spiega e lo controlla prima di pubblicarlo. Tutto prima delle 10.</em></h1>
 
-  <h2>Cos'è</h2>
-  <p>Una rassegna in PDF che esce dal lunedì al venerdì, in mattinata. Le prime pagine raccontano la giornata con i numeri delle borse, dei tassi, delle valute e delle materie prime. Seguono gli approfondimenti sui temi che muovono i mercati e l'agenda dei giorni successivi. Ogni sigla è spiegata la prima volta che compare.</p>
-  <p>Il nome gioca con quello dei terminali usati in sala operativa: la forma è quella, la lingua è quella di tutti.</p>
+  <section class="sec" aria-labelledby="h-num">
+    <p class="sec-k">La macchina, in numeri</p>
+    <h3 id="h-num">Quello che non si vede nel PDF.</h3>
+    <div class="big" id="big">
+      <div><b id="nFatti">496</b><span><strong>fatti verificati</strong> e registrati con la loro fonte, circa <span id="nGiorno" style="display:inline;margin:0;color:inherit">28</span> ogni mattina</span></div>
+      <div><b id="nFonti">924</b><span><strong>fonti citate</strong>: agenzie, banche centrali, istituti di statistica, società</span></div>
+      <div><b>50<small>+</small></b><span><strong>controlli automatici</strong> su numeri, date, grafici e ripetizioni prima di ogni uscita</span></div>
+      <div><b>13</b><span><strong>capitoli di manuale</strong> di stile e di metodo, che la redazione segue ogni giorno</span></div>
+      <div><b>12<small> anni</small></b><span><strong>di dati</strong> per collaudare il metodo della scommessa prima di metterlo in gioco</span></div>
+    </div>
+  </section>
 
-  <h2>Chi c'è dietro</h2>
-  <p>Il Gommberg è un progetto personale di Paolo Gommellini. Paolo ne ha disegnato la struttura e le regole di scrittura, e ne risponde come editore.</p>
+  <section class="sec" aria-labelledby="h-come">
+    <p class="sec-k">Come nasce un'edizione</p>
+    <h3 id="h-come">Sei passaggi, ogni mattina, senza scorciatoie.</h3>
+    <ol class="chain">
+      <li><h4>Raccolta</h4><p>Le chiusure di borse, tassi, valute e materie prime arrivano da più fornitori di dati finanziari. Le notizie da agenzie, quotidiani economici e <b>comunicati ufficiali</b>.</p></li>
+      <li><h4>Verifica</h4><p>Ogni fatto entra in un registro con <b>fonte, data e verifica</b>. Un fatto senza fonte affidabile non entra nell'edizione.</p></li>
+      <li><h4>Scrittura</h4><p>Il testo segue il manuale: frasi brevi, <b>ogni sigla spiegata</b>, ogni movimento legato alla sua causa. Non basta dire quanto ha fatto la borsa: bisogna dire perché.</p></li>
+      <li class="stop"><h4>Controlli</h4><p>Programmi automatici rileggono tutto: i numeri contro i dati, il testo contro i grafici, le ripetizioni rispetto ai giorni prima. <b>Se un controllo fallisce, l'edizione non esce</b> finché il problema non è risolto.</p></li>
+      <li><h4>Impaginazione</h4><p>Sei pagine composte in automatico, con <b>grafici generati dai dati</b> del giorno, l'agenda e la scommessa della settimana.</p></li>
+      <li><h4>Pubblicazione</h4><p>Il PDF va online con una pagina di sintesi, l'<b>archivio</b>, il glossario e il feed si aggiornano da soli.</p></li>
+    </ol>
+    <p class="chain-note">Ogni giorno di borsa aperta, dal lunedì al venerdì.</p>
+  </section>
 
-  <h2>Come nasce un'edizione</h2>
-  <p>I testi sono scritti dall'intelligenza artificiale, ogni mattina, senza un intervento manuale. Il lavoro segue sempre gli stessi passaggi:</p>
-  <ol class="steps">
-    <li><span><b>Dati e notizie.</b> Le chiusure dei mercati arrivano da fornitori di dati finanziari; le notizie da agenzie, quotidiani economici e comunicati ufficiali di banche centrali e istituti di statistica.</span></li>
-    <li><span><b>Scrittura.</b> L'edizione viene scritta seguendo un manuale della redazione: frasi brevi, una sigla spiegata alla prima occorrenza, ogni causa di un movimento legata a una fonte.</span></li>
-    <li><span><b>Controlli.</b> Prima di uscire, programmi automatici verificano numeri, date, coerenza tra testo e grafici e ripetizioni rispetto ai giorni precedenti. Se un controllo fallisce, l'edizione non esce finché il problema non è risolto.</span></li>
-    <li><span><b>Pubblicazione.</b> Il PDF va online su questo sito, con una pagina di sintesi per ogni numero e l'archivio completo.</span></li>
-  </ol>
-  <p>L'intelligenza artificiale può sbagliare. Per questo ogni dato è riferito alla data dell'edizione e alle sue fonti, e il Gommberg resta una rassegna informativa: non dà consigli su cosa comprare o vendere.</p>
+  <section class="sec" aria-labelledby="h-diff">
+    <p class="sec-k">Cosa lo rende diverso</p>
+    <h3 id="h-diff">Non un riassunto delle notizie.</h3>
+    <div class="diff">
+      <div><h4>Spiega il perché</h4><p>Ogni numero arriva con la sua causa, e ogni sigla con due righe di spiegazione. Pensato per chi vuole capire i mercati, non solo seguirli.</p></div>
+      <div><h4>Verificato, non copiato</h4><p>Il registro dei fatti tiene traccia di ogni fonte. Quello che non si riesce a verificare si toglie, anche se fa notizia.</p></div>
+      <div><h4>Si mette in gioco</h4><p>Ogni lunedì sette previsioni, il lunedì dopo il conto. Con <a href="scommessa.html">una pagella pubblica</a>, anche quando sbagliamo.</p></div>
+    </div>
+  </section>
 
-  <h2>Le pagine del sito</h2>
-  <div class="map">
-    <a href="./"><b>Ultima edizione</b><span>Il numero del giorno, da leggere sul sito o in PDF.</span></a>
-    <a href="archivio.html"><b>Archivio</b><span>Tutte le edizioni, per mese e per tema.</span></a>
-    <a href="glossario.html"><b>Glossario</b><span>Le sigle e i concetti dei mercati, spiegati in modo semplice.</span></a>
-    <a href="scommessa.html"><b>La scommessa</b><span>Sette previsioni ogni lunedì, e il conto il lunedì dopo.</span></a>
-    <a href="numeri.html"><b>I numeri</b><span>I mercati dal primo numero a oggi, con i record.</span></a>
+  <section class="sec" aria-labelledby="h-who">
+    <p class="sec-k">Chi c'è dietro</p>
+    <h3 id="h-who">Un progetto indipendente.</h3>
+    <div class="who">
+      <div>
+        <p>Il Gommberg Terminal Daily è un progetto di Paolo Gommellini, che ne ha disegnato la struttura, le regole di scrittura e i controlli, e ne risponde come editore.</p>
+        <p>Il nome gioca con quello dei terminali delle sale operative: la forma è quella, la lingua è quella di tutti.</p>
+      </div>
+      <div class="box"><b>Scritto con l'intelligenza artificiale, con regole umane.</b>I testi sono generati dall'AI e pubblicati in automatico, dentro un metodo deciso da una persona: fonti verificate, controlli bloccanti, responsabilità editoriale. L'AI può sbagliare: per questo ogni dato è legato alla data dell'edizione e alle sue fonti. È una rassegna informativa, non una consulenza.</div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-map">
+    <p class="sec-k">Il sito</p>
+    <h3 id="h-map">Dove trovare cosa.</h3>
+    <div class="map">
+      <a href="./"><b>Ultima edizione</b><span>Il numero del giorno, da leggere sul sito o in PDF.</span></a>
+      <a href="archivio.html"><b>Archivio</b><span>Tutte le edizioni, con la mappa delle sedute.</span></a>
+      <a href="glossario.html"><b>Glossario</b><span>Le sigle e i concetti dei mercati, spiegati semplici.</span></a>
+      <a href="scommessa.html"><b>La scommessa</b><span>Sette previsioni ogni lunedì, e il conto.</span></a>
+      <a href="numeri.html"><b>I numeri</b><span>La dashboard pubblica: visite, gradimento, puntualità.</span></a>
+    </div>
+  </section>
+
+  <div class="cta">
+    <p><b>Ricevilo ogni mattina.</b> Ogni nuova edizione esce anche nel feed RSS: aggiungilo a Feedly, Inoreader o al lettore che usi.</p>
+    <a href="feed.xml">Il feed RSS</a>
   </div>
-
-  <h2>Ricevila ogni mattina</h2>
-  <p>Ogni nuova edizione esce anche nel feed RSS: aggiungilo a un lettore di feed (Feedly, Inoreader o l'app che usi) e la trovi lì appena pubblicata.</p>
-  <a class="cta" href="feed.xml">Il feed RSS</a>
 </main>
 
 <footer class="gf"><div class="gf-in"><nav class="gf-links" aria-label="Le pagine del sito"><a href="./">Ultima edizione</a><a href="archivio.html">Archivio</a><a href="glossario.html">Glossario</a><a href="scommessa.html">La scommessa</a><a href="numeri.html">I numeri</a><a href="progetto.html">Il progetto</a><a href="feed.xml">Feed RSS</a></nav><p class="gf-ai">Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.</p><p class="gf-legal">Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</p></div></footer>
+<script>
+// I numeri della redazione crescono da soli: li legge da dati/redazione.json (generato ogni mattina); senza, restano quelli scritti qui.
+fetch("dati/redazione.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+  if (!d) return;
+  var f = function (n) { return Number(n).toLocaleString("it-IT"); };
+  if (d.fatti) document.getElementById("nFatti").textContent = f(d.fatti);
+  if (d.fonti) document.getElementById("nFonti").textContent = f(d.fonti);
+  if (d.fatti_al_giorno) document.getElementById("nGiorno").textContent = d.fatti_al_giorno;
+}).catch(function () {});
+</script>
 </body>
 </html>
