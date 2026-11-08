@@ -36,10 +36,10 @@ Scrivi `/home/claude/lavoro/nuovi.json` con le chiusure ufficiali dei giorni dop
 ## 4. Grafico e pag. 6
 - `python3 grafico.py ../pronostici/<lunedì>-settimana.json /home/claude/lavoro/c_forecast.png` (PNG e SVG).
 - Nel modello dell'edizione: `REG = "<lunedì>-settimana.json"` (il registro NUOVO) e
-  `C["scommessa"] = {"tesi": "<la tesi della settimana in una frase>", "lunedi": True, "venerdi": False, "settimana_prec": "<es. 12-16 ottobre>"}`.
-  Il motore costruisce pag. 6 del lunedì (box "Le regole del gioco" completo) da `verdetto.json` in `/home/claude/lavoro` e da `redazione/scommessa/pagella.json`; senza settimana precedente il verdetto manca e la pagella lo dice. Render: `cd /home/claude/lavoro && python3 edizione_AAAA-MM-GG.py /home/claude/lavoro "<pdf>"`.
+  `C["scommessa"] = {"tesi": "<perché scommettiamo così, 1-2 frasi semplici>", "lunedi": True, "venerdi": False, "settimana_prec": "<es. 2-6 novembre>", "com_e_andata": "<cosa ha deciso la settimana chiusa, una frase semplice, es. La tregua sul petrolio ha portato le borse dove pensavamo; il dollaro no.>"}`. `com_e_andata` è facoltativo ma va scritto quando c'è il verdetto: niente numeri (sono nel riquadro), solo il perché.
+  Il motore costruisce pag. 6 del lunedì da registro, `verdetto.json` in `/home/claude/lavoro` e `metodo.json`: tabellone (mercato e la sua domanda, partenza, freccia, forchetta disegnata, il perché), riquadri "Come si gioca" e "Il verdetto" (solo i numeri della settimana chiusa: la stagione è sul sito); senza settimana precedente il riquadro lo dice. Le domande dei fissi sono scritte in `pagina6.py`; quella dello strumento della settimana è il suo `motivo_scelta`: una domanda di **massimo 40 caratteri** (es. "La paura sull'AI è globale?"), altrimenti va a capo. Render: `cd /home/claude/lavoro && python3 edizione_AAAA-MM-GG.py /home/claude/lavoro "<pdf>"`.
 - In `edizioni_voce.py` usa `--verdetto /home/claude/lavoro/verdetto.json` e il registro NUOVO: strada e range della settimana nuova restano null.
-- Il revisore controlla che tabella e pagella di pag. 6 riportino esattamente `verdetto.json` e il registro.
+- Il revisore controlla che tabellone e riquadro "Il verdetto" di pag. 6 riportino esattamente il registro e `verdetto.json`.
 - Pag. 1: "La settimana scorsa" al posto di "Ieri in calendario" (max 5 righe); 1 sett. del cruscotto = settimana intera.
 
 ## 5. Collaudi e revisione del metodo

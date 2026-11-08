@@ -1090,7 +1090,7 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
     st.append(ancora("scommessa"))
     if sc["lunedi"]:
         st += pagina6_lunedi(reg, verdetto, pagella, tesi=sc["tesi"], grafico="c_forecast.png",
-                             settimana_prec=sc.get("settimana_prec"))
+                             settimana_prec=sc.get("settimana_prec"), com_e_andata=sc.get("com_e_andata"))
     else:
         st += pagina6_settimana(reg, stato, tesi=sc["tesi"], grafico="c_forecast.png", venerdi=sc.get("venerdi", False))
     if C.get("parole"):
