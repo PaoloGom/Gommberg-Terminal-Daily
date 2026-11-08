@@ -97,7 +97,10 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
     fatto();
   });
   var cp = document.getElementById("copy");
+  var wa = document.querySelector('a[href^="https://wa.me/"]');
+  if (wa) wa.addEventListener("click", function () { conta({ path: "condividi-tutte", title: "Condivisioni (tutte le edizioni)", event: true }); conta({ path: "condividi-whatsapp-020", title: "Condivisione WhatsApp n. 020", event: true }); });
   if (cp) cp.addEventListener("click", function () {
+    conta({ path: "condividi-tutte", title: "Condivisioni (tutte le edizioni)", event: true }); conta({ path: "condividi-link-020", title: "Link copiato n. 020", event: true });
     var u = cp.dataset.url, l = cp.querySelector("span"), ok = function () { l.textContent = "Copiato"; setTimeout(function () { l.textContent = "Copia link"; }, 1800); };
     if (navigator.clipboard) navigator.clipboard.writeText(u).then(ok, function () { prompt("Copia il link:", u); }); else prompt("Copia il link:", u);
   });

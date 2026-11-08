@@ -25,6 +25,16 @@ copia() { if [ "$PROVA" = "1" ] && [ "$REPO" = "/home/claude/gtd" ]; then echo "
 copia "$PDF" "$REPO/$DEST" || fail "copia del PDF"
 if [ -f "$FATTI" ]; then copia "$FATTI" "$REPO/redazione/fatti/${DATA}.json"; else echo "AVVISO: $FATTI assente, registro fatti non copiato"; fi
 # Pagine del sito generate da edizioni.json: pagina per edizione con anteprima WhatsApp, feed RSS, link fisso
+# Registro delle uscite (ora di pubblicazione, per la puntualità nella dashboard pubblica "I numeri")
+[ "$PROVA" = "1" ] || python3 - "$REPO/dati/uscite.json" "$N" "$DATA" <<'EOF2' || echo "AVVISO: registro uscite non aggiornato"
+import json, os, sys, datetime, zoneinfo
+p, n, d = sys.argv[1], int(sys.argv[2]), sys.argv[3]
+os.makedirs(os.path.dirname(p), exist_ok=True)
+r = json.load(open(p, encoding="utf-8")) if os.path.exists(p) else []
+ora = datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Rome")).strftime("%H:%M")
+r = [x for x in r if x.get("n") != n] + [{"n": n, "d": d, "ora": ora}]
+json.dump(sorted(r, key=lambda x: x["n"]), open(p, "w", encoding="utf-8"), ensure_ascii=False)
+EOF2
 if [ -f "$REPO/redazione/pagine.py" ]; then
   python3 "$REPO/redazione/pagine.py" "$REPO" | tail -1 || echo "AVVISO: pagine.py non riuscito, il sito ripiega su ?n=N"
 fi

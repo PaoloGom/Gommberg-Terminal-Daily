@@ -651,12 +651,12 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     try { await navigator.clipboard.writeText(url); lab.textContent = "Link copiato"; }
     catch (e) { window.prompt("Copia il link dell'edizione:", url); }
     setTimeout(() => { lab.textContent = "Copia link"; }, 2200);
-    conta({ path: "condividi-link-" + pad(current.numero), title: "Link copiato n. " + pad(current.numero), event: true });
+    conta({ path: "condividi-tutte", title: "Condivisioni (tutte le edizioni)", event: true }); conta({ path: "condividi-link-" + pad(current.numero), title: "Link copiato n. " + pad(current.numero), event: true });
   });
   for (const [id, cosa] of [["read", "letta"], ["open", "schermo intero"], ["dl", "scaricata"]]) {
     $(id).addEventListener("click", () => { if (current && !(id === "read" && desktop())) { conta({ path: "pdf-" + pad(current.numero), title: "PDF n. " + pad(current.numero) + " " + cosa, event: true }); conta({ path: "pdf-tutte", title: "PDF aperti (tutte le edizioni)", event: true }); } });
   }
-  $("wa").addEventListener("click", () => { if (current) conta({ path: "condividi-whatsapp-" + pad(current.numero), title: "Condivisione WhatsApp n. " + pad(current.numero), event: true }); });
+  $("wa").addEventListener("click", () => { if (current) conta({ path: "condividi-tutte", title: "Condivisioni (tutte le edizioni)", event: true }); conta({ path: "condividi-whatsapp-" + pad(current.numero), title: "Condivisione WhatsApp n. " + pad(current.numero), event: true }); });
   // Voto dei lettori: un voto per edizione e per browser, anonimo
   const votoKey = (ed) => "gtd-voto-" + pad(ed.numero);
   function votoStato(ed) {

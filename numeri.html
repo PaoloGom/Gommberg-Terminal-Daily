@@ -4,334 +4,255 @@
 <meta charset="utf-8">
 <link rel="canonical" href="https://paologom.github.io/Gommberg-Terminal-Daily/numeri.html">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>I numeri - Gommberg Terminal Daily</title>
-<meta name="description" content="I numeri del Gommberg Terminal Daily: lettori, mercati e record dal primo numero, scommessa della settimana.">
+<title>I numeri del Gommberg - Gommberg Terminal Daily</title>
+<meta name="description" content="La dashboard pubblica del Gommberg Terminal Daily: quante visite, quante condivisioni, quanto è utile, quanto è puntuale e quanto ci azzecca. Gli stessi numeri che guarda la redazione.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://paologom.github.io/Gommberg-Terminal-Daily/numeri.html">
-<meta property="og:title" content="I numeri del Gommberg Terminal Daily">
-<meta property="og:description" content="Letture, mercati dal primo numero, previsioni: il Gommberg Terminal Daily in numeri.">
+<meta property="og:title" content="I numeri del Gommberg - la dashboard pubblica">
+<meta property="og:description" content="Visite, condivisioni, gradimento, puntualità e pagella: gli stessi numeri che guarda la redazione.">
 <meta property="og:image" content="https://paologom.github.io/Gommberg-Terminal-Daily/assets/copertina.png">
 <meta name="theme-color" content="#0E0E0E">
 <link rel="icon" href="assets/icona.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Gommberg Terminal Daily" href="feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Stessi colori, caratteri e testata del sito (index.html) e del PDF. */
-:root {
-  --paper: #FBFAF8; --ink: #141414; --muted: #5E5A55; --rule: #DEDAD4; --panel: #F1EEE9;
-  --orange: #F26B1D; --orange-ink: #B84A0C; --bar: #0E0E0E; --bar-rule: #333; --bar-ink: #F5F3EF; --bar-muted: #A39C93;
-  --up: #12753D; --down: #C0261C; --up-soft: #D8EEDF; --down-soft: #F6DAD6;
-  --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
-  --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #121110; --ink: #EDEAE5; --muted: #A49E96; --rule: #2E2B28; --panel: #1C1A18;
-    --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-rule: #2A2826; --bar-ink: #F5F3EF; --bar-muted: #8F8880;
-    --up: #46CF85; --down: #FF7466; --up-soft: #173524; --down-soft: #3F1C18; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --paper: #121110; --ink: #EDEAE5; --muted: #A49E96; --rule: #2E2B28; --panel: #1C1A18;
-  --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-rule: #2A2826; --bar-ink: #F5F3EF; --bar-muted: #8F8880;
-  --up: #46CF85; --down: #FF7466; --up-soft: #173524; --down-soft: #3F1C18; color-scheme: dark;
-}
-* { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
-.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 24px; }
-@media (max-width: 760px) { .wrap { padding-inline: 18px; } }
-a { color: inherit; text-underline-offset: 3px; }
-.up { color: var(--up); } .down { color: var(--down); }
-
-.mast { background: var(--bar); color: var(--bar-ink); border-bottom: 3px solid var(--orange); }
-.mast .top > div { min-width: 0; }
-.mast .top { display: flex; justify-content: space-between; align-items: flex-end; gap: 8px 32px; padding-block: 18px 14px; flex-wrap: wrap; }
-.logo { font-family: var(--display); font-stretch: 75%; font-weight: 900; font-size: clamp(20px, 6vw, 46px); line-height: .9; letter-spacing: .01em; margin: 0; white-space: nowrap; }
-.logo a { text-decoration: none; }
-.logo b { color: var(--orange); font-weight: 900; } .logo span { font-weight: 600; }
-.pitch { margin: 8px 0 0; font-size: 15px; line-height: 1.4; }
-.pitch em { font-style: normal; color: var(--orange); }
-.back { font-size: 13px; color: var(--bar-muted); white-space: nowrap; }
-.back:hover { color: var(--bar-ink); }
-
-.kicker { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--orange-ink); margin: 0; line-height: 1.4; }
-.sec-h { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 26px; line-height: 1.1; margin: 4px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--orange); }
-main { padding-block: 32px 56px; display: grid; gap: 52px; }
-
-.hero { max-width: 62ch; }
-.hero h2 { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: clamp(27px, 4vw, 42px); line-height: 1.06; margin: 8px 0 0; text-wrap: balance; }
-.hero p { color: var(--muted); font-size: 17px; margin: 14px 0 0; }
-
-/* Pagella */
-.cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-.card { background: var(--panel); border-top: 3px solid var(--ink); padding: 14px 14px 16px; min-width: 0; }
-.card .l { font-size: 12.5px; font-weight: 600; color: var(--muted); }
-.card .v { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 34px; line-height: 1.05; margin-top: 6px; }
-.card .t { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 6px; }
-.verdict { margin: 14px 0 0; padding: 12px 14px; border-left: 3px solid var(--orange); background: var(--panel); max-width: 72ch; }
-.verdict b { font-weight: 600; }
-.wait { color: var(--muted); }
-
-.howto { margin: 18px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 28px; border-top: 1px solid var(--rule); padding-top: 14px; }
-.howto h4 { grid-column: 1 / -1; margin: 0 0 8px; font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
-.howto dt { font-weight: 600; font-size: 14.5px; }
-.howto dd { margin: 3px 0 12px; color: var(--muted); font-size: 14px; }
-
-/* I numeri */
-main { gap: 56px; }
-.cards.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.card .v small { font-size: .5em; font-weight: 700; color: var(--muted); margin-left: 4px; }
-.two-col { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 40px; margin-top: 26px; align-items: start; }
-.sub { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
-.bars { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 10px; align-items: end; height: 170px; border-bottom: 1px solid var(--ink); }
-.bar { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; min-width: 0; }
-.bar i { display: block; width: 100%; max-width: 56px; background: var(--ink); min-height: 2px; }
-.bar.now i { background: var(--orange); }
-.bar b { font-family: var(--mono); font-weight: 500; font-size: 12.5px; margin-bottom: 4px; }
-.bar-l { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 10px; font-family: var(--mono); font-size: 11.5px; color: var(--muted); text-align: center; margin-top: 6px; }
-.lette { list-style: none; margin: 0; padding: 0; counter-reset: t; border-top: 1px solid var(--rule); }
-.lette li { counter-increment: t; display: grid; grid-template-columns: 30px 1fr; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
-.lette li::before { content: counter(t); font-family: var(--display); font-weight: 900; font-size: 22px; line-height: 1.1; color: var(--orange); }
-.lette a { font-family: var(--display); font-stretch: 90%; font-weight: 700; font-size: 16px; line-height: 1.3; text-decoration: none; }
-.lette a:hover { text-decoration: underline; }
-.lette span { display: block; font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 3px; }
-.empty { color: var(--muted); font-size: 14.5px; }
-.src { margin: 16px 0 0; font-size: 14.5px; color: var(--muted); max-width: 72ch; }
-.src b { color: var(--ink); font-weight: 600; }
-.more { display: inline-block; margin-top: 14px; font-size: 14px; color: var(--orange-ink); }
-.lede { color: var(--muted); margin: -4px 0 0; font-size: 15px; }
-.lede b { color: var(--ink); font-weight: 600; }
-table.dal { width: 100%; border-collapse: collapse; font-size: 14.5px; }
-.dal th { font-size: 11.5px; font-weight: 500; font-family: var(--mono); color: var(--muted); text-align: right; padding: 0 0 6px 8px; border-bottom: 1px solid var(--ink); white-space: nowrap; }
-.dal th:first-child { text-align: left; padding-left: 0; }
-.dal td { padding: 9px 0 9px 8px; border-bottom: 1px solid var(--rule); text-align: right; font-family: var(--mono); font-size: 13px; white-space: nowrap; }
-.dal td:first-child { text-align: left; padding-left: 0; font-family: var(--body); font-weight: 600; font-size: 14.5px; white-space: normal; }
-.dal td.v { font-weight: 500; font-size: 13.5px; }
-.dal td.v.up { color: var(--up); } .dal td.v.down { color: var(--down); }
-.lette li.empty::before { content: none; }
-.lette .rl { display: block; font-size: 13px; font-weight: 600; color: var(--muted); font-family: var(--body); margin: 0; }
-.lette a.rv { display: inline-block; font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 26px; line-height: 1.1; margin-top: 2px; text-decoration: none; }
-.lette a.rv:hover { text-decoration: underline; }
-.lette a.rv.down { color: var(--down); } .lette a.rv.up { color: var(--up); }
-footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size: 12.5px; color: var(--muted); }
-@media (max-width: 860px) {
-  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .cards.three { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-  .cards.three .card { padding: 12px 10px; } .cards.three .v { font-size: 22px; }
-  .card .v { font-size: 28px; }
-  .two-col { grid-template-columns: minmax(0, 1fr); gap: 30px; }
-  .bars { height: 140px; gap: 6px; } .bar-l { gap: 6px; }
-}
+:root{--paper:#FAF8F4;--sheet:#FFFFFF;--ink:#141414;--muted:#6B655E;--rule:#DEDAD4;--panel:#F1EEE9;--orange:#F26B1D;--orange-ink:#B84A0C;
+--up:#157A3E;--down:#C0271D;--bar:#0E0E0E;--bar-ink:#F5F3EF;--bar-soft:#D6D1C9;
+--display:"Archivo","Arial Narrow","Helvetica Neue",Arial,sans-serif;--body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root{--paper:#121110;--sheet:#1A1816;--ink:#EDEAE5;--muted:#A49E96;--rule:#2E2B28;--panel:#1C1A18;--orange:#FF7A2E;--orange-ink:#FF9A5C;--up:#4CC27A;--down:#FF6B5E;--bar:#050505;color-scheme:dark}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:24px}
+@media (max-width:760px){.wrap{padding-inline:18px}}
+main{padding-block:34px 56px}
+.hero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:24px 48px;align-items:end}
+.hero-side{font-size:14.5px;color:var(--muted);border-top:2px solid var(--ink);padding-top:12px}
+.hero-side b{color:var(--ink);font-weight:600}
+.live{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:10px}
+.live i{width:8px;height:8px;border-radius:50%;background:var(--up);box-shadow:0 0 0 0 rgba(21,122,62,.5);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(21,122,62,0)}100%{box-shadow:0 0 0 0 rgba(21,122,62,0)}}
+.sec{margin-top:52px}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:18px}
+.sec-head h3{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:26px;line-height:1.1;margin:0}
+.sec-head span{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi{background:var(--sheet);border-top:3px solid var(--ink);padding:14px 16px 16px;min-height:132px;display:flex;flex-direction:column}
+.kpi .k{font-size:13px;font-weight:600;color:var(--muted)}
+.kpi .v{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:40px;line-height:1.05;margin-top:6px}
+.kpi .d{margin-top:auto;padding-top:8px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.kpi .d .up{color:var(--up)}.kpi .d .down{color:var(--down)}
+.kpi.accent{border-top-color:var(--orange)}
+.v.up{color:var(--up)}.v.down{color:var(--down)}
+.v.wait{color:var(--muted);font-size:26px}
+.grid2{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:24px;margin-top:20px}
+.card{background:var(--sheet);padding:16px 18px}
+.card h4{margin:0 0 10px;font-size:13px;font-weight:600;color:var(--muted)}
+svg.wk{display:block;width:100%;height:auto}
+svg.wk rect{fill:var(--ink)} svg.wk rect.cur{fill:var(--orange)}
+svg.wk text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+svg.wk text.n{fill:var(--ink);font-weight:500}
+ol.top{list-style:none;margin:0;padding:0;counter-reset:t}
+ol.top li{counter-increment:t;display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:9px 0;border-top:1px solid var(--rule)}
+ol.top li:first-child{border-top:0}
+ol.top li:before{content:counter(t);font-family:var(--display);font-weight:800;font-size:18px;color:var(--orange)}
+ol.top a{text-decoration:none;font-family:var(--display);font-stretch:88%;font-weight:700;font-size:15.5px;line-height:1.25}
+ol.top a:hover{color:var(--orange-ink)}
+ol.top small{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);font-weight:400;margin-top:2px}
+ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
+.meter{height:10px;background:var(--rule);margin-top:10px;display:flex}
+.meter i{display:block;height:100%;background:var(--up)}
+.meter i.no{background:var(--down)}
+.note{font-size:13px;color:var(--muted);margin:14px 0 0;max-width:80ch}
+.cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;margin-top:52px;padding:22px 24px;background:var(--bar);color:var(--bar-ink)}
+.cta p{margin:0;font-size:15px;color:var(--bar-soft);max-width:60ch}
+.cta p b{color:var(--bar-ink)}
+.cta a{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;background:var(--orange);color:#141414;font-family:var(--mono);font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap}
+.method{margin-top:34px}
+.method summary{cursor:pointer;font-weight:600;font-size:14.5px}
+.method p,.method li{font-size:14px;color:var(--muted)}
+@media (max-width:900px){.hero,.grid2{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi .v{font-size:32px}.kpi{min-height:118px}}
 </style>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="stylesheet" href="assets/sito.css">
-<script src="assets/mercati.js"></script>
 </head>
 <body>
 <header class="gn-mast"><div class="gn-top"><div class="gn-brand"><p class="gn-logo"><a href="./" title="Torna all'ultima edizione"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></p><p class="gn-pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p></div><nav class="gn-nav" aria-label="Sezioni del sito"><a href="./">Ultima edizione</a><a href="archivio.html">Archivio</a><a href="glossario.html">Glossario</a><a href="scommessa.html">La scommessa</a><a href="numeri.html" aria-current="page">I numeri</a><a href="progetto.html">Il progetto</a></nav></div></header>
 
 <main class="wrap">
-  <section aria-labelledby="h-hero">
-    <p class="pg-kick">I numeri</p>
-    <h2 class="pg-h" id="h-hero"><span>I mercati, edizione dopo edizione.</span><em>Le chiusure riportate in ogni edizione, i record e la scommessa della settimana.</em></h2>
-  </section>
-
-  <!-- Letture: contate e lette su GoatCounter, non mostrate in pubblico finché i numeri sono piccoli -->
-  <section aria-labelledby="h-lettori" hidden>
-    <p class="kicker">Dal vivo</p>
-    <h3 class="sec-h" id="h-lettori">Chi ci legge</h3>
-    <div class="cards">
-      <div class="card"><div class="l">Visite</div><div class="v" id="kTot">-</div><div class="t">dal 17 ottobre</div></div>
-      <div class="card"><div class="l">Visite, ultimi 7 giorni</div><div class="v" id="kSett">-</div><div class="t">sito e pagine delle edizioni</div></div>
-      <div class="card"><div class="l">Edizioni aperte</div><div class="v" id="kPdf">-</div><div class="t">PDF letti o scaricati</div></div>
-      <div class="card"><div class="l">Utile per chi legge</div><div class="v" id="kVoto">-</div><div class="t" id="kVotoT">-</div></div>
+  <section class="hero" aria-labelledby="h-hero">
+    <div>
+      <p class="pg-kick">I numeri</p>
+      <h2 class="pg-h" id="h-hero"><span id="hN">La dashboard pubblica.</span><em>Gli stessi numeri che guarda la redazione: quanti ci leggono, quanto ci condividono, quanto siamo utili, puntuali e affidabili.</em></h2>
     </div>
-    <div class="two-col">
-      <div>
-        <p class="sub">Letture, settimana per settimana</p>
-        <div class="bars" id="bars" role="img" aria-label="Letture per settimana"></div>
-        <div class="bar-l" id="barsL"></div>
-      </div>
-      <div>
-        <p class="sub">Le più lette del mese</p>
-        <ol class="lette" id="top"><li><span>Caricamento...</span></li></ol>
-      </div>
+    <div class="hero-side">
+      <b>Niente numeri ritoccati.</b> Le visite arrivano direttamente da GoatCounter, un contatore senza cookie che non traccia le persone; il resto dai file della redazione.
+      <div class="live"><i></i><span id="hUpd">Aggiornati a ogni apertura della pagina</span></div>
     </div>
   </section>
 
-  <section aria-labelledby="h-red">
-    <p class="kicker">La testata</p>
-    <h3 class="sec-h" id="h-red">Dal primo numero</h3>
-    <p class="lede" id="rEdT">&nbsp;</p>
-    <div class="two-col">
-      <div>
-        <p class="sub" id="dalSub">I mercati</p>
-        <table class="dal" id="dal" aria-describedby="dalSub"><tbody><tr><td class="empty">Caricamento...</td></tr></tbody></table>
-      </div>
-      <div>
-        <p class="sub">I record</p>
-        <ol class="lette" id="rec"><li><span>Caricamento...</span></li></ol>
-      </div>
+  <section class="sec" aria-labelledby="h-let">
+    <div class="sec-head"><h3 id="h-let">Chi ci legge</h3><span id="letP"></span></div>
+    <div class="kpis">
+      <div class="kpi accent"><span class="k">Visite questo mese</span><span class="v" id="kMese">-</span><span class="d" id="kMeseD"></span></div>
+      <div class="kpi"><span class="k">Visite totali</span><span class="v" id="kTot">-</span><span class="d" id="kTotD"></span></div>
+      <div class="kpi"><span class="k">PDF aperti</span><span class="v" id="kPdf">-</span><span class="d">dal sito, tutte le edizioni</span></div>
+      <div class="kpi"><span class="k">Condivisioni</span><span class="v" id="kSh">-</span><span class="d">WhatsApp e link copiato</span></div>
     </div>
-    <p class="src" id="rSrc"></p>
+    <div class="grid2">
+      <div class="card"><h4>Visite per settimana</h4><div id="wkBox"></div></div>
+      <div class="card"><h4>Le edizioni più lette (ultime 10)</h4><ol class="top" id="top"></ol></div>
+    </div>
   </section>
 
-  <section aria-labelledby="h-bet">
-    <p class="kicker">La scommessa della settimana</p>
-    <h3 class="sec-h" id="h-bet">Le previsioni</h3>
-    <div class="cards three">
-      <div class="card"><div class="l">Settimana</div><div class="v" id="sWk">-</div><div class="t">l'ultima giudicata o in corso</div></div>
-      <div class="card"><div class="l">Nella forchetta</div><div class="v" id="sRange">-</div><div class="t">chiusure dentro il range</div></div>
-      <div class="card"><div class="l">On track</div><div class="v" id="sDir">-</div><div class="t">nella direzione prevista</div></div>
+  <section class="sec" aria-labelledby="h-qual">
+    <div class="sec-head"><h3 id="h-qual">Quanto vale</h3><span>gradimento e affidabilità</span></div>
+    <div class="kpis">
+      <div class="kpi accent"><span class="k">Utile secondo chi ha votato</span><span class="v" id="kUt">-</span><span class="d" id="kUtD"></span></div>
+      <div class="kpi"><span class="k">Edizioni pubblicate</span><span class="v" id="kEd">-</span><span class="d" id="kEdD"></span></div>
+      <div class="kpi"><span class="k">Uscite entro le 10</span><span class="v" id="kPun">-</span><span class="d" id="kPunD"></span></div>
+      <div class="kpi"><span class="k">La scommessa: punti</span><span class="v" id="kSc">-</span><span class="d" id="kScD"></span></div>
     </div>
-    <a class="more" href="scommessa.html">Il metodo e la pagella completa &rsaquo;</a>
   </section>
+
+  <div class="cta">
+    <p><b>Tutte le statistiche, in tempo reale.</b> Da dove arrivano i lettori, telefono o PC, paesi e pagine: il pannello completo del contatore, lo stesso che usa la redazione.</p>
+    <a href="https://gommberg.goatcounter.com" target="_blank" rel="noopener">Apri le statistiche complete</a>
+  </div>
+
+  <details class="method">
+    <summary>Come contiamo</summary>
+    <ul>
+      <li><b>Visite</b>: pagine aperte sul sito, contate da GoatCounter senza cookie. Non sono persone: chi torna tre volte conta tre visite. Per questo non scriviamo "lettori".</li>
+      <li><b>PDF aperti e condivisioni</b>: i clic su "Leggi", "Scarica", WhatsApp e "Copia link". Chi riceve il PDF da un amico non è contato.</li>
+      <li><b>Utile</b>: i voti "Ti è stata utile?" in fondo alle edizioni. Mostriamo la percentuale solo dai 10 voti in su.</li>
+      <li><b>Puntualità</b>: l'ora in cui l'edizione va online, registrata in automatico a ogni pubblicazione.</li>
+      <li><b>La scommessa</b>: il metodo e la pagella completa sono nella <a href="scommessa.html">sua pagina</a>.</li>
+    </ul>
+  </details>
 </main>
 
-<footer class="gf"><div class="gf-in"><nav class="gf-links" aria-label="Le pagine del sito"><a href="./">Ultima edizione</a><a href="archivio.html">Archivio</a><a href="glossario.html">Glossario</a><a href="scommessa.html">La scommessa</a><a href="numeri.html">I numeri</a><a href="progetto.html">Il progetto</a><a href="feed.xml">Feed RSS</a></nav><p class="gf-ai">Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.</p><p class="gf-legal">Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione. I valori dei mercati sono le chiusure riportate in ciascuna edizione.</p></div></footer>
+<footer class="gf"><div class="gf-in"><nav class="gf-links" aria-label="Le pagine del sito"><a href="./">Ultima edizione</a><a href="archivio.html">Archivio</a><a href="glossario.html">Glossario</a><a href="scommessa.html">La scommessa</a><a href="numeri.html">I numeri</a><a href="progetto.html">Il progetto</a><a href="feed.xml">Feed RSS</a></nav><p class="gf-ai">Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.</p><p class="gf-legal">Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione. Visite e voti: GoatCounter, senza cookie. Gli altri numeri: i file della redazione.</p></div></footer>
 
 <script>
 (function () {
   "use strict";
-  const $ = (id) => document.getElementById(id);
+  // Dashboard pubblica. Visite ed eventi: contatori pubblici di GoatCounter (gommberg.goatcounter.com/counter/...json),
+  // un numero per richiesta, con start/end per mesi e settimane. Il resto: dati/storico.json, dati/uscite.json, pagella.
   const GC = "https://gommberg.goatcounter.com/counter/";
-  const INIZIO = "2026-10-17";            // da quando si contano le letture
-  const VOTI_MIN = 10;                    // sotto questa soglia la quota di "utile" non si mostra
-  const MESI = ["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"];
-  const pad = (n) => String(n).padStart(3, "0");
-  const it = (n) => Number(n).toLocaleString("it-IT");
-  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
-  const utc = (iso) => { const [y, m, d] = iso.split("-").map(Number); return new Date(Date.UTC(y, m - 1, d)); };
+  const PRE = location.pathname.replace(/[^/]*$/, "");          // es. /Gommberg-Terminal-Daily/
+  const MESI = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
+  const $ = (id) => document.getElementById(id);
+  const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+  const NS = "http://www.w3.org/2000/svg";
+  const sv = (t, a) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); return e; };
+  const n0 = (x) => Number(x).toLocaleString("it-IT");
   const iso = (d) => d.toISOString().slice(0, 10);
-  const giorno = (s) => { const d = utc(s); return d.getUTCDate() + " " + MESI[d.getUTCMonth()]; };
+  const pad = (n) => String(n).padStart(3, "0");
 
-  // Contatore pubblico GoatCounter: 404 = zero; altro errore = non disponibile (null)
-  async function conta(path, qs) {
-    for (const p of path === "TOTAL" ? ["TOTAL"] : [path, "/" + path]) {
-      try {
-        const r = await fetch(GC + encodeURIComponent(p) + ".json" + (qs || ""));
-        if (r.ok) { const j = await r.json(); return parseInt(String(j.count).replace(/\D/g, ""), 10) || 0; }
-        if (r.status !== 404) return null;
-      } catch (e) { return null; }
+  function conta(path, start, end) {   // -> numero, oppure null se il contatore non risponde
+    let q = []; if (start) q.push("start=" + start); if (end) q.push("end=" + end);
+    return fetch(GC + encodeURIComponent(path) + ".json" + (q.length ? "?" + q.join("&") : ""))
+      .then((r) => r.ok ? r.json() : (r.status === 404 ? { count: "0" } : Promise.reject(r.status)))
+      .then((j) => parseInt(String(j.count || "0").replace(/\D/g, ""), 10) || 0)
+      .catch(() => null);
+  }
+  const attesa = (id, txt) => { const v = $(id); v.textContent = txt || "in arrivo"; v.classList.add("wait"); };
+  const delta = (box, a, b, lbl) => {
+    box.innerHTML = ""; if (a == null || b == null) return;
+    if (!b) { box.textContent = lbl + ": primo periodo"; return; }
+    const c = (a / b - 1) * 100; box.appendChild(el("span", c >= 0 ? "up" : "down", (c > 0 ? "+" : "") + Math.round(c) + "%"));
+    box.append(" " + lbl);
+  };
+
+  async function lettori() {
+    const oggi = new Date(), y = oggi.getFullYear(), m = oggi.getMonth();
+    const m0 = iso(new Date(Date.UTC(y, m, 1))), p0 = iso(new Date(Date.UTC(y, m - 1, 1))), p1 = iso(new Date(Date.UTC(y, m, 0)));
+    // stesso numero di giorni del mese scorso, per un confronto alla pari
+    const pPari = iso(new Date(Date.UTC(y, m - 1, Math.min(oggi.getDate(), new Date(Date.UTC(y, m, 0)).getUTCDate()))));
+    const [tot, mese, prec, precPari, pdf, sh] = await Promise.all([
+      conta("TOTAL"), conta("TOTAL", m0), conta("TOTAL", p0, p1), conta("TOTAL", p0, pPari), conta("pdf-tutte"), conta("condividi-tutte")]);
+    $("letP").textContent = MESI[m] + " " + y;
+    if (tot == null) {   // contatori pubblici non ancora attivi in GoatCounter
+      ["kMese", "kTot", "kPdf", "kSh"].forEach((id) => attesa(id));
+      $("kTotD").textContent = "contatore pubblico in attivazione";
+      $("wkBox").appendChild(el("p", "note", "Il grafico compare appena il contatore pubblico è attivo."));
+      return false;
     }
-    return 0;
+    $("kMese").textContent = n0(mese || 0); delta($("kMeseD"), mese, precPari, "sullo stesso periodo del mese scorso");
+    $("kTot").textContent = n0(tot); $("kTotD").textContent = prec != null ? n0(prec) + " visite a " + MESI[(m + 11) % 12] : "";
+    $("kPdf").textContent = pdf == null ? "-" : n0(pdf);
+    $("kSh").textContent = sh == null ? "-" : n0(sh);
+    $("hN").textContent = n0(tot) + (tot === 1 ? " visita." : " visite.");
+    settimane();
+    return true;
   }
-  async function aGruppi(lavori, n) {
-    const out = new Array(lavori.length); let i = 0;
-    await Promise.all(Array.from({ length: n }, async () => { while (i < lavori.length) { const k = i++; out[k] = await lavori[k](); } }));
-    return out;
-  }
 
-  Promise.all([
-    fetch("dati/storico.json", { cache: "no-store" }).then((r) => r.json()),
-    fetch("dati/recenti.json", { cache: "no-store" }).then((r) => r.ok ? r.json() : {}).catch(() => ({}))
-  ]).then(async ([list, ultime]) => {
-    const eds = list.filter((e) => e && e.numero && e.data && e.file).sort((a, b) => b.numero - a.numero);
-    const oggi = new Date(), oggiIso = iso(new Date(Date.UTC(oggi.getFullYear(), oggi.getMonth(), oggi.getDate())));
-
-    /* ---------- Dal primo numero ---------- */
-    const pagP = fetch("e/pagine.json", { cache: "no-store" }).then((r) => r.ok ? r.json() : []).catch(() => []);
-    if (eds.length) $("rEdT").innerHTML = "<b>" + it(eds.length) + (eds.length === 1 ? " edizione" : " edizioni") + "</b> dal " + giorno(eds[eds.length - 1].data) + " " + eds[eds.length - 1].data.slice(0, 4) + ", con le chiusure riportate in ciascuna.";
-    const num = (s) => { const m = /[-+]?[\d.]+(?:,\d+)?/.exec(String(s || "").replace(/\s/g, "")); return m ? parseFloat(m[0].replace(/\./g, "").replace(",", ".")) : null; };
-    const fmtIt = (v, d) => v.toLocaleString("it-IT", { minimumFractionDigits: d, maximumFractionDigits: d });
-    const decim = (s) => { const m = /,(\d+)/.exec(String(s)); return m ? m[1].length : 0; };
-    const NOMI = { "MSCI ACWI (ETF)": "Borsa mondiale ($)", "S&P 500": "S&P 500", "EURO STOXX 50": "Euro Stoxx 50", "UST 10 ANNI": "Treasury 10 anni", "BRENT FUTURE": "Brent ($)", "EUR/USD": "EUR/USD", "VIX": "VIX" };
-    const senzaU = (s) => String(s || "").replace(/\s*\$$/, "");
-    const conT = eds.filter((e) => Array.isArray(e.ticker) && e.ticker.length).slice().reverse();   // dal più vecchio
-    const linkEd = (e, pg) => pg.has(e.numero) ? "e/" + pad(e.numero) + ".html" : "./?n=" + e.numero;
-    if (conT.length >= 2) {
-      const a = conT[0], z = conT[conT.length - 1];
-      const al = (e) => e.ticker_al ? giorno(e.ticker_al) : giorno(e.data);
-      let h = "<thead><tr><th>Mercato</th><th>n. " + pad(a.numero) + "<br>" + al(a) + "</th><th>n. " + pad(z.numero) + "<br>" + al(z) + "</th><th>Var.</th></tr></thead><tbody>";
-      for (const [l, v0] of a.ticker) {
-        const r1 = z.ticker.find((x) => x[0] === l); if (!r1) continue;
-        const x0 = num(v0), x1 = num(r1[1]); if (x0 == null || x1 == null) continue;
-        let d, txt;
-        if (/%/.test(v0)) { d = Math.round((x1 - x0) * 100); txt = (d > 0 ? "+" : "") + d + " pb"; }
-        else if (l === "VIX") { d = x1 - x0; txt = (d > 0 ? "+" : "") + fmtIt(d, 2); }
-        else { d = (x1 / x0 - 1) * 100; txt = (Math.round(d * 10) > 0 ? "+" : "") + fmtIt(d, 1) + "%"; }
-        const c = Math.abs(d) < 1e-9 || txt.replace(/[^1-9]/g, "") === "" ? "" : d > 0 ? "up" : "down";
-        h += "<tr><td>" + esc(NOMI[l] || l) + "</td><td>" + esc(senzaU(v0)) + "</td><td>" + esc(senzaU(r1[1])) + '</td><td class="v ' + c + '">' + txt + "</td></tr>";
-      }
-      $("dal").innerHTML = h + "</tbody>";
-      if (window.GM) $("dal").querySelectorAll("tbody tr td:first-child").forEach((td, i) => { const sp = document.createElement("span"); sp.textContent = td.textContent; td.textContent = ""; td.appendChild(sp); GM.segna(sp, sp.textContent); });
-    } else $("dal").innerHTML = '<tbody><tr><td class="empty">Il confronto parte dalla seconda edizione.</td></tr></tbody>';
-
-    /* ---------- I record ---------- */
-    pagP.then((P) => {
-      const pg = new Set(Array.isArray(P) ? P : []);
-      const visti = new Set(), punti = [];
-      for (const e of conT) {           // una sola volta per seduta: vale la prima edizione che l'ha riportata
-        const k = e.ticker_al || e.data; if (visti.has(k)) continue; visti.add(k); punti.push(e);
-      }
-      const val = (e, l, col) => { const r = e.ticker.find((x) => x[0] === l); return r ? { s: r[col], v: num(r[col]), e, g: /\bg\b/.test(r[2] || "") } : null; };
-      const scegli = (l, col, peggio, soloG) => punti.map((e) => val(e, l, col)).filter((x) => x && x.v != null && (!soloG || x.g))
-        .reduce((b, x) => !b || (peggio ? x.v < b.v : x.v > b.v) ? x : b, null);
-      const R = [
-        ["La seduta peggiore della borsa mondiale", scegli("MSCI ACWI (ETF)", 2, true, true), (x) => x.s.replace(/\s*g$/, ""), "down"],
-        ["Il Brent più caro", scegli("BRENT FUTURE", 1, false), (x) => x.s],
-        ["Il VIX più alto", scegli("VIX", 1, false), (x) => x.s]
-      ].filter((r) => r[1]);
-      $("rec").innerHTML = R.length ? R.map(([t, x, f, c]) => '<li><div><span class="rl">' + esc(t) + '</span><a class="rv ' + (c || "") + '" href="' + linkEd(x.e, pg) + '" title="Apri l\'edizione n. ' + pad(x.e.numero) + '">' + esc(f(x)) + "</a><span>chiusura del " + giorno(x.e.ticker_al || x.e.data) + ", raccontata nel n. " + pad(x.e.numero) + "</span></div></li>").join("")
-        : '<li class="empty" style="display:block">I record si formano con le prime edizioni.</li>';
+  let INIZIO = null;   // prima edizione: le settimane prima non esistono
+  async function settimane() {   // ultime 8 settimane (o meno, all'inizio), da lunedì a domenica; l'ultima è quella in corso
+    const oggi = new Date(), lun = new Date(Date.UTC(oggi.getFullYear(), oggi.getMonth(), oggi.getDate()));
+    lun.setUTCDate(lun.getUTCDate() - ((lun.getUTCDay() + 6) % 7));
+    let W = []; for (let k = 7; k >= 0; k--) { const a = new Date(lun); a.setUTCDate(a.getUTCDate() - 7 * k); const b = new Date(a); b.setUTCDate(b.getUTCDate() + 6); W.push([a, b]); }
+    if (INIZIO) W = W.filter(([, b]) => iso(b) >= INIZIO);
+    const v = await Promise.all(W.map(([a, b]) => conta("TOTAL", iso(a), iso(b))));
+    const box = $("wkBox"); box.innerHTML = "";
+    const N = W.length, WW = 560, H = 190, B = 28, T = 20, gap = 10, bw = Math.min(70, (WW - gap * 7) / 8), max = Math.max(1, ...v.map((x) => x || 0));
+    const s = sv("svg", { class: "wk", viewBox: `0 0 ${WW} ${H}`, role: "img", "aria-label": "Visite nelle ultime 8 settimane" });
+    v.forEach((x, k) => {
+      const h = Math.round((H - B - T) * (x || 0) / max), X = k * (bw + gap), cur = k === N - 1;
+      s.appendChild(sv("rect", { x: X, y: H - B - h, width: bw, height: Math.max(h, 1), class: cur ? "cur" : "" }));
+      const t = sv("text", { x: X + bw / 2, y: H - B - h - 6, "text-anchor": "middle", class: "n" }); t.textContent = x == null ? "" : n0(x); s.appendChild(t);
+      const l = sv("text", { x: X + bw / 2, y: H - 8, "text-anchor": "middle" }); l.textContent = cur ? "questa" : W[k][0].getUTCDate() + " " + MESI[W[k][0].getUTCMonth()].slice(0, 3); s.appendChild(l);
     });
+    box.appendChild(s);
+  }
 
-    // Le fonti principali (nomi, senza conteggi)
-    const fatti = await Promise.all(eds.slice(0, 20).map((e) => fetch("redazione/fatti/" + e.data + ".json", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).catch(() => null)));
-    const testate = {};
-    for (const f of fatti) if (Array.isArray(f)) for (const x of f) if (x && !x.scartata) for (const s of (x.fonti || [])) {
-      const t = String(s.testata || "").replace(/\s*\(.*\)\s*$/, "").trim(); if (t) testate[t] = (testate[t] || 0) + 1;
-    }
-    const topF = Object.entries(testate).sort((a, b) => b[1] - a[1]).slice(0, 6).map((x) => x[0]);
-    if (topF.length) $("rSrc").innerHTML = "<b>Le fonti di ogni mattina:</b> " + topF.map(esc).join(", ") + ", insieme ai comunicati ufficiali di banche centrali e istituti di statistica.";
+  async function top(storico) {   // le ultime 10 edizioni: visite alla pagina dell'edizione + PDF aperti
+    const ult = storico.slice(0, 10);
+    const v = await Promise.all(ult.map((e) => Promise.all([conta(PRE + "e/" + pad(e.numero) + ".html"), conta("pdf-" + pad(e.numero))])));
+    const ol = $("top"); ol.innerHTML = "";
+    if (v.every(([a, b]) => a == null && b == null)) { ol.appendChild(el("p", "note", "In arrivo con il contatore pubblico.")); return; }
+    ult.map((e, i) => ({ e, n: (v[i][0] || 0) + (v[i][1] || 0) })).sort((a, b) => b.n - a.n).slice(0, 5).forEach(({ e, n }) => {
+      const li = el("li"), a = el("a", "", e.titolo); a.href = "e/" + pad(e.numero) + ".html";
+      const d = new Date(e.data + "T12:00:00Z"); a.appendChild(el("small", "", "n. " + pad(e.numero) + " | " + d.getUTCDate() + " " + MESI[d.getUTCMonth()]));
+      li.appendChild(a); li.appendChild(el("b", "", n0(n))); ol.appendChild(li);
+    });
+  }
 
-    /* ---------- Scommessa ---------- */
-    const sc = ((ultime && ultime.edizioni) || []).find((e) => e.scommessa && e.scommessa.su);
-    if (sc) {
-      const s = sc.scommessa, [a, b] = String(s.settimana || "").split("/");
-      if (a && b) $("sWk").textContent = utc(a).getUTCDate() + "-" + giorno(b);
-      $("sRange").innerHTML = it(s.range) + "<small>su " + it(s.su) + "</small>";
-      $("sDir").innerHTML = it(s.strada) + "<small>su " + it(s.su) + "</small>";
-    }
+  async function utile() {
+    const [si, no] = await Promise.all([conta("voto-si"), conta("voto-no")]);
+    if (si == null) { attesa("kUt"); return; }
+    const tot = si + (no || 0);
+    if (tot < 10) { attesa("kUt", "pochi voti"); $("kUtD").textContent = tot + (tot === 1 ? " voto finora" : " voti finora") + ": la percentuale dai 10 in su"; return; }
+    const p = Math.round(100 * si / tot); $("kUt").textContent = p + "%"; $("kUt").classList.add(p >= 50 ? "up" : "down");
+    const d = $("kUtD"); d.textContent = n0(tot) + " voti espressi";
+    const m = el("span", "meter"), a = el("i"), b = el("i", "no"); a.style.width = p + "%"; b.style.width = (100 - p) + "%"; m.appendChild(a); m.appendChild(b);
+    d.parentElement.insertBefore(m, d);
+  }
 
-    /* ---------- Lettori ---------- */
-    const mese = oggiIso.slice(0, 8) + "01";
-    const [tutte, sette, pdfTot, si, no] = await Promise.all([
-      conta("TOTAL"), conta("TOTAL", "?start=week"), conta("pdf-tutte"), conta("voto-si"), conta("voto-no")
-    ]);
-    $("kTot").textContent = tutte == null ? "-" : it(tutte);
-    $("kSett").textContent = sette == null ? "-" : it(sette);
-    if (si != null && no != null) {
-      const v = si + no;
-      if (v >= VOTI_MIN) { $("kVoto").innerHTML = Math.round(100 * si / v) + "<small>%</small>"; $("kVotoT").textContent = "su " + it(v) + " voti"; }
-      else { $("kVoto").innerHTML = "<small style='margin:0;font-size:.6em;color:var(--ink)'>Sondaggio aperto</small>"; $("kVotoT").textContent = "il dato esce da " + VOTI_MIN + " voti"; }
-    }
+  function redazione(storico, uscite, pag) {
+    $("kEd").textContent = n0(storico.length);
+    if (storico.length) { const d = new Date(storico[storico.length - 1].data + "T12:00:00Z"); $("kEdD").textContent = "dal " + d.getUTCDate() + " " + MESI[d.getUTCMonth()] + " " + d.getUTCFullYear(); }
+    if (uscite.length) {
+      const ok = uscite.filter((u) => u.ora && u.ora <= "10:00").length;
+      $("kPun").textContent = ok + " su " + uscite.length; if (ok === uscite.length) $("kPun").classList.add("up");
+      const ore = uscite.map((u) => u.ora).filter(Boolean).sort(); $("kPunD").textContent = "orario tipico " + ore[Math.floor(ore.length / 2)] + " | dal n. " + pad(uscite[0].n);
+    } else { attesa("kPun", "dal n. 021"); $("kPunD").textContent = "si registra da lunedì 9 novembre"; }
+    if (pag && pag.su) {
+      $("kSc").textContent = pag.punti + " su " + pag.su; $("kSc").classList.add(pag.punti >= pag.par ? "up" : "down");
+      $("kScD").textContent = "par " + String(pag.par).replace(".", ",") + " | " + pag.settimane + (pag.settimane === 1 ? " settimana" : " settimane");
+    } else attesa("kSc");
+  }
 
-    // Settimana per settimana: dalla settimana in cui sono partite le letture, ultime 8
-    const lun = (d) => { const x = new Date(d); x.setUTCDate(x.getUTCDate() - ((x.getUTCDay() + 6) % 7)); return x; };
-    const sett = []; let w = lun(utc(oggiIso)); const primo = lun(utc(INIZIO));
-    while (w >= primo && sett.length < 8) { sett.unshift(new Date(w)); w.setUTCDate(w.getUTCDate() - 7); }
-    const valori = await aGruppi(sett.map((s) => () => { const e = new Date(s); e.setUTCDate(e.getUTCDate() + 6); return conta("TOTAL", "?start=" + iso(s) + "&end=" + iso(e)); }), 3);
-    const max = Math.max(1, ...valori.map((x) => x || 0));
-    $("bars").innerHTML = sett.map((s, i) => '<div class="bar' + (i === sett.length - 1 ? " now" : "") + '"><b>' + (valori[i] == null ? "-" : it(valori[i])) + '</b><i style="height:' + Math.max(1, Math.round(100 * (valori[i] || 0) / max)) + '%"></i></div>').join("");
-    $("barsL").innerHTML = sett.map((s, i) => "<span>" + (i === sett.length - 1 ? "in corso" : s.getUTCDate() + " " + MESI[s.getUTCMonth()]) + "</span>").join("");
-
-    // Le più lette del mese: aperture del PDF delle edizioni uscite negli ultimi 30 giorni
-    const da = new Date(utc(oggiIso)); da.setUTCDate(da.getUTCDate() - 30);
-    const recenti = eds.filter((e) => utc(e.data) >= da).slice(0, 23);
-    const aperture = await aGruppi(recenti.map((e) => () => conta("pdf-" + pad(e.numero))), 3);
-    const somma = aperture.reduce((s, x) => s + (x || 0), 0);
-    $("kPdf").textContent = pdfTot == null ? "-" : it(Math.max(pdfTot, somma));
-    const top = recenti.map((e, i) => ({ e, n: aperture[i] || 0 })).filter((x) => x.n > 0).sort((a, b) => b.n - a.n || b.e.numero - a.e.numero).slice(0, 3);
-    const senzaDati = aperture.length > 0 && aperture.every((x) => x == null); // contatore non raggiungibile (ad-blocker, rete): non è "nessuna lettura"
-    $("top").innerHTML = senzaDati
-      ? '<li class="empty" style="display:block">-</li>'
-      : top.length
-      ? top.map((x) => '<li><div><a href="e/' + pad(x.e.numero) + '.html">' + esc(x.e.titolo) + "</a><span>n. " + pad(x.e.numero) + " | " + giorno(x.e.data) + "</span></div></li>").join("")
-      : '<li class="empty" style="display:block">La classifica si forma con le prime letture.</li>';
-  }).catch(() => { $("top").innerHTML = '<li class="empty" style="display:block">Dati non raggiungibili. Riprova tra qualche minuto.</li>'; });
+  const j = (u) => fetch(u, { cache: "no-store" }).then((r) => r.ok ? r.json() : null).catch(() => null);
+  Promise.all([j("dati/storico.json"), j("dati/uscite.json"), j("redazione/scommessa/pagella.json")]).then(([st, us, pag]) => {
+    const storico = (st || []).filter((e) => e && e.numero).sort((a, b) => b.numero - a.numero);
+    if (storico.length) INIZIO = storico[storico.length - 1].data;
+    redazione(storico, us || [], pag);
+    lettori().then((ok) => { if (ok) { top(storico); } else { $("top").appendChild(el("p", "note", "In arrivo con il contatore pubblico.")); } });
+    utile();
+  });
 })();
 </script>
 </body>
