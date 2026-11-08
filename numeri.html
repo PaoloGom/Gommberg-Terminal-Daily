@@ -39,7 +39,8 @@
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
-.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 16px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 24px; }
+@media (max-width: 760px) { .wrap { padding-inline: 18px; } }
 a { color: inherit; text-underline-offset: 3px; }
 .up { color: var(--up); } .down { color: var(--down); }
 
@@ -132,9 +133,8 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
 
 <main class="wrap">
   <section aria-labelledby="h-hero">
-    <p class="kicker">I numeri</p>
-    <h2 class="sec-h" id="h-hero" style="font-size:clamp(28px,4vw,40px);border:0;padding:0;margin-bottom:4px">Il Gommberg in numeri</h2>
-    <p style="color:var(--muted);margin:0">Aggiornati ogni giorno.</p>
+    <p class="pg-kick">I numeri</p>
+    <h2 class="pg-h" id="h-hero"><span>I mercati, edizione dopo edizione.</span><em>Le chiusure riportate in ogni edizione, i record e la scommessa della settimana.</em></h2>
   </section>
 
   <!-- Letture: contate e lette su GoatCounter, non mostrate in pubblico finché i numeri sono piccoli -->

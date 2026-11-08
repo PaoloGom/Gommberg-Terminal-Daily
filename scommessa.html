@@ -39,7 +39,8 @@
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
-.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 16px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 24px; }
+@media (max-width: 760px) { .wrap { padding-inline: 18px; } }
 a { color: inherit; text-underline-offset: 3px; }
 .up { color: var(--up); } .down { color: var(--down); }
 
@@ -123,8 +124,8 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
 
 <main class="wrap">
   <section class="hero" aria-labelledby="h-hero">
-    <p class="kicker">La scommessa</p>
-    <h2 id="h-hero">Sette previsioni ogni lunedì. Il lunedì dopo, il conto.</h2>
+    <p class="pg-kick">La scommessa</p>
+    <h2 id="h-hero" class="pg-h"><span>Sette previsioni ogni lunedì.</span><em>Il lunedì dopo, il conto: quante ne abbiamo prese, senza sconti.</em></h2>
     <p>Sei mercati fissi e uno sul tema del momento. <span data-mk="MSCI ACWI">Borsa mondiale</span>, <span data-mk="S&amp;P 500">S&amp;P 500</span>, <span data-mk="Euro Stoxx 50">Euro Stoxx 50</span>, <span data-mk="Treasury">Treasury a 10 anni</span>, <span data-mk="Brent">Brent</span>, <span data-mk="EUR/USD">euro-dollaro</span>: per ognuno la direzione della settimana e una forchetta di prezzo per la chiusura del venerdì. In più, lo strumento della settimana, scelto sul tema che muove i mercati. Ogni verdetto resta in archivio.</p>
   </section>
 
