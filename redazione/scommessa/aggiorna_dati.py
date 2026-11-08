@@ -2,7 +2,7 @@
 
 Uso: python3 aggiorna_dati.py nuovi.json
 nuovi.json = {"spx": [["2026-10-12", 7809.94], ...], "sx5e": [...], "vix": [...], "brent": [...],
-              "ust10": [...], "ust2": [...], "eurusd": [...], "acwi": [...]}
+              "ust10": [...], "ust2": [...], "eurusd": [...], "oro": [...], "acwi": [...]}
 Stesse chiavi dei registri della scommessa (più "vix"). Solo chiusure ufficiali di giorni già finiti: le date di oggi o
 future vengono rifiutate, perché i fornitori (es. FMP eod-light) restituiscono già una riga con la data di oggi che è un
 valore intraday. Prima si controlla tutto, poi si scrive: o si aggiornano tutte le serie o nessuna.
@@ -16,7 +16,8 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 
 DATI = os.environ.get("GOMMBERG_DATI", os.path.join(os.path.dirname(os.path.abspath(__file__)), "dati"))
-NOMI = {"spx", "sx5e", "vix", "brent", "ust10", "ust2", "eurusd", "acwi"}
+NOMI = {"spx", "sx5e", "vix", "brent", "ust10", "ust2", "eurusd", "acwi", "oro"}
+ALIAS = {"var_oro": "oro"}   # l'oro, strumento della settimana fino al 6/11/2026, è fisso dal metodo 1.2: una sola serie, dati/oro.csv
 oggi = dt.datetime.now(ZoneInfo("Europe/Rome")).date()
 nuovi = json.load(open(sys.argv[1], encoding="utf-8"))
 if not nuovi:
@@ -24,6 +25,7 @@ if not nuovi:
     sys.exit(0)
 pulite = {}
 for nome, righe in nuovi.items():
+    nome = ALIAS.get(nome, nome)
     if nome not in NOMI and not (nome.startswith("var_") and os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), "dati", nome + ".csv"))):
         raise SystemExit(f"serie sconosciuta: {nome} (ammesse: {sorted(NOMI)}). Nessun file modificato.")
     out = []

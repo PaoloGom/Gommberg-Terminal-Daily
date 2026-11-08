@@ -32,7 +32,12 @@ STRUMENTI = {
     "ust2":   {"nome": "Treasury 2 anni", "file": "ust2.csv", "tipo": "tasso", "unita": "%"},
     "brent":  {"nome": "Brent future", "file": "brent.csv", "tipo": "prezzo", "unita": "$"},
     "eurusd": {"nome": "EUR/USD", "file": "eurusd.csv", "tipo": "prezzo", "unita": ""},
+    "oro":    {"nome": "Oro future", "file": "oro.csv", "tipo": "prezzo", "unita": "$"},
 }
+
+# Serie che hanno cambiato chiave: lo strumento della settimana diventato fisso legge la serie del fisso
+# (il registro della settimana 2-6/11/2026 ha l'oro come "var_oro"; dal metodo 1.2 l'oro è fisso, chiave "oro").
+ALIAS = {"var_oro": "oro"}
 
 # Livelli dei quantili usati ovunque (il 50% è la previsione puntuale del modello)
 QUANTILI = [0.05, 0.10, 0.16, 0.25, 0.50, 0.75, 0.84, 0.90, 0.95]
@@ -41,6 +46,7 @@ QL_PINBALL = np.round(np.arange(0.05, 0.951, 0.05), 2)  # 19 livelli: media del 
 
 def carica(chiave: str) -> pd.Series:
     """Serie giornaliera (indice = data) del livello dello strumento."""
+    chiave = ALIAS.get(chiave, chiave)
     f = os.path.join(DATI, STRUMENTI[chiave]["file"]) if chiave in STRUMENTI else os.path.join(DATI, chiave + ".csv")
     df = pd.read_csv(f, parse_dates=["data"]).dropna()
     s = df.set_index("data")["valore"].astype(float).sort_index()

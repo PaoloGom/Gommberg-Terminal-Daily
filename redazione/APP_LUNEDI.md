@@ -1,6 +1,6 @@
 # Appendice - La scommessa del lunedì (o primo giorno di borsa della settimana)
 
-Tutto si lancia da `cd /home/claude/gtd/redazione/scommessa` (perché `dati/`, `registro.csv`, `PAGELLA.md`, `pagella.json` e `../pronostici/` vanno committati). Grafici e PDF in `/home/claude/lavoro`. Registro della settimana: `redazione/pronostici/<data del lunedì>-settimana.json`. Chiavi della scommessa (metodo 1.1): `acwi spx sx5e ust10 brent eurusd`; in `nuovi.json` anche `ust2` (serve al verdetto della settimana 12-16/10 e alla storia) e `vix`. Numeri, tabelle e pagella li fanno gli script: niente a mano.
+Tutto si lancia da `cd /home/claude/gtd/redazione/scommessa` (perché `dati/`, `registro.csv`, `PAGELLA.md`, `pagella.json` e `../pronostici/` vanno committati). Grafici e PDF in `/home/claude/lavoro`. Registro della settimana: `redazione/pronostici/<data del lunedì>-settimana.json`. Chiavi della scommessa (metodo 1.2, in quest'ordine): `spx sx5e ust10 eurusd brent oro`; in `nuovi.json` anche `vix` e `ust2` (storia); `acwi` solo il 9/11/2026, per il verdetto della settimana 2-6/11 (poi non serve più alla scommessa: il nastro del PDF prende il Mondo da `dati.json`). Numeri, tabelle e pagella li fanno gli script: niente a mano.
 
 ## 1. Aggiorna la storia
 Scrivi `/home/claude/lavoro/nuovi.json` con le chiusure ufficiali dei giorni dopo l'ultima data di ogni file in `dati/`, fino a venerdì compreso. Formato: `{"spx": [["2026-10-16", 7850.12], ...], ...}`.
@@ -9,6 +9,7 @@ Scrivi `/home/claude/lavoro/nuovi.json` con le chiusure ufficiali dei giorni dop
 - `brent`: FMP `commodity` endpoint `commodities-historical-price-eod-light`, simbolo BZUSD;
 - `ust10`, `ust2`: FMP `economics` endpoint `treasury-rates`, colonne year10 e year2;
 - `eurusd`: Alpha Vantage `FX_DAILY`, colonna close (non FMP forex, che ha righe del weekend);
+- `oro`: FMP `commodity` endpoint `commodities-historical-price-eod-light`, simbolo GCUSD (seconda fonte: Alpha Vantage `GOLD_SILVER_SPOT`). La chiave vecchia `var_oro` (strumento della settimana 2-6/11) è accettata e finisce nella stessa serie `dati/oro.csv`;
 - `acwi`: Alpha Vantage `TIME_SERIES_DAILY`.
 - **Mai la riga con la data di oggi:** è un valore intraday. Lo script la rifiuta.
 - **Solo chiusure che hanno passato `controlli_dati.py`:** una chiusura del venerdì con volume anomalo (controllo dei volumi) non entra in `nuovi.json` finché una seconda fonte non conferma il livello (il 16/10/2026 FMP ha registrato per l'Euro Stoxx 50 un -0,47% con volume al 7%, mentre l'Europa chiudeva in rialzo).
@@ -18,12 +19,12 @@ Scrivi `/home/claude/lavoro/nuovi.json` con le chiusure ufficiali dei giorni dop
 `python3 valuta.py --settimana ../pronostici/<lunedì scorso>-settimana.json --verdetto --json /home/claude/lavoro/verdetto.json`
 - Venerdì un mercato era chiuso: aggiungi `--festivo <chiavi separate da virgole>` (es. `--festivo ust10,ust2`) o `--festivo tutti`.
 - Lo script aggiorna `registro.csv`, `PAGELLA.md` e `pagella.json`. Se si ferma per dati mancanti, aggiorna i dati: non aggirarlo.
-- Il primo verdetto (19/10/2026) riguarda `2026-10-12-settimana.json`, ancora a 7 strumenti (con `ust2`): attuali e chiusure anche del 2 anni. Dal pronostico del 19/10 gli strumenti sono 6.
+- Il verdetto del 9/11/2026 riguarda `2026-11-02-settimana.json`, ancora con il metodo 1.1: servono le chiusure di venerdì 6/11 anche di `acwi` e dell'oro (chiave `oro` o `var_oro`, stessa serie), che quella settimana era lo strumento della settimana. Dal pronostico del 9/11 i fissi sono quelli del metodo 1.2 e l'oro non può più essere lo strumento della settimana.
 - Lo strumento della settimana scorsa (se c'era) è nel registro: serve la sua chiusura di venerdì in `nuovi.json` (chiave `var_<chiave>`); il verdetto lo conta a parte.
 
 ## 3. Pronostico nuovo
-- `python3 pronostico.py --origine <venerdì scorso> --prova`: stampa sigma e i livelli a +-0,1, 0,3 e 0,5 sigma.
-- Scrivi `/home/claude/lavoro/redazione.json`: per ognuno dei 6 strumenti di `metodo.json` una previsione dentro quei limiti e un motivo di una riga, es. `{"spx": {"previsione": 7845, "motivo": "Banche solide e CPI in linea"}, ...}`. Nel motivo niente segni +/- davanti ai numeri. La direzione è obbligatoria ed è la vera scommessa: sceglila guardando agenda, notizie e scenari, non per abitudine.
+- `python3 pronostico.py --origine <venerdì scorso> --prova`: stampa sigma e i livelli a +-0,1, 0,2 e 0,3 sigma.
+- Scrivi `/home/claude/lavoro/redazione.json`: per ognuno dei 6 strumenti di `metodo.json` una previsione e un motivo di una riga. **Spostamento: 0,1 sigma di norma**; fino a 0,3 solo con un catalizzatore datato nella settimana (un dato, una decisione, dei conti) scritto nel motivo; più di 0,3 lo script lo limita. Senza abilità dimostrata, spostarsi di più peggiora la pagella (METODO.md §2); es. `{"spx": {"previsione": 7845, "motivo": "Banche solide e CPI in linea"}, ...}`. Nel motivo niente segni +/- davanti ai numeri. La direzione è obbligatoria ed è la vera scommessa: sceglila guardando agenda, notizie e scenari, non per abitudine.
 - `python3 pronostico.py --origine <venerdì scorso> --redazione /home/claude/lavoro/redazione.json`: scrive `../pronostici/<lunedì>-settimana.json`. Non sovrascrive mai un registro esistente; `--forza` solo per correggere un errore della stessa mattina, prima della pubblicazione. Una previsione "AGGIUSTATA": vale il livello del registro e il motivo deve restare vero.
 
 ## 3b. Lo strumento della settimana

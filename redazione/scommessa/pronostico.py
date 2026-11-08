@@ -6,8 +6,8 @@ Uso:
 - origine: data dell'ultima chiusura nota (il venerdì precedente). I file in dati/ devono arrivare almeno a quella data
   (aggiornali prima con aggiorna_dati.py).
 - redazione.json (obbligatorio): {"spx": {"previsione": 7840, "motivo": "..."}, ...} per tutti gli strumenti di metodo.json (6 dalla versione 1.1). È la scommessa:
-  ogni strumento ha una direzione. Lo scarto dalla chiusura di partenza va da 0,1 a 0,5 sigma (metodo.json): sotto 0,1 viene
-  portato a 0,1 nella stessa direzione, sopra 0,5 viene limitato a 0,5.
+  ogni strumento ha una direzione. Lo scarto dalla chiusura di partenza è di norma 0,1 sigma; fino a 0,3 solo con un catalizzatore
+  datato nella settimana (metodo 1.2, metodo.json): sotto 0,1 viene portato a 0,1 nella stessa direzione, sopra 0,3 viene limitato a 0,3.
 Scrive <uscita>/<origine+3gg>-settimana.json e stampa una tabella di controllo. Il grafico si disegna con grafico.py.
 """
 import argparse
@@ -24,7 +24,7 @@ from motore import (STRUMENTI, QUANTILI, carica, variazioni_giornaliere, chiusur
 
 QUI = os.path.dirname(os.path.abspath(__file__))
 METODO = json.load(open(os.path.join(QUI, "metodo.json"), encoding="utf-8"))
-ATTIVI = {k: v for k, v in STRUMENTI.items() if k in METODO["strumenti"]}   # gli strumenti della scommessa in vigore
+ATTIVI = {k: STRUMENTI[k] for k in METODO["strumenti"]}   # gli strumenti della scommessa in vigore, nell'ordine di metodo.json
 
 
 def sigma_alla_data(chiave, vol, r, t, vix_d=None):
@@ -83,7 +83,7 @@ def pronostica(origine: pd.Timestamp, redazione: dict, variabile=None):
         else:
             z = z_storici(k, cfg["vol"], tipo, s, r, origine, vix_d)
             qx = quantili_empirici(0.0, sg, z) if len(z) >= 156 else quantili_t(0.0, sg, 5)
-        # previsione della redazione, limitata a +-0,5 sigma
+        # previsione della redazione, limitata allo scarto massimo di metodo.json (0,3 sigma dal metodo 1.2)
         red = redazione.get(k, {})
         if "previsione" not in red:
             raise SystemExit(f"{k}: manca la previsione della redazione (la scommessa richiede una direzione per ogni strumento)")
@@ -116,16 +116,16 @@ def pronostica(origine: pd.Timestamp, redazione: dict, variabile=None):
 
 
 def prova(origine, variabile=None):
-    """Sigma e livelli a +-0,1 / 0,3 / 0,5 sigma per scegliere la previsione della redazione."""
+    """Sigma e livelli a +-0,1 / 0,2 / 0,3 sigma per scegliere la previsione della redazione (0,1 = predefinito)."""
     vix_d = carica("vix")
-    print(f"{'Strumento':18s} {'base':>10s} {'sigma':>9s}   giù 0,5 / 0,3 / 0,1   |   su 0,1 / 0,3 / 0,5")
+    print(f"{'Strumento':18s} {'base':>10s} {'sigma':>9s}   giù 0,3 / 0,2 / 0,1   |   su 0,1 / 0,2 / 0,3")
     for k, info in strumenti_settimana(variabile).items():
         s = carica(k)
         s = s[s.index <= origine]
         r = variazioni_giornaliere(s, info["tipo"])
         sg = sigma_alla_data(k, METODO["strumenti"].get(k, {"vol": "rv20"})["vol"], r, origine, vix_d)
         b = float(s.iloc[-1])
-        liv = [livello(b, m * sg, info["tipo"]) for m in (-0.5, -0.3, -0.1, 0.1, 0.3, 0.5)]
+        liv = [livello(b, m * sg, info["tipo"]) for m in (-0.3, -0.2, -0.1, 0.1, 0.2, 0.3)]
         su = f"{sg:.4f}" if info["tipo"] == "prezzo" else f"{sg:.1f} pb"
         print(f"{k:18s} {b:10.4f} {su:>9s}   " + " / ".join(f"{x:.4f}" for x in liv[:3]) + "   |   " +
               " / ".join(f"{x:.4f}" for x in liv[3:]))

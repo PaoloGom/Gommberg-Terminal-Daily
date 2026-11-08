@@ -1,8 +1,10 @@
 # La Scommessa della settimana - metodo (documento interno)
 
-Versione del metodo: **1.1**, in vigore dal pronostico di lunedì 19/10/2026. Configurazione in `metodo.json`.
+Versione del metodo: **1.2**, in vigore dal pronostico di lunedì 9/11/2026. Configurazione in `metodo.json`.
 
-**Registro delle versioni.** 1.0 (12/10/2026): 7 strumenti. 1.1 (17/10/2026, prima del primo pronostico ufficiale): tolto il Treasury a 2 anni, che con il 10 anni andava nella stessa direzione il 77% delle settimane (correlazione 0,83): una scommessa doppia. Range invariato (stesso backtest); par da 8,5 su 14 a 7,3 su 12; soglia di direzione senza abilità invariata (53%). Il verdetto della settimana 12-16/10 resta sul registro a 7 strumenti. Aggiunto lo strumento della settimana (sezione 6), con conto a parte. Scartata l'idea di sostituire il 2 anni con la pendenza della curva: corretta statisticamente, ma un concetto da addetti ai lavori come scommessa per i lettori.
+**Strumenti fissi (1.2), in quest'ordine:** S&P 500, Euro Stoxx 50, Treasury 10 anni, EUR/USD, Brent, oro (azioni, tassi, valute, materie prime). Ognuno risponde a una domanda diversa: crescita e utili, l'Europa, il prezzo del denaro, il dollaro, energia e geopolitica, la paura.
+
+**Registro delle versioni.** 1.0 (12/10/2026): 7 strumenti. 1.1 (17/10/2026, prima del primo pronostico ufficiale): tolto il Treasury a 2 anni, che con il 10 anni andava nella stessa direzione il 77% delle settimane (correlazione 0,83): una scommessa doppia. Range invariato (stesso backtest); par da 8,5 su 14 a 7,3 su 12; soglia di direzione senza abilità invariata (53%). Il verdetto della settimana 12-16/10 resta sul registro a 7 strumenti. Aggiunto lo strumento della settimana (sezione 6), con conto a parte. Scartata l'idea di sostituire il 2 anni con la pendenza della curva: corretta statisticamente, ma un concetto da addetti ai lavori come scommessa per i lettori. 1.2 (9/11/2026, con Paolo): esce l'ACWI, che con l'S&P 500 ha correlazione settimanale 0,97 ed è andato nella stessa direzione 23 settimane su 23 (la stessa scommessa doppia del 2 anni, e i fissi non passavano la soglia di 0,7 imposta allo strumento della settimana); entra l'oro, il fattore "paura" che mancava (correlazione con i fissi tra -0,17 e 0,58). Collaudo dell'oro (FMP GCUSD, 581 settimane dal 2015): copertura 16-84% del 67,5%, banda 5-95% 87,8%, come gli altri strumenti; settimane in rialzo 56% (`par_direzione` 0,56). Spostamento della redazione: predefinito 0,1 sigma, fino a 0,3 con un catalizzatore datato, tetto 0,3 (era 0,5), per il motivo scritto nella sezione 2. Par invariato (7,3 su 12, direzione senza abilità 53%). Nota per la revisione di aprile: sull'oro la miscela EWMA+lungo periodo passerebbe da sola la regola dello strumento singolo (t 4,2), ma richiede 3 anni di storia in `dati/`, che ne tiene uno: da valutare allora, insieme agli altri.
 
 ## 1. Cosa promettiamo e cosa no
 La scommessa chiede, per 6 strumenti, dove sarà la chiusura del venerdì.
@@ -20,13 +22,13 @@ Le previsioni di direzione a una settimana hanno poco o nessun potere predittivo
   - range pubblicato = quantili 16% e 84%, cioè base +- 1 sigma, centrato sulla base.
 
   È il metodo dell'edizione n. 001, con una differenza: per l'S&P 500 non si usa più il VIX (vedi sotto).
-- **Previsione della redazione:** la direzione è obbligatoria per ogni strumento (è una scommessa), con uno spostamento dalla base tra 0,1 e 0,5 sigma e un motivo scritto. Il range non si sposta.
-  - **Perché il tetto di 0,5 sigma:** nessun segnale ha mostrato abilità, e uno spostamento più grande sarebbe una scommessa contro l'evidenza.
-  - **Probabilità di rialzo pubblicata:** Phi(spostamento/sigma). Va da 54% a 69% se la redazione dice "su", da 31% a 46% se dice "giù".
+- **Previsione della redazione:** la direzione è obbligatoria per ogni strumento (è una scommessa), con un motivo scritto. Spostamento dalla base: 0,1 sigma di norma; fino a 0,3 solo con un catalizzatore datato nella settimana, scritto nel motivo; oltre 0,3 lo script limita. Il range non si sposta.
+  - **Perché 0,1 di norma e tetto 0,3 (dal metodo 1.2; prima 0,1-0,5):** lo spostamento conviene solo se la deriva vera della settimana supera metà dello spostamento. Senza abilità dimostrata, uno spostamento di 0,3 sigma peggiora in attesa la perdita quantile del 4,4% (0,5 sigma: 12%) e a 26 settimane darebbe t <= -2 quasi una volta su due (simulazione del 9/11/2026); per andare in pari servono il 52% di direzioni giuste a 0,1 sigma, il 56% a 0,3, il 60% a 0,5. Il -5,9% delle prime tre settimane, con spostamenti di circa 0,3, è proprio il costo atteso di zero abilità.
+  - **Probabilità di rialzo pubblicata:** Phi(spostamento/sigma). Va da 54% a 62% se la redazione dice "su", da 38% a 46% se dice "giù".
 
 ## 3. Il backtest (`backtest.py`, ultima esecuzione il 12/10/2026, risultati in `backtest/`)
 **Dati.** Chiusure giornaliere di circa 20 anni (nel repository pubblico `dati/` tiene solo l'ultimo anno; per rifare il backtest si riscarica lo storico: FMP `index-historical-price-eod-light` e `commodities-historical-price-eod-light` con from 2006-01-01, Alpha Vantage `TREASURY_YIELD` daily e `FX_DAILY` full, e si salvano nello stesso formato in una cartella locale):
-- FMP: S&P 500, Euro Stoxx 50, VIX, Brent future;
+- FMP: S&P 500, Euro Stoxx 50, VIX, Brent future, oro future (GCUSD, collaudato a parte il 9/11/2026 con lo stesso codice);
 - Alpha Vantage: Treasury 10 e 2 anni, EUR/USD (i valori coincidono con quelli FMP, verificato su ottobre 2026).
 
 **Valutazione.** Ogni settimana dal 2014-2015 al 2026, 580-620 settimane per strumento.
@@ -62,7 +64,7 @@ Risultati:
 
 ## 4. Come si misura
 - **Per i lettori:** 1 punto per la direzione giusta e 1 punto se la chiusura cade nel range, massimo 12 a settimana.
-  - **Par**, cioè il punteggio atteso senza abilità: circa 7,3 su 12 (8,5 su 14 nella settimana 12-16/10, a 7 strumenti).
+  - **Par**, cioè il punteggio atteso senza abilità: circa 7,3 su 12 (8,5 su 14 nella settimana 12-16/10, a 7 strumenti), invariato con il metodo 1.2.
   - Il par tiene conto che sugli azionari "sempre su" indovina il 55-58% delle settimane (`par_direzione` in `metodo.json`).
 - **Per noi** (`valuta.py`, che scrive `registro.csv` e `PAGELLA.md`):
   - copertura reale del range: obiettivo 68%;
@@ -108,7 +110,7 @@ Risultati:
   - stesso metodo per tutti (20 sedute, normale, +-1 sigma);
   - l'S&P 500 lascia il VIX;
   - previsione del modello = base;
-  - direzione obbligatoria della redazione tra 0,1 e 0,5 sigma;
+  - direzione obbligatoria della redazione tra 0,1 e 0,5 sigma (dal metodo 1.2: 0,1 di norma, massimo 0,3);
   - punteggi in unità di sigma e pagella;
   - controlli bloccanti su date e dati vecchi.
 

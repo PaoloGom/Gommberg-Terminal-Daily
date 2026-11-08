@@ -19,7 +19,7 @@ plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 7, "axes.unicode
 INK, POS, NEG, ORANGE, BAR = "#111111", "#1E7B3A", "#B3261E", "#F26B1D", "#D6D6D6"   # colori del motore
 LARGO = (210 - 2 * 14) / 25.4     # larghezza utile della pagina in pollici: il PDF lo usa in scala 1:1
 FS_VAL, FS_NOTA = 6.8, 6.5
-ORDINE = ["acwi", "spx", "sx5e", "ust10", "ust2", "brent", "eurusd"]
+ORDINE = ["spx", "sx5e", "ust10", "ust2", "eurusd", "brent", "oro", "acwi"]   # azioni, tassi, valute, materie prime (metodo 1.2); acwi e ust2 solo per i registri vecchi
 
 
 def x(base, liv, tipo):
@@ -27,7 +27,7 @@ def x(base, liv, tipo):
 
 
 def fmt(v, k):
-    fissi = {"acwi": 2, "spx": 0, "sx5e": 0, "ust10": 2, "ust2": 2, "brent": 2, "eurusd": 4}
+    fissi = {"acwi": 2, "spx": 0, "sx5e": 0, "ust10": 2, "ust2": 2, "brent": 2, "eurusd": 4, "oro": 0}
     d = fissi[k] if k in fissi else (4 if abs(v) < 10 else 2 if abs(v) < 1000 else 0)   # stesso criterio di pag. 6
     s = f"{v:,.{d}f}".replace(",", "X").replace(".", ",").replace("X", ".")
     return s + ("%" if k.startswith("ust") else "")

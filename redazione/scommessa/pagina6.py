@@ -19,8 +19,8 @@ from reportlab.lib import colors
 VAR_BG = colors.HexColor("#FCE7D6")   # riga dello strumento della settimana: lo dice il colore, non il testo
 VAR_INK = colors.HexColor("#B84A0C")
 
-ORDINE = ["acwi", "spx", "sx5e", "ust10", "ust2", "brent", "eurusd"]
-DEC = {"acwi": 2, "spx": 2, "sx5e": 2, "ust10": 2, "ust2": 2, "brent": 2, "eurusd": 4}
+ORDINE = ["spx", "sx5e", "ust10", "ust2", "eurusd", "brent", "oro", "acwi"]   # azioni, tassi, valute, materie prime (metodo 1.2); acwi e ust2 solo per i registri vecchi
+DEC = {"acwi": 2, "spx": 2, "sx5e": 2, "ust10": 2, "ust2": 2, "brent": 2, "eurusd": 4, "oro": 0}
 MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre",
         "novembre", "dicembre"]
 
@@ -71,7 +71,7 @@ def dec(k, v):
 def forchetta(k, lo, hi, unita=None):
     """Range compatto, unità una volta sola: 4.402 - 4.689 $ (mai a capo)."""
     d = dec(k, lo) if k in DEC and abs(lo) < 1000 else dec(k, lo) if k not in DEC else 0
-    u = (unita if unita is not None else "$" if k in ("acwi", "brent") else "%" if k.startswith("ust") else "")
+    u = (unita if unita is not None else "$" if k in ("acwi", "brent", "oro") else "%" if k.startswith("ust") else "")
     return f"{num(lo, d)} - {num(hi, d)}" + ("%" if u == "%" else f" {u}" if u else "")
 
 
@@ -79,7 +79,7 @@ def liv(k, v, unita=None):
     s = num(v, dec(k, v))
     if unita is not None:   # lo strumento della settimana porta la sua unità
         return s + ("%" if unita == "%" else f" {unita}" if unita in ("$", "€") else "")
-    return s + " $" if k in ("acwi", "brent") else s + "%" if k.startswith("ust") else s
+    return s + " $" if k in ("acwi", "brent", "oro") else s + "%" if k.startswith("ust") else s
 
 
 def gg_mese(iso):
