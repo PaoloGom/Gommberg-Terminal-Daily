@@ -191,7 +191,7 @@ VOTO_JS = """<script>
 
 
 def ancora(s):
-    """Stessa ancora di basi.html (Glossario): minuscole, senza accenti, solo lettere e cifre unite da '-'."""
+    """Stessa ancora di glossario.html: minuscole, senza accenti, solo lettere e cifre unite da '-'."""
     s = unicodedata.normalize("NFD", str(s).lower())
     s = "".join(c for c in s if not unicodedata.combining(c))
     return "g-" + re.sub(r"[^a-z0-9]+", "-", s).strip("-")
@@ -207,7 +207,7 @@ GLOSSARIO = {}   # sigla in minuscolo -> (sigla, breve), solo le voci non ovvie;
 # ---------------------------------------------------------------- testata, menu e piè di pagina comuni
 # Stessi elementi su tutte le pagine del sito (stile in assets/sito.css). root = "" per le pagine
 # nella cartella principale, "../" per quelle in e/. attivo = la voce del menu da evidenziare.
-MENU = (("", "Ultima edizione"), ("archivio.html", "Archivio"), ("basi.html", "Le basi"),
+MENU = (("", "Ultima edizione"), ("archivio.html", "Archivio"), ("glossario.html", "Glossario"),
         ("scommessa.html", "La scommessa"), ("numeri.html", "I numeri"), ("progetto.html", "Il progetto"))
 RIGA_AI = ("Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza "
            "artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.")
@@ -294,8 +294,8 @@ def pagina(ed, prec, succ):
     sigle = [GLOSSARIO[s.lower()] for s in dict.fromkeys(ed.get("glossario") or []) if s.lower() in GLOSSARIO]
     if sigle:
         a('<section><h2>Le sigle di questa edizione</h2><div class="sigle">' +
-          "".join(f'<a href="../basi.html#{ancora(s)}"><b>{esc(s)}</b> {esc(b)}</a>' for s, b in sigle) +
-          '</div><p class="tutte"><a href="../basi.html">Tutte le sigle e i meccanismi &rsaquo;</a></p></section>')
+          "".join(f'<a href="../glossario.html#{ancora(s)}"><b>{esc(s)}</b> {esc(b)}</a>' for s, b in sigle) +
+          '</div><p class="tutte"><a href="../glossario.html">Tutto il glossario &rsaquo;</a></p></section>')
     nav = []
     nav.append(f'<a href="{nnn(prec["numero"])}.html">&lsaquo; N. {nnn(prec["numero"])}</a>' if prec else "<span></span>")
     nav.append(f'<a href="{nnn(succ["numero"])}.html">N. {nnn(succ["numero"])} &rsaquo;</a>' if succ else '<a href="../">Ultima edizione &rsaquo;</a>')

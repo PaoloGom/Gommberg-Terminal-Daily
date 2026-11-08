@@ -43,6 +43,6 @@ footer.gf .gf-legal { font-size: 12.5px; color: var(--muted, #6B655E); }
 
 /* ---------- Testata delle pagine: un numero e una frase (Archivio, Le basi, ...) ---------- */
 .pg-kick, .hero p.pg-kick { font-family: var(--mono, "IBM Plex Mono", monospace); font-size: 13px; color: var(--orange-ink, #B84A0C); margin: 0 0 10px; }
-h2.pg-h { font-family: var(--display, "Archivo", sans-serif); font-stretch: 80%; font-weight: 900; font-size: clamp(38px, 6vw, 72px); line-height: .96; letter-spacing: -.02em; margin: 0; max-width: none !important; }
-h2.pg-h > span { display: block; }
-h2.pg-h em { display: block; margin-top: 12px; font-style: normal; font-stretch: 88%; font-weight: 600; font-size: clamp(18px, 2.1vw, 25px); line-height: 1.22; letter-spacing: 0; color: var(--muted, #5E5A55); max-width: 62ch; }
+h2.pg-h, h1.pg-h { font-family: var(--display, "Archivo", sans-serif); font-stretch: 80%; font-weight: 900; font-size: clamp(38px, 6vw, 72px); line-height: .96; letter-spacing: -.02em; margin: 0; max-width: none !important; }
+h2.pg-h > span, h1.pg-h > span { display: block; }
+h2.pg-h em, h1.pg-h em { display: block; text-wrap: pretty; margin-top: 12px; font-style: normal; font-stretch: 88%; font-weight: 600; font-size: clamp(18px, 2.1vw, 25px); line-height: 1.22; letter-spacing: 0; color: var(--muted, #5E5A55); max-width: 62ch; }
