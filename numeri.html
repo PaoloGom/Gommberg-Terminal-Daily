@@ -49,7 +49,9 @@ main{padding-block:34px 56px}
 .grid2{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:24px;margin-top:20px}
 .card{background:var(--sheet);padding:16px 18px}
 .card h4{margin:0 0 10px;font-size:13px;font-weight:600;color:var(--muted)}
-.card{position:relative}
+.card{position:relative;display:flex;flex-direction:column}
+.card .ch-wrap{flex:1;display:flex;align-items:flex-end}
+.card .ch-wrap svg{width:100%}
 .ch-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
 .ch-head h4{margin:0}
 .seg{display:inline-flex;border:1px solid var(--ink)}
@@ -68,7 +70,7 @@ svg.wk rect.bar{cursor:default}
 svg.wk rect.bar:hover{opacity:.8}
 svg.wk rect.off{fill:var(--rule)}
 svg.wk line.avg{stroke:var(--orange-ink);stroke-width:1;stroke-dasharray:4 3}
-svg.wk text.avg{fill:var(--orange-ink)}
+svg.wk text.avg{fill:var(--orange-ink);paint-order:stroke;stroke:var(--sheet);stroke-width:5px;stroke-linejoin:round}
 svg.wk rect{fill:var(--ink)} svg.wk rect.cur{fill:var(--orange)}
 svg.wk text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
 svg.wk text.n{fill:var(--ink);font-weight:500}
@@ -229,13 +231,13 @@ ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
     $("chT").textContent = g === "g" ? "Visite al giorno, ultimi 30 giorni" : g === "s" ? "Visite per settimana" : "Visite per mese";
     if (!CACHE[g]) { box.innerHTML = '<p class="note">Carico...</p>'; CACHE[g] = await Promise.all(P.map(([a, b]) => conta("TOTAL", iso(a), iso(b)))); }
     const v = CACHE[g]; box.innerHTML = "";
-    const N = P.length, WW = 600, H = 210, B = 26, T = 22, gap = N > 20 ? 3 : 8, bw = Math.min(64, (WW - gap * (N - 1)) / N);
+    const N = P.length, WW = 600, H = 250, B = 26, T = 22, slot = WW / N, bw = Math.min(slot * (N > 20 ? 0.8 : 0.66), 120);
     const max = Math.max(1, ...v.map((x) => x || 0)), Y = (x) => H - B - Math.round((H - B - T) * x / max);
     const s = sv("svg", { class: "wk", viewBox: `0 0 ${WW} ${H}`, role: "img", "aria-label": $("chT").textContent });
     // media dei periodi completi (l'ultimo è in corso)
     const compl = v.slice(0, -1).filter((x) => x != null), media = compl.length ? compl.reduce((p, x) => p + x, 0) / compl.length : null;
     v.forEach((x, k) => {
-      const [a, b] = P[k], cur = k === N - 1, X = k * (bw + gap), y = Y(x || 0);
+      const [a, b] = P[k], cur = k === N - 1, X = k * slot + (slot - bw) / 2, y = Y(x || 0);
       const off = g === "g" && !PUBBL.has(iso(a));
       const r = sv("rect", { x: X, y, width: bw, height: Math.max(H - B - y, 1), class: "bar" + (cur ? " cur" : off ? " off" : "") });
       r.addEventListener("mouseenter", () => {
