@@ -33,7 +33,7 @@ run git -C "$REPO" config user.email "PaoloGom@users.noreply.github.com"
 # Elenco fisso: mai redazione/collaudi (dati di prova)
 run git -C "$REPO" add pdf edizioni.json redazione/pronostici redazione/fatti redazione/scommessa || fail "git add"
 # dati/ = file leggeri che il sito legge al posto di edizioni.json (homepage, archivio, basi, numeri)
-for f in e feed.xml ultima dati; do [ -e "$REPO/$f" ] && run git -C "$REPO" add "$f"; done
+for f in e feed.xml sitemap.xml ultima dati; do [ -e "$REPO/$f" ] && run git -C "$REPO" add "$f"; done
 python3 -c "import json,sys; d=json.load(open('$REPO/dati/recenti.json')); sys.exit(0 if d['edizioni'][0]['numero']==int('$NNN'.lstrip('0') or 0) else 1)" 2>/dev/null \
   || echo "AVVISO: dati/recenti.json non contiene il n. ${NNN}: la homepage mostrerebbe l'edizione precedente"
 # File del kit che la redazione può aggiornare (git add ignora quelli invariati)

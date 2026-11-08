@@ -254,7 +254,6 @@ def pagina(ed, prec, succ):
     a('<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">')
     a(f"<title>{esc(titolo)} | Gommberg Terminal Daily n. {n}</title>")
     a(f'<meta name="description" content="{esc(desc)}">')
-    a('<meta name="robots" content="noindex, nofollow">')
     a(f'<link rel="canonical" href="{url}">')
     for k, v in (("og:type", "article"), ("og:site_name", "Gommberg Terminal Daily"), ("og:title", titolo),
                  ("og:description", f"N. {n} | {data.capitalize()}. {desc}"), ("og:url", url),
@@ -262,6 +261,15 @@ def pagina(ed, prec, succ):
                  ("og:locale", "it_IT")):
         a(f'<meta property="{k}" content="{esc(v)}">')
     a('<meta name="twitter:card" content="summary_large_image">')
+    # dati strutturati per Google: articolo di una testata, firmato dal responsabile editoriale
+    ld = {"@context": "https://schema.org", "@type": "NewsArticle", "headline": titolo[:110], "description": desc,
+          "datePublished": ed["data"] + "T08:00:00+01:00", "dateModified": ed["data"] + "T08:00:00+01:00",
+          "inLanguage": "it-IT", "url": url, "mainEntityOfPage": url, "image": [f"{BASE}e/{n}.png"],
+          "isAccessibleForFree": True, "keywords": ", ".join(ed.get("temi") or []),
+          "author": {"@type": "Person", "name": "Paolo Gommellini", "url": BASE + "progetto.html"},
+          "publisher": {"@type": "Organization", "name": "Gommberg Terminal Daily", "url": BASE,
+                        "logo": {"@type": "ImageObject", "url": BASE + "assets/copertina.png"}}}
+    a('<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>")
     a('<meta name="theme-color" content="#0E0E0E">')
     a('<link rel="icon" href="../assets/icona.svg" type="image/svg+xml">')
     a('<link rel="stylesheet" href="../assets/sito.css">')
@@ -325,6 +333,22 @@ def feed(eds):
               f'<enclosure url="{BASE}{esc(ed["file"])}" type="application/pdf" length="0"/>', "</item>"]
     x.append("</channel></rss>\n")
     return "\n".join(x)
+
+
+FISSE = (("", "daily", "1.0"), ("archivio.html", "daily", "0.8"), ("glossario.html", "weekly", "0.8"),
+         ("scommessa.html", "weekly", "0.6"), ("numeri.html", "daily", "0.5"), ("progetto.html", "monthly", "0.5"))
+
+
+def mappa_sito(eds):
+    """sitemap.xml: le pagine fisse e una riga per edizione (e/NNN.html), da dare a Google Search Console."""
+    oggi = eds[0]["data"] if eds else ""
+    r = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for h, f, pr in FISSE:
+        r.append(f"<url><loc>{BASE}{h}</loc><lastmod>{oggi}</lastmod><changefreq>{f}</changefreq><priority>{pr}</priority></url>")
+    for e in eds:
+        r.append(f"<url><loc>{BASE}e/{nnn(e['numero'])}.html</loc><lastmod>{e['data']}</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>")
+    r.append("</urlset>")
+    return "\n".join(r) + "\n"
 
 
 def ultima(ed):
@@ -411,6 +435,7 @@ def main():
     rec = list(reversed(eds))
     scrivi(os.path.join(repo, "e", "pagine.json"), json.dumps([e["numero"] for e in rec]) + "\n")
     scrivi(os.path.join(repo, "feed.xml"), feed(rec))
+    scrivi(os.path.join(repo, "sitemap.xml"), mappa_sito(rec))
     if rec:
         scrivi(os.path.join(repo, "ultima", "index.html"), ultima(rec[0]))
     dati_sito(repo, rec)

@@ -2,10 +2,11 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
+<link rel="canonical" href="https://paologom.github.io/Gommberg-Terminal-Daily/">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Gommberg Terminal Daily</title>
-<meta name="description" content="I mercati globali spiegati, ogni mattina in 6 pagine.">
-<meta name="robots" content="noindex, nofollow">
+<title>Gommberg Terminal Daily | I mercati globali spiegati ogni mattina</title>
+<meta name="description" content="Ogni mattina i mercati globali in 6 pagine: borse, tassi, valute e materie prime spiegati in modo semplice, con le cause di ogni movimento. Gratis, dal lunedì al venerdì.">
+<meta property="og:url" content="https://paologom.github.io/Gommberg-Terminal-Daily/">
 <meta property="og:title" content="Gommberg Terminal Daily">
 <meta property="og:description" content="I mercati globali spiegati, ogni mattina in 6 pagine.">
 <meta property="og:type" content="website">
@@ -273,6 +274,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="stylesheet" href="assets/sito.css">
 <script src="assets/mercati.js"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "Gommberg Terminal Daily", "url": "https://paologom.github.io/Gommberg-Terminal-Daily/", "inLanguage": "it-IT", "description": "I mercati globali spiegati, ogni mattina in 6 pagine."}, {"@type": "NewsMediaOrganization", "name": "Gommberg Terminal Daily", "url": "https://paologom.github.io/Gommberg-Terminal-Daily/", "logo": "https://paologom.github.io/Gommberg-Terminal-Daily/assets/copertina.png", "founder": {"@type": "Person", "name": "Paolo Gommellini"}, "publishingPrinciples": "https://paologom.github.io/Gommberg-Terminal-Daily/progetto.html"}]}</script>
 </head>
 <body class="loading" id="main">
 <div class="demo" id="demo" hidden>Modalità prova: anteprima di collaudo, non pubblicata.</div>
@@ -403,6 +405,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   // La homepage legge solo le ultime edizioni (dati/recenti.json, peso fisso negli anni); un numero vecchio (?n=) arriva da e/NNN.json
   const SRC = DEMO ? "edizioni_demo.json" : "dati/recenti.json";
   let totale = 0;
+  const TITOLO = document.title;
   // Vecchi link con ?tema=: l'archivio ora ha una pagina sua
   if (params.get("tema")) { location.replace("archivio.html?tema=" + encodeURIComponent(params.get("tema"))); return; }
   if (location.hash === "#archivio") { location.replace("archivio.html"); return; }
@@ -637,7 +640,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     tape(ed); agenda(ed); bet(ed); votoStato(ed); ultimeEdizioni(ed);
     if (push) conta({ path: "edizione-" + pad(ed.numero), title: "Edizione n. " + pad(ed.numero) + " aperta dall'archivio", event: true });
     if (push) history.replaceState(null, "", ed === editions[0] ? (DEMO ? "?demo=1" : location.pathname) : linkFor(ed));
-    document.title = (ed === editions[0] ? "" : "#" + pad(ed.numero) + " ") + "Gommberg Terminal Daily";
+    document.title = ed === editions[0] ? TITOLO : "N. " + pad(ed.numero) + " | Gommberg Terminal Daily";
     if (desktop()) loadPdf(ed.file); else pdf = null;
   }
 
