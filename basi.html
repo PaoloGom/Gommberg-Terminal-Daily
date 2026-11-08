@@ -196,7 +196,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     fetch("redazione/glossario.json", { cache: "no-store" }).then(ok),
     fetch("redazione/meccanismi.json", { cache: "no-store" }).then(ok),
     fetch("redazione/glossario_sito.json", { cache: "no-store" }).then(ok).catch(() => ({})),
-    fetch("edizioni.json", { cache: "no-store" }).then(ok).catch(() => []),
+    fetch("dati/storico.json", { cache: "no-store" }).then(ok).catch(() => []),
     fetch("e/pagine.json", { cache: "no-store" }).then(ok).catch(() => [])
   ]).then(([G, M, S, E, P]) => {
     const pagine = new Set(Array.isArray(P) ? P : []);

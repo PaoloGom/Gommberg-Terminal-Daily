@@ -223,8 +223,9 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
   }
 
   Promise.all([
-    fetch("edizioni.json", { cache: "no-store" }).then((r) => r.json()),
-  ]).then(async ([list]) => {
+    fetch("dati/storico.json", { cache: "no-store" }).then((r) => r.json()),
+    fetch("dati/recenti.json", { cache: "no-store" }).then((r) => r.ok ? r.json() : {}).catch(() => ({}))
+  ]).then(async ([list, ultime]) => {
     const eds = list.filter((e) => e && e.numero && e.data && e.file).sort((a, b) => b.numero - a.numero);
     const oggi = new Date(), oggiIso = iso(new Date(Date.UTC(oggi.getFullYear(), oggi.getMonth(), oggi.getDate())));
 
@@ -266,7 +267,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
       const scegli = (l, col, peggio, soloG) => punti.map((e) => val(e, l, col)).filter((x) => x && x.v != null && (!soloG || x.g))
         .reduce((b, x) => !b || (peggio ? x.v < b.v : x.v > b.v) ? x : b, null);
       const R = [
-        ["La seduta peggiore dell'S&P 500", scegli("S&P 500", 2, true, true), (x) => x.s.replace(/\s*g$/, ""), "down"],
+        ["La seduta peggiore dell'azionario mondiale", scegli("MSCI ACWI (ETF)", 2, true, true), (x) => x.s.replace(/\s*g$/, ""), "down"],
         ["Il Brent più caro", scegli("BRENT FUTURE", 1, false), (x) => x.s],
         ["Il VIX più alto", scegli("VIX", 1, false), (x) => x.s]
       ].filter((r) => r[1]);
@@ -284,7 +285,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     if (topF.length) $("rSrc").innerHTML = "<b>Le fonti di ogni mattina:</b> " + topF.map(esc).join(", ") + ", insieme ai comunicati ufficiali di banche centrali e istituti di statistica.";
 
     /* ---------- Scommessa ---------- */
-    const sc = eds.find((e) => e.scommessa && e.scommessa.su);
+    const sc = ((ultime && ultime.edizioni) || []).find((e) => e.scommessa && e.scommessa.su);
     if (sc) {
       const s = sc.scommessa, [a, b] = String(s.settimana || "").split("/");
       if (a && b) $("sWk").textContent = utc(a).getUTCDate() + "-" + giorno(b);

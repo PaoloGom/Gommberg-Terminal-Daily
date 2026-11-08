@@ -346,6 +346,50 @@ def scrivi(path, testo):
     return True
 
 
+# ---------------------------------------------------------------- dati leggeri per il sito (scalabili negli anni)
+# edizioni.json resta l'archivio completo della redazione; il sito legge file piccoli generati da qui:
+#   dati/recenti.json  le ultime edizioni complete, per la homepage (peso fisso, non cresce)
+#   dati/indice.json   una riga breve per edizione, per l'archivio (circa 150 byte a edizione)
+#   dati/cerca.json    il testo per la ricerca, caricato solo quando si cerca
+#   dati/storico.json  per ogni edizione solo chiusure e sigle, per Le basi e I numeri
+#   e/NNN.json         l'edizione completa, per aprire in homepage un numero vecchio (?n=)
+RECENTI = 12
+
+
+def _num(t):
+    try:
+        return float(re.sub(r"[^\d,.-]", "", str(t)).replace(".", "").replace(",", "."))
+    except ValueError:
+        return None
+
+
+def mondo(ed):
+    """Riferimento unico del sito: azionario mondiale (MSCI ACWI) -> [chiusura, variazione del giorno o None]."""
+    for r in ed.get("ticker") or []:
+        if isinstance(r, (list, tuple)) and len(r) >= 3 and "ACWI" in str(r[0]).upper():
+            v = _num(r[1])
+            g = None if re.search(r"\(\d+/\d+\)", str(r[2])) else _num(r[2])   # (9/10) = dato ripetuto, mercato chiuso
+            return [v, g] if v is not None else None
+    return None
+
+
+def dati_sito(repo, rec):
+    os.makedirs(os.path.join(repo, "dati"), exist_ok=True)
+    js = lambda o: json.dumps(o, ensure_ascii=False, separators=(",", ":")) + "\n"
+    for ed in rec:
+        scrivi(os.path.join(repo, "e", nnn(ed["numero"]) + ".json"), js(ed))
+    indice = [{"n": e["numero"], "d": e["data"], "al": e.get("ticker_al") or e["data"], "t": e["titolo"],
+               "temi": e.get("temi") or [], "m": mondo(e)} for e in rec]
+    cerca = {str(e["numero"]): " | ".join(x for x in [e.get("dek") or "", *(e.get("sommario") or []), *(e.get("notizie") or []),
+                                                    *[a.get("titolo", "") for a in e.get("approfondimenti") or [] if isinstance(a, dict)],
+                                                    " ".join(e.get("glossario") or [])] if x) for e in rec}
+    scrivi(os.path.join(repo, "dati", "indice.json"), js(indice))
+    scrivi(os.path.join(repo, "dati", "cerca.json"), js(cerca))
+    scrivi(os.path.join(repo, "dati", "recenti.json"), js({"totale": len(rec), "edizioni": rec[:RECENTI]}))
+    campi = ("numero", "data", "ticker_al", "titolo", "file", "ticker", "glossario", "meccanismi", "parole")
+    scrivi(os.path.join(repo, "dati", "storico.json"), js([{k: e[k] for k in campi if e.get(k)} for e in rec]))
+
+
 def main():
     repo = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(__file__), ".."))
     eds = [e for e in json.load(open(os.path.join(repo, "edizioni.json"), encoding="utf-8"))
@@ -369,7 +413,8 @@ def main():
     scrivi(os.path.join(repo, "feed.xml"), feed(rec))
     if rec:
         scrivi(os.path.join(repo, "ultima", "index.html"), ultima(rec[0]))
-    print(f"Pagine: {len(eds)} edizioni ({cambiati} pagine aggiornate), feed.xml, ultima/")
+    dati_sito(repo, rec)
+    print(f"Pagine: {len(eds)} edizioni ({cambiati} pagine aggiornate), feed.xml, ultima/, dati/")
 
 
 if __name__ == "__main__":

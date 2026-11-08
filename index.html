@@ -399,7 +399,9 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   const dataLunga = (iso) => { const dt = utc(iso); return GIORNI[dt.getUTCDay()] + " " + dt.getUTCDate() + " " + MESI[dt.getUTCMonth()] + " " + dt.getUTCFullYear(); };
   const params = new URLSearchParams(location.search);
   const DEMO = params.get("demo") === "1";
-  const SRC = DEMO ? "edizioni_demo.json" : "edizioni.json";
+  // La homepage legge solo le ultime edizioni (dati/recenti.json, peso fisso negli anni); un numero vecchio (?n=) arriva da e/NNN.json
+  const SRC = DEMO ? "edizioni_demo.json" : "dati/recenti.json";
+  let totale = 0;
   // Vecchi link con ?tema=: l'archivio ora ha una pagina sua
   if (params.get("tema")) { location.replace("archivio.html?tema=" + encodeURIComponent(params.get("tema"))); return; }
   if (location.hash === "#archivio") { location.replace("archivio.html"); return; }
@@ -565,13 +567,10 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   }
   $("agMore").addEventListener("click", () => apriPagina(3));
 
-  /* ---------- Variazione dello S&P 500 per edizione ---------- */
+  /* ---------- Riferimento unico del sito: azionario mondiale (MSCI ACWI), variazione del giorno ---------- */
   function spx(ed) {
-    const t = ed.ticker;
-    if (Array.isArray(t)) { const r = t.find((x) => /S&P/.test(x[0])); if (r) return r[2]; }
-    const txt = [ed.titolo, ...(ed.sommario || []), ...(ed.notizie || [])].join(" ");
-    const m = txt.match(/S&P(?:\s*500)?\s*(?:a\s*)?([+\-−]\d+(?:,\d+)?%)/);
-    return m ? m[1].replace("−", "-") + " g" : null;
+    const r = (Array.isArray(ed.ticker) ? ed.ticker : []).find((x) => /ACWI/i.test(x[0]));
+    return r && !/\(\d+\/\d+\)/.test(r[2]) ? r[2] : null;   // (9/10) = dato ripetuto, mercato chiuso
   }
 
   /* ---------- Le ultime edizioni: le 5 precedenti a quella mostrata, sempre piene ---------- */
@@ -584,14 +583,15 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       const li = el("li"), a = el("a"); a.href = linkFor(e);
       const dt = utc(e.data);
       const d = el("span", "d"); d.appendChild(el("span", "", GG[dt.getUTCDay()] + " " + dt.getUTCDate() + " " + MESI[dt.getUTCMonth()].slice(0, 3) + "  #" + pad(e.numero)));
-      const c = spx(e); if (c) d.appendChild(el("span", cls(c), "S&P " + c.replace(/\s*g\b.*$/, "")));
+      const c = spx(e); if (c) d.appendChild(el("span", cls(c), "ACWI " + c.replace(/\s*g\b.*$/, "")));
       a.appendChild(d);
       a.appendChild(el("span", "t", e.titolo));
       a.addEventListener("click", (ev) => { ev.preventDefault(); showEdition(e, true); window.scrollTo({ top: 0, behavior: "smooth" }); });
       li.appendChild(a); ul.appendChild(li);
     }
     $("weekSec").hidden = !lista.length;
-    $("archLink").textContent = "Tutto l'archivio: " + editions.length + (editions.length === 1 ? " edizione" : " edizioni");
+    const tot = Math.max(totale, editions.length);
+    $("archLink").textContent = "Tutto l'archivio: " + tot.toLocaleString("it-IT") + (tot === 1 ? " edizione" : " edizioni");
   }
 
   /* ---------- L'edizione ---------- */
@@ -827,11 +827,16 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   const pagineP = DEMO ? Promise.resolve([]) : fetch("e/pagine.json", { cache: "no-store" }).then((r) => r.ok ? r.json() : []).catch(() => []);
   Promise.all([fetch(SRC, { cache: "no-store" }), pagineP])
     .then(([r, pg]) => { pagine = new Set(Array.isArray(pg) ? pg : []); if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then((list) => {
-      editions = (Array.isArray(list) ? list : []).filter((e) => e && e.numero && e.data && e.file).sort((a, b) => b.numero - a.numero);
+    .then(async (dati) => {
+      const list = Array.isArray(dati) ? dati : (dati && dati.edizioni) || [];
+      totale = (dati && dati.totale) || list.length;
+      editions = list.filter((e) => e && e.numero && e.data && e.file).sort((a, b) => b.numero - a.numero);
+      const want = parseInt(params.get("n"), 10);
+      if (want && !DEMO && !editions.some((e) => e.numero === want)) {   // edizione vecchia: si carica da sola
+        try { const r = await fetch("e/" + pad(want) + ".json", { cache: "no-store" }); if (r.ok) { const e = await r.json(); if (e && e.numero === want && e.file) editions.push(e); editions.sort((a, b) => b.numero - a.numero); } } catch (err) { /* resta l'ultima */ }
+      }
       document.body.classList.remove("loading");
       if (!editions.length) { fail("Ancora nessuna edizione in archivio.", false); return; }
-      const want = parseInt(params.get("n"), 10);
       showEdition(editions.find((e) => e.numero === want) || editions[0], false);
       // ?leggi=1 (dalla pagina dell'edizione, da PC): apre subito la lettura a schermo intero
       if (params.get("leggi") === "1" && desktop()) { let t = 0; const iv = setInterval(() => { if (pdf) { clearInterval(iv); apriLettura(1); } else if (++t > 60) clearInterval(iv); }, 250); }
