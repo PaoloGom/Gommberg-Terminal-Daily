@@ -49,7 +49,26 @@ main{padding-block:34px 56px}
 .grid2{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:24px;margin-top:20px}
 .card{background:var(--sheet);padding:16px 18px}
 .card h4{margin:0 0 10px;font-size:13px;font-weight:600;color:var(--muted)}
+.card{position:relative}
+.ch-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.ch-head h4{margin:0}
+.seg{display:inline-flex;border:1px solid var(--ink)}
+.seg button{border:0;background:transparent;color:var(--ink);font-family:var(--mono);font-size:12.5px;padding:7px 12px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.ch-sum{margin:6px 0 10px;font-size:13.5px;color:var(--muted)}
+.ch-sum b{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:22px;color:var(--ink);margin-right:6px}
+.ch-sum .up{color:var(--up)}.ch-sum .down{color:var(--down)}
+.ch-leg{margin:8px 0 0;font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.ch-leg i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+.ch-tip{position:absolute;z-index:4;pointer-events:none;background:var(--ink);color:var(--paper);padding:6px 9px;font-size:12.5px;line-height:1.35;transform:translate(-50%,calc(-100% - 8px));white-space:nowrap}
+.ch-tip b{font-family:var(--mono);font-weight:500}
 svg.wk{display:block;width:100%;height:auto}
+svg.wk rect.bar{cursor:default}
+svg.wk rect.bar:hover{opacity:.8}
+svg.wk rect.off{fill:var(--rule)}
+svg.wk line.avg{stroke:var(--orange-ink);stroke-width:1;stroke-dasharray:4 3}
+svg.wk text.avg{fill:var(--orange-ink)}
 svg.wk rect{fill:var(--ink)} svg.wk rect.cur{fill:var(--orange)}
 svg.wk text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
 svg.wk text.n{fill:var(--ink);font-weight:500}
@@ -101,8 +120,9 @@ ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
       <div class="kpi"><span class="k">Condivisioni</span><span class="v" id="kSh">-</span><span class="d">WhatsApp e link copiato</span></div>
     </div>
     <div class="grid2">
-      <div class="card"><h4>Visite per settimana</h4><div id="wkBox"></div></div>
-      <div class="card"><h4>Le edizioni più lette (ultime 10)</h4><ol class="top" id="top"></ol></div>
+      <div class="card"><div class="ch-head"><h4 id="chT">Visite</h4><div class="seg" id="seg" role="group" aria-label="Periodo del grafico"><button type="button" data-g="g">Giorni</button><button type="button" data-g="s" aria-pressed="true">Settimane</button><button type="button" data-g="m">Mesi</button></div></div>
+        <p class="ch-sum" id="chSum"></p><div class="ch-wrap" id="wkBox"></div><div class="ch-tip" id="chTip" hidden></div><p class="ch-leg" id="chLeg"></p></div>
+      <div class="card"><h4>Le edizioni più lette (ultime 10) <small style="font-weight:400">pagina e PDF</small></h4><ol class="top" id="top"></ol></div>
     </div>
   </section>
 
@@ -180,7 +200,9 @@ ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
       $("wkBox").appendChild(el("p", "note", "Il grafico compare appena il contatore pubblico è attivo."));
       return false;
     }
-    $("kMese").textContent = n0(mese || 0); delta($("kMeseD"), mese, precPari, "sullo stesso periodo del mese scorso");
+    $("kMese").textContent = n0(mese || 0);
+    if (precPari) delta($("kMeseD"), mese, precPari, "sugli stessi giorni di " + MESI[(m + 11) % 12]);
+    else $("kMeseD").textContent = "il confronto parte dal primo mese completo";
     $("kTot").textContent = n0(tot); $("kTotD").textContent = prec != null ? n0(prec) + " visite a " + MESI[(m + 11) % 12] : "";
     $("kPdf").textContent = pdf == null ? "-" : n0(pdf);
     $("kSh").textContent = sh == null ? "-" : n0(sh);
@@ -189,24 +211,64 @@ ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
     return true;
   }
 
-  let INIZIO = null;   // prima edizione: le settimane prima non esistono
-  async function settimane() {   // ultime 8 settimane (o meno, all'inizio), da lunedì a domenica; l'ultima è quella in corso
-    const oggi = new Date(), lun = new Date(Date.UTC(oggi.getFullYear(), oggi.getMonth(), oggi.getDate()));
-    lun.setUTCDate(lun.getUTCDate() - ((lun.getUTCDay() + 6) % 7));
-    let W = []; for (let k = 7; k >= 0; k--) { const a = new Date(lun); a.setUTCDate(a.getUTCDate() - 7 * k); const b = new Date(a); b.setUTCDate(b.getUTCDate() + 6); W.push([a, b]); }
-    if (INIZIO) W = W.filter(([, b]) => iso(b) >= INIZIO);
-    const v = await Promise.all(W.map(([a, b]) => conta("TOTAL", iso(a), iso(b))));
-    const box = $("wkBox"); box.innerHTML = "";
-    const N = W.length, WW = 560, H = 190, B = 28, T = 20, gap = 10, bw = Math.min(70, (WW - gap * 7) / 8), max = Math.max(1, ...v.map((x) => x || 0));
-    const s = sv("svg", { class: "wk", viewBox: `0 0 ${WW} ${H}`, role: "img", "aria-label": "Visite nelle ultime 8 settimane" });
-    v.forEach((x, k) => {
-      const h = Math.round((H - B - T) * (x || 0) / max), X = k * (bw + gap), cur = k === N - 1;
-      s.appendChild(sv("rect", { x: X, y: H - B - h, width: bw, height: Math.max(h, 1), class: cur ? "cur" : "" }));
-      const t = sv("text", { x: X + bw / 2, y: H - B - h - 6, "text-anchor": "middle", class: "n" }); t.textContent = x == null ? "" : n0(x); s.appendChild(t);
-      const l = sv("text", { x: X + bw / 2, y: H - 8, "text-anchor": "middle" }); l.textContent = cur ? "questa" : W[k][0].getUTCDate() + " " + MESI[W[k][0].getUTCMonth()].slice(0, 3); s.appendChild(l);
-    });
-    box.appendChild(s);
+  let INIZIO = null, PUBBL = new Set();   // prima edizione e giorni con un'edizione
+  const CACHE = {};
+  // Periodi del grafico. g = ultimi 30 giorni, s = settimane dal lancio (max 26), m = mesi dal lancio (max 24)
+  function periodi(g) {
+    const oggi = new Date(), t = new Date(Date.UTC(oggi.getFullYear(), oggi.getMonth(), oggi.getDate())), P = [];
+    if (g === "g") for (let k = 29; k >= 0; k--) { const a = new Date(t); a.setUTCDate(a.getUTCDate() - k); P.push([a, a]); }
+    if (g === "s") { const l = new Date(t); l.setUTCDate(l.getUTCDate() - ((l.getUTCDay() + 6) % 7)); for (let k = 25; k >= 0; k--) { const a = new Date(l); a.setUTCDate(a.getUTCDate() - 7 * k); const b = new Date(a); b.setUTCDate(b.getUTCDate() + 6); P.push([a, b]); } }
+    if (g === "m") for (let k = 23; k >= 0; k--) { const a = new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth() - k, 1)); P.push([a, new Date(Date.UTC(a.getUTCFullYear(), a.getUTCMonth() + 1, 0))]); }
+    return INIZIO ? P.filter(([, b]) => iso(b) >= INIZIO) : P;
   }
+  const etich = (g, a, cur) => g === "g" ? a.getUTCDate() + "" : g === "s" ? (cur ? "questa" : a.getUTCDate() + " " + MESI[a.getUTCMonth()].slice(0, 3)) : MESI[a.getUTCMonth()].slice(0, 3) + (a.getUTCMonth() === 0 ? " " + String(a.getUTCFullYear()).slice(2) : "");
+  const nomeP = (g, a, b) => g === "g" ? ["dom","lun","mar","mer","gio","ven","sab"][a.getUTCDay()] + " " + a.getUTCDate() + " " + MESI[a.getUTCMonth()] : g === "s" ? "settimana dal " + a.getUTCDate() + " " + MESI[a.getUTCMonth()].slice(0, 3) + " al " + b.getUTCDate() + " " + MESI[b.getUTCMonth()].slice(0, 3) : MESI[a.getUTCMonth()] + " " + a.getUTCFullYear();
+  async function grafico(g) {
+    document.querySelectorAll("#seg button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.g === g ? "true" : "false"));
+    const P = periodi(g), box = $("wkBox"), tip = $("chTip");
+    $("chT").textContent = g === "g" ? "Visite al giorno, ultimi 30 giorni" : g === "s" ? "Visite per settimana" : "Visite per mese";
+    if (!CACHE[g]) { box.innerHTML = '<p class="note">Carico...</p>'; CACHE[g] = await Promise.all(P.map(([a, b]) => conta("TOTAL", iso(a), iso(b)))); }
+    const v = CACHE[g]; box.innerHTML = "";
+    const N = P.length, WW = 600, H = 210, B = 26, T = 22, gap = N > 20 ? 3 : 8, bw = Math.min(64, (WW - gap * (N - 1)) / N);
+    const max = Math.max(1, ...v.map((x) => x || 0)), Y = (x) => H - B - Math.round((H - B - T) * x / max);
+    const s = sv("svg", { class: "wk", viewBox: `0 0 ${WW} ${H}`, role: "img", "aria-label": $("chT").textContent });
+    // media dei periodi completi (l'ultimo è in corso)
+    const compl = v.slice(0, -1).filter((x) => x != null), media = compl.length ? compl.reduce((p, x) => p + x, 0) / compl.length : null;
+    v.forEach((x, k) => {
+      const [a, b] = P[k], cur = k === N - 1, X = k * (bw + gap), y = Y(x || 0);
+      const off = g === "g" && !PUBBL.has(iso(a));
+      const r = sv("rect", { x: X, y, width: bw, height: Math.max(H - B - y, 1), class: "bar" + (cur ? " cur" : off ? " off" : "") });
+      r.addEventListener("mouseenter", () => {
+        tip.innerHTML = ""; tip.appendChild(el("b", "", n0(x || 0) + " visite")); tip.append(" | " + nomeP(g, a, b) + (cur && g !== "g" ? " (in corso)" : ""));
+        const cb = box.getBoundingClientRect(), rb = r.getBoundingClientRect(), host = box.parentElement.getBoundingClientRect();
+        tip.hidden = false; tip.style.left = Math.min(Math.max(rb.left - host.left + rb.width / 2, tip.offsetWidth / 2), host.width - tip.offsetWidth / 2) + "px"; tip.style.top = (rb.top - host.top) + "px";
+      });
+      r.addEventListener("mouseleave", () => { tip.hidden = true; });
+      s.appendChild(r);
+      if (N <= 12) { const t = sv("text", { x: X + bw / 2, y: y - 6, "text-anchor": "middle", class: "n" }); t.textContent = x == null ? "" : n0(x); s.appendChild(t); }
+      const passo = N > 20 ? (g === "g" ? 5 : 4) : 1;
+      if ((N - 1 - k) % passo === 0) { const l = sv("text", { x: X + bw / 2, y: H - 8, "text-anchor": "middle" }); l.textContent = etich(g, a, cur); s.appendChild(l); }
+    });
+    if (media != null && compl.length >= 2) {
+      const ym = Y(media); s.appendChild(sv("line", { class: "avg", x1: 0, x2: WW, y1: ym, y2: ym }));
+      const t = sv("text", { class: "avg", x: WW, y: ym - 5, "text-anchor": "end" }); t.textContent = "media " + n0(Math.round(media)); s.appendChild(t);
+    }
+    box.appendChild(s);
+    // riepilogo: ultimo periodo completo contro il precedente
+    const sum = $("chSum"); sum.innerHTML = "";
+    if (g === "g" && N >= 15) {   // giorni: ultimi 7 giorni completi contro i 7 prima (il singolo giorno è troppo ballerino)
+      const sm = (xs) => xs.reduce((p, x) => p + (x || 0), 0), a7 = sm(v.slice(N - 8, N - 1)), p7 = sm(v.slice(N - 15, N - 8));
+      sum.appendChild(el("b", "", n0(a7))); sum.append("visite negli ultimi 7 giorni");
+      if (p7) { const c = (a7 / p7 - 1) * 100; sum.append(", "); sum.appendChild(el("span", c >= 0 ? "up" : "down", (c > 0 ? "+" : "") + Math.round(c) + "%")); sum.append(" sui 7 prima."); } else sum.append(".");
+    } else if (g !== "g" && v.length >= 3 && v[N - 2] != null && v[N - 3]) {
+      const c = (v[N - 2] / v[N - 3] - 1) * 100, lbl = g === "g" ? "ieri" : g === "s" ? "la settimana scorsa" : "il mese scorso", vs = g === "g" ? "l'altro ieri" : g === "s" ? "quella prima" : "quello prima";
+      sum.appendChild(el("b", "", n0(v[N - 2]))); sum.append("visite " + lbl + ", ");
+      sum.appendChild(el("span", c >= 0 ? "up" : "down", (c > 0 ? "+" : "") + Math.round(c) + "%")); sum.append(" su " + vs + ".");
+    } else sum.textContent = "Il confronto compare quando ci sono almeno tre periodi.";
+    $("chLeg").innerHTML = g === "g" ? '<span><i style="background:var(--ink)"></i>giorni con un\'edizione</span><span><i style="background:var(--rule)"></i>senza edizione</span><span><i style="background:var(--orange)"></i>oggi, in corso</span>' : '<span><i style="background:var(--orange)"></i>periodo in corso</span>';
+  }
+  document.querySelectorAll("#seg button").forEach((b) => b.addEventListener("click", () => grafico(b.dataset.g)));
+  async function settimane() { grafico("s"); }
 
   async function top(storico) {   // le ultime 10 edizioni: visite alla pagina dell'edizione + PDF aperti
     const ult = storico.slice(0, 10);
@@ -249,6 +311,7 @@ ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
   Promise.all([j("dati/storico.json"), j("dati/uscite.json"), j("redazione/scommessa/pagella.json")]).then(([st, us, pag]) => {
     const storico = (st || []).filter((e) => e && e.numero).sort((a, b) => b.numero - a.numero);
     if (storico.length) INIZIO = storico[storico.length - 1].data;
+    storico.forEach((e) => PUBBL.add(e.data));
     redazione(storico, us || [], pag);
     lettori().then((ok) => { if (ok) { top(storico); } else { $("top").appendChild(el("p", "note", "In arrivo con il contatore pubblico.")); } });
     utile();
