@@ -171,7 +171,7 @@
   {
    "sigla": "pb",
    "breve": "punti base, 0,01 punti percentuali",
-   "ovvio": false
+   "ovvio": true
   },
   {
    "sigla": "UST",
@@ -181,12 +181,12 @@
   {
    "sigla": "BTP",
    "breve": "titoli di Stato italiani",
-   "ovvio": false
+   "ovvio": true
   },
   {
    "sigla": "Bund",
    "breve": "titoli di Stato tedeschi",
-   "ovvio": false
+   "ovvio": true
   },
   {
    "sigla": "OAT",
@@ -317,17 +317,17 @@
   {
    "sigla": "Brent",
    "breve": "petrolio di riferimento europeo",
-   "ovvio": false
+   "ovvio": true
   },
   {
    "sigla": "WTI",
    "breve": "petrolio di riferimento USA",
-   "ovvio": false
+   "ovvio": true
   },
   {
    "sigla": "OPEC",
    "breve": "paesi esportatori di petrolio",
-   "ovvio": false,
+   "ovvio": true,
    "varianti": [
     "OPEC+"
    ]
@@ -376,12 +376,12 @@
   {
    "sigla": "IPO",
    "breve": "prima quotazione in borsa",
-   "ovvio": false
+   "ovvio": true
   },
   {
    "sigla": "buyback",
    "breve": "riacquisto di azioni proprie",
-   "ovvio": false
+   "ovvio": true
   },
   {
    "sigla": "SEC",
@@ -391,7 +391,7 @@
   {
    "sigla": "GPU",
    "breve": "processori grafici per l'AI",
-   "ovvio": false
+   "ovvio": true
   },
   {
    "sigla": "HBM",

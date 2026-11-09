@@ -337,7 +337,7 @@ C = {
         ("Approfondimenti", "Banche: comunicato Morgan Stanley (SEC), Milano Finanza, FIRSTonline, TheStreet. Treasury: "
                             "curva par del Tesoro via FMP, Axios, Investing.com. Chip e Asia: ANSA, Milano Finanza, "
                             "Teleborsa (TSMC)."),
-        ("La scommessa", "Registro della settimana 12-16 ottobre e script del laboratorio (valuta.py, grafico.py)."),
+        ("La scommessa", "Chiusure di FMP e Alpha Vantage; forchette calcolate dalla volatilità delle ultime 20 sedute."),
     ],
 }
 

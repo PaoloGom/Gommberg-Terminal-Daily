@@ -8,7 +8,8 @@ Uso: python3 controlli_testo.py <pdf> [--json uscita.json]
   o se sono spiegate più di una volta. Stampa anche l'elenco delle sigle spiegate (va in edizioni.json, campo glossario).
 BLOCCANTI (codice 1): più di 5 righe "→"; una riga "→" oltre 20 parole; una sigla non ovvia la cui prima occorrenza
 (dopo il ticker) non è spiegata tra parentesi; un connettivo causale in una frase con un movimento di mercato senza
-la fonte "(Testata)". Le sigle spiegate due volte sono solo un avviso."""
+la fonte "(Testata)" nella frase o nel suo paragrafo (due frasi prima o dopo). Le sigle spiegate due volte e più di 25
+fonti tra parentesi sono solo avvisi."""
 import json, os, re, subprocess, sys
 
 QUI = os.path.dirname(os.path.abspath(__file__))
@@ -60,8 +61,11 @@ def frasi(t):
 def connettivi(t):
     """Frasi con un connettivo causale e un movimento di mercato, senza fonte "(Testata)" né forma M/S."""
     sospetti = []
-    for f in frasi(t):
-        if ESENZIONI.search(f) or FONTE_PAR.search(f) or not MOVIMENTO.search(f):
+    ff = frasi(t)
+    for i, f in enumerate(ff):
+        # una fonte in coda al paragrafo copre il paragrafo: basta una "(Testata)" entro due frasi (ISTRUZIONI §2)
+        vicine = " ".join(ff[max(0, i - 2):i + 3])
+        if ESENZIONI.search(f) or FONTE_PAR.search(vicine) or not MOVIMENTO.search(f):
             continue
         for c in CONNETTIVI:
             if re.search(c, f, re.I):
@@ -105,6 +109,7 @@ def main():
     lunghe = [f for f in fr if len(f.split()) > 20]
     sos = connettivi(t)
     mai, doppie, spiegate = sigle(t)
+    n_fonti = len(FONTE_PAR.findall(re.sub(r"\s+", " ", t.rsplit("Fonti", 1)[0])))
     print(f"Righe →: {len(fr)} (max {MAX_FRECCE}) | cause senza fonte: {len(sos)} | sigle non spiegate: {len(mai)}")
     errori = []
     if len(fr) > MAX_FRECCE:
@@ -149,6 +154,9 @@ def main():
         print("AVVISO: " + a[:155])
     if doppie:
         print("AVVISO: sigle spiegate più di una volta: " + ", ".join(doppie)[:140])
+    if n_fonti > 25:
+        print(f"AVVISO: {n_fonti} fonti tra parentesi nel testo (di norma non più di 25): togli quelle delle notizie "
+              "confermate e tienine una per paragrafo; le altre stanno nella riga Fonti")
     print("Sigle spiegate (campo glossario): " + (", ".join(spiegate) or "-")[:150])
     if "--json" in sys.argv:
         json.dump({"frecce": fr, "connettivi": sos, "sigle_mai_spiegate": mai, "sigle_doppie": doppie,
