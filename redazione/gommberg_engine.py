@@ -681,14 +681,23 @@ def perche_quindi(perche, quindi):
 
 
 def parole(voci):
-    """voci = [(concetto, spiegazione in 1-2 righe)], 2-3 voci: concetti (non sigle) comparsi nel numero."""
-    cells = [[P(t.upper(), "box_t"), Paragraph(d, S["nw_b"])] for t, d in voci]
-    t = Table([cells], colWidths=[CW / len(cells)] * len(cells))
-    t.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("BACKGROUND", (0, 0), (-1, -1), TINT),
-                           ("LINEBEFORE", (0, 0), (0, -1), 2.2, ORANGE),
-                           ("LINEAFTER", (0, 0), (-2, -1), 1.5, colors.white),
-                           ("LEFTPADDING", (0, 0), (-1, -1), 8), ("RIGHTPADDING", (0, 0), (-1, -1), 8),
-                           ("TOPPADDING", (0, 0), (-1, -1), 6), ("BOTTOMPADDING", (0, 0), (-1, -1), 7)]))
+    """voci = [(concetto, spiegazione in 1-2 righe)], da 3 a 6 in ordine di importanza: concetti (non sigle) comparsi
+    nel numero. Escono le prime 3; le altre 3 se pag. 6 ha spazio (il motore lo decide al secondo passo)."""
+    voci = list(voci)[:6]
+    mostra = voci if AGGIUSTA.get("parole_tutte") else voci[:3]
+    righe = [mostra[i:i + 3] for i in range(0, len(mostra), 3)]
+    n = max(len(r) for r in righe)
+    cells = [[[P(t.upper(), "box_t"), Paragraph(d, S["nw_b"])] for t, d in r] + [""] * (n - len(r)) for r in righe]
+    t = Table(cells, colWidths=[CW / n] * n)
+    stile = [("VALIGN", (0, 0), (-1, -1), "TOP"), ("BACKGROUND", (0, 0), (-1, -1), TINT),
+             ("LINEBEFORE", (0, 0), (0, -1), 2.2, ORANGE), ("LINEAFTER", (0, 0), (-2, -1), 1.5, colors.white),
+             ("LEFTPADDING", (0, 0), (-1, -1), 8), ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+             ("TOPPADDING", (0, 0), (-1, -1), 6), ("BOTTOMPADDING", (0, 0), (-1, -1), 7)]
+    if len(righe) > 1:
+        stile.append(("LINEBELOW", (0, 0), (-1, 0), 1.5, colors.white))
+        if len(righe[-1]) < n:
+            stile.append(("BACKGROUND", (len(righe[-1]), 1), (-1, 1), colors.white))
+    t.setStyle(TableStyle(stile))
     return t
 
 
@@ -915,7 +924,7 @@ def render_v6(path, costruisci, riempi=(3, 4, 5), margine=3):
     Respiro. Passo finale: rimandi "→ pag. N" esatti. Stampa i mm liberi per pagina (obiettivo: 6 pagine, < 10 mm)."""
     from functools import partial
     from reportlab.pdfgen.canvas import Canvas
-    AGGIUSTA.update(extra={}, respiro={}, pagine_resp={})
+    AGGIUSTA.update(extra={}, respiro={}, pagine_resp={}, parole_tutte=False, p6_extra_mm=0)
 
     def passo():
         AGGIUSTA["n"] = 0
@@ -951,31 +960,55 @@ def render_v6(path, costruisci, riempi=(3, 4, 5), margine=3):
     if len(liberi2) != len(liberi) or PAGINE != prima:     # se l'impaginazione cambia, si torna al naturale
         AGGIUSTA.update(extra={}, respiro={})
         liberi2 = passo()
+    # p6: le "Parole di oggi" (fino a 6, in ordine di importanza) si allargano se la pagina ha spazio: contenuto, non aria
+    if liberi2.get(6, 0) > 15 and not AGGIUSTA.get("parole_tutte"):
+        AGGIUSTA["parole_tutte"] = True
+        prova = passo()
+        if len(prova) == len(liberi2) and PAGINE == prima:
+            liberi2 = prova
+        else:
+            AGGIUSTA["parole_tutte"] = False
+            liberi2 = passo()
+    # p6: quel che resta (pochi mm) va in aria tra le righe del tabellone della scommessa, al massimo 1,5 mm per riga
+    if liberi2.get(6, 0) > 4:
+        AGGIUSTA["p6_extra_mm"] = liberi2[6] - 3
+        prova = passo()
+        if len(prova) == len(liberi2) and PAGINE == prima:
+            liberi2 = prova
+        else:
+            AGGIUSTA["p6_extra_mm"] = 0
+            liberi2 = passo()
     print("Pagine:", len(liberi2), "| mm liberi in fondo:", ", ".join(f"p{p}={l}" for p, l in liberi2.items()))
-    pieni = {n: v for n, v in REPORT_MODULI}
+    pieni = {r[0]: (r[1], r[2] if len(r) > 2 else HM) for r in REPORT_MODULI}
+    REPORT_MODULI.clear()
+    righe_mm = 3.9          # una riga di testo (corpo 8, interlinea 10,8 pt)
     scarsi = []
-    for n, v in pieni.items():
+    for n, (v, alto) in pieni.items():
         if v < 90:
-            scarsi.append(f"'{n}' al {v}%")
-            print(f"RIEMPIRE: '{n}' pieno al {v}% (minimo 90%): aggiungi contenuto verificato che aggiunge "
-                  "(testo, numero, righe, punti); mai spazi o grafici allungati")
+            manca = max(1, round((90 - v) / 100 * alto / mm / righe_mm))
+            scarsi.append(f"'{_testo(n)[:60]}' pieno al {v}% (minimo 90%): mancano circa {manca} righe "
+                          f"(~{manca * 12} parole)")
         elif v > 112:
             print(f"ACCORCIARE: modulo '{n}' al {v}%: il motore lo rimpicciolisce, togli testo o righe")
-    REPORT_MODULI.clear()
     # lo spazio preso dalla "molla" (note spinte in fondo) è vuoto anche se la pagina sembra piena: conta come libero
     molle_mm = {pg: v for (pg, m), v in AGGIUSTA["respiro"].items() if m}
-    vuote = [f"p{p}={round(l + molle_mm.get(p, 0))} mm" for p, l in liberi2.items()
-             if p in (1, 2, 3, 4, 5, 6) and l + molle_mm.get(p, 0) > 15]
-    if vuote:
-        print("RIEMPIRE:", ", ".join(vuote), "- ogni pagina va riempita con contenuto verificato che aggiunge (racconto, "
-              "contesto, un'altra notizia, una riga in più); mai grafici allungati né spazi")
-        scarsi += vuote
+    for p, l in liberi2.items():
+        vuoto = round(l + molle_mm.get(p, 0))
+        if p in (1, 2, 3, 4, 5, 6) and vuoto > 15:
+            scarsi.append(f"pag. {p}: {vuoto} mm vuoti in fondo, circa {round(vuoto / righe_mm)} righe a tutta larghezza")
+    for x in scarsi:
+        print("RIEMPIRE:", x)
     print("Rimandi:", PAGINE)
-    import os as _os
-    if scarsi and _os.environ.get("GTD_RIEMPIMENTO_OK") != "1":
-        raise SystemExit("ERRORE riempimento: spazi pieni sotto il 90% o pagine con vuoti (" + ", ".join(scarsi) + "). Riempili con contenuto "
-                         "verificato (un fatto o un perché nuovo, punti, righe). Solo dopo un tentativo reale, se non c'è altro di "
-                         "verificato da dire: GTD_RIEMPIMENTO_OK=1.")
+    # Il riempimento è un controllo come gli altri: il PDF esce sempre, il giudizio lo dà controlli_tutti.sh (bloccante,
+    # dentro i 3 giri di APP_ERRORI.md). Niente scorciatoie: lo spazio si riempie con fatti e perché verificati.
+    import os as _os, json as _json
+    _lav = _os.environ.get("GTD_LAVORO", "/home/claude/lavoro")
+    try:
+        _os.makedirs(_lav, exist_ok=True)
+        with open(_os.path.join(_lav, "riempimento.json"), "w", encoding="utf-8") as fh:
+            _json.dump({"pdf": _os.path.abspath(path), "mm_liberi": liberi2, "scarsi": scarsi}, fh, ensure_ascii=False, indent=1)
+    except OSError:
+        pass
     return liberi2
 
 
@@ -1186,7 +1219,7 @@ class _Riempito(Flowable):
         hg = sum(f.wrap(self.wl, 10000)[1] for f in self.g)
         hp = self.pq.wrap(self.wr - 15, 10000)[1] + 13
         if hg > 0:
-            REPORT_MODULI.append(("riquadro di '" + _testo(self.nome)[:40] + "'", round(hp / hg * 100)))
+            REPORT_MODULI.append(("riquadro di '" + _testo(self.nome)[:40] + "'", round(hp / hg * 100), hg))
         return 0, 0
 
     def draw(self):
@@ -1231,7 +1264,7 @@ class _Slot(Flowable):
                 f.height += agg
         self.k = KeepInFrame(aW, h, self.contenuto, mode="shrink")
         self.k.wrapOn(self.canv, aW, h)
-        REPORT_MODULI.append((self.nome, round(natur / h * 100)))
+        REPORT_MODULI.append((self.nome, round(natur / h * 100), h))
         self.width, self.height = aW, h
         return aW, h
 

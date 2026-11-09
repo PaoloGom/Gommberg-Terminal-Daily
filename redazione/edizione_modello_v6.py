@@ -104,7 +104,7 @@ C = {
         # vanno nel quadro o in un modulo). Sì: fatti con una causa propria. "rimando" = chiave interna, "freccia" = riga →
         # ogni notizia porta un fatto nuovo (dato, dichiarazione, società, decisione): mai il cruscotto in parole
         # (No: "Londra in rialzo, Milano ed Euro Stoxx in calo"); almeno 2 su 6 da macro o società
-        {"tag": "Chip", "titolo": "TSMC: utile +68,7% nel terzo trimestre, sopra le stime",
+        {"tag": "Chip", "titolo": "TSMC: utile del terzo trimestre sopra le stime, ma l'Asia vende i chip",
          "testo": "L'utile netto batte la stima degli analisti raccolta da LSEG (Teleborsa). I conti, usciti stamattina, "
                   "non fermano le vendite sui chip in Asia.", "rimando": "chip"},
         {"tag": "Asia", "titolo": "Tokyo: SoftBank perde quasi il 10% in apertura",
@@ -147,13 +147,13 @@ C = {
         ("Tassi", [["Treasury 2 anni", "4,82%", "+3 pb", "+2 pb", "+17 pb", "Sale con le attese sulla Fed [[treasury]]"],
                    ["Treasury 10 anni", "5,19%", "-2 pb", "-5 pb", "+22 pb", "-"],
                    ["Treasury 30 anni", "5,52%", "-4 pb", "-8 pb", "+18 pb", "-"],
-                   ["Spread BTP-Bund", "110 pb", "+2 pb", "n.d.", "n.d.", "BTP 10 anni al 4,57% (Teleborsa)"]]),
+                   ["Spread Italia", "110 pb", "+2 pb", "n.d.", "n.d.", "10 anni italiano al 4,57% (Teleborsa)"]]),
         ("Cambi", [["EUR/USD", "1,1156", "-0,4%", "-0,4%", "-3,4%", "-"]]),
         ("Materie prime", [["Brent future", "106,06 $", "+0,4%", "+1,3%", "+0,4%", "-"],
                            ["Oro (spot, $/oncia)", "4.162,84", "0,0%", "+0,4%", "-4,2%", "-"]]),
         ("Volatilità", [["VIX (volatilità attesa)", "16,87", "+1,60", "+2,03", "-0,23", "Massimo dal 16/9"]]),
     ],
-    "cross_nota": "Fonte: FMP, Alpha Vantage (EUR/USD, oro), Teleborsa (BTP, spread). 1 mese = sul 14/9. VIX = volatilità "
+    "cross_nota": "Fonte: FMP, Alpha Vantage (EUR/USD, oro), Teleborsa (spread). 1 mese = sul 14/9. VIX = volatilità "
                   "attesa sull'S&amp;P 500.",
     "termometri": [  # (tema, a che punto, ultima novità, tendenza su/giu/fermo o testo, cosa guardare)
         ("Fed e tassi", "Riunione 27-28 ottobre", "Rialzo di ottobre di nuovo in gioco", "su", "Dati USA delle 14:30"),
@@ -199,7 +199,7 @@ C = {
                   ["Rialzo a ottobre (25 pb)", "40%", "2 anni in salita, curva piatta", "Pressione su tecnologici e "
                    "small cap", "Dollaro più forte, sotto 1,11"]],
         "larghezze": [38, 14, 50, 46, 34],
-        "nota": "* Stime redazionali soggettive, più prudenti del mercato: i future danno il rialzo di ottobre al 47% (Axios). Oggi "
+        "nota": "* Probabilità nostre, più prudenti del mercato: i future danno il rialzo di ottobre al 47% (Axios). Oggi "
                 "vendite al dettaglio e PPI possono spostarle.",
     },
     "moduli": [   # 5 unità: il primo "mezzo" va a pag. 3; pag. 4 e 5: 2 "mezzo" o 1 "doppio" ciascuna. "breve" = voce dell'indice di pag. 1
@@ -216,7 +216,13 @@ C = {
          # perche = la causa con fonte, non la parafrasi della tabella; quindi = una cosa osservabile (cifra, data, evento)
          "perche": "BofA sconta un onere straordinario e non deducibile, mentre Morgan Stanley beneficia delle ottime performance di consulenza e trading (FIRSTonline).",
          "quindi": "Il trading di Morgan Stanley, 5,79 mld $ nel trimestre, è il metro per le banche che pubblicano nei prossimi giorni.",
-         # niente "lettura": la tesi sta nel titolo e si dice una volta (§9.3; il motore rifiuta il campo)
+         # niente "lettura": la tesi sta nel titolo e si dice una volta (§9.3; il motore rifiuta il campo).
+         # testo = la profondità: il meccanismo che il lettore non vede nei numeri, con fatti verificati (schede deep_dive)
+         "testo": ["Il confronto vale per tutta la stagione dei conti. Le banche d'affari guadagnano quando i mercati si "
+                   "agitano: più scambi, più commissioni. Le banche commerciali come BofA vivono soprattutto del margine "
+                   "tra interessi sui prestiti e sui depositi. Un trimestre di mercati nervosi premia chi fa trading e "
+                   "conta meno per chi presta. Per questo i conti di Goldman Sachs e Citigroup, in arrivo, diranno se il "
+                   "trading regge anche fuori da Morgan Stanley."],
          "fonte": "Fonti: comunicato Morgan Stanley (SEC), Milano Finanza, FIRSTonline, TheStreet."},
         {"chiave": "treasury", "tema": "Tassi USA", "breve": "curva al minimo dal 28/9",
          # titolo = la TESI (cosa significa), non il fatto
@@ -244,12 +250,21 @@ C = {
          # B1: la causa si confronta con la forma della curva. Un'inflazione più alta spiega il breve, non il lungo in calo:
          # dirlo e dare la lettura della redazione che regge alla prova dei prezzi (registro "anomalia" in fatti.json, §6.2c)
          "perche": "Di solito il breve segue le attese sulla Fed, salite col CPI. Il lungo però scende, e un'inflazione più alta non lo spiega. Per noi sono acquisti rifugio dopo le vendite sui tecnologici: lo dicono oro e VIX in rialzo.",
-         "quindi": "Se il 10 anni torna verso il 5,30-5,35%, toccato in serata, la curva racconta di nuovo l'inflazione; sotto il 5,10% di stamattina prevale il rifugio.",
+         "quindi": "Se il 10 anni torna verso il 5,30-5,35%, toccato in serata, la curva racconta di nuovo l'inflazione; sotto il 5,10% di stamattina prevale il rifugio, cioè la paura sulla borsa.",
          # testo: riempie la pagina con racconto che aggiunge (qui la storia del mese, dai dati del grafico), mai spazi vuoti
          "testo": ["Il mese ha avuto due fasi. Fino al 21 settembre la distanza tra 10 e 2 anni si era quasi dimezzata, "
                    "da 39 a 20 pb; poi il lungo ha corso più del breve e il 7 ottobre la distanza è salita a 51 pb, il "
                    "massimo del periodo. Da lì in una settimana ha perso 14 pb ed è tornata a 37 pb, sotto il livello di "
-                   "inizio mese."],
+                   "inizio mese.",
+                   "Per chi guarda dall'Europa conta il canale del cambio. Un breve americano più alto rende il dollaro "
+                   "più attraente e lo sostiene contro l'euro. Il lungo in calo, invece, abbassa il costo dei mutui "
+                   "americani, che seguono il 10 anni più dei tassi della Fed: il dato divide anche l'economia reale.",
+                   "Il prossimo passaggio è l'asta dei titoli a 20 anni di mercoledì: una domanda debole spingerebbe "
+                   "di nuovo in su il lungo e smentirebbe la lettura del rifugio. Le ultime aste lunghe hanno avuto "
+                   "una domanda nella media: è il metro con cui leggere quella di mercoledì.",
+                   "Chi ha ragione lo diranno i prossimi dati sui prezzi. Se l'inflazione dei servizi resta alta, il "
+                   "breve ha visto giusto e la Fed non ha fretta di tagliare. Se rallenta, il calo del lungo diventa "
+                   "l'inizio di un movimento più ampio, che di solito aiuta anche le borse."],
          # niente riga → qui: avrebbe ripetuto il perché. La riga → solo se aggiunge un meccanismo che il pezzo non dice.
          # numero: UN dato che misura la tesi, nella colonna accanto al grafico; deve dire qualcosa che il resto non dice
          "numero": "-14 pb: quanto si è ristretta in una settimana la distanza tra 10 e 2 anni, da 51 a 37 pb.",
@@ -277,15 +292,19 @@ C = {
                    ["Quota dei ricavi da wafer a 3 nanometri", "33%", "-", "-"]],
          "larghezze": [70, 30, 36, 46], "ruolo_righe": "perche",   # i conti solidi: la tesi è che non bastano
          "perche": "Le vendite partite dai tecnologici del Nasdaq, guidate dai titoli legati all'intelligenza artificiale, si sono estese a tutta l'Asia (ANSA); a Seul e Tokyo i chip contano molto negli indici.",
-         "quindi": "Conti solidi non bastano quando il timore riguarda la concorrenza sulle memorie: oggi alle 15:30 la riapertura del Nasdaq dirà se le vendite si fermano.",
+         "quindi": "Conti solidi non bastano quando il timore riguarda la concorrenza sulle memorie: oggi alle 15:30 la riapertura del Nasdaq dirà se le vendite si fermano o arrivano anche all'Europa.",
          "punti": ["<b>Tokyo.</b> Dopo SoftBank, Kioxia e Advantest (in prima pagina) cede anche Tokyo Electron, circa il "
                    "6,5% in apertura (ANSA, Milano Finanza).",
                    "<b>Il timore.</b> Un analista di BNP Paribas AM cita l'annuncio di CXMT (produttore cinese di "
                    "memorie) sulle DRAM, le memorie di lavoro, di nuova generazione.",
                    "<b>Il clima.</b> \"In questo momento gli investitori stanno entrando nel panico\" (Milano Finanza). I "
                    "conti di TSMC, usciti stamattina, non hanno fermato le vendite."],
+         "testo": ["L'ampiezza del calo dipende da quanto pesano i chip. A Taipei e a Seul pochi produttori di "
+                   "semiconduttori fanno una parte larga dell'indice: quando il settore vende, vende tutta la borsa. A "
+                   "Tokyo il peso è minore, e infatti il Nikkei cede meno, nonostante SoftBank e i produttori di "
+                   "macchinari per chip."],
          "fonte": "Notizie e conti TSMC: ANSA, Milano Finanza, Teleborsa.",
-         "numero": "+68,7%: la crescita annua dell'utile di TSMC nel trimestre, nel giorno in cui l'Asia vende i chip.",
+         "numero": "+68,7%: la crescita annua dell'utile di TSMC nel trimestre, nel giorno in cui l'Asia vende i chip. I conti non sono il problema: lo è il timore sui concorrenti.",
          "guardare": "Oggi alle 15:30 la riapertura del Nasdaq: se i chip americani recuperano, la vendita resta asiatica; "
                      "se scendono ancora, il timore sulle memorie diventa un tema globale."},
     ],
@@ -300,10 +319,17 @@ C = {
                ("Inflazione core", "L'inflazione senza energia e alimentari, le voci più volatili: mostra la tendenza "
                                    "di fondo dei prezzi."),
                ("Titoli difensivi", "Settori come sanità e beni di consumo base, i cui utili dipendono poco dal ciclo "
-                                    "economico.")],
+                                    "economico."),
+               # fino a 6 voci, in ordine di importanza: le prime 3 escono sempre, le altre se pag. 6 ha spazio
+               ("Acquisti rifugio", "Vendite di azioni e acquisti di titoli considerati sicuri, come Treasury e oro, "
+                                    "quando cresce la paura."),
+               ("Utile per azione", "L'utile diviso per il numero di azioni: il dato che gli analisti confrontano "
+                                    "con le stime."),
+               ("Memorie DRAM", "I chip di memoria di lavoro di computer e server: il loro prezzo segue il ciclo "
+                                "della domanda.")],
     "fonti": [
         ("Dati di mercato", "Financial Modeling Prep (indici USA e Asia, VIX, Brent future, curva par del Tesoro USA); "
-                            "Alpha Vantage (EUR/USD, ACWI, oro spot); ANSA (FTSE MIB); Teleborsa (BTP, spread BTP-Bund, "
+                            "Alpha Vantage (EUR/USD, ACWI, oro spot); ANSA (FTSE MIB); Teleborsa (titoli di Stato italiani, spread con la Germania, "
                             "Asia delle 08:11)."),
         ("Pag. 1 e 2", "TheStreet, Axios, Milano Finanza, investingLive, FXStreet, Investing.com, ANSA, "
                        "Teleborsa."),

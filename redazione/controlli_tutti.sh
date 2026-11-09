@@ -2,7 +2,7 @@
 # Tutti i controlli del PDF in un colpo, con output corto. Uso:
 #   bash /home/claude/gtd/redazione/controlli_tutti.sh "<pdf>" <N> [fatti.json] [--prima-della-revisione]
 # Esegue (tutti BLOCCANTI; dentro ognuno le righe AVVISO non bloccano): controlli.py (pagine, trattini, testata,
-# edizioni.json) | controlli_fatti.py (schede; senza --prima-della-revisione esige l'esito del revisore) |
+# edizioni.json) | controlli_riempimento.py (pagine e moduli pieni, da riempimento.json del rendering) | controlli_fatti.py (schede; senza --prima-della-revisione esige l'esito del revisore) |
 # controlli_numeri.py (PDF contro dati.json) | controlli_testo.py (righe →, connettivi, sigle) | controlli_temi.py
 # (temi di pag. 1) | controlli_contenuti.py (estremi, perché/quindi, probabilità, record, anomalie, Stamattina, moduli,
 # quadro) | controlli_ripetizioni.py (cifra distintiva oltre 2 volte) | anteprima.py (una sola immagine).
@@ -43,6 +43,7 @@ else
   INDICE="$REPO/edizioni.json"
 fi
 passo "PDF e indice" 1 python3 "$R/controlli.py" "$PDF" "$INDICE" "$N"
+passo "Riempimento (pagine e moduli)" 1 python3 "$R/controlli_riempimento.py" "$PDF" "$L/riempimento.json"
 DATA=$(python3 -c "import json,sys;print(next((v['data'] for v in json.load(open('$INDICE')) if v['numero']==$N),''))")
 if [ -f "$FATTI" ] && [ -n "$DATA" ]; then
   passo "Fatti${FASE:+ (prima della revisione)}" 1 python3 "$R/controlli_fatti.py" "$FATTI" "$REPO/edizioni.json" "$DATA" $FASE

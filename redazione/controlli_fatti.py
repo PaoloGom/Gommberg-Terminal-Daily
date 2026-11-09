@@ -135,6 +135,20 @@ for f in fatti:
         elif v == "non_conclusivo":
             problemi.append(f"{i}: verifica non conclusiva: togliere il fatto dal PDF o attribuirlo e ripetere la verifica")
 
+# Ampiezza della ricerca (solo prima della revisione: si recupera cercando, quando costa poco; non blocca mai l'uscita).
+# Notizie: top story + 6-8 in prima pagina + riserve. Approfondimenti: fatti propri, oltre ai dati di mercato.
+if prima_revisione:
+    n_not = sum(1 for f in fatti if ALIAS.get(f.get("sezione", ""), f.get("sezione", "")) in ("top_story", "top_news"))
+    n_app = sum(1 for f in fatti if ALIAS.get(f.get("sezione", ""), f.get("sezione", "")) == "deep_dive")
+    if n_not < 10:
+        problemi.append(f"RICERCA: {n_not} schede di notizie, ne servono almeno 10 (top story, 6-8 in prima pagina, riserve): "
+                        "cerca ancora nel flusso dall'ultima edizione (il lunedì anche sabato e domenica) e nelle "
+                        "storie in evidenza di Bloomberg, Financial Times e Reuters (ISTRUZIONI §2)")
+    if n_app < 6:
+        problemi.append(f"RICERCA: {n_app} schede per gli approfondimenti (sezione \"deep_dive\"), ne servono almeno 6: "
+                        "per ogni tesi i fatti che la provano (causa, contesto, chi lo dice, cosa succede dopo), "
+                        "non solo i prezzi (ISTRUZIONI §2, \"Un approfondimento = una tesi\")")
+
 print(f"Schede: {len(fatti)} | ultima edizione: {ultima} | avvisi: {len(avvisi)}")
 for a in avvisi:
     print("AVVISO: " + a)

@@ -97,7 +97,7 @@ import re
 from reportlab.graphics.shapes import Drawing, Rect, Line, Polygon, String, Circle
 from reportlab.platypus import Table
 from reportlab.lib.styles import ParagraphStyle
-from gommberg_engine import S, GREY, INK, TINT, ORANGE, GREEN, RED
+from gommberg_engine import S, GREY, INK, TINT, ORANGE, GREEN, RED, AGGIUSTA
 
 DOMANDA = {"spx": "L'economia e gli utili reggono?", "sx5e": "E l'Europa, casa nostra?",
            "ust10": "Quanto costa il denaro?", "eurusd": "Il dollaro è forte o debole?",
@@ -232,6 +232,13 @@ def _due_box(sx, dx):
     return t
 
 
+def _aria(t, n):
+    """Il poco spazio rimasto in fondo a pag. 6 (lo misura il motore) va tra le righe del tabellone: max 1,5 mm per riga."""
+    extra = min(AGGIUSTA.get("p6_extra_mm", 0) * mm / max(n, 1), 1.5 * mm)
+    if extra > 0:
+        t.setStyle(TableStyle([("TOPPADDING", (0, 1), (-1, -1), 3 + extra / 2), ("BOTTOMPADDING", (0, 1), (-1, -1), 3 + extra / 2)]))
+
+
 def pagina6_lunedi(reg, verdetto, pagella, tesi, grafico="c_forecast.png", settimana_prec=None, com_e_andata=None):
     st = reg["strumenti"]
     ven = reg["settimana"].split("/")[1]
@@ -245,6 +252,7 @@ def pagina6_lunedi(reg, verdetto, pagella, tesi, grafico="c_forecast.png", setti
                      P(esc(v.get("motivo_redazione", "")), "cell")])
     t = tbl(rows, [50 * mm, 16 * mm, 6 * mm, wb, CW - 130 * mm])
     t.setStyle(TableStyle([("VALIGN", (0, 1), (-1, -1), "MIDDLE")]))
+    _aria(t, len(rows) - 1)
     out += [evidenzia(t, st, ordine(st)), Spacer(1, 2), _legenda(reg), Spacer(1, 6),
             _due_box(_come_si_gioca(fissi(st)), _verdetto(verdetto, settimana_prec, com_e_andata))]
     return out
@@ -267,6 +275,7 @@ def pagina6_settimana(reg, stato, tesi, grafico="c_forecast.png", venerdi=False)
     t = tbl(rows, [50 * mm, 16 * mm, 6 * mm, wb, 20 * mm, 15 * mm, CW - 161 * mm])
     t.setStyle(TableStyle([("LEFTPADDING", (4, 0), (4, -1), 7)]))
     t.setStyle(TableStyle([("VALIGN", (0, 1), (-1, -1), "MIDDLE")]))
+    _aria(t, len(rows) - 1)
     fx = fissi(st)
     n = len(fx)
     dx = ["A CHE PUNTO SIAMO",
