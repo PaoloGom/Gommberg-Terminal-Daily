@@ -65,7 +65,7 @@ Non toccare index.html, README.md, assets/.
 5. Passaggio fallito: riprova una volta, poi consegna comunque.
 
 ## 9. Lettori e scrittura
-Lettori per lo più di media competenza: il lettore medio capisce senza cercare, l'esperto non si annoia. Ogni pezzo dà il fatto (con il numero) e la lettura (cosa significa, quanto era atteso). **Saldo zero:** ciò che si aggiunge per chiarire si paga con un taglio nello stesso riquadro.
+Lettori per lo più di media competenza: il lettore medio capisce senza cercare, l'esperto non si annoia. Ogni pezzo dà il fatto (con il numero) e la lettura (cosa significa, quanto era atteso). **Saldo zero, solo per i chiarimenti:** una spiegazione aggiunta si paga togliendo giri di parole o ripetizioni nello stesso riquadro, mai un fatto; non vuol dire scrivere meno: lo spazio si riempie sempre di fatti e perché (§2 Riempimento).
 1. **Fatto, perché, cosa significa.** La prima frase regge da sola. Sì (Quadro): "La paura riguarda l'AI, non l'inflazione o la Fed." e poi i prezzi; no: sei prezzi in fila e la conclusione in fondo.
 2. **Un passaggio per frase:** sotto 25 parole, mai oltre 35; nessun passaggio lasciato al lettore. No: "i Treasury scendono, quindi sale lo sconto sul rischio, non sui tassi". Sì: "I rendimenti dei Treasury scendono: il denaro non costa di più. A pesare è la paura."
 3. **Una tesi, detta una volta:** mai ripetuta in perché, punti, righe "→" o chiusura.
@@ -85,4 +85,4 @@ Paolo non riceve bozze né domande. Si pubblica solo ciò che passa i controlli:
 In `PROGETTO.md` (permessi dell'attività programmata).
 
 ## 13. Budget di token
-Una lettura di questo file e del modello; mai per intero motore, script, `edizioni.json`, PDF o pagine web. Un rendering per giro, correzioni insieme, controllo visivo = anteprima. Output corti. Niente Gmail, Drive, Docs, Canva.
+Una lettura di questo file e del modello; mai per intero motore, script, `edizioni.json`, PDF o pagine web. Un rendering per giro, correzioni insieme, controllo visivo = anteprima. Output dei comandi corti (il giornale no: §2 Riempimento). Niente Gmail, Drive, Docs, Canva.
