@@ -1,0 +1,883 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Il Brent scende sotto i 98 $ venerdì (chiusura 98,32 $, FMP), oltre il 13% in meno in cinque sedute: il calo settimanale più forte dalla pandemia (Trading Economics); mercoledì 4/11 aveva perso l'8,6% in una seduta (OilPrice)",
+  "data_evento": "2026-11-06",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Trading Economics",
+    "url": "https://tradingeconomics.com/commodity/brent-crude-oil/news/525500",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Brent crude fell below $98 a barrel on Friday, down more than 13% this week"
+   },
+   {
+    "testata": "OilPrice.com",
+    "url": "https://oilprice.com/Latest-Energy-News/World-News/Oil-Crashes-9-as-Trump-and-Vance-Blame-Iran-War-for-Midterm-Rout.amp.html",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Brent fell $8.94, or 8.6%, to $94.66 per barrel at 1:06 p.m. ET on Wednesday."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: rilievi accolti; nel PDF e nella scheda resta solo cio che la fonte dice (TE (item del 6/11, la pagina ha data generale 13/02/2026 ma la voce e' del 6/11) contiene la citazione e dice 'steepest )"
+ },
+ {
+  "id": "T02",
+  "sezione": "top_news",
+  "testo": "Trump ha detto che è molto improbabile ordinare nuovi attacchi all'Iran finché i colloqui per chiudere il conflitto avanzano; il petrolio apre in calo lunedì",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Business Recorder (Reuters)",
+    "url": "https://www.brecorder.com/news/40448086/oil-falls-as-trump-says-new-iran-attacks-unlikely",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "highly unlikely it's going to be necessary."
+   },
+   {
+    "testata": "Yahoo Finance (Reuters)",
+    "url": "https://finance.yahoo.com/energy/articles/oil-falls-open-trump-says-235002807.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Oil prices fell at Monday's open after US President Donald Trump said he was highly unlikely to order fresh attacks"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: Business Recorder/Reuters 9/11: 'highly unlikely it's going to be necessary', Trump a CNN; condizione: talks che avanzano / accordo firmato ('depends whether they sign a very strong agreement'). Yahoo"
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Il consiglio di Nvidia ha avviato un'indagine indipendente dopo le notizie su Jensen Huang e su Megaspeed; l'azienda dice che Huang resta amministratore delegato; nel premercato del 9/11 il titolo cede tra il 4% e il 5%",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance (L2)",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/nvidia-shares-fall-more-4-111021784.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Nvidia (NASDAQ:NVDA) shares declined more than 4% in premarket trading on Monday, November 9, 2026,"
+   },
+   {
+    "testata": "Investing.com / Reuters (L2)",
+    "url": "https://www.investing.com/news/stock-market-news/nvidia-launches-probe-into-reported-espionage-plot-targeting-ceo-jensen-huang-5010308",
+    "data_pubblicazione": "2026-11-08",
+    "citazione": "Shares of the chipmaker fell nearly 5% in premarket trade on Monday."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: Yahoo (9/11): 'more than 4%' premercato, board 'initiating an independent investigation', Megaspeed nel testo; Investing/Reuters (8/11, agg. 9/11): 'nearly 5%', frase di Huang CEO presente, Megaspeed "
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Banco BPM sale del 10% dopo la proposta di fusione amichevole di Crédit Agricole, che ha oltre il 29% del capitale; il titolo guida il paniere principale di Piazza Affari",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/09/borsa-il-risiko-bancario-spinge-milano-balzo-di-banco-bpm_2c6b4740-c8dd-48aa-b97f-097e3487ac5d.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "A Piazza Affari balzo per Banco Bpm (+10%), dopo la proposta amichevole di fusione da parte di Credit Agricole."
+   },
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/banco-bpm-vola-10-e-trascina-milano-18-cosa-muove-le-banche",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "avanza dell'1,8% a 50.964 punti"
+   },
+   {
+    "testata": "Investing.com Italia",
+    "url": "https://it.investing.com/news/stock-market-news/borse-oggi--ftse-mib--banco-bpm-vola-con-credit-agricole-unicredit-da-record-3637078",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "In testa al paniere principale c'è Banco BPM con un balzo del 10%."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: rilievi accolti; nel PDF e nella scheda resta solo cio che la fonte dice (ANSA e SoldiOnline: +10% e 'proposta amichevole di fusione' ok; SoldiOnline conferma anche FTSE MIB +1,8% a 50.964. Inve)"
+ },
+ {
+  "id": "N06b",
+  "sezione": "top_news",
+  "testo": "UniCredit sale del 5,3% in mattinata dopo i risultati record dei primi nove mesi",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/09/borsa-il-risiko-bancario-spinge-milano-balzo-di-banco-bpm_2c6b4740-c8dd-48aa-b97f-097e3487ac5d.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Mostra i muscoli Unicredit (+5,3%), dopo i risultati record dei primi nove mesi."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: ANSA 9/11 ore 11:50: 'Mostra i muscoli Unicredit (+5,3%), dopo i risultati record dei primi nove mesi.' Letterale. 'in mattinata' ok."
+ },
+ {
+  "id": "N13",
+  "sezione": "top_news",
+  "testo": "Mps +1,5% e Intesa +1,4% con il via libera della Consob al documento d'offerta di Intesa; Bper (+1,8%) riceverà da Unipol (+2,4%) le 635 filiali del Monte; FTSE MIB +1,8% a 50.964 punti, spread BTP-Bund a 108 punti, decennale al 4,34%",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/09/borsa-il-risiko-bancario-spinge-milano-balzo-di-banco-bpm_2c6b4740-c8dd-48aa-b97f-097e3487ac5d.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Acquisti su Mps (+1,5%), con il via libera della Consob al documento d'offerta di Intesa (+1,4%)."
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/09/borsa-il-risiko-bancario-spinge-milano-balzo-di-banco-bpm_2c6b4740-c8dd-48aa-b97f-097e3487ac5d.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Sale Bper (+1,8%) che riceverà da Unipol (+2,4%) le 635 filiali del Monte nell'ambito dell'operazione di Ca' de Sass."
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/09/borsa-il-risiko-bancario-spinge-milano-balzo-di-banco-bpm_2c6b4740-c8dd-48aa-b97f-097e3487ac5d.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "l'indice Ftse Mib che guadagna l'1,8% a 50.964 punti."
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/09/borsa-il-risiko-bancario-spinge-milano-balzo-di-banco-bpm_2c6b4740-c8dd-48aa-b97f-097e3487ac5d.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Lo spread tra Btp e Bund a 108 punti, con il rendimento del decennale italiano che sale al 4,34%."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: ANSA 9/11 11:50: tutte e quattro le citazioni letterali (Mps +1,5% / Intesa +1,4% Consob; Bper +1,8% / Unipol +2,4% 635 filiali; FTSE MIB +1,8% 50.964; spread 108, decennale 4,34%). Note PDF: 'Ca' de "
+ },
+ {
+  "id": "N12",
+  "sezione": "top_news",
+  "testo": "Cina, ottobre: prezzi alla produzione +5,7% annuo; prezzi al consumo +0,7% annuo",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "NBS Cina",
+    "url": "https://www.stats.gov.cn/sj/zxfbhjd/202611/t20261109_1965795.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "2026年10月份，全国居民消费价格同比上涨0.7%。"
+   },
+   {
+    "testata": "NBS Cina",
+    "url": "https://www.stats.gov.cn/sj/zxfbhjd/202611/t20261109_1965794.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "2026年10月份，全国工业生产者出厂价格同比上涨5.7%，环比上涨0.7%。"
+   }
+  ],
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: rilievi accolti; nel PDF e nella scheda resta solo cio che la fonte dice (NBS (9/11 09:30): CPI +0,7% e PPI +5,7% a/a (+0,7% m/m) letterali. Ma 'massimo da oltre quattro anni' NON e' sulla pagin)"
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Asia, 9/11: Nikkei +2,3% a 58.775,50, Kospi -0,8% a 5.018,85, Hang Seng +0,1% a 24.507,83; rimbalzo dei titoli dell'AI dopo le vendite della settimana scorsa",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP (via Click2Houston)",
+    "url": "https://www.click2houston.com/business/2026/11/09/asian-markets-bounce-back-after-a-recovery-for-ai-stocks-on-wall-street/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "recovered some ground lost in last week's sell-offs"
+   },
+   {
+    "testata": "Korea JoongAng Daily",
+    "url": "https://www.koreajoongangdaily.com/business/kospi-closes-lower-as-investors-search-for-direction-following-ai-sector-uncertainties/12963472",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "The benchmark fell 40.84 points, or 0.81 percent, to close at 5,018.85"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: rilievi accolti; nel PDF e nella scheda resta solo cio che la fonte dice (AP/Click2Houston: Nikkei +2,3% 58.775,50; Hang Seng +0,1% a 24.507,83; Kospi -0,8% 5.018,85 ok. Ma la versione AP su CP2)"
+ },
+ {
+  "id": "N14",
+  "sezione": "top_news",
+  "testo": "Occupati non agricoli USA a ottobre +165.000, sopra i +65.000 attesi (LSEG); disoccupazione al 4,1%; salari +3,1% annuo",
+  "data_evento": "2026-11-06",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/news.release/archives/empsit_11062026.htm",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Total nonfarm payroll employment rose by 165,000 in October"
+   },
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/news.release/archives/empsit_11062026.htm",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Over the past 12 months, average hourly earnings have increased by 3.1 percent."
+   },
+   {
+    "testata": "InvestmentNews",
+    "url": "https://www.investmentnews.com/fixed-income/october-jobs-report-beats-forecasts-lifting-december-fed-hike-odds/268915",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Economists surveyed by Dow Jones had projected payroll growth of 59,000"
+   },
+   {
+    "testata": "Fox Business",
+    "url": "https://www.foxbusiness.com/economy/us-jobs-report-october-2026",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "well above the 65,000 estimate of economists polled by LSEG"
+   }
+  ],
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: BLS (6/11 08:30 ET): +165.000, disoccupazione 4,1%, salari +3,1% a/a letterali. Fox/LSEG: 'well above the 65,000 estimate of economists polled by LSEG'; 4,2% atteso. Fedele."
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "testo": "Dopo il voto del 3/11 i Democratici hanno conquistato la maggioranza in Senato e alla Camera; lunedì gli investitori valutano cosa significheranno le vittorie per mercati ed economia",
+  "data_evento": "2026-11-04",
+  "novita": "9/11: AP, gli investitori guardano a cosa significheranno le vittorie democratiche per mercati ed economia",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/technology/ai/articles/ai-data-center-stocks-drop-100424346.html",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Democrats captured majorities in both the Senate and House"
+   },
+   {
+    "testata": "AP (via CP24)",
+    "url": "https://www.cp24.com/news/money/2026/11/09/world-markets-bounce-back-after-a-recovery-for-ai-stocks-on-wall-street/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "what the Democrats' sweeping victories will mean for markets and the broader economy"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: Yahoo/Investing 4/11: 'Democrats captured majorities in both the Senate and House'; AP 9/11: 'what the Democrats' sweeping victories will mean for markets and the broader economy'. Data del voto (3/11"
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "Mercoledì 4/11 il Brent perde l'8,6% in una seduta, fino a 94,66 $ nel corso della giornata (OilPrice); venerdì scende sotto i 98 $, oltre il 13% in meno nella settimana, la più forte dalla pandemia (Trading Economics)",
+  "data_evento": "2026-11-06",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Trading Economics",
+    "url": "https://tradingeconomics.com/commodity/brent-crude-oil/news/525500",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Brent crude fell below $98 a barrel on Friday, down more than 13% this week"
+   },
+   {
+    "testata": "OilPrice.com",
+    "url": "https://oilprice.com/Latest-Energy-News/World-News/Oil-Crashes-9-as-Trump-and-Vance-Blame-Iran-War-for-Midterm-Rout.amp.html",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Brent fell $8.94, or 8.6%, to $94.66 per barrel at 1:06 p.m. ET on Wednesday."
+   }
+  ]
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "JPMorgan stima un'eccedenza di offerta di petrolio di 1,1 milioni di barili al giorno in settembre e di 1,4 in ottobre",
+  "data_evento": "2026-11-06",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Rigzone",
+    "url": "https://www.rigzone.com/news/oil_market_arrives_at_remarkable_destination-06-nov-2026-185028-article/",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "the global oil market hit a surplus of 1.1 million barrels per day in September and 1.4 million barrels per day in October."
+   },
+   {
+    "testata": "Investing.com UK",
+    "url": "https://uk.investing.com/news/commodities-news/has-the-global-oil-market-returned-to-surplus-jpmorgan-thinks-so-4957449",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "a surplus of 1.1 million barrels per day in September"
+   },
+   {
+    "testata": "OilPrice.com",
+    "url": "https://oilprice.com/Latest-Energy-News/World-News/The-Global-Oil-Glut-Returns-as-High-Prices-Crush-Demand.amp.html",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "widening to 1.4 million bpd in October"
+   }
+  ]
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Le esportazioni dal Medio Oriente sono risalite a circa 20,7 milioni di barili al giorno, da 9,8 di marzo",
+  "data_evento": "2026-11-06",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Rigzone",
+    "url": "https://www.rigzone.com/news/oil_market_arrives_at_remarkable_destination-06-nov-2026-185028-article/",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "From a low of just 9.8 million barrels per day in March, Middle Eastern flows have recovered to around 20.7 million barrels per day currently."
+   },
+   {
+    "testata": "Investing.com UK",
+    "url": "https://uk.investing.com/news/commodities-news/has-the-global-oil-market-returned-to-surplus-jpmorgan-thinks-so-4957449",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "reaching about 20.7 million bpd, compared with just 9.8 million bpd in March."
+   }
+  ]
+ },
+ {
+  "id": "D11",
+  "sezione": "deep_dive",
+  "testo": "A settembre i prezzi al consumo USA +3,7% annuo; la benzina +9,1% in un mese, oltre metà dell'aumento mensile dell'indice, e +34,2% sull'anno",
+  "data_evento": "2026-10-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS (CPI release)",
+    "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "The index for gasoline rose 9.1 percent in September, accounting for over half of the monthly all items increase."
+   }
+  ]
+ },
+ {
+  "id": "D08",
+  "sezione": "deep_dive",
+  "testo": "Nell'edizione di ottobre l'EIA vedeva il Brent a 105 $ in media nel quarto trimestre del 2026 e a 84 $ nel 2027",
+  "data_evento": "2026-10-06",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "EIA STEO ottobre 2026",
+    "url": "https://www.eia.gov/outlooks/steo/archives/oct26.pdf",
+    "data_pubblicazione": "2026-10-06",
+    "citazione": "We forecast the Brent crude oil spot price will average $105 per barrel (b) in 4Q26"
+   },
+   {
+    "testata": "EIA STEO ottobre 2026",
+    "url": "https://www.eia.gov/outlooks/steo/archives/oct26.pdf",
+    "data_pubblicazione": "2026-10-06",
+    "citazione": "We expect the Brent spot price will fall to an average of $84/b next year."
+   }
+  ]
+ },
+ {
+  "id": "D13",
+  "sezione": "deep_dive",
+  "testo": "Il 28/10 la Fed ha lasciato i tassi al 3,75-4,00%; contrari Lisa Cook e Beth Hammack, che volevano un rialzo di un quarto di punto (voto 10-2); l'inflazione è sopra l'obiettivo da quasi sei anni",
+  "data_evento": "2026-10-28",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "federalreserve.gov",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent"
+   },
+   {
+    "testata": "federalreserve.gov",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack."
+   },
+   {
+    "testata": "Fox Business",
+    "url": "https://www.foxbusiness.com/economy/federal-reserve-interest-rate-decision-october-28-2026",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "inflation that has been running above the committee's objective for close to six years"
+   },
+   {
+    "testata": "CBS News",
+    "url": "https://www.cbsnews.com/news/federal-reserve-holds-interest-rates-steady-inflation/",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "inflation that has been running above the committee's objective for close to six years"
+   }
+  ]
+ },
+ {
+  "id": "D18",
+  "sezione": "deep_dive",
+  "testo": "Warsh, in conferenza stampa il 28/10: «It's our responsibility to get inflation down»",
+  "data_evento": "2026-10-28",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "federalreserve.gov (trascrizione conferenza stampa)",
+    "url": "https://www.federalreserve.gov/mediacenter/files/FOMCpresconf20261028.pdf",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "It's our responsibility to get inflation down."
+   },
+   {
+    "testata": "CBS News",
+    "url": "https://www.cbsnews.com/news/federal-reserve-holds-interest-rates-steady-inflation/",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "It's our responsibility to get inflation down."
+   }
+  ]
+ },
+ {
+  "id": "D14",
+  "sezione": "deep_dive",
+  "testo": "Ottobre: occupati non agricoli +165.000 contro i +65.000 attesi (LSEG); disoccupazione 4,1% contro 4,2% atteso; salari +3,1% annuo",
+  "data_evento": "2026-11-06",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dol.gov (BLS)",
+    "url": "https://www.dol.gov/newsroom/economicdata/empsit_11062026.pdf",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Total nonfarm payroll employment rose by 165,000 in October."
+   },
+   {
+    "testata": "Fox Business",
+    "url": "https://foxbusiness.com/economy/us-jobs-report-october-2026",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "the change for September was revised up by 31,000 jobs from a gain of 29,000 to 60,000"
+   },
+   {
+    "testata": "investinglive.com",
+    "url": "https://investinglive.com/news/us-october-non-farm-payrolls-165k-vs-65k-expected/",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Unemployment rate 4.1% vs 4.2% expected"
+   }
+  ]
+ },
+ {
+  "id": "D17",
+  "sezione": "deep_dive",
+  "testo": "Settembre rivisto a +60.000 da +29.000; agosto a +186.000 da +133.000; agosto e settembre insieme 84.000 posti in più di quanto stimato",
+  "data_evento": "2026-11-06",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dol.gov (BLS)",
+    "url": "https://www.dol.gov/newsroom/economicdata/empsit_11062026.pdf",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "the change for September was revised up by 31,000"
+   },
+   {
+    "testata": "dol.gov (BLS)",
+    "url": "https://www.dol.gov/newsroom/economicdata/empsit_11062026.pdf",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "employment in August and September combined is 84,000 higher than previously reported"
+   }
+  ]
+ },
+ {
+  "id": "D15",
+  "sezione": "deep_dive",
+  "testo": "Dopo il dato sul lavoro la probabilità di un rialzo Fed a dicembre sale al 76,8% secondo CME FedWatch (Fox Business); Reuters indica il 78%; il 16/9 la Fed aveva alzato i tassi di un quarto di punto al 3,75-4,00%",
+  "data_evento": "2026-11-06",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Fox Business",
+    "url": "https://foxbusiness.com/economy/us-jobs-report-october-2026",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "the CME FedWatch tool showing a 76.8% probability the Fed hikes in December"
+   },
+   {
+    "testata": "Yahoo Finance (Reuters)",
+    "url": "https://finance.yahoo.com/economy/policy/articles/strong-october-jobs-report-sends-134858909.html",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Bets that the Fed will raise rates next month rose to 78% following the data from 70% earlier."
+   },
+   {
+    "testata": "federalreserve.gov",
+    "url": "https://federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+    "data_pubblicazione": "2026-09-16",
+    "citazione": "The Committee decided to raise the target range for the federal funds rate by 1/4 percentage point to 3-3/4 to 4 percent."
+   },
+   {
+    "testata": "federalreserve.gov",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent"
+   }
+  ]
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "testo": "Il 5/11 la Banca d'Inghilterra ha alzato il Bank Rate di 25 punti base al 4,00% dal 3,75%",
+  "data_evento": "2026-11-05",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Bank of England",
+    "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/november-2026",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "At its meeting ending on 4 November 2026, the Monetary Policy Committee (MPC) voted by a majority of 8–1"
+   }
+  ]
+ },
+ {
+  "id": "D20",
+  "sezione": "deep_dive",
+  "testo": "Giovedì 5/11 l'indice dei semiconduttori di Filadelfia perde oltre il 12% e il Nasdaq-100 il 6,3%, bruciando 2.300 miliardi di dollari di capitalizzazione",
+  "data_evento": "2026-11-05",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance (L2)",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-5-dow-sp-500-nasdaq-plunge-chip-stocks-melt-down-193726491.html",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "The Nasdaq-100 fell 6.3%, erasing $2.3 trillion in market value."
+   },
+   {
+    "testata": "Investing.com / Reuters (L2)",
+    "url": "https://www.investing.com/news/stock-market-news/sp-500-futures-steady-after-midterm-rally-nasdaq-lags-on-chip-weakness-5003237",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "the Philadelphia SE Semiconductor index plunged over 12%."
+   }
+  ]
+ },
+ {
+  "id": "D22",
+  "sezione": "deep_dive",
+  "testo": "Il consiglio di Nvidia avvia un'indagine indipendente; nel premercato del 9/11 il titolo perde tra il 4% e il 5%",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Investing.com / Reuters (L2)",
+    "url": "https://www.investing.com/news/stock-market-news/nvidia-launches-probe-into-reported-espionage-plot-targeting-ceo-jensen-huang-5010308",
+    "data_pubblicazione": "2026-11-08",
+    "citazione": "Jensen is committed to continuing to lead NVIDIA as CEO without interruption."
+   },
+   {
+    "testata": "Yahoo Finance (L2)",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/nvidia-shares-fall-more-4-111021784.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "The NVIDIA Board is initiating an independent investigation in light of recent reporting"
+   }
+  ]
+ },
+ {
+  "id": "D19",
+  "sezione": "mercati",
+  "testo": "Giovedì 5/11 Nasdaq -5,52% e S&P 500 -4,36%; venerdì 6/11 Nasdaq +1,09% a 24.579,42, S&P 500 +0,32% a 7.376,86, Dow -0,46%",
+  "data_evento": "2026-11-06",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Journal Arta",
+    "url": "https://journalarta.com/en/2026/11/07/wall-street-close-nasdaq-rises-1-09-and-sp-500-gains-0-32-as-dow-slips-0-46/",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "recovered only a small part of that drop"
+   }
+  ],
+  "fonte_singola": true
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "Chiusure del 9/11: Nikkei 58.775,50 (+2,33%), Hang Seng 24.507,83 (+0,1%), Kospi 5.018,85 (-0,81%, -40,84 punti)",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP (via Click2Houston)",
+    "url": "https://www.click2houston.com/business/2026/11/09/asian-markets-bounce-back-after-a-recovery-for-ai-stocks-on-wall-street/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "recovered some ground lost in last week's sell-offs"
+   },
+   {
+    "testata": "Korea JoongAng Daily",
+    "url": "https://www.koreajoongangdaily.com/business/kospi-closes-lower-as-investors-search-for-direction-following-ai-sector-uncertainties/12963472",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "The benchmark fell 40.84 points, or 0.81 percent, to close at 5,018.85"
+   }
+  ],
+  "fonte_singola": true
+ },
+ {
+  "id": "M02",
+  "sezione": "mercati",
+  "testo": "Euro Stoxx 50: chiusura del 6/11 a 6.170,49 (-0,98%); FTSE 100 a 10.673,94",
+  "data_evento": "2026-11-06",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (ariva.de)",
+    "url": "https://www.ariva.de/news/aktien-europa-schluss-verluste-etwas-eingedaemmt-mit-12198514",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Euro Stoxx 50 6.170,49 Punkte, -0,98 %"
+   }
+  ],
+  "fonte_singola": true
+ },
+ {
+  "id": "M03",
+  "sezione": "mercati",
+  "testo": "FTSE MIB: chiusura del 6/11 a 50.052,96 (-0,90%)",
+  "data_evento": "2026-11-06",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/11/06/borsa-chiusura-in-rosso-a-milano-in-calo-dello-0-90percent-209_TLB-1LINER.html",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Ribasso per Milano, in flessione dello 0,90% termina le contrattazioni a 50.052,96 punti."
+   }
+  ],
+  "fonte_singola": true
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "tipo": "U",
+  "testo": "Employment Situation di ottobre (ven 6/11, 14:30 Roma): occupati non agricoli +165.000 contro i +65.000 attesi (LSEG); disoccupazione 4,1% contro 4,2% atteso; revisioni ago-set +84.000 (ago a +186.000 da +133.000, set a +60.000 da +29.000); salari +0,4% m/m e +3,1% a/a",
+  "data_evento": "2026-11-06",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/news.release/archives/empsit_11062026.htm",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Total nonfarm payroll employment rose by 165,000 in October"
+   },
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/news.release/archives/empsit_11062026.htm",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Over the past 12 months, average hourly earnings have increased by 3.1 percent."
+   },
+   {
+    "testata": "InvestmentNews",
+    "url": "https://www.investmentnews.com/fixed-income/october-jobs-report-beats-forecasts-lifting-december-fed-hike-odds/268915",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Economists surveyed by Dow Jones had projected payroll growth of 59,000"
+   },
+   {
+    "testata": "Fox Business",
+    "url": "https://www.foxbusiness.com/economy/us-jobs-report-october-2026",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "well above the 65,000 estimate of economists polled by LSEG"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: rilievi accolti; nel PDF e nella scheda resta solo cio che la fonte dice (BLS ok (165.000; 4,1%; revisioni ago 186.000 da 133.000 = +53.000, set 60.000 da 29.000 = +31.000; salari +0,4% m/m; +3,)"
+ },
+ {
+  "id": "K07",
+  "sezione": "catalizzatori",
+  "tipo": "U",
+  "testo": "Cina, inflazione di ottobre (lun 9/11, 02:30 Roma): CPI +0,7% a/a, 0,0% m/m, core +0,8%; PPI +5,7% a/a e +0,7% m/m",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "NBS Cina",
+    "url": "https://www.stats.gov.cn/sj/zxfbhjd/202611/t20261109_1965795.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "2026年10月份，全国居民消费价格同比上涨0.7%。"
+   },
+   {
+    "testata": "NBS Cina",
+    "url": "https://www.stats.gov.cn/sj/zxfbhjd/202611/t20261109_1965794.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "2026年10月份，全国工业生产者出厂价格同比上涨5.7%，环比上涨0.7%。"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: rilievi accolti; nel PDF e nella scheda resta solo cio che la fonte dice (NBS: CPI +0,7%, 0,0% m/m (환比持平), core 0,8% (riga 'esclusi alimentari ed energia'), PPI +5,7% a/a e +0,7% m/m ok. NON ver)"
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Martedì 10 novembre alle 14:30 ora di Roma: CPI USA di ottobre",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "| October 2026 | Nov. 10, 2026 | 08:30 AM |"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: BLS calendario: 'October 2026 | Nov. 10, 2026 | 08:30 AM' (ET = 14:30 Roma). Pagina senza data propria. Il 'prec. +0,6% m/m; settembre 3,7%' del PDF e' confermato dal CPI di settembre (D11). La frase "
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "testo": "Mercoledì 9 dicembre: decisione della Fed (riunione 8-9 dicembre)",
+  "data_evento": "2026-12-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/2026-december.htm",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Two-day meeting, December 8 - 9"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: rilievi accolti; nel PDF e nella scheda resta solo cio che la fonte dice (WebFetch su federalreserve.gov/newsevents/2026-december.htm bloccato (permesso non concesso): pagina non aperta, citazio)"
+ },
+ {
+  "id": "A04",
+  "sezione": "agenda",
+  "testo": "Lunedì 9 novembre, in serata: asta Treasury a 3 anni (data dal Tesoro USA, ora da Vanderbilt Report)",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "US Treasury",
+    "url": "https://home.treasury.gov/system/files/221/TentativeAuctionScheduleQ42026.pdf",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "3-Year NOTE Wed, Nov 04, 2026 Mon, Nov 09, 2026 Mon, Nov 16, 2026 Thu, Nov 15, 2029"
+   },
+   {
+    "testata": "Vanderbilt Report",
+    "url": "https://vanderbiltreport.com/week-ahead-november-9-15-2026/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Mon., Nov. 9, 1:00 p.m.: 3-year Treasury note auction (Confirmed date)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: rilievi accolti; nel PDF e nella scheda resta solo cio che la fonte dice (Calendario Tesoro: asta 3 anni lun 9/11, regolamento 16/11 (data confermata, annuncio 4/11). Il documento non riporta al)"
+ },
+ {
+  "id": "A05",
+  "sezione": "agenda",
+  "testo": "Martedì 10 novembre, in serata: asta Treasury a 10 anni (data dal Tesoro USA, ora da Vanderbilt Report)",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "US Treasury",
+    "url": "https://home.treasury.gov/system/files/221/TentativeAuctionScheduleQ42026.pdf",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "10-Year NOTE Wed, Nov 04, 2026 Tue, Nov 10, 2026 Mon, Nov 16, 2026 Sat, Nov 15, 2036"
+   },
+   {
+    "testata": "Vanderbilt Report",
+    "url": "https://vanderbiltreport.com/week-ahead-november-9-15-2026/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Tue., Nov. 10, 1:00 p.m.: 10-year Treasury note auction (Confirmed date)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: rilievi accolti; nel PDF e nella scheda resta solo cio che la fonte dice (Calendario Tesoro: 10 anni asta mar 10/11, regolamento 16/11 confermati; orario assente nel documento, 'in serata' non s)"
+ },
+ {
+  "id": "A06",
+  "sezione": "agenda",
+  "testo": "Giovedì 12 novembre, in serata: asta Treasury a 30 anni (data dal Tesoro USA, ora da Vanderbilt Report)",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "US Treasury",
+    "url": "https://home.treasury.gov/system/files/221/TentativeAuctionScheduleQ42026.pdf",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "30-Year BOND Wed, Nov 04, 2026 Thu, Nov 12, 2026 Mon, Nov 16, 2026 Wed, Nov 15, 2056"
+   },
+   {
+    "testata": "Vanderbilt Report",
+    "url": "https://vanderbiltreport.com/week-ahead-november-9-15-2026/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Thu., Nov. 12, 1:00 p.m.: 30-year Treasury bond auction (Confirmed date)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: rilievi accolti; nel PDF e nella scheda resta solo cio che la fonte dice (Calendario Tesoro: 30 anni asta gio 12/11, regolamento 16/11 confermati; orario assente, 'in serata' non sostenuto.)"
+ },
+ {
+  "id": "A07",
+  "sezione": "agenda",
+  "testo": "Giovedì 12 novembre, alle 08:00 ora di Roma (07:00 a Londra): primo dato del PIL del Regno Unito per il terzo trimestre",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ONS",
+    "url": "https://www.ons.gov.uk/releases/gdpfirstquarterlyestimateukjulytoseptember2026",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Release date: 12 November 2026 7:00am"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: ONS: 'Release date: 12 November 2026 7:00am' (07:00 Londra = 08:00 Roma). Pagina dice 'not yet published' e non ha data propria. Il PDF 'primo dato dopo il rialzo BoE' e' una lettura, ok."
+ },
+ {
+  "id": "A08",
+  "sezione": "agenda",
+  "testo": "Venerdì 13 novembre, nel pomeriggio: prezzi alla produzione USA (PPI) di ottobre (calendario BLS)",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/schedule/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Producer Price Index"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: BLS schedule: PPI ottobre 2026 venerdi 13/11 08:30 AM ET (=14:30 Roma, 'nel pomeriggio' ok). Pagina senza data di pubblicazione."
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Nvidia shares drop as board probes Huang affair (Bloomberg, titolo visibile, mattina)",
+   "Oil falls as Trump says new Iran attacks 'unlikely' (Reuters/CNBC, ~09:00 Roma)",
+   "Crédit Agricole propone fusione a Banco BPM, titolo +10% (Investing.com/Il Post, 09:53-11:46)",
+   "Asian markets bounce back after recovery for AI stocks (AP, ~07:34)",
+   "China producer prices jump 5.7% (Seoul Economic Daily, 09:16)"
+  ],
+  "testate": [
+   {
+    "testata": "Bloomberg",
+    "storie": [
+     "Nvidia Shares Drop After CEO Huang's Affair Triggers Board Probe (titolo da ricerca)"
+    ]
+   },
+   {
+    "testata": "Reuters",
+    "storie": [
+     "Oil falls as Trump says new Iran attacks 'unlikely'",
+     "Titolo sul calo delle borse europee AI rout (6/11)"
+    ]
+   },
+   {
+    "testata": "CNBC",
+    "storie": [
+     "Nvidia stock falls 5%...",
+     "Oil falls as Trump says new Iran attacks 'unlikely'"
+    ]
+   },
+   {
+    "testata": "Investing.com Italia",
+    "storie": [
+     "Borse oggi: Banco BPM vola con Credit Agricole, UniCredit da record"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Colloqui Ucraina di Abu Dhabi 10-11/11",
+    "motivo": "Non emersa nelle aperture visibili di lunedi'"
+   }
+  ],
+  "concorda": false,
+  "motivo": "FT, WSJ, Sole 24 Ore/MF e Nikkei Asia: prime pagine di lunedi' non reperibili; riportati solo titoli visibili nei risultati di ricerca di Bloomberg, Reuters, CNBC e Investing.com, non vere prime pagine. Non e' stato possibile verificare la concordanza."
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "Euro Stoxx 50: chiusura del 6/11 (seconda fonte)",
+  "ricerche": [
+   "Euro Stoxx 50 closes November 6 2026 investing.com Europe stocks close lower",
+   "Aktien Europa Schluss 6. November 2026 EuroStoxx 50"
+  ],
+  "esito": "non trovato: solo dpa-AFX",
+  "fonte": {
+   "testata": "dpa-AFX (ariva.de)",
+   "url": "https://www.ariva.de/news/aktien-europa-schluss-verluste-etwas-eingedaemmt-mit-12198514"
+  }
+ }
+]

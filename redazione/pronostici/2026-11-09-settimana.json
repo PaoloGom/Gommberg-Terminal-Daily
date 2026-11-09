@@ -1,0 +1,203 @@
+{
+  "schema": 2,
+  "versione_metodo": "1.2",
+  "data_pronostico": "2026-11-09",
+  "settimana": "2026-11-09/2026-11-13",
+  "origine": "2026-11-06",
+  "verdetto_previsto": "2026-11-16",
+  "range_pubblicato": "16-84% (circa 2 settimane su 3 la chiusura cade dentro)",
+  "strumenti": {
+    "spx": {
+      "nome": "S&P 500",
+      "unita": "punti",
+      "tipo": "prezzo",
+      "base": 7376.86,
+      "data_base": "2026-11-06",
+      "sigma": 0.02828631433419079,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 7041.5000805275395,
+        "0.1": 7114.234978397531,
+        "0.16": 7172.243635531608,
+        "0.25": 7237.452245898085,
+        "0.5": 7376.86,
+        "0.75": 7518.953025277936,
+        "0.84": 7587.313848348727,
+        "0.9": 7649.179936400917,
+        "0.95": 7728.191839418834
+      },
+      "mediana_modello": 7376.86,
+      "range": [
+        7172.243635531608,
+        7587.313848348727
+      ],
+      "previsione_redazione": 7397.760000000001,
+      "scarto_redazione_sigma": 0.1,
+      "motivo_redazione": "Rimbalzo dei chip dopo il crollo, ma il CPI di martedì può cambiare tutto",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.5398355055636557
+    },
+    "sx5e": {
+      "nome": "Euro Stoxx 50",
+      "unita": "punti",
+      "tipo": "prezzo",
+      "base": 6170.49,
+      "data_base": "2026-11-06",
+      "sigma": 0.020069367745518256,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 5970.120306050602,
+        "0.1": 6013.808980805608,
+        "0.16": 6048.559293205325,
+        "0.25": 6087.525446105117,
+        "0.5": 6170.49,
+        "0.75": 6254.585246039648,
+        "0.84": 6294.878663564008,
+        "0.9": 6331.253114560929,
+        "0.95": 6377.584518943742
+      },
+      "mediana_modello": 6170.49,
+      "range": [
+        6048.559293205325,
+        6294.878663564008
+      ],
+      "previsione_redazione": 6182.89,
+      "scarto_redazione_sigma": 0.1,
+      "motivo_redazione": "Petrolio più basso e banche italiane in ripresa aiutano l'Europa",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.5398399347352979
+    },
+    "ust10": {
+      "nome": "Treasury 10 anni",
+      "unita": "%",
+      "tipo": "tasso",
+      "base": 4.86,
+      "data_base": "2026-11-06",
+      "sigma": 12.324558281825183,
+      "sigma_unita": "punti base",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 4.657279056095651,
+        "0.1": 4.702054430392813,
+        "0.16": 4.737437458595609,
+        "0.25": 4.776872117632147,
+        "0.5": 4.86,
+        "0.75": 4.943127882367854,
+        "0.84": 4.982562541404391,
+        "0.9": 5.017945569607187,
+        "0.95": 5.06272094390435
+      },
+      "mediana_modello": 4.86,
+      "range": [
+        4.737437458595609,
+        4.982562541404391
+      ],
+      "previsione_redazione": 4.8476754417181755,
+      "scarto_redazione_sigma": -0.1,
+      "motivo_redazione": "Il petrolio che scende frena le attese di inflazione prima del CPI",
+      "aggiustata": true,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.460172162722971
+    },
+    "eurusd": {
+      "nome": "EUR/USD",
+      "unita": "",
+      "tipo": "prezzo",
+      "base": 1.1143,
+      "data_base": "2026-11-06",
+      "sigma": 0.007289540888662531,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 1.1010190690015744,
+        "0.1": 1.1039387679826553,
+        "0.16": 1.1062514893776345,
+        "0.25": 1.108834744797164,
+        "0.5": 1.1143,
+        "0.75": 1.1197921925030716,
+        "0.84": 1.1224070674006934,
+        "0.9": 1.12475847937565,
+        "0.95": 1.1277411308833785
+      },
+      "mediana_modello": 1.1143,
+      "range": [
+        1.1062514893776345,
+        1.1224070674006934
+      ],
+      "previsione_redazione": 1.1134880224419124,
+      "scarto_redazione_sigma": -0.1,
+      "motivo_redazione": "Un rialzo Fed a dicembre sempre più probabile sostiene il dollaro",
+      "aggiustata": true,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.460172162722971
+    },
+    "brent": {
+      "nome": "Brent future",
+      "unita": "$",
+      "tipo": "prezzo",
+      "base": 98.32,
+      "data_base": "2026-11-06",
+      "sigma": 0.07756850039111586,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 86.54276077868921,
+        "0.1": 89.01629404607695,
+        "0.16": 91.02087342906874,
+        "0.25": 93.3082293251805,
+        "0.5": 98.32,
+        "0.75": 103.60096285088623,
+        "0.84": 106.2044565803163,
+        "0.9": 108.5961003386214,
+        "0.95": 111.69995402296448
+      },
+      "mediana_modello": 98.32,
+      "range": [
+        91.02087342906874,
+        106.2044565803163
+      ],
+      "previsione_redazione": 97.56,
+      "scarto_redazione_sigma": -0.1,
+      "motivo_redazione": "Colloqui USA-Iran e offerta in eccesso stimata da JPMorgan",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.4601565961457134
+    },
+    "oro": {
+      "nome": "Oro future",
+      "unita": "$",
+      "tipo": "prezzo",
+      "base": 4074.9,
+      "data_base": "2026-11-06",
+      "sigma": 0.03310877971026926,
+      "sigma_unita": "log-rendimento",
+      "metodo": "rv20|normale",
+      "quantili_modello": {
+        "0.05": 3858.919068235753,
+        "0.1": 3905.6163152363238,
+        "0.16": 3942.917452710405,
+        "0.25": 3984.9097874600407,
+        "0.5": 4074.9,
+        "0.75": 4166.922438809791,
+        "0.84": 4211.300441652836,
+        "0.9": 4251.521058333981,
+        "0.95": 4302.969229564978
+      },
+      "mediana_modello": 4074.9,
+      "range": [
+        3942.917452710405,
+        4211.300441652836
+      ],
+      "previsione_redazione": 4061.43,
+      "scarto_redazione_sigma": -0.1,
+      "motivo_redazione": "Un rialzo Fed a dicembre sempre più probabile pesa sull'oro",
+      "aggiustata": false,
+      "prob_rialzo_modello": 0.5,
+      "prob_rialzo_redazione": 0.4601697625201143
+    }
+  }
+}

@@ -3625,5 +3625,237 @@
     "chiave": false
    }
   ]
+ },
+ {
+  "numero": 21,
+  "data": "2026-11-09",
+  "titolo": "Il petrolio ha la peggior settimana dalla pandemia, mentre i colloqui USA-Iran avanzano",
+  "sommario": [
+   "Nvidia: il consiglio apre un'indagine indipendente mentre i chip provano a rimbalzare.",
+   "Domani il CPI di ottobre: il mercato prezza già un rialzo Fed a dicembre.",
+   "In Italia le banche corrono: Banco BPM dopo la proposta di Crédit Agricole."
+  ],
+  "file": "pdf/2026-11-09-gommberg-021.pdf",
+  "nome": "2026-11-09 Gommberg Terminal Daily #021.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Nvidia: il consiglio apre un'indagine indipendente",
+   "Banco BPM sale del 10% dopo la proposta di fusione di Crédit Agricole",
+   "UniCredit mostra i muscoli dopo i risultati record dei nove mesi",
+   "Mps e Intesa in rialzo dopo il via libera della Consob",
+   "Cina: i prezzi alla produzione continuano a salire",
+   "L'Asia rimbalza dopo le vendite sui titoli dell'AI"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "152,37 $",
+    "0,0% g"
+   ],
+   [
+    "S&P 500",
+    "7.376,86",
+    "+0,3% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.170,49",
+    "-1,0% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "4,86%",
+    "+2 pb g"
+   ],
+   [
+    "EUR/USD",
+    "1,1143",
+    "-0,7% g"
+   ],
+   [
+    "BRENT FUTURE",
+    "98,32 $",
+    "0,0% g"
+   ],
+   [
+    "VIX",
+    "25,64",
+    "-2,54 g"
+   ]
+  ],
+  "dek": "Il Brent (petrolio europeo) chiude venerdì a 98,32 $ (FMP), oltre il 13% in meno in cinque sedute: il calo settimanale più forte dalla pandemia (Trading Economics). Lunedì Trump ha detto che nuovi attacchi all'Iran sono «molto improbabili» finché i colloqui avanzano (Reuters). Domani il CPI (inflazione al consumo USA) misura i prezzi di ottobre, prima del calo.",
+  "ticker_al": "2026-11-06",
+  "scommessa": {
+   "settimana": "2026-11-09/2026-11-13",
+   "su": 6,
+   "strada": null,
+   "range": null,
+   "dettaglio": [
+    [
+     "S&P 500",
+     "su",
+     null,
+     null
+    ],
+    [
+     "Euro Stoxx 50",
+     "su",
+     null,
+     null
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     null,
+     null
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     null,
+     null
+    ],
+    [
+     "Brent future",
+     "giù",
+     null,
+     null
+    ],
+    [
+     "Oro future",
+     "giù",
+     null,
+     null
+    ]
+   ]
+  },
+  "verdetto": {
+   "settimana": "2026-11-02/2026-11-06",
+   "punti": 6,
+   "su": 12,
+   "direzione": 3,
+   "range": 3,
+   "par": 7.3
+  },
+  "temi": [
+   "Petrolio",
+   "Banche",
+   "Fed",
+   "Chip",
+   "Asia",
+   "Geopolitica"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Banche",
+    "titolo": "Il risiko bancario spinge Piazza Affari: Banco BPM guida il rialzo dopo la proposta di Crédit Agricole",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Petrolio",
+    "titolo": "Il Brent scende: si spegne il premio di guerra e l'offerta supera la domanda",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Fed",
+    "titolo": "Il lavoro regge più del previsto: per il mercato un nuovo rialzo Fed a dicembre è probabile",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [],
+  "parole": [
+   "Eccedenza di offerta",
+   "Premio di guerra",
+   "Aspettative sui tassi",
+   "Revisioni dei dati",
+   "Premercato",
+   "Inflazione di fondo (core)"
+  ],
+  "ripetizioni": 10,
+  "glossario": [
+   "CPI",
+   "PPI",
+   "CME FedWatch",
+   "pb",
+   "BTP",
+   "Bund",
+   "VIX",
+   "ACWI",
+   "Brent",
+   "EIA"
+  ],
+  "grafici": [
+   {
+    "tipo": "linee",
+    "titolo": "Dal massimo del 23 ottobre il Brent perde il 16%",
+    "serie": [
+     "Brent future"
+    ],
+    "x0": "2026-10-08",
+    "x1": "2026-11-06",
+    "etichette": []
+   },
+   {
+    "tipo": "linee",
+    "titolo": "Il rendimento a 2 anni risale col dato sul lavoro dopo due settimane di calo",
+    "serie": [
+     "Treasury 2 anni"
+    ],
+    "x0": "2026-10-01",
+    "x1": "2026-11-06",
+    "etichette": []
+   }
+  ],
+  "agenda": [
+   {
+    "quando": "Lun 9, in serata",
+    "evento": "Asta Treasury a 3 anni",
+    "attese": "Regolamento il 16/11",
+    "perche": "Prima prova di domanda dopo il dato sul lavoro",
+    "chiave": false
+   },
+   {
+    "quando": "Mar 10, 14:30",
+    "evento": "CPI USA, ottobre",
+    "attese": "prec. +0,6% m/m; settembre 3,7% annuo",
+    "perche": "Evento n.1: decide le probabilità di rialzo Fed a dicembre. Il BLS non pubblica la variazione annua di ottobre per gli indici senza dato di ottobre 2025",
+    "chiave": true
+   },
+   {
+    "quando": "Mar 10, in serata",
+    "evento": "Asta Treasury a 10 anni",
+    "attese": "Regolamento il 16/11",
+    "perche": "Domanda di titoli lunghi con i rendimenti vicini a 4,9%",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 12, 08:00",
+    "evento": "PIL Regno Unito, terzo trimestre",
+    "attese": "",
+    "perche": "Primo dato dopo il rialzo della Banca d'Inghilterra",
+    "chiave": false
+   },
+   {
+    "quando": "Gio 12, in serata",
+    "evento": "Asta Treasury a 30 anni",
+    "attese": "Regolamento il 16/11",
+    "perche": "Rendimento lungo sopra il 5% sotto osservazione",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 13, 14:30",
+    "evento": "Prezzi alla produzione USA (PPI), ottobre",
+    "attese": "",
+    "perche": "Pressioni sui prezzi a monte, prima della Fed",
+    "chiave": false
+   },
+   {
+    "quando": "Mer 9 dic",
+    "evento": "Decisione della Fed (riunione 8-9 dicembre)",
+    "attese": "Tassi fermi dal 28 ottobre",
+    "perche": "Il rialzo che il mercato prezza in questi giorni",
+    "chiave": false
+   }
+  ]
  }
 ]
