@@ -12,13 +12,17 @@ Schema di fatti.json: lista di schede
  "testo": "il fatto come appare nel PDF", "data_evento": "AAAA-MM-GG",
  "novita": "per un tema già uscito: qual è lo sviluppo nuovo (altrimenti null)",
  "fonti": [{"testata": "Reuters", "url": "https://...", "data_pubblicazione": "AAAA-MM-GG", "citazione": "frase originale"}],
+   in una fonte: "agenzia": "Reuters" se il sito ospita per intero un lancio d'agenzia (fonti.json "agenzie"; vale livello 1,
+   nel PDF si cita l'agenzia); "primaria": true se è il documento di chi è parte del fatto (comunicato, deposito, discorso).
  "verifica": "confermato|errato|non_conclusivo" (scritto dal revisore), "nota_revisore": "..."}
 Fonti "ufficiali" di fonti.json (BLS, Census, BEA, Fed, Tesoro, Eurostat, Istat, BCE, borse): valgono livello 1, bastano da
  sole. Dati pubblici certi (sezione catalizzatori, mercati, estremo): "fonte_singola": true = una sola fonte non vietata,
  dichiarata nel PDF ("-7,57% (Korea Herald)"); un dato del calendario non si toglie mai.
 Registro delle anomalie (passo 2c), nella stessa lista: {"id": "A1", "sezione": "anomalia", "fatto": "PPI sopra le attese,
  10 anni -9 pb", "ricerche": ["treasury yields fall despite PPI", ...], "esito": "C03" | "non chiarita"} (lo controlla
- controlli_contenuti.py)."""
+ controlli_contenuti.py).
+Scaletta (prima della ricerca mirata): {"id": "S1", "sezione": "scaletta", "moduli": [{"chiave", "tesi", "domanda", "prove": [...],
+ "contro"}]} (schema completo in APP_FONTI.md §4). Schede riprese dalla memoria (memoria.py): id "MEM..", campo "ripresa"."""
 import datetime as dt, json, os, sys
 from urllib.parse import urlparse
 
@@ -33,6 +37,7 @@ PUBBLICI = {"catalizzatori", "mercati", "estremo"}
 
 
 UFF = set(F.get("ufficiali", []))
+AGENZIE = {a.lower() for a in F.get("agenzie", [])}
 
 
 def dominio_ufficiale(url):
@@ -64,7 +69,8 @@ problemi, avvisi = [], []
 ids = [f.get("id") for f in fatti]
 if len(ids) != len(set(ids)):
     problemi.append("id duplicati nelle schede")
-fatti = [f for f in fatti if not f.get("scartata") and f.get("sezione") not in ("anomalia", "prime_pagine", "ricerca")]  # registri: controlli_contenuti.py
+tutte = fatti
+fatti = [f for f in fatti if not f.get("scartata") and f.get("sezione") not in ("anomalia", "prime_pagine", "ricerca", "scaletta")]  # registri: controlli_contenuti.py
 ALIAS = {"notizie": "top_news", "calendario": "catalizzatori", "termometri": "macro", "lettura": "macro",
          "approfondimento": "deep_dive", "approfondimenti": "deep_dive"}
 for f in fatti:
@@ -81,6 +87,9 @@ for f in fatti:
         lv = livello(s.get("url", ""))
         if lv == 0:
             problemi.append(f"{i}: fonte vietata {s.get('url')}")
+        # vale chi ha scritto, non chi ospita: lancio d'agenzia ripreso per intero, o documento di chi è parte del fatto
+        elif lv > 1 and (str(s.get("agenzia") or "").strip().lower() in AGENZIE or s.get("primaria") is True):
+            lv = 1
         if not s.get("url", "").startswith("http") or not s.get("citazione") or not s.get("data_pubblicazione"):
             problemi.append(f"{i}: fonte senza url, citazione o data di pubblicazione ({s.get('testata')})")
         livelli.append(lv); testate.add((s.get("testata") or s.get("url")).lower())
@@ -148,6 +157,21 @@ if prima_revisione:
         problemi.append(f"RICERCA: {n_app} schede per gli approfondimenti (sezione \"deep_dive\"), ne servono almeno 6: "
                         "per ogni tesi i fatti che la provano (causa, contesto, chi lo dice, cosa succede dopo), "
                         "non solo i prezzi (ISTRUZIONI §2, \"Un approfondimento = una tesi\")")
+
+# Scaletta (ISTRUZIONI §6.2b): prima si decide cosa si vuole dimostrare, poi si cercano le prove. Si scrive prima della
+# ricerca mirata; qui si controlla solo che esista e che ogni approfondimento abbia tesi, domanda, prove e smentita.
+if prima_revisione:
+    sc = [f for f in tutte if isinstance(f, dict) and f.get("sezione") == "scaletta"]
+    mod = (sc[0].get("moduli") or []) if sc else []
+    if not sc or not mod:
+        problemi.append("SCALETTA: manca il registro {\"id\": \"S1\", \"sezione\": \"scaletta\"} con i moduli "
+                        "(schema in APP_FONTI.md §4): scrivilo ora dalle tesi che hai scelto")
+    for m in mod:
+        manca = [k for k in ("tesi", "domanda", "contro") if not str(m.get(k) or "").strip()]
+        if len(m.get("prove") or []) < 4:
+            manca.append("prove (almeno 4)")
+        if manca:
+            problemi.append(f"SCALETTA {m.get('chiave', '?')}: manca {', '.join(manca)}")
 
 print(f"Schede: {len(fatti)} | ultima edizione: {ultima} | avvisi: {len(avvisi)}")
 for a in avvisi:

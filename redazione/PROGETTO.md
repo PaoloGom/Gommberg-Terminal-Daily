@@ -59,6 +59,18 @@ Scrivere a Claude, dall'app, in questa conversazione o in una nuova: "Gommberg: 
 - Riepilogo settimanale del venerdì (una pagina).
 - Iscrizione via email per i lettori.
 
+## v8 (ramo `v8`, non ancora in linea) - 10/11/2026
+Riprogettazione chiesta da Paolo il 9/11 notte (carta bianca sulle regole, struttura delle 6 pagine invariata, solo Sonnet, token al centro). Diagnosi: il sistema era costruito per non sbagliare, non per capire; la redazione ripartiva da zero ogni mattina; il riempimento bloccante produceva imbottitura; le fonti erano classificate per sito e non per autore (su 999 citazioni in 19 edizioni solo il 27% era di livello 1, e Reuters e AP arrivavano quasi solo tramite siti che le riprendono, trattati come sconosciuti).
+- **Memoria** (`memoria.py`, nessuna chiamata web): eventi d'agenda e fatti già schedati riusati per tema; `prepara.sh` ne stampa una riga.
+- **Tre sensori di copertura** (prezzi, calendario, testate) e campo `mancate_ieri` nel registro delle prime pagine: è il metro di "non perdere una notizia".
+- **Scaletta prima della ricerca mirata** (registro "scaletta", controllato da `controlli_fatti.py`): tesi, domanda, prove in più del necessario, smentita.
+- **Fonti per autore**: `"agenzia"` e `"primaria"` nelle schede, elenco degli enti ufficiali allargato, intermediari finanziari e siti di riscrittura fuori dal livello 2.
+- **Riempimento**: resta bloccante, ma si alimenta di prove e memoria; un doppio che non si riempie diventa mezzo.
+- Revisione: entrano le schede su cui poggia la tesi degli approfondimenti (prima non verificate); una pagina che non si apre non conferma.
+- Punto di ritorno: `redazione/archivio/ISTRUZIONI_v7.8.md` e il ramo principale al commit 077a3c8.
+- Per andare in linea: prova completa con l'attività vera sul ramo `v8`, poi unione nel ramo principale. Da misurare: durata, giri di correzione, quota di fonti di livello 1, `mancate_ieri`, percentuale settimanale consumata da un'edizione.
+- Aperti: serie dei prezzi persistenti per tutto il cruscotto (oggi solo le 10 della scommessa); modello più snello; controlli sul contenuto prima del rendering; i connettori Gmail, Drive, Calendar, Docs e Canva sono ancora collegati all'attività.
+
 ## Decisioni prese
 Ogni regola nuova o tolta si registra qui con data e motivo: è il registro che evita la stratificazione (una regola senza motivo scritto è candidata a uscire, una scelta di Paolo non si toglie senza chiederglielo).
 - 2026-10-12: nome "Gommberg Terminal Daily"; solo trattino corto "-"; variazioni colorate per segno; struttura fissa di 6 pagine; scommessa del venerdì in chiusura.

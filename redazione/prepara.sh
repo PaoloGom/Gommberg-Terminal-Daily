@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Avvio della redazione: dipendenze, cartella di lavoro, giorno, numero, appendici, riepilogo dell'ultima edizione.
 # Uso: bash /home/claude/gtd/redazione/prepara.sh [AAAA-MM-GG]   (data facoltativa, per le prove)
-# Variabili: GTD_REPO (default /home/claude/gtd), GTD_LAVORO (default /home/claude/lavoro). Output <= 21 righe.
+# Variabili: GTD_REPO (default /home/claude/gtd), GTD_LAVORO (default /home/claude/lavoro). Output <= 23 righe.
 set -u
 REPO="${GTD_REPO:-/home/claude/gtd}"; R="$REPO/redazione"; L="${GTD_LAVORO:-/home/claude/lavoro}"
 
@@ -116,6 +116,14 @@ try:
 except Exception:
     pass
 
+# Memoria della redazione: eventi futuri e temi già schedati (nessuna chiamata web)
+try:
+    r = subprocess.run([sys.executable, os.path.join(repo, "redazione", "memoria.py"), "riepilogo", oggi.isoformat()],
+                       capture_output=True, text=True, timeout=30, env=dict(os.environ, GTD_REPO=repo))
+    out += [cut(x, 330) for x in r.stdout.strip().splitlines()[:1]]
+except Exception:
+    pass
+
 # Ultima edizione
 try:
     voci = json.load(open(os.path.join(repo, "edizioni.json"), encoding="utf-8"))
@@ -155,5 +163,5 @@ if not any(v["numero"] == n for v in voci):
     if st:
         out.append("Stantii (di una prova, non in edizioni.json; pubblica.sh li sovrascrive, non leggerli): " + ", ".join(st))
 out.append(f"Modello: {lav}/edizione_modello_v6.py -> copialo in {lav}/edizione_{oggi.isoformat()}.py")
-print("\n".join(out[:21]))
+print("\n".join(out[:23]))
 EOF

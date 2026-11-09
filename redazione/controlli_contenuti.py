@@ -33,7 +33,7 @@ VOCE_P, DATI_P, FATTI_P = opt("--voce", f"{LAV}/voce_indice.json"), opt("--dati"
 REPO = opt("--repo", os.environ.get("GTD_REPO", "/home/claude/gtd"))
 carica = lambda p: json.load(open(p, encoding="utf-8")) if p and os.path.exists(p) else None
 VOCE, DATI, FATTI = carica(VOCE_P) or {}, carica(DATI_P), carica(FATTI_P) or []
-SCHEDE = [f for f in FATTI if isinstance(f, dict) and f.get("sezione") not in ("anomalia", "prime_pagine", "ricerca") and not f.get("scartata")]
+SCHEDE = [f for f in FATTI if isinstance(f, dict) and f.get("sezione") not in ("anomalia", "prime_pagine", "ricerca", "scaletta") and not f.get("scartata")]
 RICERCHE = [f for f in FATTI if isinstance(f, dict) and f.get("sezione") == "ricerca"]
 ERR, AVV = [], []
 MESI = "gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre"
