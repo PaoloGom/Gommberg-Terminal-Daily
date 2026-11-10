@@ -184,6 +184,7 @@ time.com
 timesofisrael.com
 tradingeconomics.com
 treasury.gov
+treasurydirect.gov
 tsmc.com
 umich.edu
 ustr.gov
