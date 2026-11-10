@@ -1,0 +1,827 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Wall Street rimbalza lunedì 9/11: S&P 500 +2,35% a 7.549,94, Nasdaq Composite +2,74%, indice dei semiconduttori +6,9%, dopo il crollo di giovedì 5/11; Nvidia cede il 4,2%",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (via The Spokesman-Review)",
+    "url": "https://www.spokesman.com/stories/2026/nov/08/stocks-jump-as-oil-tumbles-nvidia-falls-amid-inter/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "S&P 500 up 2.35%, or 173.08 points, to 7,549.94"
+   },
+   {
+    "testata": "AP (KSAT)",
+    "url": "https://www.ksat.com/business/2026/11/10/asian-stocks-rise-after-technology-shares-advance-on-wall-street-ahead-of-us-inflation-data/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "The Dow Jones Industrial Average gained 2.2%, and the Nasdaq composite rose 2.7%."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: S&P 500 7.549,94 e Nasdaq 25.253,14 coincidono con FMP; +2,35% e +2,74% ricalcolati; S&P -4,4% il 5/11 = FMP (7.688,62 -> 7.353,73); SOX +6,9% da Reuters; due fonti indipendenti (Reuters, AP)."
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Il Brent cala del 5,85% a 92,57 $ lunedì, il WTI del 4,38% a 86,85 $, dopo le parole di Trump: nuovo attacco all'Iran «molto improbabile» finché i colloqui avanzano; stamattina il Brent perde un altro 1,2% a 91,48 $",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (via The Spokesman-Review)",
+    "url": "https://www.spokesman.com/stories/2026/nov/08/stocks-jump-as-oil-tumbles-nvidia-falls-amid-inter/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Brent crude futures fell $5.75, or 5.85%, to settle at $92.57 a barrel"
+   },
+   {
+    "testata": "AP (KSAT)",
+    "url": "https://www.ksat.com/business/2026/11/10/asian-stocks-rise-after-technology-shares-advance-on-wall-street-ahead-of-us-inflation-data/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "In other dealings Tuesday, the price of Brent crude, the international standard, fell 1.2% to $91.48 a barrel."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Brent -5,85% a 92,57 $ (Reuters, frase letterale; FMP 92,57); -1,2% stamattina a 91,48 (AP letterale)."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Il consiglio di Nvidia ha avviato un'indagine con un consulente esterno dopo che Jensen Huang, in un memo, ha ammesso una relazione extraconiugale; non è stabilito che abbia rivelato segreti o che la donna sia legata all'intelligence cinese (Pechino parla di accuse infondate)",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Eurasia Business News",
+    "url": "https://eurasiabusinessnews.com/2026/11/09/stock-market-today-nov-9-2026-nvidia-slides-amid-alleged-chinese-spying-as-dow-surges-over-1000-points/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Frammento: \"The investigation has not established that Huang disclosed secrets or knowingly participated in espionage.\""
+   },
+   {
+    "testata": "Le Private Banker",
+    "url": "https://leprivatebanker.com/2026/11/09/nasdaq-surges-2-5-to-claw-back-part-of-correction-as-chipmakers-rally-even-with-nvidia-down-on-board-probe-of-huang/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "\"Huang acknowledged in a Sunday memo an affair with a woman who is suspected of passing information to Beijing.\"; \"The board said it had launched an independent investigation.\""
+   },
+   {
+    "testata": "Money.it",
+    "url": "https://www.money.it/argento-sopra-52-dollari-petrolio-nvidia-cpi-09-11-2026",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Nvidia a Francoforte -6% circa; ~270 mld $ di valore bruciato (LSEG Datastream) vs chiusura venerdi"
+   },
+   {
+    "testata": "AP (KSAT)",
+    "url": "https://www.ksat.com/business/2026/11/10/asian-stocks-rise-after-technology-shares-advance-on-wall-street-ahead-of-us-inflation-data/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "The stock that has become the face of the AI boom, Nvidia, fell 4.3%."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Memo e indagine con consulente esterno da due fonti indipendenti; legame con intelligence cinese esplicitamente non stabilito; -4,2% e minimo dal 7/4 da Reuters."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Kospi +4,39% a 5.239,13 martedì, dopo il -6,02% di venerdì 6/11; resta circa il 10,6% sotto la chiusura del 2/11 (5.859,08); SK hynix +6,7%, Samsung +4,7%",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261110/korean-stocks-surge-over-4-as-risk-appetite-returns",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "KOSPI close: 5,239.13, up 4.39 percent"
+   },
+   {
+    "testata": "AP (KSAT)",
+    "url": "https://www.ksat.com/business/2026/11/10/asian-stocks-rise-after-technology-shares-advance-on-wall-street-ahead-of-us-inflation-data/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "South Korea's Kospi climbed 4.4% to 5,239.13."
+   },
+   {
+    "testata": "JoongAng Daily",
+    "url": "https://www.koreajoongangdaily.com/business/kospi-falls-for-2nd-day-on-ai-rout-after-us-midterms/12960072",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Kospi falls for 2nd day on AI rout after US midterms"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Kospi 5.239,13 +4,39% (Korea Times letterale, AP 4,4%); -6,02% del 6/11 e 5.859,08 del 2/11 da JoongAng; -10,6% ricalcolato."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Crédit Agricole propone a Banco BPM una fusione amichevole, senza OPA: premio del 20%, dividendo straordinario da 1 miliardo, sinergie per 800 milioni l'anno; Banco BPM chiude a +10,6% a 14,88 euro",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/credit-agricole-muove-su-banco-bpm-fusione-amichevole-premio-del-20-e-un-miliardo-di-dividendo-ai-soci-202611090744255868",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "un rapporto di cambio che riflette un premio del 20%"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/09/borsa-milano-la-migliore-in-europa-con-il-credito-banco-bpm-10_2f989b3c-ac40-4f66-b8f6-6ec553a97620.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "il titolo ha concluso in rialzo del 10,6% a 14,88 euro."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Termini della proposta da ANSA e Milano Finanza (premio 20% letterale MF; +10,6% a 14,88 letterale ANSA)."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Lo spread BTP-Bund chiude a 103,7 punti base lunedì, da 107 in apertura; il FTSE MIB sale del 2,69% a 51.399, la miglior Borsa europea",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/09/borsa-milano-la-migliore-in-europa-con-il-credito-banco-bpm-10_2f989b3c-ac40-4f66-b8f6-6ec553a97620.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "il differenziale ha concluso la seduta a 103,7 punti base contro i 107 dell'avvio."
+   },
+   {
+    "testata": "ANSA (titolo)",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/09/borsa-milano-chiude-in-forte-rialzo-ftse-mib-269_abeba7ae-34ab-492d-8445-043916ad8b88.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Borsa: Milano chiude in forte rialzo, Ftse Mib +2,69%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Lo spread non è nel PDF; scheda di riserva."
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "testo": "Euro Stoxx 50 +1,94% a 6.290,45 lunedì, STOXX 600 +1,26%, sull'onda del calo del petrolio e del rimbalzo del Dow",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (ARIVA)",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-kraeftig-aufwaerts-dank-12200541",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Aktien aus Europa waren nach der jüngsten Kursdelle zum Wochenbeginn wieder gefragt."
+   },
+   {
+    "testata": "finanzen.net",
+    "url": "https://www.finanzen.net/nachricht/aktien/gewinne-in-europa-euro-stoxx-50-letztendlich-mit-kursplus-16050847",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "6.290,13 Punkte, +1,94%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Euro Stoxx 50 6.290,45 +1,94% da dpa-AFX e finanzen.net (scarto 0,3 punti sul box)."
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "testo": "Governo e politica sul caso Banco BPM: Palazzo Chigi e Mef non commentano, Salvini lascia «che siano gli economisti a occuparsene», il Pd chiede che Meloni e Giorgetti riferiscano in Parlamento",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters via MarketScreener",
+    "url": "https://www.marketscreener.com/news/italian-opposition-blames-meloni-missteps-for-credit-agricole-move-on-banco-bpm-ce785fd3dd8af721",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Frammento: Salvini \"I'll leave that to the economists\"; Meloni's office and the economy ministry declined to comment"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/bpm-verso-credit-agricole-il-pd-attacca-il-governo-meloni-e-giorgetti-in-parlamento-202611091241553592",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Frammento: Salvini \"Lascio che siano gli economisti a occuparsene\"; Pd: \"effetto controproducente\""
+   },
+   {
+    "testata": "Open",
+    "url": "https://www.open.online/2026/11/09/credit-agricole-fusione-banco-bpm/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Intermonte: sinergie \"solo a partire dal 2028\"; Equita: offerta attraente a prima lettura"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riportato da Milano Finanza e Reuters."
+ },
+ {
+  "id": "N10",
+  "sezione": "top_news",
+  "testo": "L'S&P 500 è ancora il 3,4% sotto il record di ottobre dopo il rimbalzo di lunedì (AP)",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (via The Spokesman-Review)",
+    "url": "https://www.spokesman.com/stories/2026/nov/08/stocks-jump-as-oil-tumbles-nvidia-falls-amid-inter/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "resoconto di fetch, letterale NON verificato: last week's selloff tied to midterm results and concerns about AI and data center regulation"
+   },
+   {
+    "testata": "AP (KSAT)",
+    "url": "https://www.ksat.com/business/2026/11/10/asian-stocks-rise-after-technology-shares-advance-on-wall-street-ahead-of-us-inflation-data/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "parafrasi: S&P 500 rose 2.3% on Monday ... 3.4% below its all-time high (letterale NON verificato)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Record di chiusura 7.818,93 del 6/10 (FMP): 7.549,94 è -3,44%."
+ },
+ {
+  "id": "C01",
+  "sezione": "catalizzatori",
+  "testo": "Cina, prezzi alla produzione di ottobre +5,7% annuo contro il +5,3% atteso, +0,7% sul mese (massimo da oltre quattro anni e mezzo); prezzi al consumo +0,7% annuo contro il +0,8% atteso",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "CGTN",
+    "url": "https://news.cgtn.com/news/2026-11-09/China-s-October-CPI-up-0-7-PPI-rises-5-7--1RVFvJks2Fa/p.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "China's October CPI up 0.7%, PPI rises 5.7%"
+   },
+   {
+    "testata": "FinWire",
+    "url": "https://finwire.io/news/stock-markets-news/china-october-2026-cpi-07-yy-expected-08-prior-09",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "China October 2026 CPI 0.7% y/y, expected 0.8%, prior 0.9%"
+   }
+  ],
+  "tipo": "U",
+  "ufficiale_cercato": [
+   "China National Bureau of Statistics October 2026 CPI PPI release",
+   "NBS China October 2026 PPI 5.7% official"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "PPI e CPI Cina da CGTN e FinWire concordi; NBS non aperto (due ricerche registrate): attribuito a CGTN."
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Oggi alle 14:30 (8:30 a New York) il CPI USA di ottobre, attese +0,3% sul mese e core +0,2%; a settembre +0,6% e +0,3%",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS (calendario)",
+    "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Consumer Price Index, October 2026, Nov. 10, 2026, 08:30 AM"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-10-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611100740004009",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Consenso Reuters +0,3% mensile dopo +0,6% a settembre"
+   },
+   {
+    "testata": "IndexBox (Natixis)",
+    "url": "https://www.indexbox.io/blog/natixis-forecasts-subdued-october-cpi-as-fed-weighs-another-2026-rate-hike/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Natixis: core +0,22%, headline +0,29%"
+   }
+  ],
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Calendario BLS: CPI ottobre 10/11 08:30 ET = 14:30 Roma (ora USA dal 1/11); consenso +0,3% e core +0,2% da MF/Natixis."
+ },
+ {
+  "id": "A02",
+  "sezione": "catalizzatori",
+  "testo": "Giovedì 12/11 Applied Materials, conference call alle 16:30 a New York (22:30 a Roma)",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Applied Materials (IR)",
+    "url": "https://ir.appliedmaterials.com/events/event-details/q4-2026-applied-materials-earnings-conference-call",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Nov 12, 2026 at 4:30 PM EST"
+   }
+  ],
+  "fonte_singola": true,
+  "tipo": "U",
+  "ufficiale_cercato": [
+   "Applied Materials Q4 fiscal 2026 earnings date",
+   "ir.appliedmaterials.com Q4 2026 conference call"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Pagina IR Applied Materials: 12/11 ore 16:30 EST = 22:30 Roma."
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "testo": "Mercoledì 11/11 Veterans Day: il mercato dei Treasury è chiuso e non ci sono aste; le borse USA restano aperte",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Tesoro USA (calendario aste Q4 2026)",
+    "url": "https://home.treasury.gov/system/files/221/TentativeAuctionScheduleQ42026.pdf",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Holiday - Wed, Nov 11, 2026 - Veterans Day"
+   }
+  ],
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Calendario aste Q4 2026 del Tesoro: 11/11 Veterans Day, nessuna asta."
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "Euro Stoxx 50 chiude a 6.290,45 (+1,94%) il 9/11",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (ARIVA)",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-kraeftig-aufwaerts-dank-12200541",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Aktien aus Europa waren nach der jüngsten Kursdelle zum Wochenbeginn wieder gefragt."
+   },
+   {
+    "testata": "finanzen.net",
+    "url": "https://www.finanzen.net/nachricht/aktien/gewinne-in-europa-euro-stoxx-50-letztendlich-mit-kursplus-16050847",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "6.290,13 Punkte, +1,94%"
+   }
+  ]
+ },
+ {
+  "id": "M02",
+  "sezione": "mercati",
+  "testo": "FTSE MIB 51.399 (+2,69%) il 9/11; 50.052,96 (-0,90%) il 6/11",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/09/borsa-milano-chiude-in-forte-rialzo-ftse-mib-269_715fcd25-4783-4993-8dc4-a2270981ec05.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "l'indice Ftse Mib ha concluso in aumento del 2,69% a 51.399 punti"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/11/06/borsa-chiusura-in-rosso-a-milano-in-calo-dello-0-90percent-209_TLB-1LINER.html",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Borsa: chiusura in rosso a Milano, in calo dello 0,90%"
+   }
+  ]
+ },
+ {
+  "id": "M03",
+  "sezione": "mercati",
+  "testo": "Nikkei 225 chiude a 60.459,58 (+2,9%) il 10/11",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP (KSAT)",
+    "url": "https://www.ksat.com/business/2026/11/10/asian-stocks-rise-after-technology-shares-advance-on-wall-street-ahead-of-us-inflation-data/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Japan's benchmark Nikkei 225 closed 2.9% higher at 60,459.58."
+   }
+  ],
+  "fonte_singola": true
+ },
+ {
+  "id": "M04",
+  "sezione": "mercati",
+  "testo": "Kospi 5.239,13 (+4,39%) il 10/11, 5.018,85 il 9/11",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261110/korean-stocks-surge-over-4-as-risk-appetite-returns",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "KOSPI close: 5,239.13, up 4.39 percent"
+   },
+   {
+    "testata": "AP (KSAT)",
+    "url": "https://www.ksat.com/business/2026/11/10/asian-stocks-rise-after-technology-shares-advance-on-wall-street-ahead-of-us-inflation-data/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "South Korea's Kospi climbed 4.4% to 5,239.13."
+   }
+  ]
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "Giovedi 5/11 l'indice dei chip ha perso il 12% IN UNA SOLA SEDUTA (non nella settimana): S&P 500 -4,4%, Nasdaq 100 -6,4% (-2.300 mld $ di capitalizzazione, peggior seduta da marzo 2020). Motivo: dopo le midterm timori che i Democratici nel Congresso inaspriscano le regole sull'AI e frenino la spesa nei data center; Qualcomm e Arm in calo anche per outlook deboli.",
+  "data_evento": "2026-11-05",
+  "fonti": [
+   {
+    "testata": "Bloomberg via swissinfo.ch",
+    "url": "https://www.swissinfo.ch/eng/nasdaq-100-sinks-5%25-as-chipmaker-selloff-deepens%3a-markets-wrap/92330151",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Frammento riportato dal riassunto: investors are \"de-risking until clarity returns\" (Michael O'Rourke, JonesTrading)"
+   },
+   {
+    "testata": "MF Newswires su Milano Finanza",
+    "url": "https://www.milanofinanza.it/mfnewswires/punto-del-mattino-americano-6-novembre-2026-202611061332012439",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "\"timori che il nuovo Congresso possa inasprire le normative sul settore dell'AI\"; UBS Haefele: \"rivalutazione da parte degli investitori delle implicazioni delle elezioni per lo sviluppo dei data center\""
+   },
+   {
+    "testata": "NBC Washington (AP)",
+    "url": "https://www.nbcwashington.com/news/national-international/ai-stocks-wall-street-reeling-sp-500-tumbles/4178639/",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "S&P 500 -4,4% a 7.353,73; Nasdaq -5,5%; Nvidia -9,3%; AMD -17,3%; vittorie Democratiche alle midterm = possibili pause alla costruzione di data center; Treasury 10 anni 4,84% da 4,90%"
+   }
+  ]
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Lunedi 9/11 rimbalzo: Philadelphia Semiconductor Index +6,9% (Reuters), S&P 500 +2,35% a 7.549,94, Nasdaq Composite +2,74% a 25.253,14, Dow +1.104 punti (+2,15%). Nvidia -4,2% (minimi dal 7 aprile). Petrolio WTI -4,38% a 86,85 $, Brent -5,85% a 92,57 $ (Trump ridimensiona nuovi attacchi all'Iran). Un'altra fonte intraday dava SOX +6,8%.",
+  "data_evento": "2026-11-09",
+  "fonti": [
+   {
+    "testata": "QUE.com (cita Reuters/CNBC)",
+    "url": "https://que.com/wall-streets-best-day-since-april-erases-most-of-the-post-midterm-ai-rout-even-as-nvidia-sinks-on-a-ceo-probe/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Frammento: \"The Philadelphia Semiconductor Index rose 6.9%\""
+   },
+   {
+    "testata": "TipRanks",
+    "url": "https://www.tipranks.com/news/u-s-stocks-rebound-as-oil-prices-fall-and-nvidia-sinks",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Frammento: SOX \"increased by 6.8%\" (intraday)"
+   }
+  ]
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Nvidia: confermato (memo di Huang e annuncio del cda) che Huang ha riconosciuto una relazione extraconiugale e che gli amministratori indipendenti hanno avviato un'indagine con consulente esterno. Solo riferito/non stabilito: che la donna sia legata all'intelligence cinese (fonti di intelligence USA citate da CNBC); Pechino parla di accuse infondate. L'indagine non ha stabilito che Huang abbia rivelato segreti. Calo del titolo: -4,2% in chiusura (intraday fino a -8%). Nvidia pesa circa il 7% dell'S&P 500 (~4.500 mld $ al 6/11).",
+  "data_evento": "2026-11-09",
+  "fonti": [
+   {
+    "testata": "Eurasia Business News",
+    "url": "https://eurasiabusinessnews.com/2026/11/09/stock-market-today-nov-9-2026-nvidia-slides-amid-alleged-chinese-spying-as-dow-surges-over-1000-points/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Frammento: \"The investigation has not established that Huang disclosed secrets or knowingly participated in espionage.\""
+   },
+   {
+    "testata": "Le Private Banker",
+    "url": "https://leprivatebanker.com/2026/11/09/nasdaq-surges-2-5-to-claw-back-part-of-correction-as-chipmakers-rally-even-with-nvidia-down-on-board-probe-of-huang/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "\"Huang acknowledged in a Sunday memo an affair with a woman who is suspected of passing information to Beijing.\"; \"The board said it had launched an independent investigation.\""
+   },
+   {
+    "testata": "Money.it",
+    "url": "https://www.money.it/argento-sopra-52-dollari-petrolio-nvidia-cpi-09-11-2026",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Nvidia a Francoforte -6% circa; ~270 mld $ di valore bruciato (LSEG Datastream) vs chiusura venerdi"
+   }
+  ]
+ },
+ {
+  "id": "D06",
+  "sezione": "deep_dive",
+  "testo": "CPI ottobre oggi (martedi 10/11): consenso Reuters +0,3% m/m headline dopo +0,6% di settembre; core +0,2% m/m (Natixis: core +0,22%, headline +0,29%). Settembre: headline 3,7% a/a (attesa 3,6%, agosto 3,4%), core 2,6% a/a (attesa 2,5%, agosto 2,4%), +0,3% m/m core. ATTENZIONE: Natixis scrive che per lo shutdown dell'anno scorso il dato annuale di ottobre non sara pubblicato, mentre un'altra fonte indica attese 3,9% a/a: dato annuale incerto. Orario: 14:30 Roma (Milano Finanza cita anche 14:55 in un passaggio, da verificare).",
+  "data_evento": "2026-11-10",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-10-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611100740004009",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Consenso Reuters +0,3% mensile dopo +0,6% a settembre; annuale 3,7%"
+   },
+   {
+    "testata": "IndexBox (Natixis)",
+    "url": "https://www.indexbox.io/blog/natixis-forecasts-subdued-october-cpi-as-fed-weighs-another-2026-rate-hike/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Frammento: un dato in linea sarebbe \"encouraging to the newly hawkish Federal Reserve\""
+   },
+   {
+    "testata": "InvestingLive",
+    "url": "https://investinglive.com/central-banks/icymi-citi-now-expects-a-december-fed-rate-hike-after-hotter-september-us-inflation/",
+    "data_pubblicazione": "2026-10-14",
+    "citazione": "Frammento: \"Citi now expects the Fed to hike rates by 25bp in December after hotter-than-expected September CPI\""
+   },
+   {
+    "testata": "Interactive Crypto",
+    "url": "https://www.interactivecrypto.com/it/inflazione-usa-i-dati-cpi-di-martedi-decideranno-il-prossimo-passo-della-fed",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Frammento: \"Le previsioni indicano un'inflazione annuale (YoY) di ottobre al 3,9%, in aumento rispetto al 3,7% precedente\""
+   }
+  ]
+ },
+ {
+  "id": "D07",
+  "sezione": "deep_dive",
+  "testo": "Fed: il 28/10 ha lasciato i tassi a 3,75-4,00% con voto 10-2; Lisa Cook e Beth Hammack hanno votato per un rialzo di 25 pb. Contesto: la Fed (presidente Warsh) ha alzato i tassi a settembre, quindi il dibattito e' su ulteriori rialzi, non tagli. Probabilita di rialzo a dicembre (riunione 8-9/12): circa 80% secondo CME FedWatch (Money.it, 9/11); 85% secondo Milano Finanza (10/11, senza citare FedWatch). Citi e Natixis prevedono un rialzo a dicembre.",
+  "data_evento": "2026-10-28",
+  "fonti": [
+   {
+    "testata": "Fin Channel",
+    "url": "https://finchannel.com/fed-rate-decision-keeps-benchmark-at-3-75-4-with-two-dissenters-seeking-a-hike/139837/americas/america/2026/10/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Frammento: \"Lisa Cook and Beth Hammack dissented because they preferred higher rates, not a reduction.\""
+   },
+   {
+    "testata": "Money.it",
+    "url": "https://www.money.it/argento-sopra-52-dollari-petrolio-nvidia-cpi-09-11-2026",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Circa 80% di probabilita di rialzo a dicembre secondo CME FedWatch"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-10-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611100740004009",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Mercati scontano 85% di probabilita di rialzo a dicembre; Barkin: servono ulteriori rialzi"
+   }
+  ]
+ },
+ {
+  "id": "D08",
+  "sezione": "deep_dive",
+  "testo": "Payroll ottobre +165.000 (attese LSEG 65.000; privati +159.000 vs 64.000), disoccupazione 4,1% (attesa 4,2%), salari orari +0,4% m/m e +3,1% a/a (attesa 2,4%); revisioni ago-set +84.000. Petrolio in calo (9/11: WTI 86,85 $, Brent 92,57 $) per i progressi USA-Iran; Treasury 10 anni 4,87% questa mattina (4,84% il 5/11, da oltre 5,30% a ottobre). Dati sui breakeven di inflazione a 10 anni di novembre 2026: NON trovati (fonti trovate erano 2024 o non pertinenti, scartate).",
+  "data_evento": "2026-11-06",
+  "fonti": [
+   {
+    "testata": "Fox Business",
+    "url": "https://foxbusiness.com/economy/us-jobs-report-october-2026",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Seema Shah: il rapporto \"is a strong rebuttal to fears that the economy is heading into a meaningful slowdown\""
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-10-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611100740004009",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Treasury 10 anni al 4,87%; Brent -1,13% a 91,52, WTI -1,29% a 85,73"
+   },
+   {
+    "testata": "NBC Washington (AP)",
+    "url": "https://www.nbcwashington.com/news/national-international/ai-stocks-wall-street-reeling-sp-500-tumbles/4178639/",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Rendimento 10 anni 4,84% da 4,90%, dopo aver superato 5,30% il mese scorso"
+   }
+  ]
+ },
+ {
+  "id": "D09",
+  "sezione": "deep_dive",
+  "testo": "Proposta Crédit Agricole a Banco BPM (lettera 9/11): fusione amichevole con CA Italia, senza OPA; rapporto di cambio con premio del 20% (su multipli P/E 2027 relativi, non sul prezzo di borsa), dividendo straordinario da 1 mld, sinergie annue ante imposte 800 mln, EPS 2027 BPM +24% circa, quota CA dal 29,6% a circa 45% senza maggioranza assoluta, Castagna confermato ad, cda a maggioranza indipendente, quotazione a Milano mantenuta. Closing atteso 2S 2027.",
+  "data_evento": "2026-11-09",
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/credit-agricole-muove-su-banco-bpm-fusione-amichevole-premio-del-20-e-un-miliardo-di-dividendo-ai-soci-202611090744255868",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "\"un rapporto di cambio che riflette un premio del 20%\"; \"un dividendo straordinario di un miliardo\""
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/09/credit-agricole-propone-le-nozze-a-bpm-ai-soci-1-miliardo-e-premio-del-20_1f4370d5-8277-4bc4-9aea-4cb9ca81d368.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Frammento: \"Fusione amichevole con CA Italia e senza opa\""
+   },
+   {
+    "testata": "Open",
+    "url": "https://www.open.online/2026/11/09/credit-agricole-fusione-banco-bpm/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Frammento: quota che \"salirebbe a circa il 45%\""
+   }
+  ]
+ },
+ {
+  "id": "D10",
+  "sezione": "deep_dive",
+  "testo": "Tempi e iter: cda Banco BPM il 12/11 per primo esame della lettera; serve assemblea straordinaria con regole whitewash (almeno 2/3 del capitale votante; non devono votare contro la maggioranza dei presenti esclusi CA e soci oltre il 10%), autorizzazione BCE e golden power. Nessuna data di assemblea indicata. Mercato 9/11: Banco BPM +10,3% a 14,835 euro (+10,7% in chiusura secondo altra fonte), Unicredit +6,2%, Intesa +2,4%, Mps +2,4%, Credit Agricole +0,2%.",
+  "data_evento": "2026-11-12",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/09/credit-agricole-propone-le-nozze-a-bpm-ai-soci-1-miliardo-e-premio-del-20_1f4370d5-8277-4bc4-9aea-4cb9ca81d368.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Cda Banco BPM il 12 novembre per un primo briefing sulla lettera"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/banco-bpm-agricole-chi-comanda-e-chi-guadagna-ecco-tutto-quello-che-c-e-da-sapere-sull-ultima-operazione-202611091715517612",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Banco Bpm +10,3% a 14,835 euro; Unicredit +6,2% a 81,57; Intesa +2,4% a 6,33; Mps +2,4% a 11,52"
+   },
+   {
+    "testata": "Open",
+    "url": "https://www.open.online/2026/11/09/credit-agricole-fusione-banco-bpm/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Mediobanca spiega le condizioni whitewash: almeno due terzi del capitale votante"
+   }
+  ]
+ },
+ {
+  "id": "D11",
+  "sezione": "deep_dive",
+  "testo": "Governo e politica: Palazzo Chigi e Mef non commentano; Salvini: 'Lascio che siano gli economisti a occuparsene'; il Pd (Misiani) accusa il governo di aver favorito i francesi col golden power su UniCredit e chiede che Meloni e Giorgetti riferiscano in Parlamento. Governo, Bankitalia e Consob pre-informati (ANSA). Analisti: Equita 'attraente' per i soci BPM, Cet1 oltre 13%, golden power principale rischio di esecuzione, da valutare Anima; Intermonte accretion oltre 20% con sinergie solo dal 2028; Jefferies: vantaggio per CA, piu presenza senza pagare cash. Nessuna reazione ufficiale trovata di Unicredit, Intesa, Mps (Mps: azionisti hanno respinto il 29/10 l'offerta Lovaglio su BPM con oltre 91% dei voti presenti, secondo Milano Finanza).",
+  "data_evento": "2026-11-09",
+  "fonti": [
+   {
+    "testata": "Reuters via MarketScreener",
+    "url": "https://www.marketscreener.com/news/italian-opposition-blames-meloni-missteps-for-credit-agricole-move-on-banco-bpm-ce785fd3dd8af721",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Frammento: Salvini \"I'll leave that to the economists\"; Meloni's office and the economy ministry declined to comment"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/bpm-verso-credit-agricole-il-pd-attacca-il-governo-meloni-e-giorgetti-in-parlamento-202611091241553592",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Frammento: Salvini \"Lascio che siano gli economisti a occuparsene\"; Pd: \"effetto controproducente\""
+   },
+   {
+    "testata": "Open",
+    "url": "https://www.open.online/2026/11/09/credit-agricole-fusione-banco-bpm/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Intermonte: sinergie \"solo a partire dal 2028\"; Equita: offerta attraente a prima lettura"
+   }
+  ]
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Reuters: Wall Street +2,3% sull'S&P 500, petrolio -5,9%, Nvidia -4,2% (spokesman.com, 9/11 sera)",
+   "AP: Asia in rialzo con la tecnologia USA, Nikkei +2,9% (ksat.com, 10/11 mattina)",
+   "ANSA/Milano Finanza: Crédit Agricole propone la fusione a Banco BPM, titolo +10,6% (9/11)",
+   "Milano Finanza: CPI USA oggi, mercati al 85% su un rialzo Fed a dicembre (10/11)"
+  ],
+  "testate": [
+   {
+    "testata": "Reuters",
+    "storie": [
+     "Wall Street rimbalza, petrolio crolla, Nvidia cala",
+     "Trump: nuovi attacchi all'Iran improbabili"
+    ]
+   },
+   {
+    "testata": "AP",
+    "storie": [
+     "Borse asiatiche in rialzo con la tecnologia USA",
+     "Wall Street rimbalza"
+    ]
+   },
+   {
+    "testata": "ANSA",
+    "storie": [
+     "Borsa Milano chiude in forte rialzo con le banche",
+     "Crédit Agricole propone le nozze a Banco BPM"
+    ]
+   },
+   {
+    "testata": "Milano Finanza",
+    "storie": [
+     "Crédit Agricole muove su Banco BPM",
+     "Borse oggi: diretta 10 novembre"
+    ]
+   },
+   {
+    "testata": "Bloomberg",
+    "storie": [
+     "non apribile oggi: nessun titolo del 9-10/11 verificato"
+    ]
+   },
+   {
+    "testata": "Financial Times",
+    "storie": [
+     "non apribile oggi: nessun titolo del 9-10/11 verificato"
+    ]
+   }
+  ],
+  "fuori": [],
+  "concorda": true,
+  "motivo": "Bloomberg e Financial Times non apribili (robots) e senza titoli verificati del 9-10/11: la scelta poggia su Reuters, AP, ANSA e Milano Finanza, che concordano su rimbalzo, petrolio e Banco BPM."
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "Kospi chiusura 10/11 e 9/11",
+  "ricerche": [
+   "Kospi closes November 10 2026 Seoul stocks",
+   "Korea Times Kospi November 10 2026 close",
+   "JoongAng Kospi closes lower investors search direction"
+  ],
+  "esito": "trovato",
+  "fonte": {
+   "testata": "Korea Times",
+   "url": "https://www.koreatimes.co.kr/economy/20261110/korean-stocks-surge-over-4-as-risk-appetite-returns"
+  }
+ },
+ {
+  "id": "R2",
+  "sezione": "ricerca",
+  "dato": "Euro Stoxx 50 chiusura 9/11",
+  "ricerche": [
+   "Aktien Europa Schluss 09.11.26 Euro Stoxx 50",
+   "ARIVA Aktien Europa Schluss kräftig aufwärts",
+   "finanzen.net Euro Stoxx 50 letztendlich Kursplus"
+  ],
+  "esito": "trovato",
+  "fonte": {
+   "testata": "dpa-AFX (ARIVA)",
+   "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-kraeftig-aufwaerts-dank-12200541"
+  }
+ },
+ {
+  "id": "D12",
+  "sezione": "deep_dive",
+  "testo": "A fine luglio Crédit Agricole (29,3% di Banco BPM) dice di non aver ricevuto alcun progetto sulla fusione con Mps e di preferire l'unione con Crédit Agricole Italia; il consiglio di Banco BPM interrompe all'unanimità le consultazioni con Mps",
+  "data_evento": "2026-07-31",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Il Fatto Quotidiano",
+    "url": "https://www.ilfattoquotidiano.it/2026/07/31/i-francesi-richiamano-allordine-bpm-senza-di-noi-non-si-fa-nulla-e-castagna-abbandona-la-partita-del-monte-dei-paschi/8466292/",
+    "data_pubblicazione": "2026-07-31",
+    "citazione": "Non abbiamo ricevuto alcun progetto, né alcuna informazione su una potenziale fusione tra Mps e Bpm."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/mps-banco-bpm-ecco-perche-il-credit-agricole-boccia-la-fusione-e-cosa-puo-succedere-ora-202607311713186285",
+    "data_pubblicazione": "2026-07-31",
+    "citazione": "Crédit Agricole preferirebbe fondere Banco BPM con Crédit Agricole Italia (dal riassunto)"
+   }
+  ]
+ },
+ {
+  "id": "R3",
+  "sezione": "ricerca",
+  "dato": "Euro Stoxx 50 chiusura del 2/11 (per la variazione a 1 settimana)",
+  "ricerche": [
+   "Aktien Europa Schluss 02.11.26 Euro Stoxx 50 Wochenbeginn",
+   "European stocks close Monday November 2 2026 Euro Stoxx 50 closed at",
+   "Euro Stoxx 50 Schluss 2. November 2026 dpa-AFX Aktien Europa Schluss Montag",
+   "Borsa Europa chiusura 2 novembre 2026 Euro Stoxx 50 Teleborsa Francoforte Parigi"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "-",
+   "url": "-"
+  }
+ },
+ {
+  "id": "R4",
+  "sezione": "ricerca",
+  "dato": "Kospi chiusura 30/12/2025 (base da inizio anno)",
+  "ricerche": [
+   "Kospi 2025 last trading day close December 30 2025 4,214 annual gain"
+  ],
+  "esito": "trovato",
+  "fonte": {
+   "testata": "Korea Times",
+   "url": "https://www.koreatimes.co.kr/amp/economy/policy/20251230/korean-stock-market-finishes-2025-on-high-note"
+  }
+ },
+ {
+  "id": "N11",
+  "sezione": "top_news",
+  "testo": "Il Dow Jones guadagna 1.104,02 punti (+2,15%) a 52.389,75 lunedì 9/11",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (via The Spokesman-Review)",
+    "url": "https://www.spokesman.com/stories/2026/nov/08/stocks-jump-as-oil-tumbles-nvidia-falls-amid-inter/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "S&P 500 up 2.35%, or 173.08 points, to 7,549.94"
+   },
+   {
+    "testata": "AP (KSAT)",
+    "url": "https://www.ksat.com/business/2026/11/10/asian-stocks-rise-after-technology-shares-advance-on-wall-street-ahead-of-us-inflation-data/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "The Dow Jones Industrial Average gained 2.2%, and the Nasdaq composite rose 2.7%."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Dow 52.389,75 +2,15% coerente con FMP (51.285,73 il 6/11)."
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "PPI Cina sopra le attese ma 10 anni USA +2 pb e S&P 500 +2,35%",
+  "ricerche": [
+   "Wall Street close November 9 2026 Reuters",
+   "Asian stocks rise after technology shares advance on Wall Street November 10 2026"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Il dato cinese sui prezzi alla produzione ha mosso i mercati USA",
+    "fonte": null,
+    "prevede": "Azioni giù e rendimenti su, per timore di inflazione globale",
+    "prezzi": "non torna"
+   },
+   {
+    "causa": "Rimbalzo dopo il crollo del 5/11, con petrolio in calo e distensione sull'Iran",
+    "fonte": "T01",
+    "prevede": "Azioni e chip su, petrolio giù, volatilità giù",
+    "prezzi": "torna"
+   }
+  ],
+  "esito": "ipotesi"
+ }
+]

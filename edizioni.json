@@ -3857,5 +3857,223 @@
     "chiave": false
    }
   ]
+ },
+ {
+  "numero": 22,
+  "data": "2026-11-10",
+  "titolo": "Wall Street risale dopo il crollo di giovedì: i chip rimbalzano, ma Nvidia resta indietro",
+  "sommario": [
+   "Banco BPM: dopo la proposta di Crédit Agricole la politica si divide e giovedì decide il consiglio.",
+   "Il petrolio scende ancora: Trump allontana nuovi attacchi all'Iran, ma Teheran chiede la fine del blocco navale.",
+   "Giovedì i conti di Applied Materials dicono se gli ordini per i chip reggono."
+  ],
+  "file": "pdf/2026-11-10-gommberg-022.pdf",
+  "nome": "2026-11-10 Gommberg Terminal Daily #022.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Nvidia: il consiglio indaga su Huang con un consulente esterno",
+   "Brent giù del 5,85% dopo le parole di Trump sull'Iran",
+   "Cina: prezzi alla produzione ai massimi da oltre quattro anni",
+   "Seul rimbalza, ma è ancora il 10,6% sotto il 2 novembre",
+   "Banco BPM: il governo tace, Salvini lascia la parola agli economisti"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "156,35 $",
+    "+2,6% g"
+   ],
+   [
+    "S&P 500",
+    "7.549,94",
+    "+2,3% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.290,45",
+    "+1,9% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "4,88%",
+    "+2 pb g"
+   ],
+   [
+    "EUR/USD",
+    "1,1223",
+    "+0,7% g"
+   ],
+   [
+    "BRENT FUTURE",
+    "92,57 $",
+    "-5,8% g"
+   ],
+   [
+    "VIX",
+    "19,92",
+    "-5,72 g"
+   ]
+  ],
+  "dek": "Lunedì 9 novembre l'S&P 500 sale del 2,35% a 7.549,94 e il Nasdaq Composite del 2,74%; l'indice dei semiconduttori guadagna il 6,9% (Reuters). Giovedì l'S&P 500 aveva perso il 4,4% in una seduta: dopo le elezioni di metà mandato il mercato teme regole più dure sull'intelligenza artificiale (Bloomberg). Il rimbalzo arriva con il petrolio in calo, e oggi alle 14:30 il dato sui prezzi al consumo (CPI) dirà se la paura sull'inflazione è finita.",
+  "ticker_al": "2026-11-09",
+  "scommessa": {
+   "settimana": "2026-11-09/2026-11-13",
+   "su": 6,
+   "strada": 3,
+   "range": 6,
+   "dettaglio": [
+    [
+     "S&P 500",
+     "su",
+     true,
+     true
+    ],
+    [
+     "Euro Stoxx 50",
+     "su",
+     true,
+     true
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "Brent future",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Oro future",
+     "giù",
+     false,
+     true
+    ]
+   ]
+  },
+  "temi": [
+   "Wall Street",
+   "Fed",
+   "Chip",
+   "Banche",
+   "Petrolio",
+   "Cina"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Banche",
+    "titolo": "Banco BPM: la fusione proposta da Crédit Agricole passa dal voto dei soci",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Fed",
+    "titolo": "Il mercato crede al rialzo Fed di dicembre, ma non a una lunga serie di rialzi",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Chip",
+    "titolo": "Il Nasdaq ha recuperato due terzi del crollo di giovedì, ma Nvidia resta indietro",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [],
+  "parole": [
+   "Core",
+   "Appiattimento della curva",
+   "Whitewash",
+   "Volatilità attesa (VIX)",
+   "Dividendo straordinario",
+   "Capitalizzazione"
+  ],
+  "ripetizioni": 10,
+  "glossario": [
+   "CPI",
+   "core",
+   "CME FedWatch",
+   "TIPS",
+   "VIX",
+   "ACWI"
+  ],
+  "grafici": [
+   {
+    "tipo": "linee",
+    "titolo": "Il petrolio perde il 21% dal massimo del 23 ottobre",
+    "serie": [
+     "Brent"
+    ],
+    "x0": "2026-10-20",
+    "x1": "2026-11-09",
+    "etichette": []
+   },
+   {
+    "tipo": "barre",
+    "titolo": "In un mese calano più i rendimenti lunghi di quelli brevi",
+    "serie": [],
+    "x0": null,
+    "x1": null,
+    "etichette": [
+     "1M",
+     "3M",
+     "6M",
+     "1A",
+     "2A",
+     "3A",
+     "5A",
+     "7A",
+     "10A",
+     "20A",
+     "30A"
+    ]
+   },
+   {
+    "tipo": "linee",
+    "titolo": "Il Nasdaq ha ripreso due terzi della perdita del 5 novembre",
+    "serie": [
+     "Nasdaq"
+    ],
+    "x0": "2026-10-20",
+    "x1": "2026-11-09",
+    "etichette": []
+   },
+   {
+    "tipo": "barre",
+    "titolo": "Il rimbalzo è tutto dei chip: Nvidia scende da sola",
+    "serie": [],
+    "x0": null,
+    "x1": null,
+    "etichette": [
+     "Dow Jones",
+     "S&P 500",
+     "Nasdaq",
+     "Semiconduttori",
+     "Nvidia"
+    ]
+   }
+  ],
+  "agenda": [
+   {
+    "quando": "Mar 10, 14:30",
+    "evento": "CPI USA (ottobre)",
+    "attese": "+0,3% m/m; core (senza energia e alimentari) +0,2%",
+    "perche": "Evento n.1: dice se regge il rialzo Fed di dicembre",
+    "chiave": true
+   },
+   {
+    "quando": "Gio 12, 22:30",
+    "evento": "Conti di Applied Materials",
+    "attese": "Non verificate",
+    "perche": "Ordini dei produttori di macchine per chip",
+    "chiave": false
+   }
+  ]
  }
 ]
