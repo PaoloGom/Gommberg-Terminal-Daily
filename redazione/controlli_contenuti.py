@@ -113,10 +113,10 @@ else:
         AVV.append("aperture: manca 'fuori' (storie forti altrove che non copriamo, col motivo; [] se nessuna)")
     elif any(not (x.get("storia") and x.get("motivo")) for x in r["fuori"] if isinstance(x, dict)):
         AVV.append("aperture: ogni voce di 'fuori' vuole 'storia' e 'motivo'")
-    GLO = re.compile(r"reuters|financial times|\bft\b|bloomberg", re.I)
+    GLO = re.compile(r"reuters|\bap\b|associated press|afp|bloomberg|dow jones|cnbc|financial times|\bft\b", re.I)
     ITA = re.compile(r"sole 24|milano finanza", re.I)
     if len([t for t in ok_t if GLO.search(t["testata"])]) < 2 or not [t for t in ok_t if ITA.search(t["testata"])]:
-        AVV.append("aperture: servono 2 testate tra Reuters, FT, Bloomberg e 1 tra Sole 24 Ore, Milano Finanza (titoli via ricerca)")
+        AVV.append("aperture: servono 2 resoconti d'agenzia o testate globali (Reuters, AP, AFP, Bloomberg, CNBC...) e 1 italiana (Radiocor/Sole 24 Ore, Milano Finanza)")
     if r.get("concorda") is False and not (r.get("motivo") or "").strip():
         ERR.append("aperture: la top story non è l'apertura della maggioranza delle testate: scrivi il 'motivo' della scelta")
 
@@ -328,6 +328,11 @@ if len(_righe_dato) >= 2 and len(_con) * 2 < len(_righe_dato):
     ERR.append(f"agenda: consenso solo per {len(_con)} dati o decisioni su {len(_righe_dato)}: cercalo per ognuno (una ricerca: "
                f"\"<dato> forecast consensus <mese>\", calendari di Investing.com, Reuters, FXStreet, Teleborsa); senza: "
                f"{'; '.join(_senza[:4])}. Mai togliere righe per passare: dopo 3 giri vale com'è")
+
+_ag = VOCE.get("agenda")
+if isinstance(_ag, list) and 0 < len(_ag) < 5:
+    ERR.append(f"agenda: solo {len(_ag)} righe. Nei prossimi giorni di borsa ci sono sempre almeno 5 eventi che contano (dati, "
+               "banche centrali, aste, conti): `memoria.py agenda` e una ricerca del calendario della settimana. Dopo 3 giri vale com'è")
 
 # ---------- dati mancanti: solo dopo la scala di ricerca, e registrati ----------
 _mancano = re.findall(r"\bn\.d\.|nessuna chiusura verificata|non verificat[oa] da fonti|dato non disponibile", TUTTO, re.I)

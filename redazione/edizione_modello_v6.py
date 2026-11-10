@@ -3,12 +3,30 @@ Ogni giorno: copia questo file nella cartella di lavoro, sostituisci SOLO i bloc
 (il dizionario C: nessun codice da scrivere), poi lancia
 `python3 edizione_modello_v6.py <cartella di lavoro> <pdf di uscita>`: il motore impagina, riempie le 6 pagine
 allungando i grafici scritti come dict, risolve i rimandi e scrive voce_indice.json per edizioni.json.
-Prima: valuta.py (stato.json) e grafico.py (c_forecast.png) nella cartella di lavoro, come da ISTRUZIONI par. 4.
+Prima: valuta.py (stato.json) e grafico.py (c_forecast.png) nella cartella di lavoro, come da ISTRUZIONI §5.
 Regole rapide: un fatto ha una casa sola (ogni cifra al massimo 2 volte: pag. 1 e la sua pagina); in pag. 1 si titola e
 si rimanda con [[chiave]] (diventa "→ pag. N"); righe "→" (freccia=...) max 5 in tutto; solo trattino corto; variazioni
-con segno (il motore le colora). Temi (top "tema", "in30_temi", "tag" delle notizie) dall'elenco chiuso di ISTRUZIONI §2.
+con segno (il motore le colora). Temi (top "tema", "in30_temi", "tag" delle notizie) dall'elenco chiuso qui sotto.
 Il contenuto si compila riscrivendo in un colpo solo il blocco C (uno script o un Write), non con decine di Edit.
-Chiavi di rimando disponibili: mercati, agenda, scommessa + la "chiave" di ogni approfondimento."""
+Chiavi di rimando disponibili: mercati, agenda, scommessa + la "chiave" di ogni approfondimento.
+
+REGOLE DEI CAMPI (v8.1: stanno qui, accanto ai campi; ISTRUZIONI.md tiene solo ciò che richiede giudizio).
+- Temi, elenco chiuso (C["temi"] 3-6, top["tema"], in30_temi, "tag" delle notizie): Fed, BCE, Inflazione, Tassi, Wall Street,
+  Europa, Italia, Asia, Cina, Chip, Tecnologia, Banche, Petrolio, Geopolitica, Valute, Dazi, Trimestrali, Macro, Credito,
+  Materie prime.
+- top: titolo max 2 righe, dek 3-4. in30: 3 punti senza cifre, col rimando. Voci "breve" dell'indice senza cifre.
+- stamattina: future, Asia, petrolio, cambio, 10 anni con orario 06:00-09:29; senza livelli verificati
+  "stamattina_titolo": "Cosa guardare all'apertura" con 2-4 soglie o eventi con orario.
+- termometri: solo i temi mossi; gli altri in "fermi", fuori dopo 3 sedute. "lettura" (pag. 2) solo se aggiunge.
+- moduli: 5 unità (mezzo = 1, doppio = 2), il primo "mezzo" va a pag. 3. Ogni modulo: perche, quindi, fonte; righe (mezzo max 5,
+  doppio max 8); punti max 3; "guardare" obbligatorio nel doppio; niente "lettura". Due "mezzo" sulla stessa pagina si dividono
+  lo spazio secondo il contenuto: non serve che siano lunghi uguali.
+- grafici: "titolo" = cosa mostra, "sottotitolo" = misura e periodo, "soggetto" = parola del titolo o del perche, "ruolo" diverso
+  per ogni elemento del modulo (quanto, perche, storia, conseguenza, chi); barre sempre con "unita", livelli con "livello": True;
+  segna con "eventi" e "soglie" ciò che usano E quindi e Da guardare; sotto 5 valori meglio una frase. Mai "alto"/"largo".
+- "&" si scrive com'è (S&P 500): lo sistema il motore. Solo trattino corto. Variazioni col segno. Numeri all'italiana.
+- Lunedì: "ieri_titolo": "La settimana scorsa" (max 5 righe); 1 sett. del cruscotto = settimana intera.
+- parole: 6 concetti (non sigle) del numero, in ordine di importanza: il motore ne mostra 3 o 6."""
 import datetime as dt
 import json
 import os
@@ -72,7 +90,7 @@ C = {
     "ticker": ticker_da_dati("dati.json"),   # dal dati.json del giorno (numeri.py): mai a mano
 
     "top": {
-        "tema": "Inflazione",   # elenco chiuso (ISTRUZIONI §2): nessuna voce di pag. 1 ripete questo tema
+        "tema": "Inflazione",   # elenco chiuso (in testa al file): nessuna voce di pag. 1 ripete questo tema
         "titolo": "Inflazione USA sopra le attese: torna in gioco il rialzo Fed di ottobre",
         "dek": "A settembre l'indice dei prezzi al consumo (CPI) sale del 3,7% annuo contro il 3,6% atteso; il core "
                "(senza energia e alimentari) del 2,6% contro il 2,5%. La probabilità di un rialzo dei tassi Fed il 27-28 "

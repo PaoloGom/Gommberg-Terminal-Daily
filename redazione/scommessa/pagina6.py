@@ -10,7 +10,12 @@ precedente), pagella = pagella.json (None se non esiste), stato = json di valuta
 Dopo queste righe l'edizione aggiunge Glossario e Fonti come sempre.
 """
 import datetime as dt
-from html import escape as esc
+from html import escape as _esc, unescape as _unesc
+
+
+def esc(t):
+    """Chi scrive può usare "&" o "&amp;": qui si riporta a una forma sola (mai "S&amp;P" stampato)."""
+    return _esc(_unesc(str(t)))
 
 from gommberg_engine import P, B, section, tbl, headers, img, box, side_by_side, box_pari, CW, mm, Spacer
 from reportlab.platypus import TableStyle

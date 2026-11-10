@@ -57,8 +57,17 @@ PAGINE = {}   # chiave -> pagina, riempito da ancora() durante il render (v6)
 RIM_RE = re.compile(r"\[\[(\w+)\]\]")
 
 
+AMP_RE = re.compile(r"&(?!(?:amp|lt|gt|nbsp|quot|#\d+);)")
+
+
+def amp(t):
+    """Una "&" nuda diventa "&amp;" (S&P, AT&T): chi scrive non deve pensarci; "&amp;" già scritto resta com'è."""
+    return AMP_RE.sub("&amp;", str(t))
+
+
 def rimandi(t):
-    """'[[chiave]]' -> '→ pag. N' (N = pagina dell'ancora omonima)."""
+    """'[[chiave]]' -> '→ pag. N' (N = pagina dell'ancora omonima). Passano tutti di qui: sistema anche le "&"."""
+    t = amp(t)
     return RIM_RE.sub(lambda m: f'<font name="Cond-B" color="#B4470F">→ pag. {PAGINE.get(m.group(1), "?")}</font>', t)
 
 
@@ -687,7 +696,7 @@ def parole(voci):
     mostra = voci if AGGIUSTA.get("parole_tutte") else voci[:3]
     righe = [mostra[i:i + 3] for i in range(0, len(mostra), 3)]
     n = max(len(r) for r in righe)
-    cells = [[[P(t.upper(), "box_t"), Paragraph(d, S["nw_b"])] for t, d in r] + [""] * (n - len(r)) for r in righe]
+    cells = [[[P(t.upper(), "box_t"), Paragraph(amp(d), S["nw_b"])] for t, d in r] + [""] * (n - len(r)) for r in righe]
     t = Table(cells, colWidths=[CW / n] * n)
     stile = [("VALIGN", (0, 0), (-1, -1), "TOP"), ("BACKGROUND", (0, 0), (-1, -1), TINT),
              ("LINEBEFORE", (0, 0), (0, -1), 2.2, ORANGE), ("LINEAFTER", (0, 0), (-2, -1), 1.5, colors.white),
@@ -989,7 +998,8 @@ def render_v6(path, costruisci, riempi=(3, 4, 5), margine=3):
             scarsi.append(f"'{_testo(n)[:60]}' pieno al {v}% (minimo 90%): mancano circa {manca} righe "
                           f"(~{manca * 12} parole)")
         elif v > 112:
-            print(f"ACCORCIARE: modulo '{n}' al {v}%: il motore lo rimpicciolisce, togli testo o righe")
+            via = max(1, round((v - 100) / 100 * alto / mm / righe_mm))
+            scarsi.append(f"'{_testo(n)[:60]}' troppo pieno ({v}%): il testo uscirebbe rimpicciolito, togli circa {via} righe")
     # lo spazio preso dalla "molla" (note spinte in fondo) è vuoto anche se la pagina sembra piena: conta come libero
     molle_mm = {pg: v for (pg, m), v in AGGIUSTA["respiro"].items() if m}
     for p, l in liberi2.items():
@@ -997,7 +1007,7 @@ def render_v6(path, costruisci, riempi=(3, 4, 5), margine=3):
         if p in (1, 2, 3, 4, 5, 6) and vuoto > 15:
             scarsi.append(f"pag. {p}: {vuoto} mm vuoti in fondo, circa {round(vuoto / righe_mm)} righe a tutta larghezza")
     for x in scarsi:
-        print("RIEMPIRE:", x)
+        print("ACCORCIARE:" if "troppo pieno" in x else "RIEMPIRE:", x)
     print("Rimandi:", PAGINE)
     # Il riempimento è un controllo come gli altri: il PDF esce sempre, il giudizio lo dà controlli_tutti.sh (bloccante,
     # dentro i 3 giri di APP_ERRORI.md). Niente scorciatoie: lo spazio si riempie con fatti e perché verificati.
@@ -1062,8 +1072,9 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
             ("agenda", "Agenda", C.get("agenda_titolo", "Ieri in calendario e in arrivo"))]
     voci += [(a["chiave"], a["tema"], a.get("breve", a["titolo"])) for a in C.get("moduli") or C["approfondimenti"]]
     if stato and not C["scommessa"].get("lunedi"):
-        ok = sum(1 for r in stato["righe"].values() if r["strada_giusta"])
-        voci.append(("scommessa", "La scommessa", f"{ok}/{len(stato['righe'])} on track"))
+        fx = [k for k, x in (reg or {}).get("strumenti", {}).items() if not x.get("variabile")] or list(stato["righe"])
+        ok = sum(1 for k in fx if k in stato["righe"] and stato["righe"][k]["strada_giusta"])
+        voci.append(("scommessa", "La scommessa", f"{ok}/{len(fx)} on track"))
     else:
         voci.append(("scommessa", "La scommessa", C["scommessa"].get("breve", "il pronostico della settimana")))
     idx = indice_interno(voci, cols=4)
@@ -1170,11 +1181,12 @@ def voce_indice(C, stato=None, reg=None, ripetizioni=None):
          "meccanismi": C.get("meccanismi", []), "parole": [p[0] for p in C.get("parole", [])],
          "glossario": C.get("glossario", []), "errata": C.get("errata"), "ripetizioni": ripetizioni}
     if reg:
-        sc = {"settimana": reg["settimana"], "strada": None, "range": None, "su": 7, "dettaglio": []}
+        fissi = [k for k, x in reg["strumenti"].items() if not x.get("variabile")]
+        sc = {"settimana": reg["settimana"], "strada": None, "range": None, "su": len(fissi), "dettaglio": []}
         if stato:
             rr = stato["righe"]
-            sc["strada"] = sum(1 for r in rr.values() if r["strada_giusta"])
-            sc["range"] = sum(1 for r in rr.values() if r["dentro_range"])
+            sc["strada"] = sum(1 for k in fissi if k in rr and rr[k]["strada_giusta"])
+            sc["range"] = sum(1 for k in fissi if k in rr and rr[k]["dentro_range"])
             sc["dettaglio"] = [[r["nome"], "su" if r["var"] > 0 else "giù" if r["var"] < 0 else "fermo",
                                 r["strada_giusta"], r["dentro_range"]] for r in rr.values()]
         v["scommessa"] = sc
@@ -1196,12 +1208,13 @@ HM = (FH - 6 * mm) / 2                 # altezza di un modulo "mezzo"
 REPORT_MODULI = []
 
 
-def _pq_colonna(perche, quindi, w, numero=None):
-    """PERCHÉ / E QUINDI (/ IL NUMERO) in colonna, senza fondo: il fondo lo dà la cella, alta quanto il grafico."""
-    righe = [[P("PERCHÉ", "box_t")], [Paragraph(signcol(perche), S["nw_b"])], [Spacer(1, 4)],
+def _pq_colonna(perche, quindi, w, numero=None, aria=4):
+    """PERCHÉ / E QUINDI (/ IL NUMERO) in colonna, senza fondo: il fondo lo dà la cella, alta quanto il grafico.
+    aria = spazio tra i blocchi: il motore lo allarga (fino a 16 pt) per distribuirli sull'altezza del grafico."""
+    righe = [[P("PERCHÉ", "box_t")], [Paragraph(signcol(perche), S["nw_b"])], [Spacer(1, aria)],
              [P("E QUINDI", "box_t")], [Paragraph(signcol(quindi), S["nw_b"])]]
     if numero:
-        righe += [[Spacer(1, 4)], [P("IL NUMERO", "box_t")], [Paragraph(signcol(numero), S["nw_b"])]]
+        righe += [[Spacer(1, aria)], [P("IL NUMERO", "box_t")], [Paragraph(signcol(numero), S["nw_b"])]]
     t = Table(righe, colWidths=[w - 15])
     t.setStyle(TableStyle([("LEFTPADDING", (0, 0), (-1, -1), 0), ("RIGHTPADDING", (0, 0), (-1, -1), 0),
                            ("TOPPADDING", (0, 0), (-1, -1), 1.5), ("BOTTOMPADDING", (0, 0), (-1, -1), 1.5)]))
@@ -1253,6 +1266,7 @@ class _Slot(Flowable):
 
     def __init__(self, nome, contenuto, alto=None):
         Flowable.__init__(self); self.nome, self.contenuto, self.alto = nome, contenuto, alto
+        self.muto = False
 
     def wrap(self, aW, aH):
         h = min(self.alto or aH, aH)
@@ -1264,12 +1278,45 @@ class _Slot(Flowable):
                 f.height += agg
         self.k = KeepInFrame(aW, h, self.contenuto, mode="shrink")
         self.k.wrapOn(self.canv, aW, h)
-        REPORT_MODULI.append((self.nome, round(natur / h * 100), h))
+        self.natur = natur
+        if not self.muto:
+            REPORT_MODULI.append((self.nome, round(natur / h * 100), h))
         self.width, self.height = aW, h
         return aW, h
 
     def draw(self):
         self.k.drawOn(self.canv, 0, self.height - self.k.height)
+
+
+class _Coppia(Flowable):
+    """Due moduli "mezzo" sulla stessa pagina. La pagina è una sola misura: lo spazio si divide in proporzione al
+    contenuto di ciascuno (dal 40 al 60%), così un pezzo ricco non viene rimpicciolito e uno asciutto non va allungato
+    con frasi di riempimento. Il riempimento si giudica sulla pagina (somma dei due), non sul singolo modulo."""
+    GAP = 6 * mm
+
+    def __init__(self, a, b):
+        Flowable.__init__(self); self.a, self.b = a, b
+        a.muto = b.muto = True
+
+    def _naturale(self, s, aW):
+        return sum(f.wrap(aW, 10000)[1] + f.getSpaceBefore() + f.getSpaceAfter() for f in s.contenuto)
+
+    def wrap(self, aW, aH):
+        H = min(FH, aH) - self.GAP
+        na, nb = self._naturale(self.a, aW), self._naturale(self.b, aW)
+        q = min(0.60, max(0.40, na / (na + nb))) if na + nb else 0.5
+        self.a.alto, self.b.alto = H * q, H * (1 - q)
+        self.a.canv = self.b.canv = self.canv
+        self.a.wrap(aW, self.a.alto); self.b.wrap(aW, self.b.alto)
+        REPORT_MODULI.append((f"pagina con '{_testo(str(self.a.nome))[:24]}' e '{_testo(str(self.b.nome))[:24]}'",
+                              round((na + nb) / H * 100), H))
+        self.width, self.height = aW, H + self.GAP
+        return self.width, self.height
+
+    def draw(self):
+        self.a.canv = self.b.canv = self.canv
+        self.canv.saveState(); self.canv.translate(0, self.b.alto + self.GAP); self.a.draw(); self.canv.restoreState()
+        self.b.draw()
 
 
 _AVVISATI = set()
@@ -1424,6 +1471,10 @@ def modulo(tema, titolo, misura="mezzo", chiave=None, grafico=None, grafico2=Non
         c += _grafico_fisso(grafico, CW / inch, 2.2, CW) + [Spacer(1, 4)]
     if affianca:
         g = _grafico_fisso(grafico2 if misura == "doppio" else grafico, wl / inch, wl / inch * 0.6, wl)
+        hg = sum(f.wrap(wl, 10000)[1] for f in g)
+        vuoto = hg - (pq.wrap(wr - 15, 10000)[1] + 13)
+        if vuoto > 0:        # testo più corto del grafico: i blocchi si distanziano, il riquadro resta pieno alla vista
+            pq = _pq_colonna(perche, quindi, wr, numero, aria=4 + min(vuoto / (2 if numero else 1), 12))
         c += [_Riempito(titolo, g, pq, wl, wr), _riga_grafico_pq(g, pq, wl, gap, wr)]
     else:
         c.append(perche_quindi(perche, quindi))
@@ -1464,12 +1515,20 @@ def approfondimenti_griglia(moduli):
         corpo = modulo(tema, titolo, chiave=k, **m)
         return ([ancora(k)] if k else []) + [_Slot(k or titolo, corpo, alto)]
     p3 = [Spacer(1, 4)] + blocco(moduli[0], None)
-    resto, usate = [], 0
+    resto, usate, attesa = [], 0, None
     for m in moduli[1:]:
         doppio = m.get("misura") == "doppio"
         if doppio and usate % 2:
             raise ValueError("approfondimenti: un modulo 'doppio' deve iniziare in cima a pag. 4 o 5")
-        resto += blocco(m, FH if doppio else HM)
+        b = blocco(m, FH if doppio else HM)
         usate += 2 if doppio else 1
-        resto.append(PageBreak() if usate % 2 == 0 else Spacer(1, 6 * mm))
+        if doppio:
+            resto += b + [PageBreak()]
+        elif attesa is None:
+            attesa = b                                   # primo "mezzo" della pagina: aspetta il compagno
+        else:
+            anc = [f for f in attesa + b if isinstance(f, _Ancora)]
+            sl = [f for f in attesa + b if isinstance(f, _Slot)]
+            resto += anc + [_Coppia(sl[0], sl[1]), PageBreak()]
+            attesa = None
     return p3, resto[:-1] if resto and isinstance(resto[-1], PageBreak) else resto

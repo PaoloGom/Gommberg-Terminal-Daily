@@ -155,14 +155,14 @@ def main():
     if doppie:
         print("AVVISO: sigle spiegate più di una volta: " + ", ".join(doppie)[:140])
     if n_fonti > 25:
-        print(f"AVVISO: {n_fonti} fonti tra parentesi nel testo (di norma non più di 25): togli quelle delle notizie "
-              "confermate e tienine una per paragrafo; le altre stanno nella riga Fonti")
+        print(f"ERRORE: {n_fonti} fonti tra parentesi nel testo (massimo 25): togli quelle di dati, eventi e notizie "
+              "confermate da 2+ testate (stanno nella riga Fonti); restano cause, notizie e dati da fonte singola")
     print("Sigle spiegate (campo glossario): " + (", ".join(spiegate) or "-")[:150])
     if "--json" in sys.argv:
         json.dump({"frecce": fr, "connettivi": sos, "sigle_mai_spiegate": mai, "sigle_doppie": doppie,
                    "glossario": spiegate, "errori": errori},
                   open(sys.argv[sys.argv.index("--json") + 1], "w"), ensure_ascii=False, indent=1)
-    if errori:
+    if errori or n_fonti > 25:
         sys.exit(1)
 
 

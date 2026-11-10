@@ -4,8 +4,8 @@ Tutto si lancia da `cd /home/claude/gtd/redazione/scommessa` (perché `dati/`, `
 
 ## 1. Aggiorna la storia
 Scrivi `/home/claude/lavoro/nuovi.json` con le chiusure ufficiali dei giorni dopo l'ultima data di ogni file in `dati/`, fino a venerdì compreso. Formato: `{"spx": [["2026-10-16", 7850.12], ...], ...}`.
-- **Temporanea, valida fino al 30/10/2026 (poi togliere):** `dati/sx5e.csv` è già verificato fino al 23/10 (due fonti). Non mettere `sx5e` in `nuovi.json`: FMP `^STOXX50E` non dà la chiusura (livelli sbagliati quasi ogni giorno, anche di segno; ad esempio il 16/10 dà 6.161,9 contro 6.204,23). Il revisore controlla che in pag. 6 l'Euro Stoxx 50 finisca a 6.068,22 (23/10). Venerdì 30/10 la chiusura dell'Euro Stoxx si prende da dpa-AFX "Aktien Europa Schluss" più Investing.com o stoxx.com, concordi entro lo 0,05%.
-- `spx`, `sx5e`, `vix`: FMP `indexes` endpoint `index-historical-price-eod-light` (^GSPC, ^STOXX50E, ^VIX) con from/to;
+- `sx5e`: mai da FMP (`APP_DATI.md` §6). Le sedute da martedì a giovedì sono già in `dati/sx5e.csv` (le scrive `scommessa_giorno.sh`); in `nuovi.json` va la chiusura di venerdì, da stoxx.com o dpa-AFX con seconda fonte.
+- `spx`, `vix`: FMP `indexes` endpoint `index-historical-price-eod-light` (^GSPC, ^VIX) con from/to;
 - `brent`: FMP `commodity` endpoint `commodities-historical-price-eod-light`, simbolo BZUSD;
 - `ust10`, `ust2`: FMP `economics` endpoint `treasury-rates`, colonne year10 e year2;
 - `eurusd`: Alpha Vantage `FX_DAILY`, colonna close (non FMP forex, che ha righe del weekend);
@@ -28,7 +28,7 @@ Scrivi `/home/claude/lavoro/nuovi.json` con le chiusure ufficiali dei giorni dop
 - `python3 pronostico.py --origine <venerdì scorso> --redazione /home/claude/lavoro/redazione.json`: scrive `../pronostici/<lunedì>-settimana.json`. Non sovrascrive mai un registro esistente; `--forza` solo per correggere un errore della stessa mattina, prima della pubblicazione. Una previsione "AGGIUSTATA": vale il livello del registro e il motivo deve restare vero.
 
 ## 3b. Lo strumento della settimana
-- Sceglilo sul tema del momento (la top story, il catalizzatore della settimana): un mercato che racconta qualcosa che i 6 fissi e il resto del giornale non dicono. Non un doppione dei fissi né una scommessa doppia sulla stessa notizia.
+- **Non è obbligatorio.** Entra solo se un tema domina la settimana e i sei fissi non lo raccontano; altrimenti la scommessa esce con i sei (il motore impagina da solo). Quando entra: sceglilo sul tema del momento (la top story, il catalizzatore della settimana): un mercato che racconta qualcosa che i 6 fissi e il resto del giornale non dicono. Non un doppione dei fissi né una scommessa doppia sulla stessa notizia.
 - Prendi circa un anno di chiusure giornaliere dai nostri dati (FMP `chart`/`commodity`/`indexes`, Alpha Vantage `TIME_SERIES_DAILY`, `FX_DAILY`, `DIGITAL_CURRENCY_DAILY`), mai la riga di oggi, in `/home/claude/lavoro/serie_<chiave>.json` (`[["AAAA-MM-GG", valore], ...]`).
 - `python3 variabile.py --chiave <chiave> --nome "<nome per il lettore>" --tipo prezzo --unita "$" --serie /home/claude/lavoro/serie_<chiave>.json --motivo "<perché questa settimana>"`: rifiuta doppioni (correlazione >= 0,7 con un fisso), storia corta e singole azioni nella settimana dei conti (`--conti-in-settimana`). Se rifiuta, scegli un altro mercato.
 - Poi il pronostico con `--variabile var_<chiave>` (anche in `--prova`) e in `redazione.json` anche la riga `var_<chiave>`. Mar-ven la sua ultima chiusura va in `attuali.json` con la chiave `var_<chiave>`; il venerdì sera la chiusura entra in `dati/var_<chiave>.csv` con `aggiorna_dati.py` prima del verdetto.

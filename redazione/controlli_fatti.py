@@ -23,7 +23,7 @@ Registro delle anomalie (passo 2c), nella stessa lista: {"id": "A1", "sezione": 
  controlli_contenuti.py).
 Scaletta (prima della ricerca mirata): {"id": "S1", "sezione": "scaletta", "moduli": [{"chiave", "tesi", "domanda", "prove": [...],
  "contro"}]} (schema completo in APP_FONTI.md §4). Schede riprese dalla memoria (memoria.py): id "MEM..", campo "ripresa"."""
-import datetime as dt, json, os, sys
+import datetime as dt, json, os, re, sys
 from urllib.parse import urlparse
 
 QUI = os.path.dirname(os.path.abspath(__file__))
@@ -135,14 +135,56 @@ for f in fatti:
         problemi.append(f"{i}: titolo identico a una notizia già uscita")
     v = f.get("verifica")
     if not prima_revisione:
-        if sez in ("top_story", "top_news", "catalizzatori", "agenda") and v is None:
-            problemi.append(f"{i}: non verificato dal revisore")
         if v == "errato":
             problemi.append(f"{i}: segnato ERRATO dal revisore: {f.get('nota_revisore', '')}")
         if v == "non_conclusivo" and sez in PUBBLICI:
             avvisi.append(f"{i}: dato pubblico non confermato dal revisore: resta con la fonte dichiarata (\"(Testata)\")")
         elif v == "non_conclusivo":
             problemi.append(f"{i}: verifica non conclusiva: togliere il fatto dal PDF o attribuirlo e ripetere la verifica")
+
+# Revisione mirata. Fino al 10/11/2026 il controllo chiedeva un esito per ogni scheda e il revisore, con 25 verifiche a
+# disposizione, segnava tutto "confermato" (221 su 221) senza riaprire gli approfondimenti. Ora l'elenco lo fa il codice,
+# dalle schede dove un errore costa di più, e il revisore deve scrivere in "trovato" la frase letta sulla pagina aperta.
+def _num(t):
+    out = set()
+    for m in re.findall(r"\d[\d.,]*\d|\d", str(t)):
+        m = m.replace(",", ".") if m.count(",") == 1 and m.count(".") == 0 else m.replace(".", "").replace(",", ".") if "," in m else m
+        try:
+            x = float(m)
+        except ValueError:
+            continue
+        if x >= 10 or "." in m:
+            out.add(round(x, 4))
+    return out
+
+
+def da_rivedere(schede, registri, massimo=25):
+    tesi = {x for r in registri if r.get("sezione") == "scaletta" for m in r.get("moduli") or [] for x in m.get("schede") or []}
+    def classe(f):
+        sez = ALIAS.get(f.get("sezione", ""), f.get("sezione", ""))
+        scoperti = _num(f.get("testo")) - set().union(*[_num(s.get("citazione")) for s in f.get("fonti") or [{}]])
+        return (0 if sez == "top_story" else 1 if f.get("tipo") == "C" else 2 if f.get("id") in tesi else
+                3 if scoperti and sez != "agenda" else 4 if sez == "agenda" else 5 if sez == "top_news" else
+                6 if sez == "catalizzatori" else 7)
+    cand = [f for f in schede if not (str(f.get("id", "")).startswith("MEM") and f.get("verifica") == "confermato")]
+    cand = sorted(cand, key=lambda f: (classe(f), f.get("data_evento", "")))
+    return [f for f in cand if classe(f) < 7][:massimo]
+
+
+lista = da_rivedere(fatti, tutte)
+if prima_revisione:
+    print("REVISIONE: " + ",".join(str(f.get("id")) for f in lista))
+else:
+    for f in lista:
+        i, v = f.get("id"), f.get("verifica")
+        if v is None:
+            problemi.append(f"{i}: da rivedere (elenco REVISIONE) e senza esito")
+        elif v == "confermato" and len(str(f.get("trovato") or "").split()) < 6:
+            problemi.append(f"{i}: \"confermato\" senza \"trovato\": il revisore copia la frase letta sulla pagina aperta (parola per parola)")
+        elif v == "confermato":
+            manca = sorted(_num(f.get("testo")) - _num(f.get("trovato")) - set().union(*[_num(s.get("citazione")) for s in f.get("fonti") or [{}]]))
+            if manca:
+                avvisi.append(f"{i}: numeri del testo che né la citazione né il revisore riportano: {manca[:4]} (calcolati da noi? altrimenti correggi)")
 
 # Ampiezza della ricerca (solo prima della revisione: si recupera cercando, quando costa poco; non blocca mai l'uscita).
 # Notizie: top story + 6-8 in prima pagina + riserve. Approfondimenti: fatti propri, oltre ai dati di mercato.
@@ -151,8 +193,8 @@ if prima_revisione:
     n_app = sum(1 for f in fatti if ALIAS.get(f.get("sezione", ""), f.get("sezione", "")) == "deep_dive")
     if n_not < 10:
         problemi.append(f"RICERCA: {n_not} schede di notizie, ne servono almeno 10 (top story, 6-8 in prima pagina, riserve): "
-                        "cerca ancora nel flusso dall'ultima edizione (il lunedì anche sabato e domenica) e nelle "
-                        "storie in evidenza di Bloomberg, Financial Times e Reuters (ISTRUZIONI §2)")
+                        "cerca ancora nel flusso dall'ultima edizione (il lunedì anche sabato e domenica) e nei "
+                        "resoconti di fine seduta delle agenzie (ISTRUZIONI §6.2)")
     if n_app < 6:
         problemi.append(f"RICERCA: {n_app} schede per gli approfondimenti (sezione \"deep_dive\"), ne servono almeno 6: "
                         "per ogni tesi i fatti che la provano (causa, contesto, chi lo dice, cosa succede dopo), "
@@ -168,6 +210,8 @@ if prima_revisione:
                         "(schema in APP_FONTI.md §4): scrivilo ora dalle tesi che hai scelto")
     for m in mod:
         manca = [k for k in ("tesi", "domanda", "contro") if not str(m.get(k) or "").strip()]
+        if not [x for x in m.get("schede") or [] if x in ids]:
+            manca.append("schede (gli id delle schede su cui poggia la tesi: il revisore le riapre)")
         if len(m.get("prove") or []) < 4:
             manca.append("prove (almeno 4)")
         if manca:

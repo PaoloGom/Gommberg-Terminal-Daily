@@ -72,6 +72,31 @@ for nome, s in d["serie"].items():
         scarto = abs(v0 / sf - 1)
         if scarto > 0.005:
             problemi.append(f"{nome}: scarto {100 * scarto:.2f}% con la seconda fonte ({v0} contro {sf})")
+# Serie che il fornitore di dati sbaglia: solo dal web, con fonte dichiarata e seconda fonte concorde entro lo 0,05%.
+# Euro Stoxx 50: FMP ^STOXX50E dà chiusure sbagliate quasi ogni giorno (confronto del 10/11/2026 su 20 sedute: scarti fino
+# allo 0,8%, anche di segno, mai corretti dopo). Per aggiungere una serie basta una riga qui.
+SOLO_WEB = {"Euro Stoxx 50": "sx5e.csv"}
+import csv, os  # noqa: E402
+_dati = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scommessa", "dati")
+for nome, archivio in SOLO_WEB.items():
+    s = d["serie"].get(nome)
+    if not s or not s.get("ultimi"):
+        continue
+    fonte = str(s.get("fonte") or "").lower()
+    if not fonte or "fmp" in fonte or "modeling" in fonte:
+        problemi.append(f"{nome}: serie solo dal web (APP_DATI §6): scrivi \"fonte\" (gestore dell'indice o resoconto d'agenzia), mai FMP")
+    sf = s.get("seconda_fonte")
+    if not sf and not s.get("fonte_singola"):
+        problemi.append(f"{nome}: manca \"seconda_fonte\" (il valore di una seconda fonte indipendente) o \"fonte_singola\": true")
+    elif sf and abs(s["ultimi"][0][1] / sf - 1) > 0.0005:
+        problemi.append(f"{nome}: le due fonti non concordano entro lo 0,05% ({s['ultimi'][0][1]} contro {sf}): vale il gestore dell'indice")
+    try:   # le sedute precedenti devono essere quelle già verificate in archivio: la variazione 1 g poggia su quelle
+        arch = {r[0]: float(r[1]) for r in csv.reader(open(os.path.join(_dati, archivio), encoding="utf-8")) if r and r[0][:2] == "20"}
+        for g, v, *_ in s["ultimi"][1:]:
+            if g in arch and abs(v / arch[g] - 1) > 0.0005:
+                problemi.append(f"{nome}: {g} = {v}, ma la chiusura verificata in archivio è {arch[g]}: usa quella")
+    except OSError:
+        pass
 import re  # noqa: E402
 for obb, rx in (("S&P 500", r"s&p ?500"), ("Nasdaq", r"nasdaq"), ("Euro Stoxx 50", r"stoxx ?50"), ("Nikkei 225", r"nikkei"),
                 ("Kospi", r"kospi|seul|seoul"), ("Hang Seng", r"hang ?seng")):

@@ -11,5 +11,13 @@ REG="$R/pronostici/${LUN}-settimana.json"
 [ -f "$L/attuali.json" ] || { echo "MANCA $L/attuali.json"; exit 1; }
 cd "$R/scommessa"
 python3 valuta.py --settimana "$REG" --attuali "$L/attuali.json" --json "$L/stato.json" | tail -3
+# Le chiusure ufficiali di oggi entrano subito nelle serie (niente buchi: la forchetta del lunedì si calcola su sedute vere)
+python3 - "$L/attuali.json" "$L/_nuovi_giorno.json" <<'EOF' && python3 aggiorna_dati.py "$L/_nuovi_giorno.json" | tail -1
+import json, os, sys
+a = json.load(open(sys.argv[1], encoding="utf-8"))
+ok = {"spx", "sx5e", "ust10", "eurusd", "brent", "oro"}
+n = {k: [[v[1], v[0]]] for k, v in a.items() if k in ok or (k.startswith("var_") and os.path.exists(os.path.join("dati", k + ".csv")))}
+json.dump(n, open(sys.argv[2], "w"))
+EOF
 GTD_ALTO_GRAFICO=2.9 python3 grafico.py "$REG" "$L/c_forecast.png" "$L/stato.json" | tail -1
 echo "Scommessa: REG = \"${LUN}-settimana.json\" nel modello; stato.json e c_forecast.png in $L"

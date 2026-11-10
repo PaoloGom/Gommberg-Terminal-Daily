@@ -14,7 +14,7 @@ liberi = ", ".join(f"p{p}={v}" for p, v in r["mm_liberi"].items())
 if r["scarsi"]:
     print(f"Riempimento: {len(r['scarsi'])} spazi da riempire | mm liberi: {liberi}")
     for x in r["scarsi"]:
-        print("ERRORE: " + x + " - aggiungi un fatto o un perché verificato (testo del modulo, una riga di tabella, "
-              "un punto, un'altra notizia); mai spazi, a capo o grafici allungati")
+        print("ERRORE: " + x + ("" if "troppo pieno" in x else " - aggiungi una prova della scaletta o un fatto della "
+              "memoria, con la sua scheda (testo del modulo, riga di tabella, punto, notizia); mai frasi senza scheda"))
     sys.exit(1)
 print(f"Riempimento: pagine e moduli pieni | mm liberi: {liberi}")

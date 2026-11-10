@@ -13,6 +13,9 @@ NNN=$(printf "%03d" "$N"); DEST="pdf/${DATA}-gommberg-${NNN}.pdf"
 fail() { echo "Sito: NON aggiornato - $1"; exit 1; }
 run() { if [ "$PROVA" = "1" ]; then echo "[prova] $*"; else "$@"; fi; }
 
+# Si pubblica solo dal ramo principale: da un ramo di prova nessun commit e nessun push, qualunque cosa dica chi lancia.
+RAMO="$(git -C "$REPO" rev-parse --abbrev-ref HEAD 2>/dev/null)"
+[ "$RAMO" = "main" ] || [ "$PROVA" = "1" ] || { PROVA=1; echo "Ramo $RAMO: modalità prova forzata, nessuna pubblicazione"; }
 [ -f "$PDF" ] || fail "PDF non trovato: $PDF"
 python3 - "$REPO/edizioni.json" "$N" "$DATA" "$DEST" 2>/dev/null <<'EOF' || fail "edizioni.json non pronto (lancia prima edizioni_voce.py)"
 import json, sys
