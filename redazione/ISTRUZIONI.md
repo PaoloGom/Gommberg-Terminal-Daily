@@ -50,7 +50,7 @@ Lavoro in `/home/claude/lavoro`, orari di Roma (`zoneinfo`). Il turno finisce so
 4. **Stesura:** blocco `C` (§2), scommessa (§4), `python3 edizione_AAAA-MM-GG.py /home/claude/lavoro "<pdf>"` (scrive `voce_indice.json`), poi `qpdf --object-streams=generate --compress-streams=y`.
 5. **Controlli:** `GTD_SENZA_INDICE=1 bash /home/claude/gtd/redazione/controlli_tutti.sh "<pdf>" <N> --prima-della-revisione`, poi Read di `anteprima.png`.
 6. **Revisione** (§10), correzioni in un giro, render, stesso comando senza `--prima-della-revisione`: ESITO OK. Rosso: §11.
-7. **Consegna:** `edizioni_voce.py` e `pubblica.sh` (§8); SendUserFile (status "proactive", display "render", didascalia "Gommberg Terminal Daily #NNN - <data lunga>"); il messaggio = output di `python3 /home/claude/gtd/redazione/messaggio.py --voce /home/claude/lavoro/voce_indice.json --sito "<ultima riga di pubblica.sh>"`; per ultimo l'Archivio Claude (§8.4).
+7. **Consegna:** `edizioni_voce.py` e `pubblica.sh` (§8); SendUserFile (status "proactive", display "render", didascalia "Gommberg Terminal Daily #NNN - <data lunga>"); il messaggio = output di `python3 /home/claude/gtd/redazione/messaggio.py --voce /home/claude/lavoro/voce_indice.json --sito "<ultima riga di pubblica.sh>"`.
 
 ## 7. Niente ripetizioni
 - **Un fatto, una casa:** ogni cifra al massimo 2 volte nel PDF (pag. 1 e la sua pagina); tabelle, punti, perché e quindi dello stesso modulo contano tutti. `controlli_ripetizioni.py` è bloccante; gli AVVISI su fatti diversi si ignorano.
@@ -61,8 +61,7 @@ Non toccare index.html, README.md, assets/.
 1. **Indice:** `python3 /home/claude/gtd/redazione/edizioni_voce.py --pdf "<pdf>" --data AAAA-MM-GG --voce /home/claude/lavoro/voce_indice.json --registro /home/claude/gtd/redazione/pronostici/<lunedì>-settimana.json --stato /home/claude/lavoro/stato.json --sigle /home/claude/lavoro/testo.json` (lunedì: `--verdetto`). Numero già presente: uscita (c).
 2. **Cancello:** `bash /home/claude/gtd/redazione/controlli_tutti.sh "<pdf>" <N>`: ESITO OK.
 3. **Sito:** `bash /home/claude/gtd/redazione/pubblica.sh "<pdf>" <N> AAAA-MM-GG /home/claude/lavoro/fatti.json` (genera anche pagine per edizione, feed e link fisso): la sua ultima riga va identica nel messaggio.
-4. **Archivio Claude** (dopo la consegna): Artifact `action: "read"` su https://claude.ai/artifact/MuwDrCHDGXuADtKtL7cFcH, poi `action: "publish"` con quell'`url`, `file_path` = `/home/claude/gtd/redazione/archivio_claude.html` (non modificarla), `files` = {"edizioni.json": "/home/claude/gtd/edizioni.json", "pdf/AAAA-MM-GG-gommberg-NNN.pdf": "<pdf>"}, senza `capabilities` né `icon`; 2 tentativi (rifiutata per versione più recente: ripubblica uguale), poi si salta.
-5. Passaggio fallito: riprova una volta, poi consegna comunque.
+4. Passaggio fallito: riprova una volta, poi consegna comunque.
 
 ## 9. Lettori e scrittura
 Lettori per lo più di media competenza: il lettore medio capisce senza cercare, l'esperto non si annoia. Ogni pezzo dà il fatto (con il numero) e la lettura (cosa significa, quanto era atteso). **Saldo zero, solo per i chiarimenti:** una spiegazione aggiunta si paga togliendo giri di parole o ripetizioni nello stesso riquadro, mai un fatto; non vuol dire scrivere meno: lo spazio si riempie sempre di fatti e perché (§2 Riempimento).

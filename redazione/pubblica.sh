@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Pubblicazione sul sito: copia PDF e registro fatti, commit, push con verifica PUSH_OK (fino a 3 tentativi).
 # Uso: bash /home/claude/gtd/redazione/pubblica.sh "<pdf>" <N> <AAAA-MM-GG> [fatti.json]
-# Prima: edizioni.json già aggiornato con edizioni_voce.py. Dopo: archivio Claude (Artifact) e messaggio finale.
+# Prima: edizioni.json già aggiornato con edizioni_voce.py. Dopo: messaggio finale.
 # GTD_PROVA=1: stampa i comandi git senza eseguirli (né commit né push); su una copia (GTD_REPO diverso da
 # /home/claude/gtd) copia davvero PDF e registro fatti, così la prova si può verificare. Dopo: SendUserFile, messaggio
-# (messaggio.py), poi Archivio Claude.
+# (messaggio.py).
 # Ultima riga: "Sito: aggiornato (commit X)" oppure "Sito: NON aggiornato - <errore>".
 set -u
 PDF="${1:?pdf}"; N="${2:?numero}"; DATA="${3:?data}"; FATTI="${4:-/home/claude/lavoro/fatti.json}"
