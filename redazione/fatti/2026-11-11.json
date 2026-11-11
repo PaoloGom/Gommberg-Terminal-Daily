@@ -1,0 +1,824 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "I prezzi al consumo USA di ottobre salgono dello 0,4% sul mese contro il +0,3% atteso (core +0,3% contro +0,2%); il dato annuale non è pubblicato perché il BLS non raccolse i prezzi di ottobre 2025 per lo shutdown. Per CME FedWatch il rialzo Fed di dicembre è dato per certo; Waller non esclude 50 punti base; il Treasury a 2 anni sale di 17 pb (dati FMP), il rialzo più forte da almeno 13 mesi nella serie FMP",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/news.release/cpi.htm",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "increased 0.4 percent on a seasonally adjusted basis in October"
+   },
+   {
+    "testata": "Reuters (via GV Wire)",
+    "url": "https://gvwire.com/2026/11/10/wall-st-ends-lower-as-hot-inflation-data-fed-comments-heighten-rate-worries/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "should raise short-term borrowing costs in December even if data showed inflation cooled last month"
+   },
+   {
+    "testata": "CNBC (via StockTitan)",
+    "url": "https://www.stocktitan.net/articles/stock-market-today-live-november-10-2026",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Waller (Fed): propende per un rialzo dei tassi di 25 punti base a dicembre"
+   }
+  ],
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Nvidia cede il 5,5% a 168,78 $ e pesa più di ogni altro titolo sugli indici: il consiglio indaga sul CEO Huang e Trump dice che l'FBI indaga su una presunta spia cinese; l'indice dei semiconduttori perde solo lo 0,4%",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "CNBC (via StockTitan)",
+    "url": "https://www.stocktitan.net/articles/stock-market-today-live-november-10-2026",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Nvidia (NVDA): -5,53% a 168,78 dollari, tra i principali freni agli indici"
+   },
+   {
+    "testata": "AP (via WRAL)",
+    "url": "https://www.wral.com/news/ap/297d0-asian-shares-mostly-rise-on-ai-chip-demand-despite-wall-streets-retreat-on-inflation-data/",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Nvidia è stata la componente più pesante dell'S&P 500, con -5,5%"
+   },
+   {
+    "testata": "Reuters (via GV Wire)",
+    "url": "https://gvwire.com/2026/11/10/wall-st-ends-lower-as-hot-inflation-data-fed-comments-heighten-rate-worries/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Indice dei semiconduttori di Filadelfia: -0,4%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Anthropic prepara la quotazione al Nasdaq con il simbolo ANT: raccolta fino a 64,4 miliardi di dollari, collocamento atteso nelle prossime settimane",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (via GV Wire)",
+    "url": "https://gvwire.com/2026/11/10/wall-st-ends-lower-as-hot-inflation-data-fed-comments-heighten-rate-worries/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Quotazione attesa di Anthropic nelle prossime settimane: raccolta fino a 64,4 miliardi di dollari"
+   },
+   {
+    "testata": "Goldesel",
+    "url": "https://goldesel.de/artikel/abendupdate-10-11-dax-haelt-knappes-plus-wall-street-rutscht-ab-fed-signale-renditen-ueber-5-und-anthropic-ernuechterung",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Quotazione prevista al Nasdaq con ticker ANT; ricavo lordo fino a 64,4 miliardi di dollari"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "SoftBank chiude luglio-settembre con una perdita netta di 1,1 mila miliardi di yen (circa 7 miliardi di dollari), contro un utile di 2,5 mila miliardi un anno prima; gli analisti LSEG attendevano tra un utile di 233 miliardi e una perdita di 113 miliardi",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (via The Star)",
+    "url": "https://www.thestar.com.my/business/business-news/2026/11/10/softbank-swings-to-us7bil-net-loss-in-second-quarter",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Perdita netta di 1,1 trilioni di yen (circa 7 miliardi di dollari)"
+   },
+   {
+    "testata": "AP (via WRAL)",
+    "url": "https://www.wral.com/news/ap/297d0-asian-shares-mostly-rise-on-ai-chip-demand-despite-wall-streets-retreat-on-inflation-data/",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "SoftBank -3,7% dopo una perdita trimestrale netta di 1,1 trilioni di yen"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Il Brent chiude a 91,49 $ (-1,2%) ai minimi da due mesi; Trump dice che la guerra con l'Iran è militarmente finita, il WTI sta a 86,55 $",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP (via WRAL)",
+    "url": "https://www.wral.com/news/ap/297d0-asian-shares-mostly-rise-on-ai-chip-demand-despite-wall-streets-retreat-on-inflation-data/",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Trump ha dichiarato che la guerra in Iran è \"militarily is effectively over\""
+   },
+   {
+    "testata": "Reuters (via GV Wire)",
+    "url": "https://gvwire.com/2026/11/10/wall-st-ends-lower-as-hot-inflation-data-fed-comments-heighten-rate-worries/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "I prezzi sono scesi ai minimi di due mesi, dopo che funzionari USA hanno minimizzato un'imminente azione militare contro l'Iran"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Piazza Affari chiude in rialzo dello 0,69% a 51.755: salgono Fincantieri (+3,34%), Bper (+2,9%) e Unicredit (+2,36%) per i conti; calano Stellantis (-3,21%) e A2a (-2,54%, dopo i conti)",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://ansa.it/sito/notizie/topnews/2026/11/10/borsa-milano-chiude-in-rialzo-069-con-fincantieri-bper-e-unicredit_6c437363-b253-4fde-b6db-6776b74f6369.html",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Borsa: Milano chiude in rialzo (+0,69%) con Fincantieri, Bper e Unicredit"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "CoreWeave sale del 2% circa dopo la chiusura: ricavi sopra le stime",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (via GV Wire)",
+    "url": "https://gvwire.com/2026/11/10/wall-st-ends-lower-as-hot-inflation-data-fed-comments-heighten-rate-worries/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "CoreWeave: titoli -0,5% in chiusura, ma +2% dopo la chiusura, dopo ricavi sopra le stime"
+   },
+   {
+    "testata": "CNBC (via StockTitan)",
+    "url": "https://www.stocktitan.net/articles/stock-market-today-live-november-10-2026",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Dopo la chiusura: CoreWeave +2,59%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "testo": "Il Kospi chiude in rialzo del 2,60% a 5.375,36, dopo il +4,39% di martedì",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/market/2026/11/11/kospi-closes-up-260-percent-at-537536",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "KOSPI Closes Up 2.60% at 5,375.36"
+   },
+   {
+    "testata": "SBS News",
+    "url": "https://news.sbs.co.kr/english/article.do?news_id=N1008841320",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "KOSPI Surges 2.6% and KOSDAQ Jumps 5.6% Led by Semiconductor Rebound Despite US Big Step Rate Hike Concerns"
+   }
+  ],
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "testo": "L'Euro Stoxx 50 guadagna lo 0,59% a 6.327,87, massimo intraday da due mesi, con il petrolio in calo e i semiconduttori in ripresa",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (onvista)",
+    "url": "https://www.onvista.de/news/2026/11-10-aktien-europa-schluss-kurse-legen-weiter-zu-rueckgang-der-oelpreise-treibt-an-0-10-26574750",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Aktien Europa Schluss: Kurse legen weiter zu - Rückgang der Ölpreise treibt an"
+   },
+   {
+    "testata": "Goldesel",
+    "url": "https://goldesel.de/artikel/abendupdate-10-11-dax-haelt-knappes-plus-wall-street-rutscht-ab-fed-signale-renditen-ueber-5-und-anthropic-ernuechterung",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "EuroStoxx 50: +0,59% a 6.327,87 punti. Massimo intraday di due mesi"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "N09",
+  "sezione": "top_news",
+  "testo": "Il Treasury a 10 anni sale al 4,99% dal 4,88% di lunedì (Associated Press); la Fed ha lasciato i tassi al 3,75-4,00% il 28/10",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP (via WRAL)",
+    "url": "https://www.wral.com/news/ap/297d0-asian-shares-mostly-rise-on-ai-chip-demand-despite-wall-streets-retreat-on-inflation-data/",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Il rendimento del Treasury a 10 anni è salito al 4,99%, dal 4,88% di lunedì"
+   },
+   {
+    "testata": "CNBC (via StockTitan)",
+    "url": "https://www.stocktitan.net/articles/stock-market-today-live-november-10-2026",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Rendimento del Treasury a 10 anni: tornato sopra il 5% dopo il dato"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "N10",
+  "sezione": "top_news",
+  "testo": "Fed: Logan (Dallas) chiede almeno altri due rialzi da 25 pb, Schmid (Kansas City) giudica la politica attuale «fairly accommodative», Bowman mette l'inflazione in cima alle priorità",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (via GV Wire)",
+    "url": "https://gvwire.com/2026/11/10/wall-st-ends-lower-as-hot-inflation-data-fed-comments-heighten-rate-worries/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "at least two more quarter-point interest rate increases"
+   },
+   {
+    "testata": "CNBC (via StockTitan)",
+    "url": "https://www.stocktitan.net/articles/stock-market-today-live-november-10-2026",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Logan (Fed, Dallas): secondo CNBC servono altri due rialzi per riportare l'inflazione sotto controllo"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "C01",
+  "sezione": "top_news",
+  "testo": "Nvidia: il calo del 5,5% è attribuito all'indagine interna sul CEO Huang e ai timori sulla valutazione dei titoli tecnologici",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "CNBC (via StockTitan)",
+    "url": "https://www.stocktitan.net/articles/stock-market-today-live-november-10-2026",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Pesano l'indagine interna sul CEO Jensen Huang e i timori sulla valutazione dei titoli tech"
+   },
+   {
+    "testata": "AP (via WRAL)",
+    "url": "https://www.wral.com/news/ap/297d0-asian-shares-mostly-rise-on-ai-chip-demand-despite-wall-streets-retreat-on-inflation-data/",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Il consiglio di amministrazione ha avviato un'indagine sul CEO Jensen Huang"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "C02",
+  "sezione": "top_news",
+  "testo": "Il petrolio cala perché Washington allontana nuovi attacchi all'Iran e il mercato scommette su un accordo",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (via GV Wire)",
+    "url": "https://gvwire.com/2026/11/10/wall-st-ends-lower-as-hot-inflation-data-fed-comments-heighten-rate-worries/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "I prezzi sono scesi ai minimi di due mesi, dopo che funzionari USA hanno minimizzato un'imminente azione militare contro l'Iran"
+   },
+   {
+    "testata": "Reuters (via Khaleej Times)",
+    "url": "https://www.khaleejtimes.com/business/oil-slides-as-trump-signals-restraint-on-iran-despite-fresh-shipping-attacks",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "on hopes of a US-Iran peace deal rather than concrete signs of progress"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "C03",
+  "sezione": "top_news",
+  "testo": "Piazza Affari: Fincantieri, Bper e Unicredit salgono soprattutto per i risultati societari",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://ansa.it/sito/notizie/topnews/2026/11/10/borsa-milano-chiude-in-rialzo-069-con-fincantieri-bper-e-unicredit_6c437363-b253-4fde-b6db-6776b74f6369.html",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Borsa: Milano chiude in rialzo (+0,69%) con Fincantieri, Bper e Unicredit"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "testo": "CPI USA di ottobre uscito martedì 10/11 alle 14:30: +0,4% sul mese (atteso +0,3%), core +0,3% (atteso +0,2%); energia +0,7%, alimentari +0,5%, abitazione +0,3%",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/news.release/cpi.htm",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "increased 0.4 percent on a seasonally adjusted basis in October"
+   },
+   {
+    "testata": "Reuters (via GV Wire)",
+    "url": "https://gvwire.com/2026/11/10/wall-st-ends-lower-as-hot-inflation-data-fed-comments-heighten-rate-worries/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "La stima Reuters era +0,3%"
+   }
+  ],
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "N11",
+  "sezione": "top_news",
+  "testo": "Fed 10/11: Waller, Logan, Schmid e Bowman parlano dopo il CPI",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (via GV Wire)",
+    "url": "https://gvwire.com/2026/11/10/wall-st-ends-lower-as-hot-inflation-data-fed-comments-heighten-rate-worries/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Christopher Waller: la Fed dovrebbe alzare i tassi a dicembre"
+   },
+   {
+    "testata": "CNBC (via StockTitan)",
+    "url": "https://www.stocktitan.net/articles/stock-market-today-live-november-10-2026",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Waller (Fed): propende per un rialzo dei tassi di 25 punti base a dicembre"
+   }
+  ],
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "G01",
+  "sezione": "agenda",
+  "testo": "Gio 12/11 14:30 sussidi di disoccupazione USA (8:30 ET): consenso 195 mila, precedente 189 mila; 16:00 vendite di case esistenti ottobre (10:00 ET): 3,9 mln, precedente 4,0",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "TD Economics",
+    "url": "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-06/upcoming.htm",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Richieste iniziali di sussidi di disoccupazione USA 195,0 consenso, 189,0 precedente"
+   },
+   {
+    "testata": "StockHub",
+    "url": "https://stockhub.kr/en/insights/macro-weekly-20261109",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "10:00 ET: vendite di case esistenti USA di ottobre (NAR)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "G02",
+  "sezione": "agenda",
+  "testo": "Gio 12/11 19:00 asta dei Treasury a 30 anni (13:00 ET)",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "StockHub",
+    "url": "https://stockhub.kr/en/insights/macro-weekly-20261109",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "13:00 ET: asta dei Treasury a 30 anni"
+   },
+   {
+    "testata": "TD Economics",
+    "url": "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-06/upcoming.htm",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Giovedì 12 novembre 2026: calendario USA, orari in ET"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "G03",
+  "sezione": "agenda",
+  "testo": "Gio 12/11 22:30 conti di Applied Materials (conference call 16:30 a New York); Cisco dopo la chiusura USA",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-10-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611100740004009",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Giovedì 12/11 Applied Materials, conference call alle 16:30 a New York"
+   },
+   {
+    "testata": "StockHub",
+    "url": "https://stockhub.kr/en/insights/macro-weekly-20261109",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Dopo la chiusura USA: Applied Materials (AMAT), Cisco (CSCO), Cerebras (CBRS), Nu Holdings (NU)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "G04",
+  "sezione": "agenda",
+  "testo": "Ven 13/11 14:30 PPI USA di ottobre (8:30 ET): domanda finale +0,4% sul mese, precedente +1,3%; core +0,3%, precedente +0,7%",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "TD Economics",
+    "url": "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-06/upcoming.htm",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "PPI USA, domanda finale (M/M) Ott: consenso 0,4%, precedente 1,3%"
+   },
+   {
+    "testata": "StockHub",
+    "url": "https://stockhub.kr/en/insights/macro-weekly-20261109",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "08:30 ET (22:30 KST): PPI USA di ottobre (Bureau of Labor Statistics)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "G05",
+  "sezione": "agenda",
+  "testo": "Ven 13/11 11:00 PIL area euro del terzo trimestre (5:00 ET): +1,3% annuo, precedente +1,3%",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "TD Economics",
+    "url": "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-06/upcoming.htm",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "PIL Eurozona, dato destagionalizzato (Y/Y) 3T: consenso 1,3%, precedente 1,3%"
+   },
+   {
+    "testata": "StockHub",
+    "url": "https://stockhub.kr/en/insights/macro-weekly-20261109",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "PIL dell'area euro del terzo trimestre (data)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "G06",
+  "sezione": "agenda",
+  "testo": "Gio 12/11 15:00 intervento di Hammack (Fed); Ven 13/11 16:50 Bowman su vigilanza e regolamentazione",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "TD Economics",
+    "url": "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-06/upcoming.htm",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "09:00 Intervento di Hammack (Fed)"
+   },
+   {
+    "testata": "StockHub",
+    "url": "https://stockhub.kr/en/insights/macro-weekly-20261109",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "10:50 ET: intervento del Vice Presidente per la supervisione Bowman"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "CPI ottobre: energia +0,7% dopo +5,2% di settembre; alimentari +0,5%; abitazione +0,3% dopo +0,4%; benzina +1,0% sul mese; il confronto annuo manca perché il BLS non ha raccolto i prezzi di ottobre 2025",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/news.release/cpi.htm",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "after rising 0.6 percent in September"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "Fed: probabilità di un rialzo di almeno 25 pb a dicembre al 100% (84% lunedì), di 50 pb all'11,8% (0% lunedì) secondo CME FedWatch; riunione l'8-9 dicembre",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (via GV Wire)",
+    "url": "https://gvwire.com/2026/11/10/wall-st-ends-lower-as-hot-inflation-data-fed-comments-heighten-rate-worries/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "rialzo di almeno 25 punti base a dicembre dato per certo, contro l'84% di lunedì"
+   },
+   {
+    "testata": "CNBC (via StockTitan)",
+    "url": "https://www.stocktitan.net/articles/stock-market-today-live-november-10-2026",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "8 e 9 dicembre: riunione della Fed per la decisione sui tassi"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Treasury a 2 anni +18,9 pb al 4,736%, il maggior rialzo giornaliero dal 9 aprile 2025",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (via GV Wire)",
+    "url": "https://gvwire.com/2026/11/10/wall-st-ends-lower-as-hot-inflation-data-fed-comments-heighten-rate-worries/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Treasury a 2 anni: +18,9 punti base, al 4,736%. È il maggior rialzo giornaliero dal 9 aprile 2025"
+   },
+   {
+    "testata": "Goldesel",
+    "url": "https://goldesel.de/artikel/abendupdate-10-11-dax-haelt-knappes-plus-wall-street-rutscht-ab-fed-signale-renditen-ueber-5-und-anthropic-ernuechterung",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Titolo biennale: 4,76%, +0,20 punti percentuali"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Petrolio: Brent -16% nella settimana al 6/11 con minimo a 93,22 $; martedì minimo intraday a 89,90 $, sotto 90 per la prima volta da agosto, dopo oltre 105 $ a fine ottobre",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (via Khaleej Times)",
+    "url": "https://www.khaleejtimes.com/business/oil-slides-as-trump-signals-restraint-on-iran-despite-fresh-shipping-attacks",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "il Brent è sceso del 16%, toccando 93,22 $, il minimo di due mesi"
+   },
+   {
+    "testata": "Goldesel",
+    "url": "https://goldesel.de/artikel/abendupdate-10-11-dax-haelt-knappes-plus-wall-street-rutscht-ab-fed-signale-renditen-ueber-5-und-anthropic-ernuechterung",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Minimo intraday a 89,90 dollari, sotto 90 per la prima volta da agosto"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "testo": "Europa: l'Euro Stoxx 50 sale mentre Wall Street scende; DAX +0,31% a 26.347,45, SMI +0,61% a 15.037,94; Andreas Lipkow (CMC Markets): la distensione sul petrolio dipende dalla geopolitica",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (onvista)",
+    "url": "https://www.onvista.de/news/2026/11-10-aktien-europa-schluss-kurse-legen-weiter-zu-rueckgang-der-oelpreise-treibt-an-0-10-26574750",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "SMI +0,61% a 15.037,94; Lipkow: gli Stati Uniti non sembrano per ora considerare nuove azioni militari contro l'Iran"
+   },
+   {
+    "testata": "Goldesel",
+    "url": "https://goldesel.de/artikel/abendupdate-10-11-dax-haelt-knappes-plus-wall-street-rutscht-ab-fed-signale-renditen-ueber-5-und-anthropic-ernuechterung",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "DAX: +0,31% a 26.347,45 punti"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "D06",
+  "sezione": "deep_dive",
+  "testo": "Milano: il dato USA sopra le attese ha frenato le Borse europee, fatto scendere Wall Street e rafforzato il dollaro; Eni -0,94% col greggio",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://ansa.it/sito/notizie/topnews/2026/11/10/borsa-milano-chiude-in-rialzo-069-con-fincantieri-bper-e-unicredit_6c437363-b253-4fde-b6db-6776b74f6369.html",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Borsa: Milano chiude in rialzo (+0,69%) con Fincantieri, Bper e Unicredit"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "D07",
+  "sezione": "deep_dive",
+  "testo": "Nvidia: -9,6% in due sedute; Citigroup taglia il target da 315 a 285 $ confermando Buy; Microsoft torna più preziosa di Nvidia per la prima volta da giugno 2025",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Goldesel",
+    "url": "https://goldesel.de/artikel/abendupdate-10-11-dax-haelt-knappes-plus-wall-street-rutscht-ab-fed-signale-renditen-ueber-5-und-anthropic-ernuechterung",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Citigroup abbassa il target da 315 a 285 dollari, confermando Buy"
+   },
+   {
+    "testata": "Reuters (via GV Wire)",
+    "url": "https://gvwire.com/2026/11/10/wall-st-ends-lower-as-hot-inflation-data-fed-comments-heighten-rate-worries/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Nvidia: -5,4% nella sessione, -9,6% negli ultimi due giorni"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "D08",
+  "sezione": "deep_dive",
+  "testo": "Seul: dopo sette sedute di vendite gli stranieri tornano acquirenti netti (358,6 miliardi di won) nella seduta del 10/11; Morgan Stanley taglia i target di Samsung e SK hynix",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/finance/2026/11/11/huang-spy-scandal-spurs-us-congress-to-block-ai-chip-exports",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "gli investitori esteri sono tornati acquirenti netti per 358,6 miliardi di won"
+   },
+   {
+    "testata": "JoongAng Daily",
+    "url": "https://www.koreajoongangdaily.com/business/kospi-rebounds-despite-us-inflation-jitters/12966673",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "il giorno precedente l'indice aveva guadagnato il 4,39%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda."
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Reuters: CPI USA +0,4% contro +0,3%, rialzo Fed di dicembre dato per certo, Nvidia -5,5% (gvwire.com, 10/11 sera)",
+   "AP: Asia in rialzo con i chip nonostante il CPI, SoftBank in perdita (wral.com, 11/11 mattina)",
+   "CNBC: Waller propende per il rialzo a dicembre, Logan chiede altri due rialzi (stocktitan.com, 10/11)",
+   "ANSA: Milano chiude +0,69% con Fincantieri, Bper e Unicredit (10/11)"
+  ],
+  "testate": [
+   {
+    "testata": "Reuters",
+    "storie": [
+     "Wall Street chiude in calo dopo l'inflazione, la Fed verso il rialzo",
+     "Nvidia -5,4%, indagine sul CEO",
+     "Petrolio ai minimi di due mesi"
+    ]
+   },
+   {
+    "testata": "AP",
+    "storie": [
+     "Borse asiatiche in rialzo sui chip",
+     "Wall Street in calo dopo il CPI",
+     "SoftBank in perdita"
+    ]
+   },
+   {
+    "testata": "ANSA",
+    "storie": [
+     "Borsa Milano chiude in rialzo",
+     "Inflazione USA sopra le attese frena le Borse europee"
+    ]
+   },
+   {
+    "testata": "Milano Finanza",
+    "storie": [
+     "Borse oggi: diretta 10 novembre",
+     "Banco BPM, il cda di giovedì"
+    ]
+   },
+   {
+    "testata": "Bloomberg",
+    "storie": [
+     "South Korean Stocks Jump as Chipmakers Roar Back on Dip Buying (10/11, solo titolo)"
+    ]
+   },
+   {
+    "testata": "Financial Times",
+    "storie": [
+     "non apribile oggi: nessun titolo del 10-11/11 verificato"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Anthropic fissa il prezzo dell'IPO",
+    "motivo": "in notizie (N02): la prova di mercato è il debutto, nelle prossime settimane"
+   }
+  ],
+  "concorda": true,
+  "motivo": "Reuters, AP e CNBC aprono sul CPI e sulla Fed; Bloomberg e FT non apribili: la scelta poggia su Reuters, AP, CNBC e ANSA."
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "Nikkei 225 chiusura 11/11",
+  "ricerche": [
+   "Nikkei 61,248.59",
+   "日経平均 終値 11月11日 2026 6万1248円",
+   "Borsa Tokyo chiude mercoledì Nikkei 11 novembre SoftBank perdita trimestrale",
+   "Japan's Nikkei closes higher Wednesday SoftBank loss chip stocks rally Tokyo Electron Advantest",
+   "tradingeconomics Japan stock market Nikkei 225 closes November 2026"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "AP (via WRAL)",
+   "url": "https://www.wral.com/news/ap/297d0-asian-shares-mostly-rise-on-ai-chip-demand-despite-wall-streets-retreat-on-inflation-data/"
+  }
+ },
+ {
+  "id": "R2",
+  "sezione": "ricerca",
+  "dato": "Spread BTP-Bund e rendimento BTP 10 anni, chiusura 10/11",
+  "ricerche": [
+   "Borsa Milano chiude 10 novembre spread Btp-Bund Teleborsa",
+   "spread Btp-Bund chiude 10 novembre 2026 rendimento decennale",
+   "Piazza Affari chiusura 10 novembre 2026 FTSE MIB",
+   "spread Btp-Bund chiude 10 novembre 2026 punti base ANSA"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "ANSA",
+   "url": "https://ansa.it/sito/notizie/topnews/2026/11/10/borsa-milano-chiude-in-rialzo-069-con-fincantieri-bper-e-unicredit_6c437363-b253-4fde-b6db-6776b74f6369.html"
+  }
+ },
+ {
+  "id": "R3",
+  "sezione": "ricerca",
+  "dato": "Kospi chiusura 11/11",
+  "ricerche": [
+   "Kospi closes November 11 2026",
+   "Seoul stocks close Wednesday Kospi Nov. 11 Yonhap",
+   "KOSPI Seoul shares close Nov. 11 2026 Nvidia Huang probe",
+   "Kospi Wednesday close 11 novembre 2026 Seoul stocks after 4% surge"
+  ],
+  "esito": "trovato",
+  "fonte": {
+   "testata": "Seoul Economic Daily",
+   "url": "https://en.sedaily.com/market/2026/11/11/kospi-closes-up-260-percent-at-537536"
+  }
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Euro Stoxx 50 +0,59% a un massimo di due mesi e FTSE MIB +0,69% il giorno del CPI USA sopra le attese, mentre Wall Street scende",
+  "ricerche": [
+   "EuroStoxx 50 Schluss Dienstag 10. November Waller Zinserhöhung Dezember Aktien Europa",
+   "Teleborsa Piazza Affari chiude martedì 10 novembre inflazione USA Nvidia Borse europee"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Il CPI USA ha frenato le Borse europee",
+    "fonte": "C03",
+    "prevede": "Europa in calo",
+    "prezzi": "non torna"
+   },
+   {
+    "causa": "Il petrolio in calo e la ripresa dei semiconduttori hanno sostenuto l'Europa prima e dopo il dato (dpa-AFX)",
+    "fonte": "N08",
+    "prevede": "Europa su, Brent giù, banche e industria in rialzo",
+    "prezzi": "torna"
+   }
+  ],
+  "esito": "N08"
+ }
+]
