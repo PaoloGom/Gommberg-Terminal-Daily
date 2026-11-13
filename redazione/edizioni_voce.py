@@ -150,8 +150,9 @@ def main():
             voce["verdetto"] = v
     voce.update({"temi": w["temi"], "approfondimenti": w["approfondimenti"], "meccanismi": w.get("meccanismi", []),
                  "parole": w.get("parole", []), "ripetizioni": punteggio, "glossario": gloss})
-    if w.get("termometri"):
-        voce["termometri"] = w["termometri"]
+    for k in ("termometri", "quadro", "evento_oggi"):   # v8.3: storie in corso (memoria) e lettura in due minuti (sito)
+        if w.get(k):
+            voce[k] = w[k]
     graf = [{k: g.get(k) for k in ("tipo", "titolo", "serie", "x0", "x1", "etichette")}
             for m in w.get("moduli_redazione") or [] for g in m.get("grafici", [])]
     if graf:   # v7.8: firme dei grafici, per non ripetere lo stesso grafico nei giorni successivi

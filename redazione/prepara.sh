@@ -23,7 +23,7 @@ for t in pdftotext pdfinfo pdftoppm qpdf; do command -v $t >/dev/null || DEP="$D
 # 2. Cartella di lavoro con il kit (solo .py e svg/png del kit; i file dell'edizione restano in $L)
 mkdir -p "$L"
 # file del giorno prima: mai riusarli (dati stantii)
-rm -f "$L"/dati.json "$L"/attuali.json "$L"/stato.json "$L"/verdetto.json "$L"/fatti.json "$L"/voce_indice.json "$L"/nuovi.json "$L"/redazione.json "$L"/edizione_20*.py
+rm -f "$L"/dati.json "$L"/attuali.json "$L"/stato.json "$L"/verdetto.json "$L"/fatti.json "$L"/voce_indice.json "$L"/nuovi.json "$L"/redazione.json "$L"/revisione*.json "$L"/desk_*.json "$L"/edizione_20*.py
 # kit: tutti i .py tranne lo stub del vecchio modello (il modello in vigore è edizione_modello_v6.py)
 NK=0
 for f in "$R"/*.py; do

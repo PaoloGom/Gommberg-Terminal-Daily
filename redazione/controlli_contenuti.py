@@ -375,6 +375,17 @@ for a in VOCE.get("approfondimenti") or []:
     n = len(str(a.get("titolo", "")).split()) if isinstance(a, dict) else 0
     if n > 18:
         ERR.append(f"approfondimenti: titolo di {n} parole, massimo 18 (meglio 15): una sola idea \"{str(a.get('titolo'))[:60]}\"")
+# v8.3: pieno non vuol dire fitto. Una frase degli approfondimenti porta al massimo 3 cifre (percentuali, pb, $, valori
+# col segno): le serie stanno nei grafici e nelle tabelle, il testo racconta il meccanismo. Prova del 13/11: "+16 pb a 3
+# anni, +14 a 5 anni, +13 a 2 anni, +12 a 10 anni e +8 a 30 anni" ripeteva in prosa il grafico a barre.
+CIFRA = re.compile(r"[+-]\d+(?:[.,]\d+)?|\d+(?:[.,]\d+)?\s?(?:%|pb\b|\$|mld|miliardi|milioni)")
+for m in VOCE.get("moduli_redazione") or []:
+    for t in (m.get("testo") or []) + (m.get("punti") or []) + [m.get("perche") or "", m.get("quindi") or ""]:
+        for f in re.split(r"(?<=[.;])\s+", re.sub(r"<[^>]+>", "", t)):
+            k = len(CIFRA.findall(re.sub(r"\b\d{1,2}-\d{1,2}\b", "", f)))
+            if k > 3:
+                ERR.append(f"moduli: {m.get('chiave')}: frase con {k} cifre, massimo 3 (le serie vanno nel grafico o "
+                           f"nella tabella, il testo dice cosa significano): \"{f[:80]}\"")
 if len(nt) >= 6 and con_fatto < 2:
     ERR.append(f"notizie: solo {con_fatto} con dati macro o società: almeno 2 su 6")
 for b in VOCE.get("brevi", []):

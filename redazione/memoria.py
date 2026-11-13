@@ -112,7 +112,19 @@ def main():
         app = approfondimenti(oggi - dt.timedelta(days=9))[:6]
         print(f"Memoria: {len(ev)} eventi futuri già schedati (memoria.py agenda) | approfondimenti recenti: "
               + ("; ".join(f"{t} {d[8:]}/{d[5:7]}" for _, d, t, _ in app) or "-")
-              + " | per ogni tesi: memoria.py tema <parole>")
+              + " | per ogni tesi: memoria.py tema <parole> | storie in corso: memoria.py storie")
+    elif cmd == "storie":
+        voci = json.load(open(os.path.join(REPO, "edizioni.json"), encoding="utf-8"))
+        prec = [v for v in voci if v.get("data", "") < oggi.isoformat() and v.get("termometri")]
+        if not prec:
+            print("Memoria, storie in corso: nessun termometro archiviato: si scrivono da zero"); return
+        v = prec[-1]
+        print(f"Memoria, storie in corso (termometri del n. {v['numero']}, {v['data']}): si aggiornano, non si "
+              "riscrivono; una storia ferma da 3 edizioni va in 'fermi', poi esce:")
+        for r in v["termometri"].get("righe", []):
+            print("  " + " | ".join(r))
+        if v["termometri"].get("fermi"):
+            print("  Fermi: " + v["termometri"]["fermi"])
     elif cmd == "agenda":
         ev = eventi_futuri(oggi)
         if not ev:

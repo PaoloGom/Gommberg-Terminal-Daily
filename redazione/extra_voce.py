@@ -51,11 +51,14 @@ def campi(C, voce=None):
         "notizie_testo": [f"{_txt(n.get('titolo'))}. {_txt(n.get('testo'))}" for n in C.get("notizie", []) if isinstance(n, dict)],
         "brevi": [_txt(m.get("breve") or m.get("titolo")) for m in C.get("moduli", [])],
         "agenda": agenda(C.get("agenda", [])),
+        # v8.3: le storie in corso (termometri di pag. 2) si archiviano, così domani si aggiornano invece di riscriverle
+        "termometri": {"righe": [[_txt(c) for c in r] for r in C.get("termometri", [])], "fermi": _txt(C.get("fermi", ""))}
+                      if C.get("termometri") else None,
         "evento_oggi": next((f"{_txt(r[0])} {_txt(r[1])}" for r in C.get("agenda", []) if "<b>" in str(r[1])), None),
         "moduli_redazione": [{
             "chiave": m.get("chiave"), "misura": m.get("misura"), "titolo": _txt(m.get("titolo")),
             "perche": _txt(m.get("perche")), "quindi": _txt(m.get("quindi")),
-            "punti": [_txt(p) for p in m.get("punti", [])], "righe": [[_txt(c) for c in r] for r in m.get("righe", [])],
+            "punti": [_txt(p) for p in m.get("punti", [])], "testo": [_txt(p) for p in m.get("testo", [])], "righe": [[_txt(c) for c in r] for r in m.get("righe", [])],
             "grafici": [x for x in (_grafico(m.get("grafico")), _grafico(m.get("grafico2"))) if x]}
             for m in C.get("moduli", [])],
     }

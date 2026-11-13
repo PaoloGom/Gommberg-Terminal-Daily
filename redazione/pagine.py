@@ -249,7 +249,8 @@ def pagina(ed, prec, succ):
     url = f"{BASE}e/{n}.html"
     data = data_lunga(ed["data"])
     titolo = ed.get("titolo", "")
-    desc = ed.get("dek") or " ".join(ed.get("sommario") or [])[:300]
+    # v8.3: l'anteprima (WhatsApp, Google) porta la lettura del giorno, non la fila di cifre del sommario
+    desc = ed.get("quadro") or ed.get("dek") or " ".join(ed.get("sommario") or [])[:300]
     pdf = "../" + ed["file"]
     p = []
     a = p.append
@@ -292,6 +293,9 @@ def pagina(ed, prec, succ):
       f'<a class="btn ghost" data-pdf="scaricata" href="{esc(pdf)}" download="{esc(ed.get("nome", ""))}">Scarica PDF</a>'
       f'<a class="btn ghost" href="https://wa.me/?text={quote(titolo + " " + url)}" target="_blank" rel="noopener" aria-label="Condividi su WhatsApp">{SVG_WA}<span>WhatsApp</span></a>'
       f'<button type="button" class="btn ghost" id="copy" data-url="{esc(url)}" aria-label="Copia il link">{SVG_LINK}<span>Copia link</span></button></div>')
+    if ed.get("quadro"):   # v8.3: la versione in due minuti, per chi apre dal telefono
+        a('<section><h2>Cosa significa</h2><p>' + colora(ed["quadro"]) + '</p>' +
+          (f'<p><b>Da guardare oggi:</b> {esc(ed["evento_oggi"])}</p>' if ed.get("evento_oggi") else "") + '</section>')
     if ed.get("sommario"):
         a('<section><h2>In 30 secondi</h2><ul class="brief">' +
           "".join(f"<li>{colora(s)}</li>" for s in ed["sommario"]) + "</ul></section>")

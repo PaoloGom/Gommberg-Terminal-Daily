@@ -24,12 +24,14 @@ avvio)
 chiudi)
   PDF="${2:?pdf}"; D="redazione/collaudi/prova-v8-${OGGI}"; mkdir -p "$D"
   cp -f "$PDF" "$D/prova.pdf"
-  for f in fatti.json riempimento.json voce_indice.json testo.json ripetizioni.json dati.json; do [ -f "$L/$f" ] && cp -f "$L/$f" "$D/"; done
+  for f in fatti.json riempimento.json voce_indice.json testo.json ripetizioni.json dati.json revisione.json desk_proposta.json desk_ok.json; do [ -f "$L/$f" ] && cp -f "$L/$f" "$D/"; done
   T0="$(cat "$L/_prova_inizio" 2>/dev/null || echo 0)"
   { echo "data: $OGGI"; echo "minuti: $(( ( $(date +%s) - T0 ) / 60 ))"; echo "fine: $(TZ=Europe/Rome date +%H:%M)"; } > "$D/tempi.txt"
   git checkout -q -- edizioni.json 2>/dev/null
   git add -f "$D" && git commit -q -m "Prova v8 del ${OGGI} (non pubblicata)" || { echo "Prova: niente da salvare"; exit 1; }
-  if git push -q origin "HEAD:refs/heads/prova-v8-${OGGI}" 2>/dev/null; then echo "Prova: salvata sul ramo prova-v8-${OGGI} ($(cat "$D/tempi.txt" | tr '\n' ' '))"
+  RAMO="prova-v8-${OGGI}"   # una seconda prova nello stesso giorno va su un ramo suo (il primo non si sovrascrive)
+  git ls-remote --exit-code origin "refs/heads/$RAMO" >/dev/null 2>&1 && RAMO="$RAMO-$(TZ=Europe/Rome date +%H%M)"
+  if git push -q origin "HEAD:refs/heads/$RAMO" 2>/dev/null; then echo "Prova: salvata sul ramo $RAMO ($(cat "$D/tempi.txt" | tr '\n' ' '))"
   else echo "Prova: NON salvata (push del ramo di prova rifiutato)"; fi
   ;;
 *) echo "uso: prova_v8.sh avvio | chiudi <pdf>"; exit 1;;
