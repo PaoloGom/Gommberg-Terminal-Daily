@@ -132,16 +132,21 @@ def main():
     avvisi = [f"citazione in inglese oltre 15 parole: accorciala «{m.group(1)[:40]}»"
               for m in re.finditer(r"«([^»]{3,300})»", piatto)
               if len(INGLESE.findall(m.group(1))) >= 2 and len(m.group(1).split()) > 15]
-    # v7.8 (§9.2): frasi in prosa oltre 40 parole. Solo avviso: il testo estratto unisce a volte righe di tabella.
+    # v8.4 (§3.4): frasi corte. Una frase in prosa ha al massimo 25 parole e 2 pause (virgole non decimali e punto e
+    # virgola): il limite di 35 parole della v6 lasciava passare periodi di sei virgole. Si spezza con il punto fermo.
     def _prosa(f):   # esclude i frammenti con intestazioni, tabelle o colonne unite dall'estrazione
         f = re.sub(r"^(?:IL QUADRO|PERCH[ÉE]|E QUINDI|DA GUARDARE|IL NUMERO)\s+", "", f)
-        if re.search(r"\||[▲▼■]|\b[A-ZÀ-Ú]{3,}(?: [A-ZÀ-Ú]{3,})+\b|\d{2}/\d{2}.*\d{2}/\d{2}", f):
+        if re.search(r"\||[▲▼■]|\b[A-ZÀ-Ú]{3,}(?: [A-ZÀ-Ú]{3,})+\b|\d{2}/\d{2}.*\d{2}/\d{2}|^(?:Fonti?\b|Notizie e conti)", f):
             return None
         if sum(1 for w in f.split() if re.fullmatch(r"[+-]?[\d.,]+%?", w)) >= 6:
             return None
         return f
-    lunghe_prosa = [g for g in (_prosa(f) for f in frasi(piatto) if len(f.split()) > 40) if g and len(g.split()) > 40]
-    avvisi += [f"frase oltre 40 parole, spezzala (§9.2): {f[:90]}" for f in lunghe_prosa[:3]]
+    pause = lambda f: len(re.findall(r"(?<!\d),|,(?!\d)|;", f))
+    corpo = piatto.split("TOP STORY", 1)[-1]
+    lunghe_prosa = [g for g in (_prosa(f) for f in re.split(r"(?<=[.!?])\s+", corpo) if len(f.split()) >= 12)
+                    if g and not g.startswith("Titolo Chi è") and (len(g.split()) > 25 or pause(g) > 2)]
+    errori += [f"frase lunga ({len(g.split())} parole, {pause(g)} pause): spezzala col punto fermo (§3.4): {g[:80]}"
+               for g in lunghe_prosa[:6]]
     # v7.8 (§9.4): lessico di casa (glossario.json, "lessico"): un concetto, un nome.
     lex = json.load(open(os.path.join(QUI, "glossario.json"), encoding="utf-8")).get("lessico", {}).get("voci", [])
     for v in lex:
