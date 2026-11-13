@@ -7,8 +7,12 @@ Punteggio = somma, per ogni cifra ripetuta, delle sezioni in più oltre la prima
 Principio v6: un fatto ha una casa; pag. 1 titola e riassume, la pagina interna approfondisce senza ripetere le cifre.
 ERRORE: una cifra distintiva (|valore| >= 1, o 2 decimali, o un livello) con più di 2 OCCORRENZE nel testo (anche nella
 stessa sezione: tabella + punti + perché contano tutte). Sì: 5,10% in prima pagina e nel modulo dei Treasury. No: 5,10% nel
-dek, nella tabella, nel perché e nel quindi dello stesso modulo."""
-import collections, json, re, subprocess, sys
+dek, nella tabella, nel perché e nel quindi dello stesso modulo.
+Echi (v8.4): contare le cifre non basta, la stessa idea torna con parole diverse e le stesse parole tornano senza cifre.
+Si confrontano i blocchi di prosa (testo senza layout, righe vuote): una sequenza di 4 parole piene (senza articoli e
+preposizioni) in 3 o più blocchi è un ERRORE, in 2 blocchi un AVVISO (il desk la riscrive). Fonti, piè di pagina e
+intestazioni non contano."""
+import collections, json, os, re, subprocess, sys
 
 KICKER = re.compile(r"^([A-ZÀÈÉÌÒÙ0-9][A-ZÀÈÉÌÒÙ0-9 &'/.,:+|-]{2,})\s*$")
 ESCLUSE = re.compile(r"^(TICKER|MERCATI|CRUSCOTTO|CROSS-ASSET|LA SCOMMESSA|SCOMMESSA|IL GRAN FINALE|FORECAST|NOTE|FONTI|"
@@ -66,6 +70,40 @@ def analizza(t):
     return punteggio, rip
 
 
+STOP = set("di a da in con su per tra fra il lo la i gli le un uno una e ed o ma che non più come anche del dello della dei "
+           "degli delle al allo alla ai agli alle dal dallo dalla dai dagli dalle nel nello nella nei negli nelle sul sullo "
+           "sulla sui sugli sulle è sono ha hanno si se poi già solo ogni dopo prima oggi ieri sopra sotto".split())
+NON_PROSA = re.compile(r"\s*(Fonti?\b|Fonte:|Solo a scopo|Gommberg Terminal|GOMMBERG|Mercati globali)")
+
+
+def echi(path):
+    """Sequenze di 4 parole piene ripetute in blocchi diversi: {sequenza: numero di blocchi}."""
+    if path.lower().endswith(".pdf"):
+        t = subprocess.run(["pdftotext", path, "-"], capture_output=True).stdout.decode("utf-8", "replace")
+    else:
+        t = open(path, encoding="utf-8").read()
+    blocchi = [b for b in re.split(r"\n\s*\n", t) if len(b.split()) >= 4 and not NON_PROSA.match(b)]
+    visti = collections.defaultdict(set)
+    for i, b in enumerate(blocchi):
+        piene = [w for w in (x.strip(".,;:") for x in re.findall(r"[a-zàèéìòù0-9][\w'’&.,%$/-]*", b.lower()))
+                 if w not in STOP and len(w) > 2 and not re.fullmatch(r"[\d.,%$+-]+", w)]
+        for k in range(len(piene) - 3):
+            visti[tuple(piene[k:k + 4])].add(i)
+    try:   # i nomi delle testate (righe di fonti finite dentro un blocco) non sono echi
+        nomi = {w for n in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonti.json"),
+                                          encoding="utf-8")).get("nomi", []) for w in re.findall(r"\w+", n.lower())}
+    except OSError:
+        nomi = set()
+    out, tre = {}, set()
+    for seq, bl in sorted(visti.items(), key=lambda x: (-len(x[1]), x[0])):
+        if not 2 <= len(bl) < 6 or sum(w in nomi for w in seq) >= 2:   # 6+: testata o piè di pagina
+            continue
+        if seq[:3] in tre or seq[1:] in tre:      # la stessa frase, spostata di una parola
+            continue
+        tre.update((seq[:3], seq[1:])); out[" ".join(seq)] = len(bl)
+    return out
+
+
 def main():
     t = testo_di(sys.argv[1])
     punteggio, rip = analizza(t)
@@ -96,6 +134,14 @@ def main():
     for n, c in gravi:
         print(f"ERRORE: {n} compare {c} volte ({', '.join(rip.get(n, ['una sezione']))}): al massimo 2 (pag. 1 e la "
               "sua pagina); altrove rimanda (\"→ pag. N\") o parla del fatto senza la cifra"[:230])
+    ec = echi(sys.argv[1])
+    for seq, n in ec.items():
+        if n >= 3:
+            print(f"ERRORE: eco \"{seq}\" in {n} punti: dillo una volta, negli altri togli o scrivi ciò che aggiungono (§3.3)")
+            gravi.append((seq, n))
+    for seq, n in ec.items():
+        if n == 2:
+            print(f"AVVISO: eco \"{seq}\" in 2 punti")
     sys.exit(1 if gravi else 0)
 
 

@@ -2,7 +2,7 @@
 
 Chi verifica i fatti non è chi sistema la prosa. Il desk riscrive titoli, attacchi e testi per renderli più chiari, ma
 non può aggiungere fatti: il codice accetta una riscrittura solo se non porta cifre, nomi o fonti nuove e se resta
-lunga quasi uguale (le pagine sono già piene). Una proposta respinta lascia il testo com'era: il desk non blocca mai.
+non più lunga del 10% (e non più corta del 40%). Una proposta respinta lascia il testo com'era: il desk non blocca mai.
 
 Uso (cartella di lavoro):
   python3 desk.py estrai <edizione.py>     -> desk_incarico.json  [{"campo", "testo"}]  (lo riceve l'agente desk)
@@ -90,8 +90,10 @@ def _nomi(t):
     return set(re.findall(r"(?<=[a-zà-ù0-9,;:)»] )[A-Z][\w&'.-]*", t)) | set(re.findall(r"\(([^)]{2,40})\)", t))
 
 
-def controlla(orig, nuovo, tutto):
+def controlla(orig, nuovo, tutto, campo=""):
     """Motivo del rifiuto, o None se la riscrittura è accettata."""
+    if isinstance(nuovo, str) and not nuovo.strip() and campo.endswith(".numero"):
+        return None   # un "numero" che ripete il resto si toglie
     if not isinstance(nuovo, str) or not nuovo.strip():
         return "vuota"
     extra = set(NUM.findall(nuovo)) - set(NUM.findall(orig))
@@ -103,8 +105,8 @@ def controlla(orig, nuovo, tutto):
     if sorted(RIMANDO.findall(nuovo)) != sorted(RIMANDO.findall(orig)):
         return "rimandi [[...]] cambiati"
     lo, ln = len(orig.split()), len(nuovo.split())
-    if lo >= 8 and not (0.9 * lo <= ln <= 1.1 * lo):
-        return f"lunghezza {ln} parole contro {lo} (ammesso -10% / +10%: le pagine sono già piene)"
+    if lo >= 8 and not (0.6 * lo <= ln <= 1.1 * lo):
+        return f"lunghezza {ln} parole contro {lo} (ammesso -40% / +10%)"
     if "—" in nuovo or "–" in nuovo:
         return "trattino lungo"
     return None
@@ -137,7 +139,7 @@ if __name__ == "__main__":
                 no.append((e.get("campo"), "campo inesistente")); continue
             if e.get("testo") == orig:
                 continue
-            motivo = controlla(orig, e.get("testo"), tutto)
+            motivo = controlla(orig, e.get("testo"), tutto, e["campo"])
             (no.append((e["campo"], motivo)) if motivo else ok.append({"campo": e["campo"], "originale": orig,
                                                                          "testo": e["testo"]}))
         json.dump(ok, open(OK, "w", encoding="utf-8"), ensure_ascii=False, indent=1)

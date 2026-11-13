@@ -8,8 +8,8 @@ Uso: python3 controlli_testo.py <pdf> [--json uscita.json]
   o se sono spiegate più di una volta. Stampa anche l'elenco delle sigle spiegate (va in edizioni.json, campo glossario).
 BLOCCANTI (codice 1): più di 5 righe "→"; una riga "→" oltre 20 parole; una sigla non ovvia la cui prima occorrenza
 (dopo il ticker) non è spiegata tra parentesi; un connettivo causale in una frase con un movimento di mercato senza
-la fonte "(Testata)" nella frase o nel suo paragrafo (due frasi prima o dopo). Le sigle spiegate due volte e più di 25
-fonti tra parentesi sono solo avvisi."""
+la fonte "(Testata)" nella frase o nel suo paragrafo (due frasi prima o dopo). Più di 15 fonti tra parentesi sono
+un errore (ISTRUZIONI §3.5); le sigle spiegate due volte sono solo un avviso."""
 import json, os, re, subprocess, sys
 
 QUI = os.path.dirname(os.path.abspath(__file__))
@@ -154,15 +154,15 @@ def main():
         print("AVVISO: " + a[:155])
     if doppie:
         print("AVVISO: sigle spiegate più di una volta: " + ", ".join(doppie)[:140])
-    if n_fonti > 25:
-        print(f"ERRORE: {n_fonti} fonti tra parentesi nel testo (massimo 25): togli quelle di dati, eventi e notizie "
+    if n_fonti > 15:
+        print(f"ERRORE: {n_fonti} fonti tra parentesi nel testo (massimo 15): togli quelle di dati, eventi e notizie "
               "confermate da 2+ testate (stanno nella riga Fonti); restano cause, notizie e dati da fonte singola")
     print("Sigle spiegate (campo glossario): " + (", ".join(spiegate) or "-")[:150])
     if "--json" in sys.argv:
         json.dump({"frecce": fr, "connettivi": sos, "sigle_mai_spiegate": mai, "sigle_doppie": doppie,
                    "glossario": spiegate, "errori": errori},
                   open(sys.argv[sys.argv.index("--json") + 1], "w"), ensure_ascii=False, indent=1)
-    if errori or n_fonti > 25:
+    if errori or n_fonti > 15:
         sys.exit(1)
 
 

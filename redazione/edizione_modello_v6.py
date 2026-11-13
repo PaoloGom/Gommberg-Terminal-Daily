@@ -4,7 +4,7 @@ Ogni giorno: copia questo file nella cartella di lavoro, sostituisci SOLO i bloc
 `python3 edizione_modello_v6.py <cartella di lavoro> <pdf di uscita>`: il motore impagina, riempie le 6 pagine
 allungando i grafici scritti come dict, risolve i rimandi e scrive voce_indice.json per edizioni.json.
 Prima: valuta.py (stato.json) e grafico.py (c_forecast.png) nella cartella di lavoro, come da ISTRUZIONI §5.
-Regole rapide: un fatto ha una casa sola (ogni cifra al massimo 2 volte: pag. 1 e la sua pagina); in pag. 1 si titola e
+Regole rapide: un'idea ha un posto solo (ISTRUZIONI §3.3: non solo le cifre, anche le parole); in pag. 1 si titola e
 si rimanda con [[chiave]] (diventa "→ pag. N"); righe "→" (freccia=...) max 5 in tutto; solo trattino corto; variazioni
 con segno (il motore le colora). Temi (top "tema", "in30_temi", "tag" delle notizie) dall'elenco chiuso qui sotto.
 Il contenuto si compila riscrivendo in un colpo solo il blocco C (uno script o un Write), non con decine di Edit.
@@ -17,9 +17,11 @@ REGOLE DEI CAMPI (v8.1: stanno qui, accanto ai campi; ISTRUZIONI.md tiene solo c
 - top: titolo max 2 righe, dek 3-4. in30: 3 punti senza cifre, col rimando. Voci "breve" dell'indice senza cifre.
 - stamattina: future, Asia, petrolio, cambio, 10 anni con orario 06:00-09:29; senza livelli verificati
   "stamattina_titolo": "Cosa guardare all'apertura" con 2-4 soglie o eventi con orario.
-- termometri: solo i temi mossi; gli altri in "fermi", fuori dopo 3 sedute. "lettura" (pag. 2) solo se aggiunge.
+- termometri: solo i temi mossi; gli altri in "fermi", fuori dopo 3 sedute. "lettura" (pag. 2) solo se dice ciò che il
+  quadro di pag. 1 non dice: di norma non c'è.
 - moduli: 5 unità (mezzo = 1, doppio = 2), il primo "mezzo" va a pag. 3. Ogni modulo: perche, quindi, fonte; righe (mezzo max 5,
-  doppio max 8); punti max 3; "guardare" obbligatorio nel doppio; niente "lettura". Due "mezzo" sulla stessa pagina si dividono
+  doppio max 8); punti max 3; "guardare" obbligatorio nel doppio; niente "lettura". "numero", "punti" e "righe" solo se
+  portano ciò che grafico e testo non dicono: qui sotto li usa solo chi li merita (§3.3). Due "mezzo" sulla stessa pagina si dividono
   lo spazio secondo il contenuto: non serve che siano lunghi uguali.
 - grafici: "titolo" = cosa mostra, "sottotitolo" = misura e periodo, "soggetto" = parola del titolo o del perche, "ruolo" diverso
   per ogni elemento del modulo (quanto, perche, storia, conseguenza, chi); barre sempre con "unita", livelli con "livello": True;
@@ -91,20 +93,20 @@ C = {
 
     "top": {
         "tema": "Inflazione",   # elenco chiuso (in testa al file): nessuna voce di pag. 1 ripete questo tema
-        "titolo": "Inflazione USA sopra le attese: torna in gioco un rialzo della Fed a ottobre",
+        "titolo": "L'inflazione sorprende e la Fed torna a pensare a un rialzo",
         # PAGINA DI RIFERIMENTO (v8.3): i testi di questo file sono scritti come vogliamo ogni mattina. Si imita il tono,
         # non i fatti. Il fatto apre la frase, la fonte non la apre mai; parole di tutti; una cifra dove serve, non sei.
-        "dek": "A settembre i prezzi al consumo (CPI) salgono del 3,7% su un anno, contro il 3,6% atteso; senza energia e "
-               "alimentari del 2,6%, contro il 2,5%. I future sui tassi (CME FedWatch) danno ora al 47% un rialzo il 27-28 "
-               "ottobre: il giorno prima era il 22%. Wall Street chiude in calo (S&amp;P 500 -1,11%), trascinata dai "
+        "dek": "I prezzi al consumo (CPI) di settembre salgono del 3,7% su un anno, più del 3,6% atteso, e del 2,6% senza "
+               "energia e alimentari, contro il 2,5%. Per i future sui tassi (CME FedWatch) un rialzo il 27-28 ottobre ha ora "
+               "il 47% di probabilità: il giorno prima il 22%. Wall Street cede (S&amp;P 500 -1,11%) trascinata dai "
                "tecnologici, e stamattina vendono anche Tokyo e Seul. [[chip]]",
-        "freccia": "I rincari dell'energia cominciano a passare ai prezzi dei servizi (Axios).",  # tipo C, scheda T01 (Axios, liv. 1)
+        "freccia": "L'energia più cara comincia a farsi sentire nei prezzi dei servizi, scrive Axios.",  # tipo C, scheda T01 (Axios, liv. 1)
     },
     # 2-3 frasi brevi: prima la lettura (cosa dicono insieme tassi, dollaro, oro, petrolio e borse, o che non si legano),
     # poi i prezzi che la provano
-    "quadro": "Il dato divide i mercati. Il 2 anni (+3 pb) e il dollaro salgono con le attese di una Fed più dura; il "
-              "10 anni invece scende, come quando si cerca riparo. In borsa cedono i tecnologici e tengono i difensivi; "
-              "petrolio e oro quasi fermi.",
+    "quadro": "Lo stesso dato, due letture. Il 2 anni (+3 pb) e il dollaro salgono perché si scommette su una Fed più "
+              "dura; il 10 anni scende, come quando si cerca riparo. In borsa si vendono i tecnologici e si comprano i "
+              "difensivi; petrolio e oro non si muovono.",
     "in30": [
         # le 3 cose più importanti DOPO la top story: mai la top story né le sue reazioni di mercato (controlli_temi.py)
         "Banche USA divise: BofA paga l'accordo con il Tesoro, Morgan Stanley guadagna con il trading. [[banche]]",
@@ -124,21 +126,21 @@ C = {
         # ogni notizia porta un fatto nuovo (dato, dichiarazione, società, decisione): mai il cruscotto in parole
         # (No: "Londra in rialzo, Milano ed Euro Stoxx in calo"); almeno 2 su 6 da macro o società
         # il soggetto del titolo è il fatto (chi, cosa), mai il mercato: No "Il greggio sale", Sì "Gli Houthi colpiscono..."
-        {"tag": "Chip", "titolo": "TSMC batte le stime sull'utile, ma l'Asia vende i chip",
-         "testo": "L'utile netto del terzo trimestre supera la stima media degli analisti. I conti, usciti stamattina, "
-                  "non fermano le vendite sui chip asiatici.", "rimando": "chip"},
-        {"tag": "Asia", "titolo": "SoftBank perde quasi il 10% all'apertura di Tokyo",
-         "testo": "Kioxia e Advantest cedono circa l'11%: le vendite sui titoli dell'intelligenza artificiale arrivano "
+        {"tag": "Chip", "titolo": "TSMC batte le stime, ma l'Asia vende lo stesso i chip",
+         "testo": "L'utile del terzo trimestre supera la stima media degli analisti, ma i conti, usciti stamattina, non "
+                  "fermano le vendite sui chip asiatici.", "rimando": "chip"},
+        {"tag": "Asia", "titolo": "SoftBank cede quasi il 10% all'apertura di Tokyo",
+         "testo": "Kioxia e Advantest perdono circa l'11%: la vendita dei titoli sull'intelligenza artificiale è arrivata "
                   "in Asia.", "rimando": "chip"},
-        {"tag": "Cina", "titolo": "Le nuove memorie della cinese CXMT pesano sui concorrenti",
-         "testo": "Per un analista di BNP Paribas AM pesa l'annuncio di CXMT sulle memorie di nuova generazione "
+        {"tag": "Cina", "titolo": "La cinese CXMT presenta nuove memorie e spaventa i concorrenti",
+         "testo": "Per un analista di BNP Paribas AM è l'annuncio sulle memorie di nuova generazione a pesare sui titoli "
                   "(Milano Finanza).", "rimando": "chip"},
-        {"tag": "Banche", "titolo": "BofA paga la sanzione del Tesoro, Morgan Stanley cresce nel trading",
-         "testo": "Seconda giornata di conti delle grandi banche USA: per BofA pesa l'onere dell'accordo con il Tesoro, "
-                  "Morgan Stanley guadagna dagli scambi di azioni.", "rimando": "banche"},
+        {"tag": "Banche", "titolo": "BofA paga l'accordo con il Tesoro, Morgan Stanley incassa dal trading",
+         "testo": "Seconda giornata di conti per le grandi banche USA: su BofA pesa l'onere dell'accordo, Morgan Stanley "
+                  "guadagna dagli scambi di azioni.", "rimando": "banche"},
         {"tag": "Petrolio", "titolo": "Gli Houthi colpiscono gli uffici Aramco e il greggio sale",
-         "testo": "Dopo l'attacco agli uffici di Dhahran il greggio americano (WTI) arriva in seduta a circa 95 $; il "
-                  "Brent chiude in lieve rialzo (investingLive)."},
+         "testo": "Dopo l'attacco a Dhahran il greggio americano (WTI) arriva in seduta a circa 95 $; il Brent chiude in "
+                  "lieve rialzo (investingLive)."},
         {"tag": "Trimestrali", "titolo": "BlackRock aumenta l'utile del 25%",
          "testo": "Il gestore chiude il terzo trimestre con 1,66 mld $ di utile, nella giornata delle grandi banche "
                   "USA.", "rimando": "banche"},
@@ -183,9 +185,7 @@ C = {
         ("Petrolio", "Brent sopra 104 $", "WTI verso 95 $ in seduta", "mista", "Prezzi della benzina"),
     ],
     "fermi": "Iran e Hormuz (nessuna novità verificata dal 13/10), Francia e debito europeo (dal 12/10).",
-    "lettura": "Lo stesso dato letto in due modi: i future sui tassi alzano le probabilità di un rialzo a ottobre, i "
-               "titoli di Stato a lunga chiudono con rendimenti più bassi; in borsa cedono i tecnologici e salgono i "
-               "difensivi. Senza conferme da PPI e vendite il mercato resta diviso.",
+    # niente "lettura" in pag. 2: il quadro di pag. 1 ha già detto che il dato divide i mercati (§3.3)
 
     # ---------- Pag. 3-5 ----------
     "agenda_titolo": "Ieri in calendario e in arrivo",
@@ -224,6 +224,7 @@ C = {
     },
     "moduli": [   # 5 unità: il primo "mezzo" va a pag. 3; pag. 4 e 5: 2 "mezzo" o 1 "doppio" ciascuna. "breve" = voce dell'indice di pag. 1
         {"chiave": "banche", "tema": "Trimestrali", "breve": "BofA contro Morgan Stanley",
+         # titolo = la TESI in una proposizione (§3.2); la tabella dà i conti, il testo il meccanismo, nessuno ripete l'altro
          "titolo": "I mercati nervosi premiano le banche d'affari più di quelle che prestano",
          "misura": "mezzo",
          "righe": [["Società", "Risultato del terzo trimestre", "Il punto"],
@@ -233,21 +234,17 @@ C = {
                     "5,79 mld $; rendimento sul capitale tangibile (ROTCE) 22,6%"],
                    ["BlackRock", "Utile 1,66 mld $ (+25%)", "Utile in crescita (FIRSTonline)"]],
          "larghezze": [30, 58, 94],
-         # perche = la causa con fonte, non la parafrasi della tabella; quindi = una cosa osservabile (cifra, data, evento)
+         # perche = la causa con fonte, non la parafrasi della tabella; quindi = una cosa osservabile che il testo non dice
          "perche": "BofA paga un onere straordinario per l'accordo con il Tesoro; Morgan Stanley incassa da consulenza e trading, che crescono quando i mercati si agitano (FIRSTonline).",
-         "quindi": "Il trading di Morgan Stanley, 5,79 mld $ nel trimestre, è il metro per le banche che pubblicano nei prossimi giorni: se anche le altre crescono negli scambi, il nervosismo dei mercati diventa un guadagno di settore.",
-         # niente "lettura": la tesi sta nel titolo e si dice una volta (§9.3; il motore rifiuta il campo).
-         # testo = la profondità: il meccanismo che il lettore non vede nei numeri, con fatti verificati (schede deep_dive)
-         "testo": ["Il confronto vale per tutta la stagione dei conti. Le banche d'affari guadagnano quando i mercati si "
-                   "agitano: più scambi, più commissioni. Le banche commerciali come BofA vivono soprattutto del margine "
-                   "tra interessi sui prestiti e sui depositi. Un trimestre di mercati nervosi premia chi fa trading e "
-                   "conta meno per chi presta. Per questo i conti di Goldman Sachs e Citigroup, in arrivo, diranno se il "
-                   "trading regge anche fuori da Morgan Stanley. Per chi presta conta di più dove vanno i tassi: se scendono, "
-                   "di solito il margine sui prestiti si stringe."],
+         "quindi": "Il trading di Morgan Stanley, 5,79 mld $ nel trimestre, è il metro per Goldman Sachs e Citigroup, che pubblicano nei prossimi giorni.",
+         # niente "lettura": la tesi sta nel titolo e si dice una volta (§3.3; il motore rifiuta il campo).
+         # testo = il meccanismo che il lettore non vede nei numeri: spiega, non ripete tabella e perché
+         "testo": ["La differenza sta in come si guadagna. Le banche d'affari vivono di scambi e commissioni, che salgono "
+                   "quando i mercati si agitano. Quelle commerciali, come BofA, vivono del margine tra gli interessi sui "
+                   "prestiti e sui depositi: se i tassi scendono il margine si stringe, e un trimestre nervoso non le aiuta."],
          "fonte": "Fonti: comunicato Morgan Stanley (SEC), Milano Finanza, FIRSTonline, TheStreet."},
         {"chiave": "treasury", "tema": "Tassi USA", "breve": "curva al minimo dal 28/9",
-         # titolo = la TESI (cosa significa), non il fatto
-         "titolo": "Il 2 anni sale con la Fed, il 10 anni scende: la curva si appiattisce",
+         "titolo": "Con la Fed più dura la curva dei Treasury si appiattisce",
          "misura": "doppio",
          "grafico2": {"tipo": "barre", "file": "c_curva_1g.png",
                     "dati": [(k, round((UST_14[k] - UST_13[k]) * 100)) for k in UST_14],
@@ -261,42 +258,32 @@ C = {
                        "titolo": "La distanza tra 10 e 2 anni torna ai livelli di fine settembre",
                        "sottotitolo": "10 anni meno 2 anni, ultimo mese (pb)", "ruolo": "storia",
                        "serie": [("10 anni meno 2 anni", [round((r[2] - r[1]) * 100) for r in UST_MESE], "#F26B1D")]},
-         "punti": ["<b>Il breve.</b> Fino a 3 anni i rendimenti chiudono in rialzo; subito dopo il dato il 2 anni era "
-                   "salito di circa 12 pb (Axios).",
-                   "<b>Il lungo.</b> Dal 7 anni in su chiudono in calo, dopo un picco serale del 10 anni al 5,33%.",
-                   "<b>Il cambio.</b> Il breve più alto sostiene il dollaro: l'euro cede lo 0,4%."],
-         # niente tabella: le variazioni per scadenza sono già nelle barre
+         # niente "punti" e niente "numero": le variazioni per scadenza sono già nelle barre, il -14 pb nella linea (§3.3)
          # B1: la causa si confronta con la forma della curva. Un'inflazione più alta spiega il breve, non il lungo in calo:
          # dirlo e dare la lettura della redazione che regge alla prova dei prezzi (registro "anomalia" in fatti.json, §6.2c)
          "perche": "Di solito il breve segue le attese sulla Fed, salite con il CPI. Un'inflazione più alta però non spiega il lungo in calo: leggiamo acquisti rifugio dopo le vendite sui tecnologici, come dicono oro e VIX in rialzo.",
          "quindi": "Se il 10 anni torna verso il 5,30-5,35% toccato in serata, torna a contare l'inflazione; sotto il 5,10% di stamattina prevale la paura sulla borsa.",
-         # testo: riempie la pagina con racconto che aggiunge (qui la storia del mese, dai dati del grafico), mai spazi vuoti
-         # "pieno" non vuol dire "fitto": il testo racconta il meccanismo, le cifre stanno nei grafici e nel numero
+         # testo: racconta ciò che i grafici non dicono (storia del mese, mutui, asta) senza riscrivere le cifre
          "testo": ["Il mese ha avuto due fasi. Fino al 21 settembre la distanza tra 10 e 2 anni si è quasi dimezzata; "
                    "poi il lungo ha corso più del breve, fino al massimo del 7 ottobre. In una settimana quel movimento "
                    "si è quasi tutto riassorbito.",
-                   "Il dato divide anche l'economia reale. I mutui americani seguono il 10 anni più dei tassi della Fed: "
-                   "se il lungo scende, comprare casa costa meno anche con una banca centrale più dura.",
-                   "Il prossimo passaggio è l'asta dei titoli a 20 anni di mercoledì: una domanda debole spingerebbe "
-                   "di nuovo in su il lungo e smentirebbe la lettura del rifugio. Le ultime aste lunghe hanno avuto "
-                   "una domanda nella media: è il metro con cui leggere quella di mercoledì.",
-                   "Chi ha ragione lo diranno i prossimi dati sui prezzi. Se l'inflazione dei servizi resta alta, il "
-                   "breve ha visto giusto e la Fed non ha fretta di tagliare. Se rallenta, il calo del lungo diventa "
-                   "l'inizio di un movimento più ampio, che di solito aiuta anche le borse."],
-         # niente riga → qui: avrebbe ripetuto il perché. La riga → solo se aggiunge un meccanismo che il pezzo non dice.
-         # numero: UN dato che misura la tesi, nella colonna accanto al grafico; deve dire qualcosa che il resto non dice
-         "numero": "-14 pb: quanto si è ristretta in una settimana la distanza tra 10 e 2 anni, da 51 a 37 pb.",
-         # guardare (obbligatorio nel doppio): cosa confermerebbe o smentirebbe la tesi, e quando
-         "guardare": "La tesi regge se ai prossimi dati il 2 anni continua a salire più del 10 anni; cade se il 10 anni "
-                     "torna verso il 5,30-5,35% toccato in serata."},
+                   "Conta anche fuori dalla finanza. I mutui americani seguono il 10 anni più dei tassi della Fed: se il "
+                   "lungo scende, comprare casa costa meno anche con una banca centrale più dura.",
+                   "Il prossimo esame è l'asta dei titoli a 20 anni di mercoledì. Una domanda debole rilancerebbe il "
+                   "lungo e smentirebbe la lettura del rifugio; le ultime aste lunghe hanno avuto una domanda nella "
+                   "media, ed è il metro con cui leggere questa."],
+         # guardare (obbligatorio nel doppio): ciò che darebbe ragione al breve o al lungo, e quando; non ripete il quindi
+         "guardare": "Lo diranno i prossimi dati sui prezzi. Se l'inflazione dei servizi resta alta, il breve ha visto "
+                     "giusto e la Fed non ha fretta di tagliare; se rallenta, il calo del lungo può diventare l'inizio di "
+                     "un movimento più ampio, che di solito aiuta anche le borse."},
         {"chiave": "chip", "tema": "Chip e Asia", "breve": "TSMC batte le stime, l'Asia vende",
-         "titolo": "TSMC batte le stime, ma il timore della concorrenza fa vendere i chip",
+         "titolo": "TSMC batte le stime, ma i chip cadono per paura dei concorrenti",
          "misura": "doppio",
          "grafico": {"tipo": "barre", "file": "c_contagio.png", "dati": CONTAGIO, "ordina": False, "dec": 1,
                        "soggetto": "chip", "ruolo": "quanto",
                        "unita": "%",
                        # titolo = cosa mostra il grafico; sottotitolo = misura e periodo (v7.8)
-                       "titolo": "Le vendite partono dalla tecnologia USA e arrivano ai chip asiatici",
+                       "titolo": "La vendita parte dalla tecnologia USA e arriva ai chip asiatici",
                        "sottotitolo": "variazioni % del 14/10 e di stamattina"},
          "grafico2": {"tipo": "linee", "file": "c_nasdaq.png", "x": [d(x) for x, _ in NASDAQ],
                     "serie": [("Nasdaq", [v for _, v in NASDAQ], "#111111")], "soggetto": "Nasdaq", "ruolo": "storia",
@@ -309,22 +296,18 @@ C = {
                    ["Quota dei ricavi da wafer a 2 nanometri", "8%", "-", "-"],
                    ["Quota dei ricavi da wafer a 3 nanometri", "33%", "-", "-"]],
          "larghezze": [70, 30, 36, 46], "ruolo_righe": "perche",   # i conti solidi: la tesi è che non bastano
-         "perche": "Le vendite partite dai titoli dell'intelligenza artificiale del Nasdaq si estendono a tutta l'Asia (ANSA): a Seul e Tokyo i chip pesano molto negli indici.",
-         "quindi": "Oggi alle 15:30 la riapertura del Nasdaq dirà se le vendite si fermano o arrivano anche in Europa.",
+         "perche": "La vendita partita dai titoli dell'intelligenza artificiale del Nasdaq si estende a tutta l'Asia (ANSA): a Seul e Tokyo i chip pesano molto negli indici.",
+         "quindi": "Oggi alle 15:30 riapre il Nasdaq, il primo test per l'Europa.",
          "punti": ["<b>Tokyo.</b> Cede anche Tokyo Electron, circa il 6,5% in apertura: la vendita tocca i produttori "
                    "di macchinari per chip.",
                    "<b>Il timore.</b> Un analista di BNP Paribas AM indica l'annuncio di CXMT, produttore cinese, sulle "
-                   "memorie di nuova generazione.",
-                   "<b>I conti.</b> I ricavi crescono del 50,9% su un anno: la domanda per l'intelligenza artificiale "
-                   "regge, è il prezzo dei concorrenti a preoccupare."],
-         "testo": ["L'ampiezza del calo dipende da quanto pesano i chip. A Taipei e a Seul pochi produttori di "
-                   "semiconduttori fanno una parte larga dell'indice: quando il settore vende, vende tutta la borsa. A "
-                   "Tokyo il peso è minore, e infatti il Nikkei cede meno, nonostante SoftBank e i produttori di "
-                   "macchinari per chip."],
+                   "memorie di nuova generazione."],
+         "testo": ["Il calo è più forte dove i chip pesano di più. A Taipei e a Seul pochi produttori di semiconduttori "
+                   "fanno una parte larga dell'indice: se vendono loro, vende tutta la borsa. A Tokyo il peso è minore, e "
+                   "infatti il Nikkei cede meno, nonostante SoftBank e i produttori di macchinari per chip."],
          "fonte": "Notizie e conti TSMC: ANSA, Milano Finanza, Teleborsa.",
-         "numero": "+68,7%: la crescita annua dell'utile di TSMC. I conti non sono il problema: lo è il timore sui concorrenti.",
-         "guardare": "Oggi alle 15:30 la riapertura del Nasdaq: se i chip americani recuperano, la vendita resta asiatica; "
-                     "se scendono ancora, il timore sulle memorie diventa un tema globale."},
+         "guardare": "Se i chip americani recuperano, la vendita resta asiatica; se scendono ancora, il timore sulle "
+                     "memorie diventa un tema globale."},
     ],
 
     # ---------- Pag. 6 ----------

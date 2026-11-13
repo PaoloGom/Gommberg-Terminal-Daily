@@ -382,8 +382,8 @@ if 0 < len(VOCE.get("notizie") or []) < 6:
     ERR.append(f"notizie: {len(VOCE['notizie'])} in prima pagina, ne servono 6-8: prendi le riserve (schede scartate)")
 for a in VOCE.get("approfondimenti") or []:
     n = len(str(a.get("titolo", "")).split()) if isinstance(a, dict) else 0
-    if n > 18:
-        ERR.append(f"approfondimenti: titolo di {n} parole, massimo 18 (meglio 15): una sola idea \"{str(a.get('titolo'))[:60]}\"")
+    if n > 14:
+        ERR.append(f"approfondimenti: titolo di {n} parole, massimo 14 (meglio 12): un verbo, una idea \"{str(a.get('titolo'))[:60]}\"")
 # v8.3: pieno non vuol dire fitto. Una frase degli approfondimenti porta al massimo 3 cifre (percentuali, pb, $, valori
 # col segno): le serie stanno nei grafici e nelle tabelle, il testo racconta il meccanismo. Prova del 13/11: "+16 pb a 3
 # anni, +14 a 5 anni, +13 a 2 anni, +12 a 10 anni e +8 a 30 anni" ripeteva in prosa il grafico a barre.
