@@ -1,0 +1,459 @@
+{
+ "numero": 25,
+ "data": "2026-11-13",
+ "titolo": "Il Treasury a 10 anni torna sopra il 5%: il mercato scommette su altri rialzi della Fed",
+ "dek": "Il rendimento sale di 12 punti base (pb) al 5,10%, il maggior rialzo dal 23 settembre; quello a 2 anni sale di 13 pb. Goolsbee, della Fed di Chicago, parla di «momento precario» e l'asta dei titoli a 30 anni è la seconda debole in due giorni. L'oro perde il 2,9%. Wall Street chiude in calo (S&P 500 -0,35%).",
+ "sommario": [
+  "Nvidia perde terreno dopo le dimissioni di Huang, ma la tecnologia, in media, sale.",
+  "L'oro cala con rendimenti e dollaro in rialzo, ma i tassi non spiegano tutto.",
+  "Oggi i prezzi alla produzione USA di ottobre, il primo dato dopo l'asta debole."
+ ],
+ "file": "pdf/2026-11-13-gommberg-025.pdf",
+ "nome": "2026-11-13 Gommberg Terminal Daily #025.pdf",
+ "pagine": 6,
+ "notizie": [
+  "Il Brent risale a 96 $ dopo una settimana di cali",
+  "Cisco batte le stime, ma il titolo resta fermo",
+  "Cerebras sale del 15% dopo ricavi record",
+  "Milano cede lo 0,3%: Stellantis ai minimi dell'anno",
+  "Technoprobe taglia la parte alta della previsione sui ricavi",
+  "L'Euro Stoxx 50 chiude ai massimi da due mesi",
+  "Anthropic fissa il prezzo della quotazione il 18 novembre"
+ ],
+ "ticker": [
+  [
+   "MSCI ACWI (ETF)",
+   "156,53 $",
+   "-0,6% g"
+  ],
+  [
+   "S&P 500",
+   "7.592,40",
+   "-0,4% g"
+  ],
+  [
+   "EURO STOXX 50",
+   "6.398,98",
+   "+0,1% g"
+  ],
+  [
+   "UST 10 ANNI",
+   "5,10%",
+   "+12 pb g"
+  ],
+  [
+   "EUR/USD",
+   "1,1053",
+   "-0,3% g"
+  ],
+  [
+   "BRENT FUTURE",
+   "95,82 $",
+   "+3,3% g"
+  ],
+  [
+   "VIX",
+   "18,70",
+   "+1,21 g"
+  ]
+ ],
+ "temi": [
+  "Tassi",
+  "Fed",
+  "Materie prime",
+  "Chip",
+  "Petrolio",
+  "Trimestrali"
+ ],
+ "approfondimenti": [
+  {
+   "tema": "Oro",
+   "titolo": "L'oro cala con i rendimenti in rialzo, ma tre delle sue cinque peggiori giornate da metà ottobre sono arrivate con i rendimenti in calo",
+   "formato": "mezzo"
+  },
+  {
+   "tema": "Tassi USA",
+   "titolo": "I rendimenti salgono per la Fed più che per il debito: il balzo è sulle scadenze medie, non sul 30 anni",
+   "formato": "doppio"
+  },
+  {
+   "tema": "Chip",
+   "titolo": "Senza Huang Nvidia cede il 4,3%, ma la tecnologia sale: il mercato separa il titolo dal settore",
+   "formato": "doppio"
+  }
+ ],
+ "meccanismi": [],
+ "parole": [
+  "Asta debole (tail)",
+  "Scadenze medie",
+  "Pre-mercato",
+  "Dopo-borsa",
+  "Supporto",
+  "Rapporto di copertura"
+ ],
+ "glossario": [
+  "PPI",
+  "pb",
+  "FOMC",
+  "IPO",
+  "CME FedWatch",
+  "PIL",
+  "AI"
+ ],
+ "errata": null,
+ "ripetizioni": null,
+ "scommessa": {
+  "settimana": "2026-11-09/2026-11-13",
+  "strada": 5,
+  "range": 1,
+  "su": 6,
+  "dettaglio": [
+   [
+    "S&P 500",
+    "su",
+    true,
+    false
+   ],
+   [
+    "Euro Stoxx 50",
+    "su",
+    true,
+    false
+   ],
+   [
+    "Treasury 10 anni",
+    "su",
+    false,
+    false
+   ],
+   [
+    "EUR/USD",
+    "giù",
+    true,
+    false
+   ],
+   [
+    "Brent future",
+    "giù",
+    true,
+    true
+   ],
+   [
+    "Oro future",
+    "giù",
+    true,
+    false
+   ]
+  ]
+ },
+ "tema_top": "Tassi",
+ "temi_in30": [
+  "Chip",
+  "Materie prime",
+  "Macro"
+ ],
+ "temi_notizie": [
+  "Petrolio",
+  "Trimestrali",
+  "Chip",
+  "Italia",
+  "Trimestrali",
+  "Europa",
+  "Tecnologia"
+ ],
+ "quadro": "I mercati leggono tutti la stessa cosa: più rialzi della Fed. Rendimenti e dollaro salgono, l'oro cade e le azioni tengono: in media i titoli tecnologici salgono e a frenare gli indici è soprattutto Nvidia. Il petrolio risale e la volatilità attesa (VIX) sale a 18,70.",
+ "stamattina": [
+  "11:00 PIL dell'area euro del terzo trimestre",
+  "14:30 prezzi alla produzione USA di ottobre",
+  "15:30 apertura di Wall Street: prima reazione di Nvidia alla seduta di ieri",
+  "Treasury a 10 anni: il livello da tenere d'occhio è la chiusura di ieri"
+ ],
+ "stamattina_titolo": "Cosa guardare all'apertura",
+ "notizie_testo": [
+  "Il Brent risale a 96 $ dopo una settimana di cali. Chiude a 95,82 $, +3,3%: pesano i timori che il conflitto USA-Iran non abbia una fine in vista (Yahoo Finance).",
+  "Cisco batte le stime, ma il titolo resta fermo. Ricavi di 18,52 mld $ contro 18,1 attesi (LSEG), utile rettificato di 1,40 $ contro 1,33; il CEO parla di «very early stages of a multi-year networking supercycle».",
+  "Cerebras sale del 15% dopo ricavi record. Nel dopo-borsa il titolo guadagna il 15% dopo ricavi del terzo trimestre di 210,8 milioni $, +55% su un anno (comunicato alla SEC).",
+  "Milano cede lo 0,3%: Stellantis ai minimi dell'anno. Il FTSE MIB chiude a 51.808,67. Stellantis perde oltre il 4% e tocca un nuovo minimo a 52 settimane, Amplifon il 5,3%; salgono Diasorin e Italgas (ANSA).",
+  "Technoprobe taglia la parte alta della previsione sui ricavi. Il titolo cede il 4,7% dopo che l'azienda ha ridotto l'estremo alto della stima dei ricavi 2026 (Milano Finanza).",
+  "L'Euro Stoxx 50 chiude ai massimi da due mesi. A 6.398,98 punti: per Stanzl (Consorsbank) pesano dati economici migliori e un gas in calo di circa un quinto (dpa-AFX).",
+  "Anthropic fissa il prezzo della quotazione il 18 novembre. Le contrattazioni al Nasdaq partono il giorno dopo, secondo Yahoo Finance e il Wall Street Journal."
+ ],
+ "brevi": [
+  "oro cade, non solo per i tassi",
+  "il rialzo è della Fed",
+  "Nvidia senza Huang"
+ ],
+ "agenda": [
+  {
+   "quando": "Ven 13, 14:30",
+   "evento": "Prezzi alla produzione USA (PPI, ottobre)",
+   "attese": "+0,4% m/m; core (senza energia e alimentari) +0,3%; prec. +1,3% e +0,7%",
+   "perche": "Evento n.1: dice se i prezzi frenano dopo il balzo di settembre",
+   "chiave": true
+  },
+  {
+   "quando": "Ven 13, 11:00",
+   "evento": "PIL dell'area euro (terzo trimestre)",
+   "attese": "+1,3% a/a, come nel trimestre prima",
+   "perche": "Tenuta dell'economia europea",
+   "chiave": false
+  },
+  {
+   "quando": "Lun 16, 18:00",
+   "evento": "Discorso di apertura di Warsh (Fed)",
+   "attese": "",
+   "perche": "Parole del presidente con il rialzo di dicembre atteso",
+   "chiave": false
+  },
+  {
+   "quando": "Mar 17, 14:30",
+   "evento": "Vendite al dettaglio USA (ottobre)",
+   "attese": "",
+   "perche": "Tenuta dei consumi con tassi più alti",
+   "chiave": false
+  },
+  {
+   "quando": "Mar 17, 15:15",
+   "evento": "Produzione industriale USA (ottobre)",
+   "attese": "",
+   "perche": "Attività reale dell'industria",
+   "chiave": false
+  },
+  {
+   "quando": "Mar 17, 23:00",
+   "evento": "Conference call dei conti Nvidia",
+   "attese": "",
+   "perche": "Prima prova dopo l'uscita di Huang",
+   "chiave": false
+  },
+  {
+   "quando": "Mer 18, 20:00",
+   "evento": "Verbali della Fed (riunione 27-28 ottobre)",
+   "attese": "",
+   "perche": "Quanto è largo il fronte dei rialzi",
+   "chiave": false
+  }
+ ],
+ "evento_oggi": "Ven 13, 14:30 Prezzi alla produzione USA (PPI, ottobre)",
+ "moduli_redazione": [
+  {
+   "chiave": "oro",
+   "misura": "mezzo",
+   "titolo": "L'oro cala con i rendimenti in rialzo, ma tre delle sue cinque peggiori giornate da metà ottobre sono arrivate con i rendimenti in calo",
+   "perche": "Per Kitco oggi l'oro cala con rendimenti in rialzo, dollaro forte e attese di altri rialzi Fed. Il 30 e il 22 ottobre, con i rendimenti in calo, calava invece per vendite forzate dopo il ribasso delle azioni (Kitco): per noi l'oro scende sia per i tassi sia quando serve cassa.",
+   "quindi": "Sotto 3.852 $, il primo supporto indicato da Kitco, con i rendimenti fermi o in calo varrebbe la lettura che i tassi non bastano.",
+   "punti": [],
+   "righe": [
+    [
+     "Giornata",
+     "Oro",
+     "Treasury 10 anni",
+     "Cosa dice"
+    ],
+    [
+     "14/10",
+     "-1,7%",
+     "-2 pb",
+     "Rendimenti in calo"
+    ],
+    [
+     "22/10",
+     "-2,2%",
+     "-17 pb",
+     "Rendimenti in calo"
+    ],
+    [
+     "30/10",
+     "-3,3%",
+     "-4 pb",
+     "Rendimenti in calo"
+    ],
+    [
+     "10/11",
+     "-2,0%",
+     "+10 pb",
+     "Rendimenti in rialzo"
+    ],
+    [
+     "12/11",
+     "-2,9%",
+     "+12 pb",
+     "Rendimenti in rialzo"
+    ]
+   ],
+   "grafici": []
+  },
+  {
+   "chiave": "tassi",
+   "misura": "doppio",
+   "titolo": "I rendimenti salgono per la Fed più che per il debito: il balzo è sulle scadenze medie, non sul 30 anni",
+   "perche": "Di solito un dato più freddo fa scendere i rendimenti, qui salgono. Per noi contano più i discorsi della Fed che il dato: lo dicono l'oro in calo e il dollaro in rialzo.",
+   "quindi": "Se dopo i prezzi alla produzione di oggi il 30 anni sale più del 2 anni, la lettura passa dal rialzo Fed al premio per il debito; il 10 anni sopra il 5,21% del 13 ottobre la metterebbe in dubbio.",
+   "punti": [
+    "La Fed. Hammack chiede una politica restrittiva, Goolsbee vede l'inflazione andare «the wrong way», Bowman e Paulson vogliono più rialzi con meno fretta (TheStreet).",
+    "Le aste. Quella a 30 anni è la seconda debole in due giorni: rendimento al 5,441% contro 5,437% atteso, offerte indirette al 68,1%, minimo da agosto (TheStreet).",
+    "Il dato. I sussidi di disoccupazione (200 mila contro 195 mila attesi) sono più freddi del previsto, eppure il 2 anni sale di 13 pb."
+   ],
+   "righe": [],
+   "grafici": [
+    {
+     "titolo": "Salgono più le scadenze medie, meno il 30 anni",
+     "tipo": "barre",
+     "soggetto": "rendimenti",
+     "dati": [
+      [
+       "1M",
+       7.0
+      ],
+      [
+       "3M",
+       2.0
+      ],
+      [
+       "6M",
+       4.0
+      ],
+      [
+       "1A",
+       9.0
+      ],
+      [
+       "2A",
+       13.0
+      ],
+      [
+       "3A",
+       16.0
+      ],
+      [
+       "5A",
+       14.0
+      ],
+      [
+       "7A",
+       13.0
+      ],
+      [
+       "10A",
+       12.0
+      ],
+      [
+       "20A",
+       9.0
+      ],
+      [
+       "30A",
+       8.0
+      ]
+     ],
+     "serie": [],
+     "x0": null,
+     "x1": null,
+     "etichette": [
+      "1M",
+      "3M",
+      "6M",
+      "1A",
+      "2A",
+      "3A",
+      "5A",
+      "7A",
+      "10A",
+      "20A",
+      "30A"
+     ]
+    },
+    {
+     "titolo": "La distanza tra 10 e 2 anni è ai minimi dal 13 ottobre",
+     "tipo": "linee",
+     "soggetto": "rendimenti",
+     "dati": null,
+     "serie": [
+      "10 anni meno 2 anni"
+     ],
+     "x0": "2026-10-13",
+     "x1": "2026-11-12",
+     "etichette": []
+    }
+   ]
+  },
+  {
+   "chiave": "chip",
+   "misura": "doppio",
+   "titolo": "Senza Huang Nvidia cede il 4,3%, ma la tecnologia sale: il mercato separa il titolo dal settore",
+   "perche": "Per noi chi vende Nvidia compra altri titoli dell'AI: lo mostrano la media dei tecnologici in rialzo e Cerebras in forte rialzo dopo i conti.",
+   "quindi": "I conti di martedì 17 alle 23:00 dicono se i clienti ordinano ancora: con Nvidia sotto 166,19 $ la lettura che il danno sia solo d'immagine perde forza.",
+   "punti": [
+    "Il pre-mercato. Alle 9:05 di New York (15:05 a Roma) Nvidia perdeva il 10,6% (TheStreet).",
+    "Il successore. La direttrice finanziaria Colette Kress guida ad interim e il consiglio cerca un nome interno o esterno (Fortune).",
+    "Il conto. Huang possiede il 3,6% del capitale, circa 150 mld $ (Fortune)."
+   ],
+   "righe": [
+    [
+     "Titolo",
+     "Mossa",
+     "Il punto"
+    ],
+    [
+     "Cerebras",
+     "In rialzo dopo la chiusura",
+     "Ricavi record di 210,8 milioni $, +55% (SEC)"
+    ],
+    [
+     "Broadcom e AMD",
+     "In rialzo",
+     "Salgono mentre Nvidia scende (Yahoo Finance)"
+    ],
+    [
+     "Intel e Micron",
+     "In calo",
+     "Scendono con l'indice (Yahoo Finance)"
+    ],
+    [
+     "Nvidia",
+     "In calo",
+     "Bernstein dimezza l'obiettivo, a 200 $ da 400 (TheStreet)"
+    ]
+   ],
+   "grafici": [
+    {
+     "titolo": "Nvidia cala più dei settori: in media i titoli tecnologici salgono",
+     "tipo": "barre",
+     "soggetto": "Nvidia",
+     "dati": [
+      [
+       "Nvidia",
+       -4.34
+      ],
+      [
+       "Nasdaq Composite",
+       -0.39
+      ],
+      [
+       "S&P 500",
+       -0.35
+      ],
+      [
+       "Tecnologia Nasdaq (media titoli)",
+       1.5
+      ],
+      [
+       "Tecnologia NYSE (media titoli)",
+       2.16
+      ]
+     ],
+     "serie": [],
+     "x0": null,
+     "x1": null,
+     "etichette": [
+      "Nvidia",
+      "Nasdaq Composite",
+      "S&P 500",
+      "Tecnologia Nasdaq (media titoli)",
+      "Tecnologia NYSE (media titoli)"
+     ]
+    }
+   ]
+  }
+ ]
+}

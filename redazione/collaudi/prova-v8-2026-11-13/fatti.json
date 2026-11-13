@@ -1,0 +1,1146 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Il rendimento del Treasury a 10 anni torna sopra il 5% (5,10% a fine seduta) mentre il mercato valuta più rialzi dei tassi Fed; la 30 anni viene venduta al 5,441%, seconda asta debole in due giorni dopo quelle a 10 e 3 anni; Goolsbee (Fed di Chicago): «We're at a precarious moment»",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-sp-500-nasdaq-fall-as-nvidia-ceo-exit-rising-bond-yields-roil-markets-195710154.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "climbed above 5% as investors grappled with the odds of more Federal Reserve interest rate hikes."
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/us-30-year-bond-auction-tails-as-demand-disappoints-for-second-straight-day/",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "US 30-year bond auction tails as demand disappoints for second straight day"
+   },
+   {
+    "testata": "TheStreet",
+    "url": "https://pro.thestreet.com/stock-market-today/2026-11-12",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock Market Today: November 12, 2026"
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "Yahoo: \"climbed above 5% as investors grappled with the odds of more Federal Reserve interest rate hikes.\" e \"We're at a precarious moment\"; TheStreet: asta a 30 anni 5,441% contro 5,437% when-issued, seconda asta debole dopo 10 e 3 anni.",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "C01",
+  "sezione": "top_news",
+  "testo": "Il Brent risale a 96 $ per timori che il conflitto USA-Iran non abbia una fine in vista",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-sp-500-nasdaq-fall-as-nvidia-ceo-exit-rising-bond-yields-roil-markets-195710154.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "that have raised worries that there is no end in sight for the US-Iran conflict."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Sintesi dello strumento di lettura della pagina (non parola per parola): Brent in rialzo dell'1% a circa 93,6 $ dopo le parole di Trump sull'Iran (intraday)"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "trovato": "\"rising to $96 per barrel following a week of declines.\" ... \"that have raised worries that there is no end in sight for the US-Iran conflict.\"",
+  "nota_revisore": "Prezzo di chiusura 95,82 $ da FMP (+3,3% sul 92,76 dell'11/11); il testo cita solo la causa riportata da Yahoo."
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Petrolio: il Brent chiude a 95,82 $, +3,3% sul 92,76 $ dell'11/11, dopo una settimana di cali; ancora sotto i 115-116 $ di fine ottobre",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-sp-500-nasdaq-fall-as-nvidia-ceo-exit-rising-bond-yields-roil-markets-195710154.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "rising to $96 per barrel following a week of declines."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Sintesi dello strumento di lettura della pagina (non parola per parola): Brent a circa 93,6 $ in seduta"
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "\"rising to $96 per barrel following a week of declines.\"",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Cisco chiude il trimestre con ricavi di 18,52 mld $ contro 18,1 attesi (LSEG) e utile rettificato di 1,40 $ contro 1,33; il titolo resta fermo nel dopo-borsa; il CEO Robbins parla di «very early stages of a multi-year networking supercycle»",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "CoinCentral",
+    "url": "https://coincentral.com/cisco-csco-stock-stalls-after-hours-despite-earnings-beat-and-bigger-ai-forecast",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Analysts were looking for about $18.1 billion, according to LSEG."
+   },
+   {
+    "testata": "Quartz",
+    "url": "https://qz.com/cisco-earnings-beat-ai-revenue-target-raised-111326",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Cisco beat earnings expectations and raised its AI revenue target for the year"
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "\"went nowhere in volatile after-hours trading on Thursday\"; \"Analysts were looking for about $18.1 billion, according to LSEG.\"; \"The Street wanted $1.33.\"; \"very early stages of a multi-year networking supercycle\".",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Cerebras sale del 15% nel dopo-borsa dopo ricavi record del terzo trimestre: 210,8 milioni $, +55% su un anno",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-sp-500-nasdaq-fall-as-nvidia-ceo-exit-rising-bond-yields-roil-markets-195710154.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "shares jumped 15% in post-market trading after the AI chipmaker reported record third quarter revenue."
+   },
+   {
+    "testata": "Cerebras (8-K, SEC)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0002021728/000162828026073366/cbrsannouncesfinancialresu.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "GAAP total revenue: Record $210.8 million, up 55% year-over-year",
+    "primaria": true
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "\"GAAP total revenue: Record $210.8 million, up 55% year-over-year\"; Yahoo: \"shares jumped 15% in post-market trading after the AI chipmaker reported record third quarter revenue.\"",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Milano: il FTSE MIB chiude a 51.808,67, -0,27%; Amplifon -5,29%, Stellantis -4,33% a 3,56 € (nuovo minimo a 52 settimane), Technoprobe in calo dopo il tonfo di Nvidia; in rialzo Diasorin +3,46% e Italgas +1,86%",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/12/borsa-milano-chiude-a-027-technoprobe-giu-su-tonfo-nvidia_d4b86315-48e2-44d1-b891-169061d4b61b.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borsa: Milano chiude a- 0,27%, Technoprobe giù su tonfo Nvidia"
+   },
+   {
+    "testata": "Money.it",
+    "url": "https://www.money.it/piazza-affari-chiude-in-calo-ftse-mib-12-11-2026",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Piazza Affari chiude in calo, FTSE MIB a -0,27% a 51.808,67 punti"
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "Money.it: \"51.808,67 punti, in calo del 0,27%\"; Amplifon -5,29%, Stellantis -4,33% a 3,56 euro, nuovo minimo a 52 settimane; Diasorin +3,46%, Italgas +1,86%.",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Technoprobe cede il 4,7% dopo aver ridotto l'estremo alto della previsione di ricavi 2026",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Sintesi dello strumento di lettura della pagina (non parola per parola): Technoprobe ha ridotto l'estremo alto della previsione sui ricavi 2026, titolo -4,7%"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/12/borsa-milano-chiude-a-027-technoprobe-giu-su-tonfo-nvidia_d4b86315-48e2-44d1-b891-169061d4b61b.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borsa: Milano chiude a- 0,27%, Technoprobe giù su tonfo Nvidia"
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "MF (sintesi): Technoprobe -4,7%, \"trimmed the top end of its 2026 revenue forecast\".",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Euro Stoxx 50 +0,09% a 6.398,98, massimo da due mesi; per Jochen Stanzl (Consorsbank) pesano dati economici migliori e un calo del gas di circa un quinto; lo scarto tra rendimenti dei titoli tedeschi e francesi scende sotto i 150 pb",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "moneycab (dpa-AFX)",
+    "url": "https://www.moneycab.com/maerkte/europa-verlauf-maerkte-setzten-aufwaertsbewegung-fort/",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "schloss 0,09 Prozent höher bei 6.398,98 Punkte"
+   },
+   {
+    "testata": "ARIVA (dpa-AFX)",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-boersen-verhalten-im-12205679",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Aktien Europa Schluss: Börsen verhalten im Vorwärtsgang trotz Nvidia"
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "\"schloss 0,09 Prozent höher bei 6.398,98 Punkte.\"; \"Bessere Wirtschaftsdaten, ein Gaspreisrückgang um ein Fünftel, Brent-Öl nahe 90 Dollar\"; scarto Bund-OAT sotto 150 punti base.",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "C02",
+  "sezione": "top_news",
+  "testo": "Euro Stoxx 50: per Stanzl (Consorsbank) pesano dati economici migliori e il calo del gas di circa un quinto",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "moneycab (dpa-AFX)",
+    "url": "https://www.moneycab.com/maerkte/europa-verlauf-maerkte-setzten-aufwaertsbewegung-fort/",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Bessere Wirtschaftsdaten, ein Gaspreisrückgang um ein Fünftel, Brent-Öl nahe 90 Dollar"
+   },
+   {
+    "testata": "ARIVA (dpa-AFX)",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-boersen-verhalten-im-12205679",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Aktien Europa Schluss: Börsen verhalten im Vorwärtsgang trotz Nvidia"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "trovato": "\"Bessere Wirtschaftsdaten, ein Gaspreisrückgang um ein Fünftel, Brent-Öl nahe 90 Dollar\" (Jochen Stanzl, Consorsbank).",
+  "nota_revisore": "Il testo riporta solo gas e dati economici; la parte sul Brent a 90 $ non è ripresa."
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "testo": "Anthropic prevede di fissare il prezzo della quotazione mercoledì 18 novembre e di iniziare le contrattazioni il giorno dopo",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-sp-500-nasdaq-fall-as-nvidia-ceo-exit-rising-bond-yields-roil-markets-195710154.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "expects to price its IPO on Wednesday, Nov. 18, and begin trading the following day."
+   },
+   {
+    "testata": "investingLive (WSJ)",
+    "url": "https://investinglive.com/stock-market-update/wsj-anthropic-targets-nasdaq-debut-next-week-under-ticker-ant-despite-tech-selloff/",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "WSJ: Anthropic targets Nasdaq debut next week under ticker ANT despite tech selloff"
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "\"expects to price its IPO on Wednesday, Nov. 18, and begin trading the following day.\"",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "testo": "Nvidia chiude a 166,19 $, -4,34%, dopo le dimissioni di Jensen Huang da amministratore delegato; la direttrice finanziaria Colette Kress guida l'azienda ad interim e il consiglio cerca un successore",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-sp-500-nasdaq-fall-as-nvidia-ceo-exit-rising-bond-yields-roil-markets-195710154.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "166.19 -7.54 (-4.34%)"
+   },
+   {
+    "testata": "Fortune",
+    "url": "https://fortune.com/2026/11/11/nvidia-oust-jensen-huang-spy-affairs/",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Nvidia's Jensen Huang resigns, CFO Colette Kress named interim CEO"
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "Yahoo: \"166.19 -7.54 (-4.34%)\" At close: November 12; \"shares sinking more than 4% after Jensen Huang resigned as CEO\"; Fortune: Kress interim CEO, ricerca di un successore interno o esterno.",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "N09",
+  "sezione": "top_news",
+  "testo": "Fed: Hammack (Cleveland) dice che serve una politica restrittiva e preferisce rialzi più piccoli e frequenti; Goolsbee (Chicago) giudica l'inflazione «going the wrong way»; Bowman e Paulson vogliono più rialzi, con meno fretta",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "TheStreet",
+    "url": "https://pro.thestreet.com/stock-market-today/2026-11-12",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock Market Today: November 12, 2026"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-sp-500-nasdaq-fall-as-nvidia-ceo-exit-rising-bond-yields-roil-markets-195710154.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "We're at a precarious moment"
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "TheStreet: Hammack \"needs to move to a restrictive stance\"; Goolsbee \"going the wrong way\"; Bowman e Paulson favorevoli a più rialzi \"in less of a hurry\".",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "testo": "Sussidi di disoccupazione USA: 200 mila nella settimana al 7/11 contro 195 mila attesi (191 mila rivisto); la media a quattro settimane è 195.250, il livello più basso dall'ottobre 1969",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "TheStreet",
+    "url": "https://pro.thestreet.com/stock-market-today/2026-11-12",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock Market Today: November 12, 2026"
+   }
+  ],
+  "fonte_singola": true,
+  "tipo": "U",
+  "ufficiale_cercato": [
+   "WebSearch: jobless claims week ended November 7 2026 Labor Department initial claims",
+   "WebSearch: Department of Labor unemployment insurance weekly claims news release November 12 2026"
+  ],
+  "verifica": "confermato",
+  "trovato": "Initial claims for the week ending Nov. 7 rose to 200,000, above the 195,000 estimate and the 191,000 revised prior reading; four-week average 195,250, lowest since October 1969.",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "K02",
+  "sezione": "catalizzatori",
+  "testo": "Asta dei Treasury a 30 anni: 25 mld $ al rendimento di 5,441% contro 5,437% when-issued (scarto di 0,4 pb); offerte indirette al 68,1% (minimo da agosto); rapporto di copertura 2,36 contro 2,54 di ottobre",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "TheStreet",
+    "url": "https://pro.thestreet.com/stock-market-today/2026-11-12",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock Market Today: November 12, 2026"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/us-30-year-bond-auction-tails-as-demand-disappoints-for-second-straight-day/",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "US 30-year bond auction tails as demand disappoints for second straight day"
+   }
+  ],
+  "fonte_singola": false,
+  "tipo": "U",
+  "ufficiale_cercato": [
+   "WebSearch: 30-year Treasury auction November 12 2026 results tail yield jobless claims",
+   "WebSearch: weak 30-year Treasury auction November 12 2026 bid-to-cover tail yields"
+  ],
+  "verifica": "confermato",
+  "trovato": "The $25 billion auction tailed, selling at a high yield of 5.441%, 0.4 basis points above the 5.437% when-issued yield; indirect bidders 68.1%, the lowest since August; bid-to-cover 2.36 from 2.54.",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "Treasury: l'asta a 30 anni è stata la seconda debole in due giorni; anche quelle a 10 e 3 anni erano andate peggio della domanda attesa",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "TheStreet",
+    "url": "https://pro.thestreet.com/stock-market-today/2026-11-12",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock Market Today: November 12, 2026"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/us-30-year-bond-auction-tails-as-demand-disappoints-for-second-straight-day/",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "US 30-year bond auction tails as demand disappoints for second straight day"
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "\"It was the second straight tail. The 10-year and 3-year auctions earlier in the week also tailed.\" (sintesi della pagina TheStreet).",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "Fed: Hammack (Cleveland) chiede una politica restrittiva e rialzi più piccoli e frequenti; Bowman e Paulson vogliono più rialzi ma con meno fretta; Goolsbee parla di inflazione che va nella direzione sbagliata senza indicare l'entità di dicembre",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "TheStreet",
+    "url": "https://pro.thestreet.com/stock-market-today/2026-11-12",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock Market Today: November 12, 2026"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-sp-500-nasdaq-fall-as-nvidia-ceo-exit-rising-bond-yields-roil-markets-195710154.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "We're at a precarious moment"
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "Hammack said the Fed needs to move to a restrictive stance; Goolsbee called inflation \"going the wrong way\", but did not signal the size of a December move.",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "D03",
+  "sezione": "mercati",
+  "testo": "Oro: lo spot scende a circa 3.876 $, -110,60 $ (-2,77%), spinto da rendimenti dei Treasury in rialzo, dollaro forte e attese di altri rialzi Fed; il mercato dà circa l'85% a un rialzo di 25 pb all'8-9 dicembre",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-12/gold-silver-slide-treasury-yields-surge-fed-hike-concerns-intensify-kitco",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "pressured by rising Treasury yields, a firm U.S. dollar and expectations for additional Federal Reserve interest rate increases."
+   }
+  ],
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "trovato": "\"Spot gold was trading near $3,876.40 an ounce, down $110.60, or 2.77%\"; \"pressured by rising Treasury yields, a firm U.S. dollar and expectations for additional Federal Reserve interest rate increases.\"; \"approximately an 85% probability of a 25-basis-point increase at the Dec. 8-9 meeting\".",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "C03",
+  "sezione": "mercati",
+  "testo": "L'oro cala per rendimenti dei Treasury in rialzo, dollaro forte e attese di altri rialzi Fed (Kitco)",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-12/gold-silver-slide-treasury-yields-surge-fed-hike-concerns-intensify-kitco",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "pressured by rising Treasury yields, a firm U.S. dollar and expectations for additional Federal Reserve interest rate increases."
+   }
+  ],
+  "tipo": "C",
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "trovato": "\"pressured by rising Treasury yields, a firm U.S. dollar and expectations for additional Federal Reserve interest rate increases.\"",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Nvidia: nel pre-mercato del 12/11 perdeva il 10,6%; Bernstein taglia l'obiettivo di prezzo a 200 $ da 400; i conti trimestrali escono il 17 novembre",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "TheStreet",
+    "url": "https://pro.thestreet.com/stock-market-today/2026-11-12",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock Market Today: November 12, 2026"
+   },
+   {
+    "testata": "Nvidia (comunicato)",
+    "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Sets-Conference-Call-for-Third-Quarter-Financial-Results/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "NVIDIA will host a conference call on Tuesday, November 17, at 2 p.m. PT (5 p.m. ET).",
+    "primaria": true
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "Shares were down 10.6% premarket as of 9:05 a.m. ET. Bernstein cut its price target to $200 from $400. \"NVIDIA will host a conference call on Tuesday, November 17, at 2 p.m. PT (5 p.m. ET).\"",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "testo": "Nvidia: Huang possiede il 3,6% del capitale, circa 150 mld $; il consiglio nomina Harvey Jones primo presidente; Huang ha ammesso una relazione extraconiugale con una donna che, secondo il New York Times citato da ABC, l'intelligence USA ritiene raccogliesse informazioni per la Cina (Pechino smentisce); Nvidia dice di non avere motivo di ritenere compromessi sicurezza nazionale o segreti aziendali",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Fortune",
+    "url": "https://fortune.com/2026/11/11/nvidia-oust-jensen-huang-spy-affairs/",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Nvidia's Jensen Huang resigns, CFO Colette Kress named interim CEO"
+   },
+   {
+    "testata": "ABC News (Australia)",
+    "url": "https://www.abc.net.au/news/2026-11-13/nvidia-founder-jensen-huang-resigns/107376470",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Nvidia CEO Jensen Huang quits after affair with alleged Chinese spy - ABC News"
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "Fortune: Huang holds a 3.6% stake valued at about $150 billion; the board appointed Harvey Jones as its first-ever chair; ABC: affair with a woman US intelligence reportedly concluded was gathering information for China. ABC: Nvidia said it had \"no reason to believe\" national security or company secrets were compromised.",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "D06",
+  "sezione": "deep_dive",
+  "testo": "Wall Street 12/11: Dow 52.297,09 (-0,36%), S&P 500 -0,35%, Nasdaq -0,39%; Broadcom e AMD salgono, Intel e Micron scendono; Cerebras +15% dopo la chiusura",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-sp-500-nasdaq-fall-as-nvidia-ceo-exit-rising-bond-yields-roil-markets-195710154.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "shares jumped 15% in post-market trading after the AI chipmaker reported record third quarter revenue."
+   },
+   {
+    "testata": "TheStreet",
+    "url": "https://pro.thestreet.com/stock-market-today/2026-11-12",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock Market Today: November 12, 2026"
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "Dow Jones 52.297,09 (-0,36%); S&P 500 -0,35%; Nasdaq Composite -0,39%; Broadcom and AMD rose while Intel and Micron fell.",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "D07",
+  "sezione": "deep_dive",
+  "testo": "Tassi: il Treasury a 10 anni sale al 5,10%; per Kitco il rendimento di riferimento è a circa 5,102% a fine giornata",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-12/gold-silver-slide-treasury-yields-surge-fed-hike-concerns-intensify-kitco",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "the benchmark 10-year yield reaching approximately 5.102%"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-sp-500-nasdaq-fall-as-nvidia-ceo-exit-rising-bond-yields-roil-markets-195710154.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "climbed above 5% as investors grappled with the odds of more Federal Reserve interest rate hikes."
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "\"the benchmark 10-year yield reaching approximately 5.102%\".",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "G01",
+  "sezione": "agenda",
+  "testo": "Lunedì 16 novembre alle 12:00 ET (18:00 a Roma) il presidente della Fed Kevin Warsh tiene i discorsi di apertura alla conferenza su produttività e lavoro della Fed di San Francisco",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/2026-november.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Chairman Kevin Warsh, opening remarks, Productivity and Jobs Task Force Conference, Federal Reserve Bank of San Francisco",
+    "primaria": true
+   }
+  ],
+  "tipo": "U",
+  "verifica": "confermato",
+  "trovato": "Nov 16, 12:00 p.m.: Chairman Kevin Warsh, opening remarks, Productivity and Jobs Task Force Conference, Federal Reserve Bank of San Francisco",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "G02",
+  "sezione": "agenda",
+  "testo": "Martedì 17 novembre alle 8:30 ET (14:30 a Roma) il Census Bureau pubblica le vendite al dettaglio di ottobre",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Census Bureau",
+    "url": "https://census.gov/retail/release_schedule.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "October 2026 | November 17, 2026",
+    "primaria": true
+   }
+  ],
+  "tipo": "U",
+  "verifica": "confermato",
+  "trovato": "The advance Monthly Retail Trade Report for October 2026 is released on November 17, 2026, at 8:30 a.m. ET (riga: \"October 2026 | November 17, 2026\").",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "G03",
+  "sezione": "agenda",
+  "testo": "Martedì 17 novembre alle 9:15 ET (15:15 a Roma) la Fed pubblica la produzione industriale",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/2026-november.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "G.17 Industrial Production: Nov 17, 9:15 a.m.",
+    "primaria": true
+   }
+  ],
+  "tipo": "U",
+  "verifica": "confermato",
+  "trovato": "G.17 Industrial Production: Nov 17, 9:15 a.m.",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "G04",
+  "sezione": "agenda",
+  "testo": "Martedì 17 novembre alle 17:00 ET (23:00 a Roma) conference call di Nvidia sui conti del terzo trimestre fiscale",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Nvidia (comunicato)",
+    "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Sets-Conference-Call-for-Third-Quarter-Financial-Results/",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "NVIDIA will host a conference call on Tuesday, November 17, at 2 p.m. PT (5 p.m. ET).",
+    "primaria": true
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "\"NVIDIA will host a conference call on Tuesday, November 17, at 2 p.m. PT (5 p.m. ET).\"",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "G05",
+  "sezione": "agenda",
+  "testo": "Mercoledì 18 novembre alle 14:00 ET (20:00 a Roma) la Fed pubblica i verbali della riunione del 27-28 ottobre",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/2026-november.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "FOMC minutes: November 18, 2:00 p.m. (meeting of October 27-28)",
+    "primaria": true
+   }
+  ],
+  "tipo": "U",
+  "verifica": "confermato",
+  "trovato": "FOMC minutes: November 18, 2:00 p.m. (meeting of October 27-28)",
+  "nota_revisore": "Pagina aperta in questa sessione; frase riportata dal testo restituito dalla lettura."
+ },
+ {
+  "id": "MEM-1112-K02",
+  "sezione": "agenda",
+  "testo": "Venerdì 13 novembre alle 8:30 ET (14:30 a Roma) il BLS pubblica i prezzi alla produzione (PPI) di ottobre; stima di Continuum Economics (non consenso): +0,4% m/m e 6,7% a/a, contro 6,3% a/a di settembre",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/schedule/news_release/ppi.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Producer Price Index"
+   },
+   {
+    "testata": "Continuum Economics",
+    "url": "https://continuumeconomics.com/a/342ddb8e/preview-due-november-13-us-october-ppi-firm-if-less-so-than-in-september",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Preview: Due November 13 - U.S. October PPI - Firm if less so than in September"
+   }
+  ],
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le pagine aperte direttamente in questa sessione; citazioni da titoli/sintesi di pagina, non da testo integrale. Attribuzioni e cifre allineate al PDF.",
+  "ripresa": "2026-11-12"
+ },
+ {
+  "id": "MEM-1111-G04",
+  "sezione": "agenda",
+  "testo": "Ven 13/11 14:30 PPI USA di ottobre (8:30 ET): domanda finale +0,4% sul mese, precedente +1,3%; core +0,3%, precedente +0,7%",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "TD Economics",
+    "url": "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-06/upcoming.htm",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "PPI USA, domanda finale (M/M) Ott: consenso 0,4%, precedente 1,3%"
+   },
+   {
+    "testata": "StockHub",
+    "url": "https://stockhub.kr/en/insights/macro-weekly-20261109",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "08:30 ET (22:30 KST): PPI USA di ottobre (Bureau of Labor Statistics)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda.",
+  "ripresa": "2026-11-11"
+ },
+ {
+  "id": "MEM-1111-G05",
+  "sezione": "agenda",
+  "testo": "Ven 13/11 11:00 PIL area euro del terzo trimestre (5:00 ET): +1,3% annuo, precedente +1,3%",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "TD Economics",
+    "url": "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-06/upcoming.htm",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "PIL Eurozona, dato destagionalizzato (Y/Y) 3T: consenso 1,3%, precedente 1,3%"
+   },
+   {
+    "testata": "StockHub",
+    "url": "https://stockhub.kr/en/insights/macro-weekly-20261109",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "PIL dell'area euro del terzo trimestre (data)"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda.",
+  "ripresa": "2026-11-11"
+ },
+ {
+  "id": "S1",
+  "sezione": "scaletta",
+  "apertura": {
+   "storia": "Il Treasury a 10 anni torna sopra il 5% con più rialzi Fed attesi",
+   "perche_prima": "Muove tassi, dollaro, oro e azioni insieme: è l'unico fatto del giorno che attraversa tutti i mercati; Nvidia pesa su un titolo e su un indice."
+  },
+  "moduli": [
+   {
+    "chiave": "oro",
+    "misura": "mezzo",
+    "tesi": "L'oro perde quasi il 3% con i rendimenti in rialzo, ma tre delle sue cinque peggiori giornate da metà ottobre sono arrivate con i rendimenti in calo: i tassi non spiegano tutto",
+    "domanda": "Perché l'oro, il rifugio, cala quando la Fed è più dura, e basta questo a spiegarlo?",
+    "prove": [
+     "Kitco: spot -2,77% a circa 3.876 $, spinto da rendimenti, dollaro e attese di rialzi",
+     "Probabilità del 85% di un rialzo di 25 pb all'8-9 dicembre (Kitco)",
+     "Le cinque cadute più forti dal 12/10: data, calo dell'oro e variazione del 10 anni (FMP)",
+     "Oro -7,3% dal 12/10 (FMP)",
+     "Primo supporto 3.852 $ (Kitco)"
+    ],
+    "contro": "Nei giorni di rendimenti in rialzo l'oro scende nella maggior parte dei casi: 7 su 9 dal 13/10",
+    "schede": [
+     "D03",
+     "C03",
+     "MEM-1102-N07",
+     "MEM-1102-C03",
+     "MEM-1023-C03",
+     "MEM-1023-M07"
+    ],
+    "memoria": "30/10 e 22/10: vendite forzate con le azioni (Kitco)"
+   },
+   {
+    "chiave": "tassi",
+    "misura": "doppio",
+    "tesi": "Il 10 anni sopra il 5% non è un premio chiesto per prestare allo Stato: il rialzo è più forte sulle scadenze medie, che seguono la Fed, che sul 30 anni, nonostante due aste deboli",
+    "domanda": "Dietro il rialzo dei rendimenti ci sono i tassi Fed o la fiducia nel debito USA?",
+    "prove": [
+     "Variazioni per scadenza dal 10/11 al 12/11: 2 anni +13 pb, 10 anni +12, 30 anni +8 (FMP)",
+     "Asta a 30 anni al 5,441%, seconda debole: indirette 68,1%, copertura 2,36 (TheStreet)",
+     "Sussidi 200 mila contro 195 attesi: dato più freddo, 2 anni comunque +13 pb",
+     "Hammack, Goolsbee, Bowman, Paulson: tutti per più rialzi",
+     "Distanza 10 anni meno 2 anni dal 13/10 (FMP)"
+    ],
+    "contro": "Due aste deboli di fila dicono che i compratori chiedono di più per il debito: se il 30 anni sale più del 2 anni, la tesi cade",
+    "schede": [
+     "T01",
+     "K01",
+     "K02",
+     "D01",
+     "D02"
+    ],
+    "memoria": "ed. 11/11: 2 anni +18,9 pb dopo il CPI"
+   },
+   {
+    "chiave": "chip",
+    "misura": "doppio",
+    "tesi": "Senza Huang Nvidia chiude a -4,3% dopo aver perso il 10,6% nel pre-mercato, e in media i titoli tecnologici salgono: il mercato separa Nvidia dal settore",
+    "domanda": "Le dimissioni di Huang sono un problema di Nvidia o di tutta l'intelligenza artificiale?",
+    "prove": [
+     "Nvidia -4,34% a 166,19 $ dopo -10,6% nel pre-mercato (Yahoo, TheStreet)",
+     "Titoli tecnologici in media +2,2% al NYSE e +1,5% al Nasdaq (FMP) contro Nasdaq -0,39%",
+     "Cerebras +15% dopo ricavi record (Yahoo, SEC)",
+     "Broadcom e AMD su, Intel e Micron giù (Yahoo)",
+     "Bernstein taglia l'obiettivo a 200 $ da 400 (TheStreet)",
+     "Conti il 17 novembre alle 23:00 (Nvidia)"
+    ],
+    "contro": "Il taglio di Bernstein a metà dell'obiettivo dice che gli analisti vedono un danno vero alla valutazione",
+    "schede": [
+     "N08",
+     "D04",
+     "D05",
+     "D06",
+     "N03",
+     "MEM-1112-D03",
+     "MEM-1111-N01",
+     "MEM-1111-D07",
+     "MEM-1110-N02"
+    ],
+    "memoria": "ed. 12/11: dopo-borsa -8,6%"
+   }
+  ]
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Nvidia -4,34% a 166,19 $ dopo le dimissioni di Huang (Yahoo Finance, chiusura di Wall Street)",
+   "Treasury a 10 anni sopra il 5% con le attese di più rialzi Fed (Yahoo Finance)",
+   "Oro -2,8% con rendimenti e dollaro in rialzo (Kitco, 23:16 di Roma)"
+  ],
+  "testate": [
+   {
+    "testata": "Yahoo Finance",
+    "storie": [
+     "Nvidia dopo le dimissioni di Huang",
+     "Treasury a 10 anni sopra il 5%",
+     "Brent a 96 $"
+    ]
+   },
+   {
+    "testata": "TheStreet",
+    "storie": [
+     "Asta a 30 anni debole, seconda di fila",
+     "Nvidia, Hammack, Goolsbee"
+    ]
+   },
+   {
+    "testata": "Milano Finanza",
+    "storie": [
+     "Milano chiude in lieve calo con Nvidia",
+     "Brent in rialzo"
+    ]
+   }
+  ],
+  "fuori": [],
+  "concorda": false,
+  "motivo": "Le testate aprono su Nvidia e Huang; noi apriamo sui tassi perché il rendimento a 10 anni sopra il 5% con l'oro a -2,8% muove più mercati dell'uscita di un amministratore; Nvidia resta in 'In 30 secondi' e ha un approfondimento. Bloomberg, FT e WSJ non consultati."
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Sussidi di disoccupazione sopra le attese (200 mila contro 195 mila, dato più freddo) ma Treasury a 2 anni +13 pb",
+  "ricerche": [
+   "WebSearch: Treasury yields jump 10-year above 5% Thursday Goolsbee precarious Fed December hike gold falls",
+   "WebFetch: Yahoo Finance live del 12/11",
+   "WebFetch: TheStreet Stock Market Today 12/11"
+  ],
+  "ipotesi": [
+   {
+    "causa": "I discorsi dei membri Fed (Hammack, Goolsbee, Bowman, Paulson) e le aste deboli contano più del dato sul lavoro",
+    "fonte": "D02",
+    "prevede": "oro in calo e dollaro in rialzo",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Due aste deboli di fila: i compratori chiedono un rendimento più alto per il debito USA",
+    "fonte": "K02",
+    "prevede": "30 anni in rialzo più del 2 anni",
+    "prezzi": "in parte"
+   }
+  ],
+  "esito": "ipotesi"
+ },
+ {
+  "id": "D08",
+  "sezione": "deep_dive",
+  "testo": "L'11 novembre, Veterans Day, è festa federale negli Stati Uniti: le pubblicazioni quotidiane e settimanali della Fed slittano a giovedì 12 novembre",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/2026-november.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Nov 11 (Veterans Day): Scheduled daily and weekly releases move to Thursday, Nov 12.",
+    "primaria": true
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "Nov 11 (Veterans Day): Scheduled daily and weekly releases move to Thursday, Nov 12.",
+  "nota_revisore": "Pagina aperta in questa sessione."
+ },
+ {
+  "id": "M03",
+  "sezione": "mercati",
+  "testo": "Spread BTP-Bund a circa 106 punti base a fine seduta il 12/11, con il BTP a 10 anni al 4,39%",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Sintesi dello strumento di lettura (pagina in italiano): spread BTP-Bund circa 106 punti base, BTP a 10 anni al 4,39%"
+   }
+  ],
+  "verifica": "confermato",
+  "trovato": "The BTP-Bund spread was about 106 basis points, with the 10-year BTP yielding 4.39%. (sintesi della pagina)",
+  "nota_revisore": "Pagina aperta in questa sessione; l'altra pagina (live blog di QuiFinanza) dava 105 pb e non è stata usata."
+ },
+ {
+  "id": "MEM-1102-N07",
+  "sezione": "mercati",
+  "testo": "Oro future -3,3% a 3.898,9 $ e argento oltre -6% venerdì: vendite forzate dopo il calo delle azioni, con la Fed ferma a 3,75-4,00% e due voti per il rialzo",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-10-30/gold-falls-below-3900-silver-tumbles-wall-street-selloff-triggers",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "forced liquidation, portfolio rebalancing"
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/fomc-october-2026-fed-holds-rates",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "FOMC October 2026: Fed Holds Rates in a 10-2 Vote as Markets Price a December Hike"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo.",
+  "ripresa": "2026-11-02"
+ },
+ {
+  "id": "MEM-1102-C03",
+  "sezione": "mercati",
+  "testo": "L'oro cede con le azioni: vendita forzata che ha prevalso sul rifugio (Kitco)",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-10-30/gold-falls-below-3900-silver-tumbles-wall-street-selloff-triggers",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "A tech-led equity selloff intensified selling across precious metals."
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/fomc-october-2026-fed-holds-rates",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Fed Holds Rates in a 10-2 Vote as Markets Price a December Hike"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo.",
+  "ripresa": "2026-11-02"
+ },
+ {
+  "id": "MEM-1023-C03",
+  "sezione": "deep_dive",
+  "testo": "Kitco indica come fattori dominanti la pressione delle liquidazioni e le attese di nuove strette monetarie",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-10-22/precious-metals-tumble-despite-falling-yields-hormuz-tensions-intensify",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "liquidation pressure and the outlook for further monetary tightening remained dominant considerations"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/investinglive-americas-fx-news-wrap-22-oct-nasdaq-sinks-as-ai-worries-bite-treasury-yields-tumble/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Oro 4.021,61 (-2,88%) ... Argento -5,87% ... Rame -2,68%"
+   }
+  ],
+  "novita": null,
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero.",
+  "ripresa": "2026-10-23"
+ },
+ {
+  "id": "MEM-1023-M07",
+  "sezione": "mercati",
+  "testo": "Giovedì 22/10: oro spot -2,88% (4.021 $), argento -5,9%, rame -2,68%, bitcoin -3,34%; Nasdaq 100 -2,90%; Apple +1,23%",
+  "data_evento": "2026-10-22",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/investinglive-americas-fx-news-wrap-22-oct-nasdaq-sinks-as-ai-worries-bite-treasury-yields-tumble/",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Oro: 4.021,61 (-2,88%) ... Argento: 54,55 (-5,87%)"
+   },
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-10-22/precious-metals-tumble-despite-falling-yields-hormuz-tensions-intensify",
+    "data_pubblicazione": "2026-10-22",
+    "citazione": "Oro spot -119,10 $ (-2,88%), argento -5,90%"
+   }
+  ],
+  "novita": null,
+  "fonte_singola": false,
+  "verifica": "confermato",
+  "nota_revisore": "2 fonti indipendenti con titolo/citazione coerenti col testo e date corrette; verifica sui risultati di ricerca, pagine non lette per intero.",
+  "ripresa": "2026-10-23"
+ },
+ {
+  "id": "MEM-1112-D03",
+  "sezione": "deep_dive",
+  "testo": "Nvidia: dopo due sedute di calo aveva perso circa 430 miliardi $ di valore di mercato; mercoledì +2,9% in seduta, poi -8,6% dopo la chiusura; Huang possiede il 3,6% e non ha un successore evidente; conti il 17 novembre",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "MarketScreener (Reuters)",
+    "url": "https://www.marketscreener.com/news/stocks-end-higher-as-coreweave-results-ease-ai-spending-worries-ce785edbd18cf726",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Stocks end higher as CoreWeave results ease AI spending worries"
+   },
+   {
+    "testata": "AP (Yahoo Finance)",
+    "url": "https://ca.finance.yahoo.com/news/asian-shares-mostly-slip-nvidias-071514492.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "In after-hours trading, Nvidia's shares fell 8.6% after reports said Nvidia's board was meeting late Wednesday."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borse oggi in diretta"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le fonti dichiarate; citazioni da sintesi di pagina.",
+  "ripresa": "2026-11-12"
+ },
+ {
+  "id": "MEM-1111-N01",
+  "sezione": "deep_dive",
+  "testo": "Nvidia cede il 5,5% a 168,78 $ e pesa più di ogni altro titolo sugli indici: il consiglio indaga sul CEO Huang e Trump dice che l'FBI indaga su una presunta spia cinese; l'indice dei semiconduttori perde solo lo 0,4%",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "CNBC (via StockTitan)",
+    "url": "https://www.stocktitan.net/articles/stock-market-today-live-november-10-2026",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Nvidia (NVDA): -5,53% a 168,78 dollari, tra i principali freni agli indici"
+   },
+   {
+    "testata": "AP (via WRAL)",
+    "url": "https://www.wral.com/news/ap/297d0-asian-shares-mostly-rise-on-ai-chip-demand-despite-wall-streets-retreat-on-inflation-data/",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Nvidia è stata la componente più pesante dell'S&P 500, con -5,5%"
+   },
+   {
+    "testata": "Reuters (via GV Wire)",
+    "url": "https://gvwire.com/2026/11/10/wall-st-ends-lower-as-hot-inflation-data-fed-comments-heighten-rate-worries/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Indice dei semiconduttori di Filadelfia: -0,4%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda.",
+  "ripresa": "2026-11-11"
+ },
+ {
+  "id": "MEM-1111-D07",
+  "sezione": "deep_dive",
+  "testo": "Nvidia: -9,6% in due sedute; Citigroup taglia il target da 315 a 285 $ confermando Buy; Microsoft torna più preziosa di Nvidia per la prima volta da giugno 2025",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Goldesel",
+    "url": "https://goldesel.de/artikel/abendupdate-10-11-dax-haelt-knappes-plus-wall-street-rutscht-ab-fed-signale-renditen-ueber-5-und-anthropic-ernuechterung",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Citigroup abbassa il target da 315 a 285 dollari, confermando Buy"
+   },
+   {
+    "testata": "Reuters (via GV Wire)",
+    "url": "https://gvwire.com/2026/11/10/wall-st-ends-lower-as-hot-inflation-data-fed-comments-heighten-rate-worries/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Nvidia: -5,4% nella sessione, -9,6% negli ultimi due giorni"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda.",
+  "ripresa": "2026-11-11"
+ },
+ {
+  "id": "MEM-1110-N02",
+  "sezione": "deep_dive",
+  "testo": "Il consiglio di Nvidia ha avviato un'indagine con un consulente esterno dopo che Jensen Huang, in un memo, ha ammesso una relazione extraconiugale; non è stabilito che abbia rivelato segreti o che la donna sia legata all'intelligence cinese (Pechino parla di accuse infondate)",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Eurasia Business News",
+    "url": "https://eurasiabusinessnews.com/2026/11/09/stock-market-today-nov-9-2026-nvidia-slides-amid-alleged-chinese-spying-as-dow-surges-over-1000-points/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Frammento: \"The investigation has not established that Huang disclosed secrets or knowingly participated in espionage.\""
+   },
+   {
+    "testata": "Le Private Banker",
+    "url": "https://leprivatebanker.com/2026/11/09/nasdaq-surges-2-5-to-claw-back-part-of-correction-as-chipmakers-rally-even-with-nvidia-down-on-board-probe-of-huang/",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "\"Huang acknowledged in a Sunday memo an affair with a woman who is suspected of passing information to Beijing.\"; \"The board said it had launched an independent investigation.\""
+   },
+   {
+    "testata": "Money.it",
+    "url": "https://www.money.it/argento-sopra-52-dollari-petrolio-nvidia-cpi-09-11-2026",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Nvidia a Francoforte -6% circa; ~270 mld $ di valore bruciato (LSEG Datastream) vs chiusura venerdi"
+   },
+   {
+    "testata": "AP (KSAT)",
+    "url": "https://www.ksat.com/business/2026/11/10/asian-stocks-rise-after-technology-shares-advance-on-wall-street-ahead-of-us-inflation-data/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "The stock that has become the face of the AI boom, Nvidia, fell 4.3%."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Memo e indagine con consulente esterno da due fonti indipendenti; legame con intelligence cinese esplicitamente non stabilito; -4,2% e minimo dal 7/4 da Reuters.",
+  "ripresa": "2026-11-10"
+ },
+ {
+  "id": "MEM-1110-N05",
+  "sezione": "deep_dive",
+  "testo": "Lo spread BTP-Bund chiude a 103,7 punti base lunedì, da 107 in apertura; il FTSE MIB sale del 2,69% a 51.399, la miglior Borsa europea",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/09/borsa-milano-la-migliore-in-europa-con-il-credito-banco-bpm-10_2f989b3c-ac40-4f66-b8f6-6ec553a97620.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "il differenziale ha concluso la seduta a 103,7 punti base contro i 107 dell'avvio."
+   },
+   {
+    "testata": "ANSA (titolo)",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/09/borsa-milano-chiude-in-forte-rialzo-ftse-mib-269_abeba7ae-34ab-492d-8445-043916ad8b88.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Borsa: Milano chiude in forte rialzo, Ftse Mib +2,69%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Lo spread non è nel PDF; scheda di riserva.",
+  "ripresa": "2026-11-10"
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "MSCI ACWI (ETF): chiusura del 31/12/2025 per la variazione da inizio anno",
+  "ricerche": [
+   "WebSearch: iShares MSCI ACWI ETF ACWI closing price December 31 2025",
+   "WebSearch: ACWI ETF year-end 2025 price 2025 return NAV per share December 2025",
+   "WebFetch: digrin.com ACWI price history (solo valori mensili)",
+   "Alpha Vantage GLOBAL_QUOTE ACWI (solo l'ultima seduta)"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "digrin.com",
+   "url": "https://www.digrin.com/stocks/detail/ACWI/price"
+  }
+ }
+]
