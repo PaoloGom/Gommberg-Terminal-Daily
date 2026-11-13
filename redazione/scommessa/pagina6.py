@@ -15,7 +15,7 @@ from html import escape as _esc, unescape as _unesc
 
 def esc(t):
     """Chi scrive può usare "&" o "&amp;": qui si riporta a una forma sola (mai "S&amp;P" stampato)."""
-    return _esc(_unesc(str(t)))
+    return _esc(_unesc(str(t)), quote=False)   # quote=False: l'apostrofo resta apostrofo (mai "&#x27;" stampato)
 
 from gommberg_engine import P, B, section, tbl, headers, img, box, side_by_side, box_pari, CW, mm, Spacer
 from reportlab.platypus import TableStyle
