@@ -360,6 +360,21 @@ for n in nt:
         con_fatto += 1 if (FATTO.search(n) or propri) else 0
     elif re.search(r"[+-]\d|\b(rialzo|calo|sale|scende|salgono|scendono)\b", n, re.I):
         ERR.append(f"notizie: \"{n[:70]}\" riscrive il cruscotto: serve un fatto nuovo (dato, dichiarazione, società, decisione)")
+# v8.2: il soggetto del titolo è il fatto che ha mosso il prezzo, non il prezzo. Nella prova del 13/11 "Il Brent risale
+# a 96 $", "Milano cede lo 0,3%" e "L'Euro Stoxx 50 chiude ai massimi" passavano grazie a un nome proprio nel testo.
+MOSSA = re.compile(r"\b(sal[ei]|salgono|scend[eo]|scendono|risal[ei]|cede|cedono|chiud[eo]|chiudono|guadagn|perd[eo]|"
+                   r"rialz|cal[oa]\b|massim|minim|rimbalz|crolla|vola|tocca)|\d\s?%", re.I)
+for t in VOCE.get("notizie") or []:
+    testa = re.findall(r"[a-zà-ü&0-9]+", str(t).lower().replace("l'", " "))
+    while testa and testa[0] in ("il", "lo", "la", "i", "gli", "le", "l"):
+        testa = testa[1:]
+    if testa and testa[0] != "area" and any(w in ASSET for w in testa[:2]) and MOSSA.search(str(t)):
+        ERR.append(f"notizie: titolo-cruscotto \"{str(t)[:70]}\": il soggetto del titolo è il fatto che ha mosso il "
+                   "prezzo (chi, cosa è successo), non il mercato; se il fatto non c'è, la notizia non entra")
+for a in VOCE.get("approfondimenti") or []:
+    n = len(str(a.get("titolo", "")).split()) if isinstance(a, dict) else 0
+    if n > 18:
+        ERR.append(f"approfondimenti: titolo di {n} parole, massimo 18 (meglio 15): una sola idea \"{str(a.get('titolo'))[:60]}\"")
 if len(nt) >= 6 and con_fatto < 2:
     ERR.append(f"notizie: solo {con_fatto} con dati macro o società: almeno 2 su 6")
 for b in VOCE.get("brevi", []):

@@ -66,6 +66,17 @@ gia_usciti = " | ".join(n for v in voci if v["data"] < oggi_s for n in v.get("no
 
 fatti = json.load(open(fatti_p, encoding="utf-8"))
 problemi, avvisi = [], []
+# v8.2: il revisore non lavora su fatti.json (vedrebbe le citazioni e le ricopierebbe, prova del 13/11). Riceve
+# revisione_incarico.json (fatto e indirizzo, niente citazione) e risponde in revisione.json; qui gli esiti si uniscono.
+REV_P = os.path.join(os.path.dirname(os.path.abspath(fatti_p)), "revisione.json")
+if not prima_revisione and os.path.exists(REV_P):
+    esiti = {str(e.get("id")): e for e in json.load(open(REV_P, encoding="utf-8")) if isinstance(e, dict)}
+    for f in fatti:
+        e = esiti.get(str(f.get("id")))
+        if e:
+            f.update({k: e[k] for k in ("trovato", "verifica", "nota_revisore") if k in e})
+    json.dump(fatti, open(fatti_p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"Revisione: uniti {sum(1 for f in fatti if str(f.get('id')) in esiti)} esiti da revisione.json")
 ids = [f.get("id") for f in fatti]
 if len(ids) != len(set(ids)):
     problemi.append("id duplicati nelle schede")
@@ -171,16 +182,30 @@ def da_rivedere(schede, registri, massimo=25):
     return [f for f in cand if classe(f) < 7][:massimo]
 
 
+def _parole(t):
+    return set(re.findall(r"[a-zà-ü0-9]+", str(t).lower()))
+
+
 lista = da_rivedere(fatti, tutte)
 if prima_revisione:
     print("REVISIONE: " + ",".join(str(f.get("id")) for f in lista))
+    inc = [{"id": f.get("id"), "fatto": f.get("testo"),
+            "fonti": [{"testata": s.get("testata"), "url_da_ritrovare_con_una_ricerca": s.get("url")}
+                      for s in f.get("fonti") or []]} for f in lista]
+    inc_p = os.path.join(os.path.dirname(os.path.abspath(fatti_p)), "revisione_incarico.json")
+    json.dump(inc, open(inc_p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"Incarico del revisore: {inc_p} (senza citazioni); risposta in revisione.json")
 else:
     for f in lista:
         i, v = f.get("id"), f.get("verifica")
+        nuove = _parole(f.get("trovato")) - set().union(*[_parole(s.get("citazione")) for s in f.get("fonti") or [{}]])
         if v is None:
             problemi.append(f"{i}: da rivedere (elenco REVISIONE) e senza esito")
         elif v == "confermato" and len(str(f.get("trovato") or "").split()) < 6:
             problemi.append(f"{i}: \"confermato\" senza \"trovato\": il revisore copia la frase letta sulla pagina aperta (parola per parola)")
+        elif v == "confermato" and len(nuove) < 6:
+            problemi.append(f"{i}: \"trovato\" ricopia la citazione della scheda: il revisore riapre la pagina e scrive la frase "
+                            "che contiene il fatto e quella che la segue (ISTRUZIONI §4.7)")
         elif v == "confermato":
             manca = sorted(_num(f.get("testo")) - _num(f.get("trovato")) - set().union(*[_num(s.get("citazione")) for s in f.get("fonti") or [{}]]))
             if manca:
@@ -199,6 +224,25 @@ if prima_revisione:
         problemi.append(f"RICERCA: {n_app} schede per gli approfondimenti (sezione \"deep_dive\"), ne servono almeno 6: "
                         "per ogni tesi i fatti che la provano (causa, contesto, chi lo dice, cosa succede dopo), "
                         "non solo i prezzi (ISTRUZIONI §2, \"Un approfondimento = una tesi\")")
+
+# Lettura del mondo (v8.2, prova del 13/11: lette solo Yahoo Finance, TheStreet e Milano Finanza, apertura sbagliata,
+# mancati gli attacchi ai siti sauditi e il dollaro a 160 yen). Si controlla prima della scaletta, quando cercare costa poco.
+if prima_revisione:
+    pp = [f for f in tutte if isinstance(f, dict) and f.get("sezione") == "prime_pagine"]
+    r = pp[0] if pp else {}
+    lette = [t for t in r.get("testate") or [] if t.get("testata") and (t.get("storie") or t.get("apertura"))]
+    glob = [t for t in lette if re.search(r"reuters|bloomberg|financial times|\bft\b|wall street journal|\bwsj\b", t["testata"], re.I)]
+    manca = []
+    if len(lette) < 4:
+        manca.append(f"{len(lette)} testate lette, ne servono 4")
+    if len(glob) < 2:
+        manca.append("almeno 2 tra Reuters, Bloomberg, Financial Times e Wall Street Journal (bastano i titoli dei risultati di ricerca)")
+    if len([x for x in r.get("flusso") or [] if str(x).strip()]) < 5:
+        manca.append("almeno 5 titoli nel 'flusso' dall'ultima edizione")
+    if "fuori" not in r:
+        manca.append("'fuori' (ogni storia in evidenza in 2 letture che non copriamo, col motivo)")
+    if manca:
+        problemi.append("RICERCA, lettura del mondo (registro prime_pagine, APP_FONTI §4): " + "; ".join(manca))
 
 # Scaletta (ISTRUZIONI §6.2b): prima si decide cosa si vuole dimostrare, poi si cercano le prove. Si scrive prima della
 # ricerca mirata; qui si controlla solo che esista e che ogni approfondimento abbia tesi, domanda, prove e smentita.

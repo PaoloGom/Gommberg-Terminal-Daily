@@ -125,7 +125,7 @@ C = {
         {"tag": "Chip", "titolo": "TSMC: utile del terzo trimestre sopra le stime, ma l'Asia vende i chip",
          "testo": "L'utile netto batte la stima degli analisti raccolta da LSEG (Teleborsa). I conti, usciti stamattina, "
                   "non fermano le vendite sui chip in Asia.", "rimando": "chip"},
-        {"tag": "Asia", "titolo": "Tokyo: SoftBank perde quasi il 10% in apertura",
+        {"tag": "Asia", "titolo": "SoftBank perde quasi il 10% all'apertura di Tokyo",
          "testo": "Kioxia e Advantest cedono circa l'11% (ANSA, Milano Finanza): le vendite sui titoli dell'AI arrivano "
                   "in Asia.", "rimando": "chip"},
         {"tag": "Cina", "titolo": "Memorie: il timore è l'annuncio della cinese CXMT",
