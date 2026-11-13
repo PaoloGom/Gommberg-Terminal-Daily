@@ -1,0 +1,700 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Dopo la chiusura di Wall Street Nvidia perde l'8,6% (8,57% secondo Milano Finanza) dopo le notizie che il consiglio si riuniva sul caso del suo amministratore delegato Jensen Huang; per il Wall Street Journal il consiglio si prepara a valutarne la rimozione (Milano Finanza), senza decisione ufficiale; l'8/11 il consiglio aveva aperto un'indagine indipendente su un'operazione di intelligence straniera rivolta a Huang; stamattina il future sul Nasdaq-100 cede circa l'1%; i conti trimestrali di Nvidia escono il 17 novembre",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP (Yahoo Finance)",
+    "url": "https://ca.finance.yahoo.com/news/asian-shares-mostly-slip-nvidias-071514492.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "In after-hours trading, Nvidia's shares fell 8.6% after reports said Nvidia's board was meeting late Wednesday."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borse oggi in diretta"
+   },
+   {
+    "testata": "Share Talk",
+    "url": "https://www.share-talk.com/what-happened-overnight-thursday-12th-november-2026/",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "What happened overnight - Thursday 12th November 2026"
+   },
+   {
+    "testata": "Nvidia",
+    "url": "https://investor.nvidia.com/news/press-release-details/2026/Statement-from-NVIDIA-Board-of-Directors/",
+    "data_pubblicazione": "2026-11-08",
+    "citazione": "Statement from NVIDIA Board of Directors"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le pagine aperte direttamente in questa sessione; citazioni da titoli/sintesi di pagina, non da testo integrale. Attribuzioni e cifre allineate al PDF."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Tokyo: il Nikkei 225 chiude a circa 60.819 punti, -429 (-0,7%), dopo tre rialzi di fila; il Topix sale dello 0,2%; vendono Advantest, SoftBank e Kioxia; le vendite sui titoli dei chip seguono le notizie su Huang",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "News On Japan",
+    "url": "https://newsonjapan.com/article/151344.php",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Nikkei Falls 429 Points as Nvidia Turmoil Rattles Tokyo Stocks"
+   },
+   {
+    "testata": "AP (Yahoo Finance)",
+    "url": "https://ca.finance.yahoo.com/news/asian-shares-mostly-slip-nvidias-071514492.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "In after-hours trading, Nvidia's shares fell 8.6% after reports said Nvidia's board was meeting late Wednesday."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le pagine aperte direttamente in questa sessione; citazioni da titoli/sintesi di pagina, non da testo integrale. Attribuzioni e cifre allineate al PDF."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Seul: il Kospi chiude a 5.342,73, -0,61%, e interrompe due rialzi di fila (+4,39% martedì, +2,6% mercoledì); Naver, di cui Nvidia è il terzo azionista, perde il 6,43%; gli stranieri comprano per 370,4 miliardi di won",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Korea Herald",
+    "url": "https://www.koreaherald.com/article/10935465",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Seoul shares snap 2-day rally amid escalating Nvidia risks"
+   },
+   {
+    "testata": "AP (Yahoo Finance)",
+    "url": "https://ca.finance.yahoo.com/news/asian-shares-mostly-slip-nvidias-071514492.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "In after-hours trading, Nvidia's shares fell 8.6% after reports said Nvidia's board was meeting late Wednesday."
+   }
+  ],
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Chiusura Kospi coerente con la serie in dati.json; fonte singola L1 (Korea Herald), attribuita nel testo."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "CoreWeave sale del 24,7% a Wall Street, il maggior rialzo giornaliero da oltre tre mesi, dopo ricavi del terzo trimestre sopra le stime e il piano di tornare in utile rettificato nel primo semestre 2028; Nebius +15,4%, Applied Digital +7,4%",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "MarketScreener (Reuters)",
+    "url": "https://www.marketscreener.com/news/stocks-end-higher-as-coreweave-results-ease-ai-spending-worries-ce785edbd18cf726",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Stocks end higher as CoreWeave results ease AI spending worries"
+   },
+   {
+    "testata": "TheStreet",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-nov-11-2026",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Stock Market Today (Nov. 11, 2026): Nasdaq, S&P 500 gain after CoreWeave earnings beat; Apple hits new record"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/stock-market-news/coreweave-sparks-ai-cloud-stock-rally-lifts-nvidia-as-results-ease-bubble-fears-5018610",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "CoreWeave sparks AI cloud stock rally, lifts Nvidia as results ease bubble fears"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le pagine aperte direttamente in questa sessione; citazioni da titoli/sintesi di pagina, non da testo integrale. Attribuzioni e cifre allineate al PDF."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Petrolio: stamattina il Brent perde l'1,6% a circa 91,3 $ e il WTI l'1,4% a circa 85,3 $; pesano meno timori di un allargamento del conflitto in Medio Oriente, i colloqui Russia-Ucraina ad Abu Dhabi, l'offerta Opec+ di ottobre in aumento e le scorte USA di greggio in crescita di 9 milioni di barili (API)",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Express Tribune)",
+    "url": "https://tribune.com.pk/story/2639889/oil-falls-over-1-on-easing-geopolitical-fears-and-oversupply-worries",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Oil falls over $1 on easing geopolitical fears and oversupply worries"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borse oggi in diretta"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le pagine aperte direttamente in questa sessione; citazioni da titoli/sintesi di pagina, non da testo integrale. Attribuzioni e cifre allineate al PDF."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Euro Stoxx 50 +1,04% a 6.393,39 punti, massimo da due mesi, terzo rialzo di fila; tra le cause, secondo dpa-AFX, i minori timori di sopravvalutazione dei titoli legati all'intelligenza artificiale",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (onvista)",
+    "url": "https://www.onvista.de/news/2026/11-11-roundup-aktien-europa-schluss-dritter-aufwaertstag-in-folge-weniger-ki-sorgen-0-10-26575257",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "ROUNDUP/Aktien Europa Schluss: Dritter Aufwärtstag in Folge - weniger KI-Sorgen"
+   },
+   {
+    "testata": "dpa-AFX (ariva)",
+    "url": "https://www.ariva.de/news/aktien-europa-schluss-dritter-aufwaertstag-in-folge-12203756",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Aktien Europa Schluss: Dritter Aufwärtstag in Folge - KI-Sorgen lassen nach"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le pagine aperte direttamente in questa sessione; citazioni da titoli/sintesi di pagina, non da testo integrale. Attribuzioni e cifre allineate al PDF."
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "testo": "Fed: dopo il CPI il mercato dà per certo un rialzo di almeno 25 punti base a dicembre, con il 10,4% di probabilità per 50 punti base (CME FedWatch); diversi membri della Fed si dicono aperti a un rialzo più deciso",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "MarketScreener (Reuters)",
+    "url": "https://www.marketscreener.com/news/stocks-end-higher-as-coreweave-results-ease-ai-spending-worries-ce785edbd18cf726",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Stocks end higher as CoreWeave results ease AI spending worries"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borse oggi in diretta"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le pagine aperte direttamente in questa sessione; citazioni da titoli/sintesi di pagina, non da testo integrale. Attribuzioni e cifre allineate al PDF."
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "testo": "Valute: il dollaro è vicino ai massimi da 18 mesi; stamattina l'euro vale 1,1080 $ (1,1091 a New York); il dollaro vale 159,78 yen",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borse oggi in diretta"
+   },
+   {
+    "testata": "AP (Yahoo Finance)",
+    "url": "https://ca.finance.yahoo.com/news/asian-shares-mostly-slip-nvidias-071514492.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "In after-hours trading, Nvidia's shares fell 8.6% after reports said Nvidia's board was meeting late Wednesday."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le pagine aperte direttamente in questa sessione; citazioni da titoli/sintesi di pagina, non da testo integrale. Attribuzioni e cifre allineate al PDF."
+ },
+ {
+  "id": "N09",
+  "sezione": "top_news",
+  "testo": "Milano: il FTSE MIB chiude a 51.946, +0,37%, con Technoprobe +7,73%, STMicroelectronics +5,16%, Prysmian +4,29%; Bff Bank -22,27% su risultati peggiori delle attese e timori di aumento di capitale; Fincantieri -3,55%",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "SoldiOnline (ANSA)",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/ftse-mib-037-vicino-ai-52000-punti-perche-i-tech-trainano-milano",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Ftse Mib +0,37% a 51.946 punti"
+   },
+   {
+    "testata": "QuiFinanza",
+    "url": "https://quifinanza.it/dirette/borsa-ultime-notizie-11-novembre-2026/1023749/",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "La Borsa dell’11 novembre, Milano chiude positiva con il tech, male Fincantieri"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le pagine aperte direttamente in questa sessione; citazioni da titoli/sintesi di pagina, non da testo integrale. Attribuzioni e cifre allineate al PDF."
+ },
+ {
+  "id": "N10",
+  "sezione": "top_news",
+  "testo": "Wall Street: l'indice dei chip di Filadelfia sale del 5,7% al massimo di chiusura dal 3 novembre, con tutti i titoli in rialzo; il settore tecnologico dell'S&P 500 +2,7%; il VIX scende a 17,49, quarto calo di fila",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "MarketScreener (Reuters)",
+    "url": "https://www.marketscreener.com/news/stocks-end-higher-as-coreweave-results-ease-ai-spending-worries-ce785edbd18cf726",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Stocks end higher as CoreWeave results ease AI spending worries"
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/stock-market-news/us-stock-futures-tick-higher-after-wall-st-slips-on-hot-cpi-nvidia-losses-5017417",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Wall Street ends higher, Nasdaq adds over 1.5% as AI trade comes back to life"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le pagine aperte direttamente in questa sessione; citazioni da titoli/sintesi di pagina, non da testo integrale. Attribuzioni e cifre allineate al PDF."
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "Chip: l'indice dei chip di Filadelfia +5,7% l'11/11, massimo di chiusura dal 3/11; tutti i componenti in rialzo; S&P 500 17 nuovi massimi a 52 settimane e nessun minimo; volumi 14,74 miliardi di titoli contro una media di 18,68",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "MarketScreener (Reuters)",
+    "url": "https://www.marketscreener.com/news/stocks-end-higher-as-coreweave-results-ease-ai-spending-worries-ce785edbd18cf726",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Stocks end higher as CoreWeave results ease AI spending worries"
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/stock-market-news/us-stock-futures-tick-higher-after-wall-st-slips-on-hot-cpi-nvidia-losses-5017417",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Wall Street ends higher, Nasdaq adds over 1.5% as AI trade comes back to life"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le fonti dichiarate; citazioni da sintesi di pagina."
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "CoreWeave: ricavi del terzo trimestre 3,66 miliardi $ sopra le stime; prevede utile rettificato nel primo semestre 2028; Reuters: i conti allentano i timori sulla spesa per l'AI",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "MarketScreener (Reuters)",
+    "url": "https://www.marketscreener.com/news/stocks-end-higher-as-coreweave-results-ease-ai-spending-worries-ce785edbd18cf726",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Stocks end higher as CoreWeave results ease AI spending worries"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/stock-market-news/coreweave-sparks-ai-cloud-stock-rally-lifts-nvidia-as-results-ease-bubble-fears-5018610",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "CoreWeave sparks AI cloud stock rally, lifts Nvidia as results ease bubble fears"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le fonti dichiarate; citazioni da sintesi di pagina."
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Nvidia: dopo due sedute di calo aveva perso circa 430 miliardi $ di valore di mercato; mercoledì +2,9% in seduta, poi -8,6% dopo la chiusura; Huang possiede il 3,6% e non ha un successore evidente; conti il 17 novembre",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "MarketScreener (Reuters)",
+    "url": "https://www.marketscreener.com/news/stocks-end-higher-as-coreweave-results-ease-ai-spending-worries-ce785edbd18cf726",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Stocks end higher as CoreWeave results ease AI spending worries"
+   },
+   {
+    "testata": "AP (Yahoo Finance)",
+    "url": "https://ca.finance.yahoo.com/news/asian-shares-mostly-slip-nvidias-071514492.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "In after-hours trading, Nvidia's shares fell 8.6% after reports said Nvidia's board was meeting late Wednesday."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borse oggi in diretta"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le fonti dichiarate; citazioni da sintesi di pagina."
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Nvidia: l'8/11 il consiglio annuncia un'indagine indipendente dopo notizie che Huang sarebbe bersaglio di un'operazione di intelligence straniera; dice di non avere motivo di ritenere compromessi sicurezza nazionale o segreti industriali, e di avere fiducia in Huang",
+  "data_evento": "2026-11-08",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Nvidia",
+    "url": "https://investor.nvidia.com/news/press-release-details/2026/Statement-from-NVIDIA-Board-of-Directors/",
+    "data_pubblicazione": "2026-11-08",
+    "citazione": "Statement from NVIDIA Board of Directors"
+   },
+   {
+    "testata": "Share Talk",
+    "url": "https://www.share-talk.com/what-happened-overnight-thursday-12th-november-2026/",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "What happened overnight - Thursday 12th November 2026"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le fonti dichiarate; citazioni da sintesi di pagina."
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "testo": "Petrolio e Iran: il capo della sicurezza iraniana Rezaei dice che nessun materiale nucleare arricchito lascerà il paese; Washington vuole il nucleare nei negoziati; le interruzioni a Hormuz continuano; Brent -1,58% a 91,29 $",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Express Tribune)",
+    "url": "https://tribune.com.pk/story/2639889/oil-falls-over-1-on-easing-geopolitical-fears-and-oversupply-worries",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Oil falls over $1 on easing geopolitical fears and oversupply worries"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borse oggi in diretta"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le fonti dichiarate; citazioni da sintesi di pagina."
+ },
+ {
+  "id": "D06",
+  "sezione": "deep_dive",
+  "testo": "Petrolio, offerta: la produzione Opec+ di ottobre è salita, con più greggio saudita; scorte USA +9 milioni di barili (API); i dati EIA slittano a giovedì per la festività",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Express Tribune)",
+    "url": "https://tribune.com.pk/story/2639889/oil-falls-over-1-on-easing-geopolitical-fears-and-oversupply-worries",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Oil falls over $1 on easing geopolitical fears and oversupply worries"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borse oggi in diretta"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le fonti dichiarate; citazioni da sintesi di pagina."
+ },
+ {
+  "id": "D07",
+  "sezione": "deep_dive",
+  "testo": "Petrolio e rischio: gli analisti di ANZ dicono che un premio per il rischio geopolitico resterà perché il conflitto con l'Iran non ha una via chiara di soluzione; Russia e Ucraina concordano uno scambio di prigionieri ad Abu Dhabi, restano differenze sui territori",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borse oggi in diretta"
+   },
+   {
+    "testata": "Reuters (Express Tribune)",
+    "url": "https://tribune.com.pk/story/2639889/oil-falls-over-1-on-easing-geopolitical-fears-and-oversupply-worries",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Oil falls over $1 on easing geopolitical fears and oversupply worries"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le fonti dichiarate; citazioni da sintesi di pagina."
+ },
+ {
+  "id": "D08",
+  "sezione": "deep_dive",
+  "testo": "Milano: la seduta dell'11/11 segue il recupero di Wall Street; il settore tecnologico beneficia dei conti di CoreWeave e della domanda per la quotazione di Anthropic; Technoprobe +7,73%",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "SoldiOnline (ANSA)",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/ftse-mib-037-vicino-ai-52000-punti-perche-i-tech-trainano-milano",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Ftse Mib +0,37% a 51.946 punti"
+   },
+   {
+    "testata": "QuiFinanza",
+    "url": "https://quifinanza.it/dirette/borsa-ultime-notizie-11-novembre-2026/1023749/",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "La Borsa dell’11 novembre, Milano chiude positiva con il tech, male Fincantieri"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le fonti dichiarate; citazioni da sintesi di pagina."
+ },
+ {
+  "id": "D09",
+  "sezione": "deep_dive",
+  "testo": "Asia e chip: a Tokyo vendite su Advantest, SoftBank e Kioxia mentre il Topix sale; a Seul Naver -6,43%; Taiex -2,6% (AP)",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "News On Japan",
+    "url": "https://newsonjapan.com/article/151344.php",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Nikkei Falls 429 Points as Nvidia Turmoil Rattles Tokyo Stocks"
+   },
+   {
+    "testata": "Korea Herald",
+    "url": "https://www.koreaherald.com/article/10935465",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Seoul shares snap 2-day rally amid escalating Nvidia risks"
+   },
+   {
+    "testata": "AP (Yahoo Finance)",
+    "url": "https://ca.finance.yahoo.com/news/asian-shares-mostly-slip-nvidias-071514492.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "In after-hours trading, Nvidia's shares fell 8.6% after reports said Nvidia's board was meeting late Wednesday."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le fonti dichiarate; citazioni da sintesi di pagina."
+ },
+ {
+  "id": "D10",
+  "sezione": "deep_dive",
+  "testo": "Valute e tassi: mercato dei Treasury chiuso l'11/11 (Veterans Day), rendimenti fermi alle chiusure del 10/11; dollaro vicino ai massimi da 18 mesi; rialzo Fed di dicembre già nei prezzi",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-nasdaq-futures-131247889.html",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Bond markets are closed Wednesday in observance of Veterans Day."
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borse oggi in diretta"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le fonti dichiarate; citazioni da sintesi di pagina."
+ },
+ {
+  "id": "K02",
+  "sezione": "agenda",
+  "testo": "Venerdì 13 novembre alle 8:30 ET (14:30 a Roma) il BLS pubblica i prezzi alla produzione (PPI) di ottobre; stima di Continuum Economics (non consenso): +0,4% m/m e 6,7% a/a, contro 6,3% a/a di settembre",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/schedule/news_release/ppi.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Producer Price Index"
+   },
+   {
+    "testata": "Continuum Economics",
+    "url": "https://continuumeconomics.com/a/342ddb8e/preview-due-november-13-us-october-ppi-firm-if-less-so-than-in-september",
+    "data_pubblicazione": "2026-11-02",
+    "citazione": "Preview: Due November 13 - U.S. October PPI - Firm if less so than in September"
+   }
+  ],
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le pagine aperte direttamente in questa sessione; citazioni da titoli/sintesi di pagina, non da testo integrale. Attribuzioni e cifre allineate al PDF."
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Giovedì 12 novembre alle 14:30 Roma sussidi di disoccupazione USA; Cisco e Applied Materials riferiscono dopo la chiusura USA",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borse oggi in diretta"
+   },
+   {
+    "testata": "Thrive in Markets",
+    "url": "https://thriveinmarkets.com/calendar/2026-11-09/",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Cisco and Applied Materials earnings"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le pagine aperte direttamente in questa sessione; citazioni da titoli/sintesi di pagina, non da testo integrale. Attribuzioni e cifre allineate al PDF."
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Nvidia -8,6% dopo la chiusura, il consiglio valuta Huang (AP, 09:15)",
+   "Nikkei -0,7%, Taiex -2,6% (AP, 08:15)",
+   "Brent -1,6% (Reuters, mattina)"
+  ],
+  "testate": [
+   {
+    "testata": "AP",
+    "storie": [
+     "Asia in calo per Nvidia",
+     "Wall Street +1,3% con CoreWeave"
+    ]
+   },
+   {
+    "testata": "Milano Finanza",
+    "storie": [
+     "Nvidia, il consiglio decide su Huang",
+     "Petrolio ai minimi di due mesi"
+    ]
+   },
+   {
+    "testata": "Reuters",
+    "storie": [
+     "Chip e CoreWeave rilanciano Wall Street",
+     "Petrolio scende su Iran e Ucraina"
+    ]
+   }
+  ],
+  "fuori": [],
+  "concorda": true,
+  "motivo": "AP e Milano Finanza aprono su Nvidia; Reuters sul rimbalzo dei chip. Bloomberg, FT e WSJ non consultabili (accesso bloccato): le loro aperture sono note solo da riprese."
+ },
+ {
+  "id": "D11",
+  "sezione": "deep_dive",
+  "testo": "Petrolio: martedì 10/11 il Brent scende sotto 90 $ per la prima volta da agosto, con minimo intraday a 89,90 $",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Goldesel",
+    "url": "https://goldesel.de/artikel/abendupdate-10-11-dax-haelt-knappes-plus-wall-street-rutscht-ab-fed-signale-renditen-ueber-5-und-anthropic-ernuechterung",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Minimo intraday a 89,90 dollari, sotto 90 per la prima volta da agosto"
+   },
+   {
+    "testata": "Reuters (Express Tribune)",
+    "url": "https://tribune.com.pk/story/2639889/oil-falls-over-1-on-easing-geopolitical-fears-and-oversupply-worries",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "both hit two-month lows on Tuesday"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le fonti dichiarate; citazioni da sintesi di pagina."
+ },
+ {
+  "id": "D12",
+  "sezione": "deep_dive",
+  "testo": "Milano 12/11: apertura leggermente positiva (+0,1%), giù Technoprobe e Stm",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/12/borsa-milano-apre-leggermente-positiva-01-giu-technoprobe-e-stm_46509bce-0ef0-42ff-baab-7bafcdd383eb.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borsa: Milano apre leggermente positiva (+0,1%), giù Technoprobe e Stm"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le fonti dichiarate; citazioni da sintesi di pagina."
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Giovedì 12 novembre, 8:30 ET (14:30 a Roma): sussidi di disoccupazione USA; stima 195 mila (TD Economics, non confermata come consenso); precedente 189 mila, il livello più basso da metà luglio",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Finance Calendar",
+    "url": "https://www.financecalendar.com/event/us-initial-jobless-claims-november-12-2026/",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "US Initial Jobless Claims"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borse oggi in diretta"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le pagine aperte direttamente in questa sessione; citazioni da titoli/sintesi di pagina, non da testo integrale. Attribuzioni e cifre allineate al PDF."
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "Kospi: chiusura del 6/11 a 5.059,69 (-6,02%); chiusura del 30/12/2025 a 4.214,17; chiusura del 12/11 a 5.342,73: +5,6% in una settimana e +26,8% da inizio anno",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Kyunghyang Shinmun",
+    "url": "https://www.khan.co.kr/en/article/202611061703007",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Kospi closes at 5,059.69"
+   },
+   {
+    "testata": "Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/policy/20251230/korean-stock-market-finishes-2025-on-high-note",
+    "data_pubblicazione": "2025-12-30",
+    "citazione": "Korean stock market finishes 2025 on high note"
+   }
+  ]
+ },
+ {
+  "id": "M02",
+  "sezione": "mercati",
+  "testo": "FTSE MIB: chiusura del 6/11 a 50.053 (-0,9%); chiusura del 30/12/2025 a 44.944 (+1,14%, ANSA); chiusura dell'11/11 a 51.946: +3,8% in una settimana e +15,6% da inizio anno",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/teleborsa/finanza/chiusura-in-rosso-per-piazza-affari-e-il-resto-dell-europa-tra-timori-su-ai-e-stretta-fed-9_2026-11-06_TLB-BIT.html?lang=it",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Chiusura in rosso per Piazza Affari e il resto dell'Europa tra timori su AI e stretta Fed"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://lavocedinewyork.com/ansa/2025/12/30/borsa-milano-chiude-in-chiaro-rialzo-ftse-mib-114/",
+    "data_pubblicazione": "2025-12-30",
+    "citazione": "ha concluso in aumento dell'1,14% a 44.944 punti"
+   }
+  ]
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "MSCI ACWI (ETF): chiusura del 31/12/2025 per la variazione da inizio anno",
+  "ricerche": [
+   "WebSearch: iShares MSCI ACWI ETF ACWI closing price December 31 2025",
+   "WebSearch: ACWI ETF year-end 2025 price 2025 return NAV per share December 2025",
+   "WebFetch: digrin.com ACWI price history (solo valori mensili)",
+   "Alpha Vantage GLOBAL_QUOTE ACWI (solo l'ultima seduta)"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "digrin.com",
+   "url": "https://www.digrin.com/stocks/detail/ACWI/price"
+  }
+ }
+]

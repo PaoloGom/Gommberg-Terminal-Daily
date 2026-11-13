@@ -2,7 +2,7 @@
 Uso: python3 messaggio.py --voce /home/claude/lavoro/voce_indice.json --sito "<ultima riga di pubblica.sh>"
 Righe: 1 notizia del giorno (titolo di pag. 1) | 2 evento da guardare oggi (riga in grassetto dell'agenda) |
 3 la scommessa (on track = direzione giusta finora; nel range) | 4 la riga "Sito: ..." identica a pubblica.sh.
-L'Archivio Claude si aggiorna DOPO la consegna e non entra nel messaggio."""
+Il messaggio non include l archivio online (rimosso)."""
 import json, sys
 
 a = sys.argv[1:]
