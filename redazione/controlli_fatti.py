@@ -11,7 +11,7 @@ Schema di fatti.json: lista di schede
    "ufficiale_cercato": ["ricerca 1", "ricerca 2"] e il dato esce attribuito "(Reuters)".
  "testo": "il fatto come appare nel PDF", "data_evento": "AAAA-MM-GG",
  "novita": "per un tema già uscito: qual è lo sviluppo nuovo (altrimenti null)",
- "fonti": [{"testata": "Reuters", "url": "https://...", "data_pubblicazione": "AAAA-MM-GG", "citazione": "frase originale"}],
+ "fonti": [{"testata": "Reuters", "url": "https://...", "data_pubblicazione": "AAAA-MM-GG", "citazione": "frase originale", "ricerca": "query che ha trovato la pagina (il revisore la riusa)"}],
    in una fonte: "agenzia": "Reuters" se il sito ospita per intero un lancio d'agenzia (fonti.json "agenzie"; vale livello 1,
    nel PDF si cita l'agenzia); "primaria": true se è il documento di chi è parte del fatto (comunicato, deposito, discorso).
  "verifica": "confermato|errato|non_conclusivo" (scritto dal revisore), "nota_revisore": "..."}
@@ -190,7 +190,7 @@ lista = da_rivedere(fatti, tutte)
 if prima_revisione:
     print("REVISIONE: " + ",".join(str(f.get("id")) for f in lista))
     inc = [{"id": f.get("id"), "fatto": f.get("testo"),
-            "fonti": [{"testata": s.get("testata"), "url_da_ritrovare_con_una_ricerca": s.get("url")}
+            "fonti": [{"testata": s.get("testata"), "url_da_ritrovare_con_una_ricerca": s.get("url"), "ricerca": s.get("ricerca")}
                       for s in f.get("fonti") or []]} for f in lista]
     inc_p = os.path.join(os.path.dirname(os.path.abspath(fatti_p)), "revisione_incarico.json")
     json.dump(inc, open(inc_p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)

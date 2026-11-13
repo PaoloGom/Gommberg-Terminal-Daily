@@ -371,6 +371,15 @@ for t in VOCE.get("notizie") or []:
     if testa and testa[0] != "area" and any(w in ASSET for w in testa[:2]) and MOSSA.search(str(t)):
         ERR.append(f"notizie: titolo-cruscotto \"{str(t)[:70]}\": il soggetto del titolo è il fatto che ha mosso il "
                    "prezzo (chi, cosa è successo), non il mercato; se il fatto non c'è, la notizia non entra")
+# v8.3: chiusure ovunque, intraday solo in "Stamattina" (prova del 13/11: "in avvio" e "a metà seduta" di giovedì al posto
+# delle chiusure, 7 volte tra notizie e approfondimenti).
+INTRA = re.compile(r"\bin avvio\b|a metà seduta|in apertura di seduta|in mattinata a Wall Street", re.I)
+_intra = [t for t in (VOCE.get("notizie_testo") or []) + [x for m in VOCE.get("moduli_redazione") or []
+          for x in (m.get("testo") or []) + (m.get("punti") or []) + [m.get("perche") or ""]] if INTRA.search(str(t))]
+for t in _intra[:4]:
+    ERR.append(f"intraday fuori da Stamattina: \"{str(t)[:80]}\": usa la chiusura (dati.json o resoconto di fine seduta)")
+if 0 < len(VOCE.get("notizie") or []) < 6:
+    ERR.append(f"notizie: {len(VOCE['notizie'])} in prima pagina, ne servono 6-8: prendi le riserve (schede scartate)")
 for a in VOCE.get("approfondimenti") or []:
     n = len(str(a.get("titolo", "")).split()) if isinstance(a, dict) else 0
     if n > 18:
