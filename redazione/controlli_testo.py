@@ -1,5 +1,6 @@
 """Controlli di scrittura v6 sul testo del PDF: righe "→", connettivi causali sospetti, sigle.
 Uso: python3 controlli_testo.py <pdf> [--json uscita.json]
+     python3 controlli_testo.py --stile <edizione.py>   (solo §3.4 sui testi di C, senza PDF: prima del rendering)
 - Righe "→" (escluse quelle di rimando "→ pag. N"): massimo 5 nel PDF -> ERRORE se di più; AVVISO oltre 20 parole.
 - Connettivi causali ("perché", "a causa di", "spinto da", "pesa", "trascina", "sulla scia di", "complice"...):
   AVVISO per ogni riga che li contiene senza fonte: ammessi solo con scheda C in fatti.json e la fonte in coda "(Testata)"
@@ -9,7 +10,8 @@ Uso: python3 controlli_testo.py <pdf> [--json uscita.json]
 BLOCCANTI (codice 1): più di 5 righe "→"; una riga "→" oltre 20 parole; una sigla non ovvia la cui prima occorrenza
 (dopo il ticker) non è spiegata tra parentesi; un connettivo causale in una frase con un movimento di mercato senza
 la fonte "(Testata)" nella frase o nel suo paragrafo (due frasi prima o dopo). Più di 15 fonti tra parentesi sono
-un errore (ISTRUZIONI §3.5); le sigle spiegate due volte sono solo un avviso."""
+un errore (ISTRUZIONI §3.5); le sigle spiegate due volte sono solo un avviso.
+Ritmo (§3.4): una frase in prosa oltre 30 parole è un errore; 4 frasi di fila con media sotto 12 parole (telegramma) un avviso."""
 import json, os, re, subprocess, sys
 
 QUI = os.path.dirname(os.path.abspath(__file__))
@@ -102,7 +104,58 @@ def sigle(t):
     return mai, doppie, spiegate
 
 
+MAX_PAROLE, MEDIA, FILA = 30, 12, 4   # §3.4: periodo da spezzare; telegramma = FILA frasi di fila con media sotto MEDIA parole
+
+
+def _prosa(f):
+    """Il frammento se è prosa; None per intestazioni, tabelle o colonne unite dall'estrazione del PDF."""
+    if not f:
+        return None
+    f = re.sub(r"^(?:IL QUADRO|PERCH[ÉE]|E QUINDI|DA GUARDARE|IL NUMERO)\s+", "", f.strip())
+    if re.search(r"\||[▲▼■→]|\b[A-ZÀ-Ú]{3,}(?: [A-ZÀ-Ú]{3,})+\b|\d{2}/\d{2}.*\d{2}/\d{2}|^(?:Fonti?\b|Notizie e conti|Titolo Chi è)", f):
+        return None
+    if sum(1 for w in f.split() if re.fullmatch(r"[+-]?[\d.,]+%?", w)) >= 6:
+        return None
+    return f
+
+
+def ritmo(ff):
+    """ff = frasi in ordine (None interrompe la fila). Torna (frasi oltre MAX_PAROLE, [(n, testo) dei telegrammi]):
+    telegramma = almeno FILA frasi consecutive la cui lunghezza media resta sotto MEDIA parole."""
+    lunghe = [f for f in ff if f and len(f.split()) > MAX_PAROLE]
+    tele, fila = [], []
+    for f in ff + [None]:
+        if f and re.search(r"[a-zà-ù]{3}", f):
+            fila.append(f); continue
+        n = len(fila)
+        if n >= FILA:   # la finestra di FILA frasi più telegrafica decide
+            if min(sum(len(x.split()) for x in fila[i:i + FILA]) for i in range(n - FILA + 1)) < MEDIA * FILA:
+                tele.append((n, " ".join(fila)))
+        fila = []
+    return lunghe, tele
+
+
+def stile(ed):
+    """Controllo di §3.4 sui testi del dizionario C, prima del PDF: ogni campo è un paragrafo."""
+    sys.path.insert(0, QUI)
+    import desk
+    errori, avvisi = [], []
+    for campo, t in desk.campi(desk._carica(ed)).items():
+        t = re.sub(r"<[^>]+>|\[\[\w+\]\]", "", str(t))
+        lunghe, tele = ritmo([f.strip() for f in re.split(r"(?<=[.!?])\s+", t) if f.strip()])
+        errori += [f"{campo}: frase oltre {MAX_PAROLE} parole ({len(g.split())}): {g[:70]}" for g in lunghe]
+        avvisi += [f"{campo}: telegramma ({n} frasi staccate): {g[:60]}" for n, g in tele]
+    for e in errori:
+        print("ERRORE: " + e[:155])
+    for a in avvisi:
+        print("AVVISO: " + a[:155])
+    print(f"Stile (§3.4): {len(errori)} errori, {len(avvisi)} avvisi")
+    sys.exit(1 if errori else 0)
+
+
 def main():
+    if sys.argv[1] == "--stile":
+        return stile(sys.argv[2])
     pdf = sys.argv[1]
     t, tl = testo(pdf), testo(pdf, layout=True)
     fr = frecce(t)
@@ -132,21 +185,13 @@ def main():
     avvisi = [f"citazione in inglese oltre 15 parole: accorciala «{m.group(1)[:40]}»"
               for m in re.finditer(r"«([^»]{3,300})»", piatto)
               if len(INGLESE.findall(m.group(1))) >= 2 and len(m.group(1).split()) > 15]
-    # v8.4 (§3.4): frasi corte. Una frase in prosa ha al massimo 25 parole e 2 pause (virgole non decimali e punto e
-    # virgola): il limite di 35 parole della v6 lasciava passare periodi di sei virgole. Si spezza con il punto fermo.
-    def _prosa(f):   # esclude i frammenti con intestazioni, tabelle o colonne unite dall'estrazione
-        f = re.sub(r"^(?:IL QUADRO|PERCH[ÉE]|E QUINDI|DA GUARDARE|IL NUMERO)\s+", "", f)
-        if re.search(r"\||[▲▼■]|\b[A-ZÀ-Ú]{3,}(?: [A-ZÀ-Ú]{3,})+\b|\d{2}/\d{2}.*\d{2}/\d{2}|^(?:Fonti?\b|Notizie e conti)", f):
-            return None
-        if sum(1 for w in f.split() if re.fullmatch(r"[+-]?[\d.,]+%?", w)) >= 6:
-            return None
-        return f
-    pause = lambda f: len(re.findall(r"(?<!\d),|,(?!\d)|;", f))
+    # v8.6 (§3.4): ritmo. Errore solo il periodo oltre 30 parole; avviso il telegramma (4 frasi di fila, media sotto 12 parole).
     corpo = piatto.split("TOP STORY", 1)[-1]
-    lunghe_prosa = [g for g in (_prosa(f) for f in re.split(r"(?<=[.!?])\s+", corpo) if len(f.split()) >= 12)
-                    if g and not g.startswith("Titolo Chi è") and (len(g.split()) > 25 or pause(g) > 2)]
-    errori += [f"frase lunga ({len(g.split())} parole, {pause(g)} pause): spezzala col punto fermo (§3.4): {g[:80]}"
+    lunghe_prosa, telegrammi = ritmo([_prosa(f) for f in re.split(r"(?<=[.!?])\s+", corpo)])
+    errori += [f"frase oltre {MAX_PAROLE} parole ({len(g.split())}): spezzala dove cambia l'idea (§3.4): {g[:80]}"
                for g in lunghe_prosa[:6]]
+    avvisi += [f"telegramma, {n} frasi staccate: legale tra loro (e, ma, mentre...) (§3.4): {g[:70]}"
+               for n, g in telegrammi[:3]]
     # v7.8 (§9.4): lessico di casa (glossario.json, "lessico"): un concetto, un nome.
     lex = json.load(open(os.path.join(QUI, "glossario.json"), encoding="utf-8")).get("lessico", {}).get("voci", [])
     for v in lex:

@@ -94,19 +94,20 @@ C = {
     "top": {
         "tema": "Inflazione",   # elenco chiuso (in testa al file): nessuna voce di pag. 1 ripete questo tema
         "titolo": "L'inflazione sorprende e la Fed torna a pensare a un rialzo",
-        # PAGINA DI RIFERIMENTO (v8.3): i testi di questo file sono scritti come vogliamo ogni mattina. Si imita il tono,
+        # PAGINA DI RIFERIMENTO (v8.6): i testi di questo file sono scritti come vogliamo ogni mattina. Si imita il tono,
         # non i fatti. Il fatto apre la frase, la fonte non la apre mai; parole di tutti; una cifra dove serve, non sei.
-        "dek": "I prezzi al consumo (CPI) di settembre salgono del 3,7% su un anno, più del 3,6% atteso, e del 2,6% senza "
-               "energia e alimentari, contro il 2,5%. Per i future sui tassi (CME FedWatch) un rialzo il 27-28 ottobre ha ora "
-               "il 47% di probabilità: il giorno prima il 22%. Wall Street cede (S&amp;P 500 -1,11%) trascinata dai "
-               "tecnologici, e stamattina vendono anche Tokyo e Seul. [[chip]]",
+        # Il dek racconta ciò che il titolo non dice, in frasi di lunghezza diversa legate tra loro (§3.4).
+        "dek": "A settembre i prezzi al consumo (CPI) salgono del 3,7% in un anno, un decimo sopra le attese, e anche "
+               "senza energia e alimentari corrono più del previsto. Così i future sui tassi (CME FedWatch) danno ora al "
+               "rialzo del 27-28 ottobre il 47% di probabilità, più del doppio del giorno prima. Wall Street cede "
+               "(S&amp;P 500 -1,11%) trascinata dai tecnologici, e stamattina vendono anche Tokyo e Seul. [[chip]]",
         "freccia": "L'energia più cara comincia a farsi sentire nei prezzi dei servizi, scrive Axios.",  # tipo C, scheda T01 (Axios, liv. 1)
     },
-    # 2-3 frasi brevi: prima la lettura (cosa dicono insieme tassi, dollaro, oro, petrolio e borse, o che non si legano),
+    # 2-3 frasi legate tra loro: prima la lettura (cosa dicono insieme tassi, dollaro, oro, petrolio e borse, o che non si legano),
     # poi i prezzi che la provano
-    "quadro": "Lo stesso dato, due letture. Il 2 anni (+3 pb) e il dollaro salgono perché si scommette su una Fed più "
-              "dura; il 10 anni scende, come quando si cerca riparo. In borsa si vendono i tecnologici e si comprano i "
-              "difensivi; petrolio e oro non si muovono.",
+    "quadro": "Lo stesso dato si legge in due modi. Il 2 anni (+3 pb) e il dollaro salgono perché si scommette su una "
+              "Fed più dura, mentre il 10 anni scende, come quando si cerca riparo. In borsa si vendono i tecnologici e si "
+              "comprano i difensivi, e intanto petrolio e oro restano fermi.",
     "in30": [
         # le 3 cose più importanti DOPO la top story: mai la top story né le sue reazioni di mercato (controlli_temi.py)
         "Banche USA divise: BofA paga l'accordo con il Tesoro, Morgan Stanley guadagna con il trading. [[banche]]",
@@ -127,20 +128,20 @@ C = {
         # (No: "Londra in rialzo, Milano ed Euro Stoxx in calo"); almeno 2 su 6 da macro o società
         # il soggetto del titolo è il fatto (chi, cosa), mai il mercato: No "Il greggio sale", Sì "Gli Houthi colpiscono..."
         {"tag": "Chip", "titolo": "TSMC batte le stime, ma l'Asia vende lo stesso i chip",
-         "testo": "L'utile del terzo trimestre supera la stima media degli analisti, ma i conti, usciti stamattina, non "
-                  "fermano le vendite sui chip asiatici.", "rimando": "chip"},
+         "testo": "Utile e ricavi del terzo trimestre crescono di oltre metà in un anno. A Taipei e a Seul, però, conta di "
+                  "più la paura dei concorrenti cinesi.", "rimando": "chip"},
         {"tag": "Asia", "titolo": "SoftBank cede quasi il 10% all'apertura di Tokyo",
-         "testo": "Kioxia e Advantest perdono circa l'11%: la vendita dei titoli sull'intelligenza artificiale è arrivata "
-                  "in Asia.", "rimando": "chip"},
+         "testo": "Con lei Kioxia e Advantest perdono circa l'11%: la vendita dei titoli legati all'intelligenza "
+                  "artificiale è arrivata in Asia.", "rimando": "chip"},
         {"tag": "Cina", "titolo": "La cinese CXMT presenta nuove memorie e spaventa i concorrenti",
          "testo": "Per un analista di BNP Paribas AM è l'annuncio sulle memorie di nuova generazione a pesare sui titoli "
                   "(Milano Finanza).", "rimando": "chip"},
         {"tag": "Banche", "titolo": "BofA paga l'accordo con il Tesoro, Morgan Stanley incassa dal trading",
-         "testo": "Seconda giornata di conti per le grandi banche USA: su BofA pesa l'onere dell'accordo, Morgan Stanley "
-                  "guadagna dagli scambi di azioni.", "rimando": "banche"},
+         "testo": "Nella seconda giornata di conti delle grandi banche americane l'accordo costa a BofA 1,2 mld $, mentre "
+                  "il trading azionario di Morgan Stanley cresce del 41%.", "rimando": "banche"},
         {"tag": "Petrolio", "titolo": "Gli Houthi colpiscono gli uffici Aramco e il greggio sale",
-         "testo": "Dopo l'attacco a Dhahran il greggio americano (WTI) arriva in seduta a circa 95 $; il Brent chiude in "
-                  "lieve rialzo (investingLive)."},
+         "testo": "Dopo l'attacco a Dhahran il greggio americano (WTI) arriva in seduta a circa 95 $, mentre il Brent "
+                  "chiude appena sopra la vigilia (investingLive)."},
         {"tag": "Trimestrali", "titolo": "BlackRock aumenta l'utile del 25%",
          "testo": "Il gestore chiude il terzo trimestre con 1,66 mld $ di utile, nella giornata delle grandi banche "
                   "USA.", "rimando": "banche"},
@@ -235,7 +236,7 @@ C = {
                    ["BlackRock", "Utile 1,66 mld $ (+25%)", "Utile in crescita (FIRSTonline)"]],
          "larghezze": [30, 58, 94],
          # perche = la causa con fonte, non la parafrasi della tabella; quindi = una cosa osservabile che il testo non dice
-         "perche": "BofA paga un onere straordinario per l'accordo con il Tesoro; Morgan Stanley incassa da consulenza e trading, che crescono quando i mercati si agitano (FIRSTonline).",
+         "perche": "BofA paga un onere straordinario per l'accordo con il Tesoro, mentre Morgan Stanley incassa da consulenza e trading, che crescono quando i mercati si agitano (FIRSTonline).",
          "quindi": "Il trading di Morgan Stanley, 5,79 mld $ nel trimestre, è il metro per Goldman Sachs e Citigroup, che pubblicano nei prossimi giorni.",
          # niente "lettura": la tesi sta nel titolo e si dice una volta (§3.3; il motore rifiuta il campo).
          # testo = il meccanismo che il lettore non vede nei numeri: spiega, non ripete tabella e perché
@@ -261,8 +262,8 @@ C = {
          # niente "punti" e niente "numero": le variazioni per scadenza sono già nelle barre, il -14 pb nella linea (§3.3)
          # B1: la causa si confronta con la forma della curva. Un'inflazione più alta spiega il breve, non il lungo in calo:
          # dirlo e dare la lettura della redazione che regge alla prova dei prezzi (registro "anomalia" in fatti.json, §6.2c)
-         "perche": "Di solito il breve segue le attese sulla Fed, salite con il CPI. Un'inflazione più alta però non spiega il lungo in calo: leggiamo acquisti rifugio dopo le vendite sui tecnologici, come dicono oro e VIX in rialzo.",
-         "quindi": "Se il 10 anni torna verso il 5,30-5,35% toccato in serata, torna a contare l'inflazione; sotto il 5,10% di stamattina prevale la paura sulla borsa.",
+         "perche": "Di solito il breve segue le attese sulla Fed, e con il CPI sono salite. Un'inflazione più alta però non spiega il lungo in calo: per noi sono acquisti rifugio dopo le vendite sui tecnologici, e il VIX in rialzo lo conferma.",
+         "quindi": "Se il 10 anni torna verso il 5,30-5,35% toccato in serata, torna a contare l'inflazione. Sotto il 5,10% di stamattina, invece, prevale la paura sulla borsa.",
          # testo: racconta ciò che i grafici non dicono (storia del mese, mutui, asta) senza riscrivere le cifre
          "testo": ["Il mese ha avuto due fasi. Fino al 21 settembre la distanza tra 10 e 2 anni si è quasi dimezzata; "
                    "poi il lungo ha corso più del breve, fino al massimo del 7 ottobre. In una settimana quel movimento "
@@ -270,11 +271,11 @@ C = {
                    "Conta anche fuori dalla finanza. I mutui americani seguono il 10 anni più dei tassi della Fed: se il "
                    "lungo scende, comprare casa costa meno anche con una banca centrale più dura.",
                    "Il prossimo esame è l'asta dei titoli a 20 anni di mercoledì. Una domanda debole rilancerebbe il "
-                   "lungo e smentirebbe la lettura del rifugio; le ultime aste lunghe hanno avuto una domanda nella "
-                   "media, ed è il metro con cui leggere questa."],
+                   "lungo e smentirebbe la lettura del rifugio. Le ultime aste lunghe hanno avuto una domanda nella "
+                   "media: è il metro per giudicare questa."],
          # guardare (obbligatorio nel doppio): ciò che darebbe ragione al breve o al lungo, e quando; non ripete il quindi
          "guardare": "Lo diranno i prossimi dati sui prezzi. Se l'inflazione dei servizi resta alta, il breve ha visto "
-                     "giusto e la Fed non ha fretta di tagliare; se rallenta, il calo del lungo può diventare l'inizio di "
+                     "giusto e il rialzo resta sul tavolo. Se invece rallenta, il calo del lungo può essere l'inizio di "
                      "un movimento più ampio, che di solito aiuta anche le borse."},
         {"chiave": "chip", "tema": "Chip e Asia", "breve": "TSMC batte le stime, l'Asia vende",
          "titolo": "TSMC batte le stime, ma i chip cadono per paura dei concorrenti",
@@ -296,7 +297,7 @@ C = {
                    ["Quota dei ricavi da wafer a 2 nanometri", "8%", "-", "-"],
                    ["Quota dei ricavi da wafer a 3 nanometri", "33%", "-", "-"]],
          "larghezze": [70, 30, 36, 46], "ruolo_righe": "perche",   # i conti solidi: la tesi è che non bastano
-         "perche": "La vendita partita dai titoli dell'intelligenza artificiale del Nasdaq si estende a tutta l'Asia (ANSA): a Seul e Tokyo i chip pesano molto negli indici.",
+         "perche": "La vendita partita dai titoli dell'intelligenza artificiale del Nasdaq si allarga a tutta l'Asia (ANSA), e a Seul e a Taipei i chip pesano molto negli indici.",
          "quindi": "Oggi alle 15:30 riapre il Nasdaq, il primo test per l'Europa.",
          "punti": ["<b>Tokyo.</b> Cede anche Tokyo Electron, circa il 6,5% in apertura: la vendita tocca i produttori "
                    "di macchinari per chip.",
