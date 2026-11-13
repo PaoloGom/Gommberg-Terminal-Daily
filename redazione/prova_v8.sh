@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Prova generale della v8 con l'attività vera, senza pubblicare. Il ramo principale non viene mai toccato.
 #   bash redazione/prova_v8.sh avvio          (dopo `git fetch --depth=60 origin v8 main && git checkout -B v8 origin/v8`)
-#   bash redazione/prova_v8.sh chiudi "<pdf>" (alla fine: salva PDF, schede e misure sul ramo prova-v8-AAAA-MM-GG)
+#   bash redazione/prova_v8.sh chiudi "<pdf>" (alla fine: salva PDF, schede e misure sul ramo prova, sovrascritto a ogni prova)
 # avvio: porta nella v8 l'archivio del ramo principale fino all'edizione di IERI (memoria, ripetizioni, scommessa), così
 # l'edizione di oggi si rifà da capo e si confronta con quella uscita stamattina.
 set -u
@@ -18,6 +18,10 @@ avvio)
   fi
   [ -e /home/claude/gtd ] || ln -s "$REPO" /home/claude/gtd
   mkdir -p "$L"; date +%s > "$L/_prova_inizio"
+  # Un solo ramo di prova, "prova", sovrascritto a ogni prova: si scrive subito all'avvio, così da fuori si vede se la
+  # prova è partita ("Prova avviata") o finita ("Prova ... non pubblicata"). Niente rami nuovi per ogni prova.
+  git commit -q --allow-empty -m "Prova avviata ${OGGI} $(TZ=Europe/Rome date +%H:%M)" && git push -q -f origin HEAD:refs/heads/prova 2>/dev/null \
+    || echo "AVVISO: segnale di avvio non salvato sul ramo prova"
   echo "PROVA v8 pronta: ramo v8 con l'archivio fino a ieri (base $(git rev-parse --short "$BASE"))."
   echo "Da qui: ISTRUZIONI.md di questo ramo, con GTD_PROVA=1 davanti a pubblica.sh; niente Archivio Claude."
   ;;
@@ -29,9 +33,7 @@ chiudi)
   { echo "data: $OGGI"; echo "minuti: $(( ( $(date +%s) - T0 ) / 60 ))"; echo "fine: $(TZ=Europe/Rome date +%H:%M)"; } > "$D/tempi.txt"
   git checkout -q -- edizioni.json 2>/dev/null
   git add -f "$D" && git commit -q -m "Prova v8 del ${OGGI} (non pubblicata)" || { echo "Prova: niente da salvare"; exit 1; }
-  RAMO="prova-v8-${OGGI}"   # una seconda prova nello stesso giorno va su un ramo suo (il primo non si sovrascrive)
-  git ls-remote --exit-code origin "refs/heads/$RAMO" >/dev/null 2>&1 && RAMO="$RAMO-$(TZ=Europe/Rome date +%H%M)"
-  if git push -q origin "HEAD:refs/heads/$RAMO" 2>/dev/null; then echo "Prova: salvata sul ramo $RAMO ($(cat "$D/tempi.txt" | tr '\n' ' '))"
+  if git push -q -f origin "HEAD:refs/heads/prova" 2>/dev/null; then echo "Prova: salvata sul ramo prova ($(cat "$D/tempi.txt" | tr '\n' ' '))"
   else echo "Prova: NON salvata (push del ramo di prova rifiutato)"; fi
   ;;
 *) echo "uso: prova_v8.sh avvio | chiudi <pdf>"; exit 1;;
