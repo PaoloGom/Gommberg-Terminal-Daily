@@ -54,7 +54,12 @@ ol.news li{counter-increment:n;display:grid;grid-template-columns:40px 1fr;gap:6
 ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--display);font-weight:800;color:var(--orange);font-size:20px}
 .inside{display:grid;gap:10px}.inside div{background:var(--panel);padding:12px 14px}
 .inside small{display:block;font-family:var(--mono);font-size:12px;color:var(--orange-ink);text-transform:uppercase;letter-spacing:.04em}
-.inside b{font-weight:600}
+.inside b{font-weight:600}.inside a{display:block;text-decoration:none}.inside small i{float:right;font-style:normal;color:var(--muted);text-transform:none;letter-spacing:0}
+.ag{list-style:none;margin:0;padding:0}.ag li{padding:12px 0;border-bottom:1px solid var(--rule)}
+.ag li.key{background:var(--panel);box-shadow:inset 3px 0 0 var(--orange);padding-inline:14px 10px}
+.ag small{display:block;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.ag b{display:block;font-family:var(--display);font-weight:700;font-size:18px;line-height:1.3}
+.ag+.meta{margin-top:12px}.ag p{margin:4px 0 0;font-size:15px;line-height:1.45}.ag p em{font-style:normal;font-weight:600;color:var(--orange-ink)}
 .sigle{display:flex;flex-wrap:wrap;gap:8px}.sigle a{display:inline-block;border:1px solid var(--rule);padding:6px 10px;font-size:14px;color:var(--muted);text-decoration:none;line-height:1.35}
 .sigle a b{color:var(--ink);font-weight:600;margin-right:4px}.sigle a:hover{border-color:var(--orange);color:var(--ink)}
 .sigle a:after{content:"A";margin-left:6px;color:var(--orange-ink);font-weight:600}
@@ -69,7 +74,7 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
-<header class="gn-mast"><div class="gn-top"><div class="gn-brand"><p class="gn-logo"><a href="../" title="Torna all'ultima edizione"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></p><p class="gn-pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p></div><nav class="gn-nav" aria-label="Sezioni del sito"><a href="../">Ultima edizione</a><a href="../archivio.html">Archivio</a><a href="../glossario.html">Glossario</a><a href="../scommessa.html">La scommessa</a><a href="../numeri.html">I numeri</a><a href="../progetto.html">Il progetto</a></nav></div></header>
+<header class="gn-mast"><div class="gn-top"><div class="gn-brand"><p class="gn-logo"><a href="../" title="Torna all'ultima edizione"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></p><p class="gn-pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p></div><nav class="gn-nav" aria-label="Sezioni del sito"><a href="../">Ultima edizione</a><a href="../archivio.html">Archivio</a><a href="../glossario.html">Impara</a><a href="../scommessa.html">La scommessa</a></nav></div></header>
 <main class="wrap">
 <p class="kicker">Edizione n. 019</p><p class="meta">Giovedì 5 novembre 2026 | 6 pagine</p>
 <h1>Dopo il voto USA il mercato scommette sulla fine della guerra in Iran: il petrolio crolla, Wall Street vola</h1>
@@ -78,6 +83,7 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 <section><h2>In 30 secondi</h2><ul class="brief"><li>Le banche europee guidano il rialzo del Vecchio Continente.</li><li>Seul crolla sui timori di regole più dure per l&#x27;AI: i chip restano indietro.</li><li>Domani il rapporto sul lavoro USA, il primo dato dopo il voto.</li></ul></section>
 <section><h2>Le notizie del giorno</h2><ol class="news"><li><span>Novo Nordisk alza le previsioni 2026 e sale del 5,6%</span></li><li><span>Heidelberg Materials: ricavi sopra le attese, il titolo sale del 9,6%</span></li><li><span>USA, servizi: ordini in calo, prezzi ancora alti</span></li><li><span>Dopo l&#x27;inflazione cresce l&#x27;attesa di un rialzo BCE a dicembre</span></li><li><span>Bank of England: oggi il primo rialzo dei tassi in tre anni</span></li></ol></section>
 <section><h2>Gli approfondimenti</h2><div class="inside"><div><small>Banche</small><b>Le banche europee guidano il rialzo: il voto USA riapre la porta agli investitori</b></div><div><small>Tassi</small><b>Il petrolio abbassa i rendimenti a lungo ma non a breve: la Fed di dicembre resta in gioco</b></div><div><small>Chip</small><b>Il rialzo del 4 novembre lascia indietro i chip: il Nasdaq è ancora sotto di oltre il 4% sull&#x27;1 ottobre</b></div></div></section>
+<section><h2>In agenda</h2><ul class="ag"><li class="key"><small>Gio 5, 13:00</small><b>Decisione della Bank of England</b><p><em>Attese:</em> 4,00% da 3,75%; voto 7-2 (Reuters)</p><p><em>Il più atteso:</em> Primo rialzo in tre anni</p></li><li><small>Ven 6, 14:30</small><b>Occupazione USA di ottobre (BLS)</b><p><em>Attese:</em> <span class="up">+65</span> mila posti; disoccupazione 4,2%; prec. <span class="up">+29</span> mila</p><p><em>Perché conta:</em> Primo dato sul lavoro dopo il voto</p></li></ul></section>
 <section><h2>Le sigle di questa edizione</h2><div class="sigle"><a href="../glossario.html#g-ism"><b>ISM</b> sondaggio USA sulle imprese</a><a href="../glossario.html#g-cme-fedwatch"><b>CME FedWatch</b> probabilità sui tassi dai future</a><a href="../glossario.html#g-vix"><b>VIX</b> volatilità attesa sull&#x27;S&amp;P 500</a><a href="../glossario.html#g-acwi"><b>ACWI</b> indice azionario mondiale MSCI</a><a href="../glossario.html#g-hbm"><b>HBM</b> memorie ad alta velocità per l&#x27;AI</a></div><p class="tutte"><a href="../glossario.html">Tutto il glossario &rsaquo;</a></p></section>
 <div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
 <div class="pn"><a href="018.html">&lsaquo; N. 018</a><a href="020.html">N. 020 &rsaquo;</a></div>
@@ -113,6 +119,6 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
   });
 })();
 </script>
-<footer class="gf"><div class="gf-in"><nav class="gf-links" aria-label="Le pagine del sito"><a href="../">Ultima edizione</a><a href="../archivio.html">Archivio</a><a href="../glossario.html">Glossario</a><a href="../scommessa.html">La scommessa</a><a href="../numeri.html">I numeri</a><a href="../progetto.html">Il progetto</a><a href="../feed.xml">Feed RSS</a></nav><p class="gf-ai">Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.</p><p class="gf-legal">Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</p></div></footer>
+<footer class="gf"><div class="gf-in"><nav class="gf-links" aria-label="Le pagine del sito"><a href="../">Ultima edizione</a><a href="../archivio.html">Archivio</a><a href="../glossario.html">Impara</a><a href="../scommessa.html">La scommessa</a><a href="../progetto.html">Chi siamo</a><a href="../feed.xml">Feed RSS</a></nav><p class="gf-ai">Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.</p><p class="gf-legal">Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</p></div></footer>
 </body>
 </html>
