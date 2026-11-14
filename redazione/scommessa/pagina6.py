@@ -205,10 +205,34 @@ def _come_si_gioca(chiavi, compatto=False, variabile=False):
               f"la direzione, uno per la forchetta: massimo {2 * n}.", "p6_box")]
 
 
-def _punteggio(punti, su, par, terzo, etichetta_terzo, etichetta_punti="punti"):
-    """Il numero che conta, uguale il lunedì e in settimana: i nostri punti e, accanto, il par."""
-    return _tre(f"{punti}<font size='9' color='#6B6B6B'> su {su}</font>", num(par, 1), terzo,
-                etichetta_punti, "il par: chi tira a caso", etichetta_terzo)
+def _righello(p_dir, p_for, su, par, dopo="", chiusa=""):
+    """Il punteggio disegnato (struttura v9), uguale in settimana e nel verdetto del lunedì. Risponde a tre domande con
+    un solo segno: quanto è lunga la barra (a che punto siamo), i due colori (da dove vengono i punti: direzione e
+    forchetta), la tacca del par (l'asticella: quanto fa in media chi tira a caso). Stessa grammatica delle forchette
+    del tabellone: barra grigia e tacca. La tacca porta sempre il suo nome, perché nel tabellone la tacca è la partenza."""
+    punti = p_dir + p_for
+    w, h = 80 * mm, 34
+    d = Drawing(w, h)
+    y, alt = 9, 9                                  # barra
+    X = lambda v: v / su * w
+    d.add(Rect(0, y, w, alt, fillColor=colors.HexColor("#D6D6D6"), strokeColor=None))
+    d.add(Rect(0, y, X(p_dir), alt, fillColor=INK, strokeColor=None))
+    d.add(Rect(X(p_dir), y, X(p_for), alt, fillColor=ORANGE, strokeColor=None))
+    for i in range(1, su):                         # una tacchetta chiara per punto: la barra si conta
+        d.add(Line(X(i), y, X(i), y + alt, strokeColor=colors.white, strokeWidth=0.5))
+    xp = X(par)
+    d.add(Line(xp, y - 3, xp, y + alt + 3, strokeColor=INK, strokeWidth=1.4))
+    d.add(String(xp, y + alt + 6, f"par {num(par, 1)}: chi tira a caso", fontName="Cond-B", fontSize=6.8, fillColor=INK,
+                 textAnchor="middle"))
+    d.add(String(0, 1, "0", fontName="Cond", fontSize=6.4, fillColor=GREY, textAnchor="start"))
+    d.add(String(w, 1, str(su), fontName="Cond", fontSize=6.4, fillColor=GREY, textAnchor="end"))
+    diff = round(punti - par, 1)
+    frase = "In linea con il par." if abs(diff) < 0.05 else f"{'Sopra' if diff > 0 else 'Sotto'} il par di {num(abs(diff), 1)}."
+    return [P(f"<font name='Cond-B' size='15'>{punti}</font>&nbsp;&nbsp;<font color='#6B6B6B'>punti su {su}{dopo}</font>", "p6_box"),
+            d, Spacer(1, 2),
+            P(f"<font color='#111111'>■</font> <b>{p_dir}</b> dalla direzione&nbsp;&nbsp;&nbsp;<font color='#F26B1D'>■</font> "
+              f"<b>{p_for}</b> dalla forchetta", "p6_box"),
+            P(frase + (" " + chiusa if chiusa else ""), "p6_box")]
 
 
 def _tre(a, b, c, la, lb, lc):
@@ -231,8 +255,8 @@ def _verdetto(verdetto, settimana_prec, com_e_andata=None):
     segni = [f"{BREVE.get(k, r['nome'])} {_segno(r['punto_direzione'])}{_segno(r['punto_range'])}"
              for k, r in verdetto["righe"].items() if not r.get("variabile")]
     out = [f"IL VERDETTO: SETTIMANA {(settimana_prec or '').upper()}".rstrip(": "),
-           _punteggio(t["punti"], t["su"], t["par"], f"{t['direzione']} + {t['range']}", "direzione + forchetta"),
-           Spacer(1, 3), P("<font size='6.8' color='#6B6B6B'>direzione / forchetta:</font> " + "  ".join(segni), "p6_box")]
+           *_righello(t["direzione"], t["range"], t["su"], t["par"]),
+           P("<font size='6.8' color='#6B6B6B'>direzione / forchetta:</font> " + "  ".join(segni), "p6_box")]
     vv = t.get("variabile")
     if vv:
         out.append(P(f"Della settimana, {esc(vv['nome'])}: {vv['punti']} {'punto' if vv['punti'] == 1 else 'punti'} su 2.", "p6_box"))
@@ -305,10 +329,9 @@ def pagina6_settimana(reg, stato, tesi, grafico="c_forecast.png", venerdi=False)
     ven_d = dt.date.fromisoformat(ven)
     p_dir, p_for = sum(1 for k in fx if sr[k]["strada_giusta"]), sum(1 for k in fx if sr[k]["dentro_range"])
     dx = ["A CHE PUNTO SIAMO",
-          _punteggio(p_dir + p_for, 2 * n, _par(fx), f"{ven_d.day} {MESI[ven_d.month - 1][:3]}", "il verdetto",
-                     "punti, se finisse oggi"), Spacer(1, 3),
-          P(f"Da dove vengono: <b>{p_dir}</b> dalla direzione (colonna On track), <b>{p_for}</b> dalla forchetta (colonna "
-            "Dentro)." + (" Verdetto lunedì, con le chiusure di stasera." if venerdi else ""), "p6_box")]
+          *_righello(p_dir, p_for, 2 * n, _par(fx), ", se finisse oggi",
+                     "Verdetto lunedì, con le chiusure di stasera." if venerdi
+                     else f"Verdetto con le chiusure di venerdì {ven_d.day}.")]
     for k in ordine(st):
         if st[k].get("variabile"):
             r = sr[k]
