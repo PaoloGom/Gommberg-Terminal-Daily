@@ -215,8 +215,9 @@ GLOSSARIO = {}   # sigla in minuscolo -> (sigla, breve), solo le voci non ovvie;
 # ---------------------------------------------------------------- testata, menu e piè di pagina comuni
 # Stessi elementi su tutte le pagine del sito (stile in assets/sito.css). root = "" per le pagine
 # nella cartella principale, "../" per quelle in e/. attivo = la voce del menu da evidenziare.
-MENU = (("", "Ultima edizione"), ("archivio.html", "Archivio"), ("glossario.html", "Glossario"),
-        ("scommessa.html", "La scommessa"), ("numeri.html", "I numeri"), ("progetto.html", "Il progetto"))
+# Il menu segue ciò che fa il lettore: legge, cerca, impara, gioca. Chi siamo (progetto e numeri) sta in fondo alla pagina.
+MENU = (("", "Ultima edizione"), ("archivio.html", "Archivio"), ("glossario.html", "Impara"), ("scommessa.html", "La scommessa"))
+PIEDE = MENU + (("progetto.html", "Chi siamo"),)
 RIGA_AI = ("Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza "
            "artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.")
 LEGALE = ("Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. "
@@ -243,7 +244,7 @@ def testata(root="", attivo=None):
 
 
 def piede(root="", nota=""):
-    link = "".join(f'<a href="{_href(root, h)}">{t}</a>' for h, t in MENU)
+    link = "".join(f'<a href="{_href(root, h)}">{t}</a>' for h, t in PIEDE)
     return ('<footer class="gf"><div class="gf-in">'
             f'<nav class="gf-links" aria-label="Le pagine del sito">{link}<a href="{root}feed.xml">Feed RSS</a></nav>'
             f'<p class="gf-ai">{RIGA_AI}</p><p class="gf-legal">{LEGALE}{(" " + nota) if nota else ""}</p></div></footer>')
