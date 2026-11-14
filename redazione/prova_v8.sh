@@ -28,7 +28,8 @@ avvio)
 chiudi)
   PDF="${2:?pdf}"; D="redazione/collaudi/prova-v8-${OGGI}"; mkdir -p "$D"
   cp -f "$PDF" "$D/prova.pdf"
-  for f in fatti.json riempimento.json voce_indice.json testo.json ripetizioni.json dati.json revisione.json desk_proposta.json desk_ok.json; do [ -f "$L/$f" ] && cp -f "$L/$f" "$D/"; done
+  for f in fatti.json riempimento.json voce_indice.json testo.json ripetizioni.json dati.json contesto.json stato.json verdetto.json revisione.json desk_proposta.json desk_ok.json; do [ -f "$L/$f" ] && cp -f "$L/$f" "$D/"; done
+  [ -f "$L/edizione_${OGGI}.py" ] && cp -f "$L/edizione_${OGGI}.py" "$D/edizione.py"   # il testo scritto: senza, la prova non si può rifare né collaudare
   T0="$(cat "$L/_prova_inizio" 2>/dev/null || echo 0)"
   { echo "data: $OGGI"; echo "minuti: $(( ( $(date +%s) - T0 ) / 60 ))"; echo "fine: $(TZ=Europe/Rome date +%H:%M)"; } > "$D/tempi.txt"
   git checkout -q -- edizioni.json 2>/dev/null

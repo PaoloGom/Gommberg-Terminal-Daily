@@ -8,7 +8,8 @@ Uso:
   python3 memoria.py agenda [AAAA-MM-GG] [--json F]    eventi futuri già schedati (ora, consenso, fonte)
   python3 memoria.py tema <parola> [<parola>...] [--giorni 45] [--json F]
                                                        fatti già schedati che contengono ALMENO una delle parole,
-                                                       più gli approfondimenti già usciti sul tema (da non ripetere)
+                                                       gli approfondimenti già usciti sul tema (da non ripetere) e i
+                                                       meccanismi di meccanismi.json che spiegano il passaggio
 --json F scrive le schede trovate, pronte da unire a fatti.json: id "MEM-<mmgg>-<id d'origine>", "ripresa" = edizione d'origine, esito del
 revisore conservato. Una scheda ripresa vale come le altre per i controlli; nel testo è contesto, mai notizia del giorno.
 Variabile: GTD_REPO (default /home/claude/gtd)."""
@@ -94,6 +95,22 @@ def approfondimenti(dal):
     return out
 
 
+def meccanismi(parole, quanti=3):
+    """I meccanismi di meccanismi.json che toccano il tema: la spiegazione già verificata del passaggio (perché A muove B),
+    da dire con le parole del lettore. Prima quelli col tema nel titolo, poi per numero di parole trovate."""
+    try:
+        voci = json.load(open(os.path.join(REPO, "redazione", "meccanismi.json"), encoding="utf-8"))["voci"]
+    except Exception:
+        return []
+    trovati = []
+    for v in voci:
+        tit, base = norm(v["titolo"]), norm(" ".join(v.get(k, "") for k in ("titolo", "testo", "quando")))
+        n = sum(1 for p in parole if p in base)
+        if n:
+            trovati.append((-sum(1 for p in parole if p in tit), -n, v["id"], v))
+    return [v for *_, v in sorted(trovati, key=lambda x: x[:3])[:quanti]]
+
+
 def main():
     a = sys.argv[1:]
     if not a:
@@ -153,6 +170,13 @@ def main():
             print("Già scritto (la tesi di oggi parte da qui e va oltre, non si ripete):")
             for n, d, t, tit in usciti[:5]:
                 print(f"  #{n:03d} {d[8:]}/{d[5:7]} {t}: {tit}")
+        mecc = meccanismi(parole)
+        if mecc:
+            print("Il passaggio (meccanismi.json: si scrive come tendenza, 'di solito', con le parole del lettore; l'id va in "
+                  "C[\"meccanismi\"]; se il caso è tra le eccezioni non si usa):")
+            for v in mecc:
+                ecc = v.get("eccezioni", "-")
+                print(f"  {v['id']} {v['titolo']}: {v['testo'][:240]} | Non vale se: {ecc[:120]}{'...' if len(ecc) > 120 else ''}")
         if not trovati:
             print("Memoria, tema: nessun fatto già schedato con queste parole"); return
         print(f"Memoria, tema: {len(trovati)} fatti già schedati (i più recenti prima). Sono contesto e precedenti, "

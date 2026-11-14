@@ -11,7 +11,8 @@ BLOCCANTI (codice 1): più di 5 righe "→"; una riga "→" oltre 20 parole; una
 (dopo il ticker) non è spiegata tra parentesi; un connettivo causale in una frase con un movimento di mercato senza
 la fonte "(Testata)" nella frase o nel suo paragrafo (due frasi prima o dopo). Più di 15 fonti tra parentesi sono
 un errore (ISTRUZIONI §3.5); le sigle spiegate due volte sono solo un avviso.
-Ritmo (§3.4): una frase in prosa oltre 30 parole è un errore; 4 frasi di fila con media sotto 12 parole (telegramma) un avviso."""
+Ritmo (§3.4): una frase oltre 30 parole è un errore; 4 frasi di fila con media sotto 12 parole (telegramma) un avviso.
+Il ritmo si misura sui campi dell'edizione (--edizione <edizione.py>); dal solo PDF è una stima e vale come avviso."""
 import json, os, re, subprocess, sys
 
 QUI = os.path.dirname(os.path.abspath(__file__))
@@ -135,16 +136,32 @@ def ritmo(ff):
     return lunghe, tele
 
 
-def stile(ed):
-    """Controllo di §3.4 sui testi del dizionario C, prima del PDF: ogni campo è un paragrafo."""
+def ritmo_campi(ed):
+    """§3.4 sui testi del dizionario C (ogni campo è un paragrafo), con le riscritture del desk già applicate.
+    È la misura esatta: sul testo estratto dal PDF titoli, elenchi e tabelle si fondono in "frasi" che non esistono."""
     sys.path.insert(0, QUI)
     import desk
+    qui = os.getcwd()
+    C = desk._carica(os.path.abspath(ed))
+    try:
+        desk.applica(C, os.path.dirname(os.path.abspath(ed)))
+    except Exception:  # noqa: BLE001
+        pass
+    os.chdir(qui)
     errori, avvisi = [], []
-    for campo, t in desk.campi(desk._carica(ed)).items():
+    for campo, t in desk.campi(C).items():
         t = re.sub(r"<[^>]+>|\[\[\w+\]\]", "", str(t))
         lunghe, tele = ritmo([f.strip() for f in re.split(r"(?<=[.!?])\s+", t) if f.strip()])
-        errori += [f"{campo}: frase oltre {MAX_PAROLE} parole ({len(g.split())}): {g[:70]}" for g in lunghe]
-        avvisi += [f"{campo}: telegramma ({n} frasi staccate): {g[:60]}" for n, g in tele]
+        errori += [f"{campo}: frase oltre {MAX_PAROLE} parole ({len(g.split())}): spezzala dove cambia l'idea (§3.4): {g[:70]}"
+                   for g in lunghe]
+        avvisi += [f"{campo}: telegramma, {n} frasi staccate: legale tra loro (e, ma, mentre...) (§3.4): {g[:60]}"
+                   for n, g in tele]
+    return errori, avvisi
+
+
+def stile(ed):
+    """Solo il ritmo, prima del PDF: python3 controlli_testo.py --stile <edizione.py>"""
+    errori, avvisi = ritmo_campi(ed)
     for e in errori:
         print("ERRORE: " + e[:155])
     for a in avvisi:
@@ -186,12 +203,20 @@ def main():
               for m in re.finditer(r"«([^»]{3,300})»", piatto)
               if len(INGLESE.findall(m.group(1))) >= 2 and len(m.group(1).split()) > 15]
     # v8.6 (§3.4): ritmo. Errore solo il periodo oltre 30 parole; avviso il telegramma (4 frasi di fila, media sotto 12 parole).
-    corpo = piatto.split("TOP STORY", 1)[-1]
-    lunghe_prosa, telegrammi = ritmo([_prosa(f) for f in re.split(r"(?<=[.!?])\s+", corpo)])
-    errori += [f"frase oltre {MAX_PAROLE} parole ({len(g.split())}): spezzala dove cambia l'idea (§3.4): {g[:80]}"
-               for g in lunghe_prosa[:6]]
-    avvisi += [f"telegramma, {n} frasi staccate: legale tra loro (e, ma, mentre...) (§3.4): {g[:70]}"
-               for n, g in telegrammi[:3]]
+    # Si misura sui campi dell'edizione (--edizione <edizione.py>, lo passa controlli_tutti.sh): è esatto. Senza il file
+    # dell'edizione resta la stima dal PDF, che vale solo come avviso: lì titolo e sommario, i punti di un elenco o una
+    # tabella intera si fondono in una "frase" (collaudo del 14/11: 5-6 falsi errori in ognuna delle edizioni #022-#025).
+    ed = sys.argv[sys.argv.index("--edizione") + 1] if "--edizione" in sys.argv else None
+    if ed and os.path.exists(ed):
+        e_ritmo, a_ritmo = ritmo_campi(ed)
+        errori += e_ritmo[:6]
+        avvisi += a_ritmo[:3]
+    else:
+        corpo = piatto.split("TOP STORY", 1)[-1]
+        lunghe_prosa, telegrammi = ritmo([_prosa(f) for f in re.split(r"(?<=[.!?])\s+", corpo)])
+        avvisi += [f"forse una frase oltre {MAX_PAROLE} parole ({len(g.split())}, stima dal PDF): {g[:80]}" for g in lunghe_prosa[:3]]
+        avvisi += [f"telegramma, {n} frasi staccate: legale tra loro (e, ma, mentre...) (§3.4): {g[:70]}"
+                   for n, g in telegrammi[:3]]
     # v7.8 (§9.4): lessico di casa (glossario.json, "lessico"): un concetto, un nome.
     lex = json.load(open(os.path.join(QUI, "glossario.json"), encoding="utf-8")).get("lessico", {}).get("voci", [])
     for v in lex:

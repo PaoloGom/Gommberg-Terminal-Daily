@@ -534,7 +534,10 @@ def lettura(testo):
     return t
 
 
-SORPRESA = {"+": f'<font color="{POS_L}"><b>▲ sopra</b></font>', "-": f'<font color="{NEG_L}"><b>▼ sotto</b></font>',
+# Sopra o sotto le attese è un fatto aritmetico, non un giudizio: un'inflazione o dei sussidi "sopra" non sono una buona
+# notizia. Per questo la colonna non usa verde e rosso (v8.7): il 13/11 lo stesso dato era uscito "▲ sopra" in verde
+# nell'edizione e "▼ sotto" in rosso nella prova. "+" = il numero è più alto delle attese, "-" = più basso, sempre.
+SORPRESA = {"+": '<font color="#111111"><b>▲ sopra</b></font>', "-": '<font color="#111111"><b>▼ sotto</b></font>',
             "=": f'<font color="{ZERO_L}"><b>● in linea</b></font>', "": ""}
 
 

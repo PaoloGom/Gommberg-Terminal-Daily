@@ -27,6 +27,18 @@ EOF
 copia() { if [ "$PROVA" = "1" ] && [ "$REPO" = "/home/claude/gtd" ]; then echo "[prova] cp $*"; else cp -f "$@"; fi; }
 copia "$PDF" "$REPO/$DEST" || fail "copia del PDF"
 if [ -f "$FATTI" ]; then copia "$FATTI" "$REPO/redazione/fatti/${DATA}.json"; else echo "AVVISO: $FATTI assente, registro fatti non copiato"; fi
+# Sorgenti dell'edizione (v8.7): dati di mercato, testo scritto, esiti di revisione e desk, stato della scommessa. Servono a
+# rifare l'edizione con un motore corretto, a collaudare ogni modifica su un'edizione vera (collaudo.sh) e a confrontare
+# due versioni delle regole sugli stessi dati. Non bloccano mai la pubblicazione.
+LAV="$(dirname "$FATTI")"; SRG="$REPO/redazione/sorgenti/${DATA}"
+if [ "$PROVA" != "1" ] || [ "$REPO" != "/home/claude/gtd" ]; then
+  mkdir -p "$SRG" 2>/dev/null
+  [ -f "$LAV/edizione_${DATA}.py" ] && cp -f "$LAV/edizione_${DATA}.py" "$SRG/edizione.py" 2>/dev/null
+  for f in dati.json contesto.json stato.json verdetto.json revisione.json desk_ok.json; do
+    [ -f "$LAV/$f" ] && cp -f "$LAV/$f" "$SRG/" 2>/dev/null
+  done
+  rmdir "$SRG" 2>/dev/null   # vuota (nessun sorgente trovato): non resta
+fi
 # Pagine del sito generate da edizioni.json: pagina per edizione con anteprima WhatsApp, feed RSS, link fisso
 # Registro delle uscite (ora di pubblicazione, per la puntualità nella dashboard pubblica "I numeri")
 [ "$PROVA" = "1" ] || python3 - "$REPO/dati/uscite.json" "$N" "$DATA" <<'EOF2' || echo "AVVISO: registro uscite non aggiornato"
@@ -45,6 +57,7 @@ run git -C "$REPO" config user.name "PaoloGom"
 run git -C "$REPO" config user.email "PaoloGom@users.noreply.github.com"
 # Elenco fisso: mai redazione/collaudi (dati di prova)
 run git -C "$REPO" add pdf edizioni.json redazione/pronostici redazione/fatti redazione/scommessa || fail "git add"
+[ -d "$REPO/redazione/sorgenti" ] && run git -C "$REPO" add redazione/sorgenti
 # dati/ = file leggeri che il sito legge al posto di edizioni.json (homepage, archivio, basi, numeri)
 for f in e feed.xml sitemap.xml ultima dati; do [ -e "$REPO/$f" ] && run git -C "$REPO" add "$f"; done
 python3 -c "import json,sys; d=json.load(open('$REPO/dati/recenti.json')); sys.exit(0 if d['edizioni'][0]['numero']==int('$NNN'.lstrip('0') or 0) else 1)" 2>/dev/null \

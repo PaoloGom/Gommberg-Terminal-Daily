@@ -55,7 +55,9 @@ if [ -f "$L/dati.json" ]; then
 else
   echo "[ROSSO] Numeri: manca $L/dati.json (schema di controlli_dati.py, con 'etichette')"; ROSSI+=("Numeri")
 fi
-passo "Scrittura (→, cause, sigle)" 1 python3 "$R/controlli_testo.py" "$PDF" --json "$L/testo.json"
+# il ritmo delle frasi si misura sui campi dell'edizione del giorno (esatto), non sul testo estratto dal PDF
+ED=$(ls -t "$L"/edizione_20*.py 2>/dev/null | head -1)
+passo "Scrittura (→, cause, sigle, ritmo)" 1 python3 "$R/controlli_testo.py" "$PDF" --json "$L/testo.json" ${ED:+--edizione "$ED"}
 if [ -f "$L/voce_indice.json" ]; then
   passo "Temi di prima pagina" 1 python3 "$R/controlli_temi.py" "$L/voce_indice.json"
 else

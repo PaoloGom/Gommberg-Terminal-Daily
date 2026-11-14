@@ -17,8 +17,8 @@ REGOLE DEI CAMPI (v8.1: stanno qui, accanto ai campi; ISTRUZIONI.md tiene solo c
 - top: titolo max 2 righe, dek 3-4. in30: 3 punti senza cifre, col rimando. Voci "breve" dell'indice senza cifre.
 - stamattina: future, Asia, petrolio, cambio, 10 anni con orario 06:00-09:29; senza livelli verificati
   "stamattina_titolo": "Cosa guardare all'apertura" con 2-4 soglie o eventi con orario.
-- termometri: solo i temi mossi; gli altri in "fermi", fuori dopo 3 sedute. "lettura" (pag. 2) solo se dice ciò che il
-  quadro di pag. 1 non dice: di norma non c'è.
+- termometri: solo i temi mossi; gli altri in "fermi", fuori dopo 3 sedute. "lettura" (pag. 2) = ciò che le tabelle della
+  pagina mostrano e la prima pagina non dice, mai il quadro con altre parole.
 - moduli: 5 unità (mezzo = 1, doppio = 2), il primo "mezzo" va a pag. 3. Ogni modulo: perche, quindi, fonte; righe (mezzo max 5,
   doppio max 8); punti max 3; "guardare" obbligatorio nel doppio; niente "lettura". "numero", "punti" e "righe" solo se
   portano ciò che grafico e testo non dicono: qui sotto li usa solo chi li merita (§3.3). Due "mezzo" sulla stessa pagina si dividono
@@ -87,7 +87,7 @@ C = {
     "data": OGGI,
     "temi": ["Inflazione", "Fed", "Tassi", "Chip", "Asia", "Trimestrali"],
     "glossario": ["CPI", "pb", "AI", "DRAM", "CXMT", "EPS", "ROTCE", "BTP", "Bund", "VIX", "CME FedWatch", "WTI"],
-    "meccanismi": [],    # id di redazione/meccanismi.json usati nelle righe M (qui nessuna)
+    "meccanismi": ["M26", "M01", "M04", "M21"],   # id di redazione/meccanismi.json su cui poggiano i passaggi spiegati
 
     "ticker": ticker_da_dati("dati.json"),   # dal dati.json del giorno (numeri.py): mai a mano
 
@@ -105,8 +105,8 @@ C = {
     },
     # 2-3 frasi legate tra loro: prima la lettura (cosa dicono insieme tassi, dollaro, oro, petrolio e borse, o che non si legano),
     # poi i prezzi che la provano
-    "quadro": "Lo stesso dato si legge in due modi. Il 2 anni (+3 pb) e il dollaro salgono perché si scommette su una "
-              "Fed più dura, mentre il 10 anni scende, come quando si cerca riparo. In borsa si vendono i tecnologici e si "
+    "quadro": "Lo stesso dato si legge in due modi. Per noi il 2 anni (+3 pb) e il dollaro salgono perché si scommette su "
+              "una Fed più dura, mentre il 10 anni scende, come quando si cerca riparo. In borsa si vendono i tecnologici e si "
               "comprano i difensivi, e intanto petrolio e oro restano fermi.",
     "in30": [
         # le 3 cose più importanti DOPO la top story: mai la top story né le sue reazioni di mercato (controlli_temi.py)
@@ -186,11 +186,17 @@ C = {
         ("Petrolio", "Brent sopra 104 $", "WTI verso 95 $ in seduta", "mista", "Prezzi della benzina"),
     ],
     "fermi": "Iran e Hormuz (nessuna novità verificata dal 13/10), Francia e debito europeo (dal 12/10).",
-    # niente "lettura" in pag. 2: il quadro di pag. 1 ha già detto che il dato divide i mercati (§3.3)
+    # lettura (pag. 2): MAI il quadro di pag. 1 con altre parole (§3.3). Dice ciò che le tabelle di questa pagina mostrano
+    # e la prima pagina no, e spiega il passaggio a chi le tabelle non le sa leggere.
+    "lettura": "Due cose che le tabelle dicono e la prima pagina no. Il Russell 2000, l'indice delle società più piccole, "
+               "perde quasi il doppio dell'S&amp;P 500: di solito chi ha più debiti soffre di più i tassi alti. Il Dow "
+               "Jones, dove la tecnologia pesa poco, è quasi fermo: la vendita riguarda un settore, non tutta la borsa.",
 
     # ---------- Pag. 3-5 ----------
     "agenda_titolo": "Ieri in calendario e in arrivo",
     "ieri": [        # (quando, evento, dato contro attese, sorpresa +/-/=, → max 8 parole). Casa delle cifre solo per i dati NON raccontati altrove
+        # sorpresa: "+" se il NUMERO è più alto delle attese, "-" se è più basso, "=" se uguale. È aritmetica, non un
+        # giudizio: sussidi di disoccupazione a 200 mila contro 195 mila attesi sono "+", anche se è un dato peggiore.
         # il calendario è la tabella di riferimento: dato contro attese SEMPRE; sono notizie e moduli a non ripeterli
         ("Mer 14, 14:30", "Prezzi al consumo USA (settembre)", "3,7% su un anno (atteso 3,6%); senza energia e alimentari 2,6% (2,5%)", "+", "-"),
         ("Mer 14", "Trimestrali BofA, Morgan Stanley, BlackRock", "Esiti divergenti", "", "[[banche]]"),
@@ -242,7 +248,11 @@ C = {
          # testo = il meccanismo che il lettore non vede nei numeri: spiega, non ripete tabella e perché
          "testo": ["La differenza sta in come si guadagna. Le banche d'affari vivono di scambi e commissioni, che salgono "
                    "quando i mercati si agitano. Quelle commerciali, come BofA, vivono del margine tra gli interessi sui "
-                   "prestiti e sui depositi: se i tassi scendono il margine si stringe, e un trimestre nervoso non le aiuta."],
+                   "prestiti e sui depositi: se i tassi scendono il margine si stringe, e un trimestre nervoso non le aiuta. "
+                   "Per questo in una stagione di conti le banche non vanno lette tutte insieme: lo stesso trimestre "
+                   "può essere ottimo per chi fa da intermediario e mediocre per chi presta. BlackRock sta ancora "
+                   "altrove: gestisce i risparmi degli altri e non presta, e di solito guadagna di più quando i mercati "
+                   "salgono e i clienti investono. Tre mestieri diversi sotto la stessa parola, banca."],
          "fonte": "Fonti: comunicato Morgan Stanley (SEC), Milano Finanza, FIRSTonline, TheStreet."},
         {"chiave": "treasury", "tema": "Tassi USA", "breve": "curva al minimo dal 28/9",
          "titolo": "Con la Fed più dura la curva dei Treasury si appiattisce",
@@ -259,13 +269,31 @@ C = {
                        "titolo": "La distanza tra 10 e 2 anni torna ai livelli di fine settembre",
                        "sottotitolo": "10 anni meno 2 anni, ultimo mese (pb)", "ruolo": "storia",
                        "serie": [("10 anni meno 2 anni", [round((r[2] - r[1]) * 100) for r in UST_MESE], "#F26B1D")]},
-         # niente "punti" e niente "numero": le variazioni per scadenza sono già nelle barre, il -14 pb nella linea (§3.3)
+         # niente "punti": le variazioni per scadenza sono già nelle barre (§3.3). Il "numero" c'è perché dice una cosa che
+         # grafici e testo non dicono: quanto era stata più forte la prima reazione
+         "numero": "+12 pb: il salto del 2 anni nei minuti dopo il dato (Axios). Ha chiuso a +3: la prima reazione "
+                   "era stata quattro volte più forte di quella rimasta a fine seduta.",
          # B1: la causa si confronta con la forma della curva. Un'inflazione più alta spiega il breve, non il lungo in calo:
          # dirlo e dare la lettura della redazione che regge alla prova dei prezzi (registro "anomalia" in fatti.json, §6.2c)
          "perche": "Di solito il breve segue le attese sulla Fed, e con il CPI sono salite. Un'inflazione più alta però non spiega il lungo in calo: per noi sono acquisti rifugio dopo le vendite sui tecnologici, e il VIX in rialzo lo conferma.",
          "quindi": "Se il 10 anni torna verso il 5,30-5,35% toccato in serata, torna a contare l'inflazione. Sotto il 5,10% di stamattina, invece, prevale la paura sulla borsa.",
-         # testo: racconta ciò che i grafici non dicono (storia del mese, mutui, asta) senza riscrivere le cifre
-         "testo": ["Il mese ha avuto due fasi. Fino al 21 settembre la distanza tra 10 e 2 anni si è quasi dimezzata; "
+         # testo: IL PASSAGGIO PRIMA DI TUTTO (§3.4). Il primo paragrafo fa capire a chi non ha mai studiato finanza perché
+         # il fatto muove il prezzo, un anello alla volta, con parole di tutti i giorni e senza definizioni da dizionario:
+         # la parola difficile si capisce da ciò che fa ("pretende un interesse più alto, ed è questo il rendimento").
+         # Poggia su un meccanismo di meccanismi.json (qui M26 e M01), non su una scheda. Poi il racconto che i grafici
+         # non fanno (storia del mese, mutui, asta), senza riscrivere le cifre. Chi i mercati li conosce non perde nulla.
+         "testo": ["Dietro i due movimenti ci sono due domande diverse. Chi presta soldi al governo americano per due "
+                   "anni si chiede dove saranno i tassi della Fed. Se li aspetta più alti pretende un interesse più "
+                   "alto, ed è questo il rendimento che sale. Chi presta per dieci anni guarda più lontano, alla "
+                   "crescita e ai prezzi dei prossimi anni. E quando la borsa spaventa, molti comprano proprio questi "
+                   "titoli per mettere i soldi al riparo: il loro prezzo sale e il rendimento, che si muove al "
+                   "contrario, scende.",
+                   "Messi in fila dal più breve al più lungo, i rendimenti disegnano una curva. Di solito sale, perché "
+                   "chi presta per molti anni chiede di più: in dieci anni può succedere di tutto. Quando il breve "
+                   "sale e il lungo scende la curva si fa piatta, e il messaggio è che il mercato vede tassi alti "
+                   "oggi e un'economia più debole domani. È un segnale che si guarda con attenzione, "
+                   "non una previsione.",
+                   "Il mese ha avuto due fasi. Fino al 21 settembre la distanza tra 10 e 2 anni si è quasi dimezzata; "
                    "poi il lungo ha corso più del breve, fino al massimo del 7 ottobre. In una settimana quel movimento "
                    "si è quasi tutto riassorbito.",
                    "Conta anche fuori dalla finanza. I mutui americani seguono il 10 anni più dei tassi della Fed: se il "
@@ -297,13 +325,19 @@ C = {
                    ["Quota dei ricavi da wafer a 2 nanometri", "8%", "-", "-"],
                    ["Quota dei ricavi da wafer a 3 nanometri", "33%", "-", "-"]],
          "larghezze": [70, 30, 36, 46], "ruolo_righe": "perche",   # i conti solidi: la tesi è che non bastano
-         "perche": "La vendita partita dai titoli dell'intelligenza artificiale del Nasdaq si allarga a tutta l'Asia (ANSA), e a Seul e a Taipei i chip pesano molto negli indici.",
+         "perche": "La vendita partita dai titoli dell'intelligenza artificiale del Nasdaq si allarga a tutta l'Asia (ANSA). Le borse asiatiche aprono quando New York ha già chiuso, e di solito ne ereditano l'umore. Chi ha venduto a Wall Street ritrova a Seul e a Taipei gli stessi titoli, o i loro fornitori.",
+         # numero: un conto che il lettore non trova già fatto (qui lo scarto tra utile e stima), e misura la tesi
+         "numero": "+2,2%: di tanto l'utile di TSMC supera la stima degli analisti. Un margine piccolo: per noi la buona notizia era già in gran parte nei prezzi.",
          "quindi": "Oggi alle 15:30 riapre il Nasdaq, il primo test per l'Europa.",
          "punti": ["<b>Tokyo.</b> Cede anche Tokyo Electron, circa il 6,5% in apertura: la vendita tocca i produttori "
                    "di macchinari per chip.",
                    "<b>Il timore.</b> Un analista di BNP Paribas AM indica l'annuncio di CXMT, produttore cinese, sulle "
                    "memorie di nuova generazione."],
-         "testo": ["Il calo è più forte dove i chip pesano di più. A Taipei e a Seul pochi produttori di semiconduttori "
+         "testo": ["Perché conti migliori delle stime non bastano? In borsa un prezzo guarda avanti: chi compra un "
+                   "produttore di chip paga oggi gli utili che si aspetta nei prossimi anni. Un trimestre migliore "
+                   "del previsto racconta il passato. Un concorrente che promette memorie nuove mette invece in dubbio i prezzi di "
+                   "domani, e di solito sono quelli a muovere il titolo.",
+                   "Il calo è più forte dove i chip pesano di più. A Taipei e a Seul pochi produttori di semiconduttori "
                    "fanno una parte larga dell'indice: se vendono loro, vende tutta la borsa. A Tokyo il peso è minore, e "
                    "infatti il Nikkei cede meno, nonostante SoftBank e i produttori di macchinari per chip."],
          "fonte": "Notizie e conti TSMC: ANSA, Milano Finanza, Teleborsa.",
