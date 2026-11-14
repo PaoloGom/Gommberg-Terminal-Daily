@@ -70,7 +70,10 @@ def scommessa(reg, stato=None, verdetto=None):
         t = verdetto["totale"]
         sett = next(iter(verdetto["righe"].values()))["settimana"]
         v = {"settimana": sett, "punti": t["punti"], "su": t["su"], "direzione": t["direzione"], "range": t["range"],
-             "par": t["par"]}
+             "par": t["par"],
+             # esito mercato per mercato (solo i fissi): [nome, nostra direzione, 1 se la direzione era giusta]
+             "esiti": [[r["nome"], "su" if r["previsione"] > r["base"] else "giù", int(r["punto_direzione"])]
+                       for r in verdetto["righe"].values() if not r.get("variabile")]}
     return out, v
 
 

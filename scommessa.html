@@ -73,6 +73,28 @@ main { padding-block: 32px 56px; display: grid; gap: 52px; }
 .card .t { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 6px; }
 .verdict { margin: 14px 0 0; padding: 12px 14px; border-left: 3px solid var(--orange); background: var(--panel); max-width: 72ch; }
 .verdict b { font-weight: 600; }
+/* Gioca anche tu: la giocata del lettore resta nel suo telefono */
+.g-intro { margin: 0 0 14px; max-width: 64ch; color: var(--muted); }
+.g-rows { border-top: 2px solid var(--ink); }
+.g-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--rule); }
+.g-row b { font-family: var(--display); font-stretch: 90%; font-weight: 800; font-size: 17px; line-height: 1.2; }
+.g-row .noi { grid-column: 1; font-size: 13.5px; color: var(--muted); }
+.g-row .st { grid-column: 2; grid-row: 1; justify-self: end; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+.g-row .st .up, .g-row .st .down { font-weight: 600; }
+.g-row .tu { grid-column: 2; grid-row: 2; display: inline-flex; gap: 6px; align-items: center; font-size: 13.5px; }
+.g-row .tu button { font: inherit; font-size: 14px; min-width: 64px; min-height: 40px; padding: 0 10px; background: transparent; color: var(--ink); border: 1px solid var(--ink); cursor: pointer; }
+.g-row .tu button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.g-row .tu button:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+.g-row .tu strong { font-weight: 600; }
+.g-act { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 14px; }
+.g-act[hidden] { display: none; }
+.g-act button { font-family: var(--mono); font-size: 14px; min-height: 44px; padding: 0 18px; background: var(--ink); color: var(--paper); border: 1px solid var(--ink); cursor: pointer; }
+.g-act button:disabled { background: transparent; color: var(--muted); border-color: var(--rule); cursor: default; }
+.g-act span { font-size: 13.5px; color: var(--muted); }
+.g-box { margin: 14px 0 0; padding: 12px 14px; border-left: 3px solid var(--orange); background: var(--panel); max-width: 72ch; }
+.g-box b { font-weight: 600; }
+.g-box + .g-box { margin-top: 8px; }
+
 .wait { color: var(--muted); }
 
 .howto { margin: 18px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 28px; border-top: 1px solid var(--rule); padding-top: 14px; }
@@ -129,6 +151,16 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     <p class="pg-kick">La scommessa</p>
     <h2 id="h-hero" class="pg-h"><span>Sei previsioni ogni lunedì.</span><em>Il lunedì dopo, il conto: quante ne abbiamo prese, senza sconti.</em></h2>
     <p>Sei mercati fissi; quando un tema domina la settimana, se ne aggiunge un settimo. <span data-mk="S&amp;P 500">S&amp;P 500</span>, <span data-mk="Euro Stoxx 50">Euro Stoxx 50</span>, <span data-mk="Treasury">Treasury a 10 anni</span>, <span data-mk="EUR/USD">euro-dollaro</span>, <span data-mk="Brent">Brent</span>, <span data-mk="oro">oro</span>: per ognuno la direzione della settimana e una forchetta di prezzo per la chiusura del venerdì. Il settimo, quando c'è, è lo strumento della settimana: scelto sul tema che muove i mercati. Ogni verdetto resta in archivio.</p>
+  </section>
+
+
+  <section aria-labelledby="h-sett" id="sett" hidden>
+    <p class="kicker">Questa settimana<span id="sWk"></span></p>
+    <h3 class="sec-h" id="h-sett">Gioca anche tu</h3>
+    <p class="g-intro" id="gIntro"></p>
+    <div class="g-rows" id="gRows"></div>
+    <div class="g-act" id="gAct" hidden><button type="button" id="gOk" disabled>Conferma la giocata</button><span id="gHint"></span></div>
+    <div id="gEsito"></div>
   </section>
 
   <section aria-labelledby="h-pagella">
@@ -257,6 +289,105 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
       $("verdict").innerHTML = g;
     })
     .catch(vuota);
+})();
+</script>
+<script>
+/* ---------- Questa settimana e il gioco del lettore ----------
+   Il lunedì il lettore sceglie su o giù per i sei mercati fissi; in settimana vede come va, accanto a noi; il lunedì dopo
+   il conto. La giocata resta nel suo browser (localStorage): niente registrazione, niente dati inviati. */
+(function () {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+  const MESI = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
+  const utc = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(Date.UTC(y, m - 1, d)); };
+  const oggi = utc(new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Rome", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date()));
+  const giorni = (a, b) => Math.round((a - b) / 864e5);
+  const periodo = (s) => { const [a, b] = s.split("/").map(utc); return a.getUTCDate() + (a.getUTCMonth() !== b.getUTCMonth() ? " " + MESI[a.getUTCMonth()] : "") + "-" + b.getUTCDate() + " " + MESI[b.getUTCMonth()]; };
+  const num = (x) => String(Math.round(x * 10) / 10).replace(".", ",");
+  const K = "gtd.gioco";
+  const leggi = () => { try { return JSON.parse(localStorage.getItem(K) || "{}") || {}; } catch (e) { return {}; } };
+  const scrivi = (o) => { try { localStorage.setItem(K, JSON.stringify(o)); return true; } catch (e) { return false; } };
+  const freccia = (d) => d === "su" ? "↑ rialzo" : "↓ calo";
+  const opposto = (d) => d === "su" ? "giù" : "su";
+
+  fetch("dati/recenti.json", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).then((R) => {
+    const eds = (R && R.edizioni) || [], ed = eds.find((e) => e.scommessa && Array.isArray(e.scommessa.dettaglio) && e.scommessa.dettaglio.length);
+    if (!ed) return;
+    const sc = ed.scommessa, W = sc.settimana, [lun, ven] = W.split("/").map(utc);
+    const fissi = sc.dettaglio.filter((d) => !d[4]);
+    const stato = leggi();
+
+    // Il conto delle settimane chiuse: appena esce il verdetto, la giocata salvata diventa un risultato
+    for (const e of eds) {
+      const v = e.verdetto;
+      if (!v || !Array.isArray(v.esiti) || !stato[v.settimana] || stato[v.settimana].fin) continue;
+      const g = stato[v.settimana].p || {}; let tu = 0, noi = 0, su = 0;
+      for (const [nome, dir, giusta] of v.esiti) { if (!g[nome]) continue; su++; noi += giusta; tu += (g[nome] === dir) === !!giusta ? 1 : 0; }
+      if (su) stato[v.settimana].fin = { tu, noi, su };
+    }
+    scrivi(stato);
+
+    const mia = stato[W] && stato[W].p, aperta = giorni(oggi, lun) === 0, finita = giorni(oggi, ven) > 2;
+    const scelte = Object.assign({}, mia || {});
+    $("sWk").textContent = ", " + periodo(W);
+    const casoDir = sc.par != null ? num(sc.par - 0.68 * fissi.length) : "circa la metà";
+
+    function disegna() {
+      const rows = $("gRows"); rows.innerHTML = "";
+      let tu = 0, noi = 0, giudicati = 0;
+      for (const [nome, dir, strada] of fissi) {
+        const r = el("div", "g-row"); r.appendChild(el("b", "", window.GM ? GM.nome(nome) : nome));
+        const st = el("span", "st");
+        if (strada === true || strada === false) {
+          giudicati++; if (strada) noi++;
+          const s = el("span", strada ? "up" : "down", strada ? "noi: sì" : "noi: no"); st.append("per ora ", s);
+          if (mia && mia[nome]) { const ok = (mia[nome] === dir) === strada; if (ok) tu++; st.append("  ", el("span", ok ? "up" : "down", ok ? "tu: sì" : "tu: no")); }
+        }
+        r.appendChild(st);
+        r.appendChild(el("span", "noi", "Noi: " + freccia(dir)));
+        const t = el("span", "tu");
+        if (mia) { t.append("Tu: "); t.appendChild(el("strong", "", mia[nome] ? freccia(mia[nome]) : "-")); }
+        else if (aperta) {
+          for (const d of ["su", "giù"]) {
+            const b = el("button", "", d === "su" ? "↑ su" : "↓ giù"); b.type = "button"; b.setAttribute("aria-pressed", String(scelte[nome] === d));
+            b.setAttribute("aria-label", nome + ": " + (d === "su" ? "chiude la settimana in rialzo" : "chiude la settimana in calo"));
+            b.addEventListener("click", () => { scelte[nome] = d; disegna(); });
+            t.appendChild(b);
+          }
+        }
+        r.appendChild(t); rows.appendChild(r);
+      }
+      const fatte = fissi.filter((d) => scelte[d[0]]).length;
+      $("gAct").hidden = !!mia || !aperta;
+      $("gOk").disabled = fatte < fissi.length;
+      $("gHint").textContent = fatte < fissi.length ? "Scegli per tutti e " + fissi.length + " i mercati (" + fatte + " su " + fissi.length + ")" : "Dopo la conferma non si cambia fino a venerdì, come per noi.";
+      $("gIntro").textContent = mia ? "La tua giocata è fatta e non cambia fino a venerdì, come la nostra. Conta la chiusura di venerdì rispetto a quella del venerdì prima."
+        : aperta ? "Per ogni mercato, la settimana chiude sopra o sotto il venerdì scorso? Scegli e confronta il tuo risultato con il nostro. La giocata resta nel tuo telefono: nessuna registrazione."
+        : finita ? "La settimana è chiusa. La scommessa nuova esce lunedì con l'edizione del mattino: si gioca quel giorno."
+        : "Le nostre sei previsioni di questa settimana, con l'andamento all'ultima chiusura. Per giocare anche tu torna lunedì: si sceglie il giorno in cui esce il pronostico.";
+      const box = $("gEsito"); box.innerHTML = "";
+      if (mia && giudicati) {
+        const p = el("p", "g-box"); p.appendChild(el("b", "", "Per ora: tu " + tu + " su " + giudicati + ", noi " + noi + " su " + giudicati + "."));
+        p.append(" Chi tira a caso ne prende in media " + casoDir + " su " + fissi.length + ".");
+        box.appendChild(p);
+      } else if (mia) box.appendChild(el("p", "g-box", "Da domani, a ogni edizione, vedi qui quante ne stai prendendo."));
+      const chiuse = Object.keys(stato).filter((k) => stato[k].fin).sort();
+      if (chiuse.length) {
+        const u = stato[chiuse[chiuse.length - 1]].fin, tot = chiuse.reduce((a, k) => ({ tu: a.tu + stato[k].fin.tu, noi: a.noi + stato[k].fin.noi, su: a.su + stato[k].fin.su }), { tu: 0, noi: 0, su: 0 });
+        const p = el("p", "g-box"); p.appendChild(el("b", "", "L'ultima settimana chiusa (" + periodo(chiuse[chiuse.length - 1]) + "): tu " + u.tu + " su " + u.su + ", noi " + u.noi + " su " + u.su + "."));
+        if (chiuse.length > 1) p.append(" In " + chiuse.length + " settimane: tu " + tot.tu + " su " + tot.su + ", noi " + tot.noi + " su " + tot.su + ".");
+        box.appendChild(p);
+      }
+    }
+    $("gOk").addEventListener("click", () => {
+      if (fissi.some((d) => !scelte[d[0]])) return;
+      stato[W] = { p: scelte, t: Date.now() };
+      if (!scrivi(stato)) { $("gHint").textContent = "Il tuo browser non permette di salvare la giocata (navigazione privata?)."; return; }
+      location.reload();
+    });
+    disegna(); $("sett").hidden = false;
+  }).catch(() => {});
 })();
 </script>
 </body>
