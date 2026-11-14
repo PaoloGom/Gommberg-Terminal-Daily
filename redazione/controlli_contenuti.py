@@ -329,6 +329,10 @@ if len(_righe_dato) >= 2 and len(_con) * 2 < len(_righe_dato):
                f"\"<dato> forecast consensus <mese>\", calendari di Investing.com, Reuters, FXStreet, Teleborsa); senza: "
                f"{'; '.join(_senza[:4])}. Mai togliere righe per passare: dopo 3 giri vale com'è")
 
+_nv = [a.get("evento", "")[:30] for a in (VOCE.get("agenda") or []) if isinstance(a, dict) and re.search(r"non verificat|non trovat", a.get("attese") or "", re.I)]
+if _nv:   # prova del 14/11: "consenso non verificato" stampato in agenda. Il lettore non vede come lavoriamo (§3.7)
+    ERR.append(f"agenda: nella colonna attese c'è 'non verificato' ({'; '.join(_nv[:3])}): cerca il consenso ancora una volta; "
+               "se non c'è, scrivi solo il dato precedente (\"prima +0,8%\") o cosa ascoltare, mai la nostra cucina")
 _ag = VOCE.get("agenda")
 if isinstance(_ag, list) and 0 < len(_ag) < 4:   # struttura v9: pag. 5 ha posto per 4-6 righe in arrivo
     ERR.append(f"agenda: solo {len(_ag)} righe. Nei prossimi giorni di borsa ci sono sempre almeno 4 eventi che contano (dati, "

@@ -162,11 +162,6 @@ def _barra(k, v, w, ultimo=None):
     return d
 
 
-def _testo_punto(etichetta, t):
-    t = ETICHETTE.sub(r"<b>\1</b>", esc(t or ""))
-    return P(f"<b>{etichetta}</b> {t}", "dek")
-
-
 def _punto_box(etichetta, t):
     """"Il punto" sotto il tabellone (struttura v9): prima il lettore vede come si gioca e a che punto siamo, poi i
     mercati uno per uno, e solo allora il perché. Stesso riquadro della "lettura" di pag. 5."""
@@ -266,7 +261,8 @@ def _verdetto(verdetto, settimana_prec, com_e_andata=None):
     note = sorted({r["nota"] for r in verdetto["righe"].values() if r.get("nota")})
     out += [P(f"Nota: {esc(x)}.", "p6_box") for x in note]
     if com_e_andata:
-        out.append(_testo_punto("Com'è andata:", com_e_andata.replace("Com'è andata:", "").strip()))
+        # stesso corpo del resto del riquadro (prima usciva più grande e grigio, come un sommario)
+        out.append(P("<b>Com'è andata:</b> " + esc(com_e_andata.replace("Com'è andata:", "").strip()), "p6_box"))
     return out
 
 

@@ -47,7 +47,7 @@ p = f"e/{v['numero']:03d}.html"
 if os.path.exists(p):
     shutil.copy(p, os.path.join(sys.argv[1], "pagina.html"))
 PY
-  for f in pronostici/*-settimana.json scommessa/pagella.json; do [ -f "redazione/$f" ] && [ -n "$(git status --porcelain "redazione/$f")" ] && cp -f "redazione/$f" "$D/"; done
+  for f in redazione/pronostici/*-settimana.json redazione/scommessa/pagella.json; do [ -f "$f" ] && [ -n "$(git status --porcelain "$f")" ] && cp -f "$f" "$D/"; done
   T0="$(cat "$L/_prova_inizio" 2>/dev/null || echo 0)"
   { echo "data: $OGGI"; echo "ramo: $RAMO"; echo "minuti: $(( ( $(date +%s) - T0 ) / 60 ))"; echo "fine: $(TZ=Europe/Rome date +%H:%M)"; } > "$D/tempi.txt"
   git checkout -q -- edizioni.json 2>/dev/null
