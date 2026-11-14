@@ -227,7 +227,10 @@ def _righello(p_dir, p_for, su, par, dopo="", chiusa=""):
     d.add(String(0, 1, "0", fontName="Cond", fontSize=6.4, fillColor=GREY, textAnchor="start"))
     d.add(String(w, 1, str(su), fontName="Cond", fontSize=6.4, fillColor=GREY, textAnchor="end"))
     diff = round(punti - par, 1)
-    frase = "In linea con il par." if abs(diff) < 0.05 else f"{'Sopra' if diff > 0 else 'Sotto'} il par di {num(abs(diff), 1)}."
+    # lo scarto dal par è una variazione col segno: verde se positiva, rossa se negativa, come nel resto del giornale.
+    # Si colora solo quel numero: barra, tacca e frase restano neri e arancione, la pagina ha già i Sì e i No del tabellone.
+    frase = "In linea con il par." if abs(diff) < 0.05 else (
+        f"Rispetto al par: <font color='{VERDE if diff > 0 else ROSSO}'><b>{'+' if diff > 0 else '-'}{num(abs(diff), 1)}</b></font>.")
     return [P(f"<font name='Cond-B' size='15'>{punti}</font>&nbsp;&nbsp;<font color='#6B6B6B'>punti su {su}{dopo}</font>", "p6_box"),
             d, Spacer(1, 2),
             P(f"<font color='#111111'>■</font> <b>{p_dir}</b> dalla direzione&nbsp;&nbsp;&nbsp;<font color='#F26B1D'>■</font> "
@@ -331,7 +334,7 @@ def pagina6_settimana(reg, stato, tesi, grafico="c_forecast.png", venerdi=False)
     dx = ["A CHE PUNTO SIAMO",
           *_righello(p_dir, p_for, 2 * n, _par(fx), ", se finisse oggi",
                      "Verdetto lunedì, con le chiusure di stasera." if venerdi
-                     else f"Verdetto con le chiusure di venerdì {ven_d.day}.")]
+                     else f"Verdetto venerdì {ven_d.day}, a borse chiuse.")]
     for k in ordine(st):
         if st[k].get("variabile"):
             r = sr[k]
