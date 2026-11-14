@@ -58,14 +58,14 @@ a { color: inherit; text-underline-offset: 3px; }
 
 .kicker { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--orange-ink); margin: 0; line-height: 1.4; }
 .sec-h { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 26px; line-height: 1.1; margin: 4px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--orange); }
-main { padding-block: 32px 56px; display: grid; gap: 52px; }
+main { padding-block: 32px 56px; display: grid; gap: 34px; }
 
 .hero { max-width: none; }
 .hero h2, .hero p { max-width: 62ch; }
 .hero h2 { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: clamp(27px, 4vw, 42px); line-height: 1.06; margin: 8px 0 0; text-wrap: balance; }
 .hero p:not(.kicker) { color: var(--muted); font-size: 17px; margin: 14px 0 0; }
 
-main { padding-block: 32px 56px; display: grid; gap: 52px; }
+main { padding-block: 32px 56px; display: grid; gap: 34px; }
 .hero h2 { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: clamp(28px, 4vw, 40px); line-height: 1.06; margin: 4px 0 0; text-wrap: balance; }
 .hero p { color: var(--muted); font-size: 16.5px; margin: 10px 0 0; max-width: 62ch; }
 .find { margin-top: 18px; display: flex; align-items: center; gap: 10px; border: 1px solid var(--rule); background: var(--paper); padding: 0 12px; max-width: 520px; }
@@ -85,48 +85,54 @@ main { padding-block: 32px 56px; display: grid; gap: 52px; }
 .chip:hover { border-color: var(--orange); }
 .chip[aria-pressed="true"] { background: var(--bar); color: var(--bar-ink); border-color: var(--bar); }
 .chip[aria-pressed="true"] small { color: var(--bar-muted); }
-.chip:focus-visible, .az a:focus-visible, .piu input:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+.chip:focus-visible, .az a:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
 .az { display: flex; flex-wrap: wrap; gap: 2px; }
 .az a, .az span { flex: none; min-width: 32px; height: 36px; display: inline-flex; align-items: center; justify-content: center; font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 15px; text-decoration: none; }
 .az a { color: var(--orange-ink); } .az a:hover { background: var(--panel); }
 .az span { color: var(--rule); }
-.piu { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--muted); cursor: pointer; width: fit-content; min-height: 32px; }
-.piu input { width: 18px; height: 18px; accent-color: var(--orange); margin: 0; }
 
-/* Glossario: schede */
-.let { margin-top: 26px; scroll-margin-top: 16px; }
-.let:first-of-type { margin-top: 6px; }
-.let h4 { font-family: var(--display); font-stretch: 85%; font-weight: 900; font-size: 30px; line-height: 1; color: var(--orange); margin: 0 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
-.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; }
-.card { background: var(--panel); border-top: 3px solid var(--ink); padding: 12px 14px 12px; min-width: 0; display: flex; flex-direction: column; gap: 5px; scroll-margin-top: 20px; }
-.card:target, .card.hit { box-shadow: inset 4px 0 0 var(--orange); border-top-color: var(--orange); }
-.card h5 { font-family: var(--display); font-stretch: 90%; font-weight: 800; font-size: 19px; line-height: 1.15; margin: 0; overflow-wrap: anywhere; }
-.card .es { font-family: var(--mono); font-size: 12px; line-height: 1.35; color: var(--muted); margin: 0; }
-.card .df { margin: 2px 0 0; font-size: 14.5px; line-height: 1.5; }
-.card .ft { margin-top: auto; padding-top: 8px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; font-size: 13px; }
-.card .ft a { color: var(--orange-ink); min-height: 24px; display: inline-flex; align-items: center; }
-.card .tp { flex-basis: 100%; display: inline-flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .02em; color: var(--muted); }
-.card .tp svg, .area h4 svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
-.card .u, .mc .u { font-family: var(--mono); font-size: 12px; line-height: 1.5; color: var(--muted); }
-.card .u a, .mc .u a { color: var(--orange-ink); }
-.card.nota { border-top-color: var(--rule); padding-block: 9px; }
-.card.nota .df { margin: 0; color: var(--muted); }
-
-/* Meccanismi */
-.area { margin-top: 28px; }
-.area:first-of-type { margin-top: 4px; }
-.area h4 { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
-.mc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.mc article { background: var(--panel); border-top: 3px solid var(--ink); padding: 12px 14px 14px; min-width: 0; scroll-margin-top: 20px; display: flex; flex-direction: column; gap: 6px; }
-.mc article:target, .mc article.hit { box-shadow: inset 4px 0 0 var(--orange); border-top-color: var(--orange); }
-.mc h5 { font-family: var(--display); font-stretch: 90%; font-weight: 800; font-size: 17px; line-height: 1.2; margin: 0; }
-.mc p { margin: 0; font-size: 14.5px; line-height: 1.5; }
-.mc .parole { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
-.mc .parole a { font-family: var(--mono); font-size: 12px; text-decoration: none; color: var(--orange-ink); border: 1px solid var(--rule); padding: 3px 8px; }
-.mc .parole a:hover { border-color: var(--orange); }
+/* Voci: una riga per parola, si apre al tocco */
+.sub { font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin: 0 0 10px; }
+.pick { display: flex; flex-wrap: wrap; gap: 8px; }
+.pick button { font: inherit; font-size: 14px; font-weight: 500; color: var(--ink); background: var(--panel); border: 0; border-bottom: 2px solid var(--ink); padding: 8px 12px; min-height: 40px; cursor: pointer; }
+.pick button:hover, .pick button:focus-visible { border-bottom-color: var(--orange); outline: 0; color: var(--orange-ink); }
+.duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 48px; }
+.tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-bottom: 2px solid var(--ink); }
+.tabs button { font-family: var(--display); font-stretch: 88%; font-weight: 800; font-size: 17px; line-height: 1.15; color: var(--muted); background: none; border: 0; padding: 12px 10px; cursor: pointer; text-align: left; }
+.tabs button small { display: block; font-family: var(--mono); font-weight: 400; font-size: 11.5px; margin-top: 3px; font-stretch: 100%; }
+.tabs button[aria-selected="true"] { color: var(--bar-ink); background: var(--bar); }
+.tabs button[aria-selected="true"] small { color: var(--bar-muted); }
+.tabs button:focus-visible { outline: 2px solid var(--orange); outline-offset: -2px; }
+.pan { display: grid; gap: 12px; }
+.pan[hidden] { display: none; }
+.pan > h3 { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 22px; line-height: 1.1; margin: 0; }
+.rows { border-top: 1px solid var(--rule); }
+.let { font-family: var(--display); font-stretch: 85%; font-weight: 900; font-size: 20px; line-height: 1; color: var(--orange); margin: 0; padding: 18px 0 6px; border-bottom: 1px solid var(--rule); scroll-margin-top: 12px; }
+.area { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin: 0; padding: 20px 0 8px; border-bottom: 1px solid var(--rule); }
+.area svg, .row .tp svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.row { border-bottom: 1px solid var(--rule); scroll-margin-top: 16px; }
+.row > summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) 20px; gap: 2px 12px; align-items: center; padding: 11px 0; min-height: 48px; }
+.row > summary::-webkit-details-marker { display: none; }
+.row > summary b { font-family: var(--display); font-stretch: 90%; font-weight: 800; font-size: 17px; line-height: 1.2; overflow-wrap: anywhere; }
+.row > summary span { grid-column: 1; font-size: 14px; line-height: 1.35; color: var(--muted); }
+.row > summary::after { content: "+"; grid-column: 2; grid-row: 1 / span 2; font-family: var(--mono); font-size: 18px; color: var(--orange-ink); text-align: center; }
+.row[open] > summary::after { content: "-"; }
+.row > summary:hover b, .row[open] > summary b { color: var(--orange-ink); }
+.row > summary:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+.row[open], .row.hit { background: var(--panel); box-shadow: inset 3px 0 0 var(--orange); }
+.row[open] > summary, .row.hit > summary, .row .in { padding-inline: 14px 10px; }
+.row .in { padding-bottom: 14px; display: grid; gap: 6px; max-width: 70ch; }
+.row .es { font-family: var(--mono); font-size: 12px; line-height: 1.35; color: var(--muted); margin: 0; }
+.row .df { margin: 0; font-size: 15px; line-height: 1.55; }
+.row .ft { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; font-size: 13.5px; margin-top: 2px; }
+.row .ft a, .row .ft button { color: var(--orange-ink); min-height: 28px; display: inline-flex; align-items: center; font: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-align: left; }
+.row .tp { display: inline-flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+.row .u { font-family: var(--mono); font-size: 12px; line-height: 1.5; color: var(--muted); }
+.row .u a { color: var(--orange-ink); }
+.row.solo > summary { cursor: default; } .row.solo > summary::after { content: ""; }
 .empty { color: var(--muted); font-size: 14.5px; }
 footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size: 12.5px; color: var(--muted); }
-@media (max-width: 860px) { .mc { grid-template-columns: minmax(0, 1fr); } .cards { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 860px) { .duo { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 520px) { .az { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; padding-bottom: 4px; } .chips { flex-wrap: nowrap; overflow-x: auto; margin-inline: -16px; padding-inline: 16px; scrollbar-width: none; } .chip { flex: none; } }
 </style>
 
@@ -139,29 +145,43 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
 <main class="wrap">
   <section class="hero" aria-labelledby="h-hero">
     <p class="pg-kick">Glossario</p>
-    <h2 id="h-hero" class="pg-h"><span id="bN">Le parole dei mercati.</span><em>Le sigle e i concetti dei mercati spiegati in modo semplice, per chi parte da zero.</em></h2>
+    <h2 id="h-hero" class="pg-h"><span id="bN">Le parole dei mercati.</span><em>Ogni parola in una riga. Tocca per sapere cos'è, come funziona e dove l'abbiamo usata.</em></h2>
     <div class="tools">
       <label class="find"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Zm5.3-2.2L21 21"/></svg>
-        <span class="sr" style="position:absolute;left:-9999px">Cerca una sigla o un termine</span><input type="search" id="q" placeholder="Cerca: CPI, spread, curva..." autocomplete="off" enterkeyhint="search"></label>
+        <span class="sr" style="position:absolute;left:-9999px">Cerca una parola o un meccanismo</span><input type="search" id="q" placeholder="Cerca: CPI, spread, dollaro..." autocomplete="off" enterkeyhint="search"></label>
+    </div>
+  </section>
+
+  <div class="duo" id="duo">
+    <section id="oggiBox" aria-labelledby="oggiH" hidden>
+      <p class="kicker" id="oggiH">Nell'ultima edizione</p>
+      <p class="sub" id="oggiS"></p>
+      <div class="pick" id="oggi"></div>
+    </section>
+    <section id="baseBox" aria-labelledby="baseH" hidden>
+      <p class="kicker" id="baseH">Parti da qui</p>
+      <p class="sub">Le parole che tornano ogni mattina</p>
+      <div class="pick" id="base"></div>
+    </section>
+  </div>
+
+  <section aria-label="Parole e meccanismi">
+    <div class="tabs" id="tabs" role="tablist">
+      <button type="button" role="tab" id="tP" aria-controls="pParole" aria-selected="true">Le parole<small id="nP"></small></button>
+      <button type="button" role="tab" id="tM" aria-controls="pMecc" aria-selected="false">Come si muovono i mercati<small id="nM"></small></button>
+    </div>
+    <div class="pan" id="pParole" role="tabpanel" aria-labelledby="tP" style="margin-top:16px">
+      <h3 id="hP" hidden>Le parole</h3>
       <div class="chips" id="chips" role="group" aria-label="Filtra per tipo"></div>
       <nav class="az" id="az" aria-label="Indice alfabetico"></nav>
-      <label class="piu"><input type="checkbox" id="piu"><span id="piuT">Mostra anche le sigle più note</span></label>
+      <div class="rows" id="gl"><p class="empty">Caricamento...</p></div>
     </div>
-    <nav class="jump" aria-label="Sezioni"><a href="#glossario">Sigle e termini</a><a href="#meccanismi">I meccanismi</a></nav>
-  </section>
-
-  <section aria-labelledby="glossario">
-    <p class="kicker">Glossario</p>
-    <h3 class="sec-h" id="glossario">Sigle e termini</h3>
-    <div class="count" id="gCount" aria-live="polite"></div>
-    <div id="gl"><p class="empty">Caricamento...</p></div>
-  </section>
-
-  <section aria-labelledby="meccanismi">
-    <p class="kicker">Come funziona</p>
-    <h3 class="sec-h" id="meccanismi">I meccanismi</h3>
-    <div class="count" id="mCount"></div>
-    <div id="mc"><p class="empty">Caricamento...</p></div>
+    <div class="pan" id="pMecc" role="tabpanel" aria-labelledby="tM" style="margin-top:16px" hidden>
+      <h3 id="hM" hidden>Come si muovono i mercati</h3>
+      <p class="sub" id="mSub">Sono tendenze, non leggi: dicono cosa succede di solito, e quando non vale.</p>
+      <div class="chips" id="aree" role="group" aria-label="Filtra per area"></div>
+      <div class="rows" id="mc"></div>
+    </div>
   </section>
 </main>
 
@@ -228,68 +248,104 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     const mecDi = (v) => v.mecc && mById.has(v.mecc) ? mById.get(v.mecc) : null;
     const lettera = (v) => { const c = fold(v.sigla).replace(/[^a-z0-9]/g, "")[0] || "#"; return /[a-z]/.test(c) ? c.toUpperCase() : "#"; };
 
-    const st = { tipo: "", piu: false };
-    function visibili(f) {
-      const nascondiNote = !f && !st.tipo && !st.piu;
-      return gv.filter((v) => (!st.tipo || v.tipo === st.tipo) && (!nascondiNote || !v.ovvio) &&
+    const st = { tipo: "", area: "", tab: "P" };
+    const BASE = ["Rendimento", "pb", "spread", "Curva dei rendimenti", "Fed", "BCE", "future", "ETF"];
+    const perSigla = new Map(gv.map((v) => [fold(v.sigla), v]));
+    function parole(f) {
+      return gv.filter((v) => (!st.tipo || f || v.tipo === st.tipo) &&
         (!f || fold([v.sigla, v.titolo, v.esteso, v.breve, v.spiega, v.varianti.join(" ")].join(" ")).includes(f)));
     }
-    function scheda(v) {
+    function riga(v) {
       const m = mecDi(v), u = nel(usoG(v.sigla)), f = v.fonte && sicuro(v.fonte[1]);
-      const testo = v.spiega || cap(v.breve);
-      const cls = !v.spiega && !v.esteso ? "card nota" : "card";
-      return '<article class="' + cls + '" id="' + ancora(v.sigla) + '"><h5>' + esc(v.titolo) + "</h5>" +
-        (v.esteso ? '<p class="es">' + esc(v.esteso) + "</p>" : "") + '<p class="df">' + esc(testo) + "</p>" +
-        '<div class="ft">' + (v.tipo ? '<span class="tp">' + ico(v.tipo) + esc(v.tipo) + "</span>" : "") +
-        (m ? '<a href="#' + m.id + '">Come funziona &rsaquo;</a>' : "") +
-        (f ? '<a href="' + esc(f) + '" target="_blank" rel="noopener">Fonte: ' + esc(v.fonte[0]) + " &#8599;</a>" : "") + "</div>" +
-        (u ? '<span class="u">' + u + "</span>" : "") + "</article>";
+      const dentro = (v.esteso ? '<p class="es">' + esc(v.esteso) + "</p>" : "") + (v.spiega ? '<p class="df">' + esc(v.spiega) + "</p>" : "") +
+        '<div class="ft">' + (m ? '<button type="button" data-va="' + m.id + '">Come funziona: ' + esc(m.titolo) + " &rsaquo;</button>" : "") +
+        (f ? '<a href="' + esc(f) + '" target="_blank" rel="noopener">Fonte: ' + esc(v.fonte[0]) + " &#8599;</a>" : "") +
+        (v.tipo ? '<span class="tp">' + ico(v.tipo) + esc(v.tipo) + "</span>" : "") + "</div>" + (u ? '<span class="u">' + u + "</span>" : "");
+      return '<details class="row' + (v.spiega || v.esteso ? "" : " solo") + '" id="' + ancora(v.sigla) + '"><summary><b>' + esc(v.titolo) + "</b><span>" + esc(cap(v.breve)) +
+        '</span></summary><div class="in">' + dentro + "</div></details>";
+    }
+    function rigaM(v) {
+      const u = nel(usoM(v.id)), par = gv.filter((x) => x.mecc === v.id).slice(0, 8);
+      return '<details class="row" id="' + v.id + '"><summary><b>' + esc(v.titolo) + '</b></summary><div class="in"><p class="df">' + esc(v.testo) + "</p>" +
+        (v.eccezioni ? '<p class="df"><b>Quando non vale.</b> ' + esc(v.eccezioni) + "</p>" : "") +
+        (par.length ? '<div class="ft">' + par.map((x) => '<button type="button" data-va="' + ancora(x.sigla) + '">' + esc(x.titolo) + "</button>").join("") + "</div>" : "") +
+        (u ? '<span class="u">' + u + "</span>" : "") + "</div></details>";
     }
     function disegna(q) {
       const f = fold(q).trim();
-      const g = visibili(f);
+      const g = parole(f);
       const gruppi = new Map();
       for (const v of g) { const l = lettera(v); if (!gruppi.has(l)) gruppi.set(l, []); gruppi.get(l).push(v); }
-      $("gl").innerHTML = g.length ? [...gruppi].map(([l, vs]) => '<div class="let" id="L-' + l + '"><h4>' + l + '</h4><div class="cards">' + vs.map(scheda).join("") + "</div></div>").join("")
-        : '<p class="empty">Nessuna voce per questa ricerca. Prova con un\'altra parola o togli il filtro.</p>';
-      const tutte = gv.length, note_ = gv.filter((v) => v.ovvio).length;
-      $("gCount").textContent = (f || st.tipo || st.piu) ? g.length + (g.length === 1 ? " voce" : " voci") + (st.tipo ? " in " + st.tipo : "")
-        : g.length + " voci in ordine alfabetico, più " + note_ + " sigle molto note";
-      $("piuT").textContent = "Mostra anche le sigle più note (" + note_ + ")";
-      if (!f && !st.tipo && !st.piu) $("bN").textContent = (tutte - note_) + " parole" + (mv.length ? " e " + mv.length + " meccanismi." : ".");
+      const lettere = !f && !st.tipo;   // l'alfabeto serve solo sull'elenco intero
+      $("gl").innerHTML = g.length ? [...gruppi].map(([l, vs]) => (lettere ? '<p class="let" id="L-' + l + '">' + l + "</p>" : "") + vs.map(riga).join("")).join("")
+        : '<p class="empty">Nessuna parola per questa ricerca.</p>';
       const az = [...Array(26)].map((_, i) => String.fromCharCode(65 + i));
       $("az").innerHTML = az.map((l) => gruppi.has(l) ? '<a href="#L-' + l + '">' + l + "</a>" : "<span>" + l + "</span>").join("");
+      $("az").hidden = !lettere; $("chips").hidden = !!f;
 
-      const m = mv.filter((v) => !f || fold(v.titolo + " " + v.testo + " " + (v.area || "")).includes(f));
-      $("mc").innerHTML = m.length ? aree.map((a) => { const vs = m.filter((v) => (v.area || "Altri") === a); if (!vs.length) return "";
-        return '<div class="area"><h4>' + ico(a) + esc(a) + '</h4><div class="mc">' + vs.map((v) => { const u = nel(usoM(v.id));
-          const par = gv.filter((x) => x.mecc === v.id && !x.ovvio).slice(0, 8);
-          return '<article id="' + v.id + '"><h5>' + esc(v.titolo) + "</h5><p>" + esc(v.testo) + "</p>" +
-            (par.length ? '<div class="parole">' + par.map((x) => '<a href="#' + ancora(x.sigla) + '">' + esc(x.titolo) + "</a>").join("") + "</div>" : "") +
-            (u ? '<span class="u">' + u + "</span>" : "") + "</article>"; }).join("") + "</div></div>"; }).join("")
+      const m = mv.filter((v) => (!st.area || f || (v.area || "Altri") === st.area) && (!f || fold(v.titolo + " " + v.testo + " " + (v.area || "")).includes(f)));
+      $("mc").innerHTML = m.length ? aree.map((a) => { const vs = m.filter((v) => (v.area || "Altri") === a);
+        return vs.length ? '<p class="area">' + ico(a) + esc(a) + "</p>" + vs.map(rigaM).join("") : ""; }).join("")
         : '<p class="empty">Nessun meccanismo per questa ricerca.</p>';
-      $("mCount").textContent = f ? m.length + (m.length === 1 ? " meccanismo" : " meccanismi") : mv.length + " meccanismi, in " + aree.length + " aree";
+      $("aree").hidden = !!f; $("mSub").hidden = !!f;
+
+      // Con una ricerca si vedono insieme parole e meccanismi trovati; senza, una scheda alla volta
+      $("tabs").hidden = !!f; $("duo").hidden = !!f;
+      $("hP").hidden = !f; $("hM").hidden = !f;
+      if (f) { $("hP").textContent = g.length + (g.length === 1 ? " parola" : " parole"); $("hM").textContent = m.length + (m.length === 1 ? " meccanismo" : " meccanismi"); }
+      $("pParole").hidden = f ? !g.length && m.length > 0 : st.tab !== "P";
+      $("pMecc").hidden = f ? !m.length : st.tab !== "M";
+      $("tP").setAttribute("aria-selected", String(st.tab === "P")); $("tM").setAttribute("aria-selected", String(st.tab === "M"));
+      if (f && g.length + m.length === 1) { const d = document.querySelector("#gl details, #mc details"); if (d) d.open = true; }
     }
     function chips() {
       const conta = (t) => gv.filter((v) => v.tipo === t).length;
       $("chips").innerHTML = '<button type="button" class="chip" data-t="" aria-pressed="true">Tutte</button>' +
         TIPI.map((t) => '<button type="button" class="chip" data-t="' + esc(t) + '" aria-pressed="false">' + ico(t) + esc(t) + " <small>" + conta(t) + "</small></button>").join("");
+      $("aree").innerHTML = '<button type="button" class="chip" data-t="" aria-pressed="true">Tutti</button>' +
+        aree.map((a) => '<button type="button" class="chip" data-t="' + esc(a) + '" aria-pressed="false">' + ico(a) + esc(a) + " <small>" + mv.filter((v) => (v.area || "Altri") === a).length + "</small></button>").join("");
+      $("nP").textContent = gv.length + " voci, dalla A alla Z"; $("nM").textContent = mv.length + " meccanismi, in " + aree.length + " aree";
+      $("bN").textContent = gv.length + " parole e " + mv.length + " meccanismi.";
     }
-    function evidenzia() {
-      if (!location.hash) return;
-      let t = document.getElementById(decodeURIComponent(location.hash.slice(1)));
-      if (!t && /^#g-/.test(location.hash)) { st.piu = true; st.tipo = ""; $("piu").checked = true; $("q").value = ""; disegna(""); aggChips(); t = document.getElementById(decodeURIComponent(location.hash.slice(1))); }
-      if (t) { document.querySelectorAll(".hit").forEach((x) => x.classList.remove("hit")); t.classList.add("hit"); requestAnimationFrame(() => t.scrollIntoView({ block: "center" })); }
+    function aggChips() {
+      $("chips").querySelectorAll(".chip").forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.t || "") === st.tipo)));
+      $("aree").querySelectorAll(".chip").forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.t || "") === st.area)));
     }
-    function aggChips() { $("chips").querySelectorAll(".chip").forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.t || "") === st.tipo))); }
+    // Porta a una voce: sceglie la scheda giusta, toglie ricerca e filtri, apre la riga e la mette al centro
+    function vai(id, scorri) {
+      const mecc = mById.has(id);
+      if (!mecc && !gv.some((v) => ancora(v.sigla) === id)) return false;
+      st.tab = mecc ? "M" : "P"; st.tipo = ""; st.area = ""; $("q").value = ""; disegna(""); aggChips();
+      const t = document.getElementById(id); if (!t) return false;
+      document.querySelectorAll(".hit").forEach((x) => x.classList.remove("hit"));
+      t.open = true; t.classList.add("hit");
+      if (scorri !== false) requestAnimationFrame(() => t.scrollIntoView({ block: "center", behavior: "smooth" }));
+      return true;
+    }
+    function daHash() { if (location.hash.length > 1) vai(decodeURIComponent(location.hash.slice(1))); }
+    function scelte(dove, voci) {
+      $(dove).innerHTML = voci.map((v) => '<button type="button" data-va="' + ancora(v.sigla) + '">' + esc(v.titolo) + "</button>").join("");
+    }
     chips();
+    scelte("base", BASE.map((k) => perSigla.get(fold(k))).filter(Boolean)); $("baseBox").hidden = !$("base").children.length;
+    const ult = eds[0];
+    if (ult) {
+      const visti = new Set(), voci = [];
+      for (const x of (ult.glossario || []).concat(ult.parole || [])) {
+        const v = perSigla.get(fold(String(x).split(" (")[0]));
+        if (v && !visti.has(v.sigla)) { visti.add(v.sigla); voci.push(v); }
+      }
+      if (voci.length) { scelte("oggi", voci.slice(0, 8)); $("oggiS").innerHTML = 'Le parole del <a href="' + link(ult) + '">n. ' + pad(ult.numero) + "</a>, " + quando(ult); $("oggiBox").hidden = false; }
+    }
     const q0 = new URLSearchParams(location.search).get("q") || "";
-    $("q").value = q0; disegna(q0); evidenzia();
+    $("q").value = q0; disegna(q0); daHash();
     let tm; $("q").addEventListener("input", () => { clearTimeout(tm); tm = setTimeout(() => disegna($("q").value), 120); });
     $("chips").addEventListener("click", (e) => { const b = e.target.closest(".chip"); if (!b) return; st.tipo = b.dataset.t || ""; aggChips(); disegna($("q").value); });
-    $("piu").addEventListener("change", () => { st.piu = $("piu").checked; disegna($("q").value); });
-    window.addEventListener("hashchange", evidenzia);
-  }).catch(() => { $("gl").innerHTML = '<p class="empty">Dati non raggiungibili. Riprova tra qualche minuto.</p>'; $("mc").innerHTML = ""; });
+    $("aree").addEventListener("click", (e) => { const b = e.target.closest(".chip"); if (!b) return; st.area = b.dataset.t || ""; aggChips(); disegna($("q").value); });
+    $("tabs").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; st.tab = b.id === "tM" ? "M" : "P"; disegna($("q").value); });
+    document.addEventListener("click", (e) => { const b = e.target.closest("[data-va]"); if (b) vai(b.dataset.va); });
+    window.addEventListener("hashchange", daHash);
+  }).catch(() => { $("gl").innerHTML = '<p class="empty">Dati non raggiungibili. Riprova tra qualche minuto.</p>'; });
 })();
 </script>
 </body>
