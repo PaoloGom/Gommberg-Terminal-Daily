@@ -1,0 +1,127 @@
+{
+ "movimenti": [
+  {
+   "serie": "S&P 500",
+   "seduta": "2026-11-13",
+   "variazione": -0.405,
+   "tipo": "pct",
+   "z": -0.47,
+   "piu_forte_da": "2026-11-05",
+   "frase_da": "il calo più forte dal 5 novembre",
+   "rarita": "capita circa una seduta su 2",
+   "notevole": false,
+   "testo": "l'S&P 500 -0,4% nella seduta del 13 novembre: il calo più forte dal 5 novembre (capita circa una seduta su 2)"
+  },
+  {
+   "serie": "Euro Stoxx 50",
+   "seduta": "2026-11-13",
+   "variazione": -0.189,
+   "tipo": "pct",
+   "z": -0.19,
+   "piu_forte_da": "2026-11-06",
+   "frase_da": "il calo più forte dal 6 novembre",
+   "rarita": "capita circa una seduta su 1",
+   "notevole": false,
+   "testo": "l'Euro Stoxx 50 -0,2% nella seduta del 13 novembre: il calo più forte dal 6 novembre (capita circa una seduta su 1)"
+  },
+  {
+   "serie": "ACWI",
+   "seduta": "2026-11-13",
+   "variazione": -0.275,
+   "tipo": "pct",
+   "z": -0.3,
+   "piu_forte_da": "2026-11-12",
+   "frase_da": "il calo più forte dal 12 novembre",
+   "rarita": "capita circa una seduta su 1",
+   "notevole": false,
+   "testo": "l'azionario mondiale (ACWI) -0,3% nella seduta del 13 novembre: il calo più forte dal 12 novembre (capita circa una seduta su 1)"
+  },
+  {
+   "serie": "Brent future",
+   "seduta": "2026-11-13",
+   "variazione": 0.021,
+   "tipo": "pct",
+   "z": 0.01,
+   "piu_forte_da": "2026-11-12",
+   "frase_da": "il rialzo più forte dal 12 novembre",
+   "rarita": "capita circa una seduta su 1",
+   "notevole": false,
+   "testo": "il Brent +0,0% nella seduta del 13 novembre: il rialzo più forte dal 12 novembre (capita circa una seduta su 1)"
+  },
+  {
+   "serie": "EUR/USD",
+   "seduta": "2026-11-13",
+   "variazione": -0.29,
+   "tipo": "pct",
+   "z": -0.83,
+   "piu_forte_da": "2026-11-12",
+   "frase_da": "il calo più forte dal 12 novembre",
+   "rarita": "capita circa una seduta su 3",
+   "notevole": false,
+   "testo": "l'euro sul dollaro -0,3% nella seduta del 13 novembre: il calo più forte dal 12 novembre (capita circa una seduta su 3)"
+  },
+  {
+   "serie": "VIX",
+   "seduta": "2026-11-13",
+   "variazione": 0.6,
+   "tipo": "punti",
+   "z": 0.35,
+   "piu_forte_da": "2026-11-12",
+   "frase_da": "il rialzo più forte dal 12 novembre",
+   "rarita": "capita circa una seduta su 2",
+   "notevole": false,
+   "testo": "il VIX +0,6 punti nella seduta del 13 novembre: il rialzo più forte dal 12 novembre (capita circa una seduta su 2)"
+  },
+  {
+   "serie": "Oro future",
+   "seduta": "2026-11-13",
+   "variazione": 0.026,
+   "tipo": "pct",
+   "z": 0.01,
+   "piu_forte_da": "2026-11-09",
+   "frase_da": "il rialzo più forte dal 9 novembre",
+   "rarita": "capita circa una seduta su 1",
+   "notevole": false,
+   "testo": "l'oro +0,0% nella seduta del 13 novembre: il rialzo più forte dal 9 novembre (capita circa una seduta su 1)"
+  },
+  {
+   "serie": "Treasury 10 anni",
+   "seduta": "2026-11-13",
+   "variazione": 5.0,
+   "tipo": "pb",
+   "z": 1.12,
+   "piu_forte_da": "2026-11-12",
+   "frase_da": "il rialzo più forte dal 12 novembre",
+   "rarita": "capita circa una seduta su 5",
+   "notevole": false,
+   "testo": "il rendimento del Treasury a 10 anni +5 pb nella seduta del 13 novembre: il rialzo più forte dal 12 novembre (capita circa una seduta su 5)"
+  },
+  {
+   "serie": "Treasury 2 anni",
+   "seduta": "2026-11-13",
+   "variazione": 2.0,
+   "tipo": "pb",
+   "z": 0.4,
+   "piu_forte_da": "2026-11-12",
+   "frase_da": "il rialzo più forte dal 12 novembre",
+   "rarita": "capita circa una seduta su 1",
+   "notevole": false,
+   "testo": "il rendimento del Treasury a 2 anni +2 pb nella seduta del 13 novembre: il rialzo più forte dal 12 novembre (capita circa una seduta su 1)"
+  }
+ ],
+ "curva": {
+  "var_10a": 5,
+  "var_2a": 2,
+  "var_differenza": 3,
+  "testo": "curva dei Treasury più ripida (+3 pb tra 10 e 2 anni), la muove il lungo: di solito significa che il mercato chiede di più per prestare a lungo (inflazione futura o debito)"
+ },
+ "tassi_reali": null,
+ "macro": [
+  {
+   "nome": "CPI USA m/m",
+   "scarto": 0.1,
+   "caldo": true,
+   "reazione_2a": "forte"
+  }
+ ]
+}

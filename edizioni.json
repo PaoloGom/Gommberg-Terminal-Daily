@@ -4770,5 +4770,379 @@
     "chiave": false
    }
   ]
+ },
+ {
+  "numero": 26,
+  "data": "2026-11-16",
+  "titolo": "I chip crollano, ma Wall Street chiude la settimana in rialzo",
+  "sommario": [
+   "Il mercato dei tassi dà per molto probabile un rialzo della Fed a dicembre, e il breve paga il conto.",
+   "Il petrolio scende ancora: il mercato guarda ai colloqui con l'Iran più che agli attacchi.",
+   "L'Europa chiude la migliore settimana da aprile, aiutata dai pochi chip in portafoglio."
+  ],
+  "file": "pdf/2026-11-16-gommberg-026.pdf",
+  "nome": "2026-11-16 Gommberg Terminal Daily #026.pdf",
+  "pagine": 6,
+  "notizie": [
+   "I prezzi alla produzione USA salgono del 6,5% in un anno",
+   "Gli stranieri vendono azioni coreane e il Kospi inverte la rotta",
+   "La FAA ferma tutti i voli in partenza dagli Usa",
+   "I conti dividono l'Europa: Aviva sale, Generali, Richemont e AMS-Osram scendono",
+   "Fincantieri scivola dopo i conti, Milano chiude in lieve rialzo",
+   "Il consiglio di Nvidia sonda il capo di Arm per la successione a Huang"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "156,10 $",
+    "-0,3% g"
+   ],
+   [
+    "S&P 500",
+    "7.561,67",
+    "-0,4% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.386,86",
+    "-0,2% g"
+   ],
+   [
+    "TREASURY 10 ANNI",
+    "5,15%",
+    "+5 pb g"
+   ],
+   [
+    "EUR/USD",
+    "1,1021",
+    "-0,3% g"
+   ],
+   [
+    "BRENT FUTURE",
+    "95,84 $",
+    "0,0% g"
+   ],
+   [
+    "ORO",
+    "3.886 $",
+    "0,0% g"
+   ]
+  ],
+  "dek": "Venerdì l'indice dei semiconduttori di Filadelfia perde il 3,4%, AMD l'8,8% e Nvidia un altro 2%. Ma l'S&P 500 sale del 2,5% sulla settimana e l'Euro Stoxx 50 del 3,5%, la migliore da aprile: a soffrire sono pochi grandi titoli, non tutto il mercato. Martedì i conti di Nvidia dicono se la vendita continua.",
+  "ticker_al": "2026-11-13",
+  "scommessa": {
+   "settimana": "2026-11-16/2026-11-20",
+   "su": 6,
+   "par": 7.3,
+   "strada": null,
+   "range": null,
+   "dettaglio": [
+    [
+     "S&P 500",
+     "giù",
+     null,
+     null
+    ],
+    [
+     "Euro Stoxx 50",
+     "su",
+     null,
+     null
+    ],
+    [
+     "Treasury 10 anni",
+     "su",
+     null,
+     null
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     null,
+     null
+    ],
+    [
+     "Brent future",
+     "giù",
+     null,
+     null
+    ],
+    [
+     "Oro future",
+     "giù",
+     null,
+     null
+    ]
+   ]
+  },
+  "verdetto": {
+   "settimana": "2026-11-09/2026-11-13",
+   "punti": 7,
+   "su": 12,
+   "direzione": 5,
+   "range": 2,
+   "par": 7.3,
+   "esiti": [
+    [
+     "S&P 500",
+     "su",
+     1
+    ],
+    [
+     "Euro Stoxx 50",
+     "su",
+     1
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     0
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     1
+    ],
+    [
+     "Brent future",
+     "giù",
+     1
+    ],
+    [
+     "Oro future",
+     "giù",
+     1
+    ]
+   ]
+  },
+  "temi": [
+   "Chip",
+   "Fed",
+   "Tassi",
+   "Valute",
+   "Petrolio",
+   "Europa"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Chip",
+    "titolo": "I chip pagano il conto, ma la borsa non crolla con loro",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Tassi USA",
+    "titolo": "La borsa sale, ma i Treasury scommettono su una Fed che alza i tassi",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Petrolio",
+    "titolo": "Il Brent scende anche dopo gli attacchi: il mercato scommette sulla pace",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Europa",
+    "titolo": "L'Europa chiude la migliore settimana da aprile con pochi chip in portafoglio",
+    "formato": "grafico"
+   }
+  ],
+  "meccanismi": [
+   "M16",
+   "M26",
+   "M05",
+   "M06",
+   "M08",
+   "M10",
+   "M11"
+  ],
+  "parole": [
+   "Prezzi alla produzione",
+   "Realizzo",
+   "Rendimento a 2 anni",
+   "Concentrazione dell'indice",
+   "Conference call",
+   "Premio per il rischio"
+  ],
+  "ripetizioni": 5,
+  "glossario": [
+   "CPI",
+   "CME FedWatch",
+   "VIX",
+   "ACWI"
+  ],
+  "dove": {
+   "approfondimenti": [
+    2,
+    3,
+    4,
+    4
+   ],
+   "mercati": 5,
+   "agenda": 5,
+   "scommessa": 6
+  },
+  "termometri": {
+   "righe": [
+    [
+     "Fed e tassi",
+     "Riunione 8-9 dicembre",
+     "Rialzo di dicembre molto probabile",
+     "su: Probabilità di un rialzo da mezzo punto",
+     "Verbali Fed di mercoledì"
+    ],
+    [
+     "AI e chip",
+     "Conti Nvidia martedì",
+     "Chip in calo, Nvidia senza Huang ceo",
+     "giu: Titoli dei chip",
+     "Nvidia dopo i conti"
+    ],
+    [
+     "Dollaro",
+     "Indice a 103,40",
+     "Massimo da aprile 2025",
+     "su: Dollaro contro euro",
+     "Treasury a 2 anni"
+    ],
+    [
+     "Petrolio e Iran",
+     "Brent sotto 100 $",
+     "Colloqui in corso",
+     "giu: Brent nella settimana",
+     "Notizie dai negoziati"
+    ]
+   ],
+   "fermi": "Yen e interventi di Tokyo (ultima notizia verificata il 13/11), Banco BPM e Crédit Agricole (12/11)."
+  },
+  "quadro": "Per noi borse e tassi leggono l'inflazione in modo opposto. Fuori dai chip le azioni guardano agli utili e salgono. I Treasury scommettono invece su una Fed che alza i tassi a dicembre, e così il 2 anni sale a 4,88% e il dollaro tocca il massimo da aprile 2025. Il petrolio scende ancora, mentre l'oro perde oltre il 4% sulla settimana, come spesso accade quando dollaro e rendimenti salgono.",
+  "evento_oggi": "Mar 17, 14:30 Vendite al dettaglio USA (ottobre)",
+  "grafici": [
+   {
+    "tipo": "barre",
+    "titolo": "A cadere è la tecnologia: sei settori su undici salgono",
+    "serie": [],
+    "x0": null,
+    "x1": null,
+    "etichette": [
+     "Tecnologia",
+     "Industriali",
+     "Materiali di base",
+     "Immobiliare",
+     "Energia",
+     "Finanziari",
+     "Servizi di pubblica utilità",
+     "Consumi ciclici",
+     "Consumi difensivi",
+     "Salute",
+     "Comunicazione"
+    ]
+   },
+   {
+    "tipo": "linee",
+    "titolo": "Il Nasdaq ha riconquistato poco più della metà del crollo del 5 novembre",
+    "serie": [
+     "Nasdaq"
+    ],
+    "x0": "2026-11-02",
+    "x1": "2026-11-13",
+    "etichette": []
+   },
+   {
+    "tipo": "barre",
+    "titolo": "Il maggior rialzo settimanale è a 2 anni e si smorza sulle lunghe",
+    "serie": [],
+    "x0": null,
+    "x1": null,
+    "etichette": [
+     "1M",
+     "3M",
+     "6M",
+     "1A",
+     "2A",
+     "3A",
+     "5A",
+     "7A",
+     "10A",
+     "20A",
+     "30A"
+    ]
+   },
+   {
+    "tipo": "linee",
+    "titolo": "La distanza tra 10 e 2 anni resta vicina ai minimi dell'ultimo mese",
+    "serie": [
+     "10 anni meno 2 anni"
+    ],
+    "x0": "2026-10-13",
+    "x1": "2026-11-13",
+    "etichette": []
+   },
+   {
+    "tipo": "linee",
+    "titolo": "Il Brent ha perso oltre il 15% in due settimane e resta sopra 90 dollari",
+    "serie": [
+     "Brent"
+    ],
+    "x0": "2026-10-12",
+    "x1": "2026-11-13",
+    "etichette": []
+   }
+  ],
+  "agenda": [
+   {
+    "quando": "Lun 16, 18:00",
+    "evento": "Discorso di Warsh, presidente della Fed",
+    "attese": "Nessun numero atteso",
+    "perche": "Primo intervento dopo i prezzi caldi",
+    "chiave": false,
+    "muove": [
+     "Più duro: di solito salgono i rendimenti a breve.",
+     "Più cauto: di solito frenano dollaro e tassi."
+    ]
+   },
+   {
+    "quando": "Mar 17, 14:30",
+    "evento": "Vendite al dettaglio USA (ottobre)",
+    "attese": "consenso non verificato; prima +0,8%",
+    "perche": "Evento n.1: i consumi dopo i prezzi caldi",
+    "chiave": true,
+    "muove": [
+     "Sopra: di solito salgono dollaro e rendimenti a breve: consumi forti lasciano spazio alla Fed.",
+     "Sotto: il rialzo di dicembre perde un po' di forza."
+    ]
+   },
+   {
+    "quando": "Mar 17, 15:10",
+    "evento": "Discorso di Waller (Fed) sui pagamenti",
+    "attese": "Nessun numero atteso",
+    "perche": "Ha parlato di rialzo da mezzo punto",
+    "chiave": false,
+    "muove": [
+     "Più duro: di solito salgono i rendimenti a breve.",
+     "Più cauto: di solito frenano dollaro e tassi."
+    ]
+   },
+   {
+    "quando": "Mar 17, 23:00",
+    "evento": "Conti trimestrali di Nvidia",
+    "attese": "Consenso non verificato",
+    "perche": "Primo esame dei chip senza Huang",
+    "chiave": false,
+    "muove": [
+     "Sopra le attese: di solito i chip rimbalzano.",
+     "Sotto: la vendita di venerdì può estendersi."
+    ]
+   },
+   {
+    "quando": "Mer 18, 20:00",
+    "evento": "Verbali della riunione Fed del 27-28 ottobre",
+    "attese": "Nessun numero atteso",
+    "perche": "Quanti vogliono rialzi più forti",
+    "chiave": false,
+    "muove": [
+     "Toni duri: di solito salgono i rendimenti.",
+     "Toni cauti: il rialzo di dicembre appare meno certo."
+    ]
+   }
+  ]
  }
 ]

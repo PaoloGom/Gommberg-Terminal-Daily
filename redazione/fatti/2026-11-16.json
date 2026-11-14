@@ -1,0 +1,997 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Venerdì 13/11 l'indice dei semiconduttori di Filadelfia perde il 3,4%, Nvidia il 2% e AMD l'8,8%; S&P 500 -0,40% a 7.561,67, Nasdaq -0,91%, Dow Jones +0,10%; nella settimana S&P 500 +2,5%, Nasdaq +2,3%; Euro Stoxx 50 +3,5% (migliore settimana da aprile)",
+  "data_evento": "2026-11-13",
+  "novita": "Ieri il tema era l'uscita di Huang da Nvidia (Nvidia -4,3%, AMD +5,9%); oggi vendono tutti i chip, AMD compresa, e la settimana chiude comunque in rialzo",
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://live.euronext.com/en/financial-news/stocks-mostly-ease-tech-nvidia-concerns-airline-shares-fall-late-session",
+    "data_pubblicazione": "2026-11-14",
+    "citazione": "Stocks mostly ease with tech, Nvidia concerns; airline shares fall late in session",
+    "ricerca": "markets weekend November 14 2026 Reuters Trump Iran China chip export Nvidia news",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "dpa-AFX (finanzen.net)",
+    "url": "https://www.finanzen.net/nachricht/aktien/roundup-aktien-europa-schluss-aufwaertsdrang-erlahmt-nach-starker-boersenwoche-16063399",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "ROUNDUP/Aktien Europa Schluss: Aufwärtsdrang erlahmt nach starker Börsenwoche",
+    "ricerca": "Europa-Schluss EuroStoxx 50 Freitag 13. November 2026 Schlussstand",
+    "agenzia": "dpa-AFX"
+   }
+  ],
+  "trovato": "The Philadelphia semiconductor index was down 3.4% and shares of Advanced Micro Devices and Broadcom were sharply lower. Nvidia shares finished 2% lower. // the S&P 500 fell 30.73 points, or 0.40%, to 7,561.67 and the Nasdaq Composite fell 229.82 points, or 0.91%, to 25,136.27. // (TheStreet) with the S&P 500, Nasdaq and Dow gaining 2.5%, 2.3% and 2.1% respectively. // (dpa-AFX) Mit einem Aufschlag von 3,5 Prozent war die Börsenwoche die stärkste seit April.",
+  "verifica": "confermato",
+  "nota_revisore": "Dow +0,10% a 52.347,55 confermato da Reuters. Il -8,8% di AMD l'ho visto solo nel titolo di un risultato di ricerca (Techflow 'AMD Plunges 8.8%'), non aperto; Reuters dice solo 'sharply lower'. I rialzi settimanali S&P +2,5% / Nasdaq +2,3% non stanno nella pagina Reuters ma in TheStreet (pagina aperta). Nel PDF 'un altro 2%' per Nvidia: la pagina dice solo 'finished 2% lower', 'un altro' viene da altre schede."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Prezzi alla produzione USA di ottobre: +0,3% sul mese, +6,5% sui 12 mesi; senza cibo, energia e servizi commerciali +0,5% sul mese",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/news.release/ppi.nr0.htm?ftag=YHF4eb9d17",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "The Producer Price Index for final demand rose 0.3 percent in October, seasonally adjusted",
+    "ricerca": "BLS producer price index October 2026 news release final demand",
+    "primaria": true
+   }
+  ],
+  "tipo": "U",
+  "trovato": "The Producer Price Index for final demand rose 0.3 percent in October, seasonally adjusted, // For the 12 months ended in October, prices for final demand less foods, energy, and trade services advanced 4.9 percent.",
+  "verifica": "confermato",
+  "nota_revisore": "Vedi D04."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Indice del dollaro a 103,40, massimo da aprile 2025; euro a 1,1021 $ (-0,29%); rendimento del Treasury a 2 anni a 4,867%, maggiore rialzo settimanale in oltre due anni",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://live.euronext.com/en/financial-news/stocks-mostly-ease-tech-nvidia-concerns-airline-shares-fall-late-session",
+    "data_pubblicazione": "2026-11-14",
+    "citazione": "Stocks mostly ease with tech, Nvidia concerns; airline shares fall late in session",
+    "ricerca": "markets weekend November 14 2026 Reuters Trump Iran China chip export Nvidia news",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "It earlier reached 4.892%, the highest since October 14. // rose 0.17% to 103.40. It hit its highest since April 2025. // The euro was down 0.29% at $1.1021.",
+  "verifica": "confermato",
+  "nota_revisore": "Vedi D03 per 4,867% (Reuters) contro 4,88% (PDF, fonte FMP)."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "La FAA ha disposto nel finale di seduta un ground stop nazionale dei voli in partenza dopo problemi di comunicazione con il controllo del traffico aereo; l'indice delle compagnie aeree NYSE Arca perde l'1,4%",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://live.euronext.com/en/financial-news/stocks-mostly-ease-tech-nvidia-concerns-airline-shares-fall-late-session",
+    "data_pubblicazione": "2026-11-14",
+    "citazione": "Stocks mostly ease with tech, Nvidia concerns; airline shares fall late in session",
+    "ricerca": "markets weekend November 14 2026 Reuters Trump Iran China chip export Nvidia news",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "the US Federal Aviation Administration issued a national ground stop of all departing flights. The agency said this was 'due to extraordinary circumstance and reasons for safety' // The NYSE Arca airline index closed down 1.4%.",
+  "verifica": "confermato",
+  "nota_revisore": "La pagina cita 'serious air traffic control communications issues' e che le compagnie hanno ceduto negli ultimi minuti: il PDF ('problemi di comunicazione con il controllo del traffico aereo', 'nel finale di seduta') e' fedele. Il PDF scrive 'le compagnie aeree perdono l'1,4%': e' l'indice NYSE Arca Airline, non tutte le compagnie."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Generali: danni da catastrofi naturali per circa 1,5 miliardi di euro nei primi nove mesi, il titolo perde oltre l'1%; Richemont quasi -4% per i gioielli nel secondo trimestre; AMS-Osram oltre -9% per previsioni sotto le stime (Vontobel); Aviva +3,4% con obiettivi annuali confermati (RBC)",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (finanzen.net)",
+    "url": "https://www.finanzen.net/nachricht/aktien/roundup-aktien-europa-schluss-aufwaertsdrang-erlahmt-nach-starker-boersenwoche-16063399",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "ROUNDUP/Aktien Europa Schluss: Aufwärtsdrang erlahmt nach starker Börsenwoche",
+    "ricerca": "Europa-Schluss EuroStoxx 50 Freitag 13. November 2026 Schlussstand",
+    "agenzia": "dpa-AFX"
+   }
+  ],
+  "trovato": "Auf noch weniger Gegenliebe stießen die Zahlen von Richemont. // Die Prognosen für den zukünftigen Geschäftsverlauf lägen allerdings unter den Erwartungen. // Die Analysten der Bank RBC sprachen von guten Zahlen zum dritten Quartal. Alle Ziele für das Gesamtjahr seien bestätigt worden.",
+  "verifica": "confermato",
+  "nota_revisore": "Tutte e quattro le schede del PDF (p. 4) confermate; AMS-Osram: risultati in linea ma previsioni sotto le attese (Vontobel); il PDF dice solo 'Previsioni sotto le stime', corretto. Generali 'knapp 1,5 Mrd' = poco meno di 1,5."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Milano: il Ftse Mib chiude a 51.858 (+0,10%), spread BTP-Bund a 104 punti base; Fincantieri in calo dopo i conti (-4,2% secondo SoldiOnline)",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/13/borsa-milano-chiude-in-lieve-rialzo-ftse-mib-01_94c30a0d-7a2b-4bfe-8697-65720fa90fb3.html",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "l'indice Ftse Mib ha concluso in aumento dello 0,10% a 51.858 punti",
+    "ricerca": "Borsa Milano chiude 13 novembre FTSE MIB venerdì"
+   },
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/ftse-mib-01-a-51858-punti-cosa-dice-la-chiusura-di-milano",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Ftse Mib +0,1% a 51.858 punti: cosa dice la chiusura di Milano",
+    "ricerca": "Borsa Milano chiude 13 novembre FTSE MIB venerdì"
+   }
+  ],
+  "trovato": "Seduta marginalmente positiva per la Borsa di Milano: l'indice Ftse Mib ha concluso in aumento dello 0,10% a 51.858 punti. // Lo spread tra Btp e Bund chiude poco mosso a 104 punti base // Borse europee senza direzione: Milano +0,1% con l'attesa per la Fed. Spread a 104 punti, euro a 1,102$. Fincantieri -4,2%.",
+  "verifica": "confermato",
+  "nota_revisore": "Il -4,2% di Fincantieri e' nel sommario della pagina SoldiOnline (non in un paragrafo esteso); ANSA titola solo 'scivola Fincantieri' senza percentuale. Il PDF dice 'dopo i conti' e attribuisce -4,2% a SoldiOnline: l'attribuzione 'dopo i conti' non l'ho letta nelle due pagine aperte (solo nel testo della scheda)."
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "testo": "Kospi -0,98% a 5.290,53 dopo un massimo a 5.504,44 (+2,05% in apertura); stranieri venditori netti per 550,5 miliardi di won; Naver -5,12%, SK hynix -3,03%, Samsung -0,96%",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Korea Herald",
+    "url": "https://www.koreaherald.com/article/10936578",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "KOSPI started higher but turned negative due to foreign sell-offs",
+    "ricerca": "Kospi Seoul stocks close November 13 2026 Korea Herald OR Yonhap OR Korea Times"
+   }
+  ],
+  "trovato": "closed down 52.20 points, or 0.98 percent, at 5,290.53. The index opened 2.05 percent higher and rose as high as 5,504.44. // Foreigners sold a net 550.5 billion won worth of stocks.",
+  "verifica": "confermato",
+  "nota_revisore": "Naver -5,12%, SK hynix -3,03%, Samsung -0,96% confermati. Attenzione: il PDF titola 'Gli stranieri vendono titoli tecnologici coreani' mentre la pagina dice 'worth of stocks' (azioni in generale, 550,5 mld di won netti); il collegamento ai titoli tech e' implicito nel contesto (Nvidia jitters) ma la qualifica 'tecnologici' per i 550,5 mld non e' letterale."
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "testo": "Euro Stoxx 50 -0,19% a 6.386,86 venerdì, +3,5% nella settimana, la migliore da aprile; FTSE 100 +0,36% a 10.902,56; Robert Greil (Bankhaus Merck Finck): se l'intelligenza artificiale è debole, le borse europee vanno meglio di americane e asiatiche",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (finanzen.net)",
+    "url": "https://www.finanzen.net/nachricht/aktien/roundup-aktien-europa-schluss-aufwaertsdrang-erlahmt-nach-starker-boersenwoche-16063399",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "ROUNDUP/Aktien Europa Schluss: Aufwärtsdrang erlahmt nach starker Börsenwoche",
+    "ricerca": "Europa-Schluss EuroStoxx 50 Freitag 13. November 2026 Schlussstand",
+    "agenzia": "dpa-AFX"
+   }
+  ],
+  "trovato": "Der Eurozone-Leitindex EuroStoxx 50 schloss 0,19 Prozent niedriger bei 6.386,86 Zählern. Mit einem Aufschlag von 3,5 Prozent war die Börsenwoche die stärkste seit April. // Schwächelt der KI-Sektor, performen Europas Aktienmärkte besser als die amerikanischen und asiatischen, sagte Robert Greil vom Bankhaus Merck Finck.",
+  "verifica": "confermato",
+  "nota_revisore": "FTSE 100 +0,36% a 10.902,56 confermato (non e' nel PDF). Il PDF non qualifica Greil; la pagina lo indica come Chefstratege: nessuna qualifica del PDF contraddetta."
+ },
+ {
+  "id": "N09",
+  "sezione": "top_news",
+  "testo": "Nvidia pubblicherà i conti trimestrali martedì dopo la chiusura; secondo il Financial Times il consiglio ha contattato Rene Haas, amministratore delegato di Arm, per la successione a Huang",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://live.euronext.com/en/financial-news/stocks-mostly-ease-tech-nvidia-concerns-airline-shares-fall-late-session",
+    "data_pubblicazione": "2026-11-14",
+    "citazione": "Stocks mostly ease with tech, Nvidia concerns; airline shares fall late in session",
+    "ricerca": "markets weekend November 14 2026 Reuters Trump Iran China chip export Nvidia news",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Nvidia's board has approached British chipmaker Arm Holdings CEO Rene Haas // The company is due to report quarterly results on Tuesday after the closing bell. // Jensen Huang's resignation on Thursday as Nvidia CEO could have far-reaching consequences",
+  "verifica": "confermato",
+  "nota_revisore": "Il riferimento al Financial Times e alla successione a Huang e' reso dal lettore di pagina in parafrasi ('per FT, looking at him as a possible replacement for Huang'), non in citazione letterale integrale. Il PDF dice 'fondatore' per Huang: la pagina parla di dimissioni da CEO, non dice 'fondatore' (vero nei fatti, ma qualifica non letta nella pagina)."
+ },
+ {
+  "id": "N10",
+  "sezione": "top_news",
+  "testo": "Probabilità di un rialzo da 50 punti base della Fed a dicembre all'11% (CME FedWatch); Brent 95,84 $ (+0,02%), WTI 88,56 $ (-0,20%)",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://live.euronext.com/en/financial-news/stocks-mostly-ease-tech-nvidia-concerns-airline-shares-fall-late-session",
+    "data_pubblicazione": "2026-11-14",
+    "citazione": "Stocks mostly ease with tech, Nvidia concerns; airline shares fall late in session",
+    "ricerca": "markets weekend November 14 2026 Reuters Trump Iran China chip export Nvidia news",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Fed funds futures traders are pricing in an 11% chance of a 50-basis-point hike at the Fed's December 8-9 meeting // Brent futures settled at $95.84 a barrel, up 2 cents, or 0.02%. US West Texas Intermediate futures finished at $88.56 a barrel, down 18 cents, or 0.20%.",
+  "verifica": "confermato",
+  "nota_revisore": "Il PDF (p. 3, IL NUMERO) aggiunge che 'il rialzo da un quarto di punto è dato per certo' e p. 1/5 'rialzo di dicembre dato per certo': la pagina Reuters da' solo l'11% per i 50 pb, nessuna probabilita' per i 25 pb. 'Certo' non e' supportato: meglio 'molto probabile' o citare la probabilita' CME se verificata."
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Vendite al dettaglio USA, ottobre: martedì 17 alle 14:30 (ora di Roma); prec. +0,8%. Consenso non verificato: non indicato.",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Census Bureau",
+    "url": "https://www.census.gov/retail/release_schedule.html",
+    "data_pubblicazione": "2026-11-14",
+    "citazione": "October 2026 | November 17, 2026",
+    "ricerca": "Retail sales October report release date November 2026 consensus Census Bureau economists expect",
+    "primaria": true
+   },
+   {
+    "testata": "Trading Economics",
+    "url": "https://tradingeconomics.com/united-states/retail-sales/forecast",
+    "data_pubblicazione": "2026-11-14",
+    "citazione": "United States Retail Sales MoM",
+    "ricerca": "tradingeconomics United States retail sales MoM October 2026 forecast"
+   }
+  ],
+  "trovato": "8:30 AM: Retail sales for October is scheduled to be released. The consensus is for a 0.2% increase in retail sales. // US retail sales increased 0.8% mom in September, exceeding expectations of 0.6%, although growth slowed from an upwardly revised 1.3% in August.",
+  "verifica": "confermato",
+  "nota_revisore": "Data e ora confermate: Census 'October 2026 | November 17, 2026', 8:30 ET = 14:30 Roma; precedente +0,8% confermato (ActionForex). MA l'attesa: Economic Weekly (substack, fonte secondaria) dice consenso +0,2%, il PDF scrive 0,0%. Trading Economics non e' stata utile (pagina vecchia, nessuna previsione) e altre pagine di calendario non davano il consenso. Discrepanza non risolta: da verificare o sostituire con 'consenso +0,2% (fonte da verificare)'. [Ristretto a data, ora e precedente; consenso escluso.]"
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Verbali Fed del 27-28 ottobre. Mer 18, 20:00",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/2026-november.htm",
+    "data_pubblicazione": "2026-11-14",
+    "citazione": "FOMC Minutes - Meeting of October 27-28",
+    "ricerca": "FOMC minutes October 27-28 2026 meeting release date federalreserve.gov",
+    "primaria": true
+   }
+  ],
+  "trovato": "The minutes of regularly scheduled meetings are released three weeks after the date of the policy decision. // minutes from the October 27–28 FOMC meeting are scheduled for November 18, 2026 at 2:00 PM Eastern Time.",
+  "verifica": "confermato",
+  "nota_revisore": "La pagina Fed (calendari) da' la regola delle tre settimane (28/10 + 21 giorni = 18/11) ma non elenca ancora le minute di ottobre; data e ora (14:00 ET = 20:00 Roma) vengono da fedratecalc.com, fonte secondaria. Coerente col PDF."
+ },
+ {
+  "id": "M01",
+  "sezione": "macro",
+  "testo": "CPI USA ottobre: +0,4% sul mese; senza cibo ed energia +0,3%; BLS non pubblica la variazione annua perché mancano i prezzi di ottobre 2025",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/news.release/CPI.htm",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.4 percent on a seasonally adjusted basis in October",
+    "ricerca": "BLS Consumer Price Index October 2026 news release all items rose 0.4 percent",
+    "primaria": true
+   }
+  ],
+  "tipo": "U",
+  "trovato": "BLS did not collect survey data for October 2025 because of a lapse in appropriations. // As a result, BLS cannot publish 12-month percent changes for October 2026 for indexes where October 2025 data are unavailable.",
+  "verifica": "confermato",
+  "nota_revisore": "CPI +0,4% e core +0,3% confermati (vedi D05). Il PDF non cita la variazione annua: corretto."
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "Indice dei semiconduttori di Filadelfia -3,4% venerdì; Nvidia -2%; AMD e Broadcom in forte ribasso; Nvidia pubblica i conti martedì dopo la chiusura",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://live.euronext.com/en/financial-news/stocks-mostly-ease-tech-nvidia-concerns-airline-shares-fall-late-session",
+    "data_pubblicazione": "2026-11-14",
+    "citazione": "Stocks mostly ease with tech, Nvidia concerns; airline shares fall late in session",
+    "ricerca": "markets weekend November 14 2026 Reuters Trump Iran China chip export Nvidia news",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "The Philadelphia semiconductor index was down 3.4% and shares of Advanced Micro Devices and Broadcom were sharply lower. Nvidia shares finished 2% lower. // The company is due to report quarterly results on Tuesday after the closing bell.",
+  "verifica": "confermato",
+  "nota_revisore": "Tutto coerente con il PDF (Nvidia conti martedi' dopo la chiusura)."
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "Euro Stoxx 50 +3,5% in settimana, migliore da aprile; il giorno prima massimo da fine agosto; Robert Greil: se il settore dell'intelligenza artificiale è debole, le borse europee vanno meglio",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (finanzen.net)",
+    "url": "https://www.finanzen.net/nachricht/aktien/roundup-aktien-europa-schluss-aufwaertsdrang-erlahmt-nach-starker-boersenwoche-16063399",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "ROUNDUP/Aktien Europa Schluss: Aufwärtsdrang erlahmt nach starker Börsenwoche",
+    "ricerca": "Europa-Schluss EuroStoxx 50 Freitag 13. November 2026 Schlussstand",
+    "agenzia": "dpa-AFX"
+   }
+  ],
+  "trovato": "Am Vortag hatte es der EuroStoxx 50 auf den höchsten Stand seit Ende August geschafft. Außerhalb des Euroraums legte der Londoner FTSE 100 um 0,36 Prozent auf 10.902,56 Zähler zu.",
+  "verifica": "confermato",
+  "nota_revisore": "+3,5% e 'migliore da aprile' e citazione di Greil confermati (vedi N08). Il PDF attribuisce l'affermazione a 'Robert Greil di Bankhaus Merck Finck, secondo dpa-AFX': corretto."
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Rendimento del Treasury a 2 anni a 4,867% (massimo 4,892%), maggiore rialzo settimanale in oltre due anni; indice del dollaro 103,40, massimo da aprile 2025; rialzo da 50 pb a dicembre all'11% (CME FedWatch)",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://live.euronext.com/en/financial-news/stocks-mostly-ease-tech-nvidia-concerns-airline-shares-fall-late-session",
+    "data_pubblicazione": "2026-11-14",
+    "citazione": "Stocks mostly ease with tech, Nvidia concerns; airline shares fall late in session",
+    "ricerca": "markets weekend November 14 2026 Reuters Trump Iran China chip export Nvidia news",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "The euro was down 0.29% at $1.1021. Investors digested a report showing the US October Producer Price Index for final demand was slightly softer than expected, but still shot up 6.5% year over year. // The 2-year note yield was last up 0.34 basis point at 4.867%. It earlier reached 4.892%, the highest since October 14. // rose 0.17% to 103.40. It hit its highest since April 2025.",
+  "verifica": "confermato",
+  "nota_revisore": "Differenza di dettaglio: Reuters ha 2 anni a 4,867% (dato intraday 'last'), il PDF 4,88% (chiusura FMP, +2 pb): plausibile ma non verificabile qui. Importante: Reuters dice che il PPI e' stato 'slightly softer than expected', mentre il PDF p. 3 scrive che il PPI 'ha confermato' il CPI: da attenuare. 'Largest weekly increase in over two years' confermato per il 2 anni."
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Prezzi alla produzione USA di ottobre: +0,3% sul mese e +6,5% in 12 mesi; senza cibo, energia e servizi commerciali +0,5% sul mese",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/news.release/ppi.nr0.htm?ftag=YHF4eb9d17",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "The Producer Price Index for final demand rose 0.3 percent in October, seasonally adjusted",
+    "ricerca": "BLS producer price index October 2026 news release final demand",
+    "primaria": true
+   }
+  ],
+  "trovato": "On an unadjusted basis, the index for final demand increased 6.5 percent for the 12 months ended in October, // The index for final demand less foods, energy, and trade services rose 0.5 percent in October,",
+  "verifica": "confermato",
+  "nota_revisore": "Anche 'The Producer Price Index for final demand rose 0.3 percent in October, seasonally adjusted'. La qualifica 'senza cibo, energia e servizi commerciali' del PDF corrisponde a 'less foods, energy, and trade services'. Sui 12 mesi lo stesso aggregato fa +4,9% (non nel PDF)."
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "testo": "CPI ottobre: +0,4% sul mese, core +0,3% come a settembre e ad agosto; variazione annua non pubblicata",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BLS",
+    "url": "https://www.bls.gov/news.release/CPI.htm",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.4 percent on a seasonally adjusted basis in October",
+    "ricerca": "BLS Consumer Price Index October 2026 news release all items rose 0.4 percent",
+    "primaria": true
+   }
+  ],
+  "trovato": "The index for all items less food and energy rose 0.3 percent in October, as it did in September and August. // The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.4 percent on a seasonally adjusted basis in October after rising 0.6 percent in September",
+  "verifica": "confermato",
+  "nota_revisore": "Il PDF non riporta la variazione annua (coerente). L'attesa di CPI +0,3% e core +0,2% citata nel PDF (p. 3 e agenda) non e' nella pagina BLS e non l'ho verificata."
+ },
+ {
+  "id": "D06",
+  "sezione": "deep_dive",
+  "testo": "Generali: catastrofi naturali per circa 1,5 miliardi nei nove mesi; Richemont quasi -4% per i gioielli; AMS-Osram oltre -9% per la guida; Aviva +3,4% sui conti del terzo trimestre",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (finanzen.net)",
+    "url": "https://www.finanzen.net/nachricht/aktien/roundup-aktien-europa-schluss-aufwaertsdrang-erlahmt-nach-starker-boersenwoche-16063399",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "ROUNDUP/Aktien Europa Schluss: Aufwärtsdrang erlahmt nach starker Börsenwoche",
+    "ricerca": "Europa-Schluss EuroStoxx 50 Freitag 13. November 2026 Schlussstand",
+    "agenzia": "dpa-AFX"
+   }
+  ],
+  "trovato": "Noch stärker fielen im schwächelnden Technologiesektor AMS-Osram (ams) mit gut neun Prozent. Die Ergebnisse des Sensorspezialisten hätten zwar den Erwartungen entsprochen, so die Analysten der Bank Vontobel. // Die Prognosen für den zukünftigen Geschäftsverlauf lägen allerdings unter den Erwartungen. // Hier waren Aktien der britischen Aviva gefragt, die um 3,4 Prozent anzogen.",
+  "verifica": "confermato",
+  "nota_revisore": "Generali: 'summierten sich die Großschäden durch Naturkatastrophen ... auf knapp 1,5 Milliarden Euro' (knapp = poco meno di 1,5; il PDF dice 'circa') e 'Die Aktie verlor gut ein Prozent' (PDF 'oltre -1%': ok). Richemont 'verloren fast vier Prozent' e Schmucksegment ok. Aviva: 'Alle Ziele für das Gesamtjahr seien bestätigt worden.' (RBC)."
+ },
+ {
+  "id": "D07",
+  "sezione": "deep_dive",
+  "testo": "Il Kospi apre a +2,05% e chiude a -0,98%: gli stranieri vendono titoli tecnologici per 550,5 miliardi di won, con attesa per i prezzi alla produzione USA",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Korea Herald",
+    "url": "https://www.koreaherald.com/article/10936578",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "KOSPI started higher but turned negative due to foreign sell-offs",
+    "ricerca": "Kospi Seoul stocks close November 13 2026 Korea Herald OR Yonhap OR Korea Times"
+   }
+  ],
+  "trovato": "awaiting the release of US producer price data, which could give a clue to the Federal Reserve's monetary policy. // The index opened 2.05 percent higher.",
+  "verifica": "confermato",
+  "nota_revisore": "Stessa nota di N07: il testo non dice che i 550,5 mld di won venduti siano solo titoli tecnologici. L'attesa dei prezzi alla produzione USA e' confermata."
+ },
+ {
+  "id": "MEM-1113-D01",
+  "sezione": "deep_dive",
+  "testo": "Nvidia chiude a 166,19 $ (-4,34%), con minimo di giornata a 148,80 $ e volumi di 747,7 milioni di azioni contro una media di 141 milioni; il 27 ottobre valeva 217,94 $",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-12-sp-500-nasdaq-dow-nvidia-invest-110027430.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock market today: Dow, S&P 500, Nasdaq slip as Nvidia stock falls on CEO exit, bond yields rise"
+   },
+   {
+    "testata": "Eurasia Business News",
+    "url": "https://eurasiabusinessnews.com/2026/11/13/stock-market-today-november-12-2026-dow-sp-500-and-nasdaq-fall-after-jensen-huang-resigns/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Stock Market Today, November 12, 2026: Dow, S&P 500 and Nasdaq Fall After Jensen Huang Resigns"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF.",
+  "ripresa": "2026-11-13"
+ },
+ {
+  "id": "MEM-1113-D05",
+  "sezione": "deep_dive",
+  "testo": "Il 2 anni americano sale a 4,86% (+13 pb) e il 30 anni a 5,43% (+8 pb); il dollaro sale e l'oro perde circa il 3%",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-12-sp-500-nasdaq-dow-nvidia-invest-110027430.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock market today: Dow, S&P 500, Nasdaq slip as Nvidia stock falls on CEO exit, bond yields rise"
+   },
+   {
+    "testata": "Eurasia Business News",
+    "url": "https://eurasiabusinessnews.com/2026/11/13/stock-market-today-november-12-2026-dow-sp-500-and-nasdaq-fall-after-jensen-huang-resigns/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Stock Market Today, November 12, 2026: Dow, S&P 500 and Nasdaq Fall After Jensen Huang Resigns"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/cina-in-rosso-lo-tsunami-nvidia-rischia-di-abbattersi-sul-vertice-trump-xi-202611130753457223",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Cina in rosso, lo tsunami Nvidia rischia di abbattersi sul vertice Trump-Xi"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF.",
+  "ripresa": "2026-11-13"
+ },
+ {
+  "id": "MEM-1112-D01",
+  "sezione": "deep_dive",
+  "testo": "Chip: l'indice dei chip di Filadelfia +5,7% l'11/11, massimo di chiusura dal 3/11; tutti i componenti in rialzo; S&P 500 17 nuovi massimi a 52 settimane e nessun minimo; volumi 14,74 miliardi di titoli contro una media di 18,68",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "MarketScreener (Reuters)",
+    "url": "https://www.marketscreener.com/news/stocks-end-higher-as-coreweave-results-ease-ai-spending-worries-ce785edbd18cf726",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Stocks end higher as CoreWeave results ease AI spending worries"
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/stock-market-news/us-stock-futures-tick-higher-after-wall-st-slips-on-hot-cpi-nvidia-losses-5017417",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Wall Street ends higher, Nasdaq adds over 1.5% as AI trade comes back to life"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le fonti dichiarate; citazioni da sintesi di pagina.",
+  "ripresa": "2026-11-12"
+ },
+ {
+  "id": "MEM-1112-M02",
+  "sezione": "mercati",
+  "testo": "FTSE MIB: chiusura del 6/11 a 50.053 (-0,9%); chiusura del 30/12/2025 a 44.944 (+1,14%, ANSA); chiusura dell'11/11 a 51.946: +3,8% in una settimana e +15,6% da inizio anno",
+  "data_evento": "2026-11-11",
+  "novita": null,
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/teleborsa/finanza/chiusura-in-rosso-per-piazza-affari-e-il-resto-dell-europa-tra-timori-su-ai-e-stretta-fed-9_2026-11-06_TLB-BIT.html?lang=it",
+    "data_pubblicazione": "2026-11-06",
+    "citazione": "Chiusura in rosso per Piazza Affari e il resto dell'Europa tra timori su AI e stretta Fed"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://lavocedinewyork.com/ansa/2025/12/30/borsa-milano-chiude-in-chiaro-rialzo-ftse-mib-114/",
+    "data_pubblicazione": "2025-12-30",
+    "citazione": "ha concluso in aumento dell'1,14% a 44.944 punti"
+   }
+  ],
+  "ripresa": "2026-11-12",
+  "trovato": "A Piazza Affari, il FTSE MIB è in calo (-0,9%) e si attesta su 50.053 punti in chiusura; // Seduta ampiamente positiva per la Borsa di Milano: l'indice Ftse Mib ha concluso in aumento dell'1,14% a 44.944 punti. // (ANSA 11/11) L'indice Ftse Mib ha guadagnato lo 0,37% a 51.946 punti, a ridosso di soglia 52.000",
+  "verifica": "confermato",
+  "nota_revisore": "Teleborsa 6/11 e ANSA 30/12/2025 aperte tramite risultati di ricerca; il 51.946 dell'11/11 l'ho preso da ANSA 11/11 (altro risultato). Calcoli: 51.946/50.053 = +3,8%; 51.946/44.944 = +15,6%: tornano. Coerenza col PDF: 51.859 vs 44.944 = +15,4% e vs 50.053 = +3,6%, come in tabella p. 5."
+ },
+ {
+  "id": "MEM-1113-D04",
+  "sezione": "deep_dive",
+  "testo": "Fed: il governatore Waller sostiene un possibile rialzo di mezzo punto a dicembre; Logan chiede almeno due rialzi da un quarto di punto; CME FedWatch dà il rialzo di dicembre al 100% e quello da 50 pb al 13,2%",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "CNBC",
+    "url": "https://cnbc.com/2026/11/10/fed-governor-waller-sees-december-hike-likely.html",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Fed Governor Waller sees December hike likely, opens door to possible half-point increase"
+   },
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/economy/2026/11/12/us-cpi-fuels-talk-of-half-point-fed-hike-as-treasury-yields",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "U.S. CPI Fuels Talk of Half-Point Fed Hike as Treasury Yields Spike"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF.",
+  "ripresa": "2026-11-13"
+ },
+ {
+  "id": "MEM-1111-D04",
+  "sezione": "deep_dive",
+  "testo": "Petrolio: Brent -16% nella settimana al 6/11 con minimo a 93,22 $; martedì minimo intraday a 89,90 $, sotto 90 per la prima volta da agosto, dopo oltre 105 $ a fine ottobre",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (via Khaleej Times)",
+    "url": "https://www.khaleejtimes.com/business/oil-slides-as-trump-signals-restraint-on-iran-despite-fresh-shipping-attacks",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "il Brent è sceso del 16%, toccando 93,22 $, il minimo di due mesi"
+   },
+   {
+    "testata": "Goldesel",
+    "url": "https://goldesel.de/artikel/abendupdate-10-11-dax-haelt-knappes-plus-wall-street-rutscht-ab-fed-signale-renditen-ueber-5-und-anthropic-ernuechterung",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Minimo intraday a 89,90 dollari, sotto 90 per la prima volta da agosto"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilettura redazione: URL e citazione da risultato di ricerca/pagina aperta nella sessione, data e cifre coerenti con PDF e dati.json; nessuna qualifica oltre la scheda.",
+  "ripresa": "2026-11-11"
+ },
+ {
+  "id": "MEM-1113-A03",
+  "sezione": "agenda",
+  "testo": "Conti trimestrali di Nvidia, martedì 17 novembre, conference call alle 2 p.m. PT (23:00 a Roma)",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "SEC (modulo 8-K Nvidia)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000082/nvidiaannouncesceotransiti.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Colette Kress, the company's EVP and CFO since 2013, will serve as Interim CEO"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF.",
+  "ripresa": "2026-11-13"
+ },
+ {
+  "id": "MEM-1109-A03",
+  "sezione": "agenda",
+  "testo": "Mercoledì 9 dicembre: decisione della Fed (riunione 8-9 dicembre)",
+  "data_evento": "2026-12-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/2026-december.htm",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Two-day meeting, December 8 - 9"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: rilievi accolti; nel PDF e nella scheda resta solo cio che la fonte dice (WebFetch su federalreserve.gov/newsevents/2026-december.htm bloccato (permesso non concesso): pagina non aperta, citazio)",
+  "ripresa": "2026-11-09"
+ },
+ {
+  "id": "S1",
+  "sezione": "scaletta",
+  "apertura": {
+   "storia": "I chip crollano ma Wall Street chiude la settimana in rialzo",
+   "perche_prima": "Nvidia, AMD e il Nasdaq sono la storia di venerdì per Reuters e dpa-AFX"
+  },
+  "moduli": [
+   {
+    "chiave": "chip",
+    "misura": "doppio",
+    "tesi": "Il mercato non vende l'intelligenza artificiale in blocco: la paga cara dove si era corso di più, e venerdì anche AMD restituisce una settimana di rialzo",
+    "domanda": "Perché i chip crollano se la borsa nel complesso sale?",
+    "prove": [
+     "Indice chip -3,4% venerdì",
+     "Nvidia -26% in un mese, AMD +12,8% in cinque giorni",
+     "Settori NYSE: tecnologia -2,1%, sette su undici in rialzo",
+     "Conti Nvidia martedì",
+     "Nasdaq: recuperata poco più della metà del crollo del 5/11"
+    ],
+    "contro": "Se Nvidia batte le attese martedì e i chip non risalgono, il problema non è solo Nvidia",
+    "schede": [
+     "D01",
+     "MEM-1113-D01",
+     "T01"
+    ],
+    "memoria": "Huang si dimette il 12/11"
+   },
+   {
+    "chiave": "treasury",
+    "misura": "doppio",
+    "tesi": "Azioni e tassi leggono la stessa inflazione in modo opposto: la borsa guarda agli utili, i Treasury a una Fed che alza a dicembre, e il conto lo paga il breve",
+    "domanda": "Perché i rendimenti salgono mentre la borsa sale?",
+    "prove": [
+     "2 anni +37 pb in una settimana",
+     "Prezzi alla produzione +6,5% annuo, core +0,5% mensile",
+     "CPI sopra le attese",
+     "Dollaro ai massimi da aprile 2025",
+     "Waller e Logan per più rialzi"
+    ],
+    "contro": "Verbali Fed o vendite al dettaglio deboli frenerebbero il rialzo di dicembre",
+    "schede": [
+     "D03",
+     "D04",
+     "D05",
+     "MEM-1113-D04"
+    ],
+    "memoria": "CPI 10/11"
+   },
+   {
+    "chiave": "petrolio",
+    "misura": "mezzo",
+    "tesi": "Il petrolio prezza la pace più dell'attacco: perde il 15% in due settimane nonostante gli Houthi",
+    "domanda": "Perché il Brent scende con la guerra in corso?",
+    "prove": [
+     "Brent -15% da 113 a 96",
+     "Attacchi Houthi giovedì: +3,3%, venerdì fermo",
+     "Trump: attacco 'molto improbabile'",
+     "Brent -16% nella settimana al 6/11, minimo a 93,22 $",
+     "Scorte USA in aumento e produzione Opec+ in crescita"
+    ],
+    "contro": "Un fallimento dei colloqui con l'Iran",
+    "schede": [
+     "MEM-1111-C02",
+     "MEM-1111-D04",
+     "N10"
+    ],
+    "memoria": "Brent sotto 90 il 10/11"
+   },
+   {
+    "chiave": "europa",
+    "misura": "mezzo",
+    "tesi": "L'Europa batte Wall Street perché ha pochi chip: migliore settimana da aprile",
+    "domanda": "Perché l'Euro Stoxx sale mentre il Nasdaq soffre?",
+    "prove": [
+     "Euro Stoxx +3,5% contro S&P +2,5%",
+     "Gas -20%",
+     "Greil",
+     "Aviva e Generali dai conti"
+    ],
+    "contro": "Se i chip americani risalgono, il vantaggio europeo si riduce",
+    "schede": [
+     "D02",
+     "D06",
+     "N08"
+    ],
+    "memoria": "Euro Stoxx a 6.398 il 12/11"
+   }
+  ]
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Reuters: Wall Street chiude mista, Nvidia e AMD affondano, Nasdaq migliore settimana da agosto (14/11)",
+   "dpa-AFX: Europa, l'euforia si ferma dopo la settimana migliore da aprile (13/11, 18:10)",
+   "Korea Herald: Seul perde l'1% dopo aver aperto in rialzo, pesano le vendite degli stranieri (13/11)",
+   "ANSA: Milano chiude in lieve rialzo, spread a 104 (13/11, 17:41)",
+   "Reuters: la FAA ferma tutti i voli in partenza dagli Usa (14/11)"
+  ],
+  "testate": [
+   {
+    "testata": "Reuters",
+    "storie": [
+     "Wall Street chiude mista, chip sotto pressione",
+     "FAA ground stop",
+     "Dollaro ai massimi da aprile 2025"
+    ]
+   },
+   {
+    "testata": "dpa-AFX",
+    "storie": [
+     "Europa chiude in lieve calo dopo la miglior settimana da aprile",
+     "Generali, Richemont, AMS-Osram dopo i conti"
+    ]
+   },
+   {
+    "testata": "ANSA",
+    "storie": [
+     "Milano +0,1%",
+     "Spread BTP-Bund a 104",
+     "Fincantieri in calo"
+    ]
+   },
+   {
+    "testata": "Korea Herald",
+    "storie": [
+     "Kospi -0,98%",
+     "Vendite degli stranieri"
+    ]
+   },
+   {
+    "testata": "investingLive",
+    "storie": [
+     "Anthropic punta a Nasdaq la prossima settimana (WSJ)",
+     "Titoli tecnologici in calo"
+    ]
+   },
+   {
+    "testata": "Financial Times",
+    "storie": [
+     "Il consiglio di Nvidia contatta Rene Haas di Arm per la successione (via Reuters)"
+    ]
+   },
+   {
+    "testata": "Wall Street Journal",
+    "storie": [
+     "Anthropic punta al debutto al Nasdaq la prossima settimana (titolo via investingLive)"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Debutto in borsa di Anthropic (WSJ, investingLive, Reuters)",
+    "motivo": "data, prezzo e valutazione contrastanti nelle fonti lette: non verificabile"
+   },
+   {
+    "storia": "Interruzione globale di Microsoft 365",
+    "motivo": "una sola lettura, non confermata da fonti di livello 1"
+   }
+  ],
+  "concorda": true,
+  "motivo": "Le testate aprono su Nvidia, chip e tecnologia: è la nostra apertura"
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "AMD cede l'8,8% venerdì dopo essere salita del 12,8% nei cinque giorni, mentre Nvidia perde solo il 2%",
+  "ricerche": [
+   "Wall Street Friday November 13 2026 close S&P 500 Nasdaq why",
+   "FMP quote-change AMD NVDA"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Realizzo dopo una settimana di rialzo (+12,8%) e +149% da inizio anno",
+    "fonte": null,
+    "prevede": "vendite più forti sui titoli saliti di più, indice chip giù",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Contagio dall'uscita di Huang",
+    "fonte": null,
+    "prevede": "Nvidia giù più di AMD",
+    "prezzi": "non torna"
+   }
+  ],
+  "esito": "ipotesi"
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "Euro Stoxx 50: chiusure dal 10 al 13/11",
+  "ricerche": [
+   "Aktien Europa Schluss 10.11.26",
+   "Aktien Europa Schluss 11.11.26",
+   "Aktien Europa Schluss 12.11.26",
+   "Europa-Schluss EuroStoxx 50 Freitag 13. November 2026"
+  ],
+  "esito": "trovato",
+  "fonte": {
+   "testata": "dpa-AFX (finanzen.net)",
+   "url": "https://www.finanzen.net/nachricht/aktien/roundup-aktien-europa-schluss-aufwaertsdrang-erlahmt-nach-starker-boersenwoche-16063399"
+  }
+ },
+ {
+  "id": "MEM-1113-N02",
+  "sezione": "deep_dive",
+  "testo": "Cisco: ricavi del primo trimestre fiscale 18,5 mld $ (+24%), utile per azione rettificato 1,40 $, previsione dei ricavi 2027 alzata a 74,8-75,8 mld $; Applied Materials: ricavi 10,41 mld $ (+53%), utile rettificato per azione 4,16 $, guida del trimestre a 11,1 mld $",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Cisco",
+    "url": "https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2026/m11/cisco-reports-first-quarter-earnings.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Cisco Reports First Quarter Earnings"
+   },
+   {
+    "testata": "Converge Digest",
+    "url": "https://convergedigest.com/cisco-q1-fy2027-ai-networking-revenue-18-5-billion/",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Cisco Revenue Surges 24% to $18.5 Billion"
+   },
+   {
+    "testata": "SEC (modulo 8-K Applied Materials)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000006951/000162828026073360/exhibit991q42026earningsre.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Applied Materials Announces Fourth Quarter and Fiscal Year 2026 Results"
+   },
+   {
+    "testata": "Converge Digest",
+    "url": "https://convergedigest.com/applied-materials-q4-fy2026-earnings-ai-chip-demand/",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Applied Materials: AI Chip Demand Drives 53% Revenue Growth"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF.",
+  "ripresa": "2026-11-13"
+ },
+ {
+  "id": "MEM-1113-D03",
+  "sezione": "deep_dive",
+  "testo": "Il rendimento del Treasury a 10 anni sale di 12 pb a 5,10%, dopo un massimo a 5,12% in seduta; in mattinata è sul 5,13%",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-12-sp-500-nasdaq-dow-nvidia-invest-110027430.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock market today: Dow, S&P 500, Nasdaq slip as Nvidia stock falls on CEO exit, bond yields rise"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/cina-in-rosso-lo-tsunami-nvidia-rischia-di-abbattersi-sul-vertice-trump-xi-202611130753457223",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Cina in rosso, lo tsunami Nvidia rischia di abbattersi sul vertice Trump-Xi"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF.",
+  "ripresa": "2026-11-13"
+ },
+ {
+  "id": "MEM-1112-D06",
+  "sezione": "deep_dive",
+  "testo": "Petrolio, offerta: la produzione Opec+ di ottobre è salita, con più greggio saudita; scorte USA +9 milioni di barili (API); i dati EIA slittano a giovedì per la festività",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Express Tribune)",
+    "url": "https://tribune.com.pk/story/2639889/oil-falls-over-1-on-easing-geopolitical-fears-and-oversupply-worries",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Oil falls over $1 on easing geopolitical fears and oversupply worries"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borse oggi in diretta"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le fonti dichiarate; citazioni da sintesi di pagina.",
+  "ripresa": "2026-11-12"
+ },
+ {
+  "id": "MEM-1112-D07",
+  "sezione": "deep_dive",
+  "testo": "Petrolio e rischio: gli analisti di ANZ dicono che un premio per il rischio geopolitico resterà perché il conflitto con l'Iran non ha una via chiara di soluzione; Russia e Ucraina concordano uno scambio di prigionieri ad Abu Dhabi, restano differenze sui territori",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-12-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611120744539370",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borse oggi in diretta"
+   },
+   {
+    "testata": "Reuters (Express Tribune)",
+    "url": "https://tribune.com.pk/story/2639889/oil-falls-over-1-on-easing-geopolitical-fears-and-oversupply-worries",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Oil falls over $1 on easing geopolitical fears and oversupply worries"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Riletto contro le fonti dichiarate; citazioni da sintesi di pagina.",
+  "ripresa": "2026-11-12"
+ },
+ {
+  "id": "MEM-1110-N04",
+  "sezione": "deep_dive",
+  "testo": "Crédit Agricole propone a Banco BPM una fusione amichevole, senza OPA: premio del 20%, dividendo straordinario da 1 miliardo, sinergie per 800 milioni l'anno; Banco BPM chiude a +10,6% a 14,88 euro",
+  "data_evento": "2026-11-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/credit-agricole-muove-su-banco-bpm-fusione-amichevole-premio-del-20-e-un-miliardo-di-dividendo-ai-soci-202611090744255868",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "un rapporto di cambio che riflette un premio del 20%"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/09/borsa-milano-la-migliore-in-europa-con-il-credito-banco-bpm-10_2f989b3c-ac40-4f66-b8f6-6ec553a97620.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "il titolo ha concluso in rialzo del 10,6% a 14,88 euro."
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Termini della proposta da ANSA e Milano Finanza (premio 20% letterale MF; +10,6% a 14,88 letterale ANSA).",
+  "ripresa": "2026-11-10"
+ },
+ {
+  "id": "R2",
+  "sezione": "ricerca",
+  "dato": "Kospi: chiusura del 6/11 e del 30/12/2025 (settimana e da inizio anno)",
+  "ricerche": [
+   "Kospi closes Friday November 13 2026",
+   "Kospi Seoul stocks close November 13 2026 Korea Herald OR Yonhap OR Korea Times",
+   "Kospi closes Friday November 6 2026 Seoul shares close",
+   "FMP ^KS11: piano non abilitato"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "Korea Herald",
+   "url": "https://www.koreaherald.com/article/10936578"
+  }
+ },
+ {
+  "id": "R3",
+  "sezione": "ricerca",
+  "dato": "Spread BTP-Bund: variazione a un giorno, una settimana, un mese",
+  "ricerche": [
+   "Piazza Affari chiusura 13 novembre 2026 FTSE MIB spread BTP Bund",
+   "Borsa Milano chiude 13 novembre FTSE MIB venerdì",
+   "spread Btp Bund chiude 6 novembre 2026 punti base ANSA",
+   "WebFetch ANSA 13/11: solo il livello di chiusura (104 pb)"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "ANSA",
+   "url": "https://www.ansa.it/sito/notizie/economia/2026/11/13/borsa-milano-chiude-in-lieve-rialzo-ftse-mib-01_94c30a0d-7a2b-4bfe-8697-65720fa90fb3.html"
+  }
+ },
+ {
+  "id": "R4",
+  "sezione": "ricerca",
+  "dato": "MSCI ACWI (ETF): chiusura del 31/12/2025 per la variazione da inizio anno",
+  "ricerche": [
+   "WebSearch: iShares MSCI ACWI ETF ACWI closing price December 31 2025 (13/11)",
+   "FMP historical-price-eod-light ACWI: piano non abilitato",
+   "Archivio acwi.csv della scommessa: parte dal 19/05/2026",
+   "Alpha Vantage TIME_SERIES_DAILY compact (14/11): arriva solo a fine giugno 2026"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "iShares",
+   "url": "https://www.ishares.com/us/products/239600/ISHARES-MSCI-ACWI-ETF"
+  }
+ }
+]
