@@ -73,7 +73,7 @@ def analizza(t):
 STOP = set("di a da in con su per tra fra il lo la i gli le un uno una e ed o ma che non più come anche del dello della dei "
            "degli delle al allo alla ai agli alle dal dallo dalla dai dagli dalle nel nello nella nei negli nelle sul sullo "
            "sulla sui sugli sulle è sono ha hanno si se poi già solo ogni dopo prima oggi ieri sopra sotto".split())
-NON_PROSA = re.compile(r"\s*(Fonti?\b|Fonte:|Solo a scopo|Gommberg Terminal|GOMMBERG|Mercati globali)")
+NON_PROSA = re.compile(r"\s*(Fonti?\b|Fonte:|Solo a scopo|Gommberg Terminal|GOMMBERG|Mercati globali|I mercati globali)")
 
 
 def echi(path):

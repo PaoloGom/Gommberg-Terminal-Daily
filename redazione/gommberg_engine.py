@@ -146,7 +146,7 @@ def page(c, doc):
     gw = pdfmetrics.stringWidth("GOMMBERG", "Cond-B", 15)
     c.setFillColor(colors.white); c.drawString(M + gw + 1.5 * mm, PH - 9.6 * mm, "TERMINAL DAILY")
     c.setFont("Cond", 7); c.setFillColor(colors.HexColor("#BDBDBD"))
-    c.drawString(M, PH - 13.6 * mm, "Mercati globali  |  Rassegna quotidiana")
+    c.drawString(M, PH - 13.6 * mm, "I mercati globali spiegati, ogni mattina in 6 pagine")
     c.setFont("Cond-B", 8.5); c.setFillColor(colors.white)
     c.drawRightString(PW - M, PH - 9.2 * mm, f"{META['data_lunga']}  |  Edizione n. {META['edizione']:03d}")
     c.setFillColor(colors.HexColor("#BDBDBD")); c.setFont("Cond", 7)
@@ -214,11 +214,13 @@ def two(img_l, txt_l, img_r, txt_r):
 def ticker(items):
     """items = [(etichetta, valore, variazione), ...] - max 7 caselle."""
     cells = [[P(a, "tk_l"), P(b, "tk_v"), P(c, "tk_c")] for a, b, c in items]
-    row = [Table([[x] for x in c], style=[("LEFTPADDING", (0, 0), (-1, -1), 0), ("TOPPADDING", (0, 0), (-1, -1), 0),
+    row = [Table([[x] for x in c], style=[("LEFTPADDING", (0, 0), (-1, -1), 0), ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+                                           ("TOPPADDING", (0, 0), (-1, -1), 0),
                                            ("BOTTOMPADDING", (0, 0), (-1, -1), 0.5)]) for c in cells]
     strip = Table([row], colWidths=[CW / len(items)] * len(items))
     strip.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#1C1C1C")),
-                               ("LEFTPADDING", (0, 0), (-1, -1), 5), ("TOPPADDING", (0, 0), (-1, -1), 5),
+                               ("LEFTPADDING", (0, 0), (-1, -1), 5), ("RIGHTPADDING", (0, 0), (-1, -1), 2),
+                               ("TOPPADDING", (0, 0), (-1, -1), 5),
                                ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
                                ("LINEAFTER", (0, 0), (-2, -1), 0.4, colors.HexColor("#3A3A3A"))]))
     return [strip, Spacer(1, 9)]

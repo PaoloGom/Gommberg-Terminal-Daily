@@ -7,7 +7,7 @@ import json
 
 # (etichetta nel ticker, serie in dati.json, decimali del livello, unità del livello)
 TICKER = [("MSCI ACWI (ETF)", "ACWI", 2, " $"), ("S&amp;P 500", "S&P 500", 2, ""), ("EURO STOXX 50", "Euro Stoxx 50", 2, ""),
-          ("UST 10 ANNI", "Treasury 10 anni", 2, "%"), ("EUR/USD", "EUR/USD", 4, ""),
+          ("TREASURY 10 ANNI", "Treasury 10 anni", 2, "%"), ("EUR/USD", "EUR/USD", 4, ""),
           ("BRENT FUTURE", "Brent future", 2, " $"), ("VIX", "VIX", 2, "")]   # azioni, tassi, valute, materie prime, VIX (9/11/2026)
 
 
