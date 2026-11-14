@@ -95,7 +95,7 @@ def approfondimenti(dal):
     return out
 
 
-def meccanismi(parole, quanti=3):
+def meccanismi(parole, quanti=2):
     """I meccanismi di meccanismi.json che toccano il tema: la spiegazione già verificata del passaggio (perché A muove B),
     da dire con le parole del lettore. Prima quelli col tema nel titolo, poi per numero di parole trovate."""
     try:
@@ -172,11 +172,13 @@ def main():
                 print(f"  #{n:03d} {d[8:]}/{d[5:7]} {t}: {tit}")
         mecc = meccanismi(parole)
         if mecc:
-            print("Il passaggio (meccanismi.json: si scrive come tendenza, 'di solito', con le parole del lettore; l'id va in "
-                  "C[\"meccanismi\"]; se il caso è tra le eccezioni non si usa):")
+            print("Meccanismi che POSSONO servire al passaggio (meccanismi.json). Si usa solo quello che spiega QUESTA tesi, "
+                  "con le parole del lettore e come tendenza ('di solito'); uno che non c'entra o che va contro la tesi "
+                  "confonde: meglio nessuno. L'id di quelli usati va in C[\"meccanismi\"]:")
             for v in mecc:
                 ecc = v.get("eccezioni", "-")
-                print(f"  {v['id']} {v['titolo']}: {v['testo'][:240]} | Non vale se: {ecc[:120]}{'...' if len(ecc) > 120 else ''}")
+                print(f"  {v['id']} {v['titolo']} (serve per: {v.get('quando', '-')[:90]}): {v['testo'][:240]} | Non vale se: "
+                      f"{ecc[:120]}{'...' if len(ecc) > 120 else ''}")
         if not trovati:
             print("Memoria, tema: nessun fatto già schedato con queste parole"); return
         print(f"Memoria, tema: {len(trovati)} fatti già schedati (i più recenti prima). Sono contesto e precedenti, "
