@@ -216,6 +216,14 @@
    "testo": "Il rendimento di un titolo di Stato si può dividere in due parti: il rendimento reale, quello dei titoli protetti dall'inflazione (TIPS), e l'inflazione attesa dal mercato (breakeven), cioè la differenza tra i due. Se sale il reale pesano crescita e banca centrale; se sale l'inflazione attesa pesa il timore sui prezzi.",
    "quando": "Spiegare perché si muove il 10 anni USA quando contesto.py dà la scomposizione.",
    "eccezioni": "I TIPS sono meno scambiati dei titoli nominali: nei giorni di tensione l'inflazione attesa può muoversi anche per la loro scarsa liquidità."
+  },
+  {
+   "id": "M28",
+   "titolo": "Mercati agitati e ricavi da intermediazione",
+   "area": "Borse",
+   "testo": "Chi intermedia gli scambi guadagna sulle commissioni e sulla differenza tra il prezzo a cui compra e quello a cui vende: quando i prezzi si muovono molto i volumi salgono e quella differenza tende ad allargarsi, quindi i ricavi da trading crescono di solito qualunque sia la direzione del mercato.",
+   "quando": "Spiegare perché le banche d'affari guadagnano nei trimestri nervosi.",
+   "eccezioni": "Movimenti estremi e improvvisi possono causare perdite sulle posizioni in portafoglio; se i mercati si bloccano i volumi crollano."
   }
  ]
 }

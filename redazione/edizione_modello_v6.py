@@ -19,7 +19,7 @@ REGOLE DEI CAMPI (v8.1: stanno qui, accanto ai campi; ISTRUZIONI.md tiene solo c
   "stamattina_titolo": "Cosa guardare all'apertura" con 2-4 soglie o eventi con orario.
 - termometri: solo i temi mossi; gli altri in "fermi", fuori dopo 3 sedute. "lettura" (pag. 2) = ciò che le tabelle della
   pagina mostrano e la prima pagina non dice, mai il quadro con altre parole.
-- moduli: 5 unità (mezzo = 1, doppio = 2), il primo "mezzo" va a pag. 3. Ogni modulo: perche, quindi, fonte; righe (mezzo max 5,
+- moduli: 6 unità (mezzo = 1, doppio = 2) sulle pag. 2-4, in ordine d'importanza; un "doppio" comincia in cima a una pagina. Ogni modulo: perche, quindi, fonte; righe (mezzo max 5,
   doppio max 8); punti max 3; "guardare" obbligatorio nel doppio; niente "lettura". "numero", "punti" e "righe" solo se
   portano ciò che grafico e testo non dicono: qui sotto li usa solo chi li merita (§3.3). Due "mezzo" sulla stessa pagina si dividono
   lo spazio secondo il contenuto: non serve che siano lunghi uguali.
@@ -81,13 +81,17 @@ NIKKEI = [("07-01", 70474.96), ("07-15", 68751.51), ("07-17", 64141.12), ("07-23
           ("10-09", 69030.92), ("10-13", 67777.52), ("10-14", 67744.29), ("10-15", 64425.95)]
 
 
+BRENT = [("09-14", 105.68), ("09-15", 108.75), ("09-16", 105.83), ("09-17", 104.82), ("09-18", 103.87), ("09-21", 100.34),
+         ("09-22", 99.25), ("09-23", 103.08), ("09-24", 106.60), ("09-25", 104.32), ("09-28", 105.28), ("09-29", 96.16),
+         ("09-30", 98.03), ("10-01", 102.31), ("10-02", 102.25), ("10-05", 100.32), ("10-06", 100.58), ("10-07", 100.20),
+         ("10-08", 104.28), ("10-09", 104.72), ("10-12", 106.65), ("10-13", 105.69), ("10-14", 106.06)]
 d = lambda s: dt.date(2026, int(s[:2]), int(s[3:]))   # "MM-GG" -> data
 
 C = {
     "data": OGGI,
     "temi": ["Inflazione", "Fed", "Tassi", "Chip", "Asia", "Trimestrali"],
     "glossario": ["CPI", "pb", "AI", "DRAM", "CXMT", "EPS", "ROTCE", "BTP", "Bund", "VIX", "CME FedWatch", "WTI"],
-    "meccanismi": ["M26", "M01", "M04", "M21"],   # id di redazione/meccanismi.json su cui poggiano i passaggi spiegati
+    "meccanismi": ["M26", "M01", "M04", "M21", "M28", "M10", "M11"],   # id di redazione/meccanismi.json su cui poggiano i passaggi spiegati
 
     "ticker": ticker_da_dati("dati.json"),   # dal dati.json del giorno (numeri.py): mai a mano
 
@@ -147,9 +151,8 @@ C = {
                   "USA.", "rimando": "banche"},
     ],
 
-    # ---------- Pag. 2 ----------
-    "mercati_titolo": "Cruscotto, tassi e temi aperti",
-    "grafico_sett": "Indici: variazione dal 9 ottobre",
+    # ---------- Pag. 5: mercati e agenda (i campi restano quelli di prima: li impagina il motore) ----------
+    "mercati_titolo": "Numeri, temi aperti e calendario",
     "cruscotto": [   # [nome, ultimo, data, 1 g, 1 sett. (vs venerdì), da inizio anno]
         ("Globale", [["MSCI ACWI (ETF, $)", "158,75", "14/10", "-1,2%", "-1,3%", "n.d."]]),
         ("Stati Uniti", [["S&amp;P 500", "7.718,94", "14/10", "-1,1%", "-1,2%", "+12,8%"],
@@ -180,7 +183,6 @@ C = {
                   "attesa sull'S&amp;P 500.",
     "termometri": [  # (tema, a che punto, ultima novità, tendenza su/giu/fermo o testo, cosa guardare)
         ("Fed e tassi", "Riunione 27-28 ottobre", "Rialzo di ottobre di nuovo in gioco", "su", "Dati USA delle 14:30"),
-        ("Inflazione USA", "In accelerazione", "Energia nei servizi (Axios)", "su", "Prezzi alla produzione (PPI)"),
         ("AI e chip", "Rally concentrato", "Vendite da Wall Street all'Asia", "giu", "Nasdaq e Kospi"),
         ("Dollaro", "EUR/USD 1,1156 in chiusura", "Più forte dopo il CPI", "su", "Treasury a 2 anni"),
         ("Petrolio", "Brent sopra 104 $", "WTI verso 95 $ in seduta", "mista", "Prezzi della benzina"),
@@ -193,67 +195,38 @@ C = {
                "Jones, dove la tecnologia pesa poco, è quasi fermo: la vendita riguarda un settore, non tutta la borsa.",
 
     # ---------- Pag. 3-5 ----------
-    "agenda_titolo": "Ieri in calendario e in arrivo",
     "ieri": [        # (quando, evento, dato contro attese, sorpresa +/-/=, → max 8 parole). Casa delle cifre solo per i dati NON raccontati altrove
         # sorpresa: "+" se il NUMERO è più alto delle attese, "-" se è più basso, "=" se uguale. È aritmetica, non un
         # giudizio: sussidi di disoccupazione a 200 mila contro 195 mila attesi sono "+", anche se è un dato peggiore.
-        # il calendario è la tabella di riferimento: dato contro attese SEMPRE; sono notizie e moduli a non ripeterli
-        ("Mer 14, 14:30", "Prezzi al consumo USA (settembre)", "3,7% su un anno (atteso 3,6%); senza energia e alimentari 2,6% (2,5%)", "+", "-"),
+        ("Mer 14, 14:30", "Prezzi al consumo USA (settembre)", "3,7% su un anno (atteso 3,6%); senza energia e alimentari 2,6% (2,5%)", "+", "[[treasury]]"),
         ("Mer 14", "Trimestrali BofA, Morgan Stanley, BlackRock", "Esiti divergenti", "", "[[banche]]"),
     ],
-    "agenda": [      # (quando Roma, evento, attese, perché conta) - <b> sull'evento chiave
+    # Misura di pag. 5: temi aperti al massimo 4; righe uscite ("ieri") più righe in arrivo ("agenda") al massimo 7.
+    # agenda: 5-6 righe, (quando Roma, evento, attese, perché conta, come può muovere i mercati) - <b> sull'evento chiave.
+    # L'ultima colonna insegna a leggere il dato PRIMA che esca: cosa succede di solito se esce sopra le attese e cosa
+    # se esce sotto, con parole di tutti. Sempre come tendenza ("di solito"), mai come previsione; se un evento non ha
+    # un numero atteso, dice cosa ascoltare. Il giorno dopo la riga torna in "ieri" con l'esito.
+    "agenda": [
         ("Gio 15, 11:00", "Produzione industriale area euro (agosto)", "0,0% sul mese; prima -0,1%",
-         "Tenuta dell'industria europea"),
+         "Tenuta dell'industria europea",
+         "Sopra: un po' di sostegno all'euro. Sotto: pesa sui titoli industriali europei."),
         ("<b>Gio 15, 14:30</b>", "<b>Vendite al dettaglio USA (settembre)</b>", "<b>+0,3% sul mese; prima +1,2%</b>",
-         "<b>Evento n.1:</b> primi consumi dopo il CPI"),
+         "<b>Evento n.1:</b> primi consumi dopo il CPI",
+         "<b>Sopra:</b> di solito salgono dollaro e rendimenti a breve, perché consumi forti lasciano alla Fed spazio "
+         "per alzare i tassi. <b>Sotto:</b> il rialzo di ottobre perde forza."),
         ("Gio 15, 14:30", "Prezzi alla produzione USA (PPI, settembre)", "+0,6% sul mese; prima +0,4%",
-         "Se l'energia passa a monte della filiera"),
-        ("Gio 15, 14:30", "Sussidi di disoccupazione settimanali", "199 mila; prima 197 mila", "Tenuta del lavoro"),
-        ("Gio 15, 14:30", "Indice Philadelphia Fed (ottobre)", "26,5-27,8; prima 37,8",
-         "Industria manifatturiera USA"),
-        ("Gio 15", "Assemblee FMI-Banca Mondiale, G7 e G20 (Bangkok, fino al 17)", "-",
-         "Messaggi su debito, inflazione, energia"),
-        ("Ven 16, 15:15", "Produzione industriale USA (settembre)", "+0,4% sul mese; prima 0,0%", "Attività reale"),
+         "Se l'energia passa a monte della filiera",
+         "Sopra: conferma il dato di ieri e di solito pesa sui titoli di Stato. Sotto: l'inflazione sembra meno diffusa."),
+        ("Gio 15, 14:30", "Sussidi di disoccupazione settimanali", "199 mila; prima 197 mila", "Tenuta del lavoro",
+         "Sopra, cioè più sussidi: lavoro più debole, di solito rendimenti giù. Sotto: lavoro solido, Fed più libera."),
+        ("Ven 16, 15:15", "Produzione industriale USA (settembre)", "+0,4% sul mese; prima 0,0%", "Attività reale",
+         "Sopra: l'economia regge anche con tassi alti. Sotto: torna il timore di una frenata."),
     ],
-    "agenda_nota": "Fonti: Teleborsa, Admiral Markets, Banca d'Italia. Orari in ora di Roma.",
-    "bivio": {
-        "titolo": "Il bivio: la Fed del 27-28 ottobre dopo il CPI",
-        "righe": [["Scenario", "Prob.*", "Treasury", "Azionario", "Dollaro (EUR/USD)"],
-                  ["Pausa e tono morbido", "30%", "Rendimenti in calo su tutta la curva", "Rimbalzo, tecnologici in testa",
-                   "Dollaro più debole"],
-                  ["Pausa e tono duro", "30%", "2 anni stabile, 10 anni intorno a 5,1-5,3%", "Laterale, rotazione verso "
-                   "difensivi", "Stabile"],
-                  ["Rialzo a ottobre (25 pb)", "40%", "2 anni in salita, curva piatta", "Pressione su tecnologici e "
-                   "small cap", "Dollaro più forte, sotto 1,11"]],
-        "larghezze": [38, 14, 50, 46, 34],
-        "nota": "* Probabilità nostre, più prudenti del mercato: i future danno il rialzo di ottobre al 47% (Axios). Oggi "
-                "vendite al dettaglio e PPI possono spostarle.",
-    },
-    "moduli": [   # 5 unità: il primo "mezzo" va a pag. 3; pag. 4 e 5: 2 "mezzo" o 1 "doppio" ciascuna. "breve" = voce dell'indice di pag. 1
-        {"chiave": "banche", "tema": "Trimestrali", "breve": "BofA contro Morgan Stanley",
-         # titolo = la TESI in una proposizione (§3.2); la tabella dà i conti, il testo il meccanismo, nessuno ripete l'altro
-         "titolo": "I mercati nervosi premiano le banche d'affari più di quelle che prestano",
-         "misura": "mezzo",
-         "righe": [["Società", "Risultato del terzo trimestre", "Il punto"],
-                   ["Bank of America", "Utile netto 6,9 mld $", "Onere straordinario di 1,2 mld $ per l'accordo con il "
-                    "Tesoro USA; titolo in calo (TheStreet)"],
-                   ["Morgan Stanley", "Utile per azione (EPS) 3,03 $, ricavi 20,33 mld $", "Trading azionario +41% a "
-                    "5,79 mld $; rendimento sul capitale tangibile (ROTCE) 22,6%"],
-                   ["BlackRock", "Utile 1,66 mld $ (+25%)", "Utile in crescita (FIRSTonline)"]],
-         "larghezze": [30, 58, 94],
-         # perche = la causa con fonte, non la parafrasi della tabella; quindi = una cosa osservabile che il testo non dice
-         "perche": "BofA paga un onere straordinario per l'accordo con il Tesoro, mentre Morgan Stanley incassa da consulenza e trading, che crescono quando i mercati si agitano (FIRSTonline).",
-         "quindi": "Il trading di Morgan Stanley, 5,79 mld $ nel trimestre, è il metro per Goldman Sachs e Citigroup, che pubblicano nei prossimi giorni.",
-         # niente "lettura": la tesi sta nel titolo e si dice una volta (§3.3; il motore rifiuta il campo).
-         # testo = il meccanismo che il lettore non vede nei numeri: spiega, non ripete tabella e perché
-         "testo": ["La differenza sta in come si guadagna. Le banche d'affari vivono di scambi e commissioni, che salgono "
-                   "quando i mercati si agitano. Quelle commerciali, come BofA, vivono del margine tra gli interessi sui "
-                   "prestiti e sui depositi: se i tassi scendono il margine si stringe, e un trimestre nervoso non le aiuta. "
-                   "Per questo in una stagione di conti le banche non vanno lette tutte insieme: lo stesso trimestre "
-                   "può essere ottimo per chi fa da intermediario e mediocre per chi presta. BlackRock sta ancora "
-                   "altrove: gestisce i risparmi degli altri e non presta, e di solito guadagna di più quando i mercati "
-                   "salgono e i clienti investono. Tre mestieri diversi sotto la stessa parola, banca."],
-         "fonte": "Fonti: comunicato Morgan Stanley (SEC), Milano Finanza, FIRSTonline, TheStreet."},
+    "agenda_nota": "Fonti: Teleborsa, Admiral Markets, Banca d'Italia. Ora di Roma. Sopra e sotto: rispetto alle attese; "
+                   "\"di solito\" è una tendenza, non una previsione.",
+    # ---------- Pag. 2-4: analisi e storie. 6 unità (mezzo = 1, doppio = 2) su tre pagine, da 3 a 6 storie, in ordine
+    # d'importanza: la prima spiega la top story. Una pagina intera ("doppio") solo alla storia che la regge. ----------
+    "moduli": [   # 6 unità su pag. 2-4: ogni pagina 1 "doppio" o 2 "mezzo". "breve" = voce dell'indice di pag. 1
         {"chiave": "treasury", "tema": "Tassi USA", "breve": "curva al minimo dal 28/9",
          "titolo": "Con la Fed più dura la curva dei Treasury si appiattisce",
          "misura": "doppio",
@@ -275,7 +248,7 @@ C = {
                    "era stata quattro volte più forte di quella rimasta a fine seduta.",
          # B1: la causa si confronta con la forma della curva. Un'inflazione più alta spiega il breve, non il lungo in calo:
          # dirlo e dare la lettura della redazione che regge alla prova dei prezzi (registro "anomalia" in fatti.json, §6.2c)
-         "perche": "Di solito il breve segue le attese sulla Fed, e con il CPI sono salite. Un'inflazione più alta però non spiega il lungo in calo: per noi sono acquisti rifugio dopo le vendite sui tecnologici, e il VIX in rialzo lo conferma.",
+         "perche": "Di solito il breve segue le attese sulla Fed, e con il CPI sono salite. Un'inflazione più alta però non spiega il lungo in calo. Per noi sono acquisti rifugio dopo le vendite sui tecnologici, e lo conferma il rialzo del VIX (la volatilità attesa a Wall Street).",
          "quindi": "Se il 10 anni torna verso il 5,30-5,35% toccato in serata, torna a contare l'inflazione. Sotto il 5,10% di stamattina, invece, prevale la paura sulla borsa.",
          # testo: IL PASSAGGIO PRIMA DI TUTTO (§3.4). Il primo paragrafo fa capire a chi non ha mai studiato finanza perché
          # il fatto muove il prezzo, un anello alla volta, con parole di tutti i giorni e senza definizioni da dizionario:
@@ -343,6 +316,57 @@ C = {
          "fonte": "Notizie e conti TSMC: ANSA, Milano Finanza, Teleborsa.",
          "guardare": "Se i chip americani recuperano, la vendita resta asiatica; se scendono ancora, il timore sulle "
                      "memorie diventa un tema globale."},
+        {"chiave": "banche", "tema": "Trimestrali", "breve": "BofA contro Morgan Stanley",
+         # titolo = la TESI in una proposizione (§3.2); la tabella dà i conti, il testo il meccanismo, nessuno ripete l'altro
+         "titolo": "I mercati nervosi premiano le banche d'affari più di quelle che prestano",
+         "misura": "mezzo",
+         "righe": [["Società", "Risultato del terzo trimestre", "Il punto"],
+                   ["Bank of America", "Utile netto 6,9 mld $", "Onere straordinario di 1,2 mld $ per l'accordo con il "
+                    "Tesoro USA; titolo in calo (TheStreet)"],
+                   ["Morgan Stanley", "Utile per azione (EPS) 3,03 $, ricavi 20,33 mld $", "Trading azionario +41% a "
+                    "5,79 mld $; rendimento sul capitale tangibile (ROTCE) 22,6%"],
+                   ["BlackRock", "Utile 1,66 mld $ (+25%)", "Utile in crescita (FIRSTonline)"]],
+         "larghezze": [30, 58, 94],
+         # perche = la causa con fonte, non la parafrasi della tabella; quindi = una cosa osservabile che il testo non dice
+         "perche": "BofA paga un onere straordinario per l'accordo con il Tesoro, mentre Morgan Stanley incassa da consulenza e trading, che crescono quando i mercati si agitano (FIRSTonline).",
+         "quindi": "Il trading di Morgan Stanley, 5,79 mld $ nel trimestre, è il metro per Goldman Sachs e Citigroup, che pubblicano nei prossimi giorni.",
+         # niente "lettura": la tesi sta nel titolo e si dice una volta (§3.3; il motore rifiuta il campo).
+         # testo = il meccanismo che il lettore non vede nei numeri: spiega, non ripete tabella e perché
+         "testo": ["La differenza sta in come si guadagna. Le banche d'affari vivono di scambi e commissioni, che salgono "
+                   "quando i mercati si agitano. Quelle commerciali, come BofA, vivono del margine tra gli interessi sui "
+                   "prestiti e sui depositi: se i tassi scendono il margine si stringe, e un trimestre nervoso non le aiuta. "
+                   "Per questo in una stagione di conti le banche non vanno lette tutte insieme: lo stesso trimestre "
+                   "può essere ottimo per chi fa da intermediario e mediocre per chi presta. BlackRock sta ancora "
+                   "altrove: gestisce i risparmi degli altri e non presta, e di solito guadagna di più quando i mercati "
+                   "salgono e i clienti investono. Tre mestieri diversi sotto la stessa parola, banca.",
+                   "Il nervosismo premia chi intermedia per un motivo semplice. Ogni compravendita passa da un intermediario, "
+                   "che trattiene una piccola differenza tra il prezzo a cui compra e quello a cui vende. Quando i "
+                   "prezzi si muovono molto i clienti scambiano di più, per proteggersi o per approfittarne, e di "
+                   "solito quella differenza si allarga. È un guadagno che dipende da quanto il mercato si muove, non "
+                   "dalla direzione in cui va."],
+         "fonte": "Fonti: comunicato Morgan Stanley (SEC), Milano Finanza, FIRSTonline, TheStreet."},
+        {"chiave": "petrolio", "tema": "Petrolio", "breve": "il barile dietro l'inflazione",
+         "titolo": "Il petrolio resta sopra i 100 dollari e tiene alta l'inflazione americana",
+         "misura": "mezzo",
+         "grafico": {"tipo": "linee", "file": "c_brent.png", "x": [d(x) for x, _ in BRENT], "soggetto": "petrolio",
+                     "serie": [("Brent", [v for _, v in BRENT], "#F26B1D")], "ruolo": "storia",
+                     "titolo": "Dal primo ottobre il Brent non è più sceso sotto i 100 dollari",
+                     "sottotitolo": "Brent future, chiusure ($)", "soglie": [(100, "100 $")],
+                     "note": [(d("09-29"), 96.16, "29/9"), (d("10-14"), 106.06, "14/10")]},
+         "perche": "Sono i prezzi dell'energia, legati alla guerra in Iran, ad aver spinto l'inflazione di settembre (TheStreet). L'attacco degli Houthi agli uffici Aramco di Dhahran ha aggiunto il timore per le forniture.",
+         "quindi": "Oggi alle 14:30 i prezzi alla produzione dicono se il rincaro dell'energia è già arrivato alle imprese.",
+         "numero": "+10,3%: quanto ha recuperato il Brent dal minimo del 29 settembre. In due settimane ha ripreso tutto il calo di fine mese.",
+         # testo = il passaggio (M10, M11): dal barile ai prezzi, un anello alla volta, senza una sigla
+         "testo": ["Dal barile ai prezzi il passaggio è corto. Il greggio diventa benzina e gasolio in poche settimane, e "
+                   "di solito i carburanti entrano subito nell'inflazione complessiva. Più lento è il secondo giro: "
+                   "trasporti e imballaggi più cari finiscono poco alla volta nei prezzi di beni e servizi, quelli che "
+                   "la Fed guarda di più. Per questo un petrolio che resta caro pesa sui tassi anche nei giorni in cui "
+                   "si muove poco.",
+                   "C'è poi una differenza che conta per l'Europa. Quando il petrolio sale perché si teme per le "
+                   "forniture, come dopo un attacco a un impianto, di solito soffrono i paesi che il greggio lo "
+                   "comprano. Europa e Giappone pagano di più senza vendere di più. Diverso è il caso di "
+                   "un'economia che corre e consuma più energia: lì di solito salgono insieme petrolio e borse."],
+         "fonte": "Fonti: TheStreet, investingLive; chiusure del Brent future."},
     ],
 
     # ---------- Pag. 6 ----------
@@ -367,12 +391,12 @@ C = {
         ("Dati di mercato", "Financial Modeling Prep (indici USA e Asia, VIX, Brent future, curva par del Tesoro USA); "
                             "Alpha Vantage (EUR/USD, ACWI, oro spot); ANSA (FTSE MIB); Teleborsa (titoli di Stato italiani, spread con la Germania, "
                             "Asia delle 08:11)."),
-        ("Pag. 1 e 2", "TheStreet, Axios, Milano Finanza, investingLive, FXStreet, Investing.com, ANSA, "
+        ("Prima pagina e mercati", "TheStreet, Axios, Milano Finanza, investingLive, FXStreet, Investing.com, ANSA, "
                        "Teleborsa."),
         ("Calendario e agenda", "Teleborsa, Admiral Markets, Banca d'Italia, Federal Reserve."),
         ("Approfondimenti", "Banche: comunicato Morgan Stanley (SEC), Milano Finanza, FIRSTonline, TheStreet. Treasury: "
                             "curva par del Tesoro via FMP, Axios, Investing.com. Chip e Asia: ANSA, Milano Finanza, "
-                            "Teleborsa (TSMC)."),
+                            "Teleborsa (TSMC). Petrolio: TheStreet, investingLive."),
         ("La scommessa", "Chiusure di FMP e Alpha Vantage; forchette calcolate dalla volatilità delle ultime 20 sedute."),
     ],
 }

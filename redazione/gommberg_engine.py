@@ -192,6 +192,13 @@ def section(title, kicker=None):
     return out
 
 
+def sezione_stretta(titolo, kicker):
+    """Titolo di una parte interna di pag. 5: etichetta arancione e titolo sulla stessa riga, per non rubare righe ai dati."""
+    return [Paragraph(f'<font color="#F26B1D" size="7.5">{kicker.upper()}</font>&nbsp;&nbsp;&nbsp;{titolo}', S["h2"]),
+            Table([[""]], colWidths=[CW], rowHeights=[0.6], style=[("LINEABOVE", (0, 0), (-1, -1), 0.8, ORANGE)]),
+            Spacer(1, 3)]
+
+
 def two(img_l, txt_l, img_r, txt_r):
     w = (CW - 6 * mm) / 2
     il = graphic(img_l, w)
@@ -334,13 +341,13 @@ def box_pari(sx, dx, lw):
     return t
 
 
-def dash_table(groups, widths):
+def dash_table(groups, widths, pad=2.2):
     """Cruscotto: groups = [(nome_gruppo, [[c1, c2, ...], ...]), ...]. Prima colonna in grassetto,
     variazioni colorate per segno. La prima riga di groups[0] precedente = intestazioni da headers()."""
     hdr, body = groups[0], groups[1:]
     rows, st = [hdr], [("FONTNAME", (0, 0), (-1, -1), "Cond"), ("VALIGN", (0, 0), (-1, -1), "MIDDLE"), ("LEFTPADDING", (0, 0), (-1, -1), 4),
-                       ("RIGHTPADDING", (0, 0), (-1, -1), 4), ("TOPPADDING", (0, 0), (-1, -1), 2.2),
-                       ("BOTTOMPADDING", (0, 0), (-1, -1), 2.2), ("BACKGROUND", (0, 0), (-1, 0), INK),
+                       ("RIGHTPADDING", (0, 0), (-1, -1), 4), ("TOPPADDING", (0, 0), (-1, -1), pad),
+                       ("BOTTOMPADDING", (0, 0), (-1, -1), pad), ("BACKGROUND", (0, 0), (-1, 0), INK),
                        ("LINEBELOW", (0, 0), (-1, 0), 1.2, ORANGE)]
     for name, lines in body:
         rows.append([P(name.upper(), "grp")] + [""] * (len(widths) - 1))
@@ -543,18 +550,74 @@ SORPRESA = {"+": '<font color="#111111"><b>▲ sopra</b></font>', "-": '<font co
 
 def calendario_ieri(righe):
     """righe = [(quando, evento, dato_contro_attese, sorpresa '+'/'-'/'='/'' , freccia max 8 parole o '')]."""
-    rows = [headers("Quando", "Evento", "Dato contro attese", "Sorpresa", "→")]
+    rows = [headers("Uscito", "Evento", "Dato contro attese", "Rispetto alle attese", "Dove se ne parla")]
     for q, ev, dato, sor, fr in righe:
-        rows.append([P(q, "cellb"), P(ev, "cellb"), P(dato, "celln"), P(SORPRESA.get(sor, sor), "celln"), P(fr, "celln")])
-    return tbl(rows, [24 * mm, 44 * mm, 62 * mm, 17 * mm, CW - 147 * mm])
+        rows.append([P(q, "cellb"), P(ev, "cellb"), P(dato, "celln"), P(SORPRESA.get(sor, sor), "celln"),
+                     P("" if fr == "-" else fr, "celln")])
+    return tbl(rows, [24 * mm, 39 * mm, 59 * mm, 30 * mm, CW - 152 * mm])
 
 
 def agenda(righe):
-    """righe = [(quando_roma, evento, attese, perche_conta)], max 10, un evento per riga. <b> per l'evento chiave."""
-    rows = [headers("Quando (Roma)", "Evento", "Attese", "Perché conta")]
-    for q, ev, att, perc in righe:
-        rows.append([P(q, "cellb"), P(ev, "cell"), P(att, "celln"), P(perc, "celln")])
-    return tbl(rows, [22 * mm, 62 * mm, 46 * mm, CW - 130 * mm])
+    """righe = [(quando_roma, evento, attese, perche_conta, come_puo_muoversi)], un evento per riga, <b> per l'evento
+    chiave. L'ultima colonna (struttura v9) insegna a leggere il dato prima che esca: cosa succede di solito se esce
+    sopra le attese e cosa se esce sotto. È una tendenza ("di solito"), mai una previsione. Senza il quinto campo la
+    tabella resta a quattro colonne."""
+    if not any(len(r) > 4 and r[4] for r in righe):
+        rows = [headers("Quando (Roma)", "Evento", "Attese", "Perché conta")]
+        for q, ev, att, perc, *_ in righe:
+            rows.append([P(q, "cellb"), P(ev, "cell"), P(att, "celln"), P(perc, "celln")])
+        return tbl(rows, [22 * mm, 62 * mm, 46 * mm, CW - 130 * mm])
+    rows = [headers("Quando (Roma)", "Evento", "Attese", "Perché conta", "Come può muovere i mercati")]
+    for r in righe:
+        q, ev, att, perc = r[:4]
+        rows.append([P(q, "cellb"), P(ev, "cell"), P(att, "celln"), P(perc, "celln"), P(r[4] if len(r) > 4 else "", "celln")])
+    return tbl(rows, [24 * mm, 37 * mm, 27 * mm, 27 * mm, CW - 115 * mm])
+
+
+def agenda_v9(ieri, righe):
+    """Una tabella sola (struttura v9). In alto ciò che è uscito dall'ultima edizione, con il dato, il confronto con le
+    attese e dove se ne parla; sotto ciò che arriva, con le attese, perché conta e come può muovere i mercati. Così il
+    lettore ritrova il giorno dopo la riga che aveva letto, con l'esito accanto."""
+    rows = [headers("Quando (Roma)", "Evento", "Attese", "Perché conta", "Come può muovere i mercati")]
+    st = [("FONTNAME", (0, 0), (-1, -1), "Cond"), ("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 4),
+          ("RIGHTPADDING", (0, 0), (-1, -1), 4), ("TOPPADDING", (0, 0), (-1, -1), 3), ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+          ("LINEBELOW", (0, 0), (-1, -1), 0.4, RULE), ("BACKGROUND", (0, 0), (-1, 0), INK),
+          ("LINEBELOW", (0, 0), (-1, 0), 1.2, ORANGE)]
+
+    def gruppo(testo):
+        rows.append([P(testo.upper(), "grp")] + [""] * 4)
+        r = len(rows) - 1
+        st.extend([("SPAN", (0, r), (-1, r)), ("BACKGROUND", (0, r), (-1, r), TINT), ("TOPPADDING", (0, r), (-1, r), 2.5),
+                   ("BOTTOMPADDING", (0, r), (-1, r), 2)])
+    if ieri:
+        gruppo("Uscito dall'ultima edizione: il dato, il confronto con le attese, dove se ne parla")
+        for q, ev, dato, sor, fr in ieri:
+            esito = "&nbsp;&nbsp;".join(x for x in (SORPRESA.get(sor, sor), "" if fr == "-" else fr) if x)
+            rows.append([P(q, "cellb"), P(ev, "cellb"), P(dato, "celln"), "", P(esito, "celln")])
+            st.append(("SPAN", (2, len(rows) - 1), (3, len(rows) - 1)))     # il dato usa anche la colonna "Perché conta"
+        gruppo("In arrivo")
+    for r in righe:
+        rows.append([P(r[0], "cellb"), P(r[1], "cell"), P(r[2], "celln"), P(r[3], "celln"), P(r[4] if len(r) > 4 else "", "celln")])
+    t = Table(rows, colWidths=[23 * mm, 36 * mm, 28 * mm, 27 * mm, CW - 114 * mm], repeatRows=1)
+    t.setStyle(TableStyle(st))
+    return t
+
+
+def mercati_compatti(cruscotto, cross, nota_sx="", nota_dx="", data_cross="Livello"):
+    """Struttura v9: indici a sinistra, tassi, cambi e materie prime a destra, in una sola fascia. Usa gli stessi campi
+    C["cruscotto"] e C["cross"] di prima: qui cadono la colonna "Data" (la data delle chiusure sta in testata, l'Asia
+    del mattino nel nome del gruppo) e la colonna "Lettura" (quasi sempre vuota: ciò che le tabelle dicono sta nel
+    riquadro sotto). Niente grafico della settimana: ripeteva la colonna "1 sett."."""
+    sx = dash_table([headers("Indice", "Ultimo", "1 g", "1 sett.", "Da inizio anno")]
+                    + [(g, [[r[0], r[1]] + list(r[3:6]) for r in rr]) for g, rr in cruscotto],
+                    [30 * mm, 17 * mm, 12 * mm, 13 * mm, 16 * mm], pad=1.5)
+    wdx = CW - 93 * mm
+    dx = dash_table([headers("Tassi, cambi, materie prime", data_cross, "1 g", "1 sett.", "1 mese")]
+                    + [(g, [list(r[:5]) for r in rr]) for g, rr in cross],
+                    [wdx - 57 * mm, 18 * mm, 13 * mm, 13 * mm, 13 * mm], pad=1.5)
+    # le note stanno tutte sotto la tabella di destra, che è più corta: le due colonne finiscono alla stessa altezza
+    note = [P(n, "src") for n in (nota_sx, nota_dx) if n]
+    return side_by_side([sx], [dx] + note, 93 * mm)
 
 
 # --- Riempimento automatico delle pagine (render_v6 a più passi) ---
@@ -930,7 +993,7 @@ class _Doc(BaseDocTemplate):
         BaseDocTemplate.handle_pageEnd(self)
 
 
-def render_v6(path, costruisci, riempi=(3, 4, 5), margine=3):
+def render_v6(path, costruisci, riempi=(2, 3, 4), margine=3):
     """costruisci() -> story. Passo 1: impaginazione naturale. Passo 2: le pagine in `riempi` con spazio libero in
     fondo vengono riempite allungando i grafici degli approfondimenti (se descritti come dict) o allargando gli spazi
     Respiro. Passo finale: rimandi "→ pag. N" esatti. Stampa i mm liberi per pagina (obiettivo: 6 pagine, < 10 mm)."""
@@ -1071,9 +1134,8 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
     st += [Spacer(1, 3), side_by_side([box("In 30 secondi", C["in30"], width=CW * 0.56 - 5 * mm)],
                                       [box(C.get("stamattina_titolo", "Stamattina"), C["stamattina"], width=CW * 0.44)], CW * 0.56)]
     st += section("Le notizie del giorno", "Top news")
-    voci = [("mercati", "Mercati", C.get("mercati_titolo", "Cruscotto, tassi e temi aperti")),
-            ("agenda", "Agenda", C.get("agenda_titolo", "Ieri in calendario e in arrivo"))]
-    voci += [(a["chiave"], a["tema"], a.get("breve", a["titolo"])) for a in C.get("moduli") or C["approfondimenti"]]
+    voci = [(a["chiave"], a["tema"], a.get("breve", a["titolo"])) for a in C["moduli"]]
+    voci.append(("mercati", "Mercati e agenda", C.get("mercati_titolo", "Numeri, temi aperti e calendario")))
     if stato and not C["scommessa"].get("lunedi"):
         fx = [k for k, x in (reg or {}).get("strumenti", {}).items() if not x.get("variabile")] or list(stato["righe"])
         ok = sum(1 for k in fx if k in stato["righe"] and stato["righe"][k]["strada_giusta"])
@@ -1083,45 +1145,27 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
     idx = indice_interno(voci, cols=4)
     riserva = sum(f.wrap(CW, PH)[1] + f.getSpaceBefore() + f.getSpaceAfter() for f in idx) + 4
     st += [Elastico(lambda pd: news_grid(C["notizie"], pad=pd), riserva), Spacer(1, 2)] + idx + [PageBreak()]
-    # ---------- Pag. 2 ----------
-    st.append(ancora("mercati"))
-    st += section("Cruscotto: come stanno andando i mercati", "Mercati")
-    dash = dash_table([headers("Indice", "Ultimo", "Data", "1 g", "1 sett.", "Da inizio anno")] + C["cruscotto"],
-                      [31 * mm, 18 * mm, 11 * mm, 13 * mm, 14 * mm, 17 * mm])
-    bar = [(r[0].replace("&amp;", "&"), _num(r[4])) for _, rr in C["cruscotto"] for r in rr if _num(r[4]) is not None]
-    tit_sett = C.get("grafico_sett", "Variazione nella settimana")
-    wd = CW - 109 * mm
-    barre("c_sett.png", bar, tit_sett, alto=2.75, largo=wd / inch)
-    st.append(side_by_side([dash], [Paragraph(signcol(tit_sett), S["chart_t"]), img("c_sett.png", wd),
-                                     P(C["cruscotto_nota"], "src")], 109 * mm))
-    st += section("Tassi, cambi, materie prime e volatilità", "Cross-asset")
-    st.append(dash_table([headers("Strumento", C.get("cross_data", "Livello"), "1 g", "1 sett.", "1 mese", "Lettura")]
-                         + C["cross"], [31 * mm, 20 * mm, 14 * mm, 14 * mm, 15 * mm, CW - 94 * mm]))
-    if C.get("cross_nota"):
-        st.append(P(C["cross_nota"], "note"))
-    st += section("Termometri: i temi aperti", "Termometri")
-    st += termometri(C["termometri"], C.get("fermi", ""))
-    if C.get("lettura"):
-        st += [Spacer(1, 4), lettura(C["lettura"])]
+    # ---------- Pag. 2-4: analisi e storie (struttura v9: la parte che si legge viene subito dopo la prima pagina) ----------
+    st += approfondimenti_pagine([{k: v for k, v in m.items() if k != "breve"} for m in C["moduli"]])
     st.append(PageBreak())
-    # ---------- Pag. 3-5: flusso continuo ----------
+    # ---------- Pag. 5: mercati e agenda, la pagina di consultazione ----------
+    st.append(ancora("mercati"))
+    st += section(C.get("mercati_sezione", "I mercati in una pagina"), "Mercati")
+    if C.get("lettura"):   # prima cosa dicono i numeri, poi i numeri: chi non legge le tabelle ha già la sintesi
+        st += [lettura(C["lettura"]), Spacer(1, 5)]
+    st.append(mercati_compatti(C["cruscotto"], C["cross"], C.get("cruscotto_nota", ""), C.get("cross_nota", ""),
+                               C.get("cross_data", "Livello")))
+    st += sezione_stretta("I temi aperti", "Storie in corso")
+    st += termometri(C["termometri"], C.get("fermi", ""))
     st.append(ancora("agenda"))
-    st += section(C.get("ieri_titolo", "Ieri in calendario"), C.get("ieri_kicker", "Calendario"))
-    st += [calendario_ieri(C["ieri"]), Respiro(2)]
-    st += section(C.get("agenda_sezione", "In arrivo"), C.get("agenda_kicker", "Agenda"))
-    st.append(agenda(C["agenda"]))
+    st += sezione_stretta(C.get("agenda_sezione", "Cosa è uscito e cosa arriva"), C.get("agenda_kicker", "Agenda"))
+    st.append(agenda_v9(C.get("ieri") or [], C["agenda"]))
+    if len(C.get("ieri") or []) + len(C["agenda"]) > 7 or len(C["termometri"]) > 4:
+        print(f"ATTENZIONE: pag. 5 ha {len(C['termometri'])} temi aperti (massimo 4) e "
+              f"{len(C.get('ieri') or []) + len(C['agenda'])} righe d'agenda tra uscite e in arrivo (massimo 7): "
+              "oltre, la pagina non basta e l'edizione va a 7 pagine")
     if C.get("agenda_nota"):
         st.append(P(C["agenda_nota"], "note"))
-    if C.get("bivio"):
-        st += [Respiro(2)] + bivio(**C["bivio"]) + [Respiro(4)]
-    if C.get("moduli"):          # v6.1: griglia a moduli (pag. 3 in basso, pag. 4 e 5)
-        p3, p45 = approfondimenti_griglia([{k: v for k, v in m.items() if k != "breve"} for m in C["moduli"]])
-        st += p3 + [PageBreak()] + p45
-    else:                        # compatibilità con i modelli precedenti
-        for a in C["approfondimenti"]:
-            a = dict(a)
-            st += approfondimento(a.pop("tema"), a.pop("titolo"), a.pop("formato"), chiave=a.pop("chiave"),
-                                  **{k: v for k, v in a.items() if k != "breve"})
     st.append(PageBreak())
     # ---------- Pag. 6 ----------
     import sys as _s, os as _o
@@ -1505,33 +1549,35 @@ def modulo(tema, titolo, misura="mezzo", chiave=None, grafico=None, grafico2=Non
     return c
 
 
-def approfondimenti_griglia(moduli):
-    """moduli: lista di dict (vedi modulo()). Il primo va a pag. 3 (misura mezzo), gli altri riempiono pag. 4-5:
-    in tutto 5 unità (mezzo = 1, doppio = 2). Restituisce (flowables pag. 3, flowables pag. 4-5)."""
+def approfondimenti_pagine(moduli, pagine=3):
+    """Struttura v9: gli approfondimenti occupano `pagine` pagine intere (pag. 2-4). Ogni pagina è un "doppio" (una
+    storia a tutta pagina) o due "mezzo" che si dividono lo spazio secondo il contenuto: 6 unità in tutto
+    (mezzo = 1, doppio = 2), da 3 a 6 storie. L'ordine è quello dell'importanza: la prima spiega la top story."""
     unita = sum(2 if m.get("misura") == "doppio" else 1 for m in moduli)
-    if not moduli or moduli[0].get("misura", "mezzo") != "mezzo" or unita != 5:
-        raise ValueError(f"approfondimenti: servono 5 unità (mezzo=1, doppio=2) col primo 'mezzo'; ora {unita}. "
-                         "Esempi: 5 mezzi; mezzo + doppio + doppio; mezzo + doppio + mezzo + mezzo.")
+    if unita != 2 * pagine:
+        raise ValueError(f"approfondimenti: servono {2 * pagine} unità (mezzo=1, doppio=2) su {pagine} pagine; ora {unita}. "
+                         "Esempi: 3 doppi; doppio + doppio + 2 mezzi; doppio + 4 mezzi.")
+
     def blocco(m, alto):
         m = dict(m); k = m.pop("chiave", None)
         tema, titolo = m.pop("tema"), m.pop("titolo")
         corpo = modulo(tema, titolo, chiave=k, **m)
         return ([ancora(k)] if k else []) + [_Slot(k or titolo, corpo, alto)]
-    p3 = [Spacer(1, 4)] + blocco(moduli[0], None)
-    resto, usate, attesa = [], 0, None
-    for m in moduli[1:]:
+    out, usate, attesa = [], 0, None
+    for m in moduli:
         doppio = m.get("misura") == "doppio"
         if doppio and usate % 2:
-            raise ValueError("approfondimenti: un modulo 'doppio' deve iniziare in cima a pag. 4 o 5")
+            raise ValueError("approfondimenti: un modulo 'doppio' deve iniziare in cima a una pagina "
+                             "(prima di lui un numero pari di 'mezzo')")
         b = blocco(m, FH if doppio else HM)
         usate += 2 if doppio else 1
         if doppio:
-            resto += b + [PageBreak()]
+            out += b + [PageBreak()]
         elif attesa is None:
             attesa = b                                   # primo "mezzo" della pagina: aspetta il compagno
         else:
             anc = [f for f in attesa + b if isinstance(f, _Ancora)]
             sl = [f for f in attesa + b if isinstance(f, _Slot)]
-            resto += anc + [_Coppia(sl[0], sl[1]), PageBreak()]
+            out += anc + [_Coppia(sl[0], sl[1]), PageBreak()]
             attesa = None
-    return p3, resto[:-1] if resto and isinstance(resto[-1], PageBreak) else resto
+    return out[:-1] if out and isinstance(out[-1], PageBreak) else out
