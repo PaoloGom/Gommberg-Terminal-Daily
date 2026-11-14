@@ -1,0 +1,176 @@
+{
+  "treasury": {
+    "X": {
+      "termini_opachi": [
+        "punti base (mai spiegati)",
+        "future sui fed funds",
+        "rendimento a due anni / a dieci",
+        "fuga dalla paura (rifugio in cui l'oro salirebbe: detto ma non spiegato)",
+        "tassi attesi più alti",
+        "prezzi alla produzione",
+        "Brent",
+        "alla riapertura"
+      ],
+      "passaggi_saltati": [
+        "Dice che i tassi a breve americani salgono più di quelli europei e quindi il dollaro si rafforza, ma non spiega perché un tasso più alto attira dollari",
+        "Dice che l'oro perde 'perché si vedono tassi più alti', ma non spiega perché tassi alti penalizzano un bene che non paga interessi",
+        "Dice che con le parole di Waller 'il dato sul lavoro pesa poco', ma non spiega perché un'inflazione attesa batte un segnale di indebolimento del lavoro",
+        "Dalle ricerche della Fed all'inflazione futura: 'chi presta per due anni chiede un interesse maggiore' è accennato ma il passaggio prezzi alti, Fed ferma, rendimento a due anni su è molto compresso"
+      ],
+      "non_sostenuto": [
+        "'Giovedì' come giorno dell'evento (non nelle schede)",
+        "I prezzi alla produzione 'di oggi' (non nelle schede)",
+        "La soglia del 4,85% e la 'riapertura' (soglia inventata, e 'riapertura' contraddice 'giovedì' e 'oggi')",
+        "I tassi a breve europei che salirebbero meno di quelli americani (nessun dato sull'Europa nelle schede)",
+        "Il 29 come segno che il mercato 'dà già peso all'ipotesi da 50': inferenza non presente nelle schede, presentata come lettura 'per noi'"
+      ],
+      "meccanismi_forzati": [
+        "Il differenziale di tassi USA-Europa per spiegare il dollaro: meccanismo generale usato senza alcun dato europeo a sostegno",
+        "'Il dato sul lavoro pesa poco': la tesi regge ma il testo lo afferma senza prova, mentre il dato è appena sopra le attese (200 contro 195 mila)"
+      ],
+      "sostanza_persa": [
+        "Livello del rendimento a 10 anni (5,105%) e massimo dal 21 ottobre",
+        "Livello del 2 anni (4,867%) nel testo",
+        "Indice DXY a 103,18",
+        "Dato precedente rivisto a 189 mila (mostra la direzione del peggioramento)",
+        "Il riferimento esplicito al CPI di ottobre come spartiacque: X dice solo 'inflazione di ottobre'"
+      ],
+      "difetti_di_scrittura": [
+        "'Per noi' ripetuto quattro volte e 'Di solito' tre: il tono diventa tic redazionale",
+        "'alla riapertura' incoerente con il resto del pezzo",
+        "Il PERCHÉ e l'attacco ripetono quasi alla lettera la stessa frase sul 'dato debole che di solito fa scendere i rendimenti'"
+      ]
+    },
+    "Y": {
+      "termini_opachi": [
+        "punti base (mai spiegati)",
+        "CPI (mai spiegato)",
+        "future sui fed funds",
+        "già nei prezzi / prezzando",
+        "Treasury a 2 anni / a 10 anni",
+        "DXY",
+        "prezzi alla produzione",
+        "Brent",
+        "costo del denaro",
+        "massimo dal 21 ottobre"
+      ],
+      "passaggi_saltati": [
+        "Mai spiegato cosa sia un rendimento né perché salga quando i titoli vengono venduti: il lettore non esperto non capisce il fenomeno di base",
+        "Non spiega perché il dollaro forte e l'oro in calo siano 'la stessa cosa' di tassi più alti",
+        "Dice 'un barile più caro tiene alta l'inflazione, e quindi la Fed' senza far capire perché la Fed deve reagire all'inflazione alzando i tassi",
+        "Un euro a 1,1053 viene presentato come 'moneta più debole' che appesantisce la bolletta, ma non c'è alcun termine di confronto e non si dice perché il petrolio costi di più in euro",
+        "Il 29 nel riquadro non viene mai spiegato nel testo: cosa significa che 'è già nei prezzi' e se 29 sia più o meno di 25"
+      ],
+      "non_sostenuto": [
+        "'(Teleborsa)' come fonte (non nelle schede)",
+        "Prezzi alla produzione in uscita 'oggi' (non nelle schede)",
+        "'la bolletta energetica anche per l'Italia' più pesante: nessuna scheda sull'Italia o sulle bollette",
+        "'Chi comanda è il petrolio': affermazione perentoria, le schede mostrano concomitanza non gerarchia",
+        "'i rendimenti hanno corso troppo' se il CPI rallenta: giudizio non supportato"
+      ],
+      "meccanismi_forzati": [
+        "Il pezzo dice che il mercato prezza 'un rialzo per dicembre' senza mai dire la dimensione: nasconde il fatto che 29 è poco più di un rialzo da 25",
+        "Il paragrafo sull'Europa usa un 'euro debole' come causa di costi energetici maggiori: meccanismo plausibile in generale ma fuori dalle schede e fuori dalla tesi (il pezzo è sul perché salgono i rendimenti)"
+      ],
+      "sostanza_persa": [
+        "La lettura che 29 pb è più di un rialzo da 25 (X la dà, anche se inferenziale)",
+        "La spiegazione in chiaro di cosa sia un rendimento e perché un dato debole di solito lo faccia scendere (X la spiega con 'chi presta allo Stato accetta un interesse più basso')",
+        "La logica dell'oro come bene rifugio spiegata a parole semplici in X ('fuga dalla paura')",
+        "La soglia operativa sul 2 anni, che dà al lettore un riferimento da guardare"
+      ],
+      "difetti_di_scrittura": [
+        "'Per noi' ripetuto cinque volte",
+        "'Chi comanda è il petrolio' e 'i rendimenti hanno corso troppo': gergo da sala operativa",
+        "Il paragrafo 'Per l'Europa il segnale è il cambio' è una deviazione dal filo del pezzo"
+      ]
+    },
+    "neofita_capisce_meglio": "X",
+    "esperto_trova_di_piu": "Y",
+    "pubblicherei": "X",
+    "motivo": "X spiega i meccanismi di base (cosa vuol dire che un dato debole fa scendere i rendimenti, perché l'oro non sale) e evita il sigla CPI, mentre Y getta addosso punti base, CPI, DXY e Treasury senza mai definire il rendimento. Y ha più numeri (5,105%, 4,867%, DXY, 189 mila) ma tiene fuori la lettura del 29, aggiunge un angolo europeo non sostenuto e una fonte non nelle schede; X ha i suoi difetti (soglia 4,85% e 'riapertura' inventate) ma sono correggibili in un minuto."
+  },
+  "petrolio": {
+    "X": {
+      "termini_opachi": [
+        "Brent (mai spiegato)",
+        "massimo di chiusura / minimo",
+        "scontava (nel senso di 'aveva già nei prezzi')",
+        "premio per il rischio",
+        "scarsità",
+        "CPI",
+        "punti base"
+      ],
+      "passaggi_saltati": [
+        "Non spiega perché un accordo con l'Iran farebbe scendere il petrolio (più offerta iraniana? meno tensione?) e quindi perché la frase di Trump lo faccia salire",
+        "Gli attacchi alle infrastrutture saudite stanno nel PERCHÉ ma non nel corpo: non si spiega perché non facciano temere una carenza, che è la tesi",
+        "Dal 'premio per il rischio' non si capisce cos'è né perché 95,82 sotto i 100 lo dimostri",
+        "Il passaggio dal petrolio a Waller ('il conto non si ferma al barile') accosta due fatti senza dire che il greggio caro alimenta l'inflazione e quindi il rialzo dei tassi",
+        "Il 91 in 'DA GUARDARE' compare senza che il corpo abbia mai detto che il minimo del 10 novembre era 91,49"
+      ],
+      "non_sostenuto": [
+        "'Giovedì' (non nelle schede)",
+        "'Il calo delle due settimane scontava l'intesa con Teheran': causa del calo non presente nelle schede, dà per certa un'interpretazione",
+        "'un accordo riporterebbe il Brent verso 91': previsione presentata come meccanica",
+        "'L'intesa con Teheran' come qualcosa che il mercato attendeva: le schede parlano solo delle parole di Trump"
+      ],
+      "meccanismi_forzati": [
+        "'Resta sotto il livello di circa 100 dell'anno, quindi premio per il rischio e non scarsità': essere sotto la media annuale non dimostra l'assenza di scarsità, soprattutto con attacchi in intensificazione sulle infrastrutture saudite",
+        "La tesi 'non manchi greggio' è assunta, non mostrata: nelle schede non c'è nessun dato sull'offerta"
+      ],
+      "sostanza_persa": [
+        "Il valore del minimo (91,49) nel corpo del testo",
+        "Il fatto che il rialzo è 'in parte recuperato' rispetto al calo",
+        "Il canale 'petrolio, carburanti, inflazione complessiva' che Y nomina",
+        "WTI e Waller con la condizione dei 50 punti base nel corpo (c'è solo nel E QUINDI)"
+      ],
+      "difetti_di_scrittura": [
+        "Il corpo è troppo scarno per un approfondimento: due paragrafi, il secondo di fatto un elenco di due fatti",
+        "'Il conto non si ferma al barile' è un'espressione vaga che non dice a quale conto si riferisce",
+        "'Per noi' in apertura che mette in scena l'opinione prima dei fatti"
+      ]
+    },
+    "Y": {
+      "termini_opachi": [
+        "Brent (mai spiegato)",
+        "inflazione complessiva",
+        "carenza / scarsità",
+        "scontava",
+        "punti base",
+        "chiude sopra il massimo di giovedì",
+        "Washington continua a chiudere"
+      ],
+      "passaggi_saltati": [
+        "Come X, non spiega perché una speranza di accordo tenesse il greggio più basso",
+        "Il passaggio 'se il Brent chiude sopra il massimo di giovedì, il mercato ha archiviato la trattativa' non spiega perché un prezzo più alto dimostri questo e non un altro motivo",
+        "Gli attacchi sauditi stanno solo nel PERCHÉ: non si spiega perché non facciano pensare a una carenza",
+        "Non collega il rincaro del petrolio al rialzo dei tassi: Waller 'ha chiesto un rialzo' senza dire perché sia legato al greggio"
+      ],
+      "non_sostenuto": [
+        "'Il massimo di giovedì' (la scheda dà solo la chiusura 95,82; un massimo intraday non c'è)",
+        "'Trattativa' con Teheran: le schede non parlano di negoziati in corso",
+        "'Giovedì' (non nelle schede)",
+        "'Il petrolio passa in fretta all'inflazione tramite i carburanti' e 'Per l'Europa che importa...' (nulla nelle schede su carburanti o Europa)",
+        "'Nessuno scommette più' (titolo): iperbole non supportata"
+      ],
+      "meccanismi_forzati": [
+        "'Di solito un rincaro da carenza pesa su crescita e borse' applicato a un pezzo che sostiene il contrario (rialzo politico, non da carenza): meccanismo sbagliato per la tesi",
+        "'passa in fretta' accostato a 'più duraturo che in passato' crea una tensione: il testo dice insieme che passa in fretta e che dura di più",
+        "Il test 'se il Brent chiude sopra il massimo di giovedì' non misura quello che dice di misurare"
+      ],
+      "sostanza_persa": [
+        "Il concetto di 'premio per il rischio' che X offre (utile a un lettore che vuole capire perché il rialzo non è carenza)",
+        "Il confronto più netto di X con il livello di circa 100 dell'anno come cuore del ragionamento",
+        "La sintesi di X è più compatta: Y disperde il lettore con l'Europa"
+      ],
+      "difetti_di_scrittura": [
+        "'Per l'Europa che importa, di solito un rincaro da carenza pesa su crescita e borse': frase contorta, che si legge due volte",
+        "E QUINDI che infila due condizioni non collegate in una frase sola con punto e virgola",
+        "'Se Washington continua a chiudere': metafora ambigua che il neofita non decifra"
+      ]
+    },
+    "neofita_capisce_meglio": "X",
+    "esperto_trova_di_piu": "Y",
+    "pubblicherei": "X",
+    "motivo": "X è più corto e coerente con la tesi (rialzo politico, non carenza), mentre Y inserisce un meccanismo generale sulla carenza che contraddice la tesi, un 'massimo di giovedì' che le schede non contengono e un angolo europeo non sostenuto. Y offre più sostanza (minimo 91,49, rialzo parzialmente recuperato, canale carburanti, CPI spiegato come prezzi al consumo) ma la paga con confusione; X è esile e lascia fuori gli attacchi sauditi dal corpo, ma non dice cose false."
+  }
+}
