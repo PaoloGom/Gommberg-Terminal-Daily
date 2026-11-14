@@ -252,6 +252,12 @@ def piede(root="", nota=""):
             f'<p class="gf-ai">{RIGA_AI}</p><p class="gf-legal">{LEGALE}{(" " + nota) if nota else ""}</p></div></footer>')
 
 
+def _evento_di_oggi(ed):
+    """True se l'evento del giorno ("Mar 17, 14:30 ...") cade nel giorno dell'edizione; senza giorno leggibile vale oggi."""
+    m = re.match(r"\s*[A-Za-zì]{3}\s+(\d{1,2})\b", str(ed.get("evento_oggi") or ""))
+    return not m or int(m.group(1)) == int(str(ed.get("data", "0000-00-00"))[8:10] or 0)
+
+
 def pagina(ed, prec, succ):
     n = nnn(ed["numero"])
     url = f"{BASE}e/{n}.html"
@@ -303,7 +309,8 @@ def pagina(ed, prec, succ):
       f'<button type="button" class="btn ghost" id="copy" data-url="{esc(url)}" aria-label="Copia il link">{SVG_LINK}<span>Copia link</span></button></div>')
     if ed.get("quadro"):   # v8.3: la versione in due minuti, per chi apre dal telefono
         a('<section><h2>Cosa significa</h2><p>' + colora(ed["quadro"]) + '</p>' +
-          (f'<p><b>Da guardare oggi:</b> {esc(ed["evento_oggi"])}</p>' if ed.get("evento_oggi") else "") + '</section>')
+          # "oggi" solo se l'evento cade nel giorno dell'edizione: il lunedì l'evento più atteso è spesso di martedì
+          (f'<p><b>{"Da guardare oggi" if _evento_di_oggi(ed) else "Da guardare"}:</b> {esc(ed["evento_oggi"])}</p>' if ed.get("evento_oggi") else "") + '</section>')
     if ed.get("sommario"):
         a('<section><h2>In 30 secondi</h2><ul class="brief">' +
           "".join(f"<li>{colora(s)}</li>" for s in ed["sommario"]) + "</ul></section>")
