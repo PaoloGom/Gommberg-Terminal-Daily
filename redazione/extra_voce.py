@@ -26,15 +26,20 @@ def _grafico(g):
 
 
 def agenda(righe):
-    """Righe di "In arrivo" (pag. 3) per il sito: testo semplice, la riga in grassetto è l'evento chiave."""
+    """Righe di "In arrivo" per il sito: testo semplice, la riga in grassetto è l'evento chiave.
+    Struttura v9: la quinta colonna ("come può muovere i mercati") diventa "muove", una frase per riga."""
     out = []
     for r in righe or []:
         r = list(r) + ["", "", "", ""]
         c = [re.sub(r"\s+", " ", _txt(x)).strip() for x in r[:4]]
         if not c[0] or not c[1]:
             continue
-        out.append({"quando": c[0], "evento": c[1], "attese": "" if c[2] in ("-", "") else c[2],
-                    "perche": c[3], "chiave": "<b>" in str(r[1]) or "<b>" in str(r[0])})
+        riga = {"quando": c[0], "evento": c[1], "attese": "" if c[2] in ("-", "") else c[2],
+                "perche": c[3], "chiave": "<b>" in str(r[1]) or "<b>" in str(r[0])}
+        muove = [re.sub(r"\s+", " ", _txt(x)).strip() for x in re.split(r"<br\s*/?>", str(r[4] or ""))]
+        if any(muove):
+            riga["muove"] = [x for x in muove if x]
+        out.append(riga)
     return out
 
 

@@ -96,6 +96,7 @@ h2.headline { font-family: var(--display); font-stretch: 78%; font-weight: 800; 
 h2.headline.long { font-size: clamp(30px, 3.7vw, 48px); line-height: 1.02; }
 h2.headline { line-height: .98; letter-spacing: -.005em; margin: 14px 0 0; text-wrap: balance; color: var(--ink); }
 .dek { font-size: 17px; line-height: 1.5; color: var(--muted); margin: 16px 0 0; max-width: 58ch; }
+.dek button { display: none; margin-left: 6px; padding: 0; border: 0; background: none; font: inherit; color: var(--orange-ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .brief-k { font-family: var(--mono); font-size: 12.5px; color: var(--orange-ink); margin: 26px 0 0; font-weight: 500; }
 .brief { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 60ch; border-top: 1px solid var(--rule); padding-top: 14px; }
 .brief li { display: grid; grid-template-columns: 14px 1fr; gap: 10px; color: var(--ink); font-size: 16.5px; line-height: 1.5; }
@@ -223,7 +224,7 @@ button.an-row:hover .t { color: var(--orange-ink); }
 .bet-foot strong { color: var(--ink); font-weight: 600; }
 
 /* Le ultime edizioni: sempre 5, a scorrimento (il lunedì non resta un solo giorno) */
-.week { margin-top: 52px; border-top: 1px solid var(--ink); padding-top: 22px; }
+.week { margin-top: 36px; border-top: 1px solid var(--ink); padding-top: 22px; }
 .wk-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 28px; }
 .wk-list a { display: block; border-top: 2px solid var(--ink); padding-top: 10px; text-decoration: none; }
 .wk-list a:hover .t { color: var(--orange-ink); }
@@ -233,7 +234,7 @@ button.an-row:hover .t { color: var(--orange-ink); }
 .wk-head a { font-size: 14px; color: var(--orange-ink); text-underline-offset: 3px; }
 
 /* Come funziona: una riga, il resto si apre */
-.how { margin-top: 56px; border-top: 2px solid var(--ink); }
+.how { margin-top: 36px; border-top: 2px solid var(--ink); }
 .how > summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 14px 0; }
 .how > summary::-webkit-details-marker { display: none; }
 .how > summary .s { font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 19px; }
@@ -277,6 +278,8 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   .tape::after { content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 36px; background: linear-gradient(90deg, transparent, var(--bar)); pointer-events: none; }
   h2.headline { font-size: clamp(30px, 8.6vw, 40px); margin-top: 10px; }
   .dek { font-size: 15.5px; margin-top: 12px; }
+  .dek:not(.open) .d2 { display: none; }
+  .dek:not(.open) button { display: inline; }
   .brief-k { margin-top: 20px; }
   .brief li { font-size: 15.5px; }
   .actions { margin-top: 22px; flex-wrap: nowrap; }
@@ -684,7 +687,13 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     $("dlDate").textContent = cap(dataLunga(ed.data)) + "  |  Edizione n. " + pad(ed.numero);
     $("headline").textContent = ed.titolo;
     $("headline").classList.toggle("long", (ed.titolo || "").length > 64);   // i titoli lunghi scendono di corpo: mai 5 righe
-    $("dek").textContent = ed.dek || ""; $("dek").hidden = !ed.dek;
+    // Sul telefono il sommario apre con la prima frase: il resto si legge con un tocco, o nell'edizione
+    const dk = $("dek"), tutto = String(ed.dek || ""), prima = /^(.{60,}?[.!?]\)?)\s+(?=[A-ZÀ-Ý])/.exec(tutto);
+    dk.textContent = ""; dk.classList.remove("open"); dk.hidden = !ed.dek;
+    if (prima) {
+      dk.appendChild(el("span", "", prima[1])); dk.appendChild(el("span", "d2", " " + tutto.slice(prima[0].length)));
+      const piu = el("button", "", "Continua"); piu.type = "button"; piu.addEventListener("click", () => dk.classList.add("open")); dk.appendChild(piu);
+    } else dk.textContent = ed.dek || "";
     const ul = $("brief"); ul.innerHTML = "";
     for (const b of (ed.sommario || [])) ul.appendChild(el("li", "", b));
     $("briefK").hidden = !(ed.sommario || []).length;

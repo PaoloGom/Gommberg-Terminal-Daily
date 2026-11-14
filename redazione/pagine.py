@@ -145,7 +145,12 @@ ol.news li{counter-increment:n;display:grid;grid-template-columns:40px 1fr;gap:6
 ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--display);font-weight:800;color:var(--orange);font-size:20px}
 .inside{display:grid;gap:10px}.inside div{background:var(--panel);padding:12px 14px}
 .inside small{display:block;font-family:var(--mono);font-size:12px;color:var(--orange-ink);text-transform:uppercase;letter-spacing:.04em}
-.inside b{font-weight:600}
+.inside b{font-weight:600}.inside a{display:block;text-decoration:none}.inside small i{float:right;font-style:normal;color:var(--muted);text-transform:none;letter-spacing:0}
+.ag{list-style:none;margin:0;padding:0}.ag li{padding:12px 0;border-bottom:1px solid var(--rule)}
+.ag li.key{background:var(--panel);box-shadow:inset 3px 0 0 var(--orange);padding-inline:14px 10px}
+.ag small{display:block;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.ag b{display:block;font-family:var(--display);font-weight:700;font-size:18px;line-height:1.3}
+.ag+.meta{margin-top:12px}.ag p{margin:4px 0 0;font-size:15px;line-height:1.45}.ag p em{font-style:normal;font-weight:600;color:var(--orange-ink)}
 .sigle{display:flex;flex-wrap:wrap;gap:8px}.sigle a{display:inline-block;border:1px solid var(--rule);padding:6px 10px;font-size:14px;color:var(--muted);text-decoration:none;line-height:1.35}
 .sigle a b{color:var(--ink);font-weight:600;margin-right:4px}.sigle a:hover{border-color:var(--orange);color:var(--ink)}
 .sigle a:after{content:"\203A";margin-left:6px;color:var(--orange-ink);font-weight:600}
@@ -302,10 +307,33 @@ def pagina(ed, prec, succ):
     if ed.get("notizie"):
         a('<section><h2>Le notizie del giorno</h2><ol class="news">' +
           "".join(f"<li><span>{colora(s)}</span></li>" for s in ed["notizie"]) + "</ol></section>")
+    dove = ed.get("dove") if isinstance(ed.get("dove"), dict) else {}
     if ed.get("approfondimenti"):
-        a('<section><h2>Gli approfondimenti</h2><div class="inside">' +
-          "".join(f'<div><small>{esc(x.get("tema", ""))}</small><b>{colora(x.get("titolo", ""))}</b></div>'
-                  for x in ed["approfondimenti"]) + "</div></section>")
+        pp = dove.get("approfondimenti") or []
+        riga = []
+        for i, x in enumerate(ed["approfondimenti"]):
+            pg = pp[i] if i < len(pp) else None
+            dentro = (f'<small>{esc(x.get("tema", ""))}{f"<i>pag. {pg}</i>" if pg else ""}</small>'
+                      f'<b>{colora(x.get("titolo", ""))}</b>')
+            riga.append(f'<div><a data-pdf="letta" href="{esc(pdf)}#page={pg}">{dentro}</a></div>' if pg else f"<div>{dentro}</div>")
+        a(f'<section><h2>{"Analisi e storie" if pp else "Gli approfondimenti"}</h2><div class="inside">' + "".join(riga) + "</div></section>")
+    if ed.get("agenda"):   # il calendario: quando, cosa, attese, perché conta e (struttura v9) come può muovere i mercati
+        righe = []
+        for x in ed["agenda"]:
+            perche = re.sub(r"^evento n\.?\s*1\s*:?\s*", "", str(x.get("perche") or ""), flags=re.I)
+            perche = perche[:1].upper() + perche[1:]
+            t = f'<small>{esc(x.get("quando", ""))}</small><b>{esc(x.get("evento", ""))}</b>'
+            if x.get("attese"):
+                t += f'<p><em>Attese:</em> {colora(x["attese"])}</p>'
+            if perche:
+                t += f'<p><em>{"Il più atteso" if x.get("chiave") else "Perché conta"}:</em> {esc(perche)}</p>'
+            for m in x.get("muove") or []:
+                k, _, v = str(m).partition(":")
+                t += f'<p><em>{esc(k)}:</em>{esc(v)}</p>' if v else f"<p>{esc(m)}</p>"
+            righe.append(('<li class="key">' if x.get("chiave") else "<li>") + t + "</li>")
+        a('<section><h2>In agenda</h2><ul class="ag">' + "".join(righe) + "</ul>" +
+          ('<p class="meta">Sopra e sotto: come possono muoversi i mercati, di solito, se il dato esce sopra o sotto le attese.</p>'
+           if any(x.get("muove") for x in ed["agenda"]) else "") + "</section>")
     sigle = [GLOSSARIO[s.lower()] for s in dict.fromkeys(ed.get("glossario") or []) if s.lower() in GLOSSARIO]
     if sigle:
         a('<section><h2>Le sigle di questa edizione</h2><div class="sigle">' +
