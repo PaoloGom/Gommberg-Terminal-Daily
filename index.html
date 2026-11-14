@@ -185,10 +185,31 @@ main { padding-block: 40px 24px; }
 .ag-row.key .h { color: var(--orange-ink); }
 .ag-row .p { display: block; font-family: var(--body); font-stretch: 100%; font-weight: 400; font-size: 13.5px; color: var(--ink); margin-top: 4px; line-height: 1.4; }
 .ag-row .p b { color: var(--orange-ink); font-weight: 600; }
+.col2 { display: grid; gap: 40px; min-width: 0; }
+.an-list { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
+.an-list li { border-bottom: 1px solid var(--rule); }
+.an-row { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; width: 100%; padding: 10px 0 11px; text-align: left; background: none; border: 0; color: inherit; font: inherit; }
+button.an-row { cursor: pointer; }
+.an-row .k { font-family: var(--body); font-size: 11.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--orange-ink); }
+.an-row .go { font-family: var(--mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
+.an-row .t { grid-column: 1 / -1; font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 17px; line-height: 1.28; }
+button.an-row:hover .t { color: var(--orange-ink); }
+.ag-row.no-h { grid-template-columns: 1fr; }
 .lnk { display: inline-block; margin-top: 10px; font-size: 13.5px; color: var(--orange-ink); text-underline-offset: 3px; background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit; text-decoration: underline; }
 /* Scommessa: una riga per mercato */
 .score { display: flex; flex-wrap: wrap; gap: 4px 28px; border-top: 2px solid var(--ink); padding-top: 10px; font-size: 14px; color: var(--muted); }
 .score b { font-family: var(--display); font-stretch: 80%; font-weight: 800; font-size: 34px; color: var(--ink); line-height: 1; margin-right: 6px; }
+.score.pts { display: block; }
+.score.pts .n { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; }
+.rule { position: relative; display: flex; height: 12px; margin: 12px 0 24px; background: var(--rule); }
+.rule .d { background: var(--ink); } .rule .f { background: var(--orange); }
+.rule::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0, transparent calc(100% / var(--n) - 1.5px), var(--paper) calc(100% / var(--n) - 1.5px), var(--paper) calc(100% / var(--n))); }
+.rule .par { position: absolute; z-index: 1; top: -5px; bottom: -5px; width: 2px; margin-left: -1px; background: var(--ink); box-shadow: 0 0 0 1.5px var(--paper); }
+.rule .par::after { content: attr(data-l); position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 3px; font-family: var(--mono); font-size: 11px; color: var(--muted); white-space: nowrap; }
+.score .lg { display: flex; flex-wrap: wrap; gap: 2px 16px; font-size: 13px; }
+.score .lg i { display: inline-block; width: 9px; height: 9px; margin-right: 6px; background: var(--ink); } .score .lg i.f { background: var(--orange); }
+.score .vs { margin-top: 6px; font-size: 13.5px; color: var(--ink); }
+.score .vs strong { font-weight: 600; } .score .vs .up { color: var(--up); } .score .vs .down { color: var(--down); }
 .bet-t { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
 .bet-t th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: 11.5px; color: var(--muted); padding: 0 0 6px; border-bottom: 1px solid var(--ink); }
 .bet-t th:not(:first-child), .bet-t td:not(:first-child) { text-align: right; }
@@ -340,11 +361,18 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       <div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
     </section>
 
-    <section id="agenda" aria-labelledby="ag-h" hidden>
-      <div class="box-h"><h2 class="kicker" id="ag-h">In agenda</h2><span id="agMeta"></span></div>
-      <ul class="ag-list" id="agList"></ul>
-      <button type="button" class="lnk" id="agMore">L'agenda completa a pag. 3</button>
-    </section>
+    <div class="col2" id="col2">
+      <section id="analisi" aria-labelledby="an-h" hidden>
+        <div class="box-h"><h2 class="kicker" id="an-h">Analisi e storie</h2><span id="anMeta"></span></div>
+        <ul class="an-list" id="anList"></ul>
+      </section>
+
+      <section id="agenda" aria-labelledby="ag-h" hidden>
+        <div class="box-h"><h2 class="kicker" id="ag-h">In agenda</h2><span id="agMeta"></span></div>
+        <ul class="ag-list" id="agList"></ul>
+        <button type="button" class="lnk" id="agMore">L'agenda completa</button>
+      </section>
+    </div>
 
     <section id="bet" aria-labelledby="bet-h" hidden>
       <div class="box-h"><h2 class="kicker" id="bet-h">La scommessa della settimana</h2><span id="betWk"></span></div>
@@ -364,8 +392,8 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     <summary><span class="s">Come funziona il Gommberg<em>Sei pagine, la stessa struttura ogni mattina</em></span><span class="x">Apri</span></summary>
     <dl>
       <div><dt><span class="pp">Pag. 1</span>Una prima pagina completa</dt><dd>Le chiusure, la notizia principale, In 30 secondi e le notizie del giorno: tutta la giornata in una pagina.</dd></div>
-      <div><dt><span class="pp">Pag. 2</span>Mercati, tassi, temi aperti</dt><dd>Indici, curve dei tassi, materie prime e cambi, con i termometri dei temi aperti: cosa si muove e cosa è fermo.</dd></div>
-      <div><dt><span class="pp">Pag. 3-5</span>Agenda e approfondimenti</dt><dd>Il calendario dei dati e delle trimestrali, poi gli approfondimenti scelti sulle notizie del giorno: ognuno sostiene una tesi, con il numero che la regge e cosa guardare dopo.</dd></div>
+      <div><dt><span class="pp">Pag. 2-4</span>Analisi e storie</dt><dd>Gli approfondimenti scelti sulle notizie del giorno: ognuno sostiene una tesi, spiega il passaggio che la regge e dice cosa guardare dopo.</dd></div>
+      <div><dt><span class="pp">Pag. 5</span>Mercati e agenda</dt><dd>I mercati in una pagina, i temi aperti e il calendario dei dati: per ognuno le attese, perché conta e come può muovere i mercati.</dd></div>
       <div><dt><span class="pp">Pag. 6</span>La scommessa della settimana</dt><dd>Il lunedì fissiamo dove chiuderanno 6 mercati il venerdì, più lo strumento della settimana, e li seguiamo giorno per giorno. Il lunedì dopo, il verdetto.</dd></div>
     </dl>
     <p class="trust"><b>Ogni fatto ha fonte, data e verifica</b> prima di uscire; i dati ufficiali si prendono dal comunicato di chi li produce. La scommessa ha una pagella pubblica, settimana per settimana.</p>
@@ -485,8 +513,27 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     const det = (b && Array.isArray(b.dettaglio)) ? b.dettaglio : [];
     const fissi = det.filter((d) => !d[4]);
     const tot = (b && b.su && b.su < 7 ? b.su : fissi.length) || 6;
-    if (b && b.range != null) { const a = el("div"); a.appendChild(el("b", "", b.range + "/" + tot)); a.append("dentro il range"); sc.appendChild(a); }
-    if (b && b.strada != null) { const a = el("div"); a.appendChild(el("b", "", b.strada + "/" + tot)); a.append("on track"); sc.appendChild(a); }
+    const righello = b && b.par != null && b.strada != null && b.range != null;
+    sc.classList.toggle("pts", !!righello);
+    if (righello) {   // come a pag. 6: i punti, da dove vengono e quanto distano dal par
+      const max = 2 * tot, pt = b.strada + b.range, diff = Math.round((pt - b.par) * 10) / 10;
+      const n = el("div", "n"); n.appendChild(el("b", "", pt + " punti su " + max)); n.append("se finisse oggi"); sc.appendChild(n);
+      const r = el("div", "rule"); r.style.setProperty("--n", max); r.setAttribute("role", "img");
+      r.setAttribute("aria-label", pt + " punti su " + max + ": " + b.strada + " dalla direzione, " + b.range + " dalla forchetta. Par " + num(b.par) + ".");
+      const d = el("i", "d"); d.style.width = (b.strada / max * 100) + "%"; const f = el("i", "f"); f.style.width = (b.range / max * 100) + "%";
+      const pr = el("i", "par"); pr.style.left = (b.par / max * 100) + "%"; pr.dataset.l = "par " + num(b.par);
+      r.append(d, f, pr); sc.appendChild(r);
+      const lg = el("div", "lg");
+      const l1 = el("span"); l1.appendChild(el("i", "d")); l1.append(b.strada + " dalla direzione");
+      const l2 = el("span"); l2.appendChild(el("i", "f")); l2.append(b.range + " dalla forchetta");
+      lg.append(l1, l2); sc.appendChild(lg);
+      const vs = el("div", "vs"); vs.append("Il par è il punteggio di chi tira a caso. Rispetto al par: ");
+      vs.appendChild(el("strong", diff > 0 ? "up" : diff < 0 ? "down" : "", (diff > 0 ? "+" : "") + num(diff))); vs.append(".");
+      sc.appendChild(vs);
+    } else {
+      if (b && b.range != null) { const a = el("div"); a.appendChild(el("b", "", b.range + "/" + tot)); a.append("dentro il range"); sc.appendChild(a); }
+      if (b && b.strada != null) { const a = el("div"); a.appendChild(el("b", "", b.strada + "/" + tot)); a.append("on track"); sc.appendChild(a); }
+    }
     if (b && b.strada == null && b.range == null) sc.appendChild(el("div", "", "Pronostico appena fatto: da domani vedi a che punto siamo."));
     const tb = $("betRows"); tb.innerHTML = "";
     for (const d of det) {
@@ -514,6 +561,34 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     if (Array.isArray(st) && st[1] > 0) f.appendChild(el("div", "", "Stagione: " + st[0] + " punti su " + st[1] + "."));
   }
 
+  /* ---------- Analisi e storie: gli approfondimenti, con la pagina dove si leggono ---------- */
+  const dove = (ed, k) => (ed && ed.dove && ed.dove[k]) || null;
+  function analisi(ed) {
+    const box = $("analisi"), rows = Array.isArray(ed.approfondimenti) ? ed.approfondimenti : [];
+    const pp = dove(ed, "approfondimenti") || [];
+    box.hidden = !rows.length;
+    const list = $("anList"); list.innerHTML = "";
+    rows.forEach((a, i) => {
+      const p = pp[i], li = el("li"), r = el(p ? "button" : "div", "an-row");
+      r.appendChild(el("span", "k", a.tema || ""));
+      r.appendChild(el("span", "go", p ? "pag. " + p : ""));
+      r.appendChild(el("span", "t", a.titolo));
+      if (p) { r.type = "button"; r.addEventListener("click", () => apriPagina(p)); }
+      li.appendChild(r); list.appendChild(li);
+    });
+  }
+  // La colonna centrale sparisce solo se non ha né analisi né agenda
+  function colonna() {
+    const vuota = $("analisi").hidden && $("agenda").hidden;
+    $("col2").hidden = vuota; $("dayGrid").classList.toggle("no-ag", vuota);
+  }
+  // Le schede del lettore seguono la struttura dell'edizione che si sta leggendo
+  const SCHEDE = { v9: ["Prima", "Analisi", "Analisi", "Analisi", "Mercati", "Scommessa"], prima: ["Prima", "Mercati", "Agenda", "Analisi", "Analisi", "Scommessa"] };
+  function schede(ed) {
+    const l = ed.dove ? SCHEDE.v9 : SCHEDE.prima;
+    document.querySelectorAll("#pages button").forEach((b, i) => { if (l[i]) b.lastChild.textContent = l[i]; });
+  }
+
   /* ---------- Agenda ---------- */
   function agData(q, ed) {
     const m = /^(lun|mar|mer|gio|ven|sab|dom)\w*\s+(\d{1,2})/i.exec(q || ""); if (!m) return null;
@@ -533,9 +608,8 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     // Nel fine settimana gli appuntamenti dell'ultima edizione sono passati: si mostrano comunque, come agenda di quella giornata
     const conclusa = ultima && !vis.length && tutte.length > 0;
     if (conclusa) vis = tutte;
-    $("dayGrid").classList.toggle("no-ag", !vis.length);
     if (!vis.length) { box.hidden = true; return; }
-    const MAX = 4, list = $("agList"); list.innerHTML = "";
+    const MAX = 3, list = $("agList"); list.innerHTML = "";
     let giorno = null;
     vis.slice(0, MAX).forEach(({ r, d }) => {
       const k = d ? d.getTime() : r.quando;
@@ -550,8 +624,8 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       }
       const ora = r.quando.split(",").slice(1).join(",").trim();
       const key = r.chiave || /^evento n\.?\s*1/i.test(r.perche || "");
-      const li = el("li", "ag-row" + (key ? " key" : ""));
-      li.appendChild(el("span", "h", ora.replace(/^dopo la chiusura.*$/i, "sera").replace(/ di Wall Street| USA$/i, "")));
+      const li = el("li", "ag-row" + (key ? " key" : "") + (ora ? "" : " no-h"));
+      if (ora) li.appendChild(el("span", "h", ora.replace(/^dopo la chiusura.*$/i, "sera").replace(/ di Wall Street| USA$/i, "")));
       const e = el("div", "e", r.evento);
       if (r.attese && !/^n\.?d\.?$/i.test(r.attese)) e.appendChild(el("span", "a", "Attese: " + r.attese));
       if (key) {
@@ -562,7 +636,8 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       li.appendChild(e); list.appendChild(li);
     });
     const altri = vis.length - Math.min(vis.length, MAX);
-    $("agMore").textContent = altri > 0 ? "Altri " + altri + " appuntamenti nell'agenda completa a pag. 3" : "L'agenda completa a pag. 3";
+    const pa = dove(ed, "agenda") || 3;
+    $("agMore").textContent = (altri > 1 ? "Altri " + altri + " appuntamenti nell'agenda completa" : altri === 1 ? "Un altro appuntamento nell'agenda completa" : "L'agenda completa") + " a pag. " + pa;
     $("agMeta").textContent = conclusa ? "giornata conclusa" : "";
     box.hidden = false;
   }
@@ -572,7 +647,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     if (desktop() && pdf) { goPage(n); $("reader").scrollIntoView({ behavior: "smooth", block: "center" }); return; }
     window.open(current.file + "#page=" + n, "_blank", "noopener");
   }
-  $("agMore").addEventListener("click", () => apriPagina(3));
+  $("agMore").addEventListener("click", () => apriPagina(dove(current, "agenda") || 3));
 
   /* ---------- Riferimento unico del sito: azionario mondiale (MSCI ACWI), variazione del giorno ---------- */
   function spx(ed) {
@@ -638,7 +713,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       note.appendChild(a);
     }
     $("lbl-latest").textContent = ed === editions[0] ? "Ultima edizione" : "Edizione precedente";
-    tape(ed); agenda(ed); bet(ed); votoStato(ed); ultimeEdizioni(ed);
+    tape(ed); analisi(ed); agenda(ed); colonna(); schede(ed); bet(ed); votoStato(ed); ultimeEdizioni(ed);
     if (push) conta({ path: "edizione-" + pad(ed.numero), title: "Edizione n. " + pad(ed.numero) + " aperta dall'archivio", event: true });
     if (push) history.replaceState(null, "", ed === editions[0] ? (DEMO ? "?demo=1" : location.pathname) : linkFor(ed));
     document.title = ed === editions[0] ? TITOLO : "N. " + pad(ed.numero) + " | Gommberg Terminal Daily";

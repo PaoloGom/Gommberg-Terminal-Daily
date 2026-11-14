@@ -48,6 +48,11 @@ def scommessa(reg, stato=None, verdetto=None):
     fx = [k for k in s if not s[k].get("variabile")]        # i fissi: i conti di sempre
     direz = {k: ("su" if v["previsione_redazione"] > v["base"] else "giù") for k, v in s.items()}
     out = {"settimana": reg["settimana"], "su": len(fx)}
+    try:   # il par dei fissi, come a pag. 6: 0,68 per la forchetta più la quota di direzione di metodo.json
+        pd_ = json.load(open(os.path.join(QUI, "scommessa", "metodo.json"), encoding="utf-8"))["par_direzione"]
+        out["par"] = round(sum(0.68 + pd_.get(k, 0.5) for k in fx), 1)
+    except (OSError, KeyError, ValueError):
+        pass
     var = [k for k in s if s[k].get("variabile")]
     if var:
         out["variabile"] = {"nome": s[var[0]]["nome"], "motivo": s[var[0]].get("motivo_scelta", "")}
@@ -150,6 +155,9 @@ def main():
             voce["verdetto"] = v
     voce.update({"temi": w["temi"], "approfondimenti": w["approfondimenti"], "meccanismi": w.get("meccanismi", []),
                  "parole": w.get("parole", []), "ripetizioni": punteggio, "glossario": gloss})
+    d = w.get("dove")   # pagine dei pezzi, scritte dal motore dopo l'impaginazione
+    if isinstance(d, dict) and len(d.get("approfondimenti") or []) == len(w["approfondimenti"]):
+        voce["dove"] = d
     for k in ("termometri", "quadro", "evento_oggi"):   # v8.3: storie in corso (memoria) e lettura in due minuti (sito)
         if w.get(k):
             voce[k] = w[k]

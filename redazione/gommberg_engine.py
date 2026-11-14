@@ -1237,6 +1237,9 @@ def voce_indice(C, stato=None, reg=None, ripetizioni=None):
                              for a in (C.get("moduli") or C["approfondimenti"])],
          "meccanismi": C.get("meccanismi", []), "parole": [p[0] for p in C.get("parole", [])],
          "glossario": C.get("glossario", []), "errata": C.get("errata"), "ripetizioni": ripetizioni}
+    if PAGINE:   # dove si legge ogni pezzo: il sito porta il lettore alla pagina giusta (render già fatto)
+        v["dove"] = {"approfondimenti": [PAGINE.get(m.get("chiave")) for m in (C.get("moduli") or [])],
+                     **{k: PAGINE[k] for k in ("mercati", "agenda", "scommessa") if k in PAGINE}}
     if reg:
         fissi = [k for k, x in reg["strumenti"].items() if not x.get("variabile")]
         sc = {"settimana": reg["settimana"], "strada": None, "range": None, "su": len(fissi), "dettaglio": []}
