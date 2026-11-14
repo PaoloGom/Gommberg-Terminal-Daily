@@ -17,7 +17,8 @@ run() { if [ "$PROVA" = "1" ]; then echo "[prova] $*"; else "$@"; fi; }
 RAMO="$(git -C "$REPO" rev-parse --abbrev-ref HEAD 2>/dev/null)"
 [ "$RAMO" = "main" ] || [ "$PROVA" = "1" ] || { PROVA=1; echo "Ramo $RAMO: modalità prova forzata, nessuna pubblicazione"; }
 # Una data di prova in giro (redazione/PROVA_DATA) vuol dire che questa non è un'edizione vera: non si pubblica mai.
-[ ! -f "$REPO/redazione/PROVA_DATA" ] || [ "$PROVA" = "1" ] || { PROVA=1; echo "PROVA_DATA presente: modalità prova forzata, nessuna pubblicazione"; }
+# Sola eccezione: GTD_PUBBLICA_PROVA=1, per l'edizione di test che Paolo chiede di pubblicare davvero (PROVA.md, parte B).
+[ ! -f "$REPO/redazione/PROVA_DATA" ] || [ "$PROVA" = "1" ] || [ "${GTD_PUBBLICA_PROVA:-0}" = "1" ] || { PROVA=1; echo "PROVA_DATA presente: modalità prova forzata, nessuna pubblicazione"; }
 [ -f "$PDF" ] || fail "PDF non trovato: $PDF"
 python3 - "$REPO/edizioni.json" "$N" "$DATA" "$DEST" 2>/dev/null <<'EOF' || fail "edizioni.json non pronto (lancia prima edizioni_voce.py)"
 import json, sys

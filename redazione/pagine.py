@@ -215,9 +215,10 @@ GLOSSARIO = {}   # sigla in minuscolo -> (sigla, breve), solo le voci non ovvie;
 # ---------------------------------------------------------------- testata, menu e piè di pagina comuni
 # Stessi elementi su tutte le pagine del sito (stile in assets/sito.css). root = "" per le pagine
 # nella cartella principale, "../" per quelle in e/. attivo = la voce del menu da evidenziare.
-# Il menu segue ciò che fa il lettore: legge, cerca, impara, gioca. Chi siamo (progetto e numeri) sta in fondo alla pagina.
-MENU = (("", "Ultima edizione"), ("archivio.html", "Archivio"), ("glossario.html", "Impara"), ("scommessa.html", "La scommessa"))
-PIEDE = MENU + (("progetto.html", "Chi siamo"),)
+# Il menu segue ciò che fa il lettore: legge, cerca, impara, gioca, e sa chi siamo (progetto e numeri).
+# Terzo campo: l'etichetta corta per il telefono, dove cinque voci intere non stanno in una riga (assets/sito.css).
+MENU = (("", "Ultima edizione", "Edizione"), ("archivio.html", "Archivio", ""), ("glossario.html", "Impara", ""),
+        ("scommessa.html", "La scommessa", "Scommessa"), ("progetto.html", "Chi siamo", ""))
 RIGA_AI = ("Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza "
            "artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.")
 LEGALE = ("Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. "
@@ -230,9 +231,10 @@ def _href(root, h):
 
 def menu(root="", attivo=None):
     voci = []
-    for h, t in MENU:
+    for h, t, corto in MENU:
         cur = ' aria-current="page"' if h == attivo else ""
-        voci.append(f'<a href="{_href(root, h)}"{cur}>{t}</a>')
+        breve = f' data-s="{corto}"' if corto else ""   # niente barre rovesciate dentro le graffe: non tutte le versioni di Python le accettano
+        voci.append(f'<a href="{_href(root, h)}"{breve}{cur}>{t}</a>')
     return '<nav class="gn-nav" aria-label="Sezioni del sito">' + "".join(voci) + "</nav>"
 
 
@@ -244,7 +246,7 @@ def testata(root="", attivo=None):
 
 
 def piede(root="", nota=""):
-    link = "".join(f'<a href="{_href(root, h)}">{t}</a>' for h, t in PIEDE)
+    link = "".join(f'<a href="{_href(root, h)}">{t}</a>' for h, t, _ in MENU)
     return ('<footer class="gf"><div class="gf-in">'
             f'<nav class="gf-links" aria-label="Le pagine del sito">{link}<a href="{root}feed.xml">Feed RSS</a></nav>'
             f'<p class="gf-ai">{RIGA_AI}</p><p class="gf-legal">{LEGALE}{(" " + nota) if nota else ""}</p></div></footer>')

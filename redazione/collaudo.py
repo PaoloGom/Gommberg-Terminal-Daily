@@ -103,15 +103,20 @@ def controlli(lav, pdf, n, extra=(), senza_indice=True):
 # ---------------------------------------------------------------- 1. sintassi
 def passo_sintassi():
     male = []
+    # Anche con i Python meno recenti che si trovano: l'attività può girare su una versione più vecchia di questa, e
+    # una sintassi nuova (per esempio una barra rovesciata dentro le graffe di una f-string) lì è un errore.
+    interpreti = [sys.executable] + [p for p in (shutil.which("python3.10"), shutil.which("python3.11")) if p]
     for f in sorted(glob.glob(os.path.join(R, "*.py")) + glob.glob(os.path.join(R, "scommessa", "*.py"))):
-        rc, out = esegui([sys.executable, "-c", f"import ast,sys; ast.parse(open(sys.argv[1], encoding='utf-8').read())", f])
-        if rc:
-            male.append(os.path.basename(f) + ": " + out.strip().splitlines()[-1][:80])
+        for py in interpreti:
+            rc, out = esegui([py, "-c", "import ast,sys; ast.parse(open(sys.argv[1], encoding='utf-8').read())", f])
+            if rc:
+                male.append(os.path.basename(f) + f" ({os.path.basename(py)}): " + out.strip().splitlines()[-1][:80])
+                break
     for f in sorted(glob.glob(os.path.join(R, "*.sh"))):
         rc, out = esegui(["bash", "-n", f])
         if rc:
             male.append(os.path.basename(f) + ": " + out.strip()[:80])
-    esito("Sintassi", not male, "; ".join(male) or "tutti i .py e i .sh del kit")
+    esito("Sintassi", not male, "; ".join(male) or f"tutti i .py e i .sh del kit ({len(interpreti)} versioni di Python)")
 
 
 # ---------------------------------------------------------------- 2. avvio
