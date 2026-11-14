@@ -4550,5 +4550,225 @@
     "chiave": false
    }
   ]
+ },
+ {
+  "numero": 25,
+  "data": "2026-11-13",
+  "titolo": "Huang lascia Nvidia: il titolo perde il 4,3% e AMD sale",
+  "sommario": [
+   "Il petrolio risale dopo gli attacchi ai siti energetici sauditi e le parole di Trump sull'Iran.",
+   "La Fed prepara un rialzo a dicembre e c'è chi chiede di raddoppiarlo: i rendimenti salgono.",
+   "Oggi alle 14:30 i prezzi alla produzione USA dicono se il rincaro arriva a monte."
+  ],
+  "file": "pdf/2026-11-13-gommberg-025.pdf",
+  "nome": "2026-11-13 Gommberg Terminal Daily #025.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Cisco e Applied Materials: ricavi in forte crescita",
+   "Il Brent sale a 95,82 $ dopo gli attacchi ai siti sauditi",
+   "Il dollaro sfiora i 160 yen: Tokyo ricorda l'intervento dell'estate",
+   "Il caso Huang mette alla prova la tregua tra Usa e Cina",
+   "Burberry sale dell'8% dopo i conti, il gas scende di un quinto",
+   "Asia divisa: Tokyo sale, Hong Kong e Shenzhen scendono"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "156,53 $",
+    "-0,6% g"
+   ],
+   [
+    "S&P 500",
+    "7.592,40",
+    "-0,4% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.398,98",
+    "+0,1% g"
+   ],
+   [
+    "UST 10 ANNI",
+    "5,10%",
+    "+12 pb g"
+   ],
+   [
+    "EUR/USD",
+    "1,1053",
+    "-0,3% g"
+   ],
+   [
+    "BRENT FUTURE",
+    "95,82 $",
+    "+3,3% g"
+   ],
+   [
+    "VIX",
+    "18,70",
+    "+1,21 g"
+   ]
+  ],
+  "dek": "Il fondatore si è dimesso da presidente, amministratore delegato e consigliere con effetto immediato; alla guida ad interim va la direttrice finanziaria Colette Kress. Nvidia è arrivata a perdere il 13% in avvio e ha chiuso a 166,19 $ (-4,34%), mentre AMD ha guadagnato il 5,9%. Wall Street chiude in lieve calo (S&P 500 -0,35%, Nasdaq -0,39%). I conti di Nvidia escono martedì 17 novembre.",
+  "ticker_al": "2026-11-12",
+  "scommessa": {
+   "settimana": "2026-11-09/2026-11-13",
+   "su": 6,
+   "strada": 5,
+   "range": 1,
+   "dettaglio": [
+    [
+     "S&P 500",
+     "su",
+     true,
+     false
+    ],
+    [
+     "Euro Stoxx 50",
+     "su",
+     true,
+     false
+    ],
+    [
+     "Treasury 10 anni",
+     "giù",
+     false,
+     false
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     true,
+     false
+    ],
+    [
+     "Brent future",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Oro future",
+     "giù",
+     true,
+     false
+    ]
+   ]
+  },
+  "temi": [
+   "Chip",
+   "Fed",
+   "Tassi",
+   "Petrolio",
+   "Italia",
+   "Valute"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Italia",
+    "titolo": "Milano scende con i titoli legati ai chip, salgono i difensivi",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Tassi USA",
+    "titolo": "La Fed prepara un rialzo a dicembre e c'è chi chiede di raddoppiarlo: i rendimenti salgono",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Chip",
+    "titolo": "Nvidia perde il fondatore a cinque giorni dai conti: il titolo scende, AMD sale",
+    "formato": "due_grafici"
+   }
+  ],
+  "meccanismi": [],
+  "parole": [
+   "Amministratore delegato ad interim",
+   "Rialzo da mezzo punto",
+   "Prezzi alla produzione",
+   "Rendimento",
+   "Curva dei rendimenti",
+   "Previsioni dell'azienda"
+  ],
+  "ripetizioni": 2,
+  "glossario": [
+   "PPI",
+   "CME FedWatch",
+   "VIX",
+   "ACWI",
+   "SEC"
+  ],
+  "grafici": [
+   {
+    "tipo": "linee",
+    "titolo": "Il 10 anni torna sopra il 5% dopo il minimo del 5 novembre",
+    "serie": [
+     "10 anni",
+     "2 anni"
+    ],
+    "x0": "2026-10-28",
+    "x1": "2026-11-12",
+    "etichette": []
+   },
+   {
+    "tipo": "barre",
+    "titolo": "Con i rendimenti in rialzo scendono oro ed euro",
+    "serie": [],
+    "x0": null,
+    "x1": null,
+    "etichette": [
+     "Brent",
+     "S&P 500",
+     "Nasdaq",
+     "EUR/USD",
+     "Oro"
+    ]
+   },
+   {
+    "tipo": "barre",
+    "titolo": "Nvidia perde, AMD guadagna: Wall Street regge",
+    "serie": [],
+    "x0": null,
+    "x1": null,
+    "etichette": [
+     "AMD",
+     "S&P 500",
+     "Nasdaq",
+     "Nvidia",
+     "Russell 2000"
+    ]
+   },
+   {
+    "tipo": "linee",
+    "titolo": "Nvidia perde un quarto dal massimo del 27 ottobre",
+    "serie": [
+     "Nvidia ($)"
+    ],
+    "x0": "2026-10-26",
+    "x1": "2026-11-12",
+    "etichette": []
+   }
+  ],
+  "agenda": [
+   {
+    "quando": "Ven 13, 11:00",
+    "evento": "Pil dell'area euro, terzo trimestre",
+    "attese": "+0,4% t/t; prec. +0,6%",
+    "perche": "Tenuta dell'economia europea",
+    "chiave": false
+   },
+   {
+    "quando": "Ven 13, 14:30",
+    "evento": "Prezzi alla produzione USA (PPI, ottobre)",
+    "attese": "+0,4% m/m; prec. +1,3%",
+    "perche": "Evento n.1: dice se i rincari arrivano a monte, con la Fed pronta a stringere",
+    "chiave": true
+   },
+   {
+    "quando": "Mar 17, 23:00",
+    "evento": "Conti trimestrali di Nvidia",
+    "attese": "",
+    "perche": "Primo test dopo l'addio di Huang",
+    "chiave": false
+   }
+  ]
  }
 ]

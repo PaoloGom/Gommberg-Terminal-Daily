@@ -1,0 +1,720 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Jensen Huang si dimette da presidente, amministratore delegato e consigliere di Nvidia con effetto immediato; amministratore delegato ad interim è il direttore finanziario Colette Kress, Harvey Jones primo presidente del consiglio; il titolo cade fino al 13% in avvio e chiude a 166,19 $ (-4,34%); AMD sale del 5,9%; S&P 500 -0,35%, Nasdaq -0,39%; i conti di Nvidia escono il 17 novembre",
+  "data_evento": "2026-11-12",
+  "novita": "Ieri la notizia era la valutazione del consiglio sul futuro di Huang; oggi la decisione: dimissioni con effetto immediato",
+  "fonti": [
+   {
+    "testata": "SEC (modulo 8-K Nvidia)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000082/nvidiaannouncesceotransiti.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Colette Kress, the company's EVP and CFO since 2013, will serve as Interim CEO"
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.boston25news.com/news/business/asian-shares-are/HYJESTPHW47S7NSEMT63ALTKMY/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Asian shares are mixed as investors assess impact of Nvidia's fallout on global AI development"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/cos-e-successo-oggi-sui-mercati-dalle-critiche-di-messina-isp-alla-manovra-all-addio-di-heung-a-202611121822169140",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Cos'è successo oggi sui mercati: dalle critiche di Messina (Isp) alla manovra all'addio di Heung a Nvidia"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-12-sp-500-nasdaq-dow-nvidia-invest-110027430.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock market today: Dow, S&P 500, Nasdaq slip as Nvidia stock falls on CEO exit, bond yields rise"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Cisco: ricavi del primo trimestre fiscale 18,5 mld $ (+24%), utile per azione rettificato 1,40 $, previsione dei ricavi 2027 alzata a 74,8-75,8 mld $; Applied Materials: ricavi 10,41 mld $ (+53%), utile rettificato per azione 4,16 $, guida del trimestre a 11,1 mld $",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Cisco",
+    "url": "https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2026/m11/cisco-reports-first-quarter-earnings.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Cisco Reports First Quarter Earnings"
+   },
+   {
+    "testata": "Converge Digest",
+    "url": "https://convergedigest.com/cisco-q1-fy2027-ai-networking-revenue-18-5-billion/",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Cisco Revenue Surges 24% to $18.5 Billion"
+   },
+   {
+    "testata": "SEC (modulo 8-K Applied Materials)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000006951/000162828026073360/exhibit991q42026earningsre.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Applied Materials Announces Fourth Quarter and Fiscal Year 2026 Results"
+   },
+   {
+    "testata": "Converge Digest",
+    "url": "https://convergedigest.com/applied-materials-q4-fy2026-earnings-ai-chip-demand/",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Applied Materials: AI Chip Demand Drives 53% Revenue Growth"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Petrolio: il Brent chiude a 95,82 $ (+3,3%) e il WTI a 88,74 $ (+2,6%) dopo gli attacchi degli Houthi a siti energetici sauditi e le parole di Trump: «we've got their Strait!»; scorte USA di greggio, benzina e distillati in aumento",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://www.investing.com/news/commodities-news/oil-prices-drop-more-than-1-as-hopes-for-iran-ukraine-peace-talks-pressure-markets-5020171",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Oil settles $3 higher on attacks on Saudi energy sites, Strait of Hormuz disruptions"
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.boston25news.com/news/business/asian-shares-are/HYJESTPHW47S7NSEMT63ALTKMY/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Trump said Thursday the U.S. didn't \"need a deal with Iran\""
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Yen: il dollaro vale circa 159,9 yen, vicino a 160; il ministro delle finanze giapponese dice che Tokyo si coordinerà con Washington e un funzionario ricorda l'intervento congiunto dell'estate scorsa",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.boston25news.com/news/business/asian-shares-are/HYJESTPHW47S7NSEMT63ALTKMY/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Asian shares are mixed as investors assess impact of Nvidia's fallout on global AI development"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/13/borsa-lasia-chiude-debole-pesano-i-timori-per-lia_95a2903b-0d67-4a8b-bcbd-2ddbfffb1fb3.html",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Borsa: l'Asia chiude debole, pesano i timori per l'Ia"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/cina-in-rosso-lo-tsunami-nvidia-rischia-di-abbattersi-sul-vertice-trump-xi-202611130753457223",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Cina in rosso, lo tsunami Nvidia rischia di abbattersi sul vertice Trump-Xi"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Il caso Huang mette alla prova la tregua Usa-Cina: il vertice di Shenzhen tra Trump e Xi è la prossima settimana, e il caso può riaprire le tensioni sui chip e dare argomenti ai parlamentari USA per controlli più stretti sulle esportazioni",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/cina-in-rosso-lo-tsunami-nvidia-rischia-di-abbattersi-sul-vertice-trump-xi-202611130753457223",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Cina in rosso, lo tsunami Nvidia rischia di abbattersi sul vertice Trump-Xi"
+   },
+   {
+    "testata": "Korea Times",
+    "url": "https://www.koreatimes.co.kr/world/20261110/nvidia-scandal-may-test-fragile-us-china-truce-experts-say",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Nvidia scandal may test fragile US-China truce, experts say"
+   },
+   {
+    "testata": "SCMP",
+    "url": "https://scmp.com/news/china/diplomacy/article/3373859/nvidia-scandal-may-test-fragile-us-china-truce-experts-say",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Nvidia scandal may test fragile US-China truce, experts say"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Europa: l'Euro Stoxx 50 chiude a 6.398,98 (+0,09%), quarto rialzo di fila; Burberry +8% dopo i conti; il prezzo del gas scende di circa un quinto; il settore tecnologico perde lo 0,5%",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (onvista)",
+    "url": "https://www.onvista.de/news/2026/11-12-roundup-aktien-europa-schluss-boersen-verhalten-im-vorwaertsgang-trotz-nvidia-0-10-26575868",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "ROUNDUP/Aktien Europa Schluss: Börsen verhalten im Vorwärtsgang trotz Nvidia"
+   },
+   {
+    "testata": "dpa-AFX (finanznachrichten)",
+    "url": "https://www.finanznachrichten.de/nachrichten-2026-11/70116095-aktien-europa-schluss-boersen-verhalten-im-vorwaertsgang-trotz-nvidia-016.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Aktien Europa Schluss: Börsen verhalten im Vorwärtsgang trotz Nvidia"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/12/borsa-leuropa-sempre-cauta-con-il-tech-in-affanno-corre-il-gas_983de12f-6efe-4df5-808c-ce10378b5e99.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borsa: l'Europa sempre cauta con il tech in affanno, corre il gas"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "testo": "Asia: Tokyo sale dello 0,53% mentre Hong Kong cede l'1,48%, Seul lo 0,98%, Shanghai lo 0,59% e Shenzhen il 2,1% (letture delle 07:30); pesano i timori sull'intelligenza artificiale dopo l'uscita del capo di Nvidia",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/13/borsa-lasia-chiude-debole-pesano-i-timori-per-lia_95a2903b-0d67-4a8b-bcbd-2ddbfffb1fb3.html",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Borsa: l'Asia chiude debole, pesano i timori per l'Ia"
+   },
+   {
+    "testata": "Finanza & Caffè",
+    "url": "https://www.marcoliera.com/p/finanza-and-caffe-13-novembre-77d",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Finanza & Caffè - 13 novembre"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "testo": "Milano: il Ftse Mib chiude a 51.808 (-0,27%); Technoprobe -4,73% sul calo di Nvidia, Amplifon -5,29%, Stellantis -4,33%; salgono Italgas, Pirelli, Terna ed Eni; lo spread tra Btp e Bund sale di 2 punti base a circa 104",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/12/borsa-milano-chiude-a-027-technoprobe-giu-su-tonfo-nvidia_d4b86315-48e2-44d1-b891-169061d4b61b.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borsa: Milano chiude a- 0,27%, Technoprobe giù su tonfo Nvidia"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/11/12/europa-chiude-in-frazionale-rialzo-debole-invece-milano-227.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Europa chiude in frazionale rialzo, debole invece Milano"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/cos-e-successo-oggi-sui-mercati-dalle-critiche-di-messina-isp-alla-manovra-all-addio-di-heung-a-202611121822169140",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Cos'è successo oggi sui mercati: dalle critiche di Messina (Isp) alla manovra all'addio di Heung a Nvidia"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "N09",
+  "sezione": "top_news",
+  "testo": "Nvidia: chiusura a 166,19 $ dopo un minimo di giornata di 148,80 $; AMD chiude a 585,30 $ (+5,86%)",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-12-sp-500-nasdaq-dow-nvidia-invest-110027430.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock market today: Dow, S&P 500, Nasdaq slip as Nvidia stock falls on CEO exit, bond yields rise"
+   },
+   {
+    "testata": "Eurasia Business News",
+    "url": "https://eurasiabusinessnews.com/2026/11/13/stock-market-today-november-12-2026-dow-sp-500-and-nasdaq-fall-after-jensen-huang-resigns/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Stock Market Today, November 12, 2026: Dow, S&P 500 and Nasdaq Fall After Jensen Huang Resigns"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "N10",
+  "sezione": "top_news",
+  "testo": "Wall Street: il Russell 2000 delle piccole imprese cede l'1,66% e il VIX sale a 18,70 (+1,21)",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-12-sp-500-nasdaq-dow-nvidia-invest-110027430.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock market today: Dow, S&P 500, Nasdaq slip as Nvidia stock falls on CEO exit, bond yields rise"
+   },
+   {
+    "testata": "Marco Liera (Finanza & Caffè)",
+    "url": "https://www.marcoliera.com/p/finanza-and-caffe-13-novembre-77d",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Russell 2000 (small caps) -1.66%"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "testo": "Sussidi di disoccupazione USA, settimana al 7 novembre: 200 mila (atteso 195 mila; prec. 191 mila)",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-12-sp-500-nasdaq-dow-nvidia-invest-110027430.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Initial jobless claims rose 9,000 to 200,000 for the week ended Nov. 7"
+   },
+   {
+    "testata": "Kelo (AP)",
+    "url": "https://kelo.com/2026/11/12/us-weekly-jobless-claims-increase-but-labor-market-firming/",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "US weekly jobless claims increase, but labor market remains stable"
+   }
+  ],
+  "ufficiale_cercato": [
+   "initial jobless claims week ended November 7 2026 Labor Department",
+   "jobless claims November 12 2026 weekly claims rose fell Labor Department Thursday"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "K02",
+  "sezione": "catalizzatori",
+  "testo": "Conti di Cisco e Applied Materials dopo la chiusura USA: entrambi sopra le attese",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "SEC (modulo 8-K Applied Materials)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000006951/000162828026073360/exhibit991q42026earningsre.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Applied Materials Announces Fourth Quarter and Fiscal Year 2026 Results"
+   },
+   {
+    "testata": "Cisco",
+    "url": "https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2026/m11/cisco-reports-first-quarter-earnings.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Cisco Reports First Quarter Earnings"
+   }
+  ],
+  "ufficiale_cercato": [
+   "Cisco first quarter fiscal 2027 results revenue guidance",
+   "Applied Materials fourth quarter fiscal 2026 results"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "K03",
+  "sezione": "catalizzatori",
+  "testo": "Scorte USA di greggio, benzina e distillati in aumento nella settimana",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://www.investing.com/news/commodities-news/oil-prices-drop-more-than-1-as-hopes-for-iran-ukraine-peace-talks-pressure-markets-5020171",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Oil settles $3 higher on attacks on Saudi energy sites, Strait of Hormuz disruptions"
+   }
+  ],
+  "ufficiale_cercato": [
+   "EIA weekly petroleum status report November 12 2026",
+   "Reuters oil settles Saudi energy sites EIA inventories"
+  ],
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Pil dell'area euro, terzo trimestre: +0,4% t/t atteso; prec. +0,6%. Ven 13, 11:00",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/teleborsa/finanza/appuntamenti-macroeconomici-settimana-del-9-novembre-2026-13_2026-11-09_TLB-AUTO.html?lang=it",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Appuntamenti macroeconomici settimana del 9 novembre 2026"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Prezzi alla produzione USA (PPI) di ottobre: +0,4% m/m atteso; prec. +1,3%. Ven 13, 14:30",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/teleborsa/finanza/appuntamenti-macroeconomici-settimana-del-9-novembre-2026-13_2026-11-09_TLB-AUTO.html?lang=it",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Appuntamenti macroeconomici settimana del 9 novembre 2026"
+   },
+   {
+    "testata": "Finanza & Caffè",
+    "url": "https://www.marcoliera.com/p/finanza-and-caffe-13-novembre-77d",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Finanza & Caffè - 13 novembre"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "testo": "Conti trimestrali di Nvidia, martedì 17 novembre, conference call alle 2 p.m. PT (23:00 a Roma)",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "SEC (modulo 8-K Nvidia)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000082/nvidiaannouncesceotransiti.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Colette Kress, the company's EVP and CFO since 2013, will serve as Interim CEO"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "Nvidia chiude a 166,19 $ (-4,34%), con minimo di giornata a 148,80 $ e volumi di 747,7 milioni di azioni contro una media di 141 milioni; il 27 ottobre valeva 217,94 $",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-12-sp-500-nasdaq-dow-nvidia-invest-110027430.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock market today: Dow, S&P 500, Nasdaq slip as Nvidia stock falls on CEO exit, bond yields rise"
+   },
+   {
+    "testata": "Eurasia Business News",
+    "url": "https://eurasiabusinessnews.com/2026/11/13/stock-market-today-november-12-2026-dow-sp-500-and-nasdaq-fall-after-jensen-huang-resigns/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Stock Market Today, November 12, 2026: Dow, S&P 500 and Nasdaq Fall After Jensen Huang Resigns"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "AMD guadagna il 5,86% a 585,30 $, mentre il titolo Nvidia scende; Cerebras sale del 15% nel dopo-borsa dopo una guida dei ricavi sopra il consenso",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-12-sp-500-nasdaq-dow-nvidia-invest-110027430.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock market today: Dow, S&P 500, Nasdaq slip as Nvidia stock falls on CEO exit, bond yields rise"
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.boston25news.com/news/business/asian-shares-are/HYJESTPHW47S7NSEMT63ALTKMY/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Asian shares are mixed as investors assess impact of Nvidia's fallout on global AI development"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Il rendimento del Treasury a 10 anni sale di 12 pb a 5,10%, dopo un massimo a 5,12% in seduta; in mattinata è sul 5,13%",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-12-sp-500-nasdaq-dow-nvidia-invest-110027430.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock market today: Dow, S&P 500, Nasdaq slip as Nvidia stock falls on CEO exit, bond yields rise"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/cina-in-rosso-lo-tsunami-nvidia-rischia-di-abbattersi-sul-vertice-trump-xi-202611130753457223",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Cina in rosso, lo tsunami Nvidia rischia di abbattersi sul vertice Trump-Xi"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Fed: il governatore Waller sostiene un possibile rialzo di mezzo punto a dicembre; Logan chiede almeno due rialzi da un quarto di punto; CME FedWatch dà il rialzo di dicembre al 100% e quello da 50 pb al 13,2%",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "CNBC",
+    "url": "https://cnbc.com/2026/11/10/fed-governor-waller-sees-december-hike-likely.html",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Fed Governor Waller sees December hike likely, opens door to possible half-point increase"
+   },
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/economy/2026/11/12/us-cpi-fuels-talk-of-half-point-fed-hike-as-treasury-yields",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "U.S. CPI Fuels Talk of Half-Point Fed Hike as Treasury Yields Spike"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "testo": "Il 2 anni americano sale a 4,86% (+13 pb) e il 30 anni a 5,43% (+8 pb); il dollaro sale e l'oro perde circa il 3%",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-12-sp-500-nasdaq-dow-nvidia-invest-110027430.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Stock market today: Dow, S&P 500, Nasdaq slip as Nvidia stock falls on CEO exit, bond yields rise"
+   },
+   {
+    "testata": "Eurasia Business News",
+    "url": "https://eurasiabusinessnews.com/2026/11/13/stock-market-today-november-12-2026-dow-sp-500-and-nasdaq-fall-after-jensen-huang-resigns/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Stock Market Today, November 12, 2026: Dow, S&P 500 and Nasdaq Fall After Jensen Huang Resigns"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/cina-in-rosso-lo-tsunami-nvidia-rischia-di-abbattersi-sul-vertice-trump-xi-202611130753457223",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Cina in rosso, lo tsunami Nvidia rischia di abbattersi sul vertice Trump-Xi"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "D06",
+  "sezione": "deep_dive",
+  "testo": "Il caso Huang e la tregua Usa-Cina: i chip sono un punto centrale di attrito tra Washington e Pechino e il vertice di Shenzhen è la prossima settimana",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/cina-in-rosso-lo-tsunami-nvidia-rischia-di-abbattersi-sul-vertice-trump-xi-202611130753457223",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Cina in rosso, lo tsunami Nvidia rischia di abbattersi sul vertice Trump-Xi"
+   },
+   {
+    "testata": "Korea Times",
+    "url": "https://www.koreatimes.co.kr/world/20261110/nvidia-scandal-may-test-fragile-us-china-truce-experts-say",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Nvidia scandal may test fragile US-China truce, experts say"
+   },
+   {
+    "testata": "SCMP",
+    "url": "https://scmp.com/news/china/diplomacy/article/3373859/nvidia-scandal-may-test-fragile-us-china-truce-experts-say",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Nvidia scandal may test fragile US-China truce, experts say"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "D08",
+  "sezione": "deep_dive",
+  "testo": "Il consiglio di Nvidia ha aperto l'8 novembre un'indagine indipendente su un'operazione di intelligence straniera rivolta a Huang",
+  "data_evento": "2026-11-08",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Nvidia",
+    "url": "https://investor.nvidia.com/news/press-release-details/2026/Statement-from-NVIDIA-Board-of-Directors/",
+    "data_pubblicazione": "2026-11-08",
+    "citazione": "Statement from NVIDIA Board of Directors"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/cos-e-successo-oggi-sui-mercati-dalle-critiche-di-messina-isp-alla-manovra-all-addio-di-heung-a-202611121822169140",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Cos'è successo oggi sui mercati: dalle critiche di Messina (Isp) alla manovra all'addio di Heung a Nvidia"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "D07",
+  "sezione": "deep_dive",
+  "testo": "Milano: il calo di Technoprobe (-4,73%) è legato dall'ANSA al tonfo di Nvidia; il Ftse Mib chiude a 51.808 (-0,27%)",
+  "data_evento": "2026-11-12",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/12/borsa-milano-chiude-a-027-technoprobe-giu-su-tonfo-nvidia_d4b86315-48e2-44d1-b891-169061d4b61b.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Borsa: Milano chiude a- 0,27%, Technoprobe giù su tonfo Nvidia"
+   },
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/11/12/europa-chiude-in-frazionale-rialzo-debole-invece-milano-227.html",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Europa chiude in frazionale rialzo, debole invece Milano"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF."
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Sussidi di disoccupazione USA sopra le attese (200 mila contro 195 mila) e rendimenti in forte rialzo",
+  "ricerche": [
+   "Fed officials half-point hike December Treasury yields 10-year 5.1% November 12 2026",
+   "jobless claims November 12 2026 weekly claims rose fell Labor Department Thursday"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Attese di una Fed più dura dopo i prezzi al consumo (Waller, Logan)",
+    "fonte": "D04",
+    "prevede": "2 anni e 10 anni in rialzo, dollaro su, oro giù",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Il dato sul lavoro",
+    "fonte": null,
+    "prevede": "rendimenti in calo",
+    "prezzi": "non torna"
+   }
+  ],
+  "esito": "D04"
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Huang si dimette da Nvidia (Milano Finanza, 07:53)",
+   "Asia debole sull'Ia (ANSA, 07:30)",
+   "Petrolio sale su attacchi Houthi e Trump (Reuters)"
+  ],
+  "testate": [
+   {
+    "testata": "Milano Finanza",
+    "storie": [
+     "Nvidia, Huang si dimette",
+     "Cina in rosso, Nvidia e il vertice Trump-Xi",
+     "Messina contro la manovra"
+    ]
+   },
+   {
+    "testata": "ANSA",
+    "storie": [
+     "Asia debole, timori sull'Ia",
+     "Milano chiude a -0,27%, Technoprobe giù",
+     "Europa cauta, corre il gas"
+    ]
+   },
+   {
+    "testata": "Bloomberg",
+    "storie": [
+     "Oil jumps after Trump says US doesn't need deal with Iran",
+     "Stock market today: Dow, S&P live updates",
+     "Nvidia CEO exit tests AI recovery"
+    ]
+   },
+   {
+    "testata": "Reuters",
+    "storie": [
+     "Petrolio +3% su attacchi ai siti sauditi",
+     "Wall Street chiude in calo dopo Nvidia",
+     "Oro in calo, rendimenti in rialzo"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Messina contro la manovra (Milano Finanza)",
+    "motivo": "una sola testata, non confermata"
+   }
+  ],
+  "concorda": true,
+  "motivo": "Tutte le testate aprono sulle dimissioni di Huang"
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "MSCI ACWI (ETF): chiusura del 31/12/2025 per la variazione da inizio anno",
+  "ricerche": [
+   "WebSearch: iShares MSCI ACWI ETF ACWI closing price December 31 2025 (13/11)",
+   "FMP historical-price-eod-light ACWI: piano non abilitato",
+   "Archivio acwi.csv della scommessa: parte dal 19/05/2026",
+   "Tentativi del 12/11: ACWI year-end 2025 price, digrin.com (solo valori mensili), Alpha Vantage GLOBAL_QUOTE"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "iShares",
+   "url": "https://www.ishares.com/us/products/239600/ISHARES-MSCI-ACWI-ETF"
+  }
+ },
+ {
+  "id": "R2",
+  "sezione": "ricerca",
+  "dato": "Spread BTP-Bund a un mese (12/10/2026)",
+  "ricerche": [
+   "WebSearch: Borsa Milano chiude 12 ottobre 2026 spread Btp-Bund chiude a (13/11)",
+   "WebSearch: Borsa Milano chiude 6 novembre 2026 spread Btp-Bund (13/11, trovato solo il 6/11: circa 107)",
+   "WebFetch: Teleborsa chiusura 6/11",
+   "Teleborsa 1LINER spread: solo 30/10, 2/11, 3/11"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "Teleborsa",
+   "url": "https://www.teleborsa.it/News/2026/11/03/spread-btp-bund-chiude-a-113-83-punti-189_TLB-1LINER.html"
+  }
+ }
+]
