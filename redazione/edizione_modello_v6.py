@@ -93,6 +93,8 @@ C = {
     "glossario": ["CPI", "pb", "AI", "DRAM", "CXMT", "EPS", "ROTCE", "BTP", "Bund", "VIX", "CME FedWatch", "WTI"],
     "meccanismi": ["M26", "M01", "M04", "M21", "M28", "M10", "M11"],   # id di redazione/meccanismi.json su cui poggiano i passaggi spiegati
 
+    # nastro = il mondo più i sei mercati della scommessa. Serie che dati.json deve avere, con questi nomi: "ACWI",
+    # "S&P 500", "Euro Stoxx 50", "Treasury 10 anni", "EUR/USD", "Brent future", "Oro future" (GCUSD, come la scommessa)
     "ticker": ticker_da_dati("dati.json"),   # dal dati.json del giorno (numeri.py): mai a mano
 
     "top": {
@@ -111,7 +113,7 @@ C = {
     # poi i prezzi che la provano
     "quadro": "Lo stesso dato si legge in due modi. Per noi il 2 anni (+3 pb) e il dollaro salgono perché si scommette su "
               "una Fed più dura, mentre il 10 anni scende, come quando si cerca riparo. In borsa si vendono i tecnologici e si "
-              "comprano i difensivi, e intanto petrolio e oro restano fermi.",
+              "comprano i difensivi. Il petrolio resta fermo e l'oro scende, come spesso accade quando il dollaro sale.",
     "in30": [
         # le 3 cose più importanti DOPO la top story: mai la top story né le sue reazioni di mercato (controlli_temi.py)
         "Banche USA divise: BofA paga l'accordo con il Tesoro, Morgan Stanley guadagna con il trading. [[banche]]",
@@ -177,7 +179,7 @@ C = {
                    ["Spread Italia", "110 pb", "+2 pb", "n.d.", "n.d.", "10 anni italiano al 4,57% (Teleborsa)"]]),
         ("Cambi", [["EUR/USD", "1,1156", "-0,4%", "-0,4%", "-3,4%", "-"]]),
         ("Materie prime", [["Brent future", "106,06 $", "+0,4%", "+1,3%", "+0,4%", "-"],
-                           ["Oro (spot, $/oncia)", "4.162,84", "0,0%", "+0,4%", "-4,2%", "-"]]),
+                           ["Oro (future, $/oncia)", "4.107,90", "-1,7%", "-2,6%", "-5,6%", "-"]]),
         ("Volatilità", [["VIX (volatilità attesa)", "16,87", "+1,60", "+2,03", "-0,23", "Massimo dal 16/9"]]),
     ],
     "cross_nota": "1 mese = sul 14/9. VIX = volatilità attesa sull'S&amp;P 500.",
@@ -388,8 +390,8 @@ C = {
                ("Memorie DRAM", "I chip di memoria di lavoro di computer e server: il loro prezzo segue il ciclo "
                                 "della domanda.")],
     "fonti": [
-        ("Dati di mercato", "Financial Modeling Prep (indici USA e Asia, VIX, Brent future, curva par del Tesoro USA); "
-                            "Alpha Vantage (EUR/USD, ACWI, oro spot); ANSA (FTSE MIB); Teleborsa (titoli di Stato italiani, spread con la Germania, "
+        ("Dati di mercato", "Financial Modeling Prep (indici USA e Asia, VIX, Brent e oro future, curva par del Tesoro USA); "
+                            "Alpha Vantage (EUR/USD, ACWI); ANSA (FTSE MIB); Teleborsa (titoli di Stato italiani, spread con la Germania, "
                             "Asia delle 08:11)."),
         ("Prima pagina e mercati", "TheStreet, Axios, Milano Finanza, investingLive, FXStreet, Investing.com, ANSA, "
                        "Teleborsa."),

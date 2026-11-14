@@ -87,7 +87,7 @@ if DATI:
 
 # ---------- rari e aperture (prima pagina) ----------
 PAROLE = {"S&P 500": r"s&p", "Euro Stoxx 50": r"stoxx|borse europee", "ACWI": r"azionario mondiale|acwi",
-          "Brent future": r"brent|petrolio", "EUR/USD": r"euro|dollaro", "VIX": r"vix|volatilit",
+          "Brent future": r"brent|petrolio", "EUR/USD": r"euro|dollaro", "VIX": r"vix|volatilit", "Oro future": r"\boro\b",
           "Treasury 10 anni": r"treasury|rendiment", "Treasury 2 anni": r"treasury|rendiment|2 anni"}
 CTX = carica(f"{LAV}/contesto.json")
 if CTX:

@@ -8,7 +8,10 @@ import json
 # (etichetta nel ticker, serie in dati.json, decimali del livello, unità del livello)
 TICKER = [("MSCI ACWI (ETF)", "ACWI", 2, " $"), ("S&amp;P 500", "S&P 500", 2, ""), ("EURO STOXX 50", "Euro Stoxx 50", 2, ""),
           ("TREASURY 10 ANNI", "Treasury 10 anni", 2, "%"), ("EUR/USD", "EUR/USD", 4, ""),
-          ("BRENT FUTURE", "Brent future", 2, " $"), ("VIX", "VIX", 2, "")]   # azioni, tassi, valute, materie prime, VIX (9/11/2026)
+          ("BRENT FUTURE", "Brent future", 2, " $"), ("ORO", ("Oro future", "Oro"), 0, " $")]
+# Il nastro è il mondo più i sei mercati della scommessa, nello stesso ordine (14/11/2026): l'oro al posto del VIX, perché
+# il lettore deve poter seguire in prima pagina ciò su cui scommettiamo. L'oro è il future (GCUSD), lo stesso della
+# scommessa. Il VIX resta nella tabella dei mercati di pag. 5.
 
 
 def fmt(v, dec=2):
@@ -35,7 +38,11 @@ def ticker_da_dati(path="dati.json"):
     S = json.load(open(path, encoding="utf-8"))["serie"]
     out = []
     for et, nome, dec, unita in TICKER:
-        s = S[nome]
+        nomi = nome if isinstance(nome, tuple) else (nome,)
+        trovato = next((x for x in nomi if x in S), None)
+        if trovato is None:
+            raise KeyError(f"dati.json: manca la serie '{nomi[0]}' (serve al nastro di prima pagina)")
+        s = S[trovato]
         (_, v0, _), (_, v1, _) = s["ultimi"][0], s["ultimi"][1]
         t = tipo_var(s)
         out.append((et, fmt(v0, dec) + unita, var(v0, v1, t, 2 if t == "punti" else 1) + " g"))

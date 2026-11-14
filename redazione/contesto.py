@@ -13,6 +13,7 @@ QUI = os.path.dirname(os.path.abspath(__file__))
 MAPPA = {"S&P 500": ("spx", "pct", "l'S&P 500"), "Euro Stoxx 50": ("sx5e", "pct", "l'Euro Stoxx 50"),
          "ACWI": ("acwi", "pct", "l'azionario mondiale (ACWI)"), "Brent future": ("brent", "pct", "il Brent"),
          "EUR/USD": ("eurusd", "pct", "l'euro sul dollaro"), "VIX": ("vix", "punti", "il VIX"),
+         "Oro future": ("oro", "pct", "l'oro"),
          "Treasury 10 anni": ("ust10", "pb", "il rendimento del Treasury a 10 anni"),
          "Treasury 2 anni": ("ust2", "pb", "il rendimento del Treasury a 2 anni")}
 MESI = "gennaio febbraio marzo aprile maggio giugno luglio agosto settembre ottobre novembre dicembre".split()

@@ -135,11 +135,11 @@ def passo_avvio():
 
 # ---------------------------------------------------------------- 3. modello
 SERIE = {"ACWI": ("acwi", "USA"), "S&P 500": ("spx", "USA"), "Euro Stoxx 50": ("sx5e", "EU"), "Treasury 10 anni": ("ust10", "UST"),
-         "EUR/USD": ("eurusd", "FX"), "Brent future": ("brent", "COMM"), "VIX": ("vix", "USA")}
+         "EUR/USD": ("eurusd", "FX"), "Brent future": ("brent", "COMM"), "Oro future": ("oro", "COMM")}
 # come si chiamano le stesse serie nelle tabelle del modello: così il controllo dei numeri confronta anche la tabella dei
 # mercati con il nastro di prima pagina (il 14/11 il modello aveva l'Euro Stoxx 50 a 6.190,37 nel nastro e 6.162,90 in tabella)
 ETICHETTE = {"ACWI": "MSCI ACWI (ETF, $)", "S&P 500": "S&P 500", "Euro Stoxx 50": "Euro Stoxx 50", "Treasury 10 anni": "Treasury 10 anni",
-             "EUR/USD": "EUR/USD", "Brent future": "Brent future", "VIX": "VIX (volatilità attesa)"}
+             "EUR/USD": "EUR/USD", "Brent future": "Brent future", "Oro future": "Oro (future, $/oncia)"}
 INDIPENDENTI = ["PDF e indice", "Numeri contro dati.json", "Scrittura", "Temi di prima pagina", "Ripetizioni", "Anteprima"]
 
 
@@ -155,7 +155,6 @@ def passo_modello():
     for nome, (k, mercato) in SERIE.items():
         dati["serie"][nome] = {"mercato": mercato, "tipo": "chiusura", "etichette": [ETICHETTE[nome]],
                                "ultimi": [[d, v, None] for d, v in reversed(serie(k, oggi.isoformat()))]}
-    dati["serie"]["VIX"]["tipo_var"] = "punti"
     json.dump(dati, open(os.path.join(lav, "dati.json"), "w", encoding="utf-8"), ensure_ascii=False)
     strumenti = json.load(open(os.path.join(R, "pronostici", reg), encoding="utf-8"))["strumenti"]
     att = {k: [s[-1][1], s[-1][0]] for k in strumenti for s in [serie(k, oggi.isoformat())] if s}

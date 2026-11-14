@@ -6,7 +6,7 @@ Da leggere se una chiamata dati fallisce o serve un dato nuovo. Ogni dato va in 
 - `indexes`, endpoint `index-historical-price-eod-light`, con from/to: **funzionano** ^GSPC (S&P 500), ^IXIC (Nasdaq), ^DJI (Dow), ^RUT (Russell 2000), ^STOXX50E, ^FTSE, ^N225, ^HSI, ^VIX.
 - **Non funzionano** (piano): FTSEMIB.MI, ^KS11, 000001.SS (Shanghai), ^GDAXI, ^FCHI, endpoint `quote`, `chart` e intraday degli indici.
 - `economics`, endpoint `treasury-rates`: curva completa (year2, year10, year30...). Chiusure del giorno: valgono per base e verdetto della scommessa.
-- `commodity`, endpoint `commodities-historical-price-eod-light`: BZUSD (Brent future), GCUSD (oro future). **Non funziona** CLUSD (WTI).
+- `commodity`, endpoint `commodities-historical-price-eod-light`: BZUSD (Brent future), GCUSD (oro future). L'oro future è anche nel nastro di prima pagina (serie `"Oro future"` in `dati.json`), al posto del VIX, che resta nella tabella di pag. 5: il nastro è il mondo più i sei mercati della scommessa. **Non funziona** CLUSD (WTI).
 - Attenzione: FMP restituisce già una riga con la data di oggi, con valore intraday (a volte volume 0): mai usarla come chiusura.
 
 ## 2. Alpha Vantage (max 25 chiamate al giorno, una al secondo, una dopo l'altra)
