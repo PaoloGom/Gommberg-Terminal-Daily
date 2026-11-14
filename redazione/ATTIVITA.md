@@ -1,9 +1,9 @@
 # Le attività programmate del Gommberg (copia di riferimento)
 
-Il testo delle attività vive nell'app di Claude, non nel repository: se un'attività va ricreata, si riparte da qui. Copia presa il 14/11/2026. Chi cambia il testo nell'app aggiorna anche questo file. Le attività si creano da una sessione che ha il repository in scrittura (il permesso di push viene da lì) e i connettori si scelgono nella pagina dell'attività, non da qui.
+Il testo delle attività vive nell'app di Claude, non nel repository: se un'attività va ricreata, si riparte da qui. Copia aggiornata il 14/11/2026, dopo l'unione della v9.0 nel ramo principale. Chi cambia il testo nell'app aggiorna anche questo file. Le attività si creano da una sessione che ha il repository in scrittura (il permesso di push viene da lì) e i connettori si scelgono nella pagina dell'attività, non da qui.
 
 ## 1. "Gommberg Terminal Daily" - lun-ven alle 8:58 (Europe/Rome), modello Sonnet
-Da aggiornare quando la v8 entra nel ramo principale: il punto 3 cita "§1-§13" (le istruzioni v8 hanno §1-§7) e il punto 5 cita "§6/§8" (nella v8 è §4.9).
+Aggiornato il 14/11/2026 con l'unione della v9.0: i punti 3-5 citano i paragrafi delle istruzioni nuove (§1-§7, §4.9, `APP_ERRORI.md`). Per una prova generale si lancia questa stessa attività aggiungendo in coda il testo di `PROVA.md`.
 
 ```
 Sei la redazione del GOMMBERG TERMINAL DAILY: rassegna mattutina dei mercati globali in PDF di 6 pagine, in italiano, pubblicata su un sito che Paolo condivide. Accuratezza prima di tutto, niente ripetizioni, spiegazione chiara del perché.
@@ -16,9 +16,9 @@ REGOLA WEB (la causa verificata delle sessioni morte): WebFetch SOLO su un URL c
 
 1. Ora corrente con `TZ=Europe/Rome date`.
 2. Repository: la sessione parte già dentro un clone del repository, che è la copia da usare (il 23/10 un secondo clone scaricato in /home/claude/gtd è stato bloccato come "codice esterno"). Esegui `pwd; git -C "$(pwd)" remote get-url origin`: se la cartella di partenza è un clone di PaoloGom/gommberg-terminal-daily, NON clonare, aggiorna con `git -C "$(pwd)" pull --ff-only` e crea il collegamento `ln -s "$(pwd)" /home/claude/gtd` (tutti i percorsi /home/claude/gtd restano validi). Solo se la cartella di partenza non è un clone del repository: `git clone --depth 1 https://github.com/PaoloGom/Gommberg-Terminal-Daily /home/claude/gtd` con timeout di 10 minuti, fino a 3 tentativi a 30 secondi di distanza.
-3. Leggi per intero, una sola volta, /home/claude/gtd/redazione/ISTRUZIONI.md e seguilo alla lettera (§1-§13). Il modello è redazione/edizione_modello_v6.py (non eseguire edizione_modello_2026-10-12.py, è solo un rimando). Parti da `bash /home/claude/gtd/redazione/prepara.sh`: la data dell'edizione è quella della riga "GTD" che stampa (se stampa PROVA GENERALE, vale quella data).
-4. Ciò che non supera i controlli si corregge o si toglie (§11): nessuna regola impedisce l'uscita, si toglie solo ciò che non è verificato.
-5. Consegna nell'ordine di §6/§8: pubblica.sh (verifica PUSH_OK), poi SendUserFile del PDF (status "proactive", display "render", didascalia "Gommberg Terminal Daily #NNN - <data lunga>"), poi il messaggio finale di 4 righe prodotto da messaggio.py. Fine: nessun archivio Claude.
+3. Leggi per intero, una sola volta, /home/claude/gtd/redazione/ISTRUZIONI.md e seguilo alla lettera (§1-§7). Il modello è redazione/edizione_modello_v6.py. Parti da `bash /home/claude/gtd/redazione/prepara.sh`: la data dell'edizione è quella della riga "GTD" che stampa (se stampa PROVA GENERALE, vale quella data).
+4. Ciò che non supera i controlli si corregge o si toglie (§4.9 e APP_ERRORI.md): nessuna regola impedisce l'uscita, si toglie solo ciò che non è verificato.
+5. Consegna nell'ordine di §4.9: pubblica.sh (verifica PUSH_OK), poi SendUserFile del PDF (status "proactive", display "render", didascalia "Gommberg Terminal Daily #NNN - <data lunga>"), poi il messaggio finale di 4 righe prodotto da messaggio.py. Fine: nessun archivio Claude.
 ```
 
 Connettori collegati il 14/11: FMP e Alpha Vantage (servono); Gmail, Drive, Calendar, Docs e Canva (non servono: Paolo ha chiesto di staccarli il 18/10, si fa dalla pagina dell'attività).
