@@ -1,0 +1,128 @@
+[
+ {
+  "id": "T01",
+  "trovato": "The Philadelphia semiconductor index was down 3.4% and shares of Advanced Micro Devices and Broadcom were sharply lower. Nvidia shares finished 2% lower. // the S&P 500 fell 30.73 points, or 0.40%, to 7,561.67 and the Nasdaq Composite fell 229.82 points, or 0.91%, to 25,136.27. // (TheStreet) with the S&P 500, Nasdaq and Dow gaining 2.5%, 2.3% and 2.1% respectively. // (dpa-AFX) Mit einem Aufschlag von 3,5 Prozent war die Börsenwoche die stärkste seit April.",
+  "verifica": "confermato",
+  "nota_revisore": "Dow +0,10% a 52.347,55 confermato da Reuters. Il -8,8% di AMD l'ho visto solo nel titolo di un risultato di ricerca (Techflow 'AMD Plunges 8.8%'), non aperto; Reuters dice solo 'sharply lower'. I rialzi settimanali S&P +2,5% / Nasdaq +2,3% non stanno nella pagina Reuters ma in TheStreet (pagina aperta). Nel PDF 'un altro 2%' per Nvidia: la pagina dice solo 'finished 2% lower', 'un altro' viene da altre schede."
+ },
+ {
+  "id": "D05",
+  "trovato": "The index for all items less food and energy rose 0.3 percent in October, as it did in September and August. // The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.4 percent on a seasonally adjusted basis in October after rising 0.6 percent in September",
+  "verifica": "confermato",
+  "nota_revisore": "Il PDF non riporta la variazione annua (coerente). L'attesa di CPI +0,3% e core +0,2% citata nel PDF (p. 3 e agenda) non e' nella pagina BLS e non l'ho verificata."
+ },
+ {
+  "id": "N08",
+  "trovato": "Der Eurozone-Leitindex EuroStoxx 50 schloss 0,19 Prozent niedriger bei 6.386,86 Zählern. Mit einem Aufschlag von 3,5 Prozent war die Börsenwoche die stärkste seit April. // Schwächelt der KI-Sektor, performen Europas Aktienmärkte besser als die amerikanischen und asiatischen, sagte Robert Greil vom Bankhaus Merck Finck.",
+  "verifica": "confermato",
+  "nota_revisore": "FTSE 100 +0,36% a 10.902,56 confermato (non e' nel PDF). Il PDF non qualifica Greil; la pagina lo indica come Chefstratege: nessuna qualifica del PDF contraddetta."
+ },
+ {
+  "id": "N10",
+  "trovato": "Fed funds futures traders are pricing in an 11% chance of a 50-basis-point hike at the Fed's December 8-9 meeting // Brent futures settled at $95.84 a barrel, up 2 cents, or 0.02%. US West Texas Intermediate futures finished at $88.56 a barrel, down 18 cents, or 0.20%.",
+  "verifica": "confermato",
+  "nota_revisore": "Il PDF (p. 3, IL NUMERO) aggiunge che 'il rialzo da un quarto di punto è dato per certo' e p. 1/5 'rialzo di dicembre dato per certo': la pagina Reuters da' solo l'11% per i 50 pb, nessuna probabilita' per i 25 pb. 'Certo' non e' supportato: meglio 'molto probabile' o citare la probabilita' CME se verificata."
+ },
+ {
+  "id": "D01",
+  "trovato": "The Philadelphia semiconductor index was down 3.4% and shares of Advanced Micro Devices and Broadcom were sharply lower. Nvidia shares finished 2% lower. // The company is due to report quarterly results on Tuesday after the closing bell.",
+  "verifica": "confermato",
+  "nota_revisore": "Tutto coerente con il PDF (Nvidia conti martedi' dopo la chiusura)."
+ },
+ {
+  "id": "D02",
+  "trovato": "Am Vortag hatte es der EuroStoxx 50 auf den höchsten Stand seit Ende August geschafft. Außerhalb des Euroraums legte der Londoner FTSE 100 um 0,36 Prozent auf 10.902,56 Zähler zu.",
+  "verifica": "confermato",
+  "nota_revisore": "+3,5% e 'migliore da aprile' e citazione di Greil confermati (vedi N08). Il PDF attribuisce l'affermazione a 'Robert Greil di Bankhaus Merck Finck, secondo dpa-AFX': corretto."
+ },
+ {
+  "id": "D03",
+  "trovato": "The euro was down 0.29% at $1.1021. Investors digested a report showing the US October Producer Price Index for final demand was slightly softer than expected, but still shot up 6.5% year over year. // The 2-year note yield was last up 0.34 basis point at 4.867%. It earlier reached 4.892%, the highest since October 14. // rose 0.17% to 103.40. It hit its highest since April 2025.",
+  "verifica": "confermato",
+  "nota_revisore": "Differenza di dettaglio: Reuters ha 2 anni a 4,867% (dato intraday 'last'), il PDF 4,88% (chiusura FMP, +2 pb): plausibile ma non verificabile qui. Importante: Reuters dice che il PPI e' stato 'slightly softer than expected', mentre il PDF p. 3 scrive che il PPI 'ha confermato' il CPI: da attenuare. 'Largest weekly increase in over two years' confermato per il 2 anni."
+ },
+ {
+  "id": "D04",
+  "trovato": "On an unadjusted basis, the index for final demand increased 6.5 percent for the 12 months ended in October, // The index for final demand less foods, energy, and trade services rose 0.5 percent in October,",
+  "verifica": "confermato",
+  "nota_revisore": "Anche 'The Producer Price Index for final demand rose 0.3 percent in October, seasonally adjusted'. La qualifica 'senza cibo, energia e servizi commerciali' del PDF corrisponde a 'less foods, energy, and trade services'. Sui 12 mesi lo stesso aggregato fa +4,9% (non nel PDF)."
+ },
+ {
+  "id": "D06",
+  "trovato": "Noch stärker fielen im schwächelnden Technologiesektor AMS-Osram (ams) mit gut neun Prozent. Die Ergebnisse des Sensorspezialisten hätten zwar den Erwartungen entsprochen, so die Analysten der Bank Vontobel. // Die Prognosen für den zukünftigen Geschäftsverlauf lägen allerdings unter den Erwartungen. // Hier waren Aktien der britischen Aviva gefragt, die um 3,4 Prozent anzogen.",
+  "verifica": "confermato",
+  "nota_revisore": "Generali: 'summierten sich die Großschäden durch Naturkatastrophen ... auf knapp 1,5 Milliarden Euro' (knapp = poco meno di 1,5; il PDF dice 'circa') e 'Die Aktie verlor gut ein Prozent' (PDF 'oltre -1%': ok). Richemont 'verloren fast vier Prozent' e Schmucksegment ok. Aviva: 'Alle Ziele für das Gesamtjahr seien bestätigt worden.' (RBC)."
+ },
+ {
+  "id": "M01",
+  "trovato": "BLS did not collect survey data for October 2025 because of a lapse in appropriations. // As a result, BLS cannot publish 12-month percent changes for October 2026 for indexes where October 2025 data are unavailable.",
+  "verifica": "confermato",
+  "nota_revisore": "CPI +0,4% e core +0,3% confermati (vedi D05). Il PDF non cita la variazione annua: corretto."
+ },
+ {
+  "id": "MEM-1112-M02",
+  "trovato": "A Piazza Affari, il FTSE MIB è in calo (-0,9%) e si attesta su 50.053 punti in chiusura; // Seduta ampiamente positiva per la Borsa di Milano: l'indice Ftse Mib ha concluso in aumento dell'1,14% a 44.944 punti. // (ANSA 11/11) L'indice Ftse Mib ha guadagnato lo 0,37% a 51.946 punti, a ridosso di soglia 52.000",
+  "verifica": "confermato",
+  "nota_revisore": "Teleborsa 6/11 e ANSA 30/12/2025 aperte tramite risultati di ricerca; il 51.946 dell'11/11 l'ho preso da ANSA 11/11 (altro risultato). Calcoli: 51.946/50.053 = +3,8%; 51.946/44.944 = +15,6%: tornano. Coerenza col PDF: 51.859 vs 44.944 = +15,4% e vs 50.053 = +3,6%, come in tabella p. 5."
+ },
+ {
+  "id": "N02",
+  "trovato": "The Producer Price Index for final demand rose 0.3 percent in October, seasonally adjusted, // For the 12 months ended in October, prices for final demand less foods, energy, and trade services advanced 4.9 percent.",
+  "verifica": "confermato",
+  "nota_revisore": "Vedi D04."
+ },
+ {
+  "id": "N03",
+  "trovato": "It earlier reached 4.892%, the highest since October 14. // rose 0.17% to 103.40. It hit its highest since April 2025. // The euro was down 0.29% at $1.1021.",
+  "verifica": "confermato",
+  "nota_revisore": "Vedi D03 per 4,867% (Reuters) contro 4,88% (PDF, fonte FMP)."
+ },
+ {
+  "id": "N04",
+  "trovato": "the US Federal Aviation Administration issued a national ground stop of all departing flights. The agency said this was 'due to extraordinary circumstance and reasons for safety' // The NYSE Arca airline index closed down 1.4%.",
+  "verifica": "confermato",
+  "nota_revisore": "La pagina cita 'serious air traffic control communications issues' e che le compagnie hanno ceduto negli ultimi minuti: il PDF ('problemi di comunicazione con il controllo del traffico aereo', 'nel finale di seduta') e' fedele. Il PDF scrive 'le compagnie aeree perdono l'1,4%': e' l'indice NYSE Arca Airline, non tutte le compagnie."
+ },
+ {
+  "id": "N05",
+  "trovato": "Auf noch weniger Gegenliebe stießen die Zahlen von Richemont. // Die Prognosen für den zukünftigen Geschäftsverlauf lägen allerdings unter den Erwartungen. // Die Analysten der Bank RBC sprachen von guten Zahlen zum dritten Quartal. Alle Ziele für das Gesamtjahr seien bestätigt worden.",
+  "verifica": "confermato",
+  "nota_revisore": "Tutte e quattro le schede del PDF (p. 4) confermate; AMS-Osram: risultati in linea ma previsioni sotto le attese (Vontobel); il PDF dice solo 'Previsioni sotto le stime', corretto. Generali 'knapp 1,5 Mrd' = poco meno di 1,5."
+ },
+ {
+  "id": "N06",
+  "trovato": "Seduta marginalmente positiva per la Borsa di Milano: l'indice Ftse Mib ha concluso in aumento dello 0,10% a 51.858 punti. // Lo spread tra Btp e Bund chiude poco mosso a 104 punti base // Borse europee senza direzione: Milano +0,1% con l'attesa per la Fed. Spread a 104 punti, euro a 1,102$. Fincantieri -4,2%.",
+  "verifica": "confermato",
+  "nota_revisore": "Il -4,2% di Fincantieri e' nel sommario della pagina SoldiOnline (non in un paragrafo esteso); ANSA titola solo 'scivola Fincantieri' senza percentuale. Il PDF dice 'dopo i conti' e attribuisce -4,2% a SoldiOnline: l'attribuzione 'dopo i conti' non l'ho letta nelle due pagine aperte (solo nel testo della scheda)."
+ },
+ {
+  "id": "N07",
+  "trovato": "closed down 52.20 points, or 0.98 percent, at 5,290.53. The index opened 2.05 percent higher and rose as high as 5,504.44. // Foreigners sold a net 550.5 billion won worth of stocks.",
+  "verifica": "confermato",
+  "nota_revisore": "Naver -5,12%, SK hynix -3,03%, Samsung -0,96% confermati. Attenzione: il PDF titola 'Gli stranieri vendono titoli tecnologici coreani' mentre la pagina dice 'worth of stocks' (azioni in generale, 550,5 mld di won netti); il collegamento ai titoli tech e' implicito nel contesto (Nvidia jitters) ma la qualifica 'tecnologici' per i 550,5 mld non e' letterale."
+ },
+ {
+  "id": "D07",
+  "trovato": "awaiting the release of US producer price data, which could give a clue to the Federal Reserve's monetary policy. // The index opened 2.05 percent higher.",
+  "verifica": "confermato",
+  "nota_revisore": "Stessa nota di N07: il testo non dice che i 550,5 mld di won venduti siano solo titoli tecnologici. L'attesa dei prezzi alla produzione USA e' confermata."
+ },
+ {
+  "id": "A01",
+  "trovato": "8:30 AM: Retail sales for October is scheduled to be released. The consensus is for a 0.2% increase in retail sales. // US retail sales increased 0.8% mom in September, exceeding expectations of 0.6%, although growth slowed from an upwardly revised 1.3% in August.",
+  "verifica": "confermato",
+  "nota_revisore": "Data e ora confermate: Census 'October 2026 | November 17, 2026', 8:30 ET = 14:30 Roma; precedente +0,8% confermato (ActionForex). MA l'attesa: Economic Weekly (substack, fonte secondaria) dice consenso +0,2%, il PDF scrive 0,0%. Trading Economics non e' stata utile (pagina vecchia, nessuna previsione) e altre pagine di calendario non davano il consenso. Discrepanza non risolta: da verificare o sostituire con 'consenso +0,2% (fonte da verificare)'. [Ristretto a data, ora e precedente; consenso escluso.]"
+ },
+ {
+  "id": "A02",
+  "trovato": "The minutes of regularly scheduled meetings are released three weeks after the date of the policy decision. // minutes from the October 27–28 FOMC meeting are scheduled for November 18, 2026 at 2:00 PM Eastern Time.",
+  "verifica": "confermato",
+  "nota_revisore": "La pagina Fed (calendari) da' la regola delle tre settimane (28/10 + 21 giorni = 18/11) ma non elenca ancora le minute di ottobre; data e ora (14:00 ET = 20:00 Roma) vengono da fedratecalc.com, fonte secondaria. Coerente col PDF."
+ },
+ {
+  "id": "N09",
+  "trovato": "Nvidia's board has approached British chipmaker Arm Holdings CEO Rene Haas // The company is due to report quarterly results on Tuesday after the closing bell. // Jensen Huang's resignation on Thursday as Nvidia CEO could have far-reaching consequences",
+  "verifica": "confermato",
+  "nota_revisore": "Il riferimento al Financial Times e alla successione a Huang e' reso dal lettore di pagina in parafrasi ('per FT, looking at him as a possible replacement for Huang'), non in citazione letterale integrale. Il PDF dice 'fondatore' per Huang: la pagina parla di dimissioni da CEO, non dice 'fondatore' (vero nei fatti, ma qualifica non letta nella pagina)."
+ }
+]

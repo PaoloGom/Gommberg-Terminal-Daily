@@ -1,0 +1,4 @@
+data: 2026-11-16
+ramo: struttura-2026-11-14
+minuti: 26
+fine: 18:24

@@ -1,0 +1,539 @@
+{
+ "numero": 26,
+ "data": "2026-11-16",
+ "titolo": "I chip crollano, ma Wall Street chiude la settimana in rialzo",
+ "dek": "Venerdì l'indice dei semiconduttori di Filadelfia perde il 3,4%, AMD l'8,8% e Nvidia un altro 2%. Ma l'S&P 500 sale del 2,5% sulla settimana e l'Euro Stoxx 50 del 3,5%, la migliore da aprile: a soffrire sono pochi grandi titoli, non tutto il mercato. Martedì i conti di Nvidia dicono se la vendita continua.",
+ "sommario": [
+  "Il mercato dei tassi dà per molto probabile un rialzo della Fed a dicembre, e il breve paga il conto.",
+  "Il petrolio scende ancora: il mercato guarda ai colloqui con l'Iran più che agli attacchi.",
+  "L'Europa chiude la migliore settimana da aprile, aiutata dai pochi chip in portafoglio."
+ ],
+ "file": "pdf/2026-11-16-gommberg-026.pdf",
+ "nome": "2026-11-16 Gommberg Terminal Daily #026.pdf",
+ "pagine": 6,
+ "notizie": [
+  "I prezzi alla produzione USA salgono del 6,5% in un anno",
+  "Gli stranieri vendono azioni coreane e il Kospi inverte la rotta",
+  "La FAA ferma tutti i voli in partenza dagli Usa",
+  "I conti dividono l'Europa: Aviva sale, Generali, Richemont e AMS-Osram scendono",
+  "Fincantieri scivola dopo i conti, Milano chiude in lieve rialzo",
+  "Il consiglio di Nvidia sonda il capo di Arm per la successione a Huang"
+ ],
+ "ticker": [
+  [
+   "MSCI ACWI (ETF)",
+   "156,10 $",
+   "-0,3% g"
+  ],
+  [
+   "S&P 500",
+   "7.561,67",
+   "-0,4% g"
+  ],
+  [
+   "EURO STOXX 50",
+   "6.386,86",
+   "-0,2% g"
+  ],
+  [
+   "TREASURY 10 ANNI",
+   "5,15%",
+   "+5 pb g"
+  ],
+  [
+   "EUR/USD",
+   "1,1021",
+   "-0,3% g"
+  ],
+  [
+   "BRENT FUTURE",
+   "95,84 $",
+   "0,0% g"
+  ],
+  [
+   "ORO",
+   "3.886 $",
+   "0,0% g"
+  ]
+ ],
+ "temi": [
+  "Chip",
+  "Fed",
+  "Tassi",
+  "Valute",
+  "Petrolio",
+  "Europa"
+ ],
+ "approfondimenti": [
+  {
+   "tema": "Chip",
+   "titolo": "I chip pagano il conto, ma la borsa non crolla con loro",
+   "formato": "doppio"
+  },
+  {
+   "tema": "Tassi USA",
+   "titolo": "La borsa sale, ma i Treasury scommettono su una Fed che alza i tassi",
+   "formato": "doppio"
+  },
+  {
+   "tema": "Petrolio",
+   "titolo": "Il Brent scende anche dopo gli attacchi: il mercato scommette sulla pace",
+   "formato": "mezzo"
+  },
+  {
+   "tema": "Europa",
+   "titolo": "L'Europa chiude la migliore settimana da aprile con pochi chip in portafoglio",
+   "formato": "mezzo"
+  }
+ ],
+ "meccanismi": [
+  "M16",
+  "M26",
+  "M05",
+  "M06",
+  "M08",
+  "M10",
+  "M11"
+ ],
+ "parole": [
+  "Prezzi alla produzione",
+  "Realizzo",
+  "Rendimento a 2 anni",
+  "Concentrazione dell'indice",
+  "Conference call",
+  "Premio per il rischio"
+ ],
+ "glossario": [
+  "CPI",
+  "PPI",
+  "pb",
+  "CME FedWatch",
+  "DXY",
+  "VIX",
+  "WTI"
+ ],
+ "errata": null,
+ "ripetizioni": null,
+ "dove": {
+  "approfondimenti": [
+   2,
+   3,
+   4,
+   4
+  ],
+  "mercati": 5,
+  "agenda": 5,
+  "scommessa": 6
+ },
+ "scommessa": {
+  "settimana": "2026-11-16/2026-11-20",
+  "strada": null,
+  "range": null,
+  "su": 6,
+  "dettaglio": []
+ },
+ "tema_top": "Chip",
+ "temi_in30": [
+  "Fed",
+  "Petrolio",
+  "Europa"
+ ],
+ "temi_notizie": [
+  "Inflazione",
+  "Asia",
+  "Macro",
+  "Trimestrali",
+  "Italia",
+  "Tecnologia"
+ ],
+ "quadro": "Per noi borse e tassi leggono l'inflazione in modo opposto. Fuori dai chip le azioni guardano agli utili e salgono. I Treasury scommettono invece su una Fed che alza i tassi a dicembre, e così il 2 anni sale a 4,88% e il dollaro tocca il massimo da aprile 2025. Il petrolio scende ancora, mentre l'oro perde oltre il 4% sulla settimana, come spesso accade quando dollaro e rendimenti salgono.",
+ "stamattina": [
+  "Alle 11:00 a Milano parla Michael Barr, governatore della Fed, di intelligenza artificiale e stabilità finanziaria",
+  "Tokyo, Seul e Hong Kong aprono dopo il calo dei chip americani: il primo test è il Kospi, che venerdì ha invertito la rotta dopo l'apertura in rialzo",
+  "S&P 500: la soglia è il minimo di venerdì, 7.499,40 punti",
+  "Nasdaq: venerdì ha toccato 24.872,41 prima di risalire"
+ ],
+ "stamattina_titolo": "Cosa guardare all'apertura",
+ "notizie_testo": [
+  "I prezzi alla produzione USA salgono del 6,5% in un anno. Ottobre porta +0,3% sul mese; senza cibo, energia e servizi commerciali il rialzo è dello 0,5%.",
+  "Gli stranieri vendono azioni coreane e il Kospi inverte la rotta. L'indice aveva aperto in rialzo del 2,05% e chiude in calo: gli investitori esteri hanno venduto 550,5 miliardi di won netti (Korea Herald).",
+  "La FAA ferma tutti i voli in partenza dagli Usa. Il blocco nazionale arriva nel finale di seduta, dopo problemi di comunicazione con il controllo del traffico aereo, e le compagnie aeree perdono l'1,4% (Reuters).",
+  "I conti dividono l'Europa: Aviva sale, Generali, Richemont e AMS-Osram scendono. Quattro società, quattro esiti diversi nella giornata dei conti europei.",
+  "Fincantieri scivola dopo i conti, Milano chiude in lieve rialzo. Il Ftse Mib sale dello 0,10% e lo spread tra Btp e Bund resta a 104 punti base (ANSA). Fincantieri cede il 4,2%, secondo SoldiOnline.",
+  "Il consiglio di Nvidia sonda il capo di Arm per la successione a Huang. Lo scrive il Financial Times, riferisce Reuters: Rene Haas, amministratore delegato di Arm, è stato contattato dal consiglio."
+ ],
+ "brevi": [
+  "chip in calo, borse in rialzo",
+  "i tassi corrono più delle azioni",
+  "il Brent scommette sulla pace",
+  "l'Europa batte Wall Street"
+ ],
+ "agenda": [
+  {
+   "quando": "Lun 16, 18:00",
+   "evento": "Discorso di Warsh, presidente della Fed",
+   "attese": "Nessun numero atteso",
+   "perche": "Primo intervento dopo i prezzi caldi",
+   "chiave": false,
+   "muove": [
+    "Più duro: di solito salgono i rendimenti a breve.",
+    "Più cauto: di solito frenano dollaro e tassi."
+   ]
+  },
+  {
+   "quando": "Mar 17, 14:30",
+   "evento": "Vendite al dettaglio USA (ottobre)",
+   "attese": "consenso non verificato; prima +0,8%",
+   "perche": "Evento n.1: i consumi dopo i prezzi caldi",
+   "chiave": true,
+   "muove": [
+    "Sopra: di solito salgono dollaro e rendimenti a breve: consumi forti lasciano spazio alla Fed.",
+    "Sotto: il rialzo di dicembre perde un po' di forza."
+   ]
+  },
+  {
+   "quando": "Mar 17, 15:10",
+   "evento": "Discorso di Waller (Fed) sui pagamenti",
+   "attese": "Nessun numero atteso",
+   "perche": "Ha parlato di rialzo da mezzo punto",
+   "chiave": false,
+   "muove": [
+    "Più duro: di solito salgono i rendimenti a breve.",
+    "Più cauto: di solito frenano dollaro e tassi."
+   ]
+  },
+  {
+   "quando": "Mar 17, 23:00",
+   "evento": "Conti trimestrali di Nvidia",
+   "attese": "Consenso non verificato",
+   "perche": "Primo esame dei chip senza Huang",
+   "chiave": false,
+   "muove": [
+    "Sopra le attese: di solito i chip rimbalzano.",
+    "Sotto: la vendita di venerdì può estendersi."
+   ]
+  },
+  {
+   "quando": "Mer 18, 20:00",
+   "evento": "Verbali della riunione Fed del 27-28 ottobre",
+   "attese": "Nessun numero atteso",
+   "perche": "Quanti vogliono rialzi più forti",
+   "chiave": false,
+   "muove": [
+    "Toni duri: di solito salgono i rendimenti.",
+    "Toni cauti: il rialzo di dicembre appare meno certo."
+   ]
+  }
+ ],
+ "termometri": {
+  "righe": [
+   [
+    "Fed e tassi",
+    "Riunione 8-9 dicembre",
+    "Rialzo di dicembre molto probabile",
+    "su: Probabilità di un rialzo da mezzo punto",
+    "Verbali Fed di mercoledì"
+   ],
+   [
+    "AI e chip",
+    "Conti Nvidia martedì",
+    "Chip in calo, Nvidia senza Huang ceo",
+    "giu: Titoli dei chip",
+    "Nvidia dopo i conti"
+   ],
+   [
+    "Dollaro",
+    "Indice a 103,40",
+    "Massimo da aprile 2025",
+    "su: Dollaro contro euro",
+    "Treasury a 2 anni"
+   ],
+   [
+    "Petrolio e Iran",
+    "Brent sotto 100 $",
+    "Colloqui in corso",
+    "giu: Brent nella settimana",
+    "Notizie dai negoziati"
+   ]
+  ],
+  "fermi": "Yen e interventi di Tokyo (ultima notizia verificata il 13/11), Banco BPM e Crédit Agricole (12/11)."
+ },
+ "evento_oggi": "Mar 17, 14:30 Vendite al dettaglio USA (ottobre)",
+ "moduli_redazione": [
+  {
+   "chiave": "chip",
+   "misura": "doppio",
+   "titolo": "I chip pagano il conto, ma la borsa non crolla con loro",
+   "perche": "La vendita di venerdì nasce dall'incertezza su Nvidia, che pubblica i conti martedì dopo la chiusura e Huang si è dimesso da amministratore delegato (Reuters). Quando il leader vacilla, di solito vendono anche i titoli che gli ruotano intorno.",
+   "quindi": "Martedì alle 23:00, ora di Roma, Nvidia tiene la conference call dopo la chiusura dei conti.",
+   "punti": [],
+   "testo": [
+    "Un crollo dei chip di solito non trascina tutta la borsa. Il motivo è semplice: S&P 500 e Nasdaq contano ogni società in proporzione al suo valore, e i chip sono tra le più grandi. Di solito, se cadono loro l'indice scende, ma le altre migliaia di titoli pesano meno. Venerdì è andata così: il Dow Jones, che ha pochi chip, ha chiuso in rialzo dello 0,10%, e nel grafico la tecnologia è l'unico settore con una perdita larga.",
+    "AMD spiega la giornata meglio di tutti. Venerdì cede più di quattro volte Nvidia, anche se in cinque giorni era salita del 12,8%. Per noi ha pesato il realizzo più del contagio: chi aveva guadagnato tanto ha incassato proprio mentre il leader del settore perdeva terreno.",
+    "Nvidia, intanto, vale circa un quarto in meno di un mese fa. Eppure la domanda non è sparita: la settimana scorsa Cisco ha dichiarato ricavi in crescita del 24% e Applied Materials del 53%. Per noi il mercato ha smesso di trattare i chip come un blocco unico: premia chi sale e punisce chi dipende da un solo nome."
+   ],
+   "righe": [
+    [
+     "Titolo",
+     "Cinque giorni",
+     "Un mese"
+    ],
+    [
+     "Nvidia",
+     "-5,9%",
+     "-26,4%"
+    ],
+    [
+     "AMD",
+     "+12,8%",
+     "-6,4%"
+    ]
+   ],
+   "grafici": [
+    {
+     "titolo": "A cadere è la tecnologia: sei settori su undici salgono",
+     "tipo": "barre",
+     "soggetto": "borsa",
+     "dati": [
+      [
+       "Tecnologia",
+       -2.1
+      ],
+      [
+       "Industriali",
+       -1.3
+      ],
+      [
+       "Materiali di base",
+       -0.8
+      ],
+      [
+       "Immobiliare",
+       -0.6
+      ],
+      [
+       "Energia",
+       -0.1
+      ],
+      [
+       "Finanziari",
+       0.2
+      ],
+      [
+       "Servizi di pubblica utilità",
+       0.3
+      ],
+      [
+       "Consumi ciclici",
+       0.4
+      ],
+      [
+       "Consumi difensivi",
+       0.4
+      ],
+      [
+       "Salute",
+       0.5
+      ],
+      [
+       "Comunicazione",
+       1.0
+      ]
+     ],
+     "serie": [],
+     "x0": null,
+     "x1": null,
+     "etichette": [
+      "Tecnologia",
+      "Industriali",
+      "Materiali di base",
+      "Immobiliare",
+      "Energia",
+      "Finanziari",
+      "Servizi di pubblica utilità",
+      "Consumi ciclici",
+      "Consumi difensivi",
+      "Salute",
+      "Comunicazione"
+     ]
+    },
+    {
+     "titolo": "Il Nasdaq ha riconquistato poco più della metà del crollo del 5 novembre",
+     "tipo": "linee",
+     "soggetto": "chip",
+     "dati": null,
+     "serie": [
+      "Nasdaq"
+     ],
+     "x0": "2026-11-02",
+     "x1": "2026-11-13",
+     "etichette": []
+    }
+   ]
+  },
+  {
+   "chiave": "treasury",
+   "misura": "doppio",
+   "titolo": "La borsa sale, ma i Treasury scommettono su una Fed che alza i tassi",
+   "perche": "Il dato sui prezzi alla produzione, un po' sotto le attese sul mese, non ha cancellato la pressione dei prezzi al consumo (CPI) di martedì. Il mercato ha smesso di chiedersi se la Fed alzerà i tassi a dicembre e si chiede di quanto (Reuters). Waller non esclude mezzo punto, Logan ne vuole almeno due da un quarto (CNBC).",
+   "quindi": "Mercoledì alle 20:00 i verbali della Fed dicono se il rialzo da mezzo punto ha sostenitori oltre Waller e Logan.",
+   "punti": [],
+   "testo": [
+    "Per noi i rendimenti salgono mentre la borsa sale perché guardano a cose diverse. Chi presta al governo americano per due anni si chiede dove saranno i tassi della Fed. Se si aspetta un rialzo a dicembre pretende un interesse più alto, ed è questo il rendimento che sale. Chi presta per dieci anni guarda più lontano, e per questo il suo rendimento si è mosso meno. Venerdì il 10 anni ha chiuso al 5,15% e il 2 anni al 4,88%. Giovedì il 10 anni era già salito di 12 punti base, a 5,10%, e il 2 anni di 13, a 4,86%: venerdì ha aggiunto il resto.",
+    "Un'inflazione più alta di solito spinge la banca centrale ad alzare i tassi, e tassi più alti fanno valere meno gli utili che le imprese incasseranno tra molti anni. Ecco perché la salita dei rendimenti pesa soprattutto sui titoli tecnologici. Lo stesso movimento rende più interessante il dollaro, perché chi investe in titoli americani a breve guadagna di più, e l'indice del dollaro è ai massimi da aprile 2025 (Reuters).",
+    "L'allarme viene dai prezzi alla produzione, che a ottobre crescono del 6,5% in un anno. Il dato di martedì 10 era già sopra le attese: +0,4% sul mese contro lo 0,3% previsto.",
+    "Per noi borsa e tassi stanno scommettendo su due scenari diversi. La prima su un'economia che regge anche con tassi più alti, i secondi su una Fed costretta a stringere. Uno dei due ha torto, e i dati della settimana dicono quale."
+   ],
+   "righe": [],
+   "grafici": [
+    {
+     "titolo": "Il maggior rialzo settimanale è a 2 anni e si smorza sulle lunghe",
+     "tipo": "barre",
+     "soggetto": "Treasury",
+     "dati": [
+      [
+       "1M",
+       8.0
+      ],
+      [
+       "3M",
+       13.0
+      ],
+      [
+       "6M",
+       19.0
+      ],
+      [
+       "1A",
+       32.0
+      ],
+      [
+       "2A",
+       37.0
+      ],
+      [
+       "3A",
+       33.0
+      ],
+      [
+       "5A",
+       34.0
+      ],
+      [
+       "7A",
+       31.0
+      ],
+      [
+       "10A",
+       29.0
+      ],
+      [
+       "20A",
+       23.0
+      ],
+      [
+       "30A",
+       21.0
+      ]
+     ],
+     "serie": [],
+     "x0": null,
+     "x1": null,
+     "etichette": [
+      "1M",
+      "3M",
+      "6M",
+      "1A",
+      "2A",
+      "3A",
+      "5A",
+      "7A",
+      "10A",
+      "20A",
+      "30A"
+     ]
+    },
+    {
+     "titolo": "La distanza tra 10 e 2 anni resta vicina ai minimi dell'ultimo mese",
+     "tipo": "linee",
+     "soggetto": "Treasury",
+     "dati": null,
+     "serie": [
+      "10 anni meno 2 anni"
+     ],
+     "x0": "2026-10-13",
+     "x1": "2026-11-13",
+     "etichette": []
+    }
+   ]
+  },
+  {
+   "chiave": "petrolio",
+   "misura": "mezzo",
+   "titolo": "Il Brent scende anche dopo gli attacchi: il mercato scommette sulla pace",
+   "perche": "Washington ha allontanato nuovi attacchi all'Iran e il greggio cede (Reuters). Giovedì gli attacchi degli Houthi a siti sauditi lo avevano riportato a 95,82 $ (+3,3%), ma venerdì il rialzo si è fermato.",
+   "quindi": "Un nuovo attacco o un colloquio che salta riporterebbe il Brent verso i 100 $, la soglia segnata nel grafico.",
+   "punti": [],
+   "testo": [
+    "Il petrolio scende anche se la guerra non è finita, perché il prezzo guarda ai barili delle prossime settimane. Un attacco a un impianto ne toglie per qualche giorno; un accordo che riapre lo Stretto di Hormuz può rimetterne in circolazione per mesi. Per noi il mercato li sta già contando, e per questo l'attacco di giovedì ha avuto vita breve.",
+    "C'è poi un conto per le tasche di tutti: il greggio diventa benzina e gasolio in poche settimane, e di solito i carburanti entrano subito nell'inflazione. Un petrolio più basso allenta questa spinta, ma i prezzi alla produzione senza energia dicono che l'inflazione americana non dipende solo dal barile.",
+    "Sull'offerta il quadro è disteso: la produzione Opec+ di ottobre è salita, con più greggio saudita, e le scorte americane sono cresciute di 9 milioni di barili secondo l'API. Gli analisti di ANZ avvertono però che un premio per il rischio geopolitico resterà, perché il conflitto non ha una via d'uscita chiara (Milano Finanza)."
+   ],
+   "righe": [],
+   "grafici": [
+    {
+     "titolo": "Il Brent ha perso oltre il 15% in due settimane e resta sopra 90 dollari",
+     "tipo": "linee",
+     "soggetto": "Brent",
+     "dati": null,
+     "serie": [
+      "Brent"
+     ],
+     "x0": "2026-10-12",
+     "x1": "2026-11-13",
+     "etichette": []
+    }
+   ]
+  },
+  {
+   "chiave": "europa",
+   "misura": "mezzo",
+   "titolo": "L'Europa chiude la migliore settimana da aprile con pochi chip in portafoglio",
+   "perche": "Per noi l'Europa tiene perché ha pochi chip nell'indice. Lo dice anche Robert Greil di Bankhaus Merck Finck: se il settore dell'intelligenza artificiale è debole, le borse europee vanno meglio di quelle americane e asiatiche, secondo dpa-AFX.",
+   "quindi": "Il test è martedì: se i conti di Nvidia rilanciano i chip, Wall Street rimonta e il vantaggio europeo si riduce.",
+   "punti": [],
+   "testo": [
+    "Nell'Euro Stoxx 50 i semiconduttori contano meno che nel Nasdaq, perché i grandi nomi del settore sono americani e asiatici. L'indice, pesato per valore, segue così più le banche, il lusso e l'industria.",
+    "Ha aiutato anche l'energia: il gas è sceso di circa un quinto nei giorni scorsi (dpa-AFX), un sollievo per industrie e bollette europee. A Milano il Ftse Mib sale del 3,6% rispetto a venerdì scorso. La partita più seguita resta Crédit Agricole-Banco BPM: la proposta di fusione amichevole, senza Opa, ha un premio del 20%. Lunedì scorso il titolo è salito del 10,6% (Milano Finanza)."
+   ],
+   "righe": [
+    [
+     "Società",
+     "13/11",
+     "Il motivo"
+    ],
+    [
+     "Aviva",
+     "+3,4%",
+     "Conti del terzo trimestre, obiettivi annuali confermati (RBC)"
+    ],
+    [
+     "Generali",
+     "oltre -1%",
+     "Danni da catastrofi naturali per circa 1,5 mld € nei nove mesi"
+    ],
+    [
+     "Richemont",
+     "quasi -4%",
+     "Gioielli sotto gli obiettivi nel secondo trimestre"
+    ],
+    [
+     "AMS-Osram",
+     "oltre -9%",
+     "Previsioni sotto le stime (Vontobel)"
+    ]
+   ],
+   "grafici": []
+  }
+ ]
+}
