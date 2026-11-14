@@ -1,37 +1,47 @@
 /* Gommberg Terminal Daily - i mercati spiegati in una riga, uguali su tutto il sito.
    GM.nome(etichetta)  -> il nome da mostrare ("MSCI ACWI (ETF)" -> "Mondo")
    GM.spiega(etichetta) -> la spiegazione breve, o "" se il mercato non è in elenco
+   GM.domanda(etichetta) -> la domanda a cui il mercato risponde nella scommessa, o ""
    GM.segna(elemento, etichetta) -> aggiunge la spiegazione all'elemento (riquadro al passaggio o al tocco)
    Ogni elemento con l'attributo data-mk="etichetta" viene segnato da solo al caricamento. */
 (function () {
   "use strict";
   const M = [
     [/acwi|mondo|azionario mondiale|borsa mondiale/i, "Mondo",
-      "La borsa mondiale: l'indice MSCI ACWI, circa 2.500 aziende di 47 paesi. È il nostro termometro unico. Qui il suo prezzo in dollari."],
+      "La borsa mondiale: l'indice MSCI ACWI, circa 2.500 aziende di 47 paesi. È il nostro termometro unico. Qui il suo prezzo in dollari.",
+      "Il mondo intero sale o scende?"],
     [/s&(amp;)?p\s*500/i, "S&P 500",
-      "Le 500 maggiori aziende quotate negli Stati Uniti: il termometro di Wall Street."],
+      "Le 500 maggiori aziende quotate negli Stati Uniti: il termometro di Wall Street.",
+      "L'economia e gli utili reggono?"],
     [/nasdaq/i, "Nasdaq",
       "La borsa americana dei titoli tecnologici: Apple, Microsoft, Nvidia e le altre."],
     [/stoxx/i, "Euro Stoxx 50",
-      "Le 50 maggiori aziende dei paesi dell'euro: il termometro delle borse europee."],
+      "Le 50 maggiori aziende dei paesi dell'euro: il termometro delle borse europee.",
+      "E l'Europa, casa nostra?"],
     [/ftse\s*mib/i, "FTSE MIB",
       "Le 40 maggiori aziende quotate a Piazza Affari, Milano."],
     [/ust|treasury/i, "Treasury 10 anni",
-      "Il rendimento dei titoli di Stato USA a 10 anni: il tasso di riferimento per mutui e prestiti nel mondo. Sale quando i prezzi dei titoli scendono."],
+      "Il rendimento dei titoli di Stato USA a 10 anni: il tasso di riferimento per mutui e prestiti nel mondo. Sale quando i prezzi dei titoli scendono.",
+      "Quanto costa il denaro?"],
     [/brent/i, "Brent",
-      "Il prezzo del petrolio di riferimento in Europa, in dollari al barile."],
+      "Il prezzo del petrolio di riferimento in Europa, in dollari al barile.",
+      "Energia e guerre pesano sui prezzi?"],
     [/eur\s*\/\s*usd|euro-dollaro/i, "EUR/USD",
-      "Quanti dollari servono per comprare un euro. Se sale, l'euro si rafforza."],
+      "Quanti dollari servono per comprare un euro. Se sale, l'euro si rafforza.",
+      "Il dollaro è forte o debole?"],
     [/\bvix\b/i, "VIX",
       "L'indice della paura: quanto il mercato si aspetta che Wall Street oscilli nel prossimo mese. Sopra 20 c'è tensione."],
     [/\boro\b|gold/i, "Oro",
-      "Il prezzo dell'oro in dollari per oncia: il bene rifugio per eccellenza."],
+      "Il prezzo dell'oro in dollari per oncia: il bene rifugio per eccellenza.",
+      "Quanta paura c'è?"],
     [/bitcoin/i, "Bitcoin",
       "La criptovaluta più diffusa, in dollari: molto più volatile delle borse."],
   ];
   const trova = (l) => M.find(([re]) => re.test(String(l || "")));
   const nome = (l) => /acwi/i.test(String(l || "")) ? "Mondo" : String(l || "");   // l'unico nome che cambiamo: la sigla diventa una parola
   const spiega = (l) => { const m = trova(l); return m ? m[2] : ""; };
+  // la domanda a cui quel mercato risponde: le stesse parole di pag. 6 del PDF (redazione/scommessa/pagina6.py, DOMANDA)
+  const domanda = (l) => { const m = trova(l); return (m && m[3]) || ""; };
 
   // un solo riquadro per pagina, tenuto dentro lo schermo
   let tip = null, cur = null;
@@ -69,7 +79,7 @@
     ".gm-tip b{font-weight:600;color:#F26B1D}";
   document.head.appendChild(css);
 
-  window.GM = { nome, spiega, segna };
+  window.GM = { nome, spiega, domanda, segna };
   const auto = () => document.querySelectorAll("[data-mk]").forEach((e) => segna(e, e.dataset.mk || e.textContent));
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", auto); else auto();
 })();

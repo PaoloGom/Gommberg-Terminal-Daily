@@ -267,6 +267,16 @@ def passo_sito():
             if not (os.path.exists(dest) or os.path.exists(dest + ".html")):
                 rotti.add(f"{os.path.relpath(p, copia)} -> {u}")
     male += sorted(rotti)[:5]
+    # le domande dei sei mercati della scommessa: una fonte sola per PDF e sito
+    try:
+        src = open(os.path.join(R, "scommessa", "pagina6.py"), encoding="utf-8").read()
+        dom = dict(re.findall(r'"(spx|sx5e|ust10|eurusd|brent|oro)": "([^"]+)"', src[src.index("DOMANDA = {"):src.index("BREVE = {")]))
+        js = open(os.path.join(copia, "assets", "mercati.js"), encoding="utf-8").read()
+        male += [f"assets/mercati.js: manca la domanda di pag. 6 per {k} ('{q}')" for k, q in dom.items() if q not in js]
+        if len(dom) != 6:
+            male.append("pagina6.py: DOMANDA non ha i sei mercati fissi")
+    except Exception as e:  # noqa: BLE001
+        male.append(f"domande dei mercati: {e}"[:90])
     esito("Sito: dati, feed, mappa e link interni", not male, "; ".join(male)[:300] or
           f"{len(pagine)} pagine, ultima edizione n. {ultimo}")
     return copia

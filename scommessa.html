@@ -74,15 +74,20 @@ main { padding-block: 32px 56px; display: grid; gap: 52px; }
 .verdict { margin: 14px 0 0; padding: 12px 14px; border-left: 3px solid var(--orange); background: var(--panel); max-width: 72ch; }
 .verdict b { font-weight: 600; }
 /* Gioca anche tu: la giocata del lettore resta nel suo telefono */
-.g-intro { margin: 0 0 14px; max-width: 64ch; color: var(--muted); }
+.g-intro { margin: 0 0 14px; max-width: 66ch; }
+.g-intro b { font-weight: 600; }
 .g-rows { border-top: 2px solid var(--ink); }
-.g-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--rule); }
-.g-row b { font-family: var(--display); font-stretch: 90%; font-weight: 800; font-size: 17px; line-height: 1.2; }
-.g-row .noi { grid-column: 1; font-size: 13.5px; color: var(--muted); }
-.g-row .st { grid-column: 2; grid-row: 1; justify-self: end; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
-.g-row .st .up, .g-row .st .down { font-weight: 600; }
-.g-row .tu { grid-column: 2; grid-row: 2; display: inline-flex; gap: 6px; align-items: center; font-size: 13.5px; }
-.g-row .tu button { font: inherit; font-size: 14px; min-width: 64px; min-height: 40px; padding: 0 10px; background: transparent; color: var(--ink); border: 1px solid var(--ink); cursor: pointer; }
+.g-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; align-items: start; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.g-row .chi { grid-column: 1; grid-row: 1 / span 2; min-width: 0; }
+.g-row .chi b { display: block; font-family: var(--display); font-stretch: 90%; font-weight: 800; font-size: 17px; line-height: 1.2; }
+.g-row .chi .q { display: block; font-size: 14px; font-weight: 600; color: var(--orange-ink); margin-top: 2px; }
+.g-row .chi .d { display: block; font-size: 13.5px; line-height: 1.4; color: var(--muted); margin-top: 2px; max-width: 52ch; }
+.g-row .noi { grid-column: 2; grid-row: 1; justify-self: end; text-align: right; font-size: 13.5px; white-space: nowrap; }
+.g-row .noi small { display: block; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.g-row .noi .up, .g-row .noi .down, .g-row .tu .up, .g-row .tu .down { font-weight: 600; }
+.g-row .tu { grid-column: 2; grid-row: 2; justify-self: end; display: inline-flex; gap: 6px; align-items: center; font-size: 13.5px; white-space: nowrap; }
+.g-row .tu small { font-family: var(--mono); font-size: 12px; margin-left: 4px; }
+.g-row .tu button { font: inherit; font-size: 14px; min-width: 62px; min-height: 40px; padding: 0 10px; background: transparent; color: var(--ink); border: 1px solid var(--ink); cursor: pointer; }
 .g-row .tu button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
 .g-row .tu button:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
 .g-row .tu strong { font-weight: 600; }
@@ -94,49 +99,13 @@ main { padding-block: 32px 56px; display: grid; gap: 52px; }
 .g-box { margin: 14px 0 0; padding: 12px 14px; border-left: 3px solid var(--orange); background: var(--panel); max-width: 72ch; }
 .g-box b { font-weight: 600; }
 .g-box + .g-box { margin-top: 8px; }
-
-.wait { color: var(--muted); }
-
-.howto { margin: 18px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 28px; border-top: 1px solid var(--rule); padding-top: 14px; }
-.howto h4 { grid-column: 1 / -1; margin: 0 0 8px; font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
-.howto dt { font-weight: 600; font-size: 14.5px; }
-.howto dd { margin: 3px 0 12px; color: var(--muted); font-size: 14px; }
-
-/* Come funziona */
-.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 40px; counter-reset: s; }
-.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 12px; }
-.steps li::before { content: counter(s); font-family: var(--display); font-weight: 900; font-size: 30px; line-height: 1; color: var(--orange); }
-.steps h4 { margin: 0; font-size: 17px; font-weight: 600; line-height: 1.3; }
-.steps p { margin: 6px 0 0; color: var(--muted); }
-
-/* Storia */
-.two { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 40px; align-items: start; }
-.prose p { margin: 0 0 14px; max-width: 64ch; }
-.prose p:last-child { margin-bottom: 0; }
-.fact { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--rule); }
-.fact li { display: grid; grid-template-columns: 112px 1fr; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
-.fact .n { white-space: nowrap; font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 26px; line-height: 1.1; }
-.fact .d { font-size: 14.5px; color: var(--muted); }
-.fact .d b { color: var(--ink); font-weight: 600; }
-
-.rules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.rule { border: 1px solid var(--rule); padding: 16px; }
-.rule h4 { margin: 0 0 6px; font-size: 16px; font-weight: 600; }
-.rule p { margin: 0; color: var(--muted); font-size: 14.5px; }
-
-.words { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; margin: 0; }
-.words div { padding: 10px 0; border-bottom: 1px solid var(--rule); }
-.words dt { font-weight: 600; }
-.words dd { margin: 2px 0 0; color: var(--muted); font-size: 14.5px; }
-
-footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size: 12.5px; color: var(--muted); }
-
-@media (max-width: 860px) {
-  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .steps, .two, .rules, .words, .howto { grid-template-columns: minmax(0, 1fr); }
-  .two { gap: 28px; }
-  .card .v { font-size: 28px; }
-  .fact li { grid-template-columns: 104px 1fr; }
+.g-mem { margin: 12px 0 0; font-size: 13.5px; color: var(--muted); }
+.g-mem a { color: var(--orange-ink); }
+@media (max-width: 560px) {
+  .g-row { grid-template-columns: minmax(0, 1fr); }
+  .g-row .chi { grid-row: auto; }
+  .g-row .noi, .g-row .tu { grid-column: 1; grid-row: auto; justify-self: start; text-align: left; }
+  .g-row .noi small { display: inline; margin-left: 8px; }
 }
 </style>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
@@ -150,7 +119,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
   <section class="hero" aria-labelledby="h-hero">
     <p class="pg-kick">La scommessa</p>
     <h2 id="h-hero" class="pg-h"><span>Sei previsioni ogni lunedì.</span><em>Il lunedì dopo, il conto: quante ne abbiamo prese, senza sconti.</em></h2>
-    <p>Sei mercati fissi; quando un tema domina la settimana, se ne aggiunge un settimo. <span data-mk="S&amp;P 500">S&amp;P 500</span>, <span data-mk="Euro Stoxx 50">Euro Stoxx 50</span>, <span data-mk="Treasury">Treasury a 10 anni</span>, <span data-mk="EUR/USD">euro-dollaro</span>, <span data-mk="Brent">Brent</span>, <span data-mk="oro">oro</span>: per ognuno la direzione della settimana e una forchetta di prezzo per la chiusura del venerdì. Il settimo, quando c'è, è lo strumento della settimana: scelto sul tema che muove i mercati. Ogni verdetto resta in archivio.</p>
+    <p>Sei mercati, sempre gli stessi, che insieme raccontano l'economia: la borsa americana e quella europea, il prezzo del denaro, il dollaro, l'energia, la paura. Per ognuno diciamo se la settimana chiuderà in rialzo o in calo e dentro quale forchetta di prezzo. Ogni verdetto resta in archivio.</p>
   </section>
 
 
@@ -161,6 +130,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     <div class="g-rows" id="gRows"></div>
     <div class="g-act" id="gAct" hidden><button type="button" id="gOk" disabled>Conferma la giocata</button><span id="gHint"></span></div>
     <div id="gEsito"></div>
+    <p class="g-mem">Il pronostico nuovo esce ogni lunedì mattina. <a href="assets/gommberg-lunedi.ics" download>Mettilo in calendario</a>, così il lunedì giochi alla pari con noi.</p>
   </section>
 
   <section aria-labelledby="h-pagella">
@@ -192,7 +162,8 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     </ol>
   </section>
 
-  <section aria-labelledby="h-var">
+  <!-- Lo strumento della settimana è sospeso dal 14/11/2026: la sezione resta nel file, nascosta, per quando riprenderà -->
+  <section aria-labelledby="h-var" hidden>
     <p class="kicker">Lo strumento della settimana</p>
     <h3 class="sec-h" id="h-var">Il settimo mercato entra quando serve</h3>
     <div class="two">
@@ -293,14 +264,17 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
 </script>
 <script>
 /* ---------- Questa settimana e il gioco del lettore ----------
-   Il lunedì il lettore sceglie su o giù per i sei mercati fissi; in settimana vede come va, accanto a noi; il lunedì dopo
-   il conto. La giocata resta nel suo browser (localStorage): niente registrazione, niente dati inviati. */
+   Per ogni mercato il lettore dice se venerdì chiude sopra o sotto il venerdì prima: la stessa domanda che ci facciamo noi.
+   Si gioca ogni giorno della settimana, una volta sola; il lunedì si è alla pari con noi, dopo si conosce già un pezzo
+   della settimana e la giocata è "in corsa". La giocata resta nel browser (localStorage): niente registrazione. */
 (function () {
   "use strict";
   const $ = (id) => document.getElementById(id);
   const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
   const MESI = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
+  const GIORNI = ["domenica","lunedì","martedì","mercoledì","giovedì","venerdì","sabato"];
   const utc = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(Date.UTC(y, m - 1, d)); };
+  const iso = (d) => d.toISOString().slice(0, 10);
   const oggi = utc(new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Rome", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date()));
   const giorni = (a, b) => Math.round((a - b) / 864e5);
   const periodo = (s) => { const [a, b] = s.split("/").map(utc); return a.getUTCDate() + (a.getUTCMonth() !== b.getUTCMonth() ? " " + MESI[a.getUTCMonth()] : "") + "-" + b.getUTCDate() + " " + MESI[b.getUTCMonth()]; };
@@ -309,7 +283,6 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
   const leggi = () => { try { return JSON.parse(localStorage.getItem(K) || "{}") || {}; } catch (e) { return {}; } };
   const scrivi = (o) => { try { localStorage.setItem(K, JSON.stringify(o)); return true; } catch (e) { return false; } };
   const freccia = (d) => d === "su" ? "↑ rialzo" : "↓ calo";
-  const opposto = (d) => d === "su" ? "giù" : "su";
 
   fetch("dati/recenti.json", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).then((R) => {
     const eds = (R && R.edizioni) || [], ed = eds.find((e) => e.scommessa && Array.isArray(e.scommessa.dettaglio) && e.scommessa.dettaglio.length);
@@ -323,32 +296,37 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
       const v = e.verdetto;
       if (!v || !Array.isArray(v.esiti) || !stato[v.settimana] || stato[v.settimana].fin) continue;
       const g = stato[v.settimana].p || {}; let tu = 0, noi = 0, su = 0;
-      for (const [nome, dir, giusta] of v.esiti) { if (!g[nome]) continue; su++; noi += giusta; tu += (g[nome] === dir) === !!giusta ? 1 : 0; }
+      for (const [nome, dir, giusta] of v.esiti) { if (!g[nome]) continue; su++; noi += giusta; tu += ((g[nome] === dir) === !!giusta) ? 1 : 0; }
       if (su) stato[v.settimana].fin = { tu, noi, su };
     }
     scrivi(stato);
 
-    const mia = stato[W] && stato[W].p, aperta = giorni(oggi, lun) === 0, finita = giorni(oggi, ven) > 2;
+    const mia = stato[W] && stato[W].p, pari = !!(stato[W] && stato[W].g === iso(lun));
+    const dopo = giorni(oggi, lun), aperta = dopo >= 0 && giorni(oggi, ven) <= 0;   // da lunedì a venerdì compresi
     const scelte = Object.assign({}, mia || {});
     $("sWk").textContent = ", " + periodo(W);
-    const casoDir = sc.par != null ? num(sc.par - 0.68 * fissi.length) : "circa la metà";
+    const casoDir = sc.par != null ? num(sc.par - 0.68 * fissi.length) : null;
+    const domanda = "venerdì chiude sopra o sotto il venerdì prima?";
 
     function disegna() {
       const rows = $("gRows"); rows.innerHTML = "";
       let tu = 0, noi = 0, giudicati = 0;
       for (const [nome, dir, strada] of fissi) {
-        const r = el("div", "g-row"); r.appendChild(el("b", "", window.GM ? GM.nome(nome) : nome));
-        const st = el("span", "st");
-        if (strada === true || strada === false) {
-          giudicati++; if (strada) noi++;
-          const s = el("span", strada ? "up" : "down", strada ? "noi: sì" : "noi: no"); st.append("per ora ", s);
-          if (mia && mia[nome]) { const ok = (mia[nome] === dir) === strada; if (ok) tu++; st.append("  ", el("span", ok ? "up" : "down", ok ? "tu: sì" : "tu: no")); }
-        }
-        r.appendChild(st);
-        r.appendChild(el("span", "noi", "Noi: " + freccia(dir)));
+        const r = el("div", "g-row"), chi = el("div", "chi");
+        chi.appendChild(el("b", "", (window.GM ? GM.nome(nome) : nome).replace(" future", "")));   // come a pag. 6: Brent, Oro
+        if (window.GM && GM.domanda(nome)) chi.appendChild(el("span", "q", GM.domanda(nome)));
+        if (window.GM && GM.spiega(nome)) chi.appendChild(el("span", "d", GM.spiega(nome)));
+        r.appendChild(chi);
+        const n = el("span", "noi"); n.append("Noi diciamo: ", el("strong", "", freccia(dir)));
+        const visto = strada === true || strada === false;
+        if (visto) { giudicati++; if (strada) noi++; const s = el("small"); s.append("per ora ", el("span", strada ? "up" : "down", strada ? "ci siamo" : "va al contrario")); n.appendChild(s); }
+        r.appendChild(n);
         const t = el("span", "tu");
-        if (mia) { t.append("Tu: "); t.appendChild(el("strong", "", mia[nome] ? freccia(mia[nome]) : "-")); }
-        else if (aperta) {
+        if (mia) {
+          t.append("Tu dici: "); t.appendChild(el("strong", "", mia[nome] ? freccia(mia[nome]) : "-"));
+          if (visto && mia[nome]) { const ok = (mia[nome] === dir) === strada; if (ok) tu++; t.appendChild(el("small", ok ? "up" : "down", ok ? "ci sei" : "va al contrario")); }
+        } else if (aperta) {
+          t.append("E tu? ");
           for (const d of ["su", "giù"]) {
             const b = el("button", "", d === "su" ? "↑ su" : "↓ giù"); b.type = "button"; b.setAttribute("aria-pressed", String(scelte[nome] === d));
             b.setAttribute("aria-label", nome + ": " + (d === "su" ? "chiude la settimana in rialzo" : "chiude la settimana in calo"));
@@ -356,20 +334,27 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
             t.appendChild(b);
           }
         }
-        r.appendChild(t); rows.appendChild(r);
+        if (t.childNodes.length) r.appendChild(t);
+        rows.appendChild(r);
       }
       const fatte = fissi.filter((d) => scelte[d[0]]).length;
       $("gAct").hidden = !!mia || !aperta;
       $("gOk").disabled = fatte < fissi.length;
       $("gHint").textContent = fatte < fissi.length ? "Scegli per tutti e " + fissi.length + " i mercati (" + fatte + " su " + fissi.length + ")" : "Dopo la conferma non si cambia fino a venerdì, come per noi.";
-      $("gIntro").textContent = mia ? "La tua giocata è fatta e non cambia fino a venerdì, come la nostra. Conta la chiusura di venerdì rispetto a quella del venerdì prima."
-        : aperta ? "Per ogni mercato, la settimana chiude sopra o sotto il venerdì scorso? Scegli e confronta il tuo risultato con il nostro. La giocata resta nel tuo telefono: nessuna registrazione."
-        : finita ? "La settimana è chiusa. La scommessa nuova esce lunedì con l'edizione del mattino: si gioca quel giorno."
-        : "Le nostre sei previsioni di questa settimana, con l'andamento all'ultima chiusura. Per giocare anche tu torna lunedì: si sceglie il giorno in cui esce il pronostico.";
+      const intro = $("gIntro"); intro.innerHTML = "";
+      if (mia) intro.append(pari ? "Hai giocato lunedì, alla pari con noi: la tua giocata non cambia fino a venerdì, come la nostra."
+        : "Hai giocato a settimana iniziata: vale per il tuo conto e non cambia fino a venerdì. Per sfidarci alla pari si gioca il lunedì.");
+      else if (aperta) {
+        intro.appendChild(el("b", "", "Sei mercati, una domanda: " + domanda)); intro.append(" Scegli su o giù e venerdì vedi quante ne hai prese, accanto a noi. ");
+        intro.append(dopo === 0 ? "Oggi è lunedì: giochi alla pari con noi." : "Puoi giocare ogni giorno fino a venerdì; oggi parti a settimana iniziata, il lunedì si gioca alla pari con noi.");
+        intro.append(" Niente registrazione: la giocata resta nel tuo telefono.");
+      } else intro.append(dopo < 0 ? "Le nostre sei previsioni per la settimana che comincia: si gioca da lunedì."
+        : "La settimana è chiusa: queste erano le nostre sei previsioni. Lunedì mattina esce il pronostico nuovo e si riparte.");
       const box = $("gEsito"); box.innerHTML = "";
       if (mia && giudicati) {
         const p = el("p", "g-box"); p.appendChild(el("b", "", "Per ora: tu " + tu + " su " + giudicati + ", noi " + noi + " su " + giudicati + "."));
-        p.append(" Chi tira a caso ne prende in media " + casoDir + " su " + fissi.length + ".");
+        if (casoDir) p.append(" Chi tira a caso ne prende in media " + casoDir + " su " + fissi.length + ".");
+        if (!pari) p.append(" La tua è una giocata in corsa: il confronto alla pari è quello del lunedì.");
         box.appendChild(p);
       } else if (mia) box.appendChild(el("p", "g-box", "Da domani, a ogni edizione, vedi qui quante ne stai prendendo."));
       const chiuse = Object.keys(stato).filter((k) => stato[k].fin).sort();
@@ -382,7 +367,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     }
     $("gOk").addEventListener("click", () => {
       if (fissi.some((d) => !scelte[d[0]])) return;
-      stato[W] = { p: scelte, t: Date.now() };
+      stato[W] = { p: scelte, t: Date.now(), g: iso(oggi) };
       if (!scrivi(stato)) { $("gHint").textContent = "Il tuo browser non permette di salvare la giocata (navigazione privata?)."; return; }
       location.reload();
     });

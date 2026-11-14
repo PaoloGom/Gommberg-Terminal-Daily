@@ -143,6 +143,9 @@ def main():
     origine = pd.Timestamp(a.origine)
     if origine.dayofweek != 4:
         raise SystemExit("--origine deve essere un venerdì (l'ultima chiusura della settimana precedente)")
+    if a.variabile and os.environ.get("GTD_STRUMENTO_SETTIMANA") != "1":
+        raise SystemExit("Lo strumento della settimana è sospeso dal 14/11/2026 (APP_LUNEDI.md §3b): rilancia senza "
+                         "--variabile, la scommessa esce con i sei mercati fissi")
     red = json.load(open(a.redazione, encoding="utf-8")) if a.redazione else {}
     if a.prova:
         prova(origine, a.variabile)
