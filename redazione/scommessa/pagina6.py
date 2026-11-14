@@ -179,32 +179,41 @@ def _punto_box(etichetta, t):
     return k
 
 
-def _legenda(reg, oggi=False):
+def _legenda(reg, oggi=False, ultime=None, fermo=False):
     st = reg["strumenti"]
     var = any(v.get("variabile") for v in st.values())
-    return P(f"Partenza: chiusura di venerdì {gg_mese(reg['origine'])}. Barra: la forchetta. Tacca: partenza. "
-             "Rombo: la nostra previsione." + (" Pallino: oggi (rosso se fuori dalla forchetta)." if oggi else "")
+    return P(f"Partenza: chiusura di venerdì {gg_mese(reg['origine'])}." + (f" Oggi: chiusura del {gg_mese(ultime)}." if ultime else "")
+             + " Barra: la forchetta. Tacca: partenza. Rombo: la nostra previsione."
+             + (" Pallino: oggi (rosso se fuori dalla forchetta)." if oggi else "")
              + " Per i Treasury la freccia indica il rendimento."
+             + (' "-": fermo alla partenza.' if fermo else "")
              + (" In arancione lo strumento della settimana, con conto a parte." if var else ""), "note")
 
 
 def _come_si_gioca(chiavi, compatto=False, variabile=False):
-    n, par = len(chiavi), num(_par(chiavi), 1)
+    """Solo le regole. Il par (quanto fa chi tira a caso) sta accanto al punteggio, una volta sola nella pagina."""
+    n = len(chiavi)
     if compatto:
-        return ["COME SI GIOCA", P(f"Direzione fissata lunedì per {n} mercati, uno per domanda. Un punto per la direzione, "
-                                   f"uno se venerdì la chiusura cade nella forchetta: massimo {2 * n}, chi tira a caso ne fa "
-                                   f"{par}.", "p6_box")]
+        return ["COME SI GIOCA", P(f"Direzione fissata lunedì per {n} mercati, uno per domanda: non cambia fino a venerdì. "
+                                   f"Un punto per la direzione, uno se venerdì la chiusura cade nella forchetta: massimo "
+                                   f"{2 * n}.", "p6_box")]
     return ["COME SI GIOCA",
             P(f"{n} domande che muovono tutto il resto, lette in catena: la borsa, il prezzo del denaro, il dollaro, "
               "l'energia, la paura." + (" In arancione, il mercato del momento." if variabile else ""), "p6_box"),
-            P("La direzione la scegliamo noi; la forchetta è larga quanto l'oscillazione tipica della settimana e contiene "
-              f"la chiusura di venerdì circa 2 volte su 3. Un punto per la direzione, uno per la forchetta: massimo {2 * n}, "
-              f"chi tira a caso ne fa in media {par}.", "p6_box")]
+            P("La direzione la scegliamo noi il lunedì e non cambia fino a venerdì. La forchetta è larga quanto "
+              "l'oscillazione tipica della settimana e contiene la chiusura di venerdì circa 2 volte su 3. Un punto per "
+              f"la direzione, uno per la forchetta: massimo {2 * n}.", "p6_box")]
+
+
+def _punteggio(punti, su, par, terzo, etichetta_terzo, etichetta_punti="punti"):
+    """Il numero che conta, uguale il lunedì e in settimana: i nostri punti e, accanto, il par."""
+    return _tre(f"{punti}<font size='9' color='#6B6B6B'> su {su}</font>", num(par, 1), terzo,
+                etichetta_punti, "il par: chi tira a caso", etichetta_terzo)
 
 
 def _tre(a, b, c, la, lb, lc):
     k = Table([[P(a, "p6_kpi"), P(b, "p6_kpi"), P(c, "p6_kpi")], [P(la, "p6_kpi_l"), P(lb, "p6_kpi_l"), P(lc, "p6_kpi_l")]],
-              colWidths=[27 * mm, 24 * mm, 24 * mm])
+              colWidths=[26 * mm, 30 * mm, 24 * mm])
     k.setStyle(TableStyle([("LEFTPADDING", (0, 0), (-1, -1), 0), ("TOPPADDING", (0, 0), (-1, -1), 1),
                            ("BOTTOMPADDING", (0, 0), (-1, -1), 1), ("VALIGN", (0, 0), (-1, -1), "BOTTOM")]))
     return k
@@ -222,8 +231,7 @@ def _verdetto(verdetto, settimana_prec, com_e_andata=None):
     segni = [f"{BREVE.get(k, r['nome'])} {_segno(r['punto_direzione'])}{_segno(r['punto_range'])}"
              for k, r in verdetto["righe"].items() if not r.get("variabile")]
     out = [f"IL VERDETTO: SETTIMANA {(settimana_prec or '').upper()}".rstrip(": "),
-           _tre(f"{t['punti']}<font size='9' color='#6B6B6B'> su {t['su']}</font>", f"{t['range']} su {n}",
-                f"{t['direzione']} su {n}", f"punti (par {num(t['par'], 1)})", "nella forchetta", "direzioni giuste"),
+           _punteggio(t["punti"], t["su"], t["par"], f"{t['direzione']} + {t['range']}", "direzione + forchetta"),
            Spacer(1, 3), P("<font size='6.8' color='#6B6B6B'>direzione / forchetta:</font> " + "  ".join(segni), "p6_box")]
     vv = t.get("variabile")
     if vv:
@@ -294,20 +302,24 @@ def pagina6_settimana(reg, stato, tesi, grafico="c_forecast.png", venerdi=False)
     _aria(t, len(rows) - 1)
     fx = fissi(st)
     n = len(fx)
+    ven_d = dt.date.fromisoformat(ven)
+    p_dir, p_for = sum(1 for k in fx if sr[k]["strada_giusta"]), sum(1 for k in fx if sr[k]["dentro_range"])
     dx = ["A CHE PUNTO SIAMO",
-          _tre(f"{sum(1 for k in fx if sr[k]['dentro_range'])} su {n}", f"{sum(1 for k in fx if sr[k]['strada_giusta'])} su {n}",
-               f"{dt.date.fromisoformat(ven).day} {MESI[dt.date.fromisoformat(ven).month - 1][:3]}", "nella forchetta", "on track", "il verdetto"), Spacer(1, 3)]
+          _punteggio(p_dir + p_for, 2 * n, _par(fx), f"{ven_d.day} {MESI[ven_d.month - 1][:3]}", "il verdetto",
+                     "punti, se finisse oggi"), Spacer(1, 3),
+          P(f"Da dove vengono: <b>{p_dir}</b> dalla direzione (colonna On track), <b>{p_for}</b> dalla forchetta (colonna "
+            "Dentro)." + (" Verdetto lunedì, con le chiusure di stasera." if venerdi else ""), "p6_box")]
     for k in ordine(st):
         if st[k].get("variabile"):
             r = sr[k]
             dx.append(P(f"Della settimana, {esc(st[k]['nome'])}: " + ("nella forchetta" if r["dentro_range"] else "fuori dalla forchetta")
                         + (", on track." if r["strada_giusta"] else "." if r["strada_giusta"] is None else ", direzione contraria."), "p6_box"))
     ult = date[-1] if date else ""
-    dx.append(P((f"Ultime chiusure: {gg_mese(ult)}. " if ult else "") + "La previsione non cambia fino a venerdì; \"-\": fermo alla partenza."
-                + (" Verdetto lunedì, con le chiusure di stasera." if venerdi else ""), "p6_box"))
+    fermo = any(sr[k]["strada_giusta"] is None for k in ordine(st))
     # struttura v9: prima le regole e il punteggio, poi il tabellone, in fondo il perché
     # con 6 mercati c'è posto per la spiegazione intera (cos'è la forchetta, quanto spesso tiene): serve a chi apre la
     # pagina per la prima volta. Con lo strumento della settimana (7 righe) resta la versione breve.
     out += [_due_box(_come_si_gioca(fx, compatto=len(ordine(st)) > 6), dx), Spacer(1, 7),
-            evidenzia(t, st, ordine(st)), Spacer(1, 2), _legenda(reg, oggi=True), Spacer(1, 6), _punto_box("Il punto", tesi)]
+            evidenzia(t, st, ordine(st)), Spacer(1, 2), _legenda(reg, oggi=True, ultime=ult, fermo=fermo), Spacer(1, 6),
+            _punto_box("Il punto", tesi)]
     return out

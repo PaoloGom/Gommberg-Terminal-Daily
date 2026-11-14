@@ -1146,8 +1146,8 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
     voci.append(("mercati", "Mercati e agenda", C.get("mercati_titolo", "Numeri, temi aperti e calendario")))
     if stato and not C["scommessa"].get("lunedi"):
         fx = [k for k, x in (reg or {}).get("strumenti", {}).items() if not x.get("variabile")] or list(stato["righe"])
-        ok = sum(1 for k in fx if k in stato["righe"] and stato["righe"][k]["strada_giusta"])
-        voci.append(("scommessa", "La scommessa", f"{ok}/{len(fx)} on track"))
+        punti = sum(bool(stato["righe"][k]["strada_giusta"]) + bool(stato["righe"][k]["dentro_range"]) for k in fx if k in stato["righe"])
+        voci.append(("scommessa", "La scommessa", f"{punti} punti su {2 * len(fx)}, se finisse oggi"))
     else:
         voci.append(("scommessa", "La scommessa", C["scommessa"].get("breve", "il pronostico della settimana")))
     idx = indice_interno(voci, cols=4)
