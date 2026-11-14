@@ -30,7 +30,7 @@ Prima il metro, poi le regole. Un cambiamento editoriale solo, misurabile, nel p
 |---|---|---|
 | Collaudo a secco | `collaudo.py` (nuovo) | Sintassi, avvio, modello impaginato e controllato, ultima edizione vera rifatta, sito e link, pubblicazione in prova |
 | Misure | `misure.py` (nuovo) | Lo stesso metro per tutte le edizioni e per le prove |
-| Sorgenti dell'edizione | `pubblica.sh`, `prova_v8.sh` | Testo scritto, dati, scommessa, revisione e desk archiviati in `sorgenti/AAAA-MM-GG/` |
+| Sorgenti dell'edizione | `pubblica.sh`, `prova.sh` | Testo scritto, dati, scommessa, revisione e desk archiviati in `sorgenti/AAAA-MM-GG/` |
 | Ritmo delle frasi | `controlli_testo.py`, `controlli_tutti.sh` | Misura esatta sui campi, con le riscritture del desk; dal PDF solo avviso |
 | Il passaggio | `ISTRUZIONI.md` (v8.7), `memoria.py` | Lettore anche senza studi; al massimo 2 meccanismi offerti per tesi |
 | Pagina di riferimento | `edizione_modello_v6.py` | Di nuovo piena; mostra passaggi, lettura di pag. 2, numero che fa un conto |

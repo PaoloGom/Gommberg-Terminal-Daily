@@ -17,7 +17,7 @@ REGOLE DEI CAMPI (v8.1: stanno qui, accanto ai campi; ISTRUZIONI.md tiene solo c
 - top: titolo max 2 righe, dek 3-4. in30: 3 punti senza cifre, col rimando. Voci "breve" dell'indice senza cifre.
 - stamattina: future, Asia, petrolio, cambio, 10 anni con orario 06:00-09:29; senza livelli verificati
   "stamattina_titolo": "Cosa guardare all'apertura" con 2-4 soglie o eventi con orario.
-- termometri: solo i temi mossi; gli altri in "fermi", fuori dopo 3 sedute. "lettura" (pag. 2) = ciò che le tabelle della
+- termometri: solo i temi mossi; gli altri in "fermi", fuori dopo 3 sedute. "lettura" (pag. 5) = ciò che le tabelle della
   pagina mostrano e la prima pagina non dice, mai il quadro con altre parole.
 - moduli: 6 unità (mezzo = 1, doppio = 2) sulle pag. 2-4, in ordine d'importanza; un "doppio" comincia in cima a una pagina. Ogni modulo: perche, quindi, fonte; righe (mezzo max 5,
   doppio max 8); punti max 3; "guardare" obbligatorio nel doppio; niente "lettura". "numero", "punti" e "righe" solo se
@@ -27,7 +27,7 @@ REGOLE DEI CAMPI (v8.1: stanno qui, accanto ai campi; ISTRUZIONI.md tiene solo c
   per ogni elemento del modulo (quanto, perche, storia, conseguenza, chi); barre sempre con "unita", livelli con "livello": True;
   segna con "eventi" e "soglie" ciò che usano E quindi e Da guardare; sotto 5 valori meglio una frase. Mai "alto"/"largo".
 - "&" si scrive com'è (S&P 500): lo sistema il motore. Solo trattino corto. Variazioni col segno. Numeri all'italiana.
-- Lunedì: "ieri_titolo": "La settimana scorsa" (max 5 righe); 1 sett. del cruscotto = settimana intera.
+- Lunedì: "ieri" = la settimana scorsa, in 3 righe al massimo; 1 sett. del cruscotto = settimana intera.
 - parole: 6 concetti (non sigle) del numero, in ordine di importanza: il motore ne mostra 3 o 6."""
 import datetime as dt
 import json
@@ -191,14 +191,14 @@ C = {
         ("Petrolio", "Brent sopra 104 $", "WTI verso 95 $ in seduta", "fermo: Brent, senza direzione", "Prezzi della benzina"),
     ],
     "fermi": "Iran e Hormuz (nessuna novità verificata dal 13/10), Francia e debito europeo (dal 12/10).",
-    # lettura (pag. 2): MAI il quadro di pag. 1 con altre parole (§3.3). Dice ciò che le tabelle di questa pagina mostrano
+    # lettura (pag. 5): MAI il quadro di pag. 1 con altre parole (§3.3). Dice ciò che le tabelle di questa pagina mostrano
     # e la prima pagina no, e spiega il passaggio a chi le tabelle non le sa leggere.
     "lettura": "Due cose che le tabelle dicono e la prima pagina no. Il Russell 2000, l'indice delle società più piccole, "
                "perde quasi il doppio dell'S&amp;P 500: di solito chi ha più debiti soffre di più i tassi alti. L'Euro "
                "Stoxx 50 sale mentre Wall Street scende: la vendita riguarda i tecnologici americani, che nell'indice "
                "europeo di solito pesano poco.",
 
-    # ---------- Pag. 3-5 ----------
+    # ---------- Pag. 5: agenda ----------
     "ieri": [        # (quando, evento, dato contro attese, sorpresa +/-/=, → max 8 parole). Casa delle cifre solo per i dati NON raccontati altrove
         # sorpresa: "+" se il NUMERO è più alto delle attese, "-" se è più basso, "=" se uguale. È aritmetica, non un
         # giudizio: sussidi di disoccupazione a 200 mila contro 195 mila attesi sono "+", anche se è un dato peggiore.
@@ -206,7 +206,7 @@ C = {
         ("Mer 14", "Trimestrali BofA, Morgan Stanley, BlackRock", "Esiti divergenti", "", "[[banche]]"),
     ],
     # Misura di pag. 5: temi aperti al massimo 4; righe uscite ("ieri") più righe in arrivo ("agenda") al massimo 7.
-    # agenda: 5-6 righe, (quando Roma, evento, attese, perché conta, come può muovere i mercati) - <b> sull'evento chiave.
+    # agenda: 4-6 righe, (quando Roma, evento, attese, perché conta, come può muovere i mercati) - <b> sull'evento chiave.
     # L'ultima colonna insegna a leggere il dato PRIMA che esca: cosa succede di solito se esce sopra le attese e cosa
     # se esce sotto, con parole di tutti, sempre nella forma "<b>Sopra:</b> ... <br/><b>Sotto:</b> ..." (una riga ciascuno).
     # Sempre come tendenza ("di solito"), mai come previsione; se un evento non ha un numero atteso, dice cosa ascoltare. Il giorno dopo la riga torna in "ieri" con l'esito.

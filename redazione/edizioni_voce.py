@@ -167,7 +167,7 @@ def main():
         voce["grafici"] = graf
     if w.get("errata"):   # niente errata corrige (APP_ERRORI.md §6): il campo si ignora
         print("AVVISO: voce.json contiene errata: ignorato (le correzioni sostanziali vanno nel testo)")
-    ag = w.get("agenda") or []           # da extra_voce.py: "In arrivo" di pag. 3, mostrata sul sito
+    ag = w.get("agenda") or []           # da extra_voce.py: "In arrivo" di pag. 5, mostrata sul sito
     if isinstance(ag, list) and ag:
         ok = all(isinstance(x, dict) and {"quando", "evento", "attese", "perche", "chiave"} <= set(x) for x in ag)
         if ok and not re.search(r"<[a-z/]|[\u2013\u2014]", json.dumps(ag, ensure_ascii=False)):

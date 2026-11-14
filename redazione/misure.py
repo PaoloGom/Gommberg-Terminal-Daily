@@ -11,7 +11,7 @@ Uso:
 Colonne (stesso metodo per tutte le edizioni: sono confrontabili tra loro, non sono voti):
   ora      uscita sul sito (dati/uscite.json, altrimenti l'ora del commit "Edizione #NNN")
   parole   parole del PDF
-  fr       parole per frase nei paragrafi in prosa (pag. 1 e 3-5; tabelle e titoli esclusi)
+  fr       parole per frase nei paragrafi in prosa (pag. 1-5; tabelle e titoli esclusi)
   >30      quota di frasi oltre 30 parole
   cifre    numeri ogni 100 parole nei testi
   gergo    termini da addetti ogni 1.000 parole nei testi (elenco GERGO qui sotto: è un termometro, non una regola)

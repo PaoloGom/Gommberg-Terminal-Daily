@@ -330,8 +330,8 @@ if len(_righe_dato) >= 2 and len(_con) * 2 < len(_righe_dato):
                f"{'; '.join(_senza[:4])}. Mai togliere righe per passare: dopo 3 giri vale com'è")
 
 _ag = VOCE.get("agenda")
-if isinstance(_ag, list) and 0 < len(_ag) < 5:
-    ERR.append(f"agenda: solo {len(_ag)} righe. Nei prossimi giorni di borsa ci sono sempre almeno 5 eventi che contano (dati, "
+if isinstance(_ag, list) and 0 < len(_ag) < 4:   # struttura v9: pag. 5 ha posto per 4-6 righe in arrivo
+    ERR.append(f"agenda: solo {len(_ag)} righe. Nei prossimi giorni di borsa ci sono sempre almeno 4 eventi che contano (dati, "
                "banche centrali, aste, conti): `memoria.py agenda` e una ricerca del calendario della settimana. Dopo 3 giri vale com'è")
 
 # ---------- dati mancanti: solo dopo la scala di ricerca, e registrati ----------
@@ -416,7 +416,7 @@ else:
 # nascondeva i riquadri in silenzio (#020). Qualunque sia l'origine dell'edizione, questi campi devono esserci.
 if VOCE:
     for k, cosa in (("titolo", "titolo della notizia principale"), ("dek", "sottotitolo (dek)"), ("sommario", "In 30 secondi"),
-                    ("notizie", "notizie del giorno"), ("agenda", "agenda di pag. 3"), ("temi", "temi"),
+                    ("notizie", "notizie del giorno"), ("agenda", "agenda di pag. 5"), ("temi", "temi"),
                     ("approfondimenti", "approfondimenti")):
         if not VOCE.get(k):
             ERR.append(f"sito: manca '{k}' ({cosa}) in voce_indice.json: l'edizione deve uscire dal modello standard, "
