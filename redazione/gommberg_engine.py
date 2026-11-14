@@ -518,14 +518,21 @@ TEND = {"su": ("▲", "in salita"), "giu": ("▼", "in calo"), "fermo": ("■", 
 
 
 def termometri(righe, fermi=""):
-    """righe = [(tema, a_che_punto, ultima_novita, tendenza, cosa_guardare)]; tendenza in TEND ('su','giu','fermo')
-    o testo libero. fermi = "Iran (dal 12/10), Francia (dal 13/10)" -> riga finale."""
-    rows = [headers("Tema", "A che punto", "Ultima novità", "Tendenza", "Cosa guardare")]
+    """righe = [(tema, a_che_punto, ultima_novita, cosa_si_muove, cosa_guardare)]. cosa_si_muove dice CHE COSA sale o
+    scende, non solo il verso: "su: Probabilità di un rialzo", "giu: Titoli dei chip", "fermo: Brent" (struttura v9: la
+    sola freccia "in salita" non diceva di che cosa). Le forme vecchie ('su', 'giu', 'fermo' o testo libero) restano
+    valide. La freccia non ha verde e rosso: salire non è di per sé una buona notizia.
+    fermi = "Iran (dal 12/10), Francia (dal 13/10)" -> riga finale."""
+    rows = [headers("Tema", "A che punto", "Ultima novità", "Cosa si muove", "Cosa guardare")]
     for tema, punto, nov, tend, guarda in righe:
-        s, t = TEND.get(tend, ("", tend))
-        rows.append([P(tema, "cellb"), P(punto, "celln"), P(nov, "cell"),
-                     P(f'<font color="#B4470F">{s}</font> {t}', "celln"), P(guarda, "celln")])
-    out = [tbl(rows, [27 * mm, 38 * mm, 50 * mm, 19 * mm, CW - 134 * mm])]
+        verso, _, sogg = str(tend).partition(":")
+        if sogg.strip() and verso.strip() in TEND:
+            cella = f'<font color="#B4470F">{TEND[verso.strip()][0]}</font> {sogg.strip()}'
+        else:
+            s_, t_ = TEND.get(tend, ("", tend))
+            cella = f'<font color="#B4470F">{s_}</font> {t_}'
+        rows.append([P(tema, "cellb"), P(punto, "celln"), P(nov, "cell"), P(cella, "celln"), P(guarda, "celln")])
+    out = [tbl(rows, [24 * mm, 40 * mm, 44 * mm, 36 * mm, CW - 144 * mm])]
     if fermi:
         out.append(P(f"<b>Fermi:</b> {fermi}", "tm_f"))
     return out
@@ -578,7 +585,7 @@ def agenda_v9(ieri, righe):
     """Una tabella sola (struttura v9). In alto ciò che è uscito dall'ultima edizione, con il dato, il confronto con le
     attese e dove se ne parla; sotto ciò che arriva, con le attese, perché conta e come può muovere i mercati. Così il
     lettore ritrova il giorno dopo la riga che aveva letto, con l'esito accanto."""
-    rows = [headers("Quando (Roma)", "Evento", "Attese", "Perché conta", "Come può muovere i mercati")]
+    rows = [headers("Quando (Roma)", "Evento", "Attese", "Perché conta", "Come può muovere i mercati, di solito")]
     st = [("FONTNAME", (0, 0), (-1, -1), "Cond"), ("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 4),
           ("RIGHTPADDING", (0, 0), (-1, -1), 4), ("TOPPADDING", (0, 0), (-1, -1), 3), ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
           ("LINEBELOW", (0, 0), (-1, -1), 0.4, RULE), ("BACKGROUND", (0, 0), (-1, 0), INK),
@@ -615,9 +622,10 @@ def mercati_compatti(cruscotto, cross, nota_sx="", nota_dx="", data_cross="Livel
     dx = dash_table([headers("Tassi, cambi, materie prime", data_cross, "1 g", "1 sett.", "1 mese")]
                     + [(g, [list(r[:5]) for r in rr]) for g, rr in cross],
                     [wdx - 57 * mm, 18 * mm, 13 * mm, 13 * mm, 13 * mm], pad=1.5)
-    # le note stanno tutte sotto la tabella di destra, che è più corta: le due colonne finiscono alla stessa altezza
-    note = [P(n, "src") for n in (nota_sx, nota_dx) if n]
-    return side_by_side([sx], [dx] + note, 93 * mm)
+    # la legenda sta sotto la tabella di destra, che è più corta: le due colonne finiscono alla stessa altezza.
+    # Le fonti dei dati stanno nella tabella Fonti di pag. 6.
+    note = " ".join(n for n in (nota_sx, nota_dx) if n)
+    return [side_by_side([sx], [dx] + ([Spacer(1, 3), P(note, "src")] if note else []), 93 * mm)]
 
 
 # --- Riempimento automatico delle pagine (render_v6 a più passi) ---
@@ -1153,12 +1161,12 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
     st += section(C.get("mercati_sezione", "I mercati in una pagina"), "Mercati")
     if C.get("lettura"):   # prima cosa dicono i numeri, poi i numeri: chi non legge le tabelle ha già la sintesi
         st += [lettura(C["lettura"]), Spacer(1, 5)]
-    st.append(mercati_compatti(C["cruscotto"], C["cross"], C.get("cruscotto_nota", ""), C.get("cross_nota", ""),
-                               C.get("cross_data", "Livello")))
-    st += sezione_stretta("I temi aperti", "Storie in corso")
+    st += mercati_compatti(C["cruscotto"], C["cross"], C.get("cruscotto_nota", ""), C.get("cross_nota", ""),
+                           C.get("cross_data", "Livello"))
+    st += [Spacer(1, 4)] + sezione_stretta("I temi aperti", "Storie in corso")
     st += termometri(C["termometri"], C.get("fermi", ""))
     st.append(ancora("agenda"))
-    st += sezione_stretta(C.get("agenda_sezione", "Cosa è uscito e cosa arriva"), C.get("agenda_kicker", "Agenda"))
+    st += [Spacer(1, 4)] + sezione_stretta(C.get("agenda_sezione", "Cosa è uscito e cosa arriva"), C.get("agenda_kicker", "Agenda"))
     st.append(agenda_v9(C.get("ieri") or [], C["agenda"]))
     if len(C.get("ieri") or []) + len(C["agenda"]) > 7 or len(C["termometri"]) > 4:
         print(f"ATTENZIONE: pag. 5 ha {len(C['termometri'])} temi aperti (massimo 4) e "

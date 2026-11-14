@@ -167,6 +167,18 @@ def _testo_punto(etichetta, t):
     return P(f"<b>{etichetta}</b> {t}", "dek")
 
 
+def _punto_box(etichetta, t):
+    """"Il punto" sotto il tabellone (struttura v9): prima il lettore vede come si gioca e a che punto siamo, poi i
+    mercati uno per uno, e solo allora il perché. Stesso riquadro della "lettura" di pag. 5."""
+    t = ETICHETTE.sub(r"<b>\1</b>", esc(t or ""))
+    k = Table([[P(etichetta.upper(), "box_t"), P(t, "p6_box")]], colWidths=[24 * mm, CW - 24 * mm])
+    k.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("BACKGROUND", (0, 0), (-1, -1), TINT),
+                           ("LINEBEFORE", (0, 0), (0, -1), 2.2, ORANGE), ("LEFTPADDING", (0, 0), (-1, -1), 8),
+                           ("RIGHTPADDING", (0, 0), (-1, -1), 8), ("TOPPADDING", (0, 0), (-1, -1), 6),
+                           ("BOTTOMPADDING", (0, 0), (-1, -1), 6)]))
+    return k
+
+
 def _legenda(reg, oggi=False):
     st = reg["strumenti"]
     var = any(v.get("variabile") for v in st.values())
@@ -176,7 +188,7 @@ def _legenda(reg, oggi=False):
              + (" In arancione lo strumento della settimana, con conto a parte." if var else ""), "note")
 
 
-def _come_si_gioca(chiavi, compatto=False):
+def _come_si_gioca(chiavi, compatto=False, variabile=False):
     n, par = len(chiavi), num(_par(chiavi), 1)
     if compatto:
         return ["COME SI GIOCA", P(f"Direzione fissata lunedì per {n} mercati, uno per domanda. Un punto per la direzione, "
@@ -184,7 +196,7 @@ def _come_si_gioca(chiavi, compatto=False):
                                    f"{par}.", "p6_box")]
     return ["COME SI GIOCA",
             P(f"{n} domande che muovono tutto il resto, lette in catena: la borsa, il prezzo del denaro, il dollaro, "
-              "l'energia, la paura. In arancione, il mercato del momento.", "p6_box"),
+              "l'energia, la paura." + (" In arancione, il mercato del momento." if variabile else ""), "p6_box"),
             P("La direzione la scegliamo noi; la forchetta è larga quanto l'oscillazione tipica della settimana e contiene "
               f"la chiusura di venerdì circa 2 volte su 3. Un punto per la direzione, uno per la forchetta: massimo {2 * n}, "
               f"chi tira a caso ne fa in media {par}.", "p6_box")]
@@ -248,7 +260,6 @@ def pagina6_lunedi(reg, verdetto, pagella, tesi, grafico="c_forecast.png", setti
     st = reg["strumenti"]
     ven = reg["settimana"].split("/")[1]
     out = section(f"La scommessa della settimana: dove chiudiamo venerdì {gg_mese(ven)}", "Il gran finale  |  Forecast")
-    out.append(_testo_punto("La nostra tesi:", tesi))
     wb = 58 * mm
     rows = [headers("Mercato e la sua domanda", "Partenza", "", "Forchetta e nostra previsione", "Il perché")]
     for k in ordine(st):
@@ -258,8 +269,9 @@ def pagina6_lunedi(reg, verdetto, pagella, tesi, grafico="c_forecast.png", setti
     t = tbl(rows, [50 * mm, 16 * mm, 6 * mm, wb, CW - 130 * mm])
     t.setStyle(TableStyle([("VALIGN", (0, 1), (-1, -1), "MIDDLE")]))
     _aria(t, len(rows) - 1)
-    out += [evidenzia(t, st, ordine(st)), Spacer(1, 2), _legenda(reg), Spacer(1, 6),
-            _due_box(_come_si_gioca(fissi(st)), _verdetto(verdetto, settimana_prec, com_e_andata))]
+    # struttura v9: prima le regole e il verdetto, poi il tabellone, in fondo la tesi
+    out += [_due_box(_come_si_gioca(fissi(st), variabile=any(v.get("variabile") for v in st.values())), _verdetto(verdetto, settimana_prec, com_e_andata)), Spacer(1, 7),
+            evidenzia(t, st, ordine(st)), Spacer(1, 2), _legenda(reg), Spacer(1, 6), _punto_box("La nostra tesi", tesi)]
     return out
 
 
@@ -267,7 +279,6 @@ def pagina6_settimana(reg, stato, tesi, grafico="c_forecast.png", venerdi=False)
     st, sr = reg["strumenti"], stato["righe"]
     ven = reg["settimana"].split("/")[1]
     out = section("La scommessa della settimana: a che punto siamo", "Il gran finale  |  Forecast")
-    out.append(_testo_punto("Il punto:", tesi))
     wb = 54 * mm
     date = sorted({str(sr[k]["data"]) for k in ordine(st)})
     rows = [headers("Mercato e la sua domanda", "Partenza", "", "Forchetta: dove siamo oggi", "Oggi", "Dentro", "On track")]
@@ -294,6 +305,9 @@ def pagina6_settimana(reg, stato, tesi, grafico="c_forecast.png", venerdi=False)
     ult = date[-1] if date else ""
     dx.append(P((f"Ultime chiusure: {gg_mese(ult)}. " if ult else "") + "La previsione non cambia fino a venerdì; \"-\": fermo alla partenza."
                 + (" Verdetto lunedì, con le chiusure di stasera." if venerdi else ""), "p6_box"))
-    out += [evidenzia(t, st, ordine(st)), Spacer(1, 2), _legenda(reg, oggi=True), Spacer(1, 6),
-            _due_box(_come_si_gioca(fx, compatto=True), dx)]
+    # struttura v9: prima le regole e il punteggio, poi il tabellone, in fondo il perché
+    # con 6 mercati c'è posto per la spiegazione intera (cos'è la forchetta, quanto spesso tiene): serve a chi apre la
+    # pagina per la prima volta. Con lo strumento della settimana (7 righe) resta la versione breve.
+    out += [_due_box(_come_si_gioca(fx, compatto=len(ordine(st)) > 6), dx), Spacer(1, 7),
+            evidenzia(t, st, ordine(st)), Spacer(1, 2), _legenda(reg, oggi=True), Spacer(1, 6), _punto_box("Il punto", tesi)]
     return out

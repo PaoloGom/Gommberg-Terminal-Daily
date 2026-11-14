@@ -154,8 +154,8 @@ C = {
     # ---------- Pag. 5: mercati e agenda (i campi restano quelli di prima: li impagina il motore) ----------
     "mercati_titolo": "Numeri, temi aperti e calendario",
     "cruscotto": [   # [nome, ultimo, data, 1 g, 1 sett. (vs venerdì), da inizio anno]
-        ("Globale", [["MSCI ACWI (ETF, $)", "158,75", "14/10", "-1,2%", "-1,3%", "n.d."]]),
-        ("Stati Uniti", [["S&amp;P 500", "7.718,94", "14/10", "-1,1%", "-1,2%", "+12,8%"],
+        ("Mondo e Stati Uniti", [["MSCI ACWI (ETF, $)", "158,75", "14/10", "-1,2%", "-1,3%", "n.d."],
+                         ["S&amp;P 500", "7.718,94", "14/10", "-1,1%", "-1,2%", "+12,8%"],
                          ["Nasdaq Comp.", "26.692,87", "14/10", "-1,9%", "-2,5%", "+14,8%"],
                          ["Dow Jones", "51.621,48", "14/10", "-0,1%", "-0,1%", "+7,4%"],
                          ["Russell 2000", "2.729,53", "14/10", "-1,9%", "-2,8%", "+10,0%"]]),
@@ -166,8 +166,9 @@ C = {
                                     ["Hang Seng*", "24.010,00", "15/10", "-1,3%", "-0,8%", "-6,3%"],
                                     ["Kospi*", "n.d.", "15/10", "-8,7%", "n.d.", "n.d."]]),
     ],
-    "cruscotto_nota": "Fonte: FMP, Alpha Vantage, ANSA (FTSE MIB), Teleborsa (Kospi, 08:11). 1 g = chiusura su chiusura; "
-                      "1 sett. = su venerdì 9/10; da inizio anno = su chiusura 2025. * Asia: dato di stamattina.",
+    # note di pag. 5: solo come leggere le colonne. Le fonti dei dati stanno nella tabella Fonti di pag. 6.
+    "cruscotto_nota": "1 g = chiusura su chiusura; 1 sett. = su venerdì 9/10; da inizio anno = su chiusura 2025. "
+                      "* Asia: dato di stamattina (Kospi alle 08:11).",
     "cross_data": "Livello 14/10",
     "cross": [       # [strumento, livello, 1 g, 1 sett., 1 mese, lettura breve o "-"]
         ("Tassi", [["Treasury 2 anni", "4,82%", "+3 pb", "+2 pb", "+17 pb", "Sale con le attese sulla Fed [[treasury]]"],
@@ -179,13 +180,13 @@ C = {
                            ["Oro (spot, $/oncia)", "4.162,84", "0,0%", "+0,4%", "-4,2%", "-"]]),
         ("Volatilità", [["VIX (volatilità attesa)", "16,87", "+1,60", "+2,03", "-0,23", "Massimo dal 16/9"]]),
     ],
-    "cross_nota": "Fonte: FMP, Alpha Vantage (EUR/USD, oro), Teleborsa (spread). 1 mese = sul 14/9. VIX = volatilità "
-                  "attesa sull'S&amp;P 500.",
-    "termometri": [  # (tema, a che punto, ultima novità, tendenza su/giu/fermo o testo, cosa guardare)
-        ("Fed e tassi", "Riunione 27-28 ottobre", "Rialzo di ottobre di nuovo in gioco", "su", "Dati USA delle 14:30"),
-        ("AI e chip", "Rally concentrato", "Vendite da Wall Street all'Asia", "giu", "Nasdaq e Kospi"),
-        ("Dollaro", "EUR/USD 1,1156 in chiusura", "Più forte dopo il CPI", "su", "Treasury a 2 anni"),
-        ("Petrolio", "Brent sopra 104 $", "WTI verso 95 $ in seduta", "mista", "Prezzi della benzina"),
+    "cross_nota": "1 mese = sul 14/9. VIX = volatilità attesa sull'S&amp;P 500.",
+    "termometri": [  # (tema, a che punto, ultima novità, cosa si muove, cosa guardare). Al massimo 4.
+        # cosa si muove = "su: ...", "giu: ..." o "fermo: ...", e dopo i due punti CHE COSA sale o scende
+        ("Fed e tassi", "Riunione 27-28 ottobre", "Rialzo di ottobre di nuovo in gioco", "su: Probabilità di un rialzo", "Dati USA delle 14:30"),
+        ("AI e chip", "Rally concentrato", "Vendite da Wall Street all'Asia", "giu: Titoli dei chip", "Nasdaq e Kospi"),
+        ("Dollaro", "EUR/USD 1,1156 in chiusura", "Più forte dopo il CPI", "su: Dollaro contro euro", "Treasury a 2 anni"),
+        ("Petrolio", "Brent sopra 104 $", "WTI verso 95 $ in seduta", "fermo: Brent, senza direzione", "Prezzi della benzina"),
     ],
     "fermi": "Iran e Hormuz (nessuna novità verificata dal 13/10), Francia e debito europeo (dal 12/10).",
     # lettura (pag. 2): MAI il quadro di pag. 1 con altre parole (§3.3). Dice ciò che le tabelle di questa pagina mostrano
@@ -204,26 +205,25 @@ C = {
     # Misura di pag. 5: temi aperti al massimo 4; righe uscite ("ieri") più righe in arrivo ("agenda") al massimo 7.
     # agenda: 5-6 righe, (quando Roma, evento, attese, perché conta, come può muovere i mercati) - <b> sull'evento chiave.
     # L'ultima colonna insegna a leggere il dato PRIMA che esca: cosa succede di solito se esce sopra le attese e cosa
-    # se esce sotto, con parole di tutti. Sempre come tendenza ("di solito"), mai come previsione; se un evento non ha
-    # un numero atteso, dice cosa ascoltare. Il giorno dopo la riga torna in "ieri" con l'esito.
+    # se esce sotto, con parole di tutti, sempre nella forma "<b>Sopra:</b> ... <br/><b>Sotto:</b> ..." (una riga ciascuno).
+    # Sempre come tendenza ("di solito"), mai come previsione; se un evento non ha un numero atteso, dice cosa ascoltare. Il giorno dopo la riga torna in "ieri" con l'esito.
     "agenda": [
         ("Gio 15, 11:00", "Produzione industriale area euro (agosto)", "0,0% sul mese; prima -0,1%",
          "Tenuta dell'industria europea",
-         "Sopra: un po' di sostegno all'euro. Sotto: pesa sui titoli industriali europei."),
+         "<b>Sopra:</b> un po' di sostegno all'euro.<br/><b>Sotto:</b> pesa sui titoli industriali europei."),
         ("<b>Gio 15, 14:30</b>", "<b>Vendite al dettaglio USA (settembre)</b>", "<b>+0,3% sul mese; prima +1,2%</b>",
          "<b>Evento n.1:</b> primi consumi dopo il CPI",
-         "<b>Sopra:</b> di solito salgono dollaro e rendimenti a breve, perché consumi forti lasciano alla Fed spazio "
-         "per alzare i tassi. <b>Sotto:</b> il rialzo di ottobre perde forza."),
+         "<b>Sopra:</b> di solito salgono dollaro e rendimenti a breve: consumi forti lasciano spazio alla Fed."
+         "<br/><b>Sotto:</b> il rialzo di ottobre perde forza."),
         ("Gio 15, 14:30", "Prezzi alla produzione USA (PPI, settembre)", "+0,6% sul mese; prima +0,4%",
          "Se l'energia passa a monte della filiera",
-         "Sopra: conferma il dato di ieri e di solito pesa sui titoli di Stato. Sotto: l'inflazione sembra meno diffusa."),
+         "<b>Sopra:</b> conferma il dato di ieri, di solito pesa sui titoli di Stato.<br/><b>Sotto:</b> l'inflazione sembra meno diffusa."),
         ("Gio 15, 14:30", "Sussidi di disoccupazione settimanali", "199 mila; prima 197 mila", "Tenuta del lavoro",
-         "Sopra, cioè più sussidi: lavoro più debole, di solito rendimenti giù. Sotto: lavoro solido, Fed più libera."),
+         "<b>Sopra</b> (più sussidi): lavoro più debole, di solito rendimenti giù.<br/><b>Sotto:</b> lavoro solido, Fed più libera."),
         ("Ven 16, 15:15", "Produzione industriale USA (settembre)", "+0,4% sul mese; prima 0,0%", "Attività reale",
-         "Sopra: l'economia regge anche con tassi alti. Sotto: torna il timore di una frenata."),
+         "<b>Sopra:</b> l'economia regge anche con tassi alti.<br/><b>Sotto:</b> torna il timore di una frenata."),
     ],
-    "agenda_nota": "Fonti: Teleborsa, Admiral Markets, Banca d'Italia. Ora di Roma. Sopra e sotto: rispetto alle attese; "
-                   "\"di solito\" è una tendenza, non una previsione.",
+    # niente nota sotto l'agenda: le fonti stanno nella tabella Fonti di pag. 6, l'ora di Roma e "di solito" nell'intestazione
     # ---------- Pag. 2-4: analisi e storie. 6 unità (mezzo = 1, doppio = 2) su tre pagine, da 3 a 6 storie, in ordine
     # d'importanza: la prima spiega la top story. Una pagina intera ("doppio") solo alla storia che la regge. ----------
     "moduli": [   # 6 unità su pag. 2-4: ogni pagina 1 "doppio" o 2 "mezzo". "breve" = voce dell'indice di pag. 1
