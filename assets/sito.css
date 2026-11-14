@@ -23,6 +23,7 @@
   .gn-pitch { font-size: 14px; margin-top: 5px; }
   /* Sul telefono cinque voci stanno in una riga con le etichette corte (data-s), distribuite su tutta la larghezza */
   .gn-nav { width: calc(100% + 36px); margin: 0 -18px; padding: 0 18px; overflow-x: auto; scrollbar-width: none; gap: 8px; justify-content: space-between; font-size: 13.5px; }
+  .gn-logo { font-size: min(28px, 7.2vw); }   /* la testata sta in una riga anche sui telefoni da 320-360 px */
   .gn-nav a[data-s] { font-size: 0; }
   .gn-nav a[data-s]::before { content: attr(data-s); font-size: 13.5px; }
   .gn-nav::-webkit-scrollbar { display: none; }
