@@ -155,15 +155,17 @@ C = {
 
     # ---------- Pag. 5: mercati e agenda (i campi restano quelli di prima: li impagina il motore) ----------
     "mercati_titolo": "Numeri, temi aperti e calendario",
+    # Le tabelle di pag. 5 sono una panoramica, non un listino: gli indici che il lettore riconosce e quelli che dicono
+    # qualcosa di diverso (non due indici che si muovono sempre insieme). Dow Jones, FTSE 100 e Treasury a 30 anni non
+    # ci sono: entrano in un testo il giorno in cui fanno notizia.
     "cruscotto": [   # [nome, ultimo, data, 1 g, 1 sett. (vs venerdì), da inizio anno]
         ("Mondo e Stati Uniti", [["MSCI ACWI (ETF, $)", "158,75", "14/10", "-1,2%", "-1,3%", "n.d."],
                          ["S&amp;P 500", "7.718,94", "14/10", "-1,1%", "-1,2%", "+12,8%"],
                          ["Nasdaq Comp.", "26.692,87", "14/10", "-1,9%", "-2,5%", "+14,8%"],
-                         ["Dow Jones", "51.621,48", "14/10", "-0,1%", "-0,1%", "+7,4%"],
                          ["Russell 2000", "2.729,53", "14/10", "-1,9%", "-2,8%", "+10,0%"]]),
         ("Europa", [["Euro Stoxx 50", "6.190,37", "14/10", "+0,4%", "+0,3%", "+6,8%"],
                     ["FTSE MIB", "49.753", "14/10", "-0,6%", "0,0%", "n.d."],
-                    ["FTSE 100", "10.724,86", "14/10", "+0,7%", "+1,6%", "+8,0%"]]),
+]),
         ("Asia (15/10 intraday*)", [["Nikkei 225*", "64.425,95", "15/10", "-4,9%", "-6,7%", "+28,0%"],
                                     ["Hang Seng*", "24.010,00", "15/10", "-1,3%", "-0,8%", "-6,3%"],
                                     ["Kospi*", "n.d.", "15/10", "-8,7%", "n.d.", "n.d."]]),
@@ -175,7 +177,6 @@ C = {
     "cross": [       # [strumento, livello, 1 g, 1 sett., 1 mese, lettura breve o "-"]
         ("Tassi", [["Treasury 2 anni", "4,82%", "+3 pb", "+2 pb", "+17 pb", "Sale con le attese sulla Fed [[treasury]]"],
                    ["Treasury 10 anni", "5,19%", "-2 pb", "-5 pb", "+22 pb", "-"],
-                   ["Treasury 30 anni", "5,52%", "-4 pb", "-8 pb", "+18 pb", "-"],
                    ["Spread Italia", "110 pb", "+2 pb", "n.d.", "n.d.", "10 anni italiano al 4,57% (Teleborsa)"]]),
         ("Cambi", [["EUR/USD", "1,1156", "-0,4%", "-0,4%", "-3,4%", "-"]]),
         ("Materie prime", [["Brent future", "106,06 $", "+0,4%", "+1,3%", "+0,4%", "-"],
@@ -194,8 +195,9 @@ C = {
     # lettura (pag. 2): MAI il quadro di pag. 1 con altre parole (§3.3). Dice ciò che le tabelle di questa pagina mostrano
     # e la prima pagina no, e spiega il passaggio a chi le tabelle non le sa leggere.
     "lettura": "Due cose che le tabelle dicono e la prima pagina no. Il Russell 2000, l'indice delle società più piccole, "
-               "perde quasi il doppio dell'S&amp;P 500: di solito chi ha più debiti soffre di più i tassi alti. Il Dow "
-               "Jones, dove la tecnologia pesa poco, è quasi fermo: la vendita riguarda un settore, non tutta la borsa.",
+               "perde quasi il doppio dell'S&amp;P 500: di solito chi ha più debiti soffre di più i tassi alti. L'Euro "
+               "Stoxx 50 sale mentre Wall Street scende: la vendita riguarda i tecnologici americani, che nell'indice "
+               "europeo di solito pesano poco.",
 
     # ---------- Pag. 3-5 ----------
     "ieri": [        # (quando, evento, dato contro attese, sorpresa +/-/=, → max 8 parole). Casa delle cifre solo per i dati NON raccontati altrove
