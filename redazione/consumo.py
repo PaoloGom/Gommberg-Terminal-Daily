@@ -69,6 +69,22 @@ def conta(fatti):
     return {"schede": schede, "ricerche": len(ricerche), "fonti": len(url)}
 
 
+def versione_e_peso(leggi, elenco):
+    """Versione scritta in testa alle istruzioni e KB letti per intero a ogni avvio (istruzioni + pagina modello).
+    leggi(percorso) dà i byte di un file del kit, elenco() i nomi in redazione/: dal disco o da un commit."""
+    out = {}
+    try:
+        t = leggi("redazione/ISTRUZIONI.md")
+        m = re.search(r"v\d[\d.]*", t.split(b"\n", 1)[0].decode("utf-8", "ignore"))
+        if m:
+            out["v"] = m.group(0).rstrip(".")
+        modelli = [len(leggi("redazione/" + f)) for f in elenco() if re.match(r"edizione_modello.*\.py$", f)]
+        out["avvio_kb"] = round((len(t) + (max(modelli) if modelli else 0)) / 1024)
+    except Exception:
+        pass
+    return out
+
+
 def metti(riga):
     reg = [x for x in carica("registro.json") if x.get("n") != riga["n"]] + [riga]
     scrivi("registro.json", sorted(reg, key=lambda x: x["n"]))
@@ -88,6 +104,8 @@ def indici(n, data, fatti_p):
         riga.update(conta(json.load(open(fatti_p, encoding="utf-8"))))
     except Exception:
         pass
+    riga.update(versione_e_peso(lambda f: open(os.path.join(REPO, f), "rb").read(),
+                                lambda: os.listdir(os.path.join(REPO, "redazione"))))
     k = metti(riga)
     print(f"Consumo: indicatori registrati (#{int(n):03d}, {riga.get('durata_min')} min, {riga.get('ricerche')} ricerche; {k} righe)")
 
@@ -96,15 +114,27 @@ def storico():
     """Le edizioni già uscite: durata = ora del commit "Edizione #NNN" meno l'avvio programmato (8:58; 9:00 fino al 13/10),
     solo se l'uscita cade tra le 9:05 e le 10:30 (un'edizione rifatta a mano più tardi non ha una durata nota)."""
     ed = json.load(open(os.path.join(REPO, "edizioni.json"), encoding="utf-8"))
-    log = subprocess.run(["git", "-C", REPO, "log", "--reverse", "--format=%cI %s", "--grep=^Edizione #"],
+    log = subprocess.run(["git", "-C", REPO, "log", "--reverse", "--format=%H %cI %s", "--grep=^Edizione #"],
                          capture_output=True, text=True).stdout.splitlines()
-    uscite = {}
+    uscite, commit = {}, {}
     for r in log:
-        m = re.match(r"(\S+) Edizione #(\d+) - (\d{4}-\d\d-\d\d)", r)
+        m = re.match(r"(\S+) (\S+) Edizione #(\d+) - (\d{4}-\d\d-\d\d)", r)
         if m:
-            t = dt.datetime.fromisoformat(m.group(1)).astimezone(ROMA)
-            if t.date().isoformat() == m.group(3):          # solo il commit del giorno dell'edizione (non le prove)
-                uscite.setdefault(int(m.group(2)), t)
+            t = dt.datetime.fromisoformat(m.group(2)).astimezone(ROMA)
+            if t.date().isoformat() == m.group(4):          # solo il commit del giorno dell'edizione (non le prove)
+                uscite.setdefault(int(m.group(3)), t)
+                commit.setdefault(int(m.group(3)), m.group(1))
+
+    def dal_commit(h):
+        mostra = lambda f: subprocess.run(["git", "-C", REPO, "show", f"{h}:{f}"], capture_output=True).stdout
+        nomi = lambda: subprocess.run(["git", "-C", REPO, "ls-tree", "--name-only", h, "redazione/"], capture_output=True,
+                                      text=True).stdout.replace("redazione/", "").split()
+        return versione_e_peso(mostra, nomi)
+    reg = carica("registro.json")
+    for x in reg:                                             # righe già presenti: si completa solo ciò che manca
+        if "v" not in x and x.get("n") in commit:
+            x.update(dal_commit(commit[x["n"]]))
+    scrivi("registro.json", reg)
     fatte, presenti = 0, {x.get("n") for x in carica("registro.json")}
     for e in ed:
         n, d = e["numero"], e["data"]
@@ -120,6 +150,7 @@ def storico():
             riga.update(conta(json.load(open(fp, encoding="utf-8"))))
         except Exception:
             pass
+        riga.update(dal_commit(commit[n]))
         riga["ricostruita"] = True
         metti(riga)
         fatte += 1
