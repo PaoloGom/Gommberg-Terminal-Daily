@@ -1,0 +1,146 @@
+[
+ {
+  "id": "T01",
+  "trovato": "Nvidia (NVDA) closed Friday at $162.85, down $3.34 or 2.01 percent [financefeeds]. Nvidia reports quarterly earnings on the 17th U.S. time, or early on the 18th in Korea. [Seoul Economic Daily]. NVIDIA will host a conference call on Tuesday, November 17, at 2 p.m. PT (5 p.m. ET). [stocktitan, comunicato Nvidia]. Nvidia (NVDA) shares rose 0.90%, or $1.94, to close at $217.94 on Tuesday, October 27, 2026. [heygotrade]. Revenue is expected to be $108.0 billion, plus or minus 2%. [comunicato Nvidia Q2]. NVIDIA is not assuming any Data Center compute revenue from China in its outlook.",
+  "verifica": "confermato",
+  "nota_revisore": "Chiusura 162,85 (2 siti), 217,94 del 27/10 (2 siti), data 17/11 e guida 108,0 mld $ +/-2% senza Cina letti; 'primo esame senza Huang' coerente con le cronache (uscita di Huang)."
+ },
+ {
+  "id": "D02",
+  "trovato": "S&P 500: 'fell 4.4% for its worst day since' Trump's April 2025 'Liberation Day' tariffs; Nasdaq 'tumbled 5.5%'; Nvidia 'fell 9.3%'; AMD 'tumbled 17.3%'. Cause (AP, wfsb.com): investors feared AI data center construction could slow because of 'how expensive it's become to borrow money'; Democratic election wins raised the possibility that 'governments could force pauses' in data center construction.",
+  "verifica": "confermato",
+  "nota_revisore": "Tutti i numeri coincidono; cause AP: timori sui data center, costo del denaro, elezioni di meta' mandato. Letto sulla copia AP di wfsb.com (stesso articolo)."
+ },
+ {
+  "id": "D03",
+  "trovato": "Revenue is expected to be $108.0 billion, plus or minus 2%. GAAP and non-GAAP gross margins are expected to be 74.0%, plus or minus 50 basis points. NVIDIA is not assuming any Data Center compute revenue from China in its outlook. // revenue for the second quarter ended July 26, 2026, of $96.2 billion ... up 106% from a year ago. Second-quarter revenue was $89.0 billion, up 18% from the previous quarter and up 117% from a year ago.",
+  "verifica": "confermato",
+  "nota_revisore": "Comunicato Nvidia Q2 FY27: guida 108,0 mld $ +/-2%, margine 74,0% +/-50 pb, nessun ricavo data center Cina; Q2 96,2 mld $ (+106%), data center 89,0 mld $."
+ },
+ {
+  "id": "D05",
+  "trovato": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent ... in support of the Federal Reserve's dual mandate. Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack, who preferred to raise the target range ... for the federal funds rate by 1/4 percentage point at this meeting.",
+  "verifica": "confermato",
+  "nota_revisore": "Comunicato FOMC 28/10 (PDF federalreserve.gov); 10-2 confermato da wrenews.com ('voted 10-2 at its October 27-28 meeting')."
+ },
+ {
+  "id": "N01",
+  "trovato": "The Producer Price Index for final demand rose 0.3 percent in October, seasonally adjusted. ... the index for final demand increased 6.5 percent for the 12 months ended in October. The index for final demand less foods, energy, and trade services rose 0.5 percent in October. ... prices for final demand less foods, energy, and trade services advanced 4.9 percent [12 mesi]. // Startup Fortune: Final demand rose 0.3% in October, below the 0.4% economists expected.",
+  "verifica": "confermato",
+  "nota_revisore": "BLS (comunicato 13/11) conferma +0,3% m/m, +6,5% a/a, core +0,5% e +4,9%; atteso +0,4% da Startup Fortune/Cointelegraph (non nel testo BLS)."
+ },
+ {
+  "id": "N02",
+  "trovato": "On Thursday, Iran's military said four oil tankers were hit by explosions in the Strait of Hormuz after ignoring warnings. Reuters could not immediately verify the Iranian accounts. // Trump said on Truth Social that a deal with Iran was not necessary to end the war. [Reuters via investing.com, titolo: 'Trump to stay with Iran blockade']. AP: analyst Michael Singh expects the status quo to continue, including the U.S. 'monthslong naval blockade'.",
+  "verifica": "confermato",
+  "nota_revisore": "Petroliere, mancata verifica Reuters e frase di Trump letti alla lettera; blocco navale che resta: titolo Reuters e AP (status quo)."
+ },
+ {
+  "id": "N04",
+  "trovato": "Lawmakers are pressing their colleagues to pass at least four bills on chip exports. Jensen Huang is separately expected to testify before Congress before Thanksgiving. ... AI model stocks Z.AI 2513.HK and MiniMax Group 0100.HK tumbling 12% and 8.4% respectively. [Reuters via Daily Maverick]",
+  "verifica": "confermato",
+  "nota_revisore": "Quattro leggi, Huang prima del Ringraziamento (26 novembre, confermato da insideai.news), Z.AI -12% e MiniMax -8,4%."
+ },
+ {
+  "id": "D01",
+  "trovato": "Nvidia (NVDA) closed Friday at $162.85, down $3.34 or 2.01 percent. The stock lost 12.75 percent on the week, from $186.64 on 6 November. [financefeeds] // Nvidia (NVDA) closed at $217.94 on Tuesday 27 October, up $1.94 or 0.90 percent [financefeeds]; ... to close at $217.94 on Tuesday, October 27, 2026 [heygotrade].",
+  "verifica": "confermato",
+  "nota_revisore": "Seconda fonte pubblica (financefeeds, heygotrade, stockinvest nei titoli) per i tre prezzi; calcoli: 186,64/217,94 = -14,36%, 162,85/186,64 = -12,75% (arrotondato -12,7%) OK. Nota: 12,75 sta al limite dell'arrotondamento."
+ },
+ {
+  "id": "D06",
+  "trovato": "The yield on the 10-year note finished November 6, 2026 at 4.86% ... the 2-year note ended at 4.51% [Seeking Alpha snapshot]. // Wolf Street (14/11): 2-year 'to 4.88%', 10-year 'to 5.15%', 30-year 'to 5.47%'; il 30 anni e' salito di 25 pb da giovedi' 5/11.",
+  "verifica": "confermato",
+  "nota_revisore": "Confermati 2a e 10a del 6/11 (4,51; 4,86) e tutti e tre i valori del 13/11 (4,88; 5,15; 5,47); manca il 30 anni del 6/11 (5,26%) in fonte indipendente (Wolf Street implica ~5,22% al 5/11, non al 6/11). Differenze in pb coerenti coi numeri. [Scheda corretta dopo la revisione: Euro Stoxx +1,8% (chiusura 4/11 6.271,90); tolto il 30 anni non verificato.]"
+ },
+ {
+  "id": "D07",
+  "trovato": "CME FedWatch showed the odds of a 25-basis-point hike rising from 85.4% on Thursday to 89.7% after the data. The chance of a 50-basis-point move fell from 14.5% to 10.3%. [Startup Fortune]",
+  "verifica": "confermato",
+  "nota_revisore": "Numeri esatti in Startup Fortune (da Cointelegraph); Admiral Markets non riporta queste percentuali; Teleborsa a fine seduta cita 12% per il rialzo da 50 pb (dato diverso, ora diversa)."
+ },
+ {
+  "id": "D08",
+  "trovato": "Last settlement: Brent $95.84 on Friday 13 November, up 2 cents ... Brent fell about 2.5 percent from the $98.32 settlement on 6 November. WTI $88.56 on Friday [financefeeds]. // Crude inventories rose by 4.7 million barrels to 414.4 million barrels in the week ended November 6. ... in a Reuters poll for a 1.1 million-barrel draw. [Reuters via investing.com]",
+  "verifica": "confermato",
+  "nota_revisore": "Scorte (+4,7 mln a 414,4 mln vs -1,1 atteso) da Reuters; chiusure Brent 95,84 e WTI 88,56 e -2,5% da financefeeds (il testo Reuters e' intraday: Brent 95,41, WTI 88,52). Fonte per le chiusure meno autorevole."
+ },
+ {
+  "id": "D09",
+  "trovato": "\"I think the oil market is priced to perfection at this point,\" he said. [Chris Brankin, MiTrade, Reuters via investing.com]",
+  "verifica": "confermato",
+  "nota_revisore": "Citazione identica nel testo Reuters su investing.com (frase seguente non estratta)."
+ },
+ {
+  "id": "D10",
+  "trovato": "The Euro Stoxx 50 closed Friday down 0.19% at 6,386.86 points. The index gained 3.5% over the week, its best weekly performance since April. Robert Greil of Merck Finck: 'Der Marktfokus verschiebt sich gerade weg vom Wachstumsfokus hin in Richtung verlaesslicher Qualitaet.' [dpa-AFX su finanzen.net, riassunto dello strumento]",
+  "verifica": "confermato",
+  "nota_revisore": "Chiusura, variazione, +3,5% settimanale (migliore da aprile) e commento Merck Finck confermati."
+ },
+ {
+  "id": "D11",
+  "trovato": "Il FTSE MIB chiude a 51.858,51 punti con +0,10%. Su base settimanale l'indice guadagna il 3,61%. [Money.it] // Sulla parita' lo spread, che rimane a quota +104 punti base, con il rendimento del BTP decennale che si posiziona al 4,42%. [Teleborsa]",
+  "verifica": "confermato",
+  "nota_revisore": "Indice e settimana da Money.it, spread 104 pb e Btp 4,42% da Teleborsa; Teleborsa non nomina il Bund (spread Btp-Bund implicito, convenzione di mercato)."
+ },
+ {
+  "id": "D12",
+  "trovato": "AP, S&P 500 4/11 chiusura 7.688,62 e 13/11 7.561,67; Nasdaq 25.736,51 e 25.136,27; Russell 2000 2.856,95 e 2.790,49. Euro Stoxx 50: 'kletterte ... um 2,07 Prozent auf 6.271,90 Punkte' (4/11) e 6.386,86 (13/11). Hang Seng 13/11: 23.637,60.",
+  "verifica": "confermato",
+  "nota_revisore": "Euro Stoxx 50 6.386,86/6.271,90 = +1,83%, cioe' +1,8% e non +1,9%. S&P -1,65% (-1,7% OK), Nasdaq -2,33% OK, Russell -2,33% OK. Nikkei e Hang Seng (chiusura 4/11) non verificati in fonte indipendente. [Scheda corretta dopo la revisione: Euro Stoxx +1,8% (chiusura 4/11 6.271,90); tolto il 30 anni non verificato.]"
+ },
+ {
+  "id": "K01",
+  "trovato": "11,00 EUR Produzione industriale m/m set Precedente -0,5% consenso 0,6% // 14,30 USA Vendite al dettaglio m/m ott Precedente 0,8% consenso 0,0% // 20,00 USA Pubblicazione dei verbali della riunione del FOMC // 18,00 USA Discorso di Warsh (Fed) [Radiocor su Borsa Italiana]",
+  "verifica": "confermato",
+  "nota_revisore": "Valori e orari (ora italiana) confermati; Warsh 12:00 ET = 18:00 Roma (Admiral Markets). I giorni sono nelle intestazioni del calendario, coerenti con lun 16, mar 17, mer 18."
+ },
+ {
+  "id": "D04",
+  "trovato": "Hana Securities said the direct impact on AI chip demand would be limited. Mirae Asset Securities also judged that even if orders shift from Nvidia to AMD or custom chips [un forte calo della domanda di HBM e' improbabile]. Observers say SK hynix may be relatively more sensitive [perche' gran parte delle sue HBM va a Nvidia]. [Seoul Economic Daily]",
+  "verifica": "confermato",
+  "nota_revisore": "Tre attribuzioni confermate; il testo continua tra parentesi quadre (parafrasi dello strumento, non frase letterale). Il fatto parla di 'SK hynix piu' sensibile di Samsung': coerente con il pezzo (Samsung +2,23%, SK hynix -3,80%)."
+ },
+ {
+  "id": "N05",
+  "trovato": "The benchmark Kospi closed down 52.20 points, or 0.98 percent, at 5,290.53. Foreigners sold a net 550.5 billion won worth of stocks. [JoongAng Daily] // That was 4.56% above the previous Friday's close of 5,059.69 on the 6th. [Seoul Economic Daily]",
+  "verifica": "confermato",
+  "nota_revisore": "Chiusura, -0,98% e vendite straniere 550,5 mld won (JoongAng); +4,56% settimanale da Seoul Economic Daily (5.290,53/5.059,69 = +4,56%)."
+ },
+ {
+  "id": "N06",
+  "trovato": "Tra i best performers di Milano, in evidenza Brunello Cucinelli (+3,20%), Banca Generali (+2,98%), [Amplifon +2,47%, Eni +1,98%]. Le peggiori performance, invece, si sono registrate su Fincantieri, che ha chiuso a -4,28%. [Teleborsa]",
+  "verifica": "confermato",
+  "nota_revisore": "Teleborsa conferma tutti i nomi e le percentuali (Technoprobe e Prysmian dal riassunto). Attenzione: Money.it riporta Cucinelli +2,82% e Fincantieri -4,11%, rilevazione diversa; i dati del giornale coincidono con Teleborsa."
+ },
+ {
+  "id": "N09",
+  "trovato": "London's FTSE 100 rose 0.36% to 10,902.56. Switzerland's SMI fell 0.29% to 15,106.12, after reaching a record high the previous day following a five-week rally. [dpa-AFX su finanzen.net]",
+  "verifica": "confermato",
+  "nota_revisore": "Valori e 'record del giorno prima' confermati."
+ },
+ {
+  "id": "N08",
+  "trovato": "Foreign investors sold a net 10.41 trillion won in the first week of November ... turned to net purchases of 460.8 billion won in the second week [Seoul Economic Daily]",
+  "verifica": "confermato",
+  "nota_revisore": "10,41 mila miliardi (trillion) di won venduti e 460,8 miliardi acquistati confermati."
+ },
+ {
+  "id": "A01",
+  "trovato": "NVIDIA will host a conference call on Tuesday, November 17, at 2 p.m. PT (5 p.m. ET). The call will be webcast live (in listen-only mode) on investor.nvidia.com. [stocktitan, comunicato Nvidia]",
+  "verifica": "confermato",
+  "nota_revisore": "14:00 PT = 17:00 ET = 23:00 a Roma (differenza di 6 ore valida a metà novembre). Il comunicato sui conti Q2 citato dalla scheda non contiene la data del Q3; la data viene dal comunicato di convocazione."
+ },
+ {
+  "id": "N07",
+  "trovato": "Il petrolio consolida i rialzi di ieri dopo che Trump ha escluso la necessita' di un accordo con l'Iran ... un nuovo incidente che ha coinvolto una nave gasiera nei pressi dello stretto di Hormuz [Teleborsa]",
+  "verifica": "confermato",
+  "nota_revisore": "Teleborsa scrive 'consolida' i rialzi, non 'estende': lieve differenza di sfumatura; 'gasiera' non specifica GNL (nave per il gas naturale liquefatto)."
+ },
+ {
+  "id": "N03",
+  "trovato": "Trump is expected to visit the Philippines next week and attend Asia-Pacific Economic Cooperation meetings in Shenzhen, China. ... Trump is set to hold an 'unprecedented three-way summit' with Xi Jinping and Vladimir Putin. [AP] // Mao Ning ... said China 'is in communication with relevant parties regarding a meeting between the three heads of state.' [Korea Times]",
+  "verifica": "confermato",
+  "nota_revisore": "Viaggio e incontro a tre confermati da AP; posizione di Pechino ('in comunicazione'), del 6/11, non 'si stanno valutando contatti' alla lettera; nessuna conferma cinese successiva trovata. APEC a Shenzhen il 18-19 novembre (Al Jazeera)."
+ }
+]

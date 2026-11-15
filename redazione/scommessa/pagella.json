@@ -1,11 +1,11 @@
 {
-  "settimane": 4,
-  "punti": 31,
-  "su": 50,
-  "par": 30.3,
-  "copertura_range_%": 76.0,
-  "direzione_giusta_%": 48.0,
-  "abilita_redazione_%": -0.54,
+  "settimane": 5,
+  "punti": 38,
+  "su": 62,
+  "par": 37.6,
+  "copertura_range_%": 67.7,
+  "direzione_giusta_%": 54.8,
+  "abilita_redazione_%": 0.83,
   "t_dm": null,
   "variabile": {
     "settimane": 3,
