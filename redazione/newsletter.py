@@ -164,6 +164,8 @@ def main():
         return
 
     if modo == "diagnosi":
+        chiave = os.environ.get("KIT_API_KEY", "").strip()      # mai il valore: solo lunghezza e forma
+        print(f"Chiave: {len(chiave)} caratteri, forma V4 (kit_...): {'sì' if chiave.startswith('kit_') else 'no'}")
         stato, conto = kit("GET", "/account")
         print(f"Account: HTTP {stato} - piano: {(conto.get('account') or {}).get('plan_type')}")
         stato, modelli = kit("GET", "/email_templates")
