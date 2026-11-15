@@ -1,22 +1,23 @@
 #!/usr/bin/env python3
-"""Quanto lavora (e quanto consuma) l'attività del mattino: i numeri della pagina consumi/ del sito.
+"""Quanto lavora (e quanto pesa sul piano) l'attività del mattino: i numeri della pagina consumi/ del sito.
 Non fa parte del giornale e non può fermare l'uscita: esce sempre con 0 e non lancia mai eccezioni. Nessuna chiamata a
 modelli o alla rete: costa zero token.
 
 Due file in consumi/:
-  registro.json   una riga per edizione, scritta da pubblica.sh: durata, ricerche, fonti lette, schede, testo scritto.
-                  Sono indicatori di lavoro, misurati dai file dell'edizione.
-  taratura.json   le misure vere dei token (poche, fatte a mano): la sessione di un'edizione, aperta in chat, dà il
-                  consumo misurato dal sistema (Skill "explain-usage"); una sessione programmata non può chiederlo da
-                  sola (prova del 15/11/2026: "Unknown skill"). Da qui viene il tasso "token pesati al minuto" con cui la
-                  pagina stima il consumo di ogni edizione: stima = durata x tasso. Più tarature, stima più solida.
+  registro.json   una riga per edizione, scritta da pubblica.sh: durata, schede dei fatti, fonti citate, ricerche.
+                  Sono misure, prese dai file dell'edizione.
+  taratura.json   le letture vere del consumo: quanti punti del limite settimanale (pagina Utilizzo dell'app) sono
+                  costati quanti minuti di attività, su quale piano. Da qui viene il tasso "punti al minuto" con cui la
+                  pagina stima il peso di ogni edizione: stima = durata x tasso. Vale il piano dell'ultima lettura.
 
-Token pesati = ingresso + 2 x scritti in cache + 0,1 x letti dalla cache + 5 x uscita (il peso con cui li conta il sistema).
+Perché non i token: un'attività programmata non può leggere i propri token. In chat il sistema li dà (Skill
+"explain-usage"); nella sessione di un'attività la skill non esiste, né durante la corsa né riaprendo la sua chat
+(due prove il 15/11/2026: "Unknown skill: explain-usage"). L'unica misura vera disponibile è la pagina Utilizzo.
 
 Uso:
-  consumo.py --indici <N> <AAAA-MM-GG> [fatti.json]     riga dell'edizione appena pubblicata (lo chiama pubblica.sh)
-  consumo.py --storico                                   ricostruisce le righe delle edizioni già uscite, dal repository
-  consumo.py --taratura <durata_min> "<nota>" < uso.json  aggiunge una misura vera (il JSON di explain-usage su stdin)
+  consumo.py --indici <N> <AAAA-MM-GG> [fatti.json]             riga dell'edizione appena pubblicata (lo chiama pubblica.sh)
+  consumo.py --storico                                           aggiunge le edizioni già uscite che mancano, dal repository
+  consumo.py --taratura <punti> <minuti> <piano> "<nota>" [AAAA-MM-GG]   aggiunge una lettura vera
 Variabili: GTD_REPO (default: il repository di questo file), GTD_LAVORO (default /home/claude/lavoro)."""
 import datetime as dt
 import json
@@ -30,12 +31,6 @@ QUI = os.path.dirname(os.path.abspath(__file__))
 REPO = os.environ.get("GTD_REPO") or os.path.dirname(QUI)
 LAVORO = os.environ.get("GTD_LAVORO", "/home/claude/lavoro")
 ROMA = zoneinfo.ZoneInfo("Europe/Rome")
-PESI = {"input": 1, "cacheWrite": 2, "cacheRead": 0.1, "output": 5}
-# gruppi del sistema -> voci della pagina (ciò che non è qui: un connettore se comincia per mcp__, altrimenti "altro")
-VOCI = {"instructions": "istruzioni", "person": "testo", "claude": "testo", "summary": "testo",
-        "WebSearch": "web", "WebFetch": "web", "Agent": "agenti", "Task": "agenti",
-        "Bash": "comandi", "Read": "comandi", "Write": "comandi", "Edit": "comandi", "Glob": "comandi", "Grep": "comandi",
-        "mcp__container": "comandi", "NotebookEdit": "comandi"}
 
 
 def carica(nome):
@@ -74,10 +69,6 @@ def conta(fatti):
     return {"schede": schede, "ricerche": len(ricerche), "fonti": len(url)}
 
 
-def kb(*percorsi):
-    return round(sum(os.path.getsize(p) for p in percorsi if p and os.path.isfile(p)) / 1024)
-
-
 def metti(riga):
     reg = [x for x in carica("registro.json") if x.get("n") != riga["n"]] + [riga]
     scrivi("registro.json", sorted(reg, key=lambda x: x["n"]))
@@ -97,7 +88,6 @@ def indici(n, data, fatti_p):
         riga.update(conta(json.load(open(fatti_p, encoding="utf-8"))))
     except Exception:
         pass
-    riga["scritto_kb"] = kb(fatti_p, os.path.join(LAVORO, f"edizione_{data}.py"))
     k = metti(riga)
     print(f"Consumo: indicatori registrati (#{int(n):03d}, {riga.get('durata_min')} min, {riga.get('ricerche')} ricerche; {k} righe)")
 
@@ -115,11 +105,11 @@ def storico():
             t = dt.datetime.fromisoformat(m.group(1)).astimezone(ROMA)
             if t.date().isoformat() == m.group(3):          # solo il commit del giorno dell'edizione (non le prove)
                 uscite.setdefault(int(m.group(2)), t)
-    fatte = 0
+    fatte, presenti = 0, {x.get("n") for x in carica("registro.json")}
     for e in ed:
         n, d = e["numero"], e["data"]
         t = uscite.get(n)
-        if not t:
+        if not t or n in presenti:
             continue
         riga = {"n": n, "d": d, "ora": t.strftime("%H:%M"), "durata_min": None}
         avvio = t.replace(hour=9, minute=0) if d < "2026-10-14" else t.replace(hour=8, minute=58)
@@ -130,51 +120,20 @@ def storico():
             riga.update(conta(json.load(open(fp, encoding="utf-8"))))
         except Exception:
             pass
-        riga["scritto_kb"] = kb(fp, os.path.join(REPO, "redazione", "sorgenti", d, "edizione.py"))
         riga["ricostruita"] = True
         metti(riga)
         fatte += 1
-    print(f"Consumo: storico ricostruito ({fatte} edizioni)")
+    print(f"Consumo: storico, {fatte} edizioni aggiunte")
 
 
-def leggi_uso(testo):
-    try:
-        return json.loads(testo)
-    except ValueError:
-        pass
-    for m in re.finditer(r"\{", testo):
-        try:
-            ogg, _ = json.JSONDecoder().raw_decode(testo[m.start():])
-        except ValueError:
-            continue
-        if isinstance(ogg, dict) and "tokens" in ogg:
-            return ogg
-    raise ValueError("nessun JSON con \"tokens\" nell'ingresso")
-
-
-def taratura(durata, nota, testo):
-    uso = leggi_uso(testo)
-    tok = {k: int(uso["tokens"].get(k, 0) or 0) for k in PESI}
-    if not any(tok.values()):
-        raise ValueError("token tutti a zero")
-    quote, conn, chiamate = {}, {}, {}
-    for g in uso.get("groups") or []:
-        nome, q, c = str(g.get("group", "")), float(g.get("percent", 0) or 0), int(g.get("calls", 0) or 0)
-        if nome.startswith("mcp__") and nome not in VOCI:
-            k = nome[5:].replace("_", " ").strip() or "connettore"
-            conn[k] = round(conn.get(k, 0) + q, 1)
-            chiamate[k] = chiamate.get(k, 0) + c
-            continue
-        v = VOCI.get(nome, "altro")
-        quote[v] = round(quote.get(v, 0) + q, 1)
-        if nome in ("WebSearch", "WebFetch", "Agent", "Task"):
-            chiamate[nome] = chiamate.get(nome, 0) + c
-    riga = {"giorno": dt.datetime.now(ROMA).date().isoformat(), "nota": nota, "durata_min": float(durata),
-            "richieste": int(uso.get("requests", 0) or 0), "token": tok,
-            "pesati": round(sum(tok[k] * PESI[k] for k in PESI)), "quote": quote, "connettori": conn, "chiamate": chiamate}
+def taratura(punti, minuti, piano, nota, giorno=None):
+    riga = {"giorno": giorno or dt.datetime.now(ROMA).date().isoformat(), "piano": piano, "punti": float(punti),
+            "durata_min": float(minuti), "nota": nota}
+    if riga["punti"] <= 0 or riga["durata_min"] <= 0:
+        raise ValueError("punti e minuti devono essere positivi")
     t = carica("taratura.json") + [riga]
-    scrivi("taratura.json", t)
-    print(f"Consumo: taratura registrata ({riga['pesati'] / 1e6:.2f} milioni di token pesati in {durata} min; {len(t)} misure)")
+    scrivi("taratura.json", sorted(t, key=lambda x: x["giorno"]))
+    print(f"Consumo: taratura registrata ({riga['punti']} punti in {riga['durata_min']:.0f} min, piano {piano}; {len(t)} letture)")
 
 
 if __name__ == "__main__":
@@ -185,7 +144,7 @@ if __name__ == "__main__":
         elif a[:1] == ["--storico"]:
             storico()
         elif a[:1] == ["--taratura"]:
-            taratura(a[1], a[2] if len(a) > 2 else "", sys.stdin.read())
+            taratura(a[1], a[2], a[3], a[4] if len(a) > 4 else "", a[5] if len(a) > 5 else None)
         else:
             print(__doc__)
     except Exception as e:   # mai un errore verso l'attività: questi numeri sono un di più
