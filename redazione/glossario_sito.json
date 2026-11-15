@@ -1,5 +1,5 @@
 {
- "nota": "Contenuti per il sito (basi.html). Non lo legge la redazione: il PDF e i controlli usano solo glossario.json. Chiave = sigla di glossario.json, oppure voce nuova con breve. tipo/esteso/spiega/mecc(id di meccanismi.json)/fonte [nome,url]/titolo (come si mostra).",
+ "nota": "Contenuti per il sito (glossario.html, la pagina Impara). Non lo legge la redazione: il PDF e i controlli usano solo glossario.json e meccanismi.json. voci: chiave = sigla di glossario.json, oppure voce nuova con breve; tipo/esteso/spiega (cos'è e perché conta, per chi non ha mai studiato finanza)/esempio (facoltativo, numeri ipotetici)/borsa ('E la borsa?': il legame di solito con le azioni e il perché, solo dove esiste)/mecc (id di meccanismi.json)/fonte [nome,url]/titolo (come si mostra). meccanismi: per id di meccanismi.json, la versione per il lettore: spiega/esempio/nonvale (sostituiscono sul sito testo ed eccezioni, che restano scritti per la redazione).",
  "tipi": [
   "Indici",
   "Istituzioni",
@@ -11,7 +11,7 @@
  "voci": {
   "ACWI": {
    "tipo": "Indici",
-   "spiega": "L'indice MSCI della borsa mondiale: circa 2.500 aziende di 47 paesi, sviluppati ed emergenti. È il termometro unico del Gommberg: sul sito lo chiamiamo Mondo.",
+   "spiega": "L'indice della borsa mondiale calcolato da MSCI: circa 2.500 aziende grandi e medie di 47 paesi, sviluppati ed emergenti. Gli Stati Uniti pesano circa due terzi, per questo l'ACWI si muove molto con Wall Street. Nel Gommberg è il termometro del mondo: sul sito lo chiamiamo Mondo.",
    "esteso": "MSCI All Country World Index",
    "mecc": "M16",
    "fonte": [
@@ -21,12 +21,13 @@
   },
   "AI": {
    "tipo": "Aziende e strumenti",
-   "spiega": "Software che impara dai dati per svolgere compiti che richiedono giudizio: scrivere, tradurre, riconoscere immagini. Per i mercati conta soprattutto per la spesa in chip e data center.",
-   "esteso": "Artificial intelligence"
+   "spiega": "Programmi che imparano dai dati per fare compiti che richiedono giudizio: scrivere, tradurre, riconoscere immagini. Per i mercati è soprattutto una corsa agli investimenti in chip, data center ed energia, guidata dai colossi tecnologici che pesano di più negli indici USA.",
+   "esteso": "Artificial intelligence",
+   "borsa": "Una parte importante dei rialzi di Wall Street degli ultimi anni viene da pochi titoli legati all'AI. Quando il mercato dubita che quella spesa renda, sono loro a scendere di più, e con loro gli indici."
   },
   "AIE": {
    "tipo": "Istituzioni",
-   "spiega": "Organizzazione dei paesi consumatori di energia, con sede a Parigi. Ogni mese pubblica stime su domanda e offerta di petrolio e gas.",
+   "spiega": "L'Agenzia internazionale dell'energia, con sede a Parigi, riunisce i principali paesi consumatori. Ogni mese pubblica un rapporto sul petrolio con le stime di domanda e offerta mondiali: se prevede più offerta che domanda, il mercato lo legge come una spinta al ribasso sui prezzi.",
    "esteso": "International Energy Agency (IEA)",
    "mecc": "M11",
    "fonte": [
@@ -36,25 +37,27 @@
   },
   "BCE": {
    "tipo": "Istituzioni",
-   "spiega": "Banca centrale dei paesi che usano l'euro. Fissa i tassi d'interesse nell'area euro; il Consiglio direttivo decide circa ogni sei settimane.",
+   "spiega": "La banca centrale dei paesi che usano l'euro, con sede a Francoforte. Fissa i tassi d'interesse dell'area euro con un obiettivo: inflazione al 2% nel medio periodo. Il Consiglio direttivo decide sui tassi ogni sei settimane; la decisione esce alle 14:15 e alle 14:45 comincia la conferenza stampa.",
    "esteso": "Banca centrale europea",
    "fonte": [
     "BCE",
     "https://www.ecb.europa.eu"
-   ]
+   ],
+   "borsa": "Tassi più bassi rendono il credito meno caro e fanno valere di più gli utili futuri: per questo, di solito, un taglio aiuta la borsa. Ma un taglio già previsto è già nei prezzi, e conta di più il tono sulle mosse successive. Fanno eccezione le banche, che con tassi più bassi guadagnano meno sui prestiti."
   },
   "Beige Book": {
    "tipo": "Istituzioni",
-   "spiega": "Rapporto della Fed, otto volte l'anno, con le impressioni delle imprese di ogni area degli USA su economia, prezzi e lavoro. Esce circa due settimane prima della riunione del FOMC.",
+   "spiega": "Rapporto della Fed, otto volte l'anno, che raccoglie le impressioni di imprese e contatti locali nei 12 distretti della banca centrale USA su attività, lavoro e prezzi. Esce circa due settimane prima di ogni riunione sui tassi: non ha numeri, ma racconta cosa vedono le imprese prima che arrivino i dati ufficiali.",
    "esteso": "Rapporto della Fed",
    "fonte": [
     "Federal Reserve",
     "https://www.federalreserve.gov/monetarypolicy/publications/beige-book-default.htm"
-   ]
+   ],
+   "borsa": "Di solito muove poco i mercati: conta come indizio di cosa vede la Fed. Pesa di più quando parla di rallentamento, o di prezzi in risalita, in molte aree insieme."
   },
   "BoE": {
    "tipo": "Istituzioni",
-   "spiega": "Banca centrale del Regno Unito. Il suo comitato di politica monetaria decide il tasso ufficiale, il Bank Rate.",
+   "spiega": "La banca centrale del Regno Unito. Il suo comitato di politica monetaria, nove membri, decide il tasso ufficiale (Bank Rate) otto volte l'anno, con un obiettivo d'inflazione al 2%. Le sue decisioni muovono la sterlina e i Gilt, i titoli di Stato britannici.",
    "esteso": "Bank of England",
    "fonte": [
     "Bank of England",
@@ -63,64 +66,72 @@
   },
   "BoJ": {
    "tipo": "Istituzioni",
-   "spiega": "Banca centrale del Giappone. Le sue decisioni sui tassi muovono lo yen e il Nikkei.",
+   "spiega": "La banca centrale del Giappone. Per anni ha tenuto i tassi a zero o sotto zero per combattere prezzi fermi; dal 2024 ha cominciato ad alzarli. Le sue mosse contano oltre il Giappone, perché lo yen a tasso bassissimo è stato usato in tutto il mondo per finanziare investimenti (il carry trade).",
    "esteso": "Bank of Japan",
    "mecc": "M18",
    "fonte": [
     "Bank of Japan",
     "https://www.boj.or.jp/en/"
-   ]
+   ],
+   "borsa": "Un rialzo dei tassi giapponesi tende a rafforzare lo yen e a pesare sul Nikkei, perché gli esportatori incassano meno in yen. Se sorprende, può spingere a chiudere i carry trade e far scendere anche le altre borse, come ad agosto 2024."
   },
   "breakeven": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Inflazione che il mercato si aspetta nei prossimi anni, ricavata dalla differenza tra il rendimento di un titolo normale e quello di un titolo indicizzato all'inflazione, con la stessa scadenza.",
+   "spiega": "L'inflazione che il mercato si aspetta per i prossimi anni. Si ricava confrontando due titoli di Stato con la stessa scadenza, uno normale e uno protetto dall'inflazione: la differenza tra i due rendimenti è il punto di pareggio, cioè l'inflazione media che renderebbe indifferente tenere l'uno o l'altro.",
    "esteso": "Breakeven inflation",
    "mecc": "M27",
-   "titolo": "Breakeven"
+   "titolo": "Breakeven",
+   "esempio": "Se il Treasury a 10 anni rende il 4,3% e il TIPS a 10 anni il 2,0%, il breakeven è 2,3%: il mercato si aspetta un'inflazione media del 2,3% l'anno per dieci anni.",
+   "borsa": "Un breakeven in salita dice che cresce il timore sui prezzi: le banche centrali potrebbero tenere i tassi alti più a lungo, e di solito alla borsa non piace."
   },
   "Brent": {
    "tipo": "Materie prime",
-   "spiega": "Petrolio estratto nel Mare del Nord, il cui prezzo è il riferimento per Europa, Africa e Medio Oriente. Nelle edizioni è il future più vicino.",
+   "spiega": "Il petrolio del Mare del Nord. Il suo prezzo fa da riferimento per gran parte del greggio scambiato nel mondo, Europa, Africa e Medio Oriente compresi. Si quota in dollari al barile (159 litri); nel Gommberg è il prezzo del future con la consegna più vicina.",
    "esteso": "Petrolio del Mare del Nord",
    "mecc": "M10",
    "fonte": [
     "ICE",
     "https://www.ice.com"
-   ]
+   ],
+   "borsa": "Dipende da perché si muove. Se sale perché manca offerta (una guerra, un taglio dell'OPEC), pesa sulle borse dei paesi che importano petrolio, come Europa e Giappone, perché alza costi e inflazione. Se sale perché l'economia corre e consuma di più, può salire insieme alla borsa. Le compagnie petrolifere guadagnano in entrambi i casi; aerei e chimica soffrono."
   },
   "BTP": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Titoli di Stato italiani a medio-lungo termine. Il BTP a 10 anni è il riferimento per il costo del debito italiano.",
+   "spiega": "I titoli di Stato italiani a medio e lungo termine: chi li compra presta soldi allo Stato e riceve una cedola, cioè un interesse, ogni sei mesi. Il BTP a 10 anni è il riferimento per il costo del debito italiano: più alto è il suo rendimento, più l'Italia paga per finanziarsi.",
    "esteso": "Buoni del Tesoro Poliennali",
    "mecc": "M13",
    "fonte": [
     "Dipartimento del Tesoro",
     "https://www.dt.mef.gov.it"
-   ]
+   ],
+   "borsa": "Quando il rendimento dei BTP sale più di quello del Bund, cioè quando lo spread si allarga, Piazza Affari di solito soffre, soprattutto le banche, che hanno in portafoglio molti titoli di Stato italiani."
   },
   "Bund": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "I titoli di Stato più sicuri dell'eurozona. Il Bund a 10 anni è il riferimento per l'Europa e il confronto per lo spread dei BTP.",
+   "spiega": "I titoli di Stato tedeschi, considerati i più sicuri dell'eurozona per la solidità dei conti della Germania. Il Bund a 10 anni è il riferimento dei tassi europei: gli altri paesi si misurano con lui, e la differenza di rendimento si chiama spread.",
    "esteso": "Titoli di Stato tedeschi",
    "mecc": "M13",
    "fonte": [
     "Deutsche Finanzagentur",
     "https://www.deutsche-finanzagentur.de/en/"
-   ]
+   ],
+   "borsa": "Nei momenti di paura gli investitori vendono azioni e comprano Bund: il loro prezzo sale e il rendimento scende, mentre le borse calano."
   },
   "buyback": {
    "tipo": "Aziende e strumenti",
-   "spiega": "La società ricompra azioni proprie sul mercato: le azioni in circolazione diminuiscono e l'utile per azione sale.",
+   "spiega": "Quando una società usa la propria cassa per ricomprare le sue azioni sul mercato. Le azioni in circolazione diminuiscono, quindi ogni azione rimasta ha diritto a una fetta più grande degli utili. È un modo, alternativo al dividendo, di restituire denaro agli azionisti.",
    "esteso": "Riacquisto di azioni proprie",
    "fonte": [
     "Borsa Italiana",
     "https://www.borsaitaliana.it/borsa/glossario.html"
    ],
-   "titolo": "Buyback"
+   "titolo": "Buyback",
+   "esempio": "Un'azienda guadagna 100 milioni e ha 100 milioni di azioni: 1 euro di utile per azione. Se ne ricompra e cancella 10 milioni, con lo stesso utile guadagna 1,11 euro per azione.",
+   "borsa": "L'annuncio di un buyback di solito sostiene il titolo: c'è un compratore in più e l'utile per azione sale. Ma se l'azienda si indebita per farlo, o rinuncia a investire, il mercato può leggerlo come mancanza di idee."
   },
   "CAC 40": {
    "tipo": "Indici",
-   "spiega": "Indice delle 40 maggiori società quotate a Parigi.",
+   "spiega": "L'indice delle 40 maggiori società quotate alla borsa di Parigi. Pesano molto il lusso (LVMH, Hermès), l'energia, l'industria e le banche: per questo è sensibile ai consumi cinesi e al rischio politico francese.",
    "esteso": "Cotation Assistée en Continu",
    "fonte": [
     "Euronext",
@@ -129,63 +140,74 @@
   },
   "capex": {
    "tipo": "Aziende e strumenti",
-   "spiega": "Spesa di un'azienda per impianti, macchinari, data center. Quando sale molto, come per l'AI, pesa sui conti ma segnala fiducia nella domanda.",
+   "spiega": "Le spese di un'azienda per beni che durano anni: fabbriche, macchinari, reti, data center. Escono subito dalla cassa ma pesano sull'utile poco alla volta, perché si ammortizzano negli anni. Oggi il capex più seguito è quello dei colossi tecnologici per l'AI.",
    "esteso": "Capital expenditure",
-   "titolo": "Capex"
+   "titolo": "Capex",
+   "borsa": "Il capex di uno è il fatturato di un altro: quando i colossi tecnologici alzano le spese, salgono di solito i titoli di chi vende loro chip ed energia. A chi spende, invece, il mercato chiede di vedere che l'investimento renda: se non lo vede, punisce il titolo."
   },
   "carry trade": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Ci si indebita in una valuta con tassi bassi, spesso lo yen, per investire in una con tassi alti. Rende finché i cambi stanno fermi; se la valuta del prestito sale, si perde.",
+   "spiega": "Prendere a prestito in una valuta con tassi bassi, per anni soprattutto lo yen, e investire dove i tassi sono più alti, intascando la differenza. Funziona finché i cambi restano fermi: se la valuta presa a prestito si rafforza, il debito da restituire cresce e il guadagno sparisce in fretta.",
    "esteso": "Operazione di carry",
    "mecc": "M18",
-   "titolo": "Carry trade"
+   "titolo": "Carry trade",
+   "esempio": "Prendo yen allo 0,5% e compro titoli in dollari che rendono il 4,5%: guadagno circa il 4% l'anno. Ma se lo yen si apprezza del 5% sul dollaro, quel guadagno è già cancellato.",
+   "borsa": "Quando molti chiudono insieme i carry trade devono vendere ciò che avevano comprato, azioni comprese. È successo ad agosto 2024: dopo un rialzo dei tassi giapponesi e un dato debole sul lavoro USA lo yen è salito, e il 5 agosto il Nikkei ha perso il 12,4% in un giorno, trascinando le altre borse."
   },
   "CDS": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Contratto che protegge da un'insolvenza: chi lo compra paga un premio, chi lo vende risarcisce se l'emittente non paga. Il prezzo misura il rischio percepito.",
+   "spiega": "Un contratto che funziona come un'assicurazione contro il mancato pagamento di un debito. Chi lo compra paga un premio ogni anno; se lo Stato o l'azienda non rimborsa, chi l'ha venduto copre la perdita. Il premio, in punti base, misura quanto il mercato teme un'insolvenza.",
    "esteso": "Credit default swap",
    "fonte": [
     "Borsa Italiana",
     "https://www.borsaitaliana.it/borsa/glossario.html"
-   ]
+   ],
+   "esempio": "Un CDS a 100 pb costa 100.000 euro l'anno per assicurare 10 milioni di debito.",
+   "borsa": "Quando i CDS di banche o Stati salgono in fretta è un segnale di stress, che spesso accompagna o anticipa cali di borsa, soprattutto tra i titoli finanziari."
   },
   "CME FedWatch": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Strumento del CME che ricava dai future sui tassi la probabilità di ogni decisione della Fed alla prossima riunione.",
+   "spiega": "Uno strumento gratuito del CME, la borsa dei future di Chicago, che traduce i prezzi dei future sui tassi in probabilità: quante chance ci sono che la Fed alzi, tagli o lasci fermi i tassi alla prossima riunione. Non è una previsione ufficiale: è ciò su cui il mercato scommette, e cambia in fretta con ogni dato.",
    "esteso": "Strumento del CME",
    "mecc": "M20",
    "fonte": [
     "CME Group",
     "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html"
-   ]
+   ],
+   "borsa": "Quando le probabilità di un taglio salgono la borsa di solito apprezza; quando scendono all'improvviso, per un dato forte o una frase della Fed, spesso scende. Conta il cambiamento, non il livello."
   },
   "core": {
    "tipo": "Dati e inflazione",
-   "spiega": "Indice dei prezzi senza energia e alimentari, che oscillano molto. Mostra la tendenza di fondo dell'inflazione e pesa di più sulle decisioni delle banche centrali.",
+   "spiega": "L'inflazione senza energia e alimentari, i prezzi che oscillano di più per motivi spesso passeggeri, come una guerra o un raccolto. Togliendoli si vede la tendenza di fondo: se il core resta alto, l'inflazione è radicata nell'economia. Per questo le banche centrali lo guardano più del dato complessivo.",
    "esteso": "Inflazione di fondo",
    "mecc": "M05",
-   "titolo": "Core"
+   "titolo": "Core",
+   "esempio": "Se l'inflazione totale scende dal 3% al 2,5% solo perché è calata la benzina, ma il core resta al 3%, la banca centrale non si fida e aspetta a tagliare.",
+   "borsa": "Un core sopra le attese di solito pesa sulla borsa più di un dato complessivo alto, perché fa temere tassi alti più a lungo."
   },
   "CPI": {
    "tipo": "Dati e inflazione",
-   "spiega": "Indice dei prezzi al consumo: misura quanto cambiano i prezzi di un paniere di beni e servizi. Negli USA lo pubblica il BLS ogni mese ed è il dato sull'inflazione più seguito.",
+   "spiega": "L'indice dei prezzi al consumo degli Stati Uniti: misura quanto costa, mese dopo mese, un paniere di beni e servizi che una famiglia tipo compra, dall'affitto alla benzina. Lo pubblica il BLS verso metà mese, di solito alle 14:30 italiane. È il dato sull'inflazione più seguito al mondo.",
    "esteso": "Consumer Price Index",
    "mecc": "M05",
    "fonte": [
     "BLS",
     "https://www.bls.gov/cpi/"
-   ]
+   ],
+   "borsa": "Un CPI sopra le attese fa pensare che la Fed terrà i tassi alti più a lungo: i rendimenti salgono e la borsa di solito scende, la tecnologia più del resto. Un dato sotto le attese fa l'opposto. Conta lo scarto dalle previsioni, non il numero in sé."
   },
   "Curva dei rendimenti": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Grafico dei rendimenti dei titoli di Stato per scadenza, dalla più breve alla più lunga. Di solito sale; quando i tassi corti superano i lunghi si dice invertita.",
+   "spiega": "Il grafico che mette in fila i rendimenti dei titoli di Stato di un paese, dalla scadenza più breve (pochi mesi) alla più lunga (30 anni). Di solito sale, perché chi presta più a lungo chiede di più. Quando i tassi brevi superano i lunghi si dice invertita: il mercato si aspetta tagli dei tassi, spesso per un rallentamento.",
    "esteso": "Yield curve",
    "mecc": "M03",
-   "breve": "rendimenti dei titoli di Stato per scadenza"
+   "breve": "rendimenti dei titoli di Stato per scadenza",
+   "esempio": "Se il Treasury a 2 anni rende il 4,8% e quello a 10 anni il 4,2%, la curva è invertita di 60 pb.",
+   "borsa": "Una curva che torna ripida aiuta di solito le banche, che si finanziano a breve e prestano a lungo. Una curva invertita negli USA ha preceduto le recessioni del passato, ma con anticipi molto variabili: tra il 2022 e il 2024 è rimasta invertita a lungo senza recessione."
   },
   "DAX": {
    "tipo": "Indici",
-   "spiega": "Indice delle 40 maggiori società quotate a Francoforte.",
+   "spiega": "L'indice delle 40 maggiori società quotate alla borsa di Francoforte. Dentro ci sono molti esportatori (auto, chimica, macchinari, software come SAP), quindi è sensibile al commercio mondiale e all'economia cinese. A differenza della maggior parte degli indici conta anche i dividendi reinvestiti, per questo il suo livello è così alto.",
    "esteso": "Deutscher Aktienindex",
    "fonte": [
     "Deutsche Börse",
@@ -194,18 +216,19 @@
   },
   "dot plot": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Grafico con le previsioni sui tassi di ognuno dei membri del FOMC, un punto per persona. Esce quattro volte l'anno insieme alle proiezioni economiche.",
+   "spiega": "Il grafico in cui ognuno dei membri del comitato della Fed indica con un punto dove pensa che saranno i tassi alla fine di quest'anno e dei prossimi. Esce quattro volte l'anno (marzo, giugno, settembre, dicembre) insieme alle previsioni economiche. Non è una promessa: è una fotografia delle opinioni del momento.",
    "esteso": "Grafico a punti della Fed",
    "mecc": "M20",
    "fonte": [
     "Federal Reserve",
     "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
    ],
-   "titolo": "Dot plot"
+   "titolo": "Dot plot",
+   "borsa": "Se i punti indicano meno tagli di quanti ne aspettava il mercato, i rendimenti salgono e la borsa di solito scende; se ne indicano di più, l'opposto."
   },
   "Dow Jones": {
    "tipo": "Indici",
-   "spiega": "Indice di 30 grandi società USA, pesate per prezzo delle azioni e non per dimensione.",
+   "spiega": "Il più antico indice di Wall Street: 30 grandi società USA. È pesato per prezzo dell'azione, non per dimensione dell'azienda: un titolo che costa 500 dollari pesa più di uno da 50, anche se l'azienda è più piccola. Per questo rappresenta la borsa USA peggio dell'S&P 500, che nel Gommberg è il riferimento.",
    "esteso": "Dow Jones Industrial Average",
    "fonte": [
     "S&P Dow Jones Indices",
@@ -214,17 +237,18 @@
   },
   "DXY": {
    "tipo": "Indici",
-   "spiega": "Valore del dollaro contro un paniere di sei valute: euro, yen, sterlina, dollaro canadese, corona svedese, franco svizzero. L'euro pesa più della metà.",
+   "spiega": "Il valore del dollaro contro sei valute: euro, yen, sterlina, dollaro canadese, corona svedese e franco svizzero. L'euro pesa più della metà, quindi il DXY si muove quasi a specchio con il cambio euro-dollaro. Sale quando il dollaro si rafforza.",
    "esteso": "Dollar Index",
    "mecc": "M08",
    "fonte": [
     "ICE",
     "https://www.ice.com"
-   ]
+   ],
+   "borsa": "Un dollaro forte riduce il valore in dollari degli utili che le multinazionali USA fanno all'estero e mette in difficoltà i paesi emergenti indebitati in dollari. Per l'Europa vale l'opposto: un euro più debole aiuta gli esportatori europei."
   },
   "EIA": {
    "tipo": "Istituzioni",
-   "spiega": "Agenzia statistica USA per l'energia. Ogni settimana pubblica le scorte di petrolio, un dato che muove il prezzo.",
+   "spiega": "L'agenzia statistica USA per l'energia. Il dato più seguito è quello settimanale sulle scorte di petrolio e benzina, il mercoledì, di solito alle 16:30 italiane: scorte che crescono più del previsto indicano domanda debole o offerta abbondante, e di solito spingono giù il prezzo.",
    "esteso": "Energy Information Administration",
    "mecc": "M10",
    "fonte": [
@@ -234,26 +258,29 @@
   },
   "EPS": {
    "tipo": "Aziende e strumenti",
-   "spiega": "Utile per azione: l'utile netto diviso per il numero di azioni. È il numero che il mercato confronta con le attese in ogni trimestrale.",
+   "spiega": "Utile per azione: l'utile netto dell'azienda diviso per il numero delle sue azioni. È il numero principale di ogni trimestrale, quello che si confronta con la media delle stime degli analisti (il consenso).",
    "esteso": "Earnings per share",
    "mecc": "M15",
    "fonte": [
     "Borsa Italiana",
     "https://www.borsaitaliana.it/borsa/glossario.html"
-   ]
+   ],
+   "esempio": "Utile di 2 miliardi e 1 miliardo di azioni: EPS di 2 dollari. Se gli analisti ne aspettavano 1,90, l'utile è sopra le attese.",
+   "borsa": "Il titolo non reagisce all'utile in sé ma alla sorpresa rispetto alle attese, e spesso ancora di più alla guidance: un utile record può portare a un calo se le previsioni per i trimestri successivi deludono."
   },
   "ETF": {
    "tipo": "Aziende e strumenti",
-   "spiega": "Fondo quotato in borsa che replica un indice e si compra come un'azione, di solito a costi bassi.",
+   "spiega": "Un fondo che si compra e si vende in borsa come un'azione e che, di solito, replica un indice: comprarne una quota vuol dire possedere un pezzetto di tutte le aziende di quell'indice. Costa poco perché nessun gestore sceglie i titoli, e con una sola operazione si diversifica su centinaia di società.",
    "esteso": "Exchange traded fund",
    "fonte": [
     "Borsa Italiana",
     "https://www.borsaitaliana.it/borsa/glossario.html"
-   ]
+   ],
+   "esempio": "Un ETF sull'S&P 500 sale e scende con l'indice: se l'S&P 500 guadagna l'1%, l'ETF guadagna circa l'1%, meno i costi."
   },
   "Euro Stoxx 50": {
    "tipo": "Indici",
-   "spiega": "Indice delle 50 maggiori società dell'eurozona. Nelle edizioni è il termometro dell'Europa.",
+   "spiega": "L'indice delle 50 maggiori società dell'eurozona, da ASML a LVMH, da SAP a TotalEnergies. Francia e Germania pesano più della metà; ci sono anche alcune grandi società italiane, soprattutto banche ed energia. Nel Gommberg è il termometro della borsa europea.",
    "esteso": "Indice delle blue chip dell'eurozona",
    "fonte": [
     "STOXX",
@@ -262,17 +289,18 @@
   },
   "Fed": {
    "tipo": "Istituzioni",
-   "spiega": "Banca centrale degli USA. Decide il tasso di riferimento tramite il FOMC, con l'obiettivo di prezzi stabili e piena occupazione.",
+   "spiega": "La banca centrale degli Stati Uniti. Ha due obiettivi: prezzi stabili, cioè inflazione al 2%, e massima occupazione. Lo strumento principale è il tasso sui fondi federali, deciso dal FOMC otto volte l'anno. Siccome il dollaro è la valuta del mondo, le sue mosse si sentono su tutti i mercati.",
    "esteso": "Federal Reserve",
    "mecc": "M20",
    "fonte": [
     "Federal Reserve",
     "https://www.federalreserve.gov"
-   ]
+   ],
+   "borsa": "Tassi più bassi rendono il credito più economico e fanno valere di più gli utili futuri: per questo la borsa di solito festeggia le attese di tagli. Ma un taglio che arriva perché l'economia va male può accompagnarsi a borse in calo: conta il perché."
   },
   "FMI": {
    "tipo": "Istituzioni",
-   "spiega": "Istituzione di quasi tutti i paesi del mondo. Pubblica previsioni su crescita e debito e presta ai paesi in difficoltà.",
+   "spiega": "Il Fondo monetario internazionale, con sede a Washington, riunisce 191 paesi. In aprile e ottobre pubblica le previsioni sull'economia mondiale (World Economic Outlook), aggiornate a gennaio e luglio; quando un paese è in crisi gli presta denaro in cambio di riforme.",
    "esteso": "Fondo monetario internazionale",
    "fonte": [
     "IMF",
@@ -281,17 +309,18 @@
   },
   "FOMC": {
    "tipo": "Istituzioni",
-   "spiega": "Il comitato della Fed che decide i tassi. Si riunisce otto volte l'anno e il comunicato esce alle 14 di New York.",
+   "spiega": "Il comitato della Fed che decide i tassi: i 7 governatori più 5 dei 12 presidenti delle Fed regionali, a rotazione (quello di New York vota sempre). Si riunisce otto volte l'anno; il comunicato esce alle 14 di New York, di solito le 20 italiane, e mezz'ora dopo il presidente della Fed parla in conferenza stampa.",
    "esteso": "Federal Open Market Committee",
    "mecc": "M20",
    "fonte": [
     "Federal Reserve",
     "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
-   ]
+   ],
+   "borsa": "La sera del FOMC i mercati si muovono spesso due volte: al comunicato e durante la conferenza stampa, quando il presidente fa capire cosa potrebbe succedere alle riunioni successive."
   },
   "FTSE 100": {
    "tipo": "Indici",
-   "spiega": "Indice delle 100 maggiori società quotate a Londra, in sterline: molte sono multinazionali dell'energia, della finanza e dei beni di consumo.",
+   "spiega": "L'indice delle 100 maggiori società quotate a Londra. Molte sono multinazionali (petrolio, miniere, farmaci, banche, beni di consumo) che guadagnano soprattutto fuori dal Regno Unito: per questo spesso sale quando la sterlina scende, perché quegli utili esteri valgono di più in sterline.",
    "esteso": "Financial Times Stock Exchange 100",
    "fonte": [
     "FTSE Russell",
@@ -300,7 +329,7 @@
   },
   "FTSE MIB": {
    "tipo": "Indici",
-   "spiega": "Indice delle 40 maggiori società quotate a Piazza Affari. Banche ed energia pesano molto.",
+   "spiega": "L'indice delle 40 maggiori società quotate a Piazza Affari. Banche, energia e utility pesano molto più che negli altri grandi indici europei: per questo è sensibile allo spread BTP-Bund, al prezzo del petrolio e ai tassi della BCE.",
    "esteso": "Milano Italia Borsa",
    "fonte": [
     "Borsa Italiana",
@@ -309,18 +338,20 @@
   },
   "future": {
    "tipo": "Aziende e strumenti",
-   "spiega": "Contratto per comprare o vendere un'attività a un prezzo fissato oggi, con consegna futura. Quelli sugli indici si trattano quasi tutta la notte e anticipano l'apertura.",
+   "spiega": "Un contratto in cui due parti fissano oggi il prezzo a cui compreranno o venderanno qualcosa (petrolio, un indice, un titolo di Stato) in una data futura. Si scambiano in borsa e servono sia a proteggersi sia a scommettere. Quelli sugli indici si trattano quasi tutto il giorno: per questo al mattino anticipano come aprirà la borsa.",
    "esteso": "Contratto a termine",
    "mecc": "M25",
    "fonte": [
     "Borsa Italiana",
     "https://www.borsaitaliana.it/borsa/glossario.html"
    ],
-   "titolo": "Future"
+   "titolo": "Future",
+   "esempio": "Se a marzo compro un future sul Brent a 80 dollari con scadenza a giugno, e a giugno il petrolio vale 85, guadagno 5 dollari a barile.",
+   "borsa": "I future sugli indici di prima mattina anticipano l'apertura, non la chiusura: un rialzo delle 8 può sparire entro sera."
   },
   "Gilt": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "I titoli di Stato britannici. Il Gilt a 10 anni è il riferimento per il Regno Unito.",
+   "spiega": "I titoli di Stato del Regno Unito. Il Gilt a 10 anni è il riferimento dei tassi britannici. Sono molto sensibili ai conti pubblici: nel 2022 un piano di tagli alle tasse senza coperture ne fece crollare i prezzi e costrinse la Banca d'Inghilterra a intervenire.",
    "esteso": "Titoli di Stato britannici",
    "fonte": [
     "UK Debt Management Office",
@@ -329,25 +360,26 @@
   },
   "GNL": {
    "tipo": "Materie prime",
-   "spiega": "Gas raffreddato a circa -160 gradi per trasportarlo in nave. È diventato centrale per le forniture all'Europa.",
+   "spiega": "Gas naturale raffreddato a circa -160 gradi, quando diventa liquido e occupa circa 600 volte meno spazio: così si trasporta in nave invece che nei gasdotti. Dopo il taglio delle forniture russe del 2022 è diventato decisivo per l'Europa, che lo compra soprattutto da Stati Uniti e Qatar.",
    "esteso": "Gas naturale liquefatto"
   },
   "GPU": {
    "tipo": "Aziende e strumenti",
-   "spiega": "Processore nato per la grafica, oggi il chip più usato per addestrare e far funzionare l'intelligenza artificiale.",
+   "spiega": "Il processore nato per la grafica dei videogiochi, capace di fare migliaia di calcoli semplici in parallelo. Per questo è diventato il chip più usato per addestrare e far funzionare l'intelligenza artificiale. Il mercato è dominato da Nvidia, e i chip li fabbrica in gran parte TSMC.",
    "esteso": "Graphics processing unit",
    "mecc": "M17"
   },
   "guidance": {
    "tipo": "Aziende e strumenti",
-   "spiega": "Previsioni che l'azienda stessa dà su ricavi e utili dei prossimi trimestri. Spesso muove il titolo più dei risultati già usciti.",
+   "spiega": "Le previsioni che l'azienda stessa dà su ricavi, margini o utili dei prossimi trimestri o dell'anno. Il mercato guarda avanti: i risultati raccontano il passato, la guidance il futuro. Per questo spesso muove il titolo più dei conti appena usciti.",
    "esteso": "Previsioni dell'azienda",
    "mecc": "M15",
-   "titolo": "Guidance"
+   "titolo": "Guidance",
+   "borsa": "Una guidance alzata può far salire il titolo anche con risultati nella media; una tagliata può farlo crollare anche dopo un trimestre record."
   },
   "Hang Seng": {
    "tipo": "Indici",
-   "spiega": "Indice delle maggiori società quotate a Hong Kong.",
+   "spiega": "L'indice principale della borsa di Hong Kong, dove sono quotati molti grandi gruppi cinesi come Tencent e Alibaba. È il modo più diretto con cui gli investitori internazionali comprano la Cina: si muove con l'economia cinese, le misure di Pechino e i rapporti con gli Stati Uniti.",
    "esteso": "Hang Seng Index",
    "fonte": [
     "Hang Seng Indexes",
@@ -356,43 +388,46 @@
   },
   "HBM": {
    "tipo": "Aziende e strumenti",
-   "spiega": "Memoria molto veloce, impilata accanto ai chip per l'AI. La producono in pochi: SK Hynix, Samsung e Micron.",
+   "spiega": "Memoria velocissima, fatta di strati di chip impilati, montata accanto ai processori per l'intelligenza artificiale perché i dati arrivino senza rallentamenti. La producono in tre: SK Hynix, Samsung e Micron. È uno dei colli di bottiglia dell'AI, e chi la fa ha potere sui prezzi.",
    "esteso": "High bandwidth memory",
    "mecc": "M17"
   },
   "HICP": {
    "tipo": "Dati e inflazione",
-   "spiega": "Indice dei prezzi al consumo calcolato con le stesse regole in tutta l'Unione europea. È la misura di inflazione che guarda la BCE.",
+   "spiega": "L'indice dei prezzi al consumo armonizzato, calcolato con le stesse regole in tutti i paesi dell'Unione europea perché si possano confrontare (in italiano si chiama IPCA). Quello dell'area euro è la misura con cui la BCE controlla il suo obiettivo del 2%. Eurostat ne pubblica una stima rapida tra la fine del mese e l'inizio del successivo.",
    "esteso": "Harmonised Index of Consumer Prices (in italiano IPCA)",
    "mecc": "M05",
    "fonte": [
     "Eurostat",
     "https://ec.europa.eu/eurostat/web/hicp"
-   ]
+   ],
+   "borsa": "Un'inflazione europea sopra le attese fa pensare a tassi BCE più alti: i rendimenti europei salgono e di solito le borse europee ne risentono."
   },
   "high yield": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Obbligazioni di aziende con rating basso, sotto BBB-: pagano di più perché il rischio di insolvenza è più alto.",
+   "spiega": "Le obbligazioni di aziende giudicate più a rischio, con rating sotto BBB- (in gergo, 'spazzatura'). Pagano interessi più alti proprio perché la probabilità di non essere rimborsati è maggiore. La differenza tra il loro rendimento e quello dei titoli di Stato misura quanto il mercato teme i fallimenti.",
    "esteso": "Obbligazioni ad alto rendimento",
    "fonte": [
     "Borsa Italiana",
     "https://www.borsaitaliana.it/borsa/glossario.html"
    ],
-   "titolo": "High yield"
+   "titolo": "High yield",
+   "borsa": "Si muovono spesso come le azioni: quando la differenza di rendimento con i titoli di Stato si allarga è un segnale di paura, che di solito accompagna borse deboli."
   },
   "Ifo": {
    "tipo": "Dati e inflazione",
-   "spiega": "Indice dell'istituto Ifo di Monaco: sondaggio mensile sulla fiducia delle imprese tedesche. Sopra le attese è un buon segno per la Germania.",
+   "spiega": "Il sondaggio mensile dell'istituto Ifo di Monaco su circa 9.000 imprese tedesche: come giudicano gli affari oggi e come li vedono nei prossimi sei mesi. È il termometro più seguito dell'economia tedesca, la più grande d'Europa.",
    "esteso": "Ifo Business Climate",
    "mecc": "M04",
    "fonte": [
     "Ifo",
     "https://www.ifo.de/en"
-   ]
+   ],
+   "borsa": "Un Ifo sopra le attese aiuta di solito il DAX e i titoli più legati al ciclo economico, come industria e auto."
   },
   "investment grade": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Obbligazioni con rating da BBB- in su: rischio d'insolvenza basso e rendimenti più contenuti.",
+   "spiega": "Le obbligazioni con rating da BBB- in su: emittenti considerati solidi, con un rischio di non rimborso basso, che pagano interessi più contenuti degli high yield. Molti fondi pensione e assicurazioni possono comprare solo questi titoli: per questo scendere sotto BBB- costa caro a un'azienda o a uno Stato.",
    "esteso": "Obbligazioni di qualità",
    "fonte": [
     "Borsa Italiana",
@@ -402,46 +437,51 @@
   },
   "IPO": {
    "tipo": "Aziende e strumenti",
-   "spiega": "Prima vendita al pubblico delle azioni di una società, che si quota in borsa.",
+   "spiega": "La prima volta che una società vende le sue azioni al pubblico e si quota in borsa. Serve a raccogliere capitali o a far incassare i vecchi soci. Il prezzo lo fissano le banche che curano l'operazione, in base alle richieste raccolte tra gli investitori.",
    "esteso": "Initial public offering",
    "fonte": [
     "Borsa Italiana",
     "https://www.borsaitaliana.it/borsa/glossario.html"
-   ]
+   ],
+   "borsa": "Le ondate di IPO arrivano di solito quando la borsa è salita: le aziende vendono quando i prezzi sono alti. Un primo giorno molto forte è un segnale di appetito per il rischio."
   },
   "ISM": {
    "tipo": "Dati e inflazione",
-   "spiega": "Sondaggio mensile USA sui direttori acquisti di industria e servizi. Sopra 50 indica espansione, sotto 50 contrazione.",
+   "spiega": "Il sondaggio mensile dell'Institute for Supply Management tra i responsabili acquisti delle imprese USA, uno per l'industria e uno per i servizi. Si legge con la soglia 50: sopra l'attività cresce, sotto cala. Esce nei primi giorni del mese ed è uno dei primi segnali sul mese appena finito.",
    "esteso": "Institute for Supply Management",
    "mecc": "M04",
    "fonte": [
     "ISM",
     "https://www.ismworld.org"
-   ]
+   ],
+   "esempio": "Un ISM a 48 vuol dire che le imprese che vedono un calo sono più di quelle che vedono una crescita; a 55, la crescita è netta.",
+   "borsa": "Un ISM sopra le attese è una buona notizia per gli utili, ma se fa temere meno tagli dei tassi può pesare sulla borsa. Conta molto la voce sui prezzi pagati dalle imprese, che anticipa l'inflazione."
   },
   "JGB": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Titoli di Stato giapponesi. Il loro rendimento influenza lo yen e i carry trade.",
+   "spiega": "I titoli di Stato giapponesi. Per anni la Banca del Giappone ne ha tenuto fermi i rendimenti vicino a zero comprandoli in massa; ora che li lascia salire, i loro movimenti contano anche fuori dal Giappone, perché i grandi investitori giapponesi potrebbero riportare a casa i soldi investiti all'estero.",
    "esteso": "Japanese government bond",
    "mecc": "M18",
    "fonte": [
     "Ministero delle Finanze del Giappone",
     "https://www.mof.go.jp/english/"
-   ]
+   ],
+   "borsa": "Rendimenti giapponesi in forte rialzo possono pesare su titoli di Stato e borse di altri paesi, se i capitali giapponesi tornano in patria."
   },
   "JOLTS": {
    "tipo": "Dati e inflazione",
-   "spiega": "Rilevazione mensile del BLS sui posti di lavoro vacanti e su assunzioni e licenziamenti. Mostra quanto è teso il mercato del lavoro USA.",
+   "spiega": "La rilevazione mensile del BLS su quanti posti di lavoro sono vacanti negli Stati Uniti, e su quante persone vengono assunte, licenziate o lasciano il lavoro. Molte offerte e molte dimissioni volontarie indicano un mercato del lavoro teso, dove i salari tendono a salire. Si riferisce a un mese prima di quello dei payrolls.",
    "esteso": "Job Openings and Labor Turnover Survey",
    "mecc": "M19",
    "fonte": [
     "BLS",
     "https://www.bls.gov/jlt/"
-   ]
+   ],
+   "borsa": "Come per gli altri dati sul lavoro l'effetto è doppio: un mercato del lavoro forte è buono per i consumi, ma allontana i tagli dei tassi."
   },
   "Kospi": {
    "tipo": "Indici",
-   "spiega": "Indice della borsa di Seul. Pesano molto Samsung e i produttori di chip.",
+   "spiega": "L'indice della borsa di Seul. Samsung Electronics e SK Hynix, due dei maggiori produttori di chip di memoria al mondo, pesano moltissimo: per questo il Kospi segue spesso i titoli dei chip di Wall Street della sera prima.",
    "esteso": "Korea Composite Stock Price Index",
    "mecc": "M17",
    "fonte": [
@@ -451,17 +491,18 @@
   },
   "Nasdaq": {
    "tipo": "Indici",
-   "spiega": "Borsa USA a forte peso tecnologico. L'indice Nasdaq Composite comprende migliaia di società.",
+   "spiega": "La seconda borsa degli Stati Uniti, dove sono quotate gran parte delle società tecnologiche. Il Nasdaq Composite raccoglie tutte le sue azioni, alcune migliaia; quando si dice 'il Nasdaq' si parla di solito di questo indice, molto pesante sulla tecnologia.",
    "esteso": "Nasdaq Composite",
    "mecc": "M16",
    "fonte": [
     "Nasdaq",
     "https://www.nasdaq.com"
-   ]
+   ],
+   "borsa": "È più sensibile ai tassi del resto della borsa: le aziende tecnologiche valgono molto per gli utili attesi tra anni, e tassi più alti riducono il valore di oggi di quei guadagni lontani."
   },
   "Nasdaq 100": {
    "tipo": "Indici",
-   "spiega": "Indice delle 100 maggiori società non finanziarie del Nasdaq. Apple, Microsoft e Nvidia pesano molto.",
+   "spiega": "Le 100 maggiori società non finanziarie quotate al Nasdaq. Apple, Microsoft, Nvidia, Amazon e Alphabet ne pesano insieme una quota molto alta: per questo l'indice si muove soprattutto con i grandi titoli tecnologici. È l'indice replicato da molti ETF sulla tecnologia USA.",
    "esteso": "Nasdaq-100",
    "mecc": "M16",
    "fonte": [
@@ -472,46 +513,51 @@
   },
   "Nikkei": {
    "tipo": "Indici",
-   "spiega": "Indice di 225 grandi società quotate a Tokyo, pesate per prezzo.",
+   "spiega": "L'indice di 225 grandi società quotate a Tokyo. Come il Dow Jones è pesato per prezzo dell'azione: pochi titoli cari, come Fast Retailing (la società di Uniqlo) e Tokyo Electron, lo muovono molto.",
    "esteso": "Nikkei 225",
    "mecc": "M18",
    "fonte": [
     "Nikkei",
     "https://indexes.nikkei.co.jp/en/nkave"
-   ]
+   ],
+   "borsa": "Uno yen più debole di solito aiuta il Nikkei, perché gli esportatori giapponesi incassano di più in yen; uno yen forte lo frena."
   },
   "OAT": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Titoli di Stato francesi. Lo spread tra OAT e Bund misura il rischio percepito sulla Francia.",
+   "spiega": "I titoli di Stato francesi. Lo spread tra OAT e Bund misura quanto il mercato teme per i conti pubblici della Francia: dal 2024, tra crisi di governo e deficit alto, si è allargato fino a raggiungere a tratti quello italiano.",
    "esteso": "Obligations assimilables du Trésor",
    "fonte": [
     "Agence France Trésor",
     "https://www.aft.gouv.fr/en"
-   ]
+   ],
+   "borsa": "Quando lo spread francese si allarga soffrono la borsa di Parigi e soprattutto le banche francesi, che hanno molti titoli di Stato del loro paese."
   },
   "OPEC": {
    "tipo": "Materie prime",
-   "spiega": "Organizzazione dei paesi esportatori di petrolio. Con l'OPEC+, che include la Russia, decide quanto petrolio produrre.",
+   "spiega": "L'organizzazione dei paesi esportatori di petrolio, guidata dall'Arabia Saudita. Con l'OPEC+, che aggiunge la Russia e altri produttori, decide quanto petrolio estrarre: tagliare la produzione sostiene il prezzo, aumentarla lo abbassa.",
    "esteso": "Organization of the Petroleum Exporting Countries",
    "mecc": "M11",
    "fonte": [
     "OPEC",
     "https://www.opec.org"
-   ]
+   ],
+   "borsa": "Un taglio a sorpresa fa salire il petrolio: bene per i titoli energetici, male per chi consuma molta energia e per l'inflazione dei paesi importatori."
   },
   "P/E": {
    "tipo": "Aziende e strumenti",
-   "spiega": "Prezzo dell'azione diviso utile per azione: quanti anni di utili servono per ripagare il prezzo. Più è alto, più il mercato si aspetta crescita.",
+   "spiega": "Il prezzo di un'azione diviso l'utile per azione. Dice quanto il mercato paga per ogni euro di utile: se gli utili restassero uguali, quanti anni servirebbero per ripagare il prezzo. Un P/E alto vuol dire che il mercato si aspetta molta crescita.",
    "esteso": "Price/earnings",
    "mecc": "M06",
    "fonte": [
     "Borsa Italiana",
     "https://www.borsaitaliana.it/borsa/glossario.html"
-   ]
+   ],
+   "esempio": "Azione a 100 euro, utile per azione di 5 euro: P/E 20, cioè 20 anni di utili. Con lo stesso utile e l'azione a 150, il P/E sale a 30.",
+   "borsa": "I titoli con P/E alto hanno più da perdere: se la crescita delude o i tassi salgono, il mercato può tagliare molto il prezzo che è disposto a pagare."
   },
   "Par yield": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Rendimento di un titolo emesso e rimborsato alla pari, cioè a 100. È la curva che pubblica ogni giorno il Tesoro USA.",
+   "spiega": "Il rendimento di un titolo che si compra e si rimborsa alla pari, cioè a 100. È la curva che il Tesoro USA pubblica ogni giorno lavorativo, scadenza per scadenza: il Gommberg la usa come fonte ufficiale per i rendimenti dei Treasury.",
    "esteso": "Treasury Par Yield Curve",
    "mecc": "M01",
    "fonte": [
@@ -521,112 +567,126 @@
   },
   "payrolls": {
    "tipo": "Dati e inflazione",
-   "spiega": "Posti di lavoro creati negli USA nel mese precedente, esclusa l'agricoltura. Esce di solito il primo venerdì del mese e muove tassi e dollaro.",
+   "spiega": "I nuovi posti di lavoro creati negli Stati Uniti nel mese precedente, esclusa l'agricoltura (da qui il nome completo, non-farm payrolls). Escono di solito il primo venerdì del mese alle 14:30 italiane, insieme al tasso di disoccupazione e ai salari. Sono il dato macro che muove di più i mercati.",
    "esteso": "Non-farm payrolls (NFP)",
    "mecc": "M19",
    "fonte": [
     "BLS",
     "https://www.bls.gov/ces/"
    ],
-   "titolo": "Payrolls"
+   "titolo": "Payrolls",
+   "borsa": "L'effetto sulla borsa è doppio: un dato forte è buono per consumi e utili, ma fa pensare a meno tagli dei tassi. Quando il timore principale è l'inflazione prevale il secondo e la borsa scende; quando è la recessione prevale il primo e la borsa sale."
   },
   "pb": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Un centesimo di punto percentuale: 25 pb sono 0,25%. Si usa per le variazioni dei tassi e per gli spread.",
+   "spiega": "Il punto base è un centesimo di punto percentuale: 100 pb fanno 1%. Si usa per tassi, rendimenti e spread, perché i decimali creano confusione: dire che un tasso sale di 25 pb è più chiaro che dire 'di 0,25 punti'.",
    "esteso": "Punti base",
-   "mecc": "M01"
+   "mecc": "M01",
+   "esempio": "Se il rendimento del BTP passa dal 3,50% al 3,62%, è salito di 12 pb."
   },
   "PBoC": {
    "tipo": "Istituzioni",
-   "spiega": "Banca centrale cinese: gestisce il tasso di riferimento e orienta il cambio dello yuan.",
+   "spiega": "La banca centrale cinese. Oltre a guidare i tassi, ogni mattina fissa il cambio di riferimento dello yuan, attorno al quale la valuta può muoversi solo entro un margine. Le sue misure di stimolo vengono lette come il segnale di quanto Pechino sia preoccupata per l'economia.",
    "esteso": "People's Bank of China",
    "fonte": [
     "PBoC",
     "http://www.pbc.gov.cn/en/"
-   ]
+   ],
+   "borsa": "Uno stimolo forte della PBoC di solito spinge le borse cinesi e di Hong Kong e i prezzi di materie prime come rame e petrolio, di cui la Cina è il primo compratore."
   },
   "PCE": {
    "tipo": "Dati e inflazione",
-   "spiega": "Indice dei prezzi delle spese per consumi, pubblicato dal BEA. È la misura di inflazione che la Fed preferisce per il suo obiettivo del 2%.",
+   "spiega": "L'indice dei prezzi delle spese per consumi degli americani, pubblicato dal BEA verso fine mese. Misura l'inflazione come il CPI, ma copre più spese (anche quelle pagate per conto delle famiglie, come gran parte della sanità) e segue i cambi nelle abitudini di acquisto. È la misura con cui la Fed controlla il suo obiettivo del 2%.",
    "esteso": "Personal consumption expenditures price index",
    "mecc": "M05",
    "fonte": [
     "BEA",
     "https://www.bea.gov/data/personal-consumption-expenditures-price-index"
-   ]
+   ],
+   "borsa": "Di solito sorprende meno del CPI, perché arriva dopo e in parte si può stimare. Ma se il PCE core esce diverso dalle attese, muove tassi e borsa come il CPI."
   },
   "PIL": {
    "tipo": "Dati e inflazione",
-   "spiega": "Valore dei beni e dei servizi prodotti in un paese in un periodo. Due trimestri di calo di fila indicano una recessione tecnica.",
-   "esteso": "Prodotto interno lordo"
+   "spiega": "Il valore di tutti i beni e servizi prodotti in un paese in un periodo. È la misura più ampia dell'economia; si guarda soprattutto la crescita rispetto al trimestre o all'anno prima. Due trimestri di calo di fila sono una 'recessione tecnica'; negli Stati Uniti la recessione la dichiara un comitato di economisti (NBER) guardando più dati.",
+   "esteso": "Prodotto interno lordo",
+   "esempio": "Negli Stati Uniti la crescita trimestrale si dà 'annualizzata': un +0,5% nel trimestre diventa circa +2% all'anno.",
+   "borsa": "Un PIL forte è buono per gli utili, ma se fa temere inflazione e tassi alti la borsa può non festeggiare. E spesso arriva quando molti dati del trimestre sono già noti: conta lo scarto dalle attese."
   },
   "PMI": {
    "tipo": "Dati e inflazione",
-   "spiega": "Sondaggio sui direttori acquisti delle imprese. Sopra 50 l'attività cresce, sotto 50 cala. Esce prima dei dati ufficiali.",
+   "spiega": "Il sondaggio mensile, curato da S&P Global in decine di paesi, tra i responsabili acquisti delle imprese di industria e servizi. Si legge con la soglia 50: sopra l'attività cresce, sotto cala. La stima rapida ('flash') esce verso la fine del mese stesso: per questo è uno dei primi dati sull'economia.",
    "esteso": "Purchasing managers' index",
    "mecc": "M04",
    "fonte": [
     "S&P Global PMI",
     "https://www.pmi.spglobal.com"
-   ]
+   ],
+   "borsa": "PMI sopra le attese sostengono di solito i titoli più legati al ciclo economico, come industria, materie prime e banche."
   },
   "PPI": {
    "tipo": "Dati e inflazione",
-   "spiega": "Prezzi alla produzione: quanto costa alle imprese produrre i beni. Spesso anticipa l'inflazione al consumo.",
+   "spiega": "I prezzi alla produzione: quanto incassano le imprese per ciò che vendono, prima che arrivi al consumatore. Se i costi salgono a monte, prima o poi le imprese provano a scaricarli sui prezzi al dettaglio: per questo il PPI anticipa spesso il CPI. Negli Stati Uniti lo pubblica il BLS ogni mese.",
    "esteso": "Producer price index",
    "mecc": "M05",
    "fonte": [
     "BLS",
     "https://www.bls.gov/ppi/"
-   ]
+   ],
+   "borsa": "Un PPI alto può pesare in due modi: fa temere più inflazione, quindi tassi alti, e margini più stretti per le aziende che non riescono a scaricare i costi."
   },
   "QE": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Acquisti di titoli di Stato da parte della banca centrale per abbassare i tassi lunghi e immettere liquidità.",
+   "spiega": "Il quantitative easing: la banca centrale crea moneta e compra in grandi quantità titoli di Stato e altre obbligazioni. Così ne alza i prezzi e ne abbassa i rendimenti, cioè i tassi a lungo termine, e mette liquidità nel sistema. Si usa quando i tassi ufficiali sono già vicini a zero.",
    "esteso": "Quantitative easing",
    "fonte": [
     "Borsa Italiana",
     "https://www.borsaitaliana.it/borsa/glossario.html"
-   ]
+   ],
+   "borsa": "Il QE ha sostenuto molto le borse dopo il 2008 e nel 2020: tassi bassi e liquidità abbondante spingono gli investitori verso attività più rischiose, come le azioni."
   },
   "QT": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Il contrario del QE: la banca centrale lascia scadere i titoli in bilancio o li vende, e ritira liquidità.",
+   "spiega": "Il quantitative tightening, il contrario del QE: la banca centrale riduce i titoli che ha in bilancio, lasciandoli scadere senza ricomprarli o vendendoli. Toglie liquidità dal sistema e tende a far salire i tassi a lungo termine. Procede di solito sullo sfondo, a un ritmo annunciato.",
    "esteso": "Quantitative tightening",
    "fonte": [
     "Borsa Italiana",
     "https://www.borsaitaliana.it/borsa/glossario.html"
-   ]
+   ],
+   "borsa": "Giorno per giorno pesa poco, perché è annunciato in anticipo; diventa un tema per la borsa quando il mercato teme che la liquidità cominci a scarseggiare."
   },
   "Rating": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Giudizio di un'agenzia (S&P, Moody's, Fitch) sulla capacità di uno Stato o di un'azienda di ripagare i debiti. Va da AAA, il migliore, fino all'insolvenza.",
+   "spiega": "Il voto che un'agenzia (le maggiori sono S&P, Moody's e Fitch) dà alla capacità di uno Stato o di un'azienda di ripagare i debiti. La scala va da AAA, il massimo, fino all'insolvenza; sotto BBB- si entra nell'high yield. Un taglio del voto rende più caro indebitarsi.",
    "esteso": "Giudizio di credito",
    "fonte": [
     "Borsa Italiana",
     "https://www.borsaitaliana.it/borsa/glossario.html"
    ],
-   "breve": "giudizio sulla solidità di un debitore"
+   "breve": "giudizio sulla solidità di un debitore",
+   "borsa": "Il taglio del rating di uno Stato fa salire i suoi rendimenti e lo spread, e di solito pesa sulle banche di quel paese. Spesso però è già nei prezzi: il mercato anticipa le agenzie."
   },
   "Rendimento": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Quanto rende un'obbligazione tenuta fino a scadenza, in percentuale annua. Quando il prezzo sale il rendimento scende, e viceversa.",
+   "spiega": "Quanto rende all'anno un'obbligazione, in percentuale, se la si compra al prezzo di oggi e la si tiene fino alla scadenza. Prezzo e rendimento vanno in direzioni opposte: se il prezzo del titolo sale, chi lo compra adesso guadagnerà meno in percentuale, quindi il rendimento scende.",
    "esteso": "Yield",
    "mecc": "M01",
-   "breve": "resa annua di un'obbligazione"
+   "breve": "resa annua di un'obbligazione",
+   "esempio": "Un titolo paga 4 euro l'anno e verrà rimborsato a 100. Comprato a 100 rende il 4%. Se il prezzo scende a 95, chi lo compra ora incassa gli stessi 4 euro l'anno più 5 euro di guadagno a scadenza: rende di più.",
+   "borsa": "Rendimenti più alti fanno concorrenza alle azioni, perché un titolo di Stato sicuro paga di più, e riducono il valore di oggi degli utili futuri: per questo una salita veloce dei rendimenti di solito pesa sulla borsa, soprattutto sulla tecnologia. Eccezione: se salgono perché l'economia va meglio del previsto, azioni e rendimenti possono salire insieme."
   },
   "Russell 2000": {
    "tipo": "Indici",
-   "spiega": "Indice di 2.000 piccole società USA, più sensibili all'economia interna e ai tassi.",
+   "spiega": "L'indice di 2.000 piccole società USA. Lavorano soprattutto negli Stati Uniti e hanno più debito a tasso variabile delle grandi: per questo è il termometro dell'economia americana interna e reagisce ai tassi più dell'S&P 500.",
    "esteso": "Russell 2000 Index",
    "fonte": [
     "FTSE Russell",
     "https://www.lseg.com/en/ftse-russell"
-   ]
+   ],
+   "borsa": "Le attese di tagli dei tassi aiutano di solito il Russell 2000 più degli altri indici; tassi alti più a lungo lo penalizzano."
   },
   "S&P 500": {
    "tipo": "Indici",
-   "spiega": "Indice delle 500 maggiori società USA per capitalizzazione: la misura più usata della borsa americana.",
+   "spiega": "L'indice delle 500 maggiori società quotate negli Stati Uniti, pesate per capitalizzazione, cioè per il loro valore in borsa. Copre circa l'80% del valore della borsa USA ed è il riferimento più usato per dire come va Wall Street. Pochi colossi tecnologici ne pesano una quota molto alta.",
    "esteso": "Standard & Poor's 500",
    "mecc": "M16",
    "fonte": [
@@ -636,7 +696,7 @@
   },
   "SEC": {
    "tipo": "Istituzioni",
-   "spiega": "Autorità USA che vigila su borse e società quotate.",
+   "spiega": "L'autorità che vigila sulle borse e sulle società quotate negli Stati Uniti, come la Consob in Italia. Obbliga le aziende a pubblicare conti e notizie rilevanti, autorizza nuovi prodotti come gli ETF e punisce le frodi.",
    "esteso": "Securities and Exchange Commission",
    "fonte": [
     "SEC",
@@ -645,46 +705,51 @@
   },
   "spread": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Differenza di rendimento tra due titoli. Il più citato è quello tra BTP e Bund a 10 anni, in punti base.",
+   "spiega": "La differenza di rendimento tra due titoli, di solito in punti base. Il più citato in Italia è lo spread tra BTP e Bund a 10 anni: quanto in più paga l'Italia rispetto alla Germania per farsi prestare soldi. Più è alto, più il mercato considera rischioso il debito italiano.",
    "esteso": "Differenziale di rendimento",
    "mecc": "M13",
    "fonte": [
     "Borsa Italiana",
     "https://www.borsaitaliana.it/borsa/glossario.html"
    ],
-   "titolo": "Spread"
+   "titolo": "Spread",
+   "esempio": "BTP al 3,5%, Bund al 2,7%: lo spread è 0,8 punti percentuali, cioè 80 pb.",
+   "borsa": "Quando lo spread si allarga Piazza Affari di solito soffre, soprattutto le banche, che hanno molti BTP in portafoglio; quando si stringe succede il contrario."
   },
   "term premium": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Compenso extra che chiede chi presta a lungo termine invece di rinnovare prestiti brevi. Se sale, i tassi lunghi aumentano anche senza mosse della banca centrale.",
+   "spiega": "Il compenso in più che chiede chi presta soldi a lungo termine invece di rinnovare tanti prestiti brevi: in dieci anni possono cambiare inflazione, debito, politica. Non si vede direttamente, si stima con dei modelli. Quando sale, i tassi lunghi aumentano anche se la banca centrale resta ferma, per esempio per timori sui conti pubblici.",
    "esteso": "Premio a termine",
    "mecc": "M02",
-   "titolo": "Term premium"
+   "titolo": "Term premium",
+   "borsa": "Un term premium in salita alza i tassi lunghi, quelli di mutui e prestiti alle imprese, e di solito pesa sulle valutazioni di borsa."
   },
   "TIPS": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Titoli del Tesoro USA il cui capitale cresce con l'inflazione. Il loro rendimento è il tasso reale.",
+   "spiega": "I titoli del Tesoro USA protetti dall'inflazione: il capitale cresce con l'indice dei prezzi, quindi chi li tiene non perde potere d'acquisto. Il loro rendimento è il tasso reale, cioè al netto dell'inflazione. Confrontato con quello di un Treasury normale dà l'inflazione attesa (il breakeven).",
    "esteso": "Treasury Inflation-Protected Securities",
    "mecc": "M27",
    "fonte": [
     "US Treasury",
     "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
-   ]
+   ],
+   "borsa": "Un rendimento reale in salita pesa di solito sulle azioni di crescita, come la tecnologia, e sull'oro, che non paga interessi."
   },
   "Treasury": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Titoli di Stato USA emessi dal Dipartimento del Tesoro: bill (fino a un anno), note (da 2 a 10 anni) e bond (20-30 anni). Il 10 anni è il tasso più seguito al mondo.",
+   "spiega": "I titoli di Stato degli Stati Uniti: bill fino a un anno, note da 2 a 10 anni, bond a 20 e 30 anni. Sono il debito più scambiato al mondo e il riferimento di tutti i tassi: il rendimento del Treasury a 10 anni influenza mutui, prestiti alle imprese e valutazioni di borsa ovunque.",
    "esteso": "Titoli di Stato USA",
    "mecc": "M01",
    "fonte": [
     "US Treasury",
     "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
    ],
-   "breve": "titoli di Stato USA"
+   "breve": "titoli di Stato USA",
+   "borsa": "Quando il rendimento del 10 anni sale in fretta la borsa di solito soffre, perché gli utili futuri valgono meno oggi e i titoli di Stato diventano un'alternativa più attraente. Ma se sale perché l'economia corre, le azioni possono salire con lui."
   },
   "TSMC": {
    "tipo": "Aziende e strumenti",
-   "spiega": "Il primo produttore mondiale di chip per conto terzi: fabbrica quelli di Apple e Nvidia.",
+   "spiega": "Il primo produttore mondiale di chip per conto di altri, con sede a Taiwan. Non vende chip suoi: fabbrica quelli progettati da Apple, Nvidia, AMD e molti altri, compresi i più avanzati. I suoi conti e le sue vendite mensili sono un termometro della domanda di AI.",
    "esteso": "Taiwan Semiconductor Manufacturing Company",
    "mecc": "M17",
    "fonte": [
@@ -694,7 +759,7 @@
   },
   "ASML": {
    "tipo": "Aziende e strumenti",
-   "spiega": "Società olandese, unica a produrre le macchine per fabbricare i chip più avanzati. Pesa molto sull'Euro Stoxx 50.",
+   "spiega": "Azienda olandese, l'unica al mondo a costruire le macchine che 'stampano' con la luce ultravioletta estrema i chip più avanzati. Senza di loro non si fanno i processori di ultima generazione: per questo è uno dei titoli più pesanti d'Europa, e risente delle restrizioni all'export verso la Cina.",
    "esteso": "ASML Holding",
    "mecc": "M17",
    "fonte": [
@@ -705,7 +770,7 @@
   },
   "MSCI": {
    "tipo": "Indici",
-   "spiega": "Società che calcola indici azionari globali, come l'ACWI. I suoi indici sono la base di molti ETF.",
+   "spiega": "Società americana che calcola indici di borsa usati in tutto il mondo, come l'ACWI. Quando MSCI aggiunge o toglie un titolo o un paese dai suoi indici, i fondi che li replicano devono comprare o vendere: per questo i suoi ribilanciamenti muovono i prezzi.",
    "esteso": "Morgan Stanley Capital International",
    "fonte": [
     "MSCI",
@@ -715,26 +780,27 @@
   },
   "TTF": {
    "tipo": "Materie prime",
-   "spiega": "Mercato olandese del gas: il suo prezzo, in euro per megawattora, è il riferimento per l'Europa.",
+   "spiega": "Il mercato del gas olandese, dove si forma il prezzo di riferimento per tutta l'Europa, in euro per megawattora. Il gas scalda le case, alimenta le industrie e produce elettricità: per questo il suo prezzo entra nelle bollette e nell'inflazione europea.",
    "esteso": "Title Transfer Facility",
    "fonte": [
     "ICE",
     "https://www.ice.com"
-   ]
+   ],
+   "borsa": "Gas caro pesa sulle industrie europee che consumano molta energia, come chimica e acciaio, e alza bollette e inflazione: nel 2022 l'impennata del TTF è stata uno dei motivi del calo delle borse europee."
   },
   "UE": {
    "tipo": "Istituzioni",
-   "spiega": "Unione di 27 paesi europei.",
+   "spiega": "L'Unione europea: 27 paesi che condividono un mercato unico, regole comuni e, per una parte di loro, la stessa moneta. Per i mercati conta soprattutto come blocco commerciale, che tratta i dazi a nome di tutti i membri, e per le regole su banche, energia e tecnologia.",
    "esteso": "Unione europea"
   },
   "USA": {
    "tipo": "Istituzioni",
-   "spiega": "Stati Uniti d'America.",
+   "spiega": "Gli Stati Uniti d'America, la prima economia del mondo. Wall Street vale più della metà della borsa mondiale e il dollaro è la valuta in cui si regola gran parte degli scambi: per questo i dati e le decisioni americane muovono i mercati di tutti.",
    "esteso": "Stati Uniti d'America"
   },
   "UST": {
    "tipo": "Tassi e obbligazioni",
-   "spiega": "Abbreviazione di Treasury. 'UST 10 anni' indica il rendimento del titolo decennale.",
+   "spiega": "Abbreviazione di US Treasuries, i titoli di Stato americani. 'UST 10 anni' indica il rendimento del titolo a 10 anni; nel Gommberg scriviamo per esteso 'Treasury 10 anni'.",
    "esteso": "US Treasuries",
    "mecc": "M01",
    "fonte": [
@@ -744,33 +810,153 @@
   },
   "VIX": {
    "tipo": "Indici",
-   "spiega": "Volatilità attesa dell'S&P 500 nei successivi 30 giorni, ricavata dalle opzioni. Sopra 30 segnala forte tensione: è detto indice della paura.",
+   "spiega": "Misura quanta agitazione si aspetta il mercato sull'S&P 500 nei prossimi 30 giorni, ricavata dai prezzi delle opzioni, cioè delle assicurazioni contro i movimenti della borsa: più gli investitori pagano per proteggersi, più sale. Sotto 15 indica calma, sopra 30 forte tensione: per questo è detto 'indice della paura'.",
    "esteso": "CBOE Volatility Index",
    "mecc": "M14",
    "fonte": [
     "Cboe",
     "https://www.cboe.com/tradable_products/vix/"
-   ]
+   ],
+   "borsa": "Di solito sale quando la borsa scende, perché chi teme un calo compra protezione. Non dice però in che direzione andrà la borsa: può salire anche con l'indice in rialzo, prima di un evento atteso."
   },
   "WTI": {
    "tipo": "Materie prime",
-   "spiega": "Petrolio USA di riferimento, consegnato a Cushing, in Oklahoma. Il prezzo che si cita è quello del future più vicino.",
+   "spiega": "Il petrolio americano di riferimento, più leggero del Brent, consegnato a Cushing, in Oklahoma. Di solito costa qualche dollaro meno del Brent. Il prezzo che si cita è quello del future con la consegna più vicina.",
    "esteso": "West Texas Intermediate",
    "mecc": "M10",
    "fonte": [
     "CME Group",
     "https://www.cmegroup.com"
-   ]
+   ],
+   "borsa": "Come per il Brent conta il perché del movimento: un rialzo dovuto a domanda forte può accompagnarsi a borse in salita, uno dovuto a offerta scarsa pesa su consumi e inflazione."
   },
   "ZEW": {
    "tipo": "Dati e inflazione",
-   "spiega": "Indice dell'istituto ZEW di Mannheim: sondaggio tra analisti e investitori sulle attese per l'economia tedesca.",
+   "spiega": "Il sondaggio mensile dell'istituto ZEW di Mannheim tra analisti e investitori professionali sulle attese per l'economia tedesca nei sei mesi successivi. Esce prima dell'Ifo e riflette più l'umore dei mercati che quello delle imprese.",
    "esteso": "Zentrum für Europäische Wirtschaftsforschung",
    "mecc": "M04",
    "fonte": [
     "ZEW",
     "https://www.zew.de/en"
    ]
+  }
+ },
+ "meccanismi": {
+  "M01": {
+   "spiega": "Un'obbligazione a tasso fisso paga sempre la stessa cedola. Se nel frattempo i tassi di mercato salgono, i titoli nuovi pagano di più e quello vecchio vale meno: il suo prezzo scende finché il rendimento per chi lo compra si allinea ai nuovi tassi. Per questo prezzo e rendimento vanno sempre in direzioni opposte. E più lunga è la scadenza, più a lungo si resta legati alla cedola vecchia, quindi più il prezzo si muove.",
+   "esempio": "Se i rendimenti scendono di un punto, un titolo a 10 anni guadagna circa l'8-9% di prezzo, uno a 2 anni circa il 2%.",
+   "nonvale": "Non vale per i titoli a tasso variabile, la cui cedola si adegua ai tassi. Per quelli indicizzati all'inflazione conta il rendimento al netto dell'inflazione."
+  },
+  "M02": {
+   "spiega": "Il rendimento a 2 anni dipende soprattutto da cosa farà la banca centrale nei prossimi due anni. Quello a 10 anni guarda più lontano: crescita, inflazione e debito pubblico del decennio, più un compenso per il rischio di prestare a lungo (il term premium). Per questo i due possono muoversi in modo diverso nello stesso giorno.",
+   "nonvale": "Quando la banca centrale compra o vende titoli in massa (QE o QT), o lo Stato ne emette molti, il 10 anni può muoversi per domanda e offerta di titoli più che per le attese sull'economia."
+  },
+  "M03": {
+   "spiega": "Normalmente chi presta a lungo chiede di più, quindi i tassi a 10 anni stanno sopra quelli a 2. Quando succede il contrario, il mercato si aspetta che la banca centrale dovrà tagliare i tassi, di solito perché l'economia rallenterà. Negli Stati Uniti una curva invertita ha preceduto le recessioni del passato.",
+   "nonvale": "È un segnale storico, non un orologio: l'anticipo è stato molto variabile, e tra il 2022 e il 2024 la curva USA è rimasta invertita a lungo senza che arrivasse una recessione."
+  },
+  "M04": {
+   "spiega": "Prima di ogni dato importante gli analisti fanno una previsione, il consenso, e gli investitori comprano e vendono già in base a quella. Quando il dato esce, i prezzi si muovono solo per la parte che nessuno si aspettava. Per questo un dato buono può far scendere la borsa: era buono, ma meno del previsto.",
+   "esempio": "Se il mercato aspetta 200 mila nuovi posti di lavoro e ne escono 150 mila, è una delusione anche se 150 mila sono tanti.",
+   "nonvale": "A volte contano più le correzioni ai dati dei mesi precedenti, o una componente (per esempio il core rispetto all'inflazione totale), del numero principale."
+  },
+  "M05": {
+   "spiega": "Il compito delle banche centrali è tenere l'inflazione intorno al 2%. Se un dato sui prezzi esce più alto del previsto, il mercato pensa che taglieranno i tassi più tardi, o li alzeranno: i rendimenti dei titoli a breve salgono subito, perché sono i più legati alle loro decisioni.",
+   "nonvale": "Se la sorpresa viene solo dall'energia o da voci che oscillano molto, e l'inflazione di fondo (core) è in linea, l'effetto sulle attese sui tassi è di solito minore."
+  },
+  "M06": {
+   "spiega": "Il prezzo di un'azione riflette gli utili che l'azienda farà negli anni. Un euro di utile tra dieci anni vale meno di un euro oggi, e vale ancora meno se i tassi sono alti, perché nel frattempo si potrebbe guadagnare un interesse sicuro. Per questo tassi reali più alti pesano di più sulle aziende i cui utili sono lontani nel tempo, come molte tecnologiche.",
+   "esempio": "100 euro di utile tra 10 anni valgono oggi circa 82 euro con tassi al 2%, ma circa 61 con tassi al 5%.",
+   "nonvale": "Se i rendimenti salgono perché l'economia cresce più del previsto, salgono anche gli utili attesi: azioni e tassi possono salire insieme."
+  },
+  "M07": {
+   "spiega": "Azioni e titoli di Stato non si muovono sempre allo stesso modo. Quando si teme un rallentamento dell'economia, gli investitori vendono azioni e comprano titoli di Stato, che salgono: le due cose si compensano. Quando si teme l'inflazione, i tassi salgono e fanno scendere sia i titoli di Stato sia le azioni, come nel 2022.",
+   "nonvale": "Nel brevissimo periodo il legame può cambiare di giorno in giorno: una sola seduta non basta per dire che è cambiato."
+  },
+  "M08": {
+   "spiega": "I capitali vanno dove rendono di più. Se i rendimenti a breve degli Stati Uniti salgono rispetto a quelli dell'eurozona, tenere dollari diventa più conveniente che tenere euro: la domanda di dollari cresce e il dollaro si rafforza. Per questo il cambio euro-dollaro reagisce alle attese su Fed e BCE.",
+   "nonvale": "Quando il mercato dubita della politica economica o dei conti pubblici americani, il dollaro può indebolirsi anche con i rendimenti USA in salita, come ad aprile 2025."
+  },
+  "M09": {
+   "spiega": "Nei momenti di paura gli investitori cercano denaro sicuro e facile da usare: dollaro, yen e franco svizzero tendono a rafforzarsi. Yen e franco anche per un altro motivo: chi li aveva presi a prestito a tassi bassi per investire altrove (il carry trade) li ricompra per chiudere le posizioni.",
+   "nonvale": "Se la crisi nasce negli Stati Uniti il dollaro può non fare da rifugio; lo yen dipende molto anche dalle mosse della Banca del Giappone."
+  },
+  "M10": {
+   "spiega": "Benzina, gasolio e riscaldamento entrano direttamente nei prezzi al consumo: un rialzo del petrolio si vede nell'inflazione complessiva già nei mesi successivi. Sull'inflazione di fondo (core) arriva più tardi e in misura minore, attraverso i costi di trasporto e di produzione.",
+   "nonvale": "Le banche centrali tendono a non reagire a un rialzo del petrolio dovuto a problemi di offerta, se le attese d'inflazione restano stabili. Se invece famiglie e imprese cominciano ad aspettarsi prezzi più alti, intervengono."
+  },
+  "M11": {
+   "spiega": "Conta perché il petrolio sale. Se sale perché manca offerta (una guerra, un taglio della produzione), è una tassa per chi lo importa: Europa e Giappone pagano di più, crescono meno e le loro borse ne soffrono. Se sale perché l'economia mondiale va forte e consuma di più, il rialzo accompagna una crescita che fa bene anche alla borsa.",
+   "nonvale": "Le compagnie petrolifere guadagnano in entrambi i casi; per i paesi esportatori l'effetto è opposto a quello dei paesi importatori."
+  },
+  "M12": {
+   "spiega": "Il petrolio si scambia anche con consegna tra mesi. Se quello da consegnare subito costa più di quello futuro (backwardation), il mercato dice che oggi ce n'è poco. Se costa meno (contango), le scorte sono abbondanti e conviene conservarlo per venderlo più avanti.",
+   "nonvale": "Il confronto vale solo tra prezzi dello stesso giorno. E quando un contratto scade e si passa al successivo, il prezzo di riferimento può fare un salto che non è un vero movimento di mercato."
+  },
+  "M13": {
+   "spiega": "Prestare all'Italia è considerato più rischioso che prestare alla Germania, che ha un debito più basso: per questo i BTP pagano più dei Bund. La differenza, lo spread, sale quando cresce la paura per i conti italiani o per la tenuta dell'eurozona e scende quando torna la fiducia.",
+   "nonvale": "Lo spread può muoversi anche per motivi tecnici, come molte emissioni di titoli, poca liquidità o un giudizio delle agenzie di rating, senza una vera notizia sull'Italia."
+  },
+  "M14": {
+   "spiega": "Le opzioni sono assicurazioni contro i movimenti della borsa: più gli investitori temono scossoni, più le pagano care. Il VIX traduce quei prezzi in un numero, la volatilità attesa per i prossimi 30 giorni. Di solito sale quando la borsa scende, perché è allora che si corre a proteggersi; e in media è un po' più alto della volatilità che poi si vede davvero.",
+   "nonvale": "Non dice dove andrà la borsa: può salire anche con l'indice in rialzo, prima di un evento atteso come una riunione della Fed o un'elezione."
+  },
+  "M15": {
+   "spiega": "Prima dei conti gli analisti stimano ricavi e utili, e il prezzo dell'azione incorpora già quelle stime. Il giorno dei risultati il titolo si muove per lo scarto rispetto alle attese e, ancora di più, per le previsioni dell'azienda sul futuro (la guidance). Per questo un utile record può far scendere un titolo.",
+   "nonvale": "Le stime degli analisti cambiano da fonte a fonte: la sorpresa si misura sempre rispetto a un consenso preciso."
+  },
+  "M16": {
+   "spiega": "Nell'S&P 500 e nel Nasdaq ogni azienda pesa in base al suo valore in borsa, e oggi pochi colossi tecnologici valgono una quota enorme dell'indice. Se si muovono loro si muove l'indice, anche se la maggior parte delle altre aziende va in direzione opposta: l'indice può salire mentre l'azione media scende, o mentre il Russell 2000 delle piccole società va giù.",
+   "nonvale": "Per dire quali titoli hanno spinto l'indice in una certa giornata servono i dati di quella seduta: la concentrazione spiega il meccanismo, non il singolo giorno."
+  },
+  "M17": {
+   "spiega": "Nelle borse di Seul e di Taiwan i produttori di chip, come Samsung, SK Hynix e TSMC, pesano moltissimo. Siccome aprono poche ore dopo la chiusura di Wall Street, tendono a seguire quello che hanno fatto i titoli dei chip americani la sera prima.",
+   "nonvale": "Notizie locali, come la politica interna, il cambio o i dati sulle esportazioni, possono contare di più."
+  },
+  "M18": {
+   "spiega": "Molte grandi aziende giapponesi, come Toyota, vendono all'estero in dollari o in euro. Quando lo yen si indebolisce quei ricavi valgono più yen e gli utili salgono: per questo uno yen debole tende a sostenere il Nikkei, e uno yen forte a frenarlo.",
+   "nonvale": "Il legame non è stabile: nei momenti di paura globale lo yen si rafforza e il Nikkei scende per la stessa causa, la fuga dal rischio, non perché l'uno spinga l'altro."
+  },
+  "M19": {
+   "spiega": "Un mercato del lavoro forte vuol dire più stipendi e più consumi, ma anche il rischio di salari e prezzi in salita: la Fed avrà meno motivi per tagliare i tassi. Per questo un dato sul lavoro sopra le attese fa salire i rendimenti a breve, mentre per la borsa l'effetto è doppio: buono per gli utili, cattivo per i tassi.",
+   "nonvale": "Quando il timore principale è la recessione, un dato forte rassicura e può far salire anche le azioni."
+  },
+  "M20": {
+   "spiega": "Esistono contratti future il cui valore dipende dal tasso della banca centrale nei mesi a venire. Dai loro prezzi si ricava cosa si aspetta il mercato, per esempio '70% di probabilità di un taglio a dicembre'. Sono scommesse, non previsioni ufficiali, e cambiano in fretta con ogni dato.",
+   "nonvale": "Fonti diverse calcolano probabilità un po' diverse, e per le riunioni lontane sono stime molto incerte."
+  },
+  "M21": {
+   "spiega": "Le banche raccolgono denaro a breve, dai conti correnti, e prestano a lungo, con mutui e prestiti. Quando i tassi a lungo termine stanno ben sopra quelli a breve (curva ripida), guadagnano di più su questa differenza, il margine d'interesse.",
+   "nonvale": "Tassi troppo alti però aumentano i prestiti non rimborsati e le perdite sui titoli in portafoglio; e in un singolo trimestre commissioni e accantonamenti possono pesare più del margine."
+  },
+  "M22": {
+   "spiega": "Gli Stati si finanziano vendendo titoli all'asta. Se gli investitori ne chiedono pochi rispetto a quelli offerti, lo Stato deve concedere un rendimento più alto del previsto: il mercato lo legge come un segnale di domanda debole, e i rendimenti di quella scadenza possono salire.",
+   "nonvale": "L'effetto è spesso temporaneo, e un movimento dei tassi si può attribuire a un'asta solo se lo confermano i dati della giornata."
+  },
+  "M23": {
+   "spiega": "L'oro non paga interessi né dividendi. Quando i tassi al netto dell'inflazione (reali) sono alti, tenerlo costa caro, perché si rinuncia a un rendimento sicuro; quando scendono, l'oro diventa più attraente. Sale anche nei momenti di paura, come bene rifugio.",
+   "nonvale": "Dal 2022 il legame si è indebolito: le banche centrali di molti paesi hanno comprato oro in grandi quantità, e il prezzo è salito anche con tassi reali alti."
+  },
+  "M24": {
+   "spiega": "Un dazio è una tassa sui beni importati, e qualcuno deve pagarla: in parte l'importatore e il consumatore del paese che lo impone, con prezzi più alti, in parte l'esportatore straniero, che taglia i margini per non perdere clienti. Quanto paga ciascuno cambia da settore a settore.",
+   "nonvale": "L'effetto su borse e cambi non ha un verso fisso: dipende da chi colpisce, da quanto era atteso e dalle risposte degli altri paesi."
+  },
+  "M25": {
+   "spiega": "I future sugli indici di borsa si scambiano quasi tutto il giorno, anche quando le borse sono chiuse. Per questo al mattino danno un'idea di come apriranno i mercati, perché incorporano le notizie della notte.",
+   "nonvale": "Indicano l'apertura, non la chiusura; e di notte o nei giorni festivi, con pochi scambi, il loro prezzo è meno affidabile."
+  },
+  "M26": {
+   "spiega": "Il Treasury a 2 anni è il termometro delle attese sulla Fed: se un dato o una frase del presidente cambiano le previsioni sui tassi, è lui a muoversi di più. Il 10 anni dipende anche da crescita, inflazione di lungo periodo e debito pubblico, quindi reagisce meno, o a volte in senso opposto.",
+   "nonvale": "Notizie su deficit, aste o rating muovono soprattutto il 10 anni; e vicino a una riunione il cui esito è già scontato, il 2 anni può restare fermo."
+  },
+  "M27": {
+   "spiega": "Il rendimento di un titolo di Stato si può dividere in due pezzi: quanto rende al netto dell'inflazione (il rendimento reale, quello dei TIPS) e quanta inflazione si aspetta il mercato (il breakeven). Capire quale dei due si è mosso dice perché: se sale il reale contano crescita e banca centrale, se sale l'inflazione attesa conta il timore sui prezzi.",
+   "esempio": "Un Treasury a 10 anni al 4,3% si scompone in 2,0% di rendimento reale e 2,3% di inflazione attesa.",
+   "nonvale": "I TIPS sono meno scambiati dei titoli normali: nei giorni di tensione l'inflazione attesa può muoversi anche per questo, senza un vero cambio di attese."
+  },
+  "M28": {
+   "spiega": "Le banche d'affari guadagnano facendo da intermediari: con le commissioni e con la differenza tra il prezzo a cui comprano e quello a cui vendono. Quando i mercati si agitano gli scambi aumentano e quella differenza si allarga: per questo nei trimestri nervosi i ricavi da trading crescono, qualunque sia la direzione dei prezzi.",
+   "nonvale": "Movimenti estremi e improvvisi possono causare perdite sulle posizioni della banca; e se il mercato si blocca, gli scambi crollano."
   }
  }
 }
