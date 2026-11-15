@@ -23,7 +23,9 @@ REGISTRO = os.path.join(QUI, "registro.csv")
 PAGELLA = os.path.join(QUI, "PAGELLA.md")
 PAGELLA_JSON = os.path.join(QUI, "pagella.json")
 PAR_DENTRO = 0.68  # probabilità attesa di cadere nel range 16-84%
-PAR_DIREZIONE = json.load(open(os.path.join(QUI, "metodo.json"), encoding="utf-8"))["par_direzione"]
+_MET = json.load(open(os.path.join(QUI, "metodo.json"), encoding="utf-8"))
+PAR_DIREZIONE = _MET["par_direzione"]
+SOGLIA_MATTINO = _MET["redazione"].get("soglia_mattino_in_sigma", 0.1)
 AZIONARI = ["acwi", "spx", "sx5e"]
 
 
@@ -95,6 +97,13 @@ def verdetto(reg, festivo=(), prova=False):
              "punto_range": dentro, "pinball_modello": pm, "pinball_redazione": pr,
              "z": y / sg if sg else float("nan"), "versione_metodo": reg.get("versione_metodo", "0"),
              "variabile": bool(v.get("variabile", False))}
+        # metodo 1.3: il tipo del motivo e il "mattino" (il modello spostato di quanto il mercato si era già mosso lunedì)
+        g = v.get("mattino_sigma")
+        g = None if g is None or g != g or not sg else float(g)
+        r.update({"tipo_motivo": v.get("tipo_motivo", "") or "",
+                  "mattino_sigma": float("nan") if g is None else g,
+                  "pinball_mattino": float("nan") if g is None else pinball(y / sg, qm / sg + g, lv),
+                  "punto_mattino": float("nan") if g is None or abs(g) < SOGLIA_MATTINO or y == 0 else float(g * y > 0)})
         note = []
         if str(data_fin.date()) != str(ven.date()):
             note.append(f"mercato chiuso venerdì: vale l'ultima chiusura del {data_fin.date()}")
@@ -172,15 +181,34 @@ def scrivi_pagella(df):
          f"| Azionari: direzione giusta della redazione contro 'sempre su' | {red_az:.0f}% contro {su_az:.0f}% | la redazione deve battere 'sempre su' |",
          f"| Sorprese oltre 2 sigma | {100 * float((z.abs() > 2).mean()):.0f}% | circa 5% |", "",
          "## Settimana per settimana", "", "| Settimana | Direzione | Range | Totale |", "|---|---|---|---|"]
+    mat_json, tipi_json = None, {}
+    if "pinball_mattino" in df.columns and df["pinball_mattino"].notna().any():
+        dm = df[df["pinball_mattino"].notna()]
+        sk_m = 100 * (1 - dm["pinball_mattino"].mean() / dm["pinball_modello"].mean())
+        sk_r = 100 * (1 - dm["pinball_redazione"].mean() / dm["pinball_modello"].mean())
+        pmv = dm["punto_mattino"].dropna()
+        dir_m = 100 * float(pmv.mean()) if len(pmv) else float("nan")
+        i = next(j for j, x in enumerate(L) if x.startswith("| Sorprese")) + 1
+        L[i:i] = [f"| Mattino: direzione giusta quando lunedì il mercato si era già mosso | "
+                  f"{'n.d.' if dir_m != dir_m else f'{dir_m:.0f}%'} su {len(pmv)} | sopra 50% se il mattino porta informazione |",
+                  f"| Abilità del mattino sul modello (perdita quantile, {len(dm)} chiamate) | {sk_m:+.1f}% | >0; è l'asticella "
+                  f"della redazione ({sk_r:+.1f}% sulle stesse chiamate) |"]
+        mat_json = {"chiamate": int(len(dm)), "direzione_giusta_%": None if dir_m != dir_m else round(dir_m, 1),
+                    "mosse": int(len(pmv)), "abilita_mattino_%": round(sk_m, 2), "abilita_redazione_%": round(sk_r, 2)}
     for s_, r in sett.iterrows():
         L.append(f"| {s_} | {int(r['direzione'])}/{int(r['n'])} | {int(r['range'])}/{int(r['n'])} | {int(r['direzione'] + r['range'])}/{2 * int(r['n'])} |")
     L += ["", "## Per strumento", "", "| Strumento | Settimane | Dentro il range | Direzione giusta |", "|---|---|---|---|"]
     for k, g in df.groupby("nome"):
         L.append(f"| {k} | {len(g)} | {100 * g['punto_range'].mean():.0f}% | {100 * g['punto_direzione'].mean():.0f}% |")
+    if "tipo_motivo" in df.columns and df["tipo_motivo"].fillna("").ne("").any():
+        L += ["", "## Per tipo di motivo (dal metodo 1.3)", "", "| Tipo | Chiamate | Direzione giusta |", "|---|---|---|"]
+        for k, g in df[df["tipo_motivo"].fillna("").ne("")].groupby("tipo_motivo"):
+            L.append(f"| {k} | {len(g)} | {100 * g['punto_direzione'].mean():.0f}% |")
+            tipi_json[k] = {"chiamate": int(len(g)), "direzione_giusta_%": round(100 * float(g["punto_direzione"].mean()), 1)}
     open(PAGELLA, "w", encoding="utf-8").write("\n".join(L) + "\n")
     salva_json({"settimane": n_sett, "punti": punti, "su": su, "par": par, "copertura_range_%": round(cop, 1),
                 "direzione_giusta_%": round(dirr, 1), "abilita_redazione_%": round(skill, 2),
-                "t_dm": None if t != t else round(float(t), 2),
+                "t_dm": None if t != t else round(float(t), 2), "mattino": mat_json, "tipi": tipi_json,
                 "variabile": {"settimane": int(len(dv)), "punti": int(dv["punto_direzione"].sum() + dv["punto_range"].sum()),
                               "su": int(2 * len(dv)), "par": round(len(dv) * (PAR_DENTRO + 0.5), 1),
                               "copertura_range_%": round(100 * dv["punto_range"].mean(), 1) if len(dv) else None,

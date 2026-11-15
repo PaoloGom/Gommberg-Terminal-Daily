@@ -5,9 +5,15 @@ Uso:
 
 - origine: data dell'ultima chiusura nota (il venerdì precedente). I file in dati/ devono arrivare almeno a quella data
   (aggiornali prima con aggiorna_dati.py).
-- redazione.json (obbligatorio): {"spx": {"previsione": 7840, "motivo": "..."}, ...} per tutti gli strumenti di metodo.json (6 dalla versione 1.1). È la scommessa:
-  ogni strumento ha una direzione. Lo scarto dalla chiusura di partenza è di norma 0,1 sigma; fino a 0,3 solo con un catalizzatore
-  datato nella settimana (metodo 1.2, metodo.json): sotto 0,1 viene portato a 0,1 nella stessa direzione, sopra 0,3 viene limitato a 0,3.
+- redazione.json (obbligatorio), metodo 1.3: {"_scenario": "...", "spx": {"mattino_var": 0.6, "tipo": "mattino", "motivo": "..."},
+  "ust10": {"mattino_var": -1, "tipo": "catalizzatore", "previsione": 4.80, "motivo": "..."}, ...} per tutti gli strumenti di metodo.json.
+  mattino_var = variazione da venerdì già vista stamattina (% per i prezzi, punti base per i tassi; si omette se non verificabile).
+  tipo = perché scegliamo quella direzione, uno di metodo.json > redazione > tipi_motivo:
+    mattino        il mercato si è già mosso di almeno 0,1 sigma: la direzione è quella, lo scarto è il movimento (tetto 0,3 sigma);
+    fondo          mattino fermo e storia che pende al rialzo (borse, oro): su di 0,1 sigma;
+    scenario       mattino fermo: la direzione che discende dallo scenario della settimana, 0,1 sigma (serve "previsione");
+    catalizzatore  un evento datato nella settimana, scritto nel motivo: unico tipo che può andare contro il mattino, fino a 0,3 sigma
+                   (serve "previsione").
 Scrive <uscita>/<origine+3gg>-settimana.json e stampa una tabella di controllo. Il grafico si disegna con grafico.py.
 """
 import argparse
@@ -83,13 +89,42 @@ def pronostica(origine: pd.Timestamp, redazione: dict, variabile=None):
         else:
             z = z_storici(k, cfg["vol"], tipo, s, r, origine, vix_d)
             qx = quantili_empirici(0.0, sg, z) if len(z) >= 156 else quantili_t(0.0, sg, 5)
-        # previsione della redazione, limitata allo scarto massimo di metodo.json (0,3 sigma dal metodo 1.2)
+        # previsione della redazione (metodo 1.3): si parte dal mattino, ogni chiamata ha un tipo, la convinzione ha un tetto
         red = redazione.get(k, {})
+        cfg_r = METODO["redazione"]
+        minimo = cfg_r["scarto_minimo_in_sigma"] * sg
+        soglia = cfg_r.get("soglia_mattino_in_sigma", 0.1) * sg
+        tipi = cfg_r.get("tipi_motivo")
+        tipo_m, g = red.get("tipo"), None
+        if red.get("mattino_var") is not None:
+            mv = float(red["mattino_var"])
+            g = math.log(1 + mv / 100) if tipo == "prezzo" else mv
+            if abs(g) > 3 * sg:
+                raise SystemExit(f"{k}: mattino_var {mv} vale {g / sg:+.1f} sigma: controlla il dato (% per i prezzi, punti base per i tassi)")
+        mosso = g is not None and abs(g) >= soglia
+        if tipi:
+            if tipo_m not in tipi:
+                raise SystemExit(f"{k}: manca il tipo del motivo, uno tra {', '.join(tipi)} (APP_LUNEDI.md §3)")
+            if not str(red.get("motivo", "")).strip():
+                raise SystemExit(f"{k}: manca il motivo")
+            if tipo_m == "mattino":
+                if not mosso:
+                    raise SystemExit(f"{k}: tipo 'mattino' ma da venerdì il mercato non si è mosso di almeno "
+                                     f"{cfg_r.get('soglia_mattino_in_sigma', 0.1)} sigma: scegli fondo, scenario o catalizzatore")
+                red = dict(red, previsione=livello(base, g, tipo))          # la direzione è quella del mattino
+            elif mosso and tipo_m != "catalizzatore":
+                raise SystemExit(f"{k}: il mercato si è già mosso di {g / sg:+.2f} sigma: il tipo è 'mattino', oppure "
+                                 f"'catalizzatore' se un evento datato ti fa andare contro")
+            elif tipo_m == "fondo":
+                if METODO["par_direzione"].get(k, 0.5) <= 0.5:
+                    raise SystemExit(f"{k}: tipo 'fondo' vale solo dove la storia pende al rialzo (par_direzione sopra 0,5)")
+                red = dict(red, previsione=livello(base, minimo, tipo))     # la tendenza di fondo è al rialzo
         if "previsione" not in red:
             raise SystemExit(f"{k}: manca la previsione della redazione (la scommessa richiede una direzione per ogni strumento)")
         x = math.log(red["previsione"] / base) if tipo == "prezzo" else (red["previsione"] - base) * 100
-        lim = METODO["redazione"]["scarto_massimo_in_sigma"] * sg
-        minimo = METODO["redazione"]["scarto_minimo_in_sigma"] * sg
+        lim = cfg_r["scarto_massimo_in_sigma"] * sg
+        if tipi and tipo_m in cfg_r.get("tipi_a_scarto_minimo", ()):
+            lim = minimo
         tilt = max(-lim, min(lim, x))
         if abs(tilt) < minimo:
             if x == 0:
@@ -109,6 +144,9 @@ def pronostica(origine: pd.Timestamp, redazione: dict, variabile=None):
             "aggiustata": bool(abs(tilt - x) > 1e-12),
             "prob_rialzo_modello": 0.5,
             "prob_rialzo_redazione": prob_rialzo(tilt, sg, cfg["forma"]),
+            "tipo_motivo": tipo_m or "",
+            "mattino_sigma": None if g is None else round(g / sg, 3),
+            "contro_mattino": bool(mosso and tilt * g < 0),
         }
         if info.get("variabile"):
             out[k].update(variabile=True, motivo_scelta=info.get("motivo_scelta", ""))
@@ -127,8 +165,10 @@ def prova(origine, variabile=None):
         b = float(s.iloc[-1])
         liv = [livello(b, m * sg, info["tipo"]) for m in (-0.3, -0.2, -0.1, 0.1, 0.2, 0.3)]
         su = f"{sg:.4f}" if info["tipo"] == "prezzo" else f"{sg:.1f} pb"
+        so = METODO["redazione"].get("soglia_mattino_in_sigma", 0.1) * sg
+        so = f"{(math.exp(so) - 1) * 100:.2f}%" if info["tipo"] == "prezzo" else f"{so:.1f} pb"
         print(f"{k:18s} {b:10.4f} {su:>9s}   " + " / ".join(f"{x:.4f}" for x in liv[:3]) + "   |   " +
-              " / ".join(f"{x:.4f}" for x in liv[3:]))
+              " / ".join(f"{x:.4f}" for x in liv[3:]) + f"   |   mattino: conta da +-{so}")
 
 
 def main():
@@ -152,12 +192,15 @@ def main():
         return
     if not a.redazione:
         raise SystemExit("serve --redazione (oppure --prova per vedere sigma e livelli)")
+    scenario = str(red.get("_scenario", "")).strip()
+    if METODO["redazione"].get("tipi_motivo") and not scenario:
+        raise SystemExit('manca "_scenario": una frase con l\'evento datato che decide la settimana e che cosa lo smentirebbe')
     st = pronostica(origine, red, a.variabile)
     lun = (origine + pd.Timedelta(days=3)).date()
     ven = (origine + pd.Timedelta(days=7)).date()
     reg = {"schema": 2, "versione_metodo": METODO["versione"], "data_pronostico": str(lun),
            "settimana": f"{lun}/{ven}", "origine": str(origine.date()), "verdetto_previsto": str(ven + dt.timedelta(days=3)),
-           "range_pubblicato": "16-84% (circa 2 settimane su 3 la chiusura cade dentro)", "strumenti": st}
+           "range_pubblicato": "16-84% (circa 2 settimane su 3 la chiusura cade dentro)", "scenario": scenario, "strumenti": st}
     os.makedirs(a.uscita, exist_ok=True)
     nome = os.path.join(a.uscita, f"{lun}-settimana.json")
     if os.path.exists(nome) and not a.forza:
@@ -167,7 +210,12 @@ def main():
     for k, v in st.items():
         print(f"{v['nome']:18s} base {v['base']:.4f} range {v['range'][0]:.4f}-{v['range'][1]:.4f} "
               f"redazione {v['previsione_redazione']:.4f} (scarto {v['scarto_redazione_sigma']:+.2f} sigma"
-              f"{', AGGIUSTATA' if v['aggiustata'] else ''}) p_rialzo {v['prob_rialzo_redazione']:.0%} [{v['metodo']}]")
+              f"{', AGGIUSTATA' if v['aggiustata'] else ''}) p_rialzo {v['prob_rialzo_redazione']:.0%} [{v['metodo']}] "
+              f"tipo {v['tipo_motivo'] or '-'}, mattino {'n.d.' if v['mattino_sigma'] is None else format(v['mattino_sigma'], '+.2f') + ' sigma'}"
+              f"{' CONTRO IL MATTINO' if v['contro_mattino'] else ''}")
+    contro = [v["nome"] for v in st.values() if v["contro_mattino"]]
+    if len(contro) > 2:
+        print(f"AVVISO: {len(contro)} chiamate contro il mattino ({', '.join(contro)}): di norma non più di 2 su 6. Rileggi i catalizzatori.")
 
 
 if __name__ == "__main__":

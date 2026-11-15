@@ -1,6 +1,6 @@
 {
-  "versione": "1.2",
-  "in_vigore_dal": "2026-11-09",
+  "versione": "1.3",
+  "in_vigore_dal": "2026-11-23",
   "backtest_di_riferimento": "backtest/risultati_2026-10-12.json",
   "orizzonte": "dalla chiusura del venerdì precedente alla chiusura del venerdì della settimana (5 sedute)",
   "range_pubblicato": [
@@ -40,12 +40,25 @@
     "scarto_minimo_in_sigma": 0.1,
     "scarto_predefinito_in_sigma": 0.1,
     "scarto_massimo_in_sigma": 0.3,
-    "regola": "La scommessa richiede una direzione per ogni strumento: la previsione pubblicata è della redazione e si sposta dalla chiusura di partenza di 0,1 deviazioni standard (spostamento predefinito). Fino a 0,3 solo con un catalizzatore datato nella settimana e scritto nel motivo; oltre 0,3 lo script limita. Motivo: senza abilità dimostrata, uno spostamento di 0,3 sigma peggiora in attesa la perdita quantile del 4% circa (0,5 sigma: 12%); per andare in pari servirebbe il 56% di direzioni giuste a 0,3 sigma e il 52% a 0,1. Il range pubblicato resta quello del modello, centrato sulla chiusura di partenza."
+    "soglia_mattino_in_sigma": 0.1,
+    "tipi_motivo": {
+      "mattino": "da venerdì il mercato si è già mosso di almeno 0,1 sigma: la direzione è quella, lo scarto è il movimento (tetto 0,3)",
+      "fondo": "mattino fermo e storia che pende al rialzo (par_direzione sopra 0,5): su di 0,1 sigma",
+      "scenario": "mattino fermo: la direzione che discende dallo scenario della settimana, 0,1 sigma",
+      "catalizzatore": "evento datato nella settimana scritto nel motivo: unico tipo che può andare contro il mattino, fino a 0,3 sigma"
+    },
+    "tipi_a_scarto_minimo": [
+      "fondo",
+      "scenario"
+    ],
+    "regola": "La scommessa richiede una direzione per ogni strumento. Si parte da ciò che il mercato ha già fatto lunedì mattina rispetto alla chiusura di venerdì: se si è mosso di almeno 0,1 sigma la direzione è quella (tipo mattino). Se è fermo: tendenza di fondo dove la storia pende (fondo), altrimenti la direzione che discende dallo scenario della settimana (scenario), sempre a 0,1 sigma. Contro il mattino si va solo con un catalizzatore datato scritto nel motivo, fino a 0,3 sigma. Il range pubblicato resta quello del modello, centrato sulla chiusura di venerdì. Ogni chiamata porta il suo tipo: la pagella misura quali tipi funzionano.",
+    "verifica": "Dopo 12 verdetti con il metodo 1.3: se l'abilità del mattino sul modello (PAGELLA.md) è negativa, la direzione predefinita torna allo scenario (metodo 1.2). Dopo 26: se il t di Diebold-Mariano del mattino sul modello è >= 2, il tetto del tipo mattino sale al movimento intero."
   },
   "regola_di_adozione": "Un metodo nuovo sostituisce quello in vigore solo se, fuori campione dal 2011: (1) come specifica unica per tutti gli strumenti, riduce la perdita quantile (in unità di sigma) con t di Diebold-Mariano aggregato >= 2 e positivo anche solo dal 2020; oppure (2) per un singolo strumento, con t >= 2,9 (correzione di Bonferroni per circa 15 candidati) e miglioramento positivo dal 2020. Tra più candidati che passano vince quello con t più alto. Un difetto di calibrazione (copertura del 68% fuori da 63-73% su almeno 300 settimane) va corretto anche senza test di perdita.",
   "candidato_in_osservazione": {
     "metodo": "blend|t5",
-    "esito_2026-10-12": "migliora 6 strumenti su 6 (0,3-1,0%) e porta la copertura del 90% da 88% a 90-92%, ma il test aggregato non supera la soglia (t 1,6; dal 2020 t 0,8). Si ritesta ogni 26 settimane."
+    "esito_2026-10-12": "migliora 6 strumenti su 6 (0,3-1,0%) e porta la copertura del 90% da 88% a 90-92%, ma il test aggregato non supera la soglia (t 1,6; dal 2020 t 0,8). Si ritesta ogni 26 settimane.",
+    "da_provare_alla_revisione": "volatilità implicita scalata (indice di volatilità x rapporto storico tra realizzata e implicita, stimato a finestra espansiva): il VIX grezzo è stato scartato perché largo, non perché non informativo. Stessa regola di adozione."
   },
   "par_direzione": {
     "spx": 0.58,
@@ -73,6 +86,12 @@
       "dal": "2026-11-09",
       "strumenti": 6,
       "modifica": "esce l'ACWI (correlazione settimanale 0,97 con l'S&P 500, stessa direzione 23 settimane su 23: una scommessa doppia); entra l'oro (correlazione sotto 0,6 con ogni fisso; collaudo 2015-2026: copertura 67,5%, banda 5-95% 87,8%, in linea con gli altri). Ordine: azioni, tassi, valute, materie prime. Spostamento della redazione predefinito 0,1 sigma, massimo 0,3 (era 0,5). Par invariato: 7,3 su 12 (direzione senza abilità 53%)."
+    },
+    {
+      "versione": "1.3",
+      "dal": "2026-11-23",
+      "strumenti": 6,
+      "modifica": "cambia solo come la redazione sceglie la direzione: si parte dal movimento di lunedì mattina, ogni chiamata ha un tipo (mattino, fondo, scenario, catalizzatore), uno scenario unico per la settimana, pagella per tipo e confronto con la regola del mattino. Modello, range, strumenti e par invariati."
     }
   ]
 }
