@@ -13,7 +13,9 @@ Uso:   python3 redazione/newsletter.py auto       l'invio vero, solo se l'edizio
 Regole dell'invio automatico (modo auto):
   1. parte solo l'edizione con la data di oggi (ora di Roma): le edizioni di prova del fine settimana non partono;
   2. ogni numero parte una volta sola: se in Kit esiste già un invio con la stessa etichetta, non si rifà;
-  3. l'invio è programmato qualche minuto dopo, il tempo che il sito pubblichi la pagina a cui l'email rimanda.
+  3. l'invio è programmato qualche minuto dopo, il tempo che il sito pubblichi la pagina a cui l'email rimanda;
+  4. prima delle 8 di mattina (ora di Roma) non parte nulla: una modifica notturna a un'edizione di prova con la data
+     del giorno dopo non deve arrivare ai lettori al posto dell'edizione vera.
 
 L'email usa solo i campi base della scheda (numero, data, titolo, dek, sommario, notizie, ticker, file): gli stessi di home e feed.
 
@@ -39,6 +41,7 @@ BASE = "https://paologom.github.io/Gommberg-Terminal-Daily/"
 API = "https://api.kit.com/v4"
 ATTESA_MINUTI = 4          # tempo lasciato al sito per pubblicare la pagina dell'edizione
 MODELLO = "Gommberg edizione"   # il modello di Kit per le edizioni (vedi sopra)
+ORA_MINIMA = 8             # prima di quest'ora (Roma) l'invio automatico non parte
 GIORNI = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"]
 MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto",
         "settembre", "ottobre", "novembre", "dicembre"]
@@ -238,9 +241,13 @@ def main():
 
     if modo != "auto":
         sys.exit(f"ERRORE: modo sconosciuto: {modo}")
-    oggi = datetime.now(ZoneInfo("Europe/Rome")).date().isoformat()
+    adesso = datetime.now(ZoneInfo("Europe/Rome"))
+    oggi = adesso.date().isoformat()
     if ed["data"] != oggi:
         print(f"Niente invio: l'ultima edizione è del {ed['data']}, oggi è {oggi}.")
+        return
+    if adesso.hour < ORA_MINIMA:
+        print(f"Niente invio: sono le {adesso:%H:%M}, prima delle {ORA_MINIMA} non parte nulla.")
         return
     if etichetta(ed) in invii_esistenti():
         print(f"Niente invio: l'edizione #{int(ed['numero']):03d} è già partita.")
