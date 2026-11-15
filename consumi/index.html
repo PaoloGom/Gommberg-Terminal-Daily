@@ -95,25 +95,32 @@ function disegna(reg,tar){
   var piano=tar.some(function(x){return x.piano==RIF})?RIF:(tar.length?tar[tar.length-1].piano:null),tt=tar.filter(function(x){return x.piano==piano});
   var tasso=tt.length?tt.reduce(function(s,x){return s+x.punti},0)/tt.reduce(function(s,x){return s+x.durata_min},0):null;
   var tmin=tt.length?Math.min.apply(null,tt.map(function(x){return x.punti/x.durata_min})):null,tmax=tt.length?Math.max.apply(null,tt.map(function(x){return x.punti/x.durata_min})):null;
-  reg.forEach(function(x){x.v2=x.durata_min!=null?(tasso?x.durata_min*tasso:x.durata_min):null});
+  /* token misurati dal gancio: un punto del piano vale tanti token quanti ne escono dalle edizioni misurate */
+  var mis=reg.filter(function(x){return x.pesati>0&&x.durata_min>0});
+  var tokMin=mis.length?mis.reduce(function(s,x){return s+x.pesati},0)/mis.reduce(function(s,x){return s+x.durata_min},0):null,tokPunto=tasso&&tokMin?tokMin/tasso:null;
+  function mln(x){return it(x/1e6,2)}
+  reg.forEach(function(x){x.v2=x.pesati>0&&tokPunto?x.pesati/tokPunto:(x.durata_min!=null?(tasso?x.durata_min*tasso:x.durata_min):null)});
   function val(v){return v==null?"-":tasso?"≈ "+it(v,1):it(v,0)}
   var unita=tasso?"punti "+piano:"min";
   /* le versioni, nell'ordine in cui sono uscite */
   var vers=[];reg.forEach(function(x){var k=x.v||"?",l=vers[vers.length-1];if(!l||l.v!=k){l={v:k,r:[]};vers.push(l)}l.r.push(x)});
   vers.forEach(function(g){var d=g.r.filter(function(x){return x.durata_min!=null});
-    g.n=g.r.length;g.dur=med(d.map(function(x){return x.durata_min}));g.st=g.dur!=null&&tasso?g.dur*tasso:null;
+    g.n=g.r.length;g.dur=med(d.map(function(x){return x.durata_min}));
+    g.tok=med(g.r.filter(function(x){return x.pesati>0}).map(function(x){return x.pesati}));
+    g.st=tasso?med(g.r.filter(function(x){return x.v2!=null}).map(function(x){return x.v2})):null;
     g.sch=med(g.r.filter(function(x){return x.schede!=null}).map(function(x){return x.schede}));g.fon=med(g.r.filter(function(x){return x.fonti!=null}).map(function(x){return x.fonti}));
     g.kb=g.r[g.r.length-1].avvio_kb;g.dal=g.r[0].d;g.al=g.r[g.r.length-1].d});
-  vers.forEach(function(g,i){var p=null;for(var j=i-1;j>=0;j--)if(vers[j].dur!=null){p=vers[j];break}g.var=g.dur!=null&&p?(g.dur/p.dur-1)*100:null});
+  vers.forEach(function(g,i){var p=null;for(var j=i-1;j>=0;j--)if(vers[j].dur!=null){p=vers[j];break}
+    g.var=p&&g.tok&&p.tok?(g.tok/p.tok-1)*100:(g.dur!=null&&p?(g.dur/p.dur-1)*100:null)});
   var u=reg[reg.length-1],vu=vers[vers.length-1],con=reg.filter(function(x){return x.v2!=null});
   var ult5=con.slice(-5),tipo=ult5.length?med(ult5.map(function(x){return x.v2}))*5:null;
   var h="";
-  if(tasso&&vu.dur!=null)h+='<p class="lede">Con la '+esc(vu.v)+" un'edizione pesa circa <b>"+it(vu.st,1)+" punti su 100</b> del limite settimanale del piano "+esc(piano)+" (tra "+it(vu.dur*tmin,1)+" e "+it(vu.dur*tmax,1)+"): cinque edizioni, circa <b>"+it(vu.st*5,0)+"</b>.</p>";
+  if(tasso&&vu.st!=null)h+='<p class="lede">Con la '+esc(vu.v)+" un'edizione pesa circa <b>"+it(vu.st,1)+" punti su 100</b> del limite settimanale del piano "+esc(piano)+" (tra "+it(vu.st*tmin/tasso,1)+" e "+it(vu.st*tmax/tasso,1)+"): cinque edizioni, circa <b>"+it(vu.st*5,0)+"</b>."+(vu.tok?" Token misurati: <b>"+mln(vu.tok)+" milioni</b> pesati a edizione.":"")+"</p>";
   h+='<div class="tiles">'
-   +'<div class="tile"><div class="k">Ultima edizione</div><div class="v">'+val(u.v2)+' <small>'+(u.v2!=null?unita:"")+'</small></div><div class="n">'+num(u.n)+" "+data(u.d)+(u.durata_min!=null?" · "+u.durata_min+" min":" · durata non nota")+"</div></div>"
+   +'<div class="tile"><div class="k">Ultima edizione</div><div class="v">'+val(u.v2)+' <small>'+(u.v2!=null?unita:"")+'</small></div><div class="n">'+num(u.n)+" "+data(u.d)+(u.pesati>0?" · "+mln(u.pesati)+" mln di token":(u.durata_min!=null?" · "+u.durata_min+" min":" · durata non nota"))+"</div></div>"
    +'<div class="tile"><div class="k">Settimana tipo</div><div class="v">'+(tipo!=null?val(tipo):"-")+' <small>'+(tasso?"su 100":unita)+'</small></div><div class="n">cinque edizioni come le ultime '+ult5.length+"</div></div>"
    +'<div class="tile"><div class="k">Versione in uso</div><div class="v">'+esc(vu.v)+'</div><div class="n">'+vu.n+(vu.n==1?" edizione":" edizioni")+(vu.dur!=null?" · media "+it(vu.dur,0)+" min":"")+"</div></div>"
-   +'<div class="tile"><div class="k">Sulla versione prima</div><div class="v">'+seg(vu.var)+'</div><div class="n">durata media, e quindi peso stimato</div></div></div>';
+   +'<div class="tile"><div class="k">Sulla versione prima</div><div class="v">'+seg(vu.var)+'</div><div class="n">'+(vu.tok?"token medi a edizione":"durata media, e quindi peso stimato")+'</div></div></div>';
   if(!tasso)h+='<p class="note">Manca una lettura vera del consumo: per ora la pagina mostra i minuti di lavoro.</p>';
 
   /* 1. una serie, una misura: colonne per edizione, con il cambio di versione segnato */
@@ -126,7 +133,7 @@ function disegna(reg,tar){
     if(i==0||(S[i-1].v||"?")!=(x.v||"?")){var x0=L+pw*i;if(i>0)g+='<line x1="'+x0+'" x2="'+x0+'" y1="'+(T-18)+'" y2="'+(H-B)+'" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>';
       g+='<text x="'+(x0+4)+'" y="'+(T-8)+'" style="fill:var(--ink);font-weight:500">'+esc(x.v||"?")+"</text>"}
     if(x.v2==null){tx+="uscita alle "+(x.ora||"?")+": edizione rifatta a mano, durata non nota";g+='<text x="'+cx+'" y="'+(H-B-6)+'" text-anchor="middle">·</text>'}
-    else tx+=(tasso?"≈ "+it(x.v2,1)+" punti "+esc(piano)+"<br>":"")+x.durata_min+" min"+(x.schede!=null?" · "+x.schede+" schede · "+x.fonti+" fonti":"");
+    else tx+=(tasso?"≈ "+it(x.v2,1)+" punti "+esc(piano)+"<br>":"")+(x.pesati>0?mln(x.pesati)+" mln di token pesati, misurati · "+x.richieste+" passi<br>":"")+(x.durata_min!=null?x.durata_min+" min":"")+(x.schede!=null?" · "+x.schede+" schede · "+x.fonti+" fonti":"");
     g+='<rect class="hit" tabindex="0" x="'+(cx-pw/2)+'" y="'+T+'" width="'+pw+'" height="'+(H-T-B)+'" data-t="'+esc(tx)+'"/>';
     if(x.v2!=null){var bh=(H-T-B)*x.v2/top,y=H-B-bh,r=Math.min(4,bw/2,bh);
       g+='<path class="col'+(i==S.length-1?" ultima":"")+'" d="M'+(cx-bw/2)+" "+(H-B)+"V"+(y+r)+"q0 -"+r+" "+r+" -"+r+"H"+(cx+bw/2-r)+"q"+r+" 0 "+r+" "+r+"V"+(H-B)+'z"/>'}
@@ -136,20 +143,20 @@ function disegna(reg,tar){
    +'<div class="card"><svg viewBox="0 0 '+W+" "+H+'" role="img" aria-label="'+(tasso?"Peso stimato":"Durata")+' di ogni edizione, con le versioni del kit. I valori sono nelle tabelle qui sotto.">'+g+"</svg></div></section>";
 
   /* 2. versione per versione: è qui che si vede se una modifica ha fatto salire o scendere il consumo */
-  h+='<section class="sec"><div class="sec-head"><h2>Versione per versione</h2><span>medie delle edizioni uscite con ogni versione del kit</span></div><div class="tw"><table><thead><tr><th>Versione</th><th>Edizioni</th><th>Periodo</th><th>Durata media</th>'+(tasso?"<th>Peso stimato (punti "+esc(piano)+")</th>":"")+"<th>Sulla versione prima</th><th>Letto a ogni avvio (KB)</th><th>Schede</th><th>Fonti</th></tr></thead><tbody>"
-   +vers.slice().reverse().map(function(v){return "<tr><td><b>"+esc(v.v)+"</b></td><td>"+v.n+"</td><td>"+breve(v.dal)+(v.al!=v.dal?" - "+breve(v.al):"")+"</td><td>"+(v.dur!=null?it(v.dur,0)+" min":"-")+"</td>"+(tasso?"<td>"+(v.st!=null?it(v.st,1):"-")+"</td>":"")+"<td>"+seg(v.var)+"</td><td>"+(v.kb!=null?v.kb:"-")+"</td><td>"+(v.sch!=null?it(v.sch,0):"-")+"</td><td>"+(v.fon!=null?it(v.fon,0):"-")+"</td></tr>"}).join("")+"</tbody></table></div></section>";
+  h+='<section class="sec"><div class="sec-head"><h2>Versione per versione</h2><span>medie per versione del kit · avvio = KB letti per intero a ogni corsa</span></div><div class="tw"><table><thead><tr><th>Versione</th><th>Edizioni</th><th>Periodo</th><th>Durata</th>'+(tasso?"<th>Punti "+esc(piano)+"</th>":"")+"<th>Token (mln)</th><th>Sulla prima</th><th>Avvio (KB)</th><th>Schede</th><th>Fonti</th></tr></thead><tbody>"
+   +vers.slice().reverse().map(function(v){return "<tr><td><b>"+esc(v.v)+"</b></td><td>"+v.n+"</td><td>"+breve(v.dal)+(v.al!=v.dal?" - "+breve(v.al):"")+"</td><td>"+(v.dur!=null?it(v.dur,0)+" min":"-")+"</td>"+(tasso?"<td>"+(v.st!=null?it(v.st,1):"-")+"</td>":"")+"<td>"+(v.tok?mln(v.tok):"-")+"</td><td>"+seg(v.var)+"</td><td>"+(v.kb!=null?v.kb:"-")+"</td><td>"+(v.sch!=null?it(v.sch,0):"-")+"</td><td>"+(v.fon!=null?it(v.fon,0):"-")+"</td></tr>"}).join("")+"</tbody></table></div></section>";
 
   /* 3. tutte le edizioni recenti */
   var righe=reg.slice(-20).reverse().map(function(x){
-    return "<tr><td>"+data(x.d)+" "+num(x.n)+"</td><td>"+esc(x.v||"-")+"</td>"+(tasso?"<td>"+(x.v2!=null?it(x.v2,1):"-")+"</td>":"")+"<td>"+(x.durata_min!=null?x.durata_min+" min":"-")+"</td><td>"+(x.ora||"-")+"</td><td>"+(x.schede!=null?x.schede:"-")+"</td><td>"+(x.fonti!=null?x.fonti:"-")+"</td></tr>"}).join("");
-  h+='<section class="sec"><div class="sec-head"><h2>Le ultime edizioni</h2><span>ultime '+Math.min(20,reg.length)+'</span></div><div class="tw"><table><thead><tr><th>Edizione</th><th>Versione</th>'+(tasso?"<th>Peso stimato (punti "+esc(piano)+")</th>":"")+"<th>Durata</th><th>Uscita</th><th>Schede dei fatti</th><th>Fonti citate</th></tr></thead><tbody>"+righe+"</tbody></table></div></section>";
+    return "<tr><td>"+data(x.d)+" "+num(x.n)+"</td><td>"+esc(x.v||"-")+"</td>"+(tasso?"<td>"+(x.v2!=null?it(x.v2,1):"-")+"</td>":"")+"<td>"+(x.pesati>0?mln(x.pesati):"-")+"</td><td>"+(x.richieste||"-")+"</td><td>"+(x.durata_min!=null?x.durata_min+" min":"-")+"</td><td>"+(x.ora||"-")+"</td><td>"+(x.schede!=null?x.schede:"-")+"</td><td>"+(x.fonti!=null?x.fonti:"-")+"</td></tr>"}).join("");
+  h+='<section class="sec"><div class="sec-head"><h2>Le ultime edizioni</h2><span>ultime '+Math.min(20,reg.length)+'</span></div><div class="tw"><table><thead><tr><th>Edizione</th><th>Versione</th>'+(tasso?"<th>Punti "+esc(piano)+"</th>":"")+"<th>Token (mln)</th><th>Passi</th><th>Durata</th><th>Uscita</th><th>Schede dei fatti</th><th>Fonti citate</th></tr></thead><tbody>"+righe+"</tbody></table></div></section>";
 
   /* 4. le letture vere su cui poggia la stima */
   if(tar.length){
     h+='<section class="sec"><div class="sec-head"><h2>Da dove viene la stima</h2><span>piano '+esc(piano)+": "+it(tasso*60,1)+" punti per ora di attività (tra "+it(tmin*60,1)+" e "+it(tmax*60,1)+")</span></div>"
      +'<div class="tw"><table><thead><tr><th>Lettura della pagina Utilizzo</th><th>Piano</th><th>Punti</th><th>Minuti di attività</th><th>Punti all\'ora</th><th>Usata</th></tr></thead><tbody>'
      +tar.slice().reverse().map(function(x){return '<tr><td style="white-space:normal;min-width:260px">'+data(x.giorno)+(x.nota?" · "+esc(x.nota):"")+"</td><td>"+esc(x.piano)+"</td><td>"+it(x.punti,1)+"</td><td>"+it(x.durata_min,0)+"</td><td>"+it(x.punti/x.durata_min*60,1)+"</td><td>"+(x.piano==piano?"sì":"no")+"</td></tr>"}).join("")+"</tbody></table></div>"
-     +'<p class="note">Il peso di un\'edizione è una stima: la sua durata per il tasso delle letture vere sul piano '+esc(piano)+". Le letture sono i punti della pagina Utilizzo dell'app prima e dopo una corsa (100 è il limite della settimana). Sono poche e arrotondate al punto, quindi l'errore è nell'ordine di un terzo: l'intervallo tra parentesi lo dice. Durata, schede e fonti sono invece misure, scritte dal kit a ogni uscita; la durata fino alla #025 è ricostruita dall'ora di avvio e di uscita. Un'attività programmata non può leggere i propri token.</p></section>"}
+     +'<p class="note">I token sono misurati: dal 16/11 un gancio li somma dalla trascrizione di ogni sessione, senza spendere token (pesati = ingresso + 2 x scritti in cache + 0,1 x letti dalla cache + 5 x in uscita). Il peso in punti del piano '+esc(piano)+" è invece una stima: per le edizioni misurate, i loro token rapportati al tasso delle letture; per quelle di prima, la durata per lo stesso tasso. Le letture sono i punti della pagina Utilizzo dell'app prima e dopo una corsa (100 è il limite della settimana): sono poche e arrotondate al punto, quindi l'errore sui punti è nell'ordine di un terzo. La durata fino alla #025 è ricostruita dall'ora di avvio e di uscita.</p></section>"}
   app.innerHTML=h;
   app.addEventListener("pointermove",function(e){var t=e.target.getAttribute&&e.target.getAttribute("data-t");if(!t){tip.style.opacity=0;return}
     tip.innerHTML=t;tip.style.opacity=1;var x=Math.min(e.clientX+12,innerWidth-tip.offsetWidth-8),y=e.clientY-tip.offsetHeight-12;tip.style.left=x+"px";tip.style.top=(y<8?e.clientY+16:y)+"px"});

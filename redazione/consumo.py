@@ -10,9 +10,11 @@ Due file in consumi/:
                   costati quanti minuti di attività, su quale piano. Da qui viene il tasso "punti al minuto" con cui la
                   pagina stima il peso di ogni edizione: stima = durata x tasso. Vale il piano dell'ultima lettura.
 
-Perché non i token: un'attività programmata non può leggere i propri token. In chat il sistema li dà (Skill
-"explain-usage"); nella sessione di un'attività la skill non esiste, né durante la corsa né riaprendo la sua chat
-(due prove il 15/11/2026: "Unknown skill: explain-usage"). L'unica misura vera disponibile è la pagina Utilizzo.
+I token veri: il gancio redazione/gancio_token.py (.claude/settings.json, dopo ogni comando Bash) somma i token della
+sessione dalla sua trascrizione e li lascia in /tmp/gtd_token.json; --indici li mette nella riga dell'edizione ("token",
+"pesati", "richieste"). Provato il 15/11/2026 in una sessione programmata: funziona. Restano fuori solo i pochi passi dopo
+la pubblicazione. Token pesati = ingresso + 2 x scritti in cache + 0,1 x letti dalla cache + 5 x uscita. (La Skill
+"explain-usage" delle chat, invece, nelle sessioni programmate non esiste.)
 
 Uso:
   consumo.py --indici <N> <AAAA-MM-GG> [fatti.json]             riga dell'edizione appena pubblicata (lo chiama pubblica.sh)
@@ -104,10 +106,17 @@ def indici(n, data, fatti_p):
         riga.update(conta(json.load(open(fatti_p, encoding="utf-8"))))
     except Exception:
         pass
+    try:                                             # i token veri, se il gancio ha potuto leggerli
+        g = json.load(open(os.environ.get("GTD_TOKEN", "/tmp/gtd_token.json"), encoding="utf-8"))
+        if g.get("esiste") and g.get("richieste") and g.get("pesati"):
+            riga.update(richieste=int(g["richieste"]), token=g["token"], pesati=int(g["pesati"]))
+    except Exception:
+        pass
     riga.update(versione_e_peso(lambda f: open(os.path.join(REPO, f), "rb").read(),
                                 lambda: os.listdir(os.path.join(REPO, "redazione"))))
     k = metti(riga)
-    print(f"Consumo: indicatori registrati (#{int(n):03d}, {riga.get('durata_min')} min, {riga.get('ricerche')} ricerche; {k} righe)")
+    tok = f"{riga['pesati'] / 1e6:.2f} milioni di token pesati" if riga.get("pesati") else "token non misurati"
+    print(f"Consumo: registrato (#{int(n):03d}, {riga.get('durata_min')} min, {tok}; {k} righe)")
 
 
 def storico():
