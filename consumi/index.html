@@ -71,7 +71,7 @@ td{font-variant-numeric:tabular-nums}
 <div class="top"><div class="wrap"><a class="logo" href="../"><b>GOMMBERG</b> TERMINAL DAILY</a><span>pagina di servizio</span></div></div>
 <main class="wrap">
 <h1>Consumo dell'attività automatica</h1>
-<p class="sub">Quanti token spende l'edizione del mattino, giorno per giorno, e dove vanno. I numeri li misura il sistema e li registra l'attività a fine lavoro.</p>
+<p class="sub">Quanto lavora e quanto consuma l'edizione del mattino, giorno per giorno. Gli indicatori li scrive il kit a ogni uscita, senza spendere token.</p>
 <div id="app"></div>
 </main>
 <div id="tip" role="status"></div>
@@ -81,57 +81,71 @@ var G=["dom","lun","mar","mer","gio","ven","sab"],M=["gen","feb","mar","apr","ma
 var NOMI={istruzioni:"Contesto riletto a ogni passo",web:"Ricerca web",comandi:"File e comandi",testo:"Testo e ragionamento",agenti:"Agenti",altro:"Altro"};
 function it(x,d){return x.toLocaleString("it-IT",{minimumFractionDigits:d,maximumFractionDigits:d})}
 function mln(x){return it(x/1e6,2)}
-function data(s){var p=s.split("-"),d=new Date(+p[0],p[1]-1,+p[2]);return G[d.getDay()]+" "+d.getDate()+" "+M[d.getMonth()]}
+function gg(s){var p=s.split("-");return new Date(+p[0],p[1]-1,+p[2])}
+function data(s){var d=gg(s);return G[d.getDay()]+" "+d.getDate()+" "+M[d.getMonth()]}
 function num(n){return n==null?"":"#"+("00"+n).slice(-3)}
-function vari(a,b){if(!b)return null;return (a/b-1)*100}
-function seg(v){if(v==null)return '<span>-</span>';var c=v>0?"su":v<0?"giu":"";return '<span class="'+c+'">'+(v>0?"+":"")+it(v,1)+"%</span>"}
+function seg(v){if(v==null||!isFinite(v))return '<span>-</span>';var c=v>0?"su":v<0?"giu":"";return '<span class="'+c+'">'+(v>0?"+":"")+it(v,1)+"%</span>"}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function lun(s){var d=gg(s);d.setDate(d.getDate()-(d.getDay()+6)%7);return d.getTime()}
 var app=document.getElementById("app"),tip=document.getElementById("tip");
 function vuoto(t){app.innerHTML='<div class="vuoto">'+t+"</div>"}
-fetch("registro.json",{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(reg){
-  var prova=/[?&]prova=1/.test(location.search);
-  reg=(reg||[]).filter(function(x){return prova||!x.prova});
-  if(!reg.length){vuoto("Nessuna misura ancora. La prima riga arriva con la prossima edizione.");return}
-  disegna(reg)}).catch(function(){vuoto("Il registro dei consumi non è ancora disponibile.")});
+function leggi(f){return fetch(f,{cache:"no-store"}).then(function(r){return r.ok?r.json():[]}).catch(function(){return []})}
+Promise.all([leggi("registro.json"),leggi("taratura.json")]).then(function(r){
+  if(!r[0]||!r[0].length){vuoto("Nessuna edizione registrata. La prima riga arriva con la prossima uscita.");return}
+  disegna(r[0],r[1]||[])});
 
-function disegna(reg){
-  var u=reg[reg.length-1],prec=reg.slice(Math.max(0,reg.length-6),reg.length-1);
-  var media=prec.length?prec.reduce(function(s,x){return s+x.pesati},0)/prec.length:null,v=vari(u.pesati,media);
+function disegna(reg,tar){
+  var tt=tar.filter(function(x){return x.durata_min>0&&x.pesati>0});
+  var tasso=tt.length?tt.reduce(function(s,x){return s+x.pesati},0)/tt.reduce(function(s,x){return s+x.durata_min},0):null;
+  reg.forEach(function(x){x.v=x.durata_min!=null?(tasso?x.durata_min*tasso:x.durata_min):null});
+  function val(v){return v==null?"-":tasso?"≈ "+mln(v):it(v,0)}
+  var unita=tasso?"mln":"min",cosa=tasso?"token pesati, stima":"minuti di lavoro";
+  var u=reg[reg.length-1],con=reg.filter(function(x){return x.v!=null}),prec=con.filter(function(x){return x.n<u.n}).slice(-5);
+  var media=prec.length?prec.reduce(function(s,x){return s+x.v},0)/prec.length:null,dv=u.v!=null&&media?(u.v/media-1)*100:null;
+  var sett=con.filter(function(x){return lun(x.d)==lun(u.d)}),som=sett.reduce(function(s,x){return s+x.v},0);
   var h='<div class="tiles">'
-   +'<div class="tile"><div class="k">Ultima edizione</div><div class="v">'+mln(u.pesati)+' <small>mln</small></div><div class="n">token pesati · '+num(u.n)+" "+data(u.d)+"</div></div>"
-   +'<div class="tile"><div class="k">Rispetto alla media</div><div class="v">'+seg(v)+'</div><div class="n">'+(media?"media delle "+prec.length+" precedenti: "+mln(media)+" mln":"serve almeno un'altra edizione")+"</div></div>"
-   +'<div class="tile"><div class="k">Passi del modello</div><div class="v">'+it(u.richieste,0)+'</div><div class="n">richieste nella sessione</div></div>'
-   +'<div class="tile"><div class="k">Durata</div><div class="v">'+(u.durata_min!=null?u.durata_min+' <small>min</small>':"-")+'</div><div class="n">'+(u.ora?"uscita alle "+u.ora:"ora di uscita non registrata")+"</div></div></div>";
+   +'<div class="tile"><div class="k">Ultima edizione</div><div class="v">'+val(u.v)+' <small>'+(u.v!=null?unita:"")+'</small></div><div class="n">'+cosa+" · "+num(u.n)+" "+data(u.d)+"</div></div>"
+   +'<div class="tile"><div class="k">Rispetto alla media</div><div class="v">'+seg(dv)+'</div><div class="n">'+(media?"media delle "+prec.length+" precedenti: "+val(media)+" "+unita:"serve almeno un'altra edizione")+"</div></div>"
+   +'<div class="tile"><div class="k">Settimana dell\'ultima</div><div class="v">'+(sett.length?val(som):"-")+' <small>'+(sett.length?unita:"")+'</small></div><div class="n">'+sett.length+(sett.length==1?" edizione":" edizioni")+" con durata nota</div></div>"
+   +'<div class="tile"><div class="k">Durata</div><div class="v">'+(u.durata_min!=null?u.durata_min+' <small>min</small>':"-")+'</div><div class="n">'+(u.ora?"uscita alle "+u.ora:"")+"</div></div></div>";
+  if(!tasso)h+='<p class="note">La stima in token non è ancora tarata: finché manca una misura vera di un\'edizione, la pagina mostra i minuti di lavoro.</p>';
 
   /* 1. una serie, una misura: colonne per edizione */
-  var W=Math.max(320,Math.min(960,(app.clientWidth||960)-34)),S=reg.slice(W<560?-12:-30),H=W<560?210:260,L=40,R=6,T=14,B=30,max=Math.max.apply(null,S.map(function(x){return x.pesati}));
-  var passo=max>8e6?2e6:max>4e6?1e6:max>1.6e6?5e5:max>6e5?2e5:1e5,top=Math.ceil(max*1.05/passo)*passo,pw=(W-L-R)/S.length,bw=Math.min(34,Math.max(4,pw-2));
-  var g="";for(var t=0;t<=top+1;t+=passo){var y=T+(H-T-B)*(1-t/top);g+='<line class="grid" x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'"/><text x="'+(L-6)+'" y="'+(y+4)+'" text-anchor="end">'+it(t/1e6,passo<1e6?1:0)+"</text>"}
+  var W=Math.max(320,Math.min(960,(app.clientWidth||960)-34)),S=reg.slice(W<560?-12:-30),H=W<560?210:260,L=40,R=6,T=14,B=30;
+  var max=Math.max.apply(null,S.map(function(x){return x.v||0}))||1,k=tasso?1e6:1,m=max/k;
+  var passo=(m>60?20:m>30?10:m>12?5:m>6?2:m>3?1:m>1.2?0.5:m>0.5?0.2:0.1)*k,top=Math.ceil(max*1.05/passo)*passo,pw=(W-L-R)/S.length,bw=Math.min(34,Math.max(4,pw-2));
+  var g="";for(var t=0;t<=top+passo/2;t+=passo){var y=T+(H-T-B)*(1-t/top);g+='<line class="grid" x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'"/><text x="'+(L-6)+'" y="'+(y+4)+'" text-anchor="end">'+it(t/k,passo/k<1?1:0)+"</text>"}
   var ogni=Math.ceil(S.length/(W<560?4:10));
-  S.forEach(function(x,i){var cx=L+pw*i+pw/2,bh=(H-T-B)*x.pesati/top,y=H-B-bh,r=Math.min(4,bw/2,bh);
-    g+='<rect class="hit" tabindex="0" x="'+(cx-pw/2)+'" y="'+T+'" width="'+pw+'" height="'+(H-T-B)+'" data-t="'+esc("<b>"+num(x.n)+" "+data(x.d)+"</b><br>"+mln(x.pesati)+" mln di token pesati<br>"+it(x.richieste,0)+" richieste"+(x.durata_min!=null?" · "+x.durata_min+" min":""))+'"/>'
-     +'<path class="col'+(i==S.length-1?" ultima":"")+'" d="M'+(cx-bw/2)+" "+(H-B)+"V"+(y+r)+"q0 -"+r+" "+r+" -"+r+"H"+(cx+bw/2-r)+"q"+r+" 0 "+r+" "+r+"V"+(H-B)+'z"/>';
+  S.forEach(function(x,i){var cx=L+pw*i+pw/2,tt2="<b>"+num(x.n)+" "+data(x.d)+"</b><br>";
+    if(x.v==null){tt2+="uscita alle "+(x.ora||"?")+": edizione rifatta a mano, durata non nota";g+='<text x="'+cx+'" y="'+(H-B-6)+'" text-anchor="middle">·</text>'}
+    else tt2+=(tasso?"≈ "+mln(x.v)+" mln di token pesati<br>":"")+x.durata_min+" min"+(x.schede!=null?" · "+x.schede+" schede · "+x.fonti+" fonti":"");
+    g+='<rect class="hit" tabindex="0" x="'+(cx-pw/2)+'" y="'+T+'" width="'+pw+'" height="'+(H-T-B)+'" data-t="'+esc(tt2)+'"/>';
+    if(x.v!=null){var bh=(H-T-B)*x.v/top,y=H-B-bh,r=Math.min(4,bw/2,bh);
+      g+='<path class="col'+(i==S.length-1?" ultima":"")+'" d="M'+(cx-bw/2)+" "+(H-B)+"V"+(y+r)+"q0 -"+r+" "+r+" -"+r+"H"+(cx+bw/2-r)+"q"+r+" 0 "+r+" "+r+"V"+(H-B)+'z"/>'}
     if(i%ogni==0||i==S.length-1)g+='<text x="'+cx+'" y="'+(H-10)+'" text-anchor="middle">'+data(x.d).slice(4)+"</text>"});
   g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+(H-B)+'" y2="'+(H-B)+'" stroke="var(--ink)" stroke-width="1"/>';
-  h+='<section class="sec"><div class="sec-head"><h2>Token pesati per edizione</h2><span>milioni · ultime '+S.length+" · in scuro l'ultima</span></div>"
-   +'<div class="card"><svg viewBox="0 0 '+W+" "+H+'" role="img" aria-label="Token pesati per edizione, in milioni. I valori sono nella tabella in fondo alla pagina.">'+g+"</svg></div></section>";
+  h+='<section class="sec"><div class="sec-head"><h2>'+(tasso?"Token per edizione":"Durata per edizione")+'</h2><span>'+(tasso?"milioni di token pesati, stima":"minuti")+" · ultime "+S.length+" · in scuro l'ultima</span></div>"
+   +'<div class="card"><svg viewBox="0 0 '+W+" "+H+'" role="img" aria-label="'+(tasso?"Stima dei token pesati":"Durata")+' per edizione. I valori sono nella tabella qui sotto.">'+g+"</svg></div></section>";
 
-  /* 2. dove vanno: grandezze a confronto, una tinta, etichette in chiaro */
-  var q=[];Object.keys(u.quote||{}).forEach(function(k){q.push([NOMI[k]||k,u.quote[k],""])});
-  Object.keys(u.connettori||{}).forEach(function(k){var c=(u.chiamate||{})[k];q.push(["Connettore "+k,u.connettori[k],c!=null?c+" chiamate":""])});
-  var w=(u.chiamate||{}).WebSearch,f=(u.chiamate||{}).WebFetch;
-  q.forEach(function(x){if(x[0]==NOMI.web&&(w!=null||f!=null))x[2]=(w||0)+" ricerche, "+(f||0)+" pagine"});
-  q=q.filter(function(x){return x[1]>0}).sort(function(a,b){return b[1]-a[1]});
-  if(q.length){var mx=q[0][1];
-    h+='<section class="sec"><div class="sec-head"><h2>Dove vanno i token</h2><span>'+num(u.n)+" "+data(u.d)+' · quota del consumo, stima del sistema</span></div><div class="card"><div class="righe">'
-     +q.map(function(x){return '<div class="r"><div>'+esc(x[0])+(x[2]?' <small style="color:var(--muted)">· '+esc(x[2])+"</small>":"")+'</div><div class="b"><i style="width:'+(x[1]/mx*100)+'%"></i></div><div class="p">'+it(x[1],1)+"%</div></div>"}).join("")
-     +"</div></div></section>"}
+  /* 2. la tabella: tutti i valori e il lavoro che c'è dietro */
+  var righe=reg.slice(-20).reverse().map(function(x){var p=con.filter(function(y){return y.n<x.n}).slice(-1)[0];
+    return "<tr><td>"+data(x.d)+" "+num(x.n)+"</td>"+(tasso?"<td>"+(x.v!=null?mln(x.v):"-")+"</td>":"")+"<td>"+seg(x.v!=null&&p?(x.v/p.v-1)*100:null)+"</td><td>"+(x.durata_min!=null?x.durata_min+" min":"-")+"</td><td>"+(x.ora||"-")+"</td><td>"+(x.schede!=null?x.schede:"-")+"</td><td>"+(x.fonti!=null?x.fonti:"-")+"</td><td>"+(x.scritto_kb?x.scritto_kb:"-")+"</td></tr>"}).join("");
+  h+='<section class="sec"><div class="sec-head"><h2>Il lavoro dietro ogni edizione</h2><span>ultime '+Math.min(20,reg.length)+'</span></div><div class="tw"><table><thead><tr><th>Edizione</th>'+(tasso?"<th>Stima (mln)</th>":"")+"<th>Var.</th><th>Durata</th><th>Uscita</th><th>Schede dei fatti</th><th>Fonti citate</th><th>Testo scritto (KB)</th></tr></thead><tbody>"+righe+"</tbody></table></div></section>";
 
-  /* 3. la tabella: tutti i valori, per chi non guarda il grafico */
-  var righe=reg.slice(-20).reverse().map(function(x){var i=reg.indexOf(x),p=i>0?reg[i-1]:null;
-    return "<tr><td>"+data(x.d)+" "+num(x.n)+"</td><td>"+mln(x.pesati)+"</td><td>"+seg(p?vari(x.pesati,p.pesati):null)+"</td><td>"+it(x.richieste,0)+"</td><td>"+(x.ora||"-")+"</td><td>"+(x.durata_min!=null?x.durata_min+" min":"-")+"</td><td>"+mln(x.token.cacheRead)+"</td><td>"+mln(x.token.cacheWrite)+"</td><td>"+it(x.token.output/1e3,0)+"</td></tr>"}).join("");
-  h+='<section class="sec"><div class="sec-head"><h2>Edizione per edizione</h2><span>ultime '+Math.min(20,reg.length)+'</span></div><div class="tw"><table><thead><tr><th>Edizione</th><th>Pesati (mln)</th><th>Var.</th><th>Richieste</th><th>Uscita</th><th>Durata</th><th>Letti cache (mln)</th><th>Scritti cache (mln)</th><th>In uscita (mila)</th></tr></thead><tbody>'+righe+"</tbody></table></div>"
-   +'<p class="note">Token pesati = ingresso + 2 x scritti in cache + 0,1 x letti dalla cache + 5 x in uscita: è il peso con cui il sistema conta il consumo. La quota per voce è una stima, perché il consumo è misurato per richiesta e non per strumento. Il passo che registra la misura non è contato.</p></section>';
+  /* 3. la taratura: le misure vere su cui poggia la stima */
+  if(tt.length){var z=tt[tt.length-1],q=[];
+    Object.keys(z.quote||{}).forEach(function(c){q.push([NOMI[c]||c,z.quote[c],""])});
+    Object.keys(z.connettori||{}).forEach(function(c){var n=(z.chiamate||{})[c];q.push(["Connettore "+c,z.connettori[c],n!=null?n+" chiamate":""])});
+    var w=(z.chiamate||{}).WebSearch,f=(z.chiamate||{}).WebFetch;
+    q.forEach(function(x){if(x[0]==NOMI.web&&(w!=null||f!=null))x[2]=(w||0)+" ricerche, "+(f||0)+" pagine"});
+    q=q.filter(function(x){return x[1]>0}).sort(function(a,b){return b[1]-a[1]});
+    h+='<section class="sec"><div class="sec-head"><h2>La misura vera</h2><span>'+tt.length+(tt.length==1?" taratura":" tarature")+" · tasso: "+it(tasso/1e3,0)+" mila token pesati al minuto</span></div>"
+     +'<div class="tw"><table><thead><tr><th>Sessione misurata</th><th>Token pesati (mln)</th><th>Durata</th><th>Passi del modello</th><th>Letti dalla cache (mln)</th><th>Scritti in cache (mln)</th><th>In uscita (mila)</th></tr></thead><tbody>'
+     +tt.slice().reverse().map(function(x){return "<tr><td>"+data(x.giorno)+(x.nota?" · "+esc(x.nota):"")+"</td><td>"+mln(x.pesati)+"</td><td>"+it(x.durata_min,0)+" min</td><td>"+it(x.richieste,0)+"</td><td>"+mln(x.token.cacheRead)+"</td><td>"+mln(x.token.cacheWrite)+"</td><td>"+it(x.token.output/1e3,0)+"</td></tr>"}).join("")+"</tbody></table></div>";
+    if(q.length){var mx=q[0][1];
+      h+='<div class="sec-head" style="margin-top:28px"><h2>Dove vanno i token</h2><span>'+data(z.giorno)+' · quota del consumo, stima del sistema</span></div><div class="card"><div class="righe">'
+       +q.map(function(x){return '<div class="r"><div>'+esc(x[0])+(x[2]?' <small style="color:var(--muted)">· '+esc(x[2])+"</small>":"")+'</div><div class="b"><i style="width:'+(x[1]/mx*100)+'%"></i></div><div class="p">'+it(x[1],1)+"%</div></div>"}).join("")+"</div></div>"}
+    h+='<p class="note">Stima di un\'edizione = la sua durata x il tasso misurato. Un\'attività programmata non può leggere i propri token: li misura il sistema quando la sua sessione viene aperta in chat, e quella misura è la taratura. Token pesati = ingresso + 2 x scritti in cache + 0,1 x letti dalla cache + 5 x in uscita. La durata delle edizioni fino alla #025 è ricostruita dall\'ora di uscita.</p></section>'}
   app.innerHTML=h;
   app.addEventListener("pointermove",function(e){var t=e.target.getAttribute&&e.target.getAttribute("data-t");if(!t){tip.style.opacity=0;return}
     tip.innerHTML=t;tip.style.opacity=1;var x=Math.min(e.clientX+12,innerWidth-tip.offsetWidth-8),y=e.clientY-tip.offsetHeight-12;tip.style.left=x+"px";tip.style.top=(y<8?e.clientY+16:y)+"px"});

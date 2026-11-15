@@ -1,22 +1,23 @@
 #!/usr/bin/env python3
-"""Registro del consumo di token dell'attività automatica: una riga per edizione in consumi/registro.json, che la pagina
-consumi/ del sito disegna giorno per giorno. Non fa parte del giornale e non può fermare l'uscita: gira dopo la
-pubblicazione e la consegna del PDF, esce sempre con 0 e non lancia mai eccezioni.
+"""Quanto lavora (e quanto consuma) l'attività del mattino: i numeri della pagina consumi/ del sito.
+Non fa parte del giornale e non può fermare l'uscita: esce sempre con 0 e non lancia mai eccezioni. Nessuna chiamata a
+modelli o alla rete: costa zero token.
 
-Uso (ultimo passo dell'attività, dopo SendUserFile e prima del messaggio finale):
-  python3 /home/claude/gtd/redazione/consumo.py <<'JSON'
-  {"requests": 180, "tokens": {"input": 24, "cacheWrite": 130772, "cacheRead": 2396876, "output": 15128}, "groups": [...]}
-  JSON
-Il JSON è quello che la sessione riceve chiamando lo strumento Skill con "explain-usage": il consumo misurato dal sistema
-(richieste, token in ingresso, scritti e letti in cache, in uscita) e la quota stimata per gruppo. Qui non si stima nulla.
+Due file in consumi/:
+  registro.json   una riga per edizione, scritta da pubblica.sh: durata, ricerche, fonti lette, schede, testo scritto.
+                  Sono indicatori di lavoro, misurati dai file dell'edizione.
+  taratura.json   le misure vere dei token (poche, fatte a mano): la sessione di un'edizione, aperta in chat, dà il
+                  consumo misurato dal sistema (Skill "explain-usage"); una sessione programmata non può chiederlo da
+                  sola (prova del 15/11/2026: "Unknown skill"). Da qui viene il tasso "token pesati al minuto" con cui la
+                  pagina stima il consumo di ogni edizione: stima = durata x tasso. Più tarature, stima più solida.
 
-Token pesati = ingresso + 2 x scritti in cache + 0,1 x letti dalla cache + 5 x uscita: è il metro con cui il sistema pesa
-il consumo, e quindi quello che si confronta di giorno in giorno. La quota per gruppo è una stima del sistema (il consumo è
-misurato per richiesta, non per strumento).
+Token pesati = ingresso + 2 x scritti in cache + 0,1 x letti dalla cache + 5 x uscita (il peso con cui li conta il sistema).
 
-Variabili: GTD_REPO (default /home/claude/gtd), GTD_LAVORO (default /home/claude/lavoro).
-GTD_CONSUMO_RAMO=<ramo>: prova tecnica, la riga va su quel ramo con "prova": true e mai sul ramo principale.
-Ultima riga: "Consumo: registrato ..." oppure "Consumo: non registrato - <motivo>"."""
+Uso:
+  consumo.py --indici <N> <AAAA-MM-GG> [fatti.json]     riga dell'edizione appena pubblicata (lo chiama pubblica.sh)
+  consumo.py --storico                                   ricostruisce le righe delle edizioni già uscite, dal repository
+  consumo.py --taratura <durata_min> "<nota>" < uso.json  aggiunge una misura vera (il JSON di explain-usage su stdin)
+Variabili: GTD_REPO (default: il repository di questo file), GTD_LAVORO (default /home/claude/lavoro)."""
 import datetime as dt
 import json
 import os
@@ -25,10 +26,10 @@ import subprocess
 import sys
 import zoneinfo
 
-REPO = os.environ.get("GTD_REPO", "/home/claude/gtd")
+QUI = os.path.dirname(os.path.abspath(__file__))
+REPO = os.environ.get("GTD_REPO") or os.path.dirname(QUI)
 LAVORO = os.environ.get("GTD_LAVORO", "/home/claude/lavoro")
-RAMO_PROVA = os.environ.get("GTD_CONSUMO_RAMO", "").strip()
-FILE = "consumi/registro.json"
+ROMA = zoneinfo.ZoneInfo("Europe/Rome")
 PESI = {"input": 1, "cacheWrite": 2, "cacheRead": 0.1, "output": 5}
 # gruppi del sistema -> voci della pagina (ciò che non è qui: un connettore se comincia per mcp__, altrimenti "altro")
 VOCI = {"instructions": "istruzioni", "person": "testo", "claude": "testo", "summary": "testo",
@@ -37,12 +38,106 @@ VOCI = {"instructions": "istruzioni", "person": "testo", "claude": "testo", "sum
         "mcp__container": "comandi", "NotebookEdit": "comandi"}
 
 
-def git(*a, timeout=120):
-    return subprocess.run(["git", "-C", REPO, *a], capture_output=True, text=True, timeout=timeout)
+def carica(nome):
+    try:
+        r = json.load(open(os.path.join(REPO, "consumi", nome), encoding="utf-8"))
+        return r if isinstance(r, list) else []
+    except Exception:
+        return []
 
 
-def leggi_json(testo):
-    """Il JSON del consumo, anche se incollato con altro testo attorno (si prende il primo oggetto che ha "tokens")."""
+def scrivi(nome, righe):
+    os.makedirs(os.path.join(REPO, "consumi"), exist_ok=True)
+    json.dump(righe, open(os.path.join(REPO, "consumi", nome), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+
+
+def conta(fatti):
+    """Schede, ricerche distinte e pagine distinte del registro dei fatti (qualunque sia la sua forma)."""
+    ricerche, url = set(), set()
+
+    def giro(x):
+        if isinstance(x, dict):
+            for k, v in x.items():
+                if k == "ricerca" and isinstance(v, str) and v.strip():
+                    ricerche.add(v.strip().lower())
+                elif k == "ricerche" and isinstance(v, list):
+                    ricerche.update(s.strip().lower() for s in v if isinstance(s, str) and s.strip())
+                elif k == "url" and isinstance(v, str) and v.startswith("http"):
+                    url.add(v.split("#")[0])
+                else:
+                    giro(v)
+        elif isinstance(x, list):
+            for y in x:
+                giro(y)
+    giro(fatti)
+    schede = sum(1 for s in fatti if isinstance(s, dict) and s.get("id")) if isinstance(fatti, list) else 0
+    return {"schede": schede, "ricerche": len(ricerche), "fonti": len(url)}
+
+
+def kb(*percorsi):
+    return round(sum(os.path.getsize(p) for p in percorsi if p and os.path.isfile(p)) / 1024)
+
+
+def metti(riga):
+    reg = [x for x in carica("registro.json") if x.get("n") != riga["n"]] + [riga]
+    scrivi("registro.json", sorted(reg, key=lambda x: x["n"]))
+    return len(reg)
+
+
+def indici(n, data, fatti_p):
+    riga = {"n": int(n), "d": data}
+    ora = dt.datetime.now(ROMA)
+    riga["ora"] = ora.strftime("%H:%M")
+    try:
+        primi = [os.path.getmtime(os.path.join(LAVORO, f)) for f in os.listdir(LAVORO)]
+        riga["durata_min"] = round((ora.timestamp() - min(primi)) / 60)
+    except Exception:
+        riga["durata_min"] = None
+    try:
+        riga.update(conta(json.load(open(fatti_p, encoding="utf-8"))))
+    except Exception:
+        pass
+    riga["scritto_kb"] = kb(fatti_p, os.path.join(LAVORO, f"edizione_{data}.py"))
+    k = metti(riga)
+    print(f"Consumo: indicatori registrati (#{int(n):03d}, {riga.get('durata_min')} min, {riga.get('ricerche')} ricerche; {k} righe)")
+
+
+def storico():
+    """Le edizioni già uscite: durata = ora del commit "Edizione #NNN" meno l'avvio programmato (8:58; 9:00 fino al 13/10),
+    solo se l'uscita cade tra le 9:05 e le 10:30 (un'edizione rifatta a mano più tardi non ha una durata nota)."""
+    ed = json.load(open(os.path.join(REPO, "edizioni.json"), encoding="utf-8"))
+    log = subprocess.run(["git", "-C", REPO, "log", "--reverse", "--format=%cI %s", "--grep=^Edizione #"],
+                         capture_output=True, text=True).stdout.splitlines()
+    uscite = {}
+    for r in log:
+        m = re.match(r"(\S+) Edizione #(\d+) - (\d{4}-\d\d-\d\d)", r)
+        if m:
+            t = dt.datetime.fromisoformat(m.group(1)).astimezone(ROMA)
+            if t.date().isoformat() == m.group(3):          # solo il commit del giorno dell'edizione (non le prove)
+                uscite.setdefault(int(m.group(2)), t)
+    fatte = 0
+    for e in ed:
+        n, d = e["numero"], e["data"]
+        t = uscite.get(n)
+        if not t:
+            continue
+        riga = {"n": n, "d": d, "ora": t.strftime("%H:%M"), "durata_min": None}
+        avvio = t.replace(hour=9, minute=0) if d < "2026-10-14" else t.replace(hour=8, minute=58)
+        if dt.time(9, 5) <= t.time() <= dt.time(10, 30):
+            riga["durata_min"] = round((t - avvio).total_seconds() / 60)
+        fp = os.path.join(REPO, "redazione", "fatti", f"{d}.json")
+        try:
+            riga.update(conta(json.load(open(fp, encoding="utf-8"))))
+        except Exception:
+            pass
+        riga["scritto_kb"] = kb(fp, os.path.join(REPO, "redazione", "sorgenti", d, "edizione.py"))
+        riga["ricostruita"] = True
+        metti(riga)
+        fatte += 1
+    print(f"Consumo: storico ricostruito ({fatte} edizioni)")
+
+
+def leggi_uso(testo):
     try:
         return json.loads(testo)
     except ValueError:
@@ -57,109 +152,42 @@ def leggi_json(testo):
     raise ValueError("nessun JSON con \"tokens\" nell'ingresso")
 
 
-def riga_da(uso):
-    t = uso["tokens"]
-    tok = {k: int(t.get(k, 0) or 0) for k in PESI}
+def taratura(durata, nota, testo):
+    uso = leggi_uso(testo)
+    tok = {k: int(uso["tokens"].get(k, 0) or 0) for k in PESI}
     if not any(tok.values()):
         raise ValueError("token tutti a zero")
-    voci, conn, chiamate = {}, {}, {}
+    quote, conn, chiamate = {}, {}, {}
     for g in uso.get("groups") or []:
         nome, q, c = str(g.get("group", "")), float(g.get("percent", 0) or 0), int(g.get("calls", 0) or 0)
         if nome.startswith("mcp__") and nome not in VOCI:
-            n = nome[5:].replace("_", " ").strip() or "connettore"
-            conn[n] = round(conn.get(n, 0) + q, 1)
-            chiamate[n] = chiamate.get(n, 0) + c
+            k = nome[5:].replace("_", " ").strip() or "connettore"
+            conn[k] = round(conn.get(k, 0) + q, 1)
+            chiamate[k] = chiamate.get(k, 0) + c
             continue
         v = VOCI.get(nome, "altro")
-        voci[v] = round(voci.get(v, 0) + q, 1)
+        quote[v] = round(quote.get(v, 0) + q, 1)
         if nome in ("WebSearch", "WebFetch", "Agent", "Task"):
             chiamate[nome] = chiamate.get(nome, 0) + c
-    riga = {"richieste": int(uso.get("requests", 0) or 0), "token": tok,
-            "pesati": round(sum(tok[k] * PESI[k] for k in PESI)), "quote": voci, "connettori": conn, "chiamate": chiamate}
-    return riga
-
-
-def edizione():
-    """Numero, data e ora di uscita dell'ultima edizione pubblicata; durata dal primo file della cartella di lavoro."""
-    out = {}
-    try:
-        u = json.load(open(os.path.join(REPO, "dati", "uscite.json"), encoding="utf-8"))[-1]
-        out.update(n=u["n"], d=u["d"], ora=u.get("ora"))
-    except Exception:
-        pass
-    roma = zoneinfo.ZoneInfo("Europe/Rome")
-    ora = dt.datetime.now(roma)
-    out.setdefault("d", ora.date().isoformat())
-    out["giorno"] = ora.date().isoformat()          # il giorno in cui l'attività è girata (diverso da "d" in una prova)
-    try:
-        primi = [os.path.getmtime(os.path.join(LAVORO, f)) for f in os.listdir(LAVORO)]
-        if primi:
-            out["durata_min"] = round((ora.timestamp() - min(primi)) / 60)
-    except Exception:
-        pass
-    return out
-
-
-def salva(riga):
-    p = os.path.join(REPO, FILE)
-    os.makedirs(os.path.dirname(p), exist_ok=True)
-    try:
-        reg = json.load(open(p, encoding="utf-8"))
-        assert isinstance(reg, list)
-    except Exception:
-        reg = []
-    reg = [x for x in reg if not (x.get("giorno") == riga.get("giorno") and x.get("n") == riga.get("n")
-                                  and bool(x.get("prova")) == bool(riga.get("prova")))]
-    reg.append(riga)
-    reg.sort(key=lambda x: (x.get("giorno", ""), x.get("n") or 0))
-    json.dump(reg, open(p, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
-    return len(reg)
-
-
-def pubblica(riga):
-    ramo = git("rev-parse", "--abbrev-ref", "HEAD").stdout.strip()
-    if os.environ.get("GTD_PROVA") == "1":
-        return "scritto, nessun push (GTD_PROVA=1)"
-    if RAMO_PROVA:
-        dest = RAMO_PROVA
-        if dest == "main":
-            return "scritto, nessun push (una prova non va sul ramo principale)"
-    elif ramo != "main":
-        return f"scritto, nessun push (ramo {ramo})"
-    else:
-        dest = "main"
-    git("config", "user.name", "PaoloGom")
-    git("config", "user.email", "PaoloGom@users.noreply.github.com")
-    git("add", FILE)
-    if git("diff", "--cached", "--quiet").returncode == 0:
-        return "nessuna novità da pubblicare"
-    n = f"#{riga['n']:03d}" if isinstance(riga.get("n"), int) else riga.get("giorno", "")
-    if git("commit", "-q", "-m", f"Consumo {n} - {riga.get('d', '')}".strip(), "--", FILE).returncode != 0:
-        return "commit non riuscito"
-    for i in (1, 2):
-        r = git("push", "origin", f"HEAD:{dest}")
-        if r.returncode == 0:
-            return f"pubblicato su {dest}"
-        if dest == "main" and i == 1:
-            git("pull", "--rebase", "origin", "main")
-    return "push non riuscito: " + (r.stderr.strip().splitlines() or ["?"])[-1][:120]
-
-
-def main():
-    testo = open(sys.argv[1], encoding="utf-8").read() if len(sys.argv) > 1 and os.path.isfile(sys.argv[1]) else sys.stdin.read()
-    riga = riga_da(leggi_json(testo))
-    riga = {**edizione(), **riga}
-    if RAMO_PROVA:
-        riga["prova"] = True
-    n = salva(riga)
-    esito = pubblica(riga)
-    milioni = f"{riga['pesati'] / 1e6:.2f}".replace(".", ",")
-    print(f"Consumo: registrato ({milioni} milioni di token pesati, {riga['richieste']} richieste; {n} righe; {esito})")
+    riga = {"giorno": dt.datetime.now(ROMA).date().isoformat(), "nota": nota, "durata_min": float(durata),
+            "richieste": int(uso.get("requests", 0) or 0), "token": tok,
+            "pesati": round(sum(tok[k] * PESI[k] for k in PESI)), "quote": quote, "connettori": conn, "chiamate": chiamate}
+    t = carica("taratura.json") + [riga]
+    scrivi("taratura.json", t)
+    print(f"Consumo: taratura registrata ({riga['pesati'] / 1e6:.2f} milioni di token pesati in {durata} min; {len(t)} misure)")
 
 
 if __name__ == "__main__":
+    a = sys.argv[1:]
     try:
-        main()
-    except Exception as e:   # mai un errore verso l'attività: il registro è un di più
+        if a[:1] == ["--indici"]:
+            indici(a[1], a[2], a[3] if len(a) > 3 else os.path.join(LAVORO, "fatti.json"))
+        elif a[:1] == ["--storico"]:
+            storico()
+        elif a[:1] == ["--taratura"]:
+            taratura(a[1], a[2] if len(a) > 2 else "", sys.stdin.read())
+        else:
+            print(__doc__)
+    except Exception as e:   # mai un errore verso l'attività: questi numeri sono un di più
         print(f"Consumo: non registrato - {type(e).__name__}: {str(e)[:160]}")
     sys.exit(0)

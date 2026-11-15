@@ -53,6 +53,9 @@ ora = datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Rome")).strftime("%H:%M")
 r = [x for x in r if x.get("n") != n] + [{"n": n, "d": d, "ora": ora}]
 json.dump(sorted(r, key=lambda x: x["n"]), open(p, "w", encoding="utf-8"), ensure_ascii=False)
 EOF2
+# Indicatori di lavoro dell'edizione (durata, ricerche, fonti, schede) per la pagina consumi/ del sito: nessun modello,
+# nessuna rete; non fermano mai la pubblicazione.
+[ "$PROVA" = "1" ] || python3 "$REPO/redazione/consumo.py" --indici "$N" "$DATA" "$FATTI" 2>/dev/null | tail -1 || true
 if [ -f "$REPO/redazione/pagine.py" ]; then
   python3 "$REPO/redazione/pagine.py" "$REPO" | tail -1 || echo "AVVISO: pagine.py non riuscito, il sito ripiega su ?n=N"
 fi
@@ -62,7 +65,7 @@ run git -C "$REPO" config user.email "PaoloGom@users.noreply.github.com"
 run git -C "$REPO" add pdf edizioni.json redazione/pronostici redazione/fatti redazione/scommessa || fail "git add"
 [ -d "$REPO/redazione/sorgenti" ] && run git -C "$REPO" add redazione/sorgenti
 # dati/ = file leggeri che il sito legge al posto di edizioni.json (homepage, archivio, basi, numeri)
-for f in e feed.xml sitemap.xml ultima dati; do [ -e "$REPO/$f" ] && run git -C "$REPO" add "$f"; done
+for f in e feed.xml sitemap.xml ultima dati consumi; do [ -e "$REPO/$f" ] && run git -C "$REPO" add "$f"; done
 python3 -c "import json,sys; d=json.load(open('$REPO/dati/recenti.json')); sys.exit(0 if d['edizioni'][0]['numero']==int('$NNN'.lstrip('0') or 0) else 1)" 2>/dev/null \
   || echo "AVVISO: dati/recenti.json non contiene il n. ${NNN}: la homepage mostrerebbe l'edizione precedente"
 # File del kit che la redazione può aggiornare (git add ignora quelli invariati)
