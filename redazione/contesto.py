@@ -86,6 +86,39 @@ def analizza(nome, serie, cartella, oggi):
             "testo": f"{testo} {unita(m, tipo)} nella seduta del {data_it(d_ult, oggi)}: {frase_da} ({rarita})"}
 
 
+GIORNI = "lunedì martedì mercoledì giovedì venerdì sabato domenica".split()
+SOGLIA = {"pct": 1.0, "pb": 5, "punti": 1.0}   # sotto questa misura cinque sedute non fanno una storia
+
+
+def inversione(nome, serie, cartella, oggi):
+    """Cinque sedute che sommate dicono una cosa e negli ultimi giorni il contrario: il saldo della settimana nasconde
+    un'inversione. Serve a non spiegare un calo (o un rialzo) con una causa uscita dopo che il movimento era già finito:
+    il 16/11/2026 il Brent a -2,5% in settimana era sceso solo lunedì e martedì e poi era risalito del 4,8%."""
+    chiave, tipo, testo = MAPPA[nome]
+    st = leggi_storia(cartella, chiave)
+    if serie.get("tipo") == "intraday" or not serie.get("ultimi"):
+        return None
+    for d, v, *_ in serie["ultimi"]:
+        d = dt.date.fromisoformat(d)
+        if d < oggi and d not in st:
+            st[d] = v
+    g = sorted(st)[-6:]
+    if len(g) < 6 or (g[-1] - g[0]).days > 9:      # buchi nella serie: niente lettura giorno per giorno
+        return None
+    saldo = mossa(st[g[-1]], st[g[0]], tipo)
+    if abs(saldo) < SOGLIA[tipo]:
+        return None
+    dentro = g[1:-1]
+    svolta = min(dentro, key=lambda d: st[d]) if saldo < 0 else max(dentro, key=lambda d: st[d])
+    dopo = mossa(st[g[-1]], st[svolta], tipo)
+    if dopo * saldo >= 0 or abs(dopo) < max(abs(saldo) / 2, SOGLIA[tipo] / 2):
+        return None
+    verso = "calo" if saldo < 0 else "rialzo"
+    return {"serie": nome, "saldo": round(saldo, 2), "svolta": svolta.isoformat(), "dopo": round(dopo, 2), "testo":
+            f"{testo} {unita(saldo, tipo)} in cinque sedute, ma il {verso} si ferma {GIORNI[svolta.weekday()]} "
+            f"{data_it(svolta, oggi)}: da allora {unita(dopo, tipo)}. Una causa uscita dopo quel giorno non spiega il {verso}"}
+
+
 def ultime_due(serie):
     u = [r for r in serie.get("ultimi", []) if serie.get("tipo") != "intraday"]
     return (u[0][1], u[1][1]) if len(u) >= 2 else None
@@ -109,6 +142,8 @@ def main():
             if r:
                 out["movimenti"].append(r)
     righe = [r["testo"] for r in out["movimenti"] if r["notevole"]]
+    out["inversioni"] = [x for x in (inversione(n, S[n], cartella, oggi) for n in MAPPA if n in S) if x]
+    righe += [x["testo"] for x in out["inversioni"]]
 
     n10, n2 = S.get("Treasury 10 anni"), S.get("Treasury 2 anni")
     if n10 and n2 and ultime_due(n10) and ultime_due(n2):

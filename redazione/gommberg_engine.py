@@ -489,6 +489,7 @@ def indice_interno(voci, cols=4):
     cells = []
     for p_, et, tit in voci:
         n = pag(p_) if isinstance(p_, str) and not p_.isdigit() else p_
+        tit = tit[:1].upper() + tit[1:]        # un titolo d'indice comincia sempre con la maiuscola
         cells.append([P(f"PAG. {n}  |  {et.upper()}", "idx_p"), Paragraph(signcol(tit), S["idx_t"])])
     nr = max(1, math.ceil(len(cells) / cols))
     base, extra = divmod(len(cells), nr)
@@ -583,7 +584,7 @@ def agenda(righe):
     return tbl(rows, [24 * mm, 37 * mm, 27 * mm, 27 * mm, CW - 115 * mm])
 
 
-def agenda_v9(ieri, righe):
+def agenda_v9(ieri, righe, settimana=False):
     """Una tabella sola (struttura v9). In alto ciò che è uscito dall'ultima edizione, con il dato, il confronto con le
     attese e dove se ne parla; sotto ciò che arriva, con le attese, perché conta e come può muovere i mercati. Così il
     lettore ritrova il giorno dopo la riga che aveva letto, con l'esito accanto."""
@@ -599,7 +600,8 @@ def agenda_v9(ieri, righe):
         st.extend([("SPAN", (0, r), (-1, r)), ("BACKGROUND", (0, r), (-1, r), TINT), ("TOPPADDING", (0, r), (-1, r), 2.5),
                    ("BOTTOMPADDING", (0, r), (-1, r), 2)])
     if ieri:
-        gruppo("Uscito dall'ultima edizione: il dato, il confronto con le attese, dove se ne parla")
+        gruppo(("Uscito la settimana scorsa" if settimana else "Uscito dall'ultima edizione")
+               + ": il dato, il confronto con le attese, dove se ne parla")
         for q, ev, dato, sor, fr in ieri:
             esito = "&nbsp;&nbsp;".join(x for x in (SORPRESA.get(sor, sor), "" if fr == "-" else fr) if x)
             rows.append([P(q, "cellb"), P(ev, "cellb"), P(dato, "celln"), "", P(esito, "celln")])
@@ -1169,7 +1171,7 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
     st += termometri(C["termometri"], C.get("fermi", ""))
     st.append(ancora("agenda"))
     st += [Spacer(1, 4)] + sezione_stretta(C.get("agenda_sezione", "Cosa è uscito e cosa arriva"), C.get("agenda_kicker", "Agenda"))
-    st.append(agenda_v9(C.get("ieri") or [], C["agenda"]))
+    st.append(agenda_v9(C.get("ieri") or [], C["agenda"], settimana=bool(C["scommessa"].get("lunedi"))))
     if len(C.get("ieri") or []) + len(C["agenda"]) > 7 or len(C["termometri"]) > 4:
         print(f"ATTENZIONE: pag. 5 ha {len(C['termometri'])} temi aperti (massimo 4) e "
               f"{len(C.get('ieri') or []) + len(C['agenda'])} righe d'agenda tra uscite e in arrivo (massimo 7): "
