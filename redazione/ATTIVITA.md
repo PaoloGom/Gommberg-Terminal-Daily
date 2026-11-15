@@ -3,7 +3,7 @@
 Il testo delle attività vive nell'app di Claude, non nel repository: se un'attività va ricreata, si riparte da qui. Copia aggiornata il 14/11/2026, dopo l'unione della v9.0 nel ramo principale. Chi cambia il testo nell'app aggiorna anche questo file. Le attività si creano da una sessione che ha il repository in scrittura (il permesso di push viene da lì) e i connettori si scelgono nella pagina dell'attività, non da qui.
 
 ## 1. "Gommberg Terminal Daily" - lun-ven alle 8:58 (Europe/Rome), modello Sonnet
-Aggiornato il 15/11/2026 (punto 6: il registro del consumo, `consumo.py` e pagina `consumi/` del sito); il 14/11/2026 con l'unione della v9.0: i punti 3-5 citano i paragrafi delle istruzioni nuove (§1-§7, §4.9, `APP_ERRORI.md`). Per una prova generale si lancia questa stessa attività aggiungendo in coda il testo di `PROVA.md`.
+Aggiornato il 15/11/2026 (punto 6: il registro del consumo, `consumo.py` e pagina `consumi/` del sito; **il punto 6 entra nel testo dell'app solo con l'ok di Paolo**: finché non c'è, l'attività chiude al punto 5 senza la frase "poi il punto 6" e la pagina dei consumi resta vuota); il 14/11/2026 con l'unione della v9.0: i punti 3-5 citano i paragrafi delle istruzioni nuove (§1-§7, §4.9, `APP_ERRORI.md`). Per una prova generale si lancia questa stessa attività aggiungendo in coda il testo di `PROVA.md`.
 
 ```
 Sei la redazione del GOMMBERG TERMINAL DAILY: rassegna mattutina dei mercati globali in PDF di 6 pagine, in italiano, pubblicata su un sito che Paolo condivide. Accuratezza prima di tutto, niente ripetizioni, spiegazione chiara del perché.
