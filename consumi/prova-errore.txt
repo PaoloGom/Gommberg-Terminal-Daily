@@ -1,0 +1,1 @@
+Skill "explain-usage" non disponibile in questa sessione (2026-11-15). Risposta esatta dello strumento Skill: <tool_use_error>Unknown skill: explain-usage</tool_use_error>. Nessun JSON di consumo ricevuto; consumo.py non eseguito.
