@@ -178,7 +178,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     <p class="kicker">Il metodo</p>
     <h3 class="sec-h" id="h-come">La settimana della scommessa</h3>
     <ol class="steps">
-      <li><div><h4>Lunedì: il pronostico</h4><p>Per ognuno dei sei mercati, la direzione della settimana, scelta dalla redazione con un motivo scritto, e la forchetta in cui dovrebbe chiudere il venerdì, calcolata su quanto il mercato si è mosso nelle ultime 20 sedute.</p></div></li>
+      <li><div><h4>Lunedì: il pronostico</h4><p>Per ognuno dei sei mercati, la direzione della settimana e la forchetta in cui dovrebbe chiudere il venerdì, calcolata su quanto il mercato si è mosso nelle ultime 20 sedute.</p></div></li>
       <li><div><h4>Da martedì a venerdì: a che punto siamo</h4><p>Ogni edizione dice quali mercati sono dentro la forchetta e quali vanno nella direzione prevista. Il pronostico resta quello del lunedì.</p></div></li>
       <li><div><h4>Venerdì: le chiusure</h4><p>Contano le chiusure ufficiali del venerdì, confrontate con quelle del venerdì precedente.</p></div></li>
       <li><div><h4>Il lunedì dopo: il verdetto</h4><p>Un punto per la direzione giusta, uno per la chiusura nella forchetta: 12 al massimo. Nella stessa edizione esce il pronostico della settimana nuova.</p></div></li>
@@ -210,7 +210,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
       <div class="prose">
         <p>Il metodo è stato verificato su dodici anni di dati, dal 2014 al 2026, usando ogni settimana solo le informazioni disponibili quel venerdì.</p>
         <p>La forchetta funziona: contiene la chiusura nel 68-72% delle settimane, in linea con l'obiettivo. La direzione no: nessun segnale sistematico, dalla tendenza delle ultime settimane alla media storica, fa meglio del prezzo di partenza.</p>
-        <p>Per questo la direzione la sceglie la redazione, e la pagella misura se la sua scelta vale più del prezzo di partenza.</p>
+        <p>Per questo la direzione parte da ciò che il mercato ha già fatto tra venerdì sera e lunedì mattina; dove è fermo, la sceglie la redazione dallo scenario della settimana. Contro il mercato si va solo davanti a un evento in calendario. La pagella misura se queste scelte valgono più del prezzo di partenza.</p>
       </div>
       <ul class="fact" aria-label="I numeri del collaudo">
         <li><span class="n">12 anni</span><span class="d"><b>di chiusure settimanali</b>; il collaudo è stato rieseguito da un controllo indipendente.</span></li>
@@ -271,8 +271,11 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
       $("cDir").className = "v " + (dir >= 53 ? "up" : "down");
       let g;
       if (p.t_dm == null) {
-        const mancano = Math.max(0, 26 - p.settimane);
-        g = "<b>Giudizio statistico dopo 26 settimane</b>" + (mancano ? ": ne mancano " + mancano + "." : ".");
+        // prima del giudizio statistico: la lettura dei punti contro il par (fascia = oscillazione tipica del caso, 2 x radice delle settimane)
+        const d = p.punti - p.par, dopo = " dopo " + p.settimane + (p.settimane === 1 ? " settimana." : " settimane.");
+        g = Math.abs(d) < 2 * Math.sqrt(p.settimane)
+          ? "<b>In linea con il par</b>: " + p.punti + " punti contro " + num(p.par, 1) + dopo
+          : "<b>" + (d > 0 ? "Sopra" : "Sotto") + " il par</b> di " + num(Math.abs(d), 1) + " punti" + dopo;
       } else if (p.t_dm >= 2) {
         g = "<b>La redazione batte il prezzo di partenza</b>, con un margine statisticamente solido.";
       } else if (p.t_dm <= -2) {
