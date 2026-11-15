@@ -15,8 +15,14 @@ Regole dell'invio automatico (modo auto):
   2. ogni numero parte una volta sola: se in Kit esiste già un invio con la stessa etichetta, non si rifà;
   3. l'invio è programmato qualche minuto dopo, il tempo che il sito pubblichi la pagina a cui l'email rimanda.
 
-L'email usa solo i campi base della scheda (numero, data, titolo, dek, sommario, notizie, file): gli stessi di home e feed.
-Il link per annullare l'iscrizione e l'indirizzo postale li aggiunge il modello di Kit in fondo: qui non vanno ripetuti.
+L'email usa solo i campi base della scheda (numero, data, titolo, dek, sommario, notizie, ticker, file): gli stessi di home e feed.
+
+Testata e piè di pagina (motto, riga sull'intelligenza artificiale, link per annullare l'iscrizione, indirizzo postale)
+stanno nel modello, non qui: redazione/newsletter_modello.html è la fonte, caricata a mano in Kit come due modelli:
+  "Gommberg edizione"  identico al file: lo usa questo script, il contenuto arriva già impaginato (margine zero);
+  "Gommberg"           lo stesso con il margine attorno al contenuto: è il predefinito, per l'email di conferma
+                       e per ogni email scritta a mano dentro Kit.
+Se cambia il file, i due modelli in Kit vanno aggiornati (Broadcasts > Templates).
 """
 import html
 import json
@@ -32,6 +38,7 @@ REPO = Path(__file__).resolve().parent.parent
 BASE = "https://paologom.github.io/Gommberg-Terminal-Daily/"
 API = "https://api.kit.com/v4"
 ATTESA_MINUTI = 4          # tempo lasciato al sito per pubblicare la pagina dell'edizione
+MODELLO = "Gommberg edizione"   # il modello di Kit per le edizioni (vedi sopra)
 GIORNI = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"]
 MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto",
         "settembre", "ottobre", "novembre", "dicembre"]
@@ -92,8 +99,16 @@ def nastro(ed):
             f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">{righe}</table>{nota}</td></tr>')
 
 
+def anteprima_locale(corpo):
+    """Il contenuto dentro il modello, per guardarlo in locale senza passare da Kit."""
+    modello = (REPO / "redazione" / "newsletter_modello.html").read_text(encoding="utf-8")
+    return (modello.replace("{{ message_content }}", corpo).replace("{{ unsubscribe_url }}", "#")
+            .replace("{{ address }}", "[indirizzo postale]"))
+
+
 def componi(ed):
-    """Oggetto, riga di anteprima e corpo HTML. Una colonna, stili in linea, niente immagini: regge in ogni casella."""
+    """Oggetto, riga di anteprima e contenuto HTML (testata e piè di pagina li mette il modello).
+    Una colonna, stili in linea, niente immagini: regge in ogni casella."""
     e = html.escape
     n = int(ed["numero"])
     pagina = f"{BASE}e/{n:03d}.html"
@@ -116,13 +131,7 @@ def componi(ed):
                        f'<table role="presentation" cellpadding="0" cellspacing="0" border="0">{elenco(notizie)}</table>')
     sezioni = "".join(f'<tr><td style="padding:22px 28px 0">{b}</td></tr>' for b in blocchi)
 
-    corpo = f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{CARTA}">
-<tr><td align="center" style="padding:0 8px 28px">
-<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#FFFFFF;border:1px solid {FILO}">
-<tr><td style="background:{NERO};border-bottom:3px solid {ARANCIO};padding:20px 28px 14px">
-<a href="{BASE}" style="text-decoration:none;font:900 20px/1 'Arial Narrow',{FONT};letter-spacing:.01em;color:#F5F3EF"><span style="color:{ARANCIO}">GOMMBERG</span> <span style="font-weight:600">TERMINAL DAILY</span></a>
-<p style="font:14px/1.4 {FONT};color:{FERMO};margin:8px 0 0">I mercati globali <span style="color:{ARANCIO}">spiegati</span>, ogni mattina in 6 pagine.</p>
-</td></tr>
+    corpo = f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
 {nastro(ed)}
 <tr><td style="padding:24px 28px 0">
 <p style="font:13px/1.4 {FONT};color:{GRIGIO};margin:0 0 10px">{e(data_estesa(ed["data"]))} - Edizione #{n:03d}</p>
@@ -130,18 +139,13 @@ def componi(ed):
 <p style="font:16px/1.55 {FONT};color:{INCHIOSTRO};margin:0">{e(ed.get("dek") or "")}</p>
 </td></tr>
 {sezioni}
-<tr><td style="padding:18px 28px 26px">
+<tr><td style="padding:18px 28px 24px">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
 <td bgcolor="{NERO}" style="background:{NERO};border-radius:3px"><a href="{pagina}" style="display:inline-block;padding:13px 22px;font:700 16px/1 {FONT};color:#FFFFFF;text-decoration:none">Leggi le {int(ed.get("pagine") or 6)} pagine</a></td>
 <td style="padding-left:16px;font:14px/1.4 {FONT}"><a href="{pdf}" style="color:{ARANCIO_TESTO}">Apri il PDF</a></td>
 </tr></table>
 </td></tr>
-<tr><td style="border-top:1px solid {FILO};padding:16px 28px 20px;font:13px/1.5 {FONT};color:{GRIGIO}">
-<p style="margin:0 0 10px">Te l'hanno inoltrata? <a href="{BASE}" style="color:{ARANCIO_TESTO}">Ricevila anche tu ogni mattina</a>.</p>
-<p style="margin:0">Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.</p>
-</td></tr>
-</table>
-</td></tr>
+<tr><td style="padding:0 28px 18px;font:13px/1.5 {FONT};color:{GRIGIO}">Te l'hanno inoltrata? <a href="{BASE}iscriviti.html" style="color:{ARANCIO_TESTO}">Ricevila anche tu ogni mattina</a>.</td></tr>
 </table>"""
     oggetto = f"Gommberg #{n:03d} - {ed['titolo']}"
     anteprima = sommario[0] if sommario else (ed.get("dek") or "")[:140]
@@ -177,11 +181,24 @@ def invii_esistenti():
     return {b.get("description"): b for b in corpo.get("broadcasts", [])}
 
 
+def modello_edizione():
+    """L'id del modello "Gommberg edizione" in Kit; se manca si usa il predefinito e l'email parte lo stesso."""
+    stato, corpo = kit("GET", "/email_templates")
+    for m in (corpo.get("email_templates", []) if stato == 200 else []):
+        if (m.get("name") or "").strip().lower() == MODELLO.lower():
+            return m.get("id")
+    print(f'AVVISO: modello "{MODELLO}" non trovato in Kit, uso il predefinito')
+    return None
+
+
 def crea(ed, quando, prova):
     oggetto, anteprima, corpo = componi(ed)
     dati = {"subject": oggetto, "preview_text": anteprima, "content": corpo, "description": etichetta(ed, prova),
             "public": False, "published_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "send_at": quando.isoformat(timespec="seconds") if quando else None}
+    modello = modello_edizione()
+    if modello:
+        dati["email_template_id"] = modello
     stato, risposta = kit("POST", "/broadcasts", dati)
     if stato not in (200, 201):
         sys.exit(f"ERRORE: Kit non ha accettato l'email (HTTP {stato}): {json.dumps(risposta, ensure_ascii=False)[:400]}")
@@ -196,8 +213,7 @@ def main():
 
     if modo == "anteprima":
         oggetto, anteprima, corpo = componi(ed)
-        Path("newsletter_anteprima.html").write_text(
-            f"<!doctype html><meta charset='utf-8'><title>{html.escape(oggetto)}</title><body style='margin:0'>{corpo}", encoding="utf-8")
+        Path("newsletter_anteprima.html").write_text(anteprima_locale(corpo), encoding="utf-8")
         print(f"Anteprima scritta: {oggetto} | {anteprima}")
         return
 
