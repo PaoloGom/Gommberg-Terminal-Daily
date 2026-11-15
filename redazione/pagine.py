@@ -242,9 +242,7 @@ def testata(root="", attivo=None):
     return ('<header class="gn-mast"><div class="gn-top"><div class="gn-brand">'
             f'<p class="gn-logo"><a href="{root or "./"}" title="Torna all\'ultima edizione"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></p>'
             '<p class="gn-pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p></div>'
-            f'<div class="gn-side"><a class="gn-cta" href="{root}iscriviti.html" data-goatcounter-click="invito-testata" '
-            'data-goatcounter-title="Invito all\'iscrizione nella testata (clic)">Ricevila via email</a>'
-            f'{menu(root, attivo)}</div></div></header>')
+            f'{menu(root, attivo)}</div></header>')
 
 
 def invito(root=""):

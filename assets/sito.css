@@ -18,16 +18,7 @@
 .gn-nav a[aria-current="page"] { color: var(--bar-ink, #F5F3EF); border-bottom-color: var(--orange, #F26B1D); }
 .gn-nav a:focus-visible { outline: 2px solid var(--orange, #F26B1D); outline-offset: 3px; }
 
-/* Invito all'iscrizione nella testata, sopra il menu: solo da PC. Sul telefono la testata resta su due righe
-   (logo e menu) e l'invito è la fascia .gi nella pagina; .gn-side sparisce e il menu torna figlio diretto della testata. */
-.gn-side { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; min-width: 0; }
-.gn-cta { font-family: var(--body, "IBM Plex Sans", Arial, sans-serif); font-size: 13.5px; font-weight: 600; line-height: 1; white-space: nowrap; color: var(--bar-ink, #F5F3EF); text-decoration: none; padding: 8px 12px; border: 1px solid var(--orange, #F26B1D); }
-.gn-cta:hover { background: var(--orange, #F26B1D); color: var(--bar, #0E0E0E); }
-.gn-cta:focus-visible { outline: 2px solid var(--orange, #F26B1D); outline-offset: 3px; }
-
 @media (max-width: 760px) {
-  .gn-side { display: contents; }
-  .gn-cta { display: none; }
   .gn-top { padding: 12px 18px 0; gap: 8px; }
   .gn-pitch { font-size: 14px; margin-top: 5px; }
   /* Sul telefono cinque voci stanno in una riga con le etichette corte (data-s), distribuite su tutta la larghezza */
