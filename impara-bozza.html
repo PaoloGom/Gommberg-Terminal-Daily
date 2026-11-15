@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<!-- BOZZA del ridisegno di Impara (15/11): non collegata, non indicizzata. Quando Paolo la approva prende il posto di glossario.html (con il canonical e i meta di quella). -->
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Impara (bozza): le parole dei mercati - Gommberg Terminal Daily</title>
+<meta name="description" content="Il glossario dei mercati: le sigle e i meccanismi che il Gommberg Terminal Daily usa ogni mattina, spiegati in poche righe.">
+
+<meta property="og:url" content="https://paologom.github.io/Gommberg-Terminal-Daily/glossario.html">
+<meta property="og:title" content="Glossario dei mercati - Gommberg Terminal Daily">
+<meta property="og:description" content="Le sigle e i meccanismi dei mercati, spiegati in poche righe.">
+<meta property="og:image" content="https://paologom.github.io/Gommberg-Terminal-Daily/assets/copertina.png">
+<meta name="theme-color" content="#0E0E0E">
+<link rel="icon" href="assets/icona.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Stessi colori, caratteri e testata del sito (index.html) e del PDF. */
+:root {
+  --paper: #FBFAF8; --ink: #141414; --muted: #5E5A55; --rule: #DEDAD4; --panel: #F1EEE9;
+  --orange: #F26B1D; --orange-ink: #B84A0C; --bar: #0E0E0E; --bar-rule: #333; --bar-ink: #F5F3EF; --bar-muted: #A39C93;
+  --up: #12753D; --down: #C0261C; --up-soft: #D8EEDF; --down-soft: #F6DAD6;
+  --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121110; --ink: #EDEAE5; --muted: #A49E96; --rule: #2E2B28; --panel: #1C1A18;
+    --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-rule: #2A2826; --bar-ink: #F5F3EF; --bar-muted: #8F8880;
+    --up: #46CF85; --down: #FF7466; --up-soft: #173524; --down-soft: #3F1C18; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121110; --ink: #EDEAE5; --muted: #A49E96; --rule: #2E2B28; --panel: #1C1A18;
+  --orange: #FF7A2E; --orange-ink: #FF9A5C; --bar: #050505; --bar-rule: #2A2826; --bar-ink: #F5F3EF; --bar-muted: #8F8880;
+  --up: #46CF85; --down: #FF7466; --up-soft: #173524; --down-soft: #3F1C18; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+body.lock { overflow: hidden; }
+[hidden] { display: none !important; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 24px; }
+@media (max-width: 760px) { .wrap { padding-inline: 18px; } }
+a { color: inherit; text-underline-offset: 3px; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+svg.i { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+main { padding-block: 34px 24px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
+.kicker { font-family: var(--mono); font-size: 13px; color: var(--orange-ink); margin: 0; line-height: 1.4; }
+.sec-h { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: clamp(22px, 2.6vw, 28px); line-height: 1.1; margin: 4px 0 16px; }
+
+/* ---------- Testata della pagina e ricerca ---------- */
+.find { margin-top: 26px; display: flex; align-items: center; gap: 12px; max-width: 660px; height: 58px; padding: 0 8px 0 16px; border: 2px solid var(--ink); background: var(--paper); }
+.find:focus-within { border-color: var(--orange); box-shadow: 0 0 0 3px color-mix(in srgb, var(--orange) 22%, transparent); }
+.find > svg { width: 20px; height: 20px; color: var(--muted); flex: none; }
+.find input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font: inherit; font-size: 18px; padding: 0; height: 100%; }
+.find input::-webkit-search-cancel-button { display: none; }
+.find kbd { font-family: var(--mono); font-size: 12px; color: var(--muted); border: 1px solid var(--rule); padding: 2px 8px; }
+.find .x { display: none; width: 40px; height: 40px; border: 0; background: none; color: var(--muted); font-size: 22px; line-height: 1; cursor: pointer; }
+.find.piena .x { display: block; } .find.piena kbd { display: none; }
+@media (hover: none) { .find kbd { display: none; } }
+.oggi { margin-top: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.oggi > span { font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin-right: 4px; }
+.oggi > span .dot { margin-right: 7px; vertical-align: 1px; }
+.oggi > span a { color: var(--orange-ink); }
+.dot { width: 7px; height: 7px; background: var(--orange); border-radius: 50%; display: inline-block; flex: none; }
+.tag { font-size: 14px; font-weight: 500; line-height: 1.2; background: var(--panel); border: 0; border-bottom: 2px solid var(--ink); padding: 8px 11px; min-height: 38px; cursor: pointer; text-align: left; }
+.tag:hover { border-bottom-color: var(--orange); color: var(--orange-ink); }
+@media (max-width: 620px) {
+  .find { height: 54px; }
+  .oggi { flex-wrap: nowrap; overflow-x: auto; margin-inline: -18px; padding: 0 18px 2px; scrollbar-width: none; }
+  .oggi::-webkit-scrollbar { display: none; }
+  .oggi > span, .oggi .tag { flex: none; white-space: nowrap; }
+}
+
+/* ---------- Parti da qui: un percorso di otto parole ---------- */
+.start { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; counter-reset: p; }
+.st { display: flex; flex-direction: column; gap: 6px; text-align: left; background: var(--panel); border: 0; border-top: 3px solid var(--ink); padding: 14px 16px 18px; cursor: pointer; transition: border-color .15s, transform .15s; }
+.st i { font-style: normal; font-family: var(--mono); font-size: 12.5px; color: var(--orange-ink); }
+.st b { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 23px; line-height: 1.05; }
+.st span { font-size: 14px; line-height: 1.4; color: var(--muted); }
+.st:hover { border-top-color: var(--orange); transform: translateY(-2px); }
+.st:hover b { color: var(--orange-ink); }
+@media (max-width: 860px) {
+  .start { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: -18px; padding: 0 18px 6px; scroll-padding-inline: 18px; scrollbar-width: none; }
+  .start::-webkit-scrollbar { display: none; }
+  .st { flex: 0 0 min(64%, 240px); scroll-snap-align: start; min-height: 0; }
+}
+
+/* ---------- Esplora: parole e meccanismi ---------- */
+.seg { display: flex; border-bottom: 2px solid var(--ink); }
+.seg button { background: none; border: 0; padding: 12px 20px 11px 0; margin-right: 22px; cursor: pointer; font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: clamp(19px, 2.4vw, 24px); line-height: 1.1; color: var(--muted); box-shadow: inset 0 -4px 0 transparent; text-align: left; }
+.seg button small { font-family: var(--mono); font-size: 12px; font-weight: 400; font-stretch: 100%; margin-left: 6px; }
+.seg button[aria-selected="true"] { color: var(--ink); box-shadow: inset 0 -4px 0 var(--orange); }
+.seg button:hover { color: var(--ink); }
+@media (max-width: 620px) { .seg button { font-size: 19px; margin-right: 18px; padding-right: 4px; white-space: nowrap; } .seg .lg { display: none; } }
+@media (max-width: 345px) { .seg button { font-size: 17px; margin-right: 12px; } .seg button small { margin-left: 4px; } }
+.bar { display: grid; gap: 10px; margin: 14px 0 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 500; line-height: 1; background: transparent; border: 1px solid var(--rule); padding: 9px 12px; min-height: 40px; cursor: pointer; white-space: nowrap; }
+.chip small { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+.chip:hover { border-color: var(--orange); }
+.chip[aria-pressed="true"] { background: var(--bar); color: var(--bar-ink); border-color: var(--bar); }
+.chip[aria-pressed="true"] small { color: var(--bar-muted); }
+.az { display: flex; flex-wrap: wrap; gap: 2px; }
+.az a, .az span { flex: none; min-width: 30px; height: 34px; display: inline-flex; align-items: center; justify-content: center; font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 15px; text-decoration: none; }
+.az a { color: var(--orange-ink); } .az a:hover { background: var(--panel); }
+.az span { color: var(--rule); }
+@media (max-width: 620px) {
+  .chips, .az { flex-wrap: nowrap; overflow-x: auto; margin-inline: -18px; padding: 0 18px 2px; scrollbar-width: none; }
+  .chips::-webkit-scrollbar, .az::-webkit-scrollbar { display: none; }
+  .chip { flex: none; }
+}
+
+/* Gruppi: la lettera (o l'area) a sinistra, le schede a destra */
+.grp { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 0 18px; padding: 16px 0; border-top: 1px solid var(--rule); scroll-margin-top: 12px; }
+.grp:first-child { border-top: 0; }
+.grp > h3 { margin: 0; align-self: start; position: sticky; top: 14px; font-family: var(--display); font-stretch: 80%; font-weight: 900; font-size: 44px; line-height: .9; color: var(--orange); }
+.grp.ar { grid-template-columns: minmax(0, 1fr); }
+.grp.ar > h3 { position: static; display: flex; align-items: center; gap: 8px; font-family: var(--body); font-stretch: 100%; font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); line-height: 1.3; margin-bottom: 12px; }
+.grp.ar > h3 small { font-family: var(--mono); font-weight: 400; letter-spacing: 0; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(208px, 1fr)); gap: 10px; }
+.cd { position: relative; display: flex; flex-direction: column; gap: 3px; text-align: left; background: var(--paper); border: 1px solid var(--rule); padding: 12px 14px 13px; min-height: 82px; cursor: pointer; transition: border-color .12s, background .12s; }
+.cd b { font-family: var(--display); font-stretch: 90%; font-weight: 800; font-size: 18px; line-height: 1.15; overflow-wrap: anywhere; padding-right: 12px; }
+.cd span { font-size: 13.5px; line-height: 1.35; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.cd:hover { border-color: var(--ink); background: var(--panel); }
+.cd:hover b { color: var(--orange-ink); }
+.cd.og::after { content: ""; position: absolute; top: 13px; right: 12px; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
+.cards.mc { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+.mc .cd { min-height: 128px; padding: 14px 16px 14px; gap: 6px; }
+.mc .cd span { -webkit-line-clamp: 3; }
+.mc .cd em { margin-top: auto; padding-top: 4px; font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.vuoto { color: var(--muted); font-size: 15px; padding: 18px 0; margin: 0; }
+.ris > h2 { font-family: var(--display); font-stretch: 85%; font-weight: 800; font-size: 22px; margin: 0 0 12px; }
+.ris > h2 small { font-family: var(--mono); font-weight: 400; font-size: 12.5px; color: var(--muted); margin-left: 6px; font-stretch: 100%; }
+.ris + .ris { margin-top: 28px; }
+@media (max-width: 620px) {
+  .grp { grid-template-columns: minmax(0, 1fr); padding: 14px 0; }
+  .grp > h3 { position: static; font-size: 28px; margin-bottom: 10px; }
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .cards.mc { grid-template-columns: minmax(0, 1fr); }
+  .cd { padding: 11px 12px 12px; min-height: 78px; }
+  .cd b { font-size: 16.5px; }
+  .cd span { font-size: 13px; }
+  .cd.og::after { top: 12px; right: 9px; }
+}
+
+/* ---------- Scheda aperta: di lato sul computer, dal basso sul telefono ---------- */
+.sh { position: fixed; inset: 0; z-index: 50; }
+.sh[hidden] { display: none; }
+.sh-bg { position: absolute; inset: 0; background: rgba(8, 8, 8, .5); opacity: 0; transition: opacity .2s; }
+.sh-in { position: absolute; top: 0; right: 0; bottom: 0; width: min(500px, 100%); background: var(--paper); border-left: 3px solid var(--orange); display: flex; flex-direction: column; transform: translateX(100%); transition: transform .24s ease; }
+.sh.on .sh-bg { opacity: 1; } .sh.on .sh-in { transform: none; }
+.sh-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 10px 8px 22px; border-bottom: 1px solid var(--rule); min-height: 56px; }
+.sh-top .bk { font-family: var(--mono); font-size: 13px; color: var(--orange-ink); background: none; border: 0; padding: 8px 0; cursor: pointer; }
+.sh-top .bk[hidden] { display: none; }
+.sh-top .cl { margin-left: auto; width: 44px; height: 44px; border: 0; background: none; font-size: 28px; line-height: 1; cursor: pointer; color: var(--ink); }
+.sh-body { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 22px 24px 28px; }
+.sh-k { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 12.5px; color: var(--orange-ink); margin: 0; }
+.sh-body h2 { font-family: var(--display); font-stretch: 82%; font-weight: 900; font-size: clamp(32px, 5vw, 42px); line-height: .98; letter-spacing: -.01em; margin: 8px 0 0; overflow-wrap: anywhere; }
+.sh-es { font-family: var(--mono); font-size: 13px; line-height: 1.45; color: var(--muted); margin: 8px 0 0; }
+.sh-lead { font-size: 17px; line-height: 1.6; margin: 16px 0 0; }
+.box { margin-top: 22px; background: var(--panel); border-top: 3px solid var(--ink); padding: 14px 16px 16px; }
+.box .k { font-family: var(--mono); font-size: 12.5px; color: var(--orange-ink); margin: 0 0 4px; }
+.box .tt { display: block; font-family: var(--display); font-stretch: 88%; font-weight: 800; font-size: 18px; line-height: 1.2; background: none; border: 0; padding: 0; text-align: left; cursor: pointer; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 4px; }
+.box .tt:hover { color: var(--orange-ink); text-decoration-color: currentColor; }
+.box p { margin: 8px 0 0; font-size: 15px; line-height: 1.55; }
+.box p.nv { font-size: 14px; color: var(--muted); }
+.box p.nv b { color: var(--ink); font-weight: 600; }
+.blk { margin-top: 22px; }
+.blk > p { font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin: 0 0 8px; }
+.blk .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.uso { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--mono); font-size: 13px; }
+.uso a { color: var(--orange-ink); }
+.fonte { display: inline-block; margin-top: 22px; font-size: 14px; color: var(--orange-ink); }
+.sh-foot { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 8px; border-top: 1px solid var(--rule); padding: 6px 10px calc(6px + env(safe-area-inset-bottom)); }
+.sh-foot button { background: none; border: 0; padding: 8px 6px; min-height: 48px; cursor: pointer; display: flex; flex-direction: column; gap: 1px; text-align: left; min-width: 0; }
+.sh-foot button:last-child { text-align: right; align-items: flex-end; }
+.sh-foot button small { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+.sh-foot button b { font-family: var(--display); font-stretch: 88%; font-weight: 800; font-size: 15px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.sh-foot button:hover b { color: var(--orange-ink); }
+.sh-foot button[disabled] { visibility: hidden; }
+.sh-foot span { font-family: var(--mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
+@media (max-width: 760px) {
+  .sh-in { top: auto; left: 0; width: 100%; max-height: 88vh; max-height: 88dvh; border-left: 0; border-top: 3px solid var(--orange); transform: translateY(100%); }
+  .sh-top { padding-left: 18px; min-height: 50px; }
+  .sh-body { padding: 18px 18px 24px; }
+}
+@media (prefers-reduced-motion: reduce) { .sh-bg, .sh-in, .st { transition: none; } }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>
+
+<script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<link rel="stylesheet" href="assets/sito.css">
+</head>
+<body>
+<header class="gn-mast"><div class="gn-top"><div class="gn-brand"><p class="gn-logo"><a href="./" title="Torna all'ultima edizione"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></p><p class="gn-pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p></div><nav class="gn-nav" aria-label="Sezioni del sito"><a href="./" data-s="Edizione">Ultima edizione</a><a href="archivio.html">Archivio</a><a href="glossario.html" aria-current="page">Impara</a><a href="scommessa.html" data-s="Scommessa">La scommessa</a><a href="progetto.html">Chi siamo</a></nav></div></header>
+
+<main class="wrap">
+  <section class="hero" aria-labelledby="h-hero">
+    <p class="pg-kick">Impara</p>
+    <h1 id="h-hero" class="pg-h"><span id="bN">Le parole dei mercati.</span><em>Cerca una parola o toccala: in pochi secondi sai cos'è, come funziona e dove l'abbiamo usata.</em></h1>
+    <label class="find" id="find"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Zm5.3-2.2L21 21"/></svg>
+      <span class="sr">Cerca una parola o un meccanismo</span><input type="search" id="q" placeholder="Cerca: CPI, spread, dollaro..." autocomplete="off" enterkeyhint="search"><kbd>/</kbd><button type="button" class="x" id="qx" aria-label="Cancella la ricerca">&times;</button></label>
+    <div class="oggi" id="oggi" hidden></div>
+  </section>
+
+  <section id="start" aria-labelledby="h-start" hidden>
+    <p class="kicker">Parti da qui</p>
+    <h2 class="sec-h" id="h-start">Otto parole che tornano ogni mattina</h2>
+    <div class="start" id="base"></div>
+  </section>
+
+  <section id="esplora" aria-label="Parole e meccanismi">
+    <div class="seg" id="seg" role="tablist">
+      <button type="button" role="tab" id="tP" aria-controls="pan" aria-selected="true">Le parole<small id="nP"></small></button>
+      <button type="button" role="tab" id="tM" aria-controls="pan" aria-selected="false">Come si muovono<span class="lg"> i mercati</span><small id="nM"></small></button>
+    </div>
+    <div class="bar" id="bar"><div class="chips" id="chips" role="group" aria-label="Filtra"></div><nav class="az" id="az" aria-label="Indice alfabetico"></nav></div>
+    <div id="pan" role="tabpanel"><p class="vuoto">Caricamento...</p></div>
+  </section>
+
+  <section id="ris" aria-live="polite" hidden></section>
+</main>
+
+<div class="sh" id="sh" hidden>
+  <div class="sh-bg" data-chiudi></div>
+  <article class="sh-in" role="dialog" aria-modal="true" aria-labelledby="shT">
+    <div class="sh-top"><button type="button" class="bk" id="shB" hidden>&lsaquo; Torna a leggere</button><button type="button" class="cl" data-chiudi aria-label="Chiudi">&times;</button></div>
+    <div class="sh-body" id="shC"></div>
+    <div class="sh-foot"><button type="button" id="shP"><small>&lsaquo; Prima</small><b></b></button><span id="shN"></span><button type="button" id="shS"><small>Dopo &rsaquo;</small><b></b></button></div>
+  </article>
+</div>
+
+<footer class="gf"><div class="gf-in"><nav class="gf-links" aria-label="Le pagine del sito"><a href="./">Ultima edizione</a><a href="archivio.html">Archivio</a><a href="glossario.html">Impara</a><a href="scommessa.html">La scommessa</a><a href="progetto.html">Chi siamo</a><a href="iscriviti.html">Ricevila via email</a><a href="feed.xml">Feed RSS</a><a href="privacy.html">Privacy</a></nav><p class="gf-ai">Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.</p><p class="gf-legal">Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione. I link "Fonte" portano al sito dell'ente che pubblica il dato.</p></div></footer>
+
+<script>
+(function () {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const MESI = ["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"];
+  const pad = (n) => String(n).padStart(3, "0");
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  const fold = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const ancora = (s) => "g-" + fold(s).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");   // invariata: le edizioni puntano qui
+  const cap = (s) => String(s || "").replace(/^./, (c) => c.toUpperCase());
+  const ok = (r) => r.ok ? r.json() : Promise.reject(r.status);
+  const sicuro = (u) => /^https?:\/\//.test(u || "") ? u : "";
+  const IC = {
+    "Indici": "M4 19V9m6 10V5m6 14v-8m4 8H2",
+    "Istituzioni": "M3 10l9-6 9 6M5 10v8m5-8v8m4-8v8m5-8v8M3 20h18",
+    "Dati e inflazione": "M3 17l5-6 4 3 8-9M3 21h18",
+    "Tassi e obbligazioni": "M19 5L5 19M7.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM16.5 20a2.5 2.5 0 100-5 2.5 2.5 0 000 5z",
+    "Aziende e strumenti": "M4 21V7l8-4 8 4v14M9 21v-6h6v6M8 10h.01M12 10h.01M16 10h.01",
+    "Materie prime": "M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z",
+    "Dati e attese": "M3 17l5-6 4 3 8-9M3 21h18",
+    "Borse": "M4 19V9m6 10V5m6 14v-8m4 8H2",
+    "Valute": "M7 7h13l-3-3m3 3l-3 3M17 17H4l3-3m-3 3l3 3",
+    "Energia e materie prime": "M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z",
+    "Commercio": "M3 7l9-4 9 4-9 4-9-4zm0 0v10l9 4 9-4V7M12 11v10"
+  };
+  const ico = (k) => '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="' + (IC[k] || IC["Indici"]) + '"/></svg>';
+
+  Promise.all([
+    fetch("redazione/glossario.json", { cache: "no-store" }).then(ok),
+    fetch("redazione/meccanismi.json", { cache: "no-store" }).then(ok),
+    fetch("redazione/glossario_sito.json", { cache: "no-store" }).then(ok).catch(() => ({})),
+    fetch("dati/storico.json", { cache: "no-store" }).then(ok).catch(() => []),
+    fetch("e/pagine.json", { cache: "no-store" }).then(ok).catch(() => [])
+  ]).then(([G, M, S, E, P]) => {
+    const pagine = new Set(Array.isArray(P) ? P : []);
+    const eds = (Array.isArray(E) ? E : []).filter((e) => e && e.numero && e.data).sort((a, b) => b.numero - a.numero);
+    const link = (e) => pagine.has(e.numero) ? "e/" + pad(e.numero) + ".html" : "./?n=" + e.numero;
+    const quando = (e) => { const [, m, d] = e.data.split("-").map(Number); return d + " " + MESI[m - 1]; };
+
+    /* ---------- Dati: meccanismi, parole del PDF + schede del sito ---------- */
+    const mv = (M.voci || []).filter((v) => v && v.id && v.titolo && v.testo);
+    const ORD = ["Tassi e obbligazioni", "Dati e attese", "Borse", "Valute", "Energia e materie prime", "Commercio"];
+    const aree = [...new Set(mv.map((v) => v.area || "Altri"))].sort((a, b) => (ORD.indexOf(a) + 1 || 99) - (ORD.indexOf(b) + 1 || 99));
+    mv.sort((a, b) => aree.indexOf(a.area || "Altri") - aree.indexOf(b.area || "Altri"));
+    const SV = (S && S.voci) || {};
+    const base0 = (G.voci || []).filter((v) => v && v.sigla && v.breve);
+    const note = new Set(base0.map((v) => v.sigla));
+    const extra = Object.keys(SV).filter((k) => !note.has(k) && SV[k].breve).map((k) => ({ sigla: k, breve: SV[k].breve }));
+    const gv = base0.concat(extra).map((v) => {
+      const s = SV[v.sigla] || {};
+      return { id: ancora(v.sigla), sigla: v.sigla, titolo: s.titolo || v.sigla, esteso: s.esteso || "", tipo: s.tipo || "", breve: v.breve,
+        spiega: s.spiega || "", mecc: s.mecc || "", fonte: s.fonte || null, varianti: v.varianti || [] };
+    }).sort((a, b) => fold(a.sigla).localeCompare(fold(b.sigla), "it"));
+    const TIPI = (S.tipi && S.tipi.length ? S.tipi : [...new Set(gv.map((v) => v.tipo).filter(Boolean))]);
+    const gById = new Map(gv.map((v) => [v.id, v]));
+    const mById = new Map(mv.map((m) => [m.id, m]));
+    const perSigla = new Map(gv.map((v) => [fold(v.sigla), v]));
+    const usoG = (s) => eds.filter((e) => (e.glossario || []).some((x) => fold(x) === fold(s)) || (e.parole || []).some((x) => fold(x).split(" (")[0] === fold(s)));
+    const usoM = (id) => eds.filter((e) => (e.meccanismi || []).includes(id));
+    const figli = (id) => gv.filter((x) => x.mecc === id);
+    const lettera = (v) => { const c = fold(v.sigla).replace(/[^a-z0-9]/g, "")[0] || "#"; return /[a-z]/.test(c) ? c.toUpperCase() : "#"; };
+    const BASE = ["Rendimento", "pb", "spread", "Curva dei rendimenti", "Fed", "BCE", "future", "ETF"].map((k) => perSigla.get(fold(k))).filter(Boolean);
+
+    // Le parole dell'ultima edizione: un punto arancio sulle schede e una riga sotto la ricerca
+    const ult = eds[0], oggi = [];
+    if (ult) { const visti = new Set();
+      for (const x of (ult.glossario || []).concat(ult.parole || [])) { const v = perSigla.get(fold(String(x).split(" (")[0])); if (v && !visti.has(v.id)) { visti.add(v.id); oggi.push(v); } } }
+    const diOggi = new Set(oggi.map((v) => v.id));
+
+    /* ---------- Schede ---------- */
+    const card = (v) => '<button type="button" class="cd' + (diOggi.has(v.id) ? " og" : "") + '" data-va="' + v.id + '"' + (diOggi.has(v.id) ? ' title="Nell\'ultima edizione"' : "") +
+      "><b>" + esc(v.titolo) + "</b><span>" + esc(cap(v.breve)) + "</span></button>";
+    const cardM = (m) => { const n = figli(m.id).length;
+      return '<button type="button" class="cd" data-va="' + m.id + '"><b>' + esc(m.titolo) + "</b><span>" + esc(m.testo) + "</span><em>" +
+        (n ? n + (n === 1 ? " parola collegata" : " parole collegate") : esc(m.area || "")) + "</em></button>"; };
+
+    const st = { tab: "P", tipo: "", area: "" };
+    let lista = [];   // l'ordine di ciò che si vede: serve a "Prima" e "Dopo" nella scheda aperta
+
+    function cerca(f) {   // prima chi ha la sigla o il titolo uguale, poi chi comincia così, poi chi lo contiene
+      const punti = (nomi, tutto) => nomi.some((n) => fold(n) === f) ? 0 : nomi.some((n) => fold(n).startsWith(f)) ? 1 : fold(tutto).includes(f) ? 2 : -1;
+      const ordina = (xs) => xs.filter(([p]) => p >= 0).sort((x, y) => x[0] - y[0]).map(([, v]) => v);
+      const g = ordina(gv.map((v) => [punti([v.sigla, v.titolo], [v.sigla, v.titolo, v.esteso, v.breve, v.spiega, v.varianti.join(" ")].join(" ")), v]));
+      const m = ordina(mv.map((v) => [punti([v.titolo], v.titolo + " " + v.testo + " " + (v.area || "")), v]));
+      return [g, m];
+    }
+
+    function disegna() {
+      const q = $("q").value, f = fold(q).trim();
+      $("find").classList.toggle("piena", !!q);
+      const cercando = !!f;
+      $("esplora").hidden = cercando; $("start").hidden = cercando || !BASE.length; $("ris").hidden = !cercando;
+      if (cercando) {
+        const [g, m] = cerca(f);
+        lista = g.map((v) => v.id).concat(m.map((v) => v.id));
+        $("ris").innerHTML = !lista.length ? '<p class="vuoto">Nessun risultato per &laquo;' + esc(q.trim()) + '&raquo;. Prova con una sigla (CPI) o con una parola (inflazione, dollaro).</p>' :
+          (g.length ? '<div class="ris"><h2>Parole<small>' + g.length + '</small></h2><div class="cards">' + g.map(card).join("") + "</div></div>" : "") +
+          (m.length ? '<div class="ris"><h2>Come si muovono i mercati<small>' + m.length + '</small></h2><div class="cards mc">' + m.map(cardM).join("") + "</div></div>" : "");
+        return;
+      }
+      $("tP").setAttribute("aria-selected", String(st.tab === "P")); $("tM").setAttribute("aria-selected", String(st.tab === "M"));
+      if (st.tab === "P") {
+        const g = gv.filter((v) => !st.tipo || v.tipo === st.tipo);
+        const gruppi = new Map();
+        for (const v of g) { const l = lettera(v); if (!gruppi.has(l)) gruppi.set(l, []); gruppi.get(l).push(v); }
+        lista = g.map((v) => v.id);
+        $("chips").innerHTML = '<button type="button" class="chip" data-t="" aria-pressed="' + !st.tipo + '">Tutte <small>' + gv.length + "</small></button>" +
+          TIPI.map((t) => '<button type="button" class="chip" data-t="' + esc(t) + '" aria-pressed="' + (st.tipo === t) + '">' + ico(t) + esc(t) + " <small>" + gv.filter((v) => v.tipo === t).length + "</small></button>").join("");
+        $("az").hidden = false;
+        $("az").innerHTML = [...Array(26)].map((_, i) => String.fromCharCode(65 + i)).map((l) => gruppi.has(l) ? '<a href="#L-' + l + '" data-l="' + l + '">' + l + "</a>" : "<span>" + l + "</span>").join("");
+        $("pan").innerHTML = [...gruppi].map(([l, vs]) => '<div class="grp" id="L-' + l + '"><h3>' + l + '</h3><div class="cards">' + vs.map(card).join("") + "</div></div>").join("");
+      } else {
+        const m = mv.filter((v) => !st.area || (v.area || "Altri") === st.area);
+        lista = m.map((v) => v.id);
+        $("chips").innerHTML = '<button type="button" class="chip" data-t="" aria-pressed="' + !st.area + '">Tutti <small>' + mv.length + "</small></button>" +
+          aree.map((a) => '<button type="button" class="chip" data-t="' + esc(a) + '" aria-pressed="' + (st.area === a) + '">' + ico(a) + esc(a) + " <small>" + mv.filter((v) => (v.area || "Altri") === a).length + "</small></button>").join("");
+        $("az").hidden = true;
+        $("pan").innerHTML = aree.map((a) => { const vs = m.filter((v) => (v.area || "Altri") === a);
+          return vs.length ? '<div class="grp ar"><h3>' + ico(a) + esc(a) + " <small>" + vs.length + '</small></h3><div class="cards mc">' + vs.map(cardM).join("") + "</div></div>" : ""; }).join("");
+      }
+    }
+
+    /* ---------- Scheda aperta ---------- */
+    const sh = $("sh");
+    let aperta = "", ctx = [], ctxBase = false, spinta = false, prima = null;
+    const daEdizione = (() => { try { const r = new URL(document.referrer); return r.origin === location.origin && !/glossario|impara/.test(r.pathname); } catch (e) { return false; } })();
+    const nome = (id) => (gById.get(id) || mById.get(id) || {}).titolo || "";
+
+    function contenuto(id) {
+      const v = gById.get(id);
+      if (v) {
+        const m = v.mecc && mById.get(v.mecc), u = usoG(v.sigla), f = v.fonte && sicuro(v.fonte[1]);
+        const vicine = m ? figli(m.id).filter((x) => x.id !== v.id).slice(0, 8) : [];
+        return '<p class="sh-k">' + (v.tipo ? ico(v.tipo) + esc(v.tipo) : "Parola") + "</p>" +
+          '<h2 id="shT">' + esc(v.titolo) + "</h2>" + (v.esteso ? '<p class="sh-es">' + esc(v.esteso) + "</p>" : "") +
+          '<p class="sh-lead">' + esc(v.spiega || cap(v.breve) + ".") + "</p>" +
+          (m ? '<div class="box"><p class="k">Come funziona</p><button type="button" class="tt" data-va="' + m.id + '">' + esc(m.titolo) + "</button><p>" + esc(m.testo) + "</p>" +
+            (m.eccezioni ? '<p class="nv"><b>Quando non vale.</b> ' + esc(m.eccezioni) + "</p>" : "") + "</div>" : "") +
+          (vicine.length ? '<div class="blk"><p>Parole vicine</p><div class="tags">' + vicine.map((x) => '<button type="button" class="tag" data-va="' + x.id + '">' + esc(x.titolo) + "</button>").join("") + "</div></div>" : "") +
+          usate(u) + (f ? '<a class="fonte" href="' + esc(f) + '" target="_blank" rel="noopener">Fonte: ' + esc(v.fonte[0]) + " &#8599;</a>" : "");
+      }
+      const m = mById.get(id), par = figli(id);
+      return '<p class="sh-k">' + ico(m.area) + esc(m.area || "Come si muovono i mercati") + "</p>" +
+        '<h2 id="shT">' + esc(m.titolo) + "</h2>" + '<p class="sh-lead">' + esc(m.testo) + "</p>" +
+        (m.eccezioni ? '<div class="box"><p class="k">Quando non vale</p><p>' + esc(m.eccezioni) + "</p></div>" : "") +
+        (par.length ? '<div class="blk"><p>Le parole di questo meccanismo</p><div class="tags">' + par.slice(0, 12).map((x) => '<button type="button" class="tag" data-va="' + x.id + '">' + esc(x.titolo) + "</button>").join("") + "</div></div>" : "") +
+        usate(usoM(id));
+    }
+    function usate(u) {
+      return u.length ? '<div class="blk"><p>' + (u.length === 1 ? "Usata in 1 edizione" : "Nel Gommberg in " + u.length + " edizioni") + '</p><div class="uso">' +
+        u.slice(0, 5).map((e) => '<a href="' + link(e) + '">n. ' + pad(e.numero) + " &middot; " + quando(e) + "</a>").join("") + "</div></div>" : "";
+    }
+    function piede() {
+      const i = ctx.indexOf(aperta), p = ctx[i - 1], s = ctx[i + 1];
+      $("shP").disabled = !p; $("shS").disabled = !s;
+      $("shP").querySelector("b").textContent = p ? nome(p) : ""; $("shS").querySelector("b").textContent = s ? nome(s) : "";
+      $("shP").dataset.va = p || ""; $("shS").dataset.va = s || "";
+      $("shN").textContent = ctx.length > 1 ? (ctxBase ? "Parola " : "") + (i + 1) + " di " + ctx.length : "";
+    }
+    function mostra(id, dentro) {
+      if (!gById.has(id) && !mById.has(id)) return false;
+      if (dentro !== "dentro" || !ctx.includes(id)) {
+        ctxBase = BASE.some((v) => v.id === id) && dentro === "base";
+        ctx = ctxBase ? BASE.map((v) => v.id) : lista.includes(id) ? lista.slice() : (gById.has(id) ? gv.map((v) => v.id) : mv.map((v) => v.id));
+      }
+      aperta = id; $("shC").innerHTML = contenuto(id); $("shC").scrollTop = 0; piede();
+      if (sh.hidden) { prima = document.activeElement; sh.hidden = false; document.body.classList.add("lock"); requestAnimationFrame(() => requestAnimationFrame(() => sh.classList.add("on"))); sh.querySelector(".cl").focus({ preventScroll: true }); }
+      return true;
+    }
+    function nascondi() {
+      if (sh.hidden) return;
+      sh.classList.remove("on"); document.body.classList.remove("lock"); aperta = "";
+      setTimeout(() => { if (!aperta) sh.hidden = true; }, 240);
+      if (prima && prima.focus) prima.focus({ preventScroll: true });
+    }
+    function apri(id, da) {   // da: "base" (percorso), "dentro" (dalla scheda aperta) o niente (da una scheda della pagina)
+      const giaAperta = !sh.hidden;
+      if (!mostra(id, da === "dentro" ? "dentro" : da)) return;
+      $("shB").hidden = true;
+      if (giaAperta) history.replaceState(history.state, "", "#" + id);
+      else { history.pushState({ gtd: 1 }, "", "#" + id); spinta = true; }
+    }
+    function chiudi() {
+      if (spinta) { spinta = false; history.back(); }
+      else { history.replaceState(null, "", location.pathname + location.search); nascondi(); }
+    }
+    function daIndirizzo() {
+      const id = decodeURIComponent(location.hash.slice(1));
+      if (id && (gById.has(id) || mById.has(id))) { if (id !== aperta) mostra(id); }
+      else { spinta = false; nascondi(); if (/^L-/.test(id)) { const t = $(id); if (t) t.scrollIntoView(); } }
+    }
+
+    /* ---------- Avvio ---------- */
+    $("nP").textContent = gv.length; $("nM").textContent = mv.length;
+    $("bN").textContent = gv.length + " parole e " + mv.length + " meccanismi.";
+    $("base").innerHTML = BASE.map((v, i) => '<button type="button" class="st" data-va="' + v.id + '" data-da="base"><i>' + String(i + 1).padStart(2, "0") + "</i><b>" + esc(v.titolo) + "</b><span>" + esc(cap(v.breve)) + "</span></button>").join("");
+    if (oggi.length) {
+      $("oggi").innerHTML = '<span><i class="dot" aria-hidden="true"></i>Nell\'ultima edizione, <a href="' + link(ult) + '">n. ' + pad(ult.numero) + "</a>, " + quando(ult) + ":</span>" +
+        oggi.slice(0, 8).map((v) => '<button type="button" class="tag" data-va="' + v.id + '">' + esc(v.titolo) + "</button>").join("");
+      $("oggi").hidden = false;
+    }
+    $("q").value = new URLSearchParams(location.search).get("q") || "";
+    disegna();
+    const h0 = decodeURIComponent(location.hash.slice(1));
+    if (gById.has(h0) || mById.has(h0)) { if (mById.has(h0)) { st.tab = "M"; disegna(); } mostra(h0); $("shB").hidden = !daEdizione; }
+    else if (h0) daIndirizzo();
+
+    let tm; $("q").addEventListener("input", () => { clearTimeout(tm); tm = setTimeout(disegna, 100); });
+    $("q").addEventListener("keydown", (e) => { if (e.key === "Enter" && lista.length) { e.preventDefault(); $("q").blur(); apri(lista[0]); } if (e.key === "Escape") { $("q").value = ""; disegna(); } });
+    $("qx").addEventListener("click", (e) => { e.preventDefault(); $("q").value = ""; disegna(); $("q").focus(); });
+    $("seg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; st.tab = b.id === "tM" ? "M" : "P"; disegna(); });
+    $("chips").addEventListener("click", (e) => { const b = e.target.closest(".chip"); if (!b) return; if (st.tab === "P") st.tipo = b.dataset.t || ""; else st.area = b.dataset.t || ""; disegna(); });
+    $("az").addEventListener("click", (e) => { const a = e.target.closest("a[data-l]"); if (!a) return; e.preventDefault(); const t = $("L-" + a.dataset.l); if (t) t.scrollIntoView({ behavior: "smooth" }); });
+    $("shB").addEventListener("click", () => history.back());
+    document.addEventListener("click", (e) => {
+      if (e.target.closest("[data-chiudi]")) { chiudi(); return; }
+      const b = e.target.closest("[data-va]"); if (!b || !b.dataset.va) return;
+      apri(b.dataset.va, b.closest(".sh-foot") ? "dentro" : sh.contains(b) ? "" : b.dataset.da || "");
+    });
+    document.addEventListener("keydown", (e) => {
+      if (!sh.hidden) {
+        if (e.key === "Escape") chiudi();
+        else if (e.key === "ArrowLeft" && $("shP").dataset.va) apri($("shP").dataset.va, "dentro");
+        else if (e.key === "ArrowRight" && $("shS").dataset.va) apri($("shS").dataset.va, "dentro");
+        else if (e.key === "Tab") {   // il fuoco resta dentro la scheda
+          const f = [...sh.querySelectorAll("button:not([disabled]):not([hidden]), a[href]")].filter((x) => x.offsetParent);
+          if (f.length && e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+          else if (f.length && !e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+        }
+      } else if (e.key === "/" && document.activeElement !== $("q") && !e.metaKey && !e.ctrlKey) { e.preventDefault(); $("q").focus(); }
+    });
+    window.addEventListener("popstate", daIndirizzo);
+    window.addEventListener("hashchange", daIndirizzo);
+  }).catch(() => { $("pan").innerHTML = '<p class="vuoto">Dati non raggiungibili. Riprova tra qualche minuto.</p>'; });
+})();
+</script>
+</body>
+</html>
