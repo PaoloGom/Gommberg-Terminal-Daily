@@ -3,7 +3,7 @@
 Il testo delle attività vive nell'app di Claude, non nel repository: se un'attività va ricreata, si riparte da qui. Copia aggiornata il 14/11/2026, dopo l'unione della v9.0 nel ramo principale. Chi cambia il testo nell'app aggiorna anche questo file. Le attività si creano da una sessione che ha il repository in scrittura (il permesso di push viene da lì) e i connettori si scelgono nella pagina dell'attività, non da qui.
 
 ## 1. "Gommberg Terminal Daily" - lun-ven alle 8:58 (Europe/Rome), modello Sonnet
-Testo invariato dal 14/11/2026. Il 15/11 si è provato un punto 6 per registrare il consumo di token (Skill "explain-usage" più `consumo.py`): in una sessione programmata la skill non esiste ("Unknown skill: explain-usage"), quindi il punto non è stato aggiunto. Aggiornato il 14/11/2026 con l'unione della v9.0: i punti 3-5 citano i paragrafi delle istruzioni nuove (§1-§7, §4.9, `APP_ERRORI.md`). Per una prova generale si lancia questa stessa attività aggiungendo in coda il testo di `PROVA.md`.
+Testo invariato dal 14/11/2026. I token della corsa non li chiede il testo dell'attività: li somma il gancio `.claude/settings.json` (`redazione/gancio_token.py`) e li registra `pubblica.sh` nel pannello di controllo (`pannello/`). Aggiornato il 14/11/2026 con l'unione della v9.0: i punti 3-5 citano i paragrafi delle istruzioni nuove (§1-§7, §4.9, `APP_ERRORI.md`). Per una prova generale si lancia questa stessa attività aggiungendo in coda il testo di `PROVA.md`.
 
 ```
 Sei la redazione del GOMMBERG TERMINAL DAILY: rassegna mattutina dei mercati globali in PDF di 6 pagine, in italiano, pubblicata su un sito che Paolo condivide. Accuratezza prima di tutto, niente ripetizioni, spiegazione chiara del perché.
@@ -21,7 +21,7 @@ REGOLA WEB (la causa verificata delle sessioni morte): WebFetch SOLO su un URL c
 5. Consegna nell'ordine di §4.9: pubblica.sh (verifica PUSH_OK), poi SendUserFile del PDF (status "proactive", display "render", didascalia "Gommberg Terminal Daily #NNN - <data lunga>"), poi il messaggio finale di 4 righe prodotto da messaggio.py. Fine: nessun archivio Claude.
 ```
 
-Connettori collegati: FMP e Alpha Vantage (servono); Gmail, Drive e Calendar (non servono: Paolo ha chiesto di staccarli il 18/10). Verificato il 15/11 nell'app: la pagina dell'attività li elenca soltanto (Modifica - Impostazioni avanzate - Connettori), senza modo di toglierli, e lo strumento che modifica le attività cambia solo nome, orario, modello e testo. Restano collegati; non vengono usati (§7 delle istruzioni) e il loro peso si legge nella pagina `consumi/`.
+Connettori collegati: FMP e Alpha Vantage (servono); Gmail, Drive e Calendar (non servono: Paolo ha chiesto di staccarli il 18/10). Verificato il 15/11 nell'app: la pagina dell'attività li elenca soltanto (Modifica - Impostazioni avanzate - Connettori), senza modo di toglierli, e lo strumento che modifica le attività cambia solo nome, orario, modello e testo. Restano collegati; non vengono usati (§7 delle istruzioni) e un'attività eredita i connettori della chat che la crea: per cambiarli va ricreata.
 
 ## 2. "Gommberg: misura della lettura" - venerdì alle 10:58 (Europe/Rome), modello Opus
 ```

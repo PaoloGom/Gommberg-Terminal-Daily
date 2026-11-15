@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Gancio di Claude Code (.claude/settings.json, evento PostToolUse su Bash): somma i token della sessione dalla sua
-trascrizione e li lascia in /tmp/gtd_token.json, dove pubblica.sh (consumo.py --indici) li raccoglie.
+trascrizione e li lascia in /tmp/gtd_token.json, dove pubblica.sh (pannello.py --indici) li raccoglie.
 Nessun modello, nessuna rete, nessuna scrittura nel repository. Esce sempre con 0 e non stampa nulla: non può fermare
 né disturbare l'attività.
 
