@@ -39,6 +39,10 @@ MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", 
 # Colori della testata e del sito (assets/sito.css)
 NERO, CARTA, INCHIOSTRO, ARANCIO, ARANCIO_TESTO, GRIGIO, FILO = "#0E0E0E", "#FBFAF8", "#141414", "#F26B1D", "#B84A0C", "#5E5A55", "#DEDAD4"
 FONT = "Arial, Helvetica, sans-serif"
+MONO = "'Courier New', Courier, monospace"
+SU, GIU, FERMO, TENUE = "#3CCB7F", "#FF6A5C", "#D6D1C9", "#A39C93"      # sul fondo nero della testata, come nel sito
+# Nomi brevi del nastro: gli stessi della homepage (index.html, CORTI)
+CORTI = {"EURO STOXX 50": "Stoxx 50", "UST 10 ANNI": "Treasury 10a", "TREASURY 10 ANNI": "Treasury 10a", "BRENT FUTURE": "Brent"}
 
 
 def ultima_edizione():
@@ -56,6 +60,38 @@ def etichetta(ed, prova=False):
     return f"gommberg-{'prova' if prova else 'edizione'}-{int(ed['numero']):03d}"
 
 
+def data_breve(iso):
+    d = date.fromisoformat(iso)
+    return f"{d.day} {MESI[d.month - 1]}"
+
+
+def nastro(ed):
+    """Il nastro dei mercati sotto la testata, come nel PDF e nel sito: nome, valore, variazione colorata per segno.
+    Sei mercati su due righe da tre, ogni cella su tre righe fisse (nome, valore, variazione): regge anche sul telefono
+    senza andare a capo. Il Mondo resta al sito."""
+    e = html.escape
+    voci = [v for v in (ed.get("ticker") or []) if len(v) >= 3 and "ACWI" not in str(v[0]).upper()][:6]
+    if len(voci) < 3:
+        return ""
+    celle = []
+    for nome, valore, var in voci:
+        nome = CORTI.get(str(nome).upper(), str(nome)).upper()
+        var = str(var).strip()
+        if var.endswith(" g"):
+            var = var[:-2]
+        colore = SU if var.startswith("+") else GIU if var.startswith(("-", "\u2212")) else FERMO
+        celle.append(
+            f'<td width="33%" valign="top" style="padding:0 6px 10px 0">'
+            f'<span style="display:block;font:700 10px/1.3 {FONT};letter-spacing:.06em;color:{TENUE}">{e(nome)}</span>'
+            f'<span style="display:block;font:700 13px/1.35 {MONO};color:#F5F3EF;white-space:nowrap">{e(str(valore))}</span>'
+            f'<span style="display:block;font:700 13px/1.35 {MONO};color:{colore};white-space:nowrap">{e(var)}</span></td>')
+    righe = "".join("<tr>" + "".join(celle[i:i + 3]) + "</tr>" for i in range(0, len(celle), 3))
+    al = ed.get("ticker_al")
+    nota = (f'<p style="font:11px/1.3 {MONO};color:{TENUE};margin:0">Chiusure del {e(data_breve(al))}</p>' if al else "")
+    return (f'<tr><td style="background:{NERO};padding:14px 28px 12px">'
+            f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">{righe}</table>{nota}</td></tr>')
+
+
 def componi(ed):
     """Oggetto, riga di anteprima e corpo HTML. Una colonna, stili in linea, niente immagini: regge in ogni casella."""
     e = html.escape
@@ -64,7 +100,7 @@ def componi(ed):
     pdf = BASE + ed["file"]
     sommario = [s for s in ed.get("sommario") or [] if s]
     notizie = [s for s in ed.get("notizie") or [] if s]
-    occhiello = f'font:700 12px/1.3 {FONT};letter-spacing:.08em;text-transform:uppercase;color:{ARANCIO_TESTO};margin:0 0 8px'
+    occhiello = f'font:700 12px/1.3 {MONO};letter-spacing:.06em;text-transform:uppercase;color:{ARANCIO_TESTO};margin:0 0 10px'
 
     def elenco(voci):
         return "".join(
@@ -81,14 +117,16 @@ def componi(ed):
     sezioni = "".join(f'<tr><td style="padding:22px 28px 0">{b}</td></tr>' for b in blocchi)
 
     corpo = f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{CARTA}">
-<tr><td align="center" style="padding:0 12px 28px">
+<tr><td align="center" style="padding:0 8px 28px">
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#FFFFFF;border:1px solid {FILO}">
-<tr><td style="background:{NERO};border-bottom:3px solid {ARANCIO};padding:18px 28px 14px">
-<a href="{BASE}" style="text-decoration:none;font:900 21px/1 'Arial Narrow',{FONT};letter-spacing:.01em;color:#F5F3EF"><span style="color:{ARANCIO}">GOMMBERG</span> <span style="font-weight:600">TERMINAL DAILY</span></a>
+<tr><td style="background:{NERO};border-bottom:3px solid {ARANCIO};padding:20px 28px 14px">
+<a href="{BASE}" style="text-decoration:none;font:900 20px/1 'Arial Narrow',{FONT};letter-spacing:.01em;color:#F5F3EF"><span style="color:{ARANCIO}">GOMMBERG</span> <span style="font-weight:600">TERMINAL DAILY</span></a>
+<p style="font:14px/1.4 {FONT};color:{FERMO};margin:8px 0 0">I mercati globali <span style="color:{ARANCIO}">spiegati</span>, ogni mattina in 6 pagine.</p>
 </td></tr>
-<tr><td style="padding:22px 28px 0">
+{nastro(ed)}
+<tr><td style="padding:24px 28px 0">
 <p style="font:13px/1.4 {FONT};color:{GRIGIO};margin:0 0 10px">{e(data_estesa(ed["data"]))} - Edizione #{n:03d}</p>
-<h1 style="font:700 26px/1.2 {FONT};color:{INCHIOSTRO};margin:0 0 12px">{e(ed["titolo"])}</h1>
+<h1 style="font:900 28px/1.15 'Arial Narrow',{FONT};letter-spacing:-.01em;color:{INCHIOSTRO};margin:0 0 12px">{e(ed["titolo"])}</h1>
 <p style="font:16px/1.55 {FONT};color:{INCHIOSTRO};margin:0">{e(ed.get("dek") or "")}</p>
 </td></tr>
 {sezioni}
