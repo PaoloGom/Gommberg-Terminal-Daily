@@ -215,7 +215,7 @@ GLOSSARIO = {}   # sigla in minuscolo -> (sigla, breve), solo le voci non ovvie;
 # ---------------------------------------------------------------- testata, menu e piè di pagina comuni
 # Stessi elementi su tutte le pagine del sito (stile in assets/sito.css). root = "" per le pagine
 # nella cartella principale, "../" per quelle in e/. attivo = la voce del menu da evidenziare.
-# Il menu segue ciò che fa il lettore: legge, cerca, impara, gioca, e sa chi siamo (progetto e numeri).
+# Il menu segue ciò che fa il lettore: legge, cerca, impara, segue la scommessa, e sa chi siamo (progetto e numeri).
 # Terzo campo: l'etichetta corta per il telefono, dove cinque voci intere non stanno in una riga (assets/sito.css).
 MENU = (("", "Ultima edizione", "Edizione"), ("archivio.html", "Archivio", ""), ("glossario.html", "Impara", ""),
         ("scommessa.html", "La scommessa", "Scommessa"), ("progetto.html", "Chi siamo", ""))
