@@ -1,25 +1,23 @@
 #!/usr/bin/env python3
-"""Quanto lavora (e quanto pesa sul piano) l'attività del mattino: i numeri della pagina consumi/ del sito.
+"""I numeri del pannello di controllo (pagina pannello/ del sito): una riga per edizione, scritta a ogni uscita.
 Non fa parte del giornale e non può fermare l'uscita: esce sempre con 0 e non lancia mai eccezioni. Nessuna chiamata a
 modelli o alla rete: costa zero token.
 
-Due file in consumi/:
-  registro.json   una riga per edizione, scritta da pubblica.sh: durata, schede dei fatti, fonti citate, ricerche.
-                  Sono misure, prese dai file dell'edizione.
-  taratura.json   le letture vere del consumo: quanti punti del limite settimanale (pagina Utilizzo dell'app) sono
-                  costati quanti minuti di attività, su quale piano. Da qui viene il tasso "punti al minuto" con cui la
-                  pagina stima il peso di ogni edizione: stima = durata x tasso. Vale il piano dell'ultima lettura.
-
-I token veri: il gancio redazione/gancio_token.py (.claude/settings.json, dopo ogni comando Bash) somma i token della
-sessione dalla sua trascrizione e li lascia in /tmp/gtd_token.json; --indici li mette nella riga dell'edizione ("token",
-"pesati", "richieste"). Provato il 15/11/2026 in una sessione programmata: funziona. Restano fuori solo i pochi passi dopo
-la pubblicazione. Token pesati = ingresso + 2 x scritti in cache + 0,1 x letti dalla cache + 5 x uscita. (La Skill
-"explain-usage" delle chat, invece, nelle sessioni programmate non esiste.)
+Due file in pannello/:
+  registro.json   una riga per edizione, scritta da pubblica.sh. Operatività: avvio, uscita ("ora"), durata. Lavoro:
+                  schede dei fatti, fonti citate, ricerche. Qualità: le misure di misure.py (parole, parole per frase "fr",
+                  quota di frasi oltre 30 parole "lunghe", gergo, quota di schede con fonte primaria "prim" e di livello 1
+                  "l1"). Kit: versione delle istruzioni "v" e KB letti a ogni avvio. Consumo: "token", "pesati",
+                  "richieste", sommati dal gancio redazione/gancio_token.py (.claude/settings.json, dopo ogni comando Bash)
+                  dalla trascrizione della sessione e lasciati in /tmp/gtd_token.json. Provato il 15/11/2026 in una
+                  sessione programmata. Token pesati = ingresso + 2 x scritti in cache + 0,1 x letti dalla cache + 5 x uscita.
+  taratura.json   le letture vere della pagina Utilizzo dell'app: quanti punti del limite settimanale sono costati quanti
+                  minuti di attività, su quale piano. Da qui il tasso con cui la pagina stima i punti del piano.
 
 Uso:
-  consumo.py --indici <N> <AAAA-MM-GG> [fatti.json]             riga dell'edizione appena pubblicata (lo chiama pubblica.sh)
-  consumo.py --storico                                           aggiunge le edizioni già uscite che mancano, dal repository
-  consumo.py --taratura <punti> <minuti> <piano> "<nota>" [AAAA-MM-GG]   aggiunge una lettura vera
+  pannello.py --indici <N> <AAAA-MM-GG> [fatti.json]             riga dell'edizione appena pubblicata (lo chiama pubblica.sh)
+  pannello.py --storico                                           aggiunge o completa le edizioni già uscite, dal repository
+  pannello.py --taratura <punti> <minuti> <piano> "<nota>" [AAAA-MM-GG]   aggiunge una lettura vera
 Variabili: GTD_REPO (default: il repository di questo file), GTD_LAVORO (default /home/claude/lavoro)."""
 import datetime as dt
 import json
@@ -37,15 +35,15 @@ ROMA = zoneinfo.ZoneInfo("Europe/Rome")
 
 def carica(nome):
     try:
-        r = json.load(open(os.path.join(REPO, "consumi", nome), encoding="utf-8"))
+        r = json.load(open(os.path.join(REPO, "pannello", nome), encoding="utf-8"))
         return r if isinstance(r, list) else []
     except Exception:
         return []
 
 
 def scrivi(nome, righe):
-    os.makedirs(os.path.join(REPO, "consumi"), exist_ok=True)
-    json.dump(righe, open(os.path.join(REPO, "consumi", nome), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    os.makedirs(os.path.join(REPO, "pannello"), exist_ok=True)
+    json.dump(righe, open(os.path.join(REPO, "pannello", nome), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
 
 
 def conta(fatti):
@@ -87,6 +85,28 @@ def versione_e_peso(leggi, elenco):
     return out
 
 
+QUALITA = {"parole": "parole", "fr": "fr", ">30": "lunghe", "gergo": "gergo", "prim": "prim", "l1": "l1"}
+
+
+def qualita(ultime=None):
+    """Le misure deterministiche di misure.py, per numero di edizione (tutte, o solo le ultime)."""
+    import tempfile
+    out = {}
+    try:
+        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as f:
+            tmp = f.name
+        cmd = [sys.executable, os.path.join(QUI, "misure.py"), "--json", tmp] + (["--ultime", str(ultime)] if ultime else [])
+        subprocess.run(cmd, capture_output=True, timeout=120, env={**os.environ, "GTD_REPO": REPO})
+        for r in json.load(open(tmp, encoding="utf-8")):
+            m = re.match(r"#(\d+)", str(r.get("nome", "")))
+            if m:
+                out[int(m.group(1))] = {v: r[k] for k, v in QUALITA.items() if isinstance(r.get(k), (int, float))}
+        os.remove(tmp)
+    except Exception:
+        pass
+    return out
+
+
 def metti(riga):
     reg = [x for x in carica("registro.json") if x.get("n") != riga["n"]] + [riga]
     scrivi("registro.json", sorted(reg, key=lambda x: x["n"]))
@@ -98,14 +118,16 @@ def indici(n, data, fatti_p):
     ora = dt.datetime.now(ROMA)
     riga["ora"] = ora.strftime("%H:%M")
     try:
-        primi = [os.path.getmtime(os.path.join(LAVORO, f)) for f in os.listdir(LAVORO)]
-        riga["durata_min"] = round((ora.timestamp() - min(primi)) / 60)
+        primo = min(os.path.getmtime(os.path.join(LAVORO, f)) for f in os.listdir(LAVORO))
+        riga["avvio"] = dt.datetime.fromtimestamp(primo, ROMA).strftime("%H:%M")
+        riga["durata_min"] = round((ora.timestamp() - primo) / 60)
     except Exception:
         riga["durata_min"] = None
     try:
         riga.update(conta(json.load(open(fatti_p, encoding="utf-8"))))
     except Exception:
         pass
+    riga.update(qualita(ultime=1).get(int(n), {}))
     try:                                             # i token veri, se il gancio ha potuto leggerli
         g = json.load(open(os.environ.get("GTD_TOKEN", "/tmp/gtd_token.json"), encoding="utf-8"))
         if g.get("esiste") and g.get("richieste") and g.get("pesati"):
@@ -140,9 +162,16 @@ def storico():
                                       text=True).stdout.replace("redazione/", "").split()
         return versione_e_peso(mostra, nomi)
     reg = carica("registro.json")
+    q = qualita()
     for x in reg:                                             # righe già presenti: si completa solo ciò che manca
         if "v" not in x and x.get("n") in commit:
             x.update(dal_commit(commit[x["n"]]))
+        if "fr" not in x:
+            x.update(q.get(x.get("n"), {}))
+        if "avvio" not in x and x.get("durata_min") is not None and x.get("ora"):
+            h, m = map(int, x["ora"].split(":"))
+            a = h * 60 + m - int(x["durata_min"])
+            x["avvio"] = f"{a // 60:02d}:{a % 60:02d}"
     scrivi("registro.json", reg)
     fatte, presenti = 0, {x.get("n") for x in carica("registro.json")}
     for e in ed:
@@ -160,6 +189,7 @@ def storico():
         except Exception:
             pass
         riga.update(dal_commit(commit[n]))
+        riga.update(q.get(n, {}))
         riga["ricostruita"] = True
         metti(riga)
         fatte += 1

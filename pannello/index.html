@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pannello di controllo - Gommberg Terminal Daily</title>
+<meta name="theme-color" content="#0E0E0E">
+<link rel="icon" href="../assets/icona.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--paper:#F4F2EE;--sheet:#FFFFFF;--ink:#141414;--muted:#6B655E;--rule:#DEDAD4;--panel:#F1EEE9;--orange:#F26B1D;--mark:#D9560B;
+--up:#157A3E;--down:#C0271D;--warn:#A86A00;--bar:#0E0E0E;--bar-ink:#F5F3EF;
+--display:"Archivo","Arial Narrow","Helvetica Neue",Arial,sans-serif;--body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root{--paper:#0F0E0D;--sheet:#1A1816;--ink:#EDEAE5;--muted:#A49E96;--rule:#2E2B28;--panel:#242120;--orange:#FF7A2E;--mark:#E8691E;--up:#4CC27A;--down:#FF6B5E;--warn:#E0A93B;--bar:#050505;color-scheme:dark}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:14.5px;line-height:1.45}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px}
+@media (max-width:760px){.wrap{padding-inline:12px}}
+.top{background:var(--bar);color:var(--bar-ink)}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:12px}
+.logo{font-family:var(--display);font-stretch:85%;font-weight:900;font-size:18px;text-decoration:none;color:var(--bar-ink)}
+.logo b{color:var(--orange)}
+.top span{font-family:var(--mono);font-size:11.5px;color:#B9B3AA;text-align:right}
+.sotto{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--rule)}
+.sotto .wrap{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-block:8px}
+nav{display:flex;gap:4px;overflow-x:auto;min-width:0;flex:1 1 auto;scrollbar-width:none}
+.ctl{flex:0 0 auto}
+@media (max-width:560px){.top span{display:none}.logo{white-space:nowrap}.ctl span{display:none}.sec>h2{flex-direction:column;gap:2px}.sec>h2 small{text-align:left}.chip{padding:5px 8px}}
+nav a{font-family:var(--mono);font-size:12px;text-decoration:none;color:var(--muted);padding:5px 9px;border-radius:4px;white-space:nowrap}
+nav a:hover{background:var(--panel);color:var(--ink)}
+.ctl{display:flex;gap:4px;align-items:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.ctl button{font:inherit;color:var(--ink);background:var(--sheet);border:1px solid var(--rule);border-radius:4px;padding:4px 9px;cursor:pointer}
+.ctl button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+main{padding-block:18px 48px}
+.sec{margin-top:26px;scroll-margin-top:56px}
+.sec>h2{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:19px;margin:0 0 10px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.sec>h2 small{font-family:var(--mono);font-size:11.5px;font-weight:400;color:var(--muted);text-align:right}
+.kpi{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+@media (max-width:980px){.kpi{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.kpi{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.k,.card{background:var(--sheet);border:1px solid var(--rule);border-radius:6px}
+.k{padding:10px 12px 11px;border-top:3px solid var(--muted)}
+.k.ok{border-top-color:var(--up)}.k.att{border-top-color:var(--warn)}.k.ko{border-top-color:var(--down)}
+.k .l{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:6px}
+.k .v{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:27px;line-height:1.1;margin-top:5px;white-space:nowrap}
+.k .v small{font-size:13px;font-weight:600;color:var(--muted)}
+.k .n{font-size:12.5px;color:var(--muted);margin-top:3px}
+.st{font-family:var(--mono);font-size:11px;text-transform:none;letter-spacing:0}
+.st.ok{color:var(--up)}.st.att{color:var(--warn)}.st.ko{color:var(--down)}
+.segn{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:6px}
+.segn li{background:var(--sheet);border:1px solid var(--rule);border-left:3px solid var(--muted);border-radius:0 6px 6px 0;padding:7px 12px}
+.segn li.ok{border-left-color:var(--up)}.segn li.att{border-left-color:var(--warn)}.segn li.ko{border-left-color:var(--down)}
+.card{padding:12px 14px}
+.card h3{font-size:13.5px;font-weight:600;margin:0 0 2px;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.card h3 b{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:20px;white-space:nowrap}
+.card .c{font-size:12px;color:var(--muted);margin-bottom:6px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:980px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.g2{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.g4{grid-template-columns:minmax(0,1fr)}}
+svg{display:block;width:100%;height:auto;overflow:visible}
+svg text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+.grid{stroke:var(--rule);stroke-width:1}
+.col{fill:var(--mark);pointer-events:none}
+.col.stima{fill:url(#trat);stroke:var(--mark);stroke-width:1}
+.col.tardi{fill:var(--down)}
+.hit{fill:transparent}
+.hit:hover+.col,.hit:focus+.col{opacity:.7}
+.leg{display:flex;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-bottom:6px}
+.leg i{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:-1px;margin-right:5px;background:var(--mark)}
+.leg i.stima{background:repeating-linear-gradient(135deg,var(--mark) 0 2px,transparent 2px 5px);outline:1px solid var(--mark);outline-offset:-1px}
+.leg i.tardi{background:var(--down)}
+.su{color:var(--up)}.giu{color:var(--down)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.chip{background:var(--sheet);border:1px solid var(--rule);border-radius:6px;padding:6px 10px;font-size:12.5px;color:var(--muted)}
+.chip b{font-family:var(--mono);font-weight:500;font-size:13px;margin-left:6px}
+.tag{display:inline-block;font-family:var(--mono);font-size:10.5px;padding:0 6px;border-radius:9px;border:1px solid var(--rule);color:var(--muted)}
+.tag.m{border-color:var(--ink);color:var(--ink)}
+.tw{overflow-x:auto;background:var(--sheet);border:1px solid var(--rule);border-radius:6px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:6px 10px;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--ink);background:var(--sheet);position:sticky;top:0}
+th:first-child,td:first-child{text-align:left}
+td{font-variant-numeric:tabular-nums}
+.metro .b{display:flex;height:12px;background:var(--panel);border-radius:4px;overflow:hidden;position:relative}
+.metro .b i{display:block;background:var(--mark)}
+.metro .b u{position:absolute;top:0;bottom:0;width:2px;background:var(--ink)}
+.metro .l{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:4px}
+details{margin-top:10px;font-size:13px;color:var(--muted)}
+details summary{cursor:pointer;font-family:var(--mono);font-size:12px}
+details p{max-width:86ch;margin:8px 0}
+.vuoto{background:var(--sheet);border:1px dashed var(--rule);padding:24px;margin-top:20px;color:var(--muted)}
+#tip{position:fixed;z-index:9;pointer-events:none;background:var(--bar);color:var(--bar-ink);font-size:12.5px;line-height:1.35;padding:7px 9px;border-radius:4px;opacity:0;transition:opacity .08s;max-width:250px}
+#tip b{font-weight:600}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><a class="logo" href="../"><b>GOMMBERG</b> TERMINAL DAILY</a><span id="agg">pannello di controllo</span></div></div>
+<div class="sotto"><div class="wrap"><nav aria-label="Sezioni"><a href="#panoramica">Panoramica</a><a href="#operativita">Operatività</a><a href="#consumo">Consumo</a><a href="#qualita">Qualità</a><a href="#versioni">Versioni</a><a href="#edizioni">Edizioni</a></nav><div class="ctl" id="ctl"></div></div></div>
+<main class="wrap"><div id="app"></div></main>
+<div id="tip" role="status"></div>
+<script>
+(function(){
+/* Soglie: verde fino alla prima, giallo fino alla seconda, rosso oltre. RIF = il piano a cui si rapporta il consumo. */
+var RIF="Pro",S={uscita:"09:45",punt:[90,75],consumo:[25,35],fr:[18,21],lunghe:[10,15],prim:[40,25]};
+var G=["dom","lun","mar","mer","gio","ven","sab"],M=["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"];
+function it(x,d){return x.toLocaleString("it-IT",{minimumFractionDigits:d,maximumFractionDigits:d})}
+function gg(s){var p=s.split("-");return new Date(+p[0],p[1]-1,+p[2])}
+function data(s){var d=gg(s);return G[d.getDay()]+" "+d.getDate()+" "+M[d.getMonth()]}
+function breve(s){var d=gg(s);return d.getDate()+" "+M[d.getMonth()]}
+function num(n){return "#"+("00"+n).slice(-3)}
+function mi(t){if(!t)return null;var p=t.split(":");return +p[0]*60+ +p[1]}
+function ora(m){return ("0"+Math.floor(m/60)).slice(-2)+":"+("0"+Math.round(m%60)).slice(-2)}
+function med(a){a=a.filter(function(x){return typeof x=="number"&&isFinite(x)});return a.length?a.reduce(function(s,x){return s+x},0)/a.length:null}
+function seg(v,d,u){if(v==null||!isFinite(v))return "-";var c=v>0?"su":v<0?"giu":"";return '<span class="'+c+'">'+(v>0?"+":"")+it(v,d==null?0:d)+(u==null?"%":u)+"</span>"}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function mln(x){return it(x/1e6,2)}
+/* stato rispetto a una soglia: basso=true se meno è meglio */
+function st(v,s,basso){if(v==null)return "";return basso?(v<=s[0]?"ok":v<=s[1]?"att":"ko"):(v>=s[0]?"ok":v>=s[1]?"att":"ko")}
+var NOME={ok:"in soglia",att:"attenzione",ko:"fuori soglia","":""};
+var app=document.getElementById("app"),tip=document.getElementById("tip"),PER=30,DATI=null,LIM=mi(S.uscita);
+function leggi(f){return fetch(f,{cache:"no-store"}).then(function(r){return r.ok?r.json():[]}).catch(function(){return []})}
+Promise.all([leggi("registro.json"),leggi("taratura.json")]).then(function(r){
+  if(!r[0]||!r[0].length){app.innerHTML='<div class="vuoto">Nessuna edizione registrata. La prima riga arriva con la prossima uscita.</div>';return}
+  DATI=r;disegna()});
+document.addEventListener("click",function(e){var p=e.target.getAttribute&&e.target.getAttribute("data-per");if(p&&DATI){PER=+p;disegna()}});
+var rt;addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){if(DATI)disegna()},200)});
+
+/* assi e colonne comuni */
+function assi(W,H,L,R,T,B,min,max,passo,fmt){var g="";for(var t=min;t<=max+1e-9;t+=passo){var y=T+(H-T-B)*(1-(t-min)/(max-min));g+='<line class="grid" x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'"/><text x="'+(L-6)+'" y="'+(y+4)+'" text-anchor="end">'+fmt(t)+"</text>"}return g}
+function versioni(Sx,L,pw,T,H,B){var g="";Sx.forEach(function(x,i){if(i==0||(Sx[i-1].v||"?")!=(x.v||"?")){var x0=L+pw*i;if(i>0)g+='<line x1="'+x0+'" x2="'+x0+'" y1="'+(T-16)+'" y2="'+(H-B)+'" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>';g+='<text x="'+(x0+3)+'" y="'+(T-7)+'" style="fill:var(--ink)">'+esc(x.v||"?")+"</text>"}});return g}
+function date(Sx,L,pw,H,ogni){var g="";Sx.forEach(function(x,i){if(i%ogni==0||i==Sx.length-1)g+='<text x="'+(L+pw*i+pw/2)+'" y="'+(H-8)+'" text-anchor="middle">'+breve(x.d)+"</text>"});return g}
+function colonna(cx,bw,y0,y1,cls){var r=Math.min(3,bw/2,Math.abs(y0-y1)/2);return '<path class="col'+(cls?" "+cls:"")+'" d="M'+(cx-bw/2)+" "+y0+"V"+(y1+r)+"q0 -"+r+" "+r+" -"+r+"H"+(cx+bw/2-r)+"q"+r+" 0 "+r+" "+r+"V"+y0+'z"/>'}
+function hit(cx,pw,T,h,t){return '<rect class="hit" tabindex="0" x="'+(cx-pw/2)+'" y="'+T+'" width="'+pw+'" height="'+h+'" data-t="'+esc(t)+'"/>'}
+
+function disegna(){
+  var reg=DATI[0],tar=(DATI[1]||[]).filter(function(x){return x.durata_min>0&&x.punti>0});
+  var piano=tar.some(function(x){return x.piano==RIF})?RIF:(tar.length?tar[tar.length-1].piano:null),tt=tar.filter(function(x){return x.piano==piano});
+  var tasso=tt.length?tt.reduce(function(s,x){return s+x.punti},0)/tt.reduce(function(s,x){return s+x.durata_min},0):null;
+  var tmin=tt.length?Math.min.apply(null,tt.map(function(x){return x.punti/x.durata_min})):null,tmax=tt.length?Math.max.apply(null,tt.map(function(x){return x.punti/x.durata_min})):null;
+  var mis=reg.filter(function(x){return x.pesati>0&&x.durata_min>0});
+  var tokMin=mis.length?mis.reduce(function(s,x){return s+x.pesati},0)/mis.reduce(function(s,x){return s+x.durata_min},0):null,tokPunto=tasso&&tokMin?tokMin/tasso:null;
+  reg.forEach(function(x){x.pt=!tasso?null:x.pesati>0&&tokPunto?x.pesati/tokPunto:(x.durata_min!=null?x.durata_min*tasso:null);x.fine=mi(x.ora);x.inizio=mi(x.avvio);x.tardi=x.fine!=null&&x.fine>LIM});
+  var vers=[];reg.forEach(function(x){var k=x.v||"?",l=vers[vers.length-1];if(!l||l.v!=k){l={v:k,r:[]};vers.push(l)}l.r.push(x)});
+  function su(g,f){return med(g.r.map(f))}
+  vers.forEach(function(g){g.n=g.r.length;g.dur=su(g,function(x){return x.durata_min});g.pt=su(g,function(x){return x.pt});g.tok=su(g,function(x){return x.pesati>0?x.pesati:null});
+    g.fr=su(g,function(x){return x.fr});g.lunghe=su(g,function(x){return x.lunghe});g.prim=su(g,function(x){return x.prim});g.sch=g.schede=su(g,function(x){return x.schede});g.fine=su(g,function(x){return x.tardi?null:x.fine});
+    g.punt=g.r.filter(function(x){return !x.tardi}).length/g.n*100;g.kb=g.r[g.n-1].avvio_kb;g.dal=g.r[0].d;g.al=g.r[g.n-1].d});
+  var u=reg[reg.length-1],vu=vers[vers.length-1],pv=null;for(var q=vers.length-2;q>=0;q--)if(vers[q].dur!=null){pv=vers[q];break}
+  var u20=reg.slice(-20),punt=u20.filter(function(x){return !x.tardi}).length/u20.length*100,tardi20=u20.filter(function(x){return x.tardi});
+  var u5=reg.filter(function(x){return x.pt!=null}).slice(-5),sett=u5.length?med(u5.map(function(x){return x.pt}))*5:null;
+  var fr5=med(reg.slice(-5).map(function(x){return x.fr})),prim5=med(reg.slice(-5).map(function(x){return x.prim}));
+  document.getElementById("agg").textContent="pannello di controllo · ultima edizione "+num(u.n)+" "+data(u.d);
+  document.getElementById("ctl").innerHTML="<span>Periodo</span>"+[[10,"10"],[30,"30"],[9999,"tutte"]].map(function(o){return '<button type="button" data-per="'+o[0]+'" aria-pressed="'+(PER==o[0])+'">'+o[1]+"</button>"}).join("");
+  var Sx=reg.slice(-PER),W=Math.max(300,Math.min(1140,(app.clientWidth||1140)-30)),stretto=W<560;
+  if(stretto)Sx=Sx.slice(-14);
+  var L=42,R=6,pw=(W-L-R)/Sx.length,bw=Math.min(30,Math.max(4,pw-3)),ogni=Math.ceil(Sx.length/(stretto?4:10));
+
+  /* ---------- panoramica ---------- */
+  function kpi(cls,et,val,un,nota){return '<div class="k '+cls+'"><div class="l"><span>'+et+'</span><span class="st '+cls+'">'+NOME[cls]+'</span></div><div class="v">'+val+(un?" <small>"+un+"</small>":"")+'</div><div class="n">'+nota+"</div></div>"}
+  var sU=u.fine==null?"":u.tardi?"ko":"ok",sP=st(punt,S.punt),sC=st(sett,S.consumo,1),sF=st(u.fr,S.fr,1),sR=st(u.prim,S.prim);
+  var h='<section class="sec" id="panoramica" style="margin-top:0"><div class="kpi">'
+   +kpi(sU,"Uscita",u.ora||"-","",(u.avvio?"avvio "+u.avvio+" · ":"")+(u.durata_min!=null?u.durata_min+" min":"durata non nota"))
+   +kpi(sP,"Puntualità",it(punt,0)+"%","","entro le "+S.uscita+", ultime "+u20.length)
+   +kpi(sC,"Consumo",sett!=null?"≈ "+it(sett,0):"-",sett!=null?"su 100":"","punti "+esc(piano||"")+" a settimana"+(mis.length?"":" · stima"))
+   +kpi(sF,"Leggibilità",u.fr!=null?it(u.fr,1):"-","","parole per frase · media 5: "+(fr5!=null?it(fr5,1):"-"))
+   +kpi(sR,"Fonti primarie",u.prim!=null?it(u.prim,0)+"%":"-","","delle schede · media 5: "+(prim5!=null?it(prim5,0)+"%":"-"))+"</div>";
+  var seg2=[];
+  if(tardi20.length)seg2.push([punt>=S.punt[0]?"ok":punt>=S.punt[1]?"att":"ko",tardi20.length+" edizioni su "+u20.length+" oltre le "+S.uscita+": "+tardi20.map(function(x){return num(x.n)+" ("+x.ora+")"}).join(", ")+"."]);
+  if(pv&&vu.dur!=null){var dv=(vu.dur/pv.dur-1)*100;seg2.push([dv>15?"att":"ok","La "+esc(vu.v)+" dura il "+it(Math.abs(dv),0)+"% in "+(dv<0?"meno":"più")+" della "+esc(pv.v)+" ("+it(vu.dur,0)+" contro "+it(pv.dur,0)+" min)"+(vu.kb&&pv.kb&&vu.kb!=pv.kb?" e legge "+vu.kb+" KB a ogni avvio, contro "+pv.kb:"")+"."])}
+  if(u.prim!=null&&sR!="ok")seg2.push([sR,"Fonti primarie al "+it(u.prim,0)+"% nell'ultima edizione: la soglia è "+S.prim[0]+"%."]);
+  if(u.fr!=null&&sF!="ok")seg2.push([sF,"Frasi lunghe: "+it(u.fr,1)+" parole per frase nell'ultima, soglia "+S.fr[0]+"."]);
+  if(sett!=null&&sC!="ok")seg2.push([sC,"Cinque edizioni valgono circa "+it(sett,0)+" punti "+esc(piano)+" su 100: soglia "+S.consumo[0]+"."]);
+  seg2.push([mis.length?"ok":"att",mis.length?mis.length+" edizioni su "+reg.length+" con i token misurati; le altre stimate dalla durata.":"Token non ancora misurati: la misura parte dalla prossima uscita, per ora il consumo è stimato dalla durata."]);
+  h+='<ul class="segn">'+seg2.slice(0,5).map(function(x){return '<li class="'+x[0]+'">'+x[1]+"</li>"}).join("")+"</ul></section>";
+
+  /* ---------- operatività: dall'avvio all'uscita ---------- */
+  var H=stretto?220:250,T=24,B=26,y0=525,y1=615;function yy(m){return T+(H-T-B)*(1-(Math.min(Math.max(m,y0),y1)-y0)/(y1-y0))}
+  var g=assi(W,H,L,R,T,B,y0+15,y1-15,15,function(t){return ora(t)})+versioni(Sx,L,pw,T,H,B);
+  g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+yy(LIM)+'" y2="'+yy(LIM)+'" stroke="var(--ink)" stroke-width="1.5"/><text x="'+(W-R)+'" y="'+(yy(LIM)-5)+'" text-anchor="end" style="fill:var(--ink)">obiettivo '+S.uscita+"</text>";
+  Sx.forEach(function(x,i){var cx=L+pw*i+pw/2,t="<b>"+num(x.n)+" "+data(x.d)+"</b> · "+esc(x.v||"?")+"<br>"+(x.avvio?"avvio "+x.avvio+" · ":"")+"uscita "+(x.ora||"?")+(x.durata_min!=null?" · "+x.durata_min+" min":" · rifatta a mano");
+    g+=hit(cx,pw,T,H-T-B,t);
+    if(x.fine==null)return;
+    if(x.inizio!=null&&x.fine<=y1)g+=colonna(cx,bw,yy(x.inizio),yy(x.fine),x.tardi?"tardi":"");
+    else g+='<path class="col tardi" d="M'+(cx-5)+" "+(T+9)+"L"+cx+" "+T+"L"+(cx+5)+" "+(T+9)+'z"/><text x="'+cx+'" y="'+(T+21)+'" text-anchor="middle" style="fill:var(--down)">'+x.ora+"</text>"});
+  g+=date(Sx,L,pw,H,ogni);
+  var durP=med(Sx.map(function(x){return x.durata_min})),rif=Sx.filter(function(x){return x.durata_min==null}).length,fineP=med(Sx.map(function(x){return x.tardi?null:x.fine}));
+  h+='<section class="sec" id="operativita"><h2>Operatività<small>dall\'avvio all\'uscita di ogni edizione</small></h2>'
+   +'<div class="chips"><span class="chip">Uscita tipica<b>'+(fineP!=null?ora(fineP):"-")+'</b></span><span class="chip">Durata media<b>'+(durP!=null?it(durP,0)+" min":"-")+'</b></span><span class="chip">Entro le '+S.uscita+"<b>"+it(Sx.filter(function(x){return !x.tardi}).length/Sx.length*100,0)+'%</b></span><span class="chip">Rifatte a mano<b>'+rif+"</b></span></div>"
+   +'<div class="card"><div class="leg"><span><i></i>in orario</span><span><i class="tardi"></i>oltre l\'obiettivo (la freccia indica un\'uscita fuori scala)</span></div><svg viewBox="0 0 '+W+" "+H+'" role="img" aria-label="Orario di avvio e di uscita di ogni edizione rispetto all\'obiettivo. I valori sono nella tabella delle edizioni.">'+g+"</svg></div></section>";
+
+  /* ---------- consumo ---------- */
+  var mx=Math.max.apply(null,Sx.map(function(x){return x.pt||0}))||1,passo=mx>12?5:mx>6?2:mx>3?1:0.5,top=Math.ceil(mx*1.08/passo)*passo;H=stretto?200:230;T=24;
+  g='<defs><pattern id="trat" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="2" height="5" fill="var(--mark)"/></pattern></defs>'+assi(W,H,L,R,T,B,0,top,passo,function(t){return it(t,passo<1?1:0)})+versioni(Sx,L,pw,T,H,B);
+  Sx.forEach(function(x,i){var cx=L+pw*i+pw/2,t="<b>"+num(x.n)+" "+data(x.d)+"</b> · "+esc(x.v||"?")+"<br>"+(x.pt!=null?"≈ "+it(x.pt,1)+" punti "+esc(piano)+"<br>":"")+(x.pesati>0?mln(x.pesati)+" mln di token pesati, misurati · "+x.richieste+" passi":(x.durata_min!=null?"stima dalla durata: "+x.durata_min+" min":"durata non nota: nessuna stima"));
+    g+=hit(cx,pw,T,H-T-B,t);if(x.pt!=null)g+=colonna(cx,bw,H-B,T+(H-T-B)*(1-x.pt/top),x.pesati>0?"":"stima");else g+='<text x="'+cx+'" y="'+(H-B-5)+'" text-anchor="middle">·</text>'});
+  g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+(H-B)+'" y2="'+(H-B)+'" stroke="var(--ink)"/>'+date(Sx,L,pw,H,ogni);
+  h+='<section class="sec" id="consumo"><h2>Consumo<small>punti su 100 del limite settimanale '+esc(piano||"")+", per edizione</small></h2>"
+   +'<div class="chips"><span class="chip">A edizione ('+esc(vu.v)+")<b>"+(vu.pt!=null?"≈ "+it(vu.pt,1)+" punti":"-")+'</b></span><span class="chip">Intervallo<b>'+(vu.pt!=null?it(vu.pt*tmin/tasso,1)+" - "+it(vu.pt*tmax/tasso,1):"-")+'</b></span><span class="chip">Token a edizione<b>'+(vu.tok?mln(vu.tok)+" mln":"da misurare")+'</b></span><span class="chip">Misurate<b>'+mis.length+" su "+reg.length+"</b></span></div>"
+   +'<div class="card"><div class="leg"><span><i></i>token misurati</span><span><i class="stima"></i>stima dalla durata</span></div><svg viewBox="0 0 '+W+" "+H+'" role="img" aria-label="Peso stimato di ogni edizione in punti del piano. I valori sono nella tabella delle edizioni.">'+g+"</svg></div>"
+   +'<div class="g2" style="margin-top:10px"><div class="card"><h3>Settimana tipo<b>'+(sett!=null?"≈ "+it(sett,0)+" su 100":"-")+'</b></h3><div class="c">cinque edizioni come le ultime '+u5.length+", sul limite settimanale "+esc(piano||"")+'</div><div class="metro"><div class="b"><i style="width:'+Math.min(100,sett||0)+'%"></i><u style="left:'+S.consumo[0]+'%"></u></div><div class="l"><span>0</span><span>soglia '+S.consumo[0]+"</span><span>100</span></div></div></div>"
+   +'<div class="card"><h3>Da dove viene la stima<b>'+(tasso?it(tasso*60,1):"-")+'</b></h3><div class="c">punti '+esc(piano||"")+" per ora di attività, dalle letture vere della pagina Utilizzo</div>"
+   +'<div style="overflow-x:auto"><table><thead><tr><th>Lettura della pagina Utilizzo</th><th>Piano</th><th>Punti</th><th>Minuti</th><th>Usata</th></tr></thead><tbody>'+tar.slice().reverse().map(function(x){return '<tr><td style="white-space:normal">'+breve(x.giorno)+" · "+esc(x.nota||"")+"</td><td>"+esc(x.piano)+"</td><td>"+it(x.punti,1)+"</td><td>"+it(x.durata_min,0)+"</td><td>"+(x.piano==piano?"sì":"no")+"</td></tr>"}).join("")+"</tbody></table></div></div></div></section>";
+
+  /* ---------- qualità: quattro misure, una soglia ciascuna ---------- */
+  function mini(tit,campo,sog,basso,un,dec){var v=Sx.map(function(x){return x[campo]}),ok=v.filter(function(x){return x!=null});if(!ok.length)return "";
+    var w=Math.max(240,stretto?W:(W-30)/2-28),hh=120,l=30,r=6,t=10,b=18,mn=Math.min.apply(null,ok.concat([sog[0]])),mxx=Math.max.apply(null,ok.concat([sog[0]])),pad=(mxx-mn)*0.12||1;mn-=pad;mxx+=pad;
+    function X(i){return l+(w-l-r)*(Sx.length>1?i/(Sx.length-1):0.5)}function Y(z){return t+(hh-t-b)*(1-(z-mn)/(mxx-mn))}
+    var s='<line x1="'+l+'" x2="'+(w-r)+'" y1="'+Y(sog[0])+'" y2="'+Y(sog[0])+'" stroke="var(--ink)" stroke-width="1" stroke-dasharray="4 3"/><text x="'+(l-4)+'" y="'+(Y(sog[0])+4)+'" text-anchor="end" style="fill:var(--ink)">'+sog[0]+"</text>",d="",pen=false;
+    Sx.forEach(function(x,i){if(i>0&&(Sx[i-1].v||"?")!=(x.v||"?"))s+='<line x1="'+(X(i)-(w-l-r)/(Sx.length-1)/2)+'" x2="'+(X(i)-(w-l-r)/(Sx.length-1)/2)+'" y1="'+t+'" y2="'+(hh-b)+'" stroke="var(--rule)" stroke-width="1"/>';
+      if(x[campo]==null){pen=false;return}d+=(pen?"L":"M")+X(i)+" "+Y(x[campo]);pen=true});
+    s+='<path d="'+d+'" fill="none" stroke="var(--mark)" stroke-width="2" stroke-linejoin="round"/>';
+    Sx.forEach(function(x,i){if(x[campo]==null)return;var c=st(x[campo],sog,basso);s+='<circle cx="'+X(i)+'" cy="'+Y(x[campo])+'" r="'+(i==Sx.length-1?4.5:3)+'" fill="'+(c=="ko"?"var(--down)":"var(--mark)")+'" stroke="var(--sheet)" stroke-width="1.5"/><circle class="hit" tabindex="0" cx="'+X(i)+'" cy="'+Y(x[campo])+'" r="9" data-t="'+esc("<b>"+num(x.n)+" "+data(x.d)+"</b> · "+esc(x.v||"?")+"<br>"+tit+": "+it(x[campo],dec)+un)+'"/>'});
+    s+='<text x="'+l+'" y="'+(hh-4)+'">'+breve(Sx[0].d)+'</text><text x="'+(w-r)+'" y="'+(hh-4)+'" text-anchor="end">'+breve(Sx[Sx.length-1].d)+"</text>";
+    var ult=ok[ok.length-1],c=st(ult,sog,basso),mv=vu[campo];
+    return '<div class="card"><h3><span>'+tit+' <span class="st '+c+'">'+NOME[c]+"</span></span><b>"+it(ult,dec)+un+'</b></h3><div class="c">soglia '+(basso?"massima ":"minima ")+sog[0]+un+" · media "+esc(vu.v)+": "+(mv!=null?it(mv,dec)+un:"-")+'</div><svg viewBox="0 0 '+w+" "+hh+'" role="img" aria-label="'+tit+' per edizione, con la soglia.">'+s+"</svg></div>"}
+  h+='<section class="sec" id="qualita"><h2>Qualità<small>misure automatiche sul PDF e sulle schede dei fatti · la riga tratteggiata è la soglia</small></h2><div class="g2">'
+   +mini("Parole per frase","fr",S.fr,1,"",1)+mini("Frasi oltre 30 parole","lunghe",S.lunghe,1,"%",0)+mini("Schede con fonte primaria","prim",S.prim,0,"%",0)+mini("Schede dei fatti","schede",[25,18],0,"",0)+"</div></section>";
+
+  /* ---------- versioni ---------- */
+  var ch="";if(pv){ch='<div class="chips"><span class="chip">'+esc(vu.v)+" contro "+esc(pv.v)+'</span><span class="chip">Durata<b>'+seg((vu.dur/pv.dur-1)*100)+'</b></span>'
+    +(vu.tok&&pv.tok?'<span class="chip">Token<b>'+seg((vu.tok/pv.tok-1)*100)+"</b></span>":"")
+    +'<span class="chip">Parole per frase<b>'+seg(vu.fr-pv.fr,1,"")+'</b></span><span class="chip">Frasi lunghe<b>'+seg(vu.lunghe-pv.lunghe,0," pt")+'</b></span><span class="chip">Fonti primarie<b>'+seg(vu.prim-pv.prim,0," pt")+'</b></span><span class="chip">Entro le '+S.uscita+"<b>"+seg(vu.punt-pv.punt,0," pt")+"</b></span></div>"}
+  h+='<section class="sec" id="versioni"><h2>Versioni<small>medie delle edizioni uscite con ogni versione del kit</small></h2>'+ch
+   +'<div class="tw"><table><thead><tr><th>Versione</th><th>Edizioni</th><th>Periodo</th><th>Uscita</th><th>Entro '+S.uscita+"</th><th>Durata</th><th>Punti "+esc(piano||"")+"</th><th>Token (mln)</th><th>Parole/frase</th><th>Frasi lunghe</th><th>Fonti primarie</th><th>Schede</th><th>Avvio (KB)</th></tr></thead><tbody>"
+   +vers.slice().reverse().map(function(v){function f(x,d,un){return x!=null?it(x,d)+(un||""):"-"}return "<tr><td><b>"+esc(v.v)+"</b></td><td>"+v.n+"</td><td>"+breve(v.dal)+(v.al!=v.dal?" - "+breve(v.al):"")+"</td><td>"+(v.fine!=null?ora(v.fine):"-")+"</td><td>"+f(v.punt,0,"%")+"</td><td>"+f(v.dur,0," min")+"</td><td>"+f(v.pt,1)+"</td><td>"+(v.tok?mln(v.tok):"-")+"</td><td>"+f(v.fr,1)+"</td><td>"+f(v.lunghe,0,"%")+"</td><td>"+f(v.prim,0,"%")+"</td><td>"+f(v.sch,0)+"</td><td>"+f(v.kb,0)+"</td></tr>"}).join("")+"</tbody></table></div></section>";
+
+  /* ---------- edizioni: tutti i valori ---------- */
+  h+='<section class="sec" id="edizioni"><h2>Edizioni<small>'+Math.min(PER,reg.length)+' righe · i punti sono stimati dalla durata finché non ci sono i token</small></h2><div class="tw"><table><thead><tr><th>Edizione</th><th>Vers.</th><th>Avvio</th><th>Uscita</th><th>Durata</th><th>Punti '+esc(piano||"")+"</th><th>Base</th><th>Token (mln)</th><th>Passi</th><th>Parole/frase</th><th>Frasi lunghe</th><th>Fonti primarie</th><th>Schede</th><th>Fonti</th></tr></thead><tbody>"
+   +reg.slice(-Math.min(PER,reg.length)).reverse().map(function(x){function f(v,d,un){return v!=null?it(v,d)+(un||""):"-"}
+    return "<tr><td>"+data(x.d)+" "+num(x.n)+"</td><td>"+esc(x.v||"-")+"</td><td>"+(x.avvio||"-")+"</td><td"+(x.tardi?' class="giu"':"")+">"+(x.ora||"-")+"</td><td>"+f(x.durata_min,0," min")+"</td><td>"+f(x.pt,1)+"</td><td>"+(x.pesati>0?'<span class="tag m">misurata</span>':x.pt!=null?'<span class="tag">stimata</span>':"-")+"</td><td>"+(x.pesati>0?mln(x.pesati):"-")+"</td><td>"+(x.richieste||"-")+"</td><td>"+f(x.fr,1)+"</td><td>"+f(x.lunghe,0,"%")+"</td><td>"+f(x.prim,0,"%")+"</td><td>"+f(x.schede,0)+"</td><td>"+f(x.fonti,0)+"</td></tr>"}).join("")+"</tbody></table></div>"
+   +'<details><summary>Soglie e metodo</summary><p>Soglie: uscita entro le '+S.uscita+"; puntualità "+S.punt[0]+"% (attenzione sotto, fuori soglia sotto "+S.punt[1]+"%); consumo "+S.consumo[0]+" punti "+esc(piano||"")+" a settimana (fuori soglia oltre "+S.consumo[1]+"); "+S.fr[0]+" parole per frase (oltre "+S.fr[1]+"); frasi oltre 30 parole "+S.lunghe[0]+"% (oltre "+S.lunghe[1]+"%); schede con fonte primaria "+S.prim[0]+"% (sotto "+S.prim[1]+"%).</p><p>Orari, durata, schede e misure di qualità li scrive il kit a ogni uscita, senza spendere token. I token li somma un gancio dalla trascrizione della sessione (pesati = ingresso + 2 x scritti in cache + 0,1 x letti dalla cache + 5 x in uscita). Fino alla #025 avvio e durata sono ricostruiti dalla cronologia; le edizioni rifatte a mano non hanno durata.</p></details></section>";
+  app.innerHTML=h;
+}
+function mostra(e,x,y){var t=e.getAttribute&&e.getAttribute("data-t");if(!t){tip.style.opacity=0;return}tip.innerHTML=t;tip.style.opacity=1;tip.style.left=Math.max(8,Math.min(x+12,innerWidth-tip.offsetWidth-8))+"px";var yy=y-tip.offsetHeight-12;tip.style.top=(yy<8?y+16:yy)+"px"}
+app.addEventListener("pointermove",function(e){mostra(e.target,e.clientX,e.clientY)});
+app.addEventListener("pointerleave",function(){tip.style.opacity=0});
+app.addEventListener("focusin",function(e){var b=e.target.getBoundingClientRect();mostra(e.target,b.left,b.top)});
+app.addEventListener("focusout",function(){tip.style.opacity=0});
+})();
+</script>
+</body>
+</html>
