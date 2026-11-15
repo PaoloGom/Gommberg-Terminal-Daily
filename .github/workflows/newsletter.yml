@@ -9,9 +9,9 @@ on:
   workflow_dispatch:
     inputs:
       modo:
-        description: "prova = bozza in Kit senza spedire; diagnosi = solo lettura; auto = come al mattino"
+        description: "prova = bozza in Kit senza spedire; diagnosi = solo lettura; auto = come al mattino; invio-prova = spedisce subito, solo con al massimo 3 iscritti"
         type: choice
-        options: [prova, diagnosi, auto]
+        options: [prova, diagnosi, auto, invio-prova]
         default: prova
 
 permissions:

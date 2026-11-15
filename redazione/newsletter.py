@@ -7,6 +7,8 @@ e non viene mai stampata.
 
 Uso:   python3 redazione/newsletter.py auto       l'invio vero, solo se l'edizione è di oggi e non è già partita
        python3 redazione/newsletter.py prova      una bozza dentro Kit, senza spedire nulla
+       python3 redazione/newsletter.py invio-prova  spedisce subito l'ultima edizione, solo se gli iscritti sono al massimo 3
+                                                    (collaudo sugli indirizzi di casa: non blocca l'invio vero dello stesso numero)
        python3 redazione/newsletter.py diagnosi   piano dell'account e modelli di email, senza creare nulla
        python3 redazione/newsletter.py anteprima  scrive l'HTML su newsletter_anteprima.html, senza rete
 
@@ -232,11 +234,18 @@ def main():
         print(f"Invii presenti: HTTP {stato} - {len(corpo.get('broadcasts', []))}")
         return
 
-    if modo == "prova":
+    if modo in ("prova", "invio-prova"):
+        if modo == "invio-prova":
+            # Mai gli indirizzi nel registro (è pubblico): solo quanti sono. Oltre 3 iscritti questo modo non spedisce.
+            stato, corpo = kit("GET", "/subscribers?status=active&per_page=5")
+            quanti = len(corpo.get("subscribers", [])) if stato == 200 else -1
+            if not 1 <= quanti <= 3:
+                sys.exit(f"ERRORE: invio di prova rifiutato, iscritti attivi: {quanti if quanti >= 0 else 'non leggibili'} (ammessi da 1 a 3)")
+            print(f"Invio di prova a {quanti} iscritt{'o' if quanti == 1 else 'i'}")
         vecchia = invii_esistenti().get(etichetta(ed, prova=True))
-        if vecchia and vecchia.get("id"):
+        if vecchia and vecchia.get("id") and vecchia.get("status") in (None, "draft"):
             kit("DELETE", f"/broadcasts/{vecchia['id']}")       # una sola bozza di prova per numero
-        crea(ed, None, prova=True)
+        crea(ed, datetime.now(timezone.utc) + timedelta(minutes=1) if modo == "invio-prova" else None, prova=True)
         return
 
     if modo != "auto":
