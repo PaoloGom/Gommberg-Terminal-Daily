@@ -16,6 +16,7 @@ Regole dell'invio automatico (modo auto):
   3. l'invio è programmato qualche minuto dopo, il tempo che il sito pubblichi la pagina a cui l'email rimanda.
 
 L'email usa solo i campi base della scheda (numero, data, titolo, dek, sommario, notizie, file): gli stessi di home e feed.
+Il link per annullare l'iscrizione e l'indirizzo postale li aggiunge il modello di Kit in fondo: qui non vanno ripetuti.
 """
 import html
 import json
@@ -99,8 +100,7 @@ def componi(ed):
 </td></tr>
 <tr><td style="border-top:1px solid {FILO};padding:16px 28px 20px;font:13px/1.5 {FONT};color:{GRIGIO}">
 <p style="margin:0 0 10px">Te l'hanno inoltrata? <a href="{BASE}" style="color:{ARANCIO_TESTO}">Ricevila anche tu ogni mattina</a>.</p>
-<p style="margin:0 0 10px">Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.</p>
-<p style="margin:0"><a href="{{{{ unsubscribe_url }}}}" style="color:{GRIGIO}">Annulla l'iscrizione</a> - {{{{ address }}}}</p>
+<p style="margin:0">Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.</p>
 </td></tr>
 </table>
 </td></tr>
