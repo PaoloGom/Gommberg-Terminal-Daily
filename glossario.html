@@ -172,6 +172,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
     </div>
     <div class="pan" id="pParole" role="tabpanel" aria-labelledby="tP" style="margin-top:16px">
       <h3 id="hP" hidden>Le parole</h3>
+      <p class="sub" id="pSub">Sono le sigle delle edizioni: cosa vogliono dire, come funzionano e dove le abbiamo usate.</p>
       <div class="chips" id="chips" role="group" aria-label="Filtra per tipo"></div>
       <nav class="az" id="az" aria-label="Indice alfabetico"></nav>
       <div class="rows" id="gl"><p class="empty">Caricamento...</p></div>
@@ -287,7 +288,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 22px 32px; font-size:
       $("mc").innerHTML = m.length ? aree.map((a) => { const vs = m.filter((v) => (v.area || "Altri") === a);
         return vs.length ? '<p class="area">' + ico(a) + esc(a) + "</p>" + vs.map(rigaM).join("") : ""; }).join("")
         : '<p class="empty">Nessun meccanismo per questa ricerca.</p>';
-      $("aree").hidden = !!f; $("mSub").hidden = !!f;
+      $("aree").hidden = !!f; $("mSub").hidden = !!f; $("pSub").hidden = !!f;
 
       // Con una ricerca si vedono insieme parole e meccanismi trovati; senza, una scheda alla volta
       $("tabs").hidden = !!f; $("duo").hidden = !!f;
