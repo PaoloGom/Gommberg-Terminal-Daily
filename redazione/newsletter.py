@@ -116,7 +116,11 @@ def componi(ed):
     Una colonna, stili in linea, niente immagini: regge in ogni casella."""
     e = html.escape
     n = int(ed["numero"])
-    pagina = f"{BASE}e/{n:03d}.html"
+    # Il bottone porta alla homepage ferma su QUESTA edizione (?n=), non sull'ultima: chi apre la mail
+    # tre giorni dopo trova le pagine di cui parla la mail. Da PC leggi=1 apre subito il lettore a tutto
+    # schermo; sul telefono resta la prima pagina del sito con "Leggi l'edizione". ref=email: GoatCounter
+    # lo segna come provenienza. La pagina e/NNN.html ripeterebbe ciò che la mail ha già detto.
+    pagina = f"{BASE}?n={n}&amp;leggi=1&amp;ref=email"
     pdf = BASE + ed["file"]
     sommario = [s for s in ed.get("sommario") or [] if s]
     notizie = [s for s in ed.get("notizie") or [] if s]
