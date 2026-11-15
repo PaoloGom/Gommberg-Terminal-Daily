@@ -245,10 +245,21 @@ def testata(root="", attivo=None):
             f'{menu(root, attivo)}</div></header>')
 
 
+def invito(root=""):
+    """La fascia che invita all'iscrizione via email: la stessa in home (index.html, scritta a mano) e nelle edizioni.
+    Il modulo vero sta in una pagina sola, iscriviti.html: qui c'è soltanto il rimando."""
+    return ('<aside class="gi" aria-labelledby="gi-h"><div class="gi-t"><p class="gi-k">Via email</p>'
+            '<h2 class="gi-h" id="gi-h">Il Gommberg nella tua casella, ogni mattina</h2>'
+            '<p class="gi-p">La prima pagina dell\'edizione alle 9:45, dal lunedì al venerdì. Gratis.</p></div>'
+            f'<a class="gi-b" href="{root}iscriviti.html" data-goatcounter-click="invito-iscrizione" '
+            'data-goatcounter-title="Invito all\'iscrizione (clic)">Ricevila via email</a></aside>')
+
+
 def piede(root="", nota=""):
     link = "".join(f'<a href="{_href(root, h)}">{t}</a>' for h, t, _ in MENU)
     return ('<footer class="gf"><div class="gf-in">'
-            f'<nav class="gf-links" aria-label="Le pagine del sito">{link}<a href="{root}feed.xml">Feed RSS</a></nav>'
+            f'<nav class="gf-links" aria-label="Le pagine del sito">{link}<a href="{root}iscriviti.html">Ricevila via email</a>'
+            f'<a href="{root}feed.xml">Feed RSS</a><a href="{root}privacy.html">Privacy</a></nav>'
             f'<p class="gf-ai">{RIGA_AI}</p><p class="gf-legal">{LEGALE}{(" " + nota) if nota else ""}</p></div></footer>')
 
 
@@ -355,6 +366,7 @@ def pagina(ed, prec, succ):
     a('<div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span>'
       '<button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>')
     a(f'<div class="pn">{"".join(nav)}</div>')
+    a(invito("../"))
     a("</main>")
     a(VOTO_JS.replace("NNN", n))
     a(piede("../"))
@@ -381,7 +393,8 @@ def feed(eds):
 
 
 FISSE = (("", "daily", "1.0"), ("archivio.html", "daily", "0.8"), ("glossario.html", "weekly", "0.8"),
-         ("scommessa.html", "weekly", "0.6"), ("numeri.html", "daily", "0.5"), ("progetto.html", "monthly", "0.5"))
+         ("scommessa.html", "weekly", "0.6"), ("numeri.html", "daily", "0.5"), ("progetto.html", "monthly", "0.5"),
+         ("iscriviti.html", "monthly", "0.6"), ("privacy.html", "yearly", "0.2"))
 
 
 def mappa_sito(eds):
