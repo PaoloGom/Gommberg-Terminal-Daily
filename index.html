@@ -306,7 +306,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
 <script>window.goatcounter = { no_onload: true };</script>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="stylesheet" href="assets/sito.css">
-<script src="assets/mercati.js"></script>
+<script src="assets/mercati.js?v=2026-11-16"></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "Gommberg Terminal Daily", "url": "https://paologom.github.io/Gommberg-Terminal-Daily/", "inLanguage": "it-IT", "description": "I mercati globali spiegati, ogni mattina in 6 pagine."}, {"@type": "NewsMediaOrganization", "name": "Gommberg Terminal Daily", "url": "https://paologom.github.io/Gommberg-Terminal-Daily/", "logo": "https://paologom.github.io/Gommberg-Terminal-Daily/assets/copertina.png", "founder": {"@type": "Person", "name": "Paolo Gommellini"}, "publishingPrinciples": "https://paologom.github.io/Gommberg-Terminal-Daily/progetto.html"}]}</script>
 </head>
 <body class="loading" id="main">
@@ -512,7 +512,9 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       const cell = el("div", "tk"); cell.setAttribute("role", "listitem");
       const lab = el("span", "l", CORTI[l] || l); cell.appendChild(lab);
       cell.appendChild(el("span", "v", String(v || "").replace(/\s*\$$/, "")));
-      if (window.GM) GM.segna(lab, l, { scommessa: inBet.some((m) => GM.stesso(m, l)) });
+      // GM.stesso può mancare se il browser ha ancora in cache il mercati.js di prima: allora si confrontano le spiegazioni
+      const stesso = (m) => GM.stesso ? GM.stesso(m, l) : !!GM.spiega(l) && GM.spiega(m) === GM.spiega(l);
+      if (window.GM) GM.segna(lab, l, { scommessa: inBet.some(stesso) });
       cell.appendChild(el("span", "c " + cls(c), String(c || "").replace(/\s+g$/, "").replace(/\s+sett$/, " sett")));
       row.appendChild(cell);
     }
