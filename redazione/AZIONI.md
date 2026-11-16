@@ -11,7 +11,7 @@ Lista unica. La tiene aggiornata Claude in corsa: quando una cosa si chiude esce
 ## Tocca a Paolo
 - [ ] Cancellare su GitHub i rami vecchi (da una sessione di Claude è rifiutato). Tenere: main, v8, v7.7-ritorno, v7.8-prima-della-v9, struttura-2026-11-14, prova. Da valutare: manutenzione-scalabile. Tutti gli altri si cancellano (22, lista in `PROGETTO.md` del 15/11; più scommessa-1.3, già unito).
 - [ ] Approvare la bozza di `CARTA.md`.
-- [ ] Immagine del mittente (`assets/avatar.png`, 800x800, sicura nel cerchio): account Google su redazione@gommberg.com con l'immagine come foto profilo, visibile a chiunque (Gmail, 24-72 ore); poi Gravatar con lo stesso indirizzo (Thunderbird e altri). Outlook non mostra immagini per i mittenti esterni: lì resta "GD".
+- [ ] Immagine del mittente con il segno attuale `assets/avatar.png` (deciso da Paolo il 16/11: resta senza cambi): 1) account Google su redazione@gommberg.com ("usa il tuo indirizzo email attuale"; il codice arriva nella casella del Gommberg), foto profilo = `avatar.png`, visibilità "Chiunque" (Gmail; 24-72 ore; per gli invii di massa le fonti non concordano che si veda ancora: si verifica sulle edizioni dei giorni dopo); 2) Gravatar con lo stesso indirizzo (Thunderbird e app che lo leggono). Outlook: nessuna strada gratuita. Apple Mail: solo per chi salva il contatto.
 
 ## Idee in fila (non si eseguono finché non diventano cantiere)
 - Repository privato con sito pubblico (proteggere prompt e motore), poi trasferimento su gommberg.com.
@@ -22,6 +22,8 @@ Lista unica. La tiene aggiornata Claude in corsa: quando una cosa si chiude esce
 - Strumento della settimana nella scommessa (on hold dal 14/11).
 - Grafico interattivo dell'indice globale con le edizioni sui punti.
 - Comprimere le istruzioni.
+- Coerenza dei file del marchio (candidato al rilascio del 21-22/11, senza toccare il segno): `avatar.svg` in tracciati identici al PNG (oggi usa `<text>` con un carattere non installato), `icona.svg` con la stessa G (oggi Arial Narrow), `copertina.png` in Archivo con il motto attuale (oggi DejaVu e motto vecchio: è l'anteprima di WhatsApp). Sostituisce i file, non ne aggiunge.
+- Apple Branded Mail (gratis): solo se nasce un soggetto verificabile (P.IVA o associazione). Prima di qualunque DMARC in quarantine: le risposte ai lettori da redazione@ devono uscire da un SMTP firmato col dominio (es. Brevo gratuito), non dall'"invia come" di Gmail.
 - BIMI (logo verificato): DMARC in quarantine, SVG Tiny PS; senza certificato lo mostrano solo Yahoo e Fastmail, Gmail e Apple vogliono VMC/CMC a pagamento. Da rivalutare se la newsletter cresce.
 - Homepage: senza agenda la colonna grigia resta vuota in fondo (mai successo dalla v9).
 
