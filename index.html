@@ -506,11 +506,13 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     const w = el("div", "tk when", chiusure(ed)); w.setAttribute("role", "listitem");
     w.title = "Chiusure riportate nell'edizione n. " + pad(ed.numero) + ", non quotazioni in tempo reale";
     row.appendChild(w);
+    // i mercati della scommessa di questa edizione: il loro riquadro dice anche a quale domanda rispondono
+    const inBet = (ed.scommessa && Array.isArray(ed.scommessa.dettaglio) ? ed.scommessa.dettaglio : []).filter((d) => !d[4]).map((d) => d[0]);
     for (const [l, v, c] of t) {
       const cell = el("div", "tk"); cell.setAttribute("role", "listitem");
       const lab = el("span", "l", CORTI[l] || l); cell.appendChild(lab);
       cell.appendChild(el("span", "v", String(v || "").replace(/\s*\$$/, "")));
-      if (window.GM) GM.segna(lab, l);
+      if (window.GM) GM.segna(lab, l, { scommessa: inBet.some((m) => GM.stesso(m, l)) });
       cell.appendChild(el("span", "c " + cls(c), String(c || "").replace(/\s+g$/, "").replace(/\s+sett$/, " sett")));
       row.appendChild(cell);
     }
