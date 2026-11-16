@@ -120,8 +120,8 @@ def componi(ed):
     # tre giorni dopo trova le pagine di cui parla la mail. Da PC leggi=1 apre subito il lettore a tutto
     # schermo; sul telefono resta la prima pagina del sito con "Leggi l'edizione". ref=email: GoatCounter
     # lo segna come provenienza. La pagina e/NNN.html ripeterebbe ciò che la mail ha già detto.
+    # Un solo pulsante, niente link diretto al PDF (Paolo, 16/11): il PDF si apre dal sito, così ogni lettura passa dal sito e si conta.
     pagina = f"{BASE}?n={n}&amp;leggi=1&amp;ref=email"
-    pdf = BASE + ed["file"]
     sommario = [s for s in ed.get("sommario") or [] if s]
     notizie = [s for s in ed.get("notizie") or [] if s]
     occhiello = f'font:700 12px/1.3 {MONO};letter-spacing:.06em;text-transform:uppercase;color:{ARANCIO_TESTO};margin:0 0 10px'
@@ -151,7 +151,6 @@ def componi(ed):
 <tr><td style="padding:18px 28px 24px">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
 <td bgcolor="{NERO}" style="background:{NERO};border-radius:3px"><a href="{pagina}" style="display:inline-block;padding:13px 22px;font:700 16px/1 {FONT};color:#FFFFFF;text-decoration:none">Leggi le {int(ed.get("pagine") or 6)} pagine</a></td>
-<td style="padding-left:16px;font:14px/1.4 {FONT}"><a href="{pdf}" style="color:{ARANCIO_TESTO}">Apri il PDF</a></td>
 </tr></table>
 </td></tr>
 <tr><td style="padding:0 28px 18px;font:13px/1.5 {FONT};color:{GRIGIO}">Te l'hanno inoltrata? <a href="{BASE}iscriviti.html" style="color:{ARANCIO_TESTO}">Ricevila anche tu ogni mattina</a>.</td></tr>
