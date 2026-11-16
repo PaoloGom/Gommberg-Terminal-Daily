@@ -1,0 +1,74 @@
+[
+ {
+  "campo": "top.dek",
+  "testo": "Il titolo ha perso il 13% in cinque sedute e venerdì la vendita ha colpito anche i concorrenti. Gli analisti attendono ricavi di 109,5 mld $, appena sopra i 108 indicati dall'azienda, ma le opzioni a scadenza settimanale prezzano un movimento di circa il 9% in un senso o nell'altro (Investopedia). A guidare il titolo sarà la previsione dei prossimi tre mesi, che presenta Colette Kress, amministratore delegato ad interim. [[nvidia]]"
+ },
+ {
+  "campo": "quadro",
+  "testo": "Per noi venerdì il mercato non ha temuto la guerra né i conti, ma il costo del denaro. I rendimenti salgono (10 anni al 5,15%, 2 anni al 4,88%) e l'oro cade, come quando si scommette su una Fed più dura. Il petrolio resta sotto i massimi di ottobre e l'Europa chiude la settimana in rialzo; a pagare sono soprattutto i titoli tecnologici, che valgono di più quando i tassi sono bassi."
+ },
+ {
+  "campo": "in30.1",
+  "testo": "L'oro scende ai minimi da oltre un anno, con una Fed più dura. [[oro]]"
+ },
+ {
+  "campo": "notizie.4.titolo",
+  "testo": "L'Europa chiude la settimana migliore da aprile, ruotando verso i titoli di qualità"
+ },
+ {
+  "campo": "notizie.5.testo",
+  "testo": "Il bitcoin resta circa il 30% sotto il massimo di gennaio, mentre Strategy cede dopo la notizia di un'esclusione da alcuni indici (Yahoo Finance)."
+ },
+ {
+  "campo": "agenda.4.perche",
+  "testo": "Quanti volevano alzare"
+ },
+ {
+  "campo": "moduli.nvidia.perche",
+  "testo": "Nvidia arriva ai conti dopo il 13% perso in una settimana e con un amministratore delegato ad interim, dopo l'indagine sulle accuse a Huang (Yahoo Finance). Per MarketPulse conta soprattutto la previsione del quarto trimestre."
+ },
+ {
+  "campo": "moduli.nvidia.quindi",
+  "testo": "Martedì alle 23:00, ora di Roma, si vede se questi ricavi sono un punto di arrivo o di partenza."
+ },
+ {
+  "campo": "moduli.nvidia.numero",
+  "testo": ""
+ },
+ {
+  "campo": "moduli.nvidia.testo.0",
+  "testo": "Chi compra Nvidia paga oggi gli utili dei prossimi anni, non quelli già incassati. I conti del terzo trimestre fotografano il passato e l'azienda aveva già detto più o meno cosa aspettarsi; la previsione per il trimestre dopo cambia invece i calcoli di chi guarda avanti, ed è di solito quella a muovere il prezzo il giorno dopo."
+ },
+ {
+  "campo": "moduli.nvidia.testo.2",
+  "testo": "Martedì Colette Kress, la direttrice finanziaria che ha sostituito Huang, parla per la prima volta da amministratore delegato ad interim. La guida esclude i ricavi da data center in Cina: per noi un dollaro in più da quel mercato sarebbe una sorpresa."
+ },
+ {
+  "campo": "moduli.tassi.perche",
+  "testo": "Waller ha detto che, dopo il CPI (prezzi al consumo) core di ottobre uscito a +0,3% contro +0,2% atteso, un rialzo da mezzo punto andrebbe considerato (investingLive). Venerdì i prezzi alla produzione hanno confermato la direzione: +0,5% sul mese senza le voci più volatili, +4,9% su un anno (BLS)."
+ },
+ {
+  "campo": "moduli.tassi.testo.0",
+  "testo": "Perché guardare il 2 anni e non il 10? Chi presta al governo americano per due anni si chiede dove saranno i tassi della Fed in quel periodo: se li aspetta più alti, pretende subito un interesse più alto. Per questo il 2 anni di solito segue la banca centrale più da vicino del 10 anni, che dipende anche da crescita e inflazione di lungo periodo. I tassi della Fed oggi stanno tra 3,75% e 4,00%. Un 2 anni sopra il limite alto vuol dire che il mercato conta su altri rialzi, per noi non solo su quello di dicembre."
+ },
+ {
+  "campo": "moduli.tassi.testo.2",
+  "testo": "La Fed ha già alzato di un quarto di punto a settembre e a ottobre ha lasciato fermi i tassi, con due voti contrari, favorevoli a un nuovo rialzo. La prossima decisione arriva l'8-9 dicembre e fino ad allora ogni dato, dal lavoro ai consumi, sposta il prezzo."
+ },
+ {
+  "campo": "moduli.oro.titolo",
+  "testo": "L'oro cade con i tassi in salita, la guerra non lo difende"
+ },
+ {
+  "campo": "moduli.oro.testo.1",
+  "testo": "L'oro è anche il bene che si compra quando cresce la paura, e questa settimana di paura ce n'era, tra l'Iran e i chip. Per noi i due motivi spingono in direzioni opposte e per ora vince quello dei tassi: il prezzo cede da lunedì mentre la borsa sale nella settimana."
+ },
+ {
+  "campo": "moduli.petrolio.titolo",
+  "testo": "Il petrolio aveva già scontato la fine della guerra, Trump ne restituisce poco"
+ },
+ {
+  "campo": "moduli.petrolio.perche",
+  "testo": "Dopo le elezioni di metà mandato la Casa Bianca ha legato la sconfitta alla guerra e il mercato ha puntato sulla sua fine: secondo OilPrice.com la discesa è partita il 4 novembre, con il Brent in calo dell'8,6% in un giorno."
+ }
+]

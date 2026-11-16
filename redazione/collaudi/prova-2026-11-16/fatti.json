@@ -1,0 +1,987 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "data_evento": "2026-11-13",
+  "testo": "Nvidia presenta i conti del terzo trimestre martedì 17 novembre dopo la chiusura di Wall Street (conference call alle 23:00 a Roma), i primi dopo le dimissioni di Jensen Huang; il titolo ha perso il 13% nella settimana, la sesta in calo; consenso dei ricavi 109,5 mld $ contro la guida aziendale di 108 mld $; le opzioni prezzano un movimento di circa il 9% in un senso o nell'altro",
+  "novita": "Ieri la notizia erano le dimissioni di Huang; oggi la settimana dei conti, con il titolo in calo del 13% e i chip in vendita anche venerdì",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-futures-tick-133734502.html",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Markets News, Nov. 13, 2026: S&P 500, Nasdaq Fall as Nvidia, Other Tech Stocks Sink; Major Indexes Post Weekly Gains",
+    "ricerca": "Wall Street closes Friday November 13 2026 S&P 500 Nasdaq Nvidia Huang"
+   },
+   {
+    "testata": "Nvidia",
+    "url": "https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "NVIDIA Sets Conference Call for Third-Quarter Financial Results",
+    "ricerca": "Nvidia earnings preview November 17 2026 acting CEO Kress chip export restrictions China",
+    "primaria": true
+   },
+   {
+    "testata": "Euronews",
+    "url": "https://www.euronews.com/2026/11/13/european-shares-fall-as-nvidia-ceos-exit-raises-doubts-over-ai-boom",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "European shares fall as Nvidia CEO’s exit raises doubts over AI boom",
+    "ricerca": "Kospi Nikkei Hang Seng close Friday November 13 2026 Asian shares AP"
+   }
+  ],
+  "trovato": "Yahoo Finance: \"Wall Street expects revenue of $109.5 billion and net income of about $60.8 billion,\" according to Visible Alpha's analyst survey. / \"the company said in August that it expected $108 billion in revenue.\" / Investopedia's calculations put the expected move at \"about 9% in either direction by the end of next week\" / \"the stock shed 13% of its value this week—by the Huang saga.\" / \"Colette Cress, Nvidia's CFO since 2013, now its acting CEO in the wake of co-founder Jensen Huang's departure this week.\" Libella: \"the shares are on course for a sixth weekly fall, the longest run since 2012\". Nvidia (comunicato): \"NVIDIA will host a conference call on Tuesday, November 17, at 2 p.m. PT (5 p.m. ET)\" / \"The call will be webcast live (in listen-only mode) on investor.nvidia.com.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Cifre, data e ora (17:00 ET = 23:00 Roma) confermate. Qualifiche da segnalare: le pagine parlano di 'departure'/'exit' di Huang, non di 'dimissioni'; 'sesta settimana in calo' sta in Libella, non in Yahoo; Yahoo scrive 'Cress' (refuso, il PDF scrive Kress). Il comunicato Nvidia dice che i risultati escono prima della call (circa 13:20 PT), non dice 'dopo la chiusura' (lo dicono BNN/TradingKey: 'Nvidia: Aft-mkt'). Nota: Libella (nota del mattino) indica opzioni +-10,4%, non 9%; il PDF cita 9% di Investopedia, corretto."
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "tipo": "U",
+  "data_evento": "2026-11-13",
+  "testo": "Prezzi alla produzione USA a ottobre: +0,3% sul mese (atteso +0,4%), +6,5% su un anno; senza alimentari, energia e servizi commerciali +0,5% sul mese e +4,9% su un anno",
+  "fonti": [
+   {
+    "testata": "Bureau of Labor Statistics",
+    "url": "https://www.bls.gov/news.release/ppi.nr0.htm?ftag=YHF4eb9d17",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "The Producer Price Index for final demand rose 0.3 percent in October, seasonally adjusted.",
+    "ricerca": "BLS PPI October 2026 producer prices news release November 13",
+    "primaria": true
+   }
+  ],
+  "novita": null,
+  "trovato": "BLS (archivio PPI 13/11/2026): \"The Producer Price Index for final demand rose 0.3 percent in October, seasonally adjusted\" / \"On an unadjusted basis, the index for final demand increased 6.5 percent for the 12 months ended in October\" / \"The index for final demand less foods, energy, and trade services rose 0.5 percent in October, the same as in September.\" Frase successiva: \"For the 12 months ended in October, prices for final demand less foods, energy, and trade services advanced 4.9 percent.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Cifre confermate (+0,3% m/m, +6,5% a/a, core +0,5% m/m e +4,9% a/a). L'attesa +0,4% non sta nella pagina BLS (il BLS non pubblica consensi) e non l'ho verificata altrove."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "data_evento": "2026-11-13",
+  "testo": "Cisco cede il 6% e Applied Materials il 3% venerdì, nonostante conti sopra le attese; Dell perde il 7%",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-futures-tick-133734502.html",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Markets News, Nov. 13, 2026: S&P 500, Nasdaq Fall as Nvidia, Other Tech Stocks Sink; Major Indexes Post Weekly Gains",
+    "ricerca": "Wall Street closes Friday November 13 2026 S&P 500 Nasdaq Nvidia Huang"
+   },
+   {
+    "testata": "Libella",
+    "url": "https://www.libella-group.com/morning/2026-11-13/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Libella Morning Markets · Friday 13 November 2026",
+    "ricerca": "Wall Street closes Friday November 13 2026 S&P 500 Nasdaq Nvidia Huang"
+   }
+  ],
+  "novita": null
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "data_evento": "2026-11-14",
+  "testo": "Secondo Reuters, Trump ha detto ai consiglieri che potrebbe rinunciare ad attaccare l'Iran se né Teheran né gli Houthi lo provocano di nuovo; giovedì aveva scritto «We don't need a deal with Iran»; Vance, che guidava il negoziato, è stato spostato su altro",
+  "novita": "Giovedì Trump chiudeva all'accordo; nel weekend Reuters riferisce che potrebbe anche non attaccare, e la Casa Bianca non dice se i colloqui sono finiti",
+  "fonti": [
+   {
+    "testata": "HNGN",
+    "url": "https://www.hngn.com/articles/273810/20261114/trump-says-no-iran-deal-needed-pulls-vance-talks.htm",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "Trump May Hold Off Iran Strikes; Guard Targets Bahrain Again",
+    "ricerca": "Iran deal talks oil Brent Hormuz weekend November 15 2026"
+   },
+   {
+    "testata": "Euronews",
+    "url": "https://www.euronews.com/2026/11/13/european-shares-fall-as-nvidia-ceos-exit-raises-doubts-over-ai-boom",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "European shares fall as Nvidia CEO’s exit raises doubts over AI boom",
+    "ricerca": "Kospi Nikkei Hang Seng close Friday November 13 2026 Asian shares AP"
+   }
+  ],
+  "trovato": "HNGN: Reuters reported that Trump told advisers he may hold off on attacking Iran if neither Tehran nor the Houthis provoke the U.S. again (\"It came a day after Reuters reported, citing three people familiar with the discussions,\"). Frase seguente: \"A White House official said Trump is the sole decision-maker and that only he knows what he will do and when.\" Trump: \"We don't need a deal with Iran. Those days have long since passed,\" (post di giovedi' 12/11). \"Vance had become the central American figure in those contacts.\" / Vance \"moved off negotiations\", assegnato a presunta corruzione negli stati democratici.",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato, incluso il giovedi' (12/11). Il PDF dice solo 'spostato su altro': la pagina specifica che e' stato incaricato di occuparsi di presunta corruzione in citta' e stati democratici."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "data_evento": "2026-11-14",
+  "testo": "Sabato la marina e i Guardiani della Rivoluzione iraniani dicono che tre petroliere hanno urtato mine nello Stretto di Hormuz dopo aver seguito rotte non approvate da Teheran; l'esercito USA contesta e dice che le rotte principali sono libere; nessuna nave è stata nominata",
+  "fonti": [
+   {
+    "testata": "FinanceFeeds",
+    "url": "https://financefeeds.com/brent-crude-oil-price-95-84-sunday-futures-open-week-ahead-iran-mine-claims-bull-98-bear-91/",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "Brent Crude Oil Price: $95.84 Sunday Before the Futures Open, Iran Mine Claims, Bull $98, Bear $91",
+    "ricerca": "Iran deal talks oil Brent Hormuz weekend November 15 2026"
+   },
+   {
+    "testata": "HNGN",
+    "url": "https://www.hngn.com/articles/273810/20261114/trump-says-no-iran-deal-needed-pulls-vance-talks.htm",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "Trump May Hold Off Iran Strikes; Guard Targets Bahrain Again",
+    "ricerca": "Iran deal talks oil Brent Hormuz weekend November 15 2026"
+   }
+  ],
+  "novita": null,
+  "trovato": "FinanceFeeds: \"Iran says three tankers hit mines in Hormuz on Saturday; the US disputes it.\" / \"The US military disputes the claims and says the main routes are clear.\" (marina e Guardiani: rotte non approvate da Teheran; nessuna nave nominata). HNGN: \"Iran said Saturday that three more oil tankers had struck mines in the Strait of Hormuz overnight,\" / \"The Guard said two tankers, one of them a supertanker, had switched off their radar and positioning systems\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato. Dettaglio non nel PDF: HNGN dice che l'Iran sostiene che due petroliere avevano spento radar e posizionamento; le affermazioni iraniane non sono verificate in modo indipendente."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "tipo": "C",
+  "data_evento": "2026-11-13",
+  "testo": "Euro Stoxx 50 chiude venerdì a 6.386,86 punti (-0,19%) e la settimana a +3,5%, la migliore da aprile; per l'analista Robert Greil di Merck Finck, se il settore dell'intelligenza artificiale cede, le borse europee vanno meglio di quelle americane e asiatiche",
+  "fonti": [
+   {
+    "testata": "dpa-AFX (finanzen.net)",
+    "url": "https://finanzen.net/nachricht/aktien/aktien-europa-schluss-aufwaertsdrang-erlahmt-nach-starker-boersenwoche-16063391",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Schwächelt der KI-Sektor, performen Europas Aktienmärkte besser als die amerikanischen und asiatischen",
+    "ricerca": "Aktien Europa Schluss Freitag EuroStoxx Wochenbilanz Nvidia Huang Rücktritt Rekord",
+    "agenzia": "dpa-AFX"
+   }
+  ],
+  "novita": null,
+  "trovato": "dpa-AFX (finanzen.net): \"schloss 0,19 Prozent niedriger bei 6.386,86 Zählern\" / \"Mit einem Aufschlag von 3,5 Prozent war die Börsenwoche die stärkste seit April.\" / \"Schwächelt der KI-Sektor, performen Europas Aktienmärkte besser als die amerikanischen und asiatischen\", sagte Robert Greil vom Bankhaus Merck Finck. Frase successiva: \"Der Marktfokus verschiebt sich gerade weg vom Wachstumsfokus hin in Richtung verlässlicher Qualität\", so der Chefstratege.",
+  "verifica": "confermato",
+  "nota_revisore": "Tutto confermato (livello, variazione, migliore settimana da aprile, attribuzione a Greil di Merck Finck, che e' capo stratega)."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "data_evento": "2026-11-13",
+  "testo": "Il bitcoin scende intorno a 68.300-68.600 $, circa il 30% sotto il massimo di gennaio; Strategy (MSTR) perde quasi il 5% dopo la notizia dell'esclusione da alcuni indici",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-futures-tick-133734502.html",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Markets News, Nov. 13, 2026: S&P 500, Nasdaq Fall as Nvidia, Other Tech Stocks Sink; Major Indexes Post Weekly Gains",
+    "ricerca": "Wall Street closes Friday November 13 2026 S&P 500 Nasdaq Nvidia Huang"
+   },
+   {
+    "testata": "Libella",
+    "url": "https://www.libella-group.com/morning/2026-11-13/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Libella Morning Markets · Friday 13 November 2026",
+    "ricerca": "Wall Street closes Friday November 13 2026 S&P 500 Nasdaq Nvidia Huang"
+   }
+  ],
+  "novita": null,
+  "trovato": "Yahoo Finance: \"In other markets, bitcoin was trading at $68,300 recently, extending a month-long slide\" (altro passo: \"recently trading for about $68,600\" per CoinDesk, \"down 30% from their high for the year of near $97,000 in January\"). \"Shares of Strategy (MSTR), a major bitcoin holder, were down nearly 5%,\" ... \"it would be excluded from some indexes.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Bitcoin 68.300-68.600, circa -30% dal massimo di gennaio, Strategy -5% per l'esclusione da alcuni indici: confermati su Yahoo. Libella (nota del mattino) da' invece circa 69.100 e non cita Strategy."
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "data_evento": "2026-11-13",
+  "testo": "Il Treasury a 10 anni chiude venerdì al 5,15% per i timori che la Fed alzi i tassi a dicembre",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-futures-tick-133734502.html",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Markets News, Nov. 13, 2026: S&P 500, Nasdaq Fall as Nvidia, Other Tech Stocks Sink; Major Indexes Post Weekly Gains",
+    "ricerca": "Wall Street closes Friday November 13 2026 S&P 500 Nasdaq Nvidia Huang"
+   },
+   {
+    "testata": "Libella",
+    "url": "https://www.libella-group.com/morning/2026-11-13/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Libella Morning Markets · Friday 13 November 2026",
+    "ricerca": "Wall Street closes Friday November 13 2026 S&P 500 Nasdaq Nvidia Huang"
+   }
+  ],
+  "novita": null,
+  "trovato": "Yahoo Finance: \"The yield on the 10-year Treasury, which affects interest rates on a wide array of loans, rose to 5.15%\" / frase successiva: \"The yield surged this week\" ... \"amid concerns that the Federal Reserve will raise rates again next month to tame inflation\"",
+  "verifica": "confermato",
+  "nota_revisore": "Livello 5,15% e motivo (timori di rialzo Fed 'next month' = dicembre) confermati. Incoerenza: la stessa pagina dice 5,15% 'from 5.13% at yesterday's close' (+2 pb), mentre il PDF mostra +5 pb nel giorno (testata e tabella p.5, dato FMP). Libella (nota del mattino) da' 5,10% per la chiusura del 12/11 (+5 pb sarebbe coerente con Libella, non con Yahoo). Da armonizzare o spiegare la fonte."
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "data_evento": "2026-11-15",
+  "testo": "Trump non appare in pubblico da mercoledì; è atteso a Shenzhen per il vertice Apec del 18-19 novembre",
+  "fonti": [
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/trump-out-of-public-view-since-wednesday-fuelling-speculation-on-hiw-wherabouts",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "Trump out of public view since Wednesday, fuelling speculation on his wherabouts",
+    "ricerca": "investingLive weekend news November 15 2026"
+   },
+   {
+    "testata": "Euronews",
+    "url": "https://www.euronews.com/2026/11/13/european-shares-fall-as-nvidia-ceos-exit-raises-doubts-over-ai-boom",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "European shares fall as Nvidia CEO’s exit raises doubts over AI boom",
+    "ricerca": "Kospi Nikkei Hang Seng close Friday November 13 2026 Asian shares AP"
+   }
+  ],
+  "novita": null,
+  "trovato": "investingLive: \"Trump has not made a public appearance since Wednesday.\" Frase successiva: \"His last sighting was a privately recorded White House interview on Thursday.\" Sintesi: \"Trump is expected to travel to China for the APEC summit on November 18-19.\" / corpo: \"...scheduled for November 18 and 19 in Shenzhen...\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato. Sfumatura: ultima 'apparizione' giovedi' in un'intervista registrata in privato alla Casa Bianca; vertice Apec a Shenzhen 18-19/11. Euronews non contiene queste informazioni."
+ },
+ {
+  "id": "N09",
+  "sezione": "top_news",
+  "data_evento": "2026-11-13",
+  "testo": "Borse asiatiche venerdì: Nikkei 225 +0,53% a 61.142,35, Kospi -0,98% a 5.290,53, Shanghai -0,59% a 3.634,35, Taiex +1,35% a 43.675,12; Hang Seng -1,55% a 23.637,60",
+  "fonti": [
+   {
+    "testata": "Euronews",
+    "url": "https://www.euronews.com/2026/11/13/european-shares-fall-as-nvidia-ceos-exit-raises-doubts-over-ai-boom",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "European shares fall as Nvidia CEO’s exit raises doubts over AI boom",
+    "ricerca": "Kospi Nikkei Hang Seng close Friday November 13 2026 Asian shares AP"
+   },
+   {
+    "testata": "SKN Finance",
+    "url": "https://skn-finance.com/asian-markets-mixed-on-november-13-2026-as-nikkei-gains-0-53-and-hang-seng-falls-1-55/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Asian Markets Mixed on November 13, 2026 as Nikkei Gains 0.53% and Hang Seng Falls 1.55%",
+    "ricerca": "Kospi Nikkei Hang Seng close Friday November 13 2026 Asian shares AP"
+   }
+  ],
+  "fonte_singola": true,
+  "novita": null,
+  "trovato": "Euronews: \"Japan's Nikkei 225 closed up 0.5% at 61,142.35\" / \"South Korea's Kospi fell 1.0% to close at 5,290.53\" / \"Shanghai's Composite closed 0.6% lower at 3,634.35\" / \"Hong Kong's Hang Seng was down more than 1.5% at 23,637.60\" / \"Taiwan's Taiex closed 1.35% higher at 43,675.12\". SKN: \"Japan's Nikkei 225 advanced 0.53% to 61,142.35\", \"KOSPI Composite Index fell 0.98% to 5,290.53\", \"Hang Seng dropped 1.55% to 23,637.60\", \"SSE Composite Index also weakened, falling 0.59% to 3,634.35.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Tutti i livelli confermati; percentuali a due decimali del PDF confermate da SKN (Euronews arrotonda). SKN non cita il Taiex, solo Euronews."
+ },
+ {
+  "id": "N10",
+  "sezione": "top_news",
+  "data_evento": "2026-11-13",
+  "testo": "Piazza Affari chiude venerdì in lieve rialzo: FTSE MIB +0,10% a 51.858 punti",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/13/borsa-milano-chiude-in-lieve-rialzo-ftse-mib-01_94c30a0d-7a2b-4bfe-8697-65720fa90fb3.html",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Borsa: Milano chiude in lieve rialzo, Ftse Mib +0,1%",
+    "ricerca": "Piazza Affari chiusura 13 novembre 2026 FTSE MIB Teleborsa"
+   }
+  ],
+  "novita": null,
+  "trovato": "ANSA: \"Seduta marginalmente positiva per la Borsa di Milano: l'indice Ftse Mib ha concluso in aumento dello 0,10% a 51.858 punti.\" Frase successiva: \"Riproduzione riservata © Copyright ANSA\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato. Nota: altre fonti (Euroborsa) danno FTSE MIB +3,61% nella settimana, dato che il PDF riporta come n.d. in tabella."
+ },
+ {
+  "id": "N11",
+  "sezione": "top_news",
+  "data_evento": "2026-11-13",
+  "testo": "Venerdì AMD perde il 9% e guida i ribassi dell'S&P 500; Broadcom e Marvell cedono quasi il 5%; l'ETF dei semiconduttori SOXX perde quasi il 4%",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-futures-tick-133734502.html",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Markets News, Nov. 13, 2026: S&P 500, Nasdaq Fall as Nvidia, Other Tech Stocks Sink; Major Indexes Post Weekly Gains",
+    "ricerca": "Wall Street closes Friday November 13 2026 S&P 500 Nasdaq Nvidia Huang"
+   },
+   {
+    "testata": "Euronews",
+    "url": "https://www.euronews.com/2026/11/13/european-shares-fall-as-nvidia-ceos-exit-raises-doubts-over-ai-boom",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "European shares fall as Nvidia CEO’s exit raises doubts over AI boom",
+    "ricerca": "Kospi Nikkei Hang Seng close Friday November 13 2026 Asian shares AP"
+   }
+  ],
+  "novita": null,
+  "trovato": "Yahoo Finance: \"Shares of Advanced Micro Devices (AMD) tumbled 9% to lead S&P 500 decliners on Friday.\" / \"Broadcom (AVGO) and Marvell Technology (MRVL) both dropped nearly 5%.\" / \"The iShares Semiconductor ETF (SOXX) dropped nearly 4%.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato punto per punto. Euronews non contiene questi dati (anzi riporta AMD +5,9% in Asia, non confrontabile)."
+ },
+ {
+  "id": "D10",
+  "sezione": "deep_dive",
+  "tipo": "U",
+  "data_evento": "2026-10-28",
+  "testo": "Fed del 27-28 ottobre: tassi fermi a 3,75-4,00% con 10 voti contro 2; Cook e Hammack avrebbero voluto alzarli di un quarto di punto",
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm?ftag=YHF4eb9d17",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent",
+    "ricerca": "Federal Reserve FOMC statement October 28 2026 federal funds rate 3-3/4 to 4 percent vote",
+    "primaria": true
+   }
+  ],
+  "novita": "Decisione ufficiale di ottobre, base dei verbali di mercoledì",
+  "trovato": "Federal Reserve (comunicato FOMC 28/10/2026, PDF): \"The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent\" / \"Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack,\" \"who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Tassi fermi a 3,75-4,00% e dissenso di Cook e Hammack per +25 pb confermati. 'Con 10 voti contro 2' non l'ho letto come conteggio esplicito: e' dedotto (12 votanti, 2 contrari). Letto il PDF del comunicato, non la pagina .htm indicata."
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "data_evento": "2026-11-16",
+  "testo": "Lunedì 16: indice Empire State (manifattura New York, prec. 25,5 a ottobre) alle 14:30; interviene Williams (Fed di New York) alle 15:05; Warsh, presidente della Fed, alle 18:00",
+  "fonti": [
+   {
+    "testata": "Kiplinger",
+    "url": "https://www.kiplinger.com/investing/economy/this-weeks-economic-calendar",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "What to Look Out for in Economic Data This Week (November 16-20)",
+    "ricerca": "week ahead November 16-20 2026 calendar Nvidia Walmart Home Depot FOMC minutes retail sales"
+   },
+   {
+    "testata": "New York Fed",
+    "url": "https://www.newyorkfed.org/medialibrary/media/survey/empire/empire2026/2026_10_empire-state-manufacturing-survey.pdf",
+    "data_pubblicazione": "2026-10-15",
+    "citazione": "2026 10 empire state manufacturing survey",
+    "ricerca": "Empire State Manufacturing Survey November 2026 release date New York Fed",
+    "primaria": true
+   }
+  ],
+  "novita": null,
+  "trovato": "Investing.com (calendario di lunedi'): \"8:30 AM ET: NY Empire State Manufacturing Index – Previous: 25.50.\" / \"9:05 AM ET: FOMC Member Williams Speaks.\" Frase seguente: \"Federal Reserve official John Williams is scheduled to deliver remarks\" / \"12:00 PM ET: Fed Governor Warsh Speaks.\" Frase seguente: \"Federal Reserve Chairman Kevin Warsh, who was sworn in as the 17th Chair in May 2026, will speak.\" TradingKey: \"The Federal Reserve Bank of New York will release the November Empire State Manufacturing Index at 8:30 a.m. that day\"",
+  "verifica": "confermato",
+  "nota_revisore": "Orari ET convertiti in Roma (+6h, entrambe in ora standard): 14:30, 15:05, 18:00, tutto coerente; precedente 25,5 confermato. La pagina Kiplinger indicata mostrava ancora la settimana 26-30 ottobre (non utilizzabile). Williams e' 'New York Fed' non specificato nella frase letta. INCOERENZA PDF: l'agenda di p.5 non elenca l'intervento di Williams (15:05) pur presente nella scheda."
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "data_evento": "2026-11-17",
+  "testo": "Martedì 17: vendite al dettaglio USA di ottobre alle 14:30; produzione industriale USA alle 15:15; Nvidia dopo la chiusura, conference call alle 23:00",
+  "fonti": [
+   {
+    "testata": "Kiplinger",
+    "url": "https://www.kiplinger.com/investing/economy/this-weeks-economic-calendar",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "What to Look Out for in Economic Data This Week (November 16-20)",
+    "ricerca": "week ahead November 16-20 2026 calendar Nvidia Walmart Home Depot FOMC minutes retail sales"
+   },
+   {
+    "testata": "Nvidia",
+    "url": "https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "NVIDIA Sets Conference Call for Third-Quarter Financial Results",
+    "ricerca": "Nvidia earnings preview November 17 2026 acting CEO Kress chip export restrictions China",
+    "primaria": true
+   },
+   {
+    "testata": "BNN Bloomberg",
+    "url": "https://www.bnnbloomberg.ca/investing/2026/11/15/the-week-ahead-earnings-from-nvidia-walt-disney-loblaw/",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "The Week Ahead: Earnings from Nvidia, Walt Disney, Loblaw",
+    "ricerca": "week ahead November 16-20 2026 calendar Nvidia Walmart Home Depot FOMC minutes retail sales"
+   }
+  ],
+  "novita": null,
+  "trovato": "BNN Bloomberg: \"8:30 am: U.S. Retail Sales (Oct)\" / \"Nvidia: Aft-mkt\". TradingKey: \"followed by October industrial production and capacity utilization at 9:15 a.m.\" / Nvidia: results \"after the market close on Tuesday, November 17\", call at 5:00 p.m. Comunicato Nvidia: \"NVIDIA will host a conference call on Tuesday, November 17, at 2 p.m. PT (5 p.m. ET)\"",
+  "verifica": "confermato",
+  "nota_revisore": "8:30 ET = 14:30 Roma, 9:15 ET = 15:15, 17:00 ET = 23:00: confermati. BNN non riporta la produzione industriale (la riporta TradingKey); Kiplinger non utilizzabile (pagina vecchia). INCOERENZA PDF: la produzione industriale delle 15:15 non e' nell'agenda di p.5."
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "data_evento": "2026-11-18",
+  "testo": "Mercoledì 18: verbali della riunione Fed del 27-28 ottobre alle 20:00",
+  "fonti": [
+   {
+    "testata": "Kiplinger",
+    "url": "https://www.kiplinger.com/investing/economy/this-weeks-economic-calendar",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "What to Look Out for in Economic Data This Week (November 16-20)",
+    "ricerca": "week ahead November 16-20 2026 calendar Nvidia Walmart Home Depot FOMC minutes retail sales"
+   },
+   {
+    "testata": "BNN Bloomberg",
+    "url": "https://www.bnnbloomberg.ca/investing/2026/11/15/the-week-ahead-earnings-from-nvidia-walt-disney-loblaw/",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "The Week Ahead: Earnings from Nvidia, Walt Disney, Loblaw",
+    "ricerca": "week ahead November 16-20 2026 calendar Nvidia Walmart Home Depot FOMC minutes retail sales"
+   }
+  ],
+  "novita": null,
+  "trovato": "BNN Bloomberg: \"2:00 pm: U.S. FOMC Minutes\" (mercoledi' 18/11). TradingKey: \"The Federal Reserve will release the minutes of its October 27–28 meeting at 2:00 p.m. on Wednesday (November 18).\"",
+  "verifica": "confermato",
+  "nota_revisore": "14:00 ET = 20:00 Roma; riunione 27-28 ottobre confermata da TradingKey (BNN non cita la riunione). Kiplinger non utilizzabile."
+ },
+ {
+  "id": "A04",
+  "sezione": "agenda",
+  "data_evento": "2026-11-19",
+  "testo": "Giovedì 19: conti di Walmart prima dell'apertura USA; sussidi di disoccupazione alle 14:30",
+  "fonti": [
+   {
+    "testata": "Kiplinger",
+    "url": "https://www.kiplinger.com/investing/economy/this-weeks-economic-calendar",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "What to Look Out for in Economic Data This Week (November 16-20)",
+    "ricerca": "week ahead November 16-20 2026 calendar Nvidia Walmart Home Depot FOMC minutes retail sales"
+   },
+   {
+    "testata": "BNN Bloomberg",
+    "url": "https://www.bnnbloomberg.ca/investing/2026/11/15/the-week-ahead-earnings-from-nvidia-walt-disney-loblaw/",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "The Week Ahead: Earnings from Nvidia, Walt Disney, Loblaw",
+    "ricerca": "week ahead November 16-20 2026 calendar Nvidia Walmart Home Depot FOMC minutes retail sales"
+   }
+  ],
+  "novita": null
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "data_evento": "2026-11-13",
+  "testo": "Nvidia: consenso dei ricavi del terzo trimestre 109,5 mld $ (Visible Alpha) o 108,84 mld $ (altro sondaggio), guida aziendale 108 mld $ più o meno il 2%; utile per azione atteso 2,47 $; margine lordo guidato al 74% (+-0,5 punti, dal 75% del trimestre prima); la guida non include ricavi da calcolo per data center in Cina",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-futures-tick-133734502.html",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Markets News, Nov. 13, 2026: S&P 500, Nasdaq Fall as Nvidia, Other Tech Stocks Sink; Major Indexes Post Weekly Gains",
+    "ricerca": "Wall Street closes Friday November 13 2026 S&P 500 Nasdaq Nvidia Huang"
+   },
+   {
+    "testata": "MarketPulse",
+    "url": "https://www.marketpulse.com/markets/nvidia-nvda-q3-earnings-preview-ai-spending-risks-and-governance-concerns-threaten-major-uptrend/",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Nvidia (NVDA) Q3 earnings preview: AI spending risks and governance concerns threaten major uptrend",
+    "ricerca": "Nvidia earnings preview November 17 2026 acting CEO Kress chip export restrictions China"
+   }
+  ],
+  "novita": null,
+  "trovato": "Yahoo: \"Wall Street expects revenue of $109.5 billion and net income of about $60.8 billion,\" according to Visible Alpha's analyst survey. MarketPulse: \"expected to increase a whopping 90.9% year-on-year to US$108.84 billion\" / \"management previously guided to total revenue of US$108 billion, plus or minus 2%\" / \"EPS is expected to skyrocket 90% year-on-year to US$2.47\" / \"management guided Q3 gross margin lower to 74%, plus or minus 50 basis points\" (da 75% nel Q2) / \"its Q3 revenue guidance assumes no Data Centre compute revenue from China\"",
+  "verifica": "confermato",
+  "nota_revisore": "Tutte le cifre confermate; 109,5 (Visible Alpha) su Yahoo, 108,84 su MarketPulse, EPS 2,47, margine 74% +-0,5 da 75%, esclusi ricavi data center Cina. Le citazioni sono frammenti perche' WebFetch restituisce estratti."
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "data_evento": "2026-11-13",
+  "testo": "Le opzioni prezzano per Nvidia un movimento di circa il 9% (Investopedia) o del 10,6% (altra stima) il giorno dopo i conti; la media di dieci anni del picco di movimento dopo i conti è 7,8% (EarningsWatcher); il titolo ha perso il 13% nella settimana, la sesta in calo",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-futures-tick-133734502.html",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Markets News, Nov. 13, 2026: S&P 500, Nasdaq Fall as Nvidia, Other Tech Stocks Sink; Major Indexes Post Weekly Gains",
+    "ricerca": "Wall Street closes Friday November 13 2026 S&P 500 Nasdaq Nvidia Huang"
+   },
+   {
+    "testata": "MarketPulse",
+    "url": "https://www.marketpulse.com/markets/nvidia-nvda-q3-earnings-preview-ai-spending-risks-and-governance-concerns-threaten-major-uptrend/",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Nvidia (NVDA) Q3 earnings preview: AI spending risks and governance concerns threaten major uptrend",
+    "ricerca": "Nvidia earnings preview November 17 2026 acting CEO Kress chip export restrictions China"
+   },
+   {
+    "testata": "Libella",
+    "url": "https://www.libella-group.com/morning/2026-11-13/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Libella Morning Markets · Friday 13 November 2026",
+    "ricerca": "Wall Street closes Friday November 13 2026 S&P 500 Nasdaq Nvidia Huang"
+   }
+  ],
+  "novita": null,
+  "trovato": "Yahoo: Investopedia's calculations put the expected move at \"about 9% in either direction by the end of next week\" / \"the stock shed 13% of its value this week\". MarketPulse: \"options markets are pricing an approximately ±10.6% move in Nvidia's shares (NVDA)\" (media a 10 anni 7,8% per EarningsWatcher, riportata come media del movimento nel giorno dei conti). Libella: \"the shares are on course for a sixth weekly fall, the longest run since 2012\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermati 9%, 10,6%, 7,8%, 13%, sesta settimana. Qualifica da segnalare: il PDF (p.2) parla di 'media di dieci anni del picco di movimento'; la pagina MarketPulse (come estratta) dice media del movimento nel giorno dei conti, non 'picco'. Libella invece indica opzioni +-10,4% fino alla scadenza del 20/11, valore non usato dal PDF."
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "data_evento": "2026-11-13",
+  "testo": "Secondo MarketPulse la reazione di Nvidia dipenderà più dalla previsione dei ricavi del quarto trimestre che dai conti del terzo; rischio di uno «sconto di governance» prolungato per l'indagine del consiglio sulle accuse a Huang; i ricavi da data center del trimestre precedente erano 89,0 mld $ (+117%), il 92,5% del totale",
+  "fonti": [
+   {
+    "testata": "MarketPulse",
+    "url": "https://www.marketpulse.com/markets/nvidia-nvda-q3-earnings-preview-ai-spending-risks-and-governance-concerns-threaten-major-uptrend/",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Nvidia (NVDA) Q3 earnings preview: AI spending risks and governance concerns threaten major uptrend",
+    "ricerca": "Nvidia earnings preview November 17 2026 acting CEO Kress chip export restrictions China"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-futures-tick-133734502.html",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Markets News, Nov. 13, 2026: S&P 500, Nasdaq Fall as Nvidia, Other Tech Stocks Sink; Major Indexes Post Weekly Gains",
+    "ricerca": "Wall Street closes Friday November 13 2026 S&P 500 Nasdaq Nvidia Huang"
+   }
+  ],
+  "novita": null,
+  "trovato": "MarketPulse: \"Nvidia's earnings reaction will likely depend more on its Q4 FY2027 revenue outlook\" / avverte di un \"prolonged governance discount\" per l'indagine su Huang / \"Data Centre revenue surged 117% year on year to US$89.0 billion\" / \"accounting for approximately 92.5% of total revenue\". Yahoo: Nvidia's board \"launched an investigation\" into Huang's conduct.",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato: previsione del Q4 piu' importante dei conti Q3, sconto di governance, data center 89,0 mld $ (+117%, 92,5%) riferiti al trimestre precedente (Q2 FY2027). Il PDF dice 'indagine sulle accuse a Huang': Yahoo parla di indagine del consiglio sulla condotta di Huang."
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "data_evento": "2026-11-13",
+  "testo": "Waller: un rialzo a dicembre è giustificato in ogni caso, e con inflazione core a 0,3% o più voterebbe per mezzo punto (investingLive); Logan e Schmid: la politica può essere ancora troppo accomodante (Finimize); core CPI di ottobre +0,3% contro +0,2% atteso (Reuters, via Finimize)",
+  "novita": "Dopo il CPI di martedì Waller indica la soglia per un rialzo da mezzo punto; il CPI core è uscito a +0,3% contro +0,2% atteso",
+  "fonti": [
+   {
+    "testata": "Finimize",
+    "url": "https://finimize.com/content/hotter-core-inflation-put-a-half-point-fed-hike-back-in-play",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Hotter core inflation put a half-point Fed hike back in play",
+    "ricerca": "Fed December rate hike odds half point CME FedWatch November 14 2026"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/commodities/gold-dips-after-fed-s-waller-drops-the-50-bps-hike-bomb-and-us-cpi-comes-above-expectations/",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Gold dips after Fed's Waller drops the 50 bps hike bomb and US CPI comes above expectations",
+    "ricerca": "gold 13-month low November 12 2026 real yields dollar Fed hike"
+   }
+  ],
+  "trovato": "investingLive (11/11/2026): \"He suggested that a rate hike in December would be warranted regardless of yesterday's inflation data\" / \"a Core CPI M/M reading of 0.3% or higher would lead him to vote for a larger 50 bps hike.\" Finimize: \"Other Fed officials, including Lorie Logan and Jeffrey Schmid, added to the message that policy may still be too loose\" / core inflation \"held at 0.3% for a third straight month, above the 0.2% Reuters-polled economists expected.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Waller, Logan/Schmid e CPI core 0,3% vs 0,2% (sondaggio Reuters) confermati. Finimize scrive 'too loose' (e 'at least another half-point of tightening'), il PDF 'troppo accomodante': equivalente. Finimize aggiunge che Waller avrebbe preferito un quarto di punto 'unless core CPI landed at 0.3% or higher'."
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "tipo": "U",
+  "data_evento": "2026-11-13",
+  "testo": "CPI di ottobre: +0,4% sul mese dopo +0,6% di settembre; core +0,3% sul mese; la variazione su 12 mesi non è pubblicata perché i dati di ottobre 2025 non furono raccolti durante la sospensione dei fondi federali",
+  "novita": "Dettaglio ufficiale del CPI di martedì: manca la variazione annua",
+  "fonti": [
+   {
+    "testata": "Bureau of Labor Statistics",
+    "url": "https://www.bls.gov/news.release/archives/cpi_11102026.htm",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.4 percent on a seasonally adjusted basis in October",
+    "ricerca": "BLS Consumer Price Index October 2026 news release",
+    "primaria": true
+   }
+  ],
+  "trovato": "BLS CPI: \"increased 0.4 percent on a seasonally adjusted basis in October\" / \"after rising 0.6 percent in September\" / \"The index for all items less food and energy rose 0.3 percent in October, as it did in September and August.\" / \"BLS did not collect survey data for October 2025 because of a lapse in appropriations.\" Frase successiva: \"Indexes that increased over the month include recreation, medical care, motor vehicle insurance,\" and \"household furnishings and operations, and education.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato (+0,4% m/m dopo +0,6%; core +0,3%; niente dato a 12 mesi per mancata rilevazione di ottobre 2025). Letta la pagina corrente cpi.htm, non l'archivio indicato."
+ },
+ {
+  "id": "D06",
+  "sezione": "deep_dive",
+  "data_evento": "2026-11-13",
+  "testo": "Oro: minimo di 13 mesi giovedì; Treasury a 10 anni reale (TIPS) al 2,66% il 9 novembre contro 1,84% un anno prima; martedì l'oro cala dopo le parole di Waller, con rendimenti e dollaro in rialzo",
+  "novita": "Nuovo minimo dell'oro dopo il CPI di martedì",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-futures-tick-133734502.html",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Markets News, Nov. 13, 2026: S&P 500, Nasdaq Fall as Nvidia, Other Tech Stocks Sink; Major Indexes Post Weekly Gains",
+    "ricerca": "Wall Street closes Friday November 13 2026 S&P 500 Nasdaq Nvidia Huang"
+   },
+   {
+    "testata": "24/7 Wall St.",
+    "url": "https://247wallst.com/investing/2026/11/10/treasuries-now-offer-2-66-above-inflation-are-dividend-stocks-in-trouble/",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Treasuries Now Offer 2.66% Above Inflation. Are Dividend Stocks in Trouble?",
+    "ricerca": "10-year TIPS real yield November 12 2026"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/commodities/gold-dips-after-fed-s-waller-drops-the-50-bps-hike-bomb-and-us-cpi-comes-above-expectations/",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Gold dips after Fed's Waller drops the 50 bps hike bomb and US CPI comes above expectations",
+    "ricerca": "gold 13-month low November 12 2026 real yields dollar Fed hike"
+   }
+  ],
+  "tipo": "C",
+  "trovato": "Yahoo: \"gold futures ticked lower to $3,875 an ounce, after dropping to their lowest level in 13 months yesterday.\" 24/7 Wall St.: \"The 10-year Treasury Inflation-Protected Security, or TIPS, yielded 2.66% on November 9, 2026, up from 1.84% on November 10,\" (2025). Frase successiva: \"That yield is earned above inflation, and the U.S. Treasury backs it for anyone who holds to maturity.\" investingLive: \"His remarks triggered a hawkish repricing, sending Treasury yields and the US dollar higher.\" / \"Gold came under pressure as real yields also moved higher.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato. Sfumatura: il confronto 1,84% e' del 10 novembre 2025, non del 9; il PDF dice 'un anno prima'. L'articolo investingLive e' del 11/11 e parla di 'ieri' per CPI/Waller: coerente con 'martedi' 10."
+ },
+ {
+  "id": "D07",
+  "sezione": "deep_dive",
+  "data_evento": "2026-11-15",
+  "testo": "Brent: future chiuso venerdì a 95,84 $, in calo del 2,5% nella settimana (seconda settimana di calo di fila); martedì 91,49 $, il minimo da agosto; secondo FinanceFeeds gli analisti citano l'eccesso di offerta e il blocco USA del petrolio iraniano, e il traffico nello Stretto di Hormuz è inferiore di circa il 65% al livello prima della guerra (UKMTO); scenari di FinanceFeeds: 98 $ con danni confermati alle navi, 91 $ senza conferme",
+  "novita": "Il weekend porta le accuse iraniane sulle mine e la smentita USA, ma i future riaprono domenica sera",
+  "fonti": [
+   {
+    "testata": "FinanceFeeds",
+    "url": "https://financefeeds.com/brent-crude-oil-price-95-84-sunday-futures-open-week-ahead-iran-mine-claims-bull-98-bear-91/",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "Brent Crude Oil Price: $95.84 Sunday Before the Futures Open, Iran Mine Claims, Bull $98, Bear $91",
+    "ricerca": "Iran deal talks oil Brent Hormuz weekend November 15 2026"
+   },
+   {
+    "testata": "HNGN",
+    "url": "https://www.hngn.com/articles/273810/20261114/trump-says-no-iran-deal-needed-pulls-vance-talks.htm",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "Trump May Hold Off Iran Strikes; Guard Targets Bahrain Again",
+    "ricerca": "Iran deal talks oil Brent Hormuz weekend November 15 2026"
+   }
+  ],
+  "trovato": "FinanceFeeds: \"Brent settled at $95.84 on Friday, down about 2.5% for the week, its second weekly decline. Tuesday's $91.49 settlement was the lowest since August.\" Gli analisti citano \"a growing oversupply and the US blockade of Iranian oil\"; \"Shipping through Hormuz is reportedly about 65% below pre-war levels, according to UKMTO.\" Livelli di riferimento 98 $ al rialzo e 91 $ al ribasso (titolo: Bull 98, Bear 91).",
+  "verifica": "confermato",
+  "nota_revisore": "Cifre confermate. Qualifica: la pagina precisa che 98 e 91 sono livelli di riferimento misurati dalla chiusura di venerdi' e 'not forecasts'; il PDF p.4 li presenta come esiti condizionati ('danni confermati riporterebbero verso i 98'), che e' un'interpretazione plausibile ma non della pagina. HNGN invece non contiene il 65%."
+ },
+ {
+  "id": "D08",
+  "sezione": "deep_dive",
+  "data_evento": "2026-11-13",
+  "testo": "Giovedì il Brent sale del 3,3% perché si allontanano le speranze di un accordo con l'Iran; WTI a 89,05 $ venerdì; l'oro tocca un minimo di 13 mesi giovedì e vale circa 3.875 $",
+  "fonti": [
+   {
+    "testata": "Libella",
+    "url": "https://www.libella-group.com/morning/2026-11-13/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Libella Morning Markets · Friday 13 November 2026",
+    "ricerca": "Wall Street closes Friday November 13 2026 S&P 500 Nasdaq Nvidia Huang"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-futures-tick-133734502.html",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Markets News, Nov. 13, 2026: S&P 500, Nasdaq Fall as Nvidia, Other Tech Stocks Sink; Major Indexes Post Weekly Gains",
+    "ricerca": "Wall Street closes Friday November 13 2026 S&P 500 Nasdaq Nvidia Huang"
+   }
+  ],
+  "novita": null,
+  "trovato": "Libella: \"after a +3.3% gain on Thursday\" (Brent). Yahoo: \"WTI oil futures rose slightly to $89.05 per barrel, while gold futures ticked lower to $3,875 an ounce, after dropping to their lowest level in 13 months yesterday.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Brent +3,3% giovedi' (Libella), WTI 89,05 e oro 3.875 con minimo di 13 mesi giovedi' (Yahoo) confermati. Non ho trovato nell'estratto di Libella la causa 'si allontanano le speranze di accordo con l'Iran': causale non verificata. Libella da' WTI 88,94 e oro 3.900 (nota del mattino). Il PDF usa 3.886 per l'oro in testata (chiusura future) contro 3.875 di Yahoo (intraday)."
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonte_singola": true,
+  "testo": "Euro Stoxx 50: chiusure 10/11 6.327,87 (+0,59%), 11/11 6.393,39 (+1,04%), 12/11 6.398,98 (+0,09%), 13/11 6.386,86 (-0,19%), +3,5% nella settimana; 13/11 seconda fonte Libella 6.387",
+  "fonti": [
+   {
+    "testata": "dpa-AFX (finanzen.net)",
+    "url": "https://finanzen.net/nachricht/aktien/aktien-europa-schluss-aufwaertsdrang-erlahmt-nach-starker-boersenwoche-16063391",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Aktien Europa Schluss: Aufwärtsdrang erlahmt nach starker Börsenwoche",
+    "agenzia": "dpa-AFX",
+    "ricerca": "Aktien Europa Schluss Freitag EuroStoxx Wochenbilanz Nvidia Huang Rücktritt Rekord"
+   },
+   {
+    "testata": "dpa-AFX (finanzen.at)",
+    "url": "https://www.finanzen.at/nachrichten/aktien/roundup-aktien-europa-schluss-boersen-verhalten-im-vorwartsgang-trotz-nvidia-1036757007",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "ROUNDUP/Aktien Europa Schluss: Börsen verhalten im Vorwärtsgang trotz Nvidia",
+    "agenzia": "dpa-AFX",
+    "ricerca": "Aktien Europa Schluss Freitag EuroStoxx Wochenbilanz Nvidia Huang Rücktritt Rekord"
+   },
+   {
+    "testata": "Libella",
+    "url": "https://www.libella-group.com/morning/2026-11-13/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Libella Morning Markets · Friday 13 November 2026",
+    "ricerca": "Wall Street closes Friday November 13 2026 S&P 500 Nasdaq Nvidia Huang"
+   }
+  ],
+  "trovato": "dpa-AFX: 10/11 \"Der EuroStoxx 50 stieg zum Handelsende um 0,59 Prozent auf 6.327,87 Punkte.\" (onvista) / 11/11 \"Der EuroStoxx 50 rückte um weitere 1,04 Prozent auf 6.393,39 Punkte auf den höchsten Stand seit zwei Monaten vor.\" Frase seguente: \"An der Marke von 6.400 Zählern scheiterte das Börsenbarometer allerdings.\" (finanzen.at) / 12/11 Euro Stoxx 50 +0,09% a 6.398,98 (finanzen.at) / 13/11 \"schloss 0,19 Prozent niedriger bei 6.386,86 Zählern\", \"Mit einem Aufschlag von 3,5 Prozent war die Börsenwoche die stärkste seit April.\" (finanzen.net). Libella: tabella a 6,387 al 13/11.",
+  "verifica": "confermato",
+  "nota_revisore": "Tutte e quattro le chiusure, +3,5% e 6.387 di Libella confermati. Le chiusure di 10 e 11/11 le ho lette su altri articoli dpa-AFX (onvista, finanzen.at) rispetto agli URL indicati. Libella nel testo dice 'closed +0.1% at 6,399 on Thursday', coerente con 6.398,98."
+ },
+ {
+  "id": "MEM-1113-A03",
+  "sezione": "agenda",
+  "testo": "Conti trimestrali di Nvidia, martedì 17 novembre, conference call alle 2 p.m. PT (23:00 a Roma)",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "SEC (modulo 8-K Nvidia)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000082/nvidiaannouncesceotransiti.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Colette Kress, the company's EVP and CFO since 2013, will serve as Interim CEO"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "ripresa dalla memoria",
+  "ripresa": "2026-11-13"
+ },
+ {
+  "id": "MEM-1109-A03",
+  "sezione": "agenda",
+  "testo": "Mercoledì 9 dicembre: decisione della Fed (riunione 8-9 dicembre)",
+  "data_evento": "2026-12-09",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/2026-december.htm",
+    "data_pubblicazione": "2026-11-05",
+    "citazione": "Two-day meeting, December 8 - 9"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "ripresa dalla memoria",
+  "ripresa": "2026-11-09"
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "MSCI ACWI (ETF): chiusura del 31/12/2025 per la variazione da inizio anno",
+  "ricerche": [
+   "WebSearch: iShares MSCI ACWI ETF ACWI closing price December 31 2025 (13/11)",
+   "FMP historical-price-eod-light ACWI: piano non abilitato",
+   "Archivio acwi.csv della scommessa: parte dal 19/05/2026",
+   "Tentativi del 12/11: ACWI year-end 2025 price, digrin.com (solo valori mensili), Alpha Vantage GLOBAL_QUOTE (solo ultimo prezzo)"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "iShares",
+   "url": "https://www.ishares.com/us/products/239600/ISHARES-MSCI-ACWI-ETF"
+  }
+ },
+ {
+  "id": "R2",
+  "sezione": "ricerca",
+  "dato": "Kospi: chiusura del 6/11/2026 e del 30/12/2025 per variazione settimanale e da inizio anno",
+  "ricerche": [
+   "Kospi closes November 13 2026",
+   "Kospi Nikkei Hang Seng close Friday November 13 2026 Asian shares AP",
+   "Kospi closes November 6 2026 Korea Times Korean stocks",
+   "WebFetch skn-finance e euronews del 13/11: solo il livello del 13/11",
+   "FMP ^KS11: piano non abilitato (APP_DATI §1)"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "Korea Times",
+   "url": "https://www.koreatimes.co.kr/economy/20261110/korean-stocks-surge-over-4-as-risk-appetite-returns"
+  }
+ },
+ {
+  "id": "R3",
+  "sezione": "ricerca",
+  "dato": "FTSE MIB: chiusura del 6/11/2026 e del 30/12/2025 per variazione settimanale e da inizio anno",
+  "ricerche": [
+   "Borsa Milano chiusura 13 novembre 2026 FTSE MIB spread",
+   "Piazza Affari chiusura 13 novembre 2026 FTSE MIB Teleborsa",
+   "WebFetch ANSA del 13/11: solo livello e +0,10%",
+   "WebFetch euroborsa: pagina non raggiungibile",
+   "spread BTP-Bund 13/11: quifinanza, soldionline (solo giorni precedenti)"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "Borsa Italiana",
+   "url": "https://www.borsaitaliana.it/borsa/notizie/teleborsa/commenti/piazza-affari-chiude-in-rialzo-trainata-da-difesa-e-banche-217_2026-11-10_TLB.html?lang=it"
+  }
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "L'oro perde il 5,5% da lunedì a venerdì e tocca il minimo di 13 mesi, mentre Wall Street sale nella settimana e il petrolio scende",
+  "ricerche": [
+   "gold 13-month low November 12 2026 real yields dollar Fed hike",
+   "10-year TIPS real yield November 12 2026"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Rendimenti reali più alti dopo il CPI e le parole di Waller: l'oro non paga interessi",
+    "fonte": "D06",
+    "prevede": "oro giù, Treasury a 10 anni su, dollaro su",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Fuga dal rischio verso l'oro per l'Iran",
+    "fonte": null,
+    "prevede": "oro su insieme al petrolio",
+    "prezzi": "non torna"
+   }
+  ],
+  "esito": "D06"
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "I conti di Nvidia martedì: i primi senza Huang (BNN Bloomberg, domenica)",
+   "Nvidia, Anthropic e verbali Fed: la settimana di Wall Street (CoinCentral, domenica)",
+   "Trump: non ci serve un accordo con l'Iran; mine a Hormuz secondo Teheran (HNGN, domenica)",
+   "Europa si ritira dai record dopo l'uscita del capo di Nvidia (Reuters, venerdì)",
+   "Le scommesse sul rialzo Fed di dicembre si diffondono in Asia (investingLive, venerdì)"
+  ],
+  "testate": [
+   {
+    "testata": "Bloomberg",
+    "storie": [
+     "Nvidia earnings: first results without Huang (BNN Bloomberg)",
+     "European shares pull back from record high after four-day rally",
+     "Fed hike bets and 10-year at 5.15%"
+    ]
+   },
+   {
+    "testata": "Reuters",
+    "storie": [
+     "European shares retreat from record highs after Nvidia CEO's exit",
+     "Trump may hold off Iran strikes (Reuters, citata da HNGN)",
+     "Wall St Week Ahead"
+    ]
+   },
+   {
+    "testata": "Wall Street Journal",
+    "storie": [
+     "Anthropic targets Nasdaq debut next week (via investingLive)",
+     "Nvidia CEO exit tests AI recovery"
+    ]
+   },
+   {
+    "testata": "Yahoo Finance",
+    "storie": [
+     "Stock market today: S&P 500, Nasdaq fall as Nvidia sinks",
+     "Nvidia earnings preview"
+    ]
+   },
+   {
+    "testata": "investingLive",
+    "storie": [
+     "Fed hike bets ripple through Asia",
+     "Trump out of public view since Wednesday"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Anthropic verso il debutto al Nasdaq la prossima settimana (WSJ via investingLive)",
+    "motivo": "senza dati di mercato prima dell'uscita: la prova è l'apertura di martedì; una sola lettura primaria"
+   },
+   {
+    "storia": "Trump lontano dagli impegni pubblici da mercoledì (investingLive)",
+    "motivo": "troppo piccola, nessun movimento di mercato (lo scrive la fonte)"
+   }
+  ],
+  "concorda": true,
+  "motivo": "I riepiloghi della settimana aprono sui conti Nvidia di martedì",
+  "mancate_ieri": []
+ },
+ {
+  "id": "S1",
+  "sezione": "scaletta",
+  "apertura": {
+   "storia": "I conti di Nvidia di martedì, i primi senza Huang",
+   "perche_prima": "I riepiloghi della settimana (BNN Bloomberg, CoinCentral, Yahoo) aprono sui conti; il titolo ha perso il 13% e i chip hanno trascinato Nasdaq e Asia"
+  },
+  "moduli": [
+   {
+    "chiave": "nvidia",
+    "misura": "doppio",
+    "tesi": "Per Nvidia i ricavi di questo trimestre sono quasi già noti: consenso e guida distano l'1,4%, mentre le opzioni prezzano un movimento del 9%. A decidere saranno la guida del prossimo trimestre e chi la presenta.",
+    "domanda": "Cosa deve dire Nvidia martedì perché il titolo smetta di scendere?",
+    "prove": [
+     "Consenso ricavi 109,5 mld $ contro guida 108 mld $ (+-2%): 1,4% di scarto",
+     "Opzioni: movimento di circa il 9%, contro una media storica di 7,8%",
+     "Guida del trimestre senza ricavi da calcolo per data center in Cina",
+     "Margine lordo guidato al 74%, dal 75%",
+     "Titolo -13% nella settimana, sesta in calo; AMD -9%, Broadcom e Marvell quasi -5% venerdì",
+     "CEO ad interim Kress, indagine del consiglio sulle accuse a Huang"
+    ],
+    "contro": "Se i ricavi superano 110,2 mld $, il tetto della forchetta indicata dall'azienda, il conto del trimestre conta più della guida",
+    "schede": [
+     "D01",
+     "D02",
+     "D03",
+     "T01",
+     "N11"
+    ],
+    "memoria": "Edizione 13/11: dimissioni di Huang, titolo a 166,19 $"
+   },
+   {
+    "chiave": "tassi",
+    "misura": "doppio",
+    "tesi": "Il Treasury a 2 anni rende 88 punti base più del limite alto dei tassi della Fed: il mercato non sconta solo il rialzo di dicembre, ma altri dopo.",
+    "domanda": "Quanto è già nei prezzi il rialzo della Fed?",
+    "prove": [
+     "2 anni 4,88% contro tetto Fed 4,00%: 88 pb (51 pb una settimana fa)",
+     "10 anni da 4,86% a 5,15% in una settimana",
+     "Fed ferma a 3,75-4,00% con 2 dissenzienti per il rialzo",
+     "CPI core +0,3% contro +0,2% atteso; PPI core +0,5%",
+     "Waller: mezzo punto se il core arriva a 0,3%",
+     "Verbali mercoledì, Warsh lunedì"
+    ],
+    "contro": "Verbali che parlano di pausa o dati di martedì deboli ridurrebbero il divario tra 2 anni e tassi Fed",
+    "schede": [
+     "D04",
+     "D05",
+     "K01",
+     "N01",
+     "N07"
+    ],
+    "memoria": "Edizione 13/11: Fed prepara rialzo a dicembre"
+   },
+   {
+    "chiave": "oro",
+    "misura": "mezzo",
+    "tesi": "L'oro non protegge dai rialzi dei tassi: da lunedì perde il 5,5% mentre il rendimento a 10 anni sale di 27 pb, e la guerra in Iran non lo sostiene.",
+    "domanda": "Perché l'oro cade con la guerra in corso?",
+    "prove": [
+     "Oro 4.114,5 lunedì, 3.886,3 venerdì (FMP)",
+     "Rendimento a 10 anni 4,88% lunedì, 5,15% venerdì (FMP)",
+     "Rendimento reale a 10 anni 2,66% il 9/11 contro 1,84% un anno prima",
+     "Minimo di 13 mesi giovedì (Yahoo)",
+     "Waller martedì: oro in calo con rendimenti e dollaro su"
+    ],
+    "contro": "Un'impennata dell'oro insieme ai rendimenti smentirebbe la lettura dei tassi",
+    "schede": [
+     "D06",
+     "D08",
+     "A1"
+    ],
+    "memoria": "nessuna"
+   },
+   {
+    "chiave": "petrolio",
+    "misura": "mezzo",
+    "tesi": "Il petrolio ha già incassato la fine della guerra: da 116,72 $ del 23 ottobre a 95,84 $ in tre settimane, e il no di Trump all'accordo ne ha restituito solo una parte.",
+    "domanda": "Perché il Brent non risale se l'accordo salta?",
+    "prove": [
+     "Brent -17,9% dal 23 ottobre (FMP)",
+     "4 novembre: -8,6% dopo le elezioni di metà mandato e le parole della Casa Bianca (OilPrice)",
+     "Media a 50 giorni 103,89 $ (FMP)",
+     "Giovedì +3,3% quando Trump dice che l'accordo non serve (Libella)",
+     "Minimo della settimana 91,49 $ martedì (FinanceFeeds)",
+     "Mine contestate dagli USA, Hormuz -65% sul traffico (FinanceFeeds)"
+    ],
+    "contro": "Danni confermati alle navi: scenario 98 $ di FinanceFeeds",
+    "schede": [
+     "D07",
+     "D08",
+     "D11",
+     "N03",
+     "N04"
+    ],
+    "memoria": "Edizione 13/11: Brent a 95,82 $ dopo gli attacchi ai siti sauditi"
+   }
+  ]
+ },
+ {
+  "id": "D11",
+  "sezione": "deep_dive",
+  "tipo": "C",
+  "data_evento": "2026-11-04",
+  "novita": null,
+  "testo": "Mercoledì 4 novembre il Brent perde l'8,6% e scende a 94,66 $, il minimo dal 4 settembre, dopo che la Casa Bianca ha legato le sconfitte repubblicane alle elezioni di metà mandato alla guerra con l'Iran; il venerdì prima valeva circa 118 $; Trump dice al Financial Times che Washington non ha piani immediati di colpire l'Iran",
+  "fonti": [
+   {
+    "testata": "OilPrice.com",
+    "url": "https://oilprice.com/Latest-Energy-News/World-News/Oil-Crashes-9-as-Trump-and-Vance-Blame-Iran-War-for-Midterm-Rout.html",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Oil Crashes 9% as Trump and Vance Blame Iran War for Midterm Rout",
+    "ricerca": "Brent plunges November 4 2026 oil falls why Iran ceasefire midterms"
+   },
+   {
+    "testata": "NBC News",
+    "url": "https://www.nbcnews.com/business/energy/oil-prices-iran-war-midterms-rcna607448",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Oil prices drop below $100 as midterms fuel hope for an end to the Iran war",
+    "ricerca": "Brent plunges November 4 2026 oil falls why Iran ceasefire midterms"
+   }
+  ],
+  "trovato": "OilPrice.com: \"Brent fell $8.94, or 8.6%, to $94.66 per barrel at 1:06 p.m. ET on Wednesday.\" / Brent touched its \"lowest level since September 4\" / \"the White House tied Tuesday's midterm losses to the conflict.\" / \"Brent traded near $118 on Friday.\" / \"Trump had already told the Financial Times that Washington had no immediate plans to strike Iran.\" Frase successiva: \"Meanwhile, Qatari news outlet Al-Jadeed has once again reported significant progress in U.S.-Iran negotiations.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato su OilPrice.com. NBC News non apribile (robots_disallowed), quindi seconda fonte non verificata. Il 94,66 $ e' un prezzo intraday alle 13:06 ET, non una chiusura: il PDF dice 'scende a 94,66' senza precisarlo. Il 118 $ e' 'circa' anche nella pagina. Il PDF p.4 usa 'da 116 a 96' altrove: 116 non verificato."
+ }
+]

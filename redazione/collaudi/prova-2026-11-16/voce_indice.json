@@ -1,0 +1,546 @@
+{
+ "numero": 26,
+ "data": "2026-11-16",
+ "titolo": "Nvidia presenta martedì i primi conti senza Huang, e il mercato è già nervoso",
+ "dek": "Il titolo ha perso il 13% in cinque sedute, la sesta settimana in calo, e venerdì la vendita si è allargata ai concorrenti: AMD -9%, Broadcom e Marvell quasi -5%. Gli analisti si aspettano ricavi di 109,5 mld $, appena sopra i 108 che l'azienda aveva indicato. Le opzioni a scadenza settimanale prezzano un movimento di circa il 9% in un senso o nell'altro (Investopedia). A guidare il titolo sarà la previsione dei prossimi tre mesi, che presenta Colette Kress, amministratore delegato ad interim.",
+ "sommario": [
+  "I verbali della Fed di mercoledì dicono quanto era vicino il rialzo.",
+  "L'oro scende ai minimi da oltre un anno, con una Fed più dura.",
+  "Trump chiude all'accordo con l'Iran, ma il petrolio aveva già scontato la fine della guerra."
+ ],
+ "file": "pdf/2026-11-16-gommberg-026.pdf",
+ "nome": "2026-11-16 Gommberg Terminal Daily #026.pdf",
+ "pagine": 6,
+ "notizie": [
+  "Prezzi alla produzione USA: +0,3% a ottobre, ma +0,5% senza le voci volatili",
+  "Cisco e Applied Materials calano nonostante i conti sopra le attese",
+  "Trump potrebbe non attaccare l'Iran se Teheran non lo provoca",
+  "L'Iran dice che tre petroliere hanno urtato mine a Hormuz, gli USA smentiscono",
+  "Per Merck Finck l'Europa batte Wall Street se l'intelligenza artificiale cede",
+  "Il bitcoin scende vicino a 68 mila dollari e Strategy perde quasi il 5%"
+ ],
+ "ticker": [
+  [
+   "MSCI ACWI (ETF)",
+   "156,10 $",
+   "-0,3% g"
+  ],
+  [
+   "S&P 500",
+   "7.561,67",
+   "-0,4% g"
+  ],
+  [
+   "EURO STOXX 50",
+   "6.386,86",
+   "-0,2% g"
+  ],
+  [
+   "TREASURY 10 ANNI",
+   "5,15%",
+   "+5 pb g"
+  ],
+  [
+   "EUR/USD",
+   "1,1021",
+   "-0,3% g"
+  ],
+  [
+   "BRENT FUTURE",
+   "95,84 $",
+   "0,0% g"
+  ],
+  [
+   "ORO",
+   "3.886 $",
+   "0,0% g"
+  ]
+ ],
+ "temi": [
+  "Chip",
+  "Fed",
+  "Tassi",
+  "Materie prime",
+  "Petrolio",
+  "Geopolitica"
+ ],
+ "approfondimenti": [
+  {
+   "tema": "Chip",
+   "titolo": "Per Nvidia conta più la previsione che i conti già quasi noti",
+   "formato": "doppio"
+  },
+  {
+   "tema": "Fed e tassi",
+   "titolo": "Il 2 anni sta sopra i tassi Fed: il mercato attende più rialzi",
+   "formato": "doppio"
+  },
+  {
+   "tema": "Materie prime",
+   "titolo": "L'oro cade con i tassi in salita, la guerra non lo difende",
+   "formato": "mezzo"
+  },
+  {
+   "tema": "Petrolio",
+   "titolo": "Il petrolio aveva già scontato la fine della guerra, Trump ne restituisce poco",
+   "formato": "mezzo"
+  }
+ ],
+ "meccanismi": [
+  "M15",
+  "M16",
+  "M26",
+  "M02",
+  "M05",
+  "M20",
+  "M23",
+  "M10",
+  "M11"
+ ],
+ "parole": [
+  "Rendimento a 2 anni",
+  "Previsione dell'azienda",
+  "Tasso reale",
+  "Consenso",
+  "Opzioni",
+  "Verbali della Fed"
+ ],
+ "glossario": [
+  "CPI",
+  "core",
+  "TIPS",
+  "ACWI",
+  "VIX",
+  "EIA"
+ ],
+ "errata": null,
+ "ripetizioni": null,
+ "dove": {
+  "approfondimenti": [
+   2,
+   3,
+   4,
+   4
+  ],
+  "mercati": 5,
+  "agenda": 5,
+  "scommessa": 6
+ },
+ "scommessa": {
+  "settimana": "2026-11-16/2026-11-20",
+  "strada": null,
+  "range": null,
+  "su": 6,
+  "dettaglio": []
+ },
+ "tema_top": "Chip",
+ "temi_in30": [
+  "Fed",
+  "Materie prime",
+  "Petrolio"
+ ],
+ "temi_notizie": [
+  "Inflazione",
+  "Trimestrali",
+  "Geopolitica",
+  "Geopolitica",
+  "Europa",
+  "Tecnologia"
+ ],
+ "quadro": "Venerdì i prezzi hanno detto una cosa sola con voci diverse. Per noi il mercato non teme la guerra né i conti: teme il costo del denaro. I rendimenti salgono (10 anni al 5,15%, 2 anni al 4,88%) e l'oro cade, come quando si scommette su una Fed più dura. Il petrolio resta sotto i massimi di ottobre e l'Europa chiude la settimana in rialzo. A pagare sono soprattutto i titoli tecnologici, che valgono di più quando i tassi sono bassi.",
+ "stamattina": [
+  "Tokyo apre alle 01:00: venerdì Nikkei +0,53%, Hang Seng -1,55%",
+  "14:30 Empire State; 18:00 parla Warsh, presidente della Fed",
+  "Euro Stoxx 50: venerdì 6.386,86, a un passo da quota 6.400 (dpa-AFX)",
+  "Brent: venerdì 95,84 $; il minimo di martedì è 91,49 $"
+ ],
+ "stamattina_titolo": "Cosa guardare all'apertura",
+ "notizie_testo": [
+  "Prezzi alla produzione USA: +0,3% a ottobre, ma +0,5% senza le voci volatili. Il dato generale è sotto le attese; senza alimentari, energia e servizi commerciali l'indice corre invece del 4,9% in un anno (BLS).",
+  "Cisco e Applied Materials calano nonostante i conti sopra le attese. Cisco cede il 6% e Applied Materials il 3% dopo i risultati; Dell perde il 7% (Yahoo Finance).",
+  "Trump potrebbe non attaccare l'Iran se Teheran non lo provoca. Lo ha detto ai consiglieri, secondo Reuters, dopo aver scritto «We don't need a deal with Iran».",
+  "L'Iran dice che tre petroliere hanno urtato mine a Hormuz, gli USA smentiscono. Sabato la marina iraniana parla di rotte non autorizzate; l'esercito americano dice che quelle principali sono libere e nessuna nave è stata nominata.",
+  "Per Merck Finck l'Europa batte Wall Street se l'intelligenza artificiale cede. Per Robert Greil di Merck Finck, se l'intelligenza artificiale cede le borse europee vanno meglio di quelle americane e asiatiche (dpa-AFX).",
+  "Il bitcoin scende vicino a 68 mila dollari e Strategy perde quasi il 5%. È circa il 30% sotto il massimo di gennaio; Strategy cede dopo la notizia di un'esclusione da alcuni indici (Yahoo Finance)."
+ ],
+ "brevi": [
+  "i conti senza Huang",
+  "il 2 anni sopra la Fed",
+  "oro ai minimi da 13 mesi",
+  "il greggio ha già scontato la pace"
+ ],
+ "agenda": [
+  {
+   "quando": "Lun 16, 14:30",
+   "evento": "Indice Empire State (manifattura di New York)",
+   "attese": "prima 25,5",
+   "perche": "Primo dato del mese sull'industria",
+   "chiave": false,
+   "muove": [
+    "Sopra: di solito salgono rendimenti e dollaro.",
+    "Sotto: frenata che pesa sui titoli ciclici."
+   ]
+  },
+  {
+   "quando": "Lun 16, 18:00",
+   "evento": "Parla Kevin Warsh, presidente della Fed",
+   "attese": "",
+   "perche": "La prima voce della Fed dopo i prezzi",
+   "chiave": false,
+   "muove": [
+    "Ascolta: se apre al mezzo punto a dicembre, di solito salgono dollaro e rendimenti; se resta sui dati, il mercato respira."
+   ]
+  },
+  {
+   "quando": "Mar 17, 14:30",
+   "evento": "Vendite al dettaglio USA (ottobre)",
+   "attese": "",
+   "perche": "Consumi dopo prezzi più alti",
+   "chiave": false,
+   "muove": [
+    "Sopra: consumi forti lasciano spazio alla Fed e spingono i rendimenti.",
+    "Sotto: il rialzo di dicembre perde forza."
+   ]
+  },
+  {
+   "quando": "Mar 17, 23:00",
+   "evento": "Conti di Nvidia (terzo trimestre)",
+   "attese": "Ricavi 109,5 mld $, utile per azione 2,47 $",
+   "perche": "Evento n.1: i primi conti senza Huang",
+   "chiave": true,
+   "muove": [
+    "Sopra: ricavi e previsione sopra le attese: di solito ripartono i chip.",
+    "Sotto: la vendita di questa settimana può proseguire."
+   ]
+  },
+  {
+   "quando": "Mer 18, 20:00",
+   "evento": "Verbali della riunione Fed del 27-28 ottobre",
+   "attese": "voti contrari: 2 (Cook, Hammack)",
+   "perche": "Quanti volevano alzare",
+   "chiave": false,
+   "muove": [
+    "Ascolta: se molti volevano alzare, di solito sale il 2 anni; se parlano di attesa, scende."
+   ]
+  }
+ ],
+ "termometri": {
+  "righe": [
+   [
+    "Fed e tassi",
+    "Riunione dell'8-9 dicembre",
+    "Verbali di ottobre mercoledì",
+    "su: Rendimento del 2 anni",
+    "Verbali e Warsh"
+   ],
+   [
+    "AI e chip",
+    "Conti Nvidia martedì",
+    "Vendita di venerdì estesa ai concorrenti",
+    "giu: Titoli dei chip",
+    "Conti Nvidia"
+   ],
+   [
+    "Iran e petrolio",
+    "Hormuz: accuse sulle mine",
+    "Trump chiude all'accordo",
+    "fermo: Brent, senza direzione",
+    "Scorte USA di mercoledì"
+   ],
+   [
+    "Oro",
+    "Minimo di 13 mesi",
+    "Venduto con i rendimenti in salita",
+    "giu: Prezzo dell'oro",
+    "Verbali Fed"
+   ]
+  ],
+  "fermi": "Trump in Cina: il viaggio al vertice Apec di Shenzhen del 18-19 novembre non è cambiato (investingLive)."
+ },
+ "evento_oggi": "Mar 17, 23:00 Conti di Nvidia (terzo trimestre)",
+ "moduli_redazione": [
+  {
+   "chiave": "nvidia",
+   "misura": "doppio",
+   "titolo": "Per Nvidia conta più la previsione che i conti già quasi noti",
+   "perche": "Un conto già quasi noto non basta a muovere un titolo che ha perso il 13% in una settimana: per MarketPulse conta più la previsione del quarto trimestre. In più c'è l'incognita di chi guida: il consiglio ha aperto un'indagine sulle accuse a Huang e la società ha un amministratore delegato ad interim (Yahoo Finance).",
+   "quindi": "Martedì alle 23:00, ora di Roma, si vede se questi ricavi sono un punto di arrivo o di partenza.",
+   "punti": [
+    "I concorrenti. Venerdì AMD ha perso il 9%, Broadcom e Marvell quasi il 5% e l'ETF dei semiconduttori quasi il 4%: la vendita non riguarda solo Nvidia (Yahoo Finance)."
+   ],
+   "testo": [
+    "Perché un trimestre quasi noto sposta tanto un titolo? Chi compra Nvidia paga oggi gli utili dei prossimi anni, non quelli già incassati. I conti del terzo trimestre fotografano il passato. L'azienda aveva già detto più o meno cosa aspettarsi. La previsione per il trimestre dopo invece cambia i conti di chi guarda avanti, ed è quella, di solito, a muovere il prezzo il giorno dopo.",
+    "Il peso di Nvidia amplifica la reazione. S&P 500 e Nasdaq sono pesati per capitalizzazione: quando uno dei titoli più grandi cala molto, di solito trascina l'indice anche se molti altri salgono. Venerdì i titoli tecnologici hanno ceduto in media più del 2% mentre sanità e comunicazioni salivano: l'S&P 500 ha perso solo lo 0,4%.",
+    "Martedì parla per la prima volta chi ha sostituito Huang, la direttrice finanziaria Colette Kress. La guida esclude i ricavi da data center in Cina: per noi un dollaro in più da quel mercato sarebbe una sorpresa."
+   ],
+   "righe": [
+    [
+     "Terzo trimestre",
+     "Guida Nvidia",
+     "Consenso"
+    ],
+    [
+     "Ricavi (mld $)",
+     "108, più o meno 2%",
+     "109,5"
+    ],
+    [
+     "Utile per azione ($)",
+     "-",
+     "2,47"
+    ],
+    [
+     "Ricavi da data center in Cina",
+     "esclusi",
+     "-"
+    ]
+   ],
+   "grafici": [
+    {
+     "titolo": "Le opzioni prezzano una mossa sei volte più grande dello scarto sui ricavi",
+     "tipo": "barre",
+     "soggetto": "conti",
+     "dati": [
+      [
+       "Distanza tra consenso e guida",
+       1.4
+      ],
+      [
+       "Media dei movimenti dopo i conti",
+       7.8
+      ],
+      [
+       "Movimento prezzato dalle opzioni",
+       9.0
+      ]
+     ],
+     "serie": [],
+     "x0": null,
+     "x1": null,
+     "etichette": [
+      "Distanza tra consenso e guida",
+      "Media dei movimenti dopo i conti",
+      "Movimento prezzato dalle opzioni"
+     ]
+    },
+    {
+     "titolo": "Venerdì la vendita ha colpito la tecnologia e l'industria, non tutta la borsa",
+     "tipo": "barre",
+     "soggetto": "Nvidia",
+     "dati": [
+      [
+       "Tecnologia",
+       -2.15
+      ],
+      [
+       "Industria",
+       -1.26
+      ],
+      [
+       "Materiali",
+       -0.82
+      ],
+      [
+       "Immobiliare",
+       -0.62
+      ],
+      [
+       "Energia",
+       -0.05
+      ],
+      [
+       "Finanza",
+       0.22
+      ],
+      [
+       "Servizi pubblici",
+       0.3
+      ],
+      [
+       "Consumo ciclico",
+       0.35
+      ],
+      [
+       "Consumo di base",
+       0.42
+      ],
+      [
+       "Sanità",
+       0.53
+      ],
+      [
+       "Comunicazioni",
+       0.96
+      ]
+     ],
+     "serie": [],
+     "x0": null,
+     "x1": null,
+     "etichette": [
+      "Tecnologia",
+      "Industria",
+      "Materiali",
+      "Immobiliare",
+      "Energia",
+      "Finanza",
+      "Servizi pubblici",
+      "Consumo ciclico",
+      "Consumo di base",
+      "Sanità",
+      "Comunicazioni"
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "tassi",
+   "misura": "doppio",
+   "titolo": "Il 2 anni sta sopra i tassi Fed: il mercato attende più rialzi",
+   "perche": "Il CPI (prezzi al consumo) core (senza cibo ed energia) di ottobre è risultato a +0,3% contro +0,2% atteso. Waller ha detto che, a quel livello, un rialzo da mezzo punto andrebbe considerato (investingLive). Venerdì i prezzi alla produzione hanno confermato la direzione: +0,5% sul mese senza le voci più volatili, +4,9% su un anno (BLS).",
+   "quindi": "Mercoledì alle 20:00 i verbali dicono quanti erano pronti ad alzare già a ottobre: due lo hanno chiesto, Cook e Hammack (Fed).",
+   "punti": [],
+   "testo": [
+    "Perché guardare il 2 anni e non il 10? Chi presta al governo americano per due anni si chiede dove saranno i tassi della Fed in quel periodo: se li aspetta più alti, pretende subito un interesse più alto. Per questo il 2 anni di solito segue la banca centrale più da vicino del 10 anni, che dipende anche da crescita e inflazione di lungo periodo. I tassi della Fed oggi stanno tra 3,75% e 4,00%. Un 2 anni sopra il limite alto vuol dire che il mercato conta su altri rialzi, per noi non solo su quello di dicembre.",
+    "Il CPI ha cambiato la scala delle scommesse. Quando un dato di inflazione esce sopra le attese, di solito salgono le probabilità di un rialzo e i rendimenti a breve. Il 10 novembre quelle su un rialzo da mezzo punto a dicembre erano tra il 10% e il 15% (Finimize). Giovedì, dopo un 2 anni salito di 14 punti base, Libella scrive che gli operatori propendono per il mezzo punto.",
+    "La Fed ha già alzato di un quarto di punto a settembre e a ottobre ha lasciato fermi i tassi, con due voti contrari, favorevoli a un nuovo rialzo. La prossima decisione arriva l'8-9 dicembre e fino ad allora ogni dato, dal lavoro ai consumi, sposta il prezzo.",
+    "Per l'Europa conta il dollaro: tassi americani più alti di solito lo sostengono, e l'euro ha perso l'1,1% in una settimana. Conta anche per le famiglie americane. I mutui di solito seguono il 10 anni più dei tassi della Fed, e il 10 anni è salito anche lui: comprare casa costa di più già prima di dicembre."
+   ],
+   "righe": [],
+   "grafici": [
+    {
+     "titolo": "In una settimana salgono tutte le scadenze, di più quelle brevi",
+     "tipo": "barre",
+     "soggetto": "tassi",
+     "dati": [
+      [
+       "1M",
+       8.0
+      ],
+      [
+       "3M",
+       13.0
+      ],
+      [
+       "6M",
+       19.0
+      ],
+      [
+       "1A",
+       32.0
+      ],
+      [
+       "2A",
+       37.0
+      ],
+      [
+       "3A",
+       33.0
+      ],
+      [
+       "5A",
+       34.0
+      ],
+      [
+       "7A",
+       31.0
+      ],
+      [
+       "10A",
+       29.0
+      ],
+      [
+       "20A",
+       23.0
+      ],
+      [
+       "30A",
+       21.0
+      ]
+     ],
+     "serie": [],
+     "x0": null,
+     "x1": null,
+     "etichette": [
+      "1M",
+      "3M",
+      "6M",
+      "1A",
+      "2A",
+      "3A",
+      "5A",
+      "7A",
+      "10A",
+      "20A",
+      "30A"
+     ]
+    },
+    {
+     "titolo": "Il 2 anni torna al massimo del mese rispetto ai tassi della Fed",
+     "tipo": "linee",
+     "soggetto": "Fed",
+     "dati": null,
+     "serie": [
+      "2 anni meno tetto Fed"
+     ],
+     "x0": "2026-10-14",
+     "x1": "2026-11-13",
+     "etichette": []
+    }
+   ]
+  },
+  {
+   "chiave": "oro",
+   "misura": "mezzo",
+   "titolo": "L'oro cade con i tassi in salita, la guerra non lo difende",
+   "perche": "Con una Fed più dura il rendimento reale, quello che resta dopo l'inflazione, di solito sale. Il Treasury a 10 anni protetto dall'inflazione (TIPS) rendeva il 2,66% il 9 novembre contro l'1,84% di un anno prima (24/7 Wall St.). L'oro, che non paga interessi, perde quindi attrattiva. Martedì, dopo le parole di Waller, ha ceduto con rendimenti e dollaro in rialzo (investingLive).",
+   "quindi": "Mercoledì alle 20:00 i verbali Fed: se confermano un comitato pronto ad alzare, di solito l'oro resta sotto pressione.",
+   "punti": [],
+   "testo": [
+    "L'oro è un bene senza cedola: chi lo compra non incassa nulla mentre aspetta. Quando i rendimenti dei titoli di Stato, depurati dall'inflazione, salgono, tenerlo costa di più rispetto a prestare soldi al Tesoro, e di solito il prezzo scende. Il contrario accade quando i rendimenti reali calano.",
+    "L'oro è anche il bene che si compra quando cresce la paura, e questa settimana di paura ce n'era, tra l'Iran e i chip. Per noi i due motivi spingono in direzioni opposte e per ora vince quello dei tassi: il prezzo cede da lunedì mentre la borsa sale nella settimana."
+   ],
+   "righe": [],
+   "grafici": [
+    {
+     "titolo": "L'oro chiude la settimana al minimo da 13 mesi",
+     "tipo": "linee",
+     "soggetto": "oro",
+     "dati": null,
+     "serie": [
+      "Oro future"
+     ],
+     "x0": "2026-10-14",
+     "x1": "2026-11-13",
+     "etichette": []
+    }
+   ]
+  },
+  {
+   "chiave": "petrolio",
+   "misura": "mezzo",
+   "titolo": "Il petrolio aveva già scontato la fine della guerra, Trump ne restituisce poco",
+   "perche": "Secondo OilPrice.com la discesa è partita il 4 novembre. Dopo le elezioni di metà mandato la Casa Bianca ha legato la sconfitta alla guerra e il mercato ha puntato sulla sua fine. In un giorno il Brent ha perso l'8,6%.",
+   "quindi": "Mercoledì il rapporto settimanale dell'EIA (agenzia americana dell'energia) sulle scorte USA è il primo dato fisico dopo le accuse iraniane sulle mine.",
+   "punti": [],
+   "testo": [
+    "Perché il Brent non risale se Trump dice che l'accordo non serve? Il prezzo guarda a quanto greggio arriva davvero sul mercato, non alle parole. Finché Hormuz è attraversato e il blocco americano riguarda solo i barili iraniani, un'altra frase non toglie barili. Giovedì il Brent è salito del 3,3% (Libella) ma resta sotto la media delle ultime 50 sedute, 103,89 $.",
+    "Un barile che passa da 116 a 96 dollari toglie benzina all'inflazione dei prossimi mesi. Di solito il greggio arriva nei prezzi dei carburanti in poche settimane, ed è il canale più veloce verso l'inflazione complessiva."
+   ],
+   "righe": [],
+   "grafici": [
+    {
+     "titolo": "Il Brent ha perso il 18% in tre settimane",
+     "tipo": "linee",
+     "soggetto": "petrolio",
+     "dati": null,
+     "serie": [
+      "Brent"
+     ],
+     "x0": "2026-10-14",
+     "x1": "2026-11-13",
+     "etichette": []
+    }
+   ]
+  }
+ ]
+}

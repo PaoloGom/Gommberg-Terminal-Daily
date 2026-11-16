@@ -1,0 +1,82 @@
+[
+ {
+  "campo": "top.dek",
+  "originale": "Il titolo ha perso il 13% in cinque sedute, la sesta settimana in calo, e venerdì la vendita si è allargata ai concorrenti: AMD -9%, Broadcom e Marvell quasi -5%. Gli analisti si aspettano ricavi di 109,5 mld $, appena sopra i 108 che l'azienda aveva indicato, ma le opzioni a scadenza settimanale prezzano un movimento di circa il 9% in un senso o nell'altro (Investopedia). A guidare il titolo sarà la previsione dei prossimi tre mesi, che presenta Colette Kress, amministratore delegato ad interim. [[nvidia]]",
+  "testo": "Il titolo ha perso il 13% in cinque sedute e venerdì la vendita ha colpito anche i concorrenti. Gli analisti attendono ricavi di 109,5 mld $, appena sopra i 108 indicati dall'azienda, ma le opzioni a scadenza settimanale prezzano un movimento di circa il 9% in un senso o nell'altro (Investopedia). A guidare il titolo sarà la previsione dei prossimi tre mesi, che presenta Colette Kress, amministratore delegato ad interim. [[nvidia]]"
+ },
+ {
+  "campo": "quadro",
+  "originale": "Venerdì i prezzi hanno detto una cosa sola con voci diverse. Per noi il mercato non teme la guerra né i conti: teme il costo del denaro. I rendimenti salgono (10 anni al 5,15%, 2 anni al 4,88%) e l'oro cade, come quando si scommette su una Fed più dura. Il petrolio resta sotto i massimi di ottobre e l'Europa chiude la settimana in rialzo; a pagare sono soprattutto i titoli tecnologici, che valgono di più quando i tassi sono bassi.",
+  "testo": "Per noi venerdì il mercato non ha temuto la guerra né i conti, ma il costo del denaro. I rendimenti salgono (10 anni al 5,15%, 2 anni al 4,88%) e l'oro cade, come quando si scommette su una Fed più dura. Il petrolio resta sotto i massimi di ottobre e l'Europa chiude la settimana in rialzo; a pagare sono soprattutto i titoli tecnologici, che valgono di più quando i tassi sono bassi."
+ },
+ {
+  "campo": "in30.1",
+  "originale": "L'oro scende ai minimi da oltre un anno e la guerra in Iran non lo difende. [[oro]]",
+  "testo": "L'oro scende ai minimi da oltre un anno, con una Fed più dura. [[oro]]"
+ },
+ {
+  "campo": "notizie.4.titolo",
+  "originale": "Europa, la settimana migliore da aprile e la rotazione verso i titoli di qualità",
+  "testo": "L'Europa chiude la settimana migliore da aprile, ruotando verso i titoli di qualità"
+ },
+ {
+  "campo": "agenda.4.perche",
+  "originale": "Quanto era vicino il rialzo",
+  "testo": "Quanti volevano alzare"
+ },
+ {
+  "campo": "moduli.nvidia.perche",
+  "originale": "Un conto già quasi noto non basta a muovere un titolo che ha perso il 13% in una settimana: per MarketPulse conta più la previsione del quarto trimestre. In più la società ha un amministratore delegato ad interim, dopo l'indagine sulle accuse a Huang (Yahoo Finance).",
+  "testo": "Nvidia arriva ai conti dopo il 13% perso in una settimana e con un amministratore delegato ad interim, dopo l'indagine sulle accuse a Huang (Yahoo Finance). Per MarketPulse conta soprattutto la previsione del quarto trimestre."
+ },
+ {
+  "campo": "moduli.nvidia.quindi",
+  "originale": "Martedì alle 23:00, ora di Roma, la previsione del trimestre dice se questi ricavi sono un punto di arrivo o di partenza.",
+  "testo": "Martedì alle 23:00, ora di Roma, si vede se questi ricavi sono un punto di arrivo o di partenza."
+ },
+ {
+  "campo": "moduli.nvidia.numero",
+  "originale": "+1,4%: di tanto i ricavi attesi superano la guida. Il tetto della forchetta è 110,2 mld $.",
+  "testo": ""
+ },
+ {
+  "campo": "moduli.nvidia.testo.0",
+  "originale": "Perché un trimestre quasi noto sposta tanto un titolo? Chi compra Nvidia paga oggi gli utili dei prossimi anni, non quelli già incassati. I conti del terzo trimestre fotografano il passato, e l'azienda aveva già detto più o meno cosa aspettarsi. La previsione per il trimestre dopo invece cambia i conti di chi guarda avanti, ed è quella, di solito, a muovere il prezzo il giorno dopo.",
+  "testo": "Chi compra Nvidia paga oggi gli utili dei prossimi anni, non quelli già incassati. I conti del terzo trimestre fotografano il passato e l'azienda aveva già detto più o meno cosa aspettarsi; la previsione per il trimestre dopo cambia invece i calcoli di chi guarda avanti, ed è di solito quella a muovere il prezzo il giorno dopo."
+ },
+ {
+  "campo": "moduli.tassi.perche",
+  "originale": "Il CPI (prezzi al consumo) core (senza cibo ed energia) di ottobre è uscito a +0,3% contro +0,2% atteso e Waller ha detto che, a quel livello, un rialzo da mezzo punto andrebbe considerato (investingLive). Venerdì i prezzi alla produzione hanno confermato la direzione: +0,5% sul mese senza le voci più volatili, +4,9% su un anno (BLS).",
+  "testo": "Waller ha detto che, dopo il CPI (prezzi al consumo) core di ottobre uscito a +0,3% contro +0,2% atteso, un rialzo da mezzo punto andrebbe considerato (investingLive). Venerdì i prezzi alla produzione hanno confermato la direzione: +0,5% sul mese senza le voci più volatili, +4,9% su un anno (BLS)."
+ },
+ {
+  "campo": "moduli.tassi.testo.0",
+  "originale": "Perché guardare il 2 anni e non il 10? Chi presta al governo americano per due anni si chiede soprattutto dove saranno i tassi della Fed in quel periodo: se li aspetta più alti, pretende subito un interesse più alto. Per questo di solito il 2 anni segue la banca centrale più da vicino del 10 anni, che dipende anche da crescita e inflazione di lungo periodo. I tassi della Fed oggi stanno tra 3,75% e 4,00%: un 2 anni sopra il limite alto vuol dire che il mercato conta su altri rialzi, e per noi non solo su quello di dicembre.",
+  "testo": "Perché guardare il 2 anni e non il 10? Chi presta al governo americano per due anni si chiede dove saranno i tassi della Fed in quel periodo: se li aspetta più alti, pretende subito un interesse più alto. Per questo il 2 anni di solito segue la banca centrale più da vicino del 10 anni, che dipende anche da crescita e inflazione di lungo periodo. I tassi della Fed oggi stanno tra 3,75% e 4,00%. Un 2 anni sopra il limite alto vuol dire che il mercato conta su altri rialzi, per noi non solo su quello di dicembre."
+ },
+ {
+  "campo": "moduli.tassi.testo.2",
+  "originale": "La Fed ha già alzato di un quarto di punto a settembre e ha lasciato fermi i tassi a ottobre con due voti contrari, favorevoli a un nuovo rialzo. Dalla riunione dell'8-9 dicembre si aspettano un'altra decisione, e fino ad allora ogni dato, dal lavoro ai consumi, sposta il prezzo.",
+  "testo": "La Fed ha già alzato di un quarto di punto a settembre e a ottobre ha lasciato fermi i tassi, con due voti contrari, favorevoli a un nuovo rialzo. La prossima decisione arriva l'8-9 dicembre e fino ad allora ogni dato, dal lavoro ai consumi, sposta il prezzo."
+ },
+ {
+  "campo": "moduli.oro.titolo",
+  "originale": "L'oro cade con i tassi in salita e la guerra in Iran non lo difende",
+  "testo": "L'oro cade con i tassi in salita, la guerra non lo difende"
+ },
+ {
+  "campo": "moduli.oro.testo.1",
+  "originale": "L'oro è anche il bene che si compra quando cresce la paura, e questa settimana di paura ce n'era, tra l'Iran e i chip. Per noi i due motivi spingono in direzioni opposte e per ora vince quello dei tassi: da lunedì il prezzo cede il 5,5% mentre la borsa sale nella settimana.",
+  "testo": "L'oro è anche il bene che si compra quando cresce la paura, e questa settimana di paura ce n'era, tra l'Iran e i chip. Per noi i due motivi spingono in direzioni opposte e per ora vince quello dei tassi: il prezzo cede da lunedì mentre la borsa sale nella settimana."
+ },
+ {
+  "campo": "moduli.petrolio.titolo",
+  "originale": "Il petrolio aveva già incassato la fine della guerra: Trump ne restituisce solo una parte",
+  "testo": "Il petrolio aveva già scontato la fine della guerra, Trump ne restituisce poco"
+ },
+ {
+  "campo": "moduli.petrolio.perche",
+  "originale": "Secondo OilPrice.com la discesa è partita il 4 novembre: dopo le elezioni di metà mandato la Casa Bianca ha legato la sconfitta alla guerra e il mercato ha puntato sulla sua fine; in un giorno il Brent ha perso l'8,6%.",
+  "testo": "Dopo le elezioni di metà mandato la Casa Bianca ha legato la sconfitta alla guerra e il mercato ha puntato sulla sua fine: secondo OilPrice.com la discesa è partita il 4 novembre, con il Brent in calo dell'8,6% in un giorno."
+ }
+]
