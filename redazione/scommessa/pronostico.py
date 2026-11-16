@@ -196,6 +196,9 @@ def main():
     if METODO["redazione"].get("tipi_motivo") and not scenario:
         raise SystemExit('manca "_scenario": una frase con l\'evento datato che decide la settimana e che cosa lo smentirebbe')
     st = pronostica(origine, red, a.variabile)
+    motivi = [v["motivo_redazione"].strip().lower() for v in st.values()]
+    if METODO["redazione"].get("tipi_motivo") and len(set(motivi)) < len(motivi):
+        raise SystemExit("due mercati hanno lo stesso motivo: ogni riga dice che cosa muove o che cosa aspetta QUEL mercato")
     lun = (origine + pd.Timedelta(days=3)).date()
     ven = (origine + pd.Timedelta(days=7)).date()
     reg = {"schema": 2, "versione_metodo": METODO["versione"], "data_pronostico": str(lun),
