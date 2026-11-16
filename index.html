@@ -172,8 +172,14 @@ h2.headline { line-height: .98; letter-spacing: -.005em; margin: 14px 0 0; text-
    Sotto i 950 px circa la colonna destra scende sotto la sinistra da sola (flex-wrap), senza regole apposta. */
 main { padding-block: 44px 24px; }
 .kicker { font-family: var(--body); font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--orange-ink); margin: 0; line-height: 1.4; }
-.giorno { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 44px 48px; }
+.giorno { display: flex; flex-wrap: wrap; align-items: stretch; gap: 44px 48px; }
 .leggi { flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 40px; padding-top: 22px; }
+/* Voto e invito chiudono "Da leggere" attaccati al fondo: le due colonne finiscono sempre sulla stessa riga */
+.chiusa { margin-top: auto; display: flex; flex-direction: column; gap: 22px; }
+.chiusa .gi { margin: 0; padding: 18px 20px; gap: 14px 24px; }
+.chiusa .gi .gi-h { font-size: 23px; }
+.chiusa .gi .gi-p { font-size: 14px; }
+.chiusa .gi a.gi-b { min-height: 46px; padding: 0 20px; font-size: 16px; }
 .occhio { flex: 1 1 340px; min-width: 0; background: var(--panel); padding: 22px 22px 26px; display: flex; flex-direction: column; gap: 30px; }
 .sez-h { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px 16px; border-bottom: 3px solid var(--ink); padding-bottom: 10px; margin-bottom: 4px; }
 .sez-h h2 { margin: 0; font-family: var(--display); font-stretch: 85%; font-weight: 900; font-size: 34px; line-height: 1; }
@@ -189,6 +195,7 @@ main { padding-block: 44px 24px; }
 .news a .i { font-stretch: 80%; font-weight: 900; font-size: 30px; line-height: .9; color: var(--orange); }
 .news a .go { display: none; }
 .news a:hover .t { color: var(--orange-ink); }
+.news .t, .an-row .t { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 /* Analisi e storie: tema, tesi e la pagina dove si legge */
 .an-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); column-gap: 36px; }
 .an-row { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; width: 100%; padding: 16px 0 18px; border: 0; border-top: 1px solid var(--ink); text-align: left; background: none; color: inherit; font: inherit; }
@@ -198,7 +205,7 @@ button.an-row { cursor: pointer; }
 .an-row .t { font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 21px; line-height: 1.2; }
 button.an-row:hover .t { color: var(--orange-ink); }
 /* Voto, in chiusura di ciò che si legge */
-.vote { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 15px; font-weight: 600; }
+.vote { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; padding-top: 18px; border-top: 1px solid var(--rule); font-size: 15px; font-weight: 600; }
 .vote button { font-family: var(--body); font-weight: 600; font-size: 14px; min-height: 44px; min-width: 80px; padding: 0 16px; background: transparent; color: var(--ink); border: 1px solid var(--ink); cursor: pointer; }
 .vote button:hover { background: var(--ink); color: var(--paper); }
 .vote .thx { font-weight: 400; color: var(--muted); }
@@ -217,6 +224,7 @@ button.an-row:hover .t { color: var(--orange-ink); }
 .ag-row.key .e { font-size: 18px; }
 .ag-row .a, .ag-row .p { display: block; margin-top: 3px; font-family: var(--body); font-stretch: 100%; font-weight: 400; font-size: 13.5px; line-height: 1.4; color: var(--muted); }
 .ag-row .p { color: var(--ink); }
+.ag-row .a { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 /* Scommessa: punteggio come a pag. 6, poi una tessera per mercato */
 .score { display: flex; flex-wrap: wrap; gap: 4px 28px; font-size: 14px; color: var(--muted); }
 .score b { font-family: var(--display); font-stretch: 80%; font-weight: 800; font-size: 32px; color: var(--ink); line-height: 1; margin-right: 6px; }
@@ -233,6 +241,7 @@ button.an-row:hover .t { color: var(--orange-ink); }
 .score .vs strong { font-weight: 600; } .score .vs .up { color: var(--up); } .score .vs .down { color: var(--down); }
 .bet-g { margin: 14px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 8px; }
 .bet-g li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 2px 8px; padding: 10px 12px; background: var(--paper); }
+.bet-g li:last-child:nth-child(odd) { grid-column: 1 / -1; }
 .bet-g .n { font-weight: 600; font-size: 14.5px; line-height: 1.25; }
 .bet-g li.var .n::before { content: ""; display: inline-block; width: 8px; height: 8px; background: var(--orange); margin-right: 7px; vertical-align: 1px; }
 .bet-g .d { font-size: 19px; font-weight: 700; line-height: 1; }
@@ -390,8 +399,12 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       <section id="analisi" aria-labelledby="an-h" hidden>
         <div class="box-h"><h3 class="kicker" id="an-h">Analisi e storie</h3><span id="anMeta"></span></div>
         <ul class="an-list" id="anList"></ul>
+        <button type="button" class="lnk" id="anMore" hidden></button>
       </section>
-      <div class="vote" id="vote" hidden><span id="voteQ">Com'era l'edizione di oggi?</span><button type="button" data-v="si">Utile</button><button type="button" data-v="no">Poco</button></div>
+      <div class="chiusa">
+        <div class="vote" id="vote" hidden><span id="voteQ">Com'era l'edizione di oggi?</span><button type="button" data-v="si">Utile</button><button type="button" data-v="no">Poco</button></div>
+        <aside class="gi" aria-labelledby="gi-h"><div class="gi-t"><p class="gi-k">Via email</p><h2 class="gi-h" id="gi-h">Il Gommberg nella tua casella, ogni mattina</h2><p class="gi-p">La prima pagina dell'edizione alle 9:45, dal lunedì al venerdì. Gratis.</p></div><a class="gi-b" href="iscriviti.html" data-goatcounter-click="invito-iscrizione" data-goatcounter-title="Invito all'iscrizione (clic)">Ricevila via email</a></aside>
+      </div>
     </div>
 
     <aside class="occhio" id="col2" aria-label="Da tenere d'occhio">
@@ -411,7 +424,6 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     </aside>
   </div>
 
-  <aside class="gi" aria-labelledby="gi-h"><div class="gi-t"><p class="gi-k">Via email</p><h2 class="gi-h" id="gi-h">Il Gommberg nella tua casella, ogni mattina</h2><p class="gi-p">La prima pagina dell'edizione alle 9:45, dal lunedì al venerdì. Gratis.</p></div><a class="gi-b" href="iscriviti.html" data-goatcounter-click="invito-iscrizione" data-goatcounter-title="Invito all'iscrizione (clic)">Ricevila via email</a></aside>
 
   <section class="week" id="weekSec" aria-labelledby="wk-h">
     <div class="wk-head"><h2 class="kicker" id="wk-h">Le ultime edizioni</h2><a href="archivio.html" id="archLink">Tutto l'archivio</a></div>
@@ -607,8 +619,12 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     const list = $("anList"); list.innerHTML = "";
     const nn = pp.filter(Boolean).map(Number), lo = Math.min(...nn), hi = Math.max(...nn);
     $("anMeta").textContent = !nn.length ? "" : lo === hi ? "pag. " + lo : "pag. " + lo + "-" + hi;
-    rows.forEach((a, i) => {
-      const p = pp[i], li = el("li"), r = el(p ? "button" : "div", "an-row");
+    // Tetto: 4 analisi (due per due); le altre si leggono nel PDF, dalla pagina della prima esclusa
+    const AN = 4, extraA = Math.max(0, rows.length - AN), more = $("anMore");
+    more.hidden = !extraA;
+    if (extraA) { const pa = pp[AN] || nn[nn.length - 1]; more.textContent = (extraA === 1 ? "Un'altra analisi" : "Altre " + extraA + " analisi") + (pa ? " a pag. " + pa : " nell'edizione"); more.onclick = () => apriPagina(pa || 2); }
+    rows.slice(0, AN).forEach((a, i) => {
+      const p = pp[i], li = el("li"), r = el(p ? "button" : "div", "an-row"); r.title = a.titolo;
       r.appendChild(el("span", "k", a.tema || ""));
       const g = el("span", "go", p ? String(p) : ""); if (p) g.setAttribute("aria-label", "pagina " + p);
       r.appendChild(g);
@@ -650,14 +666,18 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     if (!vis.length) { box.hidden = true; return; }
     // Al massimo 4 appuntamenti: con settimane piene la colonna resta ordinata, gli altri sono a pag. 5
     const MAX = 4, list = $("agList"); list.innerHTML = "";
-    vis.slice(0, MAX).forEach(({ r, d }) => {
+    const chiave = (r) => r.chiave || /^evento n\.?\s*1/i.test(r.perche || "");
+    let mostra = vis.slice(0, MAX);
+    const k = vis.findIndex((x) => chiave(x.r));
+    if (k >= MAX) mostra = vis.slice(0, MAX - 1).concat(vis[k]);   // il più atteso non resta mai fuori
+    mostra.forEach(({ r, d }) => {
       let giorno = r.quando.split(",")[0].trim(), diff = null;
       if (d) {
         diff = Math.round((d - oggi) / 864e5);
         giorno = ultima && diff === 0 ? "Oggi" : ultima && diff === 1 ? "Domani" : cap(GG[d.getUTCDay()]) + " " + d.getUTCDate() + (d.getUTCMonth() !== oggi.getUTCMonth() ? " " + MESI[d.getUTCMonth()].slice(0, 3) : "");
       }
       const ora = r.quando.split(",").slice(1).join(",").trim().replace(/^dopo la chiusura.*$/i, "sera").replace(/ di Wall Street| USA$/i, "");
-      const key = r.chiave || /^evento n\.?\s*1/i.test(r.perche || "");
+      const key = chiave(r);
       const li = el("li", "ag-row" + (key ? " key" : "") + (ultima && diff === 0 ? " oggi" : ""));
       li.appendChild(el("span", "h", giorno + (ora ? " " + ora : "") + (key ? " - il più atteso" : "")));
       li.appendChild(el("span", "e", r.evento));
@@ -726,8 +746,10 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     $("briefK").hidden = !(ed.sommario || []).length;
     $("leggiMeta").textContent = "Edizione n. " + pad(ed.numero);
     const nl = $("news"); nl.innerHTML = "";
-    (ed.notizie || []).forEach((t, i) => {
-      const li = el("li"), a = el("a"); a.href = ed.file + "#page=1"; a.target = "_blank"; a.rel = "noopener";
+    // Tetto: 6 notizie (due colonne per tre righe), sono già in ordine d'importanza; le altre stanno nella prima pagina
+    const NOT = 6, tutteN = ed.notizie || [], extraN = Math.max(0, tutteN.length - NOT);
+    tutteN.slice(0, NOT).forEach((t, i) => {
+      const li = el("li"), a = el("a"); a.title = t; a.href = ed.file + "#page=1"; a.target = "_blank"; a.rel = "noopener";
       a.appendChild(el("span", "i", String(i + 1)));
       a.appendChild(el("span", "t", t));
       a.appendChild(el("span", "go", "pag. 1"));
@@ -735,7 +757,10 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       li.appendChild(a); nl.appendChild(li);
     });
     
-    const pg = pagina(ed); $("newsFull").hidden = !pg || !(ed.notizie || []).length; if (pg) $("newsFull").href = pg;
+    const pg = pagina(ed), nf = $("newsFull");
+    nf.hidden = !tutteN.length || (!pg && !extraN);
+    nf.href = pg || ed.file + "#page=1";
+    nf.textContent = extraN ? (extraN === 1 ? "Un'altra notizia" : "Altre " + extraN + " notizie") + " nella prima pagina" + (pg ? " in testo" : "") : "La prima pagina in testo";
     $("open").href = ed.file; $("read").href = ed.file;
     $("dl").href = ed.file; $("dl").setAttribute("download", ed.nome || "");
     const url = condividi(ed);
