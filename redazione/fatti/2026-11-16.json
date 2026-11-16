@@ -1,0 +1,1005 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Borse asiatiche di lunedì 16/11 in calo sui chip dopo il caso Nvidia: Taiex -6%, Kospi -3,6% a 5.100,50, Nikkei -2,4% a 59.662,02, Shanghai -1,0%; Hang Seng +0,5% a 23.753,84; SK Hynix -7,9%, TSMC -5,7%, Tokyo Electron -7,1%",
+  "data_evento": "2026-11-16",
+  "novita": "Venerdì il caso Huang pesava su Wall Street; oggi la vendita arriva in Asia, dove Taiwan perde il 6%",
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.click2houston.com/business/2026/11/16/stocks-decline-in-asia-as-concerns-over-the-nvidia-fallout-persist/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Stocks decline in Asia as concerns over the Nvidia fallout persist",
+    "ricerca": "Nikkei closes lower Monday Nvidia Huang Japan GDP contraction yen 159",
+    "agenzia": "AP"
+   },
+   {
+    "testata": "AFP (Yahoo Finance)",
+    "url": "https://uk.finance.yahoo.com/news/stocks-extend-losses-traders-digest-030006139.html",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Stocks extend losses as traders digest Nvidia fallout",
+    "ricerca": "Hang Seng closes Monday November 16 2026 Hong Kong stocks close",
+    "agenzia": "AFP"
+   },
+   {
+    "testata": "Businesskorea",
+    "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281427",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "[Closing Market] KOSPI Plunges 3.6%, Barely Holding 5,100 Range - Businesskorea",
+    "ricerca": "Kospi closes November 16 2026"
+   }
+  ],
+  "ricerca_extra": null,
+  "trovato": "AFP: \"Hang Seng Index: UP 0.5 percent at 23,753.84 (close)\"; \"Kospi: DOWN 3.6 percent at 5,100.50 (close)\"; \"Nikkei 225: DOWN 2.4 percent at 59,662.02 (close)\". AP (click2houston): \"Taiex sank 6%\"; \"SK Hynix plummeted 7.9%\"; \"falling 5.7%\" (TSMC); \"Tokyo Electron dipped 7.1%\"; \"Shanghai Composite declined 1%\".",
+  "verifica": "confermato",
+  "nota_revisore": "Confrontato con AFP (Yahoo UK) e AP (click2houston): Kospi 5.100,50 e HSI 23.753,84 coincidono con AFP; Taiex, Nikkei, Shanghai -1%, titoli coincidono con AP. Fonte Businesskorea non ritrovata dalla ricerca (usati JoongAng Daily, Bloomingbit, Seoul Economic Daily per il Kospi: 5.100,50)."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Cina, ottobre: vendite al dettaglio +0,4% annuo (atteso +0,8%, settembre +1,1%); produzione industriale +4,8% (atteso +5,3%); investimenti fissi -8,1% da gennaio; export in forte crescita per la domanda di tecnologia legata all'AI",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Business Standard)",
+    "url": "https://www.business-standard.com/world-news/china-s-economy-slows-in-oct-as-factory-output-retail-sales-miss-forecasts-126111600592_1.html",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "China's economy slows in Oct as factory output, retail sales miss forecasts",
+    "ricerca": "China October 2026 retail sales industrial production fixed-asset investment year on year National Bureau of Statistics",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Investing.com (Yahoo Finance)",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/asia-stocks-slide-ai-jitters-043337789.html",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Asia stocks tumble as chipmakers slide and weak China data adds pressure",
+    "ricerca": "Bloomberg Asian stocks slide Nvidia Taiwan chipmakers Monday AI trade"
+   }
+  ],
+  "trovato": "Reuters (The Standard HK): \"Retail sales edged up 0.4 percent year on year in October after growing 1.1 percent the previous month.\" \"Economists polled by Reuters had expected a 0.8 percent increase.\" \"Industrial output in October expanded 4.8 percent from a year earlier\" vs 5.3 percent atteso; \"The 8.1 percent decline in fixed-asset investment in the January-to-October period widened.\"; \"goods exports soared in October as the global AI infrastructure buildout continued\".",
+  "verifica": "confermato",
+  "nota_revisore": "Tutte le cifre (0,4% vs 0,8%, set. 1,1%; 4,8% vs 5,3%; FAI -8,1%; export AI) confermate sulla copia Reuters di The Standard e da ING Think. Pagina Business Standard non ritrovata dalla ricerca; Investing.com/Yahoo non ha le cifre (solo 'missed forecasts' e Pil Giappone -0,1%)."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Giappone, terzo trimestre: Pil -0,1% annualizzato, primo calo in un anno; consumi privati -1,1% annualizzato; investimenti delle imprese +6,8%",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/11/16/japans-economy-contracts-slightly-in-the-latest-quarter-as-oil-prices-remain-high/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Japan's economy contracts slightly in the latest quarter as oil prices remain high",
+    "ricerca": "Japan economy shrinks July-September 2026 GDP annualized Cabinet Office Takaichi",
+    "agenzia": "AP"
+   },
+   {
+    "testata": "Investing.com (Yahoo Finance)",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/asia-stocks-slide-ai-jitters-043337789.html",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Asia stocks tumble as chipmakers slide and weak China data adds pressure",
+    "ricerca": "Bloomberg Asian stocks slide Nvidia Taiwan chipmakers Monday AI trade"
+   }
+  ],
+  "trovato": "AP: \"The Japanese economy contracted at an annualized rate of 0.1% for the July-September quarter,\" \"with private consumption down an annualized 1.1%.\" \"Private non-residential investment marked an annualized 6.8% growth for the quarter.\" \"Japan eked out moderate growth over the previous three quarters, while contracting the same quarter a year ago.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Pil -0,1%, consumi -1,1%, investimenti non residenziali +6,8% su AP/KSAT; 'primo calo in un anno' coerente con tre trimestri di crescita precedenti (non scritto letteralmente). Investing.com/Yahoo conferma solo -0,1%."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Anthropic: forchetta di prezzo 70-78 $ per 825 milioni di azioni, fino a 64,4 mld $ raccolti, valore fino a circa 1.400 mld $ su base diluita; prezzo atteso il 18/11, debutto al Nasdaq (ticker ANT) il 19/11; domanda istituzionale riportata superiore a quella per SpaceX",
+  "data_evento": "2026-11-16",
+  "novita": "Il prezzo era uscito l'11/11; oggi il debutto è a tre giorni e Investing.com riporta una domanda istituzionale superiore a SpaceX",
+  "fonti": [
+   {
+    "testata": "The Next Web",
+    "url": "https://thenextweb.com/news/anthropic-ipo-terms-1-4-trillion-valuation",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Anthropic's IPO seeks up to $64.4B at a $1.4 trillion valuation",
+    "ricerca": "Anthropic IPO pricing range shares valuation Nasdaq debut Thursday"
+   },
+   {
+    "testata": "Decrypt",
+    "url": "https://decrypt.co/382939/anthropic-sets-ipo-price-range-at-70-to-78-valuing-company-at-up-to-1-4-trillion",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Anthropic Sets IPO Price Range at $70 to $78, Valuing Company at Up to $1.4 Trillion",
+    "ricerca": "Anthropic IPO pricing range shares valuation Nasdaq debut Thursday"
+   },
+   {
+    "testata": "Investing.com (Yahoo Finance)",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/asia-stocks-slide-ai-jitters-043337789.html",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Asia stocks tumble as chipmakers slide and weak China data adds pressure",
+    "ricerca": "Bloomberg Asian stocks slide Nvidia Taiwan chipmakers Monday AI trade"
+   }
+  ],
+  "trovato": "The Next Web: \"will sell 825 million shares at $70 to $78 each, raising up to $64.4B\" e \"the updated prospectus filed on Tuesday values Anthropic at about $1.4 trillion on a fully diluted basis\"; \"trading due to start on the Nasdaq on November 19 under the ticker ANT\". Yahoo/Decrypt: pricing expected November 18. Investing.com/Yahoo: \"Anthropic's IPO, expected two days later, has drawn greater institutional interest than SpaceX's.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Forchetta, 825 mln azioni, 64,4 mld, 1.400 mld diluito, pricing 18/11, debutto 19/11 ticker ANT, domanda superiore a SpaceX: confermati da TNW, Yahoo (Decrypt) e Investing.com. Nota: TNW indica anche un collocamento privato da 26 mld (totale fino a 90,4 mld) e 1.000 mld senza opzioni. URL Decrypt originale non ritrovato (usata la versione Yahoo)."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Trump, Xi e Putin terranno il primo incontro a tre ai margini del vertice Apec di Shenzhen (18-19/11), confermato dalla Casa Bianca; sul tavolo dazi, chip, Iran; l'Ucraina non sarà discussa, dice un funzionario USA",
+  "data_evento": "2026-11-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Al Jazeera",
+    "url": "https://www.aljazeera.com/news/2026/11/14/trump-xi-putin-trilateral-meeting-at-apec-what-to-expect",
+    "data_pubblicazione": "2026-11-14",
+    "citazione": "Trump-Xi-Putin trilateral meeting at APEC: What to expect",
+    "ricerca": "Trump Xi Putin summit APEC China weekend news November 15 2026"
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.kiro7.com/news/business/stocks-decline-asia/Y6KSUFUT6E4JJJKTTJKBZ6637U/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Stocks decline in Asia as investor concerns over Nvidia fallout extend into another week",
+    "ricerca": "Nikkei closes lower Monday Nvidia Huang Japan GDP contraction yen 159",
+    "agenzia": "AP"
+   }
+  ],
+  "trovato": "Al Jazeera: \"On Friday, Washington also confirmed Trump's attendance at the summit, which will take place from November 18-19.\" \"A Trump administration official told reporters the US president will not bring up Russia's war on Ukraine, although Kremlin officials previously suggested the conflict could be discussed.\" Tariffs/chip and Iran war are on the agenda.",
+  "verifica": "confermato",
+  "nota_revisore": "Primo incontro a tre ad Apec Shenzhen 18-19/11, conferma della Casa Bianca, temi dazi/chip/Iran, Ucraina esclusa per un funzionario USA: tutto su Al Jazeera. AP: i tre 'expected to meet Thursday' (19/11)."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Milano, venerdì 13/11: Ftse Mib a 51.859 (+0,1%), +3,61% nella settimana; spread Btp-Bund tra 100 e 105 punti, Btp decennale vicino al 4,45%; Fincantieri la peggiore del listino (oltre -4%); Eni +1,98%",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/borsa-italiana-commento-giornata-13-novembre-2026",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Borsa Italiana, il commento della seduta del 13 novembre 2026",
+    "ricerca": "Piazza Affari chiude venerdì 13 novembre 2026 Teleborsa"
+   },
+   {
+    "testata": "Money.it",
+    "url": "https://www.money.it/piazza-affari-chiude-in-lieve-rialzo-ftse-13-11-2026",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Piazza Affari chiude in lieve rialzo, FTSE MIB a +0,10% a 51.858,51 punti",
+    "ricerca": "Piazza Affari chiude venerdì 13 novembre 2026 Teleborsa"
+   }
+  ],
+  "trovato": "SoldiOnline: \"Il FTSEMib ha messo a segno un rialzo dello 0,1% a 51.859 punti\"; \"nell'intera settimana il principale indice di Borsa Italiana ha guadagnato il 3,61%.\"; \"Lo spread Btp-Bund ha oscillato tra i 100 e i 105 punti.\"; \"il rendimento del Btp decennale che si è avvicinato al 4,45%\"; \"Al FTSEMib spicca la performance negativa di Fincantieri (-4,28% a 11,405 euro).\" \"ENI ha registrato un progresso dell'1,98% a 25,975 euro.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Tutte le cifre su SoldiOnline. Money.it: Ftse Mib 51.858,51 (+0,10%), +3,61%, Eni +1,98%, Fincantieri -4,11% (oltre -4%, coerente)."
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "testo": "Brent a circa 96 $ al barile, ben sopra i circa 72 $ di fine febbraio prima della guerra in Iran; lo stretto di Hormuz resta chiuso e il conflitto è in stallo",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.click2houston.com/business/2026/11/16/stocks-decline-in-asia-as-concerns-over-the-nvidia-fallout-persist/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Stocks decline in Asia as concerns over the Nvidia fallout persist",
+    "ricerca": "Nikkei closes lower Monday Nvidia Huang Japan GDP contraction yen 159",
+    "agenzia": "AP"
+   },
+   {
+    "testata": "Al Jazeera",
+    "url": "https://www.aljazeera.com/news/2026/11/14/trump-xi-putin-trilateral-meeting-at-apec-what-to-expect",
+    "data_pubblicazione": "2026-11-14",
+    "citazione": "Trump-Xi-Putin trilateral meeting at APEC: What to expect",
+    "ricerca": "Trump Xi Putin summit APEC China weekend news November 15 2026"
+   }
+  ],
+  "trovato": "AP: Brent \"climbed 0.6% to $96.40 per barrel\" (ben sopra circa 72 $ di fine febbraio). Al Jazeera: \"After more than 100 days, the critical Strait of Hormuz remains closed\" e \"the conflict remains in a deadlock.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Brent ~96 $ (AP 96,40), Hormuz chiuso e conflitto in stallo (Al Jazeera 14/11). Il prezzo di fine febbraio (~72 $) letto nel testo AP."
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "testo": "Secondo il Financial Times, Jensen Huang valuta un ritorno alla guida di Nvidia: un suo alleato prepara una «war room» di dirigenti della Silicon Valley per fare pressione sul consiglio",
+  "data_evento": "2026-11-16",
+  "novita": "Giovedì Huang si era dimesso; oggi il Financial Times riporta che valuta di tornare",
+  "fonti": [
+   {
+    "testata": "Financial Times (RTÉ)",
+    "url": "https://www.rte.ie/news/business/2026/1116/1599339-jensen-huang-nvidia/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Jensen Huang discussing Nvidia return with allies - FT",
+    "ricerca": "Financial Times Jensen Huang discussing return Nvidia board"
+   },
+   {
+    "testata": "Investing.com (Yahoo Finance)",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/asia-stocks-slide-ai-jitters-043337789.html",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Asia stocks tumble as chipmakers slide and weak China data adds pressure",
+    "ricerca": "Bloomberg Asian stocks slide Nvidia Taiwan chipmakers Monday AI trade"
+   }
+  ]
+ },
+ {
+  "id": "N09",
+  "sezione": "top_news",
+  "testo": "Nvidia riferisce martedì 17/11 dopo la chiusura di Wall Street: utile per azione atteso 2,47 $, ricavi attesi circa 108,8 mld $; primi conti dopo l'uscita di Huang, amministratore delegato ad interim è Colette Kress",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FXEmpire",
+    "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-nvidia-earnings-anthropic-ipo-test-ai-trade-1644719",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "The Week Ahead: Nvidia Earnings, Anthropic IPO Test AI Trade",
+    "ricerca": "Wall Street week ahead Nvidia earnings Anthropic IPO Warsh Fed hike December"
+   },
+   {
+    "testata": "Thrive in Markets",
+    "url": "https://thriveinmarkets.com/market-insights/week-ahead-2026-11-16/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Fed Minutes and Nvidia Earnings Could Move Stocks This Week",
+    "ricerca": "markets week ahead November 16 2026 stocks oil Fed"
+   }
+  ],
+  "trovato": "FXEmpire: Nvidia \"is expected to report earnings of $2.47 per share on revenue of $108.8 billion.\" \"The results and earnings call will be the first since Jensen Huang stepped down as CEO.\" Interim CEO \"Colette Kress\". Thrive: \"about $2.47 a share on roughly $109 billion of sales\".",
+  "verifica": "confermato",
+  "nota_revisore": "EPS 2,47, ricavi 108,8 mld, primi conti dopo l'uscita di Huang, Kress ad interim su FXEmpire; Thrive concorda (~109 mld) ma non cita Kress. Martedi 17/11 dopo la chiusura confermato dal calendario."
+ },
+ {
+  "id": "N10",
+  "sezione": "top_news",
+  "testo": "Wall Street venerdì 13/11: S&P 500 -0,4%, Dow +0,1%, Nasdaq -0,9%; Nvidia -2% dopo il -4,3% di giovedì; Broadcom -4,8%, AMD -8,8%",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.click2houston.com/business/2026/11/16/stocks-decline-in-asia-as-concerns-over-the-nvidia-fallout-persist/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Stocks decline in Asia as concerns over the Nvidia fallout persist",
+    "ricerca": "Nikkei closes lower Monday Nvidia Huang Japan GDP contraction yen 159",
+    "agenzia": "AP"
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.kiro7.com/news/business/stocks-decline-asia/Y6KSUFUT6E4JJJKTTJKBZ6637U/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Stocks decline in Asia as investor concerns over Nvidia fallout extend into another week",
+    "ricerca": "Nikkei closes lower Monday Nvidia Huang Japan GDP contraction yen 159",
+    "agenzia": "AP"
+   }
+  ],
+  "trovato": "AP: \"On Friday, Wall Street's benchmark S&P 500 dropped 0.4%.\" \"The Dow Jones Industrial Average edged 0.1% higher, while the technology-heavy Nasdaq composite fell 0.9%.\" \"Nvidia lost 2% Friday, after falling 4.3% Thursday, with Broadcom declining 4.8% Friday and AMD ... giving up 8.8%.\"",
+  "verifica": "confermato",
+  "nota_revisore": "S&P -0,4%, Dow +0,1%, Nasdaq -0,9%, Nvidia -2% (dopo -4,3%), Broadcom -4,8%, AMD -8,8% coincidono con AP (kiro7 e click2houston)."
+ },
+ {
+  "id": "N11",
+  "sezione": "top_news",
+  "testo": "Euro Stoxx 50 chiude venerdì a 6.386,86 (-0,19%) e la settimana a +3,5%, la migliore da aprile; giovedì aveva toccato il massimo da fine agosto",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (finanznachrichten)",
+    "url": "https://www.finanznachrichten.de/nachrichten-2026-11/70128067-europa-schluss-aufwaertsdrang-erlahmt-nach-starker-boersenwoche-095.htm",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Europa-Schluss: Aufwärtsdrang erlahmt nach starker Börsenwoche",
+    "ricerca": "\"Europa-Schluss\" EuroStoxx Freitag 13. November 2026",
+    "agenzia": "dpa-AFX"
+   }
+  ],
+  "trovato": "finanznachrichten (dpa-AFX/Moneycab): \"Der Eurozone-Leitindex EuroStoxx 50 schloss 0,19 Prozent niedriger bei 6.386,86 Zählern.\" \"Mit einem Aufschlag von 3,5 Prozent war die Börsenwoche die stärkste seit April.\" \"Am Vortag hatte es der EuroStoxx 50 auf den höchsten Stand seit Ende August geschafft.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Chiusura 6.386,86 (-0,19%), settimana +3,5% (migliore da aprile), massimo da fine agosto giovedi: tutti confermati."
+ },
+ {
+  "id": "N12",
+  "sezione": "top_news",
+  "testo": "Oro future a 3.886,3 $ venerdì 13/11; il 10 anni USA verso il 5,15% e il dollaro in rafforzamento",
+  "data_evento": "2026-11-13",
+  "novita": "Sintesi della settimana: l'oro scende mentre i rendimenti salgono",
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-13/gold-posts-steep-weekly-loss-treasury-yields-rise-fed-tightening-bets",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Gold posts steep weekly loss as Treasury yields rise on Fed tightening bets - Kitco PM Report",
+    "ricerca": "gold price falls week November 13 2026 dollar Fed hike bets ounce"
+   },
+   {
+    "testata": "Cryptoticker",
+    "url": "https://cryptoticker.io/en/gold-price-3886-crypto-crash-lowest-since-october-2025-november-15-2026/",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "Gold Price at $3,886: Gold Falls With Bitcoin",
+    "ricerca": "gold future closed Friday November 13 2026 3,886.30"
+   }
+  ],
+  "trovato": "Cryptoticker (15/11/2026): \"The December gold futures contract on Comex closed on Friday, November 13, 2026, at $3,886.30 per troy ounce\"; \"The dollar adds to the pressure: BullionVault says the DXY dollar index hit its highest level since April 2025.\" Kitco PM Report 13/11 (URL non in scheda): \"The benchmark 10-year U.S. Treasury yield climbed toward 5.15%, while the U.S. dollar remained firm.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Oro 3.886,30 $ e dollaro forte confermati da Cryptoticker. Il 5,15% NON e nella pagina Kitco della scheda (11/11: 'briefly exceeded 5.00% Tuesday', nessun 3,886 ne 5,15%) ne in Cryptoticker ('rose back above 5%'): l'ho trovato solo su Kitco PM Report del 13/11 (kitco.com/news/article/2026-11-13/gold-posts-steep-weekly-loss-treasury-yields-rise-fed-tightening-bets). Fatto vero, ma la fonte Kitco in scheda va sostituita con quell'URL."
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "Borse asiatiche 16/11, chiusure: Taiex -6%, Kospi -3,6% a 5.100,50, Nikkei -2,4% a 59.662,02, Hang Seng +0,5% a 23.753,84, Shanghai -0,9% a 3.602,57, ASX 200 -0,4%",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AFP (Yahoo Finance)",
+    "url": "https://uk.finance.yahoo.com/news/stocks-extend-losses-traders-digest-030006139.html",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Stocks extend losses as traders digest Nvidia fallout",
+    "ricerca": "Hang Seng closes Monday November 16 2026 Hong Kong stocks close",
+    "agenzia": "AFP"
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.click2houston.com/business/2026/11/16/stocks-decline-in-asia-as-concerns-over-the-nvidia-fallout-persist/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Stocks decline in Asia as concerns over the Nvidia fallout persist",
+    "ricerca": "Nikkei closes lower Monday Nvidia Huang Japan GDP contraction yen 159",
+    "agenzia": "AP"
+   },
+   {
+    "testata": "JoongAng Daily",
+    "url": "https://www.koreajoongangdaily.com/business/kospi-tanks-over-3-with-tech-share-selloff-as-nvidia-turmoil-stokes-ai-bubble-concerns/12975391",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Kospi tanks over 3% with tech share sell-off as Nvidia turmoil stokes AI bubble concerns",
+    "ricerca": "Kospi closes November 16 2026"
+   }
+  ],
+  "trovato": "AFP (Yahoo UK): \"Hong Kong - Hang Seng Index: UP 0.5 percent at 23,753.84 (close)\"; \"Shanghai - Composite: DOWN 0.9 percent at 3,602.57 (close)\"; \"Seoul - Kospi: DOWN 3.6 percent at 5,100.50 (close)\"; \"Tokyo - Nikkei 225: DOWN 2.4 percent at 59,662.02 (close)\". AP (click2houston): \"Taiwan's Taiex sank 6%\"; \"Australia's S&P/ASX 200 edged down 0.4% to 9,044.70.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto da zero: Kospi 5.100,50 (AFP e JoongAng 5,100.5), Nikkei 59.662,02, Hang Seng 23.753,84 e Shanghai -0,9% a 3.602,57 sono etichettati 'close' nell'AFP; Taiex -6% e ASX -0,4% sono nell'AP. Attenzione: l'AP riporta per gli stessi indici livelli diversi (Kospi 5.100,25, Hang Seng 23.759,37, Shanghai -1% a 3.598,75): la scheda ora segue AFP, coerente."
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "Titoli asiatici, 16/11: SK Hynix -7,9%, Samsung Electronics -4,5%, SoftBank -3,7%, Kioxia -8%, Tokyo Electron -7,1%, TSMC -5,7%",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.click2houston.com/business/2026/11/16/stocks-decline-in-asia-as-concerns-over-the-nvidia-fallout-persist/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Stocks decline in Asia as concerns over the Nvidia fallout persist",
+    "ricerca": "Nikkei closes lower Monday Nvidia Huang Japan GDP contraction yen 159",
+    "agenzia": "AP"
+   }
+  ],
+  "trovato": "AP (click2houston): \"SK Hynix plummeted 7.9%\"; \"Samsung Electronics gave up 4.5%\"; \"SoftBank slipped 3.7%\"; Kioxia \"dropped 8%\"; \"chip equipment maker Tokyo Electron dipped 7.1%\"; TSMC \"falling 5.7%\".",
+  "verifica": "confermato",
+  "nota_revisore": "Versione finale AP (click2houston) coincide con tutte le cifre del fatto: Hynix -7,9, Samsung -4,5, SoftBank -3,7, Kioxia -8, Tokyo Electron -7,1, TSMC -5,7. Le versioni AP intraday (kiro7) hanno cifre piu basse: usare quella di chiusura."
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Kospi: chiude a 5.100,50 (-190,03 punti, -3,59%); SK hynix -7,89%; gli investitori stranieri vendono per 1.383,7 mld di won netti, i privati comprano per 1.348,4 mld",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/market/2026/11/16/pension-funds-dump-most-stocks-in-five-years-as-kospi",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Pension Funds Dump Most Stocks in Five Years as KOSPI Plunges 3.59% - Seoul Economic Daily",
+    "ricerca": "Kospi closes November 16 2026 foreign net selling"
+   },
+   {
+    "testata": "JoongAng Daily",
+    "url": "https://www.koreajoongangdaily.com/business/kospi-tanks-over-3-with-tech-share-selloff-as-nvidia-turmoil-stokes-ai-bubble-concerns/12975391",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Kospi tanks over 3% with tech share sell-off as Nvidia turmoil stokes AI bubble concerns",
+    "ricerca": "Kospi closes November 16 2026"
+   }
+  ],
+  "trovato": "JoongAng Daily (16/11/2026, 17:07): \"The Kospi lost 190.03 points, or 3.59 percent, to close at 5,100.5, extending its losses to a third session.\" \"chipmaker SK hynix plunged 7.89 percent to 1.12 million won.\" Seoul Economic Daily (16/11/2026, 17:52): \"Foreign investors and institutions sold a net 1.3837 trillion won and 459.8 billion won, respectively, on the main board\" ... \"while retail investors bought a net 1.3484 trillion won.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Kospi, -190,03, -3,59%, SK hynix -7,89%, stranieri -1.383,7 mld e privati +1.348,4 mld confermati (JoongAng arrotonda 1,38 e 1,34 mila mld). Non verificato letteralmente nelle due pagine che SK hynix 'pesi piu di tutti' sull'indice. Altre fonti (Bloomingbit) danno flussi diversi (1,6998 e 1,663 mila mld): perimetro non chiaro, non usate."
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Wall Street venerdì 13/11: Nasdaq -0,9%, Nvidia -2% (dopo -4,3% giovedì), Broadcom -4,8%, AMD -8,8%",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.click2houston.com/business/2026/11/16/stocks-decline-in-asia-as-concerns-over-the-nvidia-fallout-persist/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Stocks decline in Asia as concerns over the Nvidia fallout persist",
+    "ricerca": "Nikkei closes lower Monday Nvidia Huang Japan GDP contraction yen 159",
+    "agenzia": "AP"
+   },
+   {
+    "testata": "AP",
+    "url": "https://www.kiro7.com/news/business/stocks-decline-asia/Y6KSUFUT6E4JJJKTTJKBZ6637U/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Stocks decline in Asia as investor concerns over Nvidia fallout extend into another week",
+    "ricerca": "Nikkei closes lower Monday Nvidia Huang Japan GDP contraction yen 159",
+    "agenzia": "AP"
+   }
+  ],
+  "trovato": "AP: \"On Friday, Wall Street's benchmark S&P 500 dropped 0.4%\"; \"the technology-heavy Nasdaq composite fell 0.9%\"; \"Nvidia lost 2% Friday, after falling 4.3% Thursday, with Broadcom declining 4.8% Friday and AMD, or Advanced Micro Devices, giving up 8.8%.\" (versione kiro7; click2houston ha le stesse cifre)",
+  "verifica": "confermato",
+  "nota_revisore": "Nasdaq -0,9%, Nvidia -2% dopo -4,3%, Broadcom -4,8%, AMD -8,8% coincidono con AP (click2houston e kiro7)."
+ },
+ {
+  "id": "D06",
+  "sezione": "mercati",
+  "testo": "Gold 11/11: dopo il CPI di ottobre (+0,4% sul mese, core +0,3%) i future danno l'87,1% di probabilità a un rialzo Fed di 25 pb l'8-9 dicembre e il 12,9% a uno da 50 pb; indice del dollaro intorno a 102,90, vicino al massimo da aprile 2025; Treasury 10 anni sopra 5,00%",
+  "data_evento": "2026-11-11",
+  "novita": "Quadro di fondo dei prezzi dei tassi, aggiornato dai rendimenti di venerdì",
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-11/gold-falls-below-4000-dollar-surges-fed-hike-bets-rise-kitco-pm-report",
+    "data_pubblicazione": "2026-11-11",
+    "citazione": "Gold falls below $4,000 as dollar surges, Fed hike bets rise - Kitco PM Report",
+    "ricerca": "gold price falls week November 13 2026 dollar Fed hike bets ounce"
+   }
+  ],
+  "fonte_singola": true,
+  "trovato": "Kitco PM Report 11/11: \"headline inflation increasing 0.4% in October\" e \"core prices rose 0.3%, also above forecasts\"; futures \"approximately an 87.1% probability of a 25-basis-point increase\" e \"a 12.9% probability of a 50-basis-point move\" per il 8-9 dicembre; \"The U.S. dollar index climbed approximately 0.7% toward 102.90\"; poi \"The benchmark 10-year Treasury yield had briefly exceeded 5.00% Tuesday as investors responded to the inflation figures.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Numeri CPI, probabilita 87,1/12,9, DXY ~102,90 (vicino al massimo da aprile 2025) confermati. Sfumatura: il 10 anni ha superato 5,00% solo brevemente martedi, non e 'sopra 5,00%' in modo stabile."
+ },
+ {
+  "id": "D07",
+  "sezione": "deep_dive",
+  "testo": "Calendario Fed della settimana: martedì 17/11 vendite al dettaglio USA (ottobre) attese +0,2% sul mese, core +0,4%, prima +0,8% e +0,9%; mercoledì 18/11 verbali FOMC di ottobre; lunedì parlano Williams (Fed di New York) e il presidente Warsh",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FXEmpire",
+    "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-nvidia-earnings-anthropic-ipo-test-ai-trade-1644719",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "The Week Ahead: Nvidia Earnings, Anthropic IPO Test AI Trade",
+    "ricerca": "Wall Street week ahead Nvidia earnings Anthropic IPO Warsh Fed hike December"
+   },
+   {
+    "testata": "Thrive in Markets",
+    "url": "https://thriveinmarkets.com/market-insights/week-ahead-2026-11-16/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Fed Minutes and Nvidia Earnings Could Move Stocks This Week",
+    "ricerca": "markets week ahead November 16 2026 stocks oil Fed"
+   }
+  ],
+  "trovato": "FXEmpire: \"Retail Sales m/m, forecast 0.2% (prior 0.8%)\" e \"Core Retail Sales m/m, forecast 0.4% (prior 0.9%)\" martedi 17/11; \"FOMC Meeting Minutes\" mercoledi 18/11 (riunione di ottobre); \"Fed Chair Warsh Speaks, 17:00 GMT\" e \"FOMC Member Williams Speaks, 14:05 GMT\" lunedi. Thrive: \"The minutes, due Wednesday at 19:00 UTC\" e vendite \"after +0.8% in September\".",
+  "verifica": "confermato",
+  "nota_revisore": "Attese +0,2%/core +0,4% e precedenti +0,8%/+0,9% su FXEmpire; il mese di ottobre e implicito (Thrive: settembre +0,8%). Verbali ottobre, Williams e Warsh lunedi confermati. Nota: Williams e New York non verificato testualmente."
+ },
+ {
+  "id": "D08",
+  "sezione": "deep_dive",
+  "testo": "Europa: l'Euro Stoxx 50 -0,19% a 6.386,86 venerdì, +3,5% in settimana; secondo l'analista Robert Greil (Bankhaus Merck Finck): se l'AI si indebolisce, le borse europee vanno meglio di quelle americane e asiatiche",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Moneycab (finanznachrichten)",
+    "url": "https://www.finanznachrichten.de/nachrichten-2026-11/70128067-europa-schluss-aufwaertsdrang-erlahmt-nach-starker-boersenwoche-095.htm",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Europa-Schluss: Aufwärtsdrang erlahmt nach starker Börsenwoche",
+    "ricerca": "\"Europa-Schluss\" EuroStoxx Freitag 13. November 2026",
+    "agenzia": "Moneycab"
+   },
+   {
+    "testata": "AWP (cash.ch)",
+    "url": "https://www.cash.ch/news/aktien-europa-schluss-aufwartsdrang-erlahmt-nach-starker-borsenwoche-985207",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Aktien Europa Schluss: Aufwärtsdrang erlahmt nach starker Börsenwoche",
+    "ricerca": "\"Europa-Schluss\" EuroStoxx Freitag 13. November 2026",
+    "agenzia": "AWP"
+   }
+  ],
+  "trovato": "cash.ch (AWP): Robert Greil di Bankhaus Merck Finck: \"«Schwächelt der KI-Sektor, performen Europas Aktienmärkte besser als die amerikanischen und asiatischen\" (frase piu lunga). \"Der Eurozone-Leitindex EuroStoxx 50 schloss 0,19 Prozent niedriger bei 6.386,86 Zählern.\" \"Mit einem Aufschlag von 3,5 Prozent war die Börsenwoche die stärkste seit April.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Cifre e attribuzione a Greil confermate sulla copia cash.ch (AWP). Problema residuo: la pagina finanznachrichten e accreditata a Moneycab (13.11.2026, 18:39), non a dpa-AFX, e mostra solo il testo troncato '«Schwächelt der KI-Sektor, performen Europas Aktienmärkte besser ...' senza nome. Etichetta 'dpa-AFX (finanznachrichten)' nella scheda non verificata: correggerla in Moneycab. Il fatto omette che il confronto e 'meglio di USA e Asia'."
+ },
+ {
+  "id": "D09",
+  "sezione": "deep_dive",
+  "testo": "Piazza Affari: Ftse Mib a 51.859 (+0,1%), +3,61% nella settimana; All Share +0,06%, Mid Cap -0,21%; Juventus -10,8% in vista dell'aumento di capitale; spread Btp-Bund 100-105 punti",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/borsa-italiana-commento-giornata-13-novembre-2026",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Borsa Italiana, il commento della seduta del 13 novembre 2026",
+    "ricerca": "Piazza Affari chiude venerdì 13 novembre 2026 Teleborsa"
+   },
+   {
+    "testata": "Money.it",
+    "url": "https://www.money.it/piazza-affari-chiude-in-lieve-rialzo-ftse-13-11-2026",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Piazza Affari chiude in lieve rialzo, FTSE MIB a +0,10% a 51.858,51 punti",
+    "ricerca": "Piazza Affari chiude venerdì 13 novembre 2026 Teleborsa"
+   }
+  ],
+  "trovato": "SoldiOnline: \"Il FTSEMib ha messo a segno un rialzo dello 0,1% a 51.859 punti\"; \"nell'intera settimana il principale indice di Borsa Italiana ha guadagnato il 3,61%.\"; \"Segno meno, invece, per il FTSE Italia Mid Cap (-0,21%).\"; \"Al MidCap forti vendite su Juventus FC (-10,8% a 1,365 euro).\"; \"Lo spread Btp-Bund ha oscillato tra i 100 e i 105 punti.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Ftse Mib 51.859 (+0,1%), +3,61% settimana, All Share ~+0,06%, Mid Cap -0,21%, Juventus -10,8%, spread 100-105 tutti su SoldiOnline. Money.it conferma 51.858,51 (+0,10%) e +3,61% ma non ha gli altri dati. Motivo aumento di capitale per Juventus non verificato nel testo letto."
+ },
+ {
+  "id": "D10",
+  "sezione": "deep_dive",
+  "testo": "Giappone: Pil -0,1% annualizzato, consumi privati -1,1%; l'importazione di petrolio è quasi totale e Hormuz è di fatto bloccato; dollaro a circa 160 yen",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.ksat.com/business/2026/11/16/japans-economy-contracts-slightly-in-the-latest-quarter-as-oil-prices-remain-high/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Japan's economy contracts slightly in the latest quarter as oil prices remain high",
+    "ricerca": "Japan economy shrinks July-September 2026 GDP annualized Cabinet Office Takaichi",
+    "agenzia": "AP"
+   }
+  ],
+  "trovato": "AP: \"The Japanese economy contracted at an annualized rate of 0.1% for the July-September quarter,\" ... \"with private consumption down an annualized 1.1%.\" \"Japan, which imports virtually all its oil, has been severely hurt by surging oil prices, because of the war in Iran.\" \"The main route for oil shipments, the Strait of Hormuz, is effectively blocked.\" \"The U.S. dollar is recently trading at about 160 yen\"",
+  "verifica": "confermato",
+  "nota_revisore": "Pil -0,1% annualizzato, consumi -1,1%, import petrolifero quasi totale, Hormuz di fatto bloccato, dollaro a circa 160 yen: tutto su AP/KSAT."
+ },
+ {
+  "id": "D11",
+  "sezione": "deep_dive",
+  "testo": "Stretto di Hormuz: la guerra è cominciata il 28/2, i colpi in grande scala sono finiti ma il conflitto è in stallo e lo stretto resta chiuso; la Cina riceveva circa un terzo del greggio da quella rotta",
+  "data_evento": "2026-11-14",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Al Jazeera",
+    "url": "https://www.aljazeera.com/news/2026/11/14/trump-xi-putin-trilateral-meeting-at-apec-what-to-expect",
+    "data_pubblicazione": "2026-11-14",
+    "citazione": "Trump-Xi-Putin trilateral meeting at APEC: What to expect",
+    "ricerca": "Trump Xi Putin summit APEC China weekend news November 15 2026"
+   }
+  ],
+  "trovato": "Al Jazeera: \"While full-scale strikes have, for now, ceased, the conflict remains in a deadlock.\" \"After more than 100 days, the critical Strait of Hormuz remains closed, and oil and gas prices are still volatile as ships in the strait continue to face Iranian strikes and seamines.\" \"One-third of China's crude oil supply transited the strait before the war.\" Guerra \"which the US and Israel launched on February 28\".",
+  "verifica": "confermato",
+  "nota_revisore": "Inizio 28/2, fine dei colpi su larga scala, stallo, Hormuz chiuso e circa un terzo del greggio cinese confermati da Al Jazeera 14/11."
+ },
+ {
+  "id": "D12",
+  "sezione": "deep_dive",
+  "testo": "Brent a 96,40 $ (+0,6%) lunedì; ben sopra i circa 72 $ di fine febbraio, prima della guerra in Iran; il greggio si stabilizza mentre i flussi dal Golfo tornano ai livelli prebellici",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.click2houston.com/business/2026/11/16/stocks-decline-in-asia-as-concerns-over-the-nvidia-fallout-persist/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Stocks decline in Asia as concerns over the Nvidia fallout persist",
+    "ricerca": "Nikkei closes lower Monday Nvidia Huang Japan GDP contraction yen 159",
+    "agenzia": "AP"
+   },
+   {
+    "testata": "AFP (Yahoo Finance)",
+    "url": "https://uk.finance.yahoo.com/news/stocks-extend-losses-traders-digest-030006139.html",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Stocks extend losses as traders digest Nvidia fallout",
+    "ricerca": "Hang Seng closes Monday November 16 2026 Hong Kong stocks close",
+    "agenzia": "AFP"
+   }
+  ],
+  "trovato": "AP (click2houston): Brent \"climbed 0.6% to $96.40 per barrel\"; \"oil flows in the Gulf were recovering from prewar levels\"; versione AP precedente: \"Brent crude, the international standard, slid 1% to $94.91 per barrel\", ancora ben sopra i circa 72 $ di fine febbraio.",
+  "verifica": "confermato",
+  "nota_revisore": "Brent 96,40 (+0,6%) e flussi del Golfo verso i livelli prebellici sono nella versione finale AP; il riferimento ai 72 $ di fine febbraio e nel testo AP (letto nella versione kiro7/Daily Excelsior). AFP a metà seduta dava 96,90 (intraday), non in contrasto."
+ },
+ {
+  "id": "D13",
+  "sezione": "deep_dive",
+  "testo": "Cina, ottobre: produzione industriale +4,8% (stima 5,3%), vendite al dettaglio +0,4% (stima 0,8%), investimenti fissi -8,1% (stima -7,0%); export forte grazie ai beni tecnologici legati all'AI; ING: «2026 was one of the weakest years for domestic demand in recent history»",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Business Standard)",
+    "url": "https://www.business-standard.com/world-news/china-s-economy-slows-in-oct-as-factory-output-retail-sales-miss-forecasts-126111600592_1.html",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "China's economy slows in Oct as factory output, retail sales miss forecasts",
+    "ricerca": "China October 2026 retail sales industrial production fixed-asset investment year on year National Bureau of Statistics",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Reuters (The Standard HK): \"Industrial output in October expanded 4.8 percent from a year earlier\"; \"Retail sales edged up 0.4 percent year on year in October\"; investimenti \"8.1 percent decline\" vs 7.0 atteso; Lynn Song di ING: \"2026 was one of the weakest years for domestic demand in recent history.\" Next: \"In 2027, the negative impact from a trade-in programme that had pulled purchases forward could ease.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Cifre e stime (5,3; 0,8; -7,0) e citazione ING confermate sulla copia Reuters di The Standard HK. La nota ING Think non contiene quella frase esatta, ma Reuters la riporta. Business Standard non ritrovato."
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "testo": "Cina, ottobre: vendite al dettaglio +0,4% a/a (atteso +0,8%); produzione industriale +4,8% (atteso +5,3%)",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Business Standard)",
+    "url": "https://www.business-standard.com/world-news/china-s-economy-slows-in-oct-as-factory-output-retail-sales-miss-forecasts-126111600592_1.html",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "China's economy slows in Oct as factory output, retail sales miss forecasts",
+    "ricerca": "China October 2026 retail sales industrial production fixed-asset investment year on year National Bureau of Statistics",
+    "agenzia": "Reuters"
+   }
+  ],
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "China October 2026 retail sales industrial production fixed-asset investment year on year National Bureau of Statistics",
+   "China October retail sales industrial production disappoint November 16 2026 statistics bureau"
+  ],
+  "trovato": "Reuters (The Standard HK): \"Retail sales edged up 0.4 percent year on year in October after growing 1.1 percent the previous month.\" \"Economists polled by Reuters had expected a 0.8 percent increase.\" \"The pace missed Reuters poll expectations for growth of 5.3 percent\" (produzione 4,8%).",
+  "verifica": "confermato",
+  "nota_revisore": "Vendite al dettaglio +0,4% (atteso 0,8%) e produzione industriale +4,8% (atteso 5,3%) confermati; ING Think concorda."
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Intervento di Kevin Warsh (Fed), lun 16, 18:00",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Thrive in Markets",
+    "url": "https://thriveinmarkets.com/market-insights/week-ahead-2026-11-16/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Fed Minutes and Nvidia Earnings Could Move Stocks This Week",
+    "ricerca": "markets week ahead November 16 2026 stocks oil Fed"
+   },
+   {
+    "testata": "FXEmpire",
+    "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-nvidia-earnings-anthropic-ipo-test-ai-trade-1644719",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "The Week Ahead: Nvidia Earnings, Anthropic IPO Test AI Trade",
+    "ricerca": "Wall Street week ahead Nvidia earnings Anthropic IPO Warsh Fed hike December"
+   }
+  ],
+  "trovato": "FXEmpire: \"Fed Chair Warsh Speaks, 17:00 GMT\" lunedi. Thrive in Markets: \"Fed Chair Kevin Warsh speaks on Monday at 17:00 UTC.\"",
+  "verifica": "confermato",
+  "nota_revisore": "17:00 GMT/UTC = 18:00 a Roma (GMT+1 dal 1/11). Intervento di Warsh lunedi 16/11 confermato da entrambe le fonti."
+ },
+ {
+  "id": "A02",
+  "sezione": "agenda",
+  "testo": "Vendite al dettaglio USA, ottobre: +0,2% sul mese atteso, prima +0,8%. Mar 17, 14:30",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FXEmpire",
+    "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-nvidia-earnings-anthropic-ipo-test-ai-trade-1644719",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "The Week Ahead: Nvidia Earnings, Anthropic IPO Test AI Trade",
+    "ricerca": "Wall Street week ahead Nvidia earnings Anthropic IPO Warsh Fed hike December"
+   },
+   {
+    "testata": "Thrive in Markets",
+    "url": "https://thriveinmarkets.com/market-insights/week-ahead-2026-11-16/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Fed Minutes and Nvidia Earnings Could Move Stocks This Week",
+    "ricerca": "markets week ahead November 16 2026 stocks oil Fed"
+   }
+  ]
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "testo": "Conti trimestrali di Nvidia, mar 17, conference call 23:00 a Roma: utile per azione atteso 2,47 $, ricavi circa 108,8 mld $",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FXEmpire",
+    "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-nvidia-earnings-anthropic-ipo-test-ai-trade-1644719",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "The Week Ahead: Nvidia Earnings, Anthropic IPO Test AI Trade",
+    "ricerca": "Wall Street week ahead Nvidia earnings Anthropic IPO Warsh Fed hike December"
+   },
+   {
+    "testata": "Thrive in Markets",
+    "url": "https://thriveinmarkets.com/market-insights/week-ahead-2026-11-16/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Fed Minutes and Nvidia Earnings Could Move Stocks This Week",
+    "ricerca": "markets week ahead November 16 2026 stocks oil Fed"
+   }
+  ]
+ },
+ {
+  "id": "A04",
+  "sezione": "agenda",
+  "testo": "Verbali della riunione Fed di ottobre, mer 18, 20:00",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FXEmpire",
+    "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-nvidia-earnings-anthropic-ipo-test-ai-trade-1644719",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "The Week Ahead: Nvidia Earnings, Anthropic IPO Test AI Trade",
+    "ricerca": "Wall Street week ahead Nvidia earnings Anthropic IPO Warsh Fed hike December"
+   },
+   {
+    "testata": "Thrive in Markets",
+    "url": "https://thriveinmarkets.com/market-insights/week-ahead-2026-11-16/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Fed Minutes and Nvidia Earnings Could Move Stocks This Week",
+    "ricerca": "markets week ahead November 16 2026 stocks oil Fed"
+   }
+  ]
+ },
+ {
+  "id": "MEM-1113-A03",
+  "sezione": "agenda",
+  "testo": "Conti trimestrali di Nvidia, martedì 17 novembre, conference call alle 2 p.m. PT (23:00 a Roma)",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "SEC (modulo 8-K Nvidia)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000082/nvidiaannouncesceotransiti.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Colette Kress, the company's EVP and CFO since 2013, will serve as Interim CEO"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF.",
+  "ripresa": "2026-11-13"
+ },
+ {
+  "id": "MEM-1113-D04",
+  "sezione": "deep_dive",
+  "testo": "Fed: il governatore Waller sostiene un possibile rialzo di mezzo punto a dicembre; Logan chiede almeno due rialzi da un quarto di punto; CME FedWatch dà il rialzo di dicembre al 100% e quello da 50 pb al 13,2%",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "CNBC",
+    "url": "https://cnbc.com/2026/11/10/fed-governor-waller-sees-december-hike-likely.html",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Fed Governor Waller sees December hike likely, opens door to possible half-point increase"
+   },
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/economy/2026/11/12/us-cpi-fuels-talk-of-half-point-fed-hike-as-treasury-yields",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "U.S. CPI Fuels Talk of Half-Point Fed Hike as Treasury Yields Spike"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF.",
+  "ripresa": "2026-11-13"
+ },
+ {
+  "id": "MEM-1113-N04",
+  "sezione": "top_news",
+  "testo": "Yen: il dollaro vale circa 159,9 yen, vicino a 160; il ministro delle finanze giapponese dice che Tokyo si coordinerà con Washington e un funzionario ricorda l'intervento congiunto dell'estate scorsa",
+  "data_evento": "2026-11-13",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.boston25news.com/news/business/asian-shares-are/HYJESTPHW47S7NSEMT63ALTKMY/",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Asian shares are mixed as investors assess impact of Nvidia's fallout on global AI development"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/13/borsa-lasia-chiude-debole-pesano-i-timori-per-lia_95a2903b-0d67-4a8b-bcbd-2ddbfffb1fb3.html",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Borsa: l'Asia chiude debole, pesano i timori per l'Ia"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/cina-in-rosso-lo-tsunami-nvidia-rischia-di-abbattersi-sul-vertice-trump-xi-202611130753457223",
+    "data_pubblicazione": "2026-11-13",
+    "citazione": "Cina in rosso, lo tsunami Nvidia rischia di abbattersi sul vertice Trump-Xi"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF.",
+  "ripresa": "2026-11-13"
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "Spread Btp-Bund e Btp 10 anni, chiusura del 13/11 da Teleborsa/ANSA",
+  "ricerche": [
+   "Borsa Milano chiusura 13 novembre 2026 FTSE MIB spread Btp Bund",
+   "Borsa: Milano chiude spread Btp Bund 13 novembre 2026 rendimento decennale",
+   "teleborsa \"Spread BTP-Bund chiude\" 2026-11-13"
+  ],
+  "esito": "trovato",
+  "fonte": {
+   "testata": "SoldiOnline",
+   "url": "https://www.soldionline.it/notizie/azioni-italia/borsa-italiana-commento-giornata-13-novembre-2026"
+  }
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Asia in calo sui chip, Taiex -6% (AP, 07:00)",
+   "Huang valuta di tornare a Nvidia (Financial Times, 06:00)",
+   "Cina: vendite al dettaglio e produzione sotto le attese (Reuters, 04:00)",
+   "Pil giapponese -0,1% annualizzato (AP, 02:00)",
+   "Chip asiatici sotto pressione tra Nvidia e Anthropic (Bloomberg, 06:30)"
+  ],
+  "testate": [
+   {
+    "testata": "AP",
+    "storie": [
+     "Stocks decline in Asia as concerns over the Nvidia fallout persist",
+     "Japan's economy contracts slightly in the latest quarter as oil prices remain high"
+    ]
+   },
+   {
+    "testata": "Reuters",
+    "storie": [
+     "China's economy slows in Oct as factory output, retail sales miss forecasts"
+    ]
+   },
+   {
+    "testata": "Bloomberg",
+    "storie": [
+     "Nvidia Fallout, Anthropic IPO Squeeze Asian Chip Stocks Anew"
+    ]
+   },
+   {
+    "testata": "Financial Times",
+    "storie": [
+     "Jensen Huang discussing Nvidia return with allies"
+    ]
+   },
+   {
+    "testata": "CNBC",
+    "storie": [
+     "Stock futures slip as traders brace for Nvidia earnings, Anthropic IPO this week",
+     "Japan's economy contracts, third quarter GDP misses expectations"
+    ]
+   }
+  ],
+  "fuori": [],
+  "concorda": true,
+  "motivo": "Le testate aprono sull'effetto Nvidia sui chip asiatici",
+  "mancate_ieri": []
+ },
+ {
+  "id": "S1",
+  "sezione": "scaletta",
+  "apertura": {
+   "storia": "Chip asiatici in calo dopo il caso Nvidia",
+   "perche_prima": "Apertura di AP, Bloomberg e CNBC"
+  },
+  "moduli": [
+   {
+    "chiave": "chip",
+    "misura": "doppio",
+    "tesi": "Lo choc Nvidia pesa dove i chip sono l'indice: Taiwan e Corea cedono il doppio di Tokyo, mentre Hong Kong sale.",
+    "domanda": "Perché cade così tanto Taiwan e non la Cina?",
+    "prove": [
+     "Taiex -6% e Kospi -3,6% contro Hang Seng +0,5%",
+     "SK Hynix -7,9%, TSMC -5,7%",
+     "Stranieri vendono, privati coreani comprano",
+     "Nvidia da 5.800 a 3.900 mld $",
+     "Conti Nvidia martedì",
+     "Debutto Anthropic giovedì"
+    ],
+    "contro": "Se martedì Nvidia conferma la crescita, la vendita asiatica rientra.",
+    "schede": [
+     "D01",
+     "D02",
+     "D03",
+     "D04"
+    ],
+    "memoria": "M17"
+   },
+   {
+    "chiave": "rifugi",
+    "misura": "doppio",
+    "tesi": "La settimana ha avuto borse in rialzo e rifugi in calo: il vento è la Fed, non la paura.",
+    "domanda": "Perché oro e Treasury non proteggono?",
+    "prove": [
+     "10 anni +29 pb e 2 anni +37 pb in una settimana",
+     "Oro -4,6%",
+     "Dollaro più forte",
+     "Rialzo di dicembre quasi certo",
+     "Verbali mercoledì"
+    ],
+    "contro": "Verbali meno duri o conti Nvidia deboli riporterebbero acquisti sui Treasury.",
+    "schede": [
+     "D06",
+     "D07"
+    ],
+    "memoria": "M23"
+   },
+   {
+    "chiave": "europa",
+    "misura": "mezzo",
+    "tesi": "L'Europa guadagna quando l'AI scivola perché ha pochi titoli dei chip.",
+    "domanda": "Perché l'Europa regge meglio?",
+    "prove": [
+     "Euro Stoxx +3,5%",
+     "Ftse Mib +3,61%",
+     "dpa-AFX",
+     "Nasdaq +2,3%"
+    ],
+    "contro": "Un crollo dei chip trascinerebbe anche Milano (Technoprobe).",
+    "schede": [
+     "D08",
+     "D09"
+    ]
+   },
+   {
+    "chiave": "petrolio",
+    "misura": "mezzo",
+    "tesi": "Con Hormuz chiuso il petrolio caro frena chi lo importa: il Giappone già rallenta.",
+    "domanda": "Chi paga il petrolio a 96 dollari?",
+    "prove": [
+     "Pil Giappone -0,1%",
+     "Consumi -1,1%",
+     "Hormuz chiuso",
+     "Brent 96 contro 72",
+     "Yen a 160"
+    ],
+    "contro": "Un accordo che riapre Hormuz sgonfierebbe il Brent.",
+    "schede": [
+     "D10",
+     "D11",
+     "D12"
+    ],
+    "memoria": "M11"
+   }
+  ]
+ },
+ {
+  "id": "R2",
+  "sezione": "ricerca",
+  "dato": "MSCI ACWI (ETF) da inizio anno 2026: chiusura del 31/12/2025",
+  "esito": "mancante",
+  "ricerche": [
+   "iShares MSCI ACWI ETF ACWI closing price December 31 2025",
+   "ACWI ETF historical prices 2025-12-31 close 2026-01-02",
+   "MSCI ACWI index ends 2025 level December 31 2025 annual return",
+   "stockanalysis.com ACWI history (tabella ferma a agosto 2026)",
+   "digrin.com ACWI price history (solo dati mensili)",
+   "FMP chart ACWI (piano non abilitato)"
+  ]
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Vendite al dettaglio Cina a/a sotto le attese ma 10 anni +5 pb / S&P -0,40%",
+  "ricerche": [
+   "China October 2026 retail sales industrial production fixed-asset investment year on year National Bureau of Statistics",
+   "Asian markets November 16 2026 China data retail sales Hang Seng Shanghai Reuters"
+  ],
+  "ipotesi": [
+   {
+    "causa": "I rendimenti USA di venerdì hanno seguito i prezzi al consumo e la Fed, non la Cina: il dato cinese è uscito lunedì, dopo le chiusure americane",
+    "prevede": "10 anni su con la scommessa sul rialzo Fed, indipendente dal dato cinese",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Un'economia cinese più debole abbassa i prezzi delle materie prime e dunque i rendimenti USA",
+    "prevede": "10 anni in calo",
+    "prezzi": "non torna"
+   }
+  ],
+  "esito": "ipotesi"
+ }
+]

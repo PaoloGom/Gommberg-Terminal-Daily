@@ -1,0 +1,47 @@
+[
+ {
+  "campo": "notizie.0.testo",
+  "originale": "Anche la produzione industriale cresce del 4,8%, sotto il 5,3% previsto, e gli investimenti fissi calano dell'8,1% nei primi dieci mesi. Regge solo l'export, trainato dalla domanda di tecnologia per l'AI (Reuters).",
+  "testo": "La produzione industriale cresce del 4,8%, sotto il 5,3% previsto, e gli investimenti fissi calano dell'8,1% nei primi dieci mesi. Regge solo l'export, trainato dalla domanda di tecnologia per l'AI (Reuters)."
+ },
+ {
+  "campo": "notizie.4.testo",
+  "originale": "Il Ftse Mib finisce venerdì a 51.859 punti (+0,1%). Eni sale dell'1,98% e Fincantieri cala di oltre il 4%; lo spread tra Btp e Bund oscilla tra 100 e 105 punti (SoldiOnline).",
+  "testo": "Il Ftse Mib finisce venerdì a 51.859 punti (+0,1%), mentre lo spread tra Btp e Bund oscilla tra 100 e 105 punti (SoldiOnline)."
+ },
+ {
+  "campo": "moduli.chip.quindi",
+  "originale": "Martedì sera, a Wall Street chiusa, i conti di Nvidia: il primo test è l'apertura di Taipei di mercoledì.",
+  "testo": "Il primo test è l'apertura di Taipei di mercoledì, dopo i conti che Nvidia presenta a Wall Street chiusa."
+ },
+ {
+  "campo": "moduli.chip.testo.1",
+  "originale": "Dove i chip pesano meno la vendita si ferma. Hong Kong sale e Shanghai cede lo 0,9%, ma lì a pesare sono stati i dati di ottobre, con vendite e produzione sotto le attese (Reuters), più che la paura sull'AI.",
+  "testo": "Dove i chip pesano meno la vendita si ferma. Hong Kong sale e Shanghai cede lo 0,9%, ma lì a pesare sono stati i dati di ottobre (Reuters), più che la paura sull'AI."
+ },
+ {
+  "campo": "moduli.chip.testo.3",
+  "originale": "Giovedì debutta Anthropic, che chiede fino a 64,4 miliardi di dollari e secondo Investing.com ha attirato più interesse degli investitori istituzionali di SpaceX. Per chi investe nell'AI è un'altra occasione dove mettere i soldi, e per noi una ragione in più per vendere i fornitori più cari.",
+  "testo": "Giovedì debutta Anthropic, che secondo Investing.com ha attirato più interesse degli investitori istituzionali di SpaceX. Per chi investe nell'AI è un'altra occasione dove mettere i soldi, e per noi una ragione in più per vendere i fornitori più cari."
+ },
+ {
+  "campo": "moduli.rifugi.numero",
+  "originale": "-4,6%: l'oro in una settimana, da 4.074,90 a 3.886,30 $. Il Treasury a 10 anni ha chiuso la settimana a 5,15%: oro e titoli di Stato, i rifugi di solito cercati con la paura, hanno perso insieme.",
+  "testo": "-4,6%: l'oro in una settimana, da 4.074,90 a 3.886,30 $, mentre il Treasury a 10 anni ha chiuso la settimana a 5,15%: oro e titoli di Stato hanno perso insieme."
+ },
+ {
+  "campo": "moduli.rifugi.guardare",
+  "originale": "Se i verbali parlano di più rialzi, il 2 anni resta alto e l'oro fatica a recuperare. Se molti membri frenano, il mercato taglierà in fretta la scommessa sul mezzo punto e i rendimenti brevi scenderanno per primi.",
+  "testo": "Se i verbali parlano di più rialzi, l'oro fatica a recuperare. Se molti membri frenano, il mercato taglierà in fretta la scommessa sul mezzo punto."
+ },
+ {
+  "campo": "moduli.petrolio.testo.0",
+  "originale": "Quando il petrolio sale perché manca l'offerta, di solito soffrono i paesi che lo comprano: pagano di più senza vendere di più. Europa e Giappone sono i casi più chiari. A Tokyo i consumi privati sono scesi nel trimestre, tra maltempo e prezzi più alti, e il Pil è calato per la prima volta in un anno (AP).",
+  "testo": "Quando il petrolio sale perché manca l'offerta, di solito soffrono i paesi che lo comprano: pagano di più senza vendere di più. Europa e Giappone sono i casi più chiari, e Tokyo ha già sentito il colpo sul Pil, calato per la prima volta in un anno (AP)."
+ },
+ {
+  "campo": "moduli.petrolio.testo.1",
+  "originale": "Il conflitto in Iran è in stallo. Le ostilità su larga scala sono finite, ma Hormuz resta chiuso, e la Cina riceveva circa un terzo del suo greggio da quella rotta (Al Jazeera).",
+  "testo": "Intanto Hormuz resta chiuso, e proprio da quella rotta la Cina riceveva circa un terzo del suo greggio, che ora deve cercare altrove (Al Jazeera)."
+ }
+]
