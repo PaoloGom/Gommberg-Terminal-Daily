@@ -165,71 +165,83 @@ h2.headline { line-height: .98; letter-spacing: -.005em; margin: 14px 0 0; text-
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .viewer { background: #0B0A09; } }
 @media (max-width: 900px) { .stage .reader { display: none !important; } }
 
-/* ---------- Su carta: la giornata ---------- */
-main { padding-block: 40px 24px; }
+/* ---------- Sotto il primo schermo: Da leggere / Da tenere d'occhio ----------
+   Due blocchi: a sinistra ciò che si legge (notizie, analisi), a destra ciò che si tiene d'occhio (agenda, scommessa).
+   Regge al variare dei contenuti: notizie e analisi vanno a griglia (1-8 elementi), l'agenda mostra al massimo 4
+   appuntamenti e rimanda alla pag. 5 per gli altri, la scommessa va a tessere su due colonne (4-8 mercati).
+   Sotto i 950 px circa la colonna destra scende sotto la sinistra da sola (flex-wrap), senza regole apposta. */
+main { padding-block: 44px 24px; }
 .kicker { font-family: var(--body); font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--orange-ink); margin: 0; line-height: 1.4; }
-.day-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; align-items: start; }
-.day-grid.no-ag { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 56px; }
-.day-grid > * { min-width: 0; }
-.news { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
-.news li { border-bottom: 1px solid var(--rule); }
-.news a { display: grid; grid-template-columns: 28px 1fr; gap: 8px; align-items: baseline; padding: 11px 0; text-decoration: none; font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 17px; line-height: 1.28; }
-.news a .i { font-family: var(--mono); font-weight: 500; font-size: 13px; color: var(--orange-ink); font-stretch: 100%; }
-.news a .go { display: none; font-family: var(--mono); font-weight: 400; font-size: 12px; color: var(--muted); font-stretch: 100%; white-space: nowrap; }
-.news a:hover .t { color: var(--orange-ink); }
-.vote { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 22px; font-size: 14px; color: var(--muted); }
-.vote button { font-family: var(--mono); font-size: 13px; min-height: 38px; padding: 0 16px; background: transparent; color: var(--ink); border: 1px solid var(--rule); cursor: pointer; }
-.vote button:hover { border-color: var(--ink); }
-.vote .thx { color: var(--ink); }
-.box-h { display: flex; justify-content: space-between; align-items: baseline; gap: 4px 12px; flex-wrap: wrap; min-height: 22px; margin-bottom: 10px; }
+.giorno { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 44px 48px; }
+.leggi { flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 40px; padding-top: 22px; }
+.occhio { flex: 1 1 340px; min-width: 0; background: var(--panel); padding: 22px 22px 26px; display: flex; flex-direction: column; gap: 30px; }
+.sez-h { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px 16px; border-bottom: 3px solid var(--ink); padding-bottom: 10px; margin-bottom: 4px; }
+.sez-h h2 { margin: 0; font-family: var(--display); font-stretch: 85%; font-weight: 900; font-size: 34px; line-height: 1; }
+.occhio .sez-h h2 { font-size: 30px; }
+.sez-h span { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+.box-h { display: flex; justify-content: space-between; align-items: baseline; gap: 4px 12px; flex-wrap: wrap; min-height: 22px; margin-bottom: 4px; }
 .box-h span { font-family: var(--mono); font-size: 12px; color: var(--muted); }
-/* Agenda */
-.ag-list { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
-.ag-day { font-size: 12px; font-weight: 600; color: var(--muted); padding: 12px 0 4px; }
-.ag-row { display: grid; grid-template-columns: 58px 1fr; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--rule); }
-.ag-row .h { font-family: var(--mono); font-size: 12.5px; color: var(--muted); padding-top: 2px; }
-.ag-row .e { font-family: var(--display); font-stretch: 90%; font-weight: 700; font-size: 16px; line-height: 1.3; }
-.ag-row .a { display: block; font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 3px; font-weight: 400; font-stretch: 100%; }
-.ag-row.key { background: var(--panel); box-shadow: inset 3px 0 0 var(--orange); padding-inline: 12px 8px; }
-.ag-row.key .h { color: var(--orange-ink); }
-.ag-row .p { display: block; font-family: var(--body); font-stretch: 100%; font-weight: 400; font-size: 13.5px; color: var(--ink); margin-top: 4px; line-height: 1.4; }
-.ag-row .p b { color: var(--orange-ink); font-weight: 600; }
-.col2 { display: grid; gap: 40px; min-width: 0; }
-.an-list { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
-.an-list li { border-bottom: 1px solid var(--rule); }
-.an-row { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; width: 100%; padding: 10px 0 11px; text-align: left; background: none; border: 0; color: inherit; font: inherit; }
+.lnk { display: inline-block; margin-top: 12px; font-size: 13.5px; color: var(--orange-ink); text-underline-offset: 3px; background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit; text-decoration: underline; text-align: left; }
+/* Le notizie del giorno */
+.news { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); column-gap: 36px; }
+.news li { border-bottom: 1px solid var(--rule); }
+.news a { display: grid; grid-template-columns: 40px 1fr; gap: 8px; align-items: start; padding: 13px 0; text-decoration: none; font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 17px; line-height: 1.3; }
+.news a .i { font-stretch: 80%; font-weight: 900; font-size: 30px; line-height: .9; color: var(--orange); }
+.news a .go { display: none; }
+.news a:hover .t { color: var(--orange-ink); }
+/* Analisi e storie: tema, tesi e la pagina dove si legge */
+.an-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); column-gap: 36px; }
+.an-row { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; width: 100%; padding: 16px 0 18px; border: 0; border-top: 1px solid var(--ink); text-align: left; background: none; color: inherit; font: inherit; }
 button.an-row { cursor: pointer; }
-.an-row .k { font-family: var(--body); font-size: 11.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--orange-ink); }
-.an-row .go { font-family: var(--mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
-.an-row .t { grid-column: 1 / -1; font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 17px; line-height: 1.28; }
+.an-row .k { font-family: var(--body); font-size: 12.5px; font-weight: 600; color: var(--orange-ink); }
+.an-row .go { grid-row: span 2; font-family: var(--display); font-stretch: 80%; font-weight: 900; font-size: 44px; line-height: .85; color: var(--rule); }
+.an-row .t { font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 21px; line-height: 1.2; }
 button.an-row:hover .t { color: var(--orange-ink); }
-.ag-row.no-h { grid-template-columns: 1fr; }
-.lnk { display: inline-block; margin-top: 10px; font-size: 13.5px; color: var(--orange-ink); text-underline-offset: 3px; background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit; text-decoration: underline; }
-/* Scommessa: una riga per mercato */
-.score { display: flex; flex-wrap: wrap; gap: 4px 28px; border-top: 2px solid var(--ink); padding-top: 10px; font-size: 14px; color: var(--muted); }
-.score b { font-family: var(--display); font-stretch: 80%; font-weight: 800; font-size: 34px; color: var(--ink); line-height: 1; margin-right: 6px; }
+/* Voto, in chiusura di ciò che si legge */
+.vote { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 15px; font-weight: 600; }
+.vote button { font-family: var(--body); font-weight: 600; font-size: 14px; min-height: 44px; min-width: 80px; padding: 0 16px; background: transparent; color: var(--ink); border: 1px solid var(--ink); cursor: pointer; }
+.vote button:hover { background: var(--ink); color: var(--paper); }
+.vote .thx { font-weight: 400; color: var(--muted); }
+/* Agenda: linea del tempo, al massimo 4 appuntamenti */
+.ag-list { margin: 0; padding: 0; list-style: none; }
+.ag-row { position: relative; padding: 0 0 18px 26px; }
+.ag-row::before { content: ""; position: absolute; left: 3px; top: 5px; width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--ink); background: var(--panel); box-sizing: border-box; }
+.ag-row::after { content: ""; position: absolute; left: 8px; top: 19px; bottom: 3px; width: 1px; background: var(--muted); opacity: .4; }
+.ag-row:last-child { padding-bottom: 0; }
+.ag-row:last-child::after { display: none; }
+.ag-row.oggi::before { background: var(--ink); }
+.ag-row.key::before { left: 1px; top: 3px; width: 15px; height: 15px; border: 0; background: var(--orange); }
+.ag-row .h { display: block; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+.ag-row.key .h { color: var(--orange-ink); font-weight: 500; }
+.ag-row .e { display: block; margin-top: 2px; font-family: var(--display); font-stretch: 90%; font-weight: 700; font-size: 16px; line-height: 1.3; }
+.ag-row.key .e { font-size: 18px; }
+.ag-row .a, .ag-row .p { display: block; margin-top: 3px; font-family: var(--body); font-stretch: 100%; font-weight: 400; font-size: 13.5px; line-height: 1.4; color: var(--muted); }
+.ag-row .p { color: var(--ink); }
+/* Scommessa: punteggio come a pag. 6, poi una tessera per mercato */
+.score { display: flex; flex-wrap: wrap; gap: 4px 28px; font-size: 14px; color: var(--muted); }
+.score b { font-family: var(--display); font-stretch: 80%; font-weight: 800; font-size: 32px; color: var(--ink); line-height: 1; margin-right: 6px; }
 .score.pts { display: block; }
 .score.pts .n { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; }
 .rule { position: relative; display: flex; height: 12px; margin: 12px 0 24px; background: var(--rule); }
 .rule .d { background: var(--ink); } .rule .f { background: var(--orange); }
-.rule::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0, transparent calc(100% / var(--n) - 1.5px), var(--paper) calc(100% / var(--n) - 1.5px), var(--paper) calc(100% / var(--n))); }
-.rule .par { position: absolute; z-index: 1; top: -5px; bottom: -5px; width: 2px; margin-left: -1px; background: var(--ink); box-shadow: 0 0 0 1.5px var(--paper); }
+.rule::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0, transparent calc(100% / var(--n) - 1.5px), var(--panel) calc(100% / var(--n) - 1.5px), var(--panel) calc(100% / var(--n))); }
+.rule .par { position: absolute; z-index: 1; top: -5px; bottom: -5px; width: 2px; margin-left: -1px; background: var(--ink); box-shadow: 0 0 0 1.5px var(--panel); }
 .rule .par::after { content: attr(data-l); position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 3px; font-family: var(--mono); font-size: 11px; color: var(--muted); white-space: nowrap; }
 .score .lg { display: flex; flex-wrap: wrap; gap: 2px 16px; font-size: 13px; }
 .score .lg i { display: inline-block; width: 9px; height: 9px; margin-right: 6px; background: var(--ink); } .score .lg i.f { background: var(--orange); }
 .score .vs { margin-top: 6px; font-size: 13.5px; color: var(--ink); }
 .score .vs strong { font-weight: 600; } .score .vs .up { color: var(--up); } .score .vs .down { color: var(--down); }
-.bet-t { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
-.bet-t th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: 11.5px; color: var(--muted); padding: 0 0 6px; border-bottom: 1px solid var(--ink); }
-.bet-t th:not(:first-child), .bet-t td:not(:first-child) { text-align: right; }
-.bet-t td { padding: 7px 0; border-bottom: 1px solid var(--rule); }
-.bet-t td:first-child { font-weight: 500; }
-.bet-t tr.var td:first-child::before { content: ""; display: inline-block; width: 8px; height: 8px; background: var(--orange); margin-right: 8px; vertical-align: 1px; }
-.bet-t .ok { color: var(--up); font-weight: 600; }
-.bet-t .ko { color: var(--down); font-weight: 600; }
-.bet-t .na { color: var(--muted); }
-.bet-foot { font-size: 13px; color: var(--muted); margin-top: 10px; line-height: 1.45; }
+.bet-g { margin: 14px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 8px; }
+.bet-g li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 2px 8px; padding: 10px 12px; background: var(--paper); }
+.bet-g .n { font-weight: 600; font-size: 14.5px; line-height: 1.25; }
+.bet-g li.var .n::before { content: ""; display: inline-block; width: 8px; height: 8px; background: var(--orange); margin-right: 7px; vertical-align: 1px; }
+.bet-g .d { font-size: 19px; font-weight: 700; line-height: 1; }
+.bet-g .s { grid-column: 1 / -1; font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+.bet-g .s.ok { color: var(--up); font-weight: 500; } .bet-g .s.ko { color: var(--down); font-weight: 500; }
+.bet-foot { font-size: 13.5px; color: var(--muted); margin-top: 12px; line-height: 1.5; }
+.bet-foot div + div { margin-top: 4px; }
 .bet-foot strong { color: var(--ink); font-weight: 600; }
+.bet-foot strong.up { color: var(--up); } .bet-foot strong.down { color: var(--down); }
 
 /* Le ultime edizioni: sempre 5, a scorrimento (il lunedì non resta un solo giorno) */
 .week { margin-top: 36px; border-top: 1px solid var(--ink); padding-top: 22px; }
@@ -271,7 +283,6 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
 /* ---------- Schermi stretti ---------- */
 @media (max-width: 900px) {
   .stage .grid { grid-template-columns: 1fr; gap: 0; padding-block: 24px 30px; }
-  .day-grid, .day-grid.no-ag { grid-template-columns: 1fr; gap: 40px; }
   .wk-list { grid-template-columns: 1fr; gap: 0; }
   .wk-list a { border-top: 1px solid var(--rule); padding: 10px 0; }
   .how dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -295,8 +306,11 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   .actions .btn.ghost { width: 46px; padding: 0; justify-content: center; }
   .actions .btn.ghost span { display: none; }
   main { padding-top: 30px; }
-  .news a { font-size: 17px; grid-template-columns: 30px 1fr; }
-  .news a .go { display: none; }
+  .occhio { padding: 18px 16px 22px; margin-inline: -2px; }
+  .leggi { padding-top: 0; }
+  .vote span { flex-basis: 100%; }
+  .sez-h h2 { font-size: 30px; }
+  .an-row .t { font-size: 19px; }
   .how > summary .s em { display: none; }
   .how dl { grid-template-columns: 1fr; }
 }
@@ -365,34 +379,36 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
 </section>
 
 <main class="wrap">
-  <div class="day-grid" id="dayGrid">
-    <section aria-labelledby="newsK">
-      <div class="box-h"><h2 class="kicker" id="newsK">Le notizie del giorno</h2></div>
-      <ol class="news" id="news"></ol>
-      <a class="lnk" id="newsFull" href="#" hidden>La prima pagina in testo</a>
-      <div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
-    </section>
-
-    <div class="col2" id="col2">
+  <div class="giorno" id="dayGrid">
+    <div class="leggi">
+      <div class="sez-h"><h2>Da leggere</h2><span id="leggiMeta"></span></div>
+      <section aria-labelledby="newsK">
+        <div class="box-h"><h3 class="kicker" id="newsK">Le notizie del giorno</h3></div>
+        <ol class="news" id="news"></ol>
+        <a class="lnk" id="newsFull" href="#" hidden>La prima pagina in testo</a>
+      </section>
       <section id="analisi" aria-labelledby="an-h" hidden>
-        <div class="box-h"><h2 class="kicker" id="an-h">Analisi e storie</h2><span id="anMeta"></span></div>
+        <div class="box-h"><h3 class="kicker" id="an-h">Analisi e storie</h3><span id="anMeta"></span></div>
         <ul class="an-list" id="anList"></ul>
       </section>
+      <div class="vote" id="vote" hidden><span id="voteQ">Com'era l'edizione di oggi?</span><button type="button" data-v="si">Utile</button><button type="button" data-v="no">Poco</button></div>
+    </div>
 
+    <aside class="occhio" id="col2" aria-label="Da tenere d'occhio">
+      <div class="sez-h"><h2>Da tenere d'occhio</h2></div>
       <section id="agenda" aria-labelledby="ag-h" hidden>
-        <div class="box-h"><h2 class="kicker" id="ag-h">In agenda</h2><span id="agMeta"></span></div>
+        <div class="box-h"><h3 class="kicker" id="ag-h">In agenda</h3><span id="agMeta"></span></div>
         <ul class="ag-list" id="agList"></ul>
         <button type="button" class="lnk" id="agMore">L'agenda completa</button>
       </section>
-    </div>
-
-    <section id="bet" aria-labelledby="bet-h" hidden>
-      <div class="box-h"><h2 class="kicker" id="bet-h">La scommessa della settimana</h2><span id="betWk"></span></div>
-      <div class="score" id="betScore"></div>
-      <table class="bet-t" id="betT"><thead><tr><th scope="col">Mercato</th><th scope="col">Previsione</th><th scope="col">Per ora</th></tr></thead><tbody id="betRows"></tbody></table>
-      <div class="bet-foot" id="betFoot"></div>
-      <a class="lnk" href="scommessa.html">La pagella completa</a>
-    </section>
+      <section id="bet" aria-labelledby="bet-h" hidden>
+        <div class="box-h"><h3 class="kicker" id="bet-h">La scommessa della settimana</h3><span id="betWk"></span></div>
+        <div class="score" id="betScore"></div>
+        <ul class="bet-g" id="betRows"></ul>
+        <div class="bet-foot" id="betFoot"></div>
+        <a class="lnk" href="scommessa.html">Come si gioca e la pagella</a>
+      </section>
+    </aside>
   </div>
 
   <aside class="gi" aria-labelledby="gi-h"><div class="gi-t"><p class="gi-k">Via email</p><h2 class="gi-h" id="gi-h">Il Gommberg nella tua casella, ogni mattina</h2><p class="gi-p">La prima pagina dell'edizione alle 9:45, dal lunedì al venerdì. Gratis.</p></div><a class="gi-b" href="iscriviti.html" data-goatcounter-click="invito-iscrizione" data-goatcounter-title="Invito all'iscrizione (clic)">Ricevila via email</a></aside>
@@ -552,20 +568,23 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       if (b && b.range != null) { const a = el("div"); a.appendChild(el("b", "", b.range + "/" + tot)); a.append("dentro il range"); sc.appendChild(a); }
       if (b && b.strada != null) { const a = el("div"); a.appendChild(el("b", "", b.strada + "/" + tot)); a.append("on track"); sc.appendChild(a); }
     }
-    if (b && b.strada == null && b.range == null) sc.appendChild(el("div", "", "Pronostico appena fatto: da domani vedi a che punto siamo."));
+    const avvio = b && b.strada == null && b.range == null;
+    if (avvio) sc.appendChild(el("div", "", "Le frecce dicono dove pensiamo che chiudano venerdì. Da domani ogni mercato dice se va nella nostra direzione."));
+    // Una tessera per mercato: nome, freccia della previsione e, da martedì, se il mercato va nella nostra direzione
     const tb = $("betRows"); tb.innerHTML = "";
     for (const d of det) {
       const [nome, dir, strada, , variab] = d;
-      const tr = el("tr", variab ? "var" : "");
-      const n = el("td", "", window.GM ? GM.nome(nome) : nome);
-      if (window.GM && GM.spiega(nome)) { const sp = el("span", "", n.textContent); n.textContent = ""; n.appendChild(sp); GM.segna(sp, nome); }
-      if (variab) n.title = "Lo strumento della settimana, conto a parte";
-      tr.appendChild(n);
-      tr.appendChild(el("td", "", dir === "su" ? "↑ rialzo" : dir === "giù" ? "↓ calo" : "= parità"));
-      tr.appendChild(el("td", strada === true ? "ok" : strada === false ? "ko" : "na", strada === true ? "on track" : strada === false ? "contro" : "-"));
-      tb.appendChild(tr);
+      const li = el("li", variab ? "var" : "");
+      const n = el("span", "n", window.GM ? GM.nome(nome) : nome);
+      if (window.GM && GM.spiega(nome)) GM.segna(n, nome);
+      if (variab) li.title = "Lo strumento della settimana, conto a parte";
+      const prev = dir === "su" ? "rialzo" : dir === "giù" ? "calo" : "parità";
+      const f = el("span", "d", dir === "su" ? "↑" : dir === "giù" ? "↓" : "="); f.setAttribute("aria-label", "Previsione: " + prev); f.title = "Previsione: " + prev;
+      li.append(n, f);
+      if (!avvio) li.appendChild(el("span", "s " + (strada === true ? "ok" : strada === false ? "ko" : "na"), strada === true ? "on track" : strada === false ? "contro" : "in attesa"));
+      tb.appendChild(li);
     }
-    $("betT").hidden = !det.length;
+    tb.hidden = !det.length;
     const f = $("betFoot"); f.innerHTML = "";
     if (v && v.punti != null) {
       const p = el("div"); p.append("Verdetto della settimana " + settimana(v.settimana) + ": ");
@@ -586,19 +605,21 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     const pp = dove(ed, "approfondimenti") || [];
     box.hidden = !rows.length;
     const list = $("anList"); list.innerHTML = "";
+    const nn = pp.filter(Boolean).map(Number), lo = Math.min(...nn), hi = Math.max(...nn);
+    $("anMeta").textContent = !nn.length ? "" : lo === hi ? "pag. " + lo : "pag. " + lo + "-" + hi;
     rows.forEach((a, i) => {
       const p = pp[i], li = el("li"), r = el(p ? "button" : "div", "an-row");
       r.appendChild(el("span", "k", a.tema || ""));
-      r.appendChild(el("span", "go", p ? "pag. " + p : ""));
+      const g = el("span", "go", p ? String(p) : ""); if (p) g.setAttribute("aria-label", "pagina " + p);
+      r.appendChild(g);
       r.appendChild(el("span", "t", a.titolo));
       if (p) { r.type = "button"; r.addEventListener("click", () => apriPagina(p)); }
       li.appendChild(r); list.appendChild(li);
     });
   }
-  // La colonna centrale sparisce solo se non ha né analisi né agenda
+  // La colonna "Da tenere d'occhio" sparisce solo se non ha né agenda né scommessa: allora "Da leggere" prende tutta la larghezza
   function colonna() {
-    const vuota = $("analisi").hidden && $("agenda").hidden;
-    $("col2").hidden = vuota; $("dayGrid").classList.toggle("no-ag", vuota);
+    $("col2").hidden = $("agenda").hidden && $("bet").hidden;
   }
   // Le schede del lettore seguono la struttura dell'edizione che si sta leggendo
   const SCHEDE = { v9: ["Prima", "Analisi", "Analisi", "Analisi", "Mercati", "Scommessa"], prima: ["Prima", "Mercati", "Agenda", "Analisi", "Analisi", "Scommessa"] };
@@ -627,31 +648,22 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     const conclusa = ultima && !vis.length && tutte.length > 0;
     if (conclusa) vis = tutte;
     if (!vis.length) { box.hidden = true; return; }
-    const MAX = 3, list = $("agList"); list.innerHTML = "";
-    let giorno = null;
+    // Al massimo 4 appuntamenti: con settimane piene la colonna resta ordinata, gli altri sono a pag. 5
+    const MAX = 4, list = $("agList"); list.innerHTML = "";
     vis.slice(0, MAX).forEach(({ r, d }) => {
-      const k = d ? d.getTime() : r.quando;
-      if (k !== giorno) {
-        giorno = k;
-        let lab = r.quando.split(",")[0];
-        if (d) {
-          const diff = Math.round((d - oggi) / 864e5);
-          lab = (ultima && diff === 0 ? "Oggi, " : ultima && diff === 1 ? "Domani, " : "") + GIORNI[d.getUTCDay()] + " " + d.getUTCDate() + (d.getUTCMonth() !== oggi.getUTCMonth() ? " " + MESI[d.getUTCMonth()] : "");
-        }
-        list.appendChild(el("li", "ag-day", lab));
+      let giorno = r.quando.split(",")[0].trim(), diff = null;
+      if (d) {
+        diff = Math.round((d - oggi) / 864e5);
+        giorno = ultima && diff === 0 ? "Oggi" : ultima && diff === 1 ? "Domani" : cap(GG[d.getUTCDay()]) + " " + d.getUTCDate() + (d.getUTCMonth() !== oggi.getUTCMonth() ? " " + MESI[d.getUTCMonth()].slice(0, 3) : "");
       }
-      const ora = r.quando.split(",").slice(1).join(",").trim();
+      const ora = r.quando.split(",").slice(1).join(",").trim().replace(/^dopo la chiusura.*$/i, "sera").replace(/ di Wall Street| USA$/i, "");
       const key = r.chiave || /^evento n\.?\s*1/i.test(r.perche || "");
-      const li = el("li", "ag-row" + (key ? " key" : "") + (ora ? "" : " no-h"));
-      if (ora) li.appendChild(el("span", "h", ora.replace(/^dopo la chiusura.*$/i, "sera").replace(/ di Wall Street| USA$/i, "")));
-      const e = el("div", "e", r.evento);
-      if (r.attese && !/^n\.?d\.?$/i.test(r.attese)) e.appendChild(el("span", "a", "Attese: " + r.attese));
-      if (key) {
-        const p = el("span", "p"); p.appendChild(el("b", "", "Il più atteso. "));
-        p.append(String(r.perche || "").replace(/^evento n\.?\s*1\s*:?\s*/i, "").replace(/^./, (c) => c.toUpperCase()));
-        e.appendChild(p);
-      }
-      li.appendChild(e); list.appendChild(li);
+      const li = el("li", "ag-row" + (key ? " key" : "") + (ultima && diff === 0 ? " oggi" : ""));
+      li.appendChild(el("span", "h", giorno + (ora ? " " + ora : "") + (key ? " - il più atteso" : "")));
+      li.appendChild(el("span", "e", r.evento));
+      if (key && r.perche) li.appendChild(el("span", "p", String(r.perche).replace(/^evento n\.?\s*1\s*:?\s*/i, "").replace(/^./, (c) => c.toUpperCase())));
+      if (r.attese && !/^n\.?d\.?$/i.test(r.attese)) li.appendChild(el("span", "a", "Attese: " + r.attese));
+      list.appendChild(li);
     });
     const altri = vis.length - Math.min(vis.length, MAX);
     const pa = dove(ed, "agenda") || 3;
@@ -712,10 +724,11 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     const ul = $("brief"); ul.innerHTML = "";
     for (const b of (ed.sommario || [])) ul.appendChild(el("li", "", b));
     $("briefK").hidden = !(ed.sommario || []).length;
+    $("leggiMeta").textContent = "Edizione n. " + pad(ed.numero);
     const nl = $("news"); nl.innerHTML = "";
     (ed.notizie || []).forEach((t, i) => {
       const li = el("li"), a = el("a"); a.href = ed.file + "#page=1"; a.target = "_blank"; a.rel = "noopener";
-      a.appendChild(el("span", "i", String(i + 1).padStart(2, "0")));
+      a.appendChild(el("span", "i", String(i + 1)));
       a.appendChild(el("span", "t", t));
       a.appendChild(el("span", "go", "pag. 1"));
       a.addEventListener("click", (e) => { if (desktop() && pdf) { e.preventDefault(); apriPagina(1); } });
@@ -737,7 +750,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       note.appendChild(a);
     }
     $("lbl-latest").textContent = ed === editions[0] ? "Ultima edizione" : "Edizione precedente";
-    tape(ed); analisi(ed); agenda(ed); colonna(); schede(ed); bet(ed); votoStato(ed); ultimeEdizioni(ed);
+    tape(ed); analisi(ed); agenda(ed); schede(ed); bet(ed); colonna(); votoStato(ed); ultimeEdizioni(ed);
     if (push) conta({ path: "edizione-" + pad(ed.numero), title: "Edizione n. " + pad(ed.numero) + " aperta dall'archivio", event: true });
     if (push) history.replaceState(null, "", ed === editions[0] ? (DEMO ? "?demo=1" : location.pathname) : linkFor(ed));
     document.title = ed === editions[0] ? TITOLO : "N. " + pad(ed.numero) + " | Gommberg Terminal Daily";
@@ -762,7 +775,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     let v = null; try { v = localStorage.getItem(votoKey(ed)); } catch (e) {}
     $("vote").hidden = DEMO;
     $("vote").querySelectorAll("button").forEach((b) => { b.hidden = !!v; });
-    $("voteQ").textContent = v ? "Grazie del voto." : "Ti è stata utile questa edizione?";
+    $("voteQ").textContent = v ? "Grazie del voto." : ed === editions[0] ? "Com'era l'edizione di oggi?" : "Com'era questa edizione?";
     $("voteQ").classList.toggle("thx", !!v);
   }
   $("vote").addEventListener("click", (e) => {
