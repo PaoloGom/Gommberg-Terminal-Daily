@@ -15,7 +15,7 @@ Aggiornato: 16/11/2026 sera. Deve bastare da solo a una chat nuova. Lo riscrive 
 3. I quattro aperti dalla rilettura della #026 (vedi `AZIONI.md`).
 
 ## Fuori cantiere (16/11 sera)
-Immagine del mittente: si tiene il segno attuale (`assets/avatar.png`), deciso da Paolo. Tocca a lui creare l'account Google e il Gravatar su redazione@gommberg.com (in `AZIONI.md`).
+Marchio: si tiene il segno attuale (deciso da Paolo). Kit coerente per ogni uso pronto sul ramo `prova` (commit 106d5b8), entra con il rilascio del 21-22/11. Tocca a Paolo: account Google e Gravatar su redazione@gommberg.com.
 
 ## Prossimo passo
 Martedì 17/11 sera: controllare con Paolo l'edizione #027 (orario, pagine negate, permessi).

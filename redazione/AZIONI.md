@@ -3,6 +3,7 @@
 Lista unica. La tiene aggiornata Claude in corsa: quando una cosa si chiude esce da qui (resta in `PROGETTO.md`).
 
 ## Aperte (cantiere attivo: affidabilità, weekend 21-22/11)
+- [ ] Marchio coerente per ogni uso (chiesto da Paolo il 16/11, pronto sul ramo `prova`, commit 106d5b8): nel rilascio del 21-22/11 riportarlo su main con cherry-pick (su main `avatar.svg` esiste già: tenere la versione in tracciati). Favicon stretta, icona Home iPhone, copertina centrata, avatar email invariato.
 - [ ] Pagine negate visibili: l'attività annota il sito negato, il pannello lo mostra. Zero token in più.
 - [ ] Euro Stoxx 50: provare EODHD (account di Paolo, piano gratuito) come seconda fonte; oggi spesso fonte singola dpa-AFX.
 - [ ] Rilettura #026: coerenza tra i sei "perché" della scommessa; "In arrivo" del lunedì fino a venerdì; celle "n.d." di pag. 5; fonte primaria nei dati ufficiali di pag. 1.
@@ -22,7 +23,6 @@ Lista unica. La tiene aggiornata Claude in corsa: quando una cosa si chiude esce
 - Strumento della settimana nella scommessa (on hold dal 14/11).
 - Grafico interattivo dell'indice globale con le edizioni sui punti.
 - Comprimere le istruzioni.
-- Coerenza dei file del marchio (candidato al rilascio del 21-22/11, senza toccare il segno): `avatar.svg` in tracciati identici al PNG (oggi usa `<text>` con un carattere non installato), `icona.svg` con la stessa G (oggi Arial Narrow), `copertina.png` in Archivo con il motto attuale (oggi DejaVu e motto vecchio: è l'anteprima di WhatsApp). Sostituisce i file, non ne aggiunge.
 - Apple Branded Mail (gratis): solo se nasce un soggetto verificabile (P.IVA o associazione). Prima di qualunque DMARC in quarantine: le risposte ai lettori da redazione@ devono uscire da un SMTP firmato col dominio (es. Brevo gratuito), non dall'"invia come" di Gmail.
 - BIMI (logo verificato): DMARC in quarantine, SVG Tiny PS; senza certificato lo mostrano solo Yahoo e Fastmail, Gmail e Apple vogliono VMC/CMC a pagamento. Da rivalutare se la newsletter cresce.
 - Homepage: senza agenda la colonna grigia resta vuota in fondo (mai successo dalla v9).
