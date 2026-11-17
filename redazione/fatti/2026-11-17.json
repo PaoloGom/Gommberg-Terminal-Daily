@@ -1,0 +1,752 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Wall Street lunedì 16/11: S&P 500 -1,9%, Nasdaq -2,5%, Dow -1,4%; Nvidia -4,1% dopo le dimissioni di Jensen Huang da amministratore delegato; il Kospi chiude sotto 5.000 per la prima volta in nove mesi (4.968,48, -2,59%)",
+  "data_evento": "2026-11-16",
+  "novita": "Ieri l'Asia vendeva i chip dopo il caso Nvidia; oggi la vendita è arrivata a Wall Street e Seul rompe quota 5.000",
+  "fonti": [
+   {
+    "testata": "AP (Daily Excelsior)",
+    "url": "https://www.dailyexcelsior.com/asian-shares-decline-following-stocks-tumbled-on-wall-street",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "Asian shares decline following stocks tumbled on Wall Street",
+    "ricerca": "Asia markets Tuesday November 17 2026 Nikkei Kospi Hang Seng open",
+    "agenzia": "AP"
+   },
+   {
+    "testata": "Korea Herald",
+    "url": "https://www.koreaherald.com/article/10940067",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "Seoul stocks drop for 4th day amid lingering AI woes",
+    "ricerca": "Seoul shares close sharply lower Tuesday AI woes Kospi ends Yonhap"
+   },
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/nasdaq-s-p-500-fall-over-1-in-run-up-to-nvidia-results-anthropic-debut-ce785edfdd89fe26",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Nasdaq, S&P 500 fall over 1% in run-up to Nvidia results, Anthropic debut",
+    "ricerca": "stocks Monday November 16 2026 S&P 500 falls Nasdaq tech selloff Reuters",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "On Monday, the S&P 500 index was 1.9% lower and the Nasdaq composite index lost 2.5%. | The Dow also fell 1.4% as losses broadened into other sectors. | Nvidia sank 4.1% and was again the heaviest weight on Wall Street following its crisis of leadership. | The benchmark Korea Composite Stock Price Index lost 132.02 points, or 2.59 percent, to close at 4,968.48,",
+  "verifica": "confermato",
+  "nota_revisore": "Cifre confermate da AP (copia ClickOnDetroit, stessa notizia 'Asian shares decline following stocks tumbled on Wall Street'; la pagina Daily Excelsior non e' comparsa nei risultati) e Korea Herald. Nota: Korea Herald scrive 'lowest level in nine months', non 'per la prima volta'; la formula 'for 1st time in 9 months' e' nel titolo Korea Times ('KOSPI tumbles below 5,000 for 1st time in 9 months as AI fears spark foreign exodus'). La pagina Reuters e' a meta' seduta (S&P -1,21%, Nasdaq -1,67%), quindi i dati di chiusura vengono da AP."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Huang lascia la guida di Nvidia dopo rivelazioni personali; il ministro del Tesoro Bessent chiede al consiglio «un cambiamento radicale» al vertice; Trump non si opporrebbe a un suo ritorno e il Financial Times scrive che Huang lavora per rientrare",
+  "data_evento": "2026-11-16",
+  "novita": "Dopo le dimissioni della scorsa settimana, il Tesoro entra nella partita e Huang cerca di tornare",
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/nasdaq-s-p-500-fall-over-1-in-run-up-to-nvidia-results-anthropic-debut-ce785edfdd89fe26",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Nasdaq, S&P 500 fall over 1% in run-up to Nvidia results, Anthropic debut",
+    "ricerca": "stocks Monday November 16 2026 S&P 500 falls Nasdaq tech selloff Reuters",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Radiocor (MarketScreener)",
+    "url": "https://it.marketscreener.com/notizie/pesa-la-doppia-incognita-nvidia-e-anthropic-anche-milano-0-6-soffre-ce785edfda8ff021",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Pesa la doppia incognita Nvidia e Anthropic, anche Milano (-0,6%) soffre",
+    "ricerca": "Borse europee chiudono in ribasso lunedì Nvidia Huang Milano Teleborsa 16 novembre",
+    "agenzia": "Radiocor"
+   }
+  ],
+  "trovato": "Trump said he would not oppose Huang's reinstatement as Nvidia CEO. | The Financial Times reported on Monday the Nvidia founder is in talks with allies about possibly returning | Radiocor: Dall'altra, secondo il Financial Times, Huang starebbe lavorando per tornare al timone del colosso dei chip. | Bessent invita (nel weekend) il board a 'un cambiamento radicale' al vertice",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters: exit 'over revelations of extramarital affairs'. Radiocor: Bessent, come ministro del Tesoro, ha invitato il board nel weekend a 'un cambiamento radicale'. 'Non si opporrebbe' (Reuters) vs 'non dispiacerebbe' (Radiocor): equivalenti. Nei risultati di ricerca compare un titolo wallstreet-online 'Kein Weg zurueck: Nvidia schliesst Huang-Comeback aus' (non aperto, data non verificata): se e' di oggi, la riga 'Huang lavora per rientrare' potrebbe essere superata."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Gli USA stringono l'accesso della Cina ai chip avanzati per l'AI con regole provvisorie, mentre Trump comincia il viaggio in Cina per incontrare Xi Jinping",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/nasdaq-s-p-500-fall-over-1-in-run-up-to-nvidia-results-anthropic-debut-ce785edfdd89fe26",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Nasdaq, S&P 500 fall over 1% in run-up to Nvidia results, Anthropic debut",
+    "ricerca": "stocks Monday November 16 2026 S&P 500 falls Nasdaq tech selloff Reuters",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Korea Herald",
+    "url": "https://www.koreaherald.com/article/10940067",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "Seoul stocks drop for 4th day amid lingering AI woes",
+    "ricerca": "Seoul shares close sharply lower Tuesday AI woes Kospi ends Yonhap"
+   }
+  ],
+  "tipo": "C",
+  "trovato": "Meanwhile, the US also unveiled new interim rules tightening China's access to advanced AI chips | as President Donald Trump began a trip to China for meetings with counterpart Xi Jinping.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters/MarketScreener, 16/11. Il testo PDF e' coerente. Korea Herald non nomina Trump ne' Cina: parla di regole USA che limitano l'accesso remoto a chip e server avanzati."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Kospi a 4.968,48 (-2,59%), sotto 5.000 per la prima volta in nove mesi, quarta seduta di calo; Samsung Electronics -3,3%, SK hynix -1,96%; gli stranieri vendono 1.440 miliardi di won netti",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Korea Herald",
+    "url": "https://www.koreaherald.com/article/10940067",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "Seoul stocks drop for 4th day amid lingering AI woes",
+    "ricerca": "Seoul shares close sharply lower Tuesday AI woes Kospi ends Yonhap"
+   }
+  ],
+  "trovato": "The benchmark Korea Composite Stock Price Index lost 132.02 points, or 2.59 percent, to close at 4,968.48, | Top market cap Samsung Electronics decreased 3.3 percent to 190,300 won, | Foreigners sold a net 1.44 trillion won, | South Korean stocks sank for the fourth consecutive session Tuesday,",
+  "verifica": "confermato",
+  "nota_revisore": "Korea Herald: SK hynix -1,96% (a 1,1 milioni di won, stessa frase di Samsung). Il Korea Herald non dice 'per la prima volta' ma 'lowest in nine months' (vedi T01)."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Brent future a 92,44 $ (-3,6%) e WTI a 85,72 $ (-3,2%) a fine seduta; gas di Amsterdam -7,4% a 84,2 €/MWh",
+  "data_evento": "2026-11-16",
+  "novita": "Il Brent è sceso di oltre un quinto dal massimo del 23/10",
+  "fonti": [
+   {
+    "testata": "Reuters (Euronext Live)",
+    "url": "https://live.euronext.com/en/financial-news/oil-settles-lower-recovering-middle-east-exports-bolster-surplus-outlook",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Oil settles lower as recovering Middle East exports bolster surplus outlook",
+    "ricerca": "oil settles lower Monday Brent $92 Iran Bahrain air base tankers mines Hormuz November 16",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Radiocor (MarketScreener)",
+    "url": "https://it.marketscreener.com/notizie/pesa-la-doppia-incognita-nvidia-e-anthropic-anche-milano-0-6-soffre-ce785edfda8ff021",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Pesa la doppia incognita Nvidia e Anthropic, anche Milano (-0,6%) soffre",
+    "ricerca": "Borse europee chiudono in ribasso lunedì Nvidia Huang Milano Teleborsa 16 novembre",
+    "agenzia": "Radiocor"
+   }
+  ],
+  "trovato": "Brent crude futures closed down $3.40, or 3.6%, at $92.44 a barrel | US West Texas Intermediate (WTI) crude dropped $2.84, or 3.2%, to $85.72. | In calo del 7,4% a 84,2 euro al megawattora il gas ad Amsterdam. | Sul valutario, l'euro/dollaro si indebolisce a 1,100",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters per Brent/WTI, Radiocor per il gas (nella pagina Reuters il gas non c'e'). Il PDF mostra Brent -3,5% (dato FMP) contro -3,6% Reuters: scarto di arrotondamento. Radiocor da' Brent 93,36 (-2,56%) ma e' un dato infragiornaliero."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "L'AIE prevede per il quarto trimestre un eccesso di offerta di petrolio: offerta a 105 milioni di barili al giorno, 1,7 milioni sopra la domanda prevista; prima stimava un deficit",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Euronext Live)",
+    "url": "https://live.euronext.com/en/financial-news/oil-settles-lower-recovering-middle-east-exports-bolster-surplus-outlook",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Oil settles lower as recovering Middle East exports bolster surplus outlook",
+    "ricerca": "oil settles lower Monday Brent $92 Iran Bahrain air base tankers mines Hormuz November 16",
+    "agenzia": "Reuters"
+   }
+  ],
+  "tipo": "C",
+  "trovato": "Oil supply will average 105 million barrels per day (bpd) in the fourth quarter, 1.7 million bpd higher than forecast demand | The agency had previously forecast a fourth-quarter supply deficit.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters/Euronext Live. PDF fedele."
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "testo": "Raffinerie cinesi: a ottobre la lavorazione di greggio scende del 2% su settembre e dell'8,1% su un anno, e implica un aumento delle scorte di circa 492 mila barili al giorno",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Euronext Live)",
+    "url": "https://live.euronext.com/en/financial-news/oil-settles-lower-recovering-middle-east-exports-bolster-surplus-outlook",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Oil settles lower as recovering Middle East exports bolster surplus outlook",
+    "ricerca": "oil settles lower Monday Brent $92 Iran Bahrain air base tankers mines Hormuz November 16",
+    "agenzia": "Reuters"
+   }
+  ],
+  "tipo": "C",
+  "trovato": "fell 2% from a month earlier and was down 8.1% from a year ago | implied build in Chinese crude stocks was 492,000 bpd last month",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters/Euronext Live (frammenti esatti). Nel PDF la frase 'Intanto cambia anche la domanda' e' un commento redazionale non presente nella pagina."
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "testo": "Milano chiude con il Ftse Mib a 51.521 punti (-0,65%); Stellantis -3,92%, Technoprobe -4,19% per il pessimismo sull'AI, STMicroelectronics -2,06%; Igd +6% dopo l'offerta pubblica di scambio di Carmila",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa (Borsa Italiana)",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/teleborsa/commenti/in-rosso-milano-e-gli-altri-listini-europei-pesa-il-tech-occhi-puntati-sui-conti-di-nvidia-207_2026-11-16_TLB.html",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "In rosso Milano e gli altri listini europei, pesa il tech: occhi puntati sui conti di Nvidia",
+    "ricerca": "Borse europee chiudono in ribasso lunedì Nvidia Huang Milano Teleborsa 16 novembre"
+   },
+   {
+    "testata": "Radiocor (MarketScreener)",
+    "url": "https://it.marketscreener.com/notizie/pesa-la-doppia-incognita-nvidia-e-anthropic-anche-milano-0-6-soffre-ce785edfda8ff021",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Pesa la doppia incognita Nvidia e Anthropic, anche Milano (-0,6%) soffre",
+    "ricerca": "Borse europee chiudono in ribasso lunedì Nvidia Huang Milano Teleborsa 16 novembre",
+    "agenzia": "Radiocor"
+   }
+  ],
+  "trovato": "che scende a 51.521 punti, con uno scarto percentuale dello 0,65% | Sensibili perdite per Stellantis, in calo del 3,92%. | Vendite su STMicroelectronics, che registra un ribasso del 2,06%. | seduta pessima per Technoprobe che paga il pessimismo sull'AI | che ha chiuso a -4,19%. | Igd sale del 5,6% dopo l'ops di Carmila",
+  "verifica": "confermato",
+  "nota_revisore": "Teleborsa. Igd: il testo dice +5,6%, la tabella +6,12% (scheda: +6%, accettabile). Il pessimismo sull'AI per Technoprobe e' detto per l'apertura. Radiocor non riporta Igd/Carmila ne' il livello del Ftse Mib. Il PDF non cita cifre per Igd."
+ },
+ {
+  "id": "N09",
+  "sezione": "top_news",
+  "testo": "Euro Stoxx 50 a 6.348,35 (-0,60%); alla chiusura europea il Nasdaq 100 perdeva l'1,5% e l'indice europeo dei titoli tecnologici l'1,3%; Londra -0,09%, Zurigo +0,57% dopo un massimo storico",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (ARIVA)",
+    "url": "https://www.ariva.de/news/aktien-europa-schluss-verluste-ueberwiegen-smi-rettet-plus-12209142",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Aktien Europa Schluss: Verluste überwiegen - SMI rettet Plus nach Rekord",
+    "ricerca": "Aktien Europa Schluss Nvidia Huang Rücktritt EuroStoxx 50 Montag Schlusskurs",
+    "agenzia": "dpa-AFX"
+   }
+  ],
+  "trovato": "Der EuroStoxx 50 weitete am Nachmittag seine Verluste aus und schloss 0,60 Prozent tiefer mit 6.348,35 Punkten. | Ähnlich erging es dem Londoner FTSE 100 mit einem Abschlag von 0,09 Prozent auf 10.892,93 Punkte. | Der Züricher SMI gewann nach einem Rekordhoch am Ende 0,57 Prozent auf 15.192,58 Zähler. | Nasdaq 100 ... zum europäischen Handelsende weitere 1,5 Prozent einbüßte | ging es für den europäischen Branchenindex um 1,3 Prozent nach unten.",
+  "verifica": "confermato",
+  "nota_revisore": "dpa-AFX/ARIVA. ATTENZIONE: il PDF (pag. 1, notizia 05) titola 'Zurigo chiude su un massimo storico'; la pagina dice che l'SMI ha toccato un massimo storico in seduta e ha chiuso a +0,57% (non dice che la chiusura e' il massimo). Qualifica non presente nella pagina."
+ },
+ {
+  "id": "N10",
+  "sezione": "top_news",
+  "testo": "Anthropic debutta al Nasdaq giovedì; per gli analisti di Acatis la quotazione è come «fare scorta di provviste in tutta fretta»",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/nasdaq-s-p-500-fall-over-1-in-run-up-to-nvidia-results-anthropic-debut-ce785edfdd89fe26",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Nasdaq, S&P 500 fall over 1% in run-up to Nvidia results, Anthropic debut",
+    "ricerca": "stocks Monday November 16 2026 S&P 500 falls Nasdaq tech selloff Reuters",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Radiocor (MarketScreener)",
+    "url": "https://it.marketscreener.com/notizie/pesa-la-doppia-incognita-nvidia-e-anthropic-anche-milano-0-6-soffre-ce785edfda8ff021",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Pesa la doppia incognita Nvidia e Anthropic, anche Milano (-0,6%) soffre",
+    "ricerca": "Borse europee chiudono in ribasso lunedì Nvidia Huang Milano Teleborsa 16 novembre",
+    "agenzia": "Radiocor"
+   }
+  ],
+  "trovato": "AI lab Anthropic's market debut, expected on Thursday, could test investor confidence in AI investments | Radiocor: È come fare scorta di provviste in tutta fretta, prima che si scateni una tempesta",
+  "verifica": "confermato",
+  "nota_revisore": "Giovedi' da Reuters, Acatis da Radiocor (analisti di Acatis Investment: Anthropic raccoglie fondi di cui 'non ha affatto bisogno per la propria attivita' corrente'). Reuters non dice 'Nasdaq' ne' nomina Acatis; il Nasdaq e' confermato da altre fonti trovate in ricerca (Nasdaq Trader 'Anthropic, PBC Initial Public Offering on Nasdaq Global Select Market'; debutto 19/11). PDF fedele."
+ },
+ {
+  "id": "N11",
+  "sezione": "top_news",
+  "testo": "Intel -6,4%, Micron -5,8%, Dell -5,8%, CoreWeave -5%, Nebius -5,7% a metà seduta; l'indice dei semiconduttori di Filadelfia -3,7%; Nvidia ha la serie settimanale di perdite più lunga dall'ottobre 2012",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/nasdaq-s-p-500-fall-over-1-in-run-up-to-nvidia-results-anthropic-debut-ce785edfdd89fe26",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Nasdaq, S&P 500 fall over 1% in run-up to Nvidia results, Anthropic debut",
+    "ricerca": "stocks Monday November 16 2026 S&P 500 falls Nasdaq tech selloff Reuters",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "The Philadelphia SE Semiconductor index slumped 3.7%, hitting its lowest level in a week. | after recording their longest weekly losing streak since October 2012 on Friday. | Among hyperscalers... Dell dropped 5.8% ... Super Micro Computer fell 5.3% | CoreWeave and Nebius fell 5% and 5.7%",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters, a meta' seduta (11:52 ET); Intel -6,4% e Micron -5,8% nella stessa frase dell'indice SOX, Dell -5,8%. Il PDF non qualifica come meta' seduta questi dati, ma nel testo PDF compare solo la serie di perdite di Nvidia (corretta)."
+ },
+ {
+  "id": "N12",
+  "sezione": "top_news",
+  "testo": "Mercati: i future sui tassi (CME FedWatch) prezzano per dicembre un rialzo della Fed quasi certo, con circa il 9% di probabilità di un rialzo da 50 pb",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/nasdaq-s-p-500-fall-over-1-in-run-up-to-nvidia-results-anthropic-debut-ce785edfdd89fe26",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Nasdaq, S&P 500 fall over 1% in run-up to Nvidia results, Anthropic debut",
+    "ricerca": "stocks Monday November 16 2026 S&P 500 falls Nasdaq tech selloff Reuters",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Markets are fully pricing in a December rate hike, with chances of a 50-basis-point increase at nearly 9%.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters. Il PDF dice 'quasi certo' per il rialzo; la pagina dice 'fully pricing in' (piu' forte). Il PDF attribuisce il dato a CME FedWatch, nella pagina non e' chiaro se sia la fonte."
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "Titoli legati all'AI a metà seduta 16/11: Alphabet -2,6%, Amazon -2,3%, Meta -1,9%, Super Micro -5,3%; nove settori su undici dell'S&P 500 in calo, tecnologia -2%; i ribassi superano i rialzi di 2,6 a 1 al Nyse",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/nasdaq-s-p-500-fall-over-1-in-run-up-to-nvidia-results-anthropic-debut-ce785edfdd89fe26",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Nasdaq, S&P 500 fall over 1% in run-up to Nvidia results, Anthropic debut",
+    "ricerca": "stocks Monday November 16 2026 S&P 500 falls Nasdaq tech selloff Reuters",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Nine of the 11 S&P 500 sectors were in negative territory, led by technology, which dropped 2%. | Declining issues outnumbered advancers by a 2.61-to-1 ratio on the NYSE and by a 2.72-to-1 ratio on the Nasdaq. | Among hyperscalers, Alphabet shed 2.6%, while Amazon and Meta declined 2.3% and 1.9%, respectively.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters a meta' seduta. Super Micro -5,3% nella frase su Dell/HP. Nota: il PDF pag. 2 dice 'in media i titoli del Nyse perdono in tutti gli undici settori' (dato di chiusura, fonte FMP, non verificato da me) e il titolo dice 'quasi tutti i settori': incoerenza interna titolo/testo; la pagina Reuters a meta' seduta parla di nove su undici."
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "Nvidia ha perso circa 735 miliardi di dollari di capitalizzazione dalle rivelazioni su Huang; sui mercati pesano anche i dubbi sul valore dell'AI e possibili limiti USA ai data center che affittano chip Nvidia",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP (Daily Excelsior)",
+    "url": "https://www.dailyexcelsior.com/asian-shares-decline-following-stocks-tumbled-on-wall-street",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "Asian shares decline following stocks tumbled on Wall Street",
+    "ricerca": "Asia markets Tuesday November 17 2026 Nikkei Kospi Hang Seng open",
+    "agenzia": "AP"
+   }
+  ],
+  "trovato": "The company has lost $735 billion in market value since the disclosures of CEO Jensen Huang's extramarital affairs.",
+  "verifica": "confermato",
+  "nota_revisore": "AP, cifra esatta. Nella scheda la seconda parte ('possibili limiti USA ai data center che affittano chip Nvidia') NON e' nella pagina AP: AP parla di possibili restrizioni dei Democratici alla costruzione di nuovi data center AI e di regole dell'amministrazione Trump che limitano l'accesso remoto a chip e server avanzati; 'rent/lease' assenti. Il PDF non riporta questa seconda parte. Il dubbio sul valore dell'AI e' in AP come critica a 'prices in a bubble'."
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Seul 17/11: Samsung -3,3% a 190.300 won, SK hynix -1,96%; gli stranieri vendono 1.440 miliardi di won, istituzionali (543 mld) e privati (421 mld) comprano; per Shinhan Securities pesano «concerns over the sustainability of AI demand»",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Korea Herald",
+    "url": "https://www.koreaherald.com/article/10940067",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "Seoul stocks drop for 4th day amid lingering AI woes",
+    "ricerca": "Seoul shares close sharply lower Tuesday AI woes Kospi ends Yonhap"
+   }
+  ],
+  "trovato": "The benchmark Korea Composite Stock Price Index lost 132.02 points, or 2.59 percent, to close at 4,968.48, | Top market cap Samsung Electronics decreased 3.3 percent to 190,300 won, | Foreigners sold a net 1.44 trillion won, | concerns over the sustainability of AI demand",
+  "verifica": "confermato",
+  "nota_revisore": "Korea Herald. Istituzionali 543,56 mld e privati 421,79 mld di won (la scheda troncava a 543/421; il PDF non riporta le cifre). L'analista citato e' Kang Jin-hyuk di Shinhan Securities. La frase successiva alla citazione e' 'KOSPI heavyweights ended lower.'"
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Europa 16/11: l'indice europeo dei titoli tecnologici cede l'1,3% mentre l'Euro Stoxx 50 perde lo 0,6%; Parigi -0,20%, Francoforte -0,57% (Teleborsa, pomeriggio); la difesa tiene, con Leonardo +0,86%",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (ARIVA)",
+    "url": "https://www.ariva.de/news/aktien-europa-schluss-verluste-ueberwiegen-smi-rettet-plus-12209142",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Aktien Europa Schluss: Verluste überwiegen - SMI rettet Plus nach Rekord",
+    "ricerca": "Aktien Europa Schluss Nvidia Huang Rücktritt EuroStoxx 50 Montag Schlusskurs",
+    "agenzia": "dpa-AFX"
+   },
+   {
+    "testata": "Teleborsa (Borsa Italiana)",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/teleborsa/commenti/in-rosso-milano-e-gli-altri-listini-europei-pesa-il-tech-occhi-puntati-sui-conti-di-nvidia-207_2026-11-16_TLB.html",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "In rosso Milano e gli altri listini europei, pesa il tech: occhi puntati sui conti di Nvidia",
+    "ricerca": "Borse europee chiudono in ribasso lunedì Nvidia Huang Milano Teleborsa 16 novembre"
+   }
+  ],
+  "trovato": "Der EuroStoxx 50 ... schloss 0,60 Prozent tiefer | ging es für den europäischen Branchenindex um 1,3 Prozent nach unten. | sostanzialmente debole Parigi, che registra una flessione dello 0,20%. | tentenna Francoforte, che cede lo 0,57% | Piccoli passi in avanti per Leonardo, che segna un incremento marginale dello 0,86%.",
+  "verifica": "confermato",
+  "nota_revisore": "Confermati Parigi/Francoforte (Teleborsa; orario esatto non indicato nel testo, quotazioni delle 17:35) e Leonardo +0,86% (Teleborsa e Radiocor: 'bene la Difesa'). ATTENZIONE: nel PDF pag. 4 'la difesa ha tenuto' e' attribuito a dpa-AFX, ma la pagina dpa-AFX non parla di difesa; il supporto e' Radiocor/Teleborsa, e solo per Leonardo (+0,86%, Avio -3,43% nel testo Radiocor, +3,43% nella tabella). 'La difesa tiene' e' una generalizzazione."
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "testo": "Petrolio 16/11: segnali di recupero dei flussi da Hormuz rafforzano l'idea di un eccesso di offerta; Goldman Sachs vede il Brent a 88 $ in media l'anno prossimo e a 78 $ a dicembre 2027, con rischio di rialzo nel breve per gli attacchi alle navi",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Euronext Live)",
+    "url": "https://live.euronext.com/en/financial-news/oil-settles-lower-recovering-middle-east-exports-bolster-surplus-outlook",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Oil settles lower as recovering Middle East exports bolster surplus outlook",
+    "ricerca": "oil settles lower Monday Brent $92 Iran Bahrain air base tankers mines Hormuz November 16",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Goldman expects Brent to average $88 a barrel next year and slip to $78 by December 2027. | upside risks to prices because of shipping attacks in the Middle East | signs of recovering oil flows through the Strait of Hormuz reinforced expectations of a supply surplus.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters/Euronext Live (frammenti esatti). PDF fedele."
+ },
+ {
+  "id": "D06",
+  "sezione": "deep_dive",
+  "testo": "Hormuz 16/11: le Guardie della Rivoluzione iraniane dicono che due petroliere hanno colpito mine a Hormuz e che sei navi hanno preso fuoco tra domenica e lunedì; Reuters non ha potuto verificare",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Euronext Live)",
+    "url": "https://live.euronext.com/en/financial-news/oil-settles-lower-recovering-middle-east-exports-bolster-surplus-outlook",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Oil settles lower as recovering Middle East exports bolster surplus outlook",
+    "ricerca": "oil settles lower Monday Brent $92 Iran Bahrain air base tankers mines Hormuz November 16",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "two oil tankers struck mines in the Strait of Hormuz, causing explosions | Six tankers caught fire in similar incidents on Sunday and Monday. | Reuters could not independently verify the report.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters. La pagina dice 'tankers' (petroliere); il PDF dice 'navi'. Piccola generalizzazione, accettabile ma da notare."
+ },
+ {
+  "id": "D07",
+  "sezione": "deep_dive",
+  "testo": "Fed 16/11: i future sui tassi danno per fatto il rialzo di dicembre; il 28 ottobre la Fed ha lasciato i tassi al 3,75-4,00% e mercoledì escono i verbali",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/nasdaq-s-p-500-fall-over-1-in-run-up-to-nvidia-results-anthropic-debut-ce785edfdd89fe26",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Nasdaq, S&P 500 fall over 1% in run-up to Nvidia results, Anthropic debut",
+    "ricerca": "stocks Monday November 16 2026 S&P 500 falls Nasdaq tech selloff Reuters",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/week-in-focus--16-20th-november-2026-highlights-include-us-retail-sales-fomc-minutes-chinese-activity-data-pboc-lpr-rba-minutes-uk-inflation-and-uk-jobs",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "Week in Focus: 16-20th November 2026",
+    "ricerca": "week ahead November 17 2026 US retail sales forecast ZEW Nvidia earnings FOMC minutes consensus"
+   }
+  ],
+  "trovato": "Markets are fully pricing in a December rate hike | Minutes from the Federal Open Market Committee's latest meeting, scheduled for Wednesday, | The Federal Reserve kept the federal funds rate at 3.75% to 4.00% on Wednesday 28 October 2026. | The vote was 10-2.",
+  "verifica": "confermato",
+  "nota_revisore": "Rialzo e verbali da Reuters; tassi 3,75-4,00% al 28/10 da Admiral Markets (non nella pagina Reuters). La pagina Newsquawk 'Week in focus' non e' comparsa nei risultati. Il verbale e' mercoledi' 18 (FXEmpire: 19:00 GMT = 20:00 Roma)."
+ },
+ {
+  "id": "MEM-1116-MEM-1113-A03",
+  "sezione": "agenda",
+  "testo": "Conti trimestrali di Nvidia, martedì 17 novembre, conference call alle 2 p.m. PT (23:00 a Roma)",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "SEC (modulo 8-K Nvidia)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000082/nvidiaannouncesceotransiti.htm",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "Colette Kress, the company's EVP and CFO since 2013, will serve as Interim CEO"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF.",
+  "ripresa": "2026-11-16"
+ },
+ {
+  "id": "MEM-1116-A04",
+  "sezione": "agenda",
+  "testo": "Verbali della riunione Fed di ottobre, mer 18, 20:00",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FXEmpire",
+    "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-nvidia-earnings-anthropic-ipo-test-ai-trade-1644719",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "The Week Ahead: Nvidia Earnings, Anthropic IPO Test AI Trade",
+    "ricerca": "Wall Street week ahead Nvidia earnings Anthropic IPO Warsh Fed hike December"
+   },
+   {
+    "testata": "Thrive in Markets",
+    "url": "https://thriveinmarkets.com/market-insights/week-ahead-2026-11-16/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Fed Minutes and Nvidia Earnings Could Move Stocks This Week",
+    "ricerca": "markets week ahead November 16 2026 stocks oil Fed"
+   }
+  ],
+  "ripresa": "2026-11-16",
+  "trovato": "19:00 GMT, FOMC Meeting Minutes | the minutes from the October meeting will be released Wednesday.",
+  "verifica": "confermato",
+  "nota_revisore": "FXEmpire: mercoledi' 18 novembre, 19:00 GMT = 20:00 Roma (conversione mia). Admiral Markets indica la data come stima ('around 18 Nov')."
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Seul sotto 5.000, Kospi -2,59% (Korea Herald, 07:30)",
+   "Asia in calo con Wall Street, Nvidia -4,1% (AP, 07:30)",
+   "Asia in rosso, paura per l'AI e scontro USA-Cina (Milano Finanza, 07:30)",
+   "Huang lavora per rientrare a Nvidia (Financial Times, 16/11)",
+   "Petrolio -3,6% sull'eccesso di offerta (Reuters, 16/11 sera)",
+   "Europa: Nasdaq 100 -1,5% alla chiusura, Euro Stoxx 50 -0,6% (dpa-AFX, 16/11 sera)"
+  ],
+  "testate": [
+   {
+    "testata": "Reuters",
+    "storie": [
+     "Nasdaq, S&P 500 fall over 1% in run-up to Nvidia results, Anthropic debut",
+     "Oil settles lower as recovering Middle East exports bolster surplus outlook"
+    ]
+   },
+   {
+    "testata": "Financial Times",
+    "storie": [
+     "Huang in talks about returning to Nvidia (riportato da Reuters)"
+    ]
+   },
+   {
+    "testata": "AP",
+    "storie": [
+     "Asian shares decline following stocks tumbled on Wall Street"
+    ]
+   },
+   {
+    "testata": "Il Sole 24 Ore (Radiocor)",
+    "storie": [
+     "Pesa la doppia incognita Nvidia e Anthropic, anche Milano (-0,6%) soffre"
+    ]
+   },
+   {
+    "testata": "Korea Herald",
+    "storie": [
+     "Seoul stocks drop for 4th day amid lingering AI woes"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Vendite alle banche USA per presunti disservizi delle app (Newsquawk, citando CNBC)",
+    "motivo": "troppo piccola: CNBC non ha trovato prove di un guasto comune"
+   }
+  ],
+  "concorda": true,
+  "motivo": "Apertura comune: la vendita sull'AI a Wall Street e in Asia alla vigilia dei conti Nvidia.",
+  "mancate_ieri": []
+ },
+ {
+  "id": "S1",
+  "sezione": "scaletta",
+  "apertura": {
+   "storia": "La vendita sull'AI arriva a Wall Street alla vigilia dei conti Nvidia",
+   "perche_prima": "Apertura di Reuters, AP, Radiocor e dei resoconti asiatici"
+  },
+  "moduli": [
+   {
+    "chiave": "chip",
+    "misura": "doppio",
+    "tesi": "La vendita non è più solo Nvidia: colpisce chi costruisce e finanzia i data center, e per noi il test di stasera vale più dell'utile.",
+    "domanda": "Perché cade tutta la filiera dell'AI e non solo Nvidia?",
+    "prove": [
+     "Intel -6,4%, Micron -5,8%, Dell -5,8% a metà seduta",
+     "Indice dei chip di Filadelfia -3,7%",
+     "Nvidia: serie settimanale di perdite più lunga dal 2012",
+     "Kospi sotto 5.000, stranieri vendono 1.440 mld di won",
+     "Nvidia ha perso circa 735 mld $ dalle rivelazioni su Huang",
+     "Conti stasera alle 23:00, Anthropic giovedì"
+    ],
+    "contro": "Se i conti di stasera battono le attese e Huang rientra, la vendita può rientrare.",
+    "schede": [
+     "T01",
+     "N02",
+     "N03",
+     "N04",
+     "N11",
+     "D01",
+     "D02",
+     "D03"
+    ],
+    "memoria": "M17, M15"
+   },
+   {
+    "chiave": "tassi",
+    "misura": "mezzo",
+    "tesi": "Con la paura i Treasury tornano rifugio anche con una Fed che alza: lunedì il 2 anni ha perso 5 pb pur con il rialzo di dicembre quasi certo.",
+    "domanda": "Perché i rendimenti scendono se la Fed sta per alzare?",
+    "prove": [
+     "2 anni 4,83% (-5 pb), 10 anni 5,12% (-3 pb)",
+     "VIX a 22,91",
+     "Rialzo di dicembre prezzato, 9% per 50 pb",
+     "Verbali mercoledì"
+    ],
+    "contro": "Se i verbali sono duri i rendimenti tornano a salire anche con le borse in calo.",
+    "schede": [
+     "N12",
+     "D07"
+    ],
+    "memoria": "M26, M07"
+   },
+   {
+    "chiave": "oro",
+    "misura": "mezzo",
+    "tesi": "Con il dollaro forte l'oro non fa da rifugio: perde il 6% in una settimana mentre l'euro scende ai minimi da giugno.",
+    "domanda": "Perché l'oro scende nel giorno della paura?",
+    "prove": [
+     "Oro future 3.853 $ contro 4.114,5 il 9/11",
+     "EUR/USD 1,0996, minimo da fine giugno",
+     "Tassi alti",
+     "Dollaro più forte"
+    ],
+    "contro": "Se la paura sale ancora l'oro può recuperare.",
+    "schede": [
+     "N12",
+     "D07"
+    ],
+    "memoria": "M23, M09"
+   },
+   {
+    "chiave": "europa",
+    "misura": "mezzo",
+    "tesi": "L'Europa regge meglio perché ha pochi titoli dell'AI: Euro Stoxx -0,6% contro Nasdaq -2,5%.",
+    "domanda": "Perché l'Europa perde meno di Wall Street?",
+    "prove": [
+     "Euro Stoxx 50 -0,60%",
+     "Nasdaq 100 -1,5% alla chiusura europea",
+     "Indice europeo tecnologico -1,3%",
+     "Difesa e Leonardo tengono"
+    ],
+    "contro": "Se la vendita sull'AI continua in Asia e USA, anche l'Europa cede.",
+    "schede": [
+     "N08",
+     "N09",
+     "D04"
+    ],
+    "memoria": "M16"
+   },
+   {
+    "chiave": "petrolio",
+    "misura": "mezzo",
+    "tesi": "Il petrolio cade di un quinto in tre settimane perché il mercato guarda all'eccesso di offerta più che agli attacchi alle navi.",
+    "domanda": "Perché il greggio scende con Hormuz in tensione?",
+    "prove": [
+     "Brent 92,44 $ contro 116,72 il 23/10",
+     "IEA: eccesso di 1,7 mb/g nel quarto trimestre",
+     "Raffinerie cinesi -8,1% annuo",
+     "Goldman: 88 $ in media l'anno prossimo"
+    ],
+    "contro": "Se un attacco ferma davvero i flussi, il greggio risale.",
+    "schede": [
+     "N05",
+     "N06",
+     "N07",
+     "D05",
+     "D06"
+    ],
+    "memoria": "M10, M11"
+   }
+  ]
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Treasury 2 anni -5 pb con rialzo Fed di dicembre quasi certo e S&P -1,9%",
+  "ricerche": [
+   "stocks Monday November 16 2026 S&P 500 falls Nasdaq tech selloff Reuters",
+   "Warsh speech San Francisco November 16 2026 rate hike inflation"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Acquisti rifugio dopo la vendita sull'AI, con il petrolio in calo che allenta il timore sui prezzi",
+    "fonte": "N05",
+    "prevede": "VIX su, rendimenti giù, dollaro su",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Attese di rialzo Fed in calo",
+    "fonte": null,
+    "prevede": "2 anni giù e dollaro giù",
+    "prezzi": "non torna"
+   }
+  ],
+  "esito": "ipotesi"
+ },
+ {
+  "id": "MEM-1116-A02",
+  "sezione": "agenda",
+  "testo": "Vendite al dettaglio USA, ottobre: +0,2% sul mese atteso, prima +0,8%. Mar 17, 14:30",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FXEmpire",
+    "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-nvidia-earnings-anthropic-ipo-test-ai-trade-1644719",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "The Week Ahead: Nvidia Earnings, Anthropic IPO Test AI Trade",
+    "ricerca": "Wall Street week ahead Nvidia earnings Anthropic IPO Warsh Fed hike December"
+   },
+   {
+    "testata": "Thrive in Markets",
+    "url": "https://thriveinmarkets.com/market-insights/week-ahead-2026-11-16/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Fed Minutes and Nvidia Earnings Could Move Stocks This Week",
+    "ricerca": "markets week ahead November 16 2026 stocks oil Fed"
+   }
+  ],
+  "ripresa": "2026-11-16",
+  "trovato": "13:30 GMT, Retail Sales m/m, forecast 0.2% (prior 0.8%) | On November 17, Eastern Time, the U.S. will release the latest retail sales data for October. | consensus estimates project headline retail sales to rise by about 0.2% month-over-month in October",
+  "verifica": "confermato",
+  "nota_revisore": "FXEmpire (martedi' 17, 13:30 GMT = 14:30 Roma) e TradingKey (ottobre; precedente +0,8% di settembre). Nessuna delle due pagine citate dice 'ore 14:30' in modo esplicito: conversione mia. La pagina Thrive in Markets non e' stata cercata."
+ },
+ {
+  "id": "K03",
+  "sezione": "catalizzatori",
+  "testo": "Discorso del presidente della Fed Warsh a San Francisco, lunedì 16: parla soprattutto di AI, senza commenti sulla politica monetaria",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/us-market-wrap---16th-november-2026-risk-off-trade-as-tech-rout-resumes-supporting-havens-",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "US Market Wrap - 16th November 2026: Risk off trade as tech rout resumes, supporting havens",
+    "ricerca": "European Equity Opening US market wrap 16th November 2026 Euro STOXX 50 closed Monday"
+   }
+  ],
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "federalreserve.gov Chair Warsh speech November 16 2026",
+   "Warsh remarks San Francisco AI productivity Monday Fed Chair speech artificial intelligence November 2026"
+  ],
+  "trovato": "The Fed chairman did not comment on what the Fed's next steps would be on interest rates. | kicked off a one-day conference on AI and productivity at the Fed's San Francisco branch.",
+  "verifica": "confermato",
+  "nota_revisore": "Audacy (AP) del 16/11. Titolo: 'Fed Chairman Warsh grapples with AI's potential economic impact, steers clear of its inflation risk'. Titoli di Investing Live e CNBC concordano ('doesn't talk about monetary policy in a speech on AI') ma le pagine non si sono aperte. Newsquawk non e' comparso nei risultati. Nota: 'parla soprattutto di AI' e' ok; il PDF dice 'Parla di AI' in colonna Attese."
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "Nikkei 225 e Hang Seng, chiusura del 17/11 (fonti con valori e orari discordanti)",
+  "ricerche": [
+   "Asia markets Tuesday November 17 2026 Nikkei Kospi Hang Seng open",
+   "Borse asiatiche oggi 17 novembre 2026 Tokyo Seul Hong Kong Shanghai",
+   "Seoul shares close sharply lower Tuesday AI woes Kospi ends Yonhap",
+   "Kospi closes November 17 2026"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "AP (Daily Excelsior)",
+   "url": "https://www.dailyexcelsior.com/asian-shares-decline-following-stocks-tumbled-on-wall-street"
+  }
+ }
+]

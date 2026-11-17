@@ -5127,5 +5127,347 @@
     ]
    }
   ]
+ },
+ {
+  "numero": 27,
+  "data": "2026-11-17",
+  "titolo": "La paura per l'AI colpisce Wall Street, stasera tocca ai conti Nvidia",
+  "sommario": [
+   "Il petrolio cade: il mercato guarda all'offerta in eccesso più che agli attacchi alle navi.",
+   "Mercoledì i verbali della Fed: il rialzo di dicembre è già nei prezzi.",
+   "A Milano Igd sale con l'offerta di Carmila, mentre Stellantis perde."
+  ],
+  "file": "pdf/2026-11-17-gommberg-027.pdf",
+  "nome": "2026-11-17 Gommberg Terminal Daily #027.pdf",
+  "pagine": 6,
+  "notizie": [
+   "L'Agenzia internazionale dell'energia passa dal deficit all'eccesso di offerta",
+   "Le Guardie della Rivoluzione dicono che due petroliere hanno colpito mine a Hormuz",
+   "Trump comincia il viaggio in Cina per incontrare Xi Jinping",
+   "Igd sale con l'offerta di Carmila, Stellantis e Technoprobe perdono",
+   "Zurigo tocca un record e chiude in rialzo mentre l'Europa cede",
+   "Anthropic debutta al Nasdaq giovedì, e c'è chi frena"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "153,00 $",
+    "-2,0% g"
+   ],
+   [
+    "S&P 500",
+    "7.416,59",
+    "-1,9% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.348,35",
+    "-0,6% g"
+   ],
+   [
+    "TREASURY 10 ANNI",
+    "5,12%",
+    "-3 pb g"
+   ],
+   [
+    "EUR/USD",
+    "1,0996",
+    "-0,2% g"
+   ],
+   [
+    "BRENT FUTURE",
+    "92,44 $",
+    "-3,5% g"
+   ],
+   [
+    "ORO",
+    "3.853 $",
+    "-0,9% g"
+   ]
+  ],
+  "dek": "Il Nasdaq perde il 2,5% e l'S&P 500 l'1,9%, con Nvidia in calo del 4,1% dopo le dimissioni di Jensen Huang da amministratore delegato. Pesano anche le nuove regole USA che limitano l'accesso della Cina ai chip avanzati (Reuters), e stamattina Seul chiude sotto quota 5.000, ai minimi da nove mesi. Stasera a mercati chiusi i conti di Nvidia, i primi senza Huang.",
+  "ticker_al": "2026-11-16",
+  "scommessa": {
+   "settimana": "2026-11-16/2026-11-20",
+   "su": 6,
+   "par": 7.3,
+   "strada": 3,
+   "range": 6,
+   "dettaglio": [
+    [
+     "S&P 500",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Euro Stoxx 50",
+     "su",
+     false,
+     true
+    ],
+    [
+     "Treasury 10 anni",
+     "su",
+     false,
+     true
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Brent future",
+     "su",
+     false,
+     true
+    ],
+    [
+     "Oro future",
+     "giù",
+     true,
+     true
+    ]
+   ]
+  },
+  "temi": [
+   "Chip",
+   "Fed",
+   "Tassi",
+   "Valute",
+   "Petrolio",
+   "Europa"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Chip e AI",
+    "titolo": "La vendita sull'AI si allarga e a Wall Street perdono i settori in blocco",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Tassi USA",
+    "titolo": "Con la paura i Treasury tornano rifugio, anche con la Fed pronta ad alzare",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Dollaro e oro",
+    "titolo": "Con il dollaro forte l'oro non fa da rifugio",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Europa",
+    "titolo": "Con meno AI nell'indice l'Europa perde meno di Wall Street",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Petrolio",
+    "titolo": "Il petrolio cade: il mercato guarda all'eccesso di offerta",
+    "formato": "grafico"
+   }
+  ],
+  "meccanismi": [
+   "M15",
+   "M16",
+   "M17",
+   "M20",
+   "M26",
+   "M23",
+   "M09",
+   "M10",
+   "M11"
+  ],
+  "parole": [
+   "Acquisti rifugio",
+   "Previsioni aziendali",
+   "Eccesso di offerta",
+   "VIX",
+   "Quotazione in borsa (IPO)",
+   "Curva dei rendimenti"
+  ],
+  "ripetizioni": 3,
+  "glossario": [
+   "CME FedWatch",
+   "VIX",
+   "ACWI"
+  ],
+  "dove": {
+   "approfondimenti": [
+    2,
+    3,
+    3,
+    4,
+    4
+   ],
+   "mercati": 5,
+   "agenda": 5,
+   "scommessa": 6
+  },
+  "termometri": {
+   "righe": [
+    [
+     "AI e chip",
+     "Conti Nvidia stasera",
+     "La vendita arriva a Wall Street",
+     "giu: Titoli dell'AI, da Seul a New York",
+     "Conti alle 23:00"
+    ],
+    [
+     "Fed e tassi",
+     "Verbali mercoledì",
+     "Rialzo di dicembre già nei prezzi",
+     "giu: Rendimenti a 2 e 10 anni, per la paura",
+     "Verbali, mer 18 alle 20:00"
+    ],
+    [
+     "Dollaro e oro",
+     "Euro ai minimi da mesi",
+     "Oro in calo con il dollaro forte",
+     "giu: Oro e euro",
+     "Verbali Fed"
+    ],
+    [
+     "Petrolio",
+     "Eccesso di offerta",
+     "Il Brent scende sotto 93 $",
+     "giu: Brent",
+     "Flussi da Hormuz"
+    ]
+   ],
+   "fermi": "Cina (dati d'ottobre usciti lunedì, nessuna novità verificata oggi); Iran e Hormuz (nuovi attacchi alle navi dichiarati dai pasdaran, non verificati da Reuters)."
+  },
+  "quadro": "Lunedì i prezzi parlano di paura più che di inflazione. Per noi i Treasury tornano rifugio: il 2 anni scende di 5 pb anche con il rialzo Fed di dicembre quasi scontato. Il VIX (volatilità attesa sull'S&P 500) sale a 22,91, il livello più alto dal 6 novembre. L'oro cede e il dollaro sale, come spesso accade quando i tassi restano alti.",
+  "evento_oggi": "Mar 17, 14:30 Vendite al dettaglio USA (ottobre)",
+  "grafici": [
+   {
+    "tipo": "barre",
+    "titolo": "La vendita sull'AI è larga: in media perdono i titoli di ogni settore",
+    "serie": [],
+    "x0": null,
+    "x1": null,
+    "etichette": [
+     "Industriali",
+     "Materiali",
+     "Tecnologia",
+     "Energia",
+     "Sanità",
+     "Consumi ciclici",
+     "Comunicazioni",
+     "Immobiliare",
+     "Consumi difensivi",
+     "Finanza",
+     "Utility"
+    ]
+   },
+   {
+    "tipo": "linee",
+    "titolo": "Il Nasdaq perde il 7,7% dal massimo del 28 ottobre",
+    "serie": [
+     "Nasdaq"
+    ],
+    "x0": "2026-10-14",
+    "x1": "2026-11-16",
+    "etichette": []
+   },
+   {
+    "tipo": "barre",
+    "titolo": "Il breve scende più del lungo",
+    "serie": [],
+    "x0": null,
+    "x1": null,
+    "etichette": [
+     "1M",
+     "2M",
+     "3M",
+     "6M",
+     "1A",
+     "2A",
+     "3A",
+     "5A",
+     "7A",
+     "10A",
+     "20A",
+     "30A"
+    ]
+   },
+   {
+    "tipo": "linee",
+    "titolo": "L'oro perde il 6,4% in una settimana",
+    "serie": [
+     "Oro"
+    ],
+    "x0": "2026-10-14",
+    "x1": "2026-11-16",
+    "etichette": []
+   },
+   {
+    "tipo": "linee",
+    "titolo": "L'Europa tiene mentre Wall Street scende dal massimo dell'11 novembre",
+    "serie": [
+     "S&P 500",
+     "Euro Stoxx 50"
+    ],
+    "x0": "2026-11-06",
+    "x1": "2026-11-16",
+    "etichette": []
+   },
+   {
+    "tipo": "linee",
+    "titolo": "Dal 23 ottobre il Brent ha perso più di un quinto",
+    "serie": [
+     "Brent"
+    ],
+    "x0": "2026-10-14",
+    "x1": "2026-11-16",
+    "etichette": []
+   }
+  ],
+  "agenda": [
+   {
+    "quando": "Mar 17, 14:30",
+    "evento": "Vendite al dettaglio USA (ottobre)",
+    "attese": "+0,2% sul mese; prima +0,8%",
+    "perche": "Evento n.1: consumi con prezzi alti e Fed che alza",
+    "chiave": true,
+    "muove": [
+     "Sopra: di solito salgono dollaro e rendimenti a breve: consumi forti lasciano spazio alla Fed.",
+     "Sotto: il rialzo di dicembre perde un po' di forza e i rendimenti tendono a scendere."
+    ]
+   },
+   {
+    "quando": "Mar 17, 23:00",
+    "evento": "Conti Nvidia (terzo trimestre fiscale)",
+    "attese": "Utile e ricavi contro le stime; primi senza Huang",
+    "perche": "Primi conti e prime previsioni dopo l'addio di Huang",
+    "chiave": false,
+    "muove": [
+     "Sopra: di solito il titolo recupera, ma contano più le previsioni dell'azienda per i prossimi mesi.",
+     "Sotto: la vendita sui chip può allargarsi."
+    ]
+   },
+   {
+    "quando": "Mer 18, 20:00",
+    "evento": "Verbali della Fed (riunione 27-28 ottobre)",
+    "attese": "Tassi lasciati al 3,75-4,00%; rialzo di dicembre atteso",
+    "perche": "Quanto la Fed è vicina al rialzo",
+    "chiave": false,
+    "muove": [
+     "Più duri: di solito salgono rendimenti a breve e dollaro.",
+     "Più cauti: i rendimenti tendono a scendere."
+    ]
+   },
+   {
+    "quando": "Gio 19",
+    "evento": "Debutto di Anthropic al Nasdaq",
+    "attese": "Primo giorno di scambi",
+    "perche": "Secondo test per l'AI dopo Nvidia",
+    "chiave": false,
+    "muove": [
+     "Forte: di solito rilancia i titoli dell'AI.",
+     "Debole: rafforza i dubbi sul valore del settore."
+    ]
+   }
+  ]
  }
 ]

@@ -1,0 +1,134 @@
+[
+ {
+  "id": "T01",
+  "trovato": "On Monday, the S&P 500 index was 1.9% lower and the Nasdaq composite index lost 2.5%. | The Dow also fell 1.4% as losses broadened into other sectors. | Nvidia sank 4.1% and was again the heaviest weight on Wall Street following its crisis of leadership. | The benchmark Korea Composite Stock Price Index lost 132.02 points, or 2.59 percent, to close at 4,968.48,",
+  "verifica": "confermato",
+  "nota_revisore": "Cifre confermate da AP (copia ClickOnDetroit, stessa notizia 'Asian shares decline following stocks tumbled on Wall Street'; la pagina Daily Excelsior non e' comparsa nei risultati) e Korea Herald. Nota: Korea Herald scrive 'lowest level in nine months', non 'per la prima volta'; la formula 'for 1st time in 9 months' e' nel titolo Korea Times ('KOSPI tumbles below 5,000 for 1st time in 9 months as AI fears spark foreign exodus'). La pagina Reuters e' a meta' seduta (S&P -1,21%, Nasdaq -1,67%), quindi i dati di chiusura vengono da AP."
+ },
+ {
+  "id": "N03",
+  "trovato": "Meanwhile, the US also unveiled new interim rules tightening China's access to advanced AI chips | as President Donald Trump began a trip to China for meetings with counterpart Xi Jinping.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters/MarketScreener, 16/11. Il testo PDF e' coerente. Korea Herald non nomina Trump ne' Cina: parla di regole USA che limitano l'accesso remoto a chip e server avanzati."
+ },
+ {
+  "id": "N06",
+  "trovato": "Oil supply will average 105 million barrels per day (bpd) in the fourth quarter, 1.7 million bpd higher than forecast demand | The agency had previously forecast a fourth-quarter supply deficit.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters/Euronext Live. PDF fedele."
+ },
+ {
+  "id": "N07",
+  "trovato": "fell 2% from a month earlier and was down 8.1% from a year ago | implied build in Chinese crude stocks was 492,000 bpd last month",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters/Euronext Live (frammenti esatti). Nel PDF la frase 'Intanto cambia anche la domanda' e' un commento redazionale non presente nella pagina."
+ },
+ {
+  "id": "N02",
+  "trovato": "Trump said he would not oppose Huang's reinstatement as Nvidia CEO. | The Financial Times reported on Monday the Nvidia founder is in talks with allies about possibly returning | Radiocor: Dall'altra, secondo il Financial Times, Huang starebbe lavorando per tornare al timone del colosso dei chip. | Bessent invita (nel weekend) il board a 'un cambiamento radicale' al vertice",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters: exit 'over revelations of extramarital affairs'. Radiocor: Bessent, come ministro del Tesoro, ha invitato il board nel weekend a 'un cambiamento radicale'. 'Non si opporrebbe' (Reuters) vs 'non dispiacerebbe' (Radiocor): equivalenti. Nei risultati di ricerca compare un titolo wallstreet-online 'Kein Weg zurueck: Nvidia schliesst Huang-Comeback aus' (non aperto, data non verificata): se e' di oggi, la riga 'Huang lavora per rientrare' potrebbe essere superata."
+ },
+ {
+  "id": "N04",
+  "trovato": "The benchmark Korea Composite Stock Price Index lost 132.02 points, or 2.59 percent, to close at 4,968.48, | Top market cap Samsung Electronics decreased 3.3 percent to 190,300 won, | Foreigners sold a net 1.44 trillion won, | South Korean stocks sank for the fourth consecutive session Tuesday,",
+  "verifica": "confermato",
+  "nota_revisore": "Korea Herald: SK hynix -1,96% (a 1,1 milioni di won, stessa frase di Samsung). Il Korea Herald non dice 'per la prima volta' ma 'lowest in nine months' (vedi T01)."
+ },
+ {
+  "id": "N05",
+  "trovato": "Brent crude futures closed down $3.40, or 3.6%, at $92.44 a barrel | US West Texas Intermediate (WTI) crude dropped $2.84, or 3.2%, to $85.72. | In calo del 7,4% a 84,2 euro al megawattora il gas ad Amsterdam. | Sul valutario, l'euro/dollaro si indebolisce a 1,100",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters per Brent/WTI, Radiocor per il gas (nella pagina Reuters il gas non c'e'). Il PDF mostra Brent -3,5% (dato FMP) contro -3,6% Reuters: scarto di arrotondamento. Radiocor da' Brent 93,36 (-2,56%) ma e' un dato infragiornaliero."
+ },
+ {
+  "id": "N08",
+  "trovato": "che scende a 51.521 punti, con uno scarto percentuale dello 0,65% | Sensibili perdite per Stellantis, in calo del 3,92%. | Vendite su STMicroelectronics, che registra un ribasso del 2,06%. | seduta pessima per Technoprobe che paga il pessimismo sull'AI | che ha chiuso a -4,19%. | Igd sale del 5,6% dopo l'ops di Carmila",
+  "verifica": "confermato",
+  "nota_revisore": "Teleborsa. Igd: il testo dice +5,6%, la tabella +6,12% (scheda: +6%, accettabile). Il pessimismo sull'AI per Technoprobe e' detto per l'apertura. Radiocor non riporta Igd/Carmila ne' il livello del Ftse Mib. Il PDF non cita cifre per Igd."
+ },
+ {
+  "id": "N09",
+  "trovato": "Der EuroStoxx 50 weitete am Nachmittag seine Verluste aus und schloss 0,60 Prozent tiefer mit 6.348,35 Punkten. | Ähnlich erging es dem Londoner FTSE 100 mit einem Abschlag von 0,09 Prozent auf 10.892,93 Punkte. | Der Züricher SMI gewann nach einem Rekordhoch am Ende 0,57 Prozent auf 15.192,58 Zähler. | Nasdaq 100 ... zum europäischen Handelsende weitere 1,5 Prozent einbüßte | ging es für den europäischen Branchenindex um 1,3 Prozent nach unten.",
+  "verifica": "confermato",
+  "nota_revisore": "dpa-AFX/ARIVA. ATTENZIONE: il PDF (pag. 1, notizia 05) titola 'Zurigo chiude su un massimo storico'; la pagina dice che l'SMI ha toccato un massimo storico in seduta e ha chiuso a +0,57% (non dice che la chiusura e' il massimo). Qualifica non presente nella pagina."
+ },
+ {
+  "id": "N11",
+  "trovato": "The Philadelphia SE Semiconductor index slumped 3.7%, hitting its lowest level in a week. | after recording their longest weekly losing streak since October 2012 on Friday. | Among hyperscalers... Dell dropped 5.8% ... Super Micro Computer fell 5.3% | CoreWeave and Nebius fell 5% and 5.7%",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters, a meta' seduta (11:52 ET); Intel -6,4% e Micron -5,8% nella stessa frase dell'indice SOX, Dell -5,8%. Il PDF non qualifica come meta' seduta questi dati, ma nel testo PDF compare solo la serie di perdite di Nvidia (corretta)."
+ },
+ {
+  "id": "N12",
+  "trovato": "Markets are fully pricing in a December rate hike, with chances of a 50-basis-point increase at nearly 9%.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters. Il PDF dice 'quasi certo' per il rialzo; la pagina dice 'fully pricing in' (piu' forte). Il PDF attribuisce il dato a CME FedWatch, nella pagina non e' chiaro se sia la fonte."
+ },
+ {
+  "id": "D01",
+  "trovato": "Nine of the 11 S&P 500 sectors were in negative territory, led by technology, which dropped 2%. | Declining issues outnumbered advancers by a 2.61-to-1 ratio on the NYSE and by a 2.72-to-1 ratio on the Nasdaq. | Among hyperscalers, Alphabet shed 2.6%, while Amazon and Meta declined 2.3% and 1.9%, respectively.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters a meta' seduta. Super Micro -5,3% nella frase su Dell/HP. Nota: il PDF pag. 2 dice 'in media i titoli del Nyse perdono in tutti gli undici settori' (dato di chiusura, fonte FMP, non verificato da me) e il titolo dice 'quasi tutti i settori': incoerenza interna titolo/testo; la pagina Reuters a meta' seduta parla di nove su undici."
+ },
+ {
+  "id": "D04",
+  "trovato": "Der EuroStoxx 50 ... schloss 0,60 Prozent tiefer | ging es für den europäischen Branchenindex um 1,3 Prozent nach unten. | sostanzialmente debole Parigi, che registra una flessione dello 0,20%. | tentenna Francoforte, che cede lo 0,57% | Piccoli passi in avanti per Leonardo, che segna un incremento marginale dello 0,86%.",
+  "verifica": "confermato",
+  "nota_revisore": "Confermati Parigi/Francoforte (Teleborsa; orario esatto non indicato nel testo, quotazioni delle 17:35) e Leonardo +0,86% (Teleborsa e Radiocor: 'bene la Difesa'). ATTENZIONE: nel PDF pag. 4 'la difesa ha tenuto' e' attribuito a dpa-AFX, ma la pagina dpa-AFX non parla di difesa; il supporto e' Radiocor/Teleborsa, e solo per Leonardo (+0,86%, Avio -3,43% nel testo Radiocor, +3,43% nella tabella). 'La difesa tiene' e' una generalizzazione."
+ },
+ {
+  "id": "D05",
+  "trovato": "Goldman expects Brent to average $88 a barrel next year and slip to $78 by December 2027. | upside risks to prices because of shipping attacks in the Middle East | signs of recovering oil flows through the Strait of Hormuz reinforced expectations of a supply surplus.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters/Euronext Live (frammenti esatti). PDF fedele."
+ },
+ {
+  "id": "D06",
+  "trovato": "two oil tankers struck mines in the Strait of Hormuz, causing explosions | Six tankers caught fire in similar incidents on Sunday and Monday. | Reuters could not independently verify the report.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters. La pagina dice 'tankers' (petroliere); il PDF dice 'navi'. Piccola generalizzazione, accettabile ma da notare."
+ },
+ {
+  "id": "D07",
+  "trovato": "Markets are fully pricing in a December rate hike | Minutes from the Federal Open Market Committee's latest meeting, scheduled for Wednesday, | The Federal Reserve kept the federal funds rate at 3.75% to 4.00% on Wednesday 28 October 2026. | The vote was 10-2.",
+  "verifica": "confermato",
+  "nota_revisore": "Rialzo e verbali da Reuters; tassi 3,75-4,00% al 28/10 da Admiral Markets (non nella pagina Reuters). La pagina Newsquawk 'Week in focus' non e' comparsa nei risultati. Il verbale e' mercoledi' 18 (FXEmpire: 19:00 GMT = 20:00 Roma)."
+ },
+ {
+  "id": "D02",
+  "trovato": "The company has lost $735 billion in market value since the disclosures of CEO Jensen Huang's extramarital affairs.",
+  "verifica": "confermato",
+  "nota_revisore": "AP, cifra esatta. Nella scheda la seconda parte ('possibili limiti USA ai data center che affittano chip Nvidia') NON e' nella pagina AP: AP parla di possibili restrizioni dei Democratici alla costruzione di nuovi data center AI e di regole dell'amministrazione Trump che limitano l'accesso remoto a chip e server avanzati; 'rent/lease' assenti. Il PDF non riporta questa seconda parte. Il dubbio sul valore dell'AI e' in AP come critica a 'prices in a bubble'."
+ },
+ {
+  "id": "D03",
+  "trovato": "The benchmark Korea Composite Stock Price Index lost 132.02 points, or 2.59 percent, to close at 4,968.48, | Top market cap Samsung Electronics decreased 3.3 percent to 190,300 won, | Foreigners sold a net 1.44 trillion won, | concerns over the sustainability of AI demand",
+  "verifica": "confermato",
+  "nota_revisore": "Korea Herald. Istituzionali 543,56 mld e privati 421,79 mld di won (la scheda troncava a 543/421; il PDF non riporta le cifre). L'analista citato e' Kang Jin-hyuk di Shinhan Securities. La frase successiva alla citazione e' 'KOSPI heavyweights ended lower.'"
+ },
+ {
+  "id": "MEM-1116-A02",
+  "trovato": "13:30 GMT, Retail Sales m/m, forecast 0.2% (prior 0.8%) | On November 17, Eastern Time, the U.S. will release the latest retail sales data for October. | consensus estimates project headline retail sales to rise by about 0.2% month-over-month in October",
+  "verifica": "confermato",
+  "nota_revisore": "FXEmpire (martedi' 17, 13:30 GMT = 14:30 Roma) e TradingKey (ottobre; precedente +0,8% di settembre). Nessuna delle due pagine citate dice 'ore 14:30' in modo esplicito: conversione mia. La pagina Thrive in Markets non e' stata cercata."
+ },
+ {
+  "id": "MEM-1116-A04",
+  "trovato": "19:00 GMT, FOMC Meeting Minutes | the minutes from the October meeting will be released Wednesday.",
+  "verifica": "confermato",
+  "nota_revisore": "FXEmpire: mercoledi' 18 novembre, 19:00 GMT = 20:00 Roma (conversione mia). Admiral Markets indica la data come stima ('around 18 Nov')."
+ },
+ {
+  "id": "N10",
+  "trovato": "AI lab Anthropic's market debut, expected on Thursday, could test investor confidence in AI investments | Radiocor: È come fare scorta di provviste in tutta fretta, prima che si scateni una tempesta",
+  "verifica": "confermato",
+  "nota_revisore": "Giovedi' da Reuters, Acatis da Radiocor (analisti di Acatis Investment: Anthropic raccoglie fondi di cui 'non ha affatto bisogno per la propria attivita' corrente'). Reuters non dice 'Nasdaq' ne' nomina Acatis; il Nasdaq e' confermato da altre fonti trovate in ricerca (Nasdaq Trader 'Anthropic, PBC Initial Public Offering on Nasdaq Global Select Market'; debutto 19/11). PDF fedele."
+ },
+ {
+  "id": "K03",
+  "trovato": "The Fed chairman did not comment on what the Fed's next steps would be on interest rates. | kicked off a one-day conference on AI and productivity at the Fed's San Francisco branch.",
+  "verifica": "confermato",
+  "nota_revisore": "Audacy (AP) del 16/11. Titolo: 'Fed Chairman Warsh grapples with AI's potential economic impact, steers clear of its inflation risk'. Titoli di Investing Live e CNBC concordano ('doesn't talk about monetary policy in a speech on AI') ma le pagine non si sono aperte. Newsquawk non e' comparso nei risultati. Nota: 'parla soprattutto di AI' e' ok; il PDF dice 'Parla di AI' in colonna Attese."
+ }
+]
