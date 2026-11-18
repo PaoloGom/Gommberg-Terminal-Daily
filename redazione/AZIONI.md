@@ -1,33 +1,10 @@
 # Azioni del Gommberg
 
-Lista unica. La tiene aggiornata Claude in corsa: quando una cosa si chiude esce da qui (resta in `PROGETTO.md`).
-
-## Aperte (cantiere attivo: affidabilità, weekend 21-22/11)
-- [ ] Marchio coerente per ogni uso (chiesto da Paolo il 16/11, pronto sul ramo `prova`, commit 106d5b8): nel rilascio del 21-22/11 riportarlo su main con cherry-pick (su main `avatar.svg` esiste già: tenere la versione in tracciati). Favicon stretta, icona Home iPhone, copertina centrata, avatar email invariato.
-- [ ] Pagine negate visibili: l'attività annota il sito negato, il pannello lo mostra. Zero token in più.
-- [ ] Euro Stoxx 50: provare EODHD (account di Paolo, piano gratuito) come seconda fonte; oggi spesso fonte singola dpa-AFX.
-- [ ] Rilettura #026: coerenza tra i sei "perché" della scommessa; "In arrivo" del lunedì fino a venerdì; celle "n.d." di pag. 5; fonte primaria nei dati ufficiali di pag. 1.
-- [ ] Registro scommessa: base Euro Stoxx 50 del 19/10 (giovedì 15/10, 6.188,40) diversa dal verdetto (venerdì 16/10, 6.204,23).
-
-## Tocca a Paolo
-- [ ] Cancellare su GitHub i rami vecchi (da una sessione di Claude è rifiutato). Tenere: main, v8, v7.7-ritorno, v7.8-prima-della-v9, struttura-2026-11-14, prova. Da valutare: manutenzione-scalabile. Tutti gli altri si cancellano (22, lista in `PROGETTO.md` del 15/11; più scommessa-1.3, già unito).
-- [ ] Approvare la bozza di `CARTA.md`.
-- [ ] Immagine del mittente con il segno attuale `assets/avatar.png` (deciso da Paolo il 16/11: resta senza cambi): 1) account Google su redazione@gommberg.com ("usa il tuo indirizzo email attuale"; il codice arriva nella casella del Gommberg), foto profilo = `avatar.png`, visibilità "Chiunque" (Gmail; 24-72 ore; per gli invii di massa le fonti non concordano che si veda ancora: si verifica sulle edizioni dei giorni dopo); 2) Gravatar con lo stesso indirizzo (Thunderbird e app che lo leggono). Outlook: nessuna strada gratuita. Apple Mail: solo per chi salva il contatto.
-
-## Idee in fila (non si eseguono finché non diventano cantiere)
-- Repository privato con sito pubblico (proteggere prompt e motore), poi trasferimento su gommberg.com.
-- Pannello di controllo, secondo rilascio dopo la prima settimana misurata (scommessa, lettori, voto, difetti, dove vanno i token).
-- Crescita verso 1.000 lettori: lead magnet "Come si legge il Gommberg in 5 minuti", "Chiedi al Gommberg", LinkedIn.
-- Monetizzazione: quando e come (dopo la fase attuale).
-- Verifica di leggibilità anche sul sito.
-- Strumento della settimana nella scommessa (on hold dal 14/11).
-- Grafico interattivo dell'indice globale con le edizioni sui punti.
-- Comprimere le istruzioni.
-- Apple Branded Mail (gratis): solo se nasce un soggetto verificabile (P.IVA o associazione). Prima di qualunque DMARC in quarantine: le risposte ai lettori da redazione@ devono uscire da un SMTP firmato col dominio (es. Brevo gratuito), non dall'"invia come" di Gmail.
-- BIMI (logo verificato): DMARC in quarantine, SVG Tiny PS; senza certificato lo mostrano solo Yahoo e Fastmail, Gmail e Apple vogliono VMC/CMC a pagamento. Da rivalutare se la newsletter cresce.
-- Homepage: senza agenda la colonna grigia resta vuota in fondo (mai successo dalla v9).
+Dal 18/11/2026 la lista unica delle cose da fare è il **Registro dei lavori** (artifact `97f08bbc-950b-4b6e-83eb-4b8d032a3783`, https://claude.ai/artifact/KmCtJUZFx2WKVCRaDiHPtE): aperte, cose che toccano a Paolo e idee in fila stanno lì, con un codice G-xx. Una voce si legge per codice (`db_query` su `tasks`, `codice` = "G-xx"). Qui restano solo le Lezioni. Ciò che si chiude resta anche in `PROGETTO.md`.
 
 ## Lezioni (per la revisione del patto)
 - 16/11: STATO e AZIONI vanno tenuti da Claude in corsa, non solo alla chiusura (Paolo).
 - 16/11: Claude ha dato per urgente una scadenza (Euro Stoxx 20/11) già superata, leggendo una riga vecchia dello storico: verificare sempre la riga più recente.
 - 16/11: primo lunedì del modello con cinque cantieri sul ramo principale e un errore visibile ai lettori: le eccezioni alla regola del lunedì vanno pesate.
+- 18/11: Claude ha aggiornato il Registro senza `STATO.md` (repository in sola lettura, rimandato a sabato) e la chat successiva li ha trovati in disaccordo: Registro e `STATO.md` si aggiornano sempre insieme, nella stessa chat.
+- 18/11: in G-01 Claude ha presentato come quasi certa un'ipotesi (i permessi bloccano i siti che ripubblicano Reuters e AP) prima di verificarla; gli screenshot delle attività l'hanno smentita. Un'ipotesi si dice ipotesi finché non è provata.
