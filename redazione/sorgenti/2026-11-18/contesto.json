@@ -1,0 +1,124 @@
+{
+ "movimenti": [
+  {
+   "serie": "S&P 500",
+   "seduta": "2026-11-17",
+   "variazione": -1.026,
+   "tipo": "pct",
+   "z": -1.19,
+   "piu_forte_da": "2026-11-16",
+   "frase_da": "il calo più forte dal 16 novembre",
+   "rarita": "capita circa una seduta su 5",
+   "notevole": false,
+   "testo": "l'S&P 500 -1,0% nella seduta del 17 novembre: il calo più forte dal 16 novembre (capita circa una seduta su 5)"
+  },
+  {
+   "serie": "Euro Stoxx 50",
+   "seduta": "2026-11-17",
+   "variazione": -2.146,
+   "tipo": "pct",
+   "z": -2.16,
+   "piu_forte_da": "2026-03-03",
+   "frase_da": "il calo più forte dal 3 marzo",
+   "rarita": "capita circa una seduta su 28",
+   "notevole": true,
+   "testo": "l'Euro Stoxx 50 -2,1% nella seduta del 17 novembre: il calo più forte dal 3 marzo (capita circa una seduta su 28)"
+  },
+  {
+   "serie": "ACWI",
+   "seduta": "2026-11-17",
+   "variazione": -1.085,
+   "tipo": "pct",
+   "z": -1.16,
+   "piu_forte_da": "2026-11-16",
+   "frase_da": "il calo più forte dal 16 novembre",
+   "rarita": "capita circa una seduta su 5",
+   "notevole": false,
+   "testo": "l'azionario mondiale (ACWI) -1,1% nella seduta del 17 novembre: il calo più forte dal 16 novembre (capita circa una seduta su 5)"
+  },
+  {
+   "serie": "Brent future",
+   "seduta": "2026-11-17",
+   "variazione": 0.757,
+   "tipo": "pct",
+   "z": 0.2,
+   "piu_forte_da": "2026-11-12",
+   "frase_da": "il rialzo più forte dal 12 novembre",
+   "rarita": "capita circa una seduta su 1",
+   "notevole": false,
+   "testo": "il Brent +0,8% nella seduta del 17 novembre: il rialzo più forte dal 12 novembre (capita circa una seduta su 1)"
+  },
+  {
+   "serie": "EUR/USD",
+   "seduta": "2026-11-17",
+   "variazione": 0.009,
+   "tipo": "pct",
+   "z": 0.03,
+   "piu_forte_da": "2026-11-09",
+   "frase_da": "il rialzo più forte dal 9 novembre",
+   "rarita": "capita circa una seduta su 1",
+   "notevole": false,
+   "testo": "l'euro sul dollaro +0,0% nella seduta del 17 novembre: il rialzo più forte dal 9 novembre (capita circa una seduta su 1)"
+  },
+  {
+   "serie": "VIX",
+   "seduta": "2026-11-17",
+   "variazione": 2.55,
+   "tipo": "punti",
+   "z": 1.47,
+   "piu_forte_da": "2026-11-16",
+   "frase_da": "il rialzo più forte dal 16 novembre",
+   "rarita": "capita circa una seduta su 9",
+   "notevole": false,
+   "testo": "il VIX +2,6 punti nella seduta del 17 novembre: il rialzo più forte dal 16 novembre (capita circa una seduta su 9)"
+  },
+  {
+   "serie": "Oro future",
+   "seduta": "2026-11-17",
+   "variazione": 0.291,
+   "tipo": "pct",
+   "z": 0.17,
+   "piu_forte_da": "2026-11-09",
+   "frase_da": "il rialzo più forte dal 9 novembre",
+   "rarita": "capita circa una seduta su 1",
+   "notevole": false,
+   "testo": "l'oro +0,3% nella seduta del 17 novembre: il rialzo più forte dal 9 novembre (capita circa una seduta su 1)"
+  },
+  {
+   "serie": "Treasury 10 anni",
+   "seduta": "2026-11-17",
+   "variazione": -2.0,
+   "tipo": "pb",
+   "z": -0.45,
+   "piu_forte_da": "2026-11-16",
+   "frase_da": "il calo più forte dal 16 novembre",
+   "rarita": "capita circa una seduta su 2",
+   "notevole": false,
+   "testo": "il rendimento del Treasury a 10 anni -2 pb nella seduta del 17 novembre: il calo più forte dal 16 novembre (capita circa una seduta su 2)"
+  },
+  {
+   "serie": "Treasury 2 anni",
+   "seduta": "2026-11-17",
+   "variazione": -3.0,
+   "tipo": "pb",
+   "z": -0.6,
+   "piu_forte_da": "2026-11-16",
+   "frase_da": "il calo più forte dal 16 novembre",
+   "rarita": "capita circa una seduta su 2",
+   "notevole": false,
+   "testo": "il rendimento del Treasury a 2 anni -3 pb nella seduta del 17 novembre: il calo più forte dal 16 novembre (capita circa una seduta su 2)"
+  }
+ ],
+ "curva": null,
+ "tassi_reali": null,
+ "macro": [],
+ "inversioni": [
+  {
+   "serie": "Brent future",
+   "saldo": 1.8,
+   "svolta": "2026-11-13",
+   "dopo": -2.82,
+   "testo": "il Brent +1,8% in cinque sedute, ma il rialzo si ferma venerdì 13 novembre: da allora -2,8%. Una causa uscita dopo quel giorno non spiega il rialzo"
+  }
+ ]
+}
