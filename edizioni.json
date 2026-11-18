@@ -5473,7 +5473,7 @@
  {
   "numero": 28,
   "data": "2026-11-18",
-  "titolo": "Nvidia supera le stime e alza la guida, poi il titolo ridà tutto",
+  "titolo": "Nvidia supera le stime e alza la guidance, poi il titolo azzera il rialzo",
   "sommario": [
    "Stasera i verbali della Fed dicono quanto era largo il consenso al rialzo.",
    "Xi e Putin si vedono a Shenzhen e giovedì arriva Trump.",
@@ -5488,7 +5488,7 @@
    "Il guasto di Zelle pesa sulle grandi banche americane",
    "Pirelli perde il 3,8% dopo la vendita di un pacchetto da Sinochem",
    "Le scorte americane di greggio salgono di 5,3 milioni di barili",
-   "Kepler Cheuvreux alza TotalEnergies, Eni e BP a «comprare»"
+   "Kepler Cheuvreux alza TotalEnergies, Eni e BP a buy"
   ],
   "ticker": [
    [
@@ -5527,7 +5527,7 @@
     "+0,3% g"
    ]
   ],
-  "dek": "Il gruppo chiude il trimestre con ricavi sopra le attese di circa il 6% e per il prossimo ne annuncia 130 miliardi di dollari, più dei 125 previsti dagli analisti. Nel dopo-chiusura il titolo sale e poi ridà il rialzo: Reuters lo dà in calo dello 0,3%. Il consiglio esclude il ritorno di Huang, e secondo il Wall Street Journal la SEC (autorità di vigilanza della borsa americana) verifica le comunicazioni della società.",
+  "dek": "Il gruppo chiude il trimestre con ricavi sopra le attese di circa il 6% e per il prossimo ne annuncia 130 miliardi di dollari, più dei 125 previsti dagli analisti. Nel dopo-chiusura il titolo sale e poi perde il guadagno: Reuters lo dà in calo dello 0,3%. Il consiglio esclude il ritorno di Huang, e secondo il Wall Street Journal la SEC (autorità di vigilanza della borsa americana) verifica le comunicazioni della società.",
   "ticker_al": "2026-11-17",
   "scommessa": {
    "settimana": "2026-11-16/2026-11-20",
@@ -5782,8 +5782,8 @@
     "perche": "Conti USA dopo la chiusura",
     "chiave": false,
     "muove": [
-     "Sopra: di solito il titolo sale se la guida batte le attese.",
-     "Sotto: una guida debole pesa più di un buon trimestre."
+     "Sopra: di solito il titolo sale se la guidance batte le attese.",
+     "Sotto: una guidance debole pesa più di un buon trimestre."
     ]
    },
    {

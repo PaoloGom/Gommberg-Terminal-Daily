@@ -1,6 +1,6 @@
 # Stato del Gommberg
 
-Aggiornato: 19/11/2026 notte. Deve bastare da solo a una chat nuova. Lo riscrive Claude in corsa, a ogni decisione, insieme al Registro.
+Aggiornato: 19/11/2026 notte (dopo la correzione della #028). Deve bastare da solo a una chat nuova. Lo riscrive Claude in corsa, a ogni decisione, insieme al Registro.
 
 Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b6e-83eb-4b8d032a3783`, https://claude.ai/artifact/KmCtJUZFx2WKVCRaDiHPtE). Una voce si legge per codice (`db_query` su `tasks`, `codice` = "G-xx").
 
@@ -8,6 +8,7 @@ Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b
 - Istruzioni v9.0 (struttura nuova delle 6 pagine), scommessa metodo 1.3 dal 16/11, 28 edizioni (ultima #028 del 18/11).
 - Sito con homepage B, riquadri dei mercati per il neofita, pagina Impara.
 - Newsletter con Kit da redazione@gommberg.com (SPF/DKIM/DMARC ok), un solo pulsante verso il sito dal 17/11.
+- #028 corretta il 19/11 notte nel lessico (guidance, buy, le vendite): PDF e sito rifatti, newsletter non ripartita. Causa delle traduzioni in `glossario.json` (lessico "previsioni" al posto di guidance): si toglie in G-07.
 - Edizioni #027 e #028 controllate (G-01, 18/11): avvio 8:59, uscita 9:28; nessuna pagina negata. Il file dei permessi (`.claude/settings.json`) non fa da filtro: l'attività gira con approvazione automatica e apre anche siti fuori elenco.
 
 ## Cantiere attivo

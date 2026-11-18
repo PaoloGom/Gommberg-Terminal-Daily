@@ -77,10 +77,10 @@ C = {
 
     "top": {
         "tema": "Chip",
-        "titolo": "Nvidia supera le stime e alza la guida, poi il titolo ridà tutto",
+        "titolo": "Nvidia supera le stime e alza la guidance, poi il titolo azzera il rialzo",
         "dek": "Il gruppo chiude il trimestre con ricavi sopra le attese di circa il 6% e per il prossimo ne annuncia 130 "
-               "miliardi di dollari, più dei 125 previsti dagli analisti. Nel dopo-chiusura il titolo sale e poi ridà il "
-               "rialzo: Reuters lo dà in calo dello 0,3%. Il consiglio esclude il ritorno di Huang, e secondo il Wall Street "
+               "miliardi di dollari, più dei 125 previsti dagli analisti. Nel dopo-chiusura il titolo sale e poi perde il "
+               "guadagno: Reuters lo dà in calo dello 0,3%. Il consiglio esclude il ritorno di Huang, e secondo il Wall Street "
                "Journal la SEC (autorità di vigilanza della borsa americana) verifica le comunicazioni della società. [[chip]]",
     },
     "quadro": "Per noi stamattina la paura per l'AI pesa meno della Fed. Wall Street è giù di circa l'1% e l'Euro Stoxx 50 cede il 2,1%, il peggiore dal 3 marzo. Il 2 anni e il "
@@ -111,7 +111,7 @@ C = {
          "testo": "Il socio cinese ha ceduto azioni per 455 milioni di euro sotto la chiusura del giorno prima (dpa-AFX)."},
         {"tag": "Petrolio", "titolo": "Le scorte americane di greggio salgono di 5,3 milioni di barili",
          "testo": "Nella settimana al 13 novembre l'aumento è di 5,28 milioni di barili, mentre il rischio Hormuz frena il calo del prezzo (Reuters).", "rimando": "petrolio"},
-        {"tag": "Materie prime", "titolo": "Kepler Cheuvreux alza TotalEnergies, Eni e BP a «comprare»",
+        {"tag": "Materie prime", "titolo": "Kepler Cheuvreux alza TotalEnergies, Eni e BP a buy",
          "testo": "Il comparto petrolifero è il migliore dell'Europa in una seduta in forte calo (dpa-AFX)."},
     ],
 
@@ -147,7 +147,7 @@ C = {
         ("Petrolio", "Scorte USA in aumento", "Il Brent cala con le scorte", "giu: Brent", "Flussi da Hormuz"),
     ],
     "fermi": "Cina (nessuna novità verificata dal 16/11).",
-    "lettura": "L'Euro Stoxx 50 perde il doppio dell'S&amp;P 500, e il Nikkei sale mentre l'Hang Seng scende: la vendita sui chip non ha colpito allo stesso modo tutte le borse.",
+    "lettura": "L'Euro Stoxx 50 perde il doppio dell'S&amp;P 500, e il Nikkei sale mentre l'Hang Seng scende: le vendite sui chip non hanno colpito allo stesso modo tutte le borse.",
 
     "ieri": [
         ("Mar 17, 14:30", "Vendite al dettaglio USA (ottobre)", "+0,2% sul mese (atteso +0,2%; prima +0,8%)", "=", "[[tassi]]"),
@@ -164,7 +164,7 @@ C = {
          "<b>Sotto:</b> verbali più morbidi: il 2 anni tende a scendere."),
         ("Mer 18, 22:30", "Conti Palo Alto Networks", "Primo trimestre fiscale; ricavi e utile contro le stime",
          "Conti USA dopo la chiusura",
-         "<b>Sopra:</b> di solito il titolo sale se la guida batte le attese.<br/><b>Sotto:</b> una guida debole pesa più di un buon trimestre."),
+         "<b>Sopra:</b> di solito il titolo sale se la guidance batte le attese.<br/><b>Sotto:</b> una guidance debole pesa più di un buon trimestre."),
         ("Gio 19, 01:30", "Occupazione in Australia (ottobre)", "Disoccupazione: prima 4,7%",
          "Dato di apertura per l'Asia",
          "<b>Sopra:</b> più disoccupati, di solito dollaro australiano giù.<br/><b>Sotto:</b> mercato del lavoro solido, Banca centrale più libera."),
@@ -188,10 +188,10 @@ C = {
                    ["Utile per azione (dollari)", "2,68", "2,47"],
                    ["Ricavi da data center (mld di dollari)", "107,6", "101,85"]],
          "larghezze": [78, 40, 40], "ruolo_righe": "perche",
-         "perche": "Gli investitori avevano già messo nel prezzo conti ottimi: Nvidia ha battuto le attese di ricavi per 17 trimestri di fila. Non c'era nel prezzo il rischio su chi la guida e sulle verifiche in corso. Il consiglio ha escluso il ritorno di Huang e il Wall Street Journal riferisce un'indagine della SEC sulle comunicazioni (Reuters). Ieri la vendita ha colpito soprattutto la tecnologia, e il Nasdaq arretra da giorni.",
+         "perche": "Gli investitori avevano già messo nel prezzo conti ottimi: Nvidia ha battuto le attese di ricavi per 17 trimestri di fila. Non c'era nel prezzo il rischio su chi la guida e sulle verifiche in corso. Il consiglio ha escluso il ritorno di Huang e il Wall Street Journal riferisce un'indagine della SEC sulle comunicazioni (Reuters). Ieri le vendite hanno colpito soprattutto la tecnologia, e il Nasdaq arretra da giorni.",
          "numero": "-17%: il calo di Nvidia da inizio anno a fine martedì (Reuters).",
          "quindi": "Alle 15:30 si vede se Nvidia apre sopra i 155,46 $ di ieri: se sì, il calo del dopo-chiusura è riassorbito.",
-         "punti": ["<b>La guida.</b> Nvidia indica 130 miliardi di ricavi per il trimestre in corso, contro i 125,25 attesi dagli "
+         "punti": ["<b>La guidance.</b> Nvidia indica 130 miliardi di ricavi per il trimestre in corso, contro i 125,25 attesi dagli "
                    "analisti, e non conta alcuna vendita di chip per data center in Cina (Reuters).",
                    "<b>Il vertice.</b> Colette Kress guida Nvidia ad interim: il consiglio valuta candidati interni ed esterni.",
                    "<b>Chi scommette contro.</b> Muddy Waters Research è ribassista sul titolo."],
@@ -203,11 +203,11 @@ C = {
                    "(Reuters). In indici come il Nasdaq e l'S&amp;P 500, che pesano le società per dimensione, di solito pochi "
                    "titoli grandi muovono molto l'indice. Per questo il destino di Nvidia conta anche per chi non la possiede.",
                    "La settimana è stata una sequenza: dimissioni di Huang il 12 novembre, vendite sui chip lunedì, conti "
-                   "martedì sera. Ieri la vendita ha colpito la tecnologia più degli altri settori: in media i titoli "
+                   "martedì sera. Ieri le vendite hanno colpito la tecnologia più degli altri settori: in media i titoli "
                    "tecnologici del Nyse perdono il 2,8%, mentre nessun altro settore supera il 2%."],
          "fonte": "Fonti: Reuters, Yahoo Finance; dati FMP (Nasdaq e settori).",
-         "guardare": "Se Nvidia apre sopra i 155 $ e i fornitori europei recuperano, la vendita di ieri era eccessiva. Se le "
-                     "notizie sulla SEC pesano più dei conti, i chip restano sotto pressione anche con una guida sopra le attese."},
+         "guardare": "Se Nvidia apre sopra i 155 $ e i fornitori europei recuperano, le vendite di ieri erano eccessive. Se le "
+                     "notizie sulla SEC pesano più dei conti, i chip restano sotto pressione anche con una guidance sopra le attese."},
         {"chiave": "tassi", "tema": "Tassi USA", "breve": "i Treasury aspettano la Fed",
          "titolo": "Con Wall Street giù i Treasury si fermano: il mercato aspetta la Fed",
          "misura": "mezzo",
@@ -277,7 +277,7 @@ C = {
     ],
 
     "scommessa": {"tesi": "Con noi: oro ed euro vanno dove li avevamo previsti. Contro: le borse cadono molto più della "
-                          "nostra previsione, per la vendita sui chip. Da qui a venerdì: i verbali della Fed di stasera.",
+                          "nostra previsione, per le vendite sui chip. Da qui a venerdì: i verbali della Fed di stasera.",
                   "lunedi": False, "venerdi": False, "settimana_prec": None},
     "parole": [("Guidance", "Le previsioni che l'azienda dà sui propri ricavi futuri: spesso muovono il titolo più dei risultati passati."),
                ("Acquisti rifugio", "Vendite di azioni e acquisti di titoli considerati sicuri, come Treasury e oro, "
