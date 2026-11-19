@@ -1,0 +1,1049 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Anthropic fissa a 83 $ per azione il prezzo della quotazione, sopra la forchetta indicata, e raccoglie circa 81 mld $: è la maggiore offerta di sempre; il debutto al Nasdaq con il simbolo ANT è oggi, giovedì 19 novembre",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/11/18/anthropic-ipo-ai-offering-price.html",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Anthropic IPO raises over $81 billion in largest offering on record, topping SpaceX",
+    "ricerca": "Reuters Anthropic prices IPO $83 above range $81 billion biggest IPO ever ticker debut"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/stocks-rise-after-anthropic-ipo-pricing-sets-stage-for-blockbuster-debut-5037540",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Stocks rise after Anthropic IPO pricing sets stage for blockbuster debut By Reuters",
+    "ricerca": "Reuters Anthropic prices IPO $83 above range $81 billion biggest IPO ever ticker debut",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "CBS News",
+    "url": "https://www.cbsnews.com/news/anthropic-ipo-ai-boom-nasdaq-debut/",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Anthropic's IPO set for blastoff Thursday in key test for AI boom - CBS News",
+    "ricerca": "Anthropic debut Nasdaq opening time ticker ANT first trade Thursday retail demand"
+   }
+  ],
+  "trovato": "Anthropic said the IPO was priced at $83 apiece, above its previously targeted range, raising $81 billion to claim the title of the largest stock-market debut on record. [Investing.com/Reuters] / under the ticker symbol \"ANT\" after markets open Thursday at 9:30 a.m. ET; start trading on the Nasdaq stock exchange. [CBS]",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters (Investing.com) letta: 83 $, sopra la forchetta, 81 mld, record: coincide con il PDF che ora attribuisce a Reuters dek, tabella e 'Il record'. ANT, Nasdaq, giovedi 9:30 ET (=15:30 Roma) su CBS (il PDF non attribuisce questa parte a una testata; il testo Reuters letto non cita ticker ne' ora). CNBC non apribile. Nota: CBS pre-pricing scriveva 'could become the second-largest IPO ever', superato dal dato Reuters; CBS resta citata nel PDF per 956,35 mln azioni e utile/debito, coerenti con D01."
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "Verbali Fed della riunione del 27-28 ottobre: i partecipanti giudicano probabile che nuovi rialzi dei tassi siano appropriati e alcuni valutano un rialzo superiore al quarto di punto a dicembre; il voto di ottobre era stato 10-2",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/economy/policy/articles/fed-officials-expect-further-interest-195844967.html",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Fed Officials Expect Further Interest Rate Hikes After Pausing Last Month",
+    "ricerca": "Fed minutes \"further\" rate hikes \"would likely be appropriate\" Waller half-point December hike"
+   },
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/11/18/fed-minutes-october-2026.html",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Fed officials expect more rate hikes, worry about AI impact on inflation, minutes show",
+    "ricerca": "Fed minutes \"further\" rate hikes \"would likely be appropriate\" Waller half-point December hike"
+   },
+   {
+    "testata": "AFP (France 24)",
+    "url": "https://www.france24.com/en/live-news/20261118-almost-all-fed-policymakers-saw-further-interest-rate-hikes-as-likely",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "'Almost all' Fed policymakers saw further interest rate hikes as likely",
+    "ricerca": "Fed minutes \"further\" rate hikes \"would likely be appropriate\" Waller half-point December hike"
+   }
+  ],
+  "tipo": "U",
+  "ufficiale_cercato": [
+   "FOMC minutes October 2026 meeting federalreserve.gov minutes released November 18 2026",
+   "Minutes of the Federal Open Market Committee October 27-28, 2026 federalreserve.gov"
+  ],
+  "trovato": "At the Oct. 27–28 meeting of the Federal Open Market Committee (FOMC), policymakers voted 10-2 to keep the overnight rate at its previous 3.75%-4.00% range. / a future hike would likely be appropriate [Yahoo Finance: 'would likely be appropriate'] / some participants even noted that, if the inflation numbers got too unfavorable, they would consider a rate hike of more than a quarter-percent in December.",
+  "verifica": "confermato",
+  "nota_revisore": "Yahoo Finance letta: riunione 27-28 ottobre, voto 10-2, 'would likely be appropriate', 'some participants' per un rialzo oltre il quarto di punto a dicembre. Attenzione: Yahoo attribuisce il 'likely appropriate' genericamente a 'Leaders at the Federal Reserve' (non dice 'quasi tutti'; quel titolo e' di AFP/France 24, bloccata da robots, CNBC non apribile). Il PDF (pag. 1, 3, 5) e' coerente: 'alcuni piu' di un quarto di punto'."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Wall Street 18 novembre: S&P 500 -0,23% a 7.323,63; Dow Jones -1,11% a 50.198,17; Nasdaq Composite +0,42%",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/trading-day-markets-mixed-in-a-nvidia-anthropic-minutes-swirl-ce785edddf8bf621",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Trading Day: Markets mixed in a Nvidia, Anthropic, minutes swirl",
+    "ricerca": "Reuters Wall Street ends Nov 18 2026 S&P 500 Nasdaq Fed minutes Nvidia Huang",
+    "agenzia": "Reuters"
+   }
+  ],
+  "fonte_singola": true,
+  "trovato": "Nasdaq +0.4%, S&P 500 -0.2% , Dow -1.1%. / tabella: S&P 500 7,323.63 PTS -0.23%; DOW JONES INDUSTRIAL 50,198.17 PTS -1.11%; Nasdaq Composite +0.42%. [Reuters/MarketScreener]",
+  "verifica": "confermato",
+  "nota_revisore": "Livelli e variazioni coincidono (S&P 7.323,63 -0,23%; Dow 50.198,17 -1,11%; Nasdaq Composite +0,42%); i livelli sono nella tabella con etichetta 'Indicative Price', il testo Reuters da' solo le variazioni arrotondate. Incoerenza PDF/mercato da verificare: il PDF parla di 'cinque sedute di vendite' ma un titolo CNBC del 17/11 (visto solo nei risultati di ricerca, pagina non aperta) diceva 'S&P 500 falls for fifth day': se vero, il 18 sarebbe la sesta seduta in calo per l'S&P (il Nasdaq Composite era invece in rialzo)."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "L'Euro Stoxx 50 perde lo 0,93% a 6.154,39 punti, il quarto calo di fila; Prosus -5,05% ai minimi da settembre 2024 dopo i conti deboli di Tencent, SAP -3,76%, ING -3,21%, Deutsche Bank -3,05%",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (MarketScreener)",
+    "url": "https://de.marketscreener.com/boerse-nachrichten/aktien-europa-schluss-weitere-verluste-im-sog-der-us-boersen-ce785edddd8df42c",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "schloss 0,93 Prozent tiefer bei 6.154,39 Punkten",
+    "ricerca": "Euro Stoxx 50 Schlusskurs 18. November 2026 dpa-AFX Aktien Europa Schluss",
+    "agenzia": "dpa-AFX"
+   }
+  ],
+  "trovato": "schloss 0,93 Prozent tiefer bei 6.154,39 Punkten. Damit verzeichnete der Leitindex der Eurozone den vierten Verlusttag in Folge. (tabella: SAP -3,76%, ING -3,21%, Deutsche Bank -3,05%)",
+  "verifica": "confermato",
+  "nota_revisore": "Indice, quarto calo e i tre titoli coincidono; Prosus come N13."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Milano chiude in calo dell'1,32% con il Ftse Mib a 50.173 punti; Leonardo -4,08%, Tenaris -3,13%, Bper -3,05%; Ferrari +2,97%",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/18/borsa-milano-chiude-a-132-pesano-leonardo-tenaris-e-bper_12e9f9d2-881e-4cac-927e-e05c3ba127ce.html",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Borsa: Milano chiude a -1,32%, pesano Leonardo, Tenaris e Bper",
+    "ricerca": "Piazza Affari chiude 18 novembre 2026 Ftse Mib spread Btp Bund",
+    "agenzia": "ANSA"
+   }
+  ],
+  "trovato": "Piazza Affari chiude la seduta in calo (Ftse Mib -1,32% a 50.173 punti), frenata da Leonardo (-4,08%), Tenaris (-3,13%) e Bper (-3,05%). Pochi i rialzi, limitati a Ferrari (+2,97%).",
+  "verifica": "confermato",
+  "nota_revisore": "Tutto coincide."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Le banche italiane restano deboli dopo l'emendamento della Lega che alza di tre punti l'Ires per le banche e dopo le voci su una stretta della Bce: la Bce studia più riserva obbligatoria, se ne discute al Consiglio direttivo del 25 novembre",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/18/banche-restano-deboli-in-borsa-dopo-emendamento-su-ires-e-bce_a581dbe2-2a16-4009-a853-72839bb33bc1.html",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Banche restano deboli in borsa dopo emendamento su Ires e Bce",
+    "ricerca": "emendamento Lega Ires banche tre punti in più manovra novembre 2026",
+    "agenzia": "ANSA"
+   },
+   {
+    "testata": "Il Resto del Carlino",
+    "url": "https://www.ilrestodelcarlino.it/ultimaora/gusmeroli-emendamento-lega-per-aumentare-d4262036",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Prevediamo un aumento di ulteriori tre punti dell'Ires per le banche",
+    "ricerca": "emendamento Lega Ires banche tre punti in più manovra novembre 2026"
+   }
+  ],
+  "trovato": "Gusmeroli, emendamento Lega per aumentare di 3 punti l'Ires alle banche. Francoforte studia l'aumento dei requisiti sulla riserva obbligatoria. ... dovrebbe tenersi nell'ambito del consiglio direttivo fissato per il prossimo 25 novembre.",
+  "verifica": "confermato",
+  "nota_revisore": "Letti titolo e passaggi ANSA: Ires +3 punti, riserva obbligatoria, Consiglio direttivo 25 novembre."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "TJX alza le previsioni per l'anno: vendite a parità di negozi attese in crescita del 4% (prima 3-4%), utile per azione rettificato 5,17-5,20 $; il titolo sale di circa il 10% in mattinata",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (KFGO)",
+    "url": "https://kfgo.com/2026/11/18/off-price-retailer-tjx-beats-quarterly-sales-estimates/",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "TJX raised its full-year outlook on Wednesday",
+    "ricerca": "Target TJX results shares rise November 18 2026 raises forecast Reuters AP",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "TJX expects comparable store sales to rise 4% in fiscal 2027, compared with its prior view of 3% to 4% growth. It also projected full-year adjusted earnings of $5.17 to $5.20 per share, sending its shares up 10% in morning trading.",
+  "verifica": "confermato",
+  "nota_revisore": "Tutto coincide."
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "testo": "Oro spot -3% a 3.735 $, minimo da 14 mesi; l'argento cede il 3,4%: il dollaro sale e i future sui tassi danno quasi per certo un rialzo Fed a dicembre",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-18/gold-plunges-14-month-low-silver-tumbles-fed-rate-hike-bets-intensify-kitco",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Gold plunges to 14-month low, silver tumbles as Fed rate hike bets intensify - Kitco AM Report",
+    "ricerca": "gold falls 14-month low $3,735 dollar Fed hike bets November 18 2026 Reuters"
+   },
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/trading-day-markets-mixed-in-a-nvidia-anthropic-minutes-swirl-ce785edddf8bf621",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Trading Day: Markets mixed in a Nvidia, Anthropic, minutes swirl",
+    "ricerca": "Reuters Wall Street ends Nov 18 2026 S&P 500 Nasdaq Fed minutes Nvidia Huang",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Gold -3% to 14-month low of $3,735/oz. Dollar +0.3% to fresh 19-month high, euro below $1.10. [Reuters/MarketScreener] / silver was trading near $45.650 an ounce, down $1.619, or 3.42%; Gold fell to its lowest level since September 2025; the latest published futures assessment indicating a 95.7% probability of a 25-basis-point increase. [Kitco]",
+  "verifica": "confermato",
+  "nota_revisore": "Oro spot -3% a 3.735 e minimo da 14 mesi (Reuters), dollaro ai massimi da 19 mesi (Reuters), argento -3,42% e 95,7% di probabilita' di rialzo a dicembre (Kitco) coincidono. Nota: il -3% e il 3.735 sono di Reuters a fine seduta, Kitco al mattino USA aveva oro a 3.777 (-1,86%) e minimo intraday 3.742,20: orari diversi mescolati, ma il fatto cita entrambe le fonti. Il PDF usa il future (3.742 $, -3,2%) nella barra e lo spot 3.735 nel box, coerente."
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "testo": "Il Brent punta alla terza settimana di calo, a circa 92 $ il barile: pesa la prospettiva di un'offerta in eccesso",
+  "data_evento": "2026-11-19",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Yahoo Finance)",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stocks-rise-anthropic-ipo-pricing-015339932.html",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Asian stocks fail to get a lift from Anthropic's IPO pricing",
+    "ricerca": "Asian markets Thursday Nikkei Kospi Hang Seng Trump Xi Putin Shenzhen Anthropic IPO",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/stocks-rise-after-anthropic-ipo-pricing-sets-stage-for-blockbuster-debut-5037540",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Stocks rise after Anthropic IPO pricing sets stage for blockbuster debut By Reuters",
+    "ricerca": "Reuters Anthropic prices IPO $83 above range $81 billion biggest IPO ever ticker debut",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Brent crude futures were at $92.11 a barrel, set for a third weekly decline. In commodities, oil prices remained under pressure as the growing view that the oil market is turning to a surplus weighed.",
+  "verifica": "confermato",
+  "nota_revisore": "Circa 92 $, terza settimana di calo, eccesso di offerta coincidono (Yahoo: 91,47 $)."
+ },
+ {
+  "id": "N09",
+  "sezione": "top_news",
+  "testo": "Regno Unito: l'inflazione sale al 3,6% a ottobre dal 3,5%; il diesel segna il prezzo più alto dall'inizio della serie nel 1996 (+7,0 pence al litro in un mese); l'inflazione core è al 2,8%",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ONS",
+    "url": "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/october2026",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "The Consumer Prices Index (CPI) rose by 3.6% in the 12 months to October 2026.",
+    "ricerca": "ons.gov.uk Consumer price inflation UK October 2026 CPI rose 3.6%",
+    "primaria": true
+   }
+  ],
+  "tipo": "U",
+  "trovato": "The Consumer Prices Index (CPI) rose by 3.6% in the 12 months to October 2026, up from 3.5% the previous month. Diesel prices rose by 7.0 pence per litre in October 2026. This is the highest price recorded since our records began in January 1996. The core CPI annual inflation rate was 2.8% in October 2026.",
+  "verifica": "confermato",
+  "nota_revisore": "Coincide; il PDF dice core 'senza energia e alimentari', l'ONS esclude anche alcol e tabacco (nota minore)."
+ },
+ {
+  "id": "N10",
+  "sezione": "top_news",
+  "testo": "Asia, giovedì mattina: Tokyo +0,71%, Seul +1,02%, Hong Kong -1,98% ancora in seduta, Shanghai -0,28%, Shenzhen -1,47%; la borsa di Taiwan cede il 4,4% e l'indice Asia-Pacifico senza Giappone l'1,7%",
+  "data_evento": "2026-11-19",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ladige.it/attualita/borsa-lasia-chiude-in-ordine-sparso-tra-anthropic-e-vertice-trump-putin-xi-lviocvw6",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Borsa: l'Asia chiude in ordine sparso tra Anthropic e vertice Trump-Putin-Xi",
+    "ricerca": "Borse asiatiche 19 novembre 2026 Taiwan crolla Tokyo Seul Hong Kong Anthropic",
+    "agenzia": "ANSA"
+   },
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/mercati-esteri/borse-asiatiche-miste-cosa-ce-dietro-hong-kong-198-e-tokyo-071",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Borse asiatiche miste: cosa c’è dietro Hong Kong -1,98% e Tokyo +0,71%",
+    "ricerca": "Borse asiatiche 19 novembre 2026 Taiwan crolla Tokyo Seul Hong Kong Anthropic"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/stocks-rise-after-anthropic-ipo-pricing-sets-stage-for-blockbuster-debut-5037540",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Stocks rise after Anthropic IPO pricing sets stage for blockbuster debut By Reuters",
+    "ricerca": "Reuters Anthropic prices IPO $83 above range $81 billion biggest IPO ever ticker debut",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "In rialzo Tokyo (+0,71%). Positive Seul (+1,02%). A contrattazioni ancora in corso scivola Hong Kong (-1,98%). Male anche Shanghai (-0,28%) e Shenzhen (-1,47%). [ANSA/l'Adige] / However, Asian equities slumped, led by Taiwanese stocks, with the Taipei benchmark index sliding 4.4%. / MSCI's broadest index of Asia-Pacific shares outside Japan fell 1.7% to a seven-month low. [Reuters/Investing.com]",
+  "verifica": "confermato",
+  "nota_revisore": "Tokyo, Seul, Hong Kong ancora in seduta, Shanghai, Shenzhen su ANSA/l'Adige e SoldiOnline; Taiwan -4,4% e indice MSCI Asia-Pacifico ex Giappone -1,7% su Reuters/Investing.com. Il PDF pag. 2 ora attribuisce Taiwan a Reuters: coerente. Il PDF non cita l'indice regionale."
+ },
+ {
+  "id": "N11",
+  "sezione": "top_news",
+  "testo": "Trump arriva in Cina mentre Xi e Putin criticano il «protezionismo» occidentale e le sanzioni; il vertice a tre con l'Iran in agenda è atteso giovedì a Shenzhen",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/trading-day-markets-mixed-in-a-nvidia-anthropic-minutes-swirl-ce785edddf8bf621",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Trading Day: Markets mixed in a Nvidia, Anthropic, minutes swirl",
+    "ricerca": "Reuters Wall Street ends Nov 18 2026 S&P 500 Nasdaq Fed minutes Nvidia Huang",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Al Jazeera",
+    "url": "https://aljazeera.com/news/2026/11/14/trump-xi-putin-trilateral-meeting-at-apec-what-to-expect",
+    "data_pubblicazione": "2026-11-14",
+    "citazione": "Trump-Xi-Putin trilateral meeting at APEC: What to expect",
+    "ricerca": "Trump Xi Putin Shenzhen trilateral meeting Thursday Iran war agenda"
+   }
+  ]
+ },
+ {
+  "id": "N12",
+  "sezione": "top_news",
+  "testo": "L'indice del dollaro sale a 103,92, massimo da 19 mesi, dopo le parole di Waller su un'azione aggressiva contro l'inflazione; l'euro resta vicino ai minimi da aprile 2025",
+  "data_evento": "2026-11-19",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/stocks-rise-after-anthropic-ipo-pricing-sets-stage-for-blockbuster-debut-5037540",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Stocks rise after Anthropic IPO pricing sets stage for blockbuster debut By Reuters",
+    "ricerca": "Reuters Anthropic prices IPO $83 above range $81 billion biggest IPO ever ticker debut",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Reuters (Yahoo Finance)",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stocks-rise-anthropic-ipo-pricing-015339932.html",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Asian stocks fail to get a lift from Anthropic's IPO pricing",
+    "ricerca": "Asian markets Thursday Nikkei Kospi Hang Seng Trump Xi Putin Shenzhen Anthropic IPO",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "The dollar index, which measures the greenback against six other currencies, was 0.1% higher at 103.92, a 19-month high. Waller said on CNBC that if the central bank wanted to get inflation down, it needed to take more \"aggressive action\"; The euro was at $1.0964, hovering near its lowest since April 2025.",
+  "verifica": "confermato",
+  "nota_revisore": "Indice 103,92, massimo da 19 mesi, Waller 'azione aggressiva', euro vicino ai minimi da aprile 2025 coincidono."
+ },
+ {
+  "id": "N13",
+  "sezione": "top_news",
+  "testo": "Prosus cede il 5,05% ai minimi da settembre 2024 dopo i conti deludenti di Tencent, di cui detiene una quota importante",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (MarketScreener)",
+    "url": "https://de.marketscreener.com/boerse-nachrichten/aktien-europa-schluss-weitere-verluste-im-sog-der-us-boersen-ce785edddd8df42c",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "schloss 0,93 Prozent tiefer bei 6.154,39 Punkten",
+    "ricerca": "Euro Stoxx 50 Schlusskurs 18. November 2026 dpa-AFX Aktien Europa Schluss",
+    "agenzia": "dpa-AFX"
+   }
+  ],
+  "tipo": "C",
+  "trovato": "Prosus muss nach den enttäuschenden Zahlen der Beteiligung Tencent einen Kursrutsch von 5 Prozent auf den tiefsten Stand seit September 2024 verkraften. / Die wichtige chinesische Beteiligung Tencent hatte mit ihren Geschäftszahlen enttäuscht.",
+  "verifica": "confermato",
+  "nota_revisore": "Minimo da settembre 2024, conti deboli Tencent, quota importante coincidono; nel testo la pagina dice 5 Prozent (il 5,05% sta nella tabella)."
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "Anthropic offre 980 milioni di azioni di classe A a 83 $ (956,35 milioni vendute dalla società), simbolo ANT; valore atteso al debutto fino a 1.500 mld $; ricavi del terzo trimestre di quasi 17 mld $, +45% sul secondo; la società non è ancora in utile e ha 6,2 mld $ di debito",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "CBS News",
+    "url": "https://www.cbsnews.com/news/anthropic-ipo-ai-boom-nasdaq-debut/",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Anthropic's IPO set for blastoff Thursday in key test for AI boom - CBS News",
+    "ricerca": "Anthropic debut Nasdaq opening time ticker ANT first trade Thursday retail demand"
+   },
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/11/18/anthropic-ipo-ai-offering-price.html",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Anthropic IPO raises over $81 billion in largest offering on record, topping SpaceX",
+    "ricerca": "Reuters Anthropic prices IPO $83 above range $81 billion biggest IPO ever ticker debut"
+   }
+  ],
+  "trovato": "it will offer 980 million shares of Class A common stock priced at $83 each. The company said that 956,351,354 shares are being sold by Anthropic. The market debut is expected to value Anthropic at up to $1.5 trillion. Anthropic raked in nearly $17 billion in the third quarter this year, up 45% from the second quarter. Although Anthropic has yet to turn a profit ... Anthropic has already taken on $6.2 billion in debt.",
+  "verifica": "confermato",
+  "nota_revisore": "Tutti i numeri coincidono su CBS News (980 mln, 956.351.354 vendute dalla societa', fino a 1.500 mld, ~17 mld +45%, non in utile, 6,2 mld di debito). La pagina CBS non parla di base diluita e il PDF ora non lo dice. L'inferenza 'quasi tutto il ricavato va ad Anthropic' e' dichiarata nel PDF come lettura propria. CNBC non apribile."
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Per Vanda Research gli investitori al dettaglio hanno comprato 3 mld $ netti di Nvidia nelle ultime dieci sedute e la stima di 250 milioni di acquisti netti al primo giorno di Anthropic è prudente; il titolo Nvidia perde il 2,9% a 150,96 $, -13% in cinque sedute",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/trading-day-markets-mixed-in-a-nvidia-anthropic-minutes-swirl-ce785edddf8bf621",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Trading Day: Markets mixed in a Nvidia, Anthropic, minutes swirl",
+    "ricerca": "Reuters Wall Street ends Nov 18 2026 S&P 500 Nasdaq Fed minutes Nvidia Huang",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Vanda said its initial estimate of $250 million buying from retail investors looks too conservative. Retail investors have bought a net $3 billion of Nvidia stock over the past 10 sessions. Nvidia down 2.89% at 150.96 USD, 13.11% lower over five sessions.",
+  "verifica": "confermato",
+  "nota_revisore": "Vanda, 3 mld, 250 mln 'prudente', Nvidia -2,9% a 150,96 e -13% in cinque sedute coincidono."
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "S&P 500 -3,9% e Nasdaq 100 -4,4% in cinque sedute; Dow Jones -1,11% il 18 novembre mentre il Nasdaq Composite sale dello 0,42%",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/trading-day-markets-mixed-in-a-nvidia-anthropic-minutes-swirl-ce785edddf8bf621",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Trading Day: Markets mixed in a Nvidia, Anthropic, minutes swirl",
+    "ricerca": "Reuters Wall Street ends Nov 18 2026 S&P 500 Nasdaq Fed minutes Nvidia Huang",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "S&P 500 -0.2%, Dow -1.1%. The S&P 500 closed at 7,323.63, down 0.23%. The Dow fell 1.11%. Nasdaq +0.4%, Nasdaq Composite rose 0.42%. Five sessions: S&P 500 -3.88%, Nasdaq 100 -4.43%.",
+  "verifica": "confermato",
+  "nota_revisore": "Cifre coincidenti (arrotondate -3,9% e -4,4%)."
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "testo": "Nei verbali Fed alcuni partecipanti considerano per dicembre un rialzo superiore a un quarto di punto se i dati sull'inflazione peggiorano, Cook e Hammack avevano votato per +0,25, diversi membri definiscono la scelta di dicembre una «close call»; un paio preferisce un irrigidimento graduale; la spesa in AI contribuisce all'inflazione",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/economy/policy/articles/fed-officials-expect-further-interest-195844967.html",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Fed Officials Expect Further Interest Rate Hikes After Pausing Last Month",
+    "ricerca": "Fed minutes \"further\" rate hikes \"would likely be appropriate\" Waller half-point December hike"
+   },
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/11/18/fed-minutes-october-2026.html",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Fed officials expect more rate hikes, worry about AI impact on inflation, minutes show",
+    "ricerca": "Fed minutes \"further\" rate hikes \"would likely be appropriate\" Waller half-point December hike"
+   }
+  ],
+  "trovato": "some participants even noted that, if the inflation numbers got too unfavorable, they would consider a rate hike of more than a quarter-percent in December. / Fed Gov. Lisa Cook and Cleveland Fed President Beth Hammack both voted in favor of a quarter-point increase. / Several of the meeting members also said it was a 'close call.' / A couple of participants noted that, at the current juncture, a gradual approach to policy firming would give businesses and households time to adjust to higher interest rates. / FOMC members also said the rapid artificial intelligence buildout was contributing to inflation.",
+  "verifica": "confermato",
+  "nota_revisore": "Yahoo Finance letta: 'some' per oltre un quarto di punto (condizionato a dati sfavorevoli), Cook e Hammack +0,25, 'several' close call, 'a couple' per il gradualismo (ora 'un paio' nel fatto), spesa AI. Il PDF pag. 3 (diversi: close call; alcuni: oltre un quarto di punto se l'inflazione peggiora) e' coerente. CNBC non apribile."
+ },
+ {
+  "id": "D06",
+  "sezione": "deep_dive",
+  "testo": "Il rendimento del Treasury a 2 anni sale di 1 pb e quello a 30 anni scende di 5 pb: la curva si appiattisce; all'asta dei titoli a 20 anni la domanda diretta è forte e quella indiretta debole; i future sui tassi danno al rialzo di dicembre il 90-95% di probabilità",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/trading-day-markets-mixed-in-a-nvidia-anthropic-minutes-swirl-ce785edddf8bf621",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Trading Day: Markets mixed in a Nvidia, Anthropic, minutes swirl",
+    "ricerca": "Reuters Wall Street ends Nov 18 2026 S&P 500 Nasdaq Fed minutes Nvidia Huang",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Reuters (Yahoo Finance)",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stocks-rise-anthropic-ipo-pricing-015339932.html",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Asian stocks fail to get a lift from Anthropic's IPO pricing",
+    "ricerca": "Asian markets Thursday Nikkei Kospi Hang Seng Trump Xi Putin Shenzhen Anthropic IPO",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "US yields mixed 2y +1 bp, 30y -5 bps. Average 20-year bond auction -- strong direct bid demand, weak indirects. Traders are pricing in a 90% chance of a 25 basis points hike next month, the CME FedWatch tool showed. [Yahoo]; Kitco: 95.7%.",
+  "verifica": "confermato",
+  "nota_revisore": "2 anni +1, 30 anni -5, asta 20 anni e 90-95% (90% Reuters, 95,7% Kitco) coincidono."
+ },
+ {
+  "id": "D07",
+  "sezione": "deep_dive",
+  "testo": "Oro spot sotto 3.800 $, minimo da settembre 2025 (a 3.735 $ per Reuters), con l'argento -3,4%: pesano le attese di altri rialzi Fed e il dollaro forte",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-18/gold-plunges-14-month-low-silver-tumbles-fed-rate-hike-bets-intensify-kitco",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Gold plunges to 14-month low, silver tumbles as Fed rate hike bets intensify - Kitco AM Report",
+    "ricerca": "gold falls 14-month low $3,735 dollar Fed hike bets November 18 2026 Reuters"
+   },
+   {
+    "testata": "Bloomberg",
+    "url": "https://www.bloomberg.com/news/articles/2026-11-18/gold-steadies-near-14-month-low-as-fed-signals-more-rate-hikes",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Gold Steadies Near 14-Month Low as Fed Signals More Rate Hikes - Bloomberg",
+    "ricerca": "gold falls 14-month low $3,735 dollar Fed hike bets November 18 2026 Reuters"
+   },
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/trading-day-markets-mixed-in-a-nvidia-anthropic-minutes-swirl-ce785edddf8bf621",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Trading Day: Markets mixed in a Nvidia, Anthropic, minutes swirl",
+    "ricerca": "Reuters Wall Street ends Nov 18 2026 S&P 500 Nasdaq Fed minutes Nvidia Huang",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Spot gold was trading near $3,777.00 an ounce, down $71.50, or 1.86%, fell to its lowest level since September 2025, dropping below the $3,800 level. Silver down 3.42%. The dollar index strengthened toward 103.70; renewed geopolitical uncertainty would ordinarily support defensive demand, but rate expectations, dollar strength and commodity liquidation were the stronger forces. [Kitco] Gold -3% to 14-month low of $3,735/oz. [Reuters]",
+  "verifica": "confermato",
+  "nota_revisore": "Sotto 3.800, minimo da settembre 2025, 3.735 per Reuters, argento -3,4%, Fed e dollaro coincidono (Bloomberg bloccata)."
+ },
+ {
+  "id": "D08",
+  "sezione": "deep_dive",
+  "testo": "L'euro resta a 1,0978 $, vicino ai minimi da aprile 2025; il dollaro è sostenuto dalle attese su una Fed più dura dopo i prezzi più alti delle attese della scorsa settimana",
+  "data_evento": "2026-11-19",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Yahoo Finance)",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stocks-rise-anthropic-ipo-pricing-015339932.html",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Asian stocks fail to get a lift from Anthropic's IPO pricing",
+    "ricerca": "Asian markets Thursday Nikkei Kospi Hang Seng Trump Xi Putin Shenzhen Anthropic IPO",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/stocks-rise-after-anthropic-ipo-pricing-sets-stage-for-blockbuster-debut-5037540",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Stocks rise after Anthropic IPO pricing sets stage for blockbuster debut By Reuters",
+    "ricerca": "Reuters Anthropic prices IPO $83 above range $81 billion biggest IPO ever ticker debut",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "The euro was at $1.0978, hovering near its lowest since April 2025. \"More hawkish Fed pricing has so far offset weakness in technology stocks, keeping the USD supported,\" OCBC strategists said in a note. The comments come after hotter-than-expected inflation data last week.",
+  "verifica": "confermato",
+  "nota_revisore": "Coincide (Investing.com ha 1,0964 a un'altra ora); il PDF usa 1,0973 (chiusura), non 1,0978."
+ },
+ {
+  "id": "D09",
+  "sezione": "deep_dive",
+  "testo": "Lagarde: «I cannot tell you today that we will for sure do this in December»; inflazione dell'eurozona al 4% a ottobre, energia al 20,8%, core al 2,5%",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BCE",
+    "url": "https://ecb.europa.eu/press/inter/date/2026/html/ecb.in261107~e7b86fc4ce.en.html",
+    "data_pubblicazione": "2026-11-07",
+    "citazione": "I cannot tell you today that we will for sure do this in December.",
+    "ricerca": "Lagarde interview New York November 18 2026 ECB December rate hike inflation 4%",
+    "primaria": true
+   }
+  ],
+  "trovato": "I cannot tell you today that we will for sure do this in December (Lagarde, intervista a Yomiuri Shimbun, 4 novembre). Headline inflation 4%; energy 20.8%; core 2.5%.",
+  "verifica": "confermato",
+  "nota_revisore": "Citazione e dati confermati dalla pagina BCE; nel testo del PDF questo fatto non compare."
+ },
+ {
+  "id": "D10",
+  "sezione": "deep_dive",
+  "testo": "Proposta CMS: i risultati dei controlli sui rimborsi Medicare Advantage, fatti su un campione, verrebbero estesi a una platea più ampia di pagamenti a partire dall'anno di pagamento 2018 e senza correzione per la spesa a pagamento; recuperi stimati dal CMS in circa 9 mld $ per anno di pagamento; commenti pubblici fino al 19 gennaio 2027; non è una regola finale",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Beinsure",
+    "url": "https://beinsure.com/news/healthcare-stocks-fall-as-medicare-rules-trigger-a-selloff/",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Healthcare stocks (UnitedHealth, Humana, CVS, Cigna) fall on new Medicare rules",
+    "ricerca": "Reuters UnitedHealth Humana shares tumble CMS proposal audits Medicare Advantage extrapolation"
+   },
+   {
+    "testata": "FINANCIAL (finchannel)",
+    "url": "https://finchannel.com/unitedhealth-stock-drops-10-as-medicare-audit-proposal-unsettles-insurers/142214/american-business-trends/2026/11/",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "UnitedHealth stock falls 10.21% on Medicare audit fears",
+    "ricerca": "UnitedHealth Humana shares plunge CMS Medicare Advantage audit rule November 18 2026"
+   }
+  ],
+  "trovato": "CMS proposes to begin extrapolating risk-adjustment audit findings with payment year 2018 ... omit a fee-for-service adjuster. Extrapolation would extend findings from a sample to a wider payment population. CMS estimates that the audit approach could collect approximately $9 billion per payment year. Public comments are due January 19, 2027; the proposal is not a final rule. [finchannel]",
+  "verifica": "confermato",
+  "nota_revisore": "finchannel: campione esteso a 'a wider payment population', dal 2018, senza fee-for-service adjuster, ~9 mld per anno di pagamento (la frase seguente precisa 'industry estimate, not a bill for UnitedHealth'), commenti al 19/1/2027, non regola finale. PDF pag. 4 ora coerente ('platea piu' ampia di pagamenti'). Beinsure non ritrovata."
+ },
+ {
+  "id": "D11",
+  "sezione": "deep_dive",
+  "testo": "18 novembre: UnitedHealth -10,2% a circa 349,9 $; per Mizuho più controlli sono un fattore negativo per i margini di Medicare Advantage, con UnitedHealth e Humana le più esposte",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Beinsure",
+    "url": "https://beinsure.com/news/healthcare-stocks-fall-as-medicare-rules-trigger-a-selloff/",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Healthcare stocks (UnitedHealth, Humana, CVS, Cigna) fall on new Medicare rules",
+    "ricerca": "Reuters UnitedHealth Humana shares tumble CMS proposal audits Medicare Advantage extrapolation"
+   },
+   {
+    "testata": "FINANCIAL (finchannel)",
+    "url": "https://finchannel.com/unitedhealth-stock-drops-10-as-medicare-audit-proposal-unsettles-insurers/142214/american-business-trends/2026/11/",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "UnitedHealth stock falls 10.21% on Medicare audit fears",
+    "ricerca": "UnitedHealth Humana shares plunge CMS Medicare Advantage audit rule November 18 2026"
+   },
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/news/stock-market-news/why-is-unitedhealth-stock-sliding-today-93CH-5036505",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Why is UnitedHealth stock sliding today? By Investing.com",
+    "ricerca": "UnitedHealth Humana shares plunge CMS Medicare Advantage audit rule November 18 2026"
+   }
+  ],
+  "trovato": "UnitedHealth Group (NYSE:UNH) shares fell 10.21% on November 18 as investors reassessed the risk... UnitedHealth closed at $349.91, down $39.77, at 4 p.m. EST. / Mizuho's Ann Hynes described greater audit scrutiny as negative for Medicare Advantage margins, identifying UnitedHealth and Humana (NYSE:HUM) as particularly exposed. [finchannel]",
+  "verifica": "confermato",
+  "nota_revisore": "-10,2% a 349,91 (PDF 'circa 349,9') e Mizuho 'negativo per i margini', UnitedHealth e Humana piu' esposte coincidono su finchannel. Beinsure e Investing.com non ritrovate."
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "testo": "Sussidi di disoccupazione USA, giovedì 19 novembre alle 8:30 a New York (14:30 a Roma): atteso 198 mila (197 mila secondo un'altra stima), prima 200 mila",
+  "data_evento": "2026-11-19",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://in.investing.com/news/stock-market-news/jobless-claims-and-philadelphia-fed-index-due-thursday-93CH-5713350",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Jobless claims and Philadelphia Fed index due Thursday By Investing.com",
+    "ricerca": "economic calendar Thursday November 19 2026 jobless claims Philly Fed consensus TIPS auction Walmart"
+   },
+   {
+    "testata": "TokenPost",
+    "url": "https://www.tokenpost.com/news/investing/60983",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Walmart, Alibaba Reporting and Jobless Claims Shape Thursday’s U.S. Markets",
+    "ricerca": "economic calendar Thursday November 19 2026 jobless claims Philly Fed consensus TIPS auction Walmart"
+   }
+  ],
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "economic calendar Thursday November 19 2026 jobless claims Philly Fed consensus TIPS auction Walmart",
+   "DOL unemployment insurance weekly claims news release November 19 2026 initial claims"
+  ],
+  "trovato": "8:30 AM ET - Initial Jobless Claims: Forecast 198K, Previous 200K [Investing.com] / The weekly initial jobless claims release is scheduled for 8:30 a.m. ET (13:30 UTC). A poll of economists put the forecast at 197,000 claims. [TokenPost]",
+  "verifica": "confermato",
+  "nota_revisore": "8:30 ET = 14:30 Roma, attesa 198 mila (197 mila per TokenPost), prima 200 mila (Investing.com; TokenPost non la riporta). La riga d'agenda del PDF (pag. 5: 'Gio 19, 14:30; 198 mila; prima 200 mila') coincide; il PDF non cita la stima 197 mila."
+ },
+ {
+  "id": "K02",
+  "sezione": "catalizzatori",
+  "testo": "Indice Philadelphia Fed (novembre), giovedì 19 alle 8:30 a New York (14:30 a Roma): atteso 20,6, prima 20,9",
+  "data_evento": "2026-11-19",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://in.investing.com/news/stock-market-news/jobless-claims-and-philadelphia-fed-index-due-thursday-93CH-5713350",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Jobless claims and Philadelphia Fed index due Thursday By Investing.com",
+    "ricerca": "economic calendar Thursday November 19 2026 jobless claims Philly Fed consensus TIPS auction Walmart"
+   }
+  ],
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "economic calendar Thursday November 19 2026 jobless claims Philly Fed consensus TIPS auction Walmart",
+   "Philadelphia Fed Manufacturing Business Outlook Survey November 2026 release schedule"
+  ]
+ },
+ {
+  "id": "K03",
+  "sezione": "catalizzatori",
+  "testo": "Walmart pubblica i conti del terzo trimestre fiscale giovedì 19 novembre; la conference call comincia alle 7:00 a Chicago (14:00 a Roma)",
+  "data_evento": "2026-11-19",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Walmart",
+    "url": "https://corporate.walmart.com/news/events/fy2027-q3-earnings-release",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "fy2027 q3 earnings release",
+    "ricerca": "Walmart third quarter fiscal 2027 earnings release date time conference call",
+    "primaria": true
+   }
+  ],
+  "ufficiale_cercato": [
+   "Walmart third quarter fiscal 2027 earnings release date time conference call",
+   "economic calendar Thursday November 19 2026 jobless claims Philly Fed consensus TIPS auction Walmart"
+  ],
+  "fonte_singola": true
+ },
+ {
+  "id": "K04",
+  "sezione": "catalizzatori",
+  "testo": "Anthropic debutta al Nasdaq (ANT) giovedì 19 novembre dopo l'apertura delle 9:30 a New York (15:30 a Roma)",
+  "data_evento": "2026-11-19",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/stocks-rise-after-anthropic-ipo-pricing-sets-stage-for-blockbuster-debut-5037540",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Stocks rise after Anthropic IPO pricing sets stage for blockbuster debut By Reuters",
+    "ricerca": "Reuters Anthropic prices IPO $83 above range $81 billion biggest IPO ever ticker debut",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "CBS News",
+    "url": "https://www.cbsnews.com/news/anthropic-ipo-ai-boom-nasdaq-debut/",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Anthropic's IPO set for blastoff Thursday in key test for AI boom - CBS News",
+    "ricerca": "Anthropic debut Nasdaq opening time ticker ANT first trade Thursday retail demand"
+   },
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/11/18/anthropic-ipo-ai-offering-price.html",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Anthropic IPO raises over $81 billion in largest offering on record, topping SpaceX",
+    "ricerca": "Reuters Anthropic prices IPO $83 above range $81 billion biggest IPO ever ticker debut"
+   }
+  ],
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "Anthropic debut Nasdaq opening time ticker ANT first trade Thursday retail demand",
+   "Anthropic IPO priced $83 per share Nasdaq debut Thursday"
+  ]
+ },
+ {
+  "id": "M01",
+  "sezione": "mercati",
+  "testo": "Ftse Mib a 44.944 punti il 30 dicembre 2025, ultima seduta dell'anno (base per il da-inizio-anno)",
+  "data_evento": "2025-12-30",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2025/12/30/borsa-milano-chiude-in-chiaro-rialzo-ftse-mib-114_b67cca9c-925e-4565-9508-cf2e3d92f8b6.html",
+    "data_pubblicazione": "2025-12-30",
+    "citazione": "Borsa: Milano chiude in chiaro rialzo, Ftse Mib +1,14%",
+    "ricerca": "Borsa Milano chiude 2025: Ftse Mib termina l'anno a punti, ultima seduta 30 dicembre 2025 indice Ftse Mib livello",
+    "agenzia": "ANSA"
+   }
+  ],
+  "fonte_singola": true,
+  "trovato": "Seduta ampiamente positiva per la Borsa di Milano: l'indice Ftse Mib ha concluso in aumento dell'1,14% a 44.944 punti.",
+  "verifica": "confermato",
+  "nota_revisore": "44.944 del 30/12/2025 confermato; +11,6% da inizio anno (50.173) quadra. L'URL ANSA trovato differisce nell'hash da quello dell'incarico ma è la stessa notizia."
+ },
+ {
+  "verifica": "confermato",
+  "nota_revisore": "Revisione interna: citazione, data e cifre riletti sulle pagine aperte in redazione.",
+  "id": "MEM-1104-T04",
+  "sezione": "macro",
+  "testo": "BCE: tasso sui depositi al 2,50% dopo i rialzi di giugno e settembre, tassi fermi il 29 ottobre; prossima riunione il 17 dicembre",
+  "data_evento": "2026-11-04",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://it.investing.com/news/stock-market-news/bce-con-linflazione-al-4-gli-analisti-puntano-sullultimo-rialzo-dei-tassi-a-dicembre-3627129",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "tasso sui depositi al 2,50%, dopo i rialzi di giugno e settembre"
+   },
+   {
+    "testata": "La Mescolanza",
+    "url": "https://www.lamescolanza.com/2026/11/04/inflazione-nuova-fiammata-in-europa-prezzi-al-4-italia-al-56-la-bce-verso-unaltra-stretta/",
+    "data_pubblicazione": "2026-11-04",
+    "citazione": "Harmonised index (HICP, comparable with the euro area): 5.6%."
+   }
+  ],
+  "ripresa": "2026-11-04"
+ },
+ {
+  "id": "MEM-1109-D13",
+  "sezione": "deep_dive",
+  "testo": "Il 28/10 la Fed ha lasciato i tassi al 3,75-4,00%; contrari Lisa Cook e Beth Hammack, che volevano un rialzo di un quarto di punto (voto 10-2); l'inflazione è sopra l'obiettivo da quasi sei anni",
+  "data_evento": "2026-10-28",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "federalreserve.gov",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent"
+   },
+   {
+    "testata": "federalreserve.gov",
+    "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack."
+   },
+   {
+    "testata": "Fox Business",
+    "url": "https://www.foxbusiness.com/economy/federal-reserve-interest-rate-decision-october-28-2026",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "inflation that has been running above the committee's objective for close to six years"
+   },
+   {
+    "testata": "CBS News",
+    "url": "https://www.cbsnews.com/news/federal-reserve-holds-interest-rates-steady-inflation/",
+    "data_pubblicazione": "2026-10-29",
+    "citazione": "inflation that has been running above the committee's objective for close to six years"
+   }
+  ],
+  "ripresa": "2026-11-09",
+  "trovato": "Fed policymakers voted 10-2 to leave the federal funds rate at its target range of 3.75% to 4%. [Fox] / Two FOMC members — Fed Board Governor Lisa Cook and Cleveland Federal Reserve Bank President Beth Hammack ... wanted a quarter-point increase; inflation \"that has been running above the committee's objective for close to six years.\" [CBS]",
+  "verifica": "confermato",
+  "nota_revisore": "Tassi, contrari, rialzo di 25 pb, voto 10-2 e quasi sei anni confermati da Fox Business e CBS (federalreserve.gov non ritrovata)."
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Asian stocks fail to get a lift from Anthropic's IPO pricing (Reuters, 02:53)",
+   "Anthropic prices IPO at $83, raising a record $81 billion (CNBC, sera del 18/11)",
+   "Asian stocks rise after Anthropic IPO pricing sets stage for record debut (Reuters, 04:20)",
+   "Fed officials expect more rate hikes, worry about AI impact on inflation, minutes show (CNBC, sera del 18/11)",
+   "Gold Steadies Near 14-Month Low as Fed Signals More Rate Hikes (Bloomberg, sera del 18/11)",
+   "Borsa: l'Asia chiude in ordine sparso tra Anthropic e vertice Trump-Putin-Xi (ANSA, 08:37)"
+  ],
+  "testate": [
+   {
+    "testata": "Reuters",
+    "storie": [
+     "Stocks rise after Anthropic IPO pricing sets stage for blockbuster debut",
+     "Trading Day: Markets mixed in a Nvidia, Anthropic, minutes swirl",
+     "Wall Street ends mixed after Nvidia earnings, Fed minutes"
+    ]
+   },
+   {
+    "testata": "Bloomberg",
+    "storie": [
+     "Gold Steadies Near 14-Month Low as Fed Signals More Rate Hikes"
+    ]
+   },
+   {
+    "testata": "CNBC",
+    "storie": [
+     "Anthropic IPO raises over $81 billion in largest offering on record, topping SpaceX",
+     "Fed officials expect more rate hikes, worry about AI impact on inflation, minutes show"
+    ]
+   },
+   {
+    "testata": "ANSA",
+    "storie": [
+     "Borsa: l'Asia chiude in ordine sparso tra Anthropic e vertice Trump-Putin-Xi",
+     "Borsa: Milano chiude in calo, -1,32%"
+    ]
+   },
+   {
+    "testata": "dpa-AFX",
+    "storie": [
+     "Aktien Europa Schluss: Weitere Verluste im Sog der US-Börsen"
+    ]
+   },
+   {
+    "testata": "Il Sole 24 Ore",
+    "storie": [
+     "Borse, i conti record di Nvidia non bastano. Banche e difesa piegano Milano (-1,3%)"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Il consiglio di Nvidia esclude il ritorno di Huang e il titolo cala del 2,9%",
+    "motivo": "già in edizione #028; oggi nessun fatto nuovo oltre al calo, che sta nel modulo sull'AI"
+   }
+  ],
+  "concorda": true,
+  "motivo": "Reuters, CNBC e i resoconti asiatici aprono con la quotazione di Anthropic al Nasdaq",
+  "mancate_ieri": [
+   {
+    "storia": "Titoli sanitari USA in forte calo dopo la proposta CMS sui controlli Medicare Advantage",
+    "fonte": "Reuters (MarketScreener), Beinsure",
+    "perche_mancata": "uscita dopo le 9"
+   },
+   {
+    "storia": "TJX e Target alzano le stime e salgono",
+    "fonte": "Reuters (KFGO), CNBC",
+    "perche_mancata": "uscita dopo le 9"
+   },
+   {
+    "storia": "Inflazione del Regno Unito al 3,6% a ottobre, diesel record",
+    "fonte": "ONS",
+    "perche_mancata": "non letta"
+   }
+  ]
+ },
+ {
+  "id": "S1",
+  "sezione": "scaletta",
+  "apertura": {
+   "storia": "Anthropic fissa il prezzo a 83 $ e debutta oggi al Nasdaq con la quotazione più grande di sempre",
+   "perche_prima": "Apertura di Reuters, CNBC e dei resoconti asiatici"
+  },
+  "moduli": [
+   {
+    "chiave": "anthropic",
+    "misura": "doppio",
+    "tesi": "Il prezzo sopra la forchetta dice che i soldi ci sono, ma per noi il vero esame di oggi non è il primo prezzo di ANT: è se il mercato accetta di pagare circa 22 volte i ricavi annualizzati mentre il resto dell'AI scende.",
+    "domanda": "Che cosa ci dice la quotazione di Anthropic sullo stato di salute del boom dell'AI?",
+    "prove": [
+     "Prezzo 83 $ contro forchetta 70-78 $; 81 mld $ raccolti, record su SpaceX",
+     "Valore fino a 1.500 mld $ su base diluita contro ricavi del terzo trimestre di quasi 17 mld $ (+45% sul secondo)",
+     "Nvidia -13% e S&P 500 -3,9% in cinque sedute; Taiwan -4,4% stamattina",
+     "Acquisti al dettaglio: 3 mld $ netti su Nvidia in dieci sedute (Vanda), attesa di record per ANT",
+     "Ricavi annualizzati: 17 mld $ del terzo trimestre per quattro = 68 mld $; 1.500 mld $ diviso 68 = circa 22 volte"
+    ],
+    "contro": "Se ANT chiude ben oltre i 100 $ e insieme salgono Nvidia e il Nasdaq, la tesi cade: il mercato continua a pagare l'AI senza sconti.",
+    "schede": [
+     "T01",
+     "D01",
+     "D03",
+     "D04"
+    ],
+    "memoria": "MEM-1116-N04 (forchetta), #028 sul debutto come test di liquidità"
+   },
+   {
+    "chiave": "fed",
+    "misura": "doppio",
+    "tesi": "Il verbale non cambia il rialzo di dicembre, già prezzato al 90-95%: sposta la questione sulla misura (25 o 50) e per noi la curva che si appiattisce dice che il mercato teme più la crescita che i prezzi oltre quel rialzo.",
+    "domanda": "Che cosa aggiungono i verbali a un rialzo che il mercato dava già per fatto?",
+    "prove": [
+     "Quasi tutti i partecipanti vedono probabili altri rialzi; un paio considera più di 25 punti",
+     "Voto di ottobre 10-2: Cook e Hammack volevano già +0,25",
+     "Diversi membri parlano di «close call» per dicembre; la spesa in AI alimenta l'inflazione",
+     "Future sui tassi: 90-95% di probabilità per +0,25 il 9 dicembre",
+     "Il 2 anni sale di 1 pb e il 30 anni scende di 5: curva più piatta; 20 anni con domanda indiretta debole",
+     "Dollaro ai massimi da 19 mesi"
+    ],
+    "contro": "Se il 30 anni torna sopra il 5,5% e il 10 anni sopra il 5,15% la curva non sta più dicendo crescita: sta dicendo inflazione.",
+    "schede": [
+     "N01",
+     "D05",
+     "D06",
+     "MEM-1109-D13"
+    ],
+    "memoria": "#025 e #023 sulla curva e sul rialzo di dicembre"
+   },
+   {
+    "chiave": "dollaro",
+    "misura": "mezzo",
+    "tesi": "Neanche gli attacchi nel Golfo fermano l'oro: oggi metallo ed euro scendono insieme perché per noi la Fed attira dollari più di quanto la paura attiri rifugi.",
+    "domanda": "Perché l'oro cala nel giorno in cui l'Iran colpisce basi americane?",
+    "prove": [
+     "Oro future -3,2% e argento -3,4%: minimo da 14 mesi",
+     "Per Kitco le tensioni nel Golfo non sostengono il metallo",
+     "Indice del dollaro a 103,92, massimo da 19 mesi",
+     "Euro vicino ai minimi da aprile 2025, 1,0973",
+     "Probabilità di rialzo Fed a dicembre sopra il 90%",
+     "Oro -10% e euro -2,4% in un mese"
+    ],
+    "contro": "Se l'oro risale con il dollaro ancora in alto, la sola Fed non basta a spiegarlo.",
+    "schede": [
+     "N07",
+     "D07",
+     "D08",
+     "N12"
+    ],
+    "memoria": "#027: con il dollaro forte l'oro non fa da rifugio"
+   },
+   {
+    "chiave": "sanita",
+    "misura": "mezzo",
+    "tesi": "I titoli sanitari scontano come legge una proposta che può cambiare: -10% in un giorno per un testo aperto ai commenti fino al 19 gennaio e che in una versione precedente un tribunale ha già annullato.",
+    "domanda": "Perché una proposta di regola fa perdere il 10% a UnitedHealth in un giorno?",
+    "prove": [
+     "Proposta CMS del 16/11: estrapolazione dei controlli a interi contratti dal 2018",
+     "Recuperi stimati dal CMS in circa 9 mld $ per anno di pagamento",
+     "UnitedHealth -10,2%, Humana -12,7%, CVS -5,2%",
+     "Commenti aperti fino al 19 gennaio 2027",
+     "Nel 2025 un tribunale annullò una regola precedente sugli stessi controlli",
+     "Mizuho: fattore negativo per i margini, più esposti UnitedHealth e Humana"
+    ],
+    "contro": "Se la regola finale esce senza estrapolazione all'indietro, la perdita di oggi si recupera.",
+    "schede": [
+     "D10",
+     "D11"
+    ],
+    "memoria": "nessuna scheda in memoria su questo tema"
+   }
+  ]
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "L'oro future perde il 3,2% nel giorno degli attacchi iraniani a basi americane e del vertice a tre in Cina",
+  "ricerche": [
+   "gold falls 14-month low $3,735 dollar Fed hike bets November 18 2026 Reuters",
+   "Kitco gold plunges 14-month low silver tumbles Fed rate hike bets intensify"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Attese di rialzi Fed e dollaro forte",
+    "fonte": "D07",
+    "prevede": "Dollaro su, oro e argento giù",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Vendite generali di materie prime e timori sulla domanda industriale",
+    "fonte": "D07",
+    "prevede": "Argento e petrolio giù più dell'oro",
+    "prezzi": "in parte"
+   }
+  ],
+  "esito": "ipotesi"
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "Spread BTP-Bund, chiusura del 18/11",
+  "ricerche": [
+   "Borsa Milano chiusura 18 novembre 2026 FTSE MIB spread Btp Bund",
+   "Piazza Affari chiude 18 novembre 2026 Ftse Mib spread Btp Bund",
+   "spread Btp Bund chiude 18 novembre 2026 rendimento decennale Teleborsa",
+   "quifinanza spread Btp Bund 18 novembre 2026 punti base rendimenti"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "QuiFinanza",
+   "url": "https://quifinanza.it/economia/finanza/spread-btp-bund-17-novembre-2026/1024592/"
+  }
+ },
+ {
+  "id": "R2",
+  "sezione": "ricerca",
+  "dato": "Kospi e Hang Seng, livello di giovedì mattina (solo la variazione è indicizzata)",
+  "ricerche": [
+   "Kospi closes November 18 2026 Yonhap",
+   "Asia markets Nikkei Hang Seng Kospi November 19 2026",
+   "Borse Asia oggi 19 novembre 2026 Tokyo Nikkei Seul Kospi Hong Kong Teleborsa",
+   "Borse asiatiche 19 novembre 2026 Taiwan crolla Tokyo Seul Hong Kong Anthropic"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "ANSA",
+   "url": "https://www.ladige.it/attualita/borsa-lasia-chiude-in-ordine-sparso-tra-anthropic-e-vertice-trump-putin-xi-lviocvw6"
+  }
+ }
+]

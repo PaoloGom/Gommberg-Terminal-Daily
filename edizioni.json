@@ -5798,5 +5798,310 @@
     ]
    }
   ]
+ },
+ {
+  "numero": 29,
+  "data": "2026-11-19",
+  "titolo": "Anthropic debutta oggi al Nasdaq con la maggiore quotazione di sempre",
+  "sommario": [
+   "I verbali della Fed vedono altri rialzi dei tassi: il dubbio è quanto grandi.",
+   "L'oro scende ai minimi da 14 mesi, anche con le tensioni nel Golfo.",
+   "UnitedHealth crolla per una proposta del governo sui rimborsi."
+  ],
+  "file": "pdf/2026-11-19-gommberg-029.pdf",
+  "nome": "2026-11-19 Gommberg Terminal Daily #029.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Le banche italiane frenate da Ires più alta e voci su una stretta della Bce",
+   "TJX alza le previsioni per l'anno e sale in borsa",
+   "Nel Regno Unito l'inflazione sale al 3,6% e il diesel segna un record",
+   "Trump arriva in Cina mentre Xi e Putin attaccano il protezionismo",
+   "Le previsioni di offerta in eccesso pesano sul Brent",
+   "Prosus cade ai minimi dal 2024 dopo i conti deboli di Tencent",
+   "Leonardo e Tenaris trascinano giù Milano, Ferrari controcorrente"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "150,68 $",
+    "-0,4% g"
+   ],
+   [
+    "S&P 500",
+    "7.323,63",
+    "-0,2% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.154,39",
+    "-0,9% g"
+   ],
+   [
+    "TREASURY 10 ANNI",
+    "5,07%",
+    "-3 pb g"
+   ],
+   [
+    "EUR/USD",
+    "1,0973",
+    "-0,2% g"
+   ],
+   [
+    "BRENT FUTURE",
+    "91,95 $",
+    "-1,3% g"
+   ],
+   [
+    "ORO",
+    "3.742 $",
+    "-3,2% g"
+   ]
+  ],
+  "dek": "Il prezzo dell'offerta è fissato a 83 dollari, sopra la forchetta prevista, e la società raccoglie circa 81 miliardi di dollari: più di ogni altra offerta pubblica iniziale (Reuters). Il titolo, con il simbolo ANT, comincia a trattare alle 15:30 di Roma. Arriva dopo una settimana di vendite a Wall Street, e per noi il primo prezzo dirà quanto il mercato accetta ancora di pagare per l'intelligenza artificiale.",
+  "ticker_al": "2026-11-18",
+  "scommessa": {
+   "settimana": "2026-11-16/2026-11-20",
+   "su": 6,
+   "par": 7.3,
+   "strada": 3,
+   "range": 3,
+   "dettaglio": [
+    [
+     "S&P 500",
+     "giù",
+     true,
+     false
+    ],
+    [
+     "Euro Stoxx 50",
+     "su",
+     false,
+     false
+    ],
+    [
+     "Treasury 10 anni",
+     "su",
+     false,
+     true
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Brent future",
+     "su",
+     false,
+     true
+    ],
+    [
+     "Oro future",
+     "giù",
+     true,
+     false
+    ]
+   ]
+  },
+  "temi": [
+   "Tecnologia",
+   "Fed",
+   "Valute",
+   "Materie prime",
+   "Asia",
+   "Banche"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Tecnologia",
+    "titolo": "Anthropic quota sopra la forchetta e mette alla prova un mercato che vende AI",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Fed",
+    "titolo": "I verbali vedono altri rialzi e la curva dei Treasury si appiattisce",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Valute",
+    "titolo": "Neanche le tensioni nel Golfo fermano l'oro: pesa il dollaro",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Macro",
+    "titolo": "I titoli sanitari scontano come legge una proposta che può ancora cambiare",
+    "formato": "grafico"
+   }
+  ],
+  "meccanismi": [
+   "M26",
+   "M02",
+   "M20",
+   "M22",
+   "M08",
+   "M23",
+   "M09",
+   "M06",
+   "M16",
+   "M17",
+   "M10"
+  ],
+  "parole": [
+   "Offerta pubblica iniziale (IPO)",
+   "Verbali della Fed",
+   "Appiattimento della curva",
+   "Close call",
+   "Medicare Advantage",
+   "Indice del dollaro"
+  ],
+  "ripetizioni": 0,
+  "glossario": [
+   "VIX",
+   "ACWI"
+  ],
+  "dove": {
+   "approfondimenti": [
+    2,
+    3,
+    4,
+    4
+   ],
+   "mercati": 5,
+   "agenda": 5,
+   "scommessa": 6
+  },
+  "termometri": {
+   "righe": [
+    [
+     "Fed e tassi",
+     "Decisione il 9 dicembre",
+     "Verbali: più rialzi probabili",
+     "su: Probabilità di rialzo a dicembre",
+     "Dati sui prezzi"
+    ],
+    [
+     "AI e borsa",
+     "Debutto di Anthropic oggi",
+     "Prezzo sopra la forchetta",
+     "giu: Titoli AI, Nvidia in testa",
+     "Primo prezzo di ANT"
+    ],
+    [
+     "Oro e dollaro",
+     "Oro ai minimi da 14 mesi",
+     "Dollaro ai massimi da 19 mesi",
+     "giu: Oro e argento",
+     "Rendimento a 30 anni"
+    ],
+    [
+     "Sanità USA",
+     "Proposta CMS aperta ai commenti",
+     "UnitedHealth in forte calo",
+     "giu: UnitedHealth",
+     "Commenti fino al 19 gennaio"
+    ]
+   ],
+   "fermi": "Tassi della Bce (depositi al 2,50%, prossima riunione il 17 dicembre)."
+  },
+  "quadro": "Per noi a muovere i prezzi è la Fed più della quotazione. I future sui tassi danno quasi per certo un rialzo a dicembre. Il dollaro sale ai massimi da 19 mesi e l'oro cede il 3,2% anche con le tensioni nel Golfo. Il rendimento a 30 anni scende, quello a 2 anni no: di solito significa tassi alti oggi e crescita più debole domani. In borsa si vende da una settimana, e il debutto di Anthropic mette alla prova chi compra ancora.",
+  "evento_oggi": "Gio 19, 14:30 Sussidi di disoccupazione USA",
+  "grafici": [
+   {
+    "tipo": "linee",
+    "titolo": "Wall Street arriva al debutto dopo una settimana di vendite",
+    "serie": [
+     "S&P 500"
+    ],
+    "x0": "2026-10-19",
+    "x1": "2026-11-18",
+    "etichette": []
+   },
+   {
+    "tipo": "linee",
+    "titolo": "La distanza tra 30 e 2 anni scende da 71 a 61 punti base in un mese",
+    "serie": [
+     "30 anni meno 2 anni"
+    ],
+    "x0": "2026-10-19",
+    "x1": "2026-11-18",
+    "etichette": []
+   },
+   {
+    "tipo": "barre",
+    "titolo": "Salgono le scadenze brevi, scendono le lunghe",
+    "serie": [],
+    "x0": null,
+    "x1": null,
+    "etichette": [
+     "3M",
+     "6M",
+     "1A",
+     "2A",
+     "3A",
+     "5A",
+     "7A",
+     "10A",
+     "20A",
+     "30A"
+    ]
+   },
+   {
+    "tipo": "linee",
+    "titolo": "L'oro tocca il minimo da 14 mesi dopo un mese quasi sempre in calo",
+    "serie": [
+     "Oro future"
+    ],
+    "x0": "2026-10-19",
+    "x1": "2026-11-18",
+    "etichette": []
+   }
+  ],
+  "agenda": [
+   {
+    "quando": "Gio 19, 14:00",
+    "evento": "Walmart: conti del terzo trimestre fiscale",
+    "attese": "Conference call alle 14:00",
+    "perche": "Termometro dei consumi americani",
+    "chiave": false,
+    "muove": [
+     "Sopra: di solito il titolo sale se le previsioni vengono alzate.",
+     "Sotto: pesa su tutti i titoli dei consumi."
+    ]
+   },
+   {
+    "quando": "Gio 19, 14:30",
+    "evento": "Sussidi di disoccupazione USA",
+    "attese": "198 mila; prima 200 mila (Investing.com)",
+    "perche": "Evento n.1: tenuta del lavoro con tassi in salita",
+    "chiave": true,
+    "muove": [
+     "Sopra (più sussidi): lavoro più debole, di solito rendimenti giù.",
+     "Sotto: lavoro solido, di solito rialzo di dicembre più certo."
+    ]
+   },
+   {
+    "quando": "Gio 19, 14:30",
+    "evento": "Indice Philadelphia Fed (novembre)",
+    "attese": "20,6; prima 20,9 (Investing.com)",
+    "perche": "Stato dell'industria",
+    "chiave": false,
+    "muove": [
+     "Sopra: industria in salute, di solito dollaro e rendimenti su.",
+     "Sotto: torna il timore di una frenata."
+    ]
+   },
+   {
+    "quando": "Gio 19, 15:30",
+    "evento": "Anthropic debutta al Nasdaq (ANT)",
+    "attese": "Apertura delle contrattazioni",
+    "perche": "Primo prezzo dopo l'offerta a 83 $",
+    "chiave": false,
+    "muove": [
+     "Sopra: di solito aiuta i titoli dell'AI.",
+     "Sotto: pesa su Nvidia e sul Nasdaq."
+    ]
+   }
+  ]
  }
 ]

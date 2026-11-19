@@ -1,0 +1,76 @@
+{
+  "righe": {
+    "spx": {
+      "nome": "S&P 500",
+      "base": 7561.67,
+      "previsione": 7519.324648,
+      "ultimo": 7323.63,
+      "data": "2026-11-18",
+      "var": -3.198595857366357,
+      "var_unita": "%",
+      "dentro_range": false,
+      "strada_giusta": true,
+      "fonte": "attuali.json"
+    },
+    "sx5e": {
+      "nome": "Euro Stoxx 50",
+      "base": 6386.86,
+      "previsione": 6401.790696111668,
+      "ultimo": 6154.39,
+      "data": "2026-11-18",
+      "var": -3.7077106507677913,
+      "var_unita": "%",
+      "dentro_range": false,
+      "strada_giusta": false,
+      "fonte": "attuali.json"
+    },
+    "ust10": {
+      "nome": "Treasury 10 anni",
+      "base": 5.15,
+      "previsione": 5.164651656992695,
+      "ultimo": 5.07,
+      "data": "2026-11-18",
+      "var": -8.000000000000007,
+      "var_unita": "pb",
+      "dentro_range": true,
+      "strada_giusta": false,
+      "fonte": "attuali.json"
+    },
+    "eurusd": {
+      "nome": "EUR/USD",
+      "base": 1.1021,
+      "previsione": 1.1012168198279315,
+      "ultimo": 1.0973,
+      "data": "2026-11-18",
+      "var": -0.43648337007429744,
+      "var_unita": "%",
+      "dentro_range": true,
+      "strada_giusta": true,
+      "fonte": "attuali.json"
+    },
+    "brent": {
+      "nome": "Brent future",
+      "base": 95.84,
+      "previsione": 96.6264692484035,
+      "ultimo": 91.95,
+      "data": "2026-11-18",
+      "var": -4.143518331680916,
+      "var_unita": "%",
+      "dentro_range": true,
+      "strada_giusta": false,
+      "fonte": "attuali.json"
+    },
+    "oro": {
+      "nome": "Oro future",
+      "base": 3886.3,
+      "previsione": 3859.87316,
+      "ultimo": 3741.9,
+      "data": "2026-11-18",
+      "var": -3.786404436369701,
+      "var_unita": "%",
+      "dentro_range": false,
+      "strada_giusta": true,
+      "fonte": "attuali.json"
+    }
+  }
+}
