@@ -1,6 +1,6 @@
 # Stato del Gommberg
 
-Aggiornato: 19/11/2026 notte (dopo la correzione della #028). Deve bastare da solo a una chat nuova. Lo riscrive Claude in corsa, a ogni decisione, insieme al Registro.
+Aggiornato: 20/11/2026 pomeriggio (G-11 in corso). Deve bastare da solo a una chat nuova. Lo riscrive Claude in corsa, a ogni decisione, insieme al Registro.
 
 Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b6e-83eb-4b8d032a3783`, https://claude.ai/artifact/KmCtJUZFx2WKVCRaDiHPtE). Una voce si legge per codice (`db_query` su `tasks`, `codice` = "G-xx").
 
@@ -20,7 +20,7 @@ Ordine: G-34 e G-02 insieme (uno corregge, l'altro misura), poi G-03. Decisioni 
 Gli altri lavori del weekend sono nel Registro, in ordine.
 
 ## Prossimo passo
-Giovedì 19/11 sera: G-11, sito anche su gommberg.com in doppio binario (Opus, PC a portata per l'accesso a GitHub). Poi sabato 21/11 il rilascio.
+G-11, sito anche su gommberg.com (Opus): il lavoro è pronto e provato sul ramo `dominio` (Cloudflare Workers con soli file statici, pubblicato da GitHub Actions; dettagli nella voce del Registro). Manca l'accesso a Cloudflare: venerdì 20/11 sera con Paolo al PC (token e Account ID come segreti GitHub, www, prima pubblicazione e collaudo dal vivo), poi `dominio` entra in main e parte il doppio binario. Proposta in attesa di ok: passaggio nel weekend 28-29/11, dopo una settimana di edizioni vere. Sabato 21/11 il rilascio del motore resta com'era.
 
 ## Regole del ritmo
 - Lun-ven il ramo principale non si tocca, salvo guasti e i file di stato della redazione; bozze sul ramo `prova`. Un rilascio nel weekend, tutto pulito entro domenica sera.
