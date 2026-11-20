@@ -1,11 +1,12 @@
 # Stato del Gommberg
 
-Aggiornato: 20/11/2026 pomeriggio (G-11: passaggio deciso per questo weekend). Deve bastare da solo a una chat nuova. Lo riscrive Claude in corsa, a ogni decisione, insieme al Registro.
+Aggiornato: 20/11/2026 notte (G-11 fatto: il sito è su gommberg.com). Deve bastare da solo a una chat nuova. Lo riscrive Claude in corsa, a ogni decisione, insieme al Registro.
 
 Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b6e-83eb-4b8d032a3783`, https://claude.ai/artifact/KmCtJUZFx2WKVCRaDiHPtE). Una voce si legge per codice (`db_query` su `tasks`, `codice` = "G-xx").
 
 ## In linea
-- Istruzioni v9.0 (struttura nuova delle 6 pagine), scommessa metodo 1.3 dal 16/11, 28 edizioni (ultima #028 del 18/11).
+- Istruzioni v9.0 (struttura nuova delle 6 pagine), scommessa metodo 1.3 dal 16/11, 30 edizioni (ultima #030 del 20/11).
+- **Sito su https://gommberg.com/ dal 20/11 sera (G-11)**: Cloudflare Workers con soli file statici, pubblicato da `.github/workflows/sito.yml` a ogni push su main (solo la parte pubblica, `redazione/sito/costruisci.py`), verifica dal vivo dopo ogni pubblicazione; ramo `prova` = anteprima su workers.dev. Il vecchio indirizzo paologom.github.io/Gommberg-Terminal-Daily reindirizza alla stessa pagina dal ramo `vecchio-indirizzo` (GitHub Pages). www porta alla radice. Kit (modulo e modelli) e Search Console (proprietà Dominio gommberg.com, sitemap) aggiornati.
 - Sito con homepage B, riquadri dei mercati per il neofita, pagina Impara.
 - Newsletter con Kit da redazione@gommberg.com (SPF/DKIM/DMARC ok), un solo pulsante verso il sito dal 17/11.
 - #028 corretta il 19/11 notte nel lessico (guidance, buy, le vendite): PDF e sito rifatti, newsletter non ripartita. Causa delle traduzioni in `glossario.json` (lessico "previsioni" al posto di guidance): si toglie in G-07.
@@ -20,7 +21,7 @@ Ordine: G-34 e G-02 insieme (uno corregge, l'altro misura), poi G-03. Decisioni 
 Gli altri lavori del weekend sono nel Registro, in ordine.
 
 ## Prossimo passo
-G-11, sito su gommberg.com (Opus). Decisione di Paolo del 20/11: passaggio questo weekend. Ordine: venerdì 20/11 sera, con Paolo al PC (Chrome con l'estensione), accesso a Cloudflare, doppio binario e passaggio nella stessa sessione; sabato e domenica test (edizioni di prova con la procedura B di `PROVA.md`, che non fanno partire la newsletter), poi il rilascio del motore del pacchetto "La macchina". Tutto pronto e provato sul ramo `dominio`; scaletta e scelte nella voce G-11 del Registro.
+Weekend 21-22/11: il rilascio del motore del pacchetto "La macchina" (cantiere attivo), da fare dopo un controllo veloce che `sito.yml` sia verde. Edizioni di prova solo con la procedura B di `PROVA.md` (data simulata: la newsletter non parte); ora ogni push su main ripubblica anche gommberg.com. Lunedì 23/11: prima edizione vera sul nuovo dominio, da controllare (pubblicazione e verifica verdi, link della newsletter su gommberg.com). Poi G-12 (repository privato), che sposta il ramo `vecchio-indirizzo` in un repository pubblico con il vecchio nome.
 
 ## Regole del ritmo
 - Lun-ven il ramo principale non si tocca, salvo guasti e i file di stato della redazione; bozze sul ramo `prova`. Un rilascio nel weekend, tutto pulito entro domenica sera.
