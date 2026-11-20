@@ -40,7 +40,6 @@ LETTI = ["redazione/glossario.json", "redazione/glossario_sito.json", "redazione
 FIRMA = "# Scritto da redazione/sito/costruisci.py: non modificare a mano."
 NOMINATI = re.compile(r"""(?:^|[^A-Za-z0-9_])(redazione/[A-Za-z0-9_./-]+\.[a-z]{2,4})""")
 STATISTICHE = re.compile(r'<script[^>]*data-goatcounter=[^>]*>\s*</script>\s*', re.I)
-BASE = re.compile(r'<base href="[^"]*">', re.I)
 
 
 def pubblico(rel: PurePosixPath) -> bool:
@@ -101,12 +100,6 @@ def reindirizzamenti(uscita: Path, file):
 
 
 def ritocchi(uscita: Path, file, anteprima: bool):
-    # 404.html si apre a qualunque profondità, quindi ha un <base> assoluto: qui il sito sta alla radice del dominio.
-    # Dopo il passaggio a gommberg.com il file ha già <base href="/"> e questo ritocco non cambia nulla.
-    p404 = uscita / "404.html"
-    if p404.is_file():
-        t = p404.read_text(encoding="utf-8")
-        p404.write_text(BASE.sub('<base href="/">', t, count=1), encoding="utf-8")
     if anteprima:
         for rel in file:
             if rel.suffix == ".html":

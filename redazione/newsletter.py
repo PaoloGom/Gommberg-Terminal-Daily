@@ -39,7 +39,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 REPO = Path(__file__).resolve().parent.parent
-BASE = "https://paologom.github.io/Gommberg-Terminal-Daily/"
+BASE = "https://gommberg.com/"
 API = "https://api.kit.com/v4"
 ATTESA_MINUTI = 4          # tempo lasciato al sito per pubblicare la pagina dell'edizione
 MODELLO = "Gommberg edizione"   # il modello di Kit per le edizioni (vedi sopra)

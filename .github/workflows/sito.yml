@@ -22,7 +22,7 @@ on:
   workflow_dispatch:
     inputs:
       modo:
-        description: "pubblica = come a ogni push (solo da main o prova); collaudo = browser vero su ogni pagina, confronto con il vecchio sito"
+        description: "pubblica = come a ogni push (solo da main o prova); collaudo = browser vero su ogni pagina di gommberg.com"
         type: choice
         options: [pubblica, collaudo]
         default: pubblica
@@ -96,5 +96,5 @@ jobs:
           python-version: "3.12"
       - name: Browser
         run: pip install --quiet playwright && python -m playwright install --with-deps chromium > /dev/null
-      - name: Ogni pagina di gommberg.com contro il vecchio sito
-        run: python redazione/sito/collaudo_sito.py https://gommberg.com/ https://paologom.github.io/Gommberg-Terminal-Daily/ --pagine 40 | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Ogni pagina di gommberg.com
+        run: python redazione/sito/collaudo_sito.py https://gommberg.com/ --pagine 40 | tee -a "$GITHUB_STEP_SUMMARY"

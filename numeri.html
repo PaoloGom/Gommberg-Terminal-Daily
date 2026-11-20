@@ -2,15 +2,15 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<link rel="canonical" href="https://paologom.github.io/Gommberg-Terminal-Daily/numeri.html">
+<link rel="canonical" href="https://gommberg.com/numeri.html">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>I numeri del Gommberg - Gommberg Terminal Daily</title>
 <meta name="description" content="La dashboard pubblica del Gommberg Terminal Daily: quante visite, quante condivisioni, quanto è utile, quanto è puntuale e quanto ci azzecca. Gli stessi numeri che guarda la redazione.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://paologom.github.io/Gommberg-Terminal-Daily/numeri.html">
+<meta property="og:url" content="https://gommberg.com/numeri.html">
 <meta property="og:title" content="I numeri del Gommberg - la dashboard pubblica">
 <meta property="og:description" content="Visite, condivisioni, gradimento, puntualità e pagella: gli stessi numeri che guarda la redazione.">
-<meta property="og:image" content="https://paologom.github.io/Gommberg-Terminal-Daily/assets/copertina.png">
+<meta property="og:image" content="https://gommberg.com/assets/copertina.png">
 <meta name="theme-color" content="#0E0E0E">
 <link rel="icon" href="assets/icona.svg" type="image/svg+xml">
 <link rel="alternate" type="application/rss+xml" title="Gommberg Terminal Daily" href="feed.xml">
@@ -163,7 +163,7 @@ ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
   // Dashboard pubblica. Visite ed eventi: contatori pubblici di GoatCounter (gommberg.goatcounter.com/counter/...json),
   // un numero per richiesta, con start/end per mesi e settimane. Il resto: dati/storico.json, dati/uscite.json, pagella.
   const GC = "https://gommberg.goatcounter.com/counter/";
-  const PRE = location.pathname.replace(/[^/]*$/, "");          // es. /Gommberg-Terminal-Daily/
+  const PRE = location.pathname.replace(/[^/]*$/, "");          // es. /
   const MESI = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
   const $ = (id) => document.getElementById(id);
   const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
@@ -274,7 +274,11 @@ ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
 
   async function top(storico) {   // le ultime 10 edizioni: visite alla pagina dell'edizione + PDF aperti
     const ult = storico.slice(0, 10);
-    const v = await Promise.all(ult.map((e) => Promise.all([conta(PRE + "e/" + pad(e.numero) + ".html"), conta("pdf-" + pad(e.numero))])));
+    // prima di gommberg.com il sito stava in /Gommberg-Terminal-Daily/: per le edizioni di allora si sommano i due percorsi
+    const VECCHIO = "/Gommberg-Terminal-Daily/";
+    const pagina = (p) => PRE === VECCHIO ? conta(PRE + p) : Promise.all([conta(PRE + p), conta(VECCHIO + p)])
+      .then(([a, b]) => a == null && b == null ? null : (a || 0) + (b || 0));
+    const v = await Promise.all(ult.map((e) => Promise.all([pagina("e/" + pad(e.numero) + ".html"), conta("pdf-" + pad(e.numero))])));
     const ol = $("top"); ol.innerHTML = "";
     if (v.every(([a, b]) => a == null && b == null)) { ol.appendChild(el("p", "note", "In arrivo con il contatore pubblico.")); return; }
     ult.map((e, i) => ({ e, n: (v[i][0] || 0) + (v[i][1] || 0) })).sort((a, b) => b.n - a.n).slice(0, 5).forEach(({ e, n }) => {

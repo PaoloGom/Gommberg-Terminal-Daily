@@ -18,7 +18,7 @@ from zoneinfo import ZoneInfo
 from email.utils import format_datetime
 from urllib.parse import quote
 
-BASE = "https://paologom.github.io/Gommberg-Terminal-Daily/"
+BASE = "https://gommberg.com/"
 GC = "https://gommberg.goatcounter.com/count"
 MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto",
         "settembre", "ottobre", "novembre", "dicembre"]

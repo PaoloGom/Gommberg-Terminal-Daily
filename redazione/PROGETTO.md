@@ -8,7 +8,7 @@ Rassegna quotidiana dei mercati globali in PDF di 6 pagine, stile Bloomberg, in 
 ## Dove si trova
 | Cosa | Dove |
 |---|---|
-| Sito pubblico (link da condividere) | https://paologom.github.io/Gommberg-Terminal-Daily/ |
+| Sito pubblico (link da condividere) | https://gommberg.com/ (dal 20/11/2026; prima paologom.github.io/Gommberg-Terminal-Daily, che ora reindirizza) |
 | Archivio su Claude (copia) | https://claude.ai/artifact/MuwDrCHDGXuADtKtL7cFcH |
 | Kit della redazione | `redazione/` in questo repository |
 | Registro della scommessa | `redazione/pronostici/` |
