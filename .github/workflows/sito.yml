@@ -1,8 +1,13 @@
 # gommberg.com. A ogni push su main la parte pubblica del sito va su Cloudflare (Workers, solo file statici, gratis);
-# a ogni push su prova va all'anteprima prova-gommberg.<sottodominio>.workers.dev, senza statistiche.
+# a ogni push su prova va all'anteprima prova-gommberg.<sottodominio>.workers.dev (senza statistiche, noindex).
 # Cosa è pubblico lo decide redazione/sito/costruisci.py (tutto tranne la redazione); dopo la pubblicazione
-# redazione/sito/collaudo.py --veloce controlla che online ci sia proprio quello. Non usa token del modello.
-# Segreti del repository: CLOUDFLARE_API_TOKEN e CLOUDFLARE_ACCOUNT_ID (mai stampati). Senza, si ferma con un avviso.
+# redazione/sito/collaudo_sito.py --veloce controlla che online ci sia proprio quello. Non usa token del modello.
+#
+# Segreti del repository (mai stampati): CLOUDFLARE_API_TOKEN, token creato con il modello "Edit Cloudflare Workers"
+# (account del Gommberg, zona gommberg.com: servono Workers Scripts Edit e, per il dominio, Workers Routes Edit sulla
+# zona) e CLOUDFLARE_ACCOUNT_ID. Senza segreti si ferma con un avviso, senza errore. La prima pubblicazione va fatta
+# da main: prima che il Worker esista Cloudflare rifiuta l'anteprima (qui diventa un avviso). Attenzione: da qui wrangler
+# non fa domande, quindi se sul dominio ci fosse già un record A/AAAA/CNAME o un altro Worker, lo sostituirebbe.
 name: Sito gommberg.com
 
 on:
@@ -12,12 +17,12 @@ on:
       - '**'
       - '!redazione/**'
       - 'redazione/sito/**'
-      - 'redazione/**/*.json'      # il sito legge alcuni file .json della redazione (glossario, pagella...)
-      - 'redazione/**/*.csv'
+      - 'redazione/*.json'         # costruisci.py pubblica alcuni .json della redazione (LETTI): basta che
+      - 'redazione/*/*.json'       # il filtro li comprenda, qualche pubblicazione in più non costa nulla
   workflow_dispatch:
     inputs:
       modo:
-        description: "pubblica = come a ogni push; collaudo = browser vero su ogni pagina, confronto con il vecchio sito"
+        description: "pubblica = come a ogni push (solo da main o prova); collaudo = browser vero su ogni pagina, confronto con il vecchio sito"
         type: choice
         options: [pubblica, collaudo]
         default: pubblica
@@ -31,45 +36,65 @@ defaults:
 
 jobs:
   pubblica:
-    if: github.event_name == 'push' || github.event.inputs.modo == 'pubblica'
+    if: (github.event_name == 'push' || github.event.inputs.modo == 'pubblica') && (github.ref_name == 'main' || github.ref_name == 'prova')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     concurrency:
       group: sito-${{ github.ref }}
       cancel-in-progress: true     # due push ravvicinati: conta solo l'ultimo
     env:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       PRINCIPALE: ${{ github.ref_name == 'main' }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22         # wrangler 4 vuole Node 22
       - name: Parte pubblica del sito
         run: |
           if [ "$PRINCIPALE" = true ]; then python3 redazione/sito/costruisci.py _sito; else python3 redazione/sito/costruisci.py _sito --anteprima; fi | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Pubblicazione su Cloudflare
         id: cf
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
             echo "::notice::Segreti di Cloudflare non ancora impostati: niente pubblicazione su gommberg.com."
             echo "fatto=no" >> "$GITHUB_OUTPUT"; exit 0
           fi
           if [ "$PRINCIPALE" = true ]; then
-            npx --yes wrangler@4.165.0 deploy -c redazione/sito/wrangler.jsonc
+            # fino a 3 tentativi: dopo il passaggio la newsletter porta su gommberg.com pochi minuti dopo questo push
+            for N in 1 2 3; do
+              if npx --yes wrangler@4.165.0 deploy -c redazione/sito/wrangler.jsonc; then break; fi
+              [ "$N" = 3 ] && exit 1
+              echo "::warning::Pubblicazione non riuscita (tentativo $N di 3): riprovo tra 30 secondi."; sleep 30
+            done
           else
-            npx --yes wrangler@4.165.0 versions upload -c redazione/sito/wrangler.jsonc --preview-alias prova
+            set +e
+            OUT=$(npx --yes wrangler@4.165.0 versions upload -c redazione/sito/wrangler.jsonc --preview-alias prova 2>&1); RC=$?
+            set -e
+            echo "$OUT"
+            if [ $RC -ne 0 ] && echo "$OUT" | grep -q "does not yet exist"; then
+              echo "::warning::Anteprima non pubblicata: il sito su gommberg.com non è ancora mai stato pubblicato da main."
+              echo "fatto=no" >> "$GITHUB_OUTPUT"; exit 0
+            fi
+            [ $RC -eq 0 ] || exit $RC
           fi
           echo "fatto=si" >> "$GITHUB_OUTPUT"
       - name: Verifica dal vivo
         if: steps.cf.outputs.fatto == 'si' && env.PRINCIPALE == 'true'
-        run: python3 redazione/sito/collaudo.py https://gommberg.com/ --veloce _sito | tee -a "$GITHUB_STEP_SUMMARY"
+        run: python3 redazione/sito/collaudo_sito.py https://gommberg.com/ --veloce _sito | tee -a "$GITHUB_STEP_SUMMARY"
 
   collaudo:
     if: github.event.inputs.modo == 'collaudo'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - name: Browser
-        run: pip install --quiet playwright && python3 -m playwright install --with-deps chromium > /dev/null
+        run: pip install --quiet playwright && python -m playwright install --with-deps chromium > /dev/null
       - name: Ogni pagina di gommberg.com contro il vecchio sito
-        run: python3 redazione/sito/collaudo.py https://gommberg.com/ https://paologom.github.io/Gommberg-Terminal-Daily/ --pagine 40 | tee -a "$GITHUB_STEP_SUMMARY"
+        run: python redazione/sito/collaudo_sito.py https://gommberg.com/ https://paologom.github.io/Gommberg-Terminal-Daily/ --pagine 40 | tee -a "$GITHUB_STEP_SUMMARY"

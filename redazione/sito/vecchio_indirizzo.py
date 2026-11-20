@@ -7,11 +7,11 @@ Google tratta il reindirizzamento immediato con canonical come uno spostamento p
 
   python3 redazione/sito/vecchio_indirizzo.py <sito pubblico già passato a gommberg.com> <cartella di uscita>
 
-La cartella di uscita va sul ramo orfano vecchio-indirizzo, da cui GitHub Pages pubblica dopo il passaggio. Con G-12
-(repository privato) gli stessi file vanno in un repository pubblico con il vecchio nome. Si genera una volta sola.
+La cartella di uscita deve essere nuova o vuota (un .git dentro, come in una worktree, si lascia stare): lo script non
+cancella mai nulla. Il contenuto va sul ramo orfano vecchio-indirizzo, da cui GitHub Pages pubblica dopo il passaggio;
+con G-12 (repository privato) gli stessi file vanno in un repository pubblico con il vecchio nome. Si genera una volta.
 """
 import html
-import shutil
 import sys
 from datetime import datetime, timezone
 from email.utils import format_datetime
@@ -30,6 +30,10 @@ def pagina(dest, js):
 <meta charset="utf-8">
 <title>Gommberg Terminal Daily è su gommberg.com</title>
 <link rel="canonical" href="{d}">
+<meta property="og:title" content="Gommberg Terminal Daily">
+<meta property="og:description" content="I mercati globali spiegati, ogni mattina in 6 pagine. Ora su gommberg.com.">
+<meta property="og:url" content="{d}">
+<meta property="og:image" content="{NUOVO}assets/copertina.png">
 <script>{js}</script>
 <meta http-equiv="refresh" content="0; url={d}">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -43,10 +47,16 @@ def pagina(dest, js):
 def main():
     if len(sys.argv) != 3:
         sys.exit(__doc__)
-    sito, uscita = Path(sys.argv[1]), Path(sys.argv[2])
-    if uscita.exists():
-        shutil.rmtree(uscita)
-    uscita.mkdir(parents=True)
+    sito, uscita = Path(sys.argv[1]).resolve(), Path(sys.argv[2]).resolve()
+    if not (sito / "index.html").is_file() or not (sito / "_redirects").is_file():
+        sys.exit(f"ERRORE: {sito} non è un sito pubblico scritto da costruisci.py")
+    if uscita == sito or sito in uscita.parents:
+        sys.exit("ERRORE: la cartella di uscita non può stare dentro il sito pubblico")
+    if uscita.exists() and (not uscita.is_dir() or [p for p in uscita.iterdir() if p.name != ".git"]):
+        sys.exit(f"ERRORE: {uscita} non è vuota: serve una cartella nuova (o vuota, anche con il solo .git)")
+    if "paologom.github.io" in (sito / "index.html").read_text(encoding="utf-8"):
+        sys.exit("ERRORE: il sito pubblico non è ancora passato a gommberg.com (prima passaggio.py --scrivi e costruisci.py)")
+    uscita.mkdir(parents=True, exist_ok=True)
     n = 0
     for f in sorted(sito.rglob("*.html")):
         rel = f.relative_to(sito).as_posix()

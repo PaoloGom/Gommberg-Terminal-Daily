@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Collaudo di gommberg.com: apre ogni pagina del sito in un browser vero e la confronta con il sito di riferimento.
 
-  python3 redazione/sito/collaudo.py <sito da provare> [<sito di riferimento>] [--pagine N]
-  es.  python3 redazione/sito/collaudo.py https://gommberg.com/ https://paologom.github.io/Gommberg-Terminal-Daily/
-  python3 redazione/sito/collaudo.py <sito> --veloce <cartella>   solo HTTP, senza browser, dopo ogni pubblicazione:
+  python3 redazione/sito/collaudo_sito.py <sito da provare> [<sito di riferimento>] [--pagine N]
+  es.  python3 redazione/sito/collaudo_sito.py https://gommberg.com/
+  python3 redazione/sito/collaudo_sito.py <sito> --veloce <cartella>   solo HTTP e libreria standard, dopo ogni pubblicazione:
        le pagine principali e l'ultima edizione online sono identiche ai file della cartella pubblicata (con qualche
        tentativo, il tempo che Cloudflare le distribuisca), la redazione non è raggiungibile
 
@@ -11,15 +11,16 @@ Per ogni pagina (tutte le pagine fisse, le cartelle, le ultime N edizioni, una p
 un'edizione): stato HTTP, errori JavaScript, risorse dello stesso sito che non si caricano, testo visibile; se c'è il
 riferimento, il testo deve essere uguale a parte gli indirizzi. Poi controlla che la redazione non sia raggiungibile
 (salvo i file che il sito legge). Le statistiche (GoatCounter) sono bloccate: il collaudo non conta come visita.
-Esce con 1 se trova un problema. Serve Playwright con Chromium. Non gira nell'attività del mattino.
+Esce con 1 se trova un problema. Il collaudo con il browser vuole Playwright con Chromium (il --veloce no).
+Non gira nell'attività del mattino. Diverso da redazione/collaudo.py, che prova il kit senza rete.
 """
 import asyncio
 import json
 import re
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
-from playwright.async_api import async_playwright
 
 ARG = [a for i, a in enumerate(sys.argv[1:], 1) if not a.startswith("--") and sys.argv[i - 1] not in ("--pagine", "--veloce")]
 if not ARG:
@@ -37,6 +38,9 @@ BLOCCO = re.compile(r"goatcounter\.com|gc\.zgo\.at")
 def get(url):
     try:
         with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "collaudo-gommberg"}), timeout=30) as r:
+            dove = urllib.parse.urlsplit(r.geturl())
+            if (dove.scheme, dove.netloc) != (urllib.parse.urlsplit(url).scheme, urllib.parse.urlsplit(url).netloc):
+                return f"portato altrove: {r.geturl()[:80]}", b""   # un reindirizzamento verso un altro sito non vale
             return r.status, r.read()
     except urllib.error.HTTPError as e:
         return e.code, b""
@@ -119,6 +123,7 @@ async def main():
     elenco = ed if isinstance(ed, list) else ed.get("edizioni", [])
     numeri = sorted({int(e["numero"]) for e in elenco if isinstance(e, dict) and e.get("numero")})[-N:]
     pagine = FISSE + [f"e/{n:03d}.html" for n in numeri] + [f"?n={numeri[0]}&leggi=1", "pagina-che-non-esiste.html"]
+    from playwright.async_api import async_playwright   # solo qui: il --veloce gira senza Playwright
     problemi = 0
     async with async_playwright() as p:
         b = await p.chromium.launch()
@@ -137,11 +142,13 @@ async def main():
                 note.append("messaggio 'non raggiungibile' nella pagina")
             if RIF:
                 sr, tr, xr, _, _ = await apri(ctx, RIF, pag)
-                if sr == atteso and normalizza(xp, PROVA) != normalizza(xr, RIF):
+                if sr != atteso:
+                    note.append(f"il sito di riferimento risponde {sr}: confronto non fatto")
+                elif normalizza(xp, PROVA) != normalizza(xr, RIF):
                     a, c = normalizza(xp, PROVA), normalizza(xr, RIF)
                     i = next((k for k in range(min(len(a), len(c))) if a[k] != c[k]), min(len(a), len(c)))
                     note.append(f"testo diverso dal riferimento dal carattere {i}: «{a[max(0, i - 40):i + 60]}» / «{c[max(0, i - 40):i + 60]}»")
-                if tp != tr:
+                if sr == atteso and tp != tr:
                     note.append(f"titolo diverso: «{tp}» / «{tr}»")
             print(("OK   " if not note else "NO   ") + (pag or "/") + ("" if not note else "\n       " + "\n       ".join(note[:8])))
             problemi += bool(note)

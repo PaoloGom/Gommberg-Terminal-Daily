@@ -1,98 +1,118 @@
 #!/usr/bin/env python3
 """Il sito pubblico di gommberg.com: copia in una cartella solo ciò che i lettori devono vedere.
 
-Regola, una sola: è pubblico tutto il repository tranne la redazione (motore, istruzioni, prompt), i file nascosti
-(.github, .claude, .git...), le cartelle di lavoro che cominciano con _ (come _sito) e il README. Della redazione escono solo i file che il sito legge davvero: lo script li
-trova da solo cercando gli indirizzi "redazione/....json|csv" nelle pagine pubblicate, quindi una pagina nuova che
-legge un file della redazione non va registrata da nessuna parte.
+Regola: è pubblico ogni file tracciato da git (i file mai aggiunti a git restano fuori; dei tracciati si copia il
+contenuto su disco, anche se non ancora committato) tranne la redazione (motore,
+istruzioni, prompt), i file e le cartelle nascosti a qualunque profondità (.github, .claude, .env...), le cartelle di
+lavoro che cominciano con _ e il README. Della redazione escono solo i file di LETTI, quelli che il sito legge.
+I link simbolici non si copiano mai, nemmeno quando è una cartella del percorso a esserlo (potrebbero puntare alla
+redazione).
 
-Scrive anche _redirects (Cloudflare): "/" e ogni cartella con un index.html servono il loro index.html, come su
-GitHub Pages; senza, con html_handling "none" (che lascia gli indirizzi .html come sono) "/" darebbe 404.
+Se una pagina pubblicata nomina un file della redazione che non è in LETTI, lo script lo segnala (AVVISO): o va
+aggiunto a LETTI, o la pagina non funzionerebbe su gommberg.com. Al contrario, nominare un file non basta a pubblicarlo.
 
-Controlla infine che ogni link interno delle pagine porti a un file pubblicato. Non blocca mai la pubblicazione:
-segnala (AVVISO) ed esce con 0; con --severo esce con 1 se trova problemi (per i collaudi, non per la pubblicazione).
+Scrive anche _headers (Access-Control-Allow-Origin: *, come GitHub Pages: i file del sito restano leggibili da altri
+siti, per esempio da un artifact) e _redirects (Cloudflare): "/" e ogni cartella con un index.html servono il loro index.html, e le pagine
+in radice si aprono anche senza ".html", come su GitHub Pages. Senza, con html_handling "none" (che lascia gli
+indirizzi .html come sono), "/" darebbe 404.
 
-Uso:  python3 redazione/sito/costruisci.py <cartella di uscita> [--anteprima] [--severo]
-      --anteprima  per gli indirizzi di prova: toglie lo script delle statistiche (le visite di prova non si contano)
+Controlla infine che ogni link interno delle pagine porti a un file pubblicato. Non blocca mai la pubblicazione per
+un link (AVVISO ed esce con 0); si ferma solo se un file privato stesse per finire nel sito.
+
+Uso:  python3 redazione/sito/costruisci.py <cartella di uscita> [--anteprima]
+      --anteprima  per gli indirizzi di prova: niente statistiche (le visite di prova non si contano) e noindex
+La cartella di uscita è nuova o vuota; si riscrive solo se il nome comincia con _ (es. _sito) e l'ha scritta questo
+script (la riconosce dalla firma del suo _redirects). Non cancella mai nient'altro.
 Lo lancia .github/workflows/sito.yml a ogni push su main (gommberg.com) e su prova (anteprima). Zero token.
 """
 import html.parser
 import os
 import re
 import shutil
+import subprocess
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from urllib.parse import urlsplit, unquote
 
 REPO = Path(__file__).resolve().parents[2]
-ESCLUSI = {"redazione", "README.md"}            # più tutto ciò che comincia con il punto
-LETTI = re.compile(r"""["'](redazione/[A-Za-z0-9_./-]+\.(?:json|csv))["']""")
+LETTI = ["redazione/glossario.json", "redazione/glossario_sito.json", "redazione/meccanismi.json",
+         "redazione/scommessa/pagella.json"]
+FIRMA = "# Scritto da redazione/sito/costruisci.py: non modificare a mano."
+NOMINATI = re.compile(r"""(?:^|[^A-Za-z0-9_])(redazione/[A-Za-z0-9_./-]+\.[a-z]{2,4})""")
 STATISTICHE = re.compile(r'<script[^>]*data-goatcounter=[^>]*>\s*</script>\s*', re.I)
 BASE = re.compile(r'<base href="[^"]*">', re.I)
 
 
-def pubblico(rel: Path) -> bool:
-    primo = rel.parts[0]
-    return not (primo.startswith((".", "_")) or primo in ESCLUSI or "__pycache__" in rel.parts)
+def pubblico(rel: PurePosixPath) -> bool:
+    if any(p.startswith(".") for p in rel.parts) or "__pycache__" in rel.parts:
+        return False
+    return not (rel.parts[0].startswith("_") or rel.parts[0] == "redazione" or str(rel) == "README.md")
+
+
+def tracciati():
+    r = subprocess.run(["git", "-C", str(REPO), "ls-files", "-z"], capture_output=True, check=True)
+    return [PurePosixPath(p) for p in r.stdout.decode("utf-8", "surrogateescape").split("\0") if p]
+
+
+def prepara(uscita: Path):
+    if uscita == REPO or uscita in REPO.parents:
+        sys.exit("ERRORE: la cartella di uscita non può essere il repository né una cartella che lo contiene")
+    if uscita.exists() and (not uscita.is_dir() or any(uscita.iterdir())):
+        # si cancella solo una cartella che comincia con _ e che porta la firma di questo script: mai altro
+        firma = uscita / "_redirects"
+        if not (uscita.is_dir() and uscita.name.startswith("_") and not firma.is_symlink() and firma.is_file()
+                and firma.read_text(encoding="utf-8").startswith(FIRMA)):
+            sys.exit(f"ERRORE: {uscita} esiste e non è vuota: scegli una cartella nuova (o una _cartella già scritta da questo script)")
+        shutil.rmtree(uscita)
+    uscita.mkdir(parents=True, exist_ok=True)
 
 
 def copia(uscita: Path):
-    if uscita.exists():
-        shutil.rmtree(uscita)
-    uscita.mkdir(parents=True)
-    pagine = []
-    for radice, cartelle, file in os.walk(REPO):
-        r = Path(radice).relative_to(REPO)
-        if r.parts and not pubblico(r):
-            cartelle[:] = []
+    file, saltati = [], []
+    for rel in tracciati():
+        if not pubblico(rel) and str(rel) not in LETTI:
             continue
-        cartelle[:] = [c for c in cartelle if pubblico(r / c) and (REPO / r / c).resolve() != uscita]
-        for f in file:
-            rel = r / f
-            if not pubblico(rel):
-                continue
-            (uscita / rel).parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(REPO / rel, uscita / rel)
-            if f.endswith((".html", ".js")):
-                pagine.append(rel)
-    # i file della redazione che le pagine pubblicate leggono
-    letti = set()
-    for rel in pagine:
-        letti.update(LETTI.findall((uscita / rel).read_text(encoding="utf-8", errors="replace")))
-    for l in sorted(letti):
-        if (REPO / l).is_file():
-            (uscita / l).parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(REPO / l, uscita / l)
-    return pagine, sorted(letti)
+        sorgente = REPO / rel
+        if sorgente.is_symlink() or not sorgente.is_file() or os.path.realpath(sorgente) != str(REPO / rel):
+            saltati.append(str(rel))
+            continue
+        (uscita / rel).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(sorgente, uscita / rel)
+        file.append(rel)
+    mancano = [l for l in LETTI if PurePosixPath(l) not in file]
+    return file, saltati, mancano
 
 
-def reindirizzamenti(uscita: Path):
-    righe = ["# Scritto da redazione/sito/costruisci.py: non modificare a mano.",
-             "# Ogni cartella con index.html si apre dal suo indirizzo, come su GitHub Pages."]
-    cartelle = sorted({p.parent for p in uscita.rglob("index.html")}, key=lambda p: (len(p.parts), str(p)))
+def reindirizzamenti(uscita: Path, file):
+    righe = [FIRMA, "# Ogni cartella con index.html si apre dal suo indirizzo; le pagine in radice anche senza .html."]
+    cartelle = sorted({f.parent for f in file if f.name == "index.html"}, key=lambda p: (len(p.parts), str(p)))
     for c in cartelle:
-        rel = c.relative_to(uscita)
-        if str(rel) == ".":
+        if str(c) == ".":
             righe.append("/ /index.html 200")
-        else:
-            u = "/" + rel.as_posix()
+        elif " " not in str(c):
+            u = "/" + str(c)
             righe += [f"{u} {u}/ 301", f"{u}/ {u}/index.html 200"]
+    for f in sorted(file):
+        if len(f.parts) == 1 and f.suffix == ".html" and f.name not in ("index.html", "404.html") and " " not in f.name:
+            righe.append(f"/{f.stem} /{f.name} 301")
     (uscita / "_redirects").write_text("\n".join(righe) + "\n", encoding="utf-8")
+    (uscita / "_headers").write_text("/*\n  Access-Control-Allow-Origin: *\n", encoding="utf-8")
     return len(cartelle)
 
 
-def ritocchi(uscita: Path, pagine, anteprima: bool):
-    # 404.html si apre a qualunque profondità, quindi ha un <base> assoluto: qui il sito sta alla radice del dominio
+def ritocchi(uscita: Path, file, anteprima: bool):
+    # 404.html si apre a qualunque profondità, quindi ha un <base> assoluto: qui il sito sta alla radice del dominio.
+    # Dopo il passaggio a gommberg.com il file ha già <base href="/"> e questo ritocco non cambia nulla.
     p404 = uscita / "404.html"
     if p404.is_file():
         t = p404.read_text(encoding="utf-8")
         p404.write_text(BASE.sub('<base href="/">', t, count=1), encoding="utf-8")
     if anteprima:
-        for rel in pagine:
-            f = uscita / rel
-            if f.suffix == ".html":
+        for rel in file:
+            if rel.suffix == ".html":
+                f = uscita / rel
                 t = f.read_text(encoding="utf-8")
-                n = STATISTICHE.sub("", t)
+                n = STATISTICHE.sub("", t).replace("<head>", '<head>\n<meta name="robots" content="noindex">', 1)
                 if n != t:
                     f.write_text(n, encoding="utf-8")
 
@@ -100,37 +120,37 @@ def ritocchi(uscita: Path, pagine, anteprima: bool):
 class Link(html.parser.HTMLParser):
     def __init__(self):
         super().__init__()
-        self.link, self.base = [], None
+        self.link, self.base = [], False
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         if tag == "base" and a.get("href"):
-            self.base = a["href"]
+            self.base = True
         for k in ("href", "src"):
-            if a.get(k) and not (tag == "a" and a.get(k, "").startswith("#")):
+            if a.get(k):
                 self.link.append(a[k])
 
 
-def controlla(uscita: Path, pagine):
+def controlla(uscita: Path, file):
+    """Link interni delle pagine verso file non pubblicati (per esempio verso la redazione)."""
     problemi = []
-    for rel in pagine:
+    for rel in file:
+        if rel.suffix not in (".html", ".js"):
+            continue
+        testo = (uscita / rel).read_text(encoding="utf-8", errors="replace")
+        for n in set(NOMINATI.findall(testo)):
+            if n not in LETTI and not n.endswith((".py", ".sh", ".md")):
+                problemi.append(f"{rel}: nomina {n}, che non è nel sito (aggiungerlo a LETTI se la pagina lo legge)")
         if rel.suffix != ".html":
             continue
         p = Link()
-        p.feed((uscita / rel).read_text(encoding="utf-8", errors="replace"))
+        p.feed(testo)
         for u in p.link:
             s = urlsplit(u)
-            if s.scheme or s.netloc or u.startswith(("mailto:", "tel:", "javascript:", "data:", "#", "{", "$")):
+            if s.scheme or s.netloc or not s.path or u.startswith(("#", "{", "$")):
                 continue
-            if not s.path:
-                continue
-            if s.path.startswith("/"):
-                dest = Path(unquote(s.path.lstrip("/")))
-            else:
-                base = Path(p.base.lstrip("/")) if p.base and p.base.startswith("/") else rel.parent
-                if p.base:   # nella copia pubblica il <base> della 404 è la radice
-                    base = Path(".")
-                dest = Path(os.path.normpath(base / unquote(s.path)))
+            base = PurePosixPath(".") if (p.base or s.path.startswith("/")) else rel.parent
+            dest = PurePosixPath(os.path.normpath(str(base / unquote(s.path.lstrip("/")))))
             if str(dest).startswith(".."):
                 problemi.append(f"{rel}: {u} esce dal sito")
                 continue
@@ -147,28 +167,26 @@ def main():
     if not arg:
         sys.exit(__doc__)
     uscita = Path(arg[0]).resolve()
-    dentro = uscita == REPO or REPO in uscita.parents
-    if dentro and not (uscita.parent == REPO and uscita.name.startswith("_")):
-        sys.exit("ERRORE: la cartella di uscita deve stare fuori dal repository o in cima con un nome che comincia con _ (es. _sito)")
     anteprima = "--anteprima" in sys.argv
-    pagine, letti = copia(uscita)
-    n = reindirizzamenti(uscita)
-    ritocchi(uscita, pagine, anteprima)
-    file = [p for p in uscita.rglob("*") if p.is_file()]
-    print(f"Sito pubblico: {len(file)} file, {sum(p.stat().st_size for p in file) / 1e6:.1f} MB"
-          f"{' (anteprima, senza statistiche)' if anteprima else ''}")
-    print(f"Dalla redazione, perché il sito li legge: {', '.join(letti) or 'nessuno'}")
-    print(f"Cartelle con indirizzo proprio: {n}")
-    vietati = [p for p in file if p.relative_to(uscita).parts[0] == "redazione" and str(p.relative_to(uscita)) not in letti]
-    if vietati:   # non deve mai succedere: è la ragione per cui esiste questo script
-        sys.exit(f"ERRORE: file della redazione nel sito pubblico: {vietati[:5]}")
-    problemi = controlla(uscita, pagine)
+    prepara(uscita)
+    file, saltati, mancano = copia(uscita)
+    n = reindirizzamenti(uscita, file)
+    ritocchi(uscita, file, anteprima)
+    # ultima difesa: nel sito solo file pubblici, i file di LETTI, _redirects e _headers
+    for p in uscita.rglob("*"):
+        rel = PurePosixPath(p.relative_to(uscita).as_posix())
+        if p.is_file() and str(rel) not in ("_redirects", "_headers") and not pubblico(rel) and str(rel) not in LETTI:
+            sys.exit(f"ERRORE: {rel} non è pubblico e stava per finire nel sito")
+    tot = sum((uscita / f).stat().st_size for f in file)
+    print(f"Sito pubblico: {len(file)} file, {tot / 1e6:.1f} MB{' (anteprima: senza statistiche, noindex)' if anteprima else ''}")
+    print(f"Dalla redazione: {', '.join(l for l in LETTI if l not in mancano)}; cartelle con indirizzo proprio: {n}")
+    for x in mancano:
+        print(f"AVVISO: {x} è in LETTI ma non esiste nel repository")
+    for x in saltati:
+        print(f"AVVISO: {x} è un link simbolico o non è un file: non pubblicato")
+    problemi = controlla(uscita, file)
     for x in problemi[:40]:
-        print("AVVISO link:", x)
-    if problemi:
-        print(f"AVVISO: {len(problemi)} link interni senza file")
-    if problemi and "--severo" in sys.argv:
-        sys.exit(1)
+        print("AVVISO:", x)
 
 
 if __name__ == "__main__":

@@ -12,7 +12,7 @@
   },
   // il sito vero sta solo su gommberg.com: niente doppione su workers.dev
   "workers_dev": false,
-  // ma gli indirizzi di anteprima (ramo prova) sì; su workers.dev Cloudflare li segna noindex
+  // ma gli indirizzi di anteprima (ramo prova) sì: costruisci.py --anteprima li segna noindex e toglie le statistiche
   "preview_urls": true,
   "routes": [
     { "pattern": "gommberg.com", "custom_domain": true }
