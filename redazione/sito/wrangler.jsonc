@@ -1,0 +1,20 @@
+// gommberg.com su Cloudflare Workers, solo file statici (nessun codice in esecuzione, gratuito).
+// Lo usa .github/workflows/sito.yml; la cartella _sito la prepara redazione/sito/costruisci.py.
+{
+  "name": "gommberg",
+  "compatibility_date": "2026-11-20",
+  "assets": {
+    "directory": "../../_sito",
+    // indirizzi identici a GitHub Pages: /e/030.html resta /e/030.html (le altre modalità lo accorciano)
+    "html_handling": "none",
+    // le pagine che non esistono aprono 404.html con stato 404
+    "not_found_handling": "404-page"
+  },
+  // il sito vero sta solo su gommberg.com: niente doppione su workers.dev
+  "workers_dev": false,
+  // ma gli indirizzi di anteprima (ramo prova) sì; su workers.dev Cloudflare li segna noindex
+  "preview_urls": true,
+  "routes": [
+    { "pattern": "gommberg.com", "custom_domain": true }
+  ]
+}
