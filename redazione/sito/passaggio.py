@@ -38,6 +38,10 @@ def ritocchi_mirati(rel, t):
                  '    const v = await Promise.all(ult.map((e) => Promise.all([pagina("e/" + pad(e.numero) + ".html"), conta("pdf-" + pad(e.numero))])));')
         t = t.replace(vecchio, nuovo)
         t = t.replace("// es. /Gommberg-Terminal-Daily/", "// es. /")
+    if rel == ".github/workflows/sito.yml":   # il vecchio sito non è più un riferimento: il collaudo prova solo gommberg.com
+        t = t.replace("https://gommberg.com/ https://paologom.github.io/Gommberg-Terminal-Daily/ --pagine 40", "https://gommberg.com/ --pagine 40")
+        t = t.replace("collaudo = browser vero su ogni pagina, confronto con il vecchio sito", "collaudo = browser vero su ogni pagina di gommberg.com")
+        t = t.replace("- name: Ogni pagina di gommberg.com contro il vecchio sito", "- name: Ogni pagina di gommberg.com")
     if rel == "README.md":
         t = t.replace("[paologom.github.io/Gommberg-Terminal-Daily]", "[gommberg.com]")
     return t
@@ -48,6 +52,14 @@ def main():
     cambi = {}
     for f in sorted(REPO.rglob("*")):
         rel = f.relative_to(REPO).as_posix()
+        if rel == ".github/workflows/sito.yml" and f.is_file():
+            t = f.read_text(encoding="utf-8")
+            n = ritocchi_mirati(rel, t)
+            if n != t:
+                cambi[rel] = 1
+                if scrivi:
+                    f.write_text(n, encoding="utf-8")
+            continue
         if (not f.is_file() or rel.startswith((".git/", "redazione/archivio/", "_")) or rel in SALTA
                 or not rel.endswith(TESTO) or "__pycache__" in rel):
             continue
