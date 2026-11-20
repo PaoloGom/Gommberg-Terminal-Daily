@@ -1,6 +1,6 @@
 # Stato del Gommberg
 
-Aggiornato: 20/11/2026 pomeriggio (G-11: passaggio deciso per questo weekend). Deve bastare da solo a una chat nuova. Lo riscrive Claude in corsa, a ogni decisione, insieme al Registro.
+Aggiornato: 20/11/2026 sera (G-11: passaggio deciso per questo weekend; G-38 pannello pronto sul ramo `pannello`). Deve bastare da solo a una chat nuova. Lo riscrive Claude in corsa, a ogni decisione, insieme al Registro.
 
 Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b6e-83eb-4b8d032a3783`, https://claude.ai/artifact/KmCtJUZFx2WKVCRaDiHPtE). Una voce si legge per codice (`db_query` su `tasks`, `codice` = "G-xx").
 
@@ -18,6 +18,7 @@ Ordine: G-34 e G-02 insieme (uno corregge, l'altro misura), poi G-03. Decisioni 
 - G-02: niente cancello vero, le fonti le governa `fonti.json`; dal file dei permessi esce l'elenco dei 196 siti. Il gancio dei token annota a costo zero ricerche e pagine fallite; il pannello mostra per edizione ricerche, pagine fallite e notizie a fonte singola (la misura di G-34);
 - G-03 EODHD approvato, anche con un connettore gratuito. Chiave ricevuta da Paolo (mai nel repository). Piano gratuito: 20 chiamate al giorno più 500 di benvenuto; l'email elenca azioni, ETF, fondi, cambi e cripto ma non gli indici: la copertura dell'Euro Stoxx 50 va provata per prima (dalla chat non si raggiunge eodhd.com).
 Gli altri lavori del weekend sono nel Registro, in ordine.
+- G-38 (20/11, chiesto da Paolo): pannello di controllo rifatto da capo, stile Power BI: 5 pagine (Panoramica, Puntualità, Consumo, Qualità, Edizioni con dettaglio al clic), Metodo come pannello laterale, stessi dati e stessi calcoli (verificati da un revisore indipendente), vecchi indirizzi #operativita #versioni #metodo funzionanti. Pronto sul ramo `pannello` (solo `pannello/index.html`), rivisto da tre revisori (numeri, design, robustezza) e corretto. Va in main nel rilascio del weekend, dopo i test di G-11. Per G-02: `pannello.py` deve scrivere i campi `fallite` e `fonte_singola`, il pannello li mostra da solo.
 
 ## Prossimo passo
 G-11, sito su gommberg.com (Opus). Decisione di Paolo del 20/11: passaggio questo weekend. Ordine: venerdì 20/11 sera, con Paolo al PC (Chrome con l'estensione), accesso a Cloudflare, doppio binario e passaggio nella stessa sessione; sabato e domenica test (edizioni di prova con la procedura B di `PROVA.md`, che non fanno partire la newsletter), poi il rilascio del motore del pacchetto "La macchina". Tutto pronto e provato sul ramo `dominio`; scaletta e scelte nella voce G-11 del Registro.
