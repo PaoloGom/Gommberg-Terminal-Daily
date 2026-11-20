@@ -95,8 +95,14 @@ def veloce(cartella):
         diversi = []
         for f in file:
             s, corpo = get(PROVA + f + "?v=" + str(time.time()))
-            if s != 200 or h(corpo) != h((c / f).read_bytes()):
-                diversi.append(f"{f}: {s}{'' if s != 200 else ' contenuto diverso'}")
+            atteso = (c / f).read_bytes()
+            if s != 200 or h(corpo) != h(atteso):
+                dove = ""
+                if s == 200:   # dove cambia: serve a capire chi ritocca la pagina lungo la strada
+                    i = next((k for k in range(min(len(corpo), len(atteso))) if corpo[k] != atteso[k]), min(len(corpo), len(atteso)))
+                    dove = (f" contenuto diverso ({len(corpo)} byte invece di {len(atteso)}; dal byte {i}: "
+                            f"{corpo[max(0, i - 60):i + 120]!r} invece di {atteso[max(0, i - 60):i + 120]!r})")
+                diversi.append(f"{f}: {s}{dove}")
         s, _ = get(PROVA)
         if s != 200:
             diversi.append(f"homepage: {s}")
