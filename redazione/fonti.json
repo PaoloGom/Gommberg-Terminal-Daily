@@ -329,13 +329,14 @@
   "Radiocor",
   "ANSA",
   "Yonhap",
-  "Kyodo"
+  "Kyodo",
+  "Agence France-Presse"
  ],
  "nota_stesso_autore": "Nomi e siti che sono un autore solo (il primo nome lo rappresenta): un'agenzia o una testata conta una volta, sul suo sito e ovunque sia ripresa. Qui vanno solo i casi in cui il nome non coincide con il sito (ft.com e Financial Times): Fortune e fortune.com si riconoscono da soli. Lo legge autori.py.",
  "stesso_autore": [
   ["Reuters", "reuters.com"],
   ["AP", "Associated Press", "AP News", "apnews.com"],
-  ["AFP", "afp.com"],
+  ["AFP", "Agence France-Presse", "afp.com"],
   ["Bloomberg", "bloomberg.com"],
   ["Dow Jones", "Wall Street Journal", "WSJ", "dowjones.com", "wsj.com"],
   ["dpa-AFX", "dpa", "dpa.com", "dpa-afx.de"],
@@ -345,12 +346,17 @@
   ["Kyodo", "kyodonews.net"],
   ["Financial Times", "FT", "ft.com"],
   ["ABC News", "abcnews.go.com"],
-  ["Yahoo Finance", "Yahoo", "Yahoo News", "yahoo.com"]
+  ["Yahoo Finance", "Yahoo", "Yahoo News", "yahoo.com"],
+  ["investingLive", "ForexLive", "investinglive.com", "forexlive.com"],
+  ["Korea JoongAng Daily", "JoongAng Daily", "JoongAng", "koreajoongangdaily.com", "joongang.co.kr"]
  ],
  "nota_ospitano_notizie": "Sezioni di siti ufficiali che pubblicano notizie scritte da altri (agenzie, testate): lì non è l'ente che parla, quindi la pagina non è una fonte primaria e l'autore è chi l'ha scritta. Lo legge autori.py.",
  "ospitano_notizie": [
   "borsaitaliana.it/borsa/notizie",
-  "live.euronext.com/en/financial-news",
-  "nasdaq.com/articles"
+  "live.euronext.com/",
+  "nasdaq.com/articles",
+  "nasdaq.com/news-and-insights",
+  "spglobal.com/commodity-insights",
+  "spglobal.com/market-intelligence"
  ]
 }

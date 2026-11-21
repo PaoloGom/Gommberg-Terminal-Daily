@@ -64,7 +64,7 @@ Un file della colonna di sinistra è un contratto: cambiarne forma o significato
 | `redazione/scommessa/metodo.json`, `pronostici/*.json` | a mano / `pronostico.py` | `pagina6.py`, `valuta.py`, `edizioni_voce.py` |
 | `redazione/fonti.json` | a mano | `autori.py` (e, tramite lui, `controlli_fatti.py`, `misure.py`, `pannello.py`), `controlli_testo.py`, `controlli_contenuti.py`, `controlli_ripetizioni.py` |
 | `pannello/registro.json`, `taratura.json` | `pannello.py` | `pannello/index.html`, `mattino.py` |
-| `/tmp/gtd_token.json` (token e, in `web`, ricerche e pagine non raggiunte) | `gancio_token.py` (`.claude/settings.json`), dalla trascrizione della sessione | `pannello.py --indici` |
+| `/tmp/gtd_token.json` (token e, in `web`, ricerche e pagine non raggiunte) e la trascrizione della sessione a cui punta | `gancio_token.py` (`.claude/settings.json`) | `pannello.py --indici`; `controlli_fatti.py` (riscontra le ricerche dichiarate in `"conferma_cercata"` con quelle fatte davvero; senza gancio non conclude nulla) |
 | `voce_indice.json`, `testo.json` (cartella di lavoro) | motore; `controlli_testo.py` | `controlli_temi.py`, `controlli_contenuti.py`, `edizioni_voce.py`, `messaggio.py` |
 
 Tre cose da ricordare:

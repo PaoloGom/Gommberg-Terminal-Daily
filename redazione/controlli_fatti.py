@@ -31,7 +31,20 @@ import datetime as dt, json, os, re, sys
 
 QUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, QUI)
-from autori import AGENZIE, ALIAS, PUBBLICI, giudizio, livello, nome, si_applica, ufficiale as dominio_ufficiale
+from autori import AGENZIE, ALIAS, PUBBLICI, giudizio, livello, nome, si_applica, stessa_ricerca, ufficiale as dominio_ufficiale
+
+
+def _mai_un_traceback(tipo, e, tb):
+    # fatti.json lo scrive un modello: un campo del tipo sbagliato deve dare una riga che si può correggere, non un traceback
+    riga = tb
+    while riga.tb_next:
+        riga = riga.tb_next
+    print(f"PROBLEMI:\n- fatti.json: un campo ha il tipo sbagliato ({tipo.__name__}: {str(e)[:80]}; controlli_fatti.py riga "
+          f"{riga.tb_lineno}): controlla che testo, date e id siano stringhe e che fonti, moduli e schede siano liste")
+    sys.exit(1)
+
+
+sys.excepthook = _mai_un_traceback
 fatti_p, indice_p, oggi_s = sys.argv[1], sys.argv[2], sys.argv[3]
 prima_revisione = "--prima-della-revisione" in sys.argv
 oggi = dt.date.fromisoformat(oggi_s)
@@ -53,8 +66,13 @@ if not prima_revisione and os.path.exists(REV_P):
             f.update({k: e[k] for k in ("trovato", "verifica", "nota_revisore") if k in e})
     json.dump(fatti, open(fatti_p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"Revisione: uniti {sum(1 for f in fatti if str(f.get('id')) in esiti)} esiti da revisione.json")
-un_autore = []
+un_autore, dichiarate = [], []
 # fatti.json lo scrive un modello: ciò che non ha la forma di una scheda diventa un problema con il suo id, non un'eccezione
+if not isinstance(fatti, list):
+    print("PROBLEMI:\n- fatti.json deve essere una lista di schede"); sys.exit(1)
+for f in fatti:
+    if isinstance(f, dict) and isinstance(f.get("id"), (int, float)):
+        f["id"] = str(f["id"])
 if any(not isinstance(f, dict) for f in fatti):
     problemi.append("fatti.json: ci sono voci che non sono schede (servono oggetti con id, sezione, testo, fonti)")
     fatti = [f for f in fatti if isinstance(f, dict)]
@@ -75,15 +93,15 @@ if len(ids) != len(set(ids)):
     problemi.append("id duplicati nelle schede")
 tutte = fatti
 fatti = [f for f in fatti if not f.get("scartata") and f.get("sezione") not in ("anomalia", "prime_pagine", "ricerca", "scaletta")]  # registri: controlli_contenuti.py
-for f in fatti:
+def controlla(f):
     i, sez = f.get("id", "?"), ALIAS.get(f.get("sezione", ""), f.get("sezione", ""))
     if f.get("tipo") == "C" and not prima_revisione and f.get("verifica") is None:
         problemi.append(f"{i}: causa (tipo C) non verificata dal revisore")
     fonti = f.get("fonti") or []
     if not f.get("testo") or not f.get("data_evento"):
-        problemi.append(f"{i}: mancano testo o data_evento"); continue
+        problemi.append(f"{i}: mancano testo o data_evento"); return
     if not fonti:
-        problemi.append(f"{i}: nessuna fonte"); continue
+        problemi.append(f"{i}: nessuna fonte"); return
     livelli, testate = [], set()
     for s in fonti:
         lv = livello(s.get("url", ""))
@@ -118,6 +136,9 @@ for f in fatti:
                                 "\"fonte_singola\": true e \"(Testata)\" nel PDF; mai toglierlo")
             else:
                 problemi.append(f"{i}: fonti insufficienti (serve 1 di livello 1 o 2 testate di livello 2; livelli {livelli})")
+    elif g["stato"] == "senza_fonti":
+        if not any(p.startswith(f"{i}:") for p in problemi):
+            problemi.append(f"{i}: nessuna fonte con un indirizzo valido (https://sito/pagina)")
     # i fatti: la primaria basta da sola, altrimenti due autori diversi, come ultima scelta un autore solo dichiarato (autori.py)
     elif g["stato"] == "singola":
         chi = nome(g["autori"][0])
@@ -128,13 +149,14 @@ for f in fatti:
             pass                # causa attribuita o scheda della memoria già confermata: una fonte affidabile basta, come prima
         elif g["dichiarata"]:
             avvisi.append(f"{i}: un solo autore dichiarato ({chi}): nel PDF \"(Testata)\" in coda al fatto")
+            dichiarate.append((str(i), g["cercate"]))
         elif not any(p.startswith(f"{i}:") for p in problemi):   # una scheda già respinta per altro non si manda a cercare
             un_autore.append(str(i))
     try:
         ev = dt.date.fromisoformat(f["data_evento"])
         pubs = [dt.date.fromisoformat(s["data_pubblicazione"]) for s in fonti if s.get("data_pubblicazione")]
     except (TypeError, ValueError):
-        problemi.append(f"{i}: data_evento o data_pubblicazione non nel formato AAAA-MM-GG"); continue
+        problemi.append(f"{i}: data_evento o data_pubblicazione non nel formato AAAA-MM-GG"); return
     if sez == "agenda":
         if ev < oggi:
             problemi.append(f"{i}: evento in agenda già passato ({ev})")
@@ -160,6 +182,28 @@ for f in fatti:
             avvisi.append(f"{i}: dato pubblico non confermato dal revisore: resta con la fonte dichiarata (\"(Testata)\")")
         elif v == "non_conclusivo":
             problemi.append(f"{i}: verifica non conclusiva: togliere il fatto dal PDF o attribuirlo e ripetere la verifica")
+
+
+for f in fatti:
+    try:
+        controlla(f)
+    except Exception as e:   # una scheda scritta male ferma solo sé stessa
+        un_autore[:] = [x for x in un_autore if x != str(f.get("id"))]
+        problemi.append(f"{f.get('id', '?')}: scheda scritta male ({type(e).__name__}): controlla i tipi dei campi (stringhe, liste)")
+
+# L'ultima scelta si riscontra: la ricerca dichiarata deve essere tra quelle lanciate davvero in questa sessione, che il
+# gancio legge dalla trascrizione. Senza gancio, o se il gancio non vede nessuna ricerca, non si conclude nulla.
+if dichiarate:
+    try:
+        import gancio_token
+        fatte = gancio_token.ricerche_fatte()
+    except Exception:
+        fatte = None
+    if fatte:
+        for i, cercate in dichiarate:
+            if not any(stessa_ricerca(c, x) for c in cercate for x in fatte):
+                problemi.append(f"CERCA {i}: la ricerca in \"conferma_cercata\" non è tra quelle fatte in questa sessione: "
+                                "fai la ricerca del secondo autore e scrivila com'è")
 
 if un_autore:
     # In testa, e ogni riga sotto i 200 byte che controlli_tutti.sh mostra: prima che cosa fare, poi quali schede.
@@ -197,7 +241,7 @@ def da_rivedere(schede, registri, massimo=25):
                 3 if scoperti and sez != "agenda" else 4 if sez == "agenda" else 5 if sez == "top_news" else
                 6 if sez == "catalizzatori" else 7)
     cand = [f for f in schede if not (str(f.get("id", "")).startswith("MEM") and f.get("verifica") == "confermato")]
-    cand = sorted(cand, key=lambda f: (classe(f), f.get("data_evento", "")))
+    cand = sorted(cand, key=lambda f: (classe(f), str(f.get("data_evento") or "")))
     return [f for f in cand if classe(f) < 7][:massimo]
 
 

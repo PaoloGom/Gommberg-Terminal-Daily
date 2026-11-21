@@ -19,14 +19,16 @@ A chi si applica (si_applica): a tutte le schede dei fatti, tranne
 
 Chi è l'autore di una fonte, nell'ordine:
   a. un'agenzia, se la fonte la nomina: nel campo "agenzia", o nella testata come nome a sé ("Reuters (KFGO)",
-     "Investing.com (Reuters)", "KFGO via Reuters"), o nel percorso dell'indirizzo (/notizie/radiocor/);
-  b. la testata che la scheda nomina per prima, se è un nome di "stesso_autore" o il nome di un sito degli elenchi di
-     fonti.json ("Fortune (Yahoo Finance)" è Fortune, "Teleborsa" su borsaitaliana.it è Teleborsa);
-  c. il sito, se fonti.json "stesso_autore" lo lega a un nome (ft.com è il Financial Times);
-  d. altrimenti il sito, senza sottodomini e senza suffisso (bbc.com e bbc.co.uk sono "bbc").
+     "Investing.com (Reuters)", "KFGO via Reuters", "Yahoo (Bloomberg News)"), o nel percorso dell'indirizzo
+     (/notizie/radiocor/);
+  b. la testata ospitata: il nome che la scheda mette per primo, se la testata nomina anche il sito che ospita
+     ("Fortune (Yahoo Finance)" è Fortune) o se quel nome sta nell'indirizzo (Teleborsa su borsaitaliana.it/.../teleborsa/);
+  c. altrimenti il sito: l'autore a cui fonti.json "stesso_autore" lo lega (ft.com è il Financial Times), il suo nome
+     se è un sito in elenco (bbc.com e bbc.co.uk sono "bbc"), il dominio intero se è fuori elenco.
+La stessa pagina citata due volte conta una volta.
 Limiti noti, da leggere nel pannello e non nel codice: "primaria": true e la testata sono dichiarazioni della
 redazione (un salto delle fonti primarie o delle dichiarate nel pannello è il segnale); due testate dello stesso
-editore non legate in "stesso_autore" contano due."""
+editore non legate in "stesso_autore" contano due; due siti fuori elenco bastano come due autori, come prima."""
 import json
 import os
 import re
@@ -116,11 +118,34 @@ _AG_RE = re.compile(r"(?<![a-z0-9])(" + "|".join(sorted((re.escape(a) for a in A
 # i nomi dei siti in elenco (fortune, teleborsa...) e l'autore a cui portano
 _NOTI = {sito("https://" + d).split(".")[0]: _SITO.get(d, _SITO.get(sito("https://" + d), sito("https://" + d).split(".")[0]))
          for d in sorted(L1 | L2, key=len, reverse=True)}
+_AGENZIE = set(_AG.values())
+# parole che accompagnano il nome di un'agenzia senza cambiarlo: "Reuters News", "Thomson Reuters", "da Reuters"
+_RIEMPITIVI = {"thomson", "news", "agency", "agenzia", "the", "da", "fonte", "via", "cita", "newswires", "newswire", "su", "di"}
 
 
 def _pezzi(testata):
     """La testata nei suoi nomi: "Reuters (via GV Wire)" -> ["Reuters", "GV Wire"]."""
-    return [re.sub(r"^via\s+", "", p.strip(), flags=re.I) for p in re.split(r"[()/,;]|\s+via\s+|\s+-\s+", _s(testata)) if p.strip()]
+    return [p.strip() for p in re.split(r"[()\[\]/,;:|–—]|\s+via\s+|\s+-\s+", _s(testata)) if p.strip()]
+
+
+def _senza_riempitivi(pezzo):
+    return _chiave(" ".join(w for w in pezzo.split() if _chiave(w) not in _RIEMPITIVI))
+
+
+def pagina(url):
+    """Lo stesso indirizzo scritto in modi diversi è la stessa pagina: senza schema, www, frammento e barra finale."""
+    return re.sub(r"^https?://(www\.)?", "", _s(url).split("#")[0].strip().lower()).rstrip("/")
+
+
+def _del_sito(url):
+    """L'autore a cui porta il sito."""
+    for d in _suffissi(url):
+        if d in _SITO:
+            return _SITO[d]
+    for d in _suffissi(url):
+        if d in L1 or d in L2:
+            return _NOTI.get(sito("https://" + d).split(".")[0], sito(url))
+    return sito(url)
 
 
 def agenzia(fonte):
@@ -131,8 +156,8 @@ def agenzia(fonte):
     if m:
         return _AG[_chiave(m.group(1))]
     for p in _pezzi(fonte.get("testata")):
-        if _chiave(p) in _AG:
-            return _AG[_chiave(p)]
+        if _senza_riempitivi(p) in _AG:
+            return _AG[_senza_riempitivi(p)]
     segmenti = {_chiave(x) for x in _percorso(fonte.get("url")).split("/")}
     for k, v in _AG.items():
         if len(k) >= 5 and k in segmenti:
@@ -144,16 +169,21 @@ def autore(fonte):
     a = agenzia(fonte)
     if a:
         return a
-    primo = _chiave((_pezzi(fonte.get("testata")) or [""])[0])
-    if primo in _NOME:
-        return _NOME[primo]
-    if primo in _NOTI:
-        return _NOTI[primo]
-    for d in _suffissi(fonte.get("url")):
-        if d in _SITO:
-            return _SITO[d]
-    s = sito(fonte.get("url")).split(".")[0]
-    return _NOME.get(s, s)
+    url = fonte.get("url")
+    ospite, etichetta = _del_sito(url), _chiave(sito(url).split(".")[0])
+
+    def chi(p):
+        return _NOME.get(_chiave(p)) or _NOTI.get(_chiave(p)) or _chiave(p)
+
+    def e_il_sito(p):
+        k = _chiave(p)
+        return chi(p) == ospite or k == etichetta or (len(etichetta) >= 4 and len(k) >= 4 and (k in etichetta or etichetta in k))
+    pezzi = _pezzi(fonte.get("testata"))
+    if pezzi and _chiave(pezzi[0]) and not e_il_sito(pezzi[0]):
+        indirizzo = re.sub(r"[^a-z0-9]", "", _host(url) + _percorso(url))
+        if any(e_il_sito(p) for p in pezzi[1:]) or (len(_chiave(pezzi[0])) >= 5 and _chiave(pezzi[0]) in indirizzo):
+            return chi(pezzi[0])
+    return ospite
 
 
 def nome(a):
@@ -163,14 +193,14 @@ def nome(a):
 
 def ospitata(url):
     """Una pagina di notizie altrui sul sito di un ente ufficiale (le notizie su borsaitaliana.it): non è l'ente che parla."""
-    u = re.sub(r"^www\.", "", _host(url)) + _percorso(url)
+    u = re.sub(r"^www\.", "", _host(url)) + re.sub(r"/+", "/", _percorso(url))
     return any(x in u for x in OSPITANO)
 
 
 def primaria(fonte):
     """Il documento di chi è parte del fatto ("primaria": true), o il sito di chi produce il dato. Un lancio d'agenzia
     resta dell'agenzia, anche con "primaria": true e anche sul sito di una borsa."""
-    if agenzia(fonte):
+    if autore(fonte) in _AGENZIE:
         return False
     return fonte.get("primaria") is True or (ufficiale(fonte.get("url")) and not ospitata(fonte.get("url")))
 
@@ -198,21 +228,34 @@ def _ricerche(x):
 
 def giudizio(scheda):
     """Come una scheda è confermata: {"stato", "autori", "primaria", "affidabile", "dichiarata"}.
-    stato: "primaria" | "due_autori" | "singola" (un solo autore, senza primaria) | "senza_fonti".
+    stato: "primaria" | "due_autori" | "singola" (un solo autore, senza primaria) | "senza_fonti" (nessuna fonte con un
+    indirizzo valido e non vietato).
     dichiarata (conta per "singola"): la scheda porta in "conferma_cercata" una ricerca vera (almeno tre parole) e
     dietro la scheda ci sono almeno due ricerche diverse; oppure è un dato ufficiale di cui si è cercato due volte
-    il comunicato ("ufficiale_cercato")."""
-    fonti = [s for s in (scheda.get("fonti") if isinstance(scheda.get("fonti"), list) else [])
-             if isinstance(s, dict) and livello(s.get("url")) != 0 and _host(s.get("url"))]
+    il comunicato ("ufficiale_cercato"). "cercate" = le ricerche dichiarate: controlli_fatti.py le confronta con
+    quelle fatte davvero nella sessione, quando il gancio le ha registrate."""
+    fonti, viste = [], set()
+    for s in scheda.get("fonti") if isinstance(scheda.get("fonti"), list) else []:
+        if isinstance(s, dict) and livello(s.get("url")) != 0 and _host(s.get("url")) and pagina(s.get("url")) not in viste:
+            viste.add(pagina(s.get("url")))
+            fonti.append(s)
     autori = sorted({autore(s) for s in fonti})
     prim = any(primaria(s) for s in fonti)
-    cercata = {r for r in _ricerche(scheda.get("conferma_cercata")) if len(r.split()) >= 3}
-    dichiarata = bool(cercata) and len(cercata | {r for s in fonti for r in _ricerche(s.get("ricerca"))}) >= 2
-    if (scheda.get("tipo") == "U" or sezione(scheda) == "catalizzatori") and len(_ricerche(scheda.get("ufficiale_cercato"))) >= 2:
-        dichiarata = True
+    cercate = {r for r in _ricerche(scheda.get("conferma_cercata")) if len(r.split()) >= 3}
+    if not (cercate and len(cercate | {r for s in fonti for r in _ricerche(s.get("ricerca"))}) >= 2):
+        cercate = set()
+    if not cercate and (scheda.get("tipo") == "U" or sezione(scheda) == "catalizzatori"):
+        u = {r for r in _ricerche(scheda.get("ufficiale_cercato")) if len(r.split()) >= 3}
+        cercate = u if len(u) >= 2 else set()
     stato = "senza_fonti" if not fonti else "primaria" if prim else "due_autori" if len(autori) >= 2 else "singola"
-    return {"stato": stato, "autori": autori, "primaria": prim, "dichiarata": dichiarata,
+    return {"stato": stato, "autori": autori, "primaria": prim, "dichiarata": bool(cercate), "cercate": sorted(cercate),
             "affidabile": any(affidabile(s) for s in fonti)}
+
+
+def stessa_ricerca(a, b):
+    """Due ricerche sono la stessa se una contiene le parole dell'altra, o ne hanno in comune almeno sei su dieci."""
+    x, y = set(_ricerche(a).pop().split() if _ricerche(a) else []), set(_ricerche(b).pop().split() if _ricerche(b) else [])
+    return bool(x and y) and (x <= y or y <= x or len(x & y) / len(x | y) >= 0.6)
 
 
 def schede(fatti):

@@ -114,7 +114,7 @@ def web(percorsi):
     pagine = {}                                       # indirizzo -> [riuscita almeno una volta, ultimo messaggio d'errore]
     for i, (tipo, cosa) in chiamate.items():
         if tipo == "pagina" and i in esiti:
-            p = pagine.setdefault(_pagina(cosa), [False, "", cosa])
+            p = pagine.setdefault(_pagina(cosa), [False, "", cosa])   # stessa regola di autori.pagina
             p[0] = p[0] or not esiti[i][0]
             p[1] = esiti[i][1] if esiti[i][0] else p[1]
     fallite = []
@@ -132,7 +132,22 @@ def web(percorsi):
             sito = "?"
         fallite.append({"sito": sito, "motivo": motivo, "testo": t[:80]})
     return {"ricerche": len(ricerche), "ricerche_fallite": sum(1 for i in ricerche if esiti.get(i, (False,))[0]),
-            "pagine": len(pagine), "fallite": fallite}
+            "pagine": len(pagine), "fallite": fallite, "cercate": [chiamate[i][1] for i in ricerche]}
+
+
+def _trascrizioni(tp):
+    return [tp] + [p for p in glob.glob(os.path.join(os.path.dirname(tp), "**", "*.jsonl"), recursive=True) if p != tp]
+
+
+def ricerche_fatte():
+    """Le ricerche lanciate finora nella sessione (anche dagli agenti), lette adesso dalla trascrizione che il gancio ha
+    annotato. None se il gancio non ha ancora girato o la trascrizione non c'è: chi chiede non può concludere nulla.
+    La usa controlli_fatti.py per riscontrare le ricerche dichiarate in "conferma_cercata"."""
+    try:
+        tp = json.load(open(USCITA, encoding="utf-8")).get("trascrizione")
+        return web(_trascrizioni(tp))["cercate"] if tp and os.path.isfile(tp) else None
+    except Exception:
+        return None
 
 
 def main():
@@ -143,13 +158,13 @@ def main():
     tp = os.path.expanduser(str(ingresso.get("transcript_path") or ""))
     out = {"evento": ingresso.get("hook_event_name"), "trascrizione": tp, "esiste": bool(tp) and os.path.isfile(tp)}
     if out["esiste"]:
-        cartella = os.path.dirname(tp)
-        altri = [p for p in glob.glob(os.path.join(cartella, "**", "*.jsonl"), recursive=True) if p != tp]
+        altri = _trascrizioni(tp)[1:]
         n, tot, per_modello = somma([tp] + altri)
         out.update(file=1 + len(altri), richieste=n, token=tot, per_modello=per_modello,
                    pesati=round(sum(tot[k] * PESI[k] for k in PESI)))
         try:                                          # il web non può far perdere i token
             out["web"] = web([tp] + altri)
+            out["web"].pop("cercate", None)           # le ricerche si rileggono dalla trascrizione quando servono
         except Exception:
             pass
     json.dump(out, open(USCITA, "w", encoding="utf-8"), ensure_ascii=False)
