@@ -1,12 +1,12 @@
 GOMMBERG TERMINAL DAILY                                                                                             Lunedì 16 novembre 2026 | Edizione n. 026
-I mercati globali spiegati, ogni mattina in 6 pagine                                            Chiusure al 13 novembre per Stati Uniti ed Europa; Asia chiusa il 16 novembre
+I mercati globali spiegati, ogni mattina in 6 pagine                                               Chiusure al 13 novembre per Stati Uniti ed Europa; Asia chiusa il 16 novembre
 
 
 
 
- MSCI ACWI (ETF)            S&P 500                   EURO STOXX 50              TREASURY 10 ANNI           EUR/USD                   BRENT FUTURE               ORO
- 156,10 $                   7.561,67                  6.386,86                   5,15%                      1,1021                    95,84 $                    3.886 $
- -0,3% g                    -0,4% g                   -0,2% g                    +5 pb g                    -0,3% g                   0,0% g                     0,0% g
+ MSCI ACWI (ETF)            S&P 500                    EURO STOXX 50              TREASURY 10 ANNI           EUR/USD               BRENT FUTURE           ORO
+ 156,10 $                   7.561,67                   6.386,86                   5,15%                      1,1021                95,84 $                3.886 $
+ -0,3% g                    -0,4% g                    -0,2% g                    +5 pb g                    -0,3% g               0,0% g                 0,0% g
 
 
 
@@ -24,13 +24,13 @@ IL QUADRO Per noi la giornata dice due cose che non si contraddicono. In Asia la
 generale: Hong Kong sale mentre Taipei crolla. Intanto i rifugi, di solito cercati con la paura, non funzionano: i titoli di Stato
 e l'oro hanno perso e il dollaro è più forte. Per noi pesa di più la Fed delle borse. Il Brent, a 95,84 $, resta senza direzione.
 
-  IN 30 SECONDI                                                                                            COSA GUARDARE ALL'APERTURA
-  ▪ La Fed parla oggi e mercoledì: dai verbali si capisce quanto è                                         ▪ Alle 14:30 l'indice Empire State sull'industria di
-    vicino il rialzo di dicembre. → pag. 3                                                                   New York
-  ▪ Giovedì a Shenzhen il primo vertice a tre tra Trump, Xi e Putin.                                       ▪ Alle 18:00 parla Kevin Warsh, presidente della Fed
-     → pag. 5                                                                                              ▪ Treasury a 10 anni: venerdì ha chiuso al 5,15%,
-  ▪ Europa e Milano chiudono la settimana migliore da aprile,                                                sopra il 5% da mercoledì
-     mentre l'AI vacilla. → pag. 4                                                                         ▪ Nikkei: ha chiuso sotto i 60.000 punti, a 59.662,02
+  IN 30 SECONDI                                                                                             COSA GUARDARE ALL'APERTURA
+  ▪ La Fed parla oggi e mercoledì: dai verbali si capisce quanto è                                          ▪ Alle 14:30 l'indice Empire State sull'industria di
+    vicino il rialzo di dicembre. → pag. 3                                                                    New York
+  ▪ Giovedì a Shenzhen il primo vertice a tre tra Trump, Xi e Putin.                                        ▪ Alle 18:00 parla Kevin Warsh, presidente della Fed
+     → pag. 5                                                                                               ▪ Treasury a 10 anni: venerdì ha chiuso al 5,15%,
+  ▪ Europa e Milano chiudono la settimana migliore da aprile,                                                  sopra il 5% da mercoledì
+     mentre l'AI vacilla. → pag. 4                                                                          ▪ Nikkei: ha chiuso sotto i 60.000 punti, a 59.662,02
 
 
 
@@ -38,50 +38,50 @@ TOP NEWS
 
 Le notizie del giorno
 
-         CINA                                                                                         ASIA
+          CINA                                                                                          ASIA
 01 La Cina delude: vendite al dettaglio a +0,4% 02 Il Giappone si ferma: Pil a -0,1%, primo calo in
-         contro il +0,8% atteso                                                                       un anno
-         La produzione industriale cresce del 4,8%, sotto il 5,3%                                     I consumi privati scendono dell'1,1% annualizzato, tra
-         previsto, e gli investimenti fissi calano dell'8,1% nei primi                                maltempo e prezzi più alti, mentre gli investimenti delle
-         dieci mesi. Regge solo l'export, trainato dalla domanda di                                   imprese crescono del 6,8% (AP). → pag. 4
-         tecnologia per l'AI (Reuters).
+          contro il +0,8% atteso                                                                        un anno
+          La produzione industriale cresce del 4,8%, sotto il 5,3%                                      I consumi privati scendono dell'1,1% annualizzato, tra
+          previsto, e gli investimenti fissi calano dell'8,1% nei primi                                 maltempo e prezzi più alti, mentre gli investimenti delle
+          dieci mesi. Regge solo l'export, trainato dalla domanda di                                    imprese crescono del 6,8% (AP). → pag. 4
+          tecnologia per l'AI (Reuters).
 
 
 
 
-         TECNOLOGIA                                                                                   GEOPOLITICA
+          TECNOLOGIA                                                                                    GEOPOLITICA
 03 Anthropic fissa il prezzo tra 70 e 78 dollari e 04 Trump, Xi e Putin si incontrano a Shenzhen
-         debutta giovedì al Nasdaq                                                                    per la prima volta
-         Può raccogliere fino a 64,4 miliardi di dollari, con un valore                               La Casa Bianca ha confermato il vertice ai margini
-         fino a circa 1.400 miliardi su base diluita; il prezzo                                       dell'Apec: sul tavolo dazi, chip e Iran, mentre l'Ucraina,
-         definitivo è atteso il 18 novembre.                                                          dice un funzionario USA, non sarà discussa.
+          debutta giovedì al Nasdaq                                                                     per la prima volta
+          Può raccogliere fino a 64,4 miliardi di dollari, con un valore                                La Casa Bianca ha confermato il vertice ai margini
+          fino a circa 1.400 miliardi su base diluita; il prezzo                                        dell'Apec: sul tavolo dazi, chip e Iran, mentre l'Ucraina,
+          definitivo è atteso il 18 novembre.                                                           dice un funzionario USA, non sarà discussa.
 
 
 
 
-         ITALIA                                                                                       PETROLIO
-05 Fincantieri cede oltre il 4% dopo i conti, Eni                                            06 Hormuz resta chiuso e il Brent sta intorno ai
-         sale dell'1,98%                                                                              96 dollari
-         Il Ftse Mib finisce venerdì a 51.859 punti (+0,1%), mentre                                   Il petrolio è ancora molto più caro dei circa 72 $ di fine
-         lo spread tra Btp e Bund oscilla tra 100 e 105 punti                                         febbraio, prima della guerra in Iran. Le ostilità su larga
-         (SoldiOnline).                                                                               scala sono finite, ma il conflitto è in stallo (AP). → pag. 4
+          ITALIA                                                                                        PETROLIO
+05 Fincantieri cede oltre il 4% dopo i conti, Eni                                             06 Hormuz resta chiuso e il Brent sta intorno ai
+          sale dell'1,98%                                                                               96 dollari
+          Il Ftse Mib finisce venerdì a 51.859 punti (+0,1%), mentre                                    Il petrolio è ancora molto più caro dei circa 72 $ di fine
+          lo spread tra Btp e Bund oscilla tra 100 e 105 punti                                          febbraio, prima della guerra in Iran. Le ostilità su larga
+          (SoldiOnline).                                                                                scala sono finite, ma il conflitto è in stallo (AP). → pag. 4
 
 
 
 NELLE PAGINE INTERNE
-  PAG. 2 | CHIP E ASIA                                          PAG. 3 | TASSI USA                                            PAG. 4 | EUROPA
-  I chip asiatici cedono                                        Oro e Treasury non proteggono                                 Europa e Milano battono Wall Street
+  PAG. 2 | CHIP E ASIA                                           PAG. 3 | TASSI USA                                         PAG. 4 | EUROPA
+  I chip asiatici cedono                                         Oro e Treasury non proteggono                              Europa e Milano battono Wall Street
 
-  PAG. 4 | PETROLIO                                             PAG. 5 | MERCATI E AGENDA                                     PAG. 6 | LA SCOMMESSA
-  Il petrolio caro frena il Giappone                            Numeri, temi aperti e calendario                              Il pronostico della settimana
-
-
+  PAG. 4 | PETROLIO                                              PAG. 5 | MERCATI E AGENDA                                  PAG. 6 | LA SCOMMESSA
+  Il petrolio caro frena il Giappone                             Numeri, temi aperti e calendario                           Il pronostico della settimana
 
 
-Solo a scopo informativo, non è consulenza finanziaria. Le probabilità sono stime soggettive.                                                            #026 | 2026-11-16 | pag. 1
-Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.
+
+
+Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.                        #026 | 2026-11-16 | pag. 1
+Le probabilità sono stime soggettive. Dati e notizie da fonti pubbliche alla data dell'edizione.
 GOMMBERG TERMINAL DAILY                                                                                             Lunedì 16 novembre 2026 | Edizione n. 026
-I mercati globali spiegati, ogni mattina in 6 pagine                                            Chiusure al 13 novembre per Stati Uniti ed Europa; Asia chiusa il 16 novembre
+I mercati globali spiegati, ogni mattina in 6 pagine                                               Chiusure al 13 novembre per Stati Uniti ed Europa; Asia chiusa il 16 novembre
 
 
 
@@ -150,10 +150,10 @@ chi investe nell'AI è un'altra occasione dove mettere i soldi, e per noi una ra
 Fonti: AP, AFP, Seoul Economic Daily, Reuters, Financial Times, Investing.com.
 
 
-Solo a scopo informativo, non è consulenza finanziaria. Le probabilità sono stime soggettive.                                                            #026 | 2026-11-16 | pag. 2
-Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.
+Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.                        #026 | 2026-11-16 | pag. 2
+Le probabilità sono stime soggettive. Dati e notizie da fonti pubbliche alla data dell'edizione.
 GOMMBERG TERMINAL DAILY                                                                                             Lunedì 16 novembre 2026 | Edizione n. 026
-I mercati globali spiegati, ogni mattina in 6 pagine                                            Chiusure al 13 novembre per Stati Uniti ed Europa; Asia chiusa il 16 novembre
+I mercati globali spiegati, ogni mattina in 6 pagine                                               Chiusure al 13 novembre per Stati Uniti ed Europa; Asia chiusa il 16 novembre
 
 
 
@@ -214,10 +214,10 @@ Fonti: Kitco, CNBC, curva par del Tesoro USA via FMP, FXEmpire.
 
 
 
-Solo a scopo informativo, non è consulenza finanziaria. Le probabilità sono stime soggettive.                                                            #026 | 2026-11-16 | pag. 3
-Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.
+Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.                        #026 | 2026-11-16 | pag. 3
+Le probabilità sono stime soggettive. Dati e notizie da fonti pubbliche alla data dell'edizione.
 GOMMBERG TERMINAL DAILY                                                                                             Lunedì 16 novembre 2026 | Edizione n. 026
-I mercati globali spiegati, ogni mattina in 6 pagine                                            Chiusure al 13 novembre per Stati Uniti ed Europa; Asia chiusa il 16 novembre
+I mercati globali spiegati, ogni mattina in 6 pagine                                               Chiusure al 13 novembre per Stati Uniti ed Europa; Asia chiusa il 16 novembre
 
 
 
@@ -296,10 +296,10 @@ Fonti: AP, Al Jazeera, chiusure del Brent future.
 
 
 
-Solo a scopo informativo, non è consulenza finanziaria. Le probabilità sono stime soggettive.                                                            #026 | 2026-11-16 | pag. 4
-Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.
-GOMMBERG TERMINAL DAILY                                                                                             Lunedì 16 novembre 2026 | Edizione n. 026
-I mercati globali spiegati, ogni mattina in 6 pagine                                            Chiusure al 13 novembre per Stati Uniti ed Europa; Asia chiusa il 16 novembre
+Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.                        #026 | 2026-11-16 | pag. 4
+Le probabilità sono stime soggettive. Dati e notizie da fonti pubbliche alla data dell'edizione.
+GOMMBERG TERMINAL DAILY                                                                                              Lunedì 16 novembre 2026 | Edizione n. 026
+I mercati globali spiegati, ogni mattina in 6 pagine                                                Chiusure al 13 novembre per Stati Uniti ed Europa; Asia chiusa il 16 novembre
 
 
 
@@ -313,81 +313,81 @@ I mercati in una pagina
                            nella stessa settimana: la paura di borsa si era già calmata prima della vendita asiatica di oggi. Per noi
                            sono due letture della stessa settimana: i titoli piccoli risentono dei tassi, i grandi del dubbio sull'AI.
 
-                                                                           Da inizio            Tassi, cambi, materie            Livello
- Indice                         Ultimo           1g          1 sett.                                                                               1g           1 sett.       1 mese
-                                                                           anno                 prime                            13/11
+                                                                           Da inizio                Tassi, cambi, materie       Livello
+ Indice                         Ultimo            1g          1 sett.                                                                          1g          1 sett.    1 mese
+                                                                           anno                     prime                       13/11
 
- MONDO E STATI UNITI                                                                            TASSI
- MSCI ACWI (ETF, $)             156,10           -0,3%       +2,4%         n.d.                 Treasury 2 anni                  4,88%             +2 pb        +37 pb        +9 pb
- S&P 500                        7.561,67         -0,4%       +2,5%         +10,5%               Treasury 10 anni                 5,15%             +5 pb        +29 pb        -6 pb
- Nasdaq Comp.                   25.136,27        -0,9%       +2,3%         +8,2%                CAMBI
- Russell 2000                   2.790,49         -0,3%       +1,3%         +12,4%
-                                                                                                EUR/USD                          1,1021            -0,3%        -1,1%         -1,6%
+ MONDO E STATI UNITI                                                                                TASSI
+ MSCI ACWI (ETF, $)             156,10            -0,3%       +2,4%        n.d.                     Treasury 2 anni             4,88%          +2 pb       +37 pb     +9 pb
+ S&P 500                        7.561,67          -0,4%       +2,5%        +10,5%                   Treasury 10 anni            5,15%          +5 pb       +29 pb     -6 pb
+ Nasdaq Comp.                   25.136,27         -0,9%       +2,3%        +8,2%                    CAMBI
+ Russell 2000                   2.790,49          -0,3%       +1,3%        +12,4%
+                                                                                                    EUR/USD                     1,1021         -0,3%       -1,1%      -1,6%
  EUROPA
-                                                                                                MATERIE PRIME
- Euro Stoxx 50                  6.386,86         -0,2%       +3,5%         +10,2%
-                                                                                                Brent future                     95,84 $           0,0%         -2,5%         -9,3%
- FTSE MIB                       51.859           +0,1%       +3,6%         +15,4%
-                                                                                                Oro (future, $/oncia)            3.886,30          0,0%         -4,6%         -7,0%
+                                                                                                    MATERIE PRIME
+ Euro Stoxx 50                  6.386,86          -0,2%       +3,5%        +10,2%
+                                                                                                    Brent future                95,84 $        0,0%        -2,5%      -9,3%
+ FTSE MIB                       51.859            +0,1%       +3,6%        +15,4%
+                                                                                                    Oro (future, $/oncia)       3.886,30       0,0%        -4,6%      -7,0%
  ASIA (CHIUSURE DEL 16/11)
-                                                                                                VOLATILITÀ
- Nikkei 225                     59.662,02        -2,4%       +3,9%         +18,5%
-                                                                                                VIX (volatilità attesa)          19,30             +0,60        -6,34         +4,03
- Hang Seng                      23.753,84        +0,5%       -3,0%         -7,3%
-                                                                                               1 g = chiusura su chiusura; 1 sett. = su venerdì 6/11; da inizio anno = su
- Kospi                          5.100,50         -3,6%       +0,8%         +21,0%              chiusura 2025. Kospi: variazione dalla chiusura di Seul del 16/11 (JoongAng
-                                                                                               Daily e AFP). 1 mese = sul 13/10. VIX = volatilità attesa sull'S&P 500.
+                                                                                                    VOLATILITÀ
+ Nikkei 225                     59.662,02         -2,4%       +3,9%        +18,5%
+                                                                                                    VIX (volatilità attesa)     19,30          +0,60       -6,34      +4,03
+ Hang Seng                      23.753,84         +0,5%       -3,0%        -7,3%
+                                                                                                   1 g = chiusura su chiusura; 1 sett. = su venerdì 6/11; da inizio anno = su
+ Kospi                          5.100,50          -3,6%       +0,8%        +21,0%                  chiusura 2025. Kospi: variazione dalla chiusura di Seul del 16/11 (JoongAng
+                                                                                                   Daily e AFP). 1 mese = sul 13/10. VIX = volatilità attesa sull'S&P 500.
 
 
 STORIE IN CORSO            I temi aperti
- Tema                    A che punto                              Ultima novità                                Cosa si muove                        Cosa guardare
+ Tema                     A che punto                              Ultima novità                                 Cosa si muove                  Cosa guardare
 
- AI e chip               Conti Nvidia martedì                     Taiwan -6% alla prima seduta                 ▼ Titoli dei chip asiatici           Conti Nvidia, mar 17 alle
-                                                                                                                                                    23:00
+ AI e chip                Conti Nvidia martedì                     Taiwan -6% alla prima seduta                  ▼ Titoli dei chip asiatici     Conti Nvidia, mar 17 alle
+                                                                                                                                                23:00
 
- Fed e tassi             Verbali mercoledì                        Rialzo di dicembre quasi certo               ▲ Rendimenti a 2 e 10 anni           Verbali, mer 18 alle 20:00
+ Fed e tassi              Verbali mercoledì                        Rialzo di dicembre quasi certo                ▲ Rendimenti a 2 e 10 anni     Verbali, mer 18 alle 20:00
 
- Dollaro e oro           Dollaro forte, oro in calo               Oro -4,6% in una settimana                   ▼ Oro                                Tono della Fed oggi e
-                                                                                                                                                    mercoledì
+ Dollaro e oro            Dollaro forte, oro in calo               Oro -4,6% in una settimana                    ▼ Oro                          Tono della Fed oggi e
+                                                                                                                                                mercoledì
 
- Petrolio                Hormuz chiuso                            Brent senza direzione                        ■ Brent intorno a 96 $               Vertice a Shenzhen, giovedì
+ Petrolio                 Hormuz chiuso                            Brent senza direzione                         ■ Brent intorno a 96 $         Vertice a Shenzhen, giovedì
 
 
 AGENDA         Cosa è uscito e cosa arriva
- Quando (Roma)          Evento                               Attese                       Perché conta               Come può muovere i mercati, di solito
+ Quando (Roma)           Evento                               Attese                       Perché conta               Come può muovere i mercati, di solito
  USCITO LA SETTIMANA SCORSA: IL DATO, IL CONFRONTO CON LE ATTESE, DOVE SE NE PARLA
 
- Lun 16, 03:00          Cina: vendite al                     Vendite +0,4% annuo (atteso +0,8%);                     ▼ sotto
-                        dettaglio e produzione               produzione +4,8% (+5,3%)
-                        industriale (ottobre)
+ Lun 16, 03:00           Cina: vendite al                     Vendite +0,4% annuo (atteso +0,8%);                     ▼ sotto
+                         dettaglio e produzione               produzione +4,8% (+5,3%)
+                         industriale (ottobre)
 
- Lun 16, 00:50          Giappone: Pil del terzo              -0,1% annualizzato; attesa di crescita                  ▼ sotto → pag. 4
-                        trimestre
+ Lun 16, 00:50           Giappone: Pil del terzo              -0,1% annualizzato; attesa di crescita                  ▼ sotto → pag. 4
+                         trimestre
  IN ARRIVO
 
- Lun 16, 18:00          Intervento di Kevin Warsh            Nessun dato: si              Il tono del                Sopra: un tono più duro del previsto di solito alza
-                        (Fed)                                ascolta il tono sul          presidente, dopo           rendimenti e dollaro.
-                                                             rialzo di dicembre           Williams alle 15:05        Sotto: un tono più cauto di solito aiuta azioni e oro.
+ Lun 16, 18:00           Intervento di Kevin Warsh            Nessun dato: si              Il tono del                Sopra: un tono più duro del previsto di solito alza
+                         (Fed)                                ascolta il tono sul          presidente, dopo           rendimenti e dollaro.
+                                                              rialzo di dicembre           Williams alle 15:05        Sotto: un tono più cauto di solito aiuta azioni e oro.
 
- Mar 17, 14:30          Vendite al dettaglio USA             +0,2% sul mese               Primi consumi dopo         Sopra: di solito salgono dollaro e rendimenti a breve.
-                        (ottobre)                            (core +0,4%); prima          i prezzi alti              Sotto: il rialzo di dicembre perde un po' di forza.
-                                                             +0,8% (+0,9%)
+ Mar 17, 14:30           Vendite al dettaglio USA             +0,2% sul mese               Primi consumi dopo         Sopra: di solito salgono dollaro e rendimenti a breve.
+                         (ottobre)                            (core +0,4%); prima          i prezzi alti              Sotto: il rialzo di dicembre perde un po' di forza.
+                                                              +0,8% (+0,9%)
 
- Mar 17, 23:00          Conti di Nvidia                      Utile per azione             Evento n.1: primi          Sopra: di solito i fornitori asiatici di chip recuperano
-                                                             2,47 $; ricavi circa         conti dopo l'addio         in apertura.
-                                                             108,8 mld $                  di Huang                   Sotto: il timore sull'AI si allarga oltre l'Asia.
+ Mar 17, 23:00           Conti di Nvidia                      Utile per azione             Evento n.1: primi          Sopra: di solito i fornitori asiatici di chip recuperano
+                                                              2,47 $; ricavi circa         conti dopo l'addio         in apertura.
+                                                              108,8 mld $                  di Huang                   Sotto: il timore sull'AI si allarga oltre l'Asia.
 
- Mer 18, 20:00          Verbali della Fed (riunione          Nessun dato: si              Quanto è condiviso         Sopra: più rialzi nei verbali di solito spingono su i
-                        di ottobre)                          cerca quanti membri          il rialzo di dicembre      rendimenti brevi.
-                                                             vogliono più rialzi                                     Sotto: toni più cauti di solito li fanno scendere.
-
-
+ Mer 18, 20:00           Verbali della Fed (riunione          Nessun dato: si              Quanto è condiviso         Sopra: più rialzi nei verbali di solito spingono su i
+                         di ottobre)                          cerca quanti membri          il rialzo di dicembre      rendimenti brevi.
+                                                              vogliono più rialzi                                     Sotto: toni più cauti di solito li fanno scendere.
 
 
-Solo a scopo informativo, non è consulenza finanziaria. Le probabilità sono stime soggettive.                                                            #026 | 2026-11-16 | pag. 5
-Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.
+
+
+Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.                         #026 | 2026-11-16 | pag. 5
+Le probabilità sono stime soggettive. Dati e notizie da fonti pubbliche alla data dell'edizione.
 GOMMBERG TERMINAL DAILY                                                                                             Lunedì 16 novembre 2026 | Edizione n. 026
-I mercati globali spiegati, ogni mattina in 6 pagine                                            Chiusure al 13 novembre per Stati Uniti ed Europa; Asia chiusa il 16 novembre
+I mercati globali spiegati, ogni mattina in 6 pagine                                               Chiusure al 13 novembre per Stati Uniti ed Europa; Asia chiusa il 16 novembre
 
 
 
@@ -395,48 +395,48 @@ IL GRAN FINALE | FORECAST
 
 La scommessa della settimana: dove chiudiamo venerdì 20 novembre
 
-  COME SI GIOCA                                                                                    IL VERDETTO: SETTIMANA 9-13 NOVEMBRE
+  COME SI GIOCA                                                                                      IL VERDETTO: SETTIMANA 9-13 NOVEMBRE
   6 domande che muovono tutto il resto, lette in catena: la
-  borsa, il prezzo del denaro, il dollaro, l'energia, la paura.                                    7 punti su 12
-                                                                                                                                       par 7,3: chi tira a caso
+  borsa, il prezzo del denaro, il dollaro, l'energia, la paura.                                      7 punti su 12
+                                                                                                                                     par 7,3: chi tira a caso
   La direzione la scegliamo noi il lunedì e non cambia fino a
-  venerdì. La forchetta è larga quanto l'oscillazione tipica                                       0                                                                              12
-  della settimana e contiene la chiusura di venerdì circa 2                                        ■ 5 dalla direzione ■ 2 dalla forchetta
+  venerdì. La forchetta è larga quanto l'oscillazione tipica                                         0                                                                        12
+  della settimana e contiene la chiusura di venerdì circa 2                                          ■ 5 dalla direzione ■ 2 dalla forchetta
   volte su 3. Un punto per la direzione, uno per la forchetta:
-                                                                                                   Rispetto al par: -0,3.
+                                                                                                     Rispetto al par: -0,3.
   massimo 12.
-                                                                                                   direzione / forchetta: S&P 500 ✓✓ Euro Stoxx ✓✗ Treasury
-                                                                                                   ✗✗ EUR/USD ✓✗ Brent ✓✓ Oro ✓✗
-                                                                                                   Com'è andata: I rendimenti sono saliti più del previsto e
-                                                                                                   hanno portato fuori forchetta Treasury, euro-dollaro e oro,
-                                                                                                   mentre l'Euro Stoxx ha corso più del previsto.
+                                                                                                     direzione / forchetta: S&P 500 ✓✓ Euro Stoxx ✓✗ Treasury
+                                                                                                     ✗✗ EUR/USD ✓✗ Brent ✓✓ Oro ✓✗
+                                                                                                     Com'è andata: I rendimenti sono saliti più del previsto e
+                                                                                                     hanno portato fuori forchetta Treasury, euro-dollaro e oro,
+                                                                                                     mentre l'Euro Stoxx ha corso più del previsto.
 
 
- Mercato e la sua domanda                           Partenza               Forchetta e nostra previsione                               Il perché
+ Mercato e la sua domanda                            Partenza              Forchetta e nostra previsione                             Il perché
 
- S&P 500                                                                                                                               I future perdono terreno dopo il crollo
-                                                    7.561,67        ↓        7.331                                            7.800
- L'economia e gli utili reggono?                                                                                                       dei chip asiatici
+ S&P 500                                                                                                                             I future perdono terreno dopo il crollo
+                                                     7.561,67        ↓        7.331                                         7.800
+ L'economia e gli utili reggono?                                                                                                     dei chip asiatici
 
- Euro Stoxx 50                                                                                                                         L'Europa aspetta i conti di Nvidia dopo
-                                                    6.386,86        ↑        6.240                                            6.537
- E l'Europa, casa nostra?                                                                                                              una settimana forte
+ Euro Stoxx 50                                                                                                                       L'Europa aspetta i conti di Nvidia dopo
+                                                     6.386,86        ↑        6.240                                         6.537
+ E l'Europa, casa nostra?                                                                                                            una settimana forte
 
- Treasury 10 anni                                                                                                                      La Fed parla oggi e mercoledì: un tono
-                                                    5,15%           ↑       5,00%                                             5,30%
- Quanto costa il denaro?                                                                                                               duro tiene alti i rendimenti
+ Treasury 10 anni                                                                                                                    La Fed parla oggi e mercoledì: un tono
+                                                     5,15%           ↑       5,00%                                          5,30%
+ Quanto costa il denaro?                                                                                                             duro tiene alti i rendimenti
 
- EUR/USD                                                                                                                               Con rialzi Fed attesi il dollaro resta il
-                                                    1,1021          ↓       1,0933                                            1,1109
- Il dollaro è forte o debole?                                                                                                          rifugio contro l'euro
+ EUR/USD                                                                                                                             Con rialzi Fed attesi il dollaro resta il
+                                                     1,1021          ↓      1,0933                                          1,1109
+ Il dollaro è forte o debole?                                                                                                        rifugio contro l'euro
 
- Brent                                                                                                                                 Gli attacchi nel Golfo e nel Mar Rosso
-                                                    95,84 $         ↑        88,36                                            103,95
- Energia e guerre pesano sui prezzi?                                                                                                   tengono il rischio sulle forniture
+ Brent                                                                                                                               Gli attacchi nel Golfo e nel Mar Rosso
+                                                     95,84 $         ↑        88,36                                         103,95
+ Energia e guerre pesano sui prezzi?                                                                                                 tengono il rischio sulle forniture
 
- Oro                                                                                                                                   Il dollaro forte e i tassi alti pesano
-                                                    3.886 $         ↓        3.751                                            4.026
- Quanta paura c'è?                                                                                                                     sull'oro
+ Oro                                                                                                                                 Il dollaro forte e i tassi alti pesano
+                                                     3.886 $         ↓        3.751                                         4.026
+ Quanta paura c'è?                                                                                                                   sull'oro
 Partenza: chiusura di venerdì 13 novembre. Barra: la forchetta. Tacca: partenza. Rombo: la nostra previsione. Per i Treasury la freccia indica il
 rendimento.
 
@@ -449,16 +449,16 @@ PER CHI LEGGE
 
 Parole di oggi
 
-  CHIP                                                          ACQUISTI RIFUGIO                                              VERBALI DELLA FED
-  I microprocessori e le memorie dentro                         Acquisti di titoli considerati sicuri, come                   Il resoconto della riunione, pubblicato
-  computer e server: se ne parla tanto per                      Treasury e oro, quando cresce la paura.                       tre settimane dopo: dice quanto i
-  l'AI.                                                                                                                       membri erano divisi sui tassi.
+  CHIP                                                           ACQUISTI RIFUGIO                                            VERBALI DELLA FED
+  I microprocessori e le memorie dentro                          Acquisti di titoli considerati sicuri, come                 Il resoconto della riunione, pubblicato
+  computer e server: se ne parla tanto per                       Treasury e oro, quando cresce la paura.                     tre settimane dopo: dice quanto i
+  l'AI.                                                                                                                      membri erano divisi sui tassi.
 
 
-  CURVA DEI RENDIMENTI                                          IMPORTATORE DI PETROLIO                                       QUOTAZIONE IN BORSA
-  I rendimenti messi in fila dal titolo più                     Un paese che compra più energia di                            Il debutto di una società sul mercato: le
-  breve al più lungo.                                           quanta ne produce: soffre un greggio                          sue azioni cominciano a essere
-                                                                caro.                                                         scambiate.
+  CURVA DEI RENDIMENTI                                           IMPORTATORE DI PETROLIO                                     QUOTAZIONE IN BORSA
+  I rendimenti messi in fila dal titolo più                      Un paese che compra più energia di                          Il debutto di una società sul mercato: le
+  breve al più lungo.                                            quanta ne produce: soffre un greggio                        sue azioni cominciano a essere
+                                                                 caro.                                                       scambiate.
 
 
 NOTE
@@ -479,6 +479,6 @@ Fonti
 
 
 
-Solo a scopo informativo, non è consulenza finanziaria. Le probabilità sono stime soggettive.                                                            #026 | 2026-11-16 | pag. 6
-Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.
+Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.                           #026 | 2026-11-16 | pag. 6
+Le probabilità sono stime soggettive. Dati e notizie da fonti pubbliche alla data dell'edizione.
 

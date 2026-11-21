@@ -799,6 +799,16 @@ def passo_sito():
             male.append("pagina6.py: DOMANDA non ha i sei mercati fissi")
     except Exception as e:  # noqa: BLE001
         male.append(f"domande dei mercati: {e}"[:90])
+    # la riga sull'AI: una fonte sola (pagine.RIGA_AI) per sito, PDF e newsletter; il modello in Kit è una copia del file
+    try:
+        riga = re.search(r'RIGA_AI = \((.*?)\)\n', open(os.path.join(R, "pagine.py"), encoding="utf-8").read(), re.S).group(1)
+        riga = "".join(re.findall(r'"([^"]*)"', riga))
+        if riga not in open(os.path.join(R, "newsletter_modello.html"), encoding="utf-8").read():
+            male.append("newsletter_modello.html: la riga sull'AI non è quella di pagine.RIGA_AI")
+        if "_RIGA_AI" not in open(os.path.join(R, "gommberg_engine.py"), encoding="utf-8").read():
+            male.append("gommberg_engine.py: il PDF non usa pagine.RIGA_AI")
+    except Exception as e:  # noqa: BLE001
+        male.append(f"riga sull'AI: {e}"[:90])
     esito("Sito: dati, feed, mappa e link interni", not male, "; ".join(male)[:300] or
           f"{len(pagine)} pagine, ultima edizione n. {ultimo}")
     # punto fisso: le pagine nel repository sono quelle che pagine.py genera oggi da edizioni.json. Se differiscono, o
@@ -806,7 +816,8 @@ def passo_sito():
     # cambiamento solo alla prossima edizione, lontano da chi l'ha fatto.
     import filecmp
     diversi = set()
-    for base in ("e", "dati", "ultima", "feed.xml", "sitemap.xml"):
+    fisse = tuple(sorted(f for f in os.listdir(REPO) if f.endswith(".html")))   # il piè di pagina (pagine.piede_fisse)
+    for base in ("e", "dati", "ultima", "feed.xml", "sitemap.xml") + fisse:
         for radice in (copia, REPO):
             for d, _, files in os.walk(os.path.join(radice, base)) if os.path.isdir(os.path.join(radice, base)) else [(radice, [], [base])]:
                 for f in files:

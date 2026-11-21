@@ -20,6 +20,7 @@ pdfmetrics.registerFont(TTFont("Cond-B", F + "DejaVuSansCondensed-Bold.ttf"))
 addMapping("Body", 0, 0, "Body"); addMapping("Body", 1, 0, "Body-B"); addMapping("Body", 0, 1, "Body-I")
 addMapping("Cond", 0, 0, "Cond"); addMapping("Cond", 1, 0, "Cond-B")
 # Nessun font base PDF non incorporato (Helvetica/Times): celle vuote delle tabelle e disegni vettoriali usano DejaVu.
+from pagine import RIGA_AI as _RIGA_AI  # stessa cartella (redazione/): la riga sull'AI ha una fonte sola
 import reportlab.platypus.tables as _rl_tables
 from reportlab.graphics import shapes as _rl_shapes
 _rl_tables.CellStyle.fontname = "Cond"
@@ -153,13 +154,11 @@ def page(c, doc):
     c.drawRightString(PW - M, PH - 13.2 * mm, META["nota_dati"])
     c.setStrokeColor(RULE); c.setLineWidth(0.5); c.line(M, 11 * mm, PW - M, 11 * mm)
     c.setFont("Cond", 6.8); c.setFillColor(GREY)
-    c.drawString(M, 7 * mm, "Solo a scopo informativo, non è consulenza finanziaria. "
-                            "Le probabilità sono stime soggettive.")
+    # AI Act, art. 50: dichiarazione dell'uso dell'IA su ogni pagina, la stessa riga di sito e newsletter (pagine.RIGA_AI)
+    c.drawString(M, 7 * mm, _RIGA_AI)
     c.drawRightString(PW - M, 7 * mm, f"#{META['edizione']:03d}  |  {META['data_iso']}  |  pag. {doc.page}")
-    # AI Act, art. 50 (v7.8): dichiarazione dell'uso dell'IA, su ogni pagina
-    c.setFont("Cond", 6.3)   # la riga intera sta nei 182 mm utili (a 6,8 pt ne servirebbero 189)
-    c.drawString(M, 3.9 * mm, "Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con "
-                              "l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.")
+    c.setFont("Cond", 6.3)
+    c.drawString(M, 3.9 * mm, "Le probabilità sono stime soggettive. Dati e notizie da fonti pubbliche alla data dell'edizione.")
     c.restoreState()
 
 
