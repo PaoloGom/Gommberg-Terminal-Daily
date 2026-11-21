@@ -1,12 +1,12 @@
 [ok] PDF e indice: Pagine: 6 | n.d.: 1
 [ok] Riempimento (pagine e moduli): Riempimento: pagine e moduli pieni | mm liberi: p1=10, p2=0, p3=0, p4=0, p5=2, p6=6
-[ok] Fatti: Revisione: uniti 18 esiti da revisione.json
+[ROSSO] Fatti:
+- CERCA come: il documento di chi è nel fatto ("primaria": true) o lo stesso fatto da un altro autore; un'agenzia conta 1 ovunque ripresa. Se non c'è: "conferma_cercata" e (Testata)
+- CERCA un secondo autore, 11 schede: N03, N04, N05, N06, N07, N08, N12, D02, D03, D04, D05
 AVVISO: A03: fonte più recente del 2026-11-10, oltre 7 giorni
 AVVISO: K01: dato pubblico non confermato dal revisore: resta con la fonte dichiarata ("(Testata)")
 AVVISO: MEM-1102-N07: fonte più recente del 2026-10-30, oltre 7 giorni
 AVVISO: D06: numeri del testo che né la citazione né il revisore riportano: [825.0] (calcolati da noi? altrimenti correggi)
-AVVISO: D04: numeri del testo che né la citazione né il revisore riportano: [11.0, 17.0] (calcolati da noi? altrimenti correggi)
-AVVISO: D05: numeri del testo che né la citazione né il revisore riportano: [11.0, 17.0, 18.0] (calcolati da noi? altrimenti correggi)
 [ok] Numeri contro dati.json: Numeri confrontati con dati.json: 14 | scarti: 0
 AVVISO: Nikkei 225: riga non trovata nel PDF
 AVVISO: Hang Seng: riga non trovata nel PDF
@@ -26,4 +26,4 @@ AVVISO: eco "era largo consenso rialzo" in 2 punti
 AVVISO: eco "new york vende chip" in 2 punti
 AVVISO: eco "nvidia terzo trimestre fiscale" in 2 punti
 [ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
-ESITO: ERRORI in Scrittura (→, cause, sigle, ritmo) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia
+ESITO: ERRORI in Fatti Scrittura (→, cause, sigle, ritmo) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia

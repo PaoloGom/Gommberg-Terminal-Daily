@@ -1,12 +1,12 @@
 [ok] PDF e indice: Pagine: 6 | n.d.: 1
 [ok] Riempimento (pagine e moduli): Riempimento: pagine e moduli pieni | mm liberi: p1=5, p2=0, p3=0, p4=0, p5=12, p6=1
-[ok] Fatti: Revisione: uniti 25 esiti da revisione.json
+[ROSSO] Fatti:
+- CERCA come: il documento di chi è nel fatto ("primaria": true) o lo stesso fatto da un altro autore; un'agenzia conta 1 ovunque ripresa. Se non c'è: "conferma_cercata" e (Testata)
+- CERCA un secondo autore, 7 schede: N10, N11, D02, D04, D10, D11, D13
 AVVISO: D06: fonte singola dichiarata (kitco): nel PDF "(Testata)" in coda al dato
 AVVISO: K01: dato ufficiale senza il comunicato (cercato: China October 2026 retail sales industrial production fixed-asset investment year on year National Bureau of Statistics; China October retail 
 AVVISO: T01: numeri del testo che né la citazione né il revisore riportano: [1.0, 11.0, 16.0, 5100.5] (calcolati da noi? altrimenti correggi)
 AVVISO: D06: numeri del testo che né la citazione né il revisore riportano: [2025.0] (calcolati da noi? altrimenti correggi)
-AVVISO: D04: numeri del testo che né la citazione né il revisore riportano: [11.0, 13.0] (calcolati da noi? altrimenti correggi)
-AVVISO: D09: numeri del testo che né la citazione né il revisore riportano: [0.06] (calcolati da noi? altrimenti correggi)
 [ok] Numeri contro dati.json: Numeri confrontati con dati.json: 22 | scarti: 0
 [ok] Scrittura (→, cause, sigle, ritmo): Righe →: 1 (max 5) | cause senza fonte: 0 | sigle non spiegate: 0
 AVVISO: lessico: "spread tra Btp e Bund" (1 volte): scrivi "spread BTP-Bund"
@@ -22,4 +22,4 @@ AVVISO: 4,8% in 2 sezioni: APPROFONDIMENTO CHIP E ASIA, TOP NEWS
 AVVISO: 5,15% in 2 sezioni: APPROFONDIMENTO TASSI USA, TOP STORY
 AVVISO: eco "afp seoul economic daily" in 2 punti
 [ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
-ESITO: OK - guarda <lavoro>/anteprima.png con Read (una sola immagine)
+ESITO: ERRORI in Fatti - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia

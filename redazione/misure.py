@@ -29,14 +29,13 @@ import os
 import re
 import subprocess
 import sys
-from urllib.parse import urlparse
 from zoneinfo import ZoneInfo
 
 QUI = os.path.dirname(os.path.abspath(__file__))
 REPO = os.environ.get("GTD_REPO") or os.path.dirname(QUI)
-F = json.load(open(os.path.join(QUI, "fonti.json"), encoding="utf-8"))
-UFF, L1 = set(F.get("ufficiali", [])), set(F.get("livello_1", []))
-AGENZIE = {a.lower() for a in F.get("agenzie", [])}
+sys.path.insert(0, QUI)
+import autori    # che cosa è una fonte primaria e chi è l'autore di una pagina: una sola definizione, quella del controllo
+F = autori.F
 NOMI = sorted(F.get("nomi", []), key=len, reverse=True)
 # Parole che un lettore senza studi di finanza non usa. Misurano la densità, non vietano nulla.
 GERGO = [r"\bpb\b", r"rendiment", r"\bcurva\b", r"\bspread\b", r"\bfuture\b", r"volatilit", r"difensiv", r"\bciclic",
@@ -69,19 +68,14 @@ def frasi(t):
     return out
 
 
-def host_in(url, insieme):
-    h = (urlparse(url or "").hostname or "").lower().split(".")
-    return any(".".join(h[i:]) in insieme for i in range(len(h) - 1))
-
-
 def misura_fatti(fatti):
     schede = [f for f in fatti if isinstance(f, dict) and f.get("fonti") and not f.get("scartata")
-              and f.get("sezione") not in ("ricerca", "prime_pagine", "scaletta", "anomalia")]
+              and f.get("sezione") not in autori.REGISTRI]
     prim = l1 = 0
     for f in schede:
         fonti = [x for x in f["fonti"] if isinstance(x, dict)]
-        p = any(x.get("primaria") or host_in(x.get("url"), UFF) for x in fonti)
-        a = any(str(x.get("agenzia", "")).lower() in AGENZIE or host_in(x.get("url"), L1) for x in fonti)
+        p = any(autori.primaria(x) for x in fonti)
+        a = any(autori.affidabile(x) for x in fonti)
         prim += p
         l1 += p or a
     n = len(schede) or 1

@@ -1,12 +1,12 @@
 [ok] PDF e indice: Pagine: 6 | n.d.: 0
 [ok] Riempimento (pagine e moduli): Riempimento: pagine e moduli pieni | mm liberi: p1=2, p2=0, p3=0, p4=0, p5=15, p6=3
-[ok] Fatti: Revisione: uniti 25 esiti da revisione.json
+[ROSSO] Fatti:
+- CERCA come: il documento di chi è nel fatto ("primaria": true) o lo stesso fatto da un altro autore; un'agenzia conta 1 ovunque ripresa. Se non c'è: "conferma_cercata" e (Testata)
+- CERCA un secondo autore, 7 schede: N04, N05, D01, D03, D04, D07, D11
 AVVISO: N06: dato ufficiale senza il comunicato (cercato: Philadelphia Fed Manufacturing Business Outlook Survey November 2026 prices paid; Philly Fed index November 2026 falls to 6.3 prices paid 58.2
 AVVISO: N06: fonte singola dichiarata (investinglive): nel PDF "(Testata)" in coda al dato
 AVVISO: N08: dato ufficiale senza il comunicato (cercato: jobless claims November 19 2026 Department of Labor release; initial jobless claims 203,000 week ended November 14 2026): nel PDF attribuito "
 AVVISO: N08: fonte singola dichiarata (investinglive): nel PDF "(Testata)" in coda al dato
-AVVISO: MEM-1119-N01: dato ufficiale senza il comunicato (cercato: FOMC minutes October 2026 meeting federalreserve.gov minutes released November 18 2026; Minutes of the Federal Open Market Committee 
-AVVISO: T01: numeri del testo che né la citazione né il revisore riportano: [2.0, 7175.83] (calcolati da noi? altrimenti correggi)
 [ok] Numeri contro dati.json: Numeri confrontati con dati.json: 9 | scarti: 0
 [ok] Scrittura (→, cause, sigle, ritmo): Righe →: 1 (max 5) | cause senza fonte: 0 | sigle non spiegate: 0
 AVVISO: sigle spiegate più di una volta: VIX
@@ -22,4 +22,4 @@ AVVISO: 489,19$ in 2 sezioni: APPROFONDIMENTO TECNOLOGIA, TOP NEWS
 AVVISO: 5,1% in 2 sezioni: APPROFONDIMENTO EUROPA, TOP STORY
 AVVISO: eco "liquidità altri titoli settore" in 2 punti
 [ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
-ESITO: OK - guarda <lavoro>/anteprima.png con Read (una sola immagine)
+ESITO: ERRORI in Fatti - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia

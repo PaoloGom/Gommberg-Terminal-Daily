@@ -32,7 +32,7 @@ GitHub, a ogni push su main (zero token)
 | Parte | Dove sta | Che cosa fa |
 |---|---|---|
 | Regole della redazione | `ISTRUZIONI.md`, `APP_*.md`, `NOTA_DEL_GIORNO.md`, `edizione_modello_v6.py` | Ciò che Sonnet legge ogni mattina: decide che cosa viene scritto |
-| Lessico e fonti | `glossario.json`, `meccanismi.json`, `fonti.json`, `domini.txt` | Sigle, meccanismi, livelli delle fonti: li leggono regole, controlli e sito |
+| Lessico e fonti | `glossario.json`, `meccanismi.json`, `fonti.json`, `autori.py` | Sigle, meccanismi, livelli delle fonti; `autori.py` è l'unica definizione di autore, fonte primaria e fatto confermato: la usano il controllo e le misure |
 | Dati di mercato | `controlli_dati.py`, `numeri.py`, `contesto.py`, `scommessa/dati/*.csv` | Schema di `dati.json`, nastro, contesto dei movimenti |
 | Motore | `gommberg_engine.py`, `extra_voce.py`, `giorni.py` | Impagina il PDF, scrive `voce_indice.json`; calendario delle uscite e numero dell'edizione |
 | Scommessa | `scommessa/` (`pagina6.py`, `valuta.py`, `pronostico.py`, `metodo.json`, `pagella.json`), `pronostici/` | Pag. 6, registro della settimana, punteggi |
@@ -62,21 +62,22 @@ Un file della colonna di sinistra è un contratto: cambiarne forma o significato
 | `redazione/glossario.json`, `glossario_sito.json`, `meccanismi.json` | a mano (e la redazione, per glossario e meccanismi) | `controlli_testo.py`, `edizioni_voce.py`, e **il sito**: `glossario.html` |
 | `redazione/scommessa/pagella.json` | `valuta.py`, con il verdetto della settimana | pag. 6 del PDF, e **il sito**: `scommessa.html`, `numeri.html` |
 | `redazione/scommessa/metodo.json`, `pronostici/*.json` | a mano / `pronostico.py` | `pagina6.py`, `valuta.py`, `edizioni_voce.py` |
-| `redazione/fonti.json` | a mano | `controlli_fatti.py`, `controlli_testo.py`, `controlli_contenuti.py`, `controlli_ripetizioni.py`, `misure.py` |
+| `redazione/fonti.json` | a mano | `autori.py` (e, tramite lui, `controlli_fatti.py`, `misure.py`, `pannello.py`), `controlli_testo.py`, `controlli_contenuti.py`, `controlli_ripetizioni.py` |
 | `pannello/registro.json`, `taratura.json` | `pannello.py` | `pannello/index.html`, `mattino.py` |
-| `/tmp/gtd_token.json` | `gancio_token.py` (`.claude/settings.json`) | `pannello.py --indici` |
+| `/tmp/gtd_token.json` (token e, in `web`, ricerche e pagine non raggiunte) | `gancio_token.py` (`.claude/settings.json`), dalla trascrizione della sessione | `pannello.py --indici` |
 | `voce_indice.json`, `testo.json` (cartella di lavoro) | motore; `controlli_testo.py` | `controlli_temi.py`, `controlli_contenuti.py`, `edizioni_voce.py`, `messaggio.py` |
 
 Tre cose da ricordare:
 - **Quattro file della redazione sono pubblici**: `glossario.json`, `glossario_sito.json`, `meccanismi.json`, `scommessa/pagella.json` (elenco `LETTI` in `costruisci.py`). Tutto il resto di `redazione/` non arriva mai su gommberg.com.
 - **Le pagine in `e/`, `dati/`, `ultima/`, `feed.xml` e `sitemap.xml` sono generate**: non si toccano a mano. Chi cambia `pagine.py` rigenera (`python3 redazione/pagine.py`) e committa le pagine nello stesso commit: il collaudo lo pretende.
+- **`.claude/settings.json` non filtra i siti**: contiene il gancio e il permesso a WebSearch. Quali fonti valgono lo decide solo `fonti.json`; le pagine che non si aprono le annota il gancio e le mostra il pannello (`fallite`).
 - **Fuori dal repository**: il testo delle attività programmate (app di Claude, copia in `ATTIVITA.md`), i due modelli di email e il modulo di iscrizione (Kit), DNS e Worker (Cloudflare), i segreti di GitHub (`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `KIT_API_KEY`), GoatCounter, Search Console. Un cambiamento che li riguarda non lo vede nessun collaudo: va scritto nel piano del rilascio e provato a mano.
 
 ## 4. La rete di non regressione
 
 Un solo comando, `python3 redazione/collaudo.py` (meno di un minuto, senza rete e senza modelli), dopo ogni modifica:
 
-1. sintassi di tutti i `.py` e `.sh`; 2. avvio (`prepara.sh` in tre giorni tipo); 3. pagina modello impaginata e controllata;
+1. sintassi di tutti i `.py` e `.sh`; 2. avvio (`prepara.sh` in tre giorni tipo); 3. pagina modello impaginata e controllata, e la regola dei fatti e il gancio su casi costruiti apposta;
 4. **rete**: le edizioni campione di `redazione/rete/` rifatte dai loro sorgenti con il kit di oggi lungo la catena del mattino, e confrontate con l'atteso (`atteso/`): testo del PDF, esito dei controlli, voce di `edizioni.json`, email, numeri del pannello;
 5. sito: file validi, link interni, **pagine generate identiche a quelle nel repository**, `costruisci.py` senza avvisi; 6. pubblicazione a secco.
 

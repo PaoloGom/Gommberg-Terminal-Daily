@@ -15,6 +15,9 @@ Cosa controlla:
   3. Modello       la pagina di riferimento (edizione_modello_v6.py) si impagina in 6 pagine piene e supera i controlli
                    che non dipendono dalle schede del giorno (PDF, riempimento, numeri, scrittura, temi, ripetizioni).
                    Pag. 6 non si giudica sul riempimento: dipende dal registro della scommessa di quella settimana.
+     Fonti         la regola dei fatti (autori.py, applicata da controlli_fatti.py) su schede costruite apposta: la
+                   primaria basta, un'agenzia ripresa da tre siti è un autore solo, l'ultima scelta va dichiarata; e il
+                   gancio (gancio_token.py) su una trascrizione costruita: ricerche, pagine aperte, pagine non raggiunte.
   4. Rete          le edizioni campione di redazione/rete/ rifatte dai loro sorgenti con il kit di oggi lungo la catena
                    del mattino (impaginazione, controlli, voce dell'indice) e confrontate con l'atteso: testo del PDF,
                    esito dei controlli, voce di edizioni.json, email della newsletter, numeri del pannello.
@@ -211,6 +214,146 @@ def passo_modello():
             esito(f"Modello: {nome}", False, controlli.perche.get(chiave, "controllo non eseguito")[:170])
     if all(stato.get(next((k for k in stato if k.startswith(n)), ""), "") == "ok" for n in INDIPENDENTI):
         esito("Modello: controlli", True, ", ".join(INDIPENDENTI) + " (Fatti e Contenuti non giudicati: servono le schede del giorno)")
+
+
+# ---------------------------------------------------------------- 3b. fonti: la regola dei fatti e il gancio
+def passo_fonti():
+    lav = os.path.join(TMP, "fonti")
+    os.makedirs(lav, exist_ok=True)
+
+    def fonte(testata, url, **k):
+        return {"testata": testata, "url": url, "data_pubblicazione": "2026-11-20", "citazione": "frase della pagina",
+                "ricerca": "ricerca che ha trovato la pagina", **k}
+    reuters = lambda sito: fonte(f"Reuters ({sito})", f"https://{sito}/a", agenzia="Reuters")   # noqa: E731
+    kh = fonte("Korea Herald", "https://www.koreaherald.com/a")
+    # (id, sezione, fonti, altri campi, che cosa deve fare il controllo: passa | cerca | respinta)
+    casi = [
+        # la primaria basta da sola
+        ("F01", "top_news", [fonte("BLS", "https://www.bls.gov/a")], {}, "passa"),
+        ("F02", "top_news", [fonte("Società (comunicato)", "https://www.ariva.de/a", primaria=True)], {}, "passa"),
+        ("F03", "top_news", [fonte("Wells Fargo (SEC)", "https://www.sec.gov/a")], {}, "passa"),
+        ("F04", "top_news", [fonte("Blog", "https://sito-x.example/a", primaria="true")], {}, "respinta"),
+        ("F05", "top_news", [fonte("Reuters", "https://www.reuters.com/a", primaria=True)], {}, "cerca"),
+        # un'agenzia conta una volta, comunque sia scritta e ovunque sia ospitata
+        ("F10", "top_news", [reuters("kfgo.com"), reuters("investing.com"), fonte("Reuters", "https://www.reuters.com/a")], {}, "cerca"),
+        ("F11", "top_story", [fonte("Reuters (KFGO)", "https://kfgo.com/a"), fonte("Investing.com (Reuters)", "https://www.investing.com/a")], {}, "cerca"),
+        ("F12", "agenda", [fonte("KFGO via Reuters", "https://kfgo.com/a"), fonte("Yahoo", "https://finance.yahoo.com/a", agenzia="Thomson REUTERS")], {"data_evento": "2026-11-25"}, "cerca"),
+        ("F13", "top_news", [reuters("euronext.com")], {}, "cerca"),
+        ("F14", "top_news", [fonte("Borsa Italiana", "https://www.borsaitaliana.it/borsa/notizie/radiocor/a.html"),
+                             fonte("Il Sole 24 Ore", "https://www.ilsole24ore.com/a")], {}, "cerca"),
+        ("F15", "top_news", [fonte("Teleborsa (Borsa Italiana)", "https://www.borsaitaliana.it/borsa/notizie/teleborsa/a.html")], {}, "cerca"),
+        ("F16", "top_news", [fonte("Financial Times", "https://www.ft.com/a"), fonte("Financial Times (RTÉ)", "https://www.rte.ie/a")], {}, "cerca"),
+        ("F17", "top_news", [fonte("Reuters", "https://www.reuters.com/a"), fonte("ZeroHedge", "https://www.zerohedge.com/a")], {}, "respinta"),
+        # due autori diversi
+        ("F20", "top_news", [reuters("kfgo.com"), fonte("AP (KSAT)", "https://www.ksat.com/a", agenzia="AP")], {}, "passa"),
+        ("F21", "top_news", [fonte("Kitco", "https://www.kitco.com/a"), fonte("FXStreet", "https://www.fxstreet.com/a")], {}, "passa"),
+        ("F22", "top_news", [fonte("Fortune (Yahoo Finance)", "https://finance.yahoo.com/a"),
+                             fonte("TheStreet (Yahoo Finance)", "https://finance.yahoo.com/b")], {}, "passa"),
+        ("F23", "top_news", [fonte("Korea Times", "https://www.koreatimes.co.kr/a"), fonte("Korea Herald", "https://www.koreaherald.co.kr/a")], {}, "passa"),
+        ("F24", "top_news", [fonte("Yahoo Finance", "https://ca.finance.yahoo.com/a"), fonte("Yahoo", "https://finance.yahoo.com/b")], {}, "respinta"),
+        ("F25", "top_news", [fonte("AP Moller-Maersk (comunicato)", "https://www.maersk.com/a"), reuters("kfgo.com")], {}, "passa"),
+        # l'ultima scelta: un solo autore affidabile, con la ricerca in più dichiarata
+        ("F30", "deep_dive", [kh], {"conferma_cercata": ["samsung sciopero secondo autore"]}, "passa"),
+        ("F31", "deep_dive", [kh], {"conferma_cercata": ["Ricerca che ha trovato  la pagina."]}, "cerca"),
+        ("F32", "deep_dive", [kh], {"conferma_cercata": "x"}, "cerca"),
+        ("F33", "deep_dive", [kh], {"fonte_singola": True}, "cerca"),
+        ("F34", "deep_dive", [kh], {"ufficiale_cercato": ["prima ricerca fatta", "seconda ricerca fatta"]}, "cerca"),
+        ("F35", "top_news", [fonte("Sito X", "https://sito-x.example/a")], {"conferma_cercata": ["un'altra ricerca vera"]}, "respinta"),
+        ("F36", "deep_dive", [reuters("kfgo.com"), {**reuters("investing.com"), "ricerca": "seconda ricerca fatta apposta"}],
+         {"conferma_cercata": ["seconda ricerca fatta apposta"]}, "passa"),
+        # a chi non si applica: cause attribuite, memoria già confermata, dati pubblici (regola invariata)
+        ("F40", "top_news", [reuters("kfgo.com")], {"tipo": "C"}, "passa"),
+        ("MEM-1119-D03", "deep_dive", [reuters("kfgo.com")], {"ripresa": "2026-11-19"}, "passa"),
+        ("F42", "mercati", [fonte("Kitco", "https://www.kitco.com/a")], {"fonte_singola": True}, "passa"),
+        ("F43", "mercati", [fonte("ANSA", "https://www.ansa.it/a")], {}, "passa"),
+        ("F44", "mercati", [fonte("Kitco", "https://www.kitco.com/a")], {}, "respinta"),
+        # schede scritte male: un problema con il suo id, mai un'eccezione
+        ("F50", "top_news", [fonte("Reuters", None)], {}, "respinta"),
+        ("F51", "top_news", "https://www.reuters.com/a", {}, "respinta"),
+        ("F52", "top_news", [{**kh, "data_pubblicazione": "20/11/2026"}, reuters("kfgo.com")], {}, "respinta"),
+    ]
+    schede = [{"id": i, "sezione": sez, "testo": f"Fatto di prova {i}", "data_evento": "2026-11-20", "novita": None, "fonti": fo,
+               "verifica": "confermato", "trovato": "una frase diversa letta sulla pagina aperta, con quella che segue", **k}
+              for i, sez, fo, k, _ in casi] + [None, "voce che non è una scheda"]
+    json.dump(schede, open(os.path.join(lav, "fatti.json"), "w", encoding="utf-8"), ensure_ascii=False)
+    _, out = esegui([sys.executable, os.path.join(R, "controlli_fatti.py"), os.path.join(lav, "fatti.json"),
+                     os.path.join(REPO, "edizioni.json"), "2026-11-23"])
+    righe = [r for r in out.splitlines() if r.startswith("- ")]
+    nomi = "|".join(re.escape(i) for i, *_ in casi)
+    cerca = set(re.findall(nomi, " ".join(r for r in righe if re.match(r"- CERCA (un secondo autore|\(segue\))", r))))
+    respinte = {m.group(1) for r in righe for m in [re.match(rf"- ({nomi}):", r)] if m}
+    togliere = set(next((r for r in out.splitlines() if r.startswith("DA_TOGLIERE:")), "").split(":", 1)[-1].strip().split(","))
+    trovato = {i: "cerca" if i in cerca else "respinta" if i in respinte else "passa" for i, *_ in casi}
+    male = [f"{i}: atteso {att}, esce {trovato[i]}" for i, _, _, _, att in casi if trovato[i] != att]
+    male += [f"{i}: va cercata ma sta in DA_TOGLIERE" for i in sorted(cerca & togliere)]
+    male += [f"riga oltre 200 byte: {r[:40]}" for r in righe if r.startswith("- CERCA") and len(r.encode()) > 200]
+    male += ["eccezione nel controllo"] if "Traceback" in out else []
+    # molte schede insieme: le righe restano sotto il taglio di controlli_tutti.sh e nessun id si perde
+    molte = [{**schede[5], "id": f"N{k:02d}-con-un-nome-lungo"} for k in range(30)]
+    json.dump(molte, open(os.path.join(lav, "molte.json"), "w", encoding="utf-8"), ensure_ascii=False)
+    _, out2 = esegui([sys.executable, os.path.join(R, "controlli_fatti.py"), os.path.join(lav, "molte.json"),
+                      os.path.join(REPO, "edizioni.json"), "2026-11-23"])
+    r2 = [r for r in out2.splitlines() if r.startswith("- CERCA")]
+    if any(len(r.encode()) > 200 for r in r2) or len(set(re.findall(r"N\d\d-con-un-nome-lungo", " ".join(r2)))) != 30:
+        male.append("con 30 schede le righe CERCA superano i 200 byte o perdono id")
+    esito("Fonti: regola dei fatti", not male, "; ".join(male)[:400]
+          or f"{len(casi)} casi (primaria, agenzia ripresa da più siti, due autori, ultima scelta dichiarata, esenti, schede scritte male)")
+
+    # il gancio, su una trascrizione fatta come quelle di Claude Code: chiamate (tool_use) ed esiti (tool_result)
+    def chiama(i, nome, **inp):
+        return {"type": "assistant", "message": {"id": "m" + i, "role": "assistant", "model": "prova", "content": [
+            {"type": "tool_use", "id": i, "name": nome, "input": inp}], "usage": {"input_tokens": 1, "output_tokens": 1}}}
+
+    def risponde(i, testo, errore=False, lista=True):
+        return {"type": "user", "message": {"role": "user", "content": [
+            {"type": "tool_result", "tool_use_id": i, "content": [{"type": "text", "text": testo}] if lista else testo,
+             **({"is_error": True} if errore else {})}]}}
+    pagina = "testo della pagina " * 40
+    tr = [chiama("t1", "WebSearch", query="una ricerca"), risponde("t1", pagina),
+          chiama("t2", "WebFetch", url="https://www.reuters.com/a"), risponde("t2", "La riunione è finita con HTTP 404 e timed out citati nel testo", lista=False),
+          chiama("t3", "WebFetch", url="https://www.nasdaq.com/2026/451/a"), risponde("t3", "Request failed with status code 429", True),
+          chiama("t4", "WebFetch", url="https://www.websim.it/a"), risponde("t4", "Error: unable to read the page", True),
+          chiama("t5", "WebFetch", url="http://websim.it/a/"), risponde("t5", "Error: unable to read the page", True),
+          chiama("t6", "WebFetch", url="https://www.fool.com/a"), risponde("t6", "Claude requested permissions to use WebFetch, but you haven't granted it yet.", True),
+          chiama("t7", "WebFetch", url="https://www.ansa.it/a"), risponde("t7", "The operation timed out", True),
+          chiama("t8", "WebFetch", url="https://www.ansa.it/a"), risponde("t8", pagina),
+          chiama("t9", "WebFetch", url="https://finanzen.ch/a"), risponde("t9", "Request failed with status code 403: Forbidden - Access Denied", lista=False),
+          chiama("t10", "WebFetch", url="https://www.census.gov/a"), risponde("t10", "Redirect: fetch https://www2.census.gov/a instead"),
+          chiama("t11", "Bash", command="echo WebFetch"), risponde("t11", "WebFetch")]
+    os.makedirs(os.path.join(lav, "sessione", "subagents"), exist_ok=True)
+    open(os.path.join(lav, "sessione", "t.jsonl"), "w", encoding="utf-8").write(
+        "riga che non è JSON\n" + "\n".join(json.dumps(x) for x in tr) + "\n")
+    ag = [chiama("s1", "WebSearch", query="ricerca dell'agente"), risponde("s1", "Search failed", True),
+          chiama("s2", "WebFetch", url="https://www.koreaherald.com/a"), risponde("s2", pagina)]
+    open(os.path.join(lav, "sessione", "subagents", "a.jsonl"), "w", encoding="utf-8").write("\n".join(json.dumps(x) for x in ag) + "\n")
+    tok = os.path.join(lav, "gtd_token.json")
+    p = subprocess.run([sys.executable, os.path.join(R, "gancio_token.py")], capture_output=True, text=True, env=dict(os.environ, GTD_TOKEN=tok),
+                       input=json.dumps({"hook_event_name": "PostToolUse", "transcript_path": os.path.join(lav, "sessione", "t.jsonl")}))
+    try:
+        g = json.load(open(tok, encoding="utf-8"))
+        w = g.get("web") or {}
+        visto = (w.get("ricerche"), w.get("ricerche_fallite"), w.get("pagine"), sorted((x["sito"], x["motivo"]) for x in w.get("fallite", [])))
+    except Exception as e:  # noqa: BLE001
+        g, visto = {}, f"{type(e).__name__}: {e}"
+    atteso = (2, 1, 8, [("finanzen.ch", "errore 403"), ("fool.com", "negata"), ("nasdaq.com", "limite"), ("websim.it", "errore")])
+    import pannello as PN
+    riga, sporca = {}, {"n": 1}
+    try:
+        os.environ["GTD_TOKEN"] = tok
+        PN.dal_gancio(riga)
+        json.dump({"esiste": True, "richieste": "dieci", "pesati": 5, "web": {"fallite": [None, "a.com"], "pagine": 3}},
+                  open(os.path.join(lav, "sporco.json"), "w"))
+        os.environ["GTD_TOKEN"] = os.path.join(lav, "sporco.json")
+        PN.dal_gancio(sporca)                      # un file del gancio scritto male non lancia eccezioni
+        regge = sporca.get("n") == 1
+    except Exception:  # noqa: BLE001
+        regge = False
+    finally:
+        os.environ.pop("GTD_TOKEN", None)
+    ok = p.returncode == 0 and not (p.stdout + p.stderr) and visto == atteso and g.get("richieste") == 13 and regge \
+        and riga.get("fallite") == 4 and riga.get("aperte") == 4 and len(riga.get("fallite_siti", [])) == 4
+    esito("Fonti: gancio (ricerche e pagine non raggiunte)", ok, "4 pagine non raggiunte su 8, 2 ricerche: il pannello le riceve" if ok
+          else f"uscita {p.returncode}, visto {visto}, riga {riga}, regge {regge}"[:400])
 
 
 # ---------------------------------------------------------------- 4. rete di non regressione
@@ -547,6 +690,7 @@ def main():
         passo_sintassi()
         passo_avvio()
         passo_modello()
+        passo_fonti()
         passo_rete()
         copia = passo_sito()
         if isinstance(copia, str):

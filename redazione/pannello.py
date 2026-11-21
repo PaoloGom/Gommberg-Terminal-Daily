@@ -7,10 +7,14 @@ Due file in pannello/:
   registro.json   una riga per edizione, scritta da pubblica.sh. Operatività: avvio, uscita ("ora"), durata. Lavoro:
                   schede dei fatti, fonti citate, ricerche. Qualità: le misure di misure.py (parole, parole per frase "fr",
                   quota di frasi oltre 30 parole "lunghe", gergo, quota di schede con fonte primaria "prim" e di livello 1
-                  "l1"). Kit: versione delle istruzioni "v" e KB letti a ogni avvio. Consumo: "token", "pesati",
-                  "richieste", sommati dal gancio redazione/gancio_token.py (.claude/settings.json, dopo ogni comando Bash)
-                  dalla trascrizione della sessione e lasciati in /tmp/gtd_token.json. Provato il 15/11/2026 in una
-                  sessione programmata. Token pesati = ingresso + 2 x scritti in cache + 0,1 x letti dalla cache + 5 x uscita.
+                  "l1"). Fonti (autori.py, dalle schede): fatti che poggiano su un solo autore senza fonte primaria
+                  "fonte_singola", autori diversi per analisi "autori". Kit: versione delle istruzioni "v" e KB letti a
+                  ogni avvio. Dal gancio redazione/gancio_token.py (.claude/settings.json, dopo ogni comando Bash), che
+                  legge la trascrizione della sessione e lascia tutto in /tmp/gtd_token.json: il consumo ("token",
+                  "pesati", "richieste"; provato il 15/11/2026 in una sessione programmata; token pesati = ingresso +
+                  2 x scritti in cache + 0,1 x letti dalla cache + 5 x uscita) le pagine aperte davvero
+                  ("aperte", anche quelle poi non citate) e quelle non raggiunte ("fallite", il numero, e
+                  "fallite_siti", quali e perché: negata, limite, errore).
   taratura.json   le letture vere della pagina Utilizzo dell'app: quanti punti del limite settimanale sono costati quanti
                   minuti di attività, su quale piano. Da qui il tasso con cui la pagina stima i punti del piano.
 
@@ -66,7 +70,44 @@ def conta(fatti):
                 giro(y)
     giro(fatti)
     schede = sum(1 for s in fatti if isinstance(s, dict) and s.get("id")) if isinstance(fatti, list) else 0
-    return {"schede": schede, "ricerche": len(ricerche), "fonti": len(url)}
+    out = {"schede": schede, "ricerche": len(ricerche), "fonti": len(url)}
+    try:                                             # fonte singola e autori per analisi: la definizione è del controllo
+        sys.path.insert(0, QUI)
+        import autori
+        out.update(autori.conta(fatti))
+    except Exception:
+        pass
+    return out
+
+
+def dal_gancio(riga):
+    """Ciò che il gancio ha letto dalla trascrizione, se ha potuto: i token veri, le pagine aperte e quelle non raggiunte."""
+    try:
+        g = json.load(open(os.environ.get("GTD_TOKEN", "/tmp/gtd_token.json"), encoding="utf-8"))
+        g = g if isinstance(g, dict) else {}
+    except Exception:
+        return
+    try:
+        if g.get("esiste") and g.get("richieste") and g.get("pesati"):
+            riga.update(richieste=int(g["richieste"]), token=g["token"], pesati=int(g["pesati"]))
+    except Exception:                                # un file del gancio scritto male non toglie la riga all'edizione
+        pass
+    try:
+        w = g.get("web")
+        if isinstance(w, dict) and isinstance(w.get("fallite"), list):
+            fallite = [x for x in w["fallite"] if isinstance(x, dict)]
+            siti = []
+            for x in fallite:
+                s = f"{x.get('sito', '?')} ({x.get('motivo', 'errore')})"
+                if s not in siti:
+                    siti.append(s)
+            riga["fallite"] = len(fallite)
+            if isinstance(w.get("pagine"), int):
+                riga["aperte"] = max(0, w["pagine"] - len(fallite))
+            if siti:
+                riga["fallite_siti"] = siti[:12]
+    except Exception:
+        pass
 
 
 def versione_e_peso(leggi, elenco):
@@ -128,12 +169,7 @@ def indici(n, data, fatti_p):
     except Exception:
         pass
     riga.update(qualita(ultime=1).get(int(n), {}))
-    try:                                             # i token veri, se il gancio ha potuto leggerli
-        g = json.load(open(os.environ.get("GTD_TOKEN", "/tmp/gtd_token.json"), encoding="utf-8"))
-        if g.get("esiste") and g.get("richieste") and g.get("pesati"):
-            riga.update(richieste=int(g["richieste"]), token=g["token"], pesati=int(g["pesati"]))
-    except Exception:
-        pass
+    dal_gancio(riga)
     riga.update(versione_e_peso(lambda f: open(os.path.join(REPO, f), "rb").read(),
                                 lambda: os.listdir(os.path.join(REPO, "redazione"))))
     k = metti(riga)
@@ -168,6 +204,12 @@ def storico():
             x.update(dal_commit(commit[x["n"]]))
         if "fr" not in x:
             x.update(q.get(x.get("n"), {}))
+        if "fonte_singola" not in x:                          # le misure delle fonti, dalle schede in archivio
+            try:
+                c = conta(json.load(open(os.path.join(REPO, "redazione", "fatti", f"{x.get('d')}.json"), encoding="utf-8")))
+                x.update({k: c[k] for k in ("fonte_singola", "autori") if k in c})
+            except Exception:
+                pass
         if "avvio" not in x and x.get("durata_min") is not None and x.get("ora"):
             h, m = map(int, x["ora"].split(":"))
             a = h * 60 + m - int(x["durata_min"])
