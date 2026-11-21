@@ -239,7 +239,8 @@ def passo_modello():
 # ---------------------------------------------------------------- 3a. scrittura: lessico di casa e fonti tra parentesi
 def passo_scrittura():
     """Casi costruiti: i calchi dall'inglese trovati nelle edizioni #019-#030 si fermano, l'italiano giusto che gli somiglia
-    passa; la stessa testata due volte tra parentesi in un paragrafo si ferma, due testate diverse no."""
+    passa; la stessa testata due volte tra parentesi in un paragrafo si ferma, due testate diverse no; la nostra lettura
+    dichiarata una volta copre le cause del suo paragrafo, come una fonte, e senza l'una né l'altra la causa si ferma."""
     import controlli_testo as T
     lex = [v for v in json.load(open(os.path.join(R, "glossario.json"), encoding="utf-8"))["lessico"]["voci"] if v.get("blocca")]
     ferma = lambda x: any(re.search(rx, x, re.I) for v in lex for rx in v["evita"])
@@ -260,12 +261,18 @@ def passo_scrittura():
     conta = T.per_testata(" ".join(campi.values()))
     lunga = "Il titolo scende perché il gruppo taglia le stime. Una frase. Un'altra frase. Ancora una. E il calo resta (Reuters)."
     coperta = not T.connettivi(lunga, [lunga]) and bool(T.connettivi("Il titolo scende perché il gruppo taglia le stime. A. B. C. D."))
-    ok = not sfuggiti and not fermate and sigla and len(rip) == 1 and rip[0].startswith("a:") and conta == {"Reuters": 3, "Bloomberg": 1} and coperta
+    letta = "Per noi il mercato sconta il caso peggiore. Una frase. Un'altra frase. Ancora una. Il titolo scende perché il gruppo taglia le stime."
+    nuda = "Il titolo scende perché il gruppo taglia le stime. A. B. C. D."
+    voce = not T.connettivi(letta, T.coperti_da({"x": letta})) and not T.coperti_da({"x": nuda}) and bool(T.connettivi(nuda)) \
+        and not T.connettivi("Spesso un titolo scende perché il gruppo taglia le stime. A. B. C. D.")
+    ok = not sfuggiti and not fermate and sigla and len(rip) == 1 and rip[0].startswith("a:") and conta == {"Reuters": 3, "Bloomberg": 1} and coperta and voce
     esito("Scrittura: lessico di casa e fonti tra parentesi", ok,
-          f"{len(calchi)} calchi fermati, {len(giuste)} frasi giuste passate, stessa testata due volte in un paragrafo fermata" if ok else
+          f"{len(calchi)} calchi fermati, {len(giuste)} frasi giuste passate, stessa testata due volte in un paragrafo fermata, "
+          "lettura dichiarata una volta per paragrafo" if ok else
           "; ".join(x for x in (f"calchi non fermati: {sfuggiti}" if sfuggiti else "", f"frasi giuste fermate: {fermate}" if fermate else "",
                                 "" if sigla else "guidance è ancora una sigla da spiegare", f"ripetute: {rip}; conteggio: {conta}",
-                                "" if coperta else "una parentesi non copre il suo paragrafo") if x)[:300])
+                                "" if coperta else "una parentesi non copre il suo paragrafo",
+                                "" if voce else "la lettura dichiarata non copre il suo paragrafo, o una causa nuda passa") if x)[:300])
 
 
 # ---------------------------------------------------------------- 3b. fonti: la regola dei fatti e il gancio

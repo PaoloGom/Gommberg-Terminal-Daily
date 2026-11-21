@@ -8,7 +8,7 @@ Regole (ISTRUZIONI §5 e §7), ognuna generale:
  aperture  registro {"sezione": "prime_pagine"} in fatti.json: almeno 3 testate con le loro storie (o l'apertura); se la top
            story non concorda con la maggioranza, serve il "motivo" (§2). AVVISO: manca il flusso della notte, manca "fuori"
            (storie forti altrove che non copriamo), meno di 2 testate tra quelle indicate dalla regola.
- perche    PERCHÉ = causa con fonte ("(Testata)" in coda o "secondo X"), meccanismo ("di solito", "in genere"), lettura della redazione o
+ perche    PERCHÉ = causa con fonte ("(Testata)" in coda o "secondo X"), meccanismo detto come tendenza (stesse forme di controlli_testo.py), lettura della redazione o
            "causa non chiarita" (solo se il registro dell'anomalia ha tutte le ipotesi "non torna"); "le fonti non
            spiegano" è un ERRORE in qualunque sezione del PDF;
            E QUINDI = qualcosa di osservabile: una cifra, una data, un orario, "oggi/domani/<giorno>" o un rimando.
@@ -134,7 +134,7 @@ def _fonte_tra_parentesi():
 
 
 FONTE_PAR = _fonte_tra_parentesi()
-CAUSA_T = re.compile(r"\bsecondo\b|di solito|in genere|lettura della redazione|per noi|la nostra lettura|leggiamo|a nostro (?:giudizio|avviso)|causa non chiarita|\bM\d{2}\b", re.I)
+CAUSA_T = re.compile(r"\bsecondo\b|di solito|in genere|tend(?:e|ono) a|spesso|quasi sempre|di norma|lettura della redazione|per noi|la nostra lettura|leggiamo|crediamo|a nostro (?:giudizio|avviso|parere)|causa non chiarita|\bM\d{2}\b", re.I)
 
 
 class _Causa:

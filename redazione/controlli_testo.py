@@ -9,7 +9,8 @@ Uso: python3 controlli_testo.py <pdf> [--json uscita.json]
   o se sono spiegate più di una volta. Stampa anche l'elenco delle sigle spiegate (va in edizioni.json, campo glossario).
 BLOCCANTI (codice 1): più di 5 righe "→"; una riga "→" oltre 20 parole; una sigla non ovvia la cui prima occorrenza
 (dopo il ticker) non è spiegata tra parentesi; un connettivo causale in una frase con un movimento di mercato senza
-la fonte "(Testata)" nella frase o nel suo paragrafo. Fonti tra parentesi (ISTRUZIONI §3.5): più di 15 nel numero sono un
+la fonte "(Testata)" né la nostra lettura dichiarata nel suo paragrafo (una volta basta: copre tutto il paragrafo, come
+una fonte), e senza la forma di tendenza nella frase. Fonti tra parentesi (ISTRUZIONI §3.5): più di 15 nel numero sono un
 errore, e lo è la stessa testata scritta due volte nello stesso paragrafo (una parentesi copre il paragrafo; altre testate
 nello stesso paragrafo vanno bene); il conteggio per testata è stampato a ogni giro. Lessico di casa (glossario.json,
 "lessico"): avviso, errore per le voci con "blocca" (termini che restano in inglese, calchi). Le sigle spiegate due volte
@@ -23,8 +24,14 @@ MAX_FRECCE = 5
 CONNETTIVI = [r"perch[ée]", r"a causa d", r"spint[oaie] da", r"\bpesa\b", r"\bpesano\b", r"trascin", r"sulla scia d",
               r"\bcomplice\b", r"\bper effetto d", r"\bgrazie a\b", r"\bdopo che\b"]
 # La voce della redazione ("per noi", "leggiamo") vale come lettura dichiarata: niente etichette né parentesi (v7.7).
-VOCE_RED = r"per noi|la nostra lettura|leggiamo|a nostro (?:giudizio|avviso)|lettura della redazione"
-ESENZIONI = re.compile(r"Perch[ée] conta|Il perch[ée] |secondo |stima redazionale|di solito|in genere|tende a|" + VOCE_RED, re.I)
+# Dichiarata una volta copre il suo paragrafo, come una fonte tra parentesi: non si ripete a ogni frase (G-36: nelle
+# edizioni #026-#030 "per noi" era salito a 4 volte ogni 1.000 parole, sempre con le stesse due parole: solo 3 su 41
+# erano ripetizioni nello stesso paragrafo, quindi conta di più poterla dire in più modi). La tendenza di un meccanismo
+# resta nella frase che lo enuncia, e anche lei si può dire in più modi.
+VOCE_RED = r"per noi|secondo noi|la nostra lettura|leggiamo|crediamo|a nostro (?:giudizio|avviso|parere)|lettura della redazione"
+VOCE = re.compile(VOCE_RED, re.I)
+TENDENZA = r"di solito|in genere|tend(?:e|ono) a|spesso|quasi sempre|di norma"
+ESENZIONI = re.compile(r"Perch[ée] conta|Il perch[ée] |secondo |stima redazionale|" + TENDENZA + "|" + VOCE_RED, re.I)
 INGLESE = re.compile(r"\b(?:the|of|and|is|are|they're|it's|we|our|some|will|way|total|with|for|to)\b", re.I)
 
 def _fonte_tra_parentesi():
@@ -77,20 +84,27 @@ def frasi(t):
 
 def connettivi(t, coperti=()):
     """Frasi con un connettivo causale e un movimento di mercato, senza fonte "(Testata)" né forma M/S.
-    coperti = i paragrafi dell'edizione che hanno già una fonte tra parentesi: valgono per tutte le loro frasi."""
+    coperti = i paragrafi dell'edizione che hanno già una fonte tra parentesi o la nostra lettura dichiarata: valgono
+    per tutte le loro frasi."""
     sospetti = []
     ff = frasi(t)
     for i, f in enumerate(ff):
         if any(f[:50] in c for c in coperti):
             continue
-        # una fonte in coda al paragrafo copre il paragrafo: basta una "(Testata)" entro due frasi (ISTRUZIONI §2)
+        # una fonte in coda al paragrafo copre il paragrafo: basta una "(Testata)" entro due frasi (ISTRUZIONI §2);
+        # lo stesso vale per la lettura dichiarata (§3.5)
         vicine = " ".join(ff[max(0, i - 2):i + 3])
-        if ESENZIONI.search(f) or FONTE_PAR.search(vicine) or not MOVIMENTO.search(f):
+        if ESENZIONI.search(f) or FONTE_PAR.search(vicine) or VOCE.search(vicine) or not MOVIMENTO.search(f):
             continue
         for c in CONNETTIVI:
             if re.search(c, f, re.I):
                 sospetti.append(f[:130]); break
     return sospetti
+
+
+def coperti_da(campi):
+    """I paragrafi dell'edizione che coprono le loro cause: hanno una fonte tra parentesi o la nostra lettura dichiarata."""
+    return [c for c in campi.values() if FONTE_PAR.search(c) or VOCE.search(c)]
 
 
 def sigle(t):
@@ -206,7 +220,7 @@ def main():
     lunghe = [f for f in fr if len(f.split()) > 20]
     ed = sys.argv[sys.argv.index("--edizione") + 1] if "--edizione" in sys.argv else None
     campi = paragrafi(ed) if ed and os.path.exists(ed) else None
-    sos = connettivi(t, [c for c in (campi or {}).values() if FONTE_PAR.search(c)])
+    sos = connettivi(t, coperti_da(campi or {}))
     mai, doppie, spiegate = sigle(t)
     testate = per_testata(re.sub(r"\s+", " ", t.rsplit("Fonti", 1)[0]))
     n_fonti = len(FONTE_PAR.findall(re.sub(r"\s+", " ", t.rsplit("Fonti", 1)[0])))
@@ -217,7 +231,7 @@ def main():
     if len(fr) > MAX_FRECCE:
         errori.append(f"{len(fr)} righe → (massimo {MAX_FRECCE}): tieni solo quelle dove il perché non è ovvio")
     errori += [f"riga → oltre 20 parole: {f[:100]}" for f in lunghe]
-    errori += [f"causa senza fonte '(Testata)' in coda: {x}" for x in sos]
+    errori += [f"causa senza fonte '(Testata)' né lettura dichiarata nel paragrafo: {x}" for x in sos]
     errori += [f"sigla non spiegata alla prima occorrenza: {x}" for x in mai]
     # Stile delle fonti (§3): la fonte di un fatto firma in coda "(Testata)"; "secondo X" solo fuori parentesi, per stime,
     # opinioni e citazioni. "(secondo X)" mescola le due forme e toglie protagonismo alla redazione.

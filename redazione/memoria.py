@@ -95,6 +95,22 @@ def approfondimenti(dal):
     return out
 
 
+def spiegati(oggi, quante=5):
+    """In quali delle ultime edizioni è già uscito ogni meccanismo: {"M23": [27, 29, 30]}. Chi legge ogni giorno non deve
+    rileggere la stessa lezione (G-36: nelle edizioni #026-#030 tre meccanismi sono usciti in 4 edizioni su 5, con le
+    stesse parole): un meccanismo appena spiegato si richiama, e lo spazio va al fatto di oggi."""
+    try:
+        voci = json.load(open(os.path.join(REPO, "edizioni.json"), encoding="utf-8"))
+    except Exception:
+        return {}
+    ultime = sorted((v for v in voci if v.get("data", "") < oggi.isoformat()), key=lambda x: x["numero"])[-quante:]
+    out = {}
+    for v in ultime:
+        for m in v.get("meccanismi") or []:
+            out.setdefault(m, []).append(v["numero"])
+    return out
+
+
 def meccanismi(parole, quanti=2):
     """I meccanismi di meccanismi.json che toccano il tema: la spiegazione già verificata del passaggio (perché A muove B),
     da dire con le parole del lettore. Prima quelli col tema nel titolo, poi per numero di parole trovate."""
@@ -172,12 +188,16 @@ def main():
                 print(f"  #{n:03d} {d[8:]}/{d[5:7]} {t}: {tit}")
         mecc = meccanismi(parole)
         if mecc:
+            gia = spiegati(oggi)
             print("Meccanismi che POSSONO servire al passaggio (meccanismi.json). Si usa solo quello che spiega QUESTA tesi, "
-                  "con le parole del lettore e come tendenza ('di solito'); uno che non c'entra o che va contro la tesi "
-                  "confonde: meglio nessuno. L'id di quelli usati va in C[\"meccanismi\"]:")
+                  "con le parole del lettore e come tendenza; uno che non c'entra o che va contro la tesi confonde: meglio "
+                  "nessuno. Uno segnato GIÀ SPIEGATO il lettore l'ha appena letto: si richiama in mezza frase, con parole "
+                  "nuove, e lo spazio va al fatto di oggi (§3.4). L'id di quelli usati va in C[\"meccanismi\"]:")
             for v in mecc:
                 ecc = v.get("eccezioni", "-")
-                print(f"  {v['id']} {v['titolo']} (serve per: {v.get('quando', '-')[:90]}): {v['testo'][:240]} | Non vale se: "
+                dove = gia.get(v["id"])
+                print(f"  {v['id']} {v['titolo']}" + (" - GIÀ SPIEGATO in " + ", ".join(f"#{n:03d}" for n in dove) if dove else "")
+                      + f" (serve per: {v.get('quando', '-')[:90]}): {v['testo'][:240]} | Non vale se: "
                       f"{ecc[:120]}{'...' if len(ecc) > 120 else ''}")
         if not trovati:
             print("Memoria, tema: nessun fatto già schedato con queste parole"); return
