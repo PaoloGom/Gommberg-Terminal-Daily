@@ -18,6 +18,7 @@
 # Il merge ha come contenuto esatto quello collaudato (stesso albero di file). Si può sempre tornare indietro: annulla.
 # GTD_PROVA=1: pubblica e annulla fanno tutto tranne i push sul ramo principale, che stampano.
 set -u
+{   # tra graffe: bash legge tutto lo script prima di eseguirlo ("annulla" cambia i file del repository mentre gira)
 REPO="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "RILASCIO: FERMO - non sono dentro il repository"; exit 1; }
 cd "$REPO" || exit 1
 RAMO="rilascio"; PRINC="main"; PROVA="${GTD_PROVA:-0}"; FONDO=300
@@ -174,3 +175,5 @@ annulla)
   ;;
 *) echo "uso: rilascia.sh avvia | collauda | pubblica [--ok-di-paolo] [--senza-github] | annulla"; exit 1;;
 esac
+exit 0
+}
