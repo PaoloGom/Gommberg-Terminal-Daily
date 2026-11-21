@@ -1,6 +1,6 @@
 # Stato del Gommberg
 
-Aggiornato: 21/11/2026 ore 14:45 (G-37 pronta sul ramo `rilascio`). Deve bastare da solo a una chat nuova. Lo riscrive Claude in corsa, a ogni decisione, insieme al Registro.
+Aggiornato: 21/11/2026 ore 15:10 (G-18 fatta: Registro come ordine di lavoro). Deve bastare da solo a una chat nuova. Lo riscrive Claude in corsa, a ogni decisione, insieme al Registro.
 
 Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b6e-83eb-4b8d032a3783`, https://claude.ai/artifact/KmCtJUZFx2WKVCRaDiHPtE). Una voce si legge per codice (`db_query` su `tasks`, `codice` = "G-xx"). Dal 21/11 ogni voce è un ordine di lavoro: priorità (Max, High, Medium, Low, TBD = idee), ownership (Claude, Insieme, Paolo), targhetta modello e sforzo, scheda con obiettivo, fatto quando, come, decisioni e vincoli, dipendenze ("dopo"). Le decisioni di una voce stanno solo nella sua scheda: qui si citano i codici.
 
@@ -33,4 +33,4 @@ Sabato 21/11: G-07, poi G-06 (da verificare se G-34 l'ha già chiusa) e le altre
 - Modello: Sonnet per controlli e piccole correzioni; Opus per dati, motore, decisioni, sito; Fable solo per revisioni grandi e rare.
 - Una chat per tema; se si allunga, si chiude salvando qui e nel Registro e si riparte da una nuova.
 
-Ultima revisione del patto (skill "gommberg"): 18/11/2026 (lettura del Registro per codice).
+Ultima revisione del patto (skill "gommberg"): 21/11/2026 (scheda delle voci come ordine di lavoro, G-18). Prossimo ritocco in G-39, in un solo salvataggio: due ruoli, Pronta prima di Fatta, voce In corso all'apertura.
