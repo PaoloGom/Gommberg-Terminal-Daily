@@ -1,0 +1,493 @@
+GOMMBERG TERMINAL DAILY                                                                                         Mercoledì 18 novembre 2026 | Edizione n. 028
+I mercati globali spiegati, ogni mattina in 6 pagine                                                          Chiusure al 17 novembre; mattina del 18 novembre dove indicato
+
+
+
+
+ MSCI ACWI (ETF)            S&P 500                   EURO STOXX 50              TREASURY 10 ANNI           EUR/USD                   BRENT FUTURE               ORO
+ 151,34 $                   7.340,53                  6.212,11                   5,10%                      1,0997                    93,14 $                    3.864 $
+ -1,1% g                    -1,0% g                   -2,1% g                    -2 pb g                    0,0% g                    +0,8% g                    +0,3% g
+
+
+
+TOP STORY
+
+
+Nvidia supera le stime e alza la guidance,
+poi il titolo azzera il rialzo
+Il gruppo chiude il trimestre con ricavi sopra le attese di circa il 6% e per il prossimo ne annuncia 130 miliardi di
+dollari, più dei 125 previsti dagli analisti. Nel dopo-chiusura il titolo sale e poi perde il guadagno: Reuters lo dà in
+calo dello 0,3%. Il consiglio esclude il ritorno di Huang, e secondo il Wall Street Journal la SEC (autorità di vigilanza
+della borsa americana) verifica le comunicazioni della società. → pag. 2
+IL QUADRO Per noi stamattina la paura per l'AI pesa meno della Fed. Wall Street è giù di circa l'1% e l'Euro Stoxx 50 cede
+il 2,1%, il peggiore dal 3 marzo. Il 2 anni e il 10 anni scendono di pochi punti base: i Treasury fanno da rifugio meno di
+lunedì. L'oro perde un altro 2,4% e il petrolio cala con le scorte americane.
+
+  IN 30 SECONDI                                                                                            STAMATTINA
+  ▪ Stasera i verbali della Fed dicono quanto era largo il consenso                                        ▪ Nikkei alle 07:25: 59.024,28 (+0,3%)
+    al rialzo. → pag. 5                                                                                    ▪ Hang Seng alle 08:59: 23.274,00 (-1,0%)
+  ▪ Xi e Putin si vedono a Shenzhen e giovedì arriva Trump. →                                              ▪ Oro future alle 09:03: 3.772,70 $ (-2,4%)
+     pag. 5                                                                                                ▪ Brent future alle 09:06: 91,76 $ (-1,5%)
+  ▪ Anthropic punta a un prezzo in cima alla forchetta, secondo                                            ▪ EUR/USD alle 09:06: 1,0980
+     Bloomberg. → pag. 4
+
+
+TOP NEWS
+
+Le notizie del giorno
+
+         GEOPOLITICA                                                                                  TRIMESTRALI
+01 L'Iran colpisce un radar americano in Bahrain, 02 Home Depot cede nonostante l'utile sopra le
+         gli USA rispondono a Qeshm                                                                   attese
+         Droni iraniani hanno preso di mira un radar degli Stati                                      Pesano i mutui americani, più cari con i rendimenti in
+         Uniti. Gli americani hanno colpito un sito di lancio di missili                              rialzo: il titolo perde l'1,8% (AP).
+         sull'isola di Qeshm, mentre l'Oman e il Qatar continuano a
+         mediare (Reuters). → pag. 4
+
+
+
+
+         BANCHE                                                                                       ITALIA
+03 Il guasto di Zelle pesa sulle grandi banche                                               04 Pirelli perde il 3,8% dopo la vendita di un
+         americane                                                                                    pacchetto da Sinochem
+         Un problema tecnico di JPMorgan ha rallentato i pagamenti                                    Il socio cinese ha ceduto azioni per 455 milioni di euro
+         lunedì e le banche principali scendono (AP).                                                 sotto la chiusura del giorno prima (dpa-AFX).
+
+
+
+
+         PETROLIO                                                                                     MATERIE PRIME
+05 Le scorte americane di greggio salgono di 5,3 06 Kepler Cheuvreux alza TotalEnergies, Eni e BP
+         milioni di barili                                                                            a buy
+         Nella settimana al 13 novembre l'aumento è di 5,28                                           Il comparto petrolifero è il migliore dell'Europa in una
+         milioni di barili, mentre il rischio Hormuz frena il calo del                                seduta in forte calo (dpa-AFX).
+         prezzo (Reuters). → pag. 4
+
+
+
+NELLE PAGINE INTERNE
+  PAG. 2 | CHIP                                 PAG. 3 | TASSI USA                             PAG. 3 | EUROPA                               PAG. 4 | PETROLIO
+  I conti non bastano a Nvidia                  I Treasury aspettano la Fed                    L'Europa cade più di New                      Scorte USA contro Hormuz
+                                                                                               York
+
+  PAG. 4 | TECNOLOGIA                                           PAG. 5 | MERCATI E AGENDA                                     PAG. 6 | LA SCOMMESSA
+  Anthropic prima del debutto                                   Numeri, temi aperti e calendario                              8 punti su 12, se finisse oggi
+
+
+
+
+Solo a scopo informativo, non è consulenza finanziaria. Le probabilità sono stime soggettive.                                                            #028 | 2026-11-18 | pag. 1
+Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.
+GOMMBERG TERMINAL DAILY                                                                                         Mercoledì 18 novembre 2026 | Edizione n. 028
+I mercati globali spiegati, ogni mattina in 6 pagine                                                          Chiusure al 17 novembre; mattina del 18 novembre dove indicato
+
+
+
+APPROFONDIMENTO | CHIP
+Per Nvidia la sorpresa sui conti non basta: pesano vertice e indagine
+In media i titoli tecnologici perdono il 2,8%, gli altri settori meno Variazione media dei titoli quotati al Nyse, 17/11 (%)
+
+
+
+
+  Il Nasdaq perde il 4,5% dal massimo dell'11 novembre Nasdaq
+  Composite, chiusure (punti)                                                                                    PERCHÉ
+                                                                                                                 Gli investitori avevano già messo nel prezzo conti
+                                                                                                                 ottimi: Nvidia ha battuto le attese di ricavi per 17
+                                                                                                                 trimestri di fila. Non c'era nel prezzo il rischio su
+                                                                                                                 chi la guida e sulle verifiche in corso. Il consiglio
+                                                                                                                 ha escluso il ritorno di Huang e il Wall Street
+                                                                                                                 Journal riferisce un'indagine della SEC sulle
+                                                                                                                 comunicazioni (Reuters). Ieri le vendite hanno
+                                                                                                                 colpito soprattutto la tecnologia, e il Nasdaq
+                                                                                                                 arretra da giorni.
+
+                                                                                                                 E QUINDI
+                                                                                                                 Alle 15:30 si vede se Nvidia apre sopra i 155,46 $
+                                                                                                                 di ieri: se sì, il calo del dopo-chiusura è riassorbito.
+
+                                                                                                                 IL NUMERO
+                                                                                                                 -17%: il calo di Nvidia da inizio anno a fine
+                                                                                                                 martedì (Reuters).
+
+
+               Nvidia, terzo trimestre fiscale                                               Risultato                               Attese
+
+               Ricavi (mld di dollari)                                                       115,8                                   109,15
+
+               Utile per azione (dollari)                                                    2,68                                    2,47
+
+               Ricavi da data center (mld di dollari)                                        107,6                                   101,85
+
+  ▪   La guidance. Nvidia indica 130                          ▪   Il vertice. Colette Kress guida                          ▪   Chi scommette contro. Muddy
+      miliardi di ricavi per il trimestre in                      Nvidia ad interim: il consiglio valuta                       Waters Research è ribassista sul
+      corso, contro i 125,25 attesi dagli                         candidati interni ed esterni.                                titolo.
+      analisti, e non conta alcuna vendita
+      di chip per data center in Cina
+      (Reuters).
+
+Come può scendere un'azienda che batte tutte le stime? Il prezzo di un titolo non misura quanto è andata bene l'ultima
+trimestrale, ma quanto gli investitori si aspettano dai prossimi anni. Se tutti aspettavano conti ottimi, i conti ottimi non
+cambiano nulla: muove il prezzo solo ciò che nessuno aveva messo nel conto. Per Nvidia, ieri sera, erano il vertice dell'azienda
+e le verifiche in corso (Reuters).
+
+Il caso pesa più di quello di una società qualsiasi perché Nvidia vale circa 3.800 miliardi di dollari (Reuters). In indici come il
+Nasdaq e l'S&P 500, che pesano le società per dimensione, di solito pochi titoli grandi muovono molto l'indice. Per questo il
+destino di Nvidia conta anche per chi non la possiede.
+
+La settimana è stata una sequenza: dimissioni di Huang il 12 novembre, vendite sui chip lunedì, conti martedì sera. Ieri le
+vendite hanno colpito la tecnologia più degli altri settori: in media i titoli tecnologici del Nyse perdono il 2,8%, mentre nessun
+altro settore supera il 2%.
+
+
+      DA GUARDARE
+      Se Nvidia apre sopra i 155 $ e i fornitori europei recuperano, le vendite di ieri erano eccessive. Se le notizie sulla SEC pesano più
+      dei conti, i chip restano sotto pressione anche con una guidance sopra le attese.
+
+Fonti: Reuters, Yahoo Finance; dati FMP (Nasdaq e settori).
+
+
+Solo a scopo informativo, non è consulenza finanziaria. Le probabilità sono stime soggettive.                                                            #028 | 2026-11-18 | pag. 2
+Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.
+GOMMBERG TERMINAL DAILY                                                                                         Mercoledì 18 novembre 2026 | Edizione n. 028
+I mercati globali spiegati, ogni mattina in 6 pagine                                                          Chiusure al 17 novembre; mattina del 18 novembre dove indicato
+
+
+
+APPROFONDIMENTO | TASSI USA
+Con Wall Street giù i Treasury si fermano: il mercato aspetta la Fed
+
+I rendimenti salgono da inizio novembre e restano alti Treasury 2 e
+10 anni, chiusure (%)                                                                                             PERCHÉ
+                                                                                                                  Il 2 anni segue le attese sulla Fed. Per la riunione
+                                                                                                                  dell'8-9 dicembre il mercato prezza un rialzo quasi
+                                                                                                                  certo. Un rialzo da 50 pb a dicembre ha circa il 9%
+                                                                                                                  di probabilità, secondo i future (CME FedWatch,
+                                                                                                                  Reuters): c'è poco da scontare ancora. Per questo
+                                                                                                                  ieri il rifugio si è fermato a metà, con il 2 anni a -3
+                                                                                                                  pb contro i -5 di lunedì.
+
+                                                                                                                  E QUINDI
+                                                                                                                  Stasera alle 20:00 i verbali: se mostrano molti
+                                                                                                                  membri pronti a un rialzo da 50 pb, di solito il 2
+                                                                                                                  anni sale anche con Wall Street in calo.
+
+                                                                                                                  IL NUMERO
+                                                                                                                  +12 pb: la salita del 10 anni in una settimana, da
+                                                                                                                  4,98% a 5,10%. Due sedute di rifugio non hanno
+                                                                                                                  cancellato il rialzo di novembre.
+
+
+Quando la borsa cala molti comprano titoli di Stato per proteggersi: il loro prezzo sale e il rendimento, che si muove al
+contrario, scende. Il rendimento a 2 anni però segue soprattutto le attese sulla Fed, e se il rialzo è già nel prezzo la paura
+da sola lo muove poco.
+
+Non è detto che il rifugio sia finito. Di solito i titoli di Stato fanno da riparo quando la paura riguarda la crescita. Lo fanno
+meno quando l'inflazione tiene alta la banca centrale: ieri il petrolio è calato, ma i rendimenti restano ai livelli più alti di
+novembre. Per chi ha un mutuo o compra casa il segnale conta: i tassi a lunga scadenza, non quelli della Fed, guidano il
+costo dei finanziamenti.
+
+Fonti: curva par del Tesoro via FMP; Reuters.
+
+
+
+
+APPROFONDIMENTO | EUROPA
+L'Europa perde il doppio di Wall Street: il calo viene dai titoli tecnologici
+
+Il calo è più forte dove sono i chip Variazioni del 17/11 (%)
+                                                                                                                  PERCHÉ
+                                                                                                                  Per noi il calo parte dal settore tecnologico:
+                                                                                                                  l'indice europeo dei titoli tecnologici perde il 3,9%
+                                                                                                                  (dpa-AFX), con ASML tra i peggiori. Quando New
+                                                                                                                  York vende i chip i fornitori europei seguono, e
+                                                                                                                  pesano molto nell'indice, mentre petrolio e gas
+                                                                                                                  tengono meglio (dpa-AFX).
+
+                                                                                                                  E QUINDI
+                                                                                                                  Alle 15:30 si vede se Wall Street apre sopra la
+                                                                                                                  chiusura di ieri: se il Nasdaq recupera, i fornitori
+                                                                                                                  europei di chip possono seguirlo.
+
+                                                                                                                  IL NUMERO
+                                                                                                                  1 su 28: la frequenza con cui l'Euro Stoxx 50
+                                                                                                                  perde più del 2,1% in una seduta, sulla nostra
+                                                                                                                  serie storica. Il calo di ieri è il più forte dal 3
+                                                                                                                  marzo.
+
+
+Un indice pesa le società per la loro dimensione: se poche grandi aziende cadono molto, trascinano tutto. Quando New York
+vende i chip, di solito i fornitori europei del settore seguono, e il loro peso nell'indice fa il resto (dpa-AFX).
+
+Milano segue con il Ftse Mib a -1,31%. Lo spread tra Btp e Bund chiude in lieve calo a 105 punti (ANSA). Per noi il rischio
+sull'Italia non sale, a differenza dei titoli.
+
+Fonti: dpa-AFX (Euro Stoxx 50 e tecnologici), ANSA (Milano e spread); chiusure FMP.
+
+
+
+
+Solo a scopo informativo, non è consulenza finanziaria. Le probabilità sono stime soggettive.                                                            #028 | 2026-11-18 | pag. 3
+Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.
+GOMMBERG TERMINAL DAILY                                                                                         Mercoledì 18 novembre 2026 | Edizione n. 028
+I mercati globali spiegati, ogni mattina in 6 pagine                                                          Chiusure al 17 novembre; mattina del 18 novembre dove indicato
+
+
+
+APPROFONDIMENTO | PETROLIO
+Il Brent scende con le scorte USA, ma il rischio Hormuz lo sostiene
+
+Il Brent si muove di oltre il 3% in tre sedute su sette, senza
+direzione Brent future, variazione giornaliera, dal 9 al 17 novembre (%)                                          PERCHÉ
+                                                                                                                  A pesare sono le scorte americane: nella
+                                                                                                                  settimana al 13 novembre c'è stato un aumento di
+                                                                                                                  5,28 milioni di barili di greggio (Reuters). A
+                                                                                                                  sostenere il prezzo restano i rischi sul Golfo: per
+                                                                                                                  LSEG la normalizzazione dei flussi da Hormuz non
+                                                                                                                  è ancora possibile.
+
+
+
+                                                                                                                  E QUINDI
+                                                                                                                  Se un attacco ferma l'oleodotto saudita che porta
+                                                                                                                  il greggio al Mar Rosso evitando Hormuz, di solito
+                                                                                                                  il Brent torna sopra i 100 $. Se invece Hormuz
+                                                                                                                  riapre e le scorte salgono ancora, il prezzo tende a
+                                                                                                                  scendere verso il minimo del 10 novembre, a
+                                                                                                                  91,49 $.
+
+
+
+
+Il prezzo del petrolio dice quanto ne serve e quanto ce n'è. Se le scorte americane crescono, ce n'è più del necessario e il
+prezzo tende a scendere; se le navi non passano da Hormuz, ce n'è meno e tende a salire. Le due spinte si contrastano da
+giorni.
+
+Per l'Europa è la combinazione migliore: di solito soffre quando il greggio sale per carenza di offerta. Dal petrolio
+all'inflazione, inoltre, il passaggio è corto, perché il greggio diventa benzina e gasolio in poche settimane. Un Brent sceso
+del 15% in un mese toglie quindi un po' di pressione sui prezzi che la Fed guarda con più attenzione.
+
+Fonti: Reuters; chiusure FMP del Brent future.
+
+
+
+
+APPROFONDIMENTO | TECNOLOGIA
+Il debutto di Anthropic mette alla prova la liquidità del Nasdaq
+
+  PERCHÉ                                                                                       E QUINDI
+  Secondo Bloomberg, riportato da Reuters, il prezzo sarebbe in                                Al debutto, se il titolo apre sotto il prezzo di collocamento il test
+  cima alla forchetta o sopra, con una valutazione fino a 1.400                                di liquidità è fallito; sopra i 78 $ la domanda regge.
+  miliardi di dollari. La domanda dunque c'è: resta da vedere se
+  basta mentre l'Euro Stoxx 50 perde per il terzo giorno di fila.
+
+
+  IL NUMERO
+  64 mld $: l'incasso massimo se tutte le 825 milioni di azioni si vendono a 78 $ (calcolo su dati RTTNews).
+
+
+  IPO di Anthropic                                   Dato
+
+  Forchetta di prezzo                                70-78 $ per azione
+
+  Azioni offerte                                     825 milioni (801,35 dalla società, 23,65 da azionisti)
+
+  Opzione dei collocatori                            fino a 123,75 milioni di azioni in più
+
+  Valutazione indicata                               fino a 1.400 miliardi di dollari
+
+  Quotazione                                         Nasdaq, simbolo ANT
+
+Venderne 825 milioni in una volta chiede soldi freschi al mercato. Per noi un'IPO così grande, in una settimana di vendite
+sulla tecnologia, si legge prima come test di liquidità e poi come voto sull'AI.
+
+Non c'è una regola sul primo giorno: un titolo può salire in un mercato debole e scendere in uno forte. Conta il confronto
+con il prezzo di collocamento, quello a cui hanno comprato i primi investitori.
+
+Fonti: Reuters, RTTNews.
+
+
+
+
+Solo a scopo informativo, non è consulenza finanziaria. Le probabilità sono stime soggettive.                                                            #028 | 2026-11-18 | pag. 4
+Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.
+GOMMBERG TERMINAL DAILY                                                                                         Mercoledì 18 novembre 2026 | Edizione n. 028
+I mercati globali spiegati, ogni mattina in 6 pagine                                                          Chiusure al 17 novembre; mattina del 18 novembre dove indicato
+
+
+
+MERCATI
+
+I mercati in una pagina
+
+  LA LETTURA               L'Euro Stoxx 50 perde il doppio dell'S&P 500, e il Nikkei sale mentre l'Hang Seng scende: le vendite sui chip
+                           non hanno colpito allo stesso modo tutte le borse.
+
+                                                                           Da inizio            Tassi, cambi, materie            Livello
+ Indice                         Ultimo           1g          1 sett.                                                                               1g            1 sett.      1 mese
+                                                                           anno                 prime                            17/11
+
+ MONDO E STATI UNITI                                                                            TASSI
+ MSCI ACWI (ETF, $)             151,34           -1,1%       -             -                    Treasury 2 anni                  4,80%             -3 pb         +7 pb        +3 pb
+ S&P 500                        7.340,53         -1,0%       -2,4%         +7,2%                Treasury 10 anni                 5,10%             -2 pb         +12 pb       -5 pb
+ Nasdaq Comp.                   24.328,38        -0,7%       -2,9%         +4,7%                Spread Italia                    105 pb            -             -            -
+
+ EUROPA                                                                                         CAMBI
+ Euro Stoxx 50                  6.212,11         -2,1%       -1,8%         +7,2%                EUR/USD                          1,0997            0,0%          -1,5%        -1,9%
+ FTSE MIB                       50.845           -1,3%       -             -                    MATERIE PRIME
+ ASIA (18/11 INTRADAY*)                                                                         Brent future                     93,14 $           +0,8%         +1,8%        -15,0%
+ Nikkei 225*                    59.024,28        +0,3%       -3,6%         +17,3%               Oro (future, $/oncia)            3.864,20          +0,3%         -4,1%        -7,1%
+ Hang Seng*                     23.274,00        -1,0%       -4,3%         -9,2%                VOLATILITÀ
+ Kospi*                         n.d.             0,0%        -             -
+                                                                                                VIX (volatilità attesa)          25,46             +2,55         +6,00        +7,02
+                                                                                               1 g = chiusura su chiusura; 1 sett. = su martedì 10/11 (Asia su mercoledì
+                                                                                               11/11); da inizio anno = su chiusura 2025. * Asia: dato di stamattina (Nikkei
+                                                                                               alle 07:25, Hang Seng alle 08:59, Kospi alle 04:31). 1 mese = sul 19/10. VIX
+                                                                                               = volatilità attesa sull'S&P 500.
+
+
+STORIE IN CORSO            I temi aperti
+ Tema                    A che punto                              Ultima novità                                Cosa si muove                           Cosa guardare
+
+ AI e chip               Conti Nvidia usciti                      Battuti i conti, poi il rialzo               ▼ Titolo Nvidia nel                     Apertura di Wall Street alle
+                                                                  svanisce                                     dopo-chiusura                           15:30
+
+ Fed e tassi             Verbali stasera                          Rialzo di dicembre già nei prezzi            ■ Rendimenti a 2 e 10                   Verbali, mer 18 alle 20:00
+                                                                                                               anni
+
+ Dollaro e oro           Euro a 1,0997 in chiusura                Oro in calo anche con la paura               ▼ Oro future                            Verbali Fed
+
+ Petrolio                Scorte USA in aumento                    Il Brent cala con le scorte                  ▼ Brent                                 Flussi da Hormuz
+Fermi: Cina (nessuna novità verificata dal 16/11).
+
+
+AGENDA         Cosa è uscito e cosa arriva
+ Quando (Roma)          Evento                               Attese                       Perché conta               Come può muovere i mercati, di solito
+ USCITO DALL'ULTIMA EDIZIONE: IL DATO, IL CONFRONTO CON LE ATTESE, DOVE SE NE PARLA
+
+ Mar 17, 14:30          Vendite al dettaglio                 +0,2% sul mese (atteso +0,2%; prima                     ● in linea → pag. 3
+                        USA (ottobre)                        +0,8%)
+
+ Mar 17, 23:00          Conti Nvidia (terzo                  Ricavi 115,8 mld $ (attesi 109,15 mld $)                ▲ sopra → pag. 2
+                        trimestre fiscale)
+ IN ARRIVO
+
+ Mer 18, 14:30          Cantieri avviati USA                 1,23 milioni                 Quanto reggono i           Sopra: l'edilizia tiene anche con i tassi alti.
+                        (ottobre)                            annualizzati; prima          mutui cari                 Sotto: pesa sui titoli delle costruzioni.
+                                                             1,221 milioni
+
+ Mer 18, 20:00          Verbali della riunione               Il 28/10 tassi               Evento n.1:                Sopra: verbali più duri del previsto: di solito salgono
+                        Fed di ottobre                       fermi al                     quanto era largo il        rendimenti a breve e dollaro.
+                                                             3,75-4,00%, con              consenso al rialzo         Sotto: verbali più morbidi: il 2 anni tende a
+                                                             due voti per il                                         scendere.
+                                                             rialzo
+
+ Mer 18, 22:30          Conti Palo Alto Networks             Primo trimestre              Conti USA dopo la          Sopra: di solito il titolo sale se la guidance batte le
+                                                             fiscale; ricavi e utile      chiusura                   attese.
+                                                             contro le stime                                         Sotto: una guidance debole pesa più di un buon
+                                                                                                                     trimestre.
+
+ Gio 19, 01:30          Occupazione in Australia             Disoccupazione:              Dato di apertura           Sopra: più disoccupati, di solito dollaro australiano
+                        (ottobre)                            prima 4,7%                   per l'Asia                 giù.
+                                                                                                                     Sotto: mercato del lavoro solido, Banca centrale più
+                                                                                                                     libera.
+
+
+
+Solo a scopo informativo, non è consulenza finanziaria. Le probabilità sono stime soggettive.                                                             #028 | 2026-11-18 | pag. 5
+Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.
+GOMMBERG TERMINAL DAILY                                                                                         Mercoledì 18 novembre 2026 | Edizione n. 028
+I mercati globali spiegati, ogni mattina in 6 pagine                                                          Chiusure al 17 novembre; mattina del 18 novembre dove indicato
+
+
+
+IL GRAN FINALE | FORECAST
+
+La scommessa della settimana: a che punto siamo
+
+  COME SI GIOCA                                                                                    A CHE PUNTO SIAMO
+  6 domande che muovono tutto il resto, lette in catena: la
+  borsa, il prezzo del denaro, il dollaro, l'energia, la paura.                                    8 punti su 12, se finisse oggi
+                                                                                                                                       par 7,3: chi tira a caso
+  La direzione la scegliamo noi il lunedì e non cambia fino a
+  venerdì. La forchetta è larga quanto l'oscillazione tipica                                       0                                                                              12
+  della settimana e contiene la chiusura di venerdì circa 2                                        ■ 3 dalla direzione ■ 5 dalla forchetta
+  volte su 3. Un punto per la direzione, uno per la forchetta:
+                                                                                                   Rispetto al par: +0,7. Verdetto venerdì 20, a borse
+  massimo 12.
+                                                                                                   chiuse.
+
+
+ Mercato e la sua domanda                           Partenza               Forchetta: dove siamo oggi                              Oggi               Dentro          On track
+
+ S&P 500
+                                                    7.561,67        ↓        7.331                                       7.800     7.340,53           Sì              Sì
+ L'economia e gli utili reggono?
+
+ Euro Stoxx 50
+                                                    6.386,86        ↑        6.240                                       6.537     6.212,11           No              No
+ E l'Europa, casa nostra?
+
+ Treasury 10 anni
+                                                    5,15%           ↑       5,00%                                        5,30%     5,10%              Sì              No
+ Quanto costa il denaro?
+
+ EUR/USD
+                                                    1,1021          ↓       1,0933                                       1,1109 1,0997                Sì              Sì
+ Il dollaro è forte o debole?
+
+ Brent
+                                                    95,84 $         ↑        88,36                                       103,95 93,14 $               Sì              No
+ Energia e guerre pesano sui prezzi?
+
+ Oro
+                                                    3.886 $         ↓        3.751                                       4.026     3.864 $            Sì              Sì
+ Quanta paura c'è?
+
+Partenza: chiusura di venerdì 13 novembre. Oggi: chiusura del 17 novembre. Barra: la forchetta. Tacca: partenza. Rombo: la nostra previsione. Pallino:
+oggi (rosso se fuori dalla forchetta). Per i Treasury la freccia indica il rendimento.
+
+
+  IL PUNTO                 Con noi: oro ed euro vanno dove li avevamo previsti. Contro: le borse cadono molto più della nostra
+                           previsione, per le vendite sui chip. Da qui a venerdì: i verbali della Fed di stasera.
+
+
+PER CHI LEGGE
+
+Parole di oggi
+
+  GUIDANCE                                                      ACQUISTI RIFUGIO                                              VERBALI DELLA FED
+  Le previsioni che l'azienda dà sui propri                     Vendite di azioni e acquisti di titoli                        Il resoconto della riunione della banca
+  ricavi futuri: spesso muovono il titolo più                   considerati sicuri, come Treasury e oro,                      centrale americana, pubblicato
+  dei risultati passati.                                        quando cresce la paura.                                       settimane dopo: mostra quanto erano
+                                                                                                                              divisi i suoi membri.
+
+
+  OFFERTA PUBBLICA INIZIALE (IPO)                               SCORTE DI GREGGIO                                             INDICE PESATO PER DIMENSIONE
+  Il momento in cui una società vende                           Il petrolio già estratto e non ancora                         Un indice in cui le società più grandi
+  azioni al pubblico per la prima volta.                        usato: se crescono, di solito il prezzo                       contano di più: pochi titoli possono
+                                                                scende.                                                       muoverlo da soli.
+
+
+NOTE
+
+Fonti
+ Dati di mercato                    Financial Modeling Prep (indici USA e Asia, VIX, Brent e oro future, curva par del Tesoro USA); Alpha Vantage (EUR/USD,
+                                    ACWI); dpa-AFX (Euro Stoxx 50); ANSA (FTSE MIB, spread con la Germania); Newsquawk (Kospi alle 04:31).
+
+ Prima pagina e                     Reuters, AP, Yahoo Finance, dpa-AFX, ANSA, Newsquawk.
+ mercati
+
+ Calendario e agenda                Census Bureau, Finance Calendar, Australian Bureau of Statistics, Palo Alto Networks, Federal Reserve.
+
+ Approfondimenti                    Chip: Reuters, Yahoo Finance. Tassi: curva par del Tesoro via FMP, Reuters. Europa: dpa-AFX, ANSA. Petrolio: Reuters.
+                                    Anthropic: Reuters, RTTNews.
+
+ La scommessa                       Chiusure di FMP e Alpha Vantage; forchette calcolate dalla volatilità delle ultime 20 sedute.
+
+
+
+
+Solo a scopo informativo, non è consulenza finanziaria. Le probabilità sono stime soggettive.                                                            #028 | 2026-11-18 | pag. 6
+Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.
+

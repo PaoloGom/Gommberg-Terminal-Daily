@@ -113,10 +113,17 @@ def controlla(orig, nuovo, tutto, campo=""):
 
 
 def _carica(ed):
+    # L'edizione legge i suoi argomenti da sys.argv: glieli si presta e poi si rimettono quelli di chi chiama. Senza,
+    # controlli_testo.py (che passa di qui per il ritmo) perdeva il suo --json e non scriveva più testo.json, il file
+    # delle sigle che edizioni_voce.py si aspetta (trovato il 21/11/2026 costruendo la rete del collaudo).
+    argv = sys.argv
     sys.argv = [ed, os.getcwd()]
-    spec = importlib.util.spec_from_file_location("edizione_desk", ed)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
+    try:
+        spec = importlib.util.spec_from_file_location("edizione_desk", ed)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+    finally:
+        sys.argv = argv
     return mod.C
 
 

@@ -1,0 +1,785 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Nvidia batte le stime: ricavi 115,8 mld $ (+103% su un anno) contro 109,15 attesi, guida per il trimestre in corso a 130 mld $ contro 125,25; il consiglio esclude il ritorno di Huang e il titolo, dopo un rialzo iniziale nel dopo-chiusura, è dato in calo dello 0,3%",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://ca.finance.yahoo.com/news/live/nvidia-earnings-live-nvidia-posts-q3-beat-board-says-it-will-not-reinstate-jensen-huang-as-ceo-221428433.html",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "Nvidia earnings live: Nvidia posts Q3 beat as revenue rose 103% YOY to $115.8B, board says it will not reinstate Jensen Huang as CEO",
+    "ricerca": "Nvidia earnings results November 17 2026 shares after hours"
+   },
+   {
+    "testata": "Reuters (KFGO)",
+    "url": "https://kfgo.com/2026/11/17/nvidia-forecasts-quarterly-revenue-above-estimates-in-first-report-since-huangs-exit-as-ceo/",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "expects fourth-quarter revenue of $130.0 billion, plus or minus 3%",
+    "ricerca": "Reuters Nvidia forecast tops estimates board Huang return November 17 2026",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://investing.com/news/economy-news/morning-bid-jensen-huangs-last-hurrah-and-a-nervy-future-for-nvidia-5034758",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Nvidia's stock enjoyed a brief relief rally in after-hours trading before trading down 0.3%.",
+    "ricerca": "Reuters Nvidia forecast tops estimates board Huang return November 17 2026",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Yahoo Finance: \"For the quarter, Nvidia saw earnings per share of $2.68 on revenue of $115.8 billion.\" \"Wall Street analysts were projecting EPS of $2.47 and revenue of $109.15 billion.\" (titolo: \"revenue rose 103% YOY to $115.8B\"); \"The NVIDIA Board unanimously accepted his resignation and does not intend to reinstate Jensen as CEO.\" Reuters/KFGO: \"The company expects fourth-quarter revenue of $130.0 billion, plus or minus 3%\" (stime LSEG circa $125.25 billion). Reuters Morning Bid (Investing.com): \"Nvidia's stock enjoyed a brief relief rally in after-hours trading before trading down 0.3%.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Tutti gli elementi trovati (fonti lette tramite estrazione WebFetch, citazioni parziali). Attenzione: nello stesso momento Yahoo mostra Nvidia a +0,67% nel prezzo overnight e KFGO/Reuters scrive 'up about 2% in extended trading'; il -0,3% e' la lettura successiva del Morning Bid. Il testo del PDF ('sale e poi ridà il rialzo: Reuters lo dà in calo dello 0,3%') e' coerente, ma e' una fotografia, non un dato di chiusura. Yahoo da' la guida come forchetta 127,4-132,6 mld (centro 130)."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "L'Euro Stoxx 50 perde il 2,15% a 6.212,11 punti, il terzo calo di fila; l'indice europeo dei titoli tecnologici cede il 3,9% con ASML -5,3% e STMicroelectronics -3,1%",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (ARIVA)",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-deutliche-verluste-vor-12210851",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "schloss 2,15 Prozent tiefer bei 6.212,11 Punkten",
+    "ricerca": "Europa-Schluss EuroStoxx 17. November 2026",
+    "agenzia": "dpa-AFX"
+   }
+  ],
+  "trovato": "dpa-AFX (ARIVA, roundup 17.11.26), lettura tramite estrazione: Euro Stoxx 50 down 2.15% to 6,212.11 points, its third straight losing day; the Stoxx Europe 600 tech index fell 3.9%, its lowest level since late July; ASML lost 5.3% and STMicro 3.1%.",
+  "verifica": "confermato",
+  "nota_revisore": "Numeri e 'terzo calo di fila' confermati. Il PDF arrotonda a -2,1% (cover, tabella, pag. 3) mentre la fonte dice -2,15%: coerente solo se il calo effettivo e' 2,149%; con -2,15% l'arrotondamento corretto sarebbe -2,2%. Correzione consigliata: scrivere -2,15% o -2,2%, e adeguare 'il doppio di Wall Street' e 'perde piu' del 2,1%'. L'indice tech e' lo Stoxx Europe 600 Technology (il PDF dice genericamente 'indice europeo dei titoli tecnologici', ok)."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Milano chiude in calo dell'1,31% con il Ftse Mib a 50.845 punti; lo spread tra Btp e Bund chiude in lieve calo a 105 punti",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/17/borsa-milano-chiude-in-calo-dell131_f9cf3554-dadc-4aac-8755-5392a2c8951e.html",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "L'ultimo indice Ftse Mib cede l'1,31% a 50.845 punti.",
+    "ricerca": "Borsa Milano chiude 17 novembre Radiocor Ftse Mib Nvidia spread",
+    "agenzia": "ANSA"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/17/borsa-milano-chiude-in-calo-dell131_f9cf3554-dadc-4aac-8755-5392a2c8951e.html",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "Lo spread tra Btp e Bund chiude in lieve calo a 105 punti.",
+    "ricerca": "Borsa Milano chiude 17 novembre Radiocor Ftse Mib Nvidia spread",
+    "agenzia": "ANSA"
+   }
+  ],
+  "trovato": "ANSA: \"L'ultimo indice Ftse Mib cede l'1,31% a 50.845 punti.\" (ultima frase del testo; segue solo la riga di copyright). Nella lista \"Ultima ora\" della stessa pagina, solo titolo: \"Lo spread tra Btp e Bund chiude in lieve calo a 105 punti\" (la riga seguente e' un titolo non collegato: \"Bonelli, se non c'è un programma coraggioso allora niente primarie\").",
+  "verifica": "confermato",
+  "nota_revisore": "Testo corretto del PDF: Ftse Mib -1,31% e spread 'chiude in lieve calo a 105 punti' sono nella pagina ANSA e attribuiti correttamente ad ANSA. La frase 'Per noi il rischio sull'Italia non sale, a differenza dei titoli' non e' in ANSA (la pagina non parla di rischio Italia) ed e' ora presentata come lettura della redazione, quindi non richiede conferma; e' coerente con lo spread in lieve calo. Riserve minori: lo spread e' solo un titolo senza corpo di testo; la pagina scrive 'punti', non 'punti base'; il livello 50.845 non e' ripetuto nella frase del PDF ma e' in tabella e confermato. Lettura tramite estrazione WebFetch."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "Le scorte USA di greggio salgono di 5,28 milioni di barili nella settimana al 13 novembre; il rischio Hormuz frena il calo del prezzo",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/oil-prices-fall-as-higher-us-crude-stocks-temper-supply-risks-ce785edcde8df123",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "Oil prices fall as higher US crude stocks temper supply risks",
+    "ricerca": "Wall Street close November 17 2026 stocks fall Reuters oil Treasury yields",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Reuters (copia Euronext): \"Crude stocks rose by 5.28 million barrels in the week ended November 13,\" \"market sources said on Tuesday, citing data from the American Petroleum Institute\". Frase seguente: \"But continued tensions between the US and Iran and ongoing risks to shipping through the Strait of Hormuz kept price declines limited.\" Descrizione: \"ongoing US-Iran attacks and disruptions to shipping through the Strait of Hormuz limited losses.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Il nuovo testo del PDF e' supportato: scorte di greggio +5,28 mln di barili nella settimana al 13/11 e rischio Hormuz che limita il calo. La pagina attribuisce il dato all'API (citata da fonti di mercato); il PDF ha tolto l'attribuzione, scelta corretta ma non obbligata (si potrebbe rimettere 'secondo l'API'). Il livello del Brent non e' in questa pagina (solo un prezzo intraday), coerente col PDF che lo prende da FMP. La pagina e' la copia Euronext dell'articolo Reuters, non la URL MarketScreener dell'incarico. Lettura tramite estrazione WebFetch."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "L'Iran attacca con droni un radar americano in Bahrain e gli USA colpiscono un sito di lancio sull'isola di Qeshm; Oman e Qatar continuano a mediare",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/oil-prices-fall-as-higher-us-crude-stocks-temper-supply-risks-ce785edcde8df123",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "Oil prices fall as higher US crude stocks temper supply risks",
+    "ricerca": "Wall Street close November 17 2026 stocks fall Reuters oil Treasury yields",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Reuters (copia Euronext), estratto: \"Iranian drones attacked a US military radar system in Bahrain on Tuesday\"; \"the US retaliated with strikes on a missile launch site on Iran's Qeshm Island.\"; \"talks continued between Iran and mediators Oman and Qatar\"",
+  "verifica": "confermato",
+  "nota_revisore": "Tutti e tre gli elementi sono nella pagina (copia Euronext dell'articolo Reuters, non la URL MarketScreener indicata). Il PDF ('Droni iraniani hanno preso di mira un radar...; hanno colpito un sito di lancio di missili sull'isola di Qeshm') e' coerente; il titoletto 'L'Iran colpisce un radar americano' e' un po' piu' forte di 'attacked/took aim' ma accettabile."
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "testo": "Home Depot cede dopo i conti con l'utile sopra le attese: mutui più cari per i tassi in rialzo pesano sul titolo",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP (Lancaster Online)",
+    "url": "https://lancasteronline.com/business/stock_market/us-stocks-fall-again-as-ai-companies-keep-swinging/article_27d76a85-d76e-5a05-8533-1764886ac05a.html",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "US stocks fall again as AI companies keep swinging",
+    "ricerca": "Wall Street close November 17 2026 stocks fall Reuters oil Treasury yields",
+    "agenzia": "AP"
+   }
+  ],
+  "trovato": "AP (copia 2news.com): \"Home Depot sank 1.8% even though it reported profit for the latest quarter that edged past analysts' expectations.\" \"The retailer has been hampered by a housing market chilled by expensive mortgage rates\" \"which have climbed with Treasury yields because of high oil prices, high inflation and other factors.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Qualitativamente confermato (utile sopra le attese, titolo giu', mutui cari legati ai rendimenti). Il -1,8% e' una lettura intraday della pagina AP, non la chiusura: il PDF lo presenta senza 'a meta' seduta'. Il PDF dice 'rendimenti in rialzo': AP li lega ai rendimenti saliti nelle settimane, non al 17/11 (il 10 anni scende di 2 pb)."
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "testo": "Pirelli perde il 3,8% dopo che l'azionista cinese Sinochem ha ceduto un pacchetto da 455 milioni di euro sotto il prezzo di chiusura del giorno prima",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (ARIVA)",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-deutliche-verluste-vor-12210851",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "schloss 2,15 Prozent tiefer bei 6.212,11 Punkten",
+    "ricerca": "Europa-Schluss EuroStoxx 17. November 2026",
+    "agenzia": "dpa-AFX"
+   }
+  ],
+  "trovato": "dpa-AFX (ARIVA), tramite estrazione: Pirelli: \"Down 3.8% after the state-owned Chinese firm Sinochem sold a €455 million stake below Monday's close.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato: -3,8%, 455 mln di euro, venduti sotto la chiusura di lunedi. Citazione ricavata dall'estrazione WebFetch in inglese, l'originale e' in tedesco."
+ },
+ {
+  "id": "N11",
+  "sezione": "top_news",
+  "testo": "Anthropic ha fissato la forchetta di prezzo tra 70 e 78 $ per azione per il debutto al Nasdaq con il simbolo ANT; il prezzo è indicato in cima alla forchetta o sopra, con una valutazione fino a 1.400 mld $",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "RTTNews",
+    "url": "https://www.rttnews.com/3712632/anthropic-sets-ipo-price-range-at-70-78-per-share-launches-roadshow.aspx",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Anthropic has set a price range of $70 to $78 per share for its planned initial public offering (IPO),",
+    "ricerca": "Anthropic IPO price range $70 $78 roadshow Nasdaq November 19 Reuters"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://investing.com/news/economy-news/morning-bid-jensen-huangs-last-hurrah-and-a-nervy-future-for-nvidia-5034758",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "could value the AI developer at as much as $1.4 trillion.",
+    "ricerca": "Reuters Nvidia forecast tops estimates board Huang return November 17 2026",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "RTTNews: \"Anthropic has set a price range of $70 to $78 per share for its planned initial public offering (IPO).\" \"The shares are expected to be listed on the Nasdaq Global Select Market under the ticker symbol \"ANT\".\" Reuters Morning Bid (Investing.com): Anthropic is \"preparing to price shares on Wednesday ahead of its market debut,\" could be valued at \"as much as $1.4 trillion\"; Bloomberg reported it has guided its IPO price to the top of its marketing range or above.",
+  "verifica": "confermato",
+  "nota_revisore": "Attribuzione da correggere: 'prezzo in cima alla forchetta o sopra' e' una notizia di Bloomberg riportata nel Morning Bid, non un'informazione Reuters; il PDF pag. 4 la mette tra parentesi come (Reuters). Suggerito: 'secondo Bloomberg'. La valutazione fino a 1.400 mld e' invece attribuita alla Reuters. Letture tramite estrazione WebFetch."
+ },
+ {
+  "id": "N12",
+  "sezione": "top_news",
+  "testo": "Kepler Cheuvreux porta a «comprare» TotalEnergies, Eni e BP; il comparto petrolifero europeo limita le perdite (-0,8%)",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (ARIVA)",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-deutliche-verluste-vor-12210851",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "schloss 2,15 Prozent tiefer bei 6.212,11 Punkten",
+    "ricerca": "Europa-Schluss EuroStoxx 17. November 2026",
+    "agenzia": "dpa-AFX"
+   }
+  ],
+  "trovato": "dpa-AFX (ARIVA), tramite estrazione: Oil and gas \"The best-performing sector, down only 0.8%\"; \"Kepler Cheuvreux upgraded TotalEnergies, Eni and BP to 'buy.'\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato (-0,8% e rialzo a 'buy' per le tre societa'). Il PDF pag. 1 dice 'migliore dell'Europa': corretto."
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "Nvidia: terzo trimestre con ricavi 115,8 mld $ (attesi 109,15), utile per azione 2,68 $ (atteso 2,47), data center 107,6 mld $ (attesi 101,85); guida a 130 mld $ contro 125,25 mld $ degli analisti; nell'outlook nessuna vendita di chip per data center in Cina",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://ca.finance.yahoo.com/news/live/nvidia-earnings-live-nvidia-posts-q3-beat-board-says-it-will-not-reinstate-jensen-huang-as-ceo-221428433.html",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "Nvidia earnings live: Nvidia posts Q3 beat as revenue rose 103% YOY to $115.8B, board says it will not reinstate Jensen Huang as CEO",
+    "ricerca": "Nvidia earnings results November 17 2026 shares after hours"
+   },
+   {
+    "testata": "Reuters (KFGO)",
+    "url": "https://kfgo.com/2026/11/17/nvidia-forecasts-quarterly-revenue-above-estimates-in-first-report-since-huangs-exit-as-ceo/",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "did not assume any data center chip sales from China in its outlook",
+    "ricerca": "Reuters Nvidia forecast tops estimates board Huang return November 17 2026",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Yahoo Finance: \"For the quarter, Nvidia saw earnings per share of $2.68 on revenue of $115.8 billion.\" \"Wall Street analysts were projecting EPS of $2.47 and revenue of $109.15 billion.\" \"Data Center revenue topped out at $107.6 billion versus an anticipated $101.85 billion.\" Reuters/KFGO: \"The company expects fourth-quarter revenue of $130.0 billion, plus or minus 3%\" (stima LSEG circa $125.25 billion); \"Nvidia said it did not assume any data center chip sales from China in its outlook.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Tutto confermato, compresi EPS, data center e assenza della Cina nella guida. Nota: Yahoo riporta anche che Kress ha citato circa 2,4 mld $ di ricavi Hopper dalla Cina nel trimestre ma senza piu' spedizioni (la stessa pagina cita 2,3 mld altrove): dato non usato dal PDF."
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "Nvidia ha battuto le stime di ricavi per 17 trimestri di fila, ma il titolo, in rialzo nel dopo-chiusura, è tornato in calo dello 0,3%; il Wall Street Journal riferisce un'indagine della SEC sull'accuratezza delle comunicazioni societarie e Muddy Waters ha una posizione ribassista",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://investing.com/news/economy-news/morning-bid-jensen-huangs-last-hurrah-and-a-nervy-future-for-nvidia-5034758",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Nvidia's stock enjoyed a brief relief rally in after-hours trading before trading down 0.3%.",
+    "ricerca": "Reuters Nvidia forecast tops estimates board Huang return November 17 2026",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://investing.com/news/economy-news/morning-bid-jensen-huangs-last-hurrah-and-a-nervy-future-for-nvidia-5034758",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Meanwhile, The Wall Street Journal reported the SEC is investigating Nvidia about the accuracy of its corporate disclosure.",
+    "ricerca": "Reuters Nvidia forecast tops estimates board Huang return November 17 2026",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://investing.com/news/economy-news/morning-bid-jensen-huangs-last-hurrah-and-a-nervy-future-for-nvidia-5034758",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Muddy Waters Research also said it has taken a short position in Nvidia's shares.",
+    "ricerca": "Reuters Nvidia forecast tops estimates board Huang return November 17 2026",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Reuters Morning Bid (Investing.com): \"Nvidia's stock enjoyed a brief relief rally in after-hours trading before trading down 0.3%.\" \"it's topped Wall Street's revenue expectations for 17 consecutive quarters.\" \"The Wall Street Journal reported the SEC is investigating Nvidia about the accuracy of its corporate disclosure.\" \"Muddy Waters Research also said it has taken a short position in Nvidia's shares.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato. La pagina non precisa se il -0,3% sia dopo-chiusura o pre-mercato; il PDF scrive 'nel dopo-chiusura ... ridà il rialzo', lettura ragionevole ma non esplicita. La SEC e' notizia del WSJ riportata da Reuters (il PDF lo dice correttamente)."
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Nvidia vale circa 3.800 mld $ e a fine martedì era in calo di circa il 17% da inizio anno; il direttore finanziario Colette Kress è amministratore delegato ad interim mentre il consiglio valuta candidati interni ed esterni",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (KFGO)",
+    "url": "https://kfgo.com/2026/11/17/nvidia-forecasts-quarterly-revenue-above-estimates-in-first-report-since-huangs-exit-as-ceo/",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "Finance chief Colette Kress is interim CEO, while the board considers internal and external candidates.",
+    "ricerca": "Reuters Nvidia forecast tops estimates board Huang return November 17 2026",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Reuters/KFGO: \"Shares of the roughly $3.8 trillion company were up about 2% in extended trading.\" \"As of Tuesday's close, the stock was down about 17% this year.\" \"Finance chief Colette Kress is interim CEO, while the board considers internal and external candidates.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermati valore di mercato, -17% da inizio anno e ruolo di Kress. Il PDF e' corretto ('direttore finanziario' = finance chief)."
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Euro Stoxx 50 -2,15% il 17/11, l'indice dei titoli tecnologici -3,9% al minimo da fine luglio; il petrolio e gas europeo resiste (-0,8%) grazie ai rialzi del greggio dopo gli attacchi alle petroliere a Hormuz",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa-AFX (ARIVA)",
+    "url": "https://www.ariva.de/news/roundup-aktien-europa-schluss-deutliche-verluste-vor-12210851",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "schloss 2,15 Prozent tiefer bei 6.212,11 Punkten",
+    "ricerca": "Europa-Schluss EuroStoxx 17. November 2026",
+    "agenzia": "dpa-AFX"
+   }
+  ],
+  "trovato": "dpa-AFX (ARIVA), tramite estrazione: Euro Stoxx 50 down 2.15% to 6,212.11 points; the tech index fell 3.9%, its lowest level since late July; oil and gas the best-performing sector, down only 0.8%, supported by higher oil prices after reports of tanker attacks in the Strait of Hormuz.",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato. Il PDF non cita il 'minimo da fine luglio' ne' il motivo (attacchi alle petroliere a Hormuz), che spiega perche' petrolio e gas tengono; la pag. 4 parla invece solo di scorte USA. Stesso appunto sul -2,1% vs -2,15% di N03."
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "testo": "Petrolio 17-18/11: scorte USA di greggio +5,28 mln di barili, benzina +5,12 mln, distillati +351 mila; per LSEG la normalizzazione dei flussi da Hormuz non è ancora possibile; gli Houthi dicono di aver lanciato cinque droni contro stazioni dell'oleodotto saudita East-West",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/oil-prices-fall-as-higher-us-crude-stocks-temper-supply-risks-ce785edcde8df123",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "Oil prices fall as higher US crude stocks temper supply risks",
+    "ricerca": "Wall Street close November 17 2026 stocks fall Reuters oil Treasury yields",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Reuters (copia Euronext): \"Crude stocks rose by 5.28 million barrels in the week ended November 13\"; \"gasoline stocks rose by 5.12 million barrels\"; \"distillate inventories by 351,000 barrels\"; \"normalization of flows through Hormuz is still not possible under current conditions\"; \"launched five drones towards two pumping stations along Saudi Arabia's East-West pipeline\"",
+  "verifica": "confermato",
+  "nota_revisore": "Numeri e citazione LSEG trovati. Dal passaggio estratto non risulta se il lancio dei cinque droni e' 'dichiarato dagli Houthi' (l'estrazione non riporta il verbo di attribuzione) ne' se le scorte siano indicate come dati API: verificare l'attribuzione solo se il testo la riprende. Fonte letta: copia Euronext, non MarketScreener."
+ },
+ {
+  "id": "D06",
+  "sezione": "deep_dive",
+  "testo": "Anthropic: forchetta 70-78 $, circa 801,35 milioni di azioni dalla società e 23,65 milioni da azionisti venditori (825 milioni in tutto) più 123,75 milioni di opzione per i collocatori; quotazione al Nasdaq Global Select Market con il simbolo ANT",
+  "data_evento": "2026-11-10",
+  "novita": "Il prezzo è ora indicato in cima alla forchetta o sopra",
+  "fonti": [
+   {
+    "testata": "RTTNews",
+    "url": "https://www.rttnews.com/3712632/anthropic-sets-ipo-price-range-at-70-78-per-share-launches-roadshow.aspx",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Anthropic has set a price range of $70 to $78 per share for its planned initial public offering (IPO),",
+    "ricerca": "Anthropic IPO price range $70 $78 roadshow Nasdaq November 19 Reuters"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://investing.com/news/economy-news/morning-bid-jensen-huangs-last-hurrah-and-a-nervy-future-for-nvidia-5034758",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Anthropic has guided its IPO price to the top of its marketing range or above.",
+    "ricerca": "Reuters Nvidia forecast tops estimates board Huang return November 17 2026",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "RTTNews: \"Anthropic has set a price range of $70 to $78 per share for its planned initial public offering (IPO).\" \"The company is offering 801.35 million Class A shares\" ... \"selling stockholders are offering an additional 23.65 million shares.\" \"Underwriters have an option to purchase up to 123.75 million additional Class A shares.\" \"The shares are expected to be listed on the Nasdaq Global Select Market under the ticker symbol \"ANT\".\"",
+  "verifica": "confermato",
+  "nota_revisore": "Il totale di 825 milioni non e' scritto nella pagina: e' la somma 801,35+23,65 (corretta). Il PDF scrive 'Nasdaq, simbolo ANT' (ok). La pagina RTTNews non riporta alcuna valutazione: i 1.400 mld vengono dal Morning Bid Reuters."
+ },
+ {
+  "id": "A01",
+  "sezione": "agenda",
+  "testo": "Cantieri e permessi di costruzione USA, mercoledì 18 novembre alle 8:30 a New York (14:30 a Roma): atteso 1,23 milioni annualizzati, prima 1,221 milioni",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Census Bureau",
+    "url": "https://www.census.gov/construction/nrc/current/",
+    "data_pubblicazione": "2026-10-20",
+    "citazione": "Privately-owned housing starts in September were at a seasonally adjusted annual rate of 1,221,000.",
+    "ricerca": "Census Bureau New Residential Construction October 2026 housing starts release schedule November 18",
+    "primaria": true
+   },
+   {
+    "testata": "Finance Calendar",
+    "url": "https://www.financecalendar.com/events/2026-11-18/",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "1.23 m (seasonally adjusted annual rate)",
+    "ricerca": "economic calendar Wednesday November 18 2026 housing starts Eurozone inflation FOMC minutes consensus"
+   }
+  ],
+  "trovato": "Finance Calendar (pagina evento): \"Wednesday, 18 November 2026\" at \"08:30 EST · America/New_York (18 Nov 13:30 London)\". \"Economists expect 1.23 million housing starts, modestly above September's 1.221 million.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Data, ora (8:30 New York = 14:30 Roma, corretto), atteso 1,23 mln e precedente 1,221 mln confermati. La stessa pagina si contraddice dicendo altrove che il consenso non e' ancora disponibile. La pagina census.gov/construction/nrc non e' comparsa nei risultati. Il PDF non cita i permessi: nessuna correzione."
+ },
+ {
+  "id": "MEM-1117-MEM-1116-A04",
+  "sezione": "agenda",
+  "testo": "Verbali della riunione Fed di ottobre, mer 18, 20:00",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FXEmpire",
+    "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-nvidia-earnings-anthropic-ipo-test-ai-trade-1644719",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "The Week Ahead: Nvidia Earnings, Anthropic IPO Test AI Trade",
+    "ricerca": "Wall Street week ahead Nvidia earnings Anthropic IPO Warsh Fed hike December"
+   },
+   {
+    "testata": "Thrive in Markets",
+    "url": "https://thriveinmarkets.com/market-insights/week-ahead-2026-11-16/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Fed Minutes and Nvidia Earnings Could Move Stocks This Week",
+    "ricerca": "markets week ahead November 16 2026 stocks oil Fed"
+   }
+  ],
+  "ripresa": "2026-11-17",
+  "trovato": "19:00 GMT, FOMC Meeting Minutes | the minutes from the October meeting will be released Wednesday.",
+  "verifica": "confermato",
+  "nota_revisore": "FXEmpire: mercoledi' 18 novembre, 19:00 GMT = 20:00 Roma (conversione mia). Admiral Markets indica la data come stima ('around 18 Nov')."
+ },
+ {
+  "id": "A03",
+  "sezione": "agenda",
+  "testo": "Conti trimestrali di Palo Alto Networks mercoledì 18 novembre dopo la chiusura dei mercati USA; conference call alle 13:30 ora del Pacifico (22:30 a Roma)",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Palo Alto Networks (comunicato)",
+    "url": "https://www.ariva.de/news/palo-alto-networks-to-announce-fiscal-first-quarter-2027-4809830",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "will host a video webcast that day at 1:30 p.m. Pacific time",
+    "ricerca": "Palo Alto Networks to announce fiscal first quarter 2027 financial results November 18 2026 after market close",
+    "primaria": true
+   }
+  ],
+  "trovato": "Palo Alto Networks (comunicato, copia TradingView/PR Newswire): \"after U.S. markets close on Wednesday, November 18, 2026\"; \"1:30 p.m. Pacific time\"",
+  "verifica": "confermato",
+  "nota_revisore": "Data e orario confermati; 13:30 Pacifico = 22:30 a Roma (coincide col PDF). La copia ARIVA indicata non e' comparsa nei risultati; letta la copia TradingView dello stesso comunicato. Il PDF dice 'ricavi e utile contro le stime' senza cifre: ok."
+ },
+ {
+  "id": "K01",
+  "sezione": "catalizzatori",
+  "testo": "Vendite al dettaglio USA di ottobre, martedì 17 novembre: +0,2% sul mese a 748,2 miliardi di dollari",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Census Bureau",
+    "url": "https://www.census.gov/retail/sales.html",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "up 0.2 percent (±0.4 percent)* from the previous month.",
+    "ricerca": "Census Bureau advance monthly retail sales October 2026 news release"
+   }
+  ],
+  "tipo": "U",
+  "trovato": "Census Bureau, Monthly Retail Trade - Release Schedule: \"October 2026 | November 17, 2026\"",
+  "verifica": "non_conclusivo",
+  "nota_revisore": "Letta solo la pagina del calendario (la URL census.gov/retail/sales.html non e' comparsa nei risultati): data di uscita martedi 17/11 confermata. Non confermati dalla pagina: +0,2% sul mese e i 748,2 mld $; i titoli di altre fonti nei risultati di ricerca (+0,2% ottobre, 0,8% settembre) li rendono plausibili, ma le pagine (FXStreet, UPI) non si sono aperte. Il PDF non cita i 748,2 mld; 'atteso +0,2%' resta non verificato."
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Nvidia batte le stime e guida a 130 mld $ ma il titolo svanisce (Reuters, 03:30)",
+   "Asia in calo, Nikkei -0,3% sotto 59.000 dopo i conti Nvidia (Newsquawk, 04:31)",
+   "Verbali Fed oggi alle 20:00 (Newsquawk, 04:31)",
+   "Il WSJ: la SEC indaga sull'accuratezza delle comunicazioni Nvidia (Reuters, mattina)",
+   "Petrolio cala con le scorte USA, Iran attacca radar in Bahrain (Reuters, 03:10)",
+   "Anthropic verso il prezzo in cima alla forchetta (Reuters, mattina)"
+  ],
+  "testate": [
+   {
+    "testata": "Reuters",
+    "storie": [
+     "Nvidia forecasts quarterly revenue above estimates in first report since Huang's exit as CEO",
+     "Oil prices fall as higher US crude stocks temper supply risks",
+     "Morning Bid: Jensen Huang's last hurrah, and a nervy future for Nvidia"
+    ]
+   },
+   {
+    "testata": "Bloomberg",
+    "storie": [
+     "Tech Stocks Drop for Fourth Day Ahead of Crucial Nvidia Earnings",
+     "Stocks tumble on Wall Street as Nvidia leads another sell-off in technology companies"
+    ]
+   },
+   {
+    "testata": "AP",
+    "storie": [
+     "US stocks fall again as AI companies keep swinging"
+    ]
+   },
+   {
+    "testata": "ANSA",
+    "storie": [
+     "Borsa: Milano chiude in calo dell'1,31%"
+    ]
+   },
+   {
+    "testata": "dpa-AFX",
+    "storie": [
+     "ROUNDUP/Aktien Europa Schluss: Deutliche Verluste vor Nvidia-Zahlen"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Rete riservata della NSA in panne, citata da CNN come peso sui mercati (CNBC, 17/11)",
+    "motivo": "troppo piccola: l'agenzia ha parlato di manutenzione e CNBC non ha trovato prove di un attacco"
+   },
+   {
+    "storia": "Trimestrale Disney e nuovo amministratore delegato di Home Depot (17/11)",
+    "motivo": "troppo piccola per i mercati globali"
+   }
+  ],
+  "concorda": true,
+  "motivo": "Apertura comune: i conti Nvidia dopo la vendita sull'AI e l'uscita di Huang.",
+  "mancate_ieri": []
+ },
+ {
+  "id": "S1",
+  "sezione": "scaletta",
+  "apertura": {
+   "storia": "Nvidia batte le stime e alza la guida, ma il consiglio esclude Huang e il rialzo svanisce",
+   "perche_prima": "Apertura di Reuters, Bloomberg, AP e dei resoconti asiatici"
+  },
+  "moduli": [
+   {
+    "chiave": "chip",
+    "misura": "doppio",
+    "tesi": "Nvidia ha battuto le stime per il diciassettesimo trimestre di fila e il titolo non regge: per noi il mercato non paga più la sorpresa sui conti, perché il rischio è su chi guida l'azienda e sulle verifiche in corso.",
+    "domanda": "Perché conti migliori delle attese non bastano a far salire Nvidia?",
+    "prove": [
+     "Ricavi 115,8 mld $ contro 109,15 attesi; guida 130 mld $ contro 125,25",
+     "Dopo-chiusura in rialzo poi -0,3% (Reuters)",
+     "Indagine SEC sulle comunicazioni (WSJ) e posizione ribassista di Muddy Waters",
+     "Consiglio: nessun ritorno di Huang, Kress ad interim",
+     "Titolo -17% da inizio anno a fine martedì",
+     "Nessuna vendita di chip per la Cina nell'outlook"
+    ],
+    "contro": "Se in apertura il titolo tiene sopra i 155 $ del 17/11, la tesi cade: era solo un rialzo preso dai venditori.",
+    "schede": [
+     "T01",
+     "D01",
+     "D02",
+     "D03"
+    ],
+    "memoria": "M17, MEM-1117-D02"
+   },
+   {
+    "chiave": "tassi",
+    "misura": "mezzo",
+    "tesi": "Con le borse in calo dell'1% i Treasury quasi non si muovono: il rifugio si è affievolito e il mercato aspetta i verbali per sapere se il rialzo di dicembre sarà da 25 o da 50 punti.",
+    "domanda": "Perché i rendimenti scendono così poco se Wall Street crolla?",
+    "prove": [
+     "2 anni 4,80% (-3 pb), 10 anni 5,10% (-2 pb) contro -5 e -3 di lunedì",
+     "Rialzo di dicembre oltre il 90% su 25 pb (CME FedWatch)",
+     "Verbali alle 20:00",
+     "Schmid e Daly: inflazione alta nei servizi"
+    ],
+    "contro": "Se i verbali sono morbidi i rendimenti scendono più di oggi.",
+    "schede": [
+     "MEM-1117-D07",
+     "K01",
+     "MEM-1117-D02"
+    ],
+    "memoria": "M26, M01"
+   },
+   {
+    "chiave": "europa",
+    "misura": "mezzo",
+    "tesi": "L'Europa perde il doppio di Wall Street perché nell'indice pesano i fornitori di macchine per i chip: l'indice tecnologico -3,9% spiega quasi metà del calo.",
+    "domanda": "Perché l'Europa cade più degli Stati Uniti?",
+    "prove": [
+     "Euro Stoxx 50 -2,15% contro S&P 500 -1,0%",
+     "Indice tecnologico europeo -3,9%, ASML -5,3%",
+     "Calo più forte dal 3 marzo",
+     "Milano -1,31%, spread 105"
+    ],
+    "contro": "Se l'Europa apre in rimbalzo con i tecnologici ancora deboli, il peso dei chip non spiega il calo.",
+    "schede": [
+     "N03",
+     "D04",
+     "N04"
+    ],
+    "memoria": "M17"
+   },
+   {
+    "chiave": "petrolio",
+    "misura": "mezzo",
+    "tesi": "Il Brent resta sotto i 100 dollari malgrado attacchi e droni: le scorte americane in aumento pesano più dei rischi di Hormuz.",
+    "domanda": "Perché il petrolio non sale con la guerra in corso?",
+    "prove": [
+     "Scorte USA di greggio +5,28 mln di barili",
+     "Brent 93,14 $, -20% dal massimo del 23/10",
+     "Hormuz non normalizzato (LSEG)",
+     "Houthi: cinque droni contro stazioni saudite"
+    ],
+    "contro": "Se un attacco ferma davvero un oleodotto o una petroliera, il Brent torna sopra i 100 $.",
+    "schede": [
+     "N05",
+     "D05",
+     "N06"
+    ],
+    "memoria": "M10, M11"
+   },
+   {
+    "chiave": "anthropic",
+    "misura": "mezzo",
+    "tesi": "Anthropic cerca fino a 64 mld $ in un colpo solo mentre i chip scendono: per noi il debutto è un test di liquidità prima ancora che di fiducia.",
+    "domanda": "Perché il debutto di Anthropic conta per chi non compra azioni?",
+    "prove": [
+     "Forchetta 70-78 $, 825 milioni di azioni",
+     "Prezzo in cima alla forchetta o sopra",
+     "Valutazione fino a 1.400 mld $",
+     "Chip in calo da quattro sedute"
+    ],
+    "contro": "Se il titolo debutta sotto il prezzo di collocamento il test è fallito.",
+    "schede": [
+     "N11",
+     "D06"
+    ],
+    "memoria": "MEM-1117-N10"
+   }
+  ]
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Nvidia batte le stime e alza la guida ma il titolo da +4,8% nel dopo-chiusura passa a -0,3%",
+  "ricerche": [
+   "Nvidia earnings results November 17 2026 shares after hours",
+   "Reuters Nvidia forecast tops estimates board Huang return November 17 2026"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Indagine della SEC e posizione ribassista di Muddy Waters riportate dopo i conti",
+    "fonte": "D02",
+    "prevede": "Titolo giù e VIX su",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Nessun ritorno di Huang e incertezza sul vertice",
+    "fonte": "D03",
+    "prevede": "Titolo giù e chip in calo",
+    "prezzi": "in parte"
+   }
+  ],
+  "esito": "ipotesi"
+ },
+ {
+  "id": "A2",
+  "sezione": "anomalia",
+  "fatto": "Treasury 2 anni -3 pb e 10 anni -2 pb con S&P 500 -1,0% e Nasdaq -0,7%",
+  "ricerche": [
+   "Wall Street close November 17 2026 stocks fall Reuters oil Treasury yields"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Rialzo di dicembre già nei prezzi e attesa dei verbali: poco spazio per un nuovo rifugio",
+    "fonte": "MEM-1117-D07",
+    "prevede": "2 anni quasi fermo e dollaro stabile",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Acquisti rifugio come lunedì",
+    "fonte": null,
+    "prevede": "10 anni giù di 5 pb e VIX su",
+    "prezzi": "in parte"
+   }
+  ],
+  "esito": "ipotesi"
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "Kospi e Hang Seng, chiusura del 18/11 (seduta non indicizzata alle 9)",
+  "ricerche": [
+   "Kospi closes November 18 2026",
+   "Seoul shares close Kospi Korea Times 20261118",
+   "Borse asiatiche oggi 18 novembre 2026 Nikkei Hang Seng Kospi chiusura",
+   "Kospi Nikkei Hang Seng close Wednesday November 18 2026 Nvidia results"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "Newsquawk",
+   "url": "https://www.newsquawk.com/headlines/market-analysis-asia-pac-stocks-are-mostly-negative-as-the-early-boost-from-nvidias-earnings-beat-waned"
+  }
+ },
+ {
+  "id": "MEM-1117-D02",
+  "sezione": "deep_dive",
+  "testo": "Nvidia ha perso circa 735 miliardi di dollari di capitalizzazione dalle rivelazioni su Huang; sui mercati pesano anche i dubbi sul valore dell'AI e possibili limiti USA ai data center che affittano chip Nvidia",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP (Daily Excelsior)",
+    "url": "https://www.dailyexcelsior.com/asian-shares-decline-following-stocks-tumbled-on-wall-street",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "Asian shares decline following stocks tumbled on Wall Street",
+    "ricerca": "Asia markets Tuesday November 17 2026 Nikkei Kospi Hang Seng open",
+    "agenzia": "AP"
+   }
+  ],
+  "trovato": "The company has lost $735 billion in market value since the disclosures of CEO Jensen Huang's extramarital affairs.",
+  "verifica": "confermato",
+  "nota_revisore": "AP, cifra esatta. Nella scheda la seconda parte ('possibili limiti USA ai data center che affittano chip Nvidia') NON e' nella pagina AP: AP parla di possibili restrizioni dei Democratici alla costruzione di nuovi data center AI e di regole dell'amministrazione Trump che limitano l'accesso remoto a chip e server avanzati; 'rent/lease' assenti. Il PDF non riporta questa seconda parte. Il dubbio sul valore dell'AI e' in AP come critica a 'prices in a bubble'.",
+  "ripresa": "2026-11-17"
+ },
+ {
+  "id": "MEM-1116-D07",
+  "sezione": "deep_dive",
+  "testo": "Calendario Fed della settimana: martedì 17/11 vendite al dettaglio USA (ottobre) attese +0,2% sul mese, core +0,4%, prima +0,8% e +0,9%; mercoledì 18/11 verbali FOMC di ottobre; lunedì parlano Williams (Fed di New York) e il presidente Warsh",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FXEmpire",
+    "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-nvidia-earnings-anthropic-ipo-test-ai-trade-1644719",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "The Week Ahead: Nvidia Earnings, Anthropic IPO Test AI Trade",
+    "ricerca": "Wall Street week ahead Nvidia earnings Anthropic IPO Warsh Fed hike December"
+   },
+   {
+    "testata": "Thrive in Markets",
+    "url": "https://thriveinmarkets.com/market-insights/week-ahead-2026-11-16/",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Fed Minutes and Nvidia Earnings Could Move Stocks This Week",
+    "ricerca": "markets week ahead November 16 2026 stocks oil Fed"
+   }
+  ],
+  "trovato": "FXEmpire: \"Retail Sales m/m, forecast 0.2% (prior 0.8%)\" e \"Core Retail Sales m/m, forecast 0.4% (prior 0.9%)\" martedi 17/11; \"FOMC Meeting Minutes\" mercoledi 18/11 (riunione di ottobre); \"Fed Chair Warsh Speaks, 17:00 GMT\" e \"FOMC Member Williams Speaks, 14:05 GMT\" lunedi. Thrive: \"The minutes, due Wednesday at 19:00 UTC\" e vendite \"after +0.8% in September\".",
+  "verifica": "confermato",
+  "nota_revisore": "Attese +0,2%/core +0,4% e precedenti +0,8%/+0,9% su FXEmpire; il mese di ottobre e implicito (Thrive: settembre +0,8%). Verbali ottobre, Williams e Warsh lunedi confermati. Nota: Williams e New York non verificato testualmente.",
+  "ripresa": "2026-11-16"
+ },
+ {
+  "id": "MEM-1102-N07",
+  "sezione": "mercati",
+  "testo": "Oro future -3,3% a 3.898,9 $ e argento oltre -6% venerdì: vendite forzate dopo il calo delle azioni, con la Fed ferma a 3,75-4,00% e due voti per il rialzo",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-10-30/gold-falls-below-3900-silver-tumbles-wall-street-selloff-triggers",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "forced liquidation, portfolio rebalancing"
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/fomc-october-2026-fed-holds-rates",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "FOMC October 2026: Fed Holds Rates in a 10-2 Vote as Markets Price a December Hike"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo.",
+  "ripresa": "2026-11-02"
+ },
+ {
+  "id": "MEM-1117-D07",
+  "sezione": "deep_dive",
+  "testo": "Fed 16/11: i future sui tassi danno per fatto il rialzo di dicembre; il 28 ottobre la Fed ha lasciato i tassi al 3,75-4,00% e mercoledì escono i verbali",
+  "data_evento": "2026-11-16",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (MarketScreener)",
+    "url": "https://www.marketscreener.com/news/nasdaq-s-p-500-fall-over-1-in-run-up-to-nvidia-results-anthropic-debut-ce785edfdd89fe26",
+    "data_pubblicazione": "2026-11-16",
+    "citazione": "Nasdaq, S&P 500 fall over 1% in run-up to Nvidia results, Anthropic debut",
+    "ricerca": "stocks Monday November 16 2026 S&P 500 falls Nasdaq tech selloff Reuters",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Newsquawk",
+    "url": "https://www.newsquawk.com/headlines/week-in-focus--16-20th-november-2026-highlights-include-us-retail-sales-fomc-minutes-chinese-activity-data-pboc-lpr-rba-minutes-uk-inflation-and-uk-jobs",
+    "data_pubblicazione": "2026-11-15",
+    "citazione": "Week in Focus: 16-20th November 2026",
+    "ricerca": "week ahead November 17 2026 US retail sales forecast ZEW Nvidia earnings FOMC minutes consensus"
+   }
+  ],
+  "trovato": "Markets are fully pricing in a December rate hike | Minutes from the Federal Open Market Committee's latest meeting, scheduled for Wednesday, | The Federal Reserve kept the federal funds rate at 3.75% to 4.00% on Wednesday 28 October 2026. | The vote was 10-2.",
+  "verifica": "confermato",
+  "nota_revisore": "Rialzo e verbali da Reuters; tassi 3,75-4,00% al 28/10 da Admiral Markets (non nella pagina Reuters). La pagina Newsquawk 'Week in focus' non e' comparsa nei risultati. Il verbale e' mercoledi' 18 (FXEmpire: 19:00 GMT = 20:00 Roma).",
+  "ripresa": "2026-11-17"
+ }
+]

@@ -1,0 +1,25 @@
+[ok] PDF e indice: Pagine: 6 | n.d.: 0
+[ok] Riempimento (pagine e moduli): Riempimento: pagine e moduli pieni | mm liberi: p1=2, p2=0, p3=0, p4=0, p5=15, p6=3
+[ok] Fatti: Revisione: uniti 25 esiti da revisione.json
+AVVISO: N06: dato ufficiale senza il comunicato (cercato: Philadelphia Fed Manufacturing Business Outlook Survey November 2026 prices paid; Philly Fed index November 2026 falls to 6.3 prices paid 58.2
+AVVISO: N06: fonte singola dichiarata (investinglive): nel PDF "(Testata)" in coda al dato
+AVVISO: N08: dato ufficiale senza il comunicato (cercato: jobless claims November 19 2026 Department of Labor release; initial jobless claims 203,000 week ended November 14 2026): nel PDF attribuito "
+AVVISO: N08: fonte singola dichiarata (investinglive): nel PDF "(Testata)" in coda al dato
+AVVISO: MEM-1119-N01: dato ufficiale senza il comunicato (cercato: FOMC minutes October 2026 meeting federalreserve.gov minutes released November 18 2026; Minutes of the Federal Open Market Committee 
+AVVISO: T01: numeri del testo che né la citazione né il revisore riportano: [2.0, 7175.83] (calcolati da noi? altrimenti correggi)
+[ok] Numeri contro dati.json: Numeri confrontati con dati.json: 9 | scarti: 0
+[ok] Scrittura (→, cause, sigle, ritmo): Righe →: 1 (max 5) | cause senza fonte: 0 | sigle non spiegate: 0
+AVVISO: sigle spiegate più di una volta: VIX
+[ok] Temi di prima pagina: Temi di prima pagina: 0 errori, 0 avvisi lessicali
+[ok] Contenuti (estremi, perché, anomalie...): Contenuti: 0 errori, 2 avvisi
+AVVISO: grafici: "Il Brent perde un quinto dal massimo del 23 ottobre" ripete un grafico della #027: cambia taglio (periodo, confronto, soglia) o scegli un altro grafico che provi la tesi
+AVVISO: grafici: "L'oro cade di oltre 400 dollari dal 9 novembre" ripete un grafico della #027: cambia taglio (periodo, confronto, soglia) o scegli un altro grafico che provi la tesi
+[ok] Ripetizioni: Ripetizioni: punteggio 6 (6 cifre in 2+ sezioni)
+AVVISO: 1,43% in 2 sezioni: APPROFONDIMENTO EUROPA, TOP STORY
+AVVISO: 10% in 2 sezioni: APPROFONDIMENTO MATERIE PRIME, APPROFONDIMENTO TECNOLOGIA
+AVVISO: 2,1% in 2 sezioni: APPROFONDIMENTO EUROPA, TOP STORY
+AVVISO: 489,19$ in 2 sezioni: APPROFONDIMENTO TECNOLOGIA, TOP NEWS
+AVVISO: 5,1% in 2 sezioni: APPROFONDIMENTO EUROPA, TOP STORY
+AVVISO: eco "liquidità altri titoli settore" in 2 punti
+[ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
+ESITO: OK - guarda <lavoro>/anteprima.png con Read (una sola immagine)

@@ -1,0 +1,129 @@
+{
+ "movimenti": [
+  {
+   "serie": "S&P 500",
+   "seduta": "2026-11-19",
+   "variazione": -2.018,
+   "tipo": "pct",
+   "z": -2.33,
+   "piu_forte_da": "2026-11-05",
+   "frase_da": "il calo più forte dal 5 novembre",
+   "rarita": "capita circa una seduta su 42",
+   "notevole": true,
+   "testo": "l'S&P 500 -2,0% nella seduta del 19 novembre: il calo più forte dal 5 novembre (capita circa una seduta su 42)"
+  },
+  {
+   "serie": "Euro Stoxx 50",
+   "seduta": "2026-11-19",
+   "variazione": -0.554,
+   "tipo": "pct",
+   "z": -0.56,
+   "piu_forte_da": "2026-11-18",
+   "frase_da": "il calo più forte dal 18 novembre",
+   "rarita": "capita circa una seduta su 2",
+   "notevole": false,
+   "testo": "l'Euro Stoxx 50 -0,6% nella seduta del 19 novembre: il calo più forte dal 18 novembre (capita circa una seduta su 2)"
+  },
+  {
+   "serie": "ACWI",
+   "seduta": "2026-11-19",
+   "variazione": -1.951,
+   "tipo": "pct",
+   "z": -2.02,
+   "piu_forte_da": "2026-11-18",
+   "frase_da": "il calo più forte dal 18 novembre",
+   "rarita": "capita circa una seduta su 18",
+   "notevole": true,
+   "testo": "l'azionario mondiale (ACWI) -2,0% nella seduta del 19 novembre: il calo più forte dal 18 novembre (capita circa una seduta su 18)"
+  },
+  {
+   "serie": "Brent future",
+   "seduta": "2026-11-19",
+   "variazione": 0.033,
+   "tipo": "pct",
+   "z": 0.01,
+   "piu_forte_da": "2026-11-17",
+   "frase_da": "il rialzo più forte dal 17 novembre",
+   "rarita": "capita circa una seduta su 1",
+   "notevole": false,
+   "testo": "il Brent +0,0% nella seduta del 19 novembre: il rialzo più forte dal 17 novembre (capita circa una seduta su 1)"
+  },
+  {
+   "serie": "EUR/USD",
+   "seduta": "2026-11-19",
+   "variazione": -0.064,
+   "tipo": "pct",
+   "z": -0.18,
+   "piu_forte_da": "2026-11-18",
+   "frase_da": "il calo più forte dal 18 novembre",
+   "rarita": "capita circa una seduta su 1",
+   "notevole": false,
+   "testo": "l'euro sul dollaro -0,1% nella seduta del 19 novembre: il calo più forte dal 18 novembre (capita circa una seduta su 1)"
+  },
+  {
+   "serie": "VIX",
+   "seduta": "2026-11-19",
+   "variazione": 3.88,
+   "tipo": "punti",
+   "z": 2.24,
+   "piu_forte_da": "2026-11-05",
+   "frase_da": "il rialzo più forte dal 5 novembre",
+   "rarita": "capita circa una seduta su 25",
+   "notevole": true,
+   "testo": "il VIX +3,9 punti nella seduta del 19 novembre: il rialzo più forte dal 5 novembre (capita circa una seduta su 25)"
+  },
+  {
+   "serie": "Oro future",
+   "seduta": "2026-11-19",
+   "variazione": -1.507,
+   "tipo": "pct",
+   "z": -0.87,
+   "piu_forte_da": "2026-11-18",
+   "frase_da": "il calo più forte dal 18 novembre",
+   "rarita": "capita circa una seduta su 4",
+   "notevole": false,
+   "testo": "l'oro -1,5% nella seduta del 19 novembre: il calo più forte dal 18 novembre (capita circa una seduta su 4)"
+  },
+  {
+   "serie": "Treasury 10 anni",
+   "seduta": "2026-11-19",
+   "variazione": -3.0,
+   "tipo": "pb",
+   "z": -0.67,
+   "piu_forte_da": "2026-11-16",
+   "frase_da": "il calo più forte dal 16 novembre",
+   "rarita": "capita circa una seduta su 2",
+   "notevole": false,
+   "testo": "il rendimento del Treasury a 10 anni -3 pb nella seduta del 19 novembre: il calo più forte dal 16 novembre (capita circa una seduta su 2)"
+  },
+  {
+   "serie": "Treasury 2 anni",
+   "seduta": "2026-11-19",
+   "variazione": -4.0,
+   "tipo": "pb",
+   "z": -0.8,
+   "piu_forte_da": "2026-11-16",
+   "frase_da": "il calo più forte dal 16 novembre",
+   "rarita": "capita circa una seduta su 2",
+   "notevole": false,
+   "testo": "il rendimento del Treasury a 2 anni -4 pb nella seduta del 19 novembre: il calo più forte dal 16 novembre (capita circa una seduta su 2)"
+  }
+ ],
+ "curva": null,
+ "tassi_reali": null,
+ "macro": [
+  {
+   "nome": "Philly Fed novembre",
+   "scarto": -13.7,
+   "caldo": false,
+   "reazione_2a": "normale"
+  },
+  {
+   "nome": "Sussidi di disoccupazione USA (migliaia)",
+   "scarto": 6,
+   "caldo": false,
+   "reazione_2a": "normale"
+  }
+ ],
+ "inversioni": []
+}
