@@ -214,10 +214,11 @@ def tabelle_da_dati(path="dati.json", archivio=None, silenzioso=False):
         n = next((x for x in nomi if x in S), None)
         s = S.get(n) if n else None
         ric = ricavato(n, s, D["oggi"], arch) if s else None
-        if not s or not (s.get("ultimi") or ric) or (isinstance(s.get("var"), (int, float)) and not ric
-                                                      and str((s.get("ultimi") or [["0"]])[0][0])[:10] < D["oggi"]):
+        solo_var = bool(s) and s.get("tipo") == "intraday" and isinstance(s.get("var"), (int, float)) and not ric \
+            and str((s.get("ultimi") or [["0"]])[0][0])[:10] < D["oggi"]      # stamattina c'è la variazione ma non il livello
+        if not s or not (s.get("ultimi") or ric) or solo_var:
             perche = (f"c'è solo la variazione di stamattina e manca la chiusura di ieri ({_gm(_ieri(D['oggi']))}): aggiungila in "
-                      "\"ultimi\"" if s and isinstance(s.get("var"), (int, float)) else "nessun livello in dati.json")
+                      "\"ultimi\"" if solo_var else "nessun livello in dati.json")
             mancanti.append(f"{et.replace('&amp;', '&')}: {perche}, la riga non entra in tabella")
             return None
         st = storia(n, s, arch)

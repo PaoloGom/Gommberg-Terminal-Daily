@@ -23,7 +23,7 @@ def attesi(nome, s, oggi):
     if N.ricavato(nome, s, oggi):    # livello ricavato dalla variazione (segnato ~): non è un numero di dati.json
         return None
     u = N.completa(nome, s)          # la chiusura precedente può venire dall'archivio, come nelle tabelle
-    if len(u) < 2 or (isinstance(s.get("var"), (int, float)) and str(u[0][0])[:10] < oggi):
+    if len(u) < 2 or (s.get("tipo") == "intraday" and isinstance(s.get("var"), (int, float)) and str(u[0][0])[:10] < oggi):
         return None
     v0, v1 = u[0][1], u[1][1]
     t = N.tipo_riga(nome, s)
