@@ -8,7 +8,8 @@ AVVISO: N06: fonte singola dichiarata (investinglive): nel PDF "(Testata)" in co
 AVVISO: N08: dato ufficiale senza il comunicato (cercato: jobless claims November 19 2026 Department of Labor release; initial jobless claims 203,000 week ended November 14 2026): nel PDF attribuito "
 AVVISO: N08: fonte singola dichiarata (investinglive): nel PDF "(Testata)" in coda al dato
 [ok] Numeri contro dati.json: Numeri confrontati con dati.json: 9 | scarti: 0
-[ok] Scrittura (→, cause, sigle, ritmo): Righe →: 1 (max 5) | cause senza fonte: 0 | sigle non spiegate: 0
+[ROSSO] Scrittura (→, cause, sigle, ritmo):
+ERRORE: lessico: "la vendita dell'AI" (5 volte): scrivi le vendite, l'ondata di vendite, il ribasso (se è la cessione di un bene: "la cessione")
 AVVISO: sigle spiegate più di una volta: VIX
 [ok] Temi di prima pagina: Temi di prima pagina: 0 errori, 0 avvisi lessicali
 [ok] Contenuti (estremi, perché, anomalie...): Contenuti: 0 errori, 2 avvisi
@@ -22,4 +23,4 @@ AVVISO: 489,19$ in 2 sezioni: APPROFONDIMENTO TECNOLOGIA, TOP NEWS
 AVVISO: 5,1% in 2 sezioni: APPROFONDIMENTO EUROPA, TOP STORY
 AVVISO: eco "liquidità altri titoli settore" in 2 punti
 [ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
-ESITO: ERRORI in Fatti - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia
+ESITO: ERRORI in Fatti Scrittura (→, cause, sigle, ritmo) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia

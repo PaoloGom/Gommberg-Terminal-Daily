@@ -220,6 +220,38 @@ def passo_modello():
         esito("Modello: controlli", True, ", ".join(INDIPENDENTI) + " (Fatti e Contenuti non giudicati: servono le schede del giorno)")
 
 
+# ---------------------------------------------------------------- 3a. scrittura: lessico di casa e fonti tra parentesi
+def passo_scrittura():
+    """Casi costruiti: i calchi dall'inglese trovati nelle edizioni #019-#030 si fermano, l'italiano giusto che gli somiglia
+    passa; la stessa testata due volte tra parentesi in un paragrafo si ferma, due testate diverse no."""
+    import controlli_testo as T
+    lex = [v for v in json.load(open(os.path.join(R, "glossario.json"), encoding="utf-8"))["lessico"]["voci"] if v.get("blocca")]
+    ferma = lambda x: any(re.search(rx, x, re.I) for v in lex for rx in v["evita"])
+    calchi = ["Nvidia alza la guida per il quarto trimestre", "la guida per il 2027 delude", "il titolo ridà tutto il rialzo di ieri",
+              "Kepler alza il giudizio a «comprare»", "La vendita sull'AI si allarga", "La vendita colpisce Taipei e Seul",
+              "il debutto non ferma la vendita dell'AI", "dove i chip pesano meno la vendita si ferma", "se tiene, la vendita è finita"]
+    giuste = ["Huang valuta un ritorno alla guida di Nvidia", "Cook lascia la guida di Apple", "Nvidia conferma la guidance",
+              "Pirelli perde dopo la vendita di un pacchetto da Sinochem", "la vendita delle prime azioni al pubblico",
+              "la vendita dei chip alla Cina resta vietata", "il dato ridà fiato alle borse", "le vendite colpiscono Taipei",
+              "Kepler alza il giudizio a buy"]
+    sfuggiti = [c for c in calchi if not ferma(c)]
+    fermate = [c for c in giuste if ferma(c)]
+    g = {v["sigla"]: v for v in json.load(open(os.path.join(R, "glossario.json"), encoding="utf-8"))["voci"]}
+    sigla = bool(g.get("guidance", {}).get("ovvio"))            # guidance non è una sigla da spiegare
+    campi = {"a": "Il titolo cede il 3% (Reuters). Il gruppo taglia i costi (Reuters).",
+             "b": "Il titolo cede il 3% (Reuters). Per gli analisti pesa il debito (Bloomberg).", "c": "Nessuna fonte qui."}
+    rip = T.fonti_ripetute(campi)
+    conta = T.per_testata(" ".join(campi.values()))
+    lunga = "Il titolo scende perché il gruppo taglia le stime. Una frase. Un'altra frase. Ancora una. E il calo resta (Reuters)."
+    coperta = not T.connettivi(lunga, [lunga]) and bool(T.connettivi("Il titolo scende perché il gruppo taglia le stime. A. B. C. D."))
+    ok = not sfuggiti and not fermate and sigla and len(rip) == 1 and rip[0].startswith("a:") and conta == {"Reuters": 3, "Bloomberg": 1} and coperta
+    esito("Scrittura: lessico di casa e fonti tra parentesi", ok,
+          f"{len(calchi)} calchi fermati, {len(giuste)} frasi giuste passate, stessa testata due volte in un paragrafo fermata" if ok else
+          "; ".join(x for x in (f"calchi non fermati: {sfuggiti}" if sfuggiti else "", f"frasi giuste fermate: {fermate}" if fermate else "",
+                                "" if sigla else "guidance è ancora una sigla da spiegare", f"ripetute: {rip}; conteggio: {conta}",
+                                "" if coperta else "una parentesi non copre il suo paragrafo") if x)[:300])
+
+
 # ---------------------------------------------------------------- 3b. fonti: la regola dei fatti e il gancio
 def passo_fonti():
     lav = os.path.join(TMP, "fonti")
@@ -742,6 +774,7 @@ def main():
         passo_sintassi()
         passo_avvio()
         passo_modello()
+        passo_scrittura()
         passo_fonti()
         passo_dati()
         passo_rete()

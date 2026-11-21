@@ -9,8 +9,11 @@ Uso: python3 controlli_testo.py <pdf> [--json uscita.json]
   o se sono spiegate più di una volta. Stampa anche l'elenco delle sigle spiegate (va in edizioni.json, campo glossario).
 BLOCCANTI (codice 1): più di 5 righe "→"; una riga "→" oltre 20 parole; una sigla non ovvia la cui prima occorrenza
 (dopo il ticker) non è spiegata tra parentesi; un connettivo causale in una frase con un movimento di mercato senza
-la fonte "(Testata)" nella frase o nel suo paragrafo (due frasi prima o dopo). Più di 15 fonti tra parentesi sono
-un errore (ISTRUZIONI §3.5); le sigle spiegate due volte sono solo un avviso.
+la fonte "(Testata)" nella frase o nel suo paragrafo. Fonti tra parentesi (ISTRUZIONI §3.5): più di 15 nel numero sono un
+errore, e lo è la stessa testata scritta due volte nello stesso paragrafo (una parentesi copre il paragrafo; altre testate
+nello stesso paragrafo vanno bene); il conteggio per testata è stampato a ogni giro. Lessico di casa (glossario.json,
+"lessico"): avviso, errore per le voci con "blocca" (termini che restano in inglese, calchi). Le sigle spiegate due volte
+sono solo un avviso.
 Ritmo (§3.4): una frase oltre 30 parole è un errore; 4 frasi di fila con media sotto 12 parole (telegramma) un avviso.
 Il ritmo si misura sui campi dell'edizione (--edizione <edizione.py>); dal solo PDF è una stima e vale come avviso."""
 import json, os, re, subprocess, sys
@@ -32,6 +35,17 @@ def _fonte_tra_parentesi():
 
 
 FONTE_PAR = _fonte_tra_parentesi()
+NOME_FONTE = re.compile(r"\b(?:" + "|".join(sorted((re.escape(n) for n in json.load(
+    open(os.path.join(QUI, "fonti.json"), encoding="utf-8")).get("nomi", [])), key=len, reverse=True)) + r")\b")
+
+
+def per_testata(t):
+    """Quante volte ogni testata è scritta tra parentesi nel testo t: {"Reuters": 3, "AP": 1}."""
+    conta = {}
+    for m in FONTE_PAR.finditer(t):
+        for n in dict.fromkeys(NOME_FONTE.findall(m.group(0))):
+            conta[n] = conta.get(n, 0) + 1
+    return conta
 
 
 
@@ -61,11 +75,14 @@ def frasi(t):
     return [f.strip() for f in re.split(r"(?<=[.;!?])\s+", flat) if f.strip()]
 
 
-def connettivi(t):
-    """Frasi con un connettivo causale e un movimento di mercato, senza fonte "(Testata)" né forma M/S."""
+def connettivi(t, coperti=()):
+    """Frasi con un connettivo causale e un movimento di mercato, senza fonte "(Testata)" né forma M/S.
+    coperti = i paragrafi dell'edizione che hanno già una fonte tra parentesi: valgono per tutte le loro frasi."""
     sospetti = []
     ff = frasi(t)
     for i, f in enumerate(ff):
+        if any(f[:50] in c for c in coperti):
+            continue
         # una fonte in coda al paragrafo copre il paragrafo: basta una "(Testata)" entro due frasi (ISTRUZIONI §2)
         vicine = " ".join(ff[max(0, i - 2):i + 3])
         if ESENZIONI.search(f) or FONTE_PAR.search(vicine) or not MOVIMENTO.search(f):
@@ -136,9 +153,8 @@ def ritmo(ff):
     return lunghe, tele
 
 
-def ritmo_campi(ed):
-    """§3.4 sui testi del dizionario C (ogni campo è un paragrafo), con le riscritture del desk già applicate.
-    È la misura esatta: sul testo estratto dal PDF titoli, elenchi e tabelle si fondono in "frasi" che non esistono."""
+def paragrafi(ed):
+    """I testi del dizionario C (ogni campo è un paragrafo), con le riscritture del desk già applicate: {campo: testo}."""
     sys.path.insert(0, QUI)
     import desk
     qui = os.getcwd()
@@ -148,9 +164,20 @@ def ritmo_campi(ed):
     except Exception:  # noqa: BLE001
         pass
     os.chdir(qui)
+    return {campo: re.sub(r"\s+", " ", re.sub(r"<[^>]+>|\[\[\w+\]\]", "", str(t))) for campo, t in desk.campi(C).items()}
+
+
+def fonti_ripetute(campi):
+    """§3.5: in un paragrafo la stessa testata tra parentesi una volta sola (un'altra testata ha la sua)."""
+    return [f"{campo}: \"({n})\" {k} volte nello stesso paragrafo: una parentesi copre il paragrafo, togli le altre (§3.5)"
+            for campo, t in campi.items() for n, k in per_testata(t).items() if k > 1]
+
+
+def ritmo_campi(campi):
+    """§3.4 sui paragrafi dell'edizione. È la misura esatta: sul testo estratto dal PDF titoli, elenchi e tabelle si
+    fondono in "frasi" che non esistono."""
     errori, avvisi = [], []
-    for campo, t in desk.campi(C).items():
-        t = re.sub(r"<[^>]+>|\[\[\w+\]\]", "", str(t))
+    for campo, t in campi.items():
         lunghe, tele = ritmo([f.strip() for f in re.split(r"(?<=[.!?])\s+", t) if f.strip()])
         errori += [f"{campo}: frase oltre {MAX_PAROLE} parole ({len(g.split())}): spezzala dove cambia l'idea (§3.4): {g[:70]}"
                    for g in lunghe]
@@ -161,7 +188,7 @@ def ritmo_campi(ed):
 
 def stile(ed):
     """Solo il ritmo, prima del PDF: python3 controlli_testo.py --stile <edizione.py>"""
-    errori, avvisi = ritmo_campi(ed)
+    errori, avvisi = ritmo_campi(paragrafi(ed))
     for e in errori:
         print("ERRORE: " + e[:155])
     for a in avvisi:
@@ -177,10 +204,15 @@ def main():
     t, tl = testo(pdf), testo(pdf, layout=True)
     fr = frecce(t)
     lunghe = [f for f in fr if len(f.split()) > 20]
-    sos = connettivi(t)
+    ed = sys.argv[sys.argv.index("--edizione") + 1] if "--edizione" in sys.argv else None
+    campi = paragrafi(ed) if ed and os.path.exists(ed) else None
+    sos = connettivi(t, [c for c in (campi or {}).values() if FONTE_PAR.search(c)])
     mai, doppie, spiegate = sigle(t)
+    testate = per_testata(re.sub(r"\s+", " ", t.rsplit("Fonti", 1)[0]))
     n_fonti = len(FONTE_PAR.findall(re.sub(r"\s+", " ", t.rsplit("Fonti", 1)[0])))
-    print(f"Righe →: {len(fr)} (max {MAX_FRECCE}) | cause senza fonte: {len(sos)} | sigle non spiegate: {len(mai)}")
+    print(f"Righe →: {len(fr)} (max {MAX_FRECCE}) | cause senza fonte: {len(sos)} | sigle non spiegate: {len(mai)} | "
+          f"fonti tra parentesi: {n_fonti} (max 15)" + (": " + ", ".join(f"{n} {k}" for n, k in sorted(
+              testate.items(), key=lambda x: (-x[1], x[0])))[:90] if testate else ""))
     errori = []
     if len(fr) > MAX_FRECCE:
         errori.append(f"{len(fr)} righe → (massimo {MAX_FRECCE}): tieni solo quelle dove il perché non è ovvio")
@@ -206,9 +238,10 @@ def main():
     # Si misura sui campi dell'edizione (--edizione <edizione.py>, lo passa controlli_tutti.sh): è esatto. Senza il file
     # dell'edizione resta la stima dal PDF, che vale solo come avviso: lì titolo e sommario, i punti di un elenco o una
     # tabella intera si fondono in una "frase" (collaudo del 14/11: 5-6 falsi errori in ognuna delle edizioni #022-#025).
-    ed = sys.argv[sys.argv.index("--edizione") + 1] if "--edizione" in sys.argv else None
-    if ed and os.path.exists(ed):
-        e_ritmo, a_ritmo = ritmo_campi(ed)
+    ripetute = fonti_ripetute(campi) if campi else []
+    errori += ripetute
+    if campi:
+        e_ritmo, a_ritmo = ritmo_campi(campi)
         errori += e_ritmo[:6]
         avvisi += a_ritmo[:3]
     else:
@@ -217,12 +250,14 @@ def main():
         avvisi += [f"forse una frase oltre {MAX_PAROLE} parole ({len(g.split())}, stima dal PDF): {g[:80]}" for g in lunghe_prosa[:3]]
         avvisi += [f"telegramma, {n} frasi staccate: legale tra loro (e, ma, mentre...) (§3.4): {g[:70]}"
                    for n, g in telegrammi[:3]]
-    # v7.8 (§9.4): lessico di casa (glossario.json, "lessico"): un concetto, un nome.
+    # Lessico di casa (glossario.json, "lessico"): un concetto, un nome. Le voci con "blocca" fermano: sono i termini che
+    # la stampa finanziaria italiana tiene in inglese e i modi di dire tradotti parola per parola (§3.4).
     lex = json.load(open(os.path.join(QUI, "glossario.json"), encoding="utf-8")).get("lessico", {}).get("voci", [])
     for v in lex:
         trovate = [m.group(0) for rx in v.get("evita", []) for m in re.finditer(rx, piatto, re.I)]
         if len(trovate) > v.get("max", 0):
-            avvisi.append(f"lessico: \"{trovate[0]}\" ({len(trovate)} volte): scrivi \"{v['termine']}\"")
+            (errori if v.get("blocca") else avvisi).append(
+                f"lessico: \"{trovate[0]}\" ({len(trovate)} volte): scrivi {v['termine']}")
     for e in errori[:6]:
         print("ERRORE: " + e[:155])
     for a in avvisi:
@@ -231,11 +266,11 @@ def main():
         print("AVVISO: sigle spiegate più di una volta: " + ", ".join(doppie)[:140])
     if n_fonti > 15:
         print(f"ERRORE: {n_fonti} fonti tra parentesi nel testo (massimo 15): togli quelle di dati, eventi e notizie "
-              "confermate da 2+ testate (stanno nella riga Fonti); restano cause, notizie e dati da fonte singola")
+              "confermate (stanno nella riga Fonti); restano cause, notizie e dati con un solo autore, una per paragrafo")
     print("Sigle spiegate (campo glossario): " + (", ".join(spiegate) or "-")[:150])
     if "--json" in sys.argv:
         json.dump({"frecce": fr, "connettivi": sos, "sigle_mai_spiegate": mai, "sigle_doppie": doppie,
-                   "glossario": spiegate, "errori": errori},
+                   "glossario": spiegate, "errori": errori, "fonti_parentesi": testate},
                   open(sys.argv[sys.argv.index("--json") + 1], "w"), ensure_ascii=False, indent=1)
     if errori or n_fonti > 15:
         sys.exit(1)

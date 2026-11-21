@@ -371,7 +371,7 @@
   {
    "sigla": "guidance",
    "breve": "previsioni dell'azienda",
-   "ovvio": false
+   "ovvio": true
   },
   {
    "sigla": "IPO",
@@ -415,7 +415,7 @@
   }
  ],
  "lessico": {
-  "nota": "v7.8: un concetto, un nome. 'termine' = come lo scriviamo; 'evita' = espressioni regolari delle varianti da non usare (il controllo del testo le segnala come AVVISO). Nuovo tema con più nomi: aggiungi una voce.",
+  "nota": "Un concetto, un nome. 'termine' = come lo scriviamo; 'evita' = espressioni regolari delle varianti da non usare; 'max' = quante volte la variante è tollerata (0 se manca). Il controllo del testo le segnala come AVVISO; con 'blocca': true come ERRORE: sono i termini che la stampa finanziaria italiana tiene in inglese e i modi di dire inglesi tradotti parola per parola (ISTRUZIONI §3.4). Una voce nuova entra quando lo stesso calco torna in più edizioni, non per un caso solo.",
   "voci": [
    {
     "termine": "spread BTP-Bund",
@@ -438,11 +438,35 @@
     ]
    },
    {
-    "termine": "previsioni (guidance tra parentesi solo la prima volta)",
+    "termine": "guidance (resta in inglese, senza parentesi: mai \"la guida\")",
     "evita": [
-     "\\bguidance\\b(?![^.]*\\bprevision)"
+     "\\b(?:alz|tagli|conferm|rived|abbass|miglior|peggior|riduc|aument|ritocc)\\w* (?:la|le|sua|propria|loro) guid[ae]\\b",
+     "\\bguid[ae] (?:per|sul|sull[ao']|sui|sugli|annual[ei]|trimestral[ei]|20\\d\\d)"
     ],
-    "max": 1
+    "blocca": true
+   },
+   {
+    "termine": "buy, sell, hold e gli altri giudizi degli analisti: in inglese, senza virgolette",
+    "evita": [
+     "«(?:comprare|vendere|mantenere|acquistare|tenere)»",
+     "\\b(?:giudizio|rating|raccomandazione)\\b[^.]{0,30}\\b(?:a|di|da) (?:comprare|vendere|mantenere|acquistare)\\b"
+    ],
+    "blocca": true
+   },
+   {
+    "termine": "le vendite, l'ondata di vendite, il ribasso (se è la cessione di un bene: \"la cessione\")",
+    "evita": [
+     "\\bla vendita (?:sull?\\w*\\b|su(?:i|gli|lle)\\b|dell'AI\\b|asiatic\\w+|american\\w+|europe\\w+|globale|corean\\w+|tecnologic\\w+|di (?:ieri|oggi|lunedì|martedì|mercoledì|giovedì|venerdì)\\b|(?:non )?(?:è (?:larga|finita|passata|globale)|era un|resta|si (?:ferma|allarga|estende|sposta)|colpi\\w+|pesa|arriva|parti\\w*|risparmia|riguarda|accelera|prosegue|continua|rallenta|travolge|può (?:restare|allargarsi|estendersi))\\b)",
+     "\\b(?:spinge\\w*|ferma\\w*|alimenta\\w*|scatena\\w*) la vendita\\b(?! d(?:i|el|ell[ao']|ei|egli|elle)\\b)"
+    ],
+    "blocca": true
+   },
+   {
+    "termine": "azzera, cancella, restituisce il rialzo (non \"ridà\")",
+    "evita": [
+     "\\brid(?:à|anno|ava|avano|ato)\\b (?:tutto|tutti|metà|parte|quasi|il rialzo|i rialzi|i guadagni|il guadagno|quanto)"
+    ],
+    "blocca": true
    },
    {
     "termine": "investimenti nell'AI",

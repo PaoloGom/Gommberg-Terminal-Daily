@@ -11,10 +11,8 @@ AVVISO: D06: numeri del testo che né la citazione né il revisore riportano: [8
 AVVISO: Nikkei 225: riga non trovata nel PDF
 AVVISO: Hang Seng: riga non trovata nel PDF
 AVVISO: Kospi: riga non trovata nel PDF
-[ROSSO] Scrittura (→, cause, sigle, ritmo):
-ERRORE: sigla non spiegata alla prima occorrenza: guidance (upera le stime e alza la guidance, poi il titolo)
-AVVISO: lessico: "spread tra Btp e Bund" (1 volte): scrivi "spread BTP-Bund"
-AVVISO: lessico: "guidance" (5 volte): scrivi "previsioni (guidance tra parentesi solo la prima volta)"
+[ok] Scrittura (→, cause, sigle, ritmo): Righe →: 1 (max 5) | cause senza fonte: 0 | sigle non spiegate: 0 | fonti tra parentesi: 12 (max 15): Reuters 9, AP
+AVVISO: lessico: "spread tra Btp e Bund" (1 volte): scrivi spread BTP-Bund
 [ok] Temi di prima pagina: Temi di prima pagina: 0 errori, 0 avvisi lessicali
 [ok] Contenuti (estremi, perché, anomalie...): Contenuti: 0 errori, 2 avvisi
 AVVISO: aperture: servono 2 resoconti d'agenzia o testate globali (Reuters, AP, AFP, Bloomberg, CNBC...) e 1 italiana (Radiocor/Sole 24 Ore, Milano Finanza)
@@ -26,4 +24,4 @@ AVVISO: eco "era largo consenso rialzo" in 2 punti
 AVVISO: eco "new york vende chip" in 2 punti
 AVVISO: eco "nvidia terzo trimestre fiscale" in 2 punti
 [ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
-ESITO: ERRORI in Fatti Scrittura (→, cause, sigle, ritmo) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia
+ESITO: ERRORI in Fatti - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia

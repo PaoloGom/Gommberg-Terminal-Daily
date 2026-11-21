@@ -137,8 +137,8 @@ C = {
          "testo": "Utile e ricavi del terzo trimestre crescono di oltre metà in un anno. A Taipei e a Seul, però, conta di "
                   "più la paura dei concorrenti cinesi.", "rimando": "chip"},
         {"tag": "Asia", "titolo": "SoftBank cede quasi il 10% all'apertura di Tokyo",
-         "testo": "Con lei Kioxia e Advantest perdono circa l'11%: la vendita dei titoli legati all'intelligenza "
-                  "artificiale è arrivata in Asia.", "rimando": "chip"},
+         "testo": "Con lei Kioxia e Advantest perdono circa l'11%: le vendite sui titoli legati all'intelligenza "
+                  "artificiale sono arrivate in Asia.", "rimando": "chip"},
         {"tag": "Cina", "titolo": "La cinese CXMT presenta nuove memorie e spaventa i concorrenti",
          "testo": "Per un analista di BNP Paribas AM è l'annuncio sulle memorie di nuova generazione a pesare sui titoli "
                   "(Milano Finanza).", "rimando": "chip"},
@@ -195,7 +195,7 @@ C = {
     # e la prima pagina no, e spiega il passaggio a chi le tabelle non le sa leggere.
     "lettura": "Due cose che le tabelle dicono e la prima pagina no. Il Russell 2000, l'indice delle società più piccole, "
                "perde quasi il doppio dell'S&amp;P 500: di solito chi ha più debiti soffre di più i tassi alti. L'Euro "
-               "Stoxx 50 sale mentre Wall Street scende: la vendita riguarda i tecnologici americani, che nell'indice "
+               "Stoxx 50 sale mentre Wall Street scende: le vendite riguardano i tecnologici americani, che nell'indice "
                "europeo di solito pesano poco.",
 
     # ---------- Pag. 5: agenda ----------
@@ -288,7 +288,7 @@ C = {
                        "soggetto": "chip", "ruolo": "quanto",
                        "unita": "%",
                        # titolo = cosa mostra il grafico; sottotitolo = misura e periodo (v7.8)
-                       "titolo": "La vendita parte dalla tecnologia USA e arriva ai chip asiatici",
+                       "titolo": "Le vendite partono dalla tecnologia USA e arrivano ai chip asiatici",
                        "sottotitolo": "variazioni % del 14/10 e di stamattina"},
          "grafico2": {"tipo": "linee", "file": "c_nasdaq.png", "x": [d(x) for x, _ in NASDAQ],
                     "serie": [("Nasdaq", [v for _, v in NASDAQ], "#111111")], "soggetto": "Nasdaq", "ruolo": "storia",
@@ -301,11 +301,11 @@ C = {
                    ["Quota dei ricavi da wafer a 2 nanometri", "8%", "-", "-"],
                    ["Quota dei ricavi da wafer a 3 nanometri", "33%", "-", "-"]],
          "larghezze": [70, 30, 36, 46], "ruolo_righe": "perche",   # i conti solidi: la tesi è che non bastano
-         "perche": "La vendita partita dai titoli dell'intelligenza artificiale del Nasdaq si allarga a tutta l'Asia (ANSA). Le borse asiatiche aprono quando New York ha già chiuso, e di solito ne ereditano l'umore. Chi ha venduto a Wall Street ritrova a Seul e a Taipei gli stessi titoli, o i loro fornitori.",
+         "perche": "Le vendite partite dai titoli dell'intelligenza artificiale del Nasdaq si allargano a tutta l'Asia (ANSA). Le borse asiatiche aprono quando New York ha già chiuso, e di solito ne ereditano l'umore. Chi ha venduto a Wall Street ritrova a Seul e a Taipei gli stessi titoli, o i loro fornitori.",
          # numero: un conto che il lettore non trova già fatto (qui lo scarto tra utile e stima), e misura la tesi
          "numero": "+2,2%: di tanto l'utile di TSMC supera la stima degli analisti. Un margine piccolo: per noi la buona notizia era già in gran parte nei prezzi.",
          "quindi": "Oggi alle 15:30 riapre il Nasdaq, il primo test per l'Europa.",
-         "punti": ["<b>Tokyo.</b> Cede anche Tokyo Electron, circa il 6,5% in apertura: la vendita tocca i produttori "
+         "punti": ["<b>Tokyo.</b> Cede anche Tokyo Electron, circa il 6,5% in apertura: le vendite toccano i produttori "
                    "di macchinari per chip.",
                    "<b>Il timore.</b> Un analista di BNP Paribas AM indica l'annuncio di CXMT, produttore cinese, sulle "
                    "memorie di nuova generazione."],
@@ -317,7 +317,7 @@ C = {
                    "fanno una parte larga dell'indice: se vendono loro, vende tutta la borsa. A Tokyo il peso è minore, e "
                    "infatti il Nikkei cede meno, nonostante SoftBank e i produttori di macchinari per chip."],
          "fonte": "Notizie e conti TSMC: ANSA, Milano Finanza, Teleborsa.",
-         "guardare": "Se i chip americani recuperano, la vendita resta asiatica; se scendono ancora, il timore sulle "
+         "guardare": "Se i chip americani recuperano, le vendite restano asiatiche; se scendono ancora, il timore sulle "
                      "memorie diventa un tema globale."},
         {"chiave": "banche", "tema": "Trimestrali", "breve": "BofA contro Morgan Stanley",
          # titolo = la TESI in una proposizione (§3.2); la tabella dà i conti, il testo il meccanismo, nessuno ripete l'altro
