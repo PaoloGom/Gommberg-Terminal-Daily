@@ -293,7 +293,9 @@ ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
       gr.appendChild(hit);
       s.appendChild(gr);
       const passo = N > 20 ? (g === "g" ? 5 : 4) : 1;
-      if ((N - 1 - k) % passo === 0) { const l = sv("text", { x: X + bw / 2, y: H - 8, "text-anchor": "middle" }); l.textContent = etich(g, a, cur); s.appendChild(l); }
+      if ((N - 1 - k) % passo === 0) {   // l'etichetta ai bordi si appoggia al bordo invece di uscire dal grafico
+        const cx = X + bw / 2, lab = etich(g, a, cur), w = lab.length * 3.6, an = cx + w > WW ? "end" : cx - w < 0 ? "start" : "middle";
+        const l = sv("text", { x: an === "end" ? X + bw : an === "start" ? X : cx, y: H - 8, "text-anchor": an }); l.textContent = lab; s.appendChild(l); }
     });
     if (media != null && compl.length >= 2) {
       const ym = Y(media); s.insertBefore(sv("line", { class: "avg", x1: 0, x2: WW, y1: ym, y2: ym }), s.firstChild);
