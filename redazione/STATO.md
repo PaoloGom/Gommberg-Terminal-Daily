@@ -14,16 +14,17 @@ Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b
 
 ## Cantiere attivo
 **Affidabilità della macchina** (pilastro 5), rilascio del weekend 21-22/11. Ordine, con dettagli e decisioni nelle schede del Registro:
-- G-38 prima (merge del pannello nuovo, prerequisito di G-02; serve l'ok di Paolo sulle schermate);
+- G-39 per primo (sistema di rilascio): mappa del sistema, rete di non regressione minima, ramo di rilascio e piano del weekend. Dal 21/11 nel weekend non si lavora più a carta bianca su main: le chat lavorano in sequenza sul ramo di rilascio e main riceve un solo merge con collaudo verde (approvato da Paolo);
+- G-38 (merge del pannello nuovo, prerequisito di G-02; serve l'ok di Paolo sulle schermate);
 - pacchetto "Affidabilità delle fonti": G-34 (regola dei fatti nel controllo) e G-02 (la misura nel pannello), nella stessa chat;
-- G-03 (Euro Stoxx 50 con seconda fonte da EODHD), in una chat sua.
+- G-03 (Euro Stoxx 50 con seconda fonte da EODHD), in una chat sua, quando Paolo è al PC.
 Il resto del weekend è nel Registro in ordine di lavoro; la barra della capienza (12 punti, da ritarare) dice cosa non ci sta.
 
 ## Prossimo passo
 Weekend 21-22/11: il rilascio del motore del pacchetto "La macchina" (cantiere attivo), da fare dopo un controllo veloce che `sito.yml` sia verde. Edizioni di prova solo con la procedura B di `PROVA.md` (data simulata: la newsletter non parte); ora ogni push su main ripubblica anche gommberg.com. Lunedì 23/11: prima edizione vera sul nuovo dominio, da controllare (pubblicazione e verifica verdi, link della newsletter su gommberg.com). Poi G-12 (repository privato), che sposta il ramo `vecchio-indirizzo` in un repository pubblico con il vecchio nome.
 
 ## Regole del ritmo
-- Lun-ven il ramo principale non si tocca, salvo guasti e i file di stato della redazione; bozze sul ramo `prova`. Un rilascio nel weekend, tutto pulito entro domenica sera.
+- Lun-ven il ramo principale non si tocca, salvo guasti e i file di stato della redazione; bozze sul ramo `prova`. Un rilascio nel weekend, sul ramo di rilascio, con un solo merge su main a collaudo verde entro domenica sera (G-39).
 - Modello: Sonnet per controlli e piccole correzioni; Opus per dati, motore, decisioni, sito; Fable solo per revisioni grandi e rare.
 - Una chat per tema; se si allunga, si chiude salvando qui e nel Registro e si riparte da una nuova.
 
