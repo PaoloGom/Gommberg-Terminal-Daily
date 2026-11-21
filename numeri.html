@@ -182,8 +182,19 @@ ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
   let attive = 0; const coda = [];   // al massimo 6 richieste insieme: il grafico dei giorni ne fa fino a 30
   const turno = () => new Promise((ok) => { if (attive < 6) { attive++; ok(); } else coda.push(ok); });
   const libera = () => { const n = coda.shift(); if (n) n(); else attive--; };
+  // Ora del dato: GoatCounter tiene ogni risposta 4 ore e ne manda la scadenza (Expires); il dato è di 4 ore prima
+  // (verificato il 21/11/2026: richiesta nuova alle 13:37:20, scadenza alle 17:37:19). Si mostra il dato più vecchio
+  // tra quelli sulla pagina, così l'orario vale per tutti; senza l'intestazione resta la frase fissa.
+  const VALIDO = 4 * 3600e3, hhmm = (d) => d.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Rome" });
+  let scade = null;
+  function orario(r) {
+    const e = Date.parse(r.headers.get("expires") || ""), ora = Date.now();
+    if (!(e > ora && e <= ora + VALIDO + 60e3) || (scade && e >= scade)) return;
+    scade = e;
+    $("hUpd").textContent = "Visite aggiornate alle " + hhmm(new Date(e - VALIDO)) + " · prossimo aggiornamento alle " + hhmm(new Date(e));
+  }
   function chiedi(url) {
-    return fetch(url).then((r) => r.ok ? r.json() : (r.status === 404 ? { count: "0" } : Promise.reject(r.status)))
+    return fetch(url).then((r) => { if (r.ok) orario(r); return r.ok ? r.json() : (r.status === 404 ? { count: "0" } : Promise.reject(r.status)); })
       .then((j) => parseInt(String(j.count || "0").replace(/\D/g, ""), 10) || 0);
   }
   async function conta(path, start, end) {   // -> numero, oppure null se il contatore non risponde
