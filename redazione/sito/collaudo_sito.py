@@ -3,6 +3,12 @@
 
   python3 redazione/sito/collaudo_sito.py <sito da provare> [<sito di riferimento>] [--pagine N]
   es.  python3 redazione/sito/collaudo_sito.py https://gommberg.com/
+  python3 redazione/sito/collaudo_sito.py --locale <cartella> [<sito di riferimento>] --rilascio
+       il sito di un ramo PRIMA che vada in linea: serve da qui la cartella scritta da costruisci.py (404.html per le
+       pagine che non esistono, come su gommberg.com) e la confronta con il sito vero. Con --rilascio le differenze di
+       testo e le pagine nuove non sono problemi: si elencano come CAMBIA, ed è l'elenco di ciò che il lettore vedrà
+       cambiare con il rilascio. Restano problemi gli errori veri (stato, JavaScript, risorse mancanti, pagine vuote).
+       Lo lancia .github/workflows/collaudo.yml a ogni push sul ramo di rilascio.
   python3 redazione/sito/collaudo_sito.py <sito> --veloce <cartella>   solo HTTP e libreria standard, dopo ogni pubblicazione:
        le pagine principali e l'ultima edizione online sono identiche ai file della cartella pubblicata (con qualche
        tentativo, il tempo che Cloudflare le distribuisca), la redazione non è raggiungibile
@@ -16,17 +22,62 @@ Non gira nell'attività del mattino. Diverso da redazione/collaudo.py, che prova
 """
 import asyncio
 import json
+import os
 import re
 import sys
 import urllib.error
 import urllib.parse
 import urllib.request
 
-ARG = [a for i, a in enumerate(sys.argv[1:], 1) if not a.startswith("--") and sys.argv[i - 1] not in ("--pagine", "--veloce")]
-if not ARG:
+ARG = [a for i, a in enumerate(sys.argv[1:], 1) if not a.startswith("--") and sys.argv[i - 1] not in ("--pagine", "--veloce", "--locale")]
+LOCALE = sys.argv[sys.argv.index("--locale") + 1] if "--locale" in sys.argv else None
+RILASCIO = "--rilascio" in sys.argv
+
+
+def servi(cartella):
+    """La cartella del sito pubblico servita da qui come la serve Cloudflare: 404.html con stato 404 per ciò che non
+    esiste, e i due file di configurazione (_redirects, _headers) non sono pagine. Torna l'indirizzo."""
+    import functools
+    import http.server
+    import threading
+
+    class Sito(http.server.SimpleHTTPRequestHandler):
+        def log_message(self, *a):
+            pass
+
+        def send_error(self, code, message=None, explain=None):
+            p404 = os.path.join(cartella, "404.html")
+            if code == 404 and os.path.exists(p404):
+                corpo = open(p404, "rb").read()
+                self.send_response(404)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Length", str(len(corpo)))
+                self.end_headers()
+                if self.command != "HEAD":
+                    self.wfile.write(corpo)
+                return
+            super().send_error(code, message, explain)
+
+        def do_GET(self):
+            if self.path.split("?")[0].lstrip("/") in ("_redirects", "_headers"):
+                return self.send_error(404)
+            super().do_GET()
+
+    s = http.server.ThreadingHTTPServer(("127.0.0.1", 0), functools.partial(Sito, directory=cartella))
+    threading.Thread(target=s.serve_forever, daemon=True).start()
+    return f"http://127.0.0.1:{s.server_address[1]}/"
+
+
+if LOCALE:
+    if not os.path.exists(os.path.join(LOCALE, "index.html")):
+        sys.exit(f"ERRORE: {LOCALE} non è una cartella del sito (manca index.html): prima costruisci.py")
+    PROVA = servi(os.path.abspath(LOCALE))
+    RIF = ARG[0].rstrip("/") + "/" if ARG else None
+elif not ARG:
     sys.exit(__doc__)
-PROVA = ARG[0].rstrip("/") + "/"
-RIF = ARG[1].rstrip("/") + "/" if len(ARG) > 1 else None
+else:
+    PROVA = ARG[0].rstrip("/") + "/"
+    RIF = ARG[1].rstrip("/") + "/" if len(ARG) > 1 else None
 N = int(sys.argv[sys.argv.index("--pagine") + 1]) if "--pagine" in sys.argv else 5
 FISSE = ["", "index.html", "archivio.html", "glossario.html", "scommessa.html", "numeri.html", "progetto.html",
          "iscriviti.html", "benvenuto.html", "privacy.html", "basi.html", "ultima/", "pannello/", "consumi/"]
@@ -130,7 +181,7 @@ async def main():
     numeri = sorted({int(e["numero"]) for e in elenco if isinstance(e, dict) and e.get("numero")})[-N:]
     pagine = FISSE + [f"e/{n:03d}.html" for n in numeri] + [f"?n={numeri[0]}&leggi=1", "pagina-che-non-esiste.html"]
     from playwright.async_api import async_playwright   # solo qui: il --veloce gira senza Playwright
-    problemi = 0
+    problemi, cambia = 0, 0
     async with async_playwright() as p:
         b = await p.chromium.launch()
         ctx = await b.new_context(viewport={"width": 1440, "height": 900})
@@ -138,7 +189,7 @@ async def main():
         for pag in pagine:
             sp, tp, xp, ep, fp = await apri(ctx, PROVA, pag)
             atteso = 404 if pag == "pagina-che-non-esiste.html" else 200
-            note = []
+            note, diff = [], []      # note = problemi veri; diff = differenze dal riferimento (con --rilascio non fermano)
             if sp != atteso:
                 note.append(f"stato {sp} (atteso {atteso})")
             note += ep + fp
@@ -149,15 +200,19 @@ async def main():
             if RIF:
                 sr, tr, xr, _, _ = await apri(ctx, RIF, pag)
                 if sr != atteso:
-                    note.append(f"il sito di riferimento risponde {sr}: confronto non fatto")
+                    diff.append(f"il sito di riferimento risponde {sr}: confronto non fatto" + (" (pagina nuova?)" if sr == 404 else ""))
                 elif normalizza(xp, PROVA) != normalizza(xr, RIF):
                     a, c = normalizza(xp, PROVA), normalizza(xr, RIF)
                     i = next((k for k in range(min(len(a), len(c))) if a[k] != c[k]), min(len(a), len(c)))
-                    note.append(f"testo diverso dal riferimento dal carattere {i}: «{a[max(0, i - 40):i + 60]}» / «{c[max(0, i - 40):i + 60]}»")
+                    diff.append(f"testo diverso dal riferimento dal carattere {i}: «{a[max(0, i - 40):i + 60]}» / «{c[max(0, i - 40):i + 60]}»")
                 if sr == atteso and tp != tr:
-                    note.append(f"titolo diverso: «{tp}» / «{tr}»")
-            print(("OK   " if not note else "NO   ") + (pag or "/") + ("" if not note else "\n       " + "\n       ".join(note[:8])))
+                    diff.append(f"titolo diverso: «{tp}» / «{tr}»")
+            if not RILASCIO:
+                note, diff = note + diff, []
+            righe = (note + diff)[:8]
+            print(("NO   " if note else "CAMBIA " if diff else "OK   ") + (pag or "/") + ("" if not righe else "\n       " + "\n       ".join(righe)))
             problemi += bool(note)
+            cambia += bool(diff and not note)
         await b.close()
     for x in PRIVATI:
         s, _ = get(PROVA + x)
@@ -169,7 +224,8 @@ async def main():
         s, _ = get(PROVA + x)
         print(("OK   " if s == 200 else "NO   ") + f"pubblico {x}: {s}")
         problemi += s != 200
-    print(f"\n{'Nessun problema' if not problemi else f'{problemi} problemi'} su {len(pagine)} pagine e {len(PRIVATI) + 7} indirizzi")
+    print(f"\n{'Nessun problema' if not problemi else f'{problemi} problemi'} su {len(pagine)} pagine e {len(PRIVATI) + 7} indirizzi"
+          + (f"; {cambia} pagine cambiano rispetto a {RIF}" if RILASCIO and RIF else ""))
     sys.exit(1 if problemi else 0)
 
 

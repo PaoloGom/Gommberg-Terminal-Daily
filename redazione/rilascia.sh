@@ -1,0 +1,175 @@
+#!/usr/bin/env bash
+# Il rilascio. Il lavoro si fa sul ramo "rilascio"; il ramo principale (quello che i lettori vedono: ogni push su main
+# ripubblica gommberg.com) riceve UN solo merge, e solo a collaudo verde. Vale nel weekend per il rilascio e in settimana
+# per un guasto: stessa strada, in piccolo. Mappa del sistema e regole: redazione/ARCHITETTURA.md.
+#
+#   bash redazione/rilascia.sh avvia      mette la sessione sul ramo rilascio, allineato al ramo principale (lo crea se manca)
+#   bash redazione/rilascia.sh collauda   porta dentro le novità del ramo principale, lancia il collaudo, stampa il resoconto
+#   bash redazione/rilascia.sh pubblica [--ok-di-paolo] [--senza-github]
+#                                         collauda; se è verde qui e su GitHub, un solo merge sul ramo principale
+#   bash redazione/rilascia.sh annulla    toglie dal ramo principale l'ultimo rilascio (revert del suo merge)
+#
+# I cancelli di "pubblica", nell'ordine: 1) niente modifiche non salvate; 2) il ramo contiene l'ultimo ramo principale;
+# 3) redazione/collaudo.py esce con 0 (rete di non regressione compresa); 4) se il rilascio cambia ciò che il lettore
+# vede (file pubblici del sito, testo del PDF o email dei campioni della rete, modello della newsletter) serve
+# --ok-di-paolo, che chi guida il rilascio aggiunge solo dopo il sì di Paolo al resoconto; 5) il collaudo di GitHub
+# (.github/workflows/collaudo.yml: stesso collaudo su un'altra macchina, più il sito aperto in un browser vero) è verde
+# sullo stesso commit. --senza-github salta solo il 5, quando GitHub non si può leggere da questa sessione.
+# Il merge ha come contenuto esatto quello collaudato (stesso albero di file). Si può sempre tornare indietro: annulla.
+# GTD_PROVA=1: pubblica e annulla fanno tutto tranne i push sul ramo principale, che stampano.
+set -u
+REPO="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "RILASCIO: FERMO - non sono dentro il repository"; exit 1; }
+cd "$REPO" || exit 1
+RAMO="rilascio"; PRINC="main"; PROVA="${GTD_PROVA:-0}"; FONDO=300
+AZIONE="${1:-}"; shift 2>/dev/null || true
+OK_PAOLO=0; SENZA_GITHUB=0
+for a in "$@"; do case "$a" in --ok-di-paolo) OK_PAOLO=1;; --senza-github) SENZA_GITHUB=1;; *) echo "RILASCIO: FERMO - opzione sconosciuta: $a"; exit 1;; esac; done
+
+fermo() { echo "RILASCIO: FERMO - $1"; exit 1; }
+pulito() { [ -z "$(git status --porcelain)" ] || fermo "ci sono modifiche non salvate (git status): prima commit, o scartale"; }
+sul_ramo() { [ "$(git rev-parse --abbrev-ref HEAD)" = "$RAMO" ] || fermo "non sono sul ramo $RAMO: lancia prima 'rilascia.sh avvia'"; }
+prendi() { git fetch -q --depth="$FONDO" origin "$@" 2>/dev/null || fermo "git fetch di $* non riuscito"; }
+firma() { git config user.name >/dev/null || git config user.name "PaoloGom"; git config user.email >/dev/null || git config user.email "PaoloGom@users.noreply.github.com"; }
+spingi() {  # spingi <cosa> <ramo>: push senza forzare, verificato con ls-remote (come pubblica.sh)
+  local cosa="$1" ramo="$2" out
+  out=$(git -c push.negotiate=true push origin "$cosa:refs/heads/$ramo" 2>&1)
+  [ "$(git ls-remote origin "refs/heads/$ramo" 2>/dev/null | cut -f1)" = "$(git rev-parse "$cosa")" ] && return 0
+  echo "$out" | grep -iE "error|rejected|denied|fatal" | head -2; return 1
+}
+dentro() {  # porta nel ramo rilascio le novità del ramo principale (edizioni uscite, file di stato)
+  prendi "$PRINC"
+  git merge-base --is-ancestor "origin/$PRINC" HEAD 2>/dev/null && return 0
+  firma
+  if ! git merge -q --no-edit "origin/$PRINC" >/dev/null 2>&1; then
+    local f; f=$(git diff --name-only --diff-filter=U | head -5 | tr '\n' ' ')
+    git merge --abort >/dev/null 2>&1
+    fermo "il ramo $RAMO non si unisce al ramo principale: conflitto in $f"
+  fi
+}
+
+# Che cosa cambia rispetto al ramo principale, e per chi. Riempie PUBBLICI, CAMPIONI, MODELLO, SCRITTURA, SERVE_OK.
+cambia() {
+  local tutti; tutti=$(git diff --name-only "origin/$PRINC" HEAD)
+  # pubblico = ciò che costruisci.py copia sul sito: tutto tranne redazione (salvo i quattro file letti dal sito),
+  # file e cartelle nascosti, cartelle di lavoro con _ e README
+  PUBBLICI=$(echo "$tutti" | grep -vE '^(redazione/|README)|(^|/)[._]' ; echo "$tutti" | grep -E '^redazione/(glossario|glossario_sito|meccanismi)\.json$|^redazione/scommessa/pagella\.json$')
+  PUBBLICI=$(echo "$PUBBLICI" | sed '/^$/d')
+  CAMPIONI=$(echo "$tutti" | grep -E '^redazione/rete/[^/]+/atteso/(pdf\.txt|email\.html)$')
+  MODELLO=$(echo "$tutti" | grep -E '^redazione/newsletter_modello\.html$')
+  SCRITTURA=$(echo "$tutti" | grep -E '^redazione/(ISTRUZIONI|APP_[A-Z]+|NOTA_DEL_GIORNO)\.md$|^redazione/edizione_modello_v[0-9]+\.py$|^redazione/(glossario|meccanismi|fonti)\.json$')
+  SERVE_OK=0; [ -n "$PUBBLICI$CAMPIONI$MODELLO" ] && SERVE_OK=1
+  TUTTI="$tutti"
+}
+elenco() { echo "$1" | sed '/^$/d' | head -"${2:-12}" | sed 's/^/    /'; local n; n=$(echo "$1" | sed '/^$/d' | wc -l); [ "$n" -gt "${2:-12}" ] && echo "    ... e altri $((n - ${2:-12}))"; return 0; }
+
+resoconto() {
+  cambia
+  local n; n=$(git rev-list --no-merges --count "origin/$PRINC..HEAD")
+  echo "== RESOCONTO DEL RILASCIO - $(TZ=Europe/Rome date '+%d/%m/%Y %H:%M') =="
+  echo "Commit: $n (commit $(git rev-parse --short HEAD) su $(git rev-parse --short "origin/$PRINC")); voci: $(git log --no-merges --format=%s "origin/$PRINC..HEAD" | grep -oE 'G-[0-9]+' | sort -u | tr '\n' ' ')"
+  git log --no-merges --reverse --format='  - %h %s' "origin/$PRINC..HEAD" | cut -c1-150 | head -40
+  echo "File cambiati: $(echo "$TUTTI" | sed '/^$/d' | wc -l)"
+  echo "Per i lettori:"
+  if [ -n "$PUBBLICI" ]; then echo "  Sito, $(echo "$PUBBLICI" | wc -l) file pubblici:"; elenco "$PUBBLICI"; else echo "  Sito: nessun file pubblico cambia"; fi
+  if [ -n "$CAMPIONI" ]; then echo "  PDF o email: le stesse edizioni campione ora escono diverse (git diff origin/$PRINC HEAD -- redazione/rete):"; elenco "$CAMPIONI"
+  else echo "  PDF ed email: le edizioni campione escono identiche a prima"; fi
+  [ -n "$MODELLO" ] && echo "  Newsletter: cambia il modello (va ricaricato in Kit)"
+  if [ -n "$SCRITTURA" ]; then echo "  Scrittura: cambiano regole o lessico della redazione, si vede solo su un'edizione di prova (PROVA.md):"; elenco "$SCRITTURA"; fi
+  echo "Ok di Paolo: $([ "$SERVE_OK" = 1 ] && echo "SERVE (cambia ciò che il lettore vede)" || echo "non serve (niente di visibile ai lettori)")"
+  echo "Collaudo: $ESITO_COLLAUDO"
+}
+
+collauda() {
+  sul_ramo; pulito; dentro
+  [ -n "$(git diff --name-only "origin/$PRINC" HEAD)" ] || fermo "il ramo $RAMO è uguale al ramo principale: niente da rilasciare"
+  local out rc
+  out=$(python3 redazione/collaudo.py 2>&1); rc=$?
+  echo "$out"
+  ESITO_COLLAUDO=$(echo "$out" | grep '^COLLAUDO:' | tail -1); ESITO_COLLAUDO="${ESITO_COLLAUDO:-COLLAUDO: nessun esito (rc $rc)}"
+  [ -z "$(git status --porcelain)" ] || fermo "il collaudo ha lasciato file cambiati (git status): non doveva"
+  echo; resoconto
+  return $rc
+}
+
+github_verde() {  # il collaudo di GitHub sullo stesso commit: aspetta fino a 20 minuti
+  local sha="$1" i riga stato esito
+  command -v gh >/dev/null || fermo "non posso leggere GitHub da qui (manca gh): guarda tu la pagina Actions e rilancia con --senza-github"
+  for i in $(seq 1 60); do
+    riga=$(gh run list --workflow collaudo.yml --commit "$sha" -L 1 --json status,conclusion -q '.[0] | "\(.status) \(.conclusion)"' 2>/dev/null)
+    stato="${riga%% *}"; esito="${riga##* }"
+    if [ "$stato" = "completed" ]; then
+      [ "$esito" = "success" ] && { echo "Collaudo di GitHub: verde su $(git rev-parse --short "$sha")"; return 0; }
+      fermo "il collaudo di GitHub è $esito su $(git rev-parse --short "$sha"): gh run list --workflow collaudo.yml -L 1, poi gh run view <id> --log-failed"
+    fi
+    [ "$i" = 1 ] && echo "Aspetto il collaudo di GitHub su $(git rev-parse --short "$sha") (fino a 20 minuti)..."
+    sleep 20
+  done
+  fermo "il collaudo di GitHub non ha finito in 20 minuti: riprova tra poco"
+}
+
+case "$AZIONE" in
+avvia)
+  pulito; prendi "$PRINC"
+  if git ls-remote --exit-code --heads origin "$RAMO" >/dev/null 2>&1; then
+    prendi "$RAMO"; git checkout -q -B "$RAMO" "origin/$RAMO" || fermo "checkout del ramo $RAMO"
+  else
+    git checkout -q -B "$RAMO" "origin/$PRINC" || fermo "creazione del ramo $RAMO"
+  fi
+  dentro
+  spingi HEAD "$RAMO" || fermo "push del ramo $RAMO rifiutato"
+  echo "RILASCIO: ramo $RAMO pronto su $(git rev-parse --short "origin/$PRINC") del ramo principale, $(git rev-list --no-merges --count "origin/$PRINC..HEAD") commit avanti."
+  echo "Da qui: lavoro e commit su questo ramo, python3 redazione/collaudo.py dopo ogni modifica, git push origin $RAMO."
+  ;;
+collauda)
+  collauda; rc=$?
+  [ $rc -eq 0 ] && echo "RILASCIO: collaudo verde, il ramo principale non è stato toccato." || echo "RILASCIO: FERMO - collaudo rosso."
+  exit $rc
+  ;;
+pubblica)
+  collauda || fermo "collaudo rosso: il ramo principale non si tocca"
+  if [ "$SERVE_OK" = 1 ] && [ "$OK_PAOLO" != 1 ]; then
+    fermo "questo rilascio cambia ciò che il lettore vede: mostra a Paolo il resoconto qui sopra e, dopo il suo sì, rilancia con --ok-di-paolo"
+  fi
+  firma
+  spingi HEAD "$RAMO" || fermo "push del ramo $RAMO rifiutato"
+  [ "$SENZA_GITHUB" = 1 ] && echo "Collaudo di GitHub: saltato (--senza-github)" || github_verde "$(git rev-parse HEAD)"
+  # il merge: un commit sul ramo principale con ESATTAMENTE l'albero collaudato (il ramo contiene già il ramo principale)
+  VOCI=$(git log --no-merges --format=%s "origin/$PRINC..HEAD" | grep -oE 'G-[0-9]+' | sort -u | tr '\n' ' ' | sed 's/ $//')
+  N=$(git rev-list --no-merges --count "origin/$PRINC..HEAD")
+  M=$(git commit-tree "HEAD^{tree}" -p "origin/$PRINC" -p HEAD -m "Rilascio $(TZ=Europe/Rome date +%F): $N commit${VOCI:+ ($VOCI)}
+
+$(git log --no-merges --reverse --format='- %s' "origin/$PRINC..HEAD" | cut -c1-140 | head -40)") || fermo "commit del merge"
+  if [ "$PROVA" = "1" ]; then
+    echo "[prova] git push origin $M:refs/heads/$PRINC   (merge \"$(git log -1 --format=%s "$M")\")"
+    echo "RILASCIO: PROVA - tutto verde, nessun push sul ramo principale."; exit 0
+  fi
+  spingi "$M" "$PRINC" || fermo "push sul ramo principale rifiutato (è cambiato nel frattempo? rilancia: nulla è stato pubblicato)"
+  git merge -q --ff-only "$M" && spingi HEAD "$RAMO" || echo "AVVISO: ramo $RAMO non riallineato al ramo principale (lo farà il prossimo 'avvia')"
+  echo "RILASCIO: PUBBLICATO - merge $(git rev-parse --short "$M") sul ramo principale ($N commit${VOCI:+, $VOCI})."
+  echo "Ora GitHub ripubblica gommberg.com e lo verifica dal vivo: gh run list --workflow sito.yml -L 1"
+  echo "Per tornare indietro: bash redazione/rilascia.sh annulla"
+  ;;
+annulla)
+  pulito; prendi "$PRINC"; firma
+  M=$(git log "origin/$PRINC" --merges --grep='^Rilascio ' -1 --format=%H)
+  [ -n "$M" ] || fermo "nessun rilascio da annullare negli ultimi $FONDO commit del ramo principale"
+  PRIMA=$(git rev-parse --abbrev-ref HEAD)
+  git checkout -q --detach "origin/$PRINC" || fermo "checkout del ramo principale"
+  if ! git revert -m 1 --no-edit "$M" >/dev/null 2>&1; then
+    git revert --abort >/dev/null 2>&1; git checkout -q "$PRIMA"
+    fermo "il rilascio $(git rev-parse --short "$M") non si toglie da solo: dopo sono cambiati gli stessi file (conflitto). Va corretto a mano sul ramo $RAMO"
+  fi
+  # le pagine del sito si rigenerano dall'indice di adesso: se dopo il rilascio è uscita un'edizione, resta al suo posto
+  python3 redazione/pagine.py "$REPO" >/dev/null 2>&1; git add -A e dati ultima feed.xml sitemap.xml 2>/dev/null
+  git diff --cached --quiet || git commit -q --amend --no-edit
+  out=$(python3 redazione/collaudo.py 2>&1); rc=$?; echo "$out" | tail -4
+  if [ $rc -ne 0 ]; then git checkout -q "$PRIMA"; fermo "senza il rilascio il collaudo è rosso: non tolgo nulla, va guardato a mano"; fi
+  R=$(git rev-parse HEAD)
+  if [ "$PROVA" = "1" ]; then echo "[prova] git push origin $R:refs/heads/$PRINC   (\"$(git log -1 --format=%s "$R")\")"; git checkout -q "$PRIMA"; echo "RILASCIO: PROVA - annullamento pronto, nessun push."; exit 0; fi
+  spingi "$R" "$PRINC" || { git checkout -q "$PRIMA"; fermo "push dell'annullamento rifiutato: nulla è cambiato"; }
+  git checkout -q "$PRIMA"
+  echo "RILASCIO: ANNULLATO - il ramo principale è tornato a prima del rilascio $(git rev-parse --short "$M") (commit $(git rev-parse --short "$R"))."
+  echo "Il lavoro resta sul ramo $RAMO. Per riproporlo dopo la correzione: 'avvia', poi git revert $(git rev-parse --short "$R") sul ramo $RAMO (riporta dentro il lavoro), correzione, 'pubblica'."
+  ;;
+*) echo "uso: rilascia.sh avvia | collauda | pubblica [--ok-di-paolo] [--senza-github] | annulla"; exit 1;;
+esac
