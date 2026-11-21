@@ -9,7 +9,7 @@ Serie con la sola variazione (seduta asiatica in corso, livello non disponibile)
   [{"nome": "PPI USA a/a", "dato": 6.3, "atteso": 5.3, "caldo_se": "su", "data": "AAAA-MM-GG"}] ("giu" per sussidi
   e disoccupazione; "data" = giorno di uscita, serve a contesto.py per la reazione dei tassi).
 Dato non verificabile neanche dal web: {"mercato": "KR", "nd": "<motivo, es. nessuna fonte con orario>", "ultimi": []}
-  (ammesso: nel PDF "n.d." con la nota). Indici obbligatori (controlli_contenuti.py): S&P 500, Nasdaq, Euro Stoxx 50, Nikkei 225, Kospi, Hang Seng.
+  (ammesso: la riga non entra nella tabella di pag. 5; nel PDF mai "n.d."). Indici obbligatori (controlli_contenuti.py): S&P 500, Nasdaq, Euro Stoxx 50, Nikkei 225, Kospi, Hang Seng.
 Esce con codice 1 se c'è un problema bloccante."""
 import datetime as dt, json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -40,7 +40,7 @@ problemi, avvisi = [], []
 for nome, s in d["serie"].items():
     u = s["ultimi"]
     if not u and s.get("nd"):
-        avvisi.append(f"{nome}: n.d. ({s['nd']}): nel PDF \"n.d.\" con la nota"); continue
+        avvisi.append(f"{nome}: non verificato ({s['nd']}): la riga non entra nella tabella di pag. 5; nel PDF mai \"n.d.\""); continue
     if not u and s.get("var") is not None:
         if not (s.get("fonte") and s.get("ora")):
             problemi.append(f"{nome}: serie con sola variazione senza 'fonte' e 'ora'")

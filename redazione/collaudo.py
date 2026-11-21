@@ -249,10 +249,13 @@ def passo_scrittura():
     ferma = lambda x: any(re.search(rx, x, re.I) for v in lex for rx in v["evita"])
     calchi = ["Nvidia alza la guida per il quarto trimestre", "la guida per il 2027 delude", "il titolo ridà tutto il rialzo di ieri",
               "Kepler alza il giudizio a «comprare»", "La vendita sull'AI si allarga", "La vendita colpisce Taipei e Seul",
-              "il debutto non ferma la vendita dell'AI", "dove i chip pesano meno la vendita si ferma", "se tiene, la vendita è finita"]
+              "il debutto non ferma la vendita dell'AI", "dove i chip pesano meno la vendita si ferma", "se tiene, la vendita è finita",
+              "la vendita ha colpito i grandi nomi della tecnologia", "La vendita non ha riguardato solo i chip",
+              "Venerdì la vendita si è accelerata con il calo dei listini"]
     giuste = ["Huang valuta un ritorno alla guida di Nvidia", "Cook lascia la guida di Apple", "Nvidia conferma la guidance",
               "Pirelli perde dopo la vendita di un pacchetto da Sinochem", "la vendita delle prime azioni al pubblico",
               "la vendita dei chip alla Cina resta vietata", "il dato ridà fiato alle borse", "le vendite colpiscono Taipei",
+              "la vendita di Tim ha pesato sui conti", "le vendite hanno colpito i grandi nomi della tecnologia",
               "Kepler alza il giudizio a buy"]
     sfuggiti = [c for c in calchi if not ferma(c)]
     fermate = [c for c in giuste if ferma(c)]

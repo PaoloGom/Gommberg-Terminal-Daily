@@ -456,7 +456,7 @@
    {
     "termine": "le vendite, l'ondata di vendite, il ribasso (se è la cessione di un bene: \"la cessione\")",
     "evita": [
-     "\\bla vendita (?:sull?\\w*\\b|su(?:i|gli|lle)\\b|dell'AI\\b|asiatic\\w+|american\\w+|europe\\w+|globale|corean\\w+|tecnologic\\w+|di (?:ieri|oggi|lunedì|martedì|mercoledì|giovedì|venerdì)\\b|(?:non )?(?:è (?:larga|finita|passata|globale)|era un|resta|si (?:ferma|allarga|estende|sposta)|colpi\\w+|pesa|arriva|parti\\w*|risparmia|riguarda|accelera|prosegue|continua|rallenta|travolge|può (?:restare|allargarsi|estendersi))\\b)",
+     "\\bla vendita (?:sull?\\w*\\b|su(?:i|gli|lle)\\b|dell'AI\\b|asiatic\\w+|american\\w+|europe\\w+|globale|corean\\w+|tecnologic\\w+|di (?:ieri|oggi|lunedì|martedì|mercoledì|giovedì|venerdì)\\b|(?:non )?(?:è (?:larga|finita|passata|globale)|era un|resta|si (?:ferma|allarga|estende|sposta)|(?:ha|aveva|è|era|si è|si era) (?:già )?(?:colpit|pesat|arrivat|partit|risparmiat|riguardat|accelerat|proseguit|continuat|rallentat|travolt|fermat|allargat|estes|spostat)\\w*|colpi\\w+|pesa|arriva|parti\\w*|risparmia|riguarda|accelera|prosegue|continua|rallenta|travolge|può (?:restare|allargarsi|estendersi))\\b)",
      "\\b(?:spinge\\w*|ferma\\w*|alimenta\\w*|scatena\\w*) la vendita\\b(?! d(?:i|el|ell[ao']|ei|egli|elle)\\b)"
     ],
     "blocca": true
