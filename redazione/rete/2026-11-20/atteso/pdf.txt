@@ -112,15 +112,15 @@ novembre S&P 500, chiusure (punti)                                              
                                                                                                                 giornata ha restituito metà del guadagno.
 
 
-      Titolo                             Giovedì 19                              Cosa pesa
+ Titolo                               Giovedì 19                                Cosa pesa
 
-      Anthropic (ANT)                    +17,1% a 97,17 $                        Aperta a 111,50 $, ha poi ceduto circa il 5% dopo la chiusura (Il Sole 24 Ore)
+ Anthropic (ANT)                      +17,1% a 97,17 $                          Aperta a 111,50 $, ha poi ceduto circa il 5% dopo la chiusura (Il Sole 24 Ore)
 
-      AMD                                -7,7% a 489,19 $                        Rapporto ribassista di Hunterbrook sulla dipendenza dalla Cina
+ AMD                                  -7,7% a 489,19 $                          Rapporto ribassista di Hunterbrook sulla dipendenza dalla Cina
 
-      Nvidia                             Conti del 17/11 oltre le stime          Ricavi 115,8 mld $ (+103%); Huang lascia
+ Nvidia                               Conti del 17/11 oltre le stime            Ricavi 115,8 mld $ (+103%); Huang lascia
 
-      Mercato USA                        Oltre il 90% dei titoli in calo         Sesta seduta negativa di fila
+ Mercato USA                          Oltre il 90% dei titoli in calo           Sesta seduta negativa di fila
 
 Perché un debutto riuscito non aiuta? Un'azione vale oggi gli utili che si spera di incassare in futuro. Se i tassi salgono,
 quegli utili lontani valgono meno, e chi compra deve pagare meno: è come un mutuo più caro, che riduce la casa che ci si
@@ -163,13 +163,13 @@ I dati di ieri danno alla Fed meno crescita e più prezzi
   l'attività frena.                                                                                di cui parla Waller.
 
 
-            Dato di giovedì 19                                                       Uscito                                Confronto
+ Dato di giovedì 19                                                                Uscito                                      Confronto
 
-            Philly Fed (manifattura)                                                 6,3                                   prima 20,9
+ Philly Fed (manifattura)                                                          6,3                                         prima 20,9
 
-            Prezzi pagati dalle imprese                                              58,2                                  prima 43,2
+ Prezzi pagati dalle imprese                                                       58,2                                        prima 43,2
 
-            Sussidi di disoccupazione                                                203 mila                              attesi 197 mila
+ Sussidi di disoccupazione                                                         203 mila                                    attesi 197 mila
 
 Perché i prezzi pagati contano? Sono il primo anello della catena: se le imprese pagano di più materie e servizi, di solito
 prima o poi lo scaricano sui prezzi al consumo. Ed ecco la scomodità per la Fed: vuole frenare l'inflazione con tassi più alti,
@@ -244,15 +244,15 @@ L'Europa regge perché ha pochi titoli AI, ma i difensivi cedono
   l'1,8%, mentre ASML sale del 2,2% (Reuters).
 
 
-            Indice, 19/11                                                            Chiusura                                  Variazione
+ Indice, 19/11                                                                     Chiusura                                        Variazione
 
-            Euro Stoxx 50                                                            6.120,30                                  -0,55%
+ Euro Stoxx 50                                                                     6.120,30                                        -0,55%
 
-            STOXX 600                                                                638,41                                    -0,88%
+ STOXX 600                                                                         638,41                                          -0,88%
 
-            DAX                                                                      25.464                                    -1,06%
+ DAX                                                                               25.464                                          -1,06%
 
-            FTSE 100                                                                 10.452,68                                 -0,93%
+ FTSE 100                                                                          10.452,68                                       -0,93%
 
 Perché l'Europa cade meno? La vendita di giovedì colpiva soprattutto i titoli dell'intelligenza artificiale, e gli indici europei
 ne hanno pochi, a differenza del Nasdaq.

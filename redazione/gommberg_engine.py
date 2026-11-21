@@ -165,6 +165,14 @@ def page(c, doc):
 CW = PW - 2 * M
 
 
+def larghe(larghezze, n=None):
+    """Le larghezze di una tabella scritta dalla redazione: valgono come proporzioni tra le colonne, e la tabella è sempre
+    larga quanto il testo. Scritte in mm a mano uscivano tabelle strette e centrate in mezzo alla pagina (G-47)."""
+    w = [float(x) for x in (larghezze or [1] * (n or 1))]
+    tot = sum(w) or 1
+    return [x / tot * CW for x in w]
+
+
 def tbl(rows, widths, header=True, zebra=True):
     t = Table(rows, colWidths=widths, repeatRows=1 if header else 0)
     st = [("FONTNAME", (0, 0), (-1, -1), "Cond"), ("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 4),
@@ -685,7 +693,7 @@ def _colonne(testi):
 def approfondimento(tema, titolo, formato, chiave=None, **c):
     """Un pezzo di approfondimento. formato:
        "grafico":     img, punti=[str], fonte   (grafico a sinistra, punti a destra)
-       "tabella":     righe=[[intestazioni], ...], larghezze=[mm...], lettura, fonte
+       "tabella":     righe=[[intestazioni], ...], larghezze=[proporzioni tra le colonne], lettura, fonte
        "due_grafici": img_sx, img_dx, fonte_sx, fonte_dx (punti sotto, in colonne)
        Facoltativi in tutti: img_sopra (grafico a tutta larghezza in testa), punti, righe+larghezze (tabella),
        lettura, fonte, freccia (riga →). L'altezza si regola con il parametro alto dei grafici."""
@@ -724,7 +732,7 @@ def approfondimento(tema, titolo, formato, chiave=None, **c):
     if c.get("righe"):
         r0, *rr = c["righe"]
         rows = [headers(*r0)] + [[P(x, "cellb" if j == 0 else "cell") for j, x in enumerate(r)] for r in rr]
-        corpo += [Spacer(1, 3), tbl(rows, [w * mm for w in c["larghezze"]]), Spacer(1, 3)]
+        corpo += [Spacer(1, 3), tbl(rows, larghe(c.get("larghezze"), len(r0))), Spacer(1, 3)]
     if not (c.get("perche") and c.get("quindi")):
         raise ValueError(f"approfondimento '{titolo}': mancano 'perche' e/o 'quindi' (obbligatori, 1-2 frasi ciascuno)")
     corpo += [Spacer(1, 3), perche_quindi(c["perche"], c["quindi"]), Spacer(1, 3)]
@@ -1106,7 +1114,7 @@ def bivio(titolo, righe, larghezze, nota, kicker="Scenari"):
     """Il bivio (solo con un evento datato decisivo): righe[0] = intestazioni, poi [scenario, prob, effetti...]."""
     r0, *rr = righe
     rows = [headers(*r0)] + [[P(x, "cellb" if j < 2 else "cell") for j, x in enumerate(r)] for r in rr]
-    return [CondPageBreak(45 * mm)] + section(titolo, kicker) + [tbl(rows, [w * mm for w in larghezze]), Spacer(1, 2),
+    return [CondPageBreak(45 * mm)] + section(titolo, kicker) + [tbl(rows, larghe(larghezze, len(r0))), Spacer(1, 2),
                                                                 P(nota, "note")]
 
 
@@ -1507,7 +1515,7 @@ def modulo(tema, titolo, misura="mezzo", chiave=None, grafico=None, grafico2=Non
     "doppio". soggetto: parola/e del titolo o del perche di cui il grafico parla (senza serie pertinente: niente
     grafico). barre con "livello": True per i livelli (grigio, ultima osservazione arancione).
     perche, quindi: OBBLIGATORI, 1-2 frasi ciascuno. punti: max 3. righe: tabella breve (mezzo max 5 righe dati,
-    doppio max 8), larghezze in mm. lettura: solo doppio. Il motore fissa le misure dei grafici (scala 1:1).
+    doppio max 8), larghezze = proporzioni tra le colonne (la tabella è sempre larga quanto il testo). lettura: solo doppio. Il motore fissa le misure dei grafici (scala 1:1).
     titolo: la TESI (cosa significa), non il fatto. numero: un dato solo che misura la tesi ("Meno di 1 seduta su 5:
     ..."), nella colonna accanto al grafico. testo: 1-3 paragrafi di racconto verificato. guardare: OBBLIGATORIO nel
     doppio, cosa confermerebbe o smentirebbe la tesi e quando. Con più elementi (grafici, tabella) ognuno ha un 'ruolo'
@@ -1547,7 +1555,7 @@ def modulo(tema, titolo, misura="mezzo", chiave=None, grafico=None, grafico2=Non
             raise ValueError(f"modulo '{titolo}': tabella oltre {mx} righe")
         r0, *rr = righe
         rows = [headers(*r0)] + [[P(x, "cellb" if j == 0 else "cell") for j, x in enumerate(r)] for r in rr]
-        c += [Spacer(1, 5), tbl(rows, [w * mm for w in larghezze])]
+        c += [Spacer(1, 5), tbl(rows, larghe(larghezze, len(r0)))]
     if punti:
         c += [Spacer(1, 5), _colonne(punti[:3])]
     for par in (testo or []):

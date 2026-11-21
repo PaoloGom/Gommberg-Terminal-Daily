@@ -191,8 +191,9 @@ def main():
             gia = spiegati(oggi)
             print("Meccanismi che POSSONO servire al passaggio (meccanismi.json). Si usa solo quello che spiega QUESTA tesi, "
                   "con le parole del lettore e come tendenza; uno che non c'entra o che va contro la tesi confonde: meglio "
-                  "nessuno. Uno segnato GIÀ SPIEGATO il lettore l'ha appena letto: si richiama in mezza frase, con parole "
-                  "nuove, e lo spazio va al fatto di oggi (§3.4). L'id di quelli usati va in C[\"meccanismi\"]:")
+                  "nessuno. Uno segnato GIÀ SPIEGATO il lettore l'ha già letto: se è il passaggio su cui regge la tesi si "
+                  "spiega di nuovo per intero, sul caso di oggi e con parole e paragone nuovi; se è di contorno si richiama "
+                  "in mezza frase (§3.4). L'id di quelli usati va in C[\"meccanismi\"]:")
             for v in mecc:
                 ecc = v.get("eccezioni", "-")
                 dove = gia.get(v["id"])

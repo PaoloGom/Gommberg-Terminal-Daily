@@ -242,8 +242,10 @@ def passo_modello():
 # ---------------------------------------------------------------- 3a. scrittura: lessico di casa e fonti tra parentesi
 def passo_scrittura():
     """Casi costruiti: i calchi dall'inglese trovati nelle edizioni #019-#030 si fermano, l'italiano giusto che gli somiglia
-    passa; la stessa testata due volte tra parentesi in un paragrafo si ferma, due testate diverse no; la nostra lettura
-    dichiarata una volta copre le cause del suo paragrafo, come una fonte, e senza l'una né l'altra la causa si ferma."""
+    passa; una testata tra parentesi si ferma ovunque, anche se nuova (la si riconosce dalla riga Fonti), e passa solo con
+    l'orario di un livello del mattino; chi dà una causa, nominato nel paragrafo, la copre, e così la nostra lettura
+    dichiarata una volta; una sigla che il lettore non conosce vuole le sue parole nella frase, non la parentesi, e detta
+    due volte nella stessa frase si ferma; la SEC non si spiega."""
     import controlli_testo as T
     lex = [v for v in json.load(open(os.path.join(R, "glossario.json"), encoding="utf-8"))["lessico"]["voci"] if v.get("blocca")]
     ferma = lambda x: any(re.search(rx, x, re.I) for v in lex for rx in v["evita"])
@@ -261,25 +263,42 @@ def passo_scrittura():
     fermate = [c for c in giuste if ferma(c)]
     g = {v["sigla"]: v for v in json.load(open(os.path.join(R, "glossario.json"), encoding="utf-8"))["voci"]}
     sigla = bool(g.get("guidance", {}).get("ovvio"))            # guidance non è una sigla da spiegare
-    campi = {"a": "Il titolo cede il 3% (Reuters). Il gruppo taglia i costi (Reuters).",
-             "b": "Il titolo cede il 3% (Reuters). Per gli analisti pesa il debito (Bloomberg).", "c": "Nessuna fonte qui."}
-    rip = T.fonti_ripetute(campi)
-    conta = T.per_testata(" ".join(campi.values()))
-    lunga = "Il titolo scende perché il gruppo taglia le stime. Una frase. Un'altra frase. Ancora una. E il calo resta (Reuters)."
-    coperta = not T.connettivi(lunga, [lunga]) and bool(T.connettivi("Il titolo scende perché il gruppo taglia le stime. A. B. C. D."))
+    nomi = T.NOMI_BASE + T.nomi_da_righe(["Fonti: Kitco, dpa-AFX, Il Sole 24 Ore; chiusure dell'oro future (FMP)."])
+    tt = {"a": "Il titolo cede il 3% (Reuters). Il gruppo taglia i costi (Kitco e AFP).",
+          "b": "I future del Nasdaq perdono oltre l'1% (Milano Finanza, 07:40).",
+          "c": "La Banca del Giappone (BoJ) alza i tassi e l'utile supera le attese (stima LSEG 746,3).",
+          "d": "Secondo Reuters la SEC esamina i conti. Il gas sale ad Amsterdam (dpa-AFX)."}
+    par = T.fonti_nei_testi(tt, nomi)
+    conta = T.per_testata(" ".join(tt.values()), nomi)
+    detta = "Per gli operatori sentiti dal Sole 24 Ore l'offerta ha tolto liquidità. Il titolo scende perché il gruppo taglia le stime."
+    lunga = "Il titolo scende perché il gruppo taglia le stime. Una frase. Un'altra frase. Ancora una. Lo ha scritto Reuters."
+    coperta = not T.connettivi(detta) and not T.connettivi(lunga, T.coperti_da({"x": lunga})) \
+        and bool(T.connettivi("Il titolo scende perché il gruppo taglia le stime. A. B. C. D."))
+    sg = lambda x: T.sigle("TOP STORY " + x)   # (mai, doppie, spiegate, tra parentesi, due volte)   # noqa: E731
+    s1 = sg("Mercoledì esce il PCE, il dato sui prezzi che la Fed guarda di più.")
+    s2 = sg("Mercoledì esce il PCE e i mercati aspettano.")
+    s3 = sg("L'indice azionario mondiale ACWI (indice azionario mondiale MSCI) perde il 3,5%.")
+    s4 = sg("Per l'Agenzia internazionale dell'energia (AIE) l'offerta supera la domanda.")
+    s5 = sg("La SEC esamina i conti di Nvidia mentre sale il VIX, l'indice che misura la paura a Wall Street.")
+    s6 = sg("Mercoledì esce il PCE (inflazione dei consumi, misura Fed).")
+    sigle_ok = (not s1[0] and s1[2] == ["PCE"] and not s1[3]) and bool(s2[0]) and bool(s3[4]) and not (s4[0] or s4[3] or s4[4]) \
+        and (not s5[0] and s5[2] == ["VIX"]) and (not s6[0] and s6[3] == ["PCE"] and not s6[4])
     letta = "Per noi il mercato sconta il caso peggiore. Una frase. Un'altra frase. Ancora una. Il titolo scende perché il gruppo taglia le stime."
     nuda = "Il titolo scende perché il gruppo taglia le stime. A. B. C. D."
     voce = not T.connettivi(letta, T.coperti_da({"x": letta})) and not T.coperti_da({"x": nuda}) and bool(T.connettivi(nuda)) \
         and not T.connettivi("Spesso un titolo scende perché il gruppo taglia le stime. A. B. C. D.") \
         and not T.connettivi("prima +0,4% Se l'energia passa a monte Sopra: conferma il dato di ieri e pesa sui titoli di Stato. A. B. C.") \
         and bool(T.connettivi("Sotto il 5,10% il titolo scende perché prevale la paura. A. B. C. D."))
-    ok = not sfuggiti and not fermate and sigla and len(rip) == 1 and rip[0].startswith("a:") and conta == {"Reuters": 3, "Bloomberg": 1} and coperta and voce
-    esito("Scrittura: lessico di casa e fonti tra parentesi", ok,
-          f"{len(calchi)} calchi fermati, {len(giuste)} frasi giuste passate, stessa testata due volte in un paragrafo fermata, "
-          "lettura dichiarata una volta per paragrafo" if ok else
+    fonti_ok = par == [("a", "(Reuters)"), ("a", "(Kitco e AFP)"), ("d", "(dpa-AFX)")] and conta == {"Reuters": 1, "Kitco": 1, "AFP": 1, "dpa-AFX": 1}
+    ok = not sfuggiti and not fermate and sigla and fonti_ok and coperta and voce and sigle_ok
+    esito("Scrittura: lessico di casa, fonti e sigle", ok,
+          f"{len(calchi)} calchi fermati, {len(giuste)} frasi giuste passate, testate tra parentesi fermate (anche una nuova), "
+          "fonte di un livello del mattino passata, causa coperta da chi la dà o dalla lettura dichiarata, sigle dette in parole" if ok else
           "; ".join(x for x in (f"calchi non fermati: {sfuggiti}" if sfuggiti else "", f"frasi giuste fermate: {fermate}" if fermate else "",
-                                "" if sigla else "guidance è ancora una sigla da spiegare", f"ripetute: {rip}; conteggio: {conta}",
-                                "" if coperta else "una parentesi non copre il suo paragrafo",
+                                "" if sigla else "guidance è ancora una sigla da spiegare",
+                                "" if fonti_ok else f"testate tra parentesi: {par}; conteggio: {conta}",
+                                "" if sigle_ok else f"sigle: {[s1, s2, s3, s4, s5, s6]}",
+                                "" if coperta else "chi dà la causa non copre il suo paragrafo, o una causa nuda passa",
                                 "" if voce else "la lettura dichiarata non copre il suo paragrafo, o una causa nuda passa") if x)[:300])
 
 

@@ -113,19 +113,19 @@ chiusure (punti)                                                                
                                                                                                                  modo opposto (Seoul Economic Daily).
 
 
-        Titolo asiatico                                                                                                16/11
+  Titolo asiatico                                                                                                       16/11
 
-        Kioxia                                                                                                         -8,0%
+  Kioxia                                                                                                                -8,0%
 
-        SK Hynix                                                                                                       -7,9%
+  SK Hynix                                                                                                              -7,9%
 
-        Tokyo Electron                                                                                                 -7,1%
+  Tokyo Electron                                                                                                        -7,1%
 
-        TSMC                                                                                                           -5,7%
+  TSMC                                                                                                                  -5,7%
 
-        Samsung Electronics                                                                                            -4,5%
+  Samsung Electronics                                                                                                   -4,5%
 
-        SoftBank                                                                                                       -3,7%
+  SoftBank                                                                                                              -3,7%
 
 Come fa una notizia su un'azienda americana a far cadere una borsa asiatica? Per noi la risposta è che Taiwan e Corea
 hanno nei chip una parte molto larga dell'indice. Quando i titoli dei semiconduttori americani si muovono, di solito le loro

@@ -8,13 +8,13 @@ La regola dei fatti (G-34, decisa da Paolo il 19/11/2026):
   2. altrimenti due autori diversi. Autore = chi ha scritto, non chi ospita: un'agenzia conta una volta sola, ovunque
      sia ripresa (tre copie Reuters su tre siti sono un autore);
   3. come ultima scelta un solo autore, dichiarato: di livello 1 o agenzia, con in "conferma_cercata" la ricerca in più
-     fatta per trovarne un secondo senza riuscirci; nel PDF il fatto esce con "(Testata)".
+     fatta per trovarne un secondo senza riuscirci; nel PDF la testata sta nella riga Fonti.
 Fino al 20/11/2026 bastava una fonte di livello 1, e una copia d'agenzia ospitata ovunque valeva livello 1: la scheda
 si chiudeva alla prima copia e la redazione smetteva di cercare (da 0 a 12 schede con un solo autore tra #025 e #028).
 
 A chi si applica (si_applica): a tutte le schede dei fatti, tranne
   - i dati pubblici certi (sezioni catalizzatori, mercati, estremo), che hanno la loro regola in controlli_fatti.py;
-  - le cause (tipo "C"): sono già la lettura di un autore, attribuita a lui nel PDF con "(Testata)";
+  - le cause (tipo "C"): sono già la lettura di un autore, attribuita a lui nel PDF dentro la frase;
   - le schede riprese dalla memoria e confermate dal revisore (id "MEM.."): vale il giudizio di quando sono uscite.
 
 Chi è l'autore di una fonte, nell'ordine:

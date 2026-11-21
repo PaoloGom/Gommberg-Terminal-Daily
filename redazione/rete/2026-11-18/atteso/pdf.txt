@@ -111,13 +111,13 @@ In media i titoli tecnologici perdono il 2,8%, gli altri settori meno Variazione
                                                                                                             martedì (Reuters).
 
 
-               Nvidia, terzo trimestre fiscale                                                Risultato                       Attese
+   Nvidia, terzo trimestre fiscale                                                            Risultato                          Attese
 
-               Ricavi (mld di dollari)                                                        115,8                           109,15
+   Ricavi (mld di dollari)                                                                    115,8                              109,15
 
-               Utile per azione (dollari)                                                     2,68                            2,47
+   Utile per azione (dollari)                                                                 2,68                               2,47
 
-               Ricavi da data center (mld di dollari)                                         107,6                           101,85
+   Ricavi da data center (mld di dollari)                                                     107,6                              101,85
 
   ▪   La guidance. Nvidia indica 130                           ▪   Il vertice. Colette Kress guida                  ▪   Chi scommette contro. Muddy
       miliardi di ricavi per il trimestre in                       Nvidia ad interim: il consiglio valuta               Waters Research è ribassista sul
@@ -286,17 +286,17 @@ Il debutto di Anthropic mette alla prova la liquidità del Nasdaq
   64 mld $: l'incasso massimo se tutte le 825 milioni di azioni si vendono a 78 $ (calcolo su dati RTTNews).
 
 
-  IPO di Anthropic                                    Dato
+ IPO di Anthropic                                    Dato
 
-  Forchetta di prezzo                                 70-78 $ per azione
+ Forchetta di prezzo                                 70-78 $ per azione
 
-  Azioni offerte                                      825 milioni (801,35 dalla società, 23,65 da azionisti)
+ Azioni offerte                                      825 milioni (801,35 dalla società, 23,65 da azionisti)
 
-  Opzione dei collocatori                             fino a 123,75 milioni di azioni in più
+ Opzione dei collocatori                             fino a 123,75 milioni di azioni in più
 
-  Valutazione indicata                                fino a 1.400 miliardi di dollari
+ Valutazione indicata                                fino a 1.400 miliardi di dollari
 
-  Quotazione                                          Nasdaq, simbolo ANT
+ Quotazione                                          Nasdaq, simbolo ANT
 
 Venderne 825 milioni in una volta chiede soldi freschi al mercato. Per noi un'IPO così grande, in una settimana di vendite
 sulla tecnologia, si legge prima come test di liquidità e poi come voto sull'AI.

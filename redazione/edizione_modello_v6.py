@@ -130,9 +130,9 @@ C = {
     "in30_temi": ["Banche", "Chip", "Macro"],   # uno per punto, mai il tema della top story
     "stamattina": [
         "Asia alle 08:11: Kospi -8,68%, Nikkei -4,89%, Hang Seng -1,32%",
-        "Brent future (petrolio europeo) alle 08:29: 104,39 $ (-1,6%)",
+        "Brent future alle 08:29: 104,39 $ (-1,6%)",
         "EUR/USD alle 09:12: 1,1216",
-        "Treasury 10 anni in mattinata: 5,10% (Investing.com)",
+        "Treasury 10 anni in mattinata: 5,10%",
     ],
     "notizie": [   # 6-8; "tag" = tema dell'elenco chiuso, mai quello della top story né una sua reazione di mercato
         # No: "Treasury: dopo il CPI sale il breve" o "Il dollaro si rafforza dopo il dato" (reazioni alla top story:
@@ -147,14 +147,14 @@ C = {
          "testo": "Con lei Kioxia e Advantest perdono circa l'11%: le vendite sui titoli legati all'intelligenza "
                   "artificiale sono arrivate in Asia.", "rimando": "chip"},
         {"tag": "Cina", "titolo": "La cinese CXMT presenta nuove memorie e spaventa i concorrenti",
-         "testo": "Per un analista di BNP Paribas AM è l'annuncio sulle memorie di nuova generazione a pesare sui titoli "
-                  "(Milano Finanza).", "rimando": "chip"},
+         "testo": "Per un analista di BNP Paribas AM è l'annuncio sulle memorie di nuova generazione a pesare sui "
+                  "titoli.", "rimando": "chip"},
         {"tag": "Banche", "titolo": "BofA paga l'accordo con il Tesoro, Morgan Stanley incassa dal trading",
          "testo": "Nella seconda giornata di conti delle grandi banche americane l'accordo costa a BofA 1,2 mld $, mentre "
                   "il trading azionario di Morgan Stanley cresce del 41%.", "rimando": "banche"},
         {"tag": "Petrolio", "titolo": "Gli Houthi colpiscono gli uffici Aramco e il greggio sale",
          "testo": "Dopo l'attacco a Dhahran il greggio americano (WTI) arriva in seduta a circa 95 $, mentre il Brent "
-                  "chiude appena sopra la vigilia (investingLive)."},
+                  "chiude appena sopra la vigilia."},
         {"tag": "Trimestrali", "titolo": "BlackRock aumenta l'utile del 25%",
          "testo": "Il gestore chiude il terzo trimestre con 1,66 mld $ di utile, nella giornata delle grandi banche "
                   "USA.", "rimando": "banche"},
@@ -233,18 +233,19 @@ C = {
                        "serie": [("10 anni meno 2 anni", [round((r[2] - r[1]) * 100) for r in UST_MESE], "#F26B1D")]},
          # niente "punti": le variazioni per scadenza sono già nelle barre (§3.3). Il "numero" c'è perché dice una cosa che
          # grafici e testo non dicono: quanto era stata più forte la prima reazione
-         "numero": "+12 pb: il salto del 2 anni nei minuti dopo il dato (Axios). Ha chiuso a +3: la prima reazione "
+         "numero": "+12 pb: il salto del 2 anni nei minuti dopo il dato. Ha chiuso a +3: la prima reazione "
                    "era stata quattro volte più forte di quella rimasta a fine seduta.",
          # B1: la causa si confronta con la forma della curva. Un'inflazione più alta spiega il breve, non il lungo in calo:
          # dirlo e dare la lettura della redazione che regge alla prova dei prezzi (registro "anomalia" in fatti.json, §6.2c)
-         "perche": "Il dato sui prezzi alza le attese sulla Fed, e con loro il rendimento a 2 anni. Non spiega però il calo delle scadenze lunghe. A nostro avviso sono acquisti rifugio dopo le vendite sui tecnologici, e lo conferma il VIX in rialzo (la volatilità attesa a Wall Street).",
+         "perche": "Il dato sui prezzi alza le attese sulla Fed, e con loro il rendimento a 2 anni. Non spiega però il calo delle scadenze lunghe. A nostro avviso sono acquisti rifugio dopo le vendite sui tecnologici, e lo conferma il rialzo del VIX, l'indice che misura la paura a Wall Street.",
          "quindi": "Se il 10 anni torna verso il 5,30-5,35% toccato in serata, torna a contare l'inflazione. Sotto il 5,10% di stamattina, invece, prevale la paura sulla borsa.",
-         # testo: apre con il fatto di oggi che regge la tesi. Il passaggio (§3.4) entra dove serve a capirlo: fa seguire a
-         # chi non ha mai studiato finanza perché il fatto muove il prezzo, un anello alla volta, con parole di tutti i giorni,
-         # legato al caso di oggi e non come regola generale; la parola difficile si capisce da ciò che fa. Poggia su un
-         # meccanismo di meccanismi.json (qui M26 e M01), non su una scheda. Poi il racconto che i grafici non fanno (storia
-         # del mese, mutui, asta), senza riscrivere le cifre. I quattro testi di questa pagina aprono in quattro modi
-         # diversi, e così ogni mattina: mai tutti con una domanda, mai tutti con una regola.
+         # testo: una spiegazione a voce (§1). Apre con il dubbio che il fatto di oggi lascia a chi legge, risponde subito
+         # con una frase breve, poi spiega il passaggio (§3.4) un anello per frase, con parole di tutti i giorni, sul caso
+         # di oggi e non come regola generale; la parola difficile si capisce da ciò che fa. Poggia su un meccanismo di
+         # meccanismi.json (qui M26 e M01), non su una scheda. Solo dopo il racconto che i grafici non fanno (storia del
+         # mese, mutui, asta), senza riscrivere le cifre. Il dubbio si apre in quattro modi diversi nei quattro testi di
+         # questa pagina, e così ogni mattina: la domanda esplicita in uno o due pezzi al massimo. Nel testo nessuna
+         # testata tra parentesi: stanno nella riga "fonte" del pezzo (§3.5).
          "testo": ["Un solo numero ha mosso in direzioni opposte due titoli dello stesso Tesoro. Chi presta soldi al "
                    "governo americano per due anni si chiede dove saranno i tassi della Fed. Dopo un'inflazione più alta "
                    "del previsto li aspetta più su, e pretende un interesse maggiore. Chi presta per dieci anni guarda "
@@ -287,7 +288,8 @@ C = {
                    ["Quota dei ricavi da wafer a 2 nanometri", "8%", "-", "-"],
                    ["Quota dei ricavi da wafer a 3 nanometri", "33%", "-", "-"]],
          "larghezze": [70, 30, 36, 46], "ruolo_righe": "perche",   # i conti solidi: la tesi è che non bastano
-         "perche": "Le vendite partite dai titoli dell'intelligenza artificiale del Nasdaq si allargano a tutta l'Asia (ANSA). Tokyo, Seul e Taipei aprono quando New York ha già chiuso. Chi ha venduto a Wall Street ritrova lì gli stessi titoli, o i loro fornitori, e spesso riparte da dove si era fermato.",
+         # larghezze = proporzioni tra le colonne: la tabella esce sempre larga quanto il testo
+         "perche": "Le vendite partite dai titoli dell'intelligenza artificiale del Nasdaq si allargano a tutta l'Asia. Tokyo, Seul e Taipei aprono quando New York ha già chiuso. Chi ha venduto a Wall Street ritrova lì gli stessi titoli, o i loro fornitori, e spesso riparte da dove si era fermato.",
          # numero: un conto che il lettore non trova già fatto (qui lo scarto tra utile e stima), e misura la tesi
          "numero": "+2,2%: di tanto l'utile di TSMC supera la stima degli analisti. Un margine piccolo: per noi la buona notizia era già in gran parte nei prezzi.",
          "quindi": "Oggi alle 15:30 riapre il Nasdaq e si vede se le vendite arrivano in Europa.",
@@ -295,10 +297,10 @@ C = {
                    "di macchinari per chip.",
                    "<b>Il timore.</b> Un analista di BNP Paribas AM indica l'annuncio di CXMT, produttore cinese, sulle "
                    "memorie di nuova generazione."],
-         "testo": ["I conti di TSMC sono arrivati mentre l'Asia vendeva già, e non hanno cambiato la direzione. Un "
-                   "trimestre migliore del previsto racconta ciò che è stato; il prezzo di un produttore di chip dipende "
-                   "dagli utili dei prossimi anni. È lì che colpisce CXMT: un concorrente che promette memorie nuove "
-                   "mette in dubbio i prezzi di vendita di domani.",
+         "testo": ["Perché conti migliori del previsto non fermano le vendite? Perché guardano indietro. Un trimestre "
+                   "racconta ciò che è stato, mentre il prezzo di un produttore di chip dipende dagli utili dei "
+                   "prossimi anni. È lì che colpisce CXMT: un concorrente che promette memorie nuove mette in dubbio "
+                   "i prezzi di vendita di domani.",
                    "Le borse asiatiche non cadono tutte allo stesso modo. Seul perde quasi il doppio di Tokyo: lì, come a "
                    "Taipei, pochi produttori di semiconduttori fanno una parte larga dell'indice. A Tokyo il loro peso è "
                    "minore, e il Nikkei limita i danni nonostante SoftBank e i produttori di macchinari per chip."],
@@ -311,13 +313,13 @@ C = {
          "misura": "mezzo",
          "righe": [["Società", "Risultato del terzo trimestre", "Il punto"],
                    ["Bank of America", "Utile netto 6,9 mld $", "Onere straordinario di 1,2 mld $ per l'accordo con il "
-                    "Tesoro USA; titolo in calo (TheStreet)"],
+                    "Tesoro USA; titolo in calo"],
                    ["Morgan Stanley", "Utile per azione (EPS) 3,03 $, ricavi 20,33 mld $", "Trading azionario +41% a "
                     "5,79 mld $; rendimento sul capitale tangibile (ROTCE) 22,6%"],
-                   ["BlackRock", "Utile 1,66 mld $ (+25%)", "Utile in crescita (FIRSTonline)"]],
+                   ["BlackRock", "Utile 1,66 mld $ (+25%)", "Utile in crescita"]],
          "larghezze": [30, 58, 94],
-         # perche = la causa con fonte, non la parafrasi della tabella; quindi = una cosa osservabile che il testo non dice
-         "perche": "BofA paga un onere straordinario per l'accordo con il Tesoro, mentre Morgan Stanley incassa da consulenza e trading, che crescono quando i mercati si agitano (FIRSTonline).",
+         # perche = la causa detta da chi la dà (§3.5), non la parafrasi della tabella; quindi = una cosa osservabile che il testo non dice
+         "perche": "BofA paga un onere straordinario per l'accordo con il Tesoro, mentre Morgan Stanley incassa da consulenza e trading, che in genere crescono quando i mercati si agitano.",
          "quindi": "Il trading di Morgan Stanley, 5,79 mld $ nel trimestre, è il metro per Goldman Sachs e Citigroup, che pubblicano nei prossimi giorni.",
          # niente "lettura": la tesi sta nel titolo e si dice una volta (§3.3; il motore rifiuta il campo).
          # testo = il meccanismo che il lettore non vede nei numeri: spiega, non ripete tabella e perché
@@ -342,7 +344,7 @@ C = {
                      "titolo": "Dal primo ottobre il Brent non è più sceso sotto i 100 dollari",
                      "sottotitolo": "Brent future, chiusure ($)", "soglie": [(100, "100 $")],
                      "note": [(d("09-29"), 96.16, "29/9"), (d("10-14"), 106.06, "14/10")]},
-         "perche": "Sono i prezzi dell'energia, legati alla guerra in Iran, ad aver spinto l'inflazione di settembre (TheStreet). L'attacco degli Houthi agli uffici Aramco di Dhahran ha aggiunto il timore per le forniture.",
+         "perche": "A spingere l'inflazione di settembre sono stati, secondo TheStreet, i prezzi dell'energia legati alla guerra in Iran. L'attacco degli Houthi agli uffici Aramco di Dhahran ha aggiunto il timore per le forniture.",
          "quindi": "Oggi alle 14:30 i prezzi alla produzione mostrano se il rincaro dell'energia è già arrivato alle imprese.",
          "numero": "+10,3%: quanto ha recuperato il Brent dal minimo del 29 settembre. In due settimane ha ripreso tutto il calo di fine mese.",
          # testo = il passaggio (M10, M11): dal barile ai prezzi, un anello alla volta, senza una sigla

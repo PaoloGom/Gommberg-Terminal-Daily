@@ -5,7 +5,7 @@ Esce con codice 1 e l'elenco dei problemi se qualcosa non va.
 Schema di fatti.json: lista di schede
 {"id": "N01", "sezione": "top_story|top_news|catalizzatori|agenda|macro|deep_dive|scommessa"
    (nomi v6 ammessi: notizie=top_news, calendario=catalizzatori, termometri/lettura=macro, approfondimento=deep_dive),
- "tipo": "C" solo per una causa specifica di un movimento (la citazione deve contenere il nesso; nel PDF "(Testata)" in coda),
+ "tipo": "C" solo per una causa specifica di un movimento (la citazione deve contenere il nesso; nel PDF chi la dà è detto nella frase),
  "tipo": "U" per un dato ufficiale (dato macro, decisione di banca centrale, asta, comunicato): serve una fonte
    "ufficiali" di fonti.json; l'agenzia solo d'appoggio. Se il sito ufficiale non si raggiunge dopo ricerche vere:
    "ufficiale_cercato": ["ricerca 1", "ricerca 2"] e il dato esce attribuito "(Reuters)". In prima pagina il dato
@@ -19,7 +19,7 @@ Schema di fatti.json: lista di schede
  "verifica": "confermato|errato|non_conclusivo" (scritto dal revisore), "nota_revisore": "..."}
 Quando un fatto è confermato (la regola, a chi si applica e chi è l'autore di una fonte: autori.py): la fonte primaria basta
  da sola (sito "ufficiali" di fonti.json o "primaria": true); altrimenti due autori diversi, e un'agenzia conta una volta sola
- ovunque sia ripresa; come ultima scelta un solo autore di livello 1 o agenzia, con "conferma_cercata", e nel PDF "(Testata)".
+ ovunque sia ripresa; come ultima scelta un solo autore di livello 1 o agenzia, con "conferma_cercata" (nel PDF la testata sta nella riga Fonti, come le altre).
  Le cause (tipo C) e le schede della memoria già confermate restano com'erano: basta una fonte di livello 1 o agenzia.
  Dati pubblici certi (sezione catalizzatori, mercati, estremo): "fonte_singola": true = una sola fonte non vietata,
  dichiarata nel PDF ("-7,57% (Korea Herald)"); un dato del calendario non si toglie mai.
@@ -149,7 +149,7 @@ def controlla(f):
                                 "fonti (APP_FONTI §2)")
             elif len(cercato) >= 2:
                 avvisi.append(f"{i}: dato ufficiale senza il comunicato (cercato: {'; '.join(cercato[:2])}): "
-                              "nel PDF attribuito \"(Testata)\"")
+                              "la testata nella riga Fonti")
             else:
                 problemi.append(f"CERCA {i}: dato ufficiale senza fonte ufficiale (non si toglie): cerca il comunicato (es. \"BLS CPI September "
                                 "2026 news release\", \"Eurostat flash estimate euro area inflation\") e aggiungilo alle fonti; "
@@ -158,11 +158,11 @@ def controlla(f):
         # dato pubblico certo: regola invariata (una di livello 1, o due testate, o una sola fonte dichiarata)
         singola = f.get("fonte_singola") and 0 not in livelli
         if singola and 1 not in livelli:
-            avvisi.append(f"{i}: fonte singola dichiarata ({sorted(testate)[0]}): nel PDF \"(Testata)\" in coda al dato")
+            avvisi.append(f"{i}: fonte singola dichiarata ({sorted(testate)[0]}): la testata nella riga Fonti")
         elif not (singola or 1 in livelli or sum(1 for x in livelli if x in (2, 3)) >= 2 and len(testate) >= 2):
             if sez == "catalizzatori":
                 problemi.append(f"{i}: dato del calendario: cercalo alla fonte ufficiale (fonti.json \"ufficiali\") o, se impossibile, "
-                                "\"fonte_singola\": true e \"(Testata)\" nel PDF; mai toglierlo")
+                                "\"fonte_singola\": true e la testata nella riga Fonti; mai toglierlo")
             else:
                 problemi.append(f"{i}: fonti insufficienti (serve 1 di livello 1 o 2 testate di livello 2; livelli {livelli})")
     elif g["stato"] == "senza_fonti":
@@ -177,7 +177,7 @@ def controlla(f):
         elif not si_applica(f):
             pass                # causa attribuita o scheda della memoria già confermata: una fonte affidabile basta, come prima
         elif g["dichiarata"]:
-            avvisi.append(f"{i}: un solo autore dichiarato ({chi}): nel PDF \"(Testata)\" in coda al fatto")
+            avvisi.append(f"{i}: un solo autore dichiarato ({chi}): la testata nella riga Fonti")
             dichiarate.append((str(i), g["cercate"]))
         elif not any(p.startswith(f"{i}:") for p in problemi):   # una scheda già respinta per altro non si manda a cercare
             un_autore.append(str(i))
@@ -208,7 +208,7 @@ def controlla(f):
         if v == "errato":
             problemi.append(f"{i}: segnato ERRATO dal revisore: {f.get('nota_revisore', '')}")
         if v == "non_conclusivo" and sez in PUBBLICI:
-            avvisi.append(f"{i}: dato pubblico non confermato dal revisore: resta con la fonte dichiarata (\"(Testata)\")")
+            avvisi.append(f"{i}: dato pubblico non confermato dal revisore: resta con la fonte dichiarata (nella riga Fonti)")
         elif v == "non_conclusivo":
             problemi.append(f"{i}: verifica non conclusiva: togliere il fatto dal PDF o attribuirlo e ripetere la verifica")
 
@@ -243,7 +243,7 @@ if un_autore:
             righe.append(riga.rstrip(",")); riga = "CERCA (segue):"
         riga += " " + x + ","
     problemi[:0] = ["CERCA come: il documento di chi è nel fatto (\"primaria\": true) o lo stesso fatto da un altro autore; "
-                    "un'agenzia conta 1 ovunque ripresa. Se non c'è: \"conferma_cercata\" e (Testata)"] + righe + [riga.rstrip(",")]
+                    "un'agenzia conta 1 ovunque ripresa. Se non c'è: \"conferma_cercata\""] + righe + [riga.rstrip(",")]
 
 # Revisione mirata. Fino al 10/11/2026 il controllo chiedeva un esito per ogni scheda e il revisore, con 25 verifiche a
 # disposizione, segnava tutto "confermato" (221 su 221) senza riaprire gli approfondimenti. Ora l'elenco lo fa il codice,

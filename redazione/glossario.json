@@ -1,5 +1,5 @@
 {
- "nota": "Sigle e termini dell'edizione. ovvio=true: mai spiegati. ovvio=false: spiegati tra parentesi alla PRIMA occorrenza dell'edizione, una volta sola, con 'breve' (max 6 parole). Varianti: altre grafie riconosciute dal controllo. Gli indici del cruscotto e 'future' sono segnati ovvi perché il cruscotto li colloca per area; nel testo, alla prima occorrenza fuori tabella, si può comunque aggiungere il paese (es. 'il Kospi di Seul').",
+ "nota": "Sigle e termini dell'edizione. ovvio=true: li conosce chi legge un giornale ogni giorno, mai spiegati. ovvio=false: alla PRIMA occorrenza dell'edizione la cosa si dice in parole dentro la frase (non la sigla seguita dalla definizione tra parentesi); 'breve' (max 6 parole) dice che cos'è, sul sito e come traccia. Il controllo riconosce la cosa detta in parole dalle radici di 'breve' e di 'parole' (altri modi naturali di dirla). Varianti: altre grafie riconosciute dal controllo. Gli indici del cruscotto e 'future' sono segnati ovvi perché il cruscotto li colloca per area; nel testo, alla prima occorrenza fuori tabella, si può comunque aggiungere il paese (es. 'il Kospi di Seul').",
  "voci": [
   {
    "sigla": "Fed",
@@ -62,22 +62,36 @@
   {
    "sigla": "CPI",
    "breve": "inflazione al consumo USA",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "prezzi"
+   ]
   },
   {
    "sigla": "PCE",
    "breve": "inflazione dei consumi, misura Fed",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "prezzi"
+   ]
   },
   {
    "sigla": "PPI",
    "breve": "prezzi alla produzione",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "imprese",
+    "fabbrica"
+   ]
   },
   {
    "sigla": "core",
    "breve": "esclusi energia e alimentari",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "fondo",
+    "senza"
+   ]
   },
   {
    "sigla": "HICP",
@@ -85,6 +99,9 @@
    "ovvio": false,
    "varianti": [
     "IPCA"
+   ],
+   "parole": [
+    "prezzi"
    ]
   },
   {
@@ -93,37 +110,68 @@
    "ovvio": false,
    "varianti": [
     "NFP"
+   ],
+   "parole": [
+    "occupa",
+    "assunzion",
+    "buste"
    ]
   },
   {
    "sigla": "JOLTS",
    "breve": "posti di lavoro vacanti USA",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "offerte",
+    "aperti"
+   ]
   },
   {
    "sigla": "PMI",
    "breve": "sondaggio sui direttori acquisti",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "imprese",
+    "attività",
+    "indice"
+   ]
   },
   {
    "sigla": "ISM",
    "breve": "sondaggio USA sulle imprese",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "manifattur",
+    "servizi",
+    "indice",
+    "attività"
+   ]
   },
   {
    "sigla": "ZEW",
    "breve": "fiducia degli analisti tedeschi",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "investitor",
+    "indice"
+   ]
   },
   {
    "sigla": "Ifo",
    "breve": "fiducia delle imprese tedesche",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "indice"
+   ]
   },
   {
    "sigla": "FOMC",
    "breve": "comitato Fed che decide i tassi",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "riunion",
+    "fed"
+   ]
   },
   {
    "sigla": "BoJ",
@@ -148,7 +196,11 @@
   {
    "sigla": "dot plot",
    "breve": "previsioni sui tassi dei membri Fed",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "grafico",
+    "puntini"
+   ]
   },
   {
    "sigla": "CME FedWatch",
@@ -156,17 +208,29 @@
    "ovvio": false,
    "varianti": [
     "FedWatch"
+   ],
+   "parole": [
+    "scommess",
+    "mercato"
    ]
   },
   {
    "sigla": "QE",
    "breve": "acquisti di titoli della banca centrale",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "compra",
+    "bilancio"
+   ]
   },
   {
    "sigla": "QT",
    "breve": "riduzione del bilancio della banca centrale",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "vende",
+    "titoli"
+   ]
   },
   {
    "sigla": "pb",
@@ -176,7 +240,10 @@
   {
    "sigla": "UST",
    "breve": "titoli di Stato USA",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "treasury"
+   ]
   },
   {
    "sigla": "BTP",
@@ -206,12 +273,18 @@
   {
    "sigla": "TIPS",
    "breve": "Treasury indicizzati all'inflazione",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "protett"
+   ]
   },
   {
    "sigla": "breakeven",
    "breve": "inflazione attesa implicita nei titoli",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "prezzi"
+   ]
   },
   {
    "sigla": "term premium",
@@ -219,6 +292,10 @@
    "ovvio": false,
    "varianti": [
     "premio a termine"
+   ],
+   "parole": [
+    "scadenz",
+    "rischio"
    ]
   },
   {
@@ -234,27 +311,51 @@
   {
    "sigla": "CDS",
    "breve": "assicurazione contro l'insolvenza",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "fallim",
+    "rischio",
+    "protezion"
+   ]
   },
   {
    "sigla": "high yield",
    "breve": "obbligazioni ad alto rischio",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "spazzatura",
+    "rischios",
+    "rendiment"
+   ]
   },
   {
    "sigla": "investment grade",
    "breve": "obbligazioni con rating elevato",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "sicur",
+    "affidabil",
+    "qualità"
+   ]
   },
   {
    "sigla": "VIX",
    "breve": "volatilità attesa sull'S&P 500",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "paura",
+    "nervosism"
+   ]
   },
   {
    "sigla": "ACWI",
    "breve": "indice azionario mondiale MSCI",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "borse",
+    "mondo",
+    "global"
+   ]
   },
   {
    "sigla": "Euro Stoxx 50",
@@ -307,12 +408,22 @@
   {
    "sigla": "DXY",
    "breve": "indice del dollaro",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "valute",
+    "paniere",
+    "biglietto"
+   ]
   },
   {
    "sigla": "carry trade",
    "breve": "debito in valuta a basso tasso",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "prestit",
+    "tassi",
+    "yen"
+   ]
   },
   {
    "sigla": "Brent",
@@ -335,7 +446,11 @@
   {
    "sigla": "EIA",
    "breve": "agenzia USA per l'energia",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "scorte",
+    "dipartiment"
+   ]
   },
   {
    "sigla": "AIE",
@@ -343,6 +458,9 @@
    "ovvio": false,
    "varianti": [
     "IEA"
+   ],
+   "parole": [
+    "parigi"
    ]
   },
   {
@@ -351,22 +469,40 @@
    "ovvio": false,
    "varianti": [
     "LNG"
+   ],
+   "parole": [
+    "metaniere",
+    "navi",
+    "gas"
    ]
   },
   {
    "sigla": "TTF",
    "breve": "prezzo del gas europeo",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "gas",
+    "amsterdam"
+   ]
   },
   {
    "sigla": "EPS",
    "breve": "utile per azione",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "azione",
+    "utili"
+   ]
   },
   {
    "sigla": "P/E",
    "breve": "prezzo diviso utili",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "utili",
+    "multipl",
+    "volte"
+   ]
   },
   {
    "sigla": "guidance",
@@ -386,7 +522,7 @@
   {
    "sigla": "SEC",
    "breve": "autorità di borsa USA",
-   "ovvio": false
+   "ovvio": true
   },
   {
    "sigla": "GPU",
@@ -396,7 +532,11 @@
   {
    "sigla": "HBM",
    "breve": "memorie ad alta velocità per l'AI",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "chip",
+    "memoria"
+   ]
   },
   {
    "sigla": "TSMC",
@@ -411,7 +551,12 @@
   {
    "sigla": "capex",
    "breve": "spesa in investimenti",
-   "ovvio": false
+   "ovvio": false,
+   "parole": [
+    "investiment",
+    "spese",
+    "spende"
+   ]
   }
  ],
  "lessico": {
