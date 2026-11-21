@@ -1,6 +1,6 @@
 # Stato del Gommberg
 
-Aggiornato: 21/11/2026 mattina (Registro come ordine di lavoro, G-18). Deve bastare da solo a una chat nuova. Lo riscrive Claude in corsa, a ogni decisione, insieme al Registro.
+Aggiornato: 21/11/2026 ore 11:30 (G-39: sistema di rilascio costruito sul ramo `rilascio`). Deve bastare da solo a una chat nuova. Lo riscrive Claude in corsa, a ogni decisione, insieme al Registro.
 
 Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b6e-83eb-4b8d032a3783`, https://claude.ai/artifact/KmCtJUZFx2WKVCRaDiHPtE). Una voce si legge per codice (`db_query` su `tasks`, `codice` = "G-xx"). Dal 21/11 ogni voce è un ordine di lavoro: priorità (Max, High, Medium, Low, TBD = idee), ownership (Claude, Insieme, Paolo), targhetta modello e sforzo, scheda con obiettivo, fatto quando, come, decisioni e vincoli, dipendenze ("dopo"). Le decisioni di una voce stanno solo nella sua scheda: qui si citano i codici.
 
@@ -13,18 +13,19 @@ Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b
 - Edizioni #027 e #028 controllate (G-01, 18/11): avvio 8:59, uscita 9:28; nessuna pagina negata. Il file dei permessi (`.claude/settings.json`) non fa da filtro: l'attività gira con approvazione automatica e apre anche siti fuori elenco.
 
 ## Cantiere attivo
-**Affidabilità della macchina** (pilastro 5), rilascio del weekend 21-22/11. Ordine, con dettagli e decisioni nelle schede del Registro:
-- G-39 per primo (sistema di rilascio): mappa del sistema, rete di non regressione minima, ramo di rilascio e piano del weekend. Dal 21/11 nel weekend non si lavora più a carta bianca su main: le chat lavorano in sequenza sul ramo di rilascio e main riceve un solo merge con collaudo verde (approvato da Paolo);
-- G-38 (merge del pannello nuovo, prerequisito di G-02; serve l'ok di Paolo sulle schermate);
-- pacchetto "Affidabilità delle fonti": G-34 (regola dei fatti nel controllo) e G-02 (la misura nel pannello), nella stessa chat;
-- G-03 (Euro Stoxx 50 con seconda fonte da EODHD), in una chat sua, quando Paolo è al PC.
-Il resto del weekend è nel Registro in ordine di lavoro; la barra della capienza (12 punti, da ritarare) dice cosa non ci sta.
+**Affidabilità della macchina** (pilastro 5), rilascio del weekend 21-22/11, **in corso sul ramo `rilascio`**: main non si tocca fino al merge (ogni push su main ripubblica gommberg.com). Obiettivo di Paolo (21/11): tutto in linea entro domenica sera, prove comprese.
+
+Come si lavora, in ogni chat del rilascio: `bash redazione/rilascia.sh avvia` (mette la sessione sul ramo `rilascio`), una voce alla volta, `python3 redazione/collaudo.py` dopo ogni modifica (se la differenza dall'atteso è voluta: `--atteso`), commit e `git push origin rilascio`. Mappa del sistema, rete e cancelli: `redazione/ARCHITETTURA.md` (sul ramo `rilascio` fino al merge). Il merge lo fa solo il capo sviluppo, con `rilascia.sh pubblica`.
+
+- **G-39 (in corso)**. Fatti il 21/11 sul ramo `rilascio`: mappa (`ARCHITETTURA.md`); rete di non regressione dentro `collaudo.py` (3 edizioni campione congelate in `redazione/rete/`: 16, 18 e 20/11, rifatte identiche al pubblicato); `rilascia.sh` (avvia, collauda, pubblica con cinque cancelli, annulla), provato su una copia del repository; `collaudo.yml` su GitHub a ogni push sul ramo (kit e sito nel browser contro gommberg.com: verde); `mattino.py` e `mattino.yml` (controllo lun-ven alle 10:15, si attiva con il merge). Due guasti trovati e corretti sul ramo: `desk.py` faceva perdere a `controlli_testo.py` il file delle sigle `testo.json`; `prepara.sh` non installava scipy. Restano per fine weekend: collaudo indipendente, merge, edizione di prova pubblicata (procedura B), prova di `mattino.yml`, pulsante "Avvia il rilascio" e vista del piano nel Registro, i due ruoli nella skill.
+- Poi, nell'ordine del Registro e ognuna nella sua chat: G-38 (pannello nuovo, serve l'ok di Paolo sulle schermate); pacchetto "Affidabilità delle fonti" G-34 + G-02; G-03 (EODHD, con Paolo al PC); G-07, G-06, G-04, G-05, G-08, G-09, G-10. Il piano è nel Registro (raccolta `rilasci`, documento `2026-11-21`) e, voce per voce, nella scheda di ognuna: il capo sviluppo ci ha scritto come entra nel rilascio (ramo, file, sequenza, rete, ok). Le chat delle voci seguono la scheda e non chiedono a Paolo nulla sul come.
+- Prove: prima del merge un'edizione di prova dal ramo `rilascio` con la data di lunedì 23/11 (procedura A di `PROVA.md`); dopo il merge una pubblicata con data simulata e poi tolta (procedura B).
 
 ## Prossimo passo
-Weekend 21-22/11: il rilascio del motore del pacchetto "La macchina" (cantiere attivo), da fare dopo un controllo veloce che `sito.yml` sia verde. Edizioni di prova solo con la procedura B di `PROVA.md` (data simulata: la newsletter non parte); ora ogni push su main ripubblica anche gommberg.com. Lunedì 23/11: prima edizione vera sul nuovo dominio, da controllare (pubblicazione e verifica verdi, link della newsletter su gommberg.com). Poi G-12 (repository privato), che sposta il ramo `vecchio-indirizzo` in un repository pubblico con il vecchio nome.
+Sabato 21/11: G-38, poi G-34 + G-02 sul ramo `rilascio`. Domenica 22/11 entro le 17: congelamento, collaudo indipendente, resoconto a Paolo, `rilascia.sh pubblica`, prova B, tutto pulito entro sera. Lunedì 23/11: prima edizione vera sul nuovo dominio e con il motore nuovo; la controlla `mattino.yml` alle 10:15. Poi G-12 (repository privato), che sposta il ramo `vecchio-indirizzo` in un repository pubblico con il vecchio nome.
 
 ## Regole del ritmo
-- Lun-ven il ramo principale non si tocca, salvo guasti e i file di stato della redazione; bozze sul ramo `prova`. Un rilascio nel weekend, sul ramo di rilascio, con un solo merge su main a collaudo verde entro domenica sera (G-39).
+- Lun-ven il ramo principale non si tocca, salvo guasti e i file di stato della redazione; bozze sul ramo `prova`. Un rilascio nel weekend, sul ramo `rilascio`, con un solo merge su main a collaudo verde entro domenica sera (G-39). Un guasto in settimana segue la stessa strada in piccolo (`rilascia.sh avvia`, correzione, `pubblica`). I file di stato (`STATO.md`, `PROGETTO.md`, `AZIONI.md`) si aggiornano su main anche durante il rilascio: non ripubblicano il sito.
 - Modello: Sonnet per controlli e piccole correzioni; Opus per dati, motore, decisioni, sito; Fable solo per revisioni grandi e rare.
 - Una chat per tema; se si allunga, si chiude salvando qui e nel Registro e si riparte da una nuova.
 
