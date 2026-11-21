@@ -42,7 +42,7 @@ GitHub, a ogni push su main (zero token)
 | Indice | `edizioni_voce.py` → `edizioni.json` | Una voce per edizione: è il contratto centrale (vedi 3) |
 | Pubblicazione | `pubblica.sh`, `messaggio.py` | Copia, archivia i sorgenti, rigenera le pagine, commit e push |
 | Sito | pagine fisse in radice (`index.html`, `archivio.html`...), `assets/`, `pagine.py`, `sito/costruisci.py` | Pagine scritte a mano che si riempiono via JavaScript dai file di dati; pagine per edizione generate |
-| Newsletter | `newsletter.py`, `newsletter_modello.html` (copiato a mano in Kit) | L'email del mattino dalla scheda `e/NNN.json` |
+| Newsletter | `newsletter.py` (compone anche testata e fascia dei mercati), `newsletter_cornice.html` e `newsletter_modello.html` (copiati a mano in Kit: "Gommberg cornice" per le edizioni, "Gommberg" predefinito) | L'email del mattino dalla scheda `e/NNN.json` |
 | Pannello | `pannello.py`, `misure.py`, `gancio_token.py`, `pannello/` | Una riga per edizione: orari, lavoro, qualità, consumo |
 | Collaudo e rilascio | `collaudo.py`, `rete/`, `rilascia.sh`, `sito/collaudo_sito.py`, `mattino.py`, `.github/workflows/` | Vedi 4 e 5 |
 | Prove | `PROVA.md`, `prova.sh` | Edizioni di prova con l'attività vera |

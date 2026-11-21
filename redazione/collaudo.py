@@ -875,8 +875,9 @@ def passo_sito():
     try:
         riga = re.search(r'RIGA_AI = \((.*?)\)\n', open(os.path.join(R, "pagine.py"), encoding="utf-8").read(), re.S).group(1)
         riga = "".join(re.findall(r'"([^"]*)"', riga))
-        if riga not in open(os.path.join(R, "newsletter_modello.html"), encoding="utf-8").read():
-            male.append("newsletter_modello.html: la riga sull'AI non è quella di pagine.RIGA_AI")
+        for modello in ("newsletter_modello.html", "newsletter_cornice.html"):
+            if riga not in open(os.path.join(R, modello), encoding="utf-8").read():
+                male.append(f"{modello}: la riga sull'AI non è quella di pagine.RIGA_AI")
         if "_RIGA_AI" not in open(os.path.join(R, "gommberg_engine.py"), encoding="utf-8").read():
             male.append("gommberg_engine.py: il PDF non usa pagine.RIGA_AI")
     except Exception as e:  # noqa: BLE001

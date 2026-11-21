@@ -57,7 +57,7 @@ cambia() {
   PUBBLICI=$(echo "$PUBBLICI" | sed '/^$/d')
   # solo l'atteso MODIFICATO: un campione nuovo non cambia nulla per il lettore, un campione che esce diverso sì
   CAMPIONI=$(git diff --name-only --diff-filter=MD "origin/$PRINC" HEAD | grep -E '^redazione/rete/[^/]+/atteso/(pdf\.txt|email\.html)$')
-  MODELLO=$(echo "$tutti" | grep -E '^redazione/newsletter_modello\.html$')
+  MODELLO=$(echo "$tutti" | grep -E '^redazione/newsletter_(modello|cornice)\.html$')
   SCRITTURA=$(echo "$tutti" | grep -E '^redazione/(ISTRUZIONI|APP_[A-Z]+|NOTA_DEL_GIORNO)\.md$|^redazione/edizione_modello_v[0-9]+\.py$|^redazione/(glossario|meccanismi|fonti)\.json$')
   SERVE_OK=0; [ -n "$PUBBLICI$CAMPIONI$MODELLO" ] && SERVE_OK=1
   TUTTI="$tutti"
