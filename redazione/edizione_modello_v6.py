@@ -361,7 +361,8 @@ C = {
     # ---------- Pag. 6 ----------
     "scommessa": {"tesi": "Con noi: per ora quasi nulla. Contro: il dato sui prezzi e le vendite sui tecnologici "
                           "spingono giù le borse. Da qui a venerdì: prezzi alla produzione e vendite al dettaglio.",
-                  "lunedi": False,     # True il primo giorno di borsa della settimana (pagina6_lunedi + verdetto.json)
+                  "lunedi": False,     # True il primo giorno di borsa della settimana (pagina6_lunedi + verdetto.json):
+                                       # quel giorno "tesi" non si scrive, il riquadro è lo scenario del registro
                   "venerdi": False, "settimana_prec": None},   # settimana_prec solo il lunedì, es. "12-16 ottobre"
     "parole": [("Appiattimento della curva", "La distanza tra i rendimenti a lunga e a breve scadenza si riduce: "
                                              "i rendimenti brevi salgono più dei lunghi, o i lunghi scendono di più."),

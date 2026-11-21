@@ -116,7 +116,7 @@ S.setdefault("p6_dom", ParagraphStyle("p6dom", fontName="Cond", fontSize=7.6, le
 S.setdefault("p6_kpi", ParagraphStyle("p6kpi", fontName="Cond-B", fontSize=15, leading=16, textColor=INK))
 S.setdefault("p6_kpi_l", ParagraphStyle("p6kpil", fontName="Cond", fontSize=6.8, leading=8.2, textColor=GREY))
 S.setdefault("p6_box", ParagraphStyle("p6box", fontName="Body", fontSize=7.9, leading=10.8, textColor=INK, spaceAfter=3))
-ETICHETTE = re.compile(r"(Con noi:|Contro:|Da qui a venerdì:|Com'è andata:)")
+ETICHETTE = re.compile(r"(Con noi:|Contro:|Da qui a venerdì:|Com'è andata:|Ci smentirebbe:)")
 
 
 def _unita(v):
@@ -287,7 +287,15 @@ def _aria(t, n):
         t.setStyle(TableStyle([("TOPPADDING", (0, 1), (-1, -1), 3 + extra / 2), ("BOTTOMPADDING", (0, 1), (-1, -1), 3 + extra / 2)]))
 
 
-def pagina6_lunedi(reg, verdetto, pagella, tesi, grafico="c_forecast.png", settimana_prec=None, com_e_andata=None):
+def tesi_del_lunedi(reg, tesi=""):
+    """Il testo del riquadro "La nostra tesi". Dal registro con schema 3 (21/11/2026) è lo scenario del registro: la lettura
+    della settimana si scrive una volta sola, insieme ai sei perché che ci devono stare dentro, e qui si stampa. Prima
+    era un secondo testo scritto nell'edizione, e nella n. 026 diceva "contro" due delle nostre stesse direzioni. I
+    registri precedenti restano con la tesi della loro edizione: rifatti oggi escono come sono stati pubblicati."""
+    return reg["scenario"] if reg.get("schema", 0) >= 3 and reg.get("scenario") else tesi
+
+
+def pagina6_lunedi(reg, verdetto, pagella, tesi="", grafico="c_forecast.png", settimana_prec=None, com_e_andata=None):
     st = reg["strumenti"]
     ven = reg["settimana"].split("/")[1]
     out = section(f"La scommessa della settimana: dove chiudiamo venerdì {gg_mese(ven)}", "Il gran finale  |  Forecast")
@@ -302,7 +310,8 @@ def pagina6_lunedi(reg, verdetto, pagella, tesi, grafico="c_forecast.png", setti
     _aria(t, len(rows) - 1)
     # struttura v9: prima le regole e il verdetto, poi il tabellone, in fondo la tesi
     out += [_due_box(_come_si_gioca(fissi(st), variabile=any(v.get("variabile") for v in st.values())), _verdetto(verdetto, settimana_prec, com_e_andata)), Spacer(1, 7),
-            evidenzia(t, st, ordine(st)), Spacer(1, 2), _legenda(reg), Spacer(1, 6), _punto_box("La nostra tesi", tesi)]
+            evidenzia(t, st, ordine(st)), Spacer(1, 2), _legenda(reg), Spacer(1, 6),
+            _punto_box("La nostra tesi", tesi_del_lunedi(reg, tesi))]
     return out
 
 

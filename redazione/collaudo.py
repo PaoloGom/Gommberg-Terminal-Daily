@@ -20,6 +20,9 @@ Cosa controlla:
                    gancio (gancio_token.py) su una trascrizione costruita: ricerche, pagine aperte, pagine non raggiunte.
      Dati          controlli_dati.py sull'Euro Stoxx 50 scritto in sei modi: EODHD sempre tra le due fonti, quotazioni
                    dei riquadri e fonti discordi fermate (APP_DATI §2b e §6).
+     Scommessa     il registro misura ogni settimana dalla chiusura vera (partenza = verdetto della settimana prima =
+                   serie in scommessa/dati); il lunedì la lettura della settimana ha una fonte sola: pronostico.py
+                   accetta lo scenario solo nella forma che pag. 6 stampa, e pag. 6 stampa quello.
   4. Rete          le edizioni campione di redazione/rete/ rifatte dai loro sorgenti con il kit di oggi lungo la catena
                    del mattino (impaginazione, controlli, voce dell'indice) e confrontate con l'atteso: testo del PDF,
                    esito dei controlli, voce di edizioni.json, email della newsletter, numeri del pannello.
@@ -526,6 +529,75 @@ def passo_tabelle():
           "numeri del 20/11 uguali al pubblicato, nessuna n.d., livello ricavato dalla variazione, archivio delle chiusure")
 
 
+# ---------------------------------------------------------------- 3d. la scommessa: registro e lettura della settimana
+def passo_scommessa():
+    """Due cose che la rilettura delle edizioni ha trovato rotte e che qui restano controllate.
+    Il registro (G-09): ogni settimana si misura dalla chiusura vera. La partenza di un mercato è il verdetto della
+    settimana prima, e partenza e verdetto sono i valori delle serie in scommessa/dati: l'Euro Stoxx 50 del 12/10 e del
+    19/10/2026 partiva da un dato FMP errato, e una serie corretta dopo deve far rifare il verdetto, non restare diversa.
+    La lettura della settimana (G-08): nella n. 026 scenario, tesi di pag. 6 e sei perché erano tre testi che non dicevano
+    la stessa cosa. Ora la fonte è una: pronostico.py accetta lo scenario solo come posizione più smentita, lungo quanto
+    il riquadro, e pagina6.py stampa quello al posto di una tesi scritta a parte (i registri vecchi restano com'erano)."""
+    sc = os.path.join(R, "scommessa")
+    alias = {"var_oro": "oro"}                                        # come ALIAS in motore.py
+    male = []
+
+    def chiusure(k):
+        p = os.path.join(sc, "dati", alias.get(k, k) + ".csv")
+        return [(d, float(v)) for d, v in list(csv.reader(open(p, encoding="utf-8")))[1:] if v] if os.path.exists(p) else []
+
+    def alla_data(k, giorno):                                         # l'ultima chiusura fino a quel giorno
+        v = [x for d, x in chiusure(k) if d <= giorno]
+        return v[-1] if v else None
+
+    prima = {}
+    for r in csv.DictReader(open(os.path.join(sc, "registro.csv"), encoding="utf-8")):
+        k, lun = alias.get(r["strumento"], r["strumento"]), dt.date.fromisoformat(r["settimana"].split("/")[0])
+        base, fin = float(r["base"]), float(r["finale"])
+        for cosa, scritto, vero in (("partenza", base, alla_data(k, (lun - dt.timedelta(days=3)).isoformat())),
+                                    ("verdetto", fin, alla_data(k, r["data_finale"]))):
+            if vero is not None and abs(scritto - vero) > 1e-6:
+                male.append(f"registro {r['settimana'][:10]} {k}: {cosa} {scritto}, la serie dice {vero}")
+        if k in prima and prima[k][0] == lun - dt.timedelta(days=7) and abs(prima[k][1] - base) > 1e-6:
+            male.append(f"registro {r['settimana'][:10]} {k}: parte da {base}, il verdetto della settimana prima era {prima[k][1]}")
+        prima[k] = (lun, fin)
+
+    # lo scenario: l'ultimo venerdì che tutte e sei le serie hanno (le serie tengono un anno: niente date fisse)
+    fissi = list(json.load(open(os.path.join(sc, "metodo.json"), encoding="utf-8"))["strumenti"])
+    comune = min(chiusure(k)[-1][0] for k in fissi)
+    ven = max(d for d, _ in chiusure(fissi[0]) if d <= comune and dt.date.fromisoformat(d).weekday() == 4)
+    lav = os.path.join(TMP, "scommessa")
+    os.makedirs(lav, exist_ok=True)
+    red = {k: {"tipo": "fondo", "motivo": f"Che cosa aspetta il mercato {k}"} for k in ("spx", "sx5e", "oro")}
+    red.update({k: {"tipo": "scenario", "previsione": alla_data(k, ven) * 1.01, "motivo": f"Il legame tra lo scenario e {k}"}
+                for k in fissi if k not in red})
+    giusto = "Ci aspettiamo verbali della Fed senza toni nuovi mercoledì, con rendimenti fermi. Ci smentirebbe: un accenno a rialzi più vicini."
+    casi = [("posizione e smentita", giusto, True),
+            ("un bivio senza smentita", "I conti di martedì decidono la settimana: se reggono le borse recuperano, altrimenti no.", False),
+            ("la smentita due volte", giusto + " Ci smentirebbe: anche un dato debole sul lavoro.", False),
+            ("più lungo del riquadro", giusto.replace(" Ci smentirebbe:", " Lo diciamo perché " + "il mercato lo ha già messo nei prezzi e " * 3 + "basta. Ci smentirebbe:"), False)]
+    reg = os.path.join(lav, (dt.date.fromisoformat(ven) + dt.timedelta(days=3)).isoformat() + "-settimana.json")
+    for nome, testo, passa in casi:
+        json.dump(dict(red, _scenario=testo), open(os.path.join(lav, "redazione.json"), "w", encoding="utf-8"), ensure_ascii=False)
+        rc, out = esegui([sys.executable, "pronostico.py", "--origine", ven, "--redazione", os.path.join(lav, "redazione.json"),
+                          "--uscita", os.path.join(lav, nome.split()[0])], cwd=sc)
+        if (rc == 0) != passa:
+            male.append(f"scenario '{nome}': doveva {'passare' if passa else 'essere rifiutato'} ({out.strip()[-120:]})")
+        elif passa:
+            shutil.copy(os.path.join(lav, nome.split()[0], os.path.basename(reg)), reg)
+    if os.path.exists(reg):
+        cod = ("import sys, json; sys.path.insert(0, 'scommessa'); import pagina6, pronostico; n = json.load(open(sys.argv[1])); "
+               "print('TESI', int(n.get('schema') == 3 and pagina6.tesi_del_lunedi(n, 'a mano') == n['scenario'] "
+               "and pagina6.tesi_del_lunedi(dict(n, schema=2), 'a mano') == 'a mano' "
+               "and bool(pagina6.ETICHETTE.fullmatch(pronostico.SMENTITA))))")
+        rc, out = esegui([sys.executable, "-c", cod, reg], cwd=R, env={"GTD_REPO": REPO})
+        if "TESI 1" not in out:
+            male.append("pag. 6 del lunedì non stampa lo scenario del registro nuovo, o cambia la tesi di un registro vecchio: " + out.strip()[-200:])
+    esito("Scommessa: registro e lettura della settimana", not male, "; ".join(male)[:500] or
+          "partenze e verdetti uguali alle serie e in catena; scenario accettato solo come posizione più smentita in due righe; "
+          "il lunedì pag. 6 stampa lo scenario del registro")
+
+
 # ---------------------------------------------------------------- 4. rete di non regressione
 RETE = os.path.join(R, "rete")
 MONDO = os.path.join(RETE, "mondo")
@@ -875,6 +947,7 @@ def main():
         passo_fonti()
         passo_dati()
         passo_tabelle()
+        passo_scommessa()
         passo_rete()
         copia = passo_sito()
         if isinstance(copia, str):
