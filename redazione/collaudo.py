@@ -54,6 +54,10 @@ REPO = os.path.dirname(R)
 TMP = tempfile.mkdtemp(prefix="gtd_collaudo_")
 ROSSI, NOTE = [], []
 sys.path.insert(0, R)
+# Le variabili GTD_ di chi lancia il collaudo (GTD_PROVA di rilascia.sh, GTD_REPO di una sessione del mattino...) non devono
+# arrivare al kit in prova: il collaudo prova QUESTO repository, e ogni passo dichiara le sue.
+for _k in [k for k in os.environ if k.startswith("GTD_")]:
+    del os.environ[_k]
 import giorni as G  # noqa: E402
 
 
