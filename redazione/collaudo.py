@@ -264,7 +264,9 @@ def passo_scrittura():
     letta = "Per noi il mercato sconta il caso peggiore. Una frase. Un'altra frase. Ancora una. Il titolo scende perché il gruppo taglia le stime."
     nuda = "Il titolo scende perché il gruppo taglia le stime. A. B. C. D."
     voce = not T.connettivi(letta, T.coperti_da({"x": letta})) and not T.coperti_da({"x": nuda}) and bool(T.connettivi(nuda)) \
-        and not T.connettivi("Spesso un titolo scende perché il gruppo taglia le stime. A. B. C. D.")
+        and not T.connettivi("Spesso un titolo scende perché il gruppo taglia le stime. A. B. C. D.") \
+        and not T.connettivi("prima +0,4% Se l'energia passa a monte Sopra: conferma il dato di ieri e pesa sui titoli di Stato. A. B. C.") \
+        and bool(T.connettivi("Sotto il 5,10% il titolo scende perché prevale la paura. A. B. C. D."))
     ok = not sfuggiti and not fermate and sigla and len(rip) == 1 and rip[0].startswith("a:") and conta == {"Reuters": 3, "Bloomberg": 1} and coperta and voce
     esito("Scrittura: lessico di casa e fonti tra parentesi", ok,
           f"{len(calchi)} calchi fermati, {len(giuste)} frasi giuste passate, stessa testata due volte in un paragrafo fermata, "

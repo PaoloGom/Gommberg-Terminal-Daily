@@ -31,7 +31,10 @@ CONNETTIVI = [r"perch[ée]", r"a causa d", r"spint[oaie] da", r"\bpesa\b", r"\bp
 VOCE_RED = r"per noi|secondo noi|la nostra lettura|leggiamo|crediamo|a nostro (?:giudizio|avviso|parere)|lettura della redazione"
 VOCE = re.compile(VOCE_RED, re.I)
 TENDENZA = r"di solito|in genere|tend(?:e|ono) a|spesso|quasi sempre|di norma"
-ESENZIONI = re.compile(r"Perch[ée] conta|Il perch[ée] |secondo |stima redazionale|" + TENDENZA + "|" + VOCE_RED, re.I)
+# L'ultima colonna dell'agenda ("Sopra: ... Sotto: ...") è una tendenza per intestazione ("Come può muovere i mercati, di
+# solito"): le sue celle non devono ripeterlo una per una (nelle edizioni #026-#030 erano 28 "di solito" nella sola pag. 5).
+AGENDA = r"\bSopra(?: \([^)]{0,30}\))?:|\bSotto(?: \([^)]{0,30}\))?:"
+ESENZIONI = re.compile(r"Perch[ée] conta|Il perch[ée] |secondo |stima redazionale|" + AGENDA + "|" + TENDENZA + "|" + VOCE_RED, re.I)
 INGLESE = re.compile(r"\b(?:the|of|and|is|are|they're|it's|we|our|some|will|way|total|with|for|to)\b", re.I)
 
 def _fonte_tra_parentesi():
