@@ -8,7 +8,13 @@
 AVVISO: A03: fonte più recente del 2026-11-10, oltre 7 giorni
 AVVISO: K01: dato pubblico non confermato dal revisore: resta con la fonte dichiarata ("(Testata)")
 AVVISO: MEM-1102-N07: fonte più recente del 2026-10-30, oltre 7 giorni
-[ok] Numeri contro dati.json: Numeri confrontati con dati.json: 17 | scarti: 0
+[ROSSO] Numeri contro dati.json:
+ERRORE: pag. 5, MSCI ACWI (ETF, $): nel PDF non c'è la riga calcolata (151,34 | -1,1% | -2,8% | +7,0%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
+ERRORE: pag. 5, Nikkei 225*: nel PDF non c'è la riga calcolata (~59.025 | +0,3% | -3,6% | +17,3%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
+ERRORE: pag. 5, Hang Seng*: nel PDF non c'è la riga calcolata (~23.273 | -1,0% | -4,3% | -9,2%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
+ERRORE: pag. 5, Kospi*: nel PDF non c'è la riga calcolata (~4.968 | 0,0% | -7,6% | +17,9%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
+ERRORE: pag. 5, Treasury 2 anni: nel PDF non c'è la riga calcolata (4,80% | -3 pb | +7 pb | +6 pb): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
+ERRORE: pag. 5, Treasury 10 anni: nel PDF non c'è la riga calcolata (5,10% | -2 pb | +12 pb | +1 pb): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
 [ok] Scrittura (→, cause, sigle, ritmo): Righe →: 1 (max 5) | cause senza fonte: 0 | sigle non spiegate: 0 | fonti tra parentesi: 12 (max 15): Reuters 9, AP
 AVVISO: lessico: "spread tra Btp e Bund" (1 volte): scrivi spread BTP-Bund
 [ok] Temi di prima pagina: Temi di prima pagina: 0 errori, 0 avvisi lessicali
@@ -22,4 +28,4 @@ AVVISO: eco "era largo consenso rialzo" in 2 punti
 AVVISO: eco "new york vende chip" in 2 punti
 AVVISO: eco "nvidia terzo trimestre fiscale" in 2 punti
 [ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
-ESITO: ERRORI in PDF e indice Fatti - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia
+ESITO: ERRORI in PDF e indice Fatti Numeri contro dati.json - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia

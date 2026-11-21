@@ -52,7 +52,7 @@ def ticker_da_dati(path="dati.json"):
 # ---------------------------------------------------------------- tabelle dei mercati di pag. 5: le calcola il codice
 # Fino al 20/11/2026 le celle le scriveva la redazione a mano e, dove non aveva sotto mano la chiusura di una settimana
 # prima o quella di fine anno, usciva "n.d." (o "-"), anche per dati che il kit aveva già. Ora la redazione scrive solo le
-# serie in dati.json; livelli, variazioni, date e note escono da qui. I riferimenti (venerdì scorso, un mese fa, fine anno)
+# serie in dati.json; livelli, variazioni, date e note escono da qui. I riferimenti (una settimana fa, un mese fa, fine anno)
 # vengono dall'archivio delle chiusure, che pubblica.sh allunga a ogni edizione: un dato si cerca una volta sola.
 import csv as _csv
 import datetime as _dt
@@ -196,9 +196,17 @@ def tabelle_da_dati(path="dati.json", archivio=None, silenzioso=False):
         return str(s["ultimi"][0][0])[:10] if s.get("ultimi") else None
     rif = data0("S&P 500") or max([data0(n) for n in S if S[n].get("tipo") != "intraday" and data0(n)] or [D["oggi"]])
     g0 = _dt.date.fromisoformat(rif)
-    ven = g0 - _dt.timedelta(days=g0.weekday() + 3)                       # il venerdì prima della settimana di rif
-    m, a = (g0.month - 1) or 12, g0.year - (g0.month == 1)
-    mese = _dt.date(a, m, min(g0.day, [31, 29 if a % 4 == 0 else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1]))
+
+    # I riferimenti sono gli stessi ogni giorno: una settimana = la stessa seduta della settimana prima (il lunedì, con le
+    # chiusure di venerdì, è la settimana intera); un mese = lo stesso giorno del mese prima. Se quel giorno era chiuso
+    # vale l'ultima chiusura prima. Ogni riga parte dalla data del suo livello (l'Asia di stamattina è un giorno avanti).
+    def sett_prima(d):
+        return (_dt.date.fromisoformat(d) - _dt.timedelta(days=7)).isoformat()
+
+    def mese_prima(d):
+        x = _dt.date.fromisoformat(d)
+        m, a = (x.month - 1) or 12, x.year - (x.month == 1)
+        return _dt.date(a, m, min(x.day, [31, 29 if a % 4 == 0 else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1])).isoformat()
     asia_ora, usate, ricavati = [], {}, []                     # usate: la data davvero usata per ogni riferimento
 
     def riga(et, nome, dec, unita, terza):
@@ -231,7 +239,7 @@ def tabelle_da_dati(path="dati.json", archivio=None, silenzioso=False):
             else:
                 g1 = "-"; mancanti.append(f"{et}: manca la chiusura precedente, del {_gm(_ieri(d0))} (1 g)")
         celle = []
-        for che, quando, giorni in (("1 sett.", ven.isoformat(), 4), terza):
+        for che, quando, giorni in (("1 sett.", sett_prima(d0), 4), (terza, mese_prima(d0), 6)):
             if che == "anno":
                 base = max((d for d in st if d[:4] < d0[:4] and d >= f"{int(d0[:4]) - 1}-12-20"), default=None)
                 x = (base, st[base]) if base else None
@@ -240,14 +248,14 @@ def tabelle_da_dati(path="dati.json", archivio=None, silenzioso=False):
                 x = _entro(st, quando, giorni)
             if x and x[0] < d0:
                 celle.append(_var(v0, x[1], t))
-                usate.setdefault(che, x[0])
+                usate.setdefault((che, d0 == rif), x[0])
             else:
                 celle.append("-")
                 mancanti.append(f"{et.replace('&amp;', '&')}: manca la chiusura del {_gm(quando)} ({'da inizio anno' if che == 'anno' else che})")
         livello = "~" + fmt(round(v0), 0) if ric else fmt(v0, dec) + unita
         return [et + ("*" if intraday else ""), livello, _gm(d0), g1] + celle
 
-    def gruppi(spec, terza, taglia):
+    def gruppi(spec, terza, taglia):                    # terza = che cosa c'è nella terza colonna: "anno" o "1 mese"
         out = []
         for titolo, righe in spec:
             rr = [r for r in (riga(et, nome, dec, un, terza) for et, nome, dec, un in righe) if r]
@@ -261,12 +269,14 @@ def tabelle_da_dati(path="dati.json", archivio=None, silenzioso=False):
                 out.append((titolo, [taglia(r) for r in rr]))
         return out
 
-    cruscotto = gruppi(CRUSCOTTO, ("anno", None, 0), lambda r: r)
-    cross = gruppi(CROSS, ("1 mese", mese.isoformat(), 6), lambda r: [r[0], r[1], r[3], r[4], r[5], "-"])
+    cruscotto = gruppi(CRUSCOTTO, "anno", lambda r: r)
+    cross = gruppi(CROSS, "1 mese", lambda r: [r[0], r[1], r[3], r[4], r[5], "-"])
     asia = any(r[0].endswith("*") for _, rr in cruscotto for r in rr)
-    sett = _dt.date.fromisoformat(usate.get("1 sett.", ven.isoformat()))
-    nota = (f"1 g = chiusura su chiusura; 1 sett. = su {GIORNI_IT[sett.weekday()]} {_gm(sett)}; "
-            f"da inizio anno = su chiusura {g0.year - 1}.")
+    quando = lambda d: f"{GIORNI_IT[_dt.date.fromisoformat(d).weekday()]} {_gm(d)}"
+    sett = usate.get(("1 sett.", True), sett_prima(rif))
+    altra = usate.get(("1 sett.", False))                  # le righe con un'altra data di livello: l'Asia di stamattina
+    nota = (f"1 g = chiusura su chiusura; 1 sett. = su {quando(sett)}" + (f" (Asia su {quando(altra)})" if altra and altra != sett else "")
+            + f"; da inizio anno = su chiusura {g0.year - 1}.")
     if asia:
         nota += " * Asia: dato di stamattina" + (f" (alle {max(asia_ora)})" if asia_ora else "") + "."
     if ricavati:
@@ -275,7 +285,7 @@ def tabelle_da_dati(path="dati.json", archivio=None, silenzioso=False):
         print("TABELLE DI PAG. 5: " + "; ".join(mancanti[:8]) + ". Una chiusura che manca si cerca una volta (APP_DATI §3) e "
               "si scrive in dati.json nella serie: \"rif\": {\"AAAA-MM-GG\": valore}", file=_sys.stderr)
     return {"cruscotto": cruscotto, "cruscotto_nota": nota, "cross_data": f"Livello {_gm(rif)}", "cross": cross,
-            "cross_nota": f"1 mese = sul {_gm(usate.get('1 mese', mese.isoformat()))}. VIX = volatilità attesa sull'S&amp;P 500.",
+            "cross_nota": f"1 mese = sul {_gm(usate.get(('1 mese', True), mese_prima(rif)))}. VIX = volatilità attesa sull'S&amp;P 500.",
             "mancanti": mancanti}
 
 

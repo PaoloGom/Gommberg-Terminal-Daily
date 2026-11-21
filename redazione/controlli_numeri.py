@@ -88,6 +88,23 @@ def main():
             x, tol = valore(segn[0].group(1), segn[0].group(2), segn[0].group(3))
             if abs(x - d) > tol:
                 errori.append(f"{et}: 1 g {segn[0].group(0)} nel PDF, {d:+.3f} da dati.json")
+    # Le tabelle di pag. 5 sono quelle calcolate da numeri.py (livello, 1 g, 1 sett., da inizio anno o 1 mese): una riga
+    # scritta a mano, con valori diversi o con celle vuote dove il dato c'è, si ferma qui.
+    try:
+        T = N.tabelle_da_dati(dati, silenzioso=True)
+    except Exception as e:  # noqa: BLE001
+        T = None; avvisi.append(f"tabelle di pag. 5 non ricalcolate ({type(e).__name__}): controlla le serie di dati.json")
+    if T:
+        piatto = lambda x: re.sub(r"\s+", "", x.replace("&amp;", "&"))
+        p5 = [r for r, p in zip(righe, pagine) if p == 5]
+        for calc in [(r[0], [r[1], r[3], r[4], r[5]]) for _, rr in T["cruscotto"] for r in rr] + \
+                    [(r[0], r[1:5]) for _, rr in T["cross"] for r in rr]:
+            et, celle = calc[0].replace("&amp;", "&"), calc[1]
+            atteso = piatto(et + "".join(celle))
+            n += 1
+            if not any(atteso in piatto(r) for r in p5):
+                errori.append(f"pag. 5, {et}: nel PDF non c'è la riga calcolata ({' | '.join(celle)}): le tabelle vengono "
+                              "da TAB = tabelle_da_dati(\"dati.json\"), come nel modello, mai scritte a mano")
     print(f"Numeri confrontati con dati.json: {n} | scarti: {len(errori)}")
     for a in avvisi[:3]:
         print("AVVISO: " + a)

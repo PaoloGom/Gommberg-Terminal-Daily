@@ -8,7 +8,10 @@
 - CERCA N03: dato ufficiale (riga del calendario: Giappone: Pil del terzo trimes): metti "tipo": "U" e il comunicato tra le fonti (APP_FONTI §2)
 AVVISO: D06: fonte singola dichiarata (kitco): nel PDF "(Testata)" in coda al dato
 AVVISO: K01: dato ufficiale senza il comunicato (cercato: China October 2026 retail sales industrial production fixed-asset investment year on year National Bureau of Statistics; China October retail 
-[ok] Numeri contro dati.json: Numeri confrontati con dati.json: 22 | scarti: 0
+[ROSSO] Numeri contro dati.json:
+ERRORE: pag. 5, MSCI ACWI (ETF, $): nel PDF non c'è la riga calcolata (156,10 | -0,3% | +2,4% | +10,3%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
+ERRORE: pag. 5, Hang Seng: nel PDF non c'è la riga calcolata (23.753,84 | +0,5% | -2,8% | -7,3%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
+ERRORE: pag. 5, Kospi: nel PDF non c'è la riga calcolata (5.100,50 | -3,6% | +1,6% | +21,0%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
 [ROSSO] Scrittura (→, cause, sigle, ritmo):
 ERRORE: lessico: "La vendita colpisce" (4 volte): scrivi le vendite, l'ondata di vendite, il ribasso (se è la cessione di un bene: "la cessione")
 AVVISO: lessico: "spread tra Btp e Bund" (1 volte): scrivi spread BTP-Bund
@@ -25,4 +28,4 @@ AVVISO: 4,8% in 2 sezioni: APPROFONDIMENTO CHIP E ASIA, TOP NEWS
 AVVISO: 5,15% in 2 sezioni: APPROFONDIMENTO TASSI USA, TOP STORY
 AVVISO: eco "afp seoul economic daily" in 2 punti
 [ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
-ESITO: ERRORI in PDF e indice Fatti Scrittura (→, cause, sigle, ritmo) Contenuti (estremi, perché, anomalie...) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia
+ESITO: ERRORI in PDF e indice Fatti Numeri contro dati.json Scrittura (→, cause, sigle, ritmo) Contenuti (estremi, perché, anomalie...) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia

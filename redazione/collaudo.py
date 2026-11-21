@@ -175,14 +175,14 @@ SERIE = {"ACWI": ("acwi", "USA"), "S&P 500": ("spx", "USA"), "Euro Stoxx 50": ("
          "EUR/USD": ("eurusd", "FX"), "Brent future": ("brent", "COMM"), "Oro future": ("oro", "COMM"),
          "Treasury 2 anni": ("ust2", "UST"), "VIX": ("vix", "USA")}
 # Le serie del modello che non hanno un archivio nella scommessa: i livelli pubblicati nella #004 (15/10/2026), con la
-# chiusura precedente e quella di venerdì 9/10 ricavate dalle variazioni stampate allora. Servono solo a impaginare il modello:
-# le tabelle di pag. 5 le calcola numeri.py dal dati.json, come ogni mattina. Il Kospi ha la sola variazione: la riga non entra.
+# chiusura precedente e quella di una settimana prima ricavate dalle variazioni stampate allora. Valori di prova: servono solo a impaginare il modello,
+# le cui tabelle di pag. 5 le calcola numeri.py dal dati.json, come ogni mattina. Il Kospi ha la sola variazione: la riga non entra.
 MODELLO_ALTRE = {
-    "Nasdaq": ("USA", "chiusura", [["2026-10-14", 26692.87], ["2026-10-13", 27209.86]], {"2026-10-09": 27377.30}),
-    "Russell 2000": ("USA", "chiusura", [["2026-10-14", 2729.53], ["2026-10-13", 2782.40]], {"2026-10-09": 2808.16}),
-    "FTSE MIB": ("EU", "chiusura", [["2026-10-14", 49753], ["2026-10-13", 50053]], {"2026-10-09": 49753}),
-    "Nikkei 225": ("JP", "intraday", [["2026-10-15", 64425.95], ["2026-10-14", 67745.48]], {"2026-10-09": 69052.47}),
-    "Hang Seng": ("HK", "intraday", [["2026-10-15", 24010.00], ["2026-10-14", 24326.24]], {"2026-10-09": 24203.63}),
+    "Nasdaq": ("USA", "chiusura", [["2026-10-14", 26692.87], ["2026-10-13", 27209.86]], {"2026-10-07": 27377.30}),
+    "Russell 2000": ("USA", "chiusura", [["2026-10-14", 2729.53], ["2026-10-13", 2782.40]], {"2026-10-07": 2808.16}),
+    "FTSE MIB": ("EU", "chiusura", [["2026-10-14", 49753], ["2026-10-13", 50053]], {"2026-10-07": 49753}),
+    "Nikkei 225": ("JP", "intraday", [["2026-10-15", 64425.95], ["2026-10-14", 67745.48]], {"2026-10-08": 69052.47}),
+    "Hang Seng": ("HK", "intraday", [["2026-10-15", 24010.00], ["2026-10-14", 24326.24]], {"2026-10-08": 24203.63}),
     "Spread Italia": ("EU", "chiusura", [["2026-10-14", 110], ["2026-10-13", 108]], {}),
 }
 # come si chiamano le stesse serie nelle tabelle del modello: così il controllo dei numeri confronta anche la tabella dei
@@ -487,14 +487,17 @@ def passo_tabelle():
     T = N.tabelle_da_dati(src, silenzioso=True)
     righe = {r[0]: r for _, rr in T["cruscotto"] + T["cross"] for r in rr}
     male = []
-    if righe.get("S&amp;P 500") != ["S&amp;P 500", "7.175,83", "19/11", "-2,0%", "-5,1%", "+4,8%"]:
-        male.append(f"S&P 500 diverso dal pubblicato: {righe.get('S&amp;P 500')}")
-    if (righe.get("MSCI ACWI (ETF, $)") or [""] * 6)[4:] != ["-5,4%", "+4,4%"]:
-        male.append(f"ACWI senza settimana e anno: {righe.get('MSCI ACWI (ETF, $)')}")
+    sp = righe.get("S&amp;P 500") or [""] * 6
+    una_sett_fa = dict(serie("spx", "2026-11-13", 9)).get("2026-11-12")           # stessa seduta della settimana prima
+    if sp[:4] + sp[5:] != ["S&amp;P 500", "7.175,83", "19/11", "-2,0%", "+4,8%"] or not una_sett_fa or sp[4] != N.var(7175.83, una_sett_fa):
+        male.append(f"S&P 500 diverso dal pubblicato (livello, 1 g, anno) o dalla settimana calcolata: {sp}")
+    acwi = righe.get("MSCI ACWI (ETF, $)") or [""] * 6
+    if "-" in acwi[4:] or acwi[5] != "+4,4%":
+        male.append(f"ACWI senza settimana e anno: {acwi}")
     if (righe.get("Kospi*") or ["", ""])[1] != "~4.871" or (righe.get("Treasury 10 anni") or [""] * 3)[1:3] != ["5,04%", "-3 pb"]:
         male.append(f"Kospi ricavato o Treasury: {righe.get('Kospi*')}, {righe.get('Treasury 10 anni')}")
-    if any(c == "n.d." for r in righe.values() for c in r) or "venerdì 13/11" not in T["cruscotto_nota"] or "~ =" not in T["cruscotto_nota"]:
-        male.append("una cella n.d. o la nota senza il venerdì di riferimento e il segno ~")
+    if any(c == "n.d." for r in righe.values() for c in r) or "su giovedì 12/11 (Asia su venerdì 13/11)" not in T["cruscotto_nota"] or "~ =" not in T["cruscotto_nota"]:
+        male.append("una cella n.d. o la nota senza le date di riferimento e il segno ~: " + T["cruscotto_nota"][:120])
     vuoto = N.tabelle_da_dati(src, archivio={}, silenzioso=True)       # senza archivio: Seul non ha la chiusura di ieri
     if any(r[0].startswith("Kospi") for _, rr in vuoto["cruscotto"] for r in rr) or not any("Kospi" in m for m in vuoto["mancanti"]):
         male.append("senza la chiusura di ieri la riga di Seul doveva restare fuori, e dirlo")

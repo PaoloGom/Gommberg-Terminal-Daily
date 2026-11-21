@@ -42,7 +42,7 @@ if [ "$PROVA" != "1" ] || [ "$REPO" != "/home/claude/gtd" ]; then
   done
   rmdir "$SRG" 2>/dev/null   # vuota (nessun sorgente trovato): non resta
   # Archivio delle chiusure (numeri.py): le chiusure di oggi servono domani alle tabelle di pag. 5 come riferimenti
-  # (ieri, venerdì scorso, un mese fa, fine anno). Non blocca mai la pubblicazione.
+  # (ieri, una settimana fa, un mese fa, fine anno). Non blocca mai la pubblicazione.
   [ -f "$LAV/dati.json" ] && python3 "$REPO/redazione/numeri.py" --archivia "$LAV/dati.json" "$REPO/redazione/chiusure.csv" 2>/dev/null | tail -1
 fi
 # Pagine del sito generate da edizioni.json: pagina per edizione con anteprima WhatsApp, feed RSS, link fisso
