@@ -49,7 +49,7 @@ Scrivi `/home/claude/lavoro/nuovi.json` con le chiusure ufficiali dei giorni dop
   Il motore costruisce pag. 6 del lunedì da registro, `verdetto.json` in `/home/claude/lavoro` e `metodo.json`: tabellone (mercato e la sua domanda, partenza, freccia, forchetta disegnata, il perché), riquadri "Come si gioca" e "Il verdetto" (solo i numeri della settimana chiusa: la stagione è sul sito); senza settimana precedente il riquadro lo dice. Le domande dei fissi sono scritte in `pagina6.py`; quella dello strumento della settimana è il suo `motivo_scelta`: una domanda di **massimo 40 caratteri** (es. "La paura sull'AI è globale?"), altrimenti va a capo. Render: `cd /home/claude/lavoro && python3 edizione_AAAA-MM-GG.py /home/claude/lavoro "<pdf>"`.
 - In `edizioni_voce.py` usa `--verdetto /home/claude/lavoro/verdetto.json` e il registro NUOVO: strada e range della settimana nuova restano null.
 - Il revisore controlla che tabellone e riquadro "Il verdetto" di pag. 6 riportino esattamente il registro e `verdetto.json`.
-- Pag. 1: "La settimana scorsa" al posto di "Ieri in calendario" (max 5 righe); 1 sett. del cruscotto = settimana intera.
+- Pag. 5: `ieri` = la settimana scorsa, in 3 righe al massimo; `agenda` = la settimana che comincia, fino a venerdì: per ogni giorno l'evento che conta di più, in ordine di data, senza fermarsi ai primi giorni (un giorno senza nulla che muove i mercati si salta; un mercato chiuso o a orario ridotto è un evento). Il calendario dell'intera settimana si cerca al passo dei sensori (ISTRUZIONI §4.2). 1 sett. del cruscotto = settimana intera.
 
 ## 5. Collaudi e revisione del metodo
 - Collaudi: `--prova` per il verdetto (non scrive registro né pagella); pronostico in una cartella fuori dal repository con `--uscita`.

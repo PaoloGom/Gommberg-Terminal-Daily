@@ -145,8 +145,8 @@ def controlla(f):
         if not uff:
             cercato = f.get("ufficiale_cercato") or []
             if di_fatto:
-                problemi.append(f"CERCA {i}: dato ufficiale ({di_fatto}): metti \"tipo\": \"U\" e il comunicato di chi lo "
-                                "pubblica tra le fonti (APP_FONTI §2); non si toglie")
+                problemi.append(f"CERCA {i}: dato ufficiale ({di_fatto}): metti \"tipo\": \"U\" e il comunicato tra le "
+                                "fonti (APP_FONTI §2)")
             elif len(cercato) >= 2:
                 avvisi.append(f"{i}: dato ufficiale senza il comunicato (cercato: {'; '.join(cercato[:2])}): "
                               "nel PDF attribuito \"(Testata)\"")

@@ -22,7 +22,8 @@ Regole (ISTRUZIONI §5 e §7), ognuna generale:
  moduli    i punti non ripetono le cifre della tabella; graduatorie del testo coerenti con i dati del grafico; moduli tutti
            con lo stesso stampo = AVVISO; quadro trasversale (C["quadro"]) presente.
  agenda    almeno metà delle righe con un dato o una decisione (non conti, discorsi, aperture, elezioni, verbali) ha il
-           consenso in "attese": è il metro con cui il lettore giudica il dato (§2)."""
+           consenso in "attese": è il metro con cui il lettore giudica il dato (§2). Il primo giorno di uscita della
+           settimana l'agenda arriva almeno a giovedì: chi legge il lunedì sa che cosa lo aspetta fino a venerdì."""
 import json, os, re, subprocess, sys
 
 ARG = sys.argv[1:]
@@ -337,6 +338,24 @@ _ag = VOCE.get("agenda")
 if isinstance(_ag, list) and 0 < len(_ag) < 4:   # struttura v9: pag. 5 ha posto per 4-6 righe in arrivo
     ERR.append(f"agenda: solo {len(_ag)} righe. Nei prossimi giorni di borsa ci sono sempre almeno 4 eventi che contano (dati, "
                "banche centrali, aste, conti): `memoria.py agenda` e una ricerca del calendario della settimana. Dopo 3 giri vale com'è")
+
+# Il primo giorno di uscita della settimana "In arrivo" copre la settimana (#026, lunedì 16/11: si fermava a mercoledì).
+# La regola chiede fino a venerdì; il controllo ferma sotto giovedì, perché un venerdì senza eventi che contano esiste.
+_GIORNI = {"lun": 0, "mar": 1, "mer": 2, "gio": 3, "ven": 4, "sab": 5, "dom": 6}
+try:
+    import datetime as _dt
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import giorni as _G
+    _primo = _G.primo_della_settimana(_dt.date.fromisoformat(str(VOCE.get("data"))))
+except Exception:  # noqa: BLE001
+    _primo = False
+if _primo and isinstance(_ag, list) and _ag:
+    _gg = [_GIORNI[m.group(1).lower()] for a in _ag if isinstance(a, dict)
+           for m in [re.search(r"\b(Lun|Mar|Mer|Gio|Ven|Sab|Dom)\b", re.sub(r"<[^>]+>", "", a.get("quando") or ""), re.I)] if m]
+    if _gg and max(_gg) < 3:
+        _fin = ["lunedì", "martedì", "mercoledì"][max(_gg)]
+        ERR.append(f"agenda: primo giorno della settimana ma \"In arrivo\" si ferma a {_fin}: copri fino a venerdì (gli eventi "
+                   "di giovedì e venerdì al posto delle righe minori dei primi giorni; APP_ERRORI §2)")
 
 # ---------- dati mancanti: solo dopo la scala di ricerca, e registrati ----------
 _mancano = re.findall(r"\bn\.d\.|nessuna chiusura verificata|non verificat[oa] da fonti|dato non disponibile", TUTTO, re.I)

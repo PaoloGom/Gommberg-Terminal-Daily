@@ -3,8 +3,8 @@
 [ROSSO] Fatti:
 - CERCA come: il documento di chi è nel fatto ("primaria": true) o lo stesso fatto da un altro autore; un'agenzia conta 1 ovunque ripresa. Se non c'è: "conferma_cercata" e (Testata)
 - CERCA un secondo autore, 7 schede: N10, N11, D02, D04, D10, D11, D13
-- CERCA N02: dato ufficiale (stesse cifre di K01): metti "tipo": "U" e il comunicato di chi lo pubblica tra le fonti (APP_FONTI §2); non si toglie
-- CERCA N03: dato ufficiale (riga del calendario: Giappone: Pil del terzo trimes): metti "tipo": "U" e il comunicato di chi lo pubblica tra le fonti (APP_FONTI §2); non si toglie
+- CERCA N02: dato ufficiale (stesse cifre di K01): metti "tipo": "U" e il comunicato tra le fonti (APP_FONTI §2)
+- CERCA N03: dato ufficiale (riga del calendario: Giappone: Pil del terzo trimes): metti "tipo": "U" e il comunicato tra le fonti (APP_FONTI §2)
 AVVISO: D06: fonte singola dichiarata (kitco): nel PDF "(Testata)" in coda al dato
 AVVISO: K01: dato ufficiale senza il comunicato (cercato: China October 2026 retail sales industrial production fixed-asset investment year on year National Bureau of Statistics; China October retail 
 [ok] Numeri contro dati.json: Numeri confrontati con dati.json: 22 | scarti: 0
@@ -13,7 +13,8 @@ ERRORE: lessico: "La vendita colpisce" (4 volte): scrivi le vendite, l'ondata di
 AVVISO: lessico: "spread tra Btp e Bund" (1 volte): scrivi spread BTP-Bund
 AVVISO: sigle spiegate più di una volta: VIX
 [ok] Temi di prima pagina: Temi di prima pagina: 0 errori, 0 avvisi lessicali
-[ok] Contenuti (estremi, perché, anomalie...): Contenuti: 0 errori, 1 avvisi
+[ROSSO] Contenuti (estremi, perché, anomalie...):
+ERRORE: agenda: primo giorno della settimana ma "In arrivo" si ferma a mercoledì: copri fino a venerdì (gli eventi di giovedì e venerdì al posto delle righe minori dei primi giorni; APP_ERRORI §2
 AVVISO: aperture: servono 2 resoconti d'agenzia o testate globali (Reuters, AP, AFP, Bloomberg, CNBC...) e 1 italiana (Radiocor/Sole 24 Ore, Milano Finanza)
 [ok] Ripetizioni: Ripetizioni: punteggio 7 (6 cifre in 2+ sezioni)
 AVVISO: 0,9% in 3 sezioni: 6-13/11                                                                                                           PERCHÉ, A
@@ -23,4 +24,4 @@ AVVISO: 4,8% in 2 sezioni: APPROFONDIMENTO CHIP E ASIA, TOP NEWS
 AVVISO: 5,15% in 2 sezioni: APPROFONDIMENTO TASSI USA, TOP STORY
 AVVISO: eco "afp seoul economic daily" in 2 punti
 [ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
-ESITO: ERRORI in Fatti Scrittura (→, cause, sigle, ritmo) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia
+ESITO: ERRORI in Fatti Scrittura (→, cause, sigle, ritmo) Contenuti (estremi, perché, anomalie...) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia
