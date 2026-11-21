@@ -101,7 +101,7 @@ bash redazione/rilascia.sh annulla    se serve: toglie da main l'ultimo rilascio
 I cinque cancelli di `pubblica`: niente modifiche non salvate; il ramo contiene l'ultimo main; collaudo verde; **ok di Paolo** se cambia ciò che il lettore vede (file pubblici del sito, testo del PDF o email dei campioni, modello della newsletter); collaudo di GitHub verde sullo stesso commit (`collaudo.yml`: stesso collaudo su un'altra macchina, più il sito aperto in un browser e confrontato con gommberg.com).
 
 Due ruoli, due chat diverse:
-- **Capo sviluppo** (apre e chiude il rilascio): legge questa mappa e le voci del weekend, scrive il piano nel Registro (ordine, file toccati, conflitti, chat e modello per ogni voce), integra, lancia `pubblica`.
+- **Capo sviluppo** (apre e chiude il rilascio): legge questa mappa e le voci del weekend, scrive il piano nel Registro (ordine, file toccati, conflitti, chat e modello per ogni voce) e **riscrive nella scheda di ogni voce come entra nel rilascio**: ramo, file, sequenza, che cosa cambia nella rete, se e dove serve l'ok di Paolo. Le chat delle voci leggono la scheda e non chiedono a Paolo nulla sul come: a lui arrivano solo le decisioni sue (il cosa, ciò che il lettore vede, soldi, terzi). Poi integra e lancia `pubblica`.
 - **Collaudo indipendente** (prima del merge): un agente che non ha visto il lavoro controlla il "Fatto quando" di ogni voce contro il ramo e legge il resoconto. Chi costruisce non si collauda da solo.
 
 Durante il rilascio i file di stato (`STATO.md`, `PROGETTO.md`, `AZIONI.md`) si aggiornano sul ramo principale come in settimana (non ripubblicano il sito); tutto il resto sta sul ramo `rilascio`.
