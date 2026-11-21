@@ -9,7 +9,7 @@
 - Esempio che ha fatto nascere la regola: la chiusura del Kospi del 16/10/2026 (5.668,05, +2,05%) era su Seoul Economic Daily dalle 15:38 di Seul; FMP gratuito non copre il Kospi e la ricerca standard trovava solo gli articoli del mattino.
 
 ## 2. Fonti ufficiali (scheda `"tipo": "U"` e ogni riga del calendario)
-- Un dato macro, una decisione di banca centrale, un'asta o un comunicato si prende dal comunicato ufficiale (`fonti.json` "ufficiali"); l'agenzia serve solo d'appoggio (contesto, attese, reazioni).
+- Un dato macro, una decisione di banca centrale, un'asta o i conti di una società si prendono dal comunicato di chi li pubblica (`fonti.json` "ufficiali"; per una società il suo comunicato, `"primaria": true`); l'agenzia serve solo d'appoggio (contesto, attese, reazioni). Vale ovunque il dato compaia, prima pagina compresa, e una scheda sola per dato. `controlli_fatti.py` riconosce il dato ufficiale di prima pagina anche senza `"tipo": "U"` (stesse cifre di una riga del calendario, un numero uscito contro le attese, una riga del calendario uscito) e chiede il comunicato.
 - Si arriva al sito ufficiale **solo via ricerca**: WebSearch con nome della fonte + dato + data ("BLS CPI September 2026 news release", "Istat inflazione settembre 2026 comunicato"), poi WebFetch del link restituito. Il comunicato BLS esce spesso come PDF su dol.gov (ufficiale). Scarta gli aggregatori vietati.
 - Se dopo 2 ricerche vere il comunicato non esce: `"ufficiale_cercato": [le ricerche]` e il dato esce attribuito "(Reuters)". `controlli_fatti.py` blocca con CERCA e non toglie mai il dato.
 

@@ -3,10 +3,10 @@
 [ROSSO] Fatti:
 - CERCA come: il documento di chi è nel fatto ("primaria": true) o lo stesso fatto da un altro autore; un'agenzia conta 1 ovunque ripresa. Se non c'è: "conferma_cercata" e (Testata)
 - CERCA un secondo autore, 7 schede: N10, N11, D02, D04, D10, D11, D13
+- CERCA N02: dato ufficiale (stesse cifre di K01): metti "tipo": "U" e il comunicato di chi lo pubblica tra le fonti (APP_FONTI §2); non si toglie
+- CERCA N03: dato ufficiale (riga del calendario: Giappone: Pil del terzo trimes): metti "tipo": "U" e il comunicato di chi lo pubblica tra le fonti (APP_FONTI §2); non si toglie
 AVVISO: D06: fonte singola dichiarata (kitco): nel PDF "(Testata)" in coda al dato
 AVVISO: K01: dato ufficiale senza il comunicato (cercato: China October 2026 retail sales industrial production fixed-asset investment year on year National Bureau of Statistics; China October retail 
-AVVISO: T01: numeri del testo che né la citazione né il revisore riportano: [1.0, 11.0, 16.0, 5100.5] (calcolati da noi? altrimenti correggi)
-AVVISO: D06: numeri del testo che né la citazione né il revisore riportano: [2025.0] (calcolati da noi? altrimenti correggi)
 [ok] Numeri contro dati.json: Numeri confrontati con dati.json: 22 | scarti: 0
 [ROSSO] Scrittura (→, cause, sigle, ritmo):
 ERRORE: lessico: "La vendita colpisce" (4 volte): scrivi le vendite, l'ondata di vendite, il ribasso (se è la cessione di un bene: "la cessione")

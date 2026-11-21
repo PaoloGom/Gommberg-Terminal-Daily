@@ -222,6 +222,52 @@ def si_applica(scheda):
                 or (_s(scheda.get("id")).startswith("MEM") and scheda.get("verifica") == "confermato"))
 
 
+_CIFRA = re.compile(r"(?<![\w.,])[+-]?\d+(?:[.,]\d+)*\s?(?:%|pb\b|punti\b|mld\b|mln\b|miliard\w+|milion\w+)")
+# un numero uscito e, accanto, quello che ci si aspettava: "+0,4% (atteso +0,8%)", "115,8 mld contro 109,15 attesi"
+_ATTESE = re.compile(r"\d[^.;(]{0,25}\((?:\w+ ){0,2}(?:attes[oaie]|consenso|stim[ae]|previst[oaie])\b|"
+                     r"\d[^.;]{0,30}?\b(?:contro|rispetto a|sopra|sotto|oltre|meno de|più de)\w*\b[^.;]{0,25}\b(?:attes[oaie]|stime|consenso)\b", re.I)
+_VUOTE = {"del", "dei", "per", "con", "non", "una", "gli", "che", "nel", "sul", "dal", "tra", "usa", "della", "delle", "dello",
+          "degli", "alla", "alle", "nella", "dati", "dato", "mese", "anno", "annuo", "sul", "sui"}
+PRIMA_PAGINA = ("top_story", "top_news")
+
+
+def _cifre(scheda):
+    t = scheda.get("testo") if isinstance(scheda, dict) else scheda
+    return {re.sub(r"\s", "", c).lstrip("+") for c in _CIFRA.findall(_s(t))}
+
+
+def _parole(t):
+    return {w for w in re.findall(r"[a-zà-ü]{3,}", _s(t).lower()) if w not in _VUOTE}
+
+
+def ufficiale_di_fatto(scheda, tutte=(), oggi=None, usciti=()):
+    """Un dato ufficiale riconosciuto da ciò che la scheda dice, anche quando non lo dichiara con "tipo": "U". Vale per la
+    prima pagina (top_story, top_news) e per i fatti già avvenuti, non per le cause né per la memoria: (a) la scheda riporta
+    le stesse cifre, nello stesso giorno, di una riga del calendario o di una scheda dichiarata U (è lo stesso dato scritto
+    due volte); (b) è un numero uscito messo a confronto con le attese: lo pubblica un ente o una società, quindi il suo
+    comunicato esiste; (c) regge una riga del calendario uscito dell'edizione (usciti = [(evento, dato)], da C["ieri"]):
+    stessa cifra e stesso evento. Torna il motivo, o "" se non è un dato ufficiale. Non usa elenchi di argomenti."""
+    if sezione(scheda) not in PRIMA_PAGINA or scheda.get("tipo") in ("C", "U") or not si_applica(scheda):
+        return ""
+    giorno = _s(scheda.get("data_evento"))[:10]
+    if oggi and giorno > str(oggi)[:10]:
+        return ""          # un evento che deve ancora uscire ha solo le attese
+    mie = _cifre(scheda)
+    for altra in tutte:
+        if altra is scheda or not isinstance(altra, dict) or altra.get("scartata"):
+            continue
+        calendario = altra.get("tipo") == "U" or sezione(altra) == "catalizzatori"
+        if calendario and _s(altra.get("data_evento"))[:10] == giorno and len(mie & _cifre(altra)) >= 2:
+            return f"stesse cifre di {altra.get('id', '?')}"
+    if mie and _ATTESE.search(_s(scheda.get("testo"))):
+        return "numero uscito contro le attese"
+    mie_parole = _parole(scheda.get("testo"))
+    for evento, dato in usciti:
+        if mie & _cifre(_s(dato)) and len(mie_parole & _parole(evento)) >= 2:
+            return f"riga del calendario: {_s(evento)[:30]}"
+    return ""
+
+
 def _ricerche(x):
     return {" ".join(re.findall(r"[a-z0-9à-ü]+", s.lower())) for s in (x if isinstance(x, list) else [x]) if isinstance(s, str)} - {""}
 

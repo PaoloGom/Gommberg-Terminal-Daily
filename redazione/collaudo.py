@@ -262,7 +262,7 @@ def passo_fonti():
                 "ricerca": "ricerca che ha trovato la pagina", **k}
     reuters = lambda sito: fonte(f"Reuters ({sito})", f"https://{sito}/a", agenzia="Reuters")   # noqa: E731
     kh = fonte("Korea Herald", "https://www.koreaherald.com/a")
-    # (id, sezione, fonti, altri campi, che cosa deve fare il controllo: passa | cerca | respinta)
+    # (id, sezione, fonti, altri campi, che cosa deve fare il controllo: passa | cerca | respinta | ufficiale)
     casi = [
         # la primaria basta da sola
         ("F01", "top_news", [fonte("BLS", "https://www.bls.gov/a")], {}, "passa"),
@@ -312,6 +312,24 @@ def passo_fonti():
         ("F42", "mercati", [fonte("Kitco", "https://www.kitco.com/a")], {"fonte_singola": True}, "passa"),
         ("F43", "mercati", [fonte("ANSA", "https://www.ansa.it/a")], {}, "passa"),
         ("F44", "mercati", [fonte("Kitco", "https://www.kitco.com/a")], {}, "respinta"),
+        # dati ufficiali di prima pagina riconosciuti anche se non dichiarati (G-06): due autori non bastano, serve il comunicato
+        ("G01", "top_news", [reuters("kfgo.com"), fonte("CNBC", "https://www.cnbc.com/a")],
+         {"testo": "Cina, ottobre: vendite al dettaglio +0,4% annuo (atteso +0,8%)"}, "ufficiale"),
+        ("G02", "top_news", [reuters("kfgo.com"), fonte("Ufficio di statistica", "https://www.bls.gov/a")],
+         {"testo": "Stati Uniti: prezzi al consumo +0,4% sul mese (atteso +0,3%)"}, "passa"),
+        ("G03", "top_news", [reuters("kfgo.com"), fonte("CNBC", "https://www.cnbc.com/a")],
+         {"testo": "Nvidia riferisce martedì: utile per azione atteso 2,47 $, ricavi attesi circa 108,8 mld $"}, "passa"),
+        ("G04", "deep_dive", [reuters("kfgo.com"), fonte("CNBC", "https://www.cnbc.com/a")],
+         {"testo": "Cina, ottobre: produzione industriale +4,8% annuo (atteso +5,3%)"}, "passa"),
+        ("G05", "top_story", [reuters("kfgo.com"), fonte("CNBC", "https://www.cnbc.com/a")],
+         {"testo": "Nvidia: ricavi a 115,8 mld $ contro 109,15 attesi", "tipo": "U",
+          "ufficiale_cercato": ["Nvidia third quarter results press release", "Nvidia 8-K November 2026 results"]}, "passa"),
+        ("G06", "catalizzatori", [fonte("Ufficio di statistica", "https://www.bls.gov/b")],
+         {"testo": "Prezzi alla produzione USA: +0,6% sul mese, +3,1% annuo"}, "passa"),
+        ("G07", "top_news", [reuters("kfgo.com"), fonte("CNBC", "https://www.cnbc.com/b")],
+         {"testo": "I prezzi alla produzione salgono dello 0,6% sul mese e del 3,1% annuo"}, "ufficiale"),
+        ("G08", "top_news", [reuters("kfgo.com"), fonte("CNBC", "https://www.cnbc.com/c")],
+         {"testo": "Wall Street chiude a +0,6% dopo il dato sui prezzi"}, "passa"),
         # schede scritte male: un problema con il suo id, mai un'eccezione
         ("F50", "top_news", [fonte("Reuters", None)], {}, "respinta"),
         ("F51", "top_news", "https://www.reuters.com/a", {}, "respinta"),
@@ -330,7 +348,8 @@ def passo_fonti():
     cerca = set(re.findall(nomi, " ".join(r for r in righe if re.match(r"- CERCA (un secondo autore|\(segue\))", r))))
     respinte = {m.group(1) for r in righe for m in [re.match(rf"- ({nomi}):", r)] if m}
     togliere = set(next((r for r in out.splitlines() if r.startswith("DA_TOGLIERE:")), "").split(":", 1)[-1].strip().split(","))
-    trovato = {i: "cerca" if i in cerca else "respinta" if i in respinte else "passa" for i, *_ in casi}
+    ufficiali = {m.group(1) for r in righe for m in [re.match(rf"- CERCA ({nomi}): dato ufficiale", r)] if m}
+    trovato = {i: "ufficiale" if i in ufficiali else "cerca" if i in cerca else "respinta" if i in respinte else "passa" for i, *_ in casi}
     male = [f"{i}: atteso {att}, esce {trovato[i]}" for i, _, _, _, att in casi if trovato[i] != att]
     male += [f"{i}: va cercata ma sta in DA_TOGLIERE" for i in sorted(cerca & togliere)]
     male += [f"riga oltre 200 byte: {r[:40]}" for r in righe if r.startswith("- CERCA") and len(r.encode()) > 200]
@@ -344,7 +363,7 @@ def passo_fonti():
     if any(len(r.encode()) > 200 for r in r2) or len(set(re.findall(r"N\d\d-con-un-nome-lungo", " ".join(r2)))) != 30:
         male.append("con 30 schede le righe CERCA superano i 200 byte o perdono id")
     esito("Fonti: regola dei fatti", not male, "; ".join(male)[:400]
-          or f"{len(casi)} casi (primaria, agenzia ripresa da più siti, due autori, ultima scelta dichiarata, esenti, schede scritte male)")
+          or f"{len(casi)} casi (primaria, agenzia ripresa da più siti, due autori, ultima scelta dichiarata, dati ufficiali non dichiarati, esenti, schede scritte male)")
 
     # il gancio, su una trascrizione fatta come quelle di Claude Code: chiamate (tool_use) ed esiti (tool_result)
     def chiama(i, nome, **inp):

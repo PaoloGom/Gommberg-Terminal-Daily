@@ -8,7 +8,8 @@ Schema di fatti.json: lista di schede
  "tipo": "C" solo per una causa specifica di un movimento (la citazione deve contenere il nesso; nel PDF "(Testata)" in coda),
  "tipo": "U" per un dato ufficiale (dato macro, decisione di banca centrale, asta, comunicato): serve una fonte
    "ufficiali" di fonti.json; l'agenzia solo d'appoggio. Se il sito ufficiale non si raggiunge dopo ricerche vere:
-   "ufficiale_cercato": ["ricerca 1", "ricerca 2"] e il dato esce attribuito "(Reuters)".
+   "ufficiale_cercato": ["ricerca 1", "ricerca 2"] e il dato esce attribuito "(Reuters)". In prima pagina il dato
+   ufficiale si riconosce anche se non è dichiarato (autori.ufficiale_di_fatto) e chiede il comunicato allo stesso modo.
  "testo": "il fatto come appare nel PDF", "data_evento": "AAAA-MM-GG",
  "novita": "per un tema già uscito: qual è lo sviluppo nuovo (altrimenti null)",
  "fonti": [{"testata": "Reuters", "url": "https://...", "data_pubblicazione": "AAAA-MM-GG", "citazione": "frase originale", "ricerca": "query che ha trovato la pagina (il revisore la riusa)"}],
@@ -32,6 +33,7 @@ import datetime as dt, json, os, re, sys
 QUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, QUI)
 from autori import AGENZIE, ALIAS, PUBBLICI, giudizio, livello, nome, si_applica, stessa_ricerca, ufficiale as dominio_ufficiale
+from autori import ufficiale_di_fatto
 
 
 def _mai_un_traceback(tipo, e, tb):
@@ -47,6 +49,26 @@ def _mai_un_traceback(tipo, e, tb):
 sys.excepthook = _mai_un_traceback
 fatti_p, indice_p, oggi_s = sys.argv[1], sys.argv[2], sys.argv[3]
 prima_revisione = "--prima-della-revisione" in sys.argv
+
+
+def _usciti():
+    """Le righe del calendario uscito dell'edizione (C["ieri"]: evento e dato), quando l'edizione è già scritta accanto a
+    fatti.json: servono a riconoscere i dati ufficiali di prima pagina. Prima della stesura non c'è: lista vuota."""
+    ed = os.path.join(os.path.dirname(os.path.abspath(fatti_p)), f"edizione_{oggi_s}.py")
+    if not os.path.exists(ed):
+        return []
+    qui = os.getcwd()
+    try:
+        import desk
+        C = desk._carica(ed)
+        return [(r[1], r[2]) for r in C.get("ieri") or [] if isinstance(r, (list, tuple)) and len(r) > 2]
+    except Exception:  # noqa: BLE001
+        return []
+    finally:
+        os.chdir(qui)
+
+
+USCITI = _usciti()
 oggi = dt.date.fromisoformat(oggi_s)
 voci = json.load(open(indice_p, encoding="utf-8"))
 prec = sorted({v["data"] for v in voci if v["data"] < oggi_s})
@@ -114,11 +136,18 @@ def controlla(f):
             lv = 1
         livelli.append(lv); testate.add((s.get("testata") or s.get("url")).lower())
     g = giudizio(f)
-    if f.get("tipo") == "U" or sez == "catalizzatori":
-        uff = any(dominio_ufficiale(s.get("url", "")) for s in fonti)
+    # Un dato ufficiale lo è anche quando la scheda non lo dichiara: in prima pagina lo si riconosce da ciò che dice
+    # (autori.ufficiale_di_fatto: stesse cifre di una riga del calendario, un numero contro le attese, una riga di "ieri").
+    di_fatto = ufficiale_di_fatto(f, fatti, oggi_s, USCITI)
+    if f.get("tipo") == "U" or sez == "catalizzatori" or di_fatto:
+        uff = any(dominio_ufficiale(s.get("url", "")) or s.get("primaria") is True for s in fonti) if di_fatto else \
+            any(dominio_ufficiale(s.get("url", "")) for s in fonti)
         if not uff:
             cercato = f.get("ufficiale_cercato") or []
-            if len(cercato) >= 2:
+            if di_fatto:
+                problemi.append(f"CERCA {i}: dato ufficiale ({di_fatto}): metti \"tipo\": \"U\" e il comunicato di chi lo "
+                                "pubblica tra le fonti (APP_FONTI §2); non si toglie")
+            elif len(cercato) >= 2:
                 avvisi.append(f"{i}: dato ufficiale senza il comunicato (cercato: {'; '.join(cercato[:2])}): "
                               "nel PDF attribuito \"(Testata)\"")
             else:
