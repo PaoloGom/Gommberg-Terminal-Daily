@@ -18,6 +18,8 @@ Cosa controlla:
      Fonti         la regola dei fatti (autori.py, applicata da controlli_fatti.py) su schede costruite apposta: la
                    primaria basta, un'agenzia ripresa da tre siti è un autore solo, l'ultima scelta va dichiarata; e il
                    gancio (gancio_token.py) su una trascrizione costruita: ricerche, pagine aperte, pagine non raggiunte.
+     Dati          controlli_dati.py sull'Euro Stoxx 50 scritto in sei modi: EODHD sempre tra le due fonti, quotazioni
+                   dei riquadri e fonti discordi fermate (APP_DATI §2b e §6).
   4. Rete          le edizioni campione di redazione/rete/ rifatte dai loro sorgenti con il kit di oggi lungo la catena
                    del mattino (impaginazione, controlli, voce dell'indice) e confrontate con l'atteso: testo del PDF,
                    esito dei controlli, voce di edizioni.json, email della newsletter, numeri del pannello.
@@ -377,6 +379,35 @@ def passo_fonti():
           else f"uscita {p.returncode}, visto {visto}, riga {riga}, regge {regge}, riscontro {riscontro}"[:400])
 
 
+# ---------------------------------------------------------------- 3c. dati: le fonti ammesse dell'Euro Stoxx 50
+def passo_dati():
+    """controlli_dati.py su una serie dell'Euro Stoxx 50 scritta in sei modi: EODHD è sempre una delle due fonti (salvo
+    eodhd_nd), le fonti non ammesse e le fonti discordi fermano il dato (APP_DATI §2b e §6; caso del 19/11/2026)."""
+    lav = os.path.join(TMP, "dati")
+    os.makedirs(lav, exist_ok=True)
+    ultimi = [[d, v, None] for d, v in reversed(serie("sx5e", "2026-11-20"))]
+    v0 = ultimi[0][1]
+    casi = [("EODHD + dpa-AFX concordi", {"fonte": "EODHD + dpa-AFX", "seconda_fonte": v0}, True),
+            ("EODHD da solo", {"fonte": "EODHD", "fonte_singola": True}, True),
+            ("EODHD giù, due fonti web", {"fonte": "stoxx.com + dpa-AFX", "seconda_fonte": v0, "eodhd_nd": "non risponde"}, True),
+            ("senza EODHD", {"fonte": "dpa-AFX", "fonte_singola": True}, False),
+            ("quotazione di un riquadro", {"fonte": "finanzen.at", "fonte_singola": True}, False),
+            ("fonti discordi", {"fonte": "EODHD + dpa-AFX", "seconda_fonte": round(v0 * 1.001, 2)}, False)]
+    sbagliati = []
+    for nome, campi, passa in casi:
+        dati = {"oggi": "2026-11-20", "ora_roma": "09:05", "macro": [],
+                "serie": {"Euro Stoxx 50": dict({"mercato": "EU", "tipo": "chiusura", "ultimi": ultimi}, **campi)}}
+        f = os.path.join(lav, "dati.json")
+        json.dump(dati, open(f, "w", encoding="utf-8"), ensure_ascii=False)
+        out = esegui([sys.executable, os.path.join(R, "controlli_dati.py"), f])[1]
+        fermo = any(l.startswith("- Euro Stoxx 50:") for l in out.splitlines())
+        if fermo == passa:
+            sbagliati.append(nome)
+    esito("Dati: fonti dell'Euro Stoxx 50", not sbagliati,
+          f"{len(casi)} casi (EODHD sempre tra le due fonti, quotazioni dei riquadri e fonti discordi fermate)"
+          if not sbagliati else "sbagliati: " + ", ".join(sbagliati))
+
+
 # ---------------------------------------------------------------- 4. rete di non regressione
 RETE = os.path.join(R, "rete")
 MONDO = os.path.join(RETE, "mondo")
@@ -712,6 +743,7 @@ def main():
         passo_avvio()
         passo_modello()
         passo_fonti()
+        passo_dati()
         passo_rete()
         copia = passo_sito()
         if isinstance(copia, str):

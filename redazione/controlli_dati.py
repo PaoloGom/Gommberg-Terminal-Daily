@@ -72,19 +72,25 @@ for nome, s in d["serie"].items():
         scarto = abs(v0 / sf - 1)
         if scarto > 0.005:
             problemi.append(f"{nome}: scarto {100 * scarto:.2f}% con la seconda fonte ({v0} contro {sf})")
-# Serie che il fornitore di dati sbaglia: solo dal web, con fonte dichiarata e seconda fonte concorde entro lo 0,05%.
+# Serie che il fornitore di dati sbaglia: solo dalle fonti ammesse, con seconda fonte concorde entro lo 0,05%.
 # Euro Stoxx 50: FMP ^STOXX50E dà chiusure sbagliate quasi ogni giorno (confronto del 10/11/2026 su 20 sedute: scarti fino
-# allo 0,8%, anche di segno, mai corretti dopo). Per aggiungere una serie basta una riga qui.
-SOLO_WEB = {"Euro Stoxx 50": "sx5e.csv"}
+# allo 0,8%, anche di segno, mai corretti dopo). EODHD STOXX50E.INDX coincide al centesimo con stoxx.com e dpa-AFX
+# (verifica del 21/11/2026, 40 sedute) ed è sempre una delle due fonti, salvo "eodhd_nd" (connettore che non risponde).
+# Per aggiungere una serie basta una riga qui: archivio verificato, fonti ammesse, fonte da chiamare ogni mattina.
+FONTI_AMMESSE = {"Euro Stoxx 50": ("sx5e.csv", ("eodhd", "stoxx.com", "dpa-afx", "investing"), "eodhd")}
 import csv, os  # noqa: E402
 _dati = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scommessa", "dati")
-for nome, archivio in SOLO_WEB.items():
+for nome, (archivio, ammesse, api) in FONTI_AMMESSE.items():
     s = d["serie"].get(nome)
     if not s or not s.get("ultimi"):
         continue
     fonte = str(s.get("fonte") or "").lower()
-    if not fonte or "fmp" in fonte or "modeling" in fonte:
-        problemi.append(f"{nome}: serie solo dal web (APP_DATI §6): scrivi \"fonte\" (gestore dell'indice o resoconto d'agenzia), mai FMP")
+    if not any(a in fonte for a in ammesse) or "fmp" in fonte or "modeling" in fonte:
+        problemi.append(f"{nome}: \"fonte\" deve nominare le fonti usate, tra {', '.join(ammesse)} (APP_DATI §6): mai FMP né "
+                        "le quotazioni nei riquadri delle pagine")
+    if api not in fonte and not s.get(api + "_nd"):
+        problemi.append(f"{nome}: manca {api.upper()} tra le fonti: una chiamata (APP_DATI §2b); se il connettore non risponde "
+                        f"\"{api}_nd\": \"<motivo>\" e due fonti web")
     sf = s.get("seconda_fonte")
     if not sf and not s.get("fonte_singola"):
         problemi.append(f"{nome}: manca \"seconda_fonte\" (il valore di una seconda fonte indipendente) o \"fonte_singola\": true")

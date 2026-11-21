@@ -9,6 +9,7 @@ La mappa del sistema: quali parti ci sono, chi legge che cosa, e che cosa si rom
 ```
 8:58 attività programmata (Sonnet, app di Claude; testo in ATTIVITA.md)
   │  legge ISTRUZIONI.md + appendici APP_*.md, parte da prepara.sh
+  │  connettori dei dati: FMP, Alpha Vantage, EODHD (Euro Stoxx 50; regole in APP_DATI.md)
   ▼
 cartella di lavoro /home/claude/lavoro  (fuori dal repository)
   dati.json ─ contesto.json ─ fatti.json ─ edizione_AAAA-MM-GG.py ─ stato.json | verdetto.json

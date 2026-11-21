@@ -4,7 +4,7 @@ Tutto si lancia da `cd /home/claude/gtd/redazione/scommessa` (perché `dati/`, `
 
 ## 1. Aggiorna la storia
 Scrivi `/home/claude/lavoro/nuovi.json` con le chiusure ufficiali dei giorni dopo l'ultima data di ogni file in `dati/`, fino a venerdì compreso. Formato: `{"spx": [["2026-10-16", 7850.12], ...], ...}`.
-- `sx5e`: mai da FMP (`APP_DATI.md` §6). Le sedute da martedì a giovedì sono già in `dati/sx5e.csv` (le scrive `scommessa_giorno.sh`); in `nuovi.json` va la chiusura di venerdì, da stoxx.com o dpa-AFX con seconda fonte.
+- `sx5e`: mai da FMP (`APP_DATI.md` §6). Le sedute da martedì a giovedì sono già in `dati/sx5e.csv` (le scrive `scommessa_giorno.sh`); in `nuovi.json` va la chiusura di venerdì, da EODHD con una fonte web (`APP_DATI.md` §6).
 - `spx`, `vix`: FMP `indexes` endpoint `index-historical-price-eod-light` (^GSPC, ^VIX) con from/to;
 - `brent`: FMP `commodity` endpoint `commodities-historical-price-eod-light`, simbolo BZUSD;
 - `ust10`, `ust2`: FMP `economics` endpoint `treasury-rates`, colonne year10 e year2;
