@@ -499,7 +499,10 @@ def passo_sito():
                 for f in files:
                     rel = os.path.relpath(os.path.join(d, f), radice)
                     a, b = os.path.join(copia, rel), os.path.join(REPO, rel)
-                    if not (os.path.exists(a) and os.path.exists(b) and filecmp.cmp(a, b, shallow=False)):
+                    # le immagini di anteprima (e/NNN.png) devono esserci, ma non si confrontano byte per byte: lo stesso
+                    # disegno esce in byte diversi da una versione all'altra della libreria grafica
+                    uguali = os.path.exists(a) and os.path.exists(b) and (rel.endswith(".png") or filecmp.cmp(a, b, shallow=False))
+                    if not uguali:
                         diversi.add(rel)
     esito("Sito: pagine generate identiche a quelle nel repository", not diversi,
           (f"{len(diversi)} file diversi dopo pagine.py: " + ", ".join(sorted(diversi)[:6]) +

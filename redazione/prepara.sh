@@ -8,7 +8,8 @@ REPO="${GTD_REPO:-/home/claude/gtd}"; R="$REPO/redazione"; L="${GTD_LAVORO:-/hom
 # 1. Dipendenze (silenziose se già presenti)
 MANCA=$(python3 - <<'EOF'
 import importlib.util as u
-m = {"reportlab": "reportlab", "matplotlib": "matplotlib", "svglib": "svglib", "PIL": "pillow", "pandas": "pandas", "numpy": "numpy"}
+m = {"reportlab": "reportlab", "matplotlib": "matplotlib", "svglib": "svglib", "PIL": "pillow", "pandas": "pandas", "numpy": "numpy",
+     "scipy": "scipy"}   # scipy: scommessa/motore.py (pronostico e verdetto); mancava dall'elenco, lo ha trovato il collaudo su GitHub
 print(" ".join(p for k, p in m.items() if u.find_spec(k) is None))
 EOF
 )
