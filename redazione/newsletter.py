@@ -235,7 +235,7 @@ def componi(ed, con_testata=True):
 {dentro}
 <tr><td class="gx" style="padding:24px 28px 0">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-<td style="background:{PANNELLO};border-left:3px solid {ARANCIO};padding:13px 16px;font:15px/1.5 {FONT};color:{INCHIOSTRO}"><b>Chiedi al Gommberg.</b> Un passaggio non ti torna, o c'è un tema che vorresti approfondito? Rispondi a questa email.</td>
+<td style="background:{PANNELLO};border-left:3px solid {ARANCIO};padding:13px 16px;font:15px/1.5 {FONT};color:{INCHIOSTRO}"><b>Chiedi al Gommberg.</b> Hai una domanda, o c'è un tema che vorresti vedere approfondito? Rispondi a questa email.</td>
 </tr></table>
 </td></tr>
 <tr><td class="gx" style="padding:16px 28px 18px;font:13px/1.5 {FONT};color:{GRIGIO}">Te l'hanno inoltrata? <a href="{BASE}iscriviti.html" style="color:{ARANCIO_TESTO}">Ricevila anche tu ogni mattina</a>.</td></tr>
