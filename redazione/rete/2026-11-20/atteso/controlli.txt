@@ -16,6 +16,8 @@ ERRORE: pag. 5, Euro Stoxx 50: nel PDF non c'è la riga calcolata (6.120,30 | -0
 ERRORE: pag. 5, Hang Seng*: nel PDF non c'è la riga calcolata (~22.362 | -2,1% | -5,4% | -12,8%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
 [ROSSO] Scrittura (→, cause, sigle, ritmo):
 ERRORE: 14 testate tra parentesi (§3.5): toglile, stanno nella riga Fonti del pezzo; se il nome è parte della notizia (accusa, indiscrezione, stima, opinione, spiegazione di qualcuno) dillo nella fr
+ERRORE: testate nominate nel testo ma assenti dalla riga Fonti del pezzo (§3.5): aggiungile alla riga Fonti (letta ripresa da un'altra testata: "X, ripresa da Y"). Sono: notizie.1.testo Bloomberg
+ERRORE: 5 approfondimenti aprono con una domanda esplicita (massimo 2): tienila dove rende di più e negli altri apri lo stesso dubbio in un'altra forma, senza punto di domanda (un contrasto, un'attes
 ERRORE: lessico: "la vendita dell'AI" (5 volte): scrivi le vendite, l'ondata di vendite, il ribasso (se è la cessione di un bene: "la cessione")
 AVVISO: sigle spiegate più di una volta: VIX
 AVVISO: sigle definite tra parentesi (§3.4: la cosa si dice in parole dentro la frase): core, VIX

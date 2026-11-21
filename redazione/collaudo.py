@@ -290,13 +290,29 @@ def passo_scrittura():
         and not T.connettivi("prima +0,4% Se l'energia passa a monte Sopra: conferma il dato di ieri e pesa sui titoli di Stato. A. B. C.") \
         and bool(T.connettivi("Sotto il 5,10% il titolo scende perché prevale la paura. A. B. C. D."))
     fonti_ok = par == [("a", "(Reuters)"), ("a", "(Kitco e AFP)"), ("d", "(dpa-AFX)")] and conta == {"Reuters": 1, "Kitco": 1, "AFP": 1, "dpa-AFX": 1}
+    # una testata nominata come fonte sta nella riga Fonti del suo pezzo; chi è solo nominato (il Tesoro che fa un'asta) no
+    pezzo = lambda ch, apre, perche, fonte: {"chiave": ch, "titolo": ch, "testo": [apre + " Poi il resto."], "perche": perche,  # noqa: E731
+                                              "quindi": "Alle 15:30.", "fonte": fonte}
+    Cx = {"moduli": [pezzo("a", "Perché l'oro scende? Perché non paga interessi.", "Per Milano Finanza pesa il dollaro.", "Fonti: Kitco."),
+                     pezzo("b", "Il titolo cade. Perché proprio oggi? Dipende dai conti.", "Lo scrive Reuters, e il Tesoro mette all'asta i titoli.", "Fonti: Reuters, ANSA."),
+                     pezzo("c", "Un rifugio dovrebbe salire quando si ha paura, e invece scende.", "Per gli operatori sentiti dal Sole 24 Ore pesa l'offerta.", "Fonti: Il Sole 24 Ore."),
+                     pezzo("d", "La Fed non dovrebbe frenare? Dipende da ciò che guarda.", "Di solito decide sui prezzi.", "Fonti: Federal Reserve.")],
+          "top": {"dek": "Secondo Bloomberg il fondo valuta un'offerta."}, "fonti": [("Prima pagina e mercati", "Reuters, ANSA.")]}
+    fuori = T.fuori_dalle_fonti(Cx, nomi)
+    domande = T.aperture_con_domanda(Cx)
+    fonti_ok = fonti_ok and fuori == [("moduli.a.perche", "Milano Finanza"), ("top.dek", "Bloomberg")] and domande == ["a", "b", "d"]
+    oro = [v for v in json.load(open(os.path.join(R, "glossario.json"), encoding="utf-8"))["lessico"]["voci"] if "a vendere è chi" in v["termine"]]
+    oro_rx = lambda x: any(re.search(rx, x, re.I) for v in oro for rx in v["evita"])   # noqa: E731
+    fonti_ok = fonti_ok and bool(oro) and all(oro_rx(x) for x in ("i Treasury fanno da rifugio, l'oro vende", "borse e oro hanno venduto insieme")) \
+        and not any(oro_rx(x) for x in ("chi ha comprato oro vende ora le azioni", "le banche centrali hanno venduto oro", "si vende oro per far cassa"))
     ok = not sfuggiti and not fermate and sigla and fonti_ok and coperta and voce and sigle_ok
     esito("Scrittura: lessico di casa, fonti e sigle", ok,
           f"{len(calchi)} calchi fermati, {len(giuste)} frasi giuste passate, testate tra parentesi fermate (anche una nuova), "
-          "fonte di un livello del mattino passata, causa coperta da chi la dà o dalla lettura dichiarata, sigle dette in parole" if ok else
+          "fonte di un livello del mattino passata, testata nominata e assente dalla riga Fonti fermata, aperture con domanda "
+          "contate, \"l'oro vende\" fermato, causa coperta da chi la dà o dalla lettura dichiarata, sigle dette in parole" if ok else
           "; ".join(x for x in (f"calchi non fermati: {sfuggiti}" if sfuggiti else "", f"frasi giuste fermate: {fermate}" if fermate else "",
                                 "" if sigla else "guidance è ancora una sigla da spiegare",
-                                "" if fonti_ok else f"testate tra parentesi: {par}; conteggio: {conta}",
+                                "" if fonti_ok else f"testate tra parentesi: {par}; conteggio: {conta}; fuori dalle Fonti: {fuori}; domande: {domande}",
                                 "" if sigle_ok else f"sigle: {[s1, s2, s3, s4, s5, s6]}",
                                 "" if coperta else "chi dà la causa non copre il suo paragrafo, o una causa nuda passa",
                                 "" if voce else "la lettura dichiarata non copre il suo paragrafo, o una causa nuda passa") if x)[:300])

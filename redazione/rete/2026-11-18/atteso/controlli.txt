@@ -17,6 +17,7 @@ ERRORE: pag. 5, Treasury 2 anni: nel PDF non c'è la riga calcolata (4,80% | -3 
 ERRORE: pag. 5, Treasury 10 anni: nel PDF non c'è la riga calcolata (5,10% | -2 pb | +12 pb | +1 pb): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
 [ROSSO] Scrittura (→, cause, sigle, ritmo):
 ERRORE: 17 testate tra parentesi (§3.5): toglile, stanno nella riga Fonti del pezzo; se il nome è parte della notizia (accusa, indiscrezione, stima, opinione, spiegazione di qualcuno) dillo nella fr
+ERRORE: testate nominate nel testo ma assenti dalla riga Fonti del pezzo (§3.5): aggiungile alla riga Fonti (letta ripresa da un'altra testata: "X, ripresa da Y"). Sono: moduli.chip.perche Wall Stree
 AVVISO: lessico: "spread tra Btp e Bund" (1 volte): scrivi spread BTP-Bund
 [ok] Temi di prima pagina: Temi di prima pagina: 0 errori, 0 avvisi lessicali
 [ok] Contenuti (estremi, perché, anomalie...): Contenuti: 0 errori, 2 avvisi

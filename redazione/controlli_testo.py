@@ -13,6 +13,10 @@ Uso: python3 controlli_testo.py <pdf> [--json uscita.json]
   stessa frase (le radici di "breve" e di "parole"), altrimenti ERRORE. La definizione tra parentesi dopo la sigla passa
   ma è un AVVISO (§3.4: si dice dentro la frase); detta due volte nella stessa frase, in parole e tra parentesi, è un
   ERRORE. Stampa anche l'elenco delle sigle spiegate (va in edizioni.json, campo glossario).
+  Una testata nominata in un pezzo come fonte ("secondo X", "per X", "lo scrive X") sta anche nella riga Fonti di quel
+  pezzo (per pag. 1 e 5: in una delle righe Fonti del numero): altrimenti ERRORE.
+- Aperture (ISTRUZIONI §1): il testo di un approfondimento apre con un dubbio, ma con la domanda esplicita in due pezzi
+  al massimo: oltre, ERRORE (nella #030 erano 5 su 5, nella prova del 21/11 4 su 4).
 - Lessico di casa (glossario.json, "lessico"): avviso, errore per le voci con "blocca" (termini che restano in inglese,
   calchi).
 BLOCCANTI (codice 1): gli ERRORI qui sopra; più di 5 righe "→"; una riga "→" oltre 20 parole.
@@ -301,6 +305,49 @@ def righe_fonti(C):
     return righe
 
 
+MAX_DOMANDE = 2   # §1: la domanda esplicita in apertura in uno o due pezzi dell'edizione al massimo
+
+
+def aperture_con_domanda(C):
+    """Gli approfondimenti il cui testo apre con una domanda esplicita (un "?" nelle prime due frasi): [titolo]."""
+    out = []
+    for m in C.get("moduli") or []:
+        primo = _pulito((m.get("testo") or [""])[0]) if isinstance(m, dict) else ""
+        if any(f.rstrip().endswith("?") for f in re.split(r"(?<=[.!?])\s+", primo)[:2]):
+            out.append(str(m.get("titolo") or m.get("chiave"))[:45])
+    return out
+
+
+_DICE_PRIMA = re.compile(r"(?:\bsecondo|\bper|\bscriv\w+|\bha(?:nno)? scritto|\briferisc\w+|\bha riferito|\briport\w+|\bdic(?:e|ono)|"
+                         r"\bspieg\w+|\bdat[oaie] da|\bsentit[oaie] da\w{0,3}|\bcitat[oaie] da\w{0,3})\s+(?:il |la |l'|i |gli |le )?$", re.I)
+_DICE_DOPO = re.compile(r"^,?\s+(?:che cita|citando|scriv\w+|ha scritto|riferisc\w+|ha riferito|riport\w+|rivel\w+|ha rivelato)\b", re.I)
+
+
+def fuori_dalle_fonti(C, nomi=None):
+    """§3.5: una testata nominata in un pezzo come fonte ("secondo X", "per X", "lo scrive X") sta anche nella riga Fonti di
+    quel pezzo; per ciò che non è un approfondimento vale una qualsiasi riga Fonti del numero. Torna [(dove, testata)].
+    Conta solo quando la testata fa da fonte: "il Tesoro mette all'asta" parla del Tesoro, non lo cita."""
+    nome = nome_fonte(nomi)
+    tutte = " ".join(str(r) for r in righe_fonti(C)) + " " + " ".join(str(r[1]) for r in C.get("fonti") or [] if len(r) > 1)
+    corto = lambda n: re.sub(r"^(?:Il|La|Lo|The) ", "", n)   # noqa: E731
+
+    def cerca(testi_, righe, dove0):
+        out = []
+        for dove, t in testi_.items():
+            for m in nome.finditer(t):
+                n = m.group(0)
+                if (_DICE_PRIMA.search(t[max(0, m.start() - 30):m.start()]) or _DICE_DOPO.search(t[m.end():m.end() + 25])) \
+                        and corto(n).lower() not in righe.lower() and (dove0 + dove, n) not in out:
+                    out.append((dove0 + dove, n))
+        return out
+    fuori, moduli = [], C.get("moduli") or []
+    for i, m in enumerate(moduli):
+        if isinstance(m, dict):
+            fuori += cerca(testi(m), " ".join(str(m.get(k) or "") for k in RIGHE_FONTI), f"moduli.{m.get('chiave', i)}.")
+    fuori += cerca(testi({k: v for k, v in C.items() if k != "moduli"}), tutte, "")
+    return fuori
+
+
 def fonti_nei_testi(tt, nomi=None):
     """§3.5: una testata tra parentesi senza l'orario di un livello del mattino: [(dove, "(Testata)")]."""
     return [(dove, par) for dove, t in tt.items() for par in fonti_tra_parentesi(t, nomi)]
@@ -366,6 +413,17 @@ def main():
         errori.append(f"{n_fonti} testate tra parentesi (§3.5): toglile, stanno nella riga Fonti del pezzo; se il nome è parte "
                       "della notizia (accusa, indiscrezione, stima, opinione, spiegazione di qualcuno) dillo nella frase. Sono: "
                       + "; ".join(f"{dove} {par}" for dove, par in par_fonti))
+    if C:
+        fuori = fuori_dalle_fonti(C)
+        if fuori:
+            errori.append("testate nominate nel testo ma assenti dalla riga Fonti del pezzo (§3.5): aggiungile alla riga Fonti (letta ripresa da "
+                          "un'altra testata: \"X, ripresa da Y\"). Sono: "
+                          + "; ".join(f"{dove} {n}" for dove, n in fuori))
+        domande = aperture_con_domanda(C)
+        if len(domande) > MAX_DOMANDE:
+            errori.append(f"{len(domande)} approfondimenti aprono con una domanda esplicita (massimo {MAX_DOMANDE}): tienila dove rende di "
+                          "più e negli altri apri lo stesso dubbio in un'altra forma, senza punto di domanda (un contrasto, "
+                          "un'attesa smentita, due prezzi che non tornano insieme) (§1). Sono: " + "; ".join(domande))
     errori += [f"causa senza chi la dà né lettura dichiarata nel paragrafo (§3.5): {x}" for x in sos]
     errori += [f"sigla senza le sue parole: di' che cos'è nella stessa frase, con parole di tutti (§3.4): {x}" for x in mai]
     errori += [f"sigla spiegata due volte nella stessa frase: togli la parentesi (§3.4): {x}" for x in sigle_due]
@@ -406,7 +464,7 @@ def main():
             (errori if v.get("blocca") else avvisi).append(
                 f"lessico: \"{trovate[0]}\" ({len(trovate)} volte): scrivi {v['termine']}")
     for e in errori[:6]:
-        print("ERRORE: " + (e if "testate tra parentesi" in e else e[:155]))
+        print("ERRORE: " + (e if "Sono: " in e else e[:155]))
     for a in avvisi:
         print("AVVISO: " + a[:155])
     if doppie:

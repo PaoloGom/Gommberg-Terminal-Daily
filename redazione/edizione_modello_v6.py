@@ -113,7 +113,7 @@ C = {
         "dek": "A settembre i prezzi al consumo (CPI) salgono del 3,7% in un anno, un decimo sopra le attese, e anche "
                "senza energia e alimentari corrono più del previsto. Così i future sui tassi (CME FedWatch) danno ora al "
                "rialzo del 27-28 ottobre il 47% di probabilità, più del doppio del giorno prima. Wall Street cede "
-               "(S&amp;P 500 -1,11%) trascinata dai tecnologici, e stamattina vendono anche Tokyo e Seul. [[chip]]",
+               "(S&amp;P 500 -1,11%) trascinata dai tecnologici, e stamattina le vendite arrivano a Tokyo e Seul. [[chip]]",
         "freccia": "L'energia più cara comincia a farsi sentire nei prezzi dei servizi, scrive Axios.",  # tipo C, scheda T01 (Axios, liv. 1)
     },
     # 2-3 frasi legate tra loro: prima la lettura (cosa dicono insieme tassi, dollaro, oro, petrolio e borse, o che non si legano),

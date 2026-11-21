@@ -637,6 +637,13 @@
     "evita": [
      "\\bfutures\\b"
     ]
+   },
+   {
+    "termine": "l'oro (o il petrolio, il Treasury, il dollaro) scende, cede, è venduto: a vendere è chi lo possiede, non il bene",
+    "evita": [
+     "(?:\\bl'|\\bil |\\bi |\\bgli |\\blo |\\be |\\bed )(?:oro|argento|rame|metallo|petrolio|greggio|Brent|WTI|bitcoin|dollaro|yen|Treasury|BTP|Bund)\\s+(?:vend(?:e|ono|eva|evano)|ha(?:nno)? venduto)\\b"
+    ],
+    "blocca": true
    }
   ]
  }
