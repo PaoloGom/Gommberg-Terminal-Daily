@@ -1,0 +1,344 @@
+{
+ "numero": 31,
+ "data": "2026-11-23",
+ "titolo": "Wall Street crolla e il Nasdaq cancella tutto il rialzo del 2026",
+ "sommario": [
+  "La Fed non ha margine per soccorrere la borsa: pesa l'inflazione.",
+  "L'Europa cade con Wall Street: a Milano cedono chip e banche.",
+  "Mercoledì il dato sui prezzi che la Fed guarda di più, giovedì Wall Street è chiusa."
+ ],
+ "file": "pdf/2026-11-23-gommberg-031.pdf",
+ "nome": "2026-11-23 Gommberg Terminal Daily #031.pdf",
+ "pagine": 6,
+ "notizie": [
+  "SoftBank perde il 14% a Tokyo e il Nikkei scende ai minimi da aprile",
+  "L'inflazione giapponese sale al 2,3% e avvicina il rialzo dei tassi",
+  "Nuove strette USA sulla tecnologia per la Cina fanno scendere il listino tecnologico di Hong Kong (-3,8%)",
+  "Samsung perde il 7% a Seul e SK hynix quasi il 6%",
+  "Mps: il cda dice sì al prezzo di Intesa, Passera si dimette",
+  "Hormuz fa rimbalzare il Brent, ma è la terza settimana di calo"
+ ],
+ "ticker": [
+  [
+   "MSCI ACWI (ETF)",
+   "142,59 $",
+   "-3,5% g"
+  ],
+  [
+   "S&P 500",
+   "6.910,39",
+   "-3,7% g"
+  ],
+  [
+   "EURO STOXX 50",
+   "5.941,95",
+   "-2,8% g"
+  ],
+  [
+   "TREASURY 10 ANNI",
+   "4,92%",
+   "-12 pb g"
+  ],
+  [
+   "EUR/USD",
+   "1,0967",
+   "0,0% g"
+  ],
+  [
+   "BRENT FUTURE",
+   "92,57 $",
+   "+0,6% g"
+  ],
+  [
+   "ORO",
+   "3.515 $",
+   "-4,6% g"
+  ]
+ ],
+ "dek": "L'S&P 500 perde il 3,7% e chiude in correzione, cioè oltre il 10% sotto il massimo di ottobre; il Nasdaq cede il 5,3% e finisce l'anno in negativo. A pesare sono i chip: Nvidia lascia il 14% dopo che, secondo Reuters, la SEC (l'autorità di Borsa americana) esamina possibili problemi nei suoi conti. Nemmeno Anthropic, scesa dell'8,5% nella seconda seduta ma ancora sopra il prezzo di collocamento, ha frenato le vendite.",
+ "ticker_al": "2026-11-20",
+ "scommessa": {
+  "settimana": "2026-11-23/2026-11-27",
+  "su": 6,
+  "par": 7.3,
+  "strada": null,
+  "range": null,
+  "dettaglio": [
+   [
+    "S&P 500",
+    "su",
+    null,
+    null
+   ],
+   [
+    "Euro Stoxx 50",
+    "su",
+    null,
+    null
+   ],
+   [
+    "Treasury 10 anni",
+    "giù",
+    null,
+    null
+   ],
+   [
+    "EUR/USD",
+    "giù",
+    null,
+    null
+   ],
+   [
+    "Brent future",
+    "su",
+    null,
+    null
+   ],
+   [
+    "Oro future",
+    "su",
+    null,
+    null
+   ]
+  ]
+ },
+ "verdetto": {
+  "settimana": "2026-11-16/2026-11-20",
+  "punti": 5,
+  "su": 12,
+  "direzione": 3,
+  "range": 2,
+  "par": 7.3,
+  "esiti": [
+   [
+    "S&P 500",
+    "giù",
+    1
+   ],
+   [
+    "Euro Stoxx 50",
+    "su",
+    0
+   ],
+   [
+    "Treasury 10 anni",
+    "su",
+    0
+   ],
+   [
+    "EUR/USD",
+    "giù",
+    1
+   ],
+   [
+    "Brent future",
+    "su",
+    0
+   ],
+   [
+    "Oro future",
+    "giù",
+    1
+   ]
+  ]
+ },
+ "temi": [
+  "Wall Street",
+  "Chip",
+  "Fed",
+  "Europa",
+  "Materie prime",
+  "Asia"
+ ],
+ "approfondimenti": [
+  {
+   "tema": "Chip",
+   "titolo": "Per Nvidia i conti non bastano più: a pesare sono la SEC e Huang",
+   "formato": "due_grafici"
+  },
+  {
+   "tema": "Fed",
+   "titolo": "La Fed ha l'inflazione contro e non può soccorrere la borsa",
+   "formato": "due_grafici"
+  },
+  {
+   "tema": "Materie prime",
+   "titolo": "L'oro non fa da rifugio: scende mentre i Treasury salgono",
+   "formato": "grafico"
+  },
+  {
+   "tema": "Europa",
+   "titolo": "L'Europa perde il 7% in cinque sedute",
+   "formato": "grafico"
+  }
+ ],
+ "meccanismi": [
+  "M26",
+  "M23",
+  "M16",
+  "M09"
+ ],
+ "parole": [
+  "Correzione",
+  "VIX",
+  "PCE",
+  "Vendite forzate",
+  "Collocamento",
+  "Rendimento a 2 anni"
+ ],
+ "ripetizioni": 7,
+ "glossario": [
+  "PCE",
+  "core",
+  "PMI",
+  "FOMC",
+  "BoJ",
+  "VIX",
+  "ACWI",
+  "SEC"
+ ],
+ "dove": {
+  "approfondimenti": [
+   2,
+   3,
+   4,
+   4
+  ],
+  "mercati": 5,
+  "agenda": 5,
+  "scommessa": 6
+ },
+ "termometri": {
+  "righe": [
+   [
+    "Fed e tassi",
+    "Riunione 8-9 dicembre",
+    "Waller: mossa decisa a dicembre",
+    "fermo: Rialzo di dicembre, dato per probabile",
+    "PCE di mercoledì"
+   ],
+   [
+    "AI e chip",
+    "Anthropic, seconda seduta",
+    "Chiude a 88,91 $, sopra il collocamento",
+    "giu: Titoli dei chip e Nasdaq",
+    "Apertura di Wall Street alle 15:30"
+   ],
+   [
+    "Oro",
+    "Future sotto 3.520 $",
+    "Vende anche chi ha paura",
+    "giu: Oro future",
+    "Treasury a 10 anni"
+   ],
+   [
+    "Petrolio",
+    "Brent poco sopra 92 $",
+    "Petroliera colpita a Hormuz sabato",
+    "fermo: Brent, senza direzione",
+    "Notizie dal Golfo"
+   ]
+  ],
+  "fermi": "Tassi della Bce, UniCredit e Commerzbank (accordo del 19/11)."
+ },
+ "quadro": "La paura ha preso il posto dell'inflazione, ma con una crepa. Il Treasury a 10 anni scende al 4,92% e il 2 anni al 4,63%, come quando si cerca riparo nei titoli di Stato. L'oro cede più del 2% e il dollaro quasi non si muove (EUR/USD 1,0967). A nostro avviso si vende ciò che si può vendere per far cassa. L'indice azionario mondiale ACWI (indice azionario mondiale MSCI) perde il 3,5%, il VIX (volatilità attesa sull'S&P 500) sale del 26,2% e il Brent, 92,57 $, resta quasi fermo.",
+ "evento_oggi": "Mer 25, 14:30 PCE di ottobre (prezzi dei consumi)",
+ "grafici": [
+  {
+   "tipo": "barre",
+   "titolo": "Reggono solo i consumi di base: la tecnologia perde il 5,3%",
+   "serie": [],
+   "x0": null,
+   "x1": null,
+   "etichette": [
+    "Tecnologia",
+    "Immobiliare",
+    "Consumi ciclici",
+    "Comunicazione",
+    "Industria",
+    "Servizi pubblici",
+    "Finanza",
+    "Materiali",
+    "Energia",
+    "Sanità",
+    "Consumi di base"
+   ]
+  },
+  {
+   "tipo": "linee",
+   "titolo": "Il Nasdaq perde il 10% in cinque sedute",
+   "serie": [
+    "Nasdaq"
+   ],
+   "x0": "2026-11-13",
+   "x1": "2026-11-20",
+   "etichette": []
+  },
+  {
+   "tipo": "linee",
+   "titolo": "Il crollo abbassa i rendimenti, ma il 2 anni resta sopra il 4,5%",
+   "serie": [
+    "Treasury a 10 anni",
+    "Treasury a 2 anni"
+   ],
+   "x0": "2026-11-10",
+   "x1": "2026-11-20",
+   "etichette": []
+  },
+  {
+   "tipo": "linee",
+   "titolo": "Dal 10 novembre l'oro future ha perso più di 500 dollari",
+   "serie": [
+    "Oro future"
+   ],
+   "x0": "2026-11-10",
+   "x1": "2026-11-20",
+   "etichette": []
+  }
+ ],
+ "agenda": [
+  {
+   "quando": "Lun 23, 15:45",
+   "evento": "PMI flash USA (novembre)",
+   "attese": "Composito 55,6; prima 55,9",
+   "perche": "Attività delle imprese americane",
+   "chiave": false,
+   "muove": [
+    "Sopra: l'economia regge e i rendimenti salgono.",
+    "Sotto: si parla di frenata."
+   ]
+  },
+  {
+   "quando": "Mer 25, 14:30",
+   "evento": "PCE di ottobre (prezzi dei consumi)",
+   "attese": "Core +0,3% sul mese, +3,2% su un anno; prima +3,1%",
+   "perche": "Evento n.1: il dato sui prezzi che la Fed guarda di più",
+   "chiave": true,
+   "muove": [
+    "Sopra: più forza ai rialzi e di solito rendimenti su.",
+    "Sotto: la Fed può rallentare."
+   ]
+  },
+  {
+   "quando": "Mer 25, 14:30",
+   "evento": "Pil USA del terzo trimestre (seconda stima)",
+   "attese": "Prima stima +3,4% annualizzato",
+   "perche": "Tenuta dell'economia",
+   "chiave": false,
+   "muove": [
+    "Sopra: spazio per i rialzi.",
+    "Sotto: più timori sulla crescita."
+   ]
+  },
+  {
+   "quando": "Gio 26",
+   "evento": "Borse e Treasury USA chiusi per il Ringraziamento",
+   "attese": "Nessun dato",
+   "perche": "Liquidità ridotta",
+   "chiave": false,
+   "muove": [
+    "Gli scambi si spostano in Europa e i movimenti possono essere più bruschi."
+   ]
+  }
+ ]
+}

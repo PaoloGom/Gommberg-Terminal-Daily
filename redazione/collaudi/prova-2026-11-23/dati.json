@@ -1,0 +1,354 @@
+{
+ "oggi": "2026-11-23",
+ "ora_roma": "09:00",
+ "serie": {
+  "S&P 500": {
+   "mercato": "USA",
+   "ultimi": [
+    [
+     "2026-11-20",
+     6910.39,
+     null
+    ],
+    [
+     "2026-11-19",
+     7175.83,
+     null
+    ],
+    [
+     "2026-11-18",
+     7323.63,
+     null
+    ]
+   ],
+   "tipo": "chiusura"
+  },
+  "Nasdaq": {
+   "mercato": "USA",
+   "ultimi": [
+    [
+     "2026-11-20",
+     22617.73,
+     null
+    ],
+    [
+     "2026-11-19",
+     23879.2,
+     null
+    ],
+    [
+     "2026-11-18",
+     24429.88,
+     null
+    ]
+   ],
+   "tipo": "chiusura"
+  },
+  "Russell 2000": {
+   "mercato": "USA",
+   "ultimi": [
+    [
+     "2026-11-20",
+     2581.79,
+     null
+    ],
+    [
+     "2026-11-19",
+     2655.11,
+     null
+    ],
+    [
+     "2026-11-18",
+     2714.31,
+     null
+    ]
+   ],
+   "tipo": "chiusura"
+  },
+  "ACWI": {
+   "mercato": "USA",
+   "ultimi": [
+    [
+     "2026-11-20",
+     142.59,
+     null
+    ],
+    [
+     "2026-11-19",
+     147.74,
+     null
+    ],
+    [
+     "2026-11-13",
+     156.1,
+     null
+    ]
+   ],
+   "tipo": "chiusura"
+  },
+  "Euro Stoxx 50": {
+   "mercato": "EU",
+   "ultimi": [
+    [
+     "2026-11-20",
+     5941.95,
+     null
+    ],
+    [
+     "2026-11-19",
+     6113.86,
+     null
+    ],
+    [
+     "2026-11-18",
+     6154.39,
+     null
+    ]
+   ],
+   "tipo": "chiusura",
+   "seconda_fonte": 5941.95,
+   "fonte": "eodhd + dpa-afx (finanzen.at)"
+  },
+  "FTSE MIB": {
+   "mercato": "EU",
+   "ultimi": [
+    [
+     "2026-11-20",
+     48703.72,
+     null
+    ],
+    [
+     "2026-11-19",
+     49941.0,
+     null
+    ]
+   ],
+   "tipo": "chiusura"
+  },
+  "Nikkei 225": {
+   "mercato": "JP",
+   "ultimi": [
+    [
+     "2026-11-20",
+     56436.65,
+     null
+    ],
+    [
+     "2026-11-19",
+     59444.21,
+     null
+    ],
+    [
+     "2026-11-18",
+     59024.28,
+     null
+    ]
+   ],
+   "tipo": "chiusura"
+  },
+  "Hang Seng": {
+   "mercato": "HK",
+   "ultimi": [
+    [
+     "2026-11-20",
+     22410.8,
+     null
+    ],
+    [
+     "2026-11-19",
+     22841.63,
+     null
+    ],
+    [
+     "2026-11-18",
+     23294.76,
+     null
+    ]
+   ],
+   "tipo": "chiusura"
+  },
+  "Kospi": {
+   "mercato": "KR",
+   "ultimi": [
+    [
+     "2026-11-20",
+     4869.96,
+     null
+    ],
+    [
+     "2026-11-19",
+     5137.89,
+     null
+    ],
+    [
+     "2026-11-18",
+     5067.44,
+     null
+    ]
+   ],
+   "tipo": "chiusura"
+  },
+  "Treasury 2 anni": {
+   "mercato": "UST",
+   "ultimi": [
+    [
+     "2026-11-20",
+     4.63,
+     null
+    ],
+    [
+     "2026-11-19",
+     4.76,
+     null
+    ],
+    [
+     "2026-11-18",
+     4.8,
+     null
+    ]
+   ],
+   "tipo": "chiusura"
+  },
+  "Treasury 10 anni": {
+   "mercato": "UST",
+   "ultimi": [
+    [
+     "2026-11-20",
+     4.92,
+     null
+    ],
+    [
+     "2026-11-19",
+     5.04,
+     null
+    ],
+    [
+     "2026-11-18",
+     5.07,
+     null
+    ]
+   ],
+   "tipo": "chiusura"
+  },
+  "Spread Italia": {
+   "mercato": "EU",
+   "ultimi": [
+    [
+     "2026-11-20",
+     109.9,
+     null
+    ],
+    [
+     "2026-11-19",
+     106,
+     null
+    ]
+   ],
+   "tipo": "chiusura",
+   "rif": {
+    "2026-10-20": 111
+   }
+  },
+  "EUR/USD": {
+   "mercato": "FX",
+   "ultimi": [
+    [
+     "2026-11-20",
+     1.0967,
+     null
+    ],
+    [
+     "2026-11-19",
+     1.0966,
+     null
+    ],
+    [
+     "2026-11-18",
+     1.0973,
+     null
+    ]
+   ],
+   "tipo": "chiusura"
+  },
+  "Brent future": {
+   "mercato": "COMM",
+   "ultimi": [
+    [
+     "2026-11-20",
+     92.57,
+     null
+    ],
+    [
+     "2026-11-19",
+     91.98,
+     null
+    ],
+    [
+     "2026-11-18",
+     91.95,
+     null
+    ]
+   ],
+   "tipo": "chiusura"
+  },
+  "Oro future": {
+   "mercato": "COMM",
+   "ultimi": [
+    [
+     "2026-11-20",
+     3515.4,
+     null
+    ],
+    [
+     "2026-11-19",
+     3685.5,
+     null
+    ],
+    [
+     "2026-11-18",
+     3741.9,
+     null
+    ]
+   ],
+   "tipo": "chiusura"
+  },
+  "VIX": {
+   "mercato": "USA",
+   "ultimi": [
+    [
+     "2026-11-20",
+     35.89,
+     null
+    ],
+    [
+     "2026-11-19",
+     28.44,
+     null
+    ],
+    [
+     "2026-11-18",
+     24.56,
+     null
+    ]
+   ],
+   "tipo": "chiusura",
+   "seconda_fonte": 35.89
+  }
+ },
+ "macro": [
+  {
+   "nome": "Sussidi di disoccupazione USA",
+   "dato": 203,
+   "atteso": 197,
+   "caldo_se": "giu",
+   "data": "2026-11-19"
+  },
+  {
+   "nome": "Philly Fed",
+   "dato": 6.3,
+   "atteso": 20.0,
+   "caldo_se": "giu",
+   "data": "2026-11-19"
+  }
+ ]
+}

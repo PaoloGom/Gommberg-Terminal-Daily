@@ -1,0 +1,499 @@
+{
+ "numero": 31,
+ "data": "2026-11-23",
+ "titolo": "Wall Street crolla e il Nasdaq cancella tutto il rialzo del 2026",
+ "dek": "L'S&P 500 perde il 3,7% e chiude in correzione, cioè oltre il 10% sotto il massimo di ottobre; il Nasdaq cede il 5,3% e finisce l'anno in negativo. A pesare sono i chip: Nvidia lascia il 14% dopo che, secondo Reuters, la SEC (l'autorità di Borsa americana) esamina possibili problemi nei suoi conti. Nemmeno Anthropic, scesa dell'8,5% nella seconda seduta ma ancora sopra il prezzo di collocamento, ha frenato le vendite.",
+ "sommario": [
+  "La Fed non ha margine per soccorrere la borsa: pesa l'inflazione.",
+  "L'Europa cade con Wall Street: a Milano cedono chip e banche.",
+  "Mercoledì il dato sui prezzi che la Fed guarda di più, giovedì Wall Street è chiusa."
+ ],
+ "file": "pdf/2026-11-23-gommberg-031.pdf",
+ "nome": "2026-11-23 Gommberg Terminal Daily #031.pdf",
+ "pagine": 6,
+ "notizie": [
+  "SoftBank perde il 14% a Tokyo e il Nikkei scende ai minimi da aprile",
+  "L'inflazione giapponese sale al 2,3% e avvicina il rialzo dei tassi",
+  "Nuove strette USA sulla tecnologia per la Cina fanno scendere il listino tecnologico di Hong Kong (-3,8%)",
+  "Samsung perde il 7% a Seul e SK hynix quasi il 6%",
+  "Mps: il cda dice sì al prezzo di Intesa, Passera si dimette",
+  "Hormuz fa rimbalzare il Brent, ma è la terza settimana di calo"
+ ],
+ "ticker": [
+  [
+   "MSCI ACWI (ETF)",
+   "142,59 $",
+   "-3,5% g"
+  ],
+  [
+   "S&P 500",
+   "6.910,39",
+   "-3,7% g"
+  ],
+  [
+   "EURO STOXX 50",
+   "5.941,95",
+   "-2,8% g"
+  ],
+  [
+   "TREASURY 10 ANNI",
+   "4,92%",
+   "-12 pb g"
+  ],
+  [
+   "EUR/USD",
+   "1,0967",
+   "0,0% g"
+  ],
+  [
+   "BRENT FUTURE",
+   "92,57 $",
+   "+0,6% g"
+  ],
+  [
+   "ORO",
+   "3.515 $",
+   "-4,6% g"
+  ]
+ ],
+ "temi": [
+  "Wall Street",
+  "Chip",
+  "Fed",
+  "Europa",
+  "Materie prime",
+  "Asia"
+ ],
+ "approfondimenti": [
+  {
+   "tema": "Chip",
+   "titolo": "Per Nvidia i conti non bastano più: a pesare sono la SEC e Huang",
+   "formato": "doppio"
+  },
+  {
+   "tema": "Fed",
+   "titolo": "La Fed ha l'inflazione contro e non può soccorrere la borsa",
+   "formato": "doppio"
+  },
+  {
+   "tema": "Materie prime",
+   "titolo": "L'oro non fa da rifugio: scende mentre i Treasury salgono",
+   "formato": "mezzo"
+  },
+  {
+   "tema": "Europa",
+   "titolo": "L'Europa perde il 7% in cinque sedute",
+   "formato": "mezzo"
+  }
+ ],
+ "meccanismi": [
+  "M26",
+  "M23",
+  "M16",
+  "M09"
+ ],
+ "parole": [
+  "Correzione",
+  "VIX",
+  "PCE",
+  "Vendite forzate",
+  "Collocamento",
+  "Rendimento a 2 anni"
+ ],
+ "glossario": [
+  "SEC",
+  "VIX",
+  "PCE",
+  "core",
+  "PMI",
+  "FOMC",
+  "CME FedWatch",
+  "BoJ"
+ ],
+ "errata": null,
+ "ripetizioni": null,
+ "dove": {
+  "approfondimenti": [
+   2,
+   3,
+   4,
+   4
+  ],
+  "mercati": 5,
+  "agenda": 5,
+  "scommessa": 6
+ },
+ "scommessa": {
+  "settimana": "2026-11-23/2026-11-27",
+  "strada": null,
+  "range": null,
+  "su": 6,
+  "dettaglio": []
+ },
+ "tema_top": "Wall Street",
+ "temi_in30": [
+  "Fed",
+  "Europa",
+  "Macro"
+ ],
+ "temi_notizie": [
+  "Asia",
+  "Macro",
+  "Cina",
+  "Chip",
+  "Banche",
+  "Petrolio"
+ ],
+ "quadro": "La paura ha preso il posto dell'inflazione, ma con una crepa. Il Treasury a 10 anni scende al 4,92% e il 2 anni al 4,63%, come quando si cerca riparo nei titoli di Stato. L'oro cede più del 2% e il dollaro quasi non si muove (EUR/USD 1,0967). A nostro avviso si vende ciò che si può vendere per far cassa. L'indice azionario mondiale ACWI (indice azionario mondiale MSCI) perde il 3,5%, il VIX (volatilità attesa sull'S&P 500) sale del 26,2% e il Brent, 92,57 $, resta quasi fermo.",
+ "stamattina": [
+  "Alle 10:00 il PMI flash (sondaggio sui direttori acquisti) dell'area euro, sull'attività di novembre",
+  "Alle 15:30 apre Wall Street: si vede se le vendite di venerdì continuano",
+  "Alle 15:45 il PMI flash degli Stati Uniti, atteso a 55,6 contro il 55,9 precedente",
+  "Brent: chiuso venerdì sotto i 93 $, si guardano le notizie da Hormuz"
+ ],
+ "stamattina_titolo": "Cosa guardare all'apertura",
+ "notizie_testo": [
+  "SoftBank perde il 14% a Tokyo e il Nikkei scende ai minimi da aprile. Il Nikkei chiude a 56.436,65 punti (-5,06%), il livello più basso dal 13 aprile. Con SoftBank, in calo di circa il 14%, cede anche Advantest, tra i titoli che perdono di più (Reuters).",
+  "L'inflazione giapponese sale al 2,3% e avvicina il rialzo dei tassi. Il dato di ottobre arriva mentre il Nikkei vende: la Banca del Giappone (BoJ, la banca centrale giapponese) ha ora più motivi per muoversi (Reuters).",
+  "Nuove strette USA sulla tecnologia per la Cina fanno scendere il listino tecnologico di Hong Kong (-3,8%). L'Hang Seng chiude a 22.410,80 punti. Tra le cause le strette americane sulla tecnologia diretta alla Cina (RTHK).",
+  "Samsung perde il 7% a Seul e SK hynix quasi il 6%. Il Kospi chiude a 4.869,96 punti, il 5,2% in meno, mentre gli investitori esteri vendono i titoli dei semiconduttori (IANS).",
+  "Mps: il cda dice sì al prezzo di Intesa, Passera si dimette. L'offerta vale 1,250 euro in contanti più 1,664 azioni Intesa per ogni azione Mps; Corrado Passera lascia durante la riunione, parlando di «profondo dissenso». Le adesioni partono il 24 novembre.",
+  "Hormuz fa rimbalzare il Brent, ma è la terza settimana di calo. Pesano i timori per l'Iran, ma i flussi nello Stretto sono tornati vicino ai livelli di prima della guerra (Reuters)."
+ ],
+ "brevi": [
+  "i chip perdono la fiducia",
+  "la Fed non soccorre la borsa",
+  "l'oro non fa da rifugio",
+  "l'Europa non fa da rifugio"
+ ],
+ "agenda": [
+  {
+   "quando": "Lun 23, 15:45",
+   "evento": "PMI flash USA (novembre)",
+   "attese": "Composito 55,6; prima 55,9",
+   "perche": "Attività delle imprese americane",
+   "chiave": false,
+   "muove": [
+    "Sopra: l'economia regge e i rendimenti salgono.",
+    "Sotto: si parla di frenata."
+   ]
+  },
+  {
+   "quando": "Mer 25, 14:30",
+   "evento": "PCE di ottobre (prezzi dei consumi)",
+   "attese": "Core +0,3% sul mese, +3,2% su un anno; prima +3,1%",
+   "perche": "Evento n.1: il dato sui prezzi che la Fed guarda di più",
+   "chiave": true,
+   "muove": [
+    "Sopra: più forza ai rialzi e di solito rendimenti su.",
+    "Sotto: la Fed può rallentare."
+   ]
+  },
+  {
+   "quando": "Mer 25, 14:30",
+   "evento": "Pil USA del terzo trimestre (seconda stima)",
+   "attese": "Prima stima +3,4% annualizzato",
+   "perche": "Tenuta dell'economia",
+   "chiave": false,
+   "muove": [
+    "Sopra: spazio per i rialzi.",
+    "Sotto: più timori sulla crescita."
+   ]
+  },
+  {
+   "quando": "Gio 26",
+   "evento": "Borse e Treasury USA chiusi per il Ringraziamento",
+   "attese": "Nessun dato",
+   "perche": "Liquidità ridotta",
+   "chiave": false,
+   "muove": [
+    "Gli scambi si spostano in Europa e i movimenti possono essere più bruschi."
+   ]
+  }
+ ],
+ "termometri": {
+  "righe": [
+   [
+    "Fed e tassi",
+    "Riunione 8-9 dicembre",
+    "Waller: mossa decisa a dicembre",
+    "fermo: Rialzo di dicembre, dato per probabile",
+    "PCE di mercoledì"
+   ],
+   [
+    "AI e chip",
+    "Anthropic, seconda seduta",
+    "Chiude a 88,91 $, sopra il collocamento",
+    "giu: Titoli dei chip e Nasdaq",
+    "Apertura di Wall Street alle 15:30"
+   ],
+   [
+    "Oro",
+    "Future sotto 3.520 $",
+    "Vende anche chi ha paura",
+    "giu: Oro future",
+    "Treasury a 10 anni"
+   ],
+   [
+    "Petrolio",
+    "Brent poco sopra 92 $",
+    "Petroliera colpita a Hormuz sabato",
+    "fermo: Brent, senza direzione",
+    "Notizie dal Golfo"
+   ]
+  ],
+  "fermi": "Tassi della Bce, UniCredit e Commerzbank (accordo del 19/11)."
+ },
+ "evento_oggi": "Mer 25, 14:30 PCE di ottobre (prezzi dei consumi)",
+ "moduli_redazione": [
+  {
+   "chiave": "chip",
+   "misura": "doppio",
+   "titolo": "Per Nvidia i conti non bastano più: a pesare sono la SEC e Huang",
+   "perche": "Le vendite di venerdì seguono la notizia che, secondo Reuters, lo staff della SEC che controlla il rispetto delle regole esamina possibili problemi contabili di Nvidia: il titolo è crollato. Il dubbio non riguarda la domanda di chip, ma l'affidabilità dei conti che la raccontano. Per questo anche un buon trimestre non basta a rassicurare chi ha comprato il titolo vicino ai massimi, e le vendite si estendono ai fornitori e alle società collegate.",
+   "quindi": "Alle 15:30 si vede se Anthropic resta sopra gli 83 $ del collocamento: sotto, chi ha comprato all'offerta è in perdita.",
+   "punti": [],
+   "testo": [
+    "Il debutto che doveva dire se la domanda di intelligenza artificiale regge non ha fermato nulla. Anthropic ha aperto giovedì a 111,50 $ e venerdì ha chiuso a 88,91, sopra gli 83 del collocamento ma lontana dai massimi, mentre Nvidia crollava (Yahoo Finance).",
+    "Per Nvidia il problema non sono più i numeri: l'ultima trimestrale ha battuto ancora le stime di ricavi, eppure il titolo è sceso. Pesano l'uscita di Jensen Huang e l'indagine della SEC, riferita martedì dal Wall Street Journal. A nostro avviso il mercato non sconta più una cattiva notizia sulla domanda, ma un dubbio sull'affidabilità di chi la racconta.",
+    "I listini di Seul e Tokyo, dove poche società di chip pesano molto negli indici, avevano già venduto in mattinata. Il contagio ha poi superato i semiconduttori: il bitcoin è sceso sotto i 59.000 dollari e le società che lo estraggono hanno perso fino al 18,6% (CoinDesk).",
+    "Il calo ha toccato quasi tutto il listino tecnologico: nel Nasdaq la tecnologia è il settore che perde di più. Reggono solo i consumi di base, il settore meno legato ai chip e alla corsa dell'intelligenza artificiale."
+   ],
+   "righe": [
+    [
+     "Anthropic (ANT)",
+     "Dollari",
+     "Dove si colloca"
+    ],
+    [
+     "Prezzo di collocamento",
+     "83,00",
+     "Base di partenza"
+    ],
+    [
+     "Apertura di giovedì",
+     "111,50",
+     "+34% sul collocamento"
+    ],
+    [
+     "Chiusura di giovedì",
+     "97,17",
+     "Sale del 17%"
+    ],
+    [
+     "Chiusura di venerdì",
+     "88,91",
+     "-8,5%, ancora sopra 83"
+    ]
+   ],
+   "grafici": [
+    {
+     "titolo": "Reggono solo i consumi di base: la tecnologia perde il 5,3%",
+     "tipo": "barre",
+     "soggetto": "Nvidia",
+     "dati": [
+      [
+       "Tecnologia",
+       -5.34
+      ],
+      [
+       "Immobiliare",
+       -3.94
+      ],
+      [
+       "Consumi ciclici",
+       -3.61
+      ],
+      [
+       "Comunicazione",
+       -3.44
+      ],
+      [
+       "Industria",
+       -2.93
+      ],
+      [
+       "Servizi pubblici",
+       -2.8
+      ],
+      [
+       "Finanza",
+       -2.35
+      ],
+      [
+       "Materiali",
+       -1.97
+      ],
+      [
+       "Energia",
+       -1.93
+      ],
+      [
+       "Sanità",
+       -1.84
+      ],
+      [
+       "Consumi di base",
+       0.08
+      ]
+     ],
+     "serie": [],
+     "x0": null,
+     "x1": null,
+     "etichette": [
+      "Tecnologia",
+      "Immobiliare",
+      "Consumi ciclici",
+      "Comunicazione",
+      "Industria",
+      "Servizi pubblici",
+      "Finanza",
+      "Materiali",
+      "Energia",
+      "Sanità",
+      "Consumi di base"
+     ]
+    },
+    {
+     "titolo": "Il Nasdaq perde il 10% in cinque sedute",
+     "tipo": "linee",
+     "soggetto": "Nvidia",
+     "dati": null,
+     "serie": [
+      "Nasdaq"
+     ],
+     "x0": "2026-11-13",
+     "x1": "2026-11-20",
+     "etichette": []
+    }
+   ]
+  },
+  {
+   "chiave": "fed",
+   "misura": "doppio",
+   "titolo": "La Fed ha l'inflazione contro e non può soccorrere la borsa",
+   "perche": "Waller, in un'intervista alla CNBC, chiede per dicembre una mossa decisa (Reuters). Il rendimento a 2 anni, sceso ma ancora sopra i tassi attuali, indica che il mercato non esclude altri rialzi.",
+   "quindi": "Mercoledì alle 14:30 il PCE (inflazione dei consumi, misura Fed): il core (esclusi energia e alimentari) sopra il 3,2% atteso rafforza chi vuole mezzo punto.",
+   "punti": [],
+   "testo": [
+    "Nel giorno del crollo il rendimento del Treasury a 2 anni è sceso di 13 punti base. Quel titolo tende a seguire le attese sulla Fed: se scende, chi lo compra pensa che i rialzi si fermeranno prima o saranno più piccoli. Non dice però che la Fed abbia smesso di volerli. A 4,63% resta sopra la fascia dei tassi Fed, tra il 3,75% e il 4%. A nostro avviso il mercato continua a mettere in conto altri rialzi, anche dopo il crollo.",
+    "Per la banca centrale è una posizione scomoda. Fermarsi per sostenere la borsa sembrerebbe un cedimento davanti a prezzi che salgono ancora, ed è un rischio che la Fed conosce. Chi voleva già un rialzo a ottobre, quando i tassi sono rimasti fermi, ha ora argomenti in più (Newsquawk).",
+    "La scelta di dicembre è tra due strade, e Waller le ha dette chiaramente: o mezzo punto subito, o una comunicazione che renda credibili rialzi più rapidi. Senza uno dei due segnali, ha spiegato, bisognerebbe fare mezzo punto (Reuters).",
+    "Il quadro di partenza è quello dei verbali. Il 27-28 ottobre la Fed ha lasciato i tassi fermi tra il 3,75% e il 4%. Alcuni membri volevano già un rialzo da un quarto di punto, e un paio ha detto che a dicembre potrebbe servire di più se i dati sui prezzi deludono (Newsquawk).",
+    "Prima dell'8-9 dicembre, quando la Fed pubblicherà anche le nuove proiezioni, c'è un solo dato che può cambiare i conti: il PCE di mercoledì, atteso a +0,3% sul mese. Lo stesso giorno il Pil del terzo trimestre, con una prima stima a +3,4%, aggiunge una seconda lettura sulla tenuta dell'economia, e su quanto la Fed possa permettersi di aspettare."
+   ],
+   "righe": [
+    [
+     "Chi",
+     "Cosa ha detto",
+     "Quando"
+    ],
+    [
+     "Christopher Waller, governatore",
+     "A dicembre serve un rialzo da mezzo punto o un segnale chiaro di rialzi più rapidi",
+     "Mer 18"
+    ],
+    [
+     "Verbali della riunione del 27-28 ottobre",
+     "Quasi tutti giudicano probabili altri rialzi (Newsquawk)",
+     "Mer 18"
+    ],
+    [
+     "Prossima riunione (FOMC, comitato Fed che decide i tassi)",
+     "L'8 e 9 dicembre, con le nuove proiezioni",
+     "Dic"
+    ]
+   ],
+   "grafici": [
+    {
+     "titolo": "Il crollo abbassa i rendimenti, ma il 2 anni resta sopra il 4,5%",
+     "tipo": "linee",
+     "soggetto": "Fed",
+     "dati": null,
+     "serie": [
+      "Treasury a 10 anni",
+      "Treasury a 2 anni"
+     ],
+     "x0": "2026-11-10",
+     "x1": "2026-11-20",
+     "etichette": []
+    }
+   ]
+  },
+  {
+   "chiave": "oro",
+   "misura": "mezzo",
+   "titolo": "L'oro non fa da rifugio: scende mentre i Treasury salgono",
+   "perche": "A nostro avviso il calo viene da vendite per far cassa e dall'attesa di altri rialzi Fed. Non è una fuga verso la sicurezza: quella ha premiato i titoli di Stato (Kitco).",
+   "quindi": "Se lunedì l'oro risale mentre le borse restano giù, la lettura delle vendite per far cassa perde forza e torna in primo piano la paura.",
+   "punti": [],
+   "testo": [
+    "Un rifugio dovrebbe salire quando si ha paura, e invece l'oro ha seguito le azioni, e il future ha chiuso a 3.515,4 dollari contro i 3.685,5 di giovedì. Nella stessa seduta i Treasury hanno guadagnato: il 10 anni è sceso al 4,92%, il segnale che chi cerca riparo sceglie i titoli di Stato.",
+    "L'oro non paga interessi, e con rialzi Fed più probabili costa di più tenerlo. In un crollo rapido, poi, chi ha perdite altrove tende a vendere ciò che si vende bene per coprirle, e l'oro è tra i mercati più liquidi.",
+    "Il movimento di venerdì chiude una settimana già pesante. L'oro era già sceso di circa il 9% nella settimana, ai minimi da settembre 2025 (Milano Finanza), e venerdì ha cambiato poco che a Wall Street cadessero insieme le azioni. Anche il bitcoin, che non rende interessi, è sceso sotto i 59.000 dollari (CoinDesk).",
+    "A nostro avviso conta l'origine della paura: qui nasce da prezzi alti e rialzi Fed più probabili, non da un evento esterno, e il rifugio è stato il titolo di Stato."
+   ],
+   "righe": [],
+   "grafici": [
+    {
+     "titolo": "Dal 10 novembre l'oro future ha perso più di 500 dollari",
+     "tipo": "linee",
+     "soggetto": "oro",
+     "dati": null,
+     "serie": [
+      "Oro future"
+     ],
+     "x0": "2026-11-10",
+     "x1": "2026-11-20",
+     "etichette": []
+    }
+   ]
+  },
+  {
+   "chiave": "europa",
+   "misura": "mezzo",
+   "titolo": "L'Europa perde il 7% in cinque sedute",
+   "perche": "In Europa cadono per primi i produttori di chip, e a Milano anche le banche, che cedono tra il 2,2% e il 3% (Teleborsa).",
+   "quindi": "Alle 10:00 il PMI flash dell'area euro dice quanto l'attività regge dopo il crollo.",
+   "punti": [],
+   "testo": [
+    "L'Euro Stoxx 50 chiude ai minimi da maggio, in calo di circa il 7% nella settimana. ASML cede il 9,3% (dpa-AFX). A Milano il FTSE MIB scende sotto quota 49mila: 33 titoli su 40 perdono e solo pochi difensivi, come Italgas e Saipem, resistono.",
+    "Eppure l'Europa ha pochi titoli di intelligenza artificiale. Non l'ha protetta: quando il prezzo dei chip crolla, cadono anche i fornitori e le società che li usano.",
+    "Francoforte cede il 2,6%, Parigi l'1,9% e Londra l'1,0%: il listino britannico, con meno tecnologia, tiene meglio. Lo spread tra BTP e Bund chiude a 109,9 punti base, da 103 in apertura, e il rendimento italiano è intorno al 4,4% (ANSA)."
+   ],
+   "righe": [
+    [
+     "Titolo",
+     "Seduta del 20/11",
+     "Settore"
+    ],
+    [
+     "STMicroelectronics",
+     "-10,78%",
+     "Chip"
+    ],
+    [
+     "Technoprobe",
+     "-9,31%",
+     "Chip"
+    ],
+    [
+     "Prysmian",
+     "-6,29%",
+     "Cavi"
+    ],
+    [
+     "Intesa Sanpaolo",
+     "-2,41%",
+     "Banche"
+    ],
+    [
+     "Italgas",
+     "+1,08%",
+     "Gas"
+    ]
+   ],
+   "grafici": []
+  }
+ ]
+}

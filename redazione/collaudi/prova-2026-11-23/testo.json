@@ -1,0 +1,29 @@
+{
+ "frecce": [],
+ "connettivi": [],
+ "sigle_mai_spiegate": [],
+ "sigle_doppie": [
+  "VIX",
+  "ACWI"
+ ],
+ "glossario": [
+  "PCE",
+  "core",
+  "PMI",
+  "FOMC",
+  "BoJ",
+  "VIX",
+  "ACWI",
+  "SEC"
+ ],
+ "errori": [],
+ "fonti_parentesi": {
+  "Reuters": 5,
+  "BoJ": 1,
+  "Yahoo Finance": 1,
+  "Fed": 1,
+  "Milano Finanza": 1,
+  "Teleborsa": 1,
+  "ANSA": 1
+ }
+}

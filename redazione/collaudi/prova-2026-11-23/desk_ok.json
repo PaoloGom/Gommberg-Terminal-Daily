@@ -1,0 +1,57 @@
+[
+ {
+  "campo": "notizie.1.titolo",
+  "originale": "In Giappone l'inflazione sale al 2,3% e alimenta le attese di rialzo dei tassi",
+  "testo": "L'inflazione giapponese sale al 2,3% e avvicina il rialzo dei tassi"
+ },
+ {
+  "campo": "notizie.1.testo",
+  "originale": "Il dato di ottobre rafforza le attese su una mossa della Banca del Giappone (BoJ, la banca centrale giapponese), proprio mentre il Nikkei vende (Reuters).",
+  "testo": "Il dato di ottobre arriva mentre il Nikkei vende: la Banca del Giappone (BoJ, la banca centrale giapponese) ha ora più motivi per muoversi (Reuters)."
+ },
+ {
+  "campo": "notizie.2.titolo",
+  "originale": "Nuove strette USA sulla tecnologia per la Cina fanno scendere il listino tecnologico di Hong Kong (-3,8%)",
+  "testo": "Hong Kong perde il 3,8% per le strette USA sulla tecnologia per la Cina"
+ },
+ {
+  "campo": "notizie.4.titolo",
+  "originale": "Il cda di Mps giudica congruo il prezzo di Intesa e Passera si dimette",
+  "testo": "Mps: il cda dice sì al prezzo di Intesa, Passera si dimette"
+ },
+ {
+  "campo": "notizie.5.titolo",
+  "originale": "Gli incidenti alle petroliere a Hormuz fanno rimbalzare il Brent, ma è la terza settimana di calo",
+  "testo": "Hormuz fa rimbalzare il Brent, ma è la terza settimana di calo"
+ },
+ {
+  "campo": "notizie.5.testo",
+  "originale": "Pesano i timori per l'Iran e gli incidenti alle petroliere nello Stretto di Hormuz; i flussi sono però tornati vicino ai livelli di prima della guerra (Reuters).",
+  "testo": "Pesano i timori per l'Iran, ma i flussi nello Stretto sono tornati vicino ai livelli di prima della guerra (Reuters)."
+ },
+ {
+  "campo": "moduli.chip.numero",
+  "originale": "17: i trimestri di fila in cui Nvidia ha battuto le stime di ricavi, anche nell'ultimo conto. Non è bastato a fermare il titolo.",
+  "testo": ""
+ },
+ {
+  "campo": "moduli.chip.testo.1",
+  "originale": "Per Nvidia il problema non sono più i numeri. L'ultima trimestrale ha battuto ancora le stime di ricavi, eppure il titolo è sceso. Pesano l'uscita di Jensen Huang e l'indagine della SEC, riferita martedì dal Wall Street Journal. Venerdì Reuters ha scritto che l'esame, in mano allo staff che controlla l'applicazione delle regole, riguarda possibili problemi contabili. A nostro avviso il mercato non sconta più una cattiva notizia sulla domanda, ma un dubbio sull'affidabilità di chi la racconta.",
+  "testo": "Per Nvidia il problema non sono più i numeri: l'ultima trimestrale ha battuto ancora le stime di ricavi, eppure il titolo è sceso. Pesano l'uscita di Jensen Huang e l'indagine della SEC, riferita martedì dal Wall Street Journal. A nostro avviso il mercato non sconta più una cattiva notizia sulla domanda, ma un dubbio sull'affidabilità di chi la racconta."
+ },
+ {
+  "campo": "moduli.fed.testo.4",
+  "originale": "Prima dell'8-9 dicembre, quando la Fed pubblicherà anche le nuove proiezioni, c'è un solo dato che può cambiare i conti: il PCE di mercoledì, atteso a +0,3% sul mese. Lo stesso giorno il Pil del terzo trimestre, con una prima stima a +3,4%, aggiunge una seconda lettura sulla tenuta dell'economia, e su quanto la Fed possa permettersi di aspettare.",
+  "testo": "L'8-9 dicembre la Fed pubblicherà anche le nuove proiezioni. Prima, un solo dato può cambiare i conti: il PCE, atteso a +0,3% sul mese. Lo stesso giorno il Pil del terzo trimestre, con una prima stima a +3,4%, aggiunge una seconda lettura sulla tenuta dell'economia."
+ },
+ {
+  "campo": "moduli.europa.titolo",
+  "originale": "L'Europa non fa da rifugio: perde il 7% in cinque sedute",
+  "testo": "L'Europa perde il 7% in cinque sedute"
+ },
+ {
+  "campo": "moduli.europa.testo.1",
+  "originale": "Il paradosso è che l'Europa ha pochi titoli di intelligenza artificiale. Ciò non è bastato a proteggerla: quando il prezzo dei chip crolla, cadono anche i fornitori e le società che li usano.",
+  "testo": "Eppure l'Europa ha pochi titoli di intelligenza artificiale. Non l'ha protetta: quando il prezzo dei chip crolla, cadono anche i fornitori e le società che li usano."
+ }
+]

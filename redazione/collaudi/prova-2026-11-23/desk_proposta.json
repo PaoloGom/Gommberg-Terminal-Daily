@@ -1,0 +1,70 @@
+[
+ {
+  "campo": "quadro",
+  "testo": "La paura ha preso il posto dell'inflazione, ma con una crepa. Il Treasury a 10 anni scende al 4,92% e il 2 anni al 4,63%, come quando si cerca riparo nei titoli di Stato. L'oro cede più del 2% e il dollaro quasi non si muove (EUR/USD 1,0967). A nostro avviso si vende ciò che si può vendere per far cassa. L'ACWI (indice azionario mondiale MSCI) perde il 3,5%, il VIX (volatilità attesa sull'S&P 500) sale di oltre il 26% e il Brent, 92,57 $, resta quasi fermo."
+ },
+ {
+  "campo": "notizie.0.testo",
+  "testo": "Il Nikkei chiude a 56.436,65 punti (-5,06%), il livello più basso dal 13 aprile. Cede anche Advantest, circa il 10% (Reuters)."
+ },
+ {
+  "campo": "notizie.1.titolo",
+  "testo": "L'inflazione giapponese sale al 2,3% e avvicina il rialzo dei tassi"
+ },
+ {
+  "campo": "notizie.1.testo",
+  "testo": "Il dato di ottobre arriva mentre il Nikkei vende: la Banca del Giappone (BoJ, la banca centrale giapponese) ha ora più motivi per muoversi (Reuters)."
+ },
+ {
+  "campo": "notizie.2.titolo",
+  "testo": "Hong Kong perde il 3,8% per le strette USA sulla tecnologia per la Cina"
+ },
+ {
+  "campo": "notizie.2.testo",
+  "testo": "L'Hang Seng chiude a 22.410,80 punti, trascinato dal giro di vite di Washington (RTHK)."
+ },
+ {
+  "campo": "notizie.4.titolo",
+  "testo": "Mps: il cda dice sì al prezzo di Intesa, Passera si dimette"
+ },
+ {
+  "campo": "notizie.5.titolo",
+  "testo": "Hormuz fa rimbalzare il Brent, ma è la terza settimana di calo"
+ },
+ {
+  "campo": "notizie.5.testo",
+  "testo": "Pesano i timori per l'Iran, ma i flussi nello Stretto sono tornati vicino ai livelli di prima della guerra (Reuters)."
+ },
+ {
+  "campo": "moduli.chip.numero",
+  "testo": ""
+ },
+ {
+  "campo": "moduli.chip.testo.1",
+  "testo": "Per Nvidia il problema non sono più i numeri: l'ultima trimestrale ha battuto ancora le stime di ricavi, eppure il titolo è sceso. Pesano l'uscita di Jensen Huang e l'indagine della SEC, riferita martedì dal Wall Street Journal. A nostro avviso il mercato non sconta più una cattiva notizia sulla domanda, ma un dubbio sull'affidabilità di chi la racconta."
+ },
+ {
+  "campo": "moduli.fed.numero",
+  "testo": ""
+ },
+ {
+  "campo": "moduli.fed.guardare",
+  "testo": "Contano le parole dei membri Fed prima dell'8-9 dicembre: se altri si schierano con Waller, mezzo punto diventa lo scenario più probabile."
+ },
+ {
+  "campo": "moduli.fed.testo.4",
+  "testo": "L'8-9 dicembre la Fed pubblicherà anche le nuove proiezioni. Prima, un solo dato può cambiare i conti: il PCE, atteso a +0,3% sul mese. Lo stesso giorno il Pil del terzo trimestre, con una prima stima a +3,4%, aggiunge una seconda lettura sulla tenuta dell'economia."
+ },
+ {
+  "campo": "moduli.oro.testo.3",
+  "testo": "A nostro avviso conta l'origine della paura: qui nasce da prezzi alti e rialzi Fed più probabili, e il rifugio è stato il titolo di Stato."
+ },
+ {
+  "campo": "moduli.europa.titolo",
+  "testo": "L'Europa perde il 7% in cinque sedute"
+ },
+ {
+  "campo": "moduli.europa.testo.1",
+  "testo": "Eppure l'Europa ha pochi titoli di intelligenza artificiale. Non l'ha protetta: quando il prezzo dei chip crolla, cadono anche i fornitori e le società che li usano."
+ }
+]

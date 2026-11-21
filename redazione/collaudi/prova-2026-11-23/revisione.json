@@ -1,0 +1,152 @@
+[
+ {
+  "id": "T01",
+  "trovato": "Dimsum Daily: \"tumbled 5.28 per cent to finish at 22,617.73\" ... \"dropped 3.7 per cent to 6,910.39\" ... \"shed 949.73 points, or 1.93 per cent, to close at 48,147.33.\" Kitco PM Report: the S&P 500 \"fell 3.70% to 6,910.39\", \"more than 10% below its Oct. 6 record high.\" CoinDesk live: Nvidia \"closed nearly 14% lower, while the semiconductor index plunged 10%.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Cifre di chiusura S&P 500, Nasdaq, Dow e correzione confermate (Dimsum Daily, Kitco, Breitbart: Nvidia -14% al minimo da 18 mesi). La pagina Yahoo indicata nella scheda non si e' ritrovata in modo utile (la pagina aperta era un articolo vecchio con dati non coerenti), quindi Yahoo non conferma nulla. Nota: Breitbart parla di S&P -3,6% e Nasdaq -5,1%, ma le altre fonti e il PDF (-3,7% / -5,3%) sono coerenti tra loro."
+ },
+ {
+  "id": "D07",
+  "trovato": "Fed: \"Minutes of the Federal Open Market Committee, October 27-28, 2026\" ... \"November 18, 2026\" ... \"For release at 2:00 p.m. EST\". Newsquawk: \"Some participants favored an increase of 25 basis points in the target range at this meeting\" ... \"almost all participants judged that\" further action to raise the target range \"would likely be appropriate\" ... \"A couple of participants noted that an increase of more than 25 basis points could warrant consideration\" if incoming inflation data were unfavorable.",
+  "verifica": "confermato",
+  "nota_revisore": "Data, natura del documento e contenuti (alcuni +25 pb, quasi tutti ulteriori rialzi, un paio >25 pb a dicembre) coincidono con il PDF pag. 3. La pagina Newsquawk non riporta la fascia 3,75-4%: quel dato del PDF non e' verificato da questa fonte."
+ },
+ {
+  "id": "D08",
+  "trovato": "Reuters via The Standard HK (18 novembre 2026): inflation is \"heading in the wrong direction and it is spreading out\"; the choice is \"a larger half-point increase at the coming December 8-9 meeting\" or clear signals via the post-meeting statement or Chair Kevin Warsh's press conference. BusinessDay: \"then you have to go 50 in December. Put it in place and get it done.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermati CNBC, mercoledi 18, due opzioni (mezzo punto oppure segnale chiaro). Nit: nel riquadro PERCHE' di pag. 3 il PDF scrive 'Waller ... chiede mezzo punto già a dicembre', che semplifica: era una delle due opzioni (il corpo del testo e la tabella sono invece corretti)."
+ },
+ {
+  "id": "D01",
+  "trovato": "Two people told Reuters that \"SEC enforcement staff are scrutinizing potential accounting issues at the company.\" / The Wall Street Journal on Tuesday reported that the SEC was probing Nvidia.",
+  "verifica": "confermato",
+  "nota_revisore": "Pagina Reuters del 20/11 (via Internazionale); martedi = 17/11."
+ },
+ {
+  "id": "D02",
+  "trovato": "Constellation Research: \"Anthropic priced its initial public offering of 980 million shares at $83 per share\" \"and opened at $111.50.\" \"Anthropic shares closed its first trading session at $97.17, up 17% from the initial price.\" Shopifreaks: \"Anthropic's stock dropped 8.5% Friday to $88.91 in its second day of trading,\" \"after sliding as low as $83.05, just 5 cents above what IPO buyers paid,\"",
+  "verifica": "confermato",
+  "nota_revisore": "83 / 111,50 / 97,17 / 88,91 (-8,5%) confermati; +34% e +17% coerenti. Attenzione: il titolo della pagina Constellation dice 'closes at $87.17' (refuso, il corpo dice 97,17). Il minimo intraday di 83,05 e' vicinissimo ai 83: il PDF dice 'ancora sopra il prezzo di collocamento', corretto ma la soglia e' stata quasi toccata."
+ },
+ {
+  "id": "D03",
+  "trovato": "CoinDesk live: Nvidia \"closed nearly 14% lower, while the semiconductor index plunged 10%.\" Poi: \"Some of the worst losses came from bitcoin miners.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Nvidia quasi -14% e indice dei semiconduttori -10% confermati da CoinDesk. Il riferimento di Yahoo ai chip 'come nel 2008' non e' stato verificato (pagina Yahoo non ritrovata) ma il PDF non lo usa."
+ },
+ {
+  "id": "D05",
+  "trovato": "spot gold was trading near $3,537.90 an ounce, down $86.30, or 2.38% / trading at its lowest prices since September 2025 / silver was trading near $41.120, down $1.637, or 3.83%",
+  "verifica": "confermato",
+  "nota_revisore": "Kitco: 'some investors were liquidating precious metals rather than increasing defensive allocations'; attese di rialzi Fed citate; fuga verso la sicurezza esclusa (domanda difensiva sovrastata)."
+ },
+ {
+  "id": "D10",
+  "trovato": "onvista (dpa-AFX): \"Der Eurozonen-Leitindex EuroStoxx 50 büßte 2,81 Prozent auf 5.941,95 Punkte ein.\" \"Damit erreichte er den tiefsten Stand seit Mai und schraubte seinen Wochenverlust auf sieben Prozent hoch.\" \"Am EuroStoxx-Ende büßten die Aktien des Chipausrüster ASML 9,3 Prozent ein.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Livello, -2,81%, minimo da maggio, -7% settimanale, ASML -9,3% confermati (anche ad-hoc-news). 'Sesta seduta negativa' non confermata dalle pagine (parlano solo di serie di perdite). ERRORE nel PDF pag. 4: 'il peggiore tra le grandi borse europee dopo il Dax': con DAX -2,60% (Teleborsa) o -2,8% (askanews) l'Euro Stoxx -2,81% e' il peggiore o a pari merito, non 'dopo' il Dax."
+ },
+ {
+  "id": "D11",
+  "trovato": "Money.it: \"Il FTSE MIB termina a 48.703,72 punti con 33 titoli in ribasso su 40.\" \"Tra i pochi segni più spicca Italgas, la migliore con un +1,08% a 8,94 euro\". \"Il fondo della classifica è occupato da STMicroelectronics, che ha perso il 10,78%\". ANSA: \"Piazza Affari ha chiuso in forte ribasso\"; FTSE MIB -2,48% a 48.703; Technoprobe -9,31%, Prysmian -6,29%, Banco BPM -3,02%, Bper -2,63%, UniCredit -2,54%, Intesa -2,41%, Mps -2,25%; Saipem +0,76%.",
+  "verifica": "confermato",
+  "nota_revisore": "Tutti i dati del PDF pag. 4 (33 su 40, sotto 49mila, STM, Technoprobe, Prysmian, Intesa -2,41%, Italgas +1,08%, Saipem) confermati. 'Banche tra il 2,2% e il 3%': ok (Mps -2,25% ... Banco BPM -3,02%, arrotondato)."
+ },
+ {
+  "id": "D09",
+  "trovato": "Federal Reserve, calendario FOMC 2026: dicembre \"8-9*\"; nota: \"* Meeting associated with a Summary of Economic Projections.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Riunione 8-9 dicembre con proiezioni confermata. Il PDF non cita percentuali CME FedWatch, quindi nulla da verificare su quelle; 'rialzo di dicembre dato per probabile' e' coerente con le fonti viste (Newsquawk/CoinDesk: Waller ipotizza 50 pb, mercato quasi certo di +25). Le pagine Longbridge e Seeking Alpha della scheda non sono state ritrovate."
+ },
+ {
+  "id": "D12",
+  "trovato": "Philadelphia Fed: \"The diffusion index for current general activity fell from 20.9 in October to 6.3 in November\" ... \"The current new orders index dropped 5 points to -0.4\" ... \"The prices paid index rose 15 points to 58.2\" ... \"The diffusion index for future general activity was little changed at 33.6 this month\".",
+  "verifica": "confermato",
+  "nota_revisore": "6,3 contro attese 20,0 (Newsquawk/investinglive nei risultati) confermato; il PDF agenda 'Gio 19 14:30 ... 6,3 (atteso 20,0)' e' corretto."
+ },
+ {
+  "id": "D13",
+  "trovato": "Morningstar/Dow Jones: \"The number of people who filed for unemployment benefits was 203,000 in the week through Nov. 14.\" Up 1.000 from a revised 202,000; economists had expected \"a decline to 197,000 new claims\"; continuing claims \"just over 1.76 million\".",
+  "verifica": "confermato",
+  "nota_revisore": "203 mila contro 197 mila confermato, giovedi 19."
+ },
+ {
+  "id": "N01",
+  "trovato": "The Nikkei ended 5.06 percent lower at 56,436.65, its lowest close since April 13.",
+  "verifica": "confermato",
+  "nota_revisore": "SoftBank -14,48%, Advantest -10,32% (Business Recorder)."
+ },
+ {
+  "id": "N02",
+  "trovato": "The Hang Seng Index fell 430.82 points, or 1.89%, to close at 22,410.80 points on Friday, November 20, / The Hang Seng Tech Index fell 3.78% to 3,511.14 points,",
+  "verifica": "confermato",
+  "nota_revisore": "Revisore: nucleo confermato (22.410,80, -1,89%, tech -3,78%); causa come RTHK 'tightening tech curbs on China'; testo allineato, 'nuove' tolto. Numeri confermati da seconda pagina (ad-hoc-news), che non cita strette USA. RTHK: 'Investor sentiment was also weighed down by signs that Washington is tightening tech curbs on China.' Causa attribuita a RTHK confermata come 'tech curbs'; 'nuove strette' e' interpretazione lieve. Complessivamente confermabile, ma pagina seconda non copre la causa."
+ },
+ {
+  "id": "N03",
+  "trovato": "Teleborsa (Borsa Italiana): the board considered the offer \"congruo\" while flagging issues; \"€1.250 in cash plus 1.664 new ISP shares for each MPS share\"; acceptance period from \"8:30 on 24 November 2026\"; \"Corrado Passera resigned from the board during the meeting and did not vote\"; per financial sources, \"profondo dissenso\". Siena News: \"non ha quindi preso parte al voto\".",
+  "verifica": "confermato",
+  "nota_revisore": "Dati del PDF confermati (1,250 euro + 1,664 azioni, adesioni dal 24/11, Passera dimesso durante il cda). 'Profondo dissenso' e' riferito da fonti finanziarie, non da una dichiarazione ufficiale. Nit: il PDF omette che il cda ha giudicato congruo ma segnalando punti critici (premio inferiore alla media)."
+ },
+ {
+  "id": "N05",
+  "trovato": "Streamline Feed: \"Brent settled at $92.57 a barrel on Nov. 20, up $0.59 (0.64%), and December WTI rose $0.77 to $83.98.\" \"Brent rose on Friday but fell 3.4% over the week.\" Earlier: tanker hit on Nov. 18; \"an outbound tanker was struck by an unknown projectile 11 nautical miles north of Khasab, Oman, early on Nov. 21.\" Middle East crude shipments through Hormuz \"have returned near pre-war levels.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Brent 92,57 (+0,64%), terza settimana di calo (-3,4%), flussi vicini al pre-guerra e petroliera colpita sabato 21 (UKMTO) confermati. Reuters/RTE e Edge Malaysia (intraday) indicano -6% settimanale su un dato intraday: non contraddice la chiusura."
+ },
+ {
+  "id": "N07",
+  "trovato": "Korea JoongAng Daily: \"The benchmark Kospi shed 267.93 points, or 5.21 percent, to end at 4,869.96.\" \"Market bellwether Samsung Electronics fell 7.01 percent to 183,100 won.\" SK hynix fell 5.92 percent; \"Institutions and foreigners sold a net 951.33 billion won and 1.13 trillion won\".",
+  "verifica": "confermato",
+  "nota_revisore": "Kospi 4.869,96 (-5,21%), Samsung -7,01%, SK hynix -5,92% confermati; vendite estere confermate (cause: dubbi sul ritorno della spesa AI e timori di stretta Fed)."
+ },
+ {
+  "id": "N08",
+  "trovato": "ANSA: \"Lo spread tra Btp e Bund tedeschi chiude in rialzo a 109,9 punti, contro i 103 punti segnati in apertura di seduta.\" \"Il rendimento annuo italiano scende di 7,1 punti al 4,4%\". Teleborsa: \"attestandosi a +111 punti base\" (+5), BTP 10 anni 4,42%. askanews: \"lo spread tra i Btp e i Bund ha chiuso a 109 punti\", decennale 4,39%.",
+  "verifica": "confermato",
+  "nota_revisore": "109,9 confermato. Il '106 di giovedi' del PDF non e' scritto da ANSA (che dice 103 in apertura) ma e' coerente con Teleborsa (111, +5) e con il +4 pb della tabella pag. 5. ANSA non specifica 'a 10 anni' (lo fanno Teleborsa e askanews, 4,42% / 4,39%): attribuire il 4,4% decennale a Teleborsa. La tabella pag. 5 mostra 110 pb, il testo 109,9: coerente per arrotondamento."
+ },
+ {
+  "id": "N09",
+  "trovato": "Bitcoin.com News: bitcoin \"plunged to $57,799.29 on Friday\", \"the lowest price registered since September 2024.\" \"$1.9 billion in leveraged position liquidations\" over 24 hours. CoinDesk: \"Bitcoin fell below the $59,000 mark on Friday as widespread selling picked up across crypto, stocks and gold,\"; live blog: \"MARA Holdings plunged 18.6%\".",
+  "verifica": "confermato",
+  "nota_revisore": "Bitcoin sotto 59.000 confermato. Il 18,6% del PDF e' di una singola societa' (MARA, CoinDesk live): l'altro articolo CoinDesk parla di minatori 'fino a -15%'; 'hanno perso fino al 18,6%' regge ma e' il caso estremo. Il PDF non cita il -25% di novembre ne' il minimo dal 2024."
+ },
+ {
+  "id": "D04",
+  "trovato": "Dimsum Daily: Treasury Partners' Richard Saperstein attributed the downturn to \"a repricing of artificial intelligence expectations amid slower data centre expansion.\" Procyon's Santicchia cited \"potential Federal Reserve interest rate increases\" and \"midterm election outcomes.\" Dawn/Reuters: Ed Moya of AlphaSense on investors moving from \"rewarding growth at any price\" to demanding cash flow.",
+  "verifica": "confermato",
+  "nota_revisore": "Le cause usate nel PDF (dubbi sul ritorno della spesa AI, rialzi Fed, Waller e Cook) sono sostenute dalle fonti. Il PDF non usa il nesso midterm/data center, giustamente non confermato dalla maggior parte delle pagine."
+ },
+ {
+  "id": "N10",
+  "trovato": "ad-hoc-news: \"Der Euro Stoxx 50 fiel am Freitag um 2,81 Prozent auf 5.941,95 Punkte.\" \"Damit erreichte der Eurozonen-Leitindex den tiefsten Stand seit Mai.\" \"Seit Wochenbeginn summiert sich der Verlust auf rund sieben Prozent.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Duplicato di D10: stessi esiti (livello, -2,81%, minimo da maggio, -7%). Resta l'errore sul 'peggiore dopo il Dax' (vedi D10) e la 'sesta seduta' non verificata."
+ },
+ {
+  "id": "D14",
+  "trovato": "Teleborsa: \"scende Francoforte, con un ribasso del 2,60%\" (DAX 24.803). askanews: \"a Francoforte il Dax ha perso il 2,8%\".",
+  "verifica": "confermato",
+  "nota_revisore": "DAX -2,60% a 24.803 (Teleborsa) confermato; il PDF usa -2,6% (altre fonti -2,8%, discrepanza nota). Con -2,6% il DAX perde MENO dell'Euro Stoxx (-2,81%), quindi 'il peggiore dopo il Dax' del PDF e' sbagliato."
+ },
+ {
+  "id": "D15",
+  "trovato": "Teleborsa: \"crolla Parigi, con una flessione dell'1,89%\". askanews: \"a Parigi il Cac40 l'1,9%\".",
+  "verifica": "confermato",
+  "nota_revisore": "CAC 40 -1,89% confermato (PDF: Parigi -1,9%). Il livello 7.927,75 non e' comparso nelle pagine aperte ma il PDF non lo usa."
+ },
+ {
+  "id": "D16",
+  "trovato": "onvista (dpa-AFX): \"Für den britischen FTSE 100 ging es um 1,02 Prozent auf 10.346,34 Punkte nach unten.\" Teleborsa: FTSE 100 10.346, -1,02%.",
+  "verifica": "confermato",
+  "nota_revisore": "FTSE 100 -1,02% a 10.346,34 confermato (PDF: Londra -1,0%). Il -0,91% di Yahoo/dpa e' correttamente scartato."
+ },
+ {
+  "id": "D17",
+  "trovato": "Lo spread tra Btp e Bund tedeschi chiude in rialzo a 109,9 punti, contro i 103 punti segnati in apertura di seduta. Il rendimento annuo italiano scende di 7,1 punti al 4,4%, quello tedesco di 9,9 punti al 3,3%",
+  "verifica": "confermato",
+  "nota_revisore": "ANSA confermata; testo ridotto alla parte confermata, le altre fonti non riaperte e tolte."
+ }
+]
