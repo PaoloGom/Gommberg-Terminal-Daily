@@ -1,0 +1,36 @@
+[ok] PDF e indice: Pagine: 6 | n.d.: 0
+[ok] Riempimento (pagine e moduli): Riempimento: pagine e moduli pieni | mm liberi: p1=2, p2=0, p3=0, p4=0, p5=15, p6=3
+[ROSSO] Fatti:
+- CERCA come: il documento di chi è nel fatto ("primaria": true) o lo stesso fatto da un altro autore; un'agenzia conta 1 ovunque ripresa. Se non c'è: "conferma_cercata"
+- CERCA un secondo autore, 7 schede: N04, N05, D01, D03, D04, D07, D11
+AVVISO: N06: dato ufficiale senza il comunicato (cercato: Philadelphia Fed Manufacturing Business Outlook Survey November 2026 prices paid; Philly Fed index November 2026 falls to 6.3 prices paid 58.2
+AVVISO: N06: fonte singola dichiarata (investinglive): la testata nella riga Fonti
+AVVISO: N08: dato ufficiale senza il comunicato (cercato: jobless claims November 19 2026 Department of Labor release; initial jobless claims 203,000 week ended November 14 2026): la testata nella rig
+AVVISO: N08: fonte singola dichiarata (investinglive): la testata nella riga Fonti
+[ROSSO] Numeri contro dati.json:
+ERRORE: pag. 5, MSCI ACWI (ETF, $): nel PDF non c'è la riga calcolata (147,74 | -2,0% | -5,6% | +4,4%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
+ERRORE: pag. 5, S&P 500: nel PDF non c'è la riga calcolata (7.175,83 | -2,0% | -5,5% | +4,8%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
+ERRORE: pag. 5, Nasdaq Comp.: nel PDF non c'è la riga calcolata (23.879,20 | -2,3% | -5,9% | +2,7%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
+ERRORE: pag. 5, Russell 2000: nel PDF non c'è la riga calcolata (2.655,11 | -2,2% | -5,1% | +7,0%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
+ERRORE: pag. 5, Euro Stoxx 50: nel PDF non c'è la riga calcolata (6.120,30 | -0,6% | -4,4% | +5,6%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
+ERRORE: pag. 5, Hang Seng*: nel PDF non c'è la riga calcolata (~22.362 | -2,1% | -5,4% | -12,8%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
+[ROSSO] Scrittura (→, cause, sigle, ritmo):
+ERRORE: 14 testate tra parentesi (§3.5): toglile, stanno nella riga Fonti del pezzo; se il nome è parte della notizia (accusa, indiscrezione, stima, opinione, spiegazione di qualcuno) dillo nella fr
+ERRORE: testate nominate nel testo ma assenti dalla riga Fonti del pezzo (§3.5): aggiungile alla riga Fonti (letta ripresa da un'altra testata: "X, ripresa da Y"). Sono: notizie.1.testo Bloomberg
+ERRORE: 5 approfondimenti aprono con una domanda esplicita (massimo 2): tienila dove rende di più e negli altri apri lo stesso dubbio in un'altra forma, senza punto di domanda (un contrasto, un'attes
+ERRORE: lessico: "la vendita dell'AI" (5 volte): scrivi le vendite, l'ondata di vendite, il ribasso (se è la cessione di un bene: "la cessione")
+AVVISO: sigle spiegate più di una volta: VIX
+AVVISO: sigle definite tra parentesi (§3.4: la cosa si dice in parole dentro la frase): core, VIX
+[ok] Temi di prima pagina: Temi di prima pagina: 0 errori, 0 avvisi lessicali
+[ok] Contenuti (estremi, perché, anomalie...): Contenuti: 0 errori, 2 avvisi
+AVVISO: grafici: "Il Brent perde un quinto dal massimo del 23 ottobre" ripete un grafico della #027: cambia taglio (periodo, confronto, soglia) o scegli un altro grafico che provi la tesi
+AVVISO: grafici: "L'oro cade di oltre 400 dollari dal 9 novembre" ripete un grafico della #027: cambia taglio (periodo, confronto, soglia) o scegli un altro grafico che provi la tesi
+[ok] Ripetizioni: Ripetizioni: punteggio 6 (6 cifre in 2+ sezioni)
+AVVISO: 1,43% in 2 sezioni: APPROFONDIMENTO EUROPA, TOP STORY
+AVVISO: 10% in 2 sezioni: APPROFONDIMENTO MATERIE PRIME, APPROFONDIMENTO TECNOLOGIA
+AVVISO: 2,1% in 2 sezioni: APPROFONDIMENTO EUROPA, TOP STORY
+AVVISO: 489,19$ in 2 sezioni: APPROFONDIMENTO TECNOLOGIA, TOP NEWS
+AVVISO: 5,1% in 2 sezioni: APPROFONDIMENTO EUROPA, TOP STORY
+AVVISO: eco "liquidità altri titoli settore" in 2 punti
+[ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
+ESITO: ERRORI in Fatti Numeri contro dati.json Scrittura (→, cause, sigle, ritmo) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia

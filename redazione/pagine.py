@@ -219,10 +219,13 @@ GLOSSARIO = {}   # sigla in minuscolo -> (sigla, breve), solo le voci non ovvie;
 # Terzo campo: l'etichetta corta per il telefono, dove cinque voci intere non stanno in una riga (assets/sito.css).
 MENU = (("", "Ultima edizione", "Edizione"), ("archivio.html", "Archivio", ""), ("glossario.html", "Impara", ""),
         ("scommessa.html", "La scommessa", "Scommessa"), ("progetto.html", "Chi siamo", ""))
-RIGA_AI = ("Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con l'intelligenza "
-           "artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.")
-LEGALE = ("Rassegna informativa sui mercati: non costituisce consulenza finanziaria né sollecitazione all'investimento. "
-          "Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.")
+# La riga sull'AI (AI Act, art. 50): una sola fonte per sito, PDF (gommberg_engine.py la importa da qui) e newsletter
+# (newsletter_modello.html la ripete identica: il collaudo lo verifica). Il nome del responsabile sta nella gerenza di
+# "Chi siamo", come nelle testate, non in ogni piè di pagina (G-40, Paolo 21/11).
+RIGA_AI = ("Testi generati con l'intelligenza artificiale e pubblicati in automatico. "
+           "Rassegna informativa, non consulenza finanziaria.")
+LEGALE = ("Non costituisce sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. "
+          "Dati e notizie da fonti pubbliche alla data di ciascuna edizione.")
 
 
 def _href(root, h):
@@ -290,12 +293,13 @@ def pagina(ed, prec, succ):
                  ("og:locale", "it_IT")):
         a(f'<meta property="{k}" content="{esc(v)}">')
     a('<meta name="twitter:card" content="summary_large_image">')
-    # dati strutturati per Google: articolo di una testata, firmato dal responsabile editoriale
+    # dati strutturati per Google: articolo firmato dalla testata (i testi li scrive l'AI); il direttore è nella gerenza
+    # di progetto.html e come founder nel JSON-LD della home
     ld = {"@context": "https://schema.org", "@type": "NewsArticle", "headline": titolo[:110], "description": desc,
           "datePublished": ed["data"] + "T08:00:00+01:00", "dateModified": ed["data"] + "T08:00:00+01:00",
           "inLanguage": "it-IT", "url": url, "mainEntityOfPage": url, "image": [f"{BASE}e/{n}.png"],
           "isAccessibleForFree": True, "keywords": ", ".join(ed.get("temi") or []),
-          "author": {"@type": "Person", "name": "Paolo Gommellini", "url": BASE + "progetto.html"},
+          "author": {"@type": "NewsMediaOrganization", "name": "Gommberg Terminal Daily", "url": BASE + "progetto.html"},
           "publisher": {"@type": "Organization", "name": "Gommberg Terminal Daily", "url": BASE,
                         "logo": {"@type": "ImageObject", "url": BASE + "assets/copertina.png"}}}
     a('<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>")
@@ -483,6 +487,24 @@ def dati_sito(repo, rec):
     scrivi(os.path.join(repo, "dati", "storico.json"), js([{k: e[k] for k in campi if e.get(k)} for e in rec]))
 
 
+def piede_fisse(repo):
+    """Le pagine fisse (index.html, progetto.html...) hanno il piè di pagina scritto a mano: qui la riga sull'AI si
+    riallineano a RIGA_AI e LEGALE, così cambiano in un punto solo; la nota propria di ogni pagina, dopo LEGALE, resta.
+    LEGALE deve finire con "alla data di ciascuna edizione.": è l'aggancio. Scrive solo se cambia."""
+    n = 0
+    for f in sorted(os.listdir(repo)):
+        if f.endswith(".html"):
+            path = os.path.join(repo, f)
+            t = open(path, encoding="utf-8").read()
+            nuovo = re.sub(r'<p class="gf-ai">.*?</p>', lambda m: f'<p class="gf-ai">{RIGA_AI}</p>', t, flags=re.S)
+            nuovo = re.sub(r'<p class="gf-legal">[^<]*?alla data di ciascuna edizione\.', lambda m: f'<p class="gf-legal">{LEGALE}',
+                           nuovo, flags=re.S)
+            if nuovo != t:
+                open(path, "w", encoding="utf-8").write(nuovo)
+                n += 1
+    return n
+
+
 def main():
     repo = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(__file__), ".."))
     eds = [e for e in json.load(open(os.path.join(repo, "edizioni.json"), encoding="utf-8"))
@@ -508,6 +530,8 @@ def main():
     if rec:
         scrivi(os.path.join(repo, "ultima", "index.html"), ultima(rec[0]))
     dati_sito(repo, rec)
+    if piede_fisse(repo):
+        print("Pagine fisse: piè di pagina riallineato")
     print(f"Pagine: {len(eds)} edizioni ({cambiati} pagine aggiornate), feed.xml, ultima/, dati/")
 
 

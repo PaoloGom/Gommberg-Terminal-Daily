@@ -1,0 +1,328 @@
+{
+ "agenda": [
+  {
+   "attese": "1,23 milioni annualizzati; prima 1,221 milioni",
+   "chiave": false,
+   "evento": "Cantieri avviati USA (ottobre)",
+   "muove": [
+    "Sopra: l'edilizia tiene anche con i tassi alti.",
+    "Sotto: pesa sui titoli delle costruzioni."
+   ],
+   "perche": "Quanto reggono i mutui cari",
+   "quando": "Mer 18, 14:30"
+  },
+  {
+   "attese": "Il 28/10 tassi fermi al 3,75-4,00%, con due voti per il rialzo",
+   "chiave": true,
+   "evento": "Verbali della riunione Fed di ottobre",
+   "muove": [
+    "Sopra: verbali più duri del previsto: di solito salgono rendimenti a breve e dollaro.",
+    "Sotto: verbali più morbidi: il 2 anni tende a scendere."
+   ],
+   "perche": "Evento n.1: quanto era largo il consenso al rialzo",
+   "quando": "Mer 18, 20:00"
+  },
+  {
+   "attese": "Primo trimestre fiscale; ricavi e utile contro le stime",
+   "chiave": false,
+   "evento": "Conti Palo Alto Networks",
+   "muove": [
+    "Sopra: di solito il titolo sale se la guidance batte le attese.",
+    "Sotto: una guidance debole pesa più di un buon trimestre."
+   ],
+   "perche": "Conti USA dopo la chiusura",
+   "quando": "Mer 18, 22:30"
+  },
+  {
+   "attese": "Disoccupazione: prima 4,7%",
+   "chiave": false,
+   "evento": "Occupazione in Australia (ottobre)",
+   "muove": [
+    "Sopra: più disoccupati, di solito dollaro australiano giù.",
+    "Sotto: mercato del lavoro solido, Banca centrale più libera."
+   ],
+   "perche": "Dato di apertura per l'Asia",
+   "quando": "Gio 19, 01:30"
+  }
+ ],
+ "approfondimenti": [
+  {
+   "formato": "due_grafici",
+   "tema": "Chip",
+   "titolo": "Per Nvidia la sorpresa sui conti non basta: pesano vertice e indagine"
+  },
+  {
+   "formato": "grafico",
+   "tema": "Tassi USA",
+   "titolo": "Con Wall Street giù i Treasury si fermano: il mercato aspetta la Fed"
+  },
+  {
+   "formato": "grafico",
+   "tema": "Europa",
+   "titolo": "L'Europa perde il doppio di Wall Street: il calo viene dai titoli tecnologici"
+  },
+  {
+   "formato": "grafico",
+   "tema": "Petrolio",
+   "titolo": "Il Brent scende con le scorte USA, ma il rischio Hormuz lo sostiene"
+  },
+  {
+   "formato": "grafico",
+   "tema": "Tecnologia",
+   "titolo": "Il debutto di Anthropic mette alla prova la liquidità del Nasdaq"
+  }
+ ],
+ "data": "2026-11-18",
+ "dek": "Il gruppo chiude il trimestre con ricavi sopra le attese di circa il 6% e per il prossimo ne annuncia 130 miliardi di dollari, più dei 125 previsti dagli analisti. Nel dopo-chiusura il titolo sale e poi perde il guadagno: Reuters lo dà in calo dello 0,3%. Il consiglio esclude il ritorno di Huang, e secondo il Wall Street Journal la SEC (autorità di vigilanza della borsa americana) verifica le comunicazioni della società.",
+ "dove": {
+  "agenda": 5,
+  "approfondimenti": [
+   2,
+   3,
+   3,
+   4,
+   4
+  ],
+  "mercati": 5,
+  "scommessa": 6
+ },
+ "evento_oggi": "Mer 18, 20:00 Verbali della riunione Fed di ottobre",
+ "file": "pdf/2026-11-18-gommberg-028.pdf",
+ "glossario": [
+  "CME FedWatch",
+  "VIX",
+  "ACWI"
+ ],
+ "grafici": [
+  {
+   "etichette": [
+    "Tecnologia",
+    "Energia",
+    "Comunicazioni",
+    "Servizi di pubblica utilità",
+    "Immobiliare",
+    "Finanza",
+    "Materiali di base",
+    "Industria"
+   ],
+   "serie": [],
+   "tipo": "barre",
+   "titolo": "In media i titoli tecnologici perdono il 2,8%, gli altri settori meno",
+   "x0": null,
+   "x1": null
+  },
+  {
+   "etichette": [],
+   "serie": [
+    "Nasdaq"
+   ],
+   "tipo": "linee",
+   "titolo": "Il Nasdaq perde il 4,5% dal massimo dell'11 novembre",
+   "x0": "2026-11-05",
+   "x1": "2026-11-17"
+  },
+  {
+   "etichette": [],
+   "serie": [
+    "10 anni",
+    "2 anni"
+   ],
+   "tipo": "linee",
+   "titolo": "I rendimenti salgono da inizio novembre e restano alti",
+   "x0": "2026-10-19",
+   "x1": "2026-11-17"
+  },
+  {
+   "etichette": [
+    "ASML",
+    "Tecnologia Europa",
+    "STMicroelectronics",
+    "Euro Stoxx 50",
+    "FTSE MIB",
+    "S&P 500",
+    "Petrolio e gas Europa",
+    "Nasdaq"
+   ],
+   "serie": [],
+   "tipo": "barre",
+   "titolo": "Il calo è più forte dove sono i chip",
+   "x0": null,
+   "x1": null
+  },
+  {
+   "etichette": [
+    "09/11",
+    "10/11",
+    "11/11",
+    "12/11",
+    "13/11",
+    "16/11",
+    "17/11"
+   ],
+   "serie": [],
+   "tipo": "barre",
+   "titolo": "Il Brent si muove di oltre il 3% in tre sedute su sette, senza direzione",
+   "x0": null,
+   "x1": null
+  }
+ ],
+ "meccanismi": [
+  "M15",
+  "M16",
+  "M26",
+  "M07",
+  "M10",
+  "M11"
+ ],
+ "nome": "2026-11-18 Gommberg Terminal Daily #028.pdf",
+ "notizie": [
+  "L'Iran colpisce un radar americano in Bahrain, gli USA rispondono a Qeshm",
+  "Home Depot cede nonostante l'utile sopra le attese",
+  "Il guasto di Zelle pesa sulle grandi banche americane",
+  "Pirelli perde il 3,8% dopo la vendita di un pacchetto da Sinochem",
+  "Le scorte americane di greggio salgono di 5,3 milioni di barili",
+  "Kepler Cheuvreux alza TotalEnergies, Eni e BP a buy"
+ ],
+ "numero": 28,
+ "pagine": 6,
+ "parole": [
+  "Guidance",
+  "Acquisti rifugio",
+  "Verbali della Fed",
+  "Offerta pubblica iniziale (IPO)",
+  "Scorte di greggio",
+  "Indice pesato per dimensione"
+ ],
+ "quadro": "Per noi stamattina la paura per l'AI pesa meno della Fed. Wall Street è giù di circa l'1% e l'Euro Stoxx 50 cede il 2,1%, il peggiore dal 3 marzo. Il 2 anni e il 10 anni scendono di pochi punti base: i Treasury fanno da rifugio meno di lunedì. L'oro perde un altro 2,4% e il petrolio cala con le scorte americane.",
+ "ripetizioni": 1,
+ "scommessa": {
+  "dettaglio": [
+   [
+    "S&P 500",
+    "giù",
+    true,
+    true
+   ],
+   [
+    "Euro Stoxx 50",
+    "su",
+    false,
+    false
+   ],
+   [
+    "Treasury 10 anni",
+    "su",
+    false,
+    true
+   ],
+   [
+    "EUR/USD",
+    "giù",
+    true,
+    true
+   ],
+   [
+    "Brent future",
+    "su",
+    false,
+    true
+   ],
+   [
+    "Oro future",
+    "giù",
+    true,
+    true
+   ]
+  ],
+  "par": 7.3,
+  "range": 5,
+  "settimana": "2026-11-16/2026-11-20",
+  "strada": 3,
+  "su": 6
+ },
+ "sommario": [
+  "Stasera i verbali della Fed dicono quanto era largo il consenso al rialzo.",
+  "Xi e Putin si vedono a Shenzhen e giovedì arriva Trump.",
+  "Anthropic punta a un prezzo in cima alla forchetta, secondo Bloomberg."
+ ],
+ "temi": [
+  "Chip",
+  "Fed",
+  "Tassi",
+  "Europa",
+  "Petrolio",
+  "Geopolitica"
+ ],
+ "termometri": {
+  "fermi": "Cina (nessuna novità verificata dal 16/11).",
+  "righe": [
+   [
+    "AI e chip",
+    "Conti Nvidia usciti",
+    "Battuti i conti, poi il rialzo svanisce",
+    "giu: Titolo Nvidia nel dopo-chiusura",
+    "Apertura di Wall Street alle 15:30"
+   ],
+   [
+    "Fed e tassi",
+    "Verbali stasera",
+    "Rialzo di dicembre già nei prezzi",
+    "fermo: Rendimenti a 2 e 10 anni",
+    "Verbali, mer 18 alle 20:00"
+   ],
+   [
+    "Dollaro e oro",
+    "Euro a 1,0997 in chiusura",
+    "Oro in calo anche con la paura",
+    "giu: Oro future",
+    "Verbali Fed"
+   ],
+   [
+    "Petrolio",
+    "Scorte USA in aumento",
+    "Il Brent cala con le scorte",
+    "giu: Brent",
+    "Flussi da Hormuz"
+   ]
+  ]
+ },
+ "ticker": [
+  [
+   "MSCI ACWI (ETF)",
+   "151,34 $",
+   "-1,1% g"
+  ],
+  [
+   "S&P 500",
+   "7.340,53",
+   "-1,0% g"
+  ],
+  [
+   "EURO STOXX 50",
+   "6.212,11",
+   "-2,1% g"
+  ],
+  [
+   "TREASURY 10 ANNI",
+   "5,10%",
+   "-2 pb g"
+  ],
+  [
+   "EUR/USD",
+   "1,0997",
+   "0,0% g"
+  ],
+  [
+   "BRENT FUTURE",
+   "93,14 $",
+   "+0,8% g"
+  ],
+  [
+   "ORO",
+   "3.864 $",
+   "+0,3% g"
+  ]
+ ],
+ "ticker_al": "2026-11-17",
+ "titolo": "Nvidia supera le stime e alza la guidance, poi il titolo azzera il rialzo"
+}

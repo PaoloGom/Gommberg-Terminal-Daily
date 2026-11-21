@@ -20,6 +20,7 @@ pdfmetrics.registerFont(TTFont("Cond-B", F + "DejaVuSansCondensed-Bold.ttf"))
 addMapping("Body", 0, 0, "Body"); addMapping("Body", 1, 0, "Body-B"); addMapping("Body", 0, 1, "Body-I")
 addMapping("Cond", 0, 0, "Cond"); addMapping("Cond", 1, 0, "Cond-B")
 # Nessun font base PDF non incorporato (Helvetica/Times): celle vuote delle tabelle e disegni vettoriali usano DejaVu.
+from pagine import RIGA_AI as _RIGA_AI  # stessa cartella (redazione/): la riga sull'AI ha una fonte sola
 import reportlab.platypus.tables as _rl_tables
 from reportlab.graphics import shapes as _rl_shapes
 _rl_tables.CellStyle.fontname = "Cond"
@@ -153,17 +154,23 @@ def page(c, doc):
     c.drawRightString(PW - M, PH - 13.2 * mm, META["nota_dati"])
     c.setStrokeColor(RULE); c.setLineWidth(0.5); c.line(M, 11 * mm, PW - M, 11 * mm)
     c.setFont("Cond", 6.8); c.setFillColor(GREY)
-    c.drawString(M, 7 * mm, "Solo a scopo informativo, non è consulenza finanziaria. "
-                            "Le probabilità sono stime soggettive.")
+    # AI Act, art. 50: dichiarazione dell'uso dell'IA su ogni pagina, la stessa riga di sito e newsletter (pagine.RIGA_AI)
+    c.drawString(M, 7 * mm, _RIGA_AI)
     c.drawRightString(PW - M, 7 * mm, f"#{META['edizione']:03d}  |  {META['data_iso']}  |  pag. {doc.page}")
-    # AI Act, art. 50 (v7.8): dichiarazione dell'uso dell'IA, su ogni pagina
-    c.setFont("Cond", 6.3)   # la riga intera sta nei 182 mm utili (a 6,8 pt ne servirebbero 189)
-    c.drawString(M, 3.9 * mm, "Gommberg Terminal Daily è un progetto di Paolo Gommellini. I testi sono generati con "
-                              "l'intelligenza artificiale e pubblicati in automatico, sotto la sua responsabilità editoriale.")
+    c.setFont("Cond", 6.3)
+    c.drawString(M, 3.9 * mm, "Le probabilità sono stime soggettive. Dati e notizie da fonti pubbliche alla data dell'edizione.")
     c.restoreState()
 
 
 CW = PW - 2 * M
+
+
+def larghe(larghezze, n=None):
+    """Le larghezze di una tabella scritta dalla redazione: valgono come proporzioni tra le colonne, e la tabella è sempre
+    larga quanto il testo. Scritte in mm a mano uscivano tabelle strette e centrate in mezzo alla pagina (G-47)."""
+    w = [float(x) for x in (larghezze or [1] * (n or 1))]
+    tot = sum(w) or 1
+    return [x / tot * CW for x in w]
 
 
 def tbl(rows, widths, header=True, zebra=True):
@@ -686,7 +693,7 @@ def _colonne(testi):
 def approfondimento(tema, titolo, formato, chiave=None, **c):
     """Un pezzo di approfondimento. formato:
        "grafico":     img, punti=[str], fonte   (grafico a sinistra, punti a destra)
-       "tabella":     righe=[[intestazioni], ...], larghezze=[mm...], lettura, fonte
+       "tabella":     righe=[[intestazioni], ...], larghezze=[proporzioni tra le colonne], lettura, fonte
        "due_grafici": img_sx, img_dx, fonte_sx, fonte_dx (punti sotto, in colonne)
        Facoltativi in tutti: img_sopra (grafico a tutta larghezza in testa), punti, righe+larghezze (tabella),
        lettura, fonte, freccia (riga →). L'altezza si regola con il parametro alto dei grafici."""
@@ -725,7 +732,7 @@ def approfondimento(tema, titolo, formato, chiave=None, **c):
     if c.get("righe"):
         r0, *rr = c["righe"]
         rows = [headers(*r0)] + [[P(x, "cellb" if j == 0 else "cell") for j, x in enumerate(r)] for r in rr]
-        corpo += [Spacer(1, 3), tbl(rows, [w * mm for w in c["larghezze"]]), Spacer(1, 3)]
+        corpo += [Spacer(1, 3), tbl(rows, larghe(c.get("larghezze"), len(r0))), Spacer(1, 3)]
     if not (c.get("perche") and c.get("quindi")):
         raise ValueError(f"approfondimento '{titolo}': mancano 'perche' e/o 'quindi' (obbligatori, 1-2 frasi ciascuno)")
     corpo += [Spacer(1, 3), perche_quindi(c["perche"], c["quindi"]), Spacer(1, 3)]
@@ -1107,7 +1114,7 @@ def bivio(titolo, righe, larghezze, nota, kicker="Scenari"):
     """Il bivio (solo con un evento datato decisivo): righe[0] = intestazioni, poi [scenario, prob, effetti...]."""
     r0, *rr = righe
     rows = [headers(*r0)] + [[P(x, "cellb" if j < 2 else "cell") for j, x in enumerate(r)] for r in rr]
-    return [CondPageBreak(45 * mm)] + section(titolo, kicker) + [tbl(rows, [w * mm for w in larghezze]), Spacer(1, 2),
+    return [CondPageBreak(45 * mm)] + section(titolo, kicker) + [tbl(rows, larghe(larghezze, len(r0))), Spacer(1, 2),
                                                                 P(nota, "note")]
 
 
@@ -1192,7 +1199,7 @@ def edizione_v6(C, stato=None, reg=None, verdetto=None, pagella=None):
                          "(ISTRUZIONI par. 4). Nessuna pag. 6 del lunedì per sbaglio.")
     st.append(ancora("scommessa"))
     if sc["lunedi"]:
-        st += pagina6_lunedi(reg, verdetto, pagella, tesi=sc["tesi"], grafico="c_forecast.png",
+        st += pagina6_lunedi(reg, verdetto, pagella, tesi=sc.get("tesi", ""), grafico="c_forecast.png",
                              settimana_prec=sc.get("settimana_prec"), com_e_andata=sc.get("com_e_andata"))
     else:
         st += pagina6_settimana(reg, stato, tesi=sc["tesi"], grafico="c_forecast.png", venerdi=sc.get("venerdi", False))
@@ -1508,7 +1515,7 @@ def modulo(tema, titolo, misura="mezzo", chiave=None, grafico=None, grafico2=Non
     "doppio". soggetto: parola/e del titolo o del perche di cui il grafico parla (senza serie pertinente: niente
     grafico). barre con "livello": True per i livelli (grigio, ultima osservazione arancione).
     perche, quindi: OBBLIGATORI, 1-2 frasi ciascuno. punti: max 3. righe: tabella breve (mezzo max 5 righe dati,
-    doppio max 8), larghezze in mm. lettura: solo doppio. Il motore fissa le misure dei grafici (scala 1:1).
+    doppio max 8), larghezze = proporzioni tra le colonne (la tabella è sempre larga quanto il testo). lettura: solo doppio. Il motore fissa le misure dei grafici (scala 1:1).
     titolo: la TESI (cosa significa), non il fatto. numero: un dato solo che misura la tesi ("Meno di 1 seduta su 5:
     ..."), nella colonna accanto al grafico. testo: 1-3 paragrafi di racconto verificato. guardare: OBBLIGATORIO nel
     doppio, cosa confermerebbe o smentirebbe la tesi e quando. Con più elementi (grafici, tabella) ognuno ha un 'ruolo'
@@ -1548,7 +1555,7 @@ def modulo(tema, titolo, misura="mezzo", chiave=None, grafico=None, grafico2=Non
             raise ValueError(f"modulo '{titolo}': tabella oltre {mx} righe")
         r0, *rr = righe
         rows = [headers(*r0)] + [[P(x, "cellb" if j == 0 else "cell") for j, x in enumerate(r)] for r in rr]
-        c += [Spacer(1, 5), tbl(rows, [w * mm for w in larghezze])]
+        c += [Spacer(1, 5), tbl(rows, larghe(larghezze, len(r0)))]
     if punti:
         c += [Spacer(1, 5), _colonne(punti[:3])]
     for par in (testo or []):

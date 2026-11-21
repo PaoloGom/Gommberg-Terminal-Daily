@@ -9,9 +9,11 @@ Serie con la sola variazione (seduta asiatica in corso, livello non disponibile)
   [{"nome": "PPI USA a/a", "dato": 6.3, "atteso": 5.3, "caldo_se": "su", "data": "AAAA-MM-GG"}] ("giu" per sussidi
   e disoccupazione; "data" = giorno di uscita, serve a contesto.py per la reazione dei tassi).
 Dato non verificabile neanche dal web: {"mercato": "KR", "nd": "<motivo, es. nessuna fonte con orario>", "ultimi": []}
-  (ammesso: nel PDF "n.d." con la nota). Indici obbligatori (controlli_contenuti.py): S&P 500, Nasdaq, Euro Stoxx 50, Nikkei 225, Kospi, Hang Seng.
+  (ammesso: la riga non entra nella tabella di pag. 5; nel PDF mai "n.d."). Indici obbligatori (controlli_contenuti.py): S&P 500, Nasdaq, Euro Stoxx 50, Nikkei 225, Kospi, Hang Seng.
 Esce con codice 1 se c'è un problema bloccante."""
-import datetime as dt, json, sys
+import datetime as dt, json, os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import numeri as N  # noqa: E402
 
 from zoneinfo import ZoneInfo
 
@@ -38,13 +40,18 @@ problemi, avvisi = [], []
 for nome, s in d["serie"].items():
     u = s["ultimi"]
     if not u and s.get("nd"):
-        avvisi.append(f"{nome}: n.d. ({s['nd']}): nel PDF \"n.d.\" con la nota"); continue
+        avvisi.append(f"{nome}: non verificato ({s['nd']}): la riga non entra nella tabella di pag. 5; nel PDF mai \"n.d.\""); continue
     if not u and s.get("var") is not None:
         if not (s.get("fonte") and s.get("ora")):
             problemi.append(f"{nome}: serie con sola variazione senza 'fonte' e 'ora'")
+        elif not N.ricavato(nome, s, d["oggi"]):
+            problemi.append(f"{nome}: solo la variazione di stamattina e l'archivio non ha la chiusura di ieri ({N._ieri(d['oggi'])}): "
+                            "aggiungila in \"ultimi\" (storico FMP, o una ricerca: è la seduta di ieri), così la riga entra in tabella")
         continue
+    if len(u) == 1:
+        u = N.completa(nome, s)        # la chiusura precedente la conosce l'archivio (chiusure.csv, scommessa/dati)
     if len(u) < 2:
-        problemi.append(f"{nome}: meno di due osservazioni"); continue
+        problemi.append(f"{nome}: meno di due osservazioni (e l'archivio non ha la chiusura precedente: aggiungila)"); continue
     (d0, v0, vol0), (d1, v1, _) = u[0], u[1]
     d0 = dt.date.fromisoformat(d0)
     giorni_lav = sum(1 for k in range(1, (oggi - d0).days + 1) if (d0 + dt.timedelta(days=k)).weekday() < 5)
@@ -72,19 +79,25 @@ for nome, s in d["serie"].items():
         scarto = abs(v0 / sf - 1)
         if scarto > 0.005:
             problemi.append(f"{nome}: scarto {100 * scarto:.2f}% con la seconda fonte ({v0} contro {sf})")
-# Serie che il fornitore di dati sbaglia: solo dal web, con fonte dichiarata e seconda fonte concorde entro lo 0,05%.
+# Serie che il fornitore di dati sbaglia: solo dalle fonti ammesse, con seconda fonte concorde entro lo 0,05%.
 # Euro Stoxx 50: FMP ^STOXX50E dà chiusure sbagliate quasi ogni giorno (confronto del 10/11/2026 su 20 sedute: scarti fino
-# allo 0,8%, anche di segno, mai corretti dopo). Per aggiungere una serie basta una riga qui.
-SOLO_WEB = {"Euro Stoxx 50": "sx5e.csv"}
+# allo 0,8%, anche di segno, mai corretti dopo). EODHD STOXX50E.INDX coincide al centesimo con stoxx.com e dpa-AFX
+# (verifica del 21/11/2026, 40 sedute) ed è sempre una delle due fonti, salvo "eodhd_nd" (connettore che non risponde).
+# Per aggiungere una serie basta una riga qui: archivio verificato, fonti ammesse, fonte da chiamare ogni mattina.
+FONTI_AMMESSE = {"Euro Stoxx 50": ("sx5e.csv", ("eodhd", "stoxx.com", "dpa-afx", "investing"), "eodhd")}
 import csv, os  # noqa: E402
 _dati = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scommessa", "dati")
-for nome, archivio in SOLO_WEB.items():
+for nome, (archivio, ammesse, api) in FONTI_AMMESSE.items():
     s = d["serie"].get(nome)
     if not s or not s.get("ultimi"):
         continue
     fonte = str(s.get("fonte") or "").lower()
-    if not fonte or "fmp" in fonte or "modeling" in fonte:
-        problemi.append(f"{nome}: serie solo dal web (APP_DATI §6): scrivi \"fonte\" (gestore dell'indice o resoconto d'agenzia), mai FMP")
+    if not any(a in fonte for a in ammesse) or "fmp" in fonte or "modeling" in fonte:
+        problemi.append(f"{nome}: \"fonte\" deve nominare le fonti usate, tra {', '.join(ammesse)} (APP_DATI §6): mai FMP né "
+                        "le quotazioni nei riquadri delle pagine")
+    if api not in fonte and not s.get(api + "_nd"):
+        problemi.append(f"{nome}: manca {api.upper()} tra le fonti: una chiamata (APP_DATI §2b); se il connettore non risponde "
+                        f"\"{api}_nd\": \"<motivo>\" e due fonti web")
     sf = s.get("seconda_fonte")
     if not sf and not s.get("fonte_singola"):
         problemi.append(f"{nome}: manca \"seconda_fonte\" (il valore di una seconda fonte indipendente) o \"fonte_singola\": true")
@@ -102,6 +115,12 @@ for obb, rx in (("S&P 500", r"s&p ?500"), ("Nasdaq", r"nasdaq"), ("Euro Stoxx 50
                 ("Kospi", r"kospi|seul|seoul"), ("Hang Seng", r"hang ?seng")):
     if not any(re.search(rx, k, re.I) for k in d["serie"]):
         problemi.append(f"{obb}: indice principale assente (serve l'ultima seduta conclusa; un movimento oltre il 3% va citato)")
+# Le righe fisse delle tabelle di pag. 5 (numeri.py le calcola da qui): ogni serie c'è, con il dato o con il motivo per cui manca
+for _et, _nome, *_ in [r for _, rr in N.CRUSCOTTO + N.CROSS for r in rr]:
+    _nomi = _nome if isinstance(_nome, tuple) else (_nome,)
+    if not any(n in d["serie"] for n in _nomi):
+        problemi.append(f"{_nomi[0]}: manca la serie (riga della tabella di pag. 5): ultima chiusura dal web (APP_DATI §3); se "
+                        "non esce: {\"mercato\": \"..\", \"nd\": \"<motivo>\", \"ultimi\": []} e la riga non entra in tabella")
 print(f"Serie controllate: {len(d['serie'])}")
 for a in avvisi:
     print("AVVISO: " + a)

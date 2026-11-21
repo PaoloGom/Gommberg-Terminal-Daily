@@ -22,7 +22,8 @@ passo() {  # passo <nome> <bloccante 1/0> <comando...>
   if [ $rc -eq 0 ]; then echo "[ok] $nome: $riga" | cut -c1-160
   elif [ "$blocca" = "1" ]; then echo "[ROSSO] $nome:"; ROSSI+=("$nome")
   else echo "[avviso] $nome: $riga" | cut -c1-160; fi
-  { grep -E "^(ERRORE|- |DA_TOGLIERE)" "$TMP"; grep -E "^AVVISO" "$TMP"; } | head -6 | cut -c1-200
+  # le schede da togliere per prime (se ce ne sono): con molte righe problema non devono uscire dalle 6 mostrate
+  { grep -E "^DA_TOGLIERE: ." "$TMP"; grep -E "^(ERRORE|- )" "$TMP"; grep -E "^AVVISO" "$TMP"; } | head -6 | cut -c1-200
   if [ $rc -ne 0 ] && ! grep -qE "^(- |ERRORE)" "$TMP"; then tail -1 "$TMP" | cut -c1-160; fi
 }
 

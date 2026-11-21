@@ -1,0 +1,356 @@
+{
+ "agenda": [
+  {
+   "attese": "Nessun dato: si ascolta il tono sul rialzo di dicembre",
+   "chiave": false,
+   "evento": "Intervento di Kevin Warsh (Fed)",
+   "muove": [
+    "Sopra: un tono più duro del previsto di solito alza rendimenti e dollaro.",
+    "Sotto: un tono più cauto di solito aiuta azioni e oro."
+   ],
+   "perche": "Il tono del presidente, dopo Williams alle 15:05",
+   "quando": "Lun 16, 18:00"
+  },
+  {
+   "attese": "+0,2% sul mese (core +0,4%); prima +0,8% (+0,9%)",
+   "chiave": false,
+   "evento": "Vendite al dettaglio USA (ottobre)",
+   "muove": [
+    "Sopra: di solito salgono dollaro e rendimenti a breve.",
+    "Sotto: il rialzo di dicembre perde un po' di forza."
+   ],
+   "perche": "Primi consumi dopo i prezzi alti",
+   "quando": "Mar 17, 14:30"
+  },
+  {
+   "attese": "Utile per azione 2,47 $; ricavi circa 108,8 mld $",
+   "chiave": true,
+   "evento": "Conti di Nvidia",
+   "muove": [
+    "Sopra: di solito i fornitori asiatici di chip recuperano in apertura.",
+    "Sotto: il timore sull'AI si allarga oltre l'Asia."
+   ],
+   "perche": "Evento n.1: primi conti dopo l'addio di Huang",
+   "quando": "Mar 17, 23:00"
+  },
+  {
+   "attese": "Nessun dato: si cerca quanti membri vogliono più rialzi",
+   "chiave": false,
+   "evento": "Verbali della Fed (riunione di ottobre)",
+   "muove": [
+    "Sopra: più rialzi nei verbali di solito spingono su i rendimenti brevi.",
+    "Sotto: toni più cauti di solito li fanno scendere."
+   ],
+   "perche": "Quanto è condiviso il rialzo di dicembre",
+   "quando": "Mer 18, 20:00"
+  }
+ ],
+ "approfondimenti": [
+  {
+   "formato": "due_grafici",
+   "tema": "Chip e Asia",
+   "titolo": "Per noi Taipei e Seul cadono di più: nell'indice pesano i chip"
+  },
+  {
+   "formato": "due_grafici",
+   "tema": "Tassi USA",
+   "titolo": "Borse su e rifugi giù: per noi la Fed pesa più della paura"
+  },
+  {
+   "formato": "grafico",
+   "tema": "Europa",
+   "titolo": "La settimana più forte da aprile per l'Europa arriva mentre l'AI vacilla"
+  },
+  {
+   "formato": "grafico",
+   "tema": "Petrolio",
+   "titolo": "Con Hormuz chiuso, il petrolio caro frena chi lo importa: il Giappone"
+  }
+ ],
+ "data": "2026-11-16",
+ "dek": "Le borse asiatiche aprono la settimana con i chip sotto pressione: oltre a Taipei e Seul perde il 2,4% Tokyo, mentre Hong Kong sale dello 0,5%. Il dubbio è che la spesa in intelligenza artificiale rallenti, con l'addio di Jensen Huang a Nvidia e la notizia che potrebbe tornare. Martedì sera i conti di Nvidia diranno se il timore è fondato, e giovedì debutta in borsa Anthropic.",
+ "dove": {
+  "agenda": 5,
+  "approfondimenti": [
+   2,
+   3,
+   4,
+   4
+  ],
+  "mercati": 5,
+  "scommessa": 6
+ },
+ "evento_oggi": "Mar 17, 23:00 Conti di Nvidia",
+ "file": "pdf/2026-11-16-gommberg-026.pdf",
+ "glossario": [
+  "core",
+  "VIX",
+  "ACWI"
+ ],
+ "grafici": [
+  {
+   "etichette": [
+    "Taiwan (Taiex)",
+    "Corea (Kospi)",
+    "Giappone (Nikkei)",
+    "Cina (Shanghai)",
+    "Hong Kong (Hang Seng)"
+   ],
+   "serie": [],
+   "tipo": "barre",
+   "titolo": "La vendita colpisce Taipei e Seul e risparmia Hong Kong",
+   "x0": null,
+   "x1": null
+  },
+  {
+   "etichette": [],
+   "serie": [
+    "Nikkei"
+   ],
+   "tipo": "linee",
+   "titolo": "Il Nikkei torna sotto 60.000 dopo una risalita da 57.435",
+   "x0": "2026-11-02",
+   "x1": "2026-11-16"
+  },
+  {
+   "etichette": [],
+   "serie": [
+    "10 anni meno 2 anni"
+   ],
+   "tipo": "linee",
+   "titolo": "Il 2 anni sale più del 10 anni: la distanza scende a 27 punti base",
+   "x0": "2026-11-02",
+   "x1": "2026-11-13"
+  },
+  {
+   "etichette": [],
+   "serie": [
+    "Oro future"
+   ],
+   "tipo": "linee",
+   "titolo": "L'oro scende sotto 3.900 dollari dal massimo del 9 novembre",
+   "x0": "2026-11-02",
+   "x1": "2026-11-13"
+  },
+  {
+   "etichette": [
+    "Ftse Mib",
+    "Euro Stoxx 50",
+    "S&P 500",
+    "Nasdaq",
+    "Russell 2000"
+   ],
+   "serie": [],
+   "tipo": "barre",
+   "titolo": "Europa e Milano battono Wall Street nella settimana",
+   "x0": null,
+   "x1": null
+  },
+  {
+   "etichette": [],
+   "serie": [
+    "Brent"
+   ],
+   "tipo": "linee",
+   "titolo": "Il Brent risale a 96 dollari dopo il minimo del 10 novembre",
+   "x0": "2026-11-02",
+   "x1": "2026-11-13"
+  }
+ ],
+ "meccanismi": [
+  "M17",
+  "M23",
+  "M11"
+ ],
+ "nome": "2026-11-16 Gommberg Terminal Daily #026.pdf",
+ "notizie": [
+  "La Cina delude: vendite al dettaglio a +0,4% contro il +0,8% atteso",
+  "Il Giappone si ferma: Pil a -0,1%, primo calo in un anno",
+  "Anthropic fissa il prezzo tra 70 e 78 dollari e debutta giovedì al Nasdaq",
+  "Trump, Xi e Putin si incontrano a Shenzhen per la prima volta",
+  "Fincantieri cede oltre il 4% dopo i conti, Eni sale dell'1,98%",
+  "Hormuz resta chiuso e il Brent sta intorno ai 96 dollari"
+ ],
+ "numero": 26,
+ "pagine": 6,
+ "parole": [
+  "Chip",
+  "Acquisti rifugio",
+  "Verbali della Fed",
+  "Curva dei rendimenti",
+  "Importatore di petrolio",
+  "Quotazione in borsa"
+ ],
+ "quadro": "Per noi la giornata dice due cose che non si contraddicono. In Asia la paura riguarda i chip e non l'economia in generale: Hong Kong sale mentre Taipei crolla. Intanto i rifugi, di solito cercati con la paura, non funzionano: i titoli di Stato e l'oro hanno perso e il dollaro è più forte. Per noi pesa di più la Fed delle borse. Il Brent, a 95,84 $, resta senza direzione.",
+ "ripetizioni": 7,
+ "scommessa": {
+  "dettaglio": [
+   [
+    "S&P 500",
+    "giù",
+    null,
+    null
+   ],
+   [
+    "Euro Stoxx 50",
+    "su",
+    null,
+    null
+   ],
+   [
+    "Treasury 10 anni",
+    "su",
+    null,
+    null
+   ],
+   [
+    "EUR/USD",
+    "giù",
+    null,
+    null
+   ],
+   [
+    "Brent future",
+    "su",
+    null,
+    null
+   ],
+   [
+    "Oro future",
+    "giù",
+    null,
+    null
+   ]
+  ],
+  "par": 7.3,
+  "range": null,
+  "settimana": "2026-11-16/2026-11-20",
+  "strada": null,
+  "su": 6
+ },
+ "sommario": [
+  "La Fed parla oggi e mercoledì: dai verbali si capisce quanto è vicino il rialzo di dicembre.",
+  "Giovedì a Shenzhen il primo vertice a tre tra Trump, Xi e Putin.",
+  "Europa e Milano chiudono la settimana migliore da aprile, mentre l'AI vacilla."
+ ],
+ "temi": [
+  "Chip",
+  "Fed",
+  "Tassi",
+  "Asia",
+  "Petrolio",
+  "Europa"
+ ],
+ "termometri": {
+  "fermi": "",
+  "righe": [
+   [
+    "AI e chip",
+    "Conti Nvidia martedì",
+    "Taiwan -6% alla prima seduta",
+    "giu: Titoli dei chip asiatici",
+    "Conti Nvidia, mar 17 alle 23:00"
+   ],
+   [
+    "Fed e tassi",
+    "Verbali mercoledì",
+    "Rialzo di dicembre quasi certo",
+    "su: Rendimenti a 2 e 10 anni",
+    "Verbali, mer 18 alle 20:00"
+   ],
+   [
+    "Dollaro e oro",
+    "Dollaro forte, oro in calo",
+    "Oro -4,6% in una settimana",
+    "giu: Oro",
+    "Tono della Fed oggi e mercoledì"
+   ],
+   [
+    "Petrolio",
+    "Hormuz chiuso",
+    "Brent senza direzione",
+    "fermo: Brent intorno a 96 $",
+    "Vertice a Shenzhen, giovedì"
+   ]
+  ]
+ },
+ "ticker": [
+  [
+   "MSCI ACWI (ETF)",
+   "156,10 $",
+   "-0,3% g"
+  ],
+  [
+   "S&P 500",
+   "7.561,67",
+   "-0,4% g"
+  ],
+  [
+   "EURO STOXX 50",
+   "6.386,86",
+   "-0,2% g"
+  ],
+  [
+   "TREASURY 10 ANNI",
+   "5,15%",
+   "+5 pb g"
+  ],
+  [
+   "EUR/USD",
+   "1,1021",
+   "-0,3% g"
+  ],
+  [
+   "BRENT FUTURE",
+   "95,84 $",
+   "0,0% g"
+  ],
+  [
+   "ORO",
+   "3.886 $",
+   "0,0% g"
+  ]
+ ],
+ "ticker_al": "2026-11-13",
+ "titolo": "I chip asiatici crollano dopo Nvidia: Taiwan perde il 6%, Seul il 3,6%",
+ "verdetto": {
+  "direzione": 5,
+  "esiti": [
+   [
+    "S&P 500",
+    "su",
+    1
+   ],
+   [
+    "Euro Stoxx 50",
+    "su",
+    1
+   ],
+   [
+    "Treasury 10 anni",
+    "giù",
+    0
+   ],
+   [
+    "EUR/USD",
+    "giù",
+    1
+   ],
+   [
+    "Brent future",
+    "giù",
+    1
+   ],
+   [
+    "Oro future",
+    "giù",
+    1
+   ]
+  ],
+  "par": 7.3,
+  "punti": 7,
+  "range": 2,
+  "settimana": "2026-11-09/2026-11-13",
+  "su": 12
+ }
+}

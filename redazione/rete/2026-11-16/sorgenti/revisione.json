@@ -1,0 +1,152 @@
+[
+ {
+  "id": "T01",
+  "trovato": "AFP: \"Hang Seng Index: UP 0.5 percent at 23,753.84 (close)\"; \"Kospi: DOWN 3.6 percent at 5,100.50 (close)\"; \"Nikkei 225: DOWN 2.4 percent at 59,662.02 (close)\". AP (click2houston): \"Taiex sank 6%\"; \"SK Hynix plummeted 7.9%\"; \"falling 5.7%\" (TSMC); \"Tokyo Electron dipped 7.1%\"; \"Shanghai Composite declined 1%\".",
+  "verifica": "confermato",
+  "nota_revisore": "Confrontato con AFP (Yahoo UK) e AP (click2houston): Kospi 5.100,50 e HSI 23.753,84 coincidono con AFP; Taiex, Nikkei, Shanghai -1%, titoli coincidono con AP. Fonte Businesskorea non ritrovata dalla ricerca (usati JoongAng Daily, Bloomingbit, Seoul Economic Daily per il Kospi: 5.100,50)."
+ },
+ {
+  "id": "D06",
+  "trovato": "Kitco PM Report 11/11: \"headline inflation increasing 0.4% in October\" e \"core prices rose 0.3%, also above forecasts\"; futures \"approximately an 87.1% probability of a 25-basis-point increase\" e \"a 12.9% probability of a 50-basis-point move\" per il 8-9 dicembre; \"The U.S. dollar index climbed approximately 0.7% toward 102.90\"; poi \"The benchmark 10-year Treasury yield had briefly exceeded 5.00% Tuesday as investors responded to the inflation figures.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Numeri CPI, probabilita 87,1/12,9, DXY ~102,90 (vicino al massimo da aprile 2025) confermati. Sfumatura: il 10 anni ha superato 5,00% solo brevemente martedi, non e 'sopra 5,00%' in modo stabile."
+ },
+ {
+  "id": "D04",
+  "trovato": "AP: \"On Friday, Wall Street's benchmark S&P 500 dropped 0.4%\"; \"the technology-heavy Nasdaq composite fell 0.9%\"; \"Nvidia lost 2% Friday, after falling 4.3% Thursday, with Broadcom declining 4.8% Friday and AMD, or Advanced Micro Devices, giving up 8.8%.\" (versione kiro7; click2houston ha le stesse cifre)",
+  "verifica": "confermato",
+  "nota_revisore": "Nasdaq -0,9%, Nvidia -2% dopo -4,3%, Broadcom -4,8%, AMD -8,8% coincidono con AP (click2houston e kiro7)."
+ },
+ {
+  "id": "D08",
+  "trovato": "cash.ch (AWP): Robert Greil di Bankhaus Merck Finck: \"«Schwächelt der KI-Sektor, performen Europas Aktienmärkte besser als die amerikanischen und asiatischen\" (frase piu lunga). \"Der Eurozone-Leitindex EuroStoxx 50 schloss 0,19 Prozent niedriger bei 6.386,86 Zählern.\" \"Mit einem Aufschlag von 3,5 Prozent war die Börsenwoche die stärkste seit April.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Cifre e attribuzione a Greil confermate sulla copia cash.ch (AWP). Problema residuo: la pagina finanznachrichten e accreditata a Moneycab (13.11.2026, 18:39), non a dpa-AFX, e mostra solo il testo troncato '«Schwächelt der KI-Sektor, performen Europas Aktienmärkte besser ...' senza nome. Etichetta 'dpa-AFX (finanznachrichten)' nella scheda non verificata: correggerla in Moneycab. Il fatto omette che il confronto e 'meglio di USA e Asia'."
+ },
+ {
+  "id": "D09",
+  "trovato": "SoldiOnline: \"Il FTSEMib ha messo a segno un rialzo dello 0,1% a 51.859 punti\"; \"nell'intera settimana il principale indice di Borsa Italiana ha guadagnato il 3,61%.\"; \"Segno meno, invece, per il FTSE Italia Mid Cap (-0,21%).\"; \"Al MidCap forti vendite su Juventus FC (-10,8% a 1,365 euro).\"; \"Lo spread Btp-Bund ha oscillato tra i 100 e i 105 punti.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Ftse Mib 51.859 (+0,1%), +3,61% settimana, All Share ~+0,06%, Mid Cap -0,21%, Juventus -10,8%, spread 100-105 tutti su SoldiOnline. Money.it conferma 51.858,51 (+0,10%) e +3,61% ma non ha gli altri dati. Motivo aumento di capitale per Juventus non verificato nel testo letto."
+ },
+ {
+  "id": "D11",
+  "trovato": "Al Jazeera: \"While full-scale strikes have, for now, ceased, the conflict remains in a deadlock.\" \"After more than 100 days, the critical Strait of Hormuz remains closed, and oil and gas prices are still volatile as ships in the strait continue to face Iranian strikes and seamines.\" \"One-third of China's crude oil supply transited the strait before the war.\" Guerra \"which the US and Israel launched on February 28\".",
+  "verifica": "confermato",
+  "nota_revisore": "Inizio 28/2, fine dei colpi su larga scala, stallo, Hormuz chiuso e circa un terzo del greggio cinese confermati da Al Jazeera 14/11."
+ },
+ {
+  "id": "D01",
+  "trovato": "AFP (Yahoo UK): \"Hong Kong - Hang Seng Index: UP 0.5 percent at 23,753.84 (close)\"; \"Shanghai - Composite: DOWN 0.9 percent at 3,602.57 (close)\"; \"Seoul - Kospi: DOWN 3.6 percent at 5,100.50 (close)\"; \"Tokyo - Nikkei 225: DOWN 2.4 percent at 59,662.02 (close)\". AP (click2houston): \"Taiwan's Taiex sank 6%\"; \"Australia's S&P/ASX 200 edged down 0.4% to 9,044.70.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Riletto da zero: Kospi 5.100,50 (AFP e JoongAng 5,100.5), Nikkei 59.662,02, Hang Seng 23.753,84 e Shanghai -0,9% a 3.602,57 sono etichettati 'close' nell'AFP; Taiex -6% e ASX -0,4% sono nell'AP. Attenzione: l'AP riporta per gli stessi indici livelli diversi (Kospi 5.100,25, Hang Seng 23.759,37, Shanghai -1% a 3.598,75): la scheda ora segue AFP, coerente."
+ },
+ {
+  "id": "D02",
+  "trovato": "AP (click2houston): \"SK Hynix plummeted 7.9%\"; \"Samsung Electronics gave up 4.5%\"; \"SoftBank slipped 3.7%\"; Kioxia \"dropped 8%\"; \"chip equipment maker Tokyo Electron dipped 7.1%\"; TSMC \"falling 5.7%\".",
+  "verifica": "confermato",
+  "nota_revisore": "Versione finale AP (click2houston) coincide con tutte le cifre del fatto: Hynix -7,9, Samsung -4,5, SoftBank -3,7, Kioxia -8, Tokyo Electron -7,1, TSMC -5,7. Le versioni AP intraday (kiro7) hanno cifre piu basse: usare quella di chiusura."
+ },
+ {
+  "id": "D03",
+  "trovato": "JoongAng Daily (16/11/2026, 17:07): \"The Kospi lost 190.03 points, or 3.59 percent, to close at 5,100.5, extending its losses to a third session.\" \"chipmaker SK hynix plunged 7.89 percent to 1.12 million won.\" Seoul Economic Daily (16/11/2026, 17:52): \"Foreign investors and institutions sold a net 1.3837 trillion won and 459.8 billion won, respectively, on the main board\" ... \"while retail investors bought a net 1.3484 trillion won.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Kospi, -190,03, -3,59%, SK hynix -7,89%, stranieri -1.383,7 mld e privati +1.348,4 mld confermati (JoongAng arrotonda 1,38 e 1,34 mila mld). Non verificato letteralmente nelle due pagine che SK hynix 'pesi piu di tutti' sull'indice. Altre fonti (Bloomingbit) danno flussi diversi (1,6998 e 1,663 mila mld): perimetro non chiaro, non usate."
+ },
+ {
+  "id": "D10",
+  "trovato": "AP: \"The Japanese economy contracted at an annualized rate of 0.1% for the July-September quarter,\" ... \"with private consumption down an annualized 1.1%.\" \"Japan, which imports virtually all its oil, has been severely hurt by surging oil prices, because of the war in Iran.\" \"The main route for oil shipments, the Strait of Hormuz, is effectively blocked.\" \"The U.S. dollar is recently trading at about 160 yen\"",
+  "verifica": "confermato",
+  "nota_revisore": "Pil -0,1% annualizzato, consumi -1,1%, import petrolifero quasi totale, Hormuz di fatto bloccato, dollaro a circa 160 yen: tutto su AP/KSAT."
+ },
+ {
+  "id": "D12",
+  "trovato": "AP (click2houston): Brent \"climbed 0.6% to $96.40 per barrel\"; \"oil flows in the Gulf were recovering from prewar levels\"; versione AP precedente: \"Brent crude, the international standard, slid 1% to $94.91 per barrel\", ancora ben sopra i circa 72 $ di fine febbraio.",
+  "verifica": "confermato",
+  "nota_revisore": "Brent 96,40 (+0,6%) e flussi del Golfo verso i livelli prebellici sono nella versione finale AP; il riferimento ai 72 $ di fine febbraio e nel testo AP (letto nella versione kiro7/Daily Excelsior). AFP a metà seduta dava 96,90 (intraday), non in contrasto."
+ },
+ {
+  "id": "D07",
+  "trovato": "FXEmpire: \"Retail Sales m/m, forecast 0.2% (prior 0.8%)\" e \"Core Retail Sales m/m, forecast 0.4% (prior 0.9%)\" martedi 17/11; \"FOMC Meeting Minutes\" mercoledi 18/11 (riunione di ottobre); \"Fed Chair Warsh Speaks, 17:00 GMT\" e \"FOMC Member Williams Speaks, 14:05 GMT\" lunedi. Thrive: \"The minutes, due Wednesday at 19:00 UTC\" e vendite \"after +0.8% in September\".",
+  "verifica": "confermato",
+  "nota_revisore": "Attese +0,2%/core +0,4% e precedenti +0,8%/+0,9% su FXEmpire; il mese di ottobre e implicito (Thrive: settembre +0,8%). Verbali ottobre, Williams e Warsh lunedi confermati. Nota: Williams e New York non verificato testualmente."
+ },
+ {
+  "id": "N06",
+  "trovato": "SoldiOnline: \"Il FTSEMib ha messo a segno un rialzo dello 0,1% a 51.859 punti\"; \"nell'intera settimana il principale indice di Borsa Italiana ha guadagnato il 3,61%.\"; \"Lo spread Btp-Bund ha oscillato tra i 100 e i 105 punti.\"; \"il rendimento del Btp decennale che si è avvicinato al 4,45%\"; \"Al FTSEMib spicca la performance negativa di Fincantieri (-4,28% a 11,405 euro).\" \"ENI ha registrato un progresso dell'1,98% a 25,975 euro.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Tutte le cifre su SoldiOnline. Money.it: Ftse Mib 51.858,51 (+0,10%), +3,61%, Eni +1,98%, Fincantieri -4,11% (oltre -4%, coerente)."
+ },
+ {
+  "id": "N10",
+  "trovato": "AP: \"On Friday, Wall Street's benchmark S&P 500 dropped 0.4%.\" \"The Dow Jones Industrial Average edged 0.1% higher, while the technology-heavy Nasdaq composite fell 0.9%.\" \"Nvidia lost 2% Friday, after falling 4.3% Thursday, with Broadcom declining 4.8% Friday and AMD ... giving up 8.8%.\"",
+  "verifica": "confermato",
+  "nota_revisore": "S&P -0,4%, Dow +0,1%, Nasdaq -0,9%, Nvidia -2% (dopo -4,3%), Broadcom -4,8%, AMD -8,8% coincidono con AP (kiro7 e click2houston)."
+ },
+ {
+  "id": "N11",
+  "trovato": "finanznachrichten (dpa-AFX/Moneycab): \"Der Eurozone-Leitindex EuroStoxx 50 schloss 0,19 Prozent niedriger bei 6.386,86 Zählern.\" \"Mit einem Aufschlag von 3,5 Prozent war die Börsenwoche die stärkste seit April.\" \"Am Vortag hatte es der EuroStoxx 50 auf den höchsten Stand seit Ende August geschafft.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Chiusura 6.386,86 (-0,19%), settimana +3,5% (migliore da aprile), massimo da fine agosto giovedi: tutti confermati."
+ },
+ {
+  "id": "N12",
+  "trovato": "Cryptoticker (15/11/2026): \"The December gold futures contract on Comex closed on Friday, November 13, 2026, at $3,886.30 per troy ounce\"; \"The dollar adds to the pressure: BullionVault says the DXY dollar index hit its highest level since April 2025.\" Kitco PM Report 13/11 (URL non in scheda): \"The benchmark 10-year U.S. Treasury yield climbed toward 5.15%, while the U.S. dollar remained firm.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Oro 3.886,30 $ e dollaro forte confermati da Cryptoticker. Il 5,15% NON e nella pagina Kitco della scheda (11/11: 'briefly exceeded 5.00% Tuesday', nessun 3,886 ne 5,15%) ne in Cryptoticker ('rose back above 5%'): l'ho trovato solo su Kitco PM Report del 13/11 (kitco.com/news/article/2026-11-13/gold-posts-steep-weekly-loss-treasury-yields-rise-fed-tightening-bets). Fatto vero, ma la fonte Kitco in scheda va sostituita con quell'URL."
+ },
+ {
+  "id": "N05",
+  "trovato": "Al Jazeera: \"On Friday, Washington also confirmed Trump's attendance at the summit, which will take place from November 18-19.\" \"A Trump administration official told reporters the US president will not bring up Russia's war on Ukraine, although Kremlin officials previously suggested the conflict could be discussed.\" Tariffs/chip and Iran war are on the agenda.",
+  "verifica": "confermato",
+  "nota_revisore": "Primo incontro a tre ad Apec Shenzhen 18-19/11, conferma della Casa Bianca, temi dazi/chip/Iran, Ucraina esclusa per un funzionario USA: tutto su Al Jazeera. AP: i tre 'expected to meet Thursday' (19/11)."
+ },
+ {
+  "id": "N02",
+  "trovato": "Reuters (The Standard HK): \"Retail sales edged up 0.4 percent year on year in October after growing 1.1 percent the previous month.\" \"Economists polled by Reuters had expected a 0.8 percent increase.\" \"Industrial output in October expanded 4.8 percent from a year earlier\" vs 5.3 percent atteso; \"The 8.1 percent decline in fixed-asset investment in the January-to-October period widened.\"; \"goods exports soared in October as the global AI infrastructure buildout continued\".",
+  "verifica": "confermato",
+  "nota_revisore": "Tutte le cifre (0,4% vs 0,8%, set. 1,1%; 4,8% vs 5,3%; FAI -8,1%; export AI) confermate sulla copia Reuters di The Standard e da ING Think. Pagina Business Standard non ritrovata dalla ricerca; Investing.com/Yahoo non ha le cifre (solo 'missed forecasts' e Pil Giappone -0,1%)."
+ },
+ {
+  "id": "N03",
+  "trovato": "AP: \"The Japanese economy contracted at an annualized rate of 0.1% for the July-September quarter,\" \"with private consumption down an annualized 1.1%.\" \"Private non-residential investment marked an annualized 6.8% growth for the quarter.\" \"Japan eked out moderate growth over the previous three quarters, while contracting the same quarter a year ago.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Pil -0,1%, consumi -1,1%, investimenti non residenziali +6,8% su AP/KSAT; 'primo calo in un anno' coerente con tre trimestri di crescita precedenti (non scritto letteralmente). Investing.com/Yahoo conferma solo -0,1%."
+ },
+ {
+  "id": "N04",
+  "trovato": "The Next Web: \"will sell 825 million shares at $70 to $78 each, raising up to $64.4B\" e \"the updated prospectus filed on Tuesday values Anthropic at about $1.4 trillion on a fully diluted basis\"; \"trading due to start on the Nasdaq on November 19 under the ticker ANT\". Yahoo/Decrypt: pricing expected November 18. Investing.com/Yahoo: \"Anthropic's IPO, expected two days later, has drawn greater institutional interest than SpaceX's.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Forchetta, 825 mln azioni, 64,4 mld, 1.400 mld diluito, pricing 18/11, debutto 19/11 ticker ANT, domanda superiore a SpaceX: confermati da TNW, Yahoo (Decrypt) e Investing.com. Nota: TNW indica anche un collocamento privato da 26 mld (totale fino a 90,4 mld) e 1.000 mld senza opzioni. URL Decrypt originale non ritrovato (usata la versione Yahoo)."
+ },
+ {
+  "id": "N07",
+  "trovato": "AP: Brent \"climbed 0.6% to $96.40 per barrel\" (ben sopra circa 72 $ di fine febbraio). Al Jazeera: \"After more than 100 days, the critical Strait of Hormuz remains closed\" e \"the conflict remains in a deadlock.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Brent ~96 $ (AP 96,40), Hormuz chiuso e conflitto in stallo (Al Jazeera 14/11). Il prezzo di fine febbraio (~72 $) letto nel testo AP."
+ },
+ {
+  "id": "N09",
+  "trovato": "FXEmpire: Nvidia \"is expected to report earnings of $2.47 per share on revenue of $108.8 billion.\" \"The results and earnings call will be the first since Jensen Huang stepped down as CEO.\" Interim CEO \"Colette Kress\". Thrive: \"about $2.47 a share on roughly $109 billion of sales\".",
+  "verifica": "confermato",
+  "nota_revisore": "EPS 2,47, ricavi 108,8 mld, primi conti dopo l'uscita di Huang, Kress ad interim su FXEmpire; Thrive concorda (~109 mld) ma non cita Kress. Martedi 17/11 dopo la chiusura confermato dal calendario."
+ },
+ {
+  "id": "D13",
+  "trovato": "Reuters (The Standard HK): \"Industrial output in October expanded 4.8 percent from a year earlier\"; \"Retail sales edged up 0.4 percent year on year in October\"; investimenti \"8.1 percent decline\" vs 7.0 atteso; Lynn Song di ING: \"2026 was one of the weakest years for domestic demand in recent history.\" Next: \"In 2027, the negative impact from a trade-in programme that had pulled purchases forward could ease.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Cifre e stime (5,3; 0,8; -7,0) e citazione ING confermate sulla copia Reuters di The Standard HK. La nota ING Think non contiene quella frase esatta, ma Reuters la riporta. Business Standard non ritrovato."
+ },
+ {
+  "id": "K01",
+  "trovato": "Reuters (The Standard HK): \"Retail sales edged up 0.4 percent year on year in October after growing 1.1 percent the previous month.\" \"Economists polled by Reuters had expected a 0.8 percent increase.\" \"The pace missed Reuters poll expectations for growth of 5.3 percent\" (produzione 4,8%).",
+  "verifica": "confermato",
+  "nota_revisore": "Vendite al dettaglio +0,4% (atteso 0,8%) e produzione industriale +4,8% (atteso 5,3%) confermati; ING Think concorda."
+ },
+ {
+  "id": "A01",
+  "trovato": "FXEmpire: \"Fed Chair Warsh Speaks, 17:00 GMT\" lunedi. Thrive in Markets: \"Fed Chair Kevin Warsh speaks on Monday at 17:00 UTC.\"",
+  "verifica": "confermato",
+  "nota_revisore": "17:00 GMT/UTC = 18:00 a Roma (GMT+1 dal 1/11). Intervento di Warsh lunedi 16/11 confermato da entrambe le fonti."
+ }
+]

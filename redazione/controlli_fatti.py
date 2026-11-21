@@ -5,18 +5,23 @@ Esce con codice 1 e l'elenco dei problemi se qualcosa non va.
 Schema di fatti.json: lista di schede
 {"id": "N01", "sezione": "top_story|top_news|catalizzatori|agenda|macro|deep_dive|scommessa"
    (nomi v6 ammessi: notizie=top_news, calendario=catalizzatori, termometri/lettura=macro, approfondimento=deep_dive),
- "tipo": "C" solo per una causa specifica di un movimento (la citazione deve contenere il nesso; nel PDF "(Testata)" in coda),
+ "tipo": "C" solo per una causa specifica di un movimento (la citazione deve contenere il nesso; nel PDF chi la dà è detto nella frase),
  "tipo": "U" per un dato ufficiale (dato macro, decisione di banca centrale, asta, comunicato): serve una fonte
    "ufficiali" di fonti.json; l'agenzia solo d'appoggio. Se il sito ufficiale non si raggiunge dopo ricerche vere:
-   "ufficiale_cercato": ["ricerca 1", "ricerca 2"] e il dato esce attribuito "(Reuters)".
+   "ufficiale_cercato": ["ricerca 1", "ricerca 2"] e il dato esce attribuito "(Reuters)". In prima pagina il dato
+   ufficiale si riconosce anche se non è dichiarato (autori.ufficiale_di_fatto) e chiede il comunicato allo stesso modo.
  "testo": "il fatto come appare nel PDF", "data_evento": "AAAA-MM-GG",
  "novita": "per un tema già uscito: qual è lo sviluppo nuovo (altrimenti null)",
  "fonti": [{"testata": "Reuters", "url": "https://...", "data_pubblicazione": "AAAA-MM-GG", "citazione": "frase originale", "ricerca": "query che ha trovato la pagina (il revisore la riusa)"}],
-   in una fonte: "agenzia": "Reuters" se il sito ospita per intero un lancio d'agenzia (fonti.json "agenzie"; vale livello 1,
-   nel PDF si cita l'agenzia); "primaria": true se è il documento di chi è parte del fatto (comunicato, deposito, discorso).
+   in una fonte: "agenzia": "Reuters" se il sito ospita per intero un lancio d'agenzia (fonti.json "agenzie": l'autore è
+   l'agenzia, nel PDF si cita lei); "primaria": true se è il documento di chi è parte del fatto (comunicato, deposito, discorso).
+ "conferma_cercata": ["la ricerca in più fatta per trovare un secondo autore, senza riuscirci"] (solo per un fatto con un autore solo),
  "verifica": "confermato|errato|non_conclusivo" (scritto dal revisore), "nota_revisore": "..."}
-Fonti "ufficiali" di fonti.json (BLS, Census, BEA, Fed, Tesoro, Eurostat, Istat, BCE, borse): valgono livello 1, bastano da
- sole. Dati pubblici certi (sezione catalizzatori, mercati, estremo): "fonte_singola": true = una sola fonte non vietata,
+Quando un fatto è confermato (la regola, a chi si applica e chi è l'autore di una fonte: autori.py): la fonte primaria basta
+ da sola (sito "ufficiali" di fonti.json o "primaria": true); altrimenti due autori diversi, e un'agenzia conta una volta sola
+ ovunque sia ripresa; come ultima scelta un solo autore di livello 1 o agenzia, con "conferma_cercata" (nel PDF la testata sta nella riga Fonti, come le altre).
+ Le cause (tipo C) e le schede della memoria già confermate restano com'erano: basta una fonte di livello 1 o agenzia.
+ Dati pubblici certi (sezione catalizzatori, mercati, estremo): "fonte_singola": true = una sola fonte non vietata,
  dichiarata nel PDF ("-7,57% (Korea Herald)"); un dato del calendario non si toglie mai.
 Registro delle anomalie (passo 2c), nella stessa lista: {"id": "A1", "sezione": "anomalia", "fatto": "PPI sopra le attese,
  10 anni -9 pb", "ricerche": ["treasury yields fall despite PPI", ...], "esito": "C03" | "non chiarita"} (lo controlla
@@ -24,41 +29,47 @@ Registro delle anomalie (passo 2c), nella stessa lista: {"id": "A1", "sezione": 
 Scaletta (prima della ricerca mirata): {"id": "S1", "sezione": "scaletta", "moduli": [{"chiave", "tesi", "domanda", "prove": [...],
  "contro"}]} (schema completo in APP_FONTI.md §4). Schede riprese dalla memoria (memoria.py): id "MEM..", campo "ripresa"."""
 import datetime as dt, json, os, re, sys
-from urllib.parse import urlparse
 
 QUI = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, QUI)
+from autori import AGENZIE, ALIAS, PUBBLICI, giudizio, livello, nome, si_applica, stessa_ricerca, ufficiale as dominio_ufficiale
+from autori import ufficiale_di_fatto
+
+
+def _mai_un_traceback(tipo, e, tb):
+    # fatti.json lo scrive un modello: un campo del tipo sbagliato deve dare una riga che si può correggere, non un traceback
+    riga = tb
+    while riga.tb_next:
+        riga = riga.tb_next
+    print(f"PROBLEMI:\n- fatti.json: un campo ha il tipo sbagliato ({tipo.__name__}: {str(e)[:80]}; controlli_fatti.py riga "
+          f"{riga.tb_lineno}): controlla che testo, date e id siano stringhe e che fonti, moduli e schede siano liste")
+    sys.exit(1)
+
+
+sys.excepthook = _mai_un_traceback
 fatti_p, indice_p, oggi_s = sys.argv[1], sys.argv[2], sys.argv[3]
 prima_revisione = "--prima-della-revisione" in sys.argv
+
+
+def _usciti():
+    """Le righe del calendario uscito dell'edizione (C["ieri"]: evento e dato), quando l'edizione è già scritta accanto a
+    fatti.json: servono a riconoscere i dati ufficiali di prima pagina. Prima della stesura non c'è: lista vuota."""
+    ed = os.path.join(os.path.dirname(os.path.abspath(fatti_p)), f"edizione_{oggi_s}.py")
+    if not os.path.exists(ed):
+        return []
+    qui = os.getcwd()
+    try:
+        import desk
+        C = desk._carica(ed)
+        return [(r[1], r[2]) for r in C.get("ieri") or [] if isinstance(r, (list, tuple)) and len(r) > 2]
+    except Exception:  # noqa: BLE001
+        return []
+    finally:
+        os.chdir(qui)
+
+
+USCITI = _usciti()
 oggi = dt.date.fromisoformat(oggi_s)
-F = json.load(open(os.path.join(QUI, "fonti.json"), encoding="utf-8"))
-L1, L2, NO = set(F["livello_1"]) | set(F.get("ufficiali", [])), set(F["livello_2"]), set(F["vietate"])
-# dati pubblici certi (calendario macro, chiusure e movimenti di mercato): una sola fonte non vietata basta se dichiarata
-PUBBLICI = {"catalizzatori", "mercati", "estremo"}
-
-
-UFF = set(F.get("ufficiali", []))
-AGENZIE = {a.lower() for a in F.get("agenzie", [])}
-
-
-def dominio_ufficiale(url):
-    h = (urlparse(url).hostname or "").lower().split(".")
-    return any(".".join(h[i:]) in UFF for i in range(len(h) - 1))
-
-
-def livello(url):
-    h = (urlparse(url).hostname or "").lower()
-    parti = h.split(".")
-    for i in range(len(parti) - 1):
-        d = ".".join(parti[i:])
-        if d in NO:
-            return 0
-        if d in L1:
-            return 1
-        if d in L2:
-            return 2
-    return 3
-
-
 voci = json.load(open(indice_p, encoding="utf-8"))
 prec = sorted({v["data"] for v in voci if v["data"] < oggi_s})
 ultima = dt.date.fromisoformat(prec[-1]) if prec else oggi - dt.timedelta(days=3)
@@ -77,56 +88,104 @@ if not prima_revisione and os.path.exists(REV_P):
             f.update({k: e[k] for k in ("trovato", "verifica", "nota_revisore") if k in e})
     json.dump(fatti, open(fatti_p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"Revisione: uniti {sum(1 for f in fatti if str(f.get('id')) in esiti)} esiti da revisione.json")
+un_autore, dichiarate = [], []
+# fatti.json lo scrive un modello: ciò che non ha la forma di una scheda diventa un problema con il suo id, non un'eccezione
+if not isinstance(fatti, list):
+    print("PROBLEMI:\n- fatti.json deve essere una lista di schede"); sys.exit(1)
+for f in fatti:
+    if isinstance(f, dict) and isinstance(f.get("id"), (int, float)):
+        f["id"] = str(f["id"])
+if any(not isinstance(f, dict) for f in fatti):
+    problemi.append("fatti.json: ci sono voci che non sono schede (servono oggetti con id, sezione, testo, fonti)")
+    fatti = [f for f in fatti if isinstance(f, dict)]
+for f in fatti:
+    if f.get("sezione") in ("anomalia", "prime_pagine", "ricerca", "scaletta") or "fonti" not in f:
+        continue
+    fo = f["fonti"] if isinstance(f["fonti"], list) else []
+    if fo != f["fonti"] or any(not isinstance(s, dict) for s in fo):
+        problemi.append(f"{f.get('id', '?')}: \"fonti\" deve essere una lista di oggetti (testata, url, data_pubblicazione, citazione)")
+    f["fonti"] = [s for s in fo if isinstance(s, dict)]
+    for s in f["fonti"]:
+        for k in ("url", "testata", "citazione", "data_pubblicazione"):
+            if s.get(k) is not None and not isinstance(s[k], str):
+                s[k] = str(s[k])
+        s["url"] = s.get("url") or ""
 ids = [f.get("id") for f in fatti]
 if len(ids) != len(set(ids)):
     problemi.append("id duplicati nelle schede")
 tutte = fatti
 fatti = [f for f in fatti if not f.get("scartata") and f.get("sezione") not in ("anomalia", "prime_pagine", "ricerca", "scaletta")]  # registri: controlli_contenuti.py
-ALIAS = {"notizie": "top_news", "calendario": "catalizzatori", "termometri": "macro", "lettura": "macro",
-         "approfondimento": "deep_dive", "approfondimenti": "deep_dive"}
-for f in fatti:
+def controlla(f):
     i, sez = f.get("id", "?"), ALIAS.get(f.get("sezione", ""), f.get("sezione", ""))
     if f.get("tipo") == "C" and not prima_revisione and f.get("verifica") is None:
         problemi.append(f"{i}: causa (tipo C) non verificata dal revisore")
     fonti = f.get("fonti") or []
     if not f.get("testo") or not f.get("data_evento"):
-        problemi.append(f"{i}: mancano testo o data_evento"); continue
+        problemi.append(f"{i}: mancano testo o data_evento"); return
     if not fonti:
-        problemi.append(f"{i}: nessuna fonte"); continue
+        problemi.append(f"{i}: nessuna fonte"); return
     livelli, testate = [], set()
     for s in fonti:
         lv = livello(s.get("url", ""))
         if lv == 0:
             problemi.append(f"{i}: fonte vietata {s.get('url')}")
-        # vale chi ha scritto, non chi ospita: lancio d'agenzia ripreso per intero, o documento di chi è parte del fatto
-        elif lv > 1 and (str(s.get("agenzia") or "").strip().lower() in AGENZIE or s.get("primaria") is True):
-            lv = 1
         if not s.get("url", "").startswith("http") or not s.get("citazione") or not s.get("data_pubblicazione"):
             problemi.append(f"{i}: fonte senza url, citazione o data di pubblicazione ({s.get('testata')})")
+        # per i dati pubblici vale la regola di sempre: un lancio d'agenzia o il documento di chi è parte del fatto vale livello 1
+        if lv > 1 and (str(s.get("agenzia") or "").strip().lower() in AGENZIE or s.get("primaria") is True):
+            lv = 1
         livelli.append(lv); testate.add((s.get("testata") or s.get("url")).lower())
-    if f.get("tipo") == "U" or sez == "catalizzatori":
-        uff = any(dominio_ufficiale(s.get("url", "")) for s in fonti)
+    g = giudizio(f)
+    # Un dato ufficiale lo è anche quando la scheda non lo dichiara: in prima pagina lo si riconosce da ciò che dice
+    # (autori.ufficiale_di_fatto: stesse cifre di una riga del calendario, un numero contro le attese, una riga di "ieri").
+    di_fatto = ufficiale_di_fatto(f, fatti, oggi_s, USCITI)
+    if f.get("tipo") == "U" or sez == "catalizzatori" or di_fatto:
+        uff = any(dominio_ufficiale(s.get("url", "")) or s.get("primaria") is True for s in fonti) if di_fatto else \
+            any(dominio_ufficiale(s.get("url", "")) for s in fonti)
         if not uff:
             cercato = f.get("ufficiale_cercato") or []
-            if len(cercato) >= 2:
+            if di_fatto:
+                problemi.append(f"CERCA {i}: dato ufficiale ({di_fatto}): metti \"tipo\": \"U\" e il comunicato tra le "
+                                "fonti (APP_FONTI §2)")
+            elif len(cercato) >= 2:
                 avvisi.append(f"{i}: dato ufficiale senza il comunicato (cercato: {'; '.join(cercato[:2])}): "
-                              "nel PDF attribuito \"(Testata)\"")
+                              "la testata nella riga Fonti")
             else:
                 problemi.append(f"CERCA {i}: dato ufficiale senza fonte ufficiale (non si toglie): cerca il comunicato (es. \"BLS CPI September "
                                 "2026 news release\", \"Eurostat flash estimate euro area inflation\") e aggiungilo alle fonti; "
                                 "l'agenzia resta solo d'appoggio. Se dopo 2 ricerche vere non esce: \"ufficiale_cercato\"")
-    singola = f.get("fonte_singola") and sez in PUBBLICI and 0 not in livelli
-    if singola and 1 not in livelli:
-        avvisi.append(f"{i}: fonte singola dichiarata ({next(iter(testate))}): nel PDF \"(Testata)\" in coda al dato")
-    # fonti non in elenco (livello 3) valgono come livello 2: servono due fonti indipendenti che dicono lo stesso
-    elif not (1 in livelli or sum(1 for x in livelli if x in (2, 3)) >= 2 and len(testate) >= 2):
-        if sez == "catalizzatori":
-            problemi.append(f"{i}: dato del calendario: cercalo alla fonte ufficiale (fonti.json \"ufficiali\") o, se impossibile, "
-                            "\"fonte_singola\": true e \"(Testata)\" nel PDF; mai toglierlo")
-        else:
-            problemi.append(f"{i}: fonti insufficienti (serve 1 di livello 1 o 2 testate di livello 2; livelli {livelli})")
-    ev = dt.date.fromisoformat(f["data_evento"])
-    pubs = [dt.date.fromisoformat(s["data_pubblicazione"]) for s in fonti if s.get("data_pubblicazione")]
+    if sez in PUBBLICI:
+        # dato pubblico certo: regola invariata (una di livello 1, o due testate, o una sola fonte dichiarata)
+        singola = f.get("fonte_singola") and 0 not in livelli
+        if singola and 1 not in livelli:
+            avvisi.append(f"{i}: fonte singola dichiarata ({sorted(testate)[0]}): la testata nella riga Fonti")
+        elif not (singola or 1 in livelli or sum(1 for x in livelli if x in (2, 3)) >= 2 and len(testate) >= 2):
+            if sez == "catalizzatori":
+                problemi.append(f"{i}: dato del calendario: cercalo alla fonte ufficiale (fonti.json \"ufficiali\") o, se impossibile, "
+                                "\"fonte_singola\": true e la testata nella riga Fonti; mai toglierlo")
+            else:
+                problemi.append(f"{i}: fonti insufficienti (serve 1 di livello 1 o 2 testate di livello 2; livelli {livelli})")
+    elif g["stato"] == "senza_fonti":
+        if not any(p.startswith(f"{i}:") for p in problemi):
+            problemi.append(f"{i}: nessuna fonte con un indirizzo valido (https://sito/pagina)")
+    # i fatti: la primaria basta da sola, altrimenti due autori diversi, come ultima scelta un autore solo dichiarato (autori.py)
+    elif g["stato"] == "singola":
+        chi = nome(g["autori"][0])
+        if not g["affidabile"]:
+            problemi.append(f"{i}: una sola fonte ({chi}) e non di livello 1: serve un secondo autore, o \"primaria\": true se è "
+                            "il documento di chi è parte del fatto")
+        elif not si_applica(f):
+            pass                # causa attribuita o scheda della memoria già confermata: una fonte affidabile basta, come prima
+        elif g["dichiarata"]:
+            avvisi.append(f"{i}: un solo autore dichiarato ({chi}): la testata nella riga Fonti")
+            dichiarate.append((str(i), g["cercate"]))
+        elif not any(p.startswith(f"{i}:") for p in problemi):   # una scheda già respinta per altro non si manda a cercare
+            un_autore.append(str(i))
+    try:
+        ev = dt.date.fromisoformat(f["data_evento"])
+        pubs = [dt.date.fromisoformat(s["data_pubblicazione"]) for s in fonti if s.get("data_pubblicazione")]
+    except (TypeError, ValueError):
+        problemi.append(f"{i}: data_evento o data_pubblicazione non nel formato AAAA-MM-GG"); return
     if sez == "agenda":
         if ev < oggi:
             problemi.append(f"{i}: evento in agenda già passato ({ev})")
@@ -149,9 +208,42 @@ for f in fatti:
         if v == "errato":
             problemi.append(f"{i}: segnato ERRATO dal revisore: {f.get('nota_revisore', '')}")
         if v == "non_conclusivo" and sez in PUBBLICI:
-            avvisi.append(f"{i}: dato pubblico non confermato dal revisore: resta con la fonte dichiarata (\"(Testata)\")")
+            avvisi.append(f"{i}: dato pubblico non confermato dal revisore: resta con la fonte dichiarata (nella riga Fonti)")
         elif v == "non_conclusivo":
             problemi.append(f"{i}: verifica non conclusiva: togliere il fatto dal PDF o attribuirlo e ripetere la verifica")
+
+
+for f in fatti:
+    try:
+        controlla(f)
+    except Exception as e:   # una scheda scritta male ferma solo sé stessa
+        un_autore[:] = [x for x in un_autore if x != str(f.get("id"))]
+        problemi.append(f"{f.get('id', '?')}: scheda scritta male ({type(e).__name__}): controlla i tipi dei campi (stringhe, liste)")
+
+# L'ultima scelta si riscontra: la ricerca dichiarata deve essere tra quelle lanciate davvero in questa sessione, che il
+# gancio legge dalla trascrizione. Senza gancio, o se il gancio non vede nessuna ricerca, non si conclude nulla.
+if dichiarate:
+    try:
+        import gancio_token
+        fatte = gancio_token.ricerche_fatte()
+    except Exception:
+        fatte = None
+    if fatte:
+        for i, cercate in dichiarate:
+            if not any(stessa_ricerca(c, x) for c in cercate for x in fatte):
+                problemi.append(f"CERCA {i}: la ricerca in \"conferma_cercata\" non è tra quelle fatte in questa sessione: "
+                                "fai la ricerca del secondo autore e scrivila com'è")
+
+if un_autore:
+    # In testa, e ogni riga sotto i 200 byte che controlli_tutti.sh mostra: prima che cosa fare, poi quali schede.
+    # Cominciano con CERCA: le schede non finiscono in DA_TOGLIERE, perché un fatto con un solo autore si cerca, non si toglie.
+    righe, riga = [], f"CERCA un secondo autore, {len(un_autore)} {'scheda' if len(un_autore) == 1 else 'schede'}:"
+    for x in un_autore:
+        if len((riga + " " + x + ",").encode()) > 190:
+            righe.append(riga.rstrip(",")); riga = "CERCA (segue):"
+        riga += " " + x + ","
+    problemi[:0] = ["CERCA come: il documento di chi è nel fatto (\"primaria\": true) o lo stesso fatto da un altro autore; "
+                    "un'agenzia conta 1 ovunque ripresa. Se non c'è: \"conferma_cercata\""] + righe + [riga.rstrip(",")]
 
 # Revisione mirata. Fino al 10/11/2026 il controllo chiedeva un esito per ogni scheda e il revisore, con 25 verifiche a
 # disposizione, segnava tutto "confermato" (221 su 221) senza riaprire gli approfondimenti. Ora l'elenco lo fa il codice,
@@ -178,7 +270,7 @@ def da_rivedere(schede, registri, massimo=25):
                 3 if scoperti and sez != "agenda" else 4 if sez == "agenda" else 5 if sez == "top_news" else
                 6 if sez == "catalizzatori" else 7)
     cand = [f for f in schede if not (str(f.get("id", "")).startswith("MEM") and f.get("verifica") == "confermato")]
-    cand = sorted(cand, key=lambda f: (classe(f), f.get("data_evento", "")))
+    cand = sorted(cand, key=lambda f: (classe(f), str(f.get("data_evento") or "")))
     return [f for f in cand if classe(f) < 7][:massimo]
 
 

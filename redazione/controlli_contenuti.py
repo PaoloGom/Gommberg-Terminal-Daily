@@ -8,7 +8,7 @@ Regole (ISTRUZIONI §5 e §7), ognuna generale:
  aperture  registro {"sezione": "prime_pagine"} in fatti.json: almeno 3 testate con le loro storie (o l'apertura); se la top
            story non concorda con la maggioranza, serve il "motivo" (§2). AVVISO: manca il flusso della notte, manca "fuori"
            (storie forti altrove che non copriamo), meno di 2 testate tra quelle indicate dalla regola.
- perche    PERCHÉ = causa con fonte ("(Testata)" in coda o "secondo X"), meccanismo ("di solito", "in genere"), lettura della redazione o
+ perche    PERCHÉ = causa detta da chi la dà (un nome nella frase: "secondo X", "per X"), meccanismo detto come tendenza (stesse forme di controlli_testo.py), lettura della redazione o
            "causa non chiarita" (solo se il registro dell'anomalia ha tutte le ipotesi "non torna"); "le fonti non
            spiegano" è un ERRORE in qualunque sezione del PDF;
            E QUINDI = qualcosa di osservabile: una cifra, una data, un orario, "oggi/domani/<giorno>" o un rimando.
@@ -22,7 +22,8 @@ Regole (ISTRUZIONI §5 e §7), ognuna generale:
  moduli    i punti non ripetono le cifre della tabella; graduatorie del testo coerenti con i dati del grafico; moduli tutti
            con lo stesso stampo = AVVISO; quadro trasversale (C["quadro"]) presente.
  agenda    almeno metà delle righe con un dato o una decisione (non conti, discorsi, aperture, elezioni, verbali) ha il
-           consenso in "attese": è il metro con cui il lettore giudica il dato (§2)."""
+           consenso in "attese": è il metro con cui il lettore giudica il dato (§2). Il primo giorno di uscita della
+           settimana l'agenda arriva almeno a giovedì: chi legge il lunedì sa che cosa lo aspetta fino a venerdì."""
 import json, os, re, subprocess, sys
 
 ARG = sys.argv[1:]
@@ -125,20 +126,30 @@ OSSERVABILE = re.compile(r"\d+(?:[.,]\d+)?\s?(?:%|pb|\$|€|mld|mila|punti)|\d{1
                          r"\b\d{1,2}[:/]\d{2}\b|\b\d{1,2} (?:" + MESI + r")\b|\b(?:" + GIORNI + r")\b|→ ?pag", re.I)
 QUI = os.path.dirname(os.path.abspath(__file__))
 
-def _fonte_tra_parentesi():
-    """Regex dell'attribuzione in coda: "(Reuters)", "(Yahoo Finance, FIRSTonline)", "(dati BLS)"."""
-    nomi = json.load(open(os.path.join(QUI, "fonti.json"), encoding="utf-8")).get("nomi", [])
+def _chi_la_da():
+    """Chi dà la causa, nominato nella frase (ISTRUZIONI §3.5): una testata ("per gli operatori sentiti dal Sole 24
+    Ore", "per Kitco") o una categoria di chi parla ("per gli analisti di ..."). Le testate sono quelle di fonti.json più
+    quelle scritte nelle righe Fonti di questa edizione (una testata nuova vale dal giorno in cui la si usa).
+    La testata tra parentesi non si usa più."""
+    nomi = [n for n in json.load(open(os.path.join(QUI, "fonti.json"), encoding="utf-8")).get("nomi", [])]
+    try:
+        sys.path.insert(0, QUI)
+        import controlli_testo
+        nomi += [n for n in controlli_testo.nomi_da_righe(re.findall(r"(?m)^[ \t]*Fonti?:[^\n]*(?:\n[^\n]+)*", RAW)) if n not in nomi]
+    except Exception:  # noqa: BLE001
+        pass
     alt = "|".join(sorted((re.escape(n) for n in nomi), key=len, reverse=True))
-    return re.compile(r"\([^()]{0,30}\b(?:" + alt + r")\b[^()]{0,40}\)")
+    return re.compile(r"(?<![\w/])(?:" + alt + r")(?![\w/])|\bper (?:gli|i|le) (?:analisti|operatori|economisti|strateghi|gestori)\b"
+                      r"|\bscriv(?:e|ono)\b")
 
 
-FONTE_PAR = _fonte_tra_parentesi()
-CAUSA_T = re.compile(r"\bsecondo\b|di solito|in genere|lettura della redazione|per noi|la nostra lettura|leggiamo|a nostro (?:giudizio|avviso)|causa non chiarita|\bM\d{2}\b", re.I)
+CHI_LA_DA = _chi_la_da()
+CAUSA_T = re.compile(r"\bsecondo\b|di solito|in genere|tend(?:e|ono) a|spesso|quasi sempre|di norma|lettura della redazione|per noi|la nostra lettura|leggiamo|crediamo|a nostro (?:giudizio|avviso|parere)|causa non chiarita|\bM\d{2}\b", re.I)
 
 
 class _Causa:
     def search(self, t):
-        return CAUSA_T.search(t) or FONTE_PAR.search(t)
+        return CAUSA_T.search(t) or CHI_LA_DA.search(t)
 
 
 CAUSA = _Causa()
@@ -161,7 +172,7 @@ for i, m in enumerate(moduli, 1):
         ERR.append(f"perche: modulo {nome}: 'le fonti non spiegano' non è un perché: dopo la ricerca registrata "
                    "(anomalia, §6.2c) scrivi la causa attribuita o la lettura della redazione con i prezzi che la sostengono")
     elif not CAUSA.search(p):
-        ERR.append(f"perche: modulo {nome}: serve la causa con fonte ('(Testata)' in coda), un meccanismo o la lettura della redazione: \"{p[:70]}\"")
+        ERR.append(f"perche: modulo {nome}: serve la causa detta da chi la dà ('secondo X', 'per X'), un meccanismo detto come tendenza o la lettura della redazione: \"{p[:70]}\"")
     if not OSSERVABILE.search(q):
         ERR.append(f"quindi: modulo {nome}: serve una cosa osservabile (livello, data, orario, evento in agenda): \"{q[:70]}\"")
 
@@ -338,8 +349,26 @@ if isinstance(_ag, list) and 0 < len(_ag) < 4:   # struttura v9: pag. 5 ha posto
     ERR.append(f"agenda: solo {len(_ag)} righe. Nei prossimi giorni di borsa ci sono sempre almeno 4 eventi che contano (dati, "
                "banche centrali, aste, conti): `memoria.py agenda` e una ricerca del calendario della settimana. Dopo 3 giri vale com'è")
 
+# Il primo giorno di uscita della settimana "In arrivo" copre la settimana (#026, lunedì 16/11: si fermava a mercoledì).
+# La regola chiede fino a venerdì; il controllo ferma sotto giovedì, perché un venerdì senza eventi che contano esiste.
+_GIORNI = {"lun": 0, "mar": 1, "mer": 2, "gio": 3, "ven": 4, "sab": 5, "dom": 6}
+try:
+    import datetime as _dt
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import giorni as _G
+    _primo = _G.primo_della_settimana(_dt.date.fromisoformat(str(VOCE.get("data"))))
+except Exception:  # noqa: BLE001
+    _primo = False
+if _primo and isinstance(_ag, list) and _ag:
+    _gg = [_GIORNI[m.group(1).lower()] for a in _ag if isinstance(a, dict)
+           for m in [re.search(r"\b(Lun|Mar|Mer|Gio|Ven|Sab|Dom)\b", re.sub(r"<[^>]+>", "", a.get("quando") or ""), re.I)] if m]
+    if _gg and max(_gg) < 3:
+        _fin = ["lunedì", "martedì", "mercoledì"][max(_gg)]
+        ERR.append(f"agenda: primo giorno della settimana ma \"In arrivo\" si ferma a {_fin}: copri fino a venerdì (gli eventi "
+                   "di giovedì e venerdì al posto delle righe minori dei primi giorni; APP_ERRORI §2)")
+
 # ---------- dati mancanti: solo dopo la scala di ricerca, e registrati ----------
-_mancano = re.findall(r"\bn\.d\.|nessuna chiusura verificata|non verificat[oa] da fonti|dato non disponibile", TUTTO, re.I)
+_mancano = re.findall(r"nessuna chiusura verificata|non verificat[oa] da fonti|dato non disponibile", TUTTO, re.I)
 _regis = [r for r in RICERCHE if r.get("esito") == "mancante" and len(r.get("ricerche") or []) >= 4]
 if _mancano and len(_regis) < 1:
     ERR.append(f"dati mancanti nel PDF ({len(_mancano)}: {', '.join(sorted(set(m.lower() for m in _mancano)))}) senza la scala di "

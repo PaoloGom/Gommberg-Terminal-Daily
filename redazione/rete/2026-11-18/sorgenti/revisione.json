@@ -1,0 +1,146 @@
+[
+ {
+  "id": "T01",
+  "trovato": "Yahoo Finance: \"For the quarter, Nvidia saw earnings per share of $2.68 on revenue of $115.8 billion.\" \"Wall Street analysts were projecting EPS of $2.47 and revenue of $109.15 billion.\" (titolo: \"revenue rose 103% YOY to $115.8B\"); \"The NVIDIA Board unanimously accepted his resignation and does not intend to reinstate Jensen as CEO.\" Reuters/KFGO: \"The company expects fourth-quarter revenue of $130.0 billion, plus or minus 3%\" (stime LSEG circa $125.25 billion). Reuters Morning Bid (Investing.com): \"Nvidia's stock enjoyed a brief relief rally in after-hours trading before trading down 0.3%.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Tutti gli elementi trovati (fonti lette tramite estrazione WebFetch, citazioni parziali). Attenzione: nello stesso momento Yahoo mostra Nvidia a +0,67% nel prezzo overnight e KFGO/Reuters scrive 'up about 2% in extended trading'; il -0,3% e' la lettura successiva del Morning Bid. Il testo del PDF ('sale e poi ridà il rialzo: Reuters lo dà in calo dello 0,3%') e' coerente, ma e' una fotografia, non un dato di chiusura. Yahoo da' la guida come forchetta 127,4-132,6 mld (centro 130)."
+ },
+ {
+  "id": "D06",
+  "trovato": "RTTNews: \"Anthropic has set a price range of $70 to $78 per share for its planned initial public offering (IPO).\" \"The company is offering 801.35 million Class A shares\" ... \"selling stockholders are offering an additional 23.65 million shares.\" \"Underwriters have an option to purchase up to 123.75 million additional Class A shares.\" \"The shares are expected to be listed on the Nasdaq Global Select Market under the ticker symbol \"ANT\".\"",
+  "verifica": "confermato",
+  "nota_revisore": "Il totale di 825 milioni non e' scritto nella pagina: e' la somma 801,35+23,65 (corretta). Il PDF scrive 'Nasdaq, simbolo ANT' (ok). La pagina RTTNews non riporta alcuna valutazione: i 1.400 mld vengono dal Morning Bid Reuters."
+ },
+ {
+  "id": "N03",
+  "trovato": "dpa-AFX (ARIVA, roundup 17.11.26), lettura tramite estrazione: Euro Stoxx 50 down 2.15% to 6,212.11 points, its third straight losing day; the Stoxx Europe 600 tech index fell 3.9%, its lowest level since late July; ASML lost 5.3% and STMicro 3.1%.",
+  "verifica": "confermato",
+  "nota_revisore": "Numeri e 'terzo calo di fila' confermati. Il PDF arrotonda a -2,1% (cover, tabella, pag. 3) mentre la fonte dice -2,15%: coerente solo se il calo effettivo e' 2,149%; con -2,15% l'arrotondamento corretto sarebbe -2,2%. Correzione consigliata: scrivere -2,15% o -2,2%, e adeguare 'il doppio di Wall Street' e 'perde piu' del 2,1%'. L'indice tech e' lo Stoxx Europe 600 Technology (il PDF dice genericamente 'indice europeo dei titoli tecnologici', ok)."
+ },
+ {
+  "id": "N04",
+  "trovato": "ANSA: \"L'ultimo indice Ftse Mib cede l'1,31% a 50.845 punti.\" (ultima frase del testo; segue solo la riga di copyright). Nella lista \"Ultima ora\" della stessa pagina, solo titolo: \"Lo spread tra Btp e Bund chiude in lieve calo a 105 punti\" (la riga seguente e' un titolo non collegato: \"Bonelli, se non c'è un programma coraggioso allora niente primarie\").",
+  "verifica": "confermato",
+  "nota_revisore": "Testo corretto del PDF: Ftse Mib -1,31% e spread 'chiude in lieve calo a 105 punti' sono nella pagina ANSA e attribuiti correttamente ad ANSA. La frase 'Per noi il rischio sull'Italia non sale, a differenza dei titoli' non e' in ANSA (la pagina non parla di rischio Italia) ed e' ora presentata come lettura della redazione, quindi non richiede conferma; e' coerente con lo spread in lieve calo. Riserve minori: lo spread e' solo un titolo senza corpo di testo; la pagina scrive 'punti', non 'punti base'; il livello 50.845 non e' ripetuto nella frase del PDF ma e' in tabella e confermato. Lettura tramite estrazione WebFetch."
+ },
+ {
+  "id": "N05",
+  "trovato": "Reuters (copia Euronext): \"Crude stocks rose by 5.28 million barrels in the week ended November 13,\" \"market sources said on Tuesday, citing data from the American Petroleum Institute\". Frase seguente: \"But continued tensions between the US and Iran and ongoing risks to shipping through the Strait of Hormuz kept price declines limited.\" Descrizione: \"ongoing US-Iran attacks and disruptions to shipping through the Strait of Hormuz limited losses.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Il nuovo testo del PDF e' supportato: scorte di greggio +5,28 mln di barili nella settimana al 13/11 e rischio Hormuz che limita il calo. La pagina attribuisce il dato all'API (citata da fonti di mercato); il PDF ha tolto l'attribuzione, scelta corretta ma non obbligata (si potrebbe rimettere 'secondo l'API'). Il livello del Brent non e' in questa pagina (solo un prezzo intraday), coerente col PDF che lo prende da FMP. La pagina e' la copia Euronext dell'articolo Reuters, non la URL MarketScreener dell'incarico. Lettura tramite estrazione WebFetch."
+ },
+ {
+  "id": "N06",
+  "trovato": "Reuters (copia Euronext), estratto: \"Iranian drones attacked a US military radar system in Bahrain on Tuesday\"; \"the US retaliated with strikes on a missile launch site on Iran's Qeshm Island.\"; \"talks continued between Iran and mediators Oman and Qatar\"",
+  "verifica": "confermato",
+  "nota_revisore": "Tutti e tre gli elementi sono nella pagina (copia Euronext dell'articolo Reuters, non la URL MarketScreener indicata). Il PDF ('Droni iraniani hanno preso di mira un radar...; hanno colpito un sito di lancio di missili sull'isola di Qeshm') e' coerente; il titoletto 'L'Iran colpisce un radar americano' e' un po' piu' forte di 'attacked/took aim' ma accettabile."
+ },
+ {
+  "id": "N11",
+  "trovato": "RTTNews: \"Anthropic has set a price range of $70 to $78 per share for its planned initial public offering (IPO).\" \"The shares are expected to be listed on the Nasdaq Global Select Market under the ticker symbol \"ANT\".\" Reuters Morning Bid (Investing.com): Anthropic is \"preparing to price shares on Wednesday ahead of its market debut,\" could be valued at \"as much as $1.4 trillion\"; Bloomberg reported it has guided its IPO price to the top of its marketing range or above.",
+  "verifica": "confermato",
+  "nota_revisore": "Attribuzione da correggere: 'prezzo in cima alla forchetta o sopra' e' una notizia di Bloomberg riportata nel Morning Bid, non un'informazione Reuters; il PDF pag. 4 la mette tra parentesi come (Reuters). Suggerito: 'secondo Bloomberg'. La valutazione fino a 1.400 mld e' invece attribuita alla Reuters. Letture tramite estrazione WebFetch."
+ },
+ {
+  "id": "D01",
+  "trovato": "Yahoo Finance: \"For the quarter, Nvidia saw earnings per share of $2.68 on revenue of $115.8 billion.\" \"Wall Street analysts were projecting EPS of $2.47 and revenue of $109.15 billion.\" \"Data Center revenue topped out at $107.6 billion versus an anticipated $101.85 billion.\" Reuters/KFGO: \"The company expects fourth-quarter revenue of $130.0 billion, plus or minus 3%\" (stima LSEG circa $125.25 billion); \"Nvidia said it did not assume any data center chip sales from China in its outlook.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Tutto confermato, compresi EPS, data center e assenza della Cina nella guida. Nota: Yahoo riporta anche che Kress ha citato circa 2,4 mld $ di ricavi Hopper dalla Cina nel trimestre ma senza piu' spedizioni (la stessa pagina cita 2,3 mld altrove): dato non usato dal PDF."
+ },
+ {
+  "id": "D03",
+  "trovato": "Reuters/KFGO: \"Shares of the roughly $3.8 trillion company were up about 2% in extended trading.\" \"As of Tuesday's close, the stock was down about 17% this year.\" \"Finance chief Colette Kress is interim CEO, while the board considers internal and external candidates.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermati valore di mercato, -17% da inizio anno e ruolo di Kress. Il PDF e' corretto ('direttore finanziario' = finance chief)."
+ },
+ {
+  "id": "D04",
+  "trovato": "dpa-AFX (ARIVA), tramite estrazione: Euro Stoxx 50 down 2.15% to 6,212.11 points; the tech index fell 3.9%, its lowest level since late July; oil and gas the best-performing sector, down only 0.8%, supported by higher oil prices after reports of tanker attacks in the Strait of Hormuz.",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato. Il PDF non cita il 'minimo da fine luglio' ne' il motivo (attacchi alle petroliere a Hormuz), che spiega perche' petrolio e gas tengono; la pag. 4 parla invece solo di scorte USA. Stesso appunto sul -2,1% vs -2,15% di N03."
+ },
+ {
+  "id": "D05",
+  "trovato": "Reuters (copia Euronext): \"Crude stocks rose by 5.28 million barrels in the week ended November 13\"; \"gasoline stocks rose by 5.12 million barrels\"; \"distillate inventories by 351,000 barrels\"; \"normalization of flows through Hormuz is still not possible under current conditions\"; \"launched five drones towards two pumping stations along Saudi Arabia's East-West pipeline\"",
+  "verifica": "confermato",
+  "nota_revisore": "Numeri e citazione LSEG trovati. Dal passaggio estratto non risulta se il lancio dei cinque droni e' 'dichiarato dagli Houthi' (l'estrazione non riporta il verbo di attribuzione) ne' se le scorte siano indicate come dati API: verificare l'attribuzione solo se il testo la riprende. Fonte letta: copia Euronext, non MarketScreener."
+ },
+ {
+  "id": "K01",
+  "trovato": "Census Bureau, Monthly Retail Trade - Release Schedule: \"October 2026 | November 17, 2026\"",
+  "verifica": "non_conclusivo",
+  "nota_revisore": "Letta solo la pagina del calendario (la URL census.gov/retail/sales.html non e' comparsa nei risultati): data di uscita martedi 17/11 confermata. Non confermati dalla pagina: +0,2% sul mese e i 748,2 mld $; i titoli di altre fonti nei risultati di ricerca (+0,2% ottobre, 0,8% settembre) li rendono plausibili, ma le pagine (FXStreet, UPI) non si sono aperte. Il PDF non cita i 748,2 mld; 'atteso +0,2%' resta non verificato."
+ },
+ {
+  "id": "D02",
+  "trovato": "Reuters Morning Bid (Investing.com): \"Nvidia's stock enjoyed a brief relief rally in after-hours trading before trading down 0.3%.\" \"it's topped Wall Street's revenue expectations for 17 consecutive quarters.\" \"The Wall Street Journal reported the SEC is investigating Nvidia about the accuracy of its corporate disclosure.\" \"Muddy Waters Research also said it has taken a short position in Nvidia's shares.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato. La pagina non precisa se il -0,3% sia dopo-chiusura o pre-mercato; il PDF scrive 'nel dopo-chiusura ... ridà il rialzo', lettura ragionevole ma non esplicita. La SEC e' notizia del WSJ riportata da Reuters (il PDF lo dice correttamente)."
+ },
+ {
+  "id": "N02",
+  "trovato": "AP (copia 2news.com, la URL Lancaster Online non e' comparsa): \"The S&P 500 sank 0.9%.\" \"The Dow Jones Industrial Average was down 541 points, or 1.1%, as of 10:40 a.m. Eastern time\" \"the Nasdaq composite was down 1.2%.\"",
+  "verifica": "non_conclusivo",
+  "nota_revisore": "Le pagine AP trovate sono versioni intraday: nessuna chiusura, nessun livello 7.340,53, nessun 'terzo giorno' (dice solo 'again'). Yahoo non riporta chiusure. Chiusure S&P -1,0%, Nasdaq -0,7%, Dow -1,6% non verificate (Washington Post e Globe and Mail non si sono aperti). Il PDF non cita il Dow ne' 'terzo giorno' per Wall Street. Nota: Nasdaq a -1,2% intraday contro -0,7% in chiusura nel PDF: da controllare (vedi PDF-1)."
+ },
+ {
+  "id": "N08",
+  "trovato": "dpa-AFX (ARIVA), tramite estrazione: Pirelli: \"Down 3.8% after the state-owned Chinese firm Sinochem sold a €455 million stake below Monday's close.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato: -3,8%, 455 mln di euro, venduti sotto la chiusura di lunedi. Citazione ricavata dall'estrazione WebFetch in inglese, l'originale e' in tedesco."
+ },
+ {
+  "id": "N12",
+  "trovato": "dpa-AFX (ARIVA), tramite estrazione: Oil and gas \"The best-performing sector, down only 0.8%\"; \"Kepler Cheuvreux upgraded TotalEnergies, Eni and BP to 'buy.'\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato (-0,8% e rialzo a 'buy' per le tre societa'). Il PDF pag. 1 dice 'migliore dell'Europa': corretto."
+ },
+ {
+  "id": "D08",
+  "trovato": "Reuters Morning Bid (Investing.com): gold futures a 3,769.40, down 2.45%; Dollar Index 103.673. Investing.com (gold falls toward 3800): ticker 3,760.57, -2.68%; \"weakest close since September 2025\", \"approaching fresh 14-month lows\"; titolo correlato \"Dollar holds near 19-mth high on Fed hike bets\".",
+  "verifica": "non_conclusivo",
+  "nota_revisore": "3.772,70 $ (-2,4%) alle 09:03 non compare: le pagine danno 3.769,40 (-2,45%) e 3.760,57 (-2,68%) in altri istanti, quindi il valore del PDF e' plausibile come istantanea ma non confermato (Trading Economics non e' comparsa nei risultati, FXLeaders bloccato). 'Minimo dell'anno' non e' scritto (le pagine dicono minimo dal settembre 2025 / 14 mesi). Dollaro 'vicino ai massimi da 19 mesi' solo in un titolo correlato. Il PDF non usa 'minimo dell'anno' ne' i 19 mesi: nessuna correzione richiesta, solo la nota che il dato delle 09:03 e' fragile."
+ },
+ {
+  "id": "A01",
+  "trovato": "Finance Calendar (pagina evento): \"Wednesday, 18 November 2026\" at \"08:30 EST · America/New_York (18 Nov 13:30 London)\". \"Economists expect 1.23 million housing starts, modestly above September's 1.221 million.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Data, ora (8:30 New York = 14:30 Roma, corretto), atteso 1,23 mln e precedente 1,221 mln confermati. La stessa pagina si contraddice dicendo altrove che il consenso non e' ancora disponibile. La pagina census.gov/construction/nrc non e' comparsa nei risultati. Il PDF non cita i permessi: nessuna correzione."
+ },
+ {
+  "id": "A03",
+  "trovato": "Palo Alto Networks (comunicato, copia TradingView/PR Newswire): \"after U.S. markets close on Wednesday, November 18, 2026\"; \"1:30 p.m. Pacific time\"",
+  "verifica": "confermato",
+  "nota_revisore": "Data e orario confermati; 13:30 Pacifico = 22:30 a Roma (coincide col PDF). La copia ARIVA indicata non e' comparsa nei risultati; letta la copia TradingView dello stesso comunicato. Il PDF dice 'ricavi e utile contro le stime' senza cifre: ok."
+ },
+ {
+  "id": "A04",
+  "trovato": "Australian Bureau of Statistics: \"Next Release 19/11/2026\" per \"Labour Force, Australia, October 2026\"; disoccupazione di settembre 4,7% destagionalizzata (+0,1 punti su agosto).",
+  "verifica": "non_conclusivo",
+  "nota_revisore": "Confermati data (giovedi 19/11) e dato precedente 4,7%. Non confermati: ora 11:30 Sydney (la pagina non da' l'orario per questo rilascio; 11:30 AEDT = 01:30 Roma e' comunque corretto) e consenso 4,7% (Finance Calendar non e' comparsa nei risultati). Il PDF scrive 'Disoccupazione al 4,7%; prima 4,7%' nella colonna Attese: consenso non verificato."
+ },
+ {
+  "id": "N07",
+  "trovato": "AP (copia 2news.com): \"Home Depot sank 1.8% even though it reported profit for the latest quarter that edged past analysts' expectations.\" \"The retailer has been hampered by a housing market chilled by expensive mortgage rates\" \"which have climbed with Treasury yields because of high oil prices, high inflation and other factors.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Qualitativamente confermato (utile sopra le attese, titolo giu', mutui cari legati ai rendimenti). Il -1,8% e' una lettura intraday della pagina AP, non la chiusura: il PDF lo presenta senza 'a meta' seduta'. Il PDF dice 'rendimenti in rialzo': AP li lega ai rendimenti saliti nelle settimane, non al 17/11 (il 10 anni scende di 2 pb)."
+ },
+ {
+  "id": "PDF-1",
+  "trovato": "",
+  "verifica": "errato",
+  "nota_revisore": "Coerenza pag. 2/5: l'approfondimento dice che 'il calo si concentra sulla tecnologia' (tech Nyse -2,8%, nessun altro settore oltre -2%), ma la tabella mostra Nasdaq Comp. -0,7% contro S&P 500 -1,0% (e l'incarico N02 cita Dow -1,6%): l'indice piu' tecnologico perde meno degli altri. AP intraday dava Nasdaq -1,2%. Verificare la chiusura del Nasdaq (24.328,38, -0,7%) e il -4,5% dal massimo dell'11/11 prima di pubblicare; altrimenti riformulare il paragrafo."
+ },
+ {
+  "id": "PDF-2",
+  "trovato": "",
+  "verifica": "errato",
+  "nota_revisore": "Pag. 4: 'Un Brent sceso di un quinto in tre settimane' (cioe' -20%) contro la tabella di pag. 5, Brent future 1 mese -15,0% (e +1,8% in una settimana). Correzione: 'sceso del 15% in un mese' o rifare il calcolo sulle tre settimane con la serie FMP."
+ },
+ {
+  "id": "PDF-3",
+  "trovato": "",
+  "verifica": "errato",
+  "nota_revisore": "Pag. 6: 'par 7,3' non torna con la regola dichiarata: 6 mercati x (direzione 50% + forchetta circa 2 su 3) = 3 + 4 = 7,0 punti, non 7,3; di conseguenza 'Rispetto al par: +0,7' dovrebbe essere +1,0. Conteggio dei punti (3 direzione + 5 forchetta = 8) invece corretto sulla tabella. Se il par usa una copertura reale diversa (circa 70%), scrivere 'circa 2 volte su 3' in modo coerente o correggere il par."
+ }
+]

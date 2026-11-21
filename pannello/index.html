@@ -8,106 +8,381 @@
 <meta name="theme-color" content="#0E0E0E">
 <link rel="icon" href="../assets/icona.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,600..900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
-:root{--paper:#EFEDE8;--sheet:#FFFFFF;--ink:#141414;--muted:#6B655E;--rule:#DEDAD4;--panel:#F1EEE9;--orange:#F26B1D;--mark:#D9560B;
---up:#157A3E;--down:#C0271D;--warn:#A86A00;--bar:#0E0E0E;--bar-ink:#F5F3EF;
---display:"Archivo","Arial Narrow","Helvetica Neue",Arial,sans-serif;--body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
-@media (prefers-color-scheme:dark){:root{--paper:#0F0E0D;--sheet:#1A1816;--ink:#EDEAE5;--muted:#A49E96;--rule:#2E2B28;--panel:#242120;--orange:#FF7A2E;--mark:#E8691E;--up:#4CC27A;--down:#FF6B5E;--warn:#E0A93B;--bar:#050505;color-scheme:dark}}
-*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.4}
-.wrap{max-width:1240px;margin:0 auto;padding-inline:16px}
-@media (max-width:760px){.wrap{padding-inline:10px}}
-.top{background:var(--bar);color:var(--bar-ink)}
-.top .wrap{display:flex;align-items:center;gap:18px;min-height:46px}
-.logo{font-family:var(--display);font-stretch:85%;font-weight:900;font-size:16px;text-decoration:none;color:var(--bar-ink);white-space:nowrap}
-.logo b{color:var(--orange)}
-.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;align-self:stretch}
-.tabs::-webkit-scrollbar,.filtri .wrap::-webkit-scrollbar{display:none}
-.tabs button{font:500 13px var(--body);color:#B9B3AA;background:none;border:0;border-bottom:3px solid transparent;padding:0 12px;cursor:pointer;white-space:nowrap}
-.tabs button:hover{color:var(--bar-ink)}
-.tabs button[aria-selected=true]{color:var(--bar-ink);border-bottom-color:var(--orange)}
-@media (max-width:760px){.top .wrap{flex-direction:column;align-items:flex-start;gap:0;padding-top:8px}.tabs{width:100%;height:36px}.tabs button{padding:0 10px}}
-.filtri{background:var(--sheet);border-bottom:1px solid var(--rule)}
-.filtri .wrap{display:flex;gap:18px;align-items:center;padding-block:7px;overflow-x:auto;scrollbar-width:none}
-.f{display:flex;gap:4px;align-items:center;font-family:var(--mono);font-size:11.5px;color:var(--muted);white-space:nowrap}
-.f button,.sel button{font:inherit;color:var(--ink);background:var(--sheet);border:1px solid var(--rule);border-radius:4px;padding:3px 9px;cursor:pointer}
-.f button[aria-pressed=true],.sel button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.sel button:disabled{color:var(--muted);cursor:default;opacity:.6}
-.f.agg{margin-left:auto}
-main{padding-block:12px 28px}
-.griglia{display:grid;gap:10px}
-.c5{grid-template-columns:repeat(5,minmax(0,1fr))}.c4{grid-template-columns:repeat(4,minmax(0,1fr))}.c21{grid-template-columns:minmax(0,2.1fr) minmax(0,1fr)}
-@media (max-width:980px){.c5{grid-template-columns:repeat(3,minmax(0,1fr))}.c21{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:620px){.c5,.c4{grid-template-columns:repeat(2,minmax(0,1fr))}.c5>.k:first-child{grid-column:span 2}.k .l{flex-direction:column;gap:0}.k .v{font-size:25px}}
-.k,.vis{background:var(--sheet);border:1px solid var(--rule);border-radius:4px}
-.k{padding:9px 12px 10px;border-left:4px solid var(--rule);text-align:left;font:inherit;color:inherit;display:block;width:100%;min-width:0}
-button.k{cursor:pointer}button.k:hover{background:var(--panel)}
-.k.ok{border-left-color:var(--up)}.k.att{border-left-color:var(--warn)}.k.ko{border-left-color:var(--down)}
-.k[aria-pressed=true]{outline:2px solid var(--ink);outline-offset:-2px}
-.k .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:6px}
-.k .l span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.k .v{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:28px;line-height:1.1;margin-top:4px;white-space:nowrap}
-.k .v small{font-size:13px;font-weight:600;color:var(--muted)}
-.k .n{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.st{white-space:nowrap}.st.ok{color:var(--up)}.st.att{color:var(--warn)}.st.ko{color:var(--down)}
-.vis{padding:10px 12px;min-width:0}
-.vis h3{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:0 0 6px;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
-.sel{display:flex;gap:4px;font-family:var(--mono);font-size:11px;text-transform:none;letter-spacing:0}
-svg{display:block;width:100%;height:auto;overflow:visible}
-svg text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
-.grid{stroke:var(--rule);stroke-width:1}
-.col{fill:var(--mark);pointer-events:none}
-.col.stima{fill:url(#trat);stroke:var(--mark);stroke-width:1}
-.col.tardi{fill:var(--down)}
-.hit{fill:transparent}.hit:hover+.col,.hit:focus+.col{opacity:.7}
-.leg{display:flex;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:none;letter-spacing:0}
-.leg i{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:-1px;margin-right:4px;background:var(--mark)}
-.leg i.stima{background:repeating-linear-gradient(135deg,var(--mark) 0 2px,transparent 2px 5px);outline:1px solid var(--mark);outline-offset:-1px}
-.leg i.tardi{background:var(--down)}
-.avv{display:grid;gap:6px;margin:0;padding:0;list-style:none}
-.avv button{display:flex;justify-content:space-between;gap:8px;width:100%;font:inherit;color:inherit;background:none;border:0;border-left:3px solid var(--rule);padding:5px 8px;cursor:pointer;text-align:left}
-.avv button:hover{background:var(--panel)}
-.avv .ok{border-left-color:var(--up)}.avv .att{border-left-color:var(--warn)}.avv .ko{border-left-color:var(--down)}
-.avv b{font-family:var(--mono);font-weight:500;white-space:nowrap}
-.avv .st{font-family:var(--mono);font-size:11px}
-.su{color:var(--up)}.giu{color:var(--down)}
-.tw{overflow:auto;max-height:68vh}
-table{border-collapse:collapse;width:100%;font-size:13px}
-th,td{padding:5px 9px;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap}
-th{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--ink);background:var(--sheet);position:sticky;top:0}
-th:first-child,td:first-child{text-align:left}
-td{font-variant-numeric:tabular-nums}
-tr.cl{cursor:pointer}tr.cl:hover td{background:var(--panel)}tr.on td{background:var(--panel);font-weight:600}
-.tag{display:inline-block;font-family:var(--mono);font-size:10.5px;padding:0 6px;border-radius:9px;border:1px solid var(--rule);color:var(--muted)}
-.tag.m{border-color:var(--ink);color:var(--ink)}
-.metro .b{height:14px;background:var(--panel);border-radius:3px;overflow:hidden;position:relative}
-.metro .b i{display:block;height:100%;background:var(--mark)}
-.metro .b u{position:absolute;top:0;bottom:0;width:2px;background:var(--ink)}
-.metro .l{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:3px}
-.grande{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:30px;line-height:1.1}
-.grande small{font-size:13px;font-weight:600;color:var(--muted)}
-.note{font-size:13px;color:var(--muted);max-width:90ch}.note p{margin:0 0 10px}.note h3{margin-top:4px}
-.vuoto{background:var(--sheet);border:1px dashed var(--rule);padding:24px;color:var(--muted)}
-#tip{position:fixed;z-index:9;pointer-events:none;background:var(--bar);color:var(--bar-ink);font-size:12.5px;line-height:1.35;padding:7px 9px;border-radius:4px;opacity:0;transition:opacity .08s;max-width:250px}
+/* ===== Pannello di controllo del Gommberg =====
+   Una pagina sola, nessuna libreria: legge registro.json e taratura.json (stessa cartella) e, se c'è, ../edizioni.json
+   per titolo e link delle edizioni. Le soglie e le misure si cambiano in testa allo script (S e MISURE). */
+:root{
+  --canvas:#F2F0EC;--card:#FFFFFF;--line:#E3DFD8;--grid:#ECE8E2;--hover:#F7F5F2;
+  --ink:#1A1917;--ink2:#4F4A44;--muted:#6B645C;
+  --accent:#D9560B;--accent-wash:rgba(217,86,11,.10);--deemph:#D3CCC2;
+  --good:#157A3E;--warn:#8F5C00;--bad:#C0271D;--oink:#B84A0C;
+  --good-bg:#E6F2EA;--warn-bg:#FAF0DA;--bad-bg:#FAE5E2;
+  --mark:#8E877E;--mark2:#C9C2B8;--mark3:#5E5852;
+  --side:#0E0E0E;--side-ink:#F5F3EF;--side-muted:#9A938A;--side-hover:#1C1A18;--side-line:#262422;
+  --shadow:0 1px 2px rgba(30,22,12,.06),0 2px 6px rgba(30,22,12,.04);
+  --display:"Archivo","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  --body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  color-scheme:light}
+@media (prefers-color-scheme:dark){:root{
+  --canvas:#181716;--card:#22211F;--line:#33302D;--grid:#2C2A27;--hover:#2A2826;
+  --ink:#EDEAE5;--ink2:#C9C3BB;--muted:#9C958D;
+  --accent:#E8691E;--accent-wash:rgba(232,105,30,.16);--deemph:#4A4641;
+  --good:#4CC27A;--warn:#EBB24D;--bad:#FF6B5E;--oink:#FF9A5C;
+  --good-bg:rgba(76,194,122,.13);--warn-bg:rgba(224,169,59,.14);--bad-bg:rgba(255,107,94,.14);
+  --mark:#837C74;--mark2:#4F4A45;--mark3:#ADA69D;
+  --side:#0A0A0A;--side-hover:#181614;--side-line:#24211F;
+  --shadow:0 1px 2px rgba(0,0,0,.4);color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--canvas);color:var(--ink);font:14px/1.45 var(--body);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---------- impianto: barra laterale + area di lavoro ---------- */
+.app{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh;background:linear-gradient(90deg,var(--side) 232px,transparent 232px)}
+.side{background:var(--side);border-right:1px solid var(--side-line);color:var(--side-ink);position:sticky;top:0;height:100vh;display:flex;flex-direction:column;padding:18px 12px 14px}
+.brand{display:flex;align-items:center;gap:10px;padding:0 8px 18px;text-decoration:none;color:inherit;border-bottom:1px solid var(--side-line);margin-bottom:12px}
+.brand img{width:34px;height:34px;border-radius:7px;display:block}
+.brand b{display:block;font-family:var(--display);font-stretch:80%;font-weight:900;font-size:17px;letter-spacing:.01em;line-height:1;color:#F26B1D}
+.brand span{display:block;font-size:12px;color:var(--side-muted);margin-top:3px}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav button{display:flex;align-items:center;gap:11px;width:100%;background:none;border:0;border-radius:7px;padding:9px 10px;color:#CFC9C1;font-size:14px;font-weight:500;cursor:pointer;text-align:left;position:relative}
+.nav button svg{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
+.nav button:hover{background:var(--side-hover);color:var(--side-ink)}
+.nav button[aria-current=page]{background:var(--side-hover);color:#fff}
+.nav button[aria-current=page]::before{content:"";position:absolute;left:-12px;top:7px;bottom:7px;width:3px;border-radius:0 3px 3px 0;background:#F26B1D}
+.nav button[aria-current=page] svg{opacity:1;stroke:#F26B1D}
+.nav .badge{margin-left:auto;min-width:20px;height:20px;padding:0 6px;border-radius:10px;font-size:11.5px;font-weight:600;display:flex;align-items:center;justify-content:center;background:#C0271D;color:#fff}
+.nav .badge.att{background:#8A5700}
+.side-foot{margin-top:auto;border-top:1px solid var(--side-line);padding:12px 8px 0;display:grid;gap:10px;font-size:12.5px;color:var(--side-muted)}
+.side-foot .ult b{color:var(--side-ink);font-weight:600}
+.side-foot .ult a{color:var(--side-ink)}
+.lnk{display:flex;align-items:center;gap:8px;background:none;border:0;padding:4px 0;min-height:28px;color:#CFC9C1;cursor:pointer;text-decoration:none;font-size:13px}
+.lnk:hover{color:#fff}
+.lnk svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.work{min-width:0;padding:22px 28px 40px}
+.work>.head,.work>#app{max-width:1600px;margin-inline:auto}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px 24px;flex-wrap:wrap;margin-bottom:18px}
+.head h1{font-family:var(--display);font-stretch:82%;font-weight:800;font-size:30px;line-height:1.05;margin:0;letter-spacing:-.005em}
+.head p{margin:5px 0 0;color:var(--muted);font-size:13.5px}
+.slicers{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:2px;box-shadow:var(--shadow)}
+.seg button{border:0;background:none;padding:5px 11px;border-radius:6px;font-size:13px;font-weight:500;color:var(--ink2);cursor:pointer;white-space:nowrap}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--card)}
+.seg button:disabled{opacity:.4;cursor:default}
+.seg button:disabled[aria-pressed=true]{background:none;color:var(--ink2)}
+.slab{font-size:12px;color:var(--muted);margin-right:-4px}
+.dd{position:relative}
+.dd select{appearance:none;-webkit-appearance:none;font:500 13px var(--body);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 30px 6px 11px;box-shadow:var(--shadow);cursor:pointer}
+.dd::after{content:"";position:absolute;right:12px;top:50%;width:6px;height:6px;border-right:1.6px solid var(--muted);border-bottom:1.6px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+
+/* ---------- griglie e card ---------- */
+.row{display:grid;gap:14px;margin-bottom:14px}
+.r5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.r4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.r21{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+.r11{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+.stack{display:grid;gap:14px;align-content:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);min-width:0}
+.card>.ch{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:14px 16px 0}
+.ch h2{margin:0;font-size:14px;font-weight:600;line-height:1.3}
+.ch .sub{display:block;font-size:12.5px;font-weight:400;color:var(--muted);margin-top:2px}
+.ch .tools{display:flex;align-items:center;gap:8px;flex:none}
+.card>.cb{padding:10px 16px 14px}
+.card>.cb.flush{padding:8px 0 0}
+.info{width:24px;height:24px;border-radius:50%;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;cursor:pointer;color:var(--muted);flex:none;padding:0}
+.info:hover{color:var(--ink);border-color:var(--muted)}
+.info svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.leg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--ink2);padding:0 16px}
+.leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--mark)}
+.leg i.acc{background:var(--accent)}.leg i.bad{background:var(--bad)}
+.leg i.dot{border-radius:50%}
+.leg i.est{background:repeating-linear-gradient(135deg,var(--mark) 0 1.5px,transparent 1.5px 4px);box-shadow:inset 0 0 0 1.2px var(--mark)}
+.leg i.line{height:2px;width:14px;border-radius:1px;vertical-align:3px;background:var(--ink)}
+.leg i.dash{height:0;width:14px;border-radius:0;vertical-align:3px;background:none;border-top:2px dashed var(--ink2)}
+
+/* ---------- KPI ---------- */
+.kpi{display:flex;flex-direction:column;gap:2px;padding:14px 16px 12px;text-align:left;border:1px solid var(--line);width:100%;cursor:pointer;position:relative;overflow:hidden}
+.kpi:hover{border-color:var(--deemph)}
+.kpi.fermo{cursor:default}.kpi.fermo:hover{border-color:var(--line)}
+.kpi .kl{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--ink2);min-width:0}
+.kpi .kn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.si{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;flex:none}
+.si svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.si.ok{color:var(--good);background:var(--good-bg)}.si.att{color:var(--warn);background:var(--warn-bg)}.si.ko{color:var(--bad);background:var(--bad-bg)}
+.kpi .kv{font-size:30px;font-weight:600;line-height:1.15;letter-spacing:-.015em;margin-top:6px;white-space:nowrap}
+.kpi .kv small{font-size:14px;font-weight:500;color:var(--muted);letter-spacing:0;margin-left:3px}
+.kpi .kd{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);white-space:nowrap;min-height:19px}
+.kpi .ks{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi .spark{margin-top:8px;height:34px}
+.kpi::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent}
+.kpi.ok::after{background:var(--good)}.kpi.att::after{background:var(--warn)}.kpi.ko::after{background:var(--bad)}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:600;padding:2px 7px 2px 5px;border-radius:20px;white-space:nowrap;line-height:1.3}
+.chip svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.chip.ok{color:var(--good);background:var(--good-bg)}.chip.att{color:var(--warn);background:var(--warn-bg)}.chip.ko{color:var(--bad);background:var(--bad-bg)}
+.chip.neu{color:var(--muted);background:var(--hover)}
+.delta{display:inline-flex;align-items:center;gap:3px;font-weight:600}
+.delta.good{color:var(--good)}.delta.bad{color:var(--bad)}.delta.flat{color:var(--muted)}
+.delta svg{width:9px;height:9px;fill:var(--muted)}
+
+/* ---------- grafici ---------- */
+svg.ch{display:block;width:100%;height:auto;overflow:visible}
+.ax text,.lbl{font-family:var(--body);font-size:11.5px;fill:var(--muted);font-variant-numeric:tabular-nums}
+.ax line{stroke:var(--grid);stroke-width:1;shape-rendering:crispEdges}
+.ax .base{stroke:var(--line)}
+.band{fill:var(--ink);opacity:.028}
+.bandl{font-family:var(--body);font-size:11px;font-weight:600;fill:var(--ink2)}
+.brl{stroke:var(--deemph);stroke-width:1.2}
+.m{fill:var(--mark)}.m.last{fill:var(--accent)}.m.bad{fill:var(--bad)}
+.m.est{fill:url(#hatch);stroke:var(--mark);stroke-width:1.2}.m.est.last{stroke:var(--accent)}
+.ln{fill:none;stroke:var(--mark);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.vchg{stroke:var(--mark2);stroke-width:1;stroke-dasharray:3 3}
+.nd{font-family:var(--body);font-size:10.5px;fill:var(--muted)}
+.area{fill:var(--accent-wash)}
+.dot{fill:var(--mark);stroke:var(--card);stroke-width:2}
+.dot.bad{fill:var(--bad)}.dot.last{fill:var(--accent)}.dot.bad.last{fill:var(--bad)}
+.thr{stroke:var(--ink2);stroke-width:1.2;stroke-dasharray:4 3}
+.tgt{stroke:var(--ink);stroke-width:1.5}
+.zone{fill:var(--good);opacity:.07}
+.mean{stroke:var(--ink);stroke-width:1.2;stroke-dasharray:2 3}
+.hit{fill:transparent;cursor:pointer}
+.hit:hover{fill:var(--ink);fill-opacity:.045}
+.hit:focus{outline:none}.hit:focus-visible{fill:var(--accent);fill-opacity:.08;stroke:var(--accent);stroke-width:2}
+.vl{font-family:var(--body);font-size:11.5px;font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+.vl.bad{fill:var(--bad)}
+.brk{stroke:var(--card);stroke-width:2.2;fill:none}
+
+/* ---------- liste "da guardare" ---------- */
+.alerts{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.alerts li button{display:flex;gap:10px;align-items:flex-start;width:100%;background:none;border:1px solid var(--line);border-radius:8px;padding:9px 10px;cursor:pointer;text-align:left}
+.alerts li button:hover{background:var(--hover)}
+.alerts .ic{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;flex:none;margin-top:1px}
+.alerts .ic svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.alerts .ok .ic{color:var(--good);background:var(--good-bg)}.alerts .att .ic{color:var(--warn);background:var(--warn-bg)}.alerts .ko .ic{color:var(--bad);background:var(--bad-bg)}
+.alerts b{display:block;font-size:13.5px;font-weight:600}
+.alerts span{display:block;font-size:12.5px;color:var(--muted);margin-top:1px}
+.sect{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.02em;margin:16px 0 8px}
+.cmp{display:grid;gap:2px}
+.cmp>div{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--grid);font-size:13px}
+.cmp>div:last-child{border-bottom:0}
+.cmp em{font-style:normal;color:var(--muted);font-size:12.5px;font-variant-numeric:tabular-nums}
+
+/* ---------- tabelle ---------- */
+.tw{overflow:auto;max-width:100%;background:linear-gradient(to left,var(--card) 40%,rgba(0,0,0,0)) right/36px 100% no-repeat local,radial-gradient(farthest-side at 100% 50%,rgba(0,0,0,.16),rgba(0,0,0,0)) right/12px 100% no-repeat scroll}
+.tw.tall{max-height:72vh}
+table{border-collapse:separate;border-spacing:0;width:100%;font-size:13px}
+th,td{padding:8px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--grid)}
+th{font-size:12px;font-weight:600;color:var(--ink2);background:var(--card);position:sticky;top:0;z-index:1;border-bottom:1px solid var(--line);vertical-align:bottom}
+thead tr.grp th{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.04em;text-transform:uppercase;border-bottom:0;padding-bottom:0;text-align:center}
+thead tr.grp th span{display:block;border-bottom:2px solid var(--grid);padding-bottom:5px}
+thead tr.grp+tr th{top:22px}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--card);z-index:2}
+th:first-child{z-index:3}
+td{font-variant-numeric:tabular-nums;color:var(--ink)}
+th.so{cursor:pointer;user-select:none}
+th.so:hover{color:var(--ink)}
+th.so[aria-sort]::after{content:"";display:inline-block;margin-left:5px;border:4px solid transparent;vertical-align:1px}
+th.so[aria-sort=descending]::after{border-top-color:currentColor;border-bottom-width:0}
+th.so[aria-sort=ascending]::after{border-bottom-color:currentColor;border-top-width:0;vertical-align:3px}
+tbody tr.cl{cursor:pointer}
+tbody tr.cl:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+tbody tr.cl:focus-visible td{background:var(--hover)}
+tbody tr.cl:hover td{background:var(--hover)}
+tbody tr.on td{background:var(--accent-wash)}
+td.c{position:relative}
+td.c span{display:inline-block;padding:1px 0}
+td.att span{color:var(--warn);font-weight:600}td.ko span{color:var(--bad);font-weight:600}
+td.att span::before,td.ko span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:6px;vertical-align:1px}
+td .e{font-weight:600}td .dt{color:var(--muted);margin-left:6px}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:1px 7px;border-radius:10px;background:var(--hover);color:var(--ink2);border:1px solid var(--line)}
+.tag.m{background:var(--accent-wash);border-color:transparent;color:var(--oink)}
+td.na{color:var(--muted)}
+
+/* ---------- meter e barra segmentata ---------- */
+.big{font-size:40px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.big small{font-size:15px;font-weight:500;color:var(--muted);margin-left:4px;letter-spacing:0}
+.meter{position:relative;height:12px;border-radius:6px;background:var(--grid);margin:12px 0 6px;overflow:visible}
+.meter i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--accent)}
+.meter u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);border-radius:1px}
+.meter u.w{background:var(--bad)}
+.mlab{position:relative;height:16px;font-size:11.5px;color:var(--muted)}
+.mlab span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.mlab span:first-child{transform:none}.mlab span:last-child{transform:translateX(-100%)}
+.note{font-size:13px;color:var(--ink2);margin:10px 0 0}
+.segbar{display:flex;gap:2px;height:28px;margin:10px 0 8px}
+.segbar div{border-radius:4px;display:flex;align-items:center;padding-left:7px;font-size:12px;font-weight:600;color:#fff;min-width:0;overflow:hidden;white-space:nowrap}
+.seglist{list-style:none;margin:0;padding:0;display:grid;gap:5px;font-size:12.5px}
+.seglist li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:baseline}
+.seglist i{width:10px;height:10px;border-radius:3px;display:inline-block;align-self:center}
+.seglist em{font-style:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* ---------- multipli (Qualità) ---------- */
+.mgrid{display:grid;grid-template-columns:repeat(var(--n,4),minmax(0,1fr));gap:14px;margin-bottom:18px}
+@media (max-width:900px){.mgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.mc{display:flex;flex-direction:column;width:100%;text-align:left;cursor:pointer;padding:0;border:1px solid var(--line)}
+.mc .mg{margin-top:auto}
+.mc:hover{border-color:var(--deemph)}
+.mc[aria-pressed=true]{border-color:var(--accent);box-shadow:inset 0 3px 0 var(--accent),var(--shadow)}
+.mc .mt{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;padding:12px 14px 0;font-size:13px;font-weight:500;color:var(--ink2);min-height:32px}
+.mc .mv{display:flex;align-items:baseline;gap:8px;padding:2px 14px 0;flex-wrap:wrap}
+.mc .mv b{font-size:24px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.mc .mv .sx{font-size:12px;color:var(--muted)}
+.mc .mv .delta{font-size:12.5px}
+.mc .mg{padding:4px 8px 8px}
+.h3{font-size:13px;font-weight:600;color:var(--ink2);margin:6px 0 10px;display:flex;align-items:baseline;gap:10px}
+.h3 span{font-weight:400;color:var(--muted);font-size:12.5px}
+
+/* ---------- pannelli laterali (edizione, metodo) ---------- */
+.scrim{position:fixed;inset:0;background:rgba(10,8,6,.32);opacity:0;pointer-events:none;transition:opacity .16s;z-index:20}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(460px,100vw);background:var(--card);border-left:1px solid var(--line);z-index:21;transform:translateX(102%);visibility:hidden;transition:transform .2s ease,visibility 0s linear .2s;display:flex;flex-direction:column;box-shadow:-8px 0 30px rgba(0,0,0,.12)}
+.drawer.on{transform:none;visibility:visible;transition:transform .2s ease}
+.dh{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:18px 20px 12px;border-bottom:1px solid var(--line)}
+.dh h2{margin:0;font-family:var(--display);font-stretch:85%;font-weight:800;font-size:22px;line-height:1.1}
+.dh p{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.dh .x{display:flex;gap:4px}
+.ib{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;cursor:pointer;padding:0;color:var(--ink2)}
+.ib:hover{background:var(--hover);color:var(--ink)}
+.ib:disabled{opacity:.35;cursor:default}
+.ib svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.db{padding:16px 20px 28px;overflow:auto;flex:1}
+.db h3{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin:20px 0 8px}
+.db h3:first-child{margin-top:0}
+.db p{margin:0 0 10px;font-size:13.5px;color:var(--ink2)}
+.ttl{font-size:16px;font-weight:600;line-height:1.35;margin:0 0 10px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:13px;font-weight:500;text-decoration:none;background:var(--card)}
+.btn:hover{background:var(--hover)}
+.btn.pri{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.dl{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:0;font-size:13px;align-items:baseline}
+.dl>span:nth-child(3n+2),.dl>span:nth-child(3n){padding-left:16px}
+.dl>span{padding:6px 0;border-bottom:1px solid var(--grid)}
+.dl>span:nth-child(3n+2){text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.dl>span:nth-child(3n){text-align:right;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+.dl .hd{font-size:11.5px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line)}
+.vok{color:var(--good)}.vatt{color:var(--warn)}.vko{color:var(--bad)}
+.dt2{width:100%;font-size:13px;margin-top:14px}
+.dt2 th,.dt2 td{position:static;padding:7px 0;text-align:right;background:none}
+.dt2 th:first-child,.dt2 td:first-child{text-align:left;position:static}
+.dt2 td:nth-child(2){font-weight:600;padding-left:14px}
+.dt2 td:nth-child(3){color:var(--muted);font-size:12.5px;padding-left:14px}
+.dt2 thead th{font-size:11.5px;color:var(--muted);position:static}
+.dt2 tr.sz th{text-align:left;font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding-top:18px;border-bottom:1px solid var(--line)}
+.mtab{width:100%;font-size:13px}
+.mtab th,.mtab td{position:static;text-align:right;padding:6px 8px}
+.mtab th:first-child,.mtab td:first-child{text-align:left;position:static}
+
+.vuoto{padding:30px;text-align:center;color:var(--muted);font-size:14px}
+#tip{position:fixed;z-index:30;pointer-events:none;background:#141312;color:#F5F3EF;font-size:12.5px;line-height:1.4;padding:8px 10px;border-radius:7px;opacity:0;transition:opacity .08s;max-width:260px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
 #tip b{font-weight:600}
+#tip .tm{color:#B7B0A7}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- adattamento ---------- */
+@media (max-width:900px){.r5{grid-template-columns:repeat(2,minmax(0,1fr))}.r5>.kpi:first-child{grid-column:span 2}.r4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:1100px){
+  .app{grid-template-columns:minmax(0,1fr);background:none}
+  .side{position:sticky;top:0;height:auto;z-index:10;flex-direction:row;align-items:center;gap:6px;padding:8px 10px;overflow-x:auto;scrollbar-width:none}
+  .side::-webkit-scrollbar{display:none}
+  .brand{border:0;margin:0;padding:0 8px 0 2px}
+  .brand img{width:30px;height:30px}
+  .brand span{display:none}
+  .nav{flex-direction:row;gap:2px}
+  .nav button{padding:8px 10px;white-space:nowrap}
+  .nav button[aria-current=page]::before{left:10px;right:10px;top:auto;bottom:-8px;width:auto;height:3px;border-radius:3px 3px 0 0}
+  .side-foot{margin:0 0 0 auto;border:0;padding:0 4px;display:flex;gap:12px}
+  .side-foot .ult{display:none}
+  .lnk span{display:none}
+  .r21,.r11{grid-template-columns:minmax(0,1fr)}
+  .r21>.stack{order:-1}
+}
+@media (max-width:760px){
+  .work{padding:16px 12px 32px}
+  .head h1{font-size:25px}
+  .r5,.r4{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .r5>.kpi:first-child{grid-column:span 2}
+  .row{gap:10px;margin-bottom:10px}
+  .kpi{padding:12px 12px 10px}
+  .kpi .kv{font-size:25px}
+  .nav button svg{display:none}
+  .nav button{padding:8px 9px;font-size:13.5px}
+  .brand{padding-right:2px}
+  .slicers{width:100%}
+  .mgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .mc .mt{padding:10px 10px 0;font-size:12.5px}.mc .mv{padding:2px 10px 0;gap:2px 6px}.mc .mv b{font-size:20px}.mc .mv .sx{width:100%}
+  .brand div{display:none}
+  .card>.ch{flex-wrap:wrap}.ch>div:first-child{flex:1;min-width:0}.ch .tools:has(.seg){width:100%;justify-content:space-between}.ch .tools .seg{flex:1}.ch .tools .seg button{flex:1}
+  .kpi .ks{white-space:normal}
+  .side{-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent);scroll-snap-type:x proximity}
+  .nav button{scroll-snap-align:center}
+  .r21 .stack{order:-1}
+}
+@media (max-width:400px){.kpi .kd{font-size:11.5px}.kpi .kv{font-size:23px}}
+@media (prefers-reduced-motion:reduce){.drawer,.scrim{transition:none}}
+@media print{.side,.slicers,.info{display:none}.app{display:block}.card{box-shadow:none}}
 </style>
 </head>
 <body>
-<div class="top"><div class="wrap"><a class="logo" href="../"><b>GOMMBERG</b> TERMINAL DAILY</a><div class="tabs" role="tablist" id="tabs"></div></div></div>
-<div class="filtri"><div class="wrap" id="filtri"></div></div>
-<main class="wrap"><div id="app"></div></main>
-<div id="tip" role="status"></div>
+<div class="app">
+  <aside class="side" aria-label="Pagine del pannello">
+    <a class="brand" href="../" title="Torna al sito"><img src="../assets/avatar.png" alt=""><div><b>GOMMBERG</b><span>Pannello di controllo</span></div></a>
+    <nav class="nav" id="nav"></nav>
+    <div class="side-foot">
+      <div class="ult" id="ult"></div>
+      <button class="lnk" type="button" data-metodo=""><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></svg><span>Metodo e soglie</span></button>
+      <a class="lnk" href="../"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg><span>Torna al sito</span></a>
+    </div>
+  </aside>
+  <main class="work" id="work">
+    <div class="head"><div><h1 id="titolo">Pannello di controllo</h1><p id="sottotitolo">Caricamento dei dati…</p></div><div class="slicers" id="slicers"></div></div>
+    <div id="app"></div>
+  </main>
+</div>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dtit" tabindex="-1"></aside>
+<div id="tip" aria-hidden="true"></div>
+<noscript><p style="padding:20px">Il pannello ha bisogno di JavaScript.</p></noscript>
 <script>
 (function(){
-/* Soglie: verde fino alla prima, giallo fino alla seconda, rosso oltre. RIF = il piano a cui si rapporta il consumo. */
-var RIF="Pro",S={uscita:"09:45",punt:[90,75],consumo:[25,35],fr:[18,21],lunghe:[10,15],prim:[40,25],schede:[25,18]};
-var PAG=[["panoramica","Panoramica"],["operativita","Operatività"],["consumo","Consumo"],["qualita","Qualità"],["versioni","Versioni"],["edizioni","Edizioni"],["metodo","Metodo"]];
-/* misura: [nome, soglia, meglio se bassa, unità, decimali] */
-var MQ={fr:["Parole per frase",S.fr,1,"",1],lunghe:["Frasi oltre 30 parole",S.lunghe,1,"%",0],prim:["Fonti primarie",S.prim,0,"%",0],schede:["Schede dei fatti",S.schede,0,"",0]};
-var st0={p:"panoramica",per:10,v:"",mq:"fr",un:"pt"};
-function pagina(h){h=(h||"").slice(1);return PAG.some(function(x){return x[0]==h})?h:"panoramica"}
-st0.p=pagina(location.hash);
+"use strict";
+/* ============ Impostazioni ============
+   S: soglie. Per ogni misura [verde fino a, rosso oltre] (o "sotto" se conta di più alto).
+   RIF: il piano a cui si rapporta il consumo. */
+var RIF="Pro";
+var S={uscita:"09:45",punt:[90,75],consumo:[25,35],fr:[18,21],lunghe:[10,15],prim:[40,25],schede:[25,18]};
+/* MISURE di Qualità: campo di registro.json, nome, gruppo, soglia (o null), meglio se bassa, unità, decimali, riferimento senza
+   semaforo, spiegazione. Una misura compare solo se nei dati c'è almeno un valore: per aggiungerne una (per esempio quelle di
+   G-02) basta che pannello.py scriva il campo e che qui ci sia la riga. */
+var MISURE=[
+  {k:"fr",n:"Parole per frase",g:"Scrittura",s:S.fr,basso:1,u:"",d:1,i:"Media delle parole per frase nei testi. Più è bassa, più la lettura è scorrevole."},
+  {k:"lunghe",n:"Frasi oltre 30 parole",g:"Scrittura",s:S.lunghe,basso:1,u:"%",d:0,i:"Quota delle frasi più lunghe di 30 parole."},
+  {k:"gergo",n:"Gergo ogni 1.000 parole",g:"Scrittura",s:null,basso:1,u:"",d:1,i:"Termini da addetti ogni 1.000 parole. È un termometro, non una regola: nessuna soglia."},
+  {k:"prim",n:"Fonti primarie",g:"Fonti e ricerca",s:S.prim,basso:0,u:"%",d:0,i:"Quota delle schede dei fatti con una fonte primaria (chi ha prodotto il dato o la notizia)."},
+  {k:"l1",n:"Fonti di livello 1",g:"Fonti e ricerca",s:null,basso:0,u:"%",d:0,i:"Quota delle schede con almeno una fonte di livello 1 secondo fonti.json."},
+  {k:"schede",n:"Schede dei fatti",g:"Fonti e ricerca",s:S.schede,basso:0,u:"",d:0,i:"Fatti verificati e registrati dalla redazione per l'edizione."},
+  {k:"ricerche",n:"Ricerche",g:"Fonti e ricerca",s:null,ref:25,refn:"riferimento #026",basso:0,u:"",d:0,i:"Ricerche distinte fatte dalla redazione. Il riferimento è la #026 (25-30 ricerche), il benchmark scelto per G-34."},
+  {k:"fonti",n:"Pagine citate",g:"Fonti e ricerca",s:null,basso:0,u:"",d:0,i:"Pagine distinte citate nelle schede dei fatti."},
+  {k:"aperte",n:"Pagine consultate",g:"Fonti e ricerca",s:null,basso:0,u:"",d:0,i:"Pagine diverse che la redazione ha aperto davvero, anche quelle poi non citate (dalla trascrizione della sessione, G-02)."},
+  {k:"fallite",n:"Pagine non raggiunte",tab:1,nb:"Non raggiunte",g:"Fonti e ricerca",s:null,basso:1,u:"",d:0,i:"Pagine che la redazione ha provato ad aprire senza riuscirci (G-02)."},
+  {k:"fonte_singola",n:"Fatti a fonte singola",tab:1,nb:"Fonte singola",g:"Fonti e ricerca",s:null,basso:1,u:"",d:0,i:"Fatti che poggiano su un solo autore, senza fonte primaria. Un'agenzia conta una volta sola, anche se ripresa da più siti. Traguardo: zero o quasi."},
+  {k:"autori",n:"Autori per analisi",g:"Fonti e ricerca",s:null,ref:3,refn:"traguardo 3-4",basso:0,u:"",d:1,i:"Autori diversi dietro ogni analisi, in media: chi ha scritto le schede su cui poggia la tesi."}
+];
+var PAG=[
+  {id:"panoramica",n:"Panoramica",ic:'<rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/>'},
+  {id:"puntualita",n:"Puntualità",ic:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'},
+  {id:"consumo",n:"Consumo",ic:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'},
+  {id:"qualita",n:"Qualità",ic:'<path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/>'},
+  {id:"edizioni",n:"Edizioni",ic:'<path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/>'}
+];
+var ALIAS={operativita:"puntualita",versioni:"edizioni",metodo:"panoramica"};
+
+/* ============ Formati ============ */
 var G=["dom","lun","mar","mer","gio","ven","sab"],M=["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"];
 function it(x,d){return x.toLocaleString("it-IT",{minimumFractionDigits:d,maximumFractionDigits:d})}
 function gg(s){var p=s.split("-");return new Date(+p[0],p[1]-1,+p[2])}
@@ -116,142 +391,412 @@ function breve(s){var d=gg(s);return d.getDate()+" "+M[d.getMonth()]}
 function num(n){return "#"+("00"+n).slice(-3)}
 function mi(t){if(!t)return null;var p=t.split(":");return +p[0]*60+ +p[1]}
 function ora(m){m=Math.round(m);return ("0"+Math.floor(m/60)).slice(-2)+":"+("0"+m%60).slice(-2)}
-function med(a){a=a.filter(function(x){return typeof x=="number"&&isFinite(x)});return a.length?a.reduce(function(s,x){return s+x},0)/a.length:null}
-function seg(v,d,u){if(v==null||!isFinite(v))return "-";var c=v>0?"su":v<0?"giu":"";return '<span class="'+c+'">'+(v>0?"+":"")+it(v,d==null?0:d)+(u==null?"%":u)+"</span>"}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function isn(x){return typeof x=="number"&&isFinite(x)}
+function med(a){a=a.filter(isn);return a.length?a.reduce(function(s,x){return s+x},0)/a.length:null}
+function mediana(a){a=a.filter(isn).sort(function(x,y){return x-y});if(!a.length)return null;var h=a.length>>1;return a.length%2?a[h]:(a[h-1]+a[h])/2}
+function fv(v,d,u){return isn(v)?it(v,d)+(u||""):"-"}
 function mln(x){return it(x/1e6,2)}
-function f(v,d,un){return v!=null?it(v,d)+(un||""):"-"}
-function st(v,s,basso){if(v==null)return "";return basso?(v<=s[0]?"ok":v<=s[1]?"att":"ko"):(v>=s[0]?"ok":v>=s[1]?"att":"ko")}
-var NOME={ok:"in soglia",att:"attenzione",ko:"fuori soglia","":""};
-var app=document.getElementById("app"),tip=document.getElementById("tip"),D=null,LIM=mi(S.uscita);
-function leggi(u){return fetch(u,{cache:"no-store"}).then(function(r){return r.ok?r.json():[]}).catch(function(){return []})}
-Promise.all([leggi("registro.json"),leggi("taratura.json")]).then(function(r){
-  if(!r[0]||!r[0].length){app.innerHTML='<div class="vuoto">Nessuna edizione registrata. La prima riga arriva con la prossima uscita.</div>';return}
-  prepara(r[0],r[1]||[]);disegna()});
-document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-k]");if(!b||!D||b.disabled)return;var k=b.getAttribute("data-k"),v=b.getAttribute("data-v"),m=b.getAttribute("data-mq");
-  if(k=="per")st0.per=+v;else st0[k]=v;if(m)st0.mq=m;if(k=="p"){history.replaceState(null,"","#"+v);scrollTo(0,0)}disegna()});
-addEventListener("hashchange",function(){var p=pagina(location.hash);if(D&&p!=st0.p){st0.p=p;disegna()}});
-var rt;addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){if(D)disegna()},200)});
+function st(v,s,basso){if(!isn(v)||!s)return "";return basso?(v<=s[0]?"ok":v<=s[1]?"att":"ko"):(v>=s[0]?"ok":v>=s[1]?"att":"ko")}
+var NOME={ok:"In soglia",att:"Attenzione",ko:"Fuori soglia"};
+var IC={ok:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',att:'<path d="M12 7v6M12 17h.01"/>',ko:'<path d="M7 7l10 10M17 7L7 17"/>'};
+function chip(s,txt){if(!s)return "";return '<span class="chip '+s+'"><svg viewBox="0 0 24 24">'+IC[s]+"</svg>"+(txt||NOME[s])+"</span>"}
+function stato(s){if(!s)return "";return '<span class="si '+s+'" title="'+NOME[s]+'"><svg viewBox="0 0 24 24" aria-hidden="true">'+IC[s]+'</svg><span class="sr">'+NOME[s]+"</span></span>"}
+function senzaDur(F){var k=F.filter(function(x){return !isn(x.durata_min)}).length;return k?k+" "+plur(k,"rifatta","rifatte")+" a mano, esclus"+plur(k,"a","e"):"dall'avvio all'uscita"}
+/* Quote intere che sommano 100 (resti più grandi) */
+function cento(v){var t=v.map(Math.floor),r=100-t.reduce(function(a,b){return a+b},0),o=v.map(function(x,i){return [x-Math.floor(x),i]}).sort(function(a,b){return b[0]-a[0]});for(var i=0;i<r&&i<o.length;i++)t[o[i][1]]++;return t}
+function plur(n,a,b){return n==1?a:b}
 
+/* ============ Stato ============ */
+var D=null,ED={},app=document.getElementById("app"),tip=document.getElementById("tip"),LIM=mi(S.uscita);
+var st0={p:"panoramica",per:10,v:"",un:"pt",mq:"",ev:"ed",sort:{k:"n",dir:-1},sortv:{k:"v",dir:-1},sel:null};
+function leggiHash(){var h=(location.hash||"").slice(1).toLowerCase();var met=h=="metodo";if(h=="versioni")st0.ev="ve";h=ALIAS[h]||h;st0.p=PAG.some(function(p){return p.id==h})?h:"panoramica";return met}
+var apriMetodo=leggiHash();
+function leggi(u){return fetch(u,{cache:"no-store"}).then(function(r){return r.ok?r.json():[]}).catch(function(){return []})}
+Promise.all([leggi("registro.json"),leggi("taratura.json"),leggi("../edizioni.json")]).then(function(r){
+  (Array.isArray(r[2])?r[2]:[]).forEach(function(e){if(e&&e.numero)ED[e.numero]=e});
+  if(!Array.isArray(r[0])||!r[0].length){document.getElementById("sottotitolo").textContent="";app.innerHTML='<div class="card vuoto">Nessuna edizione registrata. La prima riga arriva con la prossima uscita.</div>';return}
+  prepara(r[0],Array.isArray(r[1])?r[1]:[]);disegna();if(apriMetodo)metodo()});
+
+/* ============ Dati ============ */
 function prepara(reg,tar){
+  reg=reg.filter(function(x){return x&&x.n&&x.d}).sort(function(a,b){return a.n-b.n});
   tar=tar.filter(function(x){return x.durata_min>0&&x.punti>0});
   var piano=tar.some(function(x){return x.piano==RIF})?RIF:(tar.length?tar[tar.length-1].piano:null),tt=tar.filter(function(x){return x.piano==piano});
   var tasso=tt.length?tt.reduce(function(s,x){return s+x.punti},0)/tt.reduce(function(s,x){return s+x.durata_min},0):null;
   var mis=reg.filter(function(x){return x.pesati>0&&x.durata_min>0});
   var tokMin=mis.length?mis.reduce(function(s,x){return s+x.pesati},0)/mis.reduce(function(s,x){return s+x.durata_min},0):null,tokPunto=tasso&&tokMin?tokMin/tasso:null;
-  reg.forEach(function(x){x.pt=!tasso?null:x.pesati>0&&tokPunto?x.pesati/tokPunto:(x.durata_min!=null?x.durata_min*tasso:null);x.fine=mi(x.ora);x.inizio=mi(x.avvio);x.tardi=x.fine!=null&&x.fine>LIM;x.v=x.v||"?"});
+  reg.forEach(function(x){
+    x.misurata=x.pesati>0;
+    x.pt=!tasso?null:x.misurata&&tokPunto?x.pesati/tokPunto:(isn(x.durata_min)?x.durata_min*tasso:null);
+    x.fine=mi(x.ora);x.inizio=mi(x.avvio);x.tardi=x.fine!=null&&x.fine>LIM;x.v=x.v||"?";
+    x.tok=x.misurata?x.pesati:null});
   var vers=[];reg.forEach(function(x){var l=vers[vers.length-1];if(!l||l.v!=x.v){l={v:x.v,r:[]};vers.push(l)}l.r.push(x)});
-  vers.forEach(function(g){function su(fn){return med(g.r.map(fn))}g.n=g.r.length;g.dur=su(function(x){return x.durata_min});g.pt=su(function(x){return x.pt});g.tok=su(function(x){return x.pesati>0?x.pesati:null});
-    g.fr=su(function(x){return x.fr});g.lunghe=su(function(x){return x.lunghe});g.prim=su(function(x){return x.prim});g.schede=su(function(x){return x.schede});g.fine=su(function(x){return x.tardi?null:x.fine});
-    g.punt=g.r.filter(function(x){return !x.tardi}).length/g.n*100;g.kb=g.r[g.n-1].avvio_kb;g.dal=g.r[0].d;g.al=g.r[g.n-1].d});
+  vers.forEach(function(g){var s=riassunto(g.r);for(var k in s)g[k]=s[k];g.dal=g.r[0].d;g.al=g.r[g.r.length-1].d;g.kb=g.r[g.r.length-1].avvio_kb});
   D={reg:reg,tar:tar,piano:piano,tasso:tasso,vers:vers,
-     tmin:tt.length?Math.min.apply(null,tt.map(function(x){return x.punti/x.durata_min})):null,tmax:tt.length?Math.max.apply(null,tt.map(function(x){return x.punti/x.durata_min})):null}}
-
-/* pezzi comuni dei grafici */
-function assi(W,H,L,R,T,B,min,max,da,passo,fmt){var g="";for(var t=da;t<=max+1e-9;t+=passo){var y=T+(H-T-B)*(1-(t-min)/(max-min));g+='<line class="grid" x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'"/><text x="'+(L-6)+'" y="'+(y+4)+'" text-anchor="end">'+fmt(t)+"</text>"}return g}
-function cambi(F,L,pw,T,H,B){var g="";F.forEach(function(x,i){if(i==0||F[i-1].v!=x.v){var x0=L+pw*i;if(i>0)g+='<line x1="'+x0+'" x2="'+x0+'" y1="'+(T-14)+'" y2="'+(H-B)+'" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>';g+='<text x="'+(x0+3)+'" y="'+(T-6)+'" style="fill:var(--ink)">'+esc(x.v)+"</text>"}});return g}
-function date(F,L,pw,H,W){var ogni=Math.ceil(F.length/(W<520?4:10)),g="";F.forEach(function(x,i){if(i%ogni==0)g+='<text x="'+(L+pw*i+pw/2)+'" y="'+(H-7)+'" text-anchor="middle">'+breve(x.d)+"</text>"});return g}
-function colonna(cx,bw,y0,y1,cls){var r=Math.max(0,Math.min(3,bw/2,Math.abs(y0-y1)/2));return '<path class="col'+(cls?" "+cls:"")+'" d="M'+(cx-bw/2)+" "+y0+"V"+(y1+r)+"q0 -"+r+" "+r+" -"+r+"H"+(cx+bw/2-r)+"q"+r+" 0 "+r+" "+r+"V"+y0+'z"/>'}
-function hit(cx,pw,T,h,t){return '<rect class="hit" tabindex="0" x="'+(cx-pw/2)+'" y="'+T+'" width="'+pw+'" height="'+h+'" data-t="'+esc(t)+'"/>'}
-function chi(x){return "<b>"+num(x.n)+" "+data(x.d)+"</b> · "+esc(x.v)+"<br>"}
-function svg(W,H,g,et){return '<svg viewBox="0 0 '+W+" "+H+'" role="img" aria-label="'+et+' I valori sono nella vista Edizioni.">'+g+"</svg>"}
-
-function gOrario(F,W,H){var L=42,R=6,T=22,B=24,pw=(W-L-R)/F.length,bw=Math.min(40,Math.max(4,pw-3)),y0=535,y1=615;function yy(m){return T+(H-T-B)*(1-(Math.min(Math.max(m,y0),y1)-y0)/(y1-y0))}
-  var g=assi(W,H,L,R,T,B,y0,y1,540,15,ora)+cambi(F,L,pw,T,H,B)+'<line x1="'+L+'" x2="'+(W-R)+'" y1="'+yy(LIM)+'" y2="'+yy(LIM)+'" stroke="var(--ink)" stroke-width="1.5"/>';
-  F.forEach(function(x,i){var cx=L+pw*i+pw/2;g+=hit(cx,pw,T,H-T-B,chi(x)+(x.avvio?"avvio "+x.avvio+" · ":"")+"uscita "+(x.ora||"?")+(x.durata_min!=null?" · "+x.durata_min+" min":" · rifatta a mano"));
-    if(x.fine==null)return;
-    if(x.fine>y1)g+='<path class="col tardi" d="M'+(cx-5)+" "+(T+9)+"L"+cx+" "+T+"L"+(cx+5)+" "+(T+9)+'z"/><text x="'+cx+'" y="'+(T+21)+'" text-anchor="middle" style="fill:var(--down)">'+x.ora+"</text>";
-    else if(x.inizio!=null)g+=colonna(cx,bw,yy(x.inizio),yy(x.fine),x.tardi?"tardi":"");
-    else g+='<rect class="col'+(x.tardi?" tardi":"")+'" x="'+(cx-bw/2)+'" y="'+(yy(x.fine)-1.5)+'" width="'+bw+'" height="3" rx="1.5"/>'});
-  return svg(W,H,g+date(F,L,pw,H,W),"Avvio e uscita di ogni edizione rispetto all'obiettivo.")}
-function gColonne(F,W,H,un){var L=42,R=6,T=22,B=24,pw=(W-L-R)/F.length,bw=Math.min(40,Math.max(4,pw-3));
-  function val(x){return un=="tok"?(x.pesati>0?x.pesati/1e6:null):un=="min"?x.durata_min:x.pt}
-  var mx=Math.max.apply(null,F.map(function(x){return val(x)||0}))||1,passo=mx>60?20:mx>30?10:mx>12?5:mx>6?2:mx>3?1:mx>1.2?0.5:0.2,top=Math.ceil(mx*1.08/passo)*passo;
-  var g='<defs><pattern id="trat" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="2" height="5" fill="var(--mark)"/></pattern></defs>'+assi(W,H,L,R,T,B,0,top,0,passo,function(t){return it(t,passo<1?1:0)})+cambi(F,L,pw,T,H,B);
-  F.forEach(function(x,i){var cx=L+pw*i+pw/2,v=val(x);g+=hit(cx,pw,T,H-T-B,chi(x)+(x.pt!=null?"≈ "+it(x.pt,1)+" punti "+esc(D.piano)+"<br>":"")+(x.pesati>0?mln(x.pesati)+" mln di token, misurati · "+x.richieste+" passi":(x.durata_min!=null?"stima dalla durata: "+x.durata_min+" min":"durata non nota")));
-    if(v!=null)g+=colonna(cx,bw,H-B,T+(H-T-B)*(1-v/top),un=="min"||x.pesati>0?"":"stima");else g+='<text x="'+cx+'" y="'+(H-B-5)+'" text-anchor="middle">·</text>'});
-  return svg(W,H,g+'<line x1="'+L+'" x2="'+(W-R)+'" y1="'+(H-B)+'" y2="'+(H-B)+'" stroke="var(--ink)"/>'+date(F,L,pw,H,W),"Consumo di ogni edizione.")}
-function gLinea(F,W,H,campo){var m=MQ[campo],sog=m[1],basso=m[2],un=m[3],dec=m[4],L=42,R=10,T=22,B=24,ok=F.map(function(x){return x[campo]}).filter(function(x){return typeof x=="number"});if(!ok.length)return '<div class="vuoto">Nessun dato.</div>';
-  var mn=Math.min.apply(null,ok.concat([sog[0]])),mx=Math.max.apply(null,ok.concat([sog[0]])),pad=(mx-mn)*0.12||1;mn=Math.max(0,mn-pad);mx+=pad;var pw=(W-L-R)/F.length;
-  function X(i){return L+pw*i+pw/2}function Y(z){return T+(H-T-B)*(1-(z-mn)/(mx-mn))}
-  var passo=(mx-mn)>40?10:(mx-mn)>16?5:(mx-mn)>6?2:1,g=assi(W,H,L,R,T,B,mn,mx,Math.ceil(mn/passo)*passo,passo,function(t){return it(t,0)+un});
-  g+=cambi(F,L,pw,T,H,B)+'<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(sog[0])+'" y2="'+Y(sog[0])+'" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="5 4"/>';
-  var d="",pen=false;F.forEach(function(x,i){if(typeof x[campo]!="number"){pen=false;return}d+=(pen?"L":"M")+X(i)+" "+Y(x[campo]);pen=true});
-  g+='<path d="'+d+'" fill="none" stroke="var(--mark)" stroke-width="2" stroke-linejoin="round"/>';
-  F.forEach(function(x,i){if(typeof x[campo]!="number")return;var c=st(x[campo],sog,basso);g+='<circle cx="'+X(i)+'" cy="'+Y(x[campo])+'" r="'+(i==F.length-1?5:3.5)+'" fill="'+(c!="ok"?"var(--down)":"var(--mark)")+'" stroke="var(--sheet)" stroke-width="1.5"/><circle class="hit" tabindex="0" cx="'+X(i)+'" cy="'+Y(x[campo])+'" r="10" data-t="'+esc(chi(x)+m[0]+": "+it(x[campo],dec)+un)+'"/>'});
-  return svg(W,H,g+date(F,L,pw,H,W),m[0]+" per edizione, con la soglia.")}
-
-function k(cls,et,val,un,nota,attr){var a=attr?"button":"div";return "<"+a+' class="k '+cls+'"'+(attr||"")+'><div class="l"><span>'+et+'</span><span class="st '+cls+'">'+NOME[cls]+'</span></div><div class="v">'+val+(un?" <small>"+un+"</small>":"")+'</div><div class="n">'+nota+"</div></"+a+">"}
-function confronto(){var V=D.vers,vu=V[V.length-1],pv=null;if(st0.v)V.forEach(function(g){if(g.v==st0.v)vu=g});for(var q=V.lastIndexOf(vu)-1;q>=0;q--)if(V[q].dur!=null){pv=V[q];break}return {vu:vu,pv:vu.dur!=null?pv:null}}
-function vai(p,mq){return ' type="button" data-k="p" data-v="'+p+'"'+(mq?' data-mq="'+mq+'"':"")}
-
-function disegna(){
-  var reg=D.reg,P=D.piano||"",tutte=D.vers.map(function(g){return g.v});
-  var tb=document.getElementById("tabs"),fl=document.getElementById("filtri"),sx=fl.scrollLeft,tx=tb.scrollLeft;
-  tb.innerHTML=PAG.map(function(p){return '<button role="tab" type="button" aria-selected="'+(st0.p==p[0])+'" data-k="p" data-v="'+p[0]+'">'+p[1]+"</button>"}).join("");
-  var ult=reg[reg.length-1];
-  tb.scrollLeft=tx;var at=tb.querySelector("[aria-selected=true]");if(at&&at.scrollIntoView)at.scrollIntoView({block:"nearest",inline:"nearest"});
-  fl.innerHTML='<div class="f"><span>Periodo</span>'+[[10,"10"],[30,"30"],[9999,"tutte"]].map(function(o){return '<button type="button" data-k="per" data-v="'+o[0]+'" aria-pressed="'+(st0.per==o[0])+'">'+o[1]+"</button>"}).join("")+"</div>"
-   +'<div class="f"><span>Versione</span><button type="button" data-k="v" data-v="" aria-pressed="'+(st0.v=="")+'">tutte</button>'+tutte.slice().reverse().map(function(v){return '<button type="button" data-k="v" data-v="'+esc(v)+'" aria-pressed="'+(st0.v==v)+'">'+esc(v)+"</button>"}).join("")+"</div>"
-   +'<div class="f agg">ultima: '+num(ult.n)+" "+data(ult.d)+"</div>";fl.scrollLeft=sx;
-  var F=reg.filter(function(x){return !st0.v||x.v==st0.v}).slice(-st0.per);
-  if(!F.length){app.innerHTML='<div class="vuoto">Nessuna edizione con questi filtri.</div>';return}
-  var W=Math.max(300,Math.min(1208,app.clientWidth)),stretto=W<620,Fg=stretto?F.slice(-14):F;
-  var u=F[F.length-1],punt=F.filter(function(x){return !x.tardi}).length/F.length*100,tardi=F.filter(function(x){return x.tardi}).length;
-  var ptM=med(F.map(function(x){return x.pt})),sett=ptM!=null?ptM*5:null,frM=med(F.map(function(x){return x.fr})),lunM=med(F.map(function(x){return x.lunghe})),primM=med(F.map(function(x){return x.prim})),durM=med(F.map(function(x){return x.durata_min})),fineM=med(F.map(function(x){return x.tardi?null:x.fine})),tokM=med(F.map(function(x){return x.pesati>0?x.pesati:null})),nmis=F.filter(function(x){return x.pesati>0}).length;
-  var sU=u.fine==null?"":u.tardi?"ko":"ok",sP=st(punt,S.punt),sC=st(sett,S.consumo,1),sF=st(frM,S.fr,1),sL=st(lunM,S.lunghe,1),sR=st(primM,S.prim),h="",pg=st0.p;
-  var wFull=W-26,w21=W<980?wFull:Math.round((W-10)*2.1/3.1)-26;
-
-  if(pg=="panoramica"){
-    h='<div class="griglia c5">'+k(sU,"Ultima uscita",u.ora||"-","",(u.avvio?"avvio "+u.avvio+" · ":"")+f(u.durata_min,0," min"),vai("operativita"))
-     +k(sP,"Puntualità",it(punt,0)+"%","",tardi+" su "+F.length+" oltre le "+S.uscita,vai("operativita"))
-     +k(sC,"Consumo",sett!=null?"≈ "+it(sett,0):"-",sett!=null?"/100":"","punti "+esc(P)+" a settimana",vai("consumo"))
-     +k(sF,"Parole per frase",f(frM,1),"","soglia "+S.fr[0]+" · ult. "+f(u.fr,1),vai("qualita","fr"))
-     +k(sR,"Fonti primarie",f(primM,0,"%"),"","soglia "+S.prim[0]+"% · ult. "+f(u.prim,0,"%"),vai("qualita","prim"))+"</div>";
-    var schM=med(F.map(function(x){return x.schede})),av=[[sL,"Frasi oltre 30 parole",f(lunM,0,"%"),"qualita","lunghe"],[st(schM,S.schede),"Schede dei fatti",f(schM,0),"qualita","schede"],["","Durata media",f(durM,0," min"),"operativita",""],[nmis?"ok":"att","Token misurati",nmis+" su "+F.length,"consumo",""]];
-    var ord={ko:0,att:1,ok:2,"":3};av.sort(function(a,b){return ord[a[0]]-ord[b[0]]});
-    function riga(a){return '<li><button class="'+a[0]+'"'+vai(a[3],a[4])+"><span>"+a[1]+' <span class="st '+a[0]+'">'+NOME[a[0]]+"</span></span><b>"+a[2]+"</b></button></li>"}
-    var cf=confronto(),cv="";if(cf.pv){var a1=cf.vu,a0=cf.pv;cv='<h3 style="margin-top:14px">'+esc(a1.v)+" su "+esc(a0.v)+'</h3><ul class="avv">'+[["","Durata",seg((a1.dur/a0.dur-1)*100),"versioni",""],["","Parole per frase",seg(a1.fr-a0.fr,1,""),"versioni",""],["","Fonti primarie",seg(a1.prim-a0.prim,0," pt"),"versioni",""],["","Entro le "+S.uscita,seg(a1.punt-a0.punt,0," pt"),"versioni",""]].map(riga).join("")+"</ul>"}
-    h+='<div class="griglia c21" style="margin-top:10px"><div class="vis"><h3><span>Avvio e uscita · obiettivo '+S.uscita+'</span><span class="leg"><span><i></i>in orario</span><span><i class="tardi"></i>in ritardo</span></span></h3>'+gOrario(Fg,w21,stretto?210:300)+"</div>"
-     +'<div class="vis"><h3>Altri indicatori</h3><ul class="avv">'+av.map(riga).join("")+"</ul>"+cv+"</div></div>"}
-
-  else if(pg=="operativita"){
-    h='<div class="griglia c4">'+k(sU,"Ultima uscita",u.ora||"-","",(u.avvio?"avvio "+u.avvio:"avvio non noto"))+k("","Uscita tipica",fineM!=null?ora(fineM):"-","","edizioni in orario")+k(sP,"Entro le "+S.uscita,it(punt,0)+"%","",tardi+" in ritardo su "+F.length)+k("","Durata media",f(durM,0),"min",F.filter(function(x){return x.durata_min==null}).length+" rifatte a mano")+"</div>"
-     +'<div class="vis" style="margin-top:10px"><h3><span>Avvio e uscita di ogni edizione · obiettivo '+S.uscita+'</span><span class="leg"><span><i></i>in orario</span><span><i class="tardi"></i>in ritardo</span></span></h3>'+gOrario(Fg,wFull,stretto?240:380)+"</div>"}
-
-  else if(pg=="consumo"){
-    var un=st0.un;if(un=="tok"&&!nmis)un="pt";
-    h='<div class="griglia c4">'+k(sC,"Settimana tipo",sett!=null?"≈ "+it(sett,0):"-","/100","punti "+esc(P)+" · soglia "+S.consumo[0])+k("","A edizione",ptM!=null?"≈ "+it(ptM,1):"-","punti",D.tasso&&ptM!=null?"tra "+it(ptM*D.tmin/D.tasso,1)+" e "+it(ptM*D.tmax/D.tasso,1):"")+k(nmis?"ok":"att","Token a edizione",tokM?mln(tokM):"-",tokM?"mln":"",nmis+" misurate su "+F.length)+k("","Durata media",f(durM,0),"min","base della stima")+"</div>"
-     +'<div class="griglia c21" style="margin-top:10px"><div class="vis"><h3><span class="sel">'+[["pt","Punti "+esc(P)],["tok","Token"],["min","Minuti"]].map(function(o){return '<button type="button" data-k="un" data-v="'+o[0]+'" aria-pressed="'+(un==o[0])+'"'+(o[0]=="tok"&&!nmis?' disabled title="dalla prima edizione misurata"':"")+">"+o[1]+"</button>"}).join("")+'</span><span class="leg"><span><i></i>misurato</span><span><i class="stima"></i>stima dalla durata</span></span></h3>'+gColonne(Fg,w21,stretto?220:340,un)+"</div>"
-     +'<div class="vis"><h3>Cinque edizioni sul limite '+esc(P)+'</h3><div class="grande">'+(sett!=null?"≈ "+it(sett,0):"-")+' <small>su 100</small></div><div class="metro" style="margin-top:8px"><div class="b"><i style="width:'+Math.min(100,sett||0)+'%"></i><u style="left:'+S.consumo[0]+'%"></u></div><div class="l"><span>0</span><span>soglia '+S.consumo[0]+"</span><span>100</span></div></div>"
-     +'<h3 style="margin-top:16px">Letture della pagina Utilizzo</h3><div style="overflow-x:auto"><table><thead><tr><th>Quando</th><th>Piano</th><th>Punti</th><th>Min</th><th>Punti/ora</th></tr></thead><tbody>'+D.tar.slice().reverse().map(function(x){return "<tr"+(x.piano==D.piano?' class="on"':"")+' title="'+esc(x.nota||"")+'"><td>'+breve(x.giorno)+"</td><td>"+esc(x.piano)+"</td><td>"+it(x.punti,1)+"</td><td>"+it(x.durata_min,0)+"</td><td>"+it(x.punti/x.durata_min*60,1)+"</td></tr>"}).join("")+"</tbody></table></div></div></div>"}
-
-  else if(pg=="qualita"){
-    h='<div class="griglia c4">'+Object.keys(MQ).map(function(c){var m=MQ[c],v=med(F.map(function(x){return x[c]})),s=st(v,m[1],m[2]);return k(s,m[0],f(v,m[4],m[3]),"","soglia "+m[1][0]+m[3]+" · ult. "+f(u[c],m[4],m[3]),' type="button" data-k="mq" data-v="'+c+'" aria-pressed="'+(st0.mq==c)+'"')}).join("")+"</div>"
-     +'<div class="vis" style="margin-top:10px"><h3><span>'+MQ[st0.mq][0]+" per edizione · soglia "+MQ[st0.mq][1][0]+MQ[st0.mq][3]+'</span><span class="leg"><span><i></i>entro la soglia</span><span><i class="tardi"></i>oltre la soglia</span></span></h3>'+gLinea(Fg,wFull,stretto?240:380,st0.mq)+"</div>"}
-
-  else if(pg=="versioni"){
-    var V=D.vers,cf=confronto(),vu=cf.vu,pv=cf.pv;
-    if(pv)h='<div class="griglia c5">'+k("",esc(vu.v)+" su "+esc(pv.v)+" · durata",seg((vu.dur/pv.dur-1)*100),"",f(vu.dur,0)+" contro "+f(pv.dur,0)+" min")+k("","Parole per frase",seg(vu.fr-pv.fr,1,""),"",f(vu.fr,1)+" contro "+f(pv.fr,1))+k("","Frasi lunghe",seg(vu.lunghe-pv.lunghe,0," pt"),"",f(vu.lunghe,0,"%")+" contro "+f(pv.lunghe,0,"%"))+k("","Fonti primarie",seg(vu.prim-pv.prim,0," pt"),"",f(vu.prim,0,"%")+" contro "+f(pv.prim,0,"%"))+k("","Entro le "+S.uscita,seg(vu.punt-pv.punt,0," pt"),"",f(vu.punt,0,"%")+" contro "+f(pv.punt,0,"%"))+"</div>";
-    h+='<div class="vis" style="margin-top:10px;padding:0"><div class="tw"><table><thead><tr><th>Versione</th><th>Edizioni</th><th>Periodo</th><th>Uscita</th><th>Entro '+S.uscita+"</th><th>Durata</th><th>Punti "+esc(P)+"</th><th>Token (mln)</th><th>Parole/frase</th><th>Frasi lunghe</th><th>Fonti primarie</th><th>Schede</th><th>Avvio (KB)</th></tr></thead><tbody>"
-     +V.slice().reverse().map(function(v){return '<tr class="cl'+(v==vu?" on":"")+'" data-k="v" data-v="'+(st0.v==v.v?"":esc(v.v))+'"><td>'+esc(v.v)+"</td><td>"+v.n+"</td><td>"+breve(v.dal)+(v.al!=v.dal?" - "+breve(v.al):"")+"</td><td>"+(v.fine!=null?ora(v.fine):"-")+"</td><td>"+f(v.punt,0,"%")+"</td><td>"+f(v.dur,0," min")+"</td><td>"+f(v.pt,1)+"</td><td>"+(v.tok?mln(v.tok):"-")+"</td><td>"+f(v.fr,1)+"</td><td>"+f(v.lunghe,0,"%")+"</td><td>"+f(v.prim,0,"%")+"</td><td>"+f(v.schede,0)+"</td><td>"+f(v.kb,0)+"</td></tr>"}).join("")+"</tbody></table></div></div>"}
-
-  else if(pg=="edizioni"){
-    h='<div class="vis" style="padding:0"><div class="tw"><table><thead><tr><th>Edizione</th><th>Vers.</th><th>Avvio</th><th>Uscita</th><th>Durata</th><th>Punti '+esc(P)+"</th><th>Base</th><th>Token (mln)</th><th>Passi</th><th>Parole/frase</th><th>Frasi lunghe</th><th>Fonti primarie</th><th>Schede</th><th>Fonti</th></tr></thead><tbody>"
-     +F.slice().reverse().map(function(x){return "<tr><td>"+data(x.d)+" "+num(x.n)+"</td><td>"+esc(x.v)+"</td><td>"+(x.avvio||"-")+"</td><td"+(x.tardi?' class="giu"':"")+">"+(x.ora||"-")+"</td><td>"+f(x.durata_min,0," min")+"</td><td>"+f(x.pt,1)+"</td><td>"+(x.pesati>0?'<span class="tag m">misurata</span>':x.pt!=null?'<span class="tag">stimata</span>':"-")+"</td><td>"+(x.pesati>0?mln(x.pesati):"-")+"</td><td>"+(x.richieste||"-")+"</td><td>"+f(x.fr,1)+"</td><td>"+f(x.lunghe,0,"%")+"</td><td>"+f(x.prim,0,"%")+"</td><td>"+f(x.schede,0)+"</td><td>"+f(x.fonti,0)+"</td></tr>"}).join("")+"</tbody></table></div></div>"}
-
-  else{
-    h='<div class="vis note"><h3>Soglie</h3><p>Uscita entro le '+S.uscita+". Puntualità "+S.punt[0]+"% (fuori soglia sotto "+S.punt[1]+"%). Consumo "+S.consumo[0]+" punti "+esc(P)+" a settimana (fuori soglia oltre "+S.consumo[1]+"). Parole per frase "+S.fr[0]+" (oltre "+S.fr[1]+"). Frasi oltre 30 parole "+S.lunghe[0]+"% (oltre "+S.lunghe[1]+"%). Fonti primarie "+S.prim[0]+"% (sotto "+S.prim[1]+"%). Schede dei fatti "+S.schede[0]+" (sotto "+S.schede[1]+").</p>"
-     +"<h3>Dati</h3><p>Orari, durata, schede e misure di qualità li scrive il kit a ogni uscita, senza spendere token. I token li somma un gancio dalla trascrizione della sessione: pesati = ingresso + 2 x scritti in cache + 0,1 x letti dalla cache + 5 x in uscita.</p>"
-     +"<p>I punti del piano "+esc(P)+" sono una stima: durata x tasso delle letture vere della pagina Utilizzo ("+(D.tasso?it(D.tasso*60,1):"-")+" punti per ora di attività). Quando un'edizione ha i token misurati, i punti seguono i token.</p>"
-     +"<p>Fino alla #025 avvio e durata sono ricostruiti dalla cronologia dell'attività; le edizioni rifatte a mano non hanno durata. I filtri in alto valgono per tutte le viste.</p></div>"}
-  app.innerHTML=h;
+     tmin:tt.length?Math.min.apply(null,tt.map(function(x){return x.punti/x.durata_min})):null,
+     tmax:tt.length?Math.max.apply(null,tt.map(function(x){return x.punti/x.durata_min})):null};
+  MISURE=MISURE.filter(function(m){return reg.some(function(x){return isn(x[m.k])})});
 }
-function mostra(e,x,y){var t=e.getAttribute&&e.getAttribute("data-t");if(!t){tip.style.opacity=0;return}tip.innerHTML=t;tip.style.opacity=1;tip.style.left=Math.max(8,Math.min(x+12,innerWidth-tip.offsetWidth-8))+"px";var yy=y-tip.offsetHeight-12;tip.style.top=(yy<8?y+16:yy)+"px"}
-app.addEventListener("pointermove",function(e){mostra(e.target,e.clientX,e.clientY)});
-app.addEventListener("pointerleave",function(){tip.style.opacity=0});
-app.addEventListener("focusin",function(e){var b=e.target.getBoundingClientRect();mostra(e.target,b.left,b.top)});
-app.addEventListener("focusout",function(){tip.style.opacity=0});
+/* Le misure di un gruppo di edizioni: medie, puntualità, uscita mediana, consumo. */
+function riassunto(F){
+  var s={n:F.length};
+  s.punt=F.length?F.filter(function(x){return !x.tardi}).length/F.length*100:null;
+  s.tardi=F.filter(function(x){return x.tardi});
+  s.uscMed=mediana(F.map(function(x){return x.fine}));
+  s.dur=med(F.map(function(x){return x.durata_min}));
+  s.pt=med(F.map(function(x){return x.pt}));
+  s.sett=isn(s.pt)?s.pt*5:null;
+  s.tok=med(F.map(function(x){return x.tok}));
+  s.nmis=F.filter(function(x){return x.misurata}).length;
+  MISURE.concat([{k:"parole"}]).forEach(function(m){s[m.k]=med(F.map(function(x){return x[m.k]}))});
+  return s}
+/* La versione precedente con almeno 3 edizioni (una versione da 1-2 edizioni non fa da confronto). */
+function prec(gi){for(var q=gi-1;q>=0;q--)if(D.vers[q].r.length>=3)return D.vers[q];return null}
+/* Il periodo scelto e il confronto: con "tutte le versioni" il confronto sono le edizioni subito prima, con una versione la versione prima. */
+function finestra(){
+  var all=D.reg,F,P=null,lab="",labS="";
+  if(st0.v){
+    var gi=-1;D.vers.forEach(function(g,i){if(g.v==st0.v)gi=i});
+    F=gi<0?[]:D.vers[gi].r.slice(-st0.per);
+    var pv=prec(gi);if(pv){P=pv.r;lab=labS=pv.v}
+  }else{
+    F=all.slice(-st0.per);var i0=all.length-F.length,pn=Math.min(F.length,i0);
+    if(pn>=3){P=all.slice(i0-pn,i0);lab="le "+pn+" precedenti";labS=pn+" prec."}
+  }
+  return {F:F,P:P,lab:lab,labS:labS,a:riassunto(F),b:P?riassunto(P):null}}
+
+/* ============ Pezzi comuni ============ */
+var FRECCIA={su:'<svg viewBox="0 0 10 10"><path d="M5 1.5L9 7.5H1z"/></svg>',giu:'<svg viewBox="0 0 10 10"><path d="M5 8.5L1 2.5h8z"/></svg>'};
+/* Variazione: il colore dice meglio o peggio (meglio se bassa = basso), il segno resta sempre scritto. */
+function delta(a,b,basso,d,u,soglia){if(!isn(a)||!isn(b))return "";var x=a-b,eps=soglia==null?Math.pow(10,-(d||0))/2:soglia;
+  if(Math.abs(x)<eps)return '<span class="delta flat">= invariato</span>';
+  var meglio=basso?x<0:x>0;return '<span class="delta '+(meglio?"good":"bad")+'">'+(x>0?FRECCIA.su:FRECCIA.giu)+(x>0?"+":"−")+it(Math.abs(x),d||0)+(u||"")+"</span>"}
+function dMin(a,b){if(!isn(a)||!isn(b))return "";var x=Math.round(a-b);if(!x)return '<span class="delta flat">= invariato</span>';return '<span class="delta '+(x<0?"good":"bad")+'">'+(x>0?FRECCIA.su:FRECCIA.giu)+(x>0?"+":"−")+Math.abs(x)+" min</span>"}
+function vs(w){return w.lab?'<span>vs '+esc(w.lab)+"</span>":""}
+function info(sez){return '<button class="info" type="button" data-metodo="'+sez+'" aria-label="Come si calcola"><svg viewBox="0 0 24 24"><path d="M12 11v6M12 7.5h.01"/></svg></button>'}
+function card(tit,sub,body,opt){opt=opt||{};return '<section class="card'+(opt.cls?" "+opt.cls:"")+'"><div class="ch"><div><h2>'+tit+"</h2>"+(sub?'<span class="sub">'+sub+"</span>":"")+'</div><div class="tools">'+(opt.tools||"")+(opt.info?info(opt.info):"")+"</div></div>"+(opt.leg?'<div class="leg" style="margin-top:10px">'+opt.leg+"</div>":"")+'<div class="cb'+(opt.flush?" flush":"")+'">'+body+"</div></section>"}
+function kpi(o){var qui=o.go==st0.p,tag=qui?"div":"button";return '<'+tag+(qui?"":' type="button"')+' class="card kpi'+(qui?" fermo":"")+" "+(o.s||"")+'"'+(qui?"":' data-go="'+o.go+'"')+(o.mq&&!qui?' data-mq="'+o.mq+'"':"")+'><span class="kl"><span class="kn">'+o.l+"</span>"+stato(o.s)+'</span><span class="kv">'+o.v+(o.u?"<small>"+o.u+"</small>":"")+'</span><span class="kd">'+(o.d?o.d+vsTxt:o.d===false?"":'<span class="delta flat">nessun confronto</span>')+'</span><span class="ks" title="'+esc(String(o.n||"").replace(/<[^>]+>/g,""))+'">'+(o.n||"")+"</span>"+(o.spark?'<span class="spark">'+o.spark+"</span>":"")+"</"+tag+">"}
+var vsTxt="";
+function tipEd(x){return "<b>"+num(x.n)+" · "+data(x.d)+'</b> <span class="tm">'+esc(x.v)+"</span><br>"}
+
+/* ============ Grafici (SVG a mano) ============ */
+var W0=0;
+function larg(el){return Math.max(260,Math.floor(el?el.getBoundingClientRect().width:600))}
+function passo(span,tick){var raw=span/tick,p=Math.pow(10,Math.floor(Math.log10(raw))),n=raw/p;return (n<=1?1:n<=2?2:n<=2.5?2.5:n<=5?5:10)*p}
+function defs(){return '<defs><pattern id="hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1.6" height="4" fill="var(--mark)"/></pattern></defs>'}
+function bande(F,L,pw,T,Hp,etichette){var g="",i0=0;for(var i=1;i<=F.length;i++){if(i==F.length||F[i].v!=F[i0].v){var x0=L+pw*i0,w=pw*(i-i0),k=gIdx(F[i0].v);
+      if(i0>0)g+='<line class="vchg" x1="'+x0+'" x2="'+x0+'" y1="'+T+'" y2="'+(T+Hp)+'"/>';
+      if(etichette&&w>=8){var yb=T+Hp+30;g+='<line class="brl" x1="'+(x0+3)+'" x2="'+(x0+w-3)+'" y1="'+yb+'" y2="'+yb+'"/><line class="brl" x1="'+(x0+3)+'" x2="'+(x0+3)+'" y1="'+(yb-4)+'" y2="'+yb+'"/>';
+        if(w>=30)g+='<text class="bandl" x="'+(x0+7)+'" y="'+(yb+13)+'">'+esc(F[i0].v)+"</text>"}i0=i}}return g}
+function gIdx(v){for(var i=0;i<D.vers.length;i++)if(D.vers[i].v==v)return D.vers.length-1-i;return 0}
+function xlab(F,L,pw,y,W){var min=W<520?54:62,ogni=Math.max(1,Math.ceil(min/pw)),g="",n=F.length;F.forEach(function(x,i){if((n-1-i)%ogni==0){var cx=L+pw*i+pw/2,an=cx+24>W?"end":"middle";g+='<text x="'+(an=="end"?Math.min(W,cx+pw/2):cx)+'" y="'+y+'" text-anchor="'+an+'">'+breve(x.d)+"</text>"}});return '<g class="ax">'+g+"</g>"}
+function yax(L,R,W,yf,ticks,fmt){var g="";ticks.forEach(function(t){var y=Math.round(yf(t))+.5;g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'"/><text x="'+(L-8)+'" y="'+(y+4)+'" text-anchor="end">'+fmt(t)+"</text>"});return '<g class="ax">'+g+"</g>"}
+function col(cx,bw,y0,y1,cls){var h=Math.abs(y0-y1),r=Math.max(0,Math.min(4,bw/2,h));if(h<.5)return "";var top=Math.min(y0,y1);
+  return '<path class="m'+(cls?" "+cls:"")+'" d="M'+(cx-bw/2)+" "+(top+h)+"V"+(top+r)+"q0 -"+r+" "+r+" -"+r+"H"+(cx+bw/2-r)+"q"+r+" 0 "+r+" "+r+"V"+(top+h)+'z"/>'}
+function hit(cx,pw,T,h,x,t){return '<rect class="hit" tabindex="'+(x.ultimo?0:-1)+'" role="button" x="'+(cx-pw/2)+'" y="'+T+'" width="'+pw+'" height="'+h+'" data-ed="'+x.n+'" data-t="'+esc(t)+'" aria-label="'+esc(num(x.n)+" "+data(x.d))+'"/>'}
+function svg(W,H,g,lab){return '<svg class="ch" viewBox="0 0 '+W+" "+H+'" role="img" aria-label="'+esc(lab)+' I valori sono anche nella pagina Edizioni.">'+defs()+g+"</svg>"}
+
+/* Avvio-uscita: una barra per edizione dall'avvio all'uscita, l'obiettivo come linea piena. Fuori scala: barra spezzata in alto con l'ora. */
+function gOrari(F,W,H){var L=46,R=74,T=26,B=48,Hp=H-T-B,pw=(W-L-R)/F.length,bw=Math.min(24,Math.max(3,pw*.56)),lo=525,hi=615,n=F.length,ultLab=-1e9;
+  function Y(m){return T+Hp*(1-(Math.min(Math.max(m,lo),hi)-lo)/(hi-lo))}
+  var g=bande(F,L,pw,T,Hp,true)+yax(L,R,W,Y,[540,555,570,585,600,615],ora);
+  var yT=Y(LIM);g+='<line class="tgt" x1="'+L+'" x2="'+(W-R)+'" y1="'+yT+'" y2="'+yT+'"/><text class="vl" x="'+(W-R+8)+'" y="'+(yT-3)+'">obiettivo</text><text class="vl" x="'+(W-R+8)+'" y="'+(yT+11)+'">'+S.uscita+"</text>";
+  F.forEach(function(x,i){var cx=L+pw*i+pw/2,cls=x.tardi?"bad":i==n-1?"last":"",fuori=x.fine>hi;
+    var t=tipEd(x)+(x.avvio?"Avvio "+x.avvio+" · ":"Avvio non registrato · ")+"uscita <b>"+(x.ora||"non registrata")+"</b>"+(isn(x.durata_min)?"<br>"+x.durata_min+" minuti":"")+(x.tardi?'<br><b style="color:#FF8A7E">'+Math.round(x.fine-LIM)+" min oltre l'obiettivo</b>":"");
+    g+=hit(cx,pw,T,Hp,x,t);
+    if(x.fine==null)return;var y1=Y(x.fine),y0=x.inizio!=null?Y(x.inizio):y1+4;if(y0-y1<4)y0=Math.min(T+Hp,y1+4);
+    if(x.inizio==null)g+='<rect class="m '+cls+'" x="'+(cx-bw/2)+'" y="'+(y1-2)+'" width="'+bw+'" height="4" rx="2"/>';
+    else g+=col(cx,bw,y0,y1,cls);
+    if(fuori){g+='<path class="brk" d="M'+(cx-bw/2-2)+" "+(T+9)+"l"+((bw+4)/2)+" -4l"+((bw+4)/2)+' 4"/>';if(cx-ultLab>=40){g+='<text class="vl bad" x="'+cx+'" y="'+(T-8)+'" text-anchor="middle">'+x.ora+"</text>";ultLab=cx}}
+  });
+  g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+(T+Hp+.5)+'" y2="'+(T+Hp+.5)+'" style="stroke:var(--line)"/>';
+  return svg(W,H,g+xlab(F,L,pw,T+Hp+18,W),"Avvio e uscita di ogni edizione rispetto all'obiettivo delle "+S.uscita+".")}
+
+/* Colonne con media: per durata e consumo. o.val(x), o.est(x) stima tratteggiata, o.fmt, o.tip(x). */
+function gColonne(F,W,H,o){var L=46,R=74,T=20,B=48,Hp=H-T-B,pw=(W-L-R)/F.length,bw=Math.min(24,Math.max(3,pw*.56)),n=F.length;
+  var vals=F.map(o.val).filter(isn),mx=Math.max.apply(null,vals.concat([o.min||0]))||1,ps=passo(mx,4),top=Math.ceil(mx*1.05/ps)*ps;
+  function Y(v){return T+Hp*(1-v/top)}var ticks=[];for(var t=0;t<=top+1e-9;t+=ps)ticks.push(t);
+  var g=bande(F,L,pw,T,Hp,true)+yax(L,R,W,Y,ticks,function(t){return it(t,ps<1?(ps<.1?2:1):0)});
+  F.forEach(function(x,i){var cx=L+pw*i+pw/2,v=o.val(x);g+=hit(cx,pw,T,Hp,x,tipEd(x)+o.tip(x));
+    var cls=(o.cls?o.cls(x):"")||(i==n-1?"last":"");if(o.est&&o.est(x))cls="est"+(i==n-1?" last":"");
+    if(isn(v))g+=col(cx,bw,T+Hp,Y(v),cls);else if(pw>=16)g+='<text class="nd" x="'+cx+'" y="'+(T+Hp-5)+'" text-anchor="middle">n.d.</text>'});
+  var m=med(vals);if(isn(m)&&o.media!==false){var ym=Y(m);g+='<line class="mean" x1="'+L+'" x2="'+(W-R)+'" y1="'+ym+'" y2="'+ym+'"/><text class="vl" x="'+(W-R+8)+'" y="'+(ym-3)+'">media</text><text class="vl" x="'+(W-R+8)+'" y="'+(ym+11)+'">'+o.fmt(m)+"</text>"}
+  g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+(T+Hp+.5)+'" y2="'+(T+Hp+.5)+'" style="stroke:var(--ink2);stroke-width:1"/>';
+  return svg(W,H,g+xlab(F,L,pw,T+Hp+18,W),o.lab)}
+
+/* Linea con soglia e zona buona: per Qualità (piccola o grande). */
+function gLinea(F,W,H,m,piccolo){var k=m.k,L=piccolo?8:46,R=piccolo?30:74,T=piccolo?10:22,B=piccolo?8:48,Hp=H-T-B;
+  var vals=F.map(function(x){return x[k]}).filter(isn);if(!vals.length)return '<div class="vuoto">Nessun dato nel periodo.</div>';
+  var rif=m.s?m.s[0]:m.ref,ext=vals.concat(isn(rif)?[rif]:[]),mn=Math.min.apply(null,ext),mx=Math.max.apply(null,ext),pad=(mx-mn)*.15||Math.max(1,mx*.1);
+  mn=Math.max(0,mn-pad);mx=mx+pad;var pw=(W-L-R)/F.length;function X(i){return L+pw*i+pw/2}function Y(v){return T+Hp*(1-(v-mn)/(mx-mn))}
+  var g="";if(!piccolo){g+=bande(F,L,pw,T,Hp,true);var ps=passo(mx-mn,4),ticks=[];for(var t=Math.ceil(mn/ps)*ps;t<=mx+1e-9;t+=ps)ticks.push(t);g+=yax(L,R,W,Y,ticks,function(t){return it(t,ps<1?1:0)+m.u})}
+  if(m.s){var y0=Y(m.s[0]),yz=m.basso?[y0,T+Hp]:[T,y0];g+='<rect class="zone" x="'+L+'" y="'+Math.min(yz[0],yz[1])+'" width="'+(W-L-R)+'" height="'+Math.abs(yz[1]-yz[0])+'"/>'}
+  if(isn(rif)){var yr=Y(rif);g+='<line class="thr" x1="'+L+'" x2="'+(W-R)+'" y1="'+yr+'" y2="'+yr+'"/>';
+    if(!piccolo)g+='<text class="vl" x="'+(W-R+8)+'" y="'+(yr-3)+'">'+(m.s?"soglia":"riferim.")+'</text><text class="vl" x="'+(W-R+8)+'" y="'+(yr+11)+'">'+it(rif,0)+m.u+"</text>"}
+  var d="",pen=false,last=null;F.forEach(function(x,i){var v=x[k];if(!isn(v))return;d+=(pen?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1);pen=true;last=i});
+  g+='<path class="ln" d="'+d+'"'+(piccolo?' style="stroke-width:1.6"':"")+"/>";
+  F.forEach(function(x,i){var v=x[k];if(!isn(v))return;var s=st(v,m.s,m.basso),fin=i==last,cls=(s=="ko"||s=="att"?" bad":"")+(fin?" last":""),r=piccolo?(fin?4:2.4):(fin?5:3.5);
+    g+='<circle class="dot'+cls+'" cx="'+X(i)+'" cy="'+Y(v)+'" r="'+r+'" style="stroke-width:'+(piccolo?1.5:2)+'"/>';
+    if(!piccolo)g+='<rect class="hit" tabindex="'+(fin?0:-1)+'" role="button" x="'+(X(i)-pw/2)+'" y="'+T+'" width="'+pw+'" height="'+Hp+'" data-ed="'+x.n+'" data-t="'+esc(tipEd(x)+m.n+": <b>"+it(v,m.d)+m.u+"</b>"+(s?" · "+NOME[s].toLowerCase():""))+'" aria-label="'+esc(num(x.n)+" "+m.n+" "+it(v,m.d)+m.u)+'"/>'});
+  if(piccolo&&last!=null){var lv=F[last][k];g+='<text class="vl" x="'+(X(last)+7)+'" y="'+(Y(lv)+(Y(lv)<T+10?12:-6))+'" text-anchor="start" style="font-size:11px">'+it(lv,m.d)+"</text>"}
+  return svg(W,H,g+(piccolo?"":xlab(F,L,pw,T+Hp+18,W)),m.n+" per edizione.")}
+
+
+/* Striscia delle uscite: un segno per edizione, rosso se dopo l'obiettivo */
+function striscia(F){var n=F.length,W=200,H=34,gap=n>40?1:2,w=(W-gap*(n-1))/n,g="";F.forEach(function(x,i){g+='<rect x="'+(i*(w+gap)).toFixed(2)+'" y="'+(x.tardi?6:14)+'" width="'+w.toFixed(2)+'" height="'+(x.tardi?22:14)+'" rx="'+Math.min(2,w/2)+'" fill="var(--'+(x.tardi?"bad":"deemph")+')"/>'});
+  return '<svg class="ch" viewBox="0 0 '+W+" "+H+'" preserveAspectRatio="none" aria-hidden="true" style="height:'+H+'px">'+g+"</svg>"}
+/* Mini-andamento per le card KPI */
+function spark(F,val,W,H,lim,basso){var v=F.map(val),ok=v.filter(isn);if(ok.length<2)return "";var ext=ok.concat(lim!=null?[lim]:[]),mn=Math.min.apply(null,ext),mx=Math.max.apply(null,ext);if(mx==mn){mx+=1;mn-=1}
+  var pw=W/(F.length),d="",pen=false,li=-1;function X(i){return pw*i+pw/2}function Y(z){return 3+(H-6)*(1-(z-mn)/(mx-mn))}
+  v.forEach(function(z,i){if(!isn(z))return;d+=(pen?"L":"M")+X(i).toFixed(1)+" "+Y(z).toFixed(1);pen=true;li=i});
+  var g=lim!=null?'<line x1="0" x2="'+W+'" y1="'+Y(lim)+'" y2="'+Y(lim)+'" class="thr" style="stroke-width:1"/>':"";
+  g+='<path d="'+d+'" fill="none" stroke="var(--deemph)" stroke-width="1.6" stroke-linejoin="round" style="stroke:var(--muted);opacity:.55"/>';
+  if(li>=0)g+='<circle cx="'+X(li)+'" cy="'+Y(v[li])+'" r="3" fill="var(--accent)" stroke="var(--card)" stroke-width="1.5"/>';
+  return '<svg class="ch" viewBox="0 0 '+W+" "+H+'" preserveAspectRatio="none" aria-hidden="true" style="height:'+H+'px">'+g+"</svg>"}
+
+/* ============ Disegno ============ */
+/* Dopo ogni ridisegno il fuoco torna sul controllo che lo aveva (tastiera e lettori di schermo) */
+var CHIAVI=["data-per","data-un","data-ev","data-vf","data-mq","data-sort","data-go"];
+function chiaveFuoco(el){if(!el||el==document.body||drawer.contains(el))return null;if(el.id)return "#"+el.id;for(var i=0;i<CHIAVI.length;i++){var v=el.getAttribute&&el.getAttribute(CHIAVI[i]);if(v!=null)return el.tagName.toLowerCase()+"["+CHIAVI[i]+'="'+v.replace(/"/g,'\\"')+'"]'}return null}
+function disegna(){var fk=chiaveFuoco(document.activeElement);disegna0();if(fk){var el=document.querySelector(fk);if(el&&el.focus)try{el.focus({preventScroll:true})}catch(e){}}}
+function disegna0(){
+  var w=finestra(),F=w.F,a=w.a,b=w.b,P=D.piano||"Pro";D.reg.forEach(function(x){x.ultimo=false});if(F.length)F[F.length-1].ultimo=true;vsTxt=w.labS?' <span>vs '+esc(w.labS)+"</span>":"";
+  /* barra laterale */
+  var allarmi=listaAllarmi(w);
+  document.getElementById("nav").innerHTML=PAG.map(function(p){var bd="";if(p.id=="panoramica"&&allarmi.length){var ko=allarmi.filter(function(x){return x.s=="ko"}).length;bd='<span class="badge'+(ko?"":" att")+'" title="Da guardare">'+allarmi.length+'<span class="sr"> da guardare</span></span>'}
+    return '<button type="button" data-go="'+p.id+'"'+(st0.p==p.id?' aria-current="page"':"")+'><svg viewBox="0 0 24 24">'+p.ic+"</svg>"+p.n+bd+"</button>"}).join("");
+  var cur=document.querySelector("#nav [aria-current]");if(cur&&innerWidth<=1100){var sd=document.querySelector(".side"),r=cur.getBoundingClientRect();if(r.right>innerWidth-8||r.left<0)sd.scrollLeft+=r.left-(innerWidth-r.width)/2}
+  var u=D.reg[D.reg.length-1];
+  document.getElementById("ult").innerHTML='Ultima edizione<br><b>'+num(u.n)+"</b> · "+data(u.d)+(u.ora?" · "+u.ora:"");
+  /* filtri */
+  var vv=D.vers.slice().reverse();
+  document.getElementById("slicers").innerHTML='<span class="slab">Periodo</span><div class="seg" role="group" aria-label="Periodo">'+[[10,"Ultime 10"],[30,"Ultime 30"],[9999,"Tutte"]].map(function(o){return '<button type="button" data-per="'+o[0]+'" aria-pressed="'+(st0.per==o[0])+'">'+o[1]+"</button>"}).join("")+"</div>"
+    +'<label class="dd"><span class="sr">Versione</span><select id="selv" aria-label="Versione delle istruzioni"><option value="">Tutte le versioni</option>'+vv.map(function(g){return '<option value="'+esc(g.v)+'"'+(st0.v==g.v?" selected":"")+">"+esc(g.v)+" · "+g.r.length+" "+plur(g.r.length,"edizione","edizioni")+"</option>"}).join("")+"</select></label>";
+  var pag=PAG.filter(function(p){return p.id==st0.p})[0];
+  document.getElementById("titolo").textContent=pag.n;document.title=pag.n+" - Pannello di controllo - Gommberg Terminal Daily";
+  if(!F.length){document.getElementById("sottotitolo").textContent="Nessuna edizione con questi filtri.";app.innerHTML='<div class="card vuoto">Nessuna edizione con questi filtri.</div>';return}
+  document.getElementById("sottotitolo").innerHTML=F.length+" "+plur(F.length,"edizione","edizioni")+(st0.v?" della "+esc(st0.v):"")+" · dal "+breve(F[0].d)+" al "+breve(F[F.length-1].d)+(w.lab?" · confronto con "+esc(w.lab):"");
+  var h="";
+  if(st0.p=="panoramica")h=panoramica(w,allarmi);
+  else if(st0.p=="puntualita")h=puntualita(w);
+  else if(st0.p=="consumo")h=consumo(w);
+  else if(st0.p=="qualita")h=qualita(w);
+  else h=edizioni(w);
+  app.innerHTML=h;
+  /* i grafici si disegnano alla larghezza vera del loro riquadro */
+  Array.prototype.forEach.call(app.querySelectorAll("[data-g]"),function(el){var f=GR[el.getAttribute("data-g")];if(f)el.innerHTML=f(larg(el))});
+}
+var GR={};
+
+/* --- da guardare: misure fuori soglia, ritardi, consumo --- */
+function listaAllarmi(w){var a=w.a,F=w.F,L=[];
+  var sp=st(a.punt,S.punt);if(a.tardi.length&&sp!="ok")L.push({s:sp,t:a.tardi.length+" "+plur(a.tardi.length,"uscita","uscite")+" dopo le "+S.uscita,d:a.tardi.slice(-3).map(function(x){return breve(x.d)+" alle "+x.ora}).join(" · "),go:"puntualita"});
+  var sc=st(a.sett,S.consumo,1);if(sc&&sc!="ok")L.push({s:sc,t:"Consumo sopra la soglia",d:"≈ "+it(a.sett,0)+" punti "+esc(D.piano||RIF)+" a settimana, soglia "+S.consumo[0],go:"consumo"});
+  MISURE.forEach(function(m){if(!m.s)return;var s=st(a[m.k],m.s,m.basso);if(s&&s!="ok"){var ul=F[F.length-1][m.k];
+    L.push({s:s,t:m.n+(m.basso?" sopra la soglia":" sotto la soglia"),d:"Media "+fv(a[m.k],m.d,m.u)+", soglia "+it(m.s[0],0)+m.u+(isn(ul)?" · ultima "+fv(ul,m.d,m.u):""),go:"qualita",mq:m.k})}});
+  var o={ko:0,att:1};L.sort(function(x,y){return o[x.s]-o[y.s]});return L}
+
+/* ================= PANORAMICA ================= */
+function panoramica(w,allarmi){var a=w.a,b=w.b||{},F=w.F,P=D.piano||RIF,u=F[F.length-1];
+  var h='<div class="row r5">'
+   +kpi({go:"puntualita",l:"Puntualità",s:st(a.punt,S.punt),v:it(a.punt,0)+"%",d:delta(a.punt,b.punt,0,0," pt"),n:(F.length-a.tardi.length)+" su "+F.length+" entro le "+S.uscita,spark:striscia(F)})
+   +kpi({go:"puntualita",l:"Uscita mediana",s:isn(a.uscMed)?(a.uscMed<=LIM?"ok":"ko"):"",v:isn(a.uscMed)?ora(a.uscMed):"-",d:dMin(a.uscMed,b.uscMed),n:"obiettivo "+S.uscita+" · ultima "+(u.ora||"-"),spark:spark(F,function(x){return x.fine!=null?Math.min(x.fine,615):null},200,34,LIM)})
+   +kpi({go:"consumo",l:"Consumo",s:st(a.sett,S.consumo,1),v:isn(a.sett)?"≈ "+it(a.sett,0):"-",u:"su 100",d:delta(a.sett,b.sett,1,0,""),n:"punti "+esc(P)+" a settimana · soglia "+S.consumo[0],spark:spark(F,function(x){return x.pt},200,34,null)})
+   +kpi({go:"qualita",mq:"fr",l:"Parole per frase",s:st(a.fr,S.fr,1),v:fv(a.fr,1),d:delta(a.fr,b.fr,1,1,""),n:"soglia "+S.fr[0]+" · ultima "+fv(u.fr,1),spark:spark(F,function(x){return x.fr},200,34,S.fr[0])})
+   +kpi({go:"qualita",mq:"prim",l:"Fonti primarie",s:st(a.prim,S.prim),v:fv(a.prim,0,"%"),d:delta(a.prim,b.prim,0,0," pt"),n:"soglia "+S.prim[0]+"% · ultima "+fv(u.prim,0,"%"),spark:spark(F,function(x){return x.prim},200,34,S.prim[0])})
+   +"</div>";
+  /* matrice delle ultime edizioni */
+  var R=F.slice(-10).reverse(),cols=[["ora","Uscita"],["durata_min","Durata"],["pt","Punti"],["fr","Parole/frase"],["lunghe","Frasi lunghe"],["prim","Fonti prim."],["schede","Schede"],["ricerche","Ricerche"]];
+  var tb='<div class="tw"><table><thead><tr><th>Edizione</th>'+cols.map(function(c){return "<th>"+c[1]+"</th>"}).join("")+"</tr></thead><tbody>"+R.map(function(x){return riga(x,cols)}).join("")+"</tbody></table></div>";
+  var mat=card("Le ultime edizioni",R.length<F.length?"Le 10 più recenti del periodo · clic su una riga per il dettaglio":"Clic su una riga per il dettaglio",tb,{flush:true,info:"soglie"});
+  /* da guardare */
+  var al=allarmi.length?'<ul class="alerts">'+allarmi.map(function(x){return '<li class="'+x.s+'"><button type="button" data-go="'+x.go+'"'+(x.mq?' data-mq="'+x.mq+'"':"")+'><span class="ic"><svg viewBox="0 0 24 24">'+IC[x.s]+"</svg></span><span><b>"+x.t+"</b><span>"+x.d+"</span></span></button></li>"}).join("")+"</ul>"
+    :'<ul class="alerts"><li class="ok"><button type="button" data-go="qualita"><span class="ic"><svg viewBox="0 0 24 24">'+IC.ok+"</svg></span><span><b>Tutto in soglia</b><span>Puntualità, consumo e qualità rispettano le soglie nel periodo.</span></span></button></li></ul>";
+  /* versione in linea contro la precedente */
+  var V=D.vers,gi=V.length-1;if(st0.v)V.forEach(function(g,i){if(g.v==st0.v)gi=i});var vu=V[gi],pv=prec(gi),cv="";
+  if(pv){var rr=[["Entro le "+S.uscita,vu.punt,pv.punt,0,0,"%"," pt"],["Durata",vu.dur,pv.dur,1,0," min"," min"],["Punti "+esc(P)+" a edizione",vu.pt,pv.pt,1,1,"",""],["Parole per frase",vu.fr,pv.fr,1,1,"",""],["Frasi oltre 30 parole",vu.lunghe,pv.lunghe,1,0,"%"," pt"],["Fonti primarie",vu.prim,pv.prim,0,0,"%"," pt"]];
+    cv='<div class="cmp">'+rr.map(function(r){return "<div><span>"+r[0]+"</span><em>"+fv(r[1],r[4],r[5])+" · "+fv(r[2],r[4],r[5])+"</em>"+(delta(r[1],r[2],r[3],r[4],r[6])||"<em>-</em>")+"</div>"}).join("")+"</div>"}
+  var side='<div class="stack">'+card("Da guardare",allarmi.length?allarmi.length+" "+plur(allarmi.length,"punto","punti")+" nel periodo · clic per il dettaglio":"Nel periodo scelto",al,{})
+    +(cv?card("Le istruzioni "+esc(vu.v)+" contro le "+esc(pv.v),vu.n+" contro "+pv.n+" edizioni · medie per versione",cv,{info:"confronto"}):"")+"</div>";
+  return h+'<div class="row r21">'+mat+side+"</div>"}
+
+/* riga di tabella con celle colorate per stato */
+var SOG={fr:[S.fr,1],lunghe:[S.lunghe,1],prim:[S.prim,0],schede:[S.schede,0]};
+function cella(x,k){var v=x[k],s="",t;
+  if(k=="ora"){t=x.ora||"-";s=x.fine!=null?(x.tardi?"ko":""):""}
+  else if(k=="avvio"){t=x.avvio||"-"}
+  else if(k=="durata_min"){t=isn(v)?v+" min":"-"}
+  else if(k=="pt"){t=isn(v)?(x.misurata?"":"≈ ")+it(v,1):"-"}
+  else if(k=="tok"){t=isn(v)?mln(v):"-"}
+  else{var m=MISURE.filter(function(z){return z.k==k})[0]||{d:0,u:""};t=fv(v,m.d,m.u);if(SOG[k])s=st(v,SOG[k][0],SOG[k][1]);if(s=="ok")s=""}
+  return '<td class="c '+(t=="-"?"na ":"")+s+'"><span>'+t+"</span></td>"}
+function riga(x,cols){return '<tr class="cl'+(st0.sel==x.n?" on":"")+'" data-ed="'+x.n+'" tabindex="0"><td><span class="e">'+num(x.n)+'</span><span class="dt">'+data(x.d)+"</span></td>"+cols.map(function(c){return cella(x,c[0])}).join("")+"</tr>"}
+
+/* ================= PUNTUALITÀ ================= */
+function puntualita(w){var a=w.a,b=w.b||{},F=w.F,u=F[F.length-1];
+  var h='<div class="row r4">'
+   +kpi({go:"puntualita",l:"Entro le "+S.uscita,s:st(a.punt,S.punt),v:it(a.punt,0)+"%",d:delta(a.punt,b.punt,0,0," pt"),n:"soglia "+S.punt[0]+"% · "+(F.length-a.tardi.length)+" su "+F.length})
+   +kpi({go:"puntualita",l:"Uscita mediana",s:isn(a.uscMed)?(a.uscMed<=LIM?"ok":"ko"):"",v:isn(a.uscMed)?ora(a.uscMed):"-",d:dMin(a.uscMed,b.uscMed),n:"metà delle edizioni esce prima"})
+   +kpi({go:"puntualita",l:"Durata media",v:fv(a.dur,0),u:"min",d:dMin(a.dur,b.dur),n:senzaDur(F)})
+   +kpi({go:"puntualita",l:"Ritardi",s:st(a.punt,S.punt),v:String(a.tardi.length),u:plur(a.tardi.length,"edizione","edizioni"),d:b.tardi?delta(a.tardi.length,b.tardi.length,1,0,""):"",n:a.tardi.length?"l'ultimo "+data(a.tardi[a.tardi.length-1].d):"nessuno nel periodo"})
+   +"</div>";
+  GR.orari=function(W){return gOrari(F,W,W<620?272:362)};
+  h+='<div class="row">'+card("Dall'avvio all'uscita","Una barra per edizione: parte all'avvio e finisce all'uscita",'<div data-g="orari"></div>',{info:"orari",leg:'<span><i></i>In orario</span><span><i class="acc"></i>Ultima edizione</span><span><i class="bad"></i>Dopo le '+S.uscita+'</span><span><i class="line"></i>Obiettivo</span>'})+"</div>";
+  GR.durata=function(W){return gColonne(F,W,W<620?212:252,{val:function(x){return x.durata_min},fmt:function(v){return it(v,0)+" min"},cls:function(x){return x.tardi?"bad":""},tip:function(x){return isn(x.durata_min)?"Durata <b>"+x.durata_min+" min</b>":"Durata non nota (rifatta a mano)"},lab:"Durata di ogni edizione in minuti."})};
+  var T=a.tardi.slice().reverse(),lt=T.length?'<div class="tw"><table><thead><tr><th>Edizione</th><th>Avvio</th><th>Uscita</th><th>Ritardo</th><th>Durata</th></tr></thead><tbody>'+T.map(function(x){return '<tr class="cl" data-ed="'+x.n+'" tabindex="0"><td><span class="e">'+num(x.n)+'</span><span class="dt">'+data(x.d)+"</span></td><td>"+(x.avvio||"-")+'</td><td class="c ko"><span>'+x.ora+"</span></td><td>+"+Math.round(x.fine-LIM)+" min</td><td>"+(isn(x.durata_min)?x.durata_min+" min":"-")+"</td></tr>"}).join("")+"</tbody></table></div>"
+    :'<div class="vuoto">Nessuna uscita dopo le '+S.uscita+" nel periodo.</div>";
+  h+='<div class="row r11">'+card("Durata di ogni edizione","Minuti dall'avvio all'uscita",'<div data-g="durata"></div>',{info:"orari",leg:'<span><i></i>In orario</span><span><i class="acc"></i>Ultima edizione</span><span><i class="bad"></i>Uscita dopo le '+S.uscita+'</span><span><i class="dash"></i>Media</span>'})+card("Le uscite in ritardo",T.length?T.length+" nel periodo, dalla più recente":"Nel periodo scelto",lt,{flush:!!T.length})+"</div>";
+  return h}
+
+/* ================= CONSUMO ================= */
+function consumo(w){var a=w.a,b=w.b||{},F=w.F,P=D.piano||RIF,un=st0.un;if(un=="pt"&&!D.tasso)un=a.nmis?"tok":"min";if(un=="tok"&&!a.nmis)un=D.tasso?"pt":"min";
+  var h='<div class="row r4">'
+   +kpi({go:"consumo",l:"Consumo",s:st(a.sett,S.consumo,1),v:isn(a.sett)?"≈ "+it(a.sett,0):"-",u:"su 100",d:delta(a.sett,b.sett,1,0,""),n:"punti "+esc(P)+" a settimana · soglia "+S.consumo[0]})
+   +kpi({go:"consumo",l:"Punti a edizione",v:isn(a.pt)?"≈ "+it(a.pt,1):"-",u:"punti",d:delta(a.pt,b.pt,1,1,""),n:D.tasso&&isn(a.pt)?"tra "+it(a.pt*D.tmin/D.tasso,1)+" e "+it(a.pt*D.tmax/D.tasso,1)+" secondo la taratura":""})
+   +kpi({go:"consumo",l:"Token a edizione",v:isn(a.tok)?mln(a.tok):"-",u:isn(a.tok)?"mln":"",d:delta(isn(a.tok)?a.tok/1e6:null,isn(b.tok)?b.tok/1e6:null,1,2,""),n:"token pesati · "+a.nmis+" "+plur(a.nmis,"misurata","misurate")+" su "+F.length})
+   +kpi({go:"consumo",l:"Durata media",v:fv(a.dur,0),u:"min",d:dMin(a.dur,b.dur),n:senzaDur(F)})
+   +"</div>";
+  var tools='<div class="seg" role="group" aria-label="Misura">'+[["pt","Punti "+esc(P)],["tok","Token"],["min","Minuti"]].map(function(o){return '<button type="button" data-un="'+o[0]+'" aria-pressed="'+(un==o[0])+'"'+((o[0]=="tok"&&!a.nmis)||(o[0]=="pt"&&!D.tasso)?" disabled":"")+">"+o[1]+"</button>"}).join("")+"</div>";
+  GR.cons=function(W){var o={pt:{val:function(x){return x.pt},fmt:function(v){return "≈ "+it(v,1)},est:function(x){return !x.misurata}},tok:{val:function(x){return isn(x.tok)?x.tok/1e6:null},fmt:function(v){return it(v,2)+" mln"}},min:{val:function(x){return x.durata_min},fmt:function(v){return it(v,0)+" min"}}}[un];
+    o.tip=function(x){return (isn(x.pt)?"≈ "+it(x.pt,1)+" punti "+esc(P)+"<br>":"")+(x.misurata?mln(x.tok)+" mln di token pesati · "+x.richieste+" passi":isn(x.durata_min)?"Stima dalla durata: "+x.durata_min+" min":"Durata non nota")};
+    o.lab="Consumo di ogni edizione.";return gColonne(F,W,W<620?242:322,o)};
+  var leg=(un=="pt"?'<span><i></i>Misurato dai token</span><span><i class="est"></i>Stimato dalla durata</span>':'<span><i></i>Edizione</span>')+'<span><i class="acc"></i>Ultima edizione</span><span><i class="dash"></i>Media</span>';
+  var main=card("Consumo di ogni edizione",un=="pt"?"Punti del limite settimanale "+esc(P):un=="tok"?"Milioni di token pesati, solo edizioni misurate":"Minuti di attività",'<div data-g="cons"></div>',{tools:tools,info:"consumo",leg:leg});
+  /* settimana tipo sul piano */
+  var s=a.sett,resto=isn(s)?Math.max(0,100-s):null;
+  var met='<div class="big">'+(isn(s)?"≈ "+it(s,0):"-")+"<small>punti su 100</small></div>"
+    +'<div class="meter" role="img" aria-label="Consumo settimanale stimato '+(isn(s)?it(s,0):"-")+' su 100, soglia '+S.consumo[0]+'"><i style="width:'+Math.min(100,s||0)+'%;background:var(--'+(st(s,S.consumo,1)=="ko"?"bad":st(s,S.consumo,1)=="att"?"warn":"accent")+')"></i><u style="left:'+S.consumo[0]+'%"></u><u class="w" style="left:'+S.consumo[1]+'%"></u></div>'
+    +'<div class="mlab"><span style="left:0">0</span><span style="left:'+S.consumo[0]+'%">'+S.consumo[0]+'</span><span style="left:'+S.consumo[1]+'%">'+S.consumo[1]+'</span><span style="left:100%">100</span></div>'
+    +'<div class="leg" style="padding:0;margin-top:6px"><span><i class="line"></i>Soglia '+S.consumo[0]+'</span><span><i class="line" style="background:var(--bad)"></i>Fuori soglia oltre '+S.consumo[1]+'</span></div>'
+    +'<p class="note">'+(isn(resto)?"Cinque edizioni lasciano <b>≈ "+it(resto,0)+" punti</b> del limite settimanale alle chat di progetto.":"")+"</p>";
+  /* dove vanno i token */
+  var Fm=F.filter(function(x){return x.misurata&&x.token}),comp="";
+  if(Fm.length){var c={cr:0,cw:0,out:0,inp:0};Fm.forEach(function(x){var t=x.token;c.cr+=(t.cacheRead||0)*.1;c.cw+=(t.cacheWrite||0)*2;c.out+=(t.output||0)*5;c.inp+=(t.input||0)});
+    var tot=c.cr+c.cw+c.out+c.inp,parti=[["cr","Letti dalla cache","×0,1","var(--oink)","var(--card)"],["cw","Scritti in cache","×2","var(--mark3)","var(--card)"],["out","Scritti dal modello","×5","var(--mark2)","var(--ink)"]];
+    if(c.inp/tot>=.01)parti.push(["inp","Ingresso","×1","var(--grid)","var(--ink)"]);
+    var quote=cento(parti.map(function(p){return c[p[0]]/tot*100}));
+    comp='<div class="sect">Dove vanno i token ('+Fm.length+" "+plur(Fm.length,"edizione misurata","edizioni misurate")+")</div>"
+      +'<div class="segbar" role="img" aria-label="'+parti.map(function(p,j){return p[1]+" "+quote[j]+"%"}).join(", ")+'">'+parti.map(function(p,j){var sh=c[p[0]]/tot*100;return '<div style="flex:'+sh+' 1 0;background:'+p[3]+';color:'+p[4]+'" data-t="<b>'+p[1]+"</b><br>"+quote[j]+"% dei token pesati · "+mln(c[p[0]]/Fm.length)+' mln a edizione">'+(sh>=12?quote[j]+"%":"")+"</div>"}).join("")+"</div>"
+      +'<ul class="seglist">'+parti.map(function(p,j){return '<li><i style="background:'+p[3]+'"></i><span>'+p[1]+' <em>peso '+p[2]+"</em></span><em>"+mln(c[p[0]]/Fm.length)+" mln · "+quote[j]+"%</em></li>"}).join("")+"</ul>"+(c.inp/tot<.01?'<p class="note" style="font-size:12px;color:var(--muted)">I token in ingresso non in cache sono meno dell\'1%.</p>':"")}
+  var side=card("Settimana tipo sul piano "+esc(P),"Cinque edizioni, punti stimati",met+comp,{info:"consumo"});
+  return h+'<div class="row r21">'+main+side+"</div>"}
+
+/* ================= QUALITÀ ================= */
+function qualita(w){var a=w.a,b=w.b||{},F=w.F,u=F[F.length-1];
+  var M2=MISURE.filter(function(m){return F.some(function(x){return isn(x[m.k])})});
+  if(!st0.mq||!M2.some(function(m){return m.k==st0.mq})){var pr={ko:0,att:1,ok:2,"":3},best=M2.slice().sort(function(x,y){return pr[st(a[x.k],x.s,x.basso)]-pr[st(a[y.k],y.s,y.basso)]})[0];st0.mq=best?best.k:"fr"}
+  if(!M2.length)return '<div class="card vuoto">Nessuna misura di qualità registrata per queste edizioni.</div>';
+  var gruppi=[];M2.forEach(function(m){if(gruppi.indexOf(m.g)<0)gruppi.push(m.g)});
+  var h="";
+  gruppi.forEach(function(gn){var n=M2.filter(function(m){return m.g==gn}).length,nc=n<=5?n:Math.ceil(n/2),nt=n<=3?n:n==4?2:3;
+    h+='<div class="h3">'+gn+"</div>"+'<div class="mgrid" style="--n:'+nc+';--nt:'+nt+'">';
+    M2.filter(function(m){return m.g==gn}).forEach(function(m){var s=st(a[m.k],m.s,m.basso);
+      GR["m_"+m.k]=function(W){return gLinea(F,W,74,m,true)};
+      h+='<button type="button" class="card mc" data-mq="'+m.k+'" aria-pressed="'+(st0.mq==m.k)+'"><span class="mt"><span>'+m.n+"</span>"+stato(s)+'</span><span class="mv"><b>'+fv(a[m.k],m.d,m.u)+"</b>"+delta(a[m.k],b[m.k],m.basso,m.d,m.u=="%"?" pt":m.u)+'<span class="sx">'+(m.s?"soglia "+it(m.s[0],0)+m.u:m.ref?"riferimento "+m.ref:"media del periodo")+'</span></span><span class="mg" data-g="m_'+m.k+'" style="display:block"></span></button>'});
+    h+="</div>"});
+  var m=M2.filter(function(z){return z.k==st0.mq})[0];
+  if(m){GR.qbig=function(W){return gLinea(F,W,W<620?252:322,m,false)};
+    var sub=m.i,leg='<span><i class="dot"></i>Edizione</span><span><i class="dot acc"></i>Ultima</span>'+(m.s?'<span><i class="bad"></i>Fuori soglia</span><span><i class="dash"></i>Soglia</span>':m.ref?'<span><i class="dash"></i>'+esc(m.refn||"Riferimento")+"</span>":"");
+    h+='<div class="row" style="margin-top:8px">'+card("Dettaglio: "+m.n,sub,'<div data-g="qbig"></div>',{info:"qualita",leg:leg})+"</div>"}
+  return h}
+
+/* ================= EDIZIONI ================= */
+var COLE=[["n","Edizione",""],["v","Vers.",""],["avvio","Avvio","op"],["ora","Uscita","op"],["durata_min","Durata","op"],["pt","Punti","co"],["tok","Token (mln)","co"],["fr","Parole/frase","qu"],["lunghe","Frasi lunghe","qu"],["prim","Fonti prim.","qu"],["schede","Schede","qu"],["ricerche","Ricerche","qu"],["fonti","Pagine","qu"]];
+function edizioni(w){var F=w.F,P=D.piano||RIF;
+  var tools='<div class="seg" role="group" aria-label="Vista"><button type="button" data-ev="ed" aria-pressed="'+(st0.ev=="ed")+'">Per edizione</button><button type="button" data-ev="ve" aria-pressed="'+(st0.ev=="ve")+'">Per versione</button></div>';
+  if(st0.ev=="ve"){document.getElementById("sottotitolo").textContent="Tutte le "+D.reg.length+" edizioni, per versione delle istruzioni";Array.prototype.forEach.call(document.querySelectorAll("[data-per]"),function(b){b.disabled=true});return '<div class="row">'+card("Le versioni delle istruzioni","Medie per versione su tutte le edizioni · clic su una riga per filtrare il pannello",tabVersioni(),{tools:tools,flush:true,info:"soglie"})+"</div>"}
+  var extra=MISURE.filter(function(m){return m.tab&&!COLE.some(function(c){return c[0]==m.k})}).map(function(m){return [m.k,m.nb||m.n,"qu"]});
+  var cols=COLE.concat(extra).filter(function(c){return c[0]=="n"||c[0]=="v"||c[0]=="avvio"||c[0]=="ora"||c[0]=="durata_min"||c[0]=="pt"||c[0]=="tok"||F.some(function(x){return isn(x[c[0]])})});
+  var sk=st0.sort.k,sd=st0.sort.dir,R=F.slice().sort(function(x,y){var p=sk=="ora"?x.fine:sk=="avvio"?x.inizio:x[sk],q=sk=="ora"?y.fine:sk=="avvio"?y.inizio:y[sk];
+    if(sk=="v"){p=gIdx(x.v)*-1;q=gIdx(y.v)*-1}var pn=p==null||p==="",qn=q==null||q==="";if(pn&&qn)return y.n-x.n;if(pn)return 1;if(qn)return -1;return (p<q?-1:p>q?1:0)*sd||y.n-x.n});
+  var grp=[["",2],["Operatività",3],["Consumo",2],["Qualità",cols.length-7]].filter(function(g){return g[1]>0});
+  var th='<thead><tr class="grp">'+grp.map(function(g){return '<th colspan="'+g[1]+'">'+(g[0]?"<span>"+g[0]+"</span>":"")+"</th>"}).join("")+"</tr><tr>"+cols.map(function(c){return '<th class="so" tabindex="0" data-sort="'+c[0]+'"'+(sk==c[0]?' aria-sort="'+(sd<0?"descending":"ascending")+'"':"")+">"+c[1]+"</th>"}).join("")+"</tr></thead>";
+  var tb="<tbody>"+R.map(function(x){return '<tr class="cl'+(st0.sel==x.n?" on":"")+'" data-ed="'+x.n+'" tabindex="0"><td><span class="e">'+num(x.n)+'</span><span class="dt">'+data(x.d)+"</span></td><td>"+esc(x.v)+"</td>"+cols.slice(2).map(function(c){return cella(x,c[0])}).join("")+"</tr>"}).join("")+"</tbody>";
+  return '<div class="row">'+card("Tutte le edizioni del periodo",F.length+" "+plur(F.length,"edizione","edizioni")+" · clic su un'intestazione per ordinare, su una riga per il dettaglio · ≈ = punti stimati dalla durata",'<div class="tw tall"><table>'+th+tb+"</table></div>",{tools:tools,flush:true,info:"soglie"})+"</div>"}
+function tabVersioni(){var P=D.piano||RIF,V=D.vers.slice().reverse();
+  function c(v,s,basso,d,u){var x=st(v,s,basso);return '<td class="c '+(x=="ok"?"":x)+'"><span>'+fv(v,d,u)+"</span></td>"}
+  return '<div class="tw"><table><thead><tr><th>Versione</th><th>Edizioni</th><th>Periodo</th><th>Entro '+S.uscita+'</th><th>Uscita mediana</th><th>Durata</th><th>Punti '+esc(P)+'</th><th>Token (mln)</th><th>Parole/frase</th><th>Frasi lunghe</th><th>Fonti prim.</th><th>Schede</th><th>Avvio (KB)</th></tr></thead><tbody>'
+   +V.map(function(g){return '<tr class="cl'+(st0.v==g.v?" on":"")+'" data-vf="'+esc(g.v)+'" tabindex="0"><td><span class="e">'+esc(g.v)+"</span></td><td>"+g.n+"</td><td>"+breve(g.dal)+(g.al!=g.dal?" - "+breve(g.al):"")+"</td>"+c(g.punt,S.punt,0,0,"%")+'<td class="c '+(isn(g.uscMed)&&g.uscMed>LIM?"ko":"")+'"><span>'+(isn(g.uscMed)?ora(g.uscMed):"-")+"</span></td><td>"+fv(g.dur,0," min")+"</td><td>"+fv(g.pt,1)+"</td><td>"+(isn(g.tok)?mln(g.tok):"-")+"</td>"+c(g.fr,S.fr,1,1,"")+c(g.lunghe,S.lunghe,1,0,"%")+c(g.prim,S.prim,0,0,"%")+c(g.schede,S.schede,0,0,"")+"<td>"+fv(g.kb,0)+"</td></tr>"}).join("")+"</tbody></table></div>"}
+
+/* ================= DETTAGLIO DI UN'EDIZIONE ================= */
+var drawer=document.getElementById("drawer"),scrim=document.getElementById("scrim"),prima=null;
+function apri(html){var era=drawer.classList.contains("on"),lab=era&&document.activeElement&&drawer.contains(document.activeElement)?document.activeElement.getAttribute("aria-label"):null;if(!era)prima=document.activeElement;drawer.innerHTML=html;drawer.classList.add("on");scrim.classList.add("on");
+  var b=lab&&drawer.querySelector('[aria-label="'+lab+'"]:not([disabled])');(b||drawer).focus()}
+function chiudi(){drawer.classList.remove("on");scrim.classList.remove("on");st0.sel=null;Array.prototype.forEach.call(document.querySelectorAll("tr.on[data-ed]"),function(r){r.classList.remove("on")});var dst=prima&&document.body.contains(prima)?prima:null;if(!dst&&prima&&prima.getAttribute){var de=prima.getAttribute("data-ed");dst=de&&document.querySelector('tr[data-ed="'+de+'"]')}if(dst&&dst.focus)try{dst.focus()}catch(e){}}
+function edizione(n){var w=finestra(),reg=w.F,i=-1;reg.forEach(function(x,j){if(x.n==n)i=j});
+  if(i<0){reg=D.reg;reg.forEach(function(x,j){if(x.n==n)i=j});if(i<0)return}
+  var x=reg[i],a=w.a,P=D.piano||RIF,e=ED[x.n]||{};st0.sel=x.n;
+  Array.prototype.forEach.call(document.querySelectorAll("tr[data-ed]"),function(r){r.classList.toggle("on",+r.getAttribute("data-ed")==x.n)});
+  var pdf=e.file?"../"+e.file:null,pag="../e/"+("00"+x.n).slice(-3)+".html";
+  function nav(j,lab,d){var ok=j>=0&&j<reg.length;return '<button class="ib" type="button" data-ed="'+(ok?reg[j].n:"")+'"'+(ok?"":" disabled")+' aria-label="'+lab+'"><svg viewBox="0 0 24 24"><path d="'+d+'"/></svg></button>'}
+  var h='<div class="dh"><div><h2 id="dtit">'+num(x.n)+" · "+data(x.d)+"</h2><p>Istruzioni "+esc(x.v)+" · "+(x.misurata?'<span class="tag m">token misurati</span>':'<span class="tag">consumo stimato</span>')+'</p></div><div class="x">'+nav(i-1,"Edizione precedente","M15 18l-6-6 6-6")+nav(i+1,"Edizione successiva","M9 18l6-6-6-6")+'<button class="ib" type="button" data-chiudi aria-label="Chiudi"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div></div><div class="db">';
+  if(e.titolo)h+='<p class="ttl">'+esc(e.titolo)+"</p>";
+  h+='<div class="acts"><a class="btn pri" href="'+pag+'" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Apri l\'edizione</a>'+(pdf?'<a class="btn" href="'+esc(pdf)+'" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>PDF</a>':"")+"</div>";
+  /* linea dell'orario */
+  var lo=525,hi=Math.max(615,(x.fine||0)+10);function P2(m){return Math.max(0,Math.min(100,(m-lo)/(hi-lo)*100))}
+  var col=x.tardi?"bad":"accent";
+  h+='<div style="position:relative;height:30px;margin:14px 0 2px"><div style="position:absolute;left:0;right:0;top:12px;height:6px;border-radius:3px;background:var(--grid)"></div>'
+    +(x.inizio!=null?'<div style="position:absolute;top:10px;height:10px;border-radius:4px;background:var(--'+col+');left:'+P2(x.inizio)+'%;width:'+Math.max(1,P2(x.fine)-P2(x.inizio))+'%"></div>':'<div style="position:absolute;top:8px;width:4px;height:14px;border-radius:2px;background:var(--'+col+');left:'+P2(x.fine)+'%"></div>')
+    +'<div style="position:absolute;top:3px;bottom:3px;width:2px;background:var(--ink);left:'+P2(LIM)+'%"></div></div>'
+    +'<div class="mlab"><span style="left:0">'+ora(lo)+'</span><span style="left:'+P2(LIM)+'%">obiettivo '+S.uscita+'</span><span style="left:100%">'+ora(hi)+"</span></div>";
+  /* una sola tabella: misura, valore, media del periodo */
+  function r(nome,val,cls,rif){return '<tr><td>'+nome+'</td><td class="'+(cls||"")+'">'+val+"</td><td>"+(rif||"")+"</td></tr>"}
+  function sez(t){return '<tr class="sz"><th colspan="3">'+t+"</th></tr>"}
+  var t='<table class="dt2"><thead><tr><th>Misura</th><th>Valore</th><th>Media periodo</th></tr></thead><tbody>'
+    +sez("Orari")+r("Avvio",x.avvio||"-")+r("Uscita",x.ora||"-",x.tardi?"vko":"",x.tardi?"+"+Math.round(x.fine-LIM)+" min oltre":"mediana "+(isn(a.uscMed)?ora(a.uscMed):"-"))+r("Durata",fv(x.durata_min,0," min"),"",fv(a.dur,0," min"))
+    +sez("Consumo")+r("Punti "+esc(P),isn(x.pt)?(x.misurata?"":"≈ ")+it(x.pt,1):"-","",fv(a.pt,1))+r("Token pesati",x.misurata?mln(x.tok)+" mln":"-","",isn(a.tok)?mln(a.tok)+" mln":"-")
+    +(x.richieste?r("Chiamate al modello",String(x.richieste)):"")+r("Istruzioni lette all'avvio",fv(x.avvio_kb,0," KB"))
+    +sez("Qualità e fonti")+MISURE.concat([{k:"parole",n:"Parole",d:0,u:""}]).filter(function(m){return isn(x[m.k])}).map(function(m){var s=st(x[m.k],m.s,m.basso);return r(m.n,fv(x[m.k],m.d,m.u),s&&s!="ok"?"v"+s:"",fv(a[m.k],m.d,m.u))}).join("")
+    +"</tbody></table>";
+  h+=t;
+  if(!w.F.some(function(z){return z.n==x.n}))h+='<p class="note" style="font-size:12.5px;color:var(--muted)">Questa edizione è fuori dal periodo scelto: le medie restano quelle del periodo.</p>';
+  if(x.fallite_siti&&x.fallite_siti.length)h+='<p class="note" style="font-size:12.5px;color:var(--muted)">Pagine non raggiunte: '+esc(x.fallite_siti.join(", "))+".</p>";
+  if(x.ricostruita)h+='<p class="note" style="font-size:12.5px;color:var(--muted)">Orari ricostruiti dalla cronologia dell\'attività.</p>';
+  apri(h+"</div>")}
+
+/* ================= METODO ================= */
+function metodo(sez){var P=D?D.piano||RIF:RIF,t=D?D.tar.slice().reverse():[];
+  var rows=[["Uscita","entro le "+S.uscita,"dopo le "+S.uscita],["Puntualità","almeno "+S.punt[0]+"%","sotto "+S.punt[1]+"%"],["Consumo a settimana","fino a "+S.consumo[0]+" punti","oltre "+S.consumo[1]]];
+  MISURE.forEach(function(m){if(m.s)rows.push([m.n,(m.basso?"fino a ":"almeno ")+it(m.s[0],0)+m.u,(m.basso?"oltre ":"sotto ")+it(m.s[1],0)+m.u])});
+  var h='<div class="dh"><div><h2 id="dtit">Metodo e soglie</h2><p>Come si leggono i numeri del pannello</p></div><div class="x"><button class="ib" type="button" data-chiudi aria-label="Chiudi"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div></div><div class="db">'
+   +'<h3 id="m-soglie">Soglie</h3><p>Verde fino alla prima soglia, giallo fino alla seconda, rosso oltre. Nel pannello il colore di una variazione dice se è un miglioramento (verde) o un peggioramento (rosso); il segno + o − dice solo se il numero è salito o sceso.</p><table class="mtab"><thead><tr><th>Misura</th><th class="vok">In soglia</th><th class="vko">Fuori soglia</th></tr></thead><tbody>'+rows.map(function(r){return "<tr><td>"+r[0]+"</td><td>"+r[1]+"</td><td>"+r[2]+"</td></tr>"}).join("")+"</tbody></table>"
+   +'<h3 id="m-confronto">Periodo e confronto</h3><p>Il periodo vale per tutte le pagine. Con tutte le versioni, ogni numero si confronta con le edizioni subito precedenti (stesso numero di edizioni); con una versione scelta, con tutta la versione prima (saltando quelle con meno di 3 edizioni).</p>'
+   +'<h3 id="m-orari">Orari</h3><p>Avvio, uscita e durata li scrive il kit a ogni uscita. Fino alla #025 sono ricostruiti dalla cronologia dell\'attività; le edizioni rifatte a mano non hanno l\'avvio. L\'uscita mediana è l\'ora entro cui esce metà delle edizioni: non risente di un singolo giorno storto.</p>'
+   +'<h3 id="m-consumo">Consumo</h3><p>I token li somma un gancio dalla trascrizione della sessione, senza spendere token. Token pesati = ingresso + 2 × scritti in cache + 0,1 × letti dalla cache + 5 × scritti dal modello.</p><p>I punti del piano '+esc(P)+" sono una stima: quando un'edizione ha i token misurati seguono i token, altrimenti la durata × il tasso delle letture vere della pagina Utilizzo"+(D&&D.tasso?" ("+it(D.tasso*60,1)+" punti per ora di attività)":"")+". La settimana tipo sono cinque edizioni.</p>"
+   +(t.length?'<table class="mtab"><thead><tr><th>Lettura</th><th>Piano</th><th>Punti</th><th>Minuti</th><th>Punti/ora</th></tr></thead><tbody>'+t.map(function(x){return '<tr title="'+esc(x.nota||"")+'"><td>'+breve(x.giorno)+"</td><td>"+esc(x.piano)+"</td><td>"+it(x.punti,1)+"</td><td>"+it(x.durata_min,0)+"</td><td>"+it(x.punti/x.durata_min*60,1)+"</td></tr>"}).join("")+"</tbody></table>":"")
+   +'<h3 id="m-qualita">Qualità e fonti</h3>'+MISURE.map(function(m){return "<p><b>"+m.n+".</b> "+m.i+"</p>"}).join("")
+   +"</div>";
+  apri(h);if(sez){var el=document.getElementById("m-"+sez);if(el)el.scrollIntoView({block:"start"})}}
+
+/* ================= Eventi ================= */
+document.addEventListener("click",function(e){var t=e.target.closest?e.target:null;if(!t||!D&&!t.closest("[data-metodo]"))return;var el;
+  if(el=t.closest("[data-chiudi]"))return chiudi();
+  if(el=t.closest("[data-metodo]"))return metodo(el.getAttribute("data-metodo"));
+  if(el=t.closest("[data-ed]")){var n=+el.getAttribute("data-ed");if(n)edizione(n);return}
+  if(el=t.closest("[data-go]")){var p=el.getAttribute("data-go"),mq=el.getAttribute("data-mq");if(mq)st0.mq=mq;if(p!=st0.p){st0.p=p;history.replaceState(null,"","#"+p);scrollTo(0,0)}disegna();return}
+  if(el=t.closest("[data-mq]")){st0.mq=el.getAttribute("data-mq");disegna();return}
+  if(el=t.closest("[data-per]")){st0.per=+el.getAttribute("data-per");disegna();return}
+  if(el=t.closest("[data-un]")){if(!el.disabled){st0.un=el.getAttribute("data-un");disegna()}return}
+  if(el=t.closest("[data-ev]")){st0.ev=el.getAttribute("data-ev");disegna();return}
+  if(el=t.closest("[data-vf]")){var v=el.getAttribute("data-vf");st0.v=st0.v==v?"":v;st0.ev="ed";disegna();var sv=document.getElementById("selv");if(sv)sv.focus();return}
+  if(el=t.closest("[data-sort]")){var k=el.getAttribute("data-sort");if(st0.sort.k==k)st0.sort.dir*=-1;else st0.sort={k:k,dir:k=="n"?-1:-1};disegna();return}
+});
+scrim.addEventListener("click",chiudi);
+document.addEventListener("change",function(e){if(e.target.id=="selv"){st0.v=e.target.value;disegna()}});
+document.addEventListener("keydown",function(e){if(e.key=="Escape"&&drawer.classList.contains("on")){chiudi();return}
+  if((e.key=="Enter"||e.key==" ")&&e.target.matches&&e.target.matches("tr[data-ed],tr[data-vf],rect.hit,th[data-sort]")){e.preventDefault();e.target.dispatchEvent(new MouseEvent("click",{bubbles:true}));return}
+  /* frecce tra le barre dello stesso grafico (un solo punto di tabulazione per grafico) */
+  if((e.key=="ArrowLeft"||e.key=="ArrowRight")&&e.target.matches&&e.target.matches("rect.hit")){var hs=Array.prototype.slice.call(e.target.ownerSVGElement.querySelectorAll("rect.hit")),k=hs.indexOf(e.target)+(e.key=="ArrowLeft"?-1:1);if(hs[k]){e.preventDefault();hs.forEach(function(h){h.setAttribute("tabindex","-1")});hs[k].setAttribute("tabindex","0");hs[k].focus()}return}
+  if(drawer.classList.contains("on")&&e.key=="Tab"){var f=drawer.querySelectorAll("a[href],button:not([disabled])");if(!f.length)return;var A=f[0],Z=f[f.length-1];if(e.shiftKey&&(document.activeElement==A||document.activeElement==drawer)){e.preventDefault();Z.focus()}else if(!e.shiftKey&&document.activeElement==Z){e.preventDefault();A.focus()}}
+  if(drawer.classList.contains("on")&&st0.sel&&(e.key=="ArrowLeft"||e.key=="ArrowRight")){var b=drawer.querySelectorAll(".dh .ib")[e.key=="ArrowLeft"?0:1];if(b&&!b.disabled)b.click()}});
+addEventListener("hashchange",function(){var h=(location.hash||"").slice(1).toLowerCase();if(h=="edizioni")st0.ev="ed";var met=leggiHash();if(D){if(drawer.classList.contains("on")&&!met)chiudi();disegna();if(met)metodo()}});
+var rt,lw=innerWidth;addEventListener("resize",function(){if(innerWidth==lw)return;lw=innerWidth;clearTimeout(rt);rt=setTimeout(function(){if(D)disegna()},150)});
+/* suggerimenti al passaggio e al fuoco */
+function mostra(el,x,y){var t=el&&el.getAttribute&&el.getAttribute("data-t");if(!t){tip.style.opacity=0;return}tip.innerHTML=t;tip.style.opacity=1;var tw=tip.offsetWidth,th=tip.offsetHeight;tip.style.left=Math.max(8,Math.min(x+14,innerWidth-tw-8))+"px";var yy=y-th-14;tip.style.top=(yy<8?y+18:yy)+"px"}
+document.addEventListener("pointermove",function(e){var el=e.target.closest?e.target.closest("[data-t]"):null;if(el)mostra(el,e.clientX,e.clientY);else tip.style.opacity=0});
+document.addEventListener("focusin",function(e){var el=e.target;if(el.getAttribute&&el.getAttribute("data-t")){var b=el.getBoundingClientRect();mostra(el,b.left+b.width/2,b.top)}else tip.style.opacity=0});
+document.addEventListener("scroll",function(){tip.style.opacity=0},true);
 })();
 </script>
 </body>

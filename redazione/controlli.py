@@ -17,8 +17,9 @@ for pat in ("TODO", "XXX", "lorem", "None", "nan%", "inf%"):
     if pat in testo:
         problemi.append(f"Testo segnaposto o errore trovato: {pat!r}")
 nd = testo.count("n.d.")
-if nd > 8:
-    problemi.append(f"Troppi dati mancanti: {nd} 'n.d.'")
+if nd:   # le tabelle dei mercati le calcola numeri.py e non scrivono mai "n.d.": se compare, una cella è stata scritta a mano
+    problemi.append(f"{nd} 'n.d.' nel PDF: le tabelle di pag. 5 vengono da tabelle_da_dati (C[\"cruscotto\"] = TAB[\"cruscotto\"], "
+                    "come nel modello); altrove scrivi il dato verificato o togli la frase")
 try:
     voci = json.load(open(indice, encoding="utf-8"))
     nums = [v["numero"] for v in voci]

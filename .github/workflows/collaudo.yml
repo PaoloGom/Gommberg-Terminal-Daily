@@ -1,0 +1,54 @@
+# Il collaudo del rilascio su una macchina di GitHub, a ogni push sul ramo "rilascio": lo stesso redazione/collaudo.py che
+# si lancia a mano (kit e rete di non regressione), più il sito di quel ramo aperto pagina per pagina in un browser vero
+# e confrontato con gommberg.com. redazione/rilascia.sh porta il lavoro sul ramo principale solo se questo è verde
+# sullo stesso commit. Non usa token del modello né segreti. Mappa e regole: redazione/ARCHITETTURA.md.
+name: Collaudo
+
+on:
+  push:
+    branches: [rilascio]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: collaudo-${{ github.ref }}
+  cancel-in-progress: true         # due push ravvicinati: conta solo l'ultimo
+
+defaults:
+  run:
+    shell: bash                    # con pipefail: un errore prima di "| tee" ferma il passo
+
+jobs:
+  kit:
+    name: Kit e rete di non regressione
+    runs-on: ubuntu-24.04          # fisso: il testo dei PDF campione si confronta riga per riga (stessi caratteri e stesso pdftotext)
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Strumenti del mattino (li installa prepara.sh, come ogni giorno)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils qpdf fonts-dejavu > /dev/null
+          GTD_REPO="$PWD" GTD_LAVORO="$RUNNER_TEMP/avvio" bash redazione/prepara.sh | tail -4 || true
+      - name: Collaudo
+        run: python3 redazione/collaudo.py | tee -a "$GITHUB_STEP_SUMMARY"
+
+  sito:
+    name: Sito nel browser, contro gommberg.com
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Browser
+        run: pip install --quiet playwright && python -m playwright install --with-deps chromium > /dev/null
+      - name: Il sito di questo ramo, pagina per pagina
+        # NO = errore vero (ferma). CAMBIA = diverso da ciò che è in linea oggi: è l'elenco di ciò che il lettore vedrà
+        # cambiare con il rilascio, e va nel resoconto per Paolo.
+        run: |
+          python redazione/sito/costruisci.py _sito --anteprima
+          python redazione/sito/collaudo_sito.py --locale _sito https://gommberg.com/ --rilascio | tee -a "$GITHUB_STEP_SUMMARY"

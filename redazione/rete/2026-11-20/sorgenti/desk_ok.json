@@ -1,0 +1,62 @@
+[
+ {
+  "campo": "quadro",
+  "originale": "Per noi si vende ciò che vive di utili lontani o non paga interessi. L'AI e l'oro scendono insieme e il dollaro resta vicino ai massimi da 19 mesi. Il rendimento del Treasury a 10 anni (5,04%) cala poco: per noi, perché la Fed si prepara ad alzare. Il petrolio non fa da rifugio: il Brent (91,98 $) guarda all'eccesso di offerta.",
+  "testo": "Per noi si vende ciò che vive di utili lontani o non paga interessi: l'AI e l'oro scendono insieme e il dollaro resta vicino ai massimi da 19 mesi. Il rendimento del Treasury a 10 anni (5,04%) cala poco e il Brent (91,98 $) non fa da rifugio."
+ },
+ {
+  "campo": "in30.0",
+  "originale": "La Fed ha meno spazio per fermarsi: i dati di ieri frenano l'attività e spingono i prezzi. [[fed]]",
+  "testo": "La Fed ha meno spazio per fermarsi, e Waller parla di un rialzo da mezzo punto a dicembre. [[fed]]"
+ },
+ {
+  "campo": "moduli.ai.titolo",
+  "originale": "Anthropic guadagna il 17%, ma il resto dell'AI paga il conto",
+  "testo": "Perché il successo di Anthropic non basta a salvare i titoli AI"
+ },
+ {
+  "campo": "moduli.ai.guardare",
+  "originale": "Lo dirà l'apertura di Wall Street: se i chip americani recuperano mentre l'Asia è ancora in calo, la vendita era un eccesso dettato dall'orario. Se scendono ancora, perde peso l'idea che sia solo liquidità e prevale quella dei tassi.",
+  "testo": "Contano i chip americani: se recuperano mentre l'Asia è ancora in calo, la vendita era un eccesso dettato dall'orario. Se scendono ancora, perde peso l'idea che sia solo liquidità e prevale quella dei tassi."
+ },
+ {
+  "campo": "moduli.fed.testo.0",
+  "originale": "Perché i prezzi pagati contano? Sono il primo anello della catena: se le imprese pagano di più materie e servizi, di solito prima o poi lo scaricano sui prezzi al consumo. A Filadelfia il costo sale mentre l'attività delle fabbriche cala: una combinazione scomoda. La Fed vuole frenare l'inflazione con tassi più alti, ma tassi più alti pesano su un'economia che già rallenta.",
+  "testo": "Perché i prezzi pagati contano? Sono il primo anello della catena: se le imprese pagano di più materie e servizi, di solito prima o poi lo scaricano sui prezzi al consumo. Ed ecco la scomodità per la Fed: vuole frenare l'inflazione con tassi più alti, ma tassi più alti pesano su un'economia che già rallenta."
+ },
+ {
+  "campo": "moduli.fed.testo.2",
+  "originale": "I sussidi di disoccupazione salgono a 203 mila, appena sopra i 197 mila attesi, non cambiano il quadro. Per noi il lavoro resta il lato dell'economia che tiene. La Fed può quindi guardare soprattutto ai prezzi.",
+  "testo": "Anche i sussidi di disoccupazione, appena sopra le attese, non cambiano il quadro. Per noi il lavoro resta il lato dell'economia che tiene, e la Fed può quindi guardare soprattutto ai prezzi."
+ },
+ {
+  "campo": "moduli.petrolio.titolo",
+  "originale": "Houthi su Riyadh e mine a Hormuz, ma il petrolio guarda all'eccesso di offerta",
+  "testo": "Per il petrolio i barili in arrivo pesano più dei rischi a Riyadh"
+ },
+ {
+  "campo": "moduli.petrolio.quindi",
+  "originale": "Una chiusura sopra i 100 $, livello che il Brent non vede dal 3 novembre, direbbe che il rischio Hormuz ha battuto l'eccesso di offerta.",
+  "testo": "Una chiusura sopra i 100 $ direbbe che il rischio Hormuz ha battuto l'eccesso di offerta."
+ },
+ {
+  "campo": "moduli.europa.quindi",
+  "originale": "L'apertura dirà se l'Europa recupera il ritardo: i future sull'Euro Stoxx 50 segnano -1,43% (Borsa&amp;Finanza, 08:47).",
+  "testo": "I future sull'Euro Stoxx 50 segnano -1,43% (Borsa&amp;Finanza, 08:47): per noi l'Europa non è immune alla vendita."
+ },
+ {
+  "campo": "moduli.europa.testo.0",
+  "originale": "Perché l'Europa cade meno? Gli indici europei hanno pochi titoli dell'intelligenza artificiale, e la vendita di giovedì colpiva soprattutto quelli. ASML, che fa le macchine con cui si producono i chip, ha chiuso in rialzo.",
+  "testo": "Perché l'Europa cade meno? La vendita di giovedì colpiva soprattutto i titoli dell'intelligenza artificiale, e gli indici europei ne hanno pochi, a differenza del Nasdaq."
+ },
+ {
+  "campo": "moduli.europa.testo.2",
+  "originale": "Anche su base settimanale il quadro è lo stesso: il FTSE MIB perde il 3,6% e l'Euro Stoxx 50 il 4,2%, contro il 5,1% dell'S&amp;P 500. L'Europa soffre, ma meno, e senza il peso dei titoli dell'intelligenza artificiale.",
+  "testo": "Anche su base settimanale il quadro è lo stesso: il FTSE MIB perde il 3,6% e l'Euro Stoxx 50 il 4,2%, contro il 5,1% dell'S&amp;P 500."
+ },
+ {
+  "campo": "moduli.oro.testo.0",
+  "originale": "Come mai l'oro, il bene rifugio per eccellenza, scende in un giorno di paura? Per noi oggi la paura è sui tassi, non sull'inflazione fuori controllo. L'oro serve a proteggersi da un denaro che perde valore. Ma se la banca centrale alza i tassi per fermare l'inflazione, il dollaro rende di più e l'oro, che non rende nulla, diventa meno interessante.",
+  "testo": "Come mai l'oro, il bene rifugio per eccellenza, scende in un giorno di paura? Per noi oggi la paura è sui tassi, non sull'inflazione fuori controllo. L'oro serve a proteggersi da un denaro che perde valore, e oggi il denaro rende di più."
+ }
+]

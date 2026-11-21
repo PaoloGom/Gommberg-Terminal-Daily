@@ -19,18 +19,26 @@ Regole dell'invio automatico (modo auto):
   4. prima delle 8 di mattina (ora di Roma) non parte nulla: una modifica notturna a un'edizione di prova con la data
      del giorno dopo non deve arrivare ai lettori al posto dell'edizione vera.
 
-L'email usa solo i campi base della scheda (numero, data, titolo, dek, sommario, notizie, ticker, file): gli stessi di home e feed.
+L'email legge solo la scheda dell'edizione (titolo, dek, ticker, approfondimenti, dove, evento_oggi, scommessa): zero token.
 
-Testata e piè di pagina (motto, riga sull'intelligenza artificiale, link per annullare l'iscrizione, indirizzo postale)
-stanno nel modello, non qui: redazione/newsletter_modello.html è la fonte, caricata a mano in Kit come due modelli:
-  "Gommberg edizione"  identico al file: lo usa questo script, il contenuto arriva già impaginato (margine zero);
-  "Gommberg"           lo stesso con il margine attorno al contenuto: è il predefinito, per l'email di conferma
-                       e per ogni email scritta a mano dentro Kit.
-Se cambia il file, i due modelli in Kit vanno aggiornati (Broadcasts > Templates).
+Com'è fatta (G-15, scelta di Paolo del 21/11/2026): testata sottile con la data delle chiusure, i sei mercati in una
+fascia chiara (un colpo d'occhio, non corpo della mail), titolo, sommario in due frasi, pulsante, poi l'indice
+dell'edizione, una riga per pagina. La notizia e il suo perché si leggono senza cliccare; il resto è sul sito.
+
+La testata la compone questo script, perché porta una data che cambia ogni giorno. Cornice e piè di pagina (riga
+sull'intelligenza artificiale, link per annullare l'iscrizione, indirizzo postale, caratteri del sito, regole per il
+telefono) stanno nei modelli caricati a mano in Kit (Broadcasts > Templates):
+  "Gommberg cornice"   = redazione/newsletter_cornice.html: lo usa questo script (margine zero, niente testata);
+  "Gommberg"           = redazione/newsletter_modello.html con il margine attorno al contenuto: è il predefinito, per
+                         l'email di conferma e per ogni email scritta a mano dentro Kit (ha la sua testata).
+Se cambia un file, il modello corrispondente in Kit va aggiornato. Finché "Gommberg cornice" non esiste in Kit lo
+script ripiega da solo sul vecchio "Gommberg edizione" (che ha la testata): l'email parte senza la testata dello
+script, con la data delle chiusure accanto a quella dell'edizione. Mai due testate, mai nessuna.
 """
 import html
 import json
 import os
+import re
 import sys
 import urllib.error
 import urllib.request
@@ -42,18 +50,22 @@ REPO = Path(__file__).resolve().parent.parent
 BASE = "https://gommberg.com/"
 API = "https://api.kit.com/v4"
 ATTESA_MINUTI = 4          # tempo lasciato al sito per pubblicare la pagina dell'edizione
-MODELLO = "Gommberg edizione"   # il modello di Kit per le edizioni (vedi sopra)
+CORNICE = "Gommberg cornice"    # il modello di Kit per le edizioni: cornice e piè di pagina, la testata la mette lo script
+MODELLO = "Gommberg edizione"   # il modello di prima, con la testata dentro: si usa solo se la cornice non c'è ancora
 ORA_MINIMA = 8             # prima di quest'ora (Roma) l'invio automatico non parte
 GIORNI = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"]
 MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto",
         "settembre", "ottobre", "novembre", "dicembre"]
 
-# Colori della testata e del sito (assets/sito.css)
+# Colori e caratteri del sito (assets/sito.css, index.html). I caratteri del sito li carica la cornice: dove il programma
+# di posta non li accetta (Gmail, Outlook) vale il secondo della lista, come prima.
 NERO, CARTA, INCHIOSTRO, ARANCIO, ARANCIO_TESTO, GRIGIO, FILO = "#0E0E0E", "#FBFAF8", "#141414", "#F26B1D", "#B84A0C", "#5E5A55", "#DEDAD4"
-FONT = "Arial, Helvetica, sans-serif"
-MONO = "'Courier New', Courier, monospace"
-SU, GIU, FERMO, TENUE = "#3CCB7F", "#FF6A5C", "#D6D1C9", "#A39C93"      # sul fondo nero della testata, come nel sito
-# Nomi brevi del nastro: gli stessi della homepage (index.html, CORTI)
+PANNELLO, TENUE, SOFFUSO = "#F1EEE9", "#A39C93", "#D6D1C9"
+SU, GIU = "#12753D", "#C0261C"          # sul chiaro, come nel sito
+FONT = "'IBM Plex Sans',Arial,Helvetica,sans-serif"
+MONO = "'IBM Plex Mono','Courier New',Courier,monospace"
+TITOLI = "'Archivo','Arial Narrow',Arial,Helvetica,sans-serif"
+# Nomi brevi dei mercati: gli stessi della homepage (index.html, CORTI)
 CORTI = {"EURO STOXX 50": "Stoxx 50", "UST 10 ANNI": "Treasury 10a", "TREASURY 10 ANNI": "Treasury 10a", "BRENT FUTURE": "Brent"}
 
 
@@ -77,87 +89,161 @@ def data_breve(iso):
     return f"{d.day} {MESI[d.month - 1]}"
 
 
-def nastro(ed):
-    """Il nastro dei mercati sotto la testata, come nel PDF e nel sito: nome, valore, variazione colorata per segno.
-    Sei mercati su due righe da tre, ogni cella su tre righe fisse (nome, valore, variazione): regge anche sul telefono
-    senza andare a capo. Il Mondo resta al sito."""
+def tabella(*righe, extra=""):
+    return f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"{extra}>' + "".join(righe) + "</table>"
+
+
+def mercati(ed):
+    """I sei mercati della fascia: nome breve, valore, variazione senza segno, verso (+1 su, -1 giù, 0 fermo). Il Mondo resta al sito."""
+    out = []
+    for nome, valore, var in [v for v in (ed.get("ticker") or []) if len(v) >= 3 and "ACWI" not in str(v[0]).upper()][:6]:
+        var = str(var).strip()
+        var = var[:-2] if var.endswith(" g") else var
+        nudo = var.lstrip("+-−").strip()
+        fermo = not re.search(r"[1-9]", nudo)
+        verso = 0 if fermo else 1 if var.startswith("+") else -1 if var.startswith(("-", "−")) else 0
+        out.append((CORTI.get(str(nome).upper(), str(nome)), str(valore), nudo, verso))
+    return out
+
+
+def testata(ed):
+    """La testata sottile: marchio, motto e, a destra nel nero, la data delle chiusure della fascia qui sotto."""
     e = html.escape
-    voci = [v for v in (ed.get("ticker") or []) if len(v) >= 3 and "ACWI" not in str(v[0]).upper()][:6]
+    al = ed.get("ticker_al")
+    data = (f'<td class="gt-d" align="right" valign="bottom" style="padding:5px 0 1px;font:700 10px/1.4 {MONO};letter-spacing:.05em;'
+            f'color:{TENUE};white-space:nowrap">CHIUSURE DEL {e(data_breve(al).upper())}</td>' if al and len(mercati(ed)) >= 3 else "")
+    return (f'<tr><td class="gx" style="background:{NERO};border-bottom:3px solid {ARANCIO};padding:15px 28px 10px">'
+            f'<a href="{BASE}" style="text-decoration:none;font:900 21px/1 {TITOLI};font-stretch:75%;letter-spacing:.01em;color:#F5F3EF">'
+            f'<span style="color:{ARANCIO}">GOMMBERG</span> <span style="font-weight:600">TERMINAL DAILY</span></a>'
+            + tabella(f'<tr><td class="gt-m" style="padding:5px 0 0;font:13px/1.4 {FONT};color:{SOFFUSO}">I mercati globali '
+                      f'<span style="color:{ARANCIO}">spiegati</span>, ogni mattina in {int(ed.get("pagine") or 6)} pagine.</td>{data}</tr>')
+            + '</td></tr>')
+
+
+def fascia(ed):
+    """I mercati sotto la testata: sei su una riga, nome, valore e variazione con il segno (su, giù, fermo) colorato.
+    È una fascia, non corpo della mail: fondo del pannello del sito, caratteri piccoli. Sul telefono va su due righe
+    da tre (regola nella cornice, classe gm-c)."""
+    e = html.escape
+    voci = mercati(ed)
     if len(voci) < 3:
         return ""
     celle = []
-    for nome, valore, var in voci:
-        nome = CORTI.get(str(nome).upper(), str(nome)).upper()
-        var = str(var).strip()
-        if var.endswith(" g"):
-            var = var[:-2]
-        colore = SU if var.startswith("+") else GIU if var.startswith(("-", "\u2212")) else FERMO
+    for k, (nome, valore, var, verso) in enumerate(voci):
+        colore = SU if verso > 0 else GIU if verso < 0 else GRIGIO
+        freccia = "&#9650;" if verso > 0 else "&#9660;" if verso < 0 else "="
         celle.append(
-            f'<td width="33%" valign="top" style="padding:0 6px 10px 0">'
-            f'<span style="display:block;font:700 10px/1.3 {FONT};letter-spacing:.06em;color:{TENUE}">{e(nome)}</span>'
-            f'<span style="display:block;font:700 13px/1.35 {MONO};color:#F5F3EF;white-space:nowrap">{e(str(valore))}</span>'
-            f'<span style="display:block;font:700 13px/1.35 {MONO};color:{colore};white-space:nowrap">{e(var)}</span></td>')
-    righe = "".join("<tr>" + "".join(celle[i:i + 3]) + "</tr>" for i in range(0, len(celle), 3))
-    al = ed.get("ticker_al")
-    nota = (f'<p style="font:11px/1.3 {MONO};color:{TENUE};margin:0">Chiusure del {e(data_breve(al))}</p>' if al else "")
-    return (f'<tr><td style="background:{NERO};padding:14px 28px 12px">'
-            f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">{righe}</table>{nota}</td></tr>')
+            f'<td class="gm-c" valign="top" style="padding:0 {0 if k == len(voci) - 1 else 14}px 0 0">'
+            f'<span style="display:block;font:700 10px/1.3 {FONT};letter-spacing:.05em;color:{GRIGIO};white-space:nowrap">{e(nome.upper())}</span>'
+            f'<span style="display:block;font:700 12px/1.3 {MONO};color:{INCHIOSTRO};white-space:nowrap">{e(valore)}</span>'
+            f'<span style="display:block;font:700 11px/1.35 {MONO};color:{colore};white-space:nowrap"><span style="font-size:9px">{freccia}</span>&nbsp;{e(var)}</span></td>')
+    return (f'<tr><td class="gx" style="background:{PANNELLO};border-bottom:1px solid {FILO};padding:9px 28px 8px">'
+            + tabella("<tr>" + "".join(celle) + "</tr>") + '</td></tr>')
+
+
+def sommario_breve(dek):
+    """Il sommario in due frasi: il fatto (la prima) e la lettura (l'ultima). Il resto è nell'edizione."""
+    frasi = [f.strip() for f in re.split(r'(?<=[.!?])\s+(?=[A-ZÀ-Ý"«(])', dek or "") if f.strip()]
+    return (dek or "").strip() if len(frasi) <= 2 else frasi[0] + " " + frasi[-1]
+
+
+def minuscola(testo):
+    """Dopo i due punti: iniziale minuscola, tranne le sigle (PCE, Pil resta com'è scritto se la seconda lettera è maiuscola)."""
+    return testo[:1].lower() + testo[1:] if len(testo) > 1 and testo[1].islower() else testo
+
+
+def evento(ed):
+    """La riga dell'agenda: "Oggi alle 16:00: ..." se l'evento è di oggi, altrimenti il giorno com'è scritto in agenda."""
+    m = re.match(r"\s*([A-Za-zì]{3})\s+(\d{1,2})(?:,\s*(\d{1,2}:\d{2}))?\s+(.+?)\s*$", str(ed.get("evento_oggi") or ""))
+    if not m:
+        return ""
+    giorno, numero, ora, cosa = m.groups()
+    cosa = minuscola(re.sub(r"\s*\([^)]*\)\s*$", "", cosa))
+    if int(numero) == date.fromisoformat(ed["data"]).day:
+        return f"Oggi alle {ora}: {cosa}" if ora else f"Oggi: {cosa}"
+    return f"{giorno.capitalize()} {numero}{' alle ' + ora if ora else ''}: {cosa}"
+
+
+def scommessa(ed):
+    """La riga della scommessa: il lunedì i pronostici, poi il punteggio; il venerdì si chiude."""
+    sc = ed.get("scommessa") or {}
+    if not sc:
+        return ""
+    if sc.get("strada") is None or sc.get("range") is None:
+        return "I sei pronostici della settimana"
+    punti = int(sc["strada"]) + int(sc["range"])
+    testo = f"{punti} punt{'o' if punti == 1 else 'i'} su {2 * int(sc.get('su') or 6)}"
+    return testo + (", stasera si chiude" if date.fromisoformat(ed["data"]).weekday() == 4 else " finora")
+
+
+def indice(ed):
+    """Dentro l'edizione: una riga per pagina. Titoli e pagine sono quelli della scheda, scritti dalla redazione."""
+    dove = ed.get("dove") or {}
+    pagine = dove.get("approfondimenti") or []
+    voci = [(pagine[i] if i < len(pagine) else None, a.get("tema") or "", a.get("titolo") or "")
+            for i, a in enumerate(ed.get("approfondimenti") or []) if a.get("titolo")]
+    if evento(ed):
+        voci.append((dove.get("agenda"), "Mercati e agenda", evento(ed)))
+    if scommessa(ed):
+        voci.append((dove.get("scommessa"), "La scommessa della settimana", scommessa(ed)))
+    return voci
 
 
 def anteprima_locale(corpo):
-    """Il contenuto dentro il modello, per guardarlo in locale senza passare da Kit."""
-    modello = (REPO / "redazione" / "newsletter_modello.html").read_text(encoding="utf-8")
-    return (modello.replace("{{ message_content }}", corpo).replace("{{ unsubscribe_url }}", "#")
+    """Il contenuto dentro la cornice, per guardarlo in locale senza passare da Kit."""
+    cornice = (REPO / "redazione" / "newsletter_cornice.html").read_text(encoding="utf-8")
+    return (cornice.replace("{{ message_content }}", corpo).replace("{{ unsubscribe_url }}", "#")
             .replace("{{ address }}", "[indirizzo postale]"))
 
 
-def componi(ed):
-    """Oggetto, riga di anteprima e contenuto HTML (testata e piè di pagina li mette il modello).
-    Una colonna, stili in linea, niente immagini: regge in ogni casella."""
+def componi(ed, con_testata=True):
+    """Oggetto, riga di anteprima e contenuto HTML. Una colonna, stili in linea, niente immagini: regge in ogni casella.
+    con_testata=False quando la testata la mette già il modello di Kit (il vecchio "Gommberg edizione")."""
     e = html.escape
     n = int(ed["numero"])
-    # Il bottone porta alla homepage ferma su QUESTA edizione (?n=), non sull'ultima: chi apre la mail
-    # tre giorni dopo trova le pagine di cui parla la mail. Da PC leggi=1 apre subito il lettore a tutto
-    # schermo; sul telefono resta la prima pagina del sito con "Leggi l'edizione". ref=email: GoatCounter
-    # lo segna come provenienza. La pagina e/NNN.html ripeterebbe ciò che la mail ha già detto.
-    # Un solo pulsante, niente link diretto al PDF (Paolo, 16/11): il PDF si apre dal sito, così ogni lettura passa dal sito e si conta.
+    # I link portano alla homepage ferma su QUESTA edizione (?n=), non sull'ultima: chi apre la mail tre giorni dopo
+    # trova le pagine di cui parla la mail. Da PC leggi=1 apre subito il lettore a tutto schermo; sul telefono resta
+    # la prima pagina del sito con "Leggi l'edizione". ref=email: GoatCounter lo segna come provenienza.
+    # Niente link diretto al PDF (Paolo, 16/11): il PDF si apre dal sito, così ogni lettura passa dal sito e si conta.
     pagina = f"{BASE}?n={n}&amp;leggi=1&amp;ref=email"
-    sommario = [s for s in ed.get("sommario") or [] if s]
-    notizie = [s for s in ed.get("notizie") or [] if s]
     occhiello = f'font:700 12px/1.3 {MONO};letter-spacing:.06em;text-transform:uppercase;color:{ARANCIO_TESTO};margin:0 0 10px'
+    al = ed.get("ticker_al")
+    chiusure = (f' - Mercati alle chiusure del {e(data_breve(al))}' if al and not con_testata and len(mercati(ed)) >= 3 else "")
 
-    def elenco(voci):
-        return "".join(
-            f'<tr><td valign="top" style="padding:0 10px 8px 0;font:16px/1.5 {FONT};color:{ARANCIO}">&#9632;</td>'
-            f'<td style="padding:0 0 8px;font:16px/1.5 {FONT};color:{INCHIOSTRO}">{e(v)}</td></tr>' for v in voci)
-
-    blocchi = []
-    if sommario:
-        blocchi.append(f'<p style="{occhiello}">In 30 secondi</p>'
-                       f'<table role="presentation" cellpadding="0" cellspacing="0" border="0">{elenco(sommario)}</table>')
-    if notizie:
-        blocchi.append(f'<p style="{occhiello}">Le notizie del giorno</p>'
-                       f'<table role="presentation" cellpadding="0" cellspacing="0" border="0">{elenco(notizie)}</table>')
-    sezioni = "".join(f'<tr><td style="padding:22px 28px 0">{b}</td></tr>' for b in blocchi)
+    voci = indice(ed)
+    righe = "".join(
+        f'<tr><td valign="top" width="62" style="padding:11px 0;border-top:1px solid {FILO};font:700 13px/1.5 {MONO};color:{ARANCIO_TESTO};white-space:nowrap">'
+        f'{"PAG. " + str(int(p)) if p else "&nbsp;"}</td>'
+        f'<td style="padding:11px 0;border-top:1px solid {FILO}"><span style="display:block;font:700 11px/1.3 {FONT};letter-spacing:.06em;text-transform:uppercase;color:{GRIGIO};margin:0 0 3px">{e(tema)}</span>'
+        f'<a href="{pagina}" style="font:700 16px/1.35 {FONT};color:{INCHIOSTRO};text-decoration:none">{e(testo)}</a></td></tr>'
+        for p, tema, testo in voci)
+    dentro = (f'<tr><td class="gx" style="padding:26px 28px 0"><p style="{occhiello}">Dentro l\'edizione di oggi</p>'
+              + tabella(righe, extra=f' style="border-bottom:1px solid {FILO}"') + '</td></tr>' if voci else "")
 
     corpo = f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-{nastro(ed)}
-<tr><td style="padding:24px 28px 0">
-<p style="font:13px/1.4 {FONT};color:{GRIGIO};margin:0 0 10px">{e(data_estesa(ed["data"]))} - Edizione #{n:03d}</p>
-<h1 style="font:900 28px/1.15 'Arial Narrow',{FONT};letter-spacing:-.01em;color:{INCHIOSTRO};margin:0 0 12px">{e(ed["titolo"])}</h1>
-<p style="font:16px/1.55 {FONT};color:{INCHIOSTRO};margin:0">{e(ed.get("dek") or "")}</p>
+{testata(ed) if con_testata else ""}{fascia(ed)}
+<tr><td class="gx" style="padding:24px 28px 0">
+<p style="font:13px/1.4 {FONT};color:{GRIGIO};margin:0 0 10px">{e(data_estesa(ed["data"]))} - Edizione #{n:03d}{chiusure}</p>
+<h1 style="font:900 28px/1.15 {TITOLI};font-stretch:80%;letter-spacing:0;word-spacing:.04em;color:{INCHIOSTRO};margin:0 0 12px">{e(ed["titolo"])}</h1>
+<p style="font:16px/1.55 {FONT};color:{INCHIOSTRO};margin:0">{e(sommario_breve(ed.get("dek") or ""))}</p>
 </td></tr>
-{sezioni}
-<tr><td style="padding:18px 28px 24px">
+<tr><td class="gx" style="padding:18px 28px 0">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
 <td bgcolor="{NERO}" style="background:{NERO};border-radius:3px"><a href="{pagina}" style="display:inline-block;padding:13px 22px;font:700 16px/1 {FONT};color:#FFFFFF;text-decoration:none">Leggi le {int(ed.get("pagine") or 6)} pagine</a></td>
 </tr></table>
 </td></tr>
-<tr><td style="padding:0 28px 18px;font:13px/1.5 {FONT};color:{GRIGIO}">Te l'hanno inoltrata? <a href="{BASE}iscriviti.html" style="color:{ARANCIO_TESTO}">Ricevila anche tu ogni mattina</a>.</td></tr>
+{dentro}
+<tr><td class="gx" style="padding:24px 28px 0">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+<td style="background:{PANNELLO};border-left:3px solid {ARANCIO};padding:13px 16px;font:15px/1.5 {FONT};color:{INCHIOSTRO}"><b>Chiedi al Gommberg.</b> Hai una domanda, o c'è un tema che vorresti vedere approfondito? Rispondi a questa email.</td>
+</tr></table>
+</td></tr>
+<tr><td class="gx" style="padding:16px 28px 18px;font:13px/1.5 {FONT};color:{GRIGIO}">Te l'hanno inoltrata? <a href="{BASE}iscriviti.html" style="color:{ARANCIO_TESTO}">Ricevila anche tu ogni mattina</a>.</td></tr>
 </table>"""
     oggetto = f"Gommberg #{n:03d} - {ed['titolo']}"
-    anteprima = sommario[0] if sommario else (ed.get("dek") or "")[:140]
-    return oggetto, anteprima, corpo
+    temi = [a.get("tema") for a in (ed.get("approfondimenti") or []) if a.get("tema")]
+    anteprima = " ".join(x for x in ((f"Dentro: {', '.join(dict.fromkeys(temi))}." if temi else ""), (evento(ed) + "." if evento(ed) else "")) if x)
+    return oggetto, anteprima or (ed.get("dek") or "")[:140], corpo
 
 
 def kit(metodo, percorso, dati=None):
@@ -190,21 +276,23 @@ def invii_esistenti():
 
 
 def modello_edizione():
-    """L'id del modello "Gommberg edizione" in Kit; se manca si usa il predefinito e l'email parte lo stesso."""
+    """(id del modello in Kit, la testata la mette lo script?). Prima scelta la cornice; se non c'è ancora, il vecchio
+    modello con la testata dentro; se manca anche quello il predefinito, che ha la sua testata: l'email parte lo stesso."""
     stato, corpo = kit("GET", "/email_templates")
-    for m in (corpo.get("email_templates", []) if stato == 200 else []):
-        if (m.get("name") or "").strip().lower() == MODELLO.lower():
-            return m.get("id")
-    print(f'AVVISO: modello "{MODELLO}" non trovato in Kit, uso il predefinito')
-    return None
+    nomi = {(m.get("name") or "").strip().lower(): m.get("id") for m in (corpo.get("email_templates", []) if stato == 200 else [])}
+    if CORNICE.lower() in nomi:
+        return nomi[CORNICE.lower()], True
+    print(f'AVVISO: modello "{CORNICE}" non trovato in Kit: email senza la testata dello script, '
+          + (f'con il modello "{MODELLO}"' if MODELLO.lower() in nomi else "con il predefinito"))
+    return nomi.get(MODELLO.lower()), False
 
 
 def crea(ed, quando, prova):
-    oggetto, anteprima, corpo = componi(ed)
+    modello, con_testata = modello_edizione()
+    oggetto, anteprima, corpo = componi(ed, con_testata)
     dati = {"subject": oggetto, "preview_text": anteprima, "content": corpo, "description": etichetta(ed, prova),
             "public": False, "published_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "send_at": quando.isoformat(timespec="seconds") if quando else None}
-    modello = modello_edizione()
     if modello:
         dati["email_template_id"] = modello
     stato, risposta = kit("POST", "/broadcasts", dati)

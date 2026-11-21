@@ -7,6 +7,8 @@ Uso:
   (aggiornali prima con aggiorna_dati.py).
 - redazione.json (obbligatorio), metodo 1.3: {"_scenario": "...", "spx": {"mattino_var": 0.6, "tipo": "mattino", "motivo": "..."},
   "ust10": {"mattino_var": -1, "tipo": "catalizzatore", "previsione": 4.80, "motivo": "..."}, ...} per tutti gli strumenti di metodo.json.
+  _scenario = la nostra lettura della settimana, cioè il riquadro "La nostra tesi" di pag. 6 così come lo leggerà il lettore:
+  che cosa ci aspettiamo e da quale evento datato dipende, poi "Ci smentirebbe:" e il fatto che ci darebbe torto.
   mattino_var = variazione da venerdì già vista stamattina (% per i prezzi, punti base per i tassi; si omette se non verificabile).
   tipo = perché scegliamo quella direzione, uno di metodo.json > redazione > tipi_motivo:
     mattino        il mercato si è già mosso di almeno 0,1 sigma: la direzione è quella, lo scarto è il movimento (tetto 0,3 sigma);
@@ -31,6 +33,22 @@ from motore import (STRUMENTI, QUANTILI, carica, variazioni_giornaliere, chiusur
 QUI = os.path.dirname(os.path.abspath(__file__))
 METODO = json.load(open(os.path.join(QUI, "metodo.json"), encoding="utf-8"))
 ATTIVI = {k: STRUMENTI[k] for k in METODO["strumenti"]}   # gli strumenti della scommessa in vigore, nell'ordine di metodo.json
+SMENTITA = "Ci smentirebbe:"   # l'etichetta che pagina6.py mette in grassetto nel riquadro "La nostra tesi"
+SCENARIO_MAX = 200             # caratteri: due righe del riquadro, quanto la tesi che si scriveva a mano fino alla n. 026
+
+
+def controlla_scenario(s):
+    """Lo scenario è il testo che il lunedì si stampa in pag. 6: una posizione e che cosa la smentirebbe, in due righe."""
+    if not s:
+        raise SystemExit(f'manca "_scenario": che cosa ci aspettiamo questa settimana e da quale evento datato dipende, poi '
+                         f'"{SMENTITA}" e il fatto che ci darebbe torto (APP_LUNEDI.md §3)')
+    prima, _, dopo = s.partition(SMENTITA)
+    if s.count(SMENTITA) != 1 or len(prima.split()) < 4 or len(dopo.split()) < 3:
+        raise SystemExit(f'"_scenario": prima che cosa ci aspettiamo, poi una volta sola "{SMENTITA}" e il fatto che ci darebbe '
+                         f'torto (APP_LUNEDI.md §3)')
+    if len(s) > SCENARIO_MAX:
+        raise SystemExit(f'"_scenario" è lungo {len(s)} caratteri, il massimo è {SCENARIO_MAX}: è il riquadro "La nostra tesi" di '
+                         f'pag. 6, due righe. Togli ciò che è già scritto nei sei motivi')
 
 
 def sigma_alla_data(chiave, vol, r, t, vix_d=None):
@@ -192,16 +210,17 @@ def main():
         return
     if not a.redazione:
         raise SystemExit("serve --redazione (oppure --prova per vedere sigma e livelli)")
-    scenario = str(red.get("_scenario", "")).strip()
-    if METODO["redazione"].get("tipi_motivo") and not scenario:
-        raise SystemExit('manca "_scenario": una frase con l\'evento datato che decide la settimana e che cosa lo smentirebbe')
+    scenario = " ".join(str(red.get("_scenario", "")).split())
+    if METODO["redazione"].get("tipi_motivo"):
+        controlla_scenario(scenario)
     st = pronostica(origine, red, a.variabile)
     motivi = [v["motivo_redazione"].strip().lower() for v in st.values()]
     if METODO["redazione"].get("tipi_motivo") and len(set(motivi)) < len(motivi):
         raise SystemExit("due mercati hanno lo stesso motivo: ogni riga dice che cosa muove o che cosa aspetta QUEL mercato")
     lun = (origine + pd.Timedelta(days=3)).date()
     ven = (origine + pd.Timedelta(days=7)).date()
-    reg = {"schema": 2, "versione_metodo": METODO["versione"], "data_pronostico": str(lun),
+    # schema 3 (21/11/2026): lo scenario è il testo che pagina6.py stampa il lunedì nel riquadro "La nostra tesi"
+    reg = {"schema": 3, "versione_metodo": METODO["versione"], "data_pronostico": str(lun),
            "settimana": f"{lun}/{ven}", "origine": str(origine.date()), "verdetto_previsto": str(ven + dt.timedelta(days=3)),
            "range_pubblicato": "16-84% (circa 2 settimane su 3 la chiusura cade dentro)", "scenario": scenario, "strumenti": st}
     os.makedirs(a.uscita, exist_ok=True)
