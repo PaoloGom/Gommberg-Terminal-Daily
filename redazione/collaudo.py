@@ -172,7 +172,19 @@ def passo_avvio():
 
 # ---------------------------------------------------------------- 3. modello
 SERIE = {"ACWI": ("acwi", "USA"), "S&P 500": ("spx", "USA"), "Euro Stoxx 50": ("sx5e", "EU"), "Treasury 10 anni": ("ust10", "UST"),
-         "EUR/USD": ("eurusd", "FX"), "Brent future": ("brent", "COMM"), "Oro future": ("oro", "COMM")}
+         "EUR/USD": ("eurusd", "FX"), "Brent future": ("brent", "COMM"), "Oro future": ("oro", "COMM"),
+         "Treasury 2 anni": ("ust2", "UST"), "VIX": ("vix", "USA")}
+# Le serie del modello che non hanno un archivio nella scommessa: i livelli pubblicati nella #004 (15/10/2026), con la
+# chiusura precedente e quella di venerdì 9/10 ricavate dalle variazioni stampate allora. Servono solo a impaginare il modello:
+# le tabelle di pag. 5 le calcola numeri.py dal dati.json, come ogni mattina. Il Kospi ha la sola variazione: la riga non entra.
+MODELLO_ALTRE = {
+    "Nasdaq": ("USA", "chiusura", [["2026-10-14", 26692.87], ["2026-10-13", 27209.86]], {"2026-10-09": 27377.30}),
+    "Russell 2000": ("USA", "chiusura", [["2026-10-14", 2729.53], ["2026-10-13", 2782.40]], {"2026-10-09": 2808.16}),
+    "FTSE MIB": ("EU", "chiusura", [["2026-10-14", 49753], ["2026-10-13", 50053]], {"2026-10-09": 49753}),
+    "Nikkei 225": ("JP", "intraday", [["2026-10-15", 64425.95], ["2026-10-14", 67745.48]], {"2026-10-09": 69052.47}),
+    "Hang Seng": ("HK", "intraday", [["2026-10-15", 24010.00], ["2026-10-14", 24326.24]], {"2026-10-09": 24203.63}),
+    "Spread Italia": ("EU", "chiusura", [["2026-10-14", 110], ["2026-10-13", 108]], {}),
+}
 # come si chiamano le stesse serie nelle tabelle del modello: così il controllo dei numeri confronta anche la tabella dei
 # mercati con il nastro di prima pagina (il 14/11 il modello aveva l'Euro Stoxx 50 a 6.190,37 nel nastro e 6.162,90 in tabella)
 ETICHETTE = {"ACWI": "MSCI ACWI (ETF, $)", "S&P 500": "S&P 500", "Euro Stoxx 50": "Euro Stoxx 50", "Treasury 10 anni": "Treasury 10 anni",
@@ -190,8 +202,12 @@ def passo_modello():
     # dati del giorno ricostruiti dalle serie della scommessa (chiusure vere): bastano al ticker e al controllo dei numeri
     dati = {"oggi": oggi.isoformat(), "ora_roma": "09:05", "macro": [], "serie": {}}
     for nome, (k, mercato) in SERIE.items():
-        dati["serie"][nome] = {"mercato": mercato, "tipo": "chiusura", "etichette": [ETICHETTE[nome]],
+        dati["serie"][nome] = {"mercato": mercato, "tipo": "chiusura", **({"etichette": [ETICHETTE[nome]]} if nome in ETICHETTE else {}),
                                "ultimi": [[d, v, None] for d, v in reversed(serie(k, oggi.isoformat()))]}
+    for nome, (mercato, tipo, ultimi, rif) in MODELLO_ALTRE.items():
+        dati["serie"][nome] = {"mercato": mercato, "tipo": tipo, "ultimi": [[d, v, None] for d, v in ultimi], "rif": rif,
+                               **({"ora": "08:11"} if tipo == "intraday" else {})}
+    dati["serie"]["Kospi"] = {"mercato": "KR", "tipo": "intraday", "var": -8.7, "ora": "08:11", "fonte": "Teleborsa", "ultimi": []}
     json.dump(dati, open(os.path.join(lav, "dati.json"), "w", encoding="utf-8"), ensure_ascii=False)
     strumenti = json.load(open(os.path.join(R, "pronostici", reg), encoding="utf-8"))["strumenti"]
     att = {k: [s[-1][1], s[-1][0]] for k in strumenti for s in [serie(k, oggi.isoformat())] if s}
@@ -457,6 +473,45 @@ def passo_dati():
     esito("Dati: fonti dell'Euro Stoxx 50", not sbagliati,
           f"{len(casi)} casi (EODHD sempre tra le due fonti, quotazioni dei riquadri e fonti discordi fermate)"
           if not sbagliati else "sbagliati: " + ", ".join(sbagliati))
+
+
+# ---------------------------------------------------------------- 3c. tabelle di pag. 5 calcolate dal codice
+def passo_tabelle():
+    """Le tabelle dei mercati escono da dati.json e dall'archivio delle chiusure, mai scritte a mano (G-05): sui dati veri del
+    20/11 i numeri sono quelli pubblicati, nessuna cella "n.d.", il livello di Seul si ricava dalla variazione; senza la
+    chiusura di ieri la riga non entra; l'archivio prende le chiusure e mai il dato di stamattina."""
+    import numeri as N
+    src = os.path.join(RETE, "2026-11-20", "sorgenti", "dati.json")
+    lav = os.path.join(TMP, "tabelle")
+    os.makedirs(lav, exist_ok=True)
+    T = N.tabelle_da_dati(src, silenzioso=True)
+    righe = {r[0]: r for _, rr in T["cruscotto"] + T["cross"] for r in rr}
+    male = []
+    if righe.get("S&amp;P 500") != ["S&amp;P 500", "7.175,83", "19/11", "-2,0%", "-5,1%", "+4,8%"]:
+        male.append(f"S&P 500 diverso dal pubblicato: {righe.get('S&amp;P 500')}")
+    if (righe.get("MSCI ACWI (ETF, $)") or [""] * 6)[4:] != ["-5,4%", "+4,4%"]:
+        male.append(f"ACWI senza settimana e anno: {righe.get('MSCI ACWI (ETF, $)')}")
+    if (righe.get("Kospi*") or ["", ""])[1] != "~4.871" or (righe.get("Treasury 10 anni") or [""] * 3)[1:3] != ["5,04%", "-3 pb"]:
+        male.append(f"Kospi ricavato o Treasury: {righe.get('Kospi*')}, {righe.get('Treasury 10 anni')}")
+    if any(c == "n.d." for r in righe.values() for c in r) or "venerdì 13/11" not in T["cruscotto_nota"] or "~ =" not in T["cruscotto_nota"]:
+        male.append("una cella n.d. o la nota senza il venerdì di riferimento e il segno ~")
+    vuoto = N.tabelle_da_dati(src, archivio={}, silenzioso=True)       # senza archivio: Seul non ha la chiusura di ieri
+    if any(r[0].startswith("Kospi") for _, rr in vuoto["cruscotto"] for r in rr) or not any("Kospi" in m for m in vuoto["mancanti"]):
+        male.append("senza la chiusura di ieri la riga di Seul doveva restare fuori, e dirlo")
+    dati = {"oggi": "2026-11-23", "serie": {
+        "FTSE MIB": {"mercato": "EU", "tipo": "chiusura", "ultimi": [["2026-11-20", 49500, None]]},
+        "Nikkei 225": {"mercato": "JP", "tipo": "intraday", "ultimi": [["2026-11-23", 57000.5, None], ["2026-11-20", 56436.65, None]]},
+        "S&P 500": {"mercato": "USA", "tipo": "chiusura", "ultimi": [["2026-11-20", 7200.0, None]]}}}
+    f, arch = os.path.join(lav, "dati.json"), os.path.join(lav, "chiusure.csv")
+    json.dump(dati, open(f, "w", encoding="utf-8"))
+    n1, n2 = N.archivia(f, arch), N.archivia(f, arch)
+    scritto = N._archivio(arch)
+    if (n1, n2) != (2, 0) or "2026-11-23" in scritto.get("Nikkei 225", {}) or "S&P 500" in scritto or scritto.get("FTSE MIB") != {"2026-11-20": 49500.0}:
+        male.append(f"archivio: {n1} e {n2} nuove, {scritto}")
+    if len(N.completa("FTSE MIB", {"ultimi": [["2026-11-20", 49500, None]]})) != 2 or len(N.completa("FTSE MIB", {"ultimi": [["2026-11-24", 1, None]]}, {})) != 1:
+        male.append("la chiusura precedente si completa solo dalla seduta subito prima")
+    esito("Dati: tabelle di pag. 5 calcolate dal codice", not male, "; ".join(male)[:400] or
+          "numeri del 20/11 uguali al pubblicato, nessuna n.d., livello ricavato dalla variazione, archivio delle chiusure")
 
 
 # ---------------------------------------------------------------- 4. rete di non regressione
@@ -796,6 +851,7 @@ def main():
         passo_scrittura()
         passo_fonti()
         passo_dati()
+        passo_tabelle()
         passo_rete()
         copia = passo_sito()
         if isinstance(copia, str):

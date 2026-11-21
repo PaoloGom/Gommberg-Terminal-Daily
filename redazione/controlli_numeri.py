@@ -19,18 +19,28 @@ def valore(seg, s, u):
     return (-x if seg == "-" else x), 0.5 * 10 ** -dec + 1e-9
 
 
-def attesi(s):
-    (_, v0, _), (_, v1, _) = s["ultimi"][0], s["ultimi"][1]
-    t = N.tipo_var(s)
-    d = (v0 - v1) * 100 if t == "pb" else (v0 - v1) if t == "punti" else (v0 / v1 - 1) * 100
+def attesi(nome, s, oggi):
+    if N.ricavato(nome, s, oggi):    # livello ricavato dalla variazione (segnato ~): non è un numero di dati.json
+        return None
+    u = N.completa(nome, s)          # la chiusura precedente può venire dall'archivio, come nelle tabelle
+    if len(u) < 2 or (isinstance(s.get("var"), (int, float)) and str(u[0][0])[:10] < oggi):
+        return None
+    v0, v1 = u[0][1], u[1][1]
+    t = N.tipo_riga(nome, s)
+    d = (v0 - v1) * 100 if t == "pb" else (v0 - v1) if t in ("punti", "spread") else (v0 / v1 - 1) * 100
     return v0, d
 
 
 def main():
     pdf, dati = sys.argv[1], sys.argv[2]
-    S = json.load(open(dati, encoding="utf-8"))["serie"]
+    D = json.load(open(dati, encoding="utf-8"))
+    S, OGGI = D["serie"], str(D.get("oggi", "9999"))
     testo = subprocess.run(["pdftotext", "-layout", pdf, "-"], capture_output=True).stdout.decode("utf-8", "replace")
     righe = [" ".join(r.split()) for r in testo.split("\n")]
+    pagine, _p = [], 1
+    for r in testo.split("\n"):              # pdftotext mette un salto pagina in testa alla prima riga di ogni pagina
+        _p += r.count("\f")
+        pagine.append(_p)
     errori, avvisi, n = [], [], 0
     # Ticker (pag. 1): stringhe identiche a quelle calcolate
     sys.path.insert(0, QUI)
@@ -46,11 +56,20 @@ def main():
             errori.append(f"ticker {et2}: PDF {v2} {c2}, dati.json {v} {c}")
     # Tabelle
     for nome, s in S.items():
-        for et in s.get("etichette", []):
-            idx = [i for i, r in enumerate(righe) if r == et or r.startswith(et + " ") or re.search(rf"(^| ){re.escape(et)} \d", r)]
+        # le righe fisse delle tabelle hanno il nome che dà loro numeri.py: "etichette" serve solo per le righe in più
+        fisse = N.righe_fisse()
+        for et in s.get("etichette") or ([fisse[nome]] if nome in fisse else []):
+            att = attesi(nome, s, OGGI)
+            if att is None:
+                continue                 # serie senza livello: la riga non entra in tabella
+            # le tabelle stanno a pag. 5: tra le righe che portano l'etichetta e un numero vale la prima di quella pagina
+            # (così "Kospi 4.968,48" in un testo di prima pagina non viene preso per la riga della tabella)
+            idx = [i for i, r in enumerate(righe) if r == et or r.startswith((et + " ", et + "* "))
+                   or re.search(rf"(^| ){re.escape(et)}\*? \d", r)]
+            idx = [i for i in idx if pagine[i] == 5] or idx
             if not idx:
                 avvisi.append(f"{et}: riga non trovata nel PDF"); continue
-            v0, d = attesi(s)
+            v0, d = att
             i = idx[0]
             r = righe[i][righe[i].index(et) + len(et):]
             if not NUM.search(r) and i + 1 < len(righe):   # etichetta su due righe: i numeri stanno nella riga dopo

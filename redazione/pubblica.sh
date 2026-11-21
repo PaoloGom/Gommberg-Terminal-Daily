@@ -41,6 +41,9 @@ if [ "$PROVA" != "1" ] || [ "$REPO" != "/home/claude/gtd" ]; then
     [ -f "$LAV/$f" ] && cp -f "$LAV/$f" "$SRG/" 2>/dev/null
   done
   rmdir "$SRG" 2>/dev/null   # vuota (nessun sorgente trovato): non resta
+  # Archivio delle chiusure (numeri.py): le chiusure di oggi servono domani alle tabelle di pag. 5 come riferimenti
+  # (ieri, venerdì scorso, un mese fa, fine anno). Non blocca mai la pubblicazione.
+  [ -f "$LAV/dati.json" ] && python3 "$REPO/redazione/numeri.py" --archivia "$LAV/dati.json" "$REPO/redazione/chiusure.csv" 2>/dev/null | tail -1
 fi
 # Pagine del sito generate da edizioni.json: pagina per edizione con anteprima WhatsApp, feed RSS, link fisso
 # Registro delle uscite (ora di pubblicazione, per la puntualità nella dashboard pubblica "I numeri")
@@ -69,7 +72,7 @@ for f in e feed.xml sitemap.xml ultima dati pannello; do [ -e "$REPO/$f" ] && ru
 python3 -c "import json,sys; d=json.load(open('$REPO/dati/recenti.json')); sys.exit(0 if d['edizioni'][0]['numero']==int('$NNN'.lstrip('0') or 0) else 1)" 2>/dev/null \
   || echo "AVVISO: dati/recenti.json non contiene il n. ${NNN}: la homepage mostrerebbe l'edizione precedente"
 # File del kit che la redazione può aggiornare (git add ignora quelli invariati)
-for f in redazione/glossario.json redazione/meccanismi.json redazione/APP_DATI.md redazione/gommberg_engine.py \
+for f in redazione/glossario.json redazione/meccanismi.json redazione/APP_DATI.md redazione/gommberg_engine.py redazione/chiusure.csv \
          redazione/prepara.sh redazione/giorni.py; do
   [ -e "$REPO/$f" ] && run git -C "$REPO" add "$f"
 done

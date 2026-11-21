@@ -1,4 +1,5 @@
-[ok] PDF e indice: Pagine: 6 | n.d.: 1
+[ROSSO] PDF e indice:
+- 1 'n.d.' nel PDF: le tabelle di pag. 5 vengono da tabelle_da_dati (C["cruscotto"] = TAB["cruscotto"], come nel modello); altrove scrivi il dato verificato o togli la frase
 [ok] Riempimento (pagine e moduli): Riempimento: pagine e moduli pieni | mm liberi: p1=10, p2=0, p3=0, p4=0, p5=2, p6=6
 [ROSSO] Fatti:
 - CERCA come: il documento di chi è nel fatto ("primaria": true) o lo stesso fatto da un altro autore; un'agenzia conta 1 ovunque ripresa. Se non c'è: "conferma_cercata" e (Testata)
@@ -7,10 +8,7 @@
 AVVISO: A03: fonte più recente del 2026-11-10, oltre 7 giorni
 AVVISO: K01: dato pubblico non confermato dal revisore: resta con la fonte dichiarata ("(Testata)")
 AVVISO: MEM-1102-N07: fonte più recente del 2026-10-30, oltre 7 giorni
-[ok] Numeri contro dati.json: Numeri confrontati con dati.json: 14 | scarti: 0
-AVVISO: Nikkei 225: riga non trovata nel PDF
-AVVISO: Hang Seng: riga non trovata nel PDF
-AVVISO: Kospi: riga non trovata nel PDF
+[ok] Numeri contro dati.json: Numeri confrontati con dati.json: 17 | scarti: 0
 [ok] Scrittura (→, cause, sigle, ritmo): Righe →: 1 (max 5) | cause senza fonte: 0 | sigle non spiegate: 0 | fonti tra parentesi: 12 (max 15): Reuters 9, AP
 AVVISO: lessico: "spread tra Btp e Bund" (1 volte): scrivi spread BTP-Bund
 [ok] Temi di prima pagina: Temi di prima pagina: 0 errori, 0 avvisi lessicali
@@ -24,4 +22,4 @@ AVVISO: eco "era largo consenso rialzo" in 2 punti
 AVVISO: eco "new york vende chip" in 2 punti
 AVVISO: eco "nvidia terzo trimestre fiscale" in 2 punti
 [ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
-ESITO: ERRORI in Fatti - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia
+ESITO: ERRORI in PDF e indice Fatti - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia

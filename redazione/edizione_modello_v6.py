@@ -38,7 +38,7 @@ import sys
 REPO = os.path.join(os.environ.get("GTD_REPO", "/home/claude/gtd"), "redazione")   # kit e registri (mai la copia)
 sys.path.insert(0, REPO)
 from gommberg_engine import *  # noqa: E402,F403
-from numeri import ticker_da_dati  # noqa: E402
+from numeri import tabelle_da_dati, ticker_da_dati  # noqa: E402
 
 LAVORO = sys.argv[1] if len(sys.argv) > 1 else "."
 USCITA = sys.argv[2] if len(sys.argv) > 2 else None
@@ -88,6 +88,11 @@ BRENT = [("09-14", 105.68), ("09-15", 108.75), ("09-16", 105.83), ("09-17", 104.
          ("10-08", 104.28), ("10-09", 104.72), ("10-12", 106.65), ("10-13", 105.69), ("10-14", 106.06)]
 d = lambda s: dt.date(2026, int(s[:2]), int(s[3:]))   # "MM-GG" -> data
 
+# Le tabelle dei mercati di pag. 5 le calcola il codice dal dati.json del giorno (numeri.py): mai a mano. Serie che dati.json
+# deve avere, con questi nomi: "ACWI", "S&P 500", "Nasdaq", "Russell 2000", "Euro Stoxx 50", "FTSE MIB", "Nikkei 225",
+# "Hang Seng", "Kospi", "Treasury 2 anni", "Treasury 10 anni", "Spread Italia" (in punti base), "EUR/USD", "Brent future",
+# "Oro future", "VIX". Se il rendering stampa "TABELLE DI PAG. 5: ... manca ...", dice anche che cosa aggiungere a dati.json.
+TAB = tabelle_da_dati("dati.json")
 C = {
     "data": OGGI,
     "temi": ["Inflazione", "Fed", "Tassi", "Chip", "Asia", "Trimestrali"],
@@ -159,31 +164,11 @@ C = {
     # Le tabelle di pag. 5 sono una panoramica, non un listino: gli indici che il lettore riconosce e quelli che dicono
     # qualcosa di diverso (non due indici che si muovono sempre insieme). Dow Jones, FTSE 100 e Treasury a 30 anni non
     # ci sono: entrano in un testo il giorno in cui fanno notizia.
-    "cruscotto": [   # [nome, ultimo, data, 1 g, 1 sett. (vs venerdì), da inizio anno]
-        ("Mondo e Stati Uniti", [["MSCI ACWI (ETF, $)", "158,75", "14/10", "-1,2%", "-1,3%", "n.d."],
-                         ["S&amp;P 500", "7.718,94", "14/10", "-1,1%", "-1,2%", "+12,8%"],
-                         ["Nasdaq Comp.", "26.692,87", "14/10", "-1,9%", "-2,5%", "+14,8%"],
-                         ["Russell 2000", "2.729,53", "14/10", "-1,9%", "-2,8%", "+10,0%"]]),
-        ("Europa", [["Euro Stoxx 50", "6.190,37", "14/10", "+0,4%", "+0,3%", "+6,8%"],
-                    ["FTSE MIB", "49.753", "14/10", "-0,6%", "0,0%", "n.d."]]),
-        ("Asia (15/10 intraday*)", [["Nikkei 225*", "64.425,95", "15/10", "-4,9%", "-6,7%", "+28,0%"],
-                                    ["Hang Seng*", "24.010,00", "15/10", "-1,3%", "-0,8%", "-6,3%"],
-                                    ["Kospi*", "n.d.", "15/10", "-8,7%", "n.d.", "n.d."]]),
-    ],
-    # note di pag. 5: solo come leggere le colonne. Le fonti dei dati stanno nella tabella Fonti di pag. 6.
-    "cruscotto_nota": "1 g = chiusura su chiusura; 1 sett. = su venerdì 9/10; da inizio anno = su chiusura 2025. "
-                      "* Asia: dato di stamattina (Kospi alle 08:11).",
-    "cross_data": "Livello 14/10",
-    "cross": [       # [strumento, livello, 1 g, 1 sett., 1 mese, lettura breve o "-"]
-        ("Tassi", [["Treasury 2 anni", "4,82%", "+3 pb", "+2 pb", "+17 pb", "Sale con le attese sulla Fed [[treasury]]"],
-                   ["Treasury 10 anni", "5,19%", "-2 pb", "-5 pb", "+22 pb", "-"],
-                   ["Spread Italia", "110 pb", "+2 pb", "n.d.", "n.d.", "10 anni italiano al 4,57% (Teleborsa)"]]),
-        ("Cambi", [["EUR/USD", "1,1156", "-0,4%", "-0,4%", "-3,4%", "-"]]),
-        ("Materie prime", [["Brent future", "106,06 $", "+0,4%", "+1,3%", "+0,4%", "-"],
-                           ["Oro (future, $/oncia)", "4.107,90", "-1,7%", "-2,6%", "-5,6%", "-"]]),
-        ("Volatilità", [["VIX (volatilità attesa)", "16,87", "+1,60", "+2,03", "-0,23", "Massimo dal 16/9"]]),
-    ],
-    "cross_nota": "1 mese = sul 14/9. VIX = volatilità attesa sull'S&amp;P 500.",
+    # Le due tabelle e le loro note le calcola il codice dal dati.json del giorno (numeri.py, TAB qui sopra): livelli,
+    # variazioni, date di riferimento. Qui non si scrive nessuna cella. Una riga manca solo se la sua serie non ha un livello
+    # verificato; un indice in più entra dalla sua serie in dati.json ("tabella": "<gruppo>", "etichette": ["<nome>"]).
+    "cruscotto": TAB["cruscotto"], "cruscotto_nota": TAB["cruscotto_nota"],
+    "cross_data": TAB["cross_data"], "cross": TAB["cross"], "cross_nota": TAB["cross_nota"],
     "termometri": [  # (tema, a che punto, ultima novità, cosa si muove, cosa guardare). Al massimo 4.
         # cosa si muove = "su: ...", "giu: ..." o "fermo: ...", e dopo i due punti CHE COSA sale o scende
         ("Fed e tassi", "Riunione 27-28 ottobre", "Rialzo di ottobre di nuovo in gioco", "su: Probabilità di un rialzo", "Dati USA delle 14:30"),

@@ -1,4 +1,5 @@
-[ok] PDF e indice: Pagine: 6 | n.d.: 1
+[ROSSO] PDF e indice:
+- 1 'n.d.' nel PDF: le tabelle di pag. 5 vengono da tabelle_da_dati (C["cruscotto"] = TAB["cruscotto"], come nel modello); altrove scrivi il dato verificato o togli la frase
 [ok] Riempimento (pagine e moduli): Riempimento: pagine e moduli pieni | mm liberi: p1=5, p2=0, p3=0, p4=0, p5=12, p6=1
 [ROSSO] Fatti:
 - CERCA come: il documento di chi è nel fatto ("primaria": true) o lo stesso fatto da un altro autore; un'agenzia conta 1 ovunque ripresa. Se non c'è: "conferma_cercata" e (Testata)
@@ -24,4 +25,4 @@ AVVISO: 4,8% in 2 sezioni: APPROFONDIMENTO CHIP E ASIA, TOP NEWS
 AVVISO: 5,15% in 2 sezioni: APPROFONDIMENTO TASSI USA, TOP STORY
 AVVISO: eco "afp seoul economic daily" in 2 punti
 [ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
-ESITO: ERRORI in Fatti Scrittura (→, cause, sigle, ritmo) Contenuti (estremi, perché, anomalie...) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia
+ESITO: ERRORI in PDF e indice Fatti Scrittura (→, cause, sigle, ritmo) Contenuti (estremi, perché, anomalie...) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia

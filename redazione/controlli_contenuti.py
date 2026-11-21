@@ -358,7 +358,7 @@ if _primo and isinstance(_ag, list) and _ag:
                    "di giovedì e venerdì al posto delle righe minori dei primi giorni; APP_ERRORI §2)")
 
 # ---------- dati mancanti: solo dopo la scala di ricerca, e registrati ----------
-_mancano = re.findall(r"\bn\.d\.|nessuna chiusura verificata|non verificat[oa] da fonti|dato non disponibile", TUTTO, re.I)
+_mancano = re.findall(r"nessuna chiusura verificata|non verificat[oa] da fonti|dato non disponibile", TUTTO, re.I)
 _regis = [r for r in RICERCHE if r.get("esito") == "mancante" and len(r.get("ricerche") or []) >= 4]
 if _mancano and len(_regis) < 1:
     ERR.append(f"dati mancanti nel PDF ({len(_mancano)}: {', '.join(sorted(set(m.lower() for m in _mancano)))}) senza la scala di "

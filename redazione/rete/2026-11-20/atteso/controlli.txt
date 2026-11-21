@@ -7,7 +7,7 @@ AVVISO: N06: dato ufficiale senza il comunicato (cercato: Philadelphia Fed Manuf
 AVVISO: N06: fonte singola dichiarata (investinglive): nel PDF "(Testata)" in coda al dato
 AVVISO: N08: dato ufficiale senza il comunicato (cercato: jobless claims November 19 2026 Department of Labor release; initial jobless claims 203,000 week ended November 14 2026): nel PDF attribuito "
 AVVISO: N08: fonte singola dichiarata (investinglive): nel PDF "(Testata)" in coda al dato
-[ok] Numeri contro dati.json: Numeri confrontati con dati.json: 9 | scarti: 0
+[ok] Numeri contro dati.json: Numeri confrontati con dati.json: 19 | scarti: 0
 [ROSSO] Scrittura (→, cause, sigle, ritmo):
 ERRORE: lessico: "la vendita dell'AI" (5 volte): scrivi le vendite, l'ondata di vendite, il ribasso (se è la cessione di un bene: "la cessione")
 AVVISO: sigle spiegate più di una volta: VIX
