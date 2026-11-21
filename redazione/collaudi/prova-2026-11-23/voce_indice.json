@@ -1,0 +1,496 @@
+{
+ "numero": 31,
+ "data": "2026-11-23",
+ "titolo": "Nvidia crolla per l'indagine sui conti e Wall Street entra in correzione",
+ "dek": "Venerdì Nvidia perde circa il 14% dopo la notizia, data da Reuters, che gli investigatori dell'autorità americana di Borsa esaminano la sua contabilità. L'S&P 500 chiude a 6.910,39 (-3,70%), più del 10% sotto il massimo del 6 ottobre, e il Nasdaq cede il 5,28%. Per l'indice è la settimana peggiore da più di 18 mesi.",
+ "sommario": [
+  "L'Europa cede, con ASML e STMicroelectronics tra i titoli più colpiti. Finora aveva perso meno di Wall Street.",
+  "Treasury e oro prendono strade opposte: i titoli di Stato salgono, il metallo scende più dell'S&P 500.",
+  "Mercoledì il PCE, l'indice dei prezzi che la Fed guarda di più, mette alla prova il rialzo di dicembre."
+ ],
+ "file": "pdf/2026-11-23-gommberg-031.pdf",
+ "nome": "2026-11-23 Gommberg Terminal Daily #031.pdf",
+ "pagine": 6,
+ "notizie": [
+  "Cook avverte: aspettare ancora per alzare i tassi è un rischio",
+  "GTCR valuta un'offerta da 50 miliardi per Global Payments",
+  "CrowdStrike tratta per comprare Zscaler",
+  "STMicroelectronics e ASML tra i più colpiti in Europa: oltre il 9%",
+  "Advantest cede un decimo e Samsung il 7% nel crollo dei chip asiatici",
+  "Anthropic sfiora il prezzo dell'IPO nel secondo giorno di scambi"
+ ],
+ "ticker": [
+  [
+   "MSCI ACWI (ETF)",
+   "142,59 $",
+   "-3,5% g"
+  ],
+  [
+   "S&P 500",
+   "6.910,39",
+   "-3,7% g"
+  ],
+  [
+   "EURO STOXX 50",
+   "5.941,95",
+   "-2,8% g"
+  ],
+  [
+   "TREASURY 10 ANNI",
+   "4,92%",
+   "-12 pb g"
+  ],
+  [
+   "EUR/USD",
+   "1,0967",
+   "0,0% g"
+  ],
+  [
+   "BRENT FUTURE",
+   "92,57 $",
+   "+0,6% g"
+  ],
+  [
+   "ORO",
+   "3.515 $",
+   "-4,6% g"
+  ]
+ ],
+ "temi": [
+  "Tecnologia",
+  "Chip",
+  "Fed",
+  "Tassi",
+  "Europa",
+  "Materie prime"
+ ],
+ "approfondimenti": [
+  {
+   "tema": "Chip",
+   "titolo": "Nvidia batte le stime ma crolla: ora il mercato dubita dei suoi conti",
+   "formato": "doppio"
+  },
+  {
+   "tema": "Materie prime",
+   "titolo": "Con le borse a picco i Treasury fanno da rifugio, l'oro vende",
+   "formato": "doppio"
+  },
+  {
+   "tema": "Europa",
+   "titolo": "L'Europa, che reggeva meglio di Wall Street, cede il 2,8% con i chip",
+   "formato": "mezzo"
+  },
+  {
+   "tema": "Fed",
+   "titolo": "Cook insiste sui rialzi mentre le borse scendono: il PCE decide",
+   "formato": "mezzo"
+  }
+ ],
+ "meccanismi": [
+  "M01",
+  "M26",
+  "M23",
+  "M16",
+  "M14",
+  "M09",
+  "M04"
+ ],
+ "parole": [
+  "Correzione",
+  "Vendite forzate",
+  "Rifugio",
+  "Rendimento",
+  "Core",
+  "Guidance"
+ ],
+ "glossario": [
+  "PCE",
+  "VIX",
+  "pb",
+  "core"
+ ],
+ "errata": null,
+ "ripetizioni": null,
+ "dove": {
+  "approfondimenti": [
+   2,
+   3,
+   4,
+   4
+  ],
+  "mercati": 5,
+  "agenda": 5,
+  "scommessa": 6
+ },
+ "scommessa": {
+  "settimana": "2026-11-23/2026-11-27",
+  "strada": null,
+  "range": null,
+  "su": 6,
+  "dettaglio": []
+ },
+ "tema_top": "Tecnologia",
+ "temi_in30": [
+  "Europa",
+  "Materie prime",
+  "Fed"
+ ],
+ "temi_notizie": [
+  "Fed",
+  "Wall Street",
+  "Wall Street",
+  "Chip",
+  "Asia",
+  "Wall Street"
+ ],
+ "quadro": "Venerdì borse e oro hanno venduto insieme e i titoli di Stato hanno fatto da rifugio. Il 10 anni scende al 4,92%. Leggiamo vendite forzate, di chi cede ciò che si vende in fretta per coprire le perdite sulle azioni. L'oro perde il 4,6% e il dollaro non si muove. Il VIX, l'indice che misura la paura a Wall Street, sale del 26,2% a 35,89. Il petrolio resta in disparte (Brent 92,57 $). [[rifugio]]",
+ "stamattina": [
+  "Alle 15:30 apre Wall Street: la prima seduta dopo la settimana peggiore da più di 18 mesi",
+  "Treasury a 10 anni: venerdì ha chiuso sotto il 5%",
+  "Oro: venerdì ha chiuso a 3.515 $, il livello da cui si vede se il calo continua"
+ ],
+ "stamattina_titolo": "Cosa guardare all'apertura",
+ "notizie_testo": [
+  "Cook avverte: aspettare ancora per alzare i tassi è un rischio. La governatrice della Fed lo dice a Santiago del Cile: se la banca centrale aspetta, potrebbero servire rialzi più grandi dopo. Giudica la crescita forte e il lavoro solido.",
+  "GTCR valuta un'offerta da 50 miliardi per Global Payments. Secondo Bloomberg il fondo di private equity esplora l'acquisto della società dei pagamenti, che sale in forte rialzo sulla notizia. Non c'è un'offerta annunciata.",
+  "CrowdStrike tratta per comprare Zscaler. Lo scrive Reuters citando due persone informate: nessun accordo è garantito e le trattative potrebbero finire senza intesa.",
+  "STMicroelectronics e ASML tra i più colpiti in Europa: oltre il 9%. Sono i titoli più colpiti dalla vendita dei chip, che venerdì ha fatto perdere al comparto tecnologico il 5,4%. A Milano lo spread tra BTP e Bund è a 110 punti base.",
+  "Advantest cede un decimo e Samsung il 7% nel crollo dei chip asiatici. Il Nikkei perde il 5,06% e il Kospi il 5,21%; l'ETF ACWI sull'azionario mondiale cede il 3,49%.",
+  "Anthropic sfiora il prezzo dell'IPO nel secondo giorno di scambi. Venerdì il titolo è sceso fino a 83,05 $, cinque centesimi sopra i 83 $ del collocamento, prima di risalire."
+ ],
+ "brevi": [
+  "Nvidia batte le stime e crolla",
+  "Treasury sì, oro no",
+  "L'Europa non regge più",
+  "Cook e il PCE di mercoledì"
+ ],
+ "agenda": [
+  {
+   "quando": "Mer 25, 14:30",
+   "evento": "PCE USA (ottobre)",
+   "attese": "Core +0,3% sul mese, +3,2% su un anno; prima +3,1%",
+   "perche": "Evento n.1: i prezzi che la Fed guarda di più, prima della riunione dell'8-9 dicembre",
+   "chiave": true,
+   "muove": [
+    "Sopra: salgono i rendimenti a 2 anni e le attese di rialzo.",
+    "Sotto: il rialzo di dicembre perde forza."
+   ]
+  },
+  {
+   "quando": "Mer 25, 14:30",
+   "evento": "PIL USA (terzo trimestre, seconda stima)",
+   "attese": "+3,4% annualizzato",
+   "perche": "Tenuta della crescita",
+   "chiave": false,
+   "muove": [
+    "Sopra: l'economia regge i tassi alti.",
+    "Sotto: cresce il timore di una frenata."
+   ]
+  },
+  {
+   "quando": "Gio 26",
+   "evento": "Mercati USA chiusi per il Ringraziamento",
+   "attese": "Wall Street e titoli di Stato fermi",
+   "perche": "Scambi più sottili in Europa",
+   "chiave": false,
+   "muove": [
+    "Senza Wall Street gli scambi europei tendono a calare."
+   ]
+  },
+  {
+   "quando": "Ven 27, in serata",
+   "evento": "Wall Street chiude in anticipo",
+   "attese": "Seduta ridotta",
+   "perche": "Volumi più bassi",
+   "chiave": false,
+   "muove": [
+    "Nelle sedute brevi di solito i volumi calano."
+   ]
+  }
+ ],
+ "termometri": {
+  "righe": [
+   [
+    "Fed e tassi",
+    "Riunione 8-9 dicembre",
+    "Cook: aspettare rischia di restare indietro",
+    "su: Attese di un rialzo a dicembre",
+    "PCE di mercoledì"
+   ],
+   [
+    "AI e borsa",
+    "S&P 500 in correzione",
+    "Indagine sui conti di Nvidia",
+    "giu: Titoli dei chip",
+    "Wall Street alle 15:30"
+   ],
+   [
+    "Oro e dollaro",
+    "Oro a 3.515 $ in chiusura",
+    "Cala più delle azioni",
+    "giu: Oro",
+    "Dollaro e rendimenti USA"
+   ],
+   [
+    "Petrolio",
+    "Brent a 92,57 $",
+    "In rialzo con le borse a picco",
+    "fermo: Brent, senza direzione",
+    "Scorte USA e Hormuz"
+   ]
+  ],
+  "fermi": "Iran e Hormuz (nessuna novità verificata nel fine settimana), Tassi della Bce (prossima riunione il 17 dicembre)."
+ },
+ "evento_oggi": "Mer 25, 14:30 PCE USA (ottobre)",
+ "moduli_redazione": [
+  {
+   "chiave": "nvidia",
+   "misura": "doppio",
+   "titolo": "Nvidia batte le stime ma crolla: ora il mercato dubita dei suoi conti",
+   "perche": "Per Reuters, che cita due persone informate, gli investigatori della SEC esaminano possibili problemi contabili di Nvidia. A nostro avviso il mercato non discute più quanto valgano i chip, ma se i conti di chi li vende siano affidabili.",
+   "quindi": "Alle 15:30 riapre Wall Street: se l'S&P 500 riparte sotto i 6.910 punti della chiusura di venerdì, le vendite continuano.",
+   "punti": [],
+   "testo": [
+    "Perché un'azienda che batte le stime perde circa il 14% in un giorno? Perché chi compra un'azione paga gli utili dei prossimi anni, e può farlo solo se si fida dei numeri che riceve. Martedì i conti di Nvidia erano sopra le attese su ricavi, utili e previsioni. Venerdì Reuters ha scritto che gli investigatori dell'autorità americana di Borsa guardano la sua contabilità, e la fiducia si è incrinata.",
+    "Il dubbio colpisce un titolo che pesa moltissimo. Nvidia è tra i titoli più grandi del mondo. In un indice come l'S&P 500 ogni titolo conta in proporzione al suo valore di Borsa, e una caduta così tende a trascinare l'intero indice.",
+    "C'è poi chi la guida. Il direttore finanziario Colette Kress è amministratore delegato ad interim, cioè provvisorio, come mostra il documento depositato il 17 novembre con i conti. Per chi deve fidarsi dei numeri, è un'incertezza in più.",
+    "Con questa chiusura l'S&P 500 entra in quella che gli operatori chiamano correzione: un calo di oltre il 10% dal massimo, qui quello del 6 ottobre. Il VIX misura quanto movimento si aspettano gli operatori nei prossimi trenta giorni, ricavandolo dai prezzi delle opzioni. Venerdì sale a 35,89, più del doppio del 17,49 dell'11 novembre."
+   ],
+   "righe": [
+    [
+     "Nvidia, terzo trimestre",
+     "Risultato",
+     "Attese"
+    ],
+    [
+     "Ricavi (mld $)",
+     "115,8",
+     "109,15"
+    ],
+    [
+     "Utile per azione ($)",
+     "2,68",
+     "2,47"
+    ],
+    [
+     "Ricavi del data center (mld $)",
+     "107,6",
+     "101,85"
+    ],
+    [
+     "Guidance per il trimestre in corso (mld $)",
+     "130",
+     "125,25"
+    ]
+   ],
+   "grafici": [
+    {
+     "titolo": "In una settimana il Nasdaq perde più delle piccole società",
+     "tipo": "barre",
+     "soggetto": "Nvidia",
+     "dati": [
+      [
+       "S&P 500",
+       -8.6
+      ],
+      [
+       "Russell 2000",
+       -7.5
+      ],
+      [
+       "Nasdaq",
+       -10.0
+      ]
+     ],
+     "serie": [],
+     "x0": null,
+     "x1": null,
+     "etichette": [
+      "S&P 500",
+      "Russell 2000",
+      "Nasdaq"
+     ]
+    },
+    {
+     "titolo": "Il Nasdaq cede il 3% dopo i conti di Nvidia e il 5% dopo la notizia dell'indagine",
+     "tipo": "linee",
+     "soggetto": "Nvidia",
+     "dati": null,
+     "serie": [
+      "Nasdaq"
+     ],
+     "x0": "2026-11-10",
+     "x1": "2026-11-20",
+     "etichette": []
+    }
+   ]
+  },
+  {
+   "chiave": "rifugio",
+   "misura": "doppio",
+   "titolo": "Con le borse a picco i Treasury fanno da rifugio, l'oro vende",
+   "perche": "A nostro avviso chi perdeva sulle azioni ha venduto ciò che si vende in fretta, oro compreso. Già il 30 ottobre, per Kitco, le vendite forzate dopo un calo delle azioni avevano prevalso sul ruolo di rifugio. Per Milano Finanza pesano anche il dollaro forte e le attese di una stretta della Fed.",
+   "quindi": "Se l'oro chiude sotto i 3.500 $, vuol dire che le vendite non sono finite. Sopra i 3.685 $ di giovedì, vorrebbe dire che la vendita forzata è finita.",
+   "punti": [],
+   "testo": [
+    "Perché i titoli di Stato salgono e l'oro scende, se entrambi passano per un riparo? Perché chi cerca sicurezza compra ciò che promette di restituire i soldi con gli interessi. Quando tutti comprano un titolo del Tesoro il suo prezzo sale, e il rendimento, che si muove al contrario, scende. Venerdì il 10 anni è sceso al 4,92%: chi cercava protezione nei titoli di Stato l'ha trovata, chi la cercava nell'oro no.",
+    "L'oro non paga interessi, e con rendimenti alti questo costo pesa, come nelle ultime settimane. Inoltre, di solito, quando le perdite su un mercato obbligano a vendere, si cede ciò che si riesce a vendere in fretta, non ciò che si vorrebbe.",
+    "Il dollaro, che nei giorni di paura vera tende a salire, è rimasto fermo. Era già forte: l'euro era già in difficoltà prima della vendita, e con la Fed pronta a rialzare non aveva spazio per salire ancora.",
+    "Giovedì il metallo aveva chiuso a 3.685 $. In una sola seduta lascia oltre 170 $ l'oncia e chiude a 3.515 $; nella settimana perde più del 9%. Chi lo guardava come rifugio, venerdì, ha visto il contrario.",
+    "Nei titoli di Stato la corsa è lunga: il 10 anni chiude sotto il 5%, in calo sulla settimana. Con un rendimento più basso il prezzo dei titoli già in circolazione sale: chi li aveva comprati prima ci guadagna. Vale anche il contrario: se il rendimento risalisse sopra il 5%, quei titoli perderebbero valore e il rifugio tornerebbe a costare."
+   ],
+   "righe": [],
+   "grafici": [
+    {
+     "titolo": "I rendimenti calano lungo tutta la curva, di più tra 1 e 7 anni",
+     "tipo": "barre",
+     "soggetto": "Treasury",
+     "dati": [
+      [
+       "1M",
+       -1.0
+      ],
+      [
+       "2M",
+       -1.0
+      ],
+      [
+       "3M",
+       -2.0
+      ],
+      [
+       "6M",
+       -4.0
+      ],
+      [
+       "1A",
+       -11.0
+      ],
+      [
+       "2A",
+       -13.0
+      ],
+      [
+       "3A",
+       -16.0
+      ],
+      [
+       "5A",
+       -15.0
+      ],
+      [
+       "7A",
+       -14.0
+      ],
+      [
+       "10A",
+       -12.0
+      ],
+      [
+       "20A",
+       -9.0
+      ],
+      [
+       "30A",
+       -9.0
+      ]
+     ],
+     "serie": [],
+     "x0": null,
+     "x1": null,
+     "etichette": [
+      "1M",
+      "2M",
+      "3M",
+      "6M",
+      "1A",
+      "2A",
+      "3A",
+      "5A",
+      "7A",
+      "10A",
+      "20A",
+      "30A"
+     ]
+    },
+    {
+     "titolo": "Dal 10 novembre l'oro perde più di 500 dollari l'oncia",
+     "tipo": "linee",
+     "soggetto": "oro",
+     "dati": null,
+     "serie": [
+      "Oro future"
+     ],
+     "x0": "2026-11-10",
+     "x1": "2026-11-20",
+     "etichette": []
+    }
+   ]
+  },
+  {
+   "chiave": "europa",
+   "misura": "mezzo",
+   "titolo": "L'Europa, che reggeva meglio di Wall Street, cede il 2,8% con i chip",
+   "perche": "Per Reuters gli investitori scaricano le scommesse sull'AI dopo l'IPO di Anthropic, che non ha rilanciato la fiducia nel settore. A nostro avviso l'Europa non vende i suoi titoli AI, che sono pochi, ma i fornitori dell'industria dei chip. Il calo non resta nei chip: banche, difesa e lusso, i titoli più legati alla crescita, perdono più del 2,5%.",
+   "quindi": "Alle 15:30 riapre Wall Street e si vede se l'Europa recupera il calo di venerdì: ASML e STMicroelectronics, che hanno perso di più, mostrano se la vendita sta finendo. Un lunedì in calo darebbe allo STOXX 600 la sesta seduta negativa di fila.",
+   "punti": [],
+   "testo": [
+    "Fino a giovedì l'Europa aveva perso meno di Wall Street: dal 12 al 19 novembre l'Euro Stoxx 50 cede il 4,5%, l'S&P 500 il 5,5%. Perché venerdì il copione cambia? Perché il calo ha colpito i fornitori dei chip, che l'Europa ha. ASML e STMicroelectronics perdono oltre il 9%, Infineon il 7,6%.",
+    "Milano chiude a 48.703 punti (-2,48%) con STMicroelectronics tra i titoli peggiori, e lo spread tra BTP e Bund sale a 110 punti base.",
+    "Per Reuters è la quinta seduta di ribasso di fila dello STOXX 600, che chiude a 625,65. La perdita della settimana supera il 5,7%, la peggiore da più di un anno.",
+    "Non è solo l'AI. Per dpa pesano anche i timori su inflazione e su una stretta della Fed. Tra i titoli colpiti: Siemens Energy perde il 6,5% e Scout24 circa il 7%."
+   ],
+   "righe": [],
+   "grafici": [
+    {
+     "titolo": "L'Euro Stoxx 50 perde il 7,1% dal 12 novembre",
+     "tipo": "linee",
+     "soggetto": "Europa",
+     "dati": null,
+     "serie": [
+      "Euro Stoxx 50"
+     ],
+     "x0": "2026-11-10",
+     "x1": "2026-11-20",
+     "etichette": []
+    }
+   ]
+  },
+  {
+   "chiave": "fed",
+   "misura": "mezzo",
+   "titolo": "Cook insiste sui rialzi mentre le borse scendono: il PCE decide",
+   "perche": "Per Cook la crescita è forte e in accelerazione, il lavoro solido e l'inflazione ben sopra il 2% da 67 mesi. Perciò aspettare rischia di costringere a rialzi più grandi dopo. A nostro avviso la caduta delle borse per ora pesa meno di questi dati.",
+   "quindi": "Mercoledì alle 14:30 il PCE: un dato di fondo, senza energia e alimentari, sopra il 3,2% atteso renderebbe più probabile il rialzo dell'8-9 dicembre.",
+   "punti": [],
+   "testo": [
+    "Con le borse in correzione e i rendimenti in calo la Fed non dovrebbe frenare? Dipende da ciò che guarda. Decide sui prezzi e sul lavoro, non sul listino, e per Cook l'inflazione non scende: «Waiting longer to implement rate increases risks getting behind the curve».",
+    "I rendimenti, che seguono da vicino le attese sulla Fed, sono scesi. Ci leggiamo una scommessa del mercato su una Fed meno dura dopo la caduta delle borse. È la lettura opposta a quella di Cook, e il PCE di mercoledì decide chi ha ragione.",
+    "Conta la sorpresa più del livello. Un dato di fondo al 3,2%, senza energia e alimentari, è già nei prezzi: il mercato reagisce a quanto se ne discosta il dato reale."
+   ],
+   "righe": [
+    [
+     "Chi",
+     "Che cosa dice",
+     "Quando"
+    ],
+    [
+     "Waller",
+     "Possibile rialzo da mezzo punto a dicembre",
+     "novembre"
+    ],
+    [
+     "Verbali Fed",
+     "Nuovi rialzi probabili; alcuni più grandi di un quarto di punto",
+     "18/11"
+    ],
+    [
+     "Cook",
+     "Aspettare rischia di restare indietro",
+     "20/11"
+    ]
+   ],
+   "grafici": []
+  }
+ ]
+}

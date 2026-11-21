@@ -1,0 +1,62 @@
+[
+ {
+  "campo": "quadro",
+  "originale": "Venerdì borse e oro hanno venduto insieme e i titoli di Stato hanno fatto da rifugio. Il 10 anni scende di 12 pb al 4,92%, il 2 anni di 13. Leggiamo vendite forzate, di chi cede ciò che si vende in fretta per coprire le perdite sulle azioni. L'oro perde il 4,6% e il dollaro non si muove (EUR/USD 1,0967). Il VIX, l'indice che misura la paura a Wall Street, sale del 26,2% a 35,89. Il petrolio resta in disparte (Brent 92,57 $). [[rifugio]]",
+  "testo": "Venerdì borse e oro hanno venduto insieme e i titoli di Stato hanno fatto da rifugio. Il 10 anni scende di 12 punti base al 4,92%, il 2 anni di 13. Leggiamo vendite forzate: chi perde sulle azioni cede ciò che si vende in fretta per coprire le perdite. L'oro perde il 4,6% e il dollaro non si muove (EUR/USD 1,0967). Il VIX, l'indice che misura la paura a Wall Street, sale del 26,2% a 35,89. Il petrolio resta in disparte (Brent 92,57 $). [[rifugio]]"
+ },
+ {
+  "campo": "in30.0",
+  "originale": "L'Europa cede e ASML e STMicroelectronics sono tra i titoli più colpiti: finora aveva perso meno di Wall Street. [[europa]]",
+  "testo": "L'Europa cede, con ASML e STMicroelectronics tra i titoli più colpiti. Finora aveva perso meno di Wall Street. [[europa]]"
+ },
+ {
+  "campo": "notizie.4.testo",
+  "originale": "Sono i titoli più colpiti dalla vendita dei chip, che venerdì ha fatto perdere al comparto tecnologico il 5,4%. A Milano lo spread tra BTP e Bund è a 110 punti base.",
+  "testo": "La vendita dei chip ha fatto perdere venerdì il 5,4% al comparto tecnologico: questi due titoli sono tra i più colpiti. A Milano lo spread tra BTP e Bund è a 110 punti base."
+ },
+ {
+  "campo": "moduli.nvidia.guardare",
+  "originale": "Conta se si chiarisce l'oggetto dell'indagine e se i chip americani recuperano. Un chiarimento che escluda problemi contabili darebbe ragione a chi vede un eccesso nelle vendite; nuove notizie allargherebbero la sfiducia agli altri produttori di chip.",
+  "testo": "Contano due cose: se si chiarisce l'oggetto dell'indagine e se i chip americani recuperano. Se il chiarimento escludesse problemi contabili, avrebbe ragione chi vede un eccesso nelle vendite. Nuove notizie, invece, allargherebbero la sfiducia agli altri produttori di chip."
+ },
+ {
+  "campo": "moduli.nvidia.testo.2",
+  "originale": "C'è poi chi la guida. Il direttore finanziario Colette Kress è amministratore delegato ad interim, come mostra il documento depositato il 17 novembre con i conti. Per chi deve fidarsi dei numeri, è un'incertezza in più.",
+  "testo": "C'è poi chi la guida. Il direttore finanziario Colette Kress è amministratore delegato ad interim, cioè provvisorio, come mostra il documento depositato il 17 novembre con i conti. Per chi deve fidarsi dei numeri, è un'incertezza in più."
+ },
+ {
+  "campo": "moduli.nvidia.testo.3",
+  "originale": "Con questa chiusura l'S&amp;P 500 entra in ciò che gli operatori chiamano correzione, un calo di oltre il 10% dal massimo, qui quello del 6 ottobre. Il VIX, che ricava dai prezzi delle opzioni quanto movimento si aspettano gli operatori nei prossimi trenta giorni, sale a 35,89: più del doppio del 17,49 dell'11 novembre.",
+  "testo": "Con questa chiusura l'S&amp;P 500 entra in quella che gli operatori chiamano correzione: un calo di oltre il 10% dal massimo, qui quello del 6 ottobre. Il VIX misura quanto movimento si aspettano gli operatori nei prossimi trenta giorni, ricavandolo dai prezzi delle opzioni. Venerdì sale a 35,89, più del doppio del 17,49 dell'11 novembre."
+ },
+ {
+  "campo": "moduli.rifugio.quindi",
+  "originale": "Un oro che chiude sotto i 3.500 $ dice che le vendite non sono finite; sopra i 3.685 $ di giovedì direbbe che la vendita forzata è finita.",
+  "testo": "Se l'oro chiude sotto i 3.500 $, vuol dire che le vendite non sono finite. Sopra i 3.685 $ di giovedì, vorrebbe dire che la vendita forzata è finita."
+ },
+ {
+  "campo": "moduli.rifugio.testo.0",
+  "originale": "Perché i titoli di Stato salgono e l'oro scende, se entrambi passano per un riparo? Perché chi cerca sicurezza compra ciò che promette di restituire i soldi con gli interessi. Quando tutti comprano un titolo del Tesoro il suo prezzo sale, e il rendimento, che si muove al contrario, scende. Venerdì il 10 anni ha perso 12 punti base.",
+  "testo": "Perché i titoli di Stato salgono e l'oro scende, se entrambi sono considerati un riparo? Perché chi cerca sicurezza compra ciò che promette di restituire i soldi con gli interessi. Quando tutti comprano un titolo del Tesoro, il suo prezzo sale e il rendimento, che si muove al contrario, scende. Venerdì il rendimento del 10 anni ha perso 12 punti base."
+ },
+ {
+  "campo": "moduli.rifugio.testo.1",
+  "originale": "L'oro non paga nulla, e con rendimenti alti pesa, come nelle ultime settimane, il costo di non incassare interessi. In più, di solito, quando le perdite su un mercato obbligano a vendere, si cede ciò che si riesce a vendere in fretta, non ciò che si vorrebbe.",
+  "testo": "L'oro non paga interessi, e con rendimenti alti questo costo pesa, come nelle ultime settimane. Inoltre, di solito, quando le perdite su un mercato obbligano a vendere, si cede ciò che si riesce a vendere in fretta, non ciò che si vorrebbe."
+ },
+ {
+  "campo": "moduli.rifugio.testo.3",
+  "originale": "Giovedì il metallo aveva chiuso a 3.685 $: in una sola seduta lascia oltre 170 $ l'oncia e chiude a 3.515 $, in una settimana in cui perde più del 9%. Chi guardava il metallo come rifugio, venerdì, ha visto il contrario.",
+  "testo": "Giovedì il metallo aveva chiuso a 3.685 $. In una sola seduta lascia oltre 170 $ l'oncia e chiude a 3.515 $; nella settimana perde più del 9%. Chi lo guardava come rifugio, venerdì, ha visto il contrario."
+ },
+ {
+  "campo": "moduli.fed.testo.1",
+  "originale": "Il rendimento a 2 anni, che segue da vicino le attese sulla Fed, è sceso di 13 pb al 4,63%. Ci leggiamo una scommessa del mercato su una Fed meno dura dopo la caduta delle borse. È la lettura opposta a quella di Cook, e il PCE di mercoledì decide chi ha ragione.",
+  "testo": "Il rendimento a 2 anni, che segue da vicino le attese sulla Fed, è sceso di 13 punti base al 4,63%. Leggiamo in questo una scommessa del mercato su una Fed meno dura dopo la caduta delle borse. È l'opposto di ciò che dice Cook, e il PCE di mercoledì dirà chi ha ragione."
+ },
+ {
+  "campo": "moduli.fed.testo.2",
+  "originale": "Conta la sorpresa più del livello: un dato di fondo al 3,2%, senza energia e alimentari, è già nei prezzi, e il mercato reagisce alla distanza da quel numero.",
+  "testo": "Conta la sorpresa più del livello. Un dato di fondo al 3,2%, senza energia e alimentari, è già nei prezzi: il mercato reagisce a quanto se ne discosta il dato reale."
+ }
+]

@@ -1,0 +1,354 @@
+{
+ "numero": 31,
+ "data": "2026-11-23",
+ "titolo": "Nvidia crolla per l'indagine sui conti e Wall Street entra in correzione",
+ "sommario": [
+  "L'Europa cede, con ASML e STMicroelectronics tra i titoli più colpiti. Finora aveva perso meno di Wall Street.",
+  "Treasury e oro prendono strade opposte: i titoli di Stato salgono, il metallo scende più dell'S&P 500.",
+  "Mercoledì il PCE, l'indice dei prezzi che la Fed guarda di più, mette alla prova il rialzo di dicembre."
+ ],
+ "file": "pdf/2026-11-23-gommberg-031.pdf",
+ "nome": "2026-11-23 Gommberg Terminal Daily #031.pdf",
+ "pagine": 6,
+ "notizie": [
+  "Cook avverte: aspettare ancora per alzare i tassi è un rischio",
+  "GTCR valuta un'offerta da 50 miliardi per Global Payments",
+  "CrowdStrike tratta per comprare Zscaler",
+  "La fiducia dei consumatori americani sale a 51,5 a novembre",
+  "STMicroelectronics e ASML tra i più colpiti in Europa: oltre il 9%",
+  "Advantest cede un decimo e Samsung il 7% nel crollo dei chip asiatici",
+  "Anthropic sfiora il prezzo dell'IPO nel secondo giorno di scambi"
+ ],
+ "ticker": [
+  [
+   "MSCI ACWI (ETF)",
+   "142,59 $",
+   "-3,5% g"
+  ],
+  [
+   "S&P 500",
+   "6.910,39",
+   "-3,7% g"
+  ],
+  [
+   "EURO STOXX 50",
+   "5.941,95",
+   "-2,8% g"
+  ],
+  [
+   "TREASURY 10 ANNI",
+   "4,92%",
+   "-12 pb g"
+  ],
+  [
+   "EUR/USD",
+   "1,0967",
+   "0,0% g"
+  ],
+  [
+   "BRENT FUTURE",
+   "92,57 $",
+   "+0,6% g"
+  ],
+  [
+   "ORO",
+   "3.515 $",
+   "-4,6% g"
+  ]
+ ],
+ "dek": "Venerdì Nvidia perde circa il 13% dopo la notizia, data da Reuters, che gli investigatori dell'autorità americana di Borsa esaminano la sua contabilità. L'S&P 500 chiude a 6.910,39 (-3,70%), più del 10% sotto il massimo del 6 ottobre, e il Nasdaq cede il 5,28%. Per l'indice è la settimana peggiore da più di 18 mesi.",
+ "ticker_al": "2026-11-20",
+ "scommessa": {
+  "settimana": "2026-11-23/2026-11-27",
+  "su": 6,
+  "par": 7.3,
+  "strada": null,
+  "range": null,
+  "dettaglio": [
+   [
+    "S&P 500",
+    "su",
+    null,
+    null
+   ],
+   [
+    "Euro Stoxx 50",
+    "su",
+    null,
+    null
+   ],
+   [
+    "Treasury 10 anni",
+    "su",
+    null,
+    null
+   ],
+   [
+    "EUR/USD",
+    "su",
+    null,
+    null
+   ],
+   [
+    "Brent future",
+    "su",
+    null,
+    null
+   ],
+   [
+    "Oro future",
+    "su",
+    null,
+    null
+   ]
+  ]
+ },
+ "verdetto": {
+  "settimana": "2026-11-16/2026-11-20",
+  "punti": 5,
+  "su": 12,
+  "direzione": 3,
+  "range": 2,
+  "par": 7.3,
+  "esiti": [
+   [
+    "S&P 500",
+    "giù",
+    1
+   ],
+   [
+    "Euro Stoxx 50",
+    "su",
+    0
+   ],
+   [
+    "Treasury 10 anni",
+    "su",
+    0
+   ],
+   [
+    "EUR/USD",
+    "giù",
+    1
+   ],
+   [
+    "Brent future",
+    "su",
+    0
+   ],
+   [
+    "Oro future",
+    "giù",
+    1
+   ]
+  ]
+ },
+ "temi": [
+  "Tecnologia",
+  "Chip",
+  "Fed",
+  "Tassi",
+  "Europa",
+  "Materie prime"
+ ],
+ "approfondimenti": [
+  {
+   "tema": "Chip",
+   "titolo": "Nvidia batte le stime ma crolla: ora il mercato dubita dei suoi conti",
+   "formato": "due_grafici"
+  },
+  {
+   "tema": "Materie prime",
+   "titolo": "Con le borse a picco i Treasury fanno da rifugio, l'oro vende",
+   "formato": "due_grafici"
+  },
+  {
+   "tema": "Europa",
+   "titolo": "L'Europa, che reggeva meglio di Wall Street, cede il 2,8% con i chip",
+   "formato": "grafico"
+  },
+  {
+   "tema": "Fed",
+   "titolo": "Cook insiste sui rialzi mentre le borse scendono: il PCE decide",
+   "formato": "grafico"
+  }
+ ],
+ "meccanismi": [
+  "M01",
+  "M26",
+  "M23",
+  "M16",
+  "M14",
+  "M09",
+  "M04"
+ ],
+ "parole": [
+  "Correzione",
+  "Vendite forzate",
+  "Rifugio",
+  "Rendimento",
+  "Core",
+  "Guidance"
+ ],
+ "ripetizioni": 4,
+ "glossario": [
+  "PCE",
+  "VIX",
+  "ACWI"
+ ],
+ "dove": {
+  "approfondimenti": [
+   2,
+   3,
+   4,
+   4
+  ],
+  "mercati": 5,
+  "agenda": 5,
+  "scommessa": 6
+ },
+ "termometri": {
+  "righe": [
+   [
+    "Fed e tassi",
+    "Riunione 8-9 dicembre",
+    "Cook: aspettare rischia di restare indietro",
+    "su: Attese di un rialzo a dicembre",
+    "PCE di mercoledì"
+   ],
+   [
+    "AI e borsa",
+    "S&P 500 in correzione",
+    "Indagine sui conti di Nvidia",
+    "giu: Titoli dei chip",
+    "Wall Street alle 15:30"
+   ],
+   [
+    "Oro e dollaro",
+    "Oro a 3.515 $ in chiusura",
+    "Cala più delle azioni",
+    "giu: Oro",
+    "Dollaro e rendimenti USA"
+   ],
+   [
+    "Petrolio",
+    "Brent a 92,57 $",
+    "In rialzo con le borse a picco",
+    "fermo: Brent, senza direzione",
+    "Scorte USA e Hormuz"
+   ]
+  ],
+  "fermi": "Iran e Hormuz (nessuna novità verificata nel fine settimana), Tassi della Bce (prossima riunione il 17 dicembre)."
+ },
+ "quadro": "Venerdì borse e oro hanno venduto insieme e i titoli di Stato hanno fatto da rifugio. Il 10 anni scende di 12 punti base al 4,92%, il 2 anni di 13. Leggiamo vendite forzate: chi perde sulle azioni cede ciò che si vende in fretta per coprire le perdite. L'oro perde il 4,6% e il dollaro non si muove (EUR/USD 1,0967). Il VIX, l'indice che misura la paura a Wall Street, sale del 26,2% a 35,89. Il petrolio resta in disparte (Brent 92,57 $). [[rifugio]]",
+ "evento_oggi": "Mer 25, 14:30 PCE USA (ottobre)",
+ "grafici": [
+  {
+   "tipo": "barre",
+   "titolo": "In una settimana il Nasdaq perde il 10%, le piccole società il 7,5%",
+   "serie": [],
+   "x0": null,
+   "x1": null,
+   "etichette": [
+    "S&P 500",
+    "Russell 2000",
+    "Nasdaq"
+   ]
+  },
+  {
+   "tipo": "linee",
+   "titolo": "Il Nasdaq cede il 3% dopo i conti di Nvidia e il 5% dopo la notizia dell'indagine",
+   "serie": [
+    "Nasdaq"
+   ],
+   "x0": "2026-11-10",
+   "x1": "2026-11-20",
+   "etichette": []
+  },
+  {
+   "tipo": "barre",
+   "titolo": "I rendimenti calano lungo tutta la curva, di più tra 1 e 7 anni",
+   "serie": [],
+   "x0": null,
+   "x1": null,
+   "etichette": [
+    "1M",
+    "2M",
+    "3M",
+    "6M",
+    "1A",
+    "2A",
+    "3A",
+    "5A",
+    "7A",
+    "10A",
+    "20A",
+    "30A"
+   ]
+  },
+  {
+   "tipo": "linee",
+   "titolo": "Dal 10 novembre l'oro perde più di 500 dollari l'oncia",
+   "serie": [
+    "Oro future"
+   ],
+   "x0": "2026-11-10",
+   "x1": "2026-11-20",
+   "etichette": []
+  },
+  {
+   "tipo": "linee",
+   "titolo": "L'Euro Stoxx 50 perde il 7,1% dal 12 novembre",
+   "serie": [
+    "Euro Stoxx 50"
+   ],
+   "x0": "2026-11-10",
+   "x1": "2026-11-20",
+   "etichette": []
+  }
+ ],
+ "agenda": [
+  {
+   "quando": "Mer 25, 14:30",
+   "evento": "PCE USA (ottobre)",
+   "attese": "Core +0,3% sul mese, +3,2% su un anno; prima +3,1%",
+   "perche": "Evento n.1: i prezzi che la Fed guarda di più, prima della riunione dell'8-9 dicembre",
+   "chiave": true,
+   "muove": [
+    "Sopra: salgono i rendimenti a 2 anni e le attese di rialzo.",
+    "Sotto: il rialzo di dicembre perde forza."
+   ]
+  },
+  {
+   "quando": "Mer 25, 14:30",
+   "evento": "PIL USA (terzo trimestre, seconda stima)",
+   "attese": "+3,4% annualizzato",
+   "perche": "Tenuta della crescita",
+   "chiave": false,
+   "muove": [
+    "Sopra: l'economia regge i tassi alti.",
+    "Sotto: cresce il timore di una frenata."
+   ]
+  },
+  {
+   "quando": "Gio 26",
+   "evento": "Mercati USA chiusi per il Ringraziamento",
+   "attese": "Wall Street e titoli di Stato fermi",
+   "perche": "Scambi più sottili in Europa",
+   "chiave": false,
+   "muove": [
+    "Senza Wall Street gli scambi europei tendono a calare."
+   ]
+  },
+  {
+   "quando": "Ven 27, in serata",
+   "evento": "Wall Street chiude in anticipo",
+   "attese": "Seduta ridotta",
+   "perche": "Volumi più bassi",
+   "chiave": false,
+   "muove": [
+    "Nelle sedute brevi di solito i volumi calano."
+   ]
+  }
+ ]
+}

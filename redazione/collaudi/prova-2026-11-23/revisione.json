@@ -1,0 +1,146 @@
+[
+ {
+  "id": "T01",
+  "trovato": "plunged 14% on Friday. The price block reads $125.53-$20.45 (-14.01%). The S&P 500 fell 265.44 points, or 3.7%, to 6,910.39. The Nasdaq composite fell 1,261.47 points, or 5.3%, to 22,617.73.",
+  "verifica": "confermato",
+  "nota_revisore": "Motley Fool (chiusura 16:00 ET): Nvidia -14,01% a 125,53 $; Yahoo Finance: 'falling 14%'. Reuters (investing.com): SEC enforcement staff esaminano 'potential accounting issues', notizia di Reuters di venerdi'. AP (Yakima Herald): S&P 500 6.910,39 -3,7%, Nasdaq -5,3%, correzione; l'AP non nomina Nvidia. Il PDF 'oltre il 13%' e' coerente (14,01%)."
+ },
+ {
+  "id": "N10",
+  "trovato": "Date of Report (Date of earliest event reported): November 17, 2026 ... announcing its results for the quarter ended October 25, 2026 ... Colette M. Kress, Interim Chief Executive Officer, Executive Vice President and Chief Financial Officer",
+  "verifica": "confermato",
+  "nota_revisore": "8-K letto su sec.gov: data 17/11, trimestre chiuso il 25/10, Kress firma come Interim CEO e CFO. Il PDF e' coerente. Reuters la definisce 'former CFO', in contrasto con il frontespizio dell'8-K: prevale il documento. Il PDF non dice che Jensen Huang ha lasciato il ruolo di CEO il 12/11 (fonte secondaria dealroom): non e' un errore, solo omissione."
+ },
+ {
+  "id": "N01",
+  "trovato": "The S&P 500 fell 265.44 points, or 3.7%, to 6,910.39. The Nasdaq composite fell 1,261.47 points, or 5.3%, to 22,617.73. The Russell 2000 fell 73.32 points, or 2.8%, to 2,581.79.",
+  "verifica": "confermato",
+  "nota_revisore": "AP conferma anche Dow -1,9% a 48.147,33 (il Dow non e' nel PDF), correzione dopo calo oltre 10% dal massimo del 6 ottobre e 'worst weekly loss in more than 18 months'. Settimana: S&P -8,6%, Nasdaq -10%, Russell -7,5%: coerenti con tabella pag. 5. ATTENZIONE: pag. 2 titolo 'il Nasdaq perde il doppio delle piccole societa'' (variazione 13-20/11) e' falso sulla settimana: -10,0% contro -7,5% = 1,3 volte; e' vero solo sul giorno (-5,3% contro -2,8%). Pag. 5 'il Nasdaq perde molto di piu'' (rispetto a S&P -8,6%) e' esagerato."
+ },
+ {
+  "id": "N02",
+  "trovato": "SEC enforcement staff are scrutinizing potential accounting issues at the company. Reuters could not immediately determine when the SEC opened its inquiry. A SEC spokesperson declined to comment.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters (via investing.com, Prentice e Alper): due persone informate; SEC 'declined to comment'; Nvidia 'did not immediately respond to requests for comment'. Il PDF scrive 'l'autorita' e Nvidia non hanno commentato': leggermente piu' netto per Nvidia (non ha risposto subito). Suggerito: 'la SEC ha rifiutato di commentare, Nvidia non ha risposto subito'. Reuters cita anche un report WSJ di martedi' e il FT sul cambio di rendicontazione dei ricavi geografici (assenti dal PDF)."
+ },
+ {
+  "id": "N03",
+  "trovato": "dragging the tech sector down 5.4 percent in its steepest one-day fall since October 2025. Chip-linked stocks such as ASML and STMicroelectronics shed more than 9 percent. registered its fifth straight session of declines",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters (Business Recorder): STOXX 600 -2% a 625,65, tecnologico -5,4%, ASML e STM oltre -9%, quinta seduta negativa, settimana oltre -5,7% (peggiore da fine marzo 2025). dpa (Yahoo) dice invece STOXX 600 -1,68% (dato intraday/altro momento): il PDF usa Reuters, ok. Da correggere nel PDF pag. 1: 'STMicroelectronics e ASML perdono piu' di tutti in Europa' - la pagina dice solo 'chip-linked stocks such as ... shed more than 9 percent', non che siano i peggiori in assoluto (STM ~-10,5/-11%, Technoprobe a Milano non verificata): meglio 'tra i piu' colpiti'."
+ },
+ {
+  "id": "N04",
+  "trovato": "Il Ftse Mib ha perso il 2,48%, con pochissimi titoli positivi, nessuno di più di un punto percentuale. A guidare il listino sono sempre Italgas, Snam e Saipem, grazie all'aumento del prezzo del gas.",
+  "verifica": "confermato",
+  "nota_revisore": "QuiFinanza (diretta 20/11, chiusura -2,48%) e ANSA (48.703 punti). Il titolo della pagina QuiFinanza riporta un dato intraday diverso (-1,69%), irrilevante per la chiusura."
+ },
+ {
+  "id": "N08",
+  "trovato": "Furthermore, waiting longer to implement rate increases risks getting behind the curve. If we fall behind, additional and larger rate increases may be required later to catch up. Overall economic growth in the U.S. is strong—and accelerating. The labor market remains solid",
+  "verifica": "confermato",
+  "nota_revisore": "Discorso sul sito Fed: XXIX Conferenza annuale della Banca centrale del Cile, Santiago. Kitco/Reuters: i mercati si aspettano un rialzo alla riunione dell'8-9 dicembre (pagina Kitco non nomina Santiago). Nota: la Fed ha gia' alzato i tassi a settembre (Cook: 'September's single 1/4 point rate increase'); il PDF non lo dice ma non lo contraddice."
+ },
+ {
+  "id": "K1",
+  "trovato": "GDP (Second Estimate) and Corporate Profits, 3rd Quarter 2026 ... Personal Income and Outlays, October 2026 ... November 25, 2026 8:30 AM",
+  "verifica": "confermato",
+  "nota_revisore": "Calendario BEA: entrambe le uscite il 25/11 alle 8:30 (fuso non scritto in pagina, ma ET per BEA). 8:30 ET = 14:30 a Roma (entrambe le date in ora solare): corretto. Non verificati in questa revisione: le attese dell'agenda (core +0,3% m/m, +3,2% a/a, prima +3,1%; PIL +3,4%), che sono stime del giornale e non risultano dalle pagine lette."
+ },
+ {
+  "id": "D01",
+  "trovato": "The VIX ended Friday at 35.89 after touching 40.03. It closed at 17.49 on Nov. 11 as AI stocks rebounded",
+  "verifica": "confermato",
+  "nota_revisore": "ceoeconomy.com. Chiusura del 19/11 28,44 (stessa pagina, lettura precedente): +26,2% e +7,45 coerenti. Il 7.619,38 dell'S&P 500 all'11/11 resta non verificato (scheda D01 originale)."
+ },
+ {
+  "id": "D02",
+  "trovato": "slid 13 basis points to 4.92%, its lowest level in over 10 days. December US gold futures settled 4.6% lower at $3,515.40 per ounce. New York gold futures closed at $3,515.4 per ounce, down $170.1, or 4.6 percent.",
+  "verifica": "confermato",
+  "nota_revisore": "10 anni: Yahoo Finance live blog, 4,92% (calo di 13 pb; il PDF scrive -12 pb in testata e tabella: allineare a -13 o spiegare l'arrotondamento). Oro: rallies.ai e longbridge: future dicembre 3.515,40 $, -4,6% (-170,1 $), chiusura 19/11 implicita 3.685,5 $, coerente con 'sopra i 3.685 $ di giovedi'' del PDF. Settimana circa -9,4% (PDF: -9,5% in tabella). Il 2 anni a 4,63% e l'EUR/USD non sono piu' nella scheda e restano non verificati."
+ },
+ {
+  "id": "D03",
+  "trovato": "The Euro Stoxx 50 of euro area blue chips lost 2.81% and the broader Stoxx Europe 600 2.00%, its fifth straight loss.",
+  "verifica": "confermato",
+  "nota_revisore": "edgeconsultancykw.com: tabella di chiusura Euro Stoxx 50 a 5.941,95, -2,81%. 'La perdita piu' forte dal 3 marzo' non confermato (non e' nel PDF)."
+ },
+ {
+  "id": "D04",
+  "trovato": "Cyclical sectors including banks, defense and luxury were among the other major laggards down over 2.5 percent. as investors unwound AI-linked bets after Anthropic's blockbuster market debut failed to revive confidence",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters (Business Recorder). Il PDF pag. 4 e' fedele: attribuisce a Reuters, e le 'i titoli piu' legati alla crescita' e' etichetta del PDF (la pagina dice 'cyclical'). Il PDF aggiunge 'banche, difesa e lusso ... perdono piu' del 2,5%': ok."
+ },
+ {
+  "id": "D05",
+  "trovato": "STMicroelectronics ha perso il 10,46%. STMicroElectronics plunged nearly 11%. Infineon tanked 7.6%. Scout24 and Siemens Energy lost about 7% and 6.5%, respectively.",
+  "verifica": "confermato",
+  "nota_revisore": "QuiFinanza (STM -10,46%) e dpa/Yahoo. Qualifica nel PDF pag. 4: 'Colpiscono i titoli piu' legati all'industria e alla crescita: Siemens Energy ... e Scout24' - la pagina dpa legge 'inflation concerns and fears of monetary tightening' ma non risulta questa etichetta; Scout24 e' un portale immobiliare, non industria. Togliere o attenuare."
+ },
+ {
+  "id": "D06",
+  "trovato": "",
+  "verifica": "non_conclusivo",
+  "nota_revisore": "Non ritrovati: 10 anni al 5,15% il 13/11, 'cinque ribassi di fila'. La curva 2-10 a 29 pb e' solo 4,92-4,63 (aritmetica; non e' nel PDF). Il -23 pb a una settimana in tabella e' coerente con 5,15."
+ },
+ {
+  "id": "D07",
+  "trovato": "inflation is well above the Fed's 2 percent target and has been for 67 months. Overall economic growth in the U.S. is strong—and accelerating. The labor market remains solid",
+  "verifica": "confermato",
+  "nota_revisore": "Discorso Fed, sezione Economic Outlook. PDF coerente."
+ },
+ {
+  "id": "N05",
+  "trovato": "While demand softened in October and early November, amidst warmer weather.",
+  "verifica": "confermato",
+  "nota_revisore": "Comunicato Gap: vendite nette +2% a circa 4,0 mld $ (comparable flat), EPS diluito 0,86 $ e rettificato 0,82 $ (al netto di un rimborso dazi), guidance annuale rettificata 2,29-2,34 $ da 2,35-2,45 $; frase del CEO Dickson sulla domanda. Trimestre chiuso al 31/10. NOTA: Gap non compare nel testo del PDF: nessuna correzione da fare."
+ },
+ {
+  "id": "N06",
+  "trovato": "Nov 20 (Reuters) - GTCR is exploring a potential takeover of payments processor Global Payments, ... Shares of Global Payments closed the day 10% higher.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters su AOL: titolo chiuso a +10% (il +11% era intraday). La stessa pagina dice che Bloomberg ha dato per prima la notizia e il valore di 50 mld $ (con debito e premio) e che GTCR ha reso nota l'esplorazione in un filing di venerdi' (quindi non solo 'secondo Bloomberg'). PDF pag. 1 item 02: correggere 'oltre l'11%' in 'chiude +10%'; 'Non c'e' un'offerta annunciata' resta coerente."
+ },
+ {
+  "id": "N11",
+  "trovato": "Anthropic Stock Came Within 5 Cents of Its $83 IPO Price on Day 2, Then Bounced 6% to Close at $88.30",
+  "verifica": "confermato",
+  "nota_revisore": "24/7 Wall St. (titolo) e Fortune: minimo 83,05 $ venerdi', IPO a 83 $, poi risalita (chiusura 88,30 $, -9% dal 97,17 $ del giorno prima). PDF coerente."
+ },
+ {
+  "id": "N12",
+  "trovato": "Lo spread tra Btp e Bund tedeschi chiude in rialzo a 109,9 punti, contro i 103 punti segnati in apertura di seduta.",
+  "verifica": "confermato",
+  "nota_revisore": "ANSA 20/11: chiusura 109,9 (arrotondato 110); QuiFinanza 'aumentato a 110 punti base'. Resta NON verificato il 'da 106' e il +4 pb/+3,8% del PDF (106 e' la chiusura del 16/11 secondo ANSA; apertura del 20/11 a 103): togliere il confronto."
+ },
+ {
+  "id": "N13",
+  "trovato": "Giu' del 7% Tokyo Electron ... lasciato sul terreno il 7%",
+  "verifica": "confermato",
+  "nota_revisore": "Radiocor/Dow Jones (it.marketscreener): Nikkei 56.436,65 -5,06%, Advantest circa -10%, Tokyo Electron -7%, Samsung -7%. La pagina Il Sole 24 Ore in lingua inglese non riporta questi numeri e Reuters/Business Recorder non cita Nikkei/Advantest/Samsung. Il Kospi -5,21% del PDF (fonte COINOTAG) non verificato."
+ },
+ {
+  "id": "N15",
+  "trovato": "",
+  "verifica": "non_conclusivo",
+  "nota_revisore": "ACWI -3,49% non ritrovato (pagine ETF non leggibili). Il PDF lo chiama 'l'indice dell'azionario mondiale': e' l'ETF iShares ACWI (come in testata), non l'indice."
+ },
+ {
+  "id": "K2",
+  "trovato": "Thursday, November 26, 2026 ... U.S. markets are closed. Friday, November 27, 2026, is an early-close day. Most NYSE markets close at 1:00 p.m. ET",
+  "verifica": "confermato",
+  "nota_revisore": "Calendario NYSE (estratto dallo strumento di lettura). 13:00 ET = 19:00 a Roma: 'in serata' nel PDF e' corretto."
+ },
+ {
+  "id": "N07",
+  "trovato": "No deal is guaranteed, and the discussions could still end without an agreement. CrowdStrike and Zscaler did not immediately respond to Reuters' requests for comment.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters (Milana Vinn): 'two people familiar with the matter'. Bloomberg non letto. Qualifica nel PDF che la pagina non contiene: titolo 'il rivale Zscaler' - la pagina non parla di rivale (sono due societa' di cybersicurezza); togliere 'rivale'."
+ },
+ {
+  "id": "N09",
+  "trovato": "",
+  "verifica": "non_conclusivo",
+  "nota_revisore": "Bloomberg non apribile (robots), Advisor Perspectives e mlq.ai non aprono. Solo i titoli dei risultati di ricerca dicono 51,5 a novembre (Bloomberg: 'Rises to 51.5 in November'), non sufficiente. Il PDF scrive anche 'cresce rispetto a ottobre': valore di ottobre non verificato. Orario 16:00 a Roma (10:00 ET) plausibile."
+ }
+]

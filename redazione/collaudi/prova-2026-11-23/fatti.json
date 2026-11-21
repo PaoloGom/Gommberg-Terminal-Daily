@@ -1,0 +1,1142 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Nvidia perde circa il 14% venerdì dopo la notizia, data da Reuters, di un'indagine della SEC sulla sua contabilità; l'S&P 500 chiude a 6.910,39 (-3,7%), in correzione, e il Nasdaq cede il 5,3%",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.yakimaherald.com/news/nation_and_world/business/how-major-us-stock-indexes-fared-friday-11-20-2026/article_963ce6d2-85a3-5fd6-981d-e60b72a58fbb.html",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "The S&P 500 fell 265.44 points, or 3.7%, to 6,910.39.",
+    "ricerca": "How major US stock indexes fared Friday 11/20/2026 AP",
+    "agenzia": "AP"
+   },
+   {
+    "testata": "Reuters",
+    "url": "https://www.investing.com/news/economy-news/exclusiveus-secs-nvidia-probe-is-examining-potential-accounting-issues-sources-say-5042460",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "SEC enforcement staff are scrutinizing potential accounting issues at the company.",
+    "ricerca": "Reuters SEC examining Nvidia accounting sources say",
+    "agenzia": "Reuters"
+   }
+  ],
+  "conferma_cercata": null,
+  "trovato": "plunged 14% on Friday. The price block reads $125.53-$20.45 (-14.01%). The S&P 500 fell 265.44 points, or 3.7%, to 6,910.39. The Nasdaq composite fell 1,261.47 points, or 5.3%, to 22,617.73.",
+  "verifica": "confermato",
+  "nota_revisore": "Motley Fool (chiusura 16:00 ET): Nvidia -14,01% a 125,53 $; Yahoo Finance: 'falling 14%'. Reuters (investing.com): SEC enforcement staff esaminano 'potential accounting issues', notizia di Reuters di venerdi'. AP (Yakima Herald): S&P 500 6.910,39 -3,7%, Nasdaq -5,3%, correzione; l'AP non nomina Nvidia. Il PDF 'oltre il 13%' e' coerente (14,01%)."
+ },
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "testo": "S&P 500 -3,7% a 6.910,39, Dow Jones -1,9% a 48.147,33, Nasdaq -5,3% a 22.617,73, Russell 2000 -2,8% a 2.581,79: l'S&P è in correzione, oltre il 10% sotto il massimo del 6 ottobre, e la settimana è la peggiore da più di 18 mesi",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "AP",
+    "url": "https://www.yakimaherald.com/news/nation_and_world/business/how-major-us-stock-indexes-fared-friday-11-20-2026/article_963ce6d2-85a3-5fd6-981d-e60b72a58fbb.html",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "The S&P 500 fell 265.44 points, or 3.7%, to 6,910.39.",
+    "ricerca": "How major US stock indexes fared Friday 11/20/2026 AP",
+    "agenzia": "AP"
+   },
+   {
+    "testata": "FMP",
+    "url": "https://financialmodelingprep.com",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "^GSPC ^IXIC ^RUT chiusure del 20/11",
+    "ricerca": "FMP index-historical-price-eod-light ^GSPC",
+    "primaria": true
+   }
+  ],
+  "trovato": "The S&P 500 fell 265.44 points, or 3.7%, to 6,910.39. The Nasdaq composite fell 1,261.47 points, or 5.3%, to 22,617.73. The Russell 2000 fell 73.32 points, or 2.8%, to 2,581.79.",
+  "fonte_singola": true,
+  "verifica": "confermato",
+  "nota_revisore": "AP conferma anche Dow -1,9% a 48.147,33 (il Dow non e' nel PDF), correzione dopo calo oltre 10% dal massimo del 6 ottobre e 'worst weekly loss in more than 18 months'. Settimana: S&P -8,6%, Nasdaq -10%, Russell -7,5%: coerenti con tabella pag. 5. ATTENZIONE: pag. 2 titolo 'il Nasdaq perde il doppio delle piccole societa'' (variazione 13-20/11) e' falso sulla settimana: -10,0% contro -7,5% = 1,3 volte; e' vero solo sul giorno (-5,3% contro -2,8%). Pag. 5 'il Nasdaq perde molto di piu'' (rispetto a S&P -8,6%) e' esagerato."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Secondo Reuters, che cita due persone informate, gli investigatori della SEC esaminano possibili problemi contabili di Nvidia; non è noto quando l'indagine sia iniziata, SEC e Nvidia non hanno commentato",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://www.investing.com/news/economy-news/exclusiveus-secs-nvidia-probe-is-examining-potential-accounting-issues-sources-say-5042460",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "SEC enforcement staff are scrutinizing potential accounting issues at the company.",
+    "ricerca": "Reuters SEC examining Nvidia accounting sources say",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "SEC enforcement staff are scrutinizing potential accounting issues at the company. Reuters could not immediately determine when the SEC opened its inquiry. A SEC spokesperson declined to comment.",
+  "conferma_cercata": [
+   "Nvidia SEC accounting examination Reuters shares plunge November 20 2026"
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Reuters (via investing.com, Prentice e Alper): due persone informate; SEC 'declined to comment'; Nvidia 'did not immediately respond to requests for comment'. Il PDF scrive 'l'autorita' e Nvidia non hanno commentato': leggermente piu' netto per Nvidia (non ha risposto subito). Suggerito: 'la SEC ha rifiutato di commentare, Nvidia non ha risposto subito'. Reuters cita anche un report WSJ di martedi' e il FT sul cambio di rendicontazione dei ricavi geografici (assenti dal PDF)."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "Lo STOXX 600 chiude a 625,65 (-2%), il comparto tecnologico europeo cede il 5,4%, il calo peggiore dall'ottobre 2025; ASML e STMicroelectronics perdono oltre il 9%; è la quinta seduta di ribasso di fila e la settimana perde oltre il 5,7%, la peggiore da più di un anno",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40450060/european-shares-post-worst-week-in-over-a-year-as-ai-trade-unravels",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "European shares post worst week in over a year as AI trade unravels",
+    "ricerca": "European shares close November 20 2026 STOXX 600 AI selloff Reuters",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "dpa",
+    "url": "https://finance.yahoo.com/markets/world-indices/articles/european-markets-close-lower-ai-183330519.html",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "European markets close lower as AI trade concerns trigger sell-off",
+    "ricerca": "European shares close November 20 2026 STOXX 600 AI selloff Reuters",
+    "agenzia": "dpa"
+   }
+  ],
+  "trovato": "dragging the tech sector down 5.4 percent in its steepest one-day fall since October 2025. Chip-linked stocks such as ASML and STMicroelectronics shed more than 9 percent. registered its fifth straight session of declines",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters (Business Recorder): STOXX 600 -2% a 625,65, tecnologico -5,4%, ASML e STM oltre -9%, quinta seduta negativa, settimana oltre -5,7% (peggiore da fine marzo 2025). dpa (Yahoo) dice invece STOXX 600 -1,68% (dato intraday/altro momento): il PDF usa Reuters, ok. Da correggere nel PDF pag. 1: 'STMicroelectronics e ASML perdono piu' di tutti in Europa' - la pagina dice solo 'chip-linked stocks such as ... shed more than 9 percent', non che siano i peggiori in assoluto (STM ~-10,5/-11%, Technoprobe a Milano non verificata): meglio 'tra i piu' colpiti'."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Il FTSE MIB chiude a 48.703 punti (-2,48%)",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ladige.it/attualita/borsa-milano-chiude-in-forte-ribasso-2-48-ml4yogw2",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "L'indice Ftse Mib cede il 2,48% a 48.703 punti",
+    "ricerca": "Borsa Milano chiude 20 novembre 2026 Ftse Mib spread Btp Bund chiusura",
+    "agenzia": "ANSA"
+   },
+   {
+    "testata": "QuiFinanza",
+    "url": "https://quifinanza.it/dirette/borsa-ultime-notizie-20-novembre-2026/1025054/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "La Borsa del 20 novembre, Milano chiude a -2,48%: in Usa Anthropic perde il 10%",
+    "ricerca": "Borsa Milano chiude 20 novembre 2026 Ftse Mib spread Btp Bund chiusura"
+   }
+  ],
+  "fonte_singola": true,
+  "trovato": "Il Ftse Mib ha perso il 2,48%, con pochissimi titoli positivi, nessuno di più di un punto percentuale. A guidare il listino sono sempre Italgas, Snam e Saipem, grazie all'aumento del prezzo del gas.",
+  "verifica": "confermato",
+  "nota_revisore": "QuiFinanza (diretta 20/11, chiusura -2,48%) e ANSA (48.703 punti). Il titolo della pagina QuiFinanza riporta un dato intraday diverso (-1,69%), irrilevante per la chiusura."
+ },
+ {
+  "id": "N05",
+  "sezione": "deep_dive",
+  "testo": "Gap chiude il terzo trimestre con vendite nette di 4,0 mld $ (+2%) e utile per azione rettificato di 0,82 $; per l'anno la stima dell'utile rettificato per azione scende a 2,29-2,34 $ dai 2,35-2,45 $, con una domanda più debole a ottobre e a inizio novembre per il clima più caldo",
+  "data_evento": "2026-11-19",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Gap Inc.",
+    "url": "https://investors.gapinc.com/press-releases/news-details/2026/Gap-Inc--Reports-Third-Quarter-Fiscal-2026-Results/default.aspx",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Net sales of $4.0 billion were up 2% compared to last year.",
+    "ricerca": "Gap third quarter 2026 results press release shares jump guidance",
+    "primaria": true
+   }
+  ],
+  "trovato": "While demand softened in October and early November, amidst warmer weather.",
+  "verifica": "confermato",
+  "nota_revisore": "Comunicato Gap: vendite nette +2% a circa 4,0 mld $ (comparable flat), EPS diluito 0,86 $ e rettificato 0,82 $ (al netto di un rimborso dazi), guidance annuale rettificata 2,29-2,34 $ da 2,35-2,45 $; frase del CEO Dickson sulla domanda. Trimestre chiuso al 31/10. NOTA: Gap non compare nel testo del PDF: nessuna correzione da fare."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "Secondo Bloomberg, la società di private equity GTCR valuta un'acquisizione da circa 50 mld $ di Global Payments, il cui titolo chiude in rialzo del 10% sulla notizia",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://www.tradingview.com/news/reuters.com,2026:newsml_L3N4711H5:0-gtcr-considering-possible-50-billion-global-payments-buyout-bloomberg-news-reports/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Private equity firm GTCR is exploring a potential $50 billion takeover of payments processor Global Payments",
+    "ricerca": "Global Payments GTCR buyout talks $50 billion Reuters Bloomberg November 20 2026",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Bloomberg",
+    "url": "https://www.bloomberg.com/news/articles/2026-11-20/gtcr-said-to-weigh-possible-50-billion-global-payments-buyout?srnd=phx-latinamerica",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "GTCR Is Said to Weigh $50 Billion Global Payments Buyout - Bloomberg",
+    "ricerca": "Global Payments GTCR buyout talks $50 billion Reuters Bloomberg November 20 2026"
+   }
+  ],
+  "conferma_cercata": [
+   "Global Payments GTCR possible buyout"
+  ],
+  "trovato": "Nov 20 (Reuters) - GTCR is exploring a potential takeover of payments processor Global Payments, ... Shares of Global Payments closed the day 10% higher.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters su AOL: titolo chiuso a +10% (il +11% era intraday). La stessa pagina dice che Bloomberg ha dato per prima la notizia e il valore di 50 mld $ (con debito e premio) e che GTCR ha reso nota l'esplorazione in un filing di venerdi' (quindi non solo 'secondo Bloomberg'). PDF pag. 1 item 02: correggere 'oltre l'11%' in 'chiude +10%'; 'Non c'e' un'offerta annunciata' resta coerente."
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "testo": "Secondo Reuters, che cita due persone informate, CrowdStrike è in trattative per acquistare Zscaler; nessun accordo è garantito e le società non hanno risposto alle richieste di commento",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://www.investing.com/news/stock-market-news/crowdstrike-in-talks-to-acquire-zscaler-sources-say-5042720",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "CrowdStrike in talks to acquire Zscaler, sources say",
+    "ricerca": "CrowdStrike talks to acquire Zscaler Bloomberg Reuters November 20 2026",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Bloomberg",
+    "url": "https://www.bloomberg.com/news/articles/2026-11-20/crowdstrike-is-in-talks-to-buy-cybersecurity-firm-zscaler",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "CrowdStrike in Talks to Acquire Zscaler in Potential Cybersecurity Mega-Deal - Bloomberg",
+    "ricerca": "CrowdStrike talks to acquire Zscaler Bloomberg Reuters November 20 2026"
+   }
+  ],
+  "trovato": "No deal is guaranteed, and the discussions could still end without an agreement. CrowdStrike and Zscaler did not immediately respond to Reuters' requests for comment.",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters (Milana Vinn): 'two people familiar with the matter'. Bloomberg non letto. Qualifica nel PDF che la pagina non contiene: titolo 'il rivale Zscaler' - la pagina non parla di rivale (sono due societa' di cybersicurezza); togliere 'rivale'."
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "testo": "La governatrice della Fed Lisa Cook dice a Santiago del Cile che aspettare ancora per alzare i tassi rischia di far restare la Fed «behind the curve» e che rialzi più grandi potrebbero servire dopo; giudica la crescita forte e in accelerazione e il lavoro solido; i mercati scontano un rialzo nella riunione dell'8-9 dicembre",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/speech/cook20261120a.htm",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Overall economic growth in the U.S. is strong—and accelerating.",
+    "ricerca": "Fed Cook \"behind the curve\" rate increases speech Santiago Reuters November 20 2026",
+    "primaria": true
+   },
+   {
+    "testata": "Reuters",
+    "url": "https://www.kitco.com/news/off-the-wire/2026-11-20/feds-cook-says-rate-hikes-needed-lower-high-inflation",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Waiting longer to implement rate increases risks getting behind the curve,",
+    "ricerca": "Fed Cook \"behind the curve\" rate increases speech Santiago Reuters November 20 2026",
+    "agenzia": "Reuters"
+   }
+  ],
+  "tipo": "U",
+  "trovato": "Furthermore, waiting longer to implement rate increases risks getting behind the curve. If we fall behind, additional and larger rate increases may be required later to catch up. Overall economic growth in the U.S. is strong—and accelerating. The labor market remains solid",
+  "verifica": "confermato",
+  "nota_revisore": "Discorso sul sito Fed: XXIX Conferenza annuale della Banca centrale del Cile, Santiago. Kitco/Reuters: i mercati si aspettano un rialzo alla riunione dell'8-9 dicembre (pagina Kitco non nomina Santiago). Nota: la Fed ha gia' alzato i tassi a settembre (Cook: 'September's single 1/4 point rate increase'); il PDF non lo dice ma non lo contraddice."
+ },
+ {
+  "id": "N10",
+  "sezione": "deep_dive",
+  "testo": "Nvidia ha depositato l'8-K del 17/11 con i conti del trimestre chiuso il 25 ottobre, firmato da Colette Kress come amministratore delegato ad interim e direttore finanziario",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Nvidia (8-K)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000088/nvda-20261117.htm",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "NVIDIA CORP - Form 8-K - FY2026",
+    "ricerca": "Nvidia SEC accounting examination Reuters shares plunge November 20 2026",
+    "primaria": true
+   }
+  ],
+  "trovato": "Date of Report (Date of earliest event reported): November 17, 2026 ... announcing its results for the quarter ended October 25, 2026 ... Colette M. Kress, Interim Chief Executive Officer, Executive Vice President and Chief Financial Officer",
+  "verifica": "confermato",
+  "nota_revisore": "8-K letto su sec.gov: data 17/11, trimestre chiuso il 25/10, Kress firma come Interim CEO e CFO. Il PDF e' coerente. Reuters la definisce 'former CFO', in contrasto con il frontespizio dell'8-K: prevale il documento. Il PDF non dice che Jensen Huang ha lasciato il ruolo di CEO il 12/11 (fonte secondaria dealroom): non e' un errore, solo omissione."
+ },
+ {
+  "id": "N11",
+  "sezione": "top_news",
+  "testo": "Venerdì Anthropic scende fino a 83,05 $, cinque centesimi sopra il prezzo dell'IPO di 83 $, prima di risalire",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Fortune",
+    "url": "https://fortune.com/2026/11/20/anthropic-stock-teeters-close-to-ipo-price-in-second-day-of-trading/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Anthropic stock teeters close to IPO price in second day of trading",
+    "ricerca": "Anthropic shares second day trading fall IPO price $83 Reuters November 20 2026"
+   },
+   {
+    "testata": "24/7 Wall St.",
+    "url": "https://247wallst.com/investing/2026/11/20/anthropic-stock-came-within-5-cents-of-its-83-ipo-price-on-day-2-then-bounced-6-to-close-at-88-30-facebook-closed-its-day-2-10-below-its-ipo-price/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Anthropic Stock Came Within 5 Cents of Its $83 IPO Price on Day 2",
+    "ricerca": "Anthropic shares second day trading fall IPO price $83 Reuters November 20 2026"
+   }
+  ],
+  "trovato": "Anthropic Stock Came Within 5 Cents of Its $83 IPO Price on Day 2, Then Bounced 6% to Close at $88.30",
+  "verifica": "confermato",
+  "nota_revisore": "24/7 Wall St. (titolo) e Fortune: minimo 83,05 $ venerdi', IPO a 83 $, poi risalita (chiusura 88,30 $, -9% dal 97,17 $ del giorno prima). PDF coerente."
+ },
+ {
+  "id": "N12",
+  "sezione": "macro",
+  "testo": "Lo spread BTP-Bund chiude a 110 punti base",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "QuiFinanza",
+    "url": "https://quifinanza.it/dirette/borsa-ultime-notizie-20-novembre-2026/1025054/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "La Borsa del 20 novembre, Milano chiude a -2,48%: in Usa Anthropic perde il 10%",
+    "ricerca": "Borsa Milano chiude 20 novembre 2026 Ftse Mib spread Btp Bund chiusura"
+   },
+   {
+    "testata": "SoldiOnline",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/ftse-mib-225-stm-e-technoprobe-affondano-spread-a-110",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Ftse Mib -2,25%: Stm e Technoprobe affondano, spread a 110",
+    "ricerca": "Borsa Milano chiude 20 novembre 2026 Ftse Mib spread Btp Bund chiusura"
+   }
+  ],
+  "fonte_singola": true,
+  "trovato": "Lo spread tra Btp e Bund tedeschi chiude in rialzo a 109,9 punti, contro i 103 punti segnati in apertura di seduta.",
+  "verifica": "confermato",
+  "nota_revisore": "ANSA 20/11: chiusura 109,9 (arrotondato 110); QuiFinanza 'aumentato a 110 punti base'. Resta NON verificato il 'da 106' e il +4 pb/+3,8% del PDF (106 e' la chiusura del 16/11 secondo ANSA; apertura del 20/11 a 103): togliere il confronto."
+ },
+ {
+  "id": "N13",
+  "sezione": "top_news",
+  "testo": "Il Nikkei chiude a 56.436,65 (-5,06%) venerdì, con i titoli tecnologici sotto pressione: Advantest -10%, Tokyo Electron e Samsung Electronics -7%",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/asian-stock-markets-fall-anthropic-takes-a-cautious-approach-to-its-record-debut-AJpG3xMC",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Tokyo Stock Exchange: Nikkei plummets, closing down 5 per cent as tech shares come under pressure - Il Sole 24 ORE",
+    "ricerca": "Nikkei Kospi Hang Seng 20 novembre 2026 Borse asiatiche apertura Teleborsa"
+   },
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40450060/european-shares-post-worst-week-in-over-a-year-as-ai-trade-unravels",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "European shares post worst week in over a year as AI trade unravels",
+    "ricerca": "European shares close November 20 2026 STOXX 600 AI selloff Reuters",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Giu' del 7% Tokyo Electron ... lasciato sul terreno il 7%",
+  "verifica": "confermato",
+  "nota_revisore": "Radiocor/Dow Jones (it.marketscreener): Nikkei 56.436,65 -5,06%, Advantest circa -10%, Tokyo Electron -7%, Samsung -7%. La pagina Il Sole 24 Ore in lingua inglese non riporta questi numeri e Reuters/Business Recorder non cita Nikkei/Advantest/Samsung. Il Kospi -5,21% del PDF (fonte COINOTAG) non verificato."
+ },
+ {
+  "id": "N14",
+  "sezione": "macro",
+  "testo": "Il Kospi chiude a 4.869,96 (-5,21%)",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "COINOTAG",
+    "url": "https://en.coinotag.com/kospi-plunges-4869-96-sidecars-seoul-november-20",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "KOSPI Plunges 5.21% to 4869.96 as Foreign, Institutional Selling Accelerates",
+    "ricerca": "Seoul stocks close Friday Kospi plunge Samsung SK hynix November 20 2026"
+   },
+   {
+    "testata": "QuiFinanza",
+    "url": "https://quifinanza.it/dirette/borsa-ultime-notizie-20-novembre-2026/1025054/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "La Borsa del 20 novembre, Milano chiude a -2,48%: in Usa Anthropic perde il 10%",
+    "ricerca": "Borsa Milano chiude 20 novembre 2026 Ftse Mib spread Btp Bund chiusura"
+   }
+  ],
+  "fonte_singola": true
+ },
+ {
+  "id": "K1",
+  "sezione": "catalizzatori",
+  "testo": "Mercoledì 25 novembre alle 8:30 a New York (14:30 a Roma) il BEA pubblica il PIL del terzo trimestre (seconda stima) e i redditi e le spese personali di ottobre",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "BEA",
+    "url": "https://bea.gov/news/schedule?mod=article_inline",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Personal Income and Outlays, October 2026",
+    "ricerca": "BEA personal income and outlays October 2026 release date November 25 GDP third quarter second estimate schedule",
+    "primaria": true
+   }
+  ],
+  "tipo": "U",
+  "trovato": "GDP (Second Estimate) and Corporate Profits, 3rd Quarter 2026 ... Personal Income and Outlays, October 2026 ... November 25, 2026 8:30 AM",
+  "verifica": "confermato",
+  "nota_revisore": "Calendario BEA: entrambe le uscite il 25/11 alle 8:30 (fuso non scritto in pagina, ma ET per BEA). 8:30 ET = 14:30 a Roma (entrambe le date in ora solare): corretto. Non verificati in questa revisione: le attese dell'agenda (core +0,3% m/m, +3,2% a/a, prima +3,1%; PIL +3,4%), che sono stime del giornale e non risultano dalle pagine lette."
+ },
+ {
+  "id": "K2",
+  "sezione": "catalizzatori",
+  "testo": "Giovedì 26 novembre Wall Street è chiusa per il Ringraziamento e venerdì 27 chiude in anticipo",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "NYSE",
+    "url": "https://www.nyse.com/trade/hours-calendars",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Holidays & Trading Hours",
+    "ricerca": "NYSE holiday hours 2026 Thanksgiving November 26 closed early close November 27 1:00 p.m.",
+    "primaria": true
+   }
+  ],
+  "tipo": "U",
+  "trovato": "Thursday, November 26, 2026 ... U.S. markets are closed. Friday, November 27, 2026, is an early-close day. Most NYSE markets close at 1:00 p.m. ET",
+  "verifica": "confermato",
+  "nota_revisore": "Calendario NYSE (estratto dallo strumento di lettura). 13:00 ET = 19:00 a Roma: 'in serata' nel PDF e' corretto."
+ },
+ {
+  "id": "D01",
+  "sezione": "macro",
+  "testo": "Dall'11/11 al 20/11 il VIX sale da 17,49 a 35,89",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FMP",
+    "url": "https://financialmodelingprep.com",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "dati di mercato FMP",
+    "ricerca": "FMP index-historical-price-eod-light ^GSPC ^VIX",
+    "primaria": true
+   }
+  ],
+  "fonte_singola": true,
+  "trovato": "The VIX ended Friday at 35.89 after touching 40.03. It closed at 17.49 on Nov. 11 as AI stocks rebounded",
+  "verifica": "confermato",
+  "nota_revisore": "ceoeconomy.com. Chiusura del 19/11 28,44 (stessa pagina, lettura precedente): +26,2% e +7,45 coerenti. Il 7.619,38 dell'S&P 500 all'11/11 resta non verificato (scheda D01 originale)."
+ },
+ {
+  "id": "D02",
+  "sezione": "macro",
+  "testo": "Il rendimento del Treasury a 10 anni scende a 4,92%; l'oro perde il 4,6% a 3.515 $",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FMP",
+    "url": "https://financialmodelingprep.com",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "dati di mercato FMP e Alpha Vantage",
+    "ricerca": "FMP treasury-rates GCUSD",
+    "primaria": true
+   }
+  ],
+  "fonte_singola": true,
+  "trovato": "slid 13 basis points to 4.92%, its lowest level in over 10 days. December US gold futures settled 4.6% lower at $3,515.40 per ounce. New York gold futures closed at $3,515.4 per ounce, down $170.1, or 4.6 percent.",
+  "verifica": "confermato",
+  "nota_revisore": "10 anni: Yahoo Finance live blog, 4,92% (calo di 13 pb; il PDF scrive -12 pb in testata e tabella: allineare a -13 o spiegare l'arrotondamento). Oro: rallies.ai e longbridge: future dicembre 3.515,40 $, -4,6% (-170,1 $), chiusura 19/11 implicita 3.685,5 $, coerente con 'sopra i 3.685 $ di giovedi'' del PDF. Settimana circa -9,4% (PDF: -9,5% in tabella). Il 2 anni a 4,63% e l'EUR/USD non sono piu' nella scheda e restano non verificati."
+ },
+ {
+  "id": "D03",
+  "sezione": "macro",
+  "testo": "L'Euro Stoxx 50 cede il 2,8% a 5.941,95",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "EODHD",
+    "url": "https://eodhd.com",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "STOXX50E.INDX",
+    "ricerca": "EODHD STOXX50E.INDX",
+    "primaria": true
+   }
+  ],
+  "fonte_singola": true,
+  "trovato": "The Euro Stoxx 50 of euro area blue chips lost 2.81% and the broader Stoxx Europe 600 2.00%, its fifth straight loss.",
+  "verifica": "confermato",
+  "nota_revisore": "edgeconsultancykw.com: tabella di chiusura Euro Stoxx 50 a 5.941,95, -2,81%. 'La perdita piu' forte dal 3 marzo' non confermato (non e' nel PDF)."
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Per Reuters, i titoli ciclici di banche, difesa e lusso europei perdono oltre il 2,5% e gli investitori scaricano le scommesse sull'AI dopo l'IPO di Anthropic",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters",
+    "url": "https://www.brecorder.com/news/40450060/european-shares-post-worst-week-in-over-a-year-as-ai-trade-unravels",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "European shares post worst week in over a year as AI trade unravels",
+    "ricerca": "European shares close November 20 2026 STOXX 600 AI selloff Reuters",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "dpa",
+    "url": "https://finance.yahoo.com/markets/world-indices/articles/european-markets-close-lower-ai-183330519.html",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "European markets close lower as AI trade concerns trigger sell-off",
+    "ricerca": "European shares close November 20 2026 STOXX 600 AI selloff Reuters",
+    "agenzia": "dpa"
+   }
+  ],
+  "trovato": "Cyclical sectors including banks, defense and luxury were among the other major laggards down over 2.5 percent. as investors unwound AI-linked bets after Anthropic's blockbuster market debut failed to revive confidence",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters (Business Recorder). Il PDF pag. 4 e' fedele: attribuisce a Reuters, e le 'i titoli piu' legati alla crescita' e' etichetta del PDF (la pagina dice 'cyclical'). Il PDF aggiunge 'banche, difesa e lusso ... perdono piu' del 2,5%': ok."
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "testo": "STMicroelectronics cede circa il 10-11%, Infineon il 7,6% e Siemens Energy il 6,5% e Scout24 circa il 7%",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "dpa",
+    "url": "https://finance.yahoo.com/markets/world-indices/articles/european-markets-close-lower-ai-183330519.html",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "European markets close lower as AI trade concerns trigger sell-off",
+    "ricerca": "European shares close November 20 2026 STOXX 600 AI selloff Reuters",
+    "agenzia": "dpa"
+   },
+   {
+    "testata": "QuiFinanza",
+    "url": "https://quifinanza.it/dirette/borsa-ultime-notizie-20-novembre-2026/1025054/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "STMicroelectronics ha perso il 10,46%",
+    "ricerca": "Borsa Milano chiude 20 novembre 2026 Ftse Mib spread Btp Bund chiusura"
+   }
+  ],
+  "trovato": "STMicroelectronics ha perso il 10,46%. STMicroElectronics plunged nearly 11%. Infineon tanked 7.6%. Scout24 and Siemens Energy lost about 7% and 6.5%, respectively.",
+  "verifica": "confermato",
+  "nota_revisore": "QuiFinanza (STM -10,46%) e dpa/Yahoo. Qualifica nel PDF pag. 4: 'Colpiscono i titoli piu' legati all'industria e alla crescita: Siemens Energy ... e Scout24' - la pagina dpa legge 'inflation concerns and fears of monetary tightening' ma non risulta questa etichetta; Scout24 e' un portale immobiliare, non industria. Togliere o attenuare."
+ },
+ {
+  "id": "D07",
+  "sezione": "deep_dive",
+  "testo": "Cook cita una crescita forte e in accelerazione, un lavoro solido e un'inflazione ben sopra il 2% da 67 mesi",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/newsevents/speech/cook20261120a.htm",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Overall economic growth in the U.S. is strong—and accelerating.",
+    "ricerca": "Fed Cook \"behind the curve\" rate increases speech Santiago Reuters November 20 2026",
+    "primaria": true
+   }
+  ],
+  "trovato": "inflation is well above the Fed's 2 percent target and has been for 67 months. Overall economic growth in the U.S. is strong—and accelerating. The labor market remains solid",
+  "tipo": "U",
+  "verifica": "confermato",
+  "nota_revisore": "Discorso Fed, sezione Economic Outlook. PDF coerente."
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "testo": "L'oro perde il 4,6% nel giorno in cui i Treasury salgono e le azioni crollano",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [],
+  "fatto": "L'oro perde il 4,6% mentre i Treasury salgono e le azioni crollano",
+  "ricerche": [
+   "Gold falls lowest since September 2025 silver dollar Fed hike bets November 19 2026 Reuters",
+   "gold plunges Friday November 20 2026"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Vendite forzate per coprire perdite su altri mercati",
+    "fonte": "MEM-1102-C03",
+    "prevede": "Oro e azioni giù insieme",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Dollaro forte e attese di una stretta della Fed",
+    "fonte": "MEM-1120-N10",
+    "prevede": "Dollaro su, oro giù",
+    "prezzi": "in parte"
+   }
+  ],
+  "esito": "ipotesi"
+ },
+ {
+  "id": "MEM-1102-C03",
+  "sezione": "mercati",
+  "testo": "L'oro cede con le azioni: vendita forzata che ha prevalso sul rifugio (Kitco)",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-10-30/gold-falls-below-3900-silver-tumbles-wall-street-selloff-triggers",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "A tech-led equity selloff intensified selling across precious metals."
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/fomc-october-2026-fed-holds-rates",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "Fed Holds Rates in a 10-2 Vote as Markets Price a December Hike"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo.",
+  "ripresa": "2026-11-02"
+ },
+ {
+  "id": "MEM-1118-D01",
+  "sezione": "deep_dive",
+  "testo": "Nvidia: terzo trimestre con ricavi 115,8 mld $ (attesi 109,15), utile per azione 2,68 $ (atteso 2,47), data center 107,6 mld $ (attesi 101,85); guida a 130 mld $ contro 125,25 mld $ degli analisti; nell'outlook nessuna vendita di chip per data center in Cina",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://ca.finance.yahoo.com/news/live/nvidia-earnings-live-nvidia-posts-q3-beat-board-says-it-will-not-reinstate-jensen-huang-as-ceo-221428433.html",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "Nvidia earnings live: Nvidia posts Q3 beat as revenue rose 103% YOY to $115.8B, board says it will not reinstate Jensen Huang as CEO",
+    "ricerca": "Nvidia earnings results November 17 2026 shares after hours"
+   },
+   {
+    "testata": "Reuters (KFGO)",
+    "url": "https://kfgo.com/2026/11/17/nvidia-forecasts-quarterly-revenue-above-estimates-in-first-report-since-huangs-exit-as-ceo/",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "did not assume any data center chip sales from China in its outlook",
+    "ricerca": "Reuters Nvidia forecast tops estimates board Huang return November 17 2026",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Yahoo Finance: \"For the quarter, Nvidia saw earnings per share of $2.68 on revenue of $115.8 billion.\" \"Wall Street analysts were projecting EPS of $2.47 and revenue of $109.15 billion.\" \"Data Center revenue topped out at $107.6 billion versus an anticipated $101.85 billion.\" Reuters/KFGO: \"The company expects fourth-quarter revenue of $130.0 billion, plus or minus 3%\" (stima LSEG circa $125.25 billion); \"Nvidia said it did not assume any data center chip sales from China in its outlook.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Tutto confermato, compresi EPS, data center e assenza della Cina nella guida. Nota: Yahoo riporta anche che Kress ha citato circa 2,4 mld $ di ricavi Hopper dalla Cina nel trimestre ma senza piu' spedizioni (la stessa pagina cita 2,3 mld altrove): dato non usato dal PDF.",
+  "ripresa": "2026-11-18"
+ },
+ {
+  "id": "MEM-1118-D02",
+  "sezione": "deep_dive",
+  "testo": "Nvidia ha battuto le stime di ricavi per 17 trimestri di fila, ma il titolo, in rialzo nel dopo-chiusura, è tornato in calo dello 0,3%; il Wall Street Journal riferisce un'indagine della SEC sull'accuratezza delle comunicazioni societarie e Muddy Waters ha una posizione ribassista",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://investing.com/news/economy-news/morning-bid-jensen-huangs-last-hurrah-and-a-nervy-future-for-nvidia-5034758",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Nvidia's stock enjoyed a brief relief rally in after-hours trading before trading down 0.3%.",
+    "ricerca": "Reuters Nvidia forecast tops estimates board Huang return November 17 2026",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://investing.com/news/economy-news/morning-bid-jensen-huangs-last-hurrah-and-a-nervy-future-for-nvidia-5034758",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Meanwhile, The Wall Street Journal reported the SEC is investigating Nvidia about the accuracy of its corporate disclosure.",
+    "ricerca": "Reuters Nvidia forecast tops estimates board Huang return November 17 2026",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://investing.com/news/economy-news/morning-bid-jensen-huangs-last-hurrah-and-a-nervy-future-for-nvidia-5034758",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Muddy Waters Research also said it has taken a short position in Nvidia's shares.",
+    "ricerca": "Reuters Nvidia forecast tops estimates board Huang return November 17 2026",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Reuters Morning Bid (Investing.com): \"Nvidia's stock enjoyed a brief relief rally in after-hours trading before trading down 0.3%.\" \"it's topped Wall Street's revenue expectations for 17 consecutive quarters.\" \"The Wall Street Journal reported the SEC is investigating Nvidia about the accuracy of its corporate disclosure.\" \"Muddy Waters Research also said it has taken a short position in Nvidia's shares.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermato. La pagina non precisa se il -0,3% sia dopo-chiusura o pre-mercato; il PDF scrive 'nel dopo-chiusura ... ridà il rialzo', lettura ragionevole ma non esplicita. La SEC e' notizia del WSJ riportata da Reuters (il PDF lo dice correttamente).",
+  "ripresa": "2026-11-18"
+ },
+ {
+  "id": "MEM-1118-D03",
+  "sezione": "deep_dive",
+  "testo": "Nvidia vale circa 3.800 mld $ e a fine martedì era in calo di circa il 17% da inizio anno; il direttore finanziario Colette Kress è amministratore delegato ad interim mentre il consiglio valuta candidati interni ed esterni",
+  "data_evento": "2026-11-17",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (KFGO)",
+    "url": "https://kfgo.com/2026/11/17/nvidia-forecasts-quarterly-revenue-above-estimates-in-first-report-since-huangs-exit-as-ceo/",
+    "data_pubblicazione": "2026-11-17",
+    "citazione": "Finance chief Colette Kress is interim CEO, while the board considers internal and external candidates.",
+    "ricerca": "Reuters Nvidia forecast tops estimates board Huang return November 17 2026",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "Reuters/KFGO: \"Shares of the roughly $3.8 trillion company were up about 2% in extended trading.\" \"As of Tuesday's close, the stock was down about 17% this year.\" \"Finance chief Colette Kress is interim CEO, while the board considers internal and external candidates.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermati valore di mercato, -17% da inizio anno e ruolo di Kress. Il PDF e' corretto ('direttore finanziario' = finance chief).",
+  "ripresa": "2026-11-18"
+ },
+ {
+  "id": "MEM-1120-MEM-1119-N01",
+  "sezione": "deep_dive",
+  "testo": "Verbali Fed della riunione del 27-28 ottobre: i partecipanti giudicano probabile che nuovi rialzi dei tassi siano appropriati e alcuni valutano un rialzo superiore al quarto di punto a dicembre; il voto di ottobre era stato 10-2",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/economy/policy/articles/fed-officials-expect-further-interest-195844967.html",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Fed Officials Expect Further Interest Rate Hikes After Pausing Last Month",
+    "ricerca": "Fed minutes \"further\" rate hikes \"would likely be appropriate\" Waller half-point December hike"
+   },
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/11/18/fed-minutes-october-2026.html",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Fed officials expect more rate hikes, worry about AI impact on inflation, minutes show",
+    "ricerca": "Fed minutes \"further\" rate hikes \"would likely be appropriate\" Waller half-point December hike"
+   },
+   {
+    "testata": "AFP (France 24)",
+    "url": "https://www.france24.com/en/live-news/20261118-almost-all-fed-policymakers-saw-further-interest-rate-hikes-as-likely",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "'Almost all' Fed policymakers saw further interest rate hikes as likely",
+    "ricerca": "Fed minutes \"further\" rate hikes \"would likely be appropriate\" Waller half-point December hike"
+   }
+  ],
+  "tipo": "U",
+  "ufficiale_cercato": [
+   "FOMC minutes October 2026 meeting federalreserve.gov minutes released November 18 2026",
+   "Minutes of the Federal Open Market Committee October 27-28, 2026 federalreserve.gov"
+  ],
+  "trovato": "At the Oct. 27–28 meeting of the Federal Open Market Committee (FOMC), policymakers voted 10-2 to keep the overnight rate at its previous 3.75%-4.00% range. / a future hike would likely be appropriate [Yahoo Finance: 'would likely be appropriate'] / some participants even noted that, if the inflation numbers got too unfavorable, they would consider a rate hike of more than a quarter-percent in December.",
+  "verifica": "confermato",
+  "nota_revisore": "Yahoo Finance letta: riunione 27-28 ottobre, voto 10-2, 'would likely be appropriate', 'some participants' per un rialzo oltre il quarto di punto a dicembre. Attenzione: Yahoo attribuisce il 'likely appropriate' genericamente a 'Leaders at the Federal Reserve' (non dice 'quasi tutti'; quel titolo e' di AFP/France 24, bloccata da robots, CNBC non apribile). Il PDF (pag. 1, 3, 5) e' coerente: 'alcuni piu' di un quarto di punto'.",
+  "ripresa": "2026-11-20"
+ },
+ {
+  "id": "MEM-1119-D05",
+  "sezione": "deep_dive",
+  "testo": "Nei verbali Fed alcuni partecipanti considerano per dicembre un rialzo superiore a un quarto di punto se i dati sull'inflazione peggiorano, Cook e Hammack avevano votato per +0,25, diversi membri definiscono la scelta di dicembre una «close call»; un paio preferisce un irrigidimento graduale; la spesa in AI contribuisce all'inflazione",
+  "data_evento": "2026-11-18",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/economy/policy/articles/fed-officials-expect-further-interest-195844967.html",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Fed Officials Expect Further Interest Rate Hikes After Pausing Last Month",
+    "ricerca": "Fed minutes \"further\" rate hikes \"would likely be appropriate\" Waller half-point December hike"
+   },
+   {
+    "testata": "CNBC",
+    "url": "https://www.cnbc.com/2026/11/18/fed-minutes-october-2026.html",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Fed officials expect more rate hikes, worry about AI impact on inflation, minutes show",
+    "ricerca": "Fed minutes \"further\" rate hikes \"would likely be appropriate\" Waller half-point December hike"
+   }
+  ],
+  "trovato": "some participants even noted that, if the inflation numbers got too unfavorable, they would consider a rate hike of more than a quarter-percent in December. / Fed Gov. Lisa Cook and Cleveland Fed President Beth Hammack both voted in favor of a quarter-point increase. / Several of the meeting members also said it was a 'close call.' / A couple of participants noted that, at the current juncture, a gradual approach to policy firming would give businesses and households time to adjust to higher interest rates. / FOMC members also said the rapid artificial intelligence buildout was contributing to inflation.",
+  "verifica": "confermato",
+  "nota_revisore": "Yahoo Finance letta: 'some' per oltre un quarto di punto (condizionato a dati sfavorevoli), Cook e Hammack +0,25, 'several' close call, 'a couple' per il gradualismo (ora 'un paio' nel fatto), spesa AI. Il PDF pag. 3 (diversi: close call; alcuni: oltre un quarto di punto se l'inflazione peggiora) e' coerente. CNBC non apribile.",
+  "ripresa": "2026-11-19"
+ },
+ {
+  "id": "MEM-1116-MEM-1113-D04",
+  "sezione": "deep_dive",
+  "testo": "Fed: il governatore Waller sostiene un possibile rialzo di mezzo punto a dicembre; Logan chiede almeno due rialzi da un quarto di punto; CME FedWatch dà il rialzo di dicembre al 100% e quello da 50 pb al 13,2%",
+  "data_evento": "2026-11-10",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "CNBC",
+    "url": "https://cnbc.com/2026/11/10/fed-governor-waller-sees-december-hike-likely.html",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Fed Governor Waller sees December hike likely, opens door to possible half-point increase"
+   },
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/economy/2026/11/12/us-cpi-fuels-talk-of-half-point-fed-hike-as-treasury-yields",
+    "data_pubblicazione": "2026-11-12",
+    "citazione": "U.S. CPI Fuels Talk of Half-Point Fed Hike as Treasury Yields Spike"
+   }
+  ],
+  "tipo": "C",
+  "verifica": "confermato",
+  "nota_revisore": "Rilette le pagine aperte in questa sessione (WebFetch/ricerca); citazioni da titoli e sintesi di pagina; cifre allineate al PDF.",
+  "ripresa": "2026-11-16"
+ },
+ {
+  "id": "MEM-1120-K3",
+  "sezione": "agenda",
+  "testo": "PCE core (ottobre), mercoledì 25 alle 8:30 a New York (14:30 a Roma): atteso +0,3% sul mese e +3,2% su un anno, prima +3,1% su un anno",
+  "data_evento": "2026-11-25",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "HyperStocks",
+    "url": "https://terminal.hyperstocks.io/economic-calendar/next-week",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Economic Calendar Next Week: Nov 23",
+    "ricerca": "week ahead November 23 2026 flash PMI Fed minutes PCE Jackson earnings Nvidia calendar"
+   },
+   {
+    "testata": "LiteFinance",
+    "url": "https://www.litefinance.org/blog/analysts-opinions/weekly-economic-calendar-for-23112026-29112026/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Forex Economic Calendar Overview: Key Events for the Next Trading Week (23.11.2026–29.11.2026)",
+    "ricerca": "week ahead November 23 2026 flash PMI Fed minutes PCE Jackson earnings Nvidia calendar"
+   }
+  ],
+  "trovato": "Core PCE Price Index MoM 8:30 AM forecast 0.3% previous 0.3%; Core PCE Price Index YoY 8:30 AM forecast 3.2% previous 3.1% | Wednesday, November 25 (GMT 13:30)",
+  "verifica": "confermato",
+  "nota_revisore": "HyperStocks (8:30 ET, 3,2% su 3,1%); LiteFinance conferma mercoledi' 25 e 'previous +3,1% in September' ma non riporta la previsione. Il riferimento a ottobre non e' esplicito su HyperStocks.",
+  "ripresa": "2026-11-20"
+ },
+ {
+  "id": "MEM-1120-K4",
+  "sezione": "agenda",
+  "testo": "Pil USA del terzo trimestre (seconda stima), mercoledì 25 alle 8:30 a New York (14:30 a Roma): atteso +3,4% annualizzato",
+  "data_evento": "2026-11-25",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "HyperStocks",
+    "url": "https://terminal.hyperstocks.io/economic-calendar/next-week",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Economic Calendar Next Week: Nov 23",
+    "ricerca": "week ahead November 23 2026 flash PMI Fed minutes PCE Jackson earnings Nvidia calendar"
+   },
+   {
+    "testata": "LiteFinance",
+    "url": "https://www.litefinance.org/blog/analysts-opinions/weekly-economic-calendar-for-23112026-29112026/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Forex Economic Calendar Overview: Key Events for the Next Trading Week (23.11.2026–29.11.2026)",
+    "ricerca": "week ahead November 23 2026 flash PMI Fed minutes PCE Jackson earnings Nvidia calendar"
+   }
+  ],
+  "trovato": "GDP Growth Rate QoQ, 2nd Estimate 8:30 AM forecast 3.4% | The preliminary estimate stood at +3.4%.",
+  "verifica": "confermato",
+  "nota_revisore": "HyperStocks: previsione 3,4%, mercoledi' 25 alle 8:30 ET. LiteFinance dice che la stima preliminare era +3,4% (non una previsione). Periodo T3 non esplicito.",
+  "ripresa": "2026-11-20"
+ },
+ {
+  "id": "MEM-1120-K5",
+  "sezione": "agenda",
+  "testo": "Giovedì 26 novembre, festa del Ringraziamento: borse e mercato obbligazionario USA chiusi",
+  "data_evento": "2026-11-26",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "LiteFinance",
+    "url": "https://www.litefinance.org/blog/analysts-opinions/weekly-economic-calendar-for-23112026-29112026/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Forex Economic Calendar Overview: Key Events for the Next Trading Week (23.11.2026–29.11.2026)",
+    "ricerca": "week ahead November 23 2026 flash PMI Fed minutes PCE Jackson earnings Nvidia calendar"
+   },
+   {
+    "testata": "ThriveInMarkets",
+    "url": "https://thriveinmarkets.com/calendar/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Economic Calendar - November 16 - November 20, 2026",
+    "ricerca": "economic calendar Friday November 20 2026 Waller speech flash PMI existing home sales UK retail sales"
+   }
+  ],
+  "trovato": "Thanksgiving: US markets closed Thu 26 Nov | Banks, bond markets, and major US stock exchanges (NYSE and Nasdaq) will be closed.",
+  "verifica": "confermato",
+  "nota_revisore": "ThriveInMarkets e LiteFinance.",
+  "ripresa": "2026-11-20"
+ },
+ {
+  "id": "MEM-1120-N10",
+  "sezione": "top_news",
+  "testo": "Oro verso i 3.500 dollari l'oncia, minimi da settembre 2025 e settimana in calo di circa il 9%: pesano dollaro forte e attese di una stretta Fed",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/venerdi-nero-in-asia-anthropic-in-netto-rosso-nel-pre-market-e-fuga-dall-ai-verso-i-treasury-202611200748151505",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Venerdì nero in Asia (-6,2%), Anthropic in netto rosso nel pre-market: è fuga dall’AI verso i Treasury",
+    "ricerca": "Nikkei Kospi Hang Seng 20 novembre 2026 Borse asiatiche apertura Teleborsa"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/investinglive-americas-fx-news-wrap-19-nov-inflation-worries-sink-stocks/",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "investingLive Americas FX news wrap 19 Nov Inflation worries sink stocks",
+    "ricerca": "Treasury yields oil prices dollar Thursday Anthropic debut Fed hike bets Reuters November 19 2026 markets wrap"
+   }
+  ],
+  "trovato": "avviandosi a chiudere la settimana con una perdita del 9% ... il dollaro si rafforzava in un contesto di crescenti aspettative di una politica monetaria più restrittiva | The firmer dollar was a headwind, and the late decline in Treasury yields did little to cushion the metals.",
+  "verifica": "confermato",
+  "nota_revisore": "Milano Finanza: oro verso 3.500, minimi da settembre 2025, settimana -9%. Nota: la tabella del PDF indica -5,2% a 1 settimana (base 13/11), mentre il -9% e' calcolato da altra base (9/11).",
+  "ripresa": "2026-11-20"
+ },
+ {
+  "id": "MEM-1120-D04",
+  "sezione": "deep_dive",
+  "testo": "Le borse globali vanno verso la più lunga serie negativa degli ultimi tre anni, con dubbi sulla tenuta dei prezzi dell'AI e timori sulle restrizioni all'export di chip USA",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/asian-stock-markets-fall-anthropic-takes-a-cautious-approach-to-its-record-debut-AJpG3xMC",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Tokyo Stock Exchange: Nikkei plummets, closing down 5 per cent as tech shares come under pressure - Il Sole 24 ORE",
+    "ricerca": "Nikkei Kospi Hang Seng 20 novembre 2026 Borse asiatiche apertura Teleborsa"
+   }
+  ],
+  "trovato": "Global markets were heading for their longest losing streak in three years. Investors also worried about U.S. restrictions on chip exports under the Trump administration.",
+  "verifica": "confermato",
+  "nota_revisore": "Il Sole 24 Ore.",
+  "ripresa": "2026-11-20"
+ },
+ {
+  "id": "MEM-1118-MEM-1102-N07",
+  "sezione": "mercati",
+  "testo": "Oro future -3,3% a 3.898,9 $ e argento oltre -6% venerdì: vendite forzate dopo il calo delle azioni, con la Fed ferma a 3,75-4,00% e due voti per il rialzo",
+  "data_evento": "2026-10-30",
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-10-30/gold-falls-below-3900-silver-tumbles-wall-street-selloff-triggers",
+    "data_pubblicazione": "2026-10-30",
+    "citazione": "forced liquidation, portfolio rebalancing"
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/fomc-october-2026-fed-holds-rates",
+    "data_pubblicazione": "2026-10-28",
+    "citazione": "FOMC October 2026: Fed Holds Rates in a 10-2 Vote as Markets Price a December Hike"
+   }
+  ],
+  "verifica": "confermato",
+  "nota_revisore": "Revisione del 2/11: cifre confrontate con dati.json (FMP, Alpha Vantage) e con le pagine aperte oggi; citazioni riportate dalla lettura delle pagine, non confrontate carattere per carattere sul testo grezzo.",
+  "ripresa": "2026-11-18"
+ },
+ {
+  "id": "MEM-1120-D05",
+  "sezione": "deep_dive",
+  "testo": "Treasury a 10 anni: in Asia dal 5,04% al 5,0%, quinta seduta di calo (Milano Finanza); a fine seduta USA era al 5,048%, ancora sopra il 5% (investingLive)",
+  "data_evento": "2026-11-20",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/venerdi-nero-in-asia-anthropic-in-netto-rosso-nel-pre-market-e-fuga-dall-ai-verso-i-treasury-202611200748151505",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Venerdì nero in Asia (-6,2%), Anthropic in netto rosso nel pre-market: è fuga dall’AI verso i Treasury",
+    "ricerca": "Nikkei Kospi Hang Seng 20 novembre 2026 Borse asiatiche apertura Teleborsa"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/investinglive-americas-fx-news-wrap-19-nov-inflation-worries-sink-stocks/",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "investingLive Americas FX news wrap 19 Nov Inflation worries sink stocks",
+    "ricerca": "Treasury yields oil prices dollar Thursday Anthropic debut Fed hike bets Reuters November 19 2026 markets wrap"
+   }
+  ],
+  "trovato": "il cui rendimento scende in Asia dal 5,04% al 5,0% ... prolungando la flessione per la quinta seduta consecutiva | 10-year yield 5.048%, −1.8 basis points",
+  "verifica": "confermato",
+  "nota_revisore": "Milano Finanza e investingLive.",
+  "ripresa": "2026-11-20"
+ },
+ {
+  "id": "MEM-1119-D08",
+  "sezione": "deep_dive",
+  "testo": "L'euro resta a 1,0978 $, vicino ai minimi da aprile 2025; il dollaro è sostenuto dalle attese su una Fed più dura dopo i prezzi più alti delle attese della scorsa settimana",
+  "data_evento": "2026-11-19",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (Yahoo Finance)",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stocks-rise-anthropic-ipo-pricing-015339932.html",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Asian stocks fail to get a lift from Anthropic's IPO pricing",
+    "ricerca": "Asian markets Thursday Nikkei Kospi Hang Seng Trump Xi Putin Shenzhen Anthropic IPO",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Reuters (Investing.com)",
+    "url": "https://www.investing.com/news/economy-news/stocks-rise-after-anthropic-ipo-pricing-sets-stage-for-blockbuster-debut-5037540",
+    "data_pubblicazione": "2026-11-19",
+    "citazione": "Stocks rise after Anthropic IPO pricing sets stage for blockbuster debut By Reuters",
+    "ricerca": "Reuters Anthropic prices IPO $83 above range $81 billion biggest IPO ever ticker debut",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "The euro was at $1.0978, hovering near its lowest since April 2025. \"More hawkish Fed pricing has so far offset weakness in technology stocks, keeping the USD supported,\" OCBC strategists said in a note. The comments come after hotter-than-expected inflation data last week.",
+  "verifica": "confermato",
+  "nota_revisore": "Coincide (Investing.com ha 1,0964 a un'altra ora); il PDF usa 1,0973 (chiusura), non 1,0978.",
+  "ripresa": "2026-11-19"
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "How major US stock indexes fared Friday 11/20/2026 (AP, sera del 20/11)",
+   "Nvidia's accounting is a focus of US SEC investigation, sources say (Reuters, 20/11)",
+   "European shares post worst week in over a year as AI trade unravels (Reuters, sera del 20/11)",
+   "Wall Street Regulator Probes Nvidia Accounting, Reuters Says (Bloomberg, 20/11)",
+   "CrowdStrike in talks to acquire Zscaler, sources say (Reuters, 20/11)",
+   "Fed's Cook says rate hikes needed to lower high inflation (Reuters, 20/11)"
+  ],
+  "testate": [
+   {
+    "testata": "Reuters",
+    "storie": [
+     "Nvidia's accounting is a focus of US SEC investigation, sources say",
+     "European shares post worst week in over a year as AI trade unravels",
+     "Fed's Cook says rate hikes needed to lower high inflation"
+    ]
+   },
+   {
+    "testata": "AP",
+    "storie": [
+     "How major US stock indexes fared Friday 11/20/2026"
+    ]
+   },
+   {
+    "testata": "Bloomberg",
+    "storie": [
+     "Wall Street Regulator Probes Nvidia Accounting, Reuters Says",
+     "GTCR Is Said to Weigh $50 Billion Global Payments Buyout"
+    ]
+   },
+   {
+    "testata": "ANSA",
+    "storie": [
+     "Borsa: Milano chiude in forte ribasso, -2,48%"
+    ]
+   },
+   {
+    "testata": "Milano Finanza",
+    "storie": [
+     "Borse oggi in diretta 20 novembre 2026"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Attacco russo con circa 400 droni e oltre 100 missili sull'Ucraina",
+    "motivo": "letta solo su una fonte non ammessa dal livello delle fonti"
+   }
+  ],
+  "concorda": true,
+  "motivo": "AP, Reuters e Bloomberg aprono sul crollo dell'AI e sull'indagine su Nvidia; la prova dei prezzi è la chiusura di Wall Street",
+  "mancate_ieri": []
+ },
+ {
+  "id": "S1",
+  "sezione": "scaletta",
+  "apertura": {
+   "storia": "Nvidia crolla per l'indagine sui conti e Wall Street entra in correzione",
+   "perche_prima": "Apertura di AP, Reuters e Bloomberg"
+  },
+  "moduli": [
+   {
+    "chiave": "nvidia",
+    "misura": "doppio",
+    "tesi": "Nvidia ha battuto le stime e crolla lo stesso: la vendita sull'AI non discute più i prezzi ma la fiducia nei conti e nella guida di chi vende i chip.",
+    "domanda": "Perché Nvidia cade del 13% dopo conti sopra le attese?",
+    "prove": [
+     "Conti 17/11: ricavi 115,8 mld contro 109,15 attesi",
+     "8-K firmato dal direttore finanziario come amministratore delegato ad interim",
+     "Reuters: la SEC esamina la contabilità",
+     "S&P 500 in correzione, -9,3% dall'11/11",
+     "Settimana peggiore da 18 mesi"
+    ],
+    "contro": "Se la SEC chiarisce che non ci sono problemi, il crollo era un eccesso",
+    "schede": [
+     "N01",
+     "N02",
+     "N10",
+     "D01",
+     "MEM-1118-D01",
+     "MEM-1118-D02",
+     "MEM-1118-D03"
+    ]
+   },
+   {
+    "chiave": "rifugio",
+    "misura": "doppio",
+    "tesi": "Venerdì i Treasury hanno fatto da rifugio e l'oro no: chi perde sulle azioni vende ciò che si vende meglio, e l'oro è l'unico ad aver già perso mesi di tenuta.",
+    "domanda": "Perché con le azioni a picco l'oro scende più dei titoli di Stato?",
+    "prove": [
+     "10 anni -12 pb a 4,92%",
+     "oro -4,6% a 3.515 $",
+     "EUR/USD fermo a 1,0967",
+     "30/10: vendite forzate dopo il calo delle azioni",
+     "VIX 35,89"
+    ],
+    "contro": "Un rimbalzo dell'oro con il dollaro fermo",
+    "schede": [
+     "D01",
+     "D02",
+     "D06",
+     "A1",
+     "MEM-1102-C03",
+     "MEM-1118-MEM-1102-N07",
+     "MEM-1120-N10"
+    ]
+   },
+   {
+    "chiave": "europa",
+    "misura": "mezzo",
+    "tesi": "L'Europa che finora aveva perso meno di Wall Street venerdì cede il 2,8%: a trascinarla sono i fornitori di chip, non i titoli AI.",
+    "domanda": "Perché l'Europa smette di reggere?",
+    "prove": [
+     "Euro Stoxx 50 -2,8%, la peggiore dal 3 marzo",
+     "tecnologia europea -5,4%",
+     "ASML e STM oltre -9%",
+     "FTSE MIB -2,48%",
+     "ciclici -2,5%"
+    ],
+    "contro": "Un rimbalzo con Wall Street",
+    "schede": [
+     "N03",
+     "N04",
+     "D03",
+     "D04",
+     "D05"
+    ]
+   },
+   {
+    "chiave": "fed",
+    "misura": "mezzo",
+    "tesi": "Con le borse in calo e i rendimenti più bassi la Fed ha meno bisogno di stringere, ma Cook dice il contrario: il PCE di mercoledì decide chi ha ragione.",
+    "domanda": "La Fed alza ancora, con le borse in correzione?",
+    "prove": [
+     "Cook: aspettare rischia di restare dietro la curva",
+     "verbali: nuovi rialzi probabili",
+     "Waller +50 pb",
+     "10 anni da 5,15% a 4,92%",
+     "PCE mercoledì"
+    ],
+    "contro": "Un PCE sotto le attese",
+    "schede": [
+     "N08",
+     "D06",
+     "D07",
+     "K1",
+     "MEM-1120-MEM-1119-N01",
+     "MEM-1119-D05",
+     "MEM-1116-MEM-1113-D04",
+     "MEM-1120-K3"
+    ]
+   }
+  ]
+ }
+]
