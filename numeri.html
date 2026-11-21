@@ -76,6 +76,7 @@ svg.wk text.avg{fill:var(--orange-ink);paint-order:stroke;stroke:var(--sheet);st
 svg.wk rect{fill:var(--ink)} svg.wk rect.cur{fill:var(--orange)}
 svg.wk text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
 svg.wk text.n{fill:var(--ink);font-weight:500}
+@media (max-width:560px){svg.wk text{font-size:17px}}   /* sul telefono il grafico si rimpicciolisce: le scritte no */
 ol.top{list-style:none;margin:0;padding:0;counter-reset:t}
 ol.top li{counter-increment:t;display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:9px 0;border-top:1px solid var(--rule)}
 ol.top li:first-child{border-top:0}
