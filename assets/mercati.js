@@ -2,6 +2,7 @@
    GM.nome(etichetta)  -> il nome da mostrare ("MSCI ACWI (ETF)" -> "Mondo")
    GM.spiega(etichetta) -> la spiegazione breve, o "" se il mercato non è in elenco
    GM.domanda(etichetta) -> la domanda a cui il mercato risponde nella scommessa, o ""
+   Le spiegazioni sono una frase sola, corta: chi vuole di più ha Impara. (Paolo, 22/11: "less is more")
    GM.segna(elemento, etichetta, {scommessa: true}) -> aggiunge la spiegazione all'elemento (riquadro al passaggio o al tocco);
      con scommessa anche la domanda del mercato nella scommessa della settimana (solo dove la scommessa non è già accanto)
    GM.stesso(a, b) -> true se due etichette indicano lo stesso mercato
@@ -10,36 +11,36 @@
   "use strict";
   const M = [
     [/acwi|mondo|azionario mondiale|borsa mondiale/i, "Mondo",
-      "La borsa di tutto il mondo: l'indice MSCI ACWI, circa 2.500 aziende di 47 paesi. È il nostro termometro unico. Qui il suo prezzo in dollari.",
+      "La borsa di tutto il mondo: l'indice MSCI ACWI, circa 2.500 aziende di 47 paesi.",
       "Il mondo intero sale o scende?"],
     [/s&(amp;)?p\s*500/i, "S&P 500",
       "Le 500 maggiori aziende quotate negli Stati Uniti: il termometro di Wall Street.",
       "L'economia e gli utili reggono?"],
     [/nasdaq/i, "Nasdaq",
-      "La borsa americana dei titoli tecnologici: Apple, Microsoft, Nvidia e le altre."],
+      "La borsa americana dei titoli tecnologici."],
     [/stoxx/i, "Euro Stoxx 50",
-      "Le 50 maggiori aziende dei paesi dell'euro: il termometro delle borse europee.",
+      "Le 50 maggiori aziende dei paesi dell'euro.",
       "E l'Europa, casa nostra?"],
     [/ftse\s*mib/i, "FTSE MIB",
-      "Le 40 maggiori aziende quotate a Piazza Affari, Milano."],
+      "Le 40 maggiori aziende quotate a Milano."],
     [/ust|treasury/i, "Treasury 10 anni",
-      "Quanto rende prestare soldi allo Stato americano per 10 anni: il riferimento del costo del denaro nel mondo. Quando sale, indebitarsi costa di più e le azioni attirano meno.",
+      "Quanto rende prestare soldi allo Stato americano per 10 anni: il costo del denaro nel mondo.",
       "Quanto costa il denaro?"],
     [/brent/i, "Brent",
-      "Il prezzo di riferimento del petrolio nel mondo, in dollari al barile. Pesa su carburanti e inflazione.",
+      "Il prezzo di riferimento del petrolio, in dollari al barile.",
       "Energia e guerre pesano sui prezzi?"],
     [/eur\s*\/\s*usd|euro-dollaro/i, "EUR/USD",
-      "Quanti dollari servono per comprare un euro. Se sale, l'euro si rafforza.",
+      "Quanti dollari servono per comprare un euro.",
       "Il dollaro è forte o debole?"],
     [/\bvix\b/i, "VIX",
-      "L'indice della paura: quanto il mercato si aspetta che Wall Street oscilli nel prossimo mese. Sopra 20 c'è tensione."],
+      "L'indice della paura: quanto ci si aspetta che Wall Street oscilli nel prossimo mese."],
     [/\boro\b|gold/i, "Oro",
-      "Il prezzo dell'oro in dollari per oncia: il bene rifugio per eccellenza, che si compra quando c'è paura.",
+      "Il prezzo dell'oro, in dollari per oncia: il bene rifugio per eccellenza.",
       "Quanta paura c'è?"],
-    [/^gomm$/i, "GOMM, la quotazione del Gommberg",
-      "Quanto è letto il Gommberg, misurato come un titolo: la media delle visite degli ultimi 7 giorni, con 100 pari alla settimana 17-23 ottobre. Il valore è la chiusura di ieri; il clic apre il grafico."],
+    [/^gomm$/i, "GOMM",
+      "La quotazione del Gommberg: sale quando cresce chi lo legge."],
     [/bitcoin/i, "Bitcoin",
-      "La criptovaluta più diffusa, in dollari: molto più volatile delle borse."],
+      "La criptovaluta più diffusa, in dollari."],
   ];
   const trova = (l) => M.find(([re]) => re.test(String(l || "")));
   const nome = (l) => /acwi/i.test(String(l || "")) ? "Mondo" : String(l || "");   // l'unico nome che cambiamo: la sigla diventa una parola
@@ -74,7 +75,7 @@
     elm.addEventListener("mouseleave", nascondi);
     elm.addEventListener("focus", () => mostra(elm));
     elm.addEventListener("blur", nascondi);
-    elm.addEventListener("click", (e) => { if (cur === elm && !tip.hidden) { nascondi(); } else { mostra(elm); } e.stopPropagation(); });
+    elm.addEventListener("click", (e) => { if (cur === elm && !tip.hidden) { nascondi(); } else { mostra(elm); } e.stopPropagation(); if (elm.tagName !== "A") e.preventDefault(); });
   }
   document.addEventListener("click", nascondi);
   window.addEventListener("scroll", nascondi, { passive: true });
