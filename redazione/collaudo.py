@@ -727,6 +727,163 @@ def passo_scommessa():
           "il lunedì pag. 6 stampa lo scenario del registro")
 
 
+# ---------------------------------------------------------------- 3e. mail straordinarie (G-17)
+def passo_dem():
+    """Le mail straordinarie: i file veri passano le regole e pannello/invii.json è allineato; le regole fermano i casi
+    sbagliati, anche ai confini; il pianificatore decide la cosa giusta in ogni situazione di Kit; l'esecuzione con un Kit
+    finto che sbaglia non crea mai doppioni né bozze con una data (senza rete)."""
+    rc, out = esegui([sys.executable, os.path.join(R, "dem.py")])
+    righe = [l for l in out.splitlines() if "ERRORE" in l]
+    esito("Mail straordinarie: file e vista del pannello", rc == 0, "regole rispettate, pannello/invii.json allineato"
+          if rc == 0 else "; ".join(righe)[:300])
+
+    sys.path.insert(0, R)
+    import contextlib
+    import dem
+    import io
+    from datetime import datetime, timedelta, timezone
+    from pathlib import Path as P
+    lav, UTC, MOD = P(TMP) / "dem", timezone.utc, 5716428
+    sbagliati = []
+
+    def leggi(*file, calendario=False):
+        shutil.rmtree(lav, ignore_errors=True)
+        lav.mkdir(parents=True)
+        for f in file:
+            nome, invio, stato, extra, corpo = (list(f) + ["bozza", "", "Testo di prova della redazione."][len(f) - 2:])[:5]
+            (lav / nome).write_text(f"---\ninvio: {invio}\nstato: {stato}\noggetto: Oggetto di prova\n"
+                                    f"anteprima: Una riga di anteprima abbastanza lunga.\n{extra}---\n{corpo}\n", encoding="utf-8")
+        mail = dem.leggi_tutte(lav)
+        if calendario:
+            dem.regole_calendario(mail)
+        return mail
+
+    # 1. le regole, anche ai confini
+    OK = "ok: Paolo 2026-12-01\n"
+    casi = [("sabato mattina", [("2027-01-16-p.md", "2027-01-16 10:00")], False),
+            ("ore 20:59", [("2027-01-16-p.md", "2027-01-16 20:59")], False),
+            ("ore 21:00", [("2027-01-16-p.md", "2027-01-16 21:00")], True),
+            ("ore 7:59", [("2027-01-16-p.md", "2027-01-16 07:59")], True),
+            ("giorno di uscita alle 10:59", [("2027-01-18-p.md", "2027-01-18 10:59")], True),
+            ("giorno di uscita alle 11:00", [("2027-01-18-p.md", "2027-01-18 11:00")], False),
+            ("festivo (25/12) alle 9:00", [("2026-12-25-p.md", "2026-12-25 09:00")], False),
+            ("approvata senza ok", [("2027-01-16-p.md", "2027-01-16 10:00", "approvata")], True),
+            ("approvata con ok", [("2027-01-16-p.md", "2027-01-16 10:00", "approvata", OK)], False),
+            ("trattino lungo", [("2027-01-16-p.md", "2027-01-16 10:00", "bozza", "", "Una frase — lunga.")], True),
+            ("due nello stesso mese", [("2027-01-02-a.md", "2027-01-02 10:00"), ("2027-01-30-b.md", "2027-01-30 10:00")], True),
+            ("stesso mese, una annullata", [("2027-01-02-a.md", "2027-01-02 10:00", "annullata"), ("2027-01-30-b.md", "2027-01-30 10:00")], False),
+            ("13 giorni a cavallo del mese", [("2027-01-26-a.md", "2027-01-26 18:00"), ("2027-02-08-b.md", "2027-02-08 18:00")], True),
+            ("14 giorni a cavallo del mese", [("2027-01-25-a.md", "2027-01-25 18:00"), ("2027-02-08-b.md", "2027-02-08 18:00")], False),
+            ("data del nome diversa", [("2027-01-17-p.md", "2027-01-16 10:00")], True),
+            ("sondaggio con una risposta", [("2027-01-16-p.md", "2027-01-16 10:00", "bozza", "", "?? Domanda?\n- Una sola")], True),
+            ("link non https", [("2027-01-16-p.md", "2027-01-16 10:00", "bozza", "", "Leggi [qui](http://gommberg.com/).")], True)]
+    for nome, file, ferma in casi:
+        if bool([x for m in leggi(*file, calendario=True) for x in m.errori]) != ferma:
+            sbagliati.append(f"regola: {nome}")
+
+    # 2. il pianificatore
+    mail = {m.nome[-1]: m for m in leggi(("2027-01-16-a.md", "2027-01-16 10:00", "approvata", OK),
+                                         ("2027-02-13-b.md", "2027-02-13 10:00"),
+                                         ("2027-03-13-c.md", "2027-03-13 10:00", "annullata"),
+                                         ("2027-01-13-e.md", "2027-01-13 18:00"))}
+    ET = {x: m.etichetta for x, m in mail.items()}
+    ET["o"] = dem.ETICHETTA + "2027-04-01-orfano"
+    imp = lambda x, prog: dem.impronta_di(dem.dati_invio(mail[x], prog, MOD)["description"])
+    ia = lambda x: mail[x].invio.astimezone(UTC)
+    def kk(send=None, partito=False, impronta="vecchia", i=1):
+        return {"id": i, "send_at": send, "partito": partito, "impronta": impronta}
+    def prova(nome, scelta, kit, ora, attese, n_guardare, solo_ritiri=False):
+        azioni, guardare, _ = dem.piano([mail[x] for x in scelta], {ET[x]: v for x, v in kit.items()}, ora, MOD, solo_ritiri)
+        fatte = {}
+        for a in azioni:
+            fatte.setdefault(a[1].rsplit("-", 1)[-1][0] if a[1] != ET["o"] else "o", []).append(a[0])
+        trovate = {x: "+".join(v) for x, v in fatte.items()}
+        if any(trovate.get(x) != v for x, v in attese.items()) or len(guardare) != n_guardare:
+            sbagliati.append(f"piano, {nome}: atteso {attese} e {n_guardare} da guardare, trovato {trovate} e {len(guardare)}")
+    ora = datetime(2027, 1, 10, 12, 0, tzinfo=UTC)
+    prova("Kit vuoto", "abce", {}, ora, {"a": "crea-programmata", "b": "crea-bozza", "c": "nulla", "e": "crea-bozza"}, 1)
+    prova("Kit già allineato", "ab", {"a": [kk(ia("a"), impronta=imp("a", True))], "b": [kk(None, impronta=imp("b", False))]},
+          ora, {"a": "nulla", "b": "nulla"}, 0)
+    prova("cambi e ritiri", "abc", {"a": [kk(None)], "b": [kk(ia("b"))], "c": [kk(ia("c"))], "o": [kk(datetime(2027, 4, 1, 8, tzinfo=UTC))]},
+          ora, {"a": "rifai-programmata", "b": "rifai-bozza", "c": "elimina", "o": "elimina"}, 0)
+    prova("testo cambiato, stessa ora", "a", {"a": [kk(ia("a"), impronta="diversa")]}, ora, {"a": "rifai-programmata"}, 0)
+    prova("doppione in Kit", "a", {"a": [kk(ia("a"), impronta=imp("a", True), i=1), kk(ia("a"), i=2)]}, ora, {"a": "elimina+nulla"}, 1)
+    prova("già partita", "a", {"a": [kk(ia("a") - timedelta(days=1), partito=True)]}, ora, {"a": "nulla"}, 0)
+    prova("errori nei file: solo ritiri", "abc", {"b": [kk(ia("b"))], "c": [kk(ia("c"))]}, ora,
+          {"a": "nulla", "b": "elimina", "c": "elimina"}, 0, solo_ritiri=True)
+    vicino = ia("a") - timedelta(minutes=10)
+    prova("in partenza, uguale", "a", {"a": [kk(ia("a"), impronta=imp("a", True))]}, vicino, {"a": "nulla"}, 0)
+    prova("in partenza, cambiata", "a", {"a": [kk(ia("a"), impronta="diversa")]}, vicino, {"a": "nulla"}, 1)
+    prova("annullata a 10 minuti", "c", {"c": [kk(ia("c"))]}, ia("c") - timedelta(minutes=10), {"c": "elimina"}, 0)
+    prova("orfano a 1 minuto", "", {"o": [kk(ora + timedelta(minutes=1))]}, ora, {"o": "nulla"}, 1)
+    prova("ora spostata più tardi, Kit a 10 minuti", "a", {"a": [kk(ia("a") - timedelta(hours=2))]},
+          ia("a") - timedelta(hours=2, minutes=10), {"a": "rifai-programmata"}, 0)
+    prova("ora cambiata a mano in Kit", "a", {"a": [kk(ia("a") + timedelta(hours=3), impronta=imp("a", True))]}, ora, {"a": "rifai-programmata"}, 0)
+    prova("già partita con una copia viva", "a", {"a": [kk(ia("a") - timedelta(hours=1), partito=True, i=1), kk(ia("a") + timedelta(days=1), i=2)]},
+          ia("a") + timedelta(minutes=5), {"a": "elimina"}, 1)
+    prova("approvata non partita, il giorno dopo", "a", {}, ia("a") + timedelta(hours=1), {"a": "nulla"}, 1)
+    prova("approvata non partita, dopo 3 giorni", "a", {}, ia("a") + timedelta(days=3), {"a": "nulla"}, 0)
+    # nel dubbio si ritira: ok tolto, stato scritto male, data illeggibile, anche con errori nei file
+    for nome, extra, stato in (("ok tolto", "", "approvata"), ("stato scritto male", OK, "Bozza"), ("stato sconosciuto", OK, "sospesa")):
+        dubbia = leggi(("2027-01-16-a.md", "2027-01-16 10:00", stato, extra))[0]
+        azioni, _, _ = dem.piano([dubbia], {dubbia.etichetta: [kk(ia("a"), impronta=imp("a", True))]}, ora, MOD, True)
+        if [x[0] for x in azioni] != ["elimina"]:
+            sbagliati.append(f"piano, {nome} con l'invio programmato in Kit: va ritirata, trovato {[x[0] for x in azioni]}")
+    if not dem.stato_kit({"status": "scheduled", "send_at": "2027-01-01T09:00:00Z"}, ora)["partito"]:
+        sbagliati.append("un invio 'scheduled' con l'ora passata va considerato partito")
+    if dem.dati_invio(mail["b"], False, MOD)["send_at"] is not None or not dem.dati_invio(mail["a"], True, MOD)["send_at"]:
+        sbagliati.append("dati per Kit: una bozza non ha data, una programmata sì")
+
+    # 3. l'esecuzione con un Kit finto che sbaglia di proposito
+    vero = dem.nl.kit
+    try:
+        def finto(risposte):
+            chiamate = []
+            def kit(metodo, percorso, dati=None):
+                chiamate.append((metodo, dati))
+                return risposte.get(metodo, (200, {}))
+            return kit, chiamate
+        def esegui_con(risposte, azioni):
+            dem.nl.kit, chiamate = finto(risposte)
+            with contextlib.redirect_stdout(io.StringIO()):
+                return dem.esegui_piano(azioni, MOD), chiamate
+        programmata = {"broadcast": {"id": 9, "send_at": ia("a").isoformat()}}
+        male, ch = esegui_con({"DELETE": (500, {}), "POST": (201, programmata)}, [("rifai-programmata", ET["a"], mail["a"], "", 1)])
+        if not male or any(c[0] == "POST" for c in ch):
+            sbagliati.append("esecuzione: se Kit non toglie l'invio vecchio, non se ne crea uno nuovo")
+        male, ch = esegui_con({"POST": (201, {"broadcast": {"id": 9, "send_at": None}})}, [("crea-bozza", ET["b"], mail["b"], "", None)])
+        if male or ch[0][1]["send_at"] is not None:
+            sbagliati.append("esecuzione: bozza creata senza data")
+        male, ch = esegui_con({"POST": (201, {"broadcast": {"id": 9, "send_at": "2027-02-13T09:00:00Z"}})}, [("crea-bozza", ET["b"], mail["b"], "", None)])
+        if not male or not any(c[0] == "DELETE" for c in ch):
+            sbagliati.append("esecuzione: una bozza che Kit registra con una data va tolta subito")
+        male, _ = esegui_con({"POST": (201, programmata)}, [("crea-programmata", ET["a"], mail["a"], "", None)])
+        male2, _ = esegui_con({"POST": (422, {})}, [("crea-programmata", ET["a"], mail["a"], "", None)])
+        male3, _ = esegui_con({"DELETE": (404, {})}, [("elimina", ET["c"], mail["c"], "", 1)])
+        if male or not male2 or male3:
+            sbagliati.append("esecuzione: programmata giusta accettata, rifiuto di Kit segnalato, invio già sparito accettato")
+        # l'elenco degli invii: due pagine, si tengono solo quelli delle mail straordinarie, raggruppati per etichetta
+        pagine = [(200, {"broadcasts": [{"id": 1, "description": ET["a"] + " #x"}, {"id": 2, "description": "gommberg-edizione-031"}],
+                         "pagination": {"has_next_page": True, "end_cursor": "c1"}}),
+                  (200, {"broadcasts": [{"id": 3, "description": ET["a"] + " #y"}], "pagination": {"has_next_page": False}})]
+        dem.nl.kit = lambda metodo, percorso, dati=None: pagine.pop(0)
+        trovati = dem.invii_dem()
+        if list(trovati) != [ET["a"]] or [b["id"] for b in trovati[ET["a"]]] != [1, 3]:
+            sbagliati.append("elenco degli invii di Kit: pagine, filtro o raggruppamento")
+    finally:
+        dem.nl.kit = vero
+
+    # 4. la composizione: un link per risposta verso la pagina di ringraziamento, nessun segno rimasto
+    m = leggi(("2027-01-16-s.md", "2027-01-16 10:00", "bozza", "pulsante: Leggi | https://gommberg.com/\nnota: Postilla.\n",
+               "## Titoletto\n\n- uno\n- due\n\n?? Domanda?\n- Prima\n- Seconda\n- Terza\n\n> Riquadro con **grassetto**."))[0]
+    corpo = dem.componi(m)[2]
+    if corpo.count("grazie.html?d=2027-01-16-s&amp;r=") != 3 or "??" in corpo or "**" in corpo or "{{" in corpo or "Postilla." not in corpo:
+        sbagliati.append("composizione: sondaggio, segni o postilla non resi")
+    esito("Mail straordinarie: regole, pianificatore, esecuzione e composizione", not sbagliati,
+          f"{len(casi)} casi di regole ai confini, 19 situazioni di Kit (nel dubbio si ritira), Kit finto che sbaglia, elenco a pagine, composizione"
+          if not sbagliati else "; ".join(sbagliati)[:600])
+
+
 # ---------------------------------------------------------------- 4. rete di non regressione
 RETE = os.path.join(R, "rete")
 MONDO = os.path.join(RETE, "mondo")
@@ -1078,6 +1235,7 @@ def main():
         passo_dati()
         passo_tabelle()
         passo_scommessa()
+        passo_dem()
         passo_rete()
         copia = passo_sito()
         if isinstance(copia, str):
