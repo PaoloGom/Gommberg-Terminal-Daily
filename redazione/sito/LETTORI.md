@@ -34,6 +34,10 @@ I limiti veri: il nome non segue il lettore su un altro dispositivo o dopo che h
 
 Per liberare i nomi di chi ha scritto un commento (per esempio dopo averlo tolto): `DELETE FROM nomi WHERE sito = 'gommberg' AND autore = (SELECT autore FROM commenti WHERE id = <numero>);`
 
+## Edizioni di test
+
+Un'edizione di test (`PROVA.md`, parte B) si pubblica prima del suo giorno e poi si toglie, ma voti e commenti restano nel database sotto lo stesso numero che avrà l'edizione vera. Si cancellano da soli (`toglieProve` in `lettori.js`): dal giorno dell'edizione in poi, alla prima lettura, sparisce tutto ciò che su quel numero porta una data precedente, con i suoi like e le sue segnalazioni. Finché quel giorno non arriva non si tocca nulla, così chi prova vede i suoi commenti. Vale solo sul sito vero; i nomi scelti durante la prova restano di chi li ha scelti.
+
 ## Difese (il lettore non le vede)
 
 Gettone firmato dal servizio (niente invii da programmi che non hanno aperto la pagina, né prima di 3 secondi), campo trappola, richieste solo dalla pagina del sito, limiti di frequenza per lettore e per impronta dell'indirizzo IP (i numeri in `LIMITI`, in testa a `lettori.js`), nomi riservati alla redazione (la stessa regola in `lettori.js` e `assets/lettori.js`: il collaudo lo verifica), al massimo due link per commento e mai cliccabili, Segnala che nasconde un commento quando lo segnalano 3 reti diverse (tre colleghi dallo stesso ufficio contano una volta: per questo ai lettori diciamo "più lettori"). Le impronte IP si cancellano dopo 30 giorni: la pulizia la fa la prima richiesta di ogni giorno (`pulizia` in `lettori.js`). I limiti di frequenza che contano sono ricontrollati dentro l'inserimento, così reggono anche a molte richieste nello stesso istante. Non c'è un limite alle sole letture: sul piano gratuito di Cloudflare (100.000 richieste al giorno) chi volesse potrebbe esaurirle e spegnere la sezione fino al giorno dopo; l'edizione resterebbe in linea. Se succede, il rimedio è Turnstile o una cache sulle letture.

@@ -19,3 +19,5 @@ Serve a provare anche la pubblicazione (commit, push, sito). Si fa solo quando P
 QUESTA È UN'EDIZIONE DI TEST chiesta da Paolo: si pubblica davvero sul sito e verrà tolta entro stasera. Segui il tuo incarico così com'è, con due sole differenze.
 1. Dopo il passo 2 (repository aggiornato e collegamento /home/claude/gtd) e prima di `prepara.sh`: `echo <data> > /home/claude/gtd/redazione/PROVA_DATA`. `prepara.sh` stamperà PROVA GENERALE con quella data: è l'edizione da scrivere. I livelli del mattino di quel giorno non esistono ancora: usa "Cosa guardare all'apertura".
 2. Alla pubblicazione: `GTD_PUBBLICA_PROVA=1 bash /home/claude/gtd/redazione/pubblica.sh ...` (pubblica davvero: verifica PUSH_OK). Tutto il resto, consegna compresa, come ogni mattina.
+
+Dopo: l'edizione si toglie con `git revert --no-edit <commit dell'edizione>` e push su main, la notte stessa (il giorno dopo `prepara.sh` la troverebbe già in `edizioni.json` e l'edizione vera non uscirebbe). `newsletter.yml` non spedisce un'edizione con la data di domani. Voti e commenti lasciati sull'edizione di test si cancellano da soli quando esce quella vera (`sito/LETTORI.md`, Edizioni di test).

@@ -156,7 +156,9 @@ verifica("dopo 10 minuti si riscrive", r.s === 201, r);
 
 // ------------------------------------------------------------- 9. impronte IP cancellate dopo 30 giorni
 // la pulizia è certa: la fa la prima richiesta di ogni giorno, anche una semplice lettura
-env.DB._db.exec("UPDATE commenti SET creato = '2026-10-01T00:00:00Z'");
+// (i commenti invecchiati passano a un'edizione di ottobre: sulla 031, che è del 23/11, una data precedente sarebbe un resto
+// di un'edizione di test e verrebbe cancellata, vedi in fondo)
+env.DB._db.exec("UPDATE commenti SET creato = '2026-10-01T00:00:00Z', ed = 20");
 await chiama("GET", "/api/lettori/031");
 verifica("nello stesso giorno la pulizia non si ripete", env.DB._db.prepare("SELECT COUNT(*) AS n FROM commenti WHERE ip IS NOT NULL AND creato < '2026-10-24'").get().n > 0, null);
 avanti(86400);
@@ -348,6 +350,34 @@ for (const [giro, v] of scaduti.entries()) {
 }
 env.DB.latenza = 0;
 verifica("un nome scaduto conteso: lo prende uno solo, mai tutti e due", doppi === 0, doppi);
+
+// ------------------------------------------------------------- le edizioni di test non lasciano commenti né voti
+// Sulla 031 (del 23/11) ci sono un commento, un like e un voto del 22/11: vengono da un'edizione di test pubblicata e poi
+// tolta. Alla prima lettura del giorno dell'edizione spariscono; ciò che è stato scritto dal 23 in poi resta.
+env.DB._db.exec(`INSERT INTO commenti (sito, ed, nome, testo, creato, autore, ip) VALUES ('gommberg', 31, 'Lettrice vera', 'Scritto a edizione uscita', '${new Date(adesso).toISOString().replace(/\.\d{3}Z$/, "Z")}', 'vera-autrice', '5.5.5.6')`);
+avanti(301);
+const veri = (await chiama("GET", "/api/lettori/031")).j.commenti.length;
+env.DB._db.exec("INSERT INTO commenti (sito, ed, nome, testo, creato, autore, ip) VALUES ('gommberg', 31, 'Toro Seduto', 'Test 1', '2026-11-22T20:55:00Z', 'prova-autore', '5.5.5.5')");
+const idProva = env.DB._db.prepare("SELECT id FROM commenti WHERE testo = 'Test 1'").get().id;
+env.DB._db.exec(`INSERT INTO piaciuti (commento, autore, ip, creato) VALUES (${idProva}, 'prova-autore', '5.5.5.5', '2026-11-22T20:56:00Z')`);
+env.DB._db.exec("INSERT INTO voti (sito, ed, autore, voto, ip, creato) VALUES ('gommberg', 31, 'prova-autore', 'toro', '5.5.5.5', '2026-11-22T20:56:00Z')");
+const votiPrima = env.DB._db.prepare("SELECT COUNT(*) AS n FROM voti WHERE ed = 31").get().n;
+avanti(301);
+r = await chiama("GET", "/api/lettori/031");
+const conta = (sql) => env.DB._db.prepare(sql).get().n;
+verifica("edizione di test: i commenti scritti prima del giorno dell'edizione spariscono", !r.j.commenti.some((x) => x.testo === "Test 1") && conta("SELECT COUNT(*) AS n FROM commenti WHERE testo = 'Test 1'") === 0);
+verifica("edizione di test: spariscono anche i like e i voti di quel giorno", conta(`SELECT COUNT(*) AS n FROM piaciuti WHERE commento = ${idProva}`) === 0 && conta("SELECT COUNT(*) AS n FROM voti WHERE ed = 31") === votiPrima - 1);
+verifica("edizione di test: ciò che è stato scritto dal giorno dell'edizione resta", r.j.commenti.length === veri && veri > 0, [r.j.commenti.length, veri]);
+// Un'edizione di test ancora in linea (la 032, con la data di domani): finché il suo giorno non arriva nulla si tocca
+const isoOra = () => new Date(adesso).toISOString().replace(/\.\d{3}Z$/, "Z");
+EDIZIONI[32] = { numero: 32, data: new Date(adesso + 86400000).toISOString().slice(0, 10) };
+env.DB._db.exec(`INSERT INTO commenti (sito, ed, nome, testo, creato, autore, ip) VALUES ('gommberg', 32, 'Toro Seduto', 'Provo la 032', '${isoOra()}', 'prova-autore', '5.5.5.5')`);
+r = await chiama("GET", "/api/lettori/032");
+verifica("edizione di test in linea: prima del suo giorno i commenti di prova si vedono", r.s === 200 && r.j.commenti.some((x) => x.testo === "Provo la 032"), r.j);
+avanti(86400);
+r = await chiama("GET", "/api/lettori/032");
+verifica("edizione di test: dal suo giorno i commenti di prova non ci sono più", r.s === 200 && r.j.commenti.length === 0 && conta("SELECT COUNT(*) AS n FROM commenti WHERE ed = 32") === 0, r.j);
+verifica("la pulizia delle prove non tocca le altre edizioni", conta("SELECT COUNT(*) AS n FROM commenti WHERE ed = 31") > 0);
 
 console.log(ko ? `Lettori: ${ko} NO su ${ok + ko} prove` : `Lettori: ${ok} prove superate`);
 process.exit(ko ? 1 : 0);
