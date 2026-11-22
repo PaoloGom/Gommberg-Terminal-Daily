@@ -14,35 +14,65 @@
   var API = "/api/lettori/";
   var LAB = { toro: "Toro", orso: "Orso" };
   var SEGNO = { toro: "▲", orso: "▼" };
-  // I nomi del dado (Paolo 22/11: un centinaio, italiani, di finanza, ironici e simpatici). Ogni nome è di un solo lettore:
-  // il dado propone solo quelli liberi e, se sono finiti, ne numera uno ("Toro seduto 7"). Per allungare la lista basta
-  // aggiungere righe: al massimo 24 caratteri, e il collaudo controlla che il servizio li accetti tutti.
+  // I nomi del dado (Paolo 22/11): sempre "Nome Cognome", di finanza, italiani e ironici. Tre livelli che si attivano da
+  // soli, così il dado non finisce mai e non va mai toccato:
+  //   1. NOMI    i giochi di parole scritti a mano ("Massimo Rischio", "Tito Lare"): escono in ordine casuale, senza
+  //              ripetersi finché il lettore non li ha visti tutti;
+  //   2. PROPRI x COGNOMI   un nome vero più un cognome finanziario ("Wanda Plusvalenza"): migliaia di combinazioni;
+  //   3. se sono presi anche quelli, il nome combinato prende un numero romano ("Gino Spread II"), senza fine.
+  // Ogni nome è di un solo lettore: il dado chiede al servizio quali sono liberi (dieci per volta) e propone solo quelli.
+  // Le liste si possono allungare aggiungendo parole (il collaudo controlla che il servizio le accetti), ma non serve.
   var NOMI = [
-    // tori, orsi e altri animali di Borsa
-    "Toro paziente", "Toro seduto", "Toro del lunedì", "Toro da scrivania", "Orso con ombrello", "Orso in letargo", "Orso di peluche",
-    "Lupo di Piazza Affari", "Gatto che rimbalza", "Cigno nero", "Falco a dieta", "Colomba di Francoforte", "Parco buoi", "Bue consapevole",
-    // la gente dei mercati
-    "Cassettista zen", "Cassettista dal 1999", "Oracolo di Voghera", "Analista del bar", "Trader della domenica", "Trader in pausa pranzo",
-    "Guru del giorno dopo", "Bastian contrarian", "Zio col BTP", "Nonna dei BOT", "Piccolo azionista", "Socio di minoranza",
-    "Petroliere mancato", "Consulente di me stesso", "Ribilanciatore seriale", "Lettore delle 9:45",
-    // come si compra e come si vende
-    "Compro sui massimi", "Vendo sui minimi", "Entrato sui massimi", "Medio al ribasso", "Stop loss mancato", "Short per sbaglio",
-    "Long per sempre", "Compra e dimentica", "Profitto mai visto", "Diversificato male", "Un ETF e via", "Liquido per prudenza",
-    "Senno di poi", "L'avevo detto", "Era già nei prezzi", "Coltello al volo", "Mani di burro", "Mani di diamante", "Mano ferma",
-    "Nervi saldi", "Sangue freddo", "Stomaco forte", "Sonni tranquilli", "Fomo controllata", "Panico rientrato", "Volatile ma sereno",
-    // le frasi del listino
-    "Poco mosso", "Prese di beneficio", "Seduta incolore", "In altalena", "Sulla parità", "Maglia rosa del listino", "Maglia nera del listino",
-    "Volumi di Ferragosto", "Tre streghe", "Lunedì nero", "Venerdì 17", "Rally di Babbo Natale", "Bolla? Quale bolla", "Assemblea deserta",
-    // tassi, banche centrali e carrello della spesa
-    "Whatever it takes", "Fed permettendo", "Spread permettendo", "Euribor permettendo", "Inflazione percepita", "Carrello della spesa",
-    "Paniere Istat", "Atterraggio morbido", "Curva invertita", "Scadenza 2067", "Bund tranquillo", "Spread di buonumore", "Mano invisibile",
-    // rendimenti e fisco
-    "Cedola puntuale", "Dividendo felice", "Interesse composto", "Rendimento sperato", "Zainetto fiscale", "Minus da compensare",
-    "Ventisei per cento", "Dodici e mezzo", "Alpha cercasi", "Sotto il benchmark", "Outlook stabile",
-    // a tavola e in casa
-    "Spritz e spread", "Pizza e dividendi", "Cappuccino e cedola", "Caffè e Bund", "Oro della nonna", "Lingotto in cantina",
-    "Tulipano olandese", "Materasso & Co."];
-  function nomeACaso() { return NOMI[Math.floor(Math.random() * NOMI.length)]; }
+    // nomi veri che sono già finanza
+    "Massimo Rischio", "Massimo Storico", "Massimo Ribasso", "Massimo Scoperto", "Franco Svizzero", "Franco Fabbrica", "Marco Tedesco",
+    "Euro Dollaro", "Euro Forte", "Germano Bund", "Americo Dollaro", "Italo Btp", "Libero Mercato", "Libero Scambio", "Primo Acconto",
+    "Secondo Acconto", "Primo Avanzo", "Secondo Mercato", "Quinto Ceduto", "Otto Permille", "Ultimo Prezzo", "Modesto Rendimento",
+    "Generoso Dividendo", "Felice Dividendo", "Benedetto Rimbalzo", "Costante Rialzo", "Onesto Guadagno", "Fortunato Rialzo",
+    "Tranquillo Bund", "Sereno Variabile", "Placido Listino", "Severo Fisco", "Clemente Fisco", "Amato Fisco", "Candido Bilancio",
+    "Fermo Tasso", "Fedele Cassettista", "Salvo Buonfine", "Donato Rimborso", "Angelo Investitore", "Natale Rally", "Orso Bruno",
+    "Toro Seduto", "Fido Bancario", "Bonifacio Bancario", "Bonifacio Istantaneo", "Iva Inclusa", "Iva Partita", "Assunta Posizione",
+    "Allegra Finanza", "Bianca Centrale", "Serena Seduta", "Costanza Pac", "Costanza Rata", "Speranza Rimbalzo", "Prudenza Bond",
+    "Dolores Minus", "Domenica Trader", "Azzurra Chip", "Augusta Paga", "Lina Sterlina", "Lola Cedola", "Bice Francoforte",
+    // nome e cognome che letti insieme fanno una parola
+    "Tito Lare", "Tito Lodistato", "Vito Alizio", "Ines Igibile", "Ezio Nista", "Pia Zaffari", "Lino Gotto", "Mimmo Biliare",
+    "Gastone Naturale", "Pietro Lio", "Remo Contro", "Guido Piano", "Guido Laborsa", "Mino Ranza", "Mina Svalenza", "Lea Sing",
+    "Gia Cenza", "Ali Quota", "Catia Stale", "Viola Tilità", "Mirko Economia", "Corrado Corrente", "Carla Dicredito",
+    "Federico Riserva", "Zeno Coupon", "Tobia Tax", "Oronzo Lingotto", "Tullio Tulipano", "Ippolito Ipo", "Torquato Tassofisso",
+    "Ponzi Schema", "Ugo Gain", "Marce Long",
+    // con un nome inglese
+    "Max Drawdown", "Mark Tomarket", "Bill Ancio", "Bud Get", "Ray Ting", "Ben Chmark", "Pat Rimonio", "Al Rialzo", "Al Ribasso",
+    "Rob Bot", "Ted Spread", "Sigmund Bund", "Margie Call", "Brent Barile", "Juan Yuan", "Zoe Roe", "Cliff Fiscale", "Art Bitraggio",
+    "Don Azione", "Lev Erage", "Dan Aro", "Sol Dini", "Sol Vibile", "Val Uta", "Mo Mentum", "Dee Flazione", "Tess Oretto"];
+  var PROPRI = ["Gino", "Ugo", "Pina", "Carla", "Aldo", "Rina", "Nino", "Lella", "Tino", "Bruna", "Elio", "Ada", "Ivo", "Olga", "Remo", "Tea",
+    "Dino", "Lia", "Enzo", "Mara", "Rocco", "Nora", "Ciro", "Zita", "Wanda", "Furio", "Nives", "Sergio", "Marisa", "Gianni", "Piero",
+    "Gilda", "Renzo", "Lucia", "Mimmo", "Tina", "Pippo", "Iole", "Oreste", "Elsa", "Nando", "Ines", "Cesira", "Gastone", "Ofelia",
+    "Arturo", "Irma", "Duilio", "Norma", "Ettore", "Vera", "Achille", "Delia", "Saverio", "Flora", "Lalla", "Tullio", "Mirella",
+    "Osvaldo", "Ornella", "Egidio", "Amelia", "Rodolfo", "Clelia", "Ottavio", "Dora", "Silvano", "Agata", "Ercole", "Ida"];
+  var COGNOMI = ["Spread", "Cedola", "Bund", "Dividendo", "Rimbalzo", "Listino", "Rendimento", "Tasso", "Bilancio", "Portafoglio", "Rally",
+    "Ribasso", "Rialzo", "Lingotto", "Benchmark", "Coupon", "Future", "Capitale", "Interesse", "Bonifico", "Scadenza", "Plusvalenza",
+    "Mercato", "Bot", "Btp", "Etf", "Pac", "Azionista", "Risparmio", "Budget", "Fatturato", "Ricavi", "Utile", "Saldo", "Deposito",
+    "Mutuo", "Rata", "Cambio", "Valuta", "Indice", "Volume", "Derivato", "Opzione", "Margine", "Inflazione", "Euribor", "Rating",
+    "Swap", "Hedge", "Cassa", "Borsa", "Titolo", "Azione", "Obbligazione", "Quotazione", "Liquidità", "Volatilità", "Leva", "Fido",
+    "Conto", "Assegno", "Cambiale", "Tesoretto", "Zainetto", "Minusvalenza", "Trimestrale", "Guidance", "Outlook", "Asta", "Fixing",
+    "Carry", "Yield"];
+  var caso = function (a) { return a[Math.floor(Math.random() * a.length)]; };
+  function romano(n) {
+    var v = [[1000, "M"], [900, "CM"], [500, "D"], [400, "CD"], [100, "C"], [90, "XC"], [50, "L"], [40, "XL"], [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]], o = "";
+    v.forEach(function (c) { while (n >= c[0]) { o += c[1]; n -= c[0]; } });
+    return o;
+  }
+  // Dieci candidati per volta: otto carte del mazzo non ancora viste e due nomi combinati; finito il mazzo, dieci
+  // combinati. Quando un'intera decina di combinati risulta presa il livello sale, e da lì portano il numero romano.
+  var MAZZO = null, CODA = [], LIVELLO = 1, volo = null;
+  function candidati() {
+    if (!MAZZO) { MAZZO = NOMI.slice(); for (var i = MAZZO.length - 1; i > 0; i--) { var k = Math.floor(Math.random() * (i + 1)), t = MAZZO[i]; MAZZO[i] = MAZZO[k]; MAZZO[k] = t; } }
+    var out = MAZZO.splice(0, 8), giri = 0;
+    while (out.length < 10 && giri++ < 200) {
+      var n = caso(PROPRI) + " " + caso(COGNOMI) + (LIVELLO > 1 ? " " + romano(Math.min(LIVELLO, 3999)) : "");
+      if (out.indexOf(n) < 0 && CODA.indexOf(n) < 0) out.push(n);
+    }
+    return out;
+  }
   var RISERVATI = /redazion|redatt|gommberg|gommellini|amministra|admin|moderat|staff|direttore|direzion/i;   // gli stessi del servizio
   var AV = ["#F6D7C3", "#D9E8DE", "#DCE3F0", "#EADCF0", "#F0E6C8", "#E3DED7"];
   var CUORE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2Z"/></svg>';
@@ -270,17 +300,25 @@
       nomeLibero(nome).then(function (j) { if (j && !j.libero && j.messaggio && (S.nome || "").replace(/\s+/g, " ").trim() === nome) errore(j.messaggio); }, function () {});
     }, 600);
   }
-  function tiraDado(giri, t0) {
-    giri = giri || 0; t0 = t0 || Date.now();
-    // i primi tentativi pescano dalla lista; se sono tutti presi, un nome della lista con un numero
-    var nome = nomeACaso(), ni = q(".cmp-nome", R);
-    if (giri >= 4) { while (nome.length > 21) nome = nomeACaso(); nome += " " + (2 + Math.floor(Math.random() * 98)); }
-    clearTimeout(timerNome); S.nome = nome; ni.value = nome; errore(""); composer();
-    nomeLibero(nome).then(function (j) {
-      if (!j || j.libero || S.nome !== nome) return;
-      // il nome non cambia più sotto gli occhi di chi sta già scrivendo: dopo 3 secondi o 8 tentativi lo si dice e basta
-      if (giri < 8 && Date.now() - t0 < 3000) tiraDado(giri + 1, t0); else errore(j.messaggio);
-    }, function () {});
+  // Il dado: la coda tiene nomi già verificati liberi, così il clic risponde subito; si riempie da sola quando si svuota.
+  // Se il servizio non risponde i candidati si propongono lo stesso: il controllo vero resta quello della pubblicazione.
+  function rifornisci() {
+    if (volo) return volo;
+    var soloCombinati = !MAZZO || !MAZZO.length, c = candidati(), fine = function () { volo = null; };
+    volo = api("GET", "nome?" + c.map(function (n) { return "n=" + encodeURIComponent(n); }).join("&")).then(function (j) {
+      var liberi = (j && j.liberi) || [];
+      if (liberi.length) CODA = CODA.concat(liberi); else if (soloCombinati) LIVELLO++;
+    }, function () { CODA = CODA.concat(c); }).then(fine, fine);
+    return volo;
+  }
+  function tiraDado(giri) {
+    if (CODA.length) {
+      var nome = CODA.shift(), ni = q(".cmp-nome", R);
+      clearTimeout(timerNome); S.nome = nome; ni.value = nome; errore(""); composer();
+      if (CODA.length < 3) rifornisci();
+      return;
+    }
+    rifornisci().then(function () { if (CODA.length || (giri || 0) < 12) tiraDado((giri || 0) + (CODA.length ? 0 : 1)); });
   }
   function contatore() { var n = q("textarea", R).value.length; q("[data-conto]", R).textContent = n > 480 ? (600 - n) + " caratteri" : ""; }
   function invia() {
@@ -379,7 +417,7 @@
 
     form.addEventListener("submit", function (e) { e.preventDefault(); invia(); });
     // chiusa è una riga sola ("Di' la tua…"); al tocco si apre con chi firma, il dado e Pubblica. Si richiude se lasci vuoto
-    form.addEventListener("focusin", function () { form.classList.add("aperto"); });
+    form.addEventListener("focusin", function () { form.classList.add("aperto"); if (!CODA.length) rifornisci(); });
     form.addEventListener("focusout", function (e) {
       setTimeout(function () { if (!form.contains(document.activeElement) && !ta.value.trim() && !S.re && q("[data-err]", R).hidden) form.classList.remove("aperto"); }, 150);
     });

@@ -238,13 +238,26 @@ verifica("un nome fermo da " + LIMITI.nome_giorni + " giorni si può riprendere"
 r = await chiama("POST", "/api/lettori/031/commenti", { ...D, corpo: { nome: "Quarto nome", testo: "Torno e lo rivoglio", gettone: g3 } });
 verifica("e da quel momento è del nuovo lettore", r.s === 409, r);
 
-// i nomi del dado (assets/lettori.js): il servizio li accetta tutti e sono tutti diversi anche per chiave
+// i nomi del dado (assets/lettori.js): il mazzo scritto a mano, i nomi combinati e quelli con il numero romano
 const sezione = readFileSync(new URL("../../assets/lettori.js", import.meta.url), "utf8");
-const dado = [...sezione.slice(sezione.indexOf("var NOMI = ["), sezione.indexOf("function nomeACaso")).matchAll(/"([^"\n]+)"/g)].map((m) => m[1]);
-verifica("il dado ha un centinaio di nomi", dado.length >= 90, dado.length);
-verifica("ogni nome del dado è accettato dal servizio (lunghezza, lettere, non riservato)", dado.every((x) => !controllaNome(x)), dado.filter((x) => controllaNome(x)));
-verifica("i nomi del dado sono tutti diversi anche per chiave", new Set(dado.map(chiaveNome)).size === dado.length, dado.filter((x, i) => dado.findIndex((y) => chiaveNome(y) === chiaveNome(x)) !== i));
-verifica("tra i nomi del dado ce ne sono di corti a cui aggiungere il numero di riserva", dado.filter((x) => x.length <= 21 && !controllaNome(x + " 99")).length >= 50, null);
+const lista = (nome) => { const i = sezione.indexOf("var " + nome + " = ["); return [...sezione.slice(i, sezione.indexOf("];", i)).split("\n").filter((r) => !/^\s*\/\//.test(r)).join("\n").matchAll(/"([^"\n]+)"/g)].map((m) => m[1]); };
+const dado = lista("NOMI"), propri = lista("PROPRI"), cognomi = lista("COGNOMI");
+verifica("il mazzo del dado ha almeno cento nomi", dado.length >= 100, dado.length);
+verifica("ogni nome del mazzo è Nome Cognome: due parole", dado.every((x) => x.split(" ").length === 2), dado.filter((x) => x.split(" ").length !== 2));
+verifica("ogni nome del mazzo è accettato dal servizio (lunghezza, lettere, non riservato)", dado.every((x) => !controllaNome(x)), dado.filter((x) => controllaNome(x)));
+verifica("i nomi del mazzo sono tutti diversi anche per chiave", new Set(dado.map(chiaveNome)).size === dado.length, dado.filter((x, i) => dado.findIndex((y) => chiaveNome(y) === chiaveNome(x)) !== i));
+const combinati = propri.flatMap((a) => cognomi.map((b) => a + " " + b));
+verifica("i nomi combinati sono migliaia", combinati.length >= 4000, combinati.length);
+verifica("ogni nome combinato è accettato dal servizio, anche con il numero romano", combinati.every((x) => !controllaNome(x) && !controllaNome(x + " II") && !controllaNome(x + " XIV")), combinati.filter((x) => controllaNome(x) || controllaNome(x + " XIV")).slice(0, 5));
+verifica("i nomi combinati sono tutti diversi anche per chiave, e diversi con il numero", new Set(combinati.map(chiaveNome)).size === combinati.length && new Set(combinati.map((x) => chiaveNome(x + " II"))).size === combinati.length && chiaveNome("Gino Spread II") !== chiaveNome("Gino Spread III"), null);
+// il dado ne chiede dieci per volta e riceve solo quelli che può proporre
+// (qui "Quarto nome" è di E; "Giulia T." è scaduto da mesi, quindi di nuovo libero)
+r = await chiama("GET", "/api/lettori/nome?" + ["Quarto nome", "QUARTO N0ME", "Massimo Rischio", "massimo  rischio", "Redazione", "Wanda Plusvalenza", "x", "Giulia T."].map((x) => "n=" + encodeURIComponent(x)).join("&"), D);
+verifica("più nomi in una richiesta: tornano i liberi, una volta sola, senza presi né riservati", r.s === 200 && JSON.stringify(r.j.liberi) === JSON.stringify(["Massimo Rischio", "Wanda Plusvalenza", "Giulia T."]), r);
+r = await chiama("GET", "/api/lettori/nome?" + ["Quarto nome", "Wanda Plusvalenza"].map((x) => "n=" + encodeURIComponent(x)).join("&"), E);
+verifica("più nomi in una richiesta: il proprio nome è tra i liberi", JSON.stringify(r.j.liberi) === JSON.stringify(["Quarto nome", "Wanda Plusvalenza"]), r);
+r = await chiama("GET", "/api/lettori/nome?" + Array.from({ length: 40 }, (_, i) => "n=" + encodeURIComponent("Gino Spread " + (i + 2))).join("&"), E);
+verifica("più nomi in una richiesta: al massimo dodici per volta", r.j.liberi.length === 12, r.j.liberi.length);
 
 // ------------------------------------------------------------- 11. segnalazioni aperte per l'avviso alla redazione
 r = await chiama("POST", "/api/lettori/031/commenti", { ...E, corpo: { nome: "Quarto nome", testo: "Commento che qualcuno segnala", gettone: g3 } });

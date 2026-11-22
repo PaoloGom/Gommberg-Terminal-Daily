@@ -182,7 +182,7 @@ async function instrada(request, env, url) {
 
   if (metodo === "GET") {
     if (/^\d{1,4}$/.test(p[1] || "") && p.length === 2) return leggi(c, +p[1]);
-    if (p[1] === "nome" && p.length === 2) return nomeLibero(c, url.searchParams.get("n"));
+    if (p[1] === "nome" && p.length === 2) { const nn = url.searchParams.getAll("n"); return nn.length > 1 ? nomiLiberi(c, nn) : nomeLibero(c, nn[0]); }
     if (p[1] === "segnalazioni" && p.length === 2) return segnalazioni(c);
     return errore("Indirizzo sconosciuto.", 404);
   }
@@ -346,6 +346,22 @@ async function nomeLibero(c, grezzo) {
   const di = NOMI_UNICI ? await padrone(c, chiaveNome(nome)) : null;
   const tuo = !!di && !!c.autore && di === c.autore;
   return risposta({ libero: !di || tuo, tuo, messaggio: !di || tuo ? "" : NOME_PRESO });
+}
+
+// Il dado ne chiede fino a dodici per volta (?n=...&n=...) e riceve quelli che può proporre: validi e non di altri lettori
+async function nomiLiberi(c, grezzi) {
+  const visti = new Set(), nomi = [];
+  for (const g of grezzi.slice(0, 12)) {
+    if (String(g).length > LIMITI.grezzo[0]) continue;
+    const n = pulisciNome(g), k = chiaveNome(n);
+    if (!controllaNome(n) && !visti.has(k)) { visti.add(k); nomi.push(n); }
+  }
+  if (!nomi.length || !NOMI_UNICI) return risposta({ liberi: nomi });
+  const chiavi = nomi.map(chiaveNome);
+  const righe = await c.db.prepare(`SELECT chiave FROM nomi WHERE sito = ? AND usato >= ? AND autore != ? AND chiave IN (${chiavi.map(() => "?").join(", ")})`)
+    .bind(c.sito, prima(LIMITI.nome_giorni * 86400), c.autore || "-", ...chiavi).all();
+  const presi = new Set((righe.results || []).map((r) => r.chiave));
+  return risposta({ liberi: nomi.filter((n, i) => !presi.has(chiavi[i])) });
 }
 
 async function vota(c, n, corpo) {
