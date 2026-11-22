@@ -9,8 +9,10 @@
 //
 // Difese che il lettore non vede (Paolo 22/11): gettone firmato dal server (niente invii da programmi che non hanno
 // aperto la pagina, né prima di 3 secondi), campo trappola, origine della richiesta, limiti di frequenza per
-// impronta dell'indirizzo IP, nomi riservati alla redazione, al massimo due link (che il sito non rende cliccabili),
-// Segnala che nasconde un commento dopo 3 segnalazioni da indirizzi diversi.
+// impronta dell'indirizzo IP, nomi riservati alla redazione, nomi unici (un nome resta di chi l'ha usato per primo),
+// al massimo due link (che il sito non rende cliccabili), Segnala che nasconde un commento dopo 3 segnalazioni da
+// indirizzi diversi. Le segnalazioni aperte escono, senza testi, da /api/lettori/segnalazioni: le legge ogni ora
+// .github/workflows/segnalazioni.yml, che avvisa Paolo.
 // Togliere un commento (finché non c'è G-51): da Cloudflare, D1, gommberg-lettori, Console:
 //   UPDATE commenti SET nascosto = 2 WHERE id = <numero>;      (2 = tolto dalla redazione, 1 = nascosto dalle segnalazioni)
 // Regole e procedura: redazione/sito/LETTORI.md.
@@ -23,7 +25,14 @@ export const LIMITI = {
   segnalazioni_per_nascondere: 3,
   gettone_min_s: 3, gettone_max_s: 12 * 3600,
   ip_giorni: 30,                                   // dopo, l'impronta IP si cancella
+  nomi_per_lettore: 3,                             // nomi che un lettore tiene per sé: il quarto libera il meno usato
+  nome_giorni: 180,                                // un nome non più usato torna libero
+  segnalazioni_giorni: 14,                         // per quanto una segnalazione resta nell'elenco degli avvisi
 };
+// Nomi unici (Paolo 22/11): un nome resta di chi l'ha usato per primo, riconosciuto dal codice anonimo del suo browser.
+// Nessuno può firmarsi con il nome di un altro, nemmeno cambiando maiuscole, accenti, spazi o punteggiatura.
+// false = spento: ognuno firma come vuole, come prima.
+export const NOMI_UNICI = true;
 export const RISERVATI = /redazion|gommberg|gommellini|amministra|admin|moderat|staff|direttore/i;
 
 const SCHEMA = [
@@ -39,6 +48,9 @@ const SCHEMA = [
   `CREATE TABLE IF NOT EXISTS voti (sito TEXT NOT NULL, ed INTEGER NOT NULL, autore TEXT NOT NULL, voto TEXT NOT NULL,
      ip TEXT, creato TEXT NOT NULL, PRIMARY KEY (sito, ed, autore))`,
   `CREATE TABLE IF NOT EXISTS config (k TEXT PRIMARY KEY, v TEXT NOT NULL)`,
+  `CREATE TABLE IF NOT EXISTS nomi (sito TEXT NOT NULL, chiave TEXT NOT NULL, nome TEXT NOT NULL, autore TEXT NOT NULL,
+     creato TEXT NOT NULL, usato TEXT NOT NULL, PRIMARY KEY (sito, chiave))`,
+  `CREATE INDEX IF NOT EXISTS nomi_autore ON nomi (sito, autore, usato)`,
 ];
 
 const JSON_H = { "content-type": "application/json; charset=utf-8", "cache-control": "no-store", "x-content-type-options": "nosniff" };
@@ -111,9 +123,17 @@ export function pulisciTesto(s) {
     .replace(/[\u0000-\u0009\u000b-\u001f\u007f-\u009f​-‏‪-‮⁦-⁩]/g, "")
     .replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
 }
+// La chiave di un nome: ciò che due nomi devono avere di diverso per essere due nomi. "Luca R.", "luca r", "LÙCA_R" e
+// "Luca  R" hanno la stessa chiave, e così lo zero al posto della o e l'uno al posto della elle.
+export function chiaveNome(nome) {
+  return String(nome).normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase().replace(/ß/g, "ss").replace(/0/g, "o").replace(/1/g, "l").replace(/[^a-z0-9]/g, "");
+}
 export function controllaNome(nome) {
   if (nome.length < LIMITI.nome[0] || nome.length > LIMITI.nome[1]) return "Il nome va da " + LIMITI.nome[0] + " a " + LIMITI.nome[1] + " caratteri.";
-  if (RISERVATI.test(nome.replace(/[\s._-]/g, ""))) return "Questo nome è riservato alla redazione: scegline un altro.";
+  if (RISERVATI.test(nome.replace(/[\s._-]/g, "")) || RISERVATI.test(chiaveNome(nome))) return "Questo nome è riservato alla redazione: scegline un altro.";
+  // lettere di altri alfabeti uguali alle nostre (una "а" cirillica) servirebbero solo a copiare il nome di un altro
+  if (/[^\p{Script=Latin}\P{L}]/u.test(nome.normalize("NFKD"))) return "Nel nome usa le lettere del nostro alfabeto.";
+  if (chiaveNome(nome).length < 2) return "Nel nome servono almeno due lettere o numeri.";
   return "";
 }
 export function controllaTesto(testo) {
@@ -153,6 +173,8 @@ async function instrada(request, env, url) {
 
   if (metodo === "GET") {
     if (/^\d{1,4}$/.test(p[1] || "") && p.length === 2) return leggi(c, +p[1]);
+    if (p[1] === "nome" && p.length === 2) return nomeLibero(c, url.searchParams.get("n"));
+    if (p[1] === "segnalazioni" && p.length === 2) return segnalazioni(c);
     return errore("Indirizzo sconosciuto.", 404);
   }
   // scritture: dalla pagina del sito stesso, con un lettore riconoscibile e un gettone valido
@@ -246,12 +268,45 @@ async function scrivi(c, n, corpo) {
     ["SELECT COUNT(*) FROM commenti WHERE autore = ? AND testo = ? AND creato > ?", [c.autore, testo, prima(86400)], 1, "Hai già pubblicato questo commento."],
   ]);
   if (msg) return errore(msg, 429);
+  if (NOMI_UNICI && !(await prendiNome(c, nome))) return errore(NOME_PRESO, 409);
   const quando = iso(ora());
   const r = await c.db.prepare("INSERT INTO commenti (sito, ed, padre, nome, testo, creato, autore, ip) VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id")
     .bind(c.sito, n, padre, nome, testo, quando, c.autore, c.ip).first();
   await pulizia(c);
   const voto = await c.db.prepare("SELECT voto FROM voti WHERE sito = ? AND ed = ? AND autore = ?").bind(c.sito, n, c.autore).first();
   return risposta({ commento: { id: r.id, padre, nome, testo, quando, piace: 0, mio: true, piaciuto: false, segnalato: false, voto: voto ? voto.voto : null } }, 201);
+}
+
+// ------------------------------------------------------------------ nomi unici
+const NOME_PRESO = "Questo nome è già di un altro lettore: scegline un altro, o generane uno con il dado.";
+// Di chi è la chiave: un nome che il suo lettore non usa da LIMITI.nome_giorni è di nuovo libero
+async function padrone(c, chiave) {
+  const r = await c.db.prepare("SELECT autore FROM nomi WHERE sito = ? AND chiave = ? AND usato >= ?").bind(c.sito, chiave, prima(LIMITI.nome_giorni * 86400)).first();
+  return r ? r.autore : null;
+}
+// Prima di pubblicare: il nome diventa (o resta) di chi scrive. false se è di un altro lettore.
+async function prendiNome(c, nome) {
+  const chiave = chiaveNome(nome), adesso = iso(ora());
+  await c.db.prepare("DELETE FROM nomi WHERE sito = ? AND chiave = ? AND autore != ? AND usato < ?").bind(c.sito, chiave, c.autore, prima(LIMITI.nome_giorni * 86400)).run();
+  // chi arriva per primo lo prende: se due lettori lo chiedono nello stesso istante, la chiave primaria ne fa passare uno
+  await c.db.prepare("INSERT OR IGNORE INTO nomi (sito, chiave, nome, autore, creato, usato) VALUES (?, ?, ?, ?, ?, ?)").bind(c.sito, chiave, nome, c.autore, adesso, adesso).run();
+  const r = await c.db.prepare("SELECT autore FROM nomi WHERE sito = ? AND chiave = ?").bind(c.sito, chiave).first();
+  if (!r || r.autore !== c.autore) return false;
+  await c.db.batch([
+    c.db.prepare("UPDATE nomi SET nome = ?, usato = ? WHERE sito = ? AND chiave = ?").bind(nome, adesso, c.sito, chiave),
+    // un lettore tiene per sé pochi nomi: oltre, torna libero quello che usa da più tempo
+    c.db.prepare(`DELETE FROM nomi WHERE sito = ?1 AND autore = ?2 AND chiave NOT IN
+                    (SELECT chiave FROM nomi WHERE sito = ?1 AND autore = ?2 ORDER BY usato DESC, creato DESC LIMIT ?3)`).bind(c.sito, c.autore, LIMITI.nomi_per_lettore),
+  ]);
+  return true;
+}
+// La sezione lo chiede mentre il lettore sceglie il nome (o tira il dado), per dirglielo prima che scriva il commento
+async function nomeLibero(c, grezzo) {
+  const nome = pulisciNome(grezzo), sbaglio = controllaNome(nome);
+  if (sbaglio) return risposta({ libero: false, tuo: false, messaggio: sbaglio });
+  const di = NOMI_UNICI ? await padrone(c, chiaveNome(nome)) : null;
+  const tuo = !!di && !!c.autore && di === c.autore;
+  return risposta({ libero: !di || tuo, tuo, messaggio: !di || tuo ? "" : NOME_PRESO });
 }
 
 async function vota(c, n, corpo) {
@@ -305,4 +360,17 @@ async function segnala(c, id) {
   const nascosto = reti >= LIMITI.segnalazioni_per_nascondere;
   await c.db.prepare("UPDATE commenti SET segnalazioni = ?, nascosto = CASE WHEN ? THEN MAX(nascosto, 1) ELSE nascosto END WHERE id = ?").bind(reti, nascosto ? 1 : 0, id).run();
   return risposta({ ok: true, nascosto });
+}
+
+// ------------------------------------------------------------------ avviso alla redazione
+// I commenti segnalati negli ultimi LIMITI.segnalazioni_giorni che la redazione non ha ancora tolto: numero, edizione,
+// quante reti l'hanno segnalato e se è già nascosto. Mai il testo, il nome o chi ha segnalato: l'elenco è pubblico e
+// finisce in una segnalazione di GitHub (segnalazioni.yml), dove un commento da togliere non deve essere copiato.
+async function segnalazioni(c) {
+  const righe = await c.db.prepare(
+    `SELECT c.id, c.ed, c.segnalazioni AS reti, c.nascosto, MAX(s.creato) AS ultima
+       FROM commenti c JOIN segnalazioni s ON s.commento = c.id
+      WHERE c.sito = ? AND c.nascosto < 2 AND s.creato > ? GROUP BY c.id ORDER BY c.id LIMIT 100`)
+    .bind(c.sito, prima(LIMITI.segnalazioni_giorni * 86400)).all();
+  return risposta({ sito: c.sito, segnalati: (righe.results || []).map((r) => ({ id: r.id, ed: r.ed, reti: r.reti, nascosto: r.nascosto === 1, ultima: r.ultima })) });
 }

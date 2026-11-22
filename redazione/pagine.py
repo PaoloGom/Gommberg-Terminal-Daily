@@ -177,7 +177,7 @@ GOMM_JS = """<script src="../assets/gomm.js?v=""" + GOMM_V + """"></script>
 
 # La Gommunity (G-13) in ogni edizione, dopo "In 30 secondi": lo stesso sentiment e la stessa discussione della homepage
 # (assets/lettori.js e lettori.css, gli stessi file). Senza JavaScript la sezione resta vuota e nascosta.
-LETTORI_V = "2026-11-22e"   # cambia quando cambiano assets/lettori.js o lettori.css (il browser riprende i file nuovi)
+LETTORI_V = "2026-11-28"   # cambia quando cambiano assets/lettori.js o lettori.css (il browser riprende i file nuovi)
 
 
 def lettori_js(ed):
@@ -449,7 +449,7 @@ def feed(eds):
 
 FISSE = (("", "daily", "1.0"), ("archivio.html", "daily", "0.8"), ("glossario.html", "weekly", "0.8"),
          ("scommessa.html", "weekly", "0.6"), ("numeri.html", "daily", "0.5"), ("progetto.html", "monthly", "0.5"),
-         ("iscriviti.html", "monthly", "0.6"), ("privacy.html", "yearly", "0.2"))
+         ("iscriviti.html", "monthly", "0.6"), ("regole.html", "yearly", "0.2"), ("privacy.html", "yearly", "0.2"))
 
 
 def mappa_sito(eds):

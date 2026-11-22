@@ -7,16 +7,42 @@
                                       {numero, data}; si richiama a ogni cambio di edizione. Se il servizio non risponde
                                       la pagina resta intera: la sezione dice soltanto che la discussione non si carica.
    Nessuna iscrizione e nessuna email: il nome si scrive in "Firmi come" o si genera con il dado, e lo ricorda il browser,
-   come il codice anonimo del lettore (gtd-lettore) che riconosce i suoi commenti, like e voti. */
+   come il codice anonimo del lettore (gtd-lettore) che riconosce i suoi commenti, like e voti. Un nome resta di chi l'ha
+   usato per primo: mentre lo scegli la sezione chiede al servizio se è libero, e il dado ne propone solo di liberi. */
 (function () {
   "use strict";
   var API = "/api/lettori/";
   var LAB = { toro: "Toro", orso: "Orso" };
   var SEGNO = { toro: "▲", orso: "▼" };
-  // nomi da generare con il dado (la lista lunga, oltre 100 nomi a tema, arriva dopo)
-  var NOMI = ["Toro paziente", "Orso in letargo", "Cassettista zen", "Spread di buonumore", "Mano ferma", "Dividendo felice",
-              "Lettore delle 9:45", "Cedola mensile", "Lungo periodo", "Rendimento reale", "Buy and hold", "Volatile ma sereno",
-              "Piazza Affari 26", "Bund tranquillo", "Ribilanciatore", "Orso con ombrello"];
+  // I nomi del dado (Paolo 22/11: un centinaio, italiani, di finanza, ironici e simpatici). Ogni nome è di un solo lettore:
+  // il dado propone solo quelli liberi e, se sono finiti, ne numera uno ("Toro seduto 7"). Per allungare la lista basta
+  // aggiungere righe: al massimo 24 caratteri, e il collaudo controlla che il servizio li accetti tutti.
+  var NOMI = [
+    // tori, orsi e altri animali di Borsa
+    "Toro paziente", "Toro seduto", "Toro del lunedì", "Toro da scrivania", "Orso con ombrello", "Orso in letargo", "Orso di peluche",
+    "Lupo di Piazza Affari", "Gatto che rimbalza", "Cigno nero", "Falco a dieta", "Colomba di Francoforte", "Parco buoi", "Bue consapevole",
+    // la gente dei mercati
+    "Cassettista zen", "Cassettista dal 1999", "Oracolo di Voghera", "Analista del bar", "Trader della domenica", "Trader in pausa pranzo",
+    "Guru del giorno dopo", "Bastian contrarian", "Zio col BTP", "Nonna dei BOT", "Piccolo azionista", "Socio di minoranza",
+    "Petroliere mancato", "Consulente di me stesso", "Ribilanciatore seriale", "Lettore delle 9:45",
+    // come si compra e come si vende
+    "Compro sui massimi", "Vendo sui minimi", "Entrato sui massimi", "Medio al ribasso", "Stop loss mancato", "Short per sbaglio",
+    "Long per sempre", "Compra e dimentica", "Profitto mai visto", "Diversificato male", "Un ETF e via", "Liquido per prudenza",
+    "Senno di poi", "L'avevo detto", "Era già nei prezzi", "Coltello al volo", "Mani di burro", "Mani di diamante", "Mano ferma",
+    "Nervi saldi", "Sangue freddo", "Stomaco forte", "Sonni tranquilli", "Fomo controllata", "Panico rientrato", "Volatile ma sereno",
+    // le frasi del listino
+    "Poco mosso", "Prese di beneficio", "Seduta incolore", "In altalena", "Sulla parità", "Maglia rosa del listino", "Maglia nera del listino",
+    "Volumi di Ferragosto", "Tre streghe", "Lunedì nero", "Venerdì 17", "Rally di Babbo Natale", "Bolla? Quale bolla", "Assemblea deserta",
+    // tassi, banche centrali e carrello della spesa
+    "Whatever it takes", "Fed permettendo", "Spread permettendo", "Euribor permettendo", "Inflazione percepita", "Carrello della spesa",
+    "Paniere Istat", "Atterraggio morbido", "Curva invertita", "Scadenza 2067", "Bund tranquillo", "Spread di buonumore", "Mano invisibile",
+    // rendimenti e fisco
+    "Cedola puntuale", "Dividendo felice", "Interesse composto", "Rendimento sperato", "Zainetto fiscale", "Minus da compensare",
+    "Ventisei per cento", "Dodici e mezzo", "Alpha cercasi", "Sotto il benchmark", "Outlook stabile",
+    // a tavola e in casa
+    "Spritz e spread", "Pizza e dividendi", "Cappuccino e cedola", "Caffè e Bund", "Oro della nonna", "Lingotto in cantina",
+    "Tulipano olandese", "Materasso & Co."];
+  function nomeACaso() { return NOMI[Math.floor(Math.random() * NOMI.length)]; }
   var RISERVATI = /redazion|gommberg|gommellini|amministra|admin|moderat|staff|direttore/i;   // gli stessi del servizio
   var AV = ["#F6D7C3", "#D9E8DE", "#DCE3F0", "#EADCF0", "#F0E6C8", "#E3DED7"];
   var CUORE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2Z"/></svg>';
@@ -43,7 +69,7 @@
   }
 
   var S = { ed: null, d: null, stato: "attesa", ord: "top", filtro: "tutti", tutti: false, menu: null, re: null, nuovo: null,
-            miei: {}, presa: 0, gen: 0, anima: false, nome: leggi("gtd-nome") || "", giro: Math.floor(Math.random() * NOMI.length) };
+            miei: {}, presa: 0, gen: 0, anima: false, nome: leggi("gtd-nome") || "" };
   var R = null;   // la sezione montata
 
   /* ---------- Il servizio ---------- */
@@ -210,7 +236,7 @@
       box.appendChild(v);
     }
     lista.forEach(function (c, i) { var x = nodo(c); if (i >= 3) x.classList.add("oltre"); box.appendChild(x); });
-    piu.hidden = lista.length <= 3 || S.tutti; piu.textContent = "Vedi tutti i " + n + " commenti";
+    piu.hidden = lista.length <= 3 || S.tutti; piu.textContent = "Vedi tutti e " + n + " i commenti";
     R.classList.toggle("lt-tutti", S.tutti);
   }
 
@@ -233,6 +259,25 @@
     if (RISERVATI.test(v.replace(/[\s._-]/g, ""))) return "Questo nome è riservato alla redazione: scegline un altro.";
     S.nome = v; return "";
   }
+  // Un nome è di un solo lettore: il servizio dice se quello scritto è libero, prima che si scriva il commento.
+  // Se il servizio non risponde non si dice nulla: il controllo vero lo fa comunque alla pubblicazione.
+  var timerNome = null;
+  function nomeLibero(nome) { return api("GET", "nome?n=" + encodeURIComponent(nome)); }
+  function verificaNome() {
+    clearTimeout(timerNome);
+    timerNome = setTimeout(function () {
+      var nome = (S.nome || "").replace(/\s+/g, " ").trim(); if (nome.length < 2) return;
+      nomeLibero(nome).then(function (j) { if (j && !j.libero && j.messaggio && (S.nome || "").replace(/\s+/g, " ").trim() === nome) errore(j.messaggio); }, function () {});
+    }, 600);
+  }
+  function tiraDado(giri) {
+    giri = giri || 0;
+    // i primi tentativi pescano dalla lista; se sono tutti presi, un nome della lista con un numero
+    var nome = nomeACaso(), ni = q(".cmp-nome", R);
+    if (giri >= 4) { while (nome.length > 21) nome = nomeACaso(); nome += " " + (2 + Math.floor(Math.random() * 98)); }
+    clearTimeout(timerNome); S.nome = nome; ni.value = nome; errore(""); composer();
+    nomeLibero(nome).then(function (j) { if (j && !j.libero && S.nome === nome && giri < 8) tiraDado(giri + 1); }, function () {});
+  }
   function contatore() { var n = q("textarea", R).value.length; q("[data-conto]", R).textContent = n > 480 ? (600 - n) + " caratteri" : ""; }
   function invia() {
     var ta = q("textarea", R), x = ta.value.replace(/\n{3,}/g, "\n\n").trim(), send = q(".send", R);
@@ -251,7 +296,7 @@
       rendi();
       var nd = R.querySelector('[data-id="' + c.id + '"]'); if (nd && nd.scrollIntoView) nd.scrollIntoView({ block: "nearest", behavior: "smooth" });
       var id = c.id; setTimeout(function () { if (S.nuovo === id) S.nuovo = null; }, 2000);
-    }, function (e) { send.textContent = "Pubblica"; send.disabled = false; errore(e.message); });
+    }, function (e) { send.textContent = "Pubblica"; send.disabled = false; errore(e.message); if (e.stato === 409) q(".cmp-nome", R).focus(); });
   }
 
   /* ---------- Azioni ---------- */
@@ -324,6 +369,7 @@
     var err = el("p", "cmp-err"); err.dataset.err = ""; err.setAttribute("role", "alert"); err.hidden = true; form.appendChild(err);
     root.appendChild(form);
     var nota = el("p", "lt-regole", "Nessuna iscrizione. Opinioni sì, consigli di acquisto no. ");
+    var rg = el("a", "", "Regole"); rg.href = "/regole.html"; nota.appendChild(rg); nota.appendChild(document.createTextNode(" · "));
     var pv = el("a", "", "Privacy"); pv.href = "/privacy.html#lettori"; nota.appendChild(pv); root.appendChild(nota);
     root.setAttribute("aria-labelledby", "lt-h");
 
@@ -335,7 +381,7 @@
     });
     ta.addEventListener("input", function () { ta.style.height = "auto"; ta.style.height = Math.min(ta.scrollHeight + 2, 160) + "px"; errore(""); contatore(); });
     ta.addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); invia(); } });
-    ni.addEventListener("input", function () { S.nome = ni.value; errore(""); var a = q(".cmp .av", R); a.textContent = iniziali(S.nome || "?"); a.style.background = colore(S.nome || "?"); });
+    ni.addEventListener("input", function () { S.nome = ni.value; errore(""); var a = q(".cmp .av", R); a.textContent = iniziali(S.nome || "?"); a.style.background = colore(S.nome || "?"); verificaNome(); });
     root.addEventListener("click", function (e) {
       var b = e.target.closest("[data-act]"); if (!b || !root.contains(b)) return;
       var act = b.dataset.act, id = +b.dataset.id;
@@ -350,7 +396,7 @@
       else if (act === "ricarica") { tentativi = 0; carica(false); }
       else if (act === "rispondi") { S.re = { id: id, n: b.dataset.n }; if (b.dataset.cita && !ta.value) ta.value = "@" + b.dataset.n + " "; rendi(); ta.focus(); }
       else if (act === "annulla") { S.re = null; rendi(); ta.focus(); }
-      else if (act === "dado") { S.giro = (S.giro + 1) % NOMI.length; S.nome = NOMI[S.giro]; ni.value = S.nome; errore(""); composer(); }
+      else if (act === "dado") tiraDado(0);
     });
   }
 

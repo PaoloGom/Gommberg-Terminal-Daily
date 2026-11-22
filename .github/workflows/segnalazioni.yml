@@ -1,0 +1,32 @@
+# Segnalazioni della Gommunity (G-13): ogni ora redazione/sito/segnalazioni.py legge da gommberg.com l'elenco dei
+# commenti che i lettori hanno segnalato (senza testi) e, per ogni commento nuovo, apre una segnalazione assegnata a
+# Paolo: GitHub gli manda l'email. Nessun modello e nessun segreto: solo il token del giro. Se non c'è nulla non scrive
+# a nessuno. Il giro dura pochi secondi; se un giorno il repository diventa privato sono circa 720 minuti al mese dei
+# 2.000 gratuiti: in quel caso si può passare a ogni due ore cambiando la riga del cron.
+name: Segnalazioni della Gommunity
+
+on:
+  schedule:
+    - cron: "23 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write                    # la segnalazione a Paolo
+
+concurrency:
+  group: segnalazioni              # mai due giri insieme: aprirebbero la stessa segnalazione due volte
+  cancel-in-progress: false
+
+jobs:
+  avviso:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: redazione/sito
+      - name: Commenti segnalati
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 redazione/sito/segnalazioni.py | tee -a "$GITHUB_STEP_SUMMARY"

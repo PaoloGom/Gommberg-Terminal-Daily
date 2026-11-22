@@ -1200,15 +1200,15 @@ def passo_sito():
 
 
 def passo_lettori(copia):
-    """La Community (G-13): il servizio vero contro un D1 finto (redazione/sito/prova_lettori.mjs, Node 22.5+),
-    la sintassi del codice che gira nel browser e la configurazione."""
+    """La Gommunity (G-13): il servizio vero contro un D1 finto (redazione/sito/prova_lettori.mjs, Node 22.5+),
+    la sintassi del codice che gira nel browser, la configurazione e l'avviso a Paolo sulle segnalazioni."""
     male = []
     node = shutil.which("node")
     if not node:
         return esito("Lettori: servizio dei commenti", False, "manca Node (serve la 22.5 o più): il servizio non è collaudato")
     rc, out = esegui([node, "--no-warnings", os.path.join(R, "sito", "prova_lettori.mjs")])
     esito("Lettori: servizio dei commenti", rc == 0, out.strip().splitlines()[-1][:200] if out.strip() else f"uscita {rc}")
-    for f in sorted(glob.glob(os.path.join(REPO, "assets", "*.js"))) + [os.path.join(R, "sito", "lettori.js")]:
+    for f in sorted(glob.glob(os.path.join(REPO, "assets", "*.js"))) + sorted(glob.glob(os.path.join(R, "sito", "*.js"))) + sorted(glob.glob(os.path.join(R, "sito", "*.mjs"))):
         rc, out = esegui([node, "--check", f])
         if rc:
             male.append(os.path.relpath(f, REPO) + ": " + out.strip().splitlines()[-1][:90])
@@ -1230,7 +1230,31 @@ def passo_lettori(copia):
             male.append("wrangler.jsonc: main, run_worker_first o il database non sono quelli di lettori.js")
     except Exception as e:  # noqa: BLE001
         male.append(f"wrangler.jsonc: {e}"[:90])
-    esito("Lettori: codice e configurazione", not male, "; ".join(male)[:300] or "sintassi, nomi riservati, versione dei file e configurazione in ordine")
+    # la pagina delle regole che la sezione collega esiste
+    if "/regole.html" not in open(os.path.join(REPO, "assets", "lettori.js"), encoding="utf-8").read() or not os.path.exists(os.path.join(REPO, "regole.html")):
+        male.append("regole.html manca o la sezione non la collega")
+    esito("Lettori: codice e configurazione", not male, "; ".join(male)[:300] or "sintassi, nomi riservati, versione dei file, regole e configurazione in ordine")
+    # l'avviso a Paolo (segnalazioni.py, lanciato ogni ora da segnalazioni.yml): una segnalazione per commento, mai il testo;
+    # se l'elenco non si legge non segnala nulla e non fallisce
+    male = []
+    elenco = os.path.join(copia, "_segnalati.json")
+    json.dump({"sito": "gommberg", "segnalati": [{"id": 123, "ed": 31, "reti": 1, "nascosto": False, "ultima": "2026-11-23T09:42:10Z", "testo": "NON-DEVE-USCIRE"},
+                                                    {"id": 7, "ed": 30, "reti": 3, "nascosto": True, "ultima": "2026-11-23T10:00:00Z"}, {"id": "x"}]}, open(elenco, "w", encoding="utf-8"))
+    script = os.path.join(R, "sito", "segnalazioni.py")
+    rc, out = esegui([sys.executable, script, "--prova"], env={**os.environ, "GTD_ELENCO": elenco})
+    if rc or out.count("Aprirei: ") != 2 or "commento n. 123 segnalato (edizione n. 031)" not in out or "È già nascosto" not in out or "23/11/2026 alle 10:42" not in out:
+        male.append("due commenti segnalati non danno due segnalazioni complete")
+    if "NON-DEVE-USCIRE" in out:
+        male.append("il testo del commento finisce nella segnalazione")
+    open(elenco, "w", encoding="utf-8").write("non è un elenco")
+    rc, out = esegui([sys.executable, script, "--prova"], env={**os.environ, "GTD_ELENCO": elenco})
+    if rc or "Aprirei" in out:
+        male.append("elenco illeggibile: deve uscire con 0 senza segnalare")
+    os.remove(elenco)
+    flusso = open(os.path.join(REPO, ".github", "workflows", "segnalazioni.yml"), encoding="utf-8").read()
+    if "redazione/sito/segnalazioni.py" not in flusso or "issues: write" not in flusso or not re.search(r'cron: "\d+ \* \* \* \*"', flusso):
+        male.append("segnalazioni.yml: non lancia lo script ogni ora o non può aprire segnalazioni")
+    esito("Lettori: avviso sulle segnalazioni", not male, "; ".join(male)[:300] or "una segnalazione per commento, senza testo; elenco illeggibile ignorato; giro ogni ora")
 
 
 def passo_pubblicazione(copia):
