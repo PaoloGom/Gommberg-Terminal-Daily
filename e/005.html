@@ -70,20 +70,25 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .vote{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 30px;font-size:15px;color:var(--muted)}
 .vote button{font-family:var(--mono);font-size:13px;min-height:38px;padding:0 14px;background:transparent;color:var(--ink);border:1px solid var(--rule);cursor:pointer}
 .vote .thx{color:var(--ink)}
-.gx{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);align-items:start;margin:0 0 30px}
-.gx.solo{grid-template-columns:1fr}
+.gx{margin:0 0 30px;padding:20px 22px 22px;background:var(--panel);border-top:3px solid var(--orange)}
+.gx-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;margin:0 0 16px}
+.gx-h h2{margin:0;padding:0;border:0;text-transform:none;letter-spacing:0;font-family:var(--display);font-stretch:85%;font-weight:800;font-size:24px;line-height:1.1;color:var(--ink)}
+.gx-h p{margin:0;font-size:15px;color:var(--muted)}
+.gx-c{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.gx-c.solo{grid-template-columns:repeat(2,minmax(0,1fr))}
+.gx-k{display:flex;flex-direction:column;min-width:0;padding:14px 16px 16px;background:var(--paper);border:1px solid var(--rule)}
+.gx-l{margin:0 0 10px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.gx-t{margin:0;font-size:14.5px;line-height:1.45;color:var(--ink)}
+.gx-a{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:14px}
+.gx-a > .gs-wa,.gx-a > .gs-cp{flex:1 1 0;min-width:0;padding:0 10px;white-space:nowrap}
 .gx .tag{display:inline-block;background:var(--orange);color:#0E0E0E;font-family:var(--mono);font-weight:500;font-size:12px;padding:1px 6px}
 .gx-v{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;margin:0;font-family:var(--mono)}
-.gx-v b{font-size:22px;font-weight:500;color:var(--ink)}.gx-v .c{font-size:13px}.gx-v .up{color:var(--up)}.gx-v .down{color:var(--down)}
-.gx-m{display:flex;gap:2px;align-items:flex-end;height:44px;margin-top:12px}
+.gx-v b{font-size:22px;font-weight:500;color:var(--ink)}.gx-v .c{font-size:12.5px}.gx-v .up{color:var(--up)}.gx-v .down{color:var(--down)}
+.gx-m{display:flex;gap:2px;align-items:flex-end;height:40px;margin-top:10px}
 .gx-m i{flex:1 1 0;min-height:2px;background:var(--up)}.gx-m i.giu{background:var(--down)}
-.gx{border-top:3px solid var(--orange)}
-.gx .gs-b{margin-top:14px}
-.gx-mail{margin:14px 0 0;padding-top:12px;border-top:1px solid var(--rule);font-size:14px;line-height:1.5;color:var(--muted)}
-.gx-mail svg{width:16px;height:16px;margin-right:6px;vertical-align:-3px;color:var(--orange-ink)}
-.gx-mail a{color:var(--orange-ink);font-weight:600;text-underline-offset:3px}
-.gx-g a{display:inline-block;margin-top:8px;font-size:13px;font-weight:600;color:var(--orange-ink);text-underline-offset:3px}
-@media (max-width:640px){.gx{grid-template-columns:1fr}}
+.gx-q .gx-a a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:44px;font-size:13.5px;font-weight:600;color:var(--orange-ink);text-underline-offset:3px}
+@media (max-width:900px){.gx-c,.gx-c.solo{grid-template-columns:1fr}.gx-a > .gs-wa,.gx-a > .gs-cp{flex:0 1 auto;padding:0 18px}}
+@media (max-width:520px){.gx{padding:16px 14px 18px}.gx-h{margin-bottom:12px}.gx-k{padding:12px 14px 14px}.gx-l{margin-bottom:6px}.gx-a{padding-top:10px}.gx-a > .gs-wa,.gx-a > .gs-cp{flex:1 1 0;padding:0 10px}.gx-m{height:32px}}
 @media (max-width:520px){.dek{font-size:17px}.btn.lead{flex:1 1 auto;justify-content:center}.btn.ghost{width:46px;padding:0;justify-content:center}.btn.ghost span{display:none}.btn[data-pdf="scaricata"]{display:none}}
 </style>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
@@ -101,7 +106,7 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 <section><h2>In agenda</h2><ul class="ag"><li><small>Ven 16, 11:00</small><b>Prezzi al consumo area euro (settembre, finale)</b><p><em>Attese:</em> 3,8% a/a; prec. 3,2%</p><p><em>Perché conta:</em> Inflazione europea dopo il dato USA</p></li><li><small>Ven 16, 14:30</small><b>Prezzi all&#x27;export e all&#x27;import USA (settembre)</b><p><em>Attese:</em> export <span class="up">+1,0%</span>, import <span class="up">+0,9%</span> m/m</p><p><em>Perché conta:</em> Prezzi alle frontiere, dopo il PPI</p></li><li class="key"><small>Ven 16, 15:15</small><b>Produzione industriale USA (settembre)</b><p><em>Attese:</em> <span class="up">+0,4%</span> m/m; prec. 0,0%</p><p><em>Il più atteso:</em> Attività reale dopo PPI e consumi</p></li></ul></section>
 <section><h2>Le sigle di questa edizione</h2><div class="sigle"><a href="../glossario.html#g-ppi"><b>PPI</b> prezzi alla produzione</a><a href="../glossario.html#g-core"><b>core</b> esclusi energia e alimentari</a><a href="../glossario.html#g-vix"><b>VIX</b> volatilità attesa sull&#x27;S&amp;P 500</a><a href="../glossario.html#g-acwi"><b>ACWI</b> indice azionario mondiale MSCI</a></div><p class="tutte"><a href="../glossario.html">Tutto il glossario &rsaquo;</a></p></section>
 <div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
-<section class="gs gx solo" aria-labelledby="gx-h"><div class="gx-g" id="gx" hidden><p class="gx-v"><span class="tag">GOMM</span><b id="gxV"></b><span class="c" id="gxC"></span></p><div class="gx-m" id="gxM" aria-hidden="true"></div><a href="../numeri.html">Vedi il grafico &rarr;</a></div><div class="gs-t"><h2 class="gs-h" id="gx-h">Fai salire il GOMM</h2><p class="gs-p">Il GOMM sale ogni volta che il Gommberg trova un lettore nuovo. Se questa edizione ti è stata utile, inoltrala a chi vuole capire i mercati.</p><div class="gs-b"><a class="gs-wa" href="https://wa.me/?text=Prezzi%20alla%20produzione%20USA%20%2B1%2C3%25%20in%20un%20mese%3A%20il%20rialzo%20pi%C3%B9%20forte%20da%20oltre%20quattro%20anni%20https%3A//gommberg.com/e/005.html" target="_blank" rel="noopener">Inoltra su WhatsApp</a><button type="button" class="gs-cp" data-copy="https://gommberg.com/e/005.html">Copia il link</button></div><p class="gx-mail"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>Il Gommberg nella tua casella ogni mattina alle 9:45, gratis: <a href="../iscriviti.html" data-goatcounter-click="invito-iscrizione" data-goatcounter-title="Invito all'iscrizione (clic)">ricevila via email</a></p></div></section>
+<section class="gx" aria-labelledby="gx-h"><div class="gx-h"><h2 id="gx-h">Fai salire il GOMM</h2><p>La quotazione del Gommberg sale con ogni lettore nuovo.</p></div><div class="gx-c solo"><div class="gx-k gx-q" id="gx" hidden><p class="gx-l">La quotazione</p><p class="gx-v"><span class="tag">GOMM</span><b id="gxV"></b><span class="c" id="gxC"></span></p><div class="gx-m" id="gxM" aria-hidden="true"></div><div class="gx-a"><a href="../numeri.html">Vedi il grafico &rarr;</a></div></div><div class="gx-k"><p class="gx-l">Inoltra l'edizione</p><p class="gx-t">Mandala a chi vuole capire i mercati.</p><div class="gx-a"><a class="gs-wa" href="https://wa.me/?text=Prezzi%20alla%20produzione%20USA%20%2B1%2C3%25%20in%20un%20mese%3A%20il%20rialzo%20pi%C3%B9%20forte%20da%20oltre%20quattro%20anni%20https%3A//gommberg.com/e/005.html" target="_blank" rel="noopener">WhatsApp</a><button type="button" class="gs-cp" data-copy="https://gommberg.com/e/005.html">Copia il link</button></div></div><div class="gx-k"><p class="gx-l">Ricevila via email</p><p class="gx-t">Ogni mattina alle 9:45 nella tua casella, dal lunedì al venerdì. Gratis.</p><div class="gx-a"><a class="gs-wa" href="../iscriviti.html" data-goatcounter-click="invito-iscrizione" data-goatcounter-title="Invito all'iscrizione (clic)">Iscriviti</a></div></div></div></section>
 <div class="pn"><a href="004.html">&lsaquo; N. 004</a><a href="006.html">N. 006 &rsaquo;</a></div>
 </main>
 <script>

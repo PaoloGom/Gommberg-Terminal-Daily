@@ -87,13 +87,14 @@ a { color: inherit; }
 .tk .c.down { color: var(--down-bar); }
 .tk.when { color: var(--orange); }
 /* Il GOMM, la quotazione del Gommberg (G-14): primo del nastro, porta a I numeri */
-a.tk.gomm { text-decoration: none; padding-left: 0; border-left: 0; }
+/* un riquadro suo, staccato dalle chiusure: è la nostra quotazione (chiusura di ieri), non un mercato dell'edizione */
+a.tk.gomm { align-self: stretch; display: flex; align-items: center; margin-right: 8px; padding: 0 8px; border-left: 0; background: var(--bar-2); text-decoration: none; }
 a.tk.gomm.gm-mk { text-decoration: none; }
 a.tk.gomm .t { display: inline-block; background: var(--orange); color: #0E0E0E; font-weight: 600; padding: 1px 5px; margin-right: 6px; }
 a.tk.gomm:hover .v, a.tk.gomm:focus-visible .v { color: var(--orange); }
-a.tk.gomm + .tk.when { border-left-color: var(--orange); }
+a.tk.gomm + .tk.when { border-left: 0; padding-left: 0; }
 /* con il GOMM il nastro ha un elemento in più: su PC le celle si stringono per stare tutte in una riga a 1180 px */
-@media (min-width: 761px) { .tape-row { font-size: 10.5px; } .tk { padding: 0 5px; } .tk .l, .tk .v { margin-right: 4px; } a.tk.gomm .t { margin-right: 5px; } }
+@media (min-width: 761px) { .tape-row { font-size: 10.5px; } .tk { padding: 0 4px; } .tk .l, .tk .v { margin-right: 4px; } a.tk.gomm .t { margin-right: 5px; } }
 
 /* ---------- Il palco: l'edizione di oggi ---------- */
 .stage { background: var(--paper); color: var(--ink); border-bottom: 1px solid var(--ink); }
