@@ -304,7 +304,8 @@ def pagina(ed, prec, succ):
                         "logo": {"@type": "ImageObject", "url": BASE + "assets/copertina.png"}}}
     a('<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>")
     a('<meta name="theme-color" content="#0E0E0E">')
-    a('<link rel="icon" href="../assets/icona.svg" type="image/svg+xml">')
+    a('<link rel="icon" href="../assets/icona.svg?v=2" type="image/svg+xml">')
+    a('<link rel="apple-touch-icon" href="../assets/icona-180.png">')
     a('<link rel="stylesheet" href="../assets/sito.css">')
     a('<link rel="alternate" type="application/rss+xml" title="Gommberg Terminal Daily" href="../feed.xml">')
     a('<link rel="preconnect" href="https://fonts.googleapis.com">')
