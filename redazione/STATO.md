@@ -27,7 +27,7 @@ Come si lavora in ogni chat che tocca il motore o il sito: `bash redazione/rilas
 
 ## Prossimo passo
 **Domenica 22/11, prima dell'email di lunedì:**
-1. **Paolo**: aggiungere il connettore EODHD all'attività del mattino prima delle 8:58 di lunedì. Senza, G-03 lavora con il ripiego su due fonti web.
+1. Connettore EODHD: verificato da Paolo il 22/11 nelle impostazioni dell'attività del mattino (Connettori: EODHD presente, modo Auto, Sonnet 5.5). Lunedì si vede se `dati.json` esce con fonte "EODHD + ...".
 2. **G-44** in una chat sua (Opus), con un rilascio piccolo: così era già scritto nella sua scheda.
 3. A occhio su PC e telefono: il pannello (anche i vecchi indirizzi #operativita #versioni #metodo) e `numeri.html` nelle tre viste. `sito.yml` ha già verificato che i file in linea sono quelli collaudati.
 4. Ramo `prova-2026-11-23-prima`: **resta** finché G-45 e G-46 non sono chiuse (unica copia della prima edizione di prova). `g36-modello` e `pannello` cancellati da Paolo il 22/11.
