@@ -727,8 +727,17 @@ def passo_dem():
     prova("orfano a 1 minuto", "", {"o": [kk(ora + timedelta(minutes=1))]}, ora, {"o": "nulla"}, 1)
     prova("ora spostata più tardi, Kit a 10 minuti", "a", {"a": [kk(ia("a") - timedelta(hours=2))]},
           ia("a") - timedelta(hours=2, minutes=10), {"a": "rifai-programmata"}, 0)
+    prova("ora cambiata a mano in Kit", "a", {"a": [kk(ia("a") + timedelta(hours=3), impronta=imp("a", True))]}, ora, {"a": "rifai-programmata"}, 0)
+    prova("già partita con una copia viva", "a", {"a": [kk(ia("a") - timedelta(hours=1), partito=True, i=1), kk(ia("a") + timedelta(days=1), i=2)]},
+          ia("a") + timedelta(minutes=5), {"a": "elimina"}, 1)
     prova("approvata non partita, il giorno dopo", "a", {}, ia("a") + timedelta(hours=1), {"a": "nulla"}, 1)
     prova("approvata non partita, dopo 3 giorni", "a", {}, ia("a") + timedelta(days=3), {"a": "nulla"}, 0)
+    # nel dubbio si ritira: ok tolto, stato scritto male, data illeggibile, anche con errori nei file
+    for nome, extra, stato in (("ok tolto", "", "approvata"), ("stato scritto male", OK, "Bozza"), ("stato sconosciuto", OK, "sospesa")):
+        dubbia = leggi(("2027-01-16-a.md", "2027-01-16 10:00", stato, extra))[0]
+        azioni, _, _ = dem.piano([dubbia], {dubbia.etichetta: [kk(ia("a"), impronta=imp("a", True))]}, ora, MOD, True)
+        if [x[0] for x in azioni] != ["elimina"]:
+            sbagliati.append(f"piano, {nome} con l'invio programmato in Kit: va ritirata, trovato {[x[0] for x in azioni]}")
     if not dem.stato_kit({"status": "scheduled", "send_at": "2027-01-01T09:00:00Z"}, ora)["partito"]:
         sbagliati.append("un invio 'scheduled' con l'ora passata va considerato partito")
     if dem.dati_invio(mail["b"], False, MOD)["send_at"] is not None or not dem.dati_invio(mail["a"], True, MOD)["send_at"]:
@@ -780,7 +789,7 @@ def passo_dem():
     if corpo.count("grazie.html?d=2027-01-16-s&amp;r=") != 3 or "??" in corpo or "**" in corpo or "{{" in corpo or "Postilla." not in corpo:
         sbagliati.append("composizione: sondaggio, segni o postilla non resi")
     esito("Mail straordinarie: regole, pianificatore, esecuzione e composizione", not sbagliati,
-          f"{len(casi)} casi di regole ai confini, 14 situazioni di Kit, Kit finto che sbaglia, elenco a pagine, composizione"
+          f"{len(casi)} casi di regole ai confini, 19 situazioni di Kit (nel dubbio si ritira), Kit finto che sbaglia, elenco a pagine, composizione"
           if not sbagliati else "; ".join(sbagliati)[:600])
 
 
