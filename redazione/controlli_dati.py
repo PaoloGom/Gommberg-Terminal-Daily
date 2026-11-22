@@ -14,6 +14,7 @@ Esce con codice 1 se c'è un problema bloccante."""
 import datetime as dt, json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numeri as N  # noqa: E402
+import giorni as G  # noqa: E402
 
 from zoneinfo import ZoneInfo
 
@@ -54,11 +55,13 @@ for nome, s in d["serie"].items():
         problemi.append(f"{nome}: meno di due osservazioni (e l'archivio non ha la chiusura precedente: aggiungila)"); continue
     (d0, v0, vol0), (d1, v1, _) = u[0], u[1]
     d0 = dt.date.fromisoformat(d0)
-    giorni_lav = sum(1 for k in range(1, (oggi - d0).days + 1) if (d0 + dt.timedelta(days=k)).weekday() < 5)
+    # giorni di uscita passati dall'ultimo dato: un giorno senza edizione (borse chiuse insieme) non invecchia il dato
+    giorni_lav = sum(1 for k in range(1, (oggi - d0).days + 1) if G.uscita(d0 + dt.timedelta(days=k)))
     if giorni_lav > 2:
-        problemi.append(f"{nome}: ultimo dato del {d0}, vecchio di {giorni_lav} giorni lavorativi (festività? verificare e dichiararlo)")
+        problemi.append(f"{nome}: ultimo dato del {d0}, vecchio di {giorni_lav} giorni di uscita: cerca la chiusura più recente; se il "
+                        "mercato è davvero chiuso da più giorni, APP_FESTIVI §2")
     elif giorni_lav == 2:
-        avvisi.append(f"{nome}: ultimo dato del {d0} (possibile festività: dichiararla nel PDF)")
+        avvisi.append(f"{nome}: ultimo dato del {d0} (mercato chiuso ieri? verificalo e dillo nel testo: APP_FESTIVI §2)")
     ch = CHIUSURA.get(s.get("mercato"))
     if d0 == oggi and ch and ora < ch and s.get("tipo") == "chiusura":
         problemi.append(f"{nome}: dato di oggi segnato come chiusura ma il mercato chiude alle {ch}: è intraday")

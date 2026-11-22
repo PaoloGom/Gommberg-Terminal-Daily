@@ -181,25 +181,48 @@ def _gm(d):
     return f"{x.day}/{x.month}"
 
 
+def _al(prep, d):
+    """ "sul 19/10", "sull'11/9", "al 26/11", "all'8/12": la preposizione articolata davanti a una data (prep = "su" o "a")."""
+    x = _dt.date.fromisoformat(str(d)[:10])
+    return prep + ("ll'" if x.day in (1, 8, 11) else "l ") + _gm(d)
+
+
+def _piu_usato(date):
+    """La data più frequente; a parità la più recente (così è la riga rimasta indietro a essere detta a parte)."""
+    conta = {}
+    for d in date:
+        conta[d] = conta.get(d, 0) + 1
+    return max(conta, key=lambda d: (conta[d], d)) if conta else None
+
+
+def _elenco(nomi):
+    return nomi[0] if len(nomi) == 1 else ", ".join(nomi[:-1]) + " e " + nomi[-1]
+
+
+def _nome(et):
+    """Il nome di una riga dentro una nota: senza la precisazione tra parentesi."""
+    return et.split(" (")[0]
+
+
 def tabelle_da_dati(path="dati.json", archivio=None, silenzioso=False):
     """Le due tabelle di pag. 5 e le loro note, dal dati.json del giorno: {"cruscotto", "cruscotto_nota", "cross_data",
     "cross", "cross_nota", "mancanti"}. Una riga senza livello verificato non entra in tabella (mai "n.d."); un
     riferimento che l'archivio non ha ancora esce "-" e finisce in "mancanti", con la data da cercare una volta sola
-    (in dati.json, nella serie: "rif": {"AAAA-MM-GG": valore})."""
+    (in dati.json, nella serie: "rif": {"AAAA-MM-GG": valore}).
+    Le date. Ogni riga ha la data del suo livello e, per ogni riferimento, la data della chiusura davvero usata: con un
+    mercato chiuso le righe non hanno tutte la stessa. Intestazioni e note si scrivono da lì, senza supporre quale mercato
+    è avanti o indietro: la data sta nel punto più alto in cui vale per tutti. La data più usata dalle righe delle due
+    tabelle va nell'intestazione ("Livello GG/MM"); un gruppo che ne ha un'altra la porta nel titolo; una riga che non ha
+    quella del suo gruppo è detta nella nota. Lo stesso per i riferimenti: la data più usata dalle righe dell'intestazione,
+    e tra parentesi chi ne usa un'altra (un gruppo intero con il suo nome, altrimenti le righe)."""
     D = json.load(open(path, encoding="utf-8"))
     S = D["serie"]
     arch = archivio if archivio is not None else _archivio()
     mancanti = []
-    # la data di riferimento è quella dell'ultima chiusura USA (o, se manca, la più recente tra le chiusure)
-    def data0(nome):
-        s = S.get(nome) or {}
-        return str(s["ultimi"][0][0])[:10] if s.get("ultimi") else None
-    rif = data0("S&P 500") or max([data0(n) for n in S if S[n].get("tipo") != "intraday" and data0(n)] or [D["oggi"]])
-    g0 = _dt.date.fromisoformat(rif)
 
     # I riferimenti sono gli stessi ogni giorno: una settimana = la stessa seduta della settimana prima (il lunedì, con le
     # chiusure di venerdì, è la settimana intera); un mese = lo stesso giorno del mese prima. Se quel giorno era chiuso
-    # vale l'ultima chiusura prima. Ogni riga parte dalla data del suo livello (l'Asia di stamattina è un giorno avanti).
+    # vale l'ultima chiusura prima. Ogni riga parte dalla data del suo livello.
     def sett_prima(d):
         return (_dt.date.fromisoformat(d) - _dt.timedelta(days=7)).isoformat()
 
@@ -207,7 +230,7 @@ def tabelle_da_dati(path="dati.json", archivio=None, silenzioso=False):
         x = _dt.date.fromisoformat(d)
         m, a = (x.month - 1) or 12, x.year - (x.month == 1)
         return _dt.date(a, m, min(x.day, [31, 29 if a % 4 == 0 else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1])).isoformat()
-    asia_ora, usate, ricavati = [], {}, []                     # usate: la data davvero usata per ogni riferimento
+    asia_ora, ricavati = [], []
 
     def riga(et, nome, dec, unita, terza):
         nomi = nome if isinstance(nome, tuple) else (nome,)
@@ -239,7 +262,7 @@ def tabelle_da_dati(path="dati.json", archivio=None, silenzioso=False):
                 g1 = ("+" if s["var"] > 0 else "") + fmt(s["var"], 1) + "%"
             else:
                 g1 = "-"; mancanti.append(f"{et}: manca la chiusura precedente, del {_gm(_ieri(d0))} (1 g)")
-        celle = []
+        celle, usate = [], {}                          # usate: la chiusura davvero usata per ogni riferimento
         for che, quando, giorni in (("1 sett.", sett_prima(d0), 4), (terza, mese_prima(d0), 6)):
             if che == "anno":
                 base = max((d for d in st if d[:4] < d0[:4] and d >= f"{int(d0[:4]) - 1}-12-20"), default=None)
@@ -249,14 +272,14 @@ def tabelle_da_dati(path="dati.json", archivio=None, silenzioso=False):
                 x = _entro(st, quando, giorni)
             if x and x[0] < d0:
                 celle.append(_var(v0, x[1], t))
-                usate.setdefault((che, d0 == rif), x[0])
+                usate[che] = x[0][:4] if che == "anno" else x[0]     # per l'anno conta di quale anno è la chiusura
             else:
                 celle.append("-")
                 mancanti.append(f"{et.replace('&amp;', '&')}: manca la chiusura del {_gm(quando)} ({'da inizio anno' if che == 'anno' else che})")
         livello = "~" + fmt(round(v0), 0) if ric else fmt(v0, dec) + unita
-        return [et + ("*" if intraday else ""), livello, _gm(d0), g1] + celle
+        return {"et": et, "data": d0, "usate": usate, "celle": [et + ("*" if intraday else ""), livello, _gm(d0), g1] + celle}
 
-    def gruppi(spec, terza, taglia):                    # terza = che cosa c'è nella terza colonna: "anno" o "1 mese"
+    def gruppi(spec, terza):                            # terza = che cosa c'è nella terza colonna: "anno" o "1 mese"
         out = []
         for titolo, righe in spec:
             rr = [r for r in (riga(et, nome, dec, un, terza) for et, nome, dec, un in righe) if r]
@@ -265,19 +288,43 @@ def tabelle_da_dati(path="dati.json", archivio=None, silenzioso=False):
                     r = riga((s.get("etichette") or [n])[0], n, s.get("decimali", 2), s.get("unita", ""), terza)
                     rr += [r] if r else []
             if rr:
-                if titolo == "Asia":
-                    titolo = f"Asia ({rr[0][2]})"
-                out.append((titolo, [taglia(r) for r in rr]))
+                out.append((titolo, rr))
         return out
 
-    cruscotto = gruppi(CRUSCOTTO, "anno", lambda r: r)
-    cross = gruppi(CROSS, "1 mese", lambda r: [r[0], r[1], r[3], r[4], r[5], "-"])
-    asia = any(r[0].endswith("*") for _, rr in cruscotto for r in rr)
-    quando = lambda d: f"{GIORNI_IT[_dt.date.fromisoformat(d).weekday()]} {_gm(d)}"
-    sett = usate.get(("1 sett.", True), sett_prima(rif))
-    altra = usate.get(("1 sett.", False))                  # le righe con un'altra data di livello: l'Asia di stamattina
-    nota = (f"1 g = chiusura su chiusura; 1 sett. = su {quando(sett)}" + (f" (Asia su {quando(altra)})" if altra and altra != sett else "")
-            + f"; da inizio anno = su chiusura {g0.year - 1}.")
+    sx, dx = gruppi(CRUSCOTTO, "anno"), gruppi(CROSS, "1 mese")
+    rif = _piu_usato([r["data"] for _, rr in sx + dx for r in rr]) or str(D["oggi"])[:10]
+
+    def con_le_date(gr, taglia):
+        """Titoli e righe come li impagina il motore, più la frase per le righe con una data diversa dal loro gruppo."""
+        tab, fuori = [], {}
+        for titolo, rr in gr:
+            del_gruppo = _piu_usato([r["data"] for r in rr])
+            for r in rr:
+                if r["data"] != del_gruppo:
+                    fuori.setdefault(r["data"], []).append(_nome(r["et"]))
+            tab.append((titolo + (f" ({_gm(del_gruppo)})" if del_gruppo != rif else ""), [taglia(r["celle"]) for r in rr]))
+        return tab, "".join(f" {_elenco(nomi)} {_al('a', d)}." for d, nomi in sorted(fuori.items()))
+
+    def riferimento(che, gr, forma, attesa):
+        """ "su giovedì 12/11 (Asia su venerdì 13/11)": la data più usata e, tra parentesi, chi ne ha usata un'altra."""
+        tutte = [r for _, rr in gr for r in rr if che in r["usate"]]
+        base = _piu_usato([r["usate"][che] for r in tutte if r["data"] == rif] or [r["usate"][che] for r in tutte])
+        altre = {}
+        for titolo, rr in gr:
+            con = [r for r in rr if che in r["usate"]]
+            for d in dict.fromkeys(r["usate"][che] for r in con):
+                quali = [r for r in con if r["usate"][che] == d]
+                if d != base:
+                    altre.setdefault(d, []).extend([titolo] if len(quali) == len(con) > 1 else [_nome(r["et"]) for r in quali])
+        return forma(base or attesa) + (" (" + "; ".join(f"{_elenco(nomi)} {forma(d)}" for d, nomi in sorted(altre.items())) + ")"
+                                        if altre else "")
+
+    cruscotto, fuori_sx = con_le_date(sx, lambda c: c)
+    cross, fuori_dx = con_le_date(dx, lambda c: [c[0], c[1], c[3], c[4], c[5], "-"])
+    asia = any(c[0].endswith("*") for _, rr in cruscotto for c in rr)
+    il_giorno = lambda d: f"su {GIORNI_IT[_dt.date.fromisoformat(d).weekday()]} {_gm(d)}"
+    nota = (f"1 g = chiusura su chiusura; 1 sett. = {riferimento('1 sett.', sx + dx, il_giorno, sett_prima(rif))}"
+            f"; da inizio anno = {riferimento('anno', sx, lambda a: 'su chiusura ' + a, str(int(rif[:4]) - 1))}.")
     if asia:
         nota += " * Asia: dato di stamattina" + (f" (alle {max(asia_ora)})" if asia_ora else "") + "."
     if ricavati:
@@ -285,8 +332,9 @@ def tabelle_da_dati(path="dati.json", archivio=None, silenzioso=False):
     if mancanti and not silenzioso:
         print("TABELLE DI PAG. 5: " + "; ".join(mancanti[:8]) + ". Una chiusura che manca si cerca una volta (APP_DATI §3) e "
               "si scrive in dati.json nella serie: \"rif\": {\"AAAA-MM-GG\": valore}", file=_sys.stderr)
-    return {"cruscotto": cruscotto, "cruscotto_nota": nota, "cross_data": f"Livello {_gm(rif)}", "cross": cross,
-            "cross_nota": f"1 mese = sul {_gm(usate.get(('1 mese', True), mese_prima(rif)))}. VIX = volatilità attesa sull'S&amp;P 500.",
+    return {"cruscotto": cruscotto, "cruscotto_nota": nota + fuori_sx, "cross_data": f"Livello {_gm(rif)}", "cross": cross,
+            "cross_nota": f"1 mese = {riferimento('1 mese', dx, lambda d: _al('su', d), mese_prima(rif))}.{fuori_dx}"
+                          " VIX = volatilità attesa sull'S&amp;P 500.",
             "mancanti": mancanti}
 
 

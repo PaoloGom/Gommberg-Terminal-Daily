@@ -499,7 +499,8 @@ def passo_fonti():
 # ---------------------------------------------------------------- 3c. dati: le fonti ammesse dell'Euro Stoxx 50
 def passo_dati():
     """controlli_dati.py su una serie dell'Euro Stoxx 50 scritta in sei modi: EODHD è sempre una delle due fonti (salvo
-    eodhd_nd), le fonti non ammesse e le fonti discordi fermano il dato (APP_DATI §2b e §6; caso del 19/11/2026)."""
+    eodhd_nd), le fonti non ammesse e le fonti discordi fermano il dato (APP_DATI §2b e §6; caso del 19/11/2026). Più
+    due casi sull'età del dato, contata in giorni di uscita (APP_FESTIVI §2)."""
     lav = os.path.join(TMP, "dati")
     os.makedirs(lav, exist_ok=True)
     ultimi = [[d, v, None] for d, v in reversed(serie("sx5e", "2026-11-20"))]
@@ -520,8 +521,19 @@ def passo_dati():
         fermo = any(l.startswith("- Euro Stoxx 50:") for l in out.splitlines())
         if fermo == passa:
             sbagliati.append(nome)
+    # Un dato fermo da più giorni (G-44): contano i giorni di uscita. Dopo un giorno senza edizione (Natale) la chiusura
+    # di tre giorni feriali prima è ancora l'ultima e passa con un avviso; in una settimana qualsiasi è un dato vecchio.
+    for nome, giorno, date, passa in (("ultima chiusura prima di Natale, letta il lunedì dopo", "2026-12-28", ("2026-12-23", "2026-12-22"), True),
+                                      ("chiusura di tre giorni di uscita prima", "2026-12-14", ("2026-12-09", "2026-12-08"), False)):
+        dati = {"oggi": giorno, "ora_roma": "09:05", "macro": [], "serie": {"FTSE MIB": {
+            "mercato": "EU", "tipo": "chiusura", "ultimi": [[date[0], 50000, None], [date[1], 50100, None]]}}}
+        json.dump(dati, open(f, "w", encoding="utf-8"), ensure_ascii=False)
+        out = esegui([sys.executable, os.path.join(R, "controlli_dati.py"), f])[1]
+        if any(l.startswith("- FTSE MIB:") for l in out.splitlines()) == passa or (passa and "AVVISO: FTSE MIB: ultimo dato del" not in out):
+            sbagliati.append(nome)
     esito("Dati: fonti dell'Euro Stoxx 50", not sbagliati,
-          f"{len(casi)} casi (EODHD sempre tra le due fonti, quotazioni dei riquadri e fonti discordi fermate)"
+          f"{len(casi)} casi (EODHD sempre tra le due fonti, quotazioni dei riquadri e fonti discordi fermate), età del dato "
+          "contata in giorni di uscita"
           if not sbagliati else "sbagliati: " + ", ".join(sbagliati))
 
 
@@ -529,7 +541,10 @@ def passo_dati():
 def passo_tabelle():
     """Le tabelle dei mercati escono da dati.json e dall'archivio delle chiusure, mai scritte a mano (G-05): sui dati veri del
     20/11 i numeri sono quelli pubblicati, nessuna cella "n.d.", il livello di Seul si ricava dalla variazione; senza la
-    chiusura di ieri la riga non entra; l'archivio prende le chiusure e mai il dato di stamattina."""
+    chiusura di ieri la riga non entra; l'archivio prende le chiusure e mai il dato di stamattina. Con un mercato chiuso
+    (G-44) le righe hanno date diverse: intestazione, titoli dei gruppi e note dicono la data di ogni riga e la chiusura
+    davvero usata per ogni riferimento, sia quando si ferma un mercato intero (Wall Street) sia quando si ferma una riga
+    dentro un gruppo (Tokyo)."""
     import numeri as N
     src = os.path.join(RETE, "2026-11-20", "sorgenti", "dati.json")
     lav = os.path.join(TMP, "tabelle")
@@ -563,8 +578,46 @@ def passo_tabelle():
         male.append(f"archivio: {n1} e {n2} nuove, {scritto}")
     if len(N.completa("FTSE MIB", {"ultimi": [["2026-11-20", 49500, None]]})) != 2 or len(N.completa("FTSE MIB", {"ultimi": [["2026-11-24", 1, None]]}, {})) != 1:
         male.append("la chiusura precedente si completa solo dalla seduta subito prima")
+    # Un mercato chiuso: gli stessi dati del 20/11, con le due righe italiane (valori di prova per i riferimenti dello spread)
+    base = json.load(open(src, encoding="utf-8"))
+    base["serie"]["FTSE MIB"] = {"mercato": "EU", "tipo": "chiusura", "ultimi": [["2026-11-19", 49941, None], ["2026-11-18", 50192, None]]}
+    base["serie"]["Spread Italia"] = {"mercato": "EU", "tipo": "chiusura", "ultimi": [["2026-11-19", 106, None], ["2026-11-18", 106, None]],
+                                      "rif": {"2026-11-12": 104, "2026-10-19": 101}}
+
+    def chiuso(nome, ferme):
+        """Le serie in `ferme` restano alla seduta prima: torna le tabelle e i titoli dei gruppi delle due."""
+        dd = json.loads(json.dumps(base))
+        for n in ferme:
+            dd["serie"][n]["ultimi"] = dd["serie"][n]["ultimi"][1:]
+        ff = os.path.join(lav, nome + ".json")
+        json.dump(dd, open(ff, "w", encoding="utf-8"))
+        tt = N.tabelle_da_dati(ff, silenzioso=True)
+        return tt, [t for t, _ in tt["cruscotto"]], [t for t, _ in tt["cross"]], {r[0]: r for _, rr in tt["cruscotto"] for r in rr}
+    # Wall Street e Treasury chiusi il 19/11: Stati Uniti al 18/11, Europa, cambi e materie prime al 19/11, Asia al 20/11
+    U, sx, dx, ru = chiuso("usa_chiusa", ["ACWI", "S&P 500", "Nasdaq", "Russell 2000", "VIX", "Treasury 2 anni", "Treasury 10 anni"])
+    if (sx, dx, U["cross_data"]) != (["Mondo e Stati Uniti", "Europa (19/11)", "Asia (20/11)"],
+                                     ["Tassi", "Cambi (19/11)", "Materie prime (19/11)", "Volatilità"], "Livello 18/11"):
+        male.append(f"Wall Street chiusa, date nei titoli e nell'intestazione: {sx} {dx} {U['cross_data']}")
+    if (ru.get("S&amp;P 500") or [""] * 4)[1:4] != ["7.323,63", "18/11", N.var(7323.63, 7340.53)]:
+        male.append(f"Wall Street chiusa, S&P 500 fermo alla seduta prima: {ru.get('S&amp;P 500')}")
+    if ("1 sett. = su mercoledì 11/11 (Treasury 2 anni e Treasury 10 anni su martedì 10/11; Europa, Spread Italia, EUR/USD e "
+            "Materie prime su giovedì 12/11; Asia su venerdì 13/11); da inizio anno = su chiusura 2025.") not in U["cruscotto_nota"]:
+        male.append("Wall Street chiusa, la nota non dice la chiusura usata riga per riga: " + U["cruscotto_nota"][:230])
+    if not U["cross_nota"].startswith("1 mese = sul 16/10 (Spread Italia, EUR/USD e Materie prime sul 19/10). Spread Italia al 19/11."):
+        male.append("Wall Street chiusa, nota di destra: " + U["cross_nota"][:160])
+    # Tokyo chiusa stamattina: il Nikkei resta al 19/11 dentro un gruppo che è al 20/11
+    K, sx, dx, rk = chiuso("tokyo_chiusa", ["Nikkei 225"])
+    if (sx, dx, K["cross_data"]) != (["Mondo e Stati Uniti", "Europa", "Asia (20/11)"], ["Tassi", "Cambi", "Materie prime", "Volatilità"], "Livello 19/11"):
+        male.append(f"Tokyo chiusa, date nei titoli e nell'intestazione: {sx} {dx} {K['cross_data']}")
+    if (rk.get("Nikkei 225") or [""] * 4)[1:4] != ["59.444,21", "19/11", N.var(59444.21, 59024.28)] \
+            or "1 sett. = su giovedì 12/11 (Hang Seng e Kospi su venerdì 13/11)" not in K["cruscotto_nota"] \
+            or not K["cruscotto_nota"].endswith(" Nikkei 225 al 19/11."):
+        male.append(f"Tokyo chiusa, riga o nota: {rk.get('Nikkei 225')} | " + K["cruscotto_nota"][:230])
+    if (N._al("su", "2026-09-11"), N._al("a", "2026-12-08"), N._al("su", "2026-10-19")) != ("sull'11/9", "all'8/12", "sul 19/10"):
+        male.append("preposizione davanti alla data (sull'11/9, all'8/12, sul 19/10)")
     esito("Dati: tabelle di pag. 5 calcolate dal codice", not male, "; ".join(male)[:400] or
-          "numeri del 20/11 uguali al pubblicato, nessuna n.d., livello ricavato dalla variazione, archivio delle chiusure")
+          "numeri del 20/11 uguali al pubblicato, nessuna n.d., livello ricavato dalla variazione, archivio delle chiusure, "
+          "date riga per riga con Wall Street chiusa e con Tokyo chiusa")
 
 
 # ---------------------------------------------------------------- 3d. la scommessa: registro e lettura della settimana

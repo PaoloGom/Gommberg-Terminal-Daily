@@ -623,9 +623,10 @@ def agenda_v9(ieri, righe, settimana=False):
 
 def mercati_compatti(cruscotto, cross, nota_sx="", nota_dx="", data_cross="Livello"):
     """Struttura v9: indici a sinistra, tassi, cambi e materie prime a destra, in una sola fascia. Usa gli stessi campi
-    C["cruscotto"] e C["cross"] di prima: qui cadono la colonna "Data" (la data delle chiusure sta in testata, l'Asia
-    del mattino nel nome del gruppo) e la colonna "Lettura" (quasi sempre vuota: ciò che le tabelle dicono sta nel
-    riquadro sotto). Niente grafico della settimana: ripeteva la colonna "1 sett."."""
+    C["cruscotto"] e C["cross"] di prima: qui cadono la colonna "Data" (la data dei livelli la mette numeri.py dove vale
+    per tutti: nell'intestazione "Livello GG/MM", nel titolo di un gruppo che ne ha un'altra, nella nota per una riga
+    sola) e la colonna "Lettura" (quasi sempre vuota: ciò che le tabelle dicono sta nel riquadro sotto). Niente grafico
+    della settimana: ripeteva la colonna "1 sett."."""
     sx = dash_table([headers("Indice", "Ultimo", "1 g", "1 sett.", "Da inizio anno")]
                     + [(g, [[r[0], r[1]] + list(r[3:6]) for r in rr]) for g, rr in cruscotto],
                     [30 * mm, 17 * mm, 12 * mm, 13 * mm, 16 * mm], pad=1.5)
