@@ -532,8 +532,9 @@ def dati_sito(repo, rec):
         except Exception:
             continue
         giorni += 1; fatti += len(d); fonti += sum(len(x.get("fonti") or []) for x in d if isinstance(x, dict))
+    analisi = sum(len(e.get("approfondimenti") or []) for e in rec if isinstance(e, dict))   # per la scheda "Edizioni pubblicate" di I numeri
     scrivi(os.path.join(repo, "dati", "redazione.json"), js({"edizioni": len(rec), "giorni_registro": giorni, "fatti": fatti, "fonti": fonti,
-                                                             "fatti_al_giorno": round(fatti / giorni) if giorni else 0}))
+                                                             "fatti_al_giorno": round(fatti / giorni) if giorni else 0, "analisi": analisi}))
     campi = ("numero", "data", "ticker_al", "titolo", "file", "ticker", "glossario", "meccanismi", "parole")
     scrivi(os.path.join(repo, "dati", "storico.json"), js([{k: e[k] for k in campi if e.get(k)} for e in rec]))
 
