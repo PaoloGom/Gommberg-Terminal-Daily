@@ -299,6 +299,15 @@ def quando(s):
         return None
 
 
+def stesso_oggetto(kit, nostro):
+    """L'oggetto in Kit è il nostro? Tollerante a codifiche HTML, apostrofi tipografici e spazi: Kit può riscriverli.
+    Se Kit non lo restituisce, conta l'impronta."""
+    if not kit:
+        return True
+    pulisci = lambda t: re.sub(r"\s+", " ", html.unescape(str(t)).replace("\u2019", "'").replace("\u2018", "'")).strip()
+    return pulisci(kit) == pulisci(nostro)
+
+
 def etichetta_di(descrizione):
     return str(descrizione or "").split(" ")[0]
 
@@ -404,7 +413,7 @@ def piano(mail, kit, ora, modello, solo_ritiri=False):
                 atteso = dati_invio(m, False, modello)
                 if not k:
                     azioni.append(("crea-bozza", et, m, "bozza: in Kit senza data, da approvare", None))
-                elif impronta_di(atteso["description"]) != k["impronta"] or (k.get("oggetto") or atteso["subject"]) != atteso["subject"]:
+                elif impronta_di(atteso["description"]) != k["impronta"] or not stesso_oggetto(k.get("oggetto"), atteso["subject"]):
                     azioni.append(("rifai-bozza", et, m, "bozza cambiata", k["id"]))
                 else:
                     azioni.append(("nulla", et, m, "bozza, uguale in Kit", None))
@@ -436,7 +445,7 @@ def piano(mail, kit, ora, modello, solo_ritiri=False):
         if not k:
             azioni.append(("crea-programmata", et, m, f"programmata per il {m.invio:%d/%m alle %H:%M}", None))
         elif (impronta_di(atteso["description"]) != k["impronta"] or not k["send_at"]
-              or abs((k["send_at"] - inv).total_seconds()) >= 60 or (k.get("oggetto") or atteso["subject"]) != atteso["subject"]):
+              or abs((k["send_at"] - inv).total_seconds()) >= 60 or not stesso_oggetto(k.get("oggetto"), atteso["subject"])):
             azioni.append(("rifai-programmata", et, m, f"cambiata: riprogrammata per il {m.invio:%d/%m alle %H:%M}", k["id"]))
         else:
             azioni.append(("nulla", et, m, f"programmata per il {m.invio:%d/%m alle %H:%M}, uguale in Kit", None))
