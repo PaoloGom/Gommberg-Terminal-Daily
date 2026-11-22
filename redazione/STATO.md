@@ -1,6 +1,6 @@
 # Stato del Gommberg
 
-Aggiornato: 22/11/2026 ore 02:55 (rilascio del weekend pubblicato su main alle 00:33 con l'ok di Paolo: merge `4138a2a`, 32 commit, 16 voci; all'1:30 modelli di Kit aggiornati e `mattino.yml` provato; alle 02:45 rilascio piccolo di G-10, merge `e13e2bc`).
+Aggiornato: 22/11/2026 ore 02:55 (rilascio del weekend pubblicato su main alle 00:33 con l'ok di Paolo: merge `4138a2a`, 32 commit, 16 voci; all'1:30 modelli di Kit aggiornati e `mattino.yml` provato; alle 02:45 rilascio piccolo di G-10, merge `e13e2bc`; alle 03:35 mockup di G-14 approvato).
 
 Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b6e-83eb-4b8d032a3783`, https://claude.ai/artifact/KmCtJUZFx2WKVCRaDiHPtE). Una voce si legge per codice (`db_query` su `tasks`, `codice` = "G-xx"). Dal 21/11 ogni voce è un ordine di lavoro: priorità (Max, High, Medium, Low, TBD = idee), ownership (Claude, Insieme, Paolo), targhetta modello e sforzo, scheda con obiettivo, fatto quando, come, decisioni e vincoli, dipendenze ("dopo"). Le decisioni di una voce stanno solo nella sua scheda: qui si citano i codici.
 
@@ -22,7 +22,7 @@ Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b
 - **G-39 in corso**: restano la prova pubblicata e tolta (procedura B di `PROVA.md`), il pulsante "Avvia il rilascio" e la vista del piano nel Registro, i due ruoli nella skill (un solo salvataggio, con "Pronta prima di Fatta" e "voce In corso all'apertura"). Slittano al rilascio del 28/11.
 - **G-40 fatta, G-15 in corso**: in linea nel repository e in Kit; invio di prova dalla bozza della #030 con la cornice (n. 27208167) visto da Paolo il 22/11, tutto bene. A G-15 resta la prima email vera di lunedì.
 - **G-44** (pag. 5 nei giorni con un mercato chiuso, scade giovedì 26/11, Wall Street chiusa): non è entrata nel rilascio. Va con un rilascio piccolo, stessa strada (`rilascia.sh avvia`, correzione, collaudo, `pubblica`), domenica o al più tardi entro mercoledì 25/11.
-- In fila: **G-45** (tre errori della prova che i controlli non vedono), **G-46** (seguiti della prova dopo una settimana vera, più da G-47: il calco "la vendita" nelle forme che il controllo non vede, la ricerca più stretta della seconda prova, il tempo), G-42 (desk che vede le edizioni precedenti, 28/11), G-41, G-43.
+- In fila: **G-45** (tre errori della prova che i controlli non vedono), **G-46** (seguiti della prova dopo una settimana vera, più da G-47: il calco "la vendita" nelle forme che il controllo non vede, la ricerca più stretta della seconda prova, il tempo), G-42 (desk che vede le edizioni precedenti, 28/11), **G-14** (il GOMM: indice di lettura con candele e volume su I numeri, nel nastro della homepage e in fondo alle edizioni; mockup approvato il 22/11, rilascio del 28/11, tutto nella scheda), G-41, G-43, G-48.
 
 Come si lavora in ogni chat che tocca il motore o il sito: `bash redazione/rilascia.sh avvia`, una voce alla volta, `python3 redazione/collaudo.py` dopo ogni modifica (`--atteso` se la differenza è voluta), commit e `git push origin rilascio`. Voce finita e collaudata sul ramo = **Pronta**; dopo il merge il capo sviluppo la segna Fatta. Il merge lo fa solo il capo sviluppo, con `rilascia.sh pubblica` (`--ok-di-paolo` solo dopo il sì di Paolo al resoconto, quando cambia ciò che il lettore vede).
 
