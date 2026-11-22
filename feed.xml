@@ -6,14 +6,6 @@
 <language>it-it</language>
 <atom:link href="https://gommberg.com/feed.xml" rel="self" type="application/rss+xml"/>
 <item>
-<title>Wall Street entra in correzione e il Nasdaq perde il 5,3% con i chip</title>
-<link>https://gommberg.com/e/031.html</link>
-<guid isPermaLink="true">https://gommberg.com/e/031.html</guid>
-<pubDate>Mon, 23 Nov 2026 09:45:00 +0100</pubDate>
-<description>L&#x27;S&amp;P 500 perde il 3,7% e chiude oltre il 10% sotto il massimo di ottobre dopo sette ribassi di fila, mentre il Nasdaq torna in rosso da inizio anno. A guidare la vendita sono i chip: Nvidia cede il 13,8% dopo l&#x27;addio del fondatore Jensen Huang, AMD e Micron più del 13%. L&#x27;Asia aveva già venduto e l&#x27;Europa ha chiuso in forte calo. Lunedì si capisce se la paura passa o continua.</description>
-<enclosure url="https://gommberg.com/pdf/2026-11-23-gommberg-031.pdf" type="application/pdf" length="0"/>
-</item>
-<item>
 <title>Il debutto record di Anthropic non ferma la vendita dell&#x27;AI: Asia a picco</title>
 <link>https://gommberg.com/e/030.html</link>
 <guid isPermaLink="true">https://gommberg.com/e/030.html</guid>
@@ -244,5 +236,13 @@
 <pubDate>Tue, 13 Oct 2026 09:45:00 +0200</pubDate>
 <description>I chip trascinano l&#x27;Asia: Kospi -5,5% dopo il -3,65% di lunedì, SK Hynix -10,1%; Tokyo -1,8% alla riapertura dopo il festivo. Il petrolio torna sopra 106 $ (+1,8% lunedì) dopo gli attacchi in Arabia Saudita e alle petroliere; stamattina Brent a 105,32 $. Scommessa: tutti e 7 gli strumenti sono dentro il range, ma per ora solo l&#x27;EUR/USD va nella direzione prevista.</description>
 <enclosure url="https://gommberg.com/pdf/2026-10-13-gommberg-002.pdf" type="application/pdf" length="0"/>
+</item>
+<item>
+<title>Hormuz, nessun accordo. Wall Street vicina al record aspetta CPI, banche e TSMC</title>
+<link>https://gommberg.com/e/001.html</link>
+<guid isPermaLink="true">https://gommberg.com/e/001.html</guid>
+<pubDate>Mon, 12 Oct 2026 09:45:00 +0200</pubDate>
+<description>Wall Street chiude la settimana a +1,2%, a un soffio dal record, nonostante il 10 anni USA salito fino a circa il 5,35% (massimo dal 2002). Questa settimana decidono tre test: CPI USA (mer 14:30), trimestrali delle banche (da martedì) e TSMC (gio). Iran: Trump esclude attacchi fino al 3 novembre, ma su Hormuz nessun accordo e gli Houthi colpiscono Riad.</description>
+<enclosure url="https://gommberg.com/pdf/2026-10-12-gommberg-001.pdf" type="application/pdf" length="0"/>
 </item>
 </channel></rss>
