@@ -25,7 +25,7 @@ pubblica.sh  →  un commit "Edizione #NNN - data" sul ramo principale (main)
 GitHub, a ogni push su main (zero token)
   sito.yml        costruisci.py → Cloudflare Workers → gommberg.com, poi verifica dal vivo (collaudo_sito.py --veloce)
   newsletter.yml  (solo se cambia edizioni.json) newsletter.py → Kit → email agli iscritti
-  mattino.yml     alle 10:15 lun-ven: mattino.py controlla uscita, sito, pubblicazione, newsletter, pannello
+  mattino.yml     alle 10:15 lun-ven: mattino.py controlla uscita, sito, pubblicazione, newsletter, pannello; job gomm: gomm.py aggiunge le visite di ieri a dati/gomm.json, commit su main e sito ripubblicato
 ```
 
 ## 2. Le parti
@@ -58,6 +58,7 @@ Un file della colonna di sinistra è un contratto: cambiarne forma o significato
 | `e/NNN.json`, `e/NNN.html`, `e/NNN.png`, `e/pagine.json` | `pagine.py` | `index.html`, `glossario.html`, `newsletter.py` (la scheda `e/NNN.json`), anteprime di WhatsApp |
 | `dati/recenti.json`, `indice.json`, `cerca.json`, `storico.json`, `redazione.json` | `pagine.py` | `index.html`, `scommessa.html` (recenti); `archivio.html` (indice, cerca); `glossario.html`, `numeri.html` (storico); `progetto.html` (redazione); `mattino.py`, `collaudo_sito.py` |
 | `dati/uscite.json` | `pubblica.sh` | `numeri.html` (puntualità) |
+| `dati/gomm.json` (visite dei giorni completi dal 17/10) | `gomm.py`, nel job gomm di `mattino.yml` | `assets/gomm.js` (il GOMM: un solo calcolo), letto da `numeri.html`, dal nastro di `index.html` e dal blocco in fondo alle pagine `e/` |
 | `redazione/fatti/AAAA-MM-GG.json` | `pubblica.sh` (dalle schede del mattino) | `memoria.py`, `misure.py`, `pannello.py`, `collaudo.py` |
 | `redazione/sorgenti/AAAA-MM-GG/` | `pubblica.sh` | `collaudo.py` (rifare un'edizione, congelare un campione) |
 | `redazione/glossario.json`, `glossario_sito.json`, `meccanismi.json` | a mano (e la redazione, per glossario e meccanismi) | `controlli_testo.py`, `edizioni_voce.py`, e **il sito**: `glossario.html` |

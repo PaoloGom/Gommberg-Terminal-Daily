@@ -70,6 +70,15 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .vote{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 30px;font-size:15px;color:var(--muted)}
 .vote button{font-family:var(--mono);font-size:13px;min-height:38px;padding:0 14px;background:transparent;color:var(--ink);border:1px solid var(--rule);cursor:pointer}
 .vote .thx{color:var(--ink)}
+.gx{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);align-items:start;margin:0 0 30px}
+.gx.solo{grid-template-columns:1fr}
+.gx .tag{display:inline-block;background:var(--orange);color:#0E0E0E;font-family:var(--mono);font-weight:500;font-size:12px;padding:1px 6px}
+.gx-v{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;margin:0;font-family:var(--mono)}
+.gx-v b{font-size:22px;font-weight:500;color:var(--ink)}.gx-v .c{font-size:13px}.gx-v .up{color:var(--up)}.gx-v .down{color:var(--down)}
+.gx-m{display:flex;gap:2px;align-items:flex-end;height:44px;margin-top:12px}
+.gx-m i{flex:1 1 0;min-height:2px;background:var(--up)}.gx-m i.giu{background:var(--down)}
+.gx-g a{display:inline-block;margin-top:8px;font-size:13px;font-weight:600;color:var(--orange-ink);text-underline-offset:3px}
+@media (max-width:640px){.gx{grid-template-columns:1fr}}
 @media (max-width:520px){.dek{font-size:17px}.btn.lead{flex:1 1 auto;justify-content:center}.btn.ghost{width:46px;padding:0;justify-content:center}.btn.ghost span{display:none}.btn[data-pdf="scaricata"]{display:none}}
 </style>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
@@ -87,6 +96,7 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 <section><h2>In agenda</h2><ul class="ag"><li><small>Mar 3, 16:00</small><b>Posti vacanti USA (JOLTS, settembre)</b><p><em>Attese:</em> -; prec. 7,1 mln (agosto)</p><p><em>Perché conta:</em> Domanda di lavoro prima del dato di venerdì</p></li><li class="key"><small>Mar 3, in serata</small><b>Elezioni USA di metà mandato</b><p><em>Il più atteso:</em> Un Congresso democratico potrebbe portare più controlli su AI e banche (Reuters)</p></li><li><small>Mar 3, dopo la chiusura USA</small><b>Conti di AMD</b><p><em>Perché conta:</em> Test per i chip dell&#x27;AI dopo la vendita di ieri</p></li><li><small>Mer 4, 16:00</small><b>ISM servizi USA (ottobre)</b><p><em>Perché conta:</em> Attività dei servizi</p></li><li><small>Gio 5, 13:00</small><b>Decisione della Bank of England</b><p><em>Perché conta:</em> Politica monetaria britannica</p></li><li><small>Ven 6, 14:30</small><b>Occupazione USA (ottobre)</b><p><em>Perché conta:</em> Mercato del lavoro prima della Fed</p></li></ul></section>
 <section><h2>Le sigle di questa edizione</h2><div class="sigle"><a href="../glossario.html#g-jolts"><b>JOLTS</b> posti di lavoro vacanti USA</a><a href="../glossario.html#g-pmi"><b>PMI</b> sondaggio sui direttori acquisti</a><a href="../glossario.html#g-ism"><b>ISM</b> sondaggio USA sulle imprese</a><a href="../glossario.html#g-vix"><b>VIX</b> volatilità attesa sull&#x27;S&amp;P 500</a><a href="../glossario.html#g-acwi"><b>ACWI</b> indice azionario mondiale MSCI</a></div><p class="tutte"><a href="../glossario.html">Tutto il glossario &rsaquo;</a></p></section>
 <div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span><button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>
+<section class="gs gx solo" aria-labelledby="gx-h"><div class="gx-g" id="gx" hidden><p class="gx-v"><span class="tag">GOMM</span><b id="gxV"></b><span class="c" id="gxC"></span></p><div class="gx-m" id="gxM" aria-hidden="true"></div><a href="../numeri.html">Vedi il grafico &rarr;</a></div><div class="gs-t"><h2 class="gs-h" id="gx-h">Fai salire il GOMM</h2><p class="gs-p">Il GOMM sale ogni volta che il Gommberg trova un lettore nuovo. Se questa edizione ti è stata utile, inoltrala a chi vuole capire i mercati.</p><div class="gs-b"><a class="gs-wa" href="https://wa.me/?text=Il%20petrolio%20crolla%20ma%20il%20Nasdaq%20100%20entra%20in%20correzione%3A%20la%20vendita%20%C3%A8%20sull%27AI%20https%3A//gommberg.com/e/017.html" target="_blank" rel="noopener">Inoltra su WhatsApp</a><button type="button" class="gs-cp" data-copy="https://gommberg.com/e/017.html">Copia il link</button></div></div></section>
 <div class="pn"><a href="016.html">&lsaquo; N. 016</a><a href="018.html">N. 018 &rsaquo;</a></div>
 <aside class="gi" aria-labelledby="gi-h"><div class="gi-t"><p class="gi-k">Via email</p><h2 class="gi-h" id="gi-h">Il Gommberg nella tua casella, ogni mattina</h2><p class="gi-p">La prima pagina dell'edizione alle 9:45, dal lunedì al venerdì. Gratis.</p></div><a class="gi-b" href="../iscriviti.html" data-goatcounter-click="invito-iscrizione" data-goatcounter-title="Invito all'iscrizione (clic)">Ricevila via email</a></aside>
 </main>
@@ -104,14 +114,12 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
     try { localStorage.setItem(k, b.dataset.v); } catch (err) {}
     fatto();
   });
-  var cp = document.getElementById("copy");
-  var wa = document.querySelector('a[href^="https://wa.me/"]');
-  if (wa) wa.addEventListener("click", function () { conta({ path: "condividi-tutte", title: "Condivisioni (tutte le edizioni)", event: true }); conta({ path: "condividi-whatsapp-017", title: "Condivisione WhatsApp n. 017", event: true }); });
-  if (cp) cp.addEventListener("click", function () {
+  document.querySelectorAll('a[href^="https://wa.me/"]').forEach(function (wa) { wa.addEventListener("click", function () { conta({ path: "condividi-tutte", title: "Condivisioni (tutte le edizioni)", event: true }); conta({ path: "condividi-whatsapp-017", title: "Condivisione WhatsApp n. 017", event: true }); }); });
+  document.querySelectorAll("#copy, [data-copy]").forEach(function (cp) { cp.addEventListener("click", function () {
     conta({ path: "condividi-tutte", title: "Condivisioni (tutte le edizioni)", event: true }); conta({ path: "condividi-link-017", title: "Link copiato n. 017", event: true });
-    var u = cp.dataset.url, l = cp.querySelector("span"), ok = function () { l.textContent = "Copiato"; setTimeout(function () { l.textContent = "Copia link"; }, 1800); };
+    var u = cp.dataset.url || cp.dataset.copy, l = cp.querySelector("span") || cp, prima = l.textContent, ok = function () { l.textContent = "Copiato"; setTimeout(function () { l.textContent = prima; }, 1800); };
     if (navigator.clipboard) navigator.clipboard.writeText(u).then(ok, function () { prompt("Copia il link:", u); }); else prompt("Copia il link:", u);
-  });
+  }); });
   // Da PC "Leggi l'edizione" apre la lettura a schermo intero con lo zoom (sul telefono resta il PDF)
   if (window.matchMedia("(min-width: 901px)").matches) {
     var lead = document.querySelector("a.btn.lead"); if (lead) lead.href = "../?n=" + parseInt("017", 10) + "&leggi=1";
@@ -121,6 +129,24 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
   });
 })();
 </script>
-<footer class="gf"><div class="gf-in"><nav class="gf-links" aria-label="Le pagine del sito"><a href="../">Ultima edizione</a><a href="../archivio.html">Archivio</a><a href="../glossario.html">Impara</a><a href="../scommessa.html">La scommessa</a><a href="../progetto.html">Chi siamo</a><a href="../iscriviti.html">Ricevila via email</a><a href="../feed.xml">Feed RSS</a><a href="../privacy.html">Privacy</a></nav><p class="gf-ai">Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.</p><p class="gf-legal">Non costituisce sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</p></div></footer>
+<script src="../assets/gomm.js?v=2026-11-22"></script>
+<script>
+(function () {
+  var G = window.GOMM, box = document.getElementById("gx"); if (!G || !box) return;
+  G.carica().then(function (d) {
+    if (!d) return;
+    var gi = d.giorni.filter(function (x) { return x.i != null; }), ie = d.ieri, k = d.giorni.indexOf(ie), set = d.giorni[k - 7];
+    document.getElementById("gxV").textContent = G.num(ie.i);
+    if (set && set.i != null) { var c = document.getElementById("gxC"); c.textContent = (ie.i >= set.i ? "▲ " : "▼ ") + G.pct(ie.i, set.i) + " in 7 giorni"; c.className = "c " + (ie.i >= set.i ? "up" : "down"); }
+    var u = gi.slice(-30), m = document.getElementById("gxM"), lo = Math.min.apply(null, u.map(function (x) { return x.i; })), hi = Math.max.apply(null, u.map(function (x) { return x.i; }));
+    u.forEach(function (x, j) {
+      var p = j ? u[j - 1].i : (gi[gi.length - u.length - 1] || x).i, b = document.createElement("i");
+      b.style.height = (12 + (hi > lo ? (x.i - lo) / (hi - lo) * 88 : 88)) + "%"; if (x.i < p) b.className = "giu"; m.appendChild(b);
+    });
+    box.hidden = false; box.parentElement.classList.remove("solo");
+  });
+})();
+</script>
+<footer class="gf"><div class="gf-in"><nav class="gf-links" aria-label="Le pagine del sito"><a href="../">Ultima edizione</a><a href="../archivio.html">Archivio</a><a href="../glossario.html">Impara</a><a href="../scommessa.html">La scommessa</a><a href="../progetto.html">Chi siamo</a><a href="../numeri.html">I numeri</a><a href="../iscriviti.html">Ricevila via email</a><a href="../feed.xml">Feed RSS</a><a href="../privacy.html">Privacy</a></nav><p class="gf-ai">Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.</p><p class="gf-legal">Non costituisce sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</p></div></footer>
 </body>
 </html>

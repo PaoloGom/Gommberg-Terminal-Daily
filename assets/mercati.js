@@ -36,6 +36,8 @@
     [/\boro\b|gold/i, "Oro",
       "Il prezzo dell'oro in dollari per oncia: il bene rifugio per eccellenza, che si compra quando c'è paura.",
       "Quanta paura c'è?"],
+    [/^gomm$/i, "GOMM, la quotazione del Gommberg",
+      "Quanto è letto il Gommberg, misurato come un titolo: la media delle visite degli ultimi 7 giorni, con 100 pari alla settimana 17-23 ottobre. Il valore è la chiusura di ieri; il clic apre il grafico."],
     [/bitcoin/i, "Bitcoin",
       "La criptovaluta più diffusa, in dollari: molto più volatile delle borse."],
   ];

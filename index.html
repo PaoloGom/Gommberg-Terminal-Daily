@@ -86,6 +86,12 @@ a { color: inherit; }
 .tk .c.up { color: var(--up-bar); }
 .tk .c.down { color: var(--down-bar); }
 .tk.when { color: var(--orange); }
+/* Il GOMM, la quotazione del Gommberg (G-14): primo del nastro, porta a I numeri */
+a.tk.gomm { text-decoration: none; padding-left: 0; border-left: 0; }
+a.tk.gomm.gm-mk { text-decoration: none; }
+a.tk.gomm .t { display: inline-block; background: var(--orange); color: #0E0E0E; font-weight: 600; padding: 1px 5px; margin-right: 6px; }
+a.tk.gomm:hover .v, a.tk.gomm:focus-visible .v { color: var(--orange); }
+a.tk.gomm + .tk.when { border-left-color: var(--orange); padding-left: 7px; }
 
 /* ---------- Il palco: l'edizione di oggi ---------- */
 .stage { background: var(--paper); color: var(--ink); border-bottom: 1px solid var(--ink); }
@@ -330,7 +336,8 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
 <script>window.goatcounter = { no_onload: true };</script>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="stylesheet" href="assets/sito.css">
-<script src="assets/mercati.js?v=2026-11-16"></script>
+<script src="assets/mercati.js?v=2026-11-22"></script>
+<script src="assets/gomm.js?v=2026-11-22"></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "Gommberg Terminal Daily", "alternateName": ["Gommberg", "Gommberg Terminal"], "url": "https://gommberg.com/", "inLanguage": "it-IT", "description": "I mercati globali spiegati, ogni mattina in 6 pagine."}, {"@type": "NewsMediaOrganization", "name": "Gommberg Terminal Daily", "alternateName": "Gommberg", "url": "https://gommberg.com/", "logo": "https://gommberg.com/assets/copertina.png", "founder": {"@type": "Person", "name": "Paolo Gommellini"}, "publishingPrinciples": "https://gommberg.com/progetto.html"}]}</script>
 </head>
 <body class="loading" id="main">
@@ -443,7 +450,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   </details>
 </main>
 
-<footer class="gf"><div class="gf-in"><nav class="gf-links" aria-label="Le pagine del sito"><a href="./">Ultima edizione</a><a href="archivio.html">Archivio</a><a href="glossario.html">Impara</a><a href="scommessa.html">La scommessa</a><a href="progetto.html">Chi siamo</a><a href="iscriviti.html">Ricevila via email</a><a href="feed.xml">Feed RSS</a><a href="privacy.html">Privacy</a></nav><p class="gf-ai">Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.</p><p class="gf-legal">Non costituisce sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</p></div></footer>
+<footer class="gf"><div class="gf-in"><nav class="gf-links" aria-label="Le pagine del sito"><a href="./">Ultima edizione</a><a href="archivio.html">Archivio</a><a href="glossario.html">Impara</a><a href="scommessa.html">La scommessa</a><a href="progetto.html">Chi siamo</a><a href="numeri.html">I numeri</a><a href="iscriviti.html">Ricevila via email</a><a href="feed.xml">Feed RSS</a><a href="privacy.html">Privacy</a></nav><p class="gf-ai">Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.</p><p class="gf-legal">Non costituisce sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</p></div></footer>
 
 <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Edizione a schermo intero" hidden>
   <div class="v-bar">
@@ -516,6 +523,17 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   let editions = [], current = null, pdf = null, page = 1, renderTask = null;
 
   /* ---------- Ticker ---------- */
+  // Il GOMM in testa al nastro: chiusura di ieri e variazione sul giorno prima (assets/gomm.js); il clic apre I numeri.
+  // Arriva dopo le chiusure dell'edizione: si aggiunge a nastro già disegnato e resta quando si cambia edizione.
+  let GOMM_TK = null;
+  if (window.GOMM) GOMM.carica().then((d) => {
+    if (!d) return;
+    const a = el("a", "tk gomm"); a.href = "numeri.html"; a.setAttribute("role", "listitem");
+    a.appendChild(el("span", "t", "GOMM")); a.appendChild(el("span", "v", GOMM.num(d.ieri.i)));
+    a.appendChild(el("span", "c " + (d.ieri.i >= d.prima.i ? "up" : "down"), (d.ieri.i >= d.prima.i ? "\u25B2 " : "\u25BC ") + GOMM.pct(d.ieri.i, d.prima.i)));
+    if (window.GM) GM.segna(a, "GOMM");
+    GOMM_TK = a; const row = $("tapeRow"); if (row && row.firstChild) row.insertBefore(a, row.firstChild);
+  });
   function chiusure(ed) {
     const iso = /^\d{4}-\d{2}-\d{2}$/.test(ed.ticker_al || "") ? ed.ticker_al : null;
     let d = iso ? utc(iso) : (ed.data ? utc(ed.data) : null);
@@ -532,6 +550,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     const t = ed.ticker;
     if (!Array.isArray(t) || !t.length) { $("tape").hidden = true; return; }
     const row = $("tapeRow"); row.innerHTML = "";
+    if (GOMM_TK) row.appendChild(GOMM_TK);
     const w = el("div", "tk when", chiusure(ed)); w.setAttribute("role", "listitem");
     w.title = "Chiusure riportate nell'edizione n. " + pad(ed.numero) + ", non quotazioni in tempo reale";
     row.appendChild(w);

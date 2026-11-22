@@ -65,3 +65,17 @@ h2.pg-h em, h1.pg-h em { display: block; text-wrap: pretty; margin-top: 12px; fo
 .gi a.gi-b:hover { background: var(--orange-ink, #B84A0C); }
 .gi a.gi-b:focus-visible { outline: 2px solid var(--orange, #F26B1D); outline-offset: 2px; }
 @media (max-width: 640px) { .gi { padding: 18px; } .gi a.gi-b { flex: 1 1 100%; } }
+
+/* ---------- Fai salire il GOMM (I numeri ed edizioni, G-14): invito a inoltrare, uguale ovunque ---------- */
+.gs { margin: 22px 0 0; padding: 22px 28px; background: var(--panel, #F1EEE9); border: 1px solid var(--rule, #DEDAD4); display: flex; justify-content: space-between; align-items: center; gap: 16px 32px; flex-wrap: wrap; font-family: var(--body, "IBM Plex Sans", Arial, sans-serif); }
+.gs-t { flex: 1 1 360px; min-width: 0; max-width: 720px; }
+.gs .gs-h { margin: 0 0 6px; padding: 0; border: 0; text-transform: none; letter-spacing: 0; font-family: var(--display, "Archivo", "Arial Narrow", Arial, sans-serif); font-stretch: 85%; font-weight: 800; font-size: 22px; line-height: 1.1; color: var(--ink, #141414); }
+.gs .gs-p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted, #5E5A55); }
+.gs-b { display: flex; gap: 12px; flex-wrap: wrap; }
+.gs-wa, .gs-cp { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; font-family: var(--body, "IBM Plex Sans", Arial, sans-serif); font-weight: 600; font-size: 14px; line-height: 1; cursor: pointer; text-decoration: none; border: 1px solid var(--ink, #141414); }
+.gs-wa { background: var(--ink, #141414); color: var(--paper, #FBFAF8); }
+.gs-wa:hover { background: var(--orange-ink, #B84A0C); border-color: var(--orange-ink, #B84A0C); }
+.gs-cp { background: transparent; color: var(--ink, #141414); }
+.gs-cp:hover { border-color: var(--orange-ink, #B84A0C); color: var(--orange-ink, #B84A0C); }
+.gs-wa:focus-visible, .gs-cp:focus-visible { outline: 2px solid var(--orange, #F26B1D); outline-offset: 2px; }
+@media (max-width: 640px) { .gs { padding: 18px; } .gs-b { width: 100%; } .gs-wa, .gs-cp { flex: 1 1 0; padding: 0 10px; } }

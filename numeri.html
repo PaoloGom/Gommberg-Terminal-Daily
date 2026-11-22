@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <link rel="canonical" href="https://gommberg.com/numeri.html">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>I numeri del Gommberg - Gommberg Terminal Daily</title>
-<meta name="description" content="La dashboard pubblica del Gommberg Terminal Daily: quante visite, quante condivisioni, quanto è utile, quanto è puntuale e quanto ci azzecca. Gli stessi numeri che guarda la redazione.">
+<title>Il GOMM, la quotazione del Gommberg - Gommberg Terminal Daily</title>
+<meta name="description" content="Il GOMM è la quotazione del Gommberg Terminal Daily: quanto è letto, misurato come un titolo in borsa, con candele e volumi. E poi condivisioni, gradimento, puntualità e la pagella della scommessa.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://gommberg.com/numeri.html">
-<meta property="og:title" content="I numeri del Gommberg - la dashboard pubblica">
-<meta property="og:description" content="Visite, condivisioni, gradimento, puntualità e pagella: gli stessi numeri che guarda la redazione.">
+<meta property="og:title" content="Il GOMM, la quotazione del Gommberg">
+<meta property="og:description" content="Quanto è letto il Gommberg, misurato come un titolo in borsa: i dati dal contatore pubblico, senza ritocchi.">
 <meta property="og:image" content="https://gommberg.com/assets/copertina.png?v=2">
 <meta name="theme-color" content="#0E0E0E">
 <link rel="icon" href="assets/icona.svg?v=2" type="image/svg+xml">
@@ -19,26 +19,82 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root{--paper:#FAF8F4;--sheet:#FFFFFF;--ink:#141414;--muted:#6B655E;--rule:#DEDAD4;--panel:#F1EEE9;--orange:#F26B1D;--orange-ink:#B84A0C;
---up:#157A3E;--down:#C0271D;--bar:#0E0E0E;--bar-ink:#F5F3EF;--bar-soft:#D6D1C9;
+--up:#157A3E;--down:#C0271D;--bar:#0E0E0E;--bar-ink:#F5F3EF;--bar-soft:#D6D1C9;--hl:rgba(242,107,29,.12);
 --display:"Archivo","Arial Narrow","Helvetica Neue",Arial,sans-serif;--body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
-@media (prefers-color-scheme:dark){:root{--paper:#121110;--sheet:#1A1816;--ink:#EDEAE5;--muted:#A49E96;--rule:#2E2B28;--panel:#1C1A18;--orange:#FF7A2E;--orange-ink:#FF9A5C;--up:#4CC27A;--down:#FF6B5E;--bar:#050505;color-scheme:dark}}
+@media (prefers-color-scheme:dark){:root{--paper:#121110;--sheet:#1A1816;--ink:#EDEAE5;--muted:#A49E96;--rule:#2E2B28;--panel:#1C1A18;--orange:#FF7A2E;--orange-ink:#FF9A5C;--up:#4CC27A;--down:#FF6B5E;--bar:#050505;--hl:rgba(255,122,46,.16);color-scheme:dark}}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
 a{color:inherit}
 .wrap{max-width:1180px;margin:0 auto;padding-inline:24px}
 @media (max-width:760px){.wrap{padding-inline:18px}}
 main{padding-block:34px 56px}
-.hero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:24px 48px;align-items:end}
-.hero-side{font-size:14.5px;color:var(--muted);border-top:2px solid var(--ink);padding-top:12px}
-.hero-side b{color:var(--ink);font-weight:600}
-.live{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:10px}
-.live i{width:8px;height:8px;border-radius:50%;background:var(--up);box-shadow:0 0 0 0 rgba(21,122,62,.5);}
-@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(21,122,62,0)}100%{box-shadow:0 0 0 0 rgba(21,122,62,0)}}
+.hero{margin-bottom:26px}
+/* ---------- Il GOMM: quattro schede e il grafico, su un fondo grigio caldo ---------- */
+.gm{background:var(--panel);border:1px solid var(--rule);padding:18px 20px 20px}
+.gm-top{display:flex;justify-content:space-between;align-items:center;gap:8px 16px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.gm-top h3{margin:0;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:400;color:var(--ink)}
+.tag{display:inline-block;background:var(--orange);color:#0E0E0E;font-family:var(--mono);font-weight:500;font-size:13px;line-height:1.35;padding:1px 7px}
+.gks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:14px 0 16px}
+.gk{display:flex;flex-direction:column;background:var(--sheet);border:1px solid var(--rule);border-radius:6px;padding:16px 18px}
+.gk.acc{border-top:3px solid var(--orange);padding-top:14px}
+.gk-k{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.gk-v{display:flex;align-items:flex-end;gap:10px;min-height:52px;margin-top:10px}
+.gk-v b{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:40px;line-height:1}
+.gk-v .c{font-family:var(--mono);font-size:15px;line-height:1.6}
+.gk-s{margin:6px 0 0;font-size:13px;color:var(--muted)}
+.gk-f{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-top:auto;padding-top:10px;border-top:1px dashed var(--rule);font-size:13px;color:var(--muted)}
+.gk-f > span{white-space:nowrap}.gk-f > span:last-child{font-family:var(--mono);color:var(--ink)}
+.gk-f i.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--orange);margin-right:6px}
+.up{color:var(--up)}.down{color:var(--down)}
+.gk .wait{color:var(--muted);font-size:24px}
+.rng{flex:1 1 auto;padding-bottom:4px}
+.rng-t{position:relative;height:4px;margin:0 0 10px;background:var(--rule)}
+.rng-t i{position:absolute;left:0;top:0;height:4px;background:var(--muted);opacity:.35}
+.rng-t s{position:absolute;top:-6px;width:3px;height:16px;background:var(--orange);text-decoration:none;margin-left:-1px}
+.rng-l{display:flex;justify-content:space-between;font-family:var(--mono);font-size:13px}
+.gc{position:relative;background:var(--sheet);border:1px solid var(--rule);border-radius:6px;padding:16px 18px 18px}
+.gc-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.gc-head h4{margin:0;font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.gc-head h4 span{letter-spacing:0;text-transform:none}
+.seg{display:inline-flex;border:1px solid var(--rule)}
+.seg button{border:0;background:transparent;color:var(--muted);font-family:var(--mono);font-size:12px;min-height:34px;padding:0 16px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--orange);color:#0E0E0E}
+.gc-box{min-height:320px}
+.gc-box svg{display:block;width:100%;overflow:visible}
+.gc-box text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+.gc-box text.lb{font-size:10px;letter-spacing:.08em}
+.gc-box line.gr{stroke:var(--rule);stroke-dasharray:3 3}
+.gc-box line.ax{stroke:var(--rule)}
+.gc-box rect.hit{fill:transparent;cursor:pointer;outline:none}
+.gc-box rect.hit:focus-visible{stroke:var(--orange);stroke-width:2}
+.gc-box rect.hs{fill:transparent}.gc-box rect.hs.hl{fill:var(--hl)}
+.gc-box .su{fill:var(--up);stroke:var(--up)}.gc-box .giu{fill:var(--down);stroke:var(--down)}
+.gc-box .p{fill:none;stroke-width:2;stroke-dasharray:4 3}
+.gc-box .vol{opacity:.7}
+.gc-tip{position:absolute;z-index:4;width:280px;max-width:calc(100% - 20px);pointer-events:none;background:var(--ink);color:var(--paper);padding:12px 14px;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.gc-tip p{margin:0}
+.gc-tip .k{font-family:var(--mono);font-size:11px;color:#F7A26E;margin-bottom:4px}
+.gc-tip .t{font-family:var(--display);font-stretch:88%;font-weight:700;font-size:14px;line-height:1.3;margin-bottom:8px}
+.gc-tip .l{font-family:var(--mono);font-size:12px}
+@media (prefers-color-scheme:dark){.gc-tip .k{color:var(--orange-ink)}}
+.gc-leg{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;margin-top:12px;padding-top:10px;border-top:1px solid var(--rule);font-size:12px;color:var(--muted)}
+.gc-leg > span{display:inline-flex;align-items:center;gap:6px;position:relative}
+.gc-leg i{display:inline-block;width:9px;height:9px}
+.gc-leg i.su{background:var(--up)}.gc-leg i.giu{background:var(--down)}.gc-leg i.p{border:1px dashed var(--muted)}
+.gc-leg i.cnd{position:relative;width:9px;height:16px;background:linear-gradient(var(--up),var(--up)) 4px 0/1px 16px no-repeat,linear-gradient(var(--up),var(--up)) 0 4px/9px 8px no-repeat}
+.gc-leg i.brs{width:11px;height:14px;background:linear-gradient(var(--up),var(--up)) 0 7px/3px 7px no-repeat,linear-gradient(var(--up),var(--up)) 4px 0/3px 14px no-repeat,linear-gradient(var(--down),var(--down)) 8px 9px/3px 5px no-repeat;opacity:.7}
+.gc-leg button{background:transparent;border:0;padding:0;font:inherit;color:inherit;cursor:help;text-align:left}
+.gc-leg button b{color:var(--ink);font-weight:600;border-bottom:1px dotted var(--muted)}
+.gc-leg .lt{position:absolute;left:0;bottom:calc(100% + 8px);z-index:5;width:340px;max-width:80vw;padding:10px 12px;background:var(--ink);color:var(--paper);font-size:12px;line-height:1.5;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.gc-leg a{margin-left:auto;color:var(--orange-ink);text-underline-offset:3px}
+.gm-nd{margin:10px 0 0;font-size:13px;color:var(--muted)}
+/* ---------- Le altre sezioni ---------- */
 .sec{margin-top:52px}
 .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:18px}
 .sec-head h3{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:26px;line-height:1.1;margin:0}
 .sec-head span{font-family:var(--mono);font-size:12px;color:var(--muted)}
 .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpis.k3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .kpi{background:var(--sheet);border-top:3px solid var(--ink);padding:14px 16px 16px;min-height:132px;display:flex;flex-direction:column}
 .kpi .k{font-size:13px;font-weight:600;color:var(--muted)}
 .kpi .v{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:40px;line-height:1.05;margin-top:6px}
@@ -47,45 +103,6 @@ main{padding-block:34px 56px}
 .kpi.accent{border-top-color:var(--orange)}
 .v.up{color:var(--up)}.v.down{color:var(--down)}
 .v.wait{color:var(--muted);font-size:26px}
-.grid2{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:24px;margin-top:20px}
-.card{background:var(--sheet);padding:16px 18px}
-.card h4{margin:0 0 10px;font-size:13px;font-weight:600;color:var(--muted)}
-.card{position:relative;display:flex;flex-direction:column}
-.card .ch-wrap{flex:1;display:flex;align-items:flex-end}
-.card .ch-wrap svg{width:100%}
-.ch-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
-.ch-head h4{margin:0}
-.seg{display:inline-flex;border:1px solid var(--ink)}
-.seg button{border:0;background:transparent;color:var(--ink);font-family:var(--mono);font-size:12.5px;padding:7px 12px;cursor:pointer}
-.seg button+button{border-left:1px solid var(--ink)}
-.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
-.ch-sum{margin:6px 0 10px;font-size:13.5px;color:var(--muted)}
-.ch-sum b{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:22px;color:var(--ink);margin-right:6px}
-.ch-sum .up{color:var(--up)}.ch-sum .down{color:var(--down)}
-.ch-leg{margin:8px 0 0;font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
-.ch-leg i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
-.ch-tip{position:absolute;z-index:4;pointer-events:none;background:var(--ink);color:var(--paper);padding:6px 9px;font-size:12.5px;line-height:1.35;transform:translate(-50%,calc(-100% - 8px));white-space:nowrap}
-.ch-tip b{font-family:var(--mono);font-weight:500}
-svg.wk{display:block;width:100%;height:auto}
-svg.wk rect.hit{fill:transparent;cursor:pointer;outline:none}
-svg.wk rect.hit:focus-visible{stroke:var(--orange);stroke-width:2}
-svg.wk g.on rect.bar{opacity:.75}
-svg.wk rect.nd{fill:none;stroke:var(--muted);stroke-dasharray:3 3}
-svg.wk rect.off{fill:var(--rule)}
-svg.wk line.avg{stroke:var(--orange-ink);stroke-width:1;stroke-dasharray:4 3}
-svg.wk text.avg{fill:var(--orange-ink);paint-order:stroke;stroke:var(--sheet);stroke-width:5px;stroke-linejoin:round}
-svg.wk rect{fill:var(--ink)} svg.wk rect.cur{fill:var(--orange)}
-svg.wk text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
-svg.wk text.n{fill:var(--ink);font-weight:500}
-@media (max-width:560px){svg.wk text{font-size:17px}}   /* sul telefono il grafico si rimpicciolisce: le scritte no */
-ol.top{list-style:none;margin:0;padding:0;counter-reset:t}
-ol.top li{counter-increment:t;display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:9px 0;border-top:1px solid var(--rule)}
-ol.top li:first-child{border-top:0}
-ol.top li:before{content:counter(t);font-family:var(--display);font-weight:800;font-size:18px;color:var(--orange)}
-ol.top a{text-decoration:none;font-family:var(--display);font-stretch:88%;font-weight:700;font-size:15.5px;line-height:1.25}
-ol.top a:hover{color:var(--orange-ink)}
-ol.top small{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);font-weight:400;margin-top:2px}
-ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
 .meter{height:10px;background:var(--rule);margin-top:10px;display:flex}
 .meter i{display:block;height:100%;background:var(--up)}
 .meter i.no{background:var(--down)}
@@ -94,41 +111,63 @@ ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
 .cta p{margin:0;font-size:15px;color:var(--bar-soft);max-width:60ch}
 .cta p b{color:var(--bar-ink)}
 .cta a{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;background:var(--orange);color:#141414;font-family:var(--mono);font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap}
-.method{margin-top:34px}
+.method{margin-top:34px;scroll-margin-top:20px}
 .method summary{cursor:pointer;font-weight:600;font-size:14.5px}
 .method p,.method li{font-size:14px;color:var(--muted)}
-@media (max-width:900px){.hero,.grid2{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi .v{font-size:32px}.kpi{min-height:118px}}
+@media (max-width:900px){.gks,.kpis,.kpis.k3{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi .v{font-size:32px}.kpi{min-height:118px}.gk-v b{font-size:34px}}
+@media (max-width:520px){.gm{padding:14px 12px 16px}.gks{grid-template-columns:1fr}.gc{padding:14px 12px}.gc-leg a{margin-left:0}}
 </style>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="stylesheet" href="assets/sito.css">
+<script src="assets/gomm.js?v=2026-11-22"></script>
 </head>
 <body>
 <header class="gn-mast"><div class="gn-top"><div class="gn-brand"><p class="gn-logo"><a href="./" title="Torna all'ultima edizione"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></p><p class="gn-pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p></div><nav class="gn-nav" aria-label="Sezioni del sito"><a href="./" data-s="Edizione">Ultima edizione</a><a href="archivio.html">Archivio</a><a href="glossario.html">Impara</a><a href="scommessa.html" data-s="Scommessa">La scommessa</a><a href="progetto.html" aria-current="page">Chi siamo</a></nav></div></header>
 
 <main class="wrap">
   <section class="hero" aria-labelledby="h-hero">
-    <div>
-      <p class="pg-kick"><a href="progetto.html">Chi siamo</a> | I numeri</p>
-      <h2 class="pg-h" id="h-hero"><span id="hN">La dashboard pubblica.</span><em>Gli stessi numeri che guarda la redazione: quanti ci leggono, quanto ci condividono, quanto siamo utili, puntuali e affidabili.</em></h2>
+    <p class="pg-kick"><a href="progetto.html">Chi siamo</a> | I numeri</p>
+    <h2 class="pg-h" id="h-hero"><span>Il GOMM, la quotazione del Gommberg.</span><em>Quanto è letto il Gommberg, misurato come un titolo in borsa. I dati arrivano dal contatore pubblico, senza ritocchi.</em></h2>
+  </section>
+
+  <section class="gm" aria-labelledby="gm-h">
+    <div class="gm-top"><h3 id="gm-h"><span class="tag">GOMM</span><span>Indice di lettura · base 100 = settimana 17-23 ottobre</span></h3><span id="gmUpd">Fonte: GoatCounter · aggiornamento ogni 4 ore</span></div>
+    <div class="gks">
+      <div class="gk acc"><p class="gk-k">GOMM</p><div class="gk-v"><b id="gkV" class="wait">-</b><span class="c" id="gkC"></span></div><p class="gk-s" id="gkS">&nbsp;</p>
+        <div class="gk-f"><span><i class="dot"></i>Oggi in corso</span><span id="gkO"></span></div></div>
+      <div class="gk"><p class="gk-k" id="giK">Intervallo dalla quotazione</p><div class="gk-v"><div class="rng"><div class="rng-t"><i id="giI"></i><s id="giS" hidden></s></div><div class="rng-l"><span id="giMin">-</span><span id="giMax">-</span></div></div></div><p class="gk-s" id="giD">&nbsp;</p>
+        <div class="gk-f"><span>Dalla quotazione</span><span id="giP"></span></div></div>
+      <div class="gk"><p class="gk-k">Andamento</p><div class="gk-v"><b id="gaV" class="wait">-</b></div><p class="gk-s">Variazione a 7 giorni</p>
+        <div class="gk-f"><span>Settimane di fila in rialzo</span><span id="gaW"></span></div></div>
+      <div class="gk"><p class="gk-k">Volumi</p><div class="gk-v"><b id="gvV" class="wait">-</b></div><p class="gk-s">Visite al giorno, media a 7 giorni</p>
+        <div class="gk-f"><span>Visite di ieri</span><span id="gvI"></span></div></div>
     </div>
-    <div class="hero-side">
-      <b>Niente numeri ritoccati.</b> Le visite arrivano direttamente da GoatCounter, un contatore senza cookie che non traccia le persone; il resto dai file della redazione.
-      <div class="live"><i></i><span id="hUpd">Visite aggiornate almeno ogni 4 ore</span></div>
+    <div class="gc">
+      <div class="gc-head"><h4>Andamento del GOMM <span id="gcSub">· ogni candela è un giorno</span></h4>
+        <div class="seg" id="seg" role="group" aria-label="Scala del grafico"><button type="button" data-g="g" aria-pressed="true">Giorni</button><button type="button" data-g="s" aria-pressed="false">Settimane</button><button type="button" data-g="m" aria-pressed="false">Mesi</button></div></div>
+      <div class="gc-box" id="gcBox"><p class="gm-nd">Carico i dati del contatore...</p></div>
+      <div class="gc-tip" id="gcTip" hidden></div>
+      <div class="gc-leg">
+        <span><i class="cnd" aria-hidden="true"></i><button type="button" data-l="c" aria-describedby="ltC"><b>Candela</b></button><span id="lgC">: il GOMM, cioè la media delle visite degli ultimi 7 giorni</span><span class="lt" role="tooltip" id="ltC" hidden></span></span>
+        <span><i class="su" aria-hidden="true"></i>sale</span><span><i class="giu" aria-hidden="true"></i>scende</span><span id="lgP"><i class="p" aria-hidden="true"></i>oggi, in corso</span>
+        <span><i class="brs" aria-hidden="true"></i><button type="button" data-l="v" aria-describedby="ltV"><b>Barre</b></button><span id="lgV">: il volume, cioè le visite del giorno</span><span class="lt" role="tooltip" id="ltV" hidden></span></span>
+        <a href="#come-contiamo" id="lgK">Come si calcola</a>
+      </div>
     </div>
   </section>
 
+  <aside class="gs" aria-labelledby="gs-h">
+    <div class="gs-t"><h2 class="gs-h" id="gs-h">Fai salire il GOMM</h2>
+      <p class="gs-p">Il GOMM sale ogni volta che il Gommberg trova un lettore nuovo. Se l'edizione di oggi ti è stata utile, inoltrala a chi vuole capire i mercati.</p></div>
+    <div class="gs-b"><a class="gs-wa" href="https://wa.me/?text=Gommberg%20Terminal%20Daily%2C%20i%20mercati%20globali%20spiegati%20ogni%20mattina%20in%206%20pagine%3A%20https%3A%2F%2Fgommberg.com%2F" target="_blank" rel="noopener" data-ev="numeri">Inoltra su WhatsApp</a><button type="button" class="gs-cp" data-copy="https://gommberg.com/" data-ev="numeri">Copia il link</button></div>
+  </aside>
+
   <section class="sec" aria-labelledby="h-let">
     <div class="sec-head"><h3 id="h-let">Chi ci legge</h3><span id="letP"></span></div>
-    <div class="kpis">
+    <div class="kpis k3">
       <div class="kpi accent"><span class="k">Visite questo mese</span><span class="v" id="kMese">-</span><span class="d" id="kMeseD"></span></div>
       <div class="kpi"><span class="k">Visite totali</span><span class="v" id="kTot">-</span><span class="d" id="kTotD"></span></div>
-      <div class="kpi"><span class="k">PDF aperti</span><span class="v" id="kPdf">-</span><span class="d">dal sito, tutte le edizioni</span></div>
       <div class="kpi"><span class="k">Condivisioni</span><span class="v" id="kSh">-</span><span class="d">WhatsApp e link copiato</span></div>
-    </div>
-    <div class="grid2">
-      <div class="card"><div class="ch-head"><h4 id="chT">Visite</h4><div class="seg" id="seg" role="group" aria-label="Periodo del grafico"><button type="button" data-g="g">Giorni</button><button type="button" data-g="s" aria-pressed="true">Settimane</button><button type="button" data-g="m">Mesi</button></div></div>
-        <p class="ch-sum" id="chSum"></p><div class="ch-wrap" id="wkBox"></div><div class="ch-tip" id="chTip" hidden></div><p class="ch-leg" id="chLeg"></p></div>
-      <div class="card"><h4>Le edizioni più lette (ultime 10) <small style="font-weight:400">pagina e PDF</small></h4><ol class="top" id="top"></ol></div>
     </div>
   </section>
 
@@ -147,11 +186,15 @@ ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
     <a href="https://gommberg.goatcounter.com" target="_blank" rel="noopener">Apri le statistiche complete</a>
   </div>
 
-  <details class="method">
+  <details class="method" id="come-contiamo">
     <summary>Come contiamo</summary>
     <ul>
-      <li><b>Visite</b>: pagine aperte sul sito, contate da GoatCounter senza cookie. Non sono persone: chi torna tre volte conta tre visite. Per questo non scriviamo "lettori".</li>
-      <li><b>PDF aperti e condivisioni</b>: i clic su "Leggi", "Scarica", WhatsApp e "Copia link". Chi riceve il PDF da un amico non è contato.</li>
+      <li><b>Visite</b>: pagine aperte sul sito, contate da GoatCounter senza cookie. Non sono persone: chi torna tre volte conta tre visite. Per questo non scriviamo "lettori". Contiamo tutte le visite, comprese quelle della redazione.</li>
+      <li><b>Il GOMM</b>: la media delle visite degli ultimi 7 giorni, divisa per la media della settimana dal 17 al 23 ottobre 2026 e moltiplicata per 100, con un decimale. La media a 7 giorni toglie l'effetto del fine settimana. Il valore grande è la chiusura dell'ultimo giorno completo (ieri); quello di oggi è provvisorio, perché il contatore pubblico si aggiorna ogni 4 ore.</li>
+      <li><b>Le candele</b>: con i Giorni il corpo va dal GOMM del giorno prima a quello del giorno, senza linea sottile, perché il contatore pubblico dà solo giorni interi. Con Settimane (da lunedì a domenica) e Mesi il corpo va dal GOMM di fine periodo precedente a quello di fine periodo e la linea sottile dal minimo al massimo dei GOMM giornalieri. Verde se sale, rossa se scende.</li>
+      <li><b>Il volume</b>: le visite del giorno, della settimana o del mese. È il dato grezzo da cui nasce il GOMM.</li>
+      <li><b>Intervallo</b>: il minimo e il massimo del GOMM dalla quotazione; dopo un anno di storia, delle ultime 52 settimane.</li>
+      <li><b>Condivisioni</b>: i clic su WhatsApp e "Copia link". Chi riceve il PDF da un amico non è contato.</li>
       <li><b>Utile</b>: i voti "Ti è stata utile?" in fondo alle edizioni. Mostriamo la percentuale solo dai 10 voti in su.</li>
       <li><b>Puntualità</b>: l'ora in cui l'edizione va online, registrata in automatico a ogni pubblicazione.</li>
       <li><b>La scommessa</b>: il metodo e la pagella completa sono nella <a href="scommessa.html">sua pagina</a>.</li>
@@ -159,16 +202,16 @@ ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
   </details>
 </main>
 
-<footer class="gf"><div class="gf-in"><nav class="gf-links" aria-label="Le pagine del sito"><a href="./">Ultima edizione</a><a href="archivio.html">Archivio</a><a href="glossario.html">Impara</a><a href="scommessa.html">La scommessa</a><a href="progetto.html">Chi siamo</a><a href="iscriviti.html">Ricevila via email</a><a href="feed.xml">Feed RSS</a><a href="privacy.html">Privacy</a></nav><p class="gf-ai">Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.</p><p class="gf-legal">Non costituisce sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione. Visite e voti: GoatCounter, senza cookie. Gli altri numeri: i file della redazione.</p></div></footer>
+<footer class="gf"><div class="gf-in"><nav class="gf-links" aria-label="Le pagine del sito"><a href="./">Ultima edizione</a><a href="archivio.html">Archivio</a><a href="glossario.html">Impara</a><a href="scommessa.html">La scommessa</a><a href="progetto.html">Chi siamo</a><a href="numeri.html">I numeri</a><a href="iscriviti.html">Ricevila via email</a><a href="feed.xml">Feed RSS</a><a href="privacy.html">Privacy</a></nav><p class="gf-ai">Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.</p><p class="gf-legal">Non costituisce sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione. Visite e voti: GoatCounter, senza cookie. Gli altri numeri: i file della redazione.</p></div></footer>
 
 <script>
 (function () {
   "use strict";
-  // Dashboard pubblica. Visite ed eventi: contatori pubblici di GoatCounter (gommberg.goatcounter.com/counter/...json),
-  // un numero per richiesta, con start/end per mesi e settimane. Il resto: dati/storico.json, dati/uscite.json, pagella.
-  const GC = "https://gommberg.goatcounter.com/counter/";
-  const PRE = location.pathname.replace(/[^/]*$/, "");          // es. /
+  // Il GOMM (assets/gomm.js) in quattro schede e un grafico a candele; poi visite, condivisioni e i numeri della redazione
+  // (dati/storico.json, dati/uscite.json, pagella della scommessa).
+  const G = window.GOMM;
   const MESI = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
+  const GG = ["domenica","lunedì","martedì","mercoledì","giovedì","venerdì","sabato"];
   const $ = (id) => document.getElementById(id);
   const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
   const NS = "http://www.w3.org/2000/svg";
@@ -176,35 +219,202 @@ ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
   const n0 = (x) => Number(x).toLocaleString("it-IT");
   const iso = (d) => d.toISOString().slice(0, 10);
   const pad = (n) => String(n).padStart(3, "0");
+  const hhmm = (d) => d.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Rome" });
+  const giorno = (s) => { const d = G.dt(s); return d.getUTCDate() + " " + MESI[d.getUTCMonth()]; };
+  const segno = (a, b) => a >= b ? "up" : "down";
+  const freccia = (a, b) => (a >= b ? "▲ " : "▼ ") + G.pct(a, b);
 
-  // GoatCounter non conta il giorno indicato in "end" (verificato il 21/11/2026: start=19&end=19 dà 0, start=19&end=20
-  // dà le visite del 19). Qui "end" è il giorno incluso: alla richiesta si manda il giorno dopo.
-  const dopo = (s) => { const d = new Date(s + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + 1); return iso(d); };
-  let attive = 0; const coda = [];   // al massimo 6 richieste insieme: il grafico dei giorni ne fa fino a 30
-  const turno = () => new Promise((ok) => { if (attive < 6) { attive++; ok(); } else coda.push(ok); });
-  const libera = () => { const n = coda.shift(); if (n) n(); else attive--; };
-  // Ora del dato: GoatCounter tiene ogni risposta 4 ore e ne manda la scadenza (Expires); il dato è di 4 ore prima
-  // (verificato il 21/11/2026: richiesta nuova alle 13:37:20, scadenza alle 17:37:19). Si mostra il dato più vecchio
-  // tra quelli sulla pagina, così l'orario vale per tutti; senza l'intestazione resta la frase fissa.
-  const VALIDO = 4 * 3600e3, hhmm = (d) => d.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Rome" });
-  let scade = null;
-  function orario(r) {
-    const e = Date.parse(r.headers.get("expires") || ""), ora = Date.now();
-    if (!(e > ora && e <= ora + VALIDO + 60e3) || (scade && e >= scade)) return;
-    scade = e;
-    $("hUpd").textContent = "Visite aggiornate alle " + hhmm(new Date(e - VALIDO)) + " · prossimo aggiornamento alle " + hhmm(new Date(e));
+  G.orario((dato, prossimo) => { $("gmUpd").textContent = "Fonte: GoatCounter · dati di oggi alle " + hhmm(dato) + ", prossimo aggiornamento alle " + hhmm(prossimo); });
+
+  let EDIZ = {};   // data -> edizione, per il riquadro delle candele dei giorni
+  let D = null;    // i dati del GOMM
+
+  /* ---------- Periodi: giorni, settimane (lunedì-domenica), mesi ---------- */
+  function periodi(g) {
+    const gi = D.giorni.filter((x) => x.i != null);
+    if (g === "g") {
+      const P = gi.slice(-30).map((x) => ({ a: x.d, b: x.d, items: [x] }));
+      if (D.oggi && D.oggi.i != null) P.push({ a: D.oggi.d, b: D.oggi.d, items: [D.oggi], p: true });
+      return P;
+    }
+    const chiave = (s) => { if (g === "m") return s.slice(0, 7); const d = G.dt(s); d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7)); return iso(d); };
+    const P = [], map = {};
+    D.giorni.forEach((x) => {   // tutti i giorni per il volume, solo quelli con il GOMM per le candele
+      const k = chiave(x.d);
+      if (!map[k]) { map[k] = { k: k, a: x.d, b: x.d, items: [], tutti: [] }; P.push(map[k]); }
+      map[k].b = x.d; map[k].tutti.push(x); if (x.i != null) map[k].items.push(x);
+    });
+    return P.filter((p) => p.items.length).slice(g === "s" ? -26 : -24);
   }
-  function chiedi(url) {
-    return fetch(url).then((r) => { if (r.ok) orario(r); return r.ok ? r.json() : (r.status === 404 ? { count: "0" } : Promise.reject(r.status)); })
-      .then((j) => parseInt(String(j.count || "0").replace(/\D/g, ""), 10) || 0);
+  function candele(P, g) {
+    const gi = D.giorni;
+    return P.map((p) => {
+      const it = p.items, primo = it[0], ultimo = it[it.length - 1];
+      const k = p.p ? gi.length : gi.indexOf(primo), prec = gi[k - 1];
+      const open = prec && prec.i != null ? prec.i : primo.i, close = ultimo.i;
+      const vals = it.map((x) => x.i).concat([open]);
+      const vis = (p.tutti || it).reduce((s, x) => s + (x.v || 0), 0);
+      return { p: p, open: open, close: close, hi: g === "g" ? Math.max(open, close) : Math.max(...vals), lo: g === "g" ? Math.min(open, close) : Math.min(...vals),
+               vis: vis, eds: (p.tutti || it).filter((x) => EDIZ[x.d]).length };
+    });
   }
-  async function conta(path, start, end) {   // -> numero, oppure null se il contatore non risponde
-    const q = []; if (start) q.push("start=" + start); if (end) q.push("end=" + dopo(end));
-    const url = GC + encodeURIComponent(path) + ".json" + (q.length ? "?" + q.join("&") : "");
-    await turno();
-    try { return await chiedi(url); }
-    catch (e) { try { await new Promise((ok) => setTimeout(ok, 800)); return await chiedi(url); } catch (e2) { return null; } }
-    finally { libera(); }
+
+  /* ---------- Le quattro schede ---------- */
+  function schede() {
+    const ie = D.ieri, pr = D.prima, d = G.dt(ie.d);
+    $("gkV").textContent = G.num(ie.i); $("gkV").classList.remove("wait");
+    $("gkC").textContent = freccia(ie.i, pr.i); $("gkC").className = "c " + segno(ie.i, pr.i);
+    $("gkS").textContent = "Chiusura di " + GG[d.getUTCDay()] + " " + giorno(ie.d);
+    $("gkO").textContent = D.oggi && D.oggi.i != null ? G.num(D.oggi.i) + " · " + n0(D.oggi.v) + (D.oggi.v === 1 ? " visita" : " visite") : "dato non arrivato";
+    // intervallo: dalla quotazione, poi a 52 settimane quando c'è un anno di storia
+    let gi = D.giorni.filter((x) => x.i != null && x.d <= ie.d);
+    const anno = gi.length > 364; if (anno) gi = gi.slice(-364);
+    $("giK").textContent = anno ? "Intervallo a 52 settimane" : "Intervallo dalla quotazione";
+    const mn = gi.reduce((a, x) => x.i < a.i ? x : a), mx = gi.reduce((a, x) => x.i >= a.i ? x : a);
+    const pos = mx.i > mn.i ? (ie.i - mn.i) / (mx.i - mn.i) * 100 : 100;
+    $("giI").style.width = pos.toFixed(1) + "%"; $("giS").style.left = pos.toFixed(1) + "%"; $("giS").hidden = false;
+    $("giMin").textContent = G.num(mn.i); $("giMax").textContent = G.num(mx.i);
+    const dm = G.dt(mn.d), dM = G.dt(mx.d);
+    $("giD").textContent = "Minimo il " + giorno(mn.d) + ", massimo il " + (dm.getUTCMonth() === dM.getUTCMonth() && dm.getUTCFullYear() === dM.getUTCFullYear() ? dM.getUTCDate() : giorno(mx.d));
+    $("giP").textContent = G.pct(ie.i, 100); $("giP").className = segno(ie.i, 100);
+    // andamento: 7 giorni fa e settimane di fila in rialzo (la settimana in corso conta con la chiusura di ieri)
+    const k = D.giorni.indexOf(ie), set = D.giorni[k - 7];
+    if (set && set.i != null) { $("gaV").textContent = G.pct(ie.i, set.i); $("gaV").className = segno(ie.i, set.i); } else $("gaV").textContent = "-";
+    const W = candele(periodi("s"), "s"); let fila = 0;
+    for (let j = W.length - 1; j >= 0 && W[j].close > W[j].open; j--) fila++;
+    $("gaW").textContent = String(fila);
+    // volumi: media delle visite degli ultimi 7 giorni completi, e ieri
+    const ult = D.giorni.slice(k - 6, k + 1);
+    $("gvV").textContent = n0(Math.round(ult.reduce((s, x) => s + x.v, 0) / 7)); $("gvV").classList.remove("wait");
+    $("gvI").textContent = n0(ie.v);
+  }
+
+  /* ---------- Il grafico ---------- */
+  let SCALA = "g", SEL = null;
+  const TESTI = {
+    g: { sub: "· ogni candela è un giorno", c: ": il GOMM, cioè la media delle visite degli ultimi 7 giorni", v: ": il volume, cioè le visite del giorno",
+         cl: "La candela è il GOMM del giorno: la media delle visite degli ultimi 7 giorni, messa in indice (100 = la settimana 17-23 ottobre). La media toglie l'effetto del fine settimana e mostra se il Gommberg sta crescendo. Il corpo va dal GOMM del giorno prima a quello del giorno: verde se sale, rosso se scende. Quella tratteggiata è oggi, che si completa a mezzanotte.",
+         vl: "Le barre sono il volume: quante volte è stato aperto il sito quel giorno. È il dato grezzo da cui nasce il GOMM e ne spiega i movimenti: nei giorni feriali si legge più che nel fine settimana." },
+    s: { sub: "· ogni candela è una settimana, da lunedì a domenica", c: ": il GOMM nella settimana, corpo da inizio a fine, linea sottile da minimo a massimo", v: ": il volume, cioè le visite della settimana",
+         cl: "Ogni candela è una settimana: il corpo va dal GOMM di fine della settimana prima a quello di fine settimana, la linea sottile dal minimo al massimo toccati. Verde se nella settimana il GOMM è salito, rossa se è sceso. L'ultima è la settimana in corso, ferma alla chiusura di ieri.",
+         vl: "Le barre sono il volume: quante volte è stato aperto il sito in quella settimana. È il dato grezzo da cui nasce il GOMM." },
+    m: { sub: "· ogni candela è un mese", c: ": il GOMM nel mese, corpo da inizio a fine, linea sottile da minimo a massimo", v: ": il volume, cioè le visite del mese",
+         cl: "Ogni candela è un mese: il corpo va dal GOMM di fine del mese prima a quello di fine mese, la linea sottile dal minimo al massimo toccati. Verde se nel mese il GOMM è salito, rossa se è sceso. L'ultima è il mese in corso, fermo alla chiusura di ieri.",
+         vl: "Le barre sono il volume: quante volte è stato aperto il sito in quel mese. È il dato grezzo da cui nasce il GOMM." } };
+  const passo = (r) => [10, 20, 25, 50, 100, 200, 250, 500, 1000, 2000, 5000].find((s) => r / s <= 6) || 10000;
+
+  function disegna() {
+    const box = $("gcBox"), tip = $("gcTip"), g = SCALA, T = TESTI[g];
+    document.querySelectorAll("#seg button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.g === g ? "true" : "false"));
+    $("gcSub").textContent = T.sub; $("lgC").textContent = T.c; $("lgV").textContent = T.v; $("ltC").textContent = T.cl; $("ltV").textContent = T.vl;
+    $("lgP").hidden = g !== "g";
+    tip.hidden = true; box.innerHTML = "";
+    const C = candele(periodi(g), g), N = C.length;
+    const W = Math.max(280, box.clientWidth), tel = W < 560, AX = 44, PW = W - AX;
+    const H1 = tel ? 220 : 300, TOP = 18, VG = 16, HV = tel ? 54 : 70, HL = 20, H = TOP + H1 + VG + HV + HL;
+    const hi = Math.max(...C.map((c) => c.hi)) * 1.08, lo = Math.min(...C.map((c) => c.lo)) * 0.85;
+    const Y = (v) => TOP + H1 - (v - lo) / (hi - lo) * H1;
+    const vmax = Math.max(1, ...C.map((c) => c.vis)), YV0 = TOP + H1 + VG + HV;
+    const s = sv("svg", { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: "group", "aria-label": "Andamento del GOMM, " + (g === "g" ? "giorni" : g === "s" ? "settimane" : "mesi") });
+    // griglia e asse a destra
+    const st = passo(hi - lo);
+    for (let v = Math.ceil(lo / st) * st; v < hi; v += st) {
+      const y = Math.round(Y(v)) + 0.5; s.appendChild(sv("line", { class: "gr", x1: 0, x2: PW, y1: y, y2: y }));
+      const t = sv("text", { x: PW + 6, y: y + 4 }); t.textContent = n0(v); s.appendChild(t);
+    }
+    const l1 = sv("text", { class: "lb", x: 0, y: 10 }); l1.textContent = "CANDELE · GOMM"; s.appendChild(l1);
+    s.appendChild(sv("line", { class: "ax", x1: 0, x2: PW, y1: TOP + H1 + VG / 2, y2: TOP + H1 + VG / 2 }));
+    const l2 = sv("text", { class: "lb", x: 0, y: TOP + H1 + VG + 10 }); l2.textContent = "VOLUME · VISITE"; s.appendChild(l2);
+    const tv = sv("text", { x: PW + 6, y: YV0 - (HV - 16) + 4 }); tv.textContent = n0(vmax); s.appendChild(tv);
+    const slot = PW / N, bw = Math.max(2, Math.min(slot * (g === "g" ? 0.6 : 0.4), 28));
+    const hls = [];
+    const mostra = (k, hit) => {
+      SEL = k; hls.forEach((h, j) => h.setAttribute("class", j === k ? "hs hl" : "hs"));
+      const c = C[k], p = c.p, a = p.items[0], A = G.dt(p.a), B = G.dt(p.b), mm = (d) => MESI[d.getUTCMonth()];
+      const corta = (d) => GG[d.getUTCDay()].slice(0, 3).toUpperCase() + " " + d.getUTCDate() + " " + mm(d).slice(0, 3).toUpperCase();
+      let K, Tt, L;
+      if (g === "g" && p.p) { K = "OGGI · " + corta(A) + " · IN CORSO"; Tt = "Giornata in corso: la candela si completa a mezzanotte e il dato si aggiorna ogni 4 ore."; L = "GOMM provvisorio " + G.num(c.close) + " " + freccia(c.close, c.open) + " · " + n0(a.v) + " visite finora"; }
+      else if (g === "g") { const e = EDIZ[a.d]; K = (e ? "EDIZIONE N. " + pad(e.numero) : "NESSUNA EDIZIONE") + " · " + corta(A); Tt = e ? e.titolo : "Nessuna edizione: le borse sono chiuse."; L = "GOMM " + G.num(c.close) + " " + freccia(c.close, c.open) + " · " + n0(a.v) + (a.v === 1 ? " visita" : " visite"); }
+      else {
+        const corr = k === N - 1;
+        K = c.eds + (c.eds === 1 ? " EDIZIONE" : " EDIZIONI") + " · " + n0(c.vis) + " VISITE" + (corr ? " · IN CORSO" : "");
+        Tt = g === "s" ? "Settimana dal " + A.getUTCDate() + (A.getUTCMonth() === B.getUTCMonth() ? "" : " " + mm(A)) + " al " + B.getUTCDate() + " " + mm(B) : (mm(A) + " " + A.getUTCFullYear()).replace(/^./, (x) => x.toUpperCase());
+        L = "GOMM da " + G.num(c.open) + " a " + G.num(c.close) + " " + freccia(c.close, c.open) + " · massimo " + G.num(c.hi);
+      }
+      tip.innerHTML = ""; tip.append(el("p", "k", K), el("p", "t", Tt), el("p", "l", L)); tip.hidden = false;
+      const host = box.parentElement.getBoundingClientRect(), r = hit.getBoundingClientRect(), w = tip.offsetWidth;
+      const cx = r.left - host.left + r.width / 2;
+      tip.style.left = Math.min(Math.max(cx > host.width / 2 ? cx - w - 12 : cx + 12, 8), host.width - w - 8) + "px";
+      tip.style.top = (box.offsetTop + 22) + "px";
+    };
+    const nascondi = () => { tip.hidden = true; hls.forEach((h) => h.setAttribute("class", "hs")); SEL = null; };
+    C.forEach((c, k) => {
+      const x0 = k * slot, cx = x0 + slot / 2, cl = c.close >= c.open ? "su" : "giu", oggi = !!c.p.p;
+      const hl = sv("rect", { x: x0, y: TOP, width: slot, height: H1 + VG + HV, class: "hs" }); hls.push(hl); s.appendChild(hl);
+      if (g !== "g") s.appendChild(sv("rect", { class: cl, x: cx - 0.75, y: Y(c.hi), width: 1.5, height: Math.max(1, Y(c.lo) - Y(c.hi)) }));
+      const yb = Y(Math.max(c.open, c.close)), hb = Math.max(3, Math.abs(Y(c.open) - Y(c.close)));
+      s.appendChild(sv("rect", { class: cl + (oggi ? " p" : ""), x: cx - bw / 2, y: yb, width: bw, height: hb }));
+      const hv = Math.max(1, c.vis / vmax * (HV - 16));
+      s.appendChild(sv("rect", { class: cl + (oggi ? " p" : " vol"), x: cx - bw / 2, y: YV0 - hv, width: bw, height: hv }));
+      // etichette: giorni ogni 5 (e oggi), settimane e mesi secondo lo spazio
+      const ogni = g === "g" ? (tel ? 10 : 5) : Math.max(1, Math.ceil(N * (g === "s" ? 70 : 60) / PW));
+      if ((N - 1 - k) % ogni === 0) {
+        const A = G.dt(c.p.a), B = G.dt(c.p.b);
+        const lab = g === "g" ? (oggi ? "oggi" : A.getUTCDate() + "/" + (A.getUTCMonth() + 1)) : g === "s" ? A.getUTCDate() + "-" + B.getUTCDate() + " " + MESI[B.getUTCMonth()].slice(0, 3) : MESI[A.getUTCMonth()].slice(0, 3) + " " + A.getUTCFullYear();
+        const an = cx < 30 ? "start" : cx > PW - 30 ? "end" : "middle";
+        const t = sv("text", { x: an === "start" ? x0 : an === "end" ? x0 + slot : cx, y: H - 4, "text-anchor": an }); t.textContent = lab; s.appendChild(t);
+      }
+      const hit = sv("rect", { class: "hit", x: x0, y: 0, width: slot, height: H - HL, tabindex: "0", role: "img",
+        "aria-label": (g === "g" ? giorno(c.p.a) : "dal " + giorno(c.p.a) + " al " + giorno(c.p.b)) + ": GOMM " + G.num(c.close) + ", " + n0(c.vis) + " visite" + (oggi ? ", in corso" : "") });
+      hit.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") mostra(k, hit); });
+      hit.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") nascondi(); });
+      hit.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse") { e.stopPropagation(); SEL === k ? nascondi() : mostra(k, hit); } });
+      hit.addEventListener("focus", () => mostra(k, hit));
+      hit.addEventListener("blur", nascondi);
+      s.appendChild(hit);
+    });
+    box.appendChild(s);
+  }
+  document.querySelectorAll("#seg button").forEach((b) => b.addEventListener("click", () => { SCALA = b.dataset.g; if (D) disegna(); }));
+  document.addEventListener("pointerdown", () => { if (!$("gcTip").hidden) { $("gcTip").hidden = true; document.querySelectorAll("#gcBox rect.hl").forEach((h) => h.setAttribute("class", "hs")); SEL = null; } });
+  let largo = 0; window.addEventListener("resize", () => { const w = $("gcBox").clientWidth; if (D && Math.abs(w - largo) > 20) { largo = w; disegna(); } });
+  // legenda: Candela e Barre si spiegano al passaggio, al tocco o con la tastiera; "Come si calcola" apre il metodo
+  document.querySelectorAll(".gc-leg button").forEach((b) => {
+    const t = $(b.getAttribute("aria-describedby")), su = () => { t.hidden = false; }, giu = () => { t.hidden = true; };
+    b.addEventListener("mouseenter", su); b.addEventListener("mouseleave", giu); b.addEventListener("focus", su); b.addEventListener("blur", giu);
+    b.addEventListener("click", (e) => { e.stopPropagation(); t.hidden = !t.hidden; });
+  });
+  $("lgK").addEventListener("click", () => { $("come-contiamo").open = true; });
+
+  /* ---------- Fai salire il GOMM: WhatsApp e link copiato, contati come le altre condivisioni ---------- */
+  function evento(o, t) { const g = window.goatcounter; if (g && g.count) { try { g.count(o); } catch (e) {} return; } if ((t || 0) < 20) setTimeout(() => evento(o, (t || 0) + 1), 400); }
+  document.querySelectorAll(".gs [data-ev]").forEach((b) => b.addEventListener("click", () => {
+    const wa = b.tagName === "A";
+    evento({ path: "condividi-tutte", title: "Condivisioni (tutte le edizioni)", event: true });
+    evento({ path: (wa ? "condividi-whatsapp-" : "condividi-link-") + b.dataset.ev, title: (wa ? "Condivisione WhatsApp" : "Link copiato") + " da I numeri", event: true });
+    if (wa) return;
+    const u = b.dataset.copy, ok = () => { b.textContent = "Copiato"; setTimeout(() => { b.textContent = "Copia il link"; }, 1800); };
+    if (navigator.clipboard) navigator.clipboard.writeText(u).then(ok, () => prompt("Copia il link:", u)); else prompt("Copia il link:", u);
+  }));
+
+  /* ---------- Chi ci legge ---------- */
+  async function lettori(INIZIO) {
+    const oggi = new Date(), y = oggi.getFullYear(), m = oggi.getMonth();
+    const m0 = iso(new Date(Date.UTC(y, m, 1))), p0 = iso(new Date(Date.UTC(y, m - 1, 1))), p1 = iso(new Date(Date.UTC(y, m, 0)));
+    // stesso numero di giorni del mese scorso, per un confronto alla pari
+    const pPari = iso(new Date(Date.UTC(y, m - 1, Math.min(oggi.getDate(), new Date(Date.UTC(y, m, 0)).getUTCDate()))));
+    const [tot, mese, prec, precPari, sh] = await Promise.all([
+      G.conta("TOTAL"), G.conta("TOTAL", m0), G.conta("TOTAL", p0, p1), G.conta("TOTAL", p0, pPari), G.conta("condividi-tutte")]);
+    $("letP").textContent = MESI[m] + " " + y;
+    if (tot == null) { ["kMese", "kTot", "kSh"].forEach((id) => attesa(id)); $("kTotD").textContent = "il contatore non ha risposto: riprova tra poco"; return; }
+    // il mese scorso vale come confronto solo se il Gommberg c'era già dal primo giorno
+    const precPieno = !INIZIO || INIZIO <= p0, mp = MESI[(m + 11) % 12];
+    $("kMese").textContent = n0(mese || 0);
+    if (precPari && precPieno) delta($("kMeseD"), mese, precPari, "sugli stessi giorni di " + mp);
+    else $("kMeseD").textContent = "il confronto parte dal primo mese completo";
+    const dal = INIZIO && !precPieno && INIZIO <= p1 ? " (dal " + Number(INIZIO.slice(8)) + ")" : "";
+    $("kTot").textContent = n0(tot); $("kTotD").textContent = prec != null ? n0(prec) + " visite a " + mp + dal : "";
+    $("kSh").textContent = sh == null ? "-" : n0(sh);
   }
   const attesa = (id, txt) => { const v = $(id); v.textContent = txt || "in arrivo"; v.classList.add("wait"); };
   const delta = (box, a, b, lbl) => {
@@ -214,147 +424,8 @@ ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
     box.append(" " + lbl);
   };
 
-  async function lettori() {
-    const oggi = new Date(), y = oggi.getFullYear(), m = oggi.getMonth();
-    const m0 = iso(new Date(Date.UTC(y, m, 1))), p0 = iso(new Date(Date.UTC(y, m - 1, 1))), p1 = iso(new Date(Date.UTC(y, m, 0)));
-    // stesso numero di giorni del mese scorso, per un confronto alla pari
-    const pPari = iso(new Date(Date.UTC(y, m - 1, Math.min(oggi.getDate(), new Date(Date.UTC(y, m, 0)).getUTCDate()))));
-    const [tot, mese, prec, precPari, pdf, sh] = await Promise.all([
-      conta("TOTAL"), conta("TOTAL", m0), conta("TOTAL", p0, p1), conta("TOTAL", p0, pPari), conta("pdf-tutte"), conta("condividi-tutte")]);
-    $("letP").textContent = MESI[m] + " " + y;
-    if (tot == null) {   // contatori pubblici non ancora attivi in GoatCounter
-      ["kMese", "kTot", "kPdf", "kSh"].forEach((id) => attesa(id));
-      $("kTotD").textContent = "contatore pubblico in attivazione";
-      $("wkBox").appendChild(el("p", "note", "Il grafico compare appena il contatore pubblico è attivo."));
-      return false;
-    }
-    // il mese scorso vale come confronto solo se il Gommberg c'era già dal primo giorno
-    const precPieno = !INIZIO || INIZIO <= p0, mp = MESI[(m + 11) % 12];
-    $("kMese").textContent = n0(mese || 0);
-    if (precPari && precPieno) delta($("kMeseD"), mese, precPari, "sugli stessi giorni di " + mp);
-    else $("kMeseD").textContent = "il confronto parte dal primo mese completo";
-    const dal = INIZIO && !precPieno && INIZIO <= p1 ? " (dal " + Number(INIZIO.slice(8)) + ")" : "";
-    $("kTot").textContent = n0(tot); $("kTotD").textContent = prec != null ? n0(prec) + " visite a " + mp + dal : "";
-    $("kPdf").textContent = pdf == null ? "-" : n0(pdf);
-    $("kSh").textContent = sh == null ? "-" : n0(sh);
-    $("hN").textContent = n0(tot) + (tot === 1 ? " visita." : " visite.");
-    settimane();
-    return true;
-  }
-
-  let INIZIO = null, PUBBL = new Set();   // prima edizione e giorni con un'edizione
-  const CACHE = {};
-  // Periodi del grafico. g = ultimi 30 giorni, s = settimane dal lancio (max 26), m = mesi dal lancio (max 24)
-  function periodi(g) {
-    const oggi = new Date(), t = new Date(Date.UTC(oggi.getFullYear(), oggi.getMonth(), oggi.getDate())), P = [];
-    if (g === "g") for (let k = 29; k >= 0; k--) { const a = new Date(t); a.setUTCDate(a.getUTCDate() - k); P.push([a, a]); }
-    if (g === "s") { const l = new Date(t); l.setUTCDate(l.getUTCDate() - ((l.getUTCDay() + 6) % 7)); for (let k = 25; k >= 0; k--) { const a = new Date(l); a.setUTCDate(a.getUTCDate() - 7 * k); const b = new Date(a); b.setUTCDate(b.getUTCDate() + 6); P.push([a, b]); } }
-    if (g === "m") for (let k = 23; k >= 0; k--) { const a = new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth() - k, 1)); P.push([a, new Date(Date.UTC(a.getUTCFullYear(), a.getUTCMonth() + 1, 0))]); }
-    return INIZIO ? P.filter(([, b]) => iso(b) >= INIZIO) : P;
-  }
-  const etich = (g, a, cur) => g === "g" ? (cur ? "oggi" : a.getUTCDate() + " " + MESI[a.getUTCMonth()].slice(0, 3)) : g === "s" ? (cur ? "questa" : a.getUTCDate() + " " + MESI[a.getUTCMonth()].slice(0, 3)) : MESI[a.getUTCMonth()].slice(0, 3) + (a.getUTCMonth() === 0 ? " " + String(a.getUTCFullYear()).slice(2) : "");
-  const nomeP = (g, a, b) => g === "g" ? ["dom","lun","mar","mer","gio","ven","sab"][a.getUTCDay()] + " " + a.getUTCDate() + " " + MESI[a.getUTCMonth()] : g === "s" ? "settimana dal " + a.getUTCDate() + " " + MESI[a.getUTCMonth()].slice(0, 3) + " al " + b.getUTCDate() + " " + MESI[b.getUTCMonth()].slice(0, 3) : MESI[a.getUTCMonth()] + " " + a.getUTCFullYear();
-  let GIRO = 0;   // l'ultimo periodo scelto vince: un caricamento vecchio non ridisegna sopra quello nuovo
-  async function grafico(g) {
-    const io = ++GIRO;
-    document.querySelectorAll("#seg button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.g === g ? "true" : "false"));
-    const P = periodi(g), box = $("wkBox"), tip = $("chTip");
-    $("chT").textContent = g === "g" ? "Visite al giorno, ultimi 30 giorni" : g === "s" ? "Visite per settimana" : "Visite per mese";
-    tip.hidden = true;
-    let v = CACHE[g];
-    if (!v) {
-      box.innerHTML = '<p class="note">Carico...</p>';
-      v = await Promise.all(P.map(([a, b]) => conta("TOTAL", iso(a), iso(b))));
-      if (!v.includes(null)) CACHE[g] = v;   // con un dato mancante si riprova al prossimo clic
-    }
-    if (io !== GIRO) return;
-    box.innerHTML = "";
-    const N = P.length, WW = 600, H = 250, B = 26, T = 22, slot = WW / N, bw = Math.min(slot * (N > 20 ? 0.8 : 0.66), 120);
-    const max = Math.max(1, ...v.map((x) => x || 0)), Y = (x) => H - B - Math.round((H - B - T) * x / max);
-    const s = sv("svg", { class: "wk", viewBox: `0 0 ${WW} ${H}`, role: "group", "aria-label": $("chT").textContent });
-    // media dei periodi completi (l'ultimo è in corso) e con il dato arrivato
-    const compl = v.slice(0, -1).filter((x) => x != null), media = compl.length ? compl.reduce((p, x) => p + x, 0) / compl.length : null;
-    let sel = null;
-    const mostra = (k, gr, hit) => {
-      const [a, b] = P[k], x = v[k], cur = k === N - 1;
-      if (sel) sel.classList.remove("on"); sel = gr; gr.classList.add("on");
-      tip.innerHTML = "";
-      tip.appendChild(el("b", "", x == null ? "dato non arrivato" : n0(x) + (x === 1 ? " visita" : " visite")));
-      tip.append(" | " + nomeP(g, a, b) + (cur ? (g === "g" ? " (oggi, in corso)" : " (in corso)") : ""));
-      if (g === "g" && !cur) tip.append(PUBBL.has(iso(a)) ? " | edizione uscita" : " | senza edizione");
-      tip.hidden = false;
-      const rb = hit.getBoundingClientRect(), host = box.parentElement.getBoundingClientRect(), bar = gr.querySelector("rect.bar,rect.nd").getBoundingClientRect();
-      tip.style.left = Math.min(Math.max(rb.left - host.left + rb.width / 2, tip.offsetWidth / 2), host.width - tip.offsetWidth / 2) + "px";
-      tip.style.top = (bar.top - host.top) + "px";
-    };
-    const nascondi = () => { tip.hidden = true; if (sel) sel.classList.remove("on"); sel = null; };
-    v.forEach((x, k) => {
-      const [a, b] = P[k], cur = k === N - 1, X = k * slot + (slot - bw) / 2, y = Y(x || 0);
-      const off = g === "g" && !PUBBL.has(iso(a));
-      const gr = sv("g", {});
-      if (x == null) gr.appendChild(sv("rect", { x: X + 0.5, y: T, width: bw - 1, height: H - B - T, class: "nd" }));
-      else gr.appendChild(sv("rect", { x: X, y, width: bw, height: Math.max(H - B - y, 1), class: "bar" + (cur ? " cur" : off ? " off" : "") }));
-      if (N <= 12) { const t = sv("text", { x: X + bw / 2, y: (x == null ? T : y) - 6, "text-anchor": "middle", class: "n" }); t.textContent = x == null ? "n.d." : n0(x); gr.appendChild(t); }
-      // area di tocco a tutta altezza: si legge anche una barra bassa, con il mouse, con il dito e con la tastiera
-      const hit = sv("rect", { x: k * slot, y: 0, width: slot, height: H - B, class: "hit", tabindex: "0", role: "img",
-        "aria-label": (x == null ? "dato non arrivato" : n0(x) + " visite") + ", " + nomeP(g, a, b) + (cur ? ", in corso" : "") });
-      hit.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") mostra(k, gr, hit); });
-      hit.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") nascondi(); });
-      hit.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse") { e.stopPropagation(); sel === gr ? nascondi() : mostra(k, gr, hit); } });
-      hit.addEventListener("focus", () => mostra(k, gr, hit));
-      hit.addEventListener("blur", nascondi);
-      gr.appendChild(hit);
-      s.appendChild(gr);
-      const passo = N > 20 ? (g === "g" ? 5 : 4) : 1;
-      if ((N - 1 - k) % passo === 0) {   // l'etichetta ai bordi si appoggia al bordo invece di uscire dal grafico
-        const cx = X + bw / 2, lab = etich(g, a, cur), w = lab.length * 3.6, an = cx + w > WW ? "end" : cx - w < 0 ? "start" : "middle";
-        const l = sv("text", { x: an === "end" ? X + bw : an === "start" ? X : cx, y: H - 8, "text-anchor": an }); l.textContent = lab; s.appendChild(l); }
-    });
-    if (media != null && compl.length >= 2) {
-      const ym = Y(media); s.insertBefore(sv("line", { class: "avg", x1: 0, x2: WW, y1: ym, y2: ym }), s.firstChild);
-      const t = sv("text", { class: "avg", x: WW, y: ym - 5, "text-anchor": "end" }); t.textContent = "media " + n0(Math.round(media)); s.appendChild(t);
-    }
-    box.appendChild(s);
-    // riepilogo: ultimo periodo completo contro il precedente; con un dato mancante niente percentuale
-    const sum = $("chSum"); sum.innerHTML = "";
-    const buco = (xs) => xs.some((x) => x == null);
-    if (g === "g" && N >= 15) {   // giorni: ultimi 7 giorni completi contro i 7 prima (il singolo giorno è troppo ballerino)
-      const sm = (xs) => xs.reduce((p, x) => p + (x || 0), 0), w1 = v.slice(N - 8, N - 1), w0 = v.slice(N - 15, N - 8), a7 = sm(w1), p7 = sm(w0);
-      if (buco(w1)) sum.textContent = "Il contatore non ha risposto per alcuni giorni: riprova tra poco.";
-      else {
-        sum.appendChild(el("b", "", n0(a7))); sum.append("visite negli ultimi 7 giorni, oggi escluso");
-        if (p7 && !buco(w0)) { const c = (a7 / p7 - 1) * 100; sum.append(", "); sum.appendChild(el("span", c >= 0 ? "up" : "down", (c > 0 ? "+" : "") + Math.round(c) + "%")); sum.append(" sui 7 prima."); } else sum.append(".");
-      }
-    } else if (g !== "g" && v.length >= 3 && v[N - 2] != null && v[N - 3]) {
-      const c = (v[N - 2] / v[N - 3] - 1) * 100, lbl = g === "s" ? "la settimana scorsa" : "il mese scorso", vs = g === "s" ? "quella prima" : "quello prima";
-      sum.appendChild(el("b", "", n0(v[N - 2]))); sum.append("visite " + lbl + ", ");
-      sum.appendChild(el("span", c >= 0 ? "up" : "down", (c > 0 ? "+" : "") + Math.round(c) + "%")); sum.append(" su " + vs + ".");
-    } else sum.textContent = "Il confronto compare quando ci sono almeno tre periodi.";
-    $("chLeg").innerHTML = (g === "g" ? '<span><i style="background:var(--ink)"></i>giorni con un\'edizione</span><span><i style="background:var(--rule)"></i>senza edizione</span><span><i style="background:var(--orange)"></i>oggi, in corso</span>' : '<span><i style="background:var(--orange)"></i>periodo in corso</span>')
-      + (v.includes(null) ? '<span><i style="border:1px dashed var(--muted)"></i>dato non arrivato</span>' : "");
-  }
-  document.addEventListener("pointerdown", () => { const t = $("chTip"); if (!t.hidden) { t.hidden = true; document.querySelectorAll("svg.wk g.on").forEach((x) => x.classList.remove("on")); } });
-  document.querySelectorAll("#seg button").forEach((b) => b.addEventListener("click", () => grafico(b.dataset.g)));
-  async function settimane() { grafico("s"); }
-
-  async function top(storico) {   // le ultime 10 edizioni: visite alla pagina dell'edizione + PDF aperti
-    const ult = storico.slice(0, 10);
-    // prima di gommberg.com il sito stava in /Gommberg-Terminal-Daily/: per le edizioni di allora si sommano i due percorsi
-    const VECCHIO = "/Gommberg-Terminal-Daily/";
-    const pagina = (p) => PRE === VECCHIO ? conta(PRE + p) : Promise.all([conta(PRE + p), conta(VECCHIO + p)])
-      .then(([a, b]) => a == null && b == null ? null : (a || 0) + (b || 0));
-    const v = await Promise.all(ult.map((e) => Promise.all([pagina("e/" + pad(e.numero) + ".html"), conta("pdf-" + pad(e.numero))])));
-    const ol = $("top"); ol.innerHTML = "";
-    if (v.every(([a, b]) => a == null && b == null)) { ol.appendChild(el("p", "note", "In arrivo con il contatore pubblico.")); return; }
-    ult.map((e, i) => ({ e, n: (v[i][0] || 0) + (v[i][1] || 0) })).sort((a, b) => b.n - a.n).slice(0, 5).forEach(({ e, n }) => {
-      const li = el("li"), a = el("a", "", e.titolo); a.href = "e/" + pad(e.numero) + ".html";
-      const d = new Date(e.data + "T12:00:00Z"); a.appendChild(el("small", "", "n. " + pad(e.numero) + " | " + d.getUTCDate() + " " + MESI[d.getUTCMonth()]));
-      li.appendChild(a); li.appendChild(el("b", "", n0(n))); ol.appendChild(li);
-    });
-  }
-
   async function utile() {
-    const [si, no] = await Promise.all([conta("voto-si"), conta("voto-no")]);
+    const [si, no] = await Promise.all([G.conta("voto-si"), G.conta("voto-no")]);
     if (si == null) { attesa("kUt"); return; }
     const tot = si + (no || 0);
     if (tot < 10) { attesa("kUt", "pochi voti"); $("kUtD").textContent = tot + (tot === 1 ? " voto finora" : " voti finora") + ": la percentuale dai 10 in su"; return; }
@@ -381,10 +452,13 @@ ol.top b{font-family:var(--mono);font-size:13px;font-weight:500}
   const j = (u) => fetch(u, { cache: "no-store" }).then((r) => r.ok ? r.json() : null).catch(() => null);
   Promise.all([j("dati/storico.json"), j("dati/uscite.json"), j("redazione/scommessa/pagella.json")]).then(([st, us, pag]) => {
     const storico = (st || []).filter((e) => e && e.numero).sort((a, b) => b.numero - a.numero);
-    if (storico.length) INIZIO = storico[storico.length - 1].data;
-    storico.forEach((e) => PUBBL.add(e.data));
+    storico.forEach((e) => { EDIZ[e.data] = e; });
     redazione(storico, us || [], pag);
-    lettori().then((ok) => { if (ok) { top(storico); } else { $("top").appendChild(el("p", "note", "In arrivo con il contatore pubblico.")); } });
+    G.carica().then((d) => {
+      if (!d) { $("gcBox").innerHTML = '<p class="gm-nd">Il contatore pubblico non ha risposto: il GOMM torna tra poco.</p>'; ["gkV", "gaV", "gvV"].forEach((id) => { $(id).textContent = "n.d."; }); return; }
+      D = d; schede(); largo = $("gcBox").clientWidth; disegna();
+    });
+    lettori(storico.length ? storico[storico.length - 1].data : null);
     utile();
   });
 })();
