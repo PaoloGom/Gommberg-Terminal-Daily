@@ -1,6 +1,6 @@
 # Stato del Gommberg
 
-Aggiornato: 22/11/2026 ore 02:55 (rilascio del weekend pubblicato su main alle 00:33 con l'ok di Paolo: merge `4138a2a`, 32 commit, 16 voci; all'1:30 modelli di Kit aggiornati e `mattino.yml` provato; alle 02:45 rilascio piccolo di G-10, merge `e13e2bc`; alle 03:35 mockup di G-14 approvato; alle 11:45 G-17 pronta sul ramo `g17-dem`; alle 11:25 G-44 pronta sul ramo `rilascio`).
+Aggiornato: 22/11/2026 ore 02:55 (rilascio del weekend pubblicato su main alle 00:33 con l'ok di Paolo: merge `4138a2a`, 32 commit, 16 voci; all'1:30 modelli di Kit aggiornati e `mattino.yml` provato; alle 02:45 rilascio piccolo di G-10, merge `e13e2bc`; alle 03:35 mockup di G-14 approvato; alle 11:45 G-17 pronta sul ramo `g17-dem`; alle 10:50 G-44 pronta sul ramo `rilascio`).
 
 Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b6e-83eb-4b8d032a3783`, https://claude.ai/artifact/KmCtJUZFx2WKVCRaDiHPtE). Una voce si legge per codice (`db_query` su `tasks`, `codice` = "G-xx"). Dal 21/11 ogni voce è un ordine di lavoro: priorità (Max, High, Medium, Low, TBD = idee), ownership (Claude, Insieme, Paolo), targhetta modello e sforzo, scheda con obiettivo, fatto quando, come, decisioni e vincoli, dipendenze ("dopo"). Le decisioni di una voce stanno solo nella sua scheda: qui si citano i codici.
 
