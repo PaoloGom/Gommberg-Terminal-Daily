@@ -1,4 +1,4 @@
-# La Community (G-13)
+# La Gommunity (G-13)
 
 La colonna accanto all'edizione (homepage) e la sezione nelle pagine `e/NNN.html`: il sentiment di oggi (Toro o Orso, le percentuali compaiono quando voti), i commenti con la targhetta del sentiment, le risposte a un livello, i like e Segnala. Nessuna iscrizione, nessuna email, nessuna approvazione prima della pubblicazione (Paolo, 22/11).
 

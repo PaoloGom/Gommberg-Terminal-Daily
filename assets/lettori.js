@@ -1,4 +1,4 @@
-/* Gommberg Terminal Daily - La Community (G-13): il sentiment di oggi (Toro/Orso, le percentuali compaiono quando voti),
+/* Gommberg Terminal Daily - La Gommunity (G-13): il sentiment di oggi (Toro/Orso, le percentuali compaiono quando voti),
    i commenti con la targhetta del sentiment, le risposte a un livello, i like e Segnala. La stessa sezione in homepage
    (accanto all'edizione) e nelle pagine e/NNN.html. Stile in assets/lettori.css; i dati li tiene il servizio /api/lettori/
    su Cloudflare (nella redazione: sito/lettori.js).
@@ -115,7 +115,6 @@
     var box = q(".lt-sent", R), corpo = q("[data-sent]", R), v = S.d && S.d.voto; corpo.innerHTML = "";
     var tot = v ? v.toro + v.orso : 0;
     box.hidden = S.stato === "pronto" && v && !v.aperto && tot === 0;      // edizione passata senza voti: niente sentiment
-    q(".lt-k", R).textContent = v && !v.aperto ? "Sentiment del giorno" : "Sentiment di oggi";
     if (S.stato === "fuori") { corpo.appendChild(el("p", "lt-nota", "Il sentiment non si carica in questo momento.")); return; }
     if (!v || (v.aperto && !v.mio)) {
       var row = el("div", "sb-row");
@@ -125,7 +124,7 @@
         row.appendChild(b);
       });
       corpo.appendChild(row);
-      corpo.appendChild(el("p", "lt-nota lt-c", "Come ti senti oggi sui mercati? Vota e guarda come la pensano gli altri."));
+      corpo.appendChild(el("p", "lt-nota lt-c", "Oggi qual è il tuo sentiment sui mercati? Vota e guarda come la pensa la Gommunity."));
       return;
     }
     var pt = tot ? Math.round(v.toro / tot * 100) : 0, po = tot ? 100 - pt : 0;
@@ -238,7 +237,7 @@
       salva("gtd-nome", S.nome);
       S.d.commenti.push(c); S.miei[c.id] = true; S.nuovo = c.id; S.filtro = "tutti"; S.re = null;
       ta.value = ""; ta.style.height = ""; contatore(); q(".cmp", R).classList.remove("aperto"); ta.blur();
-      conta("lettori-commento", "La Community: commento" + (c.padre ? " (risposta)" : ""));
+      conta("lettori-commento", "La Gommunity: commento" + (c.padre ? " (risposta)" : ""));
       rendi();
       var nd = R.querySelector('[data-id="' + c.id + '"]'); if (nd && nd.scrollIntoView) nd.scrollIntoView({ block: "nearest", behavior: "smooth" });
       var id = c.id; setTimeout(function () { if (S.nuovo === id) S.nuovo = null; }, 2000);
@@ -252,7 +251,7 @@
     rendi();
     scrivi(pad(S.ed.numero) + "/voto", { voto: k }).then(function (j) {
       if (j && j.voto) { S.d.voto = j.voto; rendi(); }
-      if (k) conta("lettori-voto", "La Community: sentiment");
+      if (k) conta("lettori-voto", "La Gommunity: sentiment");
     }, function (e) { S.d.voto = JSON.parse(prima); rendi(); avviso(e.message); });
   }
   function piace(id) {
@@ -282,10 +281,10 @@
   /* ---------- La struttura ---------- */
   function struttura(root) {
     root.innerHTML = "";
-    var hd = el("div", "lt-hd"), h = el("h2", "lt-t", "La Community"); h.id = "lt-h"; hd.appendChild(h);
+    var hd = el("div", "lt-hd"), h = el("h2", "lt-t", "La Gommunity"); h.id = "lt-h"; hd.appendChild(h);
     var live = el("span", "lt-live"); live.appendChild(el("i")); live.appendChild(el("span")); live.hidden = true; hd.appendChild(live);
     root.appendChild(hd);
-    var se = el("div", "lt-sent"); se.appendChild(el("p", "lt-k", "Sentiment di oggi"));
+    var se = el("div", "lt-sent");
     var sc = el("div"); sc.dataset.sent = ""; sc.setAttribute("aria-live", "polite"); se.appendChild(sc); root.appendChild(se);
     var cm = el("div", "lt-cm");
     var bar = el("div", "lt-bar"), h3 = el("h3", "lt-h3", "Commenti "), cn = el("span"); cn.dataset.count = ""; h3.appendChild(cn); bar.appendChild(h3);

@@ -1,7 +1,7 @@
-// La Community (G-13): il sentiment Toro/Orso, i commenti, le risposte, i like e le segnalazioni di gommberg.com.
+// La Gommunity (G-13): il sentiment Toro/Orso, i commenti, le risposte, i like e le segnalazioni di gommberg.com.
 // È l'unico codice che gira sul sito: Cloudflare lo chiama solo per gli indirizzi /api/* (run_worker_first in
 // wrangler.jsonc); tutto il resto sono file statici e non passa di qui. Se questo codice si ferma, homepage ed
-// edizioni escono lo stesso: la sezione La Community (assets/lettori.js) dice soltanto che la discussione non si carica.
+// edizioni escono lo stesso: la sezione La Gommunity (assets/lettori.js) dice soltanto che la discussione non si carica.
 //
 // Dati in D1 (binding DB). Le tabelle le crea il codice al primo uso (SCHEMA): nessuna migrazione, nessun permesso in
 // più sul token di GitHub. Gli indirizzi di anteprima (workers.dev, locale) scrivono con sito = "prova": nel database

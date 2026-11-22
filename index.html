@@ -296,7 +296,7 @@ footer p { margin: 0; font-size: 13px; line-height: 1.55; max-width: 92ch; }
 footer .ai { color: var(--ink); }
 footer .legal { color: var(--muted); font-size: 12.5px; }
 
-/* ---------- La Community (G-13): terza colonna accanto all'edizione ----------
+/* ---------- La Gommunity (G-13): terza colonna accanto all'edizione ----------
    La sezione è in assets/lettori.css (la stessa delle pagine e/NNN.html); qui solo dove sta.
    Pagina larga 1.400 px: testo, lettore dell'edizione e community, alti uguali nella prima schermata; i commenti
    scorrono dentro la colonna. Sotto i 1.161 px la community scende sotto l'edizione, a tutta larghezza, compatta
@@ -365,10 +365,10 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
 <script>window.goatcounter = { no_onload: true };</script>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="stylesheet" href="assets/sito.css">
-<link rel="stylesheet" href="assets/lettori.css?v=2026-11-22b">
+<link rel="stylesheet" href="assets/lettori.css?v=2026-11-22c">
 <script src="assets/mercati.js?v=2026-11-22"></script>
 <script src="assets/gomm.js?v=2026-11-22"></script>
-<script src="assets/lettori.js?v=2026-11-22b"></script>
+<script src="assets/lettori.js?v=2026-11-22c"></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "Gommberg Terminal Daily", "alternateName": ["Gommberg", "Gommberg Terminal"], "url": "https://gommberg.com/", "inLanguage": "it-IT", "description": "I mercati globali spiegati, ogni mattina in 6 pagine."}, {"@type": "NewsMediaOrganization", "name": "Gommberg Terminal Daily", "alternateName": "Gommberg", "url": "https://gommberg.com/", "logo": "https://gommberg.com/assets/copertina.png", "founder": {"@type": "Person", "name": "Paolo Gommellini"}, "publishingPrinciples": "https://gommberg.com/progetto.html"}]}</script>
 </head>
 <body class="loading" id="main">
@@ -424,7 +424,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
         <div class="links"><a class="btn ghost" id="open" href="#" target="_blank" rel="noopener">Schermo intero</a><a class="btn ghost" id="dl" href="#" download>Scarica PDF</a></div>
       </div>
     </div>
-    <aside class="lt" id="lt" aria-label="La Community"></aside>
+    <aside class="lt" id="lt" aria-label="La Gommunity"></aside>
     </div>
   </div>
 </section>
@@ -831,7 +831,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     }
     $("lbl-latest").textContent = ed === editions[0] ? "Ultima edizione" : "Edizione precedente";
     tape(ed); analisi(ed); agenda(ed); schede(ed); bet(ed); colonna(); votoStato(ed); ultimeEdizioni(ed);
-    // La Community: sentiment e discussione dell'edizione che si sta leggendo (assets/lettori.js)
+    // La Gommunity: sentiment e discussione dell'edizione che si sta leggendo (assets/lettori.js)
     if (window.LETTORI && !DEMO) LETTORI.monta($("lt"), ed);
     if (push) conta({ path: "edizione-" + pad(ed.numero), title: "Edizione n. " + pad(ed.numero) + " aperta dall'archivio", event: true });
     if (push) history.replaceState(null, "", ed === editions[0] ? (DEMO ? "?demo=1" : location.pathname) : linkFor(ed));

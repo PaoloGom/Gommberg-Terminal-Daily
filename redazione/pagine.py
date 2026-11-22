@@ -175,9 +175,9 @@ GOMM_JS = """<script src="../assets/gomm.js?v=""" + GOMM_V + """"></script>
 <script>if (window.GOMM) GOMM.fascia(document.getElementById("gb"));</script>"""
 
 
-# La Community (G-13) in ogni edizione, dopo "In 30 secondi": lo stesso sentiment e la stessa discussione della homepage
+# La Gommunity (G-13) in ogni edizione, dopo "In 30 secondi": lo stesso sentiment e la stessa discussione della homepage
 # (assets/lettori.js e lettori.css, gli stessi file). Senza JavaScript la sezione resta vuota e nascosta.
-LETTORI_V = "2026-11-22b"   # cambia quando cambiano assets/lettori.js o lettori.css (il browser riprende i file nuovi)
+LETTORI_V = "2026-11-22c"   # cambia quando cambiano assets/lettori.js o lettori.css (il browser riprende i file nuovi)
 
 
 def lettori_js(ed):
@@ -377,7 +377,7 @@ def pagina(ed, prec, succ):
     if ed.get("sommario"):
         a('<section><h2>In 30 secondi</h2><ul class="brief">' +
           "".join(f"<li>{colora(s)}</li>" for s in ed["sommario"]) + "</ul></section>")
-    a('<aside class="lt" id="lt" aria-label="La Community"></aside>')
+    a('<aside class="lt" id="lt" aria-label="La Gommunity"></aside>')
     if ed.get("notizie"):
         a('<section><h2>Le notizie del giorno</h2><ol class="news">' +
           "".join(f"<li><span>{colora(s)}</span></li>" for s in ed["notizie"]) + "</ol></section>")

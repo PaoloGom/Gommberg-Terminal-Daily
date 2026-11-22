@@ -1,4 +1,4 @@
-/* Gommberg Terminal Daily - La Community (G-13): sentiment di oggi (Toro/Orso) e commenti.
+/* Gommberg Terminal Daily - La Gommunity (G-13): sentiment di oggi (Toro/Orso) e commenti.
    La stessa sezione nella homepage (accanto all'edizione) e nelle pagine delle edizioni (e/NNN.html); il disegno lo fa
    assets/lettori.js. Di base è compatta: tre commenti e "Vedi tutti". La homepage, da 1.161 px in su, la allunga a
    colonna alta quanto il lettore dell'edizione, con i commenti che scorrono (regole in index.html).
@@ -23,23 +23,23 @@
 .lt-live i { width: 7px; height: 7px; border-radius: 50%; background: #3DBE6E; }
 
 /* Sentiment di oggi: due tasti, poi le percentuali e la barra */
-.lt-sent { flex: none; padding: 14px 16px 16px; border-bottom: 1px solid var(--lt-rule); }
+.lt-sent { flex: none; padding: 12px 16px 12px; border-bottom: 1px solid var(--lt-rule); }
 .lt-k { margin: 0 0 9px; font-family: var(--mono, monospace); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted, #5E5A55); }
 .sb-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.sb { min-height: 54px; border: 0; color: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; transition: filter .12s; }
-.sb b { font-family: var(--display, sans-serif); font-stretch: 88%; font-weight: 800; font-size: 19px; line-height: 1.1; }
-.sb span { font-size: 12px; opacity: .9; }
+.sb { min-height: 44px; border: 0; color: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; transition: filter .12s; }
+.sb b { font-family: var(--display, sans-serif); font-stretch: 88%; font-weight: 800; font-size: 16px; line-height: 1.1; }
+.sb span { font-size: 11.5px; opacity: .85; }
 .sb-up { background: var(--lt-up); } .sb-down { background: var(--lt-down); }
 .sb:hover { filter: brightness(1.08); } .sb:disabled { opacity: .45; cursor: default; filter: none; }
 .sr-num { display: flex; justify-content: space-between; align-items: baseline; }
-.sr-num b { font-family: var(--display, sans-serif); font-stretch: 85%; font-weight: 800; font-size: 34px; line-height: 1; }
+.sr-num b { font-family: var(--display, sans-serif); font-stretch: 85%; font-weight: 800; font-size: 26px; line-height: 1; }
 .sr-num span { font-family: var(--mono, monospace); font-size: 12px; color: var(--muted, #5E5A55); }
-.sr-bar { display: flex; gap: 3px; height: 12px; margin-top: 6px; }
+.sr-bar { display: flex; gap: 3px; height: 8px; margin-top: 5px; }
 .sr-bar i { display: block; height: 100%; }
 .sr-bar .u { background: var(--lt-up); transition: width .55s cubic-bezier(.2, .7, .2, 1); }
 .sr-bar .d { background: var(--lt-down); flex: 1; }
-.sr-lab { display: flex; justify-content: space-between; margin-top: 6px; font-size: 13px; font-weight: 600; }
-.lt-nota { margin: 8px 0 0; font-size: 12.5px; line-height: 1.4; color: var(--muted, #5E5A55); }
+.sr-lab { display: flex; justify-content: space-between; margin-top: 5px; font-size: 12.5px; font-weight: 600; }
+.lt-nota { margin: 7px 0 0; font-size: 12.5px; line-height: 1.4; color: var(--muted, #5E5A55); }
 .lt-nota.lt-c { text-align: center; }
 
 /* Commenti: titolo e ordine, filtro per sentiment, elenco */
