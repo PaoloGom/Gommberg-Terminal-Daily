@@ -1,6 +1,6 @@
 # Stato del Gommberg
 
-Aggiornato: 22/11/2026 ore 01:00 (rilascio del weekend pubblicato su main alle 00:33 con l'ok di Paolo: merge `4138a2a`, 32 commit, 16 voci).
+Aggiornato: 22/11/2026 ore 01:45 (rilascio del weekend pubblicato su main alle 00:33 con l'ok di Paolo: merge `4138a2a`, 32 commit, 16 voci; all'1:30 modelli di Kit aggiornati e `mattino.yml` provato).
 
 Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b6e-83eb-4b8d032a3783`, https://claude.ai/artifact/KmCtJUZFx2WKVCRaDiHPtE). Una voce si legge per codice (`db_query` su `tasks`, `codice` = "G-xx"). Dal 21/11 ogni voce è un ordine di lavoro: priorità (Max, High, Medium, Low, TBD = idee), ownership (Claude, Insieme, Paolo), targhetta modello e sforzo, scheda con obiettivo, fatto quando, come, decisioni e vincoli, dipendenze ("dopo"). Le decisioni di una voce stanno solo nella sua scheda: qui si citano i codici.
 
@@ -12,14 +12,14 @@ Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b
   - Sito e lettori: G-37 (grafico de I numeri), G-40 (riga AI senza nome, gerenza in Chi siamo), G-15 (email del mattino come indice dell'edizione).
 - Istruzioni v9.1, scommessa metodo 1.3 dal 16/11, 30 edizioni (ultima #030 del 20/11). **Lunedì 23/11 esce la prima edizione con il motore nuovo.**
 - Sito su https://gommberg.com/ dal 20/11 (G-11): Cloudflare Workers con soli file statici, pubblicato da `.github/workflows/sito.yml` a ogni push su main, verifica dal vivo dopo ogni pubblicazione; ramo `prova` = anteprima su workers.dev. Il vecchio indirizzo github.io reindirizza dal ramo `vecchio-indirizzo`.
-- Newsletter con Kit da redazione@gommberg.com (SPF/DKIM/DMARC ok). **In Kit i modelli sono ancora quelli di prima del rilascio** (vedi Prossimo passo, punto 1).
+- Newsletter con Kit da redazione@gommberg.com (SPF/DKIM/DMARC ok). Modelli in Kit allineati al repository il 22/11 (verificati con l'impronta SHA-256 del file): "Gommberg cornice" (nuovo, n. 5716428, lo usa lo script per le edizioni), "Gommberg" (predefinito, con il margine) e "Gommberg edizione" (il ripiego, da togliere dopo la prima email uscita con la cornice) con la riga AI nuova. Si aggiornano da Kit, Broadcasts, Templates.
 - Il file dei permessi (`.claude/settings.json`) non fa da filtro: l'attività gira con approvazione automatica.
 
 ## Cantiere attivo
 **Affidabilità della macchina** (pilastro 5). Il rilascio del 21-22/11 è in linea; restano la sua coda e la prima settimana vera.
 
 - **G-39 in corso**: restano la prova pubblicata e tolta (procedura B di `PROVA.md`), il pulsante "Avvia il rilascio" e la vista del piano nel Registro, i due ruoli nella skill (un solo salvataggio, con "Pronta prima di Fatta" e "voce In corso all'apertura"). Slittano al rilascio del 28/11.
-- **G-15 e G-40 in corso**: nel repository sono in linea, in Kit no (punto 1 qui sotto).
+- **G-15 e G-40 in corso**: in linea nel repository e in Kit; bozza di prova della #030 creata in Kit con la cornice (n. 27208167, non spedita: una testata sola, fascia dei mercati). Restano l'invio di prova a una casella Gmail e a una Outlook, che fa Paolo dalla bozza, e la prima email vera di lunedì.
 - **G-44** (pag. 5 nei giorni con un mercato chiuso, scade giovedì 26/11, Wall Street chiusa): non è entrata nel rilascio. Va con un rilascio piccolo, stessa strada (`rilascia.sh avvia`, correzione, collaudo, `pubblica`), domenica o al più tardi entro mercoledì 25/11.
 - In fila: **G-45** (tre errori della prova che i controlli non vedono), **G-46** (seguiti della prova dopo una settimana vera, più da G-47: il calco "la vendita" nelle forme che il controllo non vede, la ricerca più stretta della seconda prova, il tempo), G-42 (desk che vede le edizioni precedenti, 28/11), G-41, G-43, G-10.
 
@@ -27,11 +27,13 @@ Come si lavora in ogni chat che tocca il motore o il sito: `bash redazione/rilas
 
 ## Prossimo passo
 **Domenica 22/11, prima dell'email di lunedì:**
-1. **Kit** (serve Paolo, o il suo via libera a farlo dal browser): ricaricare `newsletter_modello.html` nei due modelli ("Gommberg edizione" identico, "Gommberg" con il margine) per G-40; creare "Gommberg cornice" da `newsletter_cornice.html` (margine zero) per G-15; bozza in Kit e invio di prova a una casella Gmail e a una Outlook, viste su PC e telefono. Se non si fa: lunedì l'email parte lo stesso, con il vecchio modello (senza la testata nuova e con la vecchia riga AI con il nome), mai con due testate.
-2. **Paolo**: aggiungere il connettore EODHD all'attività del mattino prima delle 8:58 di lunedì. Senza, G-03 lavora con il ripiego su due fonti web.
-3. `mattino.yml` lanciato a mano: dalla chat del capo sviluppo non è stato permesso. Lo lancia Paolo da GitHub (Actions, "Controllo del mattino", Run workflow): di domenica deve uscire verde con "borse chiuse".
+1. **Paolo**: aggiungere il connettore EODHD all'attività del mattino prima delle 8:58 di lunedì. Senza, G-03 lavora con il ripiego su due fonti web.
+2. **Paolo**: dalla bozza n. 27208167 in Kit, invio di prova a una casella Gmail e a una Outlook, viste su PC e telefono (caratteri, segni su/giù, fascia dei mercati). Poi la bozza si può cancellare.
+3. **G-44** in una chat sua (Opus), con un rilascio piccolo: così era già scritto nella sua scheda.
 4. A occhio su PC e telefono: il pannello (anche i vecchi indirizzi #operativita #versioni #metodo) e `numeri.html` nelle tre viste. `sito.yml` ha già verificato che i file in linea sono quelli collaudati.
-5. Rami da cancellare, con l'ok di Paolo: `prova-2026-11-23-prima`, `pannello`, `g36-modello`.
+5. Rami: `g36-modello` e `pannello` sono carta straccia (tutto ciò che contenevano è in main, verificato il 22/11) e li cancella Paolo da GitHub, pagina Branches: alla sessione di Claude la cancellazione non è permessa. `prova-2026-11-23-prima` **resta** finché G-45 e G-46 non sono chiuse: è l'unica copia della prima edizione di prova (quella dei 39 minuti), perché sul ramo `prova` la seconda l'ha sostituita.
+
+Fatti il 22/11 dopo il merge: modelli in Kit (G-40, G-15); `mattino.yml` lanciato a mano, verde con "borse chiuse, oggi niente edizione"; `newsletter.yml` in modo prova, verde.
 
 **Lunedì 23/11, sulla prima edizione vera** (alle 10:15 la controlla `mattino.yml`; se esce dopo le 9:40 l'avvio passa alle 8:50, Paolo 19/11; la seconda prova ha chiesto 30 minuti, la prima 39):
 - G-47: i tre controlli aggiunti dopo la seconda prova e mai provati su un'edizione (al massimo due aperture con la domanda, testate nominate anche nella riga Fonti, un bene non "vende"), e i minuti.
