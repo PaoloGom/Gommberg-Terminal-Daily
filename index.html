@@ -91,7 +91,9 @@ a.tk.gomm { text-decoration: none; padding-left: 0; border-left: 0; }
 a.tk.gomm.gm-mk { text-decoration: none; }
 a.tk.gomm .t { display: inline-block; background: var(--orange); color: #0E0E0E; font-weight: 600; padding: 1px 5px; margin-right: 6px; }
 a.tk.gomm:hover .v, a.tk.gomm:focus-visible .v { color: var(--orange); }
-a.tk.gomm + .tk.when { border-left-color: var(--orange); padding-left: 7px; }
+a.tk.gomm + .tk.when { border-left-color: var(--orange); }
+/* con il GOMM il nastro ha un elemento in più: su PC le celle si stringono per stare tutte in una riga a 1180 px */
+@media (min-width: 761px) { .tape-row { font-size: 10.5px; } .tk { padding: 0 5px; } .tk .l, .tk .v { margin-right: 4px; } a.tk.gomm .t { margin-right: 5px; } }
 
 /* ---------- Il palco: l'edizione di oggi ---------- */
 .stage { background: var(--paper); color: var(--ink); border-bottom: 1px solid var(--ink); }
@@ -530,7 +532,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     if (!d) return;
     const a = el("a", "tk gomm"); a.href = "numeri.html"; a.setAttribute("role", "listitem");
     a.appendChild(el("span", "t", "GOMM")); a.appendChild(el("span", "v", GOMM.num(d.ieri.i)));
-    a.appendChild(el("span", "c " + (d.ieri.i >= d.prima.i ? "up" : "down"), (d.ieri.i >= d.prima.i ? "\u25B2 " : "\u25BC ") + GOMM.pct(d.ieri.i, d.prima.i)));
+    a.appendChild(el("span", "c " + (d.ieri.i >= d.prima.i ? "up" : "down"), GOMM.pct(d.ieri.i, d.prima.i)));
     if (window.GM) GM.segna(a, "GOMM");
     GOMM_TK = a; const row = $("tapeRow"); if (row && row.firstChild) row.insertBefore(a, row.firstChild);
   });

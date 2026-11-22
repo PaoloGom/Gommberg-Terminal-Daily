@@ -167,7 +167,11 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .gx-v b{font-size:22px;font-weight:500;color:var(--ink)}.gx-v .c{font-size:13px}.gx-v .up{color:var(--up)}.gx-v .down{color:var(--down)}
 .gx-m{display:flex;gap:2px;align-items:flex-end;height:44px;margin-top:12px}
 .gx-m i{flex:1 1 0;min-height:2px;background:var(--up)}.gx-m i.giu{background:var(--down)}
+.gx{border-top:3px solid var(--orange)}
 .gx .gs-b{margin-top:14px}
+.gx-mail{margin:14px 0 0;padding-top:12px;border-top:1px solid var(--rule);font-size:14px;line-height:1.5;color:var(--muted)}
+.gx-mail svg{width:16px;height:16px;margin-right:6px;vertical-align:-3px;color:var(--orange-ink)}
+.gx-mail a{color:var(--orange-ink);font-weight:600;text-underline-offset:3px}
 .gx-g a{display:inline-block;margin-top:8px;font-size:13px;font-weight:600;color:var(--orange-ink);text-underline-offset:3px}
 @media (max-width:640px){.gx{grid-template-columns:1fr}}
 @media (max-width:520px){.dek{font-size:17px}.btn.lead{flex:1 1 auto;justify-content:center}.btn.ghost{width:46px;padding:0;justify-content:center}.btn.ghost span{display:none}.btn[data-pdf="scaricata"]{display:none}}
@@ -175,7 +179,8 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 
 
 # Il GOMM in fondo a ogni edizione, sotto "Ti è stata utile?" (G-14): la quotazione del Gommberg con il mini grafico
-# degli ultimi 30 giorni e l'invito a inoltrare. I numeri li calcola assets/gomm.js, lo stesso de I numeri e della homepage;
+# degli ultimi 30 giorni, l'invito a inoltrare e, nella stessa fascia, l'iscrizione via email (al posto della fascia
+# dell'invito, che resta in home e nelle pagine di Impara): una chiusura sola, perché anche chi si iscrive fa salire il GOMM. I numeri li calcola assets/gomm.js, lo stesso de I numeri e della homepage;
 # senza dati resta solo l'invito.
 GOMM_V = "2026-11-22"   # cambia quando cambia assets/gomm.js (il browser riprende il file nuovo)
 GOMM_JS = """<script src="../assets/gomm.js?v=""" + GOMM_V + """"></script>
@@ -205,7 +210,10 @@ def gomm_box(url, titolo):
             '<div class="gs-t"><h2 class="gs-h" id="gx-h">Fai salire il GOMM</h2>'
             '<p class="gs-p">Il GOMM sale ogni volta che il Gommberg trova un lettore nuovo. Se questa edizione ti è stata utile, inoltrala a chi vuole capire i mercati.</p>'
             f'<div class="gs-b"><a class="gs-wa" href="https://wa.me/?text={quote(titolo + " " + url)}" target="_blank" rel="noopener">Inoltra su WhatsApp</a>'
-            f'<button type="button" class="gs-cp" data-copy="{esc(url)}">Copia il link</button></div></div></section>')
+            f'<button type="button" class="gs-cp" data-copy="{esc(url)}">Copia il link</button></div>'
+            '<p class="gx-mail"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>'
+            'Il Gommberg nella tua casella ogni mattina alle 9:45, gratis: <a href="../iscriviti.html" data-goatcounter-click="invito-iscrizione" '
+            'data-goatcounter-title="Invito all\'iscrizione (clic)">ricevila via email</a></p></div></section>')
 
 
 # Voto e aperture del PDF, contati come eventi GoatCounter anonimi (un voto per edizione e per browser)
@@ -419,7 +427,6 @@ def pagina(ed, prec, succ):
       '<button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>')
     a(gomm_box(url, titolo))
     a(f'<div class="pn">{"".join(nav)}</div>')
-    a(invito("../"))
     a("</main>")
     a(VOTO_JS.replace("NNN", n))
     a(GOMM_JS)

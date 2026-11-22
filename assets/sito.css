@@ -79,3 +79,4 @@ h2.pg-h em, h1.pg-h em { display: block; text-wrap: pretty; margin-top: 12px; fo
 .gs-cp:hover { border-color: var(--orange-ink, #B84A0C); color: var(--orange-ink, #B84A0C); }
 .gs-wa:focus-visible, .gs-cp:focus-visible { outline: 2px solid var(--orange, #F26B1D); outline-offset: 2px; }
 @media (max-width: 640px) { .gs { padding: 18px; } .gs-b { width: 100%; } .gs-wa, .gs-cp { flex: 1 1 0; padding: 0 10px; } }
+@media (max-width: 420px) { .gs-wa, .gs-cp { font-size: 13px; white-space: nowrap; } }
