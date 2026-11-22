@@ -18,10 +18,10 @@
     "not_found_handling": "404-page"
   },
   // commenti, like, segnalazioni e voti dei lettori. Il database si crea una volta a mano da Cloudflare
-  // (Storage e database, D1, nome gommberg-lettori) e qui va il suo ID; le tabelle le crea lettori.js al primo uso.
+  // (Storage e database, D1, nome gommberg-lettori, creato il 22/11/2026); le tabelle le crea lettori.js al primo uso.
   // Le anteprime usano lo stesso database ma scrivono con sito = "prova": non si mescolano con gommberg.com.
   "d1_databases": [
-    { "binding": "DB", "database_name": "gommberg-lettori", "database_id": "DA-CREARE" }
+    { "binding": "DB", "database_name": "gommberg-lettori", "database_id": "486efdce-44ac-41e9-9518-4d772cb4d5c5" }
   ],
   // il sito vero sta solo su gommberg.com: niente doppione su workers.dev
   "workers_dev": false,

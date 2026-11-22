@@ -30,9 +30,9 @@ Per l'ordinanza 22999/2026 della Cassazione il gestore risponde se, saputo di un
 
 I commenti delle anteprime hanno `sito = 'prova'` e non compaiono mai su gommberg.com; si possono cancellare con `DELETE FROM commenti WHERE sito = 'prova';` (e lo stesso per `voti`).
 
-## Creare il database (una volta)
+## Il database
 
-Cloudflare, account del Gommberg, Storage e database, D1, Crea, nome `gommberg-lettori`, posizione Europa occidentale. L'ID del database va in `redazione/sito/wrangler.jsonc` al posto di `DA-CREARE`. Finché c'è `DA-CREARE`, `sito.yml` pubblica i soli file statici e il riquadro dice che la discussione non si carica. Il token di GitHub non ha bisogno di permessi su D1: basta quello che pubblica il Worker.
+Creato il 22/11/2026 (ID in `wrangler.jsonc`). Se un giorno andasse ricreato: Cloudflare, account del Gommberg, Storage e database, D1, Crea, nome `gommberg-lettori`, posizione Europa occidentale. il nuovo ID va in `redazione/sito/wrangler.jsonc`. Con `DA-CREARE` al posto dell'ID `sito.yml` pubblica i soli file statici e il riquadro dice che la discussione non si carica. Il token di GitHub non ha bisogno di permessi su D1: basta quello che pubblica il Worker.
 
 ## Se il servizio si ferma
 
