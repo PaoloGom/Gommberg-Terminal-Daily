@@ -20,7 +20,7 @@ Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b
 
 ## Cantiere attivo
 
-**G-53 in corso** (nata il 22/11 alle 19:00, chat del capo sviluppo): schede "Chi ci legge" e "Quanto vale" di I numeri e "Come contiamo" riscritto per tutti. Proposta con i dati veri portata a Paolo, si aspetta la sua decisione. Sul ramo `rilascio` c'è già pronto il commit `a1ba09c` (G-14: la spiegazione del GOMM nel nastro invita a cliccare, collaudo verde): esce nello stesso merge, con l'ok di Paolo.
+**G-53 Pronta sul ramo `rilascio`** (22/11 ore 19:35, commit `97015f6`, collaudo locale verde): in I numeri le Visite totali per prime, Giorno record al posto di Condivisioni, Parole e meccanismi spiegati al posto di Uscite entro le 10, sotto le edizioni "88 analisi | 0 giorni saltati" (calcolato), Come contiamo riscritto per tutti; `pagine.py` scrive `analisi` in `dati/redazione.json`. Proposta approvata da Paolo alle 19:04. Sul ramo c'è anche `a1ba09c` (G-14: la spiegazione del GOMM invita a cliccare). **Manca solo il "via" di Paolo alla pubblicazione**; poi `rilascia.sh pubblica --ok-di-paolo` dalla chat del capo sviluppo. Nata **G-54** (Impara che cresce da sola con le edizioni: oggi le voci si aggiungono solo a mano), per il 28/11.
 
 **Per G-13** (ramo `anteprima-g13`): cambia anche lui `index.html`. Prima del suo merge va riportato sopra il `rilascio` di oggi (merge `e61a8b8`: nastro a due righe, "Da leggere" con le sole analisi, colonne elastiche) e le misure delle colonne vanno rifatte a 1.400 px. Il merge resta della sola chat del capo sviluppo.
 **Affidabilità della macchina** (pilastro 5). Il rilascio del 21-22/11 è in linea; restano la sua coda e la prima settimana vera.
