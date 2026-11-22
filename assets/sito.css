@@ -80,3 +80,46 @@ h2.pg-h em, h1.pg-h em { display: block; text-wrap: pretty; margin-top: 12px; fo
 .gs-wa:focus-visible, .gs-cp:focus-visible { outline: 2px solid var(--orange, #F26B1D); outline-offset: 2px; }
 @media (max-width: 640px) { .gs { padding: 18px; } .gs-b { width: 100%; } .gs-wa, .gs-cp { flex: 1 1 0; padding: 0 10px; } }
 @media (max-width: 420px) { .gs-wa, .gs-cp { font-size: 13px; white-space: nowrap; } }
+
+/* ---------- Fai salire il GOMM, la fascia (G-14): in fondo alle edizioni e in home, al posto dell'invito via email.
+   Il grafico a tutta larghezza fa da richiamo e porta a I numeri; sotto, due azioni pari: inoltra e iscriviti.
+   I numeri li mette assets/gomm.js (GOMM.fascia); senza dati restano titolo e azioni. ---------- */
+.gb { margin: 30px 0 0; background: var(--panel, #F1EEE9); border-top: 3px solid var(--orange, #F26B1D); font-family: var(--body, "IBM Plex Sans", Arial, sans-serif); }
+.gb-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 10px 20px; flex-wrap: wrap; padding: 18px 22px 0; }
+.gb .gb-h { margin: 0; padding: 0; border: 0; text-transform: none; letter-spacing: 0; font-family: var(--display, "Archivo", "Arial Narrow", Arial, sans-serif); font-stretch: 85%; font-weight: 800; font-size: 24px; line-height: 1.1; color: var(--ink, #141414); }
+.gb .gb-s { margin: 4px 0 0; font-size: 15px; line-height: 1.4; color: var(--muted, #5E5A55); }
+.gb .gb-v { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 0; font-family: var(--mono, "IBM Plex Mono", monospace); }
+.gb-tag { display: inline-block; background: var(--orange, #F26B1D); color: #0E0E0E; font-weight: 500; font-size: 12px; padding: 1px 6px; }
+.gb-v b { font-size: 28px; font-weight: 500; line-height: 1; color: var(--ink, #141414); }
+.gb-v .c { font-size: 13px; }
+.gb-v .up { color: var(--up, #12753D); } .gb-v .down { color: var(--down, #C0261C); }
+a.gb-ch { display: block; padding: 14px 22px 14px; text-decoration: none; color: inherit; }
+a.gb-ch:focus-visible { outline: 2px solid var(--orange, #F26B1D); outline-offset: -2px; }
+.gb-m { display: flex; gap: 2px; align-items: flex-end; height: 120px; }
+.gb-m i { flex: 1 1 0; min-height: 2px; background: var(--up, #12753D); }
+.gb-m i.giu { background: var(--down, #C0261C); }
+a.gb-ch:hover .gb-m i { opacity: .85; }
+.gb-ax { display: flex; justify-content: space-between; margin-top: 6px; font-family: var(--mono, "IBM Plex Mono", monospace); font-size: 11px; color: var(--muted, #5E5A55); }
+.gb-ax b { font-weight: 500; color: var(--orange-ink, #B84A0C); }
+a.gb-ch:hover .gb-ax b { text-decoration: underline; text-underline-offset: 3px; }
+.gb-bar { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule, #DEDAD4); }
+.gb-bar > div { display: flex; flex-direction: column; gap: 10px; padding: 16px 22px 18px; min-width: 0; }
+.gb-bar > div + div { border-left: 1px solid var(--rule, #DEDAD4); }
+.gb .gb-t { margin: 0; font-size: 15px; font-weight: 600; line-height: 1.35; color: var(--ink, #141414); }
+.gb-r { display: flex; gap: 8px; margin-top: auto; }
+.gb-b { flex: 1 1 0; min-width: 0; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 10px; font-family: var(--body, "IBM Plex Sans", Arial, sans-serif); font-weight: 600; font-size: 14px; line-height: 1; white-space: nowrap; text-decoration: none; cursor: pointer; border: 1px solid var(--ink, #141414); }
+.gb-b svg { width: 18px; height: 18px; flex: none; }
+.gb-b.pr { background: var(--ink, #141414); color: var(--paper, #FBFAF8); }
+.gb-b.pr:hover { background: var(--orange-ink, #B84A0C); border-color: var(--orange-ink, #B84A0C); }
+.gb-b.gh { background: transparent; color: var(--ink, #141414); }
+.gb-b.gh:hover { color: var(--orange-ink, #B84A0C); border-color: var(--orange-ink, #B84A0C); }
+.gb-b:focus-visible { outline: 2px solid var(--orange, #F26B1D); outline-offset: 2px; }
+.gb.vuoto [data-gomm-q] { display: none; }
+.gb.vuoto .gb-top { padding-bottom: 16px; }
+/* in home, sotto le notizie: stessa fascia, grafico più basso */
+.gb.corta .gb-m { height: 80px; }
+.gb.corta .gb-top { padding-top: 16px; }
+@media (max-width: 640px) {
+  .gb-top { padding: 16px 16px 0; } a.gb-ch { padding: 12px 16px; } .gb-m, .gb.corta .gb-m { height: 72px; }
+  .gb-bar { grid-template-columns: 1fr; } .gb-bar > div { padding: 14px 16px 16px; } .gb-bar > div + div { border-left: 0; border-top: 1px solid var(--rule, #DEDAD4); }
+}

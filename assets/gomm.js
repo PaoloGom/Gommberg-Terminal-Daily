@@ -72,5 +72,30 @@
     return { base: B, giorni: giorni, oggi: oggiG, ieri: validi[validi.length - 1], prima: validi[validi.length - 2] };
   }
 
-  window.GOMM = { carica, conta, orario, num, pct, dt, iso, piu };
+  // La fascia "Fai salire il GOMM" (assets/sito.css, .gb): valore, variazione a 7 giorni, ultimi 30 giorni in barre
+  // colorate per segno (sul giorno prima), date sotto. Senza dati la fascia resta con titolo e azioni.
+  function fascia(box) {
+    if (!box) return;
+    carica().then((d) => {
+      if (!d) return;
+      const q = (k) => box.querySelector('[data-gomm="' + k + '"]');
+      const gi = d.giorni.filter((x) => x.i != null), ie = d.ieri, k = d.giorni.indexOf(ie), set = d.giorni[k - 7];
+      q("v").textContent = num(ie.i);
+      if (set && set.i != null) { const c = q("c"); c.textContent = (ie.i >= set.i ? "\u25B2 " : "\u25BC ") + pct(ie.i, set.i) + " in 7 giorni"; c.className = "c " + (ie.i >= set.i ? "up" : "down"); }
+      const u = gi.slice(-30), m = q("barre"), lo = Math.min(...u.map((x) => x.i)), hi = Math.max(...u.map((x) => x.i));
+      m.innerHTML = "";
+      u.forEach((x, j) => {
+        const p = j ? u[j - 1].i : (gi[gi.length - u.length - 1] || x).i, b = document.createElement("i");
+        b.style.height = (10 + (hi > lo ? (x.i - lo) / (hi - lo) * 90 : 90)) + "%"; if (x.i < p) b.className = "giu"; m.appendChild(b);
+      });
+      const g = (s) => { const t = dt(s); return t.getUTCDate() + "/" + (t.getUTCMonth() + 1); };
+      const ax = q("ax"); ax.innerHTML = "";
+      [g(u[0].d), g(u[Math.floor(u.length / 2)].d)].forEach((t) => { const e = document.createElement("span"); e.textContent = t; ax.appendChild(e); });
+      const l = document.createElement("b"); l.textContent = "Vedi il grafico \u2192"; ax.appendChild(l);
+      box.querySelector(".gb-ch").setAttribute("aria-label", "GOMM " + num(ie.i) + ": il grafico completo su I numeri");
+      box.classList.remove("vuoto");
+    });
+  }
+
+  window.GOMM = { carica, conta, orario, num, pct, dt, iso, piu, fascia };
 })();

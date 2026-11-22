@@ -160,25 +160,7 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .vote{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 30px;font-size:15px;color:var(--muted)}
 .vote button{font-family:var(--mono);font-size:13px;min-height:38px;padding:0 14px;background:transparent;color:var(--ink);border:1px solid var(--rule);cursor:pointer}
 .vote .thx{color:var(--ink)}
-.gx{margin:0 0 30px;padding:20px 22px 22px;background:var(--panel);border-top:3px solid var(--orange)}
-.gx-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;margin:0 0 16px}
-.gx-h h2{margin:0;padding:0;border:0;text-transform:none;letter-spacing:0;font-family:var(--display);font-stretch:85%;font-weight:800;font-size:24px;line-height:1.1;color:var(--ink)}
-.gx-h p{margin:0;font-size:15px;color:var(--muted)}
-.gx-c{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.gx-c.solo{grid-template-columns:repeat(2,minmax(0,1fr))}
-.gx-k{display:flex;flex-direction:column;min-width:0;padding:14px 16px 16px;background:var(--paper);border:1px solid var(--rule)}
-.gx-l{margin:0 0 10px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.gx-t{margin:0;font-size:14.5px;line-height:1.45;color:var(--ink)}
-.gx-a{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:14px}
-.gx-a > .gs-wa,.gx-a > .gs-cp{flex:1 1 0;min-width:0;padding:0 10px;white-space:nowrap}
-.gx .tag{display:inline-block;background:var(--orange);color:#0E0E0E;font-family:var(--mono);font-weight:500;font-size:12px;padding:1px 6px}
-.gx-v{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;margin:0;font-family:var(--mono)}
-.gx-v b{font-size:22px;font-weight:500;color:var(--ink)}.gx-v .c{font-size:12.5px}.gx-v .up{color:var(--up)}.gx-v .down{color:var(--down)}
-.gx-m{display:flex;gap:2px;align-items:flex-end;height:40px;margin-top:10px}
-.gx-m i{flex:1 1 0;min-height:2px;background:var(--up)}.gx-m i.giu{background:var(--down)}
-.gx-q .gx-a a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:44px;font-size:13.5px;font-weight:600;color:var(--orange-ink);text-underline-offset:3px}
-@media (max-width:900px){.gx-c,.gx-c.solo{grid-template-columns:1fr}.gx-a > .gs-wa,.gx-a > .gs-cp{flex:0 1 auto;padding:0 18px}}
-@media (max-width:520px){.gx{padding:16px 14px 18px}.gx-h{margin-bottom:12px}.gx-k{padding:12px 14px 14px}.gx-l{margin-bottom:6px}.gx-a{padding-top:10px}.gx-a > .gs-wa,.gx-a > .gs-cp{flex:1 1 0;padding:0 10px}.gx-m{height:32px}}
+.gb{margin:0 0 30px}
 @media (max-width:520px){.dek{font-size:17px}.btn.lead{flex:1 1 auto;justify-content:center}.btn.ghost{width:46px;padding:0;justify-content:center}.btn.ghost span{display:none}.btn[data-pdf="scaricata"]{display:none}}
 """
 
@@ -189,45 +171,27 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 # senza dati resta solo l'invito.
 GOMM_V = "2026-11-22"   # cambia quando cambia assets/gomm.js (il browser riprende il file nuovo)
 GOMM_JS = """<script src="../assets/gomm.js?v=""" + GOMM_V + """"></script>
-<script>
-(function () {
-  var G = window.GOMM, box = document.getElementById("gx"); if (!G || !box) return;
-  G.carica().then(function (d) {
-    if (!d) return;
-    var gi = d.giorni.filter(function (x) { return x.i != null; }), ie = d.ieri, k = d.giorni.indexOf(ie), set = d.giorni[k - 7];
-    document.getElementById("gxV").textContent = G.num(ie.i);
-    if (set && set.i != null) { var c = document.getElementById("gxC"); c.textContent = (ie.i >= set.i ? "\u25B2 " : "\u25BC ") + G.pct(ie.i, set.i) + " in 7 giorni"; c.className = "c " + (ie.i >= set.i ? "up" : "down"); }
-    var u = gi.slice(-30), m = document.getElementById("gxM"), lo = Math.min.apply(null, u.map(function (x) { return x.i; })), hi = Math.max.apply(null, u.map(function (x) { return x.i; }));
-    u.forEach(function (x, j) {
-      var p = j ? u[j - 1].i : (gi[gi.length - u.length - 1] || x).i, b = document.createElement("i");
-      b.style.height = (12 + (hi > lo ? (x.i - lo) / (hi - lo) * 88 : 88)) + "%"; if (x.i < p) b.className = "giu"; m.appendChild(b);
-    });
-    box.hidden = false; box.parentElement.classList.remove("solo");
-  });
-})();
-</script>"""
+<script>if (window.GOMM) GOMM.fascia(document.getElementById("gb"));</script>"""
+
+
+SVG_MAIL = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>'
 
 
 def gomm_box(url, titolo):
-    """La chiusura dell'edizione: un titolo e tre schede con la stessa struttura (etichetta, testo, azione in basso):
-    la quotazione, inoltrare, ricevere via email. Senza dati del GOMM restano le altre due."""
-    return ('<section class="gx" aria-labelledby="gx-h">'
-            '<div class="gx-h"><h2 id="gx-h">Fai salire il GOMM</h2>'
-            '<p>La quotazione del Gommberg sale con ogni lettore nuovo.</p></div>'
-            '<div class="gx-c solo">'
-            '<div class="gx-k gx-q" id="gx" hidden><p class="gx-l">La quotazione</p>'
-            '<p class="gx-v"><span class="tag">GOMM</span><b id="gxV"></b><span class="c" id="gxC"></span></p>'
-            '<div class="gx-m" id="gxM" aria-hidden="true"></div>'
-            '<div class="gx-a"><a href="../numeri.html">Vedi il grafico &rarr;</a></div></div>'
-            '<div class="gx-k"><p class="gx-l">Inoltra l\'edizione</p>'
-            '<p class="gx-t">Mandala a chi vuole capire i mercati.</p>'
-            f'<div class="gx-a"><a class="gs-wa" href="https://wa.me/?text={quote(titolo + " " + url)}" target="_blank" rel="noopener">WhatsApp</a>'
-            f'<button type="button" class="gs-cp" data-copy="{esc(url)}">Copia il link</button></div></div>'
-            '<div class="gx-k"><p class="gx-l">Ricevila via email</p>'
-            '<p class="gx-t">Ogni mattina alle 9:45 nella tua casella, dal lunedì al venerdì. Gratis.</p>'
-            '<div class="gx-a"><a class="gs-wa" href="../iscriviti.html" data-goatcounter-click="invito-iscrizione" '
-            'data-goatcounter-title="Invito all\'iscrizione (clic)">Iscriviti</a></div></div>'
-            '</div></section>')
+    """La fascia "Fai salire il GOMM" (stile in assets/sito.css, .gb; la stessa sta a mano in index.html): titolo e valore,
+    il grafico degli ultimi 30 giorni che porta a I numeri, poi inoltra e iscriviti affiancati."""
+    return ('<section class="gb vuoto" id="gb" aria-labelledby="gb-h">'
+            '<div class="gb-top"><div><h2 class="gb-h" id="gb-h">Fai salire il GOMM</h2>'
+            '<p class="gb-s">La quotazione del Gommberg sale con ogni lettore nuovo.</p></div>'
+            '<p class="gb-v" data-gomm-q><span class="gb-tag">GOMM</span><b data-gomm="v"></b><span class="c" data-gomm="c"></span></p></div>'
+            '<a class="gb-ch" href="../numeri.html" data-gomm-q><span class="gb-m" data-gomm="barre" aria-hidden="true"></span>'
+            '<span class="gb-ax" data-gomm="ax"></span></a>'
+            '<div class="gb-bar"><div><p class="gb-t">Inoltrala a chi vuole capire i mercati</p><div class="gb-r">'
+            f'<a class="gb-b pr" href="https://wa.me/?text={quote(titolo + " " + url)}" target="_blank" rel="noopener">{SVG_WA}<span>WhatsApp</span></a>'
+            f'<button type="button" class="gb-b gh" data-copy="{esc(url)}">{SVG_LINK}<span>Copia link</span></button></div></div>'
+            '<div><p class="gb-t">Ricevila ogni mattina alle 9:45. Gratis.</p><div class="gb-r">'
+            '<a class="gb-b pr" href="../iscriviti.html" data-goatcounter-click="invito-iscrizione" '
+            f'data-goatcounter-title="Invito all\'iscrizione (clic)">{SVG_MAIL}<span>Iscriviti via email</span></a></div></div></div></section>')
 
 
 # Voto e aperture del PDF, contati come eventi GoatCounter anonimi (un voto per edizione e per browser)

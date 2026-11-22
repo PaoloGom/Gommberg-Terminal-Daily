@@ -186,10 +186,7 @@ main { padding-block: 44px 24px; }
 .leggi { flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 40px; padding-top: 22px; }
 /* Voto e invito chiudono "Da leggere" attaccati al fondo: le due colonne finiscono sempre sulla stessa riga */
 .chiusa { margin-top: auto; display: flex; flex-direction: column; gap: 22px; }
-.chiusa .gi { margin: 0; padding: 18px 20px; gap: 14px 24px; }
-.chiusa .gi .gi-h { font-size: 23px; }
-.chiusa .gi .gi-p { font-size: 14px; }
-.chiusa .gi a.gi-b { min-height: 46px; padding: 0 20px; font-size: 16px; }
+.chiusa .gb { margin: 0; }
 .occhio { flex: 1 1 340px; min-width: 0; background: var(--panel); padding: 22px 22px 26px; display: flex; flex-direction: column; gap: 30px; }
 .sez-h { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px 16px; border-bottom: 3px solid var(--ink); padding-bottom: 10px; margin-bottom: 4px; }
 .sez-h h2 { margin: 0; font-family: var(--display); font-stretch: 85%; font-weight: 900; font-size: 34px; line-height: 1; }
@@ -414,7 +411,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       </section>
       <div class="chiusa">
         <div class="vote" id="vote" hidden><span id="voteQ">Com'era l'edizione di oggi?</span><button type="button" data-v="si">Utile</button><button type="button" data-v="no">Poco</button></div>
-        <aside class="gi" aria-labelledby="gi-h"><div class="gi-t"><p class="gi-k">Via email</p><h2 class="gi-h" id="gi-h">Il Gommberg nella tua casella, ogni mattina</h2><p class="gi-p">La prima pagina dell'edizione alle 9:45, dal lunedì al venerdì. Gratis.</p></div><a class="gi-b" href="iscriviti.html" data-goatcounter-click="invito-iscrizione" data-goatcounter-title="Invito all'iscrizione (clic)">Ricevila via email</a></aside>
+        <section class="gb corta vuoto" id="gb" aria-labelledby="gb-h"><div class="gb-top"><div><h2 class="gb-h" id="gb-h">Fai salire il GOMM</h2><p class="gb-s">La quotazione del Gommberg sale con ogni lettore nuovo.</p></div><p class="gb-v" data-gomm-q><span class="gb-tag">GOMM</span><b data-gomm="v"></b><span class="c" data-gomm="c"></span></p></div><a class="gb-ch" href="numeri.html" data-gomm-q><span class="gb-m" data-gomm="barre" aria-hidden="true"></span><span class="gb-ax" data-gomm="ax"></span></a><div class="gb-bar"><div><p class="gb-t">Inoltrala a chi vuole capire i mercati</p><div class="gb-r"><a class="gb-b pr" id="gbWa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span>WhatsApp</span></a><button type="button" class="gb-b gh" id="gbCopy"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M10 14a4 4 0 0 0 5.7 0l3.6-3.6a4 4 0 0 0-5.7-5.7L12 6.3M14 10a4 4 0 0 0-5.7 0l-3.6 3.6a4 4 0 0 0 5.7 5.7l1.6-1.6"/></svg><span>Copia link</span></button></div></div><div><p class="gb-t">Ricevila ogni mattina alle 9:45. Gratis.</p><div class="gb-r"><a class="gb-b pr" href="iscriviti.html" data-goatcounter-click="invito-iscrizione" data-goatcounter-title="Invito all'iscrizione (clic)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg><span>Iscriviti via email</span></a></div></div></div></section>
       </div>
     </div>
 
@@ -790,6 +787,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     const txt = "Gommberg Terminal Daily n. " + pad(ed.numero) + ", " + dataLunga(ed.data) + "\n" + ed.titolo + "\n" + url;
     const uwa = new URL(url); uwa.searchParams.set("ref", "whatsapp");
     $("wa").href = "https://wa.me/?text=" + encodeURIComponent(txt.replace(url, uwa.toString()));
+    $("gbWa").href = $("wa").href;   // la fascia "Fai salire il GOMM" condivide l'edizione che si sta leggendo
     const note = $("note"); note.innerHTML = "";
     if (ed !== editions[0]) {
       note.append("Stai leggendo un'edizione precedente. ");
@@ -816,6 +814,10 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   for (const [id, cosa] of [["read", "letta"], ["open", "schermo intero"], ["dl", "scaricata"]]) {
     $(id).addEventListener("click", () => { if (current && !(id === "read" && desktop())) { conta({ path: "pdf-" + pad(current.numero), title: "PDF n. " + pad(current.numero) + " " + cosa, event: true }); conta({ path: "pdf-tutte", title: "PDF aperti (tutte le edizioni)", event: true }); } });
   }
+  // la fascia "Fai salire il GOMM": stessi conteggi dei pulsanti in alto; il grafico lo disegna assets/gomm.js
+  $("gbWa").addEventListener("click", () => { if (current) { conta({ path: "condividi-tutte", title: "Condivisioni (tutte le edizioni)", event: true }); conta({ path: "condividi-whatsapp-" + pad(current.numero), title: "Condivisione WhatsApp n. " + pad(current.numero), event: true }); } });
+  $("gbCopy").addEventListener("click", () => { $("copy").click(); const l = $("gbCopy").querySelector("span"); l.textContent = "Link copiato"; setTimeout(() => { l.textContent = "Copia link"; }, 2200); });
+  if (window.GOMM) GOMM.fascia($("gb"));
   $("wa").addEventListener("click", () => { if (current) conta({ path: "condividi-tutte", title: "Condivisioni (tutte le edizioni)", event: true }); conta({ path: "condividi-whatsapp-" + pad(current.numero), title: "Condivisione WhatsApp n. " + pad(current.numero), event: true }); });
   // Voto dei lettori: un voto per edizione e per browser, anonimo
   const votoKey = (ed) => "gtd-voto-" + pad(ed.numero);
