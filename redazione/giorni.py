@@ -1,5 +1,5 @@
 """Calendario delle uscite (senza importare il motore grafico).
-Legge FESTIVI ed EDIZIONE_1 da gommberg_engine.py, così la fonte resta una sola.
+Legge FESTIVI ed EDIZIONE_1 da gommberg_engine.py e le chiusure parziali (PARZIALI) da prepara.sh, così la fonte resta una sola.
 Uso da riga di comando: python3 giorni.py [AAAA-MM-GG]  -> stampa uscita, numero, primo giorno della settimana."""
 import datetime as dt, os, re, sys
 
@@ -16,6 +16,24 @@ def _leggi_motore():
 
 
 FESTIVI, EDIZIONE_1 = _leggi_motore()
+
+
+def _leggi_parziali():
+    """Le borse chiuse solo in parte, dal dizionario PARZIALI di prepara.sh (data -> "USA chiusa (Thanksgiving)", ...)."""
+    try:
+        src = open(os.path.join(QUI, "prepara.sh"), encoding="utf-8").read()
+    except OSError:
+        return {}
+    m = re.search(r"^PARZIALI\s*=\s*\{(.*?)\}", src, re.M | re.S)
+    return dict(re.findall(r'"(\d{4}-\d{2}-\d{2})"\s*:\s*"([^"]*)"', m.group(1))) if m else {}
+
+
+PARZIALI = _leggi_parziali()
+
+
+def wall_street_aperta(d):
+    """False nei giorni senza edizione e in quelli in cui la borsa americana è chiusa (PARZIALI: "USA chiusa ...")."""
+    return uscita(d) and not PARZIALI.get(d.isoformat(), "").startswith("USA chiusa")
 
 
 def uscita(d):

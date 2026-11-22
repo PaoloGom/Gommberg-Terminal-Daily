@@ -1,20 +1,35 @@
-// gommberg.com su Cloudflare Workers, solo file statici (nessun codice in esecuzione, gratuito).
+// gommberg.com su Cloudflare Workers (piano gratuito): i file statici del sito, più un solo pezzo di codice,
+// redazione/sito/lettori.js (La parola ai lettori, G-13), che Cloudflare chiama solo per gli indirizzi /api/*.
 // Lo usa .github/workflows/sito.yml; la cartella _sito la prepara redazione/sito/costruisci.py.
+// Se la pubblicazione con il codice non riesce, sito.yml ripubblica i soli file statici (senza "main" e senza database):
+// l'edizione esce comunque, la colonna dei lettori dice che la discussione non si carica.
 {
   "name": "gommberg",
   "compatibility_date": "2026-11-20",
+  "main": "lettori.js",
   "assets": {
     "directory": "../../_sito",
+    "binding": "ASSETS",
+    // solo /api/* passa dal codice; ogni altra richiesta va dritta ai file statici, come prima di G-13
+    "run_worker_first": ["/api/*"],
     // indirizzi identici a GitHub Pages: /e/030.html resta /e/030.html (le altre modalità lo accorciano)
     "html_handling": "none",
     // le pagine che non esistono aprono 404.html con stato 404
     "not_found_handling": "404-page"
   },
+  // commenti, like, segnalazioni e voti dei lettori. Il database si crea una volta a mano da Cloudflare
+  // (Storage e database, D1, nome gommberg-lettori) e qui va il suo ID; le tabelle le crea lettori.js al primo uso.
+  // Le anteprime usano lo stesso database ma scrivono con sito = "prova": non si mescolano con gommberg.com.
+  "d1_databases": [
+    { "binding": "DB", "database_name": "gommberg-lettori", "database_id": "DA-CREARE" }
+  ],
   // il sito vero sta solo su gommberg.com: niente doppione su workers.dev
   "workers_dev": false,
-  // ma gli indirizzi di anteprima (ramo prova) sì: costruisci.py --anteprima li segna noindex e toglie le statistiche
+  // ma gli indirizzi di anteprima (rami prova e anteprima-*) sì: costruisci.py --anteprima li segna noindex e toglie le statistiche
   "preview_urls": true,
   "routes": [
     { "pattern": "gommberg.com", "custom_domain": true }
-  ]
+  ],
+  // i log del codice (errori del servizio dei lettori) si leggono da Cloudflare, Workers, gommberg, Observability
+  "observability": { "enabled": true }
 }

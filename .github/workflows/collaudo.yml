@@ -6,7 +6,7 @@ name: Collaudo
 
 on:
   push:
-    branches: [rilascio]
+    branches: [rilascio, 'anteprima-*']
   workflow_dispatch:
 
 permissions:
@@ -27,6 +27,9 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22         # il collaudo del servizio dei lettori usa node:sqlite (Node 22.5 o più)
       - name: Strumenti del mattino (li installa prepara.sh, come ogni giorno)
         run: |
           sudo apt-get update -qq

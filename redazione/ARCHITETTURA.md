@@ -23,7 +23,8 @@ pubblica.sh  →  un commit "Edizione #NNN - data" sul ramo principale (main)
   pannello/registro.json (pannello.py)   e/  dati/  feed.xml  sitemap.xml  ultima/ (pagine.py)
   ▼
 GitHub, a ogni push su main (zero token)
-  sito.yml        costruisci.py → Cloudflare Workers → gommberg.com, poi verifica dal vivo (collaudo_sito.py --veloce)
+  sito.yml        costruisci.py → Cloudflare Workers → gommberg.com (file statici + servizio dei lettori su /api/*; se
+                  il servizio non si pubblica, soli file statici), poi verifica dal vivo (collaudo_sito.py --veloce)
   newsletter.yml  (solo se cambia edizioni.json) newsletter.py → Kit → email agli iscritti
   mattino.yml     alle 10:15 lun-ven: mattino.py controlla uscita, sito, pubblicazione, newsletter, pannello; job gomm: gomm.py aggiunge le visite di ieri a dati/gomm.json, commit su main e sito ripubblicato
 ```
@@ -46,6 +47,7 @@ Fuori dal viaggio dell'edizione, le **mail straordinarie** (auguri, avvisi, sond
 | Sito | pagine fisse in radice (`index.html`, `archivio.html`...), `assets/`, `pagine.py`, `sito/costruisci.py`, `sito/statico.py`, `robots.txt` | Pagine scritte a mano che si riempiono via JavaScript dai file di dati; pagine per edizione generate. `statico.py` (lo chiama `costruisci.py`, scrive solo nel sito pubblicato, mai nel repository) aggiunge per i motori di ricerca le pagine `impara/<parola>.html`, il contenuto di riserva di home, Impara e Archivio e le pagine di Impara nella sitemap (G-35) |
 | Newsletter | `newsletter.py` (compone anche testata e fascia dei mercati), `newsletter_cornice.html` e `newsletter_modello.html` (copiati a mano in Kit: "Gommberg cornice" per le edizioni, "Gommberg" predefinito) | L'email del mattino dalla scheda `e/NNN.json` |
 | Pannello | `pannello.py`, `misure.py`, `gancio_token.py`, `pannello/` | Una riga per edizione: orari, lavoro, qualità, consumo; pagina Invii per le mail straordinarie |
+| La parola ai lettori | `sito/lettori.js` (il servizio, l'unico codice che gira sul sito), `assets/lettori.js` e `lettori.css` (il riquadro), `domande` in `pagine.py`, database D1 `gommberg-lettori`; regole e procedura in `sito/LETTORI.md` | Domanda del giorno con voto Toro/Orso, commenti, risposte, like e Segnala accanto all'edizione (G-13) |
 | Mail straordinarie | `dem.py`, `dem/` (un file per mail), `.github/workflows/dem.yml`, `grazie.html` (risposta ai sondaggi) | Il file è la verità, Kit l'esecutore: regole, vista del pannello, allineamento con Kit, segnalazione a Paolo |
 | Collaudo e rilascio | `collaudo.py`, `rete/`, `rilascia.sh`, `sito/collaudo_sito.py`, `mattino.py`, `.github/workflows/` | Vedi 4 e 5 |
 | Prove | `PROVA.md`, `prova.sh` | Edizioni di prova con l'attività vera |
@@ -58,7 +60,9 @@ Un file della colonna di sinistra è un contratto: cambiarne forma o significato
 | File | Lo scrive | Lo leggono |
 |---|---|---|
 | `edizioni.json` (una voce per edizione) | `edizioni_voce.py` | `pagine.py` (tutto il sito), `controlli.py`, `controlli_fatti.py`, `controlli_contenuti.py` (edizioni precedenti: temi, grafici, Stamattina), `memoria.py`, `misure.py`, `pannello.py`, `newsletter.py`, `mattino.py`, `ultima/index.html` |
-| `e/NNN.json`, `e/NNN.html`, `e/NNN.png`, `e/pagine.json` | `pagine.py` | `index.html`, `glossario.html`, `newsletter.py` (la scheda `e/NNN.json`), anteprime di WhatsApp |
+| `e/NNN.json`, `e/NNN.html`, `e/NNN.png`, `e/pagine.json` | `pagine.py` | `index.html`, `glossario.html`, `newsletter.py` (la scheda `e/NNN.json`), anteprime di WhatsApp; il campo `lettori` (domanda, verifica, esito) lo leggono `assets/lettori.js` e il servizio `sito/lettori.js`, che dalla scheda pubblica prende data e domanda e non si fida del browser |
+| `redazione/scommessa/dati/spx.csv` | la scommessa (chiusure dell'S&P 500) | anche `pagine.py`: contesto ed esito della domanda del giorno |
+| `PARZIALI` in `prepara.sh` (borse chiuse in parte) | a mano, ogni dicembre | `prepara.sh`, e tramite `giorni.py` (`wall_street_aperta`) `pagine.py`: con Wall Street chiusa niente domanda del giorno |
 | `dati/recenti.json`, `indice.json`, `cerca.json`, `storico.json`, `redazione.json` | `pagine.py` | `index.html`, `scommessa.html` (recenti); `archivio.html` (indice, cerca); `glossario.html`, `numeri.html` (storico); `progetto.html` (redazione); `mattino.py`, `collaudo_sito.py` |
 | `dati/uscite.json` | `pubblica.sh` | `numeri.html` (puntualità) |
 | `dati/gomm.json` (visite dei giorni completi dal 17/10) | `gomm.py`, nel job gomm di `mattino.yml` | `assets/gomm.js` (il GOMM: un solo calcolo), letto da `numeri.html`, dal nastro di `index.html` e dal blocco in fondo alle pagine `e/` |
@@ -79,7 +83,7 @@ Tre cose da ricordare:
 - **Quattro file della redazione sono pubblici**: `glossario.json`, `glossario_sito.json`, `meccanismi.json`, `scommessa/pagella.json` (elenco `LETTI` in `costruisci.py`). Tutto il resto di `redazione/` non arriva mai su gommberg.com.
 - **Le pagine in `e/`, `dati/`, `ultima/`, `feed.xml` e `sitemap.xml` sono generate**: non si toccano a mano. Chi cambia `pagine.py` rigenera (`python3 redazione/pagine.py`) e committa le pagine nello stesso commit: il collaudo lo pretende.
 - **`.claude/settings.json` non filtra i siti**: contiene il gancio e il permesso a WebSearch. Quali fonti valgono lo decide solo `fonti.json`; le pagine che non si aprono le annota il gancio e le mostra il pannello (`fallite`).
-- **Fuori dal repository**: il testo delle attività programmate (app di Claude, copia in `ATTIVITA.md`), i due modelli di email e il modulo di iscrizione (Kit), DNS e Worker (Cloudflare), i segreti di GitHub (`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `KIT_API_KEY`), GoatCounter, Search Console. Un cambiamento che li riguarda non lo vede nessun collaudo: va scritto nel piano del rilascio e provato a mano.
+- **Fuori dal repository**: il testo delle attività programmate (app di Claude, copia in `ATTIVITA.md`), i due modelli di email e il modulo di iscrizione (Kit), DNS, Worker e database D1 dei lettori (Cloudflare; i commenti si tolgono da lì finché non c'è G-51, `sito/LETTORI.md`), i segreti di GitHub (`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `KIT_API_KEY`), GoatCounter, Search Console. Un cambiamento che li riguarda non lo vede nessun collaudo: va scritto nel piano del rilascio e provato a mano.
 
 ## 4. La rete di non regressione
 
@@ -87,7 +91,7 @@ Un solo comando, `python3 redazione/collaudo.py` (meno di un minuto, senza rete 
 
 1. sintassi di tutti i `.py` e `.sh`; 2. avvio (`prepara.sh` in tre giorni tipo); 3. pagina modello impaginata e controllata, e la regola dei fatti e il gancio su casi costruiti apposta;
 4. **rete**: le edizioni campione di `redazione/rete/` rifatte dai loro sorgenti con il kit di oggi lungo la catena del mattino, e confrontate con l'atteso (`atteso/`): testo del PDF, esito dei controlli, voce di `edizioni.json`, email, numeri del pannello;
-5. sito: file validi, link interni, **pagine generate identiche a quelle nel repository**, `costruisci.py` senza avvisi; 6. pubblicazione a secco.
+5. sito: file validi, link interni, **pagine generate identiche a quelle nel repository**, `costruisci.py` senza avvisi; 6. lettori: il servizio vero contro un database finto (`sito/prova_lettori.mjs`, serve Node 22.5 o più), la sintassi del codice del browser, la domanda del giorno su casi costruiti (serie di cali, verifica, Thanksgiving); 7. pubblicazione a secco.
 
 Ogni differenza ferma. Se è un guasto si corregge; se è voluta si rilancia con `--atteso`, che riscrive l'atteso e stampa che cosa è cambiato: quel cambiamento è nel commit e nel resoconto del rilascio, dove lo vede anche Paolo. `--campione AAAA-MM-GG` congela un'edizione nuova (accettata solo se, rifatta, è identica a quella pubblicata).
 

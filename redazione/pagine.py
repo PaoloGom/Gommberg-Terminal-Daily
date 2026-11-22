@@ -161,6 +161,7 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .vote button{font-family:var(--mono);font-size:13px;min-height:38px;padding:0 14px;background:transparent;color:var(--ink);border:1px solid var(--rule);cursor:pointer}
 .vote .thx{color:var(--ink)}
 .gb{margin:0 0 30px}
+.lt{margin:0 0 30px}.lt:empty{display:none}
 @media (max-width:520px){.dek{font-size:17px}.btn.lead{flex:1 1 auto;justify-content:center}.btn.ghost{width:46px;padding:0;justify-content:center}.btn.ghost span{display:none}.btn[data-pdf="scaricata"]{display:none}}
 """
 
@@ -172,6 +173,19 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 GOMM_V = "2026-11-22"   # cambia quando cambia assets/gomm.js (il browser riprende il file nuovo)
 GOMM_JS = """<script src="../assets/gomm.js?v=""" + GOMM_V + """"></script>
 <script>if (window.GOMM) GOMM.fascia(document.getElementById("gb"));</script>"""
+
+
+# La parola ai lettori (G-13) in ogni edizione, dopo "In 30 secondi": la stessa domanda e la stessa discussione della
+# homepage (assets/lettori.js e lettori.css, gli stessi file). I dati dell'edizione sono già nella pagina: nessuna
+# richiesta in più oltre a quella al servizio dei commenti. Senza JavaScript il riquadro resta vuoto e nascosto.
+LETTORI_V = "2026-11-22"   # cambia quando cambiano assets/lettori.js o lettori.css (il browser riprende i file nuovi)
+
+
+def lettori_js(ed):
+    dati = {"numero": ed["numero"], "data": ed["data"], "lettori": ed.get("lettori") or {}}
+    return (f'<script src="../assets/lettori.js?v={LETTORI_V}"></script>\n'
+            '<script>if (window.LETTORI) LETTORI.monta(document.getElementById("lt"), ' +
+            json.dumps(dati, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/") + ');</script>')
 
 
 SVG_MAIL = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>'
@@ -340,6 +354,7 @@ def pagina(ed, prec, succ):
     a('<link rel="icon" href="../assets/icona.svg?v=2" type="image/svg+xml">')
     a('<link rel="apple-touch-icon" href="../assets/icona-180.png">')
     a('<link rel="stylesheet" href="../assets/sito.css">')
+    a(f'<link rel="stylesheet" href="../assets/lettori.css?v={LETTORI_V}">')
     a('<link rel="alternate" type="application/rss+xml" title="Gommberg Terminal Daily" href="../feed.xml">')
     a('<link rel="preconnect" href="https://fonts.googleapis.com">')
     a('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">')
@@ -363,6 +378,7 @@ def pagina(ed, prec, succ):
     if ed.get("sommario"):
         a('<section><h2>In 30 secondi</h2><ul class="brief">' +
           "".join(f"<li>{colora(s)}</li>" for s in ed["sommario"]) + "</ul></section>")
+    a('<aside class="lt" id="lt" aria-label="La parola ai lettori"></aside>')
     if ed.get("notizie"):
         a('<section><h2>Le notizie del giorno</h2><ol class="news">' +
           "".join(f"<li><span>{colora(s)}</span></li>" for s in ed["notizie"]) + "</ol></section>")
@@ -408,9 +424,89 @@ def pagina(ed, prec, succ):
     a("</main>")
     a(VOTO_JS.replace("NNN", n))
     a(GOMM_JS)
+    a(lettori_js(ed))
     a(piede("../"))
     a("</body>\n</html>\n")
     return "\n".join(p)
+
+
+# ---------------------------------------------------------------- la domanda del giorno (La parola ai lettori, G-13)
+# Nel primo rilascio la domanda non la scrive il motore: si calcola dai dati dell'edizione, così non può contenere
+# errori. È sempre "oggi l'S&P 500 sale o scende?" (sale = Toro, scende = Orso), con il contesto ricavato dalle chiusure
+# (una serie di cali o rialzi, o un movimento di almeno l'1%); il giorno dopo si verifica sulla chiusura di quella seduta.
+# Nei giorni con Wall Street chiusa (giorni.PARZIALI) la domanda non esce: restano i commenti.
+# I voti li tiene redazione/sito/lettori.js, che si chiude all'apertura di Wall Street; i testi li mostra assets/lettori.js.
+NUMERI = ["", "uno", "due", "tre", "quattro", "cinque", "sei", "sette", "otto", "nove", "dieci"]
+
+
+def _serie_spx(repo):
+    try:
+        righe = open(os.path.join(repo, "redazione", "scommessa", "dati", "spx.csv"), encoding="utf-8").read().split()[1:]
+        return sorted((d, float(v)) for d, v in (r.split(",") for r in righe if "," in r))
+    except (OSError, ValueError):
+        return []
+
+
+def _var(x):
+    """+0,8% / -2,0% / 0,0%: una cifra decimale, come nel nastro."""
+    t = f"{x:+.1f}".replace(".", ",")
+    return (t[1:] if t in ("+0,0", "-0,0") else t) + "%"
+
+
+def _giorno(seduta, data):
+    """Come si chiama la seduta vista dal giorno dell'edizione: "ieri" o il nome del giorno ("venerdì")."""
+    s, d = datetime.strptime(seduta, "%Y-%m-%d").date(), datetime.strptime(data, "%Y-%m-%d").date()
+    return "ieri" if (d - s).days == 1 else GIORNI[s.weekday()]
+
+
+def _esito(spx, seduta, data_edizione):
+    """La chiusura di una seduta contro la precedente: {var, vince: toro|orso|pari, giorno, mercato}, o None se manca."""
+    for i, (d, v) in enumerate(spx):
+        if d == seduta and i > 0:
+            x = (v / spx[i - 1][1] - 1) * 100
+            return {"mercato": "S&P 500", "var": _var(x), "vince": "toro" if x > 0 else "orso" if x < 0 else "pari",
+                    "giorno": _giorno(seduta, data_edizione)}
+    return None
+
+
+def domande(repo, eds):
+    """Aggiunge a ogni edizione il campo "lettori" (domanda, etichette dei tasti, verifica del giorno prima, esito)."""
+    import datetime as dt
+    sys.path.insert(0, os.path.join(repo, "redazione"))
+    import giorni
+    spx = _serie_spx(repo)
+    prec = None
+    for ed in eds:
+        ed.pop("lettori", None)
+        if not giorni.wall_street_aperta(dt.date.fromisoformat(ed["data"])):
+            prec = None
+            continue
+        al = ed.get("ticker_al") or ""
+        storia = [x for x in spx if x[0] <= al]
+        ieri = _esito(spx, prec["data"], ed["data"]) if prec else None
+        if ieri:
+            ieri["n"] = prec["numero"]
+        contesto = ""
+        if len(storia) >= 2 and storia[-1][0] == al:
+            su = storia[-1][1] > storia[-2][1]
+            k = 0
+            while k + 1 < len(storia) and (storia[-1 - k][1] > storia[-2 - k][1]) == su and storia[-1 - k][1] != storia[-2 - k][1]:
+                k += 1
+            x = (storia[-1][1] / storia[-2][1] - 1) * 100
+            if k >= 3:
+                contesto = f"Dopo {NUMERI[k] if k < len(NUMERI) else k} {'rialzi' if su else 'cali'} di fila, "
+            elif abs(x) >= 1 and not ieri:   # il movimento lo dice già la verifica di ieri: non si ripete
+                contesto = f"Dopo il {_var(x)} di {_giorno(al, ed['data'])}, "
+        L = {"domanda": (contesto + "oggi l'S&P 500 sale o scende?") if contesto else "Oggi l'S&P 500 sale o scende?",
+             "mercato": "S&P 500", "toro": "sale", "orso": "scende"}
+        if ieri:
+            L["ieri"] = ieri
+        esito = _esito(spx, ed["data"], ed["data"])
+        if esito:   # la verifica della domanda stessa, quando c'è la chiusura di quella seduta (dall'edizione dopo)
+            esito.pop("giorno")
+            L["esito"] = esito
+        ed["lettori"] = L
+        prec = ed
 
 
 # ---------------------------------------------------------------- feed e link fisso
@@ -553,6 +649,7 @@ def main():
     except (OSError, ValueError, KeyError):
         pass
     os.makedirs(os.path.join(repo, "e"), exist_ok=True)
+    domande(repo, eds)
     cambiati = 0
     for i, ed in enumerate(eds):
         prec = eds[i - 1] if i > 0 else None
