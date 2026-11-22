@@ -161,6 +161,7 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .vote button{font-family:var(--mono);font-size:13px;min-height:38px;padding:0 14px;background:transparent;color:var(--ink);border:1px solid var(--rule);cursor:pointer}
 .vote .thx{color:var(--ink)}
 .gb{margin:0 0 30px}
+.lt{margin:0 0 30px}.lt:empty{display:none}
 @media (max-width:520px){.dek{font-size:17px}.btn.lead{flex:1 1 auto;justify-content:center}.btn.ghost{width:46px;padding:0;justify-content:center}.btn.ghost span{display:none}.btn[data-pdf="scaricata"]{display:none}}
 """
 
@@ -172,6 +173,18 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 GOMM_V = "2026-11-22"   # cambia quando cambia assets/gomm.js (il browser riprende il file nuovo)
 GOMM_JS = """<script src="../assets/gomm.js?v=""" + GOMM_V + """"></script>
 <script>if (window.GOMM) GOMM.fascia(document.getElementById("gb"));</script>"""
+
+
+# La Gommunity (G-13) in ogni edizione, dopo "In 30 secondi": lo stesso sentiment e la stessa discussione della homepage
+# (assets/lettori.js e lettori.css, gli stessi file). Senza JavaScript la sezione resta vuota e nascosta.
+LETTORI_V = "2026-11-28c"   # cambia quando cambiano assets/lettori.js o lettori.css (il browser riprende i file nuovi)
+
+
+def lettori_js(ed):
+    dati = {"numero": ed["numero"], "data": ed["data"]}
+    return (f'<script src="../assets/lettori.js?v={LETTORI_V}"></script>\n'
+            '<script>if (window.LETTORI) LETTORI.monta(document.getElementById("lt"), ' +
+            json.dumps(dati, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/") + ');</script>')
 
 
 SVG_MAIL = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>'
@@ -340,6 +353,7 @@ def pagina(ed, prec, succ):
     a('<link rel="icon" href="../assets/icona.svg?v=2" type="image/svg+xml">')
     a('<link rel="apple-touch-icon" href="../assets/icona-180.png">')
     a('<link rel="stylesheet" href="../assets/sito.css">')
+    a(f'<link rel="stylesheet" href="../assets/lettori.css?v={LETTORI_V}">')
     a('<link rel="alternate" type="application/rss+xml" title="Gommberg Terminal Daily" href="../feed.xml">')
     a('<link rel="preconnect" href="https://fonts.googleapis.com">')
     a('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">')
@@ -363,6 +377,7 @@ def pagina(ed, prec, succ):
     if ed.get("sommario"):
         a('<section><h2>In 30 secondi</h2><ul class="brief">' +
           "".join(f"<li>{colora(s)}</li>" for s in ed["sommario"]) + "</ul></section>")
+    a('<aside class="lt" id="lt" aria-label="La Gommunity"></aside>')
     if ed.get("notizie"):
         a('<section><h2>Le notizie del giorno</h2><ol class="news">' +
           "".join(f"<li><span>{colora(s)}</span></li>" for s in ed["notizie"]) + "</ol></section>")
@@ -408,6 +423,7 @@ def pagina(ed, prec, succ):
     a("</main>")
     a(VOTO_JS.replace("NNN", n))
     a(GOMM_JS)
+    a(lettori_js(ed))
     a(piede("../"))
     a("</body>\n</html>\n")
     return "\n".join(p)
@@ -433,7 +449,7 @@ def feed(eds):
 
 FISSE = (("", "daily", "1.0"), ("archivio.html", "daily", "0.8"), ("glossario.html", "weekly", "0.8"),
          ("scommessa.html", "weekly", "0.6"), ("numeri.html", "daily", "0.5"), ("progetto.html", "monthly", "0.5"),
-         ("iscriviti.html", "monthly", "0.6"), ("privacy.html", "yearly", "0.2"))
+         ("iscriviti.html", "monthly", "0.6"), ("regole.html", "yearly", "0.2"), ("privacy.html", "yearly", "0.2"))
 
 
 def mappa_sito(eds):

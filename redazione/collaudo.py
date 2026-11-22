@@ -1199,6 +1199,100 @@ def passo_sito():
     return copia
 
 
+def passo_lettori(copia):
+    """La Gommunity (G-13): il servizio vero contro un D1 finto (redazione/sito/prova_lettori.mjs, Node 22.5+),
+    la sintassi del codice che gira nel browser, la configurazione e l'avviso a Paolo sulle segnalazioni."""
+    male = []
+    node = shutil.which("node")
+    if not node:
+        return esito("Lettori: servizio dei commenti", False, "manca Node (serve la 22.5 o più): il servizio non è collaudato")
+    rc, out = esegui([node, "--no-warnings", os.path.join(R, "sito", "prova_lettori.mjs")])
+    esito("Lettori: servizio dei commenti", rc == 0, out.strip().splitlines()[-1][:200] if out.strip() else f"uscita {rc}")
+    for f in sorted(glob.glob(os.path.join(REPO, "assets", "*.js"))) + sorted(glob.glob(os.path.join(R, "sito", "*.js"))) + sorted(glob.glob(os.path.join(R, "sito", "*.mjs"))):
+        rc, out = esegui([node, "--check", f])
+        if rc:
+            male.append(os.path.relpath(f, REPO) + ": " + out.strip().splitlines()[-1][:90])
+    # i nomi riservati: la stessa regola nel browser e nel servizio
+    rx = [re.search(r"RISERVATI = (/[^/]+/i)", open(f, encoding="utf-8").read()) for f in (os.path.join(REPO, "assets", "lettori.js"), os.path.join(R, "sito", "lettori.js"))]
+    if not all(rx) or rx[0].group(1) != rx[1].group(1):
+        male.append("nomi riservati diversi tra assets/lettori.js e redazione/sito/lettori.js")
+    # la versione dei file nella homepage e nelle edizioni è la stessa (il browser riprende i file nuovi insieme)
+    v = re.search(r'LETTORI_V = "([^"]+)"', open(os.path.join(R, "pagine.py"), encoding="utf-8").read()).group(1)
+    home = open(os.path.join(REPO, "index.html"), encoding="utf-8").read()
+    for f in ("lettori.css", "lettori.js"):
+        if f"assets/{f}?v={v}" not in home:
+            male.append(f"index.html: assets/{f} senza ?v={v} (pagine.LETTORI_V)")
+    # configurazione: solo /api/* passa dal codice, il resto resta statico
+    cfg = re.sub(r"^\s*//.*$", "", open(os.path.join(R, "sito", "wrangler.jsonc"), encoding="utf-8").read(), flags=re.M)
+    try:
+        c = json.loads(cfg)
+        if c.get("main") != "lettori.js" or c["assets"].get("run_worker_first") != ["/api/*"] or c["d1_databases"][0]["binding"] != "DB":
+            male.append("wrangler.jsonc: main, run_worker_first o il database non sono quelli di lettori.js")
+    except Exception as e:  # noqa: BLE001
+        male.append(f"wrangler.jsonc: {e}"[:90])
+    # la pagina delle regole che la sezione collega esiste
+    if "/regole.html" not in open(os.path.join(REPO, "assets", "lettori.js"), encoding="utf-8").read() or not os.path.exists(os.path.join(REPO, "regole.html")):
+        male.append("regole.html manca o la sezione non la collega")
+    esito("Lettori: codice e configurazione", not male, "; ".join(male)[:300] or "sintassi, nomi riservati, versione dei file, regole e configurazione in ordine")
+    # l'avviso a Paolo (segnalazioni.py, lanciato ogni ora da segnalazioni.yml), con un gh finto che registra le chiamate:
+    # una segnalazione per commento e mai il testo; riapre e aggiorna; al massimo 5 nuove per giro; un guasto fa fallire
+    # il giro solo alle 10 di Roma (o a mano), e nel flusso "| tee" non lo nasconde
+    male = []
+    script = os.path.join(R, "sito", "segnalazioni.py")
+    banco = os.path.join(copia, "_segnalazioni")
+    os.makedirs(os.path.join(banco, "bin"), exist_ok=True)
+    elenco, fatte, diario, finto = (os.path.join(banco, x) for x in ("elenco.json", "fatte.json", "gh.txt", os.path.join("bin", "gh")))
+    open(finto, "w", encoding="utf-8").write('#!/usr/bin/env bash\nprintf "%s\\n" "$*" >> "$GH_DIARIO"\nexit "${GH_ESCE:-0}"\n')
+    os.chmod(finto, 0o755)
+
+    def giro(righe, esistenti, *arg, ora="15", esce="0", a_mano=""):
+        json.dump({"sito": "gommberg", "segnalati": righe} if righe is not None else "non è un elenco", open(elenco, "w", encoding="utf-8"))
+        json.dump(esistenti, open(fatte, "w", encoding="utf-8"))
+        open(diario, "w").close()
+        rc, out = esegui([sys.executable, script, *arg], env={"GTD_ELENCO": elenco, "GTD_ESISTENTI": fatte, "GTD_ORA": ora, "GH_DIARIO": diario,
+                                                              "GH_ESCE": esce, "A_MANO": a_mano, "GITHUB_REPOSITORY_OWNER": "PaoloGom",
+                                                              "PATH": os.path.join(banco, "bin") + os.pathsep + os.environ.get("PATH", "")})
+        return rc, out, open(diario, encoding="utf-8").read()
+
+    def s(n, nascosto=False, ultima="2026-11-23T09:42:10Z", ed=31):
+        return {"id": n, "ed": ed, "reti": 3 if nascosto else 1, "nascosto": nascosto, "ultima": ultima, "testo": "NON-DEVE-USCIRE", "nome": "NON-DEVE-USCIRE"}
+
+    rc, out, gh = giro([s(123), s(7, True, ed=30), {"id": "x"}], [], "--prova")
+    if rc or out.count("Farei - Apro: ") != 2 or "commento n. 123 segnalato (edizione n. 031)" not in out or "(edizione n. 030) - nascosto" not in out or "23/11/2026 alle 10:42" not in out or gh:
+        male.append("a secco: due commenti segnalati non danno due segnalazioni complete, o tocca GitHub")
+    rc, out, gh = giro([s(123), s(7, True, ed=30)], [])
+    if rc or gh.count("issue create") != 2 or gh.count("--label gommunity") != 2 or gh.count("--assignee PaoloGom") != 2:
+        male.append("due commenti nuovi non aprono due segnalazioni con etichetta e assegnatario")
+    if "NON-DEVE-USCIRE" in out + gh:
+        male.append("il testo o il nome del commento finisce nella segnalazione")
+    gia = [{"number": 41, "title": "La Gommunity: commento n. 123 segnalato (edizione n. 031)", "state": "OPEN", "closedAt": None},
+           {"number": 42, "title": "La Gommunity: commento n. 7 segnalato (edizione n. 030)", "state": "CLOSED", "closedAt": "2026-11-22T10:00:00Z"},
+           {"number": 43, "title": "La Gommunity: commento n. 12 segnalato (edizione n. 031)", "state": "CLOSED", "closedAt": "2026-11-24T10:00:00Z"},
+           {"number": 44, "title": "La Gommunity: commento n. 1234 segnalato (edizione n. 031)", "state": "OPEN", "closedAt": None}]
+    rc, out, gh = giro([s(123), s(7, ultima="2026-11-21T09:00:00Z"), s(12)], gia)
+    if rc or gh.strip():
+        male.append("commenti già avvisati e fermi: non deve fare nulla")
+    rc, out, gh = giro([s(123, True), s(7), s(12)], gia)
+    if rc or "issue comment 41" not in gh or "issue edit 41" not in gh or "- nascosto" not in gh or "issue reopen 42" not in gh or "issue create" in gh or " 43" in gh or " 44" in gh:
+        male.append("nascosto dopo l'avviso o segnalato di nuovo dopo la chiusura: deve aggiornare la 41 e riaprire la 42, e basta")
+    rc, out, gh = giro([s(n) for n in range(200, 208)], [])
+    if rc or gh.count("issue create") != 5 or out.count("Al prossimo giro") != 3:
+        male.append("otto commenti nuovi: 5 segnalazioni in questo giro e 3 al prossimo")
+    for righe, esce, cosa in ((None, "0", "elenco illeggibile"), ([s(300)], "1", "GitHub che rifiuta")):
+        rc15, out15, gh15 = giro(righe, [], ora="15", esce=esce)
+        rc10, _, _ = giro(righe, [], ora="10", esce=esce)
+        rcm, _, _ = giro(righe, [], ora="15", esce=esce, a_mano="true")
+        if rc15 != 0 or rc10 != 1 or rcm != 1 or "::warning::" not in out15:
+            male.append(f"{cosa}: avviso nel riepilogo, giro fallito solo alle 10 o a mano (uscite {rc15}, {rc10}, {rcm})")
+    flusso = open(os.path.join(REPO, ".github", "workflows", "segnalazioni.yml"), encoding="utf-8").read()
+    if "redazione/sito/segnalazioni.py" not in flusso or "issues: write" not in flusso or not re.search(r'cron: "\d+ \* \* \* \*"', flusso):
+        male.append("segnalazioni.yml: non lancia lo script ogni ora o non può aprire segnalazioni")
+    if not re.search(r"defaults:\s*\n\s*run:\s*\n\s*shell: bash", flusso) or "A_MANO" not in flusso:
+        male.append("segnalazioni.yml: senza 'shell: bash' un giro fallito resta verde; manca A_MANO")
+    shutil.rmtree(banco, ignore_errors=True)
+    esito("Lettori: avviso sulle segnalazioni", not male, "; ".join(male)[:300] or "una segnalazione per commento e mai il testo; riapre e aggiorna; 5 nuove per giro; un guasto avvisa una volta al giorno")
+
+
 def passo_pubblicazione(copia):
     voci = json.load(open(os.path.join(copia, "edizioni.json"), encoding="utf-8"))
     v = max(voci, key=lambda x: x["numero"])
@@ -1239,6 +1333,7 @@ def main():
         passo_rete()
         copia = passo_sito()
         if isinstance(copia, str):
+            passo_lettori(copia)
             passo_pubblicazione(copia)
     finally:
         if "--tieni" in sys.argv:
