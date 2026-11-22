@@ -6405,5 +6405,364 @@
     ]
    }
   ]
+ },
+ {
+  "numero": 31,
+  "data": "2026-11-23",
+  "titolo": "Wall Street entra in correzione e il Nasdaq perde il 5,3% con i chip",
+  "sommario": [
+   "Dopo Nvidia vendono tutti i chip, per il dubbio sui conti dell'IA.",
+   "Per noi Taiwan e Corea cedono più di Londra perché i chip contano di più nell'indice.",
+   "Mercoledì il dato sui prezzi dice se la Fed ha ancora fretta di alzare i tassi."
+  ],
+  "file": "pdf/2026-11-23-gommberg-031.pdf",
+  "nome": "2026-11-23 Gommberg Terminal Daily #031.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Broadcom perde il 12,1% e i chip americani cadono in blocco",
+   "Nvidia chiude la nona seduta in calo su dieci",
+   "Anthropic cede il 9,1% nella seconda seduta da quotata",
+   "Seul attiva i sidecar dopo il crollo di Samsung Electronics e SK hynix",
+   "Stm e Technoprobe perdono oltre il 9% mentre Piazza Affari cede il 2,48%",
+   "Corning e Bloom Energy perdono il 10,9% e il 15,3%"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "142,59 $",
+    "-3,5% g"
+   ],
+   [
+    "S&P 500",
+    "6.910,39",
+    "-3,7% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "5.941,95",
+    "-2,8% g"
+   ],
+   [
+    "TREASURY 10 ANNI",
+    "4,92%",
+    "-12 pb g"
+   ],
+   [
+    "EUR/USD",
+    "1,0967",
+    "0,0% g"
+   ],
+   [
+    "BRENT FUTURE",
+    "92,57 $",
+    "+0,6% g"
+   ],
+   [
+    "ORO",
+    "3.515 $",
+    "-4,6% g"
+   ]
+  ],
+  "dek": "L'S&P 500 perde il 3,7% e chiude oltre il 10% sotto il massimo di ottobre dopo sette ribassi di fila, mentre il Nasdaq torna in rosso da inizio anno. A guidare la vendita sono i chip: Nvidia cede il 13,8% dopo l'addio del fondatore Jensen Huang, AMD e Micron più del 13%. L'Asia aveva già venduto e l'Europa ha chiuso in forte calo. Lunedì si capisce se la paura passa o continua.",
+  "ticker_al": "2026-11-20",
+  "scommessa": {
+   "settimana": "2026-11-23/2026-11-27",
+   "su": 6,
+   "par": 7.3,
+   "strada": null,
+   "range": null,
+   "dettaglio": [
+    [
+     "S&P 500",
+     "su",
+     null,
+     null
+    ],
+    [
+     "Euro Stoxx 50",
+     "su",
+     null,
+     null
+    ],
+    [
+     "Treasury 10 anni",
+     "su",
+     null,
+     null
+    ],
+    [
+     "EUR/USD",
+     "su",
+     null,
+     null
+    ],
+    [
+     "Brent future",
+     "su",
+     null,
+     null
+    ],
+    [
+     "Oro future",
+     "su",
+     null,
+     null
+    ]
+   ]
+  },
+  "verdetto": {
+   "settimana": "2026-11-16/2026-11-20",
+   "punti": 5,
+   "su": 12,
+   "direzione": 3,
+   "range": 2,
+   "par": 7.3,
+   "esiti": [
+    [
+     "S&P 500",
+     "giù",
+     1
+    ],
+    [
+     "Euro Stoxx 50",
+     "su",
+     0
+    ],
+    [
+     "Treasury 10 anni",
+     "su",
+     0
+    ],
+    [
+     "EUR/USD",
+     "giù",
+     1
+    ],
+    [
+     "Brent future",
+     "su",
+     0
+    ],
+    [
+     "Oro future",
+     "giù",
+     1
+    ]
+   ]
+  },
+  "temi": [
+   "Wall Street",
+   "Chip",
+   "Asia",
+   "Materie prime",
+   "Fed",
+   "Tecnologia"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Chip e IA",
+    "titolo": "I chip cadono insieme perché il mercato dubita dei conti dell'IA",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Asia e Europa",
+    "titolo": "Più i chip pesano nell'indice, più la borsa cade",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Oro e Treasury",
+    "titolo": "L'oro cala nel giorno della paura, forse per fare cassa",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Fed e tassi",
+    "titolo": "Il dato sui prezzi di mercoledì dice se la Fed può rallentare",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Tecnologia",
+    "titolo": "Anthropic perde il 23% dal massimo ma resta sopra il prezzo di collocamento",
+    "formato": "grafico"
+   }
+  ],
+  "meccanismi": [
+   "M16",
+   "M17",
+   "M09",
+   "M23",
+   "M20",
+   "M05",
+   "M14"
+  ],
+  "parole": [
+   "Correzione",
+   "Sidecar",
+   "Capitalizzazione",
+   "Prezzo di collocamento",
+   "Vendite forzate",
+   "Semiconduttori"
+  ],
+  "ripetizioni": 7,
+  "glossario": [
+   "PCE",
+   "core",
+   "VIX",
+   "ACWI"
+  ],
+  "dove": {
+   "approfondimenti": [
+    2,
+    3,
+    3,
+    4,
+    4
+   ],
+   "mercati": 5,
+   "agenda": 5,
+   "scommessa": 6
+  },
+  "termometri": {
+   "righe": [
+    [
+     "Fed e tassi",
+     "Decisione a dicembre",
+     "Il 10 anni scende sotto il 5%",
+     "giu: Rendimento a 10 anni",
+     "Dato sui prezzi di mercoledì"
+    ],
+    [
+     "AI e borsa",
+     "Venerdì nero sui chip",
+     "Nvidia dopo l'uscita di Huang",
+     "giu: Titoli dei chip",
+     "Apertura di Wall Street alle 15:30"
+    ],
+    [
+     "Oro e dollaro",
+     "Oro a 3.515 $",
+     "Il calo più forte dal 22 marzo",
+     "giu: Oro, anche con i Treasury in rialzo",
+     "Dollaro e rendimenti USA"
+    ],
+    [
+     "Petrolio",
+     "Brent a 92,57 $",
+     "Hormuz e guerra USA-Iran sostengono il prezzo",
+     "fermo: Brent, senza direzione",
+     "Notizie da Hormuz"
+    ]
+   ],
+   "fermi": "Sanità USA (nessuna novità verificata) e tassi della Bce (prossima riunione il 17 dicembre)."
+  },
+  "quadro": "Il crollo ci sembra di fiducia più che di tassi. Il rendimento a 10 anni scende, come quando si cerca riparo. L'oro però cala del 4,6% invece di salire, e a nostro avviso si vende ciò che si vende bene per coprire le perdite sulle azioni. Il mondo azionario (ACWI) perde il 3,5%, con Tokyo a -5,06% e Seul a -5,21%. Il VIX, l'indice della paura, sale di 7 punti e chiude a 35,89; il dollaro e il Brent restano quasi fermi.",
+  "evento_oggi": "Mer 25, 14:30 PCE core (ottobre)",
+  "grafici": [
+   {
+    "tipo": "barre",
+    "titolo": "Nessun grande titolo dei chip si è salvato",
+    "serie": [],
+    "x0": null,
+    "x1": null,
+    "etichette": [
+     "Micron",
+     "Nvidia",
+     "AMD",
+     "Broadcom",
+     "Indice dei chip"
+    ]
+   },
+   {
+    "tipo": "linee",
+    "titolo": "Dal massimo dell'11 novembre il Nasdaq perde l'11%",
+    "serie": [
+     "Nasdaq"
+    ],
+    "x0": "2026-11-09",
+    "x1": "2026-11-20",
+    "etichette": []
+   },
+   {
+    "tipo": "barre",
+    "titolo": "Dove i chip contano di più la borsa cade di più",
+    "serie": [],
+    "x0": null,
+    "x1": null,
+    "etichette": [
+     "Taiwan",
+     "Seul",
+     "Tokyo",
+     "Euro Stoxx 50",
+     "Milano",
+     "Parigi",
+     "Londra"
+    ]
+   },
+   {
+    "tipo": "linee",
+    "titolo": "L'oro perde il 14,6% in due settimane",
+    "serie": [
+     "Oro future"
+    ],
+    "x0": "2026-11-09",
+    "x1": "2026-11-20",
+    "etichette": []
+   },
+   {
+    "tipo": "linee",
+    "titolo": "Il rendimento a 2 anni scende di 25 pb in cinque sedute",
+    "serie": [
+     "Treasury 2 anni"
+    ],
+    "x0": "2026-11-09",
+    "x1": "2026-11-20",
+    "etichette": []
+   }
+  ],
+  "agenda": [
+   {
+    "quando": "Mer 25, 14:30",
+    "evento": "PCE core (ottobre)",
+    "attese": "+0,3% sul mese; +3,2% su un anno; prima +3,1%",
+    "perche": "Evento n.1: i prezzi che la Fed guarda di più",
+    "chiave": true,
+    "muove": [
+     "Sopra: la Fed ha più motivi per alzare i tassi e i rendimenti brevi salgono.",
+     "Sotto: la Fed ha meno fretta e le borse possono respirare."
+    ]
+   },
+   {
+    "quando": "Mer 25, 14:30",
+    "evento": "PIL USA terzo trimestre (seconda stima)",
+    "attese": "+3,4% annualizzato",
+    "perche": "Tenuta della crescita",
+    "chiave": false,
+    "muove": [
+     "Sopra: l'economia regge e i rendimenti non scendono.",
+     "Sotto: torna il timore di una frenata."
+    ]
+   },
+   {
+    "quando": "Gio 26, 15:30",
+    "evento": "Borse USA chiuse per il Ringraziamento",
+    "attese": "Chiusura della borsa",
+    "perche": "Meno scambi in giro per il mondo",
+    "chiave": false,
+    "muove": [
+     "Sopra: nessun dato da leggere.",
+     "Sotto: in Europa i movimenti pesano meno, con pochi scambi."
+    ]
+   },
+   {
+    "quando": "Ven 27, 19:00",
+    "evento": "Wall Street chiude in anticipo",
+    "attese": "Chiusura alle 13:00 a New York",
+    "perche": "Seduta breve dopo la festa",
+    "chiave": false,
+    "muove": [
+     "Sopra: nessun dato da leggere.",
+     "Sotto: con pochi scambi un movimento forte dice meno."
+    ]
+   }
+  ]
  }
 ]

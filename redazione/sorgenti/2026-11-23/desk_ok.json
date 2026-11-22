@@ -1,0 +1,77 @@
+[
+ {
+  "campo": "top.dek",
+  "originale": "L'S&P 500 perde il 3,7% e chiude oltre il 10% sotto il massimo di ottobre dopo sette perdite di fila, e il Nasdaq torna in rosso da inizio anno. La vendita parte dai chip: Nvidia lascia il 13,8% mentre il titolo paga la caduta del fondatore Jensen Huang, e AMD e Micron cedono più del 13%. Le borse asiatiche avevano già venduto, l'Europa ha chiuso in forte calo. Lunedì si capisce se la paura passa o continua. [[fiducia]]",
+  "testo": "L'S&P 500 perde il 3,7% e chiude oltre il 10% sotto il massimo di ottobre dopo sette ribassi di fila, mentre il Nasdaq torna in rosso da inizio anno. A guidare la vendita sono i chip: Nvidia cede il 13,8% dopo l'addio del fondatore Jensen Huang, AMD e Micron più del 13%. L'Asia aveva già venduto e l'Europa ha chiuso in forte calo. Lunedì si capisce se la paura passa o continua. [[fiducia]]"
+ },
+ {
+  "campo": "in30.0",
+  "originale": "I chip cadono insieme per il dubbio sui conti dell'IA, non per i tassi. [[fiducia]]",
+  "testo": "Dopo Nvidia vendono tutti i chip, per il dubbio sui conti dell'IA. [[fiducia]]"
+ },
+ {
+  "campo": "notizie.2.testo",
+  "originale": "Chi è entrato nel collocamento ha ancora un guadagno, chi ha comprato all'apertura del debutto ha perso più di un quinto.",
+  "testo": "Il titolo appena quotato scende insieme ai chip e si allontana dai prezzi dell'apertura del debutto."
+ },
+ {
+  "campo": "moduli.fiducia.titolo",
+  "originale": "Il dubbio sui conti dell'IA, non i tassi, fa cadere tutti i chip",
+  "testo": "I chip cadono insieme perché il mercato dubita dei conti dell'IA"
+ },
+ {
+  "campo": "moduli.fiducia.guardare",
+  "originale": "Conta l'apertura dei chip americani alle 15:30. Se Nvidia risale dal minimo di venerdì, la vendita era panico. Un'altra seduta così direbbe che il mercato dubita dei bilanci di tutto il settore, non solo di Nvidia e dei suoi fornitori.",
+  "testo": "Il minimo di venerdì di Nvidia è il livello da seguire. Se il titolo lo perde di nuovo, le vendite continuano e il mercato dubita dei bilanci di tutto il settore, non solo di Nvidia e dei suoi fornitori."
+ },
+ {
+  "campo": "moduli.fiducia.testo.3",
+  "originale": "Per misurare la giornata serve un confronto. L'S&P 500 chiude la settimana peggiore da aprile 2025 e la serie di sette perdite consecutive è la più lunga dal 2020. Non è una conclusione ma un metro. In giorni così le borse cadono insieme, e per capire se è un fondo conta più la reazione del giorno dopo.",
+  "testo": "La settimana dell'S&P 500 è la peggiore da aprile 2025, e la serie di sette perdite consecutive è la più lunga dal 2020. In giorni così le borse cadono insieme, e per capire se siamo al fondo conta più la reazione del giorno dopo."
+ },
+ {
+  "campo": "moduli.asia.guardare",
+  "originale": "Contano Tokyo e Seul all'apertura delle 01:00: se reggono, la vendita ha già fatto il suo corso.",
+  "testo": "Conta anche Tokyo: se regge insieme a Seul, la vendita ha già fatto il suo corso."
+ },
+ {
+  "campo": "moduli.asia.testo.1",
+  "originale": "Seul scende sotto 4.900 punti per la prima volta in dieci mesi. Samsung Electronics cede il 7,01%, e per frenare le vendite la borsa ha attivato i sidecar, una pausa imposta agli ordini automatici. In Europa il colpo arriva smorzato: l'Euro Stoxx 50 perde il 2,81%, Milano il 2,48% con Stm e Technoprobe in testa alle perdite.",
+  "testo": "La borsa coreana ha attivato i sidecar, una pausa imposta agli ordini automatici, per frenare le vendite su Samsung Electronics e sugli altri titoli dei chip. In Europa il colpo arriva smorzato: l'Euro Stoxx 50 perde il 2,81% e Milano è tra le piazze più colpite, con Stm e Technoprobe in testa alle perdite."
+ },
+ {
+  "campo": "moduli.asia.testo.2",
+  "originale": "Il segnale è la distanza tra i mercati: il Ftse 100 di Londra perde l'1,02%, meno della metà dell'Euro Stoxx 50. Chi ha in portafoglio titoli diversificati ha sentito il colpo in modo diverso da chi ha comprato i chip.",
+  "testo": "Il Ftse 100 di Londra perde l'1,02%, meno della metà dell'Euro Stoxx 50: anche dentro l'Europa conta quanta tecnologia ha l'indice. Chi ha titoli diversificati ha sentito il colpo meno di chi ha comprato i chip."
+ },
+ {
+  "campo": "moduli.oro.titolo",
+  "originale": "L'oro cade nel giorno della paura: forse si vende per fare cassa",
+  "testo": "L'oro cala nel giorno della paura, forse per fare cassa"
+ },
+ {
+  "campo": "moduli.oro.quindi",
+  "originale": "Una chiusura sotto 3.500 $ dice che le vendite continuano; l'oro che sale con le borse che rimbalzano smentisce la lettura.",
+  "testo": "Una chiusura sotto 3.500 $ lunedì dice che le vendite continuano; sopra quel livello, la lettura delle vendite forzate perde forza."
+ },
+ {
+  "campo": "moduli.oro.testo.1",
+  "originale": "Chi perde sulle azioni deve spesso trovare contanti, e vende ciò che ha in portafoglio e si vende senza difficoltà, anche se non c'entra con il problema. L'oro è uno di questi beni. Con i tassi in discesa l'oro, che non paga interessi, di solito ne trae vantaggio: venerdì non è stato così.",
+  "testo": "Chi perde sulle azioni deve spesso trovare contanti, così vende ciò che si cede in fretta, anche se non c'entra con il problema. L'oro è uno di questi beni. Con i tassi in discesa di solito ne trae vantaggio, perché non paga interessi: venerdì no."
+ },
+ {
+  "campo": "moduli.pce.numero",
+  "originale": "Un decimo: lo scarto tra il core atteso e quello di prima. Basta così poco per muovere i rendimenti, perché il mercato ha già in testa il dato di prima.",
+  "testo": "Un decimo: lo scarto tra il core atteso e quello precedente. Basta così poco per muovere i rendimenti, perché il mercato ha già in testa il livello di partenza."
+ },
+ {
+  "campo": "moduli.anthropic.quindi",
+  "originale": "Alla riapertura di Wall Street alle 15:30, una chiusura sotto il prezzo di collocamento dice che il guadagno del debutto è svanito.",
+  "testo": "Alle 15:30 si vede se i chip frenano: finché scendono, il titolo fatica a difendere il prezzo di collocamento."
+ },
+ {
+  "campo": "moduli.anthropic.testo.1",
+  "originale": "Un titolo nuovo non ha ancora una storia di conti: i prezzi li fanno la fiducia e i flussi. Per questo segue il settore più di altri, e venerdì il settore ha venduto.",
+  "testo": "Un titolo nuovo non ha ancora una storia di conti alle spalle: il prezzo lo fanno fiducia e flussi di denaro. Per questo basta poco a rovesciarne l'umore, e venerdì il settore ha venduto."
+ }
+]
