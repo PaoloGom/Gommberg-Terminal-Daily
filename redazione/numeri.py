@@ -182,7 +182,7 @@ def _gm(d):
 
 
 def _al(prep, d):
-    """ "sul 19/10", "sull'11/9", "al 26/11", "all'8/12": la preposizione articolata davanti a una data (prep = "su" o "a")."""
+    """ "sul 19/10", "sull'11/9", "del 26/11", "dell'8/12": la preposizione articolata davanti a una data (prep = "su", "de")."""
     x = _dt.date.fromisoformat(str(d)[:10])
     return prep + ("ll'" if x.day in (1, 8, 11) else "l ") + _gm(d)
 
@@ -196,7 +196,10 @@ def _piu_usato(date):
 
 
 def _elenco(nomi):
-    return nomi[0] if len(nomi) == 1 else ", ".join(nomi[:-1]) + " e " + nomi[-1]
+    """ "A", "A e B", "A, B e C"; solo virgole se un nome ha già una "e" dentro (Mondo e Stati Uniti)."""
+    if len(nomi) == 1 or any(" e " in n for n in nomi):
+        return ", ".join(nomi)
+    return ", ".join(nomi[:-1]) + " e " + nomi[-1]
 
 
 def _nome(et):
@@ -213,7 +216,7 @@ def tabelle_da_dati(path="dati.json", archivio=None, silenzioso=False):
     mercato chiuso le righe non hanno tutte la stessa. Intestazioni e note si scrivono da lì, senza supporre quale mercato
     è avanti o indietro: la data sta nel punto più alto in cui vale per tutti. La data più usata dalle righe delle due
     tabelle va nell'intestazione ("Livello GG/MM"); un gruppo che ne ha un'altra la porta nel titolo; una riga che non ha
-    quella del suo gruppo è detta nella nota. Lo stesso per i riferimenti: la data più usata dalle righe dell'intestazione,
+    quella del suo gruppo è detta nella nota ("Nikkei 225: dato del 20/11"). Lo stesso per i riferimenti: la data più usata dalle righe dell'intestazione,
     e tra parentesi chi ne usa un'altra (un gruppo intero con il suo nome, altrimenti le righe)."""
     D = json.load(open(path, encoding="utf-8"))
     S = D["serie"]
@@ -303,7 +306,7 @@ def tabelle_da_dati(path="dati.json", archivio=None, silenzioso=False):
                 if r["data"] != del_gruppo:
                     fuori.setdefault(r["data"], []).append(_nome(r["et"]))
             tab.append((titolo + (f" ({_gm(del_gruppo)})" if del_gruppo != rif else ""), [taglia(r["celle"]) for r in rr]))
-        return tab, "".join(f" {_elenco(nomi)} {_al('a', d)}." for d, nomi in sorted(fuori.items()))
+        return tab, "".join(f" {_elenco(nomi)}: dato {_al('de', d)}." for d, nomi in sorted(fuori.items()))
 
     def riferimento(che, gr, forma, attesa):
         """ "su giovedì 12/11 (Asia su venerdì 13/11)": la data più usata e, tra parentesi, chi ne ha usata un'altra."""
