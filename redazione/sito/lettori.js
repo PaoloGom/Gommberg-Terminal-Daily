@@ -218,10 +218,32 @@ async function gettoneValido(segreto, g) {
 
 async function conteggio(db, sql, ...arg) { const r = await db.prepare(sql).bind(...arg).first(); return r ? Object.values(r)[0] : 0; }
 
+// Le edizioni di test (PROVA.md, parte B) si pubblicano prima del loro giorno e poi si tolgono: ciò che è stato votato e
+// scritto lì non deve ricomparire sotto l'edizione vera, che ha lo stesso numero. Dal giorno dell'edizione in poi, tutto
+// ciò che su quel numero porta una data precedente si cancella da solo, alla prima lettura. Finché quel giorno non è
+// arrivato non si tocca nulla: chi sta provando vede i suoi commenti. Solo sul sito vero; se non riesce, si legge lo stesso.
+const ripulite = new Map();
+async function toglieProve(c, n, ed) {
+  if (c.sito !== "gommberg" || iso(ora()) < ed.data) return;
+  const k = n + "/" + ed.data;
+  if (ripulite.get(k) > Date.now() - 300000) return;
+  ripulite.set(k, Date.now());
+  const vecchi = "SELECT id FROM commenti WHERE sito = ?1 AND ed = ?2 AND creato < ?3";
+  try {
+    await c.db.batch([
+      c.db.prepare(`DELETE FROM piaciuti WHERE commento IN (${vecchi})`).bind(c.sito, n, ed.data),
+      c.db.prepare(`DELETE FROM segnalazioni WHERE commento IN (${vecchi})`).bind(c.sito, n, ed.data),
+      c.db.prepare("DELETE FROM commenti WHERE sito = ?1 AND ed = ?2 AND creato < ?3").bind(c.sito, n, ed.data),
+      c.db.prepare("DELETE FROM voti WHERE sito = ?1 AND ed = ?2 AND creato < ?3").bind(c.sito, n, ed.data),
+    ]);
+  } catch (e) { ripulite.delete(k); }
+}
+
 // ------------------------------------------------------------------ lettura: sentiment e discussione di un'edizione
 async function leggi(c, n) {
   const ed = await edizione(c.env, c.url, n);
   if (!ed) return errore("Edizione non trovata.", 404);
+  await toglieProve(c, n, ed);
   const out = { n, gettone: await gettone(c.cfg.segreto), voto: await statoVoto(c, n) };
   // "23 lettori oggi": chi ha votato o scritto su questa edizione, contato una volta
   out.lettori = await conteggio(c.db, "SELECT COUNT(*) FROM (SELECT autore FROM voti WHERE sito = ?1 AND ed = ?2 UNION SELECT autore FROM commenti WHERE sito = ?1 AND ed = ?2)", c.sito, n);
