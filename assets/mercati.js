@@ -38,7 +38,7 @@
       "Il prezzo dell'oro, in dollari per oncia: il bene rifugio per eccellenza.",
       "Quanta paura c'è?"],
     [/^gomm$/i, "GOMM",
-      "La quotazione del Gommberg: sale quando cresce chi lo legge."],
+      "La quotazione del Gommberg: sale quando cresce chi lo legge. Clicca per vedere i numeri."],
     [/bitcoin/i, "Bitcoin",
       "La criptovaluta più diffusa, in dollari."],
   ];
