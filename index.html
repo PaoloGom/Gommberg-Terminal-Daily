@@ -54,7 +54,7 @@
 [hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; overflow-x: hidden; }
-.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 24px; }
+.wrap { max-width: 1400px; margin: 0 auto; padding-inline: 24px; }   /* 1.400 px: testo, edizione e La Gommunity affiancati (G-13) */
 a { color: inherit; }
 .up { color: var(--up); }
 .down { color: var(--down); }
@@ -203,9 +203,10 @@ main { padding-block: 44px 24px; }
 .box-h span { font-family: var(--mono); font-size: 12px; color: var(--muted); }
 .lnk { display: inline-block; margin-top: 12px; font-size: 13.5px; color: var(--orange-ink); text-underline-offset: 3px; background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit; text-decoration: underline; text-align: left; }
 /* Analisi e storie: tema, tesi e la pagina dove si legge. Le notizie di prima pagina non si ripetono qui: sono nel
-   visore accanto al titolo e, in testo, dietro "La prima pagina in testo". Griglia a due colonne; con un numero
+   visore accanto al titolo e, in testo, dietro "La prima pagina in testo". Griglia a due colonne al massimo, anche
+   sulla pagina larga (una sola sotto i 536 px di colonna); con un numero
    dispari di analisi la prima (quella di pag. 2) prende tutta la riga, così non resta mai una casella vuota. */
-.an-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); column-gap: 36px; }
+.an-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(max(250px, calc(50% - 18px)), 1fr)); column-gap: 36px; }
 .an-list li { display: flex; }
 .an-list li.apre { grid-column: 1 / -1; }
 .an-row { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto 1fr; gap: 6px 16px; width: 100%; padding: 16px 0 20px; border: 0; border-top: 1px solid var(--ink); text-align: left; background: none; color: inherit; font: inherit; text-decoration: none; }
@@ -303,6 +304,35 @@ footer p { margin: 0; font-size: 13px; line-height: 1.55; max-width: 92ch; }
 footer .ai { color: var(--ink); }
 footer .legal { color: var(--muted); font-size: 12.5px; }
 
+/* ---------- La Gommunity (G-13): terza colonna accanto all'edizione ----------
+   La sezione è in assets/lettori.css (la stessa delle pagine e/NNN.html); qui solo dove sta.
+   Pagina larga 1.400 px: testo, lettore dell'edizione e community, alti uguali nella prima schermata; i commenti
+   scorrono dentro la colonna. Sotto i 1.161 px la community scende sotto l'edizione, a tutta larghezza, compatta
+   (tre commenti e "Vedi tutti"); sul telefono dopo i pulsanti. */
+.gf .gf-in { max-width: 1400px; }   /* il piè di pagina comune (sito.css) è largo 1.180 px: qui segue la pagina */
+.duo { display: contents; }
+@media (min-width: 1161px) {
+  .stage .grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.62fr); gap: 40px; }
+  .duo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .82fr); gap: 20px; align-items: stretch; min-width: 0; }
+  .duo > * { min-width: 0; }
+  h2.headline { font-size: clamp(30px, 3.4vw, 50px); }
+  h2.headline.long { font-size: clamp(28px, 2.75vw, 40px); }
+  .dek { font-size: 16px; }
+  .brief li { font-size: 15.5px; }
+  .stage .lt { height: 0; min-height: max(100%, 620px); }   /* 620: se la pagina del PDF non si carica la colonna non si schiaccia */
+  .stage .lt .lt-cm { flex: 1 1 auto; }
+  .stage .lt .lt-list { overflow-y: auto; }
+  .stage .lt .lt-list > .oltre { display: grid; }
+  .stage .lt .lt-more { display: none !important; }
+  #pg { display: none; }
+  .reader-foot .btn { white-space: nowrap; }
+}
+@media (max-width: 1160px) {
+  .stage .lt { grid-column: 1 / -1; margin-top: 30px; }
+}
+@media (max-width: 900px) { .stage .lt { margin-top: 26px; } }
+.stage .lt:empty, .failed .stage .lt { display: none; }
+
 /* ---------- Schermi stretti ---------- */
 @media (max-width: 900px) {
   .stage .grid { grid-template-columns: 1fr; gap: 0; padding-block: 24px 30px; }
@@ -345,8 +375,10 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
 <script>window.goatcounter = { no_onload: true };</script>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="stylesheet" href="assets/sito.css">
+<link rel="stylesheet" href="assets/lettori.css?v=2026-11-28c">
 <script src="assets/mercati.js?v=2026-11-22c"></script>
 <script src="assets/gomm.js?v=2026-11-22"></script>
+<script src="assets/lettori.js?v=2026-11-28c"></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "Gommberg Terminal Daily", "alternateName": ["Gommberg", "Gommberg Terminal"], "url": "https://gommberg.com/", "inLanguage": "it-IT", "description": "I mercati globali spiegati, ogni mattina in 6 pagine."}, {"@type": "NewsMediaOrganization", "name": "Gommberg Terminal Daily", "alternateName": "Gommberg", "url": "https://gommberg.com/", "logo": "https://gommberg.com/assets/copertina.png", "founder": {"@type": "Person", "name": "Paolo Gommellini"}, "publishingPrinciples": "https://gommberg.com/progetto.html"}]}</script>
 </head>
 <body class="loading" id="main">
@@ -383,6 +415,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       <div class="note" id="note" role="status"></div>
     </div>
 
+    <div class="duo">
     <div class="reader" id="reader" aria-label="Lettore dell'edizione">
       <div class="reader-bar">
         <ol class="pages" id="pages" aria-label="Vai alla pagina">
@@ -400,6 +433,8 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
         <span id="pg">Pagina - di -</span>
         <div class="links"><a class="btn ghost" id="open" href="#" target="_blank" rel="noopener">Schermo intero</a><a class="btn ghost" id="dl" href="#" download>Scarica PDF</a></div>
       </div>
+    </div>
+    <aside class="lt" id="lt" aria-label="La Gommunity"></aside>
     </div>
   </div>
 </section>
@@ -789,6 +824,8 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     }
     $("lbl-latest").textContent = ed === editions[0] ? "Ultima edizione" : "Edizione precedente";
     tape(ed); analisi(ed); agenda(ed); schede(ed); bet(ed); colonna(); votoStato(ed); ultimeEdizioni(ed);
+    // La Gommunity: sentiment e discussione dell'edizione che si sta leggendo (assets/lettori.js)
+    if (window.LETTORI && !DEMO) LETTORI.monta($("lt"), ed);
     if (push) conta({ path: "edizione-" + pad(ed.numero), title: "Edizione n. " + pad(ed.numero) + " aperta dall'archivio", event: true });
     if (push) history.replaceState(null, "", ed === editions[0] ? (DEMO ? "?demo=1" : location.pathname) : linkFor(ed));
     document.title = ed === editions[0] ? TITOLO : "N. " + pad(ed.numero) + " | Gommberg Terminal Daily";

@@ -7,7 +7,8 @@ di GitHub. Se tutto va bene non scrive a nessuno; se qualcosa non va esce con 1,
 
 Cosa guarda, nell'ordine in cui l'edizione viaggia (mappa: redazione/ARCHITETTURA.md):
   1. Uscita      edizioni.json del ramo principale ha l'edizione di oggi, con il suo PDF e la sua pagina
-  2. Sito        gommberg.com mostra quell'edizione (dati/recenti.json), la pagina e il PDF si aprono
+  2. Sito        gommberg.com mostra quell'edizione (dati/recenti.json), la pagina e il PDF si aprono, La Gommunity
+                 risponde (il servizio dei lettori, /api/lettori/)
   3. Pubblicazione  l'ultimo giro di sito.yml sul ramo principale è di oggi ed è verde
   4. Newsletter  l'ultimo giro di newsletter.yml è di oggi ed è verde, l'invio di oggi esiste in Kit, e il link
                  dell'email (la homepage ferma su questa edizione) si apre
@@ -129,6 +130,13 @@ def main():
     for cosa, url in (("Sito: pagina dell'edizione", f"e/{n:03d}.html"), ("Sito: PDF", voce["file"])):
         s, corpo = get(BASE + url)
         riga(s == 200 and len(corpo) > 1000, cosa, f"{url}: {s}, {len(corpo) // 1024} KB")
+    # La Gommunity (G-13): il servizio dei lettori risponde per l'edizione di oggi
+    s, corpo = get(BASE + f"api/lettori/{n:03d}")
+    try:
+        commenti = json.loads(corpo).get("commenti") if s == 200 else None
+    except Exception:  # noqa: BLE001
+        commenti = None
+    riga(isinstance(commenti, list), "Sito: La Gommunity", f"api/lettori/{n:03d}: {s}" + (f", {len(commenti)} commenti" if isinstance(commenti, list) else ", la discussione non si carica"))
 
     # 3. pubblicazione
     g = ultimo_giro("sito.yml", oggi)

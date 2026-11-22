@@ -1,5 +1,8 @@
-# gommberg.com. A ogni push su main la parte pubblica del sito va su Cloudflare (Workers, solo file statici, gratis);
-# a ogni push su prova va all'anteprima prova-gommberg.<sottodominio>.workers.dev (senza statistiche, noindex).
+# gommberg.com. A ogni push su main la parte pubblica del sito va su Cloudflare (Workers, piano gratuito: file statici
+# più il servizio dei lettori, redazione/sito/lettori.js, solo per /api/*); a ogni push su prova o su un ramo
+# anteprima-<nome> va all'anteprima <ramo>-gommberg.<sottodominio>.workers.dev (senza statistiche, noindex).
+# Se la pubblicazione con il servizio dei lettori non riesce (o il database D1 non è ancora stato creato), si pubblicano
+# i soli file statici: l'edizione esce sempre, la colonna dei lettori dice che la discussione non si carica.
 # Cosa è pubblico lo decide redazione/sito/costruisci.py (tutto tranne la redazione); dopo la pubblicazione
 # redazione/sito/collaudo_sito.py --veloce controlla che online ci sia proprio quello. Non usa token del modello.
 #
@@ -12,7 +15,7 @@ name: Sito gommberg.com
 
 on:
   push:
-    branches: [main, prova]
+    branches: [main, prova, 'anteprima-*']
     paths:                         # i commit che toccano solo la redazione non ripubblicano il sito
       - '**'
       - '!redazione/**'
@@ -22,7 +25,7 @@ on:
   workflow_dispatch:
     inputs:
       modo:
-        description: "pubblica = come a ogni push (solo da main o prova); collaudo = browser vero su ogni pagina di gommberg.com"
+        description: "pubblica = come a ogni push (solo da main, prova o anteprima-*); collaudo = browser vero su ogni pagina di gommberg.com"
         type: choice
         options: [pubblica, collaudo]
         default: pubblica
@@ -36,7 +39,7 @@ defaults:
 
 jobs:
   pubblica:
-    if: (github.event_name == 'push' || github.event.inputs.modo == 'pubblica') && (github.ref_name == 'main' || github.ref_name == 'prova')
+    if: (github.event_name == 'push' || github.event.inputs.modo == 'pubblica') && (github.ref_name == 'main' || github.ref_name == 'prova' || startsWith(github.ref_name, 'anteprima-'))
     runs-on: ubuntu-latest
     timeout-minutes: 15
     concurrency:
@@ -52,33 +55,68 @@ jobs:
       - name: Parte pubblica del sito
         run: |
           if [ "$PRINCIPALE" = true ]; then python3 redazione/sito/costruisci.py _sito; else python3 redazione/sito/costruisci.py _sito --anteprima; fi | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Configurazione di riserva (soli file statici)
+        # la stessa di wrangler.jsonc senza il codice dei lettori e senza il database: serve se la pubblicazione
+        # completa non riesce, perché l'edizione del giorno deve arrivare comunque su gommberg.com
+        run: |
+          python3 - <<'PY'
+          import json, re
+          c = json.loads(re.sub(r"^\s*//.*$", "", open("redazione/sito/wrangler.jsonc", encoding="utf-8").read(), flags=re.M))
+          for k in ("main", "d1_databases", "observability"):
+              c.pop(k, None)
+          for k in ("run_worker_first", "binding"):
+              c["assets"].pop(k, None)
+          json.dump(c, open("redazione/sito/wrangler.statico.json", "w", encoding="utf-8"), indent=1)
+          PY
+          if grep -q '"DA-CREARE"' redazione/sito/wrangler.jsonc; then
+            echo "::notice::Database dei lettori non ancora creato (database_id DA-CREARE in wrangler.jsonc): si pubblicano i soli file statici."
+            echo "CONFIG=redazione/sito/wrangler.statico.json" >> "$GITHUB_ENV"
+          else
+            echo "CONFIG=redazione/sito/wrangler.jsonc" >> "$GITHUB_ENV"
+          fi
       - name: Pubblicazione su Cloudflare
         id: cf
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          RAMO: ${{ github.ref_name }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
             echo "::notice::Segreti di Cloudflare non ancora impostati: niente pubblicazione su gommberg.com."
             echo "fatto=no" >> "$GITHUB_OUTPUT"; exit 0
           fi
+          RISERVA=redazione/sito/wrangler.statico.json
           if [ "$PRINCIPALE" = true ]; then
-            # fino a 3 tentativi: dopo il passaggio la newsletter porta su gommberg.com pochi minuti dopo questo push
+            # fino a 3 tentativi: dopo il passaggio la newsletter porta su gommberg.com pochi minuti dopo questo push.
+            # Se con il servizio dei lettori non riesce due volte, il terzo tentativo pubblica i soli file statici.
             for N in 1 2 3; do
-              if npx --yes wrangler@4.165.0 deploy -c redazione/sito/wrangler.jsonc; then break; fi
+              C="$CONFIG"; [ "$N" = 3 ] && C="$RISERVA"
+              if npx --yes wrangler@4.165.0 deploy -c "$C"; then
+                [ "$C" = "$RISERVA" ] && [ "$CONFIG" != "$RISERVA" ] && echo "::warning::Pubblicati i soli file statici: il servizio dei lettori non è in linea (vedi i tentativi sopra)."
+                break
+              fi
               [ "$N" = 3 ] && exit 1
               echo "::warning::Pubblicazione non riuscita (tentativo $N di 3): riprovo tra 30 secondi."; sleep 30
             done
           else
-            set +e
-            OUT=$(npx --yes wrangler@4.165.0 versions upload -c redazione/sito/wrangler.jsonc --preview-alias prova 2>&1); RC=$?
-            set -e
-            echo "$OUT"
+            ALIAS="$RAMO"
+            prova_anteprima() {
+              set +e
+              OUT=$(npx --yes wrangler@4.165.0 versions upload -c "$1" --preview-alias "$ALIAS" 2>&1); RC=$?
+              set -e
+              echo "$OUT"
+            }
+            prova_anteprima "$CONFIG"
             if [ $RC -ne 0 ] && echo "$OUT" | grep -q "does not yet exist"; then
               echo "::warning::Anteprima non pubblicata: il sito su gommberg.com non è ancora mai stato pubblicato da main."
               echo "fatto=no" >> "$GITHUB_OUTPUT"; exit 0
             fi
+            if [ $RC -ne 0 ] && [ "$CONFIG" != "$RISERVA" ]; then
+              echo "::warning::Anteprima con il servizio dei lettori non riuscita: pubblico i soli file statici."
+              prova_anteprima "$RISERVA"
+            fi
             [ $RC -eq 0 ] || exit $RC
+            echo "Anteprima: $(echo "$OUT" | grep -o 'https://[^ ]*workers.dev' | tail -1)" >> "$GITHUB_STEP_SUMMARY"
           fi
           echo "fatto=si" >> "$GITHUB_OUTPUT"
       - name: Verifica dal vivo
