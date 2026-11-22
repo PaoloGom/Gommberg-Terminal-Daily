@@ -65,6 +65,9 @@ for nome, s in d["serie"].items():
     ch = CHIUSURA.get(s.get("mercato"))
     if d0 == oggi and ch and ora < ch and s.get("tipo") == "chiusura":
         problemi.append(f"{nome}: dato di oggi segnato come chiusura ma il mercato chiude alle {ch}: è intraday")
+    if d0 < oggi and ch and ora >= ch and giorni_lav < 2:      # a quest'ora la seduta di oggi è finita (Asia): dov'è?
+        avvisi.append(f"{nome}: ultimo dato del {d0}, ma oggi questo mercato ha già chiuso (alle {ch}): se oggi era chiuso per "
+                      "festività dillo nel testo (APP_FESTIVI §2), altrimenti prendi la chiusura di oggi")
     if v0 == v1 and (vol0 in (None, 0) or (isinstance(vol0, (int, float)) and vol0 < 1000)):
         problemi.append(f"{nome}: valore identico alla seduta precedente con volume nullo: dato probabilmente fermo")
     if d0 == oggi and isinstance(vol0, (int, float)) and 0 < vol0 < 1000 and s.get("mercato") not in ("FX", "COMM"):
