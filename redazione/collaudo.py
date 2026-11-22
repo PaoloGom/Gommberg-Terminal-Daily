@@ -499,7 +499,8 @@ def passo_fonti():
 # ---------------------------------------------------------------- 3c. dati: le fonti ammesse dell'Euro Stoxx 50
 def passo_dati():
     """controlli_dati.py su una serie dell'Euro Stoxx 50 scritta in sei modi: EODHD è sempre una delle due fonti (salvo
-    eodhd_nd), le fonti non ammesse e le fonti discordi fermano il dato (APP_DATI §2b e §6; caso del 19/11/2026)."""
+    eodhd_nd), le fonti non ammesse e le fonti discordi fermano il dato (APP_DATI §2b e §6; caso del 19/11/2026). Più
+    due casi sull'età del dato, contata in giorni di uscita (APP_FESTIVI §2)."""
     lav = os.path.join(TMP, "dati")
     os.makedirs(lav, exist_ok=True)
     ultimi = [[d, v, None] for d, v in reversed(serie("sx5e", "2026-11-20"))]
@@ -520,8 +521,29 @@ def passo_dati():
         fermo = any(l.startswith("- Euro Stoxx 50:") for l in out.splitlines())
         if fermo == passa:
             sbagliati.append(nome)
+    # Un dato fermo da più giorni (G-44): contano i giorni di uscita. Dopo un giorno senza edizione (Natale) la chiusura
+    # di tre giorni feriali prima è ancora l'ultima e passa con un avviso; in una settimana qualsiasi è un dato vecchio.
+    for nome, giorno, date, passa in (("ultima chiusura prima di Natale, letta il lunedì dopo", "2026-12-28", ("2026-12-23", "2026-12-22"), True),
+                                      ("chiusura di tre giorni di uscita prima", "2026-12-14", ("2026-12-09", "2026-12-08"), False)):
+        dati = {"oggi": giorno, "ora_roma": "09:05", "macro": [], "serie": {"FTSE MIB": {
+            "mercato": "EU", "tipo": "chiusura", "ultimi": [[date[0], 50000, None], [date[1], 50100, None]]}}}
+        json.dump(dati, open(f, "w", encoding="utf-8"), ensure_ascii=False)
+        out = esegui([sys.executable, os.path.join(R, "controlli_dati.py"), f])[1]
+        if any(l.startswith("- FTSE MIB:") for l in out.splitlines()) == passa or (passa and "AVVISO: FTSE MIB: ultimo dato del" not in out):
+            sbagliati.append(nome)
+    # Una borsa che stamattina ha già chiuso e porta la chiusura di ieri: avviso (chiusa per festività, o manca il dato di
+    # oggi). Con la chiusura di oggi, o per un mercato che chiude la sera, nessun avviso.
+    for nome, mercato, data, atteso in (("Tokyo ferma a ieri", "JP", "2026-12-10", True), ("Tokyo con la chiusura di oggi", "JP", "2026-12-11", False),
+                                        ("Milano con la chiusura di ieri", "EU", "2026-12-10", False)):
+        dati = {"oggi": "2026-12-11", "ora_roma": "09:05", "macro": [], "serie": {"Indice di prova": {
+            "mercato": mercato, "tipo": "chiusura", "ultimi": [[data, 50000, None], ["2026-12-09", 50100, None]]}}}
+        json.dump(dati, open(f, "w", encoding="utf-8"), ensure_ascii=False)
+        out = esegui([sys.executable, os.path.join(R, "controlli_dati.py"), f])[1]
+        if ("AVVISO: Indice di prova: ultimo dato del" in out) != atteso or "- Indice di prova:" in out:
+            sbagliati.append(nome)
     esito("Dati: fonti dell'Euro Stoxx 50", not sbagliati,
-          f"{len(casi)} casi (EODHD sempre tra le due fonti, quotazioni dei riquadri e fonti discordi fermate)"
+          f"{len(casi)} casi (EODHD sempre tra le due fonti, quotazioni dei riquadri e fonti discordi fermate), età del dato "
+          "contata in giorni di uscita, borsa asiatica ferma a ieri segnalata"
           if not sbagliati else "sbagliati: " + ", ".join(sbagliati))
 
 
@@ -529,7 +551,10 @@ def passo_dati():
 def passo_tabelle():
     """Le tabelle dei mercati escono da dati.json e dall'archivio delle chiusure, mai scritte a mano (G-05): sui dati veri del
     20/11 i numeri sono quelli pubblicati, nessuna cella "n.d.", il livello di Seul si ricava dalla variazione; senza la
-    chiusura di ieri la riga non entra; l'archivio prende le chiusure e mai il dato di stamattina."""
+    chiusura di ieri la riga non entra; l'archivio prende le chiusure e mai il dato di stamattina. Con un mercato chiuso
+    (G-44) le righe hanno date diverse: intestazione, titoli dei gruppi e note dicono la data di ogni riga e la chiusura
+    davvero usata per ogni riferimento, sia quando si ferma un mercato intero (Wall Street) sia quando si ferma una riga
+    dentro un gruppo (Tokyo)."""
     import numeri as N
     src = os.path.join(RETE, "2026-11-20", "sorgenti", "dati.json")
     lav = os.path.join(TMP, "tabelle")
@@ -563,8 +588,74 @@ def passo_tabelle():
         male.append(f"archivio: {n1} e {n2} nuove, {scritto}")
     if len(N.completa("FTSE MIB", {"ultimi": [["2026-11-20", 49500, None]]})) != 2 or len(N.completa("FTSE MIB", {"ultimi": [["2026-11-24", 1, None]]}, {})) != 1:
         male.append("la chiusura precedente si completa solo dalla seduta subito prima")
+    # Un mercato chiuso: gli stessi dati del 20/11, con le due righe italiane (valori di prova per i riferimenti dello spread)
+    base = json.load(open(src, encoding="utf-8"))
+    base["serie"]["FTSE MIB"] = {"mercato": "EU", "tipo": "chiusura", "ultimi": [["2026-11-19", 49941, None], ["2026-11-18", 50192, None]]}
+    base["serie"]["Spread Italia"] = {"mercato": "EU", "tipo": "chiusura", "ultimi": [["2026-11-19", 106, None], ["2026-11-18", 106, None]],
+                                      "rif": {"2026-11-12": 104, "2026-10-19": 101}}
+
+    def chiuso(nome, ferme, senza=()):
+        """Le serie in `ferme` restano alla seduta prima, quelle in `senza` mancano: le tabelle e i titoli dei gruppi."""
+        dd = json.loads(json.dumps(base))
+        for n in ferme:
+            dd["serie"][n]["ultimi"] = dd["serie"][n]["ultimi"][1:]
+        for n in senza:
+            del dd["serie"][n]
+        ff = os.path.join(lav, nome + ".json")
+        json.dump(dd, open(ff, "w", encoding="utf-8"))
+        tt = N.tabelle_da_dati(ff, silenzioso=True)
+        return tt, [t for t, _ in tt["cruscotto"]], [t for t, _ in tt["cross"]], {r[0]: r for _, rr in tt["cruscotto"] for r in rr}
+    # Wall Street e Treasury chiusi il 19/11: Stati Uniti al 18/11, Europa, cambi e materie prime al 19/11, Asia al 20/11
+    U, sx, dx, ru = chiuso("usa_chiusa", ["ACWI", "S&P 500", "Nasdaq", "Russell 2000", "VIX", "Treasury 2 anni", "Treasury 10 anni"])
+    if (sx, dx, U["cross_data"]) != (["Mondo e Stati Uniti", "Europa (19/11)", "Asia (20/11)"],
+                                     ["Tassi", "Cambi (19/11)", "Materie prime (19/11)", "Volatilità"], "Livello 18/11"):
+        male.append(f"Wall Street chiusa, date nei titoli e nell'intestazione: {sx} {dx} {U['cross_data']}")
+    if (ru.get("S&amp;P 500") or [""] * 4)[1:4] != ["7.323,63", "18/11", N.var(7323.63, 7340.53)]:
+        male.append(f"Wall Street chiusa, S&P 500 fermo alla seduta prima: {ru.get('S&amp;P 500')}")
+    if ("1 sett. = su mercoledì 11/11 (Treasury 2 anni e Treasury 10 anni su martedì 10/11; Europa, Spread Italia, EUR/USD e "
+            "Materie prime su giovedì 12/11; Asia su venerdì 13/11); da inizio anno = su chiusura 2025.") not in U["cruscotto_nota"]:
+        male.append("Wall Street chiusa, la nota non dice la chiusura usata riga per riga: " + U["cruscotto_nota"][:230])
+    if not U["cross_nota"].startswith("1 mese = sul 16/10 (Spread Italia, EUR/USD e Materie prime sul 19/10). Spread Italia: dato del 19/11."):
+        male.append("Wall Street chiusa, nota di destra: " + U["cross_nota"][:160])
+    # Tokyo chiusa stamattina: il Nikkei resta al 19/11 dentro un gruppo che è al 20/11
+    K, sx, dx, rk = chiuso("tokyo_chiusa", ["Nikkei 225"])
+    if (sx, dx, K["cross_data"]) != (["Mondo e Stati Uniti", "Europa", "Asia (20/11)"], ["Tassi", "Cambi", "Materie prime", "Volatilità"], "Livello 19/11"):
+        male.append(f"Tokyo chiusa, date nei titoli e nell'intestazione: {sx} {dx} {K['cross_data']}")
+    if (rk.get("Nikkei 225") or [""] * 4)[1:4] != ["59.444,21", "19/11", N.var(59444.21, 59024.28)] \
+            or "1 sett. = su giovedì 12/11 (Hang Seng e Kospi su venerdì 13/11)" not in K["cruscotto_nota"] \
+            or not K["cruscotto_nota"].endswith(" Nikkei 225: dato del 19/11."):
+        male.append(f"Tokyo chiusa, riga o nota: {rk.get('Nikkei 225')} | " + K["cruscotto_nota"][:230])
+    # A parità dentro un gruppo vince la data più recente: con Tokyo chiusa e Seul assente il titolo segue Hong Kong
+    P, sx, _, _ = chiuso("tokyo_parita", ["Nikkei 225"], senza=["Kospi"])
+    if sx[-1] != "Asia (20/11)" or not P["cruscotto_nota"].endswith(" Nikkei 225: dato del 19/11."):
+        male.append(f"parità dentro il gruppo Asia: {sx[-1]} | " + P["cruscotto_nota"][-60:])
+    # L'intestazione è la data più usata dalle righe, non quella dell'S&P 500: Wall Street chiusa e due righe americane in meno
+    M, sx, dx, _ = chiuso("usa_minoranza", ["ACWI", "S&P 500", "Nasdaq", "Russell 2000", "VIX", "Treasury 2 anni", "Treasury 10 anni"],
+                          senza=["Nasdaq", "Russell 2000"])
+    if (M["cross_data"], sx, dx) != ("Livello 19/11", ["Mondo e Stati Uniti (18/11)", "Europa", "Asia (20/11)"],
+                                     ["Tassi (18/11)", "Cambi", "Materie prime", "Volatilità (18/11)"]) \
+            or " Spread Italia: dato del 19/11." not in M["cross_nota"]:
+        male.append(f"data più usata diversa da quella dell'S&P 500: {M['cross_data']} {sx} {dx} | " + M["cross_nota"][:120])
+    # A cavallo d'anno ogni riga dice su quale fine anno è misurata (valori di prova, senza archivio)
+    anno = {"oggi": "2027-01-04", "serie": {
+        "S&P 500": {"mercato": "USA", "tipo": "chiusura", "ultimi": [["2026-12-31", 7300.0, None], ["2026-12-30", 7280.0, None]],
+                    "rif": {"2026-12-24": 7250.0}},
+        "Nikkei 225": {"mercato": "JP", "tipo": "chiusura", "ultimi": [["2027-01-04", 58000.0, None], ["2026-12-30", 57500.0, None]],
+                       "rif": {"2026-12-28": 57000.0}},
+        "Hang Seng": {"mercato": "HK", "tipo": "intraday", "ora": "08:10", "rif": {"2026-12-28": 22000.0},
+                      "ultimi": [["2027-01-04", 22500.0, None], ["2026-12-31", 22300.0, None]]}}}
+    fa = os.path.join(lav, "anno.json")
+    json.dump(anno, open(fa, "w", encoding="utf-8"))
+    A = N.tabelle_da_dati(fa, archivio={}, silenzioso=True)
+    if ([t for t, _ in A["cruscotto"]], A["cross_data"]) != (["Mondo e Stati Uniti (31/12)", "Asia"], "Livello 4/1") \
+            or "da inizio anno = su chiusura 2026 (S&amp;P 500 su chiusura 2025)." not in A["cruscotto_nota"]:
+        male.append(f"cavallo d'anno: {[t for t, _ in A['cruscotto']]} {A['cross_data']} | " + A["cruscotto_nota"][:200])
+    if (N._al("su", "2026-09-11"), N._al("de", "2026-12-08"), N._al("su", "2026-10-19")) != ("sull'11/9", "dell'8/12", "sul 19/10") \
+            or N._elenco(["Mondo e Stati Uniti", "VIX"]) != "Mondo e Stati Uniti, VIX" or N._elenco(["A", "B", "C"]) != "A, B e C":
+        male.append("preposizione davanti alla data (sull'11/9, dell'8/12, sul 19/10) o elenco dei nomi")
     esito("Dati: tabelle di pag. 5 calcolate dal codice", not male, "; ".join(male)[:400] or
-          "numeri del 20/11 uguali al pubblicato, nessuna n.d., livello ricavato dalla variazione, archivio delle chiusure")
+          "numeri del 20/11 uguali al pubblicato, nessuna n.d., livello ricavato dalla variazione, archivio delle chiusure, "
+          "date riga per riga con Wall Street chiusa, con Tokyo chiusa e a cavallo d'anno")
 
 
 # ---------------------------------------------------------------- 3d. la scommessa: registro e lettura della settimana
@@ -634,6 +725,163 @@ def passo_scommessa():
     esito("Scommessa: registro e lettura della settimana", not male, "; ".join(male)[:500] or
           "partenze e verdetti uguali alle serie e in catena; scenario accettato solo come posizione più smentita in due righe; "
           "il lunedì pag. 6 stampa lo scenario del registro")
+
+
+# ---------------------------------------------------------------- 3e. mail straordinarie (G-17)
+def passo_dem():
+    """Le mail straordinarie: i file veri passano le regole e pannello/invii.json è allineato; le regole fermano i casi
+    sbagliati, anche ai confini; il pianificatore decide la cosa giusta in ogni situazione di Kit; l'esecuzione con un Kit
+    finto che sbaglia non crea mai doppioni né bozze con una data (senza rete)."""
+    rc, out = esegui([sys.executable, os.path.join(R, "dem.py")])
+    righe = [l for l in out.splitlines() if "ERRORE" in l]
+    esito("Mail straordinarie: file e vista del pannello", rc == 0, "regole rispettate, pannello/invii.json allineato"
+          if rc == 0 else "; ".join(righe)[:300])
+
+    sys.path.insert(0, R)
+    import contextlib
+    import dem
+    import io
+    from datetime import datetime, timedelta, timezone
+    from pathlib import Path as P
+    lav, UTC, MOD = P(TMP) / "dem", timezone.utc, 5716428
+    sbagliati = []
+
+    def leggi(*file, calendario=False):
+        shutil.rmtree(lav, ignore_errors=True)
+        lav.mkdir(parents=True)
+        for f in file:
+            nome, invio, stato, extra, corpo = (list(f) + ["bozza", "", "Testo di prova della redazione."][len(f) - 2:])[:5]
+            (lav / nome).write_text(f"---\ninvio: {invio}\nstato: {stato}\noggetto: Oggetto di prova\n"
+                                    f"anteprima: Una riga di anteprima abbastanza lunga.\n{extra}---\n{corpo}\n", encoding="utf-8")
+        mail = dem.leggi_tutte(lav)
+        if calendario:
+            dem.regole_calendario(mail)
+        return mail
+
+    # 1. le regole, anche ai confini
+    OK = "ok: Paolo 2026-12-01\n"
+    casi = [("sabato mattina", [("2027-01-16-p.md", "2027-01-16 10:00")], False),
+            ("ore 20:59", [("2027-01-16-p.md", "2027-01-16 20:59")], False),
+            ("ore 21:00", [("2027-01-16-p.md", "2027-01-16 21:00")], True),
+            ("ore 7:59", [("2027-01-16-p.md", "2027-01-16 07:59")], True),
+            ("giorno di uscita alle 10:59", [("2027-01-18-p.md", "2027-01-18 10:59")], True),
+            ("giorno di uscita alle 11:00", [("2027-01-18-p.md", "2027-01-18 11:00")], False),
+            ("festivo (25/12) alle 9:00", [("2026-12-25-p.md", "2026-12-25 09:00")], False),
+            ("approvata senza ok", [("2027-01-16-p.md", "2027-01-16 10:00", "approvata")], True),
+            ("approvata con ok", [("2027-01-16-p.md", "2027-01-16 10:00", "approvata", OK)], False),
+            ("trattino lungo", [("2027-01-16-p.md", "2027-01-16 10:00", "bozza", "", "Una frase — lunga.")], True),
+            ("due nello stesso mese", [("2027-01-02-a.md", "2027-01-02 10:00"), ("2027-01-30-b.md", "2027-01-30 10:00")], True),
+            ("stesso mese, una annullata", [("2027-01-02-a.md", "2027-01-02 10:00", "annullata"), ("2027-01-30-b.md", "2027-01-30 10:00")], False),
+            ("13 giorni a cavallo del mese", [("2027-01-26-a.md", "2027-01-26 18:00"), ("2027-02-08-b.md", "2027-02-08 18:00")], True),
+            ("14 giorni a cavallo del mese", [("2027-01-25-a.md", "2027-01-25 18:00"), ("2027-02-08-b.md", "2027-02-08 18:00")], False),
+            ("data del nome diversa", [("2027-01-17-p.md", "2027-01-16 10:00")], True),
+            ("sondaggio con una risposta", [("2027-01-16-p.md", "2027-01-16 10:00", "bozza", "", "?? Domanda?\n- Una sola")], True),
+            ("link non https", [("2027-01-16-p.md", "2027-01-16 10:00", "bozza", "", "Leggi [qui](http://gommberg.com/).")], True)]
+    for nome, file, ferma in casi:
+        if bool([x for m in leggi(*file, calendario=True) for x in m.errori]) != ferma:
+            sbagliati.append(f"regola: {nome}")
+
+    # 2. il pianificatore
+    mail = {m.nome[-1]: m for m in leggi(("2027-01-16-a.md", "2027-01-16 10:00", "approvata", OK),
+                                         ("2027-02-13-b.md", "2027-02-13 10:00"),
+                                         ("2027-03-13-c.md", "2027-03-13 10:00", "annullata"),
+                                         ("2027-01-13-e.md", "2027-01-13 18:00"))}
+    ET = {x: m.etichetta for x, m in mail.items()}
+    ET["o"] = dem.ETICHETTA + "2027-04-01-orfano"
+    imp = lambda x, prog: dem.impronta_di(dem.dati_invio(mail[x], prog, MOD)["description"])
+    ia = lambda x: mail[x].invio.astimezone(UTC)
+    def kk(send=None, partito=False, impronta="vecchia", i=1):
+        return {"id": i, "send_at": send, "partito": partito, "impronta": impronta}
+    def prova(nome, scelta, kit, ora, attese, n_guardare, solo_ritiri=False):
+        azioni, guardare, _ = dem.piano([mail[x] for x in scelta], {ET[x]: v for x, v in kit.items()}, ora, MOD, solo_ritiri)
+        fatte = {}
+        for a in azioni:
+            fatte.setdefault(a[1].rsplit("-", 1)[-1][0] if a[1] != ET["o"] else "o", []).append(a[0])
+        trovate = {x: "+".join(v) for x, v in fatte.items()}
+        if any(trovate.get(x) != v for x, v in attese.items()) or len(guardare) != n_guardare:
+            sbagliati.append(f"piano, {nome}: atteso {attese} e {n_guardare} da guardare, trovato {trovate} e {len(guardare)}")
+    ora = datetime(2027, 1, 10, 12, 0, tzinfo=UTC)
+    prova("Kit vuoto", "abce", {}, ora, {"a": "crea-programmata", "b": "crea-bozza", "c": "nulla", "e": "crea-bozza"}, 1)
+    prova("Kit già allineato", "ab", {"a": [kk(ia("a"), impronta=imp("a", True))], "b": [kk(None, impronta=imp("b", False))]},
+          ora, {"a": "nulla", "b": "nulla"}, 0)
+    prova("cambi e ritiri", "abc", {"a": [kk(None)], "b": [kk(ia("b"))], "c": [kk(ia("c"))], "o": [kk(datetime(2027, 4, 1, 8, tzinfo=UTC))]},
+          ora, {"a": "rifai-programmata", "b": "rifai-bozza", "c": "elimina", "o": "elimina"}, 0)
+    prova("testo cambiato, stessa ora", "a", {"a": [kk(ia("a"), impronta="diversa")]}, ora, {"a": "rifai-programmata"}, 0)
+    prova("doppione in Kit", "a", {"a": [kk(ia("a"), impronta=imp("a", True), i=1), kk(ia("a"), i=2)]}, ora, {"a": "elimina+nulla"}, 1)
+    prova("già partita", "a", {"a": [kk(ia("a") - timedelta(days=1), partito=True)]}, ora, {"a": "nulla"}, 0)
+    prova("errori nei file: solo ritiri", "abc", {"b": [kk(ia("b"))], "c": [kk(ia("c"))]}, ora,
+          {"a": "nulla", "b": "elimina", "c": "elimina"}, 0, solo_ritiri=True)
+    vicino = ia("a") - timedelta(minutes=10)
+    prova("in partenza, uguale", "a", {"a": [kk(ia("a"), impronta=imp("a", True))]}, vicino, {"a": "nulla"}, 0)
+    prova("in partenza, cambiata", "a", {"a": [kk(ia("a"), impronta="diversa")]}, vicino, {"a": "nulla"}, 1)
+    prova("annullata a 10 minuti", "c", {"c": [kk(ia("c"))]}, ia("c") - timedelta(minutes=10), {"c": "elimina"}, 0)
+    prova("orfano a 1 minuto", "", {"o": [kk(ora + timedelta(minutes=1))]}, ora, {"o": "nulla"}, 1)
+    prova("ora spostata più tardi, Kit a 10 minuti", "a", {"a": [kk(ia("a") - timedelta(hours=2))]},
+          ia("a") - timedelta(hours=2, minutes=10), {"a": "rifai-programmata"}, 0)
+    prova("ora cambiata a mano in Kit", "a", {"a": [kk(ia("a") + timedelta(hours=3), impronta=imp("a", True))]}, ora, {"a": "rifai-programmata"}, 0)
+    prova("già partita con una copia viva", "a", {"a": [kk(ia("a") - timedelta(hours=1), partito=True, i=1), kk(ia("a") + timedelta(days=1), i=2)]},
+          ia("a") + timedelta(minutes=5), {"a": "elimina"}, 1)
+    prova("approvata non partita, il giorno dopo", "a", {}, ia("a") + timedelta(hours=1), {"a": "nulla"}, 1)
+    prova("approvata non partita, dopo 3 giorni", "a", {}, ia("a") + timedelta(days=3), {"a": "nulla"}, 0)
+    # nel dubbio si ritira: ok tolto, stato scritto male, data illeggibile, anche con errori nei file
+    for nome, extra, stato in (("ok tolto", "", "approvata"), ("stato scritto male", OK, "Bozza"), ("stato sconosciuto", OK, "sospesa")):
+        dubbia = leggi(("2027-01-16-a.md", "2027-01-16 10:00", stato, extra))[0]
+        azioni, _, _ = dem.piano([dubbia], {dubbia.etichetta: [kk(ia("a"), impronta=imp("a", True))]}, ora, MOD, True)
+        if [x[0] for x in azioni] != ["elimina"]:
+            sbagliati.append(f"piano, {nome} con l'invio programmato in Kit: va ritirata, trovato {[x[0] for x in azioni]}")
+    if not dem.stato_kit({"status": "scheduled", "send_at": "2027-01-01T09:00:00Z"}, ora)["partito"]:
+        sbagliati.append("un invio 'scheduled' con l'ora passata va considerato partito")
+    if dem.dati_invio(mail["b"], False, MOD)["send_at"] is not None or not dem.dati_invio(mail["a"], True, MOD)["send_at"]:
+        sbagliati.append("dati per Kit: una bozza non ha data, una programmata sì")
+
+    # 3. l'esecuzione con un Kit finto che sbaglia di proposito
+    vero = dem.nl.kit
+    try:
+        def finto(risposte):
+            chiamate = []
+            def kit(metodo, percorso, dati=None):
+                chiamate.append((metodo, dati))
+                return risposte.get(metodo, (200, {}))
+            return kit, chiamate
+        def esegui_con(risposte, azioni):
+            dem.nl.kit, chiamate = finto(risposte)
+            with contextlib.redirect_stdout(io.StringIO()):
+                return dem.esegui_piano(azioni, MOD), chiamate
+        programmata = {"broadcast": {"id": 9, "send_at": ia("a").isoformat()}}
+        male, ch = esegui_con({"DELETE": (500, {}), "POST": (201, programmata)}, [("rifai-programmata", ET["a"], mail["a"], "", 1)])
+        if not male or any(c[0] == "POST" for c in ch):
+            sbagliati.append("esecuzione: se Kit non toglie l'invio vecchio, non se ne crea uno nuovo")
+        male, ch = esegui_con({"POST": (201, {"broadcast": {"id": 9, "send_at": None}})}, [("crea-bozza", ET["b"], mail["b"], "", None)])
+        if male or ch[0][1]["send_at"] is not None:
+            sbagliati.append("esecuzione: bozza creata senza data")
+        male, ch = esegui_con({"POST": (201, {"broadcast": {"id": 9, "send_at": "2027-02-13T09:00:00Z"}})}, [("crea-bozza", ET["b"], mail["b"], "", None)])
+        if not male or not any(c[0] == "DELETE" for c in ch):
+            sbagliati.append("esecuzione: una bozza che Kit registra con una data va tolta subito")
+        male, _ = esegui_con({"POST": (201, programmata)}, [("crea-programmata", ET["a"], mail["a"], "", None)])
+        male2, _ = esegui_con({"POST": (422, {})}, [("crea-programmata", ET["a"], mail["a"], "", None)])
+        male3, _ = esegui_con({"DELETE": (404, {})}, [("elimina", ET["c"], mail["c"], "", 1)])
+        if male or not male2 or male3:
+            sbagliati.append("esecuzione: programmata giusta accettata, rifiuto di Kit segnalato, invio già sparito accettato")
+        # l'elenco degli invii: due pagine, si tengono solo quelli delle mail straordinarie, raggruppati per etichetta
+        pagine = [(200, {"broadcasts": [{"id": 1, "description": ET["a"] + " #x"}, {"id": 2, "description": "gommberg-edizione-031"}],
+                         "pagination": {"has_next_page": True, "end_cursor": "c1"}}),
+                  (200, {"broadcasts": [{"id": 3, "description": ET["a"] + " #y"}], "pagination": {"has_next_page": False}})]
+        dem.nl.kit = lambda metodo, percorso, dati=None: pagine.pop(0)
+        trovati = dem.invii_dem()
+        if list(trovati) != [ET["a"]] or [b["id"] for b in trovati[ET["a"]]] != [1, 3]:
+            sbagliati.append("elenco degli invii di Kit: pagine, filtro o raggruppamento")
+    finally:
+        dem.nl.kit = vero
+
+    # 4. la composizione: un link per risposta verso la pagina di ringraziamento, nessun segno rimasto
+    m = leggi(("2027-01-16-s.md", "2027-01-16 10:00", "bozza", "pulsante: Leggi | https://gommberg.com/\nnota: Postilla.\n",
+               "## Titoletto\n\n- uno\n- due\n\n?? Domanda?\n- Prima\n- Seconda\n- Terza\n\n> Riquadro con **grassetto**."))[0]
+    corpo = dem.componi(m)[2]
+    if corpo.count("grazie.html?d=2027-01-16-s&amp;r=") != 3 or "??" in corpo or "**" in corpo or "{{" in corpo or "Postilla." not in corpo:
+        sbagliati.append("composizione: sondaggio, segni o postilla non resi")
+    esito("Mail straordinarie: regole, pianificatore, esecuzione e composizione", not sbagliati,
+          f"{len(casi)} casi di regole ai confini, 19 situazioni di Kit (nel dubbio si ritira), Kit finto che sbaglia, elenco a pagine, composizione"
+          if not sbagliati else "; ".join(sbagliati)[:600])
 
 
 # ---------------------------------------------------------------- 4. rete di non regressione
@@ -987,6 +1235,7 @@ def main():
         passo_dati()
         passo_tabelle()
         passo_scommessa()
+        passo_dem()
         passo_rete()
         copia = passo_sito()
         if isinstance(copia, str):

@@ -2,6 +2,9 @@
 # è uscita ed è arrivata dappertutto (sito, pubblicazione, newsletter, pannello). Nessun token del modello.
 # Se tutto va bene non scrive a nessuno. Se qualcosa non va il giro fallisce e apre una segnalazione assegnata a Paolo:
 # GitHub gli manda l'email. Una sola segnalazione al giorno.
+# Nello stesso giro, separato dal controllo, il job "gomm" aggiunge a dati/gomm.json le visite dei giorni completi (G-14,
+# redazione/gomm.py): un commit su main che ripubblica il sito. Se non riesce non segnala nulla: le pagine chiedono da sole
+# al contatore i giorni che mancano.
 name: Controllo del mattino
 
 on:
@@ -40,3 +43,33 @@ jobs:
           N=$(gh issue list --state open --search "\"$T\" in:title" --json number -q 'length' 2>/dev/null || echo 0)
           [ "$N" != "0" ] || gh issue create --title "$T" --assignee "${{ github.repository_owner }}" --body-file esito.txt \
             || echo "::warning::Segnalazione non creata: resta l'avviso di GitHub per il giro fallito."
+
+  gomm:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    continue-on-error: true        # il GOMM non fa mai fallire il controllo del mattino
+    permissions:
+      contents: write              # solo il commit di dati/gomm.json, con il token del giro (nessun segreto)
+      actions: write               # per ripubblicare il sito: un push fatto con il token del giro non avvia sito.yml
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Visite dei giorni completi in dati/gomm.json
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 redazione/gomm.py | tee -a "$GITHUB_STEP_SUMMARY"
+          git diff --quiet -- dati/gomm.json && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dati/gomm.json
+          git commit -q -m "GOMM: visite fino al $(python3 -c 'import json; print(json.load(open("dati/gomm.json"))["fino"])')"
+          for i in 1 2 3; do
+            if git pull -q --rebase origin main && git push -q origin HEAD:main; then
+              gh workflow run sito.yml --ref main -f modo=pubblica || echo "::warning::GOMM: sito non ripubblicato, il file nuovo va online con il prossimo push"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "::warning::GOMM: push non riuscito, le pagine chiedono al contatore i giorni mancanti"

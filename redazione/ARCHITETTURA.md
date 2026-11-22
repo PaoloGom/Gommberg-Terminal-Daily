@@ -25,8 +25,10 @@ pubblica.sh  →  un commit "Edizione #NNN - data" sul ramo principale (main)
 GitHub, a ogni push su main (zero token)
   sito.yml        costruisci.py → Cloudflare Workers → gommberg.com, poi verifica dal vivo (collaudo_sito.py --veloce)
   newsletter.yml  (solo se cambia edizioni.json) newsletter.py → Kit → email agli iscritti
-  mattino.yml     alle 10:15 lun-ven: mattino.py controlla uscita, sito, pubblicazione, newsletter, pannello
+  mattino.yml     alle 10:15 lun-ven: mattino.py controlla uscita, sito, pubblicazione, newsletter, pannello; job gomm: gomm.py aggiunge le visite di ieri a dati/gomm.json, commit su main e sito ripubblicato
 ```
+
+Fuori dal viaggio dell'edizione, le **mail straordinarie** (auguri, avvisi, sondaggi): un file per mail in `redazione/dem/`, `dem.yml` (a ogni cambiamento su main e ogni sera) le allinea in Kit con `dem.py sincronizza`. Formato e regole: `redazione/dem/LEGGIMI.md`.
 
 ## 2. Le parti
 
@@ -41,9 +43,10 @@ GitHub, a ogni push su main (zero token)
 | Revisione e desk | `desk.py`, `memoria.py`, `ricerche.py` | Riscritture del desk, memoria dei fatti già verificati |
 | Indice | `edizioni_voce.py` → `edizioni.json` | Una voce per edizione: è il contratto centrale (vedi 3) |
 | Pubblicazione | `pubblica.sh`, `messaggio.py` | Copia, archivia i sorgenti, rigenera le pagine, commit e push |
-| Sito | pagine fisse in radice (`index.html`, `archivio.html`...), `assets/`, `pagine.py`, `sito/costruisci.py` | Pagine scritte a mano che si riempiono via JavaScript dai file di dati; pagine per edizione generate |
+| Sito | pagine fisse in radice (`index.html`, `archivio.html`...), `assets/`, `pagine.py`, `sito/costruisci.py`, `sito/statico.py`, `robots.txt` | Pagine scritte a mano che si riempiono via JavaScript dai file di dati; pagine per edizione generate. `statico.py` (lo chiama `costruisci.py`, scrive solo nel sito pubblicato, mai nel repository) aggiunge per i motori di ricerca le pagine `impara/<parola>.html`, il contenuto di riserva di home, Impara e Archivio e le pagine di Impara nella sitemap (G-35) |
 | Newsletter | `newsletter.py` (compone anche testata e fascia dei mercati), `newsletter_cornice.html` e `newsletter_modello.html` (copiati a mano in Kit: "Gommberg cornice" per le edizioni, "Gommberg" predefinito) | L'email del mattino dalla scheda `e/NNN.json` |
-| Pannello | `pannello.py`, `misure.py`, `gancio_token.py`, `pannello/` | Una riga per edizione: orari, lavoro, qualità, consumo |
+| Pannello | `pannello.py`, `misure.py`, `gancio_token.py`, `pannello/` | Una riga per edizione: orari, lavoro, qualità, consumo; pagina Invii per le mail straordinarie |
+| Mail straordinarie | `dem.py`, `dem/` (un file per mail), `.github/workflows/dem.yml`, `grazie.html` (risposta ai sondaggi) | Il file è la verità, Kit l'esecutore: regole, vista del pannello, allineamento con Kit, segnalazione a Paolo |
 | Collaudo e rilascio | `collaudo.py`, `rete/`, `rilascia.sh`, `sito/collaudo_sito.py`, `mattino.py`, `.github/workflows/` | Vedi 4 e 5 |
 | Prove | `PROVA.md`, `prova.sh` | Edizioni di prova con l'attività vera |
 | Gestione | `CARTA.md`, `STATO.md`, `AZIONI.md`, `PROGETTO.md`, `ATTIVITA.md` | Visione, stato, lezioni, storia, testo delle attività |
@@ -58,14 +61,17 @@ Un file della colonna di sinistra è un contratto: cambiarne forma o significato
 | `e/NNN.json`, `e/NNN.html`, `e/NNN.png`, `e/pagine.json` | `pagine.py` | `index.html`, `glossario.html`, `newsletter.py` (la scheda `e/NNN.json`), anteprime di WhatsApp |
 | `dati/recenti.json`, `indice.json`, `cerca.json`, `storico.json`, `redazione.json` | `pagine.py` | `index.html`, `scommessa.html` (recenti); `archivio.html` (indice, cerca); `glossario.html`, `numeri.html` (storico); `progetto.html` (redazione); `mattino.py`, `collaudo_sito.py` |
 | `dati/uscite.json` | `pubblica.sh` | `numeri.html` (puntualità) |
+| `dati/gomm.json` (visite dei giorni completi dal 17/10) | `gomm.py`, nel job gomm di `mattino.yml` | `assets/gomm.js` (il GOMM: un solo calcolo), letto da `numeri.html`, dal nastro di `index.html` e dal blocco in fondo alle pagine `e/` |
 | `redazione/fatti/AAAA-MM-GG.json` | `pubblica.sh` (dalle schede del mattino) | `memoria.py`, `misure.py`, `pannello.py`, `collaudo.py` |
 | `redazione/sorgenti/AAAA-MM-GG/` | `pubblica.sh` | `collaudo.py` (rifare un'edizione, congelare un campione) |
 | `redazione/glossario.json`, `glossario_sito.json`, `meccanismi.json` | a mano (e la redazione, per glossario e meccanismi) | `controlli_testo.py`, `edizioni_voce.py`, e **il sito**: `glossario.html` |
 | `redazione/scommessa/pagella.json` | `valuta.py`, con il verdetto della settimana | pag. 6 del PDF, e **il sito**: `scommessa.html`, `numeri.html` |
 | `redazione/scommessa/metodo.json`, `pronostici/*.json` | a mano / `pronostico.py` | `pagina6.py`, `valuta.py`, `edizioni_voce.py` |
-| `redazione/chiusure.csv` (chiusure delle serie senza archivio nella scommessa) | `pubblica.sh` (`numeri.py --archivia`, dal `dati.json` del giorno) | `numeri.py` (`tabelle_da_dati`: le tabelle di pag. 5, calcolate e mai scritte a mano), `controlli_dati.py`, `controlli_numeri.py` |
+| `redazione/chiusure.csv` (chiusure delle serie senza archivio nella scommessa) | `pubblica.sh` (`numeri.py --archivia`, dal `dati.json` del giorno) | `numeri.py` (`tabelle_da_dati`: le tabelle di pag. 5 e le loro note, calcolate e mai scritte a mano, con la data di ogni riga anche quando un mercato è chiuso), `controlli_dati.py`, `controlli_numeri.py` |
+| `FESTIVI` in `gommberg_engine.py` (i giorni senza edizione) | a mano, ogni dicembre (`APP_FESTIVI.md` §4) | il motore stesso e `giorni.py`, e tramite lui `prepara.sh`, `controlli_tutti.sh`, `edizioni_voce.py`, `controlli_contenuti.py`, `mattino.py`, `scommessa_giorno.sh` (uscite e numero dell'edizione) e `controlli_dati.py` (età di un dato, contata in giorni di uscita) |
 | `redazione/fonti.json` | a mano | `autori.py` (e, tramite lui, `controlli_fatti.py`, `misure.py`, `pannello.py`), `controlli_testo.py`, `controlli_contenuti.py`, `controlli_ripetizioni.py` |
 | `pannello/registro.json`, `taratura.json` | `pannello.py` | `pannello/index.html`, `mattino.py` |
+| `redazione/dem/AAAA-MM-GG-nome.md` (una mail straordinaria) | a mano (Claude, con l'ok di Paolo) | `dem.py` → `pannello/invii.json` (`dem.py salva`; il collaudo pretende che sia allineato) e Kit (`dem.yml`); usa `newsletter.py` (colori, cornice, chiamate a Kit) e `giorni.py` (giorni di uscita) |
 | `/tmp/gtd_token.json` (token e, in `web`, ricerche e pagine non raggiunte) e la trascrizione della sessione a cui punta | `gancio_token.py` (`.claude/settings.json`) | `pannello.py --indici`; `controlli_fatti.py` (riscontra le ricerche dichiarate in `"conferma_cercata"` con quelle fatte davvero; senza gancio non conclude nulla) |
 | `voce_indice.json`, `testo.json` (cartella di lavoro) | motore; `controlli_testo.py` | `controlli_temi.py`, `controlli_contenuti.py`, `edizioni_voce.py`, `messaggio.py` |
 
@@ -107,7 +113,7 @@ Due ruoli, due chat diverse:
 - **Capo sviluppo** (apre e chiude il rilascio): legge questa mappa e le voci del weekend, scrive il piano nel Registro (ordine, file toccati, conflitti, chat e modello per ogni voce) e **riscrive nella scheda di ogni voce come entra nel rilascio**: ramo, file, sequenza, che cosa cambia nella rete, se e dove serve l'ok di Paolo. Le chat delle voci leggono la scheda e non chiedono a Paolo nulla sul come: a lui arrivano solo le decisioni sue (il cosa, ciò che il lettore vede, soldi, terzi). Poi integra e lancia `pubblica`.
 - **Collaudo indipendente** (prima del merge): un agente che non ha visto il lavoro controlla il "Fatto quando" di ogni voce contro il ramo e legge il resoconto. Chi costruisce non si collauda da solo.
 
-Durante il rilascio i file di stato (`STATO.md`, `PROGETTO.md`, `AZIONI.md`) si aggiornano sul ramo principale come in settimana (non ripubblicano il sito); tutto il resto sta sul ramo `rilascio`.
+Durante il rilascio i file di stato (`STATO.md`, `PROGETTO.md`, `AZIONI.md`) si aggiornano sul ramo principale come in settimana (non ripubblicano il sito); tutto il resto sta sul ramo `rilascio`. Lo stesso vale, in qualunque giorno, per le mail straordinarie: i file di `redazione/dem/` e `pannello/invii.json` (sempre insieme, dopo `dem.py salva`) vanno su main direttamente, perché non toccano l'edizione né le pagine dei lettori; `dem.py`, `dem.yml` e la vista passano dal rilascio.
 
 Dopo il merge: `sito.yml` pubblica e verifica dal vivo; il lunedì `mattino.yml` controlla la prima edizione. Le prove con l'attività vera si fanno prima del merge dal ramo `rilascio` (procedura A di `PROVA.md`) e, per provare anche la pubblicazione, dopo il merge con una data simulata (procedura B).
 

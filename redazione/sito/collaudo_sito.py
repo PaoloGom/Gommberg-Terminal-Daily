@@ -80,7 +80,7 @@ else:
     RIF = ARG[1].rstrip("/") + "/" if len(ARG) > 1 else None
 N = int(sys.argv[sys.argv.index("--pagine") + 1]) if "--pagine" in sys.argv else 5
 FISSE = ["", "index.html", "archivio.html", "glossario.html", "scommessa.html", "numeri.html", "progetto.html",
-         "iscriviti.html", "benvenuto.html", "privacy.html", "basi.html", "ultima/", "pannello/", "consumi/"]
+         "iscriviti.html", "benvenuto.html", "grazie.html", "privacy.html", "basi.html", "ultima/", "pannello/", "consumi/"]
 PRIVATI = ["redazione/ISTRUZIONI.md", "redazione/CARTA.md", "redazione/gommberg_engine.py", "redazione/fonti.json",
            "redazione/STATO.md", ".github/workflows/newsletter.yml", ".claude/settings.json", "README.md", "_redirects"]
 BLOCCO = re.compile(r"goatcounter\.com|gc\.zgo\.at")

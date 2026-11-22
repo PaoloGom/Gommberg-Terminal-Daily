@@ -153,15 +153,45 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 .ag+.meta{margin-top:12px}.ag p{margin:4px 0 0;font-size:15px;line-height:1.45}.ag p em{font-style:normal;font-weight:600;color:var(--orange-ink)}
 .sigle{display:flex;flex-wrap:wrap;gap:8px}.sigle a{display:inline-block;border:1px solid var(--rule);padding:6px 10px;font-size:14px;color:var(--muted);text-decoration:none;line-height:1.35}
 .sigle a b{color:var(--ink);font-weight:600;margin-right:4px}.sigle a:hover{border-color:var(--orange);color:var(--ink)}
-.sigle a:after{content:"\203A";margin-left:6px;color:var(--orange-ink);font-weight:600}
+.sigle a:after{content:"\\203A";margin-left:6px;color:var(--orange-ink);font-weight:600}
 .tutte{margin:12px 0 0;font-size:14px}.tutte a{color:var(--orange-ink)}
 .pn{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:13px;border-top:1px solid var(--rule);padding-top:16px}
 .pn a{text-decoration:none;color:var(--muted)}.pn a:hover{color:var(--ink)}
 .vote{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 30px;font-size:15px;color:var(--muted)}
 .vote button{font-family:var(--mono);font-size:13px;min-height:38px;padding:0 14px;background:transparent;color:var(--ink);border:1px solid var(--rule);cursor:pointer}
 .vote .thx{color:var(--ink)}
+.gb{margin:0 0 30px}
 @media (max-width:520px){.dek{font-size:17px}.btn.lead{flex:1 1 auto;justify-content:center}.btn.ghost{width:46px;padding:0;justify-content:center}.btn.ghost span{display:none}.btn[data-pdf="scaricata"]{display:none}}
 """
+
+
+# Il GOMM in fondo a ogni edizione, sotto "Ti è stata utile?" (G-14): la quotazione del Gommberg con il mini grafico
+# degli ultimi 30 giorni, l'invito a inoltrare e l'iscrizione via email (al posto della fascia dell'invito, che resta in
+# home e nelle pagine di Impara): una chiusura sola in tre schede uguali, perché anche chi si iscrive fa salire il GOMM. I numeri li calcola assets/gomm.js, lo stesso de I numeri e della homepage;
+# senza dati resta solo l'invito.
+GOMM_V = "2026-11-22"   # cambia quando cambia assets/gomm.js (il browser riprende il file nuovo)
+GOMM_JS = """<script src="../assets/gomm.js?v=""" + GOMM_V + """"></script>
+<script>if (window.GOMM) GOMM.fascia(document.getElementById("gb"));</script>"""
+
+
+SVG_MAIL = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>'
+
+
+def gomm_box(url, titolo):
+    """La fascia "Fai salire il GOMM" (stile in assets/sito.css, .gb; la stessa sta a mano in index.html): titolo e valore,
+    il grafico degli ultimi 30 giorni che porta a I numeri, poi inoltra e iscriviti affiancati."""
+    return ('<section class="gb vuoto" id="gb" aria-labelledby="gb-h">'
+            '<div class="gb-top"><div><h2 class="gb-h" id="gb-h">Fai salire il GOMM</h2>'
+            '<p class="gb-s">La quotazione del Gommberg sale con ogni lettore nuovo.</p></div>'
+            '<p class="gb-v" data-gomm-q><span class="gb-tag">GOMM</span><b data-gomm="v"></b><span class="c" data-gomm="c"></span></p></div>'
+            '<a class="gb-ch" href="../numeri.html" data-gomm-q><span class="gb-m" data-gomm="barre" aria-hidden="true"></span>'
+            '<span class="gb-ax" data-gomm="ax"></span></a>'
+            '<div class="gb-bar"><div><p class="gb-t">Inoltrala a chi vuole capire i mercati</p><div class="gb-r">'
+            f'<a class="gb-b pr" href="https://wa.me/?text={quote(titolo + " " + url)}" target="_blank" rel="noopener">{SVG_WA}<span>WhatsApp</span></a>'
+            f'<button type="button" class="gb-b gh" data-copy="{esc(url)}">{SVG_LINK}<span>Copia link</span></button></div></div>'
+            '<div><p class="gb-t">Ricevila ogni mattina alle 9:45. Gratis.</p><div class="gb-r">'
+            '<a class="gb-b pr" href="../iscriviti.html" data-goatcounter-click="invito-iscrizione" '
+            f'data-goatcounter-title="Invito all\'iscrizione (clic)">{SVG_MAIL}<span>Iscriviti via email</span></a></div></div></div></section>')
 
 
 # Voto e aperture del PDF, contati come eventi GoatCounter anonimi (un voto per edizione e per browser)
@@ -179,14 +209,12 @@ VOTO_JS = """<script>
     try { localStorage.setItem(k, b.dataset.v); } catch (err) {}
     fatto();
   });
-  var cp = document.getElementById("copy");
-  var wa = document.querySelector('a[href^="https://wa.me/"]');
-  if (wa) wa.addEventListener("click", function () { conta({ path: "condividi-tutte", title: "Condivisioni (tutte le edizioni)", event: true }); conta({ path: "condividi-whatsapp-NNN", title: "Condivisione WhatsApp n. NNN", event: true }); });
-  if (cp) cp.addEventListener("click", function () {
+  document.querySelectorAll('a[href^="https://wa.me/"]').forEach(function (wa) { wa.addEventListener("click", function () { conta({ path: "condividi-tutte", title: "Condivisioni (tutte le edizioni)", event: true }); conta({ path: "condividi-whatsapp-NNN", title: "Condivisione WhatsApp n. NNN", event: true }); }); });
+  document.querySelectorAll("#copy, [data-copy]").forEach(function (cp) { cp.addEventListener("click", function () {
     conta({ path: "condividi-tutte", title: "Condivisioni (tutte le edizioni)", event: true }); conta({ path: "condividi-link-NNN", title: "Link copiato n. NNN", event: true });
-    var u = cp.dataset.url, l = cp.querySelector("span"), ok = function () { l.textContent = "Copiato"; setTimeout(function () { l.textContent = "Copia link"; }, 1800); };
+    var u = cp.dataset.url || cp.dataset.copy, l = cp.querySelector("span") || cp, prima = l.textContent, ok = function () { l.textContent = "Copiato"; setTimeout(function () { l.textContent = prima; }, 1800); };
     if (navigator.clipboard) navigator.clipboard.writeText(u).then(ok, function () { prompt("Copia il link:", u); }); else prompt("Copia il link:", u);
-  });
+  }); });
   // Da PC "Leggi l'edizione" apre la lettura a schermo intero con lo zoom (sul telefono resta il PDF)
   if (window.matchMedia("(min-width: 901px)").matches) {
     var lead = document.querySelector("a.btn.lead"); if (lead) lead.href = "../?n=" + parseInt("NNN", 10) + "&leggi=1";
@@ -258,11 +286,16 @@ def invito(root=""):
             'data-goatcounter-title="Invito all\'iscrizione (clic)">Ricevila via email</a></aside>')
 
 
-def piede(root="", nota=""):
+def link_piede(root=""):
+    """I link del piè di pagina: il menu, poi I numeri (G-14), iscrizione, feed e privacy. Una sola fonte per le pagine
+    generate (piede) e per quelle fisse (piede_fisse)."""
     link = "".join(f'<a href="{_href(root, h)}">{t}</a>' for h, t, _ in MENU)
-    return ('<footer class="gf"><div class="gf-in">'
-            f'<nav class="gf-links" aria-label="Le pagine del sito">{link}<a href="{root}iscriviti.html">Ricevila via email</a>'
-            f'<a href="{root}feed.xml">Feed RSS</a><a href="{root}privacy.html">Privacy</a></nav>'
+    return (f'<nav class="gf-links" aria-label="Le pagine del sito">{link}<a href="{root}numeri.html">I numeri</a>'
+            f'<a href="{root}iscriviti.html">Ricevila via email</a><a href="{root}feed.xml">Feed RSS</a><a href="{root}privacy.html">Privacy</a></nav>')
+
+
+def piede(root="", nota=""):
+    return ('<footer class="gf"><div class="gf-in">' + link_piede(root) +
             f'<p class="gf-ai">{RIGA_AI}</p><p class="gf-legal">{LEGALE}{(" " + nota) if nota else ""}</p></div></footer>')
 
 
@@ -370,10 +403,11 @@ def pagina(ed, prec, succ):
     nav.append(f'<a href="{nnn(succ["numero"])}.html">N. {nnn(succ["numero"])} &rsaquo;</a>' if succ else '<a href="../">Ultima edizione &rsaquo;</a>')
     a('<div class="vote" id="vote" hidden><span id="voteQ">Ti è stata utile questa edizione?</span>'
       '<button type="button" data-v="si">Sì</button><button type="button" data-v="no">No</button></div>')
+    a(gomm_box(url, titolo))
     a(f'<div class="pn">{"".join(nav)}</div>')
-    a(invito("../"))
     a("</main>")
     a(VOTO_JS.replace("NNN", n))
+    a(GOMM_JS)
     a(piede("../"))
     a("</body>\n</html>\n")
     return "\n".join(p)
@@ -490,7 +524,7 @@ def dati_sito(repo, rec):
 
 def piede_fisse(repo):
     """Le pagine fisse (index.html, progetto.html...) hanno il piè di pagina scritto a mano: qui la riga sull'AI si
-    riallineano a RIGA_AI e LEGALE, così cambiano in un punto solo; la nota propria di ogni pagina, dopo LEGALE, resta.
+    riallineano a RIGA_AI e LEGALE, e i link a link_piede(), così cambiano in un punto solo; la nota propria di ogni pagina, dopo LEGALE, resta.
     LEGALE deve finire con "alla data di ciascuna edizione.": è l'aggancio. Scrive solo se cambia."""
     n = 0
     for f in sorted(os.listdir(repo)):
@@ -498,6 +532,7 @@ def piede_fisse(repo):
             path = os.path.join(repo, f)
             t = open(path, encoding="utf-8").read()
             nuovo = re.sub(r'<p class="gf-ai">.*?</p>', lambda m: f'<p class="gf-ai">{RIGA_AI}</p>', t, flags=re.S)
+            nuovo = re.sub(r'<nav class="gf-links"[^>]*>.*?</nav>', lambda m: link_piede(), nuovo, flags=re.S)
             nuovo = re.sub(r'<p class="gf-legal">[^<]*?alla data di ciascuna edizione\.', lambda m: f'<p class="gf-legal">{LEGALE}',
                            nuovo, flags=re.S)
             if nuovo != t:
