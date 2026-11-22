@@ -7,7 +7,7 @@ Lo chiama costruisci.py e scrive SOLO nella cartella del sito pubblico, mai nel 
    "Come si muovono i mercati": titolo, descrizione e dati strutturati propri, legami tra parole, meccanismi ed
    edizioni. Sono le pagine che rispondono a ricerche come "cos'è lo spread" o "cosa misura il VIX".
 2. Contenuto di riserva nelle pagine fisse che si riempiono via JavaScript: al posto di "Caricamento..." c'è già il
-   testo vero, con la stessa struttura che il JavaScript poi riscrive. Home: titolo, In 30 secondi, notizie e ultime
+   testo vero, con la stessa struttura che il JavaScript poi riscrive. Home: titolo, In 30 secondi, analisi e ultime
    edizioni dell'ultima edizione; Impara: tutte le parole, con il link alla loro pagina; Archivio: tutte le edizioni.
 3. sitemap.xml: aggiunge le pagine di Impara a quella generata da pagine.py.
 
@@ -260,8 +260,15 @@ def riserva_home(t, eds):
     ed = eds[0]
     t = sostituisci(t, "headline", esc(ed["titolo"]))
     t = sostituisci(t, "brief", "".join(f"<li>{esc(s)}</li>" for s in ed.get("sommario") or []))
-    t = sostituisci(t, "news", "".join(f'<li><a href="{esc(ed["file"])}#page=1"><span class="i">{i}</span><span class="t">{esc(s)}</span>'
-                                       f'<span class="go">pag. 1</span></a></li>' for i, s in enumerate((ed.get("notizie") or [])[:6], 1)))
+    # Analisi e storie: le stesse righe che disegna index.html (al massimo 7; se dispari la prima apre a tutta riga), come link al PDF
+    an, pp = (ed.get("approfondimenti") or [])[:7], (ed.get("dove") or {}).get("approfondimenti") or []
+    def riga(i, x):
+        pg = pp[i] if i < len(pp) and pp[i] else None
+        corpo = (f'<span class="k">{esc(x.get("tema") or "")}</span><span class="go">{pg or ""}</span><span class="t">{esc(x.get("titolo") or "")}</span>')
+        apre = ' class="apre"' if i == 0 and len(an) % 2 else ""
+        return (f'<li{apre}><a class="an-row" href="{esc(ed["file"])}#page={pg}">{corpo}</a></li>' if pg
+                else f'<li{apre}><div class="an-row">{corpo}</div></li>')
+    t = sostituisci(t, "anList", "".join(riga(i, x) for i, x in enumerate(an)))
     righe = []
     for e in eds[1:6]:
         a, m, d = (int(x) for x in e["data"].split("-"))
