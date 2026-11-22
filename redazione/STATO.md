@@ -22,6 +22,8 @@ Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b
 
 ## Cantiere attivo
 
+**Terza edizione di prova in corso** (chiesta da Paolo il 22/11 alle 20:55, lanciata alle 20:57 dalla chat del capo sviluppo con l'attività vera su Sonnet, procedura A di `PROVA.md`: ramo `rilascio`, uguale a main `eaa6abc`, edizione del 23/11, niente pubblicato). Serve a verificare su un'edizione intera ciò che è entrato nel weekend. Il ramo `prova` è stato sovrascritto: la seconda prova era il commit `7d53799`, le sue misure sono nella scheda di G-47. L'analisi la fa questa chat a prova finita (cartella `redazione/collaudi/prova-2026-11-23` sul ramo `prova`).
+
 **G-54 in fila, High, ownership Claude** (Paolo 22/11: Impara deve aggiornarsi da sola, sul come decide Claude): ogni edizione scrive già sei parole con la definizione (`redazione/sorgenti/*/edizione.py`, campo `parole`; 79 diverse in 25 edizioni, quasi tutte assenti da Impara). Strada scelta: alla pubblicazione le definizioni già controllate passano in un file che Impara legge, zero token, edizioni passate recuperate dai sorgenti. Tocca la catena del mattino: chat nuova su Opus, rilascio del 28/11 con un'edizione di prova.
 
 **Affidabilità della macchina** (pilastro 5). Il rilascio del 21-22/11 è in linea; restano la sua coda e la prima settimana vera.
