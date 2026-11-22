@@ -114,6 +114,10 @@ async def apri(ctx, base, pagina):
     def fine(r):
         if r.url == base + pagina and r.request.is_navigation_request():
             return   # lo stato della pagina stessa si controlla a parte (la 404 deve rispondere 404)
+        # in locale c'è solo la cartella dei file statici: il servizio dei lettori (/api/, redazione/sito/lettori.js) non
+        # gira e il riquadro lo dice al lettore; il servizio ha il suo collaudo (prova_lettori.mjs in collaudo.py)
+        if LOCALE and base == PROVA and r.url[len(base):].startswith("api/"):
+            return
         if r.url.startswith(base) and r.status >= 400 and not r.url.endswith("favicon.ico"):
             falliti.append(f"{r.status} {r.url[len(base):]}")
     pg.on("response", fine)
