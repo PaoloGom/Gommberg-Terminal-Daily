@@ -1,0 +1,5 @@
+# gommberg.com: tutto il sito è aperto ai motori di ricerca. La mappa con tutte le pagine:
+User-agent: *
+Allow: /
+
+Sitemap: https://gommberg.com/sitemap.xml

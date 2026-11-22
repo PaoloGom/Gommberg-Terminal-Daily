@@ -41,7 +41,7 @@ GitHub, a ogni push su main (zero token)
 | Revisione e desk | `desk.py`, `memoria.py`, `ricerche.py` | Riscritture del desk, memoria dei fatti già verificati |
 | Indice | `edizioni_voce.py` → `edizioni.json` | Una voce per edizione: è il contratto centrale (vedi 3) |
 | Pubblicazione | `pubblica.sh`, `messaggio.py` | Copia, archivia i sorgenti, rigenera le pagine, commit e push |
-| Sito | pagine fisse in radice (`index.html`, `archivio.html`...), `assets/`, `pagine.py`, `sito/costruisci.py` | Pagine scritte a mano che si riempiono via JavaScript dai file di dati; pagine per edizione generate |
+| Sito | pagine fisse in radice (`index.html`, `archivio.html`...), `assets/`, `pagine.py`, `sito/costruisci.py`, `sito/statico.py`, `robots.txt` | Pagine scritte a mano che si riempiono via JavaScript dai file di dati; pagine per edizione generate. `statico.py` (lo chiama `costruisci.py`, scrive solo nel sito pubblicato, mai nel repository) aggiunge per i motori di ricerca le pagine `impara/<parola>.html`, il contenuto di riserva di home, Impara e Archivio e le pagine di Impara nella sitemap (G-35) |
 | Newsletter | `newsletter.py` (compone anche testata e fascia dei mercati), `newsletter_cornice.html` e `newsletter_modello.html` (copiati a mano in Kit: "Gommberg cornice" per le edizioni, "Gommberg" predefinito) | L'email del mattino dalla scheda `e/NNN.json` |
 | Pannello | `pannello.py`, `misure.py`, `gancio_token.py`, `pannello/` | Una riga per edizione: orari, lavoro, qualità, consumo |
 | Collaudo e rilascio | `collaudo.py`, `rete/`, `rilascia.sh`, `sito/collaudo_sito.py`, `mattino.py`, `.github/workflows/` | Vedi 4 e 5 |

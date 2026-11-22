@@ -11,6 +11,8 @@ redazione).
 Se una pagina pubblicata nomina un file della redazione che non è in LETTI, lo script lo segnala (AVVISO): o va
 aggiunto a LETTI, o la pagina non funzionerebbe su gommberg.com. Al contrario, nominare un file non basta a pubblicarlo.
 
+Aggiunge le pagine scritte da statico.py (Impara una pagina per parola, contenuto di riserva per chi non esegue il
+JavaScript, sitemap completa): esistono solo nel sito pubblicato, mai nel repository.
 Scrive anche _headers (Access-Control-Allow-Origin: *, come GitHub Pages: i file del sito restano leggibili da altri
 siti, per esempio da un artifact) e _redirects (Cloudflare): "/" e ogni cartella con un index.html servono il loro index.html, e le pagine
 in radice si aprono anche senza ".html", come su GitHub Pages. Senza, con html_handling "none" (che lascia gli
@@ -163,6 +165,11 @@ def main():
     anteprima = "--anteprima" in sys.argv
     prepara(uscita)
     file, saltati, mancano = copia(uscita)
+    # pagine per i motori di ricerca, scritte solo nella cartella del sito (G-35): Impara una pagina per parola,
+    # contenuto di riserva nelle pagine che si riempiono via JavaScript, sitemap con le nuove pagine
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import statico
+    file += [PurePosixPath(f) for f in statico.scrivi_tutto(uscita)]
     n = reindirizzamenti(uscita, file)
     ritocchi(uscita, file, anteprima)
     # ultima difesa: nel sito solo file pubblici, i file di LETTI, _redirects e _headers
