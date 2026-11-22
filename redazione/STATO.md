@@ -30,7 +30,7 @@ Come si lavora in ogni chat che tocca il motore o il sito: `bash redazione/rilas
 1. **Paolo**: aggiungere il connettore EODHD all'attività del mattino prima delle 8:58 di lunedì. Senza, G-03 lavora con il ripiego su due fonti web.
 2. **G-44** in una chat sua (Opus), con un rilascio piccolo: così era già scritto nella sua scheda.
 3. A occhio su PC e telefono: il pannello (anche i vecchi indirizzi #operativita #versioni #metodo) e `numeri.html` nelle tre viste. `sito.yml` ha già verificato che i file in linea sono quelli collaudati.
-4. Rami: `g36-modello` e `pannello` sono carta straccia (tutto ciò che contenevano è in main, verificato il 22/11) e li cancella Paolo da GitHub, pagina Branches: alla sessione di Claude la cancellazione non è permessa. `prova-2026-11-23-prima` **resta** finché G-45 e G-46 non sono chiuse: è l'unica copia della prima edizione di prova (quella dei 39 minuti), perché sul ramo `prova` la seconda l'ha sostituita.
+4. Ramo `prova-2026-11-23-prima`: **resta** finché G-45 e G-46 non sono chiuse (unica copia della prima edizione di prova). `g36-modello` e `pannello` cancellati da Paolo il 22/11.
 
 Fatti il 22/11 dopo il merge: modelli in Kit (G-40, G-15); `mattino.yml` lanciato a mano, verde con "borse chiuse, oggi niente edizione"; `newsletter.yml` in modo prova, verde.
 
