@@ -2,7 +2,7 @@
 // database D1 finto sopra SQLite di Node (node:sqlite, Node 22.5 o più) e un'edizione finta al posto dei file statici.
 // Lo lancia redazione/collaudo.py; da solo: node redazione/sito/prova_lettori.mjs. Esce con 1 al primo errore.
 import { DatabaseSync } from "node:sqlite";
-import worker, { chiusuraVoto, controllaTesto, pulisciTesto, LIMITI } from "./lettori.js";
+import worker, { controllaTesto, pulisciTesto, LIMITI } from "./lettori.js";
 
 // ------------------------------------------------------------- D1 finto: prepare/bind/first/all/run/batch
 function d1() {
@@ -22,15 +22,15 @@ let adesso = Date.parse("2026-11-23T09:00:00Z");
 Date.now = () => adesso;
 const avanti = (s) => { adesso += s * 1000; };
 const EDIZIONI = {
-  30: { numero: 30, data: "2026-11-20", lettori: { domanda: "Dopo sei cali di fila, oggi l'S&P 500 sale o scende?", mercato: "S&P 500" } },
-  31: { numero: 31, data: "2026-11-23", lettori: { domanda: "Oggi l'S&P 500 sale o scende?", mercato: "S&P 500", ieri: { n: 30 } } },
-  32: { numero: 32, data: "2026-11-26" },   // Wall Street chiusa: niente domanda, i commenti sì
+  30: { numero: 30, data: "2026-11-20" },
+  31: { numero: 31, data: "2026-11-23" },   // la più recente: il sentiment si vota qui
 };
 const env = {
   DB: d1(),
   ASSETS: { fetch: async (req) => {
     const u = new URL(req.url), m = /^\/e\/(\d{3})\.json$/.exec(u.pathname);
     if (m && EDIZIONI[+m[1]]) return new Response(JSON.stringify(EDIZIONI[+m[1]]), { headers: { "content-type": "application/json" } });
+    if (u.pathname === "/dati/recenti.json") return new Response(JSON.stringify({ totale: 31, edizioni: [{ numero: 31 }, { numero: 30 }] }));
     return new Response(m ? "non trovata" : "statico", { status: m ? 404 : 200 });
   } },
 };
@@ -55,7 +55,7 @@ let r = await chiama("GET", "/index.html");
 verifica("le pagine non /api/ vanno ai file statici", r.s === 200 && r.j === "statico", r);
 r = await chiama("GET", "/api/lettori/030");
 verifica("lettura dell'edizione", r.s === 200 && Array.isArray(r.j.commenti) && /^\d{10}\.[0-9a-f]{24}$/.test(r.j.gettone), r);
-verifica("voto chiuso per un'edizione passata", r.j.voto && r.j.voto.aperto === false, r.j.voto);
+verifica("sentiment chiuso su un'edizione passata", r.j.voto && r.j.voto.aperto === false, r.j.voto);
 const g0 = r.j.gettone;
 r = await chiama("GET", "/api/lettori/099");
 verifica("edizione inesistente: 404", r.s === 404, r);
@@ -118,29 +118,25 @@ await chiama("POST", "/api/lettori/commenti/" + c1 + "/piace", { ...B, corpo: { 
 r = await chiama("GET", "/api/lettori/031", B);
 verifica("like ricordato al lettore", r.j.commenti.find((x) => x.id === c1).piaciuto === true && r.j.commenti.find((x) => x.id === c1).piace === 1, r.j.commenti);
 
-// ------------------------------------------------------------- 5. voto (domanda dell'edizione del 23/11, chiude alle 14:30 UTC)
+// ------------------------------------------------------------- 5. sentiment Toro/Orso (si vota sull'edizione più recente, tutto il giorno)
 r = await chiama("POST", "/api/lettori/031/voto", { corpo: { voto: "toro", gettone: g0 } });
 verifica("voto Toro", r.s === 200 && r.j.voto.toro === 1 && r.j.voto.mio === "toro" && r.j.voto.aperto, r);
 r = await chiama("POST", "/api/lettori/031/voto", { corpo: { voto: "orso", gettone: g0 } });
 verifica("cambio voto: Orso, un voto solo", r.j.voto.toro === 0 && r.j.voto.orso === 1 && r.j.voto.mio === "orso", r);
 await chiama("POST", "/api/lettori/031/voto", { ...B, corpo: { voto: "toro", gettone: g0 } });
 r = await chiama("GET", "/api/lettori/031");
-verifica("targhetta del voto accanto al nome", r.j.commenti.find((x) => x.id === c1).voto === "orso" && r.j.commenti.find((x) => x.id === c2).voto === "toro", r.j.commenti);
+verifica("targhetta del sentiment accanto al nome", r.j.commenti.find((x) => x.id === c1).voto === "orso" && r.j.commenti.find((x) => x.id === c2).voto === "toro", r.j.commenti);
+verifica("lettori di oggi: chi ha votato o scritto, una volta sola", r.j.lettori === 2, r.j.lettori);
 r = await chiama("POST", "/api/lettori/031/voto", { corpo: { voto: "lupo", gettone: g0 } });
 verifica("voto non valido", r.s === 400, r);
-r = await chiama("POST", "/api/lettori/032/voto", { corpo: { voto: "toro", gettone: g0 } });
-verifica("giorno senza domanda: niente voto", r.s === 404, r);
-r = await chiama("GET", "/api/lettori/032");
-verifica("giorno senza domanda: commenti sì, voto no", r.s === 200 && !r.j.voto, r);
-verifica("chiusura del voto: 9:30 a New York senza ora legale", chiusuraVoto("2026-11-23").toISOString() === "2026-11-23T14:30:00.000Z", chiusuraVoto("2026-11-23"));
-verifica("chiusura del voto: con l'ora legale", chiusuraVoto("2026-07-01").toISOString() === "2026-07-01T13:30:00.000Z", chiusuraVoto("2026-07-01"));
-verifica("chiusura del voto: marzo, ora legale solo in America", chiusuraVoto("2027-03-16").toISOString() === "2027-03-16T13:30:00.000Z", chiusuraVoto("2027-03-16"));
-adesso = Date.parse("2026-11-23T14:31:00Z");
+r = await chiama("POST", "/api/lettori/030/voto", { corpo: { voto: "toro", gettone: g0 } });
+verifica("edizione passata: niente voto", r.s === 409, r);
+adesso = Date.parse("2026-11-23T22:31:00Z");
 const g1 = (await chiama("GET", "/api/lettori/031")).j.gettone; avanti(5);
-r = await chiama("POST", "/api/lettori/031/voto", { corpo: { voto: "toro", gettone: g1 } });
-verifica("dopo l'apertura di Wall Street il voto è chiuso", r.s === 409, r);
+r = await chiama("POST", "/api/lettori/031/voto", { corpo: { voto: "orso", gettone: g1 } });
+verifica("la sera il sentiment è ancora aperto", r.s === 200 && r.j.voto.aperto, r);
 r = await chiama("GET", "/api/lettori/031");
-verifica("a voto chiuso i risultati restano", r.j.voto.aperto === false && r.j.voto.toro === 1 && r.j.voto.orso === 1, r.j.voto);
+verifica("i risultati restano", r.j.voto.toro === 1 && r.j.voto.orso === 1, r.j.voto);
 
 // ------------------------------------------------------------- 6. segnalazioni
 r = await chiama("POST", "/api/lettori/commenti/" + c1 + "/segnala", { corpo: { gettone: g1 } });
@@ -155,12 +151,11 @@ verifica("terza rete: nascosto", r.j.nascosto === true, r);
 r = await chiama("GET", "/api/lettori/031");
 verifica("il commento nascosto non esce più", !r.j.commenti.some((x) => x.id === c2), r.j.commenti);
 
-// ------------------------------------------------------------- 7. anteprime separate, verifica del giorno dopo
+// ------------------------------------------------------------- 7. anteprime separate
 r = await chiama("GET", "/api/lettori/031", { base: "https://anteprima-g13-gommberg.esempio.workers.dev", origine: null });
 verifica("l'anteprima non vede i commenti di gommberg.com", r.s === 200 && r.j.commenti.length === 0, r.j);
-verifica("nell'anteprima il voto resta aperto anche dopo l'apertura di Wall Street", r.j.voto && r.j.voto.aperto === true, r.j.voto);
-r = await chiama("GET", "/api/lettori/031");
-verifica("i voti di ieri per la verifica sulla chiusura", r.j.ieri && r.j.ieri.toro === 0 && r.j.ieri.orso === 0, r.j.ieri);
+r = await chiama("GET", "/api/lettori/030", { base: "https://anteprima-g13-gommberg.esempio.workers.dev", origine: null });
+verifica("nell'anteprima il sentiment si vota anche sulle edizioni passate", r.j.voto && r.j.voto.aperto === true, r.j.voto);
 
 // ------------------------------------------------------------- 8. limiti di frequenza
 const C = { lettore: "lettore-gggggggggggggggg", ip: "6.6.6.6" };

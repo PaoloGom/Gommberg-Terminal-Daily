@@ -1,7 +1,7 @@
-// La parola ai lettori (G-13): commenti, risposte, like, segnalazioni e la domanda del giorno di gommberg.com.
+// La Community (G-13): il sentiment Toro/Orso, i commenti, le risposte, i like e le segnalazioni di gommberg.com.
 // È l'unico codice che gira sul sito: Cloudflare lo chiama solo per gli indirizzi /api/* (run_worker_first in
 // wrangler.jsonc); tutto il resto sono file statici e non passa di qui. Se questo codice si ferma, homepage ed
-// edizioni escono lo stesso: la colonna dei lettori (assets/lettori.js) dice soltanto che la discussione non si carica.
+// edizioni escono lo stesso: la sezione La Community (assets/lettori.js) dice soltanto che la discussione non si carica.
 //
 // Dati in D1 (binding DB). Le tabelle le crea il codice al primo uso (SCHEMA): nessuna migrazione, nessun permesso in
 // più sul token di GitHub. Gli indirizzi di anteprima (workers.dev, locale) scrivono con sito = "prova": nel database
@@ -73,7 +73,7 @@ const impronta = async (segreto, tipo, valore) => (await firma(segreto, tipo + "
 // il sito che scrive: gommberg.com, oppure "prova" per anteprime e prove in locale
 export const sitoDi = (url) => (url.hostname === "gommberg.com" || url.hostname === "www.gommberg.com") ? "gommberg" : "prova";
 
-// L'edizione: il server non si fida del browser, legge la scheda pubblica e/NNN.json (data e domanda del giorno)
+// L'edizione: il server non si fida del browser, controlla che esista la scheda pubblica e/NNN.json
 const edizioni = new Map();
 async function edizione(env, url, n) {
   const k = url.host + "/" + n, c = edizioni.get(k);
@@ -87,18 +87,20 @@ async function edizione(env, url, n) {
   return ed;
 }
 
-// Il voto si chiude all'apertura di Wall Street (9:30 a New York) del giorno dell'edizione: dopo si vede già la direzione.
-// Nelle anteprime resta aperto, così il voto si prova su qualunque edizione.
-const aperto = (c, ed) => c.sito === "prova" || ora() < chiusuraVoto(ed.data);
-export function chiusuraVoto(data) {
-  for (const h of [13, 14]) {                        // 9:30 a New York = 13:30 UTC con l'ora legale, 14:30 senza
-    const t = new Date(data + "T" + h + ":30:00Z");
-    const p = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "numeric", hourCycle: "h23" }).formatToParts(t);
-    const hh = +p.find((x) => x.type === "hour").value, mm = +p.find((x) => x.type === "minute").value;
-    if (hh === 9 && mm === 30) return t;
-  }
-  return new Date(data + "T14:30:00Z");
+// Il sentiment (Toro/Orso) è quello di oggi: si vota sull'edizione più recente, tutto il giorno, e si può cambiare finché
+// non esce l'edizione dopo. Le edizioni precedenti mostrano il loro risultato, senza voto. Nelle anteprime è sempre aperto.
+let recente = { t: 0, n: 0 };
+async function ultima(env, url) {
+  if (recente.t > Date.now() - 300000) return recente.n;
+  try {
+    const r = await env.ASSETS.fetch(new Request(new URL("/dati/recenti.json", url)));
+    const j = r.ok ? await r.json() : null;
+    const n = Math.max(0, ...((j && j.edizioni) || []).map((e) => +e.numero || 0));
+    if (n) recente = { t: Date.now(), n };
+  } catch (e) { /* resta l'ultimo valore letto */ }
+  return recente.n;
 }
+const aperto = async (c, n) => c.sito === "prova" || n === (await ultima(c.env, c.url));
 
 // ------------------------------------------------------------------ testo dei lettori
 export function pulisciNome(s) {
@@ -182,16 +184,13 @@ async function gettoneValido(segreto, g) {
 
 async function conteggio(db, sql, ...arg) { const r = await db.prepare(sql).bind(...arg).first(); return r ? Object.values(r)[0] : 0; }
 
-// ------------------------------------------------------------------ lettura: domanda, voti e discussione di un'edizione
+// ------------------------------------------------------------------ lettura: sentiment e discussione di un'edizione
 async function leggi(c, n) {
   const ed = await edizione(c.env, c.url, n);
   if (!ed) return errore("Edizione non trovata.", 404);
-  const out = { n, gettone: await gettone(c.cfg.segreto) };
-  const q = ed.lettori && ed.lettori.domanda;
-  if (q) out.voto = await statoVoto(c, n, ed);
-  // il voto dell'edizione precedente, per la verifica sulla chiusura ("Ieri ha vinto il Toro: lo aveva detto il 63%")
-  const pr = ed.lettori && ed.lettori.ieri && ed.lettori.ieri.n;
-  if (pr) out.ieri = await totali(c, pr);
+  const out = { n, gettone: await gettone(c.cfg.segreto), voto: await statoVoto(c, n) };
+  // "23 lettori oggi": chi ha votato o scritto su questa edizione, contato una volta
+  out.lettori = await conteggio(c.db, "SELECT COUNT(*) FROM (SELECT autore FROM voti WHERE sito = ?1 AND ed = ?2 UNION SELECT autore FROM commenti WHERE sito = ?1 AND ed = ?2)", c.sito, n);
   const righe = await c.db.prepare(
     `SELECT c.id, c.padre, c.nome, c.testo, c.creato, c.piace, c.autore = ?2 AS mio,
             EXISTS (SELECT 1 FROM piaciuti p WHERE p.commento = c.id AND p.autore = ?2) AS piaciuto,
@@ -209,10 +208,10 @@ async function totali(c, n) {
   const r = await c.db.prepare("SELECT SUM(voto = 'toro') AS toro, SUM(voto = 'orso') AS orso FROM voti WHERE sito = ? AND ed = ?").bind(c.sito, n).first();
   return { toro: (r && r.toro) || 0, orso: (r && r.orso) || 0 };
 }
-async function statoVoto(c, n, ed) {
+async function statoVoto(c, n) {
   const t = await totali(c, n);
   const mio = c.autore ? await c.db.prepare("SELECT voto FROM voti WHERE sito = ? AND ed = ? AND autore = ?").bind(c.sito, n, c.autore).first() : null;
-  return { ...t, mio: mio ? mio.voto : null, aperto: aperto(c, ed), chiude: iso(chiusuraVoto(ed.data)) };
+  return { ...t, mio: mio ? mio.voto : null, aperto: await aperto(c, n) };
 }
 
 // ------------------------------------------------------------------ scrittura
@@ -256,8 +255,8 @@ async function scrivi(c, n, corpo) {
 
 async function vota(c, n, corpo) {
   const ed = await edizione(c.env, c.url, n);
-  if (!ed || !(ed.lettori && ed.lettori.domanda)) return errore("Per questa edizione non c'è la domanda.", 404);
-  if (!aperto(c, ed)) return errore("Il voto si è chiuso all'apertura di Wall Street.", 409);
+  if (!ed) return errore("Edizione non trovata.", 404);
+  if (!(await aperto(c, n))) return errore("Il sentiment si vota sull'edizione di oggi.", 409);
   const v = corpo.voto;
   if (v !== "toro" && v !== "orso" && v !== null) return errore("Voto non valido.");
   if (v === null) {
@@ -269,7 +268,7 @@ async function vota(c, n, corpo) {
     await c.db.prepare(`INSERT INTO voti (sito, ed, autore, voto, ip, creato) VALUES (?, ?, ?, ?, ?, ?)
                         ON CONFLICT (sito, ed, autore) DO UPDATE SET voto = excluded.voto`).bind(c.sito, n, c.autore, v, c.ip, iso(ora())).run();
   }
-  return risposta({ voto: await statoVoto(c, n, ed) });
+  return risposta({ voto: await statoVoto(c, n) });
 }
 
 async function commento(c, id) {

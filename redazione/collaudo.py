@@ -1200,8 +1200,8 @@ def passo_sito():
 
 
 def passo_lettori(copia):
-    """La parola ai lettori (G-13): il servizio vero contro un D1 finto (redazione/sito/prova_lettori.mjs, Node 22.5+),
-    la sintassi del codice che gira nel browser, la domanda del giorno calcolata da pagine.py e la configurazione."""
+    """La Community (G-13): il servizio vero contro un D1 finto (redazione/sito/prova_lettori.mjs, Node 22.5+),
+    la sintassi del codice che gira nel browser e la configurazione."""
     male = []
     node = shutil.which("node")
     if not node:
@@ -1230,41 +1230,7 @@ def passo_lettori(copia):
             male.append("wrangler.jsonc: main, run_worker_first o il database non sono quelli di lettori.js")
     except Exception as e:  # noqa: BLE001
         male.append(f"wrangler.jsonc: {e}"[:90])
-    # la domanda dell'ultima edizione, così com'è nel sito
-    voci = json.load(open(os.path.join(copia, "edizioni.json"), encoding="utf-8"))
-    ultimo = max(v["numero"] for v in voci)
-    L = json.load(open(os.path.join(copia, "e", f"{ultimo:03d}.json"), encoding="utf-8")).get("lettori") or {}
-    if L and not re.match(r"^(Dopo [^,]+, oggi|Oggi) l'S&P 500 sale o scende\?$", L.get("domanda", "")):
-        male.append(f"e/{ultimo:03d}.json: domanda fuori forma: {L.get('domanda')!r}"[:120])
-    # casi costruiti: Thanksgiving (niente domanda), il giorno dopo (niente verifica), una serie di cali, un -2%
-    finto = os.path.join(TMP, "domande")
-    os.makedirs(os.path.join(finto, "redazione", "scommessa", "dati"), exist_ok=True)
-    for f in ("giorni.py", "prepara.sh", "gommberg_engine.py"):
-        shutil.copy(os.path.join(R, f), os.path.join(finto, "redazione", f))
-    chiusure = [("2026-11-17", 100), ("2026-11-18", 99), ("2026-11-19", 98), ("2026-11-20", 97), ("2026-11-23", 98),
-                ("2026-11-24", 95.9), ("2026-11-25", 94)]
-    open(os.path.join(finto, "redazione", "scommessa", "dati", "spx.csv"), "w").write(
-        "data,valore\n" + "".join(f"{d},{v}\n" for d, v in chiusure))
-    eds = [{"numero": n, "data": d, "ticker_al": a} for n, d, a in ((1, "2026-11-23", "2026-11-20"), (2, "2026-11-24", "2026-11-23"),
-                                                                    (3, "2026-11-25", "2026-11-24"), (4, "2026-11-26", "2026-11-25"),
-                                                                    (5, "2026-11-27", "2026-11-25"))]
-    sys.path.insert(0, R)
-    import pagine
-    pagine.domande(finto, eds)
-    d = {e["numero"]: e.get("lettori") for e in eds}
-    attese = [
-        (d[1] and d[1]["domanda"] == "Dopo tre cali di fila, oggi l'S&P 500 sale o scende?", "tre cali di fila"),
-        (d[2] and d[2]["domanda"] == "Oggi l'S&P 500 sale o scende?" and d[2]["ieri"]["vince"] == "toro" and d[2]["ieri"]["giorno"] == "ieri", "verifica del giorno prima"),
-        (d[1] and "ieri" not in d[1], "primo giorno: niente verifica"),
-        (d[3] and d[3]["ieri"]["var"] == "-2,1%" and d[3]["ieri"]["vince"] == "orso" and d[3]["domanda"] == "Oggi l'S&P 500 sale o scende?", "ieri -2,1%: il movimento lo dice la verifica"),
-        (d[4] is None, "Thanksgiving: niente domanda"),
-        (d[5] and "ieri" not in d[5] and d[5]["domanda"] == "Dopo il -2,0% di mercoledì, oggi l'S&P 500 sale o scende?",
-         "dopo Thanksgiving: niente verifica, il movimento di mercoledì nella domanda"),
-        (d[2] and d[2].get("esito", {}).get("var") == "-2,1%", "esito della domanda dalla chiusura del giorno"),
-    ]
-    male += ["domanda: " + nome for ok, nome in attese if not ok]
-    esito("Lettori: codice, configurazione e domanda del giorno", not male, "; ".join(male)[:300] or
-          f"domanda del n. {ultimo}: {L.get('domanda', 'nessuna (Wall Street chiusa)')}")
+    esito("Lettori: codice e configurazione", not male, "; ".join(male)[:300] or "sintassi, nomi riservati, versione dei file e configurazione in ordine")
 
 
 def passo_pubblicazione(copia):
