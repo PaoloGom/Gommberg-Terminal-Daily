@@ -19,7 +19,7 @@ Lista delle cose da fare: il **Registro dei lavori** (artifact `97f08bbc-950b-4b
 **Affidabilità della macchina** (pilastro 5). Il rilascio del 21-22/11 è in linea; restano la sua coda e la prima settimana vera.
 
 - **G-39 in corso**: restano la prova pubblicata e tolta (procedura B di `PROVA.md`), il pulsante "Avvia il rilascio" e la vista del piano nel Registro, i due ruoli nella skill (un solo salvataggio, con "Pronta prima di Fatta" e "voce In corso all'apertura"). Slittano al rilascio del 28/11.
-- **G-15 e G-40 in corso**: in linea nel repository e in Kit; bozza di prova della #030 creata in Kit con la cornice (n. 27208167, non spedita: una testata sola, fascia dei mercati). Restano l'invio di prova a una casella Gmail e a una Outlook, che fa Paolo dalla bozza, e la prima email vera di lunedì.
+- **G-40 fatta, G-15 in corso**: in linea nel repository e in Kit; invio di prova dalla bozza della #030 con la cornice (n. 27208167) visto da Paolo il 22/11, tutto bene. A G-15 resta la prima email vera di lunedì.
 - **G-44** (pag. 5 nei giorni con un mercato chiuso, scade giovedì 26/11, Wall Street chiusa): non è entrata nel rilascio. Va con un rilascio piccolo, stessa strada (`rilascia.sh avvia`, correzione, collaudo, `pubblica`), domenica o al più tardi entro mercoledì 25/11.
 - In fila: **G-45** (tre errori della prova che i controlli non vedono), **G-46** (seguiti della prova dopo una settimana vera, più da G-47: il calco "la vendita" nelle forme che il controllo non vede, la ricerca più stretta della seconda prova, il tempo), G-42 (desk che vede le edizioni precedenti, 28/11), G-41, G-43, G-10.
 
@@ -28,10 +28,9 @@ Come si lavora in ogni chat che tocca il motore o il sito: `bash redazione/rilas
 ## Prossimo passo
 **Domenica 22/11, prima dell'email di lunedì:**
 1. **Paolo**: aggiungere il connettore EODHD all'attività del mattino prima delle 8:58 di lunedì. Senza, G-03 lavora con il ripiego su due fonti web.
-2. **Paolo**: dalla bozza n. 27208167 in Kit, invio di prova a una casella Gmail e a una Outlook, viste su PC e telefono (caratteri, segni su/giù, fascia dei mercati). Poi la bozza si può cancellare.
-3. **G-44** in una chat sua (Opus), con un rilascio piccolo: così era già scritto nella sua scheda.
-4. A occhio su PC e telefono: il pannello (anche i vecchi indirizzi #operativita #versioni #metodo) e `numeri.html` nelle tre viste. `sito.yml` ha già verificato che i file in linea sono quelli collaudati.
-5. Rami: `g36-modello` e `pannello` sono carta straccia (tutto ciò che contenevano è in main, verificato il 22/11) e li cancella Paolo da GitHub, pagina Branches: alla sessione di Claude la cancellazione non è permessa. `prova-2026-11-23-prima` **resta** finché G-45 e G-46 non sono chiuse: è l'unica copia della prima edizione di prova (quella dei 39 minuti), perché sul ramo `prova` la seconda l'ha sostituita.
+2. **G-44** in una chat sua (Opus), con un rilascio piccolo: così era già scritto nella sua scheda.
+3. A occhio su PC e telefono: il pannello (anche i vecchi indirizzi #operativita #versioni #metodo) e `numeri.html` nelle tre viste. `sito.yml` ha già verificato che i file in linea sono quelli collaudati.
+4. Rami: `g36-modello` e `pannello` sono carta straccia (tutto ciò che contenevano è in main, verificato il 22/11) e li cancella Paolo da GitHub, pagina Branches: alla sessione di Claude la cancellazione non è permessa. `prova-2026-11-23-prima` **resta** finché G-45 e G-46 non sono chiuse: è l'unica copia della prima edizione di prova (quella dei 39 minuti), perché sul ramo `prova` la seconda l'ha sostituita.
 
 Fatti il 22/11 dopo il merge: modelli in Kit (G-40, G-15); `mattino.yml` lanciato a mano, verde con "borse chiuse, oggi niente edizione"; `newsletter.yml` in modo prova, verde.
 
