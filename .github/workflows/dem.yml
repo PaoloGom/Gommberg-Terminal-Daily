@@ -1,0 +1,59 @@
+# Le mail straordinarie (DEM): allinea Kit ai file di redazione/dem/ (regole e formato in redazione/dem/LEGGIMI.md).
+# Su main, a ogni cambiamento dei file e ogni sera alle 19:30 di Roma (20:30 con l'ora legale): crea, aggiorna, riporta
+# in bozza e toglie gli invii in Kit. Sugli altri rami controlla solo le regole, senza toccare Kit. Nessun token del modello.
+# Se va tutto bene non scrive a nessuno. Se qualcosa va guardato (una bozza vicina alla data senza ok, una mail approvata
+# non partita, Kit che rifiuta un'operazione) il giro fallisce e apre una segnalazione assegnata a Paolo: GitHub gli
+# manda l'email. Una sola segnalazione aperta alla volta. La chiave di Kit è il segreto KIT_API_KEY e non viene mai stampata.
+name: Mail straordinarie
+
+on:
+  push:
+    paths:
+      - 'redazione/dem/**'
+      - 'redazione/dem.py'
+      - 'pannello/invii.json'
+      - '.github/workflows/dem.yml'
+  schedule:
+    - cron: "30 18 * * *"
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "piano = legge Kit e dice che cosa farebbe; sincronizza = allinea Kit ai file; controlla = solo le regole"
+        type: choice
+        options: [piano, sincronizza, controlla]
+        default: piano
+
+permissions:
+  contents: read
+  issues: write                    # la segnalazione a Paolo
+
+concurrency:
+  group: dem                       # mai due allineamenti insieme
+  cancel-in-progress: false
+
+jobs:
+  allinea:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mail straordinarie
+        env:
+          KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
+          MODO: ${{ github.event.inputs.modo || (github.ref == 'refs/heads/main' && 'sincronizza' || 'controlla') }}
+        run: |
+          echo "Modo: $MODO"
+          python3 redazione/dem.py "$MODO" | tee esito.txt | tee -a "$GITHUB_STEP_SUMMARY"
+          exit "${PIPESTATUS[0]}"
+      - name: Segnalazione a Paolo
+        if: failure() && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          T="Mail straordinarie: c'è qualcosa da guardare"
+          N=$(gh issue list --state open --search "\"$T\" in:title" --json number -q 'length' 2>/dev/null || echo 0)
+          [ -f esito.txt ] || echo "Il giro non è arrivato a scrivere l'esito: vedi il log di GitHub Actions." > esito.txt
+          if [ "$N" = "0" ]; then
+            gh issue create --title "$T" --assignee "${{ github.repository_owner }}" --body-file esito.txt \
+              || echo "::warning::Segnalazione non creata: resta l'avviso di GitHub per il giro fallito."
+          fi

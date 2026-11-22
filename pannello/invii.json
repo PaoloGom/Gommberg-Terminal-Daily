@@ -1,0 +1,19 @@
+{
+ "regole": {
+  "min_giorni": 21,
+  "promemoria_giorni": 10,
+  "ore": "8:00-20:59",
+  "finestra_edizione": "7:00-10:59"
+ },
+ "invii": [
+  {
+   "nome": "2026-12-19-auguri",
+   "invio": "2026-12-19T10:00",
+   "stato": "bozza",
+   "oggetto": "Buone feste dal Gommberg",
+   "ok": "",
+   "sondaggio": true,
+   "parole": 135
+  }
+ ]
+}

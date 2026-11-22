@@ -636,6 +636,81 @@ def passo_scommessa():
           "il lunedì pag. 6 stampa lo scenario del registro")
 
 
+# ---------------------------------------------------------------- 3e. mail straordinarie (G-17)
+def passo_dem():
+    """Le mail straordinarie: i file veri passano le regole e pannello/invii.json è allineato; le regole fermano i casi
+    sbagliati; il pianificatore decide in Kit la cosa giusta in ogni stato (senza rete: Kit finto)."""
+    rc, out = esegui([sys.executable, os.path.join(R, "dem.py")])
+    righe = [l for l in out.splitlines() if "ERRORE" in l]
+    esito("Mail straordinarie: file e vista del pannello", rc == 0, "regole rispettate, pannello/invii.json allineato"
+          if rc == 0 else "; ".join(righe)[:300])
+
+    sys.path.insert(0, R)
+    import dem
+    from datetime import datetime, timezone
+    from pathlib import Path as P
+    lav = P(TMP) / "dem"
+    def scrivi(nome, invio, stato="bozza", extra="", corpo="Testo di prova della redazione."):
+        (lav / nome).write_text(f"---\ninvio: {invio}\nstato: {stato}\noggetto: Oggetto di prova\n"
+                                f"anteprima: Una riga di anteprima abbastanza lunga.\n{extra}---\n{corpo}\n", encoding="utf-8")
+    def errori(*file):
+        shutil.rmtree(lav, ignore_errors=True)
+        lav.mkdir(parents=True)
+        for f in file:
+            scrivi(*f)
+        mail = dem.leggi_tutte(lav)
+        dem.regole_calendario(mail)
+        return [x for m in mail for x in m.errori]
+    casi = [("valida, sabato mattina", [("2027-01-16-prova.md", "2027-01-16 10:00")], False),
+            ("nella finestra dell'edizione", [("2027-01-18-prova.md", "2027-01-18 09:00")], True),
+            ("di notte", [("2027-01-16-prova.md", "2027-01-16 22:30")], True),
+            ("approvata senza ok", [("2027-01-16-prova.md", "2027-01-16 10:00", "approvata")], True),
+            ("approvata con ok", [("2027-01-16-prova.md", "2027-01-16 10:00", "approvata", "ok: Paolo 2027-01-02\n")], False),
+            ("trattino lungo", [("2027-01-16-prova.md", "2027-01-16 10:00", "bozza", "", "Una frase \u2014 con il trattino lungo.")], True),
+            ("due mail a 10 giorni", [("2027-01-16-una.md", "2027-01-16 10:00"), ("2027-01-26-due.md", "2027-01-26 18:00")], True),
+            ("due mail a 10 giorni, una annullata", [("2027-01-16-una.md", "2027-01-16 10:00", "annullata"), ("2027-01-26-due.md", "2027-01-26 18:00")], False),
+            ("data del nome diversa dall'invio", [("2027-01-17-prova.md", "2027-01-16 10:00")], True),
+            ("sondaggio con una risposta", [("2027-01-16-prova.md", "2027-01-16 10:00", "bozza", "", "?? Domanda?\n- Una sola")], True),
+            ("link non https", [("2027-01-16-prova.md", "2027-01-16 10:00", "bozza", "", "Leggi [qui](http://gommberg.com/).")], True)]
+    sbagliati = [nome for nome, file, ferma in casi if bool(errori(*file)) != ferma]
+
+    # il pianificatore: ora fissa, Kit finto
+    ora = datetime(2027, 1, 10, 12, 0, tzinfo=timezone.utc)
+    errori(("2027-01-16-a.md", "2027-01-16 10:00", "approvata", "ok: Paolo 2027-01-02\n"),
+           ("2027-02-13-b.md", "2027-02-13 10:00", "bozza"),
+           ("2027-03-13-c.md", "2027-03-13 10:00", "annullata"),
+           ("2027-01-01-d.md", "2027-01-01 18:00", "approvata", "ok: Paolo 2026-12-20\n"),
+           ("2027-01-13-e.md", "2027-01-13 18:00", "bozza"))
+    mail = dem.leggi_tutte(lav)
+    k = lambda send, partito: {"id": 1, "send_at": send, "partito": partito}
+    situazioni = [  # (Kit prima, azione attesa per ogni mail, quante frasi da guardare)
+        ({}, {"a": "crea-programmata", "b": "crea-bozza", "c": "nulla", "d": "nulla", "e": "crea-bozza"}, 2),
+        ({"a": k(None, False), "b": k(datetime(2027, 2, 13, 9, tzinfo=timezone.utc), False), "c": k(datetime(2027, 3, 13, 9, tzinfo=timezone.utc), False),
+          "d": k(datetime(2027, 1, 1, 17, tzinfo=timezone.utc), True), "e": k(None, False), "orfano": k(datetime(2027, 4, 1, tzinfo=timezone.utc), False)},
+         {"a": "allinea-programmata", "b": "allinea-bozza", "c": "elimina", "d": "nulla", "e": "allinea-bozza", "orfano": "elimina"}, 2)]
+    for kit, attese, n_guardare in situazioni:
+        kit = {dem.ETICHETTA + (next((m.nome for m in mail if m.nome.endswith("-" + x)), x)): v for x, v in kit.items()}
+        azioni, guardare = dem.piano(mail, kit, ora)
+        fatte = {a[1].rsplit("-", 1)[-1]: a[0] for a in azioni}
+        if any(fatte.get(x) != v for x, v in attese.items()) or len(guardare) != n_guardare:
+            sbagliati.append(f"pianificatore: atteso {attese} e {n_guardare} da guardare, trovato {fatte} e {len(guardare)}")
+    # vicino alla partenza: una mail programmata che parte tra 10 minuti non si tocca
+    vicina = datetime(2027, 1, 16, 8, 50, tzinfo=timezone.utc)
+    azioni, _ = dem.piano([m for m in mail if m.nome.endswith("-a")], {dem.ETICHETTA + "2027-01-16-a": k(datetime(2027, 1, 16, 9, tzinfo=timezone.utc), False)}, vicina)
+    if azioni[0][0] != "nulla":
+        sbagliati.append("una mail che parte tra 10 minuti è stata toccata")
+
+    # la composizione: sondaggio con un link per risposta verso la pagina di ringraziamento, niente segni rimasti
+    errori(("2027-01-16-s.md", "2027-01-16 10:00", "bozza", "pulsante: Leggi | https://gommberg.com/\nnota: Postilla.\n",
+            "## Titoletto\n\n- uno\n- due\n\n?? Domanda?\n- Prima\n- Seconda\n- Terza\n\n> Riquadro con **grassetto**."))
+    m = dem.leggi_tutte(lav)[0]
+    corpo = dem.componi(m)[2]
+    if corpo.count("grazie.html?d=2027-01-16-s&amp;r=") != 3 or "??" in corpo or "**" in corpo or "{{" in corpo or "Postilla." not in corpo:
+        sbagliati.append("composizione: sondaggio, segni o postilla non resi")
+    esito("Mail straordinarie: regole, pianificatore e composizione", not sbagliati,
+          f"{len(casi)} casi di regole, Kit in due situazioni, partenza vicina, composizione" if not sbagliati else "; ".join(sbagliati)[:400])
+
+
 # ---------------------------------------------------------------- 4. rete di non regressione
 RETE = os.path.join(R, "rete")
 MONDO = os.path.join(RETE, "mondo")
@@ -987,6 +1062,7 @@ def main():
         passo_dati()
         passo_tabelle()
         passo_scommessa()
+        passo_dem()
         passo_rete()
         copia = passo_sito()
         if isinstance(copia, str):
