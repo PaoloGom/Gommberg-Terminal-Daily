@@ -253,7 +253,7 @@ rect.na.fut { stroke: var(--rule); opacity: .5; }
 <script>window.goatcounter = { no_onload: true };</script>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="stylesheet" href="assets/sito.css">
-<script src="assets/mercati.js?v=2026-11-16"></script>
+<script src="assets/mercati.js?v=2026-11-22b"></script>
 </head>
 <body>
 <header class="gn-mast"><div class="gn-top"><div class="gn-brand"><p class="gn-logo"><a href="./" title="Torna all'ultima edizione"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></p><p class="gn-pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p></div><nav class="gn-nav" aria-label="Sezioni del sito"><a href="./" data-s="Edizione">Ultima edizione</a><a href="archivio.html" aria-current="page">Archivio</a><a href="glossario.html">Impara</a><a href="scommessa.html" data-s="Scommessa">La scommessa</a><a href="progetto.html">Chi siamo</a></nav></div></header>
@@ -467,7 +467,7 @@ rect.na.fut { stroke: var(--rule); opacity: .5; }
       const strip = el("span", "mstrip"); [...list].reverse().forEach((e) => strip.appendChild(el("i", classe(g(e))))); s.appendChild(strip);
       s.appendChild(el("span", "mc", list.length + (list.length === 1 ? " edizione" : " edizioni")));
       const mv = el("span", "mv"), a = list[list.length - 1], b = list[0];
-      if (!filtro && a.m && b.m && list.length > 1) { const ch = (b.m[0] / a.m[0] - 1) * 100; mv.appendChild(el("small", "", "Mondo ")); mv.appendChild(el("span", ch >= 0 ? "up" : "down", sgn(ch, 1))); mv.title = "Borsa mondiale nel mese"; }
+      if (!filtro && a.m && b.m && list.length > 1) { const ch = (b.m[0] / a.m[0] - 1) * 100; const mo = el("small", "", "Mondo"); if (window.GM) GM.segna(mo, "Mondo"); mv.append(mo, " "); mv.appendChild(el("span", ch >= 0 ? "up" : "down", sgn(ch, 1))); }
       s.appendChild(mv); s.appendChild(el("span", "mx", "›"));
       det.appendChild(s);
       const ul = el("ul", "ax-rows"); det.appendChild(ul);

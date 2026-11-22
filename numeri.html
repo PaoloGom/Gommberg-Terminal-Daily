@@ -53,12 +53,20 @@ main{padding-block:34px 56px}
 .rng-t s{position:absolute;top:-6px;width:3px;height:16px;background:var(--orange);text-decoration:none;margin-left:-1px}
 .rng-l{display:flex;justify-content:space-between;font-family:var(--mono);font-size:13px}
 .gc{position:relative;background:var(--sheet);border:1px solid var(--rule);border-radius:6px;padding:16px 18px 18px}
-.gc-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.gc-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
 .gc-head h4{margin:0;font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .gc-head h4 span{letter-spacing:0;text-transform:none}
 .seg{display:inline-flex;border:1px solid var(--rule)}
-.seg button{border:0;background:transparent;color:var(--muted);font-family:var(--mono);font-size:12px;min-height:34px;padding:0 16px;cursor:pointer}
+.seg button{border:0;background:transparent;color:var(--muted);font-family:var(--mono);font-size:12px;min-height:34px;min-width:46px;padding:0 13px;cursor:pointer}
+.seg button + button{border-left:1px solid var(--rule)}
+.seg[hidden]{display:none}
 .seg button[aria-pressed="true"]{background:var(--orange);color:#0E0E0E}
+/* il periodo scelto, in una riga: quanto è salito o sceso, tra quali valori, con quante visite */
+.gc-per{margin:0 0 14px;font-family:var(--mono);font-size:12.5px;line-height:1.5;color:var(--muted)}
+.gc-per b{font-family:var(--body);font-weight:600;color:var(--ink);margin-right:10px}
+.gc-per .up{color:var(--up)}.gc-per .down{color:var(--down)}
+.gc-per span + span::before{content:"·";margin:0 8px;color:var(--muted)}
+.gc-fr{margin:12px 0 0;padding-top:10px;border-top:1px solid var(--rule);font-size:13px;line-height:1.5;color:var(--muted)}
 .gc-box{min-height:320px}
 .gc-box svg{display:block;width:100%;overflow:visible}
 .gc-box text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
@@ -77,15 +85,10 @@ main{padding-block:34px 56px}
 .gc-tip .t{font-family:var(--display);font-stretch:88%;font-weight:700;font-size:14px;line-height:1.3;margin-bottom:8px}
 .gc-tip .l{font-family:var(--mono);font-size:12px}
 @media (prefers-color-scheme:dark){.gc-tip .k{color:var(--orange-ink)}}
-.gc-leg{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;margin-top:12px;padding-top:10px;border-top:1px solid var(--rule);font-size:12px;color:var(--muted)}
+.gc-leg{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;margin-top:8px;font-size:12px;color:var(--muted)}
 .gc-leg > span{display:inline-flex;align-items:center;gap:6px;position:relative}.gc-leg [hidden]{display:none}
 .gc-leg i{display:inline-block;width:9px;height:9px}
 .gc-leg i.su{background:var(--up)}.gc-leg i.giu{background:var(--down)}.gc-leg i.p{border:1px dashed var(--muted)}
-.gc-leg i.cnd{position:relative;width:9px;height:16px;background:linear-gradient(var(--up),var(--up)) 4px 0/1px 16px no-repeat,linear-gradient(var(--up),var(--up)) 0 4px/9px 8px no-repeat}
-.gc-leg i.brs{width:11px;height:14px;background:linear-gradient(var(--up),var(--up)) 0 7px/3px 7px no-repeat,linear-gradient(var(--up),var(--up)) 4px 0/3px 14px no-repeat,linear-gradient(var(--down),var(--down)) 8px 9px/3px 5px no-repeat;opacity:.7}
-.gc-leg button{background:transparent;border:0;padding:0;font:inherit;color:inherit;cursor:help;text-align:left}
-.gc-leg button b{color:var(--ink);font-weight:600;border-bottom:1px dotted var(--muted)}
-.gc-leg .lt{position:absolute;left:0;bottom:calc(100% + 8px);z-index:5;width:340px;max-width:80vw;padding:10px 12px;background:var(--ink);color:var(--paper);font-size:12px;line-height:1.5;box-shadow:0 6px 18px rgba(0,0,0,.25)}
 .gc-leg a{margin-left:auto;color:var(--orange-ink);text-underline-offset:3px}
 .gm-nd{margin:10px 0 0;font-size:13px;color:var(--muted)}
 /* ---------- Le altre sezioni ---------- */
@@ -143,14 +146,13 @@ main{padding-block:34px 56px}
         <div class="gk-f"><span>Visite di ieri</span><span id="gvI"></span></div></div>
     </div>
     <div class="gc">
-      <div class="gc-head"><h4>Andamento del GOMM <span id="gcSub">· ogni candela è un giorno</span></h4>
-        <div class="seg" id="seg" role="group" aria-label="Scala del grafico"><button type="button" data-g="g" aria-pressed="true">Giorni</button><button type="button" data-g="s" aria-pressed="false">Settimane</button><button type="button" data-g="m" aria-pressed="false">Mesi</button></div></div>
+      <div class="gc-head"><h4>Andamento del GOMM</h4><div class="seg" id="seg" role="group" aria-label="Periodo del grafico"></div></div>
+      <p class="gc-per" id="gcPer">&nbsp;</p>
       <div class="gc-box" id="gcBox"><p class="gm-nd">Carico i dati del contatore...</p></div>
       <div class="gc-tip" id="gcTip" hidden></div>
+      <p class="gc-fr" id="gcSub">&nbsp;</p>
       <div class="gc-leg">
-        <span><i class="cnd" aria-hidden="true"></i><button type="button" data-l="c" aria-describedby="ltC"><b>Candela</b></button><span id="lgC">: il GOMM, cioè la media delle visite degli ultimi 7 giorni</span><span class="lt" role="tooltip" id="ltC" hidden></span></span>
         <span><i class="su" aria-hidden="true"></i>sale</span><span><i class="giu" aria-hidden="true"></i>scende</span><span id="lgP"><i class="p" aria-hidden="true"></i>oggi, in corso</span>
-        <span><i class="brs" aria-hidden="true"></i><button type="button" data-l="v" aria-describedby="ltV"><b>Barre</b></button><span id="lgV">: il volume, cioè le visite del giorno</span><span class="lt" role="tooltip" id="ltV" hidden></span></span>
         <a href="#come-contiamo" id="lgK">Come si calcola</a>
       </div>
     </div>
@@ -191,7 +193,8 @@ main{padding-block:34px 56px}
     <ul>
       <li><b>Visite</b>: pagine aperte sul sito, contate da GoatCounter senza cookie. Non sono persone: chi torna tre volte conta tre visite. Per questo non scriviamo "lettori". Contiamo tutte le visite, comprese quelle della redazione.</li>
       <li><b>Il GOMM</b>: la media delle visite degli ultimi 7 giorni, divisa per la media della settimana dal 17 al 23 ottobre 2026 e moltiplicata per 100, con un decimale. La media a 7 giorni toglie l'effetto del fine settimana. Il valore grande è la chiusura dell'ultimo giorno completo (ieri); quello di oggi è provvisorio, perché il contatore pubblico si aggiorna ogni 4 ore.</li>
-      <li><b>Le candele</b>: con i Giorni il corpo va dal GOMM del giorno prima a quello del giorno, senza linea sottile, perché il contatore pubblico dà solo giorni interi. Con Settimane (da lunedì a domenica) e Mesi il corpo va dal GOMM di fine periodo precedente a quello di fine periodo e la linea sottile dal minimo al massimo dei GOMM giornalieri. Verde se sale, rossa se scende.</li>
+      <li><b>Le candele</b>: fino a tre mesi ogni candela è un giorno e va dal GOMM del giorno prima a quello del giorno. Sui periodi più lunghi una candela è una settimana (da lunedì a domenica), oltre i due anni un mese: il corpo va dal GOMM di inizio a quello di fine periodo, la linea sottile dal minimo al massimo. Verde se sale, rossa se scende.</li>
+      <li><b>Il periodo</b>: i pulsanti sopra il grafico scelgono quanto indietro guardare. La riga sotto dice di quanto è cambiato il GOMM in quel periodo, tra quali valori si è mosso e con quante visite. Un periodo compare quando c'è abbastanza storia per riempirlo.</li>
       <li><b>Il volume</b>: le visite del giorno, della settimana o del mese. È il dato grezzo da cui nasce il GOMM.</li>
       <li><b>Intervallo</b>: il minimo e il massimo del GOMM dalla quotazione; dopo un anno di storia, delle ultime 52 settimane.</li>
       <li><b>Condivisioni</b>: i clic su WhatsApp e "Copia link". Chi riceve il PDF da un amico non è contato.</li>
@@ -229,22 +232,24 @@ main{padding-block:34px 56px}
   let EDIZ = {};   // data -> edizione, per il riquadro delle candele dei giorni
   let D = null;    // i dati del GOMM
 
-  /* ---------- Periodi: giorni, settimane (lunedì-domenica), mesi ---------- */
-  function periodi(g) {
-    const gi = D.giorni.filter((x) => x.i != null);
+  /* ---------- Periodi: giorni, settimane (lunedì-domenica), mesi; n = quanti giorni indietro dalla chiusura di ieri ---------- */
+  function periodi(g, n) {
+    const tutti = D.giorni.filter((x) => x.i != null), gi = n ? tutti.slice(-n) : tutti;
     if (g === "g") {
-      const P = gi.slice(-30).map((x) => ({ a: x.d, b: x.d, items: [x] }));
+      const P = gi.map((x) => ({ a: x.d, b: x.d, items: [x] }));
       if (D.oggi && D.oggi.i != null) P.push({ a: D.oggi.d, b: D.oggi.d, items: [D.oggi], p: true });
       return P;
     }
+    const dal = gi.length ? gi[0].d : "";
     const chiave = (s) => { if (g === "m") return s.slice(0, 7); const d = G.dt(s); d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7)); return iso(d); };
     const P = [], map = {};
-    D.giorni.forEach((x) => {   // tutti i giorni per il volume, solo quelli con il GOMM per le candele
+    D.giorni.forEach((x) => {   // tutti i giorni del periodo per il volume, solo quelli con il GOMM per le candele
+      if (x.d < dal) return;
       const k = chiave(x.d);
       if (!map[k]) { map[k] = { k: k, a: x.d, b: x.d, items: [], tutti: [] }; P.push(map[k]); }
       map[k].b = x.d; map[k].tutti.push(x); if (x.i != null) map[k].items.push(x);
     });
-    return P.filter((p) => p.items.length).slice(g === "s" ? -26 : -24);
+    return P.filter((p) => p.items.length);
   }
   function candele(P, g) {
     const gi = D.giorni;
@@ -290,26 +295,47 @@ main{padding-block:34px 56px}
   }
 
   /* ---------- Il grafico ---------- */
-  let SCALA = "g", SEL = null;
-  const TESTI = {
-    g: { sub: "· ogni candela è un giorno", c: ": il GOMM, cioè la media delle visite degli ultimi 7 giorni", v: ": il volume, cioè le visite del giorno",
-         cl: "La candela è il GOMM del giorno: la media delle visite degli ultimi 7 giorni, messa in indice (100 = la settimana 17-23 ottobre). La media toglie l'effetto del fine settimana e mostra se il Gommberg sta crescendo. Il corpo va dal GOMM del giorno prima a quello del giorno: verde se sale, rosso se scende. Quella tratteggiata è oggi, che si completa a mezzanotte.",
-         vl: "Le barre sono il volume: quante volte è stato aperto il sito quel giorno. È il dato grezzo da cui nasce il GOMM e ne spiega i movimenti: nei giorni feriali si legge più che nel fine settimana." },
-    s: { sub: "· ogni candela è una settimana, da lunedì a domenica", c: ": il GOMM nella settimana, corpo da inizio a fine, linea sottile da minimo a massimo", v: ": il volume, cioè le visite della settimana",
-         cl: "Ogni candela è una settimana: il corpo va dal GOMM di fine della settimana prima a quello di fine settimana, la linea sottile dal minimo al massimo toccati. Verde se nella settimana il GOMM è salito, rossa se è sceso. L'ultima è la settimana in corso, ferma alla chiusura di ieri.",
-         vl: "Le barre sono il volume: quante volte è stato aperto il sito in quella settimana. È il dato grezzo da cui nasce il GOMM." },
-    m: { sub: "· ogni candela è un mese", c: ": il GOMM nel mese, corpo da inizio a fine, linea sottile da minimo a massimo", v: ": il volume, cioè le visite del mese",
-         cl: "Ogni candela è un mese: il corpo va dal GOMM di fine del mese prima a quello di fine mese, la linea sottile dal minimo al massimo toccati. Verde se nel mese il GOMM è salito, rossa se è sceso. L'ultima è il mese in corso, fermo alla chiusura di ieri.",
-         vl: "Le barre sono il volume: quante volte è stato aperto il sito in quel mese. È il dato grezzo da cui nasce il GOMM." } };
+  // Il lettore sceglie il periodo; la scala delle candele la decide la pagina: giorni fino a tre mesi, poi settimane,
+  // oltre i due anni mesi. Così il grafico è sempre pieno, oggi come tra cinque anni. Un periodo compare solo quando
+  // la storia è più lunga di lui: prima sarebbe uguale a "Tutto".
+  const PERIODI = [{ k: "7g", n: 7, t: "7G", nome: "Ultimi 7 giorni" }, { k: "1m", n: 30, t: "1M", nome: "Ultimo mese" }, { k: "3m", n: 91, t: "3M", nome: "Ultimi 3 mesi" },
+                   { k: "6m", n: 182, t: "6M", nome: "Ultimi 6 mesi" }, { k: "1a", n: 365, t: "1A", nome: "Ultimo anno" }, { k: "tutto", n: 0, t: "Tutto", nome: "" }];
+  let PER = null, SEL = null;
+  const storia = () => D.giorni.filter((x) => x.i != null).length;
+  const scala = (n) => n <= 92 ? "g" : n <= 730 ? "s" : "m";
+  const FRASE = {
+    g: "Ogni candela è un giorno: verde se il GOMM è salito, rossa se è sceso. Le barre in basso sono le visite del giorno.",
+    s: "Ogni candela è una settimana: il corpo va dal GOMM di inizio a quello di fine settimana, la linea sottile dal minimo al massimo. Le barre in basso sono le visite della settimana.",
+    m: "Ogni candela è un mese: il corpo va dal GOMM di inizio a quello di fine mese, la linea sottile dal minimo al massimo. Le barre in basso sono le visite del mese." };
+  function pulsanti() {
+    const seg = $("seg"), n = storia(), vis = PERIODI.filter((p) => !p.n || n > p.n);
+    if (!PER || !vis.includes(PER)) PER = vis.find((p) => p.k === "1m") || vis[vis.length - 1];
+    seg.innerHTML = ""; seg.hidden = vis.length < 2;
+    vis.forEach((p) => {
+      const b = el("button", "", p.t); b.type = "button"; b.title = p.nome || "Tutta la storia, dalla quotazione"; b.setAttribute("aria-label", b.title);
+      b.setAttribute("aria-pressed", p === PER ? "true" : "false");
+      b.addEventListener("click", () => { PER = p; disegna(); });
+      seg.appendChild(b);
+    });
+  }
   const passo = (r) => [10, 20, 25, 50, 100, 200, 250, 500, 1000, 2000, 5000].find((s) => r / s <= 6) || 10000;
 
   function disegna() {
-    const box = $("gcBox"), tip = $("gcTip"), g = SCALA, T = TESTI[g];
-    document.querySelectorAll("#seg button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.g === g ? "true" : "false"));
-    $("gcSub").textContent = T.sub; $("lgC").textContent = T.c; $("lgV").textContent = T.v; $("ltC").textContent = T.cl; $("ltV").textContent = T.vl;
-    $("lgP").hidden = g !== "g";
+    pulsanti();
+    const box = $("gcBox"), tip = $("gcTip"), ng = PER.n || storia(), g = scala(ng);
+    $("gcSub").textContent = FRASE[g]; $("lgP").hidden = g !== "g";
     tip.hidden = true; box.innerHTML = "";
-    const C = candele(periodi(g), g), N = C.length;
+    const C = candele(periodi(g, PER.n), g), N = C.length;
+    // il periodo in una riga: dalla prima apertura alla chiusura di ieri (il giorno in corso non conta)
+    const fatte = C.filter((c) => !c.p.p), gp = D.giorni.filter((x) => x.i != null).slice(-ng), per = $("gcPer");
+    per.innerHTML = "";
+    if (fatte.length && gp.length) {
+      const a = fatte[0].open, z = D.ieri.i, vs = gp.map((x) => x.i);
+      per.appendChild(el("b", "", PER.nome || "Dal " + giorno(gp[0].d) + (gp[0].d.slice(0, 4) === D.ieri.d.slice(0, 4) ? "" : " " + gp[0].d.slice(0, 4))));
+      per.appendChild(el("span", segno(z, a), freccia(z, a)));
+      per.appendChild(el("span", "", "minimo " + G.num(Math.min(...vs)) + ", massimo " + G.num(Math.max(...vs))));
+      per.appendChild(el("span", "", n0(gp.reduce((t, x) => t + (x.v || 0), 0)) + " visite"));
+    }
     const W = Math.max(280, box.clientWidth), tel = W < 560, AX = 44, PW = W - AX;
     const H1 = tel ? 220 : 300, TOP = 18, VG = 16, HV = tel ? 54 : 70, HL = 20, H = TOP + H1 + VG + HV + HL;
     const hi = Math.max(...C.map((c) => c.hi)) * 1.08, lo = Math.min(...C.map((c) => c.lo)) * 0.85;
@@ -326,7 +352,17 @@ main{padding-block:34px 56px}
     s.appendChild(sv("line", { class: "ax", x1: 0, x2: PW, y1: TOP + H1 + VG / 2, y2: TOP + H1 + VG / 2 }));
     const l2 = sv("text", { class: "lb", x: 0, y: TOP + H1 + VG + 10 }); l2.textContent = "VOLUME · VISITE"; s.appendChild(l2);
     const tv = sv("text", { x: PW + 6, y: YV0 - (HV - 16) + 4 }); tv.textContent = n0(vmax); s.appendChild(tv);
-    const slot = PW / N, bw = Math.max(2, Math.min(slot * (g === "g" ? 0.6 : 0.4), 28));
+    const slot = PW / N, bw = Math.max(2, Math.min(slot * 0.6, 64));
+    // etichette dell'asse: dalla candela più recente all'indietro, ognuna solo se non tocca quella alla sua destra
+    const ETI = {}; let libero = Infinity;
+    for (let k = N - 1; k >= 0; k--) {
+      const c = C[k], x0 = k * slot, cx = x0 + slot / 2, A = G.dt(c.p.a), B = G.dt(c.p.b), m3 = (d) => MESI[d.getUTCMonth()].slice(0, 3);
+      const lab = g === "g" ? (c.p.p ? "oggi" : A.getUTCDate() + "/" + (A.getUTCMonth() + 1))
+        : g === "s" ? (c.p.a === c.p.b ? "" : A.getUTCDate() + (A.getUTCMonth() === B.getUTCMonth() ? "" : " " + m3(A)) + "-") + B.getUTCDate() + " " + m3(B) : m3(A) + " " + A.getUTCFullYear();
+      const w = lab.length * 6.7, an = cx - w / 2 < 0 ? "start" : cx + w / 2 > PW ? "end" : "middle";
+      const sx = an === "start" ? x0 : an === "end" ? x0 + slot - w : cx - w / 2, x = an === "start" ? x0 : an === "end" ? x0 + slot : cx;
+      if (sx + w + 14 <= libero && sx >= -1) { ETI[k] = { lab: lab, x: x, an: an }; libero = sx; }
+    }
     const hls = [];
     const mostra = (k, hit) => {
       SEL = k; hls.forEach((h, j) => h.setAttribute("class", j === k ? "hs hl" : "hs"));
@@ -356,14 +392,7 @@ main{padding-block:34px 56px}
       s.appendChild(sv("rect", { class: cl + (oggi ? " p" : ""), x: cx - bw / 2, y: yb, width: bw, height: hb }));
       const hv = Math.max(1, c.vis / vmax * (HV - 16));
       s.appendChild(sv("rect", { class: cl + (oggi ? " p" : " vol"), x: cx - bw / 2, y: YV0 - hv, width: bw, height: hv }));
-      // etichette: giorni ogni 5 (e oggi), settimane e mesi secondo lo spazio
-      const ogni = g === "g" ? (tel ? 10 : 5) : Math.max(1, Math.ceil(N * (g === "s" ? 70 : 60) / PW));
-      if ((N - 1 - k) % ogni === 0) {
-        const A = G.dt(c.p.a), B = G.dt(c.p.b);
-        const lab = g === "g" ? (oggi ? "oggi" : A.getUTCDate() + "/" + (A.getUTCMonth() + 1)) : g === "s" ? A.getUTCDate() + "-" + B.getUTCDate() + " " + MESI[B.getUTCMonth()].slice(0, 3) : MESI[A.getUTCMonth()].slice(0, 3) + " " + A.getUTCFullYear();
-        const an = cx < 30 ? "start" : cx > PW - 30 ? "end" : "middle";
-        const t = sv("text", { x: an === "start" ? x0 : an === "end" ? x0 + slot : cx, y: H - 4, "text-anchor": an }); t.textContent = lab; s.appendChild(t);
-      }
+      if (ETI[k]) { const e = ETI[k], t = sv("text", { x: e.x, y: H - 4, "text-anchor": e.an }); t.textContent = e.lab; s.appendChild(t); }
       const hit = sv("rect", { class: "hit", x: x0, y: 0, width: slot, height: H - HL, tabindex: "0", role: "img",
         "aria-label": (g === "g" ? giorno(c.p.a) : "dal " + giorno(c.p.a) + " al " + giorno(c.p.b)) + ": GOMM " + G.num(c.close) + ", " + n0(c.vis) + " visite" + (oggi ? ", in corso" : "") });
       hit.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") mostra(k, hit); });
@@ -375,15 +404,8 @@ main{padding-block:34px 56px}
     });
     box.appendChild(s);
   }
-  document.querySelectorAll("#seg button").forEach((b) => b.addEventListener("click", () => { SCALA = b.dataset.g; if (D) disegna(); }));
   document.addEventListener("pointerdown", () => { if (!$("gcTip").hidden) { $("gcTip").hidden = true; document.querySelectorAll("#gcBox rect.hl").forEach((h) => h.setAttribute("class", "hs")); SEL = null; } });
   let largo = 0; window.addEventListener("resize", () => { const w = $("gcBox").clientWidth; if (D && Math.abs(w - largo) > 20) { largo = w; disegna(); } });
-  // legenda: Candela e Barre si spiegano al passaggio, al tocco o con la tastiera; "Come si calcola" apre il metodo
-  document.querySelectorAll(".gc-leg button").forEach((b) => {
-    const t = $(b.getAttribute("aria-describedby")), su = () => { t.hidden = false; }, giu = () => { t.hidden = true; };
-    b.addEventListener("mouseenter", su); b.addEventListener("mouseleave", giu); b.addEventListener("focus", su); b.addEventListener("blur", giu);
-    b.addEventListener("click", (e) => { e.stopPropagation(); t.hidden = !t.hidden; });
-  });
   $("lgK").addEventListener("click", () => { $("come-contiamo").open = true; });
 
   /* ---------- Fai salire il GOMM: WhatsApp e link copiato, contati come le altre condivisioni ---------- */

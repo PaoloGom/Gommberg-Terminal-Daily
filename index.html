@@ -74,27 +74,28 @@ a { color: inherit; }
 .pitch em { font-style: normal; color: var(--orange); }
 .dateline { text-align: right; font-size: 13px; line-height: 1.5; white-space: nowrap; color: var(--bar-muted); }
 .dateline strong { display: block; font-weight: 600; color: var(--bar-ink); }
+/* Il nastro: una cella per mercato, su due righe come nel PDF (nome sopra, chiusura e variazione sotto), larghe uguali
+   quanto serve e separate da un filo. Così nove celle stanno in una riga a 1180 px senza toccarsi. */
 .tape { position: relative; border-top: 1px solid var(--bar-rule); }
-.tape-row { display: flex; justify-content: space-between; align-items: center; height: 30px; overflow-x: auto; scrollbar-width: none; font-family: var(--mono); font-size: 11px; white-space: nowrap; }
+.tape-row { display: flex; align-items: stretch; overflow-x: auto; scrollbar-width: none; font-family: var(--mono); white-space: nowrap; }
 .tape-row::-webkit-scrollbar { display: none; }
-.tk { flex: none; padding: 0 7px; border-left: 1px solid var(--bar-rule); line-height: 1; }
-.tk:first-child { border-left: 0; padding-left: 0; }
+.tk { flex: 1 0 auto; padding: 7px clamp(9px, 1.15vw, 17px) 8px; border-left: 1px solid var(--bar-rule); line-height: 1; }
 .tk:last-child { padding-right: 0; }
-.tk .l { color: var(--bar-muted); margin-right: 5px; }
-.tk .v { color: var(--bar-ink); margin-right: 5px; }
-.tk .c { color: var(--bar-muted); }
+.tk .l { display: block; width: max-content; margin-bottom: 5px; font-size: 10px; letter-spacing: .05em; text-transform: uppercase; color: var(--bar-muted); }
+.tk .l.gm-mk { text-decoration: none; }
+.tk .v { font-size: 12.5px; color: var(--bar-ink); margin-right: 7px; }
+.tk .c { font-size: 12px; color: var(--bar-muted); }
 .tk .c.up { color: var(--up-bar); }
 .tk .c.down { color: var(--down-bar); }
-.tk.when { color: var(--orange); }
+.tk.when { flex-grow: 0; border-left: 0; }
+.tk.when .v { color: var(--orange); margin-right: 0; }
 /* Il GOMM, la quotazione del Gommberg (G-14): primo del nastro, porta a I numeri */
 /* un riquadro suo, staccato dalle chiusure: è la nostra quotazione (chiusura di ieri), non un mercato dell'edizione */
-a.tk.gomm { align-self: stretch; display: flex; align-items: center; margin-right: 8px; padding: 0 8px; border-left: 0; background: var(--bar-2); text-decoration: none; }
+a.tk.gomm { flex-grow: 0; display: block; border-left: 0; background: var(--bar-2); text-decoration: none; }
 a.tk.gomm.gm-mk { text-decoration: none; }
-a.tk.gomm .t { display: inline-block; background: var(--orange); color: #0E0E0E; font-weight: 600; padding: 1px 5px; margin-right: 6px; }
+a.tk.gomm:last-child { padding-right: clamp(9px, 1.15vw, 17px); }
+a.tk.gomm .l { color: var(--orange); font-weight: 500; }
 a.tk.gomm:hover .v, a.tk.gomm:focus-visible .v { color: var(--orange); }
-a.tk.gomm + .tk.when { border-left: 0; padding-left: 0; }
-/* con il GOMM il nastro ha un elemento in più: su PC le celle si stringono per stare tutte in una riga a 1180 px */
-@media (min-width: 761px) { .tape-row { font-size: 10.5px; } .tk { padding: 0 4px; } .tk .l, .tk .v { margin-right: 4px; } a.tk.gomm .t { margin-right: 5px; } }
 
 /* ---------- Il palco: l'edizione di oggi ---------- */
 .stage { background: var(--paper); color: var(--ink); border-bottom: 1px solid var(--ink); }
@@ -184,9 +185,15 @@ main { padding-block: 44px 24px; }
 .kicker { font-family: var(--body); font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--orange-ink); margin: 0; line-height: 1.4; }
 .giorno { display: flex; flex-wrap: wrap; align-items: stretch; gap: 44px 48px; }
 .leggi { flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 40px; padding-top: 22px; }
-/* Voto e invito chiudono "Da leggere" attaccati al fondo: le due colonne finiscono sempre sulla stessa riga */
-.chiusa { margin-top: auto; display: flex; flex-direction: column; gap: 22px; }
-.chiusa .gb { margin: 0; }
+/* Le due colonne finiscono sempre sulla stessa riga, qualunque sia il numero di analisi e di appuntamenti: lo spazio
+   che avanza lo prende un elemento elastico per colonna. A sinistra il grafico del GOMM (da 80 a 230 px), a destra le
+   tessere della scommessa (fino a 360 px in tutto). Solo oltre questi tetti resta del vuoto. */
+.chiusa { flex: 1 1 auto; display: flex; flex-direction: column; gap: 22px; }
+.chiusa .gb { margin: 0; flex: 1 1 auto; display: flex; flex-direction: column; }
+.chiusa .gb .gb-ch { flex: 1 1 auto; display: flex; flex-direction: column; max-height: 280px; }
+.chiusa .gb .gb-m { flex: 1 1 80px; height: auto; min-height: 80px; }
+#bet { flex: 1 1 auto; display: flex; flex-direction: column; }
+#bet .bet-g { flex: 1 1 auto; max-height: 360px; }
 .occhio { flex: 1 1 340px; min-width: 0; background: var(--panel); padding: 22px 22px 26px; display: flex; flex-direction: column; gap: 30px; }
 .sez-h { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px 16px; border-bottom: 3px solid var(--ink); padding-bottom: 10px; margin-bottom: 4px; }
 .sez-h h2 { margin: 0; font-family: var(--display); font-stretch: 85%; font-weight: 900; font-size: 34px; line-height: 1; }
@@ -195,24 +202,24 @@ main { padding-block: 44px 24px; }
 .box-h { display: flex; justify-content: space-between; align-items: baseline; gap: 4px 12px; flex-wrap: wrap; min-height: 22px; margin-bottom: 4px; }
 .box-h span { font-family: var(--mono); font-size: 12px; color: var(--muted); }
 .lnk { display: inline-block; margin-top: 12px; font-size: 13.5px; color: var(--orange-ink); text-underline-offset: 3px; background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit; text-decoration: underline; text-align: left; }
-/* Le notizie del giorno */
-.news { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); column-gap: 36px; }
-.news li { border-bottom: 1px solid var(--rule); }
-.news a { display: grid; grid-template-columns: 40px 1fr; gap: 8px; align-items: start; padding: 13px 0; text-decoration: none; font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 17px; line-height: 1.3; }
-.news a .i { font-stretch: 80%; font-weight: 900; font-size: 30px; line-height: .9; color: var(--orange); }
-.news a .go { display: none; }
-.news a:hover .t { color: var(--orange-ink); }
-.news .t, .an-row .t { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-/* Analisi e storie: tema, tesi e la pagina dove si legge */
+/* Analisi e storie: tema, tesi e la pagina dove si legge. Le notizie di prima pagina non si ripetono qui: sono nel
+   visore accanto al titolo e, in testo, dietro "La prima pagina in testo". Griglia a due colonne; con un numero
+   dispari di analisi la prima (quella di pag. 2) prende tutta la riga, così non resta mai una casella vuota. */
 .an-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); column-gap: 36px; }
-.an-row { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; width: 100%; padding: 16px 0 18px; border: 0; border-top: 1px solid var(--ink); text-align: left; background: none; color: inherit; font: inherit; }
-button.an-row { cursor: pointer; }
+.an-list li { display: flex; }
+.an-list li.apre { grid-column: 1 / -1; }
+.an-row { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto 1fr; gap: 6px 16px; width: 100%; padding: 16px 0 20px; border: 0; border-top: 1px solid var(--ink); text-align: left; background: none; color: inherit; font: inherit; text-decoration: none; }
+button.an-row, a.an-row { cursor: pointer; }
 .an-row .k { font-family: var(--body); font-size: 12.5px; font-weight: 600; color: var(--orange-ink); }
 .an-row .go { grid-row: span 2; font-family: var(--display); font-stretch: 80%; font-weight: 900; font-size: 44px; line-height: .85; color: var(--rule); }
-.an-row .t { font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 21px; line-height: 1.2; }
-button.an-row:hover .t { color: var(--orange-ink); }
-/* Voto, in chiusura di ciò che si legge */
-.vote { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; padding-top: 18px; border-top: 1px solid var(--rule); font-size: 15px; font-weight: 600; }
+.an-row .t { font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 21px; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.an-list li.apre .t { font-size: 29px; line-height: 1.12; font-weight: 800; max-width: 24em; }
+.an-list li.apre .go { font-size: 60px; }
+button.an-row:hover .t, a.an-row:hover .t { color: var(--orange-ink); }
+/* In chiusura di ciò che si legge, su una riga: a sinistra il voto, a destra la prima pagina in testo */
+.coda { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 24px; padding-top: 18px; border-top: 1px solid var(--rule); }
+.coda .lnk { margin-top: 0; }
+.vote { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; font-size: 15px; font-weight: 600; }
 .vote button { font-family: var(--body); font-weight: 600; font-size: 14px; min-height: 44px; min-width: 80px; padding: 0 16px; background: transparent; color: var(--ink); border: 1px solid var(--ink); cursor: pointer; }
 .vote button:hover { background: var(--ink); color: var(--paper); }
 .vote .thx { font-weight: 400; color: var(--muted); }
@@ -337,8 +344,8 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   .mast .top { padding-block: 12px 9px; }
   .pitch { font-size: 14px; margin-top: 5px; }
   .dateline { display: none; }
-  .tape-row { justify-content: flex-start; height: 29px; }
-  .tk { padding: 0 10px; }
+  .tk { flex-grow: 0; padding-inline: 12px; }
+  .tk:last-child { padding-right: 40px; }
   .tape::after { content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 36px; background: linear-gradient(90deg, transparent, var(--bar)); pointer-events: none; }
   h2.headline { font-size: clamp(30px, 8.6vw, 40px); margin-top: 10px; }
   .dek { font-size: 15.5px; margin-top: 12px; }
@@ -356,6 +363,8 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   .vote span { flex-basis: 100%; }
   .sez-h h2 { font-size: 30px; }
   .an-row .t { font-size: 19px; }
+  .an-list li.apre .t { font-size: 23px; }
+  .an-list li.apre .go { font-size: 44px; }
   .how > summary .s em { display: none; }
   .how dl { grid-template-columns: 1fr; }
 }
@@ -366,7 +375,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="stylesheet" href="assets/sito.css">
 <link rel="stylesheet" href="assets/lettori.css?v=2026-11-22e">
-<script src="assets/mercati.js?v=2026-11-22"></script>
+<script src="assets/mercati.js?v=2026-11-22b"></script>
 <script src="assets/gomm.js?v=2026-11-22"></script>
 <script src="assets/lettori.js?v=2026-11-22e"></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "Gommberg Terminal Daily", "alternateName": ["Gommberg", "Gommberg Terminal"], "url": "https://gommberg.com/", "inLanguage": "it-IT", "description": "I mercati globali spiegati, ogni mattina in 6 pagine."}, {"@type": "NewsMediaOrganization", "name": "Gommberg Terminal Daily", "alternateName": "Gommberg", "url": "https://gommberg.com/", "logo": "https://gommberg.com/assets/copertina.png", "founder": {"@type": "Person", "name": "Paolo Gommellini"}, "publishingPrinciples": "https://gommberg.com/progetto.html"}]}</script>
@@ -433,18 +442,13 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   <div class="giorno" id="dayGrid">
     <div class="leggi">
       <div class="sez-h"><h2>Da leggere</h2><span id="leggiMeta"></span></div>
-      <section aria-labelledby="newsK">
-        <div class="box-h"><h3 class="kicker" id="newsK">Le notizie del giorno</h3></div>
-        <ol class="news" id="news"></ol>
-        <a class="lnk" id="newsFull" href="#" hidden>La prima pagina in testo</a>
-      </section>
-      <section id="analisi" aria-labelledby="an-h" hidden>
+      <section id="analisi" aria-labelledby="an-h">
         <div class="box-h"><h3 class="kicker" id="an-h">Analisi e storie</h3><span id="anMeta"></span></div>
         <ul class="an-list" id="anList"></ul>
         <button type="button" class="lnk" id="anMore" hidden></button>
       </section>
       <div class="chiusa">
-        <div class="vote" id="vote" hidden><span id="voteQ">Com'era l'edizione di oggi?</span><button type="button" data-v="si">Utile</button><button type="button" data-v="no">Poco</button></div>
+        <div class="coda"><div class="vote" id="vote" hidden><span id="voteQ">Com'era l'edizione di oggi?</span><button type="button" data-v="si">Utile</button><button type="button" data-v="no">Poco</button></div><a class="lnk" id="newsFull" href="#" hidden>La prima pagina in testo</a></div>
         <section class="gb corta vuoto" id="gb" aria-labelledby="gb-h"><div class="gb-top"><div><h2 class="gb-h" id="gb-h">Fai salire il GOMM</h2><p class="gb-s">La quotazione del Gommberg sale con ogni lettore nuovo.</p></div><p class="gb-v" data-gomm-q><span class="gb-tag">GOMM</span><b data-gomm="v"></b><span class="c" data-gomm="c"></span></p></div><a class="gb-ch" href="numeri.html" data-gomm-q><span class="gb-m" data-gomm="barre" aria-hidden="true"></span><span class="gb-ax" data-gomm="ax"></span></a><div class="gb-bar"><div><p class="gb-t">Inoltrala a chi vuole capire i mercati</p><div class="gb-r"><a class="gb-b pr" id="gbWa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span>WhatsApp</span></a><button type="button" class="gb-b gh" id="gbCopy"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M10 14a4 4 0 0 0 5.7 0l3.6-3.6a4 4 0 0 0-5.7-5.7L12 6.3M14 10a4 4 0 0 0-5.7 0l-3.6 3.6a4 4 0 0 0 5.7 5.7l1.6-1.6"/></svg><span>Copia link</span></button></div></div><div><p class="gb-t">Ricevila ogni mattina alle 9:45. Gratis.</p><div class="gb-r"><a class="gb-b pr" href="iscriviti.html" data-goatcounter-click="invito-iscrizione" data-goatcounter-title="Invito all'iscrizione (clic)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg><span>Iscriviti via email</span></a></div></div></div></section>
       </div>
     </div>
@@ -563,7 +567,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   if (window.GOMM) GOMM.carica().then((d) => {
     if (!d) return;
     const a = el("a", "tk gomm"); a.href = "numeri.html"; a.setAttribute("role", "listitem");
-    a.appendChild(el("span", "t", "GOMM")); a.appendChild(el("span", "v", GOMM.num(d.ieri.i)));
+    a.appendChild(el("span", "l", "GOMM")); a.appendChild(el("span", "v", GOMM.num(d.ieri.i)));
     a.appendChild(el("span", "c " + (d.ieri.i >= d.prima.i ? "up" : "down"), GOMM.pct(d.ieri.i, d.prima.i)));
     if (window.GM) GM.segna(a, "GOMM");
     GOMM_TK = a; const row = $("tapeRow"); if (row && row.firstChild) row.insertBefore(a, row.firstChild);
@@ -585,7 +589,8 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     if (!Array.isArray(t) || !t.length) { $("tape").hidden = true; return; }
     const row = $("tapeRow"); row.innerHTML = "";
     if (GOMM_TK) row.appendChild(GOMM_TK);
-    const w = el("div", "tk when", chiusure(ed)); w.setAttribute("role", "listitem");
+    const quando = chiusure(ed), w = el("div", "tk when"); w.setAttribute("role", "listitem");
+    w.appendChild(el("span", "l", "Chiusure")); w.appendChild(el("span", "v", quando.replace(/^Chiusure\s+/, "")));
     w.title = "Chiusure riportate nell'edizione n. " + pad(ed.numero) + ", non quotazioni in tempo reale";
     row.appendChild(w);
     // i mercati della scommessa di questa edizione: il loro riquadro dice anche a quale domanda rispondono
@@ -673,12 +678,12 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     const list = $("anList"); list.innerHTML = "";
     const nn = pp.filter(Boolean).map(Number), lo = Math.min(...nn), hi = Math.max(...nn);
     $("anMeta").textContent = !nn.length ? "" : lo === hi ? "pag. " + lo : "pag. " + lo + "-" + hi;
-    // Tetto: 4 analisi (due per due); le altre si leggono nel PDF, dalla pagina della prima esclusa
-    const AN = 4, extraA = Math.max(0, rows.length - AN), more = $("anMore");
+    // Tetto: 7 analisi; le altre si leggono nel PDF, dalla pagina della prima esclusa. Se sono dispari apre la prima, a tutta riga
+    const AN = 7, extraA = Math.max(0, rows.length - AN), more = $("anMore"), vis = rows.slice(0, AN);
     more.hidden = !extraA;
     if (extraA) { const pa = pp[AN] || nn[nn.length - 1]; more.textContent = (extraA === 1 ? "Un'altra analisi" : "Altre " + extraA + " analisi") + (pa ? " a pag. " + pa : " nell'edizione"); more.onclick = () => apriPagina(pa || 2); }
-    rows.slice(0, AN).forEach((a, i) => {
-      const p = pp[i], li = el("li"), r = el(p ? "button" : "div", "an-row"); r.title = a.titolo;
+    vis.forEach((a, i) => {
+      const p = pp[i], li = el("li", !i && vis.length % 2 ? "apre" : ""), r = el(p ? "button" : "div", "an-row"); r.title = a.titolo;
       r.appendChild(el("span", "k", a.tema || ""));
       const g = el("span", "go", p ? String(p) : ""); if (p) g.setAttribute("aria-label", "pagina " + p);
       r.appendChild(g);
@@ -769,7 +774,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       const li = el("li"), a = el("a"); a.href = linkFor(e);
       const dt = utc(e.data);
       const d = el("span", "d"); d.appendChild(el("span", "", GG[dt.getUTCDay()] + " " + dt.getUTCDate() + " " + MESI[dt.getUTCMonth()].slice(0, 3) + "  #" + pad(e.numero)));
-      const c = spx(e); if (c) d.appendChild(el("span", cls(c), "Mondo " + c.replace(/\s*g\b.*$/, "")));
+      const c = spx(e); if (c) { const m = el("span", cls(c)), mo = el("span", "", "Mondo"); if (window.GM) GM.segna(mo, "Mondo"); m.append(mo, " " + c.replace(/\s*g\b.*$/, "")); d.appendChild(m); }
       a.appendChild(d);
       a.appendChild(el("span", "t", e.titolo));
       a.addEventListener("click", (ev) => { ev.preventDefault(); showEdition(e, true); window.scrollTo({ top: 0, behavior: "smooth" }); });
@@ -799,22 +804,9 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
     for (const b of (ed.sommario || [])) ul.appendChild(el("li", "", b));
     $("briefK").hidden = !(ed.sommario || []).length;
     $("leggiMeta").textContent = "Edizione n. " + pad(ed.numero);
-    const nl = $("news"); nl.innerHTML = "";
-    // Tetto: 6 notizie (due colonne per tre righe), sono già in ordine d'importanza; le altre stanno nella prima pagina
-    const NOT = 6, tutteN = ed.notizie || [], extraN = Math.max(0, tutteN.length - NOT);
-    tutteN.slice(0, NOT).forEach((t, i) => {
-      const li = el("li"), a = el("a"); a.title = t; a.href = ed.file + "#page=1"; a.target = "_blank"; a.rel = "noopener";
-      a.appendChild(el("span", "i", String(i + 1)));
-      a.appendChild(el("span", "t", t));
-      a.appendChild(el("span", "go", "pag. 1"));
-      a.addEventListener("click", (e) => { if (desktop() && pdf) { e.preventDefault(); apriPagina(1); } });
-      li.appendChild(a); nl.appendChild(li);
-    });
-    
+    // le notizie di prima pagina non si elencano più qui (sono nel visore): resta il link alla pagina in testo, se c'è
     const pg = pagina(ed), nf = $("newsFull");
-    nf.hidden = !tutteN.length || (!pg && !extraN);
-    nf.href = pg || ed.file + "#page=1";
-    nf.textContent = extraN ? (extraN === 1 ? "Un'altra notizia" : "Altre " + extraN + " notizie") + " nella prima pagina" + (pg ? " in testo" : "") : "La prima pagina in testo";
+    nf.hidden = !pg; nf.href = pg || "#";
     $("open").href = ed.file; $("read").href = ed.file;
     $("dl").href = ed.file; $("dl").setAttribute("download", ed.nome || "");
     const url = condividi(ed);
