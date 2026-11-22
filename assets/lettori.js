@@ -127,19 +127,21 @@
       corpo.appendChild(el("p", "lt-nota lt-c", "Oggi qual è il tuo sentiment sui mercati? Vota e guarda come la pensa la Gommunity."));
       return;
     }
+    // dopo il voto una riga sola: Toro e la sua percentuale, la barra, Orso; sotto i voti e "cambia"
     var pt = tot ? Math.round(v.toro / tot * 100) : 0, po = tot ? 100 - pt : 0;
-    var r1 = el("div", "sr-num");
-    r1.appendChild(el("b", "up", pt + "%")); r1.appendChild(el("span", "", tot === 1 ? "1 voto" : tot + " voti")); r1.appendChild(el("b", "down", po + "%"));
-    var bar = el("div", "sr-bar"); bar.setAttribute("role", "img"); bar.setAttribute("aria-label", "Toro " + pt + "%, Orso " + po + "%");
-    var u = el("i", "u"), d = el("i", "d"); u.style.width = (S.anima ? 50 : pt) + "%"; bar.appendChild(u); bar.appendChild(d);
-    var r3 = el("div", "sr-lab"); r3.appendChild(el("span", "up", "▲ Toro · rialzista")); r3.appendChild(el("span", "down", "ribassista · Orso ▼"));
-    corpo.appendChild(r1); corpo.appendChild(bar); corpo.appendChild(r3);
+    var r1 = el("div", "sv"); r1.setAttribute("role", "img"); r1.setAttribute("aria-label", "Toro " + pt + "%, Orso " + po + "%");
+    var lt = el("span", "sv-t up"); lt.appendChild(document.createTextNode("▲ Toro ")); lt.appendChild(el("b", "", pt + "%"));
+    var bar = el("span", "sv-bar"), u = el("i", "u"), d = el("i", "d"); u.style.width = (S.anima ? 50 : pt) + "%"; bar.appendChild(u); bar.appendChild(d);
+    var lo = el("span", "sv-t down"); lo.appendChild(el("b", "", po + "%")); lo.appendChild(document.createTextNode(" Orso ▼"));
+    r1.appendChild(lt); r1.appendChild(bar); r1.appendChild(lo); corpo.appendChild(r1);
     if (S.anima) requestAnimationFrame(function () { requestAnimationFrame(function () { u.style.width = pt + "%"; }); });
     S.anima = false;
+    var p = el("p", "lt-nota"); p.appendChild(document.createTextNode(tot === 1 ? "1 voto" : tot + " voti"));
     if (v.mio && v.aperto) {
-      var p = el("p", "lt-nota"); p.appendChild(document.createTextNode("Hai votato ")); p.appendChild(el("b", v.mio === "toro" ? "up" : "down", LAB[v.mio]));
-      p.appendChild(document.createTextNode(" · ")); p.appendChild(bottone("lt-link", "cambia", "cambia")); corpo.appendChild(p);
+      p.appendChild(document.createTextNode(" · hai votato ")); p.appendChild(el("b", v.mio === "toro" ? "up" : "down", LAB[v.mio]));
+      p.appendChild(document.createTextNode(" · ")); p.appendChild(bottone("lt-link", "cambia", "cambia"));
     }
+    corpo.appendChild(p);
   }
 
   /* ---------- I commenti ---------- */
