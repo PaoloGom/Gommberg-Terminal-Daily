@@ -21,11 +21,13 @@ export const LIMITI = {
   nome: [2, 24], testo: 600, link: 2,
   commenti_10min: 6, commenti_giorno: 40,          // per lettore e per impronta IP
   commenti_ip_10min: 12,                           // un ufficio dietro lo stesso indirizzo: più largo
-  like_ora: 200, segnala_giorno: 30, voti_ip_ed: 30,
+  like_ora: 200, segnala_giorno: 5, voti_ip_ed: 30,  // 5 segnalazioni al giorno per rete: ognuna diventa un avviso a Paolo
+  grezzo: [200, 5000],                             // nome e testo più lunghi di così non si guardano nemmeno
   segnalazioni_per_nascondere: 3,
   gettone_min_s: 3, gettone_max_s: 12 * 3600,
   ip_giorni: 30,                                   // dopo, l'impronta IP si cancella
-  nomi_per_lettore: 3,                             // nomi che un lettore tiene per sé: il quarto libera il meno usato
+  nomi_per_lettore: 3,                             // nomi che un lettore tiene per sé
+  nome_cambio_giorni: 30,                          // per prenderne un quarto, uno dei tre deve essere fermo da un mese
   nome_giorni: 180,                                // un nome non più usato torna libero
   segnalazioni_giorni: 14,                         // per quanto una segnalazione resta nell'elenco degli avvisi
 };
@@ -33,7 +35,7 @@ export const LIMITI = {
 // Nessuno può firmarsi con il nome di un altro, nemmeno cambiando maiuscole, accenti, spazi o punteggiatura.
 // false = spento: ognuno firma come vuole, come prima.
 export const NOMI_UNICI = true;
-export const RISERVATI = /redazion|gommberg|gommellini|amministra|admin|moderat|staff|direttore/i;
+export const RISERVATI = /redazion|redatt|gommberg|gommellini|amministra|admin|moderat|staff|direttore|direzion/i;
 
 const SCHEMA = [
   `CREATE TABLE IF NOT EXISTS commenti (id INTEGER PRIMARY KEY AUTOINCREMENT, sito TEXT NOT NULL, ed INTEGER NOT NULL,
@@ -83,7 +85,7 @@ async function firma(segreto, testo) {
 const impronta = async (segreto, tipo, valore) => (await firma(segreto, tipo + ":" + valore)).slice(0, 32);
 
 // il sito che scrive: gommberg.com, oppure "prova" per anteprime e prove in locale
-export const sitoDi = (url) => (url.hostname === "gommberg.com" || url.hostname === "www.gommberg.com") ? "gommberg" : "prova";
+export const sitoDi = (url) => /^(www\.)?gommberg\.com\.?$/.test(url.hostname) ? "gommberg" : "prova";
 
 // L'edizione: il server non si fida del browser, controlla che esista la scheda pubblica e/NNN.json
 const edizioni = new Map();
@@ -116,30 +118,36 @@ const aperto = async (c, n) => c.sito === "prova" || n === (await ultima(c.env, 
 
 // ------------------------------------------------------------------ testo dei lettori
 export function pulisciNome(s) {
-  return String(s == null ? "" : s).normalize("NFC").replace(/[\u0000-\u001f\u007f-\u009f​-‏‪-‮⁦-⁩]/g, "").replace(/\s+/g, " ").trim();
+  return String(s == null ? "" : s).normalize("NFC").replace(/[\p{Cc}\p{Cf}\p{Co}\p{Cn}\uFE00-\uFE0F]/gu, "").replace(/\s+/g, " ").trim();
 }
 export function pulisciTesto(s) {
   return String(s == null ? "" : s).normalize("NFC").replace(/\r\n?/g, "\n")
-    .replace(/[\u0000-\u0009\u000b-\u001f\u007f-\u009f​-‏‪-‮⁦-⁩]/g, "")
-    .replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+    .replace(/[\u0000-\u0009\u000b-\u001f\u007f-\u009f\u200b-\u200f\u202a-\u202e\u2066-\u2069]/g, "")
+    .replace(/[ \t]*\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
 }
-// La chiave di un nome: ciò che due nomi devono avere di diverso per essere due nomi. "Luca R.", "luca r", "LÙCA_R" e
-// "Luca  R" hanno la stessa chiave, e così lo zero al posto della o e l'uno al posto della elle.
+// Il nome si scrive con lettere (anche accentate), numeri, spazi e poca punteggiatura: niente simboli, emoji o lettere
+// di altri alfabeti, che servirebbero solo a scrivere un nome uguale a quello di un altro ("Gıulia" con la i senza punto).
+const AMMESSI = /^[A-Za-z0-9 .,'’&?!:+_-]+$/;
+const senzaSegni = (s) => String(s).normalize("NFKD").replace(/\p{M}/gu, "");
+// La chiave di un nome: ciò che due nomi devono avere di diverso per essere due nomi. Hanno la stessa chiave "Luca R.",
+// "luca r", "LÙCA_R" e "Luca  R", e i nomi che all'occhio sono uguali: i, I, elle, uno e ! sono la stessa lettera, lo
+// zero è una o, "rn" è una m e "vv" una w ("GiuIia", "Giu1ia", "Marnmola", "VValter").
 export function chiaveNome(nome) {
-  return String(nome).normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase().replace(/ß/g, "ss").replace(/0/g, "o").replace(/1/g, "l").replace(/[^a-z0-9]/g, "");
+  return senzaSegni(nome).toLowerCase().replace(/ß/g, "ss").replace(/rn/g, "m").replace(/vv/g, "w").replace(/[i1!|]/g, "l").replace(/0/g, "o").replace(/[^a-z0-9]/g, "");
 }
+const CHIAVI_RISERVATE = RISERVATI.source.split("|").map(chiaveNome);
 export function controllaNome(nome) {
   if (nome.length < LIMITI.nome[0] || nome.length > LIMITI.nome[1]) return "Il nome va da " + LIMITI.nome[0] + " a " + LIMITI.nome[1] + " caratteri.";
-  if (RISERVATI.test(nome.replace(/[\s._-]/g, "")) || RISERVATI.test(chiaveNome(nome))) return "Questo nome è riservato alla redazione: scegline un altro.";
-  // lettere di altri alfabeti uguali alle nostre (una "а" cirillica) servirebbero solo a copiare il nome di un altro
-  if (/[^\p{Script=Latin}\P{L}]/u.test(nome.normalize("NFKD"))) return "Nel nome usa le lettere del nostro alfabeto.";
-  if (chiaveNome(nome).length < 2) return "Nel nome servono almeno due lettere o numeri.";
+  if (/\p{M}/u.test(nome) || !AMMESSI.test(senzaSegni(nome))) return "Nel nome usa lettere, numeri e punteggiatura semplice: niente simboli o emoji.";
+  const chiave = chiaveNome(nome);
+  if (chiave.length < 2) return "Nel nome servono almeno due lettere o numeri.";
+  if (RISERVATI.test(nome.replace(/[\s._-]/g, "")) || CHIAVI_RISERVATE.some((r) => chiave.includes(r))) return "Questo nome è riservato alla redazione: scegline un altro.";
   return "";
 }
 export function controllaTesto(testo) {
   if (!testo) return "Scrivi qualcosa prima di pubblicare.";
   if (testo.length > LIMITI.testo) return "Al massimo " + LIMITI.testo + " caratteri.";
-  const link = (testo.match(/\b(?:https?:\/\/|www\.)\S+|\b[a-z0-9-]+\.(?:com|it|net|org|io|ly|me|xyz|ru|info|biz)\b(?:\/\S*)?/gi) || []).length;
+  const link = (testo.match(/\b(?:https?:\/\/|www\.)\S+|\b[a-z0-9-]+\.(?:com|it|eu|net|org|io|ly|me|co|gg|tv|cc|do|dev|app|xyz|ru|info|biz|link|site|online|shop|top|club)\b(?:\/\S*)?/gi) || []).length;
   if (link > LIMITI.link) return "Al massimo " + LIMITI.link + " link per commento.";
   return "";
 }
@@ -170,6 +178,7 @@ async function instrada(request, env, url) {
   const autore = /^[a-z0-9-]{16,64}$/i.test(lettore) ? await impronta(cfg.segreto, "lettore", lettore) : "";
   const ip = await impronta(cfg.segreto, "ip", request.headers.get("cf-connecting-ip") || "locale");
   const c = { env, url, sito, autore, ip, cfg, db: env.DB };
+  await pulizia(c);
 
   if (metodo === "GET") {
     if (/^\d{1,4}$/.test(p[1] || "") && p.length === 2) return leggi(c, +p[1]);
@@ -178,11 +187,13 @@ async function instrada(request, env, url) {
     return errore("Indirizzo sconosciuto.", 404);
   }
   // scritture: dalla pagina del sito stesso, con un lettore riconoscibile e un gettone valido
-  const origine = request.headers.get("origin");
-  if (!origine || new URL(origine).host !== url.host) return errore("Richiesta non ammessa.", 403);
+  let origine = "";
+  try { origine = new URL(request.headers.get("origin") || "").host; } catch (e) { origine = ""; }
+  if (!origine || origine !== url.host) return errore("Richiesta non ammessa.", 403);
   if (!autore) return errore("Ricarica la pagina e riprova.", 400);
   let corpo = {};
   try { corpo = await request.json(); } catch (e) { return errore("Richiesta non valida.", 400); }
+  if (!corpo || typeof corpo !== "object" || Array.isArray(corpo)) return errore("Richiesta non valida.", 400);
   if (!(await gettoneValido(cfg.segreto, corpo.gettone))) return errore("Ricarica la pagina e riprova.", 400);
   if (corpo.sito) return risposta({ ok: true });                    // campo trappola riempito: un programma, non una persona
 
@@ -219,7 +230,8 @@ async function leggi(c, n) {
             EXISTS (SELECT 1 FROM piaciuti p WHERE p.commento = c.id AND p.autore = ?2) AS piaciuto,
             EXISTS (SELECT 1 FROM segnalazioni s WHERE s.commento = c.id AND s.autore = ?2) AS segnalato,
             (SELECT v.voto FROM voti v WHERE v.sito = c.sito AND v.ed = c.ed AND v.autore = c.autore) AS voto
-       FROM commenti c WHERE c.sito = ?1 AND c.ed = ?3 AND c.nascosto = 0 ORDER BY c.id LIMIT 1000`)
+       FROM commenti c WHERE c.sito = ?1 AND c.ed = ?3 AND c.nascosto = 0
+        AND (c.padre IS NULL OR EXISTS (SELECT 1 FROM commenti r WHERE r.id = c.padre AND r.nascosto = 0)) ORDER BY c.id LIMIT 1000`)
     .bind(c.sito, c.autore || "-", n).all();
   out.commenti = (righe.results || []).map(pubblico);
   return risposta(out);
@@ -242,15 +254,29 @@ async function limiti(c, condizioni) {
   for (const [sql, arg, max, msg] of condizioni) if ((await conteggio(c.db, sql, ...arg)) >= max) return msg;
   return "";
 }
-async function pulizia(c) {                          // ogni tanto: le impronte IP oltre i 30 giorni si cancellano
-  if (Math.random() > 0.05) return;
-  const lim = prima(LIMITI.ip_giorni * 86400);
-  await c.db.batch(["commenti", "piaciuti", "segnalazioni", "voti"].map((t) => c.db.prepare(`UPDATE ${t} SET ip = NULL WHERE ip IS NOT NULL AND creato < ?`).bind(lim)));
+// Una volta al giorno, alla prima richiesta: le impronte IP oltre i 30 giorni si cancellano (lo promette la privacy) e i
+// nomi fermi da LIMITI.nome_giorni si tolgono. Il giorno dell'ultima pulizia sta in config: la fa una sola richiesta.
+let pulito = "";
+async function pulizia(c) {
+  const oggi = iso(ora()).slice(0, 10);
+  if (pulito === oggi) return;
+  const r = await c.db.prepare("SELECT v FROM config WHERE k = 'pulizia'").first();
+  if (!r || r.v !== oggi) {
+    const lim = prima(LIMITI.ip_giorni * 86400);
+    await c.db.batch([
+      c.db.prepare("INSERT INTO config (k, v) VALUES ('pulizia', ?1) ON CONFLICT (k) DO UPDATE SET v = ?1").bind(oggi),
+      ...["commenti", "piaciuti", "segnalazioni", "voti"].map((t) => c.db.prepare(`UPDATE ${t} SET ip = NULL WHERE ip IS NOT NULL AND creato < ?`).bind(lim)),
+      c.db.prepare("DELETE FROM nomi WHERE usato < ?").bind(prima(LIMITI.nome_giorni * 86400)),
+    ]);
+  }
+  pulito = oggi;
 }
 
 async function scrivi(c, n, corpo) {
   const ed = await edizione(c.env, c.url, n);
   if (!ed) return errore("Edizione non trovata.", 404);
+  if (String(corpo.nome == null ? "" : corpo.nome).length > LIMITI.grezzo[0] || String(corpo.testo == null ? "" : corpo.testo).length > LIMITI.grezzo[1])
+    return errore("Al massimo " + LIMITI.testo + " caratteri.");
   const nome = pulisciNome(corpo.nome), testo = pulisciTesto(corpo.testo);
   const sbaglio = controllaNome(nome) || controllaTesto(testo);
   if (sbaglio) return errore(sbaglio);
@@ -259,6 +285,7 @@ async function scrivi(c, n, corpo) {
     const p = await c.db.prepare("SELECT id, padre FROM commenti WHERE id = ? AND sito = ? AND ed = ? AND nascosto = 0").bind(+corpo.padre, c.sito, n).first();
     if (!p) return errore("Il commento a cui rispondi non c'è più.", 404);
     padre = p.padre || p.id;
+    if (p.padre && !(await c.db.prepare("SELECT 1 AS x FROM commenti WHERE id = ? AND nascosto = 0").bind(padre).first())) return errore("Il commento a cui rispondi non c'è più.", 404);
   }
   const troppi = "Stai scrivendo molto in fretta: riprova tra qualche minuto.";
   const msg = await limiti(c, [
@@ -268,11 +295,15 @@ async function scrivi(c, n, corpo) {
     ["SELECT COUNT(*) FROM commenti WHERE autore = ? AND testo = ? AND creato > ?", [c.autore, testo, prima(86400)], 1, "Hai già pubblicato questo commento."],
   ]);
   if (msg) return errore(msg, 429);
-  if (NOMI_UNICI && !(await prendiNome(c, nome))) return errore(NOME_PRESO, 409);
+  if (NOMI_UNICI) { const no = await prendiNome(c, nome); if (no) return errore(no, 409); }
   const quando = iso(ora());
-  const r = await c.db.prepare("INSERT INTO commenti (sito, ed, padre, nome, testo, creato, autore, ip) VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id")
-    .bind(c.sito, n, padre, nome, testo, quando, c.autore, c.ip).first();
-  await pulizia(c);
+  // i due limiti che contano si ricontrollano dentro l'inserimento: dieci invii nello stesso istante non passano insieme
+  const r = await c.db.prepare(
+    `INSERT INTO commenti (sito, ed, padre, nome, testo, creato, autore, ip) SELECT ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8
+      WHERE (SELECT COUNT(*) FROM commenti WHERE autore = ?7 AND creato > ?9) < ?10
+        AND (SELECT COUNT(*) FROM commenti WHERE autore = ?7 AND testo = ?5 AND creato > ?11) < 1 RETURNING id`)
+    .bind(c.sito, n, padre, nome, testo, quando, c.autore, c.ip, prima(600), LIMITI.commenti_10min, prima(86400)).first();
+  if (!r) return errore(troppi, 429);
   const voto = await c.db.prepare("SELECT voto FROM voti WHERE sito = ? AND ed = ? AND autore = ?").bind(c.sito, n, c.autore).first();
   return risposta({ commento: { id: r.id, padre, nome, testo, quando, piace: 0, mio: true, piaciuto: false, segnalato: false, voto: voto ? voto.voto : null } }, 201);
 }
@@ -284,24 +315,32 @@ async function padrone(c, chiave) {
   const r = await c.db.prepare("SELECT autore FROM nomi WHERE sito = ? AND chiave = ? AND usato >= ?").bind(c.sito, chiave, prima(LIMITI.nome_giorni * 86400)).first();
   return r ? r.autore : null;
 }
-// Prima di pubblicare: il nome diventa (o resta) di chi scrive. false se è di un altro lettore.
+// Prima di pubblicare: il nome diventa (o resta) di chi scrive. Restituisce "" se va bene, altrimenti il messaggio.
 async function prendiNome(c, nome) {
   const chiave = chiaveNome(nome), adesso = iso(ora());
-  await c.db.prepare("DELETE FROM nomi WHERE sito = ? AND chiave = ? AND autore != ? AND usato < ?").bind(c.sito, chiave, c.autore, prima(LIMITI.nome_giorni * 86400)).run();
-  // chi arriva per primo lo prende: se due lettori lo chiedono nello stesso istante, la chiave primaria ne fa passare uno
-  await c.db.prepare("INSERT OR IGNORE INTO nomi (sito, chiave, nome, autore, creato, usato) VALUES (?, ?, ?, ?, ?, ?)").bind(c.sito, chiave, nome, c.autore, adesso, adesso).run();
-  const r = await c.db.prepare("SELECT autore FROM nomi WHERE sito = ? AND chiave = ?").bind(c.sito, chiave).first();
-  if (!r || r.autore !== c.autore) return false;
+  const mio = await c.db.prepare("SELECT 1 AS x FROM nomi WHERE sito = ? AND chiave = ? AND autore = ?").bind(c.sito, chiave, c.autore).first();
+  if (!mio) {
+    // Un lettore tiene per sé pochi nomi. Per prenderne un altro, uno dei suoi deve essere fermo da un mese: così un
+    // nome non passa a un altro lettore mentre nella discussione ci sono ancora i commenti firmati dal primo.
+    const miei = (await c.db.prepare("SELECT chiave, nome, usato FROM nomi WHERE sito = ? AND autore = ? ORDER BY usato, creato").bind(c.sito, c.autore).all()).results || [];
+    if (miei.length >= LIMITI.nomi_per_lettore) {
+      if (miei[0].usato >= prima(LIMITI.nome_cambio_giorni * 86400)) return "Hai già " + miei.length + " nomi: firma con uno di quelli (" + miei.map((m) => m.nome).join(", ") + ").";
+      await c.db.prepare("DELETE FROM nomi WHERE sito = ? AND chiave = ? AND autore = ?").bind(c.sito, miei[0].chiave, c.autore).run();
+    }
+  }
+  // Chi arriva per primo lo prende. L'ordine conta quando due lettori lo chiedono nello stesso istante: si toglie il
+  // nome scaduto di un altro, si prova a inserire, si rinnova solo se è già proprio, e alla fine si legge di chi è.
   await c.db.batch([
-    c.db.prepare("UPDATE nomi SET nome = ?, usato = ? WHERE sito = ? AND chiave = ?").bind(nome, adesso, c.sito, chiave),
-    // un lettore tiene per sé pochi nomi: oltre, torna libero quello che usa da più tempo
-    c.db.prepare(`DELETE FROM nomi WHERE sito = ?1 AND autore = ?2 AND chiave NOT IN
-                    (SELECT chiave FROM nomi WHERE sito = ?1 AND autore = ?2 ORDER BY usato DESC, creato DESC LIMIT ?3)`).bind(c.sito, c.autore, LIMITI.nomi_per_lettore),
+    c.db.prepare("DELETE FROM nomi WHERE sito = ? AND chiave = ? AND autore != ? AND usato < ?").bind(c.sito, chiave, c.autore, prima(LIMITI.nome_giorni * 86400)),
+    c.db.prepare("INSERT OR IGNORE INTO nomi (sito, chiave, nome, autore, creato, usato) VALUES (?, ?, ?, ?, ?, ?)").bind(c.sito, chiave, nome, c.autore, adesso, adesso),
+    c.db.prepare("UPDATE nomi SET nome = ?, usato = ? WHERE sito = ? AND chiave = ? AND autore = ?").bind(nome, adesso, c.sito, chiave, c.autore),
   ]);
-  return true;
+  const r = await c.db.prepare("SELECT autore FROM nomi WHERE sito = ? AND chiave = ?").bind(c.sito, chiave).first();
+  return r && r.autore === c.autore ? "" : NOME_PRESO;
 }
 // La sezione lo chiede mentre il lettore sceglie il nome (o tira il dado), per dirglielo prima che scriva il commento
 async function nomeLibero(c, grezzo) {
+  if (String(grezzo == null ? "" : grezzo).length > LIMITI.grezzo[0]) return risposta({ libero: false, tuo: false, messaggio: "Il nome va da " + LIMITI.nome[0] + " a " + LIMITI.nome[1] + " caratteri." });
   const nome = pulisciNome(grezzo), sbaglio = controllaNome(nome);
   if (sbaglio) return risposta({ libero: false, tuo: false, messaggio: sbaglio });
   const di = NOMI_UNICI ? await padrone(c, chiaveNome(nome)) : null;
@@ -335,14 +374,14 @@ async function piace(c, id) {
   const cm = await commento(c, id);
   if (!cm) return errore("Il commento non c'è più.", 404);
   const gia = await c.db.prepare("SELECT 1 AS x FROM piaciuti WHERE commento = ? AND autore = ?").bind(id, c.autore).first();
+  // il conto è sempre quello delle righe vere: due tocchi nello stesso istante non lo sballano e non danno errore
+  const conta = c.db.prepare("UPDATE commenti SET piace = (SELECT COUNT(*) FROM piaciuti WHERE commento = ?1) WHERE id = ?1").bind(id);
   if (gia) {
-    await c.db.batch([c.db.prepare("DELETE FROM piaciuti WHERE commento = ? AND autore = ?").bind(id, c.autore),
-                      c.db.prepare("UPDATE commenti SET piace = MAX(piace - 1, 0) WHERE id = ?").bind(id)]);
+    await c.db.batch([c.db.prepare("DELETE FROM piaciuti WHERE commento = ? AND autore = ?").bind(id, c.autore), conta]);
   } else {
     if ((await conteggio(c.db, "SELECT COUNT(*) FROM piaciuti WHERE ip = ? AND creato > ?", c.ip, prima(3600))) >= LIMITI.like_ora)
       return errore("Troppi like in poco tempo: riprova più tardi.", 429);
-    await c.db.batch([c.db.prepare("INSERT INTO piaciuti (commento, autore, ip, creato) VALUES (?, ?, ?, ?)").bind(id, c.autore, c.ip, iso(ora())),
-                      c.db.prepare("UPDATE commenti SET piace = piace + 1 WHERE id = ?").bind(id)]);
+    await c.db.batch([c.db.prepare("INSERT OR IGNORE INTO piaciuti (commento, autore, ip, creato) VALUES (?, ?, ?, ?)").bind(id, c.autore, c.ip, iso(ora())), conta]);
   }
   const r = await c.db.prepare("SELECT piace FROM commenti WHERE id = ?").bind(id).first();
   return risposta({ piace: r.piace, piaciuto: !gia });
@@ -364,13 +403,13 @@ async function segnala(c, id) {
 
 // ------------------------------------------------------------------ avviso alla redazione
 // I commenti segnalati negli ultimi LIMITI.segnalazioni_giorni che la redazione non ha ancora tolto: numero, edizione,
-// quante reti l'hanno segnalato e se è già nascosto. Mai il testo, il nome o chi ha segnalato: l'elenco è pubblico e
+// quante reti l'hanno segnalato e se è già nascosto; prima i nascosti, poi dalla segnalazione più recente. Mai il testo, il nome o chi ha segnalato: l'elenco è pubblico e
 // finisce in una segnalazione di GitHub (segnalazioni.yml), dove un commento da togliere non deve essere copiato.
 async function segnalazioni(c) {
   const righe = await c.db.prepare(
     `SELECT c.id, c.ed, c.segnalazioni AS reti, c.nascosto, MAX(s.creato) AS ultima
        FROM commenti c JOIN segnalazioni s ON s.commento = c.id
-      WHERE c.sito = ? AND c.nascosto < 2 AND s.creato > ? GROUP BY c.id ORDER BY c.id LIMIT 100`)
+      WHERE c.sito = ? AND c.nascosto < 2 AND s.creato > ? GROUP BY c.id ORDER BY c.nascosto DESC, ultima DESC LIMIT 100`)
     .bind(c.sito, prima(LIMITI.segnalazioni_giorni * 86400)).all();
   return risposta({ sito: c.sito, segnalati: (righe.results || []).map((r) => ({ id: r.id, ed: r.ed, reti: r.reti, nascosto: r.nascosto === 1, ultima: r.ultima })) });
 }

@@ -43,7 +43,7 @@
     "Spritz e spread", "Pizza e dividendi", "Cappuccino e cedola", "Caffè e Bund", "Oro della nonna", "Lingotto in cantina",
     "Tulipano olandese", "Materasso & Co."];
   function nomeACaso() { return NOMI[Math.floor(Math.random() * NOMI.length)]; }
-  var RISERVATI = /redazion|gommberg|gommellini|amministra|admin|moderat|staff|direttore/i;   // gli stessi del servizio
+  var RISERVATI = /redazion|redatt|gommberg|gommellini|amministra|admin|moderat|staff|direttore|direzion/i;   // gli stessi del servizio
   var AV = ["#F6D7C3", "#D9E8DE", "#DCE3F0", "#EADCF0", "#F0E6C8", "#E3DED7"];
   var CUORE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2Z"/></svg>';
   var DADO = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.1"/><circle cx="15" cy="15" r="1.1"/><circle cx="15" cy="9" r="1.1"/><circle cx="9" cy="15" r="1.1"/></svg>';
@@ -270,13 +270,17 @@
       nomeLibero(nome).then(function (j) { if (j && !j.libero && j.messaggio && (S.nome || "").replace(/\s+/g, " ").trim() === nome) errore(j.messaggio); }, function () {});
     }, 600);
   }
-  function tiraDado(giri) {
-    giri = giri || 0;
+  function tiraDado(giri, t0) {
+    giri = giri || 0; t0 = t0 || Date.now();
     // i primi tentativi pescano dalla lista; se sono tutti presi, un nome della lista con un numero
     var nome = nomeACaso(), ni = q(".cmp-nome", R);
     if (giri >= 4) { while (nome.length > 21) nome = nomeACaso(); nome += " " + (2 + Math.floor(Math.random() * 98)); }
     clearTimeout(timerNome); S.nome = nome; ni.value = nome; errore(""); composer();
-    nomeLibero(nome).then(function (j) { if (j && !j.libero && S.nome === nome && giri < 8) tiraDado(giri + 1); }, function () {});
+    nomeLibero(nome).then(function (j) {
+      if (!j || j.libero || S.nome !== nome) return;
+      // il nome non cambia più sotto gli occhi di chi sta già scrivendo: dopo 3 secondi o 8 tentativi lo si dice e basta
+      if (giri < 8 && Date.now() - t0 < 3000) tiraDado(giri + 1, t0); else errore(j.messaggio);
+    }, function () {});
   }
   function contatore() { var n = q("textarea", R).value.length; q("[data-conto]", R).textContent = n > 480 ? (600 - n) + " caratteri" : ""; }
   function invia() {

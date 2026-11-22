@@ -3,7 +3,7 @@
 // Lo lancia redazione/collaudo.py; da solo: node redazione/sito/prova_lettori.mjs. Esce con 1 al primo errore.
 import { readFileSync } from "node:fs";
 import { d1 } from "./d1_finto.mjs";
-import worker, { controllaTesto, controllaNome, chiaveNome, pulisciTesto, LIMITI, NOMI_UNICI } from "./lettori.js";
+import worker, { controllaTesto, controllaNome, chiaveNome, pulisciNome, pulisciTesto, sitoDi, LIMITI, NOMI_UNICI } from "./lettori.js";
 
 // ------------------------------------------------------------- orologio finto, edizioni finte
 let adesso = Date.parse("2026-11-23T09:00:00Z");
@@ -155,18 +155,32 @@ r = await chiama("POST", "/api/lettori/031/commenti", { ...C, corpo: { nome: "Ve
 verifica("dopo 10 minuti si riscrive", r.s === 201, r);
 
 // ------------------------------------------------------------- 9. impronte IP cancellate dopo 30 giorni
+// la pulizia è certa: la fa la prima richiesta di ogni giorno, anche una semplice lettura
 env.DB._db.exec("UPDATE commenti SET creato = '2026-10-01T00:00:00Z'");
-const vecchio = Math.random; Math.random = () => 0;
-await chiama("POST", "/api/lettori/031/commenti", { ...C, corpo: { nome: "Veloce", testo: "Per la pulizia", gettone: g1 } });
-Math.random = vecchio;
+await chiama("GET", "/api/lettori/031");
+verifica("nello stesso giorno la pulizia non si ripete", env.DB._db.prepare("SELECT COUNT(*) AS n FROM commenti WHERE ip IS NOT NULL AND creato < '2026-10-24'").get().n > 0, null);
+avanti(86400);
+await chiama("GET", "/api/lettori/031");
 const restano = env.DB._db.prepare("SELECT COUNT(*) AS n FROM commenti WHERE ip IS NOT NULL AND creato < '2026-10-24'").get().n;
-verifica("impronte IP oltre i 30 giorni cancellate", restano === 0, restano);
+verifica("impronte IP oltre i 30 giorni cancellate alla prima richiesta del giorno dopo", restano === 0, restano);
 
 // ------------------------------------------------------------- 10. nomi unici: un nome resta di chi l'ha usato per primo
 verifica("l'interruttore dei nomi unici è acceso", NOMI_UNICI === true, NOMI_UNICI);
 verifica("stessa chiave per maiuscole, accenti, spazi e punteggiatura", ["luca r", "LÙCA_R", "Luca  R.", "Luca R 🚀", "Ｌｕｃａ Ｒ"].every((x) => chiaveNome(x) === chiaveNome("Luca R.")), ["luca r", "LÙCA_R", "Luca  R.", "Luca R 🚀", "Ｌｕｃａ Ｒ"].map(chiaveNome));
 verifica("zero e uno non fanno un nome diverso", chiaveNome("T0ro 1ungo") === chiaveNome("Toro lungo"), chiaveNome("T0ro 1ungo"));
 verifica("lettere di un altro alfabeto: rifiutate", !!controllaNome("Lucа R."), controllaNome("Lucа R."));
+// trovati dal collaudo indipendente del 22/11: nomi uguali all'occhio, nome riservato aggirato, nomi che sporcano la pagina
+for (const [a, b] of [["GiuIia T.", "Giulia T."], ["Giu1ia T.", "Giulia T."], ["Giu!ia T.", "Giulia T."], ["Marnmola", "Mammola"], ["VValter", "Walter"], ["WaIter", "Walter"], ["T0ro sedut0", "Toro seduto"], ["Fabl0", "Fabio"]])
+  verifica("uguali all'occhio, stessa chiave: " + a + " e " + b, chiaveNome(a) === chiaveNome(b), [chiaveNome(a), chiaveNome(b)]);
+for (const x of ["G\u0131ulia T.", "Giu\u01c0ia T.", "\u0261iulia T.", "Giu|ia T.", "Giulia T. \u25b2 Toro", "T\u0ae6r\u0ae6 sedut\u0ae6", "T\u1d0fr\u1d0f seduto", "T\u00f8ro seduto", "Mammo\u0142a", "Fa\u0185io", "Cesare \u0667\u0667", "Luca \ud83d\ude80", "ab" + "\u0301".repeat(20), "a\ud800b"])
+  verifica("carattere non ammesso nel nome: " + JSON.stringify(x), /simboli/.test(controllaNome(pulisciNome(x))), controllaNome(pulisciNome(x)));
+for (const x of ["Redaz1one", "Redaz!one", "Redazlone", "Gornmberg", "G0mmberg td", "Adm1n", "Arnministratore", "Paolo Gomme11ini", "Redattore", "La Direzione", "M0derat0re", "Staff"])
+  verifica("nome riservato anche travestito: " + x, /riservato/.test(controllaNome(x)), controllaNome(x));
+for (const x of ["Niccolò 2000", "L'avevo detto", "Materasso & Co.", "Bolla? Quale bolla", "Lettore delle 9:45", "Elia", "Ilaria B.", "Zio col BTP"])
+  verifica("nome normale ammesso: " + x, !controllaNome(x), controllaNome(x));
+verifica("caratteri invisibili tolti dal nome", pulisciNome("Lu\u00adca\u2060 \ufe0fR.") === "Luca R.", pulisciNome("Lu\u00adca\u2060 \ufe0fR."));
+verifica("gommberg.com con il punto finale è il sito vero", sitoDi(new URL("https://gommberg.com./")) === "gommberg" && sitoDi(new URL("https://x.workers.dev/")) === "prova", null);
+verifica("link con estensioni meno comuni contati", !!controllaTesto("vedi t.co/x discord.gg/y bit.do/z"), null);
 verifica("nome di soli simboli: rifiutato", !!controllaNome("🚀🚀🚀"), controllaNome("🚀🚀🚀"));
 verifica("nome riservato scritto con lo zero: rifiutato", !!controllaNome("G0mmberg"), controllaNome("G0mmberg"));
 verifica("nome con accenti e numeri: ammesso", !controllaNome("Niccolò 2000"), controllaNome("Niccolò 2000"));
@@ -175,9 +189,14 @@ const D = { lettore: "lettore-hhhhhhhhhhhhhhhh", ip: "7.7.7.7" }, E = { lettore:
 r = await chiama("POST", "/api/lettori/031/commenti", { ...D, corpo: { nome: "giulia t", testo: "Mi firmo come lei", gettone: g2 } });
 verifica("il nome di un altro lettore: rifiutato, anche scritto diverso", r.s === 409 && /già di un altro lettore/.test(r.j.errore), r);
 r = await chiama("POST", "/api/lettori/031/commenti", { ...D, corpo: { nome: "Giulia T. 🚀", testo: "Ci riprovo con una faccina", gettone: g2 } });
-verifica("il nome di un altro con un simbolo in più: rifiutato", r.s === 409, r);
+verifica("il nome di un altro con un simbolo in più: rifiutato", r.s === 400 && /simboli/.test(r.j.errore), r);
+r = await chiama("POST", "/api/lettori/031/commenti", { ...D, corpo: { nome: "GiuIia T.", testo: "Ci riprovo con la I maiuscola", gettone: g2 } });
+verifica("il nome di un altro con la I al posto della elle: rifiutato", r.s === 409, r);
+r = await chiama("GET", "/api/lettori/nome?n=" + encodeURIComponent("Giu1ia T"), D);
+verifica("verifica del nome: preso anche con l'uno al posto della elle", r.j.libero === false, r);
 r = await chiama("GET", "/api/lettori/031");
-verifica("il commento con il nome copiato non è stato salvato", !r.j.commenti.some((x) => /Mi firmo come lei|Ci riprovo/.test(x.testo)), r.j.commenti);
+verifica("i commenti con il nome copiato non sono stati salvati", !r.j.commenti.some((x) => /Mi firmo come lei|Ci riprovo/.test(x.testo)), r.j.commenti);
+verifica("un commento rifiutato non lascia il nome preso", env.DB._db.prepare("SELECT COUNT(*) AS n FROM nomi WHERE autore != (SELECT autore FROM nomi WHERE chiave = 'glullat') AND chiave LIKE 'glu%'").get().n === 0, null);
 r = await chiama("POST", "/api/lettori/031/commenti", { corpo: { nome: "GIULIA T", testo: "Sono sempre io, in maiuscolo", gettone: g2 } });
 verifica("chi ha il nome lo riusa, anche scritto diverso", r.s === 201 && r.j.commento.nome === "GIULIA T", r);
 r = await chiama("GET", "/api/lettori/nome?n=" + encodeURIComponent("Giulia T."), D);
@@ -190,14 +209,25 @@ r = await chiama("GET", "/api/lettori/nome?n=Redazione", D);
 verifica("verifica del nome: riservato", r.j.libero === false && /riservato/.test(r.j.messaggio), r);
 r = await chiama("GET", "/api/lettori/nome?n=" + encodeURIComponent("Giulia T."), { ...D, base: "https://anteprima-g13-gommberg.esempio.workers.dev", origine: null });
 verifica("i nomi delle anteprime sono separati da quelli di gommberg.com", r.j.libero === true, r);
-// un lettore tiene per sé LIMITI.nomi_per_lettore nomi: il successivo libera quello che usa da più tempo
-for (const [i, nome] of ["Primo nome", "Secondo nome", "Terzo nome", "Quarto nome"].entries()) {
+// un lettore tiene per sé LIMITI.nomi_per_lettore nomi; per prenderne un altro uno dei suoi deve essere fermo da un mese
+for (const [i, nome] of ["Primo nome", "Secondo nome", "Terzo nome"].entries()) {
   avanti(120);
   r = await chiama("POST", "/api/lettori/031/commenti", { ...D, corpo: { nome, testo: "Cambio firma, giro " + i, gettone: g2 } });
   verifica("nome nuovo dello stesso lettore: " + nome, r.s === 201, r);
 }
+avanti(120);
+r = await chiama("POST", "/api/lettori/031/commenti", { ...D, corpo: { nome: "Quarto nome", testo: "Cambio firma, giro 3", gettone: g2 } });
+verifica("il quarto nome subito: rifiutato, con l'elenco dei suoi", r.s === 409 && LIMITI.nomi_per_lettore === 3 && /Primo nome, Secondo nome, Terzo nome/.test(r.j.errore), r);
 r = await chiama("GET", "/api/lettori/nome?n=" + encodeURIComponent("Primo nome"), E);
-verifica("oltre il tetto il nome meno usato torna libero", LIMITI.nomi_per_lettore === 3 && r.j.libero === true, r);
+verifica("il primo nome non passa a un altro lettore finché è fresco", r.j.libero === false, r);
+r = await chiama("POST", "/api/lettori/031/commenti", { ...D, corpo: { nome: "primo  NOME", testo: "Con uno dei miei nomi si scrive sempre", gettone: g2 } });
+verifica("con uno dei propri nomi si continua a scrivere", r.s === 201, r);
+avanti((LIMITI.nome_cambio_giorni + 1) * 86400);
+const g2b = (await chiama("GET", "/api/lettori/031")).j.gettone; avanti(5);
+r = await chiama("POST", "/api/lettori/031/commenti", { ...D, corpo: { nome: "Quarto nome", testo: "Un mese dopo cambio firma", gettone: g2b } });
+verifica("dopo un mese il quarto nome si prende", r.s === 201, r);
+r = await chiama("GET", "/api/lettori/nome?n=" + encodeURIComponent("Secondo nome"), E);
+verifica("e torna libero quello fermo da più tempo", r.j.libero === true, r);
 r = await chiama("GET", "/api/lettori/nome?n=" + encodeURIComponent("Quarto nome"), E);
 verifica("gli ultimi nomi restano del lettore", r.j.libero === false, r);
 // un nome non più usato torna libero dopo LIMITI.nome_giorni
@@ -230,6 +260,81 @@ r = await chiama("GET", "/api/lettori/segnalazioni");
 verifica("tolto dalla redazione: esce dall'elenco", r.j.segnalati.length === 0, r);
 r = await chiama("GET", "/api/lettori/segnalazioni", { base: "https://anteprima-g13-gommberg.esempio.workers.dev", origine: null });
 verifica("l'elenco delle anteprime è separato", r.j.sito === "prova" && r.j.segnalati.length === 0, r);
+
+// ------------------------------------------------------------- 12. guasti trovati dal collaudo indipendente del 22/11
+const g4 = (await chiama("GET", "/api/lettori/031")).j.gettone; avanti(5);
+const F = { lettore: "lettore-llllllllllllllll", ip: "9.9.9.9" }, G = { lettore: "lettore-mmmmmmmmmmmmmmmm", ip: "9.9.9.10" };
+// testi enormi: rifiutati prima di ripulirli (la pulizia di 150.000 spazi teneva occupato il servizio per 20 secondi)
+let t0 = performance.now();
+r = await chiama("POST", "/api/lettori/031/commenti", { ...F, corpo: { nome: "Grande", testo: " ".repeat(150000) + "x", gettone: g4 } });
+verifica("testo enorme: rifiutato subito", r.s === 400 && performance.now() - t0 < 500, [r.s, Math.round(performance.now() - t0)]);
+t0 = performance.now(); pulisciTesto(" ".repeat(5000) + "x");
+verifica("la pulizia del testo più lungo ammesso è immediata", performance.now() - t0 < 200, Math.round(performance.now() - t0));
+r = await chiama("GET", "/api/lettori/nome?n=" + "a".repeat(5000), F);
+verifica("nome enorme nella verifica: non libero, senza errori", r.s === 200 && r.j.libero === false, r);
+// origine e corpo malformati: una risposta chiara, non "servizio non disponibile"
+r = await chiama("POST", "/api/lettori/031/commenti", { ...F, origine: "null", corpo: { nome: "Grande", testo: "Origine nulla", gettone: g4 } });
+verifica("origine \"null\": 403", r.s === 403, r);
+r = await worker.fetch(new Request(BASE + "/api/lettori/031/commenti", { method: "POST", headers: { "x-lettore": F.lettore, origin: BASE, "content-type": "application/json" }, body: "null" }), env);
+verifica("corpo null: 400", r.status === 400, r.status);
+// le risposte sotto un commento tolto non escono più, e non se ne aggiungono
+r = await chiama("POST", "/api/lettori/031/commenti", { ...F, corpo: { nome: "Radice", testo: "Commento che la redazione toglierà", gettone: g4 } });
+const radice = r.j.commento.id;
+r = await chiama("POST", "/api/lettori/031/commenti", { ...G, corpo: { nome: "Rametto", testo: "Risposta al commento che sparirà", padre: radice, gettone: g4 } });
+const rametto = r.j.commento.id;
+env.DB._db.exec("UPDATE commenti SET nascosto = 2 WHERE id = " + radice);
+r = await chiama("GET", "/api/lettori/031");
+verifica("tolto il commento, le sue risposte non escono", !r.j.commenti.some((x) => x.id === rametto || x.id === radice), r.j.commenti.map((x) => x.id));
+avanti(60);
+r = await chiama("POST", "/api/lettori/031/commenti", { ...F, corpo: { nome: "Radice", testo: "Rispondo a una risposta rimasta orfana", padre: rametto, gettone: g4 } });
+verifica("niente risposte nuove sotto un commento tolto", r.s === 404, r);
+// l'elenco delle segnalazioni: prima i nascosti, poi dalla più recente
+const tre = [];
+for (const i of [1, 2, 3]) { avanti(61); tre.push((await chiama("POST", "/api/lettori/031/commenti", { ...F, corpo: { nome: "Radice", testo: "Commento da segnalare " + i, gettone: g4 } })).j.commento.id); }
+for (const [k, id] of tre.entries()) { avanti(10); await chiama("POST", "/api/lettori/commenti/" + id + "/segnala", { lettore: "lettore-" + String(k).repeat(16), ip: "10.0.0." + k, corpo: { gettone: g4 } }); }
+for (const k of [7, 8]) await chiama("POST", "/api/lettori/commenti/" + tre[0] + "/segnala", { lettore: "lettore-" + String(k).repeat(16), ip: "10.0.1." + k, corpo: { gettone: g4 } });
+r = await chiama("GET", "/api/lettori/segnalazioni");
+verifica("elenco: il nascosto per primo, poi la segnalazione più recente", JSON.stringify(r.j.segnalati.map((x) => x.id)) === JSON.stringify([tre[0], tre[2], tre[1]]) && r.j.segnalati[0].nascosto === true, r.j.segnalati);
+let fermate = 0;
+for (let i = 0; i < LIMITI.segnala_giorno + 2; i++) fermate += (await chiama("POST", "/api/lettori/commenti/" + tre[1] + "/segnala", { lettore: "lettore-" + String(i).padStart(16, "z"), ip: "10.9.9.9", corpo: { gettone: g4 } })).s === 429;
+verifica("una rete sola non manda più di " + LIMITI.segnala_giorno + " segnalazioni al giorno, nemmeno cambiando codice", fermate === 2, fermate);
+// richieste nello stesso istante, con il database che risponde con ritardi a caso come D1 vero
+env.DB.latenza = 4;
+const H = { lettore: "lettore-nnnnnnnnnnnnnnnn", ip: "11.0.0.1" };
+let esiti = await Promise.all(Array.from({ length: 20 }, (_, i) => chiama("POST", "/api/lettori/031/commenti", { ...H, corpo: { nome: "Raffica", testo: "Raffica " + i, gettone: g4 } })));
+verifica("venti commenti insieme: ne passano al massimo " + LIMITI.commenti_10min, esiti.filter((x) => x.s === 201).length <= LIMITI.commenti_10min, esiti.map((x) => x.s));
+avanti(601);
+esiti = await Promise.all(Array.from({ length: 5 }, () => chiama("POST", "/api/lettori/031/commenti", { ...H, corpo: { nome: "Raffica", testo: "Lo stesso testo cinque volte", gettone: g4 } })));
+verifica("lo stesso testo cinque volte insieme: ne passa uno", esiti.filter((x) => x.s === 201).length === 1, esiti.map((x) => x.s));
+let doppi = 0;
+for (let giro = 0; giro < 40; giro++) {
+  const nome = "Conteso " + giro;
+  const quattro = await Promise.all([0, 1, 2, 3].map((k) => chiama("POST", "/api/lettori/031/commenti", { lettore: "lettore-" + ("c" + giro + "k" + k).padStart(16, "y"), ip: "12." + giro + ".0." + k, corpo: { nome: k % 2 ? nome.toUpperCase() : nome, testo: "Lo voglio io " + giro + " " + k, gettone: g4 } })));
+  doppi += quattro.filter((x) => x.s === 201).length !== 1;
+}
+verifica("un nome nuovo chiesto da quattro lettori insieme: lo prende uno solo", doppi === 0, doppi);
+esiti = await Promise.all(Array.from({ length: 6 }, () => chiama("POST", "/api/lettori/commenti/" + tre[2] + "/piace", { ...H, corpo: { gettone: g4 } })));
+verifica("sei like insieme dallo stesso lettore: nessun errore e il conto è quello vero", esiti.every((x) => x.s === 200) && env.DB._db.prepare("SELECT piace FROM commenti WHERE id = " + tre[2]).get().piace === env.DB._db.prepare("SELECT COUNT(*) AS n FROM piaciuti WHERE commento = " + tre[2]).get().n, esiti.map((x) => x.s));
+// il nome scaduto conteso tra il vecchio padrone e un lettore nuovo: mai tutti e due
+env.DB.latenza = 0;
+const scaduti = [];
+for (let giro = 0; giro < 40; giro++) {
+  avanti(61);
+  const v = { lettore: "lettore-" + ("v" + giro).padStart(16, "w"), ip: "13.0." + giro + ".1" };
+  await chiama("POST", "/api/lettori/031/commenti", { ...v, corpo: { nome: "Scaduto " + giro, testo: "Prima che scada " + giro, gettone: g4 } });
+  scaduti.push(v);
+}
+env.DB._db.exec("UPDATE nomi SET usato = '2026-01-01T00:00:00Z', creato = '2026-01-01T00:00:00Z' WHERE nome LIKE 'Scaduto %'");
+env.DB._db.exec("UPDATE config SET v = '" + new Date(adesso).toISOString().slice(0, 10) + "' WHERE k = 'pulizia'");   // la pulizia di oggi è già passata: i nomi scaduti sono ancora in tabella
+env.DB.latenza = 4; doppi = 0;
+for (const [giro, v] of scaduti.entries()) {
+  const n2 = { lettore: "lettore-" + ("n" + giro).padStart(16, "q"), ip: "13.1." + giro + ".1" };
+  const due = await Promise.all([chiama("POST", "/api/lettori/031/commenti", { ...v, corpo: { nome: "SCADUTO " + giro, testo: "Torno dopo mesi " + giro, gettone: g4 } }),
+                                 chiama("POST", "/api/lettori/031/commenti", { ...n2, corpo: { nome: "scaduto " + giro, testo: "Lo prendo io " + giro, gettone: g4 } })]);
+  doppi += due.filter((x) => x.s === 201).length !== 1;
+}
+env.DB.latenza = 0;
+verifica("un nome scaduto conteso: lo prende uno solo, mai tutti e due", doppi === 0, doppi);
 
 console.log(ko ? `Lettori: ${ko} NO su ${ok + ko} prove` : `Lettori: ${ok} prove superate`);
 process.exit(ko ? 1 : 0);
