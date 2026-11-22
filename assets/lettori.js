@@ -68,14 +68,19 @@
       });
     });
   }
+  // Se la lettura non riesce (rete, servizio che si sveglia) si riprova da sola dopo 2, 5, 15 secondi e poi ogni minuto:
+  // un intoppo di un attimo non deve lasciare la sezione vuota fino a quando il lettore ricarica la pagina
+  var RIPROVA = [2000, 5000, 15000, 60000], tentativi = 0, timerRiprova = null;
   function carica(quieto) {
     var n = S.ed && S.ed.numero, gen = S.gen; if (!n) return Promise.resolve();
+    clearTimeout(timerRiprova);
     return api("GET", pad(n)).then(function (d) {
       if (gen !== S.gen) return;
-      S.d = d; S.presa = Date.now(); S.stato = "pronto"; rendi();
+      tentativi = 0; S.d = d; S.presa = Date.now(); S.stato = "pronto"; rendi();
     }, function () {
       if (gen !== S.gen) return;
-      if (!quieto || !S.d) { S.stato = "fuori"; rendi(); }
+      if (!quieto || !S.d) { S.stato = S.d ? "pronto" : "fuori"; rendi(); }
+      timerRiprova = setTimeout(function () { if (gen === S.gen) carica(true); }, RIPROVA[Math.min(tentativi++, RIPROVA.length - 1)]);
     });
   }
 
@@ -115,7 +120,7 @@
     var box = q(".lt-sent", R), corpo = q("[data-sent]", R), v = S.d && S.d.voto; corpo.innerHTML = "";
     var tot = v ? v.toro + v.orso : 0;
     box.hidden = S.stato === "pronto" && v && !v.aperto && tot === 0;      // edizione passata senza voti: niente sentiment
-    if (S.stato === "fuori") { corpo.appendChild(el("p", "lt-nota", "Il sentiment non si carica in questo momento.")); return; }
+    if (S.stato === "fuori") { corpo.appendChild(el("p", "lt-nota", "Il sentiment arriva tra pochi secondi.")); return; }
     if (!v || (v.aperto && !v.mio)) {
       var row = el("div", "sb-row");
       ["toro", "orso"].forEach(function (k) {
@@ -191,7 +196,10 @@
     });
     var piu = q("[data-more]", R); piu.hidden = true;
     if (S.stato === "attesa") { box.appendChild(el("p", "lt-vuoto", "Caricamento della discussione...")); return; }
-    if (S.stato === "fuori") { var f = el("div", "lt-vuoto"); f.appendChild(el("b", "", "La discussione non si carica")); f.appendChild(document.createTextNode("Riprova tra qualche minuto: l'edizione si legge lo stesso.")); box.appendChild(f); return; }
+    if (S.stato === "fuori") {
+      var f = el("div", "lt-vuoto"); f.appendChild(el("b", "", "La discussione si sta caricando"));
+      f.appendChild(document.createTextNode("Riproviamo da soli tra pochi secondi. ")); f.appendChild(bottone("lt-link", "Riprova adesso", "ricarica")); box.appendChild(f); return;
+    }
     var lista = tutte.filter(function (c) { return S.filtro === "tutti" || c.voto === S.filtro; });
     if (S.ord === "top") lista.sort(function (x, y) { return (S.miei[y.id] ? 1 : 0) - (S.miei[x.id] ? 1 : 0) || y.piace - x.piace || x.id - y.id; });
     else lista.sort(function (x, y) { return y.id - x.id; });
@@ -339,6 +347,7 @@
       else if (act === "ord") { S.ord = b.dataset.o; rendi(); }
       else if (act === "filtro") { S.filtro = b.dataset.f; rendi(); }
       else if (act === "tutti") { S.tutti = true; rendi(); }
+      else if (act === "ricarica") { tentativi = 0; carica(false); }
       else if (act === "rispondi") { S.re = { id: id, n: b.dataset.n }; if (b.dataset.cita && !ta.value) ta.value = "@" + b.dataset.n + " "; rendi(); ta.focus(); }
       else if (act === "annulla") { S.re = null; rendi(); ta.focus(); }
       else if (act === "dado") { S.giro = (S.giro + 1) % NOMI.length; S.nome = NOMI[S.giro]; ni.value = S.nome; errore(""); composer(); }
@@ -352,10 +361,10 @@
     if (!avviato) {
       avviato = true;
       // con la pagina aperta la discussione si aggiorna da sola (ogni 90 secondi, solo se la pagina è in vista)
-      document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible" && S.stato !== "attesa") carica(true); });
+      document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible" && S.stato !== "attesa") { tentativi = 0; carica(true); } });
       setInterval(function () { if (document.visibilityState === "visible" && S.stato === "pronto") carica(true); }, 90000);
     }
-    S.gen++; S.ed = ed; S.d = null; S.stato = "attesa"; S.miei = {}; S.re = null; S.menu = null; S.tutti = false; S.filtro = "tutti"; S.ord = "top";
+    S.gen++; tentativi = 0; S.ed = ed; S.d = null; S.stato = "attesa"; S.miei = {}; S.re = null; S.menu = null; S.tutti = false; S.filtro = "tutti"; S.ord = "top";
     errore(""); rendi(); carica(false);
   }
   window.LETTORI = { monta: monta };

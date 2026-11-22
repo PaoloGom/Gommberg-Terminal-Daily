@@ -130,6 +130,7 @@ export default {
     const url = new URL(request.url);
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
     try {
+      try { await prepara(env); } catch (e) { await prepara(env); }   // un intoppo del database alla prima richiesta: si riprova una volta
       return await instrada(request, env, url);
     } catch (e) {
       console.log("lettori: errore", e && e.stack || e);
