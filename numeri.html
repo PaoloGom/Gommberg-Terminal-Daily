@@ -103,6 +103,7 @@ main{padding-block:34px 56px}
 .kpi .v{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:40px;line-height:1.05;margin-top:6px}
 .kpi .d{margin-top:auto;padding-top:8px;font-family:var(--mono);font-size:12px;color:var(--muted)}
 .kpi .d .up{color:var(--up)}.kpi .d .down{color:var(--down)}
+.kpi .d a{color:var(--orange-ink);text-underline-offset:3px}
 .kpi.accent{border-top-color:var(--orange)}
 .v.up{color:var(--up)}.v.down{color:var(--down)}
 .v.wait{color:var(--muted);font-size:26px}
@@ -117,7 +118,7 @@ main{padding-block:34px 56px}
 .method{margin-top:34px;scroll-margin-top:20px}
 .method summary{cursor:pointer;font-weight:600;font-size:14.5px}
 .method p,.method li{font-size:14px;color:var(--muted)}
-@media (max-width:900px){.gks,.kpis,.kpis.k3{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi .v{font-size:32px}.kpi{min-height:118px}.gk-v b{font-size:34px}}
+@media (max-width:900px){.gks,.kpis,.kpis.k3{grid-template-columns:repeat(2,minmax(0,1fr))}.kpis .kpi:last-child:nth-child(odd){grid-column:1/-1}.kpi .v{font-size:32px}.kpi{min-height:118px}.gk-v b{font-size:34px}}
 @media (max-width:520px){.gm{padding:14px 12px 16px}.gks{grid-template-columns:1fr}.gc{padding:14px 12px}.gc-leg a{margin-left:0}}
 </style>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
@@ -167,9 +168,9 @@ main{padding-block:34px 56px}
   <section class="sec" aria-labelledby="h-let">
     <div class="sec-head"><h3 id="h-let">Chi ci legge</h3><span id="letP"></span></div>
     <div class="kpis k3">
-      <div class="kpi accent"><span class="k">Visite questo mese</span><span class="v" id="kMese">-</span><span class="d" id="kMeseD"></span></div>
-      <div class="kpi"><span class="k">Visite totali</span><span class="v" id="kTot">-</span><span class="d" id="kTotD"></span></div>
-      <div class="kpi"><span class="k">Condivisioni</span><span class="v" id="kSh">-</span><span class="d">WhatsApp e link copiato</span></div>
+      <div class="kpi accent"><span class="k">Visite totali</span><span class="v" id="kTot">-</span><span class="d" id="kTotD"></span></div>
+      <div class="kpi"><span class="k">Visite questo mese</span><span class="v" id="kMese">-</span><span class="d" id="kMeseD"></span></div>
+      <div class="kpi"><span class="k">Giorno record</span><span class="v" id="kRec">-</span><span class="d" id="kRecD"></span></div>
     </div>
   </section>
 
@@ -178,7 +179,7 @@ main{padding-block:34px 56px}
     <div class="kpis">
       <div class="kpi accent"><span class="k">Utile secondo chi ha votato</span><span class="v" id="kUt">-</span><span class="d" id="kUtD"></span></div>
       <div class="kpi"><span class="k">Edizioni pubblicate</span><span class="v" id="kEd">-</span><span class="d" id="kEdD"></span></div>
-      <div class="kpi"><span class="k">Uscite entro le 10</span><span class="v" id="kPun">-</span><span class="d" id="kPunD"></span></div>
+      <div class="kpi"><span class="k">Parole e meccanismi spiegati</span><span class="v" id="kImp">-</span><span class="d"><a href="glossario.html" id="kImpD">in Impara</a></span></div>
       <div class="kpi"><span class="k">La scommessa: punti</span><span class="v" id="kSc">-</span><span class="d" id="kScD"></span></div>
     </div>
   </section>
@@ -191,16 +192,18 @@ main{padding-block:34px 56px}
   <details class="method" id="come-contiamo">
     <summary>Come contiamo</summary>
     <ul>
-      <li><b>Visite</b>: pagine aperte sul sito, contate da GoatCounter senza cookie. Non sono persone: chi torna tre volte conta tre visite. Per questo non scriviamo "lettori". Contiamo tutte le visite, comprese quelle della redazione.</li>
-      <li><b>Il GOMM</b>: la media delle visite degli ultimi 7 giorni, divisa per la media della settimana dal 17 al 23 ottobre 2026 e moltiplicata per 100, con un decimale. La media a 7 giorni toglie l'effetto del fine settimana. Il valore grande è la chiusura dell'ultimo giorno completo (ieri); quello di oggi è provvisorio, perché il contatore pubblico si aggiorna ogni 4 ore.</li>
-      <li><b>Le candele</b>: fino a tre mesi ogni candela è un giorno e va dal GOMM del giorno prima a quello del giorno. Sui periodi più lunghi una candela è una settimana (da lunedì a domenica), oltre i due anni un mese: il corpo va dal GOMM di inizio a quello di fine periodo, la linea sottile dal minimo al massimo. Verde se sale, rossa se scende.</li>
-      <li><b>Il periodo</b>: i pulsanti sopra il grafico scelgono quanto indietro guardare. La riga sotto dice di quanto è cambiato il GOMM in quel periodo, tra quali valori si è mosso e con quante visite. Un periodo compare quando c'è abbastanza storia per riempirlo.</li>
-      <li><b>Il volume</b>: le visite del giorno, della settimana o del mese. È il dato grezzo da cui nasce il GOMM.</li>
-      <li><b>Intervallo</b>: il minimo e il massimo del GOMM dalla quotazione; dopo un anno di storia, delle ultime 52 settimane.</li>
-      <li><b>Condivisioni</b>: i clic su WhatsApp e "Copia link". Chi riceve il PDF da un amico non è contato.</li>
-      <li><b>Utile</b>: i voti "Ti è stata utile?" in fondo alle edizioni. Mostriamo la percentuale solo dai 10 voti in su.</li>
-      <li><b>Puntualità</b>: l'ora in cui l'edizione va online, registrata in automatico a ogni pubblicazione.</li>
-      <li><b>La scommessa</b>: il metodo e la pagella completa sono nella <a href="scommessa.html">sua pagina</a>.</li>
+      <li><b>Visite</b>: ogni volta che qualcuno apre una pagina del sito. Non sono persone: chi torna tre volte conta tre volte, per questo non parliamo di "lettori". Le conta GoatCounter, senza cookie, e dentro ci sono anche le nostre.</li>
+      <li><b>Il GOMM</b>: dice se il Gommberg è letto più o meno di prima. Prendiamo le visite medie degli ultimi 7 giorni e le confrontiamo con la nostra prima settimana piena, dal 17 al 23 ottobre 2026, che vale 100. A 200 siamo letti il doppio di allora. Usiamo 7 giorni perché nel fine settimana si legge meno: così un sabato non sembra un crollo.</li>
+      <li><b>Ieri e oggi</b>: il numero grande è quello di ieri, a giornata finita. Quello di oggi cambia ancora, perché il contatore si aggiorna ogni 4 ore.</li>
+      <li><b>Le candele</b>: ogni candela racconta un giorno. Parte dal GOMM del giorno prima e arriva a quello del giorno: verde se è salito, rossa se è sceso. Su un periodo lungo una candela diventa una settimana o un mese, e una linea sottile segna il minimo e il massimo toccati.</li>
+      <li><b>Le barre sotto il grafico</b>: le visite di quel giorno. È da lì che nasce il GOMM.</li>
+      <li><b>Il periodo</b>: i pulsanti sopra il grafico scelgono quanto indietro guardare. Un periodo compare quando c'è abbastanza storia per riempirlo.</li>
+      <li><b>Intervallo</b>: il valore più basso e il più alto toccati dal GOMM da quando esiste. Tra un anno, quelli delle ultime 52 settimane.</li>
+      <li><b>Giorno record</b>: il giorno con più visite da quando contiamo.</li>
+      <li><b>Edizioni</b>: ne esce una per ogni giorno di borsa aperta. I giorni saltati sono quelli in cui doveva uscire e non è uscita.</li>
+      <li><b>Parole e meccanismi</b>: le voci di <a href="glossario.html">Impara</a>, il nostro manuale.</li>
+      <li><b>Utile</b>: i voti "Ti è stata utile?" in fondo alle edizioni. La percentuale compare dai 10 voti in su: con pochi voti direbbe poco.</li>
+      <li><b>La scommessa</b>: metodo e pagella sono nella <a href="scommessa.html">sua pagina</a>.</li>
     </ul>
   </details>
 </main>
@@ -211,7 +214,7 @@ main{padding-block:34px 56px}
 (function () {
   "use strict";
   // Il GOMM (assets/gomm.js) in quattro schede e un grafico a candele; poi visite, condivisioni e i numeri della redazione
-  // (dati/storico.json, dati/uscite.json, pagella della scommessa).
+  // (dati/storico.json, dati/redazione.json, pagella della scommessa, le voci di Impara).
   const G = window.GOMM;
   const MESI = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
   const GG = ["domenica","lunedì","martedì","mercoledì","giovedì","venerdì","sabato"];
@@ -425,10 +428,10 @@ main{padding-block:34px 56px}
     const m0 = iso(new Date(Date.UTC(y, m, 1))), p0 = iso(new Date(Date.UTC(y, m - 1, 1))), p1 = iso(new Date(Date.UTC(y, m, 0)));
     // stesso numero di giorni del mese scorso, per un confronto alla pari
     const pPari = iso(new Date(Date.UTC(y, m - 1, Math.min(oggi.getDate(), new Date(Date.UTC(y, m, 0)).getUTCDate()))));
-    const [tot, mese, prec, precPari, sh] = await Promise.all([
-      G.conta("TOTAL"), G.conta("TOTAL", m0), G.conta("TOTAL", p0, p1), G.conta("TOTAL", p0, pPari), G.conta("condividi-tutte")]);
+    const [tot, mese, prec, precPari] = await Promise.all([
+      G.conta("TOTAL"), G.conta("TOTAL", m0), G.conta("TOTAL", p0, p1), G.conta("TOTAL", p0, pPari)]);
     $("letP").textContent = MESI[m] + " " + y;
-    if (tot == null) { ["kMese", "kTot", "kSh"].forEach((id) => attesa(id)); $("kTotD").textContent = "il contatore non ha risposto: riprova tra poco"; return; }
+    if (tot == null) { ["kMese", "kTot"].forEach((id) => attesa(id)); $("kTotD").textContent = "il contatore non ha risposto: riprova tra poco"; return; }
     // il mese scorso vale come confronto solo se il Gommberg c'era già dal primo giorno
     const precPieno = !INIZIO || INIZIO <= p0, mp = MESI[(m + 11) % 12];
     $("kMese").textContent = n0(mese || 0);
@@ -436,7 +439,6 @@ main{padding-block:34px 56px}
     else $("kMeseD").textContent = "il confronto parte dal primo mese completo";
     const dal = INIZIO && !precPieno && INIZIO <= p1 ? " (dal " + Number(INIZIO.slice(8)) + ")" : "";
     $("kTot").textContent = n0(tot); $("kTotD").textContent = prec != null ? n0(prec) + " visite a " + mp + dal : "";
-    $("kSh").textContent = sh == null ? "-" : n0(sh);
   }
   const attesa = (id, txt) => { const v = $(id); v.textContent = txt || "in arrivo"; v.classList.add("wait"); };
   const delta = (box, a, b, lbl) => {
@@ -457,14 +459,14 @@ main{padding-block:34px 56px}
     d.parentElement.insertBefore(m, d);
   }
 
-  function redazione(storico, uscite, pag) {
+  function redazione(storico, red, pag) {
     $("kEd").textContent = n0(storico.length);
-    if (storico.length) { const d = new Date(storico[storico.length - 1].data + "T12:00:00Z"); $("kEdD").textContent = "dal " + d.getUTCDate() + " " + MESI[d.getUTCMonth()] + " " + d.getUTCFullYear(); }
-    if (uscite.length) {
-      const ok = uscite.filter((u) => u.ora && u.ora <= "10:00").length;
-      $("kPun").textContent = ok + " su " + uscite.length; if (ok === uscite.length) $("kPun").classList.add("up");
-      const ore = uscite.map((u) => u.ora).filter(Boolean).sort(); $("kPunD").textContent = "orario tipico " + ore[Math.floor(ore.length / 2)] + " | dal n. " + pad(uscite[0].n);
-    } else { attesa("kPun", "dal n. 021"); $("kPunD").textContent = "si registra da lunedì 9 novembre"; }
+    if (storico.length) {
+      // il numero di un'edizione conta i giorni di borsa dalla prima: la differenza con le edizioni uscite sono i giorni saltati
+      const attese = storico[0].numero, an = red && red.analisi;
+      const salti = Math.max(0, attese - storico.length);
+      $("kEdD").textContent = (an ? n0(an) + " analisi | " : "") + salti + (salti === 1 ? " giorno saltato" : " giorni saltati");
+    }
     if (pag && pag.su) {
       $("kSc").textContent = pag.punti + " su " + pag.su; $("kSc").classList.add(pag.punti >= pag.par ? "up" : "down");
       $("kScD").textContent = "par " + String(pag.par).replace(".", ",") + " | " + pag.settimane + (pag.settimane === 1 ? " settimana" : " settimane");
@@ -472,12 +474,29 @@ main{padding-block:34px 56px}
   }
 
   const j = (u) => fetch(u, { cache: "no-store" }).then((r) => r.ok ? r.json() : null).catch(() => null);
-  Promise.all([j("dati/storico.json"), j("dati/uscite.json"), j("redazione/scommessa/pagella.json")]).then(([st, us, pag]) => {
+  // Impara: le stesse voci che conta glossario.html (parole del PDF più schede del sito, e i meccanismi)
+  Promise.all([j("redazione/glossario.json"), j("redazione/meccanismi.json"), j("redazione/glossario_sito.json")]).then(([Gl, M, S]) => {
+    if (!Gl || !M) { attesa("kImp"); return; }
+    const base = (Gl.voci || []).filter((v) => v && v.sigla && v.breve), note = new Set(base.map((v) => v.sigla)), SV = (S && S.voci) || {};
+    const par = base.length + Object.keys(SV).filter((k) => !note.has(k) && SV[k].breve).length;
+    const mec = (M.voci || []).filter((v) => v && v.id && v.titolo && v.testo).length;
+    $("kImp").textContent = n0(par + mec); $("kImpD").textContent = n0(par) + " parole e " + n0(mec) + " meccanismi";
+  });
+  // Giorno record: il giorno con più visite da quando contiamo (oggi compreso, se lo sta battendo)
+  function record(d) {
+    const gg = d.giorni.concat(d.oggi && d.oggi.v != null ? [d.oggi] : []).filter((x) => x.v != null);
+    if (!gg.length) { attesa("kRec"); return; }
+    const r = gg.reduce((a, x) => x.v > a.v ? x : a), t = G.dt(r.d), e = EDIZ[r.d];
+    $("kRec").textContent = n0(r.v);
+    $("kRecD").textContent = "visite " + GG[t.getUTCDay()] + " " + giorno(r.d) + (e ? " | n. " + pad(e.numero) : "");
+  }
+  Promise.all([j("dati/storico.json"), j("dati/redazione.json"), j("redazione/scommessa/pagella.json")]).then(([st, us, pag]) => {
     const storico = (st || []).filter((e) => e && e.numero).sort((a, b) => b.numero - a.numero);
     storico.forEach((e) => { EDIZ[e.data] = e; });
-    redazione(storico, us || [], pag);
+    redazione(storico, us, pag);
     G.carica().then((d) => {
-      if (!d) { $("gcBox").innerHTML = '<p class="gm-nd">Il contatore pubblico non ha risposto: il GOMM torna tra poco.</p>'; ["gkV", "gaV", "gvV"].forEach((id) => { $(id).textContent = "n.d."; }); return; }
+      if (!d) { $("gcBox").innerHTML = '<p class="gm-nd">Il contatore pubblico non ha risposto: il GOMM torna tra poco.</p>'; ["gkV", "gaV", "gvV"].forEach((id) => { $(id).textContent = "n.d."; }); attesa("kRec"); return; }
+      record(d);
       D = d; schede(); largo = $("gcBox").clientWidth; disegna();
     });
     lettori(storico.length ? storico[storico.length - 1].data : null);
