@@ -728,14 +728,15 @@ function tabVersioni(){var P=D.piano||RIF,V=D.vers.slice().reverse();
 
 /* ================= INVII (mail straordinarie, G-17) ================= */
 /* invii.json lo scrive redazione/dem.py dai file di redazione/dem/: qui si calcola lo stato del momento. */
-function statoInvio(r,ora){var t=new Date(r.invio),g=(t-ora)/864e5,pm=INV.regole.promemoria_giorni||10;
+function tInvio(r){return new Date(r.utc||r.invio)}
+function statoInvio(r,ora){var t=tInvio(r),g=(t-ora)/864e5,pm=INV.regole.promemoria_giorni||10;
   if(r.stato=="annullata")return {k:"neu",t:"Annullata",o:3};
   if(r.stato=="approvata")return t>ora?{k:"ok",t:"Programmata",o:1}:{k:"neu",t:"Inviata",o:2};
-  if(t<=ora)return {k:"ko",t:"Non partita, mai approvata",o:2,g:1};
+  if(t<=ora)return {k:"neu",t:"Mai approvata, non partita",o:2};
   return g<=pm?{k:"att",t:"Da approvare",o:0,g:1}:{k:"neu",t:"Bozza",o:0}}
-function daGuardareInvii(){var ora=new Date();return INV.invii.filter(function(r){return statoInvio(r,ora).g&&new Date(r.invio)>ora-30*864e5})}
+function daGuardareInvii(){var ora=new Date();return INV.invii.filter(function(r){return statoInvio(r,ora).g})}
 function quandoInvio(r){return data(r.invio.slice(0,10))+" · "+r.invio.slice(11,16)}
-function invii(){var ora=new Date(),R=INV.invii.map(function(r){return {r:r,s:statoInvio(r,ora),t:new Date(r.invio)}});
+function invii(){var ora=new Date(),R=INV.invii.map(function(r){return {r:r,s:statoInvio(r,ora),t:tInvio(r)}});
   var fut=R.filter(function(x){return x.t>ora&&x.r.stato!="annullata"}).sort(function(a,b){return a.t-b.t}),
       pas=R.filter(function(x){return !(x.t>ora&&x.r.stato!="annullata")}).sort(function(a,b){return b.t-a.t}),
       bz=fut.filter(function(x){return x.r.stato=="bozza"}),pr=fut.filter(function(x){return x.r.stato=="approvata"}),
@@ -747,10 +748,10 @@ function invii(){var ora=new Date(),R=INV.invii.map(function(r){return {r:r,s:st
    +kpi({go:"invii",l:"Programmate",s:pr.length?"ok":"",v:String(pr.length),d:false,n:"partono da sole alla data"})
    +kpi({go:"invii",l:"Inviate",v:String(inv.length),d:false,n:inv.length?"ultima "+breve(inv[0].r.invio.slice(0,10)):"nessuna finora"})
    +"</div>";
-  function riga(x){var r=x.r;return '<tr><td><span class="e">'+breve(r.invio.slice(0,10))+'</span><span class="dt">'+G[x.t.getDay()]+" · "+r.invio.slice(11,16)+"</span></td><td class='tl'>"+esc(r.oggetto)+(r.sondaggio?' <span class="chip neu">sondaggio</span>':"")+'</td><td class="tl"><span class="chip '+x.s.k+'">'+(IC[x.s.k]?'<svg viewBox="0 0 24 24">'+IC[x.s.k]+"</svg>":"")+esc(x.s.t)+"</span></td><td class='tl'>"+(r.ok?esc(r.ok):"-")+"</td></tr>"}
+  function riga(x){var r=x.r;return '<tr><td><span class="e">'+breve(r.invio.slice(0,10))+'</span><span class="dt">'+G[gg(r.invio.slice(0,10)).getDay()]+" · "+r.invio.slice(11,16)+"</span></td><td class='tl'>"+esc(r.oggetto)+(r.sondaggio?' <span class="chip neu">sondaggio</span>':"")+'</td><td class="tl"><span class="chip '+x.s.k+'">'+(IC[x.s.k]?'<svg viewBox="0 0 24 24">'+IC[x.s.k]+"</svg>":"")+esc(x.s.t)+"</span></td><td class='tl'>"+(r.ok?esc(r.ok):"-")+"</td></tr>"}
   var tab=function(L){return '<div class="tw"><table><thead><tr><th>Invio</th><th class="tl">Oggetto</th><th class="tl">Stato</th><th class="tl">Ok</th></tr></thead><tbody>'+L.map(riga).join("")+"</tbody></table></div>"};
   var cal=card("In arrivo",fut.length?"Le prossime mail, in ordine di data":"",fut.length?tab(fut):'<div class="vuoto">Nessuna mail in arrivo.</div>',{flush:!!fut.length});
-  var reg=INV.regole,regole='<ul class="alerts">'+[["Al massimo una ogni "+(reg.min_giorni||21)+" giorni","Le annullate non contano."],["Invio tra le "+(reg.ore||"8:00-20:59").replace("-"," e le "),"Nei giorni di uscita mai tra le "+(reg.finestra_edizione||"7:00-10:59").replace("-"," e le ")+": c'è l'edizione."],["Parte solo con l'ok di Paolo","Una bozza vicina alla data senza ok, o una mail non partita, apre una segnalazione."],["Si preparano in chat con Claude","Un file per mail in redazione/dem/, allineato a Kit ogni sera."]].map(function(x){return '<li class="ok fisso"><span class="ic"><svg viewBox="0 0 24 24">'+IC.ok+"</svg></span><span><b>"+x[0]+"</b><span>"+x[1]+"</span></span></li>"}).join("")+"</ul>";
+  var reg=INV.regole,regole='<ul class="alerts">'+[["Al massimo una al mese",(reg.min_giorni?"E almeno "+reg.min_giorni+" giorni tra due mail. ":"")+"Le annullate non contano."],["Invio tra le "+(reg.ore||"8:00-20:59").replace("-"," e le "),"Nei giorni di uscita mai tra le "+(reg.finestra_edizione||"7:00-10:59").replace("-"," e le ")+": c'è l'edizione."],["Parte solo con l'ok di Paolo","Una bozza vicina alla data senza ok, o una mail approvata e non partita, apre una segnalazione."],["Si preparano in chat con Claude","Un file per mail in redazione/dem/. Kit si allinea a ogni modifica e ogni sera, e lì si verifica che cosa è partito davvero."]].map(function(x){return '<li class="ok fisso"><span class="ic"><svg viewBox="0 0 24 24">'+IC.ok+"</svg></span><span><b>"+x[0]+"</b><span>"+x[1]+"</span></span></li>"}).join("")+"</ul>";
   var side=card("Le regole","Controllate a ogni modifica",regole,{});
   return [sub,h+'<div class="row r21" style="align-items:start">'+cal+side+"</div>"+(pas.length?'<div class="row">'+card("Già partite e annullate",pas.length+" "+plur(pas.length,"mail","mail"),tab(pas),{flush:true})+"</div>":"")]}
 

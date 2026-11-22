@@ -1,6 +1,7 @@
 # Le mail straordinarie (DEM): allinea Kit ai file di redazione/dem/ (regole e formato in redazione/dem/LEGGIMI.md).
-# Su main, a ogni cambiamento dei file e ogni sera alle 19:30 di Roma (20:30 con l'ora legale): crea, aggiorna, riporta
-# in bozza e toglie gli invii in Kit. Sugli altri rami controlla solo le regole, senza toccare Kit. Nessun token del modello.
+# Su main, a ogni cambiamento dei file e ogni sera alle 19:30 di Roma (20:30 con l'ora legale): crea, rifà, riporta in
+# bozza e toglie gli invii in Kit. Sugli altri rami, anche lanciando a mano, controlla solo le regole e non tocca Kit.
+# Nessun token del modello.
 # Se va tutto bene non scrive a nessuno. Se qualcosa va guardato (una bozza vicina alla data senza ok, una mail approvata
 # non partita, Kit che rifiuta un'operazione) il giro fallisce e apre una segnalazione assegnata a Paolo: GitHub gli
 # manda l'email. Una sola segnalazione aperta alla volta. La chiave di Kit è il segreto KIT_API_KEY e non viene mai stampata.
@@ -18,7 +19,7 @@ on:
   workflow_dispatch:
     inputs:
       modo:
-        description: "piano = legge Kit e dice che cosa farebbe; sincronizza = allinea Kit ai file; controlla = solo le regole"
+        description: "piano = legge Kit e dice che cosa farebbe; sincronizza = allinea Kit ai file (solo da main); controlla = solo le regole"
         type: choice
         options: [piano, sincronizza, controlla]
         default: piano
@@ -28,7 +29,7 @@ permissions:
   issues: write                    # la segnalazione a Paolo
 
 concurrency:
-  group: dem                       # mai due allineamenti insieme
+  group: dem-${{ github.ref }}     # mai due allineamenti insieme sullo stesso ramo; i rami non si disturbano
   cancel-in-progress: false
 
 jobs:
@@ -40,10 +41,12 @@ jobs:
       - name: Mail straordinarie
         env:
           KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
-          MODO: ${{ github.event.inputs.modo || (github.ref == 'refs/heads/main' && 'sincronizza' || 'controlla') }}
+          SCELTO: ${{ github.event.inputs.modo || 'sincronizza' }}
         run: |
+          # Kit si allinea solo ai file di main: da ogni altro ramo, anche lanciando a mano, solo il controllo delle regole
+          MODO="$SCELTO"; [ "$GITHUB_REF" = "refs/heads/main" ] || MODO=controlla
           echo "Modo: $MODO"
-          python3 redazione/dem.py "$MODO" | tee esito.txt | tee -a "$GITHUB_STEP_SUMMARY"
+          python3 redazione/dem.py "$MODO" 2>&1 | tee esito.txt | tee -a "$GITHUB_STEP_SUMMARY"
           exit "${PIPESTATUS[0]}"
       - name: Segnalazione a Paolo
         if: failure() && github.ref == 'refs/heads/main'
@@ -51,9 +54,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           T="Mail straordinarie: c'è qualcosa da guardare"
-          N=$(gh issue list --state open --search "\"$T\" in:title" --json number -q 'length' 2>/dev/null || echo 0)
+          N=$(gh issue list --state open --search "\"$T\" in:title" --json number -q 'length' 2>/dev/null) || N=""
           [ -f esito.txt ] || echo "Il giro non è arrivato a scrivere l'esito: vedi il log di GitHub Actions." > esito.txt
-          if [ "$N" = "0" ]; then
+          if [ -z "$N" ]; then
+            echo "::warning::Elenco delle segnalazioni non leggibile: nessuna segnalazione nuova, resta l'avviso di GitHub per il giro fallito."
+          elif [ "$N" = "0" ]; then
             gh issue create --title "$T" --assignee "${{ github.repository_owner }}" --body-file esito.txt \
               || echo "::warning::Segnalazione non creata: resta l'avviso di GitHub per il giro fallito."
           fi

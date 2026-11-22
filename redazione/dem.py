@@ -16,6 +16,7 @@ Uso:   python3 redazione/dem.py                 controlla le regole e che pannel
 
 Esce con 1 quando qualcosa va guardato da Paolo: dem.yml apre allora una segnalazione e GitHub gli manda l'email.
 """
+import hashlib
 import html
 import json
 import os
@@ -38,11 +39,13 @@ ROMA = ZoneInfo("Europe/Rome")
 ETICHETTA = "gommberg-dem-"     # description dell'invio in Kit: lega l'invio al suo file
 
 # Le regole. Si cambiano qui e in LEGGIMI.md, insieme.
-MIN_GIORNI = 21           # tra due mail straordinarie (non annullate): al massimo una ogni tre settimane
+UNA_AL_MESE = True        # al massimo una mail per mese di calendario (le annullate non contano): lo promette la privacy
+MIN_GIORNI = 14           # e comunque almeno 14 giorni tra due mail (niente 31 gennaio e 1 febbraio)
 ORA_DA, ORA_A = 8, 21     # si spedisce tra le 8:00 e le 20:59
 FINESTRA = (7, 11)        # nei giorni di uscita, dalle 7:00 alle 10:59 c'è l'edizione: niente mail straordinarie
 PROMEMORIA = 10           # giorni prima dell'invio in cui una bozza non approvata diventa da guardare
-MARGINE_MIN = 15          # sotto questi minuti dall'invio Kit non si tocca più
+MARGINE_MIN = 15          # sotto questi minuti dall'invio una mail non si crea né si cambia più
+MARGINE_RITIRO = 2        # sotto questi minuti un invio non si toglie più (annullarlo prima è sempre possibile)
 PAROLE_AVVISO, PAROLE_MAX = 250, 400
 STATI = ("bozza", "approvata", "annullata")
 NOME_FILE = re.compile(r"^(\d{4}-\d{2}-\d{2})-([a-z0-9]+(?:-[a-z0-9]+)*)\.md$")
@@ -174,11 +177,13 @@ def leggi_tutte(cartella=CARTELLA):
 
 
 def regole_calendario(mail):
-    """La regola tra mail diverse: al massimo una ogni MIN_GIORNI giorni (le annullate non contano)."""
+    """Le regole tra mail diverse (le annullate non contano): una per mese di calendario, almeno MIN_GIORNI giorni tra due."""
     vive = sorted([m for m in mail if m.invio and m["stato"] != "annullata"], key=lambda m: m.invio)
     for a, b in zip(vive, vive[1:]):
         gap = (b.invio.date() - a.invio.date()).days
-        if gap < MIN_GIORNI:
+        if UNA_AL_MESE and (a.invio.year, a.invio.month) == (b.invio.year, b.invio.month):
+            b.errori.append(f"stesso mese di {a.nome}: al massimo una mail straordinaria al mese")
+        elif gap < MIN_GIORNI:
             b.errori.append(f"a {gap} giorni da {a.nome}: tra due mail straordinarie almeno {MIN_GIORNI} giorni")
 
 
@@ -261,10 +266,11 @@ def componi(m, con_testata=True):
 def vista(mail):
     """pannello/invii.json: solo ciò che serve alla vista Invii (niente testi). Lo stato del momento (programmata,
     inviata, da approvare) lo calcola la pagina con l'ora di chi guarda: il file cambia solo quando cambiano i file."""
-    righe = [{"nome": m.nome, "invio": m.invio.strftime("%Y-%m-%dT%H:%M"), "stato": m["stato"], "oggetto": m["oggetto"],
+    righe = [{"nome": m.nome, "invio": m.invio.strftime("%Y-%m-%dT%H:%M"),
+              "utc": m.invio.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "stato": m["stato"], "oggetto": m["oggetto"],
               "ok": m["ok"], "sondaggio": any(b[0] == "sondaggio" for b in m.blocchi), "parole": m.parole}
              for m in sorted(mail, key=lambda m: m.invio) if m.invio]
-    return {"regole": {"min_giorni": MIN_GIORNI, "promemoria_giorni": PROMEMORIA, "ore": f"{ORA_DA}:00-{ORA_A - 1}:59",
+    return {"regole": {"una_al_mese": UNA_AL_MESE, "min_giorni": MIN_GIORNI, "promemoria_giorni": PROMEMORIA, "ore": f"{ORA_DA}:00-{ORA_A - 1}:59",
                        "finestra_edizione": f"{FINESTRA[0]}:00-{FINESTRA[1] - 1}:59"}, "invii": righe}
 
 
@@ -273,120 +279,209 @@ def testo_vista(mail):
 
 
 # ------------------------------------------------------------------ allineamento con Kit
+# Il principio: in Kit non si modifica mai un invio sul posto. Ogni cambiamento è "togli, verifica che sia tolto, poi crea
+# e verifica che Kit abbia registrato quello che volevamo". Se il togliere non riesce non si crea nulla: due invii della
+# stessa mail non possono nascere. L'impronta del contenuto sta nella description ("etichetta #impronta"): un invio
+# uguale al file non si tocca.
 def quando(s):
     if not s:
         return None
     try:
-        return datetime.fromisoformat(str(s).replace("Z", "+00:00"))
+        t = datetime.fromisoformat(str(s).replace("Z", "+00:00"))
+        return t if t.tzinfo else t.replace(tzinfo=timezone.utc)
     except ValueError:
         return None
 
 
+def etichetta_di(descrizione):
+    return str(descrizione or "").split(" ")[0]
+
+
+def impronta_di(descrizione):
+    parti = str(descrizione or "").split(" #")
+    return parti[1].strip() if len(parti) > 1 else ""
+
+
 def stato_kit(b, ora):
-    """Da un invio di Kit: {'id', 'send_at', 'partito'}. Partito = spedito o in spedizione: non si tocca più."""
+    """Da un invio di Kit: id, send_at, impronta, partito. Partito = spedito, in spedizione o con l'ora già passata:
+    l'ora vince sullo stato dichiarato, così un invio "scheduled" in partenza non si tocca."""
     s = str(b.get("status") or "").lower()
     t = quando(b.get("send_at"))
-    if s in ("completed", "sent", "sending", "processing"):
-        partito = True
-    elif s in ("draft", "scheduled"):
-        partito = False
-    else:
-        partito = bool(t and t <= ora)
-    return {"id": b.get("id"), "send_at": t, "partito": partito}
+    partito = s in ("completed", "sent", "sending", "processing") or bool(t and t <= ora)
+    return {"id": b.get("id"), "send_at": t, "impronta": impronta_di(b.get("description")), "partito": partito}
 
 
-def piano(mail, kit, ora):
-    """Che cosa fare in Kit, senza farlo. mail: le mail valide; kit: {etichetta: stato_kit}; ora: adesso (UTC).
-    Torna (azioni, guardare): azioni = [(tipo, etichetta, mail o None, motivo)] con tipo in
-    crea-bozza, crea-programmata, allinea-bozza, allinea-programmata, elimina, nulla; guardare = frasi per Paolo."""
-    azioni, guardare = [], []
-    margine = timedelta(minutes=MARGINE_MIN)
+def dati_invio(m, programmata, modello):
+    """Ciò che si manda a Kit per la mail m. Una bozza non ha mai una data di invio."""
+    oggetto, anteprima, corpo = componi(m, con_testata=True)
+    d = {"subject": oggetto, "preview_text": anteprima, "content": corpo, "public": False,
+         "send_at": m.invio.astimezone(timezone.utc).isoformat(timespec="seconds") if programmata else None,
+         "email_template_id": modello}
+    firma = json.dumps([d["subject"], d["preview_text"], d["content"], d["send_at"], modello], ensure_ascii=False)
+    d["description"] = f"{m.etichetta} #{hashlib.sha256(firma.encode('utf-8')).hexdigest()[:12]}"
+    return d
+
+
+def piano(mail, kit, ora, modello, solo_ritiri=False):
+    """Che cosa fare in Kit, senza farlo.
+    mail: tutte le mail lette (anche quelle con errori); kit: {etichetta: [stato_kit, ...]}; ora: adesso (UTC);
+    modello: id del modello "Gommberg cornice"; solo_ritiri: True se qualche file ha errori o il modello manca, e allora
+    si tolgono gli invii da ritirare ma non si crea né si cambia nulla.
+    Torna (azioni, guardare, note). azioni = [(tipo, etichetta, mail o None, motivo, id o None)] con tipo in
+    crea-bozza, crea-programmata, rifai-bozza, rifai-programmata (togli l'id, poi crea), elimina, nulla.
+    guardare = problemi veri, per Paolo (fanno fallire il giro); note = da leggere, non fanno fallire."""
+    azioni, guardare, note = [], [], []
+    modifica, ritiro = timedelta(minutes=MARGINE_MIN), timedelta(minutes=MARGINE_RITIRO)
     per_etichetta = {m.etichetta: m for m in mail}
-    for m in sorted(mail, key=lambda m: m.invio):
-        k, st, inv = kit.get(m.etichetta), m["stato"], m.invio.astimezone(timezone.utc)
-        if k and k["partito"]:
-            azioni.append(("nulla", m.etichetta, m, "già partita"))
-            if st == "annullata":
-                guardare.append(f"{m.nome}: è annullata ma era già partita")
-        elif st == "annullata":
-            azioni.append(("elimina", m.etichetta, m, "annullata") if k else ("nulla", m.etichetta, m, "annullata"))
-        elif inv - ora < margine and k and k["send_at"] and k["send_at"] > ora:
-            azioni.append(("nulla", m.etichetta, m, f"parte tra meno di {MARGINE_MIN} minuti: non si tocca"))
-        elif st == "bozza":
-            if inv <= ora:
-                azioni.append(("nulla", m.etichetta, m, "data passata, mai approvata: non è partita"))
+    for et in sorted(set(per_etichetta) | set(kit)):
+        m, lista = per_etichetta.get(et), kit.get(et, [])
+        vive = sorted([k for k in lista if not k["partito"]], key=lambda k: (k["send_at"] is None, k["send_at"] or ora))
+        partita = any(k["partito"] for k in lista)
+        valida = bool(m and not m.errori and m.invio and m["stato"] in STATI)
+        voluta = (m.invio.astimezone(timezone.utc) if valida and m["stato"] == "approvata" else None)
+
+        # 1. un invio che sta partendo non si tocca più
+        if any(k["send_at"] and k["send_at"] - ora <= ritiro for k in vive):
+            azioni.append(("nulla", et, m, f"parte tra meno di {MARGINE_RITIRO} minuti: non si tocca", None))
+            normale = voluta and len(vive) == 1 and abs((vive[0]["send_at"] - voluta).total_seconds()) < 60
+            if not normale:
+                guardare.append(f"{et}: in Kit sta per partire e il file non la vuole così: da fermare a mano in Kit, subito")
+            continue
+        # 2. doppioni in Kit (non dovrebbero esistere): se ne tiene uno, gli altri si tolgono
+        for k in vive[1:]:
+            azioni.append(("elimina", et, m, "doppione in Kit", k["id"]))
+            guardare.append(f"{et}: in Kit c'erano due invii della stessa mail, il doppione è stato tolto")
+        k = vive[0] if vive else None
+        # 3. file tolto, annullato o illeggibile
+        if m is None:
+            if k:
+                azioni.append(("elimina", et, None, "file tolto", k["id"]))
+                note.append(f"{et}: file tolto, invio tolto da Kit")
+            continue
+        if not m.invio or m["stato"] not in STATI:
+            azioni.append(("nulla", et, m, "file illeggibile: Kit lasciato com'è", None))
+            continue
+        st, inv = m["stato"], m.invio.astimezone(timezone.utc)
+        if st == "annullata":
+            azioni.append(("elimina", et, m, "annullata", k["id"]) if k else ("nulla", et, m, "annullata", None))
+            if partita and not k:
+                note.append(f"{et}: annullata, ma era già partita")
+            continue
+        if partita and not k:
+            azioni.append(("nulla", et, m, "già partita", None))
+            continue
+        # 4. bozza: in Kit senza data, oppure niente
+        if st == "bozza":
+            if k and k["send_at"]:  # era programmata: si ritira subito, anche con errori nei file
+                if solo_ritiri or inv <= ora:
+                    azioni.append(("elimina", et, m, "tornata in bozza: invio ritirato", k["id"]))
+                else:
+                    azioni.append(("rifai-bozza", et, m, "tornata in bozza: invio ritirato, resta in Kit senza data", k["id"]))
+            elif inv <= ora:
+                azioni.append(("nulla", et, m, "data passata, mai approvata: non è partita", None))
+            elif solo_ritiri:
+                azioni.append(("nulla", et, m, "bozza (Kit non aggiornato: ci sono errori da correggere)", None))
             else:
-                azioni.append(("allinea-bozza" if k else "crea-bozza", m.etichetta, m, "bozza (in Kit senza data, da approvare)"))
-                if inv - ora <= timedelta(days=PROMEMORIA):
-                    guardare.append(f"{m.nome}: è ancora in bozza e la data di invio è {m.invio:%d/%m alle %H:%M}. "
-                                    "Senza l'ok non parte")
-        else:  # approvata
-            if inv - ora < margine:
-                azioni.append(("nulla", m.etichetta, m, "non programmata"))
-                guardare.append(f"{m.nome}: approvata ma non partita (invio del {m.invio:%d/%m alle %H:%M}, in Kit "
-                                + ("in bozza" if k else "assente") + "): spostare la data o controllare in Kit")
-            else:
-                azioni.append(("allinea-programmata" if k else "crea-programmata", m.etichetta, m,
-                               f"programmata per il {m.invio:%d/%m alle %H:%M}"))
-    for etichetta, k in sorted(kit.items()):
-        if etichetta not in per_etichetta and not k["partito"]:
-            azioni.append(("elimina", etichetta, None, "in Kit senza file: il file è stato tolto"))
-            guardare.append(f"{etichetta}: in Kit c'era un invio senza file, tolto")
-    return azioni, guardare
+                atteso = dati_invio(m, False, modello)["description"]
+                if not k:
+                    azioni.append(("crea-bozza", et, m, "bozza: in Kit senza data, da approvare", None))
+                elif impronta_di(atteso) != k["impronta"]:
+                    azioni.append(("rifai-bozza", et, m, "bozza cambiata", k["id"]))
+                else:
+                    azioni.append(("nulla", et, m, "bozza, uguale in Kit", None))
+            if ora < inv <= ora + timedelta(days=PROMEMORIA):
+                guardare.append(f"{et}: è ancora in bozza e parte il {m.invio:%d/%m alle %H:%M} solo con l'ok di Paolo")
+            continue
+        # 5. approvata
+        if not valida:
+            azioni.append(("nulla", et, m, "approvata ma con errori nel file: Kit lasciato com'è", None))
+            continue
+        if inv - ora < modifica:
+            if not (k and k["send_at"]):
+                azioni.append(("nulla", et, m, "non partita", None))
+                if ora - inv <= timedelta(days=2):
+                    guardare.append(f"{et}: approvata ma non partita (invio del {m.invio:%d/%m alle %H:%M}, in Kit "
+                                    + ("in bozza" if k else "assente") + "): scegliere una nuova data")
+            else:  # programmata e in partenza: si lascia andare; se il file è cambiato, è tardi per seguirlo
+                azioni.append(("nulla", et, m, f"parte tra meno di {MARGINE_MIN} minuti: non si cambia", None))
+                uguale = (abs((k["send_at"] - inv).total_seconds()) < 60
+                          and (modello is None or impronta_di(dati_invio(m, True, modello)["description"]) == k["impronta"]))
+                if not uguale:
+                    guardare.append(f"{et}: cambiata a meno di {MARGINE_MIN} minuti dalla partenza (in Kit alle "
+                                    f"{k['send_at'].astimezone(ROMA):%H:%M}): parte la versione di prima, salvo fermarla a mano in Kit")
+            continue
+        if solo_ritiri:
+            azioni.append(("nulla", et, m, "approvata (Kit non aggiornato: ci sono errori da correggere)", None))
+            continue
+        atteso = dati_invio(m, True, modello)["description"]
+        if not k:
+            azioni.append(("crea-programmata", et, m, f"programmata per il {m.invio:%d/%m alle %H:%M}", None))
+        elif impronta_di(atteso) != k["impronta"]:
+            azioni.append(("rifai-programmata", et, m, f"cambiata: riprogrammata per il {m.invio:%d/%m alle %H:%M}", k["id"]))
+        else:
+            azioni.append(("nulla", et, m, f"programmata per il {m.invio:%d/%m alle %H:%M}, uguale in Kit", None))
+    return azioni, guardare, note
 
 
 def invii_dem():
-    """Tutti gli invii di Kit con l'etichetta delle mail straordinarie, pagina per pagina."""
+    """Gli invii di Kit con l'etichetta delle mail straordinarie, pagina per pagina: {etichetta: [invii]}."""
     trovati, dopo = {}, None
     for _ in range(50):
         stato, corpo = nl.kit("GET", "/broadcasts?per_page=100" + (f"&after={dopo}" if dopo else ""))
         if stato != 200:
             raise RuntimeError(f"elenco degli invii di Kit non leggibile (HTTP {stato})")
         for b in corpo.get("broadcasts", []):
-            if str(b.get("description") or "").startswith(ETICHETTA):
-                trovati[b["description"]] = b
+            et = etichetta_di(b.get("description"))
+            if et.startswith(ETICHETTA):
+                trovati.setdefault(et, []).append(b)
         pg = corpo.get("pagination") or {}
         if not pg.get("has_next_page") or not pg.get("end_cursor"):
-            break
+            return trovati
         dopo = pg["end_cursor"]
-    return trovati
+    raise RuntimeError("elenco degli invii di Kit troppo lungo (oltre 50 pagine): fermo per prudenza")
 
 
-def dati_invio(m, programmata, modello, con_testata):
-    oggetto, anteprima, corpo = componi(m, con_testata)
-    d = {"subject": oggetto, "preview_text": anteprima, "content": corpo, "description": m.etichetta, "public": False,
-         "published_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-         "send_at": m.invio.astimezone(timezone.utc).isoformat(timespec="seconds") if programmata else None}
-    if modello:
-        d["email_template_id"] = modello
-    return d
+def modello_cornice():
+    """L'id del modello "Gommberg cornice" in Kit, o None: senza la cornice non si crea nulla."""
+    stato, corpo = nl.kit("GET", "/email_templates")
+    for t in corpo.get("email_templates", []) if stato == 200 else []:
+        if (t.get("name") or "").strip().lower() == nl.CORNICE.lower():
+            return t.get("id")
+    return None
 
 
-def esegui_piano(azioni, grezzi):
-    """Fa in Kit le azioni del piano. Torna le frasi da guardare (un'azione non riuscita è da guardare)."""
+def esegui_piano(azioni, modello):
+    """Fa in Kit le azioni del piano e verifica ogni passo. Torna le frasi da guardare."""
     male = []
-    da_fare = [a for a in azioni if a[0] != "nulla"]
-    modello, con_testata = nl.modello_edizione() if any(a[2] for a in da_fare) else (None, True)
-    for tipo, etichetta, m, motivo in da_fare:
-        b = grezzi.get(etichetta) or {}
+
+    def togli(i):
+        stato, _ = nl.kit("DELETE", f"/broadcasts/{i}")
+        return stato in (200, 204, 404)
+
+    def crea(m, programmata):
+        dati = dati_invio(m, programmata, modello)
+        stato, risposta = nl.kit("POST", "/broadcasts", dati)
+        b = (risposta or {}).get("broadcast") or {}
+        if stato not in (200, 201) or not b.get("id"):
+            return f"Kit non ha accettato la mail (HTTP {stato})"
+        t, voluto = quando(b.get("send_at")), quando(dati["send_at"])
+        giusto = (t is None) if voluto is None else bool(t and abs((t - voluto).total_seconds()) < 60)
+        if not giusto:  # Kit non ha registrato la data voluta: l'invio si toglie subito
+            tolto = togli(b["id"])
+            return (f"Kit ha registrato una data di invio diversa ({b.get('send_at')}): invio "
+                    + ("tolto" if tolto else "NON tolto, da togliere a mano in Kit"))
+        return ""
+
+    for tipo, et, m, motivo, i in [a for a in azioni if a[0] != "nulla"]:
         if tipo == "elimina":
-            stato, _ = nl.kit("DELETE", f"/broadcasts/{b.get('id')}")
-            ok = stato in (200, 204, 404)
+            esito = "" if togli(i) else "Kit non ha tolto l'invio: da togliere a mano"
+        elif tipo.startswith("rifai"):
+            esito = crea(m, tipo.endswith("programmata")) if togli(i) else "Kit non ha tolto l'invio vecchio: niente di nuovo creato"
         else:
-            dati = dati_invio(m, tipo.endswith("programmata"), modello, con_testata)
-            if tipo.startswith("crea"):
-                stato, risposta = nl.kit("POST", "/broadcasts", dati)
-                ok = stato in (200, 201)
-            else:
-                stato, risposta = nl.kit("PUT", f"/broadcasts/{b.get('id')}", dati)
-                ok = stato in (200, 201)
-                if not ok:  # se Kit non accetta la modifica: si toglie e si rifà (l'invio non è ancora partito)
-                    nl.kit("DELETE", f"/broadcasts/{b.get('id')}")
-                    stato, risposta = nl.kit("POST", "/broadcasts", dati)
-                    ok = stato in (200, 201)
-        print(f"  {'ok' if ok else 'NON RIUSCITO'}  {tipo:<20} {etichetta}  ({motivo}; HTTP {stato})")
-        if not ok:
-            male.append(f"{etichetta}: {tipo} non riuscito in Kit (HTTP {stato})")
+            esito = crea(m, tipo.endswith("programmata"))
+        print(f"  {'ok' if not esito else 'NON RIUSCITO'}  {tipo:<18} {et}  ({motivo})" + (f": {esito}" if esito else ""))
+        if esito:
+            male.append(f"{et}: {tipo} - {esito}")
     return male
 
 
@@ -435,19 +530,26 @@ def anteprima(nome):
 
 def allinea(esegui):
     mail, errori = controlla()
-    if errori:
-        print("Kit non toccato: prima vanno corretti gli errori dei file.")
-        return 1
     ora = datetime.now(timezone.utc)
+    guardare = list(errori)
     grezzi = invii_dem()
-    kit = {k: stato_kit(b, ora) for k, b in grezzi.items()}
-    azioni, guardare = piano(mail, kit, ora)
-    print(f"\nKit: {len(grezzi)} invii delle mail straordinarie. Piano:")
-    for tipo, etichetta, m, motivo in azioni:
-        print(f"  {tipo:<20} {etichetta}  ({motivo})")
+    kit = {et: [stato_kit(b, ora) for b in lista] for et, lista in grezzi.items()}
+    modello = modello_cornice()
+    if not modello:
+        guardare.append(f'in Kit manca il modello "{nl.CORNICE}": nessuna mail creata o cambiata finché non torna')
+    solo_ritiri = bool(errori) or not modello
+    if solo_ritiri:
+        print("\nSolo ritiri: si tolgono gli invii annullati o tornati in bozza, non si crea né si cambia nulla.")
+    azioni, da_guardare, note = piano(mail, kit, ora, modello, solo_ritiri)
+    guardare += da_guardare
+    print(f"\nKit: {sum(len(v) for v in grezzi.values())} invii delle mail straordinarie. Piano:")
+    for tipo, et, m, motivo, i in azioni:
+        print(f"  {tipo:<18} {et}  ({motivo})")
     if esegui:
         print("\nEsecuzione:")
-        guardare += esegui_piano(azioni, grezzi)
+        guardare += esegui_piano(azioni, modello)
+    for x in note:
+        print(f"NOTA: {x}")
     for x in guardare:
         print(f"DA GUARDARE: {x}")
     return 1 if guardare else 0
