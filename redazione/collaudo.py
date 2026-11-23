@@ -151,7 +151,28 @@ def passo_sintassi():
         rc, out = esegui(["bash", "-n", f])
         if rc:
             male.append(os.path.basename(f) + ": " + out.strip()[:80])
-    esito("Sintassi", not male, "; ".join(male) or f"tutti i .py e i .sh del kit ({len(interpreti)} versioni di Python)")
+    # I flussi di GitHub: un "#" dentro una condizione non tra virgolette è un commento per YAML e la tronca senza errori
+    # (G-57, 23/11: "startsWith(..., 'Edizione #')"). Ogni "if:" deve arrivare intero: parentesi e apici pari.
+    try:
+        import yaml
+    except ImportError:
+        yaml = None
+        NOTE.append("flussi di GitHub non letti (manca PyYAML)")
+    flussi = sorted(glob.glob(os.path.join(REPO, ".github", "workflows", "*.yml")))
+    for f in flussi if yaml else []:
+        try:
+            d = yaml.safe_load(open(f, encoding="utf-8"))
+        except Exception as e:  # noqa: BLE001
+            male.append(os.path.basename(f) + ": YAML non valido, " + str(e).splitlines()[0][:60])
+            continue
+        conds = []
+        for job in (d.get("jobs") or {}).values():
+            conds.append(job.get("if"))
+            conds += [st.get("if") for st in job.get("steps") or []]
+        for c in (str(c) for c in conds if c is not None):
+            if c.count("(") != c.count(")") or c.count("'") % 2:
+                male.append(os.path.basename(f) + ": condizione troncata (un # non tra virgolette?): " + c[:60])
+    esito("Sintassi", not male, "; ".join(male) or f"tutti i .py e i .sh del kit ({len(interpreti)} versioni di Python), {len(flussi) if yaml else 0} flussi di GitHub")
 
 
 # ---------------------------------------------------------------- 2. avvio

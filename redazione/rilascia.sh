@@ -5,7 +5,7 @@
 #
 #   bash redazione/rilascia.sh avvia      mette la sessione sul ramo rilascio, allineato al ramo principale (lo crea se manca)
 #   bash redazione/rilascia.sh collauda   porta dentro le novità del ramo principale, lancia il collaudo, stampa il resoconto
-#   bash redazione/rilascia.sh pubblica [--ok-di-paolo] [--senza-github]
+#   bash redazione/rilascia.sh pubblica [--ok-di-paolo] [--senza-github] [--guasto]
 #                                         collauda; se è verde qui e su GitHub, un solo merge sul ramo principale
 #   bash redazione/rilascia.sh annulla    toglie dal ramo principale l'ultimo rilascio (revert del suo merge)
 #
@@ -15,6 +15,9 @@
 # --ok-di-paolo, che chi guida il rilascio aggiunge solo dopo il sì di Paolo al resoconto; 5) il collaudo di GitHub
 # (.github/workflows/collaudo.yml: stesso collaudo su un'altra macchina, più il sito aperto in un browser vero) è verde
 # sullo stesso commit. --senza-github salta solo il 5, quando GitHub non si può leggere da questa sessione.
+# Prima dei cancelli, l'orario: dal lunedì al venerdì tra le 8:30 e le 10:30 di Roma l'edizione sta uscendo e il ramo
+# principale non si tocca; --guasto lo permette solo per un guasto che blocca l'uscita dell'edizione.
+# Il resoconto dice anche la FINESTRA del rilascio (ARCHITETTURA.md §5): ogni giorno, con prova, con Paolo.
 # Il merge ha come contenuto esatto quello collaudato (stesso albero di file). Si può sempre tornare indietro: annulla.
 # GTD_PROVA=1: pubblica e annulla fanno tutto tranne i push sul ramo principale, che stampano.
 set -u
@@ -23,8 +26,8 @@ REPO="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "RILASCIO: FERMO -
 cd "$REPO" || exit 1
 RAMO="rilascio"; PRINC="main"; PROVA="${GTD_PROVA:-0}"; FONDO=300
 AZIONE="${1:-}"; shift 2>/dev/null || true
-OK_PAOLO=0; SENZA_GITHUB=0
-for a in "$@"; do case "$a" in --ok-di-paolo) OK_PAOLO=1;; --senza-github) SENZA_GITHUB=1;; *) echo "RILASCIO: FERMO - opzione sconosciuta: $a"; exit 1;; esac; done
+OK_PAOLO=0; SENZA_GITHUB=0; GUASTO=0
+for a in "$@"; do case "$a" in --ok-di-paolo) OK_PAOLO=1;; --senza-github) SENZA_GITHUB=1;; --guasto) GUASTO=1;; *) echo "RILASCIO: FERMO - opzione sconosciuta: $a"; exit 1;; esac; done
 
 fermo() { echo "RILASCIO: FERMO - $1"; exit 1; }
 pulito() { [ -z "$(git status --porcelain)" ] || fermo "ci sono modifiche non salvate (git status): prima commit, o scartale"; }
@@ -62,6 +65,19 @@ cambia() {
   SERVE_OK=0; [ -n "$PUBBLICI$CAMPIONI$MODELLO" ] && SERVE_OK=1
   TUTTI="$tutti"
 }
+# La finestra del rilascio (G-57): la decide questo resoconto, non la chat. Soldi, terzi e irreversibile lo script non li
+# vede: li dichiara chi guida il rilascio, e anche quelli vogliono Paolo.
+finestra() {
+  local f=""
+  [ -n "$SCRITTURA$CAMPIONI" ] && f="CON PROVA (prima un'edizione di prova dal ramo, PROVA.md)"
+  [ "$SERVE_OK" = 1 ] && f="${f:+$f + }CON PAOLO (il suo ok, nel riassunto DOPO)"
+  local d="OGNI GIORNO (in linea la sera stessa, dopo l'edizione e il controllo del mattino)"
+  echo "${f:-$d}"
+}
+fuori_orario() {  # vero tra le 8:30 e le 10:30 di Roma dal lunedì al venerdì (GTD_ORA="u HHMM" solo per le prove)
+  local o g h; o="${GTD_ORA:-$(TZ=Europe/Rome date '+%u %H%M')}"; g="${o%% *}"; h="${o##* }"; h=$((10#$h))
+  [ "$g" -le 5 ] && [ "$h" -ge 830 ] && [ "$h" -lt 1030 ]
+}
 elenco() { echo "$1" | sed '/^$/d' | head -"${2:-12}" | sed 's/^/    /'; local n; n=$(echo "$1" | sed '/^$/d' | wc -l); [ "$n" -gt "${2:-12}" ] && echo "    ... e altri $((n - ${2:-12}))"; return 0; }
 
 resoconto() {
@@ -78,6 +94,7 @@ resoconto() {
   [ -n "$MODELLO" ] && echo "  Newsletter: cambia il modello (va ricaricato in Kit)"
   if [ -n "$SCRITTURA" ]; then echo "  Scrittura: cambiano regole o lessico della redazione, si vede solo su un'edizione di prova (PROVA.md):"; elenco "$SCRITTURA"; fi
   echo "Ok di Paolo: $([ "$SERVE_OK" = 1 ] && echo "SERVE (cambia ciò che il lettore vede)" || echo "non serve (niente di visibile ai lettori)")"
+  echo "Finestra: $(finestra)"
   echo "Collaudo: $ESITO_COLLAUDO"
 }
 
@@ -128,6 +145,9 @@ collauda)
   exit $rc
   ;;
 pubblica)
+  if fuori_orario && [ "$GUASTO" != 1 ]; then
+    fermo "tra le 8:30 e le 10:30 dei giorni di edizione il ramo principale non si tocca: riprova dopo le 10:30 (--guasto solo per un guasto che blocca l'uscita)"
+  fi
   collauda || fermo "collaudo rosso: il ramo principale non si tocca"
   if [ "$SERVE_OK" = 1 ] && [ "$OK_PAOLO" != 1 ]; then
     fermo "questo rilascio cambia ciò che il lettore vede: mostra a Paolo il resoconto qui sopra e, dopo il suo sì, rilancia con --ok-di-paolo"
@@ -145,6 +165,8 @@ $(git log --no-merges --reverse --format='- %s' "origin/$PRINC..HEAD" | cut -c1-
     echo "[prova] git push origin $M:refs/heads/$PRINC   (merge \"$(git log -1 --format=%s "$M")\")"
     echo "RILASCIO: PROVA - tutto verde, nessun push sul ramo principale."; exit 0
   fi
+  # l'orario di nuovo, subito prima del merge: collaudo e attesa di GitHub possono averlo portato dentro la fascia
+  if fuori_orario && [ "$GUASTO" != 1 ]; then fermo "nel frattempo sono le 8:30 passate: il ramo principale non si tocca fino alle 10:30, rilancia dopo (nulla è stato pubblicato)"; fi
   spingi "$M" "$PRINC" || fermo "push sul ramo principale rifiutato (è cambiato nel frattempo? rilancia: nulla è stato pubblicato)"
   git merge -q --ff-only "$M" && spingi HEAD "$RAMO" || echo "AVVISO: ramo $RAMO non riallineato al ramo principale (lo farà il prossimo 'avvia')"
   echo "RILASCIO: PUBBLICATO - merge $(git rev-parse --short "$M") sul ramo principale ($N commit${VOCI:+, $VOCI})."
@@ -173,7 +195,7 @@ annulla)
   echo "RILASCIO: ANNULLATO - il ramo principale è tornato a prima del rilascio $(git rev-parse --short "$M") (commit $(git rev-parse --short "$R"))."
   echo "Il lavoro resta sul ramo $RAMO. Per riproporlo dopo la correzione: 'avvia', poi git revert $(git rev-parse --short "$R") sul ramo $RAMO (riporta dentro il lavoro), correzione, 'pubblica'."
   ;;
-*) echo "uso: rilascia.sh avvia | collauda | pubblica [--ok-di-paolo] [--senza-github] | annulla"; exit 1;;
+*) echo "uso: rilascia.sh avvia | collauda | pubblica [--ok-di-paolo] [--senza-github] [--guasto] | annulla"; exit 1;;
 esac
 exit 0
 }
