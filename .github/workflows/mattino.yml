@@ -5,9 +5,9 @@
 # di oggi"). Le sveglie a orario restano per il caso in cui l'edizione non esce: GitHub le fa scattare in ritardo o le
 # salta (il 23/11 non è partita nessuna delle due), quindi non possono essere l'innesco principale. Se l'edizione è già
 # stata controllata alla pubblicazione, la sveglia non rifà nulla.
-# Nello stesso giro, dopo il controllo, il job "gomm" aggiunge a dati/gomm.json le visite dei giorni completi (G-14,
-# redazione/gomm.py): un commit su main che ripubblica il sito. Quella ripubblicazione non è un'edizione, quindi non
-# fa ripartire il controllo. Se non riesce non segnala nulla: le pagine chiedono da sole al contatore i giorni che mancano.
+# Con le sveglie (non dopo la pubblicazione, per non toccare main mentre l'edizione esce) il job "gomm" aggiunge a
+# dati/gomm.json le visite dei giorni completi (G-14, redazione/gomm.py): un commit su main che ripubblica il sito. Se
+# non riesce, o se la sveglia salta, non segnala nulla: le pagine chiedono da sole al contatore i giorni che mancano.
 name: Controllo del mattino
 
 on:
@@ -31,20 +31,34 @@ defaults:
 
 jobs:
   controllo:
-    # dalla pubblicazione, solo per il commit di un'edizione (la data la controlla mattino.py: un'edizione di prova con
-    # una data simulata non fa scattare nulla)
+    # dalla pubblicazione, solo per il commit di un'edizione; un'edizione di prova con un'altra data salta il controllo
+    # (passo "Edizione di oggi?"), e la sveglia lo sa: conta solo un controllo che ha guardato davvero l'edizione
     if: "github.event_name != 'workflow_run' || startsWith(github.event.workflow_run.head_commit.message, 'Edizione #')"
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Edizione di oggi?
+        id: quale
+        env:
+          PARTENZA: ${{ github.event_name }}
+          COMMIT_EDIZIONE: ${{ github.event.workflow_run.head_commit.message }}
+        run: |
+          OGGI=$(TZ=Europe/Rome date +%F)
+          PRIMA=$(printf '%s\n' "$COMMIT_EDIZIONE" | head -1)
+          if [ "$PARTENZA" = workflow_run ] && [ "${PRIMA##* - }" != "$OGGI" ]; then
+            echo "Pubblicato \"$PRIMA\": non è l'edizione di oggi ($OGGI), niente da controllare." | tee -a "$GITHUB_STEP_SUMMARY"
+            echo "controlla=no" >> "$GITHUB_OUTPUT"
+          else
+            echo "controlla=si" >> "$GITHUB_OUTPUT"
+          fi
       - name: Edizione, sito, pubblicazione, newsletter, pannello
+        if: steps.quale.outputs.controlla == 'si'
         env:
           GH_TOKEN: ${{ github.token }}
           KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
           A_MANO: ${{ github.event_name == 'workflow_dispatch' }}
           PARTENZA: ${{ github.event_name }}
-          COMMIT_EDIZIONE: ${{ github.event.workflow_run.head_commit.message }}
         run: python3 redazione/mattino.py | tee esito.txt | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Segnalazione a Paolo
         if: failure()
@@ -57,8 +71,7 @@ jobs:
             || echo "::warning::Segnalazione non creata: resta l'avviso di GitHub per il giro fallito."
 
   gomm:
-    needs: controllo               # dopo il controllo, così la sua ripubblicazione non si sovrappone a ciò che si controlla
-    if: "always() && (github.event_name != 'workflow_run' || startsWith(github.event.workflow_run.head_commit.message, 'Edizione #'))"
+    if: github.event_name != 'workflow_run'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     continue-on-error: true        # il GOMM non fa mai fallire il controllo del mattino

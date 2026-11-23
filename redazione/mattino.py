@@ -20,9 +20,8 @@ Nei giorni senza borsa non c'è niente da controllare ed esce con 0.
 Uso:  python3 redazione/mattino.py [--adesso]
   --adesso  controlla subito (senza, fuori dalla fascia 10-12 di Roma non fa nulla: GitHub lo sveglia due volte, una
             per l'ora solare e una per l'ora legale, e lavora solo quella giusta)
-Variabili: PARTENZA (workflow_run, schedule o workflow_dispatch: chi l'ha lanciato), COMMIT_EDIZIONE (il messaggio del
-commit pubblicato, "Edizione #NNN - AAAA-MM-GG": se la data non è oggi è un'edizione di prova e non si controlla nulla),
-GITHUB_REPOSITORY e GH_TOKEN (esiti di GitHub: senza, quel controllo si salta e lo dice), KIT_API_KEY
+Variabili: PARTENZA (workflow_run, schedule o workflow_dispatch: chi l'ha lanciato; un'edizione di prova con un'altra
+data la scarta prima mattino.yml, passo "Edizione di oggi?"), GITHUB_REPOSITORY e GH_TOKEN (esiti di GitHub: senza, quel controllo si salta e lo dice), KIT_API_KEY
 (senza, l'invio in Kit non si guarda). Solo per le prove: GTD_BASE (il sito da controllare al posto di
 https://gommberg.com/) e GTD_OGGI (AAAA-MM-GG, il giorno da controllare al posto di oggi)."""
 import datetime as dt
@@ -100,23 +99,29 @@ def ultimo_giro(flusso, oggi):
 
 def controllato_alla_pubblicazione(oggi):
     """L'ora in cui il controllo partito dalla pubblicazione ha già guardato l'edizione di oggi (verde o rosso: se rosso,
-    la segnalazione è già aperta). None se non è successo o se GitHub non si legge: allora la sveglia controlla lei."""
+    la segnalazione è già aperta). Conta solo un giro in cui il passo del controllo è davvero partito: non quello saltato
+    per un'edizione di prova. None se non è successo o se GitHub non si legge: allora la sveglia controlla lei."""
     repo, token = os.environ.get("GITHUB_REPOSITORY"), os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
     if not (repo and token):
         return None
     h = {"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json"}
     s, corpo = get(f"https://api.github.com/repos/{repo}/actions/workflows/mattino.yml/runs?event=workflow_run&created=%3E%3D{oggi.isoformat()}&per_page=20", h)
-    if s != 200:
+    try:
+        giri = json.loads(corpo).get("workflow_runs", []) if s == 200 else []
+        for giro in giri:
+            s, corpo = get(giro["jobs_url"], h)
+            if s != 200:
+                continue
+            for job in json.loads(corpo).get("jobs", []):
+                if job.get("name") != "controllo":
+                    continue
+                for passo in job.get("steps", []):
+                    if passo.get("name", "").startswith("Edizione, sito") and passo.get("conclusion") in ("success", "failure") and passo.get("started_at"):
+                        quando = dt.datetime.fromisoformat(passo["started_at"].replace("Z", "+00:00")).astimezone(ROMA)
+                        if quando.date() == oggi:
+                            return quando
+    except (ValueError, KeyError, AttributeError, TypeError):
         return None
-    for giro in json.loads(corpo).get("workflow_runs", []):
-        s, corpo = get(giro["jobs_url"], h)
-        if s != 200:
-            continue
-        for job in json.loads(corpo).get("jobs", []):
-            if job.get("name") == "controllo" and job.get("conclusion") in ("success", "failure") and job.get("started_at"):
-                quando = dt.datetime.fromisoformat(job["started_at"].replace("Z", "+00:00")).astimezone(ROMA)
-                if quando.date() == oggi:
-                    return quando
     return None
 
 
@@ -126,10 +131,6 @@ def main():
     partenza = os.environ.get("PARTENZA", "")
     a_mano = "--adesso" in sys.argv or os.environ.get("A_MANO") == "true"
     if partenza == "workflow_run":
-        commit = os.environ.get("COMMIT_EDIZIONE", "")
-        if not commit.rstrip().endswith(oggi.isoformat()):
-            print(f"Pubblicato \"{commit.splitlines()[0][:60] if commit else '?'}\": non è l'edizione di oggi (prova con data simulata?), niente da controllare.")
-            return
         a_mano = True
     if not a_mano and not 10 <= adesso.hour < 12:
         print(f"Sono le {adesso:%H:%M} di Roma: fuori dalla fascia 10-12 non controllo nulla.")

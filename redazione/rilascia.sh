@@ -71,7 +71,8 @@ finestra() {
   local f=""
   [ -n "$SCRITTURA$CAMPIONI" ] && f="CON PROVA (prima un'edizione di prova dal ramo, PROVA.md)"
   [ "$SERVE_OK" = 1 ] && f="${f:+$f + }CON PAOLO (il suo ok, nel riassunto DOPO)"
-  echo "${f:-OGNI GIORNO (si può rilasciare oggi, dopo le 10:30)}"
+  local d="OGNI GIORNO (in linea la sera stessa, dopo l'edizione e il controllo del mattino)"
+  echo "${f:-$d}"
 }
 fuori_orario() {  # vero tra le 8:30 e le 10:30 di Roma dal lunedì al venerdì (GTD_ORA="u HHMM" solo per le prove)
   local o g h; o="${GTD_ORA:-$(TZ=Europe/Rome date '+%u %H%M')}"; g="${o%% *}"; h="${o##* }"; h=$((10#$h))
@@ -164,6 +165,8 @@ $(git log --no-merges --reverse --format='- %s' "origin/$PRINC..HEAD" | cut -c1-
     echo "[prova] git push origin $M:refs/heads/$PRINC   (merge \"$(git log -1 --format=%s "$M")\")"
     echo "RILASCIO: PROVA - tutto verde, nessun push sul ramo principale."; exit 0
   fi
+  # l'orario di nuovo, subito prima del merge: collaudo e attesa di GitHub possono averlo portato dentro la fascia
+  if fuori_orario && [ "$GUASTO" != 1 ]; then fermo "nel frattempo sono le 8:30 passate: il ramo principale non si tocca fino alle 10:30, rilancia dopo (nulla è stato pubblicato)"; fi
   spingi "$M" "$PRINC" || fermo "push sul ramo principale rifiutato (è cambiato nel frattempo? rilancia: nulla è stato pubblicato)"
   git merge -q --ff-only "$M" && spingi HEAD "$RAMO" || echo "AVVISO: ramo $RAMO non riallineato al ramo principale (lo farà il prossimo 'avvia')"
   echo "RILASCIO: PUBBLICATO - merge $(git rev-parse --short "$M") sul ramo principale ($N commit${VOCI:+, $VOCI})."
@@ -192,7 +195,7 @@ annulla)
   echo "RILASCIO: ANNULLATO - il ramo principale è tornato a prima del rilascio $(git rev-parse --short "$M") (commit $(git rev-parse --short "$R"))."
   echo "Il lavoro resta sul ramo $RAMO. Per riproporlo dopo la correzione: 'avvia', poi git revert $(git rev-parse --short "$R") sul ramo $RAMO (riporta dentro il lavoro), correzione, 'pubblica'."
   ;;
-*) echo "uso: rilascia.sh avvia | collauda | pubblica [--ok-di-paolo] [--senza-github] | annulla"; exit 1;;
+*) echo "uso: rilascia.sh avvia | collauda | pubblica [--ok-di-paolo] [--senza-github] [--guasto] | annulla"; exit 1;;
 esac
 exit 0
 }
