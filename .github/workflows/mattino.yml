@@ -33,7 +33,7 @@ jobs:
   controllo:
     # dalla pubblicazione, solo per il commit di un'edizione (la data la controlla mattino.py: un'edizione di prova con
     # una data simulata non fa scattare nulla)
-    if: github.event_name != 'workflow_run' || startsWith(github.event.workflow_run.head_commit.message, 'Edizione #')
+    if: "github.event_name != 'workflow_run' || startsWith(github.event.workflow_run.head_commit.message, 'Edizione #')"
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -58,7 +58,7 @@ jobs:
 
   gomm:
     needs: controllo               # dopo il controllo, così la sua ripubblicazione non si sovrappone a ciò che si controlla
-    if: always() && (github.event_name != 'workflow_run' || startsWith(github.event.workflow_run.head_commit.message, 'Edizione #'))
+    if: "always() && (github.event_name != 'workflow_run' || startsWith(github.event.workflow_run.head_commit.message, 'Edizione #'))"
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     continue-on-error: true        # il GOMM non fa mai fallire il controllo del mattino
