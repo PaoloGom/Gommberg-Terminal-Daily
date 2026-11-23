@@ -1,6 +1,6 @@
 # Carta del Gommberg
 
-BOZZA del 16/11/2026, da approvare: la cambia solo Paolo. Una pagina, niente storia: la storia sta in `PROGETTO.md`.
+BOZZA del 16/11/2026, da approvare (l'obiettivo primario è già approvato da Paolo, 23/11): la cambia solo Paolo. Una pagina, niente storia: la storia sta in `PROGETTO.md`.
 
 ## Perché esiste
 In Italia manca un modo semplice e serio per capire la finanza ogni giorno. Il Gommberg è il primo mattoncino di una community italiana di educazione finanziaria.
@@ -12,6 +12,9 @@ Alle 9:45 un lettore di media competenza apre sei pagine e capisce cosa è succe
 1. Zero errori.
 2. Nessuna notizia importante mancata (per l'economia globale, confrontata con le altre testate).
 3. Una lettura chiara e corretta, che spiega il perché.
+
+## Obiettivo primario
+La scrittura, nel senso più largo: che cosa scegliamo di dire e come lo diciamo, dal titolo alla didascalia. Ogni edizione si legge meglio di quelle prima e non somiglia a quella di ieri. I tre impegni sono il pavimento, la scrittura è ciò che facciamo crescere. Nessuna struttura già decisa è intoccabile se la frena.
 
 ## Pilastri
 1. **Il giornale** - il PDF di 6 pagine, ogni giorno lavorativo.
