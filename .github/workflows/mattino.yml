@@ -1,13 +1,20 @@
-# Controllo del mattino: dal lunedì al venerdì, verso le 10:15 di Roma, redazione/mattino.py guarda se l'edizione di oggi
-# è uscita ed è arrivata dappertutto (sito, pubblicazione, newsletter, pannello). Nessun token del modello.
-# Se tutto va bene non scrive a nessuno. Se qualcosa non va il giro fallisce e apre una segnalazione assegnata a Paolo:
-# GitHub gli manda l'email. Una sola segnalazione al giorno.
-# Nello stesso giro, separato dal controllo, il job "gomm" aggiunge a dati/gomm.json le visite dei giorni completi (G-14,
-# redazione/gomm.py): un commit su main che ripubblica il sito. Se non riesce non segnala nulla: le pagine chiedono da sole
-# al contatore i giorni che mancano.
+# Controllo del mattino: redazione/mattino.py guarda se l'edizione di oggi è uscita ed è arrivata dappertutto (sito,
+# pubblicazione, newsletter, pannello). Nessun token del modello. Se tutto va bene non scrive a nessuno. Se qualcosa non
+# va il giro fallisce e apre una segnalazione assegnata a Paolo: GitHub gli manda l'email. Una sola segnalazione al giorno.
+# Quando parte (G-57, 23/11): appena finisce la pubblicazione del sito per il commit dell'edizione ("Edizione #NNN - data
+# di oggi"). Le sveglie a orario restano per il caso in cui l'edizione non esce: GitHub le fa scattare in ritardo o le
+# salta (il 23/11 non è partita nessuna delle due), quindi non possono essere l'innesco principale. Se l'edizione è già
+# stata controllata alla pubblicazione, la sveglia non rifà nulla.
+# Nello stesso giro, dopo il controllo, il job "gomm" aggiunge a dati/gomm.json le visite dei giorni completi (G-14,
+# redazione/gomm.py): un commit su main che ripubblica il sito. Quella ripubblicazione non è un'edizione, quindi non
+# fa ripartire il controllo. Se non riesce non segnala nulla: le pagine chiedono da sole al contatore i giorni che mancano.
 name: Controllo del mattino
 
 on:
+  workflow_run:                    # l'innesco principale: la pubblicazione del sito appena finita (verde o rossa)
+    workflows: ["Sito gommberg.com"]
+    types: [completed]
+    branches: [main]
   schedule:                        # GitHub conta in UTC e non conosce l'ora legale: due sveglie, mattino.py lavora
     - cron: "15 9 * * 1-5"         # solo nella fascia 10-12 di Roma (10:15 con l'ora solare)
     - cron: "15 8 * * 1-5"         # (10:15 con l'ora legale)
@@ -24,6 +31,9 @@ defaults:
 
 jobs:
   controllo:
+    # dalla pubblicazione, solo per il commit di un'edizione (la data la controlla mattino.py: un'edizione di prova con
+    # una data simulata non fa scattare nulla)
+    if: github.event_name != 'workflow_run' || startsWith(github.event.workflow_run.head_commit.message, 'Edizione #')
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -33,6 +43,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
           A_MANO: ${{ github.event_name == 'workflow_dispatch' }}
+          PARTENZA: ${{ github.event_name }}
+          COMMIT_EDIZIONE: ${{ github.event.workflow_run.head_commit.message }}
         run: python3 redazione/mattino.py | tee esito.txt | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Segnalazione a Paolo
         if: failure()
@@ -45,6 +57,8 @@ jobs:
             || echo "::warning::Segnalazione non creata: resta l'avviso di GitHub per il giro fallito."
 
   gomm:
+    needs: controllo               # dopo il controllo, così la sua ripubblicazione non si sovrappone a ciò che si controlla
+    if: always() && (github.event_name != 'workflow_run' || startsWith(github.event.workflow_run.head_commit.message, 'Edizione #'))
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     continue-on-error: true        # il GOMM non fa mai fallire il controllo del mattino

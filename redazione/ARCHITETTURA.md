@@ -26,7 +26,7 @@ GitHub, a ogni push su main (zero token)
   sito.yml        costruisci.py → Cloudflare Workers → gommberg.com (file statici + servizio dei lettori su /api/*; se
                   il servizio non si pubblica, soli file statici), poi verifica dal vivo (collaudo_sito.py --veloce)
   newsletter.yml  (solo se cambia edizioni.json) newsletter.py → Kit → email agli iscritti
-  mattino.yml     alle 10:15 lun-ven: mattino.py controlla uscita, sito, pubblicazione, newsletter, pannello; job gomm: gomm.py aggiunge le visite di ieri a dati/gomm.json, commit su main e sito ripubblicato
+  mattino.yml     appena sito.yml finisce per il commit dell'edizione: mattino.py controlla uscita, sito, pubblicazione, newsletter, pannello; poi job gomm: gomm.py aggiunge le visite di ieri a dati/gomm.json, commit su main e sito ripubblicato. Le sveglie delle 10:15 lun-ven restano per l'edizione non uscita
   segnalazioni.yml  ogni ora: sito/segnalazioni.py legge i commenti segnalati della Gommunity e apre una segnalazione a Paolo
 ```
 
@@ -98,26 +98,41 @@ Come cresce: un guasto arrivato ai lettori diventa un campione o un controllo in
 
 Che cosa la rete **non** vede: ciò che Sonnet scriverà con regole nuove (serve un'edizione di prova, `PROVA.md`), l'aspetto grafico (colori, immagini: si guarda l'anteprima), i servizi esterni (Kit, Cloudflare), le pagine nel browser (le apre `collaudo_sito.py`, su GitHub a ogni push sul ramo di rilascio).
 
-## 5. Il rilascio
+## 5. Il rilascio e la serata
 
-Il ramo principale è ciò che i lettori vedono: ogni push lo ripubblica. Per questo il lavoro si fa sul ramo `rilascio` e main riceve un solo merge.
+Il ramo principale è ciò che i lettori vedono: ogni push lo ripubblica. Per questo il lavoro si fa sul ramo `rilascio` e main riceve un merge alla volta, solo a collaudo verde (G-39). Dal 23/11 il lavoro si fa in **serate** (G-57): Paolo preme un pulsante, il capo sviluppo fa il resto, Paolo approva due volte (partenza e rilascio).
 
 ```
-bash redazione/rilascia.sh avvia      sabato (o per un guasto): la sessione va sul ramo rilascio, allineato a main
+bash redazione/rilascia.sh avvia      all'inizio della serata: la sessione va sul ramo rilascio, allineato a main
    ... una voce alla volta: modifica, collaudo.py, commit, git push origin rilascio ...
-bash redazione/rilascia.sh collauda   quando si vuole: collaudo e resoconto, main non si tocca
-bash redazione/rilascia.sh pubblica   alla fine: i cinque cancelli, poi un solo merge su main
-bash redazione/rilascia.sh annulla    se serve: toglie da main l'ultimo rilascio
+bash redazione/rilascia.sh collauda   quando si vuole: collaudo e resoconto (con la finestra), main non si tocca
+bash redazione/rilascia.sh pubblica   dopo il "rilascia" di Paolo: l'orario, i cinque cancelli, poi un solo merge su main
+bash redazione/rilascia.sh annulla    "torna indietro": toglie da main l'ultimo rilascio
 ```
 
-I cinque cancelli di `pubblica`: niente modifiche non salvate; il ramo contiene l'ultimo main; collaudo verde; **ok di Paolo** se cambia ciò che il lettore vede (file pubblici del sito, testo del PDF o email dei campioni, modello della newsletter); collaudo di GitHub verde sullo stesso commit (`collaudo.yml`: stesso collaudo su un'altra macchina, più il sito aperto in un browser e confrontato con gommberg.com).
+I cinque cancelli di `pubblica`: niente modifiche non salvate; il ramo contiene l'ultimo main; collaudo verde; **ok di Paolo** se cambia ciò che il lettore vede (file pubblici del sito, testo del PDF o email dei campioni, modello della newsletter); collaudo di GitHub verde sullo stesso commit (`collaudo.yml`: stesso collaudo su un'altra macchina, più il sito aperto in un browser e confrontato con gommberg.com). Prima dei cancelli l'orario: dal lunedì al venerdì tra le 8:30 e le 10:30 main non si tocca (`--guasto` solo per un guasto che blocca l'uscita).
 
-Due ruoli, due chat diverse:
-- **Capo sviluppo** (apre e chiude il rilascio): legge questa mappa e le voci del weekend, scrive il piano nel Registro (ordine, file toccati, conflitti, chat e modello per ogni voce) e **riscrive nella scheda di ogni voce come entra nel rilascio**: ramo, file, sequenza, che cosa cambia nella rete, se e dove serve l'ok di Paolo. Le chat delle voci leggono la scheda e non chiedono a Paolo nulla sul come: a lui arrivano solo le decisioni sue (il cosa, ciò che il lettore vede, soldi, terzi). Poi integra e lancia `pubblica`.
-- **Collaudo indipendente** (prima del merge): un agente che non ha visto il lavoro controlla il "Fatto quando" di ogni voce contro il ramo e legge il resoconto. Chi costruisce non si collauda da solo.
+**Le tre finestre.** Ogni voce ha nel Registro un `giorno` e una `finestra`, scritti dal capo sviluppo; la finestra vera la dice il resoconto di `rilascia.sh` (riga "Finestra"), non la chat.
+- **Ogni giorno**: le edizioni campione escono identiche e non cambiano le regole di scrittura. Si rilascia la sera stessa, dopo l'edizione e il controllo del mattino.
+- **Con prova**: cambiano le regole di scrittura o un campione esce diverso. Si sviluppa ogni giorno fino a Pronta; una sola edizione di prova il venerdì per tutte le Pronte (procedura A di `PROVA.md`); rilascio venerdì sera o sabato.
+- **Con Paolo**: ciò che il lettore vede (l'ok va nel riassunto DOPO), soldi, terzi, irreversibile. Le ultime tre lo script non le vede: le dichiara il capo sviluppo.
 
-Durante il rilascio i file di stato (`STATO.md`, `PROGETTO.md`, `AZIONI.md`) si aggiornano sul ramo principale come in settimana (non ripubblicano il sito); tutto il resto sta sul ramo `rilascio`. Lo stesso vale, in qualunque giorno, per le mail straordinarie: i file di `redazione/dem/` e `pannello/invii.json` (sempre insieme, dopo `dem.py salva`) vanno su main direttamente, perché non toccano l'edizione né le pagine dei lettori; `dem.py`, `dem.yml` e la vista passano dal rilascio.
+**La serata.** Un pulsante nel Registro ("Avvia la serata") apre la chat del capo sviluppo: Claude non parte mai da solo. In questo primo periodo Paolo approva partenza e rilascio (scala dell'autonomia, gradino 2); "parti" e "rilascia" li dà quando vuole, nella chat o dal Registro. Il capo sviluppo, nell'ordine: rilegge `STATO.md` su main, le voci della settimana e gli appunti nuovi (gli appunti diventano voci con giorno e finestra, o entrano nella scheda giusta); aggiorna Salute; scrive il PRIMA; al "parti" lavora una voce alla volta, mai in parallelo (le voci sulla stessa pagina o sullo stesso file si fanno insieme, sull'ultima versione); fa collaudare a un agente che non ha visto il lavoro; scrive il DOPO; al "rilascia" lancia `pubblica` (`--ok-di-paolo` solo se quel "rilascia" ha visto il DOPO); verifica dal vivo; scrive ALLA FINE e Salute. Le edizioni vengono prima: se i token non bastano la serata si ferma e lascia in fila ciò che non entra. Le stanze di disegno aperte da Paolo restano possibili: la voce si segna occupata (`occupata` nella scheda) e si consegna al capo sviluppo, che integra.
 
-Dopo il merge: `sito.yml` pubblica e verifica dal vivo; il lunedì `mattino.yml` controlla la prima edizione. Le prove con l'attività vera si fanno prima del merge dal ramo `rilascio` (procedura A di `PROVA.md`) e, per provare anche la pubblicazione, dopo il merge con una data simulata (procedura B).
+**I tre riassunti, formato fisso.** Asciutti, per il superiore e non per il tecnico: niente nomi di file, rami o commit se non servono a decidere. Lo stesso testo va in chat e nel Registro.
+- **PRIMA** (per partire): una riga per sviluppo, con che cosa cambia e per chi, perché, rischio (basso, medio, alto) e quando andrà in linea. Paolo dice "parti", per tutto o per una parte.
+- **DOPO** (per rilasciare): che cosa è pronto; che cosa cambia per il lettore, con le immagini prima e dopo (in chat); l'esito dei controlli in una riga e quello del collaudo indipendente; che cosa non ho potuto verificare. Paolo dice "rilascia".
+- **ALLA FINE** (in linea): che cosa è in linea e da che ora, verificato dal vivo sì o no, come si torna indietro. Lo firma il capo sviluppo.
 
-In settimana un guasto segue la stessa strada in piccolo: `avvia`, correzione, `pubblica`.
+**Chi risponde.** Il capo sviluppo risponde del risultato dall'inizio alla fine, non del solo merge: tiene Salute (edizione, sito, newsletter, controlli partiti davvero, ultimi rilasci) e, quando qualcosa non va, lo scrive lì con causa e rimedio e lo dice a Paolo senza aspettare che lo scopra.
+
+**Dove sta la serata nel Registro** (artifact `97f08bbc-950b-4b6e-83eb-4b8d032a3783`; si scrive con `db_write`, si legge con `db_get`):
+- `serate/AAAA-MM-GG` (una seconda serata nello stesso giorno: `AAAA-MM-GG-2`): `stato` (`preparata`, `partita`, `pronta`, `in-linea`, `ferma`, `chiusa`), `responsabile`; `prima` = {`scritto`, `righe`: [{`codice`, `cosa`, `perche`, `rischio`, `quando`, `finestra`}]}; `partenza` = {`quando`, `esito` (`approvata`, `corretta`, `fermata`), `voci`, `da` (`Registro` o `chat`)}; `dopo` = {`scritto`, `righe`: [{`codice`, `cosa`, `lettore`, `finestra`}], `controlli`, `collaudo`, `non_verificato`}; `rilascio` = {`quando`, `esito` (`approvato`, `corretto`, `fermato`), `voci`, `da`}; `fine` = {`scritto`, `in_linea_da`, `verificato`, `testo`, `indietro`}; `ferma` = {`quando`, `da`}. Il consenso dato in chat lo scrive il capo sviluppo, con `da: "chat"`: le serate sono il **registro dei consensi**, il dato su cui Paolo decide se salire di gradino.
+- `meta/salute` = {`verificato`, `da`, `righe`: [{`nome`, `stato` (`ok`, `ko`, `attesa`), `testo`, `causa`, `rimedio`}], `rilasci`: [{`nome`, `quando`, `esito`, `testo`}]}. La pagina avvisa se ha più di 26 ore.
+- `appunti/<id>` = {`testo`, `creato`, `stato` (`nuovo`, `assorbito`), `voce`}: alla serata il capo sviluppo li porta nelle voci e li segna `assorbito` con il codice.
+
+Durante il lavoro i file di stato (`STATO.md`, `PROGETTO.md`, `AZIONI.md`) si aggiornano sul ramo principale (non ripubblicano il sito); tutto il resto sta sul ramo `rilascio`. Lo stesso vale, in qualunque giorno, per le mail straordinarie: i file di `redazione/dem/` e `pannello/invii.json` (sempre insieme, dopo `dem.py salva`) vanno su main direttamente, perché non toccano l'edizione né le pagine dei lettori; `dem.py`, `dem.yml` e la vista passano dal rilascio.
+
+Dopo il merge: `sito.yml` pubblica e verifica dal vivo; la mattina dopo `mattino.yml` controlla l'edizione appena è pubblicata. Le prove con l'attività vera si fanno prima del merge dal ramo `rilascio` (procedura A di `PROVA.md`) e, per provare anche la pubblicazione, dopo il merge con una data simulata (procedura B).
+
+Un guasto che blocca l'edizione passa davanti a tutto e segue la stessa strada in piccolo: `avvia`, correzione, `pubblica` (con `--guasto` se è la fascia dell'uscita).

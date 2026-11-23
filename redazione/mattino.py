@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Controllo del mattino: l'edizione di oggi è uscita ed è arrivata dappertutto?
 
-Lo lancia GitHub dal lunedì al venerdì verso le 10:15 di Roma (.github/workflows/mattino.yml), mezz'ora dopo l'ora in cui
-il giornale deve essere in mano ai lettori. Nessun modello, nessun token: solo il repository, gommberg.com e gli esiti
-di GitHub. Se tutto va bene non scrive a nessuno; se qualcosa non va esce con 1, e GitHub avvisa Paolo.
+Lo lancia GitHub (.github/workflows/mattino.yml) appena finisce la pubblicazione del sito per il commit dell'edizione
+(PARTENZA=workflow_run); le sveglie delle 10:15 di Roma restano per il caso in cui l'edizione non esce, e se l'edizione
+è già stata controllata alla pubblicazione non rifanno nulla (G-57). Nessun modello, nessun token: solo il repository,
+gommberg.com e gli esiti di GitHub. Se tutto va bene non scrive a nessuno; se qualcosa non va esce con 1, e GitHub
+avvisa Paolo.
 
 Cosa guarda, nell'ordine in cui l'edizione viaggia (mappa: redazione/ARCHITETTURA.md):
   1. Uscita      edizioni.json del ramo principale ha l'edizione di oggi, con il suo PDF e la sua pagina
@@ -18,7 +20,9 @@ Nei giorni senza borsa non c'è niente da controllare ed esce con 0.
 Uso:  python3 redazione/mattino.py [--adesso]
   --adesso  controlla subito (senza, fuori dalla fascia 10-12 di Roma non fa nulla: GitHub lo sveglia due volte, una
             per l'ora solare e una per l'ora legale, e lavora solo quella giusta)
-Variabili: GITHUB_REPOSITORY e GH_TOKEN (esiti di GitHub: senza, quel controllo si salta e lo dice), KIT_API_KEY
+Variabili: PARTENZA (workflow_run, schedule o workflow_dispatch: chi l'ha lanciato), COMMIT_EDIZIONE (il messaggio del
+commit pubblicato, "Edizione #NNN - AAAA-MM-GG": se la data non è oggi è un'edizione di prova e non si controlla nulla),
+GITHUB_REPOSITORY e GH_TOKEN (esiti di GitHub: senza, quel controllo si salta e lo dice), KIT_API_KEY
 (senza, l'invio in Kit non si guarda). Solo per le prove: GTD_BASE (il sito da controllare al posto di
 https://gommberg.com/) e GTD_OGGI (AAAA-MM-GG, il giorno da controllare al posto di oggi)."""
 import datetime as dt
@@ -94,16 +98,50 @@ def ultimo_giro(flusso, oggi):
     return con_pazienza(prova)
 
 
+def controllato_alla_pubblicazione(oggi):
+    """L'ora in cui il controllo partito dalla pubblicazione ha già guardato l'edizione di oggi (verde o rosso: se rosso,
+    la segnalazione è già aperta). None se non è successo o se GitHub non si legge: allora la sveglia controlla lei."""
+    repo, token = os.environ.get("GITHUB_REPOSITORY"), os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
+    if not (repo and token):
+        return None
+    h = {"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json"}
+    s, corpo = get(f"https://api.github.com/repos/{repo}/actions/workflows/mattino.yml/runs?event=workflow_run&created=%3E%3D{oggi.isoformat()}&per_page=20", h)
+    if s != 200:
+        return None
+    for giro in json.loads(corpo).get("workflow_runs", []):
+        s, corpo = get(giro["jobs_url"], h)
+        if s != 200:
+            continue
+        for job in json.loads(corpo).get("jobs", []):
+            if job.get("name") == "controllo" and job.get("conclusion") in ("success", "failure") and job.get("started_at"):
+                quando = dt.datetime.fromisoformat(job["started_at"].replace("Z", "+00:00")).astimezone(ROMA)
+                if quando.date() == oggi:
+                    return quando
+    return None
+
+
 def main():
     adesso = dt.datetime.now(ROMA)
     oggi = dt.date.fromisoformat(os.environ["GTD_OGGI"]) if os.environ.get("GTD_OGGI") else adesso.date()
+    partenza = os.environ.get("PARTENZA", "")
     a_mano = "--adesso" in sys.argv or os.environ.get("A_MANO") == "true"
+    if partenza == "workflow_run":
+        commit = os.environ.get("COMMIT_EDIZIONE", "")
+        if not commit.rstrip().endswith(oggi.isoformat()):
+            print(f"Pubblicato \"{commit.splitlines()[0][:60] if commit else '?'}\": non è l'edizione di oggi (prova con data simulata?), niente da controllare.")
+            return
+        a_mano = True
     if not a_mano and not 10 <= adesso.hour < 12:
         print(f"Sono le {adesso:%H:%M} di Roma: fuori dalla fascia 10-12 non controllo nulla.")
         return
     if not G.uscita(oggi):
         print(f"{oggi:%d/%m/%Y}: borse chiuse, oggi niente edizione e niente da controllare.")
         return
+    if partenza == "schedule":
+        gia = controllato_alla_pubblicazione(oggi)
+        if gia:
+            print(f"Edizione di oggi già controllata alla pubblicazione, alle {gia:%H:%M}: la sveglia non rifà nulla.")
+            return
     n = G.numero(oggi)
     print(f"Controllo del mattino - {oggi:%d/%m/%Y}, edizione #{n:03d}, ore {adesso:%H:%M} di Roma\n")
 
