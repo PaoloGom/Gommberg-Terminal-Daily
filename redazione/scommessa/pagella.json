@@ -1,14 +1,33 @@
 {
-  "settimane": 5,
-  "punti": 38,
-  "su": 62,
-  "par": 37.6,
-  "copertura_range_%": 67.7,
-  "direzione_giusta_%": 54.8,
-  "abilita_redazione_%": 0.83,
+  "settimane": 6,
+  "punti": 43,
+  "su": 74,
+  "par": 44.8,
+  "copertura_range_%": 62.2,
+  "direzione_giusta_%": 54.1,
+  "abilita_redazione_%": 1.35,
   "t_dm": null,
-  "mattino": null,
-  "tipi": {},
+  "mattino": {
+    "chiamate": 5,
+    "direzione_giusta_%": 100.0,
+    "mosse": 2,
+    "abilita_mattino_%": 6.67,
+    "abilita_redazione_%": 5.21
+  },
+  "tipi": {
+    "fondo": {
+      "chiamate": 1,
+      "direzione_giusta_%": 0.0
+    },
+    "mattino": {
+      "chiamate": 2,
+      "direzione_giusta_%": 100.0
+    },
+    "scenario": {
+      "chiamate": 3,
+      "direzione_giusta_%": 33.3
+    }
+  },
   "variabile": {
     "settimane": 3,
     "punti": 2,
