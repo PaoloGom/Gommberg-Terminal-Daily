@@ -1,0 +1,25 @@
+[ok] PDF e indice: Pagine: 6 | n.d.: 0
+[ok] Riempimento (pagine e moduli): Riempimento: pagine e moduli pieni | mm liberi: p1=2, p2=0, p3=0, p4=0, p5=4, p6=11
+[ok] Fatti: TABELLE DI PAG. 5: Spread Italia: manca la chiusura del 13/11 (1 sett.); Spread Italia: manca la chiusura del 20/10 (1 mese). Una chiusura che manca
+AVVISO: N08: dato ufficiale senza il comunicato (cercato: University of Michigan consumer sentiment final November 2026 survey of consumers; Michigan consumer sentiment 51.5 November 20 2026 year-ahea
+AVVISO: N10: dato ufficiale senza il comunicato (cercato: COMEX gold futures settlement November 20 2026 CME; gold price weekly loss November 20 2026): la testata nella riga Fonti
+AVVISO: N10: fonte singola dichiarata (investrade): la testata nella riga Fonti
+AVVISO: N12: un solo autore dichiarato (Reuters): la testata nella riga Fonti
+AVVISO: MEM-1120-MEM-1119-N01: dato ufficiale senza il comunicato (cercato: FOMC minutes October 2026 meeting federalreserve.gov minutes released November 18 2026; Minutes of the Federal Open Market C
+AVVISO: T01: numeri del testo che né la citazione né il revisore riportano: [3.3, 6910.39, 22617.73] (calcolati da noi? altrimenti correggi)
+[ok] Numeri contro dati.json: Numeri confrontati con dati.json: 39 | scarti: 0
+[ok] Scrittura (→, cause, sigle, ritmo): TABELLE DI PAG. 5: Spread Italia: manca la chiusura del 13/11 (1 sett.); Spread Italia: manca la chiusura del 20/10 (
+AVVISO: lessico: "spread tra BTP e Bund" (1 volte): scrivi spread BTP-Bund
+[ok] Temi di prima pagina: Temi di prima pagina: 0 errori, 1 avvisi lessicali
+AVVISO: Notizia 01 "La SEC indaga sui conti di Nvidia, riferisce la stampa ameri": riprende la top story (stampa americana)
+[ok] Contenuti (estremi, perché, anomalie...): Contenuti: 0 errori, 1 avvisi
+AVVISO: aperture: servono 2 resoconti d'agenzia o testate globali (Reuters, AP, AFP, Bloomberg, CNBC...) e 1 italiana (Radiocor/Sole 24 Ore, Milano Finanza)
+[ok] Ripetizioni: Ripetizioni: punteggio 4 (4 cifre in 2+ sezioni)
+AVVISO: 14% in 2 sezioni: APPROFONDIMENTO CHIP E ASIA, TOP NEWS
+AVVISO: 20% in 2 sezioni: APPROFONDIMENTO CHIP E ASIA, TOP NEWS
+AVVISO: 3,7% in 2 sezioni: APPROFONDIMENTO TASSI USA, TOP NEWS
+AVVISO: 4.586,80 in 2 sezioni: APPROFONDIMENTO CHIP E ASIA, TOP STORY
+AVVISO: eco "alza tre punti l'ires" in 2 punti
+AVVISO: eco "avviso pesa dollaro forte" in 2 punti
+[ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
+ESITO: OK - guarda <lavoro>/anteprima.png con Read (una sola immagine)

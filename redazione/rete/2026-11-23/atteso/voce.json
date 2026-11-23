@@ -1,0 +1,324 @@
+{
+ "agenda": [
+  {
+   "attese": "Prima 91,7",
+   "chiave": false,
+   "evento": "Fiducia consumatori Conference Board (novembre)",
+   "muove": [
+    "Sopra: consumi solidi, rendimenti su.",
+    "Sotto: più timore sulla crescita, rendimenti giù."
+   ],
+   "perche": "Quanto la paura entra nei consumi",
+   "quando": "Mar 24, 16:00"
+  },
+  {
+   "attese": "Prima +0,5% sul mese, +3,6% in un anno; senza energia e alimentari +0,3% e +3,1%",
+   "chiave": true,
+   "evento": "Prezzi PCE USA (ottobre)",
+   "muove": [
+    "Sopra: rialzo di dicembre più vicino, Treasury giù.",
+    "Sotto: la Fed ha meno fretta."
+   ],
+   "perche": "Evento n.1: la misura di inflazione che la Fed guarda di più",
+   "quando": "Mer 25, 14:30"
+  },
+  {
+   "attese": "Prima stima +3,4% annualizzato",
+   "chiave": false,
+   "evento": "PIL USA terzo trimestre (seconda stima)",
+   "muove": [
+    "Sopra: l'economia regge, rendimenti su.",
+    "Sotto: cresce il timore di una frenata."
+   ],
+   "perche": "Tenuta dell'economia",
+   "quando": "Mer 25, 14:30"
+  },
+  {
+   "attese": "Venerdì le azioni chiudono alle 19:00 a Roma",
+   "chiave": false,
+   "evento": "Wall Street e Treasury chiusi per il Ringraziamento",
+   "muove": [
+    "Con volumi bassi anche movimenti piccoli possono pesare di più."
+   ],
+   "perche": "Pochi scambi",
+   "quando": "Gio 26"
+  }
+ ],
+ "approfondimenti": [
+  {
+   "formato": "due_grafici",
+   "tema": "Chip e Asia",
+   "titolo": "Le vendite sui chip passano dai prezzi alla fiducia dopo l'inchiesta su Nvidia"
+  },
+  {
+   "formato": "due_grafici",
+   "tema": "Tassi USA",
+   "titolo": "Con la Fed in rialzo i Treasury restano un rifugio e i rendimenti scendono"
+  },
+  {
+   "formato": "grafico",
+   "tema": "Europa e Italia",
+   "titolo": "A Milano pesano chip e banche, e l'Europa tocca il minimo da maggio"
+  },
+  {
+   "formato": "grafico",
+   "tema": "Materie prime",
+   "titolo": "L'oro non ripara dal panico perché dollaro e tassi pesano più della paura"
+  }
+ ],
+ "data": "2026-11-23",
+ "dek": "Venerdì l'S&P 500 ha perso il 3,70% e il Nasdaq il 5,28%, l'indice globale ACWI il 3,49% e il Nikkei il 5,06%. L'indice della paura (VIX) è salito del 26,2% a 35,89. Stanotte i future sono rimbalzati di oltre il 2%, ma il Kospi sudcoreano è di nuovo in forte calo. Il bersaglio resta Nvidia, dopo l'indagine SEC riportata dalla stampa americana.",
+ "dove": {
+  "agenda": 5,
+  "approfondimenti": [
+   2,
+   3,
+   4,
+   4
+  ],
+  "mercati": 5,
+  "scommessa": 6
+ },
+ "evento_oggi": "Mer 25, 14:30 Prezzi PCE USA (ottobre)",
+ "file": "pdf/2026-11-23-gommberg-031.pdf",
+ "glossario": [
+  "PCE",
+  "PMI",
+  "VIX",
+  "ACWI"
+ ],
+ "grafici": [
+  {
+   "etichette": [
+    "Nasdaq",
+    "S&P 500",
+    "Russell 2000",
+    "Euro Stoxx 50",
+    "FTSE MIB",
+    "Hang Seng",
+    "Kospi (23/11)"
+   ],
+   "serie": [],
+   "tipo": "barre",
+   "titolo": "Le vendite colpiscono di più i listini con più tecnologia",
+   "x0": null,
+   "x1": null
+  },
+  {
+   "etichette": [],
+   "serie": [
+    "VIX"
+   ],
+   "tipo": "linee",
+   "titolo": "L'indice della paura accelera nella seconda metà della settimana",
+   "x0": "2026-11-16",
+   "x1": "2026-11-20"
+  },
+  {
+   "etichette": [],
+   "serie": [
+    "2 anni"
+   ],
+   "tipo": "linee",
+   "titolo": "Il 2 anni chiude la settimana ai minimi del periodo",
+   "x0": "2026-11-16",
+   "x1": "2026-11-20"
+  }
+ ],
+ "meccanismi": [
+  "M01",
+  "M04",
+  "M10"
+ ],
+ "nome": "2026-11-23 Gommberg Terminal Daily #031.pdf",
+ "notizie": [
+  "La SEC indaga sui conti di Nvidia, riferisce la stampa americana",
+  "Anthropic perde l'8,5% al secondo giorno di quotazione",
+  "Il governo di Seul prepara il fondo di stabilizzazione per il mercato",
+  "Le banche italiane perdono tra il 2% e il 3% in una giornata nera a Milano",
+  "Waller (Fed): «Non possiamo aspettare»",
+  "La fiducia dei consumatori del Michigan sale a 51,5"
+ ],
+ "numero": 31,
+ "pagine": 6,
+ "parole": [
+  "Correzione",
+  "Sidecar",
+  "VIX",
+  "Rifugio",
+  "Punto base",
+  "Vendite allo scoperto"
+ ],
+ "quadro": "La paura ha battuto la politica monetaria: i Treasury hanno fatto da rifugio e i rendimenti sono scesi, anche con un rialzo della Fed a dicembre quasi scontato. L'oro, che di solito ripara, è invece caduto insieme alle azioni, e a nostro avviso pesa il dollaro forte. Il petrolio e il cambio euro-dollaro sono rimasti quasi fermi.",
+ "ripetizioni": 4,
+ "scommessa": {
+  "dettaglio": [
+   [
+    "S&P 500",
+    "su",
+    null,
+    null
+   ],
+   [
+    "Euro Stoxx 50",
+    "su",
+    null,
+    null
+   ],
+   [
+    "Treasury 10 anni",
+    "su",
+    null,
+    null
+   ],
+   [
+    "EUR/USD",
+    "su",
+    null,
+    null
+   ],
+   [
+    "Brent future",
+    "giù",
+    null,
+    null
+   ],
+   [
+    "Oro future",
+    "su",
+    null,
+    null
+   ]
+  ],
+  "par": 7.3,
+  "range": null,
+  "settimana": "2026-11-23/2026-11-27",
+  "strada": null,
+  "su": 6
+ },
+ "sommario": [
+  "L'indagine sui conti di Nvidia mette in dubbio la storia che ha sostenuto i chip.",
+  "Nonostante la paura i rendimenti dei Treasury scendono, mentre la Fed guarda a un rialzo.",
+  "Mercoledì il dato sui prezzi PCE è la prova per i rimbalzi della settimana."
+ ],
+ "temi": [
+  "Wall Street",
+  "Chip",
+  "Fed",
+  "Asia",
+  "Tassi",
+  "Materie prime"
+ ],
+ "termometri": {
+  "fermi": "Petrolio e cambio euro-dollaro: venerdì poco mossi, con il Brent a 92,57 $ e l'EUR/USD a 1,0967.",
+  "righe": [
+   [
+    "Fed e tassi",
+    "Rialzo di dicembre quasi scontato",
+    "Waller e verbali di ottobre",
+    "su: Probabilità di un rialzo",
+    "PCE di mercoledì"
+   ],
+   [
+    "AI e chip",
+    "In correzione",
+    "Indagine SEC su Nvidia",
+    "giu: Titoli dei chip",
+    "Future e Kospi"
+   ],
+   [
+    "Asia",
+    "Seul cede ancora",
+    "Interventi dei governi",
+    "giu: Kospi e Kosdaq",
+    "Fondo di stabilizzazione"
+   ],
+   [
+    "Oro",
+    "In calo da una settimana",
+    "Venerdì sotto i 3.600 $",
+    "giu: Oro future",
+    "Dollaro e Treasury"
+   ]
+  ]
+ },
+ "ticker": [
+  [
+   "MSCI ACWI (ETF)",
+   "142,59 $",
+   "-3,5% g"
+  ],
+  [
+   "S&P 500",
+   "6.910,39",
+   "-3,7% g"
+  ],
+  [
+   "EURO STOXX 50",
+   "5.941,95",
+   "-2,8% g"
+  ],
+  [
+   "TREASURY 10 ANNI",
+   "4,92%",
+   "-12 pb g"
+  ],
+  [
+   "EUR/USD",
+   "1,0967",
+   "0,0% g"
+  ],
+  [
+   "BRENT FUTURE",
+   "92,57 $",
+   "+0,6% g"
+  ],
+  [
+   "ORO",
+   "3.515 $",
+   "-4,6% g"
+  ]
+ ],
+ "ticker_al": "2026-11-20",
+ "titolo": "Wall Street entra in correzione sui timori per l'intelligenza artificiale e Seul cade ancora",
+ "verdetto": {
+  "direzione": 3,
+  "esiti": [
+   [
+    "S&P 500",
+    "giù",
+    1
+   ],
+   [
+    "Euro Stoxx 50",
+    "su",
+    0
+   ],
+   [
+    "Treasury 10 anni",
+    "su",
+    0
+   ],
+   [
+    "EUR/USD",
+    "giù",
+    1
+   ],
+   [
+    "Brent future",
+    "su",
+    0
+   ],
+   [
+    "Oro future",
+    "giù",
+    1
+   ]
+  ],
+  "par": 7.3,
+  "punti": 5,
+  "range": 2,
+  "settimana": "2026-11-16/2026-11-20",
+  "su": 12
+ }
+}
