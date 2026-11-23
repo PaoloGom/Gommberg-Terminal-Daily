@@ -1,5 +1,5 @@
 """Calendario delle uscite (senza importare il motore grafico).
-Legge FESTIVI ed EDIZIONE_1 da gommberg_engine.py, così la fonte resta una sola.
+Legge FESTIVI, FESTIVI_FINO ed EDIZIONE_1 da gommberg_engine.py, così la fonte resta una sola.
 Uso da riga di comando: python3 giorni.py [AAAA-MM-GG]  -> stampa uscita, numero, primo giorno della settimana."""
 import datetime as dt, os, re, sys
 
@@ -12,10 +12,11 @@ def _leggi_motore():
     festivi = set(re.findall(r"\d{4}-\d{2}-\d{2}", m.group(1))) if m else set()
     e = re.search(r"EDIZIONE_1\s*=.*?date\((\d+),\s*(\d+),\s*(\d+)\)", src)
     ed1 = dt.date(*map(int, e.groups())) if e else dt.date(2026, 10, 12)
-    return festivi, ed1
+    f = re.search(r'^FESTIVI_FINO\s*=\s*"(\d{4}-\d{2}-\d{2})"', src, re.M)
+    return festivi, ed1, (f.group(1) if f else "")
 
 
-FESTIVI, EDIZIONE_1 = _leggi_motore()
+FESTIVI, EDIZIONE_1, FESTIVI_FINO = _leggi_motore()
 
 
 def uscita(d):

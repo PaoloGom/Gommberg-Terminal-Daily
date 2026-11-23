@@ -191,7 +191,16 @@ def passo_avvio():
             male.append(f"{nome} {giorno}: manca '{atteso}' ({out.strip().splitlines()[-1][:70] if out.strip() else 'nessuna uscita'})")
         if len(out.splitlines()) > 23:
             male.append(f"{nome}: {len(out.splitlines())} righe (massimo 23)")
-    esito("Avvio (prepara.sh)", not male, "; ".join(male) or f"lunedì {lun:%d/%m}, {mar:%d/%m}, chiuso {chiuso:%d/%m}")
+    # Promemoria di dicembre (G-50): scatta finché FESTIVI_FINO non copre l'anno dopo, tace quando lo copre
+    anno = int(G.FESTIVI_FINO[:4]) if G.FESTIVI_FINO else 0
+    for nome, anno_g, deve in (("dicembre scoperto", anno, True), ("dicembre coperto", anno - 1, False)):
+        giorno = next(dt.date(anno_g, 12, k) for k in range(1, 20) if G.uscita(dt.date(anno_g, 12, k)))
+        rc, out = esegui(["bash", os.path.join(R, "prepara.sh"), giorno.isoformat()],
+                         env={"GTD_REPO": REPO, "GTD_LAVORO": os.path.join(TMP, "avvio")})
+        if rc or ("DICEMBRE:" in out) != deve or len(out.splitlines()) > 23:
+            male.append(f"{nome} {giorno}: promemoria {'assente' if deve else 'di troppo'} o uscita sbagliata")
+    esito("Avvio (prepara.sh)", not male, "; ".join(male) or f"lunedì {lun:%d/%m}, {mar:%d/%m}, chiuso {chiuso:%d/%m}, "
+                                                          f"promemoria di dicembre (festivi verificati fino al {G.FESTIVI_FINO})")
 
 
 # ---------------------------------------------------------------- 3. modello
