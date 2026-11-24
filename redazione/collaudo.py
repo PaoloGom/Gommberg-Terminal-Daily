@@ -333,16 +333,19 @@ def passo_coerenza():
                         "Hong Kong perde il 3,8% per le strette USA sulla tecnologia per la Cina", set())
     gi = desk.controlla("In Giappone l'inflazione sale al 2,3% e alimenta le attese di rialzo dei tassi",
                         "L'inflazione giapponese sale al 2,3% e avvicina il rialzo dei tassi", set())
+    # la #032: la riscrittura sposta la nostra lettura, la cifra resta all'oro (respinta per errore prima del 24/11 sera)
+    oro = desk.controlla("Ci leggiamo anche il rimbalzo dell'oro (+3,9%): finiscono le vendite per far cassa.",
+                         "Nel rimbalzo dell'oro (+3,9%) leggiamo la fine delle vendite per far cassa.", set())
     corto = ("La SEC ha aperto un esame su Nvidia, il titolo che regge la storia dell'intelligenza artificiale nelle borse. "
              "Il titolo ha perso il 14% venerdì e più del 20% in una settimana.")
     lungo = corto.replace(" Il titolo", " Lo staff guarda a possibili problemi contabili nei bilanci. Il titolo")
     tolto = desk.controlla(lungo, corto, set(), altri="")
     eco = desk.controlla(lungo, corto, set(), altri="Lo staff della SEC guarda a possibili problemi contabili nei bilanci.")
-    desk_ok = bool(hk) and gi is None and bool(tolto) and eco is None
+    desk_ok = bool(hk) and gi is None and oro is None and bool(tolto) and eco is None
     ok = not sfuggiti and not falsi and rim_ok and tit_no and not tit_si and ragiona and desk_ok
     det = (f"{len(ferma)} frasi sbagliate fermate, {len(passa)} giuste passate (cifra che cambia soggetto, \"più del\", verso, "
            "periodo, ipotesi, parentesi); rimando a un pezzo che non ne parla; ipotesi nel titolo; il ragionamento dell'oro della "
-           "#031 fermato finché resta e liberato quando cambia; desk: Hong Kong e un fatto unico respinti, un riordino e un'eco passati")
+           "#031 fermato finché resta e liberato quando cambia; desk: Hong Kong e un fatto unico respinti, due riordini e un'eco passati")
     if not ok:
         det = "; ".join(x for x in [
             f"sfuggiti {sfuggiti}" if sfuggiti else "", f"falsi allarmi {falsi[:2]}" if falsi else "",

@@ -92,6 +92,12 @@ VERBI = re.compile(r"^(?:sale|salgono|scende|scendono|cede|cedono|perde|perdono|
                    r"calano|crolla|risale|rimbalza|lascia|segna|tocca|vola|arretra|fanno|fa|scendere|salire|ha|hanno|è|sono)$")
 LEGAMI = set("il lo la i gli le l un una uno di del della dello dei degli delle dell a al alla allo ai agli alle all da dal "
              "dalla dai in nel nella nei su sul sulla sui con per tra fra e anche circa quasi oltre più meno".split())
+# Dove comincia il gruppo del soggetto: l'articolo o una preposizione articolata che non è un genitivo ("il listino
+# tecnologico di Hong Kong", "nel rimbalzo dell'oro"). Prima di lì c'è altro (trovato nel collaudo indipendente del
+# 24/11: nella #032 "Ci leggiamo anche il rimbalzo dell'oro (+3,9%)" riscritto in "Nel rimbalzo dell'oro (+3,9%)
+# leggiamo" era respinto, perché "ci" e "leggiamo" passavano per soggetto della cifra).
+INIZI = set("il lo la i gli le l un una uno nel nella nello nei negli nelle nell sul sulla sullo sui sugli sulle sull "
+            "al alla allo ai agli alle all dal dalla dallo dai dagli dalle dall".split())
 
 
 def _parole(t):
@@ -99,8 +105,9 @@ def _parole(t):
 
 
 def soggetto(t, inizio):
-    """Le parole piene di chi fa la cifra che comincia in t[inizio:]: si risale fino al verbo o alla punteggiatura;
-    un verbo subito prima della cifra ("Hong Kong perde il 3,8%") si salta e il soggetto è prima."""
+    """Le parole piene di chi fa la cifra che comincia in t[inizio:]: si risale fino all'inizio del suo gruppo (articolo o
+    preposizione articolata non genitiva), al verbo o alla punteggiatura; un verbo subito prima della cifra ("Hong Kong
+    perde il 3,8%") si salta e il soggetto è prima."""
     pp, out = _parole(t[:inizio]), []
     for w in reversed(pp):
         if w in "(":
@@ -113,6 +120,8 @@ def soggetto(t, inizio):
             if out:
                 break
             continue
+        if w in INIZI and out:
+            break
         if w in LEGAMI or w[0].isdigit():
             continue
         out.append(w[:5])
