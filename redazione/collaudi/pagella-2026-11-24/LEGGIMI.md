@@ -21,3 +21,8 @@ Gli script hanno i percorsi della sessione in cui sono nati (`/home/claude/pagel
 - Rumore: correlazione tra le classifiche dei lettori da 0,37 a 0,76; reggono solo gli estremi. Un lettore solo non basta.
 - Varianza: seconda prova, terza prova e #031 (stesso giorno, regole quasi uguali) stanno a 1,8, 6,0 e 8,8.
 - Costo: circa 680 mila token per quattro lettori su dieci edizioni.
+
+## Aggiunta delle 19:30: gli errori di frase
+Paolo, 24/11 ore 19:05: la #032 era buona ma con errori grossolani ("vendere le sue macchine": Nvidia non vende macchine; "un solo comunicato ha ricomprato gran parte di un calo": non è italiano), più altri errori di grammatica; in generale lo disturba la ripetizione tra un'edizione e l'altra.
+I lettori della pagella non pesano la frase sbagliata (uno aveva messo la frase del comunicato tra i punti forti). Seconda lettura da correttore di bozze, senza suggerimenti, su #031 (ED-Y) e #032 (ED-X): `bozze/B-fable.json` trova 8 e 12 frasi grossolane e tutte e due quelle di Paolo (le macchine classificate minori: la gravità va tarata sui suoi casi); `bozze/A-sonnet.json` ne trova 2 e 3. Le istruzioni del correttore: frase sbagliata = parola che nomina la cosa sbagliata, soggetto che non può fare il verbo, grammatica, calco, frase che non si capisce; niente gusti di stile.
+Ne segue: la pagella ha due strumenti (voto dei lettori e conto delle frasi sbagliate, con un pavimento); variante per il banco: rilettura finale fatta da un modello più forte, al posto di quella di oggi (tocca il confine "solo Sonnet" della carta: decide Paolo dopo i numeri).

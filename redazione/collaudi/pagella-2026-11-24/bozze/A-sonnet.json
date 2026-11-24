@@ -1,0 +1,22 @@
+{"ED-X": [
+{"frase":"Europa: la tecnologia trascina le borse, ma Germania e Francia crescono a ritmi opposti.","tipo":1,"perche":"La Francia si contrae: non cresce, quindi 'crescono' nomina la cosa sbagliata.","gravita":"grossolano"},
+{"frase":"Un solo comunicato ha ricomprato gran parte di un calo durato undici giorni.","tipo":2,"perche":"Un comunicato non può 'ricomprare' un calo: si recupera una perdita, non la si compra.","gravita":"grossolano"},
+{"frase":"Ci leggiamo anche il rimbalzo dell'oro (+3,9%): finiscono le vendite per far cassa.","tipo":4,"perche":"'Ci leggiamo' calco colloquiale, in italiano vale 'ci si vede'; senso poco chiaro.","gravita":"minore"},
+{"frase":"Un greggio più basso di solito abbassa l'inflazione che gli investitori si aspettano, cioè il rendimento che pretendono per prestare a dieci anni.","tipo":1,"perche":"L'inflazione attesa non è il rendimento: 'cioè' identifica due cose diverse.","gravita":"grossolano"},
+{"frase":"Sono titoli che di solito dipendono dalla stessa domanda di chip per i centri di calcolo","tipo":3,"perche":"'Sono titoli' senza antecedente chiaro: Nasdaq 100 è un indice, non un titolo.","gravita":"minore"},
+{"frase":"25%: il calo circa di Nvidia tra le dimissioni di Huang del 12 novembre e venerdì","tipo":3,"perche":"Ordine delle parole errato: 'il calo di circa il 25%'.","gravita":"minore"},
+{"frase":"Il mercato ha cominciato a chiedersi chi avrebbe deciso e se l'azienda poteva ancora vendere le sue macchine.","tipo":3,"perche":"Dopo 'chiedersi' serve il congiuntivo: 'potesse'; tempo e modo errati.","gravita":"minore"},
+{"frase":"Anche per Nvidia il rischio resta aperto.","tipo":5,"perche":"Rischio non specificato e 'anche' senza riferimento: la frase non dice nulla di preciso.","gravita":"minore"},
+{"frase":"fa dell'azienda svizzera la migliore di Zurigo","tipo":5,"perche":"'La migliore di Zurigo' non si capisce: migliore titolo del listino, non azienda.","gravita":"minore"}
+],
+"ED-Y": [
+{"frase":"Nonostante la paura i rendimenti dei Treasury scendono, mentre la Fed guarda a un rialzo.","tipo":2,"perche":"La paura causa il calo dei rendimenti: 'nonostante' inverte il nesso logico.","gravita":"grossolano"},
+{"frase":"La settimana ha perso più del 9%: un calo di questa ampiezza in una settimana è raro","tipo":2,"perche":"Soggetto sbagliato: la settimana non perde, è l'oro che ha perso.","gravita":"grossolano"},
+{"frase":"Il mercato ha anche già bloccato gli scambi.","tipo":2,"perche":"Il mercato non blocca gli scambi; il sidecar sospende solo gli ordini automatici.","gravita":"minore"},
+{"frase":"tocca il titolo che di solito garantisce la storia dell'intelligenza artificiale","tipo":2,"perche":"Un titolo azionario non 'garantisce' una storia: immagine che non regge.","gravita":"minore"},
+{"frase":"A nostro avviso il mercato non prezza più solo gli utili","tipo":4,"perche":"'Prezzare' calco dall'inglese 'to price': in italiano si dice 'scontare'.","gravita":"minore"},
+{"frase":"Pochi grandi produttori di chip, come Samsung e SK Hynix, fanno una parte larga del Kospi","tipo":4,"perche":"'Fanno una parte larga' è calco goffo: 'pesano per buona parte'.","gravita":"minore"},
+{"frase":"Le vendite sui chip passano dai prezzi alla fiducia dopo l'inchiesta su Nvidia","tipo":5,"perche":"Titolo oscuro: vendite che 'passano dai prezzi alla fiducia' non significa nulla di preciso.","gravita":"minore"},
+{"frase":"il metallo tende a perdere appeal","tipo":4,"perche":"'Appeal' anglicismo inutile: in italiano 'attrattiva' o 'fascino'.","gravita":"minore"},
+{"frase":"Un rialzo da 50 pb a dicembre, se arrivasse, spingerebbe di solito su soprattutto il 2 anni.","tipo":3,"perche":"Ordine delle parole scorretto e 'spingere su' senza oggetto: 'farebbe salire soprattutto'.","gravita":"minore"}
+]}
