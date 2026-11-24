@@ -1,0 +1,139 @@
+=== PAGINA 1 ===
+TITOLO DI APERTURA: Il debutto record di Anthropic non ferma la vendita dell'AI: Asia a picco
+Sommario: Anthropic chiude il primo giorno in rialzo del 17%, ma il Nasdaq perde il 2,25% e l'S&P 500 il 2,0%, la sesta perdita di fila. Stamattina il conto arriva in Asia: il Nikkei cede il 5,1% e il Kospi il 5,2%, con i produttori di chip in testa. Per noi pesa più la Fed, che si prepara ad alzare i tassi, che il giudizio sulle singole società: gli utili lontani valgono meno quando il denaro costa di più. (→ pag.)
+→ Per gli operatori sentiti dal Sole 24 Ore, l'offerta da record ha sottratto liquidità agli altri titoli del settore.
+Il quadro: Per noi si vende ciò che vive di utili lontani o non paga interessi. L'AI e l'oro scendono insieme e il dollaro resta vicino ai massimi da 19 mesi. Il rendimento del Treasury a 10 anni (5,04%) cala poco: per noi, perché la Fed si prepara ad alzare. Il petrolio non fa da rifugio: il Brent (91,98 $) guarda all'eccesso di offerta.
+In 30 secondi:
+  - La Fed ha meno spazio per fermarsi: i dati di ieri frenano l'attività e spingono i prezzi. (→ pag.)
+  - Missili su Riyadh e mine a Hormuz, ma il petrolio guarda all'eccesso di offerta. (→ pag.)
+  - L'Europa perde meno di Wall Street: ha pochi titoli AI, ma i difensivi cedono. (→ pag.)
+Stamattina:
+  - Kospi -5,2% e Hong Kong -2,1% alle 08:13; Tokyo ha chiuso a -5,06%
+  - Treasury 10 anni in Asia alle 07:40: 5,0%
+  - EUR/USD alle 09:02: 1,0986
+  - Future Euro Stoxx 50 alle 08:47: -1,43% (Borsa&Finanza)
+Notizie:
+  * [Trimestrali] Saipem sale del 4,7% dopo i conti dei nove mesi
+    Ricavi e margini crescono e le previsioni di fine anno sono confermate: è il titolo migliore del FTSE MIB, mentre Nexi cede il 3,2%.
+  * [Europa] Novartis cede il 3,2% sugli obiettivi di vendita, Sanofi il 2,9%
+    Per Novartis pesa un obiettivo di vendite a medio termine nella parte bassa della forchetta (Reuters). Sanofi paga il presunto interesse verso la biotech americana Insmed, secondo Bloomberg.
+  * [Banche] UniCredit e il governo tedesco si accordano sui nodi dell'offerta per Commerzbank
+    Commerzbank cede l'1,2% in borsa (Reuters).
+  * [Geopolitica] Trump, Xi e Putin firmano a Shenzhen una dichiarazione senza impegni
+    Ribadisce che una guerra nucleare non va combattuta, ma non cita né l'Ucraina né l'Iran e non fissa scadenze (Reuters).
+  * [Macro] Il Philly Fed cala a 6,3 e le imprese pagano di più
+    L'indice della manifattura di Filadelfia scende da 20,9 a 6,3, mentre i prezzi pagati salgono a 58,2 da 43,2 (investingLive). I sussidi di disoccupazione salgono a 203 mila, sopra i 197 mila attesi.
+  * [Chip] AMD perde il 7,7% dopo un rapporto ribassista sulla Cina
+    Il rapporto di Hunterbrook Capital punta sulla dipendenza della società dal mercato cinese; il titolo chiude a 489,19 $ (Milano Finanza).
+
+=== PAGINE 2-4: ANALISI E STORIE ===
+
+--- Approfondimento 1 (doppio) - occhiello: Tecnologia ---
+TITOLO: Anthropic guadagna il 17%, ma il resto dell'AI paga il conto
+[Riquadro accanto al grafico]
+  PERCHÉ: Per noi il costo del denaro conta più del successo della singola società. Con la Fed pronta ad alzare i tassi, chi paga oggi utili attesi tra molti anni li sconta di più. A questo si somma un fatto tecnico: per gli operatori sentiti dal Sole 24 Ore l'offerta da 81 miliardi ha sottratto liquidità agli altri titoli del settore.
+  E QUINDI: Alle 15:30 apre Wall Street: i future del Nasdaq perdono oltre l'1% (Milano Finanza, 07:40), segno che la vendita non è finita.
+  IL NUMERO: 111,50 $: il prezzo a cui ANT ha aperto, il 34% sopra il collocamento. Ha chiuso a 97,17 $: in giornata ha restituito metà del guadagno.
+   [Grafico] La vendita pesa di più dove i chip contano di più - variazioni %: Stati Uniti ed Europa il 19/11, Asia stamattina*
+   [Grafico] Sei sedute di calo cancellano il 5,8% dal massimo dell'11 novembre - S&P 500, chiusure (punti)
+[Testo]
+   Perché un debutto riuscito non aiuta? Un'azione vale oggi gli utili che si spera di incassare in futuro. Se i tassi salgono, quegli utili lontani valgono meno, e chi compra deve pagare meno: è come un mutuo più caro, che riduce la casa che ci si può permettere. Le azioni dell'AI sono di solito le più esposte, perché gran parte del loro valore sta negli anni a venire. Il rialzo che la Fed prepara per dicembre colpisce proprio loro.
+   Il secondo anello è la liquidità. Una società che raccoglie 81,3 miliardi di dollari in un colpo costringe i fondi a trovare quei soldi: di solito li prendono vendendo altri titoli già in portafoglio. Per gli operatori sentiti dal Sole 24 Ore è quello che è successo, ma è una lettura da verificare: la pressione dovrebbe calare una volta chiusa la fase di collocamento.
+   Le cause singole non mancano. AMD paga un rapporto ribassista e Nvidia l'uscita di Jensen Huang (Milano Finanza). Le borse globali vanno verso la più lunga serie negativa degli ultimi tre anni.
+   L'Asia ha ereditato tutto con un effetto amplificato. A Tokyo, Seul e Taipei pochi produttori di chip pesano molto sull'indice, e di solito ne seguono la sera prima. Advantest cede il 10%, Tokyo Electron e Samsung Electronics il 7% (Il Sole 24 Ore): per questo Nikkei e Kospi perdono più del doppio del Nasdaq.
+   [Tabella]
+     Titolo | Giovedì 19 | Cosa pesa
+     Anthropic (ANT) | +17,1% a 97,17 $ | Aperta a 111,50 $, ha poi ceduto circa il 5% dopo la chiusura (Il Sole 24 Ore)
+     AMD | -7,7% a 489,19 $ | Rapporto ribassista di Hunterbrook sulla dipendenza dalla Cina
+     Nvidia | Conti del 17/11 oltre le stime | Ricavi 115,8 mld $ (+103%); Huang lascia
+     Mercato USA | Oltre il 90% dei titoli in calo | Sesta seduta negativa di fila
+DA GUARDARE: Lo dirà l'apertura di Wall Street: se i chip americani recuperano mentre l'Asia è ancora in calo, la vendita era un eccesso dettato dall'orario. Se scendono ancora, perde peso l'idea che sia solo liquidità e prevale quella dei tassi.
+Fonti: AP, investingLive, Il Sole 24 Ore, Milano Finanza.
+
+--- Approfondimento 2 (mezzo) - occhiello: Fed ---
+TITOLO: I dati di ieri danno alla Fed meno crescita e più prezzi
+[Riquadro accanto al grafico]
+  PERCHÉ: I prezzi pagati dalle imprese di Filadelfia salgono mentre l'indice generale crolla: per noi i costi aumentano anche se l'attività frena.
+  E QUINDI: Mercoledì 25 esce l'indice dei prezzi che la Fed preferisce (PCE): un dato sopra le attese darebbe forza al rialzo da mezzo punto di cui parla Waller.
+[Testo]
+   Perché i prezzi pagati contano? Sono il primo anello della catena: se le imprese pagano di più materie e servizi, di solito prima o poi lo scaricano sui prezzi al consumo. A Filadelfia il costo sale mentre l'attività delle fabbriche cala: una combinazione scomoda. La Fed vuole frenare l'inflazione con tassi più alti, ma tassi più alti pesano su un'economia che già rallenta.
+   Per questo il mercato ascolta Waller, che dopo i verbali ha indicato la possibilità di un rialzo da mezzo punto a dicembre (Milano Finanza). Il rendimento del Treasury a 10 anni, intanto, non sale: per noi si comprano titoli di Stato perché la borsa fa più paura dell'inflazione.
+   I sussidi di disoccupazione salgono a 203 mila, appena sopra i 197 mila attesi, non cambiano il quadro. Per noi il lavoro resta il lato dell'economia che tiene. La Fed può quindi guardare soprattutto ai prezzi.
+   [Tabella]
+     Dato di giovedì 19 | Uscito | Confronto
+     Philly Fed (manifattura) | 6,3 | prima 20,9
+     Prezzi pagati dalle imprese | 58,2 | prima 43,2
+     Sussidi di disoccupazione | 203 mila | attesi 197 mila
+Fonti: investingLive, Milano Finanza.
+
+--- Approfondimento 3 (mezzo) - occhiello: Petrolio ---
+TITOLO: Houthi su Riyadh e mine a Hormuz, ma il petrolio guarda all'eccesso di offerta
+[Riquadro accanto al grafico]
+  PERCHÉ: Il mercato pesa più i barili in arrivo di quelli a rischio. Le scorte USA salgono e si attende un eccesso di offerta globale (investingLive). Per l'Agenzia internazionale dell'energia (AIE) l'offerta del quarto trimestre supera la domanda di 1,7 milioni di barili al giorno (Reuters).
+  E QUINDI: Una chiusura sopra i 100 $, livello che il Brent non vede dal 3 novembre, direbbe che il rischio Hormuz ha battuto l'eccesso di offerta.
+  IL NUMERO: 3 novembre: l'ultima chiusura del Brent sopra i 100 dollari (103,60). Da allora ha perso l'11%.
+   [Grafico] Il Brent perde un quinto dal massimo del 23 ottobre - Brent future, chiusure ($)
+[Testo]
+   Perché i missili non bastano? Il prezzo del petrolio somma due forze: la paura che manchi, che lo spinge su, e la certezza che ce ne sia troppo, che lo spinge giù. Dopo un attacco di solito il prezzo sale per qualche ora o qualche giorno. Poi torna dove lo porta il bilancio tra produzione e consumi, a meno che i barili non spariscano davvero.
+   Sul campo i segnali sono contrastanti. Le Guardie della Rivoluzione iraniane hanno detto il 16 novembre che due petroliere sono finite su mine a Hormuz, ma Reuters non ha potuto verificarlo. Ieri gli Houthi hanno colpito Riyadh.
+   C'è poi l'effetto sull'inflazione. Un barile più caro passa in fretta ai carburanti e quindi ai prezzi al consumo, ed è per questo che la Fed guarda al greggio con attenzione. Il calo dalle punte di fine ottobre di solito toglie pressione ai prossimi dati sui prezzi, e dà alla banca centrale una ragione in meno per alzare più del previsto.
+   Per l'Europa il conto è doppio. Il greggio si paga in dollari e, con un dollaro vicino ai massimi da 19 mesi ogni barile costa di più, anche quando il prezzo in dollari scende. L'inflazione dell'area euro è già al 4%, con l'energia a +20,8% (BCE).
+Fonti: Reuters, investingLive; chiusure del Brent future (FMP).
+
+--- Approfondimento 4 (mezzo) - occhiello: Europa ---
+TITOLO: L'Europa regge perché ha pochi titoli AI, ma i difensivi cedono
+[Riquadro accanto al grafico]
+  PERCHÉ: Il calo europeo è guidato dai settori tranquilli, non dalla tecnologia: alimentari e bevande perdono il 2,1% e la sanità l'1,8%, mentre ASML sale del 2,2% (Reuters).
+  E QUINDI: L'apertura dirà se l'Europa recupera il ritardo: i future sull'Euro Stoxx 50 segnano -1,43% (Borsa&Finanza, 08:47).
+[Testo]
+   Perché l'Europa cade meno? Gli indici europei hanno pochi titoli dell'intelligenza artificiale, e la vendita di giovedì colpiva soprattutto quelli. ASML, che fa le macchine con cui si producono i chip, ha chiuso in rialzo.
+   Di solito in una giornata di paura i difensivi, come alimentari e sanità, tengono meglio degli altri settori. Giovedì hanno perso più del mercato: per noi chi doveva fare cassa ha venduto ciò che si vende più facilmente, non ciò che costava meno. È una lettura nostra, non confermata.
+   Anche su base settimanale il quadro è lo stesso: il FTSE MIB perde il 3,6% e l'Euro Stoxx 50 il 4,2%, contro il 5,1% dell'S&P 500. L'Europa soffre, ma meno, e senza il peso dei titoli dell'intelligenza artificiale.
+   [Tabella]
+     Indice, 19/11 | Chiusura | Variazione
+     Euro Stoxx 50 | 6.120,30 | -0,55%
+     STOXX 600 | 638,41 | -0,88%
+     DAX | 25.464 | -1,06%
+     FTSE 100 | 10.452,68 | -0,93%
+Fonti: Reuters, dpa-AFX, Teleborsa, ANSA, Borsa&Finanza.
+
+--- Approfondimento 5 (mezzo) - occhiello: Materie prime ---
+TITOLO: L'oro perde oltre 400 dollari dal 9 novembre e la Fed non aiuta
+[Riquadro accanto al grafico]
+  PERCHÉ: L'oro non paga interessi. Con la Fed pronta ad alzare e il dollaro vicino ai massimi, chi lo tiene rinuncia a un rendimento più alto altrove (Milano Finanza).
+  E QUINDI: Venerdì decidono dollaro e Treasury: un 10 anni sopra il 5% di solito tiene l'oro sotto pressione.
+  IL NUMERO: 3.500 $: dove l'oro è sceso stamattina, il livello più basso da settembre 2025.
+   [Grafico] L'oro cade di oltre 400 dollari dal 9 novembre - Oro future, chiusure ($ l'oncia)
+[Testo]
+   Come mai l'oro, il bene rifugio per eccellenza, scende in un giorno di paura? Per noi oggi la paura è sui tassi, non sull'inflazione fuori controllo. L'oro serve a proteggersi da un denaro che perde valore. Ma se la banca centrale alza i tassi per fermare l'inflazione, il dollaro rende di più e l'oro, che non rende nulla, diventa meno interessante.
+   C'è poi la vendita forzata: chi perde su un mercato di solito vende ciò che si vende subito per coprire le perdite. Per Milano Finanza è una delle cause del calo, insieme a dollaro più forte e attese di una stretta della Fed.
+   Mercoledì l'argento è sceso del 3,4% (Kitco). I metalli preziosi si muovono insieme, segno che pesa una spinta comune e non una notizia sul solo oro.
+   Per chi compra in euro il colpo è un po' più leggero. Dal 9 novembre l'oro perde il 10% in dollari ma l'8% in euro: per noi, perché nel frattempo l'euro è sceso contro il dollaro. Di solito un dollaro forte fa scendere l'oro in dollari più di quanto lo faccia scendere in altre valute.
+Fonti: Milano Finanza, Kitco, investingLive; chiusure dell'oro future (FMP).
+
+=== PAGINA 5: MERCATI E AGENDA ===
+Titolo: Numeri, temi aperti e calendario
+La lettura: Il Russell 2000, l'indice delle società più piccole, perde quanto l'S&P 500: non è la solita vendita che colpisce di più chi ha più debiti e soffre i tassi alti, ma una vendita che riguarda tutti. Il VIX (la volatilità attesa a Wall Street) sale di quasi 4 punti in un giorno.
+Temi aperti:
+  - Fed e tassi | Decisione a dicembre | Waller apre al rialzo da mezzo punto | fermo: Treasury a 10 anni, sopra il 5% | Dati sui prezzi di mercoledì
+  - AI e borsa | Anthropic ha debuttato ieri | ANT sale del 17% ma poi cede dopo la chiusura | giu: Titoli AI e chip, Asia in testa | Apertura di Wall Street alle 15:30
+  - Oro e dollaro | Oro verso i 3.500 $ | In calo da oltre una settimana | giu: Oro | Dollaro e rendimenti USA
+  - Petrolio | Brent sotto i 92 $ | Houthi su Riyadh, il prezzo non sale | fermo: Brent, senza direzione | Scorte USA e Hormuz
+Fermi: Sanità USA (proposta CMS aperta ai commenti, nessuna novità verificata oggi), Tassi della Bce (prossima riunione il 17 dicembre).
+Ieri:
+  - Gio 19, 14:30 | Philly Fed e sussidi di disoccupazione USA | Philly Fed 6,3 (prima 20,9); sussidi 203 mila (attesi 197 mila) | + | (→ pag.)
+  - Gio 19 | Debutto di Anthropic al Nasdaq | ANT chiude a 97,17 $, +17,1% sul prezzo di collocamento (83 $) |  | (→ pag.)
+Agenda:
+  - Mer 25, 14:30 | PCE core USA (ottobre, la misura d'inflazione preferita dalla Fed) | +0,3% sul mese, +3,2% su un anno; prima +3,1% | Prezzi che la Fed guarda di più
+  - Mer 25, 14:30 | Pil USA del terzo trimestre (seconda stima) | +3,4% annualizzato | Crescita dell'economia
+  - Gio 26 | Festa del Ringraziamento: borse USA chiuse | - | Volumi più bassi sui mercati | Di solito meno scambi e prezzi più mossi su dollaro e petrolio.
+
+=== PAGINA 6: LA SCOMMESSA DELLA SETTIMANA (solo i testi) ===
+tesi: Con noi: la borsa americana, l'oro e il dollaro vanno nella direzione prevista, e con più forza. Contro: l'Europa, i Treasury e il petrolio vanno dall'altra parte. Da qui alla chiusura: l'apertura di Wall Street.
+Parole di oggi:
+  - Liquidità | Quanti soldi ci sono a disposizione per comprare titoli: quando una grande offerta li assorbe, gli altri titoli di solito ne ricevono meno.
+  - Prezzi pagati | La quota di imprese che dice di pagare di più materie e servizi: è un'anticipazione dell'inflazione.
+  - Vendita forzata | Vendere titoli non perché si è cambiata idea, ma per coprire perdite altrove.
+  - Titoli difensivi | Settori come sanità e alimentari, i cui utili dipendono poco dal ciclo economico.
+  - Eccesso di offerta | Più barili prodotti di quanti se ne consumino: di solito spinge il prezzo giù.
+  - Collocamento | Il prezzo a cui una società vende le sue azioni al pubblico la prima volta.

@@ -1,0 +1,137 @@
+{
+ "edizioni": {
+  "Q": {
+   "domanda": 3, "cause": 3, "prove": 3, "chiarezza": 3, "italiano": 2, "titoli": 3, "varieta": null,
+   "punti_forti": [
+    {"cosa": "Apre con la domanda giusta per il lettore comune e la chiude: perché una notizia americana fa cadere Taipei e Seul.", "citazione": "Come fa una notizia su un'azienda americana a far cadere una borsa asiatica?"},
+    {"cosa": "Distingue le cause: Shanghai cede per i dati cinesi, non per la paura sull'AI.", "citazione": "più che la paura sull'AI"}
+   ],
+   "difetti": [
+    {"voce": "italiano", "cosa": "Il 'per noi' diventa tic e arriva anche nelle frasi che non esprimono un'opinione: suona come formula, non come voce di giornale.", "citazione": "Per noi la giornata dice due cose che non si contraddicono."},
+    {"voce": "cause", "cosa": "Salto logico: un'IPO in arrivo diventa ragione per vendere i fornitori, senza spiegare il passaggio dal fatto al prezzo.", "citazione": "Per chi investe nell'AI è un'altra occasione dove mettere i soldi, e per noi una ragione in più per vendere i fornitori più cari."},
+    {"voce": "titoli", "cosa": "Il titolo dell'approfondimento mette 'per noi' nella notizia: titolo meno preciso e meno vivo, e la forma si ripete in altri titoli.", "citazione": "Borse su e rifugi giù: per noi la Fed pesa più della paura"}
+   ]
+  },
+  "D": {
+   "domanda": 3, "cause": 2, "prove": 3, "chiarezza": 3, "italiano": 2, "titoli": 3, "varieta": 2,
+   "punti_forti": [
+    {"cosa": "Spiega in una frase perché Nvidia cade anche prima dei conti: il prezzo è fatto di attese.", "citazione": "Un titolo guarda avanti: chi compra Nvidia paga oggi gli utili che si aspetta tra qualche anno."},
+    {"cosa": "Sull'oro mette numeri verificabili (prezzo, date, percentuali) che tornano tra loro.", "citazione": "il 16 ottobre l'oro valeva 4.181 dollari, ieri 3.853, il 7,8% in meno"}
+   ],
+   "difetti": [
+    {"voce": "cause", "cosa": "Ragionamento sul 2 anni confuso: perché scendere di più sarebbe tipico del rifugio non è spiegato e non regge senza passaggi.", "citazione": "Scende di più chi guarda alla Fed: è la mossa tipica di chi si mette al riparo e non di chi si aspetta tassi più bassi."},
+    {"voce": "cause", "cosa": "Il pezzo sul petrolio dice 'cade' ma i numeri riportati (rimbalzo a 95,82 e ritorno vicino) fanno pensare il contrario: il lettore non capisce dove sia il Brent.", "citazione": "Il minimo recente è 91,49 $ del 10/11: da lì il Brent è rimbalzato a 95,82 $ in due giorni, e ieri ci è tornato vicino."},
+    {"voce": "domanda", "cosa": "Il titolo promette una spiegazione sull'Europa, ma il testo è una sola frase di cronaca su Milano: la domanda non viene sviluppata.", "citazione": "A Milano a pesare sono Stellantis, in calo del 3,9%, e Technoprobe, che perde il 4,2% per il pessimismo sull'AI; la difesa tiene, con Leonardo in rialzo dello 0,9%."}
+   ]
+  },
+  "K": {
+   "domanda": 4, "cause": 4, "prove": 4, "chiarezza": 4, "italiano": 3, "titoli": 4, "varieta": 3,
+   "punti_forti": [
+    {"cosa": "Risponde fino in fondo a perché un titolo cade pur battendo le stime, con un principio generale chiaro per il lettore comune.", "citazione": "i conti ottimi non cambiano nulla"},
+    {"cosa": "Collega i rendimenti a una conseguenza concreta per il lettore: il costo del mutuo.", "citazione": "i tassi a lunga scadenza, non quelli della Fed, guidano il costo dei finanziamenti"}
+   ],
+   "difetti": [
+    {"voce": "prove", "cosa": "Un nome e una posizione buttati lì: chi sia Muddy Waters e perché la sua tesi conti non viene spiegato.", "citazione": "Muddy Waters Research è ribassista sul titolo."},
+    {"voce": "chiarezza", "cosa": "Il numero in evidenza è opaco per chi non ha studiato finanza: 'nostra serie storica' non dice nulla e '1 su 28' non è spiegato.", "citazione": "la frequenza con cui l'Euro Stoxx 50 perde più del 2,1% in una seduta, sulla nostra serie storica"},
+    {"voce": "domanda", "cosa": "Il pezzo su Anthropic mette in fila test di liquidità e voto sull'AI senza chiudere: non dice cosa il lettore deve aspettarsi.", "citazione": "Per noi un'IPO così grande, in una settimana di vendite sulla tecnologia, si legge prima come test di liquidità e poi come voto sull'AI."}
+   ]
+  },
+  "M": {
+   "domanda": 4, "cause": 3, "prove": 4, "chiarezza": 3, "italiano": 3, "titoli": 3, "varieta": 3,
+   "punti_forti": [
+    {"cosa": "Distingue con onestà l'ipotesi dal fatto sul meccanismo della liquidità e dice cosa guardare per verificarla.", "citazione": "È una lettura nostra, non un fatto dichiarato"},
+    {"cosa": "Spiega bene perché un titolo crolla per una proposta ancora modificabile.", "citazione": "finché non cambia il prezzo incorpora la versione più dura"}
+   ],
+   "difetti": [
+    {"voce": "chiarezza", "cosa": "Gergo d'asta non spiegato (domanda diretta e indiretta): il lettore non capisce cosa dovrebbe dedurne.", "citazione": "All'asta dei titoli a 20 anni la domanda diretta è stata forte e quella indiretta debole."},
+    {"voce": "titoli", "cosa": "Il titolo è ambiguo: 'fermano l'oro' sembra dire che l'oro sale, mentre cade ai minimi da 14 mesi.", "citazione": "Neanche le tensioni nel Golfo fermano l'oro: pesa il dollaro"},
+    {"voce": "cause", "cosa": "Per l'oro offre due letture opposte (dollaro forte e dollaro rifugio) senza sceglierne una: il pezzo non chiude la domanda.", "citazione": "È una seconda lettura possibile, e in quel caso oro e dollaro non salirebbero insieme."}
+   ]
+  },
+  "B": {
+   "domanda": 5, "cause": 4, "prove": 4, "chiarezza": 4, "italiano": 4, "titoli": 4, "varieta": 3,
+   "punti_forti": [
+    {"cosa": "L'analogia del mutuo spiega al lettore comune perché un debutto riuscito non aiuta le altre azioni AI.", "citazione": "è come un mutuo più caro, che riduce la casa che ci si può permettere"},
+    {"cosa": "Dichiara quando una spiegazione è solo un'ipotesi e dice cosa la smentirebbe.", "citazione": "ma è una lettura da verificare"}
+   ],
+   "difetti": [
+    {"voce": "cause", "cosa": "Incoerenza interna: in prima pagina i Treasury cedono poco perché la Fed alza, nel pezzo sulla Fed si comprano per paura della borsa.", "citazione": "per noi si comprano titoli di Stato perché la borsa fa più paura dell'inflazione"},
+    {"voce": "prove", "cosa": "Dato in valore assoluto buttato nel pezzo, senza spiegare come si concili con un petrolio in calo.", "citazione": "L'inflazione dell'area euro è già al 4%, con l'energia a +20,8% (BCE)."},
+    {"voce": "italiano", "cosa": "Il 'per noi' apre la frase quadro e ritorna: formula meccanica, che si ripete in più punti della stessa edizione.", "citazione": "Per noi si vende ciò che vive di utili lontani o non paga interessi."}
+   ]
+  },
+  "F": {
+   "domanda": 4, "cause": 3, "prove": 4, "chiarezza": 3, "italiano": 3, "titoli": 3, "varieta": 3,
+   "punti_forti": [
+    {"cosa": "Un confronto numerico semplice mostra perché il mercato continua a prezzare rialzi anche nel crollo.", "citazione": "A 4,63% resta sopra la fascia dei tassi Fed, tra il 3,75% e il 4%."},
+    {"cosa": "Presenta la scelta della Fed come due strade precise, attribuite a Waller.", "citazione": "o mezzo punto subito, o una comunicazione che renda credibili rialzi più rapidi"}
+   ],
+   "difetti": [
+    {"voce": "cause", "cosa": "La prima pagina dà per l'oro un calo che i numeri della stessa edizione smentiscono (3.685,5 a 3.515,4, oltre 4%).", "citazione": "L'oro cede più del 2% e il dollaro quasi non si muove (EUR/USD 1,0967)."},
+    {"voce": "chiarezza", "cosa": "Parentesi tautologica che ripete la sigla senza spiegarla: spiegazione dell'ovvio.", "citazione": "L'indice azionario mondiale ACWI (indice azionario mondiale MSCI) perde il 3,5%"},
+    {"voce": "italiano", "cosa": "Frase contorta e quasi senza senso: non si capisce cosa abbia cambiato poco.", "citazione": "e venerdì ha cambiato poco che a Wall Street cadessero insieme le azioni"}
+   ]
+  },
+  "H": {
+   "domanda": 4, "cause": 4, "prove": 4, "chiarezza": 4, "italiano": 3, "titoli": 4, "varieta": 3,
+   "punti_forti": [
+    {"cosa": "Spiega in modo diretto perché un titolo che batte le stime crolla: la fiducia nei numeri.", "citazione": "può farlo solo se si fida dei numeri che riceve"},
+    {"cosa": "Mette in conflitto due letture, quella di Cook e quella del mercato, e dice cosa le decide.", "citazione": "È la lettura opposta a quella di Cook, e il PCE di mercoledì decide chi ha ragione."}
+   ],
+   "difetti": [
+    {"voce": "italiano", "cosa": "Citazione inglese lasciata senza traduzione in un giornale italiano per un lettore non esperto.", "citazione": "Waiting longer to implement rate increases risks getting behind the curve"},
+    {"voce": "chiarezza", "cosa": "Spiegazione dell'ovvio sul prezzo dei titoli di Stato, in un pezzo che ha già detto la stessa cosa.", "citazione": "Con un rendimento più basso il prezzo dei titoli già in circolazione sale: chi li aveva comprati prima ci guadagna."},
+    {"voce": "italiano", "cosa": "Il dato in evidenza si ripete nella stessa riga: la seconda frase ripete la prima.", "citazione": "Nel giorno della paura il metallo ha ceduto più dell'S&P 500."}
+   ]
+  },
+  "R": {
+   "domanda": 3, "cause": 3, "prove": 3, "chiarezza": 3, "italiano": 2, "titoli": 3, "varieta": 2,
+   "punti_forti": [
+    {"cosa": "Argomenta con i numeri la tesi 'non sono i tassi': se lo fossero i rendimenti salirebbero, invece scendono.", "citazione": "una vendita guidata dai tassi li avrebbe fatti salire, mentre il rendimento a 10 anni è sceso di 12 pb"},
+    {"cosa": "Traduce l'Anthropic quotata in conti concreti per chi ha comprato in momenti diversi.", "citazione": "Chi ha comprato nel collocamento a 83 $ ha ancora un guadagno del 6%, chi ha comprato all'apertura a 111,50 $ ha già perso più di un quinto."}
+   ],
+   "difetti": [
+    {"voce": "chiarezza", "cosa": "La lettura di pagina 5 è un blocco unico, prolisso e generico, pieno di condizionali: nessun fatto nuovo, solo moralismo di portafoglio.", "citazione": "Per noi il segnale più utile non è la discesa in sé, ma quanto in fretta si ricompone la fiducia nei bilanci"},
+    {"voce": "prove", "cosa": "Un fattore nuovo compare in una frase, senza spiegare quali candidati, quale esito, perché i data center.", "citazione": "Pesa anche l'esito delle elezioni di metà mandato, con candidati favorevoli a rallentare i data center."},
+    {"voce": "cause", "cosa": "Il numero in evidenza non torna con il resto: un Kospi sceso quasi della metà dal massimo contraddice 'primo calo sotto 4.900 in dieci mesi'.", "citazione": "47-48%: la perdita del Kospi dal massimo di giugno"}
+   ]
+  },
+  "W": {
+   "domanda": 4, "cause": 2, "prove": 3, "chiarezza": 3, "italiano": 3, "titoli": 3, "varieta": 2,
+   "punti_forti": [
+    {"cosa": "Chiude bene la domanda sul perché un'inchiesta su un titolo fa cadere un settore: i suoi conti misurano la spesa degli altri.", "citazione": "i suoi conti dicono quanto spendono gli altri per i chip"},
+    {"cosa": "La rubrica sulla scommessa ammette l'errore con franchezza, cosa rara.", "citazione": "Il crollo di venerdì ha sorpreso anche noi"}
+   ],
+   "difetti": [
+    {"voce": "cause", "cosa": "Il titolo dice che i tassi pesano sull'oro, ma nello stesso numero i rendimenti scendono di 12-13 punti: causa contraddetta dai numeri.", "citazione": "L'oro non ripara dal panico perché dollaro e tassi pesano più della paura"},
+    {"voce": "cause", "cosa": "Si attribuisce il crollo dell'oro al dollaro forte, mentre la stessa pagina dice che il cambio euro-dollaro è rimasto quasi fermo.", "citazione": "L'oro, che di solito ripara, è invece caduto insieme alle azioni, e a nostro avviso pesa il dollaro forte."},
+    {"voce": "italiano", "cosa": "Il pezzo sui Treasury spiega due volte la differenza tra 2 e 10 anni, con frasi che ripetono lo stesso concetto.", "citazione": "Il rendimento a 2 anni segue di più le attese sui tassi della banca centrale nei prossimi mesi, quello a 10 anni anche crescita e inflazione di lungo periodo."}
+   ]
+  },
+  "T": {
+   "domanda": 4, "cause": 3, "prove": 2, "chiarezza": 4, "italiano": 4, "titoli": 4, "varieta": 3,
+   "punti_forti": [
+    {"cosa": "Spiega con un'osservazione semplice come mai un indice europeo di chip sale con Wall Street.", "citazione": "I chip sono americani, eppure l'Europa sale."},
+    {"cosa": "Sull'oro distingue vendite forzate e valore del metallo, con due frasi chiare.", "citazione": "Sono vendite forzate. Non dicono nulla sul valore dell'oro."}
+   ],
+   "difetti": [
+    {"voce": "prove", "cosa": "Una notizia enorme e non sostenuta (operazione di intelligence) data in una subordinata, senza fonte né dettagli. Del reintegro di Huang non si spiega nulla.", "citazione": "Dopo le dimissioni di Huang sono arrivate notizie secondo cui sarebbe stato nel mirino di un'operazione di intelligence straniera."},
+    {"voce": "cause", "cosa": "La tesi 'non i conti, ma la persona' ignora l'indagine SEC sui bilanci che le edizioni di venerdì davano come causa: la contraddizione resta nascosta.", "citazione": "Perché a muovere il prezzo non erano i conti ma la persona che guida l'azienda."},
+    {"voce": "cause", "cosa": "Spiegazione di due forze che si annullano: andrebbe bene per qualunque movimento del 10 anni e non si può smentire.", "citazione": "e a nostro avviso le due forze si annullano"}
+   ]
+  }
+ },
+ "classifica": ["B", "K", "H", "M", "F", "T", "W", "R", "Q", "D"],
+ "stesso_giorno": {
+  "ordine": ["H", "F", "W", "R"],
+  "perche": "H spiega meglio perché un titolo che batte le stime crolla, mette Cook contro il mercato e ammette cosa non si sa dell'indagine. F ha il ragionamento migliore sul 2 anni sopra i tassi Fed, ma sbaglia l'oro in prima pagina. W spiega bene i chip ma attribuisce l'oro a tassi e dollaro mentre i rendimenti scendono e il cambio è fermo. R ha una lettura gonfia, un numero sul Kospi che non torna e un fattore nuovo non spiegato."
+ },
+ "cosa_distingue": "Le migliori (B, K, H) rispondono fino in fondo a una domanda che il lettore si fa, spiegano il meccanismo con un'immagine o un principio chiaro, separano fatto da ipotesi e dicono cosa smentirebbe la lettura. Le peggiori hanno cause che i numeri della stessa edizione contraddicono (oro, petrolio, Treasury), pezzi con titolo promettente e testo di una riga, fatti nuovi buttati senza spiegazione e un 'per noi' o 'a nostro avviso' che diventa tic. I titoli sono esatti ma poco vari.",
+ "vizi_ricorrenti": [
+  {"vizio": "Il 'per noi' o 'a nostro avviso' usato come tic, anche dove non esprime un'opinione: suona come formula e ritorna molte volte nella stessa edizione.", "sigle": ["Q", "D", "K", "M", "B", "F", "H", "R", "W", "T"], "citazione": "A nostro avviso si vende ciò che si può vendere per far cassa."},
+  {"vizio": "Il 'di solito' come riempitivo, che attenua ogni spiegazione senza aggiungere informazione e rende il ritmo monotono.", "sigle": ["Q", "D", "K", "M", "B", "H", "R", "T"], "citazione": "Di solito in una giornata di paura i difensivi, come alimentari e sanità, tengono meglio degli altri settori."},
+  {"vizio": "La stessa spiegazione sull'oro ripetuta quasi ogni giorno con le stesse parole, senza aggiungere nulla di nuovo.", "sigle": ["Q", "D", "M", "B", "F", "H", "R", "W", "T"], "citazione": "L'oro non paga interessi"},
+  {"vizio": "Gli approfondimenti aprono quasi sempre con una domanda retorica in 'Perché...?' seguita da una spiegazione didattica: lo scheletro si ripete.", "sigle": ["Q", "D", "K", "M", "B", "H", "W", "T"], "citazione": "Perché un debutto riuscito non aiuta?"},
+  {"vizio": "Spiegazioni a due spinte opposte, che reggono qualunque movimento e non si possono smentire.", "sigle": ["T", "W", "M", "K"], "citazione": "Le due cose possono convivere per qualche giorno, ma non a lungo."}
+ ]
+}

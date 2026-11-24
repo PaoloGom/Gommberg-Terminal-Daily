@@ -1,0 +1,133 @@
+=== PAGINA 1 ===
+TITOLO DI APERTURA: Nvidia supera le stime e alza la guidance, poi il titolo azzera il rialzo
+Sommario: Il gruppo chiude il trimestre con ricavi sopra le attese di circa il 6% e per il prossimo ne annuncia 130 miliardi di dollari, più dei 125 previsti dagli analisti. Nel dopo-chiusura il titolo sale e poi perde il guadagno: Reuters lo dà in calo dello 0,3%. Il consiglio esclude il ritorno di Huang, e secondo il Wall Street Journal la SEC (autorità di vigilanza della borsa americana) verifica le comunicazioni della società. (→ pag.)
+Il quadro: Per noi stamattina la paura per l'AI pesa meno della Fed. Wall Street è giù di circa l'1% e l'Euro Stoxx 50 cede il 2,1%, il peggiore dal 3 marzo. Il 2 anni e il 10 anni scendono di pochi punti base: i Treasury fanno da rifugio meno di lunedì. L'oro perde un altro 2,4% e il petrolio cala con le scorte americane.
+In 30 secondi:
+  - Stasera i verbali della Fed dicono quanto era largo il consenso al rialzo. (→ pag.)
+  - Xi e Putin si vedono a Shenzhen e giovedì arriva Trump. (→ pag.)
+  - Anthropic punta a un prezzo in cima alla forchetta, secondo Bloomberg. (→ pag.)
+Stamattina:
+  - Nikkei alle 07:25: 59.024,28 (+0,3%)
+  - Hang Seng alle 08:59: 23.274,00 (-1,0%)
+  - Oro future alle 09:03: 3.772,70 $ (-2,4%)
+  - Brent future alle 09:06: 91,76 $ (-1,5%)
+  - EUR/USD alle 09:06: 1,0980
+Notizie:
+  * [Geopolitica] L'Iran colpisce un radar americano in Bahrain, gli USA rispondono a Qeshm
+    Droni iraniani hanno preso di mira un radar degli Stati Uniti. Gli americani hanno colpito un sito di lancio di missili sull'isola di Qeshm, mentre l'Oman e il Qatar continuano a mediare (Reuters).
+  * [Trimestrali] Home Depot cede nonostante l'utile sopra le attese
+    Pesano i mutui americani, più cari con i rendimenti in rialzo: il titolo perde l'1,8% (AP).
+  * [Banche] Il guasto di Zelle pesa sulle grandi banche americane
+    Un problema tecnico di JPMorgan ha rallentato i pagamenti lunedì e le banche principali scendono (AP).
+  * [Italia] Pirelli perde il 3,8% dopo la vendita di un pacchetto da Sinochem
+    Il socio cinese ha ceduto azioni per 455 milioni di euro sotto la chiusura del giorno prima (dpa-AFX).
+  * [Petrolio] Le scorte americane di greggio salgono di 5,3 milioni di barili
+    Nella settimana al 13 novembre l'aumento è di 5,28 milioni di barili, mentre il rischio Hormuz frena il calo del prezzo (Reuters).
+  * [Materie prime] Kepler Cheuvreux alza TotalEnergies, Eni e BP a buy
+    Il comparto petrolifero è il migliore dell'Europa in una seduta in forte calo (dpa-AFX).
+
+=== PAGINE 2-4: ANALISI E STORIE ===
+
+--- Approfondimento 1 (doppio) - occhiello: Chip ---
+TITOLO: Per Nvidia la sorpresa sui conti non basta: pesano vertice e indagine
+[Riquadro accanto al grafico]
+  PERCHÉ: Gli investitori avevano già messo nel prezzo conti ottimi: Nvidia ha battuto le attese di ricavi per 17 trimestri di fila. Non c'era nel prezzo il rischio su chi la guida e sulle verifiche in corso. Il consiglio ha escluso il ritorno di Huang e il Wall Street Journal riferisce un'indagine della SEC sulle comunicazioni (Reuters). Ieri le vendite hanno colpito soprattutto la tecnologia, e il Nasdaq arretra da giorni.
+  E QUINDI: Alle 15:30 si vede se Nvidia apre sopra i 155,46 $ di ieri: se sì, il calo del dopo-chiusura è riassorbito.
+  IL NUMERO: -17%: il calo di Nvidia da inizio anno a fine martedì (Reuters).
+   [Grafico] In media i titoli tecnologici perdono il 2,8%, gli altri settori meno - Variazione media dei titoli quotati al Nyse, 17/11 (%)
+   [Grafico] Il Nasdaq perde il 4,5% dal massimo dell'11 novembre - Nasdaq Composite, chiusure (punti)
+      evento segnato: Dimissioni di Huang
+[Testo]
+   Come può scendere un'azienda che batte tutte le stime? Il prezzo di un titolo non misura quanto è andata bene l'ultima trimestrale, ma quanto gli investitori si aspettano dai prossimi anni. Se tutti aspettavano conti ottimi, i conti ottimi non cambiano nulla: muove il prezzo solo ciò che nessuno aveva messo nel conto. Per Nvidia, ieri sera, erano il vertice dell'azienda e le verifiche in corso (Reuters).
+   Il caso pesa più di quello di una società qualsiasi perché Nvidia vale circa 3.800 miliardi di dollari (Reuters). In indici come il Nasdaq e l'S&P 500, che pesano le società per dimensione, di solito pochi titoli grandi muovono molto l'indice. Per questo il destino di Nvidia conta anche per chi non la possiede.
+   La settimana è stata una sequenza: dimissioni di Huang il 12 novembre, vendite sui chip lunedì, conti martedì sera. Ieri le vendite hanno colpito la tecnologia più degli altri settori: in media i titoli tecnologici del Nyse perdono il 2,8%, mentre nessun altro settore supera il 2%.
+   • La guidance. Nvidia indica 130 miliardi di ricavi per il trimestre in corso, contro i 125,25 attesi dagli analisti, e non conta alcuna vendita di chip per data center in Cina (Reuters).
+   • Il vertice. Colette Kress guida Nvidia ad interim: il consiglio valuta candidati interni ed esterni.
+   • Chi scommette contro. Muddy Waters Research è ribassista sul titolo.
+   [Tabella]
+     Nvidia, terzo trimestre fiscale | Risultato | Attese
+     Ricavi (mld di dollari) | 115,8 | 109,15
+     Utile per azione (dollari) | 2,68 | 2,47
+     Ricavi da data center (mld di dollari) | 107,6 | 101,85
+DA GUARDARE: Se Nvidia apre sopra i 155 $ e i fornitori europei recuperano, le vendite di ieri erano eccessive. Se le notizie sulla SEC pesano più dei conti, i chip restano sotto pressione anche con una guidance sopra le attese.
+Fonti: Reuters, Yahoo Finance; dati FMP (Nasdaq e settori).
+
+--- Approfondimento 2 (mezzo) - occhiello: Tassi USA ---
+TITOLO: Con Wall Street giù i Treasury si fermano: il mercato aspetta la Fed
+[Riquadro accanto al grafico]
+  PERCHÉ: Il 2 anni segue le attese sulla Fed. Per la riunione dell'8-9 dicembre il mercato prezza un rialzo quasi certo. Un rialzo da 50 pb a dicembre ha circa il 9% di probabilità, secondo i future (CME FedWatch, Reuters): c'è poco da scontare ancora. Per questo ieri il rifugio si è fermato a metà, con il 2 anni a -3 pb contro i -5 di lunedì.
+  E QUINDI: Stasera alle 20:00 i verbali: se mostrano molti membri pronti a un rialzo da 50 pb, di solito il 2 anni sale anche con Wall Street in calo.
+  IL NUMERO: +12 pb: la salita del 10 anni in una settimana, da 4,98% a 5,10%. Due sedute di rifugio non hanno cancellato il rialzo di novembre.
+   [Grafico] I rendimenti salgono da inizio novembre e restano alti - Treasury 2 e 10 anni, chiusure (%)
+[Testo]
+   Quando la borsa cala molti comprano titoli di Stato per proteggersi: il loro prezzo sale e il rendimento, che si muove al contrario, scende. Il rendimento a 2 anni però segue soprattutto le attese sulla Fed, e se il rialzo è già nel prezzo la paura da sola lo muove poco.
+   Non è detto che il rifugio sia finito. Di solito i titoli di Stato fanno da riparo quando la paura riguarda la crescita. Lo fanno meno quando l'inflazione tiene alta la banca centrale: ieri il petrolio è calato, ma i rendimenti restano ai livelli più alti di novembre. Per chi ha un mutuo o compra casa il segnale conta: i tassi a lunga scadenza, non quelli della Fed, guidano il costo dei finanziamenti.
+Fonti: curva par del Tesoro via FMP; Reuters.
+
+--- Approfondimento 3 (mezzo) - occhiello: Europa ---
+TITOLO: L'Europa perde il doppio di Wall Street: il calo viene dai titoli tecnologici
+[Riquadro accanto al grafico]
+  PERCHÉ: Per noi il calo parte dal settore tecnologico: l'indice europeo dei titoli tecnologici perde il 3,9% (dpa-AFX), con ASML tra i peggiori. Quando New York vende i chip i fornitori europei seguono, e pesano molto nell'indice, mentre petrolio e gas tengono meglio (dpa-AFX).
+  E QUINDI: Alle 15:30 si vede se Wall Street apre sopra la chiusura di ieri: se il Nasdaq recupera, i fornitori europei di chip possono seguirlo.
+  IL NUMERO: 1 su 28: la frequenza con cui l'Euro Stoxx 50 perde più del 2,1% in una seduta, sulla nostra serie storica. Il calo di ieri è il più forte dal 3 marzo.
+   [Grafico] Il calo è più forte dove sono i chip - Variazioni del 17/11 (%)
+[Testo]
+   Un indice pesa le società per la loro dimensione: se poche grandi aziende cadono molto, trascinano tutto. Quando New York vende i chip, di solito i fornitori europei del settore seguono, e il loro peso nell'indice fa il resto (dpa-AFX).
+   Milano segue con il Ftse Mib a -1,31%. Lo spread tra Btp e Bund chiude in lieve calo a 105 punti (ANSA). Per noi il rischio sull'Italia non sale, a differenza dei titoli.
+Fonti: dpa-AFX (Euro Stoxx 50 e tecnologici), ANSA (Milano e spread); chiusure FMP.
+
+--- Approfondimento 4 (mezzo) - occhiello: Petrolio ---
+TITOLO: Il Brent scende con le scorte USA, ma il rischio Hormuz lo sostiene
+[Riquadro accanto al grafico]
+  PERCHÉ: A pesare sono le scorte americane: nella settimana al 13 novembre c'è stato un aumento di 5,28 milioni di barili di greggio (Reuters). A sostenere il prezzo restano i rischi sul Golfo: per LSEG la normalizzazione dei flussi da Hormuz non è ancora possibile.
+  E QUINDI: Se un attacco ferma l'oleodotto saudita che porta il greggio al Mar Rosso evitando Hormuz, di solito il Brent torna sopra i 100 $. Se invece Hormuz riapre e le scorte salgono ancora, il prezzo tende a scendere verso il minimo del 10 novembre, a 91,49 $.
+   [Grafico] Il Brent si muove di oltre il 3% in tre sedute su sette, senza direzione - Brent future, variazione giornaliera, dal 9 al 17 novembre (%)
+[Testo]
+   Il prezzo del petrolio dice quanto ne serve e quanto ce n'è. Se le scorte americane crescono, ce n'è più del necessario e il prezzo tende a scendere; se le navi non passano da Hormuz, ce n'è meno e tende a salire. Le due spinte si contrastano da giorni.
+   Per l'Europa è la combinazione migliore: di solito soffre quando il greggio sale per carenza di offerta. Dal petrolio all'inflazione, inoltre, il passaggio è corto, perché il greggio diventa benzina e gasolio in poche settimane. Un Brent sceso del 15% in un mese toglie quindi un po' di pressione sui prezzi che la Fed guarda con più attenzione.
+Fonti: Reuters; chiusure FMP del Brent future.
+
+--- Approfondimento 5 (mezzo) - occhiello: Tecnologia ---
+TITOLO: Il debutto di Anthropic mette alla prova la liquidità del Nasdaq
+[Riquadro accanto al grafico]
+  PERCHÉ: Secondo Bloomberg, riportato da Reuters, il prezzo sarebbe in cima alla forchetta o sopra, con una valutazione fino a 1.400 miliardi di dollari. La domanda dunque c'è: resta da vedere se basta mentre l'Euro Stoxx 50 perde per il terzo giorno di fila.
+  E QUINDI: Al debutto, se il titolo apre sotto il prezzo di collocamento il test di liquidità è fallito; sopra i 78 $ la domanda regge.
+  IL NUMERO: 64 mld $: l'incasso massimo se tutte le 825 milioni di azioni si vendono a 78 $ (calcolo su dati RTTNews).
+[Testo]
+   Venderne 825 milioni in una volta chiede soldi freschi al mercato. Per noi un'IPO così grande, in una settimana di vendite sulla tecnologia, si legge prima come test di liquidità e poi come voto sull'AI.
+   Non c'è una regola sul primo giorno: un titolo può salire in un mercato debole e scendere in uno forte. Conta il confronto con il prezzo di collocamento, quello a cui hanno comprato i primi investitori.
+   [Tabella]
+     IPO di Anthropic | Dato
+     Forchetta di prezzo | 70-78 $ per azione
+     Azioni offerte | 825 milioni (801,35 dalla società, 23,65 da azionisti)
+     Opzione dei collocatori | fino a 123,75 milioni di azioni in più
+     Valutazione indicata | fino a 1.400 miliardi di dollari
+     Quotazione | Nasdaq, simbolo ANT
+Fonti: Reuters, RTTNews.
+
+=== PAGINA 5: MERCATI E AGENDA ===
+Titolo: Numeri, temi aperti e calendario
+La lettura: L'Euro Stoxx 50 perde il doppio dell'S&P 500, e il Nikkei sale mentre l'Hang Seng scende: le vendite sui chip non hanno colpito allo stesso modo tutte le borse.
+Temi aperti:
+  - AI e chip | Conti Nvidia usciti | Battuti i conti, poi il rialzo svanisce | giu: Titolo Nvidia nel dopo-chiusura | Apertura di Wall Street alle 15:30
+  - Fed e tassi | Verbali stasera | Rialzo di dicembre già nei prezzi | fermo: Rendimenti a 2 e 10 anni | Verbali, mer 18 alle 20:00
+  - Dollaro e oro | Euro a 1,0997 in chiusura | Oro in calo anche con la paura | giu: Oro future | Verbali Fed
+  - Petrolio | Scorte USA in aumento | Il Brent cala con le scorte | giu: Brent | Flussi da Hormuz
+Fermi: Cina (nessuna novità verificata dal 16/11).
+Ieri:
+  - Mar 17, 14:30 | Vendite al dettaglio USA (ottobre) | +0,2% sul mese (atteso +0,2%; prima +0,8%) | = | (→ pag.)
+  - Mar 17, 23:00 | Conti Nvidia (terzo trimestre fiscale) | Ricavi 115,8 mld $ (attesi 109,15 mld $) | + | (→ pag.)
+Agenda:
+  - Mer 18, 14:30 | Cantieri avviati USA (ottobre) | 1,23 milioni annualizzati; prima 1,221 milioni | Quanto reggono i mutui cari
+  - Mer 18, 22:30 | Conti Palo Alto Networks | Primo trimestre fiscale; ricavi e utile contro le stime | Conti USA dopo la chiusura
+  - Gio 19, 01:30 | Occupazione in Australia (ottobre) | Disoccupazione: prima 4,7% | Dato di apertura per l'Asia
+
+=== PAGINA 6: LA SCOMMESSA DELLA SETTIMANA (solo i testi) ===
+tesi: Con noi: oro ed euro vanno dove li avevamo previsti. Contro: le borse cadono molto più della nostra previsione, per le vendite sui chip. Da qui a venerdì: i verbali della Fed di stasera.
+Parole di oggi:
+  - Guidance | Le previsioni che l'azienda dà sui propri ricavi futuri: spesso muovono il titolo più dei risultati passati.
+  - Acquisti rifugio | Vendite di azioni e acquisti di titoli considerati sicuri, come Treasury e oro, quando cresce la paura.
+  - Verbali della Fed | Il resoconto della riunione della banca centrale americana, pubblicato settimane dopo: mostra quanto erano divisi i suoi membri.
+  - Offerta pubblica iniziale (IPO) | Il momento in cui una società vende azioni al pubblico per la prima volta.
+  - Scorte di greggio | Il petrolio già estratto e non ancora usato: se crescono, di solito il prezzo scende.
+  - Indice pesato per dimensione | Un indice in cui le società più grandi contano di più: pochi titoli possono muoverlo da soli.

@@ -1,0 +1,124 @@
+=== PAGINA 1 ===
+TITOLO DI APERTURA: Huang torna alla guida di Nvidia e Wall Street rimbalza
+Sommario: Il consiglio di Nvidia ha reintegrato Jensen Huang, dimessosi il 12 novembre, e il titolo guadagna oltre il 31%. L'S&P 500 sale del 4,7%, il rialzo più forte da almeno un anno, e il Nasdaq del 6,5%. Stamattina Seul chiude a +6,3% e ieri l'Euro Stoxx 50 aveva già guadagnato il 2,2%. (→ pag.)
+Il quadro: Una giornata di sollievo, non un cambio di scenario. Le azioni salgono ovunque (azionario mondiale +4,5%, piccole società del Russell 2000 +3,4%) e il VIX, l'indice della paura, crolla del 25,8% da 35,89 a 26,62. Ci leggiamo anche il rimbalzo dell'oro (+3,9%): finiscono le vendite per far cassa. Ma il 10 anni resta al 4,92% e il rialzo Fed di dicembre è ancora quasi scontato: meno rischio, non meno tassi.
+In 30 secondi:
+  - Europa: la tecnologia trascina le borse, ma Germania e Francia crescono a ritmi opposti. (→ pag.)
+  - Petrolio: per noi il greggio scende perché il mercato guarda al surplus, non alla guerra. (→ pag.)
+  - Mercoledì i prezzi PCE: il test che può confermare o far saltare il rialzo Fed di dicembre. (→ pag.)
+Stamattina:
+  - Kospi alla chiusura di Seul: 5.006,03 (+6,32%)
+  - Nikkei 225 alle 09:03: 58.644,63 (+3,9%)
+  - Hang Seng alle 09:03: 22.194,50 (-0,8%)
+Notizie:
+  * [Tecnologia] CrowdStrike compra Zscaler per 44 miliardi di dollari, tutto in azioni
+    L'accordo è stato annunciato ieri. In Borsa Zscaler sale del 18% e CrowdStrike perde circa il 9%.
+  * [Tecnologia] Micron firma nuovi accordi pluriennali di fornitura di memorie
+    Le intese con i clienti fanno salire il titolo del 19% e arrivano nella giornata in cui il mercato torna a comprare i chip.
+  * [Europa] ABB compra il tedesco Ziehl-Abegg e sale del 4,6%
+    L'acquisizione dei ventilatori e motori per il condizionamento industriale vale 2,65 miliardi di dollari e fa dell'azienda svizzera la migliore di Zurigo.
+  * [Macro] La Francia si contrae di più mentre la Germania accelera
+    L'indice dell'attività delle imprese resta a 51,7 per l'area euro, sotto il 51,9 atteso: la media nasconde due paesi che vanno in direzioni opposte.
+  * [Italia] Intesa Sanpaolo e UniCredit guidano Milano malgrado lo stacco di undici dividendi
+    Il FTSE MIB chiude a +0,65% dopo aver perso quasi l'1% in mattinata, con Intesa Sanpaolo a +2,8% e UniCredit a +2%.
+  * [Fed] Gli operatori scommettono ancora sul rialzo Fed di dicembre
+    Secondo il CME FedWatch, che ricava la probabilità dai future sui tassi, un rialzo a dicembre vale circa il 94%: il sollievo in borsa non l'ha toccata.
+
+=== PAGINE 2-4: ANALISI E STORIE ===
+
+--- Approfondimento 1 (doppio) - occhiello: Chip e Asia ---
+TITOLO: Il rimbalzo di Nvidia mostra che le vendite erano di fiducia, non di conti
+[Riquadro accanto al grafico]
+  PERCHÉ: A nostro avviso la vendita era una perdita di fiducia in Nvidia e non di utili, e il rimbalzo di ieri lo conferma. Quando il consiglio ha riportato Huang, un solo comunicato ha ricomprato gran parte di un calo durato undici giorni.
+  E QUINDI: Il primo test è l'apertura di Wall Street oggi alle 15:30: se i chip americani rivendono, il rimbalzo di ieri è stato uno sfogo di un giorno.
+  IL NUMERO: 25%: il calo circa di Nvidia tra le dimissioni di Huang del 12 novembre e venerdì, secondo Aju Press.
+   [Grafico] Il rialzo è più forte dove pesano di più i chip - variazioni % del 23/11 (Kospi: 24/11)
+   [Grafico] In sei sedute l'S&P 500 aveva perso quasi il 9% e ne ha ripreso metà - S&P 500, chiusure (punti)
+      evento segnato: dimissioni di Huang
+[Testo]
+   Se i conti di Nvidia non sono cambiati in undici giorni, perché il titolo ha perso circa un quarto e ieri ne ha ripreso gran parte in una seduta? Perché a muovere il prezzo non erano i conti ma la persona che guida l'azienda. Chi compra Nvidia compra la storia dell'intelligenza artificiale, e quella storia aveva un protagonista. Dopo le dimissioni di Huang sono arrivate notizie secondo cui sarebbe stato nel mirino di un'operazione di intelligence straniera. Il mercato ha cominciato a chiedersi chi avrebbe deciso e se l'azienda poteva ancora vendere le sue macchine.
+   Un solo titolo può muovere un intero indice quando pesa tanto. Gli indici contano ogni società per il suo valore in borsa, e quando le più grandi di un settore cadono insieme l'indice perde molto più della media dei titoli. Per questo il Nasdaq ha perso il 10% in una settimana e ne ha guadagnato il 6,5% in un giorno.
+   Il rimbalzo non ha riguardato solo Nvidia. Intel sale del 16,3% e il Nasdaq 100 del 6,9%, il maggior rialzo giornaliero dall'aprile 2025. Sono titoli che di solito dipendono dalla stessa domanda di chip per i centri di calcolo: quando il timore passa, i compratori tornano su tutta la filiera.
+   Stamattina l'Asia ha seguito Wall Street. Il Kospi di Seul chiude a 5.006,03. In mattinata la borsa coreana ha sospeso per cinque minuti gli ordini d'acquisto automatici, una misura che scatta quando i future salgono troppo in fretta. Seul tende a salire più di Tokyo quando i chip rimbalzano, perché due soli produttori, Samsung Electronics e SK hynix, valgono circa metà dell'indice.
+   Non tutti sono convinti. A Seul i piccoli risparmiatori vendono per circa 2.000 miliardi di won mentre stranieri e istituzioni comprano, e un professore giudica il rimbalzo temporaneo. Anche per Nvidia il rischio resta aperto.
+DA GUARDARE: Contano i chip americani all'apertura di oggi: un nuovo calo farebbe del rimbalzo uno sfogo, una seduta in rialzo darebbe ragione a chi compra.
+Fonti: comunicato Nvidia (SEC), Aju Press, JKN, Korea Herald, City AM.
+
+--- Approfondimento 2 (mezzo) - occhiello: Tassi USA ---
+TITOLO: Le borse rimbalzano ma il 10 anni resta fermo: pesa la Fed
+[Riquadro accanto al grafico]
+  PERCHÉ: Meno paura dovrebbe far salire i rendimenti, perché si comprano meno titoli di Stato come rifugio. Ma il petrolio in calo e le attese di inflazione più basse spingono nel verso opposto, e a nostro avviso le due forze si annullano.
+  E QUINDI: Mercoledì alle 14:30 escono i prezzi PCE: un dato di fondo, senza energia e alimentari, sopra il +0,3% atteso sul mese toglierebbe ogni dubbio al rialzo di dicembre.
+  IL NUMERO: 29 pb: di quanto il 10 anni, al 4,92%, rende più del 2 anni, al 4,63%. A nostro avviso non è il segno di un mercato che scommette su una recessione vicina.
+   [Grafico] In dieci giorni il 10 anni è sceso di oltre 20 punti base - Rendimenti dei Treasury, chiusure (%)
+[Testo]
+   Se la paura cala, perché il 10 anni non sale? Perché oggi due cose lo spingono in direzioni opposte. Chi ha paura compra titoli di Stato americani per mettere i soldi al sicuro: il prezzo sale e il rendimento, che si muove al contrario, scende. Quando la paura passa quella domanda si ferma e il rendimento tende a risalire. Ma con la paura è calato anche il petrolio. Un greggio più basso di solito abbassa l'inflazione che gli investitori si aspettano, cioè il rendimento che pretendono per prestare a dieci anni.
+   Lo scenario Fed non è cambiato. Secondo il CME FedWatch i future danno circa il 94% di probabilità a un rialzo di 25 punti base a dicembre. Secondo Kitco una parte degli operatori l'ha ridotta dopo indicatori più deboli. Il 2 anni, che segue la banca centrale più da vicino, resta a 4,63% come venerdì. Per questo il dato di mercoledì conta più del rimbalzo.
+   Il petrolio spiega anche la discesa dei dieci giorni scorsi. Dal 13 novembre, quando il 10 anni era al 5,15%, il Brent è passato da 95,84 a meno di 90 $. Con lui, secondo Kitco, sono scese le attese di inflazione. Un rendimento che si sposta con il barile dice che il mercato lo legge come un termometro dei prezzi futuri.
+Fonti: Kitco, Fox Business, Milano Finanza, CME; curva par del Tesoro USA via FMP.
+
+--- Approfondimento 3 (mezzo) - occhiello: Petrolio ---
+TITOLO: Il petrolio scende guardando al surplus, non alla guerra
+[Riquadro accanto al grafico]
+  PERCHÉ: Per Bloomberg gli investitori chiudono le coperture contro un'escalation, perché Trump ha lasciato più tempo ai colloqui con l'Iran. Dietro c'è un mercato che, secondo l'Aie, avrà un surplus di circa 2 milioni di barili al giorno in questo trimestre.
+  E QUINDI: Un nuovo attacco alle petroliere nello Stretto di Hormuz, o il fallimento dei colloqui, è ciò che può riportare il Brent sopra i 100 $.
+  IL NUMERO: -23%: il calo del Brent dal 26 ottobre, da 115,81 a 89,37 $.
+   [Grafico] In un mese il Brent è sceso da oltre 115 a meno di 90 dollari - Brent future, chiusure ($)
+[Testo]
+   Le petroliere continuano a essere colpite e il greggio scende lo stesso. Il prezzo di un barile dipende da quanti ne arrivano e da quanti ne servono, non dal numero delle notizie di guerra. I flussi dal Golfo, scrive Bloomberg, sembrano continuare. Le previsioni dicono che ne arriveranno più del necessario: Bernstein vede un surplus per tre anni e Goldman Sachs segnala il rischio di troppa offerta l'anno prossimo.
+   Per l'inflazione la differenza conta. Un petrolio che sale per timore sulle forniture è di solito un costo secco per Europa e Giappone, che lo importano. Uno che scende per l'abbondanza alleggerisce i costi di trasporti e carburanti. Secondo Saxo Bank il calo del diesel può attenuare i timori sui prezzi e su ulteriori rialzi dei tassi.
+Fonti: Bloomberg (Rigzone), Kitco; chiusure del Brent future.
+
+--- Approfondimento 4 (mezzo) - occhiello: Materie prime ---
+TITOLO: L'oro è sceso e risalito con le borse, non contro di loro
+[Riquadro accanto al grafico]
+  PERCHÉ: Secondo Kitco nel ribasso di venerdì l'oro ha avuto spinte contrastanti: la domanda da rifugio da un lato, le vendite per raccogliere liquidità e coprire i margini dall'altro. A nostro avviso hanno prevalso le seconde, e il rimbalzo di ieri insieme alle azioni lo suggerisce.
+  E QUINDI: Una ricaduta sotto i 3.500 $, il minimo di venerdì, segnerebbe il fallimento del rimbalzo.
+  IL NUMERO: -9,5%: il calo dell'oro future dal 13 al 20 novembre, da 3.886,30 a 3.515,40 $.
+   [Grafico] L'oro ha perso quasi un decimo in una settimana e ne ha recuperato più di un terzo - Oro future, chiusure ($ l'oncia)
+[Testo]
+   L'oro, il rifugio per eccellenza, è caduto proprio nella settimana della paura. In una giornata di panico chi ha perdite su azioni o su titoli comprati a debito deve rimettere soldi sul conto. Vende allora ciò che si vende bene, oro compreso. Sono vendite forzate. Non dicono nulla sul valore dell'oro.
+   Quando le azioni risalgono, quella pressione si allenta e l'oro recupera, mentre il VIX, l'indice che misura la paura a Wall Street, scende da 35,89 a 26,62. Natixis avverte che il rimbalzo può durare poco e vede il rischio di un ritorno verso i 3.340 $. Pesano anche i rendimenti, ancora vicini al 5%: più sono alti, più costa tenere un oro che non rende.
+Fonti: Kitco, Nation Thailand; chiusure dell'oro future.
+
+--- Approfondimento 5 (mezzo) - occhiello: Europa e Italia ---
+TITOLO: L'Europa sale con i chip americani, mentre Germania e Francia divergono
+[Riquadro accanto al grafico]
+  PERCHÉ: Per l'agenzia dpa-AFX la tecnologia è di gran lunga il settore migliore e porta l'Euro Stoxx 50 a +2,2%, con ASML a +8,9% e Infineon a +6,6%. Per Salah-Eddine Bouhmidi di IG Markets la fiducia torna ben oltre Nvidia e il settore dell'intelligenza artificiale.
+  E QUINDI: Oggi parte il periodo di adesione all'offerta di Intesa Sanpaolo su Mps: per le banche che ieri hanno guidato Milano è il primo test.
+[Testo]
+   I chip sono americani, eppure l'Europa sale. L'Euro Stoxx 50 ha dentro ASML e Infineon, che vendono macchine e componenti agli stessi centri di calcolo. Quando Wall Street compra i chip, di riflesso compra chi li rende possibili. Per l'economia europea nel suo insieme conta però altro.
+   Lo mostrano i PMI, gli indici mensili sul clima d'affari delle imprese: l'area euro cresce come prima, ma la media nasconde due economie. Per Chris Williamson di S&P Global la Germania accelera al ritmo più rapido in quattro anni e mezzo. La Francia si contrae più che negli ultimi sei mesi e il divario tra i due è il più ampio in sei anni.
+   A Milano lo stacco dei dividendi di undici titoli, secondo ANSA, pesava circa l'1,4% sull'indice, e in mattinata il FTSE MIB perdeva quasi l'1%. A nostro avviso è stata l'apertura di Wall Street nel pomeriggio a ribaltare la seduta, con le banche in testa: Intesa Sanpaolo +2,8%, Banco BPM +2,5% e UniCredit +2%.
+   [Tabella]
+     Clima d'affari area euro, novembre | Dato | Atteso
+     Composito | 51,7 | 51,9
+     Servizi | 51,2 | 51,8
+     Manifattura | 52,9 | 52,8
+Fonti: dpa-AFX, Reuters, investingLive, ANSA, Milano Finanza, Teleborsa.
+
+=== PAGINA 5: MERCATI E AGENDA ===
+Titolo: Numeri, temi aperti e calendario
+La lettura: Il Russell 2000, l'indice delle società più piccole, sale meno dell'S&P 500: di solito chi ha più debiti recupera più piano quando i tassi restano alti. E stamattina l'Hang Seng cede mentre Tokyo e Seul volano: a Hong Kong i produttori di chip tendono a pesare meno nell'indice.
+Temi aperti:
+  - Fed e tassi | Rialzo di dicembre scontato | Rimbalzo senza effetti sul 10 anni | fermo: Rendimento del 10 anni | PCE di mercoledì
+  - AI e chip | Rimbalzo dopo il reintegro di Huang | Nvidia a +31% in un giorno | su: Titoli dei chip | Apertura del Nasdaq
+  - Oro | Rimbalzo dal minimo di 14 mesi | Risale con le borse | su: Oro future | Rendimenti dei Treasury
+  - Petrolio | Brent sotto 90 $ | Colloqui con l'Iran e surplus | giu: Brent e WTI | Hormuz e scorte
+Fermi: Fondo di stabilizzazione del governo di Seul (nessuna novità verificata dal 23/11).
+Ieri:
+  - Lun 23, 10:00 | PMI flash area euro (novembre) | Composito 51,7 (atteso 51,9); servizi 51,2 (51,8) | - | (→ pag.)
+Agenda:
+  - Mar 24, 16:00 | Fiducia dei consumatori Conference Board (novembre) | Prima 91,7 | Quanto pesano prezzi e borsa sulle famiglie
+  - Mer 25, 14:30 | PIL USA del terzo trimestre (seconda stima) | +3,4% annualizzato | Tenuta dell'economia con tassi alti
+  - Ven 27, 19:00 | Chiusura anticipata di Wall Street | Borse USA chiuse giovedì per il Ringraziamento | Pochi scambi: un movimento si amplifica facilmente
+
+=== PAGINA 6: LA SCOMMESSA DELLA SETTIMANA (solo i testi) ===
+tesi: Con noi: il rimbalzo c'è e va nella nostra direzione su borse, petrolio e oro. Contro: l'euro, che si indebolisce invece di recuperare. Da qui a venerdì: il PCE di mercoledì decide se il rimbalzo regge.
+Parole di oggi:
+  - Vendite forzate | Vendite fatte per rimettere soldi sul conto e coprire perdite altrove, chi vende lo fa per necessità, senza un giudizio sul titolo.
+  - Capitalizzazione | Il valore di una società in borsa: più è grande, più la società pesa negli indici.
+  - Inflazione attesa | Quella che gli investitori si aspettano nei prossimi anni: pesa sul rendimento che chiedono per prestare.
+  - Surplus di petrolio | Più barili offerti di quanti ne servano: spinge i prezzi in giù.
+  - Sidecar | Freno automatico della borsa coreana agli acquisti dei programmi quando i future salgono troppo in fretta.
+  - Stacco del dividendo | Il giorno in cui il titolo scende dell'importo della cedola pagata: pesa sull'indice se riguarda molte società.

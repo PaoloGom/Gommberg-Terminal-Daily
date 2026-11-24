@@ -1,0 +1,132 @@
+=== PAGINA 1 ===
+TITOLO DI APERTURA: Anthropic debutta oggi al Nasdaq con la maggiore quotazione di sempre
+Sommario: Il prezzo dell'offerta è fissato a 83 dollari, sopra la forchetta prevista, e la società raccoglie circa 81 miliardi di dollari: più di ogni altra offerta pubblica iniziale (Reuters). Il titolo, con il simbolo ANT, comincia a trattare alle 15:30 di Roma. Arriva dopo una settimana di vendite a Wall Street, e per noi il primo prezzo dirà quanto il mercato accetta ancora di pagare per l'intelligenza artificiale. (→ pag.)
+Il quadro: Per noi a muovere i prezzi è la Fed più della quotazione. I future sui tassi danno quasi per certo un rialzo a dicembre. Il dollaro sale ai massimi da 19 mesi e l'oro cede il 3,2% anche con le tensioni nel Golfo. Il rendimento a 30 anni scende, quello a 2 anni no: di solito significa tassi alti oggi e crescita più debole domani. In borsa si vende da una settimana, e il debutto di Anthropic mette alla prova chi compra ancora.
+In 30 secondi:
+  - I verbali della Fed vedono altri rialzi dei tassi: il dubbio è quanto grandi. (→ pag.)
+  - L'oro scende ai minimi da 14 mesi, anche con le tensioni nel Golfo. (→ pag.)
+  - UnitedHealth crolla per una proposta del governo sui rimborsi. (→ pag.)
+Stamattina:
+  - Asia alle 08:37: Hong Kong -1,98%, Seul +1,02%, Tokyo con il Nikkei a 59.444,21 punti
+Notizie:
+  * [Banche] Le banche italiane frenate da Ires più alta e voci su una stretta della Bce
+    Un emendamento della Lega alza di tre punti l'Ires per le banche, e la Bce studia più riserva obbligatoria: se ne discute al Consiglio direttivo del 25 novembre.
+  * [Trimestrali] TJX alza le previsioni per l'anno e sale in borsa
+    Vendite a parità di negozi attese in crescita del 4% e utile per azione rettificato tra 5,17 e 5,20 $: il titolo guadagna circa il 10% in mattinata.
+  * [Inflazione] Nel Regno Unito l'inflazione sale al 3,6% e il diesel segna un record
+    A ottobre i prezzi crescono del 3,6% su un anno, dal 3,5%. Il diesel costa 7 pence al litro in più in un mese, il prezzo più alto dall'inizio della serie nel 1996 (ONS).
+  * [Geopolitica] Trump arriva in Cina mentre Xi e Putin attaccano il protezionismo
+    Il vertice a tre con l'Iran in agenda è atteso oggi a Shenzhen; Xi e Putin criticano il «protezionismo» occidentale e le sanzioni.
+  * [Petrolio] Le previsioni di offerta in eccesso pesano sul Brent
+    Il barile vale circa 92 $: pesa la prospettiva di un'offerta in eccesso (Reuters).
+  * [Europa] Prosus cade ai minimi dal 2024 dopo i conti deboli di Tencent
+    Ad Amsterdam il titolo perde il 5,05%, ai minimi da settembre 2024: Prosus detiene una quota importante di Tencent (dpa-AFX).
+  * [Italia] Leonardo e Tenaris trascinano giù Milano, Ferrari controcorrente
+    Leonardo cede il 4,08% e Tenaris il 3,13%, mentre Ferrari sale del 2,97%.
+
+=== PAGINE 2-4: ANALISI E STORIE ===
+
+--- Approfondimento 1 (doppio) - occhiello: Tecnologia ---
+TITOLO: Anthropic quota sopra la forchetta e mette alla prova un mercato che vende AI
+[Riquadro accanto al grafico]
+  PERCHÉ: Per noi il debutto misura quanto si paga ancora l'AI proprio mentre Wall Street la vende. Anthropic ha chiuso l'offerta sopra la forchetta (Reuters), e Nvidia ha perso il 13% in cinque sedute.
+  E QUINDI: Oggi alle 15:30 si vede il primo prezzo di ANT. Se chiude ben oltre i 100 $ e insieme salgono Nvidia e Nasdaq, la nostra lettura cade.
+   [Grafico] Wall Street arriva al debutto dopo una settimana di vendite - S&P 500, chiusure (punti)
+[Testo]
+   Perché un prezzo sopra la forchetta conta? Prima dell'offerta gli analisti fissano un intervallo, e chi compra dice quanto è disposto a pagare. Un prezzo sopra l'intervallo vuol dire che la domanda superava l'offerta, ed è il segnale che i grandi investitori credono ancora alla storia.
+   C'è un secondo effetto, meno visibile. Quando una sola società raccoglie 81 miliardi, chi compra deve trovare quei soldi altrove: di solito vende altri titoli, e per primi quelli che si scambiano di più, come Nvidia. Delle 980 milioni di azioni offerte, 956,35 milioni sono vendute dalla società (CBS News): quasi tutto il ricavato va quindi ad Anthropic. È una lettura nostra, non un fatto dichiarato: per questo conta guardare se oggi i titoli dell'AI salgono o scendono insieme ad Anthropic.
+   Ieri il quadro era diviso: il Dow Jones ha perso l'1,11% mentre il Nasdaq Composite saliva dello 0,42%. Di solito indici ponderati per capitalizzazione possono divergere, perché pochi grandi titoli ne decidono il movimento.
+   A Taipei l'effetto si sente di più: la borsa di Taiwan perde il 4,4% stamattina (Reuters). Di solito i suoi indici seguono i chip americani della sera prima, perché i produttori di semiconduttori pesano molto sull'indice.
+   • Chi compra. Per Vanda Research i piccoli investitori hanno comprato 3 mld $ netti di Nvidia in dieci sedute. Su Anthropic la stima di acquisti netti è di 250 milioni, e per Vanda è prudente.
+   • I conti. La società non è ancora in utile e ha 6,2 mld $ di debito (CBS News).
+   • Il record. È la maggiore quotazione mai fatta in borsa (Reuters).
+   [Tabella]
+     Anthropic (ANT) | Valore | Nota
+     Prezzo dell'offerta | 83 $ | Sopra la forchetta indicata
+     Raccolta | circa 81 mld $ | Maggiore offerta di sempre
+     Valore atteso al debutto | fino a 1.500 mld $ | Stima massima
+     Ricavi del terzo trimestre | quasi 17 mld $ | +45% sul secondo
+     Valore diviso ricavi annualizzati | circa 22 volte | Calcolo nostro: 17 mld x 4 = 68 mld
+DA GUARDARE: Il primo prezzo e la chiusura di ANT, e Nvidia: se tiene, la vendita è finita. Per noi un titolo che perde subito terreno sul prezzo dell'offerta dice che la domanda era già stata servita.
+Fonti: CBS News, Reuters (MarketScreener), ANSA.
+
+--- Approfondimento 2 (doppio) - occhiello: Fed ---
+TITOLO: I verbali vedono altri rialzi e la curva dei Treasury si appiattisce
+[Riquadro accanto al grafico]
+  PERCHÉ: Di solito il rendimento a 2 anni segue le attese sulla Fed, e i verbali le hanno confermate: i funzionari della Fed vedono probabili nuovi rialzi. Il lungo scende e il breve resta fermo: per noi il mercato teme più la crescita che i prezzi oltre dicembre.
+  E QUINDI: Se il 30 anni risale sopra il 5,50% e il 10 anni sopra il 5,15%, la curva torna a dire inflazione.
+  IL NUMERO: 90-95%: probabilità di un rialzo il 9 dicembre secondo i future sui tassi.
+   [Grafico] La distanza tra 30 e 2 anni scende da 71 a 61 punti base in un mese - 30 anni meno 2 anni (pb)
+   [Grafico] Salgono le scadenze brevi, scendono le lunghe - Curva Treasury, variazione del 18/11 (pb)
+[Testo]
+   Il verbale è il resoconto di cosa si sono detti i membri della Fed all'ultima riunione. Il 28 ottobre i tassi erano stati lasciati al 3,75-4,00% (federalreserve.gov), e un rialzo a dicembre li porterebbe al 4,00-4,25%. Il verbale non cambia la decisione, che il mercato già dava per fatta: sposta la domanda su quanto sarà grande il rialzo. Quando i membri discutono di muoversi più di un quarto di punto, i prezzi se ne accorgono prima che arrivi la decisione.
+   L'inflazione è sopra l'obiettivo della Fed da quasi sei anni (CBS News). Un rialzo di dicembre non sorprende nessuno: a dividere è la dimensione.
+   Il rendimento a 2 anni, di solito, segue da vicino le attese sulla Fed. Quello a 30 dipende anche da crescita e inflazione di molti anni. Se il breve tiene e il lungo scende la curva si fa piatta: non è una previsione, ma di solito vuol dire tassi alti oggi e un'economia più fragile domani.
+   All'asta dei titoli a 20 anni la domanda diretta è stata forte e quella indiretta debole. Un'asta con poca domanda di solito spinge i rendimenti in su: ieri non è accaduto, e il lungo ha continuato a scendere.
+   • Il voto. A ottobre Cook e Hammack volevano già un rialzo di un quarto di punto (voto 10-2).
+   • La misura. Per diversi membri dicembre è una «close call»; alcuni valutano più di un quarto di punto se l'inflazione peggiora.
+   • Il 30 anni. Scende di 5 pb mentre il 2 anni resta fermo.
+   • L'AI. I verbali citano la spesa in intelligenza artificiale tra ciò che alimenta i prezzi.
+DA GUARDARE: Il prossimo dato sui prezzi. Se l'inflazione dei servizi resta alta il rialzo di dicembre non basta, e si torna a parlare di mezzo punto. Se rallenta, il calo del lungo può essere l'inizio di un movimento più ampio, e di solito ne beneficiano anche le borse.
+
+--- Approfondimento 3 (mezzo) - occhiello: Valute ---
+TITOLO: Neanche le tensioni nel Golfo fermano l'oro: pesa il dollaro
+[Riquadro accanto al grafico]
+  PERCHÉ: Per noi il dollaro attira più dei rifugi. L'indice del dollaro è a 103,92, massimo da 19 mesi, e i future danno oltre il 90% al rialzo Fed di dicembre. Per Kitco le tensioni nel Golfo non sostengono il metallo.
+  E QUINDI: Se l'oro risale sopra i 3.864 $ della chiusura del 17/11 mentre il dollaro resta forte, la sola Fed non basta a spiegarlo.
+  IL NUMERO: 3.735 $: il minimo toccato dall'oro a pronti, il più basso da settembre 2025 (Reuters). Per l'oro in dollari conta anche il cambio: se il dollaro sale, di solito il prezzo in altre valute sale ancora meno.
+   [Grafico] L'oro tocca il minimo da 14 mesi dopo un mese quasi sempre in calo - Oro future, chiusure ($)
+[Testo]
+   L'oro non paga interessi: di solito soffre quando i tassi alti rendono più convenienti titoli che li pagano. Quando il dollaro sale, inoltre, diventa più caro per chi compra in altre valute. Nei momenti di paura molti comprano oro come rifugio, ma stavolta la spinta del dollaro è stata più forte.
+   L'indice del dollaro è salito a 103,92 dopo le parole di Waller, membro della Fed, su un'azione aggressiva contro l'inflazione.
+   Nelle fasi di forte paura, di solito, è il dollaro stesso a fare da rifugio: chi cerca liquidità compra dollari prima ancora dell'oro. È una seconda lettura possibile, e in quel caso oro e dollaro non salirebbero insieme.
+   In un mese l'oro ha perso più di 400 $: la discesa di ieri è l'ultimo gradino di un calo già lungo. Se i tassi americani restano alti, di solito il suo prezzo resta sotto pressione.
+   Lo stesso vale per l'euro: vicino ai minimi da aprile 2025, a 1,0973, perché di solito i tassi americani più alti rafforzano il dollaro sul cambio con la moneta europea.
+   • L'argento. Perde il 3,4%, più dell'oro.
+   • Lo spot. Il metallo a pronti scende sotto 3.800 $, ai minimi dal 2025.
+Fonti: Kitco, Bloomberg, Reuters.
+
+--- Approfondimento 4 (mezzo) - occhiello: Macro ---
+TITOLO: I titoli sanitari scontano come legge una proposta che può ancora cambiare
+[Riquadro accanto al grafico]
+  PERCHÉ: Per noi il mercato prezza il caso peggiore. La proposta del CMS, l'ente che gestisce Medicare, estenderebbe a una platea più ampia di pagamenti l'esito dei controlli a campione, senza correzione per la spesa a pagamento (finchannel).
+  E QUINDI: I commenti pubblici restano aperti fino al 19 gennaio 2027 e non è una regola finale: finché il testo può cambiare, il prezzo scommette sul peggio.
+[Testo]
+   Perché un titolo cade di un decimo per una proposta? Il prezzo di un'azione sconta ogni giorno gli utili futuri attesi. Se il testo diventasse regola, i recuperi chiesti agli assicuratori ridurrebbero quegli utili. Chi vende non aspetta la versione finale.
+   Una regola finale più morbida di solito fa recuperare il titolo. Un testo ancora in consultazione può cambiare, e finché non cambia il prezzo incorpora la versione più dura.
+   • Il metodo. L'estrapolazione applicherebbe l'esito dei controlli su un campione a una platea più ampia di pagamenti.
+   • Chi è esposto. Per Mizuho più controlli sono un fattore negativo per i margini, e le più esposte sono UnitedHealth e Humana.
+   [Tabella]
+     Il punto | Dato
+     UnitedHealth, 18/11 | -10,2%, a circa 349,9 $
+     Cosa propone il CMS | Estendere a più pagamenti l'esito dei controlli a campione
+     Da quale anno | Dal 2018 di pagamento
+     Recuperi stimati | Circa 9 mld $ per anno di pagamento
+Fonte: FINANCIAL (finchannel).
+
+=== PAGINA 5: MERCATI E AGENDA ===
+Titolo: Numeri, temi aperti e calendario
+La lettura: Due cose che le tabelle dicono e la prima pagina no. In una settimana l'Euro Stoxx 50 perde più di Wall Street: da inizio anno però la distanza resta piccola, +6,2% contro +7,0%. E il Brent perde il 16% in un mese: di solito un petrolio che scende allenta i prezzi, ma il VIX (la volatilità attesa a Wall Street) è a 24,56: per noi oggi la paura pesa più dell'inflazione.
+Temi aperti:
+  - Fed e tassi | Decisione il 9 dicembre | Verbali: più rialzi probabili | su: Probabilità di rialzo a dicembre | Dati sui prezzi
+  - AI e borsa | Debutto di Anthropic oggi | Prezzo sopra la forchetta | giu: Titoli AI, Nvidia in testa | Primo prezzo di ANT
+  - Oro e dollaro | Oro ai minimi da 14 mesi | Dollaro ai massimi da 19 mesi | giu: Oro e argento | Rendimento a 30 anni
+  - Sanità USA | Proposta CMS aperta ai commenti | UnitedHealth in forte calo | giu: UnitedHealth | Commenti fino al 19 gennaio
+Fermi: Tassi della Bce (depositi al 2,50%, prossima riunione il 17 dicembre).
+Ieri:
+  - Mer 18, sera | Verbali Fed (riunione 27-28 ottobre) | I funzionari vedono probabili altri rialzi; alcuni più di un quarto di punto |  | (→ pag.)
+  - Mer 18, mattina | Inflazione Regno Unito (ottobre) | 3,6% su un anno (prima 3,5%); senza energia e alimentari 2,8% |  | Notizie
+Agenda:
+  - Gio 19, 14:00 | Walmart: conti del terzo trimestre fiscale | Conference call alle 14:00 | Termometro dei consumi americani
+  - Gio 19, 14:30 | Indice Philadelphia Fed (novembre) | 20,6; prima 20,9 (Investing.com) | Stato dell'industria
+  - Gio 19, 15:30 | Anthropic debutta al Nasdaq (ANT) | Apertura delle contrattazioni | Primo prezzo dopo l'offerta a 83 $
+
+=== PAGINA 6: LA SCOMMESSA DELLA SETTIMANA (solo i testi) ===
+tesi: Con noi: Treasury a 10 anni, euro e Brent restano dentro la forchetta. Contro: S&P 500, Euro Stoxx 50 e oro sono fuori dopo il calo di inizio settimana. Da qui a venerdì: Anthropic e i dati americani.
+Parole di oggi:
+  - Offerta pubblica iniziale (IPO) | Il momento in cui una società vende per la prima volta azioni al pubblico e comincia a essere quotata.
+  - Verbali della Fed | Il resoconto, pubblicato tre settimane dopo, di ciò che i membri hanno detto alla riunione sui tassi.
+  - Appiattimento della curva | La distanza tra i rendimenti a lunga e a breve scadenza si riduce.
+  - Close call | Una decisione in bilico: chi deve prendere una decisione la giudica incerta tra due scelte vicine.
+  - Medicare Advantage | Piani sanitari privati per anziani americani, pagati in gran parte dal governo.
+  - Indice del dollaro | Il valore del dollaro contro un paniere di altre valute, tra cui euro, yen e sterlina.

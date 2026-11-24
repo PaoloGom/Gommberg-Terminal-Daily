@@ -1,0 +1,123 @@
+=== PAGINA 1 ===
+TITOLO DI APERTURA: I chip asiatici crollano dopo Nvidia: Taiwan perde il 6%, Seul il 3,6%
+Sommario: Le borse asiatiche aprono la settimana con i chip sotto pressione: oltre a Taipei e Seul perde il 2,4% Tokyo, mentre Hong Kong sale dello 0,5%. Il dubbio è che la spesa in intelligenza artificiale rallenti, con l'addio di Jensen Huang a Nvidia e la notizia che potrebbe tornare. Martedì sera i conti di Nvidia diranno se il timore è fondato, e giovedì debutta in borsa Anthropic. (→ pag.)
+→ Secondo il Financial Times, un alleato di Huang prepara una «war room» di dirigenti per riportarlo al comando.
+Il quadro: Per noi la giornata dice due cose che non si contraddicono. In Asia la paura riguarda i chip e non l'economia in generale: Hong Kong sale mentre Taipei crolla. Intanto i rifugi, di solito cercati con la paura, non funzionano: i titoli di Stato e l'oro hanno perso e il dollaro è più forte. Per noi pesa di più la Fed delle borse. Il Brent, a 95,84 $, resta senza direzione.
+In 30 secondi:
+  - La Fed parla oggi e mercoledì: dai verbali si capisce quanto è vicino il rialzo di dicembre. (→ pag.)
+  - Giovedì a Shenzhen il primo vertice a tre tra Trump, Xi e Putin. (→ pag.)
+  - Europa e Milano chiudono la settimana migliore da aprile, mentre l'AI vacilla. (→ pag.)
+Cosa guardare all'apertura:
+  - Alle 14:30 l'indice Empire State sull'industria di New York
+  - Alle 18:00 parla Kevin Warsh, presidente della Fed
+  - Treasury a 10 anni: venerdì ha chiuso al 5,15%, sopra il 5% da mercoledì
+  - Nikkei: ha chiuso sotto i 60.000 punti, a 59.662,02
+Notizie:
+  * [Cina] La Cina delude: vendite al dettaglio a +0,4% contro il +0,8% atteso
+    Anche la produzione industriale cresce del 4,8%, sotto il 5,3% previsto, e gli investimenti fissi calano dell'8,1% nei primi dieci mesi. Regge solo l'export, trainato dalla domanda di tecnologia per l'AI (Reuters).
+  * [Asia] Il Giappone si ferma: Pil a -0,1%, primo calo in un anno
+    I consumi privati scendono dell'1,1% annualizzato, tra maltempo e prezzi più alti, mentre gli investimenti delle imprese crescono del 6,8% (AP).
+  * [Tecnologia] Anthropic fissa il prezzo tra 70 e 78 dollari e debutta giovedì al Nasdaq
+    Può raccogliere fino a 64,4 miliardi di dollari, con un valore fino a circa 1.400 miliardi su base diluita; il prezzo definitivo è atteso il 18 novembre.
+  * [Geopolitica] Trump, Xi e Putin si incontrano a Shenzhen per la prima volta
+    La Casa Bianca ha confermato il vertice ai margini dell'Apec: sul tavolo dazi, chip e Iran, mentre l'Ucraina, dice un funzionario USA, non sarà discussa.
+  * [Italia] Fincantieri cede oltre il 4% dopo i conti, Eni sale dell'1,98%
+    Il Ftse Mib finisce venerdì a 51.859 punti (+0,1%). Eni sale dell'1,98% e Fincantieri cala di oltre il 4%; lo spread tra Btp e Bund oscilla tra 100 e 105 punti (SoldiOnline).
+  * [Petrolio] Hormuz resta chiuso e il Brent sta intorno ai 96 dollari
+    Il petrolio è ancora molto più caro dei circa 72 $ di fine febbraio, prima della guerra in Iran. Le ostilità su larga scala sono finite, ma il conflitto è in stallo (AP).
+
+=== PAGINE 2-4: ANALISI E STORIE ===
+
+--- Approfondimento 1 (doppio) - occhiello: Chip e Asia ---
+TITOLO: Per noi Taipei e Seul cadono di più: nell'indice pesano i chip
+[Riquadro accanto al grafico]
+  PERCHÉ: I dubbi sulla spesa in intelligenza artificiale c'erano già prima del caso Huang, per gli analisti. Venerdì hanno colpito Wall Street (AMD -8,8%, Broadcom -4,8%) e oggi arrivano ai fornitori asiatici (AP).
+  E QUINDI: Martedì sera, a Wall Street chiusa, i conti di Nvidia: il primo test è l'apertura di Taipei di mercoledì.
+  IL NUMERO: 1.384 miliardi di won: le vendite nette degli stranieri a Seul. I piccoli investitori coreani ne hanno comprati 1.348: per noi chi è dentro da poco e chi è dentro da tempo leggono il caso in modo opposto (Seoul Economic Daily).
+   [Grafico] La vendita colpisce Taipei e Seul e risparmia Hong Kong - variazione % delle chiusure del 16/11
+   [Grafico] Il Nikkei torna sotto 60.000 dopo una risalita da 57.435 - Nikkei 225, chiusure (punti)
+[Testo]
+   Come fa una notizia su un'azienda americana a far cadere una borsa asiatica? Per noi la risposta è che Taiwan e Corea hanno nei chip una parte molto larga dell'indice. Quando i titoli dei semiconduttori americani si muovono, di solito le loro borse li seguono, e con più forza. Il Taiex e il Kospi sono quindi i primi a pagare il dubbio che gli ordini di Nvidia possano rallentare (AP).
+   Dove i chip pesano meno la vendita si ferma. Hong Kong sale e Shanghai cede lo 0,9%, ma lì a pesare sono stati i dati di ottobre, con vendite e produzione sotto le attese (Reuters), più che la paura sull'AI.
+   Si aggiunge una domanda di guida. Il Financial Times scrive che Huang valuta di tornare. Un suo alleato prepara una «war room» per convincere il consiglio, che secondo lo stesso giornale aveva già sondato Rene Haas, capo di Arm, come successore. Per noi l'incertezza su chi guida il principale fornitore di chip per l'AI pesa quanto i numeri.
+   Giovedì debutta Anthropic, che chiede fino a 64,4 miliardi di dollari e secondo Investing.com ha attirato più interesse degli investitori istituzionali di SpaceX. Per chi investe nell'AI è un'altra occasione dove mettere i soldi, e per noi una ragione in più per vendere i fornitori più cari.
+   [Tabella]
+     Titolo asiatico | 16/11
+     Kioxia | -8,0%
+     SK Hynix | -7,9%
+     Tokyo Electron | -7,1%
+     TSMC | -5,7%
+     Samsung Electronics | -4,5%
+     SoftBank | -3,7%
+DA GUARDARE: Se martedì sera Nvidia conferma ricavi vicini a 108,8 miliardi e previsioni in crescita, la vendita asiatica può restare un episodio. Se le previsioni deludono, la paura sull'AI si allarga oltre l'Asia.
+Fonti: AP, AFP, Seoul Economic Daily, Reuters, Financial Times, Investing.com.
+
+--- Approfondimento 2 (doppio) - occhiello: Tassi USA ---
+TITOLO: Borse su e rifugi giù: per noi la Fed pesa più della paura
+[Riquadro accanto al grafico]
+  PERCHÉ: Dopo i prezzi di ottobre i future danno l'87,1% di probabilità a un rialzo Fed da un quarto di punto a dicembre, il 12,9% a uno da mezzo punto (Kitco). Per noi la scommessa sui tassi pesa più della paura sui chip.
+  E QUINDI: Se i verbali di mercoledì sono più duri del previsto, il 2 anni resta sopra il 4,88% di venerdì. Se sono più cauti, di solito sono i rendimenti brevi a scendere per primi.
+  IL NUMERO: -4,6%: l'oro in una settimana, da 4.074,90 a 3.886,30 $. Il Treasury a 10 anni ha chiuso la settimana a 5,15%: oro e titoli di Stato, i rifugi di solito cercati con la paura, hanno perso insieme.
+   [Grafico] Il 2 anni sale più del 10 anni: la distanza scende a 27 punti base - 10 anni meno 2 anni, chiusure (punti base)
+   [Grafico] L'oro scende sotto 3.900 dollari dal massimo del 9 novembre - Oro future, chiusure ($ l'oncia)
+[Testo]
+   Perché la Fed muove titoli di Stato e oro in direzione opposta alla paura? Chi presta soldi allo Stato americano per due anni guarda ai tassi della Fed: se li aspetta più alti, chiede un rendimento più alto e il prezzo del titolo scende. L'oro non paga interessi, e quando un deposito rende di più tenerlo costa di più, così di solito molti lo vendono.
+   Il segno della Fed si legge nella forma della curva. In una settimana il 2 anni è salito di 37 punti base e il 10 anni di 29. Il breve si muove di più, per noi perché è lì che si scommette sul rialzo. Venerdì, con il Nasdaq in calo dello 0,9%, il 10 anni è salito di altri 5. La paura sui chip non ha portato acquisti di titoli di Stato, che di solito fanno da rifugio.
+   A fare il rifugio è stato il dollaro. L'euro vale 1,1021 dollari contro 1,1143 di una settimana prima, e mercoledì l'indice del dollaro era già vicino al massimo da aprile 2025 (Kitco).
+   Il prossimo esame sono i verbali di mercoledì, preceduti oggi da Williams e Warsh. Waller aveva aperto a un rialzo da mezzo punto e Logan a due da un quarto di punto (CNBC): i verbali dicono quanto questa linea sia condivisa.
+   Martedì conta anche un dato sui consumi: le vendite al dettaglio USA sono attese a +0,2% sul mese, dopo il +0,8% di settembre (FXEmpire). Per noi consumi più deboli darebbero alla Fed un motivo per frenare, e di solito farebbero scendere prima i rendimenti brevi.
+DA GUARDARE: Se i verbali parlano di più rialzi, il 2 anni resta alto e l'oro fatica a recuperare. Se molti membri frenano, il mercato taglierà in fretta la scommessa sul mezzo punto e i rendimenti brevi scenderanno per primi.
+Fonti: Kitco, CNBC, curva par del Tesoro USA via FMP, FXEmpire.
+
+--- Approfondimento 3 (mezzo) - occhiello: Europa ---
+TITOLO: La settimana più forte da aprile per l'Europa arriva mentre l'AI vacilla
+[Riquadro accanto al grafico]
+  PERCHÉ: Secondo l'analista Robert Greil (Merck Finck), le borse europee vanno meglio quando il settore dell'AI è debole. Venerdì il Ftse Mib ha chiuso a +0,1%, l'Euro Stoxx 50 ha ceduto lo 0,19% e il Nasdaq ha perso lo 0,9%.
+  E QUINDI: Oggi l'apertura mostra se la vendita asiatica pesa su Milano: giovedì 12 Technoprobe aveva perso il 4,73% con il calo di Nvidia (ANSA).
+  IL NUMERO: 1,3 punti: il vantaggio del Ftse Mib sul Nasdaq in cinque sedute, un margine che per noi dice poco su un'intera stagione ma molto su questa settimana.
+   [Grafico] Europa e Milano battono Wall Street nella settimana - variazione % del 6-13/11
+[Testo]
+   In una settimana in cui Nvidia ha perso terreno quasi ogni giorno, le borse europee sono salite più di quelle americane. A Milano il Ftse Mib ha chiuso vicino a 52.000 punti e l'Euro Stoxx 50 ha toccato giovedì il massimo da fine agosto (dpa-AFX).
+   Non è una regola. I titoli italiani legati ai chip seguono Nvidia, come Technoprobe giovedì scorso; venerdì Fincantieri e Generali hanno ceduto per i loro conti, non per la tecnologia (SoldiOnline).
+   La seduta di venerdì è stata «senza direzione» e gli scambi sono scesi a 2,66 miliardi di euro dai 3,62 del venerdì precedente (SoldiOnline). Pochi acquisti nuovi: per noi il segno di una settimana che aspetta i conti di Nvidia prima di scegliere.
+Fonti: dpa-AFX, AWP, SoldiOnline, ANSA.
+
+--- Approfondimento 4 (mezzo) - occhiello: Petrolio ---
+TITOLO: Con Hormuz chiuso, il petrolio caro frena chi lo importa: il Giappone
+[Riquadro accanto al grafico]
+  PERCHÉ: Il Giappone importa quasi tutto il suo petrolio e lo stretto di Hormuz, la rotta principale, è di fatto bloccato (AP).
+  E QUINDI: Con il dollaro vicino a 160 yen torna il tema dell'intervento di Tokyo, che un funzionario giapponese ha ricordato venerdì (AP).
+  IL NUMERO: Un terzo in più: di tanto il Brent è più caro di fine febbraio, quando costava circa 72 $ prima della guerra in Iran (AP).
+   [Grafico] Il Brent risale a 96 dollari dopo il minimo del 10 novembre - Brent future, chiusure ($)
+[Testo]
+   Quando il petrolio sale perché manca l'offerta, di solito soffrono i paesi che lo comprano: pagano di più senza vendere di più. Europa e Giappone sono i casi più chiari. A Tokyo i consumi privati sono scesi nel trimestre, tra maltempo e prezzi più alti, e il Pil è calato per la prima volta in un anno (AP).
+   Il conflitto in Iran è in stallo. Le ostilità su larga scala sono finite, ma Hormuz resta chiuso, e la Cina riceveva circa un terzo del suo greggio da quella rotta (Al Jazeera).
+Fonti: AP, Al Jazeera, chiusure del Brent future.
+
+=== PAGINA 5: MERCATI E AGENDA ===
+Titolo: Numeri, temi aperti e calendario
+La lettura: Una cosa che le tabelle dicono e la prima pagina no. Nella settimana scorsa il Russell 2000, l'indice delle piccole società americane, è salito meno degli altri (+1,3% contro +2,5% dell'S&P 500): di solito chi ha più debiti sconta di più rendimenti che salgono. Il VIX (volatilità attesa sull'S&P 500) è sceso da 25,64 a 19,30 nella stessa settimana: la paura di borsa si era già calmata prima della vendita asiatica di oggi. Per noi sono due letture della stessa settimana: i titoli piccoli risentono dei tassi, i grandi del dubbio sull'AI.
+Temi aperti:
+  - AI e chip | Conti Nvidia martedì | Taiwan -6% alla prima seduta | giu: Titoli dei chip asiatici | Conti Nvidia, mar 17 alle 23:00
+  - Fed e tassi | Verbali mercoledì | Rialzo di dicembre quasi certo | su: Rendimenti a 2 e 10 anni | Verbali, mer 18 alle 20:00
+  - Dollaro e oro | Dollaro forte, oro in calo | Oro -4,6% in una settimana | giu: Oro | Tono della Fed oggi e mercoledì
+  - Petrolio | Hormuz chiuso | Brent senza direzione | fermo: Brent intorno a 96 $ | Vertice a Shenzhen, giovedì
+Ieri:
+  - Lun 16, 03:00 | Cina: vendite al dettaglio e produzione industriale (ottobre) | Vendite +0,4% annuo (atteso +0,8%); produzione +4,8% (+5,3%) | - | 
+  - Lun 16, 00:50 | Giappone: Pil del terzo trimestre | -0,1% annualizzato; attesa di crescita | - | (→ pag.)
+Agenda:
+  - Lun 16, 18:00 | Intervento di Kevin Warsh (Fed) | Nessun dato: si ascolta il tono sul rialzo di dicembre | Il tono del presidente, dopo Williams alle 15:05
+  - Mar 17, 14:30 | Vendite al dettaglio USA (ottobre) | +0,2% sul mese (core +0,4%); prima +0,8% (+0,9%) | Primi consumi dopo i prezzi alti
+  - Mer 18, 20:00 | Verbali della Fed (riunione di ottobre) | Nessun dato: si cerca quanti membri vogliono più rialzi | Quanto è condiviso il rialzo di dicembre
+
+=== PAGINA 6: LA SCOMMESSA DELLA SETTIMANA (solo i testi) ===
+tesi: Con noi: i conti di Nvidia e i verbali della Fed decidono la settimana. Contro: i chip asiatici in calo e l'oro sotto pressione. Da qui a venerdì: Nvidia martedì sera, Fed mercoledì.
+settimana_prec: 9-13 novembre
+com_e_andata: I rendimenti sono saliti più del previsto e hanno portato fuori forchetta Treasury, euro-dollaro e oro, mentre l'Euro Stoxx ha corso più del previsto.
+Parole di oggi:
+  - Chip | I microprocessori e le memorie dentro computer e server: se ne parla tanto per l'AI.
+  - Acquisti rifugio | Acquisti di titoli considerati sicuri, come Treasury e oro, quando cresce la paura.
+  - Verbali della Fed | Il resoconto della riunione, pubblicato tre settimane dopo: dice quanto i membri erano divisi sui tassi.
+  - Curva dei rendimenti | I rendimenti messi in fila dal titolo più breve al più lungo.
+  - Importatore di petrolio | Un paese che compra più energia di quanta ne produce: soffre un greggio caro.
+  - Quotazione in borsa | Il debutto di una società sul mercato: le sue azioni cominciano a essere scambiate.

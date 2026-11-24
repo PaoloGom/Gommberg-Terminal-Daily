@@ -1,0 +1,126 @@
+=== PAGINA 1 ===
+TITOLO DI APERTURA: Nvidia crolla per l'indagine sui conti e Wall Street entra in correzione
+Sommario: Venerdì Nvidia perde circa il 14% dopo la notizia, data da Reuters, che gli investigatori dell'autorità americana di Borsa esaminano la sua contabilità. L'S&P 500 chiude a 6.910,39 (-3,70%), più del 10% sotto il massimo del 6 ottobre, e il Nasdaq cede il 5,28%. Per l'indice è la settimana peggiore da più di 18 mesi. (→ pag.)
+→ Non è chiaro quando l'indagine sia partita; l'autorità non commenta e Nvidia non ha risposto.
+Il quadro: Venerdì borse e oro hanno venduto insieme e i titoli di Stato hanno fatto da rifugio. Il 10 anni scende al 4,92%. Leggiamo vendite forzate, di chi cede ciò che si vende in fretta per coprire le perdite sulle azioni. L'oro perde il 4,6% e il dollaro non si muove. Il VIX, l'indice che misura la paura a Wall Street, sale del 26,2% a 35,89. Il petrolio resta in disparte (Brent 92,57 $). (→ pag.)
+In 30 secondi:
+  - L'Europa cede e ASML e STMicroelectronics sono tra i titoli più colpiti: finora aveva perso meno di Wall Street. (→ pag.)
+  - Treasury e oro prendono strade opposte: i titoli di Stato salgono, il metallo scende più dell'S&P 500. (→ pag.)
+  - Mercoledì il PCE, l'indice dei prezzi che la Fed guarda di più, mette alla prova il rialzo di dicembre. (→ pag.)
+Cosa guardare all'apertura:
+  - Alle 15:30 apre Wall Street: la prima seduta dopo la settimana peggiore da più di 18 mesi
+  - Treasury a 10 anni: venerdì ha chiuso sotto il 5%
+  - Oro: venerdì ha chiuso a 3.515 $, il livello da cui si vede se il calo continua
+Notizie:
+  * [Fed] Cook avverte: aspettare ancora per alzare i tassi è un rischio
+    La governatrice della Fed lo dice a Santiago del Cile: se la banca centrale aspetta, potrebbero servire rialzi più grandi dopo. Giudica la crescita forte e il lavoro solido.
+  * [Wall Street] GTCR valuta un'offerta da 50 miliardi per Global Payments
+    Secondo Bloomberg il fondo di private equity esplora l'acquisto della società dei pagamenti, che sale in forte rialzo sulla notizia. Non c'è un'offerta annunciata.
+  * [Wall Street] CrowdStrike tratta per comprare Zscaler
+    Lo scrive Reuters citando due persone informate: nessun accordo è garantito e le trattative potrebbero finire senza intesa.
+  * [Chip] STMicroelectronics e ASML tra i più colpiti in Europa: oltre il 9%
+    Sono i titoli più colpiti dalla vendita dei chip, che venerdì ha fatto perdere al comparto tecnologico il 5,4%. A Milano lo spread tra BTP e Bund è a 110 punti base.
+  * [Asia] Advantest cede un decimo e Samsung il 7% nel crollo dei chip asiatici
+    Il Nikkei perde il 5,06% e il Kospi il 5,21%; l'ETF ACWI sull'azionario mondiale cede il 3,49%.
+  * [Wall Street] Anthropic sfiora il prezzo dell'IPO nel secondo giorno di scambi
+    Venerdì il titolo è sceso fino a 83,05 $, cinque centesimi sopra i 83 $ del collocamento, prima di risalire.
+
+=== PAGINE 2-4: ANALISI E STORIE ===
+
+--- Approfondimento 1 (doppio) - occhiello: Chip ---
+TITOLO: Nvidia batte le stime ma crolla: ora il mercato dubita dei suoi conti
+[Riquadro accanto al grafico]
+  PERCHÉ: Per Reuters, che cita due persone informate, gli investigatori della SEC esaminano possibili problemi contabili di Nvidia. A nostro avviso il mercato non discute più quanto valgano i chip, ma se i conti di chi li vende siano affidabili.
+  E QUINDI: Alle 15:30 riapre Wall Street: se l'S&P 500 riparte sotto i 6.910 punti della chiusura di venerdì, le vendite continuano.
+  IL NUMERO: +6,1%: di tanto i ricavi del trimestre superano le stime degli analisti. Un'ottima notizia, e il titolo perde comunque in una sola seduta.
+   [Grafico] In una settimana il Nasdaq perde più delle piccole società - variazione % dal 13 al 20 novembre
+   [Grafico] Il Nasdaq cede il 3% dopo i conti di Nvidia e il 5% dopo la notizia dell'indagine - Nasdaq Composite, chiusure in punti
+      evento segnato: indagine
+[Testo]
+   Perché un'azienda che batte le stime perde circa il 14% in un giorno? Perché chi compra un'azione paga gli utili dei prossimi anni, e può farlo solo se si fida dei numeri che riceve. Martedì i conti di Nvidia erano sopra le attese su ricavi, utili e previsioni. Venerdì Reuters ha scritto che gli investigatori dell'autorità americana di Borsa guardano la sua contabilità, e la fiducia si è incrinata.
+   Il dubbio colpisce un titolo che pesa moltissimo. Nvidia è tra i titoli più grandi del mondo. In un indice come l'S&P 500 ogni titolo conta in proporzione al suo valore di Borsa, e una caduta così tende a trascinare l'intero indice.
+   C'è poi chi la guida. Il direttore finanziario Colette Kress è amministratore delegato ad interim, come mostra il documento depositato il 17 novembre con i conti. Per chi deve fidarsi dei numeri, è un'incertezza in più.
+   Con questa chiusura l'S&P 500 entra in ciò che gli operatori chiamano correzione, un calo di oltre il 10% dal massimo, qui quello del 6 ottobre. Il VIX, che ricava dai prezzi delle opzioni quanto movimento si aspettano gli operatori nei prossimi trenta giorni, sale a 35,89: più del doppio del 17,49 dell'11 novembre.
+   [Tabella]
+     Nvidia, terzo trimestre | Risultato | Attese
+     Ricavi (mld $) | 115,8 | 109,15
+     Utile per azione ($) | 2,68 | 2,47
+     Ricavi del data center (mld $) | 107,6 | 101,85
+     Guidance per il trimestre in corso (mld $) | 130 | 125,25
+DA GUARDARE: Conta se si chiarisce l'oggetto dell'indagine e se i chip americani recuperano. Un chiarimento che escluda problemi contabili darebbe ragione a chi vede un eccesso nelle vendite; nuove notizie allargherebbero la sfiducia agli altri produttori di chip.
+Fonti: AP, Reuters, documento Nvidia depositato il 17/11, FMP; contesto dall'archivio della redazione.
+
+--- Approfondimento 2 (doppio) - occhiello: Materie prime ---
+TITOLO: Con le borse a picco i Treasury fanno da rifugio, l'oro vende
+[Riquadro accanto al grafico]
+  PERCHÉ: A nostro avviso chi perdeva sulle azioni ha venduto ciò che si vende in fretta, oro compreso. Già il 30 ottobre, per Kitco, le vendite forzate dopo un calo delle azioni avevano prevalso sul ruolo di rifugio. Per Milano Finanza pesano anche il dollaro forte e le attese di una stretta della Fed.
+  E QUINDI: Un oro che chiude sotto i 3.500 $ dice che le vendite non sono finite; sopra i 3.685 $ di giovedì direbbe che la vendita forzata è finita.
+  IL NUMERO: -4,6%: il calo dell'oro in un giorno, più di quello dell'S&P 500 (-3,7%). Nel giorno della paura il metallo ha ceduto più dell'S&P 500.
+   [Grafico] I rendimenti calano lungo tutta la curva, di più tra 1 e 7 anni - Curva Treasury, variazione del 20/11 (pb)
+   [Grafico] Dal 10 novembre l'oro perde più di 500 dollari l'oncia - Oro future, chiusure ($)
+[Testo]
+   Perché i titoli di Stato salgono e l'oro scende, se entrambi passano per un riparo? Perché chi cerca sicurezza compra ciò che promette di restituire i soldi con gli interessi. Quando tutti comprano un titolo del Tesoro il suo prezzo sale, e il rendimento, che si muove al contrario, scende. Venerdì il 10 anni è sceso al 4,92%: chi cercava protezione nei titoli di Stato l'ha trovata, chi la cercava nell'oro no.
+   L'oro non paga nulla, e con rendimenti alti pesa, come nelle ultime settimane, il costo di non incassare interessi. In più, di solito, quando le perdite su un mercato obbligano a vendere, si cede ciò che si riesce a vendere in fretta, non ciò che si vorrebbe.
+   Il dollaro, che nei giorni di paura vera tende a salire, è rimasto fermo. Era già forte: l'euro era già in difficoltà prima della vendita, e con la Fed pronta a rialzare non aveva spazio per salire ancora.
+   Giovedì il metallo aveva chiuso a 3.685 $: in una sola seduta lascia oltre 170 $ l'oncia e chiude a 3.515 $, in una settimana in cui perde più del 9%. Chi guardava il metallo come rifugio, venerdì, ha visto il contrario.
+   Nei titoli di Stato la corsa è lunga: il 10 anni chiude sotto il 5%, in calo sulla settimana. Con un rendimento più basso il prezzo dei titoli già in circolazione sale: chi li aveva comprati prima ci guadagna. Vale anche il contrario: se il rendimento risalisse sopra il 5%, quei titoli perderebbero valore e il rifugio tornerebbe a costare.
+DA GUARDARE: Un 10 anni che torna sopra il 5% direbbe che la paura è passata e conta di nuovo la Fed. Un oro che non rimbalza con il dollaro fermo indicherebbe che le vendite forzate continuano. Giovedì Wall Street è chiusa per il Ringraziamento.
+Fonti: Kitco (archivio della redazione), curva del Tesoro e oro future via FMP.
+
+--- Approfondimento 3 (mezzo) - occhiello: Europa ---
+TITOLO: L'Europa, che reggeva meglio di Wall Street, cede il 2,8% con i chip
+[Riquadro accanto al grafico]
+  PERCHÉ: Per Reuters gli investitori scaricano le scommesse sull'AI dopo l'IPO di Anthropic, che non ha rilanciato la fiducia nel settore. A nostro avviso l'Europa non vende i suoi titoli AI, che sono pochi, ma i fornitori dell'industria dei chip. Il calo non resta nei chip: banche, difesa e lusso, i titoli più legati alla crescita, perdono più del 2,5%.
+  E QUINDI: Alle 15:30 riapre Wall Street e si vede se l'Europa recupera il calo di venerdì: ASML e STMicroelectronics, che hanno perso di più, mostrano se la vendita sta finendo. Un lunedì in calo darebbe allo STOXX 600 la sesta seduta negativa di fila.
+   [Grafico] L'Euro Stoxx 50 perde il 7,1% dal 12 novembre - Euro Stoxx 50, chiusure in punti
+[Testo]
+   Fino a giovedì l'Europa aveva perso meno di Wall Street: dal 12 al 19 novembre l'Euro Stoxx 50 cede il 4,5%, l'S&P 500 il 5,5%. Perché venerdì il copione cambia? Perché il calo ha colpito i fornitori dei chip, che l'Europa ha. ASML e STMicroelectronics perdono oltre il 9%, Infineon il 7,6%.
+   Milano chiude a 48.703 punti (-2,48%) con STMicroelectronics tra i titoli peggiori, e lo spread tra BTP e Bund sale a 110 punti base.
+   Per Reuters è la quinta seduta di ribasso di fila dello STOXX 600, che chiude a 625,65. La perdita della settimana supera il 5,7%, la peggiore da più di un anno.
+   Non è solo l'AI. Per dpa pesano anche i timori su inflazione e su una stretta della Fed. Tra i titoli colpiti: Siemens Energy perde il 6,5% e Scout24 circa il 7%.
+Fonti: Reuters, dpa, ANSA, QuiFinanza, SoldiOnline; Euro Stoxx 50 via EODHD.
+
+--- Approfondimento 4 (mezzo) - occhiello: Fed ---
+TITOLO: Cook insiste sui rialzi mentre le borse scendono: il PCE decide
+[Riquadro accanto al grafico]
+  PERCHÉ: Per Cook la crescita è forte e in accelerazione, il lavoro solido e l'inflazione ben sopra il 2% da 67 mesi. Perciò aspettare rischia di costringere a rialzi più grandi dopo. A nostro avviso la caduta delle borse per ora pesa meno di questi dati.
+  E QUINDI: Mercoledì alle 14:30 il PCE: un dato di fondo, senza energia e alimentari, sopra il 3,2% atteso renderebbe più probabile il rialzo dell'8-9 dicembre.
+[Testo]
+   Con le borse in correzione e i rendimenti in calo la Fed non dovrebbe frenare? Dipende da ciò che guarda. Decide sui prezzi e sul lavoro, non sul listino, e per Cook l'inflazione non scende: «Waiting longer to implement rate increases risks getting behind the curve».
+   I rendimenti, che seguono da vicino le attese sulla Fed, sono scesi. Ci leggiamo una scommessa del mercato su una Fed meno dura dopo la caduta delle borse. È la lettura opposta a quella di Cook, e il PCE di mercoledì decide chi ha ragione.
+   Conta la sorpresa più del livello: un dato di fondo al 3,2%, senza energia e alimentari, è già nei prezzi, e il mercato reagisce alla distanza da quel numero.
+   [Tabella]
+     Chi | Che cosa dice | Quando
+     Waller | Possibile rialzo da mezzo punto a dicembre | novembre
+     Verbali Fed | Nuovi rialzi probabili; alcuni più grandi di un quarto di punto | 18/11
+     Cook | Aspettare rischia di restare indietro | 20/11
+Fonti: discorso di Cook (Federal Reserve), Reuters, verbali Fed e Waller dall'archivio della redazione.
+
+=== PAGINA 5: MERCATI E AGENDA ===
+Titolo: Numeri, temi aperti e calendario
+La lettura: Il Russell 2000, che raccoglie le società più piccole, perde meno dell'S&P 500, mentre il Nasdaq perde un po' di più. Leggiamo che le vendite hanno colpito i grandi titoli tecnologici, che pesano di più negli indici più concentrati, e meno le piccole società.
+Temi aperti:
+  - Fed e tassi | Riunione 8-9 dicembre | Cook: aspettare rischia di restare indietro | su: Attese di un rialzo a dicembre | PCE di mercoledì
+  - AI e borsa | S&P 500 in correzione | Indagine sui conti di Nvidia | giu: Titoli dei chip | Wall Street alle 15:30
+  - Oro e dollaro | Oro a 3.515 $ in chiusura | Cala più delle azioni | giu: Oro | Dollaro e rendimenti USA
+  - Petrolio | Brent a 92,57 $ | In rialzo con le borse a picco | fermo: Brent, senza direzione | Scorte USA e Hormuz
+Fermi: Iran e Hormuz (nessuna novità verificata nel fine settimana), Tassi della Bce (prossima riunione il 17 dicembre).
+Ieri:
+  - Mar 17 | Conti Nvidia (terzo trimestre) | Ricavi 115,8 mld $ (attesi 109,15); utile per azione 2,68 $ (2,47) | + | (→ pag.)
+  - Gio 19 | Conti Gap (terzo trimestre) | Vendite nette 4,0 mld $, +2% sull'anno | + | 
+  - Mer 18 | Verbali della Fed (riunione di ottobre) | Nuovi rialzi giudicati probabili |  | (→ pag.)
+Agenda:
+  - Mer 25, 14:30 | PIL USA (terzo trimestre, seconda stima) | +3,4% annualizzato | Tenuta della crescita
+  - Gio 26 | Mercati USA chiusi per il Ringraziamento | Wall Street e titoli di Stato fermi | Scambi più sottili in Europa | Senza Wall Street gli scambi europei tendono a calare.
+  - Ven 27, in serata | Wall Street chiude in anticipo | Seduta ridotta | Volumi più bassi | Nelle sedute brevi di solito i volumi calano.
+
+=== PAGINA 6: LA SCOMMESSA DELLA SETTIMANA (solo i testi) ===
+settimana_prec: 16-20 novembre
+com_e_andata: Il crollo di Wall Street ha deciso la settimana: i Treasury hanno fatto da rifugio, l'oro no.
+Parole di oggi:
+  - Correzione | Un calo di oltre il 10% di un indice dal suo ultimo massimo.
+  - Vendite forzate | Vendite che chi investe con soldi presi in prestito deve fare, di solito, quando i prezzi scendono.
+  - Rifugio | Titolo o bene che si compra quando si ha paura, per mettere i soldi al riparo.
+  - Rendimento | L'interesse che un titolo di Stato rende: scende quando il prezzo sale.
+  - Core | L'inflazione senza energia e alimentari, le voci più instabili.
+  - Guidance | La previsione dell'azienda sul trimestre che comincia.

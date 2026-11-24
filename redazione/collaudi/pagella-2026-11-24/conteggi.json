@@ -1,0 +1,367 @@
+{
+ "#026": {
+  "voce": [
+   14,
+   0,
+   0
+  ],
+  "tend": 10,
+  "secondo": 4,
+  "n_mod": 4,
+  "dom": 2,
+  "duepunti": 3,
+  "contrasto": 0,
+  "corte": 8,
+  "lunghe": 3,
+  "media": 18.5,
+  "titoli": [
+   "Per noi Taipei e Seul cadono di più: nell'indice pesano i chip",
+   "Borse su e rifugi giù: per noi la Fed pesa più della paura",
+   "La settimana più forte da aprile per l'Europa arriva mentre l'AI vacilla",
+   "Con Hormuz chiuso, il petrolio caro frena chi lo importa: il Giappone"
+  ],
+  "prime": [
+   "Come fa una notizia su un'azienda americana a far cadere una borsa asiatica?",
+   "Perché la Fed muove titoli di Stato e oro in direzione opposta alla paura?",
+   "In una settimana in cui Nvidia ha perso terreno quasi ogni giorno, le borse europee sono salite più di quelle americane.",
+   "Quando il petrolio sale perché manca l'offerta, di solito soffrono i paesi che lo comprano: pagano di più senza vendere di più."
+  ],
+  "perche": [
+   "I dubbi sulla spesa in intelligenza artificiale c'erano già prima del caso Huang, per gli ",
+   "Dopo i prezzi di ottobre i future danno l'87,1% di probabilità a un rialzo Fed da un quart",
+   "Secondo l'analista Robert Greil (Merck Finck), le borse europee vanno meglio quando il set",
+   "Il Giappone importa quasi tutto il suo petrolio e lo stretto di Hormuz, la rotta principal"
+  ],
+  "nw": 2476
+ },
+ "#027": {
+  "voce": [
+   6,
+   0,
+   0
+  ],
+  "tend": 8,
+  "secondo": 3,
+  "n_mod": 5,
+  "dom": 0,
+  "duepunti": 1,
+  "contrasto": 1,
+  "corte": 0,
+  "lunghe": 0,
+  "media": 20.8,
+  "titoli": [
+   "La vendita sull'AI si allarga e a Wall Street perdono i settori in blocco",
+   "Con la paura i Treasury tornano rifugio, anche con la Fed pronta ad alzare",
+   "Con il dollaro forte l'oro non fa da rifugio",
+   "Con meno AI nell'indice l'Europa perde meno di Wall Street",
+   "Il petrolio cade: il mercato guarda all'eccesso di offerta"
+  ],
+  "prime": [
+   "Un titolo guarda avanti: chi compra Nvidia paga oggi gli utili che si aspetta tra qualche anno.",
+   "Il 2 anni segue le attese sui tassi della Fed, il 10 anni guarda anche a crescita e prezzi.",
+   "L'oro non paga interessi: se un titolo di Stato americano rende il 5,12% senza rischi, tenere un metallo che non dà niente costa di più.",
+   "A Milano a pesare sono Stellantis, in calo del 3,9%, e Technoprobe, che perde il 4,2% per il pessimismo sull'AI; la difesa tiene, con Leonardo in rialzo dello 0,9%.",
+   "Meno petrolio vuol dire meno inflazione, di solito con un po' di ritardo: i carburanti costano meno subito, i prezzi di trasporti e beni ci mettono più tempo."
+  ],
+  "perche": [
+   "Pesano insieme due dubbi: chi guiderà Nvidia dopo Huang e se la spesa in AI renderà abbast",
+   "Di solito chi ha paura compra Treasury: il loro prezzo sale e il rendimento scende. Lunedì",
+   "Per noi pesano tassi alti e dollaro forte: di solito un metallo che non paga interessi per",
+   "Per noi conta la composizione: gli indici americani sono più concentrati sulle grandi soci",
+   "Segnali di recupero dei flussi da Hormuz rafforzano l'idea di un eccesso di offerta. L'Age"
+  ],
+  "nw": 2471
+ },
+ "#028": {
+  "voce": [
+   4,
+   0,
+   0
+  ],
+  "tend": 11,
+  "secondo": 4,
+  "n_mod": 5,
+  "dom": 1,
+  "duepunti": 3,
+  "contrasto": 2,
+  "corte": 3,
+  "lunghe": 0,
+  "media": 18.1,
+  "titoli": [
+   "Per Nvidia la sorpresa sui conti non basta: pesano vertice e indagine",
+   "Con Wall Street giù i Treasury si fermano: il mercato aspetta la Fed",
+   "L'Europa perde il doppio di Wall Street: il calo viene dai titoli tecnologici",
+   "Il Brent scende con le scorte USA, ma il rischio Hormuz lo sostiene",
+   "Il debutto di Anthropic mette alla prova la liquidità del Nasdaq"
+  ],
+  "prime": [
+   "Come può scendere un'azienda che batte tutte le stime?",
+   "Quando la borsa cala molti comprano titoli di Stato per proteggersi: il loro prezzo sale e il rendimento, che si muove al contrario, scende.",
+   "Un indice pesa le società per la loro dimensione: se poche grandi aziende cadono molto, trascinano tutto.",
+   "Il prezzo del petrolio dice quanto ne serve e quanto ce n'è.",
+   "Venderne 825 milioni in una volta chiede soldi freschi al mercato."
+  ],
+  "perche": [
+   "Gli investitori avevano già messo nel prezzo conti ottimi: Nvidia ha battuto le attese di ",
+   "Il 2 anni segue le attese sulla Fed. Per la riunione dell'8-9 dicembre il mercato prezza u",
+   "Per noi il calo parte dal settore tecnologico: l'indice europeo dei titoli tecnologici per",
+   "A pesare sono le scorte americane: nella settimana al 13 novembre c'è stato un aumento di ",
+   "Secondo Bloomberg, riportato da Reuters, il prezzo sarebbe in cima alla forchetta o sopra,"
+  ],
+  "nw": 2374
+ },
+ "#029": {
+  "voce": [
+   8,
+   0,
+   1
+  ],
+  "tend": 16,
+  "secondo": 2,
+  "n_mod": 4,
+  "dom": 2,
+  "duepunti": 1,
+  "contrasto": 0,
+  "corte": 8,
+  "lunghe": 0,
+  "media": 17.3,
+  "titoli": [
+   "Anthropic quota sopra la forchetta e mette alla prova un mercato che vende AI",
+   "I verbali vedono altri rialzi e la curva dei Treasury si appiattisce",
+   "Neanche le tensioni nel Golfo fermano l'oro: pesa il dollaro",
+   "I titoli sanitari scontano come legge una proposta che può ancora cambiare"
+  ],
+  "prime": [
+   "Perché un prezzo sopra la forchetta conta?",
+   "Il verbale è il resoconto di cosa si sono detti i membri della Fed all'ultima riunione.",
+   "L'oro non paga interessi: di solito soffre quando i tassi alti rendono più convenienti titoli che li pagano.",
+   "Perché un titolo cade di un decimo per una proposta?"
+  ],
+  "perche": [
+   "Per noi il debutto misura quanto si paga ancora l'AI proprio mentre Wall Street la vende. ",
+   "Di solito il rendimento a 2 anni segue le attese sulla Fed, e i verbali le hanno confermat",
+   "Per noi il dollaro attira più dei rifugi. L'indice del dollaro è a 103,92, massimo da 19 m",
+   "Per noi il mercato prezza il caso peggiore. La proposta del CMS, l'ente che gestisce Medic"
+  ],
+  "nw": 2473
+ },
+ "#030": {
+  "voce": [
+   10,
+   0,
+   0
+  ],
+  "tend": 13,
+  "secondo": 2,
+  "n_mod": 5,
+  "dom": 5,
+  "duepunti": 0,
+  "contrasto": 4,
+  "corte": 22,
+  "lunghe": 0,
+  "media": 16.2,
+  "titoli": [
+   "Anthropic guadagna il 17%, ma il resto dell'AI paga il conto",
+   "I dati di ieri danno alla Fed meno crescita e più prezzi",
+   "Houthi su Riyadh e mine a Hormuz, ma il petrolio guarda all'eccesso di offerta",
+   "L'Europa regge perché ha pochi titoli AI, ma i difensivi cedono",
+   "L'oro perde oltre 400 dollari dal 9 novembre e la Fed non aiuta"
+  ],
+  "prime": [
+   "Perché un debutto riuscito non aiuta?",
+   "Perché i prezzi pagati contano?",
+   "Perché i missili non bastano?",
+   "Perché l'Europa cade meno?",
+   "Come mai l'oro, il bene rifugio per eccellenza, scende in un giorno di paura?"
+  ],
+  "perche": [
+   "Per noi il costo del denaro conta più del successo della singola società. Con la Fed pront",
+   "I prezzi pagati dalle imprese di Filadelfia salgono mentre l'indice generale crolla: per n",
+   "Il mercato pesa più i barili in arrivo di quelli a rischio. Le scorte USA salgono e si att",
+   "Il calo europeo è guidato dai settori tranquilli, non dalla tecnologia: alimentari e bevan",
+   "L'oro non paga interessi. Con la Fed pronta ad alzare e il dollaro vicino ai massimi, chi "
+  ],
+  "nw": 2641
+ },
+ "prova1": {
+  "voce": [
+   0,
+   6,
+   0
+  ],
+  "tend": 3,
+  "secondo": 2,
+  "n_mod": 4,
+  "dom": 0,
+  "duepunti": 3,
+  "contrasto": 4,
+  "corte": 2,
+  "lunghe": 0,
+  "media": 18.7,
+  "titoli": [
+   "Per Nvidia i conti non bastano più: a pesare sono la SEC e Huang",
+   "La Fed ha l'inflazione contro e non può soccorrere la borsa",
+   "L'oro non fa da rifugio: scende mentre i Treasury salgono",
+   "L'Europa non fa da rifugio: perde il 7% in cinque sedute"
+  ],
+  "prime": [
+   "Il debutto che doveva dire se la domanda di intelligenza artificiale regge non ha fermato nulla.",
+   "Nel giorno del crollo il rendimento del Treasury a 2 anni è sceso di 13 punti base.",
+   "Un rifugio dovrebbe salire quando si ha paura, e invece l'oro ha seguito le azioni, e il future ha chiuso a 3.515,4 dollari contro i 3.685,5 di giovedì.",
+   "L'Euro Stoxx 50 chiude ai minimi da maggio, in calo di circa il 7% nella settimana."
+  ],
+  "perche": [
+   "Le vendite di venerdì seguono la notizia che, secondo Reuters, lo staff della SEC che cont",
+   "Waller, in un'intervista alla CNBC, chiede per dicembre una mossa decisa (Reuters). Il ren",
+   "A nostro avviso il calo viene da vendite per far cassa e dall'attesa di altri rialzi Fed. ",
+   "In Europa cadono per primi i produttori di chip, e a Milano anche le banche, che cedono tr"
+  ],
+  "nw": 2570
+ },
+ "prova2": {
+  "voce": [
+   0,
+   4,
+   3
+  ],
+  "tend": 6,
+  "secondo": 2,
+  "n_mod": 4,
+  "dom": 3,
+  "duepunti": 2,
+  "contrasto": 1,
+  "corte": 10,
+  "lunghe": 2,
+  "media": 17.1,
+  "titoli": [
+   "Nvidia batte le stime ma crolla: ora il mercato dubita dei suoi conti",
+   "Con le borse a picco i Treasury fanno da rifugio, l'oro vende",
+   "L'Europa, che reggeva meglio di Wall Street, cede il 2,8% con i chip",
+   "Cook insiste sui rialzi mentre le borse scendono: il PCE decide"
+  ],
+  "prime": [
+   "Perché un'azienda che batte le stime perde circa il 14% in un giorno?",
+   "Perché i titoli di Stato salgono e l'oro scende, se entrambi passano per un riparo?",
+   "Fino a giovedì l'Europa aveva perso meno di Wall Street: dal 12 al 19 novembre l'Euro Stoxx 50 cede il 4,5%, l'S&P 500 il 5,5%.",
+   "Con le borse in correzione e i rendimenti in calo la Fed non dovrebbe frenare?"
+  ],
+  "perche": [
+   "Per Reuters, che cita due persone informate, gli investigatori della SEC esaminano possibi",
+   "A nostro avviso chi perdeva sulle azioni ha venduto ciò che si vende in fretta, oro compre",
+   "Per Reuters gli investitori scaricano le scommesse sull'AI dopo l'IPO di Anthropic, che no",
+   "Per Cook la crescita è forte e in accelerazione, il lavoro solido e l'inflazione ben sopra"
+  ],
+  "nw": 2423
+ },
+ "prova3": {
+  "voce": [
+   2,
+   9,
+   1
+  ],
+  "tend": 7,
+  "secondo": 2,
+  "n_mod": 5,
+  "dom": 0,
+  "duepunti": 1,
+  "contrasto": 2,
+  "corte": 10,
+  "lunghe": 0,
+  "media": 17.6,
+  "titoli": [
+   "Il dubbio sui conti dell'IA, non i tassi, fa cadere tutti i chip",
+   "Più i chip pesano nell'indice, più la borsa cade",
+   "L'oro cade nel giorno della paura: forse si vende per fare cassa",
+   "Il dato sui prezzi di mercoledì dice se la Fed può rallentare",
+   "Anthropic perde il 23% dal massimo ma resta sopra il prezzo di collocamento"
+  ],
+  "prime": [
+   "Un giorno così brutto per Nvidia non nasce da un dato ma da una questione di fiducia.",
+   "Taiwan perde quasi sette punti percentuali, Seul oltre cinque e Londra uno: è lo stesso giorno, ma non lo stesso mercato.",
+   "Due rifugi hanno detto cose opposte nello stesso giorno.",
+   "Il rendimento a 2 anni segue le attese sui tassi della Fed, e in cinque sedute è sceso di 25 pb.",
+   "Chi ha comprato nel collocamento a 83 $ ha ancora un guadagno del 6%, chi ha comprato all'apertura a 111,50 $ ha già perso più di un quinto."
+  ],
+  "perche": [
+   "Per AP la vendita che affonda il Nasdaq nasce dai timori su valutazioni e spese per l'IA. ",
+   "A nostro avviso Taiwan e Corea cedono di più perché i loro indici poggiano su pochi produt",
+   "Di solito nei giorni di paura salgono sia i titoli di Stato sia l'oro. Venerdì i Treasury ",
+   "Il PCE è l'indice dei prezzi che la Fed guarda di più. A nostro avviso il core, cioè i pre",
+   "A nostro avviso il prezzo del collocamento è il punto che guardano gli investitori entrati"
+  ],
+  "nw": 2581
+ },
+ "#031": {
+  "voce": [
+   0,
+   6,
+   0
+  ],
+  "tend": 11,
+  "secondo": 5,
+  "n_mod": 4,
+  "dom": 1,
+  "duepunti": 0,
+  "contrasto": 1,
+  "corte": 9,
+  "lunghe": 0,
+  "media": 19.3,
+  "titoli": [
+   "Le vendite sui chip passano dai prezzi alla fiducia dopo l'inchiesta su Nvidia",
+   "Con la Fed in rialzo i Treasury restano un rifugio e i rendimenti scendono",
+   "A Milano pesano chip e banche, e l'Europa tocca il minimo da maggio",
+   "L'oro non ripara dal panico perché dollaro e tassi pesano più della paura"
+  ],
+  "prime": [
+   "Perché un'inchiesta su un solo titolo fa cadere un intero settore?",
+   "Rendimenti in calo con una Fed pronta a rialzare: venerdì il mercato ha guardato più alla paura che alla banca centrale.",
+   "Milano perde quasi quanto l'Europa, e il motivo sta nella composizione: il listino italiano ha pochi grandi tecnologici ma molte banche, e venerdì sono caduti entrambi.",
+   "L'oro cade anche quando c'è paura, e la ragione è che non è solo un rifugio: è anche un'alternativa ai titoli che pagano interessi."
+  ],
+  "perche": [
+   "L'indagine della SEC, riportata dalla stampa americana, tocca il titolo che di solito gara",
+   "Venerdì il 10 anni è sceso dal 5,04% al 4,92% e il 2 anni di 13 pb. Eppure i future sui ta",
+   "Secondo ANSA a Milano pesano i chip e le banche. Le banche, per ANSA, pagano la possibile ",
+   "Di solito l'oro sale quando c'è paura, ma venerdì è sceso insieme alle azioni. A nostro av"
+  ],
+  "nw": 2528
+ },
+ "#032": {
+  "voce": [
+   1,
+   5,
+   1
+  ],
+  "tend": 7,
+  "secondo": 10,
+  "n_mod": 5,
+  "dom": 2,
+  "duepunti": 1,
+  "contrasto": 4,
+  "corte": 17,
+  "lunghe": 0,
+  "media": 15.9,
+  "titoli": [
+   "Il rimbalzo di Nvidia mostra che le vendite erano di fiducia, non di conti",
+   "Le borse rimbalzano ma il 10 anni resta fermo: pesa la Fed",
+   "Il petrolio scende guardando al surplus, non alla guerra",
+   "L'oro è sceso e risalito con le borse, non contro di loro",
+   "L'Europa sale con i chip americani, mentre Germania e Francia divergono"
+  ],
+  "prime": [
+   "Se i conti di Nvidia non sono cambiati in undici giorni, perché il titolo ha perso circa un quarto e ieri ne ha ripreso gran parte in una seduta?",
+   "Se la paura cala, perché il 10 anni non sale?",
+   "Le petroliere continuano a essere colpite e il greggio scende lo stesso.",
+   "L'oro, il rifugio per eccellenza, è caduto proprio nella settimana della paura.",
+   "I chip sono americani, eppure l'Europa sale."
+  ],
+  "perche": [
+   "A nostro avviso la vendita era una perdita di fiducia in Nvidia e non di utili, e il rimba",
+   "Meno paura dovrebbe far salire i rendimenti, perché si comprano meno titoli di Stato come ",
+   "Per Bloomberg gli investitori chiudono le coperture contro un'escalation, perché Trump ha ",
+   "Secondo Kitco nel ribasso di venerdì l'oro ha avuto spinte contrastanti: la domanda da rif",
+   "Per l'agenzia dpa-AFX la tecnologia è di gran lunga il settore migliore e porta l'Euro Sto"
+  ],
+  "nw": 2561
+ }
+}

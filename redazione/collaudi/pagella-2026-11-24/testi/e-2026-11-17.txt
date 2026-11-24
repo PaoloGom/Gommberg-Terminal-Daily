@@ -1,0 +1,121 @@
+=== PAGINA 1 ===
+TITOLO DI APERTURA: La paura per l'AI colpisce Wall Street, stasera tocca ai conti Nvidia
+Sommario: Il Nasdaq perde il 2,5% e l'S&P 500 l'1,9%, con Nvidia in calo del 4,1% dopo le dimissioni di Jensen Huang da amministratore delegato. Pesano anche le nuove regole USA che limitano l'accesso della Cina ai chip avanzati (Reuters), e stamattina Seul chiude sotto quota 5.000, ai minimi da nove mesi. Stasera a mercati chiusi i conti di Nvidia, i primi senza Huang. (→ pag.)
+→ Il ministro del Tesoro Bessent chiede al consiglio di Nvidia «un cambiamento radicale» al vertice (Radiocor).
+Il quadro: Lunedì i prezzi parlano di paura più che di inflazione. Per noi i Treasury tornano rifugio: il 2 anni scende di 5 pb anche con il rialzo Fed di dicembre quasi scontato. Il VIX (volatilità attesa sull'S&P 500) sale a 22,91, il livello più alto dal 6 novembre. L'oro cede e il dollaro sale, come spesso accade quando i tassi restano alti.
+In 30 secondi:
+  - Il petrolio cade: il mercato guarda all'offerta in eccesso più che agli attacchi alle navi. (→ pag.)
+  - Mercoledì i verbali della Fed: il rialzo di dicembre è già nei prezzi. (→ pag.)
+  - A Milano Igd sale con l'offerta di Carmila, mentre Stellantis perde. (→ pag.)
+Stamattina:
+  - Seul alla chiusura (07:30): Kospi 4.968,48, -2,59%
+  - Future sull'Euro Stoxx 50 alle 07:30: -0,7% (Milano Finanza)
+  - EUR/USD alle 09:04: 1,0998
+Notizie:
+  * [Petrolio] L'Agenzia internazionale dell'energia passa dal deficit all'eccesso di offerta
+    Per il quarto trimestre prima si stimava che il petrolio sarebbe mancato; ora il mercato ne avrebbe più della domanda (Reuters).
+  * [Geopolitica] Le Guardie della Rivoluzione dicono che due petroliere hanno colpito mine a Hormuz
+    Secondo i pasdaran sei navi hanno preso fuoco tra domenica e lunedì; Reuters non ha potuto verificare.
+  * [Cina] Trump comincia il viaggio in Cina per incontrare Xi Jinping
+    Parte nelle ore in cui Washington stringe l'accesso cinese ai chip avanzati (Reuters).
+  * [Italia] Igd sale con l'offerta di Carmila, Stellantis e Technoprobe perdono
+    L'offerta pubblica di scambio di Carmila spinge Igd, mentre Technoprobe cede per il pessimismo sull'AI (Teleborsa).
+  * [Europa] Zurigo tocca un record e chiude in rialzo mentre l'Europa cede
+    L'indice svizzero SMI finisce in rialzo dopo il record, mentre l'Euro Stoxx 50 perde (dpa-AFX).
+  * [Tecnologia] Anthropic debutta al Nasdaq giovedì, e c'è chi frena
+    Gli analisti di Acatis si chiedono perché abbia bisogno di capitale e la paragonano a «fare scorta di provviste in tutta fretta» (Radiocor).
+
+=== PAGINE 2-4: ANALISI E STORIE ===
+
+--- Approfondimento 1 (doppio) - occhiello: Chip e AI ---
+TITOLO: La vendita sull'AI si allarga e a Wall Street perdono i settori in blocco
+[Riquadro accanto al grafico]
+  PERCHÉ: Pesano insieme due dubbi: chi guiderà Nvidia dopo Huang e se la spesa in AI renderà abbastanza (Reuters). Nvidia ha la serie settimanale di perdite più lunga dall'ottobre 2012, e ieri sono arrivate anche le regole USA sull'accesso cinese ai chip.
+  E QUINDI: Alle 23:00 di stasera la conference call di Nvidia dice se la domanda di chip regge; giovedì il debutto di Anthropic al Nasdaq è il secondo test.
+  IL NUMERO: -735 miliardi di dollari: il valore che Nvidia ha perso dalle rivelazioni su Huang (AP). Per noi è il conto della fiducia, più che dei conti trimestrali.
+   [Grafico] La vendita sull'AI è larga: in media perdono i titoli di ogni settore - variazione media dei titoli del Nyse per settore, chiusura del 16/11 (%)
+   [Grafico] Il Nasdaq perde il 7,7% dal massimo del 28 ottobre - Nasdaq Composite, punti
+[Testo]
+   Un titolo guarda avanti: chi compra Nvidia paga oggi gli utili che si aspetta tra qualche anno. Se cambia l'incertezza su chi la guida, o su quanto i clienti continueranno a spendere, il prezzo si rifà da capo, anche prima dei conti. Per questo la vendita non si ferma a Nvidia: chi fa memorie, server e servizi cloud per l'AI vive della stessa spesa, e il dubbio riguarda tutti.
+   In Asia l'effetto è più forte dove i chip pesano di più sull'indice. A Seul Samsung perde il 3,3% e SK hynix il 2%: pochi titoli muovono molto il Kospi, che chiude sotto 5.000, ai minimi da nove mesi.
+   A Wall Street la vendita è larga: in media i titoli del Nyse perdono in quasi tutti i settori. Più degli altri calano industriali e materiali, meno la finanza e le utility. Non è più solo una questione di chip: quando una spesa così grande viene messa in dubbio, il dubbio arriva anche a chi la sostiene. E finché non è chiaro chi guida Nvidia, per i mercati ogni notizia sul vertice pesa quanto un dato sui conti.
+   • Il fornitore. A Seul gli stranieri vendono 1.440 miliardi di won netti, mentre istituzionali e privati comprano.
+   • La regia. Il Financial Times scrive che Huang lavora per rientrare, e Trump non si opporrebbe a un suo ritorno (Reuters).
+DA GUARDARE: Se i conti battono le attese ma il titolo cade lo stesso, la vendita non riguarda più i risultati. Se Nvidia recupera e i chip americani la seguono, quella di ieri può restare una tappa. Domattina l'Asia dice quale delle due.
+Fonti: Reuters, AP, Korea Herald, Radiocor.
+
+--- Approfondimento 2 (mezzo) - occhiello: Tassi USA ---
+TITOLO: Con la paura i Treasury tornano rifugio, anche con la Fed pronta ad alzare
+[Riquadro accanto al grafico]
+  PERCHÉ: Di solito chi ha paura compra Treasury: il loro prezzo sale e il rendimento scende. Lunedì è successo mentre i future sui tassi davano per fatto il rialzo di dicembre (Reuters), e per noi il rifugio pesa più della Fed.
+  E QUINDI: Mercoledì alle 20:00 i verbali dicono quanto la Fed è vicina al rialzo: se sono duri, il 2 anni può tornare sopra il 4,88% di venerdì.
+  IL NUMERO: +27 pb: di quanto il 2 anni è più alto di lunedì scorso, da 4,56% a 4,83%. Il rifugio di ieri ne ha cancellati solo 5.
+   [Grafico] Il breve scende più del lungo - Curva Treasury, variazione del 16/11 (pb)
+[Testo]
+   Il 2 anni segue le attese sui tassi della Fed, il 10 anni guarda anche a crescita e prezzi. Lunedì il breve ha perso 5 pb e il lungo 3. Scende di più chi guarda alla Fed: è la mossa tipica di chi si mette al riparo e non di chi si aspetta tassi più bassi.
+   Il rialzo di dicembre è già nei prezzi: per i future sui tassi (CME FedWatch) è quasi certo. La probabilità di uno da 50 pb è circa il 9%. Quando una mossa è scontata, a muovere i rendimenti è ciò che la Fed dice sul dopo, non la mossa in sé.
+   In una settimana il rendimento a 10 anni è salito di 24 pb, da 4,88% a 5,12%, e il passo indietro di lunedì ne ha restituiti solo 3. Chi presta al governo americano per due anni chiede ancora molto di più di una settimana fa. È il segno che la Fed resta il tema di fondo anche nei giorni di paura.
+DA GUARDARE: Se i verbali parlano di inflazione più larga, il rifugio può non bastare: rendimenti su anche con la borsa giù. Se parlano di rischi per la crescita, il 2 anni può scendere ancora.
+Fonti: curva par del Tesoro USA (FMP), Reuters.
+
+--- Approfondimento 3 (mezzo) - occhiello: Dollaro e oro ---
+TITOLO: Con il dollaro forte l'oro non fa da rifugio
+[Riquadro accanto al grafico]
+  PERCHÉ: Per noi pesano tassi alti e dollaro forte: di solito un metallo che non paga interessi perde appeal quando i rendimenti salgono. Ieri l'euro è sceso a 1,0996, il livello più basso da almeno quattro mesi e mezzo. Quando la paura sale molti comprano prima dollari che oro: è la moneta in cui si tengono i titoli di Stato più sicuri, e ieri a guadagnare è stato lui.
+  E QUINDI: Se mercoledì i verbali Fed spingono ancora il dollaro, la soglia da guardare è il minimo di ieri sera, 3.853 $, la chiusura più bassa delle ultime cinque settimane.
+   [Grafico] L'oro perde il 6,4% in una settimana - Oro future, chiusure ($)
+[Testo]
+   L'oro non paga interessi: se un titolo di Stato americano rende il 5,12% senza rischi, tenere un metallo che non dà niente costa di più. Per questo l'oro tende a soffrire quando i rendimenti salgono e il dollaro si rafforza, anche nei giorni di paura. Ieri è successo di nuovo: la borsa scendeva e l'oro ha perso lo 0,9%.
+   In poche settimane il percorso si è rovesciato: il 16 ottobre l'oro valeva 4.181 dollari, ieri 3.853, il 7,8% in meno. Intanto il dollaro ha guadagnato sull'euro: in un mese l'EUR/USD è passato da 1,1239 a 1,0996, il 2,2% in meno. Un dollaro più caro rende l'oro più costoso per chi compra con altre valute, e di solito ne frena la domanda. È uno dei motivi per cui il metallo non ha tenuto il passo della paura.
+DA GUARDARE: Un oro in recupero con il dollaro fermo direbbe che il rifugio è tornato. Un oro ancora in calo con la borsa che scende confermerebbe che a comandare sono i tassi.
+Fonti: FMP (oro future), Alpha Vantage (EUR/USD).
+
+--- Approfondimento 4 (mezzo) - occhiello: Europa ---
+TITOLO: Con meno AI nell'indice l'Europa perde meno di Wall Street
+[Riquadro accanto al grafico]
+  PERCHÉ: Per noi conta la composizione: gli indici americani sono più concentrati sulle grandi società tecnologiche, quindi un calo dell'AI li colpisce più di quelli europei. Alla chiusura europea il Nasdaq 100 perdeva l'1,5% e l'indice europeo dei titoli tecnologici l'1,3% (dpa-AFX). Per noi il banco di prova resta la serata di Nvidia, che dà il tono alla riapertura.
+  E QUINDI: Oggi il test è la riapertura di Wall Street alle 15:30. Se il Nasdaq continua a scendere, l'Europa difficilmente resta indietro, mentre la difesa che ieri ha sostenuto Milano è la prima cosa da controllare.
+   [Grafico] L'Europa tiene mentre Wall Street scende dal massimo dell'11 novembre - S&P 500 e Euro Stoxx 50, chiusure, 6 novembre = 100
+[Testo]
+   A Milano a pesare sono Stellantis, in calo del 3,9%, e Technoprobe, che perde il 4,2% per il pessimismo sull'AI; la difesa tiene, con Leonardo in rialzo dello 0,9%.
+DA GUARDARE: Se Wall Street recupera dopo i conti Nvidia l'Europa dovrebbe seguire; se il Nasdaq continua a scendere, il vantaggio di ieri si riduce.
+Fonti: dpa-AFX, Radiocor, Teleborsa.
+
+--- Approfondimento 5 (mezzo) - occhiello: Petrolio ---
+TITOLO: Il petrolio cade: il mercato guarda all'eccesso di offerta
+[Riquadro accanto al grafico]
+  PERCHÉ: Segnali di recupero dei flussi da Hormuz rafforzano l'idea di un eccesso di offerta. L'Agenzia internazionale dell'energia ora prevede per il quarto trimestre 1,7 milioni di barili al giorno di offerta in più della domanda (Reuters).
+  E QUINDI: Il minimo recente è 91,49 $ del 10/11: da lì il Brent è rimbalzato a 95,82 $ in due giorni, e ieri ci è tornato vicino.
+  IL NUMERO: -20,8%: il calo del Brent dal 23 ottobre a ieri sera. Il giorno più pesante è stato il 4 novembre, -8,7%.
+   [Grafico] Dal 23 ottobre il Brent ha perso più di un quinto - Brent future, chiusure ($)
+[Testo]
+   Meno petrolio vuol dire meno inflazione, di solito con un po' di ritardo: i carburanti costano meno subito, i prezzi di trasporti e beni ci mettono più tempo. Per la Fed che deve decidere a dicembre un Brent più basso è un sollievo, anche se da solo non basta.
+   Intanto cambia anche la domanda: la lavorazione di greggio nelle raffinerie cinesi scende dell'8,1% su un anno e implica scorte in aumento di circa 492 mila barili al giorno. Goldman Sachs vede il Brent a 88 dollari in media il prossimo anno, ma avverte che gli attacchi alle navi tengono aperto il rischio di rialzo nel breve.
+DA GUARDARE: Un nuovo attacco che blocchi davvero i flussi smentirebbe la tesi; più petroliere che passano da Hormuz la rafforzano.
+Fonti: Reuters, Radiocor; chiusure del Brent future (FMP).
+
+=== PAGINA 5: MERCATI E AGENDA ===
+Titolo: Numeri, temi aperti e calendario
+La lettura: Su una settimana le tabelle dicono qualcosa che ieri non si vedeva. Il Treasury a 2 anni resta 27 pb più alto di lunedì scorso, quindi il rifugio di ieri ha cancellato solo una piccola parte del rialzo dei tassi. Il Nasdaq perde più dell'S&P 500, segno che a soffrire sono i titoli dell'AI più dell'intero mercato. E il Russell 2000, l'indice delle società più piccole, cede ieri meno dell'S&P 500 ma in sette giorni quasi il doppio: la settimana non è stata solo una questione di chip.
+Temi aperti:
+  - AI e chip | Conti Nvidia stasera | La vendita arriva a Wall Street | giu: Titoli dell'AI, da Seul a New York | Conti alle 23:00
+  - Fed e tassi | Verbali mercoledì | Rialzo di dicembre già nei prezzi | giu: Rendimenti a 2 e 10 anni, per la paura | Verbali, mer 18 alle 20:00
+  - Dollaro e oro | Euro ai minimi da mesi | Oro in calo con il dollaro forte | giu: Oro e euro | Verbali Fed
+  - Petrolio | Eccesso di offerta | Il Brent scende sotto 93 $ | giu: Brent | Flussi da Hormuz
+Fermi: Cina (dati d'ottobre usciti lunedì, nessuna novità verificata oggi); Iran e Hormuz (nuovi attacchi alle navi dichiarati dai pasdaran, non verificati da Reuters).
+Ieri:
+  - Lun 16 | Discorso del presidente Fed Warsh | Parla di AI, nessun commento sui tassi (Newsquawk) |  | (→ pag.)
+Agenda:
+  - Mar 17, 23:00 | Conti Nvidia (terzo trimestre fiscale) | Utile e ricavi contro le stime; primi senza Huang | Primi conti e prime previsioni dopo l'addio di Huang
+  - Mer 18, 20:00 | Verbali della Fed (riunione 27-28 ottobre) | Tassi lasciati al 3,75-4,00%; rialzo di dicembre atteso | Quanto la Fed è vicina al rialzo
+  - Gio 19 | Debutto di Anthropic al Nasdaq | Primo giorno di scambi | Secondo test per l'AI dopo Nvidia
+
+=== PAGINA 6: LA SCOMMESSA DELLA SETTIMANA (solo i testi) ===
+tesi: Con noi: la paura per l'AI spinge giù le borse americane, come previsto. Contro: petrolio e rendimenti scendono invece di salire. Da qui a venerdì: conti di Nvidia e verbali della Fed.
+Parole di oggi:
+  - Acquisti rifugio | Vendite di azioni e acquisti di titoli considerati sicuri, come Treasury e oro, quando cresce la paura.
+  - Previsioni aziendali | Ciò che un'azienda si aspetta per i prossimi trimestri: spesso contano più dei conti appena usciti.
+  - Eccesso di offerta | Quando si produce più petrolio di quanto se ne consuma: di solito i prezzi scendono.
+  - VIX | L'indice della volatilità attesa a Wall Street: sale quando gli investitori temono grandi oscillazioni.
+  - Quotazione in borsa (IPO) | Il debutto di un'azienda in borsa, con la vendita delle prime azioni al pubblico.
+  - Curva dei rendimenti | I rendimenti dei titoli di Stato messi in fila dal più breve al più lungo.
