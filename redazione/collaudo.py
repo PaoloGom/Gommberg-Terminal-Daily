@@ -15,6 +15,8 @@ Cosa controlla:
   3. Modello       la pagina di riferimento (edizione_modello_v6.py) si impagina in 6 pagine piene e supera i controlli
                    che non dipendono dalle schede del giorno (PDF, riempimento, numeri, scrittura, temi, ripetizioni).
                    Pag. 6 non si giudica sul riempimento: dipende dal registro della scommessa di quella settimana.
+     Coerenza      il testo contro dati.json (controlli_coerenza.py) e il desk (desk.py) su frasi vere della prova del 23/11 e
+                   delle #031-#032: cifre che cambiano soggetto, versi contrari, rimandi vuoti, ipotesi nei titoli, ragionamento.
      Fonti         la regola dei fatti (autori.py, applicata da controlli_fatti.py) su schede costruite apposta: la
                    primaria basta, un'agenzia ripresa da tre siti è un autore solo, l'ultima scelta va dichiarata; e il
                    gancio (gancio_token.py) su una trascrizione costruita: ricerche, pagine aperte, pagine non raggiunte.
@@ -224,7 +226,7 @@ MODELLO_ALTRE = {
 # mercati con il nastro di prima pagina (il 14/11 il modello aveva l'Euro Stoxx 50 a 6.190,37 nel nastro e 6.162,90 in tabella)
 ETICHETTE = {"ACWI": "MSCI ACWI (ETF, $)", "S&P 500": "S&P 500", "Euro Stoxx 50": "Euro Stoxx 50", "Treasury 10 anni": "Treasury 10 anni",
              "EUR/USD": "EUR/USD", "Brent future": "Brent future", "Oro future": "Oro (future, $/oncia)"}
-INDIPENDENTI = ["PDF e indice", "Numeri contro dati.json", "Scrittura", "Temi di prima pagina", "Ripetizioni", "Anteprima"]
+INDIPENDENTI = ["PDF e indice", "Numeri contro dati.json", "Scrittura", "Temi di prima pagina", "Coerenza", "Ripetizioni", "Anteprima"]
 
 
 def passo_modello():
@@ -269,6 +271,85 @@ def passo_modello():
             esito(f"Modello: {nome}", False, controlli.perche.get(chiave, "controllo non eseguito")[:170])
     if all(stato.get(next((k for k in stato if k.startswith(n)), ""), "") == "ok" for n in INDIPENDENTI):
         esito("Modello: controlli", True, ", ".join(INDIPENDENTI) + " (Fatti e Contenuti non giudicati: servono le schede del giorno)")
+
+
+# ---------------------------------------------------------------- 3a-bis. il testo regge contro i dati (G-45)
+def passo_coerenza():
+    """Casi costruiti con le frasi vere della prova del 23/11, della #031 e della #032, sui prezzi del 20/11 (dati.json del
+    campione #031): una cifra che cambia soggetto, un "più del 2%" detto di un -4,6%, un verso contrario alla chiusura, un
+    rimando a un pezzo che non ne parla e un'ipotesi nel titolo si fermano; le frasi giuste che gli somigliano passano. Poi
+    il ragionamento: l'incarico del revisore porta la frase dell'oro della #031, un "non regge" ferma finché la frase resta
+    uguale, e la risposta che manca si dice. Infine il desk: la riscrittura di Hong Kong si respinge, una che toglie un
+    fatto unico pure, quelle che riordinano passano."""
+    import controlli_coerenza as K
+    import desk
+    tmp = os.path.join(TMP, "coerenza")
+    os.makedirs(tmp, exist_ok=True)
+    D = json.load(open(os.path.join(RETE, "2026-11-23", "sorgenti", "dati.json"), encoding="utf-8"))
+    M = K.mercati_del_giorno(D)
+    ferma = {"hk": "Hong Kong perde il 3,8% per le strette USA sulla tecnologia per la Cina",
+             "oro2": "La paura ha preso il posto dell'inflazione. L'oro cede più del 2% e il dollaro quasi non si muove.",
+             "brent": "Il Brent scende con le scorte USA, ma il rischio Hormuz lo sostiene",
+             "oro_su": "Nel giorno della paura l'oro sale e fa da rifugio.",
+             "nikkei": "Il Nikkei chiude a 56.000 punti, il livello più basso da aprile."}
+    passa = {"hk_tech": "Nuove strette USA sulla tecnologia per la Cina fanno scendere il listino tecnologico di Hong Kong (-3,8%)",
+             "nikkei": "Il Nikkei chiude a 56.436,65 punti (-5,06%), il livello più basso dal 13 aprile.",
+             "vix": "Il VIX (volatilità attesa sull'S&P 500) sale del 26,2%.",
+             "seul": "Samsung perde il 7% a Seul e SK hynix quasi il 6%.",
+             "dollaro": "L'oro scende e il dollaro quasi non si muove.",
+             "tassi": "Venerdì il 10 anni è sceso dal 5,04% al 4,92% e il 2 anni di 13 pb.",
+             "se": "Se il 10 anni torna sopra il 5,04% la paura non basta più e torna a contare la Fed.",
+             "sett": "Per questo il Nasdaq ha perso il 10% in una settimana.",
+             "seduta": "Il FTSE MIB chiude a -2,5% dopo aver perso quasi il 3%.",
+             "crisi": "La differenza con le crisi in cui l'oro sale sta nell'origine della paura.",
+             "nasdaq100": "Il Nasdaq 100 perde il 5,6%.",
+             "europa": "L'Europa perde il 7% in cinque sedute."}
+    sfuggiti = [k for k, t in ferma.items() if not K.cifre_e_direzioni({k: t}, M)]
+    falsi = [f"{k}: {K.cifre_e_direzioni({k: t}, M)[0][:90]}" for k, t in passa.items() if K.cifre_e_direzioni({k: t}, M)]
+    fed = {"chiave": "fed", "titolo": "La Fed ha l'inflazione contro e non può soccorrere la borsa",
+           "testo": ["Il PCE di mercoledì, atteso a +0,3% sul mese, è il dato che la Fed guarda di più per l'inflazione."]}
+    C = {"top": {"titolo": "Wall Street crolla", "dek": ""}, "moduli": [fed], "notizie": [],
+         "ieri": [("Gio 19, 14:30", "Indice Philadelphia Fed (novembre)", "6,3 (atteso 20,0)", "-", "[[fed]]")],
+         "agenda": [("Mer 25, 14:30", "Prezzi al consumo USA (ottobre)", "+0,3%", "Inflazione", "[[fed]]")]}
+    rim = K.rimandi(C)
+    rim_ok = len(rim) == 1 and "ieri.0" in rim[0]
+    tit_no = K.titoli({"top": {"titolo": "L'oro cala nel giorno della paura, forse per fare cassa"}})
+    tit_si = K.titoli({"top": {"titolo": "L'oro cala nel giorno della paura"}})
+    # il ragionamento: la frase dell'oro della #031, giudicata "non regge", ferma finché resta uguale
+    q = "L'oro, che di solito ripara, è invece caduto insieme alle azioni, e a nostro avviso pesa il dollaro forte."
+    C2 = {"top": {"titolo": "Wall Street entra in correzione"}, "quadro": q, "moduli": [], "notizie": []}
+    campi = {"quadro": q}
+    inc = K.scrivi_incarico(C2, campi, M, tmp)
+    rid = next((x["id"] for x in inc["frasi"] if x["frase"] == q), None)
+    eur = any(r.startswith("EUR/USD") and "(fermo)" in r for r in inc["prezzi"])
+    manca = K.verdetti(campi, tmp)[0]
+    json.dump([{"id": x["id"], "esito": "non_regge" if x["id"] == rid else "regge", "nota": "EUR/USD fermo nella seduta",
+                "rimedio": "lettura con i prezzi"} for x in inc["frasi"]], open(os.path.join(tmp, K.RISPOSTA), "w"))
+    resta = K.verdetti(campi, tmp)[0]
+    corretta = K.verdetti({"quadro": "L'oro è caduto insieme alle azioni: a nostro avviso si vende ciò che si può vendere."}, tmp)[0]
+    ragiona = bool(rid) and eur and manca and len(resta) == 1 and "lettura con i prezzi" in resta[0] and not corretta
+    # il desk
+    hk = desk.controlla("Nuove strette USA sulla tecnologia per la Cina fanno scendere il listino tecnologico di Hong Kong (-3,8%)",
+                        "Hong Kong perde il 3,8% per le strette USA sulla tecnologia per la Cina", set())
+    gi = desk.controlla("In Giappone l'inflazione sale al 2,3% e alimenta le attese di rialzo dei tassi",
+                        "L'inflazione giapponese sale al 2,3% e avvicina il rialzo dei tassi", set())
+    corto = ("La SEC ha aperto un esame su Nvidia, il titolo che regge la storia dell'intelligenza artificiale nelle borse. "
+             "Il titolo ha perso il 14% venerdì e più del 20% in una settimana.")
+    lungo = corto.replace(" Il titolo", " Lo staff guarda a possibili problemi contabili nei bilanci. Il titolo")
+    tolto = desk.controlla(lungo, corto, set(), altri="")
+    eco = desk.controlla(lungo, corto, set(), altri="Lo staff della SEC guarda a possibili problemi contabili nei bilanci.")
+    desk_ok = bool(hk) and gi is None and bool(tolto) and eco is None
+    ok = not sfuggiti and not falsi and rim_ok and tit_no and not tit_si and ragiona and desk_ok
+    det = (f"{len(ferma)} frasi sbagliate fermate, {len(passa)} giuste passate (cifra che cambia soggetto, \"più del\", verso, "
+           "periodo, ipotesi, parentesi); rimando a un pezzo che non ne parla; ipotesi nel titolo; il ragionamento dell'oro della "
+           "#031 fermato finché resta e liberato quando cambia; desk: Hong Kong e un fatto unico respinti, un riordino e un'eco passati")
+    if not ok:
+        det = "; ".join(x for x in [
+            f"sfuggiti {sfuggiti}" if sfuggiti else "", f"falsi allarmi {falsi[:2]}" if falsi else "",
+            "" if rim_ok else f"rimandi {rim[:2]}", "" if tit_no and not tit_si else "titoli",
+            "" if ragiona else f"ragionamento (id {rid}, EUR/USD fermo {eur}, manca {bool(manca)}, resta {resta[:1]}, corretta {corretta[:1]})",
+            "" if desk_ok else f"desk (hk {hk}, giappone {gi}, tolto {tolto}, eco {eco})"] if x)
+    esito("Coerenza: il testo regge contro i dati", ok, det)
 
 
 # ---------------------------------------------------------------- 3a. scrittura: lessico di casa e fonti tra parentesi
@@ -1357,6 +1438,7 @@ def main():
         passo_avvio()
         passo_modello()
         passo_scrittura()
+        passo_coerenza()
         passo_fonti()
         passo_dati()
         passo_tabelle()

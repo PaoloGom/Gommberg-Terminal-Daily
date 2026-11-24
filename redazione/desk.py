@@ -1,8 +1,10 @@
-"""Desk: la riscrittura per il lettore, dopo la revisione dei fatti (v8.3, 13/11/2026).
+"""Desk: la riscrittura per il lettore, dopo la revisione dei fatti (v8.3, 13/11/2026; G-45, 24/11/2026).
 
 Chi verifica i fatti non è chi sistema la prosa. Il desk riscrive titoli, attacchi e testi per renderli più chiari, ma
 non può aggiungere fatti: il codice accetta una riscrittura solo se non porta cifre, nomi o fonti nuove e se resta
-non più lunga del 10% (e non più corta del 40%). Una proposta respinta lascia il testo com'era: il desk non blocca mai.
+non più lunga del 10% (e non più corta del 40%). Né può spostarne o toglierne: una cifra resta sul suo soggetto, e una
+frase che porta un fatto che nessun altro campo dice non sparisce. Una proposta respinta lascia il testo com'era: il desk
+non blocca mai.
 
 Uso (cartella di lavoro):
   python3 desk.py estrai <edizione.py>     -> desk_incarico.json  [{"campo", "testo"}]  (lo riceve l'agente desk)
@@ -83,6 +85,63 @@ def applica(C, cartella="."):
 
 NUM = re.compile(r"\d+(?:[.,]\d+)*")
 RIMANDO = re.compile(r"\[\[\w+\]\]")
+# Una cifra con la sua unità (o col segno): è di qualcuno, e la riscrittura non può dargliene un altro (G-45: nella prova
+# del 23/11 "il listino tecnologico di Hong Kong (-3,8%)" era diventato "Hong Kong perde il 3,8%", con l'Hang Seng a -1,9%).
+CIFRA = re.compile(r"([+\-−]?)(\d+(?:[.,]\d+)*)\s?(%|pb\b|punti|\$|dollari|euro|miliardi|milioni)")
+VERBI = re.compile(r"^(?:sale|salgono|scende|scendono|cede|cedono|perde|perdono|guadagna|guadagnano|chiude|chiudono|cala|"
+                   r"calano|crolla|risale|rimbalza|lascia|segna|tocca|vola|arretra|fanno|fa|scendere|salire|ha|hanno|è|sono)$")
+LEGAMI = set("il lo la i gli le l un una uno di del della dello dei degli delle dell a al alla allo ai agli alle all da dal "
+             "dalla dai in nel nella nei su sul sulla sui con per tra fra e anche circa quasi oltre più meno".split())
+
+
+def _parole(t):
+    return re.findall(r"[a-zà-ù&]+|[(),;:.]|\d+(?:[.,]\d+)*", re.sub(r"<[^>]+>", " ", t).lower().replace("'", " "))
+
+
+def soggetto(t, inizio):
+    """Le parole piene di chi fa la cifra che comincia in t[inizio:]: si risale fino al verbo o alla punteggiatura;
+    un verbo subito prima della cifra ("Hong Kong perde il 3,8%") si salta e il soggetto è prima."""
+    pp, out = _parole(t[:inizio]), []
+    for w in reversed(pp):
+        if w in "(":
+            continue
+        if w in ",;:.)" or len(out) >= 6:
+            if out or w != ")":
+                break
+            continue
+        if VERBI.match(w):
+            if out:
+                break
+            continue
+        if w in LEGAMI or w[0].isdigit():
+            continue
+        out.append(w[:5])
+    return set(out)
+
+
+def cambia_soggetto(orig, nuovo):
+    """La prima cifra che nella riscrittura ha perso parole del suo soggetto, o None."""
+    for m in CIFRA.finditer(nuovo):
+        prima = [soggetto(orig, x.start()) for x in CIFRA.finditer(orig) if x.group(2) == m.group(2)]
+        if not prima:
+            continue
+        ora, pieni = soggetto(nuovo, m.start()), [p for p in prima if p]
+        if pieni and all(p - ora for p in pieni):
+            persi = sorted(min((p - ora for p in pieni), key=len))
+            return f"la cifra {m.group(0).strip()} perde parte del suo soggetto ({', '.join(persi)}...): una cifra resta su chi l'ha fatta"
+    return None
+
+
+def frase_tolta(orig, nuovo, altri):
+    """Una frase dell'originale che porta un fatto che non sta né nella riscrittura né in un altro campo (il desk toglie
+    echi, non fatti: nella prova del 23/11 era sparito su che cosa indagava la SEC). Torna l'inizio della frase o None."""
+    radici = lambda t: {w[:6] for w in re.findall(r"[a-zà-ù]{5,}", re.sub(r"<[^>]+>", " ", t).lower())}
+    resta = radici(nuovo) | radici(altri)
+    for f in re.split(r"(?<=[.;])\s+", orig):
+        r = radici(f)
+        if len(r) >= 6 and len(r - resta) >= 0.6 * len(r):
+            return f[:60]
+    return None
 
 
 def _nomi(t):
@@ -90,8 +149,8 @@ def _nomi(t):
     return set(re.findall(r"(?<=[a-zà-ù0-9,;:)»] )[A-Z][\w&'.-]*", t)) | set(re.findall(r"\(([^)]{2,40})\)", t))
 
 
-def controlla(orig, nuovo, tutto, campo=""):
-    """Motivo del rifiuto, o None se la riscrittura è accettata."""
+def controlla(orig, nuovo, tutto, campo="", altri=""):
+    """Motivo del rifiuto, o None se la riscrittura è accettata. altri = il testo degli altri campi dell'edizione."""
     if isinstance(nuovo, str) and not nuovo.strip() and campo.endswith(".numero"):
         return None   # un "numero" che ripete il resto si toglie
     if not isinstance(nuovo, str) or not nuovo.strip():
@@ -109,6 +168,12 @@ def controlla(orig, nuovo, tutto, campo=""):
         return f"lunghezza {ln} parole contro {lo} (ammesso -40% / +10%)"
     if "—" in nuovo or "–" in nuovo:
         return "trattino lungo"
+    motivo = cambia_soggetto(orig, nuovo)
+    if motivo:
+        return motivo
+    tolta = frase_tolta(orig, nuovo, altri)
+    if tolta:
+        return f"toglie un fatto che nessun altro campo dice (\"{tolta}...\"): il desk toglie echi, non fatti"
     return None
 
 
@@ -146,7 +211,8 @@ if __name__ == "__main__":
                 no.append((e.get("campo"), "campo inesistente")); continue
             if e.get("testo") == orig:
                 continue
-            motivo = controlla(orig, e.get("testo"), tutto, e["campo"])
+            altri = " ".join(v for k, v in attuali.items() if k != e["campo"])
+            motivo = controlla(orig, e.get("testo"), tutto, e["campo"], altri)
             (no.append((e["campo"], motivo)) if motivo else ok.append({"campo": e["campo"], "originale": orig,
                                                                          "testo": e["testo"]}))
         json.dump(ok, open(OK, "w", encoding="utf-8"), ensure_ascii=False, indent=1)

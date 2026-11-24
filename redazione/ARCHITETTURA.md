@@ -14,8 +14,8 @@ La mappa del sistema: quali parti ci sono, chi legge che cosa, e che cosa si rom
 cartella di lavoro /home/claude/lavoro  (fuori dal repository)
   dati.json ─ contesto.json ─ fatti.json ─ edizione_AAAA-MM-GG.py ─ stato.json | verdetto.json
   │  gommberg_engine.py (+ scommessa/pagina6.py)  →  PDF di 6 pagine, voce_indice.json, riempimento.json
-  │  controlli_tutti.sh (tutti i controlli)       →  testo.json (sigle), ripetizioni.json, anteprima.png
-  │  revisione (agente) → desk (desk.py)          →  revisione.json, desk_ok.json
+  │  controlli_tutti.sh (tutti i controlli)       →  testo.json (sigle), ripetizioni.json, anteprima.png, coerenza_incarico.json
+  │  revisione (agente) → desk (desk.py)          →  revisione.json, coerenza.json (il ragionamento), desk_ok.json
   │  edizioni_voce.py                             →  la voce in edizioni.json
   ▼
 pubblica.sh  →  un commit "Edizione #NNN - data" sul ramo principale (main)

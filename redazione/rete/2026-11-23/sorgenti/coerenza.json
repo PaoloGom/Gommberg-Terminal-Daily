@@ -1,0 +1,146 @@
+[
+ {
+  "id": "R01",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R02",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R03",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R04",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R05",
+  "esito": "non_regge",
+  "nota": "Dollaro e tassi non si sono mossi contro l'oro venerdì: EUR/USD +0,01% (fermo) e Treasury 10 anni -12 pb, che di solito aiuta l'oro.",
+  "rimedio": "titolo col fatto"
+ },
+ {
+  "id": "R06",
+  "esito": "non_regge",
+  "nota": "Nomina l'indagine della SEC senza dire su che cosa: è la prima volta che il lettore la incontra.",
+  "rimedio": "spiegare il fatto"
+ },
+ {
+  "id": "R07",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R08",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R09",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R10",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R11",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R12",
+  "esito": "non_regge",
+  "nota": "Il dollaro forte non torna con la seduta: EUR/USD +0,01%, e il quadro della stessa edizione dice il cambio quasi fermo; il 10 anni -12 pb va contro i tassi come causa.",
+  "rimedio": "lettura con i prezzi"
+ },
+ {
+  "id": "R13",
+  "esito": "non_regge",
+  "nota": "Il dollaro forte contro EUR/USD +0,01% nella seduta, detto fermo nella frase dopo.",
+  "rimedio": "lettura con i prezzi"
+ },
+ {
+  "id": "R14",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R15",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R16",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R17",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R18",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R19",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R20",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R21",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R22",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R23",
+  "esito": "regge",
+  "nota": "",
+  "rimedio": ""
+ },
+ {
+  "id": "R24",
+  "esito": "non_regge",
+  "nota": "Dollaro e tassi non si sono mossi nel verso detto: EUR/USD fermo, 10 anni -12 pb; resta solo la vendita per fare cassa, che i prezzi sostengono (tutto giù, Treasury su).",
+  "rimedio": "lettura con i prezzi"
+ }
+]

@@ -25,6 +25,8 @@ AVVISO: sigle definite tra parentesi (§3.4: la cosa si dice in parole dentro la
 [ok] Contenuti (estremi, perché, anomalie...): Contenuti: 0 errori, 2 avvisi
 AVVISO: grafici: "Il Brent perde un quinto dal massimo del 23 ottobre" ripete un grafico della #027: cambia taglio (periodo, confronto, soglia) o scegli un altro grafico che provi la tesi
 AVVISO: grafici: "L'oro cade di oltre 400 dollari dal 9 novembre" ripete un grafico della #027: cambia taglio (periodo, confronto, soglia) o scegli un altro grafico che provi la tesi
+[ROSSO] Coerenza (testo contro dati):
+ERRORE: ragionamento: manca coerenza_incarico.json: lo scrive controlli_tutti.sh --prima-della-revisione
 [ok] Ripetizioni: Ripetizioni: punteggio 6 (6 cifre in 2+ sezioni)
 AVVISO: 1,43% in 2 sezioni: APPROFONDIMENTO EUROPA, TOP STORY
 AVVISO: 10% in 2 sezioni: APPROFONDIMENTO MATERIE PRIME, APPROFONDIMENTO TECNOLOGIA
@@ -33,4 +35,4 @@ AVVISO: 489,19$ in 2 sezioni: APPROFONDIMENTO TECNOLOGIA, TOP NEWS
 AVVISO: 5,1% in 2 sezioni: APPROFONDIMENTO EUROPA, TOP STORY
 AVVISO: eco "liquidità altri titoli settore" in 2 punti
 [ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
-ESITO: ERRORI in Fatti Numeri contro dati.json Scrittura (→, cause, sigle, ritmo) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia
+ESITO: ERRORI in Fatti Numeri contro dati.json Scrittura (→, cause, sigle, ritmo) Coerenza (testo contro dati) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia
