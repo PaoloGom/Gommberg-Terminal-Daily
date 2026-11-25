@@ -3,7 +3,7 @@
 Non fa parte del giornale e non può fermare l'uscita: esce sempre con 0 e non lancia mai eccezioni. Nessuna chiamata a
 modelli o alla rete: costa zero token.
 
-Due file in pannello/:
+Tre file in pannello/ (più invii.json, di dem.py):
   registro.json   una riga per edizione, scritta da pubblica.sh. Operatività: avvio, uscita ("ora"), durata. Lavoro:
                   schede dei fatti, fonti citate, ricerche. Qualità: le misure di misure.py (parole, parole per frase "fr",
                   quota di frasi oltre 30 parole "lunghe", gergo, quota di schede con fonte primaria "prim" e di livello 1
@@ -16,7 +16,12 @@ Due file in pannello/:
                   ("aperte", anche quelle poi non citate) e quelle non raggiunte ("fallite", il numero, e
                   "fallite_siti", quali e perché: negata, limite, errore).
   taratura.json   le letture vere della pagina Utilizzo dell'app: quanti punti del limite settimanale sono costati quanti
-                  minuti di attività, su quale piano. Da qui il tasso con cui la pagina stima i punti del piano.
+                  minuti di attività, su quale piano. Da qui il tasso con cui la pagina stima i punti di quel piano.
+  piani.json      a mano, non lo scrive questo file: i piani di Claude in uso, ognuno con "piano" (il nome, lo stesso delle
+                  letture di taratura), "dal" (inizio, AAAA-MM-GGTHH:MM ora di Roma; assente nel primo) e "azzeramento"
+                  ({giorno, ora, da_confermare}: dato per chi lo usa, la pagina non lo mostra). Un'edizione è rapportata al
+                  piano in vigore quando è uscita; un piano senza letture di taratura mostra i token e il rapporto "in
+                  taratura". Cambiare piano = una riga in più, mai una modifica alla pagina.
 
 Uso:
   pannello.py --indici <N> <AAAA-MM-GG> [fatti.json]             riga dell'edizione appena pubblicata (lo chiama pubblica.sh)
@@ -239,6 +244,9 @@ def storico():
 
 
 def taratura(punti, minuti, piano, nota, giorno=None):
+    nomi = [x.get("piano") for x in carica("piani.json")]
+    if nomi and piano not in nomi:                   # una lettura su un piano che piani.json non conosce la pagina non la userebbe
+        raise ValueError(f"piano '{piano}' non in pannello/piani.json ({', '.join(map(str, nomi))})")
     riga = {"giorno": giorno or dt.datetime.now(ROMA).date().isoformat(), "piano": piano, "punti": float(punti),
             "durata_min": float(minuti), "nota": nota}
     if riga["punti"] <= 0 or riga["durata_min"] <= 0:
