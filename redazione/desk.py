@@ -88,7 +88,11 @@ NUM = re.compile(r"\d+(?:[.,]\d+)*")
 RIMANDO = re.compile(r"\[\[\w+\]\]")
 # Una cifra con la sua unità (o col segno): è di qualcuno, e la riscrittura non può dargliene un altro (G-45: nella prova
 # del 23/11 "il listino tecnologico di Hong Kong (-3,8%)" era diventato "Hong Kong perde il 3,8%", con l'Hang Seng a -1,9%).
-CIFRA = re.compile(r"([+\-−]?)(\d+(?:[.,]\d+)*)\s?(%|pb\b|punti|\$|dollari|euro|miliardi|milioni)")
+# Conta come cifra anche un livello senza unità, cioè un numero con la virgola o col punto delle migliaia ("il Nikkei a
+# 57.011", "l'euro a 1,08"): scambiarli tra due mercati è lo stesso errore (secondo collaudo del 25/11). Gli interi nudi
+# restano parti di un nome ("Nasdaq 100", "il Bund a 10 anni", "dal 2021").
+CIFRA = re.compile(r"([+\-−]?)(\d+(?:[.,]\d+)*)(?:\s?(%|pb\b|punti|\$|dollari|euro|miliardi|milioni)|(?<=\d[.,]\d)(?![\d.,]\d)|"
+                   r"(?<=\d[.,]\d\d)(?![\d.,]\d)|(?<=\d[.,]\d\d\d)(?![\d.,]\d))")
 
 # ---------------------------------------------------------------- di chi è una cifra (G-45, rifatta il 25/11/2026)
 # Non si ricostruisce la sintassi (due versioni a catena di parole sbagliavano ai bordi nei due sensi): si guarda il nome
@@ -117,7 +121,7 @@ CONFINI = set("mentre ma però perché dove quando se poiché invece cioè".spli
 MISURA = re.compile(r"^(?:azion[ei]|titol[oi]|indic[ei]|compart[oi]|settor[ei]|rialz[oi]|ribass[oi]|cal[oi]|rimbalz[oi]|"
                     r"croll[oi]|aument[oi]|crescita|salita|discesa|perdit[ae]|"
                     r"guadagn[oi]|bals[oi]|flession[ei]|progress[oi]|cadut[ae]|tonf[oi]|risalita|recuper[oi]|variazion[ei]|"
-                    r"rendiment[oi]|prezz[oi]|quotazion[ei]|valor[ei]|livell[oi]|seduta|giornata)$")
+                    r"rendiment[oi]|prezz[oi]|quotazion[ei]|valor[ei]|livell[oi]|seduta|giornata|cambi[oi])$")
 # verbi (anche congiuntivo, futuro, participio): chiudono il gruppo del soggetto
 VERBI = re.compile(r"^(?:(?:perd|cal|scend|ced|guadagn|crol|risal|rimbalz|arretr|chiud|avanz|cresc|tocc|segn|lasc|pes|"
                    r"tras?cin|spin|frena|sostien|rest|pass|port|registr|vol|torn|affond|scivol|ripieg|fless|recuper|"
@@ -126,33 +130,78 @@ VERBI = re.compile(r"^(?:(?:perd|cal|scend|ced|guadagn|crol|risal|rimbalz|arretr
                    r"pers[oaie]|sces[oaie]|fanno|fa|ha|hanno|è|sono|era|erano|sarà|vale|valgono|rende|rendono|supera|"
                    r"superano)$")
 # unità di misura dopo una cifra: non sono un proprietario ("sale di 5 pb al 2,71%")
-UNITA = set("pb punti base dollari euro miliardi milioni cento".split())
+UNITA = set("pb punti base dollari euro miliardi milioni cento % $".split())
 STOP = {",", ";", ":", ".", "?", "!"}
+# Il proprietario di una cifra è un gruppo nominale la cui testa non è un complemento di un verbo, un participio o un'altra
+# cifra (secondo collaudo del 25/11). Per riconoscerli servono gli ausiliari, la forma del participio e il complemento
+# d'agente: "Hong Kong è affossato dalle strette USA: -3,8%" è di Hong Kong, "Il 3,8% perso da Hong Kong" anche.
+AUSILIARI = set("è sono era erano sarà saranno stato stata stati state viene vengono venuto venuta ha hanno aveva avevano "
+                "si".split())
+PARTICIPIO = re.compile(r"^[a-zà-ù]{2,}(?:at|it|ut)[oaie]$|^[a-zà-ù]*(?:pers|sces|mess|chius|spint|pres|tolt|vist|"
+                        r"fatt|rott|cors|mos)[oaie]$")
+AGENTE = set("da dal dalla dallo dai dagli dalle dall".split())
+# un'altra cifra legata da una di queste parole è il termine di paragone, e fa parte di chi è la cifra ("Il Nikkei recupera
+# l'1% dopo il -3% di ieri": il -3% è quello di ieri); legata da una virgola o da "a" è la stessa cosa detta in un'altra
+# misura, e non conta ("rende il 2,31%, 4 punti base in meno", "sale del 3% a 140 dollari")
+RELAZIONE = set("dopo prima contro rispetto dal dalla dai da sopra sotto oltre".split())
+LAVORO_MAX = 60        # cifre guardate per campo: oltre, il campo non è un testo dell'edizione e si respinge
 
 
 def _parole(t):
     """Le parole del testo con la maiuscola com'è (serve a riconoscere i nomi propri)."""
     t = re.sub(r"<[^>]+>|\[\[\w+\]\]", " ", t).replace("'", " ").replace("’", " ")
-    return re.findall(r"[A-Za-zÀ-ÿ&]+|[(),;:.?!]|\d+(?:[.,]\d+)*", t)
+    return re.findall(r"[A-Za-zÀ-ÿ&]+|[(),;:.?!%$]|\d+(?:[.,]\d+)*", t)
+
+
+def _livello(w):
+    """Un numero con la virgola o col punto delle migliaia: è una cifra anche senza unità (un intero nudo è un nome)."""
+    return bool(re.fullmatch(r"\d+(?:[.,]\d+)+", w))
+
+
+def _verbale(pp, k):
+    """pp[k] è un verbo, un ausiliare o un participio (questo solo se viene dopo un ausiliare o prima di un "da": "è
+    affossato dalle strette", e non "il mercato del lavoro")."""
+    lw = pp[k].lower()
+    if (VERBI.match(lw) and not MISURA.match(lw)) or lw in AUSILIARI:
+        return True
+    if PARTICIPIO.match(lw):
+        dopo = pp[k + 1].lower() if k + 1 < len(pp) else ""
+        prima = pp[k - 1].lower() if k > 0 else ""
+        return dopo in AGENTE or prima in AUSILIARI or prima in ("è", "sono", "ha", "hanno")
+    return False
 
 
 def _radice(w):
-    w = w.lower()
+    w = w.lower().lstrip("§")
     return w[:5] if len(w) > 6 else (re.sub(r"[aeiouhàèéìòù]+$", "", w) or w)
 
 
 def _piena(w):
     lw = w.lower()
     return lw not in LEGAMI and lw not in CONFINI and not lw[0].isdigit() and not MISURA.match(lw) and \
-        not VERBI.match(lw) and lw != "che" and lw not in STOP and lw not in "()"
+        not VERBI.match(lw) and lw != "che" and lw not in STOP and lw[0] not in "()%$&§"
 
 
 def _prima(pp):
     """Il gruppo del proprietario risalendo dalla cifra: le parole (in ordine) fino all'articolo che lo apre, al verbo o alla
     punteggiatura. Un verbo subito prima della cifra ("Hong Kong perde il 3,8%") si salta; "X, che perde il 3,8%" porta a X;
-    "il rame e l'argento" e "DRAM e NAND" sono un soggetto solo; una parentesi già chiusa è un inciso e si salta."""
+    "il rame e l'argento" e "DRAM e NAND" sono un soggetto solo; una parentesi già chiusa è un inciso e si salta.
+    Non sono proprietari (si saltano e si risale): un'altra cifra con la sua unità e la sua coda ("tocca i 9.800 dollari a
+    tonnellata, +2,2%"; "rende il 2,31%, 4 punti base in meno") e, quando la cifra sta dopo i due punti o la virgola, il
+    complemento del verbo ("Hong Kong cede alle strette americane: -3,8%", "...è affossato dalle strette USA: -3,8%")."""
     out, k, piene, rel, coord = [], len(pp) - 1, 0, False, None
+    staccata = bool(pp) and pp[-1] in (":", ",")
+
+    def salta_verbo(k):
+        while k >= 0 and (_verbale(pp, k) or pp[k].lower() in AUSILIARI or pp[k].lower() in ("non", "ne")):
+            k -= 1
+        return k
+
+    lavoro = 0
     while k >= 0:
+        lavoro += 1
+        if lavoro > 400:
+            break
         w = pp[k]; lw = w.lower()
         if lw == ")":
             while k >= 0 and pp[k] != "(":
@@ -161,6 +210,8 @@ def _prima(pp):
         if lw == "(":
             k -= 1; continue
         if lw in STOP:
+            if not piene and lw in (":", ",") and not rel:
+                staccata = True                             # la cifra non è attaccata al gruppo che si troverà prima
             # "...di Hong Kong: -3,8%" e "Milano, che perde": la punteggiatura subito prima non chiude il gruppo
             if not piene and (lw == ":" or rel):
                 k -= 1; continue
@@ -194,15 +245,34 @@ def _prima(pp):
             if piene:
                 break
             k -= 1; continue
-        if lw in UNITA and k > 0 and (pp[k - 1][0].isdigit() or pp[k - 1].lower() in UNITA):
+        altra = _livello(w) or (lw in UNITA and k > 0 and (pp[k - 1][0].isdigit() or pp[k - 1].lower() in UNITA))
+        if altra:
+            # un'altra cifra con la sua unità: non è un nome. Se quello che si è raccolto comincia con una preposizione è la
+            # sua coda ("i 9.800 dollari a tonnellata"): si butta, e si risale al soggetto
+            if piene and not (out and out[0].lower() in PREPOSIZIONI):
+                break
+            if piene:
+                out, piene = [], 0
+            elif any(x.lower() in RELAZIONE for x in out):
+                out.insert(0, "§" + next((x for x in pp[max(0, k - 3):k + 1][::-1] if x[0].isdigit()), ""))
             k -= 1
             while k >= 0 and (pp[k][0].isdigit() or pp[k].lower() in UNITA):
-                k -= 1                                      # un'altra cifra con la sua unità: non è un nome
+                k -= 1
             continue
         if lw in ARTICOLI and piene:
             if k > 1 and pp[k - 1].lower() in COORD and _piena(pp[k - 2]):
                 out.insert(0, w); k -= 1; coord = len(out); continue    # "il rame e l'argento"
+            if staccata and k > 1 and pp[k - 1].lower() in PREPOSIZIONI and _verbale(pp, k - 2):
+                out, piene = [], 0                          # "cede per le strette americane: -3,8%": complemento
+                k = salta_verbo(k - 2); continue
+            j = k - 2 if k > 1 and pp[k - 1].lower() in PREPOSIZIONI else k - 1
+            if staccata and j >= 0 and (_livello(pp[j]) or (pp[j].lower() in UNITA and j > 0 and pp[j - 1][0].isdigit())):
+                out, piene = [], 0                          # "resta a 51,7 per l'area euro, sotto il 51,9", "52 dollari
+                k = j; continue                             # l'oncia, +3,1%": la coda di un'altra cifra
             out.insert(0, w); break
+        if lw in PREPOSIZIONI and piene and staccata and k > 0 and _verbale(pp, k - 1):
+            out, piene = [], 0                              # "cede alle strette americane: -3,8%": complemento
+            k = salta_verbo(k - 1); continue
         if lw in COORD and piene:
             dopo = pp[k + 1] if k + 1 < len(pp) else ""
             if not (dopo.lower() in ARTICOLI or dopo[:1].isupper()):
@@ -215,7 +285,15 @@ def _prima(pp):
 
 def _dopo(pp):
     """Quando la cifra apre la frase ("-3,8% per il listino tecnologico di Hong Kong", "Il 3,8% perso dal listino..."): il
-    proprietario è il gruppo che segue, fino alla punteggiatura o al verbo."""
+    proprietario è il gruppo che segue, fino alla punteggiatura o al verbo. Se la cifra è seguita da un participio o da un
+    ausiliare ("Il 3,8% lasciato sul terreno da Hong Kong", "Il 3,8% è stato perso da Hong Kong") il proprietario è il
+    complemento d'agente."""
+    if pp and (_verbale(pp, 0) or pp[0].lower() in AUSILIARI or PARTICIPIO.match(pp[0].lower())):
+        for j, w in enumerate(pp[:15]):
+            if w in STOP:
+                break
+            if w.lower() in AGENTE:
+                return _dopo(pp[j + 1:])
     out = []
     for w in pp:
         lw = w.lower()
@@ -248,9 +326,16 @@ def testa(g):
             if not _piena(w):
                 continue
             iniziata = True
+        cifra = lambda j: j < len(g) and g[j][0].isdigit() and (_livello(g[j]) or (j + 1 < len(g) and g[j + 1].lower() in UNITA))
+        if lw[0] == "§":
+            numeri.append(lw[1:]); continue                 # il termine di paragone
         if lw[0].isdigit():
-            numeri.append(lw); continue
-        if lw in PREPOSIZIONI and i + 1 < len(g) and g[i + 1][0].isdigit():
+            if not cifra(i):
+                numeri.append(lw)                           # "a 10 anni" è nel nome, "il 2,31" è un'altra cifra
+            continue
+        if lw in UNITA and i and g[i - 1][0].isdigit():
+            continue
+        if lw in PREPOSIZIONI and i + 1 < len(g) and g[i + 1][0].isdigit() and not cifra(i + 1):
             continue
         if lw in PREPOSIZIONI or lw == "che" or lw in CONFINI or lw in STOP:
             break
@@ -278,6 +363,10 @@ def cambia_soggetto(orig, nuovo):
             continue
         g_ora = proprietario(nuovo, m)
         frase = {_radice(w) for w in (g_ora if any(_piena(w) for w in g_ora) else _parole(_frase(nuovo, m)))}
+        if not m.group(3):
+            # un livello senza unità prende per unità il nome che lo segue: "scende a 129.902 immatricolazioni"
+            dopo = _parole(nuovo[m.end():])[:1]
+            frase |= {_radice(w) for w in dopo if _piena(w)}
         teste = [testa(g) for g in prima]
         if all(h - frase for h in teste):
             persa = sorted(min((h - frase for h in teste), key=len))
@@ -313,11 +402,37 @@ def _nomi(t, tutti=False):
     return {x.rstrip(".-'’") for x in nomi} - {""}
 
 
+def cifra_tolta(orig, nuovo, altri):
+    """Una cifra dell'originale che non sta né nella riscrittura né in un altro campo, o None. ISTRUZIONI §4 punto 8: il
+    desk lavora "senza cifre, nomi, fonti o fatti nuovi, e senza spostarne o toglierne", e gli echi si tolgono: una cifra
+    detta anche altrove può sparire, una che c'è solo qui no ("Il Bund rende il 2,3% dopo l'asta" -> "Il Bund sale dopo
+    l'asta"). Un'eco può essere arrotondata: il -6,16% del Kospi tolto dal sommario resta nel "Seul perde il 6%" del
+    titolo, i "92 dollari" del petrolio nei 91,40 del Brent (riscritture vere del 25/11): vale chi sta entro il 3%."""
+    def valore(x):
+        try:
+            return float(re.sub(r"\.(?=\d{3}\b)", "", x).replace(",", "."))
+        except ValueError:
+            return None
+    resta = [v for v in map(valore, NUM.findall(nuovo) + NUM.findall(altri)) if v is not None]
+    for m in CIFRA.finditer(orig):
+        v = valore(m.group(2))
+        if v is not None and not any(abs(v - r) <= 0.03 * max(abs(v), 1e-9) for r in resta):
+            return m.group(0).strip()
+    return None
+
+
 def controlla(orig, nuovo, tutto, campo="", altri=""):
     """Motivo del rifiuto, o None se la riscrittura è accettata. altri = il testo degli altri campi dell'edizione."""
-    if isinstance(nuovo, str) and not nuovo.strip() and campo.endswith(".numero"):
-        return None   # un "numero" che ripete il resto si toglie
-    if not isinstance(nuovo, str) or not nuovo.strip():
+    if not isinstance(orig, str) or not isinstance(nuovo, str) or not isinstance(campo, str) or \
+            not isinstance(altri, str):
+        return "proposta malformata (testo e campo devono essere stringhe)"
+    if len(CIFRA.findall(nuovo)) > LAVORO_MAX or len(nuovo) > 4 * len(orig) + 200:
+        return "proposta fuori misura per un campo dell'edizione"
+    if not nuovo.strip() and campo.endswith(".numero"):
+        # un "numero" che ripete il resto si toglie, ma solo se è davvero un'eco
+        tolta = cifra_tolta(orig, nuovo, altri)
+        return f"toglie la cifra {tolta}, che nessun altro campo dice: il desk toglie echi, non fatti" if tolta else None
+    if not nuovo.strip():
         return "vuota"
     extra = set(NUM.findall(nuovo)) - set(NUM.findall(orig))
     if extra:
@@ -335,6 +450,9 @@ def controlla(orig, nuovo, tutto, campo="", altri=""):
     motivo = cambia_soggetto(orig, nuovo)
     if motivo:
         return motivo
+    tolta = cifra_tolta(orig, nuovo, altri)
+    if tolta:
+        return f"toglie la cifra {tolta}, che nessun altro campo dice: il desk toglie echi, non fatti"
     tolta = frase_tolta(orig, nuovo, altri)
     if tolta:
         return f"toglie un fatto che nessun altro campo dice (\"{tolta}...\"): il desk toglie echi, non fatti"
@@ -397,17 +515,30 @@ if __name__ == "__main__":
         tutto = set().union(*[_nomi(v) for v in attuali.values()])
         M = _mercati_del_giorno(cart)
         ok, no = [], []
-        for e in json.load(open(PRO, encoding="utf-8")) if os.path.exists(PRO) else []:
-            orig = attuali.get(e.get("campo"))
-            if orig is None:
-                no.append((e.get("campo"), "campo inesistente")); continue
-            if e.get("testo") == orig:
-                continue
-            altri = " ".join(v for k, v in attuali.items() if k != e["campo"])
-            motivo = controlla(orig, e.get("testo"), tutto, e["campo"], altri) or \
-                coerenza_peggiora(C, e["campo"], e["testo"], M)
-            (no.append((e["campo"], motivo)) if motivo else ok.append({"campo": e["campo"], "originale": orig,
-                                                                         "testo": e["testo"]}))
+        try:
+            proposta = json.load(open(PRO, encoding="utf-8")) if os.path.exists(PRO) else []
+        except (OSError, ValueError) as x:
+            proposta, _ = [], no.append(("(tutta la proposta)", f"non si legge ({str(x)[:80]})"))
+        if not isinstance(proposta, list):
+            proposta, _ = [], no.append(("(tutta la proposta)", "non è un elenco di {\"campo\", \"testo\"}"))
+        # una proposta malformata (un elemento che non è un oggetto, un campo che non è una stringa) o un errore del
+        # controllo si respinge come le altre: il desk non blocca mai, e verifica non esce con una traceback
+        for e in proposta:
+            campo = e.get("campo") if isinstance(e, dict) else None
+            try:
+                if not isinstance(campo, str) or not isinstance(e.get("testo"), str):
+                    no.append((str(campo if campo is not None else e)[:40], "proposta malformata (campo e testo stringhe)"))
+                    continue
+                orig = attuali.get(campo)
+                if orig is None:
+                    no.append((campo, "campo inesistente")); continue
+                if e["testo"] == orig:
+                    continue
+                altri = " ".join(v for k, v in attuali.items() if k != campo)
+                motivo = controlla(orig, e["testo"], tutto, campo, altri) or coerenza_peggiora(C, campo, e["testo"], M)
+            except Exception as x:  # noqa: BLE001 - un controllo che si rompe respinge, non ferma l'edizione
+                motivo = f"controllo non riuscito ({type(x).__name__}): resta com'era"
+            (no.append((campo, motivo)) if motivo else ok.append({"campo": campo, "originale": orig, "testo": e["testo"]}))
         json.dump(ok, open(OK, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         print(f"Desk: {len(ok)} riscritture accettate, {len(no)} respinte (restano com'erano)")
         for c, m in no:
