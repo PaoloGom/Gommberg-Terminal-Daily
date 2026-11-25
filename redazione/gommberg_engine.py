@@ -110,12 +110,9 @@ GIORNI = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato",
 EDIZIONE_1 = __import__("datetime").date(2026, 10, 12)   # n. 001 = lunedì 12 ottobre 2026
 
 
-# Giorni senza edizione: borse USA ed europee chiuse insieme (Natale, Capodanno, Venerdì Santo; la vigilia di Natale
-# quando NYSE osserva il Natale di sabato). Non contano nella numerazione. FESTIVI_FINO: fin dove l'elenco (e le chiusure
-# parziali di prepara.sh) è verificato sui calendari ufficiali; a dicembre prepara.sh lo ricorda finché non copre tutto
-# l'anno dopo (APP_FESTIVI.md §4). Verificato il 23/11/2026 su NYSE (2026-2028) ed Eurex/Xetra (2027).
-FESTIVI = {"2026-12-25", "2027-01-01", "2027-03-26", "2027-12-24", "2028-04-14"}
-FESTIVI_FINO = "2027-12-31"
+# Giorni senza edizione: borse USA ed europee chiuse insieme (Natale, Capodanno, Venerdì Santo).
+# Non contano nella numerazione. Aggiornare ogni anno (vedi ISTRUZIONI, paragrafo 6, punto 0).
+FESTIVI = {"2026-12-25", "2027-01-01", "2027-03-26", "2028-04-14"}
 
 
 def giorno_di_uscita(d):
