@@ -17,7 +17,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Impara: manuale di parole e meccanismi. Stessi colori, caratteri e testata del sito (index.html) e del PDF. Testi in redazione/glossario_sito.json. */
+/* Impara: manuale di parole e meccanismi. Stessi colori, caratteri e testata del sito (index.html) e del PDF. Testi in redazione/glossario_sito.json;
+   le parole spiegate dalle edizioni arrivano da dati/parole.json (redazione/impara.py, G-54). */
 :root {
   --paper: #FBFAF8; --ink: #141414; --muted: #5E5A55; --rule: #DEDAD4; --panel: #F1EEE9;
   --orange: #F26B1D; --orange-ink: #B84A0C; --bar: #0E0E0E; --bar-rule: #333; --bar-ink: #F5F3EF; --bar-muted: #A39C93;
@@ -269,7 +270,8 @@ main { padding-block: 34px 24px; display: grid; grid-template-columns: minmax(0,
     "Borse": "M4 19V9m6 10V5m6 14v-8m4 8H2",
     "Valute": "M7 7h13l-3-3m3 3l-3 3M17 17H4l3-3m-3 3l3 3",
     "Energia e materie prime": "M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z",
-    "Commercio": "M3 7l9-4 9 4-9 4-9-4zm0 0v10l9 4 9-4V7M12 11v10"
+    "Commercio": "M3 7l9-4 9 4-9 4-9-4zm0 0v10l9 4 9-4V7M12 11v10",
+    "Dalle edizioni": "M5 4h11v16H6a1 1 0 01-1-1V4zm11 5h3v10a1 1 0 01-1 1h-2M8 8h5M8 12h5M8 16h3"
   };
   const ico = (k) => '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="' + (IC[k] || IC["Indici"]) + '"/></svg>';
 
@@ -278,8 +280,9 @@ main { padding-block: 34px 24px; display: grid; grid-template-columns: minmax(0,
     fetch("redazione/meccanismi.json", { cache: "no-store" }).then(ok),
     fetch("redazione/glossario_sito.json", { cache: "no-store" }).then(ok).catch(() => ({})),
     fetch("dati/storico.json", { cache: "no-store" }).then(ok).catch(() => []),
-    fetch("e/pagine.json", { cache: "no-store" }).then(ok).catch(() => [])
-  ]).then(([G, M, S, E, P]) => {
+    fetch("e/pagine.json", { cache: "no-store" }).then(ok).catch(() => []),
+    fetch("dati/parole.json", { cache: "no-store" }).then(ok).catch(() => ({}))
+  ]).then(([G, M, S, E, P, W]) => {
     const pagine = new Set(Array.isArray(P) ? P : []);
     const eds = (Array.isArray(E) ? E : []).filter((e) => e && e.numero && e.data).sort((a, b) => b.numero - a.numero);
     const link = (e) => pagine.has(e.numero) ? "e/" + pad(e.numero) + ".html" : "./?n=" + e.numero;
@@ -295,25 +298,33 @@ main { padding-block: 34px 24px; display: grid; grid-template-columns: minmax(0,
     const base0 = (G.voci || []).filter((v) => v && v.sigla && v.breve);
     const note = new Set(base0.map((v) => v.sigla));
     const extra = Object.keys(SV).filter((k) => !note.has(k) && SV[k].breve).map((k) => ({ sigla: k, breve: SV[k].breve }));
+    // le parole spiegate dalle edizioni (dati/parole.json): una scheda scritta a mano vince sempre
+    const WT = (W && W.tipo) || "Dalle edizioni", AL = (W && W.alias) || {};
+    const scritte = new Set(base0.concat(extra).map((v) => fold(v.sigla)));
+    const dalGiornale = ((W && W.voci) || []).filter((v) => v && v.sigla && v.breve && v.spiega && !scritte.has(fold(v.sigla)));
     const gv = base0.concat(extra).map((v) => {
       const s = SV[v.sigla] || {};
       return { id: ancora(v.sigla), sigla: v.sigla, titolo: s.titolo || v.sigla, esteso: s.esteso || "", tipo: s.tipo || "", breve: v.breve,
         spiega: s.spiega || "", esempio: s.esempio || "", borsa: s.borsa || "", mecc: s.mecc || "", fonte: s.fonte || null, varianti: v.varianti || [] };
-    }).sort((a, b) => fold(a.sigla).localeCompare(fold(b.sigla), "it"));
-    const TIPI = (S.tipi && S.tipi.length ? S.tipi : [...new Set(gv.map((v) => v.tipo).filter(Boolean))]);
+    }).concat(dalGiornale.map((v) => ({ id: ancora(v.sigla), sigla: v.sigla, titolo: v.sigla, esteso: (v.varianti || []).join(" · "), tipo: WT,
+        breve: v.breve, spiega: v.spiega, esempio: "", borsa: "", mecc: "", fonte: null, varianti: v.varianti || [] })))
+      .sort((a, b) => fold(a.sigla).localeCompare(fold(b.sigla), "it"));
+    const TIPI = (S.tipi && S.tipi.length ? S.tipi : [...new Set(gv.map((v) => v.tipo).filter(Boolean))]).concat(dalGiornale.length ? [WT] : []);
     const gById = new Map(gv.map((v) => [v.id, v]));
     const mById = new Map(mv.map((m) => [m.id, m]));
     const perSigla = new Map(gv.map((v) => [fold(v.sigla), v]));
-    const usoG = (s) => eds.filter((e) => (e.glossario || []).some((x) => fold(x) === fold(s)) || (e.parole || []).some((x) => fold(x).split(" (")[0] === fold(s)));
+    const verso = (x) => fold(AL[x] || AL[String(x).split(" (")[0]] || String(x).split(" (")[0]);   // la parola dell'edizione -> la voce di Impara
+    const usoG = (s) => eds.filter((e) => (e.glossario || []).some((x) => fold(x) === fold(s)) || (e.parole || []).some((x) => verso(x) === fold(s)));
     const usoM = (id) => eds.filter((e) => (e.meccanismi || []).includes(id));
     const figli = (id) => gv.filter((x) => x.mecc === id);
     const lettera = (v) => { const c = fold(v.sigla).replace(/[^a-z0-9]/g, "")[0] || "#"; return /[a-z]/.test(c) ? c.toUpperCase() : "#"; };
-    const BASE = ["Rendimento", "pb", "spread", "Curva dei rendimenti", "Fed", "BCE", "future", "ETF"].map((k) => perSigla.get(fold(k))).filter(Boolean);
+    // otto parole che tornano davvero ogni mattina (le contano i PDF: cruscotto, tassi, petrolio, volatilità)
+    const BASE = ["Rendimento", "pb", "Curva dei rendimenti", "Fed", "future", "VIX", "Brent", "ACWI"].map((k) => perSigla.get(fold(k))).filter(Boolean);
 
     // Le parole dell'ultima edizione: un punto arancio sulle schede e una riga sotto la ricerca
     const ult = eds[0], oggi = [];
     if (ult) { const visti = new Set();
-      for (const x of (ult.glossario || []).concat(ult.parole || [])) { const v = perSigla.get(fold(String(x).split(" (")[0])); if (v && !visti.has(v.id)) { visti.add(v.id); oggi.push(v); } } }
+      for (const x of (ult.glossario || []).map((g) => fold(g)).concat((ult.parole || []).map(verso))) { const v = perSigla.get(x); if (v && !visti.has(v.id)) { visti.add(v.id); oggi.push(v); } } }
     const diOggi = new Set(oggi.map((v) => v.id));
 
     /* ---------- Schede ---------- */

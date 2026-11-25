@@ -489,6 +489,7 @@ def scrivi(path, testo):
 #   dati/indice.json   una riga breve per edizione, per l'archivio (circa 150 byte a edizione)
 #   dati/cerca.json    il testo per la ricerca, caricato solo quando si cerca
 #   dati/storico.json  per ogni edizione solo chiusure e sigle, per Le basi e I numeri
+#   dati/parole.json   le parole spiegate dalle edizioni che entrano in Impara (impara.py, chiamato da main)
 #   e/NNN.json         l'edizione completa, per aprire in homepage un numero vecchio (?n=)
 RECENTI = 12
 
@@ -583,9 +584,17 @@ def main():
     if rec:
         scrivi(os.path.join(repo, "ultima", "index.html"), ultima(rec[0]))
     dati_sito(repo, rec)
+    # Impara cresce con le edizioni (G-54): le parole già spiegate e controllate passano in dati/parole.json (impara.py).
+    # Non ferma mai la pubblicazione: se qualcosa va storto il file resta com'era e Impara pure.
+    try:
+        import impara
+        imp = f", Impara {impara.scrivi(repo)} parole dalle edizioni"
+    except Exception as e:  # noqa: BLE001
+        imp = ""
+        print(f"AVVISO: parole di Impara non aggiornate ({str(e)[:120]}): dati/parole.json resta com'era", file=sys.stderr)
     if piede_fisse(repo):
         print("Pagine fisse: piè di pagina riallineato")
-    print(f"Pagine: {len(eds)} edizioni ({cambiati} pagine aggiornate), feed.xml, ultima/, dati/")
+    print(f"Pagine: {len(eds)} edizioni ({cambiati} pagine aggiornate), feed.xml, ultima/, dati/{imp}")
 
 
 if __name__ == "__main__":
