@@ -1,0 +1,25 @@
+G-43 - Mail di conferma (proposta)
+Dove sta in Kit: Grow > Landing Pages & Forms > modulo 10193457 > Settings > Incentive > Edit email contents.
+Modello: "Gommberg" (il predefinito, con la sua testata). Dopo la conferma porta a: https://gommberg.com/benvenuto.html (resta com'è).
+
+OGGETTO
+Conferma l'iscrizione al Gommberg
+
+ANTEPRIMA (la riga accanto all'oggetto, se il campo c'è nell'editor; se non c'è, non serve)
+Un clic e l'edizione del mattino arriva nella tua casella.
+
+TESTO
+Conferma il tuo indirizzo
+
+Un clic qui sotto e l'edizione del Gommberg arriva nella tua casella ogni mattina alle 9:45, dal lunedì al venerdì.
+
+[ Confermo l'iscrizione ]
+
+Se l'iscrizione non è tua, ignora questa email: senza conferma non ricevi nulla.
+
+
+NOTE
+- Un solo compito: confermare. Niente elenco di sezioni, niente link al sito: l'unico link è il pulsante (consiglio di Kit stesso: tenerla semplice perché l'attenzione vada sul pulsante).
+- "Conferma il tuo indirizzo" è il titolo (stile Titolo 1 dell'editor); il pulsante è il blocco di conferma di Kit, nero come oggi: si cambia solo la scritta.
+- Nell'oggetto Kit non accetta i campi personalizzati (nome ecc.): qui non servono.
+- "9:45": se G-61 sposta l'uscita verso le 8, va cambiata qui, in benvenuto.html (costante ORA), nella mail di benvenuto e in iscriviti.html. Sono gli unici quattro punti del percorso.

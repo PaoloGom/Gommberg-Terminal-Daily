@@ -1053,7 +1053,101 @@ def passo_scommessa():
           "il lunedì pag. 6 stampa lo scenario del registro")
 
 
-# ---------------------------------------------------------------- 3e. mail straordinarie (G-17)
+# ---------------------------------------------------------------- 3e. newsletter: la cornice o nulla (G-15)
+def passo_newsletter():
+    """L'email del mattino parte solo con il modello "Gommberg cornice": con un Kit finto che non ce l'ha lo script esce con
+    errore e non crea nessun invio (nessun ripiego su un altro modello); con la cornice l'invio ha quel modello. Senza rete."""
+    sys.path.insert(0, R)
+    import contextlib
+    import io
+    import newsletter as NL
+    radice = os.path.dirname(R)
+    ultimo = json.load(open(os.path.join(radice, "edizioni.json"), encoding="utf-8"))[-1]["numero"]
+    ed = json.load(open(os.path.join(radice, "e", f"{int(ultimo):03d}.json"), encoding="utf-8"))
+    chiamate, vero, vera_attesa = [], NL.kit, NL.ATTESA_LETTURE
+
+    def finto(modelli):
+        def k(metodo, percorso, dati=None):
+            chiamate.append((metodo, percorso, dati))
+            if percorso == "/email_templates":
+                return 200, {"email_templates": [{"id": i, "name": n} for i, n in modelli]}
+            return 201, {"broadcast": {"id": 1, "email_template": {"name": "x"}}}
+        return k
+    male = []
+    try:
+        NL.kit = finto([(1, "Gommberg edizione"), (2, "Gommberg")])
+        try:
+            NL.crea(ed, None, prova=True)
+            male.append("senza la cornice l'invio è partito lo stesso")
+        except SystemExit as e:
+            if not str(e).startswith("ERRORE"):
+                male.append("senza la cornice l'uscita non è un errore")
+        if any(c[0] == "POST" for c in chiamate):
+            male.append("senza la cornice è stato creato un invio")
+        chiamate.clear()
+        NL.kit = finto([(1, "Gommberg edizione"), (5, "Gommberg cornice")])
+        with contextlib.redirect_stdout(io.StringIO()):
+            NL.crea(ed, None, prova=True)
+        posts = [c for c in chiamate if c[0] == "POST"]
+        if len(posts) != 1 or posts[0][2].get("email_template_id") != 5:
+            male.append("con la cornice l'invio non usa la cornice")
+        # elenco dei modelli che fallisce (guasto momentaneo di Kit): si riprova, mai si spedisce con un altro modello
+        NL.ATTESA_LETTURE = 0
+
+        def guasto(risposte):
+            coda = list(risposte)
+
+            def k(metodo, percorso, dati=None):
+                chiamate.append((metodo, percorso, dati))
+                if percorso == "/email_templates":
+                    return coda.pop(0) if len(coda) > 1 else coda[0]
+                return 201, {"broadcast": {"id": 1, "email_template": {"name": "x"}}}
+            return k
+        buono = (200, {"email_templates": [{"id": 5, "name": "Gommberg cornice"}]})
+        chiamate.clear()
+        NL.kit = guasto([(500, {}), (429, {}), buono])
+        with contextlib.redirect_stdout(io.StringIO()):
+            NL.crea(ed, None, prova=True)
+        posts = [c for c in chiamate if c[0] == "POST"]
+        if len(posts) != 1 or posts[0][2].get("email_template_id") != 5 or len([c for c in chiamate if c[0] == "GET"]) != 3:
+            male.append("elenco che fallisce due volte e poi risponde: l'invio non parte con la cornice (o l'elenco non è riletto)")
+        for nome, risposta in (("risponde sempre 500", (500, {})), ("errore di rete", (0, {"errore": "rete: timeout"}))):
+            chiamate.clear()
+            NL.kit = guasto([risposta])
+            try:
+                NL.crea(ed, None, prova=True)
+                male.append(f"elenco che {nome}: l'invio è partito lo stesso")
+            except SystemExit as e:
+                if not str(e).startswith("ERRORE: Kit non risponde"):
+                    male.append(f"elenco che {nome}: l'errore non dice che Kit non risponde ({str(e)[:60]})")
+            if any(c[0] == "POST" for c in chiamate) or len(chiamate) != NL.LETTURE:
+                male.append(f"elenco che {nome}: invio creato o tentativi diversi da {NL.LETTURE}")
+        # un errore di rete in kit() è una risposta gestita, non un traceback
+        import urllib.error
+        import urllib.request
+        vera_apertura, chiave = urllib.request.urlopen, os.environ.get("KIT_API_KEY")
+        NL.kit, os.environ["KIT_API_KEY"] = vero, "kit_prova"
+        try:
+            for errore in (urllib.error.URLError("irraggiungibile"), TimeoutError("timeout")):
+                def apri(*a, _e=errore, **k):
+                    raise _e
+                urllib.request.urlopen = apri
+                if NL.kit("GET", "/email_templates")[0] != 0:
+                    male.append(f"errore di rete ({type(errore).__name__}) in kit(): non è una risposta gestita")
+        finally:
+            urllib.request.urlopen = vera_apertura
+            if chiave is None:
+                os.environ.pop("KIT_API_KEY", None)
+            else:
+                os.environ["KIT_API_KEY"] = chiave
+    finally:
+        NL.kit = vero
+        NL.ATTESA_LETTURE = vera_attesa
+    esito("Newsletter: la cornice o nulla", not male, "; ".join(male) or "senza la cornice in Kit l'invio fallisce e non crea nulla; con la cornice la usa; "
+          "elenco che si riprende dopo due guasti: parte; elenco muto o rete caduta: 'Kit non risponde', nessun invio, nessun traceback")
+
+
+# ---------------------------------------------------------------- 3f. mail straordinarie (G-17)
 def passo_dem():
     """Le mail straordinarie: i file veri passano le regole e pannello/invii.json è allineato; le regole fermano i casi
     sbagliati, anche ai confini; il pianificatore decide la cosa giusta in ogni situazione di Kit; l'esecuzione con un Kit
@@ -1432,6 +1526,76 @@ def nuovo_campione(data):
 
 
 # ---------------------------------------------------------------- 5. sito  e  6. pubblicazione
+def problemi_piani(piani, tarature):
+    """Pannello: piani.json e taratura.json devono dire la stessa cosa alla pagina, che non dà errori ma sbaglia piano o
+    scarta punti in silenzio. Il file cambia solo a mano, dentro un rilascio: qui lo si ferma. Torna l'elenco dei guasti."""
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+    guasti, vecchio, nomi = [], None, []
+    if not isinstance(piani, list) or not piani:
+        return ["piani.json non è un elenco di piani"]
+    for i, x in enumerate(piani):
+        nome = x.get("piano") if isinstance(x, dict) else None
+        if not isinstance(nome, str) or not nome.strip():
+            guasti.append(f"piani.json, voce {i + 1}: manca il nome del piano")
+            continue
+        if nome in nomi:
+            guasti.append(f"piani.json: il piano '{nome}' compare due volte")
+        nomi.append(nome)
+        dal = x.get("dal")
+        if dal is None and i == 0:
+            continue                                        # il primo piano vale dall'inizio
+        # data e ora complete e il fuso (+01:00): "2026-11-24", "...T9:24", "...T18:00" senza fuso o con Z non passano
+        if not isinstance(dal, str) or not re.fullmatch(r"\d{4}-\d\d-\d\dT\d\d:\d\d(?::\d\d)?[+-]\d\d:\d\d", dal):
+            guasti.append(f"piani.json, '{nome}': 'dal' ({dal!r}) non è AAAA-MM-GGTHH:MM:SS+HH:MM")
+            continue
+        try:
+            t = datetime.fromisoformat(dal)
+        except ValueError:
+            guasti.append(f"piani.json, '{nome}': 'dal' ({dal!r}) è una data illeggibile")
+            continue
+        if t.utcoffset() != t.replace(tzinfo=ZoneInfo("Europe/Rome")).utcoffset():
+            guasti.append(f"piani.json, '{nome}': il fuso di 'dal' ({dal}) non è quello di Roma in quel giorno: la pagina legge le prime 16 cifre come ora di Roma")
+        if vecchio is not None and t <= vecchio:
+            guasti.append(f"piani.json, '{nome}': i piani non sono in ordine di data")
+        vecchio = t
+    for x in tarature if isinstance(tarature, list) else []:
+        if isinstance(x, dict) and x.get("piano") not in nomi and not x.get("escluso"):
+            guasti.append(f"taratura.json: lettura del {x.get('giorno')} sul piano '{x.get('piano')}', che piani.json non conosce "
+                          f"(correggi l'etichetta, o dichiara \"escluso\" con il motivo)")
+    return guasti
+
+
+def passo_pannello():
+    """I file veri e i casi sbagliati: ognuno dev'essere fermato."""
+    male = []
+    try:
+        piani = json.load(open(os.path.join(REPO, "pannello", "piani.json"), encoding="utf-8"))
+        tarature = json.load(open(os.path.join(REPO, "pannello", "taratura.json"), encoding="utf-8"))
+        male += problemi_piani(piani, tarature)
+    except (OSError, ValueError) as e:      # file mancante o JSON rotto
+        male.append(f"pannello/piani.json o taratura.json: {e}"[:160])
+    pro = {"piano": "Pro"}
+    max5 = {"piano": "Max 5x", "dal": "2026-11-24T18:00:00+01:00"}
+    sbagliati = [("senza nome", [pro, {"dal": "2026-11-24T18:00:00+01:00"}], []),
+                 ("ora senza zero", [pro, dict(max5, dal="2026-11-24T9:24:00+01:00")], []),
+                 ("senza fuso", [pro, dict(max5, dal="2026-11-24T18:00")], []),
+                 ("solo la data", [pro, dict(max5, dal="2026-11-24")], []),
+                 ("data impossibile", [pro, dict(max5, dal="2026-13-45T18:00:00+01:00")], []),
+                 ("fuso d'estate sbagliato", [pro, dict(max5, dal="2026-07-01T18:00:00+01:00")], []),
+                 ("fuori ordine", [pro, max5, {"piano": "Max 20x", "dal": "2026-11-20T18:00:00+01:00"}], []),
+                 ("il secondo senza 'dal'", [pro, {"piano": "Max 5x"}], []),
+                 ("lettura di un piano ignoto", [pro, max5], [{"giorno": "2026-11-15", "piano": "Max", "punti": 1, "durata_min": 1}]),
+                 ("non è un elenco", {"piano": "Pro"}, [])]
+    for nome, p, t in sbagliati:
+        if not problemi_piani(p, t):
+            male.append(f"piani.json: il caso '{nome}' non è fermato")
+    if problemi_piani([pro, max5], [{"giorno": "2026-11-15", "piano": "Max", "punti": 1, "durata_min": 1, "escluso": "motivo"}]):
+        male.append("taratura.json: una lettura dichiarata 'escluso' non deve fermare il rilascio")
+    esito("Pannello: piani e taratura", not male, "; ".join(male)[:400] or
+          f"piani.json valido (nome, 'dal' con il fuso di Roma, in ordine), ogni lettura di taratura.json su un piano noto o dichiarata esclusa; {len(sbagliati) + 1} casi sbagliati fermati")
+
+
 def passo_sito():
     copia = os.path.join(TMP, "sito")
     shutil.copytree(REPO, copia, ignore=shutil.ignore_patterns(".git", "__pycache__", "node_modules"))
@@ -1695,8 +1859,10 @@ def main():
         passo_dati()
         passo_tabelle()
         passo_scommessa()
+        passo_newsletter()
         passo_dem()
         passo_rete()
+        passo_pannello()
         copia = passo_sito()
         if isinstance(copia, str):
             passo_lettori(copia)
