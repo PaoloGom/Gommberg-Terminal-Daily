@@ -1,0 +1,272 @@
+{
+ "oggi": "2026-11-24",
+ "ora_roma": "09:03",
+ "serie": {
+  "ACWI": {
+   "mercato": "USA",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-23",
+     148.94,
+     7348685
+    ],
+    [
+     "2026-11-20",
+     142.59,
+     5537671
+    ]
+   ]
+  },
+  "S&P 500": {
+   "mercato": "USA",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-23",
+     7237.17,
+     4245654000
+    ],
+    [
+     "2026-11-20",
+     6910.39,
+     6679680000
+    ]
+   ]
+  },
+  "Nasdaq": {
+   "mercato": "USA",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-23",
+     24089.56,
+     9701732629
+    ],
+    [
+     "2026-11-20",
+     22617.73,
+     12469600000
+    ]
+   ]
+  },
+  "Russell 2000": {
+   "mercato": "USA",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-23",
+     2669.66,
+     null
+    ],
+    [
+     "2026-11-20",
+     2581.79,
+     6679680000
+    ]
+   ]
+  },
+  "VIX": {
+   "mercato": "USA",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-23",
+     26.62,
+     null
+    ],
+    [
+     "2026-11-20",
+     35.89,
+     null
+    ]
+   ],
+   "seconda_fonte": 26.62
+  },
+  "Euro Stoxx 50": {
+   "mercato": "EU",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-23",
+     6074.47,
+     23485400
+    ],
+    [
+     "2026-11-20",
+     5941.95,
+     31142000
+    ]
+   ],
+   "fonte": "EODHD + dpa-AFX",
+   "seconda_fonte": 6074.47
+  },
+  "FTSE MIB": {
+   "mercato": "EU",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-23",
+     49021,
+     null
+    ],
+    [
+     "2026-11-20",
+     48703.72,
+     null
+    ]
+   ]
+  },
+  "Nikkei 225": {
+   "mercato": "JP",
+   "tipo": "intraday",
+   "ultimi": [
+    [
+     "2026-11-24",
+     58644.63,
+     null
+    ],
+    [
+     "2026-11-20",
+     56436.65,
+     null
+    ]
+   ],
+   "ora": "09:03",
+   "fonte": "FMP"
+  },
+  "Hang Seng": {
+   "mercato": "HK",
+   "tipo": "intraday",
+   "ultimi": [
+    [
+     "2026-11-24",
+     22194.5,
+     null
+    ],
+    [
+     "2026-11-23",
+     22383.75,
+     3452600000
+    ]
+   ],
+   "ora": "09:03",
+   "fonte": "FMP"
+  },
+  "Kospi": {
+   "mercato": "KR",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-24",
+     5006.03,
+     null
+    ],
+    [
+     "2026-11-23",
+     4708.54,
+     null
+    ]
+   ],
+   "fonte": "JKN, Aju Press",
+   "seconda_fonte": 5006.03
+  },
+  "Treasury 2 anni": {
+   "mercato": "UST",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-23",
+     4.63,
+     "curva par FMP: altre scadenze cambiate, valore identico verificato"
+    ],
+    [
+     "2026-11-20",
+     4.63,
+     null
+    ]
+   ]
+  },
+  "Treasury 10 anni": {
+   "mercato": "UST",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-23",
+     4.92,
+     "curva par FMP; 4,918 al 23/11 sul riquadro Motley Fool"
+    ],
+    [
+     "2026-11-20",
+     4.92,
+     null
+    ]
+   ]
+  },
+  "Spread Italia": {
+   "mercato": "EU",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-23",
+     107,
+     null
+    ],
+    [
+     "2026-11-20",
+     109.9,
+     null
+    ]
+   ]
+  },
+  "EUR/USD": {
+   "mercato": "FX",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-23",
+     1.0901,
+     null
+    ],
+    [
+     "2026-11-20",
+     1.0967,
+     null
+    ]
+   ]
+  },
+  "Brent future": {
+   "mercato": "COMM",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-23",
+     89.37,
+     21011
+    ],
+    [
+     "2026-11-20",
+     92.57,
+     22146
+    ]
+   ]
+  },
+  "Oro future": {
+   "mercato": "COMM",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-23",
+     3651.4,
+     257719
+    ],
+    [
+     "2026-11-20",
+     3515.4,
+     325632
+    ]
+   ]
+  }
+ },
+ "macro": []
+}

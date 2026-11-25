@@ -1,0 +1,1029 @@
+[
+ {
+  "id": "X1",
+  "sezione": "top_news",
+  "testo": "A Wall Street martedì 24 novembre 2026 l'S&P 500 ha chiuso a 7.201,09 (-0,50%), il Nasdaq Composite a 23.733,54 (-1,48%) e il Dow Jones a 50.018,70 (+0,85%); Nvidia -5,86% a 155,38 dollari (-5,9% secondo AP) dopo il +31,5% del giorno prima, e il Philadelphia Semiconductor Index -7,88% a 8.832,5 con tutti i 30 titoli in calo.",
+  "data_evento": "2026-11-24",
+  "novita": "Chiusura Usa di martedì, dopo il rally di lunedì trainato da Nvidia.",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance (StockTwits)",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/p-500-nasdaq-end-lower-001212497.html",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "optimism around Jensen Huang's reinstatement as Nvidia CEO in the previous session was quick to fizzle out",
+    "ricerca": "stocks close Nasdaq falls Nvidia drops Micron Dow rises Tuesday S&P 500 7,201.09"
+   },
+   {
+    "testata": "AP (via News4Jax)",
+    "url": "https://www.news4jax.com/business/2026/11/25/asian-stocks-mostly-decline-as-ai-shares-fall-following-a-retreat-on-wall-street/",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "heavy selling of stocks linked to artificial intelligence",
+    "ricerca": "Nikkei SoftBank Kioxia plunge Taiex Asian markets November 25 chip selloff",
+    "agenzia": "AP"
+   }
+  ],
+  "nota": "I livelli esatti di indici e SOX sono nel testo delle pagine ma non c'e' una frase letterale utile con i numeri: le citazioni riportate sono letterali ma di contesto. Yahoo/StockTwits e' sindacato di StockTwits; la tabella dell'articolo da' Dow 49.595,31 e Nasdaq 100 -2%, il ticker di pagina i valori qui usati. AP conferma S&P -0,5%, Nasdaq -1,5%, Dow +0,9%, Nvidia -5,9% dopo +31,5%.",
+  "trovato": "The S&P 500 fell 36.08 points, or 0.50%, closing at 7,201.09. The Nasdaq fell 356.02 points, or 1.48%, closing at 23,733.54. ... the Dow Jones Industrial Average rose 423.39 points, or 0.85%, closing at 50,018.70. ... NVIDIA closed down 5.86% at $155.38 ... The Philadelphia Semiconductor Index dropped 7.88% ... all 30 components of the Philadelphia Semiconductor Index fell. (AP: Nvidia fell 5.9% a day after soaring 31.5%)",
+  "verifica": "confermato",
+  "nota_revisore": "Pagina KuCoin News (aperta) + AP (news4jax) + ticker Yahoo. Tutte le cifre coincidono con il PDF. Il livello 8.832,5 dell'SOX non e' sulla pagina (ma il PDF non lo riporta). L'articolo Yahoo/StockTwits non contiene le frasi: usato solo per il ticker."
+ },
+ {
+  "id": "X2",
+  "sezione": "top_news",
+  "testo": "Martedì 24 novembre Micron ha perso circa l'11%: BNP Paribas ne ha tagliato il giudizio per i rischi sui piani di capacità del 2028 dei grandi operatori del cloud (hyperscaler)",
+  "data_evento": "2026-11-24",
+  "novita": "Downgrade e tracollo del titolo avvenuti martedì.",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/bnp-paribas-cuts-micron-rating-145304912.html",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "BNP Paribas cuts Micron rating on risks to 2028 hyperscaler capacity plans",
+    "ricerca": "Micron downgraded BNP Paribas Neutral price target 775 Ackerman shares fall"
+   },
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/market/2026/11/25/kospi-sinks-below-4700-lowest-close-since-jan-13",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Micron Technology plunged 11.0%.",
+    "ricerca": "Kospi Nov. 25 close Korea stocks Yonhap Kospi ends"
+   }
+  ],
+  "nota": "Il -10,97% e' da TradingKey (X1). StockTwits cita TheFly e non riproduce il testo BNP: la citazione e' la sintesi dell'articolo. Nessuna fonte primaria BNP letta.",
+  "trovato": "BNP Paribas downgraded Micron Technology to Neutral from Outperform on Tuesday and cut its price target to $775 from $1,700, warning that the risk of a memory chip oversupply is growing. ... growing risks to hyperscaler capacity plans in 2028 further threaten S/D fundamentals, BNP also pointed to less high-bandwidth memory (HBM) in Nvidia's Vera Rubin Ultra platform. / FinanceFeeds: Micron Technology (NASDAQ: MU) closed at $629.79 on Tuesday 24 November, down $77.91 or 11.01 percent",
+  "verifica": "confermato",
+  "nota_revisore": "Nuovo testo: downgrade BNP (Ackerman) per i rischi sui piani di capacita' 2028 degli hyperscaler (Yahoo Finance e Investing.com aperte) e Micron -11,01% martedi' 24/11 (FinanceFeeds). Il 'circa 11%' e' corretto. Rimosso il vecchio qualificatore 'ritardi dei data center'."
+ },
+ {
+  "id": "X3",
+  "sezione": "top_news",
+  "testo": "Mercoledì 25 novembre il Kospi di Seul ha chiuso a 4.697,51 (-6,16%), il minimo dal 13 gennaio; il Nikkei 225 ha chiuso a 57.011,62 (-2,8%), SoftBank -14,8%, Kioxia -14,2%, SK Hynix -11,05% e Samsung Electronics -9,87%",
+  "data_evento": "2026-11-25",
+  "novita": "Chiusure asiatiche di stamattina dopo la seduta Usa.",
+  "fonti": [
+   {
+    "testata": "The Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261125/kospi-sinks-6-as-chip-outlook-us-tariff-concerns-weigh",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Foreign investors turned net sellers, while Trump's remarks and uncertainty over tariffs also weighed on the market.",
+    "ricerca": "Kospi plunges SK Hynix Samsung Goldman Sachs target DRAM prices 2028 CXMT"
+   },
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/market/2026/11/25/kospi-sinks-below-4700-lowest-close-since-jan-13",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "KOSPI Sinks Below 4,700, Lowest Close Since Jan. 13",
+    "ricerca": "Kospi Nov. 25 close Korea stocks Yonhap Kospi ends"
+   },
+   {
+    "testata": "AP",
+    "agenzia": "AP",
+    "url": "https://www.click2houston.com/business/2026/11/25/asian-stocks-mostly-decline-as-ai-shares-tumble-after-a-retreat-on-wall-street/",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Asian stocks mostly decline as AI shares tumble after a retreat on Wall Street",
+    "ricerca": "Asian shares Wednesday Nikkei Tokyo stocks November 25 2026"
+   }
+  ],
+  "nota": "Korea Times conferma Kospi e Samsung/SK Hynix; Nikkei, SoftBank, Kioxia solo da TradingKey (fonte singola per quei dati). AP (articolo intraday, non di chiusura) riporta cifre diverse: Kospi -5,6% a 4.725,84, Nikkei -3,6% a 56.502,97, SoftBank -16,1%, Kioxia -15,4%, Taiex oltre -6%, TSMC -8,1%: non usare come chiusura. Taiex ~-5% non verificato (AP: oltre -6% intraday; ChipDispatch -4,8% solo da titolo di ricerca, non letto).",
+  "trovato": "Japan's Nikkei 225 Index closed down 2.78% at 57,011.62 points. ... The Korea Composite Stock Price Index (KOSPI) closed down 6.16% at 4,697.52 points ... SK Hynix slid 11.05% ... Samsung Electronics fell 9.87% (SED: The KOSPI closed at 4,697.51 on the 25th, down 308.52 points, or 6.16%, ... That is the lowest close since Jan. 13)",
+  "verifica": "confermato",
+  "nota_revisore": "Seoul Economic Daily (4.697,51, minimo dal 13/1, Samsung -9,87%, SK Hynix -11,05%) e TradingKey (Nikkei 57.011,62 -2,78%, SoftBank -14,83%, Kioxia -14,18%). Le cifre AP (Nikkei 56.502,97 -3,6%, Kospi -5,6%) sono intraday, non contraddicono il PDF. TradingKey scrive 4.697,52: differenza trascurabile."
+ },
+ {
+  "id": "X4",
+  "sezione": "deep_dive",
+  "testo": "Goldman Sachs ha tagliato il target di SK Hynix a 2 milioni di won da 3,5 e quello di Samsung Electronics a 350.000 won da 500.000; prevede che il divario tra offerta e domanda di DRAM scenda dal 5,1% del prossimo anno all'1,2% nel 2028, con il produttore cinese CXMT che aumenta la produzione, e che DRAM e NAND perdano ciascuna circa il 20% nel 2028",
+  "data_evento": "2026-11-24",
+  "novita": "Contesto: il taglio Goldman e' di lunedì ma alimenta il crollo asiatico di mercoledì; il legame con CXMT non e' stato trovato nelle fonti lette.",
+  "fonti": [
+   {
+    "testata": "The Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261125/kospi-sinks-6-as-chip-outlook-us-tariff-concerns-weigh",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "In a Sunday report, Goldman Sachs lowered its target for SK hynix from 3.5 million won to 2 million won, and for Samsung Electronics from 500,000 won to 350,000 won.",
+    "ricerca": "Kospi Nov. 25 close Korea stocks Yonhap Kospi ends"
+   },
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/market/2026/11/24/goldman-sachs-cuts-samsung-sk-hynix-targets-by-up-to-43",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "Goldman Sachs Cuts Samsung, SK hynix Targets by Up to 43%",
+    "ricerca": "Goldman Sachs cuts SK Hynix target price 2 million won Samsung 350,000 DRAM 2028"
+   }
+  ],
+  "nota": "FourWeekMBA non ha letto la nota Goldman (dati da Futu/Gelonghui). 'Circa 20%' del brief: le cifre sono 19% DRAM e 21% NAND.",
+  "trovato": "cutting its price target for Samsung Electronics to 350,000 won from 500,000 won ... It also lowered its target for SK hynix to 2 million won from 3.5 million won ... the DRAM supply shortfall would narrow to 1.2% in 2028 from 5.1% next year ... as China's ChangXin Memory Technologies (CXMT) ramps up output ... with NAND prices dropping around 20%",
+  "verifica": "confermato",
+  "nota_revisore": "Seoul Economic Daily 24/11 e Korea Times: tagli e divario 5,1%->1,2% coincidono col PDF. Dettaglio: per SED la DRAM commodity di Samsung/SK Hynix cala 20% e 19%, NAND circa 20%; il Korea Times scrive 'around 20 percent' per DRAM e NAND: il PDF ('circa il 20%') e' ok. Report di domenica 22/11 (Korea Times)."
+ },
+ {
+  "id": "X5",
+  "sezione": "deep_dive",
+  "testo": "Morgan Stanley (Shawn Kim) ha avvertito di un 'profit cliff' 2028 per le memorie, tagliando il 10 novembre i target di SK Hynix del 38% a 1,6 milioni di won e di Samsung del 19% a 309.000 won, perche' nuova capacità dalla fine 2027, espansione cinese e concorrenza nell'HBM comprimono i margini.",
+  "data_evento": "2026-11-10",
+  "novita": "Contesto: la nota e' del 9-10 novembre, ripresa dai giornali coreani il 25 come causa del crollo.",
+  "fonti": [
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/market/2026/11/10/morgan-stanley-cuts-samsung-sk-hynix-targets-by-up-to-38",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "high margins will be hard to sustain once new production capacity comes online from late 2027",
+    "ricerca": "memory makers fall more than Nvidia profit cliff Morgan Stanley Shawn Kim 2028 CXMT SK Hynix Samsung price target cut"
+   },
+   {
+    "testata": "The Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261125/kospi-sinks-6-as-chip-outlook-us-tariff-concerns-weigh",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Supply-demand dynamics, rather than earnings uncertainty, seem to be playing a bigger role in limiting the upside.",
+    "ricerca": "Kospi plunges SK Hynix Samsung Goldman Sachs target DRAM prices 2028 CXMT"
+   }
+  ],
+  "trovato": "Morgan Stanley lowered its target price for SK hynix to 1.6 million won from 2.6 million won ... The target for Samsung Electronics was cut to 309,000 won from 381,000 won. ... Kim focused on whether the memory industry can avoid a profit cliff around 2028.",
+  "verifica": "confermato",
+  "nota_revisore": "Seoul Economic Daily 10/11: tagli del 38% (SK Hynix) e 19% (Samsung); motivi: nuova capacita' dalla fine 2027, espansione dei produttori cinesi, concorrenza nell'HBM. Il PDF (tabella p.2: 2,6->1,6 mln e 381.000->309.000, data 10/11) coincide. Il nome Shawn Kim e' confermato anche dal Korea Times (2028 profit cliff)."
+ },
+ {
+  "id": "X6",
+  "sezione": "deep_dive",
+  "testo": "Perche' le memorie cadono piu' di Nvidia: nessuna fonte letta confronta esplicitamente i due; le spiegazioni disponibili sono il rischio 2028 su domanda/capacita' (BNP Ackerman: HBM ridotta in Vera Rubin Ultra, nuova capacità wafer) e la lettura di Nam Dae-jong (Daol Investment & Securities) secondo cui conta di piu' l'equilibrio domanda-offerta che gli utili.",
+  "data_evento": "2026-11-25",
+  "novita": "Spiegazione analitica del divario memorie/Nvidia (parziale).",
+  "fonti": [
+   {
+    "testata": "The Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261125/kospi-sinks-6-as-chip-outlook-us-tariff-concerns-weigh",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Supply-demand dynamics, rather than earnings uncertainty, seem to be playing a bigger role in limiting the upside.",
+    "ricerca": "Kospi plunges SK Hynix Samsung Goldman Sachs target DRAM prices 2028 CXMT"
+   }
+  ],
+  "fonte_singola": true,
+  "conferma_cercata": [
+   "why memory makers fall more than Nvidia analyst says Micron SK Hynix cyclical 2028 supply (invezz fetch fallito)",
+   "memory makers fall more than Nvidia profit cliff Morgan Stanley Shawn Kim..."
+  ],
+  "trovato": "Supply-demand dynamics, rather than earnings uncertainty, seem to be playing a bigger role (Nam Dae-jong, Daol Investment & Securities). / Nvidia's Vera Rubin Ultra may carry less high-bandwidth memory, PC and phone unit sales are in a downturn through 2026 and 2027, and DRAM and NAND supply catching up with demand could squeeze prices as early as mid-2027.",
+  "verifica": "confermato",
+  "nota_revisore": "Korea Times: citazione di Nam e nessun confronto memorie vs Nvidia; FinanceFeeds: motivi BNP/Ackerman (HBM ridotta in Vera Rubin Ultra, parita' da meta' 2027; la 'nuova capacita' wafer' non verificata). Il PDF p.2 risponde da solo alla domanda 'perche' le memorie perdono piu' di Nvidia': e' lettura redazionale, non di una fonte."
+ },
+ {
+  "id": "X7",
+  "sezione": "deep_dive",
+  "testo": "Reuters indica nelle nuove minacce di dazi americani il fattore che ha pesato di più sulle borse asiatiche; per AP restano anche i dubbi sulla governance di Nvidia dopo il ritorno di Huang",
+  "data_evento": "2026-11-24",
+  "novita": "Fattori del ribasso indicati martedì dalle cronache.",
+  "fonti": [
+   {
+    "testata": "AP (via News4Jax)",
+    "url": "https://www.news4jax.com/business/2026/11/25/asian-stocks-mostly-decline-as-ai-shares-fall-following-a-retreat-on-wall-street/",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "heavy selling of stocks linked to artificial intelligence",
+    "ricerca": "Nikkei SoftBank Kioxia plunge Taiex Asian markets November 25 chip selloff",
+    "agenzia": "AP"
+   },
+   {
+    "testata": "Reuters",
+    "agenzia": "Reuters",
+    "url": "https://www.business-standard.com/amp/markets/news/asian-stocks-tumble-as-ai-rebound-stumbles-us-tariff-threats-loom-126112500066_1.html",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Asian stocks plunged on Wednesday as fresh US tariff threats hit sentiment and a tech-led rally fizzled",
+    "ricerca": "Reuters Bloomberg Financial Times Wall Street Journal markets Asia chip stocks tumble November 25 2026"
+   }
+  ],
+  "nota": "Dell record Q3 con outlook FY27 alzato: solo Yahoo/StockTwits (parafrasi, nessuna citazione letterale). Audizione congressuale Nvidia 3 dicembre NON verificata (TradingKey dice solo che i legislatori esaminano la governance). Yahoo/StockTwits cita anche indagine penale smentita dall'AG Blanche.",
+  "trovato": "\"Mainly it's the impact of the tariff issue,\" said Hua Nan Securities analyst Kevin Su in Taipei. \"Stock markets across all of Asia are being sold off ...\" (AP) Relief over Nvidia's decision to restore Jensen Huang as its CEO has been tempered by questions",
+  "verifica": "confermato",
+  "nota_revisore": "La pagina Business Standard (Reuters) titola sui dazi ('AI rebound stumbles, US tariff threats loom') e cita un analista (Su) che indica i dazi come causa principale: la graduatoria e' di un analista, non di Reuters in proprio. AP (news4jax, versione intraday: Nikkei -3,6%, Kospi -5,6%) cita i dubbi sulla governance dopo il ritorno di Huang, ma la frase e' stata restituita troncata ('questions ...'): la parola governance non e' letterale nel mio estratto. Il PDF usa solo i dazi."
+ },
+ {
+  "id": "X8",
+  "sezione": "deep_dive",
+  "testo": "Futures: martedì alle 7:04 ET i future Nasdaq 100 segnavano -1,64% e Nvidia -5,2% nel premarket; nel pomeriggio Usa di martedì il Nasdaq 100 future era a 26.300 (-1,89%). Una rilevazione puntuale di Nvidia/future Asia di mercoledì mattina NON e' stata trovata (AP: 'U.S. futures slipped').",
+  "data_evento": "2026-11-24",
+  "novita": "Movimento dei future legato alla seduta di martedì; nulla di verificato con orario per il 25 mattina.",
+  "fonti": [
+   {
+    "testata": "Analytics Insight",
+    "url": "https://www.analyticsinsight.net/stocks/us-stock-market-nasdaq-futures-fall-as-nvidia-rally-fades-ahead-of-us-inflation-data",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "the return of Huang does not mean that the challenges facing AI are over.",
+    "ricerca": "Nvidia premarket futures Nasdaq Wednesday November 25 2026 chip stocks"
+   },
+   {
+    "testata": "JournalArta",
+    "url": "https://journalarta.com/en/2026/11/25/dow-futures-edge-up-as-chip-selloff-drags-nasdaq-futures-down/",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "all sharply lower",
+    "ricerca": "Nvidia premarket futures Nasdaq Wednesday November 25 2026 chip stocks"
+   }
+  ],
+  "trovato": "During Tuesday's premarket trading, Nasdaq 100 futures fell 440 points, or 1.64%, as of 7:04 a.m. ET. ... NVIDIA shares fell 5.2% in premarket trading after gaining 31.5% on Monday. / Nasdaq 100 futures dropped 508 points, or 1.89%, to 26,300.00. The cash market showed the same split.",
+  "verifica": "confermato",
+  "nota_revisore": "Analytics Insight (7:04 ET, -1,64%, Nvidia -5,2%) e JournalArta (26.300, -1,89%) confermano il fatto. Il fatto riguarda dati di martedi', non presenti nel PDF; AP: 'U.S. futures slipped' per mercoledi' mattina, confermato."
+ },
+ {
+  "id": "Y1",
+  "sezione": "top_news",
+  "testo": "Secondo tre fonti citate da Reuters, l'amministrazione Trump è pronta a pubblicare i risultati dell'indagine Section 301 su 'eccesso strutturale di capacità' in 16 economie (tra cui Cina, UE, Corea del Sud, Giappone, India), con nuovi dazi sovrapposti a quelli esistenti, attesi già il 24 o 25 novembre; i livelli non sono noti.",
+  "data_evento": "2026-11-24",
+  "novita": "Annuncio USTR atteso entro 24-25 novembre; nessuna aliquota ancora riportata.",
+  "fonti": [
+   {
+    "testata": "GSM Global News (ripubblica Reuters)",
+    "url": "https://gsmglobalnews.com/article/d20261124-ustr301findings1.html",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "It was unclear what tariff rates would be charged or what exemptions might be granted.",
+    "ricerca": "USTR Section 301 structural excess capacity tariffs China South Korea EU announcement",
+    "agenzia": "Reuters",
+    "primaria": false
+   },
+   {
+    "testata": "Political.org",
+    "url": "https://political.org/2026/11/24/trump-administration-poised-to-unveil-new-section-301-tariffs-on-16-trading-partners-after-excess-capacity-probe/",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "Trump Administration Poised to Unveil New Section 301 Tariffs on 16 Trading Partners After Excess-Capacity Probe",
+    "ricerca": "USTR Section 301 structural excess capacity tariffs China South Korea EU announcement",
+    "agenzia": "Reuters (stessa storia, cita tre fonti)",
+    "primaria": false
+   }
+  ],
+  "fonte_singola": true,
+  "conferma_cercata": [
+   "Section 301 excess capacity tariffs EU Commission Sefcovic reaction Turnberry 15% ceiling November 2026"
+  ],
+  "nota": "Le due pagine sono aggregatori della stessa storia Reuters: vale una sola fonte; il WSJ avrebbe riportato prima; nessuna verifica diretta su Reuters/WSJ. Fonti di qualità incerta.",
+  "trovato": "The Trump administration is poised to release the findings of an investigation aimed at countering alleged excess industrial capacity in 16 major trading partners, three people with knowledge of the matter told Reuters on November 24, with the results expected as soon as November 24 or 25 and new import duties on a wide range of goods expected to stack on top of tariffs already imposed during Trump's second term. The investigation was launched in March by the Office of the US Trade Representative (USTR) under Section 301 of the Trade Act of 1974",
+  "verifica": "confermato",
+  "nota_revisore": "GSM Global News (Reuters). Elenco: Cina, UE, India, Giappone, Corea del Sud, Messico, Vietnam, Taiwan, ecc. Political.org conferma che le aliquote sono 'unclear' (livelli non noti) ma non cita Reuters. PDF coerente."
+ },
+ {
+  "id": "Y3",
+  "sezione": "deep_dive",
+  "testo": "L'UE ha chiesto che eventuali nuovi dazi USA rispettino il tetto complessivo del 15% dell'accordo di Turnberry; nessuna reazione italiana specifica trovata.",
+  "data_evento": "2026-11-24",
+  "novita": "Posizione UE di riferimento prima dell'annuncio.",
+  "fonti": [
+   {
+    "testata": "Political.org",
+    "url": "https://political.org/2026/11/24/trump-administration-poised-to-unveil-new-section-301-tariffs-on-16-trading-partners-after-excess-capacity-probe/",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "Trump Administration Poised to Unveil New Section 301 Tariffs on 16 Trading Partners After Excess-Capacity Probe",
+    "ricerca": "USTR Section 301 structural excess capacity tariffs China South Korea EU announcement",
+    "primaria": false
+   },
+   {
+    "testata": "The Private Banker",
+    "url": "https://leprivatebanker.com/2026/11/24/u-s-readies-tariff-increases-on-china-and-eu-goods-as-soon-as-tuesday-targeting-economies-accused-of-subsidizing-industry/",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "a 15% ceiling reported for the EU, Japan and South Korea",
+    "ricerca": "Section 301 excess capacity tariffs EU Commission Sefcovic reaction Turnberry 15% ceiling November 2026",
+    "primaria": false
+   }
+  ],
+  "nota": "Nessuna dichiarazione diretta della Commissione vista.",
+  "trovato": "The European Union said it wanted to keep to the terms of the deal signed at Trump's Turnberry golf course last July, and that any new tariffs should reflect the broad 15% overall U.S. tariff ceiling in that agreement.",
+  "verifica": "confermato",
+  "nota_revisore": "Political.org (aperta): UE chiede tetto 15% di Turnberry; nessuna reazione italiana. The Private Banker: 'Brussels has said any new U.S. duties should respect that level'. PDF coerente (la richiesta e' dichiarata dall'UE, non dalla Commissione con nome)."
+ },
+ {
+  "id": "Y4",
+  "sezione": "top_news",
+  "testo": "I future sui Fed funds prezzano una probabilità del 99% di un rialzo dei tassi a dicembre (CME FedWatch) e del 64% di un ulteriore rialzo a gennaio",
+  "data_evento": "2026-11-25",
+  "novita": "Rialzo di dicembre ormai quasi scontato.",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/analysis/wednesdays-pce-report-marks-final-major-inflation-test-before-fed-decision-200692279",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Wednesday’s PCE Report Marks Final Major Inflation Test Before Fed Decision",
+    "ricerca": "PCE October GDP second estimate economists expect Fed December hike odds FedWatch",
+    "primaria": false
+   },
+   {
+    "testata": "Trading and Investment News",
+    "url": "https://www.tradingandinvestmentnews.co.uk/december-fed-hike-williams/",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "December Fed Hike Near 100% as Williams Says Fed Must Act",
+    "ricerca": "Fed official speech November 24 2026 rate hike December inflation",
+    "primaria": false
+   }
+  ],
+  "nota": "Titoli visti solo nei risultati di ricerca; cifre dal testo via WebFetch (sintesi, non letterale). Il secondo articolo dice 'virtual certainty', ~5% per +50 pb.",
+  "trovato": "Fed funds futures put the odds of a December rate hike at 99%, with a 64% chance of another increase in January,\" according to CME Group's FedWatch Tool. At the same time, renewed doubts about the AI boom have weighed on stocks.",
+  "verifica": "confermato",
+  "nota_revisore": "Investing.com: 99% dicembre e 64% gennaio (CME FedWatch), coincidono col nuovo testo senza l'89,7%. Attenzione: il PDF (p.1 e p.3) contiene ancora l'89,7% del 13/11, non verificato (Yahoo 10/11: 88,8%; Fool 16/11: 100%)."
+ },
+ {
+  "id": "Y5",
+  "sezione": "agenda",
+  "testo": "Alle 14:30 italiane (08:30 ET) PCE di ottobre e PIL Usa Q3 seconda stima: attese (fonte non nominata, Investing.com) PCE +0,3% m/m headline, core +0,3% m/m e 3,1% a/a invariato; PIL +3,5% annualizzato (prima stima +3,4%); headline a/a non indicato (precedente 3,6%).",
+  "data_evento": "2026-11-25",
+  "novita": "Ultimo dato chiave prima della Fed.",
+  "fonti": [
+   {
+    "testata": "Investing.com",
+    "url": "https://www.investing.com/analysis/wednesdays-pce-report-marks-final-major-inflation-test-before-fed-decision-200692279",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Wednesday’s PCE Report Marks Final Major Inflation Test Before Fed Decision",
+    "ricerca": "PCE October GDP second estimate economists expect Fed December hike odds FedWatch",
+    "primaria": false
+   },
+   {
+    "testata": "Admiral Markets",
+    "url": "https://admiralmarkets.com/analytics/traders-blog/pce-inflation-october-2026-preview",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "The advance estimate showed growth of 3.4% annualised, above the 3.2% expected.",
+    "ricerca": "PCE October GDP second estimate economists expect Fed December hike odds FedWatch",
+    "primaria": false
+   }
+  ],
+  "fonte_singola": true,
+  "conferma_cercata": [
+   "PCE October GDP second estimate economists expect Fed December hike odds FedWatch"
+  ],
+  "nota": "Consenso non attribuito a Reuters/LSEG/FactSet/Bloomberg. Admiral (aggiornata al 18 nov) non ha consenso; stime individuali: Cleveland Fed nowcast headline 3,81% a/a, core 3,21%; Goldman core 3,24%. Citazioni da sintesi WebFetch.",
+  "trovato": "Personal Consumption Expenditures (PCE) price index rose 0.3% in October. ... OCTOBER FORECAST MoM = 0.3% ... OCTOBER FORECAST YoY = 3.1% ... The department will also release its second estimate of third-quarter GDP, with growth forecast at an annualized 3.5%. ... Release Date: November 25, 2026, at 08:30 AM ET.",
+  "verifica": "confermato",
+  "nota_revisore": "Investing.com: 08:30 ET = 14:30 Roma ok. Non sulla pagina: prima stima Pil +3,4% e headline a/a. Problema del PDF: nella riga Pil la colonna 'Attese' riporta la prima stima +3,4% e non il consenso +3,5%, e per il PCE 'prima +3,1% su un anno' e' il dato precedente."
+ },
+ {
+  "id": "Z1",
+  "sezione": "top_news",
+  "testo": "L'Euro Stoxx 50 ha chiuso il 24 novembre 2026 in calo dell'1,16% a 6.003,76 punti (-70,71 punti), dopo il rally tecnologico di lunedì.",
+  "data_evento": "2026-11-24",
+  "novita": "Dato di chiusura ufficiale dell'indice; conferma il livello EODHD (6.003,76).",
+  "fonte_singola": true,
+  "conferma_cercata": [
+   "Aktien Europa Schluss 24.11.2026 Euro Stoxx 50",
+   "stoxx.com EURO STOXX 50 close 24 November 2026 (non eseguita: budget)"
+  ],
+  "fonti": [
+   {
+    "testata": "finanzen.net (dpa-AFX)",
+    "url": "https://www.finanzen.net/nachricht/aktien/aktien-europa-schluss-eurostoxx-schwach-rueckschlag-fuer-techwerte-nach-rally-16084543",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "Der EuroStoxx 50 schloss 1,16 Prozent tiefer auf 6.003,76 Punkte.",
+    "ricerca": "Aktien Europa Schluss 24.11.2026 Euro Stoxx 50",
+    "agenzia": "dpa-AFX",
+    "primaria": false
+   },
+   {
+    "testata": "finanzen.at (ROUNDUP, stesso testo dpa-AFX)",
+    "url": "https://www.finanzen.at/nachrichten/aktien/roundup-aktien-europa-schluss-eurostoxx-schwach-rueckschlag-fuer-techwerte-1036796774",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "ROUNDUP/Aktien Europa Schluss: EuroStoxx schwach - Rückschlag für Techwerte (solo titolo; livello 6.003,76 letto nel riassunto del fetch, non verificato testualmente)",
+    "ricerca": "Aktien Europa Schluss 24.11.2026 Euro Stoxx 50",
+    "agenzia": "dpa-AFX",
+    "primaria": false
+   }
+  ],
+  "trovato": "Der EuroStoxx 50 schloss 1,16 Prozent tiefer auf 6.003,76 Punkte, womit ein Großteil der Kursgewinne vom Vortag ... Außerhalb der Eurozone hielten sich die Indizes indes recht stabil.",
+  "verifica": "confermato",
+  "nota_revisore": "finanzen.net (dpa-AFX): chiusura e percentuale coincidono col PDF. Il -70,71 punti non e' stato letto (frase troncata dal fetch), irrilevante per il PDF."
+ },
+ {
+  "id": "Z3",
+  "sezione": "top_news",
+  "testo": "Il FTSE MIB ha chiuso il 24 novembre 2026 a 48.121,19 punti, in calo dell'1,84%.",
+  "data_evento": "2026-11-24",
+  "novita": "Seduta peggiore in tempi recenti trainata da tecnologici (STM, Technoprobe) e Prysmian.",
+  "fonte_singola": true,
+  "conferma_cercata": [
+   "FTSE MIB chiusura 24 novembre 2026 48.121 Teleborsa Radiocor"
+  ],
+  "fonti": [
+   {
+    "testata": "Money.it",
+    "url": "https://www.money.it/piazza-affari-chiude-in-calo-ftse-mib-24-11-2026",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "chiude a 48.121,19 punti (-1,84%)",
+    "ricerca": "Piazza Affari chiusura 24 novembre 2026 FTSE MIB spread BTP Bund STMicroelectronics Technoprobe",
+    "primaria": false
+   },
+   {
+    "testata": "ANSA (solo percentuale, nessun livello)",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/24/borsa-milano-chiude-in-calo-ftse-mib-18_6bc71bd4-8e88-4a75-9343-ed2469cb04a9.html",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "si chiude in pesante calo (Ftse Mib -1,84%)",
+    "ricerca": "Piazza Affari chiusura 24 novembre 2026 FTSE MIB spread BTP Bund STMicroelectronics Technoprobe",
+    "agenzia": "ANSA",
+    "primaria": false
+   }
+  ],
+  "trovato": "Il FTSE MIB ha chiuso a 48.121,19 punti, con una variazione del -1,84%. Il giorno prima l'indice aveva terminato in rialzo a 49.021,93 punti",
+  "verifica": "confermato",
+  "nota_revisore": "Money.it. PDF: 48.121 e -1,84% (p.4), -1,8% in tabella: coerente. ANSA non aperta."
+ },
+ {
+  "id": "Z4",
+  "sezione": "top_news",
+  "testo": "Il 24 novembre 2026 lo spread Btp-Bund ha chiuso a 109,4 punti base con rendimento italiano al 4,35% (ANSA); altre fonti danno valori diversi (Sole 24 Ore titolo: 106 punti e 4,34%; QuiFinanza 107 punti e 4,34% in mattinata).",
+  "data_evento": "2026-11-24",
+  "novita": "Fonti discordanti: da non pubblicare un valore unico senza verifica su Bloomberg/Borsa Italiana.",
+  "fonte_singola": true,
+  "conferma_cercata": [
+   "spread Btp Bund chiusura 24 novembre rendimento decennale punti base"
+  ],
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/24/lo-spread-btp-bund-chiude-a-109-punti_5168cfc5-e9c4-4dee-abc5-0d917d01948d.html",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "Lo spread Btp-Bund chiude a 109,4 punti.",
+    "ricerca": "spread Btp Bund chiusura 24 novembre rendimento decennale punti base",
+    "agenzia": "ANSA",
+    "primaria": false
+   },
+   {
+    "testata": "Il Sole 24 Ore (solo titolo da ricerca, pagina non apribile)",
+    "url": "https://www.ilsole24ore.com/art/btp-spread-chiude-calo-106-punti-rendimento-decennale-flette-434percento-AJkoBNQC",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "BTp: spread chiude in calo a 106 punti, rendimento decennale flette al 4,34% (solo titolo; data e sessione non verificate, potrebbe riferirsi ad altra seduta)",
+    "ricerca": "spread Btp Bund chiusura 24 novembre rendimento decennale punti base",
+    "primaria": false
+   },
+   {
+    "testata": "QuiFinanza",
+    "url": "https://quifinanza.it/economia/finanza/spread-btp-bund-24-novembre-2026/1025492/",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "di fatto stabile a 107 punti base",
+    "ricerca": "spread Btp Bund chiusura 24 novembre rendimento decennale punti base",
+    "primaria": false
+   }
+  ],
+  "trovato": "Lo spread Btp-Bund chiude a 109,4 punti. Il rendimento del titolo italiano e' salito al 4,35% e quello tedesco al 3,26 per cento. / (QuiFinanza) ... nonostante lo spread con i Bund tedeschi sia rimasto di fatto stabile a 107 punti base.",
+  "verifica": "confermato",
+  "nota_revisore": "ANSA: 109,4 e 4,35%. QuiFinanza (mattina): 107 pb e 4,34%. Sole 24 Ore (106 e 4,34%) visto solo nel titolo del risultato di ricerca, non aperto. Il PDF non riporta lo spread."
+ },
+ {
+  "id": "Z5",
+  "sezione": "top_news",
+  "testo": "Il 24 novembre 2026 a Piazza Affari STMicroelectronics ha perso il 10,21% (35,93 euro), Technoprobe il 10,09% (18,00 euro) e Prysmian l'8,04% (98,44 euro), dopo il rimbalzo di oltre il 9% di STM il giorno prima, con timori su rialzo Fed, dubbi sull'IA e dazi USA",
+  "data_evento": "2026-11-24",
+  "novita": "ANSA: titolo dice Prysmian -10% circa e corpo 'St e Prysmian oltre -10%', Money.it dà Prysmian -8,04%: dato da verificare; nessuna fonte spiega cause specifiche di Prysmian/Technoprobe.",
+  "fonte_singola": true,
+  "conferma_cercata": [
+   "Prysmian Technoprobe STMicroelectronics crollo 24 novembre motivo"
+  ],
+  "fonti": [
+   {
+    "testata": "Money.it",
+    "url": "https://www.money.it/piazza-affari-chiude-in-calo-ftse-mib-24-11-2026",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "in una seduta che segue il rimbalzo di oltre il 9% del giorno prima",
+    "ricerca": "Piazza Affari chiusura 24 novembre 2026 FTSE MIB spread BTP Bund STMicroelectronics Technoprobe",
+    "primaria": false
+   },
+   {
+    "testata": "finanzen.net (dpa-AFX)",
+    "url": "https://www.finanzen.net/nachricht/aktien/aktien-europa-schluss-eurostoxx-schwach-rueckschlag-fuer-techwerte-nach-rally-16084543",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "Was die Kurse gestern gerettet hat, macht das Geld morgen teurer",
+    "ricerca": "Aktien Europa Schluss 24.11.2026 Euro Stoxx 50",
+    "agenzia": "dpa-AFX",
+    "primaria": false
+   }
+  ],
+  "trovato": "STMicroelectronics ha perso il 10,21% a 35,93 euro, in una seduta che segue il rimbalzo di oltre il 9% del giorno prima. ... Prysmian ha ceduto l'8,04% a 98,44 euro. ... In calo Technoprobe, che ha perso il 10,09% fermandosi a 18,00 euro.",
+  "verifica": "confermato",
+  "nota_revisore": "Money.it conferma STM, Technoprobe, Prysmian (il PDF usa -10%, -10%, -8%). NON verificati: Infineon -9,7% e ASML -5,6% (la pagina finanzen.net non li cita; citati dal PDF a p.4). finanzen.net conferma timori sul rialzo Fed, dubbi IA e dazi (il PDF attribuisce a dpa-AFX 'prese di beneficio': non letto)."
+ },
+ {
+  "id": "Z6",
+  "sezione": "top_news",
+  "testo": "L'OPAS di Intesa Sanpaolo su Banca MPS offre per ogni azione MPS 1,25 euro in contanti e 1,664 nuove azioni Intesa (operazione da 31,4 miliardi); adesioni dal 24 novembre 2026 fino al 22 gennaio (2027), pagamento il 29 gennaio.",
+  "data_evento": "2026-11-24",
+  "novita": "Parte il periodo di adesione; l'anno 2027 per la scadenza è dedotto, non letto.",
+  "fonti": [
+   {
+    "testata": "MeteoFinanza",
+    "url": "https://www.meteofinanza.com/azioni-mps-tra-opas-intesa-e-upgrade-moodys-cosa-succede/",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "1,25 euro in contanti e 1,664 nuove azioni della banca offerente",
+    "ricerca": "Intesa Sanpaolo offerta Monte dei Paschi 1,664 azioni 1,25 euro periodo adesione 22 gennaio 2027 Moody's Baa2",
+    "primaria": false
+   },
+   {
+    "testata": "Verona Economia (solo titolo)",
+    "url": "https://veronaeconomia.it/2026/11/10/leggi-notizia/argomenti/imprese/intesa-sanpaolo-mps-pubblicata-lopas-125-euro-e-1664-azioni-per-ogni-titolo-montepaschi.html",
+    "data_pubblicazione": "2026-11-10",
+    "citazione": "Intesa Sanpaolo-MPS, pubblicata l'OPAS: 1,25 euro e 1,664 azioni per ogni titolo Montepaschi (solo titolo)",
+    "ricerca": "Intesa Sanpaolo offerta Monte dei Paschi 1,664 azioni 1,25 euro periodo adesione 22 gennaio 2027 Moody's Baa2",
+    "primaria": false
+   },
+   {
+    "testata": "Il Giornale d'Italia (solo titolo)",
+    "url": "https://www.ilgiornaleditalia.it/news/economia/839885/opas-intesa-sanpaolo-su-mps-adesioni-al-via-dal-24-novembre-2026-ca-de-sass-al-67-punta-al-90-per-squeeze-out-e-delisting.html",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "Opas Intesa Sanpaolo su Mps, adesioni al via dal 24 novembre 2026 (solo titolo)",
+    "ricerca": "Intesa Sanpaolo offerta Monte dei Paschi 1,664 azioni 1,25 euro periodo adesione 22 gennaio 2027 Moody's Baa2",
+    "primaria": false
+   }
+  ],
+  "trovato": "riconoscerà 1,25 euro in contanti e 1,664 nuove azioni della banca offerente ... un'operazione dal valore complessivo indicato in 31,4 miliardi di euro ... Gli azionisti di Monte dei Paschi avranno tempo fino al 22 gennaio per decidere se consegnare i propri titoli ... Il calendario prevede poi il pagamento del corrispettivo il 29 gennaio",
+  "verifica": "confermato",
+  "nota_revisore": "MeteoFinanza: termini, 31,4 mld, scadenza 22/1, pagamento 29/1 confermati. Il 'dal 24 novembre' non e' sulla pagina (dice solo 'e' iniziato'): lo vedo solo nel titolo di Il Giornale d'Italia (non aperto); WallStreetItalia non apribile. PDF indica avvio martedi' 24: coerente col titolo."
+ },
+ {
+  "id": "Z7",
+  "sezione": "deep_dive",
+  "testo": "Il 23 novembre 2026 Moody's ha alzato il rating senior unsecured di MPS a Baa2 da Baa3 (outlook stabile) e quello di Mediobanca a Baa2 da Baa3 (sotto revisione per ulteriore upgrade in caso di successo dell'OPAS Intesa).",
+  "data_evento": "2026-11-23",
+  "novita": "Upgrade a ridosso dell'avvio dell'OPAS; Moody's valuterà gli effetti dell'offerta.",
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.teleborsa.it/News/2026/11/23/moody-s-alza-i-rating-di-mps-senior-unsecured-a-baa2-da-baa3-outlook-stabile-191.html",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "il costante rafforzamento del profilo finanziario standalone della Banca",
+    "ricerca": "Moody's alza rating Mps e Mediobanca Baa2 novembre 2026",
+    "primaria": false
+   },
+   {
+    "testata": "Borsa Italiana (Radiocor)",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/finanza/dettaglio/mediobanca-moody-s-alza-rating-a-baa2-possibile-altro-upgrade-con-opas-intesa-su-mps-nRC_23112026_1934_632866368.html",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "il rating emittente a lungo termine e quello senior unsecured da Baa3 a Baa2",
+    "ricerca": "Moody's alza rating Mps e Mediobanca Baa2 novembre 2026",
+    "agenzia": "Radiocor",
+    "primaria": false
+   }
+  ],
+  "trovato": "quello sul debito senior unsecured a Baa2 da Baa3 ... L'outlook e' stabile. (Radiocor) ha portato il rating emittente a lungo termine e quello senior unsecured da Baa3 a Baa2 ... per un possibile upgrade in caso di successo dell'Opas di Intesa Sanpaolo su Mps",
+  "verifica": "confermato",
+  "nota_revisore": "Teleborsa (Mps, 23/11, outlook stabile) e Borsa Italiana/Radiocor (Mediobanca, ancora sotto revisione per ulteriore upgrade). Il PDF dice 'rating di Mps e Mediobanca': in realta' per Mps e' il debito senior unsecured (e per Mediobanca anche l'emittente); i due testi sono parafrasi, non frasi contigue."
+ },
+ {
+  "id": "Z8",
+  "sezione": "deep_dive",
+  "testo": "Secondo ACEA, a ottobre 2026 Stellantis ha immatricolato nell'UE 129.902 auto (-7,0% su 139.743), con quota 13,8% contro 15,3%; in UE+EFTA+UK 144.786 (-8,0%), quota 12,8% da 14,4%.",
+  "data_evento": "2026-10-31",
+  "novita": "Dati ACEA provvisori pubblicati il 25 novembre; il -8% di Reuters/ClubAlfa è il perimetro allargato, non l'UE.",
+  "fonti": [
+   {
+    "testata": "ACEA (comunicato)",
+    "url": "https://www.acea.auto/files/Press_release_car_registrations_October_2026.pdf",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "(tabella: EU 129,902 vs 139,743, -7.0, quota 13.8% vs 15.3%; letta nel riassunto del fetch, non frase letterale)",
+    "ricerca": "ACEA October 2026 EU car registrations Stellantis 129,902 market share 13.8%",
+    "primaria": true
+   },
+   {
+    "testata": "MarketScreener (Reuters)",
+    "url": "https://www.marketscreener.com/news/european-auto-registrations-up-3-4-in-october-stellantis-down-8-acea-ce7851dad08af722",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Stellantis registrations moved in the opposite direction, falling 8% to 144,786 vehicles.",
+    "ricerca": "ACEA October 2026 EU car registrations Stellantis 129,902 market share 13.8%",
+    "agenzia": "Reuters",
+    "primaria": false
+   }
+  ],
+  "trovato": "Stellantis 13.8 15.3 129,902 139,743 -7.0 15.6 15.8 1,472,073 1,416,271 +3.9 (riga di tabella ACEA, 'New car registrations by manufacturer, European Union', p.5 del comunicato del 24/11/2026; MarketScreener: Stellantis registrations moved in the opposite direction, falling 8% to 144,786 vehicles. Its market share fell to 12.8% in October from 14.4% a year earlier.)",
+  "verifica": "confermato",
+  "nota_revisore": "Valori solo in tabella: riga letterale ACEA = quota ottobre 13,8% (15,3% anno prima), 129.902 auto vs 139.743, -7,0%. MarketScreener (Reuters) conferma solo UE+EFTA+UK: 144.786 (-8%), quota 12,8% da 14,4%; non da' il dato UE-only. Il PDF e' coerente."
+ },
+ {
+  "id": "Z9",
+  "sezione": "top_news",
+  "testo": "Il petrolio è in forte calo a novembre: lunedì 23 il WTI ha chiuso a 80,17 dollari (-4,5%, minimo da agosto, NON sotto 80) e il Brent a 89,37 (-3,5%); il 24 il Brent oscillava attorno a 89 dollari e il WTI a 80, tra speranze di intesa USA-Iran e surplus IEA di circa 2 milioni di barili al giorno.",
+  "data_evento": "2026-11-24",
+  "novita": "Premessa del brief da correggere: WTI settled 80,17, non sotto 80; fonti 24 nov discordanti (Forbes ME: Brent 91,40 +2,27%; Fortune: 90,42 alle 7:45 ET).",
+  "fonte_singola": false,
+  "conferma_cercata": [
+   "oil settles Tuesday November 24 2026 Brent WTI Reuters",
+   "OPEC+ 29 novembre riunione (citata solo da titolo financefeeds, non verificata)"
+  ],
+  "fonti": [
+   {
+    "testata": "Rigzone (Bloomberg)",
+    "url": "https://www.rigzone.com/news/wire/oil_falls_as_trump_signals_iran_talks-23-nov-2026-185152-article/",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "(dal riassunto del fetch: WTI 80,17, Brent 89,37; IEA surplus ~2 mb/d; Rebecca Babin, CIBC: 'Each weekend that passes without meaningful escalation leaves Monday vulnerable to selling pressure')",
+    "ricerca": "oil prices WTI below $80 first time since August Brent Iran talks supply surplus November 24 2026",
+    "agenzia": "Bloomberg",
+    "primaria": false
+   },
+   {
+    "testata": "Kotak Neo",
+    "url": "https://www.kotakneo.com/news/commodities/oil-price-today-24-november-2026-brent-falls-below-90-us-iran-talks-supply-risks/",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "Traders are assessing the possibility of a diplomatic agreement between Washington and Tehran.",
+    "ricerca": "oil settles Tuesday November 24 2026 Brent WTI Reuters",
+    "primaria": false
+   },
+   {
+    "testata": "FinScans",
+    "url": "https://finscans.com/news/2026/11/25/wti-crude-oil-holds-at-8115-as-middle-east-tensions-offset",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Reports that the US is willing to engage in talks with Iran unwound the geopolitical risk premium.",
+    "ricerca": "oil prices WTI below $80 first time since August Brent Iran talks supply surplus November 24 2026",
+    "primaria": false
+   }
+  ],
+  "trovato": "WTI for January delivery dipped 4.5% to settle at $80.17 a barrel in New York. Brent for January settlement dropped 3.5% to settle at $89.37 a barrel. ... The International Energy Agency has forecast a roughly 2 million-barrel-a-day surplus this quarter,",
+  "verifica": "confermato",
+  "nota_revisore": "Rigzone/Bloomberg 23/11: WTI 80,17 (-4,5%, 'near $80 for the first time since August'), Brent 89,37 (-3,5%), surplus IEA ~2 mln b/d. Il PDF p.4 chiama 89,37 'il minimo del mese': la pagina non lo dice (e' la chiusura di lunedi'). FinScans (WTI 81,15 il 25/11) non conferma Brent/IEA. Brent a 91,40 il 24/11 non letto da pagina aperta."
+ },
+ {
+  "id": "MEM-1124-MEM-1123-K04",
+  "sezione": "agenda",
+  "testo": "Prezzi PCE di ottobre, mercoledì 25 alle 8:30 a New York (14:30 a Roma): prima +0,5% sul mese e +3,6% in un anno; core +0,3% e +3,1%",
+  "data_evento": "2026-11-25",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FinancialJuice",
+    "url": "https://features.financialjuice.com/2026/11/20/week-ahead-economic-indicators-23rd-27th-november-us/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Week Ahead: Economic Indicators 23rd - 27th November (US)",
+    "ricerca": "economic calendar week November 23 - November 27, 2026 flash PMI PCE GDP Q3 consensus"
+   },
+   {
+    "testata": "Investrade",
+    "url": "https://investrade.com/weekly-event-calendar-11-23-2026-11-27-2026/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Weekly Event Calendar: 11/23/2026 - 11/27/2026",
+    "ricerca": "economic calendar week November 23 - November 27, 2026 flash PMI PCE GDP Q3 consensus"
+   }
+  ],
+  "trovato": "FinancialJuice (Wed 25 Nov, 08:30 ET): Headline PCE: +0.5% MoM, +3.6% YoY. Core PCE: +0.3% MoM, +3.1% YoY. Investrade: 8:30 AM ET PCE Price Index Y/Y for October. LiteFinance: Previous values YoY: +3.1% in September",
+  "verifica": "confermato",
+  "nota_revisore": "Data e ora (14:30 Roma) confermate; i valori sono quelli precedenti (settembre). Nel PDF la colonna si chiama 'Attese' ma riporta valori precedenti, non consensus: rinominare in 'Prima'.",
+  "ripresa": "2026-11-24"
+ },
+ {
+  "id": "MEM-1124-MEM-1123-K05",
+  "sezione": "agenda",
+  "testo": "PIL USA del terzo trimestre, seconda stima, mercoledì 25 alle 8:30 a New York (14:30 a Roma): prima stima +3,4% annualizzato",
+  "data_evento": "2026-11-25",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FinancialJuice",
+    "url": "https://features.financialjuice.com/2026/11/20/week-ahead-economic-indicators-23rd-27th-november-us/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Week Ahead: Economic Indicators 23rd - 27th November (US)",
+    "ricerca": "economic calendar week November 23 - November 27, 2026 flash PMI PCE GDP Q3 consensus"
+   },
+   {
+    "testata": "LiteFinance",
+    "url": "https://www.litefinance.org/blog/analysts-opinions/weekly-economic-calendar-for-23112026-29112026/",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Forex Economic Calendar Overview: Key Events for the Next Trading Week (23.11.2026-29.11.2026)",
+    "ricerca": "economic calendar week November 23 - November 27, 2026 flash PMI PCE GDP Q3 consensus"
+   }
+  ],
+  "trovato": "FinancialJuice (Wed 25 Nov, 08:30 ET): Real GDP: +3.4% annualized, following +2.2% in Q2. LiteFinance: 13:30 – USD: US GDP Annual Growth Rate for Q3 (Second Estimate). In Q2 2026, GDP posted +2.2% after +2.1% in Q1",
+  "verifica": "confermato",
+  "nota_revisore": "Mercoledi' 25, 8:30 ET = 14:30 Roma, seconda stima, precedente +3,4% annualizzato confermati. Anche qui la colonna 'Attese' del PDF contiene il valore precedente, non il consensus.",
+  "ripresa": "2026-11-24"
+ },
+ {
+  "id": "MEM-1124-MEM-1120-K3",
+  "sezione": "agenda",
+  "testo": "PCE core (ottobre), mercoledì 25 alle 8:30 a New York (14:30 a Roma): atteso +0,3% sul mese e +3,2% su un anno, prima +3,1% su un anno",
+  "data_evento": "2026-11-25",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "HyperStocks",
+    "url": "https://terminal.hyperstocks.io/economic-calendar/next-week",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Economic Calendar Next Week: Nov 23",
+    "ricerca": "week ahead November 23 2026 flash PMI Fed minutes PCE Jackson earnings Nvidia calendar"
+   },
+   {
+    "testata": "LiteFinance",
+    "url": "https://www.litefinance.org/blog/analysts-opinions/weekly-economic-calendar-for-23112026-29112026/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Forex Economic Calendar Overview: Key Events for the Next Trading Week (23.11.2026–29.11.2026)",
+    "ricerca": "week ahead November 23 2026 flash PMI Fed minutes PCE Jackson earnings Nvidia calendar"
+   }
+  ],
+  "trovato": "Core PCE Price Index MoM 8:30 AM forecast 0.3% previous 0.3%; Core PCE Price Index YoY 8:30 AM forecast 3.2% previous 3.1% | Wednesday, November 25 (GMT 13:30)",
+  "verifica": "confermato",
+  "nota_revisore": "HyperStocks (8:30 ET, 3,2% su 3,1%); LiteFinance conferma mercoledi' 25 e 'previous +3,1% in September' ma non riporta la previsione. Il riferimento a ottobre non e' esplicito su HyperStocks.",
+  "ripresa": "2026-11-24"
+ },
+ {
+  "id": "MEM-1120-K4",
+  "sezione": "agenda",
+  "testo": "Pil USA del terzo trimestre (seconda stima), mercoledì 25 alle 8:30 a New York (14:30 a Roma): atteso +3,4% annualizzato",
+  "data_evento": "2026-11-25",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "HyperStocks",
+    "url": "https://terminal.hyperstocks.io/economic-calendar/next-week",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Economic Calendar Next Week: Nov 23",
+    "ricerca": "week ahead November 23 2026 flash PMI Fed minutes PCE Jackson earnings Nvidia calendar"
+   },
+   {
+    "testata": "LiteFinance",
+    "url": "https://www.litefinance.org/blog/analysts-opinions/weekly-economic-calendar-for-23112026-29112026/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Forex Economic Calendar Overview: Key Events for the Next Trading Week (23.11.2026–29.11.2026)",
+    "ricerca": "week ahead November 23 2026 flash PMI Fed minutes PCE Jackson earnings Nvidia calendar"
+   }
+  ],
+  "trovato": "GDP Growth Rate QoQ, 2nd Estimate 8:30 AM forecast 3.4% | The preliminary estimate stood at +3.4%.",
+  "verifica": "confermato",
+  "nota_revisore": "HyperStocks: previsione 3,4%, mercoledi' 25 alle 8:30 ET. LiteFinance dice che la stima preliminare era +3,4% (non una previsione). Periodo T3 non esplicito.",
+  "ripresa": "2026-11-20"
+ },
+ {
+  "id": "MEM-1124-MEM-1123-K06",
+  "sezione": "agenda",
+  "testo": "Giovedì 26 Wall Street e il mercato dei titoli di Stato USA sono chiusi per il Ringraziamento; venerdì 27 le azioni chiudono alle 13:00 a New York (19:00 a Roma)",
+  "data_evento": "2026-11-26",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Investrade",
+    "url": "https://investrade.com/weekly-event-calendar-11-23-2026-11-27-2026/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Weekly Event Calendar: 11/23/2026 - 11/27/2026",
+    "ricerca": "economic calendar week November 23 - November 27, 2026 flash PMI PCE GDP Q3 consensus"
+   },
+   {
+    "testata": "FinancialJuice",
+    "url": "https://features.financialjuice.com/2026/11/20/week-ahead-economic-indicators-23rd-27th-november-us/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Week Ahead: Economic Indicators 23rd - 27th November (US)",
+    "ricerca": "economic calendar week November 23 - November 27, 2026 flash PMI PCE GDP Q3 consensus"
+   }
+  ],
+  "trovato": "Investrade: U.S. stock and bond markets closed in observance of Thanksgiving Day holiday (Thursday 26 Nov). U.S. stock markets close at 1:00 PM ET and bond markets at 2:00 pm et. (Friday 27 Nov)",
+  "verifica": "confermato",
+  "nota_revisore": "Chiusura giovedi' 26 di azioni e titoli di Stato e chiusura anticipata delle azioni alle 13:00 ET (19:00 Roma) confermate. FinancialJuice non cita la chiusura anticipata. Nota: i titoli di Stato chiudono alle 14:00 ET (20:00 Roma) venerdi'.",
+  "ripresa": "2026-11-24"
+ },
+ {
+  "id": "MEM-1120-K5",
+  "sezione": "agenda",
+  "testo": "Giovedì 26 novembre, festa del Ringraziamento: borse e mercato obbligazionario USA chiusi",
+  "data_evento": "2026-11-26",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "LiteFinance",
+    "url": "https://www.litefinance.org/blog/analysts-opinions/weekly-economic-calendar-for-23112026-29112026/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Forex Economic Calendar Overview: Key Events for the Next Trading Week (23.11.2026–29.11.2026)",
+    "ricerca": "week ahead November 23 2026 flash PMI Fed minutes PCE Jackson earnings Nvidia calendar"
+   },
+   {
+    "testata": "ThriveInMarkets",
+    "url": "https://thriveinmarkets.com/calendar/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Economic Calendar - November 16 - November 20, 2026",
+    "ricerca": "economic calendar Friday November 20 2026 Waller speech flash PMI existing home sales UK retail sales"
+   }
+  ],
+  "trovato": "Thanksgiving: US markets closed Thu 26 Nov | Banks, bond markets, and major US stock exchanges (NYSE and Nasdaq) will be closed.",
+  "verifica": "confermato",
+  "nota_revisore": "ThriveInMarkets e LiteFinance.",
+  "ripresa": "2026-11-20"
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Asian stocks tumble as AI rebound stumbles, US tariff threats loom (Reuters via Business Standard, 25/11 05:54)",
+   "Asian stocks mostly decline as AI shares tumble after a retreat on Wall Street (AP, 25/11 08:31)",
+   "KOSPI sinks 6% as chip outlook, US tariff concerns weigh (Korea Times, 25/11 08:27)",
+   "Sulle Borse si esaurisce l'effetto Huang, timori AI e dazi rubano la scena. Milano chiude a -1,8% (Il Sole 24 Ore, 24/11)",
+   "Borsa: Milano chiude in calo, Ftse Mib -1,8% (ANSA, 24/11 17:48)",
+   "La Borsa del 25 novembre, futures positivi: l'Europa prova il rimbalzo (QuiFinanza, 25/11 08:33)"
+  ],
+  "testate": [
+   {
+    "testata": "Reuters",
+    "storie": [
+     "Asian stocks tumble as AI rebound stumbles, US tariff threats loom",
+     "Stocks retreat as AI rebound stumbles, tariff threats loom"
+    ]
+   },
+   {
+    "testata": "AP",
+    "storie": [
+     "Asian stocks mostly decline as AI shares tumble after a retreat on Wall Street"
+    ]
+   },
+   {
+    "testata": "Bloomberg",
+    "storie": [
+     "Oil fell in November as Iran talks and supply surplus weigh (via Rigzone)"
+    ]
+   },
+   {
+    "testata": "Il Sole 24 Ore",
+    "storie": [
+     "Sulle Borse si esaurisce l'effetto Huang, timori AI e dazi rubano la scena. Milano chiude a -1,8%",
+     "Borse, lo tsunami dell'Onda blu arriva in Asia: crollano Tokyo, Seul e Taipei"
+    ]
+   },
+   {
+    "testata": "ANSA",
+    "storie": [
+     "Borsa: Milano chiude in calo, Ftse Mib -1,8%"
+    ]
+   },
+   {
+    "testata": "Korea Times",
+    "storie": [
+     "KOSPI sinks 6% as chip outlook, US tariff concerns weigh"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Anthropic scende sotto il prezzo di quotazione (-6,5%)",
+    "motivo": "troppo piccola per i mercati globali: sta in un cenno nel pezzo sui chip"
+   },
+   {
+    "storia": "Dell, ordini AI record e +4,1% dopo la chiusura",
+    "motivo": "fonte singola e dopo la seduta USA: la prova è l'apertura del Nasdaq alle 15:30"
+   }
+  ],
+  "concorda": true,
+  "motivo": "Reuters, AP, Sole 24 Ore e Korea Times aprono tutti sul crollo dei chip in Asia e sui dazi",
+  "mancate_ieri": []
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Dow Jones +0,85% mentre il Nasdaq cede l'1,48%",
+  "ricerche": [
+   "How major US stock indexes fared Tuesday 11/24/2026",
+   "Wall Street Tuesday November 24 2026 stocks close Nasdaq falls Nvidia tariff"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Rotazione dai titoli tecnologici ai difensivi: in media i titoli sanitari +2,4% e i ciclici +2,3% contro tecnologici -1,1% (FMP)",
+    "fonte": "X1",
+    "prevede": "Tecnologia in calo, sanità e consumi in rialzo, indice dei piccoli titoli in rialzo",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Gli indici pesano i titoli per valore di borsa: pochi grandi titoli tecnologici muovono il Nasdaq e quasi niente il Dow",
+    "fonte": null,
+    "prevede": "Russell 2000 in rialzo e Dow in rialzo con il Nasdaq in calo",
+    "prezzi": "torna"
+   }
+  ],
+  "esito": "ipotesi"
+ },
+ {
+  "id": "A2",
+  "sezione": "anomalia",
+  "fatto": "Il Treasury a 10 anni resta a 4,91% con le borse asiatiche in rotta",
+  "ricerche": [
+   "Treasury yields Tuesday November 24 2026",
+   "Asian stocks tumble 10-year Treasury yield 4.898%"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Il mercato scontra il rialzo Fed di dicembre al 99%: la paura sulle borse non basta a far scendere i rendimenti",
+    "fonte": "Y4",
+    "prevede": "2 anni fermo, 10 anni fermo",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "La paura spinge a comprare titoli di Stato e fa scendere i rendimenti lunghi",
+    "fonte": null,
+    "prevede": "10 anni in calo marcato con le borse asiatiche in rotta",
+    "prezzi": "non torna"
+   }
+  ],
+  "esito": "ipotesi"
+ },
+ {
+  "id": "R1",
+  "sezione": "ricerca",
+  "dato": "Spread BTP-Bund del 24/11",
+  "ricerche": [
+   "Borsa Milano chiude FTSE MIB 24 novembre spread Teleborsa",
+   "Piazza Affari chiusura 24 novembre 2026 FTSE MIB spread BTP Bund",
+   "spread Btp Bund 24 novembre 2026 chiusura",
+   "BTP Bund spread chiude 24 novembre Radiocor"
+  ],
+  "esito": "mancante",
+  "fonte": {
+   "testata": "ANSA",
+   "url": "https://www.ansa.it/sito/notizie/economia/2026/11/24/borsa-milano-chiude-in-calo-ftse-mib-18_6bc71bd4-8e88-4a75-9343-ed2469cb04a9.html"
+  }
+ },
+ {
+  "id": "S1",
+  "sezione": "scaletta",
+  "apertura": {
+   "storia": "Seul perde il 6% e l'Asia vende i chip, con i dazi in arrivo",
+   "perche_prima": "Apertura di Reuters, AP, Korea Times e Sole 24 Ore"
+  },
+  "moduli": [
+   {
+    "chiave": "chip",
+    "misura": "doppio",
+    "tesi": "A cadere più forte sono i produttori di memorie, non Nvidia: le banche d'affari datano al 2028 il calo dei prezzi dei chip di memoria, e oggi il mercato lo sconta tutto insieme.",
+    "domanda": "Perché Seul perde il 6% se i conti dei chip sono ancora alti?",
+    "prove": [
+     "SK Hynix -11,05%, Samsung -9,87%, Kospi -6,16%",
+     "Micron -10,97% dopo il taglio di BNP a Neutral e target 775 $ da 1.700 $",
+     "Indice dei semiconduttori USA -7,88% contro Nvidia -5,86%",
+     "Goldman: SK Hynix target 2 milioni di won da 3,5, memorie -19/-21% nel 2028",
+     "Morgan Stanley: profit cliff 2028",
+     "Dow +0,85% e titoli difensivi in rialzo: non è una fuga da tutto"
+    ],
+    "contro": "Se i chip americani recuperano all'apertura, il calo di oggi era eccesso",
+    "schede": [
+     "X1",
+     "X2",
+     "X3",
+     "X4",
+     "X5",
+     "X7"
+    ],
+    "memoria": "Huang torna in Nvidia, rimbalzo del 23/11"
+   },
+   {
+    "chiave": "dazi",
+    "misura": "mezzo",
+    "tesi": "I dazi pesano su Asia ed Europa prima ancora di essere annunciati, perché i mercati temono un tetto più alto di quello dell'accordo Turnberry.",
+    "domanda": "Che cosa è davvero in arrivo, e chi lo dice?",
+    "prove": [
+     "Tre fonti anonime di Reuters: risultati Section 301 su 16 economie",
+     "Nessuna aliquota ufficiale",
+     "UE chiede il rispetto del tetto del 15%",
+     "Analista Hua Nan: pesa soprattutto il tema dazi"
+    ],
+    "contro": "Se gli Stati Uniti rinviano i risultati, il timore rientra",
+    "schede": [
+     "Y1",
+     "Y3",
+     "X7"
+    ],
+    "memoria": "nessuna"
+   },
+   {
+    "chiave": "fed",
+    "misura": "mezzo",
+    "tesi": "Oggi il PCE conta meno per la direzione della Fed, già decisa al 99%, che per quanto a lungo i tassi alti peseranno su chi ha scommesso sull'AI.",
+    "domanda": "Se il rialzo di dicembre è quasi sicuro, che cosa può ancora muovere il dato di oggi?",
+    "prove": [
+     "CME FedWatch 99% rialzo a dicembre",
+     "Consenso PCE core +0,3% m/m e +3,1% a/a",
+     "Williams: azioni nel tempo per riportare l'inflazione al 2%",
+     "10 anni a 4,91% fermo"
+    ],
+    "contro": "Un PCE core molto sopra le attese riaprirebbe il rialzo anche a gennaio",
+    "schede": [
+     "Y4",
+     "Y5"
+    ],
+    "memoria": "Rialzo di dicembre scontato (24/11)"
+   },
+   {
+    "chiave": "europa",
+    "misura": "mezzo",
+    "tesi": "Milano e l'Europa pagano la tecnologia più di quanto i pesi degli indici farebbero pensare: STMicroelectronics e Technoprobe perdono il 10% in un giorno dopo il +9% di lunedì.",
+    "domanda": "Perché Milano cede quasi il 2% se l'indice pesa poco sui chip?",
+    "prove": [
+     "FTSE MIB -1,84% a 48.121,19",
+     "STM -10,21%, Technoprobe -10,09%, Prysmian -8,04%",
+     "Euro Stoxx 50 -1,16%",
+     "Stellantis immatricolazioni UE -7%",
+     "OPAS Intesa-MPS aperta fino al 22 gennaio"
+    ],
+    "contro": "Se STM e Technoprobe recuperano oggi, era prese di beneficio",
+    "schede": [
+     "Z1",
+     "Z3",
+     "Z5",
+     "Z6",
+     "Z8"
+    ],
+    "memoria": "Europa e Italia 24/11"
+   },
+   {
+    "chiave": "petrolio",
+    "misura": "mezzo",
+    "tesi": "Il petrolio è sceso di un quinto in un mese perché pesano l'offerta in eccesso e i colloqui con l'Iran, non la domanda: il calo della paura non l'ha spinto su.",
+    "domanda": "Perché il Brent resta sotto i 92 dollari anche con le borse in rotta?",
+    "prove": [
+     "Brent 91,40 $ contro 115,81 il 26/10",
+     "WTI 80,17 il 23/11, minimo da agosto",
+     "Surplus IEA ~2 mb/d",
+     "Oro -2% il 24/11"
+    ],
+    "contro": "Un attacco alle petroliere vicino a Hormuz riporterebbe il prezzo su",
+    "schede": [
+     "Z9"
+    ],
+    "memoria": "Petrolio 24/11"
+   }
+  ]
+ }
+]

@@ -1,0 +1,122 @@
+[
+ {
+  "id": "Z8",
+  "trovato": "Stellantis 13.8 15.3 129,902 139,743 -7.0 15.6 15.8 1,472,073 1,416,271 +3.9 (riga di tabella ACEA, 'New car registrations by manufacturer, European Union', p.5 del comunicato del 24/11/2026; MarketScreener: Stellantis registrations moved in the opposite direction, falling 8% to 144,786 vehicles. Its market share fell to 12.8% in October from 14.4% a year earlier.)",
+  "verifica": "confermato",
+  "nota_revisore": "Valori solo in tabella: riga letterale ACEA = quota ottobre 13,8% (15,3% anno prima), 129.902 auto vs 139.743, -7,0%. MarketScreener (Reuters) conferma solo UE+EFTA+UK: 144.786 (-8%), quota 12,8% da 14,4%; non da' il dato UE-only. Il PDF e' coerente."
+ },
+ {
+  "id": "X5",
+  "trovato": "Morgan Stanley lowered its target price for SK hynix to 1.6 million won from 2.6 million won ... The target for Samsung Electronics was cut to 309,000 won from 381,000 won. ... Kim focused on whether the memory industry can avoid a profit cliff around 2028.",
+  "verifica": "confermato",
+  "nota_revisore": "Seoul Economic Daily 10/11: tagli del 38% (SK Hynix) e 19% (Samsung); motivi: nuova capacita' dalla fine 2027, espansione dei produttori cinesi, concorrenza nell'HBM. Il PDF (tabella p.2: 2,6->1,6 mln e 381.000->309.000, data 10/11) coincide. Il nome Shawn Kim e' confermato anche dal Korea Times (2028 profit cliff)."
+ },
+ {
+  "id": "X1",
+  "trovato": "The S&P 500 fell 36.08 points, or 0.50%, closing at 7,201.09. The Nasdaq fell 356.02 points, or 1.48%, closing at 23,733.54. ... the Dow Jones Industrial Average rose 423.39 points, or 0.85%, closing at 50,018.70. ... NVIDIA closed down 5.86% at $155.38 ... The Philadelphia Semiconductor Index dropped 7.88% ... all 30 components of the Philadelphia Semiconductor Index fell. (AP: Nvidia fell 5.9% a day after soaring 31.5%)",
+  "verifica": "confermato",
+  "nota_revisore": "Pagina KuCoin News (aperta) + AP (news4jax) + ticker Yahoo. Tutte le cifre coincidono con il PDF. Il livello 8.832,5 dell'SOX non e' sulla pagina (ma il PDF non lo riporta). L'articolo Yahoo/StockTwits non contiene le frasi: usato solo per il ticker."
+ },
+ {
+  "id": "X2",
+  "trovato": "BNP Paribas downgraded Micron Technology to Neutral from Outperform on Tuesday and cut its price target to $775 from $1,700, warning that the risk of a memory chip oversupply is growing. ... growing risks to hyperscaler capacity plans in 2028 further threaten S/D fundamentals, BNP also pointed to less high-bandwidth memory (HBM) in Nvidia's Vera Rubin Ultra platform. / FinanceFeeds: Micron Technology (NASDAQ: MU) closed at $629.79 on Tuesday 24 November, down $77.91 or 11.01 percent",
+  "verifica": "confermato",
+  "nota_revisore": "Nuovo testo: downgrade BNP (Ackerman) per i rischi sui piani di capacita' 2028 degli hyperscaler (Yahoo Finance e Investing.com aperte) e Micron -11,01% martedi' 24/11 (FinanceFeeds). Il 'circa 11%' e' corretto. Rimosso il vecchio qualificatore 'ritardi dei data center'."
+ },
+ {
+  "id": "X4",
+  "trovato": "cutting its price target for Samsung Electronics to 350,000 won from 500,000 won ... It also lowered its target for SK hynix to 2 million won from 3.5 million won ... the DRAM supply shortfall would narrow to 1.2% in 2028 from 5.1% next year ... as China's ChangXin Memory Technologies (CXMT) ramps up output ... with NAND prices dropping around 20%",
+  "verifica": "confermato",
+  "nota_revisore": "Seoul Economic Daily 24/11 e Korea Times: tagli e divario 5,1%->1,2% coincidono col PDF. Dettaglio: per SED la DRAM commodity di Samsung/SK Hynix cala 20% e 19%, NAND circa 20%; il Korea Times scrive 'around 20 percent' per DRAM e NAND: il PDF ('circa il 20%') e' ok. Report di domenica 22/11 (Korea Times)."
+ },
+ {
+  "id": "X7",
+  "trovato": "\"Mainly it's the impact of the tariff issue,\" said Hua Nan Securities analyst Kevin Su in Taipei. \"Stock markets across all of Asia are being sold off ...\" (AP) Relief over Nvidia's decision to restore Jensen Huang as its CEO has been tempered by questions",
+  "verifica": "confermato",
+  "nota_revisore": "La pagina Business Standard (Reuters) titola sui dazi ('AI rebound stumbles, US tariff threats loom') e cita un analista (Su) che indica i dazi come causa principale: la graduatoria e' di un analista, non di Reuters in proprio. AP (news4jax, versione intraday: Nikkei -3,6%, Kospi -5,6%) cita i dubbi sulla governance dopo il ritorno di Huang, ma la frase e' stata restituita troncata ('questions ...'): la parola governance non e' letterale nel mio estratto. Il PDF usa solo i dazi."
+ },
+ {
+  "id": "Y1",
+  "trovato": "The Trump administration is poised to release the findings of an investigation aimed at countering alleged excess industrial capacity in 16 major trading partners, three people with knowledge of the matter told Reuters on November 24, with the results expected as soon as November 24 or 25 and new import duties on a wide range of goods expected to stack on top of tariffs already imposed during Trump's second term. The investigation was launched in March by the Office of the US Trade Representative (USTR) under Section 301 of the Trade Act of 1974",
+  "verifica": "confermato",
+  "nota_revisore": "GSM Global News (Reuters). Elenco: Cina, UE, India, Giappone, Corea del Sud, Messico, Vietnam, Taiwan, ecc. Political.org conferma che le aliquote sono 'unclear' (livelli non noti) ma non cita Reuters. PDF coerente."
+ },
+ {
+  "id": "Y3",
+  "trovato": "The European Union said it wanted to keep to the terms of the deal signed at Trump's Turnberry golf course last July, and that any new tariffs should reflect the broad 15% overall U.S. tariff ceiling in that agreement.",
+  "verifica": "confermato",
+  "nota_revisore": "Political.org (aperta): UE chiede tetto 15% di Turnberry; nessuna reazione italiana. The Private Banker: 'Brussels has said any new U.S. duties should respect that level'. PDF coerente (la richiesta e' dichiarata dall'UE, non dalla Commissione con nome)."
+ },
+ {
+  "id": "Z1",
+  "trovato": "Der EuroStoxx 50 schloss 1,16 Prozent tiefer auf 6.003,76 Punkte, womit ein Großteil der Kursgewinne vom Vortag ... Außerhalb der Eurozone hielten sich die Indizes indes recht stabil.",
+  "verifica": "confermato",
+  "nota_revisore": "finanzen.net (dpa-AFX): chiusura e percentuale coincidono col PDF. Il -70,71 punti non e' stato letto (frase troncata dal fetch), irrilevante per il PDF."
+ },
+ {
+  "id": "Z3",
+  "trovato": "Il FTSE MIB ha chiuso a 48.121,19 punti, con una variazione del -1,84%. Il giorno prima l'indice aveva terminato in rialzo a 49.021,93 punti",
+  "verifica": "confermato",
+  "nota_revisore": "Money.it. PDF: 48.121 e -1,84% (p.4), -1,8% in tabella: coerente. ANSA non aperta."
+ },
+ {
+  "id": "Z5",
+  "trovato": "STMicroelectronics ha perso il 10,21% a 35,93 euro, in una seduta che segue il rimbalzo di oltre il 9% del giorno prima. ... Prysmian ha ceduto l'8,04% a 98,44 euro. ... In calo Technoprobe, che ha perso il 10,09% fermandosi a 18,00 euro.",
+  "verifica": "confermato",
+  "nota_revisore": "Money.it conferma STM, Technoprobe, Prysmian (il PDF usa -10%, -10%, -8%). NON verificati: Infineon -9,7% e ASML -5,6% (la pagina finanzen.net non li cita; citati dal PDF a p.4). finanzen.net conferma timori sul rialzo Fed, dubbi IA e dazi (il PDF attribuisce a dpa-AFX 'prese di beneficio': non letto)."
+ },
+ {
+  "id": "Z6",
+  "trovato": "riconoscerà 1,25 euro in contanti e 1,664 nuove azioni della banca offerente ... un'operazione dal valore complessivo indicato in 31,4 miliardi di euro ... Gli azionisti di Monte dei Paschi avranno tempo fino al 22 gennaio per decidere se consegnare i propri titoli ... Il calendario prevede poi il pagamento del corrispettivo il 29 gennaio",
+  "verifica": "confermato",
+  "nota_revisore": "MeteoFinanza: termini, 31,4 mld, scadenza 22/1, pagamento 29/1 confermati. Il 'dal 24 novembre' non e' sulla pagina (dice solo 'e' iniziato'): lo vedo solo nel titolo di Il Giornale d'Italia (non aperto); WallStreetItalia non apribile. PDF indica avvio martedi' 24: coerente col titolo."
+ },
+ {
+  "id": "Z9",
+  "trovato": "WTI for January delivery dipped 4.5% to settle at $80.17 a barrel in New York. Brent for January settlement dropped 3.5% to settle at $89.37 a barrel. ... The International Energy Agency has forecast a roughly 2 million-barrel-a-day surplus this quarter,",
+  "verifica": "confermato",
+  "nota_revisore": "Rigzone/Bloomberg 23/11: WTI 80,17 (-4,5%, 'near $80 for the first time since August'), Brent 89,37 (-3,5%), surplus IEA ~2 mln b/d. Il PDF p.4 chiama 89,37 'il minimo del mese': la pagina non lo dice (e' la chiusura di lunedi'). FinScans (WTI 81,15 il 25/11) non conferma Brent/IEA. Brent a 91,40 il 24/11 non letto da pagina aperta."
+ },
+ {
+  "id": "X3",
+  "trovato": "Japan's Nikkei 225 Index closed down 2.78% at 57,011.62 points. ... The Korea Composite Stock Price Index (KOSPI) closed down 6.16% at 4,697.52 points ... SK Hynix slid 11.05% ... Samsung Electronics fell 9.87% (SED: The KOSPI closed at 4,697.51 on the 25th, down 308.52 points, or 6.16%, ... That is the lowest close since Jan. 13)",
+  "verifica": "confermato",
+  "nota_revisore": "Seoul Economic Daily (4.697,51, minimo dal 13/1, Samsung -9,87%, SK Hynix -11,05%) e TradingKey (Nikkei 57.011,62 -2,78%, SoftBank -14,83%, Kioxia -14,18%). Le cifre AP (Nikkei 56.502,97 -3,6%, Kospi -5,6%) sono intraday, non contraddicono il PDF. TradingKey scrive 4.697,52: differenza trascurabile."
+ },
+ {
+  "id": "Y4",
+  "trovato": "Fed funds futures put the odds of a December rate hike at 99%, with a 64% chance of another increase in January,\" according to CME Group's FedWatch Tool. At the same time, renewed doubts about the AI boom have weighed on stocks.",
+  "verifica": "confermato",
+  "nota_revisore": "Investing.com: 99% dicembre e 64% gennaio (CME FedWatch), coincidono col nuovo testo senza l'89,7%. Attenzione: il PDF (p.1 e p.3) contiene ancora l'89,7% del 13/11, non verificato (Yahoo 10/11: 88,8%; Fool 16/11: 100%)."
+ },
+ {
+  "id": "Y5",
+  "trovato": "Personal Consumption Expenditures (PCE) price index rose 0.3% in October. ... OCTOBER FORECAST MoM = 0.3% ... OCTOBER FORECAST YoY = 3.1% ... The department will also release its second estimate of third-quarter GDP, with growth forecast at an annualized 3.5%. ... Release Date: November 25, 2026, at 08:30 AM ET.",
+  "verifica": "confermato",
+  "nota_revisore": "Investing.com: 08:30 ET = 14:30 Roma ok. Non sulla pagina: prima stima Pil +3,4% e headline a/a. Problema del PDF: nella riga Pil la colonna 'Attese' riporta la prima stima +3,4% e non il consenso +3,5%, e per il PCE 'prima +3,1% su un anno' e' il dato precedente."
+ },
+ {
+  "id": "Z7",
+  "trovato": "quello sul debito senior unsecured a Baa2 da Baa3 ... L'outlook e' stabile. (Radiocor) ha portato il rating emittente a lungo termine e quello senior unsecured da Baa3 a Baa2 ... per un possibile upgrade in caso di successo dell'Opas di Intesa Sanpaolo su Mps",
+  "verifica": "confermato",
+  "nota_revisore": "Teleborsa (Mps, 23/11, outlook stabile) e Borsa Italiana/Radiocor (Mediobanca, ancora sotto revisione per ulteriore upgrade). Il PDF dice 'rating di Mps e Mediobanca': in realta' per Mps e' il debito senior unsecured (e per Mediobanca anche l'emittente); i due testi sono parafrasi, non frasi contigue."
+ },
+ {
+  "id": "X8",
+  "trovato": "During Tuesday's premarket trading, Nasdaq 100 futures fell 440 points, or 1.64%, as of 7:04 a.m. ET. ... NVIDIA shares fell 5.2% in premarket trading after gaining 31.5% on Monday. / Nasdaq 100 futures dropped 508 points, or 1.89%, to 26,300.00. The cash market showed the same split.",
+  "verifica": "confermato",
+  "nota_revisore": "Analytics Insight (7:04 ET, -1,64%, Nvidia -5,2%) e JournalArta (26.300, -1,89%) confermano il fatto. Il fatto riguarda dati di martedi', non presenti nel PDF; AP: 'U.S. futures slipped' per mercoledi' mattina, confermato."
+ },
+ {
+  "id": "Z4",
+  "trovato": "Lo spread Btp-Bund chiude a 109,4 punti. Il rendimento del titolo italiano e' salito al 4,35% e quello tedesco al 3,26 per cento. / (QuiFinanza) ... nonostante lo spread con i Bund tedeschi sia rimasto di fatto stabile a 107 punti base.",
+  "verifica": "confermato",
+  "nota_revisore": "ANSA: 109,4 e 4,35%. QuiFinanza (mattina): 107 pb e 4,34%. Sole 24 Ore (106 e 4,34%) visto solo nel titolo del risultato di ricerca, non aperto. Il PDF non riporta lo spread."
+ },
+ {
+  "id": "X6",
+  "trovato": "Supply-demand dynamics, rather than earnings uncertainty, seem to be playing a bigger role (Nam Dae-jong, Daol Investment & Securities). / Nvidia's Vera Rubin Ultra may carry less high-bandwidth memory, PC and phone unit sales are in a downturn through 2026 and 2027, and DRAM and NAND supply catching up with demand could squeeze prices as early as mid-2027.",
+  "verifica": "confermato",
+  "nota_revisore": "Korea Times: citazione di Nam e nessun confronto memorie vs Nvidia; FinanceFeeds: motivi BNP/Ackerman (HBM ridotta in Vera Rubin Ultra, parita' da meta' 2027; la 'nuova capacita' wafer' non verificata). Il PDF p.2 risponde da solo alla domanda 'perche' le memorie perdono piu' di Nvidia': e' lettura redazionale, non di una fonte."
+ }
+]

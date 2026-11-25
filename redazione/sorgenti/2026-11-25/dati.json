@@ -1,0 +1,313 @@
+{
+ "oggi": "2026-11-25",
+ "ora_roma": "09:06",
+ "serie": {
+  "ACWI": {
+   "mercato": "USA",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-24",
+     148.14,
+     5048641
+    ],
+    [
+     "2026-11-23",
+     148.94,
+     null
+    ]
+   ]
+  },
+  "S&P 500": {
+   "mercato": "USA",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-24",
+     7201.09,
+     3323599000
+    ],
+    [
+     "2026-11-23",
+     7237.17,
+     5608530000
+    ],
+    [
+     "2026-11-20",
+     6910.39,
+     6679680000
+    ]
+   ]
+  },
+  "Nasdaq": {
+   "mercato": "USA",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-24",
+     23733.54,
+     8199826546
+    ],
+    [
+     "2026-11-23",
+     24089.56,
+     11346040000
+    ],
+    [
+     "2026-11-20",
+     22617.73,
+     12469600000
+    ]
+   ]
+  },
+  "Russell 2000": {
+   "mercato": "USA",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-24",
+     2684.94,
+     5244060000
+    ],
+    [
+     "2026-11-23",
+     2669.66,
+     5608530000
+    ],
+    [
+     "2026-11-20",
+     2581.79,
+     6679680000
+    ]
+   ]
+  },
+  "Euro Stoxx 50": {
+   "mercato": "EU",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-24",
+     6003.7598,
+     20453200
+    ],
+    [
+     "2026-11-23",
+     6074.4702,
+     23485400
+    ],
+    [
+     "2026-11-20",
+     5941.9502,
+     31142000
+    ]
+   ],
+   "fonte": "EODHD + dpa-AFX",
+   "seconda_fonte": 6003.76
+  },
+  "FTSE MIB": {
+   "mercato": "EU",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-24",
+     48121.19,
+     null
+    ],
+    [
+     "2026-11-23",
+     49021,
+     null
+    ],
+    [
+     "2026-11-20",
+     48703.72,
+     null
+    ]
+   ],
+   "fonte": "Money.it + Il Corriere Nazionale"
+  },
+  "Nikkei 225": {
+   "mercato": "JP",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-25",
+     57011.62,
+     null
+    ],
+    [
+     "2026-11-24",
+     58644.63,
+     204700000
+    ],
+    [
+     "2026-11-20",
+     56436.65,
+     174600000
+    ]
+   ],
+   "seconda_fonte": 57011.62,
+   "fonte": "FMP + AP"
+  },
+  "Hang Seng": {
+   "mercato": "HK",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-24",
+     22219.66,
+     3603100000
+    ],
+    [
+     "2026-11-23",
+     22383.75,
+     3452600000
+    ],
+    [
+     "2026-11-20",
+     22410.81,
+     3841700000
+    ]
+   ]
+  },
+  "Kospi": {
+   "mercato": "KR",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-25",
+     4697.51,
+     null
+    ],
+    [
+     "2026-11-24",
+     5006.03,
+     null
+    ],
+    [
+     "2026-11-23",
+     4708.54,
+     null
+    ]
+   ],
+   "seconda_fonte": 4697.51,
+   "fonte": "Korea Times + Seoul Economic Daily"
+  },
+  "Treasury 2 anni": {
+   "mercato": "UST",
+   "nd": "rendimento identico (4,63%) da tre sedute: il controllo lo segna come dato fermo e non c'è una seconda fonte",
+   "ultimi": []
+  },
+  "Treasury 10 anni": {
+   "mercato": "UST",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-24",
+     4.91,
+     null
+    ],
+    [
+     "2026-11-23",
+     4.92,
+     null
+    ],
+    [
+     "2026-11-20",
+     4.92,
+     null
+    ]
+   ]
+  },
+  "Spread Italia": {
+   "mercato": "EU",
+   "nd": "fonti discordanti sulla chiusura del 24/11 (106, 108, 109,4 pb)",
+   "ultimi": []
+  },
+  "EUR/USD": {
+   "mercato": "FX",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-24",
+     1.0964,
+     null
+    ],
+    [
+     "2026-11-23",
+     1.0901,
+     null
+    ],
+    [
+     "2026-11-20",
+     1.0967,
+     null
+    ]
+   ]
+  },
+  "Brent future": {
+   "mercato": "COMM",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-24",
+     91.4,
+     18504
+    ],
+    [
+     "2026-11-23",
+     89.37,
+     21011
+    ],
+    [
+     "2026-11-20",
+     92.57,
+     22746
+    ]
+   ]
+  },
+  "Oro future": {
+   "mercato": "COMM",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-24",
+     3561.9,
+     217681
+    ],
+    [
+     "2026-11-23",
+     3651.4,
+     257719
+    ],
+    [
+     "2026-11-20",
+     3515.4,
+     336479
+    ]
+   ]
+  },
+  "VIX": {
+   "mercato": "USA",
+   "tipo": "chiusura",
+   "ultimi": [
+    [
+     "2026-11-24",
+     26.36,
+     null
+    ],
+    [
+     "2026-11-23",
+     26.62,
+     null
+    ],
+    [
+     "2026-11-20",
+     35.89,
+     null
+    ]
+   ]
+  }
+ },
+ "macro": []
+}

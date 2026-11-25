@@ -1,0 +1,157 @@
+[
+ {
+  "campo": "top.dek",
+  "originale": "Il Kospi chiude a 4.697,51 (-6,16%), il livello più basso dal 13 gennaio, con SK Hynix a -11,05% e Samsung Electronics a -9,87%. Tokyo segue: il Nikkei 225 cede il 2,8% e SoftBank più di ogni altro titolo. Pesano la Wall Street di martedì, dove Nvidia ha perso il 5,86% dopo il +31,5% del giorno prima, e le indiscrezioni su nuovi dazi americani contro 16 economie. [[chip]]",
+  "testo": "Il Kospi chiude a 4.697,51, il livello più basso dal 13 gennaio, con SK Hynix a -11,05% e Samsung Electronics a -9,87%. Tokyo segue: il Nikkei 225 cede il 2,8% e SoftBank più di ogni altro titolo. Pesano la Wall Street di martedì, dove Nvidia ha perso il 5,86% dopo il +31,5% del giorno prima, e le indiscrezioni su nuovi dazi americani contro 16 economie. [[chip]]"
+ },
+ {
+  "campo": "quadro",
+  "originale": "Lo stesso giorno i prezzi dicono due cose. Nel Dow Jones in rialzo (+0,85%) mentre il Nasdaq perde, leggiamo una rotazione dai tecnologici verso i titoli meno legati al ciclo, non una fuga dal rischio. Il Treasury a 10 anni resta a 4,91%: con un rialzo della Fed quasi scontato, la paura sulle borse non basta a farlo scendere. L'euro guadagna lo 0,6% sul dollaro, il Brent risale a 91,40 dollari ma resta lontano dai livelli di ottobre, e l'oro cede il 2,5% dopo il rimbalzo di lunedì.",
+  "testo": "Il Dow Jones sale dello 0,85% mentre il Nasdaq perde: a nostro avviso è una rotazione verso i titoli meno legati al ciclo, non una fuga dal rischio. Il Treasury a 10 anni resta al 4,91% e l'euro guadagna lo 0,6% sul dollaro. Il Brent risale, mentre l'oro cede il 2,5% dopo il rimbalzo di lunedì."
+ },
+ {
+  "campo": "notizie.2.titolo",
+  "originale": "Stellantis perde quota in Europa e a ottobre immatricola il 7% di auto in meno",
+  "testo": "Stellantis perde quota in Europa, a ottobre immatricola il 7% in meno"
+ },
+ {
+  "campo": "notizie.2.testo",
+  "originale": "Nell'Unione europea le immatricolazioni scendono a 129.902 e la quota di mercato passa dal 15,3% al 13,8%.",
+  "testo": "Nell'Unione europea Stellantis scende a 129.902 immatricolazioni e la quota passa dal 15,3% al 13,8%."
+ },
+ {
+  "campo": "notizie.4.titolo",
+  "originale": "Surplus di offerta e colloqui con l'Iran tengono il petrolio sotto i 92 dollari",
+  "testo": "Surplus di offerta e colloqui con l'Iran frenano il petrolio"
+ },
+ {
+  "campo": "moduli.chip.titolo",
+  "originale": "Le banche vedono calare le memorie nel 2028 e Seul perde il 6%",
+  "testo": "Goldman e Morgan Stanley tagliano i target su SK Hynix e Samsung"
+ },
+ {
+  "campo": "moduli.chip.perche",
+  "originale": "Per Goldman Sachs e Morgan Stanley, dal 2028 l'offerta di memorie dovrebbe raggiungere la domanda, anche per l'espansione del produttore cinese CXMT. Per questo hanno tagliato i target su SK Hynix e Samsung. A nostro avviso oggi il mercato sconta in anticipo quel calo di prezzi. Il Nasdaq, con i chip in testa, resta sotto i massimi di ottobre.",
+  "testo": "Per Goldman Sachs e Morgan Stanley, dal 2028 l'offerta di memorie dovrebbe raggiungere la domanda, anche per l'espansione del produttore cinese CXMT. A nostro avviso oggi il mercato sconta in anticipo quel calo di prezzi. Il Nasdaq, con i chip in testa, resta sotto i massimi di ottobre."
+ },
+ {
+  "campo": "moduli.chip.quindi",
+  "originale": "Alle 15:30 riapre Wall Street: Micron è il primo titolo da guardare per capire se la caduta continua.",
+  "testo": "Alle 15:30 riapre Wall Street, e Micron è il primo titolo da guardare."
+ },
+ {
+  "campo": "moduli.chip.numero",
+  "originale": "Quasi l'11% in due giorni e in due Paesi: Micron a New York, SK Hynix a Seul. Per noi il calo segue le ore di apertura delle borse.",
+  "testo": ""
+ },
+ {
+  "campo": "moduli.chip.guardare",
+  "originale": "Decide l'apertura di Wall Street alle 15:30. Un recupero di Micron e dei produttori di chip direbbe che il calo asiatico era eccessivo. Un'altra seduta in rosso farebbe dei prezzi delle memorie del 2028 il tema dei prossimi mesi.",
+  "testo": "Un recupero di Micron e dei produttori di chip direbbe che il calo asiatico era eccessivo. Un'altra seduta in rosso farebbe dei prezzi delle memorie del 2028 il tema dei prossimi mesi."
+ },
+ {
+  "campo": "moduli.chip.testo.0",
+  "originale": "Come può un titolo perdere più di un decimo del suo valore in un giorno se vende chip che tutti vogliono? Perché oggi non si giudica il trimestre ma il 2028. Le stesse banche hanno tagliato i target su SK Hynix e Samsung Electronics: per loro tra due anni le memorie saranno troppe e i prezzi scenderanno. Un titolo vale gli utili dei prossimi anni, e per questo anche una previsione lontana pesa subito sul prezzo.",
+  "testo": "Come può un titolo perdere più di un decimo del suo valore in un giorno se vende chip che tutti vogliono? Perché oggi non si giudica il trimestre ma il 2028: per le banche tra due anni le memorie saranno troppe e i prezzi scenderanno. Un titolo vale gli utili dei prossimi anni, e per questo anche una previsione lontana pesa subito sul prezzo."
+ },
+ {
+  "campo": "moduli.chip.testo.1",
+  "originale": "Perché a perdere di più sono le memorie e non Nvidia? Il prezzo di una memoria cambia con l'equilibrio tra chi la produce e chi la compra. Goldman Sachs prevede che il divario tra offerta e domanda di DRAM si stringa dal 5,1% del prossimo anno all'1,2% nel 2028. Prevede anche che DRAM e NAND perdano ciascuna circa il 20% di prezzo.",
+  "testo": "A perdere più di Nvidia sono le memorie, perché il prezzo di una memoria cambia con l'equilibrio tra chi la produce e chi la compra. Goldman Sachs prevede che il divario tra offerta e domanda di DRAM si stringa dal 5,1% del prossimo anno all'1,2% nel 2028. Sempre per Goldman Sachs, DRAM e NAND perderanno ciascuna circa il 20% di prezzo."
+ },
+ {
+  "campo": "moduli.chip.testo.3",
+  "originale": "Seul pesa molto in questa storia perché Kospi e borsa di Taiwan hanno un peso alto nei semiconduttori, e di solito si muovono con i chip americani della sera prima. Il Nikkei 225 ha perso meno della metà del Kospi.",
+  "testo": "Seul conta molto in questa storia. Kospi e borsa di Taiwan hanno una forte quota di semiconduttori, e di solito si muovono con i chip americani della sera prima. Il Nikkei 225 ha perso meno della metà del Kospi."
+ },
+ {
+  "campo": "moduli.dazi.titolo",
+  "originale": "Gli Stati Uniti preparano nuovi dazi su 16 economie e l'Asia vende in anticipo",
+  "testo": "Gli Stati Uniti preparano dazi su 16 economie e l'Asia vende"
+ },
+ {
+  "campo": "moduli.dazi.perche",
+  "originale": "Secondo tre fonti citate da Reuters, l'amministrazione Trump è pronta a pubblicare i risultati dell'indagine sull'eccesso di capacità industriale in 16 economie. Tra queste ci sono Cina, Unione europea e Corea del Sud, e il passo potrebbe aprire la strada a nuovi dazi.",
+  "testo": "Secondo tre fonti citate da Reuters, l'amministrazione Trump è pronta a pubblicare i risultati dell'indagine sull'eccesso di capacità industriale. Tra le 16 economie ci sono Cina, Unione europea e Corea del Sud, e la pubblicazione potrebbe aprire la strada a nuovi dazi."
+ },
+ {
+  "campo": "moduli.dazi.quindi",
+  "originale": "Entro giovedì, quando Wall Street è chiusa per il Ringraziamento, si vede se i risultati escono. Conta allora la risposta dell'Unione europea, che chiede di restare sotto il tetto dell'accordo di Turnberry.",
+  "testo": "Entro giovedì, con Wall Street chiusa per il Ringraziamento, si vede se i risultati escono. Conta allora la risposta dell'Unione europea."
+ },
+ {
+  "campo": "moduli.dazi.testo.0",
+  "originale": "Un dazio che non c'è ancora fa già vendere, perché il prezzo di un titolo sconta oggi i margini di domani. Un dazio aumenta il costo dei beni importati. Il peso si divide tra chi importa, chi compra e chi esporta. Le proporzioni dipendono dal settore, e finché non si sa quali le borse tendono a prezzare il caso peggiore.",
+  "testo": "Un dazio che non c'è ancora fa già vendere, perché il prezzo di un titolo sconta oggi i margini di domani. Un dazio aumenta il costo dei beni importati, e finché non si sa chi lo sosterrà le borse tendono a prezzare il caso peggiore."
+ },
+ {
+  "campo": "moduli.dazi.testo.1",
+  "originale": "Nessuna aliquota è ufficiale: le indiscrezioni dicono soltanto che i risultati sono pronti. L'Unione europea ha già chiesto che ogni nuovo dazio rispetti il tetto complessivo concordato con gli Stati Uniti a Turnberry. Per questo la lettura resta prudente: l'effetto di un dazio su cambi e borse non ha un verso fisso.",
+  "testo": "Nessuna aliquota è ufficiale: le indiscrezioni dicono soltanto che i risultati sono pronti. La lettura resta quindi prudente, perché l'effetto di un dazio su cambi e borse non ha un verso fisso."
+ },
+ {
+  "campo": "moduli.dazi.testo.2",
+  "originale": "Chi paga alla fine? L'importatore può assorbire il costo nei margini o girarlo a chi compra, mentre l'esportatore può abbassare il prezzo per restare competitivo. Per questo la stessa notizia pesa in modo diverso su settori e paesi, e le borse reagiscono prima di sapere chi pagherà. I risultati dell'indagine sono attesi tra il 24 e il 25 novembre: la loro pubblicazione è il passaggio che trasforma un timore in aliquote.",
+  "testo": "Il costo può restare all'importatore, nei margini, o passare a chi compra, mentre l'esportatore può abbassare il prezzo per restare competitivo. Per questo la stessa notizia pesa in modo diverso su settori e paesi, e le borse reagiscono prima di sapere chi pagherà. I risultati dell'indagine sono attesi tra il 24 e il 25 novembre."
+ },
+ {
+  "campo": "moduli.fed.titolo",
+  "originale": "Con il rialzo di dicembre scontato, il PCE dice quanto dureranno i tassi alti",
+  "testo": "Il PCE di oggi dirà quanto dureranno i tassi alti"
+ },
+ {
+  "campo": "moduli.fed.perche",
+  "originale": "Il mercato dà il rialzo di dicembre per quasi certo. Di solito, quando una mossa è già nei prezzi, il dato di oggi cambia la durata più che la direzione.",
+  "testo": "Quando una mossa è già nei prezzi, il dato del giorno cambia di solito la durata dei tassi alti più che la direzione."
+ },
+ {
+  "campo": "moduli.fed.quindi",
+  "originale": "Un PCE senza energia e alimentari sopra il +0,3% atteso sul mese riaprirebbe il rialzo anche a gennaio, già scontato al 64%.",
+  "testo": "Un PCE senza energia e alimentari sopra il +0,3% atteso sul mese darebbe forza a un altro rialzo a gennaio."
+ },
+ {
+  "campo": "moduli.fed.testo.0",
+  "originale": "Il rialzo è già nei prezzi, eppure il dato di oggi conta ancora. Le probabilità dei future sui tassi sono scommesse del mercato e non previsioni ufficiali, e cambiano in fretta con i dati. Il PCE misura i prezzi pagati dai consumatori americani, e la sua parte core esclude energia e alimentari.",
+  "testo": "Le probabilità dei future sui tassi sono scommesse del mercato e non previsioni ufficiali, e cambiano in fretta con i dati. Il PCE misura i prezzi pagati dai consumatori americani, e la sua parte core esclude energia e alimentari."
+ },
+ {
+  "campo": "moduli.fed.testo.1",
+  "originale": "Conta la sorpresa più del livello. Il consenso per il core di ottobre è +0,3% sul mese. Un numero uguale vale poco, mentre un decimo in più o in meno sposta le attese sulla Fed e il rendimento a breve.",
+  "testo": "Conta la sorpresa più del livello. Un numero in linea con le attese vale poco, mentre un decimo in più o in meno sposta le attese sulla Fed e il rendimento a breve."
+ },
+ {
+  "campo": "moduli.fed.testo.2",
+  "originale": "A nostro avviso il 10 anni resta fermo perché due spinte si compensano: una Fed più dura tende a alzarlo, la paura sulle borse a abbassarlo.",
+  "testo": "A nostro avviso il 10 anni resta fermo perché due spinte si compensano: una Fed più dura tende ad alzarlo, la paura sulle borse ad abbassarlo."
+ },
+ {
+  "campo": "moduli.fed.testo.3",
+  "originale": "Per le borse la durata dei tassi alti conta. I titoli tecnologici valgono soprattutto per utili lontani, e a parità di utili attesi tassi più alti riducono il valore di quegli utili oggi e li penalizzano più degli altri.",
+  "testo": "Per le borse la durata dei tassi alti conta perché i titoli tecnologici valgono soprattutto per utili lontani. A parità di utili attesi, tassi più alti ne riducono il valore di oggi, e lo fanno più che per gli altri titoli."
+ },
+ {
+  "campo": "moduli.europa.titolo",
+  "originale": "Milano cede quasi il 2% perché STMicroelectronics e Technoprobe perdono il 10%",
+  "testo": "Le vendite sui chip pesano su Milano, che perde quasi il 2%"
+ },
+ {
+  "campo": "moduli.europa.perche",
+  "originale": "Secondo dpa-AFX le vendite arrivano tra prese di beneficio dopo il rimbalzo di lunedì, timori sul rialzo della Fed e dubbi sull'intelligenza artificiale.",
+  "testo": "Secondo dpa-AFX le vendite nascono da prese di beneficio dopo il rimbalzo di lunedì, timori sul rialzo della Fed e dubbi sull'intelligenza artificiale."
+ },
+ {
+  "campo": "moduli.europa.quindi",
+  "originale": "Il test è l'apertura di oggi: se STMicroelectronics e Technoprobe recuperano quanto perso ieri erano prese di beneficio, se scendono ancora il tema è la tecnologia.",
+  "testo": "Il test è l'apertura di oggi. Se STMicroelectronics e Technoprobe recuperano quanto perso ieri, erano prese di beneficio; se scendono ancora, il tema è la tecnologia."
+ },
+ {
+  "campo": "moduli.petrolio.quindi",
+  "originale": "Oggi pomeriggio PCE e Pil dicono se la domanda americana tiene: è il test per un barile che ha già perso un quinto.",
+  "testo": "Oggi pomeriggio PCE e Pil dicono se la domanda americana tiene: è il test per il petrolio."
+ },
+ {
+  "campo": "moduli.petrolio.testo.0",
+  "originale": "Perché il petrolio scende mentre le borse hanno paura? Di solito un barile in calo accompagna una domanda debole, ma qui il motivo è l'offerta: il surplus stimato dall'Agenzia internazionale dell'energia e le speranze di intesa con l'Iran. Un petrolio che scende per eccesso di offerta tende ad aiutare i paesi che lo importano, come l'Europa e il Giappone.",
+  "testo": "Perché il petrolio scende mentre le borse hanno paura? Di solito un barile in calo accompagna una domanda debole, ma qui pesa l'offerta. Un petrolio che scende per eccesso di offerta tende ad aiutare i paesi che lo importano, come l'Europa e il Giappone."
+ }
+]
