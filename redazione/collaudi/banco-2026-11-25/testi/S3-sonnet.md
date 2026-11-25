@@ -1,0 +1,20 @@
+# Seul crolla del 6%: perché le memorie perdono più di Nvidia?
+
+*Circolano tre spiegazioni: l'eccesso di offerta di memorie, la fine dell'effetto Huang e i dazi. I prezzi sostengono di più la prima, meno l'ultima.*
+
+Il Kospi di Seul ha chiuso a 4.697,51 punti, -6,16%, con SK Hynix -11,05% e Samsung Electronics -9,87%: in una seduta ha restituito tutto il +6,32% di martedì. Tokyo ha perso il 2,78%. Le risposte raccolte sono tre, in ordine di quanto i prezzi le reggono.
+
+La prima viene dalle banche. Goldman Sachs prevede che la carenza di DRAM, la memoria di lavoro dei computer, scenda dal 5,1% del 2027 all'1,2% nel 2028, con il produttore cinese CXMT in crescita, e che i prezzi di DRAM e NAND calino di circa il 20% ciascuna: ha tagliato del 43% il target di SK Hynix e del 30% quello di Samsung. Martedì BNP Paribas ha portato Micron a Neutral da Outperform, temendo un eccesso di offerta. Se è la causa, le memorie devono perdere più di Nvidia, che vende altro: Micron è scesa di circa l'11%, Nvidia del 5,86%. Torna in parte: il rapporto di Goldman è di domenica, prima del rimbalzo.
+
+La seconda: l'effetto Huang è finito. Il reintegro del fondatore aveva spinto Nvidia a oltre +31% lunedì; per Yahoo Finance l'ottimismo «was quick to fizzle out». Allora dovrebbero cedere i titoli dell'intelligenza artificiale: Nvidia -5,86%, l'indice dei semiconduttori -7,88% con tutti i 30 titoli in calo. Spiega il verso, non la misura: l'S&P 500 perde lo 0,50% e il Dow Jones sale dello 0,85%.
+
+La terza sono i dazi. Tre fonti citate da Reuters dicono che Washington sta per pubblicare l'indagine sull'eccesso di capacità industriale in 16 economie, tra cui Corea del Sud e Giappone, con nuovi dazi a seguire. Per Kevin Su, analista di Hua Nan Securities a Taipei, «mainly it's the impact of the tariff issue». Ma aliquote ed esenzioni non sono note, l'indiscrezione è di una sola testata e il Kospi perde più del doppio del Nikkei.
+
+Le tre risposte si sommano. Nessuna fonte spiega perché le memorie perdano più di Nvidia: a noi pare che i dubbi sull'intelligenza artificiale colpiscano tutti i chip e che le stime sulle memorie, prodotto simile da un produttore all'altro, pesino solo su queste.
+
+## Che cosa lo direbbe
+- Memorie: alla riapertura di Wall Street (15:30), Micron scende ancora più di Nvidia. Pesa l'offerta.
+- Huang: i chip americani risalgono tutti insieme dopo i dati delle 14:30. Era l'effetto Huang.
+- Dazi: la pubblicazione dell'indagine, attesa il 24 o il 25 novembre, con aliquote ed esenzioni.
+
+Fonti: Korea Times, Seoul Economic Daily, Reuters, Yahoo Finance, chiusure degli indici (FMP)

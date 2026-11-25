@@ -1,0 +1,21 @@
+# Seul perde il 6%: colpa dei chip delle memorie o dei dazi?
+
+*Circolano tre spiegazioni: troppe memorie in arrivo, l'effetto Huang svanito, i nuovi dazi americani. I prezzi danno più ragione alla prima*
+
+Il Kospi ha chiuso oggi a 4.697,51, -6,16%, e in una sola seduta ha restituito tutto il rialzo di martedì. SK Hynix ha perso l'11,05%, Samsung Electronics il 9,87%. Perché? Le risposte sono tre, in ordine di quanto i prezzi le sostengono.
+
+La prima: le memorie, i chip che conservano i dati, rischiano di diventare troppe. Per Nam Dae-jong, di Daol Investment & Securities, a frenare i titoli è l'equilibrio tra domanda e offerta più che l'incertezza sugli utili. Goldman Sachs ha tagliato del 43% il target di SK Hynix e vede nel 2028 i prezzi delle memorie in calo di circa il 20%, con la cinese CXMT che produce di più; ieri BNP Paribas ha abbassato il giudizio sull'americana Micron per lo stesso rischio. Se fosse vera, le memorie dovrebbero cadere più degli altri chip. Così è stato: Micron ha perso circa l'11%, Nvidia il 5,86%, e a Tokyo la giapponese Kioxia il 14,2%.
+
+La seconda: si è esaurito l'effetto Huang, il ritorno di Jensen Huang alla guida di Nvidia che lunedì aveva spinto il titolo del 31,5%. Torna solo in parte: ieri l'S&P 500 ha ceduto lo 0,50%, una seduta ordinaria, mentre Dow Jones e Russell 2000 sono saliti. Più che dalla tecnologia, si è usciti dai chip: l'indice dei semiconduttori di Filadelfia ha perso il 7,88%.
+
+La terza: i dazi. Kevin Su, analista di Hua Nan Securities a Taipei, li mette al primo posto, e secondo Reuters l'amministrazione Trump sta per pubblicare un'indagine su 16 economie, Corea e Giappone comprese, da cui seguirebbero nuovi dazi. Se pesassero soprattutto i dazi, Tokyo dovrebbe soffrire come Seul: il Nikkei ha perso il 2,78%.
+
+Le tre risposte possono stare insieme: il Korea Times lega anche ai dazi il ritorno degli stranieri alle vendite a Seul. Nessuna fonte spiega però perché le memorie cadano più di Nvidia. A nostro avviso pesa la loro natura: sono un prodotto quasi uguale da un produttore all'altro, il prezzo lo fa l'equilibrio tra offerta e domanda e una previsione sul 2028 colpisce subito, perché un'azione tende a riflettere gli utili di molti anni.
+
+## Che cosa lo direbbe
+
+- **Memorie:** Micron e i semiconduttori alla riapertura di Wall Street, oggi alle 15:30.
+- **Effetto Huang:** Nvidia oggi e venerdì 27, giornata corta fino alle 19:00 dopo la chiusura per il Ringraziamento.
+- **Dazi:** la pubblicazione dell'indagine americana, attesa già per il 24 o il 25: se colpisce Tokyo quanto Seul.
+
+Fonti: Seoul Economic Daily, Korea Times, Reuters, Yahoo Finance, FinanceFeeds, TradingKey, chiusure degli indici (FMP)

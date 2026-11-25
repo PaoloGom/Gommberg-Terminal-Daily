@@ -1,0 +1,358 @@
+{
+ "testi": {
+  "T01": {
+   "domanda": 3,
+   "cause": 3,
+   "prove": 4,
+   "chiarezza": 3,
+   "italiano": 4,
+   "titoli": 3,
+   "punto_forte": {
+    "cosa": "Cronaca pulita e completa: cifre esatte, e la graduatoria che mette i dazi per primi è attribuita all'analista, non all'agenzia.",
+    "citazione": "Kevin Su, analista di Hua Nan Securities, mette i dazi al primo posto"
+   },
+   "difetti": [
+    {
+     "voce": "domanda",
+     "cosa": "Mette in fila dazi, tagli degli analisti e chip americani senza pesarli né provarli sui prezzi: il lettore non sa quale causa conta di più.",
+     "citazione": "Sulle memorie pesano i tagli degli analisti."
+    },
+    {
+     "voce": "cause",
+     "cosa": "Estende a Tokyo un meccanismo ammesso solo per Seul e Taipei, e non nota che Tokyo ha perso molto meno di Seul.",
+     "citazione": "Seul e Tokyo di solito seguono i chip americani della sera prima."
+    }
+   ]
+  },
+  "T02": {
+   "domanda": 5,
+   "cause": 4,
+   "prove": 4,
+   "chiarezza": 4,
+   "italiano": 4,
+   "titoli": 4,
+   "punto_forte": {
+    "cosa": "Per ogni spiegazione dice che cosa dovrebbe succedere se fosse vera e lo confronta con i prezzi: il ragionamento si vede.",
+    "citazione": "Se pesassero soprattutto i dazi, Tokyo dovrebbe soffrire come Seul: il Nikkei ha perso il 2,78%."
+   },
+   "difetti": [
+    {
+     "voce": "cause",
+     "cosa": "La prova sull'effetto Huang non regge: il crollo dei semiconduttori è ciò che la fine di quell'effetto farebbe attendere, non una smentita.",
+     "citazione": "Più che dalla tecnologia, si è usciti dai chip: l'indice dei semiconduttori di Filadelfia ha perso il 7,88%."
+    },
+    {
+     "voce": "chiarezza",
+     "cosa": "Il riquadro ha un titolo oscuro e l'ultima voce è compressa fino a non reggersi come frase.",
+     "citazione": "la pubblicazione dell'indagine americana, attesa già per il 24 o il 25: se colpisce Tokyo quanto Seul."
+    }
+   ]
+  },
+  "T03": {
+   "domanda": 4,
+   "cause": 4,
+   "prove": 4,
+   "chiarezza": 4,
+   "italiano": 4,
+   "titoli": 5,
+   "punto_forte": {
+    "cosa": "Tiene un protagonista dal titolo alla chiusa e sceglie tra le due letture con un verdetto dichiarato e due cifre.",
+    "citazione": "A nostro avviso i numeri danno ragione al secondo: SK Hynix e Micron hanno perso l'11%, Nvidia martedì il 5,86%."
+   },
+   "difetti": [
+    {
+     "voce": "cause",
+     "cosa": "Cita Tokyo ma non la usa: il confronto che metterebbe alla prova i dazi resta una cifra isolata a fine capoverso.",
+     "citazione": "Tokyo si è fermata a -2,78%."
+    },
+    {
+     "voce": "chiarezza",
+     "cosa": "La carenza in percentuale non è spiegata come domanda sopra l'offerta; subito dopo arriva «sconta», gergo per questo lettore.",
+     "citazione": "prevede che la carenza di memoria di lavoro passi dal 5,1% del 2027 all'1,2% nel 2028"
+    }
+   ]
+  },
+  "T04": {
+   "domanda": 3,
+   "cause": 3,
+   "prove": 4,
+   "chiarezza": 4,
+   "italiano": 4,
+   "titoli": 4,
+   "punto_forte": {
+    "cosa": "Racconto in sequenza con il passo e il lessico di un buon quotidiano: il ribaltamento in due sedute si vede.",
+    "citazione": "Il Kospi lascia sul terreno 308,52 punti e chiude 11 punti sotto il livello di lunedì 23"
+   },
+   "difetti": [
+    {
+     "voce": "cause",
+     "cosa": "Confronta un indice con un titolo e lo scarto è minimo, -6,16% contro -5,86%: il paragone che regge è SK Hynix contro Nvidia.",
+     "citazione": "spiegherebbe perché Seul ha perso più di Nvidia"
+    },
+    {
+     "voce": "domanda",
+     "cosa": "La lettura dei dazi è riportata e lasciata lì: nessun confronto con Tokyo, nessuna chiusura. E la notizia arriva solo al secondo capoverso.",
+     "citazione": "Kevin Su, analista di Hua Nan Securities a Taipei, indica invece i dazi"
+    }
+   ]
+  },
+  "T05": {
+   "domanda": 4,
+   "cause": 4,
+   "prove": 4,
+   "chiarezza": 4,
+   "italiano": 3,
+   "titoli": 3,
+   "punto_forte": {
+    "cosa": "Chiude la pista dei dazi con il confronto tra Tokyo e Seul, in una frase che il lettore capisce subito.",
+    "citazione": "un'indiscrezione che le riguarda entrambe non spiega lo scarto"
+   },
+   "difetti": [
+    {
+     "voce": "prove",
+     "cosa": "Il riquadro azzarda un contagio all'Europa che nessun fatto del giorno sostiene: è un'ipotesi data senza dirlo.",
+     "citazione": "un altro calo allungherebbe le vendite all'Europa"
+    },
+    {
+     "voce": "titoli",
+     "cosa": "Riquadri con etichette generiche messi prima dei fatti; «Il numero» allinea quattro cifre senza dire che cosa dimostrano.",
+     "citazione": "+19,04% e circa -11%: Micron lunedì e martedì. Nvidia ha fatto +31,5% e -5,86%."
+    }
+   ]
+  },
+  "T06": {
+   "domanda": 3,
+   "cause": 3,
+   "prove": 4,
+   "chiarezza": 3,
+   "italiano": 3,
+   "titoli": 2,
+   "punto_forte": {
+    "cosa": "La prova su Tokyo distingue le memorie dal resto del listino; la tabella dei target prima e dopo è utile.",
+    "citazione": "Il conto torna a Tokyo: il Nikkei cede il 2,78%, Kioxia, produttore giapponese di memorie, il 14,2%."
+   },
+   "difetti": [
+    {
+     "voce": "titoli",
+     "cosa": "Titolo incomprensibile per chi non è del mestiere: una carenza che scende sembra una buona notizia. Il catenaccio comincia senza soggetto.",
+     "citazione": "per Goldman Sachs la carenza di memorie nel 2028 scende all'1,2%"
+    },
+    {
+     "voce": "italiano",
+     "cosa": "Frase rotta: non si capisce a chi si riferisca «i loro». Altrove formule oscure come «Il metro sono i prezzi».",
+     "citazione": "i chip pesano molto nel Kospi, che di solito segue i loro"
+    }
+   ]
+  },
+  "T07": {
+   "domanda": 5,
+   "cause": 4,
+   "prove": 4,
+   "chiarezza": 5,
+   "italiano": 4,
+   "titoli": 4,
+   "punto_forte": {
+    "cosa": "Dice subito la tesi in parole semplici e la tiene fino alla verifica finale: è cambiata l'idea sul futuro delle memorie.",
+    "citazione": "Perché chi le segue ha cambiato idea sul loro futuro, non sul presente."
+   },
+   "difetti": [
+    {
+     "voce": "cause",
+     "cosa": "Manca l'anello tra New York e Seul: non dice perché la Borsa coreana segue i chip americani della sera prima, né cita il loro indice.",
+     "citazione": "Ieri Nvidia ha perso il 5,86%, Micron circa l'11%."
+    },
+    {
+     "voce": "italiano",
+     "cosa": "Annuncia un secondo passaggio senza aver nominato il primo; la riserva che segue parla del lavoro di redazione più che al lettore.",
+     "citazione": "Secondo passaggio: un'azione tende a riflettere gli utili attesi per molti anni"
+    }
+   ]
+  },
+  "T08": {
+   "domanda": 4,
+   "cause": 3,
+   "prove": 3,
+   "chiarezza": 3,
+   "italiano": 4,
+   "titoli": 3,
+   "punto_forte": {
+    "cosa": "In duecento parole dà fatto, causa, obiezione e una verifica che distingue davvero le due letture: brevità che serve.",
+    "citazione": "un nuovo calo confermerebbe che il mercato teme l'eccesso di offerta, un recupero farebbe pensare a una reazione eccessiva di Seul"
+   },
+   "difetti": [
+    {
+     "voce": "prove",
+     "cosa": "I due punti legano la frase dell'analista coreano alla previsione di Goldman come se la citasse lui; le memorie non sono mai spiegate.",
+     "citazione": "più che l'incertezza sugli utili: Goldman Sachs prevede che nel 2028 la carenza di memorie quasi si esaurisca"
+    },
+    {
+     "voce": "chiarezza",
+     "cosa": "La prova decisiva è compressa: non dice che i dazi toccherebbero anche il Giappone, così non si capisce perché Nikkei e Kioxia contino.",
+     "citazione": "i numeri sembrano dare ragione alla prima lettura: il Nikkei ha perso il 2,78%"
+    }
+   ]
+  },
+  "T09": {
+   "domanda": 3,
+   "cause": 2,
+   "prove": 3,
+   "chiarezza": 3,
+   "italiano": 3,
+   "titoli": 3,
+   "punto_forte": {
+    "cosa": "Notizia e cifre in testa, tutte esatte; l'attacco dà subito la misura storica del crollo.",
+    "citazione": "è la chiusura più bassa dal 13 gennaio"
+   },
+   "difetti": [
+    {
+     "voce": "cause",
+     "cosa": "Attribuisce all'agenzia una graduatoria che è dell'analista e mette i dazi per primi senza notare che Tokyo ha perso molto meno.",
+     "citazione": "La causa principale, secondo Reuters, sono le nuove minacce di dazi americani"
+    },
+    {
+     "voce": "domanda",
+     "cosa": "Accosta i fatti senza legarli: il fuso è nominato ma non si dice perché conta, e nessuno spiega perché le memorie cadano di più.",
+     "citazione": "Seul ha aperto dopo la chiusura di New York."
+    }
+   ]
+  },
+  "T10": {
+   "domanda": 3,
+   "cause": 3,
+   "prove": 3,
+   "chiarezza": 4,
+   "italiano": 4,
+   "titoli": 2,
+   "punto_forte": {
+    "cosa": "Spiega con ordine il numero su cui costruisce il pezzo e ricorda al lettore che è soltanto una previsione.",
+    "citazione": "L'1,2% resta una previsione su un anno che deve arrivare, e non è l'unica spiegazione."
+   },
+   "difetti": [
+    {
+     "voce": "titoli",
+     "cosa": "Il titolo non dice la notizia del giorno: il crollo di Seul manca e resta una previsione tecnica sul 2028.",
+     "citazione": "Goldman Sachs prevede che nel 2028 la carenza di memorie scenda all'1,2%"
+    },
+    {
+     "voce": "cause",
+     "cosa": "Tutto poggia su un rapporto di domenica, ma martedì Seul era salita; Tokyo non compare e la verifica proposta arriva tra molti mesi.",
+     "citazione": "Il numero che dirà chi ha ragione è il prezzo delle memorie: per BNP può cominciare a scendere già da metà 2027."
+    }
+   ]
+  },
+  "T11": {
+   "domanda": 4,
+   "cause": 4,
+   "prove": 3,
+   "chiarezza": 3,
+   "italiano": 3,
+   "titoli": 3,
+   "punto_forte": {
+    "cosa": "È l'unica stesura che vede il punto debole della propria tesi: il rapporto di Goldman precede il rimbalzo di martedì.",
+    "citazione": "Torna in parte: il rapporto di Goldman è di domenica, prima del rimbalzo."
+   },
+   "difetti": [
+    {
+     "voce": "prove",
+     "cosa": "«Fondatore» non sta nei fatti disponibili: Huang vi compare solo come presidente e amministratore delegato. È un dettaglio aggiunto.",
+     "citazione": "Il reintegro del fondatore aveva spinto Nvidia a oltre +31% lunedì"
+    },
+    {
+     "voce": "chiarezza",
+     "cosa": "Formule telegrafiche al posto del ragionamento: le cifre che seguono non mostrano perché «non la misura». Il titolo poi chiede altro rispetto alle tre risposte.",
+     "citazione": "Spiega il verso, non la misura: l'S&P 500 perde lo 0,50% e il Dow Jones sale dello 0,85%."
+    }
+   ]
+  },
+  "T12": {
+   "domanda": 5,
+   "cause": 5,
+   "prove": 4,
+   "chiarezza": 5,
+   "italiano": 4,
+   "titoli": 4,
+   "punto_forte": {
+    "cosa": "Parte dalla domanda che il lettore si fa e la chiude con un numero; l'immagine del negozio spiega perché il 2028 pesa oggi.",
+    "citazione": "Come può Seul crollare dopo una seduta così tranquilla? Perché non lo era per tutti"
+   },
+   "difetti": [
+    {
+     "voce": "cause",
+     "cosa": "La verifica finale è confusa: non si capisce quale lettura andrebbe rivista né perché, se i chip reggono nonostante i dazi.",
+     "citazione": "se i chip reggono mentre arrivano i dazi, la lettura va rivista"
+    },
+    {
+     "voce": "prove",
+     "cosa": "Dà per avvenuto ciò che è un'indiscrezione: i dazi non sono usciti. E tra i paesi cita Taiwan, ma poi ragiona su Tokyo.",
+     "citazione": "Ma colpiscono tutta l'Asia e Tokyo ha perso il 2,78%, meno della metà di Seul"
+    }
+   ]
+  },
+  "T13": {
+   "domanda": 5,
+   "cause": 4,
+   "prove": 4,
+   "chiarezza": 4,
+   "italiano": 4,
+   "titoli": 4,
+   "punto_forte": {
+    "cosa": "Titolo con causa e fatto, e riquadri che portano contenuto: la prova di Tokyo contro i dazi e l'arrivo a Piazza Affari.",
+    "citazione": "quelli di cui scrive Reuters toccherebbero anche il Giappone, ma Tokyo cede il 2,78%"
+   },
+   "difetti": [
+    {
+     "voce": "cause",
+     "cosa": "La prima verifica non torna: se i chip americani, Micron compresa, recuperano, non si vede perché Seul resterebbe un caso di memorie.",
+     "citazione": "Se i chip americani recuperano, il crollo di Seul resta un caso di memorie."
+    },
+    {
+     "voce": "chiarezza",
+     "cosa": "Il VIX compare senza una parola su che cosa sia: per questo lettore è una sigla muta.",
+     "citazione": "il Dow è salito dello 0,85% con il VIX fermo"
+    }
+   ]
+  },
+  "T14": {
+   "domanda": 3,
+   "cause": 3,
+   "prove": 2,
+   "chiarezza": 2,
+   "italiano": 3,
+   "titoli": 2,
+   "punto_forte": {
+    "cosa": "Usa il confronto con Tokyo per ridimensionare i dazi e arriva subito a che cosa guardare oggi.",
+    "citazione": "A Seul la differenza la fanno le memorie"
+   },
+   "difetti": [
+    {
+     "voce": "prove",
+     "cosa": "Dà i dazi come già avvenuti e la lettura propria come fatto; memorie, DRAM, carenza e Micron sono nominati senza spiegazione.",
+     "citazione": "Ma i dazi hanno colpito tutta l'Asia, e il Nikkei ha perso il 2,78%."
+    },
+    {
+     "voce": "italiano",
+     "cosa": "Calchi dall'inglese nel titolo e nel catenaccio, e un presente dove serve il futuro.",
+     "citazione": "Micron e Nvidia dicono se la vendita sui chip continua."
+    }
+   ]
+  }
+ },
+ "classifica": [
+  "T12",
+  "T07",
+  "T13",
+  "T02",
+  "T03",
+  "T05",
+  "T04",
+  "T11",
+  "T01",
+  "T08",
+  "T10",
+  "T06",
+  "T09",
+  "T14"
+ ],
+ "famiglie": "Ne riconosco sette. Cronaca d'agenzia (T01, T09): fatti e attribuzioni in fila, nessun peso. Racconto con protagonista (T03, T04): SK Hynix e la sequenza dei giorni. Ipotesi a confronto (T02, T11): tre spiegazioni provate sui prezzi. Numero in testa (T06, T10): l'1,2% di Goldman prima della notizia. Domanda e spiegazione (T07, T12): un perché, una tesi, un'immagine. Riquadri in testa (T05, T13): «Perché» ed «E quindi» prima del testo. Brevi (T08, T14). Servono meglio il lettore domanda e spiegazione, poi i riquadri quando portano contenuto e le ipotesi a confronto, rigorose ma schematiche. Il numero in testa seppellisce la notizia; la cronaca non dice il perché; la brevità regge solo se non comprime i passaggi.",
+ "cosa_distingue": "Le migliori partono dalla domanda del giorno, scelgono una lettura dichiarandola propria e provano l'alternativa su un prezzo: Tokyo a -2,78% contro Seul a -6,16%, Micron contro Nvidia, il Dow in rialzo. Spiegano i due anelli che il lettore non ha: perché una previsione sul 2028 muove il titolo oggi e perché Seul segue i chip americani. Le peggiori elencano le cause senza pesarle, sbagliano a chi appartiene una graduatoria, danno i dazi per avvenuti, aprono con un numero tecnico o comprimono fino a lasciare nomi e sigle senza spiegazione."
+}

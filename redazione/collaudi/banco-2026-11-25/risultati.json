@@ -1,0 +1,212 @@
+[
+ {
+  "pos_media": 1,
+  "testo": "S2-sonnet",
+  "sigla": "T12",
+  "posizioni": [
+   1,
+   1,
+   1
+  ],
+  "voto": 4.61,
+  "pensiero": 4.67,
+  "prosa": 4.56,
+  "grossolani": 0,
+  "minori": 4
+ },
+ {
+  "pos_media": 2.6666666666666665,
+  "testo": "S2-opus",
+  "sigla": "T07",
+  "posizioni": [
+   2,
+   4,
+   2
+  ],
+  "voto": 4.11,
+  "pensiero": 4.33,
+  "prosa": 3.89,
+  "grossolani": 0,
+  "minori": 1
+ },
+ {
+  "pos_media": 4.333333333333333,
+  "testo": "S0-opus",
+  "sigla": "T13",
+  "posizioni": [
+   3,
+   7,
+   3
+  ],
+  "voto": 3.83,
+  "pensiero": 4.11,
+  "prosa": 3.56,
+  "grossolani": 0,
+  "minori": 1
+ },
+ {
+  "pos_media": 4.333333333333333,
+  "testo": "S3-opus",
+  "sigla": "T02",
+  "posizioni": [
+   4,
+   2,
+   7
+  ],
+  "voto": 4.06,
+  "pensiero": 4.33,
+  "prosa": 3.78,
+  "grossolani": 0,
+  "minori": 3
+ },
+ {
+  "pos_media": 5.333333333333333,
+  "testo": "S3-sonnet",
+  "sigla": "T11",
+  "posizioni": [
+   8,
+   3,
+   5
+  ],
+  "voto": 3.78,
+  "pensiero": 4.22,
+  "prosa": 3.33,
+  "grossolani": 0,
+  "minori": 4
+ },
+ {
+  "pos_media": 5.333333333333333,
+  "testo": "S5-opus",
+  "sigla": "T03",
+  "posizioni": [
+   5,
+   5,
+   6
+  ],
+  "voto": 4.11,
+  "pensiero": 4,
+  "prosa": 4.22,
+  "grossolani": 0,
+  "minori": 3
+ },
+ {
+  "pos_media": 6.666666666666667,
+  "testo": "S5-sonnet",
+  "sigla": "T04",
+  "posizioni": [
+   7,
+   9,
+   4
+  ],
+  "voto": 3.83,
+  "pensiero": 3.56,
+  "prosa": 4.11,
+  "grossolani": 0,
+  "minori": 2
+ },
+ {
+  "pos_media": 7,
+  "testo": "S0-sonnet",
+  "sigla": "T05",
+  "posizioni": [
+   6,
+   6,
+   9
+  ],
+  "voto": 3.56,
+  "pensiero": 3.89,
+  "prosa": 3.22,
+  "grossolani": 0,
+  "minori": 1
+ },
+ {
+  "pos_media": 9.333333333333334,
+  "testo": "S4-sonnet",
+  "sigla": "T06",
+  "posizioni": [
+   12,
+   8,
+   8
+  ],
+  "voto": 3.06,
+  "pensiero": 3.56,
+  "prosa": 2.56,
+  "grossolani": 1,
+  "minori": 1
+ },
+ {
+  "pos_media": 10.333333333333334,
+  "testo": "S1-opus",
+  "sigla": "T01",
+  "posizioni": [
+   9,
+   10,
+   12
+  ],
+  "voto": 3.17,
+  "pensiero": 2.89,
+  "prosa": 3.44,
+  "grossolani": 0,
+  "minori": 1
+ },
+ {
+  "pos_media": 10.666666666666666,
+  "testo": "S4-opus",
+  "sigla": "T10",
+  "posizioni": [
+   11,
+   11,
+   10
+  ],
+  "voto": 3.33,
+  "pensiero": 3.33,
+  "prosa": 3.33,
+  "grossolani": 0,
+  "minori": 3
+ },
+ {
+  "pos_media": 12,
+  "testo": "S6-opus",
+  "sigla": "T08",
+  "posizioni": [
+   10,
+   13,
+   13
+  ],
+  "voto": 2.94,
+  "pensiero": 2.67,
+  "prosa": 3.22,
+  "grossolani": 0,
+  "minori": 1
+ },
+ {
+  "pos_media": 12.333333333333334,
+  "testo": "S6-sonnet",
+  "sigla": "T14",
+  "posizioni": [
+   14,
+   12,
+   11
+  ],
+  "voto": 3.0,
+  "pensiero": 2.78,
+  "prosa": 3.22,
+  "grossolani": 0,
+  "minori": 3
+ },
+ {
+  "pos_media": 13.666666666666666,
+  "testo": "S1-sonnet",
+  "sigla": "T09",
+  "posizioni": [
+   13,
+   14,
+   14
+  ],
+  "voto": 2.67,
+  "pensiero": 2.22,
+  "prosa": 3.11,
+  "grossolani": 1,
+  "minori": 2
+ }
+]

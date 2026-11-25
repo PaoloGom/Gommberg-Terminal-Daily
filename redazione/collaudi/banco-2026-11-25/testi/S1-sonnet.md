@@ -1,0 +1,23 @@
+# Seul crolla del 6,16%, minimo dal 13 gennaio: SK Hynix -11,05%
+
+*Tokyo chiude a -2,78%. A Wall Street i semiconduttori di Filadelfia hanno perso il 7,88% e tutti e 30 i titoli sono scesi.*
+
+Il Kospi, l'indice della Borsa di Seul, ha chiuso oggi a 4.697,51 punti, in calo del 6,16%: è la chiusura più bassa dal 13 gennaio. SK Hynix ha ceduto l'11,05% e Samsung Electronics il 9,87%. In una sola seduta l'indice ha restituito tutto il rialzo del 6,32% di martedì.
+
+La causa principale, secondo Reuters, sono le nuove minacce di dazi americani, che hanno pesato sulla fiducia mentre il rimbalzo dei tecnologici si esauriva. Kevin Su, analista di Hua Nan Securities a Taipei, ha detto: «Mainly it's the impact of the tariff issue». Il Korea Times scrive che gli investitori stranieri sono tornati venditori netti, anche per le dichiarazioni di Trump. Secondo tre fonti citate da Reuters, l'amministrazione americana è pronta a pubblicare l'indagine sull'eccesso di capacità industriale in 16 economie, Corea del Sud compresa; seguirebbero nuovi dazi. Aliquote ed esenzioni non sono note.
+
+Sulle memorie, i chip che conservano i dati, pesano anche i giudizi delle banche. Goldman Sachs ha tagliato il target di SK Hynix da 3,5 a 2 milioni di won (-43%) e quello di Samsung da 500.000 a 350.000 won (-30%): prevede che nel 2028 la carenza di DRAM, la memoria di lavoro, scenda all'1,2% dal 5,1% del 2027, con il gruppo cinese CXMT in crescita, e che i prezzi di DRAM e NAND calino di circa il 20% ciascuno. Per Nam Dae-jong, di Daol Investment & Securities, a frenare i rialzi è l'equilibrio tra domanda e offerta più che l'incertezza sugli utili.
+
+Seul ha aperto dopo la chiusura di New York. Martedì Micron ha perso circa l'11%, a 629,79 dollari, dopo che BNP Paribas ha portato il giudizio da Outperform a Neutral e il target da 1.700 a 775 dollari, per il rischio di un eccesso di offerta di memorie. Nvidia ha lasciato sul terreno il 5,86%, a 155,38 dollari, dopo il +31,5% di lunedì.
+
+A Tokyo il Nikkei 225 ha chiuso a 57.011,62, con SoftBank a -14,8% e Kioxia, produttore giapponese di memorie, a -14,2%. A Milano STMicroelectronics ha perso il 10,21% e Technoprobe il 10,09%.
+
+Oggi alle 14:30 escono i prezzi PCE di ottobre e la seconda stima del Pil americano del terzo trimestre; alle 15:30 apre Wall Street.
+
+## I numeri
+Nasdaq Composite (24/11): 23.733,54, -1,48%
+S&P 500 (24/11): 7.201,09, -0,50%
+Dow Jones (24/11): 50.018,70, +0,85%
+FTSE MIB (24/11): 48.121,19, -1,84%
+
+Fonti: Korea Times, Reuters, Seoul Economic Daily, Yahoo Finance, FinanceFeeds, TradingKey, AP, Money.it, chiusure degli indici (FMP)

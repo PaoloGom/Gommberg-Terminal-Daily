@@ -1,0 +1,20 @@
+# Le banche tagliano le stime sulle memorie e Seul perde il 6%
+
+## Perché
+Goldman Sachs prevede che nel 2028 la domanda di memorie di lavoro superi l'offerta solo dell'1,2%, contro il 5,1% del 2027, mentre il cinese CXMT produce di più. A nostro avviso pesa più dei dazi: quelli di cui scrive Reuters toccherebbero anche il Giappone, ma Tokyo cede il 2,78%.
+
+## E quindi
+La storia arriva a Piazza Affari con i chip: ieri STMicroelectronics ha perso il 10,21% e Technoprobe il 10,09%.
+
+Ieri Nvidia ha perso il 5,86%. I produttori di memorie hanno perso molto di più: Micron circa l'11% a Wall Street, poi stamattina SK Hynix l'11,05% e Samsung il 9,87% a Seul. Per noi la differenza sta nel prodotto. Le memorie, i chip che conservano i dati, sono quasi uguali da un produttore all'altro, e il loro prezzo dipende da quante se ne fanno e quante se ne comprano. Quando l'offerta raggiunge la domanda il prezzo scende, come per il grano dopo un buon raccolto.
+
+Ed è proprio questo che le banche hanno cominciato a mettere nei conti. Goldman vede i prezzi delle memorie in calo di circa il 20% nel 2028 e taglia il target di SK Hynix da 3,5 a 2 milioni di won. BNP Paribas porta Micron da Outperform a Neutral e avverte che cresce il rischio di un eccesso di offerta. Morgan Stanley si chiede se il settore possa evitare un «profit cliff» intorno al 2028. Il 2028 sembra lontano, ma il prezzo di un'azione di solito riflette gli utili di molti anni, e una previsione su quell'anno lo muove subito.
+
+Seul, dove i chip pesano molto, tende poi a seguire ciò che i semiconduttori americani hanno fatto la sera prima: ieri il loro indice di Filadelfia ha perso il 7,88%, con tutti i 30 titoli in calo. In una seduta il Kospi ha restituito tutto il +6,32% di martedì.
+
+Non tutti la leggono così. Secondo Kevin Su, di Hua Nan Securities, «Mainly it's the impact of the tariff issue»: tre fonti citate da Reuters dicono che Washington è pronta a pubblicare un'indagine che aprirebbe la strada a nuovi dazi su 16 economie, Corea e Giappone compresi. Ma a Tokyo sono caduti soprattutto SoftBank e Kioxia, produttore di memorie, e ieri a Wall Street il Dow è salito dello 0,85% con il VIX fermo: non è stata una fuga da tutto.
+
+## Da guardare
+Wall Street riapre oggi alle 15:30. Se i chip americani recuperano, il crollo di Seul resta un caso di memorie. Se esce l'indagine americana sui dazi e le borse cadono senza distinzioni, a muovere sarà la politica commerciale.
+
+Fonti: Korea Times, Seoul Economic Daily, Reuters, AP, Yahoo Finance, FinanceFeeds, TradingKey, Money.it, chiusure degli indici (FMP)

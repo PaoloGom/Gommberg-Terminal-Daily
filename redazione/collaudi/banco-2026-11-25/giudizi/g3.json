@@ -1,0 +1,91 @@
+{
+ "testi": {
+  "T01": {"domanda": 2, "cause": 2, "prove": 3, "chiarezza": 3, "italiano": 4, "titoli": 3,
+   "punto_forte": {"cosa": "Cifre esatte e ben ordinate; il confronto con il rimbalzo di martedì dà subito la misura del crollo.", "citazione": "In una seduta ha restituito tutto il +6,32% di martedì."},
+   "difetti": [
+    {"voce": "cause", "cosa": "Elenca analisti, dazi e Wall Street senza dire quale spiegazione regge e perché le memorie perdano più di Nvidia: il lettore resta senza risposta.", "citazione": "Sulle memorie pesano i tagli degli analisti."},
+    {"voce": "prove", "cosa": "Il profit cliff di Morgan Stanley è nominato senza spiegare cosa sia, e la nota è precedente al crollo.", "citazione": "Già il 10 novembre Morgan Stanley si chiedeva se il settore potesse evitare un «profit cliff» intorno al 2028"}
+   ]},
+  "T02": {"domanda": 5, "cause": 4, "prove": 4, "chiarezza": 3, "italiano": 3, "titoli": 4,
+   "punto_forte": {"cosa": "Mette alla prova ogni spiegazione con i prezzi: se fossero i dazi, Tokyo dovrebbe soffrire quanto Seul.", "citazione": "Se pesassero soprattutto i dazi, Tokyo dovrebbe soffrire come Seul: il Nikkei ha perso il 2,78%."},
+   "difetti": [
+    {"voce": "italiano", "cosa": "Frase involuta e quasi incomprensibile al posto di un passaggio logico chiaro sull'uscita dai chip.", "citazione": "Più che dalla tecnologia, si è usciti dai chip: l'indice dei semiconduttori di Filadelfia ha perso il 7,88%."},
+    {"voce": "chiarezza", "cosa": "Formula compressa: non si capisce che cosa torni solo in parte; il lettore deve ricostruire il ragionamento.", "citazione": "Torna solo in parte: ieri l'S&P 500 ha ceduto lo 0,50%, una seduta ordinaria"}
+   ]},
+  "T03": {"domanda": 4, "cause": 4, "prove": 4, "chiarezza": 4, "italiano": 4, "titoli": 4,
+   "punto_forte": {"cosa": "Spiega il meccanismo in due frasi pulite: le azioni scontano profitti lontani, quindi una previsione sul 2028 muove subito il prezzo.", "citazione": "Un'azione sconta i profitti di molti anni, e una previsione lontana tende a muoverla subito."},
+   "difetti": [
+    {"voce": "cause", "cosa": "Il verdetto confronta SK Hynix e Micron di giorni diversi con Nvidia in modo un po' sbrigativo; non usa Tokyo per smontare i dazi.", "citazione": "A nostro avviso i numeri danno ragione al secondo: SK Hynix e Micron hanno perso l'11%, Nvidia martedì il 5,86%."},
+    {"voce": "prove", "cosa": "Il profit cliff resta senza spiegazione e la nota di Morgan Stanley, precedente, appare come causa.", "citazione": "Il 10 novembre Morgan Stanley si chiedeva se il settore possa evitare un «profit cliff» intorno al 2028."}
+   ]},
+  "T04": {"domanda": 4, "cause": 4, "prove": 4, "chiarezza": 4, "italiano": 5, "titoli": 4,
+   "punto_forte": {"cosa": "Apertura narrativa efficace: il rimbalzo di martedì e il rovesciamento di mercoledì fanno capire subito la portata del crollo.", "citazione": "Mercoledì 25 la stessa piazza si rovescia."},
+   "difetti": [
+    {"voce": "titoli", "cosa": "Il catenaccio dà come certa una causa che il dossier lascia a una lettura, ignorando i dazi.", "citazione": "le memorie pagano i tagli degli analisti e il crollo di Micron a Wall Street."},
+    {"voce": "chiarezza", "cosa": "Il confronto Tokyo-S&P 500 mette insieme mercati e giorni diversi e non dice cosa dimostri; Tokyo non è usata contro i dazi.", "citazione": "Altrove la caduta è stata più mite: a Tokyo il Nikkei cede il 2,78%, a Wall Street ieri l'S&P 500 ha perso lo 0,50%."}
+   ]},
+  "T05": {"domanda": 4, "cause": 4, "prove": 4, "chiarezza": 3, "italiano": 4, "titoli": 3,
+   "punto_forte": {"cosa": "Mostra che l'indiscrezione sui dazi riguarda Seul e Tokyo insieme e quindi non spiega lo scarto tra le due.", "citazione": "Ma Tokyo ha chiuso a -2,78% contro il -6,16% di Seul: un'indiscrezione che le riguarda entrambe non spiega lo scarto."},
+   "difetti": [
+    {"voce": "cause", "cosa": "Previsione senza base nel dossier: le vendite europee non sono sostenute da alcun dato e sono presentate come esito possibile.", "citazione": "un altro calo allungherebbe le vendite all'Europa."},
+    {"voce": "titoli", "cosa": "Titolo con la causa data per certa; i riquadri aprono la pagina e il testo resta senza intestazione né catenaccio, la lettura inciampa.", "citazione": "Seul crolla del 6% dopo i tagli delle banche sulle memorie"}
+   ]},
+  "T06": {"domanda": 3, "cause": 4, "prove": 4, "chiarezza": 2, "italiano": 3, "titoli": 3,
+   "punto_forte": {"cosa": "Tabella dei target tagliati, con prima e dopo, utile e fedele al dossier; anche il passaggio sul 2028 è ben costruito.", "citazione": "Il conto torna a Tokyo: il Nikkei cede il 2,78%, Kioxia, produttore giapponese di memorie, il 14,2%."},
+   "difetti": [
+    {"voce": "chiarezza", "cosa": "Formule astratte e cerimoniose al posto di spiegazioni dirette: il lettore non specialista fatica a seguire.", "citazione": "Il passaggio, per come lo leggiamo, ha tre anelli."},
+    {"voce": "domanda", "cosa": "L'apertura sul numero 1,2% e la frase sul metro sono criptiche: la domanda del lettore (perché crolla Seul) arriva tardi.", "citazione": "Il metro sono i prezzi."}
+   ]},
+  "T07": {"domanda": 5, "cause": 5, "prove": 4, "chiarezza": 4, "italiano": 4, "titoli": 4,
+   "punto_forte": {"cosa": "Formula in una frase la tesi: il mercato ha cambiato idea sul futuro, non sul presente; poi la regge con i numeri e dichiara cosa è lettura propria.", "citazione": "Perché chi le segue ha cambiato idea sul loro futuro, non sul presente."},
+   "difetti": [
+    {"voce": "chiarezza", "cosa": "Paragone con la frutta al mercato un po' scolastico per un lettore che il dossier dice abituato al giornale.", "citazione": "Come la frutta al mercato, se ne arriva troppa costa meno per tutti."},
+    {"voce": "italiano", "cosa": "Scansione meccanica a numeratori che spezza il ritmo e dà un tono da lezione.", "citazione": "Secondo passaggio: un'azione tende a riflettere gli utili attesi per molti anni, quindi un 2028 peggiore pesa subito."}
+   ]},
+  "T08": {"domanda": 3, "cause": 3, "prove": 2, "chiarezza": 3, "italiano": 4, "titoli": 4,
+   "punto_forte": {"cosa": "In poche righe dà una tesi e la sostiene con Tokyo e Kioxia; brevità onesta, senza riempitivi.", "citazione": "i numeri sembrano dare ragione alla prima lettura"},
+   "difetti": [
+    {"voce": "prove", "cosa": "Nessuna cifra su SK Hynix e Samsung, non spiega cosa siano le memorie né chi sia Micron: la brevità lascia il lettore senza basi.", "citazione": "trascinato da SK Hynix e Samsung Electronics, i due colossi coreani delle memorie"},
+    {"voce": "chiarezza", "cosa": "Il dazio resta una nota anonima, senza dire di cosa si tratti né perché Tokyo la smentisca per esteso.", "citazione": "Un analista sentito da Reuters indica invece i dazi come causa principale"}
+   ]},
+  "T09": {"domanda": 2, "cause": 1, "prove": 3, "chiarezza": 3, "italiano": 3, "titoli": 4,
+   "punto_forte": {"cosa": "Titolo e catenaccio danno il fatto con cifre precise e verificabili; le cifre dei prezzi sono tutte corrette.", "citazione": "Martedì Micron ha perso circa l'11%, a 629,79 dollari, dopo che BNP Paribas ha portato il giudizio da Outperform a Neutral"},
+   "difetti": [
+    {"voce": "cause", "cosa": "Attribuisce a Reuters una graduatoria che è solo dell'analista e dà i dazi per causa principale, senza mai confrontare Tokyo con Seul.", "citazione": "La causa principale, secondo Reuters, sono le nuove minacce di dazi americani"},
+    {"voce": "chiarezza", "cosa": "Elenco di fatti senza filo; sigla non spiegata e dati che il lettore non può collegare al crollo.", "citazione": "alle 14:30 escono i prezzi PCE di ottobre e la seconda stima del Pil americano"}
+   ]},
+  "T10": {"domanda": 4, "cause": 3, "prove": 4, "chiarezza": 4, "italiano": 4, "titoli": 4,
+   "punto_forte": {"cosa": "Chiude con il dato che può dire chi ha ragione: il prezzo delle memorie, per BNP in calo già da metà 2027.", "citazione": "Il numero che dirà chi ha ragione è il prezzo delle memorie: per BNP può cominciare a scendere già da metà 2027."},
+   "difetti": [
+    {"voce": "prove", "cosa": "Attribuisce a Nam Dae-jong una lettura sul confronto Micron-Nvidia che il dossier non gli dà: la sua frase riguarda il limite ai rialzi.", "citazione": "Lo pensa anche Nam Dae-jong, di Daol Investment & Securities"},
+    {"voce": "cause", "cosa": "I dazi vengono respinti come altra spiegazione senza metterli alla prova con Tokyo o con i prezzi.", "citazione": "L'1,2% resta una previsione su un anno che deve arrivare, e non è l'unica spiegazione."}
+   ]},
+  "T11": {"domanda": 5, "cause": 4, "prove": 4, "chiarezza": 3, "italiano": 3, "titoli": 5,
+   "punto_forte": {"cosa": "Il titolo pone la domanda vera del lettore; ogni spiegazione è provata con i prezzi, con attenzione alla cronologia (il rapporto Goldman precede il rimbalzo).", "citazione": "Se è la causa, le memorie devono perdere più di Nvidia, che vende altro"},
+   "difetti": [
+    {"voce": "prove", "cosa": "Dato non presente nel dossier: Huang indicato come fondatore.", "citazione": "Il reintegro del fondatore aveva spinto Nvidia a oltre +31% lunedì"},
+    {"voce": "chiarezza", "cosa": "Formula compressa che il lettore non esperto non decifra: cosa sono il verso e la misura?", "citazione": "Spiega il verso, non la misura"}
+   ]},
+  "T12": {"domanda": 5, "cause": 5, "prove": 4, "chiarezza": 5, "italiano": 5, "titoli": 5,
+   "punto_forte": {"cosa": "Parte dal paradosso che il lettore ha davanti (Wall Street quasi ferma, Seul a picco) e lo scioglie con la media che nascondeva i chip.", "citazione": "Come può Seul crollare dopo una seduta così tranquilla? Perché non lo era per tutti"},
+   "difetti": [
+    {"voce": "cause", "cosa": "I dazi sono ancora una indiscrezione, non colpiscono ancora nulla: il verbo al presente dà per fatto ciò che è atteso.", "citazione": "Ma colpiscono tutta l'Asia e Tokyo ha perso il 2,78%, meno della metà di Seul"},
+    {"voce": "italiano", "cosa": "Il nesso con «così» attribuisce la restituzione del rialzo a un'altra causa e annacqua la logica del paragrafo.", "citazione": "Il Kospi ha così restituito in una seduta tutto il +6,32% di martedì"}
+   ]},
+  "T13": {"domanda": 4, "cause": 5, "prove": 4, "chiarezza": 4, "italiano": 4, "titoli": 3,
+   "punto_forte": {"cosa": "Collega il taglio delle stime ai prezzi e dichiara la lettura propria; separa bene memorie e Nvidia e usa Dow e VIX contro la fuga generale.", "citazione": "Ed è proprio questo che le banche hanno cominciato a mettere nei conti."},
+   "difetti": [
+    {"voce": "chiarezza", "cosa": "Il VIX non è spiegato e l'argomento resta oscuro per chi non ha studiato finanza.", "citazione": "ieri a Wall Street il Dow è salito dello 0,85% con il VIX fermo: non è stata una fuga da tutto."},
+    {"voce": "titoli", "cosa": "Riquadri generici posti prima del testo: il box E quindi tratta di Piazza Affari, cosa che il nome non annuncia; il titolo dà la causa come certa.", "citazione": "Le banche tagliano le stime sulle memorie e Seul perde il 6%"}
+   ]},
+  "T14": {"domanda": 3, "cause": 3, "prove": 2, "chiarezza": 3, "italiano": 4, "titoli": 4,
+   "punto_forte": {"cosa": "In pochi capoversi dà la tesi: i dazi non spiegano la differenza, la fanno le memorie, con il rimando a Micron e Nvidia.", "citazione": "A Seul la differenza la fanno le memorie, il cui prezzo dipende da quanta se ne produce e quanta se ne compra."},
+   "difetti": [
+    {"voce": "chiarezza", "cosa": "DRAM e carenza non spiegate, nessun nesso tra il 2028 e il prezzo di oggi: il passaggio dal fatto al prezzo manca.", "citazione": "Domenica Goldman Sachs ha tagliato il target di SK Hynix da 3,5 a 2 milioni di won, prevedendo che nel 2028 la carenza di DRAM si riduca all'1,2%."},
+    {"voce": "cause", "cosa": "I dazi sono dati per già in atto, mentre sono un'indiscrezione di Reuters con un solo fonte.", "citazione": "Ma i dazi hanno colpito tutta l'Asia"}
+   ]}
+ },
+ "classifica": ["T12", "T07", "T13", "T04", "T11", "T03", "T02", "T06", "T05", "T10", "T14", "T01", "T08", "T09"],
+ "famiglie": "Cinque impostazioni. 1) Cronaca di fatti con cause elencate (T01, T09): accurate ma senza verdetto, il lettore non capisce perché. 2) Tre ipotesi messe alla prova con i prezzi (T02, T11): fuoco migliore, ma formule compresse. 3) Tesi unica con meccanismo spiegato e lettura dichiarata nostra (T03, T04, T07, T12, T13, T05, T10): le più utili. 4) Numero in apertura (T06, T10): preciso ma meno diretto. 5) Pezzi brevi (T08, T14): onesti ma privi di spiegazione. Meglio quelle che partono da una domanda concreta e mettono Tokyo contro i dazi.",
+ "cosa_distingue": "Le migliori partono da un paradosso o da una domanda che il lettore si fa (Wall Street quasi ferma, Seul a picco), spiegano passo per passo come una previsione sul 2028 muova il prezzo oggi, mettono le cause alla prova con Tokyo, il Dow e Nvidia e dichiarano propria la lettura. Le peggiori elencano fatti senza verdetto, danno i dazi per già avvenuti o li attribuiscono a Reuters, lasciano sigle e profit cliff senza spiegazione, oppure tagliano così tanto da perdere il passaggio dal fatto al prezzo."
+}
