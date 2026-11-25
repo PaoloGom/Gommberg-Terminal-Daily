@@ -6,6 +6,14 @@
 <language>it-it</language>
 <atom:link href="https://gommberg.com/feed.xml" rel="self" type="application/rss+xml"/>
 <item>
+<title>Seul perde il 6% e l&#x27;Asia vende i chip, mentre tornano i dazi</title>
+<link>https://gommberg.com/e/033.html</link>
+<guid isPermaLink="true">https://gommberg.com/e/033.html</guid>
+<pubDate>Wed, 25 Nov 2026 09:45:00 +0100</pubDate>
+<description>Il Kospi chiude a 4.697,51 (-6,16%), il minimo dal 13 gennaio, con SK Hynix a -11,05% e Samsung Electronics a -9,87%. Tokyo segue: il Nikkei 225 cede il 2,8% e SoftBank più di ogni altro titolo. Pesano la Wall Street di martedì, dove Nvidia ha perso il 5,86% dopo il +31,5% del giorno prima, e le indiscrezioni su nuovi dazi americani contro 16 economie.</description>
+<enclosure url="https://gommberg.com/pdf/2026-11-25-gommberg-033.pdf" type="application/pdf" length="0"/>
+</item>
+<item>
 <title>Huang torna alla guida di Nvidia e Wall Street rimbalza</title>
 <link>https://gommberg.com/e/032.html</link>
 <guid isPermaLink="true">https://gommberg.com/e/032.html</guid>
@@ -236,13 +244,5 @@
 <pubDate>Thu, 15 Oct 2026 09:45:00 +0200</pubDate>
 <description>CPI USA a +3,7% annuo contro 3,6% atteso, core a +2,6% contro 2,5%: probabilità di rialzo Fed a ottobre al 35-47% a seconda della fonte, dal 22% del giorno prima. S&amp;P 500 -1,11%, Nasdaq -1,88%, tecnologia -3,00%. Stamattina alle 08:11 Kospi -8,68% e Nikkei -4,89%. Scommessa: tutti e 7 i mercati ancora dentro il range, ma solo 2 su 7 sulla strada giusta (Treasury 10 anni e Brent).</description>
 <enclosure url="https://gommberg.com/pdf/2026-10-15-gommberg-004.pdf" type="application/pdf" length="0"/>
-</item>
-<item>
-<title>Banche miste e chip ancora sotto pressione: Wall Street ferma aspetta il CPI di oggi</title>
-<link>https://gommberg.com/e/003.html</link>
-<guid isPermaLink="true">https://gommberg.com/e/003.html</guid>
-<pubDate>Wed, 14 Oct 2026 09:45:00 +0200</pubDate>
-<description>Goldman Sachs batte sull&#x27;utile (17,01 $ per azione), Wells Fargo delude sui ricavi (21,87 mld, titolo -3,1%): i conti delle banche non spostano l&#x27;indice. Oggi il CPI USA alle 14:30: attese +0,6% m/m e +3,6% a/a sull&#x27;indice generale, +0,2% m/m sul core. Scommessa: 3 strumenti su 7 sulla strada giusta (Treasury 2 e 10 anni, EUR/USD), tutti e 7 dentro il range.</description>
-<enclosure url="https://gommberg.com/pdf/2026-10-14-gommberg-003.pdf" type="application/pdf" length="0"/>
 </item>
 </channel></rss>

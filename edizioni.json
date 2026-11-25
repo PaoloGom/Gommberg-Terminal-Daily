@@ -7048,5 +7048,327 @@
     ]
    }
   ]
+ },
+ {
+  "numero": 33,
+  "data": "2026-11-25",
+  "titolo": "Seul perde il 6% e l'Asia vende i chip, mentre tornano i dazi",
+  "sommario": [
+   "Gli Stati Uniti sarebbero pronti a pubblicare i risultati dell'indagine su 16 economie, e con loro nuovi dazi.",
+   "Alle 14:30 escono i prezzi PCE di ottobre e il Pil americano del terzo trimestre.",
+   "A Milano parte l'offerta di Intesa Sanpaolo su Mps, nel giorno in cui il Ftse Mib perde quasi il 2%."
+  ],
+  "file": "pdf/2026-11-25-gommberg-033.pdf",
+  "nome": "2026-11-25 Gommberg Terminal Daily #033.pdf",
+  "pagine": 6,
+  "notizie": [
+   "BNP Paribas taglia il giudizio su Micron e il titolo crolla",
+   "STMicroelectronics e Technoprobe perdono il 10% a Milano",
+   "Stellantis perde quota in Europa, a ottobre immatricola il 7% in meno",
+   "Il mercato dà quasi per certo il rialzo della Fed a dicembre",
+   "Surplus di offerta e colloqui con l'Iran frenano il petrolio",
+   "Moody's alza il rating di Mps e Mediobanca a Baa2"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "148,14 $",
+    "-0,5% g"
+   ],
+   [
+    "S&P 500",
+    "7.201,09",
+    "-0,5% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.003,76",
+    "-1,2% g"
+   ],
+   [
+    "TREASURY 10 ANNI",
+    "4,91%",
+    "-1 pb g"
+   ],
+   [
+    "EUR/USD",
+    "1,0964",
+    "+0,6% g"
+   ],
+   [
+    "BRENT FUTURE",
+    "91,40 $",
+    "+2,3% g"
+   ],
+   [
+    "ORO",
+    "3.562 $",
+    "-2,5% g"
+   ]
+  ],
+  "dek": "Il Kospi chiude a 4.697,51 (-6,16%), il minimo dal 13 gennaio, con SK Hynix a -11,05% e Samsung Electronics a -9,87%. Tokyo segue: il Nikkei 225 cede il 2,8% e SoftBank più di ogni altro titolo. Pesano la Wall Street di martedì, dove Nvidia ha perso il 5,86% dopo il +31,5% del giorno prima, e le indiscrezioni su nuovi dazi americani contro 16 economie.",
+  "ticker_al": "2026-11-24",
+  "scommessa": {
+   "settimana": "2026-11-23/2026-11-27",
+   "su": 6,
+   "par": 7.3,
+   "strada": 4,
+   "range": 5,
+   "dettaglio": [
+    [
+     "S&P 500",
+     "su",
+     true,
+     false
+    ],
+    [
+     "Euro Stoxx 50",
+     "su",
+     true,
+     true
+    ],
+    [
+     "Treasury 10 anni",
+     "su",
+     false,
+     true
+    ],
+    [
+     "EUR/USD",
+     "su",
+     false,
+     true
+    ],
+    [
+     "Brent future",
+     "giù",
+     true,
+     true
+    ],
+    [
+     "Oro future",
+     "su",
+     true,
+     true
+    ]
+   ]
+  },
+  "temi": [
+   "Asia",
+   "Chip",
+   "Dazi",
+   "Fed",
+   "Europa",
+   "Petrolio"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Chip e Asia",
+    "titolo": "Goldman e Morgan Stanley tagliano i target su SK Hynix e Samsung",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Dazi",
+    "titolo": "Gli Stati Uniti preparano dazi su 16 economie e l'Asia vende",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Fed e tassi",
+    "titolo": "Il PCE di oggi dirà quanto dureranno i tassi alti",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Europa e Italia",
+    "titolo": "Le vendite sui chip pesano su Milano, che perde quasi il 2%",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Petrolio",
+    "titolo": "Il petrolio perde un quinto in un mese anche con le borse in rotta",
+    "formato": "grafico"
+   }
+  ],
+  "meccanismi": [
+   "M17",
+   "M16",
+   "M06",
+   "M24",
+   "M20",
+   "M04",
+   "M05",
+   "M10",
+   "M11"
+  ],
+  "parole": [
+   "Memorie DRAM e NAND",
+   "Target di prezzo",
+   "Eccesso di capacità",
+   "Rotazione",
+   "PCE core",
+   "Probabilità dei future sui tassi"
+  ],
+  "ripetizioni": 1,
+  "glossario": [
+   "PCE",
+   "core",
+   "CME FedWatch",
+   "VIX",
+   "ACWI"
+  ],
+  "dove": {
+   "approfondimenti": [
+    2,
+    3,
+    3,
+    4,
+    4
+   ],
+   "mercati": 5,
+   "agenda": 5,
+   "scommessa": 6
+  },
+  "termometri": {
+   "righe": [
+    [
+     "Fed e tassi",
+     "Rialzo di dicembre quasi certo",
+     "Il 10 anni resta sotto il massimo di metà mese",
+     "fermo: Rendimento del 10 anni",
+     "PCE core delle 14:30"
+    ],
+    [
+     "AI e chip",
+     "Seconda giornata di vendite",
+     "Micron e SK Hynix cedono circa l'11%",
+     "giu: Titoli delle memorie",
+     "Apertura del Nasdaq alle 15:30"
+    ],
+    [
+     "Dazi",
+     "Risultati dell'indagine attesi",
+     "Tre fonti anonime parlano di 16 economie",
+     "su: Timore di nuovi dazi",
+     "Reazione dell'Unione europea"
+    ],
+    [
+     "Petrolio",
+     "Brent a 91,40 $",
+     "Risale dopo il minimo di lunedì",
+     "su: Brent, in rimbalzo",
+     "Colloqui con l'Iran"
+    ]
+   ],
+   "fermi": "Fondo di stabilizzazione del governo di Seul (nessuna novità verificata dal 23/11)."
+  },
+  "quadro": "Il Dow Jones sale dello 0,85% mentre il Nasdaq perde: a nostro avviso è una rotazione verso i titoli meno legati al ciclo, non una fuga dal rischio. Il Treasury a 10 anni resta al 4,91% e l'euro guadagna lo 0,6% sul dollaro. Il Brent risale, mentre l'oro cede il 2,5% dopo il rimbalzo di lunedì.",
+  "evento_oggi": "Mer 25, 14:30 Prezzi PCE di ottobre",
+  "grafici": [
+   {
+    "tipo": "barre",
+    "titolo": "Le memorie perdono più di Nvidia e dell'indice dei chip",
+    "serie": [],
+    "x0": null,
+    "x1": null,
+    "etichette": [
+     "Nvidia (24/11)",
+     "Indice dei chip USA (24/11)",
+     "Micron (24/11)",
+     "Kospi (25/11)",
+     "Samsung (25/11)",
+     "SK Hynix (25/11)"
+    ]
+   },
+   {
+    "tipo": "linee",
+    "titolo": "Il Nasdaq è a -10,6% dal massimo del 28 ottobre",
+    "serie": [
+     "Nasdaq"
+    ],
+    "x0": "2026-10-20",
+    "x1": "2026-11-24",
+    "etichette": []
+   },
+   {
+    "tipo": "linee",
+    "titolo": "Il 10 anni torna sotto il 5% il 20 novembre e ci resta",
+    "serie": [
+     "10 anni"
+    ],
+    "x0": "2026-10-26",
+    "x1": "2026-11-24",
+    "etichette": []
+   },
+   {
+    "tipo": "barre",
+    "titolo": "I titoli dei chip perdono cinque volte l'indice di Milano",
+    "serie": [],
+    "x0": null,
+    "x1": null,
+    "etichette": [
+     "Euro Stoxx 50",
+     "FTSE MIB",
+     "Prysmian",
+     "Technoprobe",
+     "STMicroelectronics"
+    ]
+   },
+   {
+    "tipo": "barre",
+    "titolo": "Il calo del petrolio si è concentrato nella prima settimana di novembre",
+    "serie": [],
+    "x0": null,
+    "x1": null,
+    "etichette": [
+     "Settimana al 6/11",
+     "Settimana al 13/11",
+     "Settimana al 20/11",
+     "23 e 24/11"
+    ]
+   }
+  ],
+  "agenda": [
+   {
+    "quando": "Mer 25, 14:30",
+    "evento": "Prezzi PCE di ottobre",
+    "attese": "Core +0,3% sul mese; prima +3,1% su un anno",
+    "perche": "Evento n.1: l'inflazione che decide quanto durano i tassi alti",
+    "chiave": true,
+    "muove": [
+     "Sopra: salgono dollaro e rendimenti a breve, e il rialzo di gennaio diventa più probabile.",
+     "Sotto: i rendimenti scendono e le borse respirano."
+    ]
+   },
+   {
+    "quando": "Mer 25, 14:30",
+    "evento": "Pil USA del terzo trimestre (seconda stima)",
+    "attese": "Prima stima +3,4% annualizzato",
+    "perche": "Tenuta dell'economia con tassi alti",
+    "chiave": false,
+    "muove": [
+     "Sopra: l'economia regge e la Fed ha meno ragioni di fermarsi.",
+     "Sotto: torna il timore di una frenata."
+    ]
+   },
+   {
+    "quando": "Gio 26, 15:30",
+    "evento": "Wall Street chiusa per il Ringraziamento",
+    "attese": "Niente seduta; anche i Treasury sono fermi",
+    "perche": "Meno scambi, meno prezzi di riferimento",
+    "chiave": false,
+    "muove": [
+     "Si ascolta l'Asia di venerdì: con Wall Street ferma, i chip asiatici non hanno un riferimento."
+    ]
+   },
+   {
+    "quando": "Ven 27, 19:00",
+    "evento": "Chiusura anticipata di Wall Street",
+    "attese": "Seduta più corta, a ridotta liquidità",
+    "perche": "Pochi scambi amplificano i movimenti",
+    "chiave": false,
+    "muove": [
+     "Si ascolta se i volumi restano bassi: con pochi scambi anche vendite modeste muovono i prezzi."
+    ]
+   }
+  ]
  }
 ]
