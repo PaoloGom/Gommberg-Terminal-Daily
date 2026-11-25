@@ -274,6 +274,128 @@ def passo_modello():
 
 
 # ---------------------------------------------------------------- 3a-bis. il testo regge contro i dati (G-45)
+# Il desk: una cifra resta sul suo soggetto. La prima di DESK_NO è la riscrittura vera della prova del 23/11 (con l'Hang
+# Seng a -1,9%); poi i rifiuti persi con e9391e8 (preposizione dentro il soggetto, soggetto doppio), la cifra prima del
+# soggetto o dopo i due punti, gli scambi e i casi scritti il 25/11 prima di provare la regola. In DESK_PASSA riordini e
+# riscritture nominali buone, tra cui l'oro della #032 e "il rimbalzo dell'oro" -> "l'oro rimbalza". Scoperti, perché la
+# regola guarda la testa del soggetto e non i suoi complementi: "le vendite di auto elettriche (+25%)" -> "le vendite di
+# auto salgono del 25%", "-0,8% per l'euro contro lo yen" -> "l'euro perde lo 0,8% contro il dollaro".
+DESK_NO = [
+    ("Nuove strette USA sulla tecnologia per la Cina fanno scendere il listino tecnologico di Hong Kong (-3,8%)",
+     "Hong Kong perde il 3,8% per le strette USA sulla tecnologia per la Cina"),
+    ("Il listino tecnologico di Hong Kong (-3,8%) guida i ribassi.", "Il listino di Hong Kong perde il 3,8% e guida i ribassi."),
+    ("Il listino tecnologico di Hong Kong (-3,8%) guida i ribassi in Asia.", "Hong Kong, con il suo listino tecnologico, perde il 3,8%."),
+    ("L'Hang Seng perde l'1,9% e il listino tecnologico di Hong Kong il 3,8%.", "Hong Kong perde il 3,8% e l'Hang Seng l'1,9%."),
+    ("-3,8% per il listino tecnologico di Hong Kong, il calo peggiore da aprile.", "Hong Kong perde il 3,8%, il calo peggiore da aprile."),
+    ("In Asia il peggiore è il listino tecnologico di Hong Kong: -3,8%.", "In Asia il peggiore è Hong Kong: -3,8%."),
+    ("Il listino tecnologico di Hong Kong, che perde il 3,8%, guida i ribassi.", "Hong Kong, che perde il 3,8%, guida i ribassi in Asia."),
+    ("Le banche nel listino di Milano perdono il 2,4% sui timori per gli extraprofitti.",
+     "Il listino di Milano perde il 2,4% sui timori per gli extraprofitti."),
+    ("Le banche nel listino di Milano perdono il 2,4%.", "Milano, con le banche, perde il 2,4%."),
+    ("I titoli dei semiconduttori nel Nasdaq (-4,2%) trascinano giù il listino.", "Il Nasdaq perde il 4,2% trascinato dai semiconduttori."),
+    ("Le small cap sul listino americano (-2,7%) soffrono i tassi alti.", "Il listino americano perde il 2,7% sui tassi alti."),
+    ("Il rame e l'argento salgono del 2% sulla domanda cinese.", "L'argento sale del 2% sulla domanda cinese."),
+    ("Il rame e l'argento salgono del 2%.", "Salgono del 2% l'argento e l'oro."),
+    ("Il rendimento del decennale americano sale al 4,2% dopo i dati.", "Il rendimento del Bund sale al 4,2% dopo i dati."),
+    ("L'oro guadagna il 2,1% e l'argento il 3,4%.", "L'argento guadagna il 2,1% e l'oro il 3,4%."),
+    ("Il petrolio WTI cede il 2,3% e il Brent l'1,1%.", "Il Brent cede il 2,3% e il WTI l'1,1%."),
+    ("Il decennale italiano sale al 3,6% mentre il Bund resta al 2,6%.", "Il Bund sale al 3,6% mentre il decennale italiano resta al 2,6%."),
+    ("Il decennale americano, dopo i dati sull'inflazione, sale al 4,2%.", "Il Bund, dopo i dati sull'inflazione americana, sale al 4,2%."),
+    ("Le azioni del lusso nella Borsa di Parigi perdono il 3%.", "La Borsa di Parigi perde il 3%."),
+    ("Il comparto bancario di Milano (+2,3%) festeggia i conti.", "Milano sale del 2,3% sui conti delle banche."),
+    ("Le auto tedesche a Francoforte cedono il 4%.", "Francoforte cede il 4%."),
+    ("L'oro sale dell'1,2% e il platino del 3%.", "Il platino sale dell'1,2% e l'oro del 3%."),
+    ("-5,1% per le azioni di Kering, la peggiore del listino.", "Il listino perde il 5,1%, Kering la peggiore."),
+    ("Il Nasdaq 100 perde il 2,9% e lo S&P 500 l'1,6%.", "Lo S&P 500 perde il 2,9% e il Nasdaq 100 l'1,6%."),
+    ("I titoli dei servizi pubblici nell'Euro Stoxx (+1,1%) reggono.", "L'Euro Stoxx sale dell'1,1%."),
+    ("Il decennale greco scende al 3,1%.", "Il decennale scende al 3,1%."),
+    ("Il fatturato di Stellantis in Europa cala del 7%.", "Stellantis cala del 7% in Europa."),
+    ("Lo yen guadagna lo 0,8% sul dollaro e l'euro lo 0,3%.", "L'euro guadagna lo 0,8% sul dollaro e lo yen lo 0,3%."),
+    ("Il rame e il nichel salgono del 3% a Londra.", "Il nichel sale del 3% a Londra."),
+    ("Samsung perde il 7% e SK hynix quasi il 6%.", "SK hynix perde il 7% e Samsung quasi il 6%."),
+    ("Gli utili delle banche italiane (+18%) battono le attese.", "Le banche italiane guadagnano il 18% e battono le attese."),
+    ("Nel trimestre i ricavi di Nvidia salgono del 62%.", "Nel trimestre Nvidia sale del 62%."),
+    ("Il listino dei titoli tecnologici di Taiwan: -2,8%.", "Taiwan: -2,8%."),
+    ("-1,4% per il Bund a 30 anni, il calo più ampio.", "Il Bund perde l'1,4%, il calo più ampio."),
+    ("Gli acquisti di oro delle banche centrali (+20%) sostengono il prezzo.", "L'oro sale del 20% con gli acquisti delle banche centrali."),
+    ("Le banche dell'Euro Stoxx (+2,4%) trainano l'indice.", "L'Euro Stoxx sale del 2,4%, trainato dalle banche."),
+    ("Il titolo di Intesa sale del 2% e il FTSE MIB dello 0,5%.", "Il FTSE MIB sale del 2% e Intesa dello 0,5%."),
+    ("Il gas europeo (+9%) spinge le utility.", "Le utility salgono del 9% spinte dal gas europeo."),
+    ("Tokyo, dove Toyota perde il 5%, chiude in calo.", "Tokyo perde il 5% e chiude in calo."),
+    ("I rendimenti dei Btp a 10 anni salgono al 3,9%.", "I rendimenti dei Btp salgono al 3,9%."),
+    ("L'oro tocca i 4.000 dollari e l'argento i 50 dollari.", "L'argento tocca i 4.000 dollari e l'oro i 50 dollari."),
+    ("Il fondo sovrano norvegese possiede l'1,5% di Nestlé.", "Nestlé possiede l'1,5% del fondo sovrano norvegese."),
+    ("In Europa il lusso perde il 3,5%, Kering il 6%.", "In Europa Kering perde il 3,5%, il lusso il 6%."),
+    ("Le piccole banche regionali americane (-4%) preoccupano.", "Le banche americane perdono il 4% e preoccupano."),
+    ("Il Nikkei recupera l'1% dopo il -3% di ieri.", "Il Nikkei perde il 3% dopo l'1% di ieri."),
+]
+DESK_PASSA = [
+    ("Ci leggiamo anche il rimbalzo dell'oro (+3,9%): finiscono le vendite per far cassa.",
+     "Nel rimbalzo dell'oro (+3,9%) leggiamo la fine delle vendite per far cassa."),
+    ("Il rimbalzo dell'oro (+3,9%) racconta la fine delle vendite per fare cassa.",
+     "L'oro rimbalza del 3,9%: è finita la stagione delle vendite per fare cassa."),
+    ("In Giappone l'inflazione sale al 2,3% e alimenta le attese di rialzo dei tassi",
+     "L'inflazione giapponese sale al 2,3% e avvicina il rialzo dei tassi"),
+    ("Il cambio euro-dollaro scende dello 0,6% dopo le parole della BCE.", "Dopo le parole della BCE il cambio euro-dollaro scende dello 0,6%."),
+    ("Il decennale americano sale al 4,2% dopo i dati sui prezzi alla produzione.",
+     "Dopo i dati sui prezzi alla produzione il decennale americano sale al 4,2%."),
+    ("L'oro guadagna il 2,1% e l'argento il 3,4% mentre il dollaro si indebolisce.",
+     "Mentre il dollaro si indebolisce, l'oro guadagna il 2,1% e l'argento il 3,4%."),
+    ("Il listino tecnologico di Hong Kong perde il 3,8% sulle nuove strette americane.",
+     "Sulle nuove strette americane il listino tecnologico di Hong Kong perde il 3,8%."),
+    ("Sull'indice dei semiconduttori (-4,2%) pesano i conti deludenti di ieri sera.",
+     "I conti deludenti di ieri sera pesano sull'indice dei semiconduttori (-4,2%)."),
+    ("Le banche europee salgono dell'1,5% grazie alla curva dei tassi più ripida.",
+     "Grazie alla curva dei tassi più ripida le banche europee salgono dell'1,5%."),
+    ("Anche il Bund tedesco, come il decennale americano, sale al 2,6% in giornata.",
+     "In giornata anche il Bund tedesco sale al 2,6%, come il decennale americano."),
+    ("Il petrolio Brent cede il 2,3% sulle scorte americane in aumento.", "Le scorte americane in aumento: il petrolio Brent cede il 2,3%."),
+    ("Le vendite al dettaglio americane crescono dello 0,4% a ottobre, sopra le attese.",
+     "A ottobre le vendite al dettaglio americane crescono dello 0,4%, sopra le attese."),
+    ("Il rame e l'alluminio salgono del 2% sulla domanda cinese.", "Sulla domanda cinese il rame e l'alluminio salgono del 2%."),
+    ("Il decennale americano, dopo i dati sull'inflazione, sale al 4,2%.", "Dopo i dati sull'inflazione il decennale americano sale al 4,2%."),
+    ("Il 3,8% perso dal listino tecnologico di Hong Kong è il calo peggiore da aprile.",
+     "Il listino tecnologico di Hong Kong perde il 3,8%, il calo peggiore da aprile."),
+    ("Il Nasdaq (-2,1%) chiude la terza seduta in calo.", "Il Nasdaq perde il 2,1%: terza seduta in calo."),
+    ("Nvidia perde il 3,2% dopo i conti, e trascina i chip.", "Dopo i conti Nvidia perde il 3,2% e trascina i chip."),
+    ("Il calo del Brent (-1,8%) arriva con le scorte in aumento.", "Il Brent scende dell'1,8% con le scorte in aumento."),
+    ("Le azioni europee salgono dello 0,9% con le banche in testa.", "Con le banche in testa, le azioni europee salgono dello 0,9%."),
+    ("A Tokyo il Nikkei cede l'1,2% sul rafforzamento dello yen.", "Il Nikkei cede l'1,2% a Tokyo sul rafforzamento dello yen."),
+    ("Il rendimento del Bund sale di 5 pb al 2,71%.", "Il rendimento del Bund sale al 2,71%, 5 pb in più."),
+    ("Microsoft, che vale il 7% dell'indice, perde il 2%.", "Microsoft perde il 2% e vale il 7% dell'indice."),
+    ("La crescita dei prezzi alla produzione (+0,4%) supera le attese.", "I prezzi alla produzione crescono dello 0,4%, più delle attese."),
+    ("Stamattina il Kospi sale dell'1,5% trainato da Samsung.", "Trainato da Samsung, stamattina il Kospi sale dell'1,5%."),
+    ("Il dollaro si rafforza dello 0,7% contro lo yen dopo i dati.", "Dopo i dati il dollaro si rafforza dello 0,7% contro lo yen."),
+    ("In ottobre l'inflazione dell'area euro scende al 2,1%.", "L'inflazione dell'area euro scende al 2,1% in ottobre."),
+    ("Il guadagno di ASML (+4%) traina il listino olandese.", "ASML guadagna il 4% e traina il listino olandese."),
+    ("Il Russell 2000, l'indice delle piccole società, sale del 2,2%.", "Le piccole società del Russell 2000 salgono del 2,2%."),
+    ("-2,5% per il FTSE MIB, il peggiore in Europa.", "Il FTSE MIB perde il 2,5%, peggiore in Europa."),
+    ("Il prezzo del rame tocca i 10.500 dollari.", "Il rame tocca i 10.500 dollari."),
+    ("Il petrolio Brent cede il 2,3% sulle scorte.", "Sulle scorte il Brent cede il 2,3%."),
+    ("Nel Dow Jones in calo (-0,4%) pesano i titoli sanitari.", "Il Dow Jones cede lo 0,4%, appesantito dai titoli sanitari."),
+    ("Il Treasury a 10 anni resta al 4,91%.", "Il rendimento del Treasury a 10 anni: 4,91%."),
+    ("Apple perde l'1,1% dopo il richiamo.", "Dopo il richiamo, Apple perde l'1,1%."),
+    ("Il Brent, salito del 3% in settimana, chiude a 82 dollari.", "Il Brent chiude a 82 dollari, salito del 3% in settimana."),
+    ("Tesla (+6,2%) vola dopo le consegne.", "Dopo le consegne Tesla vola del 6,2%."),
+    ("Le Borse asiatiche chiudono in calo, con Tokyo a -1,1%.", "Le Borse asiatiche chiudono in calo e Tokyo perde l'1,1%."),
+    ("Sul mercato dei cambi lo yen si rafforza dello 0,5%.", "Lo yen si rafforza dello 0,5% sul mercato dei cambi."),
+    ("L'indice dei prezzi al consumo americano sale del 3,1% su base annua.",
+     "Su base annua i prezzi al consumo americani salgono del 3,1%."),
+    ("Intesa Sanpaolo guadagna l'1,7% e UniCredit il 2,2%.", "UniCredit guadagna il 2,2% e Intesa Sanpaolo l'1,7%."),
+    ("Il VIX, l'indice della paura, scende del 12%.", "L'indice della paura, il VIX, scende del 12%."),
+    ("Il dollaro perde lo 0,4% contro l'euro.", "Contro l'euro il dollaro perde lo 0,4%."),
+    ("Bitcoin torna sopra i 90.000 dollari (+4%) dopo una lunga settimana di vendite.",
+     "Bitcoin sale del 4%, sopra i 90.000 dollari, dopo una lunga settimana di vendite."),
+    ("La disoccupazione americana sale al 4,4%, il livello più alto dal 2021.",
+     "Il livello più alto dal 2021: la disoccupazione americana sale al 4,4%."),
+    ("Per il Kospi un calo del 2,6%, il peggiore dell'Asia.", "Il Kospi cala del 2,6%, il peggiore dell'Asia."),
+    ("Le azioni di Novo Nordisk crollano del 18% dopo lo studio.", "Dopo lo studio Novo Nordisk crolla del 18%."),
+    ("Le banche nel listino di Milano perdono il 2,4%.", "Nel listino di Milano le banche perdono il 2,4%."),
+    ("Il rame e l'argento salgono del 2%.", "Salgono del 2% il rame e l'argento."),
+    ("Nel Dow Jones in rialzo (+0,85%) leggiamo una rotazione.", "Il Dow Jones sale dello 0,85%: leggiamo una rotazione."),
+]
+
+
 def passo_coerenza():
     """Casi costruiti con le frasi vere della prova del 23/11, della #031 e della #032, sui prezzi del 20/11 (dati.json del
     campione #031): una cifra che cambia soggetto, un "più del 2%" detto di un -4,6%, un verso contrario alla chiusura, un
@@ -328,30 +450,42 @@ def passo_coerenza():
     resta = K.verdetti(campi, tmp)[0]
     corretta = K.verdetti({"quadro": "L'oro è caduto insieme alle azioni: a nostro avviso si vende ciò che si può vendere."}, tmp)[0]
     ragiona = bool(rid) and eur and manca and len(resta) == 1 and "lettura con i prezzi" in resta[0] and not corretta
-    # il desk
-    hk = desk.controlla("Nuove strette USA sulla tecnologia per la Cina fanno scendere il listino tecnologico di Hong Kong (-3,8%)",
-                        "Hong Kong perde il 3,8% per le strette USA sulla tecnologia per la Cina", set())
-    gi = desk.controlla("In Giappone l'inflazione sale al 2,3% e alimenta le attese di rialzo dei tassi",
-                        "L'inflazione giapponese sale al 2,3% e avvicina il rialzo dei tassi", set())
-    # la #032: la riscrittura sposta la nostra lettura, la cifra resta all'oro (respinta per errore prima del 24/11 sera)
-    oro = desk.controlla("Ci leggiamo anche il rimbalzo dell'oro (+3,9%): finiscono le vendite per far cassa.",
-                         "Nel rimbalzo dell'oro (+3,9%) leggiamo la fine delle vendite per far cassa.", set())
+    # il desk (G-45): una cifra resta sul suo soggetto. (originale, riscrittura) in DESK_PASSA si accettano, in DESK_NO si
+    # respingono. Poi le riscritture vere accettate nelle edizioni (sorgenti/*/desk_ok.json) restano accettate, e il
+    # confronto con dati.json ferma ciò che Coerenza fermerebbe nell'edizione (il desk non deve mai poterla bloccare).
+    sbagliati = [f"passa respinta: {o[:50]}" for o, n in DESK_PASSA if desk.controlla(o, n, set())] + \
+        [f"cattiva passata: {o[:50]}" for o, n in DESK_NO if not desk.controlla(o, n, set())]
+    vere = [(f, e) for f in sorted(glob.glob(os.path.join(R, "sorgenti", "*", "desk_ok.json")))
+            for e in json.load(open(f, encoding="utf-8"))]
+    sbagliati += [f"vera respinta {f.split(os.sep)[-2]} {e['campo']}" for f, e in vere
+                  if desk.cambia_soggetto(e["originale"], e["testo"])]
+    if desk._nomi("dopo le parole della BCE.") != desk._nomi("dopo le parole della BCE il cambio"):
+        sbagliati.append("BCE. e BCE contano come nomi diversi")
+    Cd = {"top": {"titolo": "Wall Street crolla", "dek": ""}, "quadro": "Il Brent si muove con le scorte USA.", "moduli": [],
+          "notizie": []}
+    contro_dati = [desk.coerenza_peggiora(Cd, "quadro", "Il Brent scende con le scorte USA.", M),
+                   desk.coerenza_peggiora(Cd, "top.titolo", "Wall Street forse crolla", M),
+                   desk.coerenza_peggiora(dict(Cd, quadro=DESK_NO[0][0]), "quadro", DESK_NO[0][1], M)]
+    sbagliati += ["dati: verso, ipotesi o Hong Kong passati"] if not all(contro_dati) else []
+    sbagliati += ["dati: riordino buono respinto"] if desk.coerenza_peggiora(Cd, "quadro", "Con le scorte USA il Brent si muove.", M) else []
     corto = ("La SEC ha aperto un esame su Nvidia, il titolo che regge la storia dell'intelligenza artificiale nelle borse. "
              "Il titolo ha perso il 14% venerdì e più del 20% in una settimana.")
     lungo = corto.replace(" Il titolo", " Lo staff guarda a possibili problemi contabili nei bilanci. Il titolo")
     tolto = desk.controlla(lungo, corto, set(), altri="")
     eco = desk.controlla(lungo, corto, set(), altri="Lo staff della SEC guarda a possibili problemi contabili nei bilanci.")
-    desk_ok = bool(hk) and gi is None and oro is None and bool(tolto) and eco is None
+    desk_ok = not sbagliati and bool(tolto) and eco is None
     ok = not sfuggiti and not falsi and rim_ok and tit_no and not tit_si and ragiona and desk_ok
     det = (f"{len(ferma)} frasi sbagliate fermate, {len(passa)} giuste passate (cifra che cambia soggetto, \"più del\", verso, "
            "periodo, ipotesi, parentesi); rimando a un pezzo che non ne parla; ipotesi nel titolo; il ragionamento dell'oro della "
-           "#031 fermato finché resta e liberato quando cambia; desk: Hong Kong e un fatto unico respinti, due riordini e un'eco passati")
+           f"#031 fermato finché resta e liberato quando cambia; desk: {len(DESK_NO)} cifre spostate respinte, {len(DESK_PASSA)} "
+           f"riscritture buone e {len(vere)} vere passate, verso/ipotesi/cifra contro dati.json fermati, un fatto unico respinto, "
+           "un'eco passata")
     if not ok:
         det = "; ".join(x for x in [
             f"sfuggiti {sfuggiti}" if sfuggiti else "", f"falsi allarmi {falsi[:2]}" if falsi else "",
             "" if rim_ok else f"rimandi {rim[:2]}", "" if tit_no and not tit_si else "titoli",
             "" if ragiona else f"ragionamento (id {rid}, EUR/USD fermo {eur}, manca {bool(manca)}, resta {resta[:1]}, corretta {corretta[:1]})",
-            "" if desk_ok else f"desk (hk {hk}, giappone {gi}, tolto {tolto}, eco {eco})"] if x)
+            "" if desk_ok else f"desk ({len(sbagliati)} sbagliati: {sbagliati[:3]}, tolto {tolto}, eco {eco})"] if x)
     esito("Coerenza: il testo regge contro i dati", ok, det)
 
 
