@@ -35,7 +35,9 @@ Cosa controlla:
                    falso allarme da correggere).
   5. Sito          pagine.py su una copia: file JSON e XML validi, ultima edizione in testa, nessun link interno rotto;
                    le pagine generate sono identiche a quelle nel repository (se pagine.py cambia, le pagine si
-                   rigenerano nello stesso commit); costruisci.py prepara il sito pubblico senza avvisi
+                   rigenerano nello stesso commit); costruisci.py prepara il sito pubblico senza avvisi; Impara cresce
+                   con le edizioni (impara.py su casi costruiti: una volta sola aspetta, due volte compatibili entra, una
+                   frase del giorno resta fuori, la scheda scritta a mano vince, un guasto lascia dati/parole.json com'era)
   6. Pubblicazione pubblica.sh in modalità prova sulla copia (nessun commit, nessun push)
 Esce con 1 se un passo fallisce. --tieni lascia la cartella temporanea per guardare PDF e anteprime.
 
@@ -1617,6 +1619,45 @@ def passo_lettori(copia):
     esito("Lettori: avviso sulle segnalazioni", not male, "; ".join(male)[:300] or "una segnalazione per commento e mai il testo; riapre e aggiorna; 5 nuove per giro; un guasto avvisa una volta al giorno")
 
 
+def passo_impara(copia):
+    """Impara cresce con le edizioni (G-54): il filtro di impara.py su un mondo costruito, e un guasto che non ferma nulla."""
+    sys.path.insert(0, R)
+    import impara
+    mondo, male = os.path.join(TMP, "impara"), []
+    os.makedirs(os.path.join(mondo, "redazione"), exist_ok=True)
+    os.makedirs(os.path.join(mondo, "dati"), exist_ok=True)
+    js = lambda rel, o: json.dump(o, open(os.path.join(mondo, rel), "w", encoding="utf-8"), ensure_ascii=False)
+    js("redazione/glossario.json", {"voci": [{"sigla": "PPI", "breve": "prezzi alla produzione"}]})
+    js("redazione/glossario_sito.json", {"voci": {}})
+    js("edizioni.json", [{"numero": n, "data": f"2026-01-0{n}"} for n in (1, 2, 3)])
+    def arch(*ed):
+        js(impara.CURA, {"stesse": {"Correzione": ["Correzioni di borsa"]}, "fuori": {}, "archivio": {f"2026-01-0{n}": p for n, p in ed}})
+    C1 = ("Correzione", "Un calo di almeno il 10% di un indice dal suo ultimo massimo.")
+    C2 = ("Correzioni di borsa", "Un calo dell'indice di almeno il 10% dal massimo più recente.")
+    arch((1, [C1, ("Shutdown", "La sospensione dei fondi federali americani per mancanza di un bilancio.")]),
+         (2, [("Prezzi alla produzione", "L'indice dei prezzi incassati dalle imprese che producono beni.")]))
+    voci, alias, _ = impara.calcola(mondo)
+    if voci:
+        male.append(f"una parola spiegata una volta sola non deve entrare ({[v['sigla'] for v in voci]})")
+    if alias.get("Prezzi alla produzione") != "PPI":
+        male.append("la parola di una scheda scritta a mano deve portare lì")
+    arch((1, [C1]), (2, [C2]), (3, [("Correzione", "Il calo di oggi porta l'indice al 10% sotto il massimo.")]))
+    voci, alias, _ = impara.calcola(mondo)
+    if [(v["sigla"], v["da"]) for v in voci] != [("Correzione", 2)] or alias.get("Correzioni di borsa") != "Correzione":
+        male.append(f"due spiegazioni compatibili: entra la più recente valida, la frase del giorno no ({voci})")
+    # il guasto: un archivio illeggibile non ferma pagine.py e lascia dati/parole.json com'era
+    p, cura = os.path.join(copia, "dati", "parole.json"), os.path.join(copia, impara.CURA)
+    prima, testo = open(p, encoding="utf-8").read(), open(cura, encoding="utf-8").read()
+    open(cura, "w", encoding="utf-8").write("{ rotto")
+    rc, out = esegui([sys.executable, os.path.join(copia, "redazione", "pagine.py"), copia])
+    open(cura, "w", encoding="utf-8").write(testo)
+    if rc or "AVVISO: parole di Impara" not in out or open(p, encoding="utf-8").read() != prima:
+        male.append(f"un guasto di impara.py deve lasciare pagine.py verde e dati/parole.json com'era (uscita {rc})")
+    n = len(json.load(open(p, encoding="utf-8"))["voci"])
+    esito("Sito: Impara cresce con le edizioni", not male, "; ".join(male)[:300] or
+          f"{n} parole dalle edizioni; una volta sola aspetta, la frase del giorno resta fuori, la scheda scritta vince, un guasto non ferma nulla")
+
+
 def passo_pubblicazione(copia):
     voci = json.load(open(os.path.join(copia, "edizioni.json"), encoding="utf-8"))
     v = max(voci, key=lambda x: x["numero"])
@@ -1659,6 +1700,7 @@ def main():
         copia = passo_sito()
         if isinstance(copia, str):
             passo_lettori(copia)
+            passo_impara(copia)
             passo_pubblicazione(copia)
     finally:
         if "--tieni" in sys.argv:

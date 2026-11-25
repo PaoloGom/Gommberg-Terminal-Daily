@@ -20,7 +20,7 @@ cartella di lavoro /home/claude/lavoro  (fuori dal repository)
   ▼
 pubblica.sh  →  un commit "Edizione #NNN - data" sul ramo principale (main)
   pdf/  edizioni.json  redazione/fatti/  redazione/sorgenti/  dati/uscite.json
-  pannello/registro.json (pannello.py)   e/  dati/  feed.xml  sitemap.xml  ultima/ (pagine.py)
+  pannello/registro.json (pannello.py)   e/  dati/  feed.xml  sitemap.xml  ultima/ (pagine.py; dati/parole.json con impara.py)
   ▼
 GitHub, a ogni push su main (zero token)
   sito.yml        costruisci.py → Cloudflare Workers → gommberg.com (file statici + servizio dei lettori su /api/*; se
@@ -45,7 +45,7 @@ Fuori dal viaggio dell'edizione, le **mail straordinarie** (auguri, avvisi, sond
 | Revisione e desk | `desk.py`, `memoria.py`, `ricerche.py` | Riscritture del desk, memoria dei fatti già verificati |
 | Indice | `edizioni_voce.py` → `edizioni.json` | Una voce per edizione: è il contratto centrale (vedi 3) |
 | Pubblicazione | `pubblica.sh`, `messaggio.py` | Copia, archivia i sorgenti, rigenera le pagine, commit e push |
-| Sito | pagine fisse in radice (`index.html`, `archivio.html`...), `assets/`, `pagine.py`, `sito/costruisci.py`, `sito/statico.py`, `robots.txt` | Pagine scritte a mano che si riempiono via JavaScript dai file di dati; pagine per edizione generate. `statico.py` (lo chiama `costruisci.py`, scrive solo nel sito pubblicato, mai nel repository) aggiunge per i motori di ricerca le pagine `impara/<parola>.html`, il contenuto di riserva di home, Impara e Archivio e le pagine di Impara nella sitemap (G-35) |
+| Sito | pagine fisse in radice (`index.html`, `archivio.html`...), `assets/`, `pagine.py`, `impara.py`, `parole_giornale.json`, `sito/costruisci.py`, `sito/statico.py`, `robots.txt` | Pagine scritte a mano che si riempiono via JavaScript dai file di dati; pagine per edizione generate. `impara.py` (lo chiama `pagine.py`) fa crescere Impara con le parole che le edizioni spiegano, con un filtro meccanico scritto nel suo commento (G-54); se fallisce, `dati/parole.json` resta com'era e la pubblicazione va avanti. `statico.py` (lo chiama `costruisci.py`, scrive solo nel sito pubblicato, mai nel repository) aggiunge per i motori di ricerca le pagine `impara/<parola>.html`, il contenuto di riserva di home, Impara e Archivio e le pagine di Impara nella sitemap (G-35) |
 | Newsletter | `newsletter.py` (compone anche testata e fascia dei mercati), `newsletter_cornice.html` e `newsletter_modello.html` (copiati a mano in Kit: "Gommberg cornice" per le edizioni, "Gommberg" predefinito) | L'email del mattino dalla scheda `e/NNN.json` |
 | Pannello | `pannello.py`, `misure.py`, `gancio_token.py`, `pannello/` | Una riga per edizione: orari, lavoro, qualità, consumo; pagina Invii per le mail straordinarie |
 | La Gommunity | `sito/lettori.js` (il servizio, l'unico codice che gira sul sito), `assets/lettori.js` e `lettori.css` (la sezione), `regole.html`, database D1 `gommberg-lettori`; `sito/segnalazioni.py` con `segnalazioni.yml` (ogni ora: avviso a Paolo per ogni commento segnalato); `sito/servi_lettori.mjs` (il sito in locale con il servizio vero); regole e procedura in `sito/LETTORI.md` | Sentiment Toro/Orso, commenti con nomi unici, risposte, like e Segnala accanto all'edizione (G-13) |
@@ -66,8 +66,10 @@ Un file della colonna di sinistra è un contratto: cambiarne forma o significato
 | `dati/uscite.json` | `pubblica.sh` | `numeri.html` (puntualità) |
 | `dati/gomm.json` (visite dei giorni completi dal 17/10) | `gomm.py`, nel job gomm di `mattino.yml` | `assets/gomm.js` (il GOMM: un solo calcolo), letto da `numeri.html`, dal nastro di `index.html` e dal blocco in fondo alle pagine `e/` |
 | `redazione/fatti/AAAA-MM-GG.json` | `pubblica.sh` (dalle schede del mattino) | `memoria.py`, `misure.py`, `pannello.py`, `collaudo.py` |
-| `redazione/sorgenti/AAAA-MM-GG/` | `pubblica.sh` | `collaudo.py` (rifare un'edizione, congelare un campione) |
-| `redazione/glossario.json`, `glossario_sito.json`, `meccanismi.json` | a mano (e la redazione, per glossario e meccanismi) | `controlli_testo.py`, `edizioni_voce.py`, e **il sito**: `glossario.html` |
+| `redazione/sorgenti/AAAA-MM-GG/` | `pubblica.sh` | `collaudo.py` (rifare un'edizione, congelare un campione), `impara.py` (il campo `parole` di `edizione.py`, letto senza eseguirlo) |
+| `dati/parole.json` (le parole spiegate dalle edizioni che entrano in Impara: `voci` con `sigla`, `breve`, `spiega`, `varianti`, `da`; `alias` = parola di un'edizione → voce di Impara, anche scritta a mano; `tipo`) | `impara.py`, chiamato da `pagine.py` (generato: si committa con le pagine) | `glossario.html` (schede "Dalle edizioni", "Nell'ultima edizione", "dove l'abbiamo usata"), `numeri.html` (scheda "Parole e meccanismi spiegati"), `sito/statico.py` (pagine `impara/<parola>.html`) |
+| `redazione/parole_giornale.json` (`stesse`: sinonimi; `fuori`: parole o spiegazioni tolte a mano, con il perché; `archivio`: le spiegazioni delle edizioni prima del 16/11/2026, dai PDF) | a mano, nel ramo di sviluppo | `impara.py` |
+| `redazione/glossario.json`, `glossario_sito.json`, `meccanismi.json` | a mano (e la redazione, per glossario e meccanismi) | `controlli_testo.py`, `edizioni_voce.py`, `impara.py` (le schede scritte a mano vincono), e **il sito**: `glossario.html` |
 | `redazione/scommessa/pagella.json` | `valuta.py`, con il verdetto della settimana | pag. 6 del PDF, e **il sito**: `scommessa.html`, `numeri.html` |
 | `redazione/scommessa/metodo.json`, `pronostici/*.json` | a mano / `pronostico.py` | `pagina6.py`, `valuta.py`, `edizioni_voce.py` |
 | `redazione/chiusure.csv` (chiusure delle serie senza archivio nella scommessa) | `pubblica.sh` (`numeri.py --archivia`, dal `dati.json` del giorno) | `numeri.py` (`tabelle_da_dati`: le tabelle di pag. 5 e le loro note, calcolate e mai scritte a mano, con la data di ogni riga anche quando un mercato è chiuso), `controlli_dati.py`, `controlli_numeri.py` |
@@ -90,7 +92,7 @@ Un solo comando, `python3 redazione/collaudo.py` (meno di un minuto, senza rete 
 
 1. sintassi di tutti i `.py` e `.sh`; 2. avvio (`prepara.sh` in tre giorni tipo); 3. pagina modello impaginata e controllata, e la regola dei fatti e il gancio su casi costruiti apposta;
 4. **rete**: le edizioni campione di `redazione/rete/` rifatte dai loro sorgenti con il kit di oggi lungo la catena del mattino, e confrontate con l'atteso (`atteso/`): testo del PDF, esito dei controlli, voce di `edizioni.json`, email, numeri del pannello;
-5. sito: file validi, link interni, **pagine generate identiche a quelle nel repository**, `costruisci.py` senza avvisi; 6. lettori: il servizio vero contro un database finto (`sito/prova_lettori.mjs`, serve Node 22.5 o più), la sintassi del codice del browser, la configurazione e l'avviso sulle segnalazioni (`sito/segnalazioni.py` a secco); 7. pubblicazione a secco.
+5. sito: file validi, link interni, **pagine generate identiche a quelle nel repository**, `costruisci.py` senza avvisi, il filtro di Impara su casi costruiti e un suo guasto che non ferma `pagine.py`; 6. lettori: il servizio vero contro un database finto (`sito/prova_lettori.mjs`, serve Node 22.5 o più), la sintassi del codice del browser, la configurazione e l'avviso sulle segnalazioni (`sito/segnalazioni.py` a secco); 7. pubblicazione a secco.
 
 Ogni differenza ferma. Se è un guasto si corregge; se è voluta si rilancia con `--atteso`, che riscrive l'atteso e stampa che cosa è cambiato: quel cambiamento è nel commit e nel resoconto del rilascio, dove lo vede anche Paolo. `--campione AAAA-MM-GG` congela un'edizione nuova (accettata solo se, rifatta, è identica a quella pubblicata).
 
