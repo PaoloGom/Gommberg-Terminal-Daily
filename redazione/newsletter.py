@@ -32,7 +32,8 @@ telefono) stanno nei modelli caricati a mano in Kit (Broadcasts > Templates):
   "Gommberg"           = redazione/newsletter_modello.html con il margine attorno al contenuto: è il predefinito, per
                          l'email di conferma e per ogni email scritta a mano dentro Kit (ha la sua testata).
 Se cambia un file, il modello corrispondente in Kit va aggiornato. Se "Gommberg cornice" non esiste in Kit l'invio non
-parte, su nessun altro modello: lo script esce con errore, il giro di newsletter.yml diventa rosso e il controllo del
+parte, su nessun altro modello (se l'elenco dei modelli non si legge per un guasto momentaneo di Kit, quattro tentativi
+a 15 secondi, poi errore "Kit non risponde"): lo script esce con errore, il giro di newsletter.yml diventa rosso e il controllo del
 mattino (mattino.py) segnala che l'invio manca. Mai due testate, mai nessuna.
 """
 import html
@@ -40,6 +41,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
@@ -51,6 +53,8 @@ BASE = "https://gommberg.com/"
 API = "https://api.kit.com/v4"
 ATTESA_MINUTI = 4          # tempo lasciato al sito per pubblicare la pagina dell'edizione
 CORNICE = "Gommberg cornice"    # il modello di Kit per le edizioni: cornice e piè di pagina, la testata la mette lo script
+LETTURE = 4                # tentativi per leggere l'elenco dei modelli di Kit (guasto momentaneo: 429, 5xx, rete)
+ATTESA_LETTURE = 15        # secondi tra un tentativo e l'altro (il collaudo la azzera)
 ORA_MINIMA = 8             # prima di quest'ora (Roma) l'invio automatico non parte
 GIORNI = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"]
 MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto",
@@ -243,6 +247,8 @@ def componi(ed):
 
 
 def kit(metodo, percorso, dati=None):
+    """Una chiamata a Kit: (stato HTTP, corpo). Se la rete non risponde (indirizzo, timeout, connessione) torna
+    (0, {"errore": ...}) come ogni altra risposta non riuscita: chi chiama controlla lo stato, nessun traceback."""
     chiave = os.environ.get("KIT_API_KEY", "").strip()
     if not chiave:
         sys.exit("ERRORE: manca KIT_API_KEY (segreto del repository)")
@@ -261,6 +267,8 @@ def kit(metodo, percorso, dati=None):
             return errore.code, json.loads(testo)
         except ValueError:
             return errore.code, {"errore": testo[:300]}
+    except (urllib.error.URLError, OSError) as errore:       # URLError e timeout sono OSError
+        return 0, {"errore": f"rete: {getattr(errore, 'reason', errore)}"[:300]}
 
 
 def invii_esistenti():
@@ -272,13 +280,23 @@ def invii_esistenti():
 
 
 def modello_edizione():
-    """L'id del modello "Gommberg cornice" in Kit. Se non c'è, o se l'elenco dei modelli non si legge, l'invio non parte:
-    nessun ripiego su un altro modello (l'email uscirebbe con un'altra cornice o con due testate)."""
-    stato, corpo = kit("GET", "/email_templates")
-    nomi = {(m.get("name") or "").strip().lower(): m.get("id") for m in (corpo.get("email_templates", []) if stato == 200 else [])}
-    if CORNICE.lower() not in nomi:
-        sys.exit(f'ERRORE: modello "{CORNICE}" non trovato in Kit (elenco dei modelli: HTTP {stato}): invio non fatto')
-    return nomi[CORNICE.lower()]
+    """L'id del modello "Gommberg cornice" in Kit. L'elenco dei modelli è una lettura: se Kit ha un guasto momentaneo
+    (429, 5xx, rete) si riprova a distanza, LETTURE volte. Se l'elenco si legge e la cornice non c'è, l'invio non parte;
+    se dopo i tentativi l'elenco non si legge, l'invio non parte lo stesso e l'errore è un altro. Su nessun altro modello:
+    l'email uscirebbe con un'altra cornice o con due testate. Solo le letture si ritentano: mai la creazione dell'invio."""
+    for tentativo in range(1, LETTURE + 1):
+        stato, corpo = kit("GET", "/email_templates")
+        if stato == 200:
+            nomi = {(m.get("name") or "").strip().lower(): m.get("id") for m in corpo.get("email_templates", [])}
+            if CORNICE.lower() not in nomi:
+                sys.exit(f'ERRORE: la cornice non c\'è in Kit: modello "{CORNICE}" non trovato nell\'elenco: invio non fatto')
+            return nomi[CORNICE.lower()]
+        transitorio = stato == 0 or stato == 429 or stato >= 500
+        if not transitorio or tentativo == LETTURE:
+            break
+        time.sleep(ATTESA_LETTURE)
+    sys.exit(f"ERRORE: Kit non risponde: elenco dei modelli non leggibile dopo {tentativo} tentativ{'o' if tentativo == 1 else 'i'} "
+             f"(HTTP {stato}: {json.dumps(corpo, ensure_ascii=False)[:200]}): invio non fatto, su nessun altro modello")
 
 
 def crea(ed, quando, prova):

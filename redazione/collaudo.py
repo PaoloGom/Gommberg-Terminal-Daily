@@ -759,7 +759,7 @@ def passo_newsletter():
     radice = os.path.dirname(R)
     ultimo = json.load(open(os.path.join(radice, "edizioni.json"), encoding="utf-8"))[-1]["numero"]
     ed = json.load(open(os.path.join(radice, "e", f"{int(ultimo):03d}.json"), encoding="utf-8"))
-    chiamate, vero = [], NL.kit
+    chiamate, vero, vera_attesa = [], NL.kit, NL.ATTESA_LETTURE
 
     def finto(modelli):
         def k(metodo, percorso, dati=None):
@@ -786,9 +786,60 @@ def passo_newsletter():
         posts = [c for c in chiamate if c[0] == "POST"]
         if len(posts) != 1 or posts[0][2].get("email_template_id") != 5:
             male.append("con la cornice l'invio non usa la cornice")
+        # elenco dei modelli che fallisce (guasto momentaneo di Kit): si riprova, mai si spedisce con un altro modello
+        NL.ATTESA_LETTURE = 0
+
+        def guasto(risposte):
+            coda = list(risposte)
+
+            def k(metodo, percorso, dati=None):
+                chiamate.append((metodo, percorso, dati))
+                if percorso == "/email_templates":
+                    return coda.pop(0) if len(coda) > 1 else coda[0]
+                return 201, {"broadcast": {"id": 1, "email_template": {"name": "x"}}}
+            return k
+        buono = (200, {"email_templates": [{"id": 5, "name": "Gommberg cornice"}]})
+        chiamate.clear()
+        NL.kit = guasto([(500, {}), (429, {}), buono])
+        with contextlib.redirect_stdout(io.StringIO()):
+            NL.crea(ed, None, prova=True)
+        posts = [c for c in chiamate if c[0] == "POST"]
+        if len(posts) != 1 or posts[0][2].get("email_template_id") != 5 or len([c for c in chiamate if c[0] == "GET"]) != 3:
+            male.append("elenco che fallisce due volte e poi risponde: l'invio non parte con la cornice (o l'elenco non è riletto)")
+        for nome, risposta in (("risponde sempre 500", (500, {})), ("errore di rete", (0, {"errore": "rete: timeout"}))):
+            chiamate.clear()
+            NL.kit = guasto([risposta])
+            try:
+                NL.crea(ed, None, prova=True)
+                male.append(f"elenco che {nome}: l'invio è partito lo stesso")
+            except SystemExit as e:
+                if not str(e).startswith("ERRORE: Kit non risponde"):
+                    male.append(f"elenco che {nome}: l'errore non dice che Kit non risponde ({str(e)[:60]})")
+            if any(c[0] == "POST" for c in chiamate) or len(chiamate) != NL.LETTURE:
+                male.append(f"elenco che {nome}: invio creato o tentativi diversi da {NL.LETTURE}")
+        # un errore di rete in kit() è una risposta gestita, non un traceback
+        import urllib.error
+        import urllib.request
+        vera_apertura, chiave = urllib.request.urlopen, os.environ.get("KIT_API_KEY")
+        NL.kit, os.environ["KIT_API_KEY"] = vero, "kit_prova"
+        try:
+            for errore in (urllib.error.URLError("irraggiungibile"), TimeoutError("timeout")):
+                def apri(*a, _e=errore, **k):
+                    raise _e
+                urllib.request.urlopen = apri
+                if NL.kit("GET", "/email_templates")[0] != 0:
+                    male.append(f"errore di rete ({type(errore).__name__}) in kit(): non è una risposta gestita")
+        finally:
+            urllib.request.urlopen = vera_apertura
+            if chiave is None:
+                os.environ.pop("KIT_API_KEY", None)
+            else:
+                os.environ["KIT_API_KEY"] = chiave
     finally:
         NL.kit = vero
-    esito("Newsletter: la cornice o nulla", not male, "; ".join(male) or "senza la cornice in Kit l'invio fallisce e non crea nulla; con la cornice la usa")
+        NL.ATTESA_LETTURE = vera_attesa
+    esito("Newsletter: la cornice o nulla", not male, "; ".join(male) or "senza la cornice in Kit l'invio fallisce e non crea nulla; con la cornice la usa; "
+          "elenco che si riprende dopo due guasti: parte; elenco muto o rete caduta: 'Kit non risponde', nessun invio, nessun traceback")
 
 
 # ---------------------------------------------------------------- 3f. mail straordinarie (G-17)
