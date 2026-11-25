@@ -748,7 +748,50 @@ def passo_scommessa():
           "il lunedì pag. 6 stampa lo scenario del registro")
 
 
-# ---------------------------------------------------------------- 3e. mail straordinarie (G-17)
+# ---------------------------------------------------------------- 3e. newsletter: la cornice o nulla (G-15)
+def passo_newsletter():
+    """L'email del mattino parte solo con il modello "Gommberg cornice": con un Kit finto che non ce l'ha lo script esce con
+    errore e non crea nessun invio (nessun ripiego su un altro modello); con la cornice l'invio ha quel modello. Senza rete."""
+    sys.path.insert(0, R)
+    import contextlib
+    import io
+    import newsletter as NL
+    radice = os.path.dirname(R)
+    ultimo = json.load(open(os.path.join(radice, "edizioni.json"), encoding="utf-8"))[-1]["numero"]
+    ed = json.load(open(os.path.join(radice, "e", f"{int(ultimo):03d}.json"), encoding="utf-8"))
+    chiamate, vero = [], NL.kit
+
+    def finto(modelli):
+        def k(metodo, percorso, dati=None):
+            chiamate.append((metodo, percorso, dati))
+            if percorso == "/email_templates":
+                return 200, {"email_templates": [{"id": i, "name": n} for i, n in modelli]}
+            return 201, {"broadcast": {"id": 1, "email_template": {"name": "x"}}}
+        return k
+    male = []
+    try:
+        NL.kit = finto([(1, "Gommberg edizione"), (2, "Gommberg")])
+        try:
+            NL.crea(ed, None, prova=True)
+            male.append("senza la cornice l'invio è partito lo stesso")
+        except SystemExit as e:
+            if not str(e).startswith("ERRORE"):
+                male.append("senza la cornice l'uscita non è un errore")
+        if any(c[0] == "POST" for c in chiamate):
+            male.append("senza la cornice è stato creato un invio")
+        chiamate.clear()
+        NL.kit = finto([(1, "Gommberg edizione"), (5, "Gommberg cornice")])
+        with contextlib.redirect_stdout(io.StringIO()):
+            NL.crea(ed, None, prova=True)
+        posts = [c for c in chiamate if c[0] == "POST"]
+        if len(posts) != 1 or posts[0][2].get("email_template_id") != 5:
+            male.append("con la cornice l'invio non usa la cornice")
+    finally:
+        NL.kit = vero
+    esito("Newsletter: la cornice o nulla", not male, "; ".join(male) or "senza la cornice in Kit l'invio fallisce e non crea nulla; con la cornice la usa")
+
+
+# ---------------------------------------------------------------- 3f. mail straordinarie (G-17)
 def passo_dem():
     """Le mail straordinarie: i file veri passano le regole e pannello/invii.json è allineato; le regole fermano i casi
     sbagliati, anche ai confini; il pianificatore decide la cosa giusta in ogni situazione di Kit; l'esecuzione con un Kit
@@ -1350,6 +1393,7 @@ def main():
         passo_dati()
         passo_tabelle()
         passo_scommessa()
+        passo_newsletter()
         passo_dem()
         passo_rete()
         copia = passo_sito()
