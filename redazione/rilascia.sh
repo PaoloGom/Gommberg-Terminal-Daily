@@ -9,7 +9,8 @@
 #                                         principale (lo crea se manca)
 #   bash redazione/rilascia.sh collauda   sul ramo dove sei: porta dentro le novità del ramo principale, lancia il
 #                                         collaudo, stampa il resoconto
-#   bash redazione/rilascia.sh unisci     dopo la prova andata bene: porta nel ramo rilascio il lavoro di con-prova
+#   bash redazione/rilascia.sh unisci <commit>   dopo la prova andata bene: porta nel ramo rilascio il lavoro di con-prova
+#                                         fino al commit su cui è stata fatta la prova (dopo.prova.commit), non oltre
 #   bash redazione/rilascia.sh pubblica [--ok-di-paolo] [--dopo-la-prova] [--senza-github] [--guasto]
 #                                         collauda; se è verde qui e su GitHub, un solo merge sul ramo principale
 #   bash redazione/rilascia.sh annulla    toglie dal ramo principale l'ultimo rilascio (revert del suo merge)
@@ -33,8 +34,14 @@ REPO="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "RILASCIO: FERMO -
 cd "$REPO" || exit 1
 RAMO="rilascio"; ATTESA="con-prova"; PRINC="main"; PROVA="${GTD_PROVA:-0}"; FONDO=300
 AZIONE="${1:-}"; shift 2>/dev/null || true
-OK_PAOLO=0; SENZA_GITHUB=0; GUASTO=0; DOPO_PROVA=0; SU="$RAMO"
-for a in "$@"; do case "$a" in --ok-di-paolo) OK_PAOLO=1;; --dopo-la-prova) DOPO_PROVA=1;; "$ATTESA") SU="$ATTESA";; --senza-github) SENZA_GITHUB=1;; --guasto) GUASTO=1;; *) echo "RILASCIO: FERMO - opzione sconosciuta: $a"; exit 1;; esac; done
+OK_PAOLO=0; SENZA_GITHUB=0; GUASTO=0; DOPO_PROVA=0; SU="$RAMO"; PROVATO=""
+for a in "$@"; do
+  # le opzioni valgono solo per l'azione che le usa: un'opzione fuori posto ferma, non passa in silenzio
+  if [ "$AZIONE" = "avvia" ] && [ "$a" = "$ATTESA" ]; then SU="$ATTESA"; continue; fi
+  if [ "$AZIONE" = "unisci" ] && echo "$a" | grep -qE '^[0-9a-f]{7,40}$'; then PROVATO="$a"; continue; fi
+  [ "$AZIONE" = "pubblica" ] || { echo "RILASCIO: FERMO - opzione sconosciuta per '$AZIONE': $a"; exit 1; }
+  case "$a" in --ok-di-paolo) OK_PAOLO=1;; --dopo-la-prova) DOPO_PROVA=1;; --senza-github) SENZA_GITHUB=1;; --guasto) GUASTO=1;; *) echo "RILASCIO: FERMO - opzione sconosciuta: $a"; exit 1;; esac
+done
 
 fermo() { echo "RILASCIO: FERMO - $1"; exit 1; }
 pulito() { [ -z "$(git status --porcelain)" ] || fermo "ci sono modifiche non salvate (git status): prima commit, o scartale"; }
@@ -70,9 +77,11 @@ cambia() {
   PUBBLICI=$(echo "$tutti" | grep -vE '^(redazione/|README)|(^|/)[._]' ; echo "$tutti" | grep -E '^redazione/(glossario|glossario_sito|meccanismi)\.json$|^redazione/scommessa/pagella\.json$')
   PUBBLICI=$(echo "$PUBBLICI" | sed '/^$/d')
   # solo l'atteso MODIFICATO: un campione nuovo non cambia nulla per il lettore, un campione che esce diverso sì
-  CAMPIONI=$(git diff --name-only --diff-filter=MD "origin/$PRINC" HEAD | grep -E '^redazione/rete/[^/]+/atteso/(pdf\.txt|email\.html)$')
+  CAMPIONI=$(git diff --no-renames --name-only --diff-filter=MD "origin/$PRINC" HEAD | grep -E '^redazione/rete/[^/]+/atteso/(pdf\.txt|email\.html)$')
   MODELLO=$(echo "$tutti" | grep -E '^redazione/newsletter_(modello|cornice)\.html$')
-  SCRITTURA=$(echo "$tutti" | grep -E '^redazione/(ISTRUZIONI|APP_[A-Z]+|NOTA_DEL_GIORNO)\.md$|^redazione/edizione_modello_v[0-9]+\.py$|^redazione/(glossario|meccanismi|fonti)\.json$')
+  # ciò che la redazione del mattino legge o che decide che cosa resta in pagina: regole, modello, lessico, l'avvio,
+  # i controlli, il desk, il metodo della scommessa, il gancio della sessione
+  SCRITTURA=$(echo "$tutti" | grep -E '^redazione/(ISTRUZIONI|APP_[A-Z]+|NOTA_DEL_GIORNO)\.md$|^redazione/edizione_modello_v[0-9]+\.py$|^redazione/(glossario|meccanismi|fonti)\.json$|^redazione/(prepara\.sh|controlli_tutti\.sh|desk\.py|controlli[a-z_]*\.py)$|^redazione/scommessa/metodo\.json$|^\.claude/settings\.json$')
   SERVE_OK=0; [ -n "$PUBBLICI$CAMPIONI$MODELLO" ] && SERVE_OK=1
   TUTTI="$tutti"
 }
@@ -140,9 +149,16 @@ github_verde() {  # il collaudo di GitHub sullo stesso commit: aspetta fino a 20
 case "$AZIONE" in
 avvia)
   pulito; prendi "$PRINC"
+  # avvia non cancella mai lavoro: se il ramo locale ha commit che origin non ha, si ferma (o, se origin non ha ancora
+  # il ramo, parte da quello locale)
   if git ls-remote --exit-code --heads origin "$SU" >/dev/null 2>&1; then
     git fetch -q --depth="$FONDO" origin "+refs/heads/$SU:refs/remotes/origin/$SU" 2>/dev/null || fermo "git fetch di $SU non riuscito"
+    if git show-ref --verify --quiet "refs/heads/$SU" && [ "$(git rev-list --count "origin/$SU..$SU")" -gt 0 ]; then
+      fermo "il ramo locale $SU ha $(git rev-list --count "origin/$SU..$SU") commit che origin non ha: prima 'git push origin $SU', poi rilancia (avvia non li cancella)"
+    fi
     git checkout -q -B "$SU" "origin/$SU" || fermo "checkout del ramo $SU"
+  elif git show-ref --verify --quiet "refs/heads/$SU" && [ "$(git rev-list --count "origin/$PRINC..$SU")" -gt 0 ]; then
+    git checkout -q "$SU" || fermo "checkout del ramo $SU"
   else
     git checkout -q -B "$SU" "origin/$PRINC" || fermo "creazione del ramo $SU"
   fi
@@ -158,16 +174,19 @@ collauda)
   exit $rc
   ;;
 unisci)
+  [ -n "$PROVATO" ] || fermo "unisci vuole il commit su cui è stata fatta la prova (dopo.prova.commit nel Registro): rilascia.sh unisci <commit>"
   solo_rilascio; pulito; firma
   git fetch -q --depth="$FONDO" origin "+refs/heads/$ATTESA:refs/remotes/origin/$ATTESA" 2>/dev/null || fermo "git fetch di $ATTESA non riuscito"
-  if git merge-base --is-ancestor "origin/$ATTESA" HEAD 2>/dev/null; then echo "RILASCIO: il ramo $RAMO contiene già tutto $ATTESA: niente da unire."; exit 0; fi
-  if ! git merge -q --no-edit "origin/$ATTESA" >/dev/null 2>&1; then
+  git cat-file -e "$PROVATO^{commit}" 2>/dev/null || fermo "il commit $PROVATO non esiste"
+  git merge-base --is-ancestor "$PROVATO" "origin/$ATTESA" 2>/dev/null || fermo "il commit $PROVATO non sta sul ramo $ATTESA"
+  if git merge-base --is-ancestor "$PROVATO" HEAD 2>/dev/null; then echo "RILASCIO: il ramo $RAMO contiene già $PROVATO: niente da unire."; exit 0; fi
+  if ! git merge -q --no-edit "$PROVATO" >/dev/null 2>&1; then
     f=$(git diff --name-only --diff-filter=U | head -5 | tr '\n' ' ')
     git merge --abort >/dev/null 2>&1
-    fermo "il ramo $ATTESA non si unisce al ramo $RAMO: conflitto in $f (si risolve sul ramo $ATTESA: 'avvia $ATTESA' porta dentro il ramo principale)"
+    fermo "il ramo $ATTESA non si unisce al ramo $RAMO: conflitto in $f (prima si pubblica ciò che è su $RAMO; poi 'avvia $ATTESA' porta dentro il ramo principale e il conflitto si risolve lì, con una nuova prova se tocca la scrittura)"
   fi
   spingi HEAD "$RAMO" || fermo "push del ramo $RAMO rifiutato"
-  echo "RILASCIO: il lavoro di $ATTESA è nel ramo $RAMO ($(git rev-parse --short HEAD)). Ora: 'collauda', poi 'pubblica --dopo-la-prova' al Rilascia di Paolo."
+  echo "RILASCIO: il lavoro provato di $ATTESA ($(git rev-parse --short "$PROVATO")) è nel ramo $RAMO. Ora, subito: 'pubblica --dopo-la-prova' (si unisce solo al Rilascia di Paolo, mai prima)."
   ;;
 pubblica)
   if fuori_orario && [ "$GUASTO" != 1 ]; then
@@ -224,7 +243,7 @@ annulla)
   echo "RILASCIO: ANNULLATO - il ramo principale è tornato a prima del rilascio $(git rev-parse --short "$M") (commit $(git rev-parse --short "$R"))."
   echo "Il lavoro resta sul ramo $RAMO. Per riproporlo dopo la correzione: 'avvia', poi git revert $(git rev-parse --short "$R") sul ramo $RAMO (riporta dentro il lavoro), correzione, 'pubblica'."
   ;;
-*) echo "uso: rilascia.sh avvia [con-prova] | collauda | unisci | pubblica [--ok-di-paolo] [--dopo-la-prova] [--senza-github] [--guasto] | annulla"; exit 1;;
+*) echo "uso: rilascia.sh avvia [con-prova] | collauda | unisci <commit provato> | pubblica [--ok-di-paolo] [--dopo-la-prova] [--senza-github] [--guasto] | annulla"; exit 1;;
 esac
 exit 0
 }
