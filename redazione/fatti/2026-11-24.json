@@ -1,0 +1,866 @@
+[
+ {
+  "id": "T01",
+  "sezione": "top_story",
+  "testo": "Il consiglio di Nvidia reintegra all'unanimità Jensen Huang come presidente e amministratore delegato; il titolo sale di oltre il 31%, e S&P 500 (+4,73% a 7.237,17), Nasdaq (+6,51%) e Dow (+3,01%) fanno il rialzo più forte da oltre un anno",
+  "data_evento": "2026-11-23",
+  "novita": "Dimessosi il 12/11, Huang torna lunedì 23/11 prima dell'apertura",
+  "fonti": [
+   {
+    "testata": "NVIDIA (comunicato, SEC)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000090/nov23pressrelease.htm",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "NVIDIA Board Reinstates Jensen Huang as President, CEO and Board Director",
+    "ricerca": "NVIDIA board reinstates Jensen Huang President CEO press release November 23 2026",
+    "primaria": true
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-nov-23-221613542.html",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Stock Market Today, Nov. 23: Markets Rebound From Correction on AI Relief Rally",
+    "ricerca": "Wall Street Monday November 23 2026 S&P 500 rebounds Nasdaq closes"
+   },
+   {
+    "testata": "Fox Business",
+    "url": "https://www.foxbusiness.com/markets/stocks-november-23-2026",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Stocks soar on Jensen Huang's return to Nvidia",
+    "ricerca": "Wall Street Monday November 23 2026 S&P 500 rebounds Nasdaq closes"
+   },
+   {
+    "testata": "ABC News",
+    "url": "https://abcnews.com/Business/stock-market-rebounds-sharply-after-selloff/story?id=138373790",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Stock market rebounds sharply after sell-off, Nvidia closes up more than 31%",
+    "ricerca": "Wall Street Monday November 23 2026 S&P 500 rebounds Nasdaq closes"
+   }
+  ],
+  "trovato": "Up 4.74% to 7,238, the S&P 500 ... exited correction territory in an historic rebound",
+  "verifica": "confermato",
+  "nota_revisore": "Yahoo Finance (Motley Fool): S&P +4,74%, Nasdaq +6,51% a 24.090, Dow +3,01%, 'largest amount in over a year and a half', Nvidia +31,48%: coerente col PDF (+31%, +4,7%, +6,5%). Comunicato SEC negato: all'unanimita' e i ruoli presidente/CEO non verificati. Fox e ABC non ritrovati/negati. La frase e' ricopiata dall'estratto restituito dallo strumento, senza la frase successiva."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "testo": "Il Kospi di Seul chiude a 5.006,03 (+6,32%) dopo un'apertura a +3,64% e il primo sidecar d'acquisto da due settimane; Samsung Electronics +6,70% e SK hynix +6,73%",
+  "data_evento": "2026-11-24",
+  "novita": "Chiusura del 24/11 dopo il reintegro di Huang",
+  "fonti": [
+   {
+    "testata": "JKN",
+    "url": "https://news.jkn.co.kr/editions/english/post/1119298",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "KOSPI Surges 6.32% to Reclaim 5,000 Mark as Jensen Huang Returns; KOSDAQ Climbs 4.79%",
+    "ricerca": "Kospi surges 5,000 Nvidia Huang reinstated Seoul shares close higher"
+   },
+   {
+    "testata": "Aju Press",
+    "url": "https://www.ajupress.com/view/20261124151757565",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "Huang regains institutional confidence, Korea's retailers not sure",
+    "ricerca": "Kospi surges 5,000 Nvidia Huang reinstated Seoul shares close higher"
+   }
+  ],
+  "trovato": "It finished the day at 5,006.03, up 297.49 points (6.32%) from the previous trading day.",
+  "verifica": "confermato",
+  "nota_revisore": "JKN: 'This was the first time a KOSPI buy-sidecar was triggered in two weeks, since the 10th.' Korea Herald: sidecar di cinque minuti sugli acquisti dei programmi. Apertura +3,64% (JKN da' solo 4.880,16) e Samsung +6,70%/SK hynix +6,73% non ritrovati. PDF coerente su quanto riporta."
+ },
+ {
+  "id": "N03",
+  "sezione": "top_news",
+  "testo": "L'Euro Stoxx 50 chiude a 6.074,47 (+2,23%): ASML +8,9% e Infineon +6,6%; per Kitco lo Stoxx 600 sale dell'1,9%",
+  "data_evento": "2026-11-23",
+  "novita": "Rimbalzo europeo guidato dalla tecnologia",
+  "fonti": [
+   {
+    "testata": "dpa-AFX (finanzen.net)",
+    "url": "https://www.finanzen.net/nachricht/aktien/roundup-aktien-europa-schluss-kraeftige-erholung-nach-rueckkehr-des-nvidia-chefs-16082441",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "ROUNDUP/Aktien Europa Schluss: Kräftige Erholung nach Rückkehr des Nvidia-Chefs",
+    "ricerca": "Europa-Schluss EuroStoxx 50 Huang Nvidia Rally 6.074 Punkte",
+    "agenzia": "dpa-AFX"
+   },
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-23/gold-silver-prices-see-sharp-rebounds-ai-shares-rally-renewed-fed",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Gold, silver prices see sharp rebounds as AI shares rally, renewed Fed uncertainty - Kitco PM Report",
+    "ricerca": "gold rebounds 4% Monday November 23 2026 spot gold"
+   }
+  ],
+  "trovato": "Der EuroStoxx 50 beendete den Tag mit einem Plus von 2,23 Prozent auf 6.074,47 Punkt",
+  "verifica": "confermato",
+  "nota_revisore": "finanzen.net: ASML +8,9%, Infineon +6,6% (come PDF). Kitco: 'the STOXX 600 climbing 1.9% to 637.84'. Tutto coerente col PDF."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "testo": "Il FTSE MIB chiude a 49.021 (+0,65%) assorbendo lo stacco dei dividendi di undici quotate, che pesava circa l'1,4%; STMicroelectronics +9%, Technoprobe +8,75%, Intesa Sanpaolo +2,8%",
+  "data_evento": "2026-11-23",
+  "novita": "Milano sale malgrado le cedole",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/23/borsa-milano-chiude-in-rialzo-065-con-il-ritorno-di-huang-in-nvidia_02d66c84-b2b7-4183-85a4-fb11e60af267.html",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Borsa: Milano chiude in rialzo (+0,65%) con il ritorno di Huang in Nvidia",
+    "ricerca": "Borsa Milano chiude 23 novembre Piazza Affari Teleborsa",
+    "agenzia": "ANSA"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-23-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611230748404021",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Borse oggi in diretta | Il Ftse Mib chiude in rialzo dello 0,6%. In cima i titoli tech, giù Snam e Avio",
+    "ricerca": "Borsa Milano chiude 23 novembre Piazza Affari Teleborsa"
+   }
+  ],
+  "trovato": "Il Ftse Mib ha chiuso le contrattazioni in progresso dello 0,65%, a 49.021 punti",
+  "verifica": "confermato",
+  "nota_revisore": "ANSA: chiusura e stacco cedola di undici quotate (~1,4%). Milano Finanza: 'Technoprobe (+8,75%), Stmicroelectronics (+9%)' a fine seduta. Intesa +2,8% (e UniCredit +2%, Banco BPM +2,5% del PDF) non ritrovati nel testo estratto: non verificati. Nota: Milano Finanza parla di nove blue chip con cedola, ANSA di undici."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "testo": "CrowdStrike compra Zscaler in un accordo tutto in azioni da circa 44 miliardi di dollari, annunciato lunedì",
+  "data_evento": "2026-11-23",
+  "novita": "Annuncio del 23/11, con conti trimestrali di entrambe",
+  "fonti": [
+   {
+    "testata": "CrowdStrike e Zscaler (comunicato, SEC)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0001713683/000119312526471211/d115803dex991.htm",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "We see a path to become the largest AI safety and security company the world has ever seen.",
+    "ricerca": "CrowdStrike to acquire Zscaler $44 billion all-stock deal",
+    "primaria": true
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-nov-23-221613542.html",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Stock Market Today, Nov. 23: Markets Rebound From Correction on AI Relief Rally",
+    "ricerca": "Wall Street Monday November 23 2026 S&P 500 rebounds Nasdaq closes"
+   }
+  ],
+  "trovato": "Cybersecurity giant CrowdStrike has agreed to buy Zscaler in a $43.9 billion all-stock deal, the companies announced Monday.",
+  "verifica": "confermato",
+  "nota_revisore": "Frase da TechCrunch (non scheda). Yahoo: CrowdStrike -9%, Zscaler +18%, all-stock da 44 mld. Il premio del 34% non e' stato ritrovato in nessuna pagina; URL SEC della scheda non comparso nei risultati. PDF: 44 miliardi e -8,9% sostanzialmente coerenti, premio non verificato. | Claim ristretto a quanto trovato (senza premio 34%)."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "testo": "ABB compra il produttore tedesco di ventilatori Ziehl-Abegg per un valore d'impresa di 2,65 miliardi di dollari; il titolo sale del 4,6% e guida la Borsa svizzera",
+  "data_evento": "2026-11-23",
+  "novita": "Annuncio del 23/11",
+  "fonti": [
+   {
+    "testata": "dpa-AFX (finanzen.net)",
+    "url": "https://www.finanzen.net/nachricht/aktien/roundup-aktien-europa-schluss-kraeftige-erholung-nach-rueckkehr-des-nvidia-chefs-16082441",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "ROUNDUP/Aktien Europa Schluss: Kräftige Erholung nach Rückkehr des Nvidia-Chefs",
+    "ricerca": "Europa-Schluss EuroStoxx 50 Huang Nvidia Rally 6.074 Punkte",
+    "agenzia": "dpa-AFX"
+   }
+  ],
+  "fonte_singola": true,
+  "conferma_cercata": [
+   "ABB acquire Ziehl-Abegg enterprise value $2.65 billion"
+  ],
+  "trovato": "für einen Unternehmenswert von 2,65 Milliarden Dollar",
+  "verifica": "confermato",
+  "nota_revisore": "finanzen.net/dpa-AFX: ABB compra Ziehl-Abegg, titolo +4,6% in testa all'SMI. PDF corretto."
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "testo": "Nell'area euro l'indice PMI composito resta a 51,7 (atteso 51,9): la Germania accelera ai ritmi più alti da quattro anni e mezzo mentre la Francia si contrae di più",
+  "data_evento": "2026-11-23",
+  "novita": "Dato flash di novembre uscito lunedì",
+  "fonti": [
+   {
+    "testata": "Reuters (RTÉ)",
+    "url": "https://www.rte.ie/news/business/2026/1123/1600272-euro-zone-growth-pmi/",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Euro zone growth holds steady but France's deepening downturn clouds outlook, PMI shows",
+    "ricerca": "Euro zone flash PMI November 2026 HCOB composite",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/eurozone-november-flash-services-pmi-51-2-vs-51-8-expected/",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Eurozone November flash services PMI 51.2 vs 51.8 expected",
+    "ricerca": "Euro zone flash PMI November 2026 HCOB composite"
+   }
+  ],
+  "trovato": "held steady at 51.7 in November, and while below a Reuters poll estimate for 51.9",
+  "verifica": "confermato",
+  "nota_revisore": "RTE/Reuters: Germania 'fastest for four and a half years', Francia 'sharpest contraction in six months'. PDF corretto. investingLive non raggiungibile (errore server)."
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "testo": "Il Brent chiude a 89,37 $ (-3,5%) e il WTI a 80,17 $: per Bloomberg gli investitori chiudono le coperture dopo che Trump ha lasciato più tempo ai colloqui con l'Iran",
+  "data_evento": "2026-11-23",
+  "novita": "Primo WTI intorno agli 80 $ da agosto",
+  "fonti": [
+   {
+    "testata": "Bloomberg (Rigzone)",
+    "url": "https://www.rigzone.com/news/wire/oil_falls_as_trump_signals_iran_talks-23-nov-2026-185152-article/",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Oil Falls as Trump Signals Iran Talks",
+    "ricerca": "oil prices Monday Brent falls $89 Hormuz Iran November 23 2026",
+    "agenzia": "Bloomberg"
+   },
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-23/gold-silver-prices-see-sharp-rebounds-ai-shares-rally-renewed-fed",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Gold, silver prices see sharp rebounds as AI shares rally, renewed Fed uncertainty - Kitco PM Report",
+    "ricerca": "gold rebounds 4% Monday November 23 2026 spot gold"
+   }
+  ],
+  "trovato": "Brent for January settlement dropped 3.5% to settle at $89.37 a barrel.",
+  "verifica": "confermato",
+  "nota_revisore": "Rigzone/Bloomberg: WTI a 80,17 $ (qui -4,5%; Kitco scrive -3,9%), 'investors unwound hedges against a weekend escalation by US forces in Iran', Trump 'appeared to give diplomacy more time'. PDF coerente."
+ },
+ {
+  "id": "N09",
+  "sezione": "top_news",
+  "testo": "L'oro future chiude a 3.651,40 $ (+3,9%) e lo spot sale del 2,7-3,5%, dopo una settimana in calo di circa il 9%",
+  "data_evento": "2026-11-23",
+  "novita": "Rimbalzo di lunedì dal minimo di 14 mesi",
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-23/gold-silver-prices-see-sharp-rebounds-ai-shares-rally-renewed-fed",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Gold, silver prices see sharp rebounds as AI shares rally, renewed Fed uncertainty - Kitco PM Report",
+    "ricerca": "gold rebounds 4% Monday November 23 2026 spot gold"
+   },
+   {
+    "testata": "Nation Thailand",
+    "url": "https://www.nationthailand.com/business/trading-investment/40073846",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Spot gold gains 3.5% on 23 Nov after hitting 14-month low",
+    "ricerca": "gold rebounds 4% Monday November 23 2026 spot gold"
+   }
+  ],
+  "trovato": "Spot gold rose 3.5% to US$3,654.97 a troy ounce",
+  "verifica": "confermato",
+  "nota_revisore": "Nation Thailand: +3,5% spot; Kitco: spot +2,75% e calo settimanale 'approximately 9%'. Il future a 3.651,40 $ (+3,9%) non compare in queste pagine (e' dato di mercato FMP): non verificato."
+ },
+ {
+  "id": "N11",
+  "sezione": "top_news",
+  "testo": "Secondo Milano Finanza i future danno una probabilità implicita del 94% a un rialzo di 25 punti base a dicembre",
+  "data_evento": "2026-11-23",
+  "novita": "Probabilità secondo CME FedWatch",
+  "fonti": [
+   {
+    "testata": "Fox Business",
+    "url": "https://www.foxbusiness.com/markets/stocks-november-23-2026",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Stocks soar on Jensen Huang's return to Nvidia",
+    "ricerca": "Wall Street Monday November 23 2026 S&P 500 rebounds Nasdaq closes"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-23-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611230748404021",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Borse oggi in diretta | Il Ftse Mib chiude in rialzo dello 0,6%. In cima i titoli tech, giù Snam e Avio",
+    "ricerca": "Borsa Milano chiude 23 novembre Piazza Affari Teleborsa"
+   }
+  ],
+  "trovato": "una probabilità implicita del 94% di un rialzo di 25 punti base",
+  "verifica": "confermato",
+  "nota_revisore": "Milano Finanza riporta 94% (e 93,5% altrove), non 96%; non parla di PCE (solo dati USA di mercoledi'). Fox Business negato. L'estremo 96% del PDF non e' verificato: controllare l'intervallo 94-96%. | Claim ristretto al 94% trovato."
+ },
+ {
+  "id": "N12",
+  "sezione": "top_news",
+  "testo": "Micron guadagna circa il 19% dopo nuovi accordi pluriennali di fornitura di memorie con clienti",
+  "data_evento": "2026-11-23",
+  "novita": "Annuncio del 23/11",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-nov-23-221613542.html",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Stock Market Today, Nov. 23: Markets Rebound From Correction on AI Relief Rally",
+    "ricerca": "Wall Street Monday November 23 2026 S&P 500 rebounds Nasdaq closes"
+   },
+   {
+    "testata": "Fox Business",
+    "url": "https://www.foxbusiness.com/markets/stocks-november-23-2026",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Stocks soar on Jensen Huang's return to Nvidia",
+    "ricerca": "Wall Street Monday November 23 2026 S&P 500 rebounds Nasdaq closes"
+   }
+  ],
+  "trovato": "soared 19.04% following newly secured multi-year customer agreements for memory supply",
+  "verifica": "confermato",
+  "nota_revisore": "Yahoo Finance: Micron +19,04% dopo nuovi accordi pluriennali di fornitura di memorie. City AM: +19% a 133,1 $. PDF corretto. Fox negato."
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "Nella settimana al 20/11 S&P 500 -8,6%, Dow -8% e Nasdaq -10%, la peggiore settimana del Nasdaq dal marzo 2020; tutti e tre erano in correzione",
+  "data_evento": "2026-11-23",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Fox Business",
+    "url": "https://www.foxbusiness.com/markets/stocks-november-23-2026",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Stocks soar on Jensen Huang's return to Nvidia",
+    "ricerca": "Wall Street Monday November 23 2026 S&P 500 rebounds Nasdaq closes"
+   },
+   {
+    "testata": "FXEmpire",
+    "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-pce-in-focus-after-ai-sell-off-in-holiday-shortened-week-1646337",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "The Week Ahead: PCE in Focus After AI Sell-Off in Holiday-Shortened Week",
+    "ricerca": "Wall Street week ahead PCE Thanksgiving shortened week November 2026 consensus Conference Board"
+   }
+  ],
+  "trovato": "lost 8.61% to finish at 6,910.39.",
+  "verifica": "confermato",
+  "nota_revisore": "FXEmpire: S&P -8,61%, Dow -8,02%, Nasdaq -10,02% nella settimana. 'Peggiore settimana dal marzo 2020' e 'tutti in correzione' non sono espressi nella pagina (Yahoo dice che l'S&P 'exited correction territory'). Fox negato."
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Il Nasdaq 100 guadagna il 6,9%, il maggior rialzo giornaliero dall'aprile 2025; Intel +16,3% e Micron +19%",
+  "data_evento": "2026-11-23",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "City AM",
+    "url": "https://www.cityam.com/asian-tech-stocks-surge-on-jensen-huangs-return-to-nvidia/",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "Asian tech stocks surge on Jensen Huang's return to Nvidia",
+    "ricerca": "Kospi surges 5,000 Nvidia Huang reinstated Seoul shares close higher"
+   },
+   {
+    "testata": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-nov-23-221613542.html",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Stock Market Today, Nov. 23: Markets Rebound From Correction on AI Relief Rally",
+    "ricerca": "Wall Street Monday November 23 2026 S&P 500 rebounds Nasdaq closes"
+   }
+  ],
+  "trovato": "The S&P 500 index closed 4.7 per cent higher, while the Nasdaq 100 jumped 6.9 per cent.",
+  "verifica": "confermato",
+  "nota_revisore": "City AM: 'Intel jumped 16.3 per cent to $59.6, while Micron rose 19 per cent to $133.1'; rialzo maggiore dall'aprile 2025 ('liberation day'). Il PDF e' corretto."
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "A Seul stranieri e istituzioni comprano per circa 0,7 mila miliardi di won ciascuno e i piccoli risparmiatori vendono per circa 1,9-2 mila miliardi; un professore giudica il rimbalzo temporaneo e i depositi presso i broker restano oltre il 40% sotto il record di giugno",
+  "data_evento": "2026-11-23",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Aju Press",
+    "url": "https://www.ajupress.com/view/20261124151757565",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "Huang regains institutional confidence, Korea's retailers not sure",
+    "ricerca": "Kospi surges 5,000 Nvidia Huang reinstated Seoul shares close higher"
+   },
+   {
+    "testata": "Korea Herald",
+    "url": "https://www.koreaherald.com/article/10947595",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "Kospi roars back with Huang's Nvidia comeback",
+    "ricerca": "Kospi surges 5,000 Nvidia Huang reinstated Seoul shares close higher"
+   }
+  ],
+  "trovato": "Individuals sold a net 2.04 trillion won.",
+  "verifica": "confermato",
+  "nota_revisore": "Aju Press: stranieri +725,2 mld won, istituzioni +870,6 mld; professor Kim Sang-bong: 'It's temporary'; depositi 'more than 40 percent below June's record'. Korea Herald (altra misura): 716,3 e 732,6 mld, retail -1,86 mila mld; il professore e i depositi non sono li'. PDF 'quasi 2.000 miliardi' e' un po' sotto il 2,04 di Aju."
+ },
+ {
+  "id": "D05",
+  "sezione": "deep_dive",
+  "testo": "Il Treasury a 10 anni è vicino al 4,92%, dopo essere salito sopra il 5%; gli operatori hanno ridotto in parte le attese di rialzo a dicembre dopo indicatori più deboli e attese di inflazione in calo",
+  "data_evento": "2026-11-23",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-23/gold-silver-prices-see-sharp-rebounds-ai-shares-rally-renewed-fed",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Gold, silver prices see sharp rebounds as AI shares rally, renewed Fed uncertainty - Kitco PM Report",
+    "ricerca": "gold rebounds 4% Monday November 23 2026 spot gold"
+   },
+   {
+    "testata": "Fox Business",
+    "url": "https://www.foxbusiness.com/markets/stocks-november-23-2026",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Stocks soar on Jensen Huang's return to Nvidia",
+    "ricerca": "Wall Street Monday November 23 2026 S&P 500 rebounds Nasdaq closes"
+   }
+  ],
+  "trovato": "The benchmark 10-year yield finished near 4.92%, following its earlier advance above 5%.",
+  "verifica": "confermato",
+  "nota_revisore": "Kitco: 'Traders have reduced some expectations for a December rate increase' dopo 'weaker economic indicators and declining inflation expectations'. Coerente col PDF."
+ },
+ {
+  "id": "D06",
+  "sezione": "deep_dive",
+  "testo": "L'IEA stima un surplus di petrolio di circa 2 milioni di barili al giorno nel trimestre, Bernstein vede un mercato in surplus per tre anni e Goldman Sachs segnala il rischio di eccesso di offerta l'anno prossimo; il calo del diesel potrebbe attenuare le preoccupazioni sull'inflazione",
+  "data_evento": "2026-11-23",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Bloomberg (Rigzone)",
+    "url": "https://www.rigzone.com/news/wire/oil_falls_as_trump_signals_iran_talks-23-nov-2026-185152-article/",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Oil Falls as Trump Signals Iran Talks",
+    "ricerca": "oil prices Monday Brent falls $89 Hormuz Iran November 23 2026",
+    "agenzia": "Bloomberg"
+   },
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-23/gold-silver-prices-see-sharp-rebounds-ai-shares-rally-renewed-fed",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Gold, silver prices see sharp rebounds as AI shares rally, renewed Fed uncertainty - Kitco PM Report",
+    "ricerca": "gold rebounds 4% Monday November 23 2026 spot gold"
+   }
+  ],
+  "trovato": "The International Energy Agency has forecast a roughly 2 million-barrel-a-day surplus this quarter.",
+  "verifica": "confermato",
+  "nota_revisore": "Rigzone: Bernstein surplus 'over the next three years', Goldman 'flagged the risk of a glut next year', Saxo (Ole Sloth Hansen) sul diesel. Tutto riportato correttamente nel PDF."
+ },
+ {
+  "id": "D07",
+  "sezione": "deep_dive",
+  "testo": "L'oro è sceso di circa il 9% in una settimana fino al minimo di 14 mesi, per acquisti di rifugio contrastati da vendite per raccogliere liquidità e coprire margini; il rimbalzo simultaneo con le azioni suggerisce meno pressione di vendita, ma Natixis avverte che può durare poco",
+  "data_evento": "2026-11-23",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-23/gold-silver-prices-see-sharp-rebounds-ai-shares-rally-renewed-fed",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Gold, silver prices see sharp rebounds as AI shares rally, renewed Fed uncertainty - Kitco PM Report",
+    "ricerca": "gold rebounds 4% Monday November 23 2026 spot gold"
+   },
+   {
+    "testata": "Nation Thailand",
+    "url": "https://www.nationthailand.com/business/trading-investment/40073846",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Spot gold gains 3.5% on 23 Nov after hitting 14-month low",
+    "ricerca": "gold rebounds 4% Monday November 23 2026 spot gold"
+   }
+  ],
+  "trovato": "investors have also liquidated precious metals to raise cash, reduce leverage and meet margin requirements",
+  "verifica": "confermato",
+  "nota_revisore": "Kitco: calo settimanale ~9%; Nation Thailand: minimo da settembre 2025 (14 mesi) e vendite per margin call. Natixis/3.340 $ compare solo in un titolo laterale di Kitco, non nel corpo. Attenzione al PDF: 'ne ha recuperato un quarto' - da 3.515,40 a 3.651,40 si recupera circa il 37% del calo (136 su 371), non un quarto."
+ },
+ {
+  "id": "D08",
+  "sezione": "deep_dive",
+  "testo": "Nell'area euro il PMI manifatturiero sale a 52,9 (massimo in due mesi) mentre i servizi scendono a 51,2, minimo in cinque mesi; la Francia ha la contrazione più marcata in sei mesi e il divario con la Germania è il più ampio in sei anni",
+  "data_evento": "2026-11-23",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (RTÉ)",
+    "url": "https://www.rte.ie/news/business/2026/1123/1600272-euro-zone-growth-pmi/",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Euro zone growth holds steady but France's deepening downturn clouds outlook, PMI shows",
+    "ricerca": "Euro zone flash PMI November 2026 HCOB composite",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "investingLive",
+    "url": "https://investinglive.com/news/eurozone-november-flash-services-pmi-51-2-vs-51-8-expected/",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Eurozone November flash services PMI 51.2 vs 51.8 expected",
+    "ricerca": "Euro zone flash PMI November 2026 HCOB composite"
+   }
+  ],
+  "trovato": "The flash euro zone manufacturing PMI rose to a two-month high of 52.9 from 52.7",
+  "verifica": "confermato",
+  "nota_revisore": "RTE/Reuters: servizi 'five-month low of 51.2 from October's 51.4', Francia 'sharpest contraction in six months', 'widest performance gap between the two economies in six years'. PDF corretto."
+ },
+ {
+  "id": "K1",
+  "sezione": "agenda",
+  "testo": "Offerta di Intesa Sanpaolo su Mps: il periodo di adesione parte martedì 24 novembre",
+  "data_evento": "2026-11-24",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Teleborsa",
+    "url": "https://www.borsaitaliana.it/borsa/notizie/teleborsa/finanza/intesamps-via-libera-consob-al-documento-d-offerta-adesioni-dal-24-novembre-7_2026-11-09_TLB.html",
+    "data_pubblicazione": "2026-11-09",
+    "citazione": "Intesa/Mps, via libera Consob al documento d'offerta: adesioni dal 24 novembre",
+    "ricerca": "Intesa Sanpaolo offerta Mps adesioni 24 novembre prezzo migliorato"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-23-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611230748404021",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Borse oggi in diretta | Il Ftse Mib chiude in rialzo dello 0,6%. In cima i titoli tech, giù Snam e Avio",
+    "ricerca": "Borsa Milano chiude 23 novembre Piazza Affari Teleborsa"
+   }
+  ],
+  "trovato": "l’avvio del periodo di adesione parte il 24 novembre",
+  "verifica": "confermato",
+  "nota_revisore": "Milano Finanza: adesioni dal 24 novembre. Pagina Teleborsa/Borsa Italiana non comparsa nei risultati. PDF corretto."
+ },
+ {
+  "id": "MEM-1123-K02",
+  "sezione": "agenda",
+  "testo": "Fiducia dei consumatori Conference Board (novembre), martedì 24 alle 10:00 a New York (16:00 a Roma): prima 91,7",
+  "data_evento": "2026-11-24",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Investrade",
+    "url": "https://investrade.com/weekly-event-calendar-11-23-2026-11-27-2026/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Weekly Event Calendar: 11/23/2026 - 11/27/2026",
+    "ricerca": "economic calendar week November 23 - November 27, 2026 flash PMI PCE GDP Q3 consensus"
+   },
+   {
+    "testata": "FinancialJuice",
+    "url": "https://features.financialjuice.com/2026/11/20/week-ahead-economic-indicators-23rd-27th-november-us/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Week Ahead: Economic Indicators 23rd - 27th November (US)",
+    "ricerca": "economic calendar week November 23 - November 27, 2026 flash PMI PCE GDP Q3 consensus"
+   }
+  ],
+  "trovato": "FinancialJuice: Consumer Confidence: 91.7, up from 84.2. (Tuesday 24 November, 10:00 ET) Investrade: 10:00 AM ET Consumer Confidence for November. LiteFinance: Previous indicator values: 91.7, 81.9, 89.4, 90.8",
+  "verifica": "confermato",
+  "nota_revisore": "Martedi' 24, 10:00 ET = 16:00 Roma e prima 91,7 confermati. Nota: i dati precedenti di LiteFinance (81,9; 89,4; 90,8) non coincidono con il 84,2 di FinancialJuice come mese precedente; il 91,7 e' comunque lo stesso.",
+  "ripresa": "2026-11-23"
+ },
+ {
+  "id": "MEM-1123-K04",
+  "sezione": "agenda",
+  "testo": "Prezzi PCE di ottobre, mercoledì 25 alle 8:30 a New York (14:30 a Roma): prima +0,5% sul mese e +3,6% in un anno; core +0,3% e +3,1%",
+  "data_evento": "2026-11-25",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FinancialJuice",
+    "url": "https://features.financialjuice.com/2026/11/20/week-ahead-economic-indicators-23rd-27th-november-us/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Week Ahead: Economic Indicators 23rd - 27th November (US)",
+    "ricerca": "economic calendar week November 23 - November 27, 2026 flash PMI PCE GDP Q3 consensus"
+   },
+   {
+    "testata": "Investrade",
+    "url": "https://investrade.com/weekly-event-calendar-11-23-2026-11-27-2026/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Weekly Event Calendar: 11/23/2026 - 11/27/2026",
+    "ricerca": "economic calendar week November 23 - November 27, 2026 flash PMI PCE GDP Q3 consensus"
+   }
+  ],
+  "trovato": "FinancialJuice (Wed 25 Nov, 08:30 ET): Headline PCE: +0.5% MoM, +3.6% YoY. Core PCE: +0.3% MoM, +3.1% YoY. Investrade: 8:30 AM ET PCE Price Index Y/Y for October. LiteFinance: Previous values YoY: +3.1% in September",
+  "verifica": "confermato",
+  "nota_revisore": "Data e ora (14:30 Roma) confermate; i valori sono quelli precedenti (settembre). Nel PDF la colonna si chiama 'Attese' ma riporta valori precedenti, non consensus: rinominare in 'Prima'.",
+  "ripresa": "2026-11-23"
+ },
+ {
+  "id": "MEM-1123-K05",
+  "sezione": "agenda",
+  "testo": "PIL USA del terzo trimestre, seconda stima, mercoledì 25 alle 8:30 a New York (14:30 a Roma): prima stima +3,4% annualizzato",
+  "data_evento": "2026-11-25",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "FinancialJuice",
+    "url": "https://features.financialjuice.com/2026/11/20/week-ahead-economic-indicators-23rd-27th-november-us/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Week Ahead: Economic Indicators 23rd - 27th November (US)",
+    "ricerca": "economic calendar week November 23 - November 27, 2026 flash PMI PCE GDP Q3 consensus"
+   },
+   {
+    "testata": "LiteFinance",
+    "url": "https://www.litefinance.org/blog/analysts-opinions/weekly-economic-calendar-for-23112026-29112026/",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "Forex Economic Calendar Overview: Key Events for the Next Trading Week (23.11.2026-29.11.2026)",
+    "ricerca": "economic calendar week November 23 - November 27, 2026 flash PMI PCE GDP Q3 consensus"
+   }
+  ],
+  "trovato": "FinancialJuice (Wed 25 Nov, 08:30 ET): Real GDP: +3.4% annualized, following +2.2% in Q2. LiteFinance: 13:30 – USD: US GDP Annual Growth Rate for Q3 (Second Estimate). In Q2 2026, GDP posted +2.2% after +2.1% in Q1",
+  "verifica": "confermato",
+  "nota_revisore": "Mercoledi' 25, 8:30 ET = 14:30 Roma, seconda stima, precedente +3,4% annualizzato confermati. Anche qui la colonna 'Attese' del PDF contiene il valore precedente, non il consensus.",
+  "ripresa": "2026-11-23"
+ },
+ {
+  "id": "MEM-1120-K3",
+  "sezione": "agenda",
+  "testo": "PCE core (ottobre), mercoledì 25 alle 8:30 a New York (14:30 a Roma): atteso +0,3% sul mese e +3,2% su un anno, prima +3,1% su un anno",
+  "data_evento": "2026-11-25",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "HyperStocks",
+    "url": "https://terminal.hyperstocks.io/economic-calendar/next-week",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Economic Calendar Next Week: Nov 23",
+    "ricerca": "week ahead November 23 2026 flash PMI Fed minutes PCE Jackson earnings Nvidia calendar"
+   },
+   {
+    "testata": "LiteFinance",
+    "url": "https://www.litefinance.org/blog/analysts-opinions/weekly-economic-calendar-for-23112026-29112026/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Forex Economic Calendar Overview: Key Events for the Next Trading Week (23.11.2026–29.11.2026)",
+    "ricerca": "week ahead November 23 2026 flash PMI Fed minutes PCE Jackson earnings Nvidia calendar"
+   }
+  ],
+  "trovato": "Core PCE Price Index MoM 8:30 AM forecast 0.3% previous 0.3%; Core PCE Price Index YoY 8:30 AM forecast 3.2% previous 3.1% | Wednesday, November 25 (GMT 13:30)",
+  "verifica": "confermato",
+  "nota_revisore": "HyperStocks (8:30 ET, 3,2% su 3,1%); LiteFinance conferma mercoledi' 25 e 'previous +3,1% in September' ma non riporta la previsione. Il riferimento a ottobre non e' esplicito su HyperStocks.",
+  "ripresa": "2026-11-20"
+ },
+ {
+  "id": "MEM-1123-K06",
+  "sezione": "agenda",
+  "testo": "Giovedì 26 Wall Street e il mercato dei titoli di Stato USA sono chiusi per il Ringraziamento; venerdì 27 le azioni chiudono alle 13:00 a New York (19:00 a Roma)",
+  "data_evento": "2026-11-26",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Investrade",
+    "url": "https://investrade.com/weekly-event-calendar-11-23-2026-11-27-2026/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Weekly Event Calendar: 11/23/2026 - 11/27/2026",
+    "ricerca": "economic calendar week November 23 - November 27, 2026 flash PMI PCE GDP Q3 consensus"
+   },
+   {
+    "testata": "FinancialJuice",
+    "url": "https://features.financialjuice.com/2026/11/20/week-ahead-economic-indicators-23rd-27th-november-us/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Week Ahead: Economic Indicators 23rd - 27th November (US)",
+    "ricerca": "economic calendar week November 23 - November 27, 2026 flash PMI PCE GDP Q3 consensus"
+   }
+  ],
+  "trovato": "Investrade: U.S. stock and bond markets closed in observance of Thanksgiving Day holiday (Thursday 26 Nov). U.S. stock markets close at 1:00 PM ET and bond markets at 2:00 pm et. (Friday 27 Nov)",
+  "verifica": "confermato",
+  "nota_revisore": "Chiusura giovedi' 26 di azioni e titoli di Stato e chiusura anticipata delle azioni alle 13:00 ET (19:00 Roma) confermate. FinancialJuice non cita la chiusura anticipata. Nota: i titoli di Stato chiudono alle 14:00 ET (20:00 Roma) venerdi'.",
+  "ripresa": "2026-11-23"
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Stocks soar on Jensen Huang's return to Nvidia (Fox Business, 23/11 sera)",
+   "Stock market rebounds sharply after sell-off, Nvidia closes up more than 31% (ABC News, 23/11 22:09)",
+   "Borsa: l'Europa chiude in rally col ritorno di Huang, Francoforte +2,15% (ANSA, 23/11 22:08)",
+   "Aktien Europa Schluss: Kräftige Erholung nach Rückkehr Huangs als Nvidia-Chef (dpa-AFX, 23/11 18:13)",
+   "Oil Falls as Trump Signals Iran Talks (Bloomberg, 23/11 22:30)",
+   "KOSPI Surges 6.32% to Reclaim 5,000 Mark as Jensen Huang Returns (JKN, 24/11 16:35 KST)"
+  ],
+  "testate": [
+   {
+    "testata": "Reuters",
+    "storie": [
+     "Euro zone growth holds steady but France's deepening downturn clouds outlook, PMI shows",
+     "Stocks soar on Jensen Huang's return to Nvidia (Fox Business, con contributo Reuters)"
+    ]
+   },
+   {
+    "testata": "Bloomberg",
+    "storie": [
+     "Oil Falls as Trump Signals Iran Talks"
+    ]
+   },
+   {
+    "testata": "Fox Business",
+    "storie": [
+     "Stocks soar on Jensen Huang's return to Nvidia"
+    ]
+   },
+   {
+    "testata": "ABC News",
+    "storie": [
+     "Stock market rebounds sharply after sell-off, Nvidia closes up more than 31%"
+    ]
+   },
+   {
+    "testata": "ANSA",
+    "storie": [
+     "Borsa: Milano chiude in rialzo (+0,65%) con il ritorno di Huang in Nvidia"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Fondo di stabilizzazione del governo di Seul",
+    "motivo": "nessuna novità verificata dopo il rimbalzo del Kospi"
+   }
+  ],
+  "concorda": true,
+  "motivo": "Le testate aprono tutte sul ritorno di Huang in Nvidia e sul rimbalzo dei mercati",
+  "mancate_ieri": []
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Con l'S&P 500 a +4,7% il Treasury a 10 anni resta fermo al 4,92%",
+  "ricerche": [
+   "Treasury yields Monday November 23 2026 gold oil dollar Huang rally",
+   "gold rebounds 4% Monday November 23 2026 spot gold"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Meno domanda di rifugio spingerebbe i rendimenti su, ma il petrolio in calo e le attese di inflazione più basse li tengono giù",
+    "fonte": "N08",
+    "prevede": "Brent e diesel in calo, rendimenti fermi",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Il mercato continua a scontare il rialzo Fed di dicembre",
+    "fonte": "N11",
+    "prevede": "2 anni stabile e dollaro non più debole",
+    "prezzi": "in parte"
+   }
+  ],
+  "esito": "ipotesi"
+ },
+ {
+  "id": "A2",
+  "sezione": "anomalia",
+  "fatto": "L'oro sale del 3,9% nel giorno in cui le azioni salgono del 4,7%",
+  "ricerche": [
+   "gold rebounds 4% Monday November 23 2026 spot gold"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Cessano le vendite per raccogliere liquidità e coprire margini",
+    "fonte": "D07",
+    "prevede": "Oro e azioni su insieme, VIX giù",
+    "prezzi": "torna"
+   },
+   {
+    "causa": "Torna la domanda di oro come rifugio",
+    "fonte": null,
+    "prevede": "Oro su con VIX su e azioni giù",
+    "prezzi": "non torna"
+   }
+  ],
+  "esito": "ipotesi"
+ },
+ {
+  "id": "S1",
+  "sezione": "scaletta",
+  "apertura": {
+   "storia": "Huang torna in Nvidia e Wall Street fa il rialzo più forte in oltre un anno",
+   "perche_prima": "Apertura di Fox Business, ABC News, ANSA, dpa-AFX e dei mercati asiatici"
+  },
+  "moduli": [
+   {
+    "chiave": "chip",
+    "misura": "doppio",
+    "tesi": "La vendita di tre settimane era una crisi di fiducia su una persona e non un giudizio sui conti: lo prova il fatto che un solo comunicato ha ricomprato quasi tutto il calo in una seduta.",
+    "domanda": "Se i conti non erano cambiati, perché i chip sono crollati e sono risaliti in un giorno?",
+    "prove": [
+     "Nvidia +31% e recupero di quasi tutto il calo dal 12/11",
+     "Micron +19% per contratti pluriennali",
+     "Nasdaq 100 +6,9% e Kospi +6,3%",
+     "S&P 500 -9% dal 12/11 al 20/11",
+     "Nasdaq peggior settimana dal marzo 2020",
+     "Il comunicato lega il reintegro a garanzie sulla sicurezza nazionale"
+    ],
+    "contro": "Se i chip americani rivendono oggi, il rimbalzo era di breve durata",
+    "schede": [
+     "T01",
+     "N01",
+     "D01",
+     "D02",
+     "D03",
+     "D04"
+    ],
+    "memoria": "MEM Nvidia 17-20/11"
+   },
+   {
+    "chiave": "treasury",
+    "misura": "mezzo",
+    "tesi": "Il rimbalzo non ha cambiato i Treasury: il 10 anni resta al 4,92% perché la minore paura è compensata da petrolio e inflazione attesa più bassi, e il rialzo Fed di dicembre non è in discussione.",
+    "domanda": "Perché con le borse a +4,7% i rendimenti non salgono?",
+    "prove": [
+     "10 anni 4,92% come venerdì, 5,04% giovedì",
+     "2 anni 4,63% come venerdì",
+     "Rialzo Fed a dicembre tra 94% e 96%",
+     "Brent -3,5% e diesel in calo",
+     "PCE di ottobre mercoledì"
+    ],
+    "contro": "Se il PCE esce sopra le attese il rialzo di dicembre diventa certezza",
+    "schede": [
+     "N11",
+     "D05",
+     "N08"
+    ],
+    "memoria": "MEM Fed 18-20/11"
+   },
+   {
+    "chiave": "petrolio",
+    "misura": "mezzo",
+    "tesi": "Il petrolio guarda al surplus e non alla guerra: il Brent ha perso oltre un quinto in un mese malgrado gli attacchi a Hormuz.",
+    "domanda": "Perché il greggio scende con navi colpite nello Stretto?",
+    "prove": [
+     "Brent da 115,81 $ del 26/10 a 89,37 $",
+     "WTI a 80,17 $",
+     "Surplus IEA di 2 milioni di barili al giorno",
+     "Trump dà tempo ai colloqui",
+     "Goldman: rischio di eccesso di offerta"
+    ],
+    "contro": "Se un attacco ferma davvero i flussi dal Golfo il surplus sparisce",
+    "schede": [
+     "N08",
+     "D06"
+    ],
+    "memoria": "MEM Petrolio 20-23/11"
+   },
+   {
+    "chiave": "oro",
+    "misura": "mezzo",
+    "tesi": "L'oro è sceso con le borse perché in una crisi si vende ciò che si può vendere: il rimbalzo di oggi dice che le vendite forzate sono finite, non che il rifugio sia tornato.",
+    "domanda": "Perché l'oro cade quando la paura sale?",
+    "prove": [
+     "Oro -9% in una settimana",
+     "Minimo di 14 mesi il 20/11",
+     "Oro +3,9% con S&P 500 +4,7%",
+     "VIX da 35,89 a 26,62",
+     "Natixis: rischio di tornare verso 3.340 $"
+    ],
+    "contro": "Se l'oro ricade sotto 3.500 $ il rimbalzo è fallito",
+    "schede": [
+     "N09",
+     "D07"
+    ],
+    "memoria": "MEM Oro 20-23/11"
+   },
+   {
+    "chiave": "europa",
+    "misura": "mezzo",
+    "tesi": "L'Europa rimbalza grazie ai chip americani e non alla propria economia: dentro l'area euro Germania e Francia vanno in direzioni opposte.",
+    "domanda": "Che cosa muove davvero le borse europee oggi?",
+    "prove": [
+     "Euro Stoxx 50 +2,23% con ASML +8,9%",
+     "Milano +0,65% malgrado le cedole",
+     "PMI composito 51,7 contro 51,9 atteso",
+     "Germania ai massimi da 4 anni e mezzo, Francia in calo più forte in sei mesi",
+     "Fiducia delle imprese sul prossimo anno ai minimi da maggio"
+    ],
+    "contro": "Se i PMI di dicembre scendono anche in Germania il rimbalzo non ha basi interne",
+    "schede": [
+     "N03",
+     "N04",
+     "N07",
+     "D08",
+     "D09"
+    ],
+    "memoria": "MEM Europa 23/11"
+   }
+  ]
+ }
+]

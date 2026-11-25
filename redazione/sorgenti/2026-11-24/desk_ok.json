@@ -1,0 +1,67 @@
+[
+ {
+  "campo": "top.dek",
+  "originale": "Il consiglio di Nvidia ha reintegrato Jensen Huang, dimessosi il 12 novembre, e il titolo guadagna oltre il 31%. L'S&amp;P 500 sale del 4,7%, il rialzo più forte da almeno un anno, e il Nasdaq del 6,5%. Stamattina Seul chiude a +6,3% e ieri l'Euro Stoxx 50 aveva già guadagnato il 2,2%. [[chip]]",
+  "testo": "Il consiglio di Nvidia ha reintegrato Jensen Huang, che si era dimesso il 12 novembre, e il titolo guadagna oltre il 31%. L'S&amp;P 500 sale del 4,7%, il rialzo più forte da almeno un anno, e il Nasdaq del 6,5%. Stamattina Seul chiude a +6,3% e ieri l'Euro Stoxx 50 aveva già guadagnato il 2,2%. [[chip]]"
+ },
+ {
+  "campo": "quadro",
+  "originale": "Una giornata di sollievo, non un cambio di scenario. Le azioni salgono ovunque (azionario mondiale +4,5%, piccole società del Russell 2000 +3,4%) e il VIX, l'indice della paura, crolla del 25,8% da 35,89 a 26,62. Ci leggiamo anche il rimbalzo dell'oro (+3,9%): finiscono le vendite per far cassa. Ma il 10 anni resta al 4,92% e il rialzo Fed di dicembre è ancora quasi scontato: meno rischio, non meno tassi.",
+  "testo": "Una giornata di sollievo, non un cambio di scenario. Le azioni salgono ovunque (azionario mondiale +4,5%, piccole società del Russell 2000 +3,4%) e il VIX, l'indice della paura, crolla del 25,8% da 35,89 a 26,62. Nel rimbalzo dell'oro (+3,9%) leggiamo la fine delle vendite per far cassa. Ma il 10 anni resta al 4,92% e il rialzo Fed di dicembre è ancora quasi certo: meno rischio, non meno tassi."
+ },
+ {
+  "campo": "in30.0",
+  "originale": "Europa: la tecnologia trascina le borse, ma Germania e Francia crescono a ritmi opposti. [[europa]]",
+  "testo": "Europa: la tecnologia trascina le borse, ma Germania e Francia vanno in direzioni opposte. [[europa]]"
+ },
+ {
+  "campo": "notizie.3.testo",
+  "originale": "L'indice dell'attività delle imprese resta a 51,7 per l'area euro, sotto il 51,9 atteso: la media nasconde due paesi che vanno in direzioni opposte.",
+  "testo": "Per l'area euro l'indice dell'attività delle imprese resta a 51,7, sotto il 51,9 atteso. La media nasconde due paesi che vanno in direzioni opposte."
+ },
+ {
+  "campo": "notizie.5.testo",
+  "originale": "Secondo il CME FedWatch, che ricava la probabilità dai future sui tassi, un rialzo a dicembre vale circa il 94%: il sollievo in borsa non l'ha toccata.",
+  "testo": "Secondo il CME FedWatch, che ricava le probabilità dai future sui tassi, un rialzo a dicembre vale circa il 94%. Il sollievo in borsa non ha cambiato questo dato."
+ },
+ {
+  "campo": "moduli.chip.titolo",
+  "originale": "Il rimbalzo di Nvidia mostra che le vendite erano di fiducia, non di conti",
+  "testo": "Il rimbalzo di Nvidia: si vendeva per sfiducia, non per i conti"
+ },
+ {
+  "campo": "moduli.chip.perche",
+  "originale": "A nostro avviso la vendita era una perdita di fiducia in Nvidia e non di utili, e il rimbalzo di ieri lo conferma. Quando il consiglio ha riportato Huang, un solo comunicato ha ricomprato gran parte di un calo durato undici giorni.",
+  "testo": "A nostro avviso si vendeva per sfiducia in Nvidia, non per gli utili, e il rimbalzo di ieri lo conferma. Quando il consiglio ha riportato Huang, un solo comunicato ha recuperato gran parte di un calo durato undici giorni."
+ },
+ {
+  "campo": "moduli.chip.quindi",
+  "originale": "Il primo test è l'apertura di Wall Street oggi alle 15:30: se i chip americani rivendono, il rimbalzo di ieri è stato uno sfogo di un giorno.",
+  "testo": "Il primo test è l'apertura di Wall Street oggi alle 15:30: se i chip americani tornano a scendere, il rimbalzo di ieri è stato uno sfogo di un giorno."
+ },
+ {
+  "campo": "moduli.treasury.numero",
+  "originale": "29 pb: di quanto il 10 anni, al 4,92%, rende più del 2 anni, al 4,63%. A nostro avviso non è il segno di un mercato che scommette su una recessione vicina.",
+  "testo": "29 punti base: di quanto il 10 anni, al 4,92%, rende più del 2 anni, al 4,63%. A nostro avviso non è il segno di un mercato che scommette su una recessione vicina."
+ },
+ {
+  "campo": "moduli.treasury.testo.1",
+  "originale": "Lo scenario Fed non è cambiato. Secondo il CME FedWatch i future danno circa il 94% di probabilità a un rialzo di 25 punti base a dicembre. Secondo Kitco una parte degli operatori l'ha ridotta dopo indicatori più deboli. Il 2 anni, che segue la banca centrale più da vicino, resta a 4,63% come venerdì. Per questo il dato di mercoledì conta più del rimbalzo.",
+  "testo": "Lo scenario Fed non è cambiato. Secondo il CME FedWatch i future danno circa il 94% di probabilità a un rialzo di 25 punti base a dicembre. Secondo Kitco una parte degli operatori ha ridotto quella probabilità dopo indicatori più deboli. Il 2 anni, che segue la banca centrale più da vicino, resta a 4,63% come venerdì. Per questo il dato di mercoledì conta più del rimbalzo."
+ },
+ {
+  "campo": "moduli.treasury.testo.2",
+  "originale": "Il petrolio spiega anche la discesa dei dieci giorni scorsi. Dal 13 novembre, quando il 10 anni era al 5,15%, il Brent è passato da 95,84 a meno di 90 $. Con lui, secondo Kitco, sono scese le attese di inflazione. Un rendimento che si sposta con il barile dice che il mercato lo legge come un termometro dei prezzi futuri.",
+  "testo": "Il petrolio spiega anche la discesa dei dieci giorni scorsi. Dal 13 novembre, quando il 10 anni era al 5,15%, il Brent è passato da 95,84 a meno di 90 $. Con lui, secondo Kitco, sono scese le attese di inflazione. Se il rendimento si muove insieme al barile, il mercato lo usa come termometro dei prezzi futuri."
+ },
+ {
+  "campo": "moduli.petrolio.testo.1",
+  "originale": "Per l'inflazione la differenza conta. Un petrolio che sale per timore sulle forniture è di solito un costo secco per Europa e Giappone, che lo importano. Uno che scende per l'abbondanza alleggerisce i costi di trasporti e carburanti. Secondo Saxo Bank il calo del diesel può attenuare i timori sui prezzi e su ulteriori rialzi dei tassi.",
+  "testo": "Per l'inflazione la differenza conta. Un petrolio che sale per timore sulle forniture pesa di solito su Europa e Giappone, che lo importano. Uno che scende per l'abbondanza alleggerisce i costi di trasporti e carburanti. Secondo Saxo Bank il calo del diesel può attenuare i timori sui prezzi e su ulteriori rialzi dei tassi."
+ },
+ {
+  "campo": "moduli.oro.perche",
+  "originale": "Secondo Kitco nel ribasso di venerdì l'oro ha avuto spinte contrastanti: la domanda da rifugio da un lato, le vendite per raccogliere liquidità e coprire i margini dall'altro. A nostro avviso hanno prevalso le seconde, e il rimbalzo di ieri insieme alle azioni lo suggerisce.",
+  "testo": "Secondo Kitco, nel ribasso di venerdì l'oro ha subito spinte opposte: la domanda da rifugio da un lato, le vendite per fare cassa e coprire le richieste di garanzie dall'altro. A nostro avviso hanno prevalso le seconde, e il rimbalzo di ieri insieme alle azioni lo suggerisce."
+ }
+]

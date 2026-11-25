@@ -1,0 +1,122 @@
+[
+ {
+  "id": "T01",
+  "trovato": "Up 4.74% to 7,238, the S&P 500 ... exited correction territory in an historic rebound",
+  "verifica": "confermato",
+  "nota_revisore": "Yahoo Finance (Motley Fool): S&P +4,74%, Nasdaq +6,51% a 24.090, Dow +3,01%, 'largest amount in over a year and a half', Nvidia +31,48%: coerente col PDF (+31%, +4,7%, +6,5%). Comunicato SEC negato: all'unanimita' e i ruoli presidente/CEO non verificati. Fox e ABC non ritrovati/negati. La frase e' ricopiata dall'estratto restituito dallo strumento, senza la frase successiva."
+ },
+ {
+  "id": "N03",
+  "trovato": "Der EuroStoxx 50 beendete den Tag mit einem Plus von 2,23 Prozent auf 6.074,47 Punkt",
+  "verifica": "confermato",
+  "nota_revisore": "finanzen.net: ASML +8,9%, Infineon +6,6% (come PDF). Kitco: 'the STOXX 600 climbing 1.9% to 637.84'. Tutto coerente col PDF."
+ },
+ {
+  "id": "N04",
+  "trovato": "Il Ftse Mib ha chiuso le contrattazioni in progresso dello 0,65%, a 49.021 punti",
+  "verifica": "confermato",
+  "nota_revisore": "ANSA: chiusura e stacco cedola di undici quotate (~1,4%). Milano Finanza: 'Technoprobe (+8,75%), Stmicroelectronics (+9%)' a fine seduta. Intesa +2,8% (e UniCredit +2%, Banco BPM +2,5% del PDF) non ritrovati nel testo estratto: non verificati. Nota: Milano Finanza parla di nove blue chip con cedola, ANSA di undici."
+ },
+ {
+  "id": "N07",
+  "trovato": "held steady at 51.7 in November, and while below a Reuters poll estimate for 51.9",
+  "verifica": "confermato",
+  "nota_revisore": "RTE/Reuters: Germania 'fastest for four and a half years', Francia 'sharpest contraction in six months'. PDF corretto. investingLive non raggiungibile (errore server)."
+ },
+ {
+  "id": "N08",
+  "trovato": "Brent for January settlement dropped 3.5% to settle at $89.37 a barrel.",
+  "verifica": "confermato",
+  "nota_revisore": "Rigzone/Bloomberg: WTI a 80,17 $ (qui -4,5%; Kitco scrive -3,9%), 'investors unwound hedges against a weekend escalation by US forces in Iran', Trump 'appeared to give diplomacy more time'. PDF coerente."
+ },
+ {
+  "id": "N09",
+  "trovato": "Spot gold rose 3.5% to US$3,654.97 a troy ounce",
+  "verifica": "confermato",
+  "nota_revisore": "Nation Thailand: +3,5% spot; Kitco: spot +2,75% e calo settimanale 'approximately 9%'. Il future a 3.651,40 $ (+3,9%) non compare in queste pagine (e' dato di mercato FMP): non verificato."
+ },
+ {
+  "id": "N11",
+  "trovato": "una probabilità implicita del 94% di un rialzo di 25 punti base",
+  "verifica": "confermato",
+  "nota_revisore": "Milano Finanza riporta 94% (e 93,5% altrove), non 96%; non parla di PCE (solo dati USA di mercoledi'). Fox Business negato. L'estremo 96% del PDF non e' verificato: controllare l'intervallo 94-96%. | Claim ristretto al 94% trovato."
+ },
+ {
+  "id": "D02",
+  "trovato": "lost 8.61% to finish at 6,910.39.",
+  "verifica": "confermato",
+  "nota_revisore": "FXEmpire: S&P -8,61%, Dow -8,02%, Nasdaq -10,02% nella settimana. 'Peggiore settimana dal marzo 2020' e 'tutti in correzione' non sono espressi nella pagina (Yahoo dice che l'S&P 'exited correction territory'). Fox negato."
+ },
+ {
+  "id": "D03",
+  "trovato": "The S&P 500 index closed 4.7 per cent higher, while the Nasdaq 100 jumped 6.9 per cent.",
+  "verifica": "confermato",
+  "nota_revisore": "City AM: 'Intel jumped 16.3 per cent to $59.6, while Micron rose 19 per cent to $133.1'; rialzo maggiore dall'aprile 2025 ('liberation day'). Il PDF e' corretto."
+ },
+ {
+  "id": "D04",
+  "trovato": "Individuals sold a net 2.04 trillion won.",
+  "verifica": "confermato",
+  "nota_revisore": "Aju Press: stranieri +725,2 mld won, istituzioni +870,6 mld; professor Kim Sang-bong: 'It's temporary'; depositi 'more than 40 percent below June's record'. Korea Herald (altra misura): 716,3 e 732,6 mld, retail -1,86 mila mld; il professore e i depositi non sono li'. PDF 'quasi 2.000 miliardi' e' un po' sotto il 2,04 di Aju."
+ },
+ {
+  "id": "D05",
+  "trovato": "The benchmark 10-year yield finished near 4.92%, following its earlier advance above 5%.",
+  "verifica": "confermato",
+  "nota_revisore": "Kitco: 'Traders have reduced some expectations for a December rate increase' dopo 'weaker economic indicators and declining inflation expectations'. Coerente col PDF."
+ },
+ {
+  "id": "D06",
+  "trovato": "The International Energy Agency has forecast a roughly 2 million-barrel-a-day surplus this quarter.",
+  "verifica": "confermato",
+  "nota_revisore": "Rigzone: Bernstein surplus 'over the next three years', Goldman 'flagged the risk of a glut next year', Saxo (Ole Sloth Hansen) sul diesel. Tutto riportato correttamente nel PDF."
+ },
+ {
+  "id": "D07",
+  "trovato": "investors have also liquidated precious metals to raise cash, reduce leverage and meet margin requirements",
+  "verifica": "confermato",
+  "nota_revisore": "Kitco: calo settimanale ~9%; Nation Thailand: minimo da settembre 2025 (14 mesi) e vendite per margin call. Natixis/3.340 $ compare solo in un titolo laterale di Kitco, non nel corpo. Attenzione al PDF: 'ne ha recuperato un quarto' - da 3.515,40 a 3.651,40 si recupera circa il 37% del calo (136 su 371), non un quarto."
+ },
+ {
+  "id": "D08",
+  "trovato": "The flash euro zone manufacturing PMI rose to a two-month high of 52.9 from 52.7",
+  "verifica": "confermato",
+  "nota_revisore": "RTE/Reuters: servizi 'five-month low of 51.2 from October's 51.4', Francia 'sharpest contraction in six months', 'widest performance gap between the two economies in six years'. PDF corretto."
+ },
+ {
+  "id": "D09",
+  "trovato": "Milano (-0,88% a 48.276 punti)",
+  "verifica": "confermato",
+  "nota_revisore": "Milano Finanza: -0,88% in mattinata; stacco cedole ~1,4%. Discrepanza tra fonti: ANSA 'undici quotate', Milano Finanza 'nove blue chip'. L'inversione grazie all'apertura di Wall Street non e' stata ritrovata nel testo estratto."
+ },
+ {
+  "id": "N05",
+  "trovato": "Cybersecurity giant CrowdStrike has agreed to buy Zscaler in a $43.9 billion all-stock deal, the companies announced Monday.",
+  "verifica": "confermato",
+  "nota_revisore": "Frase da TechCrunch (non scheda). Yahoo: CrowdStrike -9%, Zscaler +18%, all-stock da 44 mld. Il premio del 34% non e' stato ritrovato in nessuna pagina; URL SEC della scheda non comparso nei risultati. PDF: 44 miliardi e -8,9% sostanzialmente coerenti, premio non verificato. | Claim ristretto a quanto trovato (senza premio 34%)."
+ },
+ {
+  "id": "N06",
+  "trovato": "für einen Unternehmenswert von 2,65 Milliarden Dollar",
+  "verifica": "confermato",
+  "nota_revisore": "finanzen.net/dpa-AFX: ABB compra Ziehl-Abegg, titolo +4,6% in testa all'SMI. PDF corretto."
+ },
+ {
+  "id": "N12",
+  "trovato": "soared 19.04% following newly secured multi-year customer agreements for memory supply",
+  "verifica": "confermato",
+  "nota_revisore": "Yahoo Finance: Micron +19,04% dopo nuovi accordi pluriennali di fornitura di memorie. City AM: +19% a 133,1 $. PDF corretto. Fox negato."
+ },
+ {
+  "id": "N02",
+  "trovato": "It finished the day at 5,006.03, up 297.49 points (6.32%) from the previous trading day.",
+  "verifica": "confermato",
+  "nota_revisore": "JKN: 'This was the first time a KOSPI buy-sidecar was triggered in two weeks, since the 10th.' Korea Herald: sidecar di cinque minuti sugli acquisti dei programmi. Apertura +3,64% (JKN da' solo 4.880,16) e Samsung +6,70%/SK hynix +6,73% non ritrovati. PDF coerente su quanto riporta."
+ },
+ {
+  "id": "K1",
+  "trovato": "l’avvio del periodo di adesione parte il 24 novembre",
+  "verifica": "confermato",
+  "nota_revisore": "Milano Finanza: adesioni dal 24 novembre. Pagina Teleborsa/Borsa Italiana non comparsa nei risultati. PDF corretto."
+ }
+]

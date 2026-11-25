@@ -1,0 +1,119 @@
+{
+ "movimenti": [
+  {
+   "serie": "S&P 500",
+   "seduta": "2026-11-24",
+   "variazione": -0.499,
+   "tipo": "pct",
+   "z": -0.53,
+   "piu_forte_da": "2026-11-20",
+   "frase_da": "il calo più forte dal 20 novembre",
+   "rarita": "capita circa una seduta su 2",
+   "notevole": false,
+   "testo": "l'S&P 500 -0,5% nella seduta del 24 novembre: il calo più forte dal 20 novembre (capita circa una seduta su 2)"
+  },
+  {
+   "serie": "Euro Stoxx 50",
+   "seduta": "2026-11-24",
+   "variazione": -1.164,
+   "tipo": "pct",
+   "z": -1.15,
+   "piu_forte_da": "2026-11-20",
+   "frase_da": "il calo più forte dal 20 novembre",
+   "rarita": "capita circa una seduta su 5",
+   "notevole": false,
+   "testo": "l'Euro Stoxx 50 -1,2% nella seduta del 24 novembre: il calo più forte dal 20 novembre (capita circa una seduta su 5)"
+  },
+  {
+   "serie": "ACWI",
+   "seduta": "2026-11-24",
+   "variazione": -0.537,
+   "tipo": "pct",
+   "z": -0.54,
+   "piu_forte_da": "2026-11-23",
+   "frase_da": "il calo più forte dal 23 novembre",
+   "rarita": "capita circa una seduta su 2",
+   "notevole": false,
+   "testo": "l'azionario mondiale (ACWI) -0,5% nella seduta del 24 novembre: il calo più forte dal 23 novembre (capita circa una seduta su 2)"
+  },
+  {
+   "serie": "Brent future",
+   "seduta": "2026-11-24",
+   "variazione": 2.271,
+   "tipo": "pct",
+   "z": 0.59,
+   "piu_forte_da": "2026-11-12",
+   "frase_da": "il rialzo più forte dal 12 novembre",
+   "rarita": "capita circa una seduta su 2",
+   "notevole": false,
+   "testo": "il Brent +2,3% nella seduta del 24 novembre: il rialzo più forte dal 12 novembre (capita circa una seduta su 2)"
+  },
+  {
+   "serie": "EUR/USD",
+   "seduta": "2026-11-24",
+   "variazione": 0.578,
+   "tipo": "pct",
+   "z": 1.65,
+   "piu_forte_da": "2026-11-09",
+   "frase_da": "il rialzo più forte dal 9 novembre",
+   "rarita": "capita circa una seduta su 9",
+   "notevole": true,
+   "testo": "l'euro sul dollaro +0,6% nella seduta del 24 novembre: il rialzo più forte dal 9 novembre (capita circa una seduta su 9)"
+  },
+  {
+   "serie": "VIX",
+   "seduta": "2026-11-24",
+   "variazione": -0.26,
+   "tipo": "punti",
+   "z": -0.14,
+   "piu_forte_da": "2026-11-23",
+   "frase_da": "il calo più forte dal 23 novembre",
+   "rarita": "capita circa una seduta su 1",
+   "notevole": false,
+   "testo": "il VIX -0,3 punti nella seduta del 24 novembre: il calo più forte dal 23 novembre (capita circa una seduta su 1)"
+  },
+  {
+   "serie": "Oro future",
+   "seduta": "2026-11-24",
+   "variazione": -2.451,
+   "tipo": "pct",
+   "z": -1.38,
+   "piu_forte_da": "2026-11-20",
+   "frase_da": "il calo più forte dal 20 novembre",
+   "rarita": "capita circa una seduta su 7",
+   "notevole": false,
+   "testo": "l'oro -2,5% nella seduta del 24 novembre: il calo più forte dal 20 novembre (capita circa una seduta su 7)"
+  },
+  {
+   "serie": "Treasury 10 anni",
+   "seduta": "2026-11-24",
+   "variazione": -1.0,
+   "tipo": "pb",
+   "z": -0.22,
+   "piu_forte_da": "2026-11-20",
+   "frase_da": "il calo più forte dal 20 novembre",
+   "rarita": "capita circa una seduta su 1",
+   "notevole": false,
+   "testo": "il rendimento del Treasury a 10 anni -1 pb nella seduta del 24 novembre: il calo più forte dal 20 novembre (capita circa una seduta su 1)"
+  }
+ ],
+ "curva": null,
+ "tassi_reali": null,
+ "macro": [],
+ "inversioni": [
+  {
+   "serie": "S&P 500",
+   "saldo": -1.9,
+   "svolta": "2026-11-20",
+   "dopo": 4.21,
+   "testo": "l'S&P 500 -1,9% in cinque sedute, ma il calo si ferma venerdì 20 novembre: da allora +4,2%. Una causa uscita dopo quel giorno non spiega il calo"
+  },
+  {
+   "serie": "Brent future",
+   "saldo": -1.87,
+   "svolta": "2026-11-23",
+   "dopo": 2.27,
+   "testo": "il Brent -1,9% in cinque sedute, ma il calo si ferma lunedì 23 novembre: da allora +2,3%. Una causa uscita dopo quel giorno non spiega il calo"
+  }
+ ]
+}
