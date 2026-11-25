@@ -425,10 +425,10 @@ Promise.all([leggi("registro.json"),leggi("taratura.json"),leggi("../edizioni.js
 /* ============ Dati ============ */
 function prepara(reg,tar,piani){
   reg=reg.filter(function(x){return x&&x.n&&x.d}).sort(function(a,b){return a.n-b.n});
-  tar=tar.filter(function(x){return x.durata_min>0&&x.punti>0});
+  tar=tar.filter(function(x){return x.durata_min>0&&x.punti>0&&!x.escluso});
   /* Il piano di ogni edizione è quello in vigore al momento dell'uscita (piani.json: nome e inizio). Ogni piano ha il suo
      tasso, dalle sole letture vere fatte su quel piano: senza letture il rapporto è "in taratura" e restano i token. */
-  var PI=piani.filter(function(x){return x&&x.piano}).map(function(x){var d=String(x.dal||"");return {nome:x.piano,dal:d.length==10?d+"T00:00":d}}).sort(function(a,b){return a.dal<b.dal?-1:a.dal>b.dal?1:0});
+  var PI=piani.filter(function(x){return x&&x.piano}).map(function(x){var d=String(x.dal||"");return {nome:x.piano,dal:d.slice(0,16)}}).sort(function(a,b){return a.dal<b.dal?-1:a.dal>b.dal?1:0});
   PI.forEach(function(q){
     var tt=tar.filter(function(x){return x.piano==q.nome});
     q.tasso=tt.length?tt.reduce(function(s,x){return s+x.punti},0)/tt.reduce(function(s,x){return s+x.durata_min},0):null;

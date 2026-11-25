@@ -1221,6 +1221,76 @@ def nuovo_campione(data):
 
 
 # ---------------------------------------------------------------- 5. sito  e  6. pubblicazione
+def problemi_piani(piani, tarature):
+    """Pannello: piani.json e taratura.json devono dire la stessa cosa alla pagina, che non dà errori ma sbaglia piano o
+    scarta punti in silenzio. Il file cambia solo a mano, dentro un rilascio: qui lo si ferma. Torna l'elenco dei guasti."""
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+    guasti, vecchio, nomi = [], None, []
+    if not isinstance(piani, list) or not piani:
+        return ["piani.json non è un elenco di piani"]
+    for i, x in enumerate(piani):
+        nome = x.get("piano") if isinstance(x, dict) else None
+        if not isinstance(nome, str) or not nome.strip():
+            guasti.append(f"piani.json, voce {i + 1}: manca il nome del piano")
+            continue
+        if nome in nomi:
+            guasti.append(f"piani.json: il piano '{nome}' compare due volte")
+        nomi.append(nome)
+        dal = x.get("dal")
+        if dal is None and i == 0:
+            continue                                        # il primo piano vale dall'inizio
+        # data e ora complete e il fuso (+01:00): "2026-11-24", "...T9:24", "...T18:00" senza fuso o con Z non passano
+        if not isinstance(dal, str) or not re.fullmatch(r"\d{4}-\d\d-\d\dT\d\d:\d\d(?::\d\d)?[+-]\d\d:\d\d", dal):
+            guasti.append(f"piani.json, '{nome}': 'dal' ({dal!r}) non è AAAA-MM-GGTHH:MM:SS+HH:MM")
+            continue
+        try:
+            t = datetime.fromisoformat(dal)
+        except ValueError:
+            guasti.append(f"piani.json, '{nome}': 'dal' ({dal!r}) è una data illeggibile")
+            continue
+        if t.utcoffset() != t.replace(tzinfo=ZoneInfo("Europe/Rome")).utcoffset():
+            guasti.append(f"piani.json, '{nome}': il fuso di 'dal' ({dal}) non è quello di Roma in quel giorno: la pagina legge le prime 16 cifre come ora di Roma")
+        if vecchio is not None and t <= vecchio:
+            guasti.append(f"piani.json, '{nome}': i piani non sono in ordine di data")
+        vecchio = t
+    for x in tarature if isinstance(tarature, list) else []:
+        if isinstance(x, dict) and x.get("piano") not in nomi and not x.get("escluso"):
+            guasti.append(f"taratura.json: lettura del {x.get('giorno')} sul piano '{x.get('piano')}', che piani.json non conosce "
+                          f"(correggi l'etichetta, o dichiara \"escluso\" con il motivo)")
+    return guasti
+
+
+def passo_pannello():
+    """I file veri e i casi sbagliati: ognuno dev'essere fermato."""
+    male = []
+    try:
+        piani = json.load(open(os.path.join(REPO, "pannello", "piani.json"), encoding="utf-8"))
+        tarature = json.load(open(os.path.join(REPO, "pannello", "taratura.json"), encoding="utf-8"))
+        male += problemi_piani(piani, tarature)
+    except (OSError, ValueError) as e:      # file mancante o JSON rotto
+        male.append(f"pannello/piani.json o taratura.json: {e}"[:160])
+    pro = {"piano": "Pro"}
+    max5 = {"piano": "Max 5x", "dal": "2026-11-24T18:00:00+01:00"}
+    sbagliati = [("senza nome", [pro, {"dal": "2026-11-24T18:00:00+01:00"}], []),
+                 ("ora senza zero", [pro, dict(max5, dal="2026-11-24T9:24:00+01:00")], []),
+                 ("senza fuso", [pro, dict(max5, dal="2026-11-24T18:00")], []),
+                 ("solo la data", [pro, dict(max5, dal="2026-11-24")], []),
+                 ("data impossibile", [pro, dict(max5, dal="2026-13-45T18:00:00+01:00")], []),
+                 ("fuso d'estate sbagliato", [pro, dict(max5, dal="2026-07-01T18:00:00+01:00")], []),
+                 ("fuori ordine", [pro, max5, {"piano": "Max 20x", "dal": "2026-11-20T18:00:00+01:00"}], []),
+                 ("il secondo senza 'dal'", [pro, {"piano": "Max 5x"}], []),
+                 ("lettura di un piano ignoto", [pro, max5], [{"giorno": "2026-11-15", "piano": "Max", "punti": 1, "durata_min": 1}]),
+                 ("non è un elenco", {"piano": "Pro"}, [])]
+    for nome, p, t in sbagliati:
+        if not problemi_piani(p, t):
+            male.append(f"piani.json: il caso '{nome}' non è fermato")
+    if problemi_piani([pro, max5], [{"giorno": "2026-11-15", "piano": "Max", "punti": 1, "durata_min": 1, "escluso": "motivo"}]):
+        male.append("taratura.json: una lettura dichiarata 'escluso' non deve fermare il rilascio")
+    esito("Pannello: piani e taratura", not male, "; ".join(male)[:400] or
+          f"piani.json valido (nome, 'dal' con il fuso di Roma, in ordine), ogni lettura di taratura.json su un piano noto o dichiarata esclusa; {len(sbagliati) + 1} casi sbagliati fermati")
+
+
 def passo_sito():
     copia = os.path.join(TMP, "sito")
     shutil.copytree(REPO, copia, ignore=shutil.ignore_patterns(".git", "__pycache__", "node_modules"))
@@ -1447,6 +1517,7 @@ def main():
         passo_newsletter()
         passo_dem()
         passo_rete()
+        passo_pannello()
         copia = passo_sito()
         if isinstance(copia, str):
             passo_lettori(copia)

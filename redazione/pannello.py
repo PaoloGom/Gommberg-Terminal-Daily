@@ -16,9 +16,11 @@ Tre file in pannello/ (più invii.json, di dem.py):
                   ("aperte", anche quelle poi non citate) e quelle non raggiunte ("fallite", il numero, e
                   "fallite_siti", quali e perché: negata, limite, errore).
   taratura.json   le letture vere della pagina Utilizzo dell'app: quanti punti del limite settimanale sono costati quanti
-                  minuti di attività, su quale piano. Da qui il tasso con cui la pagina stima i punti di quel piano.
+                  minuti di attività, su quale piano. Da qui il tasso con cui la pagina stima i punti di quel piano. Una lettura con "escluso"
+                  (il motivo) resta come traccia ma non entra nel tasso; ogni altra lettura deve avere un piano di piani.json.
   piani.json      a mano, non lo scrive questo file: i piani di Claude in uso, ognuno con "piano" (il nome, lo stesso delle
-                  letture di taratura), "dal" (inizio, AAAA-MM-GGTHH:MM ora di Roma; assente nel primo) e "azzeramento"
+                  letture di taratura), "dal" (inizio, ISO 8601 con il fuso di Roma, AAAA-MM-GGTHH:MM:SS+01:00; assente nel primo; il collaudo ferma il rilascio se manca,
+                  è illeggibile o fuori ordine) e "azzeramento"
                   ({giorno, ora, da_confermare}: dato per chi lo usa, la pagina non lo mostra). Un'edizione è rapportata al
                   piano in vigore quando è uscita; un piano senza letture di taratura mostra i token e il rapporto "in
                   taratura". Cambiare piano = una riga in più, mai una modifica alla pagina.
