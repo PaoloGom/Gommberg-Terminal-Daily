@@ -2,7 +2,7 @@
 
 ## A. Prova generale su un ramo, senza pubblicare
 
-Si lancia l'attività del mattino aggiungendo questo testo come messaggio in coda, con `<ramo>` e `<data>` al loro posto. Prima del merge di un rilascio il ramo è `rilascio` (`ARCHITETTURA.md` §5). La data serve solo quando la prova non vale per oggi (per esempio nel fine settimana, per provare l'edizione del lunedì).
+Si lancia l'attività del mattino aggiungendo questo testo come messaggio in coda, con `<ramo>` e `<data>` al loro posto. Per la prova del venerdì il ramo è `con-prova` (`ARCHITETTURA.md` §5). La data serve solo quando la prova non vale per oggi (per esempio nel fine settimana, per provare l'edizione del lunedì).
 
 QUESTA NON È L'EDIZIONE VERA: è una prova generale chiesta da Paolo. Niente di ciò che fai va sul sito e il ramo principale non si tocca.
 
