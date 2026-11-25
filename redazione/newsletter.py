@@ -31,15 +31,17 @@ telefono) stanno nei modelli caricati a mano in Kit (Broadcasts > Templates):
   "Gommberg cornice"   = redazione/newsletter_cornice.html: lo usa questo script (margine zero, niente testata);
   "Gommberg"           = redazione/newsletter_modello.html con il margine attorno al contenuto: è il predefinito, per
                          l'email di conferma e per ogni email scritta a mano dentro Kit (ha la sua testata).
-Se cambia un file, il modello corrispondente in Kit va aggiornato. Finché "Gommberg cornice" non esiste in Kit lo
-script ripiega da solo sul vecchio "Gommberg edizione" (che ha la testata): l'email parte senza la testata dello
-script, con la data delle chiusure accanto a quella dell'edizione. Mai due testate, mai nessuna.
+Se cambia un file, il modello corrispondente in Kit va aggiornato. Se "Gommberg cornice" non esiste in Kit l'invio non
+parte, su nessun altro modello (se l'elenco dei modelli non si legge per un guasto momentaneo di Kit, quattro tentativi
+a 15 secondi, poi errore "Kit non risponde"): lo script esce con errore, il giro di newsletter.yml diventa rosso e il controllo del
+mattino (mattino.py) segnala che l'invio manca. Mai due testate, mai nessuna.
 """
 import html
 import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
@@ -51,7 +53,8 @@ BASE = "https://gommberg.com/"
 API = "https://api.kit.com/v4"
 ATTESA_MINUTI = 4          # tempo lasciato al sito per pubblicare la pagina dell'edizione
 CORNICE = "Gommberg cornice"    # il modello di Kit per le edizioni: cornice e piè di pagina, la testata la mette lo script
-MODELLO = "Gommberg edizione"   # il modello di prima, con la testata dentro: si usa solo se la cornice non c'è ancora
+LETTURE = 4                # tentativi per leggere l'elenco dei modelli di Kit (guasto momentaneo: 429, 5xx, rete)
+ATTESA_LETTURE = 15        # secondi tra un tentativo e l'altro (il collaudo la azzera)
 ORA_MINIMA = 8             # prima di quest'ora (Roma) l'invio automatico non parte
 GIORNI = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"]
 MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto",
@@ -196,9 +199,8 @@ def anteprima_locale(corpo):
             .replace("{{ address }}", "[indirizzo postale]"))
 
 
-def componi(ed, con_testata=True):
-    """Oggetto, riga di anteprima e contenuto HTML. Una colonna, stili in linea, niente immagini: regge in ogni casella.
-    con_testata=False quando la testata la mette già il modello di Kit (il vecchio "Gommberg edizione")."""
+def componi(ed):
+    """Oggetto, riga di anteprima e contenuto HTML. Una colonna, stili in linea, niente immagini: regge in ogni casella."""
     e = html.escape
     n = int(ed["numero"])
     # I link portano alla homepage ferma su QUESTA edizione (?n=), non sull'ultima: chi apre la mail tre giorni dopo
@@ -207,8 +209,6 @@ def componi(ed, con_testata=True):
     # Niente link diretto al PDF (Paolo, 16/11): il PDF si apre dal sito, così ogni lettura passa dal sito e si conta.
     pagina = f"{BASE}?n={n}&amp;leggi=1&amp;ref=email"
     occhiello = f'font:700 12px/1.3 {MONO};letter-spacing:.06em;text-transform:uppercase;color:{ARANCIO_TESTO};margin:0 0 10px'
-    al = ed.get("ticker_al")
-    chiusure = (f' - Mercati alle chiusure del {e(data_breve(al))}' if al and not con_testata and len(mercati(ed)) >= 3 else "")
 
     voci = indice(ed)
     righe = "".join(
@@ -221,9 +221,9 @@ def componi(ed, con_testata=True):
               + tabella(righe, extra=f' style="border-bottom:1px solid {FILO}"') + '</td></tr>' if voci else "")
 
     corpo = f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-{testata(ed) if con_testata else ""}{fascia(ed)}
+{testata(ed)}{fascia(ed)}
 <tr><td class="gx" style="padding:24px 28px 0">
-<p style="font:13px/1.4 {FONT};color:{GRIGIO};margin:0 0 10px">{e(data_estesa(ed["data"]))} - Edizione #{n:03d}{chiusure}</p>
+<p style="font:13px/1.4 {FONT};color:{GRIGIO};margin:0 0 10px">{e(data_estesa(ed["data"]))} - Edizione #{n:03d}</p>
 <h1 style="font:900 28px/1.15 {TITOLI};font-stretch:80%;letter-spacing:0;word-spacing:.04em;color:{INCHIOSTRO};margin:0 0 12px">{e(ed["titolo"])}</h1>
 <p style="font:16px/1.55 {FONT};color:{INCHIOSTRO};margin:0">{e(sommario_breve(ed.get("dek") or ""))}</p>
 </td></tr>
@@ -247,6 +247,8 @@ def componi(ed, con_testata=True):
 
 
 def kit(metodo, percorso, dati=None):
+    """Una chiamata a Kit: (stato HTTP, corpo). Se la rete non risponde (indirizzo, timeout, connessione) torna
+    (0, {"errore": ...}) come ogni altra risposta non riuscita: chi chiama controlla lo stato, nessun traceback."""
     chiave = os.environ.get("KIT_API_KEY", "").strip()
     if not chiave:
         sys.exit("ERRORE: manca KIT_API_KEY (segreto del repository)")
@@ -265,6 +267,8 @@ def kit(metodo, percorso, dati=None):
             return errore.code, json.loads(testo)
         except ValueError:
             return errore.code, {"errore": testo[:300]}
+    except (urllib.error.URLError, OSError) as errore:       # URLError e timeout sono OSError
+        return 0, {"errore": f"rete: {getattr(errore, 'reason', errore)}"[:300]}
 
 
 def invii_esistenti():
@@ -276,27 +280,36 @@ def invii_esistenti():
 
 
 def modello_edizione():
-    """(id del modello in Kit, la testata la mette lo script?). Prima scelta la cornice; se non c'è ancora, il vecchio
-    modello con la testata dentro; se manca anche quello il predefinito, che ha la sua testata: l'email parte lo stesso."""
-    stato, corpo = kit("GET", "/email_templates")
-    nomi = {(m.get("name") or "").strip().lower(): m.get("id") for m in (corpo.get("email_templates", []) if stato == 200 else [])}
-    if CORNICE.lower() in nomi:
-        return nomi[CORNICE.lower()], True
-    print(f'AVVISO: modello "{CORNICE}" non trovato in Kit: email senza la testata dello script, '
-          + (f'con il modello "{MODELLO}"' if MODELLO.lower() in nomi else "con il predefinito"))
-    return nomi.get(MODELLO.lower()), False
+    """L'id del modello "Gommberg cornice" in Kit. L'elenco dei modelli è una lettura: se Kit ha un guasto momentaneo
+    (429, 5xx, rete) si riprova a distanza, LETTURE volte. Se l'elenco si legge e la cornice non c'è, l'invio non parte;
+    se dopo i tentativi l'elenco non si legge, l'invio non parte lo stesso e l'errore è un altro. Su nessun altro modello:
+    l'email uscirebbe con un'altra cornice o con due testate. Solo le letture si ritentano: mai la creazione dell'invio."""
+    for tentativo in range(1, LETTURE + 1):
+        stato, corpo = kit("GET", "/email_templates")
+        if stato == 200:
+            nomi = {(m.get("name") or "").strip().lower(): m.get("id") for m in corpo.get("email_templates", [])}
+            if CORNICE.lower() not in nomi:
+                sys.exit(f'ERRORE: la cornice non c\'è in Kit: modello "{CORNICE}" non trovato nell\'elenco: invio non fatto')
+            return nomi[CORNICE.lower()]
+        transitorio = stato == 0 or stato == 429 or stato >= 500
+        if not transitorio or tentativo == LETTURE:
+            break
+        time.sleep(ATTESA_LETTURE)
+    sys.exit(f"ERRORE: Kit non risponde: elenco dei modelli non leggibile dopo {tentativo} tentativ{'o' if tentativo == 1 else 'i'} "
+             f"(HTTP {stato}: {json.dumps(corpo, ensure_ascii=False)[:200]}): invio non fatto, su nessun altro modello")
 
 
 def crea(ed, quando, prova):
-    modello, con_testata = modello_edizione()
-    oggetto, anteprima, corpo = componi(ed, con_testata)
+    modello = modello_edizione()
+    oggetto, anteprima, corpo = componi(ed)
     dati = {"subject": oggetto, "preview_text": anteprima, "content": corpo, "description": etichetta(ed, prova),
             "public": False, "published_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "send_at": quando.isoformat(timespec="seconds") if quando else None}
-    if modello:
-        dati["email_template_id"] = modello
+    dati["email_template_id"] = modello
     stato, risposta = kit("POST", "/broadcasts", dati)
     if stato not in (200, 201):
+        if stato == 0:   # rete caduta o tempo scaduto DOPO la richiesta: l'invio può esserci lo stesso. Mai un secondo tentativo qui
+            sys.exit(f"ERRORE: esito incerto, Kit non ha risposto alla creazione dell'invio: guarda in Kit (Broadcasts) prima di rilanciare. {json.dumps(risposta, ensure_ascii=False)[:300]}")
         sys.exit(f"ERRORE: Kit non ha accettato l'email (HTTP {stato}): {json.dumps(risposta, ensure_ascii=False)[:400]}")
     b = risposta.get("broadcast", {})
     modello = (b.get("email_template") or {}).get("name")

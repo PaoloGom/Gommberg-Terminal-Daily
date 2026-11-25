@@ -1,0 +1,466 @@
+GOMMBERG TERMINAL DAILY                                                                                          Lunedì 23 novembre 2026 | Edizione n. 031
+I mercati globali spiegati, ogni mattina in 6 pagine                                                 Chiusure al 20 novembre; Kospi al 23 novembre; Tokyo chiusa per festa
+
+
+
+
+ MSCI ACWI (ETF)            S&P 500                    EURO STOXX 50              TREASURY 10 ANNI      EUR/USD               BRENT FUTURE           ORO
+ 142,59 $                   6.910,39                   5.941,95                   4,92%                 1,0967                92,57 $                3.515 $
+ -3,5% g                    -3,7% g                    -2,8% g                    -12 pb g              0,0% g                +0,6% g                -4,6% g
+
+
+
+TOP STORY
+
+
+Wall Street entra in correzione sui timori
+per l'intelligenza artificiale e Seul cade
+ancora
+Venerdì l'S&P 500 ha perso il 3,70% e il Nasdaq il 5,28%, l'indice globale ACWI il 3,49% e il Nikkei il 5,06%.
+L'indice della paura (VIX) è salito del 26,2% a 35,89. Stanotte i future sono rimbalzati di oltre il 2%, ma il Kospi
+sudcoreano è di nuovo in forte calo. Il bersaglio resta Nvidia, dopo l'indagine SEC riportata dalla stampa
+americana. → pag. 2
+→ Per Schwab pesano i dubbi sul finanziamento dell'intelligenza artificiale e l'uscita di Huang.
+IL QUADRO La paura ha battuto la politica monetaria: i Treasury hanno fatto da rifugio e i rendimenti sono scesi, anche
+con un rialzo della Fed a dicembre quasi scontato. L'oro, che di solito ripara, è invece caduto insieme alle azioni, e a nostro
+avviso pesa il dollaro forte. Il petrolio e il cambio euro-dollaro sono rimasti quasi fermi.
+
+  IN 30 SECONDI                                                                                         COSA GUARDARE ALL'APERTURA
+  ▪ L'indagine sui conti di Nvidia mette in dubbio la storia che ha                                     ▪ Kospi: minimo di giornata a 4.586,80 e chiusura di
+    sostenuto i chip. → pag. 2                                                                            venerdì a 4.869,96, i due livelli da cui si legge se il
+  ▪ Nonostante la paura i rendimenti dei Treasury scendono,                                               rimbalzo tiene
+     mentre la Fed guarda a un rialzo. → pag. 3                                                         ▪ Alle 15:30 apre Wall Street: si vede se il rimbalzo
+
+  ▪ Mercoledì il dato sui prezzi PCE è la prova per i rimbalzi della                                      dei future regge dopo il crollo di venerdì
+     settimana. → pag. 5                                                                                ▪ Fondo di stabilizzazione coreano: per il ministero
+                                                                                                          delle Finanze si può usare subito se i ribassi
+                                                                                                          continuano
+
+
+TOP NEWS
+
+Le notizie del giorno
+
+          CHIP                                                                                       TECNOLOGIA
+01 La SEC indaga sui conti di Nvidia, riferisce la 02 Anthropic perde l'8,5% al secondo giorno di
+          stampa americana                                                                           quotazione
+          L'inchiesta è agli inizi e può chiudersi senza accuse. Il                                  Chiude a 88,91 $, ancora sopra il prezzo di collocamento
+          titolo ha perso il 14% venerdì e più del 20% in settimana.                                 di 83 $, dopo il +17,1% del debutto.
+          → pag. 2
+
+
+
+          ASIA                                                                                       BANCHE
+03 Il governo di Seul prepara il fondo di                                                     04 Le banche italiane perdono tra il 2% e il 3% in
+          stabilizzazione per il mercato                                                             una giornata nera a Milano
+          Stamattina il Kospi ha ceduto il 3,3%. Il ministero delle                                  Per ANSA pesano la possibile stretta della Bce sui requisiti
+          Finanze dice che può usarlo subito se i ribassi continuano;                                patrimoniali e l'emendamento della Lega che alza di tre
+          a Taiwan il regolatore ha ordinato una stretta sulle vendite                               punti l'Ires. → pag. 4
+          allo scoperto. → pag. 2
+
+
+
+          FED                                                                                        MACRO
+05 Waller (Fed): «Non possiamo aspettare»                                                     06 La fiducia dei consumatori del Michigan sale a
+          Per il governatore l'inflazione va nella direzione sbagliata.                              51,5
+          → pag. 3                                                                                   Il dato finale di novembre supera la stima preliminare di
+                                                                                                     51,0; le attese di inflazione a un anno sono al 3,7%.
+
+
+
+NELLE PAGINE INTERNE
+  PAG. 2 | CHIP E ASIA                                           PAG. 3 | TASSI USA                                    PAG. 4 | EUROPA E ITALIA
+  Nvidia e i chip sotto accusa                                   Rendimenti giù con la Fed in rialzo                   Milano pesa STM e banche
+
+  PAG. 4 | MATERIE PRIME                                         PAG. 5 | MERCATI E AGENDA                             PAG. 6 | LA SCOMMESSA
+  L'oro cade con le azioni                                       Numeri, temi aperti e calendario                      Il pronostico della settimana
+
+
+
+Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.                   #031 | 2026-11-23 | pag. 1
+Le probabilità sono stime soggettive. Dati e notizie da fonti pubbliche alla data dell'edizione.
+GOMMBERG TERMINAL DAILY                                                                                      Lunedì 23 novembre 2026 | Edizione n. 031
+I mercati globali spiegati, ogni mattina in 6 pagine                                               Chiusure al 20 novembre; Kospi al 23 novembre; Tokyo chiusa per festa
+
+
+
+APPROFONDIMENTO | CHIP E ASIA
+Le vendite sui chip passano dai prezzi alla fiducia dopo l'inchiesta su Nvidia
+
+Le vendite colpiscono di più i listini con più tecnologia variazioni % del 20/11 (Kospi: 23/11)
+
+
+
+
+L'indice della paura accelera nella seconda metà della settimana
+VIX, chiusure                                                                                              PERCHÉ
+                                                                                                           L'indagine della SEC, riportata dalla stampa
+                                                                                                           americana, tocca il titolo che di solito garantisce
+                                                                                                           la storia dell'intelligenza artificiale, dopo l'uscita di
+                                                                                                           Huang e i conti del 17/11. A nostro avviso il
+                                                                                                           mercato non prezza più solo gli utili, ma anche il
+                                                                                                           rischio di scoprire che i conti non reggono, e il VIX,
+                                                                                                           l'indice della paura, lo mostra.
+
+                                                                                                           E QUINDI
+                                                                                                           Se i future di stanotte reggono all'apertura di Wall
+                                                                                                           Street, il ribasso di venerdì era in parte un
+                                                                                                           eccesso.
+
+                                                                                                           IL NUMERO
+                                                                                                           -14%: il calo di Nvidia in una sola seduta, più del
+                                                                                                           20% in settimana.
+
+
+
+▪   Huang. Si è dimesso il 12 novembre                        ▪   Taiwan. La Borsa perde il 17% in                 ▪   Seul. Il Kospi chiude a 4.708,54
+    da amministratore delegato,                                   settimana, il calo settimanale più                   (-3,31%), il minimo dal 13 gennaio,
+    President e consigliere; Colette Kress                        forte dal 1990.                                      con stranieri venditori netti per la
+    è amministratore delegato ad                                                                                       settima seduta.
+    interim.
+
+Perché un'inchiesta su un solo titolo fa cadere un intero settore? Perché Nvidia è il titolo su cui poggia la storia
+dell'intelligenza artificiale: i suoi conti dicono quanto spendono gli altri per i chip. Se i conti vengono messi in dubbio, tende
+a perdere fiducia tutta la filiera, dai produttori di memorie a chi quest'anno ha guadagnato di più.
+
+A Seul pesa anche la struttura dell'indice. Pochi grandi produttori di chip, come Samsung e SK Hynix, fanno una parte larga
+del Kospi, e per questo la borsa coreana cade più di quella di Hong Kong. Il governo ha avviato i preparativi per attivare un
+fondo di stabilizzazione, e il ministero delle Finanze dice che può usarlo subito se i ribassi continuano.
+
+Il mercato ha anche già bloccato gli scambi. Al secondo giorno di sidecar, il meccanismo che sospende per qualche minuto
+le vendite automatiche, il Kospi ha toccato un minimo di giornata a 4.586,80. È un segnale di panico più che di notizie
+nuove.
+
+
+    DA GUARDARE
+    Decide l'apertura di Wall Street: se i chip rimbalzano con i future il ribasso era un eccesso, se ricadono il timore sui conti diventa
+    un tema globale.
+
+Fonti: AFP, InvestmentNews, comunicato Nvidia (SEC), The Korea Times, JKN, Al Jazeera, Schwab.
+
+
+
+
+Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.                 #031 | 2026-11-23 | pag. 2
+Le probabilità sono stime soggettive. Dati e notizie da fonti pubbliche alla data dell'edizione.
+GOMMBERG TERMINAL DAILY                                                                                            Lunedì 23 novembre 2026 | Edizione n. 031
+I mercati globali spiegati, ogni mattina in 6 pagine                                                     Chiusure al 20 novembre; Kospi al 23 novembre; Tokyo chiusa per festa
+
+
+
+APPROFONDIMENTO | TASSI USA
+Con la Fed in rialzo i Treasury restano un rifugio e i rendimenti scendono
+
+Il 2 anni chiude la settimana ai minimi del periodo Treasury a 2 anni, chiusure (%)
+
+
+
+
+    PERCHÉ                                                                                         E QUINDI
+    Venerdì il 10 anni è sceso dal 5,04% al 4,92% e il 2 anni di 13                                Se il 10 anni torna sopra il 5,04% la paura non basta più e torna
+    pb. Eppure i future sui tassi danno il rialzo di dicembre tra il                               a contare la Fed.
+    92% e il 99%. A nostro avviso ha prevalso la paura: quando si
+    vende la borsa, si comprano Treasury, il loro prezzo sale e il
+    rendimento scende.
+
+
+    IL NUMERO
+    92-99%: la probabilità di un rialzo a dicembre secondo i future sui tassi, a seconda della stima.
+
+
+▪   Verbali. Nella riunione di ottobre un paio di partecipanti                                ▪    Attese. Le attese di inflazione delle famiglie, rilevate dal
+    vedono possibile un aumento oltre i 25 pb alla prossima;                                       Michigan, sono tra i dati che la Fed guarda con più
+    quasi tutti ritengono probabile un altro rialzo.                                               attenzione.
+
+Rendimenti in calo con una Fed pronta a rialzare: venerdì il mercato ha guardato più alla paura che alla banca centrale. Chi
+vende azioni cerca un luogo sicuro. Di solito lo trova nei titoli di Stato americani, dove più compratori fanno salire il prezzo
+e scendere il rendimento, che si muove al contrario.
+
+La Fed intanto non ha cambiato linea. Waller ha detto il 18 novembre che non si può aspettare e che a dicembre può
+servire un rialzo da 50 punti base. Nei verbali di ottobre un paio di partecipanti indicano che un aumento superiore a 25
+punti base potrebbe essere considerato alla prossima riunione, a seconda dei dati sull'inflazione.
+
+Le due cose possono convivere per qualche giorno, ma non a lungo. Se la paura cala, tende a tornare il peso della Fed, e il
+rendimento sale di nuovo. Il segnale da seguire è se rendimenti e borsa tornano a muoversi nella stessa direzione, come
+accade quando prevale il timore sui tassi.
+
+Per capire la differenza conta la scadenza. Il rendimento a 2 anni segue di più le attese sui tassi della banca centrale nei
+prossimi mesi, quello a 10 anni anche crescita e inflazione di lungo periodo. Per questo venerdì il 2 anni è sceso di 13 pb, e
+di 12 il 10 anni: il mercato ha comprato titoli di tutte le scadenze, senza scegliere. Un rialzo da 50 pb a dicembre, se
+arrivasse, spingerebbe di solito su soprattutto il 2 anni. È il titolo più legato alle mosse immediate della banca centrale. Per
+questo, nei giorni di attesa di una riunione, il suo rendimento tende a muoversi più di quello a 10 anni.
+
+Venerdì il 2 anni ha chiuso al 4,63% e il 10 anni al 4,92%, dopo un 2 anni a 4,83% lunedì scorso. Anche la fiducia dei
+consumatori dà un'indicazione: secondo l'Università del Michigan le famiglie si aspettano un'inflazione del 3,7% a un anno.
+È proprio il tipo di dato che la Fed guarda per capire se le attese di prezzo si stanno radicando.
+
+
+    DA GUARDARE
+    Mercoledì il PCE di ottobre: un dato sopra il previsto rafforzerebbe la Fed e riporterebbe su i rendimenti, uno sotto lascerebbe
+    spazio al rifugio.
+
+Fonti: Stock Titan, Schwab, Investrade, Reuters (Business Day), Newsquawk.
+
+
+
+
+Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.                       #031 | 2026-11-23 | pag. 3
+Le probabilità sono stime soggettive. Dati e notizie da fonti pubbliche alla data dell'edizione.
+GOMMBERG TERMINAL DAILY                                                                                            Lunedì 23 novembre 2026 | Edizione n. 031
+I mercati globali spiegati, ogni mattina in 6 pagine                                                     Chiusure al 20 novembre; Kospi al 23 novembre; Tokyo chiusa per festa
+
+
+
+APPROFONDIMENTO | EUROPA E ITALIA
+A Milano pesano chip e banche, e l'Europa tocca il minimo da maggio
+
+  PERCHÉ                                                                                           E QUINDI
+  Secondo ANSA a Milano pesano i chip e le banche. Le banche,                                      Alle 10:00 i PMI flash dell'area euro dicono se l'attività regge:
+  per ANSA, pagano la possibile stretta della Bce sui requisiti                                    da lì si vede se Milano rimbalza, anche perché
+  patrimoniali e l'emendamento della Lega che alza di tre punti                                    STMicroelectronics, a 36,72 euro venerdì, segue i chip
+  l'Ires.                                                                                          americani.
+
+
+ Venerdì 20 novembre                           Variazione                        Il punto
+
+ FTSE MIB                                      -2,48%                            33 titoli su 40 in ribasso; -6,08% da inizio settimana
+
+ Euro Stoxx 50                                 -2,81%                            Chiude a 5.941,95, il livello più basso da maggio
+
+ STMicroelectronics                            -10,78%                           A 36,72 euro
+
+ Banco Bpm, Unicredit, Intesa                  -3,02%, -2,54%,                   Ipotesi di stretta Bce e Ires più alta
+                                               -2,41%
+
+Milano perde quasi quanto l'Europa, e il motivo sta nella composizione: il listino italiano ha pochi grandi tecnologici ma
+molte banche, e venerdì sono caduti entrambi. Le banche tendono a soffrire quando si teme di dover accantonare più
+capitale. Soffrono anche per una tassa più alta sui loro utili, e per questo hanno perso tra il 2% e il 3%.
+
+L'Euro Stoxx 50 ha perso circa il 7% in una settimana e chiude venerdì al livello più basso da maggio. Pesa il legame con
+Wall Street: quando i chip americani cadono, tendono a seguire i loro fornitori europei, e in Italia lo si vede su
+STMicroelectronics. Moncler e Stellantis hanno segnato il minimo a 52 settimane. Lo spread tra BTP e Bund chiude a 109,9
+punti base, da 106 il giorno prima: i titoli di Stato italiani rendono un po' di più rispetto a quelli tedeschi.
+
+Fonti: ANSA, Money.it, dpa-AFX.
+
+
+
+
+APPROFONDIMENTO | MATERIE PRIME
+L'oro non ripara dal panico perché dollaro e tassi pesano più della paura
+
+  PERCHÉ                                                                                           E QUINDI
+  Di solito l'oro sale quando c'è paura, ma venerdì è sceso                                        Mercoledì alle 14:30 il PCE: un dato più morbido darebbe fiato
+  insieme alle azioni. A nostro avviso pesa il dollaro forte: con                                  all'oro, uno più caldo lo terrebbe sotto i 3.600 $.
+  una Fed pronta a rialzare i tassi, tenere un metallo che non
+  rende interessi costa di più.
+
+
+ Oro future                                                              Valore                                                Variazione
+
+ Chiusura del 20/11                                                      3.515,40 $                                            -4,6%
+
+ Chiusura del 19/11                                                      3.685,50 $                                            -
+
+ Nella settimana                                                         -                                                     oltre -9%
+
+L'oro cade anche quando c'è paura, e la ragione è che non è solo un rifugio: è anche un'alternativa ai titoli che pagano
+interessi. Quando i tassi salgono o si attendono più alti, chi lo detiene rinuncia a un guadagno maggiore, e il metallo tende
+a perdere appeal. Il calo di venerdì non lo spiega una notizia sola: a nostro avviso è la somma di dollaro forte, tassi e
+vendite per coprire perdite altrove.
+
+La settimana ha perso più del 9%: un calo di questa ampiezza in una settimana è raro per un metallo che molti considerano
+un porto sicuro. Se il rialzo della Fed a dicembre venisse confermato dal PCE di mercoledì, la pressione dei rendimenti
+tenderebbe a restare. Se il dato fosse più morbido, il metallo potrebbe recuperare almeno una parte del calo. Giovedì i
+mercati americani sono chiusi per il Ringraziamento e venerdì le azioni chiudono alle 19:00 a Roma. Con pochi scambi
+anche pochi ordini possono muovere il prezzo più del solito.
+
+Per chi guarda i mercati, la lezione è che un rifugio non lo è sempre: dipende da cosa spaventa. Con la paura di una bolla
+sull'intelligenza artificiale i Treasury hanno funzionato da riparo, l'oro no. Per questo conviene chiedersi ogni giorno se a
+guidare i prezzi sono i tassi o la borsa.
+
+Fonti: Investrade, Schwab.
+
+
+
+
+Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.                       #031 | 2026-11-23 | pag. 4
+Le probabilità sono stime soggettive. Dati e notizie da fonti pubbliche alla data dell'edizione.
+GOMMBERG TERMINAL DAILY                                                                                              Lunedì 23 novembre 2026 | Edizione n. 031
+I mercati globali spiegati, ogni mattina in 6 pagine                                                      Chiusure al 20 novembre; Kospi al 23 novembre; Tokyo chiusa per festa
+
+
+
+MERCATI
+
+I mercati in una pagina
+
+  LA LETTURA               Il Nasdaq perde più dell'S&P 500, e il Russell 2000, l'indice delle società piccole, meno: a nostro avviso
+                           pesa il peso dei grandi tecnologici, che nel Nasdaq è molto più alto. E in Asia Seul cade più di Hong Kong,
+                           dove i produttori di chip contano meno nell'indice.
+
+                                                                           Da inizio                Tassi, cambi, materie       Livello
+ Indice                         Ultimo            1g          1 sett.                                                                         1g         1 sett.     1 mese
+                                                                           anno                     prime                       20/11
+
+ MONDO E STATI UNITI                                                                                TASSI
+ MSCI ACWI (ETF, $)             142,59            -3,5%       -8,7%        +0,8%                    Treasury 2 anni             4,63%         -13 pb     -25 pb      -16 pb
+ S&P 500                        6.910,39          -3,7%       -8,6%        +0,9%                    Treasury 10 anni            4,92%         -12 pb     -23 pb      -20 pb
+ Nasdaq Comp.                   22.617,73         -5,3%       -10,0%       -2,7%                    Spread Italia               110 pb        +4 pb      -           -
+ Russell 2000                   2.581,79          -2,8%       -7,5%        +4,0%                    CAMBI
+ EUROPA                                                                                             EUR/USD                     1,0967        0,0%       -0,5%       -2,4%
+ Euro Stoxx 50                  5.941,95          -2,8%       -7,0%        +2,6%                    MATERIE PRIME
+ FTSE MIB                       48.704            -2,5%       -6,1%        +8,4%
+                                                                                                    Brent future                92,57 $       +0,6%      -3,4%       -14,9%
+ ASIA                                                                                               Oro (future, $/oncia)       3.515,40      -4,6%      -9,5%       -15,1%
+ Nikkei 225                     56.436,65         -5,1%       -7,7%        +12,1%                   VOLATILITÀ
+ Hang Seng                      22.410,81         -1,9%       -5,2%        -12,6%
+                                                                                                    VIX (volatilità attesa)     35,89         +7,45      +16,59      +18,58
+ Kospi                          4.708,54          -3,3%       -7,7%        +11,7%
+                                                                                                   1 g = chiusura su chiusura; 1 sett. = su venerdì 13/11 (Kospi su lunedì
+                                                                                                   16/11); da inizio anno = su chiusura 2025. Kospi: dato del 23/11. 1 mese =
+                                                                                                   sul 20/10. VIX = volatilità attesa sull'S&P 500.
+
+
+STORIE IN CORSO            I temi aperti
+ Tema                     A che punto                              Ultima novità                                 Cosa si muove                 Cosa guardare
+
+ Fed e tassi              Rialzo di dicembre quasi                 Waller e verbali di ottobre                   ▲ Probabilità di un rialzo    PCE di mercoledì
+                          scontato
+
+ AI e chip                In correzione                            Indagine SEC su Nvidia                        ▼ Titoli dei chip             Future e Kospi
+
+ Asia                     Seul cede ancora                         Interventi dei governi                        ▼ Kospi e Kosdaq              Fondo di stabilizzazione
+
+ Oro                      In calo da una settimana                 Venerdì sotto i 3.600 $                       ▼ Oro future                  Dollaro e Treasury
+Fermi: Petrolio e cambio euro-dollaro: venerdì poco mossi, con il Brent a 92,57 $ e l'EUR/USD a 1,0967.
+
+
+AGENDA         Cosa è uscito e cosa arriva
+ Quando (Roma)           Evento                               Attese                       Perché conta               Come può muovere i mercati, di solito
+ USCITO LA SETTIMANA SCORSA: IL DATO, IL CONFRONTO CON LE ATTESE, DOVE SE NE PARLA
+
+ Mer 18                  Verbali della Fed                    Per un paio di partecipanti un rialzo oltre             → pag. 3
+                         (riunione di ottobre)                25 pb "potrebbe essere considerato" a
+                                                              dicembre
+
+ Ven 20                  Fiducia consumatori                  51,5 (atteso 51,5); stima preliminare 51,0              ● in linea
+                         Michigan (novembre,
+                         finale)
+ IN ARRIVO
+
+ Mar 24, 16:00           Fiducia consumatori                  Prima 91,7                   Quanto la paura            Sopra: consumi solidi, rendimenti su.
+                         Conference Board                                                  entra nei consumi          Sotto: più timore sulla crescita, rendimenti giù.
+                         (novembre)
+
+ Mer 25, 14:30           Prezzi PCE USA                       Prima +0,5% sul              Evento n.1: la             Sopra: rialzo di dicembre più vicino, Treasury giù.
+                         (ottobre)                            mese, +3,6% in               misura di inflazione       Sotto: la Fed ha meno fretta.
+                                                              un anno; senza               che la Fed guarda
+                                                              energia e                    di più
+                                                              alimentari +0,3%
+                                                              e +3,1%
+
+ Mer 25, 14:30           PIL USA terzo trimestre              Prima stima +3,4%            Tenuta                     Sopra: l'economia regge, rendimenti su.
+                         (seconda stima)                      annualizzato                 dell'economia              Sotto: cresce il timore di una frenata.
+
+ Gio 26                  Wall Street e Treasury               Venerdì le azioni            Pochi scambi               Con volumi bassi anche movimenti piccoli possono
+                         chiusi per il                        chiudono alle 19:00                                     pesare di più.
+                         Ringraziamento                       a Roma
+
+
+
+
+Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.                        #031 | 2026-11-23 | pag. 5
+Le probabilità sono stime soggettive. Dati e notizie da fonti pubbliche alla data dell'edizione.
+GOMMBERG TERMINAL DAILY                                                                                          Lunedì 23 novembre 2026 | Edizione n. 031
+I mercati globali spiegati, ogni mattina in 6 pagine                                                   Chiusure al 20 novembre; Kospi al 23 novembre; Tokyo chiusa per festa
+
+
+
+IL GRAN FINALE | FORECAST
+
+La scommessa della settimana: dove chiudiamo venerdì 27 novembre
+
+  COME SI GIOCA                                                                                    IL VERDETTO: SETTIMANA 16-20 NOVEMBRE
+  6 domande che muovono tutto il resto, lette in catena: la
+  borsa, il prezzo del denaro, il dollaro, l'energia, la paura.                                    5 punti su 12
+                                                                                                                                  par 7,3: chi tira a caso
+  La direzione la scegliamo noi il lunedì e non cambia fino a
+  venerdì. La forchetta è larga quanto l'oscillazione tipica                                       0                                                                    12
+  della settimana e contiene la chiusura di venerdì circa 2                                        ■ 3 dalla direzione ■ 2 dalla forchetta
+  volte su 3. Un punto per la direzione, uno per la forchetta:
+                                                                                                   Rispetto al par: -2,3.
+  massimo 12.
+                                                                                                   direzione / forchetta: S&P 500 ✓✗ Euro Stoxx ✗✗ Treasury
+                                                                                                   ✗✗ EUR/USD ✓✓ Brent ✗✓ Oro ✓✗
+                                                                                                   Com'è andata: Il crollo di venerdì ha sorpreso anche noi:
+                                                                                                   abbiamo preso la direzione giusta su tre mercati, ma i
+                                                                                                   listini sono caduti ben oltre le forchette.
+
+
+ Mercato e la sua domanda                            Partenza              Forchetta e nostra previsione                          Il perché
+
+ S&P 500                                                                                                                          I future salgono di oltre il 2% dopo il
+                                                     6.910,39        ↑        6.658                                      7.172
+ L'economia e gli utili reggono?                                                                                                  crollo di venerdì
+
+ Euro Stoxx 50                                                                                                                    Dopo il minimo da maggio aspetta di
+                                                     5.941,95        ↑        5.782                                      6.106
+ E l'Europa, casa nostra?                                                                                                         capire se Wall Street tiene
+
+ Treasury 10 anni                                                                                                                 Se la paura cala i Treasury smettono di
+                                                     4,92%           ↑       4,79%                                       5,05%
+ Quanto costa il denaro?                                                                                                          fare da rifugio e il rendimento risale
+
+ EUR/USD                                                                                                                          L'euro recupera un po' dopo una
+                                                     1,0967          ↑      1,0881                                       1,1053
+ Il dollaro è forte o debole?                                                                                                     settimana di dollaro forte
+
+ Brent                                                                                                                            Con meno fiducia nella crescita e più
+                                                     92,57 $         ↓        85,73                                      99,96
+ Energia e guerre pesano sui prezzi?                                                                                              offerta il greggio ha poca spinta
+
+ Oro                                                                                                                              Rimbalza dopo la caduta di venerdì, la
+                                                     3.515 $         ↑        3.367                                      3.670
+ Quanta paura c'è?                                                                                                                peggiore da mesi
+
+Partenza: chiusura di venerdì 20 novembre. Barra: la forchetta. Tacca: partenza. Rombo: la nostra previsione. Per i Treasury la freccia indica il
+rendimento.
+
+
+  LA NOSTRA                Ci aspettiamo un rimbalzo fragile delle borse dopo il crollo di venerdì, con il PCE di mercoledì come prova. Ci
+  TESI                     smentirebbe: un PCE più caldo del previsto che rilanci i rialzi Fed.
+
+
+PER CHI LEGGE
+
+Parole di oggi
+
+  CORREZIONE                                                     SIDECAR                                                  VIX
+  Un calo di almeno il 10% dall'ultimo                           Una pausa di pochi minuti negli scambi                   L'indice che misura quanto il mercato
+  massimo: segnala che la fiducia è                              automatici quando un indice scende                       paga per proteggersi da cali dell'S&P
+  cambiata, ma non decide da sola se la                          troppo e in fretta.                                      500: sale quando cresce la paura.
+  caduta continua.
+
+
+NOTE
+
+Fonti
+ Dati di mercato                    Financial Modeling Prep, EODHD, Alpha Vantage; Euro Stoxx 50 con dpa-AFX; Kospi con Korea Times e JKN.
+
+ Prima pagina e                     Schwab, Stock Market Watch, Investrade, Stock Titan, Al Jazeera, Fortune, Reuters, AFP.
+ mercati
+
+ Calendario e agenda                Investrade, FinancialJuice, LiteFinance.
+
+ Approfondimenti                    Chip: AFP, InvestmentNews, Nvidia (SEC), Korea Times, JKN. Tassi: Reuters (Business Day), Newsquawk. Milano: ANSA,
+                                    Money.it, dpa-AFX. Oro: Investrade, Schwab.
+
+ La scommessa                       Chiusure di FMP, EODHD e Alpha Vantage; forchette calcolate dalla volatilità delle ultime 20 sedute.
+
+
+
+
+Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.                       #031 | 2026-11-23 | pag. 6
+Le probabilità sono stime soggettive. Dati e notizie da fonti pubbliche alla data dell'edizione.
+

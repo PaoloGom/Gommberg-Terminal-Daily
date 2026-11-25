@@ -1,0 +1,146 @@
+[
+ {
+  "id": "T01",
+  "trovato": "Schwab: At the market close, the S&P 500 (SPX) was down 265.44 points (-3.70%) to 6,910.39 | the Nasdaq Composite ($COMP) had plummeted 1,261.47 points (-5.28%) to 22,617.73 | The Dow Jones Industrial Average ($DJI) had dropped 949.73 points (-1.93%) to 48,147.33. | Meanwhile, the S&P 500 Index and the Dow Jones Industrial Average both joined the Nasdaq in correction territory. Fortune: Futures tied to the Dow Jones industrial average surged 798 points, or 1.66%. S&P 500 futures shot up 2.11%, and Nasdaq futures soared 2.75%. Korea Times: The benchmark KOSPI closed at 4,708.54, down 3.31 percent, its lowest finish since Jan. 13.",
+  "verifica": "confermato",
+  "nota_revisore": "Cifre, correzione dei tre indici, future oltre +2% (Fortune: S&P +2,11%) e Kospi -3,3% confermati. Al Jazeera: pagina non comparsa tra i risultati della ricerca, fonte persa (non usata). Il Dow e' in correzione per Schwab e per Stock Titan (DIA 11,4% sotto il massimo). Vedi voce PDF per gli errori interni del PDF."
+ },
+ {
+  "id": "D02",
+  "trovato": "Business Day (Reuters): \"We can't wait. We can't do this in like the next two years.\" Waller dice che l'inflazione sta 'heading in the wrong direction and it is spreading out' e 'then you have to go 50 in December'. Articolo del 18/11, Waller ha parlato 'on Wednesday' (CNBC).",
+  "verifica": "confermato",
+  "nota_revisore": "Citazione identica, inflazione 'nella direzione sbagliata', 50 pb a dicembre confermati; il 18/11 era mercoledi'. Il 50 pb e' condizionato ('wants the Fed to approve a half-point hike' / 'then you have to go 50'): 'puo' servire' e' accettabile, non scrivere 'sara'. Nota: Waller aveva gia' evocato i 50 pb il 10 e il 13 novembre (CNBC, Forbes); la novita' del 18 e' la citazione, non l'ipotesi."
+ },
+ {
+  "id": "N05",
+  "trovato": "Money.it: STMicroelectronics, che ha perso il 10,78% fermandosi a 36,72 euro | Male anche Prysmian, a -6,29% e 100,50 euro. ANSA: Sotto pressione Stm (-10,78%) ... Prysmian (-6,29%) ... per i timori dello scoppio della bolla speculativi sull'intelligenza artificiale",
+  "verifica": "confermato",
+  "nota_revisore": "Cifre e prezzo 36,72 euro confermati; il motivo (timori di bolla IA) e' attribuito da ANSA a Stm, Technoprobe e Prysmian. Nota: Money.it non usa la parola 'bolla'."
+ },
+ {
+  "id": "N02",
+  "trovato": "Stock Titan: Anthropic closed down 8.50% on November 20, 2026, its second day of trading, against its $97.17 close on Thursday. | At the close, Anthropic's shares were about 7.1% above the $83.00 IPO price.",
+  "verifica": "confermato",
+  "nota_revisore": "-8,50%, prezzo di collocamento 83 $ e chiusura sopra il collocamento confermati; 97,17 x 0,915 = 88,91 $ (il 'chiude a 88,91' non e' scritto in pagina, e' derivato) e +17,1% del debutto = 97,17/83 (non scritto su Stock Titan; i titoli di BNN/CBS dicono 'more than 17%'). Pagina AP (ajc.com) non comparsa nei risultati: fonte persa."
+ },
+ {
+  "id": "N07",
+  "trovato": "Schwab: By late Friday, futures trading priced in 92% odds of a December rate hike, according to the CME FedWatch Tool. Investrade: According to CME FedWatch, markets price a 99% probability of a 25-basis-point December rate hike.",
+  "verifica": "confermato",
+  "nota_revisore": "92% (Schwab) e 99% (Investrade) confermati. Il 99% di Investrade e' per un rialzo da 25 pb, quindi 'quasi per certo' vale per un rialzo, non per i 50 pb. Pagina Yahoo non comparsa nei risultati: fonte persa."
+ },
+ {
+  "id": "D01",
+  "trovato": "Pomegra: The 10-year yield fell to 4.93% from 5.04%, though borrowing costs remain close to 5%. Treasuries drew buyers. Investrade: The yield on the benchmark US 10-year Treasury fell 1- bps at 4.912%, in its fifth straight day of declines | The two-year US Treasury yield was down 16.8 basis points at 4.611%.",
+  "verifica": "confermato",
+  "nota_revisore": "10 anni 4,91-4,93% da 5,04% e 2 anni -16,8 pb confermati; 'rifugio' regge (Pomegra 'Treasuries drew buyers', Schwab 'yields plunged as investors scrambled for safety'), la parola haven non c'e'. Attenzione: il PDF (p.3 e p.5) dà il 2 anni a 4,63% e -13 pb, mentre Investrade ha 4,611% e -16,8 pb: il 2 anni del PDF non e' confermato e va ricontrollato su un dato di chiusura. Il 10 anni a 4,92% (PDF) cade tra 4,912 e 4,93, ok."
+ },
+ {
+  "id": "D11",
+  "trovato": "Money.it: Il FTSE MIB termina a 48.703,72 punti con 33 titoli in ribasso su 40. | da inizio settimana la perdita è del 6,08% | Due titoli hanno aggiornato i minimi a 52 settimane: Stellantis, a 3,13 euro dopo un -3,56%, e Moncler, a 39,49 euro con volumi in aumento del 37,18%.",
+  "verifica": "confermato",
+  "nota_revisore": "33/40, -6,08% da inizio settimana, Moncler e Stellantis ai minimi a 52 settimane confermati (Money.it; ANSA non riporta 33/40 ne' il -6,08%). -2,48% e 48.703,72 coerenti con il PDF."
+ },
+ {
+  "id": "N08",
+  "trovato": "Investrade: University of Michigan surveys of consumers sentiment final Nov 51.5 (consensus 51.5) vs preliminary Nov 51.0... | University of Michigan surveys of consumers 1-year inflation outlook final Nov 3.7% vs prelim 4.3% and final Oct 4.7% | University of Michigan surveys of consumers 5-year inflation outlook final Nov 3.3% vs prelim 3.4% and final Oct 3.5%",
+  "verifica": "confermato",
+  "nota_revisore": "51,5 (prelim. 51,0), 3,7% a un anno e 3,3% a cinque anni confermati. Ma il consensus era 51,5: nell'agenda p.5 il simbolo '▲ sopra' e' falso rispetto alle attese (dato in linea); e' sopra solo la stima preliminare. Le attese a un anno sono scese da 4,3% (prelim.) e 4,7% (ottobre): il PDF presenta il 3,7% senza dire che cala. Stock Titan: indice da 48,0 di ottobre."
+ },
+ {
+  "id": "N09",
+  "trovato": "Investrade: Bitcoin slumped to a near five-month low on Friday and was posted a seventh straight week of losses. | As the dollar rises, Bitcoin falls further, dropping over 5% to around $58,000 to a near five-month low... Schwab: Crypto-related stocks plunged as bitcoin slipped toward $58,000 by market close.",
+  "verifica": "confermato",
+  "nota_revisore": "Minimo da quasi cinque mesi, sette settimane di perdite e livello verso/intorno a 58.000 $ confermati; Investrade dice anche 'below $60,000' in un'altra sezione. Schwab non parla di minimo da cinque mesi."
+ },
+ {
+  "id": "N03",
+  "trovato": "Korea Times: The benchmark KOSPI closed at 4,708.54, down 3.31 percent, its lowest finish since Jan. 13. A sell-side sidecar was triggered at 11:33 a.m. The index opened 2.77 percent lower and plunged as much as 5 percent intraday, briefly slipping to 4,586.8. JKN: It was triggered for the second consecutive day following the 20th.",
+  "verifica": "confermato",
+  "nota_revisore": "Chiusura, -3,31%, minimo dal 13 gennaio, sidecar alle 11:33 e minimo 4.586,80 confermati. 'Tokyo chiusa per festa' non compare nelle due pagine (non verificato da fonte). Il PDF ha il Kospi del 23/11 vs 4.869,96 di venerdi': 4.708,54+161,42 = 4.869,96, coerente con JKN."
+ },
+ {
+  "id": "K01",
+  "trovato": "Investrade (ET): 9:45 AM ET S&P Global Composite PMI, Nov-flash. LiteFinance (GMT): Eurozone 09:00 'Composite Purchasing Managers' Index of Eurozone Manufacturing Activity by S&P Global (Preliminary Release)'; 14:45 – USD: Manufacturing and Services Purchasing Managers' Index of the US Economy by S&P Global.",
+  "verifica": "confermato",
+  "nota_revisore": "Area euro 09:00 GMT = 10:00 Roma; Stati Uniti 9:45 ET = 14:45 GMT = 15:45 Roma: orari giusti. Investrade non nomina la regione ne' l'area euro; l'area euro e' confermata solo da LiteFinance."
+ },
+ {
+  "id": "K02",
+  "trovato": "FinancialJuice: Consumer Confidence: 91.7, up from 84.2. (Tuesday 24 November, 10:00 ET) Investrade: 10:00 AM ET Consumer Confidence for November. LiteFinance: Previous indicator values: 91.7, 81.9, 89.4, 90.8",
+  "verifica": "confermato",
+  "nota_revisore": "Martedi' 24, 10:00 ET = 16:00 Roma e prima 91,7 confermati. Nota: i dati precedenti di LiteFinance (81,9; 89,4; 90,8) non coincidono con il 84,2 di FinancialJuice come mese precedente; il 91,7 e' comunque lo stesso."
+ },
+ {
+  "id": "K04",
+  "trovato": "FinancialJuice (Wed 25 Nov, 08:30 ET): Headline PCE: +0.5% MoM, +3.6% YoY. Core PCE: +0.3% MoM, +3.1% YoY. Investrade: 8:30 AM ET PCE Price Index Y/Y for October. LiteFinance: Previous values YoY: +3.1% in September",
+  "verifica": "confermato",
+  "nota_revisore": "Data e ora (14:30 Roma) confermate; i valori sono quelli precedenti (settembre). Nel PDF la colonna si chiama 'Attese' ma riporta valori precedenti, non consensus: rinominare in 'Prima'."
+ },
+ {
+  "id": "K05",
+  "trovato": "FinancialJuice (Wed 25 Nov, 08:30 ET): Real GDP: +3.4% annualized, following +2.2% in Q2. LiteFinance: 13:30 – USD: US GDP Annual Growth Rate for Q3 (Second Estimate). In Q2 2026, GDP posted +2.2% after +2.1% in Q1",
+  "verifica": "confermato",
+  "nota_revisore": "Mercoledi' 25, 8:30 ET = 14:30 Roma, seconda stima, precedente +3,4% annualizzato confermati. Anche qui la colonna 'Attese' del PDF contiene il valore precedente, non il consensus."
+ },
+ {
+  "id": "K06",
+  "trovato": "Investrade: U.S. stock and bond markets closed in observance of Thanksgiving Day holiday (Thursday 26 Nov). U.S. stock markets close at 1:00 PM ET and bond markets at 2:00 pm et. (Friday 27 Nov)",
+  "verifica": "confermato",
+  "nota_revisore": "Chiusura giovedi' 26 di azioni e titoli di Stato e chiusura anticipata delle azioni alle 13:00 ET (19:00 Roma) confermate. FinancialJuice non cita la chiusura anticipata. Nota: i titoli di Stato chiudono alle 14:00 ET (20:00 Roma) venerdi'."
+ },
+ {
+  "id": "N04",
+  "trovato": "Sul comparto pesa l'effetto combinato della possibile stetta della Bce sui requisiti pèatrimoniali obbligatori e l'incremento di 3 punti dell'Ires proposto dalla Lega come emendamento alla Manovra.",
+  "verifica": "confermato",
+  "nota_revisore": "ANSA (refusi originali nel testo). Elenco bancari ANSA: Banco Bpm -3,02%, Bper -2,63%, Unicredit -2,54%, Intesa -2,41%, Mps -2,25%, Mediobanca -1,9%: 'tra il 2% e il 3%' e' approssimato (Mediobanca sotto il 2, Banco Bpm appena sopra il 3). Frase estratta via WebFetch (riassunto del modello), non testo integrale."
+ },
+ {
+  "id": "D05",
+  "trovato": "Jensen Huang has resigned as President, Chief Executive Officer, and a member of the Board, effective immediately.",
+  "verifica": "confermato",
+  "nota_revisore": "8-K/comunicato SEC datato 'SANTA CLARA, Calif., November 12, 2026'; Kress: 'has agreed to serve as Interim Chief Executive Officer.' Tutte le affermazioni coincidono."
+ },
+ {
+  "id": "N11",
+  "trovato": "South Korea will be ready to deploy market stabilisation funds immediately should the market continue to fall",
+  "verifica": "confermato",
+  "nota_revisore": "Frase Reuters (Euronext) per il fondo; Korea Times: 'ease share buyback restrictions and crack down on illegal short selling for three months'. Attenzione: Korea Times dice 'preparations to activate a stock market stabilization fund'; la pagina Euronext non nomina Seul ma 'South Korea' ne' i riacquisti. Le due fonti insieme coprono la frase."
+ },
+ {
+  "id": "D14",
+  "trovato": "was triggered for the second consecutive day following the 20th",
+  "verifica": "confermato",
+  "nota_revisore": "JKN: stranieri hanno venduto circa 247,2 mld di won 'maintaining a selling trend for the 7th consecutive trading day'; sidecar alle 11:33 del 23. Il -3,31% e' coerente con le altre fonti (Korea Times: -3,3%). Korea Times non conferma 'settima seduta' ne' il dato in won (parla di 55 trilioni da settembre): conferma solo da JKN. Frasi di JKN da riassunto WebFetch, il primo frammento puo' essere parafrasato."
+ },
+ {
+  "id": "D03",
+  "trovato": "A couple of participants noted that an increase of more than 25 basis points could warrant consideration at the next meeting if incoming inflation data were unfavorable.",
+  "verifica": "confermato",
+  "nota_revisore": "Newsquawk riporta il testo dei verbali: 'almost all participants judged that ... further action to raise the target range for the federal funds rate ... would likely be appropriate'. Nota: il verbale condiziona l'ipotesi a dati sull'inflazione sfavorevoli; 'quasi tutti' = 'almost all'. Fatto rispettato."
+ },
+ {
+  "id": "N01",
+  "trovato": "Nvidia shares plunged 14 percent on Friday, bringing their losses for the week to more than 20 percent.",
+  "verifica": "confermato",
+  "nota_revisore": "AFP/Manila Times: 'The Securities and Exchange Commission (SEC) inquiry is in its early stages' (fonte NYT, persone informate) e 'The probe could end without any charges being brought against the company.' Si tratta di inchiesta riportata dalla stampa, non confermata dalla SEC nella pagina."
+ },
+ {
+  "id": "N10",
+  "trovato": "December US gold futures settled 4.6 per cent lower at $3,515.40 an ounce, per BusinessLine.",
+  "verifica": "confermato",
+  "nota_revisore": "Pagina Stockpil (aggregatore, 22/11, cita BusinessLine): 'Bullion ended the week down about 9.4 per cent'. Fonti Investrade e Schwab non ritrovate (URL non restituiti dalla ricerca); CNBC non apribile; stockmarketwatch negata. Fonte secondaria, ma cifre coincidono."
+ },
+ {
+  "id": "N06",
+  "trovato": "Der Eurozonen-Leitindex EuroStoxx 50 büßte 2,81 Prozent auf 5.941,95 Punkte ein.",
+  "verifica": "confermato",
+  "nota_revisore": "dpa-AFX su onvista: 'Damit erreichte er den tiefsten Stand seit Mai und schraubte seinen Wochenverlust auf sieben Prozent hoch.' Pagina finanznachrichten non aperta; verifica fatta sulla versione onvista dello stesso lancio."
+ },
+ {
+  "id": "N12",
+  "trovato": "Taiwanese shares were down 17% for the week, their biggest weekly fall since 1990",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters via Euronext. Frase estratta tramite WebFetch."
+ }
+]

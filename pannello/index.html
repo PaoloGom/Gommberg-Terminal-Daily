@@ -356,8 +356,7 @@ td.na{color:var(--muted)}
 "use strict";
 /* ============ Impostazioni ============
    S: soglie. Per ogni misura [verde fino a, rosso oltre] (o "sotto" se conta di più alto).
-   RIF: il piano a cui si rapporta il consumo. */
-var RIF="Pro";
+   Il piano di Claude non è qui: sta in piani.json, con la sua data di inizio. */
 var S={uscita:"09:45",punt:[90,75],consumo:[25,35],fr:[18,21],lunghe:[10,15],prim:[40,25],schede:[25,18]};
 /* MISURE di Qualità: campo di registro.json, nome, gruppo, soglia (o null), meglio se bassa, unità, decimali, riferimento senza
    semaforo, spiegazione. Una misura compare solo se nei dati c'è almeno un valore: per aggiungerne una (per esempio quelle di
@@ -413,49 +412,60 @@ function plur(n,a,b){return n==1?a:b}
 
 /* ============ Stato ============ */
 var D=null,ED={},INV={invii:[],regole:{}},app=document.getElementById("app"),tip=document.getElementById("tip"),LIM=mi(S.uscita);
-var st0={p:"panoramica",per:10,v:"",un:"pt",mq:"",ev:"ed",sort:{k:"n",dir:-1},sortv:{k:"v",dir:-1},sel:null};
+var st0={p:"panoramica",per:10,v:"",un:"",mq:"",ev:"ed",sort:{k:"n",dir:-1},sortv:{k:"v",dir:-1},sel:null};
 function leggiHash(){var h=(location.hash||"").slice(1).toLowerCase();var met=h=="metodo";if(h=="versioni")st0.ev="ve";h=ALIAS[h]||h;st0.p=PAG.some(function(p){return p.id==h})?h:"panoramica";return met}
 var apriMetodo=leggiHash();
 function leggi(u){return fetch(u,{cache:"no-store"}).then(function(r){return r.ok?r.json():[]}).catch(function(){return []})}
-Promise.all([leggi("registro.json"),leggi("taratura.json"),leggi("../edizioni.json"),leggi("invii.json")]).then(function(r){
+Promise.all([leggi("registro.json"),leggi("taratura.json"),leggi("../edizioni.json"),leggi("invii.json"),leggi("piani.json")]).then(function(r){
   if(r[3]&&Array.isArray(r[3].invii))INV=r[3];
   (Array.isArray(r[2])?r[2]:[]).forEach(function(e){if(e&&e.numero)ED[e.numero]=e});
   if(!Array.isArray(r[0])||!r[0].length){document.getElementById("sottotitolo").textContent="";app.innerHTML='<div class="card vuoto">Nessuna edizione registrata. La prima riga arriva con la prossima uscita.</div>';return}
-  prepara(r[0],Array.isArray(r[1])?r[1]:[]);disegna();if(apriMetodo)metodo()});
+  prepara(r[0],Array.isArray(r[1])?r[1]:[],Array.isArray(r[4])?r[4]:[]);disegna();if(apriMetodo)metodo()});
 
 /* ============ Dati ============ */
-function prepara(reg,tar){
+function prepara(reg,tar,piani){
   reg=reg.filter(function(x){return x&&x.n&&x.d}).sort(function(a,b){return a.n-b.n});
-  tar=tar.filter(function(x){return x.durata_min>0&&x.punti>0});
-  var piano=tar.some(function(x){return x.piano==RIF})?RIF:(tar.length?tar[tar.length-1].piano:null),tt=tar.filter(function(x){return x.piano==piano});
-  var tasso=tt.length?tt.reduce(function(s,x){return s+x.punti},0)/tt.reduce(function(s,x){return s+x.durata_min},0):null;
-  var mis=reg.filter(function(x){return x.pesati>0&&x.durata_min>0});
-  var tokMin=mis.length?mis.reduce(function(s,x){return s+x.pesati},0)/mis.reduce(function(s,x){return s+x.durata_min},0):null,tokPunto=tasso&&tokMin?tokMin/tasso:null;
+  tar=tar.filter(function(x){return x.durata_min>0&&x.punti>0&&!x.escluso});
+  /* Il piano di ogni edizione è quello in vigore al momento dell'uscita (piani.json: nome e inizio). Ogni piano ha il suo
+     tasso, dalle sole letture vere fatte su quel piano: senza letture il rapporto è "in taratura" e restano i token. */
+  var PI=piani.filter(function(x){return x&&x.piano}).map(function(x){var d=String(x.dal||"");return {nome:x.piano,dal:d.slice(0,16)}}).sort(function(a,b){return a.dal<b.dal?-1:a.dal>b.dal?1:0});
+  PI.forEach(function(q){
+    var tt=tar.filter(function(x){return x.piano==q.nome});
+    q.tasso=tt.length?tt.reduce(function(s,x){return s+x.punti},0)/tt.reduce(function(s,x){return s+x.durata_min},0):null;
+    q.tmin=tt.length?Math.min.apply(null,tt.map(function(x){return x.punti/x.durata_min})):null;
+    q.tmax=tt.length?Math.max.apply(null,tt.map(function(x){return x.punti/x.durata_min})):null});
+  var P={};PI.forEach(function(q){P[q.nome]=q});
+  reg.forEach(function(x){var t=x.d+"T"+(x.ora||"12:00"),q=null;PI.forEach(function(y){if(y.dal<=t)q=y});x.pn=q?q.nome:null});
+  PI.forEach(function(q){
+    var mis=reg.filter(function(x){return x.pn==q.nome&&x.pesati>0&&x.durata_min>0});
+    q.tokPunto=q.tasso&&mis.length?mis.reduce(function(s,x){return s+x.pesati},0)/mis.reduce(function(s,x){return s+x.durata_min},0)/q.tasso:null});
   reg.forEach(function(x){
+    var q=P[x.pn]||{};
     x.misurata=x.pesati>0;
-    x.pt=!tasso?null:x.misurata&&tokPunto?x.pesati/tokPunto:(isn(x.durata_min)?x.durata_min*tasso:null);
+    x.pt=!q.tasso?null:x.misurata&&q.tokPunto?x.pesati/q.tokPunto:(isn(x.durata_min)?x.durata_min*q.tasso:null);
     x.fine=mi(x.ora);x.inizio=mi(x.avvio);x.tardi=x.fine!=null&&x.fine>LIM;x.v=x.v||"?";
     x.tok=x.misurata?x.pesati:null});
   var vers=[];reg.forEach(function(x){var l=vers[vers.length-1];if(!l||l.v!=x.v){l={v:x.v,r:[]};vers.push(l)}l.r.push(x)});
   vers.forEach(function(g){var s=riassunto(g.r);for(var k in s)g[k]=s[k];g.dal=g.r[0].d;g.al=g.r[g.r.length-1].d;g.kb=g.r[g.r.length-1].avvio_kb});
-  D={reg:reg,tar:tar,piano:piano,tasso:tasso,vers:vers,
-     tmin:tt.length?Math.min.apply(null,tt.map(function(x){return x.punti/x.durata_min})):null,
-     tmax:tt.length?Math.max.apply(null,tt.map(function(x){return x.punti/x.durata_min})):null};
+  D={reg:reg,tar:tar,P:P,vers:vers};
   MISURE=MISURE.filter(function(m){return reg.some(function(x){return isn(x[m.k])})});
 }
-/* Le misure di un gruppo di edizioni: medie, puntualità, uscita mediana, consumo. */
+/* Le misure di un gruppo di edizioni: medie, puntualità, uscita mediana, consumo. I punti si rapportano al piano dell'ultima
+   edizione del gruppo ("pn"): le edizioni di un altro piano restano nei token e nelle durate, non nelle medie dei punti. */
 function riassunto(F){
-  var s={n:F.length};
+  var s={n:F.length,pn:F.length?F[F.length-1].pn:null};
   s.punt=F.length?F.filter(function(x){return !x.tardi}).length/F.length*100:null;
   s.tardi=F.filter(function(x){return x.tardi});
   s.uscMed=mediana(F.map(function(x){return x.fine}));
   s.dur=med(F.map(function(x){return x.durata_min}));
-  s.pt=med(F.map(function(x){return x.pt}));
+  s.pt=med(F.filter(function(x){return x.pn==s.pn}).map(function(x){return x.pt}));
   s.sett=isn(s.pt)?s.pt*5:null;
   s.tok=med(F.map(function(x){return x.tok}));
   s.nmis=F.filter(function(x){return x.misurata}).length;
   MISURE.concat([{k:"parole"}]).forEach(function(m){s[m.k]=med(F.map(function(x){return x[m.k]}))});
   return s}
+/* Il piano di un riassunto: nome e tasso (senza tasso il rapporto è "in taratura"). */
+function piano(s){return D.P[s.pn]||{nome:s.pn||"-",tasso:null}}
 /* La versione precedente con almeno 3 edizioni (una versione da 1-2 edizioni non fa da confronto). */
 function prec(gi){for(var q=gi-1;q>=0;q--)if(D.vers[q].r.length>=3)return D.vers[q];return null}
 /* Il periodo scelto e il confronto: con "tutte le versioni" il confronto sono le edizioni subito prima, con una versione la versione prima. */
@@ -469,7 +479,9 @@ function finestra(){
     F=all.slice(-st0.per);var i0=all.length-F.length,pn=Math.min(F.length,i0);
     if(pn>=3){P=all.slice(i0-pn,i0);lab="le "+pn+" precedenti";labS=pn+" prec."}
   }
-  return {F:F,P:P,lab:lab,labS:labS,a:riassunto(F),b:P?riassunto(P):null}}
+  var a=riassunto(F),b=P?riassunto(P):null;
+  if(b&&b.pn!=a.pn){b.pt=null;b.sett=null}            /* i punti di due piani diversi non si confrontano */
+  return {F:F,P:P,lab:lab,labS:labS,a:a,b:b}}
 
 /* ============ Pezzi comuni ============ */
 var FRECCIA={su:'<svg viewBox="0 0 10 10"><path d="M5 1.5L9 7.5H1z"/></svg>',giu:'<svg viewBox="0 0 10 10"><path d="M5 8.5L1 2.5h8z"/></svg>'};
@@ -566,7 +578,7 @@ var CHIAVI=["data-per","data-un","data-ev","data-vf","data-mq","data-sort","data
 function chiaveFuoco(el){if(!el||el==document.body||drawer.contains(el))return null;if(el.id)return "#"+el.id;for(var i=0;i<CHIAVI.length;i++){var v=el.getAttribute&&el.getAttribute(CHIAVI[i]);if(v!=null)return el.tagName.toLowerCase()+"["+CHIAVI[i]+'="'+v.replace(/"/g,'\\"')+'"]'}return null}
 function disegna(){var fk=chiaveFuoco(document.activeElement);disegna0();if(fk){var el=document.querySelector(fk);if(el&&el.focus)try{el.focus({preventScroll:true})}catch(e){}}}
 function disegna0(){
-  var w=finestra(),F=w.F,a=w.a,b=w.b,P=D.piano||"Pro";D.reg.forEach(function(x){x.ultimo=false});if(F.length)F[F.length-1].ultimo=true;vsTxt=w.labS?' <span>vs '+esc(w.labS)+"</span>":"";
+  var w=finestra(),F=w.F,a=w.a,b=w.b;D.reg.forEach(function(x){x.ultimo=false});if(F.length)F[F.length-1].ultimo=true;vsTxt=w.labS?' <span>vs '+esc(w.labS)+"</span>":"";
   /* barra laterale */
   var allarmi=listaAllarmi(w);
   var dg=daGuardareInvii().length;
@@ -599,17 +611,17 @@ var GR={};
 /* --- da guardare: misure fuori soglia, ritardi, consumo --- */
 function listaAllarmi(w){var a=w.a,F=w.F,L=[];
   var sp=st(a.punt,S.punt);if(a.tardi.length&&sp!="ok")L.push({s:sp,t:a.tardi.length+" "+plur(a.tardi.length,"uscita","uscite")+" dopo le "+S.uscita,d:a.tardi.slice(-3).map(function(x){return breve(x.d)+" alle "+x.ora}).join(" · "),go:"puntualita"});
-  var sc=st(a.sett,S.consumo,1);if(sc&&sc!="ok")L.push({s:sc,t:"Consumo sopra la soglia",d:"≈ "+it(a.sett,0)+" punti "+esc(D.piano||RIF)+" a settimana, soglia "+S.consumo[0],go:"consumo"});
+  var sc=st(a.sett,S.consumo,1);if(sc&&sc!="ok")L.push({s:sc,t:"Consumo sopra la soglia",d:"≈ "+it(a.sett,0)+" punti "+esc(piano(a).nome)+" a settimana, soglia "+S.consumo[0],go:"consumo"});
   MISURE.forEach(function(m){if(!m.s)return;var s=st(a[m.k],m.s,m.basso);if(s&&s!="ok"){var ul=F[F.length-1][m.k];
     L.push({s:s,t:m.n+(m.basso?" sopra la soglia":" sotto la soglia"),d:"Media "+fv(a[m.k],m.d,m.u)+", soglia "+it(m.s[0],0)+m.u+(isn(ul)?" · ultima "+fv(ul,m.d,m.u):""),go:"qualita",mq:m.k})}});
   var o={ko:0,att:1};L.sort(function(x,y){return o[x.s]-o[y.s]});return L}
 
 /* ================= PANORAMICA ================= */
-function panoramica(w,allarmi){var a=w.a,b=w.b||{},F=w.F,P=D.piano||RIF,u=F[F.length-1];
+function panoramica(w,allarmi){var a=w.a,b=w.b||{},F=w.F,Q=piano(a),P=Q.nome,u=F[F.length-1];
   var h='<div class="row r5">'
    +kpi({go:"puntualita",l:"Puntualità",s:st(a.punt,S.punt),v:it(a.punt,0)+"%",d:delta(a.punt,b.punt,0,0," pt"),n:(F.length-a.tardi.length)+" su "+F.length+" entro le "+S.uscita,spark:striscia(F)})
    +kpi({go:"puntualita",l:"Uscita mediana",s:isn(a.uscMed)?(a.uscMed<=LIM?"ok":"ko"):"",v:isn(a.uscMed)?ora(a.uscMed):"-",d:dMin(a.uscMed,b.uscMed),n:"obiettivo "+S.uscita+" · ultima "+(u.ora||"-"),spark:spark(F,function(x){return x.fine!=null?Math.min(x.fine,615):null},200,34,LIM)})
-   +kpi({go:"consumo",l:"Consumo",s:st(a.sett,S.consumo,1),v:isn(a.sett)?"≈ "+it(a.sett,0):"-",u:"su 100",d:delta(a.sett,b.sett,1,0,""),n:"punti "+esc(P)+" a settimana · soglia "+S.consumo[0],spark:spark(F,function(x){return x.pt},200,34,null)})
+   +kpi({go:"consumo",l:"Consumo",s:st(a.sett,S.consumo,1),v:isn(a.sett)?"≈ "+it(a.sett,0):"-",u:isn(a.sett)?"su 100":"",d:delta(a.sett,b.sett,1,0,""),n:"punti "+esc(P)+(Q.tasso?" a settimana · soglia "+S.consumo[0]:" · in taratura"),spark:spark(F,function(x){return x.pn==a.pn?x.pt:null},200,34,null)})
    +kpi({go:"qualita",mq:"fr",l:"Parole per frase",s:st(a.fr,S.fr,1),v:fv(a.fr,1),d:delta(a.fr,b.fr,1,1,""),n:"soglia "+S.fr[0]+" · ultima "+fv(u.fr,1),spark:spark(F,function(x){return x.fr},200,34,S.fr[0])})
    +kpi({go:"qualita",mq:"prim",l:"Fonti primarie",s:st(a.prim,S.prim),v:fv(a.prim,0,"%"),d:delta(a.prim,b.prim,0,0," pt"),n:"soglia "+S.prim[0]+"% · ultima "+fv(u.prim,0,"%"),spark:spark(F,function(x){return x.prim},200,34,S.prim[0])})
    +"</div>";
@@ -622,7 +634,8 @@ function panoramica(w,allarmi){var a=w.a,b=w.b||{},F=w.F,P=D.piano||RIF,u=F[F.le
     :'<ul class="alerts"><li class="ok"><button type="button" data-go="qualita"><span class="ic"><svg viewBox="0 0 24 24">'+IC.ok+"</svg></span><span><b>Tutto in soglia</b><span>Puntualità, consumo e qualità rispettano le soglie nel periodo.</span></span></button></li></ul>";
   /* versione in linea contro la precedente */
   var V=D.vers,gi=V.length-1;if(st0.v)V.forEach(function(g,i){if(g.v==st0.v)gi=i});var vu=V[gi],pv=prec(gi),cv="";
-  if(pv){var rr=[["Entro le "+S.uscita,vu.punt,pv.punt,0,0,"%"," pt"],["Durata",vu.dur,pv.dur,1,0," min"," min"],["Punti "+esc(P)+" a edizione",vu.pt,pv.pt,1,1,"",""],["Parole per frase",vu.fr,pv.fr,1,1,"",""],["Frasi oltre 30 parole",vu.lunghe,pv.lunghe,1,0,"%"," pt"],["Fonti primarie",vu.prim,pv.prim,0,0,"%"," pt"]];
+  if(pv){var rr=[["Entro le "+S.uscita,vu.punt,pv.punt,0,0,"%"," pt"],["Durata",vu.dur,pv.dur,1,0," min"," min"],["Punti "+esc(piano(vu).nome)+" a edizione",vu.pt,vu.pn==pv.pn?pv.pt:null,1,1,"",""],["Parole per frase",vu.fr,pv.fr,1,1,"",""],["Frasi oltre 30 parole",vu.lunghe,pv.lunghe,1,0,"%"," pt"],["Fonti primarie",vu.prim,pv.prim,0,0,"%"," pt"]];
+    rr=rr.filter(function(r){return isn(r[1])||isn(r[2])});
     cv='<div class="cmp">'+rr.map(function(r){return "<div><span>"+r[0]+"</span><em>"+fv(r[1],r[4],r[5])+" · "+fv(r[2],r[4],r[5])+"</em>"+(delta(r[1],r[2],r[3],r[4],r[6])||"<em>-</em>")+"</div>"}).join("")+"</div>"}
   var side='<div class="stack">'+card("Da guardare",allarmi.length?allarmi.length+" "+plur(allarmi.length,"punto","punti")+" nel periodo · clic per il dettaglio":"Nel periodo scelto",al,{})
     +(cv?card("Le istruzioni "+esc(vu.v)+" contro le "+esc(pv.v),vu.n+" contro "+pv.n+" edizioni · medie per versione",cv,{info:"confronto"}):"")+"</div>";
@@ -634,10 +647,10 @@ function cella(x,k){var v=x[k],s="",t;
   if(k=="ora"){t=x.ora||"-";s=x.fine!=null?(x.tardi?"ko":""):""}
   else if(k=="avvio"){t=x.avvio||"-"}
   else if(k=="durata_min"){t=isn(v)?v+" min":"-"}
-  else if(k=="pt"){t=isn(v)?(x.misurata?"":"≈ ")+it(v,1):"-"}
+  else if(k=="pt"){t=isn(v)?(x.misurata?"":"≈ ")+it(v,1):D.P[x.pn]&&!D.P[x.pn].tasso?"in taratura":"-"}
   else if(k=="tok"){t=isn(v)?mln(v):"-"}
   else{var m=MISURE.filter(function(z){return z.k==k})[0]||{d:0,u:""};t=fv(v,m.d,m.u);if(SOG[k])s=st(v,SOG[k][0],SOG[k][1]);if(s=="ok")s=""}
-  return '<td class="c '+(t=="-"?"na ":"")+s+'"><span>'+t+"</span></td>"}
+  return '<td class="c '+(t=="-"||t=="in taratura"?"na ":"")+s+'"><span>'+t+"</span></td>"}
 function riga(x,cols){return '<tr class="cl'+(st0.sel==x.n?" on":"")+'" data-ed="'+x.n+'" tabindex="0"><td><span class="e">'+num(x.n)+'</span><span class="dt">'+data(x.d)+"</span></td>"+cols.map(function(c){return cella(x,c[0])}).join("")+"</tr>"}
 
 /* ================= PUNTUALITÀ ================= */
@@ -657,22 +670,23 @@ function puntualita(w){var a=w.a,b=w.b||{},F=w.F,u=F[F.length-1];
   return h}
 
 /* ================= CONSUMO ================= */
-function consumo(w){var a=w.a,b=w.b||{},F=w.F,P=D.piano||RIF,un=st0.un;if(un=="pt"&&!D.tasso)un=a.nmis?"tok":"min";if(un=="tok"&&!a.nmis)un=D.tasso?"pt":"min";
+function consumo(w){var a=w.a,b=w.b||{},F=w.F,Q=piano(a),P=Q.nome,un=st0.un,ha=F.some(function(x){return isn(x.pt)}),ult=F.filter(function(x){return isn(x.pt)}).pop(),PP=ult?ult.pn:P;
+  if(!un)un=isn(F[F.length-1].pt)?"pt":a.nmis?"tok":"min";if(un=="pt"&&!ha)un=a.nmis?"tok":"min";if(un=="tok"&&!a.nmis)un=ha?"pt":"min";
   var h='<div class="row r4">'
-   +kpi({go:"consumo",l:"Consumo",s:st(a.sett,S.consumo,1),v:isn(a.sett)?"≈ "+it(a.sett,0):"-",u:"su 100",d:delta(a.sett,b.sett,1,0,""),n:"punti "+esc(P)+" a settimana · soglia "+S.consumo[0]})
-   +kpi({go:"consumo",l:"Punti a edizione",v:isn(a.pt)?"≈ "+it(a.pt,1):"-",u:"punti",d:delta(a.pt,b.pt,1,1,""),n:D.tasso&&isn(a.pt)?"tra "+it(a.pt*D.tmin/D.tasso,1)+" e "+it(a.pt*D.tmax/D.tasso,1)+" secondo la taratura":""})
+   +kpi({go:"consumo",l:"Consumo",s:st(a.sett,S.consumo,1),v:isn(a.sett)?"≈ "+it(a.sett,0):"-",u:isn(a.sett)?"su 100":"",d:delta(a.sett,b.sett,1,0,""),n:"punti "+esc(P)+(Q.tasso?" a settimana · soglia "+S.consumo[0]:" · in taratura")})
+   +kpi({go:"consumo",l:"Punti a edizione",v:isn(a.pt)?"≈ "+it(a.pt,1):"-",u:isn(a.pt)?"punti":"",d:delta(a.pt,b.pt,1,1,""),n:Q.tasso&&isn(a.pt)?"tra "+it(a.pt*Q.tmin/Q.tasso,1)+" e "+it(a.pt*Q.tmax/Q.tasso,1)+" secondo la taratura":Q.tasso?"":"in taratura"})
    +kpi({go:"consumo",l:"Token a edizione",v:isn(a.tok)?mln(a.tok):"-",u:isn(a.tok)?"mln":"",d:delta(isn(a.tok)?a.tok/1e6:null,isn(b.tok)?b.tok/1e6:null,1,2,""),n:"token pesati · "+a.nmis+" "+plur(a.nmis,"misurata","misurate")+" su "+F.length})
    +kpi({go:"consumo",l:"Durata media",v:fv(a.dur,0),u:"min",d:dMin(a.dur,b.dur),n:senzaDur(F)})
    +"</div>";
-  var tools='<div class="seg" role="group" aria-label="Misura">'+[["pt","Punti "+esc(P)],["tok","Token"],["min","Minuti"]].map(function(o){return '<button type="button" data-un="'+o[0]+'" aria-pressed="'+(un==o[0])+'"'+((o[0]=="tok"&&!a.nmis)||(o[0]=="pt"&&!D.tasso)?" disabled":"")+">"+o[1]+"</button>"}).join("")+"</div>";
+  var tools='<div class="seg" role="group" aria-label="Misura">'+[["pt","Punti "+esc(PP)],["tok","Token"],["min","Minuti"]].map(function(o){return '<button type="button" data-un="'+o[0]+'" aria-pressed="'+(un==o[0])+'"'+((o[0]=="tok"&&!a.nmis)||(o[0]=="pt"&&!ha)?" disabled":"")+">"+o[1]+"</button>"}).join("")+"</div>";
   GR.cons=function(W){var o={pt:{val:function(x){return x.pt},fmt:function(v){return "≈ "+it(v,1)},est:function(x){return !x.misurata}},tok:{val:function(x){return isn(x.tok)?x.tok/1e6:null},fmt:function(v){return it(v,2)+" mln"}},min:{val:function(x){return x.durata_min},fmt:function(v){return it(v,0)+" min"}}}[un];
-    o.tip=function(x){return (isn(x.pt)?"≈ "+it(x.pt,1)+" punti "+esc(P)+"<br>":"")+(x.misurata?mln(x.tok)+" mln di token pesati · "+x.richieste+" passi":isn(x.durata_min)?"Stima dalla durata: "+x.durata_min+" min":"Durata non nota")};
+    o.tip=function(x){return (isn(x.pt)?"≈ "+it(x.pt,1)+" punti "+esc(x.pn)+"<br>":D.P[x.pn]&&!D.P[x.pn].tasso?esc(x.pn)+": rapporto in taratura<br>":"")+(x.misurata?mln(x.tok)+" mln di token pesati · "+x.richieste+" passi":isn(x.durata_min)?"Stima dalla durata: "+x.durata_min+" min":"Durata non nota")};
     o.lab="Consumo di ogni edizione.";return gColonne(F,W,W<620?242:322,o)};
   var leg=(un=="pt"?'<span><i></i>Misurato dai token</span><span><i class="est"></i>Stimato dalla durata</span>':'<span><i></i>Edizione</span>')+'<span><i class="acc"></i>Ultima edizione</span><span><i class="dash"></i>Media</span>';
-  var main=card("Consumo di ogni edizione",un=="pt"?"Punti del limite settimanale "+esc(P):un=="tok"?"Milioni di token pesati, solo edizioni misurate":"Minuti di attività",'<div data-g="cons"></div>',{tools:tools,info:"consumo",leg:leg});
+  var main=card("Consumo di ogni edizione",un=="pt"?"Punti del limite settimanale "+esc(PP):un=="tok"?"Milioni di token pesati, solo edizioni misurate":"Minuti di attività",'<div data-g="cons"></div>',{tools:tools,info:"consumo",leg:leg});
   /* settimana tipo sul piano */
   var s=a.sett,resto=isn(s)?Math.max(0,100-s):null;
-  var met='<div class="big">'+(isn(s)?"≈ "+it(s,0):"-")+"<small>punti su 100</small></div>"
+  var met=!Q.tasso?'<div class="big">in taratura</div>':'<div class="big">'+(isn(s)?"≈ "+it(s,0):"-")+"<small>punti su 100</small></div>"
     +'<div class="meter" role="img" aria-label="Consumo settimanale stimato '+(isn(s)?it(s,0):"-")+' su 100, soglia '+S.consumo[0]+'"><i style="width:'+Math.min(100,s||0)+'%;background:var(--'+(st(s,S.consumo,1)=="ko"?"bad":st(s,S.consumo,1)=="att"?"warn":"accent")+')"></i><u style="left:'+S.consumo[0]+'%"></u><u class="w" style="left:'+S.consumo[1]+'%"></u></div>'
     +'<div class="mlab"><span style="left:0">0</span><span style="left:'+S.consumo[0]+'%">'+S.consumo[0]+'</span><span style="left:'+S.consumo[1]+'%">'+S.consumo[1]+'</span><span style="left:100%">100</span></div>'
     +'<div class="leg" style="padding:0;margin-top:6px"><span><i class="line"></i>Soglia '+S.consumo[0]+'</span><span><i class="line" style="background:var(--bad)"></i>Fuori soglia oltre '+S.consumo[1]+'</span></div>'
@@ -710,7 +724,7 @@ function qualita(w){var a=w.a,b=w.b||{},F=w.F,u=F[F.length-1];
 
 /* ================= EDIZIONI ================= */
 var COLE=[["n","Edizione",""],["v","Vers.",""],["avvio","Avvio","op"],["ora","Uscita","op"],["durata_min","Durata","op"],["pt","Punti","co"],["tok","Token (mln)","co"],["fr","Parole/frase","qu"],["lunghe","Frasi lunghe","qu"],["prim","Fonti prim.","qu"],["schede","Schede","qu"],["ricerche","Ricerche","qu"],["fonti","Pagine","qu"]];
-function edizioni(w){var F=w.F,P=D.piano||RIF;
+function edizioni(w){var F=w.F;
   var tools='<div class="seg" role="group" aria-label="Vista"><button type="button" data-ev="ed" aria-pressed="'+(st0.ev=="ed")+'">Per edizione</button><button type="button" data-ev="ve" aria-pressed="'+(st0.ev=="ve")+'">Per versione</button></div>';
   if(st0.ev=="ve"){document.getElementById("sottotitolo").textContent="Tutte le "+D.reg.length+" edizioni, per versione delle istruzioni";Array.prototype.forEach.call(document.querySelectorAll("[data-per]"),function(b){b.disabled=true});return '<div class="row">'+card("Le versioni delle istruzioni","Medie per versione su tutte le edizioni · clic su una riga per filtrare il pannello",tabVersioni(),{tools:tools,flush:true,info:"soglie"})+"</div>"}
   var extra=MISURE.filter(function(m){return m.tab&&!COLE.some(function(c){return c[0]==m.k})}).map(function(m){return [m.k,m.nb||m.n,"qu"]});
@@ -721,9 +735,9 @@ function edizioni(w){var F=w.F,P=D.piano||RIF;
   var th='<thead><tr class="grp">'+grp.map(function(g){return '<th colspan="'+g[1]+'">'+(g[0]?"<span>"+g[0]+"</span>":"")+"</th>"}).join("")+"</tr><tr>"+cols.map(function(c){return '<th class="so" tabindex="0" data-sort="'+c[0]+'"'+(sk==c[0]?' aria-sort="'+(sd<0?"descending":"ascending")+'"':"")+">"+c[1]+"</th>"}).join("")+"</tr></thead>";
   var tb="<tbody>"+R.map(function(x){return '<tr class="cl'+(st0.sel==x.n?" on":"")+'" data-ed="'+x.n+'" tabindex="0"><td><span class="e">'+num(x.n)+'</span><span class="dt">'+data(x.d)+"</span></td><td>"+esc(x.v)+"</td>"+cols.slice(2).map(function(c){return cella(x,c[0])}).join("")+"</tr>"}).join("")+"</tbody>";
   return '<div class="row">'+card("Tutte le edizioni del periodo",F.length+" "+plur(F.length,"edizione","edizioni")+" · clic su un'intestazione per ordinare, su una riga per il dettaglio · ≈ = punti stimati dalla durata",'<div class="tw tall"><table>'+th+tb+"</table></div>",{tools:tools,flush:true,info:"soglie"})+"</div>"}
-function tabVersioni(){var P=D.piano||RIF,V=D.vers.slice().reverse();
+function tabVersioni(){var V=D.vers.slice().reverse();
   function c(v,s,basso,d,u){var x=st(v,s,basso);return '<td class="c '+(x=="ok"?"":x)+'"><span>'+fv(v,d,u)+"</span></td>"}
-  return '<div class="tw"><table><thead><tr><th>Versione</th><th>Edizioni</th><th>Periodo</th><th>Entro '+S.uscita+'</th><th>Uscita mediana</th><th>Durata</th><th>Punti '+esc(P)+'</th><th>Token (mln)</th><th>Parole/frase</th><th>Frasi lunghe</th><th>Fonti prim.</th><th>Schede</th><th>Avvio (KB)</th></tr></thead><tbody>'
+  return '<div class="tw"><table><thead><tr><th>Versione</th><th>Edizioni</th><th>Periodo</th><th>Entro '+S.uscita+'</th><th>Uscita mediana</th><th>Durata</th><th>Punti</th><th>Token (mln)</th><th>Parole/frase</th><th>Frasi lunghe</th><th>Fonti prim.</th><th>Schede</th><th>Avvio (KB)</th></tr></thead><tbody>'
    +V.map(function(g){return '<tr class="cl'+(st0.v==g.v?" on":"")+'" data-vf="'+esc(g.v)+'" tabindex="0"><td><span class="e">'+esc(g.v)+"</span></td><td>"+g.n+"</td><td>"+breve(g.dal)+(g.al!=g.dal?" - "+breve(g.al):"")+"</td>"+c(g.punt,S.punt,0,0,"%")+'<td class="c '+(isn(g.uscMed)&&g.uscMed>LIM?"ko":"")+'"><span>'+(isn(g.uscMed)?ora(g.uscMed):"-")+"</span></td><td>"+fv(g.dur,0," min")+"</td><td>"+fv(g.pt,1)+"</td><td>"+(isn(g.tok)?mln(g.tok):"-")+"</td>"+c(g.fr,S.fr,1,1,"")+c(g.lunghe,S.lunghe,1,0,"%")+c(g.prim,S.prim,0,0,"%")+c(g.schede,S.schede,0,0,"")+"<td>"+fv(g.kb,0)+"</td></tr>"}).join("")+"</tbody></table></div>"}
 
 /* ================= INVII (mail straordinarie, G-17) ================= */
@@ -762,7 +776,7 @@ function apri(html){var era=drawer.classList.contains("on"),lab=era&&document.ac
 function chiudi(){drawer.classList.remove("on");scrim.classList.remove("on");st0.sel=null;Array.prototype.forEach.call(document.querySelectorAll("tr.on[data-ed]"),function(r){r.classList.remove("on")});var dst=prima&&document.body.contains(prima)?prima:null;if(!dst&&prima&&prima.getAttribute){var de=prima.getAttribute("data-ed");dst=de&&document.querySelector('tr[data-ed="'+de+'"]')}if(dst&&dst.focus)try{dst.focus()}catch(e){}}
 function edizione(n){var w=finestra(),reg=w.F,i=-1;reg.forEach(function(x,j){if(x.n==n)i=j});
   if(i<0){reg=D.reg;reg.forEach(function(x,j){if(x.n==n)i=j});if(i<0)return}
-  var x=reg[i],a=w.a,P=D.piano||RIF,e=ED[x.n]||{};st0.sel=x.n;
+  var x=reg[i],a=w.a,e=ED[x.n]||{};st0.sel=x.n;
   Array.prototype.forEach.call(document.querySelectorAll("tr[data-ed]"),function(r){r.classList.toggle("on",+r.getAttribute("data-ed")==x.n)});
   var pdf=e.file?"../"+e.file:null,pag="../e/"+("00"+x.n).slice(-3)+".html";
   function nav(j,lab,d){var ok=j>=0&&j<reg.length;return '<button class="ib" type="button" data-ed="'+(ok?reg[j].n:"")+'"'+(ok?"":" disabled")+' aria-label="'+lab+'"><svg viewBox="0 0 24 24"><path d="'+d+'"/></svg></button>'}
@@ -781,7 +795,7 @@ function edizione(n){var w=finestra(),reg=w.F,i=-1;reg.forEach(function(x,j){if(
   function sez(t){return '<tr class="sz"><th colspan="3">'+t+"</th></tr>"}
   var t='<table class="dt2"><thead><tr><th>Misura</th><th>Valore</th><th>Media periodo</th></tr></thead><tbody>'
     +sez("Orari")+r("Avvio",x.avvio||"-")+r("Uscita",x.ora||"-",x.tardi?"vko":"",x.tardi?"+"+Math.round(x.fine-LIM)+" min oltre":"mediana "+(isn(a.uscMed)?ora(a.uscMed):"-"))+r("Durata",fv(x.durata_min,0," min"),"",fv(a.dur,0," min"))
-    +sez("Consumo")+r("Punti "+esc(P),isn(x.pt)?(x.misurata?"":"≈ ")+it(x.pt,1):"-","",fv(a.pt,1))+r("Token pesati",x.misurata?mln(x.tok)+" mln":"-","",isn(a.tok)?mln(a.tok)+" mln":"-")
+    +sez("Consumo")+r("Punti "+esc(x.pn||"-"),isn(x.pt)?(x.misurata?"":"≈ ")+it(x.pt,1):D.P[x.pn]&&!D.P[x.pn].tasso?"in taratura":"-","",a.pn==x.pn?fv(a.pt,1):"-")+r("Token pesati",x.misurata?mln(x.tok)+" mln":"-","",isn(a.tok)?mln(a.tok)+" mln":"-")
     +(x.richieste?r("Chiamate al modello",String(x.richieste)):"")+r("Istruzioni lette all'avvio",fv(x.avvio_kb,0," KB"))
     +sez("Qualità e fonti")+MISURE.concat([{k:"parole",n:"Parole",d:0,u:""}]).filter(function(m){return isn(x[m.k])}).map(function(m){var s=st(x[m.k],m.s,m.basso);return r(m.n,fv(x[m.k],m.d,m.u),s&&s!="ok"?"v"+s:"",fv(a[m.k],m.d,m.u))}).join("")
     +"</tbody></table>";
@@ -792,14 +806,14 @@ function edizione(n){var w=finestra(),reg=w.F,i=-1;reg.forEach(function(x,j){if(
   apri(h+"</div>")}
 
 /* ================= METODO ================= */
-function metodo(sez){var P=D?D.piano||RIF:RIF,t=D?D.tar.slice().reverse():[];
+function metodo(sez){var Q=D?piano({pn:D.reg[D.reg.length-1].pn}):{nome:"-",tasso:null},t=D?D.tar.slice().reverse():[];
   var rows=[["Uscita","entro le "+S.uscita,"dopo le "+S.uscita],["Puntualità","almeno "+S.punt[0]+"%","sotto "+S.punt[1]+"%"],["Consumo a settimana","fino a "+S.consumo[0]+" punti","oltre "+S.consumo[1]]];
   MISURE.forEach(function(m){if(m.s)rows.push([m.n,(m.basso?"fino a ":"almeno ")+it(m.s[0],0)+m.u,(m.basso?"oltre ":"sotto ")+it(m.s[1],0)+m.u])});
   var h='<div class="dh"><div><h2 id="dtit">Metodo e soglie</h2><p>Come si leggono i numeri del pannello</p></div><div class="x"><button class="ib" type="button" data-chiudi aria-label="Chiudi"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div></div><div class="db">'
    +'<h3 id="m-soglie">Soglie</h3><p>Verde fino alla prima soglia, giallo fino alla seconda, rosso oltre. Nel pannello il colore di una variazione dice se è un miglioramento (verde) o un peggioramento (rosso); il segno + o − dice solo se il numero è salito o sceso.</p><table class="mtab"><thead><tr><th>Misura</th><th class="vok">In soglia</th><th class="vko">Fuori soglia</th></tr></thead><tbody>'+rows.map(function(r){return "<tr><td>"+r[0]+"</td><td>"+r[1]+"</td><td>"+r[2]+"</td></tr>"}).join("")+"</tbody></table>"
    +'<h3 id="m-confronto">Periodo e confronto</h3><p>Il periodo vale per tutte le pagine. Con tutte le versioni, ogni numero si confronta con le edizioni subito precedenti (stesso numero di edizioni); con una versione scelta, con tutta la versione prima (saltando quelle con meno di 3 edizioni).</p>'
    +'<h3 id="m-orari">Orari</h3><p>Avvio, uscita e durata li scrive il kit a ogni uscita. Fino alla #025 sono ricostruiti dalla cronologia dell\'attività; le edizioni rifatte a mano non hanno l\'avvio. L\'uscita mediana è l\'ora entro cui esce metà delle edizioni: non risente di un singolo giorno storto.</p>'
-   +'<h3 id="m-consumo">Consumo</h3><p>I token li somma un gancio dalla trascrizione della sessione, senza spendere token. Token pesati = ingresso + 2 × scritti in cache + 0,1 × letti dalla cache + 5 × scritti dal modello.</p><p>I punti del piano '+esc(P)+" sono una stima: quando un'edizione ha i token misurati seguono i token, altrimenti la durata × il tasso delle letture vere della pagina Utilizzo"+(D&&D.tasso?" ("+it(D.tasso*60,1)+" punti per ora di attività)":"")+". La settimana tipo sono cinque edizioni.</p>"
+   +'<h3 id="m-consumo">Consumo</h3><p>I token li somma un gancio dalla trascrizione della sessione, senza spendere token. Token pesati = ingresso + 2 × scritti in cache + 0,1 × letti dalla cache + 5 × scritti dal modello.</p><p>I punti sono una stima per ogni piano: quando un\'edizione ha i token misurati seguono i token, altrimenti la durata × il tasso delle letture vere della pagina Utilizzo fatte su quel piano'+(Q.tasso?" ("+it(Q.tasso*60,1)+" punti per ora di attività sul piano "+esc(Q.nome)+")":"")+". Ogni edizione è rapportata al piano in vigore quando è uscita. "+(Q.tasso?"":"Per il piano "+esc(Q.nome)+" non c'è ancora una lettura vera: finché non c'è, la pagina mostra i token e segna il rapporto col piano come in taratura. ")+"La settimana tipo sono cinque edizioni.</p>"
    +(t.length?'<table class="mtab"><thead><tr><th>Lettura</th><th>Piano</th><th>Punti</th><th>Minuti</th><th>Punti/ora</th></tr></thead><tbody>'+t.map(function(x){return '<tr title="'+esc(x.nota||"")+'"><td>'+breve(x.giorno)+"</td><td>"+esc(x.piano)+"</td><td>"+it(x.punti,1)+"</td><td>"+it(x.durata_min,0)+"</td><td>"+it(x.punti/x.durata_min*60,1)+"</td></tr>"}).join("")+"</tbody></table>":"")
    +'<h3 id="m-qualita">Qualità e fonti</h3>'+MISURE.map(function(m){return "<p><b>"+m.n+".</b> "+m.i+"</p>"}).join("")
    +"</div>";
