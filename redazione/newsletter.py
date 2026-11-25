@@ -308,6 +308,8 @@ def crea(ed, quando, prova):
     dati["email_template_id"] = modello
     stato, risposta = kit("POST", "/broadcasts", dati)
     if stato not in (200, 201):
+        if stato == 0:   # rete caduta o tempo scaduto DOPO la richiesta: l'invio può esserci lo stesso. Mai un secondo tentativo qui
+            sys.exit(f"ERRORE: esito incerto, Kit non ha risposto alla creazione dell'invio: guarda in Kit (Broadcasts) prima di rilanciare. {json.dumps(risposta, ensure_ascii=False)[:300]}")
         sys.exit(f"ERRORE: Kit non ha accettato l'email (HTTP {stato}): {json.dumps(risposta, ensure_ascii=False)[:400]}")
     b = risposta.get("broadcast", {})
     modello = (b.get("email_template") or {}).get("name")

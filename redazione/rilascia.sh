@@ -38,7 +38,10 @@ OK_PAOLO=0; SENZA_GITHUB=0; GUASTO=0; DOPO_PROVA=0; SU="$RAMO"; PROVATO=""
 for a in "$@"; do
   # le opzioni valgono solo per l'azione che le usa: un'opzione fuori posto ferma, non passa in silenzio
   if [ "$AZIONE" = "avvia" ] && [ "$a" = "$ATTESA" ]; then SU="$ATTESA"; continue; fi
-  if [ "$AZIONE" = "unisci" ] && echo "$a" | grep -qE '^[0-9a-f]{7,40}$'; then PROVATO="$a"; continue; fi
+  if [ "$AZIONE" = "unisci" ] && echo "$a" | grep -qiE '^[0-9a-f]{7,40}$'; then
+    [ -z "$PROVATO" ] || { echo "RILASCIO: FERMO - unisci vuole un solo commit, quello della prova"; exit 1; }
+    PROVATO="$a"; continue
+  fi
   [ "$AZIONE" = "pubblica" ] || { echo "RILASCIO: FERMO - opzione sconosciuta per '$AZIONE': $a"; exit 1; }
   case "$a" in --ok-di-paolo) OK_PAOLO=1;; --dopo-la-prova) DOPO_PROVA=1;; --senza-github) SENZA_GITHUB=1;; --guasto) GUASTO=1;; *) echo "RILASCIO: FERMO - opzione sconosciuta: $a"; exit 1;; esac
 done
@@ -81,7 +84,7 @@ cambia() {
   MODELLO=$(echo "$tutti" | grep -E '^redazione/newsletter_(modello|cornice)\.html$')
   # ciò che la redazione del mattino legge o che decide che cosa resta in pagina: regole, modello, lessico, l'avvio,
   # i controlli, il desk, il metodo della scommessa, il gancio della sessione
-  SCRITTURA=$(echo "$tutti" | grep -E '^redazione/(ISTRUZIONI|APP_[A-Z]+|NOTA_DEL_GIORNO)\.md$|^redazione/edizione_modello_v[0-9]+\.py$|^redazione/(glossario|meccanismi|fonti)\.json$|^redazione/(prepara\.sh|controlli_tutti\.sh|desk\.py|controlli[a-z_]*\.py)$|^redazione/scommessa/metodo\.json$|^\.claude/settings\.json$')
+  SCRITTURA=$(echo "$tutti" | grep -E '^redazione/(ISTRUZIONI|APP_[A-Z]+|NOTA_DEL_GIORNO)\.md$|^redazione/edizione_modello_v[0-9]+\.py$|^redazione/(glossario|meccanismi|fonti)\.json$|^redazione/(prepara\.sh|controlli_tutti\.sh|scommessa_giorno\.sh|desk\.py|contesto\.py|gancio_token\.py|controlli[a-z_]*\.py)$|^redazione/scommessa/(metodo\.json|[a-z0-9_]+\.py)$|^\.claude/settings\.json$')
   SERVE_OK=0; [ -n "$PUBBLICI$CAMPIONI$MODELLO" ] && SERVE_OK=1
   TUTTI="$tutti"
 }
