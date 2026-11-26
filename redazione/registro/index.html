@@ -20,7 +20,7 @@
 --tab:light-dark(#E7E4DC,#2A2923);--bordo:light-dark(#B9B5AA,#4A473E)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:clip;overflow-wrap:anywhere}
 a{color:var(--acc-t)}
 button,input{font:inherit;color:inherit}
 button{cursor:pointer}
@@ -80,6 +80,10 @@ section{display:flex;flex-direction:column;gap:12px}
 .quattro{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;align-items:start}
 details summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:600}
 .vuoto{color:var(--muted);padding:14px 0}
+.titolo-card{font-size:17px;font-weight:700}
+.riga-esito{padding:12px 14px;flex-direction:row;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px}
+.colonna{display:flex;flex-direction:column;gap:28px}
+
 </style>
 </head>
 <body>
@@ -106,6 +110,9 @@ const Registro = (() => {
   const NOMI_CONNETTORE = ["Claude Code Remote", "Claude_Code_Remote"];
   // Unico punto da cambiare se il parametro ?q= non funziona
   function chatURL(codice) { return "https://claude.ai/new?q=" + encodeURIComponent("Gommberg, voce " + codice + ": "); }
+  const PRESA_MIN = 15;          // un clic partito e non preso in carico entro questi minuti dice "Non ancora preso in carico"
+  const ESITI_ORE = 24;          // per quante ore resta in Oggi la riga con l'esito di un clic
+  const FRESCO_MIN = 5;          // "Partito adesso" fino a questi minuti
 
   const PRIO = { max: "Max", high: "High", medium: "Medium", low: "Low", tbd: "Idea" };
   const PRIO_R = { max: 0, high: 1, medium: 2, low: 3, tbd: 4 };
@@ -114,23 +121,21 @@ const Registro = (() => {
   const LIVELLO_SPIEGA = { sola: "parte e va in linea da sola, leggi l'esito.", via: "parte con il tuo clic, poi fa da sé.", visto: "prima di andare in linea te la mostro." };
   const SFORZO = { low: "sforzo basso", medium: "sforzo medio", high: "sforzo alto", xhigh: "sforzo molto alto", max: "sforzo massimo" };
   const STATI_VOCE = ["da-fare", "in-corso", "pronta", "fatta"];
-  const SERATE_APERTE = ["preparata", "partita", "pronta", "con-prova", "in-rilascio"];
   const TIPI = { "via-piano": "Via al piano", ok: "Ok, in linea", "non-ancora": "Non ancora", togli: "Togli", margine: "Usa il margine", appunto: "Appunto", indietro: "Torna indietro" };
   const SENZA_LANCIO = ["togli", "appunto"];
-  const ERR_ALTRO_NOME = ["server_not_connected", "not_in_manifest", "server_not_found"];
+  const APERTI = ["da-eseguire", "in-lavoro"];
+  // Errori del connettore: nome sbagliato (si prova l'altro), esito incerto, clic che non basta ancora
+  const ERR_NOME = ["server_not_found", "server_not_connected", "not_in_manifest"];
   const ERR_INCERTO = ["server_unavailable", "upstream_error"];
+  const RICOLLEGA = "Ricollega il connettore nelle impostazioni di Claude.", PERMESSO = "Serve il tuo permesso: premi di nuovo e accetta.";
+  const ERR_BLOCCO = { needs_reauth: RICOLLEGA, server_not_connected: RICOLLEGA, approval_required: PERMESSO, consent_required: PERMESSO, not_in_manifest: PERMESSO,
+    selection_required: "Scegli il connettore quando Claude te lo chiede, poi premi di nuovo.", blocked_by_policy: "Le impostazioni del tuo account non permettono a questa pagina di lanciare lavori." };
 
   /* Stati detti a Paolo: la mappa dagli stati del database sta tutta qui (statoVoce). */
   const STATI = {
-    tu: { testo: "Tocca a te", tono: "accento" },
-    ferma: { testo: "Ferma", tono: "accento" },
-    lavoro: { testo: "Al lavoro", tono: "blu" },
-    coda: { testo: "In coda", tono: "" },
-    prova: { testo: "Aspetta la prova", tono: "" },
-    piano: { testo: "In piano", tono: "" },
-    avanti: { testo: "Più avanti", tono: "" },
-    idea: { testo: "Idea", tono: "" },
-    fatta: { testo: "Fatta", tono: "" }
+    tu: { testo: "Tocca a te", tono: "accento" }, ferma: { testo: "Ferma", tono: "accento" }, lavoro: { testo: "Al lavoro", tono: "blu" },
+    coda: { testo: "In coda", tono: "" }, prova: { testo: "Aspetta la prova", tono: "" }, piano: { testo: "In piano", tono: "" },
+    avanti: { testo: "Più avanti", tono: "" }, idea: { testo: "Idea", tono: "" }, fatta: { testo: "Fatta", tono: "" }
   };
   const ORDINE_LAVORO = { lavoro: 0, ferma: 1, coda: 2, prova: 3 };
 
@@ -140,10 +145,11 @@ const Registro = (() => {
   const lista = x => (Array.isArray(x) ? x.map(txt).filter(Boolean) : []);
   const oggetti = x => (Array.isArray(x) ? x.filter(v => v && typeof v === "object") : []);
   const giornoOk = s => (/^\d{4}-\d{2}-\d{2}$/.test(s || "") ? s : "");
-  const https = s => (/^https:\/\//.test(txt(s)) ? txt(s) : "");
+  const https = s => (/^https:\/\/[^\s"'<>]+$/.test(txt(s)) ? txt(s) : "");
   function dataLocale(s) { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ""); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; }
   function isoGiorno(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
   function giornoBreve(s) { const d = dataLocale(s); return d ? GG[d.getDay()] + " " + d.getDate() + "/" + (d.getMonth() + 1) : ""; }
+  const entro = s => { const d = dataLocale(s); return d ? "entro il " + d.getDate() + "/" + (d.getMonth() + 1) : ""; };
   function quandoTesto(t, ora) {
     const d = new Date(t); if (!t || isNaN(d)) return "";
     const hm = pad(d.getHours()) + ":" + pad(d.getMinutes()), g = isoGiorno(d), o = isoGiorno(ora);
@@ -152,59 +158,78 @@ const Registro = (() => {
     if (g === isoGiorno(ieri)) return "ieri alle " + hm;
     return GG[d.getDay()] + " " + d.getDate() + "/" + (d.getMonth() + 1) + " alle " + hm;
   }
+  const minutiDa = (t, ora) => { const d = new Date(t); return isNaN(d) ? Infinity : (ora - d) / 60000; };
   const numCodice = c => { const n = parseInt(String(c).replace(/\D/g, ""), 10); return isNaN(n) ? 9999 : n; };
+  // Spezza un testo in pezzi semplici e link https, per costruirli con il DOM
+  function pezziTesto(s) {
+    const out = [], re = /https:\/\/[^\s<>"']+/g; s = String(s || ""); let i = 0, m;
+    while ((m = re.exec(s))) {
+      let u = m[0]; const coda = /[).,;:!?]+$/.exec(u); if (coda) u = u.slice(0, -coda[0].length);
+      if (m.index > i) out.push({ testo: s.slice(i, m.index) });
+      out.push({ link: u }); i = m.index + u.length; re.lastIndex = i;
+    }
+    if (i < s.length) out.push({ testo: s.slice(i) });
+    return out;
+  }
 
+  // Come la pagina di oggi: chi è Claude non aspetta Paolo, chi è Paolo sì; per Insieme contano decisione e approvazione
+  const inputNorm = (chi, inp) => (chi === "Paolo" ? "azione" : chi === "Claude" ? "" : (inp === "decisione" || inp === "approvazione" ? inp : ""));
   function normVoce(id, d) {
     d = d || {};
     const titolo = txt(d.titolo) || txt(d.codice) || id;
     const prio = d.stato === "idea" ? "tbd" : (PRIO[d.priorita] ? d.priorita : (PRIO_VECCHIA[Number(d.priorita)] || "medium"));
-    const ord = Number(d.ordine);
+    const ord = Number(d.ordine), chi = ["Claude", "Insieme", "Paolo"].includes(d.chi) ? d.chi : "Insieme";
     return {
-      id, codice: txt(d.codice) || id, titolo,
-      cosa: txt(d.cosa) || titolo,
-      lettore: txt(d.lettore) || "Da scrivere",
+      id, codice: txt(d.codice) || id, titolo, cosa: txt(d.cosa) || titolo, lettore: txt(d.lettore) || "Da scrivere",
       perche: txt(d.obiettivo), decisioni: txt(d.decisioni), domanda: txt(d.domanda),
-      stato: STATI_VOCE.includes(d.stato) ? d.stato : "da-fare",
-      priorita: prio,
-      livello: LIVELLI[d.livello] ? d.livello : "visto",
-      riserva: d.riserva === true,
+      stato: STATI_VOCE.includes(d.stato) ? d.stato : "da-fare", priorita: prio,
+      livello: LIVELLI[d.livello] ? d.livello : "visto", riserva: d.riserva === true,
       ordine: d.ordine !== "" && d.ordine != null && isFinite(ord) ? ord : 999,
-      giorno: giornoOk(d.giorno), chiusa: giornoOk(d.chiusa),
+      giorno: giornoOk(d.giorno), chiusa: giornoOk(d.chiusa), scadenza: giornoOk(d.scadenza),
+      chi, input: inputNorm(chi, txt(d.input)),
       finestra: txt(d.finestra), modello: txt(d.modello), sforzo: txt(d.sforzo),
       ferma: txt(d.ferma), anteprima: https(d.anteprima)
     };
   }
+  // Regola unica: una voce aspetta Paolo
+  const aspettaPaolo = v => v.stato !== "fatta" && (!!v.domanda || v.chi === "Paolo" || v.input === "azione" || v.input === "decisione");
 
   function righeSerata(s) { return oggetti(s && s.dopo && s.dopo.righe).concat(oggetti(s && s.prima && s.prima.righe)); }
 
-  /* raw: {tasks, serate, clic, appunti, rilasci: oggetti id -> dati; salute, piano, capo: dati o null} */
+  /* raw: {tasks, serate, clic, appunti, rilasci: oggetti id -> dati; salute, piano, capo, stato: dati o null;
+     lanci: esiti di lancio tenuti dalla pagina (id -> lancio); chiusi: id degli esiti chiusi da Paolo} */
   function contesto(raw, ora) {
-    raw = raw || {};
+    raw = raw || {}; ora = ora || new Date();
     const voci = Object.entries(raw.tasks || {}).map(([id, d]) => normVoce(id, d));
     const perCodice = new Map(voci.map(v => [v.codice, v]));
-    const clic = Object.entries(raw.clic || {}).map(([id, d]) => ({ id, ...(d || {}) }))
+    const lanci = raw.lanci || {};
+    const clic = Object.entries(raw.clic || {}).map(([id, d]) => { const c = { id, ...(d || {}) }; if (!c.lancio && lanci[id]) c.lancio = lanci[id]; return c; })
       .sort((a, b) => txt(b.quando).localeCompare(txt(a.quando)));
     const serate = Object.entries(raw.serate || {}).map(([id, d]) => ({ id, ...(d || {}) })).sort((a, b) => b.id.localeCompare(a.id));
-    // Le voci di una serata che aspetta la prova (ramo con prova)
     const prova = new Map();
     serate.filter(s => s.stato === "con-prova").forEach(s => {
       const p = (s.dopo && s.dopo.prova) || {};
+      if (txt(p.esito) === "ok") return; // prova riuscita: la voce torna allo stato che le spetta
       righeSerata(s).forEach(r => { const c = txt(r.codice); if (c && !prova.has(c)) prova.set(c, { giorno: giornoOk(p.giorno), esito: txt(p.esito), nota: txt(p.nota) }); });
     });
     const p = raw.piano;
-    const piano = p && txt(p.settimana) ? { settimana: txt(p.settimana), titolo: txt(p.titolo), voci: lista(p.voci), tolte: lista(p.tolte), via: p.via || null } : null;
+    let piano = p && txt(p.settimana) ? { settimana: txt(p.settimana), titolo: txt(p.titolo), voci: lista(p.voci), tolte: lista(p.tolte), via: p.via || null } : null, pianoScaduto = null;
+    if (piano && !piano.via) { const d = dataLocale(piano.settimana); if (d) { d.setDate(d.getDate() + 7); if (isoGiorno(d) <= isoGiorno(ora)) { pianoScaduto = piano; piano = null; } } }
     const appunti = Object.entries(raw.appunti || {}).map(([id, d]) => ({ id, ...(d || {}) }))
       .filter(a => (a.stato || "nuovo") === "nuovo" && txt(a.testo)).sort((a, b) => txt(b.creato).localeCompare(txt(a.creato)));
-    return { ora: ora || new Date(), voci, perCodice, clic, serate, prova, piano, appunti, salute: raw.salute || null, rilasci: raw.rilasci || {}, capo: raw.capo || null };
+    const capo = raw.capo || null;
+    return { ora, voci, perCodice, clic, serate, prova, piano, pianoScaduto, appunti, salute: raw.salute || null, stato: raw.stato || null,
+      rilasci: raw.rilasci || {}, chiusi: lista(raw.chiusi), attivita: txt(capo && capo.attivita), giro: txt(capo && capo.giro) };
   }
+  const collegato = ctx => !!ctx.attivita;
 
-  // Il clic più recente non ancora eseguito dal capo sviluppo
+  // Il clic più recente non ancora chiuso dal capo sviluppo (da eseguire o in lavoro)
   function clicAperto(ctx, tipi, chiave) {
     tipi = [].concat(tipi);
-    return ctx.clic.find(c => tipi.includes(c.tipo) && c.esito === "da-eseguire" && (chiave == null || c.voce === chiave || c.piano === chiave)) || null;
+    return ctx.clic.find(c => tipi.includes(c.tipo) && APERTI.includes(c.esito) && (chiave == null || c.voce === chiave || c.piano === chiave)) || null;
   }
   function pianoPartito(ctx) { return !!(ctx.piano && (ctx.piano.via || clicAperto(ctx, "via-piano", ctx.piano.settimana))); }
-  const inPiano = (ctx, c) => !!(ctx.piano && ctx.piano.voci.includes(c) && !ctx.piano.tolte.includes(c));
+  const inPiano = (ctx, c) => !!(ctx.piano && ctx.piano.voci.includes(c) && !ctx.piano.tolte.includes(c) && !clicAperto(ctx, "togli", c));
   const daVedere = v => v.stato === "pronta" && !!v.domanda;
 
   function st(chiave, causa) { return { chiave, testo: STATI[chiave].testo, tono: STATI[chiave].tono, causa: causa || "" }; }
@@ -214,31 +239,49 @@ const Registro = (() => {
     const p = ctx.prova.get(v.codice);
     if (p && p.esito === "ko") return st("ferma", "La prova non è andata bene" + (p.nota ? ": " + p.nota : ""));
     if (p) return st("prova", p.giorno ? "prova di " + giornoBreve(p.giorno) : "");
-    if (daVedere(v) || v.domanda) return st("tu");
-    if (v.stato === "in-corso") return st("lavoro");
-    if (v.stato === "pronta" || clicAperto(ctx, ["ok", "non-ancora"], v.codice)) return st("coda");
+    if (aspettaPaolo(v)) return st("tu");
+    const c = clicAperto(ctx, ["ok", "non-ancora"], v.codice);
+    if (v.stato === "in-corso" || (c && c.esito === "in-lavoro")) return st("lavoro");
+    if (v.stato === "pronta" || c) return st("coda");
     if (inPiano(ctx, v.codice)) return pianoPartito(ctx) ? st("coda", v.giorno ? giornoBreve(v.giorno) : "") : st("piano");
     if (v.riserva && clicAperto(ctx, "margine")) return st("coda", "con la riserva");
     if (v.priorita === "tbd") return st("idea");
     return st("avanti");
   }
 
-  function comeSiLavora(v) {
-    const parti = [v.modello || "Opus", SFORZO[v.sforzo] || ""].filter(Boolean);
-    return parti.join(", ");
-  }
+  function comeSiLavora(v) { return v.modello ? [v.modello, SFORZO[v.sforzo] || ""].filter(Boolean).join(", ") : "Da decidere"; }
+  const codaTesto = ctx => (ctx.giro ? "In coda: parte al giro delle " + ctx.giro + "." : "In coda: il clic è registrato, ma l'orario del giro non è ancora scritto.");
 
-  function statoClic(c, ora) {
+  // Che cosa dire di un clic (dal database, più l'esito di lancio tenuto dalla pagina)
+  function statoClic(c, ctx) {
     if (!c) return null;
-    const l = c.lancio || {};
+    const ora = ctx.ora, l = c.lancio || {};
+    if (c.esito === "eseguito") return { tipo: "eseguito", testo: "Fatto" + (txt(c.nota) ? ": " + txt(c.nota) : ".") };
+    if (c.esito === "scartato") return { tipo: "scartato", testo: "Non eseguito" + (txt(c.nota) ? ": " + txt(c.nota) : ".") };
+    if (c.esito === "in-lavoro") return { tipo: "lavoro", testo: "Al lavoro." };
     if (l.esito === "partito") {
-      const t = new Date(l.quando || c.quando), fresco = !isNaN(t) && ora - t < 5 * 60000;
-      return { tipo: "partito", testo: fresco ? "Partito adesso." : "Partito " + quandoTesto(l.quando || c.quando, ora) + "." };
+      const min = minutiDa(l.quando || c.quando, ora);
+      if (min > PRESA_MIN) return { tipo: "non-preso", testo: "Non ancora preso in carico.", riprova: true };
+      return { tipo: "partito", testo: min < FRESCO_MIN ? "Partito adesso." : "Partito " + quandoTesto(l.quando || c.quando, ora) + "." };
     }
     if (l.esito === "incerto") return { tipo: "incerto", testo: "Non so se è partito: la risposta non è arrivata.", riprova: true };
-    return { tipo: "coda", testo: "In coda: parte al prossimo giro." };
+    if (l.esito === "bloccato") return { tipo: "bloccato", testo: (ERR_BLOCCO[l.errore] || PERMESSO) + " Il clic è registrato: " + (ctx.giro ? "se non lo rilanci parte al giro delle " + ctx.giro + "." : "lo prende il capo sviluppo al suo giro."), riprova: true, ripeti: true };
+    return { tipo: "coda", testo: codaTesto(ctx) };
+  }
+  // Clic aperto dal database, oppure l'ultimo risultato della pagina finché lo snapshot non lo conferma
+  function vistaClic(c, locale, ctx) {
+    if (c) return statoClic(c, ctx);
+    if (locale && locale.id && locale.esito !== "non-scritto" && !ctx.clic.some(x => x.id === locale.id))
+      return statoClic({ id: locale.id, esito: "da-eseguire", quando: ctx.ora.toISOString(), lancio: locale.lancio || null }, ctx);
+    return null;
+  }
+  function esitiRecenti(ctx) {
+    return ctx.clic.filter(c => (c.esito === "eseguito" || c.esito === "scartato") && !ctx.chiusi.includes(c.id)
+      && !(c.esito === "eseguito" && SENZA_LANCIO.includes(c.tipo)) && minutiDa(c.chiuso || c.quando, ctx.ora) < ESITI_ORE * 60)
+      .map(c => ({ id: c.id, nome: TIPI[c.tipo] || txt(c.tipo), voce: txt(c.voce), ...statoClic(c, ctx) }));
   }
 
+  const perPriorita = (a, b) => PRIO_R[a.priorita] - PRIO_R[b.priorita] || (a.scadenza || "9999").localeCompare(b.scadenza || "9999") || a.ordine - b.ordine || numCodice(a.codice) - numCodice(b.codice);
   function zoneOggi(ctx) {
     const voci = ctx.voci.map(v => ({ v, s: statoVoce(v, ctx) }));
     let piano = null;
@@ -247,51 +290,46 @@ const Registro = (() => {
       piano = {
         settimana: pc.settimana, titolo: pc.titolo || "Piano della settimana dal " + giornoBreve(pc.settimana),
         clic: clicAperto(ctx, "via-piano", pc.settimana),
-        voci: pc.voci.filter(c => !pc.tolte.includes(c)).map(c => {
+        voci: pc.voci.filter(c => !pc.tolte.includes(c) && !clicAperto(ctx, "togli", c)).map(c => {
           const v = ctx.perCodice.get(c) || normVoce(c, { codice: c, titolo: "Voce non trovata nel Registro" });
-          return { v, quando: v.giorno ? giornoBreve(v.giorno) : "da fissare", togli: clicAperto(ctx, "togli", c) };
+          return { v, quando: v.giorno ? giornoBreve(v.giorno) : "da fissare", entro: entro(v.scadenza) };
         })
       };
     }
-    const vedere = voci.filter(x => x.s.chiave === "tu" && daVedere(x.v)).map(x => ({ v: x.v, clic: clicAperto(ctx, ["ok", "non-ancora"], x.v.codice) }));
-    const domande = voci.filter(x => x.s.chiave === "tu" && !daVedere(x.v)).map(x => x.v);
+    const tocca = voci.filter(x => aspettaPaolo(x.v)).sort((a, b) => perPriorita(a.v, b.v))
+      .map(x => ({ ...x, vedere: daVedere(x.v) && x.s.chiave === "tu", clic: clicAperto(ctx, ["ok", "non-ancora"], x.v.codice) }));
     const riserva = ctx.voci.filter(v => v.riserva && v.stato !== "fatta").sort((a, b) => a.ordine - b.ordine || numCodice(a.codice) - numCodice(b.codice));
-    const lavoro = voci.filter(x => x.s.chiave in ORDINE_LAVORO)
+    const lavoro = voci.filter(x => x.s.chiave in ORDINE_LAVORO && !aspettaPaolo(x.v))
       .sort((a, b) => ORDINE_LAVORO[a.s.chiave] - ORDINE_LAVORO[b.s.chiave] || a.v.ordine - b.v.ordine || numCodice(a.v.codice) - numCodice(b.v.codice));
     const rilasci = oggetti(ctx.salute && ctx.salute.rilasci).slice(0, 3).map(r => ({
-      nome: txt(r.nome) || "Rilascio", quando: quandoTesto(r.quando, ctx.ora), esito: txt(r.esito),
-      lettore: txt(r.lettore),
+      nome: txt(r.nome) || "Rilascio", quando: quandoTesto(r.quando, ctx.ora), esito: txt(r.esito), lettore: txt(r.lettore),
       verificato: typeof r.verificato === "boolean" ? r.verificato : /verificat\w* dal vivo/i.test(txt(r.testo))
     }));
-    const ultimo = rilasci.find(r => r.esito === "ok") || null;
     return {
-      piano, vedere, domande, riserva, lavoro, rilasci, ultimo,
-      margine: clicAperto(ctx, "margine"), indietro: clicAperto(ctx, "indietro"),
-      niente: !piano && !vedere.length && !domande.length,
-      appunti: ctx.appunti
+      collegato: collegato(ctx), piano, tocca, riserva, lavoro, rilasci, ultimo: rilasci.find(r => r.esito === "ok") || null,
+      margine: clicAperto(ctx, "margine"), indietro: clicAperto(ctx, "indietro"), esiti: esitiRecenti(ctx),
+      niente: !piano && !tocca.length, appunti: ctx.appunti
     };
   }
 
   const FILTRI = {
-    aperte: (v, s) => s.chiave !== "fatta" && s.chiave !== "idea",
-    idee: (v, s) => s.chiave === "idea",
-    fatte: (v, s) => s.chiave === "fatta",
-    riserva: (v, s) => v.riserva && s.chiave !== "fatta"
+    aperte: (v, s) => s.chiave !== "fatta" && s.chiave !== "idea", idee: (v, s) => s.chiave === "idea",
+    fatte: (v, s) => s.chiave === "fatta", riserva: (v, s) => v.riserva && s.chiave !== "fatta"
   };
   const ORDINI = {
-    priorita: (a, b) => PRIO_R[a.priorita] - PRIO_R[b.priorita] || a.ordine - b.ordine || numCodice(a.codice) - numCodice(b.codice),
-    lavoro: (a, b) => a.ordine - b.ordine || PRIO_R[a.priorita] - PRIO_R[b.priorita] || numCodice(a.codice) - numCodice(b.codice)
+    priorita: perPriorita,
+    lavoro: (a, b) => a.ordine - b.ordine || PRIO_R[a.priorita] - PRIO_R[b.priorita] || (a.scadenza || "9999").localeCompare(b.scadenza || "9999") || numCodice(a.codice) - numCodice(b.codice)
   };
-  function elenco(ctx, ordine, filtro) {
-    const f = FILTRI[filtro] || FILTRI.aperte, o = ORDINI[ordine] || ORDINI.priorita;
-    return ctx.voci.map(v => ({ v, s: statoVoce(v, ctx) })).filter(x => f(x.v, x.s)).sort((a, b) => o(a.v, b.v))
-      .map((x, i) => ({ ...x, pos: i + 1, quando: x.s.chiave === "fatta" ? giornoBreve(x.v.chiusa) : giornoBreve(x.v.giorno) }));
+  const trova = (v, q) => !q || [v.codice, v.titolo, v.cosa, v.perche, v.decisioni].join(" ").toLowerCase().includes(q.toLowerCase());
+  function elenco(ctx, ordine, filtro, q) {
+    const f = FILTRI[filtro] || FILTRI.aperte, o = ORDINI[ordine] || ORDINI.priorita, qq = txt(q);
+    return ctx.voci.map(v => ({ v, s: statoVoce(v, ctx) })).filter(x => f(x.v, x.s) && trova(x.v, qq)).sort((a, b) => o(a.v, b.v))
+      .map((x, i) => ({ ...x, pos: i + 1, quando: x.s.chiave === "fatta" ? giornoBreve(x.v.chiusa) : giornoBreve(x.v.giorno), entro: x.s.chiave === "fatta" ? "" : entro(x.v.scadenza) }));
   }
   const nAperte = ctx => elenco(ctx, "priorita", "aperte").length;
 
   function dietro(ctx) {
-    const s = ctx.salute || {};
-    const ver = new Date(s.verificato);
+    const s = ctx.salute || {}, ver = new Date(s.verificato);
     const vecchia = !s.verificato || isNaN(ver) || ctx.ora - ver > 26 * 3600000;
     const rilasci = oggetti(s.rilasci).map(r => ({ nome: txt(r.nome), quando: quandoTesto(r.quando, ctx.ora), esito: txt(r.esito), testo: txt(r.testo) }))
       .concat(Object.entries(ctx.rilasci).map(([id, r]) => ({ nome: txt(r.nome) || id, quando: quandoTesto(r.aggiornato, ctx.ora), esito: txt(r.stato), testo: txt(r.sintesi) })));
@@ -305,7 +343,10 @@ const Registro = (() => {
       testo: txt(c.testo), lancio: SENZA_LANCIO.includes(c.tipo) ? "senza lancio" : txt(c.lancio && c.lancio.esito), esito: txt(c.esito), nota: txt(c.nota)
     }));
     const conta = {}; ctx.clic.forEach(c => { conta[c.tipo] = (conta[c.tipo] || 0) + 1; });
-    return { righe: oggetti(s.righe), verificato: quandoTesto(s.verificato, ctx.ora), vecchia, rilasci, serate, consensi, conta };
+    const gs = ctx.stato || {};
+    const giornale = [txt(gs.lettori), txt(gs.edizioni), txt(gs.prossimo) ? "Prossimo: " + txt(gs.prossimo) : ""].filter(Boolean).join(" · ");
+    const scaduto = ctx.pianoScaduto ? "Piano scaduto: settimana dal " + giornoBreve(ctx.pianoScaduto.settimana) + ", mai avviato (" + ctx.pianoScaduto.voci.join(", ") + ")." : "";
+    return { righe: oggetti(s.righe), verificato: quandoTesto(s.verificato, ctx.ora), vecchia, rilasci, serate, consensi, conta, giornale, scaduto };
   }
 
   function margineTesto(x) { const n = parseInt(txt(x).replace("%", ""), 10); return isNaN(n) || n < 0 || n > 100 ? "" : n + "%"; }
@@ -321,54 +362,42 @@ const Registro = (() => {
     catch (e) { if (e && e.code === "unavailable") { await dip.pausa(500 + Math.random() * 500); return fn(); } throw e; }
   }
 
-  /* dip = {db, mcp, ora(), nuovoId(), pausa(ms)}. Regola: prima il clic nel database, poi il lancio. */
+  /* dip = {db, mcp (anche una promessa), ora(), nuovoId(), pausa(ms)}. Regola: prima il clic nel database, poi il lancio. */
   async function premi(dip, a) {
     if (!dip.db) return { esito: "non-scritto", motivo: "db" };
     const id = dip.nuovoId();
     try { const doc = clicDoc(a, dip.ora()); await unaVolta(dip, () => dip.db.doc("clic/" + id).set(doc)); }
     catch (e) { return { id, esito: "non-scritto", motivo: (e && e.code) || "errore" }; }
     if (SENZA_LANCIO.includes(a.tipo)) return { id, esito: "scritto" };
-    return { id, ...(await lancia(dip, id)) };
+    return lancia(dip, id);
   }
   async function tentaLancio(dip, id) {
-    if (!dip.mcp) return { esito: "coda", errore: "mcp-assente" };
+    let mcp = null; try { mcp = await dip.mcp; } catch (_) { mcp = null; }
+    if (!mcp) return { esito: "coda", errore: "mcp-assente" };
     let att = "";
     try { const s = await dip.db.doc("meta/capo").get(); att = s && s.exists ? txt((s.data() || {}).attivita) : ""; } catch (_) { att = ""; }
     if (!att) return { esito: "coda", errore: "capo-assente" };
-    let ultimo = "";
+    let finale = "";
     for (const nome of NOMI_CONNETTORE) {
-      try { await dip.mcp.callTool(nome, "fire_trigger", { trigger_id: att, text: "clic/" + id }); return { esito: "partito", connettore: nome }; }
+      try { await mcp.callTool(nome, "fire_trigger", { trigger_id: att, text: "clic/" + id }); return { esito: "partito", connettore: nome }; }
       catch (e) {
-        const c = (e && e.code) || "errore"; ultimo = c;
-        if (ERR_ALTRO_NOME.includes(c)) continue;
+        const c = (e && e.code) || "errore";
         if (ERR_INCERTO.includes(c)) return { esito: "incerto", errore: c };
-        return { esito: "coda", errore: c };
+        if (ERR_NOME.includes(c)) { if (c !== "server_not_found" || !finale) finale = c; continue; }
+        finale = c; break;
       }
     }
-    return { esito: "coda", errore: ultimo };
+    return ERR_BLOCCO[finale] ? { esito: "bloccato", errore: finale } : { esito: "coda", errore: finale };
   }
-  // Usato anche da "Riprova": rilancia lo stesso clic, senza scriverne un altro
+  // Usato anche da Riprova: rilancia lo stesso clic, senza scriverne un altro. Se il lancio riesce ma non si salva, resta "partito".
   async function lancia(dip, id) {
     const r = await tentaLancio(dip, id);
-    try { await dip.db.doc("clic/" + id).update({ lancio: { esito: r.esito, quando: dip.ora().toISOString(), errore: r.errore || "", connettore: r.connettore || "" } }); } catch (_) {}
-    return r;
+    const lancio = { esito: r.esito, quando: dip.ora().toISOString(), errore: r.errore || "", connettore: r.connettore || "" };
+    try { await dip.db.doc("clic/" + id).update({ lancio }); } catch (_) {}
+    return { id, esito: r.esito, errore: r.errore || "", lancio };
   }
-  async function togli(dip, codice, settimana) {
-    const r = await premi(dip, { tipo: "togli", voce: codice, piano: settimana });
-    if (r.esito !== "scritto") return r;
-    const ref = dip.db.doc("meta/piano");
-    let d = null;
-    try { const s = await ref.get(); d = s && s.exists ? s.data() : null; } catch (_) { return { ...r, esito: "non-applicato" }; }
-    // Controllo sulla copia fresca: il piano deve essere ancora quello visto, non avviato, con la voce dentro
-    if (!d || txt(d.settimana) !== settimana || d.via || !lista(d.voci).includes(codice)) {
-      try { await dip.db.doc("clic/" + r.id).update({ esito: "scartato", nota: "Il piano era cambiato" }); } catch (_) {}
-      return { ...r, esito: "cambiato" };
-    }
-    const tolte = lista(d.tolte);
-    if (tolte.includes(codice)) return { ...r, esito: "tolta" };
-    try { await unaVolta(dip, () => ref.update({ tolte: tolte.concat(codice) })); } catch (_) { return { ...r, esito: "non-applicato" }; }
-    return { ...r, esito: "tolta" };
-  }
+  // Togli scrive solo il clic: meta/piano lo scrive soltanto il capo sviluppo
+  function togli(dip, codice, settimana) { return premi(dip, { tipo: "togli", voce: codice, piano: settimana }); }
   async function aggiungiAppunto(dip, testo) {
     const t = txt(testo); if (!t) return { esito: "vuoto" };
     const aid = "a-" + dip.nuovoId();
@@ -379,9 +408,9 @@ const Registro = (() => {
     return { ...r, esito: "salvato" };
   }
 
-  return { NOMI_CONNETTORE, PRIO, LIVELLI, LIVELLO_SPIEGA, STATI, TIPI, chatURL, normVoce, contesto, statoVoce, statoClic, clicAperto,
-    pianoPartito, zoneOggi, elenco, nAperte, dietro, comeSiLavora, giornoBreve, quandoTesto, margineTesto, clicDoc, nuovoId,
-    premi, lancia, togli, aggiungiAppunto };
+  return { NOMI_CONNETTORE, PRESA_MIN, PRIO, LIVELLI, LIVELLO_SPIEGA, STATI, TIPI, ERR_BLOCCO, chatURL, pezziTesto, normVoce, aspettaPaolo, contesto, collegato,
+    statoVoce, statoClic, vistaClic, esitiRecenti, clicAperto, pianoPartito, zoneOggi, elenco, nAperte, dietro, comeSiLavora, giornoBreve, entro,
+    quandoTesto, margineTesto, clicDoc, nuovoId, premi, lancia, togli, aggiungiAppunto };
 })();
 globalThis.Registro = Registro;
 
@@ -390,10 +419,13 @@ function avvia() {
   const R = Registro;
   const $ = s => document.querySelector(s);
   const app = $("#app");
-  let db = null, mcp = null, puoScrivere = true, caricato = false;
-  const raw = { tasks: {}, serate: {}, clic: {}, appunti: {}, rilasci: {}, salute: null, piano: null };
-  const ui = { vista: "oggi", ordine: "priorita", filtro: "aperte", aperta: "", apertaPiano: "", bozze: {}, inCorso: new Set(), errori: {}, fresco: {}, conferma: false };
-  const dip = () => ({ db, mcp, ora: () => new Date(), nuovoId: R.nuovoId, pausa: ms => new Promise(r => setTimeout(r, ms)) });
+  let db = null, mcp = null, puoScrivere = true, caricato = false, interrotto = false;
+  let chiusi = []; try { chiusi = JSON.parse(localStorage.getItem("registro-chiusi") || "[]"); } catch (_) { chiusi = []; }
+  const raw = { tasks: {}, serate: {}, clic: {}, appunti: {}, rilasci: {}, salute: null, piano: null, capo: null, stato: null, lanci: {}, chiusi };
+  const ui = { vista: "oggi", ordine: "priorita", filtro: "aperte", q: "", aperta: "", bozze: {}, inCorso: new Set(), errori: {}, locali: {}, conferma: false };
+  let mcpPronto = Promise.resolve(null);
+  const dip = () => ({ db, mcp: mcp || mcpPronto, ora: () => new Date(), nuovoId: R.nuovoId, pausa: ms => new Promise(r => setTimeout(r, ms)) });
+  const attivo = () => !!db && puoScrivere && !interrotto;
 
   function h(tag, props, ...figli) {
     const el = document.createElement(tag);
@@ -408,10 +440,13 @@ function avvia() {
     for (const f of figli.flat(3)) { if (f == null || f === false || f === "") continue; el.append(f.nodeType ? f : document.createTextNode(String(f))); }
     return el;
   }
+  const conLink = s => R.pezziTesto(s).map(p => (p.link ? h("a", { href: p.link, target: "_blank", rel: "noopener" }, p.link) : p.testo));
   const campo = (et, val, multi) => h("div", null, h("div", { class: "et", testo: et }), h("div", { class: multi ? "multi" : "", testo: val || "Da scrivere" }));
   const chipLivello = v => h("span", { class: "chip " + v.livello, testo: R.LIVELLI[v.livello] });
-  const chatLink = v => h("a", { class: "btn secondo", href: R.chatURL(v.codice), target: "_blank", rel: "noopener" }, "Apri la chat su questa voce");
-  const btn = (cls, testo, fn, dis) => h("button", { type: "button", class: "btn " + cls, onclick: fn, disabled: dis || !db || !puoScrivere }, testo);
+  const chatLink = (v, testo) => h("a", { class: "btn secondo", href: R.chatURL(v.codice), target: "_blank", rel: "noopener" }, testo || "Apri la chat su questa voce");
+  const btn = (cls, testo, fn, dis) => h("button", { type: "button", class: "btn " + cls, onclick: fn, disabled: dis || !attivo() }, testo);
+  const errore = k => (ui.errori[k] ? h("div", { class: "errore", testo: ui.errori[k] }) : null);
+  const apriChiudi = id => { ui.aperta = ui.aperta === id ? "" : id; disegna(); };
 
   async function azione(chiave, fn) {
     if (ui.inCorso.has(chiave)) return null;
@@ -419,98 +454,114 @@ function avvia() {
     let r;
     try { r = await fn(dip()); } catch (_) { r = { esito: "non-scritto" }; }
     ui.inCorso.delete(chiave);
-    const msg = {
-      "non-scritto": "Non sono riuscito a registrare il clic: non è partito nulla. Riprova tra poco.",
-      cambiato: "Nel frattempo il piano è cambiato: non ho tolto nulla. Guarda di nuovo.",
-      "non-applicato": "Clic registrato, ma la modifica non si è salvata: la completa il capo sviluppo."
-    }[r && r.esito];
+    if (r && r.id) ui.locali[chiave] = r;           // l'esito si dice subito, senza aspettare lo snapshot
+    if (r && r.lancio) raw.lanci[r.id] = r.lancio;
+    const msg = { "non-scritto": "Non sono riuscito a registrare il clic: non è partito nulla. Riprova tra poco.",
+      "non-applicato": "Il testo è registrato nel clic, ma l'appunto non si è salvato: lo crea il capo sviluppo." }[r && r.esito];
     if (msg) ui.errori[chiave] = msg;
     disegna();
     return r;
   }
-  // Che cosa dire dopo un clic: in lavorazione, esito dal database, errore
-  function esitoClic(chiave, c) {
+  // Mostra lo stato del clic, oppure i tasti se il clic è ancora da fare
+  function conClic(ctx, chiave, c, tasti, etichetta) {
     if (ui.inCorso.has(chiave)) return h("div", { class: "esito", testo: "Registro il clic e lo faccio partire..." });
-    if (ui.errori[chiave]) return h("div", { class: "errore", testo: ui.errori[chiave] });
-    const s = R.statoClic(c, new Date());
-    if (!s) return null;
-    return h("div", { class: "azioni" }, h("span", { class: "esito", testo: s.testo }),
-      s.riprova ? btn("secondo", "Riprova", () => azione(chiave, d => R.lancia(d, c.id))) : null);
+    const s = R.vistaClic(c, ui.locali[chiave], ctx);
+    if (!s) return R.collegato(ctx) ? h("div", { class: "azioni" }, tasti(), errore(chiave)) : null;
+    const id = c ? c.id : ui.locali[chiave].id;
+    return h("div", { class: "azioni" }, h("span", { class: s.riprova ? "errore" : "esito", testo: s.testo }),
+      s.riprova ? btn(s.ripeti ? "primario" : "secondo", s.ripeti ? etichetta : "Riprova", () => azione(chiave, d => R.lancia(d, id))) : null);
   }
 
-  function schedaPiccola(v) {
+  function scheda(v, s) {
     return h("div", { class: "scheda" },
-      h("div", { class: "griglia" }, campo("Cosa", v.cosa), campo("Cosa cambia per il lettore", v.lettore), campo("Perché adesso", v.perche)),
-      h("div", { class: "azioni", style: "justify-content:space-between" }, h("span", { class: "piccolo", testo: R.comeSiLavora(v) }), chatLink(v)));
+      h("div", { class: "griglia" }, campo("Cosa", v.cosa), campo("Cosa cambia per il lettore", v.lettore), campo("Perché", v.perche)),
+      h("div", { class: "griglia" }, campo("Decisioni prese", v.decisioni || "Nessuna ancora", true), campo("Come si lavora", R.comeSiLavora(v)),
+        h("div", null, h("div", { class: "et" }, "Controllo"), chipLivello(v), h("div", { class: "piccolo", testo: R.LIVELLO_SPIEGA[v.livello] }))),
+      s && s.causa ? h("div", { class: "sub", testo: s.testo + ": " + s.causa }) : null,
+      v.scadenza ? h("div", { class: "sub", testo: "Scadenza: " + R.entro(v.scadenza) }) : null,
+      h("div", { class: "azioni" }, chatLink(v), h("span", { class: "piccolo" }, "Si apre una chat nuova con il codice della voce: chiedi quello che vuoi, o cambia rotta.")));
   }
+  const statoTesto = s => s.testo + (s.causa ? " - " + s.causa : "");
 
   function vistaOggi(ctx) {
     const z = R.zoneOggi(ctx);
     const tocca = h("section", null, h("div", { class: "testa" }, h("h2", null, "Tocca a te"), h("span", { class: "sub" }, "Solo le decisioni tue. Il resto va avanti da solo.")));
+    if (!z.collegato) tocca.append(h("div", { class: "avviso", testo: "Il capo sviluppo non è ancora collegato." }));
+    z.esiti.forEach(e => tocca.append(h("div", { class: "card riga-esito" },
+      h("span", { class: "tit" }, h("b", { testo: e.nome + (e.voce ? " " + e.voce : "") + ": " }), h("span", { class: e.tipo === "scartato" ? "errore" : "", testo: e.testo })),
+      h("button", { type: "button", class: "btn", onclick: () => { chiusi.push(e.id); raw.chiusi = chiusi; try { localStorage.setItem("registro-chiusi", JSON.stringify(chiusi.slice(-200))); } catch (_) {} disegna(); } }, "Chiudi"))));
     if (z.piano) {
       const p = z.piano, k = "via:" + p.settimana;
       tocca.append(h("div", { class: "card" },
-        h("div", { class: "azioni", style: "justify-content:space-between" },
-          h("div", null, h("div", { style: "font-size:17px;font-weight:700", testo: p.titolo }),
-            h("div", { class: "sub", testo: p.voci.length + (p.voci.length === 1 ? " voce" : " voci") + ". Tocca una voce per i dettagli. Togli quelle che non vuoi, poi un solo via." })),
-          p.clic || ui.inCorso.has(k) ? null : btn("primario", "Via al piano", () => azione(k, d => R.premi(d, { tipo: "via-piano", piano: p.settimana })), !p.voci.length)),
-        esitoClic(k, p.clic),
+        h("div", null, h("div", { class: "titolo-card", testo: p.titolo }),
+          h("div", { class: "sub", testo: p.voci.length + (p.voci.length === 1 ? " voce" : " voci") + ". Tocca una voce per i dettagli. Togli quelle che non vuoi, poi un solo via." })),
+        conClic(ctx, k, p.clic, () => btn("primario", "Via al piano", () => azione(k, d => R.premi(d, { tipo: "via-piano", piano: p.settimana })), !p.voci.length), "Via al piano"),
         h("div", { style: "border-top:1px solid var(--line2)" }, p.voci.map(x => {
-          const kt = "togli:" + x.v.codice, aperta = ui.apertaPiano === x.v.codice;
+          const kt = "togli:" + x.v.codice, aperta = ui.aperta === "p:" + x.v.codice;
+          if (R.vistaClic(null, ui.locali[kt], ctx)) return null; // tolta adesso, in attesa dello snapshot
           return h("div", { style: "border-bottom:1px solid var(--line2)" },
             h("div", { class: "azioni", style: "padding:4px 0" },
-              h("button", { type: "button", class: "apri", "aria-expanded": String(aperta), onclick: () => { ui.apertaPiano = aperta ? "" : x.v.codice; disegna(); } },
+              h("button", { type: "button", class: "apri", "aria-expanded": String(aperta), onclick: () => apriChiudi("p:" + x.v.codice) },
                 h("span", { class: "cod", testo: x.v.codice }), h("span", { class: "tit", testo: x.v.titolo })),
-              h("span", { class: "piccolo", style: "width:84px", testo: x.quando }), chipLivello(x.v),
-              p.clic || x.togli ? null : btn("", ui.inCorso.has(kt) ? "Tolgo..." : "Togli", () => azione(kt, d => R.togli(d, x.v.codice, p.settimana)), ui.inCorso.has(kt))),
-            ui.errori[kt] ? h("div", { class: "errore", testo: ui.errori[kt] }) : null,
-            aperta ? schedaPiccola(x.v) : null);
+              h("span", { class: "piccolo", testo: x.quando + (x.entro ? ", " + x.entro : "") }), chipLivello(x.v),
+              R.vistaClic(p.clic, ui.locali[k], ctx) ? null : btn("", ui.inCorso.has(kt) ? "Tolgo..." : "Togli", () => azione(kt, d => R.togli(d, x.v.codice, p.settimana)), ui.inCorso.has(kt))),
+            errore(kt), aperta ? scheda(x.v) : null);
         })),
         h("div", { class: "legenda" }, Object.keys(R.LIVELLI).map(l => h("span", null, h("b", null, R.LIVELLI[l]), ": " + R.LIVELLO_SPIEGA[l])))));
     }
-    z.vedere.forEach(x => {
-      const v = x.v, k = "vedere:" + v.codice, nk = "nota-" + v.codice;
+    z.tocca.forEach(x => {
+      const v = x.v, aperta = ui.aperta === "t:" + v.id;
+      if (x.vedere) {
+        const k = "vedere:" + v.codice, nk = "nota-" + v.codice;
+        tocca.append(h("div", { class: "card" },
+          h("div", { class: "azioni" }, h("span", { class: "chip nero" }, "Da vedere"), h("span", { class: "titolo-card", testo: v.codice + " - " + v.titolo }), v.scadenza ? h("span", { class: "piccolo", testo: R.entro(v.scadenza) }) : null),
+          h("div", { class: "griglia" }, campo("Cosa", v.cosa), campo("Cosa cambia per il lettore", v.lettore), h("div", null, h("div", { class: "et" }, "Cosa ti chiedo"), h("div", { class: "multi" }, conLink(v.domanda)))),
+          v.anteprima ? h("div", null, h("a", { class: "btn secondo", href: v.anteprima, target: "_blank", rel: "noopener" }, "Guarda l'anteprima")) : null,
+          conClic(ctx, k, x.clic, () => [
+            h("label", { class: "nascosto", for: nk }, "Nota per il capo sviluppo"),
+            h("input", { id: nk, class: "campo", value: ui.bozze[nk] || "", placeholder: "Una nota, se vuoi (facoltativa)", oninput: e => { ui.bozze[nk] = e.target.value; } }),
+            btn("primario", "Ok, in linea", () => azione(k, d => R.premi(d, { tipo: "ok", voce: v.codice, testo: ui.bozze[nk] || "" }))),
+            btn("", "Non ancora", () => azione(k, d => R.premi(d, { tipo: "non-ancora", voce: v.codice, testo: ui.bozze[nk] || "" })))], "Premi di nuovo")));
+        return;
+      }
       tocca.append(h("div", { class: "card" },
-        h("div", { class: "azioni" }, h("span", { class: "chip nero" }, "Da vedere"), h("span", { style: "font-size:17px;font-weight:700", testo: v.codice + " - " + v.titolo })),
-        h("div", { class: "griglia" }, campo("Cosa", v.cosa), campo("Cosa cambia per il lettore", v.lettore), campo("Cosa ti chiedo", v.domanda)),
-        x.clic || ui.inCorso.has(k) ? esitoClic(k, x.clic) : h("div", { class: "azioni" },
-          v.anteprima ? h("a", { class: "btn secondo", href: v.anteprima, target: "_blank", rel: "noopener" }, "Guarda l'anteprima") : null,
-          h("label", { class: "nascosto", for: nk }, "Nota per il capo sviluppo"),
-          h("input", { id: nk, class: "campo", value: ui.bozze[nk] || "", placeholder: "Una nota, se vuoi (facoltativa)", oninput: e => { ui.bozze[nk] = e.target.value; } }),
-          btn("primario", "Ok, in linea", () => azione(k, d => R.premi(d, { tipo: "ok", voce: v.codice, testo: ui.bozze[nk] || "" }))),
-          btn("", "Non ancora", () => azione(k, d => R.premi(d, { tipo: "non-ancora", voce: v.codice, testo: ui.bozze[nk] || "" }))),
-          ui.errori[k] ? h("div", { class: "errore", testo: ui.errori[k] }) : null)));
+        h("div", { class: "azioni" }, h("span", { class: "chip via" }, v.domanda ? "Domanda" : "Azione tua"), h("span", { class: "titolo-card", testo: v.codice + " - " + v.titolo }), v.scadenza ? h("span", { class: "piccolo", testo: R.entro(v.scadenza) }) : null),
+        x.s.chiave !== "tu" ? h("div", { class: "stato " + x.s.tono, testo: statoTesto(x.s) }) : null,
+        v.domanda ? h("div", { class: "multi" }, conLink(v.domanda)) : h("div", { class: "sub" }, "Azione tua: i dettagli sono nella scheda."),
+        h("div", { class: "azioni" }, v.domanda ? chatLink(v, "Rispondi nella chat") : null,
+          h("button", { type: "button", class: "btn", "aria-expanded": String(aperta), onclick: () => apriChiudi("t:" + v.id) }, aperta ? "Chiudi la scheda" : "Apri la scheda"),
+          v.anteprima ? h("a", { class: "btn", href: v.anteprima, target: "_blank", rel: "noopener" }, "Guarda l'anteprima") : null),
+        aperta ? scheda(v, x.s) : null));
     });
-    z.domande.forEach(v => tocca.append(h("div", { class: "card" },
-      h("div", { class: "azioni" }, h("span", { class: "chip via" }, "Domanda"), h("span", { style: "font-size:17px;font-weight:700", testo: v.codice + " - " + v.titolo })),
-      h("div", { class: "multi", testo: v.domanda }),
-      h("div", { class: "azioni" }, h("a", { class: "btn secondo", href: R.chatURL(v.codice), target: "_blank", rel: "noopener" }, "Rispondi nella chat"),
-        v.anteprima ? h("a", { class: "btn", href: v.anteprima, target: "_blank", rel: "noopener" }, "Guarda l'anteprima") : null))));
     if (z.niente) tocca.append(h("div", { class: "sub", testo: "Niente da decidere adesso: va avanti tutto da solo." }));
-    // Il margine: tasto sempre presente
-    const km = "margine", pct = "margine-pct";
-    const ris = z.riserva.slice(0, 3).map(v => v.titolo);
+    // Il margine: tasto sempre presente quando il capo sviluppo è collegato
+    const km = "margine", pct = "margine-pct", ris = z.riserva.slice(0, 3).map(v => v.titolo);
     tocca.append(h("div", { class: "card tratteggio" },
-      h("div", null, h("div", { style: "font-size:17px;font-weight:700" }, "Hai margine di token? Lancio la riserva"),
+      h("div", null, h("div", { class: "titolo-card" }, "Hai margine di token? Lancio la riserva"),
         h("div", { class: "sub", testo: ris.length ? "Voci già decise, in ordine di valore: " + ris.join("; ") + (z.riserva.length > 3 ? "; e altre " + (z.riserva.length - 3) + "." : ".") + " Edizioni e prova vengono prima: il margine non si usa mai fino in fondo." : "La riserva è vuota: il capo sviluppo anticipa le voci già in piano. Edizioni e prova vengono prima." })),
-      z.margine || ui.inCorso.has(km) ? esitoClic(km, z.margine) : h("div", { class: "azioni" },
+      conClic(ctx, km, z.margine, () => [
         h("label", { for: pct, class: "piccolo" }, "Quanto ti resta (facoltativo)"),
         h("input", { id: pct, class: "campo corto", inputmode: "numeric", value: ui.bozze[pct] || "", placeholder: "es. 30%", oninput: e => { ui.bozze[pct] = e.target.value; } }),
-        btn("margine", "Usa il margine", () => azione(km, async d => { const r = await R.premi(d, { tipo: "margine", testo: R.margineTesto(ui.bozze[pct]) }); if (r.esito !== "non-scritto") ui.bozze[pct] = ""; return r; })),
-        ui.errori[km] ? h("div", { class: "errore", testo: ui.errori[km] }) : null)));
+        btn("margine", "Usa il margine", () => azione(km, async d => { const r = await R.premi(d, { tipo: "margine", testo: R.margineTesto(ui.bozze[pct]) }); if (r.esito !== "non-scritto") ui.bozze[pct] = ""; return r; }))], "Usa il margine")));
 
     const lavoro = h("section", null,
       h("div", { class: "testa" }, h("h2", null, "Al lavoro"), h("button", { type: "button", class: "btn link", onclick: () => vai("tutti") }, "Vedi tutti i lavori")),
-      h("div", { class: "lista" }, z.lavoro.length ? z.lavoro.map(x => h("div", { class: "riga" },
-        h("span", { class: "cod", testo: x.v.codice }), h("span", { class: "tit", testo: x.v.titolo }),
-        h("span", { class: "stato " + x.s.tono, testo: x.s.testo + (x.s.causa ? " - " + x.s.causa : "") }))) : h("div", { class: "vuoto", testo: "Nessun lavoro in corso o in coda." })));
+      h("div", { class: "lista" }, z.lavoro.length ? z.lavoro.map(x => {
+        const aperta = ui.aperta === "l:" + x.v.id;
+        return h("div", { style: "border-bottom:1px solid var(--line2)" },
+          h("button", { type: "button", class: "apri tutta", "aria-expanded": String(aperta), onclick: () => apriChiudi("l:" + x.v.id) },
+            h("span", { class: "cod", testo: x.v.codice }), h("span", { class: "tit", testo: x.v.titolo }),
+            x.v.scadenza ? h("span", { class: "piccolo", testo: R.entro(x.v.scadenza) }) : null,
+            h("span", { class: "stato " + x.s.tono, testo: statoTesto(x.s) })),
+          aperta ? scheda(x.v, x.s) : null);
+      }) : h("div", { class: "vuoto", testo: "Nessun lavoro in corso o in coda." })));
 
     const ki = "indietro";
     const linea = h("section", null, h("h2", null, "In linea"),
       h("div", { class: "lista" }, z.rilasci.length ? z.rilasci.map(r => h("div", { class: "riga" },
         h("span", { class: "tit" }, h("b", { testo: r.nome }), h("br"),
           h("span", { class: "sub", testo: [r.quando ? r.quando.charAt(0).toUpperCase() + r.quando.slice(1) : "", r.lettore ? "Per il lettore: " + r.lettore : "", "Verificato dal vivo: " + (r.verificato ? "sì" : "no")].filter(Boolean).join(". ") + "." })),
-        r === z.ultimo ? indietro(r, ki, z.indietro) : null)) : h("div", { class: "vuoto", testo: "Ancora nessun rilascio registrato." })));
+        r === z.ultimo ? indietro(ctx, r, ki, z.indietro) : null)) : h("div", { class: "vuoto", testo: "Ancora nessun rilascio registrato." })));
 
     const ka = "appunto";
     const appunti = h("section", null,
@@ -518,24 +569,22 @@ function avvia() {
       h("form", { class: "azioni", onsubmit: e => { e.preventDefault(); const t = ui.bozze.appunto || ""; if (!t.trim()) return; azione(ka, async d => { const r = await R.aggiungiAppunto(d, t); if (r.esito === "salvato" || r.esito === "non-applicato") ui.bozze.appunto = ""; return r; }); } },
         h("label", { for: "appunto", class: "nascosto" }, "Nuovo appunto"),
         h("input", { id: "appunto", class: "campo", value: ui.bozze.appunto || "", placeholder: "Per esempio: la homepage sul telefono ha troppo spazio in alto", oninput: e => { ui.bozze.appunto = e.target.value; } }),
-        h("button", { type: "submit", class: "btn nero", disabled: !db || !puoScrivere || ui.inCorso.has(ka) }, "Aggiungi")),
-      ui.errori[ka] ? h("div", { class: "errore", testo: ui.errori[ka] }) : null,
-      z.appunti.map(a => h("div", { class: "card", style: "padding:12px 14px;flex-direction:row;flex-wrap:wrap;justify-content:space-between;gap:8px" },
-        h("span", { testo: a.testo }), h("span", { class: "piccolo" }, "Ricevuto: entra nel prossimo piano"))));
+        h("button", { type: "submit", class: "btn nero", disabled: !attivo() || ui.inCorso.has(ka) }, "Aggiungi")),
+      errore(ka),
+      z.appunti.map(a => h("div", { class: "card riga-esito" }, h("span", { class: "tit", testo: a.testo }), h("span", { class: "piccolo" }, "Ricevuto: entra nel prossimo piano"))));
     return [tocca, lavoro, linea, appunti];
   }
 
-  function indietro(r, k, c) {
-    if (c || ui.inCorso.has(k)) return h("div", { style: "flex:1 1 100%" }, esitoClic(k, c));
-    if (!ui.conferma) return h("div", { class: "azioni" }, ui.errori[k] ? h("span", { class: "errore", testo: ui.errori[k] }) : null, btn("", "Torna indietro", () => { ui.conferma = true; disegna(); }));
-    return h("div", { class: "azioni", style: "flex:1 1 100%" },
+  function indietro(ctx, r, k, c) {
+    const tasti = () => (!ui.conferma ? btn("", "Torna indietro", () => { ui.conferma = true; disegna(); }) : [
       h("span", { class: "sub", testo: "Il sito torna com'era prima di questo rilascio; il lavoro resta salvato e si può rimettere in linea." }),
       btn("primario", "Sì, torna indietro", () => { ui.conferma = false; azione(k, d => R.premi(d, { tipo: "indietro", voce: r.nome })); }),
-      h("button", { type: "button", class: "btn", onclick: () => { ui.conferma = false; disegna(); } }, "Annulla"));
+      h("button", { type: "button", class: "btn", onclick: () => { ui.conferma = false; disegna(); } }, "Annulla")]);
+    return h("div", { style: "flex:1 1 auto" }, conClic(ctx, k, c, tasti, "Torna indietro"));
   }
 
   function vistaTutti(ctx) {
-    const righe = R.elenco(ctx, ui.ordine, ui.filtro);
+    const righe = R.elenco(ctx, ui.ordine, ui.filtro, ui.q);
     const seg = (et, opz, val, fn) => h("div", { class: "seg" }, h("span", { class: "piccolo", style: "font-weight:600", testo: et }),
       opz.map(([k, t]) => h("button", { type: "button", "aria-pressed": String(val === k), onclick: () => fn(k) }, t)));
     return [h("section", null,
@@ -543,21 +592,18 @@ function avvia() {
       h("div", { class: "azioni", style: "gap:18px" },
         seg("Ordina per", [["priorita", "Priorità"], ["lavoro", "Ordine di lavoro"]], ui.ordine, k => { ui.ordine = k; disegna(); }),
         seg("Mostra", [["aperte", "Aperte"], ["idee", "Idee"], ["fatte", "Fatte"], ["riserva", "Riserva"]], ui.filtro, k => { ui.filtro = k; ui.aperta = ""; disegna(); })),
+      h("div", { class: "azioni" }, h("label", { for: "cerca", class: "nascosto" }, "Cerca una parola"),
+        h("input", { id: "cerca", class: "campo", type: "search", value: ui.q, placeholder: "Cerca: codice, titolo, decisioni...", oninput: e => { ui.q = e.target.value; disegna(); } })),
       h("div", { class: "lista" }, righe.length ? righe.map(x => {
         const v = x.v, aperta = ui.aperta === v.id;
         return h("div", { style: "border-bottom:1px solid var(--line2)" },
-          h("button", { type: "button", class: "apri tutta", "aria-expanded": String(aperta), onclick: () => { ui.aperta = aperta ? "" : v.id; disegna(); } },
+          h("button", { type: "button", class: "apri tutta", "aria-expanded": String(aperta), onclick: () => apriChiudi(v.id) },
             h("span", { class: "piccolo", style: "font-weight:700;width:22px", testo: String(x.pos) }),
             h("span", { class: "cod", testo: v.codice }), h("span", { class: "tit", testo: v.titolo }),
             h("span", { class: "chip prio " + v.priorita, testo: R.PRIO[v.priorita] }),
             h("span", { class: "stato " + x.s.tono, style: "width:140px", testo: x.s.testo }),
-            h("span", { class: "piccolo", style: "width:80px", testo: x.quando })),
-          aperta ? h("div", { class: "scheda" },
-            h("div", { class: "griglia" }, campo("Cosa", v.cosa), campo("Cosa cambia per il lettore", v.lettore), campo("Perché", v.perche)),
-            h("div", { class: "griglia" }, campo("Decisioni prese", v.decisioni || "Nessuna ancora", true), campo("Come si lavora", R.comeSiLavora(v)),
-              h("div", null, h("div", { class: "et" }, "Controllo"), chipLivello(v), h("div", { class: "piccolo", testo: R.LIVELLO_SPIEGA[v.livello] }))),
-            x.s.causa ? h("div", { class: "sub", testo: x.s.testo + ": " + x.s.causa }) : null,
-            h("div", { class: "azioni" }, chatLink(v), h("span", { class: "piccolo" }, "Si apre una chat nuova con il codice della voce: chiedi quello che vuoi, o cambia rotta."))) : null);
+            h("span", { class: "piccolo", style: "width:130px", testo: [x.quando, x.entro].filter(Boolean).join(", ") })),
+          aperta ? scheda(v, x.s) : null);
       }) : h("div", { class: "vuoto", testo: "Nessuna voce qui." })))];
   }
 
@@ -568,6 +614,8 @@ function avvia() {
     const riga = (a, b) => h("div", { style: "border-top:1px solid var(--line2);padding-top:8px" }, a, b ? h("div", { class: "piccolo multi", testo: b }) : null);
     return [h("section", null,
       h("div", { class: "testa" }, h("h2", null, "Dietro le quinte"), h("span", { class: "sub" }, "Il banco del capo sviluppo. Non serve per decidere: è qui se vuoi approfondire.")),
+      d.giornale ? h("div", { class: "sub", testo: d.giornale }) : null,
+      d.scaduto ? h("div", { class: "errore", testo: d.scaduto }) : null,
       h("div", { class: "quattro" },
         box("Salute della macchina",
           h("div", { class: d.vecchia ? "errore" : "piccolo", testo: d.verificato ? "Verificata " + d.verificato + (d.vecchia ? ": più di 26 ore fa." : ".") : "Nessuna verifica registrata." }),
@@ -590,40 +638,40 @@ function avvia() {
     const ctx = R.contesto(raw, new Date());
     document.querySelectorAll("[data-vista]").forEach(b => {
       b.setAttribute("aria-pressed", String(b.dataset.vista === ui.vista));
-      if (b.dataset.vista === "tutti") b.textContent = "Tutti i lavori · " + R.nAperte(ctx);
+      if (b.dataset.vista === "tutti") b.textContent = "Tutti i lavori · " + R.nAperte(ctx) + " aperte";
     });
     const ed = raw.salute && (raw.salute.righe || []).find(r => r && r.nome === "Edizione");
     $("#salute-testo").textContent = !caricato ? "Leggo lo stato della macchina..." : ed ? (ed.stato === "ok" ? "Edizione: " : "Edizione da guardare: ") + (ed.testo || "") : "Stato della macchina non ancora scritto";
     const f = document.activeElement, fid = f && f.id && app.contains(f) ? f.id : null;
     const sel = fid && typeof f.selectionStart === "number" ? [f.selectionStart, f.selectionEnd] : null;
     const viste = { oggi: vistaOggi, tutti: vistaTutti, dietro: vistaDietro };
-    app.replaceChildren(h("div", { style: "display:flex;flex-direction:column;gap:28px" }, caricato ? viste[ui.vista](ctx) : h("div", { class: "sub" }, "Carico il Registro...")));
+    app.replaceChildren(h("div", { class: "colonna" }, caricato ? viste[ui.vista](ctx) : h("div", { class: "sub" }, "Carico il Registro...")));
     if (fid) { const n = document.getElementById(fid); if (n) { n.focus({ preventScroll: true }); if (sel) try { n.setSelectionRange(sel[0], sel[1]); } catch (_) {} } }
   }
   function avviso(t) { const a = $("#avviso"); a.textContent = t; a.hidden = !t; }
 
   document.querySelectorAll("[data-vista]").forEach(b => b.addEventListener("click", () => vai(b.dataset.vista)));
-  const leggiHash = () => { const x = location.hash.slice(1); if (["oggi", "tutti", "dietro"].includes(x)) { ui.vista = x; disegna(); } };
-  window.addEventListener("hashchange", leggiHash);
+  window.addEventListener("hashchange", () => { const x = location.hash.slice(1); if (["oggi", "tutti", "dietro"].includes(x)) { ui.vista = x; disegna(); } });
   { const x = location.hash.slice(1); if (["oggi", "tutti", "dietro"].includes(x)) ui.vista = x; }
   disegna();
 
   (async () => {
     const usa = async n => { try { return window.claude && window.claude.use ? await window.claude.use(n) : null; } catch (_) { return null; } };
     const timer = setTimeout(() => { if (!caricato) avviso("Non riesco ancora a leggere il Registro. La pagina si aggiorna da sola appena risponde."); }, 10000);
+    // Un clic fatto prima che il connettore risponda aspetta la risposta, fino a 10 secondi
+    mcpPronto = Promise.race([usa("mcp"), new Promise(r => setTimeout(() => r(null), 10000))]).then(m => { mcp = m; return m; });
     db = await usa("db");
     if (!db) { clearTimeout(timer); caricato = true; avviso("Per vedere e decidere apri questa pagina su claude.ai con il tuo account."); disegna(); return; }
-    usa("mcp").then(m => { mcp = m; });
     usa("user").then(async u => { try { if (u && u.can && (await u.can("data.write")) === false) { puoScrivere = false; disegna(); } } catch (_) {} });
-    const coll = (nome, chiave) => db.collection(nome).onSnapshot(s => {
-      const m = {}; s.docs.forEach(d => { if (d.exists) m[d.id] = d.data(); }); raw[chiave] = m;
-      if (nome === "tasks" && !s.metadata.fromCache) { clearTimeout(timer); avviso(""); }
-      if (nome === "tasks") caricato = true;
+    const rotto = e => { clearTimeout(timer); caricato = true; interrotto = true; avviso(e && e.code === "revoked" ? "Questa pagina non ha più accesso ai dati." : "Collegamento ai dati interrotto: ricarica la pagina."); disegna(); };
+    const coll = (nome) => db.collection(nome).onSnapshot(s => {
+      const m = {}; s.docs.forEach(d => { if (d.exists) m[d.id] = d.data(); }); raw[nome] = m;
+      if (nome === "tasks") { caricato = true; if (!s.metadata.fromCache && !interrotto) { clearTimeout(timer); avviso(""); } }
       disegna();
-    }, e => { if (nome === "tasks") { clearTimeout(timer); caricato = true; avviso(e && e.code === "revoked" ? "Questa pagina non ha più accesso ai dati." : "Non riesco a leggere il Registro adesso. Riapri la pagina più tardi."); disegna(); } });
-    const doc = (path, chiave) => db.doc(path).onSnapshot(s => { raw[chiave] = s.exists ? s.data() : null; disegna(); }, () => {});
-    coll("tasks", "tasks"); coll("serate", "serate"); coll("clic", "clic"); coll("appunti", "appunti"); coll("rilasci", "rilasci");
-    doc("meta/salute", "salute"); doc("meta/piano", "piano");
+    }, rotto);
+    const doc = (path, chiave) => db.doc(path).onSnapshot(s => { raw[chiave] = s.exists ? s.data() : null; disegna(); }, rotto);
+    ["tasks", "serate", "clic", "appunti", "rilasci"].forEach(coll);
+    doc("meta/salute", "salute"); doc("meta/piano", "piano"); doc("meta/capo", "capo"); doc("meta/stato", "stato");
   })();
 }
 if (typeof document !== "undefined" && document.getElementById("app")) avvia();
