@@ -173,10 +173,6 @@ await caso("un solo nome del connettore, quello verificato dal vivo", async () =
   const r = await R.premi(dip(f, m), { tipo: "margine" });
   uguale(m.chiamate.map(c => c.nome), ["Claude Code Remote"]); vero(r.esito !== "partito", "con un nome diverso non parte");
 });
-  const r = await R.premi(dip(f, m), { tipo: "margine" });
-  uguale(r.esito, "partito"); uguale(m.chiamate.map(c => c.nome), ["Claude Code Remote", "Claude_Code_Remote"]);
-  const c = f.dati.get("clic/" + r.id); uguale(c.lancio.esito, "partito"); uguale(R.statoClic(c, ctxDi(f)).testo, "Partito adesso.");
-});
 await caso("lancio fallito: il clic resta e va in coda con l'orario del giro", async () => {
   const f = dbFinto(conCapo(OGGI)), m = mcpFinto({ "Claude Code Remote": "tool_error" });
   const r = await R.premi(dip(f, m), { tipo: "ok", voce: "G-54" });
