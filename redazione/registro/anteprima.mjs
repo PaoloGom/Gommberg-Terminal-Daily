@@ -31,12 +31,18 @@ const finto = `
     onSnapshot(next) { const f = () => { const d = D[path]; next({ exists: !!d, data: () => d }); }; iscritti.push(f); setTimeout(f, 0); return () => {}; }
   });
   const db = { doc, collection: nome => ({ onSnapshot(next) { const f = () => next(istRaccolta(nome)); iscritti.push(f); setTimeout(f, 0); return () => {}; } }) };
-  // Un capo sviluppo finto: prende il clic e lo chiude, senza fare nulla.
+  // Un capo sviluppo finto, che si comporta come quello vero (CAPO.md): prende il clic, lo esegue nel database e lo chiude.
+  // Ok: scrive "ok" sulla voce e la domanda "Approvata: apri la chat del rilascio". Torna indietro: chiude il clic e la pagina mostra la richiesta.
   const mcp = { async callTool(_s, _t, input) {
     const path = input && input.text;
     setTimeout(() => { const c = D[path]; if (!c) return; const ora = new Date().toISOString(); c.esito = "in-lavoro"; c.preso = { quando: ora, aggiornato: ora };
       if (c.tipo === "via-piano" && D["meta/piano"]) D["meta/piano"].via = { quando: ora, clic: path }; avvisa(); }, 1500);
-    setTimeout(() => { const c = D[path]; if (!c) return; c.esito = "eseguito"; c.nota = "Anteprima: non è partito nulla davvero."; c.chiuso = new Date().toISOString(); avvisa(); }, 7000);
+    setTimeout(() => { const c = D[path]; if (!c) return; const ora = new Date().toISOString();
+      const voce = Object.keys(D).find(p => p.startsWith("tasks/") && D[p].codice === c.voce);
+      if (c.tipo === "ok" && voce) { D[voce].ok = { quando: ora, clic: path.split("/")[1], commit: D[voce].visto_commit || "anteprima" }; D[voce].domanda = "Approvata: apri la chat del rilascio"; c.nota = "Approvata: apri la chat del rilascio."; }
+      else if (c.tipo === "indietro") c.nota = "Richiesta scritta: apri la chat per annullare il rilascio " + c.voce + ".";
+      else c.nota = "Anteprima: non è partito nulla davvero.";
+      c.esito = "eseguito"; c.chiuso = ora; avvisa(); }, 7000);
     return {};
   } };
   window.__finto = async n => (n === "db" ? db : n === "mcp" ? mcp : n === "user" ? { can: async () => true } : null);

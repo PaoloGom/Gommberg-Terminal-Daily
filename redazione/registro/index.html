@@ -112,7 +112,10 @@ const Registro = (() => {
   // Nomi del connettore da provare, in ordine (non si sa ancora quale funziona)
   const NOMI_CONNETTORE = ["Claude Code Remote"]; // verificato dal vivo il 26/11/2026
   // Unico punto da cambiare se il parametro ?q= non funziona
-  function chatURL(codice) { return "https://claude.ai/new?q=" + encodeURIComponent("Gommberg, voce " + codice + ": "); }
+  function chatTesto(testo) { return "https://claude.ai/new?q=" + encodeURIComponent(testo); }
+  const chatURL = codice => chatTesto("Gommberg, voce " + codice + ": ");
+  const chatRilascio = codici => chatTesto(codici.length === 1 ? "Gommberg, rilascia " + codici[0] + " (approvata)" : "Gommberg, rilascia le voci approvate: " + codici.join(", "));
+  const chatAnnulla = nome => chatTesto("Gommberg, annulla il rilascio " + nome);
   const PRESA_MIN = 15;          // un clic partito e non preso in carico entro questi minuti dice "Non ancora preso in carico"
   const ESITI_ORE = 24;          // per quante ore resta in Oggi la riga con l'esito di un clic
   const FRESCO_MIN = 5;          // "Partito adesso" fino a questi minuti
@@ -124,12 +127,12 @@ const Registro = (() => {
   const PRIO_R = { max: 0, high: 1, medium: 2, low: 3, tbd: 4 };
   const PRIO_VECCHIA = { 1: "high", 2: "medium", 3: "low" };
   const LIVELLI = { sola: "Da sola", via: "Con il tuo via", visto: "Via + Visto" };
-  // Prima versione del capo sviluppo: "sola" e "via" si comportano uguale
-  const LIVELLO_SPIEGA = { sola: "parte con il tuo via e va in linea da sola se non tocca il motore.", via: "parte con il tuo via e va in linea da sola se non tocca il motore.", visto: "prima di andare in linea te la mostro." };
-  const LEGENDA = "Da sola e Con il tuo via: partono con il tuo via e vanno in linea da sole se non toccano il motore. Via + Visto: prima di andare in linea te la mostro.";
+  // Prima versione: il livello è l'obiettivo; ogni voce si ferma a "pronta" e va in linea solo con un Ok e una chat
+  const LIVELLO_SPIEGA = { sola: "Obiettivo: andrà in linea da sola. Per ora serve il tuo Ok.", via: "Obiettivo: andrà in linea con il via sul piano. Per ora serve il tuo Ok.", visto: "Va in linea dopo il tuo Ok." };
+  const LEGENDA = "Con il via parte il lavoro. Niente va in linea senza un tuo Ok.";
   const SFORZO = { low: "sforzo basso", medium: "sforzo medio", high: "sforzo alto", xhigh: "sforzo molto alto", max: "sforzo massimo" };
   const STATI_VOCE = ["da-fare", "in-corso", "pronta", "fatta"];
-  const TIPI = { "via-piano": "Via al piano", ok: "Ok, in linea", "non-ancora": "Non ancora", togli: "Togli", margine: "Usa il margine", appunto: "Appunto", indietro: "Torna indietro" };
+  const TIPI = { "via-piano": "Via al piano", ok: "Ok, approvo", "non-ancora": "Non ancora", togli: "Togli", margine: "Usa il margine", appunto: "Appunto", indietro: "Torna indietro" };
   const SENZA_LANCIO = ["togli", "appunto"];
   const APERTI = ["da-eseguire", "in-lavoro"];
   // Errori del connettore: nome sbagliato (si prova l'altro), esito incerto, clic che non basta ancora
@@ -197,6 +200,7 @@ const Registro = (() => {
       chi, input: inputNorm(chi, txt(d.input)),
       finestra: txt(d.finestra), modello: txt(d.modello), sforzo: txt(d.sforzo),
       ferma: txt(d.ferma), anteprima: https(d.anteprima),
+      ok: d.ok && typeof d.ok === "object" && txt(d.ok.commit) ? { quando: txt(d.ok.quando), commit: txt(d.ok.commit) } : null,
       prova: d.prova && typeof d.prova === "object" ? { giorno: giornoOk(d.prova.giorno), esito: txt(d.prova.esito), nota: txt(d.prova.nota) } : null
     };
   }
@@ -270,9 +274,6 @@ const Registro = (() => {
       const min = minutiDa(segnale(c), ora);
       return min > SILENZIO_MIN ? { tipo: "fermo", testo: "Fermo da " + durata(min) + ": nessun segnale.", riprova: true } : { tipo: "lavoro", testo: "Al lavoro." };
     }
-    // Rimandato dal capo sviluppo (fascia dell'edizione): nessuna scadenza fino a non_prima
-    const np = new Date(c.non_prima);
-    if (c.non_prima && !isNaN(np) && np > ora) { const q = quandoTesto(c.non_prima, ora); return { tipo: "attesa", testo: "Riparte dopo " + (q.startsWith("oggi alle ") ? "le " + q.slice(10) : q) + "." }; }
     // Qualcuno lavora con segnale fresco (un altro clic, o il giro con meta/capo.lavora): questo aspetta, senza scadenza
     if (ctx.clic.some(x => x.id !== c.id && x.esito === "in-lavoro" && minutiDa(segnale(x), ora) <= SILENZIO_MIN) || lavoraFresco(ctx))
       return { tipo: "attesa", testo: "In coda: parte appena finisce il lavoro in corso." };
@@ -286,7 +287,13 @@ const Registro = (() => {
     return { tipo: "coda", testo: codaTesto(ctx) };
   }
   // Clic aperto dal database, oppure l'ultimo risultato della pagina finché lo snapshot non lo conferma
+  const CHIESTO = { partito: 1, coda: 1, attesa: 1, lavoro: 1 };
   function vistaClic(c, locale, ctx) {
+    const s = vistaClic_(c, locale, ctx);
+    // Torna indietro: finché il capo sviluppo non lo chiude, si dice solo che è chiesto
+    return s && CHIESTO[s.tipo] && (c ? c.tipo : locale && locale.tipo) === "indietro" ? { tipo: s.tipo, testo: "Chiesto: sto preparando l'annullamento." } : s;
+  }
+  function vistaClic_(c, locale, ctx) {
     if (c) return statoClic(c, ctx);
     if (locale && locale.id && locale.esito !== "non-scritto" && !ctx.clic.some(x => x.id === locale.id))
       return statoClic({ id: locale.id, esito: "da-eseguire", quando: ctx.ora.toISOString(), lancio: locale.lancio || null }, ctx);
@@ -294,7 +301,7 @@ const Registro = (() => {
   }
   function esitiRecenti(ctx) {
     return ctx.clic.filter(c => (c.esito === "eseguito" || c.esito === "scartato") && !ctx.chiusi.includes(c.id)
-      && !(c.esito === "eseguito" && SENZA_LANCIO.includes(c.tipo)) && minutiDa(c.chiuso || c.quando, ctx.ora) < ESITI_ORE * 60)
+      && !(c.esito === "eseguito" && (SENZA_LANCIO.includes(c.tipo) || c.tipo === "ok" || c.tipo === "indietro")) && minutiDa(c.chiuso || c.quando, ctx.ora) < ESITI_ORE * 60)
       .map(c => ({ id: c.id, nome: TIPI[c.tipo] || txt(c.tipo), voce: txt(c.voce), ...statoClic(c, ctx) }));
   }
 
@@ -329,7 +336,10 @@ const Registro = (() => {
     const urgenza = new Date(ctx.ora); urgenza.setDate(urgenza.getDate() + URGENZA_GIORNI);
     const tocca = voci.filter(x => aspettaPaolo(x.v)).sort((a, b) => perRichiesta(a.v, b.v, isoGiorno(urgenza)))
       .map(x => ({ ...x, vedere: daVedere(x.v) && x.s.chiave === "tu", clic: clicAperto(ctx, ["ok", "non-ancora"], x.v.codice) }));
-    const vedere = tocca.filter(x => x.vedere), richieste = tocca.filter(x => !x.vedere);
+    const approvate = tocca.filter(x => x.v.ok).map(x => x.v), vedere = tocca.filter(x => x.vedere && !x.v.ok), richieste = tocca.filter(x => !x.vedere && !x.v.ok);
+    // Torna indietro chiuso dal capo sviluppo: resta la richiesta di aprire la chat, finché il rilascio è ancora in linea
+    const inLinea = new Set(oggetti(ctx.salute && ctx.salute.rilasci).filter(r => txt(r.esito) === "ok").map(r => txt(r.nome)));
+    const annullare = [...new Set(ctx.clic.filter(c => c.tipo === "indietro" && c.esito === "eseguito" && inLinea.has(txt(c.voce))).map(c => txt(c.voce)))];
     const riserva = ctx.voci.filter(v => v.riserva && v.stato !== "fatta").sort((a, b) => a.ordine - b.ordine || numCodice(a.codice) - numCodice(b.codice));
     const lavoro = voci.filter(x => x.s.chiave in ORDINE_LAVORO && !aspettaPaolo(x.v))
       .sort((a, b) => ORDINE_LAVORO[a.s.chiave] - ORDINE_LAVORO[b.s.chiave] || a.v.ordine - b.v.ordine || numCodice(a.v.codice) - numCodice(b.v.codice));
@@ -338,9 +348,9 @@ const Registro = (() => {
       verificato: typeof r.verificato === "boolean" ? r.verificato : /verificat\w* dal vivo/i.test(txt(r.testo))
     }));
     return {
-      collegato: collegato(ctx), piano, tocca, vedere, richieste, nTocca: tocca.length + (piano ? 1 : 0), riserva, lavoro, rilasci, ultimo: ultimoAnnullabile(rilasci),
+      collegato: collegato(ctx), piano, tocca, approvate, annullare, vedere, richieste, nTocca: tocca.length + annullare.length + (piano ? 1 : 0), riserva, lavoro, rilasci, ultimo: ultimoAnnullabile(rilasci),
       margine: clicAperto(ctx, "margine"), indietro: clicAperto(ctx, "indietro"), esiti: esitiRecenti(ctx),
-      niente: !piano && !tocca.length, appunti: ctx.appunti
+      niente: !piano && !tocca.length && !annullare.length, appunti: ctx.appunti
     };
   }
 
@@ -401,8 +411,8 @@ const Registro = (() => {
     const id = dip.nuovoId();
     try { const doc = clicDoc(a, dip.ora()); await unaVolta(dip, () => dip.db.doc("clic/" + id).set(doc)); }
     catch (e) { return { id, esito: "non-scritto", motivo: (e && e.code) || "errore" }; }
-    if (SENZA_LANCIO.includes(a.tipo)) return { id, esito: "scritto" };
-    return lancia(dip, id);
+    if (SENZA_LANCIO.includes(a.tipo)) return { id, tipo: a.tipo, esito: "scritto" };
+    return { tipo: a.tipo, ...(await lancia(dip, id)) };
   }
   async function tentaLancio(dip, id) {
     let mcp = null; try { mcp = await dip.mcp; } catch (_) { mcp = null; }
@@ -441,7 +451,7 @@ const Registro = (() => {
     return { ...r, esito: "salvato" };
   }
 
-  return { LEGENDA, NOMI_CONNETTORE, PRESA_MIN, SILENZIO_MIN, URGENZA_GIORNI, RICHIESTE_VISIBILI, PRIO, LIVELLI, LIVELLO_SPIEGA, STATI, TIPI, ERR_BLOCCO, chatURL, pezziTesto, normVoce, aspettaPaolo, contesto, collegato,
+  return { LEGENDA, chatRilascio, chatAnnulla, NOMI_CONNETTORE, PRESA_MIN, SILENZIO_MIN, URGENZA_GIORNI, RICHIESTE_VISIBILI, PRIO, LIVELLI, LIVELLO_SPIEGA, STATI, TIPI, ERR_BLOCCO, chatURL, pezziTesto, normVoce, aspettaPaolo, contesto, collegato,
     statoVoce, statoClic, vistaClic, esitiRecenti, clicAperto, pianoPartito, zoneOggi, elenco, nAperte, dietro, comeSiLavora, giornoBreve, entro,
     quandoTesto, margineTesto, clicDoc, nuovoId, premi, lancia, togli, aggiungiAppunto };
 })();
@@ -542,6 +552,19 @@ function avvia() {
         })),
         h("div", { class: "legenda", testo: R.LEGENDA })));
     }
+    // Voci approvate: una scheda sola, un solo link alla chat del rilascio
+    if (z.approvate.length) {
+      const cod = z.approvate.map(v => v.codice), una = cod.length === 1;
+      tocca.append(h("div", { class: "card" },
+        h("div", { class: "azioni" }, h("span", { class: "chip nero" }, "Approvata"), h("span", { class: "titolo-card", testo: una ? z.approvate[0].codice + " - " + z.approvate[0].titolo : cod.length + " voci approvate" })),
+        una ? null : h("div", { class: "multi", testo: z.approvate.map(v => v.codice + " - " + v.titolo).join("\n") }),
+        h("div", { class: "sub", testo: "Approvata: apri la chat del rilascio." }),
+        h("div", null, h("a", { class: "btn primario", href: R.chatRilascio(cod), target: "_blank", rel: "noopener" }, "Apri la chat del rilascio"))));
+    }
+    z.annullare.forEach(nome => tocca.append(h("div", { class: "card" },
+      h("div", { class: "azioni" }, h("span", { class: "chip via" }, "Torna indietro"), h("span", { class: "titolo-card", testo: nome })),
+      h("div", { class: "sub", testo: "Apri la chat per annullare il rilascio: lo fa lei, poi verifica dal vivo." }),
+      h("div", null, h("a", { class: "btn primario", href: R.chatAnnulla(nome), target: "_blank", rel: "noopener" }, "Apri la chat per annullare")))));
     z.vedere.forEach(x => {
       const v = x.v, k = "vedere:" + v.codice, nk = "nota-" + v.codice;
       tocca.append(h("div", { class: "card" },
@@ -551,7 +574,7 @@ function avvia() {
         conClic(ctx, k, x.clic, () => [
           h("label", { class: "nascosto", for: nk }, "Nota per il capo sviluppo"),
           h("input", { id: nk, class: "campo", value: ui.bozze[nk] || "", placeholder: "Una nota, se vuoi (facoltativa)", oninput: e => { ui.bozze[nk] = e.target.value; } }),
-          btn("primario", "Ok, in linea", () => azione(k, d => R.premi(d, { tipo: "ok", voce: v.codice, testo: ui.bozze[nk] || "" }))),
+          btn("primario", "Ok, approvo", () => azione(k, d => R.premi(d, { tipo: "ok", voce: v.codice, testo: ui.bozze[nk] || "" }))),
           btn("", "Non ancora", () => azione(k, d => R.premi(d, { tipo: "non-ancora", voce: v.codice, testo: ui.bozze[nk] || "" })))], "Premi di nuovo")));
     });
     // Le altre richieste: una riga ciascuna, un tocco apre la domanda
@@ -604,7 +627,7 @@ function avvia() {
       h("div", { class: "lista" }, z.rilasci.length ? z.rilasci.map(r => h("div", { class: "riga" },
         h("span", { class: "tit" }, h("b", { class: "una1", testo: r.nome }),
           h("span", { class: "sub una1", testo: [r.quando ? r.quando.charAt(0).toUpperCase() + r.quando.slice(1) : "", r.esito === "annullato" ? "Annullato" : "", r.lettore ? "Per il lettore: " + r.lettore : "", r.esito === "annullato" ? "" : "Verificato dal vivo: " + (r.verificato ? "sì" : "no")].filter(Boolean).join(". ") + "." })),
-        r === z.ultimo ? indietro(ctx, r, ki, z.indietro) : null)) : h("div", { class: "vuoto", testo: "Ancora nessun rilascio registrato." })));
+        r === z.ultimo && !z.annullare.includes(r.nome) ? indietro(ctx, r, ki, z.indietro) : null)) : h("div", { class: "vuoto", testo: "Ancora nessun rilascio registrato." })));
 
     const ka = "appunto";
     const appunti = h("section", null,

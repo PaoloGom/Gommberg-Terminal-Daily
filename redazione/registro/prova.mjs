@@ -410,16 +410,6 @@ await caso("Tocca a te compatto: Da vedere in scheda, le altre in righe, scadenz
 await caso("l'anteprima trova ancora la riga che sostituisce", () => {
   vero(html.includes("window.claude && window.claude.use ? await window.claude.use(n) : null"), "riga cercata da anteprima.mjs");
 });
-await caso("non_prima: Riparte dopo l'ora, senza la scadenza dei 15 minuti", async () => {
-  const f = dbFinto(conCapo(OGGI));
-  const r = await R.premi(dip(f, mcpFinto({ "Claude Code Remote": "ok" })), { tipo: "indietro", voce: "Due rami" });
-  Object.assign(f.dati.get("clic/" + r.id), { non_prima: "2026-11-26T19:30:00+01:00" });
-  const tra = min => R.contesto(f.raw(), new Date(ORA.getTime() + min * 60000));
-  uguale(R.statoClic(f.dati.get("clic/" + r.id), tra(60)).testo, "Riparte dopo le 19:30.");
-  uguale(R.statoClic(f.dati.get("clic/" + r.id), tra(100)).tipo, "non-preso", "passato non_prima vale di nuovo la scadenza");
-  f.dati.get("clic/" + r.id).non_prima = "2026-11-27T10:30:00+01:00";
-  uguale(R.statoClic(f.dati.get("clic/" + r.id), ctxDi(f)).testo, "Riparte dopo ven 27/11 alle 10:30.");
-});
 await caso("meta/capo.lavora fresco: i clic aspettano il lavoro in corso", async () => {
   const lav = agg => ({ ...OGGI, "meta/capo": { attivita: "t", giro: "19:27", lavora: { quando: "2026-11-26T16:00:00Z", aggiornato: agg, che: "piano" } } });
   let f = dbFinto(lav("2026-11-26T16:30:00Z"));
@@ -437,8 +427,42 @@ await caso("rilascio annullato: niente Torna indietro, mai due di fila", () => {
   uguale(sal([{ esito: "ko", nome: "Rotto" }, B]).ultimo.nome, "Due rami");
   vero(/r\.esito === "annullato" \? "Annullato"/.test(html), "la riga dice Annullato");
 });
-await caso("spiegazione dei livelli della prima versione, una riga", () => {
-  uguale(R.LEGENDA, "Da sola e Con il tuo via: partono con il tuo via e vanno in linea da sole se non toccano il motore. Via + Visto: prima di andare in linea te la mostro.");
+await caso("spiegazione della prima versione: niente in linea senza Ok", () => {
+  uguale(R.LEGENDA, "Con il via parte il lavoro. Niente va in linea senza un tuo Ok.");
+  vero(/"Ok, approvo"/.test(html) && !/Ok, in linea/.test(html), "il tasto dice Ok, approvo");
+  vero(!/non_prima/.test(html), "niente più non_prima nella pagina");
+});
+await caso("Ok eseguito: voce approvata con il link alla chat del rilascio", async () => {
+  const f = dbFinto(conCapo({ "tasks/x": { codice: "G-70", titolo: "Pagine nuove", stato: "pronta", domanda: "Guarda", visto_commit: "abc1234" },
+    "tasks/y": { codice: "G-71", titolo: "Altro", stato: "pronta", domanda: "Dimmi", visto_commit: "def5678" } }));
+  const r = await R.premi(dip(f, mcpFinto({ "Claude Code Remote": "ok" })), { tipo: "ok", voce: "G-70" });
+  // il capo sviluppo esegue il clic: scrive ok e la domanda, chiude il clic
+  Object.assign(f.dati.get("tasks/x"), { ok: { quando: "2026-11-26T17:10:00Z", clic: r.id, commit: "abc1234" }, domanda: "Approvata: apri la chat del rilascio" });
+  Object.assign(f.dati.get("clic/" + r.id), { esito: "eseguito", nota: "Approvata", chiuso: "2026-11-26T17:10:00Z" });
+  let ctx = ctxDi(f), z = R.zoneOggi(ctx);
+  uguale(codici(z.approvate), ["G-70"]); uguale(codici(z.vedere), ["G-71"]); uguale(z.esiti.length, 0, "nessuna riga Fatto in più");
+  uguale(R.statoVoce(ctx.perCodice.get("G-70"), ctx).testo, "Tocca a te", "non In coda");
+  uguale(R.chatRilascio(["G-70"]), "https://claude.ai/new?q=" + encodeURIComponent("Gommberg, rilascia G-70 (approvata)"));
+  Object.assign(f.dati.get("tasks/y"), { ok: { commit: "def5678" }, domanda: "Approvata: apri la chat del rilascio" });
+  z = R.zoneOggi(ctxDi(f)); uguale(codici(z.approvate), ["G-70", "G-71"]); uguale(z.nTocca, 2);
+  uguale(R.chatRilascio(["G-70", "G-71"]), "https://claude.ai/new?q=" + encodeURIComponent("Gommberg, rilascia le voci approvate: G-70, G-71"));
+  // la chat rilascia: la voce è fatta e sparisce
+  Object.assign(f.dati.get("tasks/x"), { stato: "fatta", ok: null, domanda: "" });
+  uguale(codici(R.zoneOggi(ctxDi(f)).approvate), ["G-71"]);
+});
+await caso("Torna indietro: prima Chiesto, poi la richiesta di aprire la chat per annullare", async () => {
+  const f = dbFinto(conCapo(OGGI));
+  const nome = "Due rami, pannello, newsletter";
+  const r = await R.premi(dip(f, mcpFinto({ "Claude Code Remote": "ok" })), { tipo: "indietro", voce: nome });
+  let ctx = ctxDi(f), z = R.zoneOggi(ctx);
+  uguale(R.vistaClic(z.indietro, null, ctx).testo, "Chiesto: sto preparando l'annullamento.");
+  uguale(R.vistaClic(null, r, R.contesto({ capo: { attivita: "t", giro: "19:27" } }, ORA)).testo, "Chiesto: sto preparando l'annullamento.", "anche prima dello snapshot");
+  Object.assign(f.dati.get("clic/" + r.id), { esito: "eseguito", nota: "Richiesta scritta", chiuso: "2026-11-26T17:05:00Z" });
+  z = R.zoneOggi(ctxDi(f));
+  uguale(z.annullare, [nome]); uguale(z.esiti.length, 0); uguale(z.indietro, null);
+  uguale(R.chatAnnulla(nome), "https://claude.ai/new?q=" + encodeURIComponent("Gommberg, annulla il rilascio " + nome));
+  f.dati.get("meta/salute").rilasci[0].esito = "annullato";
+  uguale(R.zoneOggi(ctxDi(f)).annullare, [], "annullato dalla chat: la richiesta sparisce");
 });
 await caso("la pagina: niente innerHTML, testi lunghi che vanno a capo, niente trattini lunghi", () => {
   vero(!/innerHTML|insertAdjacentHTML|outerHTML/.test(html), "mai HTML costruito da stringhe");
