@@ -203,8 +203,16 @@ def in_linea(t):
 
 
 def testata_dem(m):
-    """La testata dell'email del mattino (newsletter.testata_con), con la data di invio a destra al posto delle chiusure."""
-    return nl.testata_con(f"{m.invio.day} {nl.MESI[m.invio.month - 1]} {m.invio.year}" if m.invio else "")
+    """La testata sottile dell'email del mattino, con la data di invio a destra al posto delle chiusure."""
+    giorno = f"{m.invio.day} {nl.MESI[m.invio.month - 1]} {m.invio.year}".upper() if m.invio else ""
+    data = (f'<td class="gt-d" align="right" valign="bottom" style="padding:5px 0 1px;font:700 10px/1.4 {nl.MONO};'
+            f'letter-spacing:.05em;color:{nl.TENUE};white-space:nowrap">{e(giorno)}</td>')
+    return (f'<tr><td class="gx" style="background:{nl.NERO};border-bottom:3px solid {nl.ARANCIO};padding:15px 28px 10px">'
+            f'<a href="{nl.BASE}" style="text-decoration:none;font:900 21px/1 {nl.TITOLI};font-stretch:75%;letter-spacing:.01em;color:#F5F3EF">'
+            f'<span style="color:{nl.ARANCIO}">GOMMBERG</span> <span style="font-weight:600">TERMINAL DAILY</span></a>'
+            + nl.tabella(f'<tr><td class="gt-m" style="padding:5px 0 0;font:13px/1.4 {nl.FONT};color:{nl.SOFFUSO}">I mercati globali '
+                         f'<span style="color:{nl.ARANCIO}">spiegati</span>, ogni mattina in 6 pagine.</td>{data}</tr>')
+            + '</td></tr>')
 
 
 def blocco_html(b, m):
@@ -212,8 +220,8 @@ def blocco_html(b, m):
     if b[0] == "p":
         return f'{riga}<p style="font:16px/1.6 {nl.FONT};color:{nl.INCHIOSTRO};margin:0">{in_linea(b[1])}</p></td></tr>'
     if b[0] == "h":
-        return (f'<tr><td class="gx" style="padding:24px 28px 0"><p style="{nl.ETICHETTA};'
-                f'color:{nl.ARANCIO_TESTO};margin:0">{in_linea(b[1])}</p></td></tr>')
+        return (f'<tr><td class="gx" style="padding:24px 28px 0"><p style="font:700 12px/1.3 {nl.MONO};letter-spacing:.06em;'
+                f'text-transform:uppercase;color:{nl.ARANCIO_TESTO};margin:0">{in_linea(b[1])}</p></td></tr>')
     if b[0] == "ul":
         voci = "".join(f'<tr><td valign="top" width="18" style="padding:0 0 8px;font:700 16px/1.6 {nl.FONT};color:{nl.ARANCIO}">&#8226;</td>'
                        f'<td style="padding:0 0 8px;font:16px/1.6 {nl.FONT};color:{nl.INCHIOSTRO}">{in_linea(v)}</td></tr>' for v in b[1])
@@ -230,7 +238,7 @@ def blocco_html(b, m):
             f'color:{nl.INCHIOSTRO};text-decoration:none">{e(x)}</a></td></tr>' for k, x in enumerate(b[2], 1))
         return (f'<tr><td class="gx" style="padding:22px 28px 0"><table role="presentation" width="100%" cellpadding="0" '
                 f'cellspacing="0" border="0"><tr><td style="background:{nl.PANNELLO};border-left:3px solid {nl.ARANCIO};padding:14px 16px 8px">'
-                f'<p style="{nl.ETICHETTA};color:{nl.GRIGIO};margin:0 0 6px">Una domanda, un clic</p>'
+                f'<p style="font:700 11px/1.3 {nl.FONT};letter-spacing:.06em;text-transform:uppercase;color:{nl.GRIGIO};margin:0 0 6px">Una domanda, un clic</p>'
                 f'<p style="font:700 17px/1.4 {nl.FONT};color:{nl.INCHIOSTRO};margin:0 0 12px">{in_linea(b[1])}</p>'
                 f'{nl.tabella(opzioni)}'
                 f'</td></tr></table></td></tr>')
@@ -241,8 +249,8 @@ def componi(m, con_testata=True):
     """Oggetto, anteprima e contenuto HTML: la stessa cornice dell'email del mattino (modello "Gommberg cornice")."""
     pezzi = [testata_dem(m) if con_testata else ""]
     if m["titolo"]:
-        pezzi.append(f'<tr><td class="gx" style="padding:26px 28px 2px"><h1 style="font:800 28px/1.15 {nl.TITOLI};font-stretch:80%;'
-                     f'letter-spacing:-.01em;color:{nl.INCHIOSTRO};margin:0">{e(m["titolo"])}</h1></td></tr>')
+        pezzi.append(f'<tr><td class="gx" style="padding:26px 28px 2px"><h1 style="font:900 28px/1.15 {nl.TITOLI};font-stretch:80%;'
+                     f'letter-spacing:0;word-spacing:.04em;color:{nl.INCHIOSTRO};margin:0">{e(m["titolo"])}</h1></td></tr>')
     pezzi += [blocco_html(b, m) for b in m.blocchi]
     if m["pulsante"]:
         testo, url = [x.strip() for x in m["pulsante"].split("|", 1)]
