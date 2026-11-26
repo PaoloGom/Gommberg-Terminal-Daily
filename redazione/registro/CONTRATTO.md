@@ -101,7 +101,7 @@ Per tipo di clic:
 - `via-piano`: scrive `meta/piano.via` = {`quando`, `clic`}; ogni voce del piano meno `tolte` si lavora nel suo giorno (`meta/piano.giorni`; subito quelle il cui giorno è arrivato), fino a "pronta", mai oltre. Senza via non parte nulla del piano.
 - `ok`: sulla voce `ok` = {`quando`, `clic`, `commit`: il `visto_commit`} e `domanda` "Approvata: apri la chat del rilascio". Non manda in linea.
 - `non-ancora`: legge la nota, riprende la voce sullo stesso ramo, la ripropone con un `visto_commit` nuovo.
-- `indietro`: non annulla nulla; scrive la richiesta "Apri la chat per annullare il rilascio <nome>" e chiude il clic.
+- `indietro`: non annulla nulla e non scrive su nessuna voce; chiude il clic con la nota "Apri la chat per annullare il rilascio <nome>": la pagina mostra la richiesta dal clic chiuso.
 - `togli`: aggiunge il codice a `meta/piano.tolte` se il piano è ancora quello di `piano` e non ha il via; altrimenti scarta.
 - `margine`: le voci della riserva in ordine fino a "pronta", mai oltre; senza percentuale una voce, con la percentuale P al più (P - 10) / 5 voci e mai più di quattro (10% o meno: nessuna).
 - `appunto`: se `appunti/<rif>` manca lo crea dal `testo`; lo porta nel piano successivo e lo segna `assorbito`.

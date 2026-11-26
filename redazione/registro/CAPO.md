@@ -18,7 +18,7 @@ Nessuno guarda questa sessione: non fare domande, non usare AskUserQuestion né 
    - `via-piano`: scrivi `meta/piano.via`; le voci del piano meno `tolte` nel loro giorno (subito quelle il cui giorno è arrivato).
    - `ok`: sulla voce `ok` = {quando, clic, commit: il `visto_commit`} e `domanda` "Approvata: apri la chat del rilascio". Non rilasci.
    - `non-ancora`: leggi la nota, riprendi la voce sullo stesso ramo, riproponi con un `visto_commit` nuovo.
-   - `indietro`: non annulli nulla; sulla voce la richiesta "Apri la chat per annullare il rilascio <nome>".
+   - `indietro`: non annulli nulla e non scrivi su nessuna voce; chiudi il clic con la nota "Apri la chat per annullare il rilascio <nome>" (la pagina mostra la richiesta dal clic).
    - `togli`: il codice in `meta/piano.tolte` se il piano è quello di `piano` e non ha il via; altrimenti scarta.
    - `appunto`: crea `appunti/<id>` se manca, portalo nel piano successivo, segnalo `assorbito`.
    - `margine`: voci della riserva in ordine fino a "pronta", mai oltre; con la percentuale P al più (P - 10) / 5 voci e mai più di quattro, senza percentuale una.
