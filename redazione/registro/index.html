@@ -45,7 +45,7 @@ section{display:flex;flex-direction:column;gap:12px}
 .riga{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line2)}
 .lista>div:last-child,.lista>div:last-child .riga{border-bottom:0}
 .cod{font-size:13px;font-weight:600;color:var(--muted);width:44px;flex:none}
-.tit{flex:999 1 280px;font-weight:500}
+.tit{flex:999 1 180px;font-weight:500}
 .stato{font-size:14px;font-weight:600;color:var(--muted)}
 .stato.blu{color:var(--blu)}.stato.accento{color:var(--acc-t)}
 .apri{flex:999 1 300px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;text-align:left;background:transparent;border:0;padding:8px 0;min-height:44px}
@@ -83,6 +83,9 @@ details summary{cursor:pointer;min-height:44px;display:flex;align-items:center;f
 .titolo-card{font-size:17px;font-weight:700}
 .riga-esito{padding:12px 14px;flex-direction:row;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px}
 .colonna{display:flex;flex-direction:column;gap:28px}
+.una,.una1{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.una1{-webkit-line-clamp:1}
+.margine-riga{padding:12px 20px;gap:10px}
 
 </style>
 </head>
@@ -113,6 +116,8 @@ const Registro = (() => {
   const PRESA_MIN = 15;          // un clic partito e non preso in carico entro questi minuti dice "Non ancora preso in carico"
   const ESITI_ORE = 24;          // per quante ore resta in Oggi la riga con l'esito di un clic
   const FRESCO_MIN = 5;          // "Partito adesso" fino a questi minuti
+  const URGENZA_GIORNI = 14;     // una richiesta con scadenza entro questi giorni sale in cima a Tocca a te
+  const RICHIESTE_VISIBILI = 5;  // righe di Tocca a te mostrate prima di "Altre N richieste"
   const SILENZIO_MIN = 60;       // un clic in lavoro senza segnale (preso.aggiornato) da più di questi minuti è fermo
 
   const PRIO = { max: "Max", high: "High", medium: "Medium", low: "Low", tbd: "Idea" };
@@ -286,6 +291,14 @@ const Registro = (() => {
       .map(c => ({ id: c.id, nome: TIPI[c.tipo] || txt(c.tipo), voce: txt(c.voce), ...statoClic(c, ctx) }));
   }
 
+  /* Ordine delle richieste a Paolo, in un punto solo: prima le scadenze entro URGENZA_GIORNI (la più vicina per prima),
+     poi priorità, poi ordine. limite = ultimo giorno (AAAA-MM-GG) che conta come urgente. */
+  function perRichiesta(a, b, limite) {
+    const ua = a.scadenza && a.scadenza <= limite, ub = b.scadenza && b.scadenza <= limite;
+    if (ua !== ub) return ua ? -1 : 1;
+    if (ua && a.scadenza !== b.scadenza) return a.scadenza.localeCompare(b.scadenza);
+    return PRIO_R[a.priorita] - PRIO_R[b.priorita] || a.ordine - b.ordine || numCodice(a.codice) - numCodice(b.codice);
+  }
   const perPriorita = (a, b) => PRIO_R[a.priorita] - PRIO_R[b.priorita] || (a.scadenza || "9999").localeCompare(b.scadenza || "9999") || a.ordine - b.ordine || numCodice(a.codice) - numCodice(b.codice);
   function zoneOggi(ctx) {
     const voci = ctx.voci.map(v => ({ v, s: statoVoce(v, ctx) }));
@@ -301,8 +314,10 @@ const Registro = (() => {
         })
       };
     }
-    const tocca = voci.filter(x => aspettaPaolo(x.v)).sort((a, b) => perPriorita(a.v, b.v))
+    const urgenza = new Date(ctx.ora); urgenza.setDate(urgenza.getDate() + URGENZA_GIORNI);
+    const tocca = voci.filter(x => aspettaPaolo(x.v)).sort((a, b) => perRichiesta(a.v, b.v, isoGiorno(urgenza)))
       .map(x => ({ ...x, vedere: daVedere(x.v) && x.s.chiave === "tu", clic: clicAperto(ctx, ["ok", "non-ancora"], x.v.codice) }));
+    const vedere = tocca.filter(x => x.vedere), richieste = tocca.filter(x => !x.vedere);
     const riserva = ctx.voci.filter(v => v.riserva && v.stato !== "fatta").sort((a, b) => a.ordine - b.ordine || numCodice(a.codice) - numCodice(b.codice));
     const lavoro = voci.filter(x => x.s.chiave in ORDINE_LAVORO && !aspettaPaolo(x.v))
       .sort((a, b) => ORDINE_LAVORO[a.s.chiave] - ORDINE_LAVORO[b.s.chiave] || a.v.ordine - b.v.ordine || numCodice(a.v.codice) - numCodice(b.v.codice));
@@ -311,7 +326,7 @@ const Registro = (() => {
       verificato: typeof r.verificato === "boolean" ? r.verificato : /verificat\w* dal vivo/i.test(txt(r.testo))
     }));
     return {
-      collegato: collegato(ctx), piano, tocca, riserva, lavoro, rilasci, ultimo: rilasci.find(r => r.esito === "ok") || null,
+      collegato: collegato(ctx), piano, tocca, vedere, richieste, nTocca: tocca.length + (piano ? 1 : 0), riserva, lavoro, rilasci, ultimo: rilasci.find(r => r.esito === "ok") || null,
       margine: clicAperto(ctx, "margine"), indietro: clicAperto(ctx, "indietro"), esiti: esitiRecenti(ctx),
       niente: !piano && !tocca.length, appunti: ctx.appunti
     };
@@ -414,7 +429,7 @@ const Registro = (() => {
     return { ...r, esito: "salvato" };
   }
 
-  return { NOMI_CONNETTORE, PRESA_MIN, SILENZIO_MIN, PRIO, LIVELLI, LIVELLO_SPIEGA, STATI, TIPI, ERR_BLOCCO, chatURL, pezziTesto, normVoce, aspettaPaolo, contesto, collegato,
+  return { NOMI_CONNETTORE, PRESA_MIN, SILENZIO_MIN, URGENZA_GIORNI, RICHIESTE_VISIBILI, PRIO, LIVELLI, LIVELLO_SPIEGA, STATI, TIPI, ERR_BLOCCO, chatURL, pezziTesto, normVoce, aspettaPaolo, contesto, collegato,
     statoVoce, statoClic, vistaClic, esitiRecenti, clicAperto, pianoPartito, zoneOggi, elenco, nAperte, dietro, comeSiLavora, giornoBreve, entro,
     quandoTesto, margineTesto, clicDoc, nuovoId, premi, lancia, togli, aggiungiAppunto };
 })();
@@ -428,7 +443,7 @@ function avvia() {
   let db = null, mcp = null, puoScrivere = true, caricato = false, interrotto = false;
   let chiusi = []; try { chiusi = JSON.parse(localStorage.getItem("registro-chiusi") || "[]"); } catch (_) { chiusi = []; }
   const raw = { tasks: {}, serate: {}, clic: {}, appunti: {}, rilasci: {}, salute: null, piano: null, capo: null, stato: null, lanci: {}, chiusi };
-  const ui = { vista: "oggi", ordine: "priorita", filtro: "aperte", q: "", aperta: "", bozze: {}, inCorso: new Set(), errori: {}, locali: {}, conferma: false };
+  const ui = { tutteRichieste: false, scheda: "", margineAperto: false, vista: "oggi", ordine: "priorita", filtro: "aperte", q: "", aperta: "", bozze: {}, inCorso: new Set(), errori: {}, locali: {}, conferma: false };
   let mcpPronto = Promise.resolve(null);
   const dip = () => ({ db, mcp: mcp || mcpPronto, ora: () => new Date(), nuovoId: R.nuovoId, pausa: ms => new Promise(r => setTimeout(r, ms)) });
   const attivo = () => !!db && puoScrivere && !interrotto;
@@ -491,7 +506,7 @@ function avvia() {
 
   function vistaOggi(ctx) {
     const z = R.zoneOggi(ctx);
-    const tocca = h("section", null, h("div", { class: "testa" }, h("h2", null, "Tocca a te"), h("span", { class: "sub" }, "Solo le decisioni tue. Il resto va avanti da solo.")));
+    const tocca = h("section", null, h("div", { class: "testa" }, h("h2", null, "Tocca a te" + (z.nTocca ? " · " + z.nTocca : "")), h("span", { class: "sub" }, "Solo le decisioni tue. Il resto va avanti da solo.")));
     if (!z.collegato) tocca.append(h("div", { class: "avviso", testo: "Il capo sviluppo non è ancora collegato." }));
     z.esiti.forEach(e => tocca.append(h("div", { class: "card riga-esito" },
       h("span", { class: "tit" }, h("b", { testo: e.nome + (e.voce ? " " + e.voce : "") + ": " }), h("span", { class: e.tipo === "scartato" ? "errore" : "", testo: e.testo })),
@@ -515,40 +530,50 @@ function avvia() {
         })),
         h("div", { class: "legenda" }, Object.keys(R.LIVELLI).map(l => h("span", null, h("b", null, R.LIVELLI[l]), ": " + R.LIVELLO_SPIEGA[l])))));
     }
-    z.tocca.forEach(x => {
-      const v = x.v, aperta = ui.aperta === "t:" + v.id;
-      if (x.vedere) {
-        const k = "vedere:" + v.codice, nk = "nota-" + v.codice;
-        tocca.append(h("div", { class: "card" },
-          h("div", { class: "azioni" }, h("span", { class: "chip nero" }, "Da vedere"), h("span", { class: "titolo-card", testo: v.codice + " - " + v.titolo }), v.scadenza ? h("span", { class: "piccolo", testo: R.entro(v.scadenza) }) : null),
-          h("div", { class: "griglia" }, campo("Cosa", v.cosa), campo("Cosa cambia per il lettore", v.lettore), h("div", null, h("div", { class: "et" }, "Cosa ti chiedo"), h("div", { class: "multi" }, conLink(v.domanda)))),
-          v.anteprima ? h("div", null, h("a", { class: "btn secondo", href: v.anteprima, target: "_blank", rel: "noopener" }, "Guarda l'anteprima")) : null,
-          conClic(ctx, k, x.clic, () => [
-            h("label", { class: "nascosto", for: nk }, "Nota per il capo sviluppo"),
-            h("input", { id: nk, class: "campo", value: ui.bozze[nk] || "", placeholder: "Una nota, se vuoi (facoltativa)", oninput: e => { ui.bozze[nk] = e.target.value; } }),
-            btn("primario", "Ok, in linea", () => azione(k, d => R.premi(d, { tipo: "ok", voce: v.codice, testo: ui.bozze[nk] || "" }))),
-            btn("", "Non ancora", () => azione(k, d => R.premi(d, { tipo: "non-ancora", voce: v.codice, testo: ui.bozze[nk] || "" })))], "Premi di nuovo")));
-        return;
-      }
+    z.vedere.forEach(x => {
+      const v = x.v, k = "vedere:" + v.codice, nk = "nota-" + v.codice;
       tocca.append(h("div", { class: "card" },
-        h("div", { class: "azioni" }, h("span", { class: "chip via" }, v.domanda ? "Domanda" : "Azione tua"), h("span", { class: "titolo-card", testo: v.codice + " - " + v.titolo }), v.scadenza ? h("span", { class: "piccolo", testo: R.entro(v.scadenza) }) : null),
-        x.s.chiave !== "tu" ? h("div", { class: "stato " + x.s.tono, testo: statoTesto(x.s) }) : null,
-        v.domanda ? h("div", { class: "multi" }, conLink(v.domanda)) : h("div", { class: "sub" }, "Azione tua: i dettagli sono nella scheda."),
-        h("div", { class: "azioni" }, v.domanda ? chatLink(v, "Rispondi nella chat") : null,
-          h("button", { type: "button", class: "btn", "aria-expanded": String(aperta), onclick: () => apriChiudi("t:" + v.id) }, aperta ? "Chiudi la scheda" : "Apri la scheda"),
-          v.anteprima ? h("a", { class: "btn", href: v.anteprima, target: "_blank", rel: "noopener" }, "Guarda l'anteprima") : null),
-        aperta ? scheda(v, x.s) : null));
+        h("div", { class: "azioni" }, h("span", { class: "chip nero" }, "Da vedere"), h("span", { class: "titolo-card", testo: v.codice + " - " + v.titolo }), v.scadenza ? h("span", { class: "piccolo", testo: R.entro(v.scadenza) }) : null),
+        h("div", { class: "griglia" }, campo("Cosa", v.cosa), campo("Cosa cambia per il lettore", v.lettore), h("div", null, h("div", { class: "et" }, "Cosa ti chiedo"), h("div", { class: "multi" }, conLink(v.domanda)))),
+        v.anteprima ? h("div", null, h("a", { class: "btn secondo", href: v.anteprima, target: "_blank", rel: "noopener" }, "Guarda l'anteprima")) : null,
+        conClic(ctx, k, x.clic, () => [
+          h("label", { class: "nascosto", for: nk }, "Nota per il capo sviluppo"),
+          h("input", { id: nk, class: "campo", value: ui.bozze[nk] || "", placeholder: "Una nota, se vuoi (facoltativa)", oninput: e => { ui.bozze[nk] = e.target.value; } }),
+          btn("primario", "Ok, in linea", () => azione(k, d => R.premi(d, { tipo: "ok", voce: v.codice, testo: ui.bozze[nk] || "" }))),
+          btn("", "Non ancora", () => azione(k, d => R.premi(d, { tipo: "non-ancora", voce: v.codice, testo: ui.bozze[nk] || "" })))], "Premi di nuovo")));
     });
+    // Le altre richieste: una riga ciascuna, un tocco apre la domanda
+    if (z.richieste.length) {
+      const vis = ui.tutteRichieste ? z.richieste : z.richieste.slice(0, R.RICHIESTE_VISIBILI), altre = z.richieste.length - vis.length;
+      tocca.append(h("div", { class: "lista" }, vis.map(x => {
+        const v = x.v, aperta = ui.aperta === "r:" + v.id, sch = ui.scheda === v.id;
+        return h("div", { style: "border-bottom:1px solid var(--line2)" },
+          h("button", { type: "button", class: "apri tutta", "aria-expanded": String(aperta), onclick: () => apriChiudi("r:" + v.id) },
+            h("span", { class: "chip via" }, v.domanda ? "Domanda" : "Azione tua"), h("span", { class: "cod", testo: v.codice }), h("span", { class: "tit una", testo: v.titolo }),
+            v.scadenza ? h("span", { class: "piccolo", testo: R.entro(v.scadenza) }) : null,
+            x.s.chiave !== "tu" ? h("span", { class: "stato " + x.s.tono, testo: x.s.testo }) : null),
+          aperta ? h("div", { class: "scheda" },
+            x.s.chiave !== "tu" ? h("div", { class: "stato " + x.s.tono, testo: statoTesto(x.s) }) : null,
+            v.domanda ? h("div", { class: "multi" }, conLink(v.domanda)) : h("div", { class: "sub" }, "Azione tua: i dettagli sono nella scheda."),
+            h("div", { class: "azioni" }, v.domanda ? chatLink(v, "Rispondi nella chat") : null,
+              h("button", { type: "button", class: "btn", "aria-expanded": String(sch), onclick: () => { ui.scheda = sch ? "" : v.id; disegna(); } }, sch ? "Chiudi la scheda" : "Apri la scheda"),
+              v.anteprima ? h("a", { class: "btn", href: v.anteprima, target: "_blank", rel: "noopener" }, "Guarda l'anteprima") : null),
+            sch ? scheda(v, x.s) : null) : null);
+      }), altre > 0 || ui.tutteRichieste && z.richieste.length > R.RICHIESTE_VISIBILI ? h("div", { class: "riga" },
+        h("button", { type: "button", class: "btn link", onclick: () => { ui.tutteRichieste = !ui.tutteRichieste; disegna(); } }, altre > 0 ? "Altre " + altre + (altre === 1 ? " richiesta" : " richieste") : "Mostra solo le prime " + R.RICHIESTE_VISIBILI)) : null));
+    }
     if (z.niente) tocca.append(h("div", { class: "sub", testo: "Niente da decidere adesso: va avanti tutto da solo." }));
-    // Il margine: tasto sempre presente quando il capo sviluppo è collegato
+    // Il margine: una riga con il tasto; percentuale e Conferma solo dopo il primo tocco
     const km = "margine", pct = "margine-pct", ris = z.riserva.slice(0, 3).map(v => v.titolo);
-    tocca.append(h("div", { class: "card tratteggio" },
-      h("div", null, h("div", { class: "titolo-card" }, "Hai margine di token? Lancio la riserva"),
-        h("div", { class: "sub", testo: ris.length ? "Voci già decise, in ordine di valore: " + ris.join("; ") + (z.riserva.length > 3 ? "; e altre " + (z.riserva.length - 3) + "." : ".") + " Edizioni e prova vengono prima: il margine non si usa mai fino in fondo." : "La riserva è vuota: il capo sviluppo anticipa le voci già in piano. Edizioni e prova vengono prima." })),
-      conClic(ctx, km, z.margine, () => [
+    const usa = () => azione(km, async d => { const r = await R.premi(d, { tipo: "margine", testo: R.margineTesto(ui.bozze[pct]) }); if (r.esito !== "non-scritto") { ui.bozze[pct] = ""; ui.margineAperto = false; } return r; });
+    tocca.append(h("div", { class: "card tratteggio margine-riga" },
+      h("div", { class: "azioni", style: "justify-content:space-between" }, h("span", { class: "tit", style: "font-weight:600" }, "Hai margine di token? Lancio la riserva"),
+        conClic(ctx, km, z.margine, () => (ui.margineAperto ? null : btn("margine", "Usa il margine", () => { ui.margineAperto = true; disegna(); })), "Usa il margine")),
+      ui.margineAperto && !z.margine && !ui.inCorso.has(km) ? h("div", { class: "azioni" },
+        h("div", { class: "sub", style: "flex:1 1 100%", testo: ris.length ? "Voci già decise, in ordine di valore: " + ris.join("; ") + (z.riserva.length > 3 ? "; e altre " + (z.riserva.length - 3) + "." : ".") + " Edizioni e prova vengono prima." : "La riserva è vuota: il capo sviluppo anticipa le voci già in piano. Edizioni e prova vengono prima." }),
         h("label", { for: pct, class: "piccolo" }, "Quanto ti resta (facoltativo)"),
         h("input", { id: pct, class: "campo corto", inputmode: "numeric", value: ui.bozze[pct] || "", placeholder: "es. 30%", oninput: e => { ui.bozze[pct] = e.target.value; } }),
-        btn("margine", "Usa il margine", () => azione(km, async d => { const r = await R.premi(d, { tipo: "margine", testo: R.margineTesto(ui.bozze[pct]) }); if (r.esito !== "non-scritto") ui.bozze[pct] = ""; return r; }))], "Usa il margine")));
+        btn("primario", "Conferma", usa), h("button", { type: "button", class: "btn", onclick: () => { ui.margineAperto = false; disegna(); } }, "Annulla")) : null));
 
     const lavoro = h("section", null,
       h("div", { class: "testa" }, h("h2", null, "Al lavoro"), h("button", { type: "button", class: "btn link", onclick: () => vai("tutti") }, "Vedi tutti i lavori")),
@@ -556,17 +581,17 @@ function avvia() {
         const aperta = ui.aperta === "l:" + x.v.id;
         return h("div", { style: "border-bottom:1px solid var(--line2)" },
           h("button", { type: "button", class: "apri tutta", "aria-expanded": String(aperta), onclick: () => apriChiudi("l:" + x.v.id) },
-            h("span", { class: "cod", testo: x.v.codice }), h("span", { class: "tit", testo: x.v.titolo }),
+            h("span", { class: "cod", testo: x.v.codice }), h("span", { class: "tit una", testo: x.v.titolo }),
             x.v.scadenza ? h("span", { class: "piccolo", testo: R.entro(x.v.scadenza) }) : null,
-            h("span", { class: "stato " + x.s.tono, testo: statoTesto(x.s) })),
+            h("span", { class: "stato una " + x.s.tono, testo: statoTesto(x.s) })),
           aperta ? scheda(x.v, x.s) : null);
       }) : h("div", { class: "vuoto", testo: "Nessun lavoro in corso o in coda." })));
 
     const ki = "indietro";
     const linea = h("section", null, h("h2", null, "In linea"),
       h("div", { class: "lista" }, z.rilasci.length ? z.rilasci.map(r => h("div", { class: "riga" },
-        h("span", { class: "tit" }, h("b", { testo: r.nome }), h("br"),
-          h("span", { class: "sub", testo: [r.quando ? r.quando.charAt(0).toUpperCase() + r.quando.slice(1) : "", r.lettore ? "Per il lettore: " + r.lettore : "", "Verificato dal vivo: " + (r.verificato ? "sì" : "no")].filter(Boolean).join(". ") + "." })),
+        h("span", { class: "tit" }, h("b", { class: "una1", testo: r.nome }),
+          h("span", { class: "sub una1", testo: [r.quando ? r.quando.charAt(0).toUpperCase() + r.quando.slice(1) : "", r.lettore ? "Per il lettore: " + r.lettore : "", "Verificato dal vivo: " + (r.verificato ? "sì" : "no")].filter(Boolean).join(". ") + "." })),
         r === z.ultimo ? indietro(ctx, r, ki, z.indietro) : null)) : h("div", { class: "vuoto", testo: "Ancora nessun rilascio registrato." })));
 
     const ka = "appunto";

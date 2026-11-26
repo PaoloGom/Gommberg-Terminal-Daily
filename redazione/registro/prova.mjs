@@ -391,6 +391,22 @@ await caso("un Togli vale solo per il piano in cui è stato dato", async () => {
   uguale(codici(R.zoneOggi(ctx).piano.voci), ["G-58", "G-12"], "il Togli vecchio non nasconde la voce nel piano nuovo");
   uguale(R.statoVoce(ctx.perCodice.get("G-58"), ctx).testo, "In piano");
 });
+await caso("Tocca a te compatto: Da vedere in scheda, le altre in righe, scadenze vicine in cima", () => {
+  const dati = conCapo({ ...OGGI,
+    "tasks/u1": { codice: "G-81", titolo: "Auguri", chi: "Paolo", priorita: "low", ordine: 90, scadenza: "2026-12-09" },
+    "tasks/u2": { codice: "G-82", titolo: "Token", chi: "Paolo", priorita: "medium", ordine: 1, scadenza: "2026-12-01" },
+    "tasks/u3": { codice: "G-83", titolo: "Lontana", chi: "Paolo", priorita: "low", ordine: 2, scadenza: "2027-01-31" },
+    "tasks/v1": { codice: "G-84", titolo: "Pagine", stato: "pronta", domanda: "Guarda", priorita: "low" },
+    "meta/piano": { settimana: "2026-11-28", voci: ["G-12"], tolte: [], via: null } });
+  const z = R.zoneOggi(ctxDi(dbFinto(dati)));
+  uguale(codici(z.vedere), ["G-84"]);
+  uguale(codici(z.richieste), ["G-82", "G-81", "G-54", "G-19", "G-65", "G-83"], "entro 14 giorni prima (la più vicina), poi priorità, poi ordine");
+  uguale(z.nTocca, 8, "richieste, voci da vedere e piano");
+  uguale(R.RICHIESTE_VISIBILI, 5); uguale(R.URGENZA_GIORNI, 14);
+});
+await caso("l'anteprima trova ancora la riga che sostituisce", () => {
+  vero(html.includes("window.claude && window.claude.use ? await window.claude.use(n) : null"), "riga cercata da anteprima.mjs");
+});
 await caso("la pagina: niente innerHTML, testi lunghi che vanno a capo, niente trattini lunghi", () => {
   vero(!/innerHTML|insertAdjacentHTML|outerHTML/.test(html), "mai HTML costruito da stringhe");
   vero(/overflow-wrap:anywhere/.test(html), "overflow-wrap");
