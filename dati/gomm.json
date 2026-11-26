@@ -1,6 +1,6 @@
 {
   "nota": "Visite giornaliere del sito dal contatore pubblico di GoatCounter, giorni completi (ora di Roma). Le aggiorna redazione/gomm.py ogni mattina dal lunedì al venerdì; i giorni dopo 'fino' le pagine li chiedono al contatore.",
   "dal": "2026-10-17",
-  "fino": "2026-11-24",
-  "visite": [31, 0, 17, 17, 9, 24, 19, 0, 2, 21, 19, 7, 11, 18, 0, 0, 13, 22, 5, 14, 27, 26, 23, 18, 22, 25, 22, 20, 27, 40, 53, 45, 52, 57, 59, 24, 54, 56, 30]
+  "fino": "2026-11-25",
+  "visite": [31, 0, 17, 17, 9, 24, 19, 0, 2, 21, 19, 7, 11, 18, 0, 0, 13, 22, 5, 14, 27, 26, 23, 18, 22, 25, 22, 20, 27, 40, 53, 45, 52, 57, 59, 24, 54, 56, 30, 31]
 }
