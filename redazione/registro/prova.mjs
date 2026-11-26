@@ -247,7 +247,7 @@ await caso("dietro le quinte: salute vecchia, serate, consensi", async () => {
   f.dati.get("meta/salute").verificato = "2026-11-24T10:00:00+01:00"; uguale(R.dietro(ctxDi(f)).vecchia, true, "verifica di più di 26 ore fa"); uguale(d.consensi.length, 1); uguale(d.conta.margine, 1);
   uguale(d.consensi[0].lancio, "coda");
 });
-await caso("la pagina non contiene trattini lunghi", () => { vero(!/[–—]/.test(html)); });
+await caso("la pagina non contiene trattini lunghi", () => { vero(!/[\u2013\u2014]/.test(html)); });
 
 console.log("\n" + passate + " casi passati, " + fallite + " falliti");
 process.exit(fallite ? 1 : 0);
