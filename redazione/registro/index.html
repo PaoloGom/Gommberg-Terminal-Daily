@@ -118,13 +118,15 @@ const Registro = (() => {
   const FRESCO_MIN = 5;          // "Partito adesso" fino a questi minuti
   const URGENZA_GIORNI = 14;     // una richiesta con scadenza entro questi giorni sale in cima a Tocca a te
   const RICHIESTE_VISIBILI = 5;  // righe di Tocca a te mostrate prima di "Altre N richieste"
-  const SILENZIO_MIN = 60;       // un clic in lavoro senza segnale (preso.aggiornato) da più di questi minuti è fermo
+  const SILENZIO_MIN = 180;      // un lavoro senza segnale (preso.aggiornato, meta/capo.lavora.aggiornato) da più di questi minuti è fermo
 
   const PRIO = { max: "Max", high: "High", medium: "Medium", low: "Low", tbd: "Idea" };
   const PRIO_R = { max: 0, high: 1, medium: 2, low: 3, tbd: 4 };
   const PRIO_VECCHIA = { 1: "high", 2: "medium", 3: "low" };
   const LIVELLI = { sola: "Da sola", via: "Con il tuo via", visto: "Via + Visto" };
-  const LIVELLO_SPIEGA = { sola: "parte e va in linea da sola, leggi l'esito.", via: "parte con il tuo clic, poi fa da sé.", visto: "prima di andare in linea te la mostro." };
+  // Prima versione del capo sviluppo: "sola" e "via" si comportano uguale
+  const LIVELLO_SPIEGA = { sola: "parte con il tuo via e va in linea da sola se non tocca il motore.", via: "parte con il tuo via e va in linea da sola se non tocca il motore.", visto: "prima di andare in linea te la mostro." };
+  const LEGENDA = "Da sola e Con il tuo via: partono con il tuo via e vanno in linea da sole se non toccano il motore. Via + Visto: prima di andare in linea te la mostro.";
   const SFORZO = { low: "sforzo basso", medium: "sforzo medio", high: "sforzo alto", xhigh: "sforzo molto alto", max: "sforzo massimo" };
   const STATI_VOCE = ["da-fare", "in-corso", "pronta", "fatta"];
   const TIPI = { "via-piano": "Via al piano", ok: "Ok, in linea", "non-ancora": "Non ancora", togli: "Togli", margine: "Usa il margine", appunto: "Appunto", indietro: "Torna indietro" };
@@ -219,7 +221,8 @@ const Registro = (() => {
       .filter(a => (a.stato || "nuovo") === "nuovo" && txt(a.testo)).sort((a, b) => txt(b.creato).localeCompare(txt(a.creato)));
     const capo = raw.capo || null;
     return { ora, voci, perCodice, clic, serate, piano, pianoScaduto, appunti, salute: raw.salute || null, stato: raw.stato || null,
-      rilasci: raw.rilasci || {}, chiusi: lista(raw.chiusi), attivita: txt(capo && capo.attivita), giro: txt(capo && capo.giro) };
+      rilasci: raw.rilasci || {}, chiusi: lista(raw.chiusi), attivita: txt(capo && capo.attivita), giro: txt(capo && capo.giro),
+      lavora: capo && capo.lavora && typeof capo.lavora === "object" ? capo.lavora : null };
   }
   const collegato = ctx => !!ctx.attivita;
 
@@ -255,6 +258,7 @@ const Registro = (() => {
   const codaTesto = ctx => (ctx.giro ? "In coda: parte al giro delle " + ctx.giro + "." : "In coda: il clic è registrato, ma l'orario del giro non è ancora scritto.");
 
   // Che cosa dire di un clic (dal database, più l'esito di lancio tenuto dalla pagina)
+  const lavoraFresco = ctx => !!(ctx.lavora && minutiDa(ctx.lavora.aggiornato || ctx.lavora.quando, ctx.ora) <= SILENZIO_MIN);
   const segnale = c => (c.preso && (c.preso.aggiornato || c.preso.quando)) || c.quando;
   const durata = min => (min < 120 ? Math.round(min) + " minuti" : min < 48 * 60 ? Math.round(min / 60) + " ore" : Math.round(min / 1440) + " giorni");
   function statoClic(c, ctx) {
@@ -266,8 +270,11 @@ const Registro = (() => {
       const min = minutiDa(segnale(c), ora);
       return min > SILENZIO_MIN ? { tipo: "fermo", testo: "Fermo da " + durata(min) + ": nessun segnale.", riprova: true } : { tipo: "lavoro", testo: "Al lavoro." };
     }
-    // Un altro clic è in lavoro con segnale fresco: questo aspetta, senza scadenza
-    if (ctx.clic.some(x => x.id !== c.id && x.esito === "in-lavoro" && minutiDa(segnale(x), ora) <= SILENZIO_MIN))
+    // Rimandato dal capo sviluppo (fascia dell'edizione): nessuna scadenza fino a non_prima
+    const np = new Date(c.non_prima);
+    if (c.non_prima && !isNaN(np) && np > ora) { const q = quandoTesto(c.non_prima, ora); return { tipo: "attesa", testo: "Riparte dopo " + (q.startsWith("oggi alle ") ? "le " + q.slice(10) : q) + "." }; }
+    // Qualcuno lavora con segnale fresco (un altro clic, o il giro con meta/capo.lavora): questo aspetta, senza scadenza
+    if (ctx.clic.some(x => x.id !== c.id && x.esito === "in-lavoro" && minutiDa(segnale(x), ora) <= SILENZIO_MIN) || lavoraFresco(ctx))
       return { tipo: "attesa", testo: "In coda: parte appena finisce il lavoro in corso." };
     if (l.esito === "partito") {
       const min = minutiDa(l.quando || c.quando, ora);
@@ -300,6 +307,11 @@ const Registro = (() => {
     return PRIO_R[a.priorita] - PRIO_R[b.priorita] || a.ordine - b.ordine || numCodice(a.codice) - numCodice(b.codice);
   }
   const perPriorita = (a, b) => PRIO_R[a.priorita] - PRIO_R[b.priorita] || (a.scadenza || "9999").localeCompare(b.scadenza || "9999") || a.ordine - b.ordine || numCodice(a.codice) - numCodice(b.codice);
+  // Torna indietro solo sul primo rilascio con esito ok, e mai due annullamenti di fila (CAPO.md)
+  function ultimoAnnullabile(rilasci) {
+    for (const r of rilasci) { if (r.esito === "annullato") return null; if (r.esito === "ok") return r; }
+    return null;
+  }
   function zoneOggi(ctx) {
     const voci = ctx.voci.map(v => ({ v, s: statoVoce(v, ctx) }));
     let piano = null;
@@ -326,7 +338,7 @@ const Registro = (() => {
       verificato: typeof r.verificato === "boolean" ? r.verificato : /verificat\w* dal vivo/i.test(txt(r.testo))
     }));
     return {
-      collegato: collegato(ctx), piano, tocca, vedere, richieste, nTocca: tocca.length + (piano ? 1 : 0), riserva, lavoro, rilasci, ultimo: rilasci.find(r => r.esito === "ok") || null,
+      collegato: collegato(ctx), piano, tocca, vedere, richieste, nTocca: tocca.length + (piano ? 1 : 0), riserva, lavoro, rilasci, ultimo: ultimoAnnullabile(rilasci),
       margine: clicAperto(ctx, "margine"), indietro: clicAperto(ctx, "indietro"), esiti: esitiRecenti(ctx),
       niente: !piano && !tocca.length, appunti: ctx.appunti
     };
@@ -429,7 +441,7 @@ const Registro = (() => {
     return { ...r, esito: "salvato" };
   }
 
-  return { NOMI_CONNETTORE, PRESA_MIN, SILENZIO_MIN, URGENZA_GIORNI, RICHIESTE_VISIBILI, PRIO, LIVELLI, LIVELLO_SPIEGA, STATI, TIPI, ERR_BLOCCO, chatURL, pezziTesto, normVoce, aspettaPaolo, contesto, collegato,
+  return { LEGENDA, NOMI_CONNETTORE, PRESA_MIN, SILENZIO_MIN, URGENZA_GIORNI, RICHIESTE_VISIBILI, PRIO, LIVELLI, LIVELLO_SPIEGA, STATI, TIPI, ERR_BLOCCO, chatURL, pezziTesto, normVoce, aspettaPaolo, contesto, collegato,
     statoVoce, statoClic, vistaClic, esitiRecenti, clicAperto, pianoPartito, zoneOggi, elenco, nAperte, dietro, comeSiLavora, giornoBreve, entro,
     quandoTesto, margineTesto, clicDoc, nuovoId, premi, lancia, togli, aggiungiAppunto };
 })();
@@ -528,7 +540,7 @@ function avvia() {
               R.vistaClic(p.clic, ui.locali[k], ctx) ? null : btn("", ui.inCorso.has(kt) ? "Tolgo..." : "Togli", () => azione(kt, d => R.togli(d, x.v.codice, p.settimana)), ui.inCorso.has(kt))),
             errore(kt), aperta ? scheda(x.v) : null);
         })),
-        h("div", { class: "legenda" }, Object.keys(R.LIVELLI).map(l => h("span", null, h("b", null, R.LIVELLI[l]), ": " + R.LIVELLO_SPIEGA[l])))));
+        h("div", { class: "legenda", testo: R.LEGENDA })));
     }
     z.vedere.forEach(x => {
       const v = x.v, k = "vedere:" + v.codice, nk = "nota-" + v.codice;
@@ -591,7 +603,7 @@ function avvia() {
     const linea = h("section", null, h("h2", null, "In linea"),
       h("div", { class: "lista" }, z.rilasci.length ? z.rilasci.map(r => h("div", { class: "riga" },
         h("span", { class: "tit" }, h("b", { class: "una1", testo: r.nome }),
-          h("span", { class: "sub una1", testo: [r.quando ? r.quando.charAt(0).toUpperCase() + r.quando.slice(1) : "", r.lettore ? "Per il lettore: " + r.lettore : "", "Verificato dal vivo: " + (r.verificato ? "sì" : "no")].filter(Boolean).join(". ") + "." })),
+          h("span", { class: "sub una1", testo: [r.quando ? r.quando.charAt(0).toUpperCase() + r.quando.slice(1) : "", r.esito === "annullato" ? "Annullato" : "", r.lettore ? "Per il lettore: " + r.lettore : "", r.esito === "annullato" ? "" : "Verificato dal vivo: " + (r.verificato ? "sì" : "no")].filter(Boolean).join(". ") + "." })),
         r === z.ultimo ? indietro(ctx, r, ki, z.indietro) : null)) : h("div", { class: "vuoto", testo: "Ancora nessun rilascio registrato." })));
 
     const ka = "appunto";

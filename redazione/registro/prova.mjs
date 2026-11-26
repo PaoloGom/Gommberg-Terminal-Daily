@@ -369,8 +369,10 @@ await caso("clic in lavoro senza segnale: Fermo da, con Riprova", () => {
   const preso = agg => ({ tipo: "margine", esito: "in-lavoro", quando: "2026-11-26T15:00:00Z", preso: { quando: "2026-11-26T15:00:00Z", aggiornato: agg } });
   let f = dbFinto(conCapo({ "clic/c1": preso("2026-11-26T16:40:00Z") })); // 20 minuti fa
   uguale(R.statoClic(f.dati.get("clic/c1"), ctxDi(f)).testo, "Al lavoro.");
-  f = dbFinto(conCapo({ "clic/c1": preso("2026-11-26T15:30:00Z") })); // 90 minuti fa
-  const s = R.statoClic(f.dati.get("clic/c1"), ctxDi(f)); uguale([s.testo, s.riprova], ["Fermo da 90 minuti: nessun segnale.", true]);
+  f = dbFinto(conCapo({ "clic/c1": preso("2026-11-26T15:30:00Z") })); // 90 minuti fa: sotto la soglia
+  uguale(R.statoClic(f.dati.get("clic/c1"), ctxDi(f)).testo, "Al lavoro."); uguale(R.SILENZIO_MIN, 180);
+  f = dbFinto(conCapo({ "clic/c1": preso("2026-11-26T13:40:00Z") })); // 200 minuti fa
+  const s = R.statoClic(f.dati.get("clic/c1"), ctxDi(f)); uguale([s.testo, s.riprova], ["Fermo da 3 ore: nessun segnale.", true]);
   f = dbFinto(conCapo({ "clic/c1": { tipo: "margine", esito: "in-lavoro", quando: "2026-11-23T17:00:00Z" } })); // sessione morta prima di scrivere preso
   uguale(R.statoClic(f.dati.get("clic/c1"), ctxDi(f)).testo, "Fermo da 3 giorni: nessun segnale.");
 });
@@ -380,7 +382,8 @@ await caso("un clic aspetta il lavoro in corso, senza la scadenza dei 15 minuti"
   const tra = min => R.contesto(f.raw(), new Date(ORA.getTime() + min * 60000));
   uguale(R.statoClic(f.dati.get("clic/" + r.id), tra(1)).testo, "In coda: parte appena finisce il lavoro in corso.");
   uguale(R.statoClic(f.dati.get("clic/" + r.id), tra(40)).testo, "In coda: parte appena finisce il lavoro in corso.", "nessuna scadenza mentre l'altro lavora");
-  uguale(R.statoClic(f.dati.get("clic/" + r.id), tra(70)).tipo, "non-preso", "l'altro tace da più di 60 minuti: torna la scadenza");
+  uguale(R.statoClic(f.dati.get("clic/" + r.id), tra(120)).testo, "In coda: parte appena finisce il lavoro in corso.", "130 minuti di silenzio: sotto la soglia");
+  uguale(R.statoClic(f.dati.get("clic/" + r.id), tra(175)).tipo, "non-preso", "l'altro tace da più di 180 minuti: torna la scadenza");
 });
 await caso("un Togli vale solo per il piano in cui è stato dato", async () => {
   const f = dbFinto(conCapo({ ...OGGI, "meta/piano": { settimana: "2026-11-28", voci: ["G-58", "G-12"], tolte: [], via: null } }));
@@ -406,6 +409,36 @@ await caso("Tocca a te compatto: Da vedere in scheda, le altre in righe, scadenz
 });
 await caso("l'anteprima trova ancora la riga che sostituisce", () => {
   vero(html.includes("window.claude && window.claude.use ? await window.claude.use(n) : null"), "riga cercata da anteprima.mjs");
+});
+await caso("non_prima: Riparte dopo l'ora, senza la scadenza dei 15 minuti", async () => {
+  const f = dbFinto(conCapo(OGGI));
+  const r = await R.premi(dip(f, mcpFinto({ "Claude Code Remote": "ok" })), { tipo: "indietro", voce: "Due rami" });
+  Object.assign(f.dati.get("clic/" + r.id), { non_prima: "2026-11-26T19:30:00+01:00" });
+  const tra = min => R.contesto(f.raw(), new Date(ORA.getTime() + min * 60000));
+  uguale(R.statoClic(f.dati.get("clic/" + r.id), tra(60)).testo, "Riparte dopo le 19:30.");
+  uguale(R.statoClic(f.dati.get("clic/" + r.id), tra(100)).tipo, "non-preso", "passato non_prima vale di nuovo la scadenza");
+  f.dati.get("clic/" + r.id).non_prima = "2026-11-27T10:30:00+01:00";
+  uguale(R.statoClic(f.dati.get("clic/" + r.id), ctxDi(f)).testo, "Riparte dopo ven 27/11 alle 10:30.");
+});
+await caso("meta/capo.lavora fresco: i clic aspettano il lavoro in corso", async () => {
+  const lav = agg => ({ ...OGGI, "meta/capo": { attivita: "t", giro: "19:27", lavora: { quando: "2026-11-26T16:00:00Z", aggiornato: agg, che: "piano" } } });
+  let f = dbFinto(lav("2026-11-26T16:30:00Z"));
+  const r = await R.premi(dip(f, mcpFinto({ "Claude Code Remote": "ok" })), { tipo: "margine" });
+  uguale(R.statoClic(f.dati.get("clic/" + r.id), R.contesto(f.raw(), new Date(ORA.getTime() + 60 * 60000))).testo, "In coda: parte appena finisce il lavoro in corso.");
+  f.dati.get("meta/capo").lavora.aggiornato = "2026-11-26T12:00:00Z";
+  uguale(R.statoClic(f.dati.get("clic/" + r.id), R.contesto(f.raw(), new Date(ORA.getTime() + 60 * 60000))).tipo, "non-preso", "lavora muto: non conta");
+  uguale(R.statoClic(f.dati.get("clic/" + r.id), ctxDi(f)).testo, "Partito adesso.", "lavora muto e lancio appena fatto");
+});
+await caso("rilascio annullato: niente Torna indietro, mai due di fila", () => {
+  const sal = rilasci => R.zoneOggi(ctxDi(dbFinto({ ...OGGI, "meta/salute": { rilasci } })));
+  const A = { esito: "annullato", nome: "Rilascio 2026-11-30: pannello", quando: "2026-11-30T20:00:00+01:00" }, B = { esito: "ok", nome: "Due rami", quando: "2026-11-25T18:48:00+01:00" };
+  uguale(sal([B]).ultimo.nome, "Due rami");
+  uguale(sal([A, B]).ultimo, null, "il primo è annullato: un secondo annullamento di fila non c'è");
+  uguale(sal([{ esito: "ko", nome: "Rotto" }, B]).ultimo.nome, "Due rami");
+  vero(/r\.esito === "annullato" \? "Annullato"/.test(html), "la riga dice Annullato");
+});
+await caso("spiegazione dei livelli della prima versione, una riga", () => {
+  uguale(R.LEGENDA, "Da sola e Con il tuo via: partono con il tuo via e vanno in linea da sole se non toccano il motore. Via + Visto: prima di andare in linea te la mostro.");
 });
 await caso("la pagina: niente innerHTML, testi lunghi che vanno a capo, niente trattini lunghi", () => {
   vero(!/innerHTML|insertAdjacentHTML|outerHTML/.test(html), "mai HTML costruito da stringhe");
