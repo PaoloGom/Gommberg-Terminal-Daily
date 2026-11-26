@@ -1,0 +1,67 @@
+[
+ {
+  "campo": "quadro",
+  "originale": "A nostro avviso i prezzi di stamattina raccontano due storie. Le azioni hanno quasi cancellato il crollo, ma l'indice della paura (VIX) è salito ancora del 7,3%. Il 10 anni cala nonostante l'inflazione, e il Brent sale su voci non confermate. Il rimbalzo è una pausa, non la fine dell'allarme.",
+  "testo": "I prezzi di stamattina dicono due cose. Le azioni hanno quasi cancellato il crollo, ma l'indice della paura (VIX) è salito ancora del 7,3%. Il 10 anni cala nonostante l'inflazione, e il Brent sale su voci non confermate. A nostro avviso il rimbalzo è una pausa, non la fine dell'allarme."
+ },
+ {
+  "campo": "notizie.2.testo",
+  "originale": "Sono report di media iraniani su petroliere finite su mine, senza conferma indipendente, ha scritto Bloomberg.",
+  "testo": "Media iraniani riferiscono di petroliere finite su mine, ma Bloomberg scrive di non avere conferme indipendenti."
+ },
+ {
+  "campo": "moduli.wall.titolo",
+  "originale": "Wall Street recupera i prezzi ma non la calma: la paura sale ancora",
+  "testo": "A Wall Street le azioni risalgono, ma la paura sale ancora"
+ },
+ {
+  "campo": "moduli.wall.guardare",
+  "originale": "Da seguire il costo di quelle assicurazioni: se resta ai massimi mentre le azioni risalgono, il rimbalzo ha le gambe corte. Per Nvidia la decisione di S&P arriva entro circa 90 giorni.",
+  "testo": "Da seguire il costo di quelle assicurazioni: se resta ai massimi mentre le azioni risalgono, il rimbalzo ha le gambe corte."
+ },
+ {
+  "campo": "moduli.wall.testo.0",
+  "originale": "Un Nasdaq che perde lo 0,6% sembra una giornata qualsiasi, ma in mezzo c'è stato un crollo del 4,6%, poi riassorbito dagli acquisti. Dice quanto gli investitori siano pronti a cambiare idea in poche ore. Un mercato che oscilla tanto in un giorno è un mercato in cui chi compra e chi vende non si fidano l'uno dell'altro.",
+  "testo": "Un Nasdaq che perde lo 0,6% sembra una giornata qualsiasi, ma in mezzo c'è stato un crollo del 4,6%, poi riassorbito dagli acquisti. Chi compra e chi vende non si fidano l'uno dell'altro, e cambiano idea in poche ore."
+ },
+ {
+  "campo": "moduli.tassi.perche",
+  "originale": "A nostro avviso il mercato ha pesato più il rischio per la crescita che l'inflazione. L'indice dei prezzi dei consumi al netto di energia e alimentari (core PCE) sale al 3,3%, un decimo sopra le attese. Di solito un dato così alza i rendimenti a breve. Ieri il 2 anni è sceso comunque, e il 10 anni di 6 pb. I titoli di Stato facevano da rifugio dai rischi di dazi e calo dei titoli dell'intelligenza artificiale.",
+  "testo": "A nostro avviso il mercato ha pesato più il rischio per la crescita che l'inflazione. L'indice dei prezzi dei consumi al netto di energia e alimentari (core PCE) sale al 3,3%, un decimo sopra le attese. Di solito un dato così alza i rendimenti a breve, e infatti ieri il 2 anni è sceso comunque, come il 10 anni, di 6 pb."
+ },
+ {
+  "campo": "moduli.tassi.quindi",
+  "originale": "Un 10 anni che torna sopra il 4,92% di lunedì e martedì direbbe che l'inflazione è tornata a contare più della paura. Oggi i mercati americani sono chiusi: nessun nuovo dato.",
+  "testo": "Un 10 anni che torna sopra il 4,92% di lunedì e martedì direbbe che l'inflazione è tornata a contare più della paura."
+ },
+ {
+  "campo": "moduli.dazi.perche",
+  "originale": "Washington ha proposto nuovi dazi su 14 economie, ma per ABC News e Yahoo Finance non entreranno in vigore prima di gennaio. Per l'Europa le aliquote proposte restano nel tetto degli accordi. A nostro avviso il mercato non aspetta: chi vende ora paga in anticipo l'incertezza su quanto toccherà, nei prossimi mesi, alle imprese che esportano negli Stati Uniti.",
+  "testo": "Washington ha proposto nuovi dazi su 14 economie, ma per ABC News e Yahoo Finance non entreranno in vigore prima di gennaio. A nostro avviso il mercato non aspetta: chi vende ora paga in anticipo l'incertezza su quanto toccherà, nei prossimi mesi, alle imprese che esportano negli Stati Uniti."
+ },
+ {
+  "campo": "moduli.dazi.testo.0",
+  "originale": "I dazi del 25 novembre sono una proposta, non una decisione. Per la Cina il rialzo è di 20 punti sopra il circa 25% già in vigore. Per  Unione europea, Giappone, Corea e Taiwan le aliquote restano coerenti con il tetto del 15% degli accordi.",
+  "testo": "Per la Cina il rialzo proposto è di 20 punti sopra il circa 25% già in vigore. Per Unione europea, Giappone, Corea e Taiwan le aliquote restano coerenti con il tetto del 15% degli accordi."
+ },
+ {
+  "campo": "moduli.dazi.testo.1",
+  "originale": "Perché le borse reagiscono a una norma che non c'è? Un dazio è un costo in più sui beni importati. Il peso si divide tra chi compra, chi importa e chi esporta, in proporzioni che cambiano da settore a settore. Le imprese europee non sanno ancora quale parte toccherà a loro. Per dpa-AFX sul calo di mercoledì hanno pesato insieme la fuga dai titoli dell'intelligenza artificiale, i nuovi dazi e le perdite delle banche europee. Per questo oggi conta capire se l'ondata di vendite è finita o se i listini cercano ancora un prezzo.",
+  "testo": "Perché le borse reagiscono a una norma che non c'è? Un dazio è un costo in più sui beni importati. Il peso si divide tra chi compra, chi importa e chi esporta, in proporzioni che cambiano da settore a settore, e le imprese europee non sanno ancora quale parte toccherà a loro. Per dpa-AFX sul calo di mercoledì hanno pesato insieme la fuga dai titoli dell'intelligenza artificiale, i nuovi dazi e le perdite delle banche europee."
+ },
+ {
+  "campo": "moduli.corea.perche",
+  "originale": "La Bank of Korea ha alzato il tasso per un'inflazione persistente e una crescita più forte del previsto, scrive il Korea Times. A nostro avviso guarda all'economia e non al Kospi. L'export di chip sostiene la crescita anche mentre i prezzi dei titoli crollano. Una banca centrale che guarda ai prezzi al consumo non può aspettare che la borsa si calmi.",
+  "testo": "La Bank of Korea ha alzato il tasso per un'inflazione persistente e una crescita più forte del previsto, scrive il Korea Times. A nostro avviso guarda all'economia e non al Kospi: l'export di chip sostiene la crescita anche mentre i prezzi dei titoli crollano."
+ },
+ {
+  "campo": "moduli.corea.testo.0",
+  "originale": "Una banca centrale che stringe mentre la borsa perde il 6% sembra un controsenso. A nostro avviso non lo è: l'inflazione resta il mandato della banca centrale, e l'export di chip continua a sostenere l'economia.",
+  "testo": "Una banca centrale che stringe mentre la borsa perde il 6% sembra un controsenso. Non lo è: il suo compito sono i prezzi al consumo, e non può aspettare che la borsa si calmi."
+ },
+ {
+  "campo": "moduli.petrolio.testo.0",
+  "originale": "Il petrolio sale per una notizia che nessuno ha verificato. Le mine a Hormuz sono un'affermazione dei media iraniani, e Bloomberg scrive di non avere conferme indipendenti. Eppure il Brent ha chiuso a 94,61 dollari, in scambi sottili per la pausa americana del Ringraziamento.",
+  "testo": "Il petrolio sale per una notizia che nessuno ha verificato. Eppure il Brent ha chiuso a 94,61 dollari, in scambi sottili per la pausa americana del Ringraziamento."
+ }
+]

@@ -1,0 +1,950 @@
+[
+ {
+  "id": "A01",
+  "sezione": "top_news",
+  "testo": "Wall Street ha chiuso misto il 25/11/2026 prima del Ringraziamento: S&P 500 -0,25% a 7.182,78, Nasdaq Composite -0,62% a 23.585,80, Dow Jones +0,33% a 50.182,95. In seduta l'S&P 500 era arrivato a perdere fino al 3,2% e il Nasdaq fino al 4,6%. Nvidia ha chiuso a -3,91%.",
+  "data_evento": "2026-11-25",
+  "novita": "Il Dow ha cancellato perdite superiori all'1% in seduta; Nasdaq in forte calo in apertura (-3,2%) poi recuperato. Il -4,6% intraday del Nasdaq Composite e il VIX a 28,29 NON sono confermati da una frase letta (vedi riepilogo).",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance (live blog)",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-november-25-dow-sp-500-nasdaq-pce-inflation-data-091428237.html",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Nvidia shares, which had fallen as much as 8% during the session, closed down roughly 4%.",
+    "ricerca": "stocks close Wednesday Nasdaq S&P 500 PCE inflation tariffs Nvidia November 25 2026"
+   },
+   {
+    "testata": "AP (via WRAL)",
+    "url": "https://www.wral.com/news/ap/320cd-asian-shares-rebound-led-by-ai-stocks-after-wall-street-pares-sharp-losses/",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "The benchmark S&P 500 index lost 0.3% Wednesday after falling as much as 3.2% earlier in the day.",
+    "ricerca": "Kospi Nikkei Asia stocks Thursday Wall Street closed Thanksgiving 2026",
+    "agenzia": "AP"
+   }
+  ],
+  "trovato": "Yahoo (25/11/2026): Dow 50,182.95 (+0.33%); S&P 500 7,182.78 (-0.25%); Nasdaq 23,585.80 (-0.62%); Nvidia 149.30, down 6.08 (-3.91%). AP (26/11): \"The benchmark S&P 500 index lost 0.3% Wednesday after falling as much as 3.2% earlier in the day.\" \"The technology-heavy Nasdaq composite closed 0.6% lower, after recovering from a drop of as much as 4.6%.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Cifre di chiusura da Yahoo, perdite massime in seduta da AP (e Longbridge). Nota: nel testo Yahoo la rimonta del Dow e' scritta anche come +0,5% (intraday), ma la chiusura e' +0,33%."
+ },
+ {
+  "id": "A02",
+  "sezione": "top_news",
+  "tipo": "C",
+  "testo": "Le cause della seduta del 25/11 secondo chi le indica: per l'AP i dubbi sul ritmo degli investimenti nelle infrastrutture per l'intelligenza artificiale dopo le elezioni di midterm; per Yahoo Finance i costi di finanziamento piu alti e le preoccupazioni sul ritorno degli investimenti.",
+  "data_evento": "2026-11-25",
+  "novita": "Il trascinatore e Nvidia (-3,91% a 149,30 dollari). L'indice dei semiconduttori di Philadelphia aveva perso oltre il 6% in seduta (Yahoo, live blog).",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance (live blog)",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-november-25-dow-sp-500-nasdaq-pce-inflation-data-091428237.html",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Tech stocks sold off amid concerns of higher financing costs and profitability worries.",
+    "ricerca": "stocks close Wednesday Nasdaq S&P 500 PCE inflation tariffs Nvidia November 25 2026"
+   },
+   {
+    "testata": "AP (via WRAL)",
+    "url": "https://www.wral.com/news/ap/320cd-asian-shares-rebound-led-by-ai-stocks-after-wall-street-pares-sharp-losses/",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "after the U.S. midterm elections raised doubts over the pace of AI infrastructure buildouts.",
+    "ricerca": "Kospi Nikkei Asia stocks Thursday Wall Street closed Thanksgiving 2026",
+    "agenzia": "AP"
+   }
+  ],
+  "trovato": "AP: \"after the U.S. midterm elections raised doubts over the pace of AI infrastructure buildouts.\" Yahoo: \"Tech stocks sold off amid concerns of higher financing costs and profitability worries.\" \"Questions about profitability and overinvestments weigh on stocks.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Le due attribuzioni corrispondono alle pagine."
+ },
+ {
+  "id": "A03",
+  "sezione": "top_news",
+  "tipo": "U",
+  "testo": "PCE di ottobre 2026 (dato BEA, riportato da stampa): indice dei prezzi PCE +0,3% su base mensile e +3,8% annuo (3,6% a settembre); core PCE +0,3% mensile e +3,3% annuo (3,1% a settembre), il massimo da novembre 2023. ATTENZIONE: comunicato BEA non trovato, la scheda poggia su due autori diversi.",
+  "data_evento": "2026-11-25",
+  "novita": "Core PCE terza lettura mensile consecutiva a +0,3%; headline in linea con le attese, core un decimale sopra il consenso.",
+  "fonti": [
+   {
+    "testata": "Yahoo Finance (live blog)",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-november-25-dow-sp-500-nasdaq-pce-inflation-data-091428237.html",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "The Personal Consumption Expenditures (PCE) index rose 0.3% month over month in October",
+    "ricerca": "stocks close Wednesday Nasdaq S&P 500 PCE inflation tariffs Nvidia November 25 2026"
+   },
+   {
+    "testata": "Longbridge",
+    "url": "https://longbridge.com/en/topics/45393942",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Oct PCE price index rose 3.8% YoY; core PCE rose 3.3% YoY.",
+    "ricerca": "Wall Street stocks Nasdaq PCE GDP Wednesday November 25 2026 close"
+   }
+  ],
+  "ufficiale_cercato": [
+   "BEA Personal Income and Outlays October 2026 news release",
+   "PCE price index October 2026 core 3.3% year over year Federal Reserve December rate hike"
+  ],
+  "trovato": "Reuters/Yahoo: \"In the 12 months through October, PCE inflation increased 3.8% after advancing 3.6% in September.\" \"The so-called core PCE inflation increased 3.3% on a year-over-year basis in October.\" Yahoo: headline +0.3% m/m, core +0.3% m/m, core annual 3.3% vs 3.1% prior month, headline \"the highest since 2023\"; BullionVault: core 3.3% \"also the fastest since autumn 2023\".",
+  "verifica": "confermato",
+  "nota_revisore": "Numeri confermati. 'Massimo da novembre 2023': le pagine dicono solo 'dal 2023'/'autunno 2023' (il mese preciso non e' scritto). Longbridge conferma 3,8% e 3,3% annui e +0,3% m/m."
+ },
+ {
+  "id": "A05",
+  "sezione": "top_news",
+  "testo": "Attese degli economisti prima dei dati del 25/11: PIL Q3 seconda stima a +3,5% (sondaggio Reuters) e core PCE annuo a +3,2% (il dato reale e 3,3%); il PCE headline di ottobre e risultato in linea con le attese. Attese sul PCE mensile non trovate.",
+  "data_evento": "2026-11-25",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Reuters (via Yahoo Finance)",
+    "url": "https://finance.yahoo.com/economy/policy/articles/us-inflation-rises-further-october-134751595.html",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Economists polled by Reuters had expected GDP growth would be revised up to a 3.5% pace.",
+    "ricerca": "PCE October core 3.3% economists expected 3.2% GDP 4.3% second estimate Fed December rate hike odds FedWatch",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "Yahoo Finance (live blog)",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-november-25-dow-sp-500-nasdaq-pce-inflation-data-091428237.html",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "a tick higher than economists' expectations for a 3.2% annual increase.",
+    "ricerca": "stocks close Wednesday Nasdaq S&P 500 PCE inflation tariffs Nvidia November 25 2026"
+   }
+  ],
+  "tipo": "U",
+  "ufficiale_cercato": [
+   "BEA Personal Income and Outlays October 2026 news release",
+   "PCE price index October 2026 core 3.3% year over year Federal Reserve December rate hike"
+  ],
+  "trovato": "Reuters: \"Economists polled by Reuters had expected GDP growth would be revised up to a 3.5% pace.\" \"The rise in PCE inflation was in line with economists' expectations.\" Yahoo: core PCE 3.3% annual \"a tick higher than economists' expectations for a 3.2% annual increase.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Il 3,2% atteso sul core e' nel live blog Yahoo, non in Reuters. Attese sul PCE mensile: calendario Yahoo indica +0,3% m/m (la scheda dice non trovate, ma esiste)."
+ },
+ {
+  "id": "A06",
+  "sezione": "top_news",
+  "testo": "I mercati scontano un rialzo dei tassi Fed di 25 punti base alla riunione dell'8-9 dicembre 2026 (target attuale 3,75%-4,00%).",
+  "data_evento": "2026-11-25",
+  "novita": "Dopo il PCE caldo le aspettative sono di rialzo, non di taglio.",
+  "fonti": [
+   {
+    "testata": "Reuters (via Yahoo Finance)",
+    "url": "https://finance.yahoo.com/economy/policy/articles/us-inflation-rises-further-october-134751595.html",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "a quarter-percentage-point rate hike at the US central bank's December 8-9 meeting",
+    "ricerca": "PCE October core 3.3% economists expected 3.2% GDP 4.3% second estimate Fed December rate hike odds FedWatch",
+    "agenzia": "Reuters"
+   }
+  ],
+  "conferma_cercata": [
+   "CME FedWatch December rate hike probability after PCE November 25 2026"
+  ],
+  "trovato": "\"Financial markets have priced in a quarter-percentage-point rate hike at the US central bank's December 8-9 meeting.\" \"from the current 3.75%-4.00% range.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Fonte Reuters via Yahoo, 25/11/2026."
+ },
+ {
+  "id": "A08",
+  "sezione": "deep_dive",
+  "testo": "S&P Global Ratings ha messo il rating AA di Nvidia in CreditWatch con implicazioni negative (decisione attesa entro circa 90 giorni; eventuale taglio limitato a un notch). Il motivo NON e l'AI ma la governance: indipendenza del consiglio, dipendenza dal CEO Jensen Huang (dimessosi il 12/11 per condotta personale e reintegrato lunedi), esposizione alla Cina.",
+  "data_evento": "2026-11-25",
+  "novita": "La CDS a 5 anni di Nvidia ha toccato un record lo stesso giorno (cifra non verificata: un titolo di ricerca parla di 147 bp, pagina non aperta).",
+  "fonti": [
+   {
+    "testata": "StockAnalysis.com",
+    "url": "https://stockanalysis.com/news/nvidia-sp-rating-creditwatch-negative/",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "does not sufficiently answer our questions regarding board oversight of executive code of conduct.",
+    "ricerca": "Nvidia CreditWatch negative S&P CoreWeave credit default swaps 15.34 November 25"
+   },
+   {
+    "testata": "AP (via WRAL)",
+    "url": "https://www.wral.com/news/ap/320cd-asian-shares-rebound-led-by-ai-stocks-after-wall-street-pares-sharp-losses/",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "S&P Global Ratings warned it could downgrade Nvidia's credit rating over concerns surrounding its management and governance.",
+    "ricerca": "Kospi Nikkei Asia stocks Thursday Wall Street closed Thanksgiving 2026",
+    "agenzia": "AP"
+   }
+  ],
+  "trovato": "StockAnalysis (25/11/2026): \"S&P Global Ratings placed Nvidia's AA credit rating on CreditWatch negative on Wednesday.\" \"S&P expects to decide within 90 days, after further due diligence.\" S&P \"sees any cut as limited to one notch\". \"Huang resigned on November 12 over personal conduct that went against the company's code of conduct, and the board brought him back on Monday.\" Also board independence, key man risk, China exposure. AP: S&P warned of downgrade \"over concerns surrounding its management and governance.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Nessuna pagina dice esplicitamente 'non e' l'AI'; e' una inferenza dei motivi governance/gestione indicati. AP non cita AA ne' 90 giorni, che sono solo su StockAnalysis."
+ },
+ {
+  "id": "A09",
+  "sezione": "deep_dive",
+  "testo": "Il costo della protezione sui CDS a 5 anni di CoreWeave e salito fino al 15,34% annuo (dati ICE, via Bloomberg), con record anche per i CDS di Nvidia, Alphabet e Oracle il 25/11/2026. Il mercato dei CDS prezzerebbe oltre il 70% di probabilita di default a 5 anni per CoreWeave (secondo Wallstreetcn/Bloomberg).",
+  "data_evento": "2026-11-25",
+  "novita": "Pagina Bloomberg originale non apribile (robots): fonti secondarie che riprendono Bloomberg.",
+  "fonti": [
+   {
+    "testata": "Longbridge (Wallstreetcn, da Bloomberg)",
+    "url": "https://longbridge.com/en/news/306824689",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "15.34 percentage points annually",
+    "ricerca": "Nvidia CreditWatch negative S&P CoreWeave credit default swaps 15.34 November 25",
+    "agenzia": "Bloomberg"
+   }
+  ],
+  "conferma_cercata": [
+   "CoreWeave credit default swaps record 15% Nvidia Alphabet Oracle CDS widen"
+  ],
+  "trovato": "Longbridge/Wallstreetcn (25/11/2026): cost of protection \"reaching 15.34 percentage points annually\"; \"Data from ICE Data Services\"; \"According to Bloomberg\"; \"Credit default swaps for NVIDIA, Google, Oracle, and SpaceX also hit fresh record highs on Wednesday.\" \"The swap market has priced the probability of the company defaulting within the next five years at over 70%.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Un'altra frase nomina 'NVIDIA, Alphabet, and Oracle'. La pagina cita anche SpaceX tra i record, non menzionata nella scheda."
+ },
+ {
+  "id": "A11",
+  "sezione": "top_news",
+  "testo": "Dazi: il 25/11/2026 l'USTR ha proposto nuovi dazi Sezione 301 su 14 economie (ricerca di 8 mesi sull'eccesso di capacita, avviata a marzo; Teleborsa/AFP-Reuters parlano di 16 partner indagati). Sono PROPOSTE, non in vigore: servono commenti pubblici e udienze, entrata in vigore non prima di gennaio. In vigore restano i dazi Sezione 301 sul lavoro forzato (10-12,5%, da luglio 2026) che i nuovi sostituirebbero nei paesi coperti da entrambi. Il comunicato USTR non e stato aperto (accesso negato).",
+  "data_evento": "2026-11-25",
+  "novita": "La Corte Suprema aveva annullato i dazi globali a febbraio 2026 (Yahoo). La tregua USA-Cina scade il 10 gennaio.",
+  "fonti": [
+   {
+    "testata": "ABC News",
+    "url": "https://abcnews.com/Politics/trump-admin-proposes-new-tariffs-china-eu-12/story?id=138442698",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "I don't think any of these would actually take effect earlier than a couple months from now",
+    "ricerca": "Trump new tariffs 14 trading partners proposed Wednesday EU China 20% USTR announcement November 2026"
+   },
+   {
+    "testata": "Yahoo Finance (Ben Werschkul)",
+    "url": "https://finance.yahoo.com/markets/article/us-announces-new-tariffs-of-up-to-20-on-china-the-eu-and-12-other-nations-131802359.html",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "probably will be in January at the earliest",
+    "ricerca": "Trump new tariffs 14 trading partners proposed Wednesday EU China 20% USTR announcement November 2026"
+   },
+   {
+    "testata": "Yahoo Finance (live blog)",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-november-25-dow-sp-500-nasdaq-pce-inflation-data-091428237.html",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "new tariffs of up to 20% on China, the European Union, and 12 other major US trading partners",
+    "ricerca": "stocks close Wednesday Nasdaq S&P 500 PCE inflation tariffs Nvidia November 25 2026"
+   },
+   {
+    "testata": "AP (via WRAL)",
+    "url": "https://www.wral.com/news/ap/320cd-asian-shares-rebound-led-by-ai-stocks-after-wall-street-pares-sharp-losses/",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "Investors are also monitoring impacts from the latest tariff hikes that the U.S. plans to impose on China, Japan, the European Union among other trading partners",
+    "ricerca": "Kospi Nikkei Asia stocks Thursday Wall Street closed Thanksgiving 2026",
+    "agenzia": "AP"
+   }
+  ],
+  "conferma_cercata": [
+   "USTR press release Section 301 excess capacity proposed action November 25 2026 (ricerca: solo pagine di marzo; WebFetch su ustr.gov negato dai permessi: fonte primaria persa)"
+  ],
+  "trovato": "ABC (25/11/2026): \"the acts, policies, and practices of 14 economies relating to structural excess capacity\"; \"There is no immediate impact of this announcement as a public comment period would be required\"; January as earliest. Yahoo/Werschkul: \"following an 8-month investigation into excess manufacturing capacity\"; \"after additional hearings and a public comment period\"; \"probably will be in January at the earliest\"; July forced labor tariffs \"10% to 12.5%\"; new duties \"will supplant the forced labor tariffs in nations that were investigated for both issues.\" RTE: \"eight-month Section 301 unfair trade practices probe into 16 trading partners\".",
+  "verifica": "confermato",
+  "nota_revisore": "Il mese di avvio (marzo) non e' scritto nel testo, solo suggerito dall'URL di un link USTR. 14 economie (ABC/Yahoo) vs 16 partner indagati (RTE) come dice la scheda."
+ },
+ {
+  "id": "A12",
+  "sezione": "deep_dive",
+  "testo": "Aliquote proposte (fonti diverse, NON uniformi con i dati ricevuti): Cina +20% 'eccesso di capacita' sopra i circa 25% gia esistenti; Vietnam 20% proposto (35% sarebbe il livello 'warranted' secondo un funzionario, non l'aliquota proposta); UE, Giappone, Corea e Taiwan: dazi coerenti con il tetto del 15% degli accordi. Aliquote per Svizzera e India e 'Cina 45%' non confermate. Nessuna reazione UE trovata.",
+  "data_evento": "2026-11-25",
+  "novita": "Le fonti non riportano 35% per il Vietnam ne 25% per l'India come aliquote proposte.",
+  "fonti": [
+   {
+    "testata": "Al Jazeera",
+    "url": "https://www.aljazeera.com/news/2026/11/25/trump-announces-new-trade-tariffs-which-countries-will-they-target",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "its proposed 20 percent excess capacity tariff would come on top of the roughly 25 percent in tariffs",
+    "ricerca": "Trump new tariffs 14 trading partners proposed Wednesday EU China 20% USTR announcement November 2026"
+   },
+   {
+    "testata": "RTE (AFP/Reuters)",
+    "url": "https://www.rte.ie/news/us/2026/1125/1600630-us-tariffs/",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "including the 15% cap agreed by the EU, Japan, South Korea and Taiwan.",
+    "ricerca": "Trump new tariffs 14 trading partners proposed Wednesday EU China 20% USTR announcement November 2026",
+    "agenzia": "AFP/Reuters"
+   }
+  ],
+  "conferma_cercata": [
+   "aliquote Svizzera/India/Vietnam 35%: non confermate; reazione UE: non trovata in nessuna pagina letta"
+  ],
+  "trovato": "Al Jazeera: \"its proposed 20 percent excess capacity tariff would come on top of the roughly 25 percent\"; Vietnam \"which also faces a proposed rate of 20 percent\"; \"caps of 15 percent for the EU, Japan and South Korea.\" RTE: \"the 15% cap agreed by the EU, Japan, South Korea and Taiwan.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Svizzera e India: nessuna aliquota nelle pagine; 'Cina 45%' e 'Vietnam 35% warranted' non compaiono nelle due pagine; nessuna reazione UE. Coerente con le cautele della scheda."
+ },
+ {
+  "id": "B01",
+  "sezione": "top_news",
+  "tipo": "U",
+  "testo": "L'Euro Stoxx 50 ha chiuso il 25/11/2026 in calo dell'1,82% a 5.894,46 punti, ai minimi da maggio. Tra i titoli, Infineon -6,5%, ASML -5,8%, STMicroelectronics -4,7%.",
+  "data_evento": "2026-11-25",
+  "novita": "Seduta del 25/11 pomeriggio-sera, dopo le 09:30 del 25/11.",
+  "fonti": [
+   {
+    "testata": "boerse.de (dpa-AFX, ROUNDUP/Aktien Europa Schluss)",
+    "url": "https://www.boerse.de/nachrichten-amp/ROUNDUP-Aktien-Europa-Schluss-EuroStoxx-auf-Tief-seit-Mai-KI-Aktien-belasten/38739587",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "mit minus 1,82 Prozent auf 5.894,46 Punkte",
+    "ricerca": "Aktien Europa Schluss Eurostoxx Tief seit Mai Zölle KI Infineon ASML 25.11.2026",
+    "agenzia": "dpa-AFX"
+   },
+   {
+    "testata": "boerse.de (dpa-AFX, ROUNDUP/Aktien Europa Schluss)",
+    "url": "https://www.boerse.de/nachrichten-amp/ROUNDUP-Aktien-Europa-Schluss-EuroStoxx-auf-Tief-seit-Mai-KI-Aktien-belasten/38739587",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Infineon sackten um 6,5 Prozent ab",
+    "ricerca": "Aktien Europa Schluss Eurostoxx Tief seit Mai Zölle KI Infineon ASML 25.11.2026",
+    "agenzia": "dpa-AFX"
+   }
+  ],
+  "nota": "Citazioni sono frammenti letterali riportati dalla pagina; ASML -5,8% e STMicro -4,7% nella stessa pagina ('Schwergewicht ASML um 5,8 Prozent', 'Für STMicro ging es um 4,7 Prozent abwärts.'). Un solo lancio d'agenzia (conta una volta).",
+  "ufficiale_cercato": [
+   "Aktien Europa Schluss 25.11.2026 EuroStoxx 50 Zölle Trump Technologiewerte",
+   "Euro Stoxx 50 5.894 Schluss Mittwoch Zölle Tech"
+  ],
+  "trovato": "dpa-AFX (25.11.26, 18:43): \"ging vor dem Thanksgiving-Feiertag in den USA am Donnerstag mit minus 1,82 Prozent auf 5.894,46 Punkte aus dem Handel.\" \"Infineon sackten um 6,5 Prozent ab und Schwergewicht ASML um 5,8 Prozent.\" \"Für STMicro ging es um 4,7 Prozent abwärts.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Titolo: 'EuroStoxx auf Tief seit Mai'. Il testo dice 'am Donnerstag' per Thanksgiving, ma la pagina e' del mercoledi' 25/11."
+ },
+ {
+  "id": "B02",
+  "sezione": "top_news",
+  "tipo": "C",
+  "testo": "Le cause del calo europeo del 25/11 secondo chi le indica: dpa-AFX parla di fuga dai titoli legati all'IA per 'dubbi sulla redditività dell'IA' (analista Timo Emden), di nuovi dazi USA su UE, Cina e altri paesi e di forti perdite per le banche europee; Open indica i dazi (Trump prepara nuove tariffe su 14 partner, UE fino al 20%) e il crollo dei tecnologici a Wall Street (Nvidia -8,4%, Nasdaq -4,2%).",
+  "data_evento": "2026-11-25",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "boerse.de (dpa-AFX)",
+    "url": "https://www.boerse.de/nachrichten-amp/ROUNDUP-Aktien-Europa-Schluss-EuroStoxx-auf-Tief-seit-Mai-KI-Aktien-belasten/38739587",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Deutliche Verluste verbuchte neben der Techbranche auch der europäische Bankenbranche",
+    "ricerca": "Aktien Europa Schluss Eurostoxx Tief seit Mai Zölle KI Infineon ASML 25.11.2026",
+    "agenzia": "dpa-AFX"
+   },
+   {
+    "testata": "boerse.de (dpa-AFX)",
+    "url": "https://www.boerse.de/nachrichten-amp/ROUNDUP-Aktien-Europa-Schluss-EuroStoxx-auf-Tief-seit-Mai-KI-Aktien-belasten/38739587",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "neue Zölle auf Importe aus der Europäischen Union, aus China und aus anderen Ländern verhängen will",
+    "ricerca": "Aktien Europa Schluss Eurostoxx Tief seit Mai Zölle KI Infineon ASML 25.11.2026",
+    "agenzia": "dpa-AFX"
+   },
+   {
+    "testata": "Open",
+    "url": "https://www.open.online/2026/11/25/borse-europee-calo-dazi-usa-inflazione-milano-ftse-mib/",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "non siamo ancora di fronte a un aumento effettivo dei dazi, ma siamo già di fronte a un aumento dell'incertezza",
+    "ricerca": "Piazza Affari chiude 25 novembre 2026 Ftse Mib -1,81%",
+    "nota": "Citazione di Gabriel Debach (eToro) riportata da Open; il nesso con il calo e' nel titolo/testo (dazi e timori sui tassi Fed), non nella frase citata."
+   }
+  ],
+  "nota": "Nesso causale attribuito a ciascuna fonte, non verificato come causa unica. Nel frammento dpa-AFX letto: analista Timo Emden, 'Zweifeln an der KI-Rentabilità' (frammento riportato dal riassunto della pagina, non copiato in citazione).",
+  "trovato": "dpa-AFX: \"Zwischen Zweifeln an der KI-Rentabilität, Zinssorgen und handelspolitischen Signalen aus Washington bleibt die Schaukelbörse intakt.\" (Emden) \"die US-Regierung neue Zölle auf Importe aus der Europäischen Union, aus China\" \"Deutliche Verluste verbuchte neben der Techbranche auch der europäische Bankenbranche.\" Open (25/11/2026): \"14 partner commerciali\"; Bruxelles \"rischia dazi fino al 20%\"; \"ribassi di Nvidia (-8,4%)\"; \"affossano il Nasdaq (-4,2%)\".",
+  "verifica": "confermato",
+  "nota_revisore": "Attribuzioni corrette. Attenzione: Nvidia -8,4% e Nasdaq -4,2% sono valori di seduta riportati da Open; le chiusure sono Nvidia -3,91% e Nasdaq -0,62%. Citare come 'secondo Open'."
+ },
+ {
+  "id": "B03",
+  "sezione": "top_news",
+  "tipo": "U",
+  "testo": "Piazza Affari ha chiuso il 25/11/2026 con il FTSE MIB a 47.249,15 punti, -1,81%, a ridosso del minimo di giornata (47.248,80), ai minimi da aprile secondo Open. Prysmian -5,40% a 93,12 euro, STMicroelectronics -4,81% a 34,20 euro, BPER -3,99%, Banco BPM -3,73%, FinecoBank -3,39%. Stellantis +3,58% a 3,24 euro, migliore del listino.",
+  "data_evento": "2026-11-25",
+  "novita": "Chiusura 25/11 sera.",
+  "fonti": [
+   {
+    "testata": "Money.it (Ufficio Studi)",
+    "url": "https://www.money.it/piazza-affari-chiude-in-calo-ftse-mib-25-11-2026",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Il FTSE MIB ha chiuso a 47.249,15 punti, con una variazione di -1,81%, a ridosso del minimo di giornata a 47.248,80 punti.",
+    "ricerca": "Piazza Affari chiude 25 novembre 2026 Ftse Mib -1,81%"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/25/borsa-milano-chiude-in-deciso-calo-181_afda4529-e7fd-4e99-bb7c-0fabeb32ddc2.html",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Piazza Affari ha chiuso in deciso calo.",
+    "ricerca": "Piazza Affari chiude 25 novembre 2026 Ftse Mib -1,81%",
+    "agenzia": "ANSA"
+   },
+   {
+    "testata": "Money.it (Ufficio Studi)",
+    "url": "https://www.money.it/piazza-affari-chiude-in-calo-ftse-mib-25-11-2026",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "La maglia nera è di Prysmian, che ha perso il 5,40% fermandosi a 93,12 euro",
+    "ricerca": "Piazza Affari chiude 25 novembre 2026 Ftse Mib -1,81%"
+   },
+   {
+    "testata": "Money.it (Ufficio Studi)",
+    "url": "https://www.money.it/piazza-affari-chiude-in-calo-ftse-mib-25-11-2026",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Il migliore è Stellantis, salita del 3,58% a 3,24 euro",
+    "ricerca": "Piazza Affari chiude 25 novembre 2026 Ftse Mib -1,81%"
+   }
+  ],
+  "nota": "Technoprobe -4,7% NON trovata nelle pagine aperte. 'Peggiore d'Europa' NON verificato (ANSA indica Francoforte -1,26%, Milano -1,81%, ma nessun confronto esplicito aperto). Il 'JP Morgan' di Stellantis: Open parla di 'upgrade', money.it rimanda a un articolo sul 'declassamento di JPMorgan': contraddittorio, nesso NON confermato con citazione letterale.",
+  "ufficiale_cercato": [
+   "Borsa Milano chiude mercoledì 25 novembre Piazza Affari spread",
+   "Borsa Milano chiusura 25 novembre 2026 FTSE MIB spread Btp Bund"
+  ],
+  "trovato": "Money.it (25/11/2026): \"Il FTSE MIB ha chiuso a 47.249,15 punti, con una variazione di -1,81%, a ridosso del minimo di giornata a 47.248,80 punti.\" \"La maglia nera è di Prysmian, che ha perso il 5,40% fermandosi a 93,12 euro\"; STM \"4,81% a 34,20 euro\"; \"BPER Banca cede il 3,99%\"; \"Banco BPM il 3,73%\"; \"FinecoBank il 3,39%\"; \"Il migliore è Stellantis, salita del 3,58% a 3,24 euro\". Open: \"toccando i livelli più bassi dallo scorso aprile\".",
+  "verifica": "confermato",
+  "nota_revisore": "Tutti i valori corrispondono. ANSA (17:40) da' solo 47.249 -1,81% e titoli senza dettaglio."
+ },
+ {
+  "id": "B04",
+  "sezione": "top_news",
+  "tipo": "U",
+  "testo": "Lo spread BTP-Bund ha chiuso il 25/11/2026 in aumento a 111,9 punti base secondo ANSA (18:09). Francoforte ha chiuso in calo dell'1,26%.",
+  "data_evento": "2026-11-25",
+  "novita": "Rendimento BTP 10 anni alla chiusura del 25/11: NON trovato.",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/25/borsa-milano-chiude-in-deciso-calo-181_afda4529-e7fd-4e99-bb7c-0fabeb32ddc2.html",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Lo spread Btp-Bund conclude in aumento a 111,9 punti",
+    "ricerca": "Borsa Milano chiusura 25 novembre FTSE MIB spread BTP Bund Prysmian Stellantis",
+    "agenzia": "ANSA"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/25/borsa-milano-chiude-in-deciso-calo-181_afda4529-e7fd-4e99-bb7c-0fabeb32ddc2.html",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Borsa: l'Europa conclude negativa, Francoforte -1,26%.",
+    "ricerca": "Borsa Milano chiusura 25 novembre FTSE MIB spread BTP Bund Prysmian Stellantis",
+    "agenzia": "ANSA"
+   }
+  ],
+  "conferma_cercata": [
+   "spread Btp Bund 25 novembre 2026 chiusura Btp 10 anni rendimento"
+  ],
+  "ufficiale_cercato": [
+   "spread Btp Bund 25 novembre 2026 chiusura Btp 10 anni rendimento",
+   "Borsa Milano chiusura 25 novembre 2026 FTSE MIB spread Btp Bund"
+  ],
+  "trovato": "ANSA (25/11/2026): \"Lo spread Btp-Bund conclude in aumento a 111,9 punti\" (titolo, ore 18:09); \"Borsa: l'Europa conclude negativa, Francoforte -1,26%\" (titolo, 17:49).",
+  "verifica": "confermato",
+  "nota_revisore": "Valori da titoli ANSA; la pagina dice 'punti' (punti base implicito)."
+ },
+ {
+  "id": "B05",
+  "sezione": "deep_dive",
+  "tipo": null,
+  "testo": "La Reuters (18/11/2026) riferiva che i vertici BCE avrebbero discusso il 25/11 l'aumento del requisito di riserva minima delle banche dell'eurozona dall'1% al 2% dei depositi; al tasso corrente farebbe risparmiare alla BCE e alle 21 banche centrali nazionali circa 4,4 miliardi di euro l'anno (calcolo Reuters). Un resoconto del 25/11 (roic.ai, fonte anonima) dice che la decisione e' attesa a dicembre o forse inizio 2027. I 4,4 mld sono un risparmio per l'Eurosistema, non un costo per le banche.",
+  "data_evento": "2026-11-25",
+  "novita": "Nessuna decisione confermata; nessuna stima del costo per le banche trovata.",
+  "fonti": [
+   {
+    "testata": "Reuters via Global Banking & Finance",
+    "url": "https://www.globalbankingandfinance.com/exclusive-ecb-discuss-raising-reserve-requirement-next-week/",
+    "data_pubblicazione": "2026-11-18",
+    "citazione": "European Central Bank policymakers are set to discuss next week raising minimum reserve requirements for euro zone banks.",
+    "ricerca": "ECB policymakers minimum reserve requirement increase postponed sources Reuters November 2026 banks cost",
+    "agenzia": "Reuters"
+   },
+   {
+    "testata": "roic.ai",
+    "url": "https://www.roic.ai/news/ecb-weighs-doubling-reserve-requirement-decision-possibly-delayed-to-2027-11-25-2026",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "The proposal would double the MRR from 1% to 2%, shifting more bank reserves into zero-interest accounts",
+    "ricerca": "ECB policymakers minimum reserve requirement increase postponed sources Reuters November 2026 banks cost"
+   }
+  ],
+  "conferma_cercata": [
+   "ECB minimum reserve requirement 2% banks decision delayed (newsquawk trovato ma URL troppo lungo per il fetch: 403)",
+   "EZB Mindestreserve ... verschoben (nessuna pagina dpa-AFX del 25/11 trovata)"
+  ],
+  "nota": "Il rinvio a dicembre: citazione letterale 'a decision now expected in December or possibly early 2027, according to a source familiar with the discussion' (roic.ai, un solo autore). Bloomberg/ECB non trovati. Reuters 18/11 non e' del 25/11: copre l'annuncio della discussione, non l'esito.",
+  "trovato": "Reuters 18/11/2026 via GBF: \"The change, to be debated at a Governing Council meeting on November 25\"; \"would raise the share of cash that commercial lenders must keep in an unremunerated account to 2% from 1% of deposits\"; \"would save the ECB and the 21 national central banks... around €4.4 billion ($4.8 billion) a year at current interest rate levels, according to Reuters' calculations.\" roic.ai (25/11/2026): \"with a decision now expected in December or possibly early 2027, according to a source familiar with the discussion.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters aggiunge che la decisione potrebbe slittare al 17 dicembre. Il risparmio e' per l'Eurosistema, come dice la scheda."
+ },
+ {
+  "id": "B07",
+  "sezione": "top_news",
+  "tipo": "U",
+  "testo": "Il Kospi ha perso il 6,16% mercoledi' 25/11/2026 chiudendo a 4.697,51 punti (non -7,05%), con le vendite sui chip dopo il crollo dei semiconduttori a Wall Street (Nvidia) e i timori di nuovi dazi USA sui partner commerciali, Corea compresa.",
+  "data_evento": "2026-11-25",
+  "novita": "Il dato -7,05% (Share Talk) e Edaily NON sono stati trovati; confermato -6,16% e 4.697,51 da Korea Daily; Korea Times parla di 'perdita di oltre il 6%'.",
+  "fonti": [
+   {
+    "testata": "Korea Daily",
+    "url": "https://en.koreadaily.com/kospi-drops-amid-us-semiconductor-slump/",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "The Kospi fell 6.16% to close at 4,697.51, giving up all of its previous day's gains.",
+    "ricerca": "Seoul stocks tumble Kospi 6 percent Wednesday chip stocks Samsung SK hynix Nov. 25"
+   },
+   {
+    "testata": "Korea Daily",
+    "url": "https://en.koreadaily.com/kospi-drops-amid-us-semiconductor-slump/",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "This downturn was the direct result of a shock wave from Wall Street.",
+    "ricerca": "Seoul stocks tumble Kospi 6 percent Wednesday chip stocks Samsung SK hynix Nov. 25"
+   },
+   {
+    "testata": "The Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261126/kospi-rebounds-slightly-despite-boks-rate-hike",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "The index recouped only a fraction of its loss of more than 6 percent in the previous session.",
+    "ricerca": "Kospi closes November 26 2026 Bank of Korea rate hike"
+   }
+  ],
+  "nota": "Goldman e Morgan Stanley come origine del calo: NON trovati nelle pagine aperte. Nell'articolo Seoul Economic Daily i chip 'tumbled about 10% the previous day' (26/11).",
+  "ufficiale_cercato": [
+   "Kospi closes Thursday Seoul stocks Yonhap",
+   "Seoul shares close Bank of Korea hikes rate Kospi won"
+  ],
+  "trovato": "Korea Daily (25/11/2026): \"The Kospi fell 6.16% to close at 4,697.51, giving up all of its previous day's gains.\" \"Samsung Electronics dropped 9.87%... SK Hynix plunged 11.05%\"; \"the Trump administration may push for additional tariffs against major trading partners, including South Korea.\"",
+  "verifica": "confermato",
+  "nota_revisore": "-7,05% non compare. La pagina cita il calo di Nvidia a Wall Street (-5,86%, dato diverso dalla chiusura -3,91%) come sfondo. Seconda fonte Korea Times (rebounds-slightly) non ritrovata nei risultati."
+ },
+ {
+  "id": "B08",
+  "sezione": "top_news",
+  "tipo": "U",
+  "testo": "Il 26/11/2026 la Bank of Korea ha alzato il tasso di riferimento di 25 punti base da 3,00% a 3,25% (il piu' alto da novembre 2024), citando inflazione persistente e crescita piu' forte del previsto trainata dalle esportazioni di chip. Al Jazeera: previsioni di crescita rialzate al 3,9% per il 2026 e al 4,1% per il 2027.",
+  "data_evento": "2026-11-26",
+  "novita": "Terzo rialzo dell'anno e voto del comitato: NON trovati. Comunicato BoK (primaria) non trovato. A fine agosto il tasso era stato portato al 3% (secondo rialzo consecutivo, voto 6-1) e a ottobre mantenuto al 3%.",
+  "fonti": [
+   {
+    "testata": "The Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261126/kospi-edges-up-despite-bok-rate-hike",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "The BOK raised its benchmark interest rate by 0.25 percentage point to 3.25 percent",
+    "ricerca": "Kospi closes November 26 2026 Bank of Korea rate hike"
+   },
+   {
+    "testata": "Al Jazeera",
+    "url": "https://www.aljazeera.com/economy/2026/11/26/south-koreas-central-bank-hikes-interest-rates-raises-gdp-growth-forecast",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "raised its gross domestic product (GDP) growth forecasts for 2026 and 2027 to 3.9 percent and 4.1 percent, respectively.",
+    "ricerca": "Kospi closes November 26 2026 Bank of Korea rate hike"
+   },
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/market/2026/11/26/kospi-gives-up-most-gains-closes-up-029-percent-at-471121",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "The Bank of Korea raised its rate to 3.25% from 3.00%.",
+    "ricerca": "Kospi closes November 26 2026 Bank of Korea rate hike"
+   }
+  ],
+  "conferma_cercata": [
+   "Bank of Korea press release monetary policy decision 26 November 2026 ... vote (comunicato BoK non trovato)"
+  ],
+  "ufficiale_cercato": [
+   "Bank of Korea raises base rate 3.25% Reuters November 26 2026",
+   "Kospi closes Bank of Korea rate decision November 26 2026"
+  ],
+  "trovato": "Al Jazeera (26/11/2026): the BOK \"raised its key rate by 0.25 percent to 3.25 percent,\" citing \"strong domestic growth and above-target inflation\"; \"raised its gross domestic product (GDP) growth forecasts for 2026 and 2027 to 3.9 percent and 4.1 percent.\" Korea Times: \"raised its benchmark interest rate by 0.25 percentage point to 3.25 percent\".",
+  "verifica": "confermato",
+  "nota_revisore": "Rialzo, 3,25% e previsioni 3,9%/4,1% confermati. 'Da 3,00%' e 'piu' alto da novembre 2024' NON compaiono nelle pagine citate (altre fonti: mlq 'highest since November 2024', nationpress 'since October 2024', CNBC 'highest in two years'). Motivazioni sulle pagine: crescita interna forte e inflazione sopra obiettivo; export di chip citato come contesto."
+ },
+ {
+  "id": "B10",
+  "sezione": "top_news",
+  "tipo": "U",
+  "testo": "Il Kospi ha chiuso il 26/11/2026 a 4.711,21 punti (+0,29%, +13,70) dopo aver guadagnato oltre il 2% in seduta. Investitori istituzionali compratori netti per circa 750,9 miliardi di won, retail venditori netti per circa 1.040 miliardi di won (1,04 mila miliardi), stranieri venditori netti per 113,6 miliardi.",
+  "data_evento": "2026-11-26",
+  "novita": "Il rialzo dei tassi ha avuto impatto limitato secondo gli analisti; tetto dazi USA al 15% su Corea mantenuto (Seoul Economic Daily). Istituzionali: 750,9 (Korea Times) vs 750,8 (Seoul Economic Daily).",
+  "fonti": [
+   {
+    "testata": "The Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261126/kospi-edges-up-despite-bok-rate-hike",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "The benchmark KOSPI closed at 4,711.21 after opening 1.01 percent higher at 4,745.10.",
+    "ricerca": "Kospi closes November 26 2026 Bank of Korea rate hike"
+   },
+   {
+    "testata": "The Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261126/kospi-edges-up-despite-bok-rate-hike",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "foreign investors and retail investors recorded net sales of 113.6 billion won and 1.04 trillion won, respectively.",
+    "ricerca": "Kospi closes November 26 2026 Bank of Korea rate hike"
+   },
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/market/2026/11/26/kospi-gives-up-most-gains-closes-up-029-percent-at-471121",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "The KOSPI closed at 4711.21 on the 26th, up 13.70 points, or 0.29%, from the previous session.",
+    "ricerca": "Kospi closes November 26 2026 Bank of Korea rate hike"
+   }
+  ],
+  "ufficiale_cercato": [
+   "Kospi closes Thursday Seoul stocks Yonhap",
+   "Seoul shares close Bank of Korea hikes rate Kospi won"
+  ],
+  "trovato": "Seoul Economic Daily (26/11/2026): \"The KOSPI closed at 4711.21 on the 26th, up 13.70 points, or 0.29%\"; \"The index rose more than 2% during the session\"; \"retail investors sold a net 1.04 trillion won and foreign investors sold a net 113.6 billion won\"; institutions \"bought a net 750.8 billion won\". Korea Times: \"Institutional investors led the buying, purchasing a net 750.9 billion won\".",
+  "verifica": "confermato",
+  "nota_revisore": "Le due fonti divergono di 0,1 mld sugli istituzionali: 750,9 (Korea Times) vs 750,8 (Seoul Economic Daily). Scrivere 'circa 750,9 miliardi' o 'circa 751 miliardi'."
+ },
+ {
+  "id": "C01",
+  "sezione": "top_news",
+  "tipo": "C",
+  "testo": "Il 25/11 il Brent gennaio e' salito del 3,5% a 94,61 $ al barile e il WTI gennaio del 2% a 83,68 $, in scambi sottili: il rialzo e' attribuito all'escalation di attacchi in Medio Oriente e ai report iraniani di petroliere finite su mine nello Stretto di Hormuz (notizie senza conferma indipendente).",
+  "data_evento": "2026-11-25",
+  "novita": "Il nesso e' con 'claim' di Teheran: Bloomberg precisa che non c'e' conferma indipendente degli incidenti. Hormuz stava tornando verso i flussi pre-guerra.",
+  "fonti": [
+   {
+    "testata": "Rigzone (Bloomberg, Gorrivan e Burkhardt)",
+    "url": "https://www.rigzone.com/news/wire/oil_up_as_hormuz_attacks_counter_recovery_in_supply-25-nov-2026-185171-article/",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Oil rose in thin trading as escalating attacks in the Middle East clouded the recovery in crude shipments from the region in recent months.",
+    "ricerca": "oil prices Brent 94.61 settle Iran tankers mines Hormuz",
+    "agenzia": "Bloomberg"
+   },
+   {
+    "testata": "OilPrice.com (Irina Slav)",
+    "url": "https://oilprice.com/Latest-Energy-News/World-News/Oil-Rallies-as-Hormuz-Mine-Strikes-Rattle-Global-Markets.html",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "fresh reports of tankers hitting mines in the Strait of Hormuz",
+    "ricerca": "oil prices Brent 94.61 settle Iran tankers mines Hormuz"
+   }
+  ],
+  "trovato": "Rigzone/Bloomberg (25/11/2026, 4:16 PM EST): \"Brent for January settlement rose 3.5% to settle at $94.61 a barrel in New York.\" \"WTI for January delivery climbed 2% to settle at $83.68 a barrel.\" \"Oil rose in thin trading as escalating attacks in the Middle East clouded the recovery in crude shipments\"; Iran claimed more tankers hit mines, \"though there's been no independent confirmation of those incidents.\"",
+  "verifica": "confermato",
+  "nota_revisore": "OilPrice.com non riporta questi valori (da' Brent 95,30 e WTI 84,36 'al momento della scrittura', senza percentuali ne' 'thin trading')."
+ },
+ {
+  "id": "C03",
+  "sezione": "top_news",
+  "tipo": "U",
+  "testo": "Scorte settimanali USA di greggio (EIA, settimana al 20/11): +1,1 milioni di barili a 418,9 milioni, contro un aumento atteso di 1,5 milioni.",
+  "data_evento": "2026-11-25",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Business Recorder (Reuters)",
+    "url": "https://www.brecorder.com/news/40450825/oil-rises-on-supply-concerns-as-iran-claims-mine-strikes-on-ships",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "crude stocks rose by 1.1 million barrels to 418.9 million barrels in the week ended November 20.",
+    "ricerca": "oil prices Brent Iran tankers Gulf Hormuz November 26 2026",
+    "agenzia": "Reuters"
+   }
+  ],
+  "ufficiale_cercato": [
+   "EIA weekly petroleum status report crude inventories week ended November 20 2026",
+   "Brent crude Thursday November 26 2026 Reuters oil prices Hormuz OPEC+"
+  ],
+  "trovato": "Reuters via Business Recorder (26/11/2026): \"crude stocks rose by 1.1 million barrels to 418.9 million barrels in the week ended November 20.\" Analysts had expected \"a 1.5 million-barrel rise.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Corrisponde."
+ },
+ {
+  "id": "C06",
+  "sezione": "top_news",
+  "tipo": "U",
+  "testo": "Germania, 25/11: PIL Q3 rivisto al +0,1% t/t dal +0,2% della stima flash del 30/10 (+1,2% a/a); investimenti fissi -1,2% (macchinari -3,5%), export -1,0%, consumi delle famiglie +0,1%.",
+  "data_evento": "2026-11-25",
+  "novita": "Consenso non trovato: il riferimento e' la stima flash 0,2%; la revisione e' al ribasso.",
+  "fonti": [
+   {
+    "testata": "Destatis (comunicato 409/2026)",
+    "url": "https://www.destatis.de/EN/Press/2026/11/PE26_409_811.html",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "rose slightly by 0.1% in the 3rd quarter of 2026",
+    "ricerca": "German GDP third quarter detailed Destatis Wednesday economists expected 0.2% household consumption November 25",
+    "primaria": true
+   }
+  ],
+  "trovato": "Destatis PR 409/2026 (25/11/2026): GDP \"rose slightly by 0.1% in the 3rd quarter of 2026\"; \"0.1 percentage points lower than communicated in the first release of 30 October 2026\"; \"increased by a price adjusted 1.2% compared with the 3rd quarter of 2025\"; \"gross fixed capital formation in the 3rd quarter of 2026 decreased by 1.2%\"; machinery \"down 3.5%\"; exports \"decreasing by 1.0%\"; household consumption \"also up 0.1%\".",
+  "verifica": "confermato",
+  "nota_revisore": "Il +0,2% della stima flash e' solo nel titolo di un link della pagina, ma coerente con '0,1 punti in meno'."
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Oil Up as Hormuz Attacks Counter Recovery in Supply (Bloomberg via Rigzone, 25/11 22:16 Roma)",
+   "Oil rises on supply concerns as Iran claims mine strikes on ships (Reuters, 26/11 08:08 Roma)",
+   "Asian Stocks Rise as Dip Buyers Stabilize AI Trade: Markets Wrap (Bloomberg, titolo del 25/11-26/11, ora non verificata)",
+   "Asian shares rebound led by AI stocks after Wall Street pares sharp losses (AP, 26/11 06:21 Roma)",
+   "Borse oggi in diretta | Europa attesa al rimbalzone dopo il selloff sull'AI (Milano Finanza, 26/11 08:25 Roma)",
+   "Gold Falls Below $3,500 an Ounce for the First Time Since September 2025 (roic.ai, 25/11)",
+   "Global Stocks Recover as Investors Assess Proposed US Tariffs on 14 Trading Partners (zexprwire, 26/11)",
+   "BOK Raises Base Rate by 0.25 percentage points to 3.25% (SBS News, 26/11 01:56 Roma)"
+  ],
+  "testate": [
+   {
+    "testata": "Reuters",
+    "storie": [
+     "Oil rises on supply concerns as Iran claims mine strikes on ships"
+    ]
+   },
+   {
+    "testata": "Bloomberg",
+    "storie": [
+     "Asian Stocks Rise as Dip Buyers Stabilize AI Trade: Markets Wrap",
+     "Oil Up as Hormuz Attacks Counter Recovery in Supply",
+     "Wall Street Storms Back as AI Trade Rebounds With Huang's Return (titolo datato 22/11, non di oggi)"
+    ]
+   },
+   {
+    "testata": "AP",
+    "storie": [
+     "Asian shares rebound led by AI stocks after Wall Street pares sharp losses"
+    ]
+   },
+   {
+    "testata": "Milano Finanza",
+    "storie": [
+     "Europa attesa al rimbalzone dopo il selloff sull'AI. Occhio a Unicredit, Prysmian, EssilorLuxottica",
+     "Wall Street: nuova svendita sui chip e il Nasdaq perde il [titolo troncato] (25/11)"
+    ]
+   },
+   {
+    "testata": "Il Sole 24 Ore",
+    "storie": [
+     "Sulle Borse si esaurisce l'effetto Huang, timori AI e dazi rubano la scena. Milano chiude a -1,8%, WS contrastata (25/11)"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Financial Times e Wall Street Journal: nessun titolo di ieri/oggi trovato",
+    "motivo": "ricerche non hanno restituito pagine FT/WSJ del 25-26/11"
+   },
+   {
+    "storia": "Nikkei Asia: nessun titolo trovato",
+    "motivo": "il movimento asiatico e' coperto solo da AP (Nikkei 225 +1,3%, Kospi +1,2% dopo -6,2%: dato letto, non citato)"
+   }
+  ],
+  "concorda": true,
+  "motivo": "Le fonti convergono su: rimbalzo di Wall Street dal -4,6% intraday del Nasdaq (chiuso -0,6%), PCE core 3,3%, PIL USA 4,3%, nuovi dazi USTR su 14 economie, Hormuz/petrolio. Copertura da 2 sole testate tra Reuters/Bloomberg/FT/WSJ con titoli, FT e WSJ assenti: concordanza parziale.",
+  "mancate_ieri": [
+   {
+    "storia": "PCE core 3,3% e rialzo Fed atteso a dicembre",
+    "fonte": "BullionVault, TradingKey",
+    "perche_mancata": "uscita nel pomeriggio del 25/11, dopo la chiusura dell'edizione"
+   },
+   {
+    "storia": "Nasdaq a -4,6% intraday e S&P a -3,2%, poi recupero",
+    "fonte": "AP, Longbridge (MarketWatch/AP)",
+    "perche_mancata": "movimento della sessione USA del 25/11"
+   },
+   {
+    "storia": "USTR propone nuovi dazi su 14 economie",
+    "fonte": "TradingKey",
+    "perche_mancata": "notizia del 25/11, ancora in fase di proposta"
+   },
+   {
+    "storia": "Kospi -6,2% il 25/11, Nikkei -2,8%",
+    "fonte": "AP",
+    "perche_mancata": "seduta asiatica del 25/11"
+   }
+  ]
+ },
+ {
+  "id": "MEM-1125-MEM-1124-MEM-1123-K06",
+  "sezione": "agenda",
+  "testo": "Giovedì 26 Wall Street e il mercato dei titoli di Stato USA sono chiusi per il Ringraziamento; venerdì 27 le azioni chiudono alle 13:00 a New York (19:00 a Roma)",
+  "data_evento": "2026-11-26",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "Investrade",
+    "url": "https://investrade.com/weekly-event-calendar-11-23-2026-11-27-2026/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Weekly Event Calendar: 11/23/2026 - 11/27/2026",
+    "ricerca": "economic calendar week November 23 - November 27, 2026 flash PMI PCE GDP Q3 consensus"
+   },
+   {
+    "testata": "FinancialJuice",
+    "url": "https://features.financialjuice.com/2026/11/20/week-ahead-economic-indicators-23rd-27th-november-us/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Week Ahead: Economic Indicators 23rd - 27th November (US)",
+    "ricerca": "economic calendar week November 23 - November 27, 2026 flash PMI PCE GDP Q3 consensus"
+   }
+  ],
+  "trovato": "Investrade: U.S. stock and bond markets closed in observance of Thanksgiving Day holiday (Thursday 26 Nov). U.S. stock markets close at 1:00 PM ET and bond markets at 2:00 pm et. (Friday 27 Nov)",
+  "verifica": "confermato",
+  "nota_revisore": "Chiusura giovedi' 26 di azioni e titoli di Stato e chiusura anticipata delle azioni alle 13:00 ET (19:00 Roma) confermate. FinancialJuice non cita la chiusura anticipata. Nota: i titoli di Stato chiudono alle 14:00 ET (20:00 Roma) venerdi'.",
+  "ripresa": "2026-11-25"
+ },
+ {
+  "id": "MEM-1125-MEM-1120-K5",
+  "sezione": "agenda",
+  "testo": "Giovedì 26 novembre, festa del Ringraziamento: borse e mercato obbligazionario USA chiusi",
+  "data_evento": "2026-11-26",
+  "novita": null,
+  "fonti": [
+   {
+    "testata": "LiteFinance",
+    "url": "https://www.litefinance.org/blog/analysts-opinions/weekly-economic-calendar-for-23112026-29112026/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Forex Economic Calendar Overview: Key Events for the Next Trading Week (23.11.2026–29.11.2026)",
+    "ricerca": "week ahead November 23 2026 flash PMI Fed minutes PCE Jackson earnings Nvidia calendar"
+   },
+   {
+    "testata": "ThriveInMarkets",
+    "url": "https://thriveinmarkets.com/calendar/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Economic Calendar - November 16 - November 20, 2026",
+    "ricerca": "economic calendar Friday November 20 2026 Waller speech flash PMI existing home sales UK retail sales"
+   }
+  ],
+  "trovato": "Thanksgiving: US markets closed Thu 26 Nov | Banks, bond markets, and major US stock exchanges (NYSE and Nasdaq) will be closed.",
+  "verifica": "confermato",
+  "nota_revisore": "ThriveInMarkets e LiteFinance.",
+  "ripresa": "2026-11-25"
+ },
+ {
+  "id": "S1",
+  "sezione": "scaletta",
+  "apertura": {
+   "storia": "Wall Street dimezza il crollo: il Nasdaq arriva a -4,6% e chiude a -0,62%, con dati caldi e dazi",
+   "perche_prima": "Apertura di AP, Bloomberg, Reuters, Milano Finanza e Sole 24 Ore"
+  },
+  "moduli": [
+   {
+    "chiave": "wall",
+    "misura": "doppio",
+    "tesi": "Il recupero di fine seduta ha salvato i prezzi ma non il costo del rischio: mentre il Nasdaq risaliva dal -4,6% il VIX saliva del 7% e il debito delle società dell'intelligenza artificiale restava caro.",
+    "domanda": "Se il Nasdaq chiude a -0,6%, perché si parla di paura?",
+    "prove": [
+     "Nasdaq -4,6% in seduta, chiusura -0,62%; S&P 500 fino a -3,2%, chiusura -0,25%",
+     "VIX 28,29 (+7%) a fine seduta",
+     "CDS a 5 anni di CoreWeave al 15,34%, massimi anche per Nvidia, Alphabet e Oracle",
+     "S&P Global mette il rating AA di Nvidia in CreditWatch per governance",
+     "AP: dubbi sul ritmo degli investimenti in infrastrutture IA dopo le midterm",
+     "Nvidia -3,91% dopo il +31,5% di lunedì scorso"
+    ],
+    "contro": "VIX sotto 25 e CDS in rientro già alla riapertura di venerdì",
+    "schede": [
+     "A01",
+     "A02",
+     "A08",
+     "A09"
+    ],
+    "memoria": "Chip e Asia 24-25/11"
+   },
+   {
+    "chiave": "tassi",
+    "misura": "mezzo",
+    "tesi": "I dati più caldi del previsto non hanno alzato i rendimenti lunghi: il 10 anni è sceso mentre il core PCE saliva al 3,3%, perché il mercato legge dazi e paura sull'IA come un freno alla crescita, e il rialzo di dicembre resta scontato.",
+    "domanda": "Perché i rendimenti scendono se l'inflazione sorprende?",
+    "prove": [
+     "Core PCE 3,3% a/a contro 3,2% atteso; PCE 3,8%",
+     "PIL Q3 4,3% contro 3,5% atteso",
+     "10 anni 4,85% (era 4,91%), 2 anni 4,61% (era 4,63%)",
+     "Mercati scontano +25 pb alla riunione dell'8-9 dicembre",
+     "Oro sotto 3.500 $ in seduta",
+     "Curva 10-2 più piatta di 4 pb"
+    ],
+    "contro": "10 anni di nuovo sopra 4,92%",
+    "schede": [
+     "A03",
+     "A04",
+     "A05",
+     "A06",
+     "C04"
+    ],
+    "memoria": "Fed e tassi 25/11"
+   },
+   {
+    "chiave": "dazi",
+    "misura": "mezzo",
+    "tesi": "I nuovi dazi sono ancora una proposta con tempi lunghi, ma l'Europa li ha già messi nei prezzi: l'Euro Stoxx 50 chiude ai minimi da maggio e Milano cede più di Parigi e Londra.",
+    "domanda": "Perché le borse reagiscono a dazi che non sono in vigore?",
+    "prove": [
+     "Proposta USTR su 14 economie, non prima di gennaio",
+     "UE al tetto del 15%, Cina +20%",
+     "Euro Stoxx 50 -1,82% a 5.894,46, minimo da maggio",
+     "FTSE MIB -1,81% a 47.249",
+     "Infineon -6,5%, ASML -5,8%, STMicro -4,7%"
+    ],
+    "contro": "L'UE mantiene l'accordo di luglio 2025 e i dazi restano al 15%",
+    "schede": [
+     "A11",
+     "A12",
+     "B01",
+     "B02",
+     "B03"
+    ],
+    "memoria": "Dazi 25/11"
+   },
+   {
+    "chiave": "corea",
+    "misura": "mezzo",
+    "tesi": "La banca centrale coreana ha alzato i tassi il giorno dopo il -6% del Kospi: guarda inflazione e crescita trainata dai chip, non la borsa.",
+    "domanda": "Perché alzare i tassi dopo un crollo di borsa?",
+    "prove": [
+     "Kospi -6,16% mercoledì, +0,29% giovedì",
+     "BoK 3,25% da 3,00%",
+     "Crescita 2026 rivista a 3,9% da 3,3%",
+     "Governatore: capitalizzazione solo tre volte gli utili",
+     "Retail venditore netto 1.040 mld di won, istituzionali compratori"
+    ],
+    "contro": "Un secondo calo del Kospi oltre il 5% costringerebbe a rivedere i toni",
+    "schede": [
+     "B07",
+     "B08",
+     "B09",
+     "B10"
+    ],
+    "memoria": "Chip e Asia 25/11"
+   },
+   {
+    "chiave": "petrolio",
+    "misura": "mezzo",
+    "tesi": "Il Brent sale del 3,5% su notizie di mine a Hormuz che nessuno ha confermato in modo indipendente, in scambi sottili e con scorte USA salite meno del previsto.",
+    "domanda": "Perché il petrolio sale se l'offerta globale recupera?",
+    "prove": [
+     "Brent +3,5% a 94,61 $, WTI +2% a 83,68 $",
+     "Mine: claim iraniano, Bloomberg senza conferma indipendente",
+     "Scorte USA +1,1 mln b contro +1,5 attesi",
+     "Scambi sottili per il Ringraziamento",
+     "Riunione OPEC+ del 29/11"
+    ],
+    "contro": "Una smentita o una conferma indipendente sulle mine",
+    "schede": [
+     "C01",
+     "C02",
+     "C03"
+    ],
+    "memoria": "Petrolio 25/11"
+   }
+  ]
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Nasdaq a -4,6% in seduta e -0,62% in chiusura",
+  "ricerche": [
+   "Wall Street Wednesday ahead of Thanksgiving stocks PCE Nasdaq S&P 500 close",
+   "How major US stock indexes fared Wednesday 11/25/2026"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Acquisti sui titoli dei chip e dell'IA dopo il ribasso (AP, Yahoo Finance)",
+    "fonte": "A02",
+    "prevede": "Nvidia e chip meno negativi della seduta, VIX alto",
+    "prezzi": "in parte"
+   },
+   {
+    "causa": "Scambi sottili alla vigilia del Ringraziamento: pochi ordini hanno amplificato prima la discesa e poi il rimbalzo",
+    "fonte": null,
+    "prevede": "Volumi ridotti e VIX ancora alto",
+    "prezzi": "in parte"
+   }
+  ],
+  "esito": "ipotesi"
+ },
+ {
+  "id": "A2",
+  "sezione": "anomalia",
+  "fatto": "10 anni in calo (4,91% a 4,85%) con il core PCE sopra le attese",
+  "ricerche": [
+   "Treasury yields fall Wednesday November 25 2026 10-year PCE tariffs",
+   "PCE price index October 2026 core 3.3% year over year Federal Reserve December rate hike"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Dazi e paura sull'IA letti come freno alla crescita e rifugio nei titoli di Stato",
+    "fonte": null,
+    "prevede": "Oro sotto 3.500 $, VIX in rialzo, Dow in rialzo",
+    "prezzi": "in parte"
+   },
+   {
+    "causa": "Il mercato si attende un rialzo della Fed a dicembre e poi un rallentamento dell'economia",
+    "fonte": null,
+    "prevede": "2 anni stabile o in lieve calo, 10 anni in calo",
+    "prezzi": "in parte"
+   }
+  ],
+  "esito": "ipotesi"
+ }
+]
