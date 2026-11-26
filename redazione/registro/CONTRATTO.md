@@ -6,7 +6,7 @@ In questa prima versione il capo sviluppo non rilascia mai: costruisce, fa colla
 
 ## Chi scrive che cosa
 
-- **Capo sviluppo:** le voci (fino a `stato` "pronta", con `domanda`, `anteprima`, `visto_commit`, `ok`, `prova.giorno` e `prova.esito` "da-fare", `ferma`), il piano (`meta/piano`), l'esito dei clic (`esito`, `nota`, `chiuso`, `preso`), `meta/capo`, `meta/tocca`, `meta/salute` (salvo i rilasci), `appunti` assorbiti.
+- **Capo sviluppo:** le voci (fino a `stato` "pronta", con `domanda`, `anteprima`, `visto_commit`, `ok`, `ferma`), il piano (`meta/piano`), l'esito dei clic (`esito`, `nota`, `chiuso`, `preso`), `meta/capo`, `meta/tocca`, `meta/salute` (salvo i rilasci), `appunti` assorbiti.
 - **Chat del rilascio:** sulla voce `stato` "fatta", `chiusa`, `esito` (una riga) e la pulizia dei campi dell'Ok (`ok`, `domanda`, `anteprima`, `visto_commit`); `prova` (`esito` "ok" o "ko", `nota`, `commit`); `meta/salute.rilasci` (`ok`, `ko`, `annullato`).
 - **Pagina:** `clic` (e il loro `lancio`), `appunti` nuovi.
 
@@ -31,7 +31,7 @@ Senza `meta/capo.attivita` la pagina non mostra i tasti che lanciano lavoro (Via
 | `meta/stato` = {`lettori`, `edizioni`, `prossimo`} | mostrato in Dietro le quinte | esisteva |
 | `meta/piano` = {`settimana` (il lunedì, AAAA-MM-GG), `titolo`, `voci` (codici), `giorni` ({codice: giorno}, scritto con il piano), `tolte` (codici), `via` ({`quando`, `clic`} o null)} | | nuovo |
 | `meta/capo` = {`attivita`, `giro` ("19:27"), `lavora`: {`quando`, `aggiornato`, `che`} o assente} | | nuovo |
-| `meta/tocca` = {`conto`, `codici`, `aggiornato`, `detto`: {`quando`, `codici`}} | la pagina non lo legge | nuovo |
+| `meta/tocca` = {`conto`, `codici` (codici delle voci che aspettano Paolo, più "piano:<settimana>" finché il piano non ha il via e "ferma:<codice>" per ogni voce ferma), `aggiornato`, `detto`: {`quando`, `codici`}} | la pagina non lo legge | nuovo |
 | `clic/<id>` | sotto | nuova |
 
 Un piano mai avviato la cui settimana è passata (sette giorni dopo `settimana`) non compare in Oggi: Dietro le quinte lo segnala come "piano scaduto".
@@ -47,7 +47,7 @@ Nuovi, tutti facoltativi:
 - `anteprima`: link `https://` a ciò che Paolo deve vedere (la pagina del file su GitHub).
 - `visto_commit`: il commit esatto mostrato a Paolo; lo scrive il capo sviluppo con `domanda` e `anteprima`.
 - `ok` = {`quando`, `clic`, `commit`}: lo scrive il capo sviluppo al clic Ok; `commit` è il `visto_commit` approvato. La chat del rilascio unisce esattamente `ok.commit`, poi toglie `ok`, `domanda`, `anteprima`, `visto_commit`.
-- `prova` = {`giorno`, `esito` (`da-fare`, `ok`, `ko`), `nota`, `commit` (il commit di `con-prova` provato)}: il capo sviluppo scrive `giorno` ed `esito` "da-fare"; la chat lancia e legge l'edizione di prova e scrive il resto.
+- `prova` = {`giorno`, `esito` (`da-fare`, `ok`, `ko`), `nota`, `commit` (il commit di `con-prova` provato)}: lo scrive solo la chat: "da-fare" quando la voce approvata entra nel ramo della prova, poi l'esito. Il capo sviluppo non scrive mai `prova`.
 
 Priorità: `max`, `high`, `medium`, `low`, `tbd` (mostrata come Idea); i vecchi numeri 1, 2, 3 valgono high, medium, low; `stato: "idea"` vale tbd. A parità di priorità viene prima la `scadenza` più vicina ("entro il 24/12").
 
