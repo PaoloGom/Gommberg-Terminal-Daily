@@ -6,7 +6,7 @@ La pagina (`redazione/registro/index.html`) legge tutto e scrive solo due cose: 
 
 1. Creare l'attività programmata del capo sviluppo (una sola, lanciata dai clic e da un giro fisso ogni sera) e scrivere `meta/capo` = {`attivita`: id dell'attività, `giro`: orario del giro in parole, es. "19:47"}.
 2. Il capo sviluppo riporta la prova della serata aperta `2026-11-25-2` sulle voci G-45, G-54 e G-50 (`prova` = {`giorno`: "2026-11-27", `esito`: "da-fare"}): dopo, la pagina non guarda più le serate per decidere lo stato.
-3. Dichiarare le capacità della pagina: `db`, `user` e `mcp` con il connettore "Claude Code Remote" (e "Claude_Code_Remote"), strumento `fire_trigger`.
+3. Dichiarare le capacità della pagina: `db`, `user` e `mcp` con il connettore "Claude Code Remote" (nome verificato dal vivo il 26/11/2026), strumento `fire_trigger`.
 4. Pubblicare la pagina.
 
 Senza `meta/capo.attivita` la pagina non mostra i tasti che lanciano lavoro (Via al piano, Ok, Non ancora, Usa il margine, Torna indietro) e dice "Il capo sviluppo non è ancora collegato"; Togli e Aggiungi restano, perché scrivono soltanto.

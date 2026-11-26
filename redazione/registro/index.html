@@ -107,7 +107,7 @@ details summary{cursor:pointer;min-height:44px;display:flex;align-items:center;f
 /* ===== Logica pura: nessun accesso al DOM. Si prova con prova.mjs. ===== */
 const Registro = (() => {
   // Nomi del connettore da provare, in ordine (non si sa ancora quale funziona)
-  const NOMI_CONNETTORE = ["Claude Code Remote", "Claude_Code_Remote"];
+  const NOMI_CONNETTORE = ["Claude Code Remote"]; // verificato dal vivo il 26/11/2026
   // Unico punto da cambiare se il parametro ?q= non funziona
   function chatURL(codice) { return "https://claude.ai/new?q=" + encodeURIComponent("Gommberg, voce " + codice + ": "); }
   const PRESA_MIN = 15;          // un clic partito e non preso in carico entro questi minuti dice "Non ancora preso in carico"

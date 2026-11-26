@@ -168,8 +168,11 @@ await caso("piano di una settimana passata e mai avviato: va in Dietro le quinte
   const ctx = ctxDi(f); uguale(R.zoneOggi(ctx).piano, null); uguale(R.statoVoce(ctx.perCodice.get("G-58"), ctx).testo, "Più avanti");
   vero(R.dietro(ctx).scaduto.startsWith("Piano scaduto"), "riga del piano scaduto");
 });
-await caso("lancio riuscito con il secondo nome del connettore", async () => {
+await caso("un solo nome del connettore, quello verificato dal vivo", async () => {
   const f = dbFinto(conCapo(OGGI)), m = mcpFinto({ "Claude_Code_Remote": "ok" });
+  const r = await R.premi(dip(f, m), { tipo: "margine" });
+  uguale(m.chiamate.map(c => c.nome), ["Claude Code Remote"]); vero(r.esito !== "partito", "con un nome diverso non parte");
+});
   const r = await R.premi(dip(f, m), { tipo: "margine" });
   uguale(r.esito, "partito"); uguale(m.chiamate.map(c => c.nome), ["Claude Code Remote", "Claude_Code_Remote"]);
   const c = f.dati.get("clic/" + r.id); uguale(c.lancio.esito, "partito"); uguale(R.statoClic(c, ctxDi(f)).testo, "Partito adesso.");
