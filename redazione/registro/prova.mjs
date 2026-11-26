@@ -56,9 +56,9 @@ const ORA = new Date("2026-11-26T18:00:00+01:00");
 /* ---- Dati di oggi, come sono nel Registro (senza i campi nuovi) ---- */
 const OGGI = {
   "tasks/n-registro-nuovo": { codice: "G-65", titolo: "Il Registro nuovo", stato: "in-corso", priorita: "high", ordine: 5, input: "approvazione", domanda: "Premi una volta il tasto della pagina di prova", obiettivo: "Il Registro diventa la pagina di chi dirige", modello: "Opus", sforzo: "high", giorno: "2026-11-27" },
-  "tasks/n-festivi-2027": { codice: "G-50", titolo: "Giorni senza edizione del 2027", stato: "pronta", priorita: "low", ordine: 60, finestra: "con-prova", domanda: "", modello: "Sonnet", sforzo: "medium" },
-  "tasks/g-testo": { codice: "G-45", titolo: "Il testo regge contro i dati", stato: "in-corso", priorita: "high", ordine: 2 },
-  "tasks/g-impara": { codice: "G-54", titolo: "Impara cresce da sola", stato: "pronta", priorita: "high", ordine: 3, domanda: "Guarda le pagine" },
+  "tasks/n-festivi-2027": { codice: "G-50", titolo: "Giorni senza edizione del 2027", stato: "pronta", priorita: "low", ordine: 60, finestra: "con-prova", prova: { giorno: "2026-11-27", esito: "da-fare" }, domanda: "", modello: "Sonnet", sforzo: "medium" },
+  "tasks/g-testo": { codice: "G-45", titolo: "Il testo regge contro i dati", stato: "in-corso", priorita: "high", ordine: 2, prova: { giorno: "2026-11-27", esito: "da-fare" } },
+  "tasks/g-impara": { codice: "G-54", titolo: "Impara cresce da sola", stato: "pronta", priorita: "high", ordine: 3, domanda: "Guarda le pagine", prova: { giorno: "2026-11-27", esito: "da-fare" } },
   "tasks/g-carta": { codice: "G-19", titolo: "Approvare la bozza di CARTA.md", stato: "da-fare", priorita: "high", ordine: 5, chi: "Paolo", domanda: "Approvi la bozza?" },
   "tasks/g-orologio": { codice: "G-58", titolo: "Un orologio affidabile", stato: "da-fare", priorita: "high", ordine: 6 },
   "tasks/g-minuti": { codice: "G-12", titolo: "Meno minuti di GitHub", stato: "da-fare", priorita: "medium", ordine: 4 },
@@ -96,7 +96,7 @@ await caso("dati di oggi senza i campi nuovi: valori prudenti", () => {
   uguale(R.statoVoce(ctx.perCodice.get("G-07"), ctx).testo, "Idea");
   uguale(R.comeSiLavora(ctx.perCodice.get("G-58")), "Da decidere", "modello assente: mai un modello inventato");
 });
-await caso("la serata con la prova mette le sue voci in Aspetta la prova", () => {
+await caso("la prova sta sulla voce: Aspetta la prova", () => {
   const ctx = ctxDi(dbFinto(OGGI));
   for (const c of ["G-45", "G-54", "G-50"]) uguale(R.statoVoce(ctx.perCodice.get(c), ctx).testo, "Aspetta la prova", c);
   const z = R.zoneOggi(ctx);
@@ -104,9 +104,14 @@ await caso("la serata con la prova mette le sue voci in Aspetta la prova", () =>
   const g54 = z.tocca.find(x => x.v.codice === "G-54");
   vero(g54 && !g54.vedere && g54.s.testo === "Aspetta la prova", "la domanda di G-54 resta in Tocca a te, con lo stato scritto, senza Ok");
 });
-await caso("prova riuscita: la voce torna allo stato che le spetta", () => {
-  const f = dbFinto({ ...OGGI, "serate/2026-11-25-2": { stato: "con-prova", dopo: { righe: [{ codice: "G-45" }], prova: { giorno: "2026-11-27", esito: "ok" } } } });
-  const ctx = ctxDi(f); uguale(R.statoVoce(ctx.perCodice.get("G-45"), ctx).testo, "Al lavoro");
+await caso("prova ok, prova ko, e le serate non decidono più lo stato", () => {
+  const voce = prova => ({ "tasks/a": { codice: "G-45", titolo: "a", stato: "in-corso", chi: "Claude", prova } });
+  let ctx = ctxDi(dbFinto(voce({ giorno: "2026-11-27", esito: "ok" }))); uguale(R.statoVoce(ctx.voci[0], ctx).testo, "Al lavoro");
+  ctx = ctxDi(dbFinto(voce({ giorno: "2026-11-27", esito: "ko", nota: "il desk ha tagliato una tabella" })));
+  uguale([R.statoVoce(ctx.voci[0], ctx).testo, R.statoVoce(ctx.voci[0], ctx).causa], ["Ferma", "La prova non è andata bene: il desk ha tagliato una tabella"]);
+  // una serata con-prova mai aggiornata non tiene più ferma una voce
+  ctx = ctxDi(dbFinto({ ...voce(null), "serate/2026-11-25-2": { stato: "con-prova", dopo: { righe: [{ codice: "G-45" }], prova: { giorno: "2026-11-27", esito: "da-fare" } } } }));
+  uguale(R.statoVoce(ctx.voci[0], ctx).testo, "Al lavoro"); uguale(R.dietro(ctx).serate.length, 1, "le serate restano come storico");
 });
 await caso("Tocca a te: regola unica (domanda, chi Paolo, input della pagina di oggi)", () => {
   const ctx = ctxDi(dbFinto(VERI)), z = R.zoneOggi(ctx);
@@ -302,8 +307,14 @@ await caso("i quattro filtri, la ricerca e il conteggio delle aperte", () => {
   uguale(codici(R.elenco(ctx, "priorita", "fatte")), ["G-33"]);
   uguale(codici(R.elenco(ctx, "priorita", "riserva")), ["G-80"]);
   uguale(R.nAperte(ctx), 8);
-  uguale(codici(R.elenco(ctx, "priorita", "aperte", "GLOSSARIO")), ["G-80"], "cerca nelle decisioni");
-  uguale(codici(R.elenco(ctx, "lavoro", "idee", "glossario")), ["G-07"], "cerca nel titolo, insieme al filtro");
+  uguale(codici(R.elenco(ctx, "priorita", "aperte", "GLOSSARIO")), ["G-80", "G-07"], "cerca in decisioni e titolo, su tutte le voci");
+  uguale(codici(R.elenco(ctx, "lavoro", "fatte", "homepage")), ["G-33"]);
+  uguale(codici(R.elenco(ctx, "priorita", "aperte", "Homepage")), ["G-33"], "con una ricerca il filtro non vale");
+  const c2 = R.contesto({ tasks: { a: { codice: "G-1", titolo: "Perché sì", stato: "da-fare" }, b: { codice: "G-2", titolo: "b", domanda: "Città nuova?" }, c: { codice: "G-3", titolo: "c", lettore: "Pagine più leggere" }, d: { codice: "G-4", titolo: "d" } } }, ORA);
+  uguale(codici(R.elenco(c2, "priorita", "aperte", "perche")), ["G-1"], "senza accenti");
+  uguale(codici(R.elenco(c2, "priorita", "aperte", "citta")), ["G-2"], "nella domanda");
+  uguale(codici(R.elenco(c2, "priorita", "aperte", "leggere")), ["G-3"], "nel lettore");
+  uguale(codici(R.elenco(c2, "priorita", "aperte", "scrivere")), [], "non nel 'Da scrivere' di ripiego");
   uguale(codici(R.elenco(ctx, "priorita", "aperte", "g-65")), ["G-65"], "cerca il codice");
 });
 await caso("conteggi delle viste: aperte, idee e fatte coprono tutte le voci", () => {
@@ -321,8 +332,7 @@ await caso("due scrittori: la pagina non riscrive mai ciò che scrive il capo sv
   uguale(f.dati.get("meta/piano"), { settimana: "2026-12-05", voci: ["G-58"], tolte: [], via: null }, "piano intatto");
   vero(f.scritture.every(s => /^(clic|appunti)\//.test(s.path)), "scrive solo clic e appunti");
   vero(f.scritture.filter(s => s.op === "update").every(s => Object.keys(s.d).join() === "lancio"), "sui clic aggiorna solo lancio");
-  // il clic Togli del piano vecchio non tocca il piano nuovo: per la pagina vale solo il piano
-  uguale(codici(R.zoneOggi(ctxDi(f)).piano.voci), [], "G-58 ha un Togli aperto: lo decide il capo sviluppo");
+    uguale(codici(R.zoneOggi(R.contesto(f.raw(), new Date("2026-12-04T20:00:00+01:00"))).piano.voci), ["G-58"], "il Togli del piano vecchio non vale per il piano nuovo");
 });
 await caso("valori strani dal database", () => {
   const v = R.normVoce("x", { codice: "G-1", stato: "bloccata", priorita: "urgente", ordine: "", giorno: "26/11/2026", livello: "boh", anteprima: " https://a.it/x\" onerror=x " });
@@ -355,6 +365,32 @@ await caso("dietro le quinte: salute, serate, consensi, giornale", async () => {
   uguale(d.vecchia, false, "verifica di 23 ore fa"); uguale(d.serate.length, 2); uguale(d.consensi.length, 1); uguale(d.conta.margine, 1);
   uguale(d.consensi[0].lancio, "coda"); uguale(d.giornale, "10 lettori · 33 edizioni · Prossimo: venerdì la prova");
   f.dati.get("meta/salute").verificato = "2026-11-24T10:00:00+01:00"; uguale(R.dietro(ctxDi(f)).vecchia, true, "verifica di più di 26 ore fa");
+});
+await caso("clic in lavoro senza segnale: Fermo da, con Riprova", () => {
+  const preso = agg => ({ tipo: "margine", esito: "in-lavoro", quando: "2026-11-26T15:00:00Z", preso: { quando: "2026-11-26T15:00:00Z", aggiornato: agg } });
+  let f = dbFinto(conCapo({ "clic/c1": preso("2026-11-26T16:40:00Z") })); // 20 minuti fa
+  uguale(R.statoClic(f.dati.get("clic/c1"), ctxDi(f)).testo, "Al lavoro.");
+  f = dbFinto(conCapo({ "clic/c1": preso("2026-11-26T15:30:00Z") })); // 90 minuti fa
+  const s = R.statoClic(f.dati.get("clic/c1"), ctxDi(f)); uguale([s.testo, s.riprova], ["Fermo da 90 minuti: nessun segnale.", true]);
+  f = dbFinto(conCapo({ "clic/c1": { tipo: "margine", esito: "in-lavoro", quando: "2026-11-23T17:00:00Z" } })); // sessione morta prima di scrivere preso
+  uguale(R.statoClic(f.dati.get("clic/c1"), ctxDi(f)).testo, "Fermo da 3 giorni: nessun segnale.");
+});
+await caso("un clic aspetta il lavoro in corso, senza la scadenza dei 15 minuti", async () => {
+  const f = dbFinto(conCapo({ ...OGGI, "clic/c0": { tipo: "via-piano", esito: "in-lavoro", quando: "2026-11-26T16:00:00Z", preso: { quando: "2026-11-26T16:00:00Z", aggiornato: "2026-11-26T16:50:00Z" } } }));
+  const r = await R.premi(dip(f, mcpFinto({ "Claude Code Remote": "ok" })), { tipo: "margine" });
+  const tra = min => R.contesto(f.raw(), new Date(ORA.getTime() + min * 60000));
+  uguale(R.statoClic(f.dati.get("clic/" + r.id), tra(1)).testo, "In coda: parte appena finisce il lavoro in corso.");
+  uguale(R.statoClic(f.dati.get("clic/" + r.id), tra(40)).testo, "In coda: parte appena finisce il lavoro in corso.", "nessuna scadenza mentre l'altro lavora");
+  uguale(R.statoClic(f.dati.get("clic/" + r.id), tra(70)).tipo, "non-preso", "l'altro tace da più di 60 minuti: torna la scadenza");
+});
+await caso("un Togli vale solo per il piano in cui è stato dato", async () => {
+  const f = dbFinto(conCapo({ ...OGGI, "meta/piano": { settimana: "2026-11-28", voci: ["G-58", "G-12"], tolte: [], via: null } }));
+  await R.togli(dip(f, null), "G-58", "2026-11-28");
+  uguale(codici(R.zoneOggi(ctxDi(f)).piano.voci), ["G-12"]);
+  f.dati.set("meta/piano", { settimana: "2026-12-05", voci: ["G-58", "G-12"], tolte: [], via: null });
+  const ctx = R.contesto(f.raw(), new Date("2026-12-04T20:00:00+01:00"));
+  uguale(codici(R.zoneOggi(ctx).piano.voci), ["G-58", "G-12"], "il Togli vecchio non nasconde la voce nel piano nuovo");
+  uguale(R.statoVoce(ctx.perCodice.get("G-58"), ctx).testo, "In piano");
 });
 await caso("la pagina: niente innerHTML, testi lunghi che vanno a capo, niente trattini lunghi", () => {
   vero(!/innerHTML|insertAdjacentHTML|outerHTML/.test(html), "mai HTML costruito da stringhe");

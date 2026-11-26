@@ -113,6 +113,7 @@ const Registro = (() => {
   const PRESA_MIN = 15;          // un clic partito e non preso in carico entro questi minuti dice "Non ancora preso in carico"
   const ESITI_ORE = 24;          // per quante ore resta in Oggi la riga con l'esito di un clic
   const FRESCO_MIN = 5;          // "Partito adesso" fino a questi minuti
+  const SILENZIO_MIN = 60;       // un clic in lavoro senza segnale (preso.aggiornato) da più di questi minuti è fermo
 
   const PRIO = { max: "Max", high: "High", medium: "Medium", low: "Low", tbd: "Idea" };
   const PRIO_R = { max: 0, high: 1, medium: 2, low: 3, tbd: 4 };
@@ -188,13 +189,13 @@ const Registro = (() => {
       giorno: giornoOk(d.giorno), chiusa: giornoOk(d.chiusa), scadenza: giornoOk(d.scadenza),
       chi, input: inputNorm(chi, txt(d.input)),
       finestra: txt(d.finestra), modello: txt(d.modello), sforzo: txt(d.sforzo),
-      ferma: txt(d.ferma), anteprima: https(d.anteprima)
+      ferma: txt(d.ferma), anteprima: https(d.anteprima),
+      prova: d.prova && typeof d.prova === "object" ? { giorno: giornoOk(d.prova.giorno), esito: txt(d.prova.esito), nota: txt(d.prova.nota) } : null
     };
   }
   // Regola unica: una voce aspetta Paolo
   const aspettaPaolo = v => v.stato !== "fatta" && (!!v.domanda || v.chi === "Paolo" || v.input === "azione" || v.input === "decisione");
 
-  function righeSerata(s) { return oggetti(s && s.dopo && s.dopo.righe).concat(oggetti(s && s.prima && s.prima.righe)); }
 
   /* raw: {tasks, serate, clic, appunti, rilasci: oggetti id -> dati; salute, piano, capo, stato: dati o null;
      lanci: esiti di lancio tenuti dalla pagina (id -> lancio); chiusi: id degli esiti chiusi da Paolo} */
@@ -206,19 +207,13 @@ const Registro = (() => {
     const clic = Object.entries(raw.clic || {}).map(([id, d]) => { const c = { id, ...(d || {}) }; if (!c.lancio && lanci[id]) c.lancio = lanci[id]; return c; })
       .sort((a, b) => txt(b.quando).localeCompare(txt(a.quando)));
     const serate = Object.entries(raw.serate || {}).map(([id, d]) => ({ id, ...(d || {}) })).sort((a, b) => b.id.localeCompare(a.id));
-    const prova = new Map();
-    serate.filter(s => s.stato === "con-prova").forEach(s => {
-      const p = (s.dopo && s.dopo.prova) || {};
-      if (txt(p.esito) === "ok") return; // prova riuscita: la voce torna allo stato che le spetta
-      righeSerata(s).forEach(r => { const c = txt(r.codice); if (c && !prova.has(c)) prova.set(c, { giorno: giornoOk(p.giorno), esito: txt(p.esito), nota: txt(p.nota) }); });
-    });
     const p = raw.piano;
     let piano = p && txt(p.settimana) ? { settimana: txt(p.settimana), titolo: txt(p.titolo), voci: lista(p.voci), tolte: lista(p.tolte), via: p.via || null } : null, pianoScaduto = null;
     if (piano && !piano.via) { const d = dataLocale(piano.settimana); if (d) { d.setDate(d.getDate() + 7); if (isoGiorno(d) <= isoGiorno(ora)) { pianoScaduto = piano; piano = null; } } }
     const appunti = Object.entries(raw.appunti || {}).map(([id, d]) => ({ id, ...(d || {}) }))
       .filter(a => (a.stato || "nuovo") === "nuovo" && txt(a.testo)).sort((a, b) => txt(b.creato).localeCompare(txt(a.creato)));
     const capo = raw.capo || null;
-    return { ora, voci, perCodice, clic, serate, prova, piano, pianoScaduto, appunti, salute: raw.salute || null, stato: raw.stato || null,
+    return { ora, voci, perCodice, clic, serate, piano, pianoScaduto, appunti, salute: raw.salute || null, stato: raw.stato || null,
       rilasci: raw.rilasci || {}, chiusi: lista(raw.chiusi), attivita: txt(capo && capo.attivita), giro: txt(capo && capo.giro) };
   }
   const collegato = ctx => !!ctx.attivita;
@@ -229,16 +224,18 @@ const Registro = (() => {
     return ctx.clic.find(c => tipi.includes(c.tipo) && APERTI.includes(c.esito) && (chiave == null || c.voce === chiave || c.piano === chiave)) || null;
   }
   function pianoPartito(ctx) { return !!(ctx.piano && (ctx.piano.via || clicAperto(ctx, "via-piano", ctx.piano.settimana))); }
-  const inPiano = (ctx, c) => !!(ctx.piano && ctx.piano.voci.includes(c) && !ctx.piano.tolte.includes(c) && !clicAperto(ctx, "togli", c));
+  // Un Togli vale solo per il piano (settimana) in cui è stato dato
+  const togliAperto = (ctx, codice, settimana) => ctx.clic.some(c => c.tipo === "togli" && APERTI.includes(c.esito) && c.voce === codice && c.piano === settimana);
+  const inPiano = (ctx, c) => !!(ctx.piano && ctx.piano.voci.includes(c) && !ctx.piano.tolte.includes(c) && !togliAperto(ctx, c, ctx.piano.settimana));
   const daVedere = v => v.stato === "pronta" && !!v.domanda;
 
   function st(chiave, causa) { return { chiave, testo: STATI[chiave].testo, tono: STATI[chiave].tono, causa: causa || "" }; }
   function statoVoce(v, ctx) {
     if (v.stato === "fatta") return st("fatta");
     if (v.ferma) return st("ferma", v.ferma);
-    const p = ctx.prova.get(v.codice);
+    const p = v.prova; // la prova sta sulla voce: le serate sono solo storico
     if (p && p.esito === "ko") return st("ferma", "La prova non è andata bene" + (p.nota ? ": " + p.nota : ""));
-    if (p) return st("prova", p.giorno ? "prova di " + giornoBreve(p.giorno) : "");
+    if (p && p.esito === "da-fare") return st("prova", p.giorno ? "prova di " + giornoBreve(p.giorno) : "");
     if (aspettaPaolo(v)) return st("tu");
     const c = clicAperto(ctx, ["ok", "non-ancora"], v.codice);
     if (v.stato === "in-corso" || (c && c.esito === "in-lavoro")) return st("lavoro");
@@ -253,12 +250,20 @@ const Registro = (() => {
   const codaTesto = ctx => (ctx.giro ? "In coda: parte al giro delle " + ctx.giro + "." : "In coda: il clic è registrato, ma l'orario del giro non è ancora scritto.");
 
   // Che cosa dire di un clic (dal database, più l'esito di lancio tenuto dalla pagina)
+  const segnale = c => (c.preso && (c.preso.aggiornato || c.preso.quando)) || c.quando;
+  const durata = min => (min < 120 ? Math.round(min) + " minuti" : min < 48 * 60 ? Math.round(min / 60) + " ore" : Math.round(min / 1440) + " giorni");
   function statoClic(c, ctx) {
     if (!c) return null;
     const ora = ctx.ora, l = c.lancio || {};
     if (c.esito === "eseguito") return { tipo: "eseguito", testo: "Fatto" + (txt(c.nota) ? ": " + txt(c.nota) : ".") };
     if (c.esito === "scartato") return { tipo: "scartato", testo: "Non eseguito" + (txt(c.nota) ? ": " + txt(c.nota) : ".") };
-    if (c.esito === "in-lavoro") return { tipo: "lavoro", testo: "Al lavoro." };
+    if (c.esito === "in-lavoro") {
+      const min = minutiDa(segnale(c), ora);
+      return min > SILENZIO_MIN ? { tipo: "fermo", testo: "Fermo da " + durata(min) + ": nessun segnale.", riprova: true } : { tipo: "lavoro", testo: "Al lavoro." };
+    }
+    // Un altro clic è in lavoro con segnale fresco: questo aspetta, senza scadenza
+    if (ctx.clic.some(x => x.id !== c.id && x.esito === "in-lavoro" && minutiDa(segnale(x), ora) <= SILENZIO_MIN))
+      return { tipo: "attesa", testo: "In coda: parte appena finisce il lavoro in corso." };
     if (l.esito === "partito") {
       const min = minutiDa(l.quando || c.quando, ora);
       if (min > PRESA_MIN) return { tipo: "non-preso", testo: "Non ancora preso in carico.", riprova: true };
@@ -290,7 +295,7 @@ const Registro = (() => {
       piano = {
         settimana: pc.settimana, titolo: pc.titolo || "Piano della settimana dal " + giornoBreve(pc.settimana),
         clic: clicAperto(ctx, "via-piano", pc.settimana),
-        voci: pc.voci.filter(c => !pc.tolte.includes(c) && !clicAperto(ctx, "togli", c)).map(c => {
+        voci: pc.voci.filter(c => !pc.tolte.includes(c) && !togliAperto(ctx, c, pc.settimana)).map(c => {
           const v = ctx.perCodice.get(c) || normVoce(c, { codice: c, titolo: "Voce non trovata nel Registro" });
           return { v, quando: v.giorno ? giornoBreve(v.giorno) : "da fissare", entro: entro(v.scadenza) };
         })
@@ -320,9 +325,10 @@ const Registro = (() => {
     priorita: perPriorita,
     lavoro: (a, b) => a.ordine - b.ordine || PRIO_R[a.priorita] - PRIO_R[b.priorita] || (a.scadenza || "9999").localeCompare(b.scadenza || "9999") || numCodice(a.codice) - numCodice(b.codice)
   };
-  const trova = (v, q) => !q || [v.codice, v.titolo, v.cosa, v.perche, v.decisioni].join(" ").toLowerCase().includes(q.toLowerCase());
+  const piano_ = s => String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const trova = (v, q) => !q || piano_([v.codice, v.titolo, v.cosa, v.perche, v.decisioni, v.domanda, v.lettore === "Da scrivere" ? "" : v.lettore].join(" ")).includes(piano_(q));
   function elenco(ctx, ordine, filtro, q) {
-    const f = FILTRI[filtro] || FILTRI.aperte, o = ORDINI[ordine] || ORDINI.priorita, qq = txt(q);
+    const qq = txt(q), o = ORDINI[ordine] || ORDINI.priorita, f = qq ? () => true : (FILTRI[filtro] || FILTRI.aperte); // con una ricerca vale su tutte le voci
     return ctx.voci.map(v => ({ v, s: statoVoce(v, ctx) })).filter(x => f(x.v, x.s) && trova(x.v, qq)).sort((a, b) => o(a.v, b.v))
       .map((x, i) => ({ ...x, pos: i + 1, quando: x.s.chiave === "fatta" ? giornoBreve(x.v.chiusa) : giornoBreve(x.v.giorno), entro: x.s.chiave === "fatta" ? "" : entro(x.v.scadenza) }));
   }
@@ -408,7 +414,7 @@ const Registro = (() => {
     return { ...r, esito: "salvato" };
   }
 
-  return { NOMI_CONNETTORE, PRESA_MIN, PRIO, LIVELLI, LIVELLO_SPIEGA, STATI, TIPI, ERR_BLOCCO, chatURL, pezziTesto, normVoce, aspettaPaolo, contesto, collegato,
+  return { NOMI_CONNETTORE, PRESA_MIN, SILENZIO_MIN, PRIO, LIVELLI, LIVELLO_SPIEGA, STATI, TIPI, ERR_BLOCCO, chatURL, pezziTesto, normVoce, aspettaPaolo, contesto, collegato,
     statoVoce, statoClic, vistaClic, esitiRecenti, clicAperto, pianoPartito, zoneOggi, elenco, nAperte, dietro, comeSiLavora, giornoBreve, entro,
     quandoTesto, margineTesto, clicDoc, nuovoId, premi, lancia, togli, aggiungiAppunto };
 })();
@@ -492,13 +498,13 @@ function avvia() {
       h("button", { type: "button", class: "btn", onclick: () => { chiusi.push(e.id); raw.chiusi = chiusi; try { localStorage.setItem("registro-chiusi", JSON.stringify(chiusi.slice(-200))); } catch (_) {} disegna(); } }, "Chiudi"))));
     if (z.piano) {
       const p = z.piano, k = "via:" + p.settimana;
+      const visibili = p.voci.filter(x => !R.vistaClic(null, ui.locali["togli:" + x.v.codice], ctx)); // tolte adesso, prima dello snapshot
       tocca.append(h("div", { class: "card" },
         h("div", null, h("div", { class: "titolo-card", testo: p.titolo }),
-          h("div", { class: "sub", testo: p.voci.length + (p.voci.length === 1 ? " voce" : " voci") + ". Tocca una voce per i dettagli. Togli quelle che non vuoi, poi un solo via." })),
-        conClic(ctx, k, p.clic, () => btn("primario", "Via al piano", () => azione(k, d => R.premi(d, { tipo: "via-piano", piano: p.settimana })), !p.voci.length), "Via al piano"),
-        h("div", { style: "border-top:1px solid var(--line2)" }, p.voci.map(x => {
+          h("div", { class: "sub", testo: visibili.length + (visibili.length === 1 ? " voce" : " voci") + ". Tocca una voce per i dettagli. Togli quelle che non vuoi, poi un solo via." })),
+        conClic(ctx, k, p.clic, () => btn("primario", "Via al piano", () => azione(k, d => R.premi(d, { tipo: "via-piano", piano: p.settimana })), !visibili.length), "Via al piano"),
+        h("div", { style: "border-top:1px solid var(--line2)" }, visibili.map(x => {
           const kt = "togli:" + x.v.codice, aperta = ui.aperta === "p:" + x.v.codice;
-          if (R.vistaClic(null, ui.locali[kt], ctx)) return null; // tolta adesso, in attesa dello snapshot
           return h("div", { style: "border-bottom:1px solid var(--line2)" },
             h("div", { class: "azioni", style: "padding:4px 0" },
               h("button", { type: "button", class: "apri", "aria-expanded": String(aperta), onclick: () => apriChiudi("p:" + x.v.codice) },
@@ -593,7 +599,8 @@ function avvia() {
         seg("Ordina per", [["priorita", "Priorità"], ["lavoro", "Ordine di lavoro"]], ui.ordine, k => { ui.ordine = k; disegna(); }),
         seg("Mostra", [["aperte", "Aperte"], ["idee", "Idee"], ["fatte", "Fatte"], ["riserva", "Riserva"]], ui.filtro, k => { ui.filtro = k; ui.aperta = ""; disegna(); })),
       h("div", { class: "azioni" }, h("label", { for: "cerca", class: "nascosto" }, "Cerca una parola"),
-        h("input", { id: "cerca", class: "campo", type: "search", value: ui.q, placeholder: "Cerca: codice, titolo, decisioni...", oninput: e => { ui.q = e.target.value; disegna(); } })),
+        h("input", { id: "cerca", class: "campo", type: "search", value: ui.q, placeholder: "Cerca: codice, titolo, decisioni...", oninput: e => { ui.q = e.target.value; disegna(); } }),
+        ui.q.trim() ? h("span", { class: "piccolo" }, "La ricerca guarda tutte le voci, aperte, idee e fatte.") : null),
       h("div", { class: "lista" }, righe.length ? righe.map(x => {
         const v = x.v, aperta = ui.aperta === v.id;
         return h("div", { style: "border-bottom:1px solid var(--line2)" },
