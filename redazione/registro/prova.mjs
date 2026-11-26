@@ -359,7 +359,7 @@ await caso("dietro le quinte: salute, serate, consensi, giornale", async () => {
 await caso("la pagina: niente innerHTML, testi lunghi che vanno a capo, niente trattini lunghi", () => {
   vero(!/innerHTML|insertAdjacentHTML|outerHTML/.test(html), "mai HTML costruito da stringhe");
   vero(/overflow-wrap:anywhere/.test(html), "overflow-wrap");
-  vero(!/[–—]/.test(html));
+  vero(!/[\u2013\u2014]/.test(html));
   vero(/Tutti i lavori · " \+ R\.nAperte\(ctx\) \+ " aperte"/.test(html), "etichetta con aperte");
 });
 
