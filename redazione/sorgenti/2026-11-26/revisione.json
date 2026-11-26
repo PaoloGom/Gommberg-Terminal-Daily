@@ -1,0 +1,122 @@
+[
+ {
+  "id": "A01",
+  "trovato": "Yahoo (25/11/2026): Dow 50,182.95 (+0.33%); S&P 500 7,182.78 (-0.25%); Nasdaq 23,585.80 (-0.62%); Nvidia 149.30, down 6.08 (-3.91%). AP (26/11): \"The benchmark S&P 500 index lost 0.3% Wednesday after falling as much as 3.2% earlier in the day.\" \"The technology-heavy Nasdaq composite closed 0.6% lower, after recovering from a drop of as much as 4.6%.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Cifre di chiusura da Yahoo, perdite massime in seduta da AP (e Longbridge). Nota: nel testo Yahoo la rimonta del Dow e' scritta anche come +0,5% (intraday), ma la chiusura e' +0,33%."
+ },
+ {
+  "id": "A02",
+  "trovato": "AP: \"after the U.S. midterm elections raised doubts over the pace of AI infrastructure buildouts.\" Yahoo: \"Tech stocks sold off amid concerns of higher financing costs and profitability worries.\" \"Questions about profitability and overinvestments weigh on stocks.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Le due attribuzioni corrispondono alle pagine."
+ },
+ {
+  "id": "A03",
+  "trovato": "Reuters/Yahoo: \"In the 12 months through October, PCE inflation increased 3.8% after advancing 3.6% in September.\" \"The so-called core PCE inflation increased 3.3% on a year-over-year basis in October.\" Yahoo: headline +0.3% m/m, core +0.3% m/m, core annual 3.3% vs 3.1% prior month, headline \"the highest since 2023\"; BullionVault: core 3.3% \"also the fastest since autumn 2023\".",
+  "verifica": "confermato",
+  "nota_revisore": "Numeri confermati. 'Massimo da novembre 2023': le pagine dicono solo 'dal 2023'/'autunno 2023' (il mese preciso non e' scritto). Longbridge conferma 3,8% e 3,3% annui e +0,3% m/m."
+ },
+ {
+  "id": "A05",
+  "trovato": "Reuters: \"Economists polled by Reuters had expected GDP growth would be revised up to a 3.5% pace.\" \"The rise in PCE inflation was in line with economists' expectations.\" Yahoo: core PCE 3.3% annual \"a tick higher than economists' expectations for a 3.2% annual increase.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Il 3,2% atteso sul core e' nel live blog Yahoo, non in Reuters. Attese sul PCE mensile: calendario Yahoo indica +0,3% m/m (la scheda dice non trovate, ma esiste)."
+ },
+ {
+  "id": "A06",
+  "trovato": "\"Financial markets have priced in a quarter-percentage-point rate hike at the US central bank's December 8-9 meeting.\" \"from the current 3.75%-4.00% range.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Fonte Reuters via Yahoo, 25/11/2026."
+ },
+ {
+  "id": "A08",
+  "trovato": "StockAnalysis (25/11/2026): \"S&P Global Ratings placed Nvidia's AA credit rating on CreditWatch negative on Wednesday.\" \"S&P expects to decide within 90 days, after further due diligence.\" S&P \"sees any cut as limited to one notch\". \"Huang resigned on November 12 over personal conduct that went against the company's code of conduct, and the board brought him back on Monday.\" Also board independence, key man risk, China exposure. AP: S&P warned of downgrade \"over concerns surrounding its management and governance.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Nessuna pagina dice esplicitamente 'non e' l'AI'; e' una inferenza dei motivi governance/gestione indicati. AP non cita AA ne' 90 giorni, che sono solo su StockAnalysis."
+ },
+ {
+  "id": "A09",
+  "trovato": "Longbridge/Wallstreetcn (25/11/2026): cost of protection \"reaching 15.34 percentage points annually\"; \"Data from ICE Data Services\"; \"According to Bloomberg\"; \"Credit default swaps for NVIDIA, Google, Oracle, and SpaceX also hit fresh record highs on Wednesday.\" \"The swap market has priced the probability of the company defaulting within the next five years at over 70%.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Un'altra frase nomina 'NVIDIA, Alphabet, and Oracle'. La pagina cita anche SpaceX tra i record, non menzionata nella scheda."
+ },
+ {
+  "id": "A11",
+  "trovato": "ABC (25/11/2026): \"the acts, policies, and practices of 14 economies relating to structural excess capacity\"; \"There is no immediate impact of this announcement as a public comment period would be required\"; January as earliest. Yahoo/Werschkul: \"following an 8-month investigation into excess manufacturing capacity\"; \"after additional hearings and a public comment period\"; \"probably will be in January at the earliest\"; July forced labor tariffs \"10% to 12.5%\"; new duties \"will supplant the forced labor tariffs in nations that were investigated for both issues.\" RTE: \"eight-month Section 301 unfair trade practices probe into 16 trading partners\".",
+  "verifica": "confermato",
+  "nota_revisore": "Il mese di avvio (marzo) non e' scritto nel testo, solo suggerito dall'URL di un link USTR. 14 economie (ABC/Yahoo) vs 16 partner indagati (RTE) come dice la scheda."
+ },
+ {
+  "id": "A12",
+  "trovato": "Al Jazeera: \"its proposed 20 percent excess capacity tariff would come on top of the roughly 25 percent\"; Vietnam \"which also faces a proposed rate of 20 percent\"; \"caps of 15 percent for the EU, Japan and South Korea.\" RTE: \"the 15% cap agreed by the EU, Japan, South Korea and Taiwan.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Svizzera e India: nessuna aliquota nelle pagine; 'Cina 45%' e 'Vietnam 35% warranted' non compaiono nelle due pagine; nessuna reazione UE. Coerente con le cautele della scheda."
+ },
+ {
+  "id": "B01",
+  "trovato": "dpa-AFX (25.11.26, 18:43): \"ging vor dem Thanksgiving-Feiertag in den USA am Donnerstag mit minus 1,82 Prozent auf 5.894,46 Punkte aus dem Handel.\" \"Infineon sackten um 6,5 Prozent ab und Schwergewicht ASML um 5,8 Prozent.\" \"Für STMicro ging es um 4,7 Prozent abwärts.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Titolo: 'EuroStoxx auf Tief seit Mai'. Il testo dice 'am Donnerstag' per Thanksgiving, ma la pagina e' del mercoledi' 25/11."
+ },
+ {
+  "id": "B02",
+  "trovato": "dpa-AFX: \"Zwischen Zweifeln an der KI-Rentabilität, Zinssorgen und handelspolitischen Signalen aus Washington bleibt die Schaukelbörse intakt.\" (Emden) \"die US-Regierung neue Zölle auf Importe aus der Europäischen Union, aus China\" \"Deutliche Verluste verbuchte neben der Techbranche auch der europäische Bankenbranche.\" Open (25/11/2026): \"14 partner commerciali\"; Bruxelles \"rischia dazi fino al 20%\"; \"ribassi di Nvidia (-8,4%)\"; \"affossano il Nasdaq (-4,2%)\".",
+  "verifica": "confermato",
+  "nota_revisore": "Attribuzioni corrette. Attenzione: Nvidia -8,4% e Nasdaq -4,2% sono valori di seduta riportati da Open; le chiusure sono Nvidia -3,91% e Nasdaq -0,62%. Citare come 'secondo Open'."
+ },
+ {
+  "id": "B03",
+  "trovato": "Money.it (25/11/2026): \"Il FTSE MIB ha chiuso a 47.249,15 punti, con una variazione di -1,81%, a ridosso del minimo di giornata a 47.248,80 punti.\" \"La maglia nera è di Prysmian, che ha perso il 5,40% fermandosi a 93,12 euro\"; STM \"4,81% a 34,20 euro\"; \"BPER Banca cede il 3,99%\"; \"Banco BPM il 3,73%\"; \"FinecoBank il 3,39%\"; \"Il migliore è Stellantis, salita del 3,58% a 3,24 euro\". Open: \"toccando i livelli più bassi dallo scorso aprile\".",
+  "verifica": "confermato",
+  "nota_revisore": "Tutti i valori corrispondono. ANSA (17:40) da' solo 47.249 -1,81% e titoli senza dettaglio."
+ },
+ {
+  "id": "B07",
+  "trovato": "Korea Daily (25/11/2026): \"The Kospi fell 6.16% to close at 4,697.51, giving up all of its previous day's gains.\" \"Samsung Electronics dropped 9.87%... SK Hynix plunged 11.05%\"; \"the Trump administration may push for additional tariffs against major trading partners, including South Korea.\"",
+  "verifica": "confermato",
+  "nota_revisore": "-7,05% non compare. La pagina cita il calo di Nvidia a Wall Street (-5,86%, dato diverso dalla chiusura -3,91%) come sfondo. Seconda fonte Korea Times (rebounds-slightly) non ritrovata nei risultati."
+ },
+ {
+  "id": "C03",
+  "trovato": "Reuters via Business Recorder (26/11/2026): \"crude stocks rose by 1.1 million barrels to 418.9 million barrels in the week ended November 20.\" Analysts had expected \"a 1.5 million-barrel rise.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Corrisponde."
+ },
+ {
+  "id": "B08",
+  "trovato": "Al Jazeera (26/11/2026): the BOK \"raised its key rate by 0.25 percent to 3.25 percent,\" citing \"strong domestic growth and above-target inflation\"; \"raised its gross domestic product (GDP) growth forecasts for 2026 and 2027 to 3.9 percent and 4.1 percent.\" Korea Times: \"raised its benchmark interest rate by 0.25 percentage point to 3.25 percent\".",
+  "verifica": "confermato",
+  "nota_revisore": "Rialzo, 3,25% e previsioni 3,9%/4,1% confermati. 'Da 3,00%' e 'piu' alto da novembre 2024' NON compaiono nelle pagine citate (altre fonti: mlq 'highest since November 2024', nationpress 'since October 2024', CNBC 'highest in two years'). Motivazioni sulle pagine: crescita interna forte e inflazione sopra obiettivo; export di chip citato come contesto."
+ },
+ {
+  "id": "B10",
+  "trovato": "Seoul Economic Daily (26/11/2026): \"The KOSPI closed at 4711.21 on the 26th, up 13.70 points, or 0.29%\"; \"The index rose more than 2% during the session\"; \"retail investors sold a net 1.04 trillion won and foreign investors sold a net 113.6 billion won\"; institutions \"bought a net 750.8 billion won\". Korea Times: \"Institutional investors led the buying, purchasing a net 750.9 billion won\".",
+  "verifica": "confermato",
+  "nota_revisore": "Le due fonti divergono di 0,1 mld sugli istituzionali: 750,9 (Korea Times) vs 750,8 (Seoul Economic Daily). Scrivere 'circa 750,9 miliardi' o 'circa 751 miliardi'."
+ },
+ {
+  "id": "C01",
+  "trovato": "Rigzone/Bloomberg (25/11/2026, 4:16 PM EST): \"Brent for January settlement rose 3.5% to settle at $94.61 a barrel in New York.\" \"WTI for January delivery climbed 2% to settle at $83.68 a barrel.\" \"Oil rose in thin trading as escalating attacks in the Middle East clouded the recovery in crude shipments\"; Iran claimed more tankers hit mines, \"though there's been no independent confirmation of those incidents.\"",
+  "verifica": "confermato",
+  "nota_revisore": "OilPrice.com non riporta questi valori (da' Brent 95,30 e WTI 84,36 'al momento della scrittura', senza percentuali ne' 'thin trading')."
+ },
+ {
+  "id": "B04",
+  "trovato": "ANSA (25/11/2026): \"Lo spread Btp-Bund conclude in aumento a 111,9 punti\" (titolo, ore 18:09); \"Borsa: l'Europa conclude negativa, Francoforte -1,26%\" (titolo, 17:49).",
+  "verifica": "confermato",
+  "nota_revisore": "Valori da titoli ANSA; la pagina dice 'punti' (punti base implicito)."
+ },
+ {
+  "id": "B05",
+  "trovato": "Reuters 18/11/2026 via GBF: \"The change, to be debated at a Governing Council meeting on November 25\"; \"would raise the share of cash that commercial lenders must keep in an unremunerated account to 2% from 1% of deposits\"; \"would save the ECB and the 21 national central banks... around €4.4 billion ($4.8 billion) a year at current interest rate levels, according to Reuters' calculations.\" roic.ai (25/11/2026): \"with a decision now expected in December or possibly early 2027, according to a source familiar with the discussion.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Reuters aggiunge che la decisione potrebbe slittare al 17 dicembre. Il risparmio e' per l'Eurosistema, come dice la scheda."
+ },
+ {
+  "id": "C06",
+  "trovato": "Destatis PR 409/2026 (25/11/2026): GDP \"rose slightly by 0.1% in the 3rd quarter of 2026\"; \"0.1 percentage points lower than communicated in the first release of 30 October 2026\"; \"increased by a price adjusted 1.2% compared with the 3rd quarter of 2025\"; \"gross fixed capital formation in the 3rd quarter of 2026 decreased by 1.2%\"; machinery \"down 3.5%\"; exports \"decreasing by 1.0%\"; household consumption \"also up 0.1%\".",
+  "verifica": "confermato",
+  "nota_revisore": "Il +0,2% della stima flash e' solo nel titolo di un link della pagina, ma coerente con '0,1 punti in meno'."
+ }
+]
