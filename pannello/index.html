@@ -1152,13 +1152,14 @@ function sicurezza(){var S2=RED.sic;
     +'<div class="fld"><label for="pw0">Password attuale</label><input id="pw0" type="password" autocomplete="current-password" maxlength="200" required></div>'
     +'<div class="fld"><label for="pw1">Nuova password</label><input id="pw1" type="password" autocomplete="new-password" minlength="'+S2.password.minimo+'" maxlength="200" required></div>'
     +'<div class="fld"><label for="pw2">Ripeti la nuova password</label><input id="pw2" type="password" autocomplete="new-password" maxlength="200" required></div>'
-    +'<ul class="reg"><li>'+stato("ok")+"Almeno "+S2.password.minimo+' caratteri: meglio una frase di 4-5 parole</li><li>'+stato("ok")+'Se la dimentichi: cambi il segreto REDAZIONE_PASSWORD su Cloudflare e vale quello</li></ul>'
+    +'<ul class="reg"><li>'+stato("ok")+"Almeno "+S2.password.minimo+' caratteri: meglio una frase di 4-5 parole</li><li>'+stato("ok")+'Se la dimentichi: metti nel segreto REDAZIONE_PASSWORD su Cloudflare un valore diverso da quello di prima, e vale quello</li></ul>'
     +'<div class="acts" style="margin-top:14px"><button class="btn pri" type="submit">Cambia la password</button></div><p class="msg" id="pwmsg" hidden></p></form>',{});
   return '<div class="row r21 dopo"><div class="stack">'+acc+prot+'</div><div class="stack">'+dev+pw+"</div></div>"}
 function esci(tutti){rapi("POST",tutti?"esci-tutti":"esci").then(function(){location.replace("/redazione/")},function(){location.replace("/redazione/")})}
 document.addEventListener("submit",function(e){if(e.target.id!="fpw")return;e.preventDefault();var m=document.getElementById("pwmsg"),b=e.target.querySelector("button[type=submit]");
   var v=function(i){return document.getElementById(i).value};m.hidden=true;b.disabled=true;
-  rapi("POST","password",{attuale:v("pw0"),nuova:v("pw1"),conferma:v("pw2")}).then(function(){e.target.reset();m.className="msg ok";m.textContent="Password cambiata. Gli altri dispositivi sono stati scollegati.";m.hidden=false;b.disabled=false;RED.sic=null;setTimeout(function(){if(st0.p=="sicurezza")disegna()},2500)},
+  /* due passi (una derivazione della password per richiesta): verifica dell'attuale, poi la nuova con la prova */
+  rapi("POST","password/verifica",{attuale:v("pw0"),nuova:v("pw1"),conferma:v("pw2")}).then(function(j){return rapi("POST","password",{prova:j.prova,nuova:v("pw1"),conferma:v("pw2")})}).then(function(){e.target.reset();m.className="msg ok";m.textContent="Password cambiata. Gli altri dispositivi sono stati scollegati.";m.hidden=false;b.disabled=false;RED.sic=null;setTimeout(function(){if(st0.p=="sicurezza")disegna()},2500)},
     function(err){m.className="msg ko";m.textContent=err.message;m.hidden=false;b.disabled=false})});
 var gqT=null;
 document.addEventListener("input",function(e){if(e.target.id!="gq")return;clearTimeout(gqT);var v=e.target.value;gqT=setTimeout(function(){RED.g.q=v.trim().slice(0,60);RED.g.id=0;gCarica()},400)});

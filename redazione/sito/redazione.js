@@ -129,7 +129,8 @@ async function credenziale(c) {
   if (r) {
     try { rec = JSON.parse(r.v); } catch (e) { rec = null; }
     if (!rec || !uguali(rec.s || "", firmaSegreto)) {   // il segreto è cambiato dopo: vince lui, l'impronta si cancella
-      await c.db.prepare("DELETE FROM config WHERE k = 'password'").run();
+      // e con lei le sessioni di prima (non valgono più: non devono restare in D1 né nei Dispositivi collegati)
+      await c.db.batch([c.db.prepare("DELETE FROM config WHERE k = 'password'"), c.db.prepare("DELETE FROM sessioni")]);
       rec = null;
     }
   }
@@ -152,18 +153,22 @@ async function sessione(c) {
   const cred = await credenziale(c);
   if (!cred) return null;
   const id = await sha256("sessione:" + t);
-  const s = await c.db.prepare("SELECT id, csrf, cred, creata, usata, resta, dispositivo, luogo FROM sessioni WHERE id = ?").bind(id).first();
+  const s = await c.db.prepare("SELECT id, cred, creata, usata, resta, dispositivo, luogo FROM sessioni WHERE id = ?").bind(id).first();
   if (!s) return null;
+  // scade dopo la durata senza uso, e comunque dopo la stessa durata dall'accesso (12 ore, o 90 giorni con Resta collegato)
   const durata = s.resta ? AREA.resta_giorni * 86400 : AREA.breve_ore * 3600;
-  if (s.usata < prima(durata) || !uguali(s.cred, cred.versione)) {
+  if (s.usata < prima(durata) || s.creata < prima(durata) || !uguali(s.cred, cred.versione)) {
     await c.db.prepare("DELETE FROM sessioni WHERE id = ?").bind(id).run();
     return null;
   }
   s.rinnova = s.usata < prima(AREA.rinnovo_min * 60);
   if (s.rinnova) await c.db.prepare("UPDATE sessioni SET usata = ? WHERE id = ?").bind(iso(new Date(Date.now())), id).run();
   s.token = t; s.credenziale = cred;
+  s.csrf = await gettoneCsrf(c, t);
   return s;
 }
+// il gettone anti-CSRF si ricava dal gettone di sessione: in D1 non c'è (come il gettone di sessione, di cui c'è solo l'impronta)
+const gettoneCsrf = async (c, t) => (await firma(c.cfg.segreto, "csrf:" + t)).slice(0, 32);
 function cookieSessione(t, resta, url) {
   const durata = resta ? "; Max-Age=" + AREA.resta_giorni * 86400 : "";
   return [`${COOKIE}=${t}; Path=/; HttpOnly; Secure; SameSite=Strict${durata}`, `${SPIA}=1; Path=/; Secure; SameSite=Strict${durata}`];
@@ -269,6 +274,7 @@ async function api(c) {
   if (p[0] === "esci" && p.length === 1) return esci(c, false);
   if (p[0] === "esci-tutti" && p.length === 1) return esci(c, true);
   if (p[0] === "sessioni" && p.length === 3 && /^[0-9a-f]{12}$/.test(p[1]) && p[2] === "esci") return chiudiSessione(c, p[1]);
+  if (p[0] === "password" && p[1] === "verifica" && p.length === 2) return verificaPassword(c, corpo);
   if (p[0] === "password" && p.length === 1) return cambiaPassword(c, corpo);
   if (p[0] === "commenti" && p.length === 1) return scriviRedazione(c, corpo);
   if (p[0] === "commenti" && id && p.length === 3) return azione(c, id, p[2], corpo);
@@ -303,7 +309,7 @@ async function accesso(c, corpo) {
   await c.db.batch([
     c.db.prepare("DELETE FROM accessi WHERE ip = ? AND esito = 'errore'").bind(c.ip),
     c.db.prepare("INSERT INTO sessioni (id, csrf, cred, creata, usata, resta, dispositivo, luogo, ip) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")
-      .bind(await sha256("sessione:" + t), b64u(casuale(24)), cred.versione, adesso, adesso, corpo.resta === true ? 1 : 0, d.testo + "|" + d.tipo, luogo(c.request), c.ip),
+      .bind(await sha256("sessione:" + t), "-", cred.versione, adesso, adesso, corpo.resta === true ? 1 : 0, d.testo + "|" + d.tipo, luogo(c.request), c.ip),
   ]);
   await registra(c, "ok");
   return json(url, { ok: true }, 200, { "set-cookie": cookieSessione(t, corpo.resta === true, url) });
@@ -321,26 +327,48 @@ async function chiudiSessione(c, corto) {
   return json(c.url, { ok: true, chiuse: r.meta ? r.meta.changes : 0 });
 }
 
-async function cambiaPassword(c, corpo) {
+// Il cambio password in due richieste, perché ogni richiesta faccia al massimo una derivazione PBKDF2 (piano gratuito:
+// 10 ms di CPU). 1) /password/verifica controlla la password attuale e dà una prova firmata, valida 5 minuti, legata a
+// questa sessione, alla credenziale di adesso e alla nuova password (che lì si controlla: lunghezza, diversa dall'attuale).
+// 2) /password con la prova scrive l'impronta della nuova; impronta,
+// sessioni chiuse e riga degli accessi stanno nello stesso batch di D1: o tutto o niente.
+const PROVA_S = 300;
+async function prova(c, ts, nuova) { return ts + "." + (await firma(c.cfg.segreto, "password:" + c.s.id + ":" + c.s.credenziale.versione + ":" + ts + ":" + (await sha256("nuova:" + nuova)))).slice(0, 32); }
+function regoleNuova(nuova, conferma) {
+  if (nuova.length < AREA.password_min) return "La nuova password deve avere almeno " + AREA.password_min + " caratteri.";
+  if (nuova.length > AREA.password_max) return "La nuova password è troppo lunga.";
+  if (/^\s*$/.test(nuova) || /^(.)\1*$/su.test(nuova)) return "La nuova password non può essere fatta di soli spazi o di un solo carattere ripetuto.";
+  if (conferma !== undefined && conferma !== nuova) return "Le due nuove password non sono uguali.";
+  return "";
+}
+async function verificaPassword(c, corpo) {
   const { url } = c, cred = c.s.credenziale;
-  const attuale = typeof corpo.attuale === "string" ? corpo.attuale : "", nuova = typeof corpo.nuova === "string" ? corpo.nuova : "";
-  if (nuova.length < AREA.password_min) return no(url, "La nuova password deve avere almeno " + AREA.password_min + " caratteri.");
-  if (nuova.length > AREA.password_max) return no(url, "La nuova password è troppo lunga.");
-  if (corpo.conferma !== nuova) return no(url, "Le due nuove password non sono uguali.");
+  const attuale = typeof corpo.attuale === "string" ? corpo.attuale.slice(0, AREA.password_max) : "", nuova = typeof corpo.nuova === "string" ? corpo.nuova : "";
+  const sbaglio = regoleNuova(nuova, corpo.conferma);
+  if (sbaglio) return no(url, sbaglio);
   if (nuova === attuale) return no(url, "La nuova password deve essere diversa da quella attuale.");
   // anche qui i tentativi contano: chi ha rubato una sessione non prova le password all'infinito
   const errori = await c.db.prepare("SELECT COUNT(*) AS n FROM accessi WHERE ip = ? AND esito = 'errore' AND quando > ?").bind(c.ip, prima(86400)).first();
   if (errori && errori.n >= AREA.errori_liberi) return no(url, "Troppi tentativi sbagliati: riprova più tardi.", 429);
-  if (!(await controllaCredenziali(c, cred, cred.utente, attuale))) { await registra(c, "errore"); return no(url, "La password attuale non è corretta.", 403); }
+  if (!attuale || !(await controllaCredenziali(c, cred, cred.utente, attuale))) { await registra(c, "errore"); return no(url, "La password attuale non è corretta.", 403); }
+  return json(url, { prova: await prova(c, Math.floor(Date.now() / 1000), nuova) });
+}
+async function cambiaPassword(c, corpo) {
+  const { url } = c, cred = c.s.credenziale;
+  const nuova = typeof corpo.nuova === "string" ? corpo.nuova : "";
+  const sbaglio = regoleNuova(nuova, corpo.conferma);
+  if (sbaglio) return no(url, sbaglio);
+  const m = /^(\d{10})\.[0-9a-f]{32}$/.exec(String(corpo.prova || ""));
+  if (!m || Date.now() / 1000 - +m[1] > PROVA_S || Date.now() / 1000 < +m[1] - 5 || !uguali(await prova(c, +m[1], nuova), corpo.prova))
+    return no(url, "Prima conferma la password attuale (o rifallo: sono passati più di 5 minuti).", 403);
   const h = await improntaPassword(nuova);
-  await c.db.prepare("INSERT INTO config (k, v) VALUES ('password', ?1) ON CONFLICT (k) DO UPDATE SET v = ?1")
-    .bind(JSON.stringify({ h, s: cred.firmaSegreto, quando: iso(new Date(Date.now())) })).run();
-  const versione = (await firma(c.cfg.segreto, "cred:" + h)).slice(0, 24);
+  const versione = (await firma(c.cfg.segreto, "cred:" + h)).slice(0, 24), d = dispositivo(c.request.headers.get("user-agent"));
   await c.db.batch([
+    c.db.prepare("INSERT INTO config (k, v) VALUES ('password', ?1) ON CONFLICT (k) DO UPDATE SET v = ?1").bind(JSON.stringify({ h, s: cred.firmaSegreto, quando: iso(new Date(Date.now())) })),
     c.db.prepare("DELETE FROM sessioni WHERE id != ?").bind(c.s.id),
     c.db.prepare("UPDATE sessioni SET cred = ? WHERE id = ?").bind(versione, c.s.id),
+    c.db.prepare("INSERT INTO accessi (quando, esito, dispositivo, luogo, ip) VALUES (?, 'password', ?, ?, ?)").bind(iso(new Date(Date.now())), d.testo + "|" + d.tipo, luogo(c.request), c.ip),
   ]);
-  await registra(c, "password");
   return json(url, { ok: true });
 }
 

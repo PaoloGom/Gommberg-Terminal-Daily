@@ -508,7 +508,7 @@ async function areaRiservata() {
   }
   r = await red("GET", "/api/redazione/commenti", { lettore: "lettore-aaaaaaaaaaaaaaaa" });
   verifica("redazione: un lettore senza sessione non legge l'elenco", r.s === 401, r.s);
-  for (const [percorso, corpo] of [["commenti/1/togli", {}], ["commenti", { ed: 31, testo: "Sono la redazione, giuro" }], ["lettori/blocca", { commento: 1 }], ["edizioni/31/chiudi", {}], ["esci-tutti", {}], ["password", { attuale: "x", nuova: "y".repeat(20), conferma: "y".repeat(20) }]]) {
+  for (const [percorso, corpo] of [["commenti/1/togli", {}], ["commenti", { ed: 31, testo: "Sono la redazione, giuro" }], ["lettori/blocca", { commento: 1 }], ["edizioni/31/chiudi", {}], ["esci-tutti", {}], ["password/verifica", { attuale: "x" }], ["password", { prova: "1.x", nuova: "y".repeat(20), conferma: "y".repeat(20) }]]) {
     r = await red("POST", "/api/redazione/" + percorso, { corpo, lettore: "lettore-aaaaaaaaaaaaaaaa" });
     verifica("redazione: un lettore non può " + percorso, r.s === 401, r.s);
     r = await red("POST", "/api/redazione/" + percorso, { corpo, cookie: e1.cookie });
@@ -524,11 +524,19 @@ async function areaRiservata() {
   verifica("sessione: senza Resta collegato scade dopo 12 ore senza uso", r.s === 401, r.s);
   r = await red("GET", "/api/redazione/sessione", { cookie: e1.cookie });
   verifica("sessione: con Resta collegato vale ancora, e il cookie si rinnova", r.s === 200 && r.set.some((x) => x.startsWith(COOKIE + "=" + e1.t)), r.s);
-  for (let i = 0; i < 4; i++) { avanti(30 * 86400); r = await red("GET", "/api/redazione/sessione", { cookie: e1.cookie }); }
-  verifica("sessione: usata ogni mese resta valida anche oltre i 90 giorni dall'accesso", r.s === 200, r.s);
-  avanti(AREA.resta_giorni * 86400 + 60);
+  for (let i = 0; i < 2; i++) { avanti(30 * 86400); r = await red("GET", "/api/redazione/sessione", { cookie: e1.cookie }); }
+  verifica("sessione: con Resta collegato, usata ogni mese, vale nei 90 giorni dall'accesso", r.s === 200, r.s);
+  avanti(30 * 86400);
   r = await red("GET", "/api/redazione/sessione", { cookie: e1.cookie });
-  verifica("sessione: 90 giorni senza uso e si esce da soli (anche dal server)", r.s === 401 && q("SELECT COUNT(*) AS n FROM sessioni WHERE usata < '" + new Date(adesso - 90 * 86400000).toISOString() + "'")[0].n === 0, r.s);
+  verifica("sessione: con Resta collegato al massimo 90 giorni dall'accesso, anche usandola ogni giorno", r.s === 401, r.s);
+  const eB = await entra({ resta: false });
+  for (let i = 0; i < 13; i++) { avanti(3600); r = await red("GET", "/api/redazione/sessione", { cookie: eB.cookie }); }
+  verifica("sessione: senza Resta collegato al massimo 12 ore dall'accesso, anche usandola ogni ora", r.s === 401, r.s);
+  const eC = await entra();
+  avanti(AREA.resta_giorni * 86400 - 60);
+  avanti(120);
+  r = await red("GET", "/api/redazione/sessione", { cookie: eC.cookie });
+  verifica("sessione: 90 giorni senza uso e si esce da soli", r.s === 401, r.s);
 
   // ------------------------------------------------- forza bruta
   const ipB = nuovoIp(), sbaglia = (ip) => red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: "tentativo-" + Math.random() }, ip });
@@ -592,29 +600,66 @@ async function areaRiservata() {
   verifica("esci da tutti: nessuna sessione vale più, nemmeno questa", r.s === 200 && dopo.every((x) => x.s === 401) && q("SELECT COUNT(*) AS n FROM sessioni")[0].n === 0, dopo.map((x) => x.s));
 
   // ------------------------------------------------- cambio password e recupero dal segreto
+  // mai più di una derivazione PBKDF2 per richiesta (10 ms di CPU sul piano gratuito): il cambio si fa in due passi,
+  // verifica della vecchia (prova a tempo) e scrittura della nuova, con impronta e sessioni nello stesso batch
+  let derivazioni = 0;
+  const deriveVero = crypto.subtle.deriveBits.bind(crypto.subtle);
+  crypto.subtle.deriveBits = (...a) => { derivazioni++; return deriveVero(...a); };
+  const contaDer = async (f) => { derivazioni = 0; const x = await f(); return [x, derivazioni]; };
+  async function cambia(sess, attuale, nuova, conferma = nuova) {
+    const v = await red("POST", "/api/redazione/password/verifica", { corpo: { attuale, nuova, conferma }, cookie: sess.cookie, csrf: sess.csrf });
+    if (v.s !== 200) return v;
+    return red("POST", "/api/redazione/password", { corpo: { prova: v.j.prova, nuova, conferma }, cookie: sess.cookie, csrf: sess.csrf });
+  }
   const NUOVA = "un'altra frase lunga, scelta dall'area";
   const p1 = await entra(), p2 = await entra();
-  for (const [corpo, atteso, nome] of [[{ attuale: PW, nuova: "corta", conferma: "corta" }, 400, "troppo corta"],
-                                       [{ attuale: PW, nuova: NUOVA, conferma: NUOVA + "x" }, 400, "conferma diversa"],
-                                       [{ attuale: PW, nuova: PW, conferma: PW }, 400, "uguale all'attuale"],
-                                       [{ attuale: "non è questa la password", nuova: NUOVA, conferma: NUOVA }, 403, "attuale sbagliata (403, non 401: la sessione resta)"]]) {
-    r = await red("POST", "/api/redazione/password", { corpo, cookie: p1.cookie, csrf: p1.csrf });
+  for (const [args, atteso, nome] of [[[PW, "corta"], 400, "troppo corta"], [[PW, NUOVA, NUOVA + "x"], 400, "conferma diversa"], [[PW, PW], 400, "uguale all'attuale"],
+                                      [[PW, " ".repeat(20)], 400, "soli spazi"], [[PW, "a".repeat(20)], 400, "un solo carattere ripetuto"],
+                                      [["non è questa la password", NUOVA], 403, "attuale sbagliata (403, non 401: la sessione resta)"]]) {
+    r = await cambia(p1, ...args);
     verifica("password: " + nome + ": rifiutata", r.s === atteso, r);
   }
   r = await red("POST", "/api/redazione/password", { corpo: { attuale: PW, nuova: NUOVA, conferma: NUOVA }, cookie: p1.cookie, csrf: p1.csrf });
+  verifica("password: senza la prova della verifica non si cambia (nemmeno con la password attuale nel corpo)", r.s === 403, r);
+  const vAltra = await red("POST", "/api/redazione/password/verifica", { corpo: { attuale: PW, nuova: NUOVA }, cookie: p2.cookie, csrf: p2.csrf });
+  r = await red("POST", "/api/redazione/password", { corpo: { prova: vAltra.j.prova, nuova: NUOVA, conferma: NUOVA }, cookie: p1.cookie, csrf: p1.csrf });
+  verifica("password: la prova di un'altra sessione non vale", vAltra.s === 200 && r.s === 403, r);
+  const vVecchia = await red("POST", "/api/redazione/password/verifica", { corpo: { attuale: PW, nuova: NUOVA }, cookie: p1.cookie, csrf: p1.csrf });
+  avanti(301);
+  r = await red("POST", "/api/redazione/password", { corpo: { prova: vVecchia.j.prova, nuova: NUOVA, conferma: NUOVA }, cookie: p1.cookie, csrf: p1.csrf });
+  verifica("password: la prova scade dopo 5 minuti", r.s === 403, r);
+  const lotti = [], batchVero = env.DB.batch;
+  env.DB.batch = async (lista) => { lotti.push(lista.map((x) => x._sql || "")); return batchVero(lista); };
+  r = await cambia(p1, PW, NUOVA);
+  env.DB.batch = batchVero;
   const cfgPw = JSON.parse(q("SELECT v FROM config WHERE k = 'password'")[0].v);
   verifica("password: cambiata, in D1 solo l'impronta PBKDF2 con sale", r.s === 200 && /^pbkdf2-sha256\$50000\$[A-Za-z0-9_-]{22}\$[A-Za-z0-9_-]{43}$/.test(cfgPw.h) && !JSON.stringify(cfgPw).includes(NUOVA), cfgPw);
+  verifica("password: impronta nuova e sessioni nello stesso batch (se il Worker si ferma, o tutto o niente)", lotti.some((l) => l.some((x) => /INSERT INTO config/.test(x)) && l.some((x) => /DELETE FROM sessioni/.test(x))), lotti);
   verifica("password: questa sessione resta, le altre si chiudono", (await red("GET", "/api/redazione/sessione", { cookie: p1.cookie })).s === 200 && (await red("GET", "/api/redazione/sessione", { cookie: p2.cookie })).s === 401);
-  verifica("password: la vecchia non entra più, la nuova sì", (await entra()).r.s === 401 && (await entra({ password: NUOVA })).r.s === 200);
-  verifica("password: verifica dell'impronta", await verificaImpronta(NUOVA, cfgPw.h) && !(await verificaImpronta(NUOVA + " ", cfgPw.h)) && !(await verificaImpronta(NUOVA, "pbkdf2-sha256$900000$" + cfgPw.h.split("$").slice(2).join("$"))));
+  const NUOVA2 = "una terza frase, ancora più lunga";
+  const vUsata = await red("POST", "/api/redazione/password/verifica", { corpo: { attuale: NUOVA, nuova: "di nuovo una frase lunga" }, cookie: p1.cookie, csrf: p1.csrf });
+  let [rv1, d1n] = await contaDer(() => red("POST", "/api/redazione/password/verifica", { corpo: { attuale: NUOVA, nuova: NUOVA2 }, cookie: p1.cookie, csrf: p1.csrf }));
+  let [rv2, d2n] = await contaDer(() => red("POST", "/api/redazione/password", { corpo: { prova: rv1.j.prova, nuova: NUOVA2, conferma: NUOVA2 }, cookie: p1.cookie, csrf: p1.csrf }));
+  let [rv3, d3n] = await contaDer(() => red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: NUOVA2 }, ip: nuovoIp() }));
+  verifica("CPU: al massimo una derivazione per richiesta (verifica, scrittura, accesso con l'impronta)", rv1.s === 200 && rv2.s === 200 && rv3.s === 200 && d1n <= 1 && d2n <= 1 && d3n <= 1, [rv1.s, rv2.s, rv3.s, d1n, d2n, d3n]);
+  r = await red("POST", "/api/redazione/password", { corpo: { prova: vUsata.j.prova, nuova: "di nuovo una frase lunga", conferma: "di nuovo una frase lunga" }, cookie: p1.cookie, csrf: p1.csrf });
+  const vScambio = await red("POST", "/api/redazione/password/verifica", { corpo: { attuale: NUOVA2, nuova: "la frase che ho confermato io" }, cookie: p1.cookie, csrf: p1.csrf });
+  const rScambio = await red("POST", "/api/redazione/password", { corpo: { prova: vScambio.j.prova, nuova: "un'altra frase messa al suo posto", conferma: "un'altra frase messa al suo posto" }, cookie: p1.cookie, csrf: p1.csrf });
+  verifica("password: la prova vale solo per la nuova password controllata nel primo passo", vScambio.s === 200 && rScambio.s === 403, rScambio.s);
+  verifica("password: una prova di prima del cambio non vale più", r.s === 403, r);
+  crypto.subtle.deriveBits = deriveVero;
+  verifica("password: la vecchia non entra più, la nuova sì", (await entra({ password: NUOVA })).r.s === 401 && (await entra({ password: NUOVA2 })).r.s === 200);
+  const cfgPw2 = JSON.parse(q("SELECT v FROM config WHERE k = 'password'")[0].v);
+  verifica("password: verifica dell'impronta", await verificaImpronta(NUOVA2, cfgPw2.h) && !(await verificaImpronta(NUOVA2 + " ", cfgPw2.h)) && !(await verificaImpronta(NUOVA2, "pbkdf2-sha256$900000$" + cfgPw2.h.split("$").slice(2).join("$"))));
   verifica("password: due impronte della stessa password sono diverse (sale)", (await improntaPassword("stessa password lunga", 1000)) !== (await improntaPassword("stessa password lunga", 1000)));
   verifica("confronto a tempo costante: uguali solo se identici", uguali("abc", "abc") && !uguali("abc", "abd") && !uguali("abc", "abcd") && !uguali("", "a"));
-  // Paolo dimentica la password: cambia il segreto REDAZIONE_PASSWORD su Cloudflare, e vince il segreto
-  const p3 = await entra({ password: NUOVA });
+  verifica("CSRF: in D1 il gettone anti-CSRF non c'è (si ricava dal gettone di sessione)", !JSON.stringify(q("SELECT * FROM sessioni")).includes(p1.csrf));
+  // Paolo dimentica la password: cambia il segreto REDAZIONE_PASSWORD su Cloudflare (con un valore diverso), e vince il segreto
+  const p3 = await entra({ password: NUOVA2 });
   env.REDAZIONE_PASSWORD = "il segreto nuovo, messo da Cloudflare";
   r = await red("GET", "/api/redazione/sessione", { cookie: p3.cookie });
-  verifica("recupero: cambiato il segreto, le sessioni di prima non valgono più", r.s === 401, r.s);
-  verifica("recupero: la password dell'area non entra più, il segreto nuovo sì", (await entra({ password: NUOVA })).r.s === 401 && (await entra({ password: env.REDAZIONE_PASSWORD })).r.s === 200
+  verifica("recupero: cambiato il segreto, le sessioni di prima non valgono più e spariscono da D1 (e dai Dispositivi collegati)", r.s === 401 && q("SELECT COUNT(*) AS n FROM sessioni")[0].n === 0, [r.s, q("SELECT COUNT(*) AS n FROM sessioni")[0].n]);
+  verifica("recupero: la password dell'area non entra più, il segreto nuovo sì", (await entra({ password: NUOVA2 })).r.s === 401 && (await entra({ password: env.REDAZIONE_PASSWORD })).r.s === 200
     && q("SELECT COUNT(*) AS n FROM config WHERE k = 'password'")[0].n === 0);
   env.REDAZIONE_PASSWORD = PW;
   const R1 = await entra();

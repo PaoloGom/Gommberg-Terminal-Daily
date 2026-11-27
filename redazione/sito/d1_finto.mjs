@@ -9,6 +9,7 @@ export function d1(file = ":memory:") {
   // Serve alle prove con richieste contemporanee: senza attese le istruzioni di una richiesta non si intrecciano mai.
   const attesa = () => (api.latenza ? new Promise((ok) => setTimeout(ok, Math.random() * api.latenza)) : null);
   const stmt = (sql, arg = []) => ({
+    _sql: sql,
     bind: (...a) => stmt(sql, a),
     _esegui() { const s = db.prepare(sql); return /^\s*(select|with)|returning/i.test(sql) ? { rows: s.all(...arg) } : { info: s.run(...arg) }; },
     async first() { await attesa(); const r = this._esegui().rows; return r && r.length ? { ...r[0] } : null; },
