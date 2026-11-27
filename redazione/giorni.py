@@ -17,6 +17,19 @@ def _leggi_motore():
 
 FESTIVI, EDIZIONE_1 = _leggi_motore()
 
+# L'ora di uscita dell'edizione (ora di Roma) come la leggono i lettori: un posto solo (G-43). La leggono pagine.py (fascia
+# d'iscrizione e invito delle pagine generate, feed, pagine fisse con data-ora-uscita, calendario di benvenuto.html) e
+# benvenuto.py (testo della mail di benvenuto e fascia in cui non si spedisce). Se cambia (G-61): qui, poi
+# python3 redazione/pagine.py e commit (il collaudo pretende le pagine rigenerate). Restano a mano: la mail di conferma
+# in Kit (conferma-mail.txt di G-43) e gli orari veri dei flussi del mattino.
+ORA_USCITA = "9:45"
+
+
+def ora_uscita():
+    """(ore, minuti) di ORA_USCITA."""
+    h, m = ORA_USCITA.split(":")
+    return int(h), int(m)
+
 
 def uscita(d):
     return d.weekday() < 5 and d.isoformat() not in FESTIVI

@@ -48,6 +48,23 @@ jobs:
           echo "Modo: $MODO"
           python3 redazione/dem.py "$MODO" 2>&1 | tee esito.txt | tee -a "$GITHUB_STEP_SUMMARY"
           exit "${PIPESTATUS[0]}"
+      # G-43: la mail di benvenuto ai nuovi iscritti (redazione/benvenuto.py; il piano gratuito di Kit non ha
+      # automazioni). Solo nel giro della sera (sveglia o lancio a mano), mai sui push; gira anche se il passo di sopra
+      # è fallito (sono due lavori diversi); da un ramo che non è main solo il controllo del testo, senza rete.
+      # Minuti di GitHub: qualche secondo per giro dentro un job che c'è già (circa 30 giri al mese): da 0 a 30 minuti al
+      # mese in più, 0 finché il job resta sotto il minuto (un job conta almeno un minuto).
+      - name: Benvenuto
+        if: ${{ !cancelled() && github.event_name != 'push' && env.SALTA != 'si' }}
+        timeout-minutes: 3
+        env:
+          KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
+          SCELTO: ${{ github.event.inputs.modo || 'sincronizza' }}
+        run: |
+          case "$SCELTO" in sincronizza) MODO=invia ;; piano) MODO=piano ;; *) MODO=controlla ;; esac
+          [ "$GITHUB_REF" = "refs/heads/main" ] || MODO=controlla
+          echo "Benvenuto, modo: $MODO"
+          python3 redazione/benvenuto.py "$MODO" 2>&1 | tee -a esito.txt | tee -a "$GITHUB_STEP_SUMMARY"
+          exit "${PIPESTATUS[0]}"
       - name: Segnalazione a Paolo
         if: failure() && github.ref == 'refs/heads/main'
         env:

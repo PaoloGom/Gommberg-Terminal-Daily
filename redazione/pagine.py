@@ -18,6 +18,9 @@ from zoneinfo import ZoneInfo
 from email.utils import format_datetime
 from urllib.parse import quote
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import giorni  # noqa: E402  ora di uscita (ORA_USCITA) e giorni senza edizione (FESTIVI del motore): una fonte sola
+
 BASE = "https://gommberg.com/"
 GC = "https://gommberg.goatcounter.com/count"
 MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto",
@@ -202,7 +205,7 @@ def gomm_box(url, titolo):
             '<div class="gb-bar"><div><p class="gb-t">Inoltrala a chi vuole capire i mercati</p><div class="gb-r">'
             f'<a class="gb-b pr" href="https://wa.me/?text={quote(titolo + " " + url)}" target="_blank" rel="noopener">{SVG_WA}<span>WhatsApp</span></a>'
             f'<button type="button" class="gb-b gh" data-copy="{esc(url)}">{SVG_LINK}<span>Copia link</span></button></div></div>'
-            '<div><p class="gb-t">Ricevila ogni mattina alle 9:45. Gratis.</p><div class="gb-r">'
+            f'<div><p class="gb-t">Ricevila ogni mattina alle {giorni.ORA_USCITA}. Gratis.</p><div class="gb-r">'
             '<a class="gb-b pr" href="../iscriviti.html" data-goatcounter-click="invito-iscrizione" '
             f'data-goatcounter-title="Invito all\'iscrizione (clic)">{SVG_MAIL}<span>Iscriviti via email</span></a></div></div></div></section>')
 
@@ -294,7 +297,7 @@ def invito(root=""):
     Il modulo vero sta in una pagina sola, iscriviti.html: qui c'è soltanto il rimando."""
     return ('<aside class="gi" aria-labelledby="gi-h"><div class="gi-t"><p class="gi-k">Via email</p>'
             '<h2 class="gi-h" id="gi-h">Il Gommberg nella tua casella, ogni mattina</h2>'
-            '<p class="gi-p">La prima pagina dell\'edizione alle 9:45, dal lunedì al venerdì. Gratis.</p></div>'
+            f'<p class="gi-p">La prima pagina dell\'edizione alle {giorni.ORA_USCITA}, dal lunedì al venerdì. Gratis.</p></div>'
             f'<a class="gi-b" href="{root}iscriviti.html" data-goatcounter-click="invito-iscrizione" '
             'data-goatcounter-title="Invito all\'iscrizione (clic)">Ricevila via email</a></aside>')
 
@@ -437,7 +440,7 @@ def feed(eds):
          f'<atom:link href="{BASE}feed.xml" rel="self" type="application/rss+xml"/>']
     for ed in eds[:30]:
         n = nnn(ed["numero"])
-        quando = datetime.strptime(ed["data"] + " 09:45", "%Y-%m-%d %H:%M").replace(tzinfo=ROMA)
+        quando = datetime.strptime(ed["data"] + " " + giorni.ORA_USCITA, "%Y-%m-%d %H:%M").replace(tzinfo=ROMA)
         corpo = ed.get("dek") or " ".join(ed.get("sommario") or [])
         x += ["<item>", f"<title>{esc(ed.get('titolo', ''))}</title>", f"<link>{BASE}e/{n}.html</link>",
               f'<guid isPermaLink="true">{BASE}e/{n}.html</guid>', f"<pubDate>{format_datetime(quando)}</pubDate>",
@@ -558,6 +561,34 @@ def piede_fisse(repo):
     return n
 
 
+# L'ora di uscita nelle pagine fisse (G-43): le pagine scritte a mano non la scrivono mai da sole. Il testo sta in
+# <span data-ora-uscita>9:45</span>, nelle <meta ... data-ora-uscita> la riga "alle 9:45" del content, e in benvenuto.html
+# il calendario <script type="application/json" id="calendario-uscite"> (ora e FESTIVI del motore, per il giorno vero
+# della prima edizione). Tutto da giorni.ORA_USCITA e giorni.FESTIVI. Scrive solo se cambia.
+ORA_SPAN = re.compile(r"(<span data-ora-uscita>)\d{1,2}:\d{2}(</span>)")
+ORA_META = re.compile(r"<meta\b[^>]*\bdata-ora-uscita\b[^>]*>")
+CALENDARIO = re.compile(r'(<script type="application/json" id="calendario-uscite">).*?(</script>)', re.S)
+
+
+def calendario_uscite():
+    return json.dumps({"ora": giorni.ORA_USCITA, "festivi": sorted(giorni.FESTIVI)}, separators=(",", ":"))
+
+
+def orario_fisse(repo):
+    n = 0
+    for f in sorted(os.listdir(repo)):
+        if f.endswith(".html"):
+            path = os.path.join(repo, f)
+            t = open(path, encoding="utf-8").read()
+            nuovo = ORA_SPAN.sub(lambda m: m.group(1) + giorni.ORA_USCITA + m.group(2), t)
+            nuovo = ORA_META.sub(lambda m: re.sub(r"\balle \d{1,2}:\d{2}", "alle " + giorni.ORA_USCITA, m.group(0)), nuovo)
+            nuovo = CALENDARIO.sub(lambda m: m.group(1) + calendario_uscite() + m.group(2), nuovo)
+            if nuovo != t:
+                open(path, "w", encoding="utf-8").write(nuovo)
+                n += 1
+    return n
+
+
 def main():
     repo = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(__file__), ".."))
     eds = [e for e in json.load(open(os.path.join(repo, "edizioni.json"), encoding="utf-8"))
@@ -585,6 +616,8 @@ def main():
     dati_sito(repo, rec)
     if piede_fisse(repo):
         print("Pagine fisse: piè di pagina riallineato")
+    if orario_fisse(repo):
+        print("Pagine fisse: ora di uscita e calendario riallineati")
     print(f"Pagine: {len(eds)} edizioni ({cambiati} pagine aggiornate), feed.xml, ultima/, dati/")
 
 

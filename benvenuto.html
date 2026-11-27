@@ -27,20 +27,26 @@
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
 a{color:inherit}
-main{max-width:760px;margin:0 auto;padding:40px 20px 24px}
-.kicker{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--orange-ink);margin:0 0 8px}
-h1{font-family:var(--display);font-stretch:85%;font-weight:900;font-size:clamp(32px,6vw,48px);line-height:1.04;letter-spacing:-.015em;margin:0 0 16px}
-.lede{font-size:19px;color:var(--muted);margin:0 0 28px;max-width:56ch}
-h2{font-family:var(--display);font-weight:700;font-size:22px;line-height:1.25;margin:36px 0 10px;padding-top:14px;border-top:1px solid var(--rule)}
-p{margin:0 0 14px}
-@media (max-width:560px){.lede{font-size:17px}}
-.passi{list-style:none;margin:0 0 8px;padding:0;counter-reset:s}
-.passi li{counter-increment:s;display:grid;grid-template-columns:36px 1fr;gap:4px;margin:0 0 14px;max-width:62ch}
-.passi li:before{content:counter(s);font-family:var(--display);font-weight:800;font-size:22px;line-height:1.3;color:var(--orange)}
+main{max-width:1060px;margin:0 auto;padding:44px 24px 24px;display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:24px 56px;align-items:start}
+.kicker{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--orange-ink);margin:0 0 10px}
+h1{font-family:var(--display);font-stretch:80%;font-weight:900;font-size:clamp(36px,5.4vw,60px);line-height:.98;letter-spacing:-.02em;margin:0 0 16px}
+.lede{font-size:19px;line-height:1.5;color:var(--muted);margin:0 0 30px;max-width:44ch}
+.lede b{color:var(--ink);font-weight:600}
+h2{font-family:var(--display);font-stretch:88%;font-weight:800;font-size:20px;line-height:1.25;margin:0 0 12px;padding-top:14px;border-top:2px solid var(--ink)}
+.passi{list-style:none;margin:0;padding:0;counter-reset:s}
+.passi li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;margin:0 0 12px;font-size:16px;line-height:1.55;max-width:58ch}
+.passi li:before{content:counter(s);font-family:var(--mono);font-weight:500;font-size:15px;line-height:1.65;color:var(--orange-ink)}
 .passi b{font-weight:600}
-.cta{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;font-family:var(--display);font-stretch:90%;font-weight:800;font-size:17px;text-decoration:none;background:var(--ink);color:var(--paper);margin:6px 14px 0 0}
+.passi code{font-family:var(--mono);font-size:14.5px}
+.ed{border-top:2px solid var(--ink);padding-top:14px}
+.ed-k{font-family:var(--display);font-stretch:88%;font-weight:800;font-size:20px;line-height:1.25;margin:0 0 12px}
+.ed a.img{display:block;border:1px solid var(--rule);line-height:0}
+.ed img{width:100%;height:auto;display:block}
+.ed-m{font-family:var(--mono);font-size:13px;color:var(--muted);margin:10px 0 14px}
+.cta{display:flex;align-items:center;justify-content:center;min-height:50px;padding:0 22px;font-family:var(--display);font-stretch:90%;font-weight:800;font-size:17px;text-decoration:none;background:var(--ink);color:var(--paper)}
 .cta:hover{background:var(--orange-ink)}
-.poi{color:var(--orange-ink)}
+@media (max-width:860px){main{grid-template-columns:1fr;padding:30px 18px 16px;gap:30px}.lede{font-size:17px;margin-bottom:0}
+.wb-a{display:contents}.wb-h{order:1}.ed{order:2}.wb-p{order:3}}
 </style>
 <script data-goatcounter="https://gommberg.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="stylesheet" href="assets/sito.css">
@@ -49,20 +55,80 @@ p{margin:0 0 14px}
 <header class="gn-mast"><div class="gn-top"><div class="gn-brand"><p class="gn-logo"><a href="./" title="Torna all'ultima edizione"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></p><p class="gn-pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p></div><nav class="gn-nav" aria-label="Sezioni del sito"><a href="./" data-s="Edizione">Ultima edizione</a><a href="archivio.html">Archivio</a><a href="glossario.html">Impara</a><a href="scommessa.html" data-s="Scommessa">La scommessa</a><a href="progetto.html">Chi siamo</a></nav></div></header>
 
 <main>
-  <p class="kicker">Iscrizione confermata</p>
-  <h1>Ci vediamo alle 9:45</h1>
-  <p class="lede">La prossima edizione arriva nella tua casella, dal lunedì al venerdì.</p>
+  <div class="wb-a">
+    <div class="wb-h">
+      <p class="kicker">Iscrizione confermata</p>
+      <h1 id="quando">Ci vediamo alle <span data-ora-uscita>9:45</span></h1>
+      <p class="lede" id="giorno">La prima edizione arriva nella tua casella. Poi ogni mattina, dal lunedì al venerdì.</p>
+    </div>
+    <section class="wb-p" aria-labelledby="h-posta">
+      <h2 id="h-posta">Perché arrivi nella posta principale</h2>
+      <ol class="passi">
+        <li><span><b>Aggiungi ai contatti</b> <code>redazione@gommberg.com</code>.</span></li>
+        <li><span><b>Se la prima edizione finisce in Promozioni o nello spam, spostala nella posta principale.</b> Su Gmail basta trascinarla nella scheda Principale e rispondere Sì alla domanda che compare: da lì in poi arriva sempre lì.</span></li>
+      </ol>
+    </section>
+  </div>
 
-  <h2>Perché arrivi sempre</h2>
-  <ol class="passi">
-    <li><span><b>Aggiungi il mittente ai contatti.</b> Le email partono da redazione@gommberg.com.</span></li>
-    <li><span><b>Se la trovi in Promozioni, in Forum o nello spam, spostala nella posta principale.</b> Su Gmail basta trascinarla nella scheda Principale e rispondere Sì alla domanda che compare: da quel momento arriva sempre lì.</span></li>
-  </ol>
-
-  <p><a class="cta" href="./">Leggi l'ultima edizione</a></p>
-  <p><a class="poi" href="glossario.html">Oppure parti dal glossario</a></p>
+  <aside class="ed" aria-labelledby="h-ed">
+    <p class="ed-k" id="h-ed">Intanto, l'ultima edizione</p>
+    <a class="img" id="edImg" href="./?ref=benvenuto"><img id="edPng" src="assets/copertina.png" width="1200" height="630" alt="Gommberg Terminal Daily, l'ultima edizione"></a>
+    <p class="ed-m" id="edMeta">L'edizione più recente</p>
+    <a class="cta" id="edCta" href="./?ref=benvenuto">Leggi le 6 pagine</a>
+  </aside>
 </main>
 
 <footer class="gf"><div class="gf-in"><nav class="gf-links" aria-label="Le pagine del sito"><a href="./">Ultima edizione</a><a href="archivio.html">Archivio</a><a href="glossario.html">Impara</a><a href="scommessa.html">La scommessa</a><a href="progetto.html">Chi siamo</a><a href="numeri.html">I numeri</a><a href="iscriviti.html">Ricevila via email</a><a href="feed.xml">Feed RSS</a><a href="privacy.html">Privacy</a></nav><p class="gf-ai">Testi generati con l'intelligenza artificiale e pubblicati in automatico. Rassegna informativa, non consulenza finanziaria.</p><p class="gf-legal">Non costituisce sollecitazione all'investimento. Le probabilità indicate sono stime redazionali soggettive. Dati e notizie da fonti pubbliche alla data di ciascuna edizione.</p></div></footer>
+
+<!-- Ora di uscita e giorni senza edizione: li scrive redazione/pagine.py da giorni.ORA_USCITA e dai FESTIVI del motore. Non si toccano a mano. -->
+<script type="application/json" id="calendario-uscite">{"ora":"9:45","festivi":["2026-12-25","2027-01-01","2027-03-26","2028-04-14"]}</script>
+<script>
+/* Quando arriva la prima edizione (ora di Roma) e quale è l'ultima uscita. Senza JavaScript restano i testi generici.
+   Per provare un'altra ora: ?ora=2026-11-27T18:00 */
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var cal;
+  try { cal = JSON.parse($("calendario-uscite").textContent); } catch (x) { return; }   // senza calendario restano i testi generici
+  if (!/^\d{1,2}:\d\d$/.test(cal.ora || "")) return;
+  var hm = String(cal.ora).split(":").map(Number);
+  var ORA = cal.ora, LIMITE = hm[0] * 60 + hm[1] - 15;   // confermi entro 15 minuti prima dell'uscita: arriva già oggi
+  var FESTIVI = cal.festivi || [];
+  var GG = ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"];
+  var MM = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
+
+  function romaOra() {
+    var prova = new URLSearchParams(location.search).get("ora");
+    if (prova && /^\d{4}-\d\d-\d\dT\d\d:\d\d$/.test(prova)) { var p = prova.split(/[-T:]/).map(Number); return { y: p[0], m: p[1], d: p[2], min: p[3] * 60 + p[4] }; }
+    var f = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Rome", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
+    var o = {}; f.formatToParts(new Date()).forEach(function (x) { o[x.type] = x.value; });
+    return { y: +o.year, m: +o.month, d: +o.day, min: (+o.hour) * 60 + (+o.minute) };
+  }
+  function iso(t) { return t.toISOString().slice(0, 10); }
+  function uscita(t) { var w = t.getUTCDay(); return w > 0 && w < 6 && FESTIVI.indexOf(iso(t)) < 0; }
+
+  var r = romaOra(), oggi = new Date(Date.UTC(r.y, r.m - 1, r.d)), t = new Date(oggi), quando;
+  if (uscita(t) && r.min < LIMITE) quando = "stamattina";
+  else {
+    do { t.setUTCDate(t.getUTCDate() + 1); } while (!uscita(t));
+    quando = (t - oggi === 864e5) ? "domani" : GG[t.getUTCDay()];
+  }
+  var giorno = GG[t.getUTCDay()] + " " + t.getUTCDate() + " " + MM[t.getUTCMonth()];
+  $("quando").textContent = "Ci vediamo " + quando + " alle\u00a0" + ORA;
+  $("giorno").innerHTML = "La tua prima edizione: <b>" + giorno + "</b>. Poi ogni mattina, dal lunedì al venerdì.";
+
+  /* L'ultima edizione uscita, dall'indice leggero dell'archivio (dati/indice.json). Se non si legge, resta il link generico. */
+  if (!window.fetch) return;
+  fetch("dati/indice.json", { cache: "no-cache" }).then(function (x) { return x.json(); }).then(function (l) {
+    var e = l.reduce(function (a, b) { return (b && b.n > (a ? a.n : 0)) ? b : a; }, null);
+    if (!e) return;
+    var n = e.n, nnn = ("00" + n).slice(-3), d = new Date(e.d + "T12:00:00Z");
+    var link = "./?n=" + n + "&leggi=1&ref=benvenuto";
+    $("edImg").href = $("edCta").href = link;
+    $("edPng").src = "e/" + nnn + ".png"; $("edPng").alt = e.t;
+    $("edMeta").textContent = "N. " + nnn + " - " + GG[d.getUTCDay()].replace(/^./, function (c) { return c.toUpperCase(); }) + " " + d.getUTCDate() + " " + MM[d.getUTCMonth()];
+  }).catch(function () {});
+})();
+</script>
 </body>
 </html>
