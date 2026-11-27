@@ -1841,6 +1841,8 @@ def passo_area():
     if node:
         rc, out = esegui([node, "--no-warnings", os.path.join(R, "sito", "prova_instradamento.mjs"), sito])
         esito("Area riservata: i file pubblici che passano dal Worker", rc == 0, (out.strip().splitlines() or [f"uscita {rc}"])[-1][:200] if rc == 0 else out.strip()[-300:])
+        rc, out = esegui([node, "--no-warnings", os.path.join(R, "sito", "prova_area_html.mjs")])
+        esito("Area riservata: nessun valore del database senza escape", rc == 0, (out.strip().splitlines() or [f"uscita {rc}"])[-1][:200] if rc == 0 else out.strip()[-300:])
     esito("Area riservata: pannello fuori dal sito pubblico, barra, segreti, avvisi", not male, "; ".join(male)[:400] or
           f"pannello solo nel modulo del Worker, barra Redazione in {len(pagine)} pagine, nessuna credenziale nel repository, avviso e mappa in ordine")
 
