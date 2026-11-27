@@ -8,10 +8,22 @@
                                       la pagina resta intera: la sezione dice soltanto che la discussione non si carica.
    Nessuna iscrizione e nessuna email: il nome si scrive in "Firmi come" o si genera con il dado, e lo ricorda il browser,
    come il codice anonimo del lettore (gtd-lettore) che riconosce i suoi commenti, like e voti. Un nome resta di chi l'ha
-   usato per primo: mentre lo scegli la sezione chiede al servizio se è libero, e il dado ne propone solo di liberi. */
+   usato per primo: mentre lo scegli la sezione chiede al servizio se è libero, e il dado ne propone solo di liberi.
+   La redazione (G-51): i suoi commenti escono firmati "Gommberg" con il logo e il badge Redazione (lo dice il servizio,
+   campo "redazione": nessun lettore lo può imitare). Quando Paolo è collegato all'area riservata, qui scrive solo come
+   Gommberg, modifica i suoi commenti e toglie quelli dei lettori (servizio /api/redazione/, sessione e gettone anti-CSRF). */
 (function () {
   "use strict";
   var API = "/api/lettori/";
+  // la sessione della redazione: la stessa promessa della barra Redazione (assets/redazione.js); per i lettori subito null
+  if (!window.gtdRedazione) {
+    var sesRed = null;
+    window.gtdRedazione = function () {
+      if (!sesRed) sesRed = !/(?:^|;\s*)gtd_red=1(?:;|$)/.test(document.cookie) ? Promise.resolve(null)
+        : fetch("/api/redazione/sessione", { cache: "no-store", credentials: "same-origin" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+      return sesRed;
+    };
+  }
   var LAB = { toro: "Toro", orso: "Orso" };
   var SEGNO = { toro: "▲", orso: "▼" };
   // I nomi del dado (Paolo 22/11): sempre "Nome Cognome", di finanza, italiani e ironici. Tre livelli che si attivano da
@@ -98,7 +110,7 @@
     var g = window.goatcounter; if (g && g.count) try { g.count({ path: path, title: title, event: true }); } catch (e) {}
   }
 
-  var S = { ed: null, d: null, stato: "attesa", ord: "top", filtro: "tutti", tutti: false, menu: null, re: null, nuovo: null,
+  var S = { ed: null, d: null, stato: "attesa", ord: "top", filtro: "tutti", tutti: false, menu: null, re: null, nuovo: null, red: null, modifica: null,
             miei: {}, presa: 0, gen: 0, anima: false, nome: leggi("gtd-nome") || "" };
   var R = null;   // la sezione montata
 
@@ -112,6 +124,17 @@
           return j;
         });
       }, function () { var e = new Error("Connessione assente: riprova tra poco."); e.stato = 0; throw e; });
+  }
+  // Le azioni della redazione (G-51): la sessione (cookie) e il suo gettone anti-CSRF, niente gettone dei lettori
+  function apiRed(percorso, corpo) {
+    return fetch("/api/redazione/" + percorso, { method: "POST", headers: { "content-type": "application/json", "x-csrf": S.red ? S.red.csrf : "" },
+      body: JSON.stringify(corpo || {}), cache: "no-store", credentials: "same-origin" }).then(function (r) {
+      return r.json().catch(function () { return null; }).then(function (j) {
+        if (r.status === 401) { S.red = null; rendi(); }
+        if (!r.ok) { var e = new Error((j && j.errore) || "Il servizio non risponde: riprova tra poco."); e.stato = r.status; throw e; }
+        return j;
+      });
+    }, function () { var e = new Error("Connessione assente: riprova tra poco."); e.stato = 0; throw e; });
   }
   // Le scritture portano il gettone della lettura (il server vuole almeno 3 secondi di pagina aperta) e il campo trappola
   function scrivi(percorso, corpo, giro) {
@@ -164,6 +187,8 @@
     return fmtGiorno.format(d) + " " + fmtOra.format(d);
   }
   function avatar(nome, piccolo) { var a = el("span", "av" + (piccolo ? " av-s" : ""), iniziali(nome)); a.style.background = colore(nome); a.setAttribute("aria-hidden", "true"); return a; }
+  function avatarRed(piccolo) { var a = el("span", "av av-rd" + (piccolo ? " av-s" : "")), i = el("img"); i.src = "/assets/avatar.svg"; i.alt = ""; a.appendChild(i); a.setAttribute("aria-hidden", "true"); return a; }
+  function badge() { var b = el("span", "tr", "Redazione"); b.title = "Commento della redazione del Gommberg"; return b; }
   function targhetta(v) { return el("span", "tg " + (v === "toro" ? "tg-up" : "tg-down"), SEGNO[v] + " " + LAB[v]); }
 
   /* ---------- Testata e sentiment ---------- */
@@ -211,7 +236,9 @@
     var lk = bottone("lk", null, "like"); lk.dataset.id = c.id; lk.setAttribute("aria-pressed", c.piaciuto ? "true" : "false");
     lk.setAttribute("aria-label", "Mi piace, " + c.piace); lk.innerHTML = CUORE; lk.appendChild(el("span", "", String(c.piace))); az.appendChild(lk);
     var rp = bottone("", "Rispondi", "rispondi"); rp.dataset.id = radice.id; rp.dataset.n = c.nome; if (c !== radice) rp.dataset.cita = "1"; az.appendChild(rp);
-    if (!c.mio) {
+    if (S.red && c.redazione) { var md = bottone("md", "Modifica", "modifica"); md.dataset.id = c.id; az.appendChild(md); }
+    if (S.red && !c.redazione) { var tg = bottone("tg2", "Togli", "togli"); tg.dataset.id = c.id; az.appendChild(tg); }
+    else if (!c.mio && !c.redazione && !S.red) {
       if (S.menu === c.id) { var sg = bottone("sg", c.segnalato ? "Segnalato" : "Segnala il commento", "segnala"); sg.dataset.id = c.id; sg.disabled = !!c.segnalato; az.appendChild(sg); }
       else { var mn = bottone("mn", "···", "menu"); mn.dataset.id = c.id; mn.setAttribute("aria-label", "Altre azioni"); az.appendChild(mn); }
     }
@@ -219,27 +246,36 @@
   }
   function riga(c) {
     var m = el("p", "cm"); m.appendChild(el("b", "cn", c.nome));
-    if (c.mio) m.appendChild(el("span", "tu", "TU"));
+    if (c.redazione) m.appendChild(badge());
+    if (c.fissato && !c.padre) m.appendChild(el("span", "fx", "fissato in alto"));
+    if (c.mio && !c.redazione) m.appendChild(el("span", "tu", "TU"));
     if (c.voto) m.appendChild(targhetta(c.voto));
-    var t = el("time", "", quando(c.quando)); t.dateTime = c.quando; m.appendChild(t);
+    var t = el("time", "", quando(c.quando) + (c.modificato ? " · modificato" : "")); t.dateTime = c.quando; m.appendChild(t);
     return m;
   }
   function nodo(c) {
-    var a = el("article", "cmt" + (c.id === S.nuovo ? " new" : "")); a.dataset.id = c.id;
-    a.appendChild(avatar(c.nome));
+    var a = el("article", "cmt" + (c.id === S.nuovo ? " new" : "") + (c.redazione ? " rd" : "")); a.dataset.id = c.id;
+    a.appendChild(c.redazione ? avatarRed() : avatar(c.nome));
     var b = el("div", "cb");
-    b.appendChild(riga(c)); b.appendChild(el("p", "ct", c.testo)); b.appendChild(azioni(c, c));
+    b.appendChild(riga(c)); b.appendChild(testoOModifica(c, "ct")); b.appendChild(azioni(c, c));
     if (c.r.length) {
       var rs = el("div", "rs");
       c.r.forEach(function (r) {
-        var x = el("div", "rsp" + (r.id === S.nuovo ? " new" : "")); x.dataset.id = r.id; x.appendChild(avatar(r.nome, true));
-        var xb = el("div", "cb"); xb.appendChild(riga(r)); xb.appendChild(el("p", "ct ct-s", r.testo)); xb.appendChild(azioni(r, c));
+        var x = el("div", "rsp" + (r.id === S.nuovo ? " new" : "")); x.dataset.id = r.id; x.appendChild(r.redazione ? avatarRed(true) : avatar(r.nome, true));
+        var xb = el("div", "cb"); xb.appendChild(riga(r)); xb.appendChild(testoOModifica(r, "ct ct-s")); xb.appendChild(azioni(r, c));
         x.appendChild(xb); rs.appendChild(x);
       });
       b.appendChild(rs);
     }
     a.appendChild(b);
     return a;
+  }
+  // il testo del commento, o (per la redazione che lo sta modificando) il riquadro per cambiarlo
+  function testoOModifica(c, cls) {
+    if (S.modifica !== c.id) return el("p", cls, c.testo);
+    var box = el("div", "md-box"), ta = el("textarea"); ta.value = c.testo; ta.maxLength = 600; ta.setAttribute("aria-label", "Modifica il commento"); box.appendChild(ta);
+    var r = el("div", "md-az"), sv = bottone("send", "Salva", "salva"); sv.dataset.id = c.id; r.appendChild(sv); r.appendChild(bottone("lt-link", "annulla", "annulla-mod")); box.appendChild(r);
+    return box;
   }
   function commenti() {
     var box = q("[data-list]", R), tutte = albero(), n = ((S.d && S.d.commenti) || []).length; box.innerHTML = "";
@@ -257,8 +293,10 @@
       f.appendChild(document.createTextNode("Riproviamo da soli tra pochi secondi. ")); f.appendChild(bottone("lt-link", "Riprova adesso", "ricarica")); box.appendChild(f); return;
     }
     var lista = tutte.filter(function (c) { return S.filtro === "tutti" || c.voto === S.filtro; });
-    if (S.ord === "top") lista.sort(function (x, y) { return (S.miei[y.id] ? 1 : 0) - (S.miei[x.id] ? 1 : 0) || y.piace - x.piace || x.id - y.id; });
-    else lista.sort(function (x, y) { return y.id - x.id; });
+    // i commenti fissati in alto dalla redazione vengono prima, in tutti e due gli ordini
+    var fx = function (x, y) { return (y.fissato ? 1 : 0) - (x.fissato ? 1 : 0) || (y.fissato || "").localeCompare(x.fissato || ""); };
+    if (S.ord === "top") lista.sort(function (x, y) { return fx(x, y) || (S.miei[y.id] ? 1 : 0) - (S.miei[x.id] ? 1 : 0) || y.piace - x.piace || x.id - y.id; });
+    else lista.sort(function (x, y) { return fx(x, y) || y.id - x.id; });
     if (!lista.length) {
       var v = el("div", "lt-vuoto");
       if (tutte.length) v.appendChild(document.createTextNode("Nessun commento con questo filtro."));
@@ -272,7 +310,17 @@
 
   /* ---------- Scrivere ---------- */
   function composer() {
-    var v = S.d && S.d.voto, ni = q(".cmp-nome", R), lato = q("[data-lato]", R), re = q("[data-re]", R), ta = q("textarea", R), a = q(".cmp .av", R);
+    var v = S.d && S.d.voto, ni = q(".cmp-nome", R), lato = q("[data-lato]", R), re = q("[data-re]", R), ta = q(".cmp textarea", R), a = q(".cmp .av", R);
+    var form = q(".cmp", R), chiusa = !!(S.d && S.d.chiusa) && !S.red;
+    form.hidden = chiusa; q("[data-chiusa]", R).hidden = !chiusa;
+    q(".cmp-chi", R).hidden = !!S.red; q(".cmp-rd", R).hidden = !S.red;
+    if (S.red) {
+      lato.className = "cmp-lato"; lato.textContent = "Visibile a tutti, con il badge Redazione";
+      re.hidden = !S.re; if (S.re) { var s0 = re.firstElementChild; s0.textContent = "Rispondi a "; s0.appendChild(el("b", "", S.re.n)); form.classList.add("aperto"); }
+      ta.placeholder = S.re ? "Rispondi come redazione…" : "Scrivi come redazione…";
+      q(".send", R).disabled = S.stato !== "pronto";
+      return;
+    }
     if (document.activeElement !== ni) ni.value = S.nome;
     a.textContent = iniziali(S.nome || "?"); a.style.background = colore(S.nome || "?");
     lato.className = "cmp-lato" + (v && v.mio ? (v.mio === "toro" ? " up" : " down") : "");
@@ -320,18 +368,18 @@
     }
     rifornisci().then(function () { if (CODA.length || (giri || 0) < 12) tiraDado((giri || 0) + (CODA.length ? 0 : 1)); });
   }
-  function contatore() { var n = q("textarea", R).value.length; q("[data-conto]", R).textContent = n > 480 ? (600 - n) + " caratteri" : ""; }
+  function contatore() { var n = q(".cmp textarea", R).value.length; q("[data-conto]", R).textContent = n > 480 ? (600 - n) + " caratteri" : ""; }
   function invia() {
-    var ta = q("textarea", R), x = ta.value.replace(/\n{3,}/g, "\n\n").trim(), send = q(".send", R);
-    var msg = nomeValido() || (x ? "" : "Scrivi qualcosa prima di pubblicare.");
+    var ta = q(".cmp textarea", R), x = ta.value.replace(/\n{3,}/g, "\n\n").trim(), send = q(".cmp .send", R);
+    var msg = S.red ? (x ? "" : "Scrivi qualcosa prima di pubblicare.") : nomeValido() || (x ? "" : "Scrivi qualcosa prima di pubblicare.");
     if (msg) { errore(msg); (x ? q(".cmp-nome", R) : ta).focus(); return; }
     if (send.disabled) return;
     errore(""); send.disabled = true; send.textContent = "Invio…";
-    var corpo = { nome: S.nome, testo: x }; if (S.re) corpo.padre = S.re.id;
-    scrivi(pad(S.ed.numero) + "/commenti", corpo).then(function (j) {
+    var corpo = S.red ? { ed: S.ed.numero, testo: x } : { nome: S.nome, testo: x }; if (S.re) corpo.padre = S.re.id;
+    (S.red ? apiRed("commenti", corpo) : scrivi(pad(S.ed.numero) + "/commenti", corpo)).then(function (j) {
       send.textContent = "Pubblica"; send.disabled = false;
       var c = j && j.commento; if (!c) return;
-      salva("gtd-nome", S.nome);
+      if (!S.red) salva("gtd-nome", S.nome);
       S.d.commenti.push(c); S.miei[c.id] = true; S.nuovo = c.id; S.filtro = "tutti"; S.re = null;
       ta.value = ""; ta.style.height = ""; contatore(); q(".cmp", R).classList.remove("aperto"); ta.blur();
       conta("lettori-commento", "La Gommunity: commento" + (c.padre ? " (risposta)" : ""));
@@ -366,6 +414,17 @@
       else avviso("Segnalazione ricevuta. Grazie.");
       rendi();
     }, function (e) { c.segnalato = false; rendi(); avviso(e.message); });
+  }
+  function togli(id) {
+    apiRed("commenti/" + id + "/togli").then(function () {
+      S.d.commenti = S.d.commenti.filter(function (x) { return x.id !== id && x.padre !== id; }); rendi(); avviso("Commento tolto. Si rimette dalla scheda Gommunity.");
+    }, function (e) { avviso(e.message); });
+  }
+  function salvaModifica(id) {
+    var box = R.querySelector('[data-id="' + id + '"] .md-box textarea'), c = trova(id); if (!box || !c) return;
+    var x = box.value.replace(/\n{3,}/g, "\n\n").trim(); if (!x) { box.focus(); return; }
+    apiRed("commenti/" + id + "/modifica", { testo: x }).then(function (j) { c.testo = j.testo; c.modificato = j.modificato; S.modifica = null; rendi(); avviso("Commento modificato."); },
+      function (e) { avviso(e.message); });
   }
   var toast = null, tt = null;
   function avviso(msg) {
@@ -402,6 +461,8 @@
     var ni = el("input", "cmp-nome"); ni.id = "lt-nome"; ni.type = "text"; ni.maxLength = 24; ni.placeholder = "Il tuo nome"; ni.autocomplete = "nickname"; chi.appendChild(ni);
     var dado = bottone("cmp-dado", null, "dado"); dado.innerHTML = DADO; dado.setAttribute("aria-label", "Genera un nome a caso"); dado.title = "Genera un nome a caso"; chi.appendChild(dado);
     form.appendChild(chi);
+    var rd = el("div", "cmp-rd"); rd.hidden = true; rd.appendChild(avatarRed(true)); rd.appendChild(document.createTextNode("Firmi come "));
+    rd.appendChild(el("b", "", "Gommberg")); rd.appendChild(badge()); form.appendChild(rd);
     var tr = el("div", "trappola"); tr.setAttribute("aria-hidden", "true"); var ti = el("input"); ti.type = "text"; ti.name = "sito"; ti.tabIndex = -1; ti.autocomplete = "off"; tr.appendChild(ti); form.appendChild(tr);
     var tl = el("label", "lt-sr", "Il tuo commento"); tl.htmlFor = "lt-testo"; form.appendChild(tl);
     var ta = el("textarea"); ta.id = "lt-testo"; ta.rows = 3; ta.maxLength = 600; form.appendChild(ta);
@@ -410,6 +471,7 @@
     var send = el("button", "send", "Pubblica"); send.type = "submit"; dx.appendChild(send); pie.appendChild(dx); form.appendChild(pie);
     var err = el("p", "cmp-err"); err.dataset.err = ""; err.setAttribute("role", "alert"); err.hidden = true; form.appendChild(err);
     root.appendChild(form);
+    var ch = el("p", "lt-chiusa", "La discussione di questa edizione è chiusa: i commenti restano da leggere."); ch.dataset.chiusa = ""; ch.hidden = true; root.appendChild(ch);
     var nota = el("p", "lt-regole", "Nessuna iscrizione. Opinioni sì, consigli di acquisto no. ");
     var rg = el("a", "", "Regole"); rg.href = "/regole.html"; nota.appendChild(rg); nota.appendChild(document.createTextNode(" · "));
     var pv = el("a", "", "Privacy"); pv.href = "/privacy.html#lettori"; nota.appendChild(pv); root.appendChild(nota);
@@ -439,6 +501,10 @@
       else if (act === "rispondi") { S.re = { id: id, n: b.dataset.n }; if (b.dataset.cita && !ta.value) ta.value = "@" + b.dataset.n + " "; rendi(); ta.focus(); }
       else if (act === "annulla") { S.re = null; rendi(); ta.focus(); }
       else if (act === "dado") tiraDado(0);
+      else if (act === "togli") { if (confirm("Togliere questo commento dalla Gommunity?")) togli(id); }
+      else if (act === "modifica") { S.modifica = id; rendi(); var t2 = R.querySelector(".md-box textarea"); if (t2) t2.focus(); }
+      else if (act === "salva") salvaModifica(id);
+      else if (act === "annulla-mod") { S.modifica = null; rendi(); }
     });
   }
 
@@ -452,8 +518,9 @@
       document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible" && S.stato !== "attesa") { tentativi = 0; carica(true); } });
       setInterval(function () { if (document.visibilityState === "visible" && S.stato === "pronto") carica(true); }, 90000);
     }
-    S.gen++; tentativi = 0; S.ed = ed; S.d = null; S.stato = "attesa"; S.miei = {}; S.re = null; S.menu = null; S.tutti = false; S.filtro = "tutti"; S.ord = "top";
+    S.gen++; tentativi = 0; S.ed = ed; S.d = null; S.stato = "attesa"; S.miei = {}; S.re = null; S.menu = null; S.tutti = false; S.filtro = "tutti"; S.ord = "top"; S.modifica = null;
     errore(""); rendi(); carica(false);
+    window.gtdRedazione().then(function (s) { if (s && !S.red) { S.red = s; rendi(); } });
   }
   window.LETTORI = { monta: monta };
 })();

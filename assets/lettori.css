@@ -123,3 +123,23 @@
   .cmp { background: transparent; }
   .av { filter: saturate(.9); }
 }
+
+/* La redazione (G-51): firma "Gommberg" con il logo e il badge Redazione (lo decide il servizio, nessun lettore lo imita),
+   il commento fissato in alto, e i comandi che vede solo Paolo quando è collegato (Modifica, Togli, firma della redazione) */
+.av-rd { background: #0E0E0E !important; overflow: hidden; }
+.av-rd img { width: 100%; height: 100%; display: block; }
+.tr { font-family: var(--mono, monospace); font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; background: #0E0E0E; color: #F26B1D;
+      padding: 0 5px; line-height: 1.7; white-space: nowrap; }
+.fx { font-family: var(--mono, monospace); font-size: 11px; color: var(--orange-ink, #B84A0C); }
+.lt-list > .cmt.rd { background: linear-gradient(90deg, rgba(242, 107, 29, .07), transparent 70%); box-shadow: inset 3px 0 0 var(--orange, #F26B1D);
+                     margin: 0 -14px; padding-left: 14px; padding-right: 14px; }
+.ca .md { color: var(--orange-ink, #B84A0C) !important; }
+.ca .tg2 { margin-left: auto; color: var(--lt-down) !important; text-decoration: underline; text-underline-offset: 3px; }
+.cmp-rd { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--lt-soft); font-size: 12.5px; color: var(--muted, #5E5A55); }
+.cmp-rd b { color: var(--ink, #141414); font-size: 14px; }
+.cmp:not(.aperto) .cmp-rd { display: none; }
+.md-box { display: flex; flex-direction: column; gap: 6px; }
+.md-box textarea { border: 1px solid var(--ink, #141414); padding: 8px 10px; min-height: 80px; font-family: var(--body, sans-serif); font-size: 15px; line-height: 1.45; background: var(--card, #FFFFFF); color: var(--ink, #141414); resize: vertical; }
+.md-az { display: flex; gap: 12px; align-items: center; }
+.md-az .send { min-height: 32px; padding: 0 14px; border: 0; background: var(--ink, #141414); color: var(--paper, #FBFAF8); font-family: var(--mono, monospace); font-size: 12.5px; }
+.lt-chiusa { flex: none; margin: 10px 14px 8px; padding: 10px 12px; background: var(--panel, #F1EEE9); font-size: 13.5px; color: var(--muted, #5E5A55); }
