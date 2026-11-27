@@ -16,7 +16,8 @@
 #                                         fino al commit su cui è stata fatta la prova (dopo.prova.commit), non oltre
 #   bash redazione/rilascia.sh pubblica [--ok-di-paolo] [--dopo-la-prova] [--senza-github] [--guasto]
 #                                         collauda; se è verde qui e su GitHub, un solo merge sul ramo principale
-#   bash redazione/rilascia.sh annulla    toglie dal ramo principale l'ultimo rilascio (revert del suo merge)
+#   bash redazione/rilascia.sh annulla [--guasto]   toglie dal ramo principale l'ultimo rilascio (revert del suo merge),
+#                                         mai due volte lo stesso; poi riallinea il ramo rilascio al ramo principale
 #
 # I cancelli di "pubblica", nell'ordine: 1) niente modifiche non salvate; 2) il ramo contiene l'ultimo ramo principale;
 # 3) redazione/collaudo.py esce con 0 (rete di non regressione compresa); 4) se il rilascio cambia ciò che il lettore
@@ -28,7 +29,7 @@
 # Tra il 3 e il 4, la prova: se il rilascio cambia le regole di scrittura o un'edizione campione serve --dopo-la-prova,
 # che chi guida il rilascio aggiunge solo quando l'edizione di prova del ramo con-prova è andata bene (dopo.prova ok).
 # Prima dei cancelli, l'orario: dal lunedì al venerdì tra le 8:30 e le 10:30 di Roma l'edizione sta uscendo e il ramo
-# principale non si tocca; --guasto lo permette solo per un guasto che blocca l'uscita dell'edizione.
+# principale non si tocca; --guasto lo permette solo per un guasto che blocca l'uscita dell'edizione. Vale anche per annulla.
 # Il resoconto dice anche la FINESTRA del rilascio (ARCHITETTURA.md §5): ogni giorno, con prova, con Paolo.
 # Il merge ha come contenuto esatto quello collaudato (stesso albero di file). Si può sempre tornare indietro: annulla.
 # Il ramo rilascio su GitHub non va mai avanti al ramo principale: unisci e pubblica non lo spingono; pubblica lo
@@ -49,6 +50,7 @@ for a in "$@"; do
     [ -z "$PROVATO" ] || { echo "RILASCIO: FERMO - unisci vuole un solo commit, quello della prova"; exit 1; }
     PROVATO="$a"; continue
   fi
+  if [ "$AZIONE" = "annulla" ] && [ "$a" = "--guasto" ]; then GUASTO=1; continue; fi
   [ "$AZIONE" = "pubblica" ] || { echo "RILASCIO: FERMO - opzione sconosciuta per '$AZIONE': $a"; exit 1; }
   case "$a" in --ok-di-paolo) OK_PAOLO=1;; --dopo-la-prova) DOPO_PROVA=1;; --senza-github) SENZA_GITHUB=1;; --guasto) GUASTO=1;; *) echo "RILASCIO: FERMO - opzione sconosciuta: $a"; exit 1;; esac
 done
@@ -256,9 +258,15 @@ $(git log --no-merges --reverse --format='- %s' "origin/$PRINC..HEAD" | cut -c1-
   echo "Per tornare indietro: bash redazione/rilascia.sh annulla"
   ;;
 annulla)
+  if fuori_orario && [ "$GUASTO" != 1 ]; then
+    fermo "tra le 8:30 e le 10:30 dei giorni di edizione il ramo principale non si tocca: riprova dopo le 10:30 (--guasto solo se è il rilascio a bloccare l'uscita)"
+  fi
   pulito; prendi "$PRINC"; firma
   M=$(git log "origin/$PRINC" --merges --grep='^Rilascio ' -1 --format=%H)
   [ -n "$M" ] || fermo "nessun rilascio da annullare negli ultimi $FONDO commit del ramo principale"
+  # mai due volte di fila: l'ultimo rilascio già tolto non si ritoglie, e quello prima non si tocca senza una scelta
+  GIA=$(git log "origin/$PRINC" --format=%h --grep="This reverts commit $M" -1)
+  [ -z "$GIA" ] || fermo "l'ultimo rilascio ($(git log -1 --format=%s "$M" | cut -c1-80)) è già annullato dal commit $GIA: un secondo annullamento di fila non si fa (per togliere anche quello prima, git revert a mano con Paolo)"
   PRIMA=$(git rev-parse --abbrev-ref HEAD)
   git checkout -q --detach "origin/$PRINC" || fermo "checkout del ramo principale"
   if ! git revert -m 1 --no-edit "$M" >/dev/null 2>&1; then
@@ -272,12 +280,23 @@ annulla)
   if [ $rc -ne 0 ]; then git checkout -q "$PRIMA"; fermo "senza il rilascio il collaudo è rosso: non tolgo nulla, va guardato a mano"; fi
   R=$(git rev-parse HEAD)
   if [ "$PROVA" = "1" ]; then echo "[prova] git push origin $R:refs/heads/$PRINC   (\"$(git log -1 --format=%s "$R")\")"; git checkout -q "$PRIMA"; echo "RILASCIO: PROVA - annullamento pronto, nessun push."; exit 0; fi
+  if fuori_orario && [ "$GUASTO" != 1 ]; then git checkout -q "$PRIMA"; fermo "nel frattempo sono le 8:30 passate: il ramo principale non si tocca fino alle 10:30, rilancia dopo (nulla è cambiato)"; fi
   spingi "$R" "$PRINC" || { git checkout -q "$PRIMA"; fermo "push dell'annullamento rifiutato: nulla è cambiato"; }
   git checkout -q "$PRIMA"
   echo "RILASCIO: ANNULLATO - il ramo principale è tornato a prima del rilascio $(git rev-parse --short "$M") (commit $(git rev-parse --short "$R"))."
-  echo "Il lavoro resta sul ramo $RAMO. Per riproporlo dopo la correzione: 'avvia', poi git revert $(git rev-parse --short "$R") sul ramo $RAMO (riporta dentro il lavoro), correzione, 'pubblica'."
+  # il ramo rilascio torna uguale al ramo principale (senza forzare: solo se è indietro sulla stessa linea)
+  git fetch -q --depth="$FONDO" origin "+refs/heads/$RAMO:refs/remotes/origin/$RAMO" 2>/dev/null
+  if ! git rev-parse -q --verify "refs/remotes/origin/$RAMO" >/dev/null || git merge-base --is-ancestor "origin/$RAMO" "$R"; then
+    spingi "$R" "$RAMO" && echo "Ramo $RAMO riallineato al ramo principale." || echo "AVVISO: ramo $RAMO non riallineato (push rifiutato): lo dirà il prossimo 'avvia'"
+  else
+    echo "AVVISO: il ramo $RAMO su GitHub ha lavoro fuori dalla linea del ramo principale: non riallineato, lo fermerà il prossimo 'avvia'"
+  fi
+  if git show-ref --verify --quiet "refs/heads/$RAMO" && git merge-base --is-ancestor "$RAMO" "$R"; then
+    if [ "$PRIMA" = "$RAMO" ]; then git merge -q --ff-only "$R"; else git branch -q -f "$RAMO" "$R"; fi
+  fi
+  echo "Il lavoro resta nella storia e sul ramo della voce. Per riproporlo dopo la correzione: 'avvia', poi git revert $(git rev-parse --short "$R") sul ramo $RAMO (riporta dentro il lavoro), correzione, 'pubblica'."
   ;;
-*) echo "uso: rilascia.sh avvia [con-prova | --ripulisci] | collauda | unisci <commit provato> | pubblica [--ok-di-paolo] [--dopo-la-prova] [--senza-github] [--guasto] | annulla"; exit 1;;
+*) echo "uso: rilascia.sh avvia [con-prova | --ripulisci] | collauda | unisci <commit provato> | pubblica [--ok-di-paolo] [--dopo-la-prova] [--senza-github] [--guasto] | annulla [--guasto]"; exit 1;;
 esac
 exit 0
 }

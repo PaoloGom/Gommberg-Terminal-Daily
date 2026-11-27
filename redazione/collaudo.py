@@ -1719,9 +1719,40 @@ def avvia_sporco():
           "rilascio con lavoro non in linea fermato; --ripulisci lo riporta uguale a main senza forzare; con-prova si avvia")
 
 
+def annulla_cancelli():
+    """3. annulla: mai nella fascia dell'uscita (lun-ven 8:30-10:30 di Roma), mai due volte lo stesso rilascio; dopo,
+    il ramo rilascio torna uguale al ramo principale. Un'edizione uscita dopo il rilascio resta."""
+    b, male = Banco("annulla"), []
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    b.commit("redazione/STATO.md", "rilasciato\n", "G-00: da togliere")
+    rc, out = b.rilascia("pubblica")
+    if rc:
+        return esito("Rilascio: annulla", False, "il rilascio da annullare non è partito: " + ultima(out))
+    b.g("checkout", "-q", "-B", "main", "origin/main"); b.commit("edizione.txt", "#036\n", "Edizione #036 - 2026-11-30")
+    b.g("push", "-q", "origin", "main"); b.g("checkout", "-q", "rilascio")
+    prima = b.remoto("main")
+    b.ora = "1 0915"
+    rc, out = b.rilascia("annulla")
+    if rc == 0 or "RILASCIO: FERMO" not in out or b.remoto("main") != prima:
+        male.append("lunedì alle 9:15 doveva fermarsi senza toccare il ramo principale (" + ultima(out) + ")")
+    b.ora = "6 2000"
+    rc, out = b.rilascia("annulla")
+    dopo = b.remoto("main")
+    if rc or dopo == prima or b.g("show", dopo + ":redazione/STATO.md") != "stato" or "#036" not in b.g("show", dopo + ":edizione.txt"):
+        male.append("di sabato doveva togliere il rilascio e lasciare l'edizione (" + ultima(out) + ")")
+    elif b.remoto("rilascio") != dopo or b.g("rev-parse", "rilascio") != dopo:
+        male.append("dopo l'annullamento il ramo rilascio non è tornato uguale al ramo principale")
+    rc, out = b.rilascia("annulla")
+    if rc == 0 or "già annullato" not in out or b.remoto("main") != dopo:
+        male.append("un secondo annullamento di fila doveva fermarsi (" + ultima(out) + ")")
+    esito("Rilascio: annulla", not male, "; ".join(male) or
+          "fermo nella fascia dell'uscita; toglie il rilascio e lascia l'edizione; rilascio = main; il secondo di fila si ferma")
+
+
 def passo_rilascio():
     rilascio_avanti()
     avvia_sporco()
+    annulla_cancelli()
 
 
 def main():
