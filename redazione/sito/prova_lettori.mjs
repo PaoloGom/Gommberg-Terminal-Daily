@@ -65,6 +65,8 @@ r = await chiama("POST", "/api/lettori/031/commenti", { corpo: testo("Senza orig
 verifica("senza origine: rifiutato", r.s === 403, r);
 r = await chiama("POST", "/api/lettori/031/commenti", { corpo: testo("Da un altro sito"), origine: "https://altro.example" });
 verifica("da un altro sito: rifiutato", r.s === 403, r);
+r = await chiama("POST", "/api/lettori/031/commenti", { corpo: testo("Stesso nome, schema diverso"), origine: "http://gommberg.com" });
+verifica("stesso nome di sito con http: rifiutato (l'origine si confronta intera)", r.s === 403, r);
 r = await chiama("POST", "/api/lettori/031/commenti", { corpo: testo("Lettore finto"), lettore: "x" });
 verifica("lettore non riconoscibile: rifiutato", r.s === 400, r);
 r = await chiama("POST", "/api/lettori/031/commenti", { corpo: { ...testo("Gettone falso"), gettone: "1795000000.000000000000000000000000" } });
@@ -480,6 +482,16 @@ async function areaRiservata() {
     r = await red("POST", "/api/redazione/accesso", { crudo, ip: nuovoIp() });
     verifica("accesso: corpo " + crudo.slice(0, 12) + " rifiutato con " + atteso, r.s === atteso, r.s);
   }
+  r = await red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: PW }, origine: "http://gommberg.com", ip: nuovoIp() });
+  verifica("accesso: stesso nome di sito ma schema diverso (http): rifiutato, l'origine si confronta intera", r.s === 403 && !r.set.length, r.s);
+  let letto = 0;
+  const flusso = () => new ReadableStream({ pull(ctrl) { letto++; ctrl.enqueue(new TextEncoder().encode("x".repeat(4096))); } });
+  let rr = await worker.fetch(new Request(BASE + "/api/redazione/accesso", { method: "POST", duplex: "half", body: flusso(),
+    headers: { origin: BASE, "content-type": "application/json", "content-length": "20000000", "cf-connecting-ip": nuovoIp() } }), env);
+  verifica("accesso: un corpo dichiarato di 20 MB si rifiuta prima di leggerlo (al più il primo pezzo che il runtime prende da sé)", rr.status === 413 && letto <= 2, [rr.status, letto]);
+  rr = await worker.fetch(new Request(BASE + "/api/redazione/accesso", { method: "POST", duplex: "half", body: flusso(),
+    headers: { origin: BASE, "content-type": "application/json", "cf-connecting-ip": nuovoIp() } }), env);
+  verifica("accesso: un corpo senza lunghezza dichiarata si ferma appena supera il limite", rr.status === 413, rr.status);
   r = await red("POST", "/api/redazione/accesso", { corpo: { utente: [UT], password: { p: PW } }, ip: nuovoIp() });
   verifica("accesso: campi che non sono testo non passano", r.s === 401, r.s);
   const e1 = await entra();
@@ -768,6 +780,8 @@ async function areaRiservata() {
   verifica("blocca: niente voti, like e segnalazioni", r.s === 403 && r3.s === 403 && r4.s === 403, [r.s, r3.s, r4.s]);
   r = await chiama("POST", "/api/lettori/031/commenti", { lettore: "lettore-redaz-666666666", ip: "21.6.6.6", corpo: { nome: "Lettrice Libera", testo: "Io scrivo", gettone: g6 } });
   verifica("blocca: gli altri lettori scrivono", r.s === 201, r);
+  const scadeRete = q("SELECT scade FROM bloccati WHERE tipo = 'ip' ORDER BY creato DESC LIMIT 1")[0].scade, creatoW = q("SELECT creato FROM commenti WHERE id = " + idW)[0].creato;
+  verifica("privacy: il blocco di rete scade 30 giorni dopo il commento (l'impronta della rete non resta oltre)", Date.parse(scadeRete) <= Date.parse(creatoW) + AREA.blocco_rete_giorni * 86400000 + 1000, [scadeRete, creatoW]);
   avanti(AREA.blocco_rete_giorni * 86400 + 60);
   const g7 = (await chiama("GET", "/api/lettori/031", L1)).j.gettone; avanti(5);
   r = await chiama("POST", "/api/lettori/031/commenti", { lettore: "lettore-redaz-777777777", ip: L1.ip, corpo: { nome: "Dopo Un Mese", testo: "Stessa rete, un mese dopo", gettone: g7 } });

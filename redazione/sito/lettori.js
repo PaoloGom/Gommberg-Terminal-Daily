@@ -236,8 +236,8 @@ async function instrada(request, env, url) {
   }
   // scritture: dalla pagina del sito stesso, con un lettore riconoscibile e un gettone valido
   let origine = "";
-  try { origine = new URL(request.headers.get("origin") || "").host; } catch (e) { origine = ""; }
-  if (!origine || origine !== url.host) return errore("Richiesta non ammessa.", 403);
+  try { origine = new URL(request.headers.get("origin") || "").origin; } catch (e) { origine = ""; }
+  if (!origine || origine !== url.origin) return errore("Richiesta non ammessa.", 403);   // l'origine intera, schema compreso
   if (!autore) return errore("Ricarica la pagina e riprova.", 400);
   let corpo = {};
   try { corpo = await request.json(); } catch (e) { return errore("Richiesta non valida.", 400); }

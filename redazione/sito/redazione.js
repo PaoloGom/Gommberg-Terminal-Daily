@@ -182,8 +182,27 @@ async function registra(c, esito) {
 // Le scritture dell'area: dal sito stesso, con una sessione valida e il suo gettone anti-CSRF
 function stessoSito(c) {
   let o = "";
-  try { o = new URL(c.request.headers.get("origin") || "").host; } catch (e) { o = ""; }
-  return !!o && o === c.url.host;
+  try { o = new URL(c.request.headers.get("origin") || "").origin; } catch (e) { o = ""; }
+  return !!o && o !== "null" && o === c.url.origin;      // l'origine intera: schema, nome e porta
+}
+// Il corpo di una richiesta, al massimo max byte: si rifiuta prima di leggerlo se la lunghezza dichiarata è troppa, e si
+// smette di leggerlo appena supera il limite se non è dichiarata. null = troppo grande.
+async function leggiCorpo(request, max) {
+  const cl = request.headers.get("content-length");
+  if (cl !== null && (!/^\d{1,12}$/.test(cl) || +cl > max)) return null;
+  if (!request.body) return "";
+  const r = request.body.getReader(), pezzi = [];
+  let n = 0;
+  for (;;) {
+    const { done, value } = await r.read();
+    if (done) break;
+    n += value.byteLength;
+    if (n > max) { try { await r.cancel(); } catch (e) { /* già chiuso */ } return null; }
+    pezzi.push(value);
+  }
+  const tutto = new Uint8Array(n); let i = 0;
+  for (const p of pezzi) { tutto.set(p, i); i += p.byteLength; }
+  return new TextDecoder().decode(tutto);
 }
 
 // ------------------------------------------------------------------ ingresso
@@ -251,8 +270,8 @@ async function api(c) {
   let corpo = {};
   if (metodo === "POST") {
     if (!stessoSito(c)) return no(url, "Richiesta non ammessa.", 403);
-    const testo = await request.text();
-    if (testo.length > 8000) return no(url, "Richiesta troppo grande.", 413);
+    const testo = await leggiCorpo(request, 8000);
+    if (testo === null) return no(url, "Richiesta troppo grande.", 413);
     try { corpo = testo ? JSON.parse(testo) : {}; } catch (e) { return no(url, "Richiesta non valida.", 400); }
     if (!corpo || typeof corpo !== "object" || Array.isArray(corpo)) return no(url, "Richiesta non valida.", 400);
   }
@@ -469,7 +488,7 @@ async function elenco(c) {
   });
 }
 async function trovaCommento(c, id) {
-  return c.db.prepare("SELECT id, ed, padre, autore, ip, nome, nascosto, segnalazioni, redazione FROM commenti WHERE id = ? AND sito = ?").bind(id, c.sito).first();
+  return c.db.prepare("SELECT id, ed, padre, autore, ip, nome, creato, nascosto, segnalazioni, redazione FROM commenti WHERE id = ? AND sito = ?").bind(id, c.sito).first();
 }
 async function lettore(c) {
   const id = c.url.searchParams.get("commento");
@@ -564,7 +583,7 @@ async function scriviRedazione(c, corpo) {
     redazione: true, fissato: null, modificato: null } }, 201);
 }
 
-// Bloccare un lettore: il codice del suo browser per sempre (finché non lo si sblocca) e la sua rete per 30 giorni
+// Bloccare un lettore: il codice del suo browser per sempre (finché non lo si sblocca) e la sua rete fino a 30 giorni dal commento
 // (le reti cambiano mano: un blocco per sempre fermerebbe anche chi viene dopo). I commenti già scritti restano.
 async function blocca(c, corpo, si) {
   const { url } = c;
@@ -574,13 +593,15 @@ async function blocca(c, corpo, si) {
   const adesso = iso(new Date(Date.now()));
   if (si) {
     const q = [c.db.prepare("INSERT OR REPLACE INTO bloccati (sito, tipo, valore, creato, scade, commento) VALUES (?, 'lettore', ?, ?, NULL, ?)").bind(c.sito, cm.autore, adesso, cm.id)];
-    if (cm.ip) q.push(c.db.prepare("INSERT OR REPLACE INTO bloccati (sito, tipo, valore, creato, scade, commento) VALUES (?, 'ip', ?, ?, ?, ?)")
-      .bind(c.sito, cm.ip, adesso, iso(new Date(Date.now() + AREA.blocco_rete_giorni * 86400000)), cm.id));
+    // la rete scade 30 giorni dopo il commento: l'impronta della rete non resta oltre i 30 giorni promessi da privacy.html
+    const scade = Date.parse(cm.creato) + AREA.blocco_rete_giorni * 86400000;
+    if (cm.ip && scade > Date.now()) q.push(c.db.prepare("INSERT OR REPLACE INTO bloccati (sito, tipo, valore, creato, scade, commento) VALUES (?, 'ip', ?, ?, ?, ?)")
+      .bind(c.sito, cm.ip, adesso, iso(new Date(scade)), cm.id));
     await c.db.batch(q);
   } else {
     await c.db.prepare("DELETE FROM bloccati WHERE sito = ? AND ((tipo = 'lettore' AND valore = ?) OR (tipo = 'ip' AND valore = ?))").bind(c.sito, cm.autore, cm.ip || "-").run();
   }
-  return json(url, { ok: true, bloccato: si, rete: si && !!cm.ip });
+  return json(url, { ok: true, bloccato: si, rete: si && !!cm.ip && Date.parse(cm.creato) + AREA.blocco_rete_giorni * 86400000 > Date.now() });
 }
 // Liberare un nome: torna disponibile per tutti (per esempio dopo aver tolto i commenti di chi lo usava)
 async function liberaNome(c, corpo) {
