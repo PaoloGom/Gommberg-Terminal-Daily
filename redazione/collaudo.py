@@ -1817,12 +1817,43 @@ def commit_approvato():
           "con un commit non approvato accanto si ferma; da rilascio pulito unisce e pubblica main più il commit, e lo nomina")
 
 
+def prova_automatica():
+    """6. prova.sh lanciabile da una sessione: avvio prende da solo il ramo da GitHub, e il ramo prova dice in JSON
+    l'esito e il commit provato (in corso, poi chiusa)."""
+    b, male = Banco("prova"), []
+    lav, link = os.path.join(b.base, "lavoro"), os.path.join(b.base, "gtd")
+    b.g("checkout", "-q", "-B", "con-prova", "origin/main")
+    provato = b.commit("redazione/ISTRUZIONI.md", "regole nuove\n", "G-03: regole")
+    b.g("push", "-q", "origin", "con-prova"); b.g("checkout", "-q", "-B", "con-prova", "origin/main"); b.g("checkout", "-q", "main")
+    prova = lambda *a: esegui(["bash", "redazione/prova.sh", *a], cwd=b.rep, env={"GTD_LAVORO": lav, "GTD_LINK": link}, timeout=60)
+    def leggi():
+        rc, out = prova("esito")
+        try:
+            return rc, json.loads(out)
+        except Exception:  # noqa: BLE001
+            return rc, {"uscita": out.strip()[-120:]}
+    rc, out = prova("avvio", "2026-11-30", "--ramo", "con-prova")
+    if rc or b.g("rev-parse", "--abbrev-ref", "HEAD") != "con-prova":
+        male.append("avvio --ramo doveva prendere il ramo da GitHub (" + ultima(out) + ")")
+    rc, e = leggi()
+    if rc != 2 or e.get("esito") != "in-corso" or e.get("commit") != provato:
+        male.append(f"a prova avviata l'esito doveva dire in-corso sul commit provato ({e})")
+    pdf = os.path.join(b.base, "prova.pdf"); open(pdf, "w").write("%PDF finto")
+    rc, out = prova("chiudi", pdf)
+    rc2, e = leggi()
+    if rc or rc2 != 0 or e.get("esito") != "chiusa" or e.get("commit") != provato or e.get("data") != "2026-11-30" or "prova.pdf" not in e.get("file", []):
+        male.append(f"a prova chiusa l'esito doveva dire chiusa, con data, commit provato e PDF ({ultima(out)}; {e})")
+    esito("Prova automatica: prova.sh da una sessione", not male, "; ".join(male) or
+          "avvio --ramo prende il ramo da sé; prova.sh esito dice in JSON in-corso e poi chiusa, con il commit provato")
+
+
 def passo_rilascio():
     rilascio_avanti()
     avvia_sporco()
     annulla_cancelli()
     catena_livello()
     commit_approvato()
+    prova_automatica()
 
 
 def main():
