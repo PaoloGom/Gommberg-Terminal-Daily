@@ -17,6 +17,8 @@ Cosa controlla:
                    Pag. 6 non si giudica sul riempimento: dipende dal registro della scommessa di quella settimana.
      Coerenza      il testo contro dati.json (controlli_coerenza.py) e il desk (desk.py) su frasi vere della prova del 23/11 e
                    delle #031-#032: cifre che cambiano soggetto, versi contrari, rimandi vuoti, ipotesi nei titoli, ragionamento.
+     Memoria       la memoria delle ultime 5 edizioni (memoria.py ultime, G-42) sulle edizioni vere: i casi della misura
+                   del 25/11 si vedono, resta corta, un sorgente rotto la accorcia, il desk la riceve, una regola sola.
      Fonti         la regola dei fatti (autori.py, applicata da controlli_fatti.py) su schede costruite apposta: la
                    primaria basta, un'agenzia ripresa da tre siti è un autore solo, l'ultima scelta va dichiarata; e il
                    gancio (gancio_token.py) su una trascrizione costruita: ricerche, pagine aperte, pagine non raggiunte.
@@ -178,6 +180,96 @@ def passo_sintassi():
             if c.count("(") != c.count(")") or c.count("'") % 2:
                 male.append(os.path.basename(f) + ": condizione troncata (un # non tra virgolette?): " + c[:60])
     esito("Sintassi", not male, "; ".join(male) or f"tutti i .py e i .sh del kit ({len(interpreti)} versioni di Python), {len(flussi) if yaml else 0} flussi di GitHub")
+
+
+# ---------------------------------------------------------------- memoria delle ultime edizioni (G-42)
+MEMORIA_MAX = 6500     # caratteri della memoria che chi scrive legge ogni mattina: oltre, la memoria costa troppo
+
+
+def passo_memoria():
+    """La memoria delle ultime 5 edizioni (G-42) sulle edizioni vere: i casi della misura del 25/11 si vedono (l'oro che
+    non fa da rifugio, il petrolio che guarda all'offerta, "il prezzo sale e il rendimento scende" rispiegato), resta
+    corta, un sorgente rotto o mancante la accorcia senza errori, il desk la riceve con i pezzi di oggi che la riprendono,
+    e nelle istruzioni la regola sta una volta sola, al posto di quella di G-36/G-47."""
+    import desk
+    import memoria as MEM
+    male = []
+    MEM.REPO = REPO
+    voci = {d: MEM.ultime(dt.date.fromisoformat(d), repo=REPO) for d in ("2026-11-23", "2026-11-25")}
+
+    def dove(v, tema=None, mecc=None):
+        return sorted({x["data"][8:] for x in v if (tema is None or re.search(tema, x["titolo"], re.I))
+                       and (mecc is None or mecc in x["meccanismi"])})
+    v23, v25 = voci["2026-11-23"], voci["2026-11-25"]
+    attesi = (("23/11: le 5 edizioni prima", sorted({x["data"][8:] for x in v23}), ["16", "17", "18", "19", "20"]),
+              ("23/11: l'oro (M23) già uscito", dove(v23, r"\boro\b", "M23"), ["17", "19", "20"]),
+              ("23/11: il petrolio sull'offerta (M11)", dove(v23, r"petrolio|brent", "M11"), ["16", "17", "18", "20"]),
+              ("23/11: prezzo e rendimento (M01)", dove(v23, None, "M01"), ["17", "18"]),
+              ("25/11: l'oro (M23) già uscito", dove(v25, r"\boro\b", "M23"), ["19", "20", "23", "24"]),
+              ("25/11: il petrolio sull'offerta (M11)", dove(v25, r"petrolio|brent", "M11"), ["18", "20", "24"]),
+              ("25/11: prezzo e rendimento (M01)", dove(v25, None, "M01"), ["18", "23", "24"]))
+    for caso, trovato, atteso in attesi:
+        if trovato != atteso:
+            male.append(f"{caso}: {trovato} invece di {atteso}")
+    # la tesi è una frase scritta dall'edizione (mai un riassunto), il titolo è quello letto dal lettore (desk applicato)
+    if not any(x["titolo"] == "Il rimbalzo di Nvidia: si vendeva per sfiducia, non per i conti" for x in v25):
+        male.append("24/11: il titolo del pezzo sui chip non è quello riscritto dal desk e uscito in pagina")
+    lunghe = []
+    for p in sorted(glob.glob(os.path.join(R, "sorgenti", "20*"))):
+        d = dt.date.fromisoformat(os.path.basename(p)) + dt.timedelta(days=1)
+        n = len(MEM.testo_memoria(MEM.ultime(d, repo=REPO)))
+        if n > MEMORIA_MAX:
+            lunghe.append(f"{d:%d/%m} {n}")
+    if lunghe:
+        male.append(f"memoria oltre {MEMORIA_MAX} caratteri: " + ", ".join(lunghe))
+    # sorgenti rotti o mancanti: la memoria si accorcia, nessun errore
+    mondo = os.path.join(TMP, "memoria")
+    os.makedirs(os.path.join(mondo, "redazione"), exist_ok=True)
+    shutil.copy(os.path.join(REPO, "edizioni.json"), mondo)
+    for d in ("2026-11-18", "2026-11-19", "2026-11-20"):
+        shutil.copytree(os.path.join(R, "sorgenti", d), os.path.join(mondo, "redazione", "sorgenti", d),
+                        ignore=shutil.ignore_patterns("__pycache__"))
+    for d, testo in (("2026-11-23", "C = {'moduli': [("), ("2026-11-24", "C = {'data': 1}"), ("2026-11-25", None)):
+        os.makedirs(os.path.join(mondo, "redazione", "sorgenti", d), exist_ok=True)
+        if testo:
+            open(os.path.join(mondo, "redazione", "sorgenti", d, "edizione.py"), "w").write(testo)
+    open(os.path.join(mondo, "redazione", "sorgenti", "2026-11-19", "desk_ok.json"), "w").write("{ rotto")
+    try:
+        corta = MEM.ultime(dt.date(2026, 11, 26), repo=mondo)
+        if sorted({x["data"] for x in corta}) != ["2026-11-18", "2026-11-19", "2026-11-20"]:
+            male.append(f"sorgenti rotti: memoria su {sorted({x['data'] for x in corta})} invece delle tre edizioni sane")
+        vuota = MEM.testo_memoria(MEM.ultime(dt.date(2026, 11, 26), repo=os.path.join(TMP, "nessun_repo")))
+        if "nessun sorgente" not in vuota:
+            male.append("senza sorgenti la memoria non lo dice")
+    except Exception as e:  # noqa: BLE001
+        male.append(f"sorgenti rotti: {type(e).__name__} {str(e)[:60]}")
+    # il desk: in fondo all'incarico la stessa memoria e ciò che i pezzi di oggi ne riprendono
+    letto = MEM._moduli_sorgente(os.path.join(R, "sorgenti", "2026-11-23", "edizione.py"))
+    testo = desk.memoria({"moduli": letto[1]}, "edizione_2026-11-23.py") if letto else None
+    riga_oro = next((r for r in (testo or "").splitlines() if r.startswith("moduli.oro:")), "")
+    if not testo or not testo.startswith("Memoria delle ultime 5 edizioni") or "M23 già spiegato" not in riga_oro \
+            or "titolo vicino al 17/11" not in riga_oro:
+        male.append(f"desk: memoria o segnalazione dell'oro del 23/11 assenti ({riga_oro[:80] or 'nessuna riga'})")
+    storto = desk.memoria({"moduli": [{"chiave": "x", "titolo": 3}, "rotto"]}, "edizione_2026-11-23.py")
+    if not (storto or "").endswith("nessuno") or desk.memoria({}, "edizione_2026-01-02.py") is not None:
+        male.append("desk: un pezzo scritto male non si segnala e senza sorgenti l'incarico resta com'era")
+    # le istruzioni: una regola sola tra edizioni, al posto della vecchia (niente stratificazione)
+    ist = open(os.path.join(R, "ISTRUZIONI.md"), encoding="utf-8").read()
+    if ist.count("**Tra edizioni**") != 1 or "Se `memoria.py` lo segna già spiegato" in ist or "Tra edizioni solo fatti nuovi" in ist:
+        male.append("ISTRUZIONI: la regola tra edizioni deve stare una volta sola, senza quelle che ha sostituito")
+    # prepara.sh scrive la memoria e la annuncia in una riga
+    lav = os.path.join(TMP, "avvio_memoria")
+    voci_ed = json.load(open(os.path.join(REPO, "edizioni.json"), encoding="utf-8"))
+    dopo = dt.date.fromisoformat(max(v["data"] for v in voci_ed)) + dt.timedelta(days=1)
+    giorno = next(x for x in (dopo + dt.timedelta(days=k) for k in range(30)) if G.uscita(x))
+    rc, out = esegui(["bash", os.path.join(R, "prepara.sh"), giorno.isoformat()], env={"GTD_REPO": REPO, "GTD_LAVORO": lav})
+    f = os.path.join(lav, "memoria_edizioni.txt")
+    if rc or "Memoria delle ultime" not in out or not os.path.exists(f) or os.path.getsize(f) > MEMORIA_MAX + 200:
+        male.append("prepara.sh: memoria delle ultime edizioni non scritta o non annunciata")
+    n = os.path.getsize(f) if os.path.exists(f) else 0
+    esito("Memoria delle ultime edizioni (G-42)", not male, "; ".join(male) or
+          f"oro, petrolio e prezzo-rendimento visibili il 23 e il 25/11; {n} caratteri il {giorno:%d/%m}; sorgenti rotti "
+          "e mancanti saltati; il desk la riceve con l'oro del 23/11 segnalato; una regola sola nelle istruzioni")
 
 
 # ---------------------------------------------------------------- 2. avvio
@@ -2149,6 +2241,7 @@ def main():
         passo_modello()
         passo_scrittura()
         passo_coerenza()
+        passo_memoria()
         passo_fonti()
         passo_dati()
         passo_tabelle()

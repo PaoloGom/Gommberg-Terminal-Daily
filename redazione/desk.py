@@ -9,6 +9,8 @@ testo com'era: il desk non blocca mai.
 
 Uso (cartella di lavoro):
   python3 desk.py estrai <edizione.py>     -> desk_incarico.json  [{"campo", "testo"}]  (lo riceve l'agente desk)
+                                              in fondo, da leggere e non da riscrivere, la memoria delle ultime edizioni
+                                              e ciò che i pezzi di oggi ne riprendono (G-42)
   (l'agente scrive desk_proposta.json      -> [{"campo", "testo"}], solo i campi che migliora)
   python3 desk.py verifica <edizione.py>   -> desk_ok.json (accettate) e l'elenco delle respinte col motivo
 Il modello applica desk_ok.json da solo al rendering, e solo ai campi rimasti come il desk li ha letti.
@@ -20,6 +22,7 @@ import re
 import sys
 
 INC, PRO, OK = "desk_incarico.json", "desk_proposta.json", "desk_ok.json"
+MEMORIA = "memoria delle ultime edizioni (da leggere, non si riscrive)"
 
 
 def campi(C):
@@ -611,6 +614,30 @@ def _carica(ed):
     return mod.C
 
 
+def memoria(C, ed):
+    """La voce in fondo all'incarico (G-42): la memoria delle ultime 5 edizioni, la stessa che ha avuto chi ha fatto la
+    scaletta, e per ogni pezzo di oggi che cosa ne riprende (meccanismi già spiegati, titoli vicini, stesso attacco),
+    calcolato dal codice. Il desk riscrive con le regole che ha già (§3.3); qui nulla blocca. Se la memoria non si fa,
+    l'incarico resta quello di sempre."""
+    try:
+        import datetime
+        import memoria as MEM
+        m = re.search(r"(\d{4}-\d{2}-\d{2})", os.path.basename(ed))
+        oggi = datetime.date.fromisoformat(m.group(1)) if m else datetime.date.today()
+        voci = MEM.ultime(oggi)
+        if not voci:
+            return None
+        righe = []
+        for x in C.get("moduli") or []:
+            if isinstance(x, dict) and x.get("chiave") and isinstance(x.get("titolo"), str):
+                s = MEM.segnala(x, voci)
+                if s:
+                    righe.append(f"moduli.{x['chiave']}: " + "; ".join(s))
+        return MEM.testo_memoria(voci) + "\nI pezzi di oggi che la riprendono: " + ("\n" + "\n".join(righe) if righe else "nessuno")
+    except Exception:  # noqa: BLE001 - la memoria aiuta, non ferma il desk
+        return None
+
+
 if __name__ == "__main__":
     azione, ed = sys.argv[1], os.path.abspath(sys.argv[2])
     cart = os.getcwd()
@@ -618,9 +645,11 @@ if __name__ == "__main__":
     os.chdir(cart)
     attuali = campi(C)
     if azione == "estrai":
-        json.dump([{"campo": k, "testo": v} for k, v in attuali.items()], open(INC, "w", encoding="utf-8"),
-                  ensure_ascii=False, indent=1)
-        print(f"Desk: {len(attuali)} testi in {INC}; proposta attesa in {PRO}")
+        mem = memoria(C, ed)
+        json.dump([{"campo": k, "testo": v} for k, v in attuali.items()] + ([{"campo": MEMORIA, "testo": mem}] if mem else []),
+                  open(INC, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        print(f"Desk: {len(attuali)} testi in {INC}" + (f", in fondo la memoria delle ultime edizioni ({len(mem)} caratteri)"
+                                                       if mem else "") + f"; proposta attesa in {PRO}")
     elif azione == "verifica":
         tutto = set().union(*[_nomi(v) for v in attuali.values()])
         M = _mercati_del_giorno(cart)

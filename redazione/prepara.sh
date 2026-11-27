@@ -24,7 +24,7 @@ for t in pdftotext pdfinfo pdftoppm qpdf; do command -v $t >/dev/null || DEP="$D
 # 2. Cartella di lavoro con il kit (solo .py e svg/png del kit; i file dell'edizione restano in $L)
 mkdir -p "$L"
 # file del giorno prima: mai riusarli (dati stantii)
-rm -f "$L"/dati.json "$L"/attuali.json "$L"/stato.json "$L"/verdetto.json "$L"/fatti.json "$L"/voce_indice.json "$L"/nuovi.json "$L"/redazione.json "$L"/revisione*.json "$L"/desk_*.json "$L"/edizione_20*.py
+rm -f "$L"/memoria_edizioni.txt "$L"/dati.json "$L"/attuali.json "$L"/stato.json "$L"/verdetto.json "$L"/fatti.json "$L"/voce_indice.json "$L"/nuovi.json "$L"/redazione.json "$L"/revisione*.json "$L"/desk_*.json "$L"/edizione_20*.py
 # kit: tutti i .py tranne lo stub del vecchio modello (il modello in vigore è edizione_modello_v6.py)
 NK=0
 for f in "$R"/*.py; do
@@ -130,6 +130,14 @@ try:
     out += [cut(x, 330) for x in r.stdout.strip().splitlines()[:1]]
 except Exception:
     pass
+# Memoria delle ultime 5 edizioni (G-42): tesi, meccanismi e attacchi già usati, dai sorgenti archiviati (§3.3)
+try:
+    r = subprocess.run([sys.executable, os.path.join(repo, "redazione", "memoria.py"), "ultime", oggi.isoformat(),
+                        "--file", os.path.join(lav, "memoria_edizioni.txt")],
+                       capture_output=True, text=True, timeout=30, env=dict(os.environ, GTD_REPO=repo))
+    out += [cut(x, 330) for x in r.stdout.strip().splitlines()[:1]]
+except Exception:
+    pass
 
 # Ultima edizione
 try:
@@ -146,10 +154,6 @@ if voci:
     nt = u.get("notizie", [])
     for i in range(0, len(nt), 2):
         out.append(cut("  notizie: " + " | ".join(nt[i:i + 2]), 170))
-    if u.get("approfondimenti"):
-        out.append(cut("  approfondimenti: " + " | ".join(f"{a.get('tema')}: {a.get('titolo')}" for a in u["approfondimenti"]), 220))
-    elif u.get("temi_deep_dive"):
-        out.append(cut("  deep dive: " + " | ".join(f"{k}: {v}" for k, v in u["temi_deep_dive"].items()), 260))
     if u.get("termometri"):
         out.append(cut("  termometri: " + " | ".join(str(t) for t in u["termometri"]), 170))
     if u.get("temi"):
