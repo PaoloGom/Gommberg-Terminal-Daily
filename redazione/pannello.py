@@ -24,7 +24,7 @@ Tre file in pannello/ (più invii.json, di dem.py):
                   ({giorno, ora}: venerdì 18:00, ora di Roma, confermato da Paolo il 25/11; la scheda "Quanto pesa il Gommberg su ogni piano"
                   lo scrive). Un'edizione è rapportata al piano in vigore quando è uscita; un piano senza letture di taratura mostra
                   i token e i punti a edizione "da misurare". Un piano può avere una "stima" ({di, rapporto, motivo}: quota = quella
-                  del piano "di" per il rapporto): la scheda la scrive come stima finché ci sono letture vere, poi vince la misura.
+                  del piano "di" per il rapporto): la scheda la scrive come stima finché non ci sono letture vere, poi vince la misura.
                   Cambiare piano = una riga in più, mai una modifica alla pagina.
 
 Uso:

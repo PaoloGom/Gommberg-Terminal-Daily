@@ -1301,8 +1301,8 @@ def problemi_piani(piani, tarature):
         if not isinstance(nome, str) or not nome.strip():
             guasti.append(f"piani.json, voce {i + 1}: manca il nome del piano")
             continue
-        if nome in nomi:
-            guasti.append(f"piani.json: il piano '{nome}' compare due volte")
+        if nomi and nomi[-1] == nome:                      # un piano che ritorna (Pro, Max 5x, Pro) è una riga nuova con il suo "dal"
+            guasti.append(f"piani.json: il piano '{nome}' compare due volte di fila (una riga nuova serve solo se il piano cambia)")
         nomi.append(nome)
         dal = x.get("dal")
         if dal is None and i == 0:
@@ -1340,9 +1340,12 @@ def problemi_piani(piani, tarature):
         if not isinstance(st, dict) or di not in nomi or di == nome:
             guasti.append(f"piani.json, '{nome}': la 'stima' deve dire su quale altro piano di piani.json si basa ('di')")
         else:
-            base = next((y for y in piani if isinstance(y, dict) and y.get("piano") == di), {})
-            if base.get("stima") is not None:
-                guasti.append(f"piani.json, '{nome}': la stima si basa su '{di}', che è a sua volta una stima (niente catene)")
+            # catena: la base che è a sua volta una stima è un guasto solo se non ha una misura vera (lettura non esclusa);
+            # con una misura la pagina usa quella e il campo "stima" della base resta inerte
+            misurato = any(isinstance(t, dict) and t.get("piano") == di and not t.get("escluso") and (t.get("punti") or 0) > 0
+                           and (t.get("durata_min") or 0) > 0 for t in (tarature if isinstance(tarature, list) else []))
+            if not misurato and any(isinstance(y, dict) and y.get("piano") == di and y.get("stima") is not None for y in piani):
+                guasti.append(f"piani.json, '{nome}': la stima si basa su '{di}', che è a sua volta una stima senza misura vera (niente catene)")
         if isinstance(r, bool) or not isinstance(r, (int, float)) or not 0 < r <= 10:
             guasti.append(f"piani.json, '{nome}': il 'rapporto' della stima ({r!r}) non è un numero tra 0 e 10")
         if not isinstance(st, dict) or not isinstance(st.get("motivo"), str) or len(st["motivo"].strip()) < 10:
@@ -1386,10 +1389,19 @@ def passo_pannello():
                  ("stima su se stessa", [pro, dict(max5, stima=dict(stima, di="Max 5x"))], []),
                  ("stima con rapporto zero", [pro, dict(max5, stima=dict(stima, rapporto=0))], []),
                  ("stima con rapporto scritto a parole", [pro, dict(max5, stima=dict(stima, rapporto="un quinto"))], []),
-                 ("stima a catena", [dict(pro, stima=dict(stima, di="Max 5x")), dict(max5, stima=stima)], [])]
+                 ("stima a catena", [dict(pro, stima=dict(stima, di="Max 5x")), dict(max5, stima=stima)], []),
+                 ("lo stesso piano due volte di fila", [pro, dict(pro, dal="2026-11-20T18:00:00+01:00")], []),
+                 ("piano che ritorna senza 'dal'", [pro, max5, dict(pro)], []),
+                 ("piano che ritorna fuori ordine", [pro, max5, dict(pro, dal="2026-11-20T18:00:00+01:00")], [])]
     for nome, p, t in sbagliati:
         if not problemi_piani(p, t):
             male.append(f"piani.json: il caso '{nome}' non è fermato")
+    ritorno = [pro, dict(max5, stima=stima), dict(pro, dal="2027-01-12T18:00:00+01:00")]
+    if problemi_piani(ritorno, []):
+        male.append("piani.json: un piano che ritorna (Pro, Max 5x, Pro) con 'dal' in ordine non deve fermare il rilascio")
+    lettura = {"giorno": "2026-12-01", "piano": "Max 5x", "punti": 1, "durata_min": 10}
+    if problemi_piani([pro, dict(max5, stima=stima), {"piano": "Max 20x", "dal": "2026-12-01T18:00:00+01:00", "azzeramento": az, "stima": dict(stima, di="Max 5x")}], [lettura]):
+        male.append("piani.json: una stima su un piano che ha già una misura vera (anche se conserva la sua 'stima') non deve fermare il rilascio")
     if problemi_piani([pro, dict(max5, stima=stima)], []):
         male.append("piani.json: un piano con stima dichiarata (base, rapporto, motivo) non deve fermare il rilascio")
     if problemi_piani([pro, max5], [{"giorno": "2026-11-15", "piano": "Max", "punti": 1, "durata_min": 1, "escluso": "motivo"}]):

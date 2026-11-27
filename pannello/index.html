@@ -451,7 +451,7 @@ function prepara(reg,tar,piani){
     x.tok=x.misurata?x.pesati:null});
   /* Quanto pesa una settimana di cinque edizioni su ogni piano: misurata (media dei punti di tutte le edizioni di quel piano, per cinque) o, se il
      piano non ha ancora una misura ma piani.json dichiara una stima ("stima": {di, rapporto, motivo}), la quota del piano "di" per il rapporto. */
-  PI.forEach(function(q){var f=reg.filter(function(x){return x.pn==q.nome&&isn(x.pt)});q.nq=f.length;q.sett=f.length?med(f.map(function(x){return x.pt}))*5:null;q.base=f.length?"misura":""});
+  PI.forEach(function(q){var f=reg.filter(function(x){return x.pn==q.nome&&isn(x.pt)});q.nq=f.length;q.nt=f.filter(function(x){return x.misurata}).length;q.sett=f.length?med(f.map(function(x){return x.pt}))*5:null;q.base=f.length?"misura":""});
   PI.forEach(function(q){if(q.base)return;var b=q.stima&&P[q.stima.di];if(b&&b!==q&&b.base=="misura"){q.sett=b.sett*q.stima.rapporto;q.base="stima"}});
   var vers=[];reg.forEach(function(x){var l=vers[vers.length-1];if(!l||l.v!=x.v){l={v:x.v,r:[]};vers.push(l)}l.r.push(x)});
   vers.forEach(function(g){var s=riassunto(g.r);for(var k in s)g[k]=s[k];g.dal=g.r[0].d;g.al=g.r[g.r.length-1].d;g.kb=g.r[g.r.length-1].avvio_kb});
@@ -709,14 +709,15 @@ function consumo(w){var a=w.a,b=w.b||{},F=w.F,Q=piano(a),P=Q.nome,un=st0.un,ha=F
 /* Una scheda per tutti i piani di piani.json: la quota misurata o, dichiarata come stima, quella derivata; il resto è margine per il progetto. */
 function fraz(r){var n=Math.round(1/r),m={2:"metà",3:"un terzo",4:"un quarto",5:"un quinto",10:"un decimo"};return Math.abs(n*r-1)<1e-6&&m[n]?m[n]:it(r*100,0)+"%"}
 function pesoPiani(uso){var g={lun:"lunedì",mar:"martedì",mer:"mercoledì",gio:"giovedì",ven:"venerdì",sab:"sabato",dom:"domenica"};
+  var nm=Object.keys(D.P).filter(function(n){return D.P[n].base=="misura"}).length;
   return '<div class="pq">'+Object.keys(D.P).map(function(n){var q=D.P[n],c=q.base,sett=q.sett,s=isn(sett)?sett:0,stima=c=="stima",ok=isn(sett),stt=c=="misura"?st(sett,S.consumo,1):"",
     az=q.az&&q.az.giorno?"azzeramento "+(g[q.az.giorno]||esc(q.az.giorno))+" alle "+esc(q.az.ora):"",
-    come=c=="misura"?"Misurata: "+q.nq+" "+plur(q.nq,"edizione","edizioni")+", "+it(q.tasso*60,1)+" punti per ora":stima?"Stima, non misurata: "+fraz(q.stima.rapporto)+" della quota del "+esc(q.stima.di)+". Vale finché non c'è una misura vera.":"Da misurare: nessuna misura su questo piano";
+    come=c=="misura"?"Misurata su "+q.nq+" "+plur(q.nq,"edizione","edizioni")+" ("+q.nt+" dai token, "+(q.nq-q.nt)+" dalla durata) · "+it(q.tasso*60,1)+" "+(Math.abs(q.tasso*60-1)<.05?"punto":"punti")+" per ora":stima?"Stima, non misurata: "+fraz(q.stima.rapporto)+" della quota del "+esc(q.stima.di)+". Vale finché non c'è una misura vera.":"Da misurare: nessuna misura su questo piano";
     return '<div class="pr'+(n==uso?" uso":"")+'"><div class="ph"><b>'+esc(n)+"</b>"+(n==uso?'<span class="tg">in uso</span>':"")+(stima?'<span class="tg st">stima</span>':"")+(c=="misura"?stato(stt):"")+"</div>"
       +'<div class="pv"><span class="big">'+(ok?(stima?"≈ ":"")+it(sett,0):"-")+"<small>punti su 100</small></span>"+(ok?'<span class="pm">Resta <b>'+(stima?"≈ ":"")+it(Math.max(0,100-sett),0)+"</b> per il progetto</span>":"")+"</div>"
       +'<div class="meter'+(stima?" est":"")+'" role="img" aria-label="'+esc(n)+": "+(ok?(stima?"stima ":"")+it(sett,0)+" su 100":"da misurare")+'"><i style="width:'+Math.min(100,s)+"%"+(stt=="ko"?";background:var(--bad)":stt=="att"?";background:var(--warn)":"")+'"></i>'+(c=="misura"?'<u style="left:'+S.consumo[0]+'%"></u><u class="w" style="left:'+S.consumo[1]+'%"></u>':"")+"</div>"
       +'<div class="pn">'+come+(az?"<br>"+az.charAt(0).toUpperCase()+az.slice(1):"")+"</div></div>"}).join("")
-    +'<p class="note" style="font-size:12px;color:var(--muted)">Linee sul piano misurato: soglia '+S.consumo[0]+', fuori soglia oltre '+S.consumo[1]+".</p></div>"}
+    +(nm?'<p class="note" style="font-size:12px;color:var(--muted)">Linee sul'+(nm>1?"i piani misurati":" piano misurato")+": soglia "+S.consumo[0]+", fuori soglia oltre "+S.consumo[1]+".</p>":"")+"</div>"}
 /* ================= QUALITÀ ================= */
 function qualita(w){var a=w.a,b=w.b||{},F=w.F,u=F[F.length-1];
   var M2=MISURE.filter(function(m){return F.some(function(x){return isn(x[m.k])})});
