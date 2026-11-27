@@ -1,17 +1,17 @@
 {
  "mese": "2026-11",
- "aggiornato": "2026-11-27T18:32Z",
+ "aggiornato": "2026-11-27T18:58Z",
  "quota": 2000,
  "allarme": 75,
- "minuti": 1137.0,
- "percentuale": 56.9,
+ "minuti": 1147.7,
+ "percentuale": 57.4,
  "privato": false,
  "metodo": "stima dai giri: ogni job arrotondato per eccesso al minuto, ubuntu-slim a un terzo; il consumo vero vuole il permesso Plan, che i flussi non hanno",
  "flussi": {
-  "collaudo.yml": 597,
+  "collaudo.yml": 606,
   "pages-build-deployment": 384,
-  "sito.yml": 59,
-  "dem.yml": 31.99,
+  "sito.yml": 60,
+  "dem.yml": 32.65,
   "newsletter.yml": 27,
   "mattino.yml": 25,
   "segnalazioni.yml": 13
@@ -405,6 +405,12 @@
   "41818755377": 3,
   "41818553226": 3,
   "41602517372": 3,
-  "41412231461": 3
+  "41412231461": 3,
+  "46052384654": 0.33,
+  "46051409762": 0,
+  "46051352027": 4,
+  "46051349500": 0.33,
+  "46051349515": 1,
+  "46051054307": 5
  }
 }
