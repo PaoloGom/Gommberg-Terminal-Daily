@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Edizione n. 035 con la barra Redazione - mockup G-51</title>
+<meta name="theme-color" content="#0E0E0E">
+<link rel="stylesheet" href="../../../../../assets/sito.css">
+<link rel="stylesheet" href="../../../../../assets/lettori.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--paper:#FAF8F4;--ink:#141414;--muted:#6B655E;--rule:#DEDAD4;--panel:#F1EEE9;--orange:#F26B1D;--orange-ink:#B84A0C;
+--bar:#0E0E0E;--bar-ink:#F5F3EF;--bar-muted:#A39C93;--up:#12753D;--down:#C0261C;
+--display:"Archivo","Arial Narrow","Helvetica Neue",Arial,sans-serif;--body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#121110;--ink:#EDEAE5;--muted:#A49E96;--rule:#2E2B28;
+--panel:#1C1A18;--orange:#FF7A2E;--orange-ink:#FF9A5C;--bar:#050505;--up:#46CF85;--down:#FF7466;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#121110;--ink:#EDEAE5;--muted:#A49E96;--rule:#2E2B28;--panel:#1C1A18;--orange:#FF7A2E;
+--orange-ink:#FF9A5C;--bar:#050505;--up:#46CF85;--down:#FF7466;color-scheme:dark}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;overflow-x:hidden}
+a{color:inherit}.up{color:var(--up);font-weight:500}.down{color:var(--down);font-weight:500}
+.wrap{max-width:760px;margin:0 auto;padding-inline:20px}
+main{padding-block:36px 56px}
+.kicker{font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink);margin:0 0 8px}
+.meta{font-family:var(--mono);font-size:13px;color:var(--muted);margin:0 0 10px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,6vw,44px);line-height:1.08;letter-spacing:-.015em;margin:0 0 14px}
+.dek{font-size:18px;color:var(--muted);margin:0 0 22px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 34px}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;font-family:var(--mono);font-size:14px;text-decoration:none;border:1px solid var(--ink)}
+.btn.lead{background:var(--ink);color:var(--paper)}.btn.ghost{background:transparent;color:var(--ink);cursor:pointer;gap:8px}
+.btn svg{width:18px;height:18px;flex:none}
+section{margin:0 0 30px}
+h2{font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink);margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+ul.brief{list-style:none;margin:0;padding:0}ul.brief li{position:relative;padding-left:20px;margin:0 0 12px}
+ul.brief li:before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;background:var(--orange)}
+ol.news{list-style:none;margin:0;padding:0;counter-reset:n}
+ol.news li{counter-increment:n;display:grid;grid-template-columns:40px 1fr;gap:6px;padding:10px 0;border-bottom:1px solid var(--rule);font-family:var(--display);font-weight:700;font-size:18px;line-height:1.3}
+ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--display);font-weight:800;color:var(--orange);font-size:20px}
+.inside{display:grid;gap:10px}.inside div{background:var(--panel);padding:12px 14px}
+.inside small{display:block;font-family:var(--mono);font-size:12px;color:var(--orange-ink);text-transform:uppercase;letter-spacing:.04em}
+.inside b{font-weight:600}.inside a{display:block;text-decoration:none}.inside small i{float:right;font-style:normal;color:var(--muted);text-transform:none;letter-spacing:0}
+.ag{list-style:none;margin:0;padding:0}.ag li{padding:12px 0;border-bottom:1px solid var(--rule)}
+.ag li.key{background:var(--panel);box-shadow:inset 3px 0 0 var(--orange);padding-inline:14px 10px}
+.ag small{display:block;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.ag b{display:block;font-family:var(--display);font-weight:700;font-size:18px;line-height:1.3}
+.ag+.meta{margin-top:12px}.ag p{margin:4px 0 0;font-size:15px;line-height:1.45}.ag p em{font-style:normal;font-weight:600;color:var(--orange-ink)}
+.sigle{display:flex;flex-wrap:wrap;gap:8px}.sigle a{display:inline-block;border:1px solid var(--rule);padding:6px 10px;font-size:14px;color:var(--muted);text-decoration:none;line-height:1.35}
+.sigle a b{color:var(--ink);font-weight:600;margin-right:4px}.sigle a:hover{border-color:var(--orange);color:var(--ink)}
+.sigle a:after{content:"\203A";margin-left:6px;color:var(--orange-ink);font-weight:600}
+.tutte{margin:12px 0 0;font-size:14px}.tutte a{color:var(--orange-ink)}
+.pn{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:13px;border-top:1px solid var(--rule);padding-top:16px}
+.pn a{text-decoration:none;color:var(--muted)}.pn a:hover{color:var(--ink)}
+.vote{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 30px;font-size:15px;color:var(--muted)}
+.vote button{font-family:var(--mono);font-size:13px;min-height:38px;padding:0 14px;background:transparent;color:var(--ink);border:1px solid var(--rule);cursor:pointer}
+.vote .thx{color:var(--ink)}
+.gb{margin:0 0 30px}
+.lt{margin:0 0 30px}.lt:empty{display:none}
+@media (max-width:520px){.dek{font-size:17px}.btn.lead{flex:1 1 auto;justify-content:center}.btn.ghost{width:46px;padding:0;justify-content:center}.btn.ghost span{display:none}.btn[data-pdf="scaricata"]{display:none}}
+/* ---- Aggiunte del mockup G-51 (barra Redazione, firma della redazione, accesso) ---- */
+.rd-bar{background:#000;color:#CFC9C1;border-bottom:1px solid #262422;font-family:var(--mono);font-size:12.5px;line-height:1}
+.rd-in{max-width:1180px;margin:0 auto;padding:0 24px;height:34px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.rd-who{display:flex;align-items:center;gap:8px;color:#F5F3EF;white-space:nowrap}
+.rd-who i{width:7px;height:7px;border-radius:50%;background:var(--orange)}
+.rd-who b{color:var(--orange);font-weight:500;letter-spacing:.08em}
+.rd-who span{color:#8E877E}
+.rd-nav{display:flex;align-items:center;gap:20px;white-space:nowrap}
+.rd-nav a{color:#E4DFD8;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.rd-nav a:hover{color:#fff}
+.rd-nav em{font-style:normal;background:#C0261C;color:#fff;font-size:11px;padding:1px 6px;border-radius:9px}
+.rd-nav a.esci{color:#F2A27A}
+@media (max-width:760px){.rd-in{padding:0 14px;height:36px}.rd-who span{display:none}.rd-nav{gap:16px}}
+/* la firma della redazione nella Gommunity */
+.cmt.rd{background:linear-gradient(90deg,rgba(242,107,29,.07),transparent 70%);box-shadow:inset 3px 0 0 var(--orange);margin:0 -14px;padding-left:14px;padding-right:14px}
+.av-rd{background:#0E0E0E!important;overflow:hidden}
+.av-rd img{width:100%;height:100%;display:block}
+.tr{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;background:#0E0E0E;color:#F26B1D;padding:0 5px;line-height:1.7;display:inline-flex;align-items:center;gap:4px}
+.tr svg{width:9px;height:9px;fill:#F26B1D}
+.fx{font-family:var(--mono);font-size:11px;color:var(--orange-ink)}
+.ca .md{color:var(--orange-ink)!important}
+.ca .tg2{margin-left:auto;color:var(--lt-down)!important;text-decoration:underline;text-underline-offset:3px}
+.cmp-rd{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--lt-soft);font-size:12.5px;color:var(--muted)}
+.cmp-rd b{color:var(--ink);font-size:14px}
+</style>
+</head>
+<body>
+<!-- MOCKUP G-51: la pagina dell'edizione n. 035 come la vedrebbe Paolo collegato. Statica: nessuna azione funziona. -->
+<div class="rd-bar"><div class="rd-in"><span class="rd-who"><i></i><b>REDAZIONE</b><span>· collegato come Gommberg</span></span><nav class="rd-nav"><a href="index.html">Pannello <em>2</em></a><a href="#">Posta</a><a class="esci" href="accesso.html">Esci</a></nav></div></div>
+<header class="gn-mast"><div class="gn-top"><div class="gn-brand"><p class="gn-logo"><a href="#"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></p><p class="gn-pitch">I mercati globali <em>spiegati</em>, ogni mattina in 6 pagine.</p></div><nav class="gn-nav" aria-label="Sezioni del sito"><a href="#" data-s="Edizione">Ultima edizione</a><a href="#">Archivio</a><a href="#">Impara</a><a href="#" data-s="Scommessa">La scommessa</a><a href="#">Chi siamo</a></nav></div></header>
+<main class="wrap">
+<p class="kicker">Edizione n. 035</p><p class="meta">Venerdì 27 novembre 2026 | 6 pagine</p>
+<h1>L'Asia risale e Seul guadagna il 4,3% sperando in un fondo pubblico</h1>
+<p class="dek">Il Kospi chiude a 4.915,68 punti, due sedute dopo aver perso il 6,2%. Secondo la stampa coreana pesano gli acquisti dopo il crollo, i future americani in rialzo e l'attesa che le autorità attivino o ampliino il fondo di stabilizzazione del mercato.</p>
+<div class="actions"><a class="btn lead" href="#">Leggi l'edizione</a><a class="btn ghost" data-pdf="scaricata" href="#">Scarica PDF</a></div>
+<section class="lt" aria-labelledby="lt-h">
+<div class="lt-hd"><h2 class="lt-t" id="lt-h">La Gommunity</h2><span class="lt-live"><i></i><span>128 lettori oggi</span></span></div>
+<div class="lt-sent"><div class="sv" role="img" aria-label="Toro 58%, Orso 42%"><span class="sv-t up">▲ Toro <b>58%</b></span><span class="sv-bar"><i class="u" style="width:58%"></i><i class="d"></i></span><span class="sv-t down"><b>42%</b> Orso ▼</span></div><p class="lt-nota">128 voti</p></div>
+<div class="lt-cm">
+<div class="lt-bar"><h3 class="lt-h3">Commenti <span>41</span></h3><div class="lt-ord"><button aria-pressed="true">Più apprezzati</button><button aria-pressed="false">Più recenti</button></div></div>
+<div class="lt-flt"><button aria-pressed="true">Tutti</button><button aria-pressed="false">▲ Tori · 24</button><button aria-pressed="false">▼ Orsi · 17</button></div>
+<div class="lt-list">
+<article class="cmt rd"><span class="av av-rd"><img src="../../../../../assets/avatar.svg" alt=""></span><div class="cb"><p class="cm"><b class="cn">Gommberg</b><span class="tr"><svg viewBox="0 0 10 10"><path d="M5 0l1.2 3.4H10L7 5.6 8.1 9 5 6.9 1.9 9 3 5.6 0 3.4h3.8z"/></svg>Redazione</span><span class="fx">fissato in alto</span><time>10:41</time></p><p class="ct">Buongiorno a tutti: oggi Wall Street chiude alle 19:00, quindi i numeri di stasera vanno presi con cautela. Del fondo coreano parliamo lunedì a pagina 2.</p><div class="ca"><button class="lk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2Z"/></svg><span>31</span></button><button>Rispondi</button><button class="md">Modifica</button><button class="mn">···</button></div></div></article>
+<article class="cmt"><span class="av" style="background:#F6D7C3">TS</span><div class="cb"><p class="cm"><b class="cn">Ted Spread</b><span class="tg tg-up">▲ Toro</span><time>12 min fa</time></p><p class="ct">Rimbalzo su volumi da Ringraziamento: lo prendo con le pinze. La mezza seduta di oggi dirà poco.</p><div class="ca"><button class="lk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2Z"/></svg><span>12</span></button><button>Rispondi</button><button class="tg2">Togli</button></div>
+<div class="rs"><div class="rsp"><span class="av av-s av-rd"><img src="../../../../../assets/avatar.svg" alt=""></span><div class="cb"><p class="cm"><b class="cn">Gommberg</b><span class="tr"><svg viewBox="0 0 10 10"><path d="M5 0l1.2 3.4H10L7 5.6 8.1 9 5 6.9 1.9 9 3 5.6 0 3.4h3.8z"/></svg>Redazione</span><time>5 min fa</time></p><p class="ct ct-s">Giusto: per questo lunedì guardiamo i volumi prima del prezzo.</p><div class="ca"><button class="lk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2Z"/></svg><span>4</span></button><button>Rispondi</button><button class="md">Modifica</button></div></div></div></div></div></article>
+<article class="cmt"><span class="av" style="background:#F0E6C8">LC</span><div class="cb"><p class="cm"><b class="cn">Lola Cedola</b><span class="tg tg-down">▼ Orso</span><time>34 min fa</time></p><p class="ct">Il fondo coreano non c'è ancora e il Kospi già festeggia. Pagina 2 spiega bene perché è presto.</p><div class="ca"><button class="lk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2Z"/></svg><span>9</span></button><button>Rispondi</button><button class="tg2">Togli</button></div></div></article>
+</div>
+<button class="lt-more">Vedi tutti e 41 i commenti</button>
+</div>
+<form class="cmp aperto"><div class="cmp-rd"><span class="av av-s av-rd"><img src="../../../../../assets/avatar.svg" alt=""></span>Firmi come <b>Gommberg</b><span class="tr"><svg viewBox="0 0 10 10"><path d="M5 0l1.2 3.4H10L7 5.6 8.1 9 5 6.9 1.9 9 3 5.6 0 3.4h3.8z"/></svg>Redazione</span></div><textarea rows="3" placeholder="Scrivi come redazione..."></textarea><div class="cmp-pie"><span class="cmp-lato">Visibile a tutti, con il badge Redazione</span><div class="cmp-dx"><span class="cmp-conto">0/600</span><button class="send" type="button">Pubblica</button></div></div></form>
+<p class="lt-regole">Nessuna iscrizione. Opinioni sì, consigli di acquisto no. <a href="#">Regole</a> · <a href="#">Privacy</a></p>
+</section>
+</main>
+</body>
+</html>
