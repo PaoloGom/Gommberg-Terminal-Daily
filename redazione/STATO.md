@@ -1,6 +1,6 @@
 # Stato del Gommberg
 
-Aggiornato: 27/11/2026 ore 15:00 (**G-65: Registro nuovo in linea e capo sviluppo acceso**). Una pagina, che deve bastare da sola a una chat nuova: lo storico sta in `PROGETTO.md`, le cose da fare nel **Registro dei lavori** (artifact `97f08bbc-950b-4b6e-83eb-4b8d032a3783`, https://claude.ai/artifact/KmCtJUZFx2WKVCRaDiHPtE; una voce si legge per codice, `db_query` su `tasks` con `codice` = "G-xx"). Le decisioni di una voce stanno solo nella sua scheda: qui si citano i codici.
+Aggiornato: 27/11/2026 ore 16:30 (**G-63 in linea: primo rilascio col giro nuovo, Ok dal Registro e chat del rilascio**). Una pagina, che deve bastare da sola a una chat nuova: lo storico sta in `PROGETTO.md`, le cose da fare nel **Registro dei lavori** (artifact `97f08bbc-950b-4b6e-83eb-4b8d032a3783`, https://claude.ai/artifact/KmCtJUZFx2WKVCRaDiHPtE; una voce si legge per codice, `db_query` su `tasks` con `codice` = "G-xx"). Le decisioni di una voce stanno solo nella sua scheda: qui si citano i codici.
 
 ## Come si lavora (dal 27/11)
 - **Paolo** dirige dal Registro: Tocca a te (ogni richiesta in tre righe: cosa, cosa cambia per il lettore, cosa ti chiedo), Togli e Via sul piano della settimana, Ok, approvo / Non ancora sulle voci da vedere, appunti, Usa il margine. La pagina scrive solo clic e appunti.
@@ -9,13 +9,14 @@ Aggiornato: 27/11/2026 ore 15:00 (**G-65: Registro nuovo in linea e capo svilupp
 - Il clic unico fino alla linea arriva con **G-66** (i cancelli negli script). Spento il 27/11 "Gommberg: giro della sera".
 
 ## In linea
+- **27/11 ore 16:24, G-63** (merge `2ff757a`, esattamente il commit approvato `20ab01e`; collaudo verde qui e su GitHub): l'elenco degli invii di Kit si rilegge su guasto momentaneo. Niente per i lettori, il sito non si ripubblica; prima prova vera la newsletter di lunedì 30/11. I due spunti del collaudo indipendente (tempo di `newsletter.yml`, elenco degli invii oltre i 100) sono **G-69**.
 - **27/11 ore 14:40, G-65** (merge `6248cd4`, collaudo verde qui e su GitHub; tre collaudi indipendenti sul ramo `g65` il 26/11): pagina nuova del Registro, contratto, istruzioni del capo sviluppo, §5. Niente per i lettori. Per tornare indietro: `rilascia.sh annulla`; la pagina di prima è la versione `1795621755-04b8` dell'artifact.
 - **27/11 ore 10:47, G-67** (merge `de502a9`): la rinuncia all'edizione passa da `messaggio.py --nessuna` (cinque casi), `pubblica.sh` pubblica anche da una sessione senza ramo. La #035 è uscita alle 10:30.
 - **25/11 ore 18:48** (merge `4d9c4df`): due rami di lavoro (G-57), pannello sul piano in vigore (G-60), newsletter senza ripiego (G-15), campione #031 nella rete.
 
 ## In attesa
 - **Ramo `con-prova`** (fino a `538a162`): G-45, G-54, G-50, i caratteri della newsletter, le istruzioni allineate di G-67. Collaudo del ramo rosso su Coerenza (G-45, già rosso prima). Edizione di prova nel fine settimana con la data di lunedì 30/11, lanciata da una chat; poi l'ok di Paolo e `unisci` + `pubblica --dopo-la-prova`. Sulle voci: `prova` = da fare, sabato 28/11.
-- **Piano di prova** (`meta/piano`, settimana del 23/11): G-63 e G-68, per la prova dal vivo di Paolo (Togli su G-68, Via, un appunto).
+- **Piano di prova** (`meta/piano`, settimana del 23/11): G-63 (fatta: il giro Via → capo sviluppo → Ok → chat del rilascio ha funzionato) e G-68.
 
 ## Prossimo passo
 1. Oggi, prova dal vivo di Paolo. Da verificare sul primo giro vero: che il clic parta e che il capo sviluppo scriva davvero nel Registro (l'attività di prova del 26/11 non aveva scritto la sua riga); che la sessione abbia agenti, `gh` e Chrome; che i lavoratori rispettino i divieti; quanto dura un lavoratore rispetto ai 180 minuti; quanto costa un giro senza lavoro.

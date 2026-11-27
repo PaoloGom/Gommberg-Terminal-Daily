@@ -835,6 +835,54 @@ def passo_newsletter():
                     male.append(f"elenco che {nome}: l'errore non dice che Kit non risponde ({str(e)[:60]})")
             if any(c[0] == "POST" for c in chiamate) or len(chiamate) != NL.LETTURE:
                 male.append(f"elenco che {nome}: invio creato o tentativi diversi da {NL.LETTURE}")
+        # elenco degli invii che fallisce due volte (503) e poi risponde: l'email parte una volta sola (G-63)
+        def kit_invii(risposte):
+            coda = list(risposte)
+
+            def k(metodo, percorso, dati=None):
+                chiamate.append((metodo, percorso, dati))
+                if percorso.startswith("/broadcasts") and metodo == "GET":
+                    return coda.pop(0) if len(coda) > 1 else coda[0]
+                if percorso == "/email_templates":
+                    return 200, {"email_templates": [{"id": 5, "name": "Gommberg cornice"}]}
+                return 201, {"broadcast": {"id": 1, "email_template": {"name": "x"}}}
+            return k
+        vuoto = (200, {"broadcasts": []})
+        chiamate.clear()
+        NL.kit = kit_invii([(503, {}), (503, {}), vuoto])
+        if NL.invii_esistenti() != {} or len([c for c in chiamate if c[0] == "GET"]) != 3:
+            male.append("elenco degli invii che sbaglia due volte e poi risponde: non è riletto")
+        chiamate.clear()
+        NL.kit = kit_invii([(503, {}), (503, {}), vuoto])
+        if NL.etichetta(ed) not in NL.invii_esistenti():      # stessa sequenza di main() in modo auto
+            with contextlib.redirect_stdout(io.StringIO()):
+                NL.crea(ed, None, prova=False)
+        if len([c for c in chiamate if c[0] == "POST"]) != 1:
+            male.append("elenco degli invii che sbaglia due volte: l'email non parte una volta sola")
+        chiamate.clear()
+        NL.kit = kit_invii([(503, {}), (200, {"broadcasts": [{"id": 9, "description": NL.etichetta(ed)}]})])
+        if NL.etichetta(ed) not in NL.invii_esistenti():
+            male.append("elenco degli invii riletto: l'invio già presente non si vede")
+        for nome, risposta in (("risponde sempre 503", (503, {})), ("errore di rete", (0, {"errore": "rete: timeout"}))):
+            chiamate.clear()
+            NL.kit = kit_invii([risposta])
+            try:
+                NL.invii_esistenti()
+                male.append(f"elenco degli invii che {nome}: non si ferma")
+            except SystemExit as e:
+                if not str(e).startswith("ERRORE"):
+                    male.append(f"elenco degli invii che {nome}: l'uscita non è un errore")
+            if len(chiamate) != NL.LETTURE or any(c[0] != "GET" for c in chiamate):
+                male.append(f"elenco degli invii che {nome}: tentativi diversi da {NL.LETTURE} o chiamate non di lettura")
+        chiamate.clear()
+        NL.kit = kit_invii([(401, {})])
+        try:
+            NL.invii_esistenti()
+            male.append("elenco degli invii con errore non transitorio (401): non si ferma")
+        except SystemExit:
+            pass
+        if len(chiamate) != 1:
+            male.append("elenco degli invii con 401: riletto senza motivo")
         # un errore di rete in kit() è una risposta gestita, non un traceback
         import urllib.error
         import urllib.request
@@ -857,7 +905,8 @@ def passo_newsletter():
         NL.kit = vero
         NL.ATTESA_LETTURE = vera_attesa
     esito("Newsletter: la cornice o nulla", not male, "; ".join(male) or "senza la cornice in Kit l'invio fallisce e non crea nulla; con la cornice la usa; "
-          "elenco che si riprende dopo due guasti: parte; elenco muto o rete caduta: 'Kit non risponde', nessun invio, nessun traceback")
+          "elenco che si riprende dopo due guasti: parte; elenco muto o rete caduta: 'Kit non risponde', nessun invio, nessun traceback; "
+          "elenco degli invii: riletto come i modelli, l'email parte una volta sola, se resta muto l'invio si ferma")
 
 
 # ---------------------------------------------------------------- 3f. mail straordinarie (G-17)
