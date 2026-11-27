@@ -213,6 +213,10 @@ td.na{color:var(--muted)}
 .meter i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--accent)}
 .meter u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);border-radius:1px}
 .meter u.w{background:var(--bad)}
+.pq{display:grid;gap:14px}.pr{padding:12px 0;border-top:1px solid var(--grid)}.pr:first-child{border-top:0;padding-top:0}
+.ph{display:flex;align-items:center;gap:8px;font-size:14px}.tg{font-size:11.5px;color:var(--muted);border:1px solid var(--grid);border-radius:10px;padding:1px 8px}.tg.st{color:var(--ink);border-style:dashed}
+.pv{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:4px}.pv .big{font-size:30px}.pm{font-size:13px;color:var(--muted)}.pm b{color:var(--ink)}
+.meter.est i{background:repeating-linear-gradient(45deg,var(--accent) 0 3px,transparent 3px 6px);border:1px solid var(--accent)}.pn{font-size:12px;color:var(--muted);margin-top:2px}
 .mlab{position:relative;height:16px;font-size:11.5px;color:var(--muted)}
 .mlab span{position:absolute;transform:translateX(-50%);white-space:nowrap}
 .mlab span:first-child{transform:none}.mlab span:last-child{transform:translateX(-100%)}
@@ -411,13 +415,15 @@ function cento(v){var t=v.map(Math.floor),r=100-t.reduce(function(a,b){return a+
 function plur(n,a,b){return n==1?a:b}
 
 /* ============ Stato ============ */
-var D=null,ED={},INV={invii:[],regole:{}},app=document.getElementById("app"),tip=document.getElementById("tip"),LIM=mi(S.uscita);
+var D=null,ED={},INV={invii:[],regole:{}},MIN=null,ORO=null,app=document.getElementById("app"),tip=document.getElementById("tip"),LIM=mi(S.uscita);
 var st0={p:"panoramica",per:10,v:"",un:"",mq:"",ev:"ed",sort:{k:"n",dir:-1},sortv:{k:"v",dir:-1},sel:null};
 function leggiHash(){var h=(location.hash||"").slice(1).toLowerCase();var met=h=="metodo";if(h=="versioni")st0.ev="ve";h=ALIAS[h]||h;st0.p=PAG.some(function(p){return p.id==h})?h:"panoramica";return met}
 var apriMetodo=leggiHash();
 function leggi(u){return fetch(u,{cache:"no-store"}).then(function(r){return r.ok?r.json():[]}).catch(function(){return []})}
-Promise.all([leggi("registro.json"),leggi("taratura.json"),leggi("../edizioni.json"),leggi("invii.json"),leggi("piani.json")]).then(function(r){
+Promise.all([leggi("registro.json"),leggi("taratura.json"),leggi("../edizioni.json"),leggi("invii.json"),leggi("piani.json"),leggi("minuti.json"),leggi("../api/orologio")]).then(function(r){
   if(r[3]&&Array.isArray(r[3].invii))INV=r[3];
+  /* la macchina (G-58, G-12): minuti di GitHub stimati da redazione/minuti.py, stato dell'orologio dei controlli dal Worker */
+  if(r[5]&&typeof r[5].percentuale=="number")MIN=r[5];ORO=(r[6]&&typeof r[6].sano=="boolean")?r[6]:false;
   (Array.isArray(r[2])?r[2]:[]).forEach(function(e){if(e&&e.numero)ED[e.numero]=e});
   if(!Array.isArray(r[0])||!r[0].length){document.getElementById("sottotitolo").textContent="";app.innerHTML='<div class="card vuoto">Nessuna edizione registrata. La prima riga arriva con la prossima uscita.</div>';return}
   prepara(r[0],Array.isArray(r[1])?r[1]:[],Array.isArray(r[4])?r[4]:[]);disegna();if(apriMetodo)metodo()});
@@ -427,8 +433,8 @@ function prepara(reg,tar,piani){
   reg=reg.filter(function(x){return x&&x.n&&x.d}).sort(function(a,b){return a.n-b.n});
   tar=tar.filter(function(x){return x.durata_min>0&&x.punti>0&&!x.escluso});
   /* Il piano di ogni edizione è quello in vigore al momento dell'uscita (piani.json: nome e inizio). Ogni piano ha il suo
-     tasso, dalle sole letture vere fatte su quel piano: senza letture il rapporto è "in taratura" e restano i token. */
-  var PI=piani.filter(function(x){return x&&x.piano}).map(function(x){var d=String(x.dal||"");return {nome:x.piano,dal:d.slice(0,16)}}).sort(function(a,b){return a.dal<b.dal?-1:a.dal>b.dal?1:0});
+     tasso, dalle sole letture vere fatte su quel piano: senza letture il rapporto è "da misurare" e restano i token. */
+  var PI=piani.filter(function(x){return x&&x.piano}).map(function(x){var d=String(x.dal||"");return {nome:x.piano,dal:d.slice(0,16),stima:x.stima&&x.stima.di&&x.stima.rapporto>0?x.stima:null,az:x.azzeramento||null}}).sort(function(a,b){return a.dal<b.dal?-1:a.dal>b.dal?1:0});
   PI.forEach(function(q){
     var tt=tar.filter(function(x){return x.piano==q.nome});
     q.tasso=tt.length?tt.reduce(function(s,x){return s+x.punti},0)/tt.reduce(function(s,x){return s+x.durata_min},0):null;
@@ -445,6 +451,10 @@ function prepara(reg,tar,piani){
     x.pt=!q.tasso?null:x.misurata&&q.tokPunto?x.pesati/q.tokPunto:(isn(x.durata_min)?x.durata_min*q.tasso:null);
     x.fine=mi(x.ora);x.inizio=mi(x.avvio);x.tardi=x.fine!=null&&x.fine>LIM;x.v=x.v||"?";
     x.tok=x.misurata?x.pesati:null});
+  /* Quanto pesa una settimana di cinque edizioni su ogni piano: misurata (media dei punti di tutte le edizioni di quel piano, per cinque) o, se il
+     piano non ha ancora una misura ma piani.json dichiara una stima ("stima": {di, rapporto, motivo}), la quota del piano "di" per il rapporto. */
+  PI.forEach(function(q){var f=reg.filter(function(x){return x.pn==q.nome&&isn(x.pt)});q.nq=f.length;q.nt=f.filter(function(x){return x.misurata}).length;q.sett=f.length?med(f.map(function(x){return x.pt}))*5:null;q.base=f.length?"misura":""});
+  PI.forEach(function(q){if(q.base)return;var b=q.stima&&P[q.stima.di];if(b&&b!==q&&b.base=="misura"){q.sett=b.sett*q.stima.rapporto;q.base="stima"}});
   var vers=[];reg.forEach(function(x){var l=vers[vers.length-1];if(!l||l.v!=x.v){l={v:x.v,r:[]};vers.push(l)}l.r.push(x)});
   vers.forEach(function(g){var s=riassunto(g.r);for(var k in s)g[k]=s[k];g.dal=g.r[0].d;g.al=g.r[g.r.length-1].d;g.kb=g.r[g.r.length-1].avvio_kb});
   D={reg:reg,tar:tar,P:P,vers:vers};
@@ -464,7 +474,7 @@ function riassunto(F){
   s.nmis=F.filter(function(x){return x.misurata}).length;
   MISURE.concat([{k:"parole"}]).forEach(function(m){s[m.k]=med(F.map(function(x){return x[m.k]}))});
   return s}
-/* Il piano di un riassunto: nome e tasso (senza tasso il rapporto è "in taratura"). */
+/* Il piano di un riassunto: nome e tasso (senza tasso il rapporto è "da misurare"). */
 function piano(s){return D.P[s.pn]||{nome:s.pn||"-",tasso:null}}
 /* La versione precedente con almeno 3 edizioni (una versione da 1-2 edizioni non fa da confronto). */
 function prec(gi){for(var q=gi-1;q>=0;q--)if(D.vers[q].r.length>=3)return D.vers[q];return null}
@@ -614,14 +624,23 @@ function listaAllarmi(w){var a=w.a,F=w.F,L=[];
   var sc=st(a.sett,S.consumo,1);if(sc&&sc!="ok")L.push({s:sc,t:"Consumo sopra la soglia",d:"≈ "+it(a.sett,0)+" punti "+esc(piano(a).nome)+" a settimana, soglia "+S.consumo[0],go:"consumo"});
   MISURE.forEach(function(m){if(!m.s)return;var s=st(a[m.k],m.s,m.basso);if(s&&s!="ok"){var ul=F[F.length-1][m.k];
     L.push({s:s,t:m.n+(m.basso?" sopra la soglia":" sotto la soglia"),d:"Media "+fv(a[m.k],m.d,m.u)+", soglia "+it(m.s[0],0)+m.u+(isn(ul)?" · ultima "+fv(ul,m.d,m.u):""),go:"qualita",mq:m.k})}});
+  macchina().forEach(function(x){L.push(x)});
   var o={ko:0,att:1};L.sort(function(x,y){return o[x.s]-o[y.s]});return L}
+/* La macchina: l'orologio dei controlli (../api/orologio, G-58) e i minuti di GitHub (minuti.json, G-12: allarme al 75%
+   della quota; finché il repository è pubblico non si pagano, quindi solo "da guardare"). Valgono oggi, non nel periodo. */
+function macchina(){var L=[];
+  if(ORO===false)L.push({s:"att",t:"Orologio dei controlli: nessuna risposta",d:"gommberg.com/api/orologio non risponde: le sveglie dei controlli non si possono verificare",go:"panoramica"});
+  else if(ORO&&!ORO.sano){var m=!ORO.segreto?"manca il segreto GITHUB_ACTIONS_TOKEN su Cloudflare":(ORO.errore||(ORO.sveglie||[]).filter(function(x){return !x.ok}).map(function(x){return x.flusso+" "+String(x.dovuta||"").slice(11)+": "+(x.esito?x.esito.stato:"?")}).join(" · ")||"acceso, ancora nessuna partenza riuscita");
+    L.push({s:"ko",t:"Orologio dei controlli fermo",d:esc(m),go:"panoramica"})}
+  if(MIN&&MIN.percentuale>=(MIN.allarme||75))L.push({s:MIN.privato?"ko":"att",t:"Minuti di GitHub: "+it(MIN.percentuale,0)+"% della quota",d:"stima dai giri: "+it(MIN.minuti,0)+" su "+MIN.quota+" a "+esc(MIN.mese)+(MIN.privato?" · finita la quota i flussi si fermano":" · repository pubblico: per ora non si pagano"),go:"panoramica"});
+  return L}
 
 /* ================= PANORAMICA ================= */
 function panoramica(w,allarmi){var a=w.a,b=w.b||{},F=w.F,Q=piano(a),P=Q.nome,u=F[F.length-1];
   var h='<div class="row r5">'
    +kpi({go:"puntualita",l:"Puntualità",s:st(a.punt,S.punt),v:it(a.punt,0)+"%",d:delta(a.punt,b.punt,0,0," pt"),n:(F.length-a.tardi.length)+" su "+F.length+" entro le "+S.uscita,spark:striscia(F)})
    +kpi({go:"puntualita",l:"Uscita mediana",s:isn(a.uscMed)?(a.uscMed<=LIM?"ok":"ko"):"",v:isn(a.uscMed)?ora(a.uscMed):"-",d:dMin(a.uscMed,b.uscMed),n:"obiettivo "+S.uscita+" · ultima "+(u.ora||"-"),spark:spark(F,function(x){return x.fine!=null?Math.min(x.fine,615):null},200,34,LIM)})
-   +kpi({go:"consumo",l:"Consumo",s:st(a.sett,S.consumo,1),v:isn(a.sett)?"≈ "+it(a.sett,0):"-",u:isn(a.sett)?"su 100":"",d:delta(a.sett,b.sett,1,0,""),n:"punti "+esc(P)+(Q.tasso?" a settimana · soglia "+S.consumo[0]:" · in taratura"),spark:spark(F,function(x){return x.pn==a.pn?x.pt:null},200,34,null)})
+   +kpi({go:"consumo",l:"Consumo",s:Q.tasso?st(a.sett,S.consumo,1):"",v:isn(a.sett)?"≈ "+it(a.sett,0):Q.base=="stima"?"≈ "+it(Q.sett,0):"-",u:isn(a.sett)||Q.base=="stima"?"su 100":"",d:delta(a.sett,b.sett,1,0,""),n:"punti "+esc(P)+(Q.tasso?" a settimana · soglia "+S.consumo[0]:Q.base=="stima"?" · stima, non misurata":" · da misurare"),spark:spark(F,function(x){return x.pn==a.pn?x.pt:null},200,34,null)})
    +kpi({go:"qualita",mq:"fr",l:"Parole per frase",s:st(a.fr,S.fr,1),v:fv(a.fr,1),d:delta(a.fr,b.fr,1,1,""),n:"soglia "+S.fr[0]+" · ultima "+fv(u.fr,1),spark:spark(F,function(x){return x.fr},200,34,S.fr[0])})
    +kpi({go:"qualita",mq:"prim",l:"Fonti primarie",s:st(a.prim,S.prim),v:fv(a.prim,0,"%"),d:delta(a.prim,b.prim,0,0," pt"),n:"soglia "+S.prim[0]+"% · ultima "+fv(u.prim,0,"%"),spark:spark(F,function(x){return x.prim},200,34,S.prim[0])})
    +"</div>";
@@ -647,10 +666,10 @@ function cella(x,k){var v=x[k],s="",t;
   if(k=="ora"){t=x.ora||"-";s=x.fine!=null?(x.tardi?"ko":""):""}
   else if(k=="avvio"){t=x.avvio||"-"}
   else if(k=="durata_min"){t=isn(v)?v+" min":"-"}
-  else if(k=="pt"){t=isn(v)?(x.misurata?"":"≈ ")+it(v,1):D.P[x.pn]&&!D.P[x.pn].tasso?"in taratura":"-"}
+  else if(k=="pt"){t=isn(v)?(x.misurata?"":"≈ ")+it(v,1):D.P[x.pn]&&!D.P[x.pn].tasso?"da misurare":"-"}
   else if(k=="tok"){t=isn(v)?mln(v):"-"}
   else{var m=MISURE.filter(function(z){return z.k==k})[0]||{d:0,u:""};t=fv(v,m.d,m.u);if(SOG[k])s=st(v,SOG[k][0],SOG[k][1]);if(s=="ok")s=""}
-  return '<td class="c '+(t=="-"||t=="in taratura"?"na ":"")+s+'"><span>'+t+"</span></td>"}
+  return '<td class="c '+(t=="-"||t=="da misurare"?"na ":"")+s+'"><span>'+t+"</span></td>"}
 function riga(x,cols){return '<tr class="cl'+(st0.sel==x.n?" on":"")+'" data-ed="'+x.n+'" tabindex="0"><td><span class="e">'+num(x.n)+'</span><span class="dt">'+data(x.d)+"</span></td>"+cols.map(function(c){return cella(x,c[0])}).join("")+"</tr>"}
 
 /* ================= PUNTUALITÀ ================= */
@@ -673,24 +692,19 @@ function puntualita(w){var a=w.a,b=w.b||{},F=w.F,u=F[F.length-1];
 function consumo(w){var a=w.a,b=w.b||{},F=w.F,Q=piano(a),P=Q.nome,un=st0.un,ha=F.some(function(x){return isn(x.pt)}),ult=F.filter(function(x){return isn(x.pt)}).pop(),PP=ult?ult.pn:P;
   if(!un)un=isn(F[F.length-1].pt)?"pt":a.nmis?"tok":"min";if(un=="pt"&&!ha)un=a.nmis?"tok":"min";if(un=="tok"&&!a.nmis)un=ha?"pt":"min";
   var h='<div class="row r4">'
-   +kpi({go:"consumo",l:"Consumo",s:st(a.sett,S.consumo,1),v:isn(a.sett)?"≈ "+it(a.sett,0):"-",u:isn(a.sett)?"su 100":"",d:delta(a.sett,b.sett,1,0,""),n:"punti "+esc(P)+(Q.tasso?" a settimana · soglia "+S.consumo[0]:" · in taratura")})
-   +kpi({go:"consumo",l:"Punti a edizione",v:isn(a.pt)?"≈ "+it(a.pt,1):"-",u:isn(a.pt)?"punti":"",d:delta(a.pt,b.pt,1,1,""),n:Q.tasso&&isn(a.pt)?"tra "+it(a.pt*Q.tmin/Q.tasso,1)+" e "+it(a.pt*Q.tmax/Q.tasso,1)+" secondo la taratura":Q.tasso?"":"in taratura"})
+   +kpi({go:"consumo",l:"Consumo",s:Q.tasso?st(a.sett,S.consumo,1):"",v:isn(a.sett)?"≈ "+it(a.sett,0):Q.base=="stima"?"≈ "+it(Q.sett,0):"-",u:isn(a.sett)||Q.base=="stima"?"su 100":"",d:delta(a.sett,b.sett,1,0,""),n:"punti "+esc(P)+(Q.tasso?" a settimana · soglia "+S.consumo[0]:Q.base=="stima"?" · stima, non misurata":" · da misurare")})
+   +kpi({go:"consumo",l:"Punti a edizione",v:isn(a.pt)?"≈ "+it(a.pt,1):"-",u:isn(a.pt)?"punti":"",d:delta(a.pt,b.pt,1,1,""),n:Q.tasso&&isn(a.pt)?"tra "+it(a.pt*Q.tmin/Q.tasso,1)+" e "+it(a.pt*Q.tmax/Q.tasso,1)+" secondo la taratura":Q.tasso?"":"da misurare"})
    +kpi({go:"consumo",l:"Token a edizione",v:isn(a.tok)?mln(a.tok):"-",u:isn(a.tok)?"mln":"",d:delta(isn(a.tok)?a.tok/1e6:null,isn(b.tok)?b.tok/1e6:null,1,2,""),n:"token pesati · "+a.nmis+" "+plur(a.nmis,"misurata","misurate")+" su "+F.length})
    +kpi({go:"consumo",l:"Durata media",v:fv(a.dur,0),u:"min",d:dMin(a.dur,b.dur),n:senzaDur(F)})
    +"</div>";
   var tools='<div class="seg" role="group" aria-label="Misura">'+[["pt","Punti "+esc(PP)],["tok","Token"],["min","Minuti"]].map(function(o){return '<button type="button" data-un="'+o[0]+'" aria-pressed="'+(un==o[0])+'"'+((o[0]=="tok"&&!a.nmis)||(o[0]=="pt"&&!ha)?" disabled":"")+">"+o[1]+"</button>"}).join("")+"</div>";
   GR.cons=function(W){var o={pt:{val:function(x){return x.pt},fmt:function(v){return "≈ "+it(v,1)},est:function(x){return !x.misurata}},tok:{val:function(x){return isn(x.tok)?x.tok/1e6:null},fmt:function(v){return it(v,2)+" mln"}},min:{val:function(x){return x.durata_min},fmt:function(v){return it(v,0)+" min"}}}[un];
-    o.tip=function(x){return (isn(x.pt)?"≈ "+it(x.pt,1)+" punti "+esc(x.pn)+"<br>":D.P[x.pn]&&!D.P[x.pn].tasso?esc(x.pn)+": rapporto in taratura<br>":"")+(x.misurata?mln(x.tok)+" mln di token pesati · "+x.richieste+" passi":isn(x.durata_min)?"Stima dalla durata: "+x.durata_min+" min":"Durata non nota")};
+    o.tip=function(x){return (isn(x.pt)?"≈ "+it(x.pt,1)+" punti "+esc(x.pn)+"<br>":D.P[x.pn]&&!D.P[x.pn].tasso?esc(x.pn)+": rapporto da misurare<br>":"")+(x.misurata?mln(x.tok)+" mln di token pesati · "+x.richieste+" passi":isn(x.durata_min)?"Stima dalla durata: "+x.durata_min+" min":"Durata non nota")};
     o.lab="Consumo di ogni edizione.";return gColonne(F,W,W<620?242:322,o)};
   var leg=(un=="pt"?'<span><i></i>Misurato dai token</span><span><i class="est"></i>Stimato dalla durata</span>':'<span><i></i>Edizione</span>')+'<span><i class="acc"></i>Ultima edizione</span><span><i class="dash"></i>Media</span>';
   var main=card("Consumo di ogni edizione",un=="pt"?"Punti del limite settimanale "+esc(PP):un=="tok"?"Milioni di token pesati, solo edizioni misurate":"Minuti di attività",'<div data-g="cons"></div>',{tools:tools,info:"consumo",leg:leg});
   /* settimana tipo sul piano */
   var s=a.sett,resto=isn(s)?Math.max(0,100-s):null;
-  var met=!Q.tasso?'<div class="big">in taratura</div>':'<div class="big">'+(isn(s)?"≈ "+it(s,0):"-")+"<small>punti su 100</small></div>"
-    +'<div class="meter" role="img" aria-label="Consumo settimanale stimato '+(isn(s)?it(s,0):"-")+' su 100, soglia '+S.consumo[0]+'"><i style="width:'+Math.min(100,s||0)+'%;background:var(--'+(st(s,S.consumo,1)=="ko"?"bad":st(s,S.consumo,1)=="att"?"warn":"accent")+')"></i><u style="left:'+S.consumo[0]+'%"></u><u class="w" style="left:'+S.consumo[1]+'%"></u></div>'
-    +'<div class="mlab"><span style="left:0">0</span><span style="left:'+S.consumo[0]+'%">'+S.consumo[0]+'</span><span style="left:'+S.consumo[1]+'%">'+S.consumo[1]+'</span><span style="left:100%">100</span></div>'
-    +'<div class="leg" style="padding:0;margin-top:6px"><span><i class="line"></i>Soglia '+S.consumo[0]+'</span><span><i class="line" style="background:var(--bad)"></i>Fuori soglia oltre '+S.consumo[1]+'</span></div>'
-    +'<p class="note">'+(isn(resto)?"Cinque edizioni lasciano <b>≈ "+it(resto,0)+" punti</b> del limite settimanale alle chat di progetto.":"")+"</p>";
   /* dove vanno i token */
   var Fm=F.filter(function(x){return x.misurata&&x.token}),comp="";
   if(Fm.length){var c={cr:0,cw:0,out:0,inp:0};Fm.forEach(function(x){var t=x.token;c.cr+=(t.cacheRead||0)*.1;c.cw+=(t.cacheWrite||0)*2;c.out+=(t.output||0)*5;c.inp+=(t.input||0)});
@@ -700,9 +714,21 @@ function consumo(w){var a=w.a,b=w.b||{},F=w.F,Q=piano(a),P=Q.nome,un=st0.un,ha=F
     comp='<div class="sect">Dove vanno i token ('+Fm.length+" "+plur(Fm.length,"edizione misurata","edizioni misurate")+")</div>"
       +'<div class="segbar" role="img" aria-label="'+parti.map(function(p,j){return p[1]+" "+quote[j]+"%"}).join(", ")+'">'+parti.map(function(p,j){var sh=c[p[0]]/tot*100;return '<div style="flex:'+sh+' 1 0;background:'+p[3]+';color:'+p[4]+'" data-t="<b>'+p[1]+"</b><br>"+quote[j]+"% dei token pesati · "+mln(c[p[0]]/Fm.length)+' mln a edizione">'+(sh>=12?quote[j]+"%":"")+"</div>"}).join("")+"</div>"
       +'<ul class="seglist">'+parti.map(function(p,j){return '<li><i style="background:'+p[3]+'"></i><span>'+p[1]+' <em>peso '+p[2]+"</em></span><em>"+mln(c[p[0]]/Fm.length)+" mln · "+quote[j]+"%</em></li>"}).join("")+"</ul>"+(c.inp/tot<.01?'<p class="note" style="font-size:12px;color:var(--muted)">I token in ingresso non in cache sono meno dell\'1%.</p>':"")}
-  var side=card("Settimana tipo sul piano "+esc(P),"Cinque edizioni, punti stimati",met+comp,{info:"consumo"});
+  var side=card("Quanto pesa il Gommberg su ogni piano","Una settimana di cinque edizioni, sul limite di ogni piano",pesoPiani(a.pn)+comp,{info:"consumo"});
   return h+'<div class="row r21">'+main+side+"</div>"}
 
+/* Una scheda per tutti i piani di piani.json: la quota misurata o, dichiarata come stima, quella derivata; il resto è margine per il progetto. */
+function fraz(r){var n=Math.round(1/r),m={2:"metà",3:"un terzo",4:"un quarto",5:"un quinto",10:"un decimo"};return Math.abs(n*r-1)<1e-6&&m[n]?m[n]:it(r*100,0)+"%"}
+function pesoPiani(uso){var g={lun:"lunedì",mar:"martedì",mer:"mercoledì",gio:"giovedì",ven:"venerdì",sab:"sabato",dom:"domenica"};
+  var nm=Object.keys(D.P).filter(function(n){return D.P[n].base=="misura"}).length;
+  return '<div class="pq">'+Object.keys(D.P).map(function(n){var q=D.P[n],c=q.base,sett=q.sett,s=isn(sett)?sett:0,stima=c=="stima",ok=isn(sett),stt=c=="misura"?st(sett,S.consumo,1):"",
+    az=q.az&&q.az.giorno?"azzeramento "+(g[q.az.giorno]||esc(q.az.giorno))+" alle "+esc(q.az.ora):"",
+    come=c=="misura"?"Misurata su "+q.nq+" "+plur(q.nq,"edizione","edizioni")+" ("+q.nt+" dai token, "+(q.nq-q.nt)+" dalla durata) · "+it(q.tasso*60,1)+" "+(Math.abs(q.tasso*60-1)<.05?"punto":"punti")+" per ora":stima?"Stima, non misurata: "+fraz(q.stima.rapporto)+" della quota del "+esc(q.stima.di)+". Vale finché non c'è una misura vera.":"Da misurare: nessuna misura su questo piano";
+    return '<div class="pr'+(n==uso?" uso":"")+'"><div class="ph"><b>'+esc(n)+"</b>"+(n==uso?'<span class="tg">in uso</span>':"")+(stima?'<span class="tg st">stima</span>':"")+(c=="misura"?stato(stt):"")+"</div>"
+      +'<div class="pv"><span class="big">'+(ok?(stima?"≈ ":"")+it(sett,0):"-")+"<small>punti su 100</small></span>"+(ok?'<span class="pm">Resta <b>'+(stima?"≈ ":"")+it(Math.max(0,100-sett),0)+"</b> per il progetto</span>":"")+"</div>"
+      +'<div class="meter'+(stima?" est":"")+'" role="img" aria-label="'+esc(n)+": "+(ok?(stima?"stima ":"")+it(sett,0)+" su 100":"da misurare")+'"><i style="width:'+Math.min(100,s)+"%"+(stt=="ko"?";background:var(--bad)":stt=="att"?";background:var(--warn)":"")+'"></i>'+(c=="misura"?'<u style="left:'+S.consumo[0]+'%"></u><u class="w" style="left:'+S.consumo[1]+'%"></u>':"")+"</div>"
+      +'<div class="pn">'+come+(az?"<br>"+az.charAt(0).toUpperCase()+az.slice(1):"")+"</div></div>"}).join("")
+    +(nm?'<p class="note" style="font-size:12px;color:var(--muted)">Linee '+(nm>1?"sui piani misurati":"sul piano misurato")+": soglia "+S.consumo[0]+", fuori soglia oltre "+S.consumo[1]+".</p>":"")+"</div>"}
 /* ================= QUALITÀ ================= */
 function qualita(w){var a=w.a,b=w.b||{},F=w.F,u=F[F.length-1];
   var M2=MISURE.filter(function(m){return F.some(function(x){return isn(x[m.k])})});
@@ -795,7 +821,7 @@ function edizione(n){var w=finestra(),reg=w.F,i=-1;reg.forEach(function(x,j){if(
   function sez(t){return '<tr class="sz"><th colspan="3">'+t+"</th></tr>"}
   var t='<table class="dt2"><thead><tr><th>Misura</th><th>Valore</th><th>Media periodo</th></tr></thead><tbody>'
     +sez("Orari")+r("Avvio",x.avvio||"-")+r("Uscita",x.ora||"-",x.tardi?"vko":"",x.tardi?"+"+Math.round(x.fine-LIM)+" min oltre":"mediana "+(isn(a.uscMed)?ora(a.uscMed):"-"))+r("Durata",fv(x.durata_min,0," min"),"",fv(a.dur,0," min"))
-    +sez("Consumo")+r("Punti "+esc(x.pn||"-"),isn(x.pt)?(x.misurata?"":"≈ ")+it(x.pt,1):D.P[x.pn]&&!D.P[x.pn].tasso?"in taratura":"-","",a.pn==x.pn?fv(a.pt,1):"-")+r("Token pesati",x.misurata?mln(x.tok)+" mln":"-","",isn(a.tok)?mln(a.tok)+" mln":"-")
+    +sez("Consumo")+r("Punti "+esc(x.pn||"-"),isn(x.pt)?(x.misurata?"":"≈ ")+it(x.pt,1):D.P[x.pn]&&!D.P[x.pn].tasso?"da misurare":"-","",a.pn==x.pn?fv(a.pt,1):"-")+r("Token pesati",x.misurata?mln(x.tok)+" mln":"-","",isn(a.tok)?mln(a.tok)+" mln":"-")
     +(x.richieste?r("Chiamate al modello",String(x.richieste)):"")+r("Istruzioni lette all'avvio",fv(x.avvio_kb,0," KB"))
     +sez("Qualità e fonti")+MISURE.concat([{k:"parole",n:"Parole",d:0,u:""}]).filter(function(m){return isn(x[m.k])}).map(function(m){var s=st(x[m.k],m.s,m.basso);return r(m.n,fv(x[m.k],m.d,m.u),s&&s!="ok"?"v"+s:"",fv(a[m.k],m.d,m.u))}).join("")
     +"</tbody></table>";
@@ -813,7 +839,7 @@ function metodo(sez){var Q=D?piano({pn:D.reg[D.reg.length-1].pn}):{nome:"-",tass
    +'<h3 id="m-soglie">Soglie</h3><p>Verde fino alla prima soglia, giallo fino alla seconda, rosso oltre. Nel pannello il colore di una variazione dice se è un miglioramento (verde) o un peggioramento (rosso); il segno + o − dice solo se il numero è salito o sceso.</p><table class="mtab"><thead><tr><th>Misura</th><th class="vok">In soglia</th><th class="vko">Fuori soglia</th></tr></thead><tbody>'+rows.map(function(r){return "<tr><td>"+r[0]+"</td><td>"+r[1]+"</td><td>"+r[2]+"</td></tr>"}).join("")+"</tbody></table>"
    +'<h3 id="m-confronto">Periodo e confronto</h3><p>Il periodo vale per tutte le pagine. Con tutte le versioni, ogni numero si confronta con le edizioni subito precedenti (stesso numero di edizioni); con una versione scelta, con tutta la versione prima (saltando quelle con meno di 3 edizioni).</p>'
    +'<h3 id="m-orari">Orari</h3><p>Avvio, uscita e durata li scrive il kit a ogni uscita. Fino alla #025 sono ricostruiti dalla cronologia dell\'attività; le edizioni rifatte a mano non hanno l\'avvio. L\'uscita mediana è l\'ora entro cui esce metà delle edizioni: non risente di un singolo giorno storto.</p>'
-   +'<h3 id="m-consumo">Consumo</h3><p>I token li somma un gancio dalla trascrizione della sessione, senza spendere token. Token pesati = ingresso + 2 × scritti in cache + 0,1 × letti dalla cache + 5 × scritti dal modello.</p><p>I punti sono una stima per ogni piano: quando un\'edizione ha i token misurati seguono i token, altrimenti la durata × il tasso delle letture vere della pagina Utilizzo fatte su quel piano'+(Q.tasso?" ("+it(Q.tasso*60,1)+" punti per ora di attività sul piano "+esc(Q.nome)+")":"")+". Ogni edizione è rapportata al piano in vigore quando è uscita. "+(Q.tasso?"":"Per il piano "+esc(Q.nome)+" non c'è ancora una lettura vera: finché non c'è, la pagina mostra i token e segna il rapporto col piano come in taratura. ")+"La settimana tipo sono cinque edizioni.</p>"
+   +'<h3 id="m-consumo">Consumo</h3><p>I token li somma un gancio dalla trascrizione della sessione, senza spendere token. Token pesati = ingresso + 2 × scritti in cache + 0,1 × letti dalla cache + 5 × scritti dal modello.</p><p>I punti sono una stima per ogni piano: quando un\'edizione ha i token misurati seguono i token, altrimenti la durata × il tasso delle letture vere della pagina Utilizzo fatte su quel piano'+(Q.tasso?" ("+it(Q.tasso*60,1)+" punti per ora di attività sul piano "+esc(Q.nome)+")":"")+". Ogni edizione è rapportata al piano in vigore quando è uscita. "+(Q.tasso?"":"Per il piano "+esc(Q.nome)+" non c'è ancora una lettura vera: finché non c'è, la pagina mostra i token, segna i punti a edizione come da misurare e, nella scheda Quanto pesa il Gommberg su ogni piano, usa la stima dichiarata in piani.json (qui "+(Q.stima?fraz(Q.stima.rapporto)+" della quota del "+esc(Q.stima.di):"nessuna")+"), sempre scritta come stima. ")+"La settimana tipo sono cinque edizioni.</p>"
    +(t.length?'<table class="mtab"><thead><tr><th>Lettura</th><th>Piano</th><th>Punti</th><th>Minuti</th><th>Punti/ora</th></tr></thead><tbody>'+t.map(function(x){return '<tr title="'+esc(x.nota||"")+'"><td>'+breve(x.giorno)+"</td><td>"+esc(x.piano)+"</td><td>"+it(x.punti,1)+"</td><td>"+it(x.durata_min,0)+"</td><td>"+it(x.punti/x.durata_min*60,1)+"</td></tr>"}).join("")+"</tbody></table>":"")
    +'<h3 id="m-qualita">Qualità e fonti</h3>'+MISURE.map(function(m){return "<p><b>"+m.n+".</b> "+m.i+"</p>"}).join("")
    +"</div>";
