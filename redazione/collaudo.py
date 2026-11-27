@@ -739,9 +739,13 @@ def passo_scrittura():
                       {"titolo": "Il Brent sale", "testo": "Media iraniani riferiscono di mine, ma Bloomberg scrive di non avere conferme."}],
           "moduli": [pezzo("e", "Le indiscrezioni dicono solo che i risultati sono pronti.", "Secondo tre fonti citate da Reuters i dazi sono pronti.", "Fonti: Reuters."),
                      pezzo("f", "Dopo le dimissioni sono arrivate notizie secondo cui era nel mirino.", "La stampa coreana lo lega al fondo.", "Fonti: Korea Times."),
-                     pezzo("g", "Il governo prepara il fondo, scrive il Korea Times.", "Per la stampa locale, come scrive Reuters, conta il fondo.", "Fonti: Korea Times, Reuters.")]}
+                     pezzo("g", "Il governo prepara il fondo, scrive il Korea Times.", "Per la stampa locale, come scrive Reuters, conta il fondo.", "Fonti: Korea Times, Reuters."),
+                     pezzo("h", "Secondo le indiscrezioni del Financial Times il gruppo valuta un'offerta.", "Secondo il Nikkei fonti vicine al governo parlano di un rinvio.", ""),
+                     pezzo("i", "L'azienda ha presentato il prodotto alla stampa specializzata.", "La media mobile passa sotto il prezzo.", ""),
+                     pezzo("l", "I media scrivono che il gruppo valuta un'offerta.", "Di solito decide la Fed.", ""),
+                     pezzo("m", "Voci di mercato indicano un'offerta imminente.", "Di solito decide la Fed.", "")]}
     anon = sorted(d for d, _ in getattr(T, "senza_testata", lambda *a: [])(T.testi(Ca), nomi + ["Nvidia", "Korea Times"]))
-    anon_ok = anon == ["moduli.1.testo.0", "notizie.0.titolo", "top.dek"] \
+    anon_ok = anon == ["moduli.1.perche", "moduli.1.testo.0", "moduli.5.testo.0", "moduli.6.testo.0", "notizie.0.titolo", "top.dek"] \
         and bool(T.connettivi("Secondo la stampa coreana il Kospi sale perché arriva il fondo. A. B. C. D.")) \
         and not T.connettivi("Secondo Goldman Sachs il Kospi sale perché arriva il fondo. A. B. C. D.")
     fonti_ok = fonti_ok and anon_ok

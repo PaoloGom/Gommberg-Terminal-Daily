@@ -41,14 +41,20 @@ TENDENZA = r"di solito|in genere|tend(?:e|ono) a|spesso|quasi sempre|di norma"
 # L'ultima colonna dell'agenda ("Sopra: ... Sotto: ...") è una tendenza per intestazione ("Come può muovere i mercati, di
 # solito"): le sue celle non devono ripeterlo una per una (nelle edizioni #026-#030 erano 28 "di solito" nella sola pag. 5).
 AGENDA = r"\bSopra(?: \([^)]{0,30}\))?:|\bSotto(?: \([^)]{0,30}\))?:"
-# Chi parla senza nome (§3.5: un'indiscrezione o la spiegazione di qualcuno vogliono il nome della testata). VOCI_GENERICHE fa
-# da fonte al posto di una testata ("riportata dalla stampa americana", "secondo i media iraniani", "notizie secondo cui"):
-# non copre mai una causa, ed è un errore se la frase non nomina la testata. INDISCREZIONI riprende una notizia anonima: va
-# bene se il pezzo dice da chi viene ("secondo tre fonti citate da X"), altrimenti è un errore.
-VOCI_GENERICHE = (r"\b(?:la|della|dalla|alla|sulla) stampa (?!d[ei]\b|e\b)[a-zà-ù]+|\b(?:i|dei|dai|ai|sui) media [a-zà-ù]+i\b|"
-                  r"(?:^|[.;:]\s+)Media [a-zà-ù]+i\b|\bnotizie secondo cui\b")
-INDISCREZIONI = r"\bindiscrezion[ei]\b|\bfonti anonime\b|\bresoconto anonimo\b"
-ESENZIONI = re.compile(r"Perch[ée] conta|Il perch[ée] |secondo (?!(?:la |i |le )?(?:stampa|media|notizie|indiscrezion|fonti anonime))|"
+# Chi parla senza nome (§3.5: un'indiscrezione o la spiegazione di qualcuno vogliono il nome della testata). VOCI_GENERICHE
+# (stampa, media, giornali) è un errore solo quando fa da fonte (dopo "secondo", "per", "dalla", come soggetto di un verbo del
+# dire) e né la frase né quella dopo citano una testata. INDISCREZIONI è sempre una notizia di qualcuno: va bene se la frase,
+# quella dopo o il pezzo dicono da quale testata viene. Senza distinzione di maiuscole.
+VOCI_GENERICHE = r"\b(?:(la|le|lo|i|gli|il|dalla|dalle|dai|dagli|dal|della|delle|dei|degli|alla|ai|sulla|sui|una)\s+)?(stampa|media|giornali)\b"
+INDISCREZIONI = (r"\bindiscrezion[ei]\b|\bfont[ei] anonim[ae]\b|\bfont[ei] vicin[ae]\b|\bvoci di mercato\b|\bresoconto anonimo\b|"
+                 r"\bnotizie secondo cui\b")
+_DIRE = r"(?:riport|riferisc|scriv|dic[eo]n?|parl|sostien|rivel|indic|leg[ae]|lega|attribuisc|spieg|raccont|anticip|danno|dà\b|vedono|vede\b)"
+_FA_DA_FONTE_PRIMA = re.compile(r"(?:\bsecondo|\bper|\bstando|\briport\w*|\briferit\w*|\briferisc\w*|\bscritt\w*|\bscriv\w*|"
+                                r"\bha(?:nno)? scritto|\bcitat\w*|\bappres\w*|\bdiffus\w*|\brilanciat\w*|\banticipat\w*|\bdic(?:e|ono))"
+                                r"(?:\s+(?:quanto|a|ad|da))?\s*$", re.I)
+_FA_DA_FONTE_DOPO = re.compile(r"^(?:[\s,]+[\w'-]+){0,3}?[\s,]+" + _DIRE, re.I)
+ESENZIONI = re.compile(r"Perch[ée] conta|Il perch[ée] |secondo (?!(?:quanto \w+ )?(?:la |i |le |gli |dai |dalla )?(?:stampa|media|giornali|notizie|"
+                       r"indiscrezion|font[ei] anonim|font[ei] vicin|voci di mercato))|"
                        r"stima redazionale|" + AGENDA + "|" + TENDENZA + "|" + VOCE_RED, re.I)
 INGLESE = re.compile(r"\b(?:the|of|and|is|are|they're|it's|we|our|some|will|way|total|with|for|to)\b", re.I)
 
@@ -358,16 +364,39 @@ def fuori_dalle_fonti(C, nomi=None):
     return fuori
 
 
-def senza_testata(tt, nomi=None):
-    """§3.5: chi parla senza nome. Una voce generica (VOCI_GENERICHE) fa da fonte: errore se la sua frase non nomina una
-    testata come fonte (una testata che è solo il soggetto della notizia non basta). Un'indiscrezione (INDISCREZIONI): errore se il pezzo non dice da chi viene (una testata detta come fonte:
-    "secondo X", "citate da X", "lo scrive X"). Pezzo = un approfondimento, una notizia, la top story. Torna [(dove, frase)]."""
-    nome, gen, ind = nome_fonte(nomi), re.compile(VOCI_GENERICHE), re.compile(INDISCREZIONI, re.I)
+# una testata detta come fonte: dopo "secondo/per/scrive/citate da/tra cui/che cita...", dopo una parola di cronaca con
+# di/del/dal ("le indiscrezioni del X", "pubblicate dal X"), o prima di un verbo del dire ("X scrive")
+_CITA_PRIMA = re.compile(r"(?:\bsecondo|\bper|\bstando a\w*|\bscriv\w+|\bha(?:nno)? scritto|\briferisc\w+|\bha riferito|\briport\w+|"
+                         r"\bdic(?:e|ono)|\bspieg\w+|\bdat[oaie] da\w*|\bsentit[oaie] da\w*|\bcitat[oaie] da\w*|\bpubblicat\w* da\w*|"
+                         r"\bdiffus\w* da\w*|\b[a-zà-ù]+t[oaie] da(?:l|lla|llo|i|gli|lle)?|\btra cui|\bche cita|\bcitando|\bcome scriv\w+|"
+                         r"\b(?:indiscrezion\w*|notizi\w+|articol\w+|scoop|resoconto|rivelazion\w+|anticipazion\w+|servizio|inchiesta)"
+                         r"(?:\s+[\w']+){0,2}?\s+(?:di|del|dello|della|dei|degli|delle|dell'|dal|dalla|dallo|dai))"
+                         r"\s*(?:il |la |lo |l'|i |gli |le )?$", re.I)
+_GEN_A = re.compile(r"^[\s,]*(?:[\w'-]+\s+){0,2}?(?:la |le |i |gli |dalla |dai |della |dei )?(?:stampa|media|giornali)\b", re.I)
 
-    def citata(t):      # una testata detta come fonte; "Nvidia, riferisce la stampa americana" non cita Nvidia
-        return any(_DICE_PRIMA.search(t[max(0, m.start() - 30):m.start()]) or
-                   (_DICE_DOPO.search(t[m.end():m.end() + 25]) and not gen.search(t[m.end():m.end() + 60]))
+
+def senza_testata(tt, nomi=None):
+    """§3.5: chi parla senza nome. Una voce generica (stampa, media, giornali) che fa da fonte è un errore se né la sua frase
+    né quella dopo citano una testata; un'indiscrezione (fonti anonime o vicine, voci di mercato, "notizie secondo cui") anche
+    se il pezzo non cita una testata ("notizie secondo cui" vuole la testata nella frase o in quella dopo). Una testata solo
+    nominata (il soggetto della notizia) non basta. Pezzo = un approfondimento, una notizia, la top story. Torna [(dove, frase)]."""
+    nome = nome_fonte(list(nomi or NOMI) + sorted(SIGLE))
+    gen, ind = re.compile(VOCI_GENERICHE, re.I), re.compile(INDISCREZIONI, re.I)
+
+    def citata(t):      # "Nvidia, riferisce la stampa americana" non cita Nvidia: il verbo ha per soggetto la stampa
+        return any(_CITA_PRIMA.search(t[max(0, m.start() - 45):m.start()]) or
+                   (_DICE_DOPO.search(t[m.end():m.end() + 25]) and not _GEN_A.search(re.sub(_DICE_DOPO, "", t[m.end():m.end() + 60], 1)))
                    for m in nome.finditer(t))
+
+    def da_fonte(f):    # la voce generica fa da fonte, non è il fatto ("i media di Stato chiudono", "la media mobile")
+        for m in gen.finditer(f):
+            art, voce = (m.group(1) or "").lower(), m.group(2).lower()
+            if voce == "media" and art in ("la", "lo", "una", "della", "alla", "sulla"):
+                continue                       # la media, una media: la media dei numeri
+            if art in ("dalla", "dalle", "dai", "dagli", "dal") or _FA_DA_FONTE_PRIMA.search(f[max(0, m.start() - 30):m.start()]) \
+                    or _FA_DA_FONTE_DOPO.search(f[m.end():m.end() + 45]):
+                return True
+        return False
     pezzi = {}
     for dove, t in tt.items():
         parti = dove.split(".")
@@ -376,8 +405,12 @@ def senza_testata(tt, nomi=None):
     for p in pezzi.values():
         nel_pezzo = citata(" ".join(p.values()))
         for dove, t in p.items():
-            for f in re.split(r"(?<=[.!?])\s+", re.sub(r"\s+", " ", t)):
-                if (gen.search(f) and not citata(f)) or (ind.search(f) and not nel_pezzo):
+            ff = re.split(r"(?<=[.!?])\s+", re.sub(r"\s+", " ", t))
+            for i, f in enumerate(ff):
+                vicino = citata(f) or (i + 1 < len(ff) and citata(ff[i + 1]))
+                notizie = re.search(r"\bnotizie secondo cui\b", f, re.I)
+                if (da_fonte(f) and not vicino) or (notizie and not vicino) or \
+                        (ind.search(f) and not notizie and not vicino and not nel_pezzo):
                     out.append((dove, f.strip()[:120]))
     return out
 
@@ -456,8 +489,9 @@ def main():
         anonime = senza_testata(testi(C))
         if anonime:
             errori.append("chi parla senza nome (§3.5): un'indiscrezione o la spiegazione di qualcuno vogliono il nome della testata nella "
-                          "frase (e nella riga Fonti); \"la stampa\", \"i media\", \"notizie\" non sono un nome. Se il nome non si "
-                          "trova, togli la frase. Sono: " + "; ".join(f"{dove} «{f}»" for dove, f in anonime))
+                          "frase (e nella riga Fonti); \"la stampa\", \"i media\", \"notizie\" non sono un nome. Cerca nelle schede "
+                          "del fatto la testata che lo scrive e mettila nella frase; togli la frase solo se nelle schede la fonte non "
+                          "c'è davvero. Sono: " + "; ".join(f"{dove} «{f}»" for dove, f in anonime))
         domande = aperture_con_domanda(C)
         if len(domande) > MAX_DOMANDE:
             errori.append(f"{len(domande)} approfondimenti aprono con una domanda esplicita (massimo {MAX_DOMANDE}): tienila dove rende di "
