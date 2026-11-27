@@ -633,7 +633,9 @@ def memoria(C, ed):
                 s = MEM.segnala(x, voci)
                 if s:
                     righe.append(f"moduli.{x['chiave']}: " + "; ".join(s))
-        return MEM.testo_memoria(voci) + "\nI pezzi di oggi che la riprendono: " + ("\n" + "\n".join(righe) if righe else "nessuno")
+        nota = ("\nI pezzi di oggi che la riprendono (§3.3: un meccanismo segnalato si accorcia solo se è di contorno; il "
+                "passaggio su cui regge la tesi resta intero, con parole e paragone nuovi): ")
+        return MEM.testo_memoria(voci) + nota + ("\n" + "\n".join(righe) if righe else "nessuno")
     except Exception:  # noqa: BLE001 - la memoria aiuta, non ferma il desk
         return None
 

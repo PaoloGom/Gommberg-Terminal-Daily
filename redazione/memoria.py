@@ -16,7 +16,7 @@ Uso:
 --json F scrive le schede trovate, pronte da unire a fatti.json: id "MEM-<mmgg>-<id d'origine>", "ripresa" = edizione d'origine, esito del
 revisore conservato. Una scheda ripresa vale come le altre per i controlli; nel testo è contesto, mai notizia del giorno.
 Variabile: GTD_REPO (default /home/claude/gtd)."""
-import ast, datetime as dt, glob, json, os, re, sys, unicodedata
+import ast, datetime as dt, glob, html, json, os, re, sys, unicodedata
 
 REPO = os.environ.get("GTD_REPO", "/home/claude/gtd")
 if not os.path.isdir(os.path.join(REPO, "redazione", "fatti")):
@@ -144,7 +144,8 @@ SEGNI = {
     "M02": [[r"10 anni", r"(guarda|segue|dipende|include|conta)\w*\b.{0,60}(crescita|inflazione|prezzi)"]],
     "M03": [[r"curva", r"invertit"]],
     "M04": [[r"sorpres|scarto|differenza", r"attes"], [r"gia nei prezzi|gia nel prezzo|messo nel prezzo|messi nei prezzi"]],
-    "M05": [[r"inflazion|prezzi", r"sopra le attese", r"tass|rendiment"]],
+    "M05": [[r"inflazion|prezzi", r"sopra le attese", r"tass|rendiment"],
+            [r"inflazion|un decimo|\bdato\b", r"spinge su il breve|rendiment[oi] a breve|sposta le attese sulla fed"]],
     "M06": [[r"\butili|\bmargini", r"futur|lontan|domani|tra qualche anno|tra molti anni", r"\bval|\bpaga|scont|prezzo"]],
     "M07": [[r"correlazion"], [r"azion|borsa", r"titoli di stato|rendiment", r"stessa direzione|direzioni opposte|stesso verso"]],
     "M08": [[r"dollaro", r"(differenz|divario).{0,30}(tass|rendiment)"]],
@@ -152,12 +153,12 @@ SEGNI = {
     "M10": [[r"petrolio|greggio|barile|carburant|benzina", r"inflazion|prezzi al consumo"]],
     "M11": [[r"petrolio|greggio|baril[ei]", r"offerta|domanda|surplus|ne arrivano|ne servono|ce n'e|troppo"]],
     "M12": [[r"backwardation|contango|consegna vicina|consegna lontana"]],
-    "M13": [[r"spread", r"btp|bund"]],
-    "M14": [[r"\bvix\b", r"misura|paura|volatilita attesa|opzioni"]],
+    "M13": [[r"spread", r"btp|bund", r"rend\w* (un po' )?di piu|chiest|premio|rischio|in piu"]],
+    "M14": [[r"\bvix\b", r"volatilit|opzioni|si aspettano|prossimo mese|polizze|30 giorni"]],
     "M15": [[r"attese|stime|guidance|previsioni", r"conti|trimestral|risultat|ricavi", r"batt|sopra|delud|non bast"]],
     "M16": [[r"composizion"], [r"indic|listino", r"\bpesa|\bpesano|ponderat|una media|dimension", r"societa|titoli|aziende"],
             [r"russell 2000", r"piccol"]],
-    "M17": [[r"kospi|taiwan|taipei|seul|corea", r"chip|semicondutt|samsung|sk hynix", r"\bpes|una parte|in linea|sera prima"]],
+    "M17": [[r"kospi|taiwan|taipei|seul|corea", r"chip|semicondutt|samsung|sk hynix", r"\bpes|una parte|in linea|sera prima|valgono|dell'indice"]],
     "M18": [[r"\byen\b", r"nikkei"]],
     "M19": [[r"lavoro|occupat|buste paga|disoccupaz", r"tass|rendiment"]],
     "M20": [[r"probabilit", r"future", r"scommess|non (sono )?previsioni|ricavat"]],
@@ -186,42 +187,73 @@ def riconosci(testi):
             if any(all(re.search(p, f) for p in alt) for alt in alternative for f in fr)]
 
 
-def _moduli_sorgente(path):
-    """(meccanismi dichiarati, [moduli]) dal file dell'edizione, letto senza eseguirlo; di ogni modulo solo i campi
-    scritti come testo (il resto, grafici compresi, si salta). None se il file manca, non si legge o non ha C."""
+def _leggi_sorgente(path):
+    """Dal file dell'edizione, letto senza eseguirlo: {"dich": meccanismi dichiarati, "mods": [moduli], "top": titolo
+    di apertura, "lettura": lettura di pag. 5}. Dei moduli solo i campi scritti come testo (grafici e il resto si
+    saltano). None se il file manca, non si legge o non ha C."""
     try:
         albero = ast.parse(open(path, encoding="utf-8").read())
     except (OSError, SyntaxError, ValueError):
         return None
+
+    def lett(v):
+        try:
+            return ast.literal_eval(v)
+        except (ValueError, TypeError, SyntaxError, RecursionError):
+            return None
     for n in albero.body:
         if isinstance(n, ast.Assign) and any(getattr(x, "id", "") == "C" for x in n.targets) and isinstance(n.value, ast.Dict):
-            dich, mods = [], []
+            out = {"dich": [], "mods": [], "top": "", "lettura": ""}
             for k, v in zip(n.value.keys, n.value.values):
                 chiave = getattr(k, "value", None)
                 if chiave == "meccanismi":
-                    try:
-                        dich = [x for x in ast.literal_eval(v) if isinstance(x, str)]
-                    except (ValueError, TypeError, SyntaxError):
-                        pass
+                    out["dich"] = [x for x in (lett(v) or []) if isinstance(x, str)]
+                elif chiave == "lettura" and isinstance(lett(v), str):
+                    out["lettura"] = lett(v)
+                elif chiave == "top" and isinstance(v, ast.Dict):
+                    for tk, tv in zip(v.keys, v.values):
+                        if getattr(tk, "value", None) == "titolo" and isinstance(lett(tv), str):
+                            out["top"] = lett(tv)
                 elif chiave == "moduli" and isinstance(v, ast.List):
                     for m in v.elts:
                         if not isinstance(m, ast.Dict):
                             continue
                         x = {}
                         for mk, mv in zip(m.keys, m.values):
-                            if isinstance(mk, ast.Constant) and mk.value in ("chiave", "tema", "titolo", "perche", "quindi",
-                                                                             "testo", "punti"):
-                                try:
-                                    x[mk.value] = ast.literal_eval(mv)
-                                except (ValueError, TypeError, SyntaxError):
-                                    pass
+                            if isinstance(mk, ast.Constant) and mk.value in ("chiave", "tema", "breve", "titolo", "perche",
+                                                                             "quindi", "testo", "punti"):
+                                val = lett(mv)
+                                if val is not None:
+                                    x[mk.value] = val
                         if x.get("chiave") and isinstance(x.get("titolo"), str):
-                            mods.append(x)
-            return dich, mods
+                            out["mods"].append(x)
+            return out
     return None
 
 
-def _desk(mods, path):
+def _moduli_sorgente(path):
+    """(meccanismi dichiarati, [moduli]): la parte di _leggi_sorgente che serve a desk e collaudo."""
+    letto = _leggi_sorgente(path)
+    return (letto["dich"], letto["mods"]) if letto else None
+
+
+def _scaletta(repo, giorno):
+    """{chiave: tesi} dalla scaletta archiviata quel giorno (redazione/fatti/AAAA-MM-GG.json, registro "scaletta"): la tesi
+    che chi scriveva ha dichiarato prima di scrivere. {} se il file o il registro mancano."""
+    try:
+        schede = json.load(open(os.path.join(repo, "redazione", "fatti", f"{giorno}.json"), encoding="utf-8"))
+    except Exception:
+        return {}
+    out = {}
+    for s in schede if isinstance(schede, list) else []:
+        if isinstance(s, dict) and s.get("sezione") == "scaletta":
+            for m in s.get("moduli") or []:
+                if isinstance(m, dict) and isinstance(m.get("chiave"), str) and isinstance(m.get("tesi"), str) and m["tesi"].strip():
+                    out[m["chiave"]] = " ".join(m["tesi"].split())
+    return out
+
+
+def _desk(mods, path, prima_pagina=False):
     """Le riscritture del desk accettate quel giorno, applicate come le applica il modello (solo dove il testo è ancora
     quello che il desk aveva letto): la memoria è ciò che il lettore ha letto."""
     try:
@@ -232,7 +264,9 @@ def _desk(mods, path):
     for e in ok if isinstance(ok, list) else []:
         try:
             p = e["campo"].split(".")
-            m = per.get(p[1]) if p[0] == "moduli" else None
+            if prima_pagina:
+                p = ["moduli", "_top", "titolo"] if e["campo"] == "top.titolo" else []
+            m = per.get(p[1]) if p and p[0] == "moduli" else None
             if not m:
                 continue
             if len(p) == 4 and isinstance(m.get(p[2]), list) and m[p[2]][int(p[3])] == e["originale"]:
@@ -243,16 +277,52 @@ def _desk(mods, path):
             continue
 
 
-def _tesi(m):
-    """La tesi in una riga: la frase del Perché che dichiara la nostra lettura. Se non c'è, il pezzo riporta la lettura di
-    altri e la sua tesi è il titolo: niente riga in più."""
-    return next((f for f in frasi(m.get("perche")) if DICHIARATA.search(f)), "")
+RIMANDO = re.compile(r"^(?:(?:a nostro avviso|per noi|secondo noi),? )?(?:ma|e|cosi|quindi|percio|per questo|anche|"
+                     r"(?:hanno|ha) prevalso|conta soprattutto)\b|\b(?:le seconde|i secondi|le prime|i primi|l'ultima|"
+                     r"l'ultimo|questo|questa|questi|queste|lo conferma)\b")
 
 
-def scheda_modulo(m):
+def _tesi(m, scaletta=None):
+    """La tesi del pezzo, intera. Prima quella dichiarata in scaletta (archiviata con le schede del giorno); se manca, la
+    frase che dichiara la nostra lettura nel Perché o nel testo (anche senza riquadri, G-59), con la frase prima se
+    comincia con un rimando ("hanno prevalso le seconde"). Se il pezzo riporta solo letture altrui, la tesi è il titolo."""
+    if scaletta and scaletta.get(m.get("chiave")):
+        return scaletta[m["chiave"]]
+    for campo in [m.get("perche")] + [t for t in (m.get("testo") or []) if isinstance(t, str)]:
+        fr = frasi(campo)
+        for i, f in enumerate(fr):
+            if DICHIARATA.search(f):
+                inizio = " ".join(norm(f).split()[:9])
+                return (fr[i - 1] + " " + f) if i and RIMANDO.search(inizio) else f
+    return ""
+
+
+FAMIGLIE = (("Oro", r"\boro\b"), ("Petrolio", r"petroli|brent|greggio|barile|hormuz"), ("Dazi", r"\bdazi"),
+            ("Tassi e Fed", r"\b(?:fed|treasury|tassi|rifugi|pce|rendiment)"), ("Europa e Italia", r"europa|milano|ftse"),
+            ("Corea e Asia", r"\b(?:corea|seul|kospi|giappone|tokyo)"),
+            ("Chip e AI", r"\b(?:chip|nvidia|ai|anthropic|tecnolog|semicondutt|memorie)\b"))
+
+
+def famiglia(m):
+    """Il tema in una famiglia sola, perché chi scrive etichetta lo stesso tema in modi diversi (l'oro del 19/11 sotto
+    "Valute", "Chip" e "Tecnologia" per la stessa storia): prima la chiave del pezzo, poi tema e titolo; oro e petrolio si
+    riconoscono anche dal titolo. Se nulla torna, il tema com'è scritto."""
+    chiave, tema, tit = norm(m.get("chiave")), norm(m.get("tema")), norm(m.get("titolo"))
+    for nome, rx in FAMIGLIE[:2]:
+        if re.search(rx, chiave + " " + tit):
+            return nome
+    for base in (chiave, tema, tit):
+        for nome, rx in FAMIGLIE[2:]:
+            if re.search(rx, base):
+                return nome
+    return str(m.get("tema") or m.get("chiave"))
+
+
+def scheda_modulo(m, scaletta=None):
     testo = [t for t in (m.get("testo") or []) if isinstance(t, str)]
-    return {"chiave": m.get("chiave"), "tema": str(m.get("tema") or m.get("chiave")), "titolo": m["titolo"],
-            "tesi": _tesi(m), "apre": (frasi(testo[0]) or [""])[0] if testo else "",
+    return {"chiave": m.get("chiave"), "tema": famiglia(m), "titolo": m["titolo"],
+            "breve": m.get("breve") if isinstance(m.get("breve"), str) else "",
+            "tesi": _tesi(m, scaletta), "apre": (frasi(testo[0]) or [""])[0] if testo else "",
             "meccanismi": riconosci([m.get("perche"), m.get("quindi")] + testo +
                                     [p for p in (m.get("punti") or []) if isinstance(p, str)])}
 
@@ -270,18 +340,23 @@ def ultime(oggi, quante=QUANTE, repo=None):
         d = os.path.basename(os.path.dirname(p))
         if d >= oggi.isoformat() or (numeri is not None and d not in numeri):
             continue
-        letto = _moduli_sorgente(p)
-        if not letto or not letto[1]:
+        letto = _leggi_sorgente(p)
+        if not letto or not letto["mods"]:
             continue
-        _desk(letto[1], os.path.join(os.path.dirname(p), "desk_ok.json"))
-        giorni.append((d, letto[1]))
+        _desk(letto["mods"], os.path.join(os.path.dirname(p), "desk_ok.json"))
+        top = {"chiave": "_top", "titolo": letto["top"]}
+        _desk([top], os.path.join(os.path.dirname(p), "desk_ok.json"), prima_pagina=True)
+        letto["top"] = top["titolo"]
+        giorni.append((d, letto))
         if len(giorni) == quante:
             break
     out = []
-    for d, mods in reversed(giorni):
-        for m in mods:
+    for d, letto in reversed(giorni):
+        tesi = _scaletta(repo, d)
+        pag5 = (frasi(html.unescape(letto["lettura"])) or [""])[0]
+        for m in letto["mods"]:
             try:
-                out.append(dict(scheda_modulo(m), data=d, numero=(numeri or {}).get(d)))
+                out.append(dict(scheda_modulo(m, tesi), data=d, numero=(numeri or {}).get(d), top=letto["top"], pag5=pag5))
             except Exception:  # noqa: BLE001 - un modulo scritto male toglie sé stesso, non la memoria
                 continue
     return out
@@ -304,8 +379,12 @@ def _date(giorni):
     return ", ".join(_gm(d) for d in g)
 
 
-def testo_memoria(voci, titoli_mecc=None):
-    """La memoria come la legge chi scrive: due righe di conteggi (temi e meccanismi tornati) e una riga per pezzo."""
+TETTO = 6500   # caratteri: oltre, la memoria perde prima l'edizione più vecchia (chi scrive la legge ogni mattina)
+
+
+def testo_memoria(voci, titoli_mecc=None, tetto=TETTO):
+    """La memoria come la legge chi scrive: due righe di conteggi (temi e meccanismi tornati), poi per ogni edizione la
+    prima pagina e l'apertura di pag. 5, e una riga per pezzo. Se supera il tetto, esce prima l'edizione più vecchia."""
     if not voci:
         return "Memoria delle ultime edizioni: nessun sorgente archiviato leggibile, nessun vincolo da qui."
     if titoli_mecc is None:
@@ -314,22 +393,40 @@ def testo_memoria(voci, titoli_mecc=None):
                            json.load(open(os.path.join(REPO, "redazione", "meccanismi.json"), encoding="utf-8"))["voci"]}
         except Exception:
             titoli_mecc = {}
-    date = sorted({v["data"] for v in voci})
-    temi, mecc = {}, {}
+    pieni, corti = {}, {}
     for v in voci:
-        temi.setdefault(v["tema"], set()).add(v["data"])
-        for m in v["meccanismi"]:
-            mecc.setdefault(m, set()).add(v["data"])
-    tornati = lambda d: sorted(((k, g) for k, g in d.items() if len(g) > 1), key=lambda x: (-len(x[1]), x[0]))
-    righe = [f"Memoria delle ultime {len(date)} edizioni ({_date(date)}), §3.3: tema | titolo | tesi dichiarata | "
-             "meccanismi spiegati | attacco.",
-             "Temi tornati: " + ("; ".join(f"{t} ({_date(g)})" for t, g in tornati(temi)) or "-"),
-             "Meccanismi spiegati più volte: " + ("; ".join(f"{m} {titoli_mecc.get(m, '')} ({_date(g)})"
-                                                          for m, g in tornati(mecc)) or "-")]
-    for v in voci:
-        righe.append(f"{_gm(v['data'])} {v['tema']} | {v['titolo']} | {_taglia(v['tesi'], 120) or '-'} | "
-                     f"{', '.join(v['meccanismi']) or '-'} | {_taglia(v['apre'], 75) or '-'}")
-    return "\n".join(righe)
+        testa = f"{_gm(v['data'])} prima pagina: {v.get('top') or '-'} | pag. 5 apre: {_taglia(v.get('pag5') or '-', 70)}"
+        breve = f" (indice: {v['breve']})" if v.get("breve") else ""
+        mec = ", ".join(v["meccanismi"]) or "-"
+        pieni.setdefault(v["data"], [testa]).append(f"  {v['tema']} | {v['titolo']}{breve} | tesi: {v['tesi'] or '= titolo'} "
+                                                   f"| {mec} | apre: {_taglia(v['apre'], 70) or '-'}")
+        corti.setdefault(v["data"], [f"{_gm(v['data'])} (in breve) prima pagina: {v.get('top') or '-'}"]).append(
+            f"  {v['tema']} | {v['titolo']} | {mec}")
+    date = sorted(pieni)
+    brevi = 0      # quante edizioni, dalla più vecchia, stanno in breve (titolo e meccanismi, senza tesi né attacco)
+    while True:
+        dentro = [v for v in voci if v["data"] in date]
+        temi, mecc = {}, {}
+        for v in dentro:
+            temi.setdefault(v["tema"], set()).add(v["data"])
+            for m in v["meccanismi"]:
+                mecc.setdefault(m, set()).add(v["data"])
+        tornati = lambda d: sorted(((k, g) for k, g in d.items() if len(g) > 1), key=lambda x: (-len(x[1]), x[0]))
+        quali = f"ultime {len(date)} edizioni" if len(date) > 1 else "ultima edizione"
+        righe = [f"Memoria delle {quali} ({_date(date)}), §3.3. Per pezzo: tema | titolo | tesi | "
+                 "meccanismi spiegati | attacco.",
+                 "Temi tornati: " + ("; ".join(f"{t} ({_date(g)})" for t, g in tornati(temi)) or "-"),
+                 "Meccanismi spiegati più volte: " + ("; ".join(f"{m} {titoli_mecc.get(m, '')} ({_date(g)})"
+                                                              for m, g in tornati(mecc)) or "-")]
+        for i, d in enumerate(date):
+            righe += corti[d] if i < brevi else pieni[d]
+        t = "\n".join(righe)
+        if len(t) <= tetto or len(date) == 1:
+            return t
+        if brevi < len(date) - 1:
+            brevi += 1           # prima si accorcia l'edizione più vecchia ancora intera
+        else:
+            date, brevi = date[1:], brevi - 1    # poi esce la più vecchia
 
 
 PIENE = re.compile(r"[a-z]{5,}|\b(?:oro|fed|bce|btp|pil)\b")
@@ -344,6 +441,21 @@ LEGGERE = set("il lo la i gli le l un una uno un' di del della dei a al alla da 
 
 def _piene(t):
     return {w[:6] for w in PIENE.findall(norm(t)) if w not in VUOTE_T}
+
+
+# "Titolo vicino" (taratura del collaudo indipendente del 27/11 sulle edizioni 20-27/11): contano solo le parole che non
+# sono il soggetto del tema (oro, petrolio, Europa, chip...: una storia che continua lo ripete per forza), né un verbo di
+# movimento (perde, pesa, rimbalza), né un'unità di misura; ne servono VICINI in comune, o una sola nella stessa famiglia
+# di tema (lo stesso tema detto con la stessa idea: "guarda all'offerta", "non per i conti").
+UNITA_T = {"dollari", "miliardi", "milioni", "punti", "percento", "barili", "settimane", "giorni", "street", "borse"}
+MOSSE_T = re.compile(r"^(?:pes|perd|pers|scend|sces|sal[eg]|rimbalz|risal|cal[aoi]|cad|crol|guadagn|regg|tien|vend|compr)")
+VICINI = 2
+
+
+def _proprie(t):
+    parole = [w for w in PIENE.findall(norm(t)) if w not in VUOTE_T and w not in UNITA_T and not MOSSE_T.match(w)
+              and not any(re.search(rx, w) for _, rx in FAMIGLIE)]
+    return {w[:6] for w in parole}
 
 
 def _soggetto(t):
@@ -361,10 +473,10 @@ def segnala(m, voci):
         g = sorted({v["data"] for v in voci if mid in v["meccanismi"]})
         if g:
             out.append(f"{mid} già spiegato il {_date(g)}")
-    tit = _piene(s["titolo"])
+    tit = _proprie(s["titolo"])
     for v in voci:
-        comuni = tit & _piene(v["titolo"])
-        if len(comuni) >= 2 or (v["chiave"] == s["chiave"] and comuni):
+        comuni = tit & _proprie(v["titolo"])
+        if len(comuni) >= VICINI or (comuni and v["tema"] == s["tema"]):
             out.append(f"titolo vicino al {_gm(v['data'])} «{v['titolo']}»")
     for v in voci:
         if _soggetto(s["apre"]) and _soggetto(s["apre"]) == _soggetto(v["apre"]):

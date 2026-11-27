@@ -1,5 +1,5 @@
-chip «Per Nvidia la sorpresa sui conti non basta: pesano vertice e indagine»: M04 già spiegato il 17/11; M16 già spiegato il 17/11; titolo vicino al 16/11 «Per noi Taipei e Seul cadono di più: nell'indice pesano i chip»
-tassi «Con Wall Street giù i Treasury si fermano: il mercato aspetta la Fed»: M01 già spiegato il 17/11; M04 già spiegato il 17/11; M10 già spiegato il 17/11; M26 già spiegato il 17/11; titolo vicino al 17/11 «Con la paura i Treasury tornano rifugio, anche con la Fed pronta ad alzare»
-europa «L'Europa perde il doppio di Wall Street: il calo viene dai titoli tecnologici»: M16 già spiegato il 17/11; titolo vicino al 16/11 «La settimana più forte da aprile per l'Europa arriva mentre l'AI vacilla»; titolo vicino al 17/11 «Con meno AI nell'indice l'Europa perde meno di Wall Street»
-petrolio «Il Brent scende con le scorte USA, ma il rischio Hormuz lo sostiene»: M10 già spiegato il 17/11; M11 già spiegato il 16, 17/11; titolo vicino al 16/11 «Con Hormuz chiuso, il petrolio caro frena chi lo importa: il Giappone»; apre come il 16/11 «Quando il petrolio sale perché manca l'offerta, di solito soffrono...»
+chip «Per Nvidia la sorpresa sui conti non basta: pesano vertice e indagine»: M04 già spiegato il 17/11; M16 già spiegato il 17/11
+tassi «Con Wall Street giù i Treasury si fermano: il mercato aspetta la Fed»: M01 già spiegato il 17/11; M04 già spiegato il 17/11; M10 già spiegato il 17/11; M26 già spiegato il 17/11
+europa «L'Europa perde il doppio di Wall Street: il calo viene dai titoli tecnologici»: M16 già spiegato il 17/11
+petrolio «Il Brent scende con le scorte USA, ma il rischio Hormuz lo sostiene»: M10 già spiegato il 17/11; M11 già spiegato il 16, 17/11; apre come il 16/11 «Quando il petrolio sale perché manca l'offerta, di solito soffrono...»
 anthropic «Il debutto di Anthropic mette alla prova la liquidità del Nasdaq»: niente

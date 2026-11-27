@@ -185,7 +185,6 @@ def passo_sintassi():
 
 
 # ---------------------------------------------------------------- memoria delle ultime edizioni (G-42)
-MEMORIA_MAX = 6500     # caratteri della memoria che chi scrive legge ogni mattina: oltre, la memoria costa troppo
 
 
 def passo_memoria():
@@ -216,14 +215,60 @@ def passo_memoria():
     # la tesi è una frase scritta dall'edizione (mai un riassunto), il titolo è quello letto dal lettore (desk applicato)
     if not any(x["titolo"] == "Il rimbalzo di Nvidia: si vendeva per sfiducia, non per i conti" for x in v25):
         male.append("24/11: il titolo del pezzo sui chip non è quello riscritto dal desk e uscito in pagina")
+    # la tesi intera: dalla scaletta archiviata; senza scaletta la frase dichiarata, con quella prima se comincia con un
+    # rimando ("hanno prevalso le seconde"); senza Perché (G-59) la colonna non si svuota se c'è la scaletta
+    oro24 = next((x for x in v25 if x["data"] == "2026-11-24" and x["tema"] == "Oro"), {})
+    if not oro24.get("tesi", "").startswith("L'oro è sceso con le borse perché in una crisi si vende"):
+        male.append(f"24/11: tesi dell'oro non presa dalla scaletta ({oro24.get('tesi', '-')[:60]})")
+    letto24 = MEM._moduli_sorgente(os.path.join(R, "sorgenti", "2026-11-24", "edizione.py"))
+    m24 = next(m for m in letto24[1] if m["chiave"] == "oro")
+    if not MEM._tesi(m24).startswith("Secondo Kitco") or "hanno prevalso le seconde" not in MEM._tesi(m24):
+        male.append("24/11 senza scaletta: la frase con il rimando non porta con sé quella prima")
+    senza = dict(m24); senza.pop("perche")
+    if not MEM._tesi(senza, MEM._scaletta(REPO, "2026-11-24")):
+        male.append("24/11 senza Perché: la tesi della scaletta non arriva")
+    if sum(1 for x in v25 if not x["tesi"]) > 0:
+        male.append(f"25/11: {sum(1 for x in v25 if not x['tesi'])} pezzi senza tesi con la scaletta archiviata")
+    # famiglie di tema: l'oro del 19/11 sotto "Valute" è oro; "Tecnologia" e "Chip" sono lo stesso tema
+    fam = {(x["data"][5:], x["chiave"]): x["tema"] for x in v23}
+    if fam.get(("11-19", "dollaro")) != "Oro" or fam.get(("11-18", "anthropic")) != fam.get(("11-18", "chip")):
+        male.append(f"famiglie di tema: oro del 19/11 = {fam.get(('11-19', 'dollaro'))}, Anthropic e chip del 18/11 diversi")
+    # meccanismi: la glossa del VIX e lo spread dato come cifra non sono spiegazioni; Seul pesata sui chip e il dato
+    # d'inflazione che muove il breve sì
+    def mecc(d, chiave):
+        lt = MEM._moduli_sorgente(os.path.join(R, "sorgenti", d, "edizione.py"))
+        return MEM.scheda_modulo(next(m for m in lt[1] if m["chiave"] == chiave))["meccanismi"]
+    for d, chiave, mid, deve in (("2026-11-24", "oro", "M14", False), ("2026-11-27", "europa", "M13", False),
+                                 ("2026-11-24", "chip", "M17", True), ("2026-11-26", "tassi", "M05", True),
+                                 ("2026-11-26", "wall", "M14", True), ("2026-11-23", "europa", "M13", True)):
+        if (mid in mecc(d, chiave)) != deve:
+            male.append(f"{d[8:]}/11 {chiave}: {mid} {'non riconosciuto' if deve else 'riconosciuto a torto'}")
+    # prima pagina, titoli d'indice e apertura di pag. 5 nella memoria
+    t23 = MEM.testo_memoria(v23)
+    if "20/11 prima pagina: Il debutto record di Anthropic" not in t23 or "(indice: perde meno di Wall Street)" not in t23 \
+            or "pag. 5 apre: Il Russell 2000" not in t23:
+        male.append("23/11: prima pagina, titolo d'indice o apertura di pag. 5 del 20/11 assenti dalla memoria")
+    # il tetto: la memoria non lo supera mai, e prima accorcia le edizioni più vecchie, poi le toglie
     lunghe = []
     for p in sorted(glob.glob(os.path.join(R, "sorgenti", "20*"))):
         d = dt.date.fromisoformat(os.path.basename(p)) + dt.timedelta(days=1)
         n = len(MEM.testo_memoria(MEM.ultime(d, repo=REPO)))
-        if n > MEMORIA_MAX:
+        if n > MEM.TETTO:
             lunghe.append(f"{d:%d/%m} {n}")
-    if lunghe:
-        male.append(f"memoria oltre {MEMORIA_MAX} caratteri: " + ", ".join(lunghe))
+    piene = [dict(x, chiave=x["chiave"] + str(k)) for x in v25 for k in range(2)]     # 9-10 pezzi al giorno
+    tp = MEM.testo_memoria(piene)
+    if lunghe or len(tp) > MEM.TETTO or "(in breve)" not in tp or not tp.startswith("Memoria delle ultime"):
+        male.append(f"tetto di {MEM.TETTO} caratteri: " + (", ".join(lunghe) or f"settimana piena {len(tp)}"))
+    # "titolo vicino": sulle edizioni dal 20 al 27/11 poche segnalazioni, e quelle vere restano
+    vicini = []
+    for d in ("2026-11-20", "2026-11-23", "2026-11-24", "2026-11-25", "2026-11-26", "2026-11-27"):
+        lt = MEM._moduli_sorgente(os.path.join(R, "sorgenti", d, "edizione.py"))
+        vv = MEM.ultime(dt.date.fromisoformat(d), repo=REPO)
+        vicini += [(d[8:], m["chiave"], x) for m in lt[1] for x in MEM.segnala(m, vv) if x.startswith("titolo vicino")]
+    veri = {("24", "petrolio", "17/11"), ("23", "oro", "17/11"), ("23", "oro", "19/11"), ("24", "chip", "18/11")}
+    persi = [v for v in veri if not any(g == v[0] and c == v[1] and f"al {v[2]}" in x for g, c, x in vicini)]
+    if len(vicini) > 10 or persi:
+        male.append(f"titolo vicino: {len(vicini)} segnalazioni (massimo 10), vere perse {sorted(persi)}")
     # sorgenti rotti o mancanti: la memoria si accorcia, nessun errore
     mondo = os.path.join(TMP, "memoria")
     os.makedirs(os.path.join(mondo, "redazione"), exist_ok=True)
@@ -250,15 +295,18 @@ def passo_memoria():
     testo = desk.memoria({"moduli": letto[1]}, "edizione_2026-11-23.py") if letto else None
     riga_oro = next((r for r in (testo or "").splitlines() if r.startswith("moduli.oro:")), "")
     if not testo or not testo.startswith("Memoria delle ultime 5 edizioni") or "M23 già spiegato" not in riga_oro \
-            or "titolo vicino al 17/11" not in riga_oro:
+            or "titolo vicino al 17/11" not in riga_oro or "si accorcia solo se è di contorno" not in testo:
         male.append(f"desk: memoria o segnalazione dell'oro del 23/11 assenti ({riga_oro[:80] or 'nessuna riga'})")
     storto = desk.memoria({"moduli": [{"chiave": "x", "titolo": 3}, "rotto"]}, "edizione_2026-11-23.py")
     if not (storto or "").endswith("nessuno") or desk.memoria({}, "edizione_2026-01-02.py") is not None:
         male.append("desk: un pezzo scritto male non si segnala e senza sorgenti l'incarico resta com'era")
     # le istruzioni: una regola sola tra edizioni, al posto della vecchia (niente stratificazione)
     ist = open(os.path.join(R, "ISTRUZIONI.md"), encoding="utf-8").read()
-    if ist.count("**Tra edizioni**") != 1 or "Se `memoria.py` lo segna già spiegato" in ist or "Tra edizioni solo fatti nuovi" in ist:
-        male.append("ISTRUZIONI: la regola tra edizioni deve stare una volta sola, senza quelle che ha sostituito")
+    if ist.count("**Tra edizioni**") != 1 or "Se `memoria.py` lo segna già spiegato" in ist or "Tra edizioni solo fatti nuovi" in ist \
+            or "una storia importante resta finché dura" not in ist or "cambia angolo o esce" in ist \
+            or "solo se regge una tesi nuova" in ist:
+        male.append("ISTRUZIONI: la regola tra edizioni deve stare una volta sola, senza quelle che ha sostituito, e una "
+                    "storia importante non esce perché è già uscita")
     # prepara.sh scrive la memoria e la annuncia in una riga
     lav = os.path.join(TMP, "avvio_memoria")
     voci_ed = json.load(open(os.path.join(REPO, "edizioni.json"), encoding="utf-8"))
@@ -266,12 +314,13 @@ def passo_memoria():
     giorno = next(x for x in (dopo + dt.timedelta(days=k) for k in range(30)) if G.uscita(x))
     rc, out = esegui(["bash", os.path.join(R, "prepara.sh"), giorno.isoformat()], env={"GTD_REPO": REPO, "GTD_LAVORO": lav})
     f = os.path.join(lav, "memoria_edizioni.txt")
-    if rc or "Memoria delle ultime" not in out or not os.path.exists(f) or os.path.getsize(f) > MEMORIA_MAX + 200:
+    if rc or "Memoria delle ultime" not in out or not os.path.exists(f) or os.path.getsize(f) > MEM.TETTO + 200:
         male.append("prepara.sh: memoria delle ultime edizioni non scritta o non annunciata")
     n = os.path.getsize(f) if os.path.exists(f) else 0
     esito("Memoria delle ultime edizioni (G-42)", not male, "; ".join(male) or
-          f"oro, petrolio e prezzo-rendimento visibili il 23 e il 25/11; {n} caratteri il {giorno:%d/%m}; sorgenti rotti "
-          "e mancanti saltati; il desk la riceve con l'oro del 23/11 segnalato; una regola sola nelle istruzioni")
+          f"oro, petrolio e prezzo-rendimento visibili il 23 e il 25/11; tesi intere dalla scaletta; {len(vicini)} titoli "
+          f"vicini sul 20-27/11; {n} caratteri il {giorno:%d/%m} (tetto {MEM.TETTO}); sorgenti rotti e mancanti saltati; "
+          "il desk la riceve con l'oro del 23/11 segnalato; una regola sola nelle istruzioni")
 
 
 # ---------------------------------------------------------------- 2. avvio
