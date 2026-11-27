@@ -62,34 +62,46 @@ NUM = re.compile(r"(?<![\w,.])([+\-−]?)(\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d
                  r"(%|per cento|pb\b|punti base|punti|\$|dollari)?")
 STACCO = re.compile(r"[;:]| e (?:il|lo|la|l'|i|gli|le) | mentre | ma | invece | dopo che | perché | anche se ")
 # Quando una cifra NON è la variazione di chiusura del giorno (quarto collaudo, 27/11: 4 falsi allarmi su 5 nelle edizioni
-# vere venivano tutti da qui). Si confronta con la seduta di dati.json solo ciò che nulla nella frase colloca altrove:
-#  - un altro periodo: la settimana, il mese, l'anno, "da inizio anno", "dai minimi", "di fila";
-#  - un altro momento della stessa seduta: l'apertura, il minimo o il massimo toccato dentro la seduta ("è arrivato a
-#    perdere il 4,6%"), la mattina;
+# vere venivano tutti da qui). Si confronta con la seduta di dati.json solo ciò che nulla, nella proposizione che porta la
+# cifra, colloca altrove (non una relativa, un inciso, un "dopo aver" o un'altra proposizione coordinata: "Il Kospi, che
+# ieri aveva chiuso in calo, sale del 6,3%" si confronta):
+#  - un altro periodo: la settimana, l'anno, un mese diverso da quello della seduta, "da inizio anno", "dai minimi";
+#  - un altro momento della stessa seduta: l'apertura, la mattina, il minimo o il massimo toccato ("è arrivato a perdere
+#    il 4,6%"); se la cifra è detta della chiusura ("chiude in rialzo del 6,3%") vale la chiusura. Scoperto, dichiarato:
+#    "in apertura", "in mattinata", "in seduta" esentano sempre, perché senza i prezzi dentro la seduta non si decide;
 #  - un altro giorno: una data o un giorno della settimana diversi da quello della seduta, "il giorno prima", i tempi che
 #    raccontano un prima (imperfetto e trapassato: "era salito", "cedeva").
 # Non è una variazione nemmeno un livello in punti di un indice che si muove in percentuale ("si avvicina ai 5.000
 # punti"): si confronta solo nelle forme di livello riconosciute (a, al, chiude a, sotto, sopra).
 PERIODO = re.compile(r"settiman|base settimanale|cinque sedute|\b5 sedute|inizio (?:dell')?anno|\bnel 20\d\d|\bmes[ei]\b|\banno\b|"
-                     r"\bsedute\b|\bgiorni\b|\bdal \d|\bda (?:gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|"
-                     r"ottobre|novembre|dicembre)|\bdai? (?:minimi|massimi|picco)|\bdal (?:minimo|massimo|picco)|trimestr|scors[oa]|"
-                     r"di fila|\bin \w+ sedute|"
-                     # dentro la seduta
-                     r"stamattina|in mattinata|nel pomeriggio|in apertura|all'apertura|in avvio|in seduta|durante la seduta|"
-                     r"nel corso della seduta|dopo aver|minim[oi] (?:della|di) seduta|massim[oi] (?:della|di) seduta|"
-                     r"arrivat[oaie] a|fino a (?:perdere|cedere|guadagnare|toccare|segnare)|a un certo punto|nel momento peggiore|"
-                     r"nel momento migliore|\bfuture sull|"
+                     r"\bsedute\b|\bgiorni\b|\bdal \d|\bdai? (?:minimi|massimi|picco)|\bdal (?:minimo|massimo|picco)|trimestr|"
+                     r"scors[oa]|di fila|\bin \w+ sedute|\bfuture sull|"
                      # un altro giorno
                      r"il giorno (?:prima|dopo|precedente|successivo)|la vigilia|la seduta precedente|l'altro ieri|"
                      r"\b(?:era|erano|aveva|avevano)\b|\b\w+(?:eva|evano|ava|avano)\b")
+DENTRO = re.compile(r"stamattina|in mattinata|nel pomeriggio|in apertura|all'apertura|in avvio|in seduta|durante la seduta|"
+                    r"nel corso della seduta|minim[oi] (?:della|di) seduta|massim[oi] (?:della|di) seduta|a un certo punto|"
+                    r"nel momento peggiore|nel momento migliore|"
+                    r"(?:arrivat[oaie]|fino) a (?:perdere|cedere|lasciare|guadagnare|salire|scendere|toccare|segnare|bruciare)")
+CHIUSURA = re.compile(r"\bchiu(?:de|dono|so|sa|si|se|sura)\b")
 MESI = ("gennaio febbraio marzo aprile maggio giugno luglio agosto settembre ottobre novembre dicembre").split()
 GIORNI = "lunedì martedì mercoledì giovedì venerdì sabato domenica".split()
 DATA = re.compile(r"\b(\d{1,2})(?:/(\d{1,2})| (" + "|".join(MESI) + r"))\b")
+# ciò che nella frase non è la proposizione della cifra: parentesi, relative e "dopo aver" tra virgole
+INCISO = re.compile(r"\([^)]*\)|,\s*(?:che|dove|il cui|la cui|i cui|le cui|dopo aver)\b[^,]*(?:,|$)")
+# dove finisce, dopo la cifra, la sua proposizione
+FINE = re.compile(r",|" + STACCO.pattern + r"| e | ed | dopo aver| che ")
 
 
-def fuori_seduta(t, giorno):
-    """La frase (minuscola) colloca le sue cifre fuori dalla seduta di chiusura del giorno (AAAA-MM-GG)?"""
-    if PERIODO.search(t):
+def proposizione(t):
+    return INCISO.sub(" ", t)
+
+
+def fuori_seduta(t, giorno, chiude=False):
+    """La proposizione (minuscola) colloca le sue cifre fuori dalla seduta di chiusura del giorno (AAAA-MM-GG)? Con
+    chiude=True la cifra è detta della chiusura: i momenti dentro la seduta non contano."""
+    t = proposizione(t)
+    if PERIODO.search(t) or (not chiude and DENTRO.search(t)):
         return True
     try:
         import datetime as dt
@@ -101,8 +113,8 @@ def fuori_seduta(t, giorno):
         if (int(d.group(1)), mese) != (g.day, g.month):
             return True
     resto = DATA.sub(" ", t)
-    if re.search(r"\b(?:" + "|".join(MESI) + r")\b", resto):
-        return True                                 # un mese senza giorno è un periodo
+    if any(re.search(rf"\b{x}\b", resto) for x in MESI if x != MESI[g.month - 1]):
+        return True                                 # un altro mese è un altro periodo; quello della seduta no
     return any(re.search(rf"\b{x}\b", resto) for x in GIORNI if x != GIORNI[g.weekday()])
 
 
@@ -261,7 +273,7 @@ def cifre_e_direzioni(campi, M):
                 dopo = fl[n.end():n.end() + 60]
                 if re.match(r"\s*(?:di|del|della|dei|delle|degli|dell')\b", dopo):
                     continue                    # "il 40% del listino": una quota, non una variazione
-                taglio = re.search(r",|" + STACCO.pattern, dopo)
+                taglio = FINE.search(dopo)
                 dopo = dopo[:taglio.start()] if taglio else dopo
                 if ALIAS.search(" ".join(dopo.split()[:4])):
                     continue                    # "perde il 2,4% Tokyo": il soggetto viene dopo la cifra
@@ -278,7 +290,8 @@ def cifre_e_direzioni(campi, M):
                 # livelli: "a 22.410,80 punti", "al 4,92%", "da 106", "sotto i 3.520 $"
                 livello_unita = unita in ("punti", "$", "dollari") or (unita in ("%",) and m["tipo"] == "pb") or \
                     (unita in ("pb", "punti base") and m["tipo"] == "spread") or (not unita and s == "EUR/USD" and _dec(cifra) >= 3)
-                if livello_unita and fuori_seduta(frase_mercato, m["data"]):
+                chiude = bool(CHIUSURA.search(fl[a.end():n.start()]))
+                if livello_unita and fuori_seduta(frase_mercato, m["data"], chiude):
                     continue                    # "da 4,98% a 5,10% in una settimana": livelli di altri giorni
                 if livello_unita and not segno and (LIVELLO.search(testa) or PRIMA.search(testa)):
                     rif = m["v1"] if PRIMA.search(testa) else m["v0"]
@@ -299,9 +312,9 @@ def cifre_e_direzioni(campi, M):
                     if unita == "punti" and m["tipo"] != "punti":
                         continue                # "ai 5.000 punti": un livello in una forma che non si confronta
                     testa_frase = fl[:n.end()] + dopo
-                    if fuori_seduta(frase_mercato, m["data"]):
+                    if fuori_seduta(frase_mercato, m["data"], chiude):
                         orizzonti = ["s", "s2"] if SETT.search(frase_mercato) else ["a"] if ANNO.search(frase_mercato) else []
-                    elif fuori_seduta(testa_frase, m["data"]):     # un periodo detto prima, nella stessa frase: vale anche la seduta
+                    elif fuori_seduta(testa_frase, m["data"], chiude):     # un periodo detto prima, nella stessa frase: vale anche la seduta
                         orizzonti = ["g"] + (["s", "s2"] if SETT.search(testa_frase) else ["a"] if ANNO.search(testa_frase) else [])
                         if len(orizzonti) == 1:
                             continue
@@ -353,11 +366,16 @@ def cifre_e_direzioni(campi, M):
                 rx, serie, genere = _alias(a)
                 s = next((x for x in serie if x in M), None)
                 prima = fl[:a.start()]
-                if not s or _governato(prima) or (genere == "luogo" and _locativo(prima)) or fuori_seduta(fl, M[s]["data"]):
+                if not s or _governato(prima) or (genere == "luogo" and _locativo(prima)):
                     continue
                 dopo = fl[a.end():]
                 st = STACCO.search(dopo)
                 dopo = dopo[:st.start()] if st else dopo
+                inizio = max([x.end() for x in STACCO.finditer(prima)] or [0])
+                fine = FINE.search(dopo)
+                if fuori_seduta(prima[inizio:] + fl[a.start():a.end()] + (dopo[:fine.start()] if fine else dopo), M[s]["data"],
+                                bool(CHIUSURA.search(dopo[:fine.start()] if fine else dopo))):
+                    continue                    # la proposizione del mercato parla di un altro periodo o momento
                 dopo = " ".join(dopo.split()[:5])
                 if ALIAS.search(dopo):
                     continue

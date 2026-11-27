@@ -508,7 +508,15 @@ def passo_coerenza():
              "nikkei": "Il Nikkei chiude a 56.000 punti, il livello più basso da aprile.",
              # quarto collaudo (27/11): la data o il giorno della settimana della seduta si confrontano
              "data_stessa": "Il 23/11 il Kospi è salito del 6,3%.",
-             "giorno_stesso": "Lunedì il Kospi sale del 6,3%."}
+             "giorno_stesso": "Lunedì il Kospi sale del 6,3%.",
+             # ricollaudo del quarto giro (27/11): l'esenzione vale solo per la proposizione della cifra
+             "relativa": "Il Kospi, che ieri aveva chiuso in calo, sale del 6,3%.",
+             "confronto": "Il Kospi sale del 6,3% e recupera quasi tutto il crollo di venerdì.",
+             "mese_stesso": "Il Kospi sale del 6,3% e torna ai livelli di novembre.",
+             "chiude_dopo_aver": "Il Kospi chiude in rialzo del 6,3% dopo aver aperto in calo.",
+             "arrivata_a": "Il Kospi sale del 6,3% sulla notizia arrivata a mercati aperti.",
+             "verso_imperfetto": "Il Kospi sale mentre gli investitori aspettavano il fondo.",
+             "verso_dopo_aver": "Il Kospi sale dopo aver aperto in calo."}
     passa = {"hk_tech": "Nuove strette USA sulla tecnologia per la Cina fanno scendere il listino tecnologico di Hong Kong (-3,8%)",
              "nikkei": "Il Nikkei chiude a 56.436,65 punti (-5,06%), il livello più basso dal 13 aprile.",
              "vix": "Il VIX (volatilità attesa sull'S&P 500) sale del 26,2%.",
@@ -571,11 +579,18 @@ def passo_coerenza():
     import io
     elenco = json.load(open(os.path.join(RETE, "desk_vere.json"), encoding="utf-8"))
     giudicate = {(e["data"], e["campo"], e["originale"]) for e in elenco}
-    nuove = [dict(e, data=os.path.basename(os.path.dirname(f)), giudizio="")
-             for f in sorted(glob.glob(os.path.join(R, "sorgenti", "*", "desk_ok.json")))
-             for e in json.load(open(f, encoding="utf-8"))]
-    nuove = [e for e in nuove if (e["data"], e["campo"], e["originale"]) not in giudicate]
-    edizioni, da_leggere = {}, []
+    edizioni, da_leggere, nuove = {}, [], []
+    for f in sorted(glob.glob(os.path.join(R, "sorgenti", "*", "desk_ok.json"))):
+        data = os.path.basename(os.path.dirname(f))
+        try:
+            voci = json.load(open(f, encoding="utf-8"))
+        except ValueError:
+            voci = None
+        for e in voci if isinstance(voci, list) else [None]:
+            if not isinstance(e, dict) or not all(isinstance(e.get(k), str) for k in ("campo", "originale", "testo")):
+                da_leggere.append(f"{data}: voce di desk_ok.json incompleta o illeggibile, saltata"); continue
+            if (data, e["campo"], e["originale"]) not in giudicate:
+                nuove.append(dict(e, data=data, giudizio=""))
 
     def verifica(e):
         cart = os.path.join(R, "sorgenti", e["data"])
@@ -640,8 +655,8 @@ def passo_coerenza():
             "" if desk_ok else f"desk ({len(sbagliati)} sbagliati: {sbagliati[:3]}, tolto {tolto}, eco {eco})"] if x)
     esito("Coerenza: il testo regge contro i dati", ok, det)
     if da_leggere:
-        print(f"[leggi] Coerenza: il desk di oggi respinge {len(da_leggere)} riscritture accettate in edizioni fuori da "
-              "rete/desk_vere.json (giudicale e mettile nell'elenco):")
+        print(f"[leggi] Coerenza: {len(da_leggere)} riscritture di edizioni fuori da rete/desk_vere.json respinte dal desk di "
+              "oggi o incomplete (giudicale e mettile nell'elenco):")
         for x in da_leggere[:8]:
             print("        " + x)
         NOTE.append(f"desk: {len(da_leggere)} riscritture di edizioni nuove respinte dal desk di oggi, da giudicare")
