@@ -847,7 +847,7 @@ def passo_newsletter():
                     return 200, {"email_templates": [{"id": 5, "name": "Gommberg cornice"}]}
                 return 201, {"broadcast": {"id": 1, "email_template": {"name": "x"}}}
             return k
-        vuoto = (200, {"broadcasts": []})
+        vuoto = (200, {"broadcasts": [], "pagination": {"has_next_page": False}})
         chiamate.clear()
         NL.kit = kit_invii([(503, {}), (503, {}), vuoto])
         if NL.invii_esistenti() != {} or len([c for c in chiamate if c[0] == "GET"]) != 3:
@@ -860,7 +860,7 @@ def passo_newsletter():
         if len([c for c in chiamate if c[0] == "POST"]) != 1:
             male.append("elenco degli invii che sbaglia due volte: l'email non parte una volta sola")
         chiamate.clear()
-        NL.kit = kit_invii([(503, {}), (200, {"broadcasts": [{"id": 9, "description": NL.etichetta(ed)}]})])
+        NL.kit = kit_invii([(503, {}), (200, {"broadcasts": [{"id": 9, "description": NL.etichetta(ed)}], "pagination": {"has_next_page": False}})])
         if NL.etichetta(ed) not in NL.invii_esistenti():
             male.append("elenco degli invii riletto: l'invio già presente non si vede")
         for nome, risposta in (("risponde sempre 503", (503, {})), ("errore di rete", (0, {"errore": "rete: timeout"}))):
@@ -883,6 +883,187 @@ def passo_newsletter():
             pass
         if len(chiamate) != 1:
             male.append("elenco degli invii con 401: riletto senza motivo")
+        # l'elenco degli invii ha più pagine: l'invio di oggi nella seconda si vede, l'email non parte due volte (G-69)
+        def kit_pagine(pagine, guasti=None):
+            """Kit finto a pagine: pagine = {cursore o None: (invii, cursore successivo o None)}; guasti = {cursore: [risposte]}
+            date una alla volta prima della pagina vera (per i guasti momentanei a metà elenco)."""
+            guasti = {k: list(v) for k, v in (guasti or {}).items()}
+
+            def k(metodo, percorso, dati=None):
+                chiamate.append((metodo, percorso, dati))
+                if percorso.startswith("/broadcasts") and metodo == "GET":
+                    cursore = percorso.split("after=")[1] if "after=" in percorso else None
+                    if guasti.get(cursore):
+                        return guasti[cursore].pop(0)
+                    invii, dopo = pagine[cursore]
+                    return 200, {"broadcasts": invii, "pagination": {"has_next_page": bool(dopo), "end_cursor": dopo}}
+                if percorso == "/email_templates":
+                    return 200, {"email_templates": [{"id": 5, "name": "Gommberg cornice"}]}
+                return 201, {"broadcast": {"id": 1, "email_template": {"name": "x"}}}
+            return k
+        altri = [{"id": i, "description": f"altro-{i}"} for i in range(3)]
+        oggi_kit = {"id": 9, "description": NL.etichetta(ed), "status": "scheduled"}
+        due_pagine = {None: (altri, "c1"), "c1": ([{"id": 7, "description": "altro-7"}, oggi_kit], None)}
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine)
+        trovati = NL.invii_esistenti()
+        if NL.etichetta(ed) not in trovati or len(trovati) != 5 or len([c for c in chiamate if c[0] == "GET"]) != 2:
+            male.append("elenco degli invii su due pagine: l'invio di oggi nella seconda pagina non si vede")
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine)
+        if NL.etichetta(ed) not in NL.invii_esistenti():      # stessa sequenza di main() in modo auto
+            with contextlib.redirect_stdout(io.StringIO()):
+                NL.crea(ed, None, prova=False)
+        if any(c[0] == "POST" for c in chiamate):
+            male.append("invio di oggi nella seconda pagina: l'email è partita una seconda volta")
+        # guasto momentaneo a metà della seconda pagina: si rilegge quella pagina, la prima non si rilegge, nessun doppione
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine, {"c1": [(503, {}), (0, {"errore": "rete: timeout"})]})
+        if NL.etichetta(ed) not in NL.invii_esistenti():
+            male.append("guasto a metà della seconda pagina: l'invio di oggi non si vede dopo la rilettura")
+        letti = [c[1] for c in chiamate]
+        if len(letti) != 4 or letti.count("/broadcasts?per_page=1000&slim=true") != 1 or any(c[0] != "GET" for c in chiamate):
+            male.append("guasto a metà della seconda pagina: riletture diverse da quelle attese (pagina 1 una volta, pagina 2 tre)")
+        # la seconda pagina muta (sempre 503): errore, nessun invio, mai un elenco a metà preso per completo
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine, {"c1": [(503, {})] * 9})
+        try:
+            NL.invii_esistenti()
+            male.append("seconda pagina sempre in errore: non si ferma")
+        except SystemExit as e:
+            if not str(e).startswith("ERRORE"):
+                male.append("seconda pagina sempre in errore: l'uscita non è un errore")
+        if len(chiamate) != 1 + NL.LETTURE:
+            male.append(f"seconda pagina sempre in errore: chiamate diverse da 1 + {NL.LETTURE}")
+        # troppe pagine: ci si ferma con errore, il caso peggiore resta limitato
+        chiamate.clear()
+        NL.kit = kit_pagine({None: ([], "x"), "x": ([], "x")})
+        try:
+            NL.invii_esistenti()
+            male.append("elenco di pagine senza fine: non si ferma")
+        except SystemExit:
+            pass
+        if len(chiamate) != NL.MAX_PAGINE:
+            male.append(f"elenco di pagine senza fine: pagine lette diverse da {NL.MAX_PAGINE}")
+        # risposte fuori forma: "non so" non diventa "non c'è" (collaudo indipendente di G-69): nessun invio, nessun traceback
+        pieno = [{"id": 9, "description": NL.etichetta(ed)}]
+        fuori_forma = [
+            ("corpo vuoto", {None: ({}, None)}),
+            ("senza broadcasts", {None: ({"pagination": {"has_next_page": False}}, None)}),
+            ("broadcasts null", {None: ({"broadcasts": None, "pagination": {"has_next_page": False}}, None)}),
+            ("corpo a lista", {None: ([], None)}),
+            ("senza paginazione", {None: ({"broadcasts": []}, None)}),
+            ("has_next_page senza cursore", {None: ({"broadcasts": [], "pagination": {"has_next_page": True}}, None)}),
+            ("pagina 2 senza broadcasts", {None: ({"broadcasts": [], "pagination": {"has_next_page": True, "end_cursor": "c1"}}, None),
+                                            "c1": ({"pagination": {"has_next_page": False}}, None)}),
+        ]
+        for nome, risposte in fuori_forma:
+            chiamate.clear()
+
+            def k_storto(metodo, percorso, dati=None, _r=risposte):
+                chiamate.append((metodo, percorso, dati))
+                if percorso.startswith("/broadcasts") and metodo == "GET":
+                    return 200, _r["c1" if "after=c1" in percorso else None][0]
+                return 201, {"broadcast": {"id": 1}}
+            NL.kit = k_storto
+            try:
+                NL.invii_esistenti()
+                male.append(f"elenco degli invii ({nome}): preso per leggibile")
+            except SystemExit as e:
+                if not str(e).startswith("ERRORE"):
+                    male.append(f"elenco degli invii ({nome}): uscita non chiara")
+            except Exception as e:
+                male.append(f"elenco degli invii ({nome}): traceback {type(e).__name__}")
+            if any(c[0] == "POST" for c in chiamate):
+                male.append(f"elenco degli invii ({nome}): l'email è partita")
+        # invii senza la chiave description: "non so", nessun invio; con description null (invio a mano) si legge e si ignora
+        def k_desc(elenco):
+            def k(metodo, percorso, dati=None):
+                chiamate.append((metodo, percorso, dati))
+                if percorso.startswith("/broadcasts") and metodo == "GET":
+                    return 200, {"broadcasts": elenco, "pagination": {"has_next_page": False}}
+                if percorso == "/email_templates":
+                    return 200, {"email_templates": [{"id": 5, "name": "Gommberg cornice"}]}
+                return 201, {"broadcast": {"id": 1, "email_template": {"name": "x"}}}
+            return k
+        for nome, elenco, parte in (("senza la chiave description", [{"id": 9, "status": "scheduled"}], False),
+                                    ("elemento non dizionario", ["x"], False),
+                                    ("description null accanto all'invio di oggi", [{"id": 3, "description": None}, {"id": 9, "description": NL.etichetta(ed)}], False),
+                                    ("description null e vuota senza l'invio di oggi", [{"id": 3, "description": None}, {"id": 4, "description": ""}], True)):
+            chiamate.clear()
+            NL.kit = k_desc(elenco)
+            try:
+                if NL.etichetta(ed) not in NL.invii_esistenti():      # stessa sequenza di main() in modo auto
+                    with contextlib.redirect_stdout(io.StringIO()):
+                        NL.crea(ed, None, prova=False)
+            except SystemExit as e:
+                if not str(e).startswith("ERRORE"):
+                    male.append(f"invii {nome}: uscita non chiara")
+            posts = len([c for c in chiamate if c[0] == "POST"])
+            if posts != (1 if parte else 0):
+                male.append(f"invii {nome}: {posts} invii creati invece di {1 if parte else 0}")
+        # l'allarme del limite netto, se chiamato, esce con un avviso chiaro
+        try:
+            NL._tempo_scaduto()
+            male.append("allarme del giro: non esce")
+        except SystemExit as e:
+            if "esito è incerto" not in str(e):
+                male.append("allarme del giro: l'avviso non dice dell'esito incerto")
+        # dem.py non cambia: la sua lettura resta quella di prima (100 per pagina, nessuna verifica in più)
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine)
+        NL.leggi_invii(1, 0)
+        if chiamate[0][1] != "/broadcasts?per_page=100":
+            male.append("lettura degli invii di dem.py: l'indirizzo è cambiato")
+        # la scadenza del giro, con l'orologio finto: nessuna chiamata dopo, nessun invio, la creazione mai
+        vero_orologio, vera_scadenza = NL.orologio, NL._scadenza
+        try:
+            ora = [1000.0]
+            NL.orologio = lambda: ora[0]
+            NL.avvia_scadenza()
+            chiamate.clear()
+            base = kit_pagine({None: ([], "c1"), "c1": ([], "c2"), "c2": (pieno, None)})
+
+            def k_lento(metodo, percorso, dati=None):
+                if NL.tempo_rimasto() <= 0:      # come kit(): a tempo scaduto non si chiama
+                    return 0, {"errore": "scadenza del giro superata", "scaduta": True}
+                ora[0] += 300           # ogni lettura costa 5 minuti: la seconda arriva a giro scaduto
+                return base(metodo, percorso, dati)
+            NL.kit = k_lento
+            try:
+                NL.invii_esistenti()
+                male.append("scadenza del giro: elenco letto oltre il tempo")
+            except SystemExit as e:
+                if "minuti" not in str(e):
+                    male.append(f"scadenza del giro: avviso non chiaro ({str(e)[:80]})")
+            # con kit() vero e il tempo finito: nessuna chiamata di rete, stato 0 con "scaduta"
+            NL.kit, os.environ["KIT_API_KEY"] = vero, "kit_prova"
+            ora[0] = 1000.0 + NL.SCADENZA + 1
+            import urllib.request as _ur
+            vera_ap = _ur.urlopen
+            _ur.urlopen = lambda *a, **k: (_ for _ in ()).throw(AssertionError("chiamata dopo la scadenza"))
+            try:
+                if NL.kit("POST", "/broadcasts", {})[0] != 0:
+                    male.append("scadenza del giro: la creazione dopo la scadenza non è fermata")
+            except AssertionError:
+                male.append("scadenza del giro: Kit chiamato a tempo scaduto")
+            finally:
+                _ur.urlopen = vera_ap
+            # a tempo quasi finito (meno di 30 s) la creazione non parte
+            ora[0] = 1000.0 + NL.SCADENZA - 10
+            chiamate.clear()
+            NL.kit = kit_pagine(due_pagine)
+            try:
+                NL.crea(ed, None, prova=False)
+                male.append("scadenza del giro: creazione partita con meno di 30 s rimasti")
+            except SystemExit:
+                pass
+            if any(c[0] == "POST" for c in chiamate):
+                male.append("scadenza del giro: POST fatto con meno di 30 s rimasti")
+        finally:
+            NL.orologio, NL._scadenza = vero_orologio, vera_scadenza
+            import signal as _sg
+            _sg.alarm(0)       # l'allarme di avvia_scadenza() non deve restare armato nel collaudo
         # un errore di rete in kit() è una risposta gestita, non un traceback
         import urllib.error
         import urllib.request
