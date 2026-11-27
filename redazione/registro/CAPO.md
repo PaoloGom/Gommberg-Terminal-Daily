@@ -1,5 +1,5 @@
 Attività: "Gommberg: capo sviluppo" - parte al clic del Registro (testo `clic/<id>`) e ogni giorno alle 19:27 (Europe/Rome), senza testo.
-Modello: Opus, come proposto nella scheda G-65 - da confermare da Paolo a parole ("capo sviluppo su Opus") prima di crearla.
+Modello: Opus (Paolo, 27/11/2026: "capo sviluppo su Opus"). Accesa il 27/11/2026, id in `meta/capo.attivita`; il testo qui sotto è quello dell'app: si cambiano insieme.
 Il prompt inizia sotto la riga e finisce alla riga successiva.
 
 ---
@@ -29,11 +29,6 @@ Nessuno guarda questa sessione: non fare domande, non usare AskUserQuestion né 
 7. Messaggio finale. Lanciato da un clic: una riga con la nota dell'ultimo clic chiuso. Il giro, anche nel ramo veloce, confronta `meta/tocca.codici` (richieste, piano e Ferme) e i rilasci di `meta/salute.rilasci` più recenti di `meta/tocca.detto.quando` con `detto`: se c'è qualcosa di non ancora detto scrive a Paolo e aggiorna `detto` = {quando, codici}; altrimenti una riga sola, "Giro delle 19:27: niente di nuovo". Al massimo quattro righe; ogni cosa in tre parti (cosa, cosa cambia per il lettore, cosa ti chiedo), senza nomi di rami, file o commit se non servono a decidere; con più richieste, "Tocca a te: N cose nel Registro" e la nuova per esteso.
 
 ---
-
-Per chi fa la messa in linea (non fa parte del prompt):
-- Prima: `CONTRATTO.md` e la pagina allineati a questo testo (campo `ok` sulla voce, `meta/piano.giorni`, niente `non_prima`, `meta/tocca` ricalcolato, Ok e Torna indietro che chiedono la chat).
-- Accendere questa attività e, nello stesso momento, spegnere "Gommberg: giro della sera"; scrivere `meta/capo` = {attivita, giro: "19:27"}.
-- Aggiornare `redazione/ATTIVITA.md` §3 (il giro della sera diventa il capo sviluppo, testo da qui) e i due rimandi al giro della sera in `redazione/ARCHITETTURA.md` fuori da §5 (riga "Collaudo e rilascio" di §2, elenco "Fuori dal repository" di §3).
 
 Prossimo gradino: i rilasci dalla sessione, dopo la voce degli script. In ordine:
 1. `pubblica` non lascia `rilascio` avanti a main se si ferma dopo il push (spinge `rilascio` solo dopo tutti i cancelli, o lo riporta indietro senza forzare).

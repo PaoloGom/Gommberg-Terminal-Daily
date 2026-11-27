@@ -10,12 +10,9 @@ In questa prima versione il capo sviluppo non rilascia mai: costruisce, fa colla
 - **Chat del rilascio:** sulla voce `stato` "fatta", `chiusa`, `esito` (una riga) e la pulizia dei campi dell'Ok (`ok`, `domanda`, `anteprima`, `visto_commit`); `prova` (`esito` "ok" o "ko", `nota`, `commit`); `meta/salute.rilasci` (`ok`, `ko`, `annullato`).
 - **Pagina:** `clic` (e il loro `lancio`), `appunti` nuovi.
 
-## Messa in linea, in quest'ordine
+## In linea
 
-1. Accendere l'attività "Gommberg: capo sviluppo" (testo in `CAPO.md`: parte ai clic e ogni giorno alle 19:27) e, nello stesso momento, spegnere "Gommberg: giro della sera"; scrivere `meta/capo` = {`attivita`, `giro`: "19:27"}.
-2. Se allo scambio la serata `2026-11-25-2` è ancora aperta, riportare la sua prova sulle voci G-45, G-54 e G-50: `prova` = {`giorno`: quello che decide la chat della prova, `esito`: "da-fare"}.
-3. Dichiarare le capacità della pagina: `db`, `user` e `mcp` con il connettore "Claude Code Remote" (nome verificato dal vivo il 26/11/2026), strumento `fire_trigger`.
-4. Pubblicare la pagina.
+Dal 27/11/2026: attività "Gommberg: capo sviluppo" accesa (id in `meta/capo.attivita`), "Gommberg: giro della sera" spenta, pagina pubblicata con le capacità `db`, `user` e `mcp` (connettore "Claude Code Remote", strumento `fire_trigger`). La pagina di prima resta nella storia dell'artifact (versione 1795621755-04b8).
 
 Senza `meta/capo.attivita` la pagina non mostra i tasti che lanciano lavoro (Via al piano, Ok, Non ancora, Usa il margine, Torna indietro) e dice "Il capo sviluppo non è ancora collegato"; Togli e Aggiungi restano, perché scrivono soltanto.
 
