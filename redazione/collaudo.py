@@ -772,6 +772,9 @@ def passo_tabelle():
     if (N._al("su", "2026-09-11"), N._al("de", "2026-12-08"), N._al("su", "2026-10-19")) != ("sull'11/9", "dell'8/12", "sul 19/10") \
             or N._elenco(["Mondo e Stati Uniti", "VIX"]) != "Mondo e Stati Uniti, VIX" or N._elenco(["A", "B", "C"]) != "A, B e C":
         male.append("preposizione davanti alla data (sull'11/9, dell'8/12, sul 19/10) o elenco dei nomi")
+    for riga in G.calendario_in_scadenza(dt.date.today()):        # promemoria per chi tiene la macchina: non ferma nulla
+        print("[leggi] " + riga[0].upper() + riga[1:])
+        NOTE.append(riga.split(":")[0])
     esito("Dati: tabelle di pag. 5 calcolate dal codice", not male, "; ".join(male)[:400] or
           "numeri del 20/11 uguali al pubblicato, nessuna n.d., livello ricavato dalla variazione (anche dopo una festa di "
           "quella borsa, dall'ultima seduta vera; mai da una base non certa), archivio delle chiusure, date riga per riga con Wall Street chiusa, con "

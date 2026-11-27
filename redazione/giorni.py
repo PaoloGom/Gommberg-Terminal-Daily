@@ -66,8 +66,8 @@ def uscita_precedente(d):
 # Giorni feriali senza seduta per ogni mercato di dati.json ("mercato"): servono a sapere se un livello ricavato dalla
 # variazione di stamattina poggia davvero sull'ultima seduta di quella borsa (numeri.ultima_seduta) e a riconoscere le
 # righe che EODHD scrive a indice fermo. Fuori dall'intervallo verificato (FESTE_VERIFICATE) un giorno feriale non è né
-# seduta né festa: il codice non ricava nulla e chiede la chiusura che manca. Si aggiornano come FESTIVI (APP_FESTIVI.md §2):
-# il promemoria lo dà prepara.sh, a dicembre e nel mese prima della scadenza.
+# seduta né festa: il codice non ricava nulla e chiede la chiusura che manca. Li aggiorna chi tiene la macchina, mai il
+# mattino: il promemoria è una riga [leggi] del collaudo e una NOTA del lunedì in controlli_dati.py (45 giorni prima).
 # HK: circolari HKEX CT/075/25 (2026) e CT/077/26 (2027), lette il 27/11/2026.
 # KR: dal 13/10 al 27/11/2026 seduta ogni giorno feriale (EODHD e Investing.com, collaudi/2026-11-27/g41); 25/12 festa di
 # legge, 31/12 chiusura di fine anno di KRX (regola fissa: ultimo giorno dell'anno), 1/1/2027 dal calendario 2027 del governo
@@ -95,15 +95,15 @@ def borsa_il(mercato, d):
     return "festa" if x.isoformat() in FESTE_BORSE[mercato] else "seduta"
 
 
-def promemoria_borse(d):
-    """Le righe di prepara.sh quando il calendario di una borsa sta per finire (un mese prima) o, a dicembre, non copre
-    l'anno dopo."""
+def calendario_in_scadenza(d, giorni=45):
+    """Le borse il cui calendario verificato finisce entro `giorni` da d (o è già finito): righe per chi rilascia e tiene la
+    macchina (collaudo.py, [leggi]; controlli_dati.py, NOTA del lunedì). Il mattino non tocca mai FESTE_BORSE: fuori
+    dall'intervallo il codice resta prudente da solo."""
     out = []
     for m, (_, fino) in sorted(FESTE_VERIFICATE.items()):
-        if fino < (d + dt.timedelta(days=31)).isoformat() or (d.month == 12 and fino < f"{d.year + 1}-12-31"):
-            out.append(f"CALENDARIO BORSE: le feste di {NOMI_BORSE.get(m, m)} sono verificate fino al {fino[8:]}/{fino[5:7]}/{fino[:4]}: "
-                       f"aggiungi a FESTE_BORSE in giorni.py le date fino al 31/12/{d.year + 1} dal calendario ufficiale della borsa "
-                       "e sposta FESTE_VERIFICATE (APP_FESTIVI.md §2), poi dillo nel messaggio finale")
+        if fino < (d + dt.timedelta(days=giorni)).isoformat():
+            out.append(f"calendario delle feste di {NOMI_BORSE.get(m, m)} verificato fino al {fino[8:]}/{fino[5:7]}/{fino[:4]}: "
+                       "va aggiornato in giorni.py (FESTE_BORSE, FESTE_VERIFICATE) quando la borsa pubblica il calendario")
     return out
 
 

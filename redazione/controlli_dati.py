@@ -58,7 +58,8 @@ for nome, s in d["serie"].items():
         elif base and not N.ricavato(nome, s, d["oggi"]):
             problemi.append(f"{nome}: serie con sola variazione: serve \"tipo\": \"intraday\" e \"var\" numerica")
         elif not base:
-            problemi.append(f"{nome}: solo la variazione di stamattina e {N.manca_base(nome, s, d['oggi'])}, così la riga entra in tabella")
+            problemi.append(f"{nome}: solo la variazione di stamattina e {N.manca_base(nome, s, d['oggi'])}. Finché manca, la riga "
+                            "resta fuori dalla tabella")
         elif base[0] < N._ieri(d["oggi"]):
             feste = [x for x in N._feriali_tra(base[0], d["oggi"])]
             avvisi.append(f"{nome}: livello ricavato dall'ultima seduta, del {base[0]}: borsa chiusa per festa il "
@@ -130,8 +131,9 @@ for nome, (ammesse, api, due_fonti) in FONTI_AMMESSE.items():
                         "\"<motivo>\" e il ripiego di APP_DATI §6")
     if not s.get("ultimi"):
         continue
-    altre = fonte.replace(api, "").replace("+", " ").replace(",", " ").replace("_nd", "").strip()
-    if not due_fonti and str(s["ultimi"][0][0])[:10] == d["oggi"] and not altre:
+    altre = fonte.replace(api, "").replace("+", " ").replace(",", " ").strip()
+    # solo una riga di oggi dichiarata come presa da EODHD e da nient'altro; senza "fonte" vale il controllo qui sopra
+    if not due_fonti and api in fonte and str(s["ultimi"][0][0])[:10] == d["oggi"] and not altre:
         problemi.append(f"{nome}: riga di oggi con la sola fonte {api.upper()}: da {api.upper()} valgono solo le chiusure prima di oggi "
                         "(APP_DATI §2b); la seduta di stamattina viene da APP_DATI §6, con la sua fonte in \"fonte\"")
     if due_fonti:
@@ -159,6 +161,9 @@ for _et, _nome, *_ in [r for _, rr in N.CRUSCOTTO + N.CROSS for r in rr]:
         problemi.append(f"{_nomi[0]}: manca la serie (riga della tabella di pag. 5): ultima chiusura dal web (APP_DATI §3); se "
                         "non esce: {\"mercato\": \"..\", \"nd\": \"<motivo>\", \"ultimi\": []} e la riga non entra in tabella")
 print(f"Serie controllate: {len(d['serie'])}")
+if oggi.weekday() == 0:          # una volta a settimana, per chi tiene la macchina: non blocca e non si corregge al mattino
+    for riga in G.calendario_in_scadenza(oggi):
+        print("NOTA: " + riga + " (non tocca alla redazione del mattino)")
 for a in avvisi:
     print("AVVISO: " + a)
 if problemi:

@@ -67,8 +67,6 @@ out.append(f"Lavoro: {lav} ({nk} .py del kit copiati) | dipendenze: {dep}")
 app = []
 if primo:
     app.append("APP_LUNEDI.md (verdetto e pronostico)")
-for riga in G.promemoria_borse(oggi):            # calendario delle feste di Seul e Hong Kong in scadenza (G-41)
-    out.append(riga)
 # Festività: giorno dopo una chiusura, chiusure parziali note vicine, dicembre
 PARZIALI = {  # borse chiuse solo in parte (da verificare sul calendario ufficiale; dettagli in APP_FESTIVI.md)
     "2026-11-11": "USA: mercato dei Treasury chiuso (Veterans Day), borse aperte",
