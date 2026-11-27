@@ -15,7 +15,7 @@ Il testo del commento non entra mai nella segnalazione: il repository è pubblic
 copiato altrove. Paolo lo legge dal database, con il comando scritto nella segnalazione (procedura: LETTORI.md).
 
 Se qualcosa non va (il sito non dà l'elenco, GitHub non risponde o rifiuta) lo scrive nel riepilogo e ci riprova al
-giro dopo; il giro fallisce, e GitHub avvisa Paolo, solo una volta al giorno (il giro delle 11 di Roma, ORA_AVVISO) o se
+giro dopo; il giro fallisce, e GitHub avvisa Paolo, solo una volta al giorno (il giro tra le 11 e le 14 di Roma, ORA_AVVISO) o se
 è lanciato a mano: un guasto che dura non deve diventare un'email a ogni giro.
 
 Uso:  python3 redazione/sito/segnalazioni.py [--prova]
@@ -52,7 +52,8 @@ def elenco():
 
 ETICHETTA = "gommunity"
 NUOVE = 5          # segnalazioni nuove aperte in un giro: una raffica di Segnala non diventa una raffica di email
-ORA_AVVISO = 11    # l'ora di Roma del giro che, se l'avviso non funziona, fallisce (uno dei giri delle 8, 11, 14, 17, 20, 23)
+ORA_AVVISO = range(11, 14)   # i giri di Roma tra le 11 e le 13:59: ne cade sempre uno solo al giorno, sia quello
+                             # dell'orologio (11:15) sia quello della riserva di GitHub (11:15 d'inverno, 12:15 d'estate)
 
 
 def chiave(s):
@@ -197,7 +198,7 @@ def main():
     if not guasti:
         return 0
     ora = int(os.environ["GTD_ORA"]) if os.environ.get("GTD_ORA") else dt.datetime.now(ROMA).hour
-    if ora == ORA_AVVISO or os.environ.get("A_MANO") == "true":
+    if ora in ORA_AVVISO or os.environ.get("A_MANO") == "true":
         print("::error::L'avviso sulle segnalazioni della Gommunity non funziona: vedi gli avvisi qui sopra.")
         return 1          # una volta al giorno il giro fallisce, e GitHub scrive a Paolo
     return 0

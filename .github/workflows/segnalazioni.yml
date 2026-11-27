@@ -1,7 +1,7 @@
 # Segnalazioni della Gommunity (G-13): redazione/sito/segnalazioni.py legge da gommberg.com l'elenco dei commenti che i
 # lettori hanno segnalato (senza testi) e, per ogni commento nuovo, apre una segnalazione assegnata a Paolo: GitHub gli
 # manda l'email. Nessun modello e nessun segreto: solo il token del giro. Se non c'è nulla non scrive a nessuno. Se
-# l'avviso stesso non funziona (sito o GitHub), il giro fallisce una sola volta al giorno, al giro delle 11 di Roma, o
+# l'avviso stesso non funziona (sito o GitHub), il giro fallisce una sola volta al giorno, al giro tra le 11 e le 14 di Roma, o
 # subito se è lanciato a mano.
 # Quando: ogni 3 ore tra le 8 e le 23 di Roma (8:15, 11:15, 14:15, 17:15, 20:15, 23:15; Paolo 23/11, G-12: non serve
 # ogni ora). La sveglia la dà l'orologio di Cloudflare (G-58, redazione/sito/orologio.js: workflow_dispatch con
@@ -43,7 +43,7 @@ jobs:
           sparse-checkout: redazione/sito
       - name: Ci pensa l'orologio?
         if: github.event_name == 'schedule'
-        run: python3 redazione/sito/orologio.py --guardia >> "$GITHUB_ENV"
+        run: python3 redazione/sito/orologio.py --guardia segnalazioni.yml >> "$GITHUB_ENV"
       - name: Commenti segnalati
         if: env.SALTA != 'si'
         env:

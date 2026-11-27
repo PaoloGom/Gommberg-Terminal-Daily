@@ -4,14 +4,21 @@
 
 Lo usano:
   - mattino.py (controllo del mattino): una riga "Orologio dei controlli", rossa se l'orologio non è sano;
-  - le sveglie di riserva di GitHub, finché esistono (passo 1 di G-58): con --guardia scrive SALTA=si in $GITHUB_ENV
-    quando l'orologio è sano e ha già dimostrato di funzionare, così la sveglia di GitHub non rifà ciò che fa l'orologio.
-    Se l'orologio non risponde o non è sano, SALTA=no: la sveglia di GitHub lavora come prima. Nessun periodo senza orologio.
+  - le sveglie di riserva di GitHub, finché esistono (passo 1 di G-58): con --guardia <flusso> scrive SALTA=si in
+    $GITHUB_ENV quando l'orologio ha il segreto, ha già dimostrato di funzionare e l'ultima partenza dovuta di QUEL
+    flusso è andata bene, così la sveglia di GitHub non rifà ciò che fa l'orologio (il guasto di un altro flusso non la
+    fa partire). Se l'orologio non risponde o quel flusso non è partito, SALTA=no: la sveglia di GitHub lavora come prima.
+    Nessun periodo senza orologio.
+
+Finché il segreto non è mai stato visto (nessun "avvio": il token non è ancora stato messo) l'orologio non è un guasto
+ma un lavoro da finire: per mattino.py è una NOTA, non una riga rossa, così il controllo del mattino non apre ogni giorno
+una segnalazione falsa che coprirebbe quella vera. Dopo, segreto mancante o partenze fallite sono rossi.
 
 "sano" (lo decide il Worker): il segreto GITHUB_ACTIONS_TOKEN c'è, almeno una partenza è riuscita, e l'ultima partenza
 dovuta di ogni flusso è andata bene. Nessun segreto passa di qui.
 
-Uso:  python3 redazione/sito/orologio.py [--guardia]
+Uso:  python3 redazione/sito/orologio.py [--guardia <flusso.yml>]
+  senza opzioni stampa lo stato ed esce con 0 solo se l'orologio è sano
 Solo per le prove: GTD_OROLOGIO (un file JSON al posto di gommberg.com/api/orologio) e GTD_BASE (il sito)."""
 import json
 import os
@@ -36,13 +43,15 @@ def leggi():
 
 
 def giudizio(j):
-    """(sano, frase per una persona)."""
+    """(sano, frase per una persona): sano True, False (guasto) o None (in attesa del token: solo una nota)."""
     if j is None:
         return False, "gommberg.com/api/orologio non risponde: il Worker non è pubblicato con il suo codice, o è giù"
     if j.get("sano"):
         return True, "partenze puntuali: " + "; ".join(f"{s['flusso']} {s['dovuta'] or '-'}" for s in j.get("sveglie", []))
     if j.get("errore"):
         return False, j["errore"]
+    if not j.get("segreto") and not j.get("avvio"):
+        return None, "in attesa del token: il segreto GITHUB_ACTIONS_TOKEN del Worker non è ancora stato messo (passi per Paolo in G-58); intanto lavorano le sveglie di riserva di GitHub"
     if not j.get("segreto"):
         return False, "manca il segreto GITHUB_ACTIONS_TOKEN nel Worker di Cloudflare (passi per Paolo in G-58): l'orologio non fa partire nulla"
     if not j.get("repository"):
@@ -57,15 +66,32 @@ def giudizio(j):
     return False, "non sano"
 
 
+def pensa_lui(j, flusso):
+    """(True se la sveglia di riserva di questo flusso può non lavorare, frase)."""
+    if j is None:
+        return False, "gommberg.com/api/orologio non risponde"
+    if not (j.get("segreto") and j.get("repository") and j.get("provato") and not j.get("errore")):
+        return False, giudizio(j)[1]
+    s = next((x for x in j.get("sveglie", []) if x.get("flusso") == flusso), None)
+    if not s:
+        return False, f"l'orologio non lancia {flusso}"
+    if not s.get("ok"):
+        return False, f"{flusso}: l'ultima partenza dell'orologio ({s.get('dovuta')}) non è andata bene"
+    return True, f"{flusso}: ultima partenza dell'orologio {s.get('dovuta') or '-'} andata bene"
+
+
 def main():
     j = leggi()
-    sano, frase = giudizio(j)
     if "--guardia" in sys.argv:
-        # per $GITHUB_ENV: SALTA=si solo se l'orologio è sano; ogni dubbio fa lavorare la sveglia di GitHub
-        print("SALTA=" + ("si" if sano else "no"))
-        print(("Ci pensa l'orologio di Cloudflare: " if sano else "L'orologio di Cloudflare non è pronto, lavora la sveglia di GitHub: ") + frase, file=sys.stderr)
+        # per $GITHUB_ENV: SALTA=si solo se l'orologio fa partire questo flusso; ogni dubbio fa lavorare la sveglia di GitHub
+        i = sys.argv.index("--guardia")
+        flusso = sys.argv[i + 1] if len(sys.argv) > i + 1 else ""
+        si, frase = pensa_lui(j, flusso)
+        print("SALTA=" + ("si" if si else "no"))
+        print(("Ci pensa l'orologio di Cloudflare: " if si else "L'orologio di Cloudflare non copre questa partenza, lavora la sveglia di GitHub: ") + frase, file=sys.stderr)
         return 0
-    print(("OK   " if sano else "NO   ") + "Orologio dei controlli: " + frase)
+    sano, frase = giudizio(j)
+    print(("OK   " if sano else "NOTA " if sano is None else "NO   ") + "Orologio dei controlli: " + frase)
     return 0 if sano else 1
 
 

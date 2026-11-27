@@ -156,13 +156,18 @@ export function controllaTesto(testo) {
 }
 
 // ------------------------------------------------------------------ richieste
+export const OROLOGIO_CACHE_MS = 60000;
+let oroCache = { t: 0, dati: null };
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
     if (url.pathname.replace(/\/+$/, "") === "/api/orologio") {
       if (request.method !== "GET") return errore("Metodo non ammesso.", 405);
-      return risposta(await stato(env));             // non lancia mai: un guasto diventa "sano": false con il motivo
+      // non lancia mai: un guasto diventa "sano": false con il motivo. Una lettura di D1 al minuto per istanza al
+      // massimo: chi chiamasse di continuo non consuma le letture gratuite che servono ai commenti
+      if (!oroCache.dati || Date.now() - oroCache.t > OROLOGIO_CACHE_MS) oroCache = { t: Date.now(), dati: await stato(env) };
+      return risposta(oroCache.dati);
     }
     try {
       try { await prepara(env); } catch (e) { await prepara(env); }   // un intoppo del database alla prima richiesta: si riprova una volta

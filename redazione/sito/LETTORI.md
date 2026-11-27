@@ -50,7 +50,7 @@ Quando un lettore tocca Segnala, al giro successivo (ogni 3 ore tra le 8 e le 23
 - Un commento resta nell'elenco per 14 giorni dall'ultima segnalazione, finché la redazione non lo toglie o non azzera le segnalazioni. L'elenco mette prima i commenti già nascosti, poi dalla segnalazione più recente.
 - Se dopo l'avviso altri lettori lo segnalano e si nasconde, la segnalazione di GitHub riceve una riga e il titolo finisce con "- nascosto". Se Paolo l'aveva chiusa e il commento viene segnalato di nuovo, si riapre.
 - Contro le raffiche: una rete manda al massimo 5 segnalazioni al giorno (`segnala_giorno`) e un giro apre al massimo 5 segnalazioni nuove; le altre al giro dopo.
-- Se l'avviso stesso non funziona (il sito non dà l'elenco, GitHub rifiuta), lo scrive nel riepilogo del giro e riprova; il giro fallisce, e GitHub scrive a Paolo, solo una volta al giorno (il giro delle 11 di Roma) o se è lanciato a mano.
+- Se l'avviso stesso non funziona (il sito non dà l'elenco, GitHub rifiuta), lo scrive nel riepilogo del giro e riprova; il giro fallisce, e GitHub scrive a Paolo, solo una volta al giorno (il giro tra le 11 e le 14 di Roma: alle 11:15 con l'orologio, alle 12:15 con la riserva di GitHub d'estate) o se è lanciato a mano.
 - Se è l'orologio a fermarsi (segreto mancante o scaduto, GitHub che rifiuta), lo dicono il controllo del mattino e il pannello (`/api/orologio`).
 
 Il flusso gira solo dal ramo principale. **Alla prima messa in linea va provato a mano**: Actions, Segnalazioni della Gommunity, Run workflow (verde con "Nessun commento segnalato"); poi una segnalazione vera su un commento di prova, per vedere arrivare l'email. In locale: `python3 redazione/sito/segnalazioni.py --prova` (stampa senza toccare GitHub).

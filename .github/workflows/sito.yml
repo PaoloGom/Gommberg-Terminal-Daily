@@ -58,7 +58,10 @@ jobs:
       - name: Configurazione di riserva (soli file statici)
         # la stessa di wrangler.jsonc senza il codice dei lettori, senza il database e senza il cron dell'orologio: serve
         # se la pubblicazione completa non riesce, perché l'edizione del giorno deve arrivare comunque su gommberg.com.
-        # Senza codice l'orologio dei controlli è fermo: /api/orologio non risponde e il controllo del mattino lo segnala.
+        # Senza "triggers" Cloudflare lascia attivo il cron già pubblicato (lo dice la sua documentazione), che però gira
+        # senza codice e non fa partire nulla: l'orologio dei controlli è fermo, /api/orologio non risponde e il controllo
+        # del mattino lo segnala. Non si scrive "crons": [] di proposito: la riserva deve solo far uscire l'edizione, e un
+        # cambio di cron in più è un modo in più di fallire; il cron torna con la prima pubblicazione completa.
         run: |
           python3 - <<'PY'
           import json, re

@@ -12,7 +12,9 @@
 //     nessuno lo vede; i deploy non lo cancellano mai. Questo codice non lo stampa e non lo scrive da nessuna parte.
 //   - la variabile GITHUB_REPOSITORY ("proprietario/nome"): la passa sito.yml a ogni pubblicazione da main con
 //     --var GITHUB_REPOSITORY:${{ github.repository }}. È l'unico posto del nome: se il repository cambia nome (G-12),
-//     la prima pubblicazione dopo il cambio lo aggiorna da sola.
+//     la prima pubblicazione dopo il cambio lo aggiorna. Fino ad allora l'orologio chiama il vecchio nome (che con G-12
+//     diventa il repository dei soli reindirizzamenti) e GitHub rifiuta: SUBITO DOPO IL CAMBIO DI NOME si lancia a mano
+//     sito.yml (Actions, Sito gommberg.com, Run workflow, modo pubblica) e si guarda /api/orologio.
 //
 // Niente doppie partenze: ogni partenza dovuta ha una riga nella tabella orologio di D1 (chiave = flusso@ora di Roma),
 // presa con INSERT OR IGNORE prima di chiamare GitHub. Se GitHub rifiuta o non risponde, la riga resta "errore" e i
@@ -100,13 +102,15 @@ const haSegreto = (env) => typeof env.GITHUB_ACTIONS_TOKEN === "string" && env.G
 const repoValido = (env) => /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(env.GITHUB_REPOSITORY || "");
 
 // Prende la partenza (una sola istanza la fa): nuova, oppure da riprovare dopo un errore o un giro rimasto a metà.
+// Una partenza "senza-segreto" non si riprova quando il segreto arriva: in quell'ora ha lavorato la sveglia di riserva
+// di GitHub (passo 1), e riprovarla farebbe partire due volte lo stesso controllo.
 async function prendi(db, d, adesso) {
   const chiave = d.sveglia.flusso + "@" + d.slot;
   const r = await db.prepare("INSERT OR IGNORE INTO orologio (chiave, flusso, slot, stato, tentativi, quando, dettaglio) VALUES (?1, ?2, ?3, 'in corso', 1, ?4, '')")
     .bind(chiave, d.sveglia.flusso, d.slot, iso(adesso)).run();
   if (cambiate(r)) return chiave;
   const u = await db.prepare(`UPDATE orologio SET stato = 'in corso', tentativi = tentativi + 1, quando = ?2
-    WHERE chiave = ?1 AND tentativi < ?3 AND (stato IN ('errore', 'senza-segreto') OR (stato = 'in corso' AND quando < ?4))`)
+    WHERE chiave = ?1 AND tentativi < ?3 AND (stato = 'errore' OR (stato = 'in corso' AND quando < ?4))`)
     .bind(chiave, iso(adesso), TENTATIVI, iso(adesso - 10 * 60000)).run();
   return cambiate(u) ? chiave : null;
 }

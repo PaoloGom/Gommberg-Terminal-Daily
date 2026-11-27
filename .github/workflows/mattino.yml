@@ -48,11 +48,14 @@ jobs:
     if: "github.event_name != 'workflow_run' || startsWith(github.event.workflow_run.head_commit.message, 'Edizione #')"
     runs-on: ubuntu-slim             # controllo leggero (G-12): un terzo del costo di un minuto standard; al massimo 15 minuti
     timeout-minutes: 15
+    concurrency:                     # mai due controlli insieme (pubblicazione, orologio, riserva): il secondo aspetta e
+      group: mattino-controllo       # trova la segnalazione di oggi già aperta o l'edizione già controllata
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
       - name: Ci pensa l'orologio?
         if: github.event_name == 'schedule'
-        run: python3 redazione/sito/orologio.py --guardia >> "$GITHUB_ENV"
+        run: python3 redazione/sito/orologio.py --guardia mattino.yml >> "$GITHUB_ENV"
       - name: Edizione di oggi?
         if: env.SALTA != 'si'
         id: quale
@@ -90,6 +93,9 @@ jobs:
     if: github.event_name != 'workflow_run'
     runs-on: ubuntu-slim
     timeout-minutes: 12
+    concurrency:                     # mai due commit del GOMM insieme: il secondo aspetta e trova i giorni già aggiunti
+      group: mattino-gomm
+      cancel-in-progress: false
     continue-on-error: true        # il GOMM non fa mai fallire il controllo del mattino
     permissions:
       contents: write              # solo il commit di dati/gomm.json, con il token del giro (nessun segreto)
@@ -100,7 +106,7 @@ jobs:
           ref: main
       - name: Ci pensa l'orologio?
         if: github.event_name == 'schedule'
-        run: python3 redazione/sito/orologio.py --guardia >> "$GITHUB_ENV"
+        run: python3 redazione/sito/orologio.py --guardia mattino.yml >> "$GITHUB_ENV"
       - name: Visite dei giorni completi in dati/gomm.json, minuti di GitHub in pannello/minuti.json
         if: env.SALTA != 'si'
         env:

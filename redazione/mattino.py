@@ -131,6 +131,13 @@ def controllato_alla_pubblicazione(oggi):
     return None
 
 
+def in_fascia(ora, partenza):
+    """La sveglia controlla tra le 10 e le 12 di Roma. La riserva di GitHub (PARTENZA=schedule, lavora solo se
+    l'orologio non è sano) arriva anche ore dopo: per lei vale qualunque ora dalle 10 in poi, o l'edizione non uscita
+    resterebbe senza avviso."""
+    return 10 <= ora < 12 or (partenza == "schedule" and ora >= 10)
+
+
 def main():
     adesso = dt.datetime.now(ROMA)
     oggi = dt.date.fromisoformat(os.environ["GTD_OGGI"]) if os.environ.get("GTD_OGGI") else adesso.date()
@@ -138,7 +145,7 @@ def main():
     a_mano = "--adesso" in sys.argv or os.environ.get("A_MANO") == "true"
     if partenza == "workflow_run":
         a_mano = True
-    if not a_mano and not 10 <= adesso.hour < 12:
+    if not a_mano and not in_fascia(adesso.hour, partenza):
         print(f"Sono le {adesso:%H:%M} di Roma: fuori dalla fascia 10-12 non controllo nulla.")
         return
     if not G.uscita(oggi):
@@ -221,7 +228,10 @@ def main():
 def macchina(oggi):
     """6. Le due cose che tengono in piedi i controlli: l'orologio che li fa partire e i minuti di GitHub."""
     ok, frase = O.giudizio(O.leggi())
-    riga(ok, "Orologio dei controlli (Cloudflare)", frase)
+    if ok is None:
+        NOTE.append("Orologio dei controlli (Cloudflare): " + frase)
+    else:
+        riga(ok, "Orologio dei controlli (Cloudflare)", frase)
     ok, frase = M.giudizio(M.leggi(), oggi)
     if ok is None:
         NOTE.append(frase)

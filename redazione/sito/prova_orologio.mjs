@@ -135,8 +135,13 @@ verifica("segreto assente: nessuna chiamata a GitHub, stato senza-segreto, non s
 env.GITHUB_ACTIONS_TOKEN = TOKEN;
 ADESSO.t = MATTINO + 15 * 60000 + 1000;
 f = await giro(env, MATTINO + 15 * 60000, github);
+verifica("segreto messo alle 10:25: la partenza delle 10:15 non si rifà (l'ha già fatta la riserva di GitHub)", chiamate.length === 0 && f.length === 0, { f, n: chiamate.length });
 s = await stato(env, MATTINO + 40 * 60000);
-verifica("segreto messo: la partenza delle 10:15 recuperata alle 10:30, sano", chiamate.length === 1 && f[0].stato === "ok" && s.sano === true, { f, s });
+verifica("segreto messo: acceso ma non ancora provato, la partenza saltata prima dell'avvio non conta", s.sano === false && s.provato === false && s.avvio && s.sveglie.find((x) => x.flusso === "mattino.yml").ok, s);
+ADESSO.t = MATTINO + 60 * 60000 + 1000;
+f = await giro(env, MATTINO + 60 * 60000, github);                 // 11:15: le segnalazioni
+s = await stato(env, MATTINO + 90 * 60000);
+verifica("segreto messo: la partenza dopo parte e l'orologio è sano", chiamate.length === 1 && f[0].stato === "ok" && s.sano === true, { f, s });
 // repository non passato da sito.yml
 env = nuovo({ GITHUB_REPOSITORY: "" }); chiamate = [];
 f = await giro(env, MATTINO, github);
@@ -152,6 +157,18 @@ env = { ...nuovo(), ASSETS: { fetch: async () => new Response("statico") } };
 let r = await worker.fetch(new Request("https://gommberg.com/api/orologio"), env);
 let j = await r.json();
 verifica("GET /api/orologio: risponde con lo stato, senza cache", r.status === 200 && typeof j.sano === "boolean" && j.segreto === true && r.headers.get("cache-control") === "no-store", j);
+// la cache di 60 secondi: chi chiama di continuo non rilegge D1 a ogni richiesta
+let letture = 0;
+const contaDB = (db) => ({ ...db, prepare: (sql) => { letture++; return db.prepare(sql); } });
+const envC = { ...env, DB: contaDB(env.DB) };
+ADESSO.t += 120000;
+await worker.fetch(new Request("https://gommberg.com/api/orologio"), envC);
+const dopoPrima = letture;
+for (let i = 0; i < 20; i++) { ADESSO.t += 2000; await worker.fetch(new Request("https://gommberg.com/api/orologio"), envC); }
+verifica("/api/orologio: 20 richieste in 40 secondi, una sola lettura del database", dopoPrima > 0 && letture === dopoPrima, { dopoPrima, letture });
+ADESSO.t += 61000;
+await worker.fetch(new Request("https://gommberg.com/api/orologio"), envC);
+verifica("/api/orologio: dopo un minuto si rilegge", letture > dopoPrima, letture);
 r = await worker.fetch(new Request("https://gommberg.com/api/orologio", { method: "POST" }), env);
 verifica("POST /api/orologio: rifiutato", r.status === 405);
 const attese = [];
