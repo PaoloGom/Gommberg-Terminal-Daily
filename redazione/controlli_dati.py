@@ -5,7 +5,8 @@ dati.json: {"oggi": "AAAA-MM-GG", "ora_roma": "HH:MM",
                         "ultimi": [["AAAA-MM-GG", valore, volume_o_null], ...],   # dal più recente, almeno 3
                         "tipo": "chiusura|intraday", "seconda_fonte": valore_o_null}}}
 Serie con la sola variazione (seduta asiatica in corso, livello non disponibile): {"mercato": "KR", "tipo": "intraday",
-  "var": -8.68, "ora": "08:11", "fonte": "Teleborsa", "ultimi": []}. "macro" (facoltativo, per le anomalie):
+  "var": -8.68, "ora": "08:11", "fonte": "EODHD + Teleborsa", "ultimi": [<ultime chiusure EODHD, con la loro data>]}: il
+  livello lo ricava numeri.py dall'ultima seduta vera di quella borsa (APP_DATI §2b e §4). "macro" (facoltativo, per le anomalie):
   [{"nome": "PPI USA a/a", "dato": 6.3, "atteso": 5.3, "caldo_se": "su", "data": "AAAA-MM-GG"}] ("giu" per sussidi
   e disoccupazione; "data" = giorno di uscita, serve a contesto.py per la reazione dei tassi).
 Dato non verificabile neanche dal web: {"mercato": "KR", "nd": "<motivo, es. nessuna fonte con orario>", "ultimi": []}
@@ -42,12 +43,17 @@ for nome, s in d["serie"].items():
     u = s["ultimi"]
     if not u and s.get("nd"):
         avvisi.append(f"{nome}: non verificato ({s['nd']}): la riga non entra nella tabella di pag. 5; nel PDF mai \"n.d.\""); continue
-    if not u and s.get("var") is not None:
+    if s.get("var") is not None and not (u and str(u[0][0])[:10] >= d["oggi"]):    # stamattina solo la variazione
+        base = N.ultima_seduta(nome, s, d["oggi"])
         if not (s.get("fonte") and s.get("ora")):
             problemi.append(f"{nome}: serie con sola variazione senza 'fonte' e 'ora'")
-        elif not N.ricavato(nome, s, d["oggi"]):
-            problemi.append(f"{nome}: solo la variazione di stamattina e l'archivio non ha la chiusura di ieri ({N._ieri(d['oggi'])}): "
-                            "aggiungila in \"ultimi\" (storico FMP, o una ricerca: è la seduta di ieri), così la riga entra in tabella")
+        elif base and not N.ricavato(nome, s, d["oggi"]):
+            problemi.append(f"{nome}: serie con sola variazione: serve \"tipo\": \"intraday\" e \"var\" numerica")
+        elif not base:
+            problemi.append(f"{nome}: solo la variazione di stamattina e {N.manca_base(nome, s, d['oggi'])}, così la riga entra in tabella")
+        elif base[0] < N._ieri(d["oggi"]):
+            avvisi.append(f"{nome}: livello ricavato dall'ultima seduta, del {base[0]} (borsa chiusa in mezzo per festività? "
+                          "verificalo e dillo nel testo: APP_FESTIVI §2)")
         continue
     if len(u) == 1:
         u = N.completa(nome, s)        # la chiusura precedente la conosce l'archivio (chiusure.csv, scommessa/dati)
@@ -85,37 +91,45 @@ for nome, s in d["serie"].items():
         scarto = abs(v0 / sf - 1)
         if scarto > 0.005:
             problemi.append(f"{nome}: scarto {100 * scarto:.2f}% con la seconda fonte ({v0} contro {sf})")
-# Serie che il fornitore di dati sbaglia: solo dalle fonti ammesse, con seconda fonte concorde entro lo 0,05%.
+# Serie che arrivano ogni mattina da una fonte dati verificata (APP_DATI §2b e §6): il connettore è sempre tra le fonti, salvo
+# "<api>_nd" (connettore che non risponde), e le sedute già in archivio devono coincidere con quelle verificate.
 # Euro Stoxx 50: FMP ^STOXX50E dà chiusure sbagliate quasi ogni giorno (confronto del 10/11/2026 su 20 sedute: scarti fino
 # allo 0,8%, anche di segno, mai corretti dopo). EODHD STOXX50E.INDX coincide al centesimo con stoxx.com e dpa-AFX
-# (verifica del 21/11/2026, 40 sedute) ed è sempre una delle due fonti, salvo "eodhd_nd" (connettore che non risponde).
-# Per aggiungere una serie basta una riga qui: archivio verificato, fonti ammesse, fonte da chiamare ogni mattina.
-FONTI_AMMESSE = {"Euro Stoxx 50": ("sx5e.csv", ("eodhd", "stoxx.com", "dpa-afx", "investing"), "eodhd")}
-import csv, os  # noqa: E402
-_dati = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scommessa", "dati")
-for nome, (archivio, ammesse, api) in FONTI_AMMESSE.items():
+# (verifica del 21/11/2026, 40 sedute): fonti ammesse e seconda fonte concorde entro lo 0,05%.
+# Kospi e Hang Seng: EODHD KS11.INDX e HSI.INDX coincidono al centesimo con lo storico di Investing.com (verifica del
+# 27/11/2026, 34 e 33 sedute; l'unica seduta discorde era sbagliata su Investing): EODHD dà le chiusure, la seduta di
+# stamattina viene dalle fonti di APP_DATI §6, quindi nessun elenco di fonti ammesse e nessuna seconda fonte obbligatoria.
+# Per aggiungere una serie basta una riga qui: fonti ammesse (None = qualunque), fonte da chiamare ogni mattina, seconda
+# fonte obbligatoria.
+FONTI_AMMESSE = {"Euro Stoxx 50": (("eodhd", "stoxx.com", "dpa-afx", "investing"), "eodhd", True),
+                 "Kospi": (None, "eodhd", False), "Hang Seng": (None, "eodhd", False)}
+for nome, (ammesse, api, due_fonti) in FONTI_AMMESSE.items():
     s = d["serie"].get(nome)
-    if not s or not s.get("ultimi"):
+    if not s or s.get("nd"):
         continue
     fonte = str(s.get("fonte") or "").lower()
-    if not any(a in fonte for a in ammesse) or "fmp" in fonte or "modeling" in fonte:
+    if ammesse and (not any(a in fonte for a in ammesse) or "fmp" in fonte or "modeling" in fonte):
         problemi.append(f"{nome}: \"fonte\" deve nominare le fonti usate, tra {', '.join(ammesse)} (APP_DATI §6): mai FMP né "
                         "le quotazioni nei riquadri delle pagine")
-    if api not in fonte and not s.get(api + "_nd"):
-        problemi.append(f"{nome}: manca {api.upper()} tra le fonti: una chiamata (APP_DATI §2b); se il connettore non risponde "
-                        f"\"{api}_nd\": \"<motivo>\" e due fonti web")
-    sf = s.get("seconda_fonte")
-    if not sf and not s.get("fonte_singola"):
-        problemi.append(f"{nome}: manca \"seconda_fonte\" (il valore di una seconda fonte indipendente) o \"fonte_singola\": true")
-    elif sf and abs(s["ultimi"][0][1] / sf - 1) > 0.0005:
-        problemi.append(f"{nome}: le due fonti non concordano entro lo 0,05% ({s['ultimi'][0][1]} contro {sf}): vale il gestore dell'indice")
-    try:   # le sedute precedenti devono essere quelle già verificate in archivio: la variazione 1 g poggia su quelle
-        arch = {r[0]: float(r[1]) for r in csv.reader(open(os.path.join(_dati, archivio), encoding="utf-8")) if r and r[0][:2] == "20"}
-        for g, v, *_ in s["ultimi"][1:]:
-            if g in arch and abs(v / arch[g] - 1) > 0.0005:
-                problemi.append(f"{nome}: {g} = {v}, ma la chiusura verificata in archivio è {arch[g]}: usa quella")
-    except OSError:
-        pass
+    if (api not in fonte or not s.get("ultimi")) and not s.get(api + "_nd"):
+        problemi.append(f"{nome}: mancano le chiusure di {api.upper()}: una chiamata (APP_DATI §2b), le ultime chiusure in "
+                        f"\"ultimi\" con la loro data e {api.upper()} in \"fonte\"; se il connettore non risponde \"{api}_nd\": "
+                        "\"<motivo>\" e il ripiego di APP_DATI §6")
+    if not s.get("ultimi"):
+        continue
+    if due_fonti:
+        sf = s.get("seconda_fonte")
+        if not sf and not s.get("fonte_singola"):
+            problemi.append(f"{nome}: manca \"seconda_fonte\" (il valore di una seconda fonte indipendente) o \"fonte_singola\": true")
+        elif sf and abs(s["ultimi"][0][1] / sf - 1) > 0.0005:
+            problemi.append(f"{nome}: le due fonti non concordano entro lo 0,05% ({s['ultimi'][0][1]} contro {sf}): vale il gestore dell'indice")
+    # le sedute precedenti devono essere quelle già verificate in archivio: le variazioni poggiano su quelle
+    arch = N.storia(nome)
+    for g, v, *_ in s["ultimi"][1:] if due_fonti else [r for r in s["ultimi"] if str(r[0])[:10] < d["oggi"]]:
+        g = str(g)[:10]
+        if g in arch and abs(v / arch[g] - 1) > 0.0005:
+            problemi.append(f"{nome}: {g} = {v}, ma la chiusura verificata in archivio è {arch[g]}: "
+                            + ("usa quella" if due_fonti else "verifica sul sito della borsa quale delle due è giusta"))
 import re  # noqa: E402
 for obb, rx in (("S&P 500", r"s&p ?500"), ("Nasdaq", r"nasdaq"), ("Euro Stoxx 50", r"stoxx ?50"), ("Nikkei 225", r"nikkei"),
                 ("Kospi", r"kospi|seul|seoul"), ("Hang Seng", r"hang ?seng")):

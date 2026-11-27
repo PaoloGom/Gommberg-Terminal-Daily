@@ -19,7 +19,8 @@ Cosa controlla:
                    primaria basta, un'agenzia ripresa da tre siti è un autore solo, l'ultima scelta va dichiarata; e il
                    gancio (gancio_token.py) su una trascrizione costruita: ricerche, pagine aperte, pagine non raggiunte.
      Dati          controlli_dati.py sull'Euro Stoxx 50 scritto in sei modi: EODHD sempre tra le due fonti, quotazioni
-                   dei riquadri e fonti discordi fermate (APP_DATI §2b e §6).
+                   dei riquadri e fonti discordi fermate (APP_DATI §2b e §6); Kospi e Hang Seng da EODHD, anche il
+                   giorno dopo una festa di quella borsa (il livello ricavato parte dall'ultima seduta vera).
      Scommessa     il registro misura ogni settimana dalla chiusura vera (partenza = verdetto della settimana prima =
                    serie in scommessa/dati); il lunedì la lettura della settimana ha una fonte sola: pronostico.py
                    accetta lo scenario solo nella forma che pag. 6 stampa, e pag. 6 stampa quello.
@@ -580,9 +581,30 @@ def passo_dati():
         out = esegui([sys.executable, os.path.join(R, "controlli_dati.py"), f])[1]
         if ("AVVISO: Indice di prova: ultimo dato del" in out) != atteso or "- Indice di prova:" in out:
             sbagliati.append(nome)
-    esito("Dati: fonti dell'Euro Stoxx 50", not sbagliati,
+    # Kospi e Hang Seng (G-41): le chiusure arrivano da EODHD ogni mattina (APP_DATI §2b), con il ripiego se il connettore non
+    # risponde; una chiusura EODHD diversa dall'archivio si ferma; il giorno dopo una festa di Seul il livello ricavato parte
+    # dall'ultima seduta vera e il controllo lo dice; senza quella chiusura chiede l'ultima con la sua data, mai un giorno preciso.
+    ks = {"mercato": "KR", "tipo": "intraday", "var": 1.2, "ora": "08:10"}
+    hk = {"mercato": "HK", "tipo": "chiusura"}
+    for nome, giorno, serie_, passa, deve_dire in (
+            ("Seul e Hong Kong da EODHD", "2026-11-24", {"Kospi": dict(ks, fonte="EODHD + Teleborsa", ultimi=[["2026-11-23", 4708.54, None], ["2026-11-20", 4869.96, None]]),
+                                                         "Hang Seng": dict(hk, fonte="EODHD", ultimi=[["2026-11-23", 22383.74, None], ["2026-11-20", 22410.8, None]])}, True, ""),
+            ("Seul senza EODHD", "2026-11-24", {"Kospi": dict(ks, fonte="Teleborsa", ultimi=[])}, False, "mancano le chiusure di EODHD"),
+            ("Seul con EODHD giù", "2026-11-24", {"Kospi": dict(ks, fonte="Teleborsa", ultimi=[], eodhd_nd="non risponde")}, True, ""),
+            ("Hong Kong diversa dall'archivio", "2026-11-24", {"Hang Seng": dict(hk, fonte="EODHD", ultimi=[["2026-11-23", 22483.74, None], ["2026-11-20", 22410.8, None]])}, False, "in archivio"),
+            ("Seul il lunedì dopo Natale", "2026-12-28", {"Kospi": dict(ks, fonte="EODHD + Teleborsa", ultimi=[["2026-12-24", 5000.0, None], ["2026-12-23", 4950.0, None]])}, True, "AVVISO: Kospi: livello ricavato dall'ultima seduta, del 2026-12-24"),
+            ("Seul dopo Natale senza l'ultima chiusura", "2026-12-28", {"Kospi": dict(ks, fonte="Teleborsa", ultimi=[], eodhd_nd="non risponde")}, False, "l'ultima chiusura prima di oggi")):
+        dati = {"oggi": giorno, "ora_roma": "09:05", "macro": [], "serie": serie_}
+        json.dump(dati, open(f, "w", encoding="utf-8"), ensure_ascii=False)
+        out = esegui([sys.executable, os.path.join(R, "controlli_dati.py"), f])[1]
+        fermo = any(l.startswith(("- Kospi:", "- Hang Seng:")) and "indice principale assente" not in l and "manca la serie" not in l
+                    for l in out.splitlines())                    # la serie assente dal caso non conta
+        if fermo == passa or deve_dire not in out or "25/12" in out or "2026-12-25" in out:
+            sbagliati.append(nome)
+    esito("Dati: fonti dell'Euro Stoxx 50, di Seul e di Hong Kong", not sbagliati,
           f"{len(casi)} casi (EODHD sempre tra le due fonti, quotazioni dei riquadri e fonti discordi fermate), età del dato "
-          "contata in giorni di uscita, borsa asiatica ferma a ieri segnalata"
+          "contata in giorni di uscita, borsa asiatica ferma a ieri segnalata, Seul e Hong Kong da EODHD (anche il giorno "
+          "dopo una festa di quella borsa)"
           if not sbagliati else "sbagliati: " + ", ".join(sbagliati))
 
 
@@ -615,6 +637,33 @@ def passo_tabelle():
     vuoto = N.tabelle_da_dati(src, archivio={}, silenzioso=True)       # senza archivio: Seul non ha la chiusura di ieri
     if any(r[0].startswith("Kospi") for _, rr in vuoto["cruscotto"] for r in rr) or not any("Kospi" in m for m in vuoto["mancanti"]):
         male.append("senza la chiusura di ieri la riga di Seul doveva restare fuori, e dirlo")
+    # Il giorno dopo una festa di quella borsa (G-41): il livello ricavato parte dall'ultima seduta vera, scritta in "ultimi"
+    # con la sua data (EODHD, APP_DATI §2b), non dal giorno feriale prima, che non è una seduta (lunedì 28/12: Seul è ferma
+    # al 24/12; lunedì 4/1: al 30/12). Senza quella chiusura il messaggio chiede l'ultima chiusura con la sua data, mai un
+    # giorno preciso; una chiusura più vecchia trovata solo in archivio, o smentita da una più recente, non basta.
+    def festa(oggi, kospi, **altre):
+        dd = {"oggi": oggi, "serie": {"Kospi": dict({"mercato": "KR", "tipo": "intraday", "ora": "08:10", "fonte": "EODHD + Teleborsa",
+                                                      "etichette": ["Kospi"]}, **kospi), **altre}}
+        ff = os.path.join(lav, f"festa_{len(os.listdir(lav))}.json")
+        json.dump(dd, open(ff, "w", encoding="utf-8"))
+        tt = N.tabelle_da_dati(ff, archivio={}, silenzioso=True)
+        return {r[0]: r for _, rr in tt["cruscotto"] for r in rr}, tt["mancanti"]
+    rif_k = {"2026-12-21": 4900.0, "2025-12-31": 4214.17}
+    hk = {"mercato": "HK", "tipo": "chiusura", "ultimi": [["2026-12-24", 22000.0, None], ["2026-12-23", 21900.0, None]],
+          "rif": {"2026-12-17": 21800.0, "2025-12-31": 25630.55}}
+    for nome, oggi, kospi, livello in (
+            ("Natale", "2026-12-28", {"var": 1.0, "ultimi": [["2026-12-24", 5000.0, None], ["2026-12-23", 4950.0, None]], "rif": rif_k}, "~5.050"),
+            ("Capodanno", "2027-01-04", {"var": -0.5, "ultimi": [["2026-12-30", 5000.0, None]], "rif": rif_k}, "~4.975")):
+        rr, manca = festa(oggi, kospi, **({"Hang Seng": hk} if nome == "Natale" else {}))
+        if (rr.get("Kospi*") or ["", ""])[1] != livello or (nome == "Natale" and (rr.get("Hang Seng") or ["", ""])[1] != "22.000,00"):
+            male.append(f"dopo {nome}: livello di Seul dall'ultima seduta vera, {livello}: {rr.get('Kospi*')}, {rr.get('Hang Seng')}")
+    for nome, kospi in (("solo in archivio", {"var": 1.0, "ultimi": [], "rif": {"2026-12-24": 5000.0}}),
+                        ("smentita da una più recente", {"var": 1.0, "ultimi": [["2026-12-22", 5000.0, None]], "rif": {"2026-12-23": 5010.0}}),
+                        ("vecchia di settimane", {"var": 1.0, "ultimi": [["2026-12-01", 5000.0, None]]})):
+        rr, manca = festa("2026-12-28", kospi)
+        msg = " ".join(m for m in manca if m.startswith("Kospi"))
+        if any(k.startswith("Kospi") for k in rr) or "l'ultima chiusura prima di oggi" not in msg or "25/12" in msg:
+            male.append(f"dopo Natale, ultima chiusura {nome}: la riga doveva restare fuori e chiedere l'ultima chiusura con la sua data: {msg[:120]}")
     dati = {"oggi": "2026-11-23", "serie": {
         "FTSE MIB": {"mercato": "EU", "tipo": "chiusura", "ultimi": [["2026-11-20", 49500, None]]},
         "Nikkei 225": {"mercato": "JP", "tipo": "intraday", "ultimi": [["2026-11-23", 57000.5, None], ["2026-11-20", 56436.65, None]]},
@@ -693,8 +742,9 @@ def passo_tabelle():
             or N._elenco(["Mondo e Stati Uniti", "VIX"]) != "Mondo e Stati Uniti, VIX" or N._elenco(["A", "B", "C"]) != "A, B e C":
         male.append("preposizione davanti alla data (sull'11/9, dell'8/12, sul 19/10) o elenco dei nomi")
     esito("Dati: tabelle di pag. 5 calcolate dal codice", not male, "; ".join(male)[:400] or
-          "numeri del 20/11 uguali al pubblicato, nessuna n.d., livello ricavato dalla variazione, archivio delle chiusure, "
-          "date riga per riga con Wall Street chiusa, con Tokyo chiusa e a cavallo d'anno")
+          "numeri del 20/11 uguali al pubblicato, nessuna n.d., livello ricavato dalla variazione (anche dopo una festa di "
+          "quella borsa, dall'ultima seduta vera), archivio delle chiusure, date riga per riga con Wall Street chiusa, con "
+          "Tokyo chiusa e a cavallo d'anno")
 
 
 # ---------------------------------------------------------------- 3d. la scommessa: registro e lettura della settimana
