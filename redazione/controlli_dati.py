@@ -140,6 +140,9 @@ for nome, (ammesse, api, due_fonti) in FONTI_AMMESSE.items():
         sf = s.get("seconda_fonte")
         if not sf and not s.get("fonte_singola"):
             problemi.append(f"{nome}: manca \"seconda_fonte\" (il valore di una seconda fonte indipendente) o \"fonte_singola\": true")
+        elif not sf and s.get(api + "_nd") and "stoxx.com" not in fonte:      # G-46: senza EODHD la fonte sola è il gestore
+            problemi.append(f"{nome}: {api.upper()} non risponde e c'è una sola fonte web: da sola vale solo stoxx.com, il gestore "
+                            "dell'indice; altrimenti serve \"seconda_fonte\" (APP_DATI §6)")
         elif sf and abs(s["ultimi"][0][1] / sf - 1) > 0.0005:
             problemi.append(f"{nome}: le due fonti non concordano entro lo 0,05% ({s['ultimi'][0][1]} contro {sf}): vale il gestore dell'indice")
     # le sedute precedenti devono essere quelle già verificate in archivio: le variazioni poggiano su quelle

@@ -20,7 +20,7 @@ Cosa controlla:
      Fonti         la regola dei fatti (autori.py, applicata da controlli_fatti.py) su schede costruite apposta: la
                    primaria basta, un'agenzia ripresa da tre siti è un autore solo, l'ultima scelta va dichiarata; e il
                    gancio (gancio_token.py) su una trascrizione costruita: ricerche, pagine aperte, pagine non raggiunte.
-     Dati          controlli_dati.py sull'Euro Stoxx 50 scritto in sei modi: EODHD sempre tra le due fonti, quotazioni
+     Dati          controlli_dati.py sull'Euro Stoxx 50 scritto in otto modi: EODHD sempre tra le due fonti, quotazioni
                    dei riquadri e fonti discordi fermate (APP_DATI §2b e §6); Kospi e Hang Seng da EODHD, anche il
                    giorno dopo una festa di quella borsa (il livello ricavato parte dall'ultima seduta vera, mai da
                    una base non certa: EODHD in ritardo, righe a indice fermo, date future fermate).
@@ -948,8 +948,8 @@ def passo_fonti():
 
 # ---------------------------------------------------------------- 3c. dati: le fonti ammesse dell'Euro Stoxx 50
 def passo_dati():
-    """controlli_dati.py su una serie dell'Euro Stoxx 50 scritta in sei modi: EODHD è sempre una delle due fonti (salvo
-    eodhd_nd), le fonti non ammesse e le fonti discordi fermano il dato (APP_DATI §2b e §6; caso del 19/11/2026). Più
+    """controlli_dati.py su una serie dell'Euro Stoxx 50 scritta in otto modi: EODHD è sempre una delle due fonti (salvo
+    eodhd_nd, e allora da solo vale stoxx.com), le fonti non ammesse e le fonti discordi fermano il dato (APP_DATI §2b e §6; caso del 19/11/2026). Più
     due casi sull'età del dato, contata in giorni di uscita (APP_FESTIVI §2)."""
     lav = os.path.join(TMP, "dati")
     os.makedirs(lav, exist_ok=True)
@@ -959,6 +959,8 @@ def passo_dati():
             ("EODHD da solo", {"fonte": "EODHD", "fonte_singola": True}, True),
             ("EODHD giù, due fonti web", {"fonte": "stoxx.com + dpa-AFX", "seconda_fonte": v0, "eodhd_nd": "non risponde"}, True),
             ("senza EODHD", {"fonte": "dpa-AFX", "fonte_singola": True}, False),
+            ("EODHD giù, solo dpa-AFX", {"fonte": "dpa-AFX", "fonte_singola": True, "eodhd_nd": "non risponde"}, False),
+            ("EODHD giù, solo stoxx.com", {"fonte": "stoxx.com", "fonte_singola": True, "eodhd_nd": "non risponde"}, True),
             ("quotazione di un riquadro", {"fonte": "finanzen.at", "fonte_singola": True}, False),
             ("fonti discordi", {"fonte": "EODHD + dpa-AFX", "seconda_fonte": round(v0 * 1.001, 2)}, False)]
     sbagliati = []
