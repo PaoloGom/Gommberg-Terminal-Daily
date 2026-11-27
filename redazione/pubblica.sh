@@ -41,14 +41,15 @@ EOF
 copia() { if [ "$PROVA" = "1" ] && [ "$REPO" = "/home/claude/gtd" ]; then echo "[prova] cp $*"; else cp -f "$@"; fi; }
 copia "$PDF" "$REPO/$DEST" || fail "copia del PDF"
 if [ -f "$FATTI" ]; then copia "$FATTI" "$REPO/redazione/fatti/${DATA}.json"; else echo "AVVISO: $FATTI assente, registro fatti non copiato"; fi
-# Sorgenti dell'edizione (v8.7): dati di mercato, testo scritto, esiti di revisione e desk, stato della scommessa. Servono a
+# Sorgenti dell'edizione (v8.7): dati di mercato, testo scritto, esiti di revisione, desk e ragionamento (coerenza_incarico.json
+# e coerenza.json, G-45), stato della scommessa. Servono a
 # rifare l'edizione con un motore corretto, a collaudare ogni modifica su un'edizione vera (collaudo.sh) e a confrontare
 # due versioni delle regole sugli stessi dati. Non bloccano mai la pubblicazione.
 LAV="$(dirname "$FATTI")"; SRG="$REPO/redazione/sorgenti/${DATA}"
 if [ "$PROVA" != "1" ] || [ "$REPO" != "/home/claude/gtd" ]; then
   mkdir -p "$SRG" 2>/dev/null
   [ -f "$LAV/edizione_${DATA}.py" ] && cp -f "$LAV/edizione_${DATA}.py" "$SRG/edizione.py" 2>/dev/null
-  for f in dati.json contesto.json stato.json verdetto.json revisione.json desk_ok.json; do
+  for f in dati.json contesto.json stato.json verdetto.json revisione.json desk_ok.json coerenza_incarico.json coerenza.json; do
     [ -f "$LAV/$f" ] && cp -f "$LAV/$f" "$SRG/" 2>/dev/null
   done
   rmdir "$SRG" 2>/dev/null   # vuota (nessun sorgente trovato): non resta

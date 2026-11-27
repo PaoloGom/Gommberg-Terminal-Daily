@@ -105,6 +105,9 @@ CIFRA = re.compile(r"([+\-−]?)(\d+(?:[.,]\d+)*)(?:\s?(%|pb\b|punti|\$|dollari|
 #    prezzo...) non sono la testa ("il rimbalzo dell'oro (+3,9%)" -> "l'oro rimbalza del 3,9%");
 #  - la cifra non passa a un altro: il proprietario nella riscrittura non porta parole che nell'originale c'erano ma
 #    appartenevano ad altro ("L'oro guadagna il 2,1% e l'argento il 3,4%" -> "L'argento guadagna il 2,1%...").
+# Dal quarto collaudo (27/11) anche: la cifra non si allarga a un soggetto coordinato che prima non l'aveva fatta; i nomi
+# propri di chi l'ha fatta non spariscono dal testo; dopo la cifra non arriva un nome che nell'originale stava fuori dalla
+# sua proposizione. Il tempo e la fonte non sono la testa, e un aggettivo dopo il nome della misura è della misura.
 # I mercati di dati.json hanno in più il confronto con il valore calcolato (controlli_coerenza.py, in verifica).
 ARTICOLI = set("il lo la i gli le l un una uno".split())
 PREPOSIZIONI = set("di del della dello dei degli delle dell d a al alla allo ai agli alle all ad da dal dalla dallo dai dagli "
@@ -122,6 +125,21 @@ MISURA = re.compile(r"^(?:azion[ei]|titol[oi]|indic[ei]|compart[oi]|settor[ei]|r
                     r"croll[oi]|aument[oi]|crescita|salita|discesa|perdit[ae]|"
                     r"guadagn[oi]|bals[oi]|flession[ei]|progress[oi]|cadut[ae]|tonf[oi]|risalita|recuper[oi]|variazion[ei]|"
                     r"rendiment[oi]|prezz[oi]|quotazion[ei]|valor[ei]|livell[oi]|seduta|giornata|cambi[oi])$")
+# Tra le parole della misura, quelle del movimento e del valore (non i contenitori come "azioni", "settore", "comparto", né
+# "cambio", che nomina una coppia di valute) reggono un aggettivo o un participio che dice com'è la misura e non chi l'ha
+# fatta: "il rialzo proposto", "il calo complessivo", "il taglio atteso" (quarto collaudo, 27/11: 3 riscritture vere su 28
+# respinte a torto). L'aggettivo si riconosce dalla forma; "il settore tecnologico" resta tecnologico.
+MOVIMENTO = re.compile(r"^(?:rialz[oi]|ribass[oi]|cal[oi]|rimbalz[oi]|croll[oi]|aument[oi]|crescita|salita|discesa|perdit[ae]|"
+                       r"guadagn[oi]|bals[oi]|flession[ei]|progress[oi]|cadut[ae]|tonf[oi]|risalita|recuper[oi]|"
+                       r"variazion[ei]|rendiment[oi]|prezz[oi]|quotazion[ei]|valor[ei]|livell[oi]|tagli[oi])$")
+AGGETTIVO = re.compile(r"^[a-zà-ù]{3,}(?:(?:at|it|ut|st|ss|[^aeiou]s|tt)[oaie]|(?:al|il|ar)[ei]|iv[oaie]|ic[oaie]|ich[ei]|"
+                       r"[ae]nt[ei]|ari[oae]|os[oaie])$")
+# Il tempo e la fonte non sono mai chi ha fatto la cifra: "Mercoledì il calo del 6,16%", "Per Bloomberg il rialzo del
+# 25/11 (+3,5%)". Restano nel gruppo (la cifra non cerca un altro proprietario), ma non ne sono la testa.
+TEMPO = set("lunedì martedì mercoledì giovedì venerdì sabato domenica gennaio febbraio marzo aprile maggio giugno luglio "
+            "agosto settembre ottobre novembre dicembre ieri oggi stamattina stanotte stasera domani".split())
+DATA = re.compile(r"^\d{1,2}/\d{1,2}$")
+FONTE = {"per", "secondo"}
 # verbi (anche congiuntivo, futuro, participio): chiudono il gruppo del soggetto
 VERBI = re.compile(r"^(?:(?:perd|cal|scend|ced|guadagn|crol|risal|rimbalz|arretr|chiud|avanz|cresc|tocc|segn|lasc|pes|"
                    r"tras?cin|spin|frena|sostien|rest|pass|port|registr|vol|torn|affond|scivol|ripieg|fless|recuper|"
@@ -150,7 +168,7 @@ LAVORO_MAX = 60        # cifre guardate per campo: oltre, il campo non è un tes
 def _parole(t):
     """Le parole del testo con la maiuscola com'è (serve a riconoscere i nomi propri)."""
     t = re.sub(r"<[^>]+>|\[\[\w+\]\]", " ", t).replace("'", " ").replace("’", " ")
-    return re.findall(r"[A-Za-zÀ-ÿ&]+|[(),;:.?!%$]|\d+(?:[.,]\d+)*", t)
+    return re.findall(r"[A-Za-zÀ-ÿ&]+|[(),;:.?!%$]|\d{1,2}/\d{1,2}(?![\d/])|\d+(?:[.,]\d+)*", t)
 
 
 def _livello(w):
@@ -169,6 +187,19 @@ def _verbale(pp, k):
         prima = pp[k - 1].lower() if k > 0 else ""
         return dopo in AGENTE or prima in AUSILIARI or prima in ("è", "sono", "ha", "hanno")
     return False
+
+
+def _attributo(pp, k):
+    """pp[k] è un aggettivo o un participio attaccato a un nome del movimento o del valore ("il rialzo proposto", "il calo
+    complessivo previsto"): dice com'è la misura, non chi l'ha fatta."""
+    def agg(i):
+        return pp[i][:1].islower() and bool(AGGETTIVO.match(pp[i])) and not MISURA.match(pp[i])
+    if not agg(k):
+        return False
+    j = k - 1
+    if j >= 0 and agg(j):
+        j -= 1
+    return j >= 0 and bool(MOVIMENTO.match(pp[j].lower()))
 
 
 def _radice(w):
@@ -231,8 +262,11 @@ def _prima(pp):
             break
         if piene >= 8:
             break
-        if coord and (lw[0].isdigit() or VERBI.match(lw)):
+        if coord and ((lw[0].isdigit() and (_livello(w) or (k + 1 < len(pp) and pp[k + 1].lower() in UNITA)))
+                      or VERBI.match(lw)):
             out = out[len(out) - coord:]; break             # "...a 129.902 immatricolazioni e la quota": non è doppio
+        if _attributo(pp, k):
+            k -= 1; continue                                # "il rialzo proposto": l'aggettivo è della misura
         if VERBI.match(lw) and not MISURA.match(lw):
             if piene:
                 break
@@ -251,6 +285,10 @@ def _prima(pp):
             # sua coda ("i 9.800 dollari a tonnellata"): si butta, e si risale al soggetto
             if piene and not (out and out[0].lower() in PREPOSIZIONI):
                 break
+            c = max([i for i, x in enumerate(out[:-1]) if x.lower() in COORD and
+                     (out[i + 1].lower() in ARTICOLI or out[i + 1][:1].isupper())] or [-1])
+            if piene and c >= 0:
+                out = out[c + 1:]; break                    # "perde il 7% a Seul e SK hynix quasi il 6%": SK hynix
             if piene:
                 out, piene = [], 0
             elif any(x.lower() in RELAZIONE for x in out):
@@ -315,18 +353,34 @@ def proprietario(t, m):
     return g
 
 
+def _fonte(g, i):
+    """g[i] è il nome di chi dà la notizia, subito dopo "per" o "secondo" ("Per KED Global il Kospi...")."""
+    if not g[i][:1].isupper() or g[i].lower() in FONTE:
+        return False
+    j = i
+    while j > 0 and g[j - 1][:1].isupper() and g[j - 1].lower() not in FONTE:
+        j -= 1
+    return j > 0 and g[j - 1].lower() in FONTE
+
+
 def testa(g):
     """La testa del gruppo: dalla prima parola piena fino alla prima preposizione (le coordinate con "e" ne fanno parte, e
     anche "a 10 anni", "Nasdaq 100": un numero nel nome è il nome). Se ci sono nomi propri restano quelli, con i numeri del
-    nome ("il petrolio Brent" vale "il Brent", "il Bund a 30 anni" non vale "il Bund"). Insieme di radici."""
+    nome ("il petrolio Brent" vale "il Brent", "il Bund a 30 anni" non vale "il Bund", "il 10 anni" non vale "il 2
+    anni"). Il tempo e la fonte non sono la testa ("Mercoledì il calo", "Per Bloomberg il rialzo del 25/11"). Insieme di
+    radici."""
     out, numeri, iniziata = [], [], False
+    cifra = lambda j: j < len(g) and g[j][0].isdigit() and (_livello(g[j]) or (j + 1 < len(g) and g[j + 1].lower() in UNITA))
     for i, w in enumerate(g):
         lw = w.lower()
+        if DATA.match(lw) or lw in TEMPO or _fonte(g, i):
+            continue                                        # il tempo e la fonte non sono chi ha fatto la cifra
         if not iniziata:
+            if lw[0].isdigit() and not cifra(i) and i + 1 < len(g) and _piena(g[i + 1]):
+                numeri.append(lw)                           # "il 10 anni": il numero è nel nome
             if not _piena(w):
                 continue
             iniziata = True
-        cifra = lambda j: j < len(g) and g[j][0].isdigit() and (_livello(g[j]) or (j + 1 < len(g) and g[j + 1].lower() in UNITA))
         if lw[0] == "§":
             numeri.append(lw[1:]); continue                 # il termine di paragone
         if lw[0].isdigit():
@@ -343,6 +397,40 @@ def testa(g):
             out.append(w)
     propri = [w for w in out if w[:1].isupper()]
     return {_radice(w) for w in (propri + numeri if propri else out + numeri)}
+
+
+def _membri(g):
+    """I soggetti coordinati del gruppo ("il 10 anni e il 2 anni", "DRAM e NAND"): uno solo se non ci sono."""
+    out, cur = [], []
+    for i, w in enumerate(g):
+        dopo = g[i + 1] if i + 1 < len(g) else ""
+        if w.lower() in COORD and cur and (dopo.lower() in ARTICOLI or dopo[:1].isupper()):
+            out.append(cur); cur = []
+        else:
+            cur.append(w)
+    return out + [cur] if cur else out
+
+
+def _coda(t, m):
+    """Le parole piene subito dopo la cifra m, fino alla punteggiatura, a una congiunzione o a un verbo ("perdono il 2,4% a
+    Milano dopo la BCE"): il complemento della cifra."""
+    out = []
+    for w in _parole(t[m.end():])[:8]:
+        lw = w.lower()
+        if lw in STOP or lw in CONFINI or lw in COORD or lw in ("(", ")", "che") or (VERBI.match(lw) and not MISURA.match(lw)):
+            break
+        if _piena(w):
+            out.append(w)
+    return out
+
+
+def _proposizione(t, m):
+    """Le parole della proposizione della cifra m: dalla punteggiatura o dalla congiunzione prima a quella dopo."""
+    prima, dopo = _parole(t[:m.start()]), _parole(t[m.end():])
+    fine = lambda w: w in STOP or w.lower() in CONFINI
+    i = max([j for j, w in enumerate(prima) if fine(w)] or [-1])
+    j = next((j for j, w in enumerate(dopo) if fine(w)), len(dopo))
+    return prima[i + 1:] + dopo[:j]
 
 
 def _frase(t, m):
@@ -372,6 +460,28 @@ def cambia_soggetto(orig, nuovo):
             persa = sorted(min((h - frase for h in teste), key=len))
             return (f"la cifra {m.group(0).strip()} perde chi l'ha fatta ({', '.join(persa)}...): una cifra resta sul suo "
                     "soggetto")
+        # la cifra non si allarga: ogni soggetto coordinato del proprietario nuovo era già nel proprietario di prima ("Il
+        # 10 anni scende di 6 pb, il 2 anni meno" -> "Il 10 anni e il 2 anni scendono di 6 pb", quarto collaudo, 27/11)
+        noti = set().union(*[{_radice(w) for w in g if _piena(w) or w[0].isdigit()} for g in prima])
+        membri = _membri(g_ora)
+        for mb in (membri if len(membri) > 1 else []):
+            h = testa(mb)
+            if h and not h <= noti:
+                return (f"la cifra {m.group(0).strip()} si allarga a {', '.join(sorted(h - noti))}, che nell'originale non "
+                        "l'aveva fatta: una cifra resta sul suo soggetto")
+        # i nomi propri di chi ha fatto la cifra non spariscono ("il listino tecnologico di Hong Kong" -> "il listino
+        # tecnologico"), e dopo la cifra non arriva un nome che nell'originale stava fuori dalla sua proposizione
+        # ("perdono il 2,4% a Milano dopo la BCE, meno che a Francoforte" -> "perdono il 2,4% a Francoforte...")
+        resta = {_radice(w) for w in _parole(nuovo)}
+        propri = {_radice(w) for g in prima for w in g if w[:1].isupper() and _piena(w) and w.lower() not in TEMPO}
+        if propri - resta:
+            return (f"la cifra {m.group(0).strip()} perde {', '.join(sorted(propri - resta))}, che diceva di chi era: una "
+                    "cifra resta sul suo soggetto")
+        accanto = noti | {_radice(w) for x in CIFRA.finditer(orig) if x.group(2) == m.group(2) for w in _proposizione(orig, x)}
+        nuovi_accanto = {_radice(w) for w in _coda(nuovo, m) if w[:1].isupper()} - accanto
+        if nuovi_accanto:
+            return (f"dopo la cifra {m.group(0).strip()} arriva {', '.join(sorted(nuovi_accanto))}, che nell'originale non le "
+                    "stava accanto: una cifra resta sul suo soggetto")
         ora = {_radice(w) for w in proprietario(nuovo, m) if _piena(w)}
         di_prima = set().union(*[{_radice(w) for w in g if _piena(w)} for g in prima])
         altro = (ora - di_prima) & altri

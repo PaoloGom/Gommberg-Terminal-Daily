@@ -1,0 +1,550 @@
+[
+ {
+  "data": "2026-11-16",
+  "campo": "notizie.0.testo",
+  "giudizio": "buona",
+  "originale": "Anche la produzione industriale cresce del 4,8%, sotto il 5,3% previsto, e gli investimenti fissi calano dell'8,1% nei primi dieci mesi. Regge solo l'export, trainato dalla domanda di tecnologia per l'AI (Reuters).",
+  "testo": "La produzione industriale cresce del 4,8%, sotto il 5,3% previsto, e gli investimenti fissi calano dell'8,1% nei primi dieci mesi. Regge solo l'export, trainato dalla domanda di tecnologia per l'AI (Reuters)."
+ },
+ {
+  "data": "2026-11-16",
+  "campo": "notizie.4.testo",
+  "giudizio": "buona",
+  "originale": "Il Ftse Mib finisce venerdì a 51.859 punti (+0,1%). Eni sale dell'1,98% e Fincantieri cala di oltre il 4%; lo spread tra Btp e Bund oscilla tra 100 e 105 punti (SoldiOnline).",
+  "testo": "Il Ftse Mib finisce venerdì a 51.859 punti (+0,1%), mentre lo spread tra Btp e Bund oscilla tra 100 e 105 punti (SoldiOnline)."
+ },
+ {
+  "data": "2026-11-16",
+  "campo": "moduli.chip.quindi",
+  "giudizio": "buona",
+  "originale": "Martedì sera, a Wall Street chiusa, i conti di Nvidia: il primo test è l'apertura di Taipei di mercoledì.",
+  "testo": "Il primo test è l'apertura di Taipei di mercoledì, dopo i conti che Nvidia presenta a Wall Street chiusa."
+ },
+ {
+  "data": "2026-11-16",
+  "campo": "moduli.chip.testo.1",
+  "giudizio": "buona",
+  "originale": "Dove i chip pesano meno la vendita si ferma. Hong Kong sale e Shanghai cede lo 0,9%, ma lì a pesare sono stati i dati di ottobre, con vendite e produzione sotto le attese (Reuters), più che la paura sull'AI.",
+  "testo": "Dove i chip pesano meno la vendita si ferma. Hong Kong sale e Shanghai cede lo 0,9%, ma lì a pesare sono stati i dati di ottobre (Reuters), più che la paura sull'AI."
+ },
+ {
+  "data": "2026-11-16",
+  "campo": "moduli.chip.testo.3",
+  "giudizio": "buona",
+  "originale": "Giovedì debutta Anthropic, che chiede fino a 64,4 miliardi di dollari e secondo Investing.com ha attirato più interesse degli investitori istituzionali di SpaceX. Per chi investe nell'AI è un'altra occasione dove mettere i soldi, e per noi una ragione in più per vendere i fornitori più cari.",
+  "testo": "Giovedì debutta Anthropic, che secondo Investing.com ha attirato più interesse degli investitori istituzionali di SpaceX. Per chi investe nell'AI è un'altra occasione dove mettere i soldi, e per noi una ragione in più per vendere i fornitori più cari."
+ },
+ {
+  "data": "2026-11-16",
+  "campo": "moduli.rifugi.numero",
+  "giudizio": "buona",
+  "originale": "-4,6%: l'oro in una settimana, da 4.074,90 a 3.886,30 $. Il Treasury a 10 anni ha chiuso la settimana a 5,15%: oro e titoli di Stato, i rifugi di solito cercati con la paura, hanno perso insieme.",
+  "testo": "-4,6%: l'oro in una settimana, da 4.074,90 a 3.886,30 $, mentre il Treasury a 10 anni ha chiuso la settimana a 5,15%: oro e titoli di Stato hanno perso insieme."
+ },
+ {
+  "data": "2026-11-16",
+  "campo": "moduli.rifugi.guardare",
+  "giudizio": "buona",
+  "originale": "Se i verbali parlano di più rialzi, il 2 anni resta alto e l'oro fatica a recuperare. Se molti membri frenano, il mercato taglierà in fretta la scommessa sul mezzo punto e i rendimenti brevi scenderanno per primi.",
+  "testo": "Se i verbali parlano di più rialzi, l'oro fatica a recuperare. Se molti membri frenano, il mercato taglierà in fretta la scommessa sul mezzo punto."
+ },
+ {
+  "data": "2026-11-16",
+  "campo": "moduli.petrolio.testo.0",
+  "giudizio": "buona",
+  "originale": "Quando il petrolio sale perché manca l'offerta, di solito soffrono i paesi che lo comprano: pagano di più senza vendere di più. Europa e Giappone sono i casi più chiari. A Tokyo i consumi privati sono scesi nel trimestre, tra maltempo e prezzi più alti, e il Pil è calato per la prima volta in un anno (AP).",
+  "testo": "Quando il petrolio sale perché manca l'offerta, di solito soffrono i paesi che lo comprano: pagano di più senza vendere di più. Europa e Giappone sono i casi più chiari, e Tokyo ha già sentito il colpo sul Pil, calato per la prima volta in un anno (AP)."
+ },
+ {
+  "data": "2026-11-16",
+  "campo": "moduli.petrolio.testo.1",
+  "giudizio": "buona",
+  "originale": "Il conflitto in Iran è in stallo. Le ostilità su larga scala sono finite, ma Hormuz resta chiuso, e la Cina riceveva circa un terzo del suo greggio da quella rotta (Al Jazeera).",
+  "testo": "Intanto Hormuz resta chiuso, e proprio da quella rotta la Cina riceveva circa un terzo del suo greggio, che ora deve cercare altrove (Al Jazeera)."
+ },
+ {
+  "data": "2026-11-20",
+  "campo": "quadro",
+  "giudizio": "buona",
+  "originale": "Per noi si vende ciò che vive di utili lontani o non paga interessi. L'AI e l'oro scendono insieme e il dollaro resta vicino ai massimi da 19 mesi. Il rendimento del Treasury a 10 anni (5,04%) cala poco: per noi, perché la Fed si prepara ad alzare. Il petrolio non fa da rifugio: il Brent (91,98 $) guarda all'eccesso di offerta.",
+  "testo": "Per noi si vende ciò che vive di utili lontani o non paga interessi: l'AI e l'oro scendono insieme e il dollaro resta vicino ai massimi da 19 mesi. Il rendimento del Treasury a 10 anni (5,04%) cala poco e il Brent (91,98 $) non fa da rifugio."
+ },
+ {
+  "data": "2026-11-20",
+  "campo": "in30.0",
+  "giudizio": "buona",
+  "originale": "La Fed ha meno spazio per fermarsi: i dati di ieri frenano l'attività e spingono i prezzi. [[fed]]",
+  "testo": "La Fed ha meno spazio per fermarsi, e Waller parla di un rialzo da mezzo punto a dicembre. [[fed]]"
+ },
+ {
+  "data": "2026-11-20",
+  "campo": "moduli.ai.titolo",
+  "giudizio": "buona",
+  "originale": "Anthropic guadagna il 17%, ma il resto dell'AI paga il conto",
+  "testo": "Perché il successo di Anthropic non basta a salvare i titoli AI"
+ },
+ {
+  "data": "2026-11-20",
+  "campo": "moduli.ai.guardare",
+  "giudizio": "buona",
+  "originale": "Lo dirà l'apertura di Wall Street: se i chip americani recuperano mentre l'Asia è ancora in calo, la vendita era un eccesso dettato dall'orario. Se scendono ancora, perde peso l'idea che sia solo liquidità e prevale quella dei tassi.",
+  "testo": "Contano i chip americani: se recuperano mentre l'Asia è ancora in calo, la vendita era un eccesso dettato dall'orario. Se scendono ancora, perde peso l'idea che sia solo liquidità e prevale quella dei tassi."
+ },
+ {
+  "data": "2026-11-20",
+  "campo": "moduli.fed.testo.0",
+  "giudizio": "buona",
+  "originale": "Perché i prezzi pagati contano? Sono il primo anello della catena: se le imprese pagano di più materie e servizi, di solito prima o poi lo scaricano sui prezzi al consumo. A Filadelfia il costo sale mentre l'attività delle fabbriche cala: una combinazione scomoda. La Fed vuole frenare l'inflazione con tassi più alti, ma tassi più alti pesano su un'economia che già rallenta.",
+  "testo": "Perché i prezzi pagati contano? Sono il primo anello della catena: se le imprese pagano di più materie e servizi, di solito prima o poi lo scaricano sui prezzi al consumo. Ed ecco la scomodità per la Fed: vuole frenare l'inflazione con tassi più alti, ma tassi più alti pesano su un'economia che già rallenta."
+ },
+ {
+  "data": "2026-11-20",
+  "campo": "moduli.fed.testo.2",
+  "giudizio": "buona",
+  "originale": "I sussidi di disoccupazione salgono a 203 mila, appena sopra i 197 mila attesi, non cambiano il quadro. Per noi il lavoro resta il lato dell'economia che tiene. La Fed può quindi guardare soprattutto ai prezzi.",
+  "testo": "Anche i sussidi di disoccupazione, appena sopra le attese, non cambiano il quadro. Per noi il lavoro resta il lato dell'economia che tiene, e la Fed può quindi guardare soprattutto ai prezzi."
+ },
+ {
+  "data": "2026-11-20",
+  "campo": "moduli.petrolio.titolo",
+  "giudizio": "buona",
+  "originale": "Houthi su Riyadh e mine a Hormuz, ma il petrolio guarda all'eccesso di offerta",
+  "testo": "Per il petrolio i barili in arrivo pesano più dei rischi a Riyadh"
+ },
+ {
+  "data": "2026-11-20",
+  "campo": "moduli.petrolio.quindi",
+  "giudizio": "buona",
+  "originale": "Una chiusura sopra i 100 $, livello che il Brent non vede dal 3 novembre, direbbe che il rischio Hormuz ha battuto l'eccesso di offerta.",
+  "testo": "Una chiusura sopra i 100 $ direbbe che il rischio Hormuz ha battuto l'eccesso di offerta."
+ },
+ {
+  "data": "2026-11-20",
+  "campo": "moduli.europa.quindi",
+  "giudizio": "buona",
+  "originale": "L'apertura dirà se l'Europa recupera il ritardo: i future sull'Euro Stoxx 50 segnano -1,43% (Borsa&amp;Finanza, 08:47).",
+  "testo": "I future sull'Euro Stoxx 50 segnano -1,43% (Borsa&amp;Finanza, 08:47): per noi l'Europa non è immune alla vendita."
+ },
+ {
+  "data": "2026-11-20",
+  "campo": "moduli.europa.testo.0",
+  "giudizio": "buona",
+  "originale": "Perché l'Europa cade meno? Gli indici europei hanno pochi titoli dell'intelligenza artificiale, e la vendita di giovedì colpiva soprattutto quelli. ASML, che fa le macchine con cui si producono i chip, ha chiuso in rialzo.",
+  "testo": "Perché l'Europa cade meno? La vendita di giovedì colpiva soprattutto i titoli dell'intelligenza artificiale, e gli indici europei ne hanno pochi, a differenza del Nasdaq."
+ },
+ {
+  "data": "2026-11-20",
+  "campo": "moduli.europa.testo.2",
+  "giudizio": "buona",
+  "originale": "Anche su base settimanale il quadro è lo stesso: il FTSE MIB perde il 3,6% e l'Euro Stoxx 50 il 4,2%, contro il 5,1% dell'S&amp;P 500. L'Europa soffre, ma meno, e senza il peso dei titoli dell'intelligenza artificiale.",
+  "testo": "Anche su base settimanale il quadro è lo stesso: il FTSE MIB perde il 3,6% e l'Euro Stoxx 50 il 4,2%, contro il 5,1% dell'S&amp;P 500."
+ },
+ {
+  "data": "2026-11-20",
+  "campo": "moduli.oro.testo.0",
+  "giudizio": "buona",
+  "originale": "Come mai l'oro, il bene rifugio per eccellenza, scende in un giorno di paura? Per noi oggi la paura è sui tassi, non sull'inflazione fuori controllo. L'oro serve a proteggersi da un denaro che perde valore. Ma se la banca centrale alza i tassi per fermare l'inflazione, il dollaro rende di più e l'oro, che non rende nulla, diventa meno interessante.",
+  "testo": "Come mai l'oro, il bene rifugio per eccellenza, scende in un giorno di paura? Per noi oggi la paura è sui tassi, non sull'inflazione fuori controllo. L'oro serve a proteggersi da un denaro che perde valore, e oggi il denaro rende di più."
+ },
+ {
+  "data": "2026-11-24",
+  "campo": "top.dek",
+  "giudizio": "buona",
+  "originale": "Il consiglio di Nvidia ha reintegrato Jensen Huang, dimessosi il 12 novembre, e il titolo guadagna oltre il 31%. L'S&amp;P 500 sale del 4,7%, il rialzo più forte da almeno un anno, e il Nasdaq del 6,5%. Stamattina Seul chiude a +6,3% e ieri l'Euro Stoxx 50 aveva già guadagnato il 2,2%. [[chip]]",
+  "testo": "Il consiglio di Nvidia ha reintegrato Jensen Huang, che si era dimesso il 12 novembre, e il titolo guadagna oltre il 31%. L'S&amp;P 500 sale del 4,7%, il rialzo più forte da almeno un anno, e il Nasdaq del 6,5%. Stamattina Seul chiude a +6,3% e ieri l'Euro Stoxx 50 aveva già guadagnato il 2,2%. [[chip]]"
+ },
+ {
+  "data": "2026-11-24",
+  "campo": "quadro",
+  "giudizio": "buona",
+  "originale": "Una giornata di sollievo, non un cambio di scenario. Le azioni salgono ovunque (azionario mondiale +4,5%, piccole società del Russell 2000 +3,4%) e il VIX, l'indice della paura, crolla del 25,8% da 35,89 a 26,62. Ci leggiamo anche il rimbalzo dell'oro (+3,9%): finiscono le vendite per far cassa. Ma il 10 anni resta al 4,92% e il rialzo Fed di dicembre è ancora quasi scontato: meno rischio, non meno tassi.",
+  "testo": "Una giornata di sollievo, non un cambio di scenario. Le azioni salgono ovunque (azionario mondiale +4,5%, piccole società del Russell 2000 +3,4%) e il VIX, l'indice della paura, crolla del 25,8% da 35,89 a 26,62. Nel rimbalzo dell'oro (+3,9%) leggiamo la fine delle vendite per far cassa. Ma il 10 anni resta al 4,92% e il rialzo Fed di dicembre è ancora quasi certo: meno rischio, non meno tassi."
+ },
+ {
+  "data": "2026-11-24",
+  "campo": "in30.0",
+  "giudizio": "buona",
+  "originale": "Europa: la tecnologia trascina le borse, ma Germania e Francia crescono a ritmi opposti. [[europa]]",
+  "testo": "Europa: la tecnologia trascina le borse, ma Germania e Francia vanno in direzioni opposte. [[europa]]"
+ },
+ {
+  "data": "2026-11-24",
+  "campo": "notizie.3.testo",
+  "giudizio": "buona",
+  "originale": "L'indice dell'attività delle imprese resta a 51,7 per l'area euro, sotto il 51,9 atteso: la media nasconde due paesi che vanno in direzioni opposte.",
+  "testo": "Per l'area euro l'indice dell'attività delle imprese resta a 51,7, sotto il 51,9 atteso. La media nasconde due paesi che vanno in direzioni opposte."
+ },
+ {
+  "data": "2026-11-24",
+  "campo": "notizie.5.testo",
+  "giudizio": "buona",
+  "originale": "Secondo il CME FedWatch, che ricava la probabilità dai future sui tassi, un rialzo a dicembre vale circa il 94%: il sollievo in borsa non l'ha toccata.",
+  "testo": "Secondo il CME FedWatch, che ricava le probabilità dai future sui tassi, un rialzo a dicembre vale circa il 94%. Il sollievo in borsa non ha cambiato questo dato."
+ },
+ {
+  "data": "2026-11-24",
+  "campo": "moduli.chip.titolo",
+  "giudizio": "buona",
+  "originale": "Il rimbalzo di Nvidia mostra che le vendite erano di fiducia, non di conti",
+  "testo": "Il rimbalzo di Nvidia: si vendeva per sfiducia, non per i conti"
+ },
+ {
+  "data": "2026-11-24",
+  "campo": "moduli.chip.perche",
+  "giudizio": "buona",
+  "originale": "A nostro avviso la vendita era una perdita di fiducia in Nvidia e non di utili, e il rimbalzo di ieri lo conferma. Quando il consiglio ha riportato Huang, un solo comunicato ha ricomprato gran parte di un calo durato undici giorni.",
+  "testo": "A nostro avviso si vendeva per sfiducia in Nvidia, non per gli utili, e il rimbalzo di ieri lo conferma. Quando il consiglio ha riportato Huang, un solo comunicato ha recuperato gran parte di un calo durato undici giorni."
+ },
+ {
+  "data": "2026-11-24",
+  "campo": "moduli.chip.quindi",
+  "giudizio": "buona",
+  "originale": "Il primo test è l'apertura di Wall Street oggi alle 15:30: se i chip americani rivendono, il rimbalzo di ieri è stato uno sfogo di un giorno.",
+  "testo": "Il primo test è l'apertura di Wall Street oggi alle 15:30: se i chip americani tornano a scendere, il rimbalzo di ieri è stato uno sfogo di un giorno."
+ },
+ {
+  "data": "2026-11-24",
+  "campo": "moduli.treasury.numero",
+  "giudizio": "buona",
+  "originale": "29 pb: di quanto il 10 anni, al 4,92%, rende più del 2 anni, al 4,63%. A nostro avviso non è il segno di un mercato che scommette su una recessione vicina.",
+  "testo": "29 punti base: di quanto il 10 anni, al 4,92%, rende più del 2 anni, al 4,63%. A nostro avviso non è il segno di un mercato che scommette su una recessione vicina."
+ },
+ {
+  "data": "2026-11-24",
+  "campo": "moduli.treasury.testo.1",
+  "giudizio": "buona",
+  "originale": "Lo scenario Fed non è cambiato. Secondo il CME FedWatch i future danno circa il 94% di probabilità a un rialzo di 25 punti base a dicembre. Secondo Kitco una parte degli operatori l'ha ridotta dopo indicatori più deboli. Il 2 anni, che segue la banca centrale più da vicino, resta a 4,63% come venerdì. Per questo il dato di mercoledì conta più del rimbalzo.",
+  "testo": "Lo scenario Fed non è cambiato. Secondo il CME FedWatch i future danno circa il 94% di probabilità a un rialzo di 25 punti base a dicembre. Secondo Kitco una parte degli operatori ha ridotto quella probabilità dopo indicatori più deboli. Il 2 anni, che segue la banca centrale più da vicino, resta a 4,63% come venerdì. Per questo il dato di mercoledì conta più del rimbalzo."
+ },
+ {
+  "data": "2026-11-24",
+  "campo": "moduli.treasury.testo.2",
+  "giudizio": "buona",
+  "originale": "Il petrolio spiega anche la discesa dei dieci giorni scorsi. Dal 13 novembre, quando il 10 anni era al 5,15%, il Brent è passato da 95,84 a meno di 90 $. Con lui, secondo Kitco, sono scese le attese di inflazione. Un rendimento che si sposta con il barile dice che il mercato lo legge come un termometro dei prezzi futuri.",
+  "testo": "Il petrolio spiega anche la discesa dei dieci giorni scorsi. Dal 13 novembre, quando il 10 anni era al 5,15%, il Brent è passato da 95,84 a meno di 90 $. Con lui, secondo Kitco, sono scese le attese di inflazione. Se il rendimento si muove insieme al barile, il mercato lo usa come termometro dei prezzi futuri."
+ },
+ {
+  "data": "2026-11-24",
+  "campo": "moduli.petrolio.testo.1",
+  "giudizio": "buona",
+  "originale": "Per l'inflazione la differenza conta. Un petrolio che sale per timore sulle forniture è di solito un costo secco per Europa e Giappone, che lo importano. Uno che scende per l'abbondanza alleggerisce i costi di trasporti e carburanti. Secondo Saxo Bank il calo del diesel può attenuare i timori sui prezzi e su ulteriori rialzi dei tassi.",
+  "testo": "Per l'inflazione la differenza conta. Un petrolio che sale per timore sulle forniture pesa di solito su Europa e Giappone, che lo importano. Uno che scende per l'abbondanza alleggerisce i costi di trasporti e carburanti. Secondo Saxo Bank il calo del diesel può attenuare i timori sui prezzi e su ulteriori rialzi dei tassi."
+ },
+ {
+  "data": "2026-11-24",
+  "campo": "moduli.oro.perche",
+  "giudizio": "buona",
+  "originale": "Secondo Kitco nel ribasso di venerdì l'oro ha avuto spinte contrastanti: la domanda da rifugio da un lato, le vendite per raccogliere liquidità e coprire i margini dall'altro. A nostro avviso hanno prevalso le seconde, e il rimbalzo di ieri insieme alle azioni lo suggerisce.",
+  "testo": "Secondo Kitco, nel ribasso di venerdì l'oro ha subito spinte opposte: la domanda da rifugio da un lato, le vendite per fare cassa e coprire le richieste di garanzie dall'altro. A nostro avviso hanno prevalso le seconde, e il rimbalzo di ieri insieme alle azioni lo suggerisce."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "top.dek",
+  "giudizio": "buona",
+  "originale": "Il Kospi chiude a 4.697,51 (-6,16%), il livello più basso dal 13 gennaio, con SK Hynix a -11,05% e Samsung Electronics a -9,87%. Tokyo segue: il Nikkei 225 cede il 2,8% e SoftBank più di ogni altro titolo. Pesano la Wall Street di martedì, dove Nvidia ha perso il 5,86% dopo il +31,5% del giorno prima, e le indiscrezioni su nuovi dazi americani contro 16 economie. [[chip]]",
+  "testo": "Il Kospi chiude a 4.697,51, il livello più basso dal 13 gennaio, con SK Hynix a -11,05% e Samsung Electronics a -9,87%. Tokyo segue: il Nikkei 225 cede il 2,8% e SoftBank più di ogni altro titolo. Pesano la Wall Street di martedì, dove Nvidia ha perso il 5,86% dopo il +31,5% del giorno prima, e le indiscrezioni su nuovi dazi americani contro 16 economie. [[chip]]"
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "quadro",
+  "giudizio": "buona",
+  "originale": "Lo stesso giorno i prezzi dicono due cose. Nel Dow Jones in rialzo (+0,85%) mentre il Nasdaq perde, leggiamo una rotazione dai tecnologici verso i titoli meno legati al ciclo, non una fuga dal rischio. Il Treasury a 10 anni resta a 4,91%: con un rialzo della Fed quasi scontato, la paura sulle borse non basta a farlo scendere. L'euro guadagna lo 0,6% sul dollaro, il Brent risale a 91,40 dollari ma resta lontano dai livelli di ottobre, e l'oro cede il 2,5% dopo il rimbalzo di lunedì.",
+  "testo": "Il Dow Jones sale dello 0,85% mentre il Nasdaq perde: a nostro avviso è una rotazione verso i titoli meno legati al ciclo, non una fuga dal rischio. Il Treasury a 10 anni resta al 4,91% e l'euro guadagna lo 0,6% sul dollaro. Il Brent risale, mentre l'oro cede il 2,5% dopo il rimbalzo di lunedì."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "notizie.2.titolo",
+  "giudizio": "buona",
+  "originale": "Stellantis perde quota in Europa e a ottobre immatricola il 7% di auto in meno",
+  "testo": "Stellantis perde quota in Europa, a ottobre immatricola il 7% in meno"
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "notizie.2.testo",
+  "giudizio": "buona",
+  "originale": "Nell'Unione europea le immatricolazioni scendono a 129.902 e la quota di mercato passa dal 15,3% al 13,8%.",
+  "testo": "Nell'Unione europea Stellantis scende a 129.902 immatricolazioni e la quota passa dal 15,3% al 13,8%."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "notizie.4.titolo",
+  "giudizio": "buona",
+  "originale": "Surplus di offerta e colloqui con l'Iran tengono il petrolio sotto i 92 dollari",
+  "testo": "Surplus di offerta e colloqui con l'Iran frenano il petrolio"
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.chip.titolo",
+  "giudizio": "buona",
+  "originale": "Le banche vedono calare le memorie nel 2028 e Seul perde il 6%",
+  "testo": "Goldman e Morgan Stanley tagliano i target su SK Hynix e Samsung"
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.chip.perche",
+  "giudizio": "buona",
+  "originale": "Per Goldman Sachs e Morgan Stanley, dal 2028 l'offerta di memorie dovrebbe raggiungere la domanda, anche per l'espansione del produttore cinese CXMT. Per questo hanno tagliato i target su SK Hynix e Samsung. A nostro avviso oggi il mercato sconta in anticipo quel calo di prezzi. Il Nasdaq, con i chip in testa, resta sotto i massimi di ottobre.",
+  "testo": "Per Goldman Sachs e Morgan Stanley, dal 2028 l'offerta di memorie dovrebbe raggiungere la domanda, anche per l'espansione del produttore cinese CXMT. A nostro avviso oggi il mercato sconta in anticipo quel calo di prezzi. Il Nasdaq, con i chip in testa, resta sotto i massimi di ottobre."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.chip.quindi",
+  "giudizio": "buona",
+  "originale": "Alle 15:30 riapre Wall Street: Micron è il primo titolo da guardare per capire se la caduta continua.",
+  "testo": "Alle 15:30 riapre Wall Street, e Micron è il primo titolo da guardare."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.chip.numero",
+  "giudizio": "buona",
+  "originale": "Quasi l'11% in due giorni e in due Paesi: Micron a New York, SK Hynix a Seul. Per noi il calo segue le ore di apertura delle borse.",
+  "testo": ""
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.chip.guardare",
+  "giudizio": "buona",
+  "originale": "Decide l'apertura di Wall Street alle 15:30. Un recupero di Micron e dei produttori di chip direbbe che il calo asiatico era eccessivo. Un'altra seduta in rosso farebbe dei prezzi delle memorie del 2028 il tema dei prossimi mesi.",
+  "testo": "Un recupero di Micron e dei produttori di chip direbbe che il calo asiatico era eccessivo. Un'altra seduta in rosso farebbe dei prezzi delle memorie del 2028 il tema dei prossimi mesi."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.chip.testo.0",
+  "giudizio": "buona",
+  "originale": "Come può un titolo perdere più di un decimo del suo valore in un giorno se vende chip che tutti vogliono? Perché oggi non si giudica il trimestre ma il 2028. Le stesse banche hanno tagliato i target su SK Hynix e Samsung Electronics: per loro tra due anni le memorie saranno troppe e i prezzi scenderanno. Un titolo vale gli utili dei prossimi anni, e per questo anche una previsione lontana pesa subito sul prezzo.",
+  "testo": "Come può un titolo perdere più di un decimo del suo valore in un giorno se vende chip che tutti vogliono? Perché oggi non si giudica il trimestre ma il 2028: per le banche tra due anni le memorie saranno troppe e i prezzi scenderanno. Un titolo vale gli utili dei prossimi anni, e per questo anche una previsione lontana pesa subito sul prezzo."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.chip.testo.1",
+  "giudizio": "buona",
+  "originale": "Perché a perdere di più sono le memorie e non Nvidia? Il prezzo di una memoria cambia con l'equilibrio tra chi la produce e chi la compra. Goldman Sachs prevede che il divario tra offerta e domanda di DRAM si stringa dal 5,1% del prossimo anno all'1,2% nel 2028. Prevede anche che DRAM e NAND perdano ciascuna circa il 20% di prezzo.",
+  "testo": "A perdere più di Nvidia sono le memorie, perché il prezzo di una memoria cambia con l'equilibrio tra chi la produce e chi la compra. Goldman Sachs prevede che il divario tra offerta e domanda di DRAM si stringa dal 5,1% del prossimo anno all'1,2% nel 2028. Sempre per Goldman Sachs, DRAM e NAND perderanno ciascuna circa il 20% di prezzo."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.chip.testo.3",
+  "giudizio": "buona",
+  "originale": "Seul pesa molto in questa storia perché Kospi e borsa di Taiwan hanno un peso alto nei semiconduttori, e di solito si muovono con i chip americani della sera prima. Il Nikkei 225 ha perso meno della metà del Kospi.",
+  "testo": "Seul conta molto in questa storia. Kospi e borsa di Taiwan hanno una forte quota di semiconduttori, e di solito si muovono con i chip americani della sera prima. Il Nikkei 225 ha perso meno della metà del Kospi."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.dazi.titolo",
+  "giudizio": "buona",
+  "originale": "Gli Stati Uniti preparano nuovi dazi su 16 economie e l'Asia vende in anticipo",
+  "testo": "Gli Stati Uniti preparano dazi su 16 economie e l'Asia vende"
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.dazi.perche",
+  "giudizio": "buona",
+  "originale": "Secondo tre fonti citate da Reuters, l'amministrazione Trump è pronta a pubblicare i risultati dell'indagine sull'eccesso di capacità industriale in 16 economie. Tra queste ci sono Cina, Unione europea e Corea del Sud, e il passo potrebbe aprire la strada a nuovi dazi.",
+  "testo": "Secondo tre fonti citate da Reuters, l'amministrazione Trump è pronta a pubblicare i risultati dell'indagine sull'eccesso di capacità industriale. Tra le 16 economie ci sono Cina, Unione europea e Corea del Sud, e la pubblicazione potrebbe aprire la strada a nuovi dazi."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.dazi.quindi",
+  "giudizio": "buona",
+  "originale": "Entro giovedì, quando Wall Street è chiusa per il Ringraziamento, si vede se i risultati escono. Conta allora la risposta dell'Unione europea, che chiede di restare sotto il tetto dell'accordo di Turnberry.",
+  "testo": "Entro giovedì, con Wall Street chiusa per il Ringraziamento, si vede se i risultati escono. Conta allora la risposta dell'Unione europea."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.dazi.testo.0",
+  "giudizio": "buona",
+  "originale": "Un dazio che non c'è ancora fa già vendere, perché il prezzo di un titolo sconta oggi i margini di domani. Un dazio aumenta il costo dei beni importati. Il peso si divide tra chi importa, chi compra e chi esporta. Le proporzioni dipendono dal settore, e finché non si sa quali le borse tendono a prezzare il caso peggiore.",
+  "testo": "Un dazio che non c'è ancora fa già vendere, perché il prezzo di un titolo sconta oggi i margini di domani. Un dazio aumenta il costo dei beni importati, e finché non si sa chi lo sosterrà le borse tendono a prezzare il caso peggiore."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.dazi.testo.1",
+  "giudizio": "buona",
+  "originale": "Nessuna aliquota è ufficiale: le indiscrezioni dicono soltanto che i risultati sono pronti. L'Unione europea ha già chiesto che ogni nuovo dazio rispetti il tetto complessivo concordato con gli Stati Uniti a Turnberry. Per questo la lettura resta prudente: l'effetto di un dazio su cambi e borse non ha un verso fisso.",
+  "testo": "Nessuna aliquota è ufficiale: le indiscrezioni dicono soltanto che i risultati sono pronti. La lettura resta quindi prudente, perché l'effetto di un dazio su cambi e borse non ha un verso fisso."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.dazi.testo.2",
+  "giudizio": "buona",
+  "originale": "Chi paga alla fine? L'importatore può assorbire il costo nei margini o girarlo a chi compra, mentre l'esportatore può abbassare il prezzo per restare competitivo. Per questo la stessa notizia pesa in modo diverso su settori e paesi, e le borse reagiscono prima di sapere chi pagherà. I risultati dell'indagine sono attesi tra il 24 e il 25 novembre: la loro pubblicazione è il passaggio che trasforma un timore in aliquote.",
+  "testo": "Il costo può restare all'importatore, nei margini, o passare a chi compra, mentre l'esportatore può abbassare il prezzo per restare competitivo. Per questo la stessa notizia pesa in modo diverso su settori e paesi, e le borse reagiscono prima di sapere chi pagherà. I risultati dell'indagine sono attesi tra il 24 e il 25 novembre."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.fed.titolo",
+  "giudizio": "buona",
+  "originale": "Con il rialzo di dicembre scontato, il PCE dice quanto dureranno i tassi alti",
+  "testo": "Il PCE di oggi dirà quanto dureranno i tassi alti"
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.fed.perche",
+  "giudizio": "buona",
+  "originale": "Il mercato dà il rialzo di dicembre per quasi certo. Di solito, quando una mossa è già nei prezzi, il dato di oggi cambia la durata più che la direzione.",
+  "testo": "Quando una mossa è già nei prezzi, il dato del giorno cambia di solito la durata dei tassi alti più che la direzione."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.fed.quindi",
+  "giudizio": "buona",
+  "originale": "Un PCE senza energia e alimentari sopra il +0,3% atteso sul mese riaprirebbe il rialzo anche a gennaio, già scontato al 64%.",
+  "testo": "Un PCE senza energia e alimentari sopra il +0,3% atteso sul mese darebbe forza a un altro rialzo a gennaio."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.fed.testo.0",
+  "giudizio": "buona",
+  "originale": "Il rialzo è già nei prezzi, eppure il dato di oggi conta ancora. Le probabilità dei future sui tassi sono scommesse del mercato e non previsioni ufficiali, e cambiano in fretta con i dati. Il PCE misura i prezzi pagati dai consumatori americani, e la sua parte core esclude energia e alimentari.",
+  "testo": "Le probabilità dei future sui tassi sono scommesse del mercato e non previsioni ufficiali, e cambiano in fretta con i dati. Il PCE misura i prezzi pagati dai consumatori americani, e la sua parte core esclude energia e alimentari."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.fed.testo.1",
+  "giudizio": "buona",
+  "originale": "Conta la sorpresa più del livello. Il consenso per il core di ottobre è +0,3% sul mese. Un numero uguale vale poco, mentre un decimo in più o in meno sposta le attese sulla Fed e il rendimento a breve.",
+  "testo": "Conta la sorpresa più del livello. Un numero in linea con le attese vale poco, mentre un decimo in più o in meno sposta le attese sulla Fed e il rendimento a breve."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.fed.testo.2",
+  "giudizio": "buona",
+  "originale": "A nostro avviso il 10 anni resta fermo perché due spinte si compensano: una Fed più dura tende a alzarlo, la paura sulle borse a abbassarlo.",
+  "testo": "A nostro avviso il 10 anni resta fermo perché due spinte si compensano: una Fed più dura tende ad alzarlo, la paura sulle borse ad abbassarlo."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.fed.testo.3",
+  "giudizio": "buona",
+  "originale": "Per le borse la durata dei tassi alti conta. I titoli tecnologici valgono soprattutto per utili lontani, e a parità di utili attesi tassi più alti riducono il valore di quegli utili oggi e li penalizzano più degli altri.",
+  "testo": "Per le borse la durata dei tassi alti conta perché i titoli tecnologici valgono soprattutto per utili lontani. A parità di utili attesi, tassi più alti ne riducono il valore di oggi, e lo fanno più che per gli altri titoli."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.europa.titolo",
+  "giudizio": "buona",
+  "originale": "Milano cede quasi il 2% perché STMicroelectronics e Technoprobe perdono il 10%",
+  "testo": "Le vendite sui chip pesano su Milano, che perde quasi il 2%"
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.europa.perche",
+  "giudizio": "buona",
+  "originale": "Secondo dpa-AFX le vendite arrivano tra prese di beneficio dopo il rimbalzo di lunedì, timori sul rialzo della Fed e dubbi sull'intelligenza artificiale.",
+  "testo": "Secondo dpa-AFX le vendite nascono da prese di beneficio dopo il rimbalzo di lunedì, timori sul rialzo della Fed e dubbi sull'intelligenza artificiale."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.europa.quindi",
+  "giudizio": "buona",
+  "originale": "Il test è l'apertura di oggi: se STMicroelectronics e Technoprobe recuperano quanto perso ieri erano prese di beneficio, se scendono ancora il tema è la tecnologia.",
+  "testo": "Il test è l'apertura di oggi. Se STMicroelectronics e Technoprobe recuperano quanto perso ieri, erano prese di beneficio; se scendono ancora, il tema è la tecnologia."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.petrolio.quindi",
+  "giudizio": "buona",
+  "originale": "Oggi pomeriggio PCE e Pil dicono se la domanda americana tiene: è il test per un barile che ha già perso un quinto.",
+  "testo": "Oggi pomeriggio PCE e Pil dicono se la domanda americana tiene: è il test per il petrolio."
+ },
+ {
+  "data": "2026-11-25",
+  "campo": "moduli.petrolio.testo.0",
+  "giudizio": "buona",
+  "originale": "Perché il petrolio scende mentre le borse hanno paura? Di solito un barile in calo accompagna una domanda debole, ma qui il motivo è l'offerta: il surplus stimato dall'Agenzia internazionale dell'energia e le speranze di intesa con l'Iran. Un petrolio che scende per eccesso di offerta tende ad aiutare i paesi che lo importano, come l'Europa e il Giappone.",
+  "testo": "Perché il petrolio scende mentre le borse hanno paura? Di solito un barile in calo accompagna una domanda debole, ma qui pesa l'offerta. Un petrolio che scende per eccesso di offerta tende ad aiutare i paesi che lo importano, come l'Europa e il Giappone."
+ },
+ {
+  "data": "2026-11-26",
+  "campo": "quadro",
+  "giudizio": "buona",
+  "originale": "A nostro avviso i prezzi di stamattina raccontano due storie. Le azioni hanno quasi cancellato il crollo, ma l'indice della paura (VIX) è salito ancora del 7,3%. Il 10 anni cala nonostante l'inflazione, e il Brent sale su voci non confermate. Il rimbalzo è una pausa, non la fine dell'allarme.",
+  "testo": "I prezzi di stamattina dicono due cose. Le azioni hanno quasi cancellato il crollo, ma l'indice della paura (VIX) è salito ancora del 7,3%. Il 10 anni cala nonostante l'inflazione, e il Brent sale su voci non confermate. A nostro avviso il rimbalzo è una pausa, non la fine dell'allarme."
+ },
+ {
+  "data": "2026-11-26",
+  "campo": "notizie.2.testo",
+  "giudizio": "buona",
+  "originale": "Sono report di media iraniani su petroliere finite su mine, senza conferma indipendente, ha scritto Bloomberg.",
+  "testo": "Media iraniani riferiscono di petroliere finite su mine, ma Bloomberg scrive di non avere conferme indipendenti."
+ },
+ {
+  "data": "2026-11-26",
+  "campo": "moduli.wall.titolo",
+  "giudizio": "buona",
+  "originale": "Wall Street recupera i prezzi ma non la calma: la paura sale ancora",
+  "testo": "A Wall Street le azioni risalgono, ma la paura sale ancora"
+ },
+ {
+  "data": "2026-11-26",
+  "campo": "moduli.wall.guardare",
+  "giudizio": "buona",
+  "originale": "Da seguire il costo di quelle assicurazioni: se resta ai massimi mentre le azioni risalgono, il rimbalzo ha le gambe corte. Per Nvidia la decisione di S&P arriva entro circa 90 giorni.",
+  "testo": "Da seguire il costo di quelle assicurazioni: se resta ai massimi mentre le azioni risalgono, il rimbalzo ha le gambe corte."
+ },
+ {
+  "data": "2026-11-26",
+  "campo": "moduli.wall.testo.0",
+  "giudizio": "buona",
+  "originale": "Un Nasdaq che perde lo 0,6% sembra una giornata qualsiasi, ma in mezzo c'è stato un crollo del 4,6%, poi riassorbito dagli acquisti. Dice quanto gli investitori siano pronti a cambiare idea in poche ore. Un mercato che oscilla tanto in un giorno è un mercato in cui chi compra e chi vende non si fidano l'uno dell'altro.",
+  "testo": "Un Nasdaq che perde lo 0,6% sembra una giornata qualsiasi, ma in mezzo c'è stato un crollo del 4,6%, poi riassorbito dagli acquisti. Chi compra e chi vende non si fidano l'uno dell'altro, e cambiano idea in poche ore."
+ },
+ {
+  "data": "2026-11-26",
+  "campo": "moduli.tassi.perche",
+  "giudizio": "sbagliata",
+  "originale": "A nostro avviso il mercato ha pesato più il rischio per la crescita che l'inflazione. L'indice dei prezzi dei consumi al netto di energia e alimentari (core PCE) sale al 3,3%, un decimo sopra le attese. Di solito un dato così alza i rendimenti a breve. Ieri il 2 anni è sceso comunque, e il 10 anni di 6 pb. I titoli di Stato facevano da rifugio dai rischi di dazi e calo dei titoli dell'intelligenza artificiale.",
+  "testo": "A nostro avviso il mercato ha pesato più il rischio per la crescita che l'inflazione. L'indice dei prezzi dei consumi al netto di energia e alimentari (core PCE) sale al 3,3%, un decimo sopra le attese. Di solito un dato così alza i rendimenti a breve, e infatti ieri il 2 anni è sceso comunque, come il 10 anni, di 6 pb.",
+  "nota": "il 6 pb del 10 anni passa anche al 2 anni (in dati.json -2 pb): errore stampato nella #034"
+ },
+ {
+  "data": "2026-11-26",
+  "campo": "moduli.tassi.quindi",
+  "giudizio": "buona",
+  "originale": "Un 10 anni che torna sopra il 4,92% di lunedì e martedì direbbe che l'inflazione è tornata a contare più della paura. Oggi i mercati americani sono chiusi: nessun nuovo dato.",
+  "testo": "Un 10 anni che torna sopra il 4,92% di lunedì e martedì direbbe che l'inflazione è tornata a contare più della paura."
+ },
+ {
+  "data": "2026-11-26",
+  "campo": "moduli.dazi.perche",
+  "giudizio": "buona",
+  "originale": "Washington ha proposto nuovi dazi su 14 economie, ma per ABC News e Yahoo Finance non entreranno in vigore prima di gennaio. Per l'Europa le aliquote proposte restano nel tetto degli accordi. A nostro avviso il mercato non aspetta: chi vende ora paga in anticipo l'incertezza su quanto toccherà, nei prossimi mesi, alle imprese che esportano negli Stati Uniti.",
+  "testo": "Washington ha proposto nuovi dazi su 14 economie, ma per ABC News e Yahoo Finance non entreranno in vigore prima di gennaio. A nostro avviso il mercato non aspetta: chi vende ora paga in anticipo l'incertezza su quanto toccherà, nei prossimi mesi, alle imprese che esportano negli Stati Uniti."
+ },
+ {
+  "data": "2026-11-26",
+  "campo": "moduli.dazi.testo.0",
+  "giudizio": "buona",
+  "originale": "I dazi del 25 novembre sono una proposta, non una decisione. Per la Cina il rialzo è di 20 punti sopra il circa 25% già in vigore. Per  Unione europea, Giappone, Corea e Taiwan le aliquote restano coerenti con il tetto del 15% degli accordi.",
+  "testo": "Per la Cina il rialzo proposto è di 20 punti sopra il circa 25% già in vigore. Per Unione europea, Giappone, Corea e Taiwan le aliquote restano coerenti con il tetto del 15% degli accordi.",
+  "nota": "\"il rialzo proposto\": l'aggettivo è della misura, non chi ha fatto la cifra (respinta a torto fino al 27/11)"
+ },
+ {
+  "data": "2026-11-26",
+  "campo": "moduli.dazi.testo.1",
+  "giudizio": "buona",
+  "originale": "Perché le borse reagiscono a una norma che non c'è? Un dazio è un costo in più sui beni importati. Il peso si divide tra chi compra, chi importa e chi esporta, in proporzioni che cambiano da settore a settore. Le imprese europee non sanno ancora quale parte toccherà a loro. Per dpa-AFX sul calo di mercoledì hanno pesato insieme la fuga dai titoli dell'intelligenza artificiale, i nuovi dazi e le perdite delle banche europee. Per questo oggi conta capire se l'ondata di vendite è finita o se i listini cercano ancora un prezzo.",
+  "testo": "Perché le borse reagiscono a una norma che non c'è? Un dazio è un costo in più sui beni importati. Il peso si divide tra chi compra, chi importa e chi esporta, in proporzioni che cambiano da settore a settore, e le imprese europee non sanno ancora quale parte toccherà a loro. Per dpa-AFX sul calo di mercoledì hanno pesato insieme la fuga dai titoli dell'intelligenza artificiale, i nuovi dazi e le perdite delle banche europee."
+ },
+ {
+  "data": "2026-11-26",
+  "campo": "moduli.corea.perche",
+  "giudizio": "buona",
+  "originale": "La Bank of Korea ha alzato il tasso per un'inflazione persistente e una crescita più forte del previsto, scrive il Korea Times. A nostro avviso guarda all'economia e non al Kospi. L'export di chip sostiene la crescita anche mentre i prezzi dei titoli crollano. Una banca centrale che guarda ai prezzi al consumo non può aspettare che la borsa si calmi.",
+  "testo": "La Bank of Korea ha alzato il tasso per un'inflazione persistente e una crescita più forte del previsto, scrive il Korea Times. A nostro avviso guarda all'economia e non al Kospi: l'export di chip sostiene la crescita anche mentre i prezzi dei titoli crollano."
+ },
+ {
+  "data": "2026-11-26",
+  "campo": "moduli.corea.testo.0",
+  "giudizio": "buona",
+  "originale": "Una banca centrale che stringe mentre la borsa perde il 6% sembra un controsenso. A nostro avviso non lo è: l'inflazione resta il mandato della banca centrale, e l'export di chip continua a sostenere l'economia.",
+  "testo": "Una banca centrale che stringe mentre la borsa perde il 6% sembra un controsenso. Non lo è: il suo compito sono i prezzi al consumo, e non può aspettare che la borsa si calmi."
+ },
+ {
+  "data": "2026-11-26",
+  "campo": "moduli.petrolio.testo.0",
+  "giudizio": "buona",
+  "originale": "Il petrolio sale per una notizia che nessuno ha verificato. Le mine a Hormuz sono un'affermazione dei media iraniani, e Bloomberg scrive di non avere conferme indipendenti. Eppure il Brent ha chiuso a 94,61 dollari, in scambi sottili per la pausa americana del Ringraziamento.",
+  "testo": "Il petrolio sale per una notizia che nessuno ha verificato. Eppure il Brent ha chiuso a 94,61 dollari, in scambi sottili per la pausa americana del Ringraziamento."
+ }
+]

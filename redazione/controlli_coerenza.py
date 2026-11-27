@@ -20,7 +20,9 @@ Le regole ci sono già (ISTRUZIONI §3.1, §3.4, §3.6): qui si controlla che si
    coerenza_incarico.json, cioè i prezzi del giorno e le frasi da giudicare (i Perché, i titoli, le frasi che danno una
    causa, la prima volta di un fatto che muove la storia). Il revisore risponde in coerenza.json, frase per frase:
      [{"id": "R01", "esito": "regge" | "non_regge", "nota": "che cosa non torna, in una frase", "rimedio": "..."}]
-   Al giro finale una frase "non_regge" ancora uguale nel testo ferma l'edizione, con il suo rimedio.
+   Al giro finale una frase "non_regge" ancora uguale nel testo ferma l'edizione, con il suo rimedio. pubblica.sh
+   archivia incarico e risposta tra i sorgenti; il collaudo, rifacendo un'edizione uscita prima di G-45 (senza incarico
+   archiviato), salta il ragionamento con un avviso (GTD_SENZA_RAGIONAMENTO=1).
 """
 import json, os, re, sys
 
@@ -59,11 +61,51 @@ GENITIVO = re.compile(r"\b(?:di|del|della|dei|delle|degli|dell')\s*$")
 NUM = re.compile(r"(?<![\w,.])([+\-−]?)(\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?)(?![\d])\s?"
                  r"(%|per cento|pb\b|punti base|punti|\$|dollari)?")
 STACCO = re.compile(r"[;:]| e (?:il|lo|la|l'|i|gli|le) | mentre | ma | invece | dopo che | perché | anche se ")
-PERIODO = re.compile(r"settiman|base settimanale|cinque sedute|\b5 sedute|inizio (?:dell')?anno|\bnel 20\d\d|\bmes[ei]\b|\banno\b|\bsedute\b|"
-                     r"\bgiorni\b|\bdal \d|\bda (?:gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|"
-                     r"ottobre|novembre|dicembre)|\bdai? (?:minimi|massimi|picco)|\bdal (?:minimo|massimo|picco)|trimestr|"
-                     r"stamattina|in apertura|all'apertura|in seduta|durante la seduta|nel corso della seduta|dopo aver|minimo della seduta|"
-                     r"massimo della seduta|\b\w+(?:eva|evano|ava|avano)\b|\bfuture sull|\bin \w+ sedute|\bnovembre\b|\bottobre\b|scors[oa]|di fila")
+# Quando una cifra NON è la variazione di chiusura del giorno (quarto collaudo, 27/11: 4 falsi allarmi su 5 nelle edizioni
+# vere venivano tutti da qui). Si confronta con la seduta di dati.json solo ciò che nulla nella frase colloca altrove:
+#  - un altro periodo: la settimana, il mese, l'anno, "da inizio anno", "dai minimi", "di fila";
+#  - un altro momento della stessa seduta: l'apertura, il minimo o il massimo toccato dentro la seduta ("è arrivato a
+#    perdere il 4,6%"), la mattina;
+#  - un altro giorno: una data o un giorno della settimana diversi da quello della seduta, "il giorno prima", i tempi che
+#    raccontano un prima (imperfetto e trapassato: "era salito", "cedeva").
+# Non è una variazione nemmeno un livello in punti di un indice che si muove in percentuale ("si avvicina ai 5.000
+# punti"): si confronta solo nelle forme di livello riconosciute (a, al, chiude a, sotto, sopra).
+PERIODO = re.compile(r"settiman|base settimanale|cinque sedute|\b5 sedute|inizio (?:dell')?anno|\bnel 20\d\d|\bmes[ei]\b|\banno\b|"
+                     r"\bsedute\b|\bgiorni\b|\bdal \d|\bda (?:gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|"
+                     r"ottobre|novembre|dicembre)|\bdai? (?:minimi|massimi|picco)|\bdal (?:minimo|massimo|picco)|trimestr|scors[oa]|"
+                     r"di fila|\bin \w+ sedute|"
+                     # dentro la seduta
+                     r"stamattina|in mattinata|nel pomeriggio|in apertura|all'apertura|in avvio|in seduta|durante la seduta|"
+                     r"nel corso della seduta|dopo aver|minim[oi] (?:della|di) seduta|massim[oi] (?:della|di) seduta|"
+                     r"arrivat[oaie] a|fino a (?:perdere|cedere|guadagnare|toccare|segnare)|a un certo punto|nel momento peggiore|"
+                     r"nel momento migliore|\bfuture sull|"
+                     # un altro giorno
+                     r"il giorno (?:prima|dopo|precedente|successivo)|la vigilia|la seduta precedente|l'altro ieri|"
+                     r"\b(?:era|erano|aveva|avevano)\b|\b\w+(?:eva|evano|ava|avano)\b")
+MESI = ("gennaio febbraio marzo aprile maggio giugno luglio agosto settembre ottobre novembre dicembre").split()
+GIORNI = "lunedì martedì mercoledì giovedì venerdì sabato domenica".split()
+DATA = re.compile(r"\b(\d{1,2})(?:/(\d{1,2})| (" + "|".join(MESI) + r"))\b")
+
+
+def fuori_seduta(t, giorno):
+    """La frase (minuscola) colloca le sue cifre fuori dalla seduta di chiusura del giorno (AAAA-MM-GG)?"""
+    if PERIODO.search(t):
+        return True
+    try:
+        import datetime as dt
+        g = dt.date.fromisoformat(giorno)
+    except (TypeError, ValueError):
+        return bool(DATA.search(t) or re.search(r"\b(?:" + "|".join(GIORNI + MESI) + r")\b", t))
+    for d in DATA.finditer(t):
+        mese = int(d.group(2)) if d.group(2) else MESI.index(d.group(3)) + 1
+        if (int(d.group(1)), mese) != (g.day, g.month):
+            return True
+    resto = DATA.sub(" ", t)
+    if re.search(r"\b(?:" + "|".join(MESI) + r")\b", resto):
+        return True                                 # un mese senza giorno è un periodo
+    return any(re.search(rf"\b{x}\b", resto) for x in GIORNI if x != GIORNI[g.weekday()])
+
+
 SETT = re.compile(r"settiman|cinque sedute|\b5 sedute")
 # il periodo detto in testa alla frase vale per le sue cifre ("Su base settimanale: il FTSE MIB perde il 3,6% e ...")
 ANNO = re.compile(r"inizio (?:dell')?anno|\bnel 20\d\d")
@@ -236,7 +278,7 @@ def cifre_e_direzioni(campi, M):
                 # livelli: "a 22.410,80 punti", "al 4,92%", "da 106", "sotto i 3.520 $"
                 livello_unita = unita in ("punti", "$", "dollari") or (unita in ("%",) and m["tipo"] == "pb") or \
                     (unita in ("pb", "punti base") and m["tipo"] == "spread") or (not unita and s == "EUR/USD" and _dec(cifra) >= 3)
-                if livello_unita and PERIODO.search(frase_mercato):
+                if livello_unita and fuori_seduta(frase_mercato, m["data"]):
                     continue                    # "da 4,98% a 5,10% in una settimana": livelli di altri giorni
                 if livello_unita and not segno and (LIVELLO.search(testa) or PRIMA.search(testa)):
                     rif = m["v1"] if PRIMA.search(testa) else m["v0"]
@@ -254,10 +296,12 @@ def cifre_e_direzioni(campi, M):
                         continue                # un rendimento in % senza "a/al" non è una variazione
                     if unita in ("pb", "punti base") and m["tipo"] not in ("pb", "spread"):
                         continue
+                    if unita == "punti" and m["tipo"] != "punti":
+                        continue                # "ai 5.000 punti": un livello in una forma che non si confronta
                     testa_frase = fl[:n.end()] + dopo
-                    if PERIODO.search(frase_mercato):
+                    if fuori_seduta(frase_mercato, m["data"]):
                         orizzonti = ["s", "s2"] if SETT.search(frase_mercato) else ["a"] if ANNO.search(frase_mercato) else []
-                    elif PERIODO.search(testa_frase):     # un periodo detto prima, nella stessa frase: vale anche la seduta
+                    elif fuori_seduta(testa_frase, m["data"]):     # un periodo detto prima, nella stessa frase: vale anche la seduta
                         orizzonti = ["g"] + (["s", "s2"] if SETT.search(testa_frase) else ["a"] if ANNO.search(testa_frase) else [])
                         if len(orizzonti) == 1:
                             continue
@@ -301,7 +345,7 @@ def cifre_e_direzioni(campi, M):
                     err.append(f"cifre: {dove}: {lettura}. La cifra va su chi l'ha fatta: se è di un altro listino o di un "
                                "titolo, il soggetto è quello; se è del mercato, vale quella di dati.json")
             # direzioni senza cifra: "il dollaro sale", "il Brent resta fermo"
-            if COND.search(f) or PERIODO.search(fl):
+            if COND.search(f):
                 continue
             for a in als:
                 if a.start() in legati or _tra_parentesi(fl, a):
@@ -309,7 +353,7 @@ def cifre_e_direzioni(campi, M):
                 rx, serie, genere = _alias(a)
                 s = next((x for x in serie if x in M), None)
                 prima = fl[:a.start()]
-                if not s or _governato(prima) or (genere == "luogo" and _locativo(prima)):
+                if not s or _governato(prima) or (genere == "luogo" and _locativo(prima)) or fuori_seduta(fl, M[s]["data"]):
                     continue
                 dopo = fl[a.end():]
                 st = STACCO.search(dopo)
@@ -358,11 +402,24 @@ def _testate():
         return set()
 
 
+GENERICI = {"fed", "usa"}       # troppo comuni per dire di che cosa parla un testo ("Philadelphia Fed" non è la Fed)
+
+
 def _nomi(t):
     """I nomi propri della frase, senza le testate: "Reuters" in comune non dice che due testi parlano della stessa cosa."""
     nomi = {w.lower() for w in re.findall(r"(?<![.!?] )(?<!^)\b[A-Z][A-Za-z&]{2,}", t)} | \
         {w.lower() for w in re.findall(r"\b[A-Z]{2,}[a-z]*\b", t)}
-    return {w for w in nomi if re.sub(r"[^a-z]", "", w) not in _testate()} - {"fed", "usa"}
+    return {w for w in nomi if re.sub(r"[^a-z]", "", w) not in _testate()} - GENERICI
+
+
+def _nomi_e_mercati(t, chiave):
+    """I nomi che dicono di che cosa parla un testo: i nomi propri, i mercati di MERCATI (anche se scritti in minuscolo:
+    "l'oro", "il petrolio") e la chiave del pezzo, quando il testo la nomina ("→ [[oro]]" da una frase sull'oro)."""
+    tl = t.lower()
+    out = _nomi(t) | {MERCATI[int(next(k for k, v in a.groupdict().items() if v)[1:])][1][0] for a in ALIAS.finditer(tl)}
+    if len(chiave) >= 3 and chiave.lower() not in GENERICI and re.search(rf"\b{re.escape(chiave.lower())}\b", tl):
+        out.add(chiave.lower())
+    return out
 
 
 # Le famiglie dei dati del calendario: "Prezzi al consumo USA" e un pezzo sull'inflazione parlano della stessa cosa anche
@@ -410,7 +467,7 @@ def rimandi(C):
             continue                            # mercati, agenda, scommessa: pagine fisse
         CONTA["rimandi"] += 1
         tp = testo_pezzo(pezzi[k])
-        nomi = _nomi(_pulisci(frase)) & _nomi(tp)
+        nomi = _nomi_e_mercati(_pulisci(frase), k) & (_nomi_e_mercati(tp, k) | {k.lower()} - GENERICI)
         radici = _radici(_pulisci(frase)) & _radici(tp)
         famiglie = _famiglie(_pulisci(frase)) & _famiglie(tp) if dove.startswith(("ieri", "agenda")) else set()
         if not nomi and len(radici) < 2 and not famiglie:
@@ -541,6 +598,9 @@ def main():
     if prima:
         inc = scrivi_incarico(C, campi, M, cartella)
         avv.append(f"incarico del revisore: {INCARICO}, {len(inc['frasi'])} frasi; risposta in {RISPOSTA}")
+    elif os.environ.get("GTD_SENZA_RAGIONAMENTO") == "1":
+        # un'edizione già uscita, scritta prima di G-45: nessun incarico archiviato, il ragionamento non si giudica
+        avv.append("ragionamento non giudicato: edizione scritta senza coerenza_incarico.json (prima di G-45)")
     else:
         e2, a2 = verdetti(campi, cartella)
         err += e2; avv += a2
