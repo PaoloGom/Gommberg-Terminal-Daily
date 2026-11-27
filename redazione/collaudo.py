@@ -194,6 +194,24 @@ def passo_avvio():
     esito("Avvio (prepara.sh)", not male, "; ".join(male) or f"lunedì {lun:%d/%m}, {mar:%d/%m}, chiuso {chiuso:%d/%m}")
 
 
+def passo_uscite():
+    """L'uscita (c) passa da messaggio.py --nessuna: stampa la riga solo per i casi ammessi e con l'errore ricevuto.
+    Il 27/11/2026 la corsa del mattino ha rinunciato all'edizione perché aveva pochi fatti verificati."""
+    m = [sys.executable, os.path.join(R, "messaggio.py")]
+    male = []
+    for caso in ("repository", "dati", "pdf", "permesso", "pubblicata"):
+        rc, out = esegui(m + ["--nessuna", caso, "--dettaglio", "errore di prova"])
+        if rc or not out.startswith("Nessuna edizione oggi: ") or "errore di prova" not in out:
+            male.append(f"{caso}: non stampa la riga ({out.strip()[:60]})")
+    for nome, arg in (("pochi fatti", ["--nessuna", "pochi fatti verificati", "--dettaglio", "tre giri di raccolta"]),
+                      ("motivo vuoto", ["--nessuna"]), ("senza errore", ["--nessuna", "dati"]),
+                      ("errore di soli spazi", ["--nessuna", "pdf", "--dettaglio", "  "])):
+        rc, out = esegui(m + arg)
+        if rc != 1 or "USCITA NON AMMESSA" not in out or "Nessuna edizione oggi" in out or "APP_ERRORI.md" not in out:
+            male.append(f"{nome}: doveva fermarsi e dire come si prosegue (codice {rc}: {out.strip()[:60]})")
+    esito("Uscite (nessuna edizione solo nei casi ammessi)", not male, "; ".join(male) or "5 casi ammessi, 4 rifiutati")
+
+
 # ---------------------------------------------------------------- 3. modello
 SERIE = {"ACWI": ("acwi", "USA"), "S&P 500": ("spx", "USA"), "Euro Stoxx 50": ("sx5e", "EU"), "Treasury 10 anni": ("ust10", "UST"),
          "EUR/USD": ("eurusd", "FX"), "Brent future": ("brent", "COMM"), "Oro future": ("oro", "COMM"),
@@ -1508,6 +1526,7 @@ def main():
     try:
         passo_sintassi()
         passo_avvio()
+        passo_uscite()
         passo_modello()
         passo_scrittura()
         passo_fonti()
