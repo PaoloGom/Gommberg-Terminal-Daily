@@ -731,14 +731,28 @@ def passo_scrittura():
     oro_rx = lambda x: any(re.search(rx, x, re.I) for v in oro for rx in v["evita"])   # noqa: E731
     fonti_ok = fonti_ok and bool(oro) and all(oro_rx(x) for x in ("i Treasury fanno da rifugio, l'oro vende", "borse e oro hanno venduto insieme")) \
         and not any(oro_rx(x) for x in ("chi ha comprato oro vende ora le azioni", "le banche centrali hanno venduto oro", "si vende oro per far cassa"))
+    # chi parla senza nome (G-46): "la stampa americana", "notizie secondo cui" e un'indiscrezione senza la testata si fermano;
+    # una testata detta come fonte nella frase, o nel pezzo per un'indiscrezione, li copre (casi delle edizioni #031-#035)
+    Ca = {"top": {"dek": "Il bersaglio resta Nvidia, dopo l'indagine riportata dalla stampa americana."},
+          "notizie": [{"titolo": "La SEC indaga sui conti di Nvidia, riferisce la stampa americana"},
+                      {"titolo": "La BCE discute la riserva", "testo": "Secondo Reuters i vertici ne avrebbero parlato; un resoconto anonimo dà la decisione a dicembre."},
+                      {"titolo": "Il Brent sale", "testo": "Media iraniani riferiscono di mine, ma Bloomberg scrive di non avere conferme."}],
+          "moduli": [pezzo("e", "Le indiscrezioni dicono solo che i risultati sono pronti.", "Secondo tre fonti citate da Reuters i dazi sono pronti.", "Fonti: Reuters."),
+                     pezzo("f", "Dopo le dimissioni sono arrivate notizie secondo cui era nel mirino.", "La stampa coreana lo lega al fondo.", "Fonti: Korea Times."),
+                     pezzo("g", "Il governo prepara il fondo, scrive il Korea Times.", "Per la stampa locale, come scrive Reuters, conta il fondo.", "Fonti: Korea Times, Reuters.")]}
+    anon = sorted(d for d, _ in getattr(T, "senza_testata", lambda *a: [])(T.testi(Ca), nomi + ["Nvidia", "Korea Times"]))
+    anon_ok = anon == ["moduli.1.testo.0", "notizie.0.titolo", "top.dek"] \
+        and bool(T.connettivi("Secondo la stampa coreana il Kospi sale perché arriva il fondo. A. B. C. D.")) \
+        and not T.connettivi("Secondo Goldman Sachs il Kospi sale perché arriva il fondo. A. B. C. D.")
+    fonti_ok = fonti_ok and anon_ok
     ok = not sfuggiti and not fermate and sigla and fonti_ok and coperta and voce and sigle_ok
     esito("Scrittura: lessico di casa, fonti e sigle", ok,
           f"{len(calchi)} calchi fermati, {len(giuste)} frasi giuste passate, testate tra parentesi fermate (anche una nuova), "
           "fonte di un livello del mattino passata, testata nominata e assente dalla riga Fonti fermata, aperture con domanda "
-          "contate, \"l'oro vende\" fermato, causa coperta da chi la dà o dalla lettura dichiarata, sigle dette in parole" if ok else
+          "contate, chi parla senza nome fermato, \"l'oro vende\" fermato, causa coperta da chi la dà o dalla lettura dichiarata, sigle dette in parole" if ok else
           "; ".join(x for x in (f"calchi non fermati: {sfuggiti}" if sfuggiti else "", f"frasi giuste fermate: {fermate}" if fermate else "",
                                 "" if sigla else "guidance è ancora una sigla da spiegare",
-                                "" if fonti_ok else f"testate tra parentesi: {par}; conteggio: {conta}; fuori dalle Fonti: {fuori}; domande: {domande}",
+                                "" if fonti_ok else f"testate tra parentesi: {par}; conteggio: {conta}; fuori dalle Fonti: {fuori}; domande: {domande}; senza nome: {anon}",
                                 "" if sigle_ok else f"sigle: {[s1, s2, s3, s4, s5, s6]}",
                                 "" if coperta else "chi dà la causa non copre il suo paragrafo, o una causa nuda passa",
                                 "" if voce else "la lettura dichiarata non copre il suo paragrafo, o una causa nuda passa") if x)[:300])

@@ -14,7 +14,9 @@ Uso: python3 controlli_testo.py <pdf> [--json uscita.json]
   ma è un AVVISO (§3.4: si dice dentro la frase); detta due volte nella stessa frase, in parole e tra parentesi, è un
   ERRORE. Stampa anche l'elenco delle sigle spiegate (va in edizioni.json, campo glossario).
   Una testata nominata in un pezzo come fonte ("secondo X", "per X", "lo scrive X") sta anche nella riga Fonti di quel
-  pezzo (per pag. 1 e 5: in una delle righe Fonti del numero): altrimenti ERRORE.
+  pezzo (per pag. 1 e 5: in una delle righe Fonti del numero): altrimenti ERRORE. Chi parla senza nome ("la stampa
+  americana", "i media", "notizie secondo cui") non copre una causa ed è un ERRORE se la frase non nomina la testata;
+  un'indiscrezione è un ERRORE se il pezzo non dice da quale testata viene.
 - Aperture (ISTRUZIONI §1): il testo di un approfondimento apre con un dubbio, ma con la domanda esplicita in due pezzi
   al massimo: oltre, ERRORE (nella #030 erano 5 su 5, nella prova del 21/11 4 su 4).
 - Lessico di casa (glossario.json, "lessico"): avviso, errore per le voci con "blocca" (termini che restano in inglese,
@@ -39,7 +41,15 @@ TENDENZA = r"di solito|in genere|tend(?:e|ono) a|spesso|quasi sempre|di norma"
 # L'ultima colonna dell'agenda ("Sopra: ... Sotto: ...") è una tendenza per intestazione ("Come può muovere i mercati, di
 # solito"): le sue celle non devono ripeterlo una per una (nelle edizioni #026-#030 erano 28 "di solito" nella sola pag. 5).
 AGENDA = r"\bSopra(?: \([^)]{0,30}\))?:|\bSotto(?: \([^)]{0,30}\))?:"
-ESENZIONI = re.compile(r"Perch[ée] conta|Il perch[ée] |secondo |stima redazionale|" + AGENDA + "|" + TENDENZA + "|" + VOCE_RED, re.I)
+# Chi parla senza nome (§3.5: un'indiscrezione o la spiegazione di qualcuno vogliono il nome della testata). VOCI_GENERICHE fa
+# da fonte al posto di una testata ("riportata dalla stampa americana", "secondo i media iraniani", "notizie secondo cui"):
+# non copre mai una causa, ed è un errore se la frase non nomina la testata. INDISCREZIONI riprende una notizia anonima: va
+# bene se il pezzo dice da chi viene ("secondo tre fonti citate da X"), altrimenti è un errore.
+VOCI_GENERICHE = (r"\b(?:la|della|dalla|alla|sulla) stampa (?!d[ei]\b|e\b)[a-zà-ù]+|\b(?:i|dei|dai|ai|sui) media [a-zà-ù]+i\b|"
+                  r"(?:^|[.;:]\s+)Media [a-zà-ù]+i\b|\bnotizie secondo cui\b")
+INDISCREZIONI = r"\bindiscrezion[ei]\b|\bfonti anonime\b|\bresoconto anonimo\b"
+ESENZIONI = re.compile(r"Perch[ée] conta|Il perch[ée] |secondo (?!(?:la |i |le )?(?:stampa|media|notizie|indiscrezion|fonti anonime))|"
+                       r"stima redazionale|" + AGENDA + "|" + TENDENZA + "|" + VOCE_RED, re.I)
 INGLESE = re.compile(r"\b(?:the|of|and|is|are|they're|it's|we|our|some|will|way|total|with|for|to)\b", re.I)
 
 ORARIO = re.compile(r"\b\d{1,2}[:.]\d{2}\b")
@@ -348,6 +358,30 @@ def fuori_dalle_fonti(C, nomi=None):
     return fuori
 
 
+def senza_testata(tt, nomi=None):
+    """§3.5: chi parla senza nome. Una voce generica (VOCI_GENERICHE) fa da fonte: errore se la sua frase non nomina una
+    testata come fonte (una testata che è solo il soggetto della notizia non basta). Un'indiscrezione (INDISCREZIONI): errore se il pezzo non dice da chi viene (una testata detta come fonte:
+    "secondo X", "citate da X", "lo scrive X"). Pezzo = un approfondimento, una notizia, la top story. Torna [(dove, frase)]."""
+    nome, gen, ind = nome_fonte(nomi), re.compile(VOCI_GENERICHE), re.compile(INDISCREZIONI, re.I)
+
+    def citata(t):      # una testata detta come fonte; "Nvidia, riferisce la stampa americana" non cita Nvidia
+        return any(_DICE_PRIMA.search(t[max(0, m.start() - 30):m.start()]) or
+                   (_DICE_DOPO.search(t[m.end():m.end() + 25]) and not gen.search(t[m.end():m.end() + 60]))
+                   for m in nome.finditer(t))
+    pezzi = {}
+    for dove, t in tt.items():
+        parti = dove.split(".")
+        pezzi.setdefault(".".join(parti[:2]) if parti[0] in ("moduli", "notizie", "in30") else parti[0], {})[dove] = t
+    out = []
+    for p in pezzi.values():
+        nel_pezzo = citata(" ".join(p.values()))
+        for dove, t in p.items():
+            for f in re.split(r"(?<=[.!?])\s+", re.sub(r"\s+", " ", t)):
+                if (gen.search(f) and not citata(f)) or (ind.search(f) and not nel_pezzo):
+                    out.append((dove, f.strip()[:120]))
+    return out
+
+
 def fonti_nei_testi(tt, nomi=None):
     """§3.5: una testata tra parentesi senza l'orario di un livello del mattino: [(dove, "(Testata)")]."""
     return [(dove, par) for dove, t in tt.items() for par in fonti_tra_parentesi(t, nomi)]
@@ -419,6 +453,11 @@ def main():
             errori.append("testate nominate nel testo ma assenti dalla riga Fonti del pezzo (§3.5): aggiungile alla riga Fonti (letta ripresa da "
                           "un'altra testata: \"X, ripresa da Y\"). Sono: "
                           + "; ".join(f"{dove} {n}" for dove, n in fuori))
+        anonime = senza_testata(testi(C))
+        if anonime:
+            errori.append("chi parla senza nome (§3.5): un'indiscrezione o la spiegazione di qualcuno vogliono il nome della testata nella "
+                          "frase (e nella riga Fonti); \"la stampa\", \"i media\", \"notizie\" non sono un nome. Se il nome non si "
+                          "trova, togli la frase. Sono: " + "; ".join(f"{dove} «{f}»" for dove, f in anonime))
         domande = aperture_con_domanda(C)
         if len(domande) > MAX_DOMANDE:
             errori.append(f"{len(domande)} approfondimenti aprono con una domanda esplicita (massimo {MAX_DOMANDE}): tienila dove rende di "
