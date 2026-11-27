@@ -1847,6 +1847,36 @@ def prova_automatica():
           "avvio --ramo prende il ramo da sé; prova.sh esito dice in JSON in-corso e poi chiusa, con il commit provato")
 
 
+def anteprima_chrome(copia):
+    """7. L'anteprima in uno script: serve il sito in locale, Chrome (qui finto: scarica la pagina servita e la salva come
+    immagine) in due larghezze, immagini in redazione/collaudi/AAAA-MM-GG/g<NN>/; senza Chrome si ferma."""
+    male, base = [], os.path.join(TMP, "anteprima")
+    os.makedirs(base)
+    finto = os.path.join(base, "chrome")
+    open(finto, "w").write("#!/usr/bin/env python3\nimport sys, urllib.request\n"
+                           "out = [a.split('=', 1)[1] for a in sys.argv if a.startswith('--screenshot=')][0]\n"
+                           "w = [a.split('=', 1)[1] for a in sys.argv if a.startswith('--window-size=')][0]\n"
+                           "open(out, 'wb').write(w.encode() + b' ' + urllib.request.urlopen(sys.argv[-1]).read())\n")
+    os.chmod(finto, 0o755)
+    script = os.path.join(copia, "redazione", "anteprima_chrome.sh")
+    rc, out = esegui(["bash", script, "g00", "index.html", "--sito", copia], env={"GTD_CHROME": finto}, timeout=120) \
+        if os.path.exists(script) else (1, "manca redazione/anteprima_chrome.sh")
+    oggi = subprocess.run(["date", "+%F"], env=dict(os.environ, TZ="Europe/Rome"), capture_output=True, text=True).stdout.strip()
+    d = os.path.join(copia, "redazione", "collaudi", oggi, "g00")
+    pagina = open(os.path.join(copia, "index.html"), "rb").read()
+    for w in ("1280", "390"):
+        f = os.path.join(d, f"index-{w}.png")
+        if rc or not os.path.exists(f) or open(f, "rb").read() != f"{w},2400 ".encode() + pagina:
+            male.append(f"immagine a {w} non salvata dalla pagina servita (" + ultima(out) + ")")
+            break
+    rc, out = esegui(["bash", script, "g00", "--sito", copia], env={"GTD_CHROME": os.path.join(base, "manca")}, timeout=60)
+    if rc == 0 or "ANTEPRIMA: FERMO" not in out:
+        male.append("senza Chrome doveva fermarsi (" + ultima(out) + ")")
+    shutil.rmtree(d, ignore_errors=True)
+    esito("Anteprima con Chrome in uno script", not male, "; ".join(male) or
+          "sito servito in locale, due larghezze in redazione/collaudi/<data>/g<NN>/; senza Chrome si ferma")
+
+
 def passo_rilascio():
     rilascio_avanti()
     avvia_sporco()
@@ -1880,6 +1910,7 @@ def main():
         copia = passo_sito()
         if isinstance(copia, str):
             passo_lettori(copia)
+            anteprima_chrome(copia)
             passo_pubblicazione_ramo(copia)
             passo_pubblicazione(copia)
     finally:
