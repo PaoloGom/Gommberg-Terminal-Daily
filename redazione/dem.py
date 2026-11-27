@@ -454,20 +454,18 @@ def piano(mail, kit, ora, modello, solo_ritiri=False):
 
 def invii_dem():
     """Gli invii di Kit con l'etichetta delle mail straordinarie, pagina per pagina: {etichetta: [invii]}."""
-    trovati, dopo = {}, None
-    for _ in range(50):
-        stato, corpo = nl.kit("GET", "/broadcasts?per_page=100" + (f"&after={dopo}" if dopo else ""))
-        if stato != 200:
-            raise RuntimeError(f"elenco degli invii di Kit non leggibile (HTTP {stato})")
-        for b in corpo.get("broadcasts", []):
-            et = etichetta_di(b.get("description"))
-            if et.startswith(ETICHETTA):
-                trovati.setdefault(et, []).append(b)
-        pg = corpo.get("pagination") or {}
-        if not pg.get("has_next_page") or not pg.get("end_cursor"):
-            return trovati
-        dopo = pg["end_cursor"]
-    raise RuntimeError("elenco degli invii di Kit troppo lungo (oltre 50 pagine): fermo per prudenza")
+    trovati = {}
+    try:
+        invii = nl.leggi_invii(letture=1, massimo=50)       # come prima: nessuna rilettura, nel dubbio si ritira
+    except nl.ElencoNonLeggibile as e:
+        if e.troppo_lungo:
+            raise RuntimeError("elenco degli invii di Kit troppo lungo (oltre 50 pagine): fermo per prudenza")
+        raise RuntimeError(f"elenco degli invii di Kit non leggibile (HTTP {e.stato})")
+    for b in invii:
+        et = etichetta_di(b.get("description"))
+        if et.startswith(ETICHETTA):
+            trovati.setdefault(et, []).append(b)
+    return trovati
 
 
 def modello_cornice():
