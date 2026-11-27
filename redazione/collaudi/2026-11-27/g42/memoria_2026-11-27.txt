@@ -1,32 +1,32 @@
-Memoria delle ultime 5 edizioni (20, 23, 24, 25, 26/11), §3.3. Per pezzo: tema | titolo | tesi | meccanismi spiegati | attacco.
+Memoria delle ultime 5 edizioni (20, 23, 24, 25, 26/11), §3.3. Per pezzo: tema | titolo | tesi | meccanismi spiegati | attacco (solo nelle edizioni più recenti).
 Temi tornati: Tassi e Fed (20, 23, 24, 25, 26/11); Chip e AI (20, 23, 24, 25/11); Europa e Italia (20, 23, 24, 25/11); Petrolio (20, 24, 25, 26/11); Oro (20, 23, 24/11); Dazi (25, 26/11)
 Meccanismi spiegati più volte: M17 Asia e semiconduttori (20, 23, 24, 25, 26/11); M10 Petrolio e inflazione (20, 24, 25, 26/11); M01 Prezzo e rendimento delle obbligazioni (23, 24, 26/11); M11 Shock d'offerta o di domanda (20, 24, 25/11); M16 Concentrazione degli indici (23, 24, 25/11); M23 Oro e tassi reali (20, 23, 24/11); M26 Il 2 anni e la banca centrale (23, 24, 26/11); M05 Inflazione sopra le attese e tassi (25, 26/11); M06 Tassi reali e valutazioni azionarie (20, 25/11); M24 Dazi (25, 26/11); M27 Rendimento reale e inflazione attesa (23, 24/11)
-20/11 (in breve) prima pagina: Il debutto record di Anthropic non ferma la vendita dell'AI: Asia a picco
-  Chip e AI | Perché il successo di Anthropic non basta a salvare i titoli AI | M06, M17
-  Tassi e Fed | I dati di ieri danno alla Fed meno crescita e più prezzi | -
-  Petrolio | Per il petrolio i barili in arrivo pesano più dei rischi a Riyadh | M10, M11
-  Europa e Italia | L'Europa regge perché ha pochi titoli AI, ma i difensivi cedono | -
-  Oro | L'oro perde oltre 400 dollari dal 9 novembre e la Fed non aiuta | M23
-23/11 (in breve) prima pagina: Wall Street entra in correzione sui timori per l'intelligenza artificiale e Seul cade ancora
-  Chip e AI | Le vendite sui chip passano dai prezzi alla fiducia dopo l'inchiesta su Nvidia | M17
-  Tassi e Fed | Con la Fed in rialzo i Treasury restano un rifugio e i rendimenti scendono | M01, M07, M26, M27
-  Europa e Italia | A Milano pesano chip e banche, e l'Europa tocca il minimo da maggio | M13, M16
-  Oro | L'oro non ripara dal panico perché dollaro e tassi pesano più della paura | M23
-24/11 (in breve) prima pagina: Huang torna alla guida di Nvidia e Wall Street rimbalza
-  Chip e AI | Il rimbalzo di Nvidia: si vendeva per sfiducia, non per i conti | M17
-  Tassi e Fed | Le borse rimbalzano ma il 10 anni resta fermo: pesa la Fed | M01, M10, M26, M27
-  Petrolio | Il petrolio scende guardando al surplus, non alla guerra | M11
-  Oro | L'oro è sceso e risalito con le borse, non contro di loro | M23
-  Europa e Italia | L'Europa sale con i chip americani, mentre Germania e Francia divergono | M16
-25/11 (in breve) prima pagina: Seul perde il 6% e l'Asia vende i chip, mentre tornano i dazi
-  Chip e AI | Goldman e Morgan Stanley tagliano i target su SK Hynix e Samsung | M06, M17
-  Dazi | Gli Stati Uniti preparano dazi su 16 economie e l'Asia vende | M06, M24
-  Tassi e Fed | Il PCE di oggi dirà quanto dureranno i tassi alti | M04, M05, M06, M20
-  Europa e Italia | Le vendite sui chip pesano su Milano, che perde quasi il 2% | M16
-  Petrolio | Il petrolio perde un quinto in un mese anche con le borse in rotta | M10, M11
+20/11 prima pagina: Il debutto record di Anthropic non ferma la vendita dell'AI: Asia a picco
+  Chip e AI | Perché il successo di Anthropic non basta a salvare i titoli AI | tesi: Per noi il costo del denaro conta più del successo della singola società. | M06, M17
+  Tassi e Fed | I dati di ieri danno alla Fed meno crescita e più prezzi | tesi: I prezzi pagati dalle imprese di Filadelfia salgono mentre l'indice generale crolla: per noi i costi aumentano anche se l'attività frena. | -
+  Petrolio | Per il petrolio i barili in arrivo pesano più dei rischi a Riyadh | tesi: Il petrolio ignora i razzi su Riyadh perché il mercato guarda all'eccesso di offerta. | M10, M11
+  Europa e Italia | L'Europa regge perché ha pochi titoli AI, ma i difensivi cedono | tesi: L'Europa regge meglio di Wall Street perché ha pochi titoli AI, ma ha i suoi problemi: sanità e consumi. | -
+  Oro | L'oro perde oltre 400 dollari dal 9 novembre e la Fed non aiuta | tesi: L'oro non protegge dall'inflazione quando la Fed alza: -9% in una settimana. | M23
+23/11 prima pagina: Wall Street entra in correzione sui timori per l'intelligenza artificiale e Seul cade ancora
+  Chip e AI | Le vendite sui chip passano dai prezzi alla fiducia dopo l'inchiesta su Nvidia | tesi: A nostro avviso il mercato non prezza più solo gli utili, ma anche il rischio di scoprire che i conti non reggono, e il VIX, l'indice della paura, lo mostra. | M17
+  Tassi e Fed | Con la Fed in rialzo i Treasury restano un rifugio e i rendimenti scendono | tesi: A nostro avviso ha prevalso la paura: quando si vende la borsa, si comprano Treasury, il loro prezzo sale e il rendimento scende. | M01, M07, M26, M27
+  Europa e Italia | A Milano pesano chip e banche, e l'Europa tocca il minimo da maggio | tesi: A Milano la caduta è più forte dell'Europa perché i chip italiani e le banche sono colpiti insieme. | M13, M16
+  Oro | L'oro non ripara dal panico perché dollaro e tassi pesano più della paura | tesi: A nostro avviso pesa il dollaro forte: con una Fed pronta a rialzare i tassi, tenere un metallo che non rende interessi costa di più. | M23
+24/11 prima pagina: Huang torna alla guida di Nvidia e Wall Street rimbalza
+  Chip e AI | Il rimbalzo di Nvidia: si vendeva per sfiducia, non per i conti | tesi: A nostro avviso si vendeva per sfiducia in Nvidia, non per gli utili, e il rimbalzo di ieri lo conferma. | M17
+  Tassi e Fed | Le borse rimbalzano ma il 10 anni resta fermo: pesa la Fed | tesi: Meno paura dovrebbe far salire i rendimenti, perché si comprano meno titoli di Stato come rifugio. Ma il petrolio in calo e le attese di inflazione più basse spingono nel verso opposto, e a nostro avviso le due forze si annullano. | M01, M10, M26, M27
+  Petrolio | Il petrolio scende guardando al surplus, non alla guerra | tesi: Il petrolio guarda al surplus e non alla guerra: il Brent ha perso oltre un quinto in un mese malgrado gli attacchi a Hormuz. | M11
+  Oro | L'oro è sceso e risalito con le borse, non contro di loro | tesi: Secondo Kitco, nel ribasso di venerdì l'oro ha subito spinte opposte: la domanda da rifugio da un lato, le vendite per fare cassa e coprire le richieste di garanzie dall'altro. A nostro avviso hanno prevalso le seconde, e il rimbalzo di ieri insieme alle azioni lo suggerisce. | M23
+  Europa e Italia | L'Europa sale con i chip americani, mentre Germania e Francia divergono | tesi: L'Europa rimbalza grazie ai chip americani e non alla propria economia: dentro l'area euro Germania e Francia vanno in direzioni opposte. | M16
+25/11 prima pagina: Seul perde il 6% e l'Asia vende i chip, mentre tornano i dazi
+  Chip e AI | Goldman e Morgan Stanley tagliano i target su SK Hynix e Samsung | tesi: Morgan Stanley parla di un «profit cliff» del 2028, per la nuova capacità attesa dalla fine del 2027. A nostro avviso oggi il mercato sconta in anticipo quel calo di prezzi. | M06, M17
+  Dazi | Gli Stati Uniti preparano dazi su 16 economie e l'Asia vende | tesi: I dazi pesano su Asia ed Europa prima ancora di essere annunciati, perché i mercati temono un tetto più alto di quello dell'accordo Turnberry. | M06, M24
+  Tassi e Fed | Il PCE di oggi dirà quanto dureranno i tassi alti | tesi: Oggi il PCE conta meno per la direzione della Fed, già decisa al 99%, che per quanto a lungo i tassi alti peseranno su chi ha scommesso sull'AI. | M04, M05, M06, M20
+  Europa e Italia | Le vendite sui chip pesano su Milano, che perde quasi il 2% | tesi: Milano e l'Europa pagano la tecnologia più di quanto i pesi degli indici farebbero pensare: STMicroelectronics e Technoprobe perdono il 10% in un giorno dopo il +9% di lunedì. | M16
+  Petrolio | Il petrolio perde un quinto in un mese anche con le borse in rotta | tesi: Il petrolio è sceso di un quinto in un mese perché pesano l'offerta in eccesso e i colloqui con l'Iran, non la domanda: il calo della paura non l'ha spinto su. | M10, M11
 26/11 prima pagina: Wall Street recupera quasi tutto il crollo e chiude appena in calo | pag. 5 apre: Il Russell 2000, l'indice delle società piccole, sale dello 0,7%...
-  Wall Street | A Wall Street le azioni risalgono, ma la paura sale ancora (indice: il recupero non calma la paura) | tesi: Il recupero di fine seduta ha salvato i prezzi ma non il costo del rischio: mentre il Nasdaq risaliva dal -4,6% il VIX saliva del 7% e il debito delle società dell'intelligenza artificiale restava caro. | M14 | apre: Un Nasdaq che perde lo 0,6% sembra una giornata qualsiasi, ma in...
-  Tassi e Fed | Inflazione sopra le attese, ma il mercato guarda alla crescita (indice: rendimenti giù malgrado l'inflazione) | tesi: I dati più caldi del previsto non hanno alzato i rendimenti lunghi: il 10 anni è sceso mentre il core PCE saliva al 3,3%, perché il mercato legge dazi e paura sull'IA come un freno alla crescita, e il rialzo di dicembre resta scontato. | M01, M05, M26 | apre: Perché un dato che alza le attese sulla Fed ha fatto scendere il...
-  Dazi | I dazi sono ancora una proposta, ma l'Europa li ha già messi nei prezzi (indice: dazi in arrivo, borse già giù) | tesi: I nuovi dazi sono ancora una proposta con tempi lunghi, ma l'Europa li ha già messi nei prezzi: l'Euro Stoxx 50 chiude ai minimi da maggio e Milano cede più di Parigi e Londra. | M24 | apre: Per la Cina il rialzo proposto è di 20 punti sopra il circa 25%...
-  Corea e Asia | La Corea alza i tassi il giorno dopo il crollo della borsa (indice: Seul alza i tassi dopo il crollo) | tesi: La banca centrale coreana ha alzato i tassi il giorno dopo il -6% del Kospi: guarda inflazione e crescita trainata dai chip, non la borsa. | M17 | apre: Una banca centrale che stringe mentre la borsa perde il 6% sembra...
+  Wall Street | A Wall Street le azioni risalgono, ma la paura sale ancora (indice: il recupero non calma la paura) | tesi: A nostro avviso la paura è passata dalle azioni al debito. | M14 | apre: Un Nasdaq che perde lo 0,6% sembra una giornata qualsiasi, ma in...
+  Tassi e Fed | Inflazione sopra le attese, ma il mercato guarda alla crescita (indice: rendimenti giù malgrado l'inflazione) | tesi: A nostro avviso il mercato ha pesato più il rischio per la crescita che l'inflazione. | M01, M05, M26 | apre: Perché un dato che alza le attese sulla Fed ha fatto scendere il...
+  Dazi | I dazi sono ancora una proposta, ma l'Europa li ha già messi nei prezzi (indice: dazi in arrivo, borse già giù) | tesi: A nostro avviso il mercato non aspetta: chi vende ora paga in anticipo l'incertezza su quanto toccherà, nei prossimi mesi, alle imprese che esportano negli Stati Uniti. | M24 | apre: Per la Cina il rialzo proposto è di 20 punti sopra il circa 25%...
+  Corea e Asia | La Corea alza i tassi il giorno dopo il crollo della borsa (indice: Seul alza i tassi dopo il crollo) | tesi: A nostro avviso guarda all'economia e non al Kospi: l'export di chip sostiene la crescita anche mentre i prezzi dei titoli crollano. | M17 | apre: Una banca centrale che stringe mentre la borsa perde il 6% sembra...
   Petrolio | Il Brent sale su voci di mine a Hormuz che nessuno conferma (indice: Hormuz muove il greggio) | tesi: Il Brent sale del 3,5% su notizie di mine a Hormuz che nessuno ha confermato in modo indipendente, in scambi sottili e con scorte USA salite meno del previsto. | M10 | apre: Il petrolio sale per una notizia che nessuno ha verificato.

@@ -215,17 +215,15 @@ def passo_memoria():
     # la tesi è una frase scritta dall'edizione (mai un riassunto), il titolo è quello letto dal lettore (desk applicato)
     if not any(x["titolo"] == "Il rimbalzo di Nvidia: si vendeva per sfiducia, non per i conti" for x in v25):
         male.append("24/11: il titolo del pezzo sui chip non è quello riscritto dal desk e uscito in pagina")
-    # la tesi intera: dalla scaletta archiviata; senza scaletta la frase dichiarata, con quella prima se comincia con un
-    # rimando ("hanno prevalso le seconde"); senza Perché (G-59) la colonna non si svuota se c'è la scaletta
+    # la tesi intera: la lettura che il Perché del pezzo uscito dichiara (con la frase prima se comincia con un rimando:
+    # "hanno prevalso le seconde"); senza, quella della scaletta archiviata, che resta anche senza riquadri (G-59)
     oro24 = next((x for x in v25 if x["data"] == "2026-11-24" and x["tema"] == "Oro"), {})
-    if not oro24.get("tesi", "").startswith("L'oro è sceso con le borse perché in una crisi si vende"):
-        male.append(f"24/11: tesi dell'oro non presa dalla scaletta ({oro24.get('tesi', '-')[:60]})")
+    if not oro24.get("tesi", "").startswith("Secondo Kitco") or "hanno prevalso le seconde" not in oro24.get("tesi", ""):
+        male.append(f"24/11: tesi dell'oro senza la frase a cui rimanda ({oro24.get('tesi', '-')[:60]})")
     letto24 = MEM._moduli_sorgente(os.path.join(R, "sorgenti", "2026-11-24", "edizione.py"))
     m24 = next(m for m in letto24[1] if m["chiave"] == "oro")
-    if not MEM._tesi(m24).startswith("Secondo Kitco") or "hanno prevalso le seconde" not in MEM._tesi(m24):
-        male.append("24/11 senza scaletta: la frase con il rimando non porta con sé quella prima")
     senza = dict(m24); senza.pop("perche")
-    if not MEM._tesi(senza, MEM._scaletta(REPO, "2026-11-24")):
+    if not MEM._tesi(senza, MEM._scaletta(REPO, "2026-11-24")).startswith("L'oro è sceso con le borse perché"):
         male.append("24/11 senza Perché: la tesi della scaletta non arriva")
     if sum(1 for x in v25 if not x["tesi"]) > 0:
         male.append(f"25/11: {sum(1 for x in v25 if not x['tesi'])} pezzi senza tesi con la scaletta archiviata")
@@ -255,9 +253,15 @@ def passo_memoria():
         n = len(MEM.testo_memoria(MEM.ultime(d, repo=REPO)))
         if n > MEM.TETTO:
             lunghe.append(f"{d:%d/%m} {n}")
+    # di norma tutte e 5 le edizioni con tema, titolo, tesi intera e meccanismi, la più recente anche con l'attacco
+    t30 = MEM.testo_memoria(MEM.ultime(dt.date(2026, 11, 30), repo=REPO))
+    pezzi = [r for r in t30.splitlines() if r.startswith("  ")]
+    if not t30.startswith("Memoria delle ultime 5 edizioni") or any("tesi: " not in r for r in pezzi) or \
+            any(r.split("tesi: ")[1].split(" | ")[0].endswith("...") for r in pezzi) or "apre:" not in pezzi[-1]:
+        male.append("30/11: non tutte le 5 edizioni hanno la tesi intera, o la più recente ha perso l'attacco")
     piene = [dict(x, chiave=x["chiave"] + str(k)) for x in v25 for k in range(2)]     # 9-10 pezzi al giorno
     tp = MEM.testo_memoria(piene)
-    if lunghe or len(tp) > MEM.TETTO or "(in breve)" not in tp or not tp.startswith("Memoria delle ultime"):
+    if lunghe or len(tp) > MEM.TETTO or "tesi: " not in tp or not tp.startswith("Memoria delle ultime"):
         male.append(f"tetto di {MEM.TETTO} caratteri: " + (", ".join(lunghe) or f"settimana piena {len(tp)}"))
     # "titolo vicino": sulle edizioni dal 20 al 27/11 poche segnalazioni, e quelle vere restano
     vicini = []
@@ -265,10 +269,11 @@ def passo_memoria():
         lt = MEM._moduli_sorgente(os.path.join(R, "sorgenti", d, "edizione.py"))
         vv = MEM.ultime(dt.date.fromisoformat(d), repo=REPO)
         vicini += [(d[8:], m["chiave"], x) for m in lt[1] for x in MEM.segnala(m, vv) if x.startswith("titolo vicino")]
-    veri = {("24", "petrolio", "17/11"), ("23", "oro", "17/11"), ("23", "oro", "19/11"), ("24", "chip", "18/11")}
+    veri = {("24", "petrolio", "17/11"), ("23", "oro", "17/11"), ("23", "oro", "19/11"), ("24", "chip", "18/11"),
+            ("23", "treasury", "17/11")}
     persi = [v for v in veri if not any(g == v[0] and c == v[1] and f"al {v[2]}" in x for g, c, x in vicini)]
-    if len(vicini) > 10 or persi:
-        male.append(f"titolo vicino: {len(vicini)} segnalazioni (massimo 10), vere perse {sorted(persi)}")
+    if len(vicini) > 11 or persi:
+        male.append(f"titolo vicino: {len(vicini)} segnalazioni (massimo 11), vere perse {sorted(persi)}")
     # sorgenti rotti o mancanti: la memoria si accorcia, nessun errore
     mondo = os.path.join(TMP, "memoria")
     os.makedirs(os.path.join(mondo, "redazione"), exist_ok=True)
@@ -281,10 +286,16 @@ def passo_memoria():
         if testo:
             open(os.path.join(mondo, "redazione", "sorgenti", d, "edizione.py"), "w").write(testo)
     open(os.path.join(mondo, "redazione", "sorgenti", "2026-11-19", "desk_ok.json"), "w").write("{ rotto")
+    p20 = os.path.join(mondo, "redazione", "sorgenti", "2026-11-20", "edizione.py")
+    sorgente20 = open(p20, encoding="utf-8").read().replace(
+        '"titolo": "L\'oro perde oltre 400 dollari', '"titolo": TITOLO_ORO + "L\'oro perde oltre 400 dollari', 1)
+    open(p20, "w", encoding="utf-8").write(sorgente20)
     try:
         corta = MEM.ultime(dt.date(2026, 11, 26), repo=mondo)
         if sorted({x["data"] for x in corta}) != ["2026-11-18", "2026-11-19", "2026-11-20"]:
             male.append(f"sorgenti rotti: memoria su {sorted({x['data'] for x in corta})} invece delle tre edizioni sane")
+        if "Pezzi non letti (titolo non scritto come testo nel sorgente): 20/11 1" not in MEM.testo_memoria(corta):
+            male.append("un pezzo con il titolo non scritto come testo sparisce senza che la memoria lo dica")
         vuota = MEM.testo_memoria(MEM.ultime(dt.date(2026, 11, 26), repo=os.path.join(TMP, "nessun_repo")))
         if "nessun sorgente" not in vuota:
             male.append("senza sorgenti la memoria non lo dice")
@@ -318,7 +329,7 @@ def passo_memoria():
         male.append("prepara.sh: memoria delle ultime edizioni non scritta o non annunciata")
     n = os.path.getsize(f) if os.path.exists(f) else 0
     esito("Memoria delle ultime edizioni (G-42)", not male, "; ".join(male) or
-          f"oro, petrolio e prezzo-rendimento visibili il 23 e il 25/11; tesi intere dalla scaletta; {len(vicini)} titoli "
+          f"oro, petrolio e prezzo-rendimento visibili il 23 e il 25/11; tesi intere dal Perché o dalla scaletta; {len(vicini)} titoli "
           f"vicini sul 20-27/11; {n} caratteri il {giorno:%d/%m} (tetto {MEM.TETTO}); sorgenti rotti e mancanti saltati; "
           "il desk la riceve con l'oro del 23/11 segnalato; una regola sola nelle istruzioni")
 

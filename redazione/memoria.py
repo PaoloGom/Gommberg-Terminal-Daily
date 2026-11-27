@@ -203,7 +203,7 @@ def _leggi_sorgente(path):
             return None
     for n in albero.body:
         if isinstance(n, ast.Assign) and any(getattr(x, "id", "") == "C" for x in n.targets) and isinstance(n.value, ast.Dict):
-            out = {"dich": [], "mods": [], "top": "", "lettura": ""}
+            out = {"dich": [], "mods": [], "top": "", "lettura": "", "saltati": 0}
             for k, v in zip(n.value.keys, n.value.values):
                 chiave = getattr(k, "value", None)
                 if chiave == "meccanismi":
@@ -227,6 +227,8 @@ def _leggi_sorgente(path):
                                     x[mk.value] = val
                         if x.get("chiave") and isinstance(x.get("titolo"), str):
                             out["mods"].append(x)
+                        else:
+                            out["saltati"] += 1     # chiave o titolo non scritti come testo: lo dice la memoria
             return out
     return None
 
@@ -277,28 +279,40 @@ def _desk(mods, path, prima_pagina=False):
             continue
 
 
-RIMANDO = re.compile(r"^(?:(?:a nostro avviso|per noi|secondo noi),? )?(?:ma|e|cosi|quindi|percio|per questo|anche|"
-                     r"(?:hanno|ha) prevalso|conta soprattutto)\b|\b(?:le seconde|i secondi|le prime|i primi|l'ultima|"
-                     r"l'ultimo|questo|questa|questi|queste|lo conferma)\b")
+RIMANDO = re.compile(r"^(?:(?:a nostro avviso|per noi|secondo noi),? )?(?:ma|e|cosi|quindi|percio|per questo|anche)\b|"
+                     r"\b(?:le seconde|i secondi|le prime|i primi|l'ultima|"
+                     r"l'ultimo|questo|questa|questi|queste|quel|quella|quello|quei|quelle|lo conferma)\b")
+
+
+def _dichiarata(campo):
+    """La frase che dichiara la nostra lettura, con la frase prima se comincia con un rimando ("hanno prevalso le
+    seconde"); "" se il campo non ne ha."""
+    fr = frasi(campo)
+    for i, f in enumerate(fr):
+        if DICHIARATA.search(f):
+            return (fr[i - 1] + " " + f) if i and RIMANDO.search(" ".join(norm(f).split()[:14])) else f
+    return ""
 
 
 def _tesi(m, scaletta=None):
-    """La tesi del pezzo, intera. Prima quella dichiarata in scaletta (archiviata con le schede del giorno); se manca, la
-    frase che dichiara la nostra lettura nel Perché o nel testo (anche senza riquadri, G-59), con la frase prima se
-    comincia con un rimando ("hanno prevalso le seconde"). Se il pezzo riporta solo letture altrui, la tesi è il titolo."""
+    """La tesi del pezzo, intera. Prima la lettura che il pezzo uscito dichiara nel Perché (è ciò che il lettore ha
+    letto: la scaletta, scritta prima delle prove, a volte diverge); poi la tesi della scaletta archiviata con le schede
+    del giorno, che resta anche quando i riquadri non ci sono (G-59); poi la lettura dichiarata nel testo. Se il pezzo
+    riporta solo letture altrui e non c'è scaletta, la tesi è il titolo."""
+    t = _dichiarata(m.get("perche"))
+    if t:
+        return t
     if scaletta and scaletta.get(m.get("chiave")):
         return scaletta[m["chiave"]]
-    for campo in [m.get("perche")] + [t for t in (m.get("testo") or []) if isinstance(t, str)]:
-        fr = frasi(campo)
-        for i, f in enumerate(fr):
-            if DICHIARATA.search(f):
-                inizio = " ".join(norm(f).split()[:9])
-                return (fr[i - 1] + " " + f) if i and RIMANDO.search(inizio) else f
+    for campo in [t for t in (m.get("testo") or []) if isinstance(t, str)]:
+        t = _dichiarata(campo)
+        if t:
+            return t
     return ""
 
 
 FAMIGLIE = (("Oro", r"\boro\b"), ("Petrolio", r"petroli|brent|greggio|barile|hormuz"), ("Dazi", r"\bdazi"),
-            ("Tassi e Fed", r"\b(?:fed|treasury|tassi|rifugi|pce|rendiment)"), ("Europa e Italia", r"europa|milano|ftse"),
+            ("Tassi e Fed", r"\b(?:fed|treasury|tassi|rifugi\b|pce|rendiment)"), ("Europa e Italia", r"europa|milano|ftse"),
             ("Corea e Asia", r"\b(?:corea|seul|kospi|giappone|tokyo)"),
             ("Chip e AI", r"\b(?:chip|nvidia|ai|anthropic|tecnolog|semicondutt|memorie)\b"))
 
@@ -356,7 +370,8 @@ def ultime(oggi, quante=QUANTE, repo=None):
         pag5 = (frasi(html.unescape(letto["lettura"])) or [""])[0]
         for m in letto["mods"]:
             try:
-                out.append(dict(scheda_modulo(m, tesi), data=d, numero=(numeri or {}).get(d), top=letto["top"], pag5=pag5))
+                out.append(dict(scheda_modulo(m, tesi), data=d, numero=(numeri or {}).get(d), top=letto["top"], pag5=pag5,
+                                saltati=letto["saltati"]))
             except Exception:  # noqa: BLE001 - un modulo scritto male toglie sé stesso, non la memoria
                 continue
     return out
@@ -379,7 +394,7 @@ def _date(giorni):
     return ", ".join(_gm(d) for d in g)
 
 
-TETTO = 6500   # caratteri: oltre, la memoria perde prima l'edizione più vecchia (chi scrive la legge ogni mattina)
+TETTO = 8000   # caratteri: oltre, le edizioni più vecchie si accorciano e poi escono (chi scrive la legge ogni mattina)
 
 
 def testo_memoria(voci, titoli_mecc=None, tetto=TETTO):
@@ -393,17 +408,20 @@ def testo_memoria(voci, titoli_mecc=None, tetto=TETTO):
                            json.load(open(os.path.join(REPO, "redazione", "meccanismi.json"), encoding="utf-8"))["voci"]}
         except Exception:
             titoli_mecc = {}
-    pieni, corti = {}, {}
+    forme = {}     # per edizione: 0 intera, 1 senza attacco, titolo d'indice e pag. 5, 2 con la tesi tagliata
     for v in voci:
-        testa = f"{_gm(v['data'])} prima pagina: {v.get('top') or '-'} | pag. 5 apre: {_taglia(v.get('pag5') or '-', 70)}"
         breve = f" (indice: {v['breve']})" if v.get("breve") else ""
         mec = ", ".join(v["meccanismi"]) or "-"
-        pieni.setdefault(v["data"], [testa]).append(f"  {v['tema']} | {v['titolo']}{breve} | tesi: {v['tesi'] or '= titolo'} "
-                                                   f"| {mec} | apre: {_taglia(v['apre'], 70) or '-'}")
-        corti.setdefault(v["data"], [f"{_gm(v['data'])} (in breve) prima pagina: {v.get('top') or '-'}"]).append(
-            f"  {v['tema']} | {v['titolo']} | {mec}")
-    date = sorted(pieni)
-    brevi = 0      # quante edizioni, dalla più vecchia, stanno in breve (titolo e meccanismi, senza tesi né attacco)
+        tesi = v["tesi"] or "= titolo"
+        f = forme.setdefault(v["data"], (
+            [f"{_gm(v['data'])} prima pagina: {v.get('top') or '-'} | pag. 5 apre: {_taglia(v.get('pag5') or '-', 70)}"],
+            [f"{_gm(v['data'])} prima pagina: {v.get('top') or '-'}"], [f"{_gm(v['data'])} prima pagina: {v.get('top') or '-'}"]))
+        f[0].append(f"  {v['tema']} | {v['titolo']}{breve} | tesi: {tesi} | {mec} | apre: {_taglia(v['apre'], 70) or '-'}")
+        f[1].append(f"  {v['tema']} | {v['titolo']} | tesi: {tesi} | {mec}")
+        f[2].append(f"  {v['tema']} | {v['titolo']} | tesi: {_taglia(tesi, 100)} | {mec}")
+    date = sorted(forme)
+    livello = {d: 0 for d in date}
+    saltati = {v["data"]: v.get("saltati") for v in voci if v.get("saltati")}
     while True:
         dentro = [v for v in voci if v["data"] in date]
         temi, mecc = {}, {}
@@ -414,19 +432,28 @@ def testo_memoria(voci, titoli_mecc=None, tetto=TETTO):
         tornati = lambda d: sorted(((k, g) for k, g in d.items() if len(g) > 1), key=lambda x: (-len(x[1]), x[0]))
         quali = f"ultime {len(date)} edizioni" if len(date) > 1 else "ultima edizione"
         righe = [f"Memoria delle {quali} ({_date(date)}), §3.3. Per pezzo: tema | titolo | tesi | "
-                 "meccanismi spiegati | attacco.",
+                 "meccanismi spiegati | attacco (solo nelle edizioni più recenti).",
                  "Temi tornati: " + ("; ".join(f"{t} ({_date(g)})" for t, g in tornati(temi)) or "-"),
                  "Meccanismi spiegati più volte: " + ("; ".join(f"{m} {titoli_mecc.get(m, '')} ({_date(g)})"
                                                               for m, g in tornati(mecc)) or "-")]
-        for i, d in enumerate(date):
-            righe += corti[d] if i < brevi else pieni[d]
+        if any(d in saltati for d in date):
+            righe.append("Pezzi non letti (titolo non scritto come testo nel sorgente): " +
+                         "; ".join(f"{_gm(d)} {saltati[d]}" for d in date if d in saltati))
+        for d in date:
+            righe += forme[d][livello[d]]
         t = "\n".join(righe)
         if len(t) <= tetto or len(date) == 1:
             return t
-        if brevi < len(date) - 1:
-            brevi += 1           # prima si accorcia l'edizione più vecchia ancora intera
+        # prima perde attacco, titolo d'indice e pag. 5 l'edizione più vecchia che li ha (la più recente li tiene),
+        # poi si taglia la tesi dalla più vecchia, infine esce la più vecchia
+        d1 = next((d for d in date[:-1] if livello[d] == 0), None)
+        d2 = next((d for d in date if livello[d] < 2), None) if d1 is None else None
+        if d1:
+            livello[d1] = 1
+        elif d2:
+            livello[d2] = 2
         else:
-            date, brevi = date[1:], brevi - 1    # poi esce la più vecchia
+            date = date[1:]
 
 
 PIENE = re.compile(r"[a-z]{5,}|\b(?:oro|fed|bce|btp|pil)\b")

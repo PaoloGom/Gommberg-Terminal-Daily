@@ -67,3 +67,15 @@ volte ogni giorno dal 20/11; i pezzi europei del 23, 24, 25 e 27/11 hanno titolo
   titolo (nella memoria "-"). Una frase dichiarata che rimanda alla precedente ("hanno prevalso le seconde") si legge male da sola.
 - I "titoli vicini" contano parole in comune: un tema seguito per giorni (la stessa storia che va avanti) viene segnalato
   anche quando è giusto riprenderlo. Le segnalazioni non bloccano nulla: decide chi legge, con il fatto nuovo.
+
+## Terzo giro (27/11): forma breve con la tesi
+- Tetto 8.000 caratteri. Ordine dei tagli: prima le edizioni più vecchie perdono attacco, titolo d'indice e pag. 5 (la
+  più recente li tiene), poi la tesi si taglia a parola intera intorno ai 100 caratteri, infine esce la più vecchia.
+- Caratteri e forma, dal 23 al 30/11: 23/11 7.732 (5 edizioni con tesi intera, 3 con attacco); 24/11 7.909 (5, 3);
+  25/11 7.686 (5, 2); 26/11 7.717 (5, 2); 27/11 7.599 (5, 1); 30/11 7.366 (5, 1). Senza tetto 8.900-9.900.
+- Tesi: vale la lettura che il Perché del pezzo uscito dichiara (con la frase prima se comincia con un rimando, anche
+  "quel"); la scaletta è il ripiego. Dalla scaletta restano i pezzi senza lettura dichiarata nel Perché, tra cui l'Europa
+  del 25/11, dove la scaletta diverge dalla stampa: dichiarato.
+- Un pezzo con il titolo non scritto come testo nel sorgente non sparisce in silenzio: la memoria lo dice in una riga.
+- Titolo vicino: ritrovato il Treasury del 23/11 contro il 17/11 ("rifugio" non conta più come soggetto del tema).
+  Sulle edizioni 20-27/11: 9 segnalazioni con i titoli usciti, 10 con quelli letti dal desk; sbagliate 2-3.
