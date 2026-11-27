@@ -1,0 +1,86 @@
+[
+ {
+  "id": "N05",
+  "trovato": "\"Il titolo del gruppo automobilistico ha segnato un vero e proprio scatto, con un +8,82%,\" ... \"sostenuto dalla scia di uno studio di JpMorgan sul settore delle quattro ruote.\" Frase seguente: \"Molto bene anche Prysmian, che guadagna +6,57% all'indomani del via libera della Grecia\"",
+  "verifica": "confermato",
+  "nota_revisore": "SoldiOnline (testo ANSA) riporta Stellantis +8,82% sostenuta dallo studio JPMorgan sul settore auto."
+ },
+ {
+  "id": "N06",
+  "trovato": "\"Molto bene anche Prysmian, che guadagna +6,57% all'indomani del via libera della Grecia\" ... \"all'elettrodotto sottomarino tra la terraferma e il Dodecanneso.\" ... \"Secondo quanto indicato, Prysmian ha inoltre risentito — insieme a Stm (+4,58%) e Technoprobe (+4,31%)\" ... \"della ritrovata fiducia degli investitori sull'intelligenza artificiale,\" Frase seguente: \"Il tema dell'AI tende a riflettersi soprattutto su aziende legate a semiconduttori e filiere tecnologiche,\"",
+  "verifica": "confermato",
+  "nota_revisore": "Prysmian +6,57% dopo il via libera greco; Stm +4,58% e Technoprobe +4,31% per la fiducia sull'AI: confermati. Nella pagina anche Prysmian 'ha inoltre risentito' della fiducia sull'AI, oltre che del via libera della Grecia."
+ },
+ {
+  "id": "N02",
+  "trovato": "\"Bargain hunting after a recent plunge, solid moves in U.S. stock index futures and expectations of an increase...\" Frase seguente: \"The government began preparations on Nov. 22 to be able to activate the stabilisation fund immediately.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Digitaltoday (frase letta): acquisti di occasione dopo il crollo, future USA, attesa di attivazione/aumento del fondo. Il Seoul Economic Daily scrive 'The rally reflected a combination of strength in U.S. index futures, a shift to net buying by foreign investors' seguito da 'U.S. futures advanced as AI-related concerns eased and oversold conditions reversed.'; non usa la dicitura 'bargain buying' e dà dati sui flussi diversi da Digitaltoday (per i flussi vale Digitaltoday)."
+ },
+ {
+  "id": "N04",
+  "trovato": "termina la seduta con un +2,36% a 48.362 punti ... si conferma la migliore tra le principali Borse europee",
+  "verifica": "confermato",
+  "nota_revisore": "Letto su SoldiOnline (testo ANSA); la pagina ANSA originale non è comparsa nella ricerca. La dicitura esatta 'miglior listino' non c'è, ma il senso è lo stesso."
+ },
+ {
+  "id": "N07",
+  "trovato": "contro i 109 segnati in apertura di seduta e i 111 della chiusura precedente; il rendimento decennale cede 2,6 punti al 4,32%; il Bund sale di 2,3 punti al 3,25%",
+  "verifica": "confermato",
+  "nota_revisore": "ANSA conferma spread a 107 da 111, BTP 4,32% (-2,6) e Bund 3,25% (+2,3). La pagina scrive 'punti' senza dire 'base': l'unità è una lettura ragionevole, non una frase della fonte."
+ },
+ {
+  "id": "N08",
+  "trovato": "\"Pochi gli scambi a causa della chiusura dei mercati Usa per la festa del Ringraziamento.\" Frase seguente: \"Milano (+2,45%) è regina d'Europa, davanti a Madrid (+2,2%), Francoforte (+2%), Londra (+1,85%) e Parigi (+1,8%).\" Frase precedente: \"Borse europee brillanti, spinte dal ritrovato clima di fiducia sull'intelligenza articiale all'indomani del balzo segnato...\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermata la parte attribuita ad ANSA (scambi scarsi per la chiusura USA). I volumi dell'Euro Stoxx 50 (15,9 contro 24,8 milioni) non sono nella pagina ANSA: nel PDF provengono da EODHD e qui non sono verificati. L'articolo ANSA è un testo intermedio (Milano +2,45%, poi chiusa a +2,36%)."
+ },
+ {
+  "id": "N09",
+  "trovato": "\"a 97% probability of a Fed rate hike in December and a 63% chance of another in January\" Frase seguente: \"The 10-year Treasury yield, the benchmark for mortgages, ended Wednesday near 4.85% in Yahoo's data.\"",
+  "verifica": "confermato",
+  "nota_revisore": "The Company Chronicle (da Fox Business, CME FedWatch) dà 97% e 63%; non indica la dimensione di 25 pb né l'intervallo 97-98%. Il 97,5% compare solo nei titoli di risultati di ricerca (FinScans), pagina non aperta. political.org non è comparsa nella ricerca."
+ },
+ {
+  "id": "D04",
+  "trovato": "Gold futures were near $3,594 an ounce, up about 1.7%",
+  "verifica": "non_conclusivo",
+  "nota_revisore": "Confermati solo i future vicini a 3.594 dollari (+1,7%) su The Company Chronicle, che però non spiega il rimbalzo. La pagina ATFX non è comparsa nella ricerca: non verificati 3.426-3.573 dollari né rendimenti più bassi, dollaro debole e inflazione più alta come cause."
+ },
+ {
+  "id": "N01",
+  "trovato": "\"On Nov. 27, the KOSPI ended up 204.47 points, or 4.34 percent, at 4,915.68.\" Frase seguente: \"The index opened up 17.59 points, or 0.37 percent, at 4,728.80, then briefly turned lower.\" Poi: \"The Kosdaq jumped 53.28 points, or 8.13 percent, to end at 708.99.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Digitaltoday: Kosdaq +8,13% (708,99), Samsung +4,55%, SK Hynix +5,41%. Il Seoul Economic Daily dà Kosdaq +8,11% (708,88): differenza trascurabile, 'circa 8,1%' regge."
+ },
+ {
+  "id": "D01",
+  "trovato": "\"As gains widened, a buy-sidecar was triggered at 10:22 a.m., halting the effectiveness of program buy orders for 5 minutes.\" Frase seguente: \"The won-dollar exchange rate was 1,338.60 won, down 5.40 won from the previous session.\" Prima: \"By investor category, foreigners and institutions were net buyers of 1.13 trillion won and 238.8 billion won...\" Frase seguente: \"Retail investors were net sellers of 1.77 trillion won.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Letto su Digitaltoday, che conferma anche stranieri e istituzioni compratori (1,13 mila miliardi e 238,8 miliardi). Nota: il Seoul Economic Daily dice che il sidecar scattò sul Kosdaq, Digitaltoday non specifica il mercato: il PDF scrive 'sul Kospi' e non è confermato; meglio scrivere 'sul mercato' senza indicare l'indice."
+ },
+ {
+  "id": "D02",
+  "trovato": "\"Foreign investors fuel a rebound in chip and brokerage stocks as Seoul weighs expanding its 10.8 trillion won market\" (KED Global, sottotitolo; frase seguente, didascalia: \"The Kospi climbes 4.3% to close at 4,915.68 on Nov. 27, 2026, and the tech-heavy Kosdaq surges 8.1% to 708.99\"). Digitaltoday: Han Ji-young di Kiwoom: \"Until new supply and demand from the stabilisation fund comes in, the rebound's momentum could be limited...\"",
+  "verifica": "confermato",
+  "nota_revisore": "10,8 mila miliardi di won e valutazione dell'ampliamento da KED Global; analista Kiwoom su Digitaltoday, la frase conferma 'finché non arriva la domanda del fondo lo slancio può essere limitato'. Digitaltoday indica un fondo esistente 'nell'ordine dei 10 mila miliardi'."
+ },
+ {
+  "id": "D03",
+  "trovato": "\"Sentiment toward memory chips also improved after Nvidia and Kioxia demonstrated technology that uses solid-state drives\" Frase seguente: \"It is worth watching whether the rebound in chip stocks continues in the U.S. cash market,\" said Lee Kyoung-min, an analyst at Daishin Securities.",
+  "verifica": "confermato",
+  "nota_revisore": "Il Seoul Economic Daily lega il miglioramento del clima sui chip di memoria alla dimostrazione di Nvidia e Kioxia con dischi a stato solido (la frase è stata letta troncata): il 'livello petabyte' e le GPU non sono nella parte letta, quindi non verificati."
+ },
+ {
+  "id": "N11",
+  "trovato": "",
+  "verifica": "non_conclusivo",
+  "nota_revisore": "La pagina Al Jazeera non è comparsa nei risultati di ricerca, quindi non letta. Un risultato la cita solo nel titolo ('Saudi refinery attack'), senza dettagli sugli Houthi né sull'arresto delle attività."
+ },
+ {
+  "id": "N10",
+  "trovato": "Both exchanges open at the usual 9:30 a.m. ET but ring the closing bell at 1 p.m. ET ... SIFMA recommending a 2 p.m. ET close ... Full trading hours return Monday, Nov. 30",
+  "verifica": "confermato",
+  "nota_revisore": "BigGo Finance conferma orari. Nota: per i titoli di Stato 14:00 è la raccomandazione SIFMA, non obbligatoria. Le 9:30-16:00 di lunedì confermate."
+ }
+]

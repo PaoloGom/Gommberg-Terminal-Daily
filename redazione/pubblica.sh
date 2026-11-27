@@ -15,6 +15,17 @@ run() { if [ "$PROVA" = "1" ]; then echo "[prova] $*"; else "$@"; fi; }
 
 # Si pubblica solo dal ramo principale: da un ramo di prova nessun commit e nessun push, qualunque cosa dica chi lancia.
 RAMO="$(git -C "$REPO" rev-parse --abbrev-ref HEAD 2>/dev/null)"
+# Una sessione lanciata a mano parte senza ramo (HEAD staccato) sul commit del ramo principale: è il ramo principale
+# senza nome, e il 27/11/2026 l'edizione #035, pronta e verde, non è stata pubblicata per questo. Se il commit dove siamo
+# sta sulla linea di origin/main lo si richiama main (stesso commit, file di lavoro intatti: non si perde nulla); se il
+# ramo principale è andato avanti nel frattempo ci pensa il pull --rebase qui sotto. Un commit fuori da quella linea
+# (un ramo di prova) resta in prova forzata.
+if [ "$RAMO" = "HEAD" ] && [ "$PROVA" != "1" ] && [ ! -f "$REPO/redazione/PROVA_DATA" ]; then
+  git -C "$REPO" fetch -q origin main 2>/dev/null
+  if git -C "$REPO" merge-base --is-ancestor HEAD FETCH_HEAD 2>/dev/null || git -C "$REPO" merge-base --is-ancestor HEAD origin/main 2>/dev/null; then
+    git -C "$REPO" checkout -q -B main 2>/dev/null && RAMO="main" && echo "Ramo: sessione partita senza ramo sul commit del ramo principale, rimessa su main"
+  fi
+fi
 [ "$RAMO" = "main" ] || [ "$PROVA" = "1" ] || { PROVA=1; echo "Ramo $RAMO: modalità prova forzata, nessuna pubblicazione"; }
 # Una data di prova in giro (redazione/PROVA_DATA) vuol dire che questa non è un'edizione vera: non si pubblica mai.
 # Sola eccezione: GTD_PUBBLICA_PROVA=1, per l'edizione di test che Paolo chiede di pubblicare davvero (PROVA.md, parte B).
