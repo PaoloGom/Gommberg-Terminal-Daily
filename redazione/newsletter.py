@@ -41,6 +41,7 @@ import html
 import json
 import os
 import re
+import signal
 import sys
 import time
 import urllib.error
@@ -253,10 +254,20 @@ def componi(ed):
     return oggetto, anteprima or (ed.get("dek") or "")[:140], corpo
 
 
+def _tempo_scaduto(*_):
+    sys.exit("ERRORE: tempo del giro scaduto mentre Kit rispondeva: se era in corso la creazione dell'invio l'esito è incerto, "
+             "guarda in Kit (Broadcasts) prima di rilanciare; altrimenti nessun invio è partito, rilancia il giro a mano")
+
+
 def avvia_scadenza():
     """Parte l'orologio del giro (newsletter.py in main): da qui in poi ogni chiamata a Kit sta nel tempo rimasto."""
     global _scadenza
     _scadenza = orologio() + SCADENZA
+    if hasattr(signal, "SIGALRM"):
+        # limite netto: il timeout del socket vale per ogni lettura, non per la chiamata intera (un server che manda pochi byte alla
+        # volta la allunga). L'allarme chiude il giro a SCADENZA + TIMEOUT_CHIAMATA: lascia a una creazione iniziata il suo tempo.
+        signal.signal(signal.SIGALRM, _tempo_scaduto)
+        signal.alarm(SCADENZA + TIMEOUT_CHIAMATA)
 
 
 def tempo_rimasto():
@@ -327,6 +338,10 @@ def leggi_invii(letture=1, attesa=0, massimo=MAX_PAGINE, rigoroso=False):
             if (not isinstance(corpo, dict) or not isinstance(corpo.get("broadcasts"), list)
                     or not isinstance(pg, dict) or "has_next_page" not in pg or (pg["has_next_page"] and not pg.get("end_cursor"))):
                 raise ElencoNonLeggibile(200, {}, tentativo, motivo="risposta di Kit fuori forma (elenco o paginazione mancanti)")
+            # ogni invio è un dizionario con la chiave "description" (anche null o vuota: un invio fatto a mano non è nostro, si ignora);
+            # senza la chiave non si può dire se l'invio di oggi c'è
+            if any(not isinstance(b, dict) or "description" not in b for b in corpo["broadcasts"]):
+                raise ElencoNonLeggibile(200, {}, tentativo, motivo="risposta di Kit fuori forma (invii senza description)")
         invii.extend(corpo.get("broadcasts", []))
         pg = corpo.get("pagination") or {}
         if not pg.get("has_next_page") or not pg.get("end_cursor"):

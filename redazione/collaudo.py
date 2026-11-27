@@ -976,6 +976,39 @@ def passo_newsletter():
                 male.append(f"elenco degli invii ({nome}): traceback {type(e).__name__}")
             if any(c[0] == "POST" for c in chiamate):
                 male.append(f"elenco degli invii ({nome}): l'email è partita")
+        # invii senza la chiave description: "non so", nessun invio; con description null (invio a mano) si legge e si ignora
+        def k_desc(elenco):
+            def k(metodo, percorso, dati=None):
+                chiamate.append((metodo, percorso, dati))
+                if percorso.startswith("/broadcasts") and metodo == "GET":
+                    return 200, {"broadcasts": elenco, "pagination": {"has_next_page": False}}
+                if percorso == "/email_templates":
+                    return 200, {"email_templates": [{"id": 5, "name": "Gommberg cornice"}]}
+                return 201, {"broadcast": {"id": 1, "email_template": {"name": "x"}}}
+            return k
+        for nome, elenco, parte in (("senza la chiave description", [{"id": 9, "status": "scheduled"}], False),
+                                    ("elemento non dizionario", ["x"], False),
+                                    ("description null accanto all'invio di oggi", [{"id": 3, "description": None}, {"id": 9, "description": NL.etichetta(ed)}], False),
+                                    ("description null e vuota senza l'invio di oggi", [{"id": 3, "description": None}, {"id": 4, "description": ""}], True)):
+            chiamate.clear()
+            NL.kit = k_desc(elenco)
+            try:
+                if NL.etichetta(ed) not in NL.invii_esistenti():      # stessa sequenza di main() in modo auto
+                    with contextlib.redirect_stdout(io.StringIO()):
+                        NL.crea(ed, None, prova=False)
+            except SystemExit as e:
+                if not str(e).startswith("ERRORE"):
+                    male.append(f"invii {nome}: uscita non chiara")
+            posts = len([c for c in chiamate if c[0] == "POST"])
+            if posts != (1 if parte else 0):
+                male.append(f"invii {nome}: {posts} invii creati invece di {1 if parte else 0}")
+        # l'allarme del limite netto, se chiamato, esce con un avviso chiaro
+        try:
+            NL._tempo_scaduto()
+            male.append("allarme del giro: non esce")
+        except SystemExit as e:
+            if "esito è incerto" not in str(e):
+                male.append("allarme del giro: l'avviso non dice dell'esito incerto")
         # dem.py non cambia: la sua lettura resta quella di prima (100 per pagina, nessuna verifica in più)
         chiamate.clear()
         NL.kit = kit_pagine(due_pagine)
@@ -1029,6 +1062,8 @@ def passo_newsletter():
                 male.append("scadenza del giro: POST fatto con meno di 30 s rimasti")
         finally:
             NL.orologio, NL._scadenza = vero_orologio, vera_scadenza
+            import signal as _sg
+            _sg.alarm(0)       # l'allarme di avvia_scadenza() non deve restare armato nel collaudo
         # un errore di rete in kit() è una risposta gestita, non un traceback
         import urllib.error
         import urllib.request
