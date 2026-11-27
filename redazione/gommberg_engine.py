@@ -142,6 +142,19 @@ def nome_file(d):
     return f"{d.isoformat()} Gommberg Terminal Daily #{numero_edizione(d):03d}.pdf"
 
 
+SLOGAN = "I mercati globali spiegati, ogni mattina in 6 pagine"
+
+
+def testata_dati(nota):
+    """La nota dei dati (NOTA_DATI) sta a destra dello slogan, in corpo 7. Nei giorni in cui è troppo lunga (chiusure di
+    borsa: #035) lo slogan le lascia il posto e la nota prende tutta la riga, mai sovrapposta (G-46); oltre la riga intera
+    il corpo scende fino a starci, non sotto 5,5. Torna (slogan visibile, corpo della nota)."""
+    w = pdfmetrics.stringWidth(nota or "", "Cond", 7)
+    if w <= PW - 2 * M - pdfmetrics.stringWidth(SLOGAN, "Cond", 7) - 3 * mm:
+        return True, 7
+    return False, 7 if w <= PW - 2 * M else max(5.5, 7 * (PW - 2 * M) / w)
+
+
 def page(c, doc):
     c.saveState()
     c.setFillColor(INK); c.rect(0, PH - 17 * mm, PW, 17 * mm, fill=1, stroke=0)
@@ -149,11 +162,13 @@ def page(c, doc):
     c.setFont("Cond-B", 15); c.setFillColor(ORANGE); c.drawString(M, PH - 9.6 * mm, "GOMMBERG")
     gw = pdfmetrics.stringWidth("GOMMBERG", "Cond-B", 15)
     c.setFillColor(colors.white); c.drawString(M + gw + 1.5 * mm, PH - 9.6 * mm, "TERMINAL DAILY")
+    slogan, corpo = testata_dati(META["nota_dati"])
     c.setFont("Cond", 7); c.setFillColor(colors.HexColor("#BDBDBD"))
-    c.drawString(M, PH - 13.6 * mm, "I mercati globali spiegati, ogni mattina in 6 pagine")
+    if slogan:
+        c.drawString(M, PH - 13.6 * mm, SLOGAN)
     c.setFont("Cond-B", 8.5); c.setFillColor(colors.white)
     c.drawRightString(PW - M, PH - 9.2 * mm, f"{META['data_lunga']}  |  Edizione n. {META['edizione']:03d}")
-    c.setFillColor(colors.HexColor("#BDBDBD")); c.setFont("Cond", 7)
+    c.setFillColor(colors.HexColor("#BDBDBD")); c.setFont("Cond", corpo)
     c.drawRightString(PW - M, PH - 13.2 * mm, META["nota_dati"])
     c.setStrokeColor(RULE); c.setLineWidth(0.5); c.line(M, 11 * mm, PW - M, 11 * mm)
     c.setFont("Cond", 6.8); c.setFillColor(GREY)

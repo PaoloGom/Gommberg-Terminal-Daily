@@ -1039,6 +1039,28 @@ def passo_dati():
 
 
 # ---------------------------------------------------------------- 3c. tabelle di pag. 5 calcolate dal codice
+def passo_testata():
+    """La nota dei dati in testata non si sovrappone mai allo slogan (G-46: #035 del 27/11, 144 caratteri). Corta, sta a destra
+    dello slogan in corpo 7; troppo lunga, lo slogan le lascia la riga; oltre la riga intera il corpo scende, non sotto 5,5.
+    Le note di tutte le edizioni archiviate prima della #035 restano come erano (slogan visibile)."""
+    sys.path.insert(0, R)
+    import gommberg_engine as E
+    f = getattr(E, "testata_dati", None)
+    note = {g: re.search(r'^NOTA_DATI = "(.*)"', open(p, encoding="utf-8").read(), re.M).group(1)
+            for p in sorted(glob.glob(os.path.join(R, "sorgenti", "20*", "edizione.py")))
+            for g in [os.path.basename(os.path.dirname(p))] if g < "2026-11-27"}
+    v35 = "Chiusure al 26 novembre per Europa e Asia di ieri, al 27 novembre per Tokyo, Hong Kong e Seul; Stati Uniti fermi al 25 novembre (Ringraziamento)"
+    male = ["manca testata_dati nel motore"] if not f else []
+    if f:
+        male += [f"{g}: slogan tolto o corpo cambiato" for g, n in note.items() if f(n) != (True, 7)]
+        male += [] if f(v35) == (False, 7) else [f"nota della #035: {f(v35)} (atteso slogan tolto, corpo 7)"]
+        lunga = f(v35 * 2)
+        male += [] if not lunga[0] and 5.5 <= lunga[1] < 7 else [f"nota lunghissima: {lunga}"]
+    esito("Testata: la nota dei dati non copre lo slogan", not male,
+          f"{len(note)} note archiviate invariate, nota della #035 al posto dello slogan, nota lunghissima in corpo ridotto"
+          if not male else "; ".join(male)[:300])
+
+
 def passo_tabelle():
     """Le tabelle dei mercati escono da dati.json e dall'archivio delle chiusure, mai scritte a mano (G-05): sui dati veri del
     20/11 i numeri sono quelli pubblicati, nessuna cella "n.d.", il livello di Seul si ricava dalla variazione; senza la
@@ -2260,6 +2282,7 @@ def main():
         passo_fonti()
         passo_dati()
         passo_tabelle()
+        passo_testata()
         passo_scommessa()
         passo_newsletter()
         passo_dem()
