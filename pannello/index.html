@@ -717,7 +717,7 @@ function pesoPiani(uso){var g={lun:"lunedì",mar:"martedì",mer:"mercoledì",gio
       +'<div class="pv"><span class="big">'+(ok?(stima?"≈ ":"")+it(sett,0):"-")+"<small>punti su 100</small></span>"+(ok?'<span class="pm">Resta <b>'+(stima?"≈ ":"")+it(Math.max(0,100-sett),0)+"</b> per il progetto</span>":"")+"</div>"
       +'<div class="meter'+(stima?" est":"")+'" role="img" aria-label="'+esc(n)+": "+(ok?(stima?"stima ":"")+it(sett,0)+" su 100":"da misurare")+'"><i style="width:'+Math.min(100,s)+"%"+(stt=="ko"?";background:var(--bad)":stt=="att"?";background:var(--warn)":"")+'"></i>'+(c=="misura"?'<u style="left:'+S.consumo[0]+'%"></u><u class="w" style="left:'+S.consumo[1]+'%"></u>':"")+"</div>"
       +'<div class="pn">'+come+(az?"<br>"+az.charAt(0).toUpperCase()+az.slice(1):"")+"</div></div>"}).join("")
-    +(nm?'<p class="note" style="font-size:12px;color:var(--muted)">Linee sul'+(nm>1?"i piani misurati":" piano misurato")+": soglia "+S.consumo[0]+", fuori soglia oltre "+S.consumo[1]+".</p>":"")+"</div>"}
+    +(nm?'<p class="note" style="font-size:12px;color:var(--muted)">Linee '+(nm>1?"sui piani misurati":"sul piano misurato")+": soglia "+S.consumo[0]+", fuori soglia oltre "+S.consumo[1]+".</p>":"")+"</div>"}
 /* ================= QUALITÀ ================= */
 function qualita(w){var a=w.a,b=w.b||{},F=w.F,u=F[F.length-1];
   var M2=MISURE.filter(function(m){return F.some(function(x){return isn(x[m.k])})});
