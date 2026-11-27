@@ -252,7 +252,8 @@ def ufficiale_di_fatto(scheda, tutte=(), oggi=None, usciti=()):
     calendario, agenda e registri (NON_NOTIZIE), né per le cause né per la memoria confermata: (a) la scheda riporta
     le stesse cifre, nello stesso giorno, di una riga del calendario o di una scheda dichiarata U (è lo stesso dato scritto
     due volte); (b) è un numero uscito messo a confronto con le attese: lo pubblica un ente o una società, quindi il suo
-    comunicato esiste; una cifra senza unità (un indice) vale solo con il numero atteso scritto accanto; (c) regge una riga del calendario uscito dell'edizione (usciti = [(evento, dato)], da C["ieri"]):
+    comunicato esiste; fuori dalla prima pagina, o con una cifra senza unità (un indice), solo con il numero atteso scritto
+    accanto; (c) regge una riga del calendario uscito dell'edizione (usciti = [(evento, dato)], da C["ieri"]):
     stessa cifra e stesso evento, solo in prima pagina (PRIMA_PAGINA). Torna il motivo, o "" se non è un dato ufficiale. Non usa elenchi di argomenti."""
     if sezione(scheda) in NON_NOTIZIE or scheda.get("tipo") in ("C", "U") or not si_applica(scheda):
         return ""
@@ -266,7 +267,9 @@ def ufficiale_di_fatto(scheda, tutte=(), oggi=None, usciti=()):
         calendario = altra.get("tipo") == "U" or sezione(altra) == "catalizzatori"
         if calendario and _s(altra.get("data_evento"))[:10] == giorno and len(mie & _cifre(altra)) >= 2:
             return f"stesse cifre di {altra.get('id', '?')}"
-    if (_ATTESE if mie else _ATTESE_NUMERO).search(_s(scheda.get("testo"))):
+    # fuori dalla prima pagina, e per le cifre senza unità, serve il numero atteso scritto accanto; in prima pagina con l'unità
+    # basta il confronto ("ricavi sotto le attese": i conti di una società in apertura)
+    if (_ATTESE if mie and sezione(scheda) in PRIMA_PAGINA else _ATTESE_NUMERO).search(_s(scheda.get("testo"))):
         return "numero uscito contro le attese"
     if sezione(scheda) not in PRIMA_PAGINA:
         return ""          # (c) solo in prima pagina: fuori, una riga di "ieri" può essere un fatto di mercato (un debutto in borsa)
