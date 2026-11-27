@@ -6,7 +6,10 @@
 # Mappa del sistema e regole: redazione/ARCHITETTURA.md §5.
 #
 #   bash redazione/rilascia.sh avvia [con-prova]   mette la sessione sul ramo rilascio (o con-prova), allineato al ramo
-#                                         principale (lo crea se manca)
+#                                         principale (lo crea se manca). Si ferma se rilascio porta lavoro che il ramo
+#                                         principale non ha (un rilascio fermato a metà, lavoro mai approvato)
+#   bash redazione/rilascia.sh avvia --ripulisci   solo per la chat che decide di buttarlo: un commit riporta rilascio
+#                                         uguale al ramo principale (nessun push forzato; il lavoro resta nella storia)
 #   bash redazione/rilascia.sh collauda   sul ramo dove sei: porta dentro le novità del ramo principale, lancia il
 #                                         collaudo, stampa il resoconto
 #   bash redazione/rilascia.sh unisci <commit>   dopo la prova andata bene: porta nel ramo rilascio il lavoro di con-prova
@@ -37,10 +40,11 @@ REPO="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "RILASCIO: FERMO -
 cd "$REPO" || exit 1
 RAMO="rilascio"; ATTESA="con-prova"; PRINC="main"; CANCELLO="cancello"; PROVA="${GTD_PROVA:-0}"; FONDO=300
 AZIONE="${1:-}"; shift 2>/dev/null || true
-OK_PAOLO=0; SENZA_GITHUB=0; GUASTO=0; DOPO_PROVA=0; SU="$RAMO"; PROVATO=""
+OK_PAOLO=0; SENZA_GITHUB=0; GUASTO=0; DOPO_PROVA=0; RIPULISCI=0; SU="$RAMO"; PROVATO=""
 for a in "$@"; do
   # le opzioni valgono solo per l'azione che le usa: un'opzione fuori posto ferma, non passa in silenzio
   if [ "$AZIONE" = "avvia" ] && [ "$a" = "$ATTESA" ]; then SU="$ATTESA"; continue; fi
+  if [ "$AZIONE" = "avvia" ] && [ "$a" = "--ripulisci" ]; then RIPULISCI=1; continue; fi
   if [ "$AZIONE" = "unisci" ] && echo "$a" | grep -qiE '^[0-9a-f]{7,40}$'; then
     [ -z "$PROVATO" ] || { echo "RILASCIO: FERMO - unisci vuole un solo commit, quello della prova"; exit 1; }
     PROVATO="$a"; continue
@@ -179,6 +183,20 @@ avvia)
   else
     git checkout -q -B "$SU" "origin/$PRINC" || fermo "creazione del ramo $SU"
   fi
+  # rilascio porta solo ciò che si sta rilasciando adesso: lavoro che il ramo principale non ha (cambiato dal punto in
+  # cui i due rami si sono separati) è un rilascio fermato a metà o lavoro mai approvato, e partirebbe con la voce nuova
+  if [ "$SU" = "$RAMO" ] && ! git diff --quiet "origin/$PRINC...HEAD"; then
+    if [ "$RIPULISCI" = 1 ]; then
+      echo "Tolgo dal ramo $RAMO (resta nella storia, non va in linea):"; elenco "$(git log --no-merges --format='%h %s' "origin/$PRINC..HEAD")"
+      C=$(git commit-tree "origin/$PRINC^{tree}" -p HEAD -p "origin/$PRINC" -m "Ripulisce $RAMO: torna uguale al ramo principale $(git rev-parse --short "origin/$PRINC")") || fermo "commit della pulizia"
+      git merge -q --ff-only "$C" || fermo "pulizia del ramo $RAMO"
+    else
+      fermo "il ramo $RAMO porta lavoro che il ramo principale non ha (file: $(git diff --name-only "origin/$PRINC...HEAD" | head -5 | tr '\n' ' ')): un rilascio fermato a metà o lavoro mai approvato. Va capito prima; se va buttato: 'avvia --ripulisci' (un commit lo riporta uguale al ramo principale, senza push forzati)"
+    fi
+  elif [ "$RIPULISCI" = 1 ]; then
+    [ "$SU" = "$RAMO" ] || fermo "--ripulisci vale solo per il ramo $RAMO: il lavoro di $ATTESA aspetta la prova"
+    echo "Il ramo $RAMO era già pulito: niente da togliere."
+  fi
   dentro
   spingi HEAD "$SU" || fermo "push del ramo $SU rifiutato"
   echo "RILASCIO: ramo $SU pronto su $(git rev-parse --short "origin/$PRINC") del ramo principale, $(git rev-list --no-merges --count "origin/$PRINC..HEAD") commit avanti."
@@ -259,7 +277,7 @@ annulla)
   echo "RILASCIO: ANNULLATO - il ramo principale è tornato a prima del rilascio $(git rev-parse --short "$M") (commit $(git rev-parse --short "$R"))."
   echo "Il lavoro resta sul ramo $RAMO. Per riproporlo dopo la correzione: 'avvia', poi git revert $(git rev-parse --short "$R") sul ramo $RAMO (riporta dentro il lavoro), correzione, 'pubblica'."
   ;;
-*) echo "uso: rilascia.sh avvia [con-prova] | collauda | unisci <commit provato> | pubblica [--ok-di-paolo] [--dopo-la-prova] [--senza-github] [--guasto] | annulla"; exit 1;;
+*) echo "uso: rilascia.sh avvia [con-prova | --ripulisci] | collauda | unisci <commit provato> | pubblica [--ok-di-paolo] [--dopo-la-prova] [--senza-github] [--guasto] | annulla"; exit 1;;
 esac
 exit 0
 }

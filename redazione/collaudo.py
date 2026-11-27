@@ -1692,8 +1692,36 @@ def rilascio_avanti():
           "GitHub rosso: rilascio e main fermi, collaudato l'albero sul ramo cancello; verde: un merge e rilascio = main")
 
 
+def avvia_sporco():
+    """2. avvia rifiuta un ramo rilascio con lavoro che il ramo principale non ha; --ripulisci lo riporta uguale al
+    ramo principale senza forzare; con-prova, che il lavoro lo porta apposta, si avvia."""
+    b, male = Banco("avvia"), []
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    b.commit("redazione/gommberg_engine.py", "# lavoro rimasto\n", "G-00: rimasto")
+    b.g("push", "-q", "origin", "rilascio")
+    b.g("checkout", "-q", "-B", "con-prova", "origin/main"); b.commit("redazione/STATO.md", "attesa\n", "G-01: attesa")
+    b.g("push", "-q", "origin", "con-prova"); b.g("checkout", "-q", "main")
+    sporco = b.remoto("rilascio")
+    rc, out = b.rilascia("avvia")
+    if rc == 0 or "RILASCIO: FERMO" not in out or "--ripulisci" not in out or b.remoto("rilascio") != sporco:
+        male.append("doveva fermarsi su un rilascio con lavoro non in linea (" + ultima(out) + ")")
+    b.g("checkout", "-q", "main")
+    rc, out = b.rilascia("avvia", "--ripulisci")
+    pulito = b.remoto("rilascio")
+    if rc or b.g("rev-parse", pulito + "^{tree}") != b.g("rev-parse", "origin/main^{tree}"):
+        male.append("--ripulisci doveva riportare rilascio uguale al ramo principale (" + ultima(out) + ")")
+    elif esegui(["git", "merge-base", "--is-ancestor", sporco, pulito], cwd=b.rep)[0]:
+        male.append("--ripulisci ha riscritto la storia di rilascio (push forzato)")
+    rc, out = b.rilascia("avvia", "con-prova")
+    if rc:
+        male.append("con-prova porta lavoro apposta e doveva avviarsi (" + ultima(out) + ")")
+    esito("Rilascio: avvia rifiuta un rilascio sporco", not male, "; ".join(male) or
+          "rilascio con lavoro non in linea fermato; --ripulisci lo riporta uguale a main senza forzare; con-prova si avvia")
+
+
 def passo_rilascio():
     rilascio_avanti()
+    avvia_sporco()
 
 
 def main():
