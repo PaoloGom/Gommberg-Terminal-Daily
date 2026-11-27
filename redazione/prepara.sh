@@ -139,7 +139,7 @@ except Exception as e:
 if voci:
     u = max(voci, key=lambda v: v["numero"])
     if any(v["numero"] == n for v in voci):
-        out.append(f"USCITA (c): l'edizione #{n:03d} esiste già in edizioni.json: messaggio \"nessuna edizione: #{n:03d} già pubblicata\", niente da rifare")
+        out.append(f"USCITA (c): l'edizione #{n:03d} esiste già in edizioni.json: manda la riga di `python3 {repo}/redazione/messaggio.py --nessuna pubblicata --dettaglio \"#{n:03d}\"`, niente da rifare")
     elif u["numero"] != n - 1:
         out.append(f"Numero: ultima edizione #{u['numero']:03d}, oggi #{n:03d}: usa #{n:03d} (giorni.py) e scrivi nel messaggio finale che mancano uscite intermedie")
     out.append(cut(f"Ultima: #{u['numero']:03d} del {u['data']} - {u['titolo']}"))

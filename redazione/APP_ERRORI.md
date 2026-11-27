@@ -28,7 +28,7 @@ Poi rigenera il PDF e ripeti `controlli_tutti.sh`; il revisore ricontrolla solo 
 - La top story è sempre un fatto confermato: se cade, diventa top story la notizia confermata più importante.
 
 ## 4. Dopo 3 giri
-Togli tutto ciò che è ancora rosso e pubblica il resto. Non si pubblica solo se manca il minimo vitale (repository o API dei dati irraggiungibili, PDF impossibile): nessuna edizione oggi, una riga nel messaggio finale.
+Togli tutto ciò che è ancora rosso e pubblica il resto. Nessuna edizione solo nei casi di `messaggio.py --nessuna` (ISTRUZIONI, Uscite ammesse).
 
 **Ridondanza negli approfondimenti** (`stesso ruolo`, `stesse serie`, `la colonna ... ripete`): non cambiare l'etichetta: cambia l'elemento. Tieni quello che misura meglio la tesi; l'altro risponde a un'altra domanda della stessa tesi, oppure si toglie e lo spazio va a `testo`. Come scegliere: chiediti cosa manca al lettore per credere alla tesi di oggi. Gli spunti che seguono servono ad allargare lo sguardo, non sono uno schema: un confronto con un altro mercato o un'altra variabile, un precedente storico, chi si è mosso di più, cosa prezza il mercato per i prossimi giorni, un dato di flussi o di posizionamento. La scelta dipende dalla tesi del giorno e cambia da un'edizione all'altra: la stessa combinazione di grafici sullo stesso tema in giorni vicini è una ripetizione (§7).
 
