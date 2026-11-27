@@ -4,9 +4,9 @@
 [ROSSO] Fatti:
 - CERCA come: il documento di chi è nel fatto ("primaria": true) o lo stesso fatto da un altro autore; un'agenzia conta 1 ovunque ripresa. Se non c'è: "conferma_cercata"
 - CERCA un secondo autore, 7 schede: N10, N11, D02, D04, D10, D11, D13
-- CERCA N02: dato ufficiale (stesse cifre di K01): metti "tipo": "U" e il comunicato tra le fonti (APP_FONTI §2)
-- CERCA N03: dato ufficiale (riga del calendario: Giappone: Pil del terzo trimes): metti "tipo": "U" e il comunicato tra le fonti (APP_FONTI §2)
-- CERCA D13: dato ufficiale (stesse cifre di K01): metti "tipo": "U" e il comunicato tra le fonti (APP_FONTI §2)
+- CERCA N02: dato ufficiale (stesse cifre di K01): il comunicato tra le fonti e "tipo": "U"; non esce dopo 2 ricerche: "ufficiale_cercato"
+- CERCA N03: dato ufficiale (riga del calendario: Giappone: Pil del terzo trimes): il comunicato tra le fonti e "tipo": "U"; non esce dopo 2 ricerche: "ufficiale_cercato"
+- CERCA D13: dato ufficiale (stesse cifre di K01): il comunicato tra le fonti e "tipo": "U"; non esce dopo 2 ricerche: "ufficiale_cercato"
 AVVISO: D06: fonte singola dichiarata (kitco): la testata nella riga Fonti
 [ROSSO] Numeri contro dati.json:
 ERRORE: pag. 5, MSCI ACWI (ETF, $): nel PDF non c'è la riga calcolata (156,10 | -0,3% | +2,4% | +10,3%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano

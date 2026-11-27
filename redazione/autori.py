@@ -223,9 +223,13 @@ def si_applica(scheda):
 
 
 _CIFRA = re.compile(r"(?<![\w.,])[+-]?\d+(?:[.,]\d+)*\s?(?:%|pb\b|punti\b|mld\b|mln\b|miliard\w+|milion\w+)")
-# un numero uscito e, accanto, quello che ci si aspettava: "+0,4% (atteso +0,8%)", "115,8 mld contro 109,15 attesi"
-_ATTESE = re.compile(r"\d[^.;(]{0,25}\((?:\w+ ){0,2}(?:attes[oaie]|consenso|stim[ae]|previst[oaie])\b|"
+# un numero uscito e, accanto, quello che ci si aspettava: "+0,4% (atteso +0,8%)", "115,8 mld contro 109,15 attesi". La stima
+# di una casa ("stima" con il nome di una banca) è una previsione, non un'attesa del mercato.
+_ATTESE = re.compile(r"\d[^.;(]{0,25}\((?:\w+ ){0,2}(?:attes[oaie]|consenso|stime|stima(?!\s+[A-Z])|previst[oaie])\b|"
                      r"\d[^.;]{0,30}?\b(?:contro|rispetto a|sopra|sotto|oltre|meno de|più de)\w*\b[^.;]{0,25}\b(?:attes[oaie]|stime|consenso)\b", re.I)
+# senza unità (un indice: "51,7 (atteso 51,9)") vale solo il confronto con il numero atteso scritto accanto
+_ATTESE_NUMERO = re.compile(r"\d[^.;(]{0,25}\((?:\w+ ){0,2}(?:attes[oaie]|consenso|stime|stima(?!\s+[A-Z]))\b[^)\d]{0,12}[+-]?\d|"
+                            r"\d[^.;]{0,30}?\b(?:contro|rispetto a)\s+(?:i |il |le |l')?[+-]?\d[\d.,]*[^.;\d]{0,12}\b(?:attes[oaie]|stime|consenso)\b")
 _VUOTE = {"del", "dei", "per", "con", "non", "una", "gli", "che", "nel", "sul", "dal", "tra", "usa", "della", "delle", "dello",
           "degli", "alla", "alle", "nella", "dati", "dato", "mese", "anno", "annuo", "sul", "sui"}
 PRIMA_PAGINA = ("top_story", "top_news")
@@ -248,7 +252,7 @@ def ufficiale_di_fatto(scheda, tutte=(), oggi=None, usciti=()):
     calendario, agenda e registri (NON_NOTIZIE), né per le cause né per la memoria confermata: (a) la scheda riporta
     le stesse cifre, nello stesso giorno, di una riga del calendario o di una scheda dichiarata U (è lo stesso dato scritto
     due volte); (b) è un numero uscito messo a confronto con le attese: lo pubblica un ente o una società, quindi il suo
-    comunicato esiste, anche quando la cifra non ha unità (un indice come "51,7 (atteso 51,9)"); (c) regge una riga del calendario uscito dell'edizione (usciti = [(evento, dato)], da C["ieri"]):
+    comunicato esiste; una cifra senza unità (un indice) vale solo con il numero atteso scritto accanto; (c) regge una riga del calendario uscito dell'edizione (usciti = [(evento, dato)], da C["ieri"]):
     stessa cifra e stesso evento, solo in prima pagina (PRIMA_PAGINA). Torna il motivo, o "" se non è un dato ufficiale. Non usa elenchi di argomenti."""
     if sezione(scheda) in NON_NOTIZIE or scheda.get("tipo") in ("C", "U") or not si_applica(scheda):
         return ""
@@ -262,7 +266,7 @@ def ufficiale_di_fatto(scheda, tutte=(), oggi=None, usciti=()):
         calendario = altra.get("tipo") == "U" or sezione(altra) == "catalizzatori"
         if calendario and _s(altra.get("data_evento"))[:10] == giorno and len(mie & _cifre(altra)) >= 2:
             return f"stesse cifre di {altra.get('id', '?')}"
-    if _ATTESE.search(_s(scheda.get("testo"))):          # _ATTESE vuole già una cifra prima del confronto
+    if (_ATTESE if mie else _ATTESE_NUMERO).search(_s(scheda.get("testo"))):
         return "numero uscito contro le attese"
     if sezione(scheda) not in PRIMA_PAGINA:
         return ""          # (c) solo in prima pagina: fuori, una riga di "ieri" può essere un fatto di mercato (un debutto in borsa)

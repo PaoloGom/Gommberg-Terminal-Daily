@@ -4,8 +4,8 @@
 [ROSSO] Fatti:
 - CERCA come: il documento di chi è nel fatto ("primaria": true) o lo stesso fatto da un altro autore; un'agenzia conta 1 ovunque ripresa. Se non c'è: "conferma_cercata"
 - CERCA un secondo autore, 11 schede: N03, N04, N05, N06, N07, N08, N12, D02, D03, D04, D05
-- CERCA T01: dato ufficiale (numero uscito contro le attese): metti "tipo": "U" e il comunicato tra le fonti (APP_FONTI §2)
-- CERCA D01: dato ufficiale (numero uscito contro le attese): metti "tipo": "U" e il comunicato tra le fonti (APP_FONTI §2)
+- CERCA T01: dato ufficiale (numero uscito contro le attese): il comunicato tra le fonti e "tipo": "U"; non esce dopo 2 ricerche: "ufficiale_cercato"
+- CERCA D01: dato ufficiale (numero uscito contro le attese): il comunicato tra le fonti e "tipo": "U"; non esce dopo 2 ricerche: "ufficiale_cercato"
 AVVISO: A03: fonte più recente del 2026-11-10, oltre 7 giorni
 AVVISO: K01: dato pubblico non confermato dal revisore: resta con la fonte dichiarata (nella riga Fonti)
 [ROSSO] Numeri contro dati.json:
