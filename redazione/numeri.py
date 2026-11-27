@@ -60,6 +60,8 @@ import os as _os
 import sys as _sys
 
 _QUI = _os.path.dirname(_os.path.abspath(__file__))
+_sys.path.insert(0, _QUI)
+import giorni as _G  # noqa: E402  calendario delle feste delle borse
 ARCHIVIO = _os.path.join(_QUI, "chiusure.csv")          # serie,data,valore
 # le serie che hanno già il loro archivio giornaliero nella scommessa (scommessa_giorno.sh lo aggiorna)
 SCOMMESSA = {"S&P 500": "spx", "Euro Stoxx 50": "sx5e", "Treasury 10 anni": "ust10", "Treasury 2 anni": "ust2",
@@ -155,17 +157,70 @@ def completa(nome, s, archivio=None):
     return u
 
 
+def _feriali_tra(a, b):
+    """I giorni feriali strettamente tra a e b (AAAA-MM-GG)."""
+    x, fine, out = _dt.date.fromisoformat(a) + _dt.timedelta(days=1), _dt.date.fromisoformat(b), []
+    while x < fine:
+        if x.weekday() < 5:
+            out.append(x.isoformat())
+        x += _dt.timedelta(days=1)
+    return out
+
+
+def _sedute(nome, s, oggi, archivio=None):
+    """Le chiusure note prima di oggi, senza le righe dei giorni in cui quella borsa era chiusa (EODHD le scrive a indice
+    fermo: non sono sedute); poi l'ultima e i giorni feriali in mezzo che non sono feste certe di quella borsa."""
+    m = (s or {}).get("mercato")
+    st = {d: v for d, v in storia(nome, s, archivio).items() if d < str(oggi)[:10] and _G.borsa_il(m, d) != "festa"}
+    if not st:
+        return st, None, []
+    d = max(st)
+    return st, d, [x for x in _feriali_tra(d, str(oggi)[:10]) if _G.borsa_il(m, x) != "festa"]
+
+
+def ultima_seduta(nome, s, oggi, archivio=None):
+    """L'ultima seduta vera di quella borsa prima di oggi: (data, chiusura) o None. Il giorno feriale prima non basta: il
+    giorno dopo una festa di quella borsa (qualunque borsa, qualunque festa) l'ultima chiusura è più vecchia. Vale la
+    chiusura più recente che il kit conosce (archivio, "rif", "ultimi") solo se ogni giorno feriale in mezzo è una festa
+    certa di quella borsa (giorni.FESTE_BORSE, nell'intervallo verificato). Se in mezzo c'è un giorno di borsa, o un giorno
+    che il calendario non copre, la base non è certa (la fonte non ha ancora quella chiusura, o l'archivio non ha preso il
+    livello ricavato di quel giorno): None, e la riga non entra con un livello sbagliato."""
+    st, d, buchi = _sedute(nome, s, oggi, archivio)
+    return (d, st[d]) if d and not buchi else None
+
+
+def manca_base(nome, s, oggi, archivio=None):
+    """Che cosa chiedere quando il livello non si può ricavare: la chiusura che manca davvero, con la sua data, e da dove."""
+    st, d, buchi = _sedute(nome, s, oggi, archivio)
+    giu = bool((s or {}).get("eodhd_nd"))
+    da = "dal ripiego di APP_DATI §6 (connettore EODHD giù)" if giu else "da EODHD (APP_DATI §2b)"
+    if not d:
+        return f"manca l'ultima chiusura prima di oggi: scrivila in \"ultimi\" con la sua data, {da}"
+    b = buchi[0]
+    if _G.borsa_il((s or {}).get("mercato"), b) == "seduta":
+        return (f"manca la chiusura {_al('de', b)}, giorno di borsa per quel mercato (l'ultima nota è {_al('de', d)}): "
+                + ("cercala come in APP_DATI §3" if giu else "EODHD non ce l'ha ancora: cercala come in APP_DATI §3")
+                + " e scrivila in \"ultimi\" con la sua data; se non si trova, \"nd\"")
+    return (f"l'ultima chiusura nota è {_al('de', d)} e il calendario delle feste di quella borsa (giorni.py, FESTE_BORSE) non "
+            f"dice se {_art(b)} era una seduta: "
+            f"cerca la chiusura {_al('de', b)} (APP_DATI §3) e scrivila in \"ultimi\" con la "
+            "sua data; se quel giorno la borsa era chiusa, o non si trova, \"nd\"")
+
+
+def solo_variazione(s, oggi):
+    """Seduta asiatica di stamattina di cui si conosce solo la variazione ("var"), senza il livello di oggi in "ultimi"."""
+    u = (s or {}).get("ultimi") or []
+    return (s or {}).get("tipo") == "intraday" and isinstance((s or {}).get("var"), (int, float)) \
+        and not (u and str(u[0][0])[:10] >= str(oggi)[:10])
+
+
 def ricavato(nome, s, oggi, archivio=None):
     """Seduta asiatica di stamattina di cui si conosce solo la variazione ("var", con fonte e ora): il livello si ricava
-    dalla chiusura di ieri, se c'è (in "ultimi" o in archivio). Torna (chiusura di ieri, livello ricavato) o None."""
-    if s.get("tipo") != "intraday" or not isinstance(s.get("var"), (int, float)):
+    dall'ultima seduta vera di quella borsa (ultima_seduta). Torna (ultima chiusura, livello ricavato) o None."""
+    if not solo_variazione(s, oggi):
         return None
-    u = s.get("ultimi") or []
-    if u and str(u[0][0])[:10] >= str(oggi)[:10]:
-        return None                                   # il livello di stamattina c'è: niente da ricavare
-    ieri = _ieri(oggi)
-    base = storia(nome, s, archivio).get(ieri)
-    return (base, base * (1 + s["var"] / 100)) if base else None
+    base = ultima_seduta(nome, s, oggi, archivio)
+    return (base[1], base[1] * (1 + s["var"] / 100)) if base else None
 
 
 def _entro(st, data, giorni=4):
@@ -185,6 +240,11 @@ def _al(prep, d):
     """ "sul 19/10", "sull'11/9", "del 26/11", "dell'8/12": la preposizione articolata davanti a una data (prep = "su", "de")."""
     x = _dt.date.fromisoformat(str(d)[:10])
     return prep + ("ll'" if x.day in (1, 8, 11) else "l ") + _gm(d)
+
+
+def _art(d):
+    """ "il 5/2", "l'8/2": l'articolo davanti a una data."""
+    return ("l'" if _dt.date.fromisoformat(str(d)[:10]).day in (1, 8, 11) else "il ") + _gm(d)
 
 
 def _piu_usato(date):
@@ -240,11 +300,10 @@ def tabelle_da_dati(path="dati.json", archivio=None, silenzioso=False):
         n = next((x for x in nomi if x in S), None)
         s = S.get(n) if n else None
         ric = ricavato(n, s, D["oggi"], arch) if s else None
-        solo_var = bool(s) and s.get("tipo") == "intraday" and isinstance(s.get("var"), (int, float)) and not ric \
-            and str((s.get("ultimi") or [["0"]])[0][0])[:10] < D["oggi"]      # stamattina c'è la variazione ma non il livello
+        solo_var = bool(s) and solo_variazione(s, D["oggi"]) and not ric      # stamattina c'è la variazione ma non il livello
         if not s or not (s.get("ultimi") or ric) or solo_var:
-            perche = (f"c'è solo la variazione di stamattina e manca la chiusura di ieri ({_gm(_ieri(D['oggi']))}): aggiungila in "
-                      "\"ultimi\"" if solo_var else "nessun livello in dati.json")
+            perche = ("c'è solo la variazione di stamattina e " + manca_base(n, s, D["oggi"], arch) if solo_var
+                      else "nessun livello in dati.json")
             mancanti.append(f"{et.replace('&amp;', '&')}: {perche}, la riga non entra in tabella")
             return None
         st = storia(n, s, arch)
@@ -264,7 +323,7 @@ def tabelle_da_dati(path="dati.json", archivio=None, silenzioso=False):
             elif isinstance(s.get("var"), (int, float)):
                 g1 = ("+" if s["var"] > 0 else "") + fmt(s["var"], 1) + "%"
             else:
-                g1 = "-"; mancanti.append(f"{et}: manca la chiusura precedente, del {_gm(_ieri(d0))} (1 g)")
+                g1 = "-"; mancanti.append(f"{et}: manca la chiusura della seduta prima del {_gm(d0)}, con la sua data (1 g)")
         celle, usate = [], {}                          # usate: la chiusura davvero usata per ogni riferimento
         for che, quando, giorni in (("1 sett.", sett_prima(d0), 4), (terza, mese_prima(d0), 6)):
             if che == "anno":
