@@ -52,7 +52,8 @@ def elenco():
 
 ETICHETTA = "gommunity"
 NUOVE = 5          # segnalazioni nuove aperte in un giro: una raffica di Segnala non diventa una raffica di email
-ORA_AVVISO = range(11, 14)   # i giri di Roma tra le 11 e le 13:59: ne cade uno solo al giorno (quello delle 11:15)
+ORA_AVVISO = range(11, 14)   # i giri di Roma tra le 11 e le 13:59: ne cade sempre uno solo al giorno, sia quello
+                             # dell'orologio (11:15) sia quello della riserva di GitHub (11:15 d'inverno, 12:15 d'estate)
 
 
 def chiave(s):

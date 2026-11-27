@@ -2,8 +2,9 @@
 # Su main, a ogni cambiamento dei file e ogni sera alle 19:30 di Roma: crea, rifà, riporta in bozza e toglie gli invii
 # in Kit. Sugli altri rami, anche lanciando a mano, controlla solo le regole e non tocca Kit. Nessun token del modello.
 # La sveglia della sera la dà l'orologio di Cloudflare (G-58, redazione/sito/orologio.js: workflow_dispatch con
-# modo=sincronizza e orologio=cloudflare); nessuna sveglia di GitHub (passo 2 di G-58). Due giri vicini non fanno
-# danni: aspettano uno dopo l'altro (concurrency) e il secondo trova Kit già allineato.
+# modo=sincronizza e orologio=cloudflare). Il cron "schedule" è la riserva del passo 1 di G-58: lavora solo se
+# l'orologio non è sano; il passo 2 lo toglie. Due giri vicini non fanno danni: aspettano uno dopo l'altro
+# (concurrency) e il secondo trova Kit già allineato.
 # Minuti di GitHub: circa 30 giri della sera + 15 da push, su ubuntu-slim = circa 45-60 minuti slim al mese, 15-20
 # minuti standard (prima: circa 45-60 minuti standard).
 # Se va tutto bene non scrive a nessuno. Se qualcosa va guardato (una bozza vicina alla data senza ok, una mail approvata
@@ -18,6 +19,8 @@ on:
       - 'redazione/dem.py'
       - 'pannello/invii.json'
       - '.github/workflows/dem.yml'
+  schedule:                        # riserva del passo 1 di G-58: 19:30 di Roma con l'ora solare (20:30 con la legale)
+    - cron: "30 18 * * *"
   workflow_dispatch:
     inputs:
       modo:
@@ -44,7 +47,11 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+      - name: Ci pensa l'orologio?
+        if: github.event_name == 'schedule'
+        run: python3 redazione/sito/orologio.py --guardia dem.yml >> "$GITHUB_ENV"
       - name: Mail straordinarie
+        if: env.SALTA != 'si'
         env:
           KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
           SCELTO: ${{ github.event.inputs.modo || 'sincronizza' }}

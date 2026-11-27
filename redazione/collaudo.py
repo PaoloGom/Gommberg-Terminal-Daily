@@ -1533,7 +1533,7 @@ def passo_lettori(copia):
     for righe, esce, cosa in ((None, "0", "elenco illeggibile"), ([s(300)], "1", "GitHub che rifiuta")):
         rc15, out15, gh15 = giro(righe, [], ora="15", esce=esce)
         rc10, _, _ = giro(righe, [], ora="11", esce=esce)
-        rc12, _, _ = giro(righe, [], ora="12", esce=esce)
+        rc12, _, _ = giro(righe, [], ora="12", esce=esce)     # la riserva di GitHub d'estate passa alle 12:15
         rc14, _, _ = giro(righe, [], ora="14", esce=esce)
         rcm, _, _ = giro(righe, [], ora="15", esce=esce, a_mano="true")
         if rc15 != 0 or rc10 != 1 or rc12 != 1 or rc14 != 0 or rcm != 1 or "::warning::" not in out15:
@@ -1551,7 +1551,7 @@ def passo_lettori(copia):
 def passo_orologio():
     """L'orologio dei controlli (redazione/sito/orologio.js, il cron del Worker che lancia i flussi di GitHub) con un
     GitHub finto che accetta, rifiuta e tace, a orari d'inverno e d'estate; la lettura del suo stato (orologio.py: la
-    sentinella di GitHub e la riga del controllo del mattino); i flussi che lancia (su GitHub solo la sentinella); la stima dei minuti di
+    guardia delle sveglie di riserva e la riga del controllo del mattino); i flussi che lancia; la stima dei minuti di
     GitHub (minuti.py) con un GitHub finto; la mappa in ARCHITETTURA.md."""
     node = shutil.which("node")
     if not node:
@@ -1591,20 +1591,15 @@ def passo_orologio():
                 male.append(f"{x['flusso']}: '{k}={v}' non è tra le scelte del flusso")
     for nome, (d, testo) in flussi.items():
         su = d.get("on", d.get(True)) or {}
-        if isinstance(su, dict) and "schedule" in su and nome != "orologio.yml":
-            # le sveglie di GitHub saltano (G-58): ciò che deve partire a un'ora precisa sta in SVEGLIE di orologio.js
-            male.append(f"{nome}: sveglia 'schedule' di GitHub; le partenze a orario le dà l'orologio (SVEGLIE in orologio.js)")
-    # l'unica sveglia di GitHub: la sentinella, una al giorno, che legge lo stato dell'orologio e avvisa Paolo
-    sen = flussi.get("orologio.yml")
-    if yaml and sen:
-        su = sen[0].get("on", sen[0].get(True)) or {}
-        crons = [c.get("cron") for c in su.get("schedule") or []]
-        if len(crons) != 1 or not re.fullmatch(r"\d+ \d+ \* \* \*", crons[0] or "") or "redazione/sito/orologio.py" not in sen[1] \
-                or "gh issue create" not in sen[1] or "failure()" not in sen[1] or "Minuti di GitHub" not in sen[1]:
-            male.append("orologio.yml: la sentinella deve avere una sola sveglia al giorno, leggere orologio.py, aprire una segnalazione se fallisce e dichiarare i minuti")
-    elif yaml:
-        male.append("manca la sentinella dell'orologio (.github/workflows/orologio.yml)")
-    for nome in ("mattino.yml", "segnalazioni.yml", "dem.yml", "newsletter.yml", "orologio.yml"):
+        if isinstance(su, dict) and "schedule" in su:
+            # una sveglia di GitHub resta solo come riserva: la copre l'orologio e ogni job la salta quando l'orologio è sano
+            if nome not in lanciati:
+                male.append(f"{nome}: sveglia di GitHub che l'orologio non copre")
+            for job, j in (d.get("jobs") or {}).items():
+                passi = j.get("steps") or []
+                if not any(f"orologio.py --guardia {nome}" in str(p.get("run", "")) for p in passi):
+                    male.append(f"{nome}, job {job}: sveglia di riserva senza la guardia dell'orologio sul proprio flusso (partirebbe due volte)")
+    for nome in ("mattino.yml", "segnalazioni.yml", "dem.yml", "newsletter.yml"):
         for job, j in ((flussi.get(nome) or [{}])[0].get("jobs") or {}).items():
             if j.get("runs-on") != "ubuntu-slim" or int(j.get("timeout-minutes", 99)) > 15:
                 male.append(f"{nome}, job {job}: un controllo leggero va su ubuntu-slim con al massimo 15 minuti (G-12)")
@@ -1625,9 +1620,9 @@ def passo_orologio():
     if re.search(r"PaoloGom|gommberg-terminal-daily", js, re.I):
         male.append("orologio.js: nome del repository scritto nel codice (deve venire da GITHUB_REPOSITORY)")
     esito("Orologio: flussi, cron e configurazione", not male, "; ".join(male)[:400] or
-          f"{len(sveglie)} sveglie, ognuna su un flusso che accetta i suoi inputs; su GitHub solo la sentinella, una volta al giorno; controlli leggeri su ubuntu-slim; nome del repository solo da sito.yml")
+          f"{len(sveglie)} sveglie, ognuna su un flusso che accetta i suoi inputs; ogni sveglia di GitHub rimasta ha la guardia; controlli leggeri su ubuntu-slim; nome del repository solo da sito.yml")
 
-    # la lettura dello stato: la sentinella (orologio.py esce con 1 se non è sano) e la riga del controllo del mattino
+    # la lettura dello stato: la guardia delle sveglie di riserva e la riga del controllo del mattino
     male = []
     banco = os.path.join(TMP, "_orologio")
     os.makedirs(banco, exist_ok=True)
@@ -1646,28 +1641,36 @@ def passo_orologio():
             ("non è uno stato", {"mattino.yml": "no"}, 1, "non risponde", "NO"),
             (None, {"mattino.yml": "no"}, 1, "non risponde", "NO")]
     script = os.path.join(R, "sito", "orologio.py")
-    for j, _guardie, uscita, frase, prefisso in casi:
+    for j, guardie, uscita, frase, prefisso in casi:
         if j is None:
             amb = {"GTD_OROLOGIO": os.path.join(banco, "manca.json")}
         else:
             json.dump(j, open(stato_f, "w", encoding="utf-8"))
             amb = {"GTD_OROLOGIO": stato_f}
+        for flusso, salta in guardie.items():
+            rc, out = esegui([sys.executable, script, "--guardia", flusso], env=amb)
+            if rc != 0 or out.strip().splitlines()[0] != "SALTA=" + salta:
+                male.append(f"guardia di {flusso}: con {str(j)[:50]} doveva dire SALTA={salta} ({out.strip()[:60]})")
         rc, out = esegui([sys.executable, script], env=amb)
         if rc != uscita or frase not in out or not out.startswith(prefisso):
             male.append(f"controllo: con {str(j)[:40]} doveva uscire {uscita} con '{prefisso} ... {frase}' ({out.strip()[:80]})")
-    # il controllo del mattino: in attesa del token una nota, non una riga rossa (niente segnalazione falsa ogni giorno)
+    # il controllo del mattino: in attesa del token una nota, non una riga rossa (niente segnalazione falsa ogni giorno);
+    # la riserva di GitHub arrivata tardi controlla lo stesso l'edizione non uscita
     json.dump(dict(base, segreto=False, provato=False, avvio=None, sveglie=sv), open(stato_f, "w", encoding="utf-8"))
     prova = ("import datetime, mattino as m; m.macchina(datetime.date(2026, 12, 7)); "
-             "print('NO=' + '|'.join(m.NO)); print('NOTE=' + '|'.join(m.NOTE))")
+             "print('NO=' + '|'.join(m.NO)); print('NOTE=' + '|'.join(m.NOTE)); "
+             "print('FASCIA=' + ','.join(str(m.in_fascia(o, p)) for o, p in ((10, 'orologio'), (15, 'orologio'), (15, 'schedule'), (22, 'schedule'), (9, 'schedule'), (11, 'workflow_dispatch'))))")
     rc, out = esegui([sys.executable, "-c", prova], cwd=R, env={"GTD_OROLOGIO": stato_f, "GTD_MINUTI": os.path.join(banco, "manca.json")})
     if "NO=\n" not in out + "\n" or "in attesa del token" not in out:
         male.append(f"controllo del mattino: in attesa del token deve essere una nota, non una riga rossa ({out.strip()[-120:]})")
+    if "FASCIA=True,False,True,True,False,True" not in out:
+        male.append(f"controllo del mattino: la riserva di GitHub in ritardo deve controllare a qualunque ora dalle 10 ({out.strip()[-80:]})")
     json.dump(dict(base, segreto=False, sveglie=sv), open(stato_f, "w", encoding="utf-8"))
     rc, out = esegui([sys.executable, "-c", prova], cwd=R, env={"GTD_OROLOGIO": stato_f, "GTD_MINUTI": os.path.join(banco, "manca.json")})
     if "NO=Orologio dei controlli" not in out:
         male.append("controllo del mattino: segreto visto e poi sparito deve essere una riga rossa")
-    esito("Orologio: sentinella e controllo del mattino", not male, "; ".join(male)[:400] or
-          "la sentinella e il controllo sono rossi a ogni dubbio (segreto sparito, GitHub che rifiuta, appena acceso, stato illeggibile); in attesa del token il mattino scrive una nota")
+    esito("Orologio: guardia e controllo del mattino", not male, "; ".join(male)[:400] or
+          "ogni riserva guarda solo il suo flusso e lavora a ogni dubbio; in attesa del token una nota, dopo un guasto una riga rossa; la riserva tardiva controlla a qualunque ora dalle 10")
 
     # la stima dei minuti, con un GitHub finto: arrotondamento, ubuntu-slim a un terzo, job saltati, giri in corso, giri già contati
     male = []
