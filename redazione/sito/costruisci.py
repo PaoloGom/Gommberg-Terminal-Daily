@@ -49,6 +49,12 @@ FIRMA = "# Scritto da redazione/sito/costruisci.py: non modificare a mano."
 NOMINATI = re.compile(r"""(?:^|[^A-Za-z0-9_])(redazione/[A-Za-z0-9_./-]+\.[a-z]{2,4})""")
 PRIVATE = ("pannello", "consumi")      # cartelle mai pubbliche: il pannello si apre solo da /redazione/ dopo l'accesso (G-51)
 BARRA = '<script src="/assets/redazione.js?v=2026-12-05" defer></script>'
+GOAT = re.compile(r'<script data-goatcounter="([^"]+)" async src="https://gc\.zgo\.at/count\.js"></script>')
+# Il contatore delle visite (GoatCounter) è codice di un altro sito: non parte quando la redazione è collegata (cookie
+# gtd_red=1, G-51), perché la sessione vale su tutto gommberg.com e quel codice agirebbe come redazione. Così le visite
+# di Paolo non si contano nemmeno. Per i lettori nulla cambia.
+CONTATORE = ('<script>if(!/(?:^|;\\s*)gtd_red=1(?:;|$)/.test(document.cookie)){{var g=document.createElement("script");g.async=true;'
+             'g.src="https://gc.zgo.at/count.js";g.setAttribute("data-goatcounter","{}");document.head.appendChild(g)}}</script>')
 STATISTICHE = re.compile(r'<script[^>]*data-goatcounter=[^>]*>\s*</script>\s*', re.I)
 
 
@@ -117,6 +123,8 @@ def ritocchi(uscita: Path, file, anteprima: bool):
             n = t
             if anteprima:
                 n = STATISTICHE.sub("", n).replace("<head>", '<head>\n<meta name="robots" content="noindex">', 1)
+            else:
+                n = GOAT.sub(lambda m: CONTATORE.format(m.group(1)), n)
             if BARRA not in n and "</body>" in n:
                 i = n.rindex("</body>")
                 n = n[:i] + BARRA + "\n" + n[i:]

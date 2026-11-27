@@ -876,7 +876,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
   if (location.hash === "#cose") $("cose").open = true;
 
   /* ---------- Lettore PDF (solo PC) ---------- */
-  const PDFJS = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/";
+  const PDFJS = "assets/pdfjs/";   // pdf.js 3.11.174 copiato in assets/pdfjs/ (G-51: nessun codice da altri siti dove vale la sessione della redazione)
   let pdfjsPronto = null;
   const caricaScript = (src) => new Promise((ok, ko) => { const s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = () => ko(new Error(src)); document.head.appendChild(s); });
   function ensurePdfjs() {

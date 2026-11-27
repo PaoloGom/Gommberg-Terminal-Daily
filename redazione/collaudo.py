@@ -1803,6 +1803,17 @@ def passo_area():
     senza = [os.path.relpath(f, sito) for f in pagine if "/assets/redazione.js" not in open(f, encoding="utf-8", errors="replace").read()]
     if senza:
         male.append(f"{len(senza)} pagine senza la barra Redazione: " + ", ".join(senza[:3]))
+    # la sessione della redazione vale su tutto gommberg.com: nessuna pagina carica codice da un altro sito, salvo il
+    # contatore delle visite, che parte solo se la redazione non è collegata (cookie gtd_red)
+    esterni = []
+    for f in pagine + [os.path.join(d, x) for d, _, ff in os.walk(sito) for x in ff if x.endswith(".js")]:
+        t = open(f, encoding="utf-8", errors="replace").read()
+        if re.search(r"<script[^>]*\ssrc=[\"']?(https?:)?//", t) or re.search(r"cdnjs\.cloudflare\.com|cdn\.jsdelivr\.net|unpkg\.com", t):
+            esterni.append(os.path.relpath(f, sito))
+        elif "gc.zgo.at/count.js" in t and "gtd_red=1" not in t:
+            esterni.append(os.path.relpath(f, sito) + " (contatore anche per la redazione)")
+    if esterni:
+        male.append(f"{len(esterni)} file caricano codice da altri siti: " + ", ".join(esterni[:4]))
     mod = os.path.join(REPO, "_privato", "pannello.js")
     try:
         t = open(mod, encoding="utf-8").read()

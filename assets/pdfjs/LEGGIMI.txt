@@ -1,0 +1,1 @@
+pdf.js 3.11.174 (Mozilla, licenza Apache 2.0: LICENSE.txt), dal pacchetto npm pdfjs-dist@3.11.174 (build/pdf.min.js e build/pdf.worker.min.js), copiati qui il 27/11/2026 (G-51) al posto di cdnjs: l'anteprima del PDF in homepage non carica più codice da un altro sito.
