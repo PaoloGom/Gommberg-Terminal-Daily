@@ -1482,8 +1482,8 @@ def problemi_piani(piani, tarature):
         if not isinstance(nome, str) or not nome.strip():
             guasti.append(f"piani.json, voce {i + 1}: manca il nome del piano")
             continue
-        if nome in nomi:
-            guasti.append(f"piani.json: il piano '{nome}' compare due volte")
+        if nomi and nomi[-1] == nome:                      # un piano che ritorna (Pro, Max 5x, Pro) è una riga nuova con il suo "dal"
+            guasti.append(f"piani.json: il piano '{nome}' compare due volte di fila (una riga nuova serve solo se il piano cambia)")
         nomi.append(nome)
         dal = x.get("dal")
         if dal is None and i == 0:
@@ -1502,6 +1502,35 @@ def problemi_piani(piani, tarature):
         if vecchio is not None and t <= vecchio:
             guasti.append(f"piani.json, '{nome}': i piani non sono in ordine di data")
         vecchio = t
+    # azzeramento settimanale: giorno e ora scritti bene e confermati (la scheda del pannello li dice a Paolo)
+    for i, x in enumerate(piani):
+        if not isinstance(x, dict) or not isinstance(x.get("piano"), str):
+            continue
+        nome, az = x["piano"], x.get("azzeramento")
+        if not isinstance(az, dict) or az.get("giorno") not in ("lun", "mar", "mer", "gio", "ven", "sab", "dom") \
+                or not isinstance(az.get("ora"), str) or not re.fullmatch(r"([01]\d|2[0-3]):[0-5]\d", az["ora"]):
+            guasti.append(f"piani.json, '{nome}': 'azzeramento' deve avere giorno (lun..dom) e ora (HH:MM)")
+        elif az.get("da_confermare"):
+            guasti.append(f"piani.json, '{nome}': l'azzeramento è ancora 'da_confermare': la scheda scriverebbe un orario non confermato")
+        # stima dichiarata: un rapporto con la sua base e il suo motivo, mai un fattore senza spiegazione, mai a catena
+        st = x.get("stima")
+        if st is None:
+            continue
+        di = st.get("di") if isinstance(st, dict) else None
+        r = st.get("rapporto") if isinstance(st, dict) else None
+        if not isinstance(st, dict) or di not in nomi or di == nome:
+            guasti.append(f"piani.json, '{nome}': la 'stima' deve dire su quale altro piano di piani.json si basa ('di')")
+        else:
+            # catena: la base che è a sua volta una stima è un guasto solo se non ha una misura vera (lettura non esclusa);
+            # con una misura la pagina usa quella e il campo "stima" della base resta inerte
+            misurato = any(isinstance(t, dict) and t.get("piano") == di and not t.get("escluso") and (t.get("punti") or 0) > 0
+                           and (t.get("durata_min") or 0) > 0 for t in (tarature if isinstance(tarature, list) else []))
+            if not misurato and any(isinstance(y, dict) and y.get("piano") == di and y.get("stima") is not None for y in piani):
+                guasti.append(f"piani.json, '{nome}': la stima si basa su '{di}', che è a sua volta una stima senza misura vera (niente catene)")
+        if isinstance(r, bool) or not isinstance(r, (int, float)) or not 0 < r <= 10:
+            guasti.append(f"piani.json, '{nome}': il 'rapporto' della stima ({r!r}) non è un numero tra 0 e 10")
+        if not isinstance(st, dict) or not isinstance(st.get("motivo"), str) or len(st["motivo"].strip()) < 10:
+            guasti.append(f"piani.json, '{nome}': la stima non dice il motivo (perché è una stima, finché cosa vale)")
     for x in tarature if isinstance(tarature, list) else []:
         if isinstance(x, dict) and x.get("piano") not in nomi and not x.get("escluso"):
             guasti.append(f"taratura.json: lettura del {x.get('giorno')} sul piano '{x.get('piano')}', che piani.json non conosce "
@@ -1518,8 +1547,10 @@ def passo_pannello():
         male += problemi_piani(piani, tarature)
     except (OSError, ValueError) as e:      # file mancante o JSON rotto
         male.append(f"pannello/piani.json o taratura.json: {e}"[:160])
-    pro = {"piano": "Pro"}
-    max5 = {"piano": "Max 5x", "dal": "2026-11-24T18:00:00+01:00"}
+    az = {"giorno": "ven", "ora": "18:00"}
+    pro = {"piano": "Pro", "azzeramento": az}
+    max5 = {"piano": "Max 5x", "dal": "2026-11-24T18:00:00+01:00", "azzeramento": az}
+    stima = {"di": "Pro", "rapporto": 0.2, "motivo": "un quinto del Pro, finché non c'è una misura"}
     sbagliati = [("senza nome", [pro, {"dal": "2026-11-24T18:00:00+01:00"}], []),
                  ("ora senza zero", [pro, dict(max5, dal="2026-11-24T9:24:00+01:00")], []),
                  ("senza fuso", [pro, dict(max5, dal="2026-11-24T18:00")], []),
@@ -1529,14 +1560,35 @@ def passo_pannello():
                  ("fuori ordine", [pro, max5, {"piano": "Max 20x", "dal": "2026-11-20T18:00:00+01:00"}], []),
                  ("il secondo senza 'dal'", [pro, {"piano": "Max 5x"}], []),
                  ("lettura di un piano ignoto", [pro, max5], [{"giorno": "2026-11-15", "piano": "Max", "punti": 1, "durata_min": 1}]),
-                 ("non è un elenco", {"piano": "Pro"}, [])]
+                 ("non è un elenco", {"piano": "Pro"}, []),
+                 ("senza azzeramento", [pro, {"piano": "Max 5x", "dal": max5["dal"]}], []),
+                 ("azzeramento con giorno sbagliato", [pro, dict(max5, azzeramento={"giorno": "venerdi", "ora": "18:00"})], []),
+                 ("azzeramento con ora sbagliata", [pro, dict(max5, azzeramento={"giorno": "ven", "ora": "6pm"})], []),
+                 ("azzeramento ancora da confermare", [pro, dict(max5, azzeramento=dict(az, da_confermare=True))], []),
+                 ("stima senza motivo", [pro, dict(max5, stima={"di": "Pro", "rapporto": 0.2})], []),
+                 ("stima su un piano che non c'è", [pro, dict(max5, stima=dict(stima, di="Max 20x"))], []),
+                 ("stima su se stessa", [pro, dict(max5, stima=dict(stima, di="Max 5x"))], []),
+                 ("stima con rapporto zero", [pro, dict(max5, stima=dict(stima, rapporto=0))], []),
+                 ("stima con rapporto scritto a parole", [pro, dict(max5, stima=dict(stima, rapporto="un quinto"))], []),
+                 ("stima a catena", [dict(pro, stima=dict(stima, di="Max 5x")), dict(max5, stima=stima)], []),
+                 ("lo stesso piano due volte di fila", [pro, dict(pro, dal="2026-11-20T18:00:00+01:00")], []),
+                 ("piano che ritorna senza 'dal'", [pro, max5, dict(pro)], []),
+                 ("piano che ritorna fuori ordine", [pro, max5, dict(pro, dal="2026-11-20T18:00:00+01:00")], [])]
     for nome, p, t in sbagliati:
         if not problemi_piani(p, t):
             male.append(f"piani.json: il caso '{nome}' non è fermato")
+    ritorno = [pro, dict(max5, stima=stima), dict(pro, dal="2027-01-12T18:00:00+01:00")]
+    if problemi_piani(ritorno, []):
+        male.append("piani.json: un piano che ritorna (Pro, Max 5x, Pro) con 'dal' in ordine non deve fermare il rilascio")
+    lettura = {"giorno": "2026-12-01", "piano": "Max 5x", "punti": 1, "durata_min": 10}
+    if problemi_piani([pro, dict(max5, stima=stima), {"piano": "Max 20x", "dal": "2026-12-01T18:00:00+01:00", "azzeramento": az, "stima": dict(stima, di="Max 5x")}], [lettura]):
+        male.append("piani.json: una stima su un piano che ha già una misura vera (anche se conserva la sua 'stima') non deve fermare il rilascio")
+    if problemi_piani([pro, dict(max5, stima=stima)], []):
+        male.append("piani.json: un piano con stima dichiarata (base, rapporto, motivo) non deve fermare il rilascio")
     if problemi_piani([pro, max5], [{"giorno": "2026-11-15", "piano": "Max", "punti": 1, "durata_min": 1, "escluso": "motivo"}]):
         male.append("taratura.json: una lettura dichiarata 'escluso' non deve fermare il rilascio")
     esito("Pannello: piani e taratura", not male, "; ".join(male)[:400] or
-          f"piani.json valido (nome, 'dal' con il fuso di Roma, in ordine), ogni lettura di taratura.json su un piano noto o dichiarata esclusa; {len(sbagliati) + 1} casi sbagliati fermati")
+          f"piani.json valido (nome, 'dal' con il fuso di Roma, in ordine, azzeramento confermato, stima con base e motivo), ogni lettura di taratura.json su un piano noto o dichiarata esclusa; {len(sbagliati) + 1} casi sbagliati fermati")
 
 
 def passo_sito():
