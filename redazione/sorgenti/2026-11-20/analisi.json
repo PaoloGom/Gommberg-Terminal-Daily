@@ -1,0 +1,559 @@
+{
+ "formato": 1,
+ "data": "2026-11-20",
+ "moduli": [
+  {
+   "chiave": "ai",
+   "pagina": "ai",
+   "tema": "Tecnologia",
+   "titolo": "Perché il successo di Anthropic non basta a salvare i titoli AI",
+   "perche": "Per noi il costo del denaro conta più del successo della singola società. Con la Fed pronta ad alzare i tassi, chi paga oggi utili attesi tra molti anni li sconta di più. A questo si somma un fatto tecnico: per gli operatori sentiti dal Sole 24 Ore l'offerta da 81 miliardi ha sottratto liquidità agli altri titoli del settore.",
+   "quindi": "Alle 15:30 apre Wall Street: i future del Nasdaq perdono oltre l'1% (Milano Finanza, 07:40), segno che la vendita non è finita.",
+   "numero": "111,50 $: il prezzo a cui ANT ha aperto, il 34% sopra il collocamento. Ha chiuso a 97,17 $: in giornata ha restituito metà del guadagno.",
+   "testo": [
+    "Perché un debutto riuscito non aiuta? Un'azione vale oggi gli utili che si spera di incassare in futuro. Se i tassi salgono, quegli utili lontani valgono meno, e chi compra deve pagare meno: è come un mutuo più caro, che riduce la casa che ci si può permettere. Le azioni dell'AI sono di solito le più esposte, perché gran parte del loro valore sta negli anni a venire. Il rialzo che la Fed prepara per dicembre colpisce proprio loro.",
+    "Il secondo anello è la liquidità. Una società che raccoglie 81,3 miliardi di dollari in un colpo costringe i fondi a trovare quei soldi: di solito li prendono vendendo altri titoli già in portafoglio. Per gli operatori sentiti dal Sole 24 Ore è quello che è successo, ma è una lettura da verificare: la pressione dovrebbe calare una volta chiusa la fase di collocamento.",
+    "Le cause singole non mancano. AMD paga un rapporto ribassista e Nvidia l'uscita di Jensen Huang (Milano Finanza). Le borse globali vanno verso la più lunga serie negativa degli ultimi tre anni.",
+    "L'Asia ha ereditato tutto con un effetto amplificato. A Tokyo, Seul e Taipei pochi produttori di chip pesano molto sull'indice, e di solito ne seguono la sera prima. Advantest cede il 10%, Tokyo Electron e Samsung Electronics il 7% (Il Sole 24 Ore): per questo Nikkei e Kospi perdono più del doppio del Nasdaq."
+   ],
+   "guardare": "Contano i chip americani: se recuperano mentre l'Asia è ancora in calo, la vendita era un eccesso dettato dall'orario. Se scendono ancora, perde peso l'idea che sia solo liquidità e prevale quella dei tassi.",
+   "fonte": "Fonti: AP, investingLive, Il Sole 24 Ore, Milano Finanza.",
+   "righe": [
+    [
+     "Titolo",
+     "Giovedì 19",
+     "Cosa pesa"
+    ],
+    [
+     "Anthropic (ANT)",
+     "+17,1% a 97,17 $",
+     "Aperta a 111,50 $, ha poi ceduto circa il 5% dopo la chiusura (Il Sole 24 Ore)"
+    ],
+    [
+     "AMD",
+     "-7,7% a 489,19 $",
+     "Rapporto ribassista di Hunterbrook sulla dipendenza dalla Cina"
+    ],
+    [
+     "Nvidia",
+     "Conti del 17/11 oltre le stime",
+     "Ricavi 115,8 mld $ (+103%); Huang lascia"
+    ],
+    [
+     "Mercato USA",
+     "Oltre il 90% dei titoli in calo",
+     "Sesta seduta negativa di fila"
+    ]
+   ],
+   "misura": "doppio",
+   "grafici": [
+    {
+     "file": "ai-1",
+     "dati": {
+      "tipo": "barre",
+      "dati": [
+       [
+        "Dow Jones",
+        -2.19
+       ],
+       [
+        "S&P 500",
+        -2.02
+       ],
+       [
+        "Nasdaq Comp.",
+        -2.25
+       ],
+       [
+        "Euro Stoxx 50",
+        -0.55
+       ],
+       [
+        "Hong Kong*",
+        -2.1
+       ],
+       [
+        "Nikkei 225",
+        -5.06
+       ],
+       [
+        "Kospi*",
+        -5.2
+       ]
+      ],
+      "ordina": false,
+      "dec": 1,
+      "unita": "%",
+      "titolo": "La vendita pesa di più dove i chip contano di più",
+      "sottotitolo": "variazioni %: Stati Uniti ed Europa il 19/11, Asia stamattina*"
+     },
+     "misure": [
+      538,
+      223
+     ]
+    },
+    {
+     "file": "ai-2",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       },
+       {
+        "$d": "2026-11-19"
+       }
+      ],
+      "serie": [
+       [
+        "S&P 500",
+        [
+         7376.86,
+         7549.94,
+         7520.93,
+         7619.38,
+         7592.4,
+         7561.67,
+         7416.59,
+         7340.53,
+         7323.63,
+         7175.83
+        ],
+        "#111111"
+       ]
+      ],
+      "titolo": "Sei sedute di calo cancellano il 5,8% dal massimo dell'11 novembre",
+      "sottotitolo": "S&amp;P 500, chiusure (punti)",
+      "note": [
+       [
+        {
+         "$d": "2026-11-11"
+        },
+        7619.38,
+        "11/11"
+       ],
+       [
+        {
+         "$d": "2026-11-19"
+        },
+        7175.83,
+        "19/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "fed",
+   "pagina": "fed",
+   "tema": "Fed",
+   "titolo": "I dati di ieri danno alla Fed meno crescita e più prezzi",
+   "perche": "I prezzi pagati dalle imprese di Filadelfia salgono mentre l'indice generale crolla: per noi i costi aumentano anche se l'attività frena.",
+   "quindi": "Mercoledì 25 esce l'indice dei prezzi che la Fed preferisce (PCE): un dato sopra le attese darebbe forza al rialzo da mezzo punto di cui parla Waller.",
+   "testo": [
+    "Perché i prezzi pagati contano? Sono il primo anello della catena: se le imprese pagano di più materie e servizi, di solito prima o poi lo scaricano sui prezzi al consumo. Ed ecco la scomodità per la Fed: vuole frenare l'inflazione con tassi più alti, ma tassi più alti pesano su un'economia che già rallenta.",
+    "Per questo il mercato ascolta Waller, che dopo i verbali ha indicato la possibilità di un rialzo da mezzo punto a dicembre (Milano Finanza). Il rendimento del Treasury a 10 anni, intanto, non sale: per noi si comprano titoli di Stato perché la borsa fa più paura dell'inflazione.",
+    "Anche i sussidi di disoccupazione, appena sopra le attese, non cambiano il quadro. Per noi il lavoro resta il lato dell'economia che tiene, e la Fed può quindi guardare soprattutto ai prezzi."
+   ],
+   "fonte": "Fonti: investingLive, Milano Finanza.",
+   "righe": [
+    [
+     "Dato di giovedì 19",
+     "Uscito",
+     "Confronto"
+    ],
+    [
+     "Philly Fed (manifattura)",
+     "6,3",
+     "prima 20,9"
+    ],
+    [
+     "Prezzi pagati dalle imprese",
+     "58,2",
+     "prima 43,2"
+    ],
+    [
+     "Sussidi di disoccupazione",
+     "203 mila",
+     "attesi 197 mila"
+    ]
+   ],
+   "misura": "mezzo"
+  },
+  {
+   "chiave": "petrolio",
+   "pagina": "petrolio",
+   "tema": "Petrolio",
+   "titolo": "Per il petrolio i barili in arrivo pesano più dei rischi a Riyadh",
+   "perche": "Il mercato pesa più i barili in arrivo di quelli a rischio. Le scorte USA salgono e si attende un eccesso di offerta globale (investingLive). Per l'Agenzia internazionale dell'energia (AIE) l'offerta del quarto trimestre supera la domanda di 1,7 milioni di barili al giorno (Reuters).",
+   "quindi": "Una chiusura sopra i 100 $ direbbe che il rischio Hormuz ha battuto l'eccesso di offerta.",
+   "numero": "3 novembre: l'ultima chiusura del Brent sopra i 100 dollari (103,60). Da allora ha perso l'11%.",
+   "testo": [
+    "Perché i missili non bastano? Il prezzo del petrolio somma due forze: la paura che manchi, che lo spinge su, e la certezza che ce ne sia troppo, che lo spinge giù. Dopo un attacco di solito il prezzo sale per qualche ora o qualche giorno. Poi torna dove lo porta il bilancio tra produzione e consumi, a meno che i barili non spariscano davvero.",
+    "Sul campo i segnali sono contrastanti. Le Guardie della Rivoluzione iraniane hanno detto il 16 novembre che due petroliere sono finite su mine a Hormuz, ma Reuters non ha potuto verificarlo. Ieri gli Houthi hanno colpito Riyadh.",
+    "C'è poi l'effetto sull'inflazione. Un barile più caro passa in fretta ai carburanti e quindi ai prezzi al consumo, ed è per questo che la Fed guarda al greggio con attenzione. Il calo dalle punte di fine ottobre di solito toglie pressione ai prossimi dati sui prezzi, e dà alla banca centrale una ragione in meno per alzare più del previsto.",
+    "Per l'Europa il conto è doppio. Il greggio si paga in dollari e, con un dollaro vicino ai massimi da 19 mesi ogni barile costa di più, anche quando il prezzo in dollari scende. L'inflazione dell'area euro è già al 4%, con l'energia a +20,8% (BCE)."
+   ],
+   "fonte": "Fonti: Reuters, investingLive; chiusure del Brent future (FMP).",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "petrolio-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-10-20"
+       },
+       {
+        "$d": "2026-10-21"
+       },
+       {
+        "$d": "2026-10-22"
+       },
+       {
+        "$d": "2026-10-23"
+       },
+       {
+        "$d": "2026-10-26"
+       },
+       {
+        "$d": "2026-10-27"
+       },
+       {
+        "$d": "2026-10-28"
+       },
+       {
+        "$d": "2026-10-29"
+       },
+       {
+        "$d": "2026-10-30"
+       },
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-03"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       },
+       {
+        "$d": "2026-11-19"
+       }
+      ],
+      "serie": [
+       [
+        "Brent",
+        [
+         108.79,
+         108.82,
+         113.17,
+         116.72,
+         115.81,
+         113.88,
+         115.32,
+         110.8,
+         113.43,
+         104.77,
+         103.6,
+         94.62,
+         98.29,
+         98.32,
+         92.57,
+         91.49,
+         92.76,
+         95.82,
+         95.84,
+         92.44,
+         93.14,
+         91.95,
+         91.98
+        ],
+        "#F26B1D"
+       ]
+      ],
+      "titolo": "Il Brent perde un quinto dal massimo del 23 ottobre",
+      "sottotitolo": "Brent future, chiusure ($)",
+      "soglie": [
+       [
+        100,
+        "100 $"
+       ]
+      ],
+      "note": [
+       [
+        {
+         "$d": "2026-10-23"
+        },
+        116.72,
+        "23/10"
+       ],
+       [
+        {
+         "$d": "2026-11-19"
+        },
+        91.98,
+        "19/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "europa",
+   "pagina": "europa",
+   "tema": "Europa",
+   "titolo": "L'Europa regge perché ha pochi titoli AI, ma i difensivi cedono",
+   "perche": "Il calo europeo è guidato dai settori tranquilli, non dalla tecnologia: alimentari e bevande perdono il 2,1% e la sanità l'1,8%, mentre ASML sale del 2,2% (Reuters).",
+   "quindi": "I future sull'Euro Stoxx 50 segnano -1,43% (Borsa&amp;Finanza, 08:47): per noi l'Europa non è immune alla vendita.",
+   "testo": [
+    "Perché l'Europa cade meno? La vendita di giovedì colpiva soprattutto i titoli dell'intelligenza artificiale, e gli indici europei ne hanno pochi, a differenza del Nasdaq.",
+    "Di solito in una giornata di paura i difensivi, come alimentari e sanità, tengono meglio degli altri settori. Giovedì hanno perso più del mercato: per noi chi doveva fare cassa ha venduto ciò che si vende più facilmente, non ciò che costava meno. È una lettura nostra, non confermata.",
+    "Anche su base settimanale il quadro è lo stesso: il FTSE MIB perde il 3,6% e l'Euro Stoxx 50 il 4,2%, contro il 5,1% dell'S&amp;P 500."
+   ],
+   "fonte": "Fonti: Reuters, dpa-AFX, Teleborsa, ANSA, Borsa&amp;Finanza.",
+   "righe": [
+    [
+     "Indice, 19/11",
+     "Chiusura",
+     "Variazione"
+    ],
+    [
+     "Euro Stoxx 50",
+     "6.120,30",
+     "-0,55%"
+    ],
+    [
+     "STOXX 600",
+     "638,41",
+     "-0,88%"
+    ],
+    [
+     "DAX",
+     "25.464",
+     "-1,06%"
+    ],
+    [
+     "FTSE 100",
+     "10.452,68",
+     "-0,93%"
+    ]
+   ],
+   "misura": "mezzo"
+  },
+  {
+   "chiave": "oro",
+   "pagina": "oro",
+   "tema": "Materie prime",
+   "titolo": "L'oro perde oltre 400 dollari dal 9 novembre e la Fed non aiuta",
+   "perche": "L'oro non paga interessi. Con la Fed pronta ad alzare e il dollaro vicino ai massimi, chi lo tiene rinuncia a un rendimento più alto altrove (Milano Finanza).",
+   "quindi": "Venerdì decidono dollaro e Treasury: un 10 anni sopra il 5% di solito tiene l'oro sotto pressione.",
+   "numero": "3.500 $: dove l'oro è sceso stamattina, il livello più basso da settembre 2025.",
+   "testo": [
+    "Come mai l'oro, il bene rifugio per eccellenza, scende in un giorno di paura? Per noi oggi la paura è sui tassi, non sull'inflazione fuori controllo. L'oro serve a proteggersi da un denaro che perde valore, e oggi il denaro rende di più.",
+    "C'è poi la vendita forzata: chi perde su un mercato di solito vende ciò che si vende subito per coprire le perdite. Per Milano Finanza è una delle cause del calo, insieme a dollaro più forte e attese di una stretta della Fed.",
+    "Mercoledì l'argento è sceso del 3,4% (Kitco). I metalli preziosi si muovono insieme, segno che pesa una spinta comune e non una notizia sul solo oro.",
+    "Per chi compra in euro il colpo è un po' più leggero. Dal 9 novembre l'oro perde il 10% in dollari ma l'8% in euro: per noi, perché nel frattempo l'euro è sceso contro il dollaro. Di solito un dollaro forte fa scendere l'oro in dollari più di quanto lo faccia scendere in altre valute."
+   ],
+   "fonte": "Fonti: Milano Finanza, Kitco, investingLive; chiusure dell'oro future (FMP).",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "oro-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-10-20"
+       },
+       {
+        "$d": "2026-10-21"
+       },
+       {
+        "$d": "2026-10-22"
+       },
+       {
+        "$d": "2026-10-23"
+       },
+       {
+        "$d": "2026-10-26"
+       },
+       {
+        "$d": "2026-10-27"
+       },
+       {
+        "$d": "2026-10-28"
+       },
+       {
+        "$d": "2026-10-29"
+       },
+       {
+        "$d": "2026-10-30"
+       },
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-03"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       },
+       {
+        "$d": "2026-11-19"
+       }
+      ],
+      "serie": [
+       [
+        "Oro",
+        [
+         4142.6,
+         4150.0,
+         4060.4,
+         4007.9,
+         4038.4,
+         4074.6,
+         4051.6,
+         4031.4,
+         3898.9,
+         3969.6,
+         3940.4,
+         4073.0,
+         4113.5,
+         4074.9,
+         4114.5,
+         4030.2,
+         4000.5,
+         3885.3,
+         3886.3,
+         3853.0,
+         3864.2,
+         3741.9,
+         3685.5
+        ],
+        "#B8860B"
+       ]
+      ],
+      "titolo": "L'oro cade di oltre 400 dollari dal 9 novembre",
+      "sottotitolo": "Oro future, chiusure ($ l'oncia)",
+      "note": [
+       [
+        {
+         "$d": "2026-11-09"
+        },
+        4114.5,
+        "9/11"
+       ],
+       [
+        {
+         "$d": "2026-11-19"
+        },
+        3685.5,
+        "19/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  }
+ ]
+}

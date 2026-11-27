@@ -1,0 +1,444 @@
+{
+ "formato": 1,
+ "data": "2026-11-27",
+ "moduli": [
+  {
+   "chiave": "corea",
+   "pagina": "corea",
+   "tema": "Chip e Asia",
+   "titolo": "Il rimbalzo di Seul poggia su un fondo pubblico che ancora non c'è",
+   "perche": "Per la stampa coreana pesano acquisti dopo il crollo, future americani e attesa del fondo. A nostro avviso conta soprattutto l'ultima: il 24/11 il Kospi era salito del 6,3% e il giorno dopo aveva restituito quasi tutto, un rimbalzo spento in fretta. A Tokyo e a Hong Kong il recupero è più lento.",
+   "quindi": "Sopra i 5.006 punti del 24/11 il rimbalzo avrebbe un primo segnale di forza; sotto i 4.697,51 del 25/11 il fondo avrebbe fallito la prova.",
+   "numero": "-1,8%: quanto manca al Kospi per tornare ai 5.006 punti del 24/11, il massimo di questa settimana.",
+   "testo": [
+    "Il Kospi risale due sedute dopo il crollo: la caduta è finita? Per ora è un rimbalzo, e la stampa coreana lo lega a un fondo con cui lo Stato interviene per frenare una vendita prolungata. Bastano le attese: se chi vende pensa che arriverà un compratore pubblico, ha meno fretta di vendere a qualunque prezzo.",
+    "Oggi i compratori sono gli stranieri e le istituzioni, mentre i piccoli risparmiatori hanno venduto per 1,77 mila miliardi di won. Il won si è rafforzato a 1.338,60 per dollaro.",
+    "Per un'analista di Kiwoom Securities, finché non arriva la domanda del fondo lo slancio del rimbalzo può restare limitato, anche se non c'è motivo di vedere tutto nero.",
+    "Sui chip pesa una notizia di stamattina. Nvidia e Kioxia hanno mostrato una tecnologia che usa dischi a stato solido per allargare la memoria delle schede grafiche. Samsung Electronics e SK Hynix chiudono in rialzo del 4,5% e del 5,4%. Il Kosdaq, il listino dei titoli più piccoli, sale di circa l'8,1%. Per KED Global il Kospi si avvicina ai 5.000 punti sulla speranza di un fondo di salvataggio più grande.",
+    "Fuori dalla Corea il recupero è più lento. Dal 16/11 il Nikkei è ancora sotto dell'1,6% e Hong Kong del 4,5%: il rimbalzo di oggi riempie una parte della buca, non tutta."
+   ],
+   "guardare": "Conta se Seul annuncia l'ampliamento del fondo, oggi attorno a 10,8 mila miliardi di won, e se gli stranieri continuano a comprare. Un nuovo calo a fondo già attivo smentirebbe la lettura.",
+   "fonte": "Fonti: Seoul Economic Daily, Digitaltoday, KED Global (Yonhap); chiusure di Nikkei e Hang Seng da FMP.",
+   "misura": "doppio",
+   "grafici": [
+    {
+     "file": "corea-1",
+     "dati": {
+      "tipo": "barre",
+      "dati": [
+       [
+        "23/11",
+        -3.31
+       ],
+       [
+        "24/11",
+        6.32
+       ],
+       [
+        "25/11",
+        -6.16
+       ],
+       [
+        "26/11",
+        0.29
+       ],
+       [
+        "27/11",
+        4.34
+       ]
+      ],
+      "ordina": false,
+      "dec": 1,
+      "unita": "%",
+      "titolo": "In cinque sedute il Kospi ha dato e ripreso più del 6%",
+      "sottotitolo": "Kospi, variazione giornaliera (%)"
+     },
+     "misure": [
+      538,
+      173
+     ]
+    },
+    {
+     "file": "corea-2",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       },
+       {
+        "$d": "2026-11-19"
+       },
+       {
+        "$d": "2026-11-20"
+       },
+       {
+        "$d": "2026-11-24"
+       },
+       {
+        "$d": "2026-11-25"
+       },
+       {
+        "$d": "2026-11-26"
+       },
+       {
+        "$d": "2026-11-27"
+       }
+      ],
+      "titolo": "Tokyo e Hong Kong sono ancora sotto il livello del 16/11",
+      "sottotitolo": "Nikkei 225 e Hang Seng, 16/11 = 100",
+      "serie": [
+       [
+        "Nikkei 225",
+        [
+         100.0,
+         98.7,
+         98.9,
+         99.6,
+         94.6,
+         98.3,
+         95.6,
+         96.4,
+         98.4
+        ],
+        "#111111"
+       ],
+       [
+        "Hang Seng",
+        [
+         100.0,
+         99.0,
+         98.1,
+         96.2,
+         94.3,
+         93.5,
+         92.5,
+         93.6,
+         95.5
+        ],
+        "#F26B1D"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "europa",
+   "pagina": "europa",
+   "tema": "Europa e Italia",
+   "titolo": "L'Europa rimbalza con Wall Street chiusa, ma su pochi scambi",
+   "perche": "Per ANSA gli scambi erano scarsi per la chiusura dei mercati USA; sui titoli, JPMorgan spiega Stellantis. A nostro avviso un rialzo così largo su volumi scesi di oltre un terzo dice più sul bisogno di recuperare che su un cambio di giudizio.",
+   "quindi": "Sopra i 6.074,47 punti del 23/11 con New York aperta il rimbalzo si conferma; sotto i 5.941,95 del 20/11 si riapre la caduta.",
+   "numero": "-35,7%: il calo dei pezzi scambiati ieri sull'Euro Stoxx 50 rispetto a mercoledì, da 24,8 a 15,9 milioni. Il rialzo del 2,0% si è fatto con un terzo di scambi in meno.",
+   "testo": [
+    "Una borsa che sale del 2% fa pensare che la paura sia passata. Il dato dice altro: ieri Wall Street era chiusa e l'Euro Stoxx 50 ha scambiato 15,9 milioni di pezzi contro 24,8 il giorno prima. Per noi, quando i compratori sono pochi anche ordini piccoli spostano molto i prezzi, e un movimento forte pesa meno di quanto sembri.",
+    "Il rimbalzo ha avuto protagonisti precisi e concentrati in pochi settori. Stellantis ha guadagnato l'8,8% dopo uno studio di JPMorgan sul settore. Prysmian il 6,6% dopo il via libera della Grecia all'elettrodotto sottomarino per il Dodecaneso, un giorno prima del rialzo del titolo. STMicroelectronics e Technoprobe oltre il 4% per la fiducia ritrovata sull'intelligenza artificiale.",
+    "Milano ha fatto meglio dell'Europa ma ha ancora strada. Con 48.362 punti il FTSE MIB resta sotto i 48.703 del 20/11, dopo aver toccato mercoledì i minimi da aprile. Il recupero di ieri non ha ancora cancellato la caduta della settimana.",
+    "Sul fronte dei titoli di Stato, lo spread tra BTP e Bund è sceso a 107 punti. L'Italia paga meno rispetto alla Germania, con il BTP al 4,32% e il Bund al 3,25%.",
+    "Oggi il test: Wall Street riapre fino alle 19:00 e dice se i prezzi di ieri reggono con scambi più normali. Per questo conta il volume, non solo il prezzo."
+   ],
+   "guardare": "La prova è il volume. Se oggi, con Wall Street aperta, gli scambi salgono e i prezzi tengono, ieri era un ritorno vero dei compratori; se i prezzi cedono, era un rimbalzo di mercato sottile.",
+   "fonte": "Fonti: ANSA, SoldiOnline; volumi e chiusure dell'Euro Stoxx 50 da EODHD.",
+   "misura": "doppio",
+   "grafici": [
+    {
+     "file": "europa-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-20"
+       },
+       {
+        "$d": "2026-11-23"
+       },
+       {
+        "$d": "2026-11-24"
+       },
+       {
+        "$d": "2026-11-25"
+       },
+       {
+        "$d": "2026-11-26"
+       }
+      ],
+      "titolo": "Euro Stoxx 50 e FTSE MIB sono ancora sotto il livello del 23/11",
+      "sottotitolo": "Chiusure, 20/11 = 100",
+      "serie": [
+       [
+        "Euro Stoxx 50",
+        [
+         100.0,
+         102.2,
+         101.0,
+         99.2,
+         101.2
+        ],
+        "#111111"
+       ],
+       [
+        "FTSE MIB",
+        [
+         100.0,
+         100.7,
+         98.8,
+         97.0,
+         99.3
+        ],
+        "#F26B1D"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    },
+    {
+     "file": "europa-2",
+     "dati": {
+      "tipo": "barre",
+      "dati": [
+       [
+        "Stellantis",
+        8.82
+       ],
+       [
+        "Prysmian",
+        6.57
+       ],
+       [
+        "STMicroelectronics",
+        4.58
+       ],
+       [
+        "Technoprobe",
+        4.31
+       ],
+       [
+        "Banco BPM",
+        2.81
+       ],
+       [
+        "Intesa Sanpaolo",
+        2.46
+       ],
+       [
+        "UniCredit",
+        0.87
+       ]
+      ],
+      "ordina": false,
+      "dec": 1,
+      "unita": "%",
+      "titolo": "A guidare il rialzo di Milano sono auto, cavi, chip e banche",
+      "sottotitolo": "Variazioni del 26/11, titoli del FTSE MIB (%)"
+     },
+     "misure": [
+      538,
+      223
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "oro",
+   "pagina": "oro",
+   "tema": "Materie prime",
+   "titolo": "L'oro recupera metà della caduta dal 17/11 ma resta lontano dai massimi",
+   "perche": "A nostro avviso il rimbalzo è soprattutto tecnico. Dopo la caduta del 9,0% fino al 20/11 l'oro ha ripreso metà del terreno perso, mentre l'inflazione USA più alta del previsto resta un freno.",
+   "quindi": "Sopra i 3.864 dollari del 17/11 l'oro cancellerebbe la caduta; sotto i 3.515 del 20/11 la riaprirebbe.",
+   "numero": "+4,3%: il rialzo dell'oro future ieri, il maggiore dal 3 febbraio. Cade su una settimana in cui il metallo aveva perso il 9,0% fino al 20/11.",
+   "testo": [
+    "Un oro che sale mentre il mercato scommette quasi al 100% su un rialzo Fed sembra una contraddizione. Di solito i tassi alti lo frenano: chi tiene oro non incassa interessi, e un titolo di Stato che li paga diventa più attraente. Ieri è successo il contrario del solito. A nostro avviso pesa di più il rimbalzo dopo la caduta che un cambio di giudizio sui tassi.",
+    "La salita viene dopo una caduta. Tra il 17 e il 20/11 il future era passato da 3.864 a 3.515 dollari, e nelle sedute successive ne ha ripresi 172. Se i rendimenti tornano a salire, il rimbalzo rischia di esaurirsi."
+   ],
+   "guardare": "Contano i rendimenti dei Treasury alla riapertura di oggi: se salgono e l'oro tiene, il rimbalzo avrebbe un'altra ragione; se l'oro ricade, resta una correzione.",
+   "fonte": "Fonti: The Company Chronicle; chiusure dell'oro future da FMP.",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "oro-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       },
+       {
+        "$d": "2026-11-19"
+       },
+       {
+        "$d": "2026-11-20"
+       },
+       {
+        "$d": "2026-11-23"
+       },
+       {
+        "$d": "2026-11-24"
+       },
+       {
+        "$d": "2026-11-25"
+       },
+       {
+        "$d": "2026-11-26"
+       }
+      ],
+      "titolo": "Dopo il crollo del 20/11 l'oro ha ripreso metà del terreno perso",
+      "sottotitolo": "Oro future, chiusure ($)",
+      "soglie": [
+       [
+        3864.2,
+        "17/11"
+       ],
+       [
+        3515.4,
+        "20/11"
+       ]
+      ],
+      "serie": [
+       [
+        "Oro future",
+        [
+         3853.0,
+         3864.2,
+         3741.9,
+         3685.5,
+         3515.4,
+         3651.4,
+         3561.9,
+         3535.8,
+         3687.4
+        ],
+        "#F26B1D"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "petrolio",
+   "pagina": "petrolio",
+   "tema": "Petrolio",
+   "titolo": "Il Brent resta tra 89 e 96 dollari nonostante gli attacchi nel Golfo",
+   "perche": "Per Bloomberg il rialzo del 25/11 (+3,5% a 94,61 dollari) viene dall'escalation di attacchi in Medio Oriente. Il calo del 23/11 era dovuto agli investitori che chiudevano le coperture dopo che Trump aveva lasciato più tempo ai colloqui con l'Iran.",
+   "quindi": "Una chiusura sopra i 95,84 dollari del 13/11 direbbe che il mercato ha cambiato idea sul rischio forniture; sotto gli 89,37 del 23/11 tornerebbe a prevalere la speranza nei colloqui.",
+   "numero": "6,47 $: l'ampiezza del corridoio delle chiusure dal 9/11, tra 89,37 e 95,84 dollari.",
+   "testo": [
+    "Gli attacchi si ripetono e il prezzo no. Di solito conta quanto una notizia cambia le forniture reali. Un attacco che ferma poco e per poco sposta il prezzo di una seduta; uno che blocca le consegne lo sposta per settimane. Da due settimane il mercato continua a trattare le notizie del Golfo come rumore di breve durata.",
+    "Per i paesi importatori conta anche il motivo del rincaro. Un petrolio che sale per carenza di offerta è di norma un costo secco per i paesi che lo importano. Uno che sale per domanda forte può accompagnarsi a borse in rialzo."
+   ],
+   "guardare": "Contano la prossima chiusura sopra o sotto i bordi del corridoio.",
+   "fonte": "Fonti: Rigzone (Bloomberg); chiusure del Brent future da FMP.",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "petrolio-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       },
+       {
+        "$d": "2026-11-19"
+       },
+       {
+        "$d": "2026-11-20"
+       },
+       {
+        "$d": "2026-11-23"
+       },
+       {
+        "$d": "2026-11-24"
+       },
+       {
+        "$d": "2026-11-25"
+       }
+      ],
+      "titolo": "Dal 9/11 il Brent chiude sempre dentro uno stesso corridoio",
+      "sottotitolo": "Brent future, chiusure ($)",
+      "soglie": [
+       [
+        95.84,
+        "13/11"
+       ],
+       [
+        89.37,
+        "23/11"
+       ]
+      ],
+      "serie": [
+       [
+        "Brent",
+        [
+         92.57,
+         91.49,
+         92.76,
+         95.82,
+         95.84,
+         92.44,
+         93.14,
+         91.95,
+         91.98,
+         92.57,
+         89.37,
+         91.4,
+         94.61
+        ],
+        "#111111"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  }
+ ]
+}

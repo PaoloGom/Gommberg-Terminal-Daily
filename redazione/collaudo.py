@@ -33,7 +33,9 @@ Cosa controlla:
                    falso allarme da correggere).
   5. Sito          pagine.py su una copia: file JSON e XML validi, ultima edizione in testa, nessun link interno rotto;
                    le pagine generate sono identiche a quelle nel repository (se pagine.py cambia, le pagine si
-                   rigenerano nello stesso commit); costruisci.py prepara il sito pubblico senza avvisi
+                   rigenerano nello stesso commit); costruisci.py prepara il sito pubblico senza avvisi; le pagine
+                   delle analisi (analisi_sito.py): una per analisi, testo uguale al PDF, link e sitemap, e un sorgente
+                   rotto che non ferma l'edizione
   6. Pubblicazione pubblica.sh in modalità prova sulla copia (nessun commit, nessun push)
 Esce con 1 se un passo fallisce. --tieni lascia la cartella temporanea per guardare PDF e anteprime.
 
@@ -1451,6 +1453,128 @@ def passo_sito():
     return copia
 
 
+def passo_analisi(copia):
+    """Le pagine delle analisi (G-64, analisi_sito.py) sulla copia di passo_sito: una pagina per ogni analisi delle
+    edizioni con sorgenti e nessuna per le altre, testo identico a quello stampato nel PDF, link e mappa del sito; poi,
+    su una seconda copia, un sorgente rotto e un titolo che non corrisponde non fermano pagine.py, e un'estrazione
+    rifatta da zero con il kit di oggi ridà gli stessi file."""
+    import html as H
+    sys.path.insert(0, os.path.join(copia, "redazione"))
+    import analisi_sito as A
+    base = "https://gommberg.com/"
+    piano = lambda t: re.sub(r"\s+", " ", H.unescape(re.sub(r"<[^>]+>", " ", re.sub(r"</?(?:span|b|i|a|em)\b[^>]*>", "", t)))).strip()
+    testo_pdf = lambda f: re.sub(r"\s+", " ", esegui(["pdftotext", f, "-"])[1].replace("­", "")).strip()
+    voci = sorted(json.load(open(os.path.join(copia, "edizioni.json"), encoding="utf-8")), key=lambda e: e["numero"])
+    mappa = open(os.path.join(copia, "sitemap.xml"), encoding="utf-8").read()
+    male, uguali, pezzi, nate, con = [], [], 0, 0, 0
+    for ed in voci:
+        n = f"{ed['numero']:03d}"
+        src = os.path.join(copia, "redazione", "sorgenti", ed["data"])
+        cart = os.path.join(copia, "e", n)
+        if not os.path.isfile(os.path.join(src, "edizione.py")):
+            if os.path.isdir(cart):
+                male.append(f"e/{n}/ esiste ma l'edizione non ha sorgenti")
+            continue
+        con += 1
+        try:
+            d = json.load(open(os.path.join(src, A.FILE), encoding="utf-8"))
+        except Exception as e:  # noqa: BLE001
+            male.append(f"n. {n}: {A.FILE} illeggibile ({e})"[:90]); continue
+        if d.get("errore"):
+            male.append(f"n. {n}: estrazione fallita ({d['errore'][:60]})"); continue
+        pagina_ed = open(os.path.join(copia, "e", n + ".html"), encoding="utf-8").read()
+        pdf = testo_pdf(os.path.join(copia, ed["file"]))
+        for i, m in A.collega(ed, d):
+            rel = A.indirizzo(ed, m)
+            f = os.path.join(copia, rel)
+            if not os.path.isfile(f):
+                male.append(f"manca {rel}"); continue
+            nate += 1
+            h = open(f, encoding="utf-8").read()
+            vis = piano(re.sub(r"<(script|style)\b.*?</\1>", " ", h, flags=re.S))   # quello che legge chi non esegue il JavaScript
+            campi = ([m.get(k) for k in ("titolo", "perche", "quindi", "numero", "guardare", "fonte")] + list(m.get("testo") or [])
+                     + list(m.get("punti") or [])[:3] + [c for r in m.get("righe") or [] for c in r])
+            for c in [A._piano(x) for x in campi if x]:
+                pezzi += 1
+                if c not in pdf:
+                    male.append(f"{rel}: testo che non è nel PDF: '{c[:40]}'")
+                # "Il numero" va in pagina in due pezzi (la cifra grande, poi la frase): i due pezzi, senza i due punti
+                if c not in vis and not (c == A._piano(m.get("numero")) and all(x.strip() in vis for x in c.split(":", 1))):
+                    male.append(f"{rel}: testo che manca nella pagina: '{c[:40]}'")
+            try:
+                ld = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', h, re.S).group(1))
+                assert ld["@type"] == "NewsArticle" and ld["headline"] and ld["datePublished"].startswith(ed["data"]) and ld["url"] == base + rel
+            except Exception:  # noqa: BLE001
+                male.append(f"{rel}: dati strutturati mancanti o sbagliati")
+            if f'<link rel="canonical" href="{base + rel}">' not in h:
+                male.append(f"{rel}: canonico sbagliato")
+            if f"<url><loc>{base + rel}</loc><lastmod>{ed['data']}</lastmod>" not in mappa:
+                male.append(f"{rel}: non è nella sitemap con il giorno dell'edizione")
+            if f'href="{n}/{m["pagina"]}.html"' not in pagina_ed:
+                male.append(f"e/{n}.html non porta a {rel}")
+            if "Testi generati con l'intelligenza artificiale" not in h or 'href="../../' + ed["file"] not in h:
+                male.append(f"{rel}: manca la riga AI o il rimando al giornale")
+            for u in re.findall(r"""(?:href|src|srcset)=["']([^"'#?]+)""", re.sub(r"<script\b.*?</script>", "", h, flags=re.S)):
+                if not re.match(r"(?:[a-z]+:|//)", u) and not os.path.exists(os.path.normpath(os.path.join(os.path.dirname(f), u))):
+                    male.append(f"{rel} -> {u}: link rotto")
+    for loc in re.findall(r"<loc>https://gommberg\.com/(e/\d{3}/[^<]+)</loc>", mappa):
+        if not os.path.isfile(os.path.join(copia, loc)):
+            male.append(f"sitemap: {loc} non esiste")
+    esito("Analisi: una pagina per analisi, testo uguale al PDF", not male and nate > 0,
+          "; ".join(dict.fromkeys(male))[:400] or f"{nate} pagine da {con} edizioni con sorgenti, {pezzi} testi uguali nel PDF e nella pagina "
+          "(anche senza JavaScript); dati strutturati, canonico, sitemap, link")
+    # seconda copia: un sorgente rotto, un titolo che non corrisponde e un'estrazione da rifare da zero
+    prova = os.path.join(TMP, "sito_analisi")
+    shutil.copytree(copia, prova, ignore=shutil.ignore_patterns("__pycache__"))
+    con_src = [e for e in voci if os.path.isfile(os.path.join(prova, "redazione", "sorgenti", e["data"], "edizione.py"))]
+    male = []
+    if len(con_src) < 3:
+        return esito("Analisi: un sorgente rotto non ferma l'edizione", False, "servono almeno 3 edizioni con sorgenti")
+    rotta, rifatta, storta = con_src[-1], con_src[-2], con_src[-3]
+    nr, nf, ns = (f"{e['numero']:03d}" for e in (rotta, rifatta, storta))
+    sr = os.path.join(prova, "redazione", "sorgenti", rotta["data"])
+    open(os.path.join(sr, "edizione.py"), "a", encoding="utf-8").write("\nC = {\n")      # errore di sintassi
+    os.remove(os.path.join(sr, A.FILE))
+    sf = os.path.join(prova, "redazione", "sorgenti", rifatta["data"])
+    os.remove(os.path.join(sf, A.FILE))
+    shutil.rmtree(os.path.join(prova, "e", nf))
+    ed_json = json.load(open(os.path.join(prova, "edizioni.json"), encoding="utf-8"))
+    for e in ed_json:
+        if e["numero"] == storta["numero"]:
+            e["approfondimenti"][0]["titolo"] += " (corretto)"
+    json.dump(ed_json, open(os.path.join(prova, "edizioni.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    rc, out = esegui([sys.executable, os.path.join(prova, "redazione", "pagine.py"), prova], timeout=900)
+    if rc:
+        male.append("pagine.py si è fermato: " + out.strip().splitlines()[-1][:120])
+    else:
+        if f"AVVISO analisi n. {nr}" not in out:
+            male.append(f"nessun avviso per il sorgente rotto del n. {nr}")
+        if not json.load(open(os.path.join(sr, A.FILE), encoding="utf-8")).get("errore"):
+            male.append("il sorgente rotto non ha lasciato l'errore in analisi.json")
+        if os.path.isdir(os.path.join(prova, "e", nr)) and any(f.endswith(".html") for f in os.listdir(os.path.join(prova, "e", nr))):
+            male.append(f"e/{nr}/ ha ancora pagine di analisi con il sorgente rotto")
+        if "Leggi il testo qui" in open(os.path.join(prova, "e", nr + ".html"), encoding="utf-8").read():
+            male.append(f"e/{nr}.html porta a pagine che non esistono")
+        if f"e/{nr}/" in open(os.path.join(prova, "sitemap.xml"), encoding="utf-8").read():
+            male.append(f"la sitemap ha ancora le pagine del n. {nr}")
+        primo = json.load(open(os.path.join(copia, "redazione", "sorgenti", storta["data"], A.FILE), encoding="utf-8"))["moduli"][0]["pagina"]
+        if os.path.exists(os.path.join(prova, "e", ns, primo + ".html")):
+            male.append(f"e/{ns}/{primo}.html è nata con un titolo diverso da edizioni.json")
+        if len([f for f in os.listdir(os.path.join(prova, "e", ns)) if f.endswith(".html")]) != len(storta["approfondimenti"]) - 1:
+            male.append(f"n. {ns}: con un titolo diverso devono restare le altre pagine")
+        import filecmp
+        for f in [A.FILE]:
+            if not filecmp.cmp(os.path.join(sf, f), os.path.join(copia, "redazione", "sorgenti", rifatta["data"], f), shallow=False):
+                male.append(f"n. {nf}: {A.FILE} rifatto da zero diverso da quello nel repository")
+        for f in sorted(os.listdir(os.path.join(copia, "e", nf))):
+            a, b = os.path.join(prova, "e", nf, f), os.path.join(copia, "e", nf, f)
+            if not os.path.exists(a) or (f.endswith(".html") and not filecmp.cmp(a, b, shallow=False)):
+                male.append(f"n. {nf}: e/{nf}/{f} rifatto da zero diverso o mancante")
+    esito("Analisi: un sorgente rotto non ferma l'edizione", not male, "; ".join(male)[:400] or
+          f"n. {nr} rotto: avviso, nessuna pagina né link né riga nella sitemap, il resto esce; n. {ns} con un titolo diverso: "
+          f"quella pagina non nasce, le altre sì; n. {nf} rifatto da zero con il kit di oggi: stessi file")
+
+
 def passo_lettori(copia):
     """La Gommunity (G-13): il servizio vero contro un D1 finto (redazione/sito/prova_lettori.mjs, Node 22.5+),
     la sintassi del codice che gira nel browser, la configurazione e l'avviso a Paolo sulle segnalazioni."""
@@ -1633,6 +1757,7 @@ def main():
         passo_pannello()
         copia = passo_sito()
         if isinstance(copia, str):
+            passo_analisi(copia)
             passo_lettori(copia)
             passo_pubblicazione_ramo(copia)
             passo_pubblicazione(copia)

@@ -1,0 +1,490 @@
+{
+ "formato": 1,
+ "data": "2026-11-16",
+ "moduli": [
+  {
+   "chiave": "chip",
+   "pagina": "chip",
+   "tema": "Chip e Asia",
+   "titolo": "Per noi Taipei e Seul cadono di più: nell'indice pesano i chip",
+   "perche": "I dubbi sulla spesa in intelligenza artificiale c'erano già prima del caso Huang, per gli analisti. Venerdì hanno colpito Wall Street (AMD -8,8%, Broadcom -4,8%) e oggi arrivano ai fornitori asiatici (AP).",
+   "quindi": "Il primo test è l'apertura di Taipei di mercoledì, dopo i conti che Nvidia presenta a Wall Street chiusa.",
+   "numero": "1.384 miliardi di won: le vendite nette degli stranieri a Seul. I piccoli investitori coreani ne hanno comprati 1.348: per noi chi è dentro da poco e chi è dentro da tempo leggono il caso in modo opposto (Seoul Economic Daily).",
+   "testo": [
+    "Come fa una notizia su un'azienda americana a far cadere una borsa asiatica? Per noi la risposta è che Taiwan e Corea hanno nei chip una parte molto larga dell'indice. Quando i titoli dei semiconduttori americani si muovono, di solito le loro borse li seguono, e con più forza. Il Taiex e il Kospi sono quindi i primi a pagare il dubbio che gli ordini di Nvidia possano rallentare (AP).",
+    "Dove i chip pesano meno la vendita si ferma. Hong Kong sale e Shanghai cede lo 0,9%, ma lì a pesare sono stati i dati di ottobre (Reuters), più che la paura sull'AI.",
+    "Si aggiunge una domanda di guida. Il Financial Times scrive che Huang valuta di tornare. Un suo alleato prepara una «war room» per convincere il consiglio, che secondo lo stesso giornale aveva già sondato Rene Haas, capo di Arm, come successore. Per noi l'incertezza su chi guida il principale fornitore di chip per l'AI pesa quanto i numeri.",
+    "Giovedì debutta Anthropic, che secondo Investing.com ha attirato più interesse degli investitori istituzionali di SpaceX. Per chi investe nell'AI è un'altra occasione dove mettere i soldi, e per noi una ragione in più per vendere i fornitori più cari."
+   ],
+   "guardare": "Se martedì sera Nvidia conferma ricavi vicini a 108,8 miliardi e previsioni in crescita, la vendita asiatica può restare un episodio. Se le previsioni deludono, la paura sull'AI si allarga oltre l'Asia.",
+   "fonte": "Fonti: AP, AFP, Seoul Economic Daily, Reuters, Financial Times, Investing.com.",
+   "righe": [
+    [
+     "Titolo asiatico",
+     "16/11"
+    ],
+    [
+     "Kioxia",
+     "-8,0%"
+    ],
+    [
+     "SK Hynix",
+     "-7,9%"
+    ],
+    [
+     "Tokyo Electron",
+     "-7,1%"
+    ],
+    [
+     "TSMC",
+     "-5,7%"
+    ],
+    [
+     "Samsung Electronics",
+     "-4,5%"
+    ],
+    [
+     "SoftBank",
+     "-3,7%"
+    ]
+   ],
+   "misura": "doppio",
+   "grafici": [
+    {
+     "file": "chip-1",
+     "dati": {
+      "tipo": "barre",
+      "dati": [
+       [
+        "Taiwan (Taiex)",
+        -6.0
+       ],
+       [
+        "Corea (Kospi)",
+        -3.6
+       ],
+       [
+        "Giappone (Nikkei)",
+        -2.4
+       ],
+       [
+        "Cina (Shanghai)",
+        -0.9
+       ],
+       [
+        "Hong Kong (Hang Seng)",
+        0.5
+       ]
+      ],
+      "ordina": false,
+      "dec": 1,
+      "unita": "%",
+      "titolo": "La vendita colpisce Taipei e Seul e risparmia Hong Kong",
+      "sottotitolo": "variazione % delle chiusure del 16/11"
+     },
+     "misure": [
+      538,
+      173
+     ]
+    },
+    {
+     "file": "chip-2",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       }
+      ],
+      "serie": [
+       [
+        "Nikkei",
+        [
+         63081.86,
+         62188.63,
+         61077.9,
+         57434.77,
+         58775.5,
+         60459.58,
+         61248.59,
+         60819.36,
+         61142.35,
+         59662.02
+        ],
+        "#111111"
+       ]
+      ],
+      "titolo": "Il Nikkei torna sotto 60.000 dopo una risalita da 57.435",
+      "sottotitolo": "Nikkei 225, chiusure (punti)",
+      "soglie": [
+       [
+        60000,
+        "60.000"
+       ]
+      ],
+      "note": [
+       [
+        {
+         "$d": "2026-11-06"
+        },
+        57434.77,
+        "6/11"
+       ],
+       [
+        {
+         "$d": "2026-11-16"
+        },
+        59662.02,
+        "16/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "rifugi",
+   "pagina": "rifugi",
+   "tema": "Tassi USA",
+   "titolo": "Borse su e rifugi giù: per noi la Fed pesa più della paura",
+   "perche": "Dopo i prezzi di ottobre i future danno l'87,1% di probabilità a un rialzo Fed da un quarto di punto a dicembre, il 12,9% a uno da mezzo punto (Kitco). Per noi la scommessa sui tassi pesa più della paura sui chip.",
+   "quindi": "Se i verbali di mercoledì sono più duri del previsto, il 2 anni resta sopra il 4,88% di venerdì. Se sono più cauti, di solito sono i rendimenti brevi a scendere per primi.",
+   "numero": "-4,6%: l'oro in una settimana, da 4.074,90 a 3.886,30 $, mentre il Treasury a 10 anni ha chiuso la settimana a 5,15%: oro e titoli di Stato hanno perso insieme.",
+   "testo": [
+    "Perché la Fed muove titoli di Stato e oro in direzione opposta alla paura? Chi presta soldi allo Stato americano per due anni guarda ai tassi della Fed: se li aspetta più alti, chiede un rendimento più alto e il prezzo del titolo scende. L'oro non paga interessi, e quando un deposito rende di più tenerlo costa di più, così di solito molti lo vendono.",
+    "Il segno della Fed si legge nella forma della curva. In una settimana il 2 anni è salito di 37 punti base e il 10 anni di 29. Il breve si muove di più, per noi perché è lì che si scommette sul rialzo. Venerdì, con il Nasdaq in calo dello 0,9%, il 10 anni è salito di altri 5. La paura sui chip non ha portato acquisti di titoli di Stato, che di solito fanno da rifugio.",
+    "A fare il rifugio è stato il dollaro. L'euro vale 1,1021 dollari contro 1,1143 di una settimana prima, e mercoledì l'indice del dollaro era già vicino al massimo da aprile 2025 (Kitco).",
+    "Il prossimo esame sono i verbali di mercoledì, preceduti oggi da Williams e Warsh. Waller aveva aperto a un rialzo da mezzo punto e Logan a due da un quarto di punto (CNBC): i verbali dicono quanto questa linea sia condivisa.",
+    "Martedì conta anche un dato sui consumi: le vendite al dettaglio USA sono attese a +0,2% sul mese, dopo il +0,8% di settembre (FXEmpire). Per noi consumi più deboli darebbero alla Fed un motivo per frenare, e di solito farebbero scendere prima i rendimenti brevi."
+   ],
+   "guardare": "Se i verbali parlano di più rialzi, l'oro fatica a recuperare. Se molti membri frenano, il mercato taglierà in fretta la scommessa sul mezzo punto.",
+   "fonte": "Fonti: Kitco, CNBC, curva par del Tesoro USA via FMP, FXEmpire.",
+   "misura": "doppio",
+   "grafici": [
+    {
+     "file": "rifugi-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-03"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       }
+      ],
+      "titolo": "Il 2 anni sale più del 10 anni: la distanza scende a 27 punti base",
+      "sottotitolo": "10 anni meno 2 anni, chiusure (punti base)",
+      "serie": [
+       [
+        "10 anni meno 2 anni",
+        [
+         32,
+         34,
+         32,
+         38,
+         35,
+         32,
+         25,
+         24,
+         27
+        ],
+        "#111111"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    },
+    {
+     "file": "rifugi-2",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-03"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       }
+      ],
+      "serie": [
+       [
+        "Oro future",
+        [
+         3969.6,
+         3940.4,
+         4073.0,
+         4113.5,
+         4074.9,
+         4114.5,
+         4030.2,
+         4000.5,
+         3885.3,
+         3886.3
+        ],
+        "#B8860B"
+       ]
+      ],
+      "titolo": "L'oro scende sotto 3.900 dollari dal massimo del 9 novembre",
+      "sottotitolo": "Oro future, chiusure ($ l'oncia)",
+      "note": [
+       [
+        {
+         "$d": "2026-11-09"
+        },
+        4114.5,
+        "9/11"
+       ],
+       [
+        {
+         "$d": "2026-11-13"
+        },
+        3886.3,
+        "13/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "europa",
+   "pagina": "europa",
+   "tema": "Europa",
+   "titolo": "La settimana più forte da aprile per l'Europa arriva mentre l'AI vacilla",
+   "perche": "Secondo l'analista Robert Greil (Merck Finck), le borse europee vanno meglio quando il settore dell'AI è debole. Venerdì il Ftse Mib ha chiuso a +0,1%, l'Euro Stoxx 50 ha ceduto lo 0,19% e il Nasdaq ha perso lo 0,9%.",
+   "quindi": "Oggi l'apertura mostra se la vendita asiatica pesa su Milano: giovedì 12 Technoprobe aveva perso il 4,73% con il calo di Nvidia (ANSA).",
+   "numero": "1,3 punti: il vantaggio del Ftse Mib sul Nasdaq in cinque sedute, un margine che per noi dice poco su un'intera stagione ma molto su questa settimana.",
+   "testo": [
+    "In una settimana in cui Nvidia ha perso terreno quasi ogni giorno, le borse europee sono salite più di quelle americane. A Milano il Ftse Mib ha chiuso vicino a 52.000 punti e l'Euro Stoxx 50 ha toccato giovedì il massimo da fine agosto (dpa-AFX).",
+    "Non è una regola. I titoli italiani legati ai chip seguono Nvidia, come Technoprobe giovedì scorso; venerdì Fincantieri e Generali hanno ceduto per i loro conti, non per la tecnologia (SoldiOnline).",
+    "La seduta di venerdì è stata «senza direzione» e gli scambi sono scesi a 2,66 miliardi di euro dai 3,62 del venerdì precedente (SoldiOnline). Pochi acquisti nuovi: per noi il segno di una settimana che aspetta i conti di Nvidia prima di scegliere."
+   ],
+   "fonte": "Fonti: dpa-AFX, AWP, SoldiOnline, ANSA.",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "europa-1",
+     "dati": {
+      "tipo": "barre",
+      "dati": [
+       [
+        "Ftse Mib",
+        3.61
+       ],
+       [
+        "Euro Stoxx 50",
+        3.51
+       ],
+       [
+        "S&P 500",
+        2.51
+       ],
+       [
+        "Nasdaq",
+        2.27
+       ],
+       [
+        "Russell 2000",
+        1.32
+       ]
+      ],
+      "ordina": false,
+      "dec": 1,
+      "unita": "%",
+      "titolo": "Europa e Milano battono Wall Street nella settimana",
+      "sottotitolo": "variazione % del 6-13/11"
+     },
+     "misure": [
+      538,
+      173
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "petrolio",
+   "pagina": "petrolio",
+   "tema": "Petrolio",
+   "titolo": "Con Hormuz chiuso, il petrolio caro frena chi lo importa: il Giappone",
+   "perche": "Il Giappone importa quasi tutto il suo petrolio e lo stretto di Hormuz, la rotta principale, è di fatto bloccato (AP).",
+   "quindi": "Con il dollaro vicino a 160 yen torna il tema dell'intervento di Tokyo, che un funzionario giapponese ha ricordato venerdì (AP).",
+   "numero": "Un terzo in più: di tanto il Brent è più caro di fine febbraio, quando costava circa 72 $ prima della guerra in Iran (AP).",
+   "testo": [
+    "Quando il petrolio sale perché manca l'offerta, di solito soffrono i paesi che lo comprano: pagano di più senza vendere di più. Europa e Giappone sono i casi più chiari, e Tokyo ha già sentito il colpo sul Pil, calato per la prima volta in un anno (AP).",
+    "Intanto Hormuz resta chiuso, e proprio da quella rotta la Cina riceveva circa un terzo del suo greggio, che ora deve cercare altrove (Al Jazeera)."
+   ],
+   "fonte": "Fonti: AP, Al Jazeera, chiusure del Brent future.",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "petrolio-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-03"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       }
+      ],
+      "serie": [
+       [
+        "Brent",
+        [
+         104.77,
+         103.6,
+         94.62,
+         98.29,
+         98.32,
+         92.57,
+         91.49,
+         92.76,
+         95.82,
+         95.84
+        ],
+        "#F26B1D"
+       ]
+      ],
+      "titolo": "Il Brent risale a 96 dollari dopo il minimo del 10 novembre",
+      "sottotitolo": "Brent future, chiusure ($)",
+      "soglie": [
+       [
+        100,
+        "100 $"
+       ]
+      ],
+      "note": [
+       [
+        {
+         "$d": "2026-11-10"
+        },
+        91.49,
+        "10/11"
+       ],
+       [
+        {
+         "$d": "2026-11-13"
+        },
+        95.84,
+        "13/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  }
+ ]
+}

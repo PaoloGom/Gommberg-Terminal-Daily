@@ -1,0 +1,294 @@
+{
+ "formato": 1,
+ "data": "2026-11-23",
+ "moduli": [
+  {
+   "chiave": "chip",
+   "pagina": "chip",
+   "tema": "Chip e Asia",
+   "titolo": "Le vendite sui chip passano dai prezzi alla fiducia dopo l'inchiesta su Nvidia",
+   "perche": "L'indagine della SEC, riportata dalla stampa americana, tocca il titolo che di solito garantisce la storia dell'intelligenza artificiale, dopo l'uscita di Huang e i conti del 17/11. A nostro avviso il mercato non prezza più solo gli utili, ma anche il rischio di scoprire che i conti non reggono, e il VIX, l'indice della paura, lo mostra.",
+   "quindi": "Se i future di stanotte reggono all'apertura di Wall Street, il ribasso di venerdì era in parte un eccesso.",
+   "numero": "-14%: il calo di Nvidia in una sola seduta, più del 20% in settimana.",
+   "testo": [
+    "Perché un'inchiesta su un solo titolo fa cadere un intero settore? Perché Nvidia è il titolo su cui poggia la storia dell'intelligenza artificiale: i suoi conti dicono quanto spendono gli altri per i chip. Se i conti vengono messi in dubbio, tende a perdere fiducia tutta la filiera, dai produttori di memorie a chi quest'anno ha guadagnato di più.",
+    "A Seul pesa anche la struttura dell'indice. Pochi grandi produttori di chip, come Samsung e SK Hynix, fanno una parte larga del Kospi, e per questo la borsa coreana cade più di quella di Hong Kong. Il governo ha avviato i preparativi per attivare un fondo di stabilizzazione, e il ministero delle Finanze dice che può usarlo subito se i ribassi continuano.",
+    "Il mercato ha anche già bloccato gli scambi. Al secondo giorno di sidecar, il meccanismo che sospende per qualche minuto le vendite automatiche, il Kospi ha toccato un minimo di giornata a 4.586,80. È un segnale di panico più che di notizie nuove."
+   ],
+   "guardare": "Decide l'apertura di Wall Street: se i chip rimbalzano con i future il ribasso era un eccesso, se ricadono il timore sui conti diventa un tema globale.",
+   "fonte": "Fonti: AFP, InvestmentNews, comunicato Nvidia (SEC), The Korea Times, JKN, Al Jazeera, Schwab.",
+   "punti": [
+    "<b>Huang.</b> Si è dimesso il 12 novembre da amministratore delegato, President e consigliere; Colette Kress è amministratore delegato ad interim.",
+    "<b>Taiwan.</b> La Borsa perde il 17% in settimana, il calo settimanale più forte dal 1990.",
+    "<b>Seul.</b> Il Kospi chiude a 4.708,54 (-3,31%), il minimo dal 13 gennaio, con stranieri venditori netti per la settima seduta."
+   ],
+   "misura": "doppio",
+   "grafici": [
+    {
+     "file": "chip-1",
+     "dati": {
+      "tipo": "barre",
+      "dati": [
+       [
+        "Nasdaq",
+        -5.3
+       ],
+       [
+        "S&P 500",
+        -3.7
+       ],
+       [
+        "Russell 2000",
+        -2.8
+       ],
+       [
+        "Euro Stoxx 50",
+        -2.8
+       ],
+       [
+        "FTSE MIB",
+        -2.5
+       ],
+       [
+        "Hang Seng",
+        -1.9
+       ],
+       [
+        "Kospi (23/11)",
+        -3.3
+       ]
+      ],
+      "ordina": false,
+      "dec": 1,
+      "unita": "%",
+      "titolo": "Le vendite colpiscono di più i listini con più tecnologia",
+      "sottotitolo": "variazioni % del 20/11 (Kospi: 23/11)"
+     },
+     "misure": [
+      538,
+      223
+     ]
+    },
+    {
+     "file": "chip-2",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       },
+       {
+        "$d": "2026-11-19"
+       },
+       {
+        "$d": "2026-11-20"
+       }
+      ],
+      "serie": [
+       [
+        "VIX",
+        [
+         22.91,
+         25.46,
+         24.56,
+         28.44,
+         35.89
+        ],
+        "#F26B1D"
+       ]
+      ],
+      "titolo": "L'indice della paura accelera nella seconda metà della settimana",
+      "sottotitolo": "VIX, chiusure",
+      "note": [
+       [
+        {
+         "$d": "2026-11-16"
+        },
+        22.91,
+        "16/11"
+       ],
+       [
+        {
+         "$d": "2026-11-20"
+        },
+        35.89,
+        "20/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "treasury",
+   "pagina": "treasury",
+   "tema": "Tassi USA",
+   "titolo": "Con la Fed in rialzo i Treasury restano un rifugio e i rendimenti scendono",
+   "perche": "Venerdì il 10 anni è sceso dal 5,04% al 4,92% e il 2 anni di 13 pb. Eppure i future sui tassi danno il rialzo di dicembre tra il 92% e il 99%. A nostro avviso ha prevalso la paura: quando si vende la borsa, si comprano Treasury, il loro prezzo sale e il rendimento scende.",
+   "quindi": "Se il 10 anni torna sopra il 5,04% la paura non basta più e torna a contare la Fed.",
+   "numero": "92-99%: la probabilità di un rialzo a dicembre secondo i future sui tassi, a seconda della stima.",
+   "testo": [
+    "Rendimenti in calo con una Fed pronta a rialzare: venerdì il mercato ha guardato più alla paura che alla banca centrale. Chi vende azioni cerca un luogo sicuro. Di solito lo trova nei titoli di Stato americani, dove più compratori fanno salire il prezzo e scendere il rendimento, che si muove al contrario.",
+    "La Fed intanto non ha cambiato linea. Waller ha detto il 18 novembre che non si può aspettare e che a dicembre può servire un rialzo da 50 punti base. Nei verbali di ottobre un paio di partecipanti indicano che un aumento superiore a 25 punti base potrebbe essere considerato alla prossima riunione, a seconda dei dati sull'inflazione.",
+    "Le due cose possono convivere per qualche giorno, ma non a lungo. Se la paura cala, tende a tornare il peso della Fed, e il rendimento sale di nuovo. Il segnale da seguire è se rendimenti e borsa tornano a muoversi nella stessa direzione, come accade quando prevale il timore sui tassi.",
+    "Per capire la differenza conta la scadenza. Il rendimento a 2 anni segue di più le attese sui tassi della banca centrale nei prossimi mesi, quello a 10 anni anche crescita e inflazione di lungo periodo. Per questo venerdì il 2 anni è sceso di 13 pb, e di 12 il 10 anni: il mercato ha comprato titoli di tutte le scadenze, senza scegliere. Un rialzo da 50 pb a dicembre, se arrivasse, spingerebbe di solito su soprattutto il 2 anni. È il titolo più legato alle mosse immediate della banca centrale. Per questo, nei giorni di attesa di una riunione, il suo rendimento tende a muoversi più di quello a 10 anni.",
+    "Venerdì il 2 anni ha chiuso al 4,63% e il 10 anni al 4,92%, dopo un 2 anni a 4,83% lunedì scorso. Anche la fiducia dei consumatori dà un'indicazione: secondo l'Università del Michigan le famiglie si aspettano un'inflazione del 3,7% a un anno. È proprio il tipo di dato che la Fed guarda per capire se le attese di prezzo si stanno radicando."
+   ],
+   "guardare": "Mercoledì il PCE di ottobre: un dato sopra il previsto rafforzerebbe la Fed e riporterebbe su i rendimenti, uno sotto lascerebbe spazio al rifugio.",
+   "fonte": "Fonti: Stock Titan, Schwab, Investrade, Reuters (Business Day), Newsquawk.",
+   "punti": [
+    "<b>Verbali.</b> Nella riunione di ottobre un paio di partecipanti vedono possibile un aumento oltre i 25 pb alla prossima; quasi tutti ritengono probabile un altro rialzo.",
+    "<b>Attese.</b> Le attese di inflazione delle famiglie, rilevate dal Michigan, sono tra i dati che la Fed guarda con più attenzione."
+   ],
+   "misura": "doppio",
+   "grafici": [
+    {
+     "file": "treasury-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       },
+       {
+        "$d": "2026-11-19"
+       },
+       {
+        "$d": "2026-11-20"
+       }
+      ],
+      "serie": [
+       [
+        "2 anni",
+        [
+         4.83,
+         4.8,
+         4.8,
+         4.76,
+         4.63
+        ],
+        "#111111"
+       ]
+      ],
+      "titolo": "Il 2 anni chiude la settimana ai minimi del periodo",
+      "sottotitolo": "Treasury a 2 anni, chiusure (%)",
+      "note": [
+       [
+        {
+         "$d": "2026-11-16"
+        },
+        4.83,
+        "16/11"
+       ],
+       [
+        {
+         "$d": "2026-11-20"
+        },
+        4.63,
+        "20/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "europa",
+   "pagina": "europa",
+   "tema": "Europa e Italia",
+   "titolo": "A Milano pesano chip e banche, e l'Europa tocca il minimo da maggio",
+   "perche": "Secondo ANSA a Milano pesano i chip e le banche. Le banche, per ANSA, pagano la possibile stretta della Bce sui requisiti patrimoniali e l'emendamento della Lega che alza di tre punti l'Ires.",
+   "quindi": "Alle 10:00 i PMI flash dell'area euro dicono se l'attività regge: da lì si vede se Milano rimbalza, anche perché STMicroelectronics, a 36,72 euro venerdì, segue i chip americani.",
+   "testo": [
+    "Milano perde quasi quanto l'Europa, e il motivo sta nella composizione: il listino italiano ha pochi grandi tecnologici ma molte banche, e venerdì sono caduti entrambi. Le banche tendono a soffrire quando si teme di dover accantonare più capitale. Soffrono anche per una tassa più alta sui loro utili, e per questo hanno perso tra il 2% e il 3%.",
+    "L'Euro Stoxx 50 ha perso circa il 7% in una settimana e chiude venerdì al livello più basso da maggio. Pesa il legame con Wall Street: quando i chip americani cadono, tendono a seguire i loro fornitori europei, e in Italia lo si vede su STMicroelectronics. Moncler e Stellantis hanno segnato il minimo a 52 settimane. Lo spread tra BTP e Bund chiude a 109,9 punti base, da 106 il giorno prima: i titoli di Stato italiani rendono un po' di più rispetto a quelli tedeschi."
+   ],
+   "fonte": "Fonti: ANSA, Money.it, dpa-AFX.",
+   "righe": [
+    [
+     "Venerdì 20 novembre",
+     "Variazione",
+     "Il punto"
+    ],
+    [
+     "FTSE MIB",
+     "-2,48%",
+     "33 titoli su 40 in ribasso; -6,08% da inizio settimana"
+    ],
+    [
+     "Euro Stoxx 50",
+     "-2,81%",
+     "Chiude a 5.941,95, il livello più basso da maggio"
+    ],
+    [
+     "STMicroelectronics",
+     "-10,78%",
+     "A 36,72 euro"
+    ],
+    [
+     "Banco Bpm, Unicredit, Intesa",
+     "-3,02%, -2,54%, -2,41%",
+     "Ipotesi di stretta Bce e Ires più alta"
+    ]
+   ],
+   "misura": "mezzo"
+  },
+  {
+   "chiave": "oro",
+   "pagina": "oro",
+   "tema": "Materie prime",
+   "titolo": "L'oro non ripara dal panico perché dollaro e tassi pesano più della paura",
+   "perche": "Di solito l'oro sale quando c'è paura, ma venerdì è sceso insieme alle azioni. A nostro avviso pesa il dollaro forte: con una Fed pronta a rialzare i tassi, tenere un metallo che non rende interessi costa di più.",
+   "quindi": "Mercoledì alle 14:30 il PCE: un dato più morbido darebbe fiato all'oro, uno più caldo lo terrebbe sotto i 3.600 $.",
+   "testo": [
+    "L'oro cade anche quando c'è paura, e la ragione è che non è solo un rifugio: è anche un'alternativa ai titoli che pagano interessi. Quando i tassi salgono o si attendono più alti, chi lo detiene rinuncia a un guadagno maggiore, e il metallo tende a perdere appeal. Il calo di venerdì non lo spiega una notizia sola: a nostro avviso è la somma di dollaro forte, tassi e vendite per coprire perdite altrove.",
+    "La settimana ha perso più del 9%: un calo di questa ampiezza in una settimana è raro per un metallo che molti considerano un porto sicuro. Se il rialzo della Fed a dicembre venisse confermato dal PCE di mercoledì, la pressione dei rendimenti tenderebbe a restare. Se il dato fosse più morbido, il metallo potrebbe recuperare almeno una parte del calo. Giovedì i mercati americani sono chiusi per il Ringraziamento e venerdì le azioni chiudono alle 19:00 a Roma. Con pochi scambi anche pochi ordini possono muovere il prezzo più del solito.",
+    "Per chi guarda i mercati, la lezione è che un rifugio non lo è sempre: dipende da cosa spaventa. Con la paura di una bolla sull'intelligenza artificiale i Treasury hanno funzionato da riparo, l'oro no. Per questo conviene chiedersi ogni giorno se a guidare i prezzi sono i tassi o la borsa."
+   ],
+   "fonte": "Fonti: Investrade, Schwab.",
+   "righe": [
+    [
+     "Oro future",
+     "Valore",
+     "Variazione"
+    ],
+    [
+     "Chiusura del 20/11",
+     "3.515,40 $",
+     "-4,6%"
+    ],
+    [
+     "Chiusura del 19/11",
+     "3.685,50 $",
+     "-"
+    ],
+    [
+     "Nella settimana",
+     "-",
+     "oltre -9%"
+    ]
+   ],
+   "misura": "mezzo"
+  }
+ ]
+}

@@ -11,7 +11,7 @@ Legenda: **[V]** verificato (nel repository o sulla pagina ufficiale indicata, c
 
 ## 2. Che cosa c'è nei sorgenti archiviati
 
-- `redazione/sorgenti/AAAA-MM-GG/edizione.py` contiene il dizionario `C` con, per ogni analisi (`C["moduli"]`): `tema`, `titolo`, `perche`, `quindi`, `numero` (43 su 46), `testo` (2-5 paragrafi), `guardare`, `fonte` e i grafici come **dati** (`tipo`, serie, titolo, sottotitolo, soglie) **[V]**. Il catenaccio come campo **non esiste**: nel mockup fa da catenaccio il "Perché" (1-2 frasi). Tabelle (`righe`) e `punti` sono previsti dal modello ma nelle 10 edizioni archiviate non li usa nessuno.
+- `redazione/sorgenti/AAAA-MM-GG/edizione.py` contiene il dizionario `C` con, per ogni analisi (`C["moduli"]`): `tema`, `titolo`, `perche`, `quindi`, `numero` (43 su 46), `testo` (2-5 paragrafi), `guardare`, `fonte` e i grafici come **dati** (`tipo`, serie, titolo, sottotitolo, soglie) **[V]**. Il catenaccio come campo **non esiste**: nel mockup fa da catenaccio il "Perché" (1-2 frasi). Tabelle (`righe`) e `punti` ci sono in alcune analisi (correzione del 27/11 sera: la prima lettura li aveva mancati); le pagine costruite li riportano.
 - Le riscritture del desk stanno in `desk_ok.json` accanto: si applicano con `desk.applica(C)`, come fa il motore. Fatto questo, i 46 titoli ricavati coincidono tutti con quelli di `edizioni.json` **[V]**.
 - **Tutto si genera a zero token** **[V]**: `estrai.py` (in questa cartella) carica `edizione.py` senza impaginare, applica il desk e ridisegna i grafici con le stesse funzioni del motore (`linee`, `barre`, che salvano già un gemello SVG). Testo medio: 253 parole per analisi.
 - **Edizioni recuperabili: 10 su 35** (n. 026-035, dal 16/11), 46 analisi, 50 grafici, tutte rifatte qui senza errori **[V]**. Le n. 001-025 hanno solo il PDF: se ne può estrarre il testo con `pdftotext`, ma senza struttura (titoli, riquadri, fonti da separare a mano) e senza i dati dei grafici. Consiglio: lasciarle solo PDF.
@@ -45,3 +45,11 @@ Pagine in `mockup/`, rigenerabili con `estrai.py` e `mockup.py`. Immagini: `A-pc
 - Se Google oggi indicizza e mostra i nostri PDF, e con quali ricerche (serve Search Console).
 - Che Cloudflare applichi `_headers` con `Link: rel="canonical"` ai PDF serviti dagli asset statici.
 - Negli screenshot i caratteri sono Archivo e IBM Plex scaricati dal repository di Google Fonts su GitHub (fonts.googleapis.com bloccato qui): stessi caratteri, ma non la stessa copia che serve il sito.
+
+## 6. Costruita (27/11 sera, dopo l'ok di Paolo su B)
+
+- `redazione/analisi_sito.py`, chiamato da `pagine.py`. Due tempi: estrazione una volta per edizione (processo a parte, `edizione.py` + desk -> `redazione/sorgenti/<data>/analisi.json` e grafici SVG in `e/NNN/`), poi le pagine `e/NNN/<chiave>.html` a ogni pubblicazione. Non blocca mai: sorgente rotto = `analisi.json` con `"errore"`, un avviso, nessuna pagina; titolo diverso da `edizioni.json` = quella pagina non nasce.
+- Indirizzi `e/NNN/<chiave>.html` (es. `e/035/corea.html`): la chiave del modulo, non il titolo.
+- PDF: nessuna intestazione `Link: rel="canonical"`. Google la prevede per pagine "duplicate or very similar" (consolidate-duplicate-urls, agg. 10/07/2026); un PDF contiene 4-5 analisi più mercati, agenda e scommessa, non è il doppione di nessuna pagina.
+- 46 pagine da 10 edizioni (n. 026-035); le n. 001-025 senza pagine. Testo identico al PDF: 562 testi su 562 (titoli, perché, e quindi, numero, testo, da guardare, fonti, punti e celle delle tabelle; pdftotext), verificato dal collaudo a ogni giro.
+- Immagini in `costruita/`.

@@ -184,6 +184,13 @@ async def main():
     elenco = ed if isinstance(ed, list) else ed.get("edizioni", [])
     numeri = sorted({int(e["numero"]) for e in elenco if isinstance(e, dict) and e.get("numero")})[-N:]
     pagine = FISSE + [f"e/{n:03d}.html" for n in numeri] + [f"?n={numeri[0]}&leggi=1", "pagina-che-non-esiste.html"]
+    # le pagine delle analisi dell'ultima edizione (G-64): la scheda e/NNN.json porta "pagina" per ogni analisi che ce l'ha
+    s2, c2 = get(PROVA + f"e/{numeri[-1]:03d}.json")
+    if s2 == 200:
+        try:
+            pagine += [a["pagina"] for a in json.loads(c2).get("approfondimenti") or [] if isinstance(a, dict) and a.get("pagina")]
+        except ValueError:
+            pass
     from playwright.async_api import async_playwright   # solo qui: il --veloce gira senza Playwright
     problemi, cambia = 0, 0
     async with async_playwright() as p:
