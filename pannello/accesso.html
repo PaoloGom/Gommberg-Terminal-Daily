@@ -74,10 +74,14 @@ h1{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:36px;li
   "use strict";
   var f = document.getElementById("accesso"), err = document.getElementById("errore"), entra = document.getElementById("entra");
   var pw = document.getElementById("password"), mostra = document.getElementById("mostra");
+  // Un indirizzo diverso a ogni rientro (?...): con solo il segno # in coda (#gommunity) il browser non ricaricherebbe la
+  // pagina. L'area toglie il ?... dalla barra degli indirizzi.
   // Arrivando da un link di un altro sito (l'email di GitHub, per esempio) il browser non manda il cookie di sessione
   // (SameSite=Strict): se la sessione c'è, si riapre l'area da qui, che è lo stesso sito.
   fetch("/api/redazione/sessione", { cache: "no-store", credentials: "same-origin" }).then(function (r) {
-    if (r.ok) location.replace("/redazione/" + location.hash);
+    // una volta ogni 10 secondi al massimo: se per qualunque motivo l'area tornasse qui, niente giro infinito
+    var t = 0; try { t = +sessionStorage.getItem("gtd-rientro") || 0; } catch (e) { t = 0; }
+    if (r.ok && Date.now() - t > 10000) { try { sessionStorage.setItem("gtd-rientro", String(Date.now())); } catch (e) {} location.replace("/redazione/?" + Date.now().toString(36) + location.hash); }
   }, function () {});
   mostra.addEventListener("click", function () {
     var v = pw.type === "password"; pw.type = v ? "text" : "password"; mostra.textContent = v ? "nascondi" : "mostra"; mostra.setAttribute("aria-pressed", String(v)); pw.focus();
@@ -92,7 +96,7 @@ h1{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:36px;li
       body: JSON.stringify({ utente: u, password: p, resta: document.getElementById("resta").checked }) })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
       .then(function (x) {
-        if (x.ok) { location.replace("/redazione/" + location.hash); return; }
+        if (x.ok) { location.replace("/redazione/?" + Date.now().toString(36) + location.hash); return; }
         entra.disabled = false; entra.textContent = "Entra"; pw.value = ""; pw.focus();
         dici((x.j && x.j.errore) || "Accesso non riuscito: riprova tra poco.");
       }, function () { entra.disabled = false; entra.textContent = "Entra"; dici("Connessione assente: riprova tra poco."); });

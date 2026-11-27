@@ -1157,6 +1157,7 @@ document.addEventListener("click",function(e){var t=e.target.closest?e.target:nu
 document.addEventListener("change",function(e){if(e.target.id=="ged"){RED.g.ed=e.target.value;RED.g.id=0;gCarica()}});
 
 var m0=/^#gommunity\/c(\d{1,9})$/i.exec(location.hash);if(m0)RED.g.id=+m0[1];
+if(location.search&&history.replaceState)history.replaceState(null,"",location.pathname+location.hash);   /* il ?... del rientro dalla schermata di accesso */
 /* ================= METODO ================= */
 function metodo(sez){var Q=D?piano({pn:D.reg[D.reg.length-1].pn}):{nome:"-",tasso:null},t=D?D.tar.slice().reverse():[];
   var rows=[["Uscita","entro le "+S.uscita,"dopo le "+S.uscita],["Puntualità","almeno "+S.punt[0]+"%","sotto "+S.punt[1]+"%"],["Consumo a settimana","fino a "+S.consumo[0]+" punti","oltre "+S.consumo[1]]];

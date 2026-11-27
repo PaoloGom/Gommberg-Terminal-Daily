@@ -568,7 +568,7 @@ async function areaRiservata() {
   for (const [corpo, atteso, nome] of [[{ attuale: PW, nuova: "corta", conferma: "corta" }, 400, "troppo corta"],
                                        [{ attuale: PW, nuova: NUOVA, conferma: NUOVA + "x" }, 400, "conferma diversa"],
                                        [{ attuale: PW, nuova: PW, conferma: PW }, 400, "uguale all'attuale"],
-                                       [{ attuale: "non è questa la password", nuova: NUOVA, conferma: NUOVA }, 401, "attuale sbagliata"]]) {
+                                       [{ attuale: "non è questa la password", nuova: NUOVA, conferma: NUOVA }, 403, "attuale sbagliata (403, non 401: la sessione resta)"]]) {
     r = await red("POST", "/api/redazione/password", { corpo, cookie: p1.cookie, csrf: p1.csrf });
     verifica("password: " + nome + ": rifiutata", r.s === atteso, r);
   }

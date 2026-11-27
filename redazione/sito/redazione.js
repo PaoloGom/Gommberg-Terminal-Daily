@@ -320,7 +320,7 @@ async function cambiaPassword(c, corpo) {
   // anche qui i tentativi contano: chi ha rubato una sessione non prova le password all'infinito
   const errori = await c.db.prepare("SELECT COUNT(*) AS n FROM accessi WHERE ip = ? AND esito = 'errore' AND quando > ?").bind(c.ip, prima(86400)).first();
   if (errori && errori.n >= AREA.errori_liberi) return no(url, "Troppi tentativi sbagliati: riprova più tardi.", 429);
-  if (!(await controllaCredenziali(c, cred, cred.utente, attuale))) { await registra(c, "errore"); return no(url, "La password attuale non è corretta.", 401); }
+  if (!(await controllaCredenziali(c, cred, cred.utente, attuale))) { await registra(c, "errore"); return no(url, "La password attuale non è corretta.", 403); }
   const h = await improntaPassword(nuova);
   await c.db.prepare("INSERT INTO config (k, v) VALUES ('password', ?1) ON CONFLICT (k) DO UPDATE SET v = ?1")
     .bind(JSON.stringify({ h, s: cred.firmaSegreto, quando: iso(new Date(Date.now())) })).run();
