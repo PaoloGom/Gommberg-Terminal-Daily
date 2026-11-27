@@ -1,5 +1,6 @@
 # L'edizione via email: quando l'edizione arriva sul ramo principale, redazione/newsletter.py la passa a Kit.
 # Non usa token del modello. La chiave di Kit è il segreto KIT_API_KEY e non viene mai stampata.
+# Minuti di GitHub: circa 22 giri al mese di pochi secondi su ubuntu-slim = 22 minuti slim, circa 7 standard (prima 22).
 name: Newsletter
 
 on:
@@ -23,7 +24,7 @@ concurrency:
 
 jobs:
   invio:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim             # lavoro leggero (G-12): un terzo del costo di un minuto standard
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4

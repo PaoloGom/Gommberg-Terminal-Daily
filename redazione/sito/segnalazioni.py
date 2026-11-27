@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Avviso a Paolo quando un lettore segnala un commento della Gommunity (G-13).
 
-Lo lancia GitHub ogni ora (.github/workflows/segnalazioni.yml). Legge da gommberg.com l'elenco dei commenti segnalati
+Lo lancia GitHub ogni 3 ore tra le 8 e le 23 di Roma (.github/workflows/segnalazioni.yml, con la sveglia dell'orologio
+di Cloudflare, G-58). Legge da gommberg.com l'elenco dei commenti segnalati
 che la redazione non ha ancora tolto (/api/lettori/segnalazioni: numero, edizione, quante reti, se è già nascosto; mai
 il testo) e tiene una segnalazione di GitHub per commento, assegnata a Paolo e con l'etichetta "gommunity": GitHub gli
 manda l'email. Nessun modello, nessun segreto oltre al token del giro.
@@ -14,8 +15,8 @@ Il testo del commento non entra mai nella segnalazione: il repository è pubblic
 copiato altrove. Paolo lo legge dal database, con il comando scritto nella segnalazione (procedura: LETTORI.md).
 
 Se qualcosa non va (il sito non dà l'elenco, GitHub non risponde o rifiuta) lo scrive nel riepilogo e ci riprova al
-giro dopo; il giro fallisce, e GitHub avvisa Paolo, solo una volta al giorno (il giro delle 10 di Roma) o se è lanciato
-a mano: un guasto che dura non deve diventare un'email ogni ora.
+giro dopo; il giro fallisce, e GitHub avvisa Paolo, solo una volta al giorno (il giro delle 11 di Roma, ORA_AVVISO) o se
+è lanciato a mano: un guasto che dura non deve diventare un'email a ogni giro.
 
 Uso:  python3 redazione/sito/segnalazioni.py [--prova]
   --prova  stampa che cosa farebbe, senza toccare GitHub
@@ -51,6 +52,7 @@ def elenco():
 
 ETICHETTA = "gommunity"
 NUOVE = 5          # segnalazioni nuove aperte in un giro: una raffica di Segnala non diventa una raffica di email
+ORA_AVVISO = 11    # l'ora di Roma del giro che, se l'avviso non funziona, fallisce (uno dei giri delle 8, 11, 14, 17, 20, 23)
 
 
 def chiave(s):
@@ -195,7 +197,7 @@ def main():
     if not guasti:
         return 0
     ora = int(os.environ["GTD_ORA"]) if os.environ.get("GTD_ORA") else dt.datetime.now(ROMA).hour
-    if ora == 10 or os.environ.get("A_MANO") == "true":
+    if ora == ORA_AVVISO or os.environ.get("A_MANO") == "true":
         print("::error::L'avviso sulle segnalazioni della Gommunity non funziona: vedi gli avvisi qui sopra.")
         return 1          # una volta al giorno il giro fallisce, e GitHub scrive a Paolo
     return 0

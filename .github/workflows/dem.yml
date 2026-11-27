@@ -1,7 +1,12 @@
 # Le mail straordinarie (DEM): allinea Kit ai file di redazione/dem/ (regole e formato in redazione/dem/LEGGIMI.md).
-# Su main, a ogni cambiamento dei file e ogni sera alle 19:30 di Roma (20:30 con l'ora legale): crea, rifà, riporta in
-# bozza e toglie gli invii in Kit. Sugli altri rami, anche lanciando a mano, controlla solo le regole e non tocca Kit.
-# Nessun token del modello.
+# Su main, a ogni cambiamento dei file e ogni sera alle 19:30 di Roma: crea, rifà, riporta in bozza e toglie gli invii
+# in Kit. Sugli altri rami, anche lanciando a mano, controlla solo le regole e non tocca Kit. Nessun token del modello.
+# La sveglia della sera la dà l'orologio di Cloudflare (G-58, redazione/sito/orologio.js: workflow_dispatch con
+# modo=sincronizza e orologio=cloudflare). Il cron "schedule" è la riserva del passo 1 di G-58: lavora solo se
+# l'orologio non è sano; il passo 2 lo toglie. Due giri vicini non fanno danni: aspettano uno dopo l'altro
+# (concurrency) e il secondo trova Kit già allineato.
+# Minuti di GitHub: circa 30 giri della sera + 15 da push, su ubuntu-slim = circa 45-60 minuti slim al mese, 15-20
+# minuti standard (prima: circa 45-60 minuti standard).
 # Se va tutto bene non scrive a nessuno. Se qualcosa va guardato (una bozza vicina alla data senza ok, una mail approvata
 # non partita, Kit che rifiuta un'operazione) il giro fallisce e apre una segnalazione assegnata a Paolo: GitHub gli
 # manda l'email. Una sola segnalazione aperta alla volta. La chiave di Kit è il segreto KIT_API_KEY e non viene mai stampata.
@@ -14,7 +19,7 @@ on:
       - 'redazione/dem.py'
       - 'pannello/invii.json'
       - '.github/workflows/dem.yml'
-  schedule:
+  schedule:                        # riserva del passo 1 di G-58: 19:30 di Roma con l'ora solare (20:30 con la legale)
     - cron: "30 18 * * *"
   workflow_dispatch:
     inputs:
@@ -23,6 +28,10 @@ on:
         type: choice
         options: [piano, sincronizza, controlla]
         default: piano
+      orologio:
+        description: "lasciare vuoto. Lo riempie l'orologio di Cloudflare (giro della sera)"
+        type: string
+        default: ""
 
 permissions:
   contents: read
@@ -34,11 +43,15 @@ concurrency:
 
 jobs:
   allinea:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim             # controllo leggero (G-12): un terzo del costo di un minuto standard
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+      - name: Ci pensa l'orologio?
+        if: github.event_name == 'schedule'
+        run: python3 redazione/sito/orologio.py --guardia >> "$GITHUB_ENV"
       - name: Mail straordinarie
+        if: env.SALTA != 'si'
         env:
           KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
           SCELTO: ${{ github.event.inputs.modo || 'sincronizza' }}

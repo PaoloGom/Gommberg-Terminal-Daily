@@ -1,15 +1,25 @@
-# Segnalazioni della Gommunity (G-13): ogni ora redazione/sito/segnalazioni.py legge da gommberg.com l'elenco dei
-# commenti che i lettori hanno segnalato (senza testi) e, per ogni commento nuovo, apre una segnalazione assegnata a
-# Paolo: GitHub gli manda l'email. Nessun modello e nessun segreto: solo il token del giro. Se non c'è nulla non scrive
-# a nessuno. Se l'avviso stesso non funziona (sito o GitHub), il giro fallisce una sola volta al giorno, alle 10 di Roma,
-# o subito se è lanciato a mano. Il giro dura pochi secondi; se un giorno il repository diventa privato sono circa 720 minuti al mese dei
-# 2.000 gratuiti: in quel caso si può passare a ogni due ore cambiando la riga del cron.
+# Segnalazioni della Gommunity (G-13): redazione/sito/segnalazioni.py legge da gommberg.com l'elenco dei commenti che i
+# lettori hanno segnalato (senza testi) e, per ogni commento nuovo, apre una segnalazione assegnata a Paolo: GitHub gli
+# manda l'email. Nessun modello e nessun segreto: solo il token del giro. Se non c'è nulla non scrive a nessuno. Se
+# l'avviso stesso non funziona (sito o GitHub), il giro fallisce una sola volta al giorno, al giro delle 11 di Roma, o
+# subito se è lanciato a mano.
+# Quando: ogni 3 ore tra le 8 e le 23 di Roma (8:15, 11:15, 14:15, 17:15, 20:15, 23:15; Paolo 23/11, G-12: non serve
+# ogni ora). La sveglia la dà l'orologio di Cloudflare (G-58, redazione/sito/orologio.js: workflow_dispatch con
+# orologio=cloudflare). Il cron "schedule" qui sotto è la riserva del passo 1 di G-58: lavora solo se l'orologio non è
+# sano (passo "Ci pensa l'orologio?"); è sull'ora solare, d'estate scatta un'ora più tardi. Il passo 2 lo toglie.
+# Minuti di GitHub: 6 giri al giorno di circa 10 secondi su ubuntu-slim = 180 minuti slim al mese, 60 minuti standard
+# (prima: ogni ora, 720 minuti standard).
 name: Segnalazioni della Gommunity
 
 on:
-  schedule:
-    - cron: "23 * * * *"
+  schedule:                        # riserva del passo 1 di G-58: 8, 11, 14, 17, 20, 23 di Roma con l'ora solare
+    - cron: "15 7,10,13,16,19,22 * * *"
   workflow_dispatch:
+    inputs:
+      orologio:
+        description: "lasciare vuoto (a mano: un guasto fa fallire subito il giro). Lo riempie l'orologio di Cloudflare"
+        type: string
+        default: ""
 
 permissions:
   contents: read
@@ -25,14 +35,18 @@ concurrency:
 
 jobs:
   avviso:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-slim             # controllo leggero (G-12): un terzo del costo di un minuto standard
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
         with:
           sparse-checkout: redazione/sito
+      - name: Ci pensa l'orologio?
+        if: github.event_name == 'schedule'
+        run: python3 redazione/sito/orologio.py --guardia >> "$GITHUB_ENV"
       - name: Commenti segnalati
+        if: env.SALTA != 'si'
         env:
           GH_TOKEN: ${{ github.token }}
-          A_MANO: ${{ github.event_name == 'workflow_dispatch' }}
+          A_MANO: ${{ github.event_name == 'workflow_dispatch' && !github.event.inputs.orologio }}
         run: python3 redazione/sito/segnalazioni.py | tee -a "$GITHUB_STEP_SUMMARY"

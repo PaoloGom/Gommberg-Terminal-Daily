@@ -1,6 +1,7 @@
 // La Gommunity (G-13): il sentiment Toro/Orso, i commenti, le risposte, i like e le segnalazioni di gommberg.com.
-// È l'unico codice che gira sul sito: Cloudflare lo chiama solo per gli indirizzi /api/* (run_worker_first in
-// wrangler.jsonc); tutto il resto sono file statici e non passa di qui. Se questo codice si ferma, homepage ed
+// È, con orologio.js (l'orologio dei controlli, G-58: il cron del Worker e /api/orologio), l'unico codice che gira sul
+// sito: Cloudflare lo chiama solo per gli indirizzi /api/* (run_worker_first in wrangler.jsonc) e per il cron; tutto il
+// resto sono file statici e non passa di qui. Se questo codice si ferma, homepage ed
 // edizioni escono lo stesso: la sezione La Gommunity (assets/lettori.js) dice soltanto che la discussione non si carica.
 //
 // Dati in D1 (binding DB). Le tabelle le crea il codice al primo uso (SCHEMA): nessuna migrazione, nessun permesso in
@@ -11,11 +12,13 @@
 // aperto la pagina, né prima di 3 secondi), campo trappola, origine della richiesta, limiti di frequenza per
 // impronta dell'indirizzo IP, nomi riservati alla redazione, nomi unici (un nome resta di chi l'ha usato per primo),
 // al massimo due link (che il sito non rende cliccabili), Segnala che nasconde un commento dopo 3 segnalazioni da
-// indirizzi diversi. Le segnalazioni aperte escono, senza testi, da /api/lettori/segnalazioni: le legge ogni ora
-// .github/workflows/segnalazioni.yml, che avvisa Paolo.
+// indirizzi diversi. Le segnalazioni aperte escono, senza testi, da /api/lettori/segnalazioni: le legge ogni tre ore
+// .github/workflows/segnalazioni.yml (lanciato dall'orologio), che avvisa Paolo.
 // Togliere un commento (finché non c'è G-51): da Cloudflare, D1, gommberg-lettori, Console:
 //   UPDATE commenti SET nascosto = 2 WHERE id = <numero>;      (2 = tolto dalla redazione, 1 = nascosto dalle segnalazioni)
 // Regole e procedura: redazione/sito/LETTORI.md.
+
+import { giro, stato } from "./orologio.js";
 
 export const LIMITI = {
   nome: [2, 24], testo: 600, link: 2,
@@ -157,6 +160,10 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
+    if (url.pathname.replace(/\/+$/, "") === "/api/orologio") {
+      if (request.method !== "GET") return errore("Metodo non ammesso.", 405);
+      return risposta(await stato(env));             // non lancia mai: un guasto diventa "sano": false con il motivo
+    }
     try {
       try { await prepara(env); } catch (e) { await prepara(env); }   // un intoppo del database alla prima richiesta: si riprova una volta
       return await instrada(request, env, url);
@@ -164,6 +171,10 @@ export default {
       console.log("lettori: errore", e && e.stack || e);
       return errore("Servizio non disponibile, riprova tra poco.", 503);
     }
+  },
+  // l'orologio dei controlli (G-58): il cron di wrangler.jsonc, ogni quarto d'ora
+  async scheduled(controller, env, ctx) {
+    ctx.waitUntil(giro(env, controller.scheduledTime));
   },
 };
 
