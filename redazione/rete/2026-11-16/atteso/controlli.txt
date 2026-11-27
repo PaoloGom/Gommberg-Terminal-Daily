@@ -6,8 +6,8 @@
 - CERCA un secondo autore, 7 schede: N10, N11, D02, D04, D10, D11, D13
 - CERCA N02: dato ufficiale (stesse cifre di K01): metti "tipo": "U" e il comunicato tra le fonti (APP_FONTI §2)
 - CERCA N03: dato ufficiale (riga del calendario: Giappone: Pil del terzo trimes): metti "tipo": "U" e il comunicato tra le fonti (APP_FONTI §2)
+- CERCA D13: dato ufficiale (stesse cifre di K01): metti "tipo": "U" e il comunicato tra le fonti (APP_FONTI §2)
 AVVISO: D06: fonte singola dichiarata (kitco): la testata nella riga Fonti
-AVVISO: K01: dato ufficiale senza il comunicato (cercato: China October 2026 retail sales industrial production fixed-asset investment year on year National Bureau of Statistics; China October retail 
 [ROSSO] Numeri contro dati.json:
 ERRORE: pag. 5, MSCI ACWI (ETF, $): nel PDF non c'è la riga calcolata (156,10 | -0,3% | +2,4% | +10,3%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
 ERRORE: pag. 5, Hang Seng: nel PDF non c'è la riga calcolata (23.753,84 | +0,5% | -2,8% | -7,3%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano

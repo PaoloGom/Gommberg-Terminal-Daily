@@ -229,6 +229,8 @@ _ATTESE = re.compile(r"\d[^.;(]{0,25}\((?:\w+ ){0,2}(?:attes[oaie]|consenso|stim
 _VUOTE = {"del", "dei", "per", "con", "non", "una", "gli", "che", "nel", "sul", "dal", "tra", "usa", "della", "delle", "dello",
           "degli", "alla", "alle", "nella", "dati", "dato", "mese", "anno", "annuo", "sul", "sui"}
 PRIMA_PAGINA = ("top_story", "top_news")
+# le sezioni che non sono un fatto pubblicato come notizia: calendario, agenda, registri e scommessa
+NON_NOTIZIE = ("agenda", "catalizzatori", "prime_pagine", "scaletta", "anomalia", "ricerca", "scommessa")
 
 
 def _cifre(scheda):
@@ -242,12 +244,13 @@ def _parole(t):
 
 def ufficiale_di_fatto(scheda, tutte=(), oggi=None, usciti=()):
     """Un dato ufficiale riconosciuto da ciò che la scheda dice, anche quando non lo dichiara con "tipo": "U". Vale per la
-    prima pagina (top_story, top_news) e per i fatti già avvenuti, non per le cause né per la memoria: (a) la scheda riporta
+    ogni scheda di un fatto già avvenuto (prima pagina, approfondimenti, mercati: ISTRUZIONI §2, "ovunque compaia"), non per
+    calendario, agenda e registri (NON_NOTIZIE), né per le cause né per la memoria confermata: (a) la scheda riporta
     le stesse cifre, nello stesso giorno, di una riga del calendario o di una scheda dichiarata U (è lo stesso dato scritto
     due volte); (b) è un numero uscito messo a confronto con le attese: lo pubblica un ente o una società, quindi il suo
-    comunicato esiste; (c) regge una riga del calendario uscito dell'edizione (usciti = [(evento, dato)], da C["ieri"]):
-    stessa cifra e stesso evento. Torna il motivo, o "" se non è un dato ufficiale. Non usa elenchi di argomenti."""
-    if sezione(scheda) not in PRIMA_PAGINA or scheda.get("tipo") in ("C", "U") or not si_applica(scheda):
+    comunicato esiste, anche quando la cifra non ha unità (un indice come "51,7 (atteso 51,9)"); (c) regge una riga del calendario uscito dell'edizione (usciti = [(evento, dato)], da C["ieri"]):
+    stessa cifra e stesso evento, solo in prima pagina (PRIMA_PAGINA). Torna il motivo, o "" se non è un dato ufficiale. Non usa elenchi di argomenti."""
+    if sezione(scheda) in NON_NOTIZIE or scheda.get("tipo") in ("C", "U") or not si_applica(scheda):
         return ""
     giorno = _s(scheda.get("data_evento"))[:10]
     if oggi and giorno > str(oggi)[:10]:
@@ -259,8 +262,10 @@ def ufficiale_di_fatto(scheda, tutte=(), oggi=None, usciti=()):
         calendario = altra.get("tipo") == "U" or sezione(altra) == "catalizzatori"
         if calendario and _s(altra.get("data_evento"))[:10] == giorno and len(mie & _cifre(altra)) >= 2:
             return f"stesse cifre di {altra.get('id', '?')}"
-    if mie and _ATTESE.search(_s(scheda.get("testo"))):
+    if _ATTESE.search(_s(scheda.get("testo"))):          # _ATTESE vuole già una cifra prima del confronto
         return "numero uscito contro le attese"
+    if sezione(scheda) not in PRIMA_PAGINA:
+        return ""          # (c) solo in prima pagina: fuori, una riga di "ieri" può essere un fatto di mercato (un debutto in borsa)
     mie_parole = _parole(scheda.get("testo"))
     for evento, dato in usciti:
         if mie & _cifre(_s(dato)) and len(mie_parole & _parole(evento)) >= 2:

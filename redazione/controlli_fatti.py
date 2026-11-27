@@ -8,8 +8,8 @@ Schema di fatti.json: lista di schede
  "tipo": "C" solo per una causa specifica di un movimento (la citazione deve contenere il nesso; nel PDF chi la dà è detto nella frase),
  "tipo": "U" per un dato ufficiale (dato macro, decisione di banca centrale, asta, comunicato): serve una fonte
    "ufficiali" di fonti.json; l'agenzia solo d'appoggio. Se il sito ufficiale non si raggiunge dopo ricerche vere:
-   "ufficiale_cercato": ["ricerca 1", "ricerca 2"] e il dato esce attribuito "(Reuters)". In prima pagina il dato
-   ufficiale si riconosce anche se non è dichiarato (autori.ufficiale_di_fatto) e chiede il comunicato allo stesso modo.
+   "ufficiale_cercato": ["ricerca 1", "ricerca 2"] e il dato esce attribuito "(Reuters)". In ogni scheda di un fatto
+   il dato ufficiale si riconosce anche se non è dichiarato (autori.ufficiale_di_fatto) e chiede il comunicato allo stesso modo.
  "testo": "il fatto come appare nel PDF", "data_evento": "AAAA-MM-GG",
  "novita": "per un tema già uscito: qual è lo sviluppo nuovo (altrimenti null)",
  "fonti": [{"testata": "Reuters", "url": "https://...", "data_pubblicazione": "AAAA-MM-GG", "citazione": "frase originale", "ricerca": "query che ha trovato la pagina (il revisore la riusa)"}],
@@ -136,7 +136,7 @@ def controlla(f):
             lv = 1
         livelli.append(lv); testate.add((s.get("testata") or s.get("url")).lower())
     g = giudizio(f)
-    # Un dato ufficiale lo è anche quando la scheda non lo dichiara: in prima pagina lo si riconosce da ciò che dice
+    # Un dato ufficiale lo è anche quando la scheda non lo dichiara: lo si riconosce da ciò che dice
     # (autori.ufficiale_di_fatto: stesse cifre di una riga del calendario, un numero contro le attese, una riga di "ieri").
     di_fatto = ufficiale_di_fatto(f, fatti, oggi_s, USCITI)
     if f.get("tipo") == "U" or sez == "catalizzatori" or di_fatto:

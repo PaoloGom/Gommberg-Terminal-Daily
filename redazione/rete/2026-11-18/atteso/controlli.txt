@@ -5,9 +5,9 @@
 - CERCA come: il documento di chi è nel fatto ("primaria": true) o lo stesso fatto da un altro autore; un'agenzia conta 1 ovunque ripresa. Se non c'è: "conferma_cercata"
 - CERCA un secondo autore, 11 schede: N03, N04, N05, N06, N07, N08, N12, D02, D03, D04, D05
 - CERCA T01: dato ufficiale (numero uscito contro le attese): metti "tipo": "U" e il comunicato tra le fonti (APP_FONTI §2)
+- CERCA D01: dato ufficiale (numero uscito contro le attese): metti "tipo": "U" e il comunicato tra le fonti (APP_FONTI §2)
 AVVISO: A03: fonte più recente del 2026-11-10, oltre 7 giorni
 AVVISO: K01: dato pubblico non confermato dal revisore: resta con la fonte dichiarata (nella riga Fonti)
-AVVISO: MEM-1102-N07: fonte più recente del 2026-10-30, oltre 7 giorni
 [ROSSO] Numeri contro dati.json:
 ERRORE: pag. 5, MSCI ACWI (ETF, $): nel PDF non c'è la riga calcolata (151,34 | -1,1% | -2,8% | +7,0%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
 ERRORE: pag. 5, Nikkei 225*: nel PDF non c'è la riga calcolata (~59.025 | +0,3% | -3,6% | +17,3%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano

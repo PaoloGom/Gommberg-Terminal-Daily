@@ -823,7 +823,7 @@ def passo_fonti():
         ("F42", "mercati", [fonte("Kitco", "https://www.kitco.com/a")], {"fonte_singola": True}, "passa"),
         ("F43", "mercati", [fonte("ANSA", "https://www.ansa.it/a")], {}, "passa"),
         ("F44", "mercati", [fonte("Kitco", "https://www.kitco.com/a")], {}, "respinta"),
-        # dati ufficiali di prima pagina riconosciuti anche se non dichiarati (G-06): due autori non bastano, serve il comunicato
+        # dati ufficiali riconosciuti anche se non dichiarati (G-06, G-46): due autori non bastano, serve il comunicato
         ("G01", "top_news", [reuters("kfgo.com"), fonte("CNBC", "https://www.cnbc.com/a")],
          {"testo": "Cina, ottobre: vendite al dettaglio +0,4% annuo (atteso +0,8%)"}, "ufficiale"),
         ("G02", "top_news", [reuters("kfgo.com"), fonte("Ufficio di statistica", "https://www.bls.gov/a")],
@@ -831,7 +831,12 @@ def passo_fonti():
         ("G03", "top_news", [reuters("kfgo.com"), fonte("CNBC", "https://www.cnbc.com/a")],
          {"testo": "Nvidia riferisce martedì: utile per azione atteso 2,47 $, ricavi attesi circa 108,8 mld $"}, "passa"),
         ("G04", "deep_dive", [reuters("kfgo.com"), fonte("CNBC", "https://www.cnbc.com/a")],
-         {"testo": "Cina, ottobre: produzione industriale +4,8% annuo (atteso +5,3%)"}, "passa"),
+         {"testo": "Cina, ottobre: produzione industriale +4,8% annuo (atteso +5,3%)"}, "ufficiale"),
+        # G-46: anche un indice senza unità accanto alle attese (il PMI del #032), ovunque; non il calendario
+        ("G09", "top_news", [reuters("kfgo.com"), fonte("investingLive", "https://investinglive.com/a")],
+         {"testo": "Nell'area euro l'indice PMI composito resta a 51,7 (atteso 51,9)"}, "ufficiale"),
+        ("G10", "agenda", [reuters("kfgo.com"), fonte("CNBC", "https://www.cnbc.com/d")],
+         {"testo": "PMI flash dell'area euro lunedì alle 10:00: atteso 51,9 (prima 51,7)", "data_evento": "2026-11-23"}, "passa"),
         ("G05", "top_story", [reuters("kfgo.com"), fonte("CNBC", "https://www.cnbc.com/a")],
          {"testo": "Nvidia: ricavi a 115,8 mld $ contro 109,15 attesi", "tipo": "U",
           "ufficiale_cercato": ["Nvidia third quarter results press release", "Nvidia 8-K November 2026 results"]}, "passa"),
