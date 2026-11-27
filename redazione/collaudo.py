@@ -36,8 +36,9 @@ Cosa controlla:
   5. Sito          pagine.py su una copia: file JSON e XML validi, ultima edizione in testa, nessun link interno rotto;
                    le pagine generate sono identiche a quelle nel repository (se pagine.py cambia, le pagine si
                    rigenerano nello stesso commit); costruisci.py prepara il sito pubblico senza avvisi; Impara cresce
-                   con le edizioni (impara.py su casi costruiti: una volta sola aspetta, due volte compatibili entra, una
-                   frase del giorno resta fuori, la scheda scritta a mano vince, un guasto lascia dati/parole.json com'era)
+                   con le edizioni (impara.py su casi costruiti: una volta sola aspetta, due volte è pronta ma entra solo
+                   confermata a mano, la frase del giorno resta fuori, la scheda scritta a mano vince, fuori vale per
+                   ogni nome, i doppioni si segnalano, un ingresso rotto ferma il passaggio e lascia dati/parole.json com'era)
   6. Pubblicazione pubblica.sh in modalità prova sulla copia (nessun commit, nessun push)
 Esce con 1 se un passo fallisce. --tieni lascia la cartella temporanea per guardare PDF e anteprime.
 
@@ -1936,42 +1937,136 @@ def passo_lettori(copia):
 
 
 def passo_impara(copia):
-    """Impara cresce con le edizioni (G-54): il filtro di impara.py su un mondo costruito, e un guasto che non ferma nulla."""
+    """Impara cresce con le edizioni (G-54): il filtro di impara.py su un mondo costruito, i guasti degli ingressi e
+    i dati veri. Ogni caso viene da un difetto trovato (collaudo indipendente del 27/11) e ferma il codice di prima."""
     sys.path.insert(0, R)
     import impara
     mondo, male = os.path.join(TMP, "impara"), []
     os.makedirs(os.path.join(mondo, "redazione"), exist_ok=True)
     os.makedirs(os.path.join(mondo, "dati"), exist_ok=True)
     js = lambda rel, o: json.dump(o, open(os.path.join(mondo, rel), "w", encoding="utf-8"), ensure_ascii=False)
-    js("redazione/glossario.json", {"voci": [{"sigla": "PPI", "breve": "prezzi alla produzione"}]})
-    js("redazione/glossario_sito.json", {"voci": {}})
+    VIX = "Misura quanta agitazione si aspetta il mercato sull'S&P 500: per questo è detto 'indice della paura'."
+    js("redazione/glossario.json", {"voci": [{"sigla": "PPI", "breve": "prezzi alla produzione"},
+                                             {"sigla": "VIX", "breve": "volatilità attesa sull'S&P 500"}]})
+    js("redazione/glossario_sito.json", {"voci": {"VIX": {"spiega": VIX}}})
     js("edizioni.json", [{"numero": n, "data": f"2026-01-0{n}"} for n in (1, 2, 3)])
-    def arch(*ed):
-        js(impara.CURA, {"stesse": {"Correzione": ["Correzioni di borsa"]}, "fuori": {}, "archivio": {f"2026-01-0{n}": p for n, p in ed}})
+    def arch(*ed, fuori=None, conf=None):
+        js(impara.CURA, {"stesse": {"Correzione": ["Correzioni di borsa"]}, "fuori": fuori or {}, "confermate": conf or {},
+                         "archivio": {f"2026-01-0{n}": p for n, p in ed}})
+    def giro(caso):
+        try:
+            r = tuple(impara.calcola(mondo))
+            return r + ({},) * (4 - len(r))
+        except Exception as e:  # noqa: BLE001 - il codice di prima non ha le stesse uscite: è un caso fallito, non un crash
+            male.append(f"{caso}: {type(e).__name__} {str(e)[:60]}")
+            return [], {}, [], {}
+    verdetto = lambda occ, parola, n: next((o.get("verdetto", "") for o in occ if o["parola"] == parola and o["numero"] == n), "")
     C1 = ("Correzione", "Un calo di almeno il 10% di un indice dal suo ultimo massimo.")
     C2 = ("Correzioni di borsa", "Un calo dell'indice di almeno il 10% dal massimo più recente.")
     arch((1, [C1, ("Shutdown", "La sospensione dei fondi federali americani per mancanza di un bilancio.")]),
          (2, [("Prezzi alla produzione", "L'indice dei prezzi incassati dalle imprese che producono beni.")]))
-    voci, alias, _ = impara.calcola(mondo)
+    voci, alias, _, _ = giro("una volta sola")
     if voci:
         male.append(f"una parola spiegata una volta sola non deve entrare ({[v['sigla'] for v in voci]})")
     if alias.get("Prezzi alla produzione") != "PPI":
         male.append("la parola di una scheda scritta a mano deve portare lì")
-    arch((1, [C1]), (2, [C2]), (3, [("Correzione", "Il calo di oggi porta l'indice al 10% sotto il massimo.")]))
-    voci, alias, _ = impara.calcola(mondo)
-    if [(v["sigla"], v["da"]) for v in voci] != [("Correzione", 2)] or alias.get("Correzioni di borsa") != "Correzione":
-        male.append(f"due spiegazioni compatibili: entra la più recente valida, la frase del giorno no ({voci})")
-    # il guasto: un archivio illeggibile non ferma pagine.py e lascia dati/parole.json com'era
+    # due significati diversi con le parole in comune (il premio per il rischio): senza conferma a mano non entra nulla
+    P1 = ("Premio di rischio", "Il rendimento in più che gli investitori chiedono per prestare a chi è più rischioso.")
+    P2 = ("Premio per il rischio", "Il sovrapprezzo che il mercato paga per il rischio di una guerra che ferma le forniture di petrolio.")
+    arch((1, [C1, P1]), (2, [C2, P2]), (3, [("Correzione", "Il calo di oggi porta l'indice al 10% sotto il massimo.")]))
+    voci, alias, occ, gruppi = giro("due significati")
+    if voci or (gruppi.get("Premio per il rischio") or {}).get("stato") != "pronta" or "pronta" not in verdetto(occ, "Correzioni di borsa", 2):
+        male.append(f"due spiegazioni in due edizioni, senza conferma: pronte, non in pagina ({[v['sigla'] for v in voci]})")
+    if "del giorno" not in verdetto(occ, "Correzione", 3):
+        male.append("la frase del giorno resta fuori")
+    DEF = {"breve": "un calo di almeno il 10% dal massimo", "spiega": "Un calo di almeno il 10% dall'ultimo massimo, rivisto a mano."}
+    arch((1, [C1, P1]), (2, [C2, P2]), conf={"Correzione": DEF})
+    voci, alias, _, _ = giro("confermata")
+    if [(v["sigla"], v["spiega"], v["da"]) for v in voci] != [("Correzione", DEF["spiega"], 2)] or alias.get("Correzioni di borsa") != "Correzione":
+        male.append(f"confermata a mano: entra con la definizione confermata, non con quella del giornale ({voci})")
+    # i doppioni: "Indice della paura" è il VIX (lo dice la sua scheda) e va segnalato a chi conferma
+    arch((1, [("Indice della paura", "Misura quanto gli operatori si aspettano che l'S&P 500 si muova nel mese.")]))
+    _, _, _, gruppi = giro("doppioni")
+    if not any(d.startswith("VIX ") for d in (gruppi.get("Indice della paura") or {}).get("doppioni", [])):
+        male.append("Indice della paura: il possibile doppione del VIX va segnalato nella proposta")
+    # "fuori" vale per qualunque nome: "Freno automatico (sidecar)" è il Sidecar tolto a mano
+    S1 = ("Sidecar", "Una pausa di pochi minuti negli scambi automatici quando un indice si muove troppo.")
+    S2 = ("Freno automatico (sidecar)", "Sospende per qualche minuto gli ordini dei programmi quando il mercato corre troppo.")
+    arch((1, [S1]), (2, [S2]), fuori={"Sidecar": "prova"})
+    voci, _, occ, _ = giro("fuori per nome")
+    if voci or not verdetto(occ, S2[0], 2).startswith("non entra: tolta a mano"):
+        male.append(f"fuori 'Sidecar' deve togliere anche 'Freno automatico (sidecar)' ({verdetto(occ, S2[0], 2)[:60]})")
+    # il messaggio giusto: due edizioni ma una sola spiegazione valida (Circuit breaker), non "non compatibile"
+    arch((1, [("Circuit breaker", "Sospensione automatica degli scambi quando un indice scende oltre una soglia.")]),
+         (2, [("Circuit breaker", "Sospensione automatica degli scambi: lunedì a San Paolo è durata 30 minuti.")]))
+    _, _, occ, _ = giro("messaggio")
+    if "unica spiegazione valida" not in verdetto(occ, "Circuit breaker", 1):
+        male.append(f"Circuit breaker: il motivo è che resta una sola spiegazione valida ({verdetto(occ, 'Circuit breaker', 1)[:60]})")
+    # un nome sbagliato in "confermate" (o una data sbagliata in "fuori"): avviso e nessuna scrittura, la scheda non sparisce
+    for caso, kw in (("confermate con un nome sbagliato", {"conf": {"Correzione": DEF, "Corezione": DEF}}),
+                     ("fuori con una data sbagliata", {"conf": {"Correzione": DEF}, "fuori": {"Correzione|2026-01-09": "prova"}})):
+        arch((1, [C1]), (2, [C2]), **kw)
+        try:
+            impara.calcola(mondo)
+            male.append(f"{caso}: il passaggio deve fermarsi con un avviso, non togliere la scheda in silenzio")
+        except Exception as e:  # noqa: BLE001
+            if type(e).__name__ != "Fermo":
+                male.append(f"{caso}: {type(e).__name__} {str(e)[:60]}")
+    # gli ingressi: se uno manca o non si legge, Fermo e nessuna scrittura (né voci in meno, né doppioni)
+    arch((1, [C1]), (2, [C2]), conf={"Correzione": DEF})
+    uscita = os.path.join(mondo, impara.FILE)
+    open(uscita, "w").write("COM'ERA")
+    os.makedirs(os.path.join(mondo, "redazione", "sorgenti", "2026-01-03"), exist_ok=True)
+    guasti = (("parole_giornale.json mancante", impara.CURA, None), ("glossario.json illeggibile", "redazione/glossario.json", "{ rotto"),
+              ("glossario_sito.json illeggibile", "redazione/glossario_sito.json", "{ rotto"),
+              ("sorgente rotto", "redazione/sorgenti/2026-01-03/edizione.py", "E = {'parole': [("),
+              ("parole non nella forma", "redazione/sorgenti/2026-01-03/edizione.py", "E = {'parole': [(None, 3)]}"))
+    for caso, rel, testo in guasti:
+        p = os.path.join(mondo, rel)
+        prima = open(p, encoding="utf-8").read() if os.path.exists(p) else None
+        if testo is None:
+            os.remove(p)
+        else:
+            open(p, "w", encoding="utf-8").write(testo)
+        try:
+            impara.scrivi(mondo)
+            fermo = False
+        except Exception as e:  # noqa: BLE001
+            fermo = type(e).__name__ == "Fermo"
+        if not fermo or open(uscita).read() != "COM'ERA":
+            male.append(f"{caso}: il passaggio si ferma con un avviso senza scrivere nulla")
+        if prima is None:
+            os.remove(p)
+        else:
+            open(p, "w", encoding="utf-8").write(prima)
+    # il guasto nella catena vera: pagine.py resta verde, avvisa, e dati/parole.json resta com'era
     p, cura = os.path.join(copia, "dati", "parole.json"), os.path.join(copia, impara.CURA)
     prima, testo = open(p, encoding="utf-8").read(), open(cura, encoding="utf-8").read()
-    open(cura, "w", encoding="utf-8").write("{ rotto")
+    os.remove(cura)
     rc, out = esegui([sys.executable, os.path.join(copia, "redazione", "pagine.py"), copia])
     open(cura, "w", encoding="utf-8").write(testo)
     if rc or "AVVISO: parole di Impara" not in out or open(p, encoding="utf-8").read() != prima:
-        male.append(f"un guasto di impara.py deve lasciare pagine.py verde e dati/parole.json com'era (uscita {rc})")
-    n = len(json.load(open(p, encoding="utf-8"))["voci"])
+        male.append(f"senza parole_giornale.json pagine.py resta verde, avvisa e lascia dati/parole.json com'era (uscita {rc})")
+    # i dati veri: ingressi leggibili, ogni conferma usata, i sinonimi noti uniti
+    try:
+        voci, alias, _, gruppi = impara.calcola(copia)
+        conf = json.load(open(cura, encoding="utf-8")).get("confermate") or {}
+        orfane = [c for c in conf if (gruppi.get(c) or {}).get("stato") != "confermata"]
+        if orfane:
+            male.append(f"confermate senza una parola delle edizioni, o vinte da una scheda scritta: {orfane}")
+        if alias.get("Indice della paura") != "VIX":
+            male.append("Indice della paura deve portare alla scheda del VIX")
+        for a, b in (("Riserva minima delle banche", "Riserva obbligatoria"), ("Rialzo da 50 punti base", "Rialzo da mezzo punto")):
+            if a not in (gruppi.get(b) or {}).get("varianti", []):
+                male.append(f"{a} deve stare con {b}")
+        pronte = sum(1 for i in gruppi.values() if i["stato"] == "pronta")
+    except Exception as e:  # noqa: BLE001
+        male.append(f"dati veri: {type(e).__name__} {str(e)[:100]}")
+        voci, pronte = [], 0
     esito("Sito: Impara cresce con le edizioni", not male, "; ".join(male)[:300] or
-          f"{n} parole dalle edizioni; una volta sola aspetta, la frase del giorno resta fuori, la scheda scritta vince, un guasto non ferma nulla")
+          f"{len(voci)} schede dalle edizioni, tutte confermate a mano; {pronte} parole pronte aspettano la conferma "
+          f"(impara.py --proposte); nulla entra senza conferma, fuori vale per ogni nome, i doppioni si segnalano, "
+          f"un ingresso rotto ferma il passaggio senza scrivere e non ferma l'edizione")
 
 
 def passo_pubblicazione(copia):
