@@ -22,6 +22,8 @@ AVVISO: sigle definite tra parentesi (§3.4: la cosa si dice in parole dentro la
 [ROSSO] Contenuti (estremi, perché, anomalie...):
 ERRORE: agenda: primo giorno della settimana ma "In arrivo" si ferma a mercoledì: copri fino a venerdì (gli eventi di giovedì e venerdì al posto delle righe minori dei primi giorni; APP_ERRORI §2
 AVVISO: aperture: servono 2 resoconti d'agenzia o testate globali (Reuters, AP, AFP, Bloomberg, CNBC...) e 1 italiana (Radiocor/Sole 24 Ore, Milano Finanza)
+[ROSSO] Coerenza (testo contro dati):
+ERRORE: ragionamento: manca coerenza_incarico.json: lo scrive controlli_tutti.sh --prima-della-revisione
 [ok] Ripetizioni: Ripetizioni: punteggio 7 (6 cifre in 2+ sezioni)
 AVVISO: 0,9% in 3 sezioni: 6-13/11                                                                                                           PERCHÉ, A
 AVVISO: 0,1% in 2 sezioni: 6-13/11                                                                                                           PERCHÉ, T
@@ -30,4 +32,4 @@ AVVISO: 4,8% in 2 sezioni: APPROFONDIMENTO CHIP E ASIA, TOP NEWS
 AVVISO: 5,15% in 2 sezioni: APPROFONDIMENTO TASSI USA, TOP STORY
 AVVISO: eco "afp seoul economic daily" in 2 punti
 [ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
-ESITO: ERRORI in PDF e indice Fatti Numeri contro dati.json Scrittura (→, cause, sigle, ritmo) Contenuti (estremi, perché, anomalie...) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia
+ESITO: ERRORI in PDF e indice Fatti Numeri contro dati.json Scrittura (→, cause, sigle, ritmo) Contenuti (estremi, perché, anomalie...) Coerenza (testo contro dati) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia

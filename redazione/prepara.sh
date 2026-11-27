@@ -75,13 +75,18 @@ PARZIALI = {  # borse chiuse solo in parte (da verificare sul calendario ufficia
     "2026-12-28": "Londra chiusa (Boxing Day)", "2027-01-18": "USA chiusa (Martin Luther King Day)",
     "2027-02-15": "USA chiusa (Presidents' Day)", "2027-03-29": "Europa chiusa (Lunedì dell'Angelo)",
     "2027-05-31": "USA chiusa (Memorial Day)", "2027-06-18": "USA chiusa (Juneteenth)",
-    "2027-07-05": "USA chiusa (Independence Day)", "2027-09-06": "USA chiusa (Labor Day)"}
+    "2027-07-05": "USA chiusa (Independence Day)", "2027-09-06": "USA chiusa (Labor Day)",
+    "2027-10-11": "USA: mercato dei Treasury chiuso (Columbus Day), borse aperte",
+    "2027-11-11": "USA: mercato dei Treasury chiuso (Veterans Day), borse aperte",
+    "2027-11-25": "USA chiusa (Thanksgiving)", "2027-11-26": "USA: chiusura anticipata",
+    "2027-12-27": "Londra chiusa (Natale)", "2027-12-28": "Londra chiusa (Boxing Day)",
+    "2027-12-31": "Germania chiusa, Italia di norma chiusa (calendario 2027 di Borsa Italiana da pubblicare); USA aperta"}
 ieri = G.uscita_precedente(oggi)
 # chiusure parziali tra l'ultima uscita e i prossimi 4 giorni (servono a cruscotto, calendario e agenda)
 vicini = [f"{d[8:]}/{d[5:7]} {t}" for d, t in PARZIALI.items()
           if ieri <= dt.date.fromisoformat(d) <= oggi + dt.timedelta(days=4)]
 buco = (oggi - ieri).days > (3 if oggi.weekday() == 0 else 1)
-dicembre_mancante = oggi.month == 12 and not any(f.startswith(str(oggi.year + 1)) for f in G.FESTIVI)
+dicembre_mancante = oggi.month == 12 and G.FESTIVI_FINO < f"{oggi.year + 1}-12-31"
 if vicini or buco or dicembre_mancante:
     app.append("APP_FESTIVI.md")
 out.append("Appendici oggi: " + (", ".join(app) if app else "nessuna") +
@@ -98,7 +103,8 @@ if vicini:
 if buco:
     out.append(f"Festività: ultima uscita il {ieri:%d/%m}, giorni di borsa saltati in mezzo")
 if dicembre_mancante:
-    out.append(f"DICEMBRE: aggiungi a FESTIVI le date del {oggi.year + 1} (APP_FESTIVI.md) e dillo nel messaggio finale")
+    out.append(f"DICEMBRE: FESTIVI e chiusure parziali verificati solo fino al {G.FESTIVI_FINO}: aggiungi le date del "
+               f"{oggi.year + 1} e sposta FESTIVI_FINO (APP_FESTIVI.md §4), e dillo nel messaggio finale")
 
 # Scommessa: registro della settimana
 reg = os.path.join(repo, "redazione", "pronostici", f"{lun.isoformat()}-settimana.json")
@@ -133,7 +139,7 @@ except Exception as e:
 if voci:
     u = max(voci, key=lambda v: v["numero"])
     if any(v["numero"] == n for v in voci):
-        out.append(f"USCITA (c): l'edizione #{n:03d} esiste già in edizioni.json: messaggio \"nessuna edizione: #{n:03d} già pubblicata\", niente da rifare")
+        out.append(f"USCITA (c): l'edizione #{n:03d} esiste già in edizioni.json: manda la riga di `python3 {repo}/redazione/messaggio.py --nessuna pubblicata --dettaglio \"#{n:03d}\"`, niente da rifare")
     elif u["numero"] != n - 1:
         out.append(f"Numero: ultima edizione #{u['numero']:03d}, oggi #{n:03d}: usa #{n:03d} (giorni.py) e scrivi nel messaggio finale che mancano uscite intermedie")
     out.append(cut(f"Ultima: #{u['numero']:03d} del {u['data']} - {u['titolo']}"))

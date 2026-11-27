@@ -1,0 +1,167 @@
+{
+ "istruzioni": "Senza aprire pagine. Per ogni frase rispondi in coerenza.json: [{\"id\", \"esito\": \"regge\" | \"non_regge\", \"nota\", \"rimedio\"}]. Non regge se: (1) dà una causa a un movimento e la causa non si è mossa nello stesso periodo nel verso giusto secondo i prezzi qui sotto (per esempio il dollaro forte con EUR/USD fermo nella seduta, i tassi in salita con il 10 anni giù), o la stessa edizione dice il contrario altrove; (2) nomina un fatto che muove la storia (un'indagine, un accordo, un dazio) senza dire chi fa che cosa e su che cosa, o lo dice in modo diverso dal fatto delle schede che hai; (3) è un titolo con un'ipotesi o con una causa che non regge. La nota dice che cosa non torna con i numeri, in una frase. Il rimedio è uno di: \"chi la dà\" (la spiegazione di chi la dà, con la sua scheda), \"lettura con i prezzi\" (la nostra lettura con i prezzi che la sostengono), \"solo il fatto\" (via la causa), \"spiegare il fatto\" (chi, che cosa, su che cosa), \"titolo col fatto\". Nel dubbio regge: si ferma solo ciò che i numeri smentiscono o lasciano vuoto.",
+ "prezzi": [
+  "ACWI 142.59 al 2026-11-20: seduta -3,49% (giù), settimana -8,65%",
+  "S&P 500 6910.39 al 2026-11-20: seduta -3,70% (giù), settimana -8,61%",
+  "Nasdaq 22617.7 al 2026-11-20: seduta -5,28% (giù), settimana -10,02%",
+  "Russell 2000 2581.79 al 2026-11-20: seduta -2,76% (giù), settimana -7,48%",
+  "VIX 35.89 al 2026-11-20: seduta +7,45 punti (+26,2%) (su), settimana +16,59 punti",
+  "Euro Stoxx 50 5941.95 al 2026-11-20: seduta -2,81% (giù), settimana -6,97%",
+  "FTSE MIB 48703.7 al 2026-11-20: seduta -2,48% (giù), settimana -6,08%",
+  "Nikkei 225 56436.7 al 2026-11-20: seduta -5,06% (giù), settimana -7,70%",
+  "Hang Seng 22410.8 al 2026-11-20: seduta -1,89% (giù), settimana -5,19%",
+  "Kospi 4708.54 al 2026-11-23: seduta -3,31% (giù), settimana -7,68%",
+  "Treasury 2 anni 4.63 al 2026-11-20: seduta -13 pb (giù), settimana -25 pb",
+  "Treasury 10 anni 4.92 al 2026-11-20: seduta -12 pb (giù), settimana -23 pb",
+  "Spread Italia 109.9 al 2026-11-20: seduta +4 pb (su)",
+  "EUR/USD 1.0967 al 2026-11-20: seduta +0,01% (fermo), settimana -0,49% | il dollaro va al contrario: EUR/USD giù = dollaro forte",
+  "Brent future 92.57 al 2026-11-20: seduta +0,64% (su), settimana -3,41%",
+  "Oro future 3515.4 al 2026-11-20: seduta -4,62% (giù), settimana -9,54%"
+ ],
+ "frasi": [
+  {
+   "dove": "top.titolo",
+   "frase": "Wall Street entra in correzione sui timori per l'intelligenza artificiale e Seul cade ancora",
+   "perche_qui": "titolo",
+   "id": "R01"
+  },
+  {
+   "dove": "moduli.chip.titolo",
+   "frase": "Le vendite sui chip passano dai prezzi alla fiducia dopo l'inchiesta su Nvidia",
+   "perche_qui": "titolo",
+   "id": "R02"
+  },
+  {
+   "dove": "moduli.treasury.titolo",
+   "frase": "Con la Fed in rialzo i Treasury restano un rifugio e i rendimenti scendono",
+   "perche_qui": "titolo",
+   "id": "R03"
+  },
+  {
+   "dove": "moduli.europa.titolo",
+   "frase": "A Milano pesano chip e banche, e l'Europa tocca il minimo da maggio",
+   "perche_qui": "titolo",
+   "id": "R04"
+  },
+  {
+   "dove": "moduli.oro.titolo",
+   "frase": "L'oro non ripara dal panico perché dollaro e tassi pesano più della paura",
+   "perche_qui": "titolo",
+   "id": "R05"
+  },
+  {
+   "dove": "top.dek",
+   "frase": "Il bersaglio resta Nvidia, dopo l'indagine SEC riportata dalla stampa americana.",
+   "perche_qui": "primo fatto",
+   "id": "R06"
+  },
+  {
+   "dove": "notizie.0.testo",
+   "frase": "L'inchiesta è agli inizi e può chiudersi senza accuse.",
+   "perche_qui": "primo fatto",
+   "id": "R07"
+  },
+  {
+   "dove": "notizie.2.testo",
+   "frase": "Il ministero delle Finanze dice che può usarlo subito se i ribassi continuano; a Taiwan il regolatore ha ordinato una stretta sulle vendite allo scoperto.",
+   "perche_qui": "primo fatto",
+   "id": "R08"
+  },
+  {
+   "dove": "moduli.chip.perche",
+   "frase": "L'indagine della SEC, riportata dalla stampa americana, tocca il titolo che di solito garantisce la storia dell'intelligenza artificiale, dopo l'uscita di Huang e i conti del 17/11. A nostro avviso il mercato non prezza più solo gli utili, ma anche il rischio di scoprire che i conti non reggono, e il VIX, l'indice della paura, lo mostra.",
+   "perche_qui": "causa",
+   "id": "R09"
+  },
+  {
+   "dove": "moduli.treasury.perche",
+   "frase": "Venerdì il 10 anni è sceso dal 5,04% al 4,92% e il 2 anni di 13 pb. Eppure i future sui tassi danno il rialzo di dicembre tra il 92% e il 99%. A nostro avviso ha prevalso la paura: quando si vende la borsa, si comprano Treasury, il loro prezzo sale e il rendimento scende.",
+   "perche_qui": "causa",
+   "id": "R10"
+  },
+  {
+   "dove": "moduli.europa.perche",
+   "frase": "Secondo ANSA a Milano pesano i chip e le banche. Le banche, per ANSA, pagano la possibile stretta della Bce sui requisiti patrimoniali e l'emendamento della Lega che alza di tre punti l'Ires.",
+   "perche_qui": "causa",
+   "id": "R11"
+  },
+  {
+   "dove": "moduli.oro.perche",
+   "frase": "Di solito l'oro sale quando c'è paura, ma venerdì è sceso insieme alle azioni. A nostro avviso pesa il dollaro forte: con una Fed pronta a rialzare i tassi, tenere un metallo che non rende interessi costa di più.",
+   "perche_qui": "causa",
+   "id": "R12"
+  },
+  {
+   "dove": "quadro",
+   "frase": "L'oro, che di solito ripara, è invece caduto insieme alle azioni, e a nostro avviso pesa il dollaro forte.",
+   "perche_qui": "causa",
+   "id": "R13"
+  },
+  {
+   "dove": "notizie.3.testo",
+   "frase": "Per ANSA pesano la possibile stretta della Bce sui requisiti patrimoniali e l'emendamento della Lega che alza di tre punti l'Ires.",
+   "perche_qui": "causa",
+   "id": "R14"
+  },
+  {
+   "dove": "moduli.chip.testo.0",
+   "frase": "Perché un'inchiesta su un solo titolo fa cadere un intero settore?",
+   "perche_qui": "causa",
+   "id": "R15"
+  },
+  {
+   "dove": "moduli.chip.testo.0",
+   "frase": "Perché Nvidia è il titolo su cui poggia la storia dell'intelligenza artificiale: i suoi conti dicono quanto spendono gli altri per i chip.",
+   "perche_qui": "causa",
+   "id": "R16"
+  },
+  {
+   "dove": "moduli.chip.testo.1",
+   "frase": "A Seul pesa anche la struttura dell'indice.",
+   "perche_qui": "causa",
+   "id": "R17"
+  },
+  {
+   "dove": "moduli.treasury.testo.3",
+   "frase": "Un rialzo da 50 pb a dicembre, se arrivasse, spingerebbe di solito su soprattutto il 2 anni.",
+   "perche_qui": "causa",
+   "id": "R18"
+  },
+  {
+   "dove": "moduli.treasury.testo.4",
+   "frase": "Anche la fiducia dei consumatori dà un'indicazione: secondo l'Università del Michigan le famiglie si aspettano un'inflazione del 3,7% a un anno.",
+   "perche_qui": "causa",
+   "id": "R19"
+  },
+  {
+   "dove": "moduli.europa.quindi",
+   "frase": "Alle 10:00 i PMI flash dell'area euro dicono se l'attività regge: da lì si vede se Milano rimbalza, anche perché STMicroelectronics, a 36,72 euro venerdì, segue i chip americani.",
+   "perche_qui": "causa",
+   "id": "R20"
+  },
+  {
+   "dove": "moduli.europa.testo.0",
+   "frase": "Milano perde quasi quanto l'Europa, e il motivo sta nella composizione: il listino italiano ha pochi grandi tecnologici ma molte banche, e venerdì sono caduti entrambi.",
+   "perche_qui": "causa",
+   "id": "R21"
+  },
+  {
+   "dove": "moduli.europa.testo.1",
+   "frase": "Pesa il legame con Wall Street: quando i chip americani cadono, tendono a seguire i loro fornitori europei, e in Italia lo si vede su STMicroelectronics.",
+   "perche_qui": "causa",
+   "id": "R22"
+  },
+  {
+   "dove": "moduli.oro.testo.0",
+   "frase": "L'oro cade anche quando c'è paura, e la ragione è che non è solo un rifugio: è anche un'alternativa ai titoli che pagano interessi.",
+   "perche_qui": "causa",
+   "id": "R23"
+  },
+  {
+   "dove": "moduli.oro.testo.0",
+   "frase": "Il calo di venerdì non lo spiega una notizia sola: a nostro avviso è la somma di dollaro forte, tassi e vendite per coprire perdite altrove.",
+   "perche_qui": "causa",
+   "id": "R24"
+  }
+ ]
+}

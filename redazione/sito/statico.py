@@ -11,7 +11,8 @@ Lo chiama costruisci.py e scrive SOLO nella cartella del sito pubblico, mai nel 
    edizioni dell'ultima edizione; Impara: tutte le parole, con il link alla loro pagina; Archivio: tutte le edizioni.
 3. sitemap.xml: aggiunge le pagine di Impara a quella generata da pagine.py.
 
-Fonti, tutte nel repository: edizioni.json, redazione/glossario.json, glossario_sito.json, meccanismi.json.
+Fonti, tutte nel repository: edizioni.json, redazione/glossario.json, glossario_sito.json, meccanismi.json, e
+dati/parole.json (le parole spiegate dalle edizioni, scritte da impara.py: una scheda scritta a mano vince sempre).
 Solo libreria standard (gira su GitHub senza installare nulla). Se un dato manca, la pagina resta com'era.
 """
 import html
@@ -83,6 +84,17 @@ def dati():
                        "esteso": s.get("esteso") or "", "tipo": s.get("tipo") or "", "breve": v["breve"],
                        "spiega": s.get("spiega") or "", "esempio": s.get("esempio") or "", "borsa": s.get("borsa") or "",
                        "mecc": s.get("mecc") or "", "fonte": s.get("fonte") or None})
+    # le parole spiegate dalle edizioni (dati/parole.json, G-54): senza esempio né "E la borsa?", senza parole vicine
+    W = leggi("dati/parole.json", {})
+    scritte = {fold(v["sigla"]) for v in parole}
+    for v in W.get("voci") or []:
+        if v.get("sigla") and v.get("breve") and v.get("spiega") and fold(v["sigla"]) not in scritte:
+            parole.append({"sigla": v["sigla"], "slug": pagine.ancora(v["sigla"])[2:], "titolo": v["sigla"],
+                           "esteso": " · ".join(v.get("varianti") or []), "tipo": W.get("tipo") or "Dalle edizioni",
+                           "breve": v["breve"], "spiega": v["spiega"], "esempio": "", "borsa": "", "mecc": "", "fonte": None,
+                           "giornale": True, "varianti": list(v.get("varianti") or [])})
+    ALIAS.clear()
+    ALIAS.update({k: fold(x) for k, x in (W.get("alias") or {}).items()})
     parole.sort(key=lambda v: fold(v["sigla"]))
     mecc = []
     for m in M.get("voci") or []:
@@ -106,10 +118,18 @@ def dati():
     return parole, mecc, E, S.get("tipi") or []
 
 
+ALIAS = {}   # parola dell'edizione -> voce di Impara (dati/parole.json), riempito da dati()
+
+
+def verso(x):
+    x = str(x)
+    return ALIAS.get(x) or ALIAS.get(x.split(" (")[0]) or fold(x).split(" (")[0]
+
+
 def usata(e, v):
-    """L'edizione usa la parola: stessa regola di glossario.html (sigle dell'edizione e parole spiegate)."""
+    """L'edizione usa la parola: stessa regola di glossario.html (sigle dell'edizione e parole spiegate, con i loro alias)."""
     f = fold(v["sigla"])
-    return any(fold(x) == f for x in e.get("glossario") or []) or any(fold(str(x)).split(" (")[0] == f for x in e.get("parole") or [])
+    return any(fold(x) == f for x in e.get("glossario") or []) or any(verso(x) == f for x in e.get("parole") or [])
 
 
 def quando(e):
@@ -171,13 +191,13 @@ def elenco_edizioni(eds, n=8):
 
 def pagina_parola(v, parole, mecc, eds):
     url = f"{BASE}{CARTELLA}/{v['slug']}.html"
-    nome = v["titolo"] + (f" ({v['esteso']})" if v["esteso"] and fold(v["esteso"]) != fold(v["titolo"]) else "")
+    nome = v["titolo"] + (f" ({v['esteso']})" if v["esteso"] and fold(v["esteso"]) != fold(v["titolo"]) and not v.get("giornale") else "")
     titolo = f"{nome}: cos'è e perché conta per i mercati | Gommberg"
     desc = corto(v["spiega"])
     m = next((x for x in mecc if x["id"] == v["mecc"]), None)
     uso = [e for e in eds if usata(e, v)]
     ld = {"@context": "https://schema.org", "@graph": [
-        {"@type": "DefinedTerm", "name": v["titolo"], "alternateName": [x for x in (v["sigla"], v["esteso"]) if x and x != v["titolo"]] or None,
+        {"@type": "DefinedTerm", "name": v["titolo"], "alternateName": (v.get("varianti") if v.get("giornale") else [x for x in (v["sigla"], v["esteso"]) if x and x != v["titolo"]]) or None,
          "description": v["spiega"], "url": url, "inLanguage": "it-IT",
          "inDefinedTermSet": {"@type": "DefinedTermSet", "name": "Impara: le parole dei mercati", "url": BASE + "glossario.html"}},
         briciole(v["titolo"], url)]}
@@ -188,8 +208,9 @@ def pagina_parola(v, parole, mecc, eds):
     a(f'<p class="kicker">Le parole dei mercati</p><h1>{esc(v["titolo"])}</h1>')
     if v["esteso"] and fold(v["esteso"]) != fold(v["titolo"]):
         a(f'<p class="meta">{esc(v["esteso"])}</p>')
-    a(f'<p class="dek">{esc(cap(v["breve"]))}</p>')
-    a(sez("Cos'è e perché conta", f"<p>{esc(v['spiega'])}</p>"))
+    if not fold(v["spiega"]).startswith(fold(v["breve"])):   # la scheda nata dal giornale comincia già con la sua breve
+        a(f'<p class="dek">{esc(cap(v["breve"]))}</p>')
+    a(sez("Cos'è" if v.get("giornale") else "Cos'è e perché conta", f"<p>{esc(v['spiega'])}</p>"))
     if v["esempio"]:
         a(sez("Un esempio", f'<div class="box"><p>{esc(v["esempio"])}</p></div>'))
     if v["borsa"]:
@@ -197,7 +218,8 @@ def pagina_parola(v, parole, mecc, eds):
     if m:
         a(sez("Il meccanismo", f'<ul class="rel"><li><a href="{m["slug"]}.html"><small>Come si muovono i mercati | {esc(m["area"])}</small>'
                                 f'<b>{esc(m["titolo"])}</b></a></li></ul>'))
-    fam = [x for x in parole if x["pagina"] and x is not v and ((v["mecc"] and x["mecc"] == v["mecc"]) or (v["tipo"] and x["tipo"] == v["tipo"]))]
+    fam = [x for x in parole if x["pagina"] and x is not v and not v.get("giornale")
+           and ((v["mecc"] and x["mecc"] == v["mecc"]) or (v["tipo"] and x["tipo"] == v["tipo"]))]
     fam.sort(key=lambda x: (x["mecc"] != v["mecc"] or not v["mecc"], fold(x["sigla"])))
     if fam:
         a(sez("Parole vicine", '<div class="sigle">' + "".join(f'<a href="{x["slug"]}.html"><b>{esc(x["titolo"])}</b> {esc(x["breve"])}</a>'

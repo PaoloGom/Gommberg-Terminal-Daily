@@ -23,6 +23,12 @@ AVVISO: lessico: "spread tra Btp e Bund" (1 volte): scrivi spread BTP-Bund
 [ok] Contenuti (estremi, perché, anomalie...): Contenuti: 0 errori, 2 avvisi
 AVVISO: aperture: servono 2 resoconti d'agenzia o testate globali (Reuters, AP, AFP, Bloomberg, CNBC...) e 1 italiana (Radiocor/Sole 24 Ore, Milano Finanza)
 AVVISO: grafici: "I rendimenti salgono da inizio novembre e restano alti" ripete un grafico della #025: cambia taglio (periodo, confronto, soglia) o scegli un altro grafico che provi la tesi
+[ROSSO] Coerenza (testo contro dati):
+ERRORE: cifre: quadro: "oro perde un altro 2,4%": Oro future nella seduta +0,29%. La cifra va su chi l'ha fatta: se è di un altro listino o di un titolo, il soggetto è quello; se è del mercato, val
+ERRORE: direzioni: quadro: "petrolio cala con le scorte americane." dice giù, ma nella seduta Brent future fa +0,76%
+ERRORE: direzioni: moduli.petrolio.titolo: "Brent scende con le scorte USA," dice giù, ma nella seduta Brent future fa +0,76%
+ERRORE: rimandi: ieri.0 rimanda a "Con Wall Street giù i Treasury si fermano: il mercato aspett", che non ne parla (nessun nome e meno di due parole in comune): il rimando va al pezzo che racconta qu
+ERRORE: ragionamento: manca coerenza_incarico.json: lo scrive controlli_tutti.sh --prima-della-revisione
 [ok] Ripetizioni: Ripetizioni: punteggio 1 (1 cifre in 2+ sezioni)
 AVVISO: 2,1% in 2 sezioni: APPROFONDIMENTO EUROPA, TOP STORY
 AVVISO: eco "curva par tesoro via" in 2 punti
@@ -30,4 +36,4 @@ AVVISO: eco "era largo consenso rialzo" in 2 punti
 AVVISO: eco "new york vende chip" in 2 punti
 AVVISO: eco "nvidia terzo trimestre fiscale" in 2 punti
 [ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
-ESITO: ERRORI in PDF e indice Fatti Numeri contro dati.json Scrittura (→, cause, sigle, ritmo) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia
+ESITO: ERRORI in PDF e indice Fatti Numeri contro dati.json Scrittura (→, cause, sigle, ritmo) Coerenza (testo contro dati) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia

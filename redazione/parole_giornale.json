@@ -1,0 +1,434 @@
+{
+ "nota": "Parole del giornale per Impara (G-54), lette da impara.py. Si scrive a mano, nel ramo di sviluppo; la redazione del mattino non lo tocca. stesse: parole diverse per la stessa cosa (chiave = il nome della voce: una sigla di Impara già scritta a mano, oppure il titolo della scheda nata dal giornale; valore = gli altri nomi usati dalle edizioni). Singolare e plurale, maiuscole, accenti e il nome tra parentesi si riconoscono da soli: qui va solo ciò che il codice non può sapere. fuori: parole (per qualunque loro nome) o una sola spiegazione ('Parola|AAAA-MM-GG') che non entrano, con il perché. confermate: le schede nuove che entrano in Impara, con la definizione rivista a mano (breve = la riga della scheda in griglia, spiega = la definizione intera, stesse regole di forma delle edizioni); una parola spiegata in due edizioni diventa pronta e python3 redazione/impara.py --proposte prepara la proposta con le spiegazioni del giornale e i possibili doppioni: chi conferma rilegge da esperto, scrive qui la definizione o aggiunge il nome a stesse se è un doppione. Qui si correggono anche le definizioni già in pagina: dati/parole.json è generato. archivio: le spiegazioni delle edizioni senza sorgenti archiviati (prima del 16/11/2026), tratte una volta dai PDF: solo le parole stampate.",
+ "stesse": {
+  "guidance": [
+   "Previsioni aziendali"
+  ],
+  "VIX": [
+   "Indice VIX",
+   "Indice della paura"
+  ],
+  "HBM": [
+   "Memorie HBM"
+  ],
+  "PCE": [
+   "PCE core"
+  ],
+  "IPO": [
+   "Quotazione in borsa"
+  ],
+  "Rifugio": [
+   "Acquisti rifugio"
+  ],
+  "Consenso": [
+   "Consenso degli analisti"
+  ],
+  "Flusso di cassa libero": [
+   "Free cash flow"
+  ],
+  "Premercato": [
+   "Pre-market"
+  ],
+  "Eccesso di offerta": [
+   "Eccedenza di offerta",
+   "Surplus di petrolio"
+  ],
+  "Riserva obbligatoria": [
+   "Riserva minima delle banche"
+  ],
+  "Rialzo da mezzo punto": [
+   "Rialzo da 50 punti base"
+  ]
+ },
+ "fuori": {
+  "Sidecar|2026-10-28": "dice una sola direzione, quella del giorno: il sidecar della borsa coreana scatta in tutti e due i sensi (vale la spiegazione del 27/11)",
+  "Sidecar|2026-11-23": "dice una sola direzione, quella del giorno: il sidecar della borsa coreana scatta in tutti e due i sensi (vale la spiegazione del 27/11)",
+  "Sidecar|2026-11-24": "dice una sola direzione, quella del giorno: il sidecar della borsa coreana scatta in tutti e due i sensi (vale la spiegazione del 27/11)",
+  "Vendite forzate|2026-11-24": "due frasi unite da una virgola: vale la spiegazione del 20/11",
+  "Collocamento|2026-11-20": "definisce il prezzo di collocamento, non il collocamento"
+ },
+ "confermate": {
+  "Appiattimento della curva": {
+   "breve": "rendimenti a lunga e a breve più vicini",
+   "spiega": "Quando la differenza tra il rendimento dei titoli di Stato a lunga scadenza e quello dei titoli a breve si riduce."
+  },
+  "Capitalizzazione": {
+   "breve": "il valore di borsa di una società",
+   "spiega": "Il valore di borsa di una società: il prezzo di un'azione per il numero delle azioni. Negli indici più diffusi, più è alta, più la società pesa."
+  },
+  "Consenso": {
+   "breve": "la media delle previsioni degli esperti",
+   "spiega": "La media delle previsioni di economisti o analisti su un dato o sui conti di un'azienda: il mercato reagisce alla distanza del risultato dal consenso più che al risultato in sé."
+  },
+  "Correzione": {
+   "breve": "un calo di almeno il 10% dal massimo",
+   "spiega": "Un calo di almeno il 10% di un indice o di un titolo dall'ultimo massimo, ma inferiore al 20% che segna un mercato ribassista: è una soglia convenzionale e non dice se la discesa continuerà."
+  },
+  "Eccesso di offerta": {
+   "breve": "si produce più di quanto il mercato chiede",
+   "spiega": "Quando di un bene si produce più di quanto il mercato ne chieda, per esempio più barili di petrolio di quanti se ne consumino: di solito il prezzo scende."
+  },
+  "Flusso di cassa libero": {
+   "breve": "la cassa che resta dopo spese e investimenti",
+   "spiega": "La cassa che l'attività di un'azienda genera dopo le spese di gestione e gli investimenti: se è negativa, l'azienda deve indebitarsi, chiedere capitale ai soci o usare la cassa accumulata."
+  },
+  "Premercato": {
+   "breve": "gli scambi prima dell'apertura",
+   "spiega": "Gli scambi prima dell'apertura ufficiale della borsa."
+  },
+  "Rifugio": {
+   "breve": "un investimento sicuro nei momenti di paura",
+   "spiega": "Un investimento considerato sicuro, come i titoli di Stato americani o l'oro, che gli investitori comprano quando sui mercati cresce la paura."
+  },
+  "Scorte di greggio": {
+   "breve": "il petrolio estratto e tenuto nei depositi",
+   "spiega": "Il petrolio già estratto e tenuto nei depositi: se crescono più del previsto, di solito il prezzo scende."
+  },
+  "Titoli difensivi": {
+   "breve": "azioni con utili poco legati all'economia",
+   "spiega": "Le azioni di settori come sanità, alimentari e servizi pubblici, i cui utili dipendono poco dall'andamento dell'economia."
+  },
+  "Vendita forzata": {
+   "breve": "vendere per necessità, non per scelta",
+   "spiega": "Vendere titoli non perché si è cambiata idea, ma per necessità: coprire perdite altrove o rientrare nei limiti di rischio e di debito."
+  },
+  "Verbali della Fed": {
+   "breve": "il resoconto della riunione sui tassi",
+   "spiega": "Il resoconto della riunione in cui la Fed, la banca centrale americana, decide i tassi: esce tre settimane dopo e mostra quanto i membri del comitato erano d'accordo tra loro."
+  }
+ },
+ "archivio": {
+  "2026-10-16": [
+   [
+    "Prezzi alla produzione",
+    "Misurano i prezzi incassati dai produttori, prima del commercio al dettaglio: spesso anticipano l'andamento dei prezzi al consumo."
+   ],
+   [
+    "Circuit breaker",
+    "Sospensione automatica degli scambi quando un indice scende oltre una soglia prestabilita."
+   ],
+   [
+    "Pre-market",
+    "Contrattazioni che si svolgono prima dell'apertura ufficiale di Wall Street."
+   ]
+  ],
+  "2026-10-19": [
+   [
+    "Rifugio",
+    "Investimento in cui si cerca protezione quando le borse scendono: tipicamente titoli di Stato e oro."
+   ],
+   [
+    "Premio di rischio",
+    "Rendimento in più che gli investitori chiedono per prestare a chi è più rischioso."
+   ],
+   [
+    "Curva dei rendimenti",
+    "La linea che unisce i rendimenti dei titoli di Stato a scadenze diverse."
+   ]
+  ],
+  "2026-10-20": [
+   [
+    "Rating",
+    "Il giudizio di un'agenzia sulla capacità di uno Stato o di una società di ripagare i debiti: se scende, il debito in genere costa di più."
+   ],
+   [
+    "Private credit",
+    "Prestiti alle imprese concessi da fondi e banche fuori dai mercati quotati: difficili da vendere e da valutare."
+   ],
+   [
+    "Ampiezza di mercato",
+    "Quanti titoli di un indice salgono rispetto a quanti scendono: pochi titoli grandi possono far salire l'indice anche se la maggioranza cala."
+   ]
+  ],
+  "2026-10-21": [
+   [
+    "Escursione",
+    "La distanza tra il valore più basso e il più alto di una serie in un periodo: misura quanto un prezzo oscilla, non dove va."
+   ],
+   [
+    "Differenziale (spread)",
+    "La differenza di rendimento tra due titoli di Stato, per esempio francese e tedesco: più è ampia, più il mercato chiede in cambio del rischio in più."
+   ],
+   [
+    "Guidance",
+    "Le previsioni che un'azienda dà su ricavi e utili dei trimestri successivi: spesso il titolo reagisce più a quelle che ai conti passati."
+   ]
+  ],
+  "2026-10-22": [
+   [
+    "Capex",
+    "Spesa in investimenti di un'azienda in impianti, macchine, data center: più alta, più costo oggi e (si spera) più ricavi domani."
+   ],
+   [
+    "Declassamento (downgrade)",
+    "Taglio del giudizio di un'agenzia di rating sulla capacità di uno Stato o di un'azienda di ripagare i debiti."
+   ],
+   [
+    "Frazionamento (split)",
+    "Un'azienda divide ogni azione in più parti: il prezzo scende, il valore totale resta uguale."
+   ]
+  ],
+  "2026-10-26": [
+   [
+    "Aa3",
+    "Giudizio di Moody's sul debito di uno Stato: terzo gradino dall'alto della scala."
+   ],
+   [
+    "PMI",
+    "Sondaggio mensile tra i direttori acquisti: sopra 50 l'attività cresce, sotto 50 si contrae."
+   ]
+  ],
+  "2026-10-27": [
+   [
+    "Circuit breaker",
+    "Sospensione automatica degli scambi quando un indice scende oltre una soglia: a San Paolo lunedì è durata 30 minuti."
+   ],
+   [
+    "Prospetto",
+    "Il documento depositato presso l'autorità di vigilanza con conti e rischi di una società che vuole quotarsi o raccogliere capitale."
+   ],
+   [
+    "Rischio fiscale",
+    "Il timore che uno Stato non tenga sotto controllo deficit e debito: di solito fa salire i tassi e scendere la valuta."
+   ]
+  ],
+  "2026-10-28": [
+   [
+    "Sidecar",
+    "Stop temporaneo agli ordini d'acquisto automatici sul Kospi quando i future salgono molto: frena gli eccessi."
+   ],
+   [
+    "Consenso degli analisti",
+    "La media delle stime sui conti o sui dati: il risultato si legge contro di essa."
+   ],
+   [
+    "Limite alto dell'intervallo Fed",
+    "La Fed fissa i tassi in una fascia di 25 pb: il limite alto è il massimo che il mercato interbancario dovrebbe pagare."
+   ]
+  ],
+  "2026-10-29": [
+   [
+    "Flusso di cassa libero",
+    "La cassa che resta a un'azienda dopo spese e investimenti: se è negativa, deve finanziarsi altrove."
+   ],
+   [
+    "Curva più ripida",
+    "La distanza tra i rendimenti a lunga e a breve scadenza aumenta: il lungo sale più del breve."
+   ],
+   [
+    "Guidance",
+    "Le previsioni dell'azienda su ricavi e utili dell'anno: spesso contano più dei risultati passati."
+   ]
+  ],
+  "2026-10-30": [
+   [
+    "Free cash flow",
+    "Il flusso di cassa che resta all'azienda dopo gli investimenti: se è negativo, la società spende più di quanto incassa."
+   ],
+   [
+    "Capex",
+    "Spesa per investimenti in impianti e data center."
+   ]
+  ],
+  "2026-11-02": [
+   [
+    "Guidance",
+    "Le previsioni di un'azienda su ricavi e utili dei prossimi mesi: per il mercato contano più dei conti passati."
+   ],
+   [
+    "Vendita forzata",
+    "Si vende per necessità, non per scelta: anche l'oro, per fare cassa dopo perdite altrove."
+   ],
+   [
+    "Titoli difensivi",
+    "Settori come sanità e beni di base, con utili poco legati al ciclo economico."
+   ]
+  ],
+  "2026-11-03": [
+   [
+    "Correzione",
+    "Calo di almeno il 10% di un indice dal massimo recente: la fase di rialzo si è interrotta."
+   ],
+   [
+    "Margine lordo",
+    "Quota dei ricavi che resta dopo i costi diretti di produzione."
+   ],
+   [
+    "Riserva obbligatoria",
+    "Quota di depositi che le banche tengono ferma presso la banca centrale."
+   ]
+  ],
+  "2026-11-04": [
+   [
+    "Data center",
+    "Grandi impianti con migliaia di server che fanno funzionare l'AI: consumano molta elettricità e richiedono permessi."
+   ],
+   [
+    "Guidance",
+    "Le previsioni che un'azienda dà sui propri risultati futuri: il titolo si muove spesso più per la guidance che per il trimestre passato."
+   ],
+   [
+    "Maggioranza al Congresso",
+    "Il partito che controlla Camera e Senato decide quali leggi arrivano al voto; il presidente può bloccarle con il veto."
+   ]
+  ],
+  "2026-11-05": [
+   [
+    "Memorie HBM",
+    "Memorie ad alta larghezza di banda: chip impilati che lavorano accanto ai processori dell'AI; Samsung e SK hynix sono tra i principali produttori."
+   ],
+   [
+    "Indice VIX",
+    "Misura la volatilità attesa dell'S&P 500 nei 30 giorni successivi: sale quando cresce la paura, scende quando si calma."
+   ],
+   [
+    "Banche domestiche",
+    "Banche che guadagnano soprattutto nel proprio paese, più legate ai tassi e all'economia interna che ai mercati globali."
+   ]
+  ],
+  "2026-11-06": [
+   [
+    "Riprezzamento",
+    "Il mercato cambia il prezzo che paga per utili futuri, senza che le stime di utile cambino: conta il tempo che passa prima dei ricavi e il rischio percepito."
+   ],
+   [
+    "Correzione",
+    "Un calo di almeno il 10% dal massimo recente, meno profondo del mercato orso (20%)."
+   ],
+   [
+    "Finanziamento circolare",
+    "Il fornitore investe nel cliente, che con quei fondi compra dal fornitore: i ricavi di uno dipendono dal finanziamento dell'altro."
+   ]
+  ],
+  "2026-11-09": [
+   [
+    "Eccedenza di offerta",
+    "Si produce più petrolio di quanto se ne consuma: di solito i prezzi scendono."
+   ],
+   [
+    "Premio di guerra",
+    "La parte del prezzo che copre il rischio di interruzioni delle forniture; scende quando la pace sembra vicina."
+   ],
+   [
+    "Aspettative sui tassi",
+    "Ciò che il mercato prevede che farà la banca centrale; si legge nel rendimento dei titoli a 2 anni."
+   ],
+   [
+    "Revisioni dei dati",
+    "Le correzioni ai dati dei mesi precedenti: possono contare quanto il dato nuovo."
+   ],
+   [
+    "Premercato",
+    "Gli scambi prima dell'apertura ufficiale della borsa."
+   ],
+   [
+    "Inflazione di fondo (core)",
+    "L'inflazione senza energia e alimentari: mostra la tendenza di fondo dei prezzi."
+   ]
+  ],
+  "2026-11-10": [
+   [
+    "Core",
+    "L'inflazione senza energia e alimentari, le voci più volatili: mostra la tendenza di fondo dei prezzi."
+   ],
+   [
+    "Appiattimento della curva",
+    "La distanza tra i rendimenti a lunga e a breve scadenza si riduce: il breve resta alto, il lungo scende."
+   ],
+   [
+    "Whitewash",
+    "Regola in assemblea: l'operazione passa solo se i soci indipendenti non votano contro e serve almeno due terzi del capitale votante."
+   ],
+   [
+    "Volatilità attesa (VIX)",
+    "Misura quanto il mercato si aspetta che l'S&P 500 oscilli nei prossimi 30 giorni: sale con la paura."
+   ],
+   [
+    "Dividendo straordinario",
+    "Una cifra pagata ai soci una tantum, oltre il dividendo ordinario."
+   ],
+   [
+    "Capitalizzazione",
+    "Il valore di Borsa di una società o di un indice: prezzo dell'azione per numero di azioni."
+   ]
+  ],
+  "2026-11-11": [
+   [
+    "Rialzo da 50 punti base",
+    "Il doppio del passo consueto della Fed: il mercato lo considera possibile, ma meno probabile del rialzo ordinario."
+   ],
+   [
+    "Consenso",
+    "La media delle stime degli economisti: conta la distanza del dato dal consenso, non il suo livello."
+   ],
+   [
+    "Prezzi alla produzione",
+    "L'indice dei prezzi pagati dalle imprese lungo la filiera: anticipa spesso i prezzi al consumo."
+   ],
+   [
+    "Asta dei Treasury",
+    "Il Tesoro USA vende i suoi titoli: una domanda debole alza i rendimenti."
+   ],
+   [
+    "Quotazione in borsa",
+    "Il debutto di una società sul listino: raccoglie capitali vendendo azioni al pubblico."
+   ],
+   [
+    "Shutdown",
+    "La sospensione dei fondi federali USA: ferma anche la raccolta di dati come i prezzi al consumo."
+   ]
+  ],
+  "2026-11-12": [
+   [
+    "Dopo-borsa",
+    "Gli scambi dopo la chiusura ufficiale: i prezzi si muovono sulle notizie, ma con pochi scambi, quindi spesso sono più bruschi e non sempre reggono all'apertura successiva."
+   ],
+   [
+    "Indice dei chip",
+    "Il Philadelphia Semiconductor misura l'andamento dei produttori di semiconduttori quotati negli Stati Uniti: è il termometro del settore più legato all'intelligenza artificiale."
+   ],
+   [
+    "Premio per il rischio",
+    "Il sovrapprezzo che il mercato paga quando teme un evento grave, come una guerra che ferma le forniture: se il timore cala, il sovrapprezzo scompare."
+   ],
+   [
+    "Scorte di greggio",
+    "Il petrolio immagazzinato negli Stati Uniti: se crescono, l'offerta supera la domanda e il prezzo tende a scendere; si pubblicano ogni settimana."
+   ],
+   [
+    "Prezzi alla produzione",
+    "Misurano i prezzi pagati dalle imprese lungo la filiera: anticipano quelli al consumo e per questo la Fed li guarda con attenzione."
+   ],
+   [
+    "Utile rettificato",
+    "L'utile al netto di voci straordinarie: è quello che gli analisti confrontano con le stime e che le società indicano come obiettivo."
+   ]
+  ],
+  "2026-11-13": [
+   [
+    "Amministratore delegato ad interim",
+    "Chi guida l'azienda finché non si sceglie il successore."
+   ],
+   [
+    "Rialzo da mezzo punto",
+    "Aumento dei tassi della banca centrale di 0,50 punti: il doppio della mossa abituale."
+   ],
+   [
+    "Prezzi alla produzione",
+    "L'inflazione misurata alla fabbrica: anticipa i prezzi dei negozi."
+   ],
+   [
+    "Rendimento",
+    "Quanto rende un titolo di Stato: sale quando il prezzo del titolo scende."
+   ],
+   [
+    "Curva dei rendimenti",
+    "Il rendimento dei titoli di Stato per scadenza, da pochi mesi a trent'anni."
+   ],
+   [
+    "Previsioni dell'azienda",
+    "Le stime che una società dà sui suoi conti futuri."
+   ]
+  ]
+ }
+}

@@ -474,11 +474,13 @@ main{padding-block:34px 56px}
   }
 
   const j = (u) => fetch(u, { cache: "no-store" }).then((r) => r.ok ? r.json() : null).catch(() => null);
-  // Impara: le stesse voci che conta glossario.html (parole del PDF più schede del sito, e i meccanismi)
-  Promise.all([j("redazione/glossario.json"), j("redazione/meccanismi.json"), j("redazione/glossario_sito.json")]).then(([Gl, M, S]) => {
+  // Impara: le stesse voci che conta glossario.html (parole del PDF, schede del sito, parole spiegate dalle edizioni, e i meccanismi)
+  Promise.all([j("redazione/glossario.json"), j("redazione/meccanismi.json"), j("redazione/glossario_sito.json"), j("dati/parole.json")]).then(([Gl, M, S, W]) => {
     if (!Gl || !M) { attesa("kImp"); return; }
     const base = (Gl.voci || []).filter((v) => v && v.sigla && v.breve), note = new Set(base.map((v) => v.sigla)), SV = (S && S.voci) || {};
-    const par = base.length + Object.keys(SV).filter((k) => !note.has(k) && SV[k].breve).length;
+    const scritte = base.map((v) => v.sigla).concat(Object.keys(SV).filter((k) => !note.has(k) && SV[k].breve));
+    const giaQui = new Set(scritte.map((k) => k.toLowerCase()));
+    const par = scritte.length + ((W && W.voci) || []).filter((v) => v && v.sigla && v.breve && v.spiega && !giaQui.has(v.sigla.toLowerCase())).length;
     const mec = (M.voci || []).filter((v) => v && v.id && v.titolo && v.testo).length;
     $("kImp").textContent = n0(par + mec); $("kImpD").textContent = n0(par) + " parole e " + n0(mec) + " meccanismi";
   });

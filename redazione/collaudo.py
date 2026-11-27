@@ -15,11 +15,15 @@ Cosa controlla:
   3. Modello       la pagina di riferimento (edizione_modello_v6.py) si impagina in 6 pagine piene e supera i controlli
                    che non dipendono dalle schede del giorno (PDF, riempimento, numeri, scrittura, temi, ripetizioni).
                    Pag. 6 non si giudica sul riempimento: dipende dal registro della scommessa di quella settimana.
+     Coerenza      il testo contro dati.json (controlli_coerenza.py) e il desk (desk.py) su frasi vere della prova del 23/11 e
+                   delle #031-#032: cifre che cambiano soggetto, versi contrari, rimandi vuoti, ipotesi nei titoli, ragionamento.
      Fonti         la regola dei fatti (autori.py, applicata da controlli_fatti.py) su schede costruite apposta: la
                    primaria basta, un'agenzia ripresa da tre siti è un autore solo, l'ultima scelta va dichiarata; e il
                    gancio (gancio_token.py) su una trascrizione costruita: ricerche, pagine aperte, pagine non raggiunte.
      Dati          controlli_dati.py sull'Euro Stoxx 50 scritto in sei modi: EODHD sempre tra le due fonti, quotazioni
-                   dei riquadri e fonti discordi fermate (APP_DATI §2b e §6).
+                   dei riquadri e fonti discordi fermate (APP_DATI §2b e §6); Kospi e Hang Seng da EODHD, anche il
+                   giorno dopo una festa di quella borsa (il livello ricavato parte dall'ultima seduta vera, mai da
+                   una base non certa: EODHD in ritardo, righe a indice fermo, date future fermate).
      Scommessa     il registro misura ogni settimana dalla chiusura vera (partenza = verdetto della settimana prima =
                    serie in scommessa/dati); il lunedì la lettura della settimana ha una fonte sola: pronostico.py
                    accetta lo scenario solo nella forma che pag. 6 stampa, e pag. 6 stampa quello.
@@ -33,7 +37,10 @@ Cosa controlla:
                    falso allarme da correggere).
   5. Sito          pagine.py su una copia: file JSON e XML validi, ultima edizione in testa, nessun link interno rotto;
                    le pagine generate sono identiche a quelle nel repository (se pagine.py cambia, le pagine si
-                   rigenerano nello stesso commit); costruisci.py prepara il sito pubblico senza avvisi
+                   rigenerano nello stesso commit); costruisci.py prepara il sito pubblico senza avvisi; Impara cresce
+                   con le edizioni (impara.py su casi costruiti: una volta sola aspetta, due volte è pronta ma entra solo
+                   confermata a mano, la frase del giorno resta fuori, la scheda scritta a mano vince, fuori vale per
+                   ogni nome, i doppioni si segnalano, un ingresso rotto ferma il passaggio e lascia dati/parole.json com'era)
   6. Pubblicazione pubblica.sh in modalità prova sulla copia (nessun commit, nessun push)
 Esce con 1 se un passo fallisce. --tieni lascia la cartella temporanea per guardare PDF e anteprime.
 
@@ -117,9 +124,9 @@ def impagina(lav, ed, pdf, reg, repo=None):
     return esegui([sys.executable, ed, lav, pdf], cwd=lav, env=env)
 
 
-def controlli(lav, pdf, n, extra=(), senza_indice=True, repo=None):
+def controlli(lav, pdf, n, extra=(), senza_indice=True, repo=None, env_extra=None):
     repo = repo or REPO
-    env = {"GTD_REPO": repo, "GTD_LAVORO": lav}
+    env = {"GTD_REPO": repo, "GTD_LAVORO": lav, **(env_extra or {})}
     if senza_indice:
         env["GTD_SENZA_INDICE"] = "1"
     rc, out = esegui(["bash", os.path.join(repo, "redazione", "controlli_tutti.sh"), pdf, str(n), *extra], cwd=lav, env=env)
@@ -191,7 +198,18 @@ def passo_avvio():
             male.append(f"{nome} {giorno}: manca '{atteso}' ({out.strip().splitlines()[-1][:70] if out.strip() else 'nessuna uscita'})")
         if len(out.splitlines()) > 23:
             male.append(f"{nome}: {len(out.splitlines())} righe (massimo 23)")
-    esito("Avvio (prepara.sh)", not male, "; ".join(male) or f"lunedì {lun:%d/%m}, {mar:%d/%m}, chiuso {chiuso:%d/%m}")
+    # Promemoria di dicembre (G-50): scatta finché FESTIVI_FINO non copre l'anno dopo, tace quando lo copre
+    anno = int(G.FESTIVI_FINO[:4]) if G.FESTIVI_FINO else 0
+    if not anno:
+        male.append("FESTIVI_FINO mancante o illeggibile in gommberg_engine.py: il promemoria di dicembre non sa fin dove arriva l'elenco")
+    for nome, anno_g, deve in ((("dicembre scoperto", anno, True), ("dicembre coperto", anno - 1, False)) if anno else ()):
+        giorno = next(dt.date(anno_g, 12, k) for k in range(1, 20) if G.uscita(dt.date(anno_g, 12, k)))
+        rc, out = esegui(["bash", os.path.join(R, "prepara.sh"), giorno.isoformat()],
+                         env={"GTD_REPO": REPO, "GTD_LAVORO": os.path.join(TMP, "avvio")})
+        if rc or ("DICEMBRE:" in out) != deve or len(out.splitlines()) > 23:
+            male.append(f"{nome} {giorno}: promemoria {'assente' if deve else 'di troppo'} o uscita sbagliata")
+    esito("Avvio (prepara.sh)", not male, "; ".join(male) or f"lunedì {lun:%d/%m}, {mar:%d/%m}, chiuso {chiuso:%d/%m}, "
+                                                          f"promemoria di dicembre (festivi verificati fino al {G.FESTIVI_FINO})")
 
 
 def passo_uscite():
@@ -231,7 +249,7 @@ MODELLO_ALTRE = {
 # mercati con il nastro di prima pagina (il 14/11 il modello aveva l'Euro Stoxx 50 a 6.190,37 nel nastro e 6.162,90 in tabella)
 ETICHETTE = {"ACWI": "MSCI ACWI (ETF, $)", "S&P 500": "S&P 500", "Euro Stoxx 50": "Euro Stoxx 50", "Treasury 10 anni": "Treasury 10 anni",
              "EUR/USD": "EUR/USD", "Brent future": "Brent future", "Oro future": "Oro (future, $/oncia)"}
-INDIPENDENTI = ["PDF e indice", "Numeri contro dati.json", "Scrittura", "Temi di prima pagina", "Ripetizioni", "Anteprima"]
+INDIPENDENTI = ["PDF e indice", "Numeri contro dati.json", "Scrittura", "Temi di prima pagina", "Coerenza", "Ripetizioni", "Anteprima"]
 
 
 def passo_modello():
@@ -276,6 +294,375 @@ def passo_modello():
             esito(f"Modello: {nome}", False, controlli.perche.get(chiave, "controllo non eseguito")[:170])
     if all(stato.get(next((k for k in stato if k.startswith(n)), ""), "") == "ok" for n in INDIPENDENTI):
         esito("Modello: controlli", True, ", ".join(INDIPENDENTI) + " (Fatti e Contenuti non giudicati: servono le schede del giorno)")
+
+
+# ---------------------------------------------------------------- 3a-bis. il testo regge contro i dati (G-45)
+# Il desk: una cifra resta sul suo soggetto. La prima di DESK_NO è la riscrittura vera della prova del 23/11 (con l'Hang
+# Seng a -1,9%); poi i rifiuti persi con e9391e8 (preposizione dentro il soggetto, soggetto doppio), la cifra prima del
+# soggetto o dopo i due punti, gli scambi e i casi scritti il 25/11 prima di provare la regola. In DESK_PASSA riordini e
+# riscritture nominali buone, tra cui l'oro della #032 e "il rimbalzo dell'oro" -> "l'oro rimbalza". Scoperti, perché la
+# regola guarda la testa del soggetto, i nomi propri e la proposizione, non i complementi in nomi comuni: "le vendite di
+# auto elettriche (+25%)" -> "le vendite di auto salgono del 25%" (un aggettivo che sparisce dopo un complemento),
+# "-0,8% per l'euro contro lo yen" -> "l'euro perde lo 0,8% contro il dollaro" (un complemento in minuscolo cambiato).
+DESK_NO = [
+    ("Nuove strette USA sulla tecnologia per la Cina fanno scendere il listino tecnologico di Hong Kong (-3,8%)",
+     "Hong Kong perde il 3,8% per le strette USA sulla tecnologia per la Cina"),
+    ("Il listino tecnologico di Hong Kong (-3,8%) guida i ribassi.", "Il listino di Hong Kong perde il 3,8% e guida i ribassi."),
+    ("Il listino tecnologico di Hong Kong (-3,8%) guida i ribassi in Asia.", "Hong Kong, con il suo listino tecnologico, perde il 3,8%."),
+    ("L'Hang Seng perde l'1,9% e il listino tecnologico di Hong Kong il 3,8%.", "Hong Kong perde il 3,8% e l'Hang Seng l'1,9%."),
+    ("-3,8% per il listino tecnologico di Hong Kong, il calo peggiore da aprile.", "Hong Kong perde il 3,8%, il calo peggiore da aprile."),
+    ("In Asia il peggiore è il listino tecnologico di Hong Kong: -3,8%.", "In Asia il peggiore è Hong Kong: -3,8%."),
+    ("Il listino tecnologico di Hong Kong, che perde il 3,8%, guida i ribassi.", "Hong Kong, che perde il 3,8%, guida i ribassi in Asia."),
+    ("Le banche nel listino di Milano perdono il 2,4% sui timori per gli extraprofitti.",
+     "Il listino di Milano perde il 2,4% sui timori per gli extraprofitti."),
+    ("Le banche nel listino di Milano perdono il 2,4%.", "Milano, con le banche, perde il 2,4%."),
+    ("I titoli dei semiconduttori nel Nasdaq (-4,2%) trascinano giù il listino.", "Il Nasdaq perde il 4,2% trascinato dai semiconduttori."),
+    ("Le small cap sul listino americano (-2,7%) soffrono i tassi alti.", "Il listino americano perde il 2,7% sui tassi alti."),
+    ("Il rame e l'argento salgono del 2% sulla domanda cinese.", "L'argento sale del 2% sulla domanda cinese."),
+    ("Il rame e l'argento salgono del 2%.", "Salgono del 2% l'argento e l'oro."),
+    ("Il rendimento del decennale americano sale al 4,2% dopo i dati.", "Il rendimento del Bund sale al 4,2% dopo i dati."),
+    ("L'oro guadagna il 2,1% e l'argento il 3,4%.", "L'argento guadagna il 2,1% e l'oro il 3,4%."),
+    ("Il petrolio WTI cede il 2,3% e il Brent l'1,1%.", "Il Brent cede il 2,3% e il WTI l'1,1%."),
+    ("Il decennale italiano sale al 3,6% mentre il Bund resta al 2,6%.", "Il Bund sale al 3,6% mentre il decennale italiano resta al 2,6%."),
+    ("Il decennale americano, dopo i dati sull'inflazione, sale al 4,2%.", "Il Bund, dopo i dati sull'inflazione americana, sale al 4,2%."),
+    ("Le azioni del lusso nella Borsa di Parigi perdono il 3%.", "La Borsa di Parigi perde il 3%."),
+    ("Il comparto bancario di Milano (+2,3%) festeggia i conti.", "Milano sale del 2,3% sui conti delle banche."),
+    ("Le auto tedesche a Francoforte cedono il 4%.", "Francoforte cede il 4%."),
+    ("L'oro sale dell'1,2% e il platino del 3%.", "Il platino sale dell'1,2% e l'oro del 3%."),
+    ("-5,1% per le azioni di Kering, la peggiore del listino.", "Il listino perde il 5,1%, Kering la peggiore."),
+    ("Il Nasdaq 100 perde il 2,9% e lo S&P 500 l'1,6%.", "Lo S&P 500 perde il 2,9% e il Nasdaq 100 l'1,6%."),
+    ("I titoli dei servizi pubblici nell'Euro Stoxx (+1,1%) reggono.", "L'Euro Stoxx sale dell'1,1%."),
+    ("Il decennale greco scende al 3,1%.", "Il decennale scende al 3,1%."),
+    ("Il fatturato di Stellantis in Europa cala del 7%.", "Stellantis cala del 7% in Europa."),
+    ("Lo yen guadagna lo 0,8% sul dollaro e l'euro lo 0,3%.", "L'euro guadagna lo 0,8% sul dollaro e lo yen lo 0,3%."),
+    ("Il rame e il nichel salgono del 3% a Londra.", "Il nichel sale del 3% a Londra."),
+    ("Samsung perde il 7% e SK hynix quasi il 6%.", "SK hynix perde il 7% e Samsung quasi il 6%."),
+    ("Gli utili delle banche italiane (+18%) battono le attese.", "Le banche italiane guadagnano il 18% e battono le attese."),
+    ("Nel trimestre i ricavi di Nvidia salgono del 62%.", "Nel trimestre Nvidia sale del 62%."),
+    ("Il listino dei titoli tecnologici di Taiwan: -2,8%.", "Taiwan: -2,8%."),
+    ("-1,4% per il Bund a 30 anni, il calo più ampio.", "Il Bund perde l'1,4%, il calo più ampio."),
+    ("Gli acquisti di oro delle banche centrali (+20%) sostengono il prezzo.", "L'oro sale del 20% con gli acquisti delle banche centrali."),
+    ("Le banche dell'Euro Stoxx (+2,4%) trainano l'indice.", "L'Euro Stoxx sale del 2,4%, trainato dalle banche."),
+    ("Il titolo di Intesa sale del 2% e il FTSE MIB dello 0,5%.", "Il FTSE MIB sale del 2% e Intesa dello 0,5%."),
+    ("Il gas europeo (+9%) spinge le utility.", "Le utility salgono del 9% spinte dal gas europeo."),
+    ("Tokyo, dove Toyota perde il 5%, chiude in calo.", "Tokyo perde il 5% e chiude in calo."),
+    ("I rendimenti dei Btp a 10 anni salgono al 3,9%.", "I rendimenti dei Btp salgono al 3,9%."),
+    ("L'oro tocca i 4.000 dollari e l'argento i 50 dollari.", "L'argento tocca i 4.000 dollari e l'oro i 50 dollari."),
+    ("Il fondo sovrano norvegese possiede l'1,5% di Nestlé.", "Nestlé possiede l'1,5% del fondo sovrano norvegese."),
+    ("In Europa il lusso perde il 3,5%, Kering il 6%.", "In Europa Kering perde il 3,5%, il lusso il 6%."),
+    ("Le piccole banche regionali americane (-4%) preoccupano.", "Le banche americane perdono il 4% e preoccupano."),
+    ("Il Nikkei recupera l'1% dopo il -3% di ieri.", "Il Nikkei perde il 3% dopo l'1% di ieri."),
+    # secondo collaudo indipendente (25/11): la cifra dopo i due punti con un complemento prima, la cifra in testa con
+    # participio o ausiliare, i livelli senza unità scambiati, la cifra tolta; poi i miei, scritti prima di provarli
+    ("Il listino tecnologico di Hong Kong cede alle strette americane: -3,8%.", "Hong Kong cede alle strette americane: -3,8%."),
+    ("Il listino tecnologico di Hong Kong è affossato dalle strette USA: -3,8%.", "Hong Kong è affossato dalle strette USA: -3,8%."),
+    ("Il listino tecnologico di Hong Kong è affossato dalle strette USA: -3,8%.", "Il listino di Hong Kong è affossato dalle strette USA: -3,8%."),
+    ("Il 3,8% lasciato sul terreno dal listino tecnologico di Hong Kong pesa sull'Asia.", "Il 3,8% lasciato sul terreno da Hong Kong pesa sull'Asia."),
+    ("Il 3,8% è stato perso dal listino tecnologico di Hong Kong.", "Il 3,8% è stato perso da Hong Kong."),
+    ("Il Nikkei chiude a 57.011, l'Hang Seng a 22.219.", "Il Nikkei chiude a 22.219, l'Hang Seng a 57.011."),
+    ("L'euro sale a 1,08 sul dollaro e la sterlina a 1,27.", "La sterlina sale a 1,08 sul dollaro e l'euro a 1,27."),
+    ("Il Bund rende il 2,3% dopo l'asta di ieri.", "Il Bund sale dopo l'asta di ieri."),
+    ("Il comparto bancario di Madrid cede alle vendite sui tassi: -2,1%.", "Madrid cede alle vendite sui tassi: -2,1%."),
+    ("Le auto di Francoforte sono affossate dai dazi americani: -3,4%.", "Francoforte è affossata dai dazi americani: -3,4%."),
+    ("Il 2,9% lasciato sul terreno dai titoli del lusso di Parigi pesa sull'Europa.", "Il 2,9% lasciato sul terreno da Parigi pesa sull'Europa."),
+    ("Il 5% è stato guadagnato dalle banche di Milano.", "Il 5% è stato guadagnato da Milano."),
+    ("Il Kospi chiude a 2.580, il Taiex a 22.910.", "Il Taiex chiude a 2.580, il Kospi a 22.910."),
+    ("Il cambio euro/dollaro sale a 1,09 e quello euro/sterlina a 0,84.", "Il cambio euro/sterlina sale a 1,09 e quello euro/dollaro a 0,84."),
+    ("Il Bund rende il 2,6% mentre il Btp sale.", "Il Bund sale mentre il Btp rende."),
+    ("Il Nikkei cede l'1,1% dopo il +2,4% di venerdì.", "Il Nikkei cede il 2,4% dopo l'1,1% di venerdì."),
+    ("Il settore tecnologico di Taiwan, colpito dai chip, perde il 4%.", "Taiwan, colpita dai chip, perde il 4%."),
+    ("Il rame sale a 9.900 dollari, lo zinco a 2.950 dollari.", "Lo zinco sale a 9.900 dollari, il rame a 2.950 dollari."),
+    ("Il Treasury a 30 anni sale al 4,9%, quello a 2 anni scende al 4,1%.", "Il Treasury a 2 anni sale al 4,9%, quello a 30 anni scende al 4,1%."),
+    ("Gli ordini dell'industria tedesca calano del 3%: pesano le auto.", "L'industria tedesca cala del 3%: pesano le auto."),
+    ("Le small cap del Russell 2000 sono penalizzate dai tassi: -2,2%.", "Il Russell 2000 è penalizzato dai tassi: -2,2%."),
+    ("Il 6% perso dalle azioni di Kering è il calo peggiore del lusso.", "Il 6% perso dal lusso è il calo peggiore di Kering."),
+    ("Il dollaro australiano scende a 0,64 e quello neozelandese a 0,58.", "Il dollaro neozelandese scende a 0,64 e quello australiano a 0,58."),
+    ("L'oro sale del 2% e tocca i 4.100 dollari, mentre l'argento resta a 48 dollari.", "L'oro sale del 2% e resta a 48 dollari, mentre l'argento tocca i 4.100 dollari."),
+    ("Le vendite al dettaglio americane salgono dello 0,6%, la fiducia scende a 98,2.", "La fiducia americana sale dello 0,6%, le vendite al dettaglio scendono a 98,2."),
+    # quarto collaudo indipendente (27/11): la cifra che si allarga a un secondo soggetto (caso della #034) e le due forme
+    # che erano scoperte (il complemento che sparisce dopo la testa, il complemento cambiato dopo la cifra); poi i miei
+    ("Il 10 anni scende di 6 pb, il 2 anni scende meno.", "Il 10 anni e il 2 anni scendono di 6 pb."),
+    ("Ieri il 2 anni è sceso comunque, e il 10 anni di 6 pb.", "Ieri il 2 anni è sceso comunque, come il 10 anni, di 6 pb."),
+    ("Il listino tecnologico di Hong Kong perde il 3,8% per le strette.", "Il listino tecnologico perde il 3,8% per le strette."),
+    ("Le banche perdono il 2,4% a Milano dopo la BCE, meno che a Francoforte.", "Le banche perdono il 2,4% a Francoforte dopo la BCE, più che a Milano."),
+    ("Il Nasdaq perde il 2%, Wall Street meno.", "Il Nasdaq e Wall Street perdono il 2%."),
+    ("L'oro sale dell'1%, l'argento è fermo.", "L'oro e l'argento salgono dell'1%."),
+    ("Il Kospi sale del 4% e Samsung tiene.", "Il Kospi e Samsung salgono del 4%."),
+    ("Samsung sale del 4,5% a Seul, meno che a Tokyo.", "Samsung sale del 4,5% a Tokyo, più che a Seul."),
+    ("Le azioni di Kering a Parigi perdono il 6%.", "Le azioni di Kering perdono il 6%."),
+]
+DESK_PASSA = [
+    ("Ci leggiamo anche il rimbalzo dell'oro (+3,9%): finiscono le vendite per far cassa.",
+     "Nel rimbalzo dell'oro (+3,9%) leggiamo la fine delle vendite per far cassa."),
+    ("Il rimbalzo dell'oro (+3,9%) racconta la fine delle vendite per fare cassa.",
+     "L'oro rimbalza del 3,9%: è finita la stagione delle vendite per fare cassa."),
+    ("In Giappone l'inflazione sale al 2,3% e alimenta le attese di rialzo dei tassi",
+     "L'inflazione giapponese sale al 2,3% e avvicina il rialzo dei tassi"),
+    ("Il cambio euro-dollaro scende dello 0,6% dopo le parole della BCE.", "Dopo le parole della BCE il cambio euro-dollaro scende dello 0,6%."),
+    ("Il decennale americano sale al 4,2% dopo i dati sui prezzi alla produzione.",
+     "Dopo i dati sui prezzi alla produzione il decennale americano sale al 4,2%."),
+    ("L'oro guadagna il 2,1% e l'argento il 3,4% mentre il dollaro si indebolisce.",
+     "Mentre il dollaro si indebolisce, l'oro guadagna il 2,1% e l'argento il 3,4%."),
+    ("Il listino tecnologico di Hong Kong perde il 3,8% sulle nuove strette americane.",
+     "Sulle nuove strette americane il listino tecnologico di Hong Kong perde il 3,8%."),
+    ("Sull'indice dei semiconduttori (-4,2%) pesano i conti deludenti di ieri sera.",
+     "I conti deludenti di ieri sera pesano sull'indice dei semiconduttori (-4,2%)."),
+    ("Le banche europee salgono dell'1,5% grazie alla curva dei tassi più ripida.",
+     "Grazie alla curva dei tassi più ripida le banche europee salgono dell'1,5%."),
+    ("Anche il Bund tedesco, come il decennale americano, sale al 2,6% in giornata.",
+     "In giornata anche il Bund tedesco sale al 2,6%, come il decennale americano."),
+    ("Il petrolio Brent cede il 2,3% sulle scorte americane in aumento.", "Le scorte americane in aumento: il petrolio Brent cede il 2,3%."),
+    ("Le vendite al dettaglio americane crescono dello 0,4% a ottobre, sopra le attese.",
+     "A ottobre le vendite al dettaglio americane crescono dello 0,4%, sopra le attese."),
+    ("Il rame e l'alluminio salgono del 2% sulla domanda cinese.", "Sulla domanda cinese il rame e l'alluminio salgono del 2%."),
+    ("Il decennale americano, dopo i dati sull'inflazione, sale al 4,2%.", "Dopo i dati sull'inflazione il decennale americano sale al 4,2%."),
+    ("Il 3,8% perso dal listino tecnologico di Hong Kong è il calo peggiore da aprile.",
+     "Il listino tecnologico di Hong Kong perde il 3,8%, il calo peggiore da aprile."),
+    ("Il Nasdaq (-2,1%) chiude la terza seduta in calo.", "Il Nasdaq perde il 2,1%: terza seduta in calo."),
+    ("Nvidia perde il 3,2% dopo i conti, e trascina i chip.", "Dopo i conti Nvidia perde il 3,2% e trascina i chip."),
+    ("Il calo del Brent (-1,8%) arriva con le scorte in aumento.", "Il Brent scende dell'1,8% con le scorte in aumento."),
+    ("Le azioni europee salgono dello 0,9% con le banche in testa.", "Con le banche in testa, le azioni europee salgono dello 0,9%."),
+    ("A Tokyo il Nikkei cede l'1,2% sul rafforzamento dello yen.", "Il Nikkei cede l'1,2% a Tokyo sul rafforzamento dello yen."),
+    ("Il rendimento del Bund sale di 5 pb al 2,71%.", "Il rendimento del Bund sale al 2,71%, 5 pb in più."),
+    ("Microsoft, che vale il 7% dell'indice, perde il 2%.", "Microsoft perde il 2% e vale il 7% dell'indice."),
+    ("La crescita dei prezzi alla produzione (+0,4%) supera le attese.", "I prezzi alla produzione crescono dello 0,4%, più delle attese."),
+    ("Stamattina il Kospi sale dell'1,5% trainato da Samsung.", "Trainato da Samsung, stamattina il Kospi sale dell'1,5%."),
+    ("Il dollaro si rafforza dello 0,7% contro lo yen dopo i dati.", "Dopo i dati il dollaro si rafforza dello 0,7% contro lo yen."),
+    ("In ottobre l'inflazione dell'area euro scende al 2,1%.", "L'inflazione dell'area euro scende al 2,1% in ottobre."),
+    ("Il guadagno di ASML (+4%) traina il listino olandese.", "ASML guadagna il 4% e traina il listino olandese."),
+    ("Il Russell 2000, l'indice delle piccole società, sale del 2,2%.", "Le piccole società del Russell 2000 salgono del 2,2%."),
+    ("-2,5% per il FTSE MIB, il peggiore in Europa.", "Il FTSE MIB perde il 2,5%, peggiore in Europa."),
+    ("Il prezzo del rame tocca i 10.500 dollari.", "Il rame tocca i 10.500 dollari."),
+    ("Il petrolio Brent cede il 2,3% sulle scorte.", "Sulle scorte il Brent cede il 2,3%."),
+    ("Nel Dow Jones in calo (-0,4%) pesano i titoli sanitari.", "Il Dow Jones cede lo 0,4%, appesantito dai titoli sanitari."),
+    ("Il Treasury a 10 anni resta al 4,91%.", "Il rendimento del Treasury a 10 anni: 4,91%."),
+    ("Apple perde l'1,1% dopo il richiamo.", "Dopo il richiamo, Apple perde l'1,1%."),
+    ("Il Brent, salito del 3% in settimana, chiude a 82 dollari.", "Il Brent chiude a 82 dollari, salito del 3% in settimana."),
+    ("Tesla (+6,2%) vola dopo le consegne.", "Dopo le consegne Tesla vola del 6,2%."),
+    ("Le Borse asiatiche chiudono in calo, con Tokyo a -1,1%.", "Le Borse asiatiche chiudono in calo e Tokyo perde l'1,1%."),
+    ("Sul mercato dei cambi lo yen si rafforza dello 0,5%.", "Lo yen si rafforza dello 0,5% sul mercato dei cambi."),
+    ("L'indice dei prezzi al consumo americano sale del 3,1% su base annua.",
+     "Su base annua i prezzi al consumo americani salgono del 3,1%."),
+    ("Intesa Sanpaolo guadagna l'1,7% e UniCredit il 2,2%.", "UniCredit guadagna il 2,2% e Intesa Sanpaolo l'1,7%."),
+    ("Il VIX, l'indice della paura, scende del 12%.", "L'indice della paura, il VIX, scende del 12%."),
+    ("Il dollaro perde lo 0,4% contro l'euro.", "Contro l'euro il dollaro perde lo 0,4%."),
+    ("Bitcoin torna sopra i 90.000 dollari (+4%) dopo una lunga settimana di vendite.",
+     "Bitcoin sale del 4%, sopra i 90.000 dollari, dopo una lunga settimana di vendite."),
+    ("La disoccupazione americana sale al 4,4%, il livello più alto dal 2021.",
+     "Il livello più alto dal 2021: la disoccupazione americana sale al 4,4%."),
+    ("Per il Kospi un calo del 2,6%, il peggiore dell'Asia.", "Il Kospi cala del 2,6%, il peggiore dell'Asia."),
+    ("Le azioni di Novo Nordisk crollano del 18% dopo lo studio.", "Dopo lo studio Novo Nordisk crolla del 18%."),
+    ("Le banche nel listino di Milano perdono il 2,4%.", "Nel listino di Milano le banche perdono il 2,4%."),
+    ("Il rame e l'argento salgono del 2%.", "Salgono del 2% il rame e l'argento."),
+    ("Nel Dow Jones in rialzo (+0,85%) leggiamo una rotazione.", "Il Dow Jones sale dello 0,85%: leggiamo una rotazione."),
+    # secondo collaudo indipendente (25/11): due cifre di fila nei rendimenti e nei prezzi; poi i miei
+    ("Il Bund a 10 anni rende il 2,31%, 4 punti base in meno di ieri.", "Il rendimento del Bund a 10 anni scende di 4 punti base al 2,31%."),
+    ("Il rame tocca i 9.800 dollari a tonnellata, +2,2% in giornata.", "Il rame sale del 2,2% e tocca i 9.800 dollari a tonnellata."),
+    ("Nvidia sale del 3% a 140 dollari.", "Nvidia tocca i 140 dollari, +3%."),
+    ("Il Btp a 10 anni rende il 3,52%, 6 punti base in più di ieri.", "Il rendimento del Btp a 10 anni sale di 6 punti base al 3,52%."),
+    ("L'argento tocca i 52 dollari l'oncia, +3,1% in giornata.", "L'argento sale del 3,1%: tocca i 52 dollari l'oncia."),
+    ("Il Nasdaq chiude a 21.450 punti, in calo dell'1,4%.", "Il Nasdaq cede l'1,4% e chiude a 21.450 punti."),
+    ("Il cambio euro/yen sale a 162,3 dopo la BoJ.", "Dopo la BoJ l'euro/yen sale a 162,3."),
+    ("La sterlina scende a 1,26 sul dollaro dopo i dati sull'inflazione britannica.", "Dopo i dati sull'inflazione britannica la sterlina scende a 1,26 sul dollaro."),
+    ("Il Dax, frenato dalle auto, perde lo 0,7%.", "Il Dax perde lo 0,7%, frenato dalle auto."),
+    ("Il listino di Madrid è spinto dalle banche: +1,3%.", "Spinto dalle banche, il listino di Madrid sale dell'1,3%."),
+    ("Il 2,5% perso dal FTSE MIB è il calo più forte da aprile.", "Il FTSE MIB perde il 2,5%, il calo più forte da aprile."),
+    ("Le azioni di Mediobanca salgono del 4,2% sull'offerta di Mps.", "Sull'offerta di Mps Mediobanca sale del 4,2%."),
+    ("Il Nikkei chiude a 39.120, l'Hang Seng a 19.870.", "L'Hang Seng chiude a 19.870, il Nikkei a 39.120."),
+    ("Il Brent sale dell'1,9% a 74 dollari al barile.", "Il Brent tocca i 74 dollari al barile, +1,9%."),
+    ("Il Treasury a 2 anni scende al 4,12%, 8 punti base in meno.", "Il Treasury a 2 anni perde 8 punti base e scende al 4,12%."),
+    ("Il bitcoin è sceso sotto i 70.000 dollari: -5%.", "Il bitcoin perde il 5%, sotto i 70.000 dollari."),
+    ("Il PIL tedesco cresce dello 0,2% nel trimestre, meno delle attese.", "Nel trimestre il PIL tedesco cresce dello 0,2%, meno delle attese."),
+    ("Il petrolio WTI è frenato dalle scorte americane: -1,2%.", "Frenato dalle scorte americane, il WTI cede l'1,2%."),
+    ("Il 4% guadagnato da Ferrari arriva dopo i conti.", "Ferrari guadagna il 4% dopo i conti."),
+    ("Il rendimento del Bund a 10 anni cala al 2,61%, il livello più basso da ottobre.", "Il Bund a 10 anni rende il 2,61%, il livello più basso da ottobre."),
+    # quarto collaudo indipendente (27/11): un aggettivo o un participio dopo il nome della misura, il tempo e la fonte
+    # davanti (riscritture vere della #034 e varianti delle edizioni del 26-27/11); poi i miei
+    ("Per la Cina il rialzo è di 20 punti sopra il 25% già in vigore.", "Per la Cina il rialzo proposto è di 20 punti sopra il 25% già in vigore."),
+    ("Mercoledì il calo del 6,16% è arrivato dopo la vendita a Wall Street.", "Mercoledì il calo complessivo del 6,16% è arrivato dopo la vendita a Wall Street."),
+    ("Per Bloomberg il rialzo del 25/11 (+3,5% a 94,61 dollari) viene dagli attacchi in Medio Oriente.",
+     "Per Bloomberg il rialzo complessivo del 25/11 (+3,5% a 94,61 dollari) viene dagli attacchi in Medio Oriente."),
+    ("Per la BCE il taglio è di 25 pb a dicembre, dicono i mercati.", "Per la BCE il taglio atteso è di 25 pb a dicembre, dicono i mercati."),
+    ("Il calo del Nasdaq è del 10% in una settimana.", "Il calo settimanale del Nasdaq è del 10%."),
+    ("Samsung perde il 7% a Seul e SK hynix quasi il 6%.", "A Seul Samsung perde il 7% e SK hynix quasi il 6%."),
+    ("Il 2 anni scende di 4 pb e il 10 anni di 6 pb.", "Il 10 anni scende di 6 pb e il 2 anni di 4 pb."),
+    ("Il Nikkei perde il 2% secondo Reuters.", "Secondo Reuters il Nikkei perde il 2%."),
+    ("Il rame e l'argento salgono del 2%.", "L'argento e il rame salgono del 2%."),
+]
+
+
+def passo_coerenza():
+    """Casi costruiti con le frasi vere della prova del 23/11, della #031 e della #032, sui prezzi del 20/11 (dati.json del
+    campione #031): una cifra che cambia soggetto, un "più del 2%" detto di un -4,6%, un verso contrario alla chiusura, un
+    rimando a un pezzo che non ne parla e un'ipotesi nel titolo si fermano; le frasi giuste che gli somigliano passano. Poi
+    il ragionamento: l'incarico del revisore porta la frase dell'oro della #031, un "non regge" ferma finché la frase resta
+    uguale, e la risposta che manca si dice. Infine il desk: la riscrittura di Hong Kong si respinge, una che toglie un
+    fatto unico pure, quelle che riordinano passano."""
+    import controlli_coerenza as K
+    import desk
+    tmp = os.path.join(TMP, "coerenza")
+    os.makedirs(tmp, exist_ok=True)
+    D = json.load(open(os.path.join(RETE, "2026-11-23", "sorgenti", "dati.json"), encoding="utf-8"))
+    M = K.mercati_del_giorno(D)
+    ferma = {"hk": "Hong Kong perde il 3,8% per le strette USA sulla tecnologia per la Cina",
+             "oro2": "La paura ha preso il posto dell'inflazione. L'oro cede più del 2% e il dollaro quasi non si muove.",
+             "brent": "Il Brent scende con le scorte USA, ma il rischio Hormuz lo sostiene",
+             "oro_su": "Nel giorno della paura l'oro sale e fa da rifugio.",
+             "nikkei": "Il Nikkei chiude a 56.000 punti, il livello più basso da aprile.",
+             # quarto collaudo (27/11): la data o il giorno della settimana della seduta si confrontano
+             "data_stessa": "Il 23/11 il Kospi è salito del 6,3%.",
+             "giorno_stesso": "Lunedì il Kospi sale del 6,3%.",
+             # ricollaudo del quarto giro (27/11): l'esenzione vale solo per la proposizione della cifra
+             "relativa": "Il Kospi, che ieri aveva chiuso in calo, sale del 6,3%.",
+             "confronto": "Il Kospi sale del 6,3% e recupera quasi tutto il crollo di venerdì.",
+             "mese_stesso": "Il Kospi sale del 6,3% e torna ai livelli di novembre.",
+             "chiude_dopo_aver": "Il Kospi chiude in rialzo del 6,3% dopo aver aperto in calo.",
+             "arrivata_a": "Il Kospi sale del 6,3% sulla notizia arrivata a mercati aperti.",
+             "verso_imperfetto": "Il Kospi sale mentre gli investitori aspettavano il fondo.",
+             "verso_dopo_aver": "Il Kospi sale dopo aver aperto in calo."}
+    passa = {"hk_tech": "Nuove strette USA sulla tecnologia per la Cina fanno scendere il listino tecnologico di Hong Kong (-3,8%)",
+             "nikkei": "Il Nikkei chiude a 56.436,65 punti (-5,06%), il livello più basso dal 13 aprile.",
+             "vix": "Il VIX (volatilità attesa sull'S&P 500) sale del 26,2%.",
+             "seul": "Samsung perde il 7% a Seul e SK hynix quasi il 6%.",
+             "dollaro": "L'oro scende e il dollaro quasi non si muove.",
+             "tassi": "Venerdì il 10 anni è sceso dal 5,04% al 4,92% e il 2 anni di 13 pb.",
+             "se": "Se il 10 anni torna sopra il 5,04% la paura non basta più e torna a contare la Fed.",
+             "sett": "Per questo il Nasdaq ha perso il 10% in una settimana.",
+             "seduta": "Il FTSE MIB chiude a -2,5% dopo aver perso quasi il 3%.",
+             "crisi": "La differenza con le crisi in cui l'oro sale sta nell'origine della paura.",
+             "nasdaq100": "Il Nasdaq 100 perde il 5,6%.",
+             "europa": "L'Europa perde il 7% in cinque sedute.",
+             # quarto collaudo (27/11): falsi allarmi sulle edizioni vere del 26 e 27/11. Una cifra che la frase colloca in
+             # un altro giorno, in un altro momento della seduta, o che è un livello, non è la chiusura del giorno
+             "minimo": "Il Nasdaq è arrivato a perdere il 7,5% e l'S&P 500 il 6,1%, poi gli acquisti hanno ridotto il calo.",
+             "altra_data": "A nostro avviso conta l'attesa: il 24/11 il Kospi era salito del 6,3% e il giorno dopo aveva restituito tutto.",
+             "giorno_prima": "Il giorno prima il Kospi è salito del 2%.",
+             "altro_giorno": "Giovedì il Nasdaq ha perso il 2%.",
+             "punti": "Per KED Global il Kospi si avvicina ai 5.000 punti sulla speranza di un accordo."}
+    sfuggiti = [k for k, t in ferma.items() if not K.cifre_e_direzioni({k: t}, M)]
+    falsi = [f"{k}: {K.cifre_e_direzioni({k: t}, M)[0][:90]}" for k, t in passa.items() if K.cifre_e_direzioni({k: t}, M)]
+    fed = {"chiave": "fed", "titolo": "La Fed ha l'inflazione contro e non può soccorrere la borsa",
+           "testo": ["Il PCE di mercoledì, atteso a +0,3% sul mese, è il dato che la Fed guarda di più per l'inflazione."]}
+    C = {"top": {"titolo": "Wall Street crolla", "dek": ""}, "moduli": [fed], "notizie": [],
+         "ieri": [("Gio 19, 14:30", "Indice Philadelphia Fed (novembre)", "6,3 (atteso 20,0)", "-", "[[fed]]")],
+         "agenda": [("Mer 25, 14:30", "Prezzi al consumo USA (ottobre)", "+0,3%", "Inflazione", "[[fed]]")]}
+    # i mercati e la chiave del pezzo contano come nomi: "→ [[oro]]" da una frase sull'oro porta al pezzo sull'oro (27/11)
+    C["moduli"].append({"chiave": "oro", "titolo": "L'oro recupera metà della caduta ma resta lontano dai massimi",
+                        "testo": ["Il metallo torna a fare da rifugio."]})
+    C["in30"] = ["L'oro ha già riconquistato metà della caduta di questa settimana. [[oro]]"]
+    rim = K.rimandi(C)
+    rim_ok = len(rim) == 1 and "ieri.0" in rim[0]
+    tit_no = K.titoli({"top": {"titolo": "L'oro cala nel giorno della paura, forse per fare cassa"}})
+    tit_si = K.titoli({"top": {"titolo": "L'oro cala nel giorno della paura"}})
+    # il ragionamento: la frase dell'oro della #031, giudicata "non regge", ferma finché resta uguale
+    q = "L'oro, che di solito ripara, è invece caduto insieme alle azioni, e a nostro avviso pesa il dollaro forte."
+    C2 = {"top": {"titolo": "Wall Street entra in correzione"}, "quadro": q, "moduli": [], "notizie": []}
+    campi = {"quadro": q}
+    inc = K.scrivi_incarico(C2, campi, M, tmp)
+    rid = next((x["id"] for x in inc["frasi"] if x["frase"] == q), None)
+    eur = any(r.startswith("EUR/USD") and "(fermo)" in r for r in inc["prezzi"])
+    manca = K.verdetti(campi, tmp)[0]
+    json.dump([{"id": x["id"], "esito": "non_regge" if x["id"] == rid else "regge", "nota": "EUR/USD fermo nella seduta",
+                "rimedio": "lettura con i prezzi"} for x in inc["frasi"]], open(os.path.join(tmp, K.RISPOSTA), "w"))
+    resta = K.verdetti(campi, tmp)[0]
+    corretta = K.verdetti({"quadro": "L'oro è caduto insieme alle azioni: a nostro avviso si vende ciò che si può vendere."}, tmp)[0]
+    ragiona = bool(rid) and eur and manca and len(resta) == 1 and "lettura con i prezzi" in resta[0] and not corretta
+    # il desk (G-45): una cifra resta sul suo soggetto. (originale, riscrittura) in DESK_PASSA si accettano, in DESK_NO si
+    # respingono. Poi le riscritture vere accettate nelle edizioni (sorgenti/*/desk_ok.json) restano accettate, e il
+    # confronto con dati.json ferma ciò che Coerenza fermerebbe nell'edizione (il desk non deve mai poterla bloccare).
+    sbagliati = [f"passa respinta: {o[:50]}" for o, n in DESK_PASSA if desk.controlla(o, n, set())] + \
+        [f"cattiva passata: {o[:50]}" for o, n in DESK_NO if not desk.controlla(o, n, set())]
+    # Le riscritture vere: un elenco fisso e versionato (rete/desk_vere.json), ognuna con il suo giudizio, lungo il percorso
+    # intero di `desk.py verifica` (i nomi dell'edizione, gli altri campi, poi il confronto con Coerenza sul dati.json del
+    # giorno, solo dove l'edizione ha ancora il testo che il desk ha letto). Le "buona" passano, le "sbagliata" si
+    # respingono. Le riscritture delle edizioni arrivate dopo (sorgenti/*/desk_ok.json fuori dall'elenco) le ha accettate
+    # il desk di allora e nessuno le ha giudicate: se il desk di oggi ne respinge una è da leggere, non un rosso (quarto
+    # collaudo, 27/11: il glob su tutte le edizioni faceva tornare rosso il cancello del rilascio a ogni edizione nuova).
+    import contextlib
+    import io
+    elenco = json.load(open(os.path.join(RETE, "desk_vere.json"), encoding="utf-8"))
+    giudicate = {(e["data"], e["campo"], e["originale"]) for e in elenco}
+    edizioni, da_leggere, nuove = {}, [], []
+    for f in sorted(glob.glob(os.path.join(R, "sorgenti", "*", "desk_ok.json"))):
+        data = os.path.basename(os.path.dirname(f))
+        try:
+            voci = json.load(open(f, encoding="utf-8"))
+        except ValueError:
+            voci = None
+        for e in voci if isinstance(voci, list) else [None]:
+            if not isinstance(e, dict) or not all(isinstance(e.get(k), str) for k in ("campo", "originale", "testo")):
+                da_leggere.append(f"{data}: voce di desk_ok.json incompleta o illeggibile, saltata"); continue
+            if (data, e["campo"], e["originale"]) not in giudicate:
+                nuove.append(dict(e, data=data, giudizio=""))
+
+    def verifica(e):
+        cart = os.path.join(R, "sorgenti", e["data"])
+        if cart not in edizioni:
+            qui = os.getcwd()
+            try:
+                os.chdir(cart)
+                with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                    Ce = desk._carica(os.path.join(cart, "edizione.py"))
+            finally:
+                os.chdir(qui)
+            att = desk.campi(Ce)
+            edizioni[cart] = (Ce, att, set().union(*[desk._nomi(v) for v in att.values()]), desk._mercati_del_giorno(cart))
+        Ce, att, tutto, Me = edizioni[cart]
+        altri = " ".join(v for k, v in att.items() if k != e["campo"])
+        return desk.controlla(e["originale"], e["testo"], tutto, e["campo"], altri) or \
+            (desk.coerenza_peggiora(Ce, e["campo"], e["testo"], Me) if att.get(e["campo"]) == e["originale"] else None)
+    for e in elenco:
+        motivo = verifica(e)
+        if e["giudizio"] == "buona" and motivo:
+            sbagliati.append(f"vera buona respinta {e['data']} {e['campo']}: {motivo[:60]}")
+        elif e["giudizio"] == "sbagliata" and not motivo:
+            sbagliati.append(f"vera sbagliata accettata {e['data']} {e['campo']}")
+    for e in nuove:
+        motivo = verifica(e)
+        if motivo:
+            da_leggere.append(f"{e['data']} {e['campo']}: {motivo[:90]}")
+    vere = elenco
+    # una proposta malformata è un rifiuto pulito, e un campo fuori misura si respinge subito
+    if not desk.controlla("Il Bund rende il 2,3%.", ["x"], set()) or not desk.controlla(5, "x", set()):
+        sbagliati.append("proposta malformata accettata")
+    enorme = " ".join(f"Il titolo {i} sale del {i},5%." for i in range(300))
+    if not desk.controlla(enorme, enorme.replace("sale", "cresce"), set()):
+        sbagliati.append("campo fuori misura accettato")
+    if desk._nomi("dopo le parole della BCE.") != desk._nomi("dopo le parole della BCE il cambio"):
+        sbagliati.append("BCE. e BCE contano come nomi diversi")
+    Cd = {"top": {"titolo": "Wall Street crolla", "dek": ""}, "quadro": "Il Brent si muove con le scorte USA.", "moduli": [],
+          "notizie": []}
+    contro_dati = [desk.coerenza_peggiora(Cd, "quadro", "Il Brent scende con le scorte USA.", M),
+                   desk.coerenza_peggiora(Cd, "top.titolo", "Wall Street forse crolla", M),
+                   desk.coerenza_peggiora(dict(Cd, quadro=DESK_NO[0][0]), "quadro", DESK_NO[0][1], M)]
+    sbagliati += ["dati: verso, ipotesi o Hong Kong passati"] if not all(contro_dati) else []
+    sbagliati += ["dati: riordino buono respinto"] if desk.coerenza_peggiora(Cd, "quadro", "Con le scorte USA il Brent si muove.", M) else []
+    corto = ("La SEC ha aperto un esame su Nvidia, il titolo che regge la storia dell'intelligenza artificiale nelle borse. "
+             "Il titolo ha perso il 14% venerdì e più del 20% in una settimana.")
+    lungo = corto.replace(" Il titolo", " Lo staff guarda a possibili problemi contabili nei bilanci. Il titolo")
+    tolto = desk.controlla(lungo, corto, set(), altri="")
+    eco = desk.controlla(lungo, corto, set(), altri="Lo staff della SEC guarda a possibili problemi contabili nei bilanci.")
+    desk_ok = not sbagliati and bool(tolto) and eco is None
+    ok = not sfuggiti and not falsi and rim_ok and tit_no and not tit_si and ragiona and desk_ok
+    det = (f"{len(ferma)} frasi sbagliate fermate, {len(passa)} giuste passate (cifra che cambia soggetto, \"più del\", verso, "
+           "periodo, ipotesi, parentesi); rimando a un pezzo che non ne parla; ipotesi nel titolo; il ragionamento dell'oro della "
+           f"#031 fermato finché resta e liberato quando cambia; desk: {len(DESK_NO)} cifre spostate respinte, {len(DESK_PASSA)} "
+           f"riscritture buone, {sum(e['giudizio'] == 'buona' for e in vere)} vere buone passate e "
+           f"{sum(e['giudizio'] == 'sbagliata' for e in vere)} sbagliate respinte lungo il percorso intero di verifica, verso/ipotesi/cifra contro dati.json "
+           "fermati, un fatto unico respinto, un'eco passata, proposte malformate o fuori misura respinte")
+    if not ok:
+        det = "; ".join(x for x in [
+            f"sfuggiti {sfuggiti}" if sfuggiti else "", f"falsi allarmi {falsi[:2]}" if falsi else "",
+            "" if rim_ok else f"rimandi {rim[:2]}", "" if tit_no and not tit_si else "titoli",
+            "" if ragiona else f"ragionamento (id {rid}, EUR/USD fermo {eur}, manca {bool(manca)}, resta {resta[:1]}, corretta {corretta[:1]})",
+            "" if desk_ok else f"desk ({len(sbagliati)} sbagliati: {sbagliati[:3]}, tolto {tolto}, eco {eco})"] if x)
+    esito("Coerenza: il testo regge contro i dati", ok, det)
+    if da_leggere:
+        print(f"[leggi] Coerenza: {len(da_leggere)} riscritture di edizioni fuori da rete/desk_vere.json respinte dal desk di "
+              "oggi o incomplete (giudicale e mettile nell'elenco):")
+        for x in da_leggere[:8]:
+            print("        " + x)
+        NOTE.append(f"desk: {len(da_leggere)} riscritture di edizioni nuove respinte dal desk di oggi, da giudicare")
 
 
 # ---------------------------------------------------------------- 3a. scrittura: lessico di casa e fonti tra parentesi
@@ -580,9 +967,50 @@ def passo_dati():
         out = esegui([sys.executable, os.path.join(R, "controlli_dati.py"), f])[1]
         if ("AVVISO: Indice di prova: ultimo dato del" in out) != atteso or "- Indice di prova:" in out:
             sbagliati.append(nome)
-    esito("Dati: fonti dell'Euro Stoxx 50", not sbagliati,
+    # Kospi e Hang Seng (G-41): le chiusure arrivano da EODHD ogni mattina (APP_DATI §2b), con il ripiego se il connettore non
+    # risponde; una chiusura EODHD diversa dall'archivio si ferma, come una riga a indice fermo, una data futura o una riga di
+    # oggi presa da EODHD. Il giorno dopo una festa di quella borsa (calendario in giorni.py) il livello ricavato parte
+    # dall'ultima seduta vera e il controllo lo dice; il martedì in cui EODHD non ha ancora la chiusura di lunedì niente
+    # livello ricavato da venerdì: chiede la chiusura che manca, con la sua data. Gira in una copia del kit con un archivio
+    # suo, così non dipende dalle chiusure che pubblica.sh aggiunge ogni giorno.
+    asia = os.path.join(TMP, "dati_asia")
+    kit(asia)
+    with open(os.path.join(asia, "chiusure.csv"), "w", encoding="utf-8") as fa:
+        fa.write("serie,data,valore\nHang Seng,2026-11-20,22410.8\nHang Seng,2026-11-23,22383.75\n"
+                 "Kospi,2026-11-20,4869.96\nKospi,2026-11-23,4708.54\n")
+    fk = os.path.join(asia, "dati.json")
+    ks = {"mercato": "KR", "tipo": "intraday", "var": 1.2, "ora": "08:10"}
+    hk = {"mercato": "HK", "tipo": "chiusura"}
+    natale = [["2026-12-24", 5000.0, None], ["2026-12-23", 4950.0, None]]
+    for nome, giorno, serie_, passa, deve_dire, non_deve in (
+            ("Seul e Hong Kong da EODHD", "2026-11-24", {"Kospi": dict(ks, fonte="EODHD + Teleborsa", ultimi=[["2026-11-23", 4708.54, None], ["2026-11-20", 4869.96, None]]),
+                                                         "Hang Seng": dict(hk, fonte="EODHD", ultimi=[["2026-11-23", 22383.74, None], ["2026-11-20", 22410.8, None]])}, True, "", "AVVISO: Kospi"),
+            ("Seul senza EODHD", "2026-11-24", {"Kospi": dict(ks, fonte="Teleborsa", ultimi=[])}, False, "mancano le chiusure di EODHD", "zzz"),
+            ("Seul con EODHD giù", "2026-11-24", {"Kospi": dict(ks, fonte="Teleborsa", ultimi=[], eodhd_nd="non risponde")}, True, "", "zzz"),
+            ("eodhd_nd scritto in fonte", "2026-11-24", {"Kospi": dict(ks, fonte="Teleborsa, eodhd_nd", ultimi=[["2026-11-23", 4708.54, None]])}, False, "mancano le chiusure di EODHD", "zzz"),
+            ("Hong Kong diversa dall'archivio", "2026-11-24", {"Hang Seng": dict(hk, fonte="EODHD", ultimi=[["2026-11-23", 22483.74, None], ["2026-11-20", 22410.8, None]])}, False, "in archivio", "zzz"),
+            ("Seul il lunedì dopo Natale", "2026-12-28", {"Kospi": dict(ks, fonte="EODHD + Teleborsa", ultimi=natale)}, True,
+             "AVVISO: Kospi: livello ricavato dall'ultima seduta, del 2026-12-24: borsa chiusa per festa il 2026-12-25", "zzz"),
+            ("Seul il martedì con EODHD in ritardo", "2026-12-15", {"Kospi": dict(ks, fonte="EODHD + Teleborsa", ultimi=[["2026-12-11", 5000.0, None], ["2026-12-10", 4990.0, None]])}, False,
+             "manca la chiusura del 14/12, giorno di borsa", "chiusa per festa"),
+            ("Seul con EODHD giù e archivio indietro", "2026-11-26", {"Kospi": dict(ks, fonte="Teleborsa", ultimi=[], eodhd_nd="non risponde")}, False,
+             "manca la chiusura del 24/11, giorno di borsa", "da EODHD"),
+            ("riga EODHD a indice fermo a Natale", "2026-12-28", {"Kospi": dict(ks, fonte="EODHD + Teleborsa", ultimi=[["2026-12-25", 5000.0, None]] + natale)}, False,
+             "riga del 2026-12-25, ma quel giorno la borsa era chiusa", "zzz"),
+            ("data dopo oggi", "2026-12-28", {"Kospi": dict(ks, fonte="EODHD + Teleborsa", ultimi=[["2026-12-29", 5000.0, None]] + natale)}, False, "una data dopo oggi", "zzz"),
+            ("riga di oggi presa da EODHD", "2026-11-24", {"Kospi": dict(ks, tipo="chiusura", fonte="EODHD", var=None, ultimi=[["2026-11-24", 4800.0, None], ["2026-11-23", 4708.54, None]])}, False,
+             "riga di oggi con la sola fonte EODHD", "zzz")):
+        dati = {"oggi": giorno, "ora_roma": "09:05", "macro": [], "serie": serie_}
+        json.dump(dati, open(fk, "w", encoding="utf-8"), ensure_ascii=False)
+        out = esegui([sys.executable, os.path.join(asia, "controlli_dati.py"), fk])[1]
+        fermo = any(l.startswith(("- Kospi:", "- Hang Seng:")) and "indice principale assente" not in l and "manca la serie" not in l
+                    for l in out.splitlines())                    # la serie assente dal caso non conta
+        if fermo == passa or deve_dire not in out or non_deve in out:
+            sbagliati.append(nome)
+    esito("Dati: fonti dell'Euro Stoxx 50, di Seul e di Hong Kong", not sbagliati,
           f"{len(casi)} casi (EODHD sempre tra le due fonti, quotazioni dei riquadri e fonti discordi fermate), età del dato "
-          "contata in giorni di uscita, borsa asiatica ferma a ieri segnalata"
+          "contata in giorni di uscita, borsa asiatica ferma a ieri segnalata, Seul e Hong Kong da EODHD (anche il giorno "
+          "dopo una festa di quella borsa; EODHD in ritardo, righe a indice fermo, date future e riga di oggi fermate)"
           if not sbagliati else "sbagliati: " + ", ".join(sbagliati))
 
 
@@ -615,6 +1043,43 @@ def passo_tabelle():
     vuoto = N.tabelle_da_dati(src, archivio={}, silenzioso=True)       # senza archivio: Seul non ha la chiusura di ieri
     if any(r[0].startswith("Kospi") for _, rr in vuoto["cruscotto"] for r in rr) or not any("Kospi" in m for m in vuoto["mancanti"]):
         male.append("senza la chiusura di ieri la riga di Seul doveva restare fuori, e dirlo")
+    # Il giorno dopo una festa di quella borsa (G-41): il livello ricavato parte dall'ultima seduta vera, scritta in "ultimi"
+    # con la sua data (EODHD, APP_DATI §2b), non dal giorno feriale prima, che non è una seduta (lunedì 28/12: Seul è ferma
+    # al 24/12; lunedì 4/1: al 30/12). Senza quella chiusura il messaggio chiede l'ultima chiusura con la sua data, mai un
+    # giorno preciso; una chiusura più vecchia trovata solo in archivio, o smentita da una più recente, non basta.
+    def festa(oggi, kospi, **altre):
+        dd = {"oggi": oggi, "serie": {"Kospi": dict({"mercato": "KR", "tipo": "intraday", "ora": "08:10", "fonte": "EODHD + Teleborsa",
+                                                      "etichette": ["Kospi"]}, **kospi), **altre}}
+        ff = os.path.join(lav, f"festa_{len(os.listdir(lav))}.json")
+        json.dump(dd, open(ff, "w", encoding="utf-8"))
+        tt = N.tabelle_da_dati(ff, archivio={}, silenzioso=True)
+        return {r[0]: r for _, rr in tt["cruscotto"] for r in rr}, tt["mancanti"]
+    rif_k = {"2026-12-21": 4900.0, "2025-12-31": 4214.17}
+    hk = {"mercato": "HK", "tipo": "chiusura", "ultimi": [["2026-12-24", 22000.0, None], ["2026-12-23", 21900.0, None]],
+          "rif": {"2026-12-17": 21800.0, "2025-12-31": 25630.55}}
+    for nome, oggi, kospi, livello in (
+            ("Natale", "2026-12-28", {"var": 1.0, "ultimi": [["2026-12-24", 5000.0, None], ["2026-12-23", 4950.0, None]], "rif": rif_k}, "~5.050"),
+            ("Capodanno", "2027-01-04", {"var": -0.5, "ultimi": [["2026-12-30", 5000.0, None]], "rif": rif_k}, "~4.975")):
+        rr, manca = festa(oggi, kospi, **({"Hang Seng": hk} if nome == "Natale" else {}))
+        if (rr.get("Kospi*") or ["", ""])[1] != livello or (nome == "Natale" and (rr.get("Hang Seng") or ["", ""])[1] != "22.000,00"):
+            male.append(f"dopo {nome}: livello di Seul dall'ultima seduta vera, {livello}: {rr.get('Kospi*')}, {rr.get('Hang Seng')}")
+    # base solo in archivio: vale anch'essa, perché il calendario dice che in mezzo c'era solo Natale
+    rr, _ = festa("2026-12-28", {"var": 1.0, "ultimi": [], "rif": {"2026-12-24": 5000.0, **rif_k}})
+    if (rr.get("Kospi*") or ["", ""])[1] != "~5.050":
+        male.append(f"dopo Natale, ultima chiusura solo in archivio: {rr.get('Kospi*')}")
+    # una riga a indice fermo (EODHD la scrive il giorno di festa) non è una seduta: il livello parte dal 24/12
+    rr, _ = festa("2026-12-28", {"var": 1.0, "ultimi": [["2026-12-25", 4990.0, None]] + [["2026-12-24", 5000.0, None]], "rif": rif_k})
+    if (rr.get("Kospi*") or ["", ""])[1] != "~5.050":
+        male.append(f"riga a indice fermo il 25/12 presa per una seduta: {rr.get('Kospi*')}")
+    for nome, oggi, kospi, chiede in (
+            ("EODHD in ritardo (martedì, manca lunedì)", "2026-12-15", {"var": 1.0, "ultimi": [["2026-12-11", 5000.0, None], ["2026-12-10", 4990.0, None]]}, "del 14/12"),
+            ("smentita da una più recente", "2026-12-28", {"var": 1.0, "ultimi": [["2026-12-22", 5000.0, None]], "rif": {"2026-12-23": 5010.0}}, "del 24/12"),
+            ("vecchia di settimane", "2026-12-28", {"var": 1.0, "ultimi": [["2026-12-01", 5000.0, None]]}, "del 2/12"),
+            ("oltre il calendario verificato", "2027-02-10", {"var": 1.0, "ultimi": [["2027-02-05", 5000.0, None]]}, "calendario delle feste")):
+        rr, manca = festa(oggi, kospi)
+        msg = " ".join(m for m in manca if m.startswith("Kospi"))
+        if any(k.startswith("Kospi") for k in rr) or chiede not in msg:
+            male.append(f"Seul, base non certa ({nome}): la riga doveva restare fuori e chiedere la chiusura che manca: {msg[:140]}")
     dati = {"oggi": "2026-11-23", "serie": {
         "FTSE MIB": {"mercato": "EU", "tipo": "chiusura", "ultimi": [["2026-11-20", 49500, None]]},
         "Nikkei 225": {"mercato": "JP", "tipo": "intraday", "ultimi": [["2026-11-23", 57000.5, None], ["2026-11-20", 56436.65, None]]},
@@ -692,9 +1157,13 @@ def passo_tabelle():
     if (N._al("su", "2026-09-11"), N._al("de", "2026-12-08"), N._al("su", "2026-10-19")) != ("sull'11/9", "dell'8/12", "sul 19/10") \
             or N._elenco(["Mondo e Stati Uniti", "VIX"]) != "Mondo e Stati Uniti, VIX" or N._elenco(["A", "B", "C"]) != "A, B e C":
         male.append("preposizione davanti alla data (sull'11/9, dell'8/12, sul 19/10) o elenco dei nomi")
+    for riga in G.calendario_in_scadenza(dt.date.today()):        # promemoria per chi tiene la macchina: non ferma nulla
+        print("[leggi] " + riga[0].upper() + riga[1:])
+        NOTE.append(riga.split(":")[0])
     esito("Dati: tabelle di pag. 5 calcolate dal codice", not male, "; ".join(male)[:400] or
-          "numeri del 20/11 uguali al pubblicato, nessuna n.d., livello ricavato dalla variazione, archivio delle chiusure, "
-          "date riga per riga con Wall Street chiusa, con Tokyo chiusa e a cavallo d'anno")
+          "numeri del 20/11 uguali al pubblicato, nessuna n.d., livello ricavato dalla variazione (anche dopo una festa di "
+          "quella borsa, dall'ultima seduta vera; mai da una base non certa), archivio delle chiusure, date riga per riga con Wall Street chiusa, con "
+          "Tokyo chiusa e a cavallo d'anno")
 
 
 # ---------------------------------------------------------------- 3d. la scommessa: registro e lettura della settimana
@@ -1237,7 +1706,13 @@ def passo_ultima_edizione(gia_campioni):
     esito(f"Ultima edizione ({data}): impaginazione con il kit di oggi", r["pagine"] == 6, f"{r['pagine']} pagine")
     voci = json.load(open(os.path.join(REPO, "edizioni.json"), encoding="utf-8"))
     n = next((v["numero"] for v in voci if v["data"] == data), G.numero(dt.date.fromisoformat(data)))
-    stato, out = controlli(lav, r["pdf"], n, senza_indice=not any(v["data"] == data for v in voci))
+    # un'edizione scritta prima di G-45 non ha l'incarico del ragionamento tra i sorgenti: il ragionamento si salta con un
+    # avviso (pubblica.sh archivia coerenza_incarico.json e coerenza.json dal quarto giro di G-45, 27/11)
+    prima_g45 = not os.path.exists(os.path.join(src, "coerenza_incarico.json"))
+    stato, out = controlli(lav, r["pdf"], n, senza_indice=not any(v["data"] == data for v in voci),
+                           env_extra={"GTD_SENZA_RAGIONAMENTO": "1"} if prima_g45 else None)
+    if prima_g45:
+        print(f"[avviso] Ultima edizione ({data}): scritta senza coerenza_incarico.json (prima di G-45), ragionamento non giudicato")
     rossi = [k for k, v in stato.items() if v == "ROSSO"]
     if rossi:
         print(f"[leggi] Ultima edizione ({data}): le regole di oggi fermerebbero {', '.join(rossi)}:")
@@ -1545,6 +2020,139 @@ def passo_lettori(copia):
     esito("Lettori: avviso sulle segnalazioni", not male, "; ".join(male)[:300] or "una segnalazione per commento e mai il testo; riapre e aggiorna; 5 nuove per giro; un guasto avvisa una volta al giorno")
 
 
+def passo_impara(copia):
+    """Impara cresce con le edizioni (G-54): il filtro di impara.py su un mondo costruito, i guasti degli ingressi e
+    i dati veri. Ogni caso viene da un difetto trovato (collaudo indipendente del 27/11) e ferma il codice di prima."""
+    sys.path.insert(0, R)
+    import impara
+    mondo, male = os.path.join(TMP, "impara"), []
+    os.makedirs(os.path.join(mondo, "redazione"), exist_ok=True)
+    os.makedirs(os.path.join(mondo, "dati"), exist_ok=True)
+    js = lambda rel, o: json.dump(o, open(os.path.join(mondo, rel), "w", encoding="utf-8"), ensure_ascii=False)
+    VIX = "Misura quanta agitazione si aspetta il mercato sull'S&P 500: per questo è detto 'indice della paura'."
+    js("redazione/glossario.json", {"voci": [{"sigla": "PPI", "breve": "prezzi alla produzione"},
+                                             {"sigla": "VIX", "breve": "volatilità attesa sull'S&P 500"}]})
+    js("redazione/glossario_sito.json", {"voci": {"VIX": {"spiega": VIX}}})
+    js("edizioni.json", [{"numero": n, "data": f"2026-01-0{n}"} for n in (1, 2, 3)])
+    def arch(*ed, fuori=None, conf=None):
+        js(impara.CURA, {"stesse": {"Correzione": ["Correzioni di borsa"]}, "fuori": fuori or {}, "confermate": conf or {},
+                         "archivio": {f"2026-01-0{n}": p for n, p in ed}})
+    def giro(caso):
+        try:
+            r = tuple(impara.calcola(mondo))
+            return r + ({},) * (4 - len(r))
+        except Exception as e:  # noqa: BLE001 - il codice di prima non ha le stesse uscite: è un caso fallito, non un crash
+            male.append(f"{caso}: {type(e).__name__} {str(e)[:60]}")
+            return [], {}, [], {}
+    verdetto = lambda occ, parola, n: next((o.get("verdetto", "") for o in occ if o["parola"] == parola and o["numero"] == n), "")
+    C1 = ("Correzione", "Un calo di almeno il 10% di un indice dal suo ultimo massimo.")
+    C2 = ("Correzioni di borsa", "Un calo dell'indice di almeno il 10% dal massimo più recente.")
+    arch((1, [C1, ("Shutdown", "La sospensione dei fondi federali americani per mancanza di un bilancio.")]),
+         (2, [("Prezzi alla produzione", "L'indice dei prezzi incassati dalle imprese che producono beni.")]))
+    voci, alias, _, _ = giro("una volta sola")
+    if voci:
+        male.append(f"una parola spiegata una volta sola non deve entrare ({[v['sigla'] for v in voci]})")
+    if alias.get("Prezzi alla produzione") != "PPI":
+        male.append("la parola di una scheda scritta a mano deve portare lì")
+    # due significati diversi con le parole in comune (il premio per il rischio): senza conferma a mano non entra nulla
+    P1 = ("Premio di rischio", "Il rendimento in più che gli investitori chiedono per prestare a chi è più rischioso.")
+    P2 = ("Premio per il rischio", "Il sovrapprezzo che il mercato paga per il rischio di una guerra che ferma le forniture di petrolio.")
+    arch((1, [C1, P1]), (2, [C2, P2]), (3, [("Correzione", "Il calo di oggi porta l'indice al 10% sotto il massimo.")]))
+    voci, alias, occ, gruppi = giro("due significati")
+    if voci or (gruppi.get("Premio per il rischio") or {}).get("stato") != "pronta" or "pronta" not in verdetto(occ, "Correzioni di borsa", 2):
+        male.append(f"due spiegazioni in due edizioni, senza conferma: pronte, non in pagina ({[v['sigla'] for v in voci]})")
+    if "del giorno" not in verdetto(occ, "Correzione", 3):
+        male.append("la frase del giorno resta fuori")
+    DEF = {"breve": "un calo di almeno il 10% dal massimo", "spiega": "Un calo di almeno il 10% dall'ultimo massimo, rivisto a mano."}
+    arch((1, [C1, P1]), (2, [C2, P2]), conf={"Correzione": DEF})
+    voci, alias, _, _ = giro("confermata")
+    if [(v["sigla"], v["spiega"], v["da"]) for v in voci] != [("Correzione", DEF["spiega"], 2)] or alias.get("Correzioni di borsa") != "Correzione":
+        male.append(f"confermata a mano: entra con la definizione confermata, non con quella del giornale ({voci})")
+    # i doppioni: "Indice della paura" è il VIX (lo dice la sua scheda) e va segnalato a chi conferma
+    arch((1, [("Indice della paura", "Misura quanto gli operatori si aspettano che l'S&P 500 si muova nel mese.")]))
+    _, _, _, gruppi = giro("doppioni")
+    if not any(d.startswith("VIX ") for d in (gruppi.get("Indice della paura") or {}).get("doppioni", [])):
+        male.append("Indice della paura: il possibile doppione del VIX va segnalato nella proposta")
+    # "fuori" vale per qualunque nome: "Freno automatico (sidecar)" è il Sidecar tolto a mano
+    S1 = ("Sidecar", "Una pausa di pochi minuti negli scambi automatici quando un indice si muove troppo.")
+    S2 = ("Freno automatico (sidecar)", "Sospende per qualche minuto gli ordini dei programmi quando il mercato corre troppo.")
+    arch((1, [S1]), (2, [S2]), fuori={"Sidecar": "prova"})
+    voci, _, occ, _ = giro("fuori per nome")
+    if voci or not verdetto(occ, S2[0], 2).startswith("non entra: tolta a mano"):
+        male.append(f"fuori 'Sidecar' deve togliere anche 'Freno automatico (sidecar)' ({verdetto(occ, S2[0], 2)[:60]})")
+    # il messaggio giusto: due edizioni ma una sola spiegazione valida (Circuit breaker), non "non compatibile"
+    arch((1, [("Circuit breaker", "Sospensione automatica degli scambi quando un indice scende oltre una soglia.")]),
+         (2, [("Circuit breaker", "Sospensione automatica degli scambi: lunedì a San Paolo è durata 30 minuti.")]))
+    _, _, occ, _ = giro("messaggio")
+    if "unica spiegazione valida" not in verdetto(occ, "Circuit breaker", 1):
+        male.append(f"Circuit breaker: il motivo è che resta una sola spiegazione valida ({verdetto(occ, 'Circuit breaker', 1)[:60]})")
+    # un nome sbagliato in "confermate" (o una data sbagliata in "fuori"): avviso e nessuna scrittura, la scheda non sparisce
+    for caso, kw in (("confermate con un nome sbagliato", {"conf": {"Correzione": DEF, "Corezione": DEF}}),
+                     ("fuori con una data sbagliata", {"conf": {"Correzione": DEF}, "fuori": {"Correzione|2026-01-09": "prova"}})):
+        arch((1, [C1]), (2, [C2]), **kw)
+        try:
+            impara.calcola(mondo)
+            male.append(f"{caso}: il passaggio deve fermarsi con un avviso, non togliere la scheda in silenzio")
+        except Exception as e:  # noqa: BLE001
+            if type(e).__name__ != "Fermo":
+                male.append(f"{caso}: {type(e).__name__} {str(e)[:60]}")
+    # gli ingressi: se uno manca o non si legge, Fermo e nessuna scrittura (né voci in meno, né doppioni)
+    arch((1, [C1]), (2, [C2]), conf={"Correzione": DEF})
+    uscita = os.path.join(mondo, impara.FILE)
+    open(uscita, "w").write("COM'ERA")
+    os.makedirs(os.path.join(mondo, "redazione", "sorgenti", "2026-01-03"), exist_ok=True)
+    guasti = (("parole_giornale.json mancante", impara.CURA, None), ("glossario.json illeggibile", "redazione/glossario.json", "{ rotto"),
+              ("glossario_sito.json illeggibile", "redazione/glossario_sito.json", "{ rotto"),
+              ("sorgente rotto", "redazione/sorgenti/2026-01-03/edizione.py", "E = {'parole': [("),
+              ("parole non nella forma", "redazione/sorgenti/2026-01-03/edizione.py", "E = {'parole': [(None, 3)]}"))
+    for caso, rel, testo in guasti:
+        p = os.path.join(mondo, rel)
+        prima = open(p, encoding="utf-8").read() if os.path.exists(p) else None
+        if testo is None:
+            os.remove(p)
+        else:
+            open(p, "w", encoding="utf-8").write(testo)
+        try:
+            impara.scrivi(mondo)
+            fermo = False
+        except Exception as e:  # noqa: BLE001
+            fermo = type(e).__name__ == "Fermo"
+        if not fermo or open(uscita).read() != "COM'ERA":
+            male.append(f"{caso}: il passaggio si ferma con un avviso senza scrivere nulla")
+        if prima is None:
+            os.remove(p)
+        else:
+            open(p, "w", encoding="utf-8").write(prima)
+    # il guasto nella catena vera: pagine.py resta verde, avvisa, e dati/parole.json resta com'era
+    p, cura = os.path.join(copia, "dati", "parole.json"), os.path.join(copia, impara.CURA)
+    prima, testo = open(p, encoding="utf-8").read(), open(cura, encoding="utf-8").read()
+    os.remove(cura)
+    rc, out = esegui([sys.executable, os.path.join(copia, "redazione", "pagine.py"), copia])
+    open(cura, "w", encoding="utf-8").write(testo)
+    if rc or "AVVISO: parole di Impara" not in out or open(p, encoding="utf-8").read() != prima:
+        male.append(f"senza parole_giornale.json pagine.py resta verde, avvisa e lascia dati/parole.json com'era (uscita {rc})")
+    # i dati veri: ingressi leggibili, ogni conferma usata, i sinonimi noti uniti
+    try:
+        voci, alias, _, gruppi = impara.calcola(copia)
+        conf = json.load(open(cura, encoding="utf-8")).get("confermate") or {}
+        orfane = [c for c in conf if (gruppi.get(c) or {}).get("stato") != "confermata"]
+        if orfane:
+            male.append(f"confermate senza una parola delle edizioni, o vinte da una scheda scritta: {orfane}")
+        if alias.get("Indice della paura") != "VIX":
+            male.append("Indice della paura deve portare alla scheda del VIX")
+        for a, b in (("Riserva minima delle banche", "Riserva obbligatoria"), ("Rialzo da 50 punti base", "Rialzo da mezzo punto")):
+            if a not in (gruppi.get(b) or {}).get("varianti", []):
+                male.append(f"{a} deve stare con {b}")
+        pronte = sum(1 for i in gruppi.values() if i["stato"] == "pronta")
+    except Exception as e:  # noqa: BLE001
+        male.append(f"dati veri: {type(e).__name__} {str(e)[:100]}")
+        voci, pronte = [], 0
+    esito("Sito: Impara cresce con le edizioni", not male, "; ".join(male)[:300] or
+          f"{len(voci)} schede dalle edizioni, tutte confermate a mano; {pronte} parole pronte aspettano la conferma "
+          f"(impara.py --proposte); nulla entra senza conferma, fuori vale per ogni nome, i doppioni si segnalano, "
+          f"un ingresso rotto ferma il passaggio senza scrivere e non ferma l'edizione")
+
+
 def passo_pubblicazione(copia):
     voci = json.load(open(os.path.join(copia, "edizioni.json"), encoding="utf-8"))
     v = max(voci, key=lambda x: x["numero"])
@@ -1553,7 +2161,8 @@ def passo_pubblicazione(copia):
     fatti = os.path.join(copia, "redazione", "fatti", v["data"] + ".json")
     if os.path.exists(fatti):
         shutil.copy(fatti, os.path.join(lav, "fatti.json"))
-    for nome in (f"edizione_{v['data']}.py", "dati.json"):       # finti sorgenti: devono finire in redazione/sorgenti/
+    # finti sorgenti: devono finire in redazione/sorgenti/, anche incarico e risposta del ragionamento (G-45)
+    for nome in (f"edizione_{v['data']}.py", "dati.json", "coerenza_incarico.json", "coerenza.json"):
         open(os.path.join(lav, nome), "w").write("{}")
     pdf = os.path.join(lav, "copia.pdf")
     shutil.copy(os.path.join(copia, v["file"]), pdf)
@@ -1561,7 +2170,7 @@ def passo_pubblicazione(copia):
                       os.path.join(lav, "fatti.json")], env={"GTD_REPO": copia, "GTD_PROVA": "1"})
     srg = os.path.join(copia, "redazione", "sorgenti", v["data"])
     ok = rc == 0 and "Sito: PROVA - nessun push" in out and "git push origin main" in out \
-        and os.path.exists(os.path.join(srg, "edizione.py")) and os.path.exists(os.path.join(srg, "dati.json"))
+        and all(os.path.exists(os.path.join(srg, f)) for f in ("edizione.py", "dati.json", "coerenza_incarico.json", "coerenza.json"))
     esito("Pubblicazione a secco (pubblica.sh in prova)", ok,
           "comandi git stampati e non eseguiti, sorgenti archiviati" if ok else out.strip().splitlines()[-1][:160])
 
@@ -1623,6 +2232,7 @@ def main():
         passo_uscite()
         passo_modello()
         passo_scrittura()
+        passo_coerenza()
         passo_fonti()
         passo_dati()
         passo_tabelle()
@@ -1634,6 +2244,7 @@ def main():
         copia = passo_sito()
         if isinstance(copia, str):
             passo_lettori(copia)
+            passo_impara(copia)
             passo_pubblicazione_ramo(copia)
             passo_pubblicazione(copia)
     finally:

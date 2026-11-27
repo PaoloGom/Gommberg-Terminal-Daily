@@ -61,14 +61,21 @@ GIORNI = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato",
 MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto",
         "settembre", "ottobre", "novembre", "dicembre"]
 
-# Colori e caratteri del sito (assets/sito.css, index.html). I caratteri del sito li carica la cornice: dove il programma
-# di posta non li accetta (Gmail, Outlook) vale il secondo della lista, come prima.
+# Colori e caratteri del sito (assets/sito.css, index.html). I caratteri del sito li carica la cornice, ma Gmail e Outlook
+# non caricano mai caratteri dal web: lì vale il resto della lista, e per molti lettori il resto della lista È l'email.
+# Quindi il ripiego si sceglie con la stessa cura (Paolo, 26/11: con Courier New la fascia dei mercati non era professionale):
+# i caratteri di sistema del dispositivo (Segoe UI su Windows, San Francisco su Mac e iPhone, Roboto su Android), gli
+# stessi che usa l'interfaccia di Gmail. Nell'email non c'è nulla a spaziatura fissa: il suo ripiego sarebbe Courier New.
+# Le cifre vanno incolonnate con le cifre tabellari (CIFRE), non con un carattere da macchina da scrivere.
 NERO, CARTA, INCHIOSTRO, ARANCIO, ARANCIO_TESTO, GRIGIO, FILO = "#0E0E0E", "#FBFAF8", "#141414", "#F26B1D", "#B84A0C", "#5E5A55", "#DEDAD4"
 PANNELLO, TENUE, SOFFUSO = "#F1EEE9", "#A39C93", "#D6D1C9"
 SU, GIU = "#12753D", "#C0261C"          # sul chiaro, come nel sito
-FONT = "'IBM Plex Sans',Arial,Helvetica,sans-serif"
-MONO = "'IBM Plex Mono','Courier New',Courier,monospace"
-TITOLI = "'Archivo','Arial Narrow',Arial,Helvetica,sans-serif"
+SISTEMA = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif"
+FONT = "'IBM Plex Sans'," + SISTEMA
+TITOLI = "'Archivo'," + SISTEMA                                   # titolo della notizia: senza il nome stretto, nel ripiego
+MARCHIO = "'Archivo','Arial Narrow',sans-serif-condensed," + SISTEMA   # la testata resta stretta anche nel ripiego
+CIFRE = "font-variant-numeric:tabular-nums;"                      # numeri della stessa larghezza, incolonnati
+ETICHETTA = f"font:700 11px/1.3 {FONT};letter-spacing:.08em;text-transform:uppercase"   # occhielli, pagine, chiusure
 # Nomi brevi dei mercati: gli stessi della homepage (index.html, CORTI)
 CORTI = {"EURO STOXX 50": "Stoxx 50", "UST 10 ANNI": "Treasury 10a", "TREASURY 10 ANNI": "Treasury 10a", "BRENT FUTURE": "Brent"}
 
@@ -112,22 +119,27 @@ def mercati(ed):
 
 def testata(ed):
     """La testata sottile: marchio, motto e, a destra nel nero, la data delle chiusure della fascia qui sotto."""
-    e = html.escape
     al = ed.get("ticker_al")
-    data = (f'<td class="gt-d" align="right" valign="bottom" style="padding:5px 0 1px;font:700 10px/1.4 {MONO};letter-spacing:.05em;'
-            f'color:{TENUE};white-space:nowrap">CHIUSURE DEL {e(data_breve(al).upper())}</td>' if al and len(mercati(ed)) >= 3 else "")
+    return testata_con(f"Chiusure del {data_breve(al)}" if al and len(mercati(ed)) >= 3 else "", int(ed.get("pagine") or 6))
+
+
+def testata_con(destra, pagine=6):
+    """La testata di ogni email del Gommberg (anche le mail straordinarie, dem.py): a destra la riga del giorno, se c'è."""
+    e = html.escape
+    data = (f'<td class="gt-d" align="right" valign="bottom" style="padding:5px 0 1px;{ETICHETTA};font-size:10px;'
+            f'color:{TENUE};white-space:nowrap">{e(destra)}</td>' if destra else "")
     return (f'<tr><td class="gx" style="background:{NERO};border-bottom:3px solid {ARANCIO};padding:15px 28px 10px">'
-            f'<a href="{BASE}" style="text-decoration:none;font:900 21px/1 {TITOLI};font-stretch:75%;letter-spacing:.01em;color:#F5F3EF">'
+            f'<a href="{BASE}" style="text-decoration:none;font:900 21px/1 {MARCHIO};font-stretch:75%;letter-spacing:.01em;color:#F5F3EF">'
             f'<span style="color:{ARANCIO}">GOMMBERG</span> <span style="font-weight:600">TERMINAL DAILY</span></a>'
             + tabella(f'<tr><td class="gt-m" style="padding:5px 0 0;font:13px/1.4 {FONT};color:{SOFFUSO}">I mercati globali '
-                      f'<span style="color:{ARANCIO}">spiegati</span>, ogni mattina in {int(ed.get("pagine") or 6)} pagine.</td>{data}</tr>')
+                      f'<span style="color:{ARANCIO}">spiegati</span>, ogni mattina in {pagine} pagine.</td>{data}</tr>')
             + '</td></tr>')
 
 
 def fascia(ed):
-    """I mercati sotto la testata: sei su una riga, nome, valore e variazione con il segno (su, giù, fermo) colorato.
-    È una fascia, non corpo della mail: fondo del pannello del sito, caratteri piccoli. Sul telefono va su due righe
-    da tre (regola nella cornice, classe gm-c)."""
+    """I mercati sotto la testata, come il nastro di un terminale: sei colonne uguali divise da un filo, in ognuna il nome
+    in maiuscoletto grigio, il valore in evidenza e la variazione colorata con il segno (su, giù, fermo). È una fascia, non
+    corpo della mail: fondo del pannello del sito. Sul telefono va su due righe da tre (regola nella cornice, classe gm-c)."""
     e = html.escape
     voci = mercati(ed)
     if len(voci) < 3:
@@ -136,12 +148,14 @@ def fascia(ed):
     for k, (nome, valore, var, verso) in enumerate(voci):
         colore = SU if verso > 0 else GIU if verso < 0 else GRIGIO
         freccia = "&#9650;" if verso > 0 else "&#9660;" if verso < 0 else "="
+        filo = "" if k == 0 else f"border-left:1px solid {FILO};"
         celle.append(
-            f'<td class="gm-c" valign="top" style="padding:0 {0 if k == len(voci) - 1 else 14}px 0 0">'
-            f'<span style="display:block;font:700 10px/1.3 {FONT};letter-spacing:.05em;color:{GRIGIO};white-space:nowrap">{e(nome.upper())}</span>'
-            f'<span style="display:block;font:700 12px/1.3 {MONO};color:{INCHIOSTRO};white-space:nowrap">{e(valore)}</span>'
-            f'<span style="display:block;font:700 11px/1.35 {MONO};color:{colore};white-space:nowrap"><span style="font-size:9px">{freccia}</span>&nbsp;{e(var)}</span></td>')
-    return (f'<tr><td class="gx" style="background:{PANNELLO};border-bottom:1px solid {FILO};padding:9px 28px 8px">'
+            f'<td class="gm-c" valign="top" width="{100 // len(voci)}%" style="{filo}padding:0 0 0 {0 if k == 0 else 10}px">'
+            f'<span style="display:block;{ETICHETTA};font-size:10px;letter-spacing:.03em;color:{GRIGIO};white-space:nowrap">{e(nome)}</span>'
+            f'<span style="display:block;font:600 14px/1.35 {FONT};{CIFRE}color:{INCHIOSTRO};white-space:nowrap">{e(valore)}</span>'
+            f'<span style="display:block;font:600 12px/1.3 {FONT};{CIFRE}color:{colore};white-space:nowrap">'
+            f'<span style="font-size:8px;vertical-align:1px">{freccia}</span>&nbsp;{e(var)}</span></td>')
+    return (f'<tr><td class="gx" style="background:{PANNELLO};border-bottom:1px solid {FILO};padding:11px 28px 10px">'
             + tabella("<tr>" + "".join(celle) + "</tr>") + '</td></tr>')
 
 
@@ -209,13 +223,13 @@ def componi(ed):
     # la prima pagina del sito con "Leggi l'edizione". ref=email: GoatCounter lo segna come provenienza.
     # Niente link diretto al PDF (Paolo, 16/11): il PDF si apre dal sito, così ogni lettura passa dal sito e si conta.
     pagina = f"{BASE}?n={n}&amp;leggi=1&amp;ref=email"
-    occhiello = f'font:700 12px/1.3 {MONO};letter-spacing:.06em;text-transform:uppercase;color:{ARANCIO_TESTO};margin:0 0 10px'
+    occhiello = f'{ETICHETTA};color:{ARANCIO_TESTO};margin:0 0 10px'
 
     voci = indice(ed)
     righe = "".join(
-        f'<tr><td valign="top" width="62" style="padding:11px 0;border-top:1px solid {FILO};font:700 13px/1.5 {MONO};color:{ARANCIO_TESTO};white-space:nowrap">'
-        f'{"PAG. " + str(int(p)) if p else "&nbsp;"}</td>'
-        f'<td style="padding:11px 0;border-top:1px solid {FILO}"><span style="display:block;font:700 11px/1.3 {FONT};letter-spacing:.06em;text-transform:uppercase;color:{GRIGIO};margin:0 0 3px">{e(tema)}</span>'
+        f'<tr><td valign="top" width="62" style="padding:11px 0;border-top:1px solid {FILO};{ETICHETTA};line-height:1.9;color:{ARANCIO_TESTO};white-space:nowrap">'
+        f'{"Pag. " + str(int(p)) if p else "&nbsp;"}</td>'
+        f'<td style="padding:11px 0;border-top:1px solid {FILO}"><span style="display:block;{ETICHETTA};color:{GRIGIO};margin:0 0 3px">{e(tema)}</span>'
         f'<a href="{pagina}" style="font:700 16px/1.35 {FONT};color:{INCHIOSTRO};text-decoration:none">{e(testo)}</a></td></tr>'
         for p, tema, testo in voci)
     dentro = (f'<tr><td class="gx" style="padding:26px 28px 0"><p style="{occhiello}">Dentro l\'edizione di oggi</p>'
@@ -225,7 +239,7 @@ def componi(ed):
 {testata(ed)}{fascia(ed)}
 <tr><td class="gx" style="padding:24px 28px 0">
 <p style="font:13px/1.4 {FONT};color:{GRIGIO};margin:0 0 10px">{e(data_estesa(ed["data"]))} - Edizione #{n:03d}</p>
-<h1 style="font:900 28px/1.15 {TITOLI};font-stretch:80%;letter-spacing:0;word-spacing:.04em;color:{INCHIOSTRO};margin:0 0 12px">{e(ed["titolo"])}</h1>
+<h1 style="font:800 28px/1.15 {TITOLI};font-stretch:80%;letter-spacing:-.01em;color:{INCHIOSTRO};margin:0 0 12px">{e(ed["titolo"])}</h1>
 <p style="font:16px/1.55 {FONT};color:{INCHIOSTRO};margin:0">{e(sommario_breve(ed.get("dek") or ""))}</p>
 </td></tr>
 <tr><td class="gx" style="padding:18px 28px 0">

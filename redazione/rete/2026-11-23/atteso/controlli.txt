@@ -14,6 +14,12 @@ AVVISO: lessico: "spread tra BTP e Bund" (1 volte): scrivi spread BTP-Bund
 AVVISO: Notizia 01 "La SEC indaga sui conti di Nvidia, riferisce la stampa ameri": riprende la top story (stampa americana)
 [ok] Contenuti (estremi, perché, anomalie...): Contenuti: 0 errori, 1 avvisi
 AVVISO: aperture: servono 2 resoconti d'agenzia o testate globali (Reuters, AP, AFP, Bloomberg, CNBC...) e 1 italiana (Radiocor/Sole 24 Ore, Milano Finanza)
+[ROSSO] Coerenza (testo contro dati):
+ERRORE: ragionamento: moduli.oro.titolo, rimedio "titolo col fatto": "L'oro non ripara dal panico perché dollaro e tassi pesano più della pa..." non regge: Dollaro e tassi non si sono mossi contro l
+ERRORE: ragionamento: top.dek, rimedio "spiegare il fatto": "Il bersaglio resta Nvidia, dopo l'indagine SEC riportata dalla stampa ..." non regge: Nomina l'indagine della SEC senza dire su che cosa: �
+ERRORE: ragionamento: moduli.oro.perche, rimedio "lettura con i prezzi": "Di solito l'oro sale quando c'è paura, ma venerdì è sceso insieme alle..." non regge: Il dollaro forte non torna con la sed
+ERRORE: ragionamento: quadro, rimedio "lettura con i prezzi": "L'oro, che di solito ripara, è invece caduto insieme alle azioni, e a ..." non regge: Il dollaro forte contro EUR/USD +0,01% nella sedut
+ERRORE: ragionamento: moduli.oro.testo.0, rimedio "lettura con i prezzi": "Il calo di venerdì non lo spiega una notizia sola: a nostro avviso è l..." non regge: Dollaro e tassi non si sono mossi nel
 [ok] Ripetizioni: Ripetizioni: punteggio 4 (4 cifre in 2+ sezioni)
 AVVISO: 14% in 2 sezioni: APPROFONDIMENTO CHIP E ASIA, TOP NEWS
 AVVISO: 20% in 2 sezioni: APPROFONDIMENTO CHIP E ASIA, TOP NEWS
@@ -22,4 +28,4 @@ AVVISO: 4.586,80 in 2 sezioni: APPROFONDIMENTO CHIP E ASIA, TOP STORY
 AVVISO: eco "alza tre punti l'ires" in 2 punti
 AVVISO: eco "avviso pesa dollaro forte" in 2 punti
 [ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
-ESITO: OK - guarda <lavoro>/anteprima.png con Read (una sola immagine)
+ESITO: ERRORI in Coerenza (testo contro dati) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia
