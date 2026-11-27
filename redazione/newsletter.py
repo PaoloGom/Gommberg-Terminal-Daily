@@ -41,6 +41,7 @@ import html
 import json
 import os
 import re
+import signal
 import sys
 import time
 import urllib.error
@@ -55,6 +56,12 @@ API = "https://api.kit.com/v4"
 ATTESA_MINUTI = 4          # tempo lasciato al sito per pubblicare la pagina dell'edizione
 CORNICE = "Gommberg cornice"    # il modello di Kit per le edizioni: cornice e piè di pagina, la testata la mette lo script
 LETTURE = 4                # tentativi per leggere gli elenchi di Kit (modelli e invii già creati) (guasto momentaneo: 429, 5xx, rete)
+MAX_PAGINE = 10            # pagine dell'elenco degli invii (1000 l'una, senza il contenuto): oltre, l'invio non parte
+PER_PAGINA = 1000          # massimo di Kit; con slim=true l'elenco non porta il contenuto delle email (id, description, status restano)
+SCADENZA = 8 * 60          # secondi: tempo complessivo del giro per parlare con Kit; scaduto, nessun invio e un avviso chiaro
+TIMEOUT_CHIAMATA = 30      # secondi: tetto di una singola chiamata (si accorcia col tempo rimasto)
+orologio = time.monotonic  # il collaudo lo sostituisce con un orologio finto
+_scadenza = None           # istante (orologio) oltre il quale non si chiama più Kit; None = nessun limite (dem.py, mattino.py)
 ATTESA_LETTURE = 15        # secondi tra un tentativo e l'altro (il collaudo la azzera)
 ORA_MINIMA = 8             # prima di quest'ora (Roma) l'invio automatico non parte
 GIORNI = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"]
@@ -247,19 +254,46 @@ def componi(ed):
     return oggetto, anteprima or (ed.get("dek") or "")[:140], corpo
 
 
+def _tempo_scaduto(*_):
+    sys.exit("ERRORE: tempo del giro scaduto mentre Kit rispondeva: se era in corso la creazione dell'invio l'esito è incerto, "
+             "guarda in Kit (Broadcasts) prima di rilanciare; altrimenti nessun invio è partito, rilancia il giro a mano")
+
+
+def avvia_scadenza():
+    """Parte l'orologio del giro (newsletter.py in main): da qui in poi ogni chiamata a Kit sta nel tempo rimasto."""
+    global _scadenza
+    _scadenza = orologio() + SCADENZA
+    if hasattr(signal, "SIGALRM"):
+        # limite netto: il timeout del socket vale per ogni lettura, non per la chiamata intera (un server che manda pochi byte alla
+        # volta la allunga). L'allarme chiude il giro a SCADENZA + TIMEOUT_CHIAMATA: lascia a una creazione iniziata il suo tempo.
+        signal.signal(signal.SIGALRM, _tempo_scaduto)
+        signal.alarm(SCADENZA + TIMEOUT_CHIAMATA)
+
+
+def tempo_rimasto():
+    """Secondi che restano al giro, o None se nessuna scadenza è partita."""
+    return None if _scadenza is None else _scadenza - orologio()
+
+
 def kit(metodo, percorso, dati=None):
     """Una chiamata a Kit: (stato HTTP, corpo). Se la rete non risponde (indirizzo, timeout, connessione) torna
     (0, {"errore": ...}) come ogni altra risposta non riuscita: chi chiama controlla lo stato, nessun traceback."""
     chiave = os.environ.get("KIT_API_KEY", "").strip()
     if not chiave:
         sys.exit("ERRORE: manca KIT_API_KEY (segreto del repository)")
+    limite = TIMEOUT_CHIAMATA
+    rimasto = tempo_rimasto()
+    if rimasto is not None:
+        if rimasto <= 0:      # scaduto il tempo del giro: non si chiama più Kit (mai nemmeno la creazione)
+            return 0, {"errore": "scadenza del giro superata", "scaduta": True}
+        limite = min(TIMEOUT_CHIAMATA, rimasto)
     richiesta = urllib.request.Request(
         API + percorso, method=metodo,
         data=json.dumps(dati).encode("utf-8") if dati is not None else None,
         headers={"X-Kit-Api-Key": chiave, "Content-Type": "application/json", "Accept": "application/json",
                  "User-Agent": "gommberg-newsletter/1.0"})
     try:
-        with urllib.request.urlopen(richiesta, timeout=30) as risposta:
+        with urllib.request.urlopen(richiesta, timeout=limite) as risposta:
             testo = risposta.read().decode("utf-8")
             return risposta.status, (json.loads(testo) if testo.strip() else {})
     except urllib.error.HTTPError as errore:
@@ -272,20 +306,66 @@ def kit(metodo, percorso, dati=None):
         return 0, {"errore": f"rete: {getattr(errore, 'reason', errore)}"[:300]}
 
 
+class ElencoNonLeggibile(Exception):
+    """L'elenco degli invii di Kit non si è letto fino in fondo: stato e corpo dell'ultima risposta, tentativi fatti."""
+    def __init__(self, stato, corpo, tentativi, troppo_lungo=False, motivo=""):
+        super().__init__(stato)
+        self.stato, self.corpo, self.tentativi, self.troppo_lungo, self.motivo = stato, corpo, tentativi, troppo_lungo, motivo
+
+
+def leggi_invii(letture=1, attesa=0, massimo=MAX_PAGINE, rigoroso=False):
+    """Tutti gli invii di Kit, pagina per pagina (cursore `after` dalla paginazione): la lista dei broadcast. Solo lettura.
+    Ogni pagina si riprova fino a `letture` volte, con `attesa` secondi tra i tentativi, solo su un guasto momentaneo
+    (429, 5xx, rete); gli altri errori fermano subito. Solleva ElencoNonLeggibile se una pagina non si legge o se le pagine
+    superano `massimo`: mai un elenco parziale preso per completo. Lo usano newsletter.py (rigoroso: 1000 per pagina, senza
+    contenuto, e ogni risposta fuori forma vale "non so") e dem.py (come prima: 100 per pagina, nessuna verifica in più)."""
+    invii, dopo = [], None
+    for _ in range(massimo):
+        percorso = (f"/broadcasts?per_page={PER_PAGINA}&slim=true" if rigoroso else "/broadcasts?per_page=100") + (f"&after={dopo}" if dopo else "")
+        for tentativo in range(1, max(1, letture) + 1):
+            stato, corpo = kit("GET", percorso)
+            if stato == 200:
+                break
+            if isinstance(corpo, dict) and corpo.get("scaduta"):
+                raise ElencoNonLeggibile(stato, corpo, tentativo)
+            transitorio = stato == 0 or stato == 429 or stato >= 500
+            if not transitorio or tentativo >= letture:
+                raise ElencoNonLeggibile(stato, corpo, tentativo)
+            rimasto = tempo_rimasto()
+            time.sleep(attesa if rimasto is None else max(0, min(attesa, rimasto)))
+        if rigoroso:
+            pg = corpo.get("pagination") if isinstance(corpo, dict) else None
+            if (not isinstance(corpo, dict) or not isinstance(corpo.get("broadcasts"), list)
+                    or not isinstance(pg, dict) or "has_next_page" not in pg or (pg["has_next_page"] and not pg.get("end_cursor"))):
+                raise ElencoNonLeggibile(200, {}, tentativo, motivo="risposta di Kit fuori forma (elenco o paginazione mancanti)")
+            # ogni invio è un dizionario con la chiave "description" (anche null o vuota: un invio fatto a mano non è nostro, si ignora);
+            # senza la chiave non si può dire se l'invio di oggi c'è
+            if any(not isinstance(b, dict) or "description" not in b for b in corpo["broadcasts"]):
+                raise ElencoNonLeggibile(200, {}, tentativo, motivo="risposta di Kit fuori forma (invii senza description)")
+        invii.extend(corpo.get("broadcasts", []))
+        pg = corpo.get("pagination") or {}
+        if not pg.get("has_next_page") or not pg.get("end_cursor"):
+            return invii
+        dopo = pg["end_cursor"]
+    raise ElencoNonLeggibile(200, {}, 1, troppo_lungo=True)
+
+
 def invii_esistenti():
-    """Le etichette (description) degli invii già presenti in Kit, per non rifare mai lo stesso numero. È una lettura:
-    su un guasto momentaneo di Kit (429, 5xx, rete) si riprova a distanza, LETTURE volte, come per i modelli. Se dopo i
-    tentativi l'elenco non si legge, esce con errore e l'invio non parte (mai un doppione al buio)."""
-    for tentativo in range(1, LETTURE + 1):
-        stato, corpo = kit("GET", "/broadcasts?per_page=100")
-        if stato == 200:
-            return {b.get("description"): b for b in corpo.get("broadcasts", [])}
-        transitorio = stato == 0 or stato == 429 or stato >= 500
-        if not transitorio or tentativo == LETTURE:
-            break
-        time.sleep(ATTESA_LETTURE)
-    sys.exit(f"ERRORE: elenco degli invii non leggibile (HTTP {stato}) dopo {tentativo} tentativ{'o' if tentativo == 1 else 'i'}: "
-             f"{json.dumps(corpo, ensure_ascii=False)[:300]}")
+    """Le etichette (description) degli invii già presenti in Kit, per non rifare mai lo stesso numero: legge TUTTE le
+    pagine dell'elenco (G-69). Su un guasto momentaneo di Kit (429, 5xx, rete) ogni pagina si rilegge a distanza, LETTURE
+    volte, come per i modelli, nel tempo complessivo del giro. Se l'elenco non si legge per intero, o la risposta è fuori
+    forma, o il tempo è scaduto, esce con errore e l'invio non parte ("non so" non diventa mai "non c'è")."""
+    try:
+        return {b.get("description"): b for b in leggi_invii(LETTURE, ATTESA_LETTURE, rigoroso=True)}
+    except ElencoNonLeggibile as e:
+        if e.troppo_lungo:
+            sys.exit(f"ERRORE: elenco degli invii di Kit troppo lungo (oltre {MAX_PAGINE} pagine): fermo per prudenza, invio non fatto")
+        if e.motivo:
+            sys.exit(f"ERRORE: elenco degli invii non leggibile: {e.motivo}: invio non fatto")
+        if isinstance(e.corpo, dict) and e.corpo.get("scaduta"):
+            sys.exit(f"ERRORE: elenco degli invii non letto entro {SCADENZA // 60} minuti (Kit non risponde): invio non fatto, rilancia il giro a mano")
+        sys.exit(f"ERRORE: elenco degli invii non leggibile (HTTP {e.stato}) dopo {e.tentativi} tentativ{'o' if e.tentativi == 1 else 'i'}: "
+                 f"{json.dumps(e.corpo, ensure_ascii=False)[:300]}")
 
 
 def modello_edizione():
@@ -301,9 +381,10 @@ def modello_edizione():
                 sys.exit(f'ERRORE: la cornice non c\'è in Kit: modello "{CORNICE}" non trovato nell\'elenco: invio non fatto')
             return nomi[CORNICE.lower()]
         transitorio = stato == 0 or stato == 429 or stato >= 500
-        if not transitorio or tentativo == LETTURE:
+        if not transitorio or tentativo == LETTURE or (isinstance(corpo, dict) and corpo.get("scaduta")):
             break
-        time.sleep(ATTESA_LETTURE)
+        rimasto = tempo_rimasto()
+        time.sleep(ATTESA_LETTURE if rimasto is None else max(0, min(ATTESA_LETTURE, rimasto)))
     sys.exit(f"ERRORE: Kit non risponde: elenco dei modelli non leggibile dopo {tentativo} tentativ{'o' if tentativo == 1 else 'i'} "
              f"(HTTP {stato}: {json.dumps(corpo, ensure_ascii=False)[:200]}): invio non fatto, su nessun altro modello")
 
@@ -315,6 +396,9 @@ def crea(ed, quando, prova):
             "public": False, "published_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "send_at": quando.isoformat(timespec="seconds") if quando else None}
     dati["email_template_id"] = modello
+    rimasto = tempo_rimasto()
+    if rimasto is not None and rimasto < TIMEOUT_CHIAMATA:     # senza il tempo per una risposta intera la creazione non parte
+        sys.exit(f"ERRORE: tempo del giro quasi finito ({max(0, int(rimasto))} s): invio non fatto, rilancia il giro a mano")
     stato, risposta = kit("POST", "/broadcasts", dati)
     if stato not in (200, 201):
         if stato == 0:   # rete caduta o tempo scaduto DOPO la richiesta: l'invio può esserci lo stesso. Mai un secondo tentativo qui
@@ -327,6 +411,7 @@ def crea(ed, quando, prova):
 
 def main():
     modo = (sys.argv[1] if len(sys.argv) > 1 else "auto").strip() or "auto"
+    avvia_scadenza()
     ed = ultima_edizione()
 
     if modo == "anteprima":
@@ -343,8 +428,10 @@ def main():
         stato, modelli = kit("GET", "/email_templates")
         print(f"Modelli: HTTP {stato} - " + "; ".join(
             f"{m.get('id')} {m.get('name')}{' (predefinito)' if m.get('is_default') else ''}" for m in modelli.get("email_templates", [])))
-        stato, corpo = kit("GET", "/broadcasts?per_page=100")
-        print(f"Invii presenti: HTTP {stato} - {len(corpo.get('broadcasts', []))}")
+        try:
+            print(f"Invii presenti: {len(leggi_invii(LETTURE, ATTESA_LETTURE, rigoroso=True))} (tutte le pagine)")
+        except ElencoNonLeggibile as e:
+            print(f"Invii presenti: elenco non leggibile ({e.motivo or 'HTTP ' + str(e.stato)})")
         return
 
     if modo in ("prova", "invio-prova"):

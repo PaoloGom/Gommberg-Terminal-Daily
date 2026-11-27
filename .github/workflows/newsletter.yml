@@ -24,7 +24,10 @@ concurrency:
 jobs:
   invio:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    # G-69: newsletter.py ha una scadenza propria di 8 minuti per parlare con Kit (letture, rilletture, attese; la creazione
+    # parte solo con almeno 30 s rimasti e non si ritenta). Oltre: nessun invio e un avviso chiaro. Qui 12 minuti sono la rete di
+    # sicurezza: 8 + 30 s di creazione + circa 1 minuto di avvio e checkout, con margine.
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - name: Email dell'edizione
