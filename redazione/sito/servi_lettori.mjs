@@ -23,7 +23,10 @@ async function statico(url) {
   try { return new Response(await readFile(f), { headers: { "content-type": TIPI[path.extname(f)] || "application/octet-stream" } }); }
   catch (e) { return new Response("non trovata", { status: 404 }); }
 }
-const env = { DB: d1(file), ASSETS: { fetch: (req) => statico(new URL(req.url)) } };
+// l'area riservata (G-51) in locale: AREA_LOCALE la accende fuori da gommberg.com; le credenziali dalle variabili
+// d'ambiente REDAZIONE_UTENTE e REDAZIONE_PASSWORD di chi lancia la prova (mai scritte nel repository)
+const env = { DB: d1(file), ASSETS: { fetch: (req) => statico(new URL(req.url)) }, AREA_LOCALE: "si",
+              REDAZIONE_UTENTE: process.env.REDAZIONE_UTENTE, REDAZIONE_PASSWORD: process.env.REDAZIONE_PASSWORD };
 
 http.createServer(async (req, res) => {
   const pezzi = []; for await (const c of req) pezzi.push(c);

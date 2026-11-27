@@ -192,6 +192,9 @@ export async function area(request, env, url) {
     try { cfg = await prepara(env); } catch (e) { cfg = await prepara(env); }
     const ip = await impronta(cfg.segreto, "ip", request.headers.get("cf-connecting-ip") || "locale");
     const c = { request, env, url, cfg, ip, db: env.DB, sito: sitoDi(url) };
+    // l'area c'è solo sul sito vero (e in locale con AREA_LOCALE=si, per le prove): sulle anteprime di workers.dev "Esci
+    // da tutti" o il cambio password varrebbero per il sito vero, che usa lo stesso database
+    if (c.sito !== "gommberg" && env.AREA_LOCALE !== "si") return url.pathname.startsWith("/api/") ? no(url, "Indirizzo sconosciuto.", 404) : env.ASSETS.fetch(request);
     if (url.pathname.startsWith("/api/")) return await api(c);
     return await pagina(c);
   } catch (e) {
@@ -203,13 +206,18 @@ export async function area(request, env, url) {
 // /redazione/: l'area se c'è una sessione, la schermata di accesso se no; /redazione/<file>.json: i dati del pannello
 async function pagina(c) {
   const { url, request } = c;
-  if (request.method !== "GET" && request.method !== "HEAD") return no(url, "Metodo non ammesso.", 405);
-  if (url.pathname === "/redazione") return new Response(null, { status: 301, headers: intestazioni(url, { location: "/redazione/" + url.search }) });
+  if (url.pathname === "/redazione" && (request.method === "GET" || request.method === "HEAD"))
+    return new Response(null, { status: 301, headers: intestazioni(url, { location: "/redazione/" + url.search }) });
   const nome = url.pathname.slice("/redazione/".length) || "index.html";
-  const s = await sessione(c);
   const P = await privato();
+  const pagine = nome === "index.html" || nome === "accesso.html";
+  const dati = !!P && /^[a-z0-9_-]+\.json$/.test(nome) && Object.prototype.hasOwnProperty.call(P, nome);
+  // Tutto il resto passa ai file statici: sotto /redazione/ vivono anche i file pubblici che il sito legge (glossario,
+  // meccanismi, pagella della scommessa: LETTI in costruisci.py) e la pagina 404 del sito per ciò che non esiste.
+  if ((!pagine && !dati) || (request.method !== "GET" && request.method !== "HEAD")) return c.env.ASSETS.fetch(request);
   if (!P) return no(url, "L'area non è disponibile in questa pubblicazione.", 503);
-  if (nome === "index.html" || nome === "accesso.html") {
+  const s = await sessione(c);
+  if (pagine) {
     const file = s ? "index.html" : "accesso.html";
     if (!P[file]) return no(url, "Pagina non trovata.", 404);
     const nonce = b64u(casuale(16));
@@ -222,8 +230,8 @@ async function pagina(c) {
     if (s && s.rinnova) for (const x of cookieSessione(s.token, s.resta, url)) h.append("set-cookie", x);
     return new Response(request.method === "HEAD" ? null : corpo, { status: 200, headers: h });
   }
-  if (!/^[a-z0-9_-]+\.json$/.test(nome) || !(nome in P)) return no(url, "Pagina non trovata.", 404);
-  if (!s) return no(url, "Accesso richiesto.", 401);
+  // senza sessione un file del pannello risponde esattamente come un file che non esiste: i nomi non si scoprono
+  if (!s) return c.env.ASSETS.fetch(request);
   return new Response(request.method === "HEAD" ? null : P[nome], { status: 200, headers: intestazioni(url, { "content-type": "application/json; charset=utf-8" }) });
 }
 

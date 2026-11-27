@@ -1829,12 +1829,18 @@ def passo_area():
     if "redazione/#gommunity/c" not in open(os.path.join(R, "sito", "segnalazioni.py"), encoding="utf-8").read():
         male.append("segnalazioni.py: l'avviso non porta alla scheda Gommunity")
     m = open(os.path.join(R, "mattino.py"), encoding="utf-8").read()
-    if "redazione/registro.json" not in m or "401" not in m:
+    if "redazione/registro.json" not in m or "s == 404 and s_vecchio == 404" not in m:
         male.append("mattino.py: non controlla che il pannello resti chiuso senza accesso")
     mappa = open(os.path.join(R, "ARCHITETTURA.md"), encoding="utf-8").read()
     manca = [x for x in ("sito/redazione.js", "sito/servizio.js", "pannello/accesso.html", "assets/redazione.js", "_privato/pannello.js", "REDAZIONE_PASSWORD", "REDAZIONE_UTENTE", "/redazione/") if x not in mappa]
     if manca:
         male.append("ARCHITETTURA.md senza " + ", ".join(manca))
+    # ogni file pubblico sotto i percorsi che passano dal Worker (run_worker_first) risponde 200 passando dal Worker vero;
+    # senza sessione un file del pannello è indistinguibile da un file che non esiste
+    node = shutil.which("node")
+    if node:
+        rc, out = esegui([node, "--no-warnings", os.path.join(R, "sito", "prova_instradamento.mjs"), sito])
+        esito("Area riservata: i file pubblici che passano dal Worker", rc == 0, (out.strip().splitlines() or [f"uscita {rc}"])[-1][:200] if rc == 0 else out.strip()[-300:])
     esito("Area riservata: pannello fuori dal sito pubblico, barra, segreti, avvisi", not male, "; ".join(male)[:400] or
           f"pannello solo nel modulo del Worker, barra Redazione in {len(pagine)} pagine, nessuna credenziale nel repository, avviso e mappa in ordine")
 

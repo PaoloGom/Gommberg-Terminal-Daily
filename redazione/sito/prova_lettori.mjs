@@ -15,12 +15,15 @@ const EDIZIONI = {
   30: { numero: 30, data: "2026-11-20" },
   31: { numero: 31, data: "2026-11-23" },   // la più recente: il sentiment si vota qui
 };
+const PUBBLICI_RED = { "/redazione/glossario.json": "[1]", "/redazione/glossario_sito.json": "[2]", "/redazione/meccanismi.json": "[3]", "/redazione/scommessa/pagella.json": "[4]" };
 const env = {
   DB: d1(),
   ASSETS: { fetch: async (req) => {
     const u = new URL(req.url), m = /^\/e\/(\d{3})\.json$/.exec(u.pathname);
     if (m && EDIZIONI[+m[1]]) return new Response(JSON.stringify(EDIZIONI[+m[1]]), { headers: { "content-type": "application/json" } });
     if (u.pathname === "/dati/recenti.json") return new Response(JSON.stringify({ totale: 31, edizioni: [{ numero: 31 }, { numero: 30 }] }));
+    // sotto /redazione/ ci sono anche file pubblici che il sito legge (costruisci.py, LETTI): il Worker li deve lasciar passare
+    if (u.pathname.startsWith("/redazione/")) return PUBBLICI_RED[u.pathname] ? new Response(PUBBLICI_RED[u.pathname], { status: 200 }) : new Response("pagina 404 del sito", { status: 404 });
     return new Response(m ? "non trovata" : "statico", { status: m ? 404 : 200 });
   } },
 };
@@ -430,16 +433,29 @@ async function areaRiservata() {
   verifica("area: intestazioni di sicurezza e nessuna cache", r.h.get("cache-control").includes("no-store") && r.h.get("x-frame-options") === "DENY" && r.h.get("x-content-type-options") === "nosniff" && r.h.get("referrer-policy") === "no-referrer" && !!r.h.get("strict-transport-security"));
   const r2 = await red("GET", "/redazione/");
   verifica("area: un nonce nuovo a ogni pagina", !r2.h.get("content-security-policy").includes(nonce));
+  // senza sessione un file del pannello risponde come un file che non esiste: stesso stato, stesso corpo (non rivela i nomi)
+  const inesistente = await red("GET", "/redazione/non-esiste-davvero.json");
   for (const x of ["/redazione/registro.json", "/redazione/invii.json"]) {
     r = await red("GET", x);
-    verifica("pannello: " + x + " senza sessione: 401", r.s === 401 && !JSON.stringify(r.j).includes("2026-11-23"), r);
+    verifica("pannello: " + x + " senza sessione risponde come un file che non esiste", r.s === 404 && r.s === inesistente.s && r.j === inesistente.j && !JSON.stringify(r.j).includes("2026-11-23"), [r.s, inesistente.s]);
+  }
+  for (const x of Object.keys(PUBBLICI_RED)) {
+    r = await red("GET", x);
+    verifica("file pubblici: " + x + " passa dal Worker ai file statici (Impara, Numeri, Scommessa)", r.s === 200 && JSON.stringify(r.j) === PUBBLICI_RED[x], r.s);
   }
   for (const x of ["/redazione/segreti.json", "/redazione/../pannello/registro.json", "/redazione/%2e%2e/redazione.js", "/redazione/index.html.bak", "/redazione/REGISTRO.json"]) {
     r = await red("GET", x);
     verifica("pannello: " + x + " non esiste", r.s === 404 || (r.s === 200 && typeof r.j === "string" && r.j.includes("SCHERMATA-DI-ACCESSO")) || r.j === "statico", [x, r.s]);
   }
+  // le anteprime (workers.dev) e ogni altro indirizzo: niente area, niente azioni; i file pubblici sì
+  for (const host of ["https://prova-gommberg.paolo.workers.dev", "https://gommberg.com.evil.example"]) {
+    const ra = await worker.fetch(new Request(host + "/api/redazione/accesso", { method: "POST", headers: { origin: host, "content-type": "application/json", "cf-connecting-ip": "8.8.4.4" }, body: JSON.stringify({ utente: UT, password: PW }) }), env);
+    const rp = await worker.fetch(new Request(host + "/redazione/"), env);
+    const rf = await worker.fetch(new Request(host + "/redazione/glossario.json"), env);
+    verifica("area: su " + new URL(host).host + " non c'è (né accesso né pagina), i file pubblici sì", ra.status === 404 && rp.status === 404 && !ra.headers.getSetCookie().length && rf.status === 200, [ra.status, rp.status, rf.status]);
+  }
   r = await red("POST", "/redazione/registro.json", { corpo: {} });
-  verifica("pannello: niente POST sulle pagine", r.s === 405, r.s);
+  verifica("pannello: un POST sulle pagine va ai file statici, mai ai dati", (r.s === 404 || r.s === 405) && !JSON.stringify(r.j).includes("2026-11-23"), r.s);
 
   // ------------------------------------------------- accesso
   const utenteVecchio = env.REDAZIONE_UTENTE;
@@ -480,7 +496,7 @@ async function areaRiservata() {
   r = await red("GET", "/redazione/registro.json", { cookie: e1.cookie });
   verifica("pannello: con la sessione i dati", r.s === 200 && Array.isArray(r.j) && r.j[0].n === 31 && r.h.get("cache-control").includes("no-store"), r);
   r = await red("GET", "/redazione/registro.json", { cookie: "gtd_sessione=" + e1.t });
-  verifica("pannello: il gettone giusto con il nome di cookie sbagliato non vale", r.s === 401, r.s);
+  verifica("pannello: il gettone giusto con il nome di cookie sbagliato non vale", r.s === 404, r.s);
 
   // ------------------------------------------------- cookie manomesso, sessione scaduta, CSRF
   const altro = e1.t.slice(0, 42) + (e1.t[42] === "A" ? "B" : "A");
@@ -546,7 +562,7 @@ async function areaRiservata() {
   r = await red("POST", "/api/redazione/esci", { corpo: {}, cookie: e4.cookie, csrf: e4.csrf });
   verifica("esci: chiude la sessione sul server e cancella i cookie", r.s === 200 && r.set.some((x) => x.startsWith(COOKIE + "=;") && /Max-Age=0/.test(x)) && r.set.some((x) => x.startsWith(SPIA + "=;")), r.set);
   r = await red("GET", "/redazione/registro.json", { cookie: e4.cookie });
-  verifica("esci: il vecchio cookie non vale più (sessione di un altro rubata dopo l'uscita)", r.s === 401, r.s);
+  verifica("esci: il vecchio cookie non vale più (sessione di un altro rubata dopo l'uscita)", r.s === 404, r.s);
   r = await red("GET", "/api/redazione/sessione", { cookie: e5.cookie });
   verifica("esci: le altre sessioni restano", r.s === 200, r.s);
   r = await red("GET", "/api/redazione/sicurezza", { cookie: e5.cookie });

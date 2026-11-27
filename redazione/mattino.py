@@ -224,8 +224,8 @@ def main():
     s, _ = get(BASE + "redazione/registro.json")
     s_vecchio, _ = get(BASE + "pannello/registro.json")
     riga(os.path.exists(p) and nel_registro(open(p, encoding="utf-8").read()), "Pannello: riga dell'edizione", "nel repository")
-    riga(s == 401 and s_vecchio == 404, "Pannello: chiuso a chi non è entrato",
-         f"/redazione/registro.json senza accesso: {s} (atteso 401); vecchio indirizzo /pannello/: {s_vecchio} (atteso 404)")
+    riga(s == 404 and s_vecchio == 404, "Pannello: chiuso a chi non è entrato",
+         f"/redazione/registro.json senza accesso: {s} (atteso 404, come un file che non esiste); vecchio indirizzo /pannello/: {s_vecchio} (atteso 404)")
     macchina(oggi)
 
 
