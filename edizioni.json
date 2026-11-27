@@ -7702,5 +7702,324 @@
     ]
    }
   ]
+ },
+ {
+  "numero": 35,
+  "data": "2026-11-27",
+  "titolo": "L'Asia risale e Seul guadagna il 4,3% sperando in un fondo pubblico",
+  "sommario": [
+   "L'Europa ha rimbalzato con New York chiusa, ma su pochi scambi.",
+   "L'oro ha già riconquistato metà della caduta di questa settimana.",
+   "Oggi Wall Street riapre per una mezza seduta: è la prima prova del rimbalzo."
+  ],
+  "file": "pdf/2026-11-27-gommberg-035.pdf",
+  "nome": "2026-11-27 Gommberg Terminal Daily #035.pdf",
+  "pagine": 6,
+  "notizie": [
+   "Stellantis guadagna l'8,8% dopo uno studio di JPMorgan sulle auto",
+   "Prysmian sale del 6,6% dopo il sì della Grecia al cavo sottomarino",
+   "Nvidia e Kioxia mostrano una nuova memoria per le schede grafiche",
+   "Banco BPM e Mediobanca salgono del 2,8% e Intesa del 2,5% a Milano",
+   "STMicroelectronics e Technoprobe guadagnano oltre il 4% a Milano",
+   "I future danno il 63% a un secondo rialzo Fed a gennaio"
+  ],
+  "ticker": [
+   [
+    "MSCI ACWI (ETF)",
+    "148,00 $",
+    "-0,1% g"
+   ],
+   [
+    "S&P 500",
+    "7.182,78",
+    "-0,3% g"
+   ],
+   [
+    "EURO STOXX 50",
+    "6.014,74",
+    "+2,0% g"
+   ],
+   [
+    "TREASURY 10 ANNI",
+    "4,85%",
+    "-6 pb g"
+   ],
+   [
+    "EUR/USD",
+    "1,0967",
+    "0,0% g"
+   ],
+   [
+    "BRENT FUTURE",
+    "94,61 $",
+    "+3,5% g"
+   ],
+   [
+    "ORO",
+    "3.687 $",
+    "+4,3% g"
+   ]
+  ],
+  "dek": "Il Kospi chiude a 4.915,68 punti, due sedute dopo aver perso il 6,2%. Secondo la stampa coreana pesano gli acquisti dopo il crollo, i future americani in rialzo e l'attesa che le autorità attivino o ampliino il fondo di stabilizzazione del mercato. Anche il Nikkei guadagna oltre il 2%. Ieri l'Europa aveva già recuperato con Wall Street chiusa, e oggi New York riapre per una mezza seduta.",
+  "ticker_al": "2026-11-26",
+  "ticker_dal": "2026-11-25",
+  "scommessa": {
+   "settimana": "2026-11-23/2026-11-27",
+   "su": 6,
+   "par": 7.3,
+   "strada": 3,
+   "range": 4,
+   "dettaglio": [
+    [
+     "S&P 500",
+     "su",
+     true,
+     false
+    ],
+    [
+     "Euro Stoxx 50",
+     "su",
+     true,
+     true
+    ],
+    [
+     "Treasury 10 anni",
+     "su",
+     false,
+     true
+    ],
+    [
+     "EUR/USD",
+     "su",
+     null,
+     true
+    ],
+    [
+     "Brent future",
+     "giù",
+     false,
+     true
+    ],
+    [
+     "Oro future",
+     "su",
+     true,
+     false
+    ]
+   ]
+  },
+  "temi": [
+   "Asia",
+   "Europa",
+   "Italia",
+   "Materie prime",
+   "Petrolio",
+   "Fed"
+  ],
+  "approfondimenti": [
+   {
+    "tema": "Chip e Asia",
+    "titolo": "Il rimbalzo di Seul poggia su un fondo pubblico che ancora non c'è",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Europa e Italia",
+    "titolo": "L'Europa rimbalza con Wall Street chiusa, ma su pochi scambi",
+    "formato": "due_grafici"
+   },
+   {
+    "tema": "Materie prime",
+    "titolo": "L'oro recupera metà della caduta dal 17/11 ma resta lontano dai massimi",
+    "formato": "grafico"
+   },
+   {
+    "tema": "Petrolio",
+    "titolo": "Il Brent resta tra 89 e 96 dollari nonostante gli attacchi nel Golfo",
+    "formato": "grafico"
+   }
+  ],
+  "meccanismi": [
+   "M23",
+   "M11"
+  ],
+  "parole": [
+   "Fondo di stabilizzazione",
+   "Freno automatico (sidecar)",
+   "Volumi",
+   "Rimbalzo tecnico",
+   "Corridoio di prezzo",
+   "Memoria per GPU"
+  ],
+  "ripetizioni": 3,
+  "glossario": [
+   "VIX",
+   "ACWI"
+  ],
+  "dove": {
+   "approfondimenti": [
+    2,
+    3,
+    4,
+    4
+   ],
+   "mercati": 5,
+   "agenda": 5,
+   "scommessa": 6
+  },
+  "termometri": {
+   "righe": [
+    [
+     "Fed e tassi",
+     "Riunione 8-9 dicembre",
+     "Rialzo di dicembre quasi scontato",
+     "fermo: Probabilità di rialzo a dicembre",
+     "Riunione Fed dell'8-9 dicembre"
+    ],
+    [
+     "AI e chip",
+     "Rimbalzo in Asia",
+     "Memoria per GPU di Nvidia e Kioxia",
+     "su: Samsung e SK Hynix",
+     "Kospi sopra i 5.000 punti"
+    ],
+    [
+     "Oro",
+     "Rimbalzo dopo il -9% della settimana",
+     "Ieri ha ripreso metà della caduta",
+     "su: Oro future",
+     "Livello 3.864 $ del 17/11"
+    ],
+    [
+     "Petrolio",
+     "Brent a 94,61 $ mercoledì",
+     "Attacchi nel Golfo secondo Bloomberg",
+     "fermo: Brent tra 89 e 96 $",
+     "Prime chiusure della settimana"
+    ]
+   ],
+   "fermi": "Dazi USA su 14 economie e BCE sulla riserva minima delle banche (nessuna novità verificata dal 26/11)."
+  },
+  "quadro": "I prezzi dicono rimbalzo, non svolta. Le borse risalgono a Seul, a Tokyo e in Europa, l'oro recupera una parte della caduta e il dollaro resta fermo contro l'euro. A nostro avviso è un recupero fatto in giorni di scambi rarefatti: ieri New York era chiusa e le borse europee hanno mosso molto con pochi ordini. La prova arriva oggi dalla riapertura di Wall Street, e poi dal rialzo della Fed che i future danno quasi per certo a dicembre. Intanto lo spread tra BTP e Bund è sceso del 3,6%, a 107 punti.",
+  "evento_oggi": "Ven 27, 15:30 Riapre Wall Street, seduta corta",
+  "grafici": [
+   {
+    "tipo": "barre",
+    "titolo": "In cinque sedute il Kospi ha dato e ripreso più del 6%",
+    "serie": [],
+    "x0": null,
+    "x1": null,
+    "etichette": [
+     "23/11",
+     "24/11",
+     "25/11",
+     "26/11",
+     "27/11"
+    ]
+   },
+   {
+    "tipo": "linee",
+    "titolo": "Tokyo e Hong Kong sono ancora sotto il livello del 16/11",
+    "serie": [
+     "Nikkei 225",
+     "Hang Seng"
+    ],
+    "x0": "2026-11-16",
+    "x1": "2026-11-27",
+    "etichette": []
+   },
+   {
+    "tipo": "linee",
+    "titolo": "Euro Stoxx 50 e FTSE MIB sono ancora sotto il livello del 23/11",
+    "serie": [
+     "Euro Stoxx 50",
+     "FTSE MIB"
+    ],
+    "x0": "2026-11-20",
+    "x1": "2026-11-26",
+    "etichette": []
+   },
+   {
+    "tipo": "barre",
+    "titolo": "A guidare il rialzo di Milano sono auto, cavi, chip e banche",
+    "serie": [],
+    "x0": null,
+    "x1": null,
+    "etichette": [
+     "Stellantis",
+     "Prysmian",
+     "STMicroelectronics",
+     "Technoprobe",
+     "Banco BPM",
+     "Intesa Sanpaolo",
+     "UniCredit"
+    ]
+   },
+   {
+    "tipo": "linee",
+    "titolo": "Dopo il crollo del 20/11 l'oro ha ripreso metà del terreno perso",
+    "serie": [
+     "Oro future"
+    ],
+    "x0": "2026-11-16",
+    "x1": "2026-11-26",
+    "etichette": []
+   },
+   {
+    "tipo": "linee",
+    "titolo": "Dal 9/11 il Brent chiude sempre dentro uno stesso corridoio",
+    "serie": [
+     "Brent"
+    ],
+    "x0": "2026-11-09",
+    "x1": "2026-11-25",
+    "etichette": []
+   }
+  ],
+  "agenda": [
+   {
+    "quando": "Ven 27, 15:30",
+    "evento": "Riapre Wall Street, seduta corta",
+    "attese": "Chiude alle 19:00; S&P 500 a 7.182,78 mercoledì",
+    "perche": "Evento n.1: prima prova del rimbalzo dopo il Ringraziamento",
+    "chiave": true,
+    "muove": [
+     "Sopra: se tengono i guadagni di Asia ed Europa, il rimbalzo si conferma.",
+     "Sotto: se New York restituisce i rialzi, erano scambi sottili."
+    ]
+   },
+   {
+    "quando": "Ven 27, 20:00",
+    "evento": "Chiude il mercato USA dei titoli di Stato",
+    "attese": "Orario ridotto: le 14:00 a New York",
+    "perche": "Pochi scambi sui Treasury",
+    "chiave": false,
+    "muove": [
+     "Sopra: rendimenti in rialzo, di solito pesano su oro e azioni di crescita.",
+     "Sotto: rendimenti in calo, di solito sostengono l'oro."
+    ]
+   },
+   {
+    "quando": "Mer 9 dic, in serata",
+    "evento": "Decisione della Fed sui tassi",
+    "attese": "Rialzo di 25 pb: probabilità del 97-98%",
+    "perche": "Conferma o smentita del rialzo scontato",
+    "chiave": false,
+    "muove": [
+     "Sopra: un rialzo più ampio o toni più duri, di solito sostengono dollaro e rendimenti.",
+     "Sotto: una pausa sorprenderebbe i mercati e di solito sostiene azioni e oro."
+    ]
+   },
+   {
+    "quando": "Lun 30, 15:30",
+    "evento": "Wall Street torna agli orari normali",
+    "attese": "Seduta piena, 9:30-16:00 a New York",
+    "perche": "Torna il volume normale",
+    "chiave": false,
+    "muove": [
+     "Sopra: scambi più alti, il rimbalzo si misura meglio.",
+     "Sotto: volumi bassi, ogni movimento pesa meno."
+    ]
+   }
+  ]
  }
 ]

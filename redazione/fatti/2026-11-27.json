@@ -1,0 +1,1077 @@
+[
+ {
+  "id": "N01",
+  "sezione": "top_news",
+  "tipo": "U",
+  "testo": "Il Kospi ha chiuso il 27/11/2026 a 4.915,68 punti (+4,34%, +204,47); il Kosdaq è salito di circa l'8,1%. Samsung Electronics ha guadagnato il 4,55% e SK Hynix il 5,41%.",
+  "data_evento": "2026-11-27",
+  "novita": "Rimbalzo dopo il -6,16% del 25/11 e il +0,29% del 26/11; il Kospi resta sotto i 5.006 punti del 24/11.",
+  "fonti": [
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/market/2026/11/27/bargain-hunters-lift-kospi-43-percent-kosdaq-81-percent",
+    "data_pubblicazione": "2026-11-27",
+    "citazione": "The KOSPI closed at 4,915.68, up 204.47 points, or 4.34%, from the previous session, while the KOSDAQ ended at 708.88, up 53.17 points, or 8.11%",
+    "ricerca": "Kospi closes Friday Nov. 27 Yonhap"
+   },
+   {
+    "testata": "Digitaltoday",
+    "url": "https://www.digitaltoday.co.kr/en/view/131873/kospi-back-above-4900-on-market-stabilisation-fund-hopes-kosdaq-surges-8-13-percent",
+    "data_pubblicazione": "2026-11-27",
+    "citazione": "On Nov. 27, the KOSPI ended up 204.47 points, or 4.34 percent, at 4,915.68.",
+    "ricerca": "Kospi closes Friday Nov. 27 Yonhap"
+   },
+   {
+    "testata": "KED Global (Yonhap)",
+    "url": "https://www.kedglobal.com/korean-stock-market/newsView/ked202611270007",
+    "data_pubblicazione": "2026-11-27",
+    "citazione": "The Kospi climbes 4.3% to close at 4,915.68 on Nov. 27, 2026",
+    "ricerca": "Kospi closes Friday Nov. 27 Yonhap",
+    "agenzia": "Yonhap"
+   }
+  ],
+  "ufficiale_cercato": [
+   "Kospi chiusura 27 novembre 2026",
+   "Kospi closes Friday Nov. 27 Yonhap"
+  ],
+  "trovato": "\"On Nov. 27, the KOSPI ended up 204.47 points, or 4.34 percent, at 4,915.68.\" Frase seguente: \"The index opened up 17.59 points, or 0.37 percent, at 4,728.80, then briefly turned lower.\" Poi: \"The Kosdaq jumped 53.28 points, or 8.13 percent, to end at 708.99.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Digitaltoday: Kosdaq +8,13% (708,99), Samsung +4,55%, SK Hynix +5,41%. Il Seoul Economic Daily dà Kosdaq +8,11% (708,88): differenza trascurabile, 'circa 8,1%' regge."
+ },
+ {
+  "id": "N02",
+  "sezione": "top_news",
+  "tipo": "C",
+  "testo": "Per Seoul Economic Daily e Digitaltoday il rialzo del Kospi riflette gli acquisti dopo il crollo, i future USA in rialzo e l'attesa che le autorità attivino o ampliino il fondo di stabilizzazione del mercato.",
+  "data_evento": "2026-11-27",
+  "novita": "Il fondo di stabilizzazione è in preparazione dal 22/11; oggi l'attesa è di un suo ampliamento.",
+  "fonti": [
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/market/2026/11/27/bargain-hunters-lift-kospi-43-percent-kosdaq-81-percent",
+    "data_pubblicazione": "2026-11-27",
+    "citazione": "Expectations that regulators would activate a stock market stabilization fund also lifted sentiment on supply and demand.",
+    "ricerca": "Kospi closes Friday Nov. 27 Yonhap"
+   },
+   {
+    "testata": "Digitaltoday",
+    "url": "https://www.digitaltoday.co.kr/en/view/131873/kospi-back-above-4900-on-market-stabilisation-fund-hopes-kosdaq-surges-8-13-percent",
+    "data_pubblicazione": "2026-11-27",
+    "citazione": "Bargain hunting after a recent plunge, solid moves in U.S. stock index futures and expectations of an increase and activation of the stabilisation fund by financial authorities are seen as factors supporting sentiment.",
+    "ricerca": "Kospi closes Friday Nov. 27 Yonhap"
+   }
+  ],
+  "trovato": "\"Bargain hunting after a recent plunge, solid moves in U.S. stock index futures and expectations of an increase...\" Frase seguente: \"The government began preparations on Nov. 22 to be able to activate the stabilisation fund immediately.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Digitaltoday (frase letta): acquisti di occasione dopo il crollo, future USA, attesa di attivazione/aumento del fondo. Il Seoul Economic Daily scrive 'The rally reflected a combination of strength in U.S. index futures, a shift to net buying by foreign investors' seguito da 'U.S. futures advanced as AI-related concerns eased and oversold conditions reversed.'; non usa la dicitura 'bargain buying' e dà dati sui flussi diversi da Digitaltoday (per i flussi vale Digitaltoday)."
+ },
+ {
+  "id": "D01",
+  "sezione": "deep_dive",
+  "testo": "A Seul gli stranieri e le istituzioni hanno comprato mentre i piccoli risparmiatori vendevano per 1,77 mila miliardi di won; l'acquisto automatico sul Kospi è stato sospeso 5 minuti alle 10:22 (sidecar d'acquisto); il won si è rafforzato a 1.338,60 per dollaro.",
+  "data_evento": "2026-11-27",
+  "novita": "Flussi della seduta del 27/11.",
+  "fonti": [
+   {
+    "testata": "Digitaltoday",
+    "url": "https://www.digitaltoday.co.kr/en/view/131873/kospi-back-above-4900-on-market-stabilisation-fund-hopes-kosdaq-surges-8-13-percent",
+    "data_pubblicazione": "2026-11-27",
+    "citazione": "By investor category, foreigners and institutions were net buyers of 1.13 trillion won and 238.8 billion won, respectively, leading the rise. Retail investors were net sellers of 1.77 trillion won.",
+    "ricerca": "Kospi closes Friday Nov. 27 Yonhap"
+   },
+   {
+    "testata": "Digitaltoday",
+    "url": "https://www.digitaltoday.co.kr/en/view/131873/kospi-back-above-4900-on-market-stabilisation-fund-hopes-kosdaq-surges-8-13-percent",
+    "data_pubblicazione": "2026-11-27",
+    "citazione": "a buy-sidecar was triggered at 10:22 a.m., halting the effectiveness of program buy orders for 5 minutes.",
+    "ricerca": "Kospi closes Friday Nov. 27 Yonhap"
+   },
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/market/2026/11/27/bargain-hunters-lift-kospi-43-percent-kosdaq-81-percent",
+    "data_pubblicazione": "2026-11-27",
+    "citazione": "Foreign investors were net buyers on both the main board and the KOSDAQ.",
+    "ricerca": "Kospi closes Friday Nov. 27 Yonhap"
+   },
+   {
+    "testata": "Digitaltoday",
+    "url": "https://www.digitaltoday.co.kr/en/view/131873/kospi-back-above-4900-on-market-stabilisation-fund-hopes-kosdaq-surges-8-13-percent",
+    "data_pubblicazione": "2026-11-27",
+    "citazione": "The won-dollar exchange rate was 1,338.60 won, down 5.40 won from the previous session.",
+    "ricerca": "Kospi closes Friday Nov. 27 Yonhap"
+   }
+  ],
+  "conferma_cercata": [
+   "Korea stock market stabilization fund Kospi rebound foreign buying Nov 27"
+  ],
+  "trovato": "\"As gains widened, a buy-sidecar was triggered at 10:22 a.m., halting the effectiveness of program buy orders for 5 minutes.\" Frase seguente: \"The won-dollar exchange rate was 1,338.60 won, down 5.40 won from the previous session.\" Prima: \"By investor category, foreigners and institutions were net buyers of 1.13 trillion won and 238.8 billion won...\" Frase seguente: \"Retail investors were net sellers of 1.77 trillion won.\"",
+  "verifica": "confermato",
+  "nota_revisore": "Letto su Digitaltoday, che conferma anche stranieri e istituzioni compratori (1,13 mila miliardi e 238,8 miliardi). Nota: il Seoul Economic Daily dice che il sidecar scattò sul Kosdaq, Digitaltoday non specifica il mercato: il PDF scrive 'sul Kospi' e non è confermato; meglio scrivere 'sul mercato' senza indicare l'indice."
+ },
+ {
+  "id": "D02",
+  "sezione": "deep_dive",
+  "testo": "Il fondo di stabilizzazione del mercato coreano vale circa 10,8 mila miliardi di won e Seul valuta di ampliarlo; secondo un'analista di Kiwoom Securities, finché non arrivano gli acquisti del fondo lo slancio del rimbalzo può essere limitato.",
+  "data_evento": "2026-11-27",
+  "novita": "Prima stima dell'ampliamento allo studio.",
+  "fonti": [
+   {
+    "testata": "KED Global (Yonhap)",
+    "url": "https://www.kedglobal.com/korean-stock-market/newsView/ked202611270007",
+    "data_pubblicazione": "2026-11-27",
+    "citazione": "as Seoul weighs expanding its 10.8 trillion won market stabilization fund",
+    "ricerca": "Kospi closes Friday Nov. 27 Yonhap",
+    "agenzia": "Yonhap"
+   },
+   {
+    "testata": "KED Global (Yonhap)",
+    "url": "https://www.kedglobal.com/korean-stock-market/newsView/ked202611270007",
+    "data_pubblicazione": "2026-11-27",
+    "citazione": "on hopes that Korean financial authorities would expand a state-backed market stabilization fund to stem a prolonged selloff",
+    "ricerca": "Kospi closes Friday Nov. 27 Yonhap",
+    "agenzia": "Yonhap"
+   },
+   {
+    "testata": "Digitaltoday",
+    "url": "https://www.digitaltoday.co.kr/en/view/131873/kospi-back-above-4900-on-market-stabilisation-fund-hopes-kosdaq-surges-8-13-percent",
+    "data_pubblicazione": "2026-11-27",
+    "citazione": "Until new supply and demand from the stabilisation fund comes in, the rebound's momentum could be limited by constraints on actual buying entities, but I think there is no need to approach this more pessimistically.",
+    "ricerca": "Kospi closes Friday Nov. 27 Yonhap"
+   }
+  ],
+  "trovato": "\"Foreign investors fuel a rebound in chip and brokerage stocks as Seoul weighs expanding its 10.8 trillion won market\" (KED Global, sottotitolo; frase seguente, didascalia: \"The Kospi climbes 4.3% to close at 4,915.68 on Nov. 27, 2026, and the tech-heavy Kosdaq surges 8.1% to 708.99\"). Digitaltoday: Han Ji-young di Kiwoom: \"Until new supply and demand from the stabilisation fund comes in, the rebound's momentum could be limited...\"",
+  "verifica": "confermato",
+  "nota_revisore": "10,8 mila miliardi di won e valutazione dell'ampliamento da KED Global; analista Kiwoom su Digitaltoday, la frase conferma 'finché non arriva la domanda del fondo lo slancio può essere limitato'. Digitaltoday indica un fondo esistente 'nell'ordine dei 10 mila miliardi'."
+ },
+ {
+  "id": "D03",
+  "sezione": "deep_dive",
+  "testo": "Il rialzo ha portato con sé i chip della memoria: per Seoul Economic Daily il clima è migliorato dopo che Nvidia e Kioxia hanno mostrato una tecnologia che usa dischi a stato solido per espandere la memoria delle schede grafiche (GPU) a livello di petabyte.",
+  "data_evento": "2026-11-27",
+  "novita": "Notizia di stamattina.",
+  "fonti": [
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/market/2026/11/27/bargain-hunters-lift-kospi-43-percent-kosdaq-81-percent",
+    "data_pubblicazione": "2026-11-27",
+    "citazione": "Sentiment toward memory chips also improved after Nvidia and Kioxia demonstrated technology that uses solid-state drives to expand graphics processing unit memory capacity to the petabyte scale.",
+    "ricerca": "Kospi closes Friday Nov. 27 Yonhap"
+   }
+  ],
+  "conferma_cercata": [
+   "Nvidia Kioxia solid-state drives GPU memory petabyte scale demonstration"
+  ],
+  "trovato": "\"Sentiment toward memory chips also improved after Nvidia and Kioxia demonstrated technology that uses solid-state drives\" Frase seguente: \"It is worth watching whether the rebound in chip stocks continues in the U.S. cash market,\" said Lee Kyoung-min, an analyst at Daishin Securities.",
+  "verifica": "confermato",
+  "nota_revisore": "Il Seoul Economic Daily lega il miglioramento del clima sui chip di memoria alla dimostrazione di Nvidia e Kioxia con dischi a stato solido (la frase è stata letta troncata): il 'livello petabyte' e le GPU non sono nella parte letta, quindi non verificati."
+ },
+ {
+  "id": "N04",
+  "sezione": "top_news",
+  "tipo": "U",
+  "testo": "Il 26/11/2026 il FTSE MIB ha chiuso a 48.362 punti (+2,36%), il miglior listino tra i principali europei.",
+  "data_evento": "2026-11-26",
+  "novita": "Rimbalzo dopo il -1,81% del 25/11 (47.249 punti).",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/26/borsa-milano-chiude-in-forte-rialzo-236_4dcf4e5a-cc42-4c52-9da2-e23050aca16e.html",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "La Borsa di Milano chiude in forte rialzo. L'indice Ftse Mib segna un progresso del 2,36% a 48.362 punti.",
+    "ricerca": "Borsa Milano chiude 26 novembre Ftse Mib spread Btp Bund Radiocor",
+    "agenzia": "ANSA"
+   }
+  ],
+  "ufficiale_cercato": [
+   "Piazza Affari chiusura 26 novembre 2026 FTSE MIB spread BTP Bund",
+   "Borsa Milano chiude 26 novembre Ftse Mib spread Btp Bund Radiocor"
+  ],
+  "conferma_cercata": [
+   "Europa borse chiusura 26 novembre 2026 Parigi Londra Francoforte Euro Stoxx 50"
+  ],
+  "trovato": "termina la seduta con un +2,36% a 48.362 punti ... si conferma la migliore tra le principali Borse europee",
+  "verifica": "confermato",
+  "nota_revisore": "Letto su SoldiOnline (testo ANSA); la pagina ANSA originale non è comparsa nella ricerca. La dicitura esatta 'miglior listino' non c'è, ma il senso è lo stesso."
+ },
+ {
+  "id": "N05",
+  "sezione": "top_news",
+  "tipo": "C",
+  "testo": "Stellantis ha chiuso il 26/11 a +8,82%: per ANSA il titolo è stato sostenuto da uno studio di JPMorgan sul settore delle auto.",
+  "data_evento": "2026-11-26",
+  "novita": "Titolo più forte del FTSE MIB.",
+  "fonti": [
+   {
+    "testata": "SoldiOnline (testo ANSA)",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/milano-vola-236-e-batte-leuropa-cosa-ce-dietro-il-rally-di-stellantis",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "sostenuto dalla scia di uno studio di JpMorgan sul settore delle quattro ruote",
+    "ricerca": "Borsa Milano chiude 26 novembre Ftse Mib spread Btp Bund Radiocor",
+    "agenzia": "ANSA"
+   }
+  ],
+  "conferma_cercata": [
+   "Stellantis JPMorgan sector study shares jump 26 novembre 2026"
+  ],
+  "trovato": "\"Il titolo del gruppo automobilistico ha segnato un vero e proprio scatto, con un +8,82%,\" ... \"sostenuto dalla scia di uno studio di JpMorgan sul settore delle quattro ruote.\" Frase seguente: \"Molto bene anche Prysmian, che guadagna +6,57% all'indomani del via libera della Grecia\"",
+  "verifica": "confermato",
+  "nota_revisore": "SoldiOnline (testo ANSA) riporta Stellantis +8,82% sostenuta dallo studio JPMorgan sul settore auto."
+ },
+ {
+  "id": "N06",
+  "sezione": "top_news",
+  "tipo": "C",
+  "testo": "Prysmian ha guadagnato il 6,57% dopo il via libera della Grecia all'elettrodotto sottomarino tra la terraferma e il Dodecaneso; STMicroelectronics ha guadagnato il 4,58% e Technoprobe il 4,31% per la fiducia ritrovata sull'intelligenza artificiale.",
+  "data_evento": "2026-11-26",
+  "novita": "Due fatti di società del 26/11.",
+  "fonti": [
+   {
+    "testata": "SoldiOnline (testo ANSA)",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/milano-vola-236-e-batte-leuropa-cosa-ce-dietro-il-rally-di-stellantis",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "all’indomani del via libera della Grecia all’elettrodotto sottomarino tra la terraferma e il Dodecaneso",
+    "ricerca": "Borsa Milano chiude 26 novembre Ftse Mib spread Btp Bund Radiocor",
+    "agenzia": "ANSA"
+   },
+   {
+    "testata": "SoldiOnline (testo ANSA)",
+    "url": "https://www.soldionline.it/notizie/azioni-italia/milano-vola-236-e-batte-leuropa-cosa-ce-dietro-il-rally-di-stellantis",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "ritrovata fiducia degli investitori sull’intelligenza artificiale",
+    "ricerca": "Borsa Milano chiude 26 novembre Ftse Mib spread Btp Bund Radiocor",
+    "agenzia": "ANSA"
+   }
+  ],
+  "conferma_cercata": [
+   "Europa borse chiusura 26 novembre 2026 Parigi Londra Francoforte Euro Stoxx 50"
+  ],
+  "trovato": "\"Molto bene anche Prysmian, che guadagna +6,57% all'indomani del via libera della Grecia\" ... \"all'elettrodotto sottomarino tra la terraferma e il Dodecanneso.\" ... \"Secondo quanto indicato, Prysmian ha inoltre risentito — insieme a Stm (+4,58%) e Technoprobe (+4,31%)\" ... \"della ritrovata fiducia degli investitori sull'intelligenza artificiale,\" Frase seguente: \"Il tema dell'AI tende a riflettersi soprattutto su aziende legate a semiconduttori e filiere tecnologiche,\"",
+  "verifica": "confermato",
+  "nota_revisore": "Prysmian +6,57% dopo il via libera greco; Stm +4,58% e Technoprobe +4,31% per la fiducia sull'AI: confermati. Nella pagina anche Prysmian 'ha inoltre risentito' della fiducia sull'AI, oltre che del via libera della Grecia."
+ },
+ {
+  "id": "N07",
+  "sezione": "top_news",
+  "tipo": "U",
+  "testo": "Il 26/11 lo spread tra BTP e Bund a 10 anni ha chiuso a 107 punti, da 111 della chiusura precedente; il rendimento del BTP è sceso di 2,6 punti base al 4,32%, quello del Bund è salito di 2,3 al 3,25%.",
+  "data_evento": "2026-11-26",
+  "novita": "Spread in calo dopo il massimo recente.",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://ansa.it/sito/notizie/topnews/2026/11/26/lo-spread-tra-btp-e-bund-tedeschi-chiude-in-ribasso-a-107-punti_7f7dfd13-11ce-410e-91ef-8b229616a6cb.html",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "Chiude in ribasso lo spread tra Btp e Bund decennali tedeschi a 107 punti",
+    "ricerca": "Borsa Milano chiude 26 novembre Ftse Mib spread Btp Bund Radiocor",
+    "agenzia": "ANSA"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://ansa.it/sito/notizie/topnews/2026/11/26/lo-spread-tra-btp-e-bund-tedeschi-chiude-in-ribasso-a-107-punti_7f7dfd13-11ce-410e-91ef-8b229616a6cb.html",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "Il rendimento annuo italiano cede 2,6 punti al 4,32%, quello tedesco ne guadagna 2,3 al 3,25%",
+    "ricerca": "Borsa Milano chiude 26 novembre Ftse Mib spread Btp Bund Radiocor",
+    "agenzia": "ANSA"
+   }
+  ],
+  "ufficiale_cercato": [
+   "Piazza Affari chiusura 26 novembre 2026 FTSE MIB spread BTP Bund",
+   "Borsa Milano chiude 26 novembre Ftse Mib spread Btp Bund Radiocor"
+  ],
+  "conferma_cercata": [
+   "Europa borse chiusura 26 novembre 2026 Parigi Londra Francoforte Euro Stoxx 50"
+  ],
+  "trovato": "contro i 109 segnati in apertura di seduta e i 111 della chiusura precedente; il rendimento decennale cede 2,6 punti al 4,32%; il Bund sale di 2,3 punti al 3,25%",
+  "verifica": "confermato",
+  "nota_revisore": "ANSA conferma spread a 107 da 111, BTP 4,32% (-2,6) e Bund 3,25% (+2,3). La pagina scrive 'punti' senza dire 'base': l'unità è una lettura ragionevole, non una frase della fonte."
+ },
+ {
+  "id": "N08",
+  "sezione": "top_news",
+  "testo": "Ieri le borse europee hanno negoziato in poco: per ANSA gli scambi sono stati scarsi per la chiusura dei mercati USA per il Ringraziamento. Sull'Euro Stoxx 50 il volume è stato di 15,9 milioni di pezzi contro 24,8 del giorno prima.",
+  "data_evento": "2026-11-26",
+  "novita": "Volumi di ieri.",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/economia/2026/11/26/borsa-europa-brillante-wall-street-chiusa-milano-regina-215_ec9ef9e4-38f7-4884-98ec-e28774ddb162.html",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "Pochi gli scambi a causa della chiusura dei mercati Usa per la festa del Ringraziamento.",
+    "ricerca": "Borsa Europa chiusura 26 novembre 2026 Stellantis chip Piazza Affari",
+    "agenzia": "ANSA"
+   }
+  ],
+  "conferma_cercata": [
+   "Europa borse chiusura 26 novembre 2026 Parigi Londra Francoforte Euro Stoxx 50"
+  ],
+  "trovato": "\"Pochi gli scambi a causa della chiusura dei mercati Usa per la festa del Ringraziamento.\" Frase seguente: \"Milano (+2,45%) è regina d'Europa, davanti a Madrid (+2,2%), Francoforte (+2%), Londra (+1,85%) e Parigi (+1,8%).\" Frase precedente: \"Borse europee brillanti, spinte dal ritrovato clima di fiducia sull'intelligenza articiale all'indomani del balzo segnato...\"",
+  "verifica": "confermato",
+  "nota_revisore": "Confermata la parte attribuita ad ANSA (scambi scarsi per la chiusura USA). I volumi dell'Euro Stoxx 50 (15,9 contro 24,8 milioni) non sono nella pagina ANSA: nel PDF provengono da EODHD e qui non sono verificati. L'articolo ANSA è un testo intermedio (Milano +2,45%, poi chiusa a +2,36%)."
+ },
+ {
+  "id": "N09",
+  "sezione": "top_news",
+  "testo": "I future sui tassi danno una probabilità del 97-98% a un rialzo Fed di 25 punti base a dicembre e del 63% a un altro a gennaio (CME FedWatch).",
+  "data_evento": "2026-11-26",
+  "novita": "Probabilità di ieri mattina, ultime disponibili: il mercato dei Treasury era chiuso.",
+  "fonti": [
+   {
+    "testata": "The Company Chronicle (da Fox Business)",
+    "url": "https://thecompanychronicle.com/story/before-the-bell-thanksgiving-november-26-2026",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "a 97% probability of a Fed rate hike in December and a 63% chance of another in January.",
+    "ricerca": "markets news Thanksgiving November 26 2026 gold oil Fed yen"
+   },
+   {
+    "testata": "political.org",
+    "url": "https://political.org/2026/11/26/asian-stocks-rebound-while-wall-street-sits-out-thanksgiving-raising-the-question-of-a-dead-turkey-bounce/",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "Futures imply a 98% chance of a 25-basis-point Fed rate increase in December.",
+    "ricerca": "Wall Street Thanksgiving closed Thursday stocks week Nvidia Fed December news November 26 2026"
+   }
+  ],
+  "trovato": "\"a 97% probability of a Fed rate hike in December and a 63% chance of another in January\" Frase seguente: \"The 10-year Treasury yield, the benchmark for mortgages, ended Wednesday near 4.85% in Yahoo's data.\"",
+  "verifica": "confermato",
+  "nota_revisore": "The Company Chronicle (da Fox Business, CME FedWatch) dà 97% e 63%; non indica la dimensione di 25 pb né l'intervallo 97-98%. Il 97,5% compare solo nei titoli di risultati di ricerca (FinScans), pagina non aperta. political.org non è comparsa nella ricerca."
+ },
+ {
+  "id": "N10",
+  "sezione": "top_news",
+  "testo": "Wall Street riapre oggi per una seduta abbreviata: Nyse e Nasdaq aprono alle 9:30 ora di New York e chiudono alle 13:00; il mercato dei titoli di Stato chiude alle 14:00. Lunedì 30/11 gli orari tornano normali.",
+  "data_evento": "2026-11-26",
+  "novita": "Orari di oggi.",
+  "fonti": [
+   {
+    "testata": "BigGo Finance",
+    "url": "https://finance.biggo.com/news/bef38756-5740-4079-8784-f2d501914c9b",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "Both exchanges open at the usual 9:30 a.m. ET but ring the closing bell at 1 p.m. ET, three hours ahead of the standard finish.",
+    "ricerca": "Wall Street Thanksgiving closed Thursday stocks week Nvidia Fed December news November 26 2026"
+   },
+   {
+    "testata": "political.org",
+    "url": "https://political.org/2026/11/26/asian-stocks-rebound-while-wall-street-sits-out-thanksgiving-raising-the-question-of-a-dead-turkey-bounce/",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "They reopen on Friday, November 27, for an abbreviated session ending at 1 p.m. ET (10 a.m. PT).",
+    "ricerca": "Wall Street Thanksgiving closed Thursday stocks week Nvidia Fed December news November 26 2026"
+   }
+  ],
+  "trovato": "Both exchanges open at the usual 9:30 a.m. ET but ring the closing bell at 1 p.m. ET ... SIFMA recommending a 2 p.m. ET close ... Full trading hours return Monday, Nov. 30",
+  "verifica": "confermato",
+  "nota_revisore": "BigGo Finance conferma orari. Nota: per i titoli di Stato 14:00 è la raccomandazione SIFMA, non obbligatoria. Le 9:30-16:00 di lunedì confermate."
+ },
+ {
+  "id": "N11",
+  "sezione": "top_news",
+  "testo": "Al Jazeera scrive che gli Houthi filo-iraniani hanno colpito una raffineria saudita, fermando per qualche tempo una parte delle attività.",
+  "data_evento": "2026-11-27",
+  "novita": "Notizia di stamattina, data dell'attacco non indicata.",
+  "fonte_singola": true,
+  "fonti": [
+   {
+    "testata": "Al Jazeera (AFP)",
+    "url": "https://www.aljazeera.com/economy/2026/11/27/asian-stock-markets-rise-after-earlier-tech-rout",
+    "data_pubblicazione": "2026-11-27",
+    "citazione": "Iran-aligned Houthis struck a Saudi refinery, temporarily halting some operations.",
+    "ricerca": "Asian shares November 27 2026 Nikkei Hang Seng Shanghai",
+    "agenzia": "AFP"
+   }
+  ],
+  "conferma_cercata": [
+   "Hormuz mines oil tanker November 2026"
+  ],
+  "scartata": true,
+  "trovato": "",
+  "verifica": "non_conclusivo",
+  "nota_revisore": "La pagina Al Jazeera non è comparsa nei risultati di ricerca, quindi non letta. Un risultato la cita solo nel titolo ('Saudi refinery attack'), senza dettagli sugli Houthi né sull'arresto delle attività."
+ },
+ {
+  "id": "D04",
+  "sezione": "deep_dive",
+  "testo": "Il 26/11 l'oro era in rimbalzo già in mattinata: per ATFX da circa 3.426 a 3.573 dollari, aiutato da rendimenti dei Treasury più bassi e da un dollaro più debole, che hanno compensato l'inflazione USA più alta del previsto; i future erano vicini a 3.594 dollari, in rialzo di circa l'1,7%.",
+  "data_evento": "2026-11-26",
+  "novita": "Cause del rimbalzo dell'oro.",
+  "fonti": [
+   {
+    "testata": "ATFX (Martin Lam)",
+    "url": "https://www.atfxcapital.com/en/analysis/market-news/20261126-daily-market-highlight",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "Gold staged a V-shaped rebound from around $3,426 to $3,573",
+    "ricerca": "markets news Thanksgiving November 26 2026 gold oil Fed yen"
+   },
+   {
+    "testata": "ATFX (Martin Lam)",
+    "url": "https://www.atfxcapital.com/en/analysis/market-news/20261126-daily-market-highlight",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "lower Treasury yields and a softer dollar helped offset hotter US inflation",
+    "ricerca": "markets news Thanksgiving November 26 2026 gold oil Fed yen"
+   },
+   {
+    "testata": "The Company Chronicle (da Yahoo Finance e Fox Business)",
+    "url": "https://thecompanychronicle.com/story/before-the-bell-thanksgiving-november-26-2026",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "Gold futures were near $3,594 an ounce, up about 1.7%.",
+    "ricerca": "markets news Thanksgiving November 26 2026 gold oil Fed yen"
+   }
+  ],
+  "conferma_cercata": [
+   "gold surges silver jumps November 26 2026 why"
+  ],
+  "primaria": false,
+  "scartata": true,
+  "trovato": "Gold futures were near $3,594 an ounce, up about 1.7%",
+  "verifica": "non_conclusivo",
+  "nota_revisore": "Confermati solo i future vicini a 3.594 dollari (+1,7%) su The Company Chronicle, che però non spiega il rimbalzo. La pagina ATFX non è comparsa nella ricerca: non verificati 3.426-3.573 dollari né rendimenti più bassi, dollaro debole e inflazione più alta come cause."
+ },
+ {
+  "id": "MEM-1126-B07",
+  "sezione": "deep_dive",
+  "testo": "Il Kospi ha perso il 6,16% mercoledi' 25/11/2026 chiudendo a 4.697,51 punti (non -7,05%), con le vendite sui chip dopo il crollo dei semiconduttori a Wall Street (Nvidia) e i timori di nuovi dazi USA sui partner commerciali, Corea compresa.",
+  "data_evento": "2026-11-25",
+  "fonti": [
+   {
+    "testata": "Korea Daily",
+    "url": "https://en.koreadaily.com/kospi-drops-amid-us-semiconductor-slump/",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "The Kospi fell 6.16% to close at 4,697.51, giving up all of its previous day's gains.",
+    "ricerca": "Seoul stocks tumble Kospi 6 percent Wednesday chip stocks Samsung SK hynix Nov. 25"
+   },
+   {
+    "testata": "Korea Daily",
+    "url": "https://en.koreadaily.com/kospi-drops-amid-us-semiconductor-slump/",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "This downturn was the direct result of a shock wave from Wall Street.",
+    "ricerca": "Seoul stocks tumble Kospi 6 percent Wednesday chip stocks Samsung SK hynix Nov. 25"
+   },
+   {
+    "testata": "The Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261126/kospi-rebounds-slightly-despite-boks-rate-hike",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "The index recouped only a fraction of its loss of more than 6 percent in the previous session.",
+    "ricerca": "Kospi closes November 26 2026 Bank of Korea rate hike"
+   }
+  ],
+  "nota": "Goldman e Morgan Stanley come origine del calo: NON trovati nelle pagine aperte. Nell'articolo Seoul Economic Daily i chip 'tumbled about 10% the previous day' (26/11).",
+  "ufficiale_cercato": [
+   "Kospi closes Thursday Seoul stocks Yonhap",
+   "Seoul shares close Bank of Korea hikes rate Kospi won"
+  ],
+  "trovato": "Korea Daily (25/11/2026): \"The Kospi fell 6.16% to close at 4,697.51, giving up all of its previous day's gains.\" \"Samsung Electronics dropped 9.87%... SK Hynix plunged 11.05%\"; \"the Trump administration may push for additional tariffs against major trading partners, including South Korea.\"",
+  "verifica": "confermato",
+  "nota_revisore": "-7,05% non compare. La pagina cita il calo di Nvidia a Wall Street (-5,86%, dato diverso dalla chiusura -3,91%) come sfondo. Seconda fonte Korea Times (rebounds-slightly) non ritrovata nei risultati.",
+  "ripresa": "2026-11-26"
+ },
+ {
+  "id": "MEM-1124-N02",
+  "sezione": "deep_dive",
+  "testo": "Il Kospi di Seul chiude a 5.006,03 (+6,32%) dopo un'apertura a +3,64% e il primo sidecar d'acquisto da due settimane; Samsung Electronics +6,70% e SK hynix +6,73%",
+  "data_evento": "2026-11-24",
+  "fonti": [
+   {
+    "testata": "JKN",
+    "url": "https://news.jkn.co.kr/editions/english/post/1119298",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "KOSPI Surges 6.32% to Reclaim 5,000 Mark as Jensen Huang Returns; KOSDAQ Climbs 4.79%",
+    "ricerca": "Kospi surges 5,000 Nvidia Huang reinstated Seoul shares close higher"
+   },
+   {
+    "testata": "Aju Press",
+    "url": "https://www.ajupress.com/view/20261124151757565",
+    "data_pubblicazione": "2026-11-24",
+    "citazione": "Huang regains institutional confidence, Korea's retailers not sure",
+    "ricerca": "Kospi surges 5,000 Nvidia Huang reinstated Seoul shares close higher"
+   }
+  ],
+  "trovato": "It finished the day at 5,006.03, up 297.49 points (6.32%) from the previous trading day.",
+  "verifica": "confermato",
+  "nota_revisore": "JKN: 'This was the first time a KOSPI buy-sidecar was triggered in two weeks, since the 10th.' Korea Herald: sidecar di cinque minuti sugli acquisti dei programmi. Apertura +3,64% (JKN da' solo 4.880,16) e Samsung +6,70%/SK hynix +6,73% non ritrovati. PDF coerente su quanto riporta.",
+  "ripresa": "2026-11-24"
+ },
+ {
+  "id": "MEM-1123-N03",
+  "sezione": "deep_dive",
+  "testo": "Il Kospi chiude a 4.708,54 (-3,31%), il minimo dal 13 gennaio: nuovo sidecar alle 11:33 e minimo di giornata a 4.586,80; Tokyo è chiusa per festa",
+  "data_evento": "2026-11-23",
+  "fonti": [
+   {
+    "testata": "The Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261123/seoul-stocks-lose-33-as-ai-rout-tests-govt-rescue-plans",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Seoul stocks lose 3.3% as AI rout tests gov't rescue plans",
+    "ricerca": "Kospi 4,708.55 closes 3.31% Samsung SK Hynix sidecar Monday"
+   },
+   {
+    "testata": "JKN",
+    "url": "https://news.jkn.co.kr/editions/english/post/1116780",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "KOSPI plunges 5.8% intraday before paring losses to close at 4,700 level; KOSDAQ hits two-year low",
+    "ricerca": "Kospi 4,708.55 closes 3.31% Samsung SK Hynix sidecar Monday"
+   }
+  ],
+  "fonte_singola": false,
+  "trovato": "Korea Times: The benchmark KOSPI closed at 4,708.54, down 3.31 percent, its lowest finish since Jan. 13. A sell-side sidecar was triggered at 11:33 a.m. The index opened 2.77 percent lower and plunged as much as 5 percent intraday, briefly slipping to 4,586.8. JKN: It was triggered for the second consecutive day following the 20th.",
+  "verifica": "confermato",
+  "nota_revisore": "Chiusura, -3,31%, minimo dal 13 gennaio, sidecar alle 11:33 e minimo 4.586,80 confermati. 'Tokyo chiusa per festa' non compare nelle due pagine (non verificato da fonte). Il PDF ha il Kospi del 23/11 vs 4.869,96 di venerdi': 4.708,54+161,42 = 4.869,96, coerente con JKN.",
+  "ripresa": "2026-11-23"
+ },
+ {
+  "id": "MEM-1123-N11",
+  "sezione": "deep_dive",
+  "testo": "Seul prepara il fondo di stabilizzazione, pronto all'uso subito se i ribassi continuano, e per tre mesi allenta i limiti ai riacquisti di azioni proprie e stringe sulle vendite allo scoperto illegali",
+  "data_evento": "2026-11-22",
+  "fonti": [
+   {
+    "testata": "The Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261123/seoul-stocks-lose-33-as-ai-rout-tests-govt-rescue-plans",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Seoul stocks lose 3.3% as AI rout tests gov't rescue plans",
+    "ricerca": "Kospi 4,708.55 closes 3.31% Samsung SK Hynix sidecar Monday"
+   },
+   {
+    "testata": "Reuters (Euronext)",
+    "url": "https://live.euronext.com/en/financial-news/us-futures-bounce-while-asia-markets-brace-ai-wipeout",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "US futures bounce while Asia markets brace for AI wipeout",
+    "ricerca": "Reuters stocks markets wrap Monday November 23 2026 Asia futures rebound Nvidia SEC",
+    "agenzia": "Reuters"
+   }
+  ],
+  "trovato": "South Korea will be ready to deploy market stabilisation funds immediately should the market continue to fall",
+  "verifica": "confermato",
+  "nota_revisore": "Frase Reuters (Euronext) per il fondo; Korea Times: 'ease share buyback restrictions and crack down on illegal short selling for three months'. Attenzione: Korea Times dice 'preparations to activate a stock market stabilization fund'; la pagina Euronext non nomina Seul ma 'South Korea' ne' i riacquisti. Le due fonti insieme coprono la frase.",
+  "ripresa": "2026-11-23"
+ },
+ {
+  "id": "MEM-1126-B10",
+  "sezione": "deep_dive",
+  "testo": "Il Kospi ha chiuso il 26/11/2026 a 4.711,21 punti (+0,29%, +13,70) dopo aver guadagnato oltre il 2% in seduta. Investitori istituzionali compratori netti per circa 750,9 miliardi di won, retail venditori netti per circa 1.040 miliardi di won (1,04 mila miliardi), stranieri venditori netti per 113,6 miliardi.",
+  "data_evento": "2026-11-26",
+  "fonti": [
+   {
+    "testata": "The Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261126/kospi-edges-up-despite-bok-rate-hike",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "The benchmark KOSPI closed at 4,711.21 after opening 1.01 percent higher at 4,745.10.",
+    "ricerca": "Kospi closes November 26 2026 Bank of Korea rate hike"
+   },
+   {
+    "testata": "The Korea Times",
+    "url": "https://www.koreatimes.co.kr/economy/20261126/kospi-edges-up-despite-bok-rate-hike",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "foreign investors and retail investors recorded net sales of 113.6 billion won and 1.04 trillion won, respectively.",
+    "ricerca": "Kospi closes November 26 2026 Bank of Korea rate hike"
+   },
+   {
+    "testata": "Seoul Economic Daily",
+    "url": "https://en.sedaily.com/market/2026/11/26/kospi-gives-up-most-gains-closes-up-029-percent-at-471121",
+    "data_pubblicazione": "2026-11-26",
+    "citazione": "The KOSPI closed at 4711.21 on the 26th, up 13.70 points, or 0.29%, from the previous session.",
+    "ricerca": "Kospi closes November 26 2026 Bank of Korea rate hike"
+   }
+  ],
+  "ufficiale_cercato": [
+   "Kospi closes Thursday Seoul stocks Yonhap",
+   "Seoul shares close Bank of Korea hikes rate Kospi won"
+  ],
+  "trovato": "Seoul Economic Daily (26/11/2026): \"The KOSPI closed at 4711.21 on the 26th, up 13.70 points, or 0.29%\"; \"The index rose more than 2% during the session\"; \"retail investors sold a net 1.04 trillion won and foreign investors sold a net 113.6 billion won\"; institutions \"bought a net 750.8 billion won\". Korea Times: \"Institutional investors led the buying, purchasing a net 750.9 billion won\".",
+  "verifica": "confermato",
+  "nota_revisore": "Le due fonti divergono di 0,1 mld sugli istituzionali: 750,9 (Korea Times) vs 750,8 (Seoul Economic Daily). Scrivere 'circa 750,9 miliardi' o 'circa 751 miliardi'.",
+  "ripresa": "2026-11-26"
+ },
+ {
+  "id": "MEM-1126-C01",
+  "sezione": "deep_dive",
+  "testo": "Il 25/11 il Brent gennaio e' salito del 3,5% a 94,61 $ al barile e il WTI gennaio del 2% a 83,68 $, in scambi sottili: il rialzo e' attribuito all'escalation di attacchi in Medio Oriente e ai report iraniani di petroliere finite su mine nello Stretto di Hormuz (notizie senza conferma indipendente).",
+  "data_evento": "2026-11-25",
+  "fonti": [
+   {
+    "testata": "Rigzone (Bloomberg, Gorrivan e Burkhardt)",
+    "url": "https://www.rigzone.com/news/wire/oil_up_as_hormuz_attacks_counter_recovery_in_supply-25-nov-2026-185171-article/",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Oil rose in thin trading as escalating attacks in the Middle East clouded the recovery in crude shipments from the region in recent months.",
+    "ricerca": "oil prices Brent 94.61 settle Iran tankers mines Hormuz",
+    "agenzia": "Bloomberg"
+   },
+   {
+    "testata": "OilPrice.com (Irina Slav)",
+    "url": "https://oilprice.com/Latest-Energy-News/World-News/Oil-Rallies-as-Hormuz-Mine-Strikes-Rattle-Global-Markets.html",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "fresh reports of tankers hitting mines in the Strait of Hormuz",
+    "ricerca": "oil prices Brent 94.61 settle Iran tankers mines Hormuz"
+   }
+  ],
+  "trovato": "Rigzone/Bloomberg (25/11/2026, 4:16 PM EST): \"Brent for January settlement rose 3.5% to settle at $94.61 a barrel in New York.\" \"WTI for January delivery climbed 2% to settle at $83.68 a barrel.\" \"Oil rose in thin trading as escalating attacks in the Middle East clouded the recovery in crude shipments\"; Iran claimed more tankers hit mines, \"though there's been no independent confirmation of those incidents.\"",
+  "verifica": "confermato",
+  "nota_revisore": "OilPrice.com non riporta questi valori (da' Brent 95,30 e WTI 84,36 'al momento della scrittura', senza percentuali ne' 'thin trading').",
+  "ripresa": "2026-11-26"
+ },
+ {
+  "id": "MEM-1124-N03",
+  "sezione": "deep_dive",
+  "testo": "L'Euro Stoxx 50 chiude a 6.074,47 (+2,23%): ASML +8,9% e Infineon +6,6%; per Kitco lo Stoxx 600 sale dell'1,9%",
+  "data_evento": "2026-11-23",
+  "fonti": [
+   {
+    "testata": "dpa-AFX (finanzen.net)",
+    "url": "https://www.finanzen.net/nachricht/aktien/roundup-aktien-europa-schluss-kraeftige-erholung-nach-rueckkehr-des-nvidia-chefs-16082441",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "ROUNDUP/Aktien Europa Schluss: Kräftige Erholung nach Rückkehr des Nvidia-Chefs",
+    "ricerca": "Europa-Schluss EuroStoxx 50 Huang Nvidia Rally 6.074 Punkte",
+    "agenzia": "dpa-AFX"
+   },
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-23/gold-silver-prices-see-sharp-rebounds-ai-shares-rally-renewed-fed",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Gold, silver prices see sharp rebounds as AI shares rally, renewed Fed uncertainty - Kitco PM Report",
+    "ricerca": "gold rebounds 4% Monday November 23 2026 spot gold"
+   }
+  ],
+  "trovato": "Der EuroStoxx 50 beendete den Tag mit einem Plus von 2,23 Prozent auf 6.074,47 Punkt",
+  "verifica": "confermato",
+  "nota_revisore": "finanzen.net: ASML +8,9%, Infineon +6,6% (come PDF). Kitco: 'the STOXX 600 climbing 1.9% to 637.84'. Tutto coerente col PDF.",
+  "ripresa": "2026-11-24"
+ },
+ {
+  "id": "MEM-1124-N04",
+  "sezione": "deep_dive",
+  "testo": "Il FTSE MIB chiude a 49.021 (+0,65%) assorbendo lo stacco dei dividendi di undici quotate, che pesava circa l'1,4%; STMicroelectronics +9%, Technoprobe +8,75%, Intesa Sanpaolo +2,8%",
+  "data_evento": "2026-11-23",
+  "fonti": [
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/23/borsa-milano-chiude-in-rialzo-065-con-il-ritorno-di-huang-in-nvidia_02d66c84-b2b7-4183-85a4-fb11e60af267.html",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Borsa: Milano chiude in rialzo (+0,65%) con il ritorno di Huang in Nvidia",
+    "ricerca": "Borsa Milano chiude 23 novembre Piazza Affari Teleborsa",
+    "agenzia": "ANSA"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/borse-oggi-diretta-23-novembre-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202611230748404021",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Borse oggi in diretta | Il Ftse Mib chiude in rialzo dello 0,6%. In cima i titoli tech, giù Snam e Avio",
+    "ricerca": "Borsa Milano chiude 23 novembre Piazza Affari Teleborsa"
+   }
+  ],
+  "trovato": "Il Ftse Mib ha chiuso le contrattazioni in progresso dello 0,65%, a 49.021 punti",
+  "verifica": "confermato",
+  "nota_revisore": "ANSA: chiusura e stacco cedola di undici quotate (~1,4%). Milano Finanza: 'Technoprobe (+8,75%), Stmicroelectronics (+9%)' a fine seduta. Intesa +2,8% (e UniCredit +2%, Banco BPM +2,5% del PDF) non ritrovati nel testo estratto: non verificati. Nota: Milano Finanza parla di nove blue chip con cedola, ANSA di undici.",
+  "ripresa": "2026-11-24"
+ },
+ {
+  "id": "MEM-1123-N06",
+  "sezione": "deep_dive",
+  "testo": "L'Euro Stoxx 50 cede il 2,81% a 5.941,95 punti, il livello più basso da maggio, e perde circa il 7% in una settimana",
+  "data_evento": "2026-11-20",
+  "fonti": [
+   {
+    "testata": "dpa-AFX (FinanzNachrichten)",
+    "url": "https://www.finanznachrichten.de/nachrichten-2026-11/70192269-aktien-europa-schluss-erneut-tech-ausverkauf-eurostoxx-tief-seit-mai-016.htm",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Aktien Europa Schluss: Erneut Tech-Ausverkauf - EuroStoxx-Tief seit Mai",
+    "ricerca": "Aktien Europa Schluss Freitag 20.11.2026 Eurostoxx 50 Punkte",
+    "agenzia": "dpa-AFX"
+   },
+   {
+    "testata": "Money.it",
+    "url": "https://www.money.it/piazza-affari-chiude-in-forte-calo-ftse-20-11-2026",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Piazza Affari chiude in forte calo, FTSE MIB a -2,48%: STMicroelectronics crolla del 10,78%",
+    "ricerca": "Piazza Affari chiude 20 novembre 2026 Ftse Mib punti spread Btp Bund chiusura venerdì"
+   }
+  ],
+  "fonte_singola": true,
+  "trovato": "Der Eurozonen-Leitindex EuroStoxx 50 büßte 2,81 Prozent auf 5.941,95 Punkte ein.",
+  "verifica": "confermato",
+  "nota_revisore": "dpa-AFX su onvista: 'Damit erreichte er den tiefsten Stand seit Mai und schraubte seinen Wochenverlust auf sieben Prozent hoch.' Pagina finanznachrichten non aperta; verifica fatta sulla versione onvista dello stesso lancio.",
+  "ripresa": "2026-11-23"
+ },
+ {
+  "id": "MEM-1126-B03",
+  "sezione": "deep_dive",
+  "testo": "Piazza Affari ha chiuso il 25/11/2026 con il FTSE MIB a 47.249,15 punti, -1,81%, a ridosso del minimo di giornata (47.248,80), ai minimi da aprile secondo Open. Prysmian -5,40% a 93,12 euro, STMicroelectronics -4,81% a 34,20 euro, BPER -3,99%, Banco BPM -3,73%, FinecoBank -3,39%. Stellantis +3,58% a 3,24 euro, migliore del listino.",
+  "data_evento": "2026-11-25",
+  "fonti": [
+   {
+    "testata": "Money.it (Ufficio Studi)",
+    "url": "https://www.money.it/piazza-affari-chiude-in-calo-ftse-mib-25-11-2026",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Il FTSE MIB ha chiuso a 47.249,15 punti, con una variazione di -1,81%, a ridosso del minimo di giornata a 47.248,80 punti.",
+    "ricerca": "Piazza Affari chiude 25 novembre 2026 Ftse Mib -1,81%"
+   },
+   {
+    "testata": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/topnews/2026/11/25/borsa-milano-chiude-in-deciso-calo-181_afda4529-e7fd-4e99-bb7c-0fabeb32ddc2.html",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Piazza Affari ha chiuso in deciso calo.",
+    "ricerca": "Piazza Affari chiude 25 novembre 2026 Ftse Mib -1,81%",
+    "agenzia": "ANSA"
+   },
+   {
+    "testata": "Money.it (Ufficio Studi)",
+    "url": "https://www.money.it/piazza-affari-chiude-in-calo-ftse-mib-25-11-2026",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "La maglia nera è di Prysmian, che ha perso il 5,40% fermandosi a 93,12 euro",
+    "ricerca": "Piazza Affari chiude 25 novembre 2026 Ftse Mib -1,81%"
+   },
+   {
+    "testata": "Money.it (Ufficio Studi)",
+    "url": "https://www.money.it/piazza-affari-chiude-in-calo-ftse-mib-25-11-2026",
+    "data_pubblicazione": "2026-11-25",
+    "citazione": "Il migliore è Stellantis, salita del 3,58% a 3,24 euro",
+    "ricerca": "Piazza Affari chiude 25 novembre 2026 Ftse Mib -1,81%"
+   }
+  ],
+  "nota": "Technoprobe -4,7% NON trovata nelle pagine aperte. 'Peggiore d'Europa' NON verificato (ANSA indica Francoforte -1,26%, Milano -1,81%, ma nessun confronto esplicito aperto). Il 'JP Morgan' di Stellantis: Open parla di 'upgrade', money.it rimanda a un articolo sul 'declassamento di JPMorgan': contraddittorio, nesso NON confermato con citazione letterale.",
+  "ufficiale_cercato": [
+   "Borsa Milano chiude mercoledì 25 novembre Piazza Affari spread",
+   "Borsa Milano chiusura 25 novembre 2026 FTSE MIB spread Btp Bund"
+  ],
+  "trovato": "Money.it (25/11/2026): \"Il FTSE MIB ha chiuso a 47.249,15 punti, con una variazione di -1,81%, a ridosso del minimo di giornata a 47.248,80 punti.\" \"La maglia nera è di Prysmian, che ha perso il 5,40% fermandosi a 93,12 euro\"; STM \"4,81% a 34,20 euro\"; \"BPER Banca cede il 3,99%\"; \"Banco BPM il 3,73%\"; \"FinecoBank il 3,39%\"; \"Il migliore è Stellantis, salita del 3,58% a 3,24 euro\". Open: \"toccando i livelli più bassi dallo scorso aprile\".",
+  "verifica": "confermato",
+  "nota_revisore": "Tutti i valori corrispondono. ANSA (17:40) da' solo 47.249 -1,81% e titoli senza dettaglio.",
+  "ripresa": "2026-11-26"
+ },
+ {
+  "id": "MEM-1124-N09",
+  "sezione": "deep_dive",
+  "testo": "L'oro future chiude a 3.651,40 $ (+3,9%) e lo spot sale del 2,7-3,5%, dopo una settimana in calo di circa il 9%",
+  "data_evento": "2026-11-23",
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-23/gold-silver-prices-see-sharp-rebounds-ai-shares-rally-renewed-fed",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Gold, silver prices see sharp rebounds as AI shares rally, renewed Fed uncertainty - Kitco PM Report",
+    "ricerca": "gold rebounds 4% Monday November 23 2026 spot gold"
+   },
+   {
+    "testata": "Nation Thailand",
+    "url": "https://www.nationthailand.com/business/trading-investment/40073846",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Spot gold gains 3.5% on 23 Nov after hitting 14-month low",
+    "ricerca": "gold rebounds 4% Monday November 23 2026 spot gold"
+   }
+  ],
+  "trovato": "Spot gold rose 3.5% to US$3,654.97 a troy ounce",
+  "verifica": "confermato",
+  "nota_revisore": "Nation Thailand: +3,5% spot; Kitco: spot +2,75% e calo settimanale 'approximately 9%'. Il future a 3.651,40 $ (+3,9%) non compare in queste pagine (e' dato di mercato FMP): non verificato.",
+  "ripresa": "2026-11-24"
+ },
+ {
+  "id": "MEM-1123-N10",
+  "sezione": "deep_dive",
+  "testo": "L'oro future chiude a 3.515,40 $ (-4,6%), dopo una settimana in calo di più del 9%",
+  "data_evento": "2026-11-20",
+  "fonti": [
+   {
+    "testata": "Investrade",
+    "url": "https://investrade.com/market-review-november-20-2026/",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Market Review: November 20, 2026",
+    "ricerca": "Reuters stocks tumble Friday November 20 2026 Fed Waller hike VIX"
+   },
+   {
+    "testata": "Schwab",
+    "url": "https://www.schwab.com/learn/story/market-volatility",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Markets' November Nightmare Keeps Getting Worse",
+    "ricerca": "Reuters stocks tumble Friday November 20 2026 Fed Waller hike VIX"
+   }
+  ],
+  "fonte_singola": true,
+  "ufficiale_cercato": [
+   "COMEX gold futures settlement November 20 2026 CME",
+   "gold price weekly loss November 20 2026"
+  ],
+  "trovato": "December US gold futures settled 4.6 per cent lower at $3,515.40 an ounce, per BusinessLine.",
+  "verifica": "confermato",
+  "nota_revisore": "Pagina Stockpil (aggregatore, 22/11, cita BusinessLine): 'Bullion ended the week down about 9.4 per cent'. Fonti Investrade e Schwab non ritrovate (URL non restituiti dalla ricerca); CNBC non apribile; stockmarketwatch negata. Fonte secondaria, ma cifre coincidono.",
+  "ripresa": "2026-11-23"
+ },
+ {
+  "id": "MEM-1124-D07",
+  "sezione": "deep_dive",
+  "testo": "L'oro è sceso di circa il 9% in una settimana fino al minimo di 14 mesi, per acquisti di rifugio contrastati da vendite per raccogliere liquidità e coprire margini; il rimbalzo simultaneo con le azioni suggerisce meno pressione di vendita, ma Natixis avverte che può durare poco",
+  "data_evento": "2026-11-23",
+  "fonti": [
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-23/gold-silver-prices-see-sharp-rebounds-ai-shares-rally-renewed-fed",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Gold, silver prices see sharp rebounds as AI shares rally, renewed Fed uncertainty - Kitco PM Report",
+    "ricerca": "gold rebounds 4% Monday November 23 2026 spot gold"
+   },
+   {
+    "testata": "Nation Thailand",
+    "url": "https://www.nationthailand.com/business/trading-investment/40073846",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Spot gold gains 3.5% on 23 Nov after hitting 14-month low",
+    "ricerca": "gold rebounds 4% Monday November 23 2026 spot gold"
+   }
+  ],
+  "trovato": "investors have also liquidated precious metals to raise cash, reduce leverage and meet margin requirements",
+  "verifica": "confermato",
+  "nota_revisore": "Kitco: calo settimanale ~9%; Nation Thailand: minimo da settembre 2025 (14 mesi) e vendite per margin call. Natixis/3.340 $ compare solo in un titolo laterale di Kitco, non nel corpo. Attenzione al PDF: 'ne ha recuperato un quarto' - da 3.515,40 a 3.651,40 si recupera circa il 37% del calo (136 su 371), non un quarto.",
+  "ripresa": "2026-11-24"
+ },
+ {
+  "id": "MEM-1124-N08",
+  "sezione": "deep_dive",
+  "testo": "Il Brent chiude a 89,37 $ (-3,5%) e il WTI a 80,17 $: per Bloomberg gli investitori chiudono le coperture dopo che Trump ha lasciato più tempo ai colloqui con l'Iran",
+  "data_evento": "2026-11-23",
+  "fonti": [
+   {
+    "testata": "Bloomberg (Rigzone)",
+    "url": "https://www.rigzone.com/news/wire/oil_falls_as_trump_signals_iran_talks-23-nov-2026-185152-article/",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Oil Falls as Trump Signals Iran Talks",
+    "ricerca": "oil prices Monday Brent falls $89 Hormuz Iran November 23 2026",
+    "agenzia": "Bloomberg"
+   },
+   {
+    "testata": "Kitco",
+    "url": "https://www.kitco.com/news/article/2026-11-23/gold-silver-prices-see-sharp-rebounds-ai-shares-rally-renewed-fed",
+    "data_pubblicazione": "2026-11-23",
+    "citazione": "Gold, silver prices see sharp rebounds as AI shares rally, renewed Fed uncertainty - Kitco PM Report",
+    "ricerca": "gold rebounds 4% Monday November 23 2026 spot gold"
+   }
+  ],
+  "trovato": "Brent for January settlement dropped 3.5% to settle at $89.37 a barrel.",
+  "verifica": "confermato",
+  "nota_revisore": "Rigzone/Bloomberg: WTI a 80,17 $ (qui -4,5%; Kitco scrive -3,9%), 'investors unwound hedges against a weekend escalation by US forces in Iran', Trump 'appeared to give diplomacy more time'. PDF coerente.",
+  "ripresa": "2026-11-24"
+ },
+ {
+  "id": "MEM-1120-N01",
+  "sezione": "deep_dive",
+  "testo": "Nikkei chiude a 56.436,65 (-5,06%) e Topix -3,88%; Kospi -5,2% e Hong Kong -2,1%: Advantest -10%, Tokyo Electron e Samsung Electronics -7%",
+  "data_evento": "2026-11-20",
+  "fonti": [
+   {
+    "testata": "Il Sole 24 Ore",
+    "url": "https://en.ilsole24ore.com/art/asian-stock-markets-fall-anthropic-takes-a-cautious-approach-to-its-record-debut-AJpG3xMC",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Tokyo Stock Exchange: Nikkei plummets, closing down 5 per cent as tech shares come under pressure - Il Sole 24 ORE",
+    "ricerca": "Nikkei Kospi Hang Seng 20 novembre 2026 Borse asiatiche apertura Teleborsa"
+   },
+   {
+    "testata": "Milano Finanza",
+    "url": "https://www.milanofinanza.it/news/venerdi-nero-in-asia-anthropic-in-netto-rosso-nel-pre-market-e-fuga-dall-ai-verso-i-treasury-202611200748151505",
+    "data_pubblicazione": "2026-11-20",
+    "citazione": "Venerdì nero in Asia (-6,2%), Anthropic in netto rosso nel pre-market: è fuga dall’AI verso i Treasury",
+    "ricerca": "Nikkei Kospi Hang Seng 20 novembre 2026 Borse asiatiche apertura Teleborsa"
+   }
+  ],
+  "trovato": "Nikkei: Closed at 56,436.65, down 5.06%. Topix: Fell 3.88% to 3,674.22. Kospi: Dropped 5.2%. Hong Kong: Lost 2.1%. Advantest: Fell 10%. Tokyo Electron: Down 7%. Samsung Electronics: Down 7%.",
+  "verifica": "confermato",
+  "nota_revisore": "Il Sole 24 Ore. Milano Finanza (07:40) ha cifre intermedie diverse (Nikkei -4,8%, Kospi -5,3%, Hang Seng -2%), coerenti con un dato non finale.",
+  "ripresa": "2026-11-20"
+ },
+ {
+  "id": "P1",
+  "sezione": "prime_pagine",
+  "flusso": [
+   "Asian shares mostly rise ahead of Wall Street's reopening after the Thanksgiving holiday (AP via WSLS, 27/11)",
+   "KOSPI Closes 4.3% Higher at 4,915; KOSDAQ Jumps 8.1% (SBS News, 27/11 07:40 Roma)",
+   "Kospi storms toward 5,000 on hopes for bigger market rescue fund (KED Global, 27/11 09:21 Roma)",
+   "Asian stock markets rise after earlier tech rout (Al Jazeera, 27/11 mattina)",
+   "Borsa: Milano chiude in forte rialzo, +2,36% (ANSA, 26/11 17:40 Roma)",
+   "Lo spread tra Btp e Bund chiude in ribasso a 107 punti (ANSA, 26/11 18:01 Roma)",
+   "US Stocks Set to Bounce as Risk Appetite Returns After Holiday (Bloomberg, 27/11)"
+  ],
+  "testate": [
+   {
+    "testata": "AP",
+    "storie": [
+     "Asian shares mostly rise ahead of Wall Street's reopening after the Thanksgiving holiday"
+    ]
+   },
+   {
+    "testata": "KED Global",
+    "storie": [
+     "Kospi storms toward 5,000 on hopes for bigger market rescue fund"
+    ]
+   },
+   {
+    "testata": "Al Jazeera",
+    "storie": [
+     "Asian stock markets rise after earlier tech rout"
+    ]
+   },
+   {
+    "testata": "ANSA",
+    "storie": [
+     "Borsa: Milano chiude in forte rialzo, +2,36%",
+     "Lo spread tra Btp e Bund chiude in ribasso a 107 punti"
+    ]
+   },
+   {
+    "testata": "Bloomberg",
+    "storie": [
+     "US Stocks Set to Bounce as Risk Appetite Returns After Holiday"
+    ]
+   },
+   {
+    "testata": "SBS News",
+    "storie": [
+     "KOSPI Closes 4.3% Higher at 4,915; KOSDAQ Jumps 8.1%"
+    ]
+   }
+  ],
+  "fuori": [
+   {
+    "storia": "Houthi contro una raffineria saudita (Al Jazeera)",
+    "motivo": "in notizie, un solo autore"
+   }
+  ],
+  "concorda": true,
+  "motivo": "Dei quattro grandi giornali globali è risultato indicizzato stamattina solo Bloomberg (titolo sul rimbalzo di Wall Street dopo la festa); l'apertura è quella di AP, Yonhap e Al Jazeera, tutte sul rimbalzo asiatico.",
+  "mancate_ieri": []
+ },
+ {
+  "id": "S1",
+  "sezione": "scaletta",
+  "apertura": {
+   "storia": "Seul rimbalza del 4,3% e l'Asia risale, in attesa del fondo di stabilizzazione",
+   "perche_prima": "Apertura di AP, KED Global/Yonhap e Al Jazeera"
+  },
+  "moduli": [
+   {
+    "chiave": "corea",
+    "misura": "doppio",
+    "tesi": "Il Kospi ha recuperato in due sedute il crollo di mercoledì, ma il carburante è un fondo pubblico che non c'è ancora: senza acquisti veri il rimbalzo resta di sedute sottili.",
+    "domanda": "Il Kospi sale del 4,3%: è finita la caduta?",
+    "prove": [
+     "Kospi -6,16% il 25/11, +0,29% il 26/11, +4,34% oggi",
+     "Resta sotto i 5.006 punti del 24/11",
+     "Stranieri e istituzioni comprano, i piccoli vendono",
+     "Fondo da circa 10,8 mila miliardi di won, ampliamento allo studio",
+     "Analista Kiwoom: slancio limitato finché il fondo non entra",
+     "Nikkei e Hang Seng recuperano meno della perdita dal 16/11"
+    ],
+    "contro": "Il Kospi sopra 5.000 con il fondo ancora non attivato",
+    "schede": [
+     "N01",
+     "N02",
+     "D01",
+     "D02",
+     "D03",
+     "MEM-1126-B07",
+     "MEM-1123-N11"
+    ],
+    "memoria": "Corea 22-26/11"
+   },
+   {
+    "chiave": "europa",
+    "misura": "doppio",
+    "tesi": "Il rimbalzo europeo di ieri è reale ma costruito su pochi scambi: con New York chiusa il volume è sceso di oltre un terzo e Milano resta sotto il livello di una settimana fa.",
+    "domanda": "L'Europa ha recuperato il 2%: è tornata la fiducia?",
+    "prove": [
+     "Euro Stoxx 50 +2,0% a 6.014,74",
+     "FTSE MIB +2,36%, Stellantis +8,82%",
+     "Volume 15,9 milioni contro 24,8",
+     "Euro Stoxx 50 ancora sotto il 6.074 del 23/11",
+     "Spread a 107 da 111",
+     "Titoli IA e banche in testa"
+    ],
+    "contro": "Euro Stoxx 50 sopra 6.074 con volumi normali",
+    "schede": [
+     "N04",
+     "N05",
+     "N06",
+     "N07",
+     "N08",
+     "MEM-1126-B03",
+     "MEM-1124-N03",
+     "MEM-1123-N06"
+    ],
+    "memoria": "Europa 20-25/11"
+   },
+   {
+    "chiave": "oro",
+    "misura": "mezzo",
+    "tesi": "L'oro ha riconquistato metà della caduta in due sedute, ma finché la Fed resta in rialzo è un rimbalzo, non una svolta.",
+    "domanda": "Perché l'oro risale se la Fed alza i tassi?",
+    "prove": [
+     "-9,0% dal 17/11 al 20/11",
+     "+4,3% ieri, il maggiore dal 3/2",
+     "Rendimenti più bassi e dollaro più debole (ATFX)",
+     "Rialzo Fed di dicembre al 97-98%",
+     "Dopo la caduta del 20/11 era già rimbalzato il 23/11"
+    ],
+    "contro": "Oro sopra 3.864 dollari",
+    "schede": [
+     "N09",
+     "MEM-1124-N09",
+     "MEM-1123-N10",
+     "MEM-1124-D07"
+    ],
+    "memoria": "Oro 18-24/11"
+   },
+   {
+    "chiave": "petrolio",
+    "misura": "mezzo",
+    "tesi": "Il Brent resta in un corridoio di 6 dollari da due settimane: il mercato registra gli attacchi nel Golfo ma non rompe il tetto.",
+    "domanda": "Con gli attacchi nel Golfo, perché il greggio non esplode?",
+    "prove": [
+     "Chiusure tra 89,37 e 95,84 dal 9/11",
+     "94,61 il 25/11 (+3,5%)",
+     "Raffineria saudita colpita dagli Houthi",
+     "Chiusura delle coperture il 23/11"
+    ],
+    "contro": "Brent sopra 96 dollari",
+    "schede": [
+     "MEM-1126-C01",
+     "MEM-1124-N08"
+    ],
+    "memoria": "Petrolio 23-25/11"
+   }
+  ]
+ },
+ {
+  "id": "A1",
+  "sezione": "anomalia",
+  "fatto": "Oro future +4,3% il 26/11, il rialzo più forte dal 3 febbraio",
+  "ricerche": [
+   "gold surges silver jumps November 26 2026 why",
+   "markets news Thanksgiving November 26 2026 gold oil Fed yen"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Rendimenti dei Treasury più bassi e dollaro più debole",
+    "fonte": null,
+    "prevede": "10 anni in calo e EUR/USD stabile o in rialzo",
+    "prezzi": "in parte"
+   },
+   {
+    "causa": "Rimbalzo tecnico dopo il -9% della settimana e liquidità sottile",
+    "fonte": null,
+    "prevede": "Oro ancora sotto i massimi del 17/11",
+    "prezzi": "torna"
+   }
+  ],
+  "esito": "ipotesi"
+ },
+ {
+  "id": "A2",
+  "sezione": "anomalia",
+  "fatto": "Kospi +4,34% dopo il -6,16% di mercoledì",
+  "ricerche": [
+   "Kospi closes Friday Nov. 27 Yonhap"
+  ],
+  "ipotesi": [
+   {
+    "causa": "Acquisti dopo il crollo, future USA in rialzo e attese sul fondo di stabilizzazione (SED, Digitaltoday)",
+    "fonte": "N02",
+    "prevede": "Stranieri compratori, won più forte, chip in testa",
+    "prezzi": "torna"
+   }
+  ],
+  "esito": "N02"
+ }
+]
