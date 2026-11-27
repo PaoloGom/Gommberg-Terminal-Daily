@@ -27,7 +27,12 @@ avvio)
     esac
     shift
   done
+  # gli argomenti prima di toccare qualunque ramo: un avvio sbagliato non deve azzerare il ramo di una prova in corso
+  if [ -n "$DATA" ]; then
+    echo "$DATA" | grep -qE '^20[0-9]{2}-[0-9]{2}-[0-9]{2}$' || { echo "PROVA NON POSSIBILE: data '$DATA' non valida (AAAA-MM-GG)"; exit 1; }
+  fi
   if [ -n "$DA_GITHUB" ]; then
+    echo "$DA_GITHUB" | grep -qE '^(main|HEAD|prova)$' && { echo "PROVA NON POSSIBILE: '$DA_GITHUB' non è un ramo da provare"; exit 1; }
     [ -z "$(git status --porcelain --untracked-files=no)" ] || { echo "PROVA NON POSSIBILE: modifiche non salvate in questa copia"; exit 1; }
     git fetch -q --depth=60 origin "+refs/heads/$DA_GITHUB:refs/remotes/origin/$DA_GITHUB" "+refs/heads/main:refs/remotes/origin/main" 2>/dev/null \
       || { echo "PROVA NON POSSIBILE: il ramo '$DA_GITHUB' non si scarica da GitHub"; exit 1; }
@@ -35,10 +40,7 @@ avvio)
     RAMO="$DA_GITHUB"
   fi
   case "$RAMO" in main|HEAD|prova) echo "PROVA NON POSSIBILE: sono su '$RAMO', serve il ramo da provare"; exit 1;; esac
-  if [ -n "$DATA" ]; then
-    echo "$DATA" | grep -qE '^20[0-9]{2}-[0-9]{2}-[0-9]{2}$' || { echo "PROVA NON POSSIBILE: data '$DATA' non valida (AAAA-MM-GG)"; exit 1; }
-    echo "$DATA" > redazione/PROVA_DATA
-  fi
+  [ -z "$DATA" ] || echo "$DATA" > redazione/PROVA_DATA
   OGGI="$(cat redazione/PROVA_DATA 2>/dev/null || TZ=Europe/Rome date +%F)"
   PROVATO="$(git rev-parse HEAD)"   # il commit provato: la punta del ramo, prima che entri l'archivio del ramo principale
   git config user.name "PaoloGom"; git config user.email "PaoloGom@users.noreply.github.com"

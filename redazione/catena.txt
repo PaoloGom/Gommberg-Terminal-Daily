@@ -1,7 +1,8 @@
 # La catena del mattino: i file che, cambiati, possono cambiare l'edizione, ciò che i lettori ricevono o i cancelli che
 # li proteggono. È l'unica definizione: redazione/rilascia.sh la legge dal ramo principale (pubblica rifiuta da sé un
 # rilascio che tocca la catena senza l'Ok di Paolo sul commit esatto) e ARCHITETTURA.md §5 la cita. Il collaudo
-# controlla che dentro ci siano motore, controlli, pubblicazione, newsletter, flussi di GitHub e i cancelli stessi.
+# controlla che dentro ci siano motore, controlli, pubblicazione, newsletter, flussi di GitHub e i cancelli stessi, e che
+# ogni regola sia valida per grep -E. I file nascosti ci sono tutti (.gitignore, .github, .claude, .mcp.json...).
 # Una regola per riga: <tipo> <espressione regolare estesa sul percorso dalla radice del repository>, senza spazi.
 #   catena  nella catena: vuole l'Ok sul commit esatto
 #   prova   nella catena, e cambia ciò che la redazione del mattino legge per scrivere: vuole anche l'edizione di prova
@@ -9,7 +10,7 @@
 # Questo file è nella catena: cambiarlo vuole l'Ok, e vale dal rilascio dopo quello che lo cambia.
 
 catena ^redazione/
-catena ^\.github/workflows/
+catena ^\.
 catena ^edizioni\.json$
 catena ^dati/
 catena ^pannello/
