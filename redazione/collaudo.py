@@ -1855,10 +1855,10 @@ def passo_impara(copia):
     _, _, _, gruppi = giro("doppioni")
     if not any(d.startswith("VIX ") for d in (gruppi.get("Indice della paura") or {}).get("doppioni", [])):
         male.append("Indice della paura: il possibile doppione del VIX va segnalato nella proposta")
-    # "fuori" vale per qualunque nome: "Freno automatico (sidecar)" è il Sidecar tolto a mano, anche se confermato
+    # "fuori" vale per qualunque nome: "Freno automatico (sidecar)" è il Sidecar tolto a mano
     S1 = ("Sidecar", "Una pausa di pochi minuti negli scambi automatici quando un indice si muove troppo.")
     S2 = ("Freno automatico (sidecar)", "Sospende per qualche minuto gli ordini dei programmi quando il mercato corre troppo.")
-    arch((1, [S1]), (2, [S2]), fuori={"Sidecar": "prova"}, conf={"Sidecar": DEF})
+    arch((1, [S1]), (2, [S2]), fuori={"Sidecar": "prova"})
     voci, _, occ, _ = giro("fuori per nome")
     if voci or not verdetto(occ, S2[0], 2).startswith("non entra: tolta a mano"):
         male.append(f"fuori 'Sidecar' deve togliere anche 'Freno automatico (sidecar)' ({verdetto(occ, S2[0], 2)[:60]})")
@@ -1868,6 +1868,16 @@ def passo_impara(copia):
     _, _, occ, _ = giro("messaggio")
     if "unica spiegazione valida" not in verdetto(occ, "Circuit breaker", 1):
         male.append(f"Circuit breaker: il motivo è che resta una sola spiegazione valida ({verdetto(occ, 'Circuit breaker', 1)[:60]})")
+    # un nome sbagliato in "confermate" (o una data sbagliata in "fuori"): avviso e nessuna scrittura, la scheda non sparisce
+    for caso, kw in (("confermate con un nome sbagliato", {"conf": {"Correzione": DEF, "Corezione": DEF}}),
+                     ("fuori con una data sbagliata", {"conf": {"Correzione": DEF}, "fuori": {"Correzione|2026-01-09": "prova"}})):
+        arch((1, [C1]), (2, [C2]), **kw)
+        try:
+            impara.calcola(mondo)
+            male.append(f"{caso}: il passaggio deve fermarsi con un avviso, non togliere la scheda in silenzio")
+        except Exception as e:  # noqa: BLE001
+            if type(e).__name__ != "Fermo":
+                male.append(f"{caso}: {type(e).__name__} {str(e)[:60]}")
     # gli ingressi: se uno manca o non si legge, Fermo e nessuna scrittura (né voci in meno, né doppioni)
     arch((1, [C1]), (2, [C2]), conf={"Correzione": DEF})
     uscita = os.path.join(mondo, impara.FILE)

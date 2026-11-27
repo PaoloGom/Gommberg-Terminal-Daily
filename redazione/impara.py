@@ -22,6 +22,9 @@ scelte dal codice andavano corrette, e nessuna regola sulle parole in comune dis
   4. A MANO, una volta per parola: una scheda nuova entra in pagina solo quando la sua definizione è CONFERMATA in
      "confermate" di parole_giornale.json (titolo -> breve e spiega). È il canale con cui si correggono le definizioni:
      dati/parole.json è generato e non si ritocca. Se nessuno conferma, Impara non sbaglia: tutto il resto continua.
+     Un nome di "confermate" che non trova la sua parola, o una spiegazione di "fuori" ("Parola|data") che nessuna
+     edizione ha, è un errore di battitura: come al punto 5, si ferma tutto senza scrivere. "stesse" no: un sinonimo
+     preparato prima che il giornale lo usi è legittimo.
   5. Un file d'ingresso che manca o non si legge (edizioni.json, parole_giornale.json, glossario.json,
      glossario_sito.json, un sorgente archiviato rotto) FERMA il passaggio senza scrivere nulla: dati/parole.json resta
      com'era, pagine.py stampa l'avviso e l'edizione esce.
@@ -290,6 +293,15 @@ def calcola(repo):
         for o in g:
             for x in nomi(o["parola"]):
                 alias[x] = titolo
+    # un nome scritto a mano che non trova nulla è un errore di chi scrive il file (una lettera sbagliata in
+    # "confermate" farebbe sparire la scheda): Fermo, così la pagina resta com'era e il collaudo lo vede prima
+    orfane = [c for c in conf if (gruppi.get(c) or {}).get("stato") != "confermata"]
+    if orfane:
+        raise Fermo(f"confermate senza la loro parola: {', '.join(orfane)} (nome sbagliato, scheda scritta a mano o fuori)")
+    viste = {fold(x) + "|" + o["data"] for o in occ for x in nomi(o["parola"]) + ([o["canone"]] if o.get("canone") else [])}
+    sbagliate = [k for k in cura.get("fuori") or {} if "|" in k and fold(k) not in viste]
+    if sbagliate:
+        raise Fermo(f"fuori senza la sua spiegazione: {', '.join(sbagliate)} (nome o data sbagliati)")
     voci.sort(key=lambda v: fold(v["sigla"]))
     for t, info in gruppi.items():
         info["doppioni"] = doppioni(t, info, gruppi, testi)
