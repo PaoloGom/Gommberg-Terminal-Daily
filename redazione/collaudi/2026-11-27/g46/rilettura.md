@@ -170,3 +170,20 @@ Altri difetti incontrati, non di fatto, da affidare alle voci giuste:
 - #033 pag. 5: mancano Treasury 2 anni e Spread Italia. Il 2 anni è uscito con `nd` "rendimento identico (4,63%) da tre sedute: il controllo lo segna come dato fermo", ma 4,63 il 20, 23 e 24/11 era vero (`dati.json` del 26/11): falso allarme del controllo sul dato fermo, che ha tolto una riga giusta.
 - #034 pag. 6: la tabella Fonti dà per i Treasury "BullionVault", la riga Fonti del pezzo "Longbridge": le due righe non coincidono.
 - #035 testata: "Chiusure al 26 novembre per Europa e Asia di ieri, al 27 novembre per Tokyo, Hong Kong e Seul" dice due date per l'Asia nella stessa frase (oltre alla sovrapposizione, sezione G-44).
+
+## In coda 3 - I tre difetti fuori riga: causa e rimedio (verificati, non costruiti)
+
+- **#035, agenda fuori ordine ("Mer 9 dic" prima di "Lun 30").** Causa: le righe escono nell'ordine in cui la redazione le scrive in `C["agenda"]`; né `gommberg_engine.py` né `numeri.py` né i controlli le ordinano per data (nessun ordinamento su `quando` nel codice). Rimedio: il motore ordina "In arrivo" per data, ricavata da `quando` (giorno, ed eventuale mese scritto: "9 dic"; senza mese il mese dell'edizione o il successivo se il giorno è già passato). Nessuna regola per chi scrive.
+- **#033, Treasury 2 anni tolto da pag. 5.** Causa: `controlli_dati.py` (riga 91) segna "dato probabilmente fermo" ogni valore identico al precedente senza volume. I rendimenti (mercato "UST") hanno due decimali e mai un volume: 4,63 il 20, 23 e 24/11 era vero. Nell'archivio `scommessa/dati/` il 2 anni è uguale alla seduta precedente 27 volte su 260, il 10 anni 16: il controllo dà un falso allarme circa una seduta su dieci. Rimedio: la regola vale per le serie che hanno un volume (indici); per i rendimenti il dato fermo si giudica sulla data dell'ultima chiusura (già controllata), non sul valore.
+- **#034, Fonti di pag. 6 diverse dalla riga Fonti del pezzo sui Treasury** ("BullionVault" contro "Longbridge"). Causa: la tabella Fonti di pag. 6 (`C["fonti"]`, riga Approfondimenti) è scritta a mano accanto alle righe Fonti dei pezzi (`moduli[].fonte`): `controlli_testo.fuori_dalle_fonti` guarda solo che una testata citata nel testo stia nella riga del suo pezzo, nessuno confronta le due righe. Rimedio: la riga Approfondimenti di pag. 6 la compone il motore dalle righe Fonti dei pezzi (tema: testate), e la redazione non la scrive più: una cosa in meno da scrivere e nessuna discordanza possibile.
+
+Decisione di Paolo (27/11): gli errori di fatto delle edizioni uscite non si correggono nei PDF; restano scritti qui.
+
+## In coda 4 - Interventi costruiti (commit "G-46 (n/5)") e conto sulle dieci edizioni archiviate
+
+Conto con `conto_falsi.py` (controlli toccati sulle edizioni 16-27/11), prima e dopo:
+- (1) chi parla senza nome: 0 -> 9 frasi fermate, tutte nelle #031-#035 e tutte vere (le 8 della misura più "Tre fonti anonime" nei temi aperti della #033); 0 nelle #026-#030; nessun falso allarme.
+- (2) ISTRUZIONI §1: nessun controllo, nessun conteggio (istruzione).
+- (3) dato ufficiale: 3 -> 6 schede, le 3 in più vere (dati cinesi D13 del 16/11, conti Nvidia D01 del 18/11, PMI N07 del 24/11). La riga di "ieri" resta un indizio solo in prima pagina: fuori avrebbe segnato il debutto di Anthropic (D02 del 20/11), un prezzo di mercato.
+- (4) testata: sulle note archiviate cambia solo la #035; campioni della rete identici.
+- (5) Euro Stoxx 50: nessuna differenza (nessun `eodhd_nd` nei dati archiviati).
