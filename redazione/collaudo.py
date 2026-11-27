@@ -1316,7 +1316,7 @@ def passo_newsletter():
                     return 200, {"email_templates": [{"id": 5, "name": "Gommberg cornice"}]}
                 return 201, {"broadcast": {"id": 1, "email_template": {"name": "x"}}}
             return k
-        vuoto = (200, {"broadcasts": []})
+        vuoto = (200, {"broadcasts": [], "pagination": {"has_next_page": False}})
         chiamate.clear()
         NL.kit = kit_invii([(503, {}), (503, {}), vuoto])
         if NL.invii_esistenti() != {} or len([c for c in chiamate if c[0] == "GET"]) != 3:
@@ -1329,7 +1329,7 @@ def passo_newsletter():
         if len([c for c in chiamate if c[0] == "POST"]) != 1:
             male.append("elenco degli invii che sbaglia due volte: l'email non parte una volta sola")
         chiamate.clear()
-        NL.kit = kit_invii([(503, {}), (200, {"broadcasts": [{"id": 9, "description": NL.etichetta(ed)}]})])
+        NL.kit = kit_invii([(503, {}), (200, {"broadcasts": [{"id": 9, "description": NL.etichetta(ed)}], "pagination": {"has_next_page": False}})])
         if NL.etichetta(ed) not in NL.invii_esistenti():
             male.append("elenco degli invii riletto: l'invio già presente non si vede")
         for nome, risposta in (("risponde sempre 503", (503, {})), ("errore di rete", (0, {"errore": "rete: timeout"}))):
@@ -1352,6 +1352,187 @@ def passo_newsletter():
             pass
         if len(chiamate) != 1:
             male.append("elenco degli invii con 401: riletto senza motivo")
+        # l'elenco degli invii ha più pagine: l'invio di oggi nella seconda si vede, l'email non parte due volte (G-69)
+        def kit_pagine(pagine, guasti=None):
+            """Kit finto a pagine: pagine = {cursore o None: (invii, cursore successivo o None)}; guasti = {cursore: [risposte]}
+            date una alla volta prima della pagina vera (per i guasti momentanei a metà elenco)."""
+            guasti = {k: list(v) for k, v in (guasti or {}).items()}
+
+            def k(metodo, percorso, dati=None):
+                chiamate.append((metodo, percorso, dati))
+                if percorso.startswith("/broadcasts") and metodo == "GET":
+                    cursore = percorso.split("after=")[1] if "after=" in percorso else None
+                    if guasti.get(cursore):
+                        return guasti[cursore].pop(0)
+                    invii, dopo = pagine[cursore]
+                    return 200, {"broadcasts": invii, "pagination": {"has_next_page": bool(dopo), "end_cursor": dopo}}
+                if percorso == "/email_templates":
+                    return 200, {"email_templates": [{"id": 5, "name": "Gommberg cornice"}]}
+                return 201, {"broadcast": {"id": 1, "email_template": {"name": "x"}}}
+            return k
+        altri = [{"id": i, "description": f"altro-{i}"} for i in range(3)]
+        oggi_kit = {"id": 9, "description": NL.etichetta(ed), "status": "scheduled"}
+        due_pagine = {None: (altri, "c1"), "c1": ([{"id": 7, "description": "altro-7"}, oggi_kit], None)}
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine)
+        trovati = NL.invii_esistenti()
+        if NL.etichetta(ed) not in trovati or len(trovati) != 5 or len([c for c in chiamate if c[0] == "GET"]) != 2:
+            male.append("elenco degli invii su due pagine: l'invio di oggi nella seconda pagina non si vede")
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine)
+        if NL.etichetta(ed) not in NL.invii_esistenti():      # stessa sequenza di main() in modo auto
+            with contextlib.redirect_stdout(io.StringIO()):
+                NL.crea(ed, None, prova=False)
+        if any(c[0] == "POST" for c in chiamate):
+            male.append("invio di oggi nella seconda pagina: l'email è partita una seconda volta")
+        # guasto momentaneo a metà della seconda pagina: si rilegge quella pagina, la prima non si rilegge, nessun doppione
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine, {"c1": [(503, {}), (0, {"errore": "rete: timeout"})]})
+        if NL.etichetta(ed) not in NL.invii_esistenti():
+            male.append("guasto a metà della seconda pagina: l'invio di oggi non si vede dopo la rilettura")
+        letti = [c[1] for c in chiamate]
+        if len(letti) != 4 or letti.count("/broadcasts?per_page=1000&slim=true") != 1 or any(c[0] != "GET" for c in chiamate):
+            male.append("guasto a metà della seconda pagina: riletture diverse da quelle attese (pagina 1 una volta, pagina 2 tre)")
+        # la seconda pagina muta (sempre 503): errore, nessun invio, mai un elenco a metà preso per completo
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine, {"c1": [(503, {})] * 9})
+        try:
+            NL.invii_esistenti()
+            male.append("seconda pagina sempre in errore: non si ferma")
+        except SystemExit as e:
+            if not str(e).startswith("ERRORE"):
+                male.append("seconda pagina sempre in errore: l'uscita non è un errore")
+        if len(chiamate) != 1 + NL.LETTURE:
+            male.append(f"seconda pagina sempre in errore: chiamate diverse da 1 + {NL.LETTURE}")
+        # troppe pagine: ci si ferma con errore, il caso peggiore resta limitato
+        chiamate.clear()
+        NL.kit = kit_pagine({None: ([], "x"), "x": ([], "x")})
+        try:
+            NL.invii_esistenti()
+            male.append("elenco di pagine senza fine: non si ferma")
+        except SystemExit:
+            pass
+        if len(chiamate) != NL.MAX_PAGINE:
+            male.append(f"elenco di pagine senza fine: pagine lette diverse da {NL.MAX_PAGINE}")
+        # risposte fuori forma: "non so" non diventa "non c'è" (collaudo indipendente di G-69): nessun invio, nessun traceback
+        pieno = [{"id": 9, "description": NL.etichetta(ed)}]
+        fuori_forma = [
+            ("corpo vuoto", {None: ({}, None)}),
+            ("senza broadcasts", {None: ({"pagination": {"has_next_page": False}}, None)}),
+            ("broadcasts null", {None: ({"broadcasts": None, "pagination": {"has_next_page": False}}, None)}),
+            ("corpo a lista", {None: ([], None)}),
+            ("senza paginazione", {None: ({"broadcasts": []}, None)}),
+            ("has_next_page senza cursore", {None: ({"broadcasts": [], "pagination": {"has_next_page": True}}, None)}),
+            ("pagina 2 senza broadcasts", {None: ({"broadcasts": [], "pagination": {"has_next_page": True, "end_cursor": "c1"}}, None),
+                                            "c1": ({"pagination": {"has_next_page": False}}, None)}),
+        ]
+        for nome, risposte in fuori_forma:
+            chiamate.clear()
+
+            def k_storto(metodo, percorso, dati=None, _r=risposte):
+                chiamate.append((metodo, percorso, dati))
+                if percorso.startswith("/broadcasts") and metodo == "GET":
+                    return 200, _r["c1" if "after=c1" in percorso else None][0]
+                return 201, {"broadcast": {"id": 1}}
+            NL.kit = k_storto
+            try:
+                NL.invii_esistenti()
+                male.append(f"elenco degli invii ({nome}): preso per leggibile")
+            except SystemExit as e:
+                if not str(e).startswith("ERRORE"):
+                    male.append(f"elenco degli invii ({nome}): uscita non chiara")
+            except Exception as e:
+                male.append(f"elenco degli invii ({nome}): traceback {type(e).__name__}")
+            if any(c[0] == "POST" for c in chiamate):
+                male.append(f"elenco degli invii ({nome}): l'email è partita")
+        # invii senza la chiave description: "non so", nessun invio; con description null (invio a mano) si legge e si ignora
+        def k_desc(elenco):
+            def k(metodo, percorso, dati=None):
+                chiamate.append((metodo, percorso, dati))
+                if percorso.startswith("/broadcasts") and metodo == "GET":
+                    return 200, {"broadcasts": elenco, "pagination": {"has_next_page": False}}
+                if percorso == "/email_templates":
+                    return 200, {"email_templates": [{"id": 5, "name": "Gommberg cornice"}]}
+                return 201, {"broadcast": {"id": 1, "email_template": {"name": "x"}}}
+            return k
+        for nome, elenco, parte in (("senza la chiave description", [{"id": 9, "status": "scheduled"}], False),
+                                    ("elemento non dizionario", ["x"], False),
+                                    ("description null accanto all'invio di oggi", [{"id": 3, "description": None}, {"id": 9, "description": NL.etichetta(ed)}], False),
+                                    ("description null e vuota senza l'invio di oggi", [{"id": 3, "description": None}, {"id": 4, "description": ""}], True)):
+            chiamate.clear()
+            NL.kit = k_desc(elenco)
+            try:
+                if NL.etichetta(ed) not in NL.invii_esistenti():      # stessa sequenza di main() in modo auto
+                    with contextlib.redirect_stdout(io.StringIO()):
+                        NL.crea(ed, None, prova=False)
+            except SystemExit as e:
+                if not str(e).startswith("ERRORE"):
+                    male.append(f"invii {nome}: uscita non chiara")
+            posts = len([c for c in chiamate if c[0] == "POST"])
+            if posts != (1 if parte else 0):
+                male.append(f"invii {nome}: {posts} invii creati invece di {1 if parte else 0}")
+        # l'allarme del limite netto, se chiamato, esce con un avviso chiaro
+        try:
+            NL._tempo_scaduto()
+            male.append("allarme del giro: non esce")
+        except SystemExit as e:
+            if "esito è incerto" not in str(e):
+                male.append("allarme del giro: l'avviso non dice dell'esito incerto")
+        # dem.py non cambia: la sua lettura resta quella di prima (100 per pagina, nessuna verifica in più)
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine)
+        NL.leggi_invii(1, 0)
+        if chiamate[0][1] != "/broadcasts?per_page=100":
+            male.append("lettura degli invii di dem.py: l'indirizzo è cambiato")
+        # la scadenza del giro, con l'orologio finto: nessuna chiamata dopo, nessun invio, la creazione mai
+        vero_orologio, vera_scadenza = NL.orologio, NL._scadenza
+        try:
+            ora = [1000.0]
+            NL.orologio = lambda: ora[0]
+            NL.avvia_scadenza()
+            chiamate.clear()
+            base = kit_pagine({None: ([], "c1"), "c1": ([], "c2"), "c2": (pieno, None)})
+
+            def k_lento(metodo, percorso, dati=None):
+                if NL.tempo_rimasto() <= 0:      # come kit(): a tempo scaduto non si chiama
+                    return 0, {"errore": "scadenza del giro superata", "scaduta": True}
+                ora[0] += 300           # ogni lettura costa 5 minuti: la seconda arriva a giro scaduto
+                return base(metodo, percorso, dati)
+            NL.kit = k_lento
+            try:
+                NL.invii_esistenti()
+                male.append("scadenza del giro: elenco letto oltre il tempo")
+            except SystemExit as e:
+                if "minuti" not in str(e):
+                    male.append(f"scadenza del giro: avviso non chiaro ({str(e)[:80]})")
+            # con kit() vero e il tempo finito: nessuna chiamata di rete, stato 0 con "scaduta"
+            NL.kit, os.environ["KIT_API_KEY"] = vero, "kit_prova"
+            ora[0] = 1000.0 + NL.SCADENZA + 1
+            import urllib.request as _ur
+            vera_ap = _ur.urlopen
+            _ur.urlopen = lambda *a, **k: (_ for _ in ()).throw(AssertionError("chiamata dopo la scadenza"))
+            try:
+                if NL.kit("POST", "/broadcasts", {})[0] != 0:
+                    male.append("scadenza del giro: la creazione dopo la scadenza non è fermata")
+            except AssertionError:
+                male.append("scadenza del giro: Kit chiamato a tempo scaduto")
+            finally:
+                _ur.urlopen = vera_ap
+            # a tempo quasi finito (meno di 30 s) la creazione non parte
+            ora[0] = 1000.0 + NL.SCADENZA - 10
+            chiamate.clear()
+            NL.kit = kit_pagine(due_pagine)
+            try:
+                NL.crea(ed, None, prova=False)
+                male.append("scadenza del giro: creazione partita con meno di 30 s rimasti")
+            except SystemExit:
+                pass
+            if any(c[0] == "POST" for c in chiamate):
+                male.append("scadenza del giro: POST fatto con meno di 30 s rimasti")
+        finally:
+            NL.orologio, NL._scadenza = vero_orologio, vera_scadenza
+            import signal as _sg
+            _sg.alarm(0)       # l'allarme di avvia_scadenza() non deve restare armato nel collaudo
         # un errore di rete in kit() è una risposta gestita, non un traceback
         import urllib.error
         import urllib.request
@@ -1776,8 +1957,8 @@ def problemi_piani(piani, tarature):
         if not isinstance(nome, str) or not nome.strip():
             guasti.append(f"piani.json, voce {i + 1}: manca il nome del piano")
             continue
-        if nome in nomi:
-            guasti.append(f"piani.json: il piano '{nome}' compare due volte")
+        if nomi and nomi[-1] == nome:                      # un piano che ritorna (Pro, Max 5x, Pro) è una riga nuova con il suo "dal"
+            guasti.append(f"piani.json: il piano '{nome}' compare due volte di fila (una riga nuova serve solo se il piano cambia)")
         nomi.append(nome)
         dal = x.get("dal")
         if dal is None and i == 0:
@@ -1796,6 +1977,35 @@ def problemi_piani(piani, tarature):
         if vecchio is not None and t <= vecchio:
             guasti.append(f"piani.json, '{nome}': i piani non sono in ordine di data")
         vecchio = t
+    # azzeramento settimanale: giorno e ora scritti bene e confermati (la scheda del pannello li dice a Paolo)
+    for i, x in enumerate(piani):
+        if not isinstance(x, dict) or not isinstance(x.get("piano"), str):
+            continue
+        nome, az = x["piano"], x.get("azzeramento")
+        if not isinstance(az, dict) or az.get("giorno") not in ("lun", "mar", "mer", "gio", "ven", "sab", "dom") \
+                or not isinstance(az.get("ora"), str) or not re.fullmatch(r"([01]\d|2[0-3]):[0-5]\d", az["ora"]):
+            guasti.append(f"piani.json, '{nome}': 'azzeramento' deve avere giorno (lun..dom) e ora (HH:MM)")
+        elif az.get("da_confermare"):
+            guasti.append(f"piani.json, '{nome}': l'azzeramento è ancora 'da_confermare': la scheda scriverebbe un orario non confermato")
+        # stima dichiarata: un rapporto con la sua base e il suo motivo, mai un fattore senza spiegazione, mai a catena
+        st = x.get("stima")
+        if st is None:
+            continue
+        di = st.get("di") if isinstance(st, dict) else None
+        r = st.get("rapporto") if isinstance(st, dict) else None
+        if not isinstance(st, dict) or di not in nomi or di == nome:
+            guasti.append(f"piani.json, '{nome}': la 'stima' deve dire su quale altro piano di piani.json si basa ('di')")
+        else:
+            # catena: la base che è a sua volta una stima è un guasto solo se non ha una misura vera (lettura non esclusa);
+            # con una misura la pagina usa quella e il campo "stima" della base resta inerte
+            misurato = any(isinstance(t, dict) and t.get("piano") == di and not t.get("escluso") and (t.get("punti") or 0) > 0
+                           and (t.get("durata_min") or 0) > 0 for t in (tarature if isinstance(tarature, list) else []))
+            if not misurato and any(isinstance(y, dict) and y.get("piano") == di and y.get("stima") is not None for y in piani):
+                guasti.append(f"piani.json, '{nome}': la stima si basa su '{di}', che è a sua volta una stima senza misura vera (niente catene)")
+        if isinstance(r, bool) or not isinstance(r, (int, float)) or not 0 < r <= 10:
+            guasti.append(f"piani.json, '{nome}': il 'rapporto' della stima ({r!r}) non è un numero tra 0 e 10")
+        if not isinstance(st, dict) or not isinstance(st.get("motivo"), str) or len(st["motivo"].strip()) < 10:
+            guasti.append(f"piani.json, '{nome}': la stima non dice il motivo (perché è una stima, finché cosa vale)")
     for x in tarature if isinstance(tarature, list) else []:
         if isinstance(x, dict) and x.get("piano") not in nomi and not x.get("escluso"):
             guasti.append(f"taratura.json: lettura del {x.get('giorno')} sul piano '{x.get('piano')}', che piani.json non conosce "
@@ -1812,8 +2022,10 @@ def passo_pannello():
         male += problemi_piani(piani, tarature)
     except (OSError, ValueError) as e:      # file mancante o JSON rotto
         male.append(f"pannello/piani.json o taratura.json: {e}"[:160])
-    pro = {"piano": "Pro"}
-    max5 = {"piano": "Max 5x", "dal": "2026-11-24T18:00:00+01:00"}
+    az = {"giorno": "ven", "ora": "18:00"}
+    pro = {"piano": "Pro", "azzeramento": az}
+    max5 = {"piano": "Max 5x", "dal": "2026-11-24T18:00:00+01:00", "azzeramento": az}
+    stima = {"di": "Pro", "rapporto": 0.2, "motivo": "un quinto del Pro, finché non c'è una misura"}
     sbagliati = [("senza nome", [pro, {"dal": "2026-11-24T18:00:00+01:00"}], []),
                  ("ora senza zero", [pro, dict(max5, dal="2026-11-24T9:24:00+01:00")], []),
                  ("senza fuso", [pro, dict(max5, dal="2026-11-24T18:00")], []),
@@ -1823,14 +2035,35 @@ def passo_pannello():
                  ("fuori ordine", [pro, max5, {"piano": "Max 20x", "dal": "2026-11-20T18:00:00+01:00"}], []),
                  ("il secondo senza 'dal'", [pro, {"piano": "Max 5x"}], []),
                  ("lettura di un piano ignoto", [pro, max5], [{"giorno": "2026-11-15", "piano": "Max", "punti": 1, "durata_min": 1}]),
-                 ("non è un elenco", {"piano": "Pro"}, [])]
+                 ("non è un elenco", {"piano": "Pro"}, []),
+                 ("senza azzeramento", [pro, {"piano": "Max 5x", "dal": max5["dal"]}], []),
+                 ("azzeramento con giorno sbagliato", [pro, dict(max5, azzeramento={"giorno": "venerdi", "ora": "18:00"})], []),
+                 ("azzeramento con ora sbagliata", [pro, dict(max5, azzeramento={"giorno": "ven", "ora": "6pm"})], []),
+                 ("azzeramento ancora da confermare", [pro, dict(max5, azzeramento=dict(az, da_confermare=True))], []),
+                 ("stima senza motivo", [pro, dict(max5, stima={"di": "Pro", "rapporto": 0.2})], []),
+                 ("stima su un piano che non c'è", [pro, dict(max5, stima=dict(stima, di="Max 20x"))], []),
+                 ("stima su se stessa", [pro, dict(max5, stima=dict(stima, di="Max 5x"))], []),
+                 ("stima con rapporto zero", [pro, dict(max5, stima=dict(stima, rapporto=0))], []),
+                 ("stima con rapporto scritto a parole", [pro, dict(max5, stima=dict(stima, rapporto="un quinto"))], []),
+                 ("stima a catena", [dict(pro, stima=dict(stima, di="Max 5x")), dict(max5, stima=stima)], []),
+                 ("lo stesso piano due volte di fila", [pro, dict(pro, dal="2026-11-20T18:00:00+01:00")], []),
+                 ("piano che ritorna senza 'dal'", [pro, max5, dict(pro)], []),
+                 ("piano che ritorna fuori ordine", [pro, max5, dict(pro, dal="2026-11-20T18:00:00+01:00")], [])]
     for nome, p, t in sbagliati:
         if not problemi_piani(p, t):
             male.append(f"piani.json: il caso '{nome}' non è fermato")
+    ritorno = [pro, dict(max5, stima=stima), dict(pro, dal="2027-01-12T18:00:00+01:00")]
+    if problemi_piani(ritorno, []):
+        male.append("piani.json: un piano che ritorna (Pro, Max 5x, Pro) con 'dal' in ordine non deve fermare il rilascio")
+    lettura = {"giorno": "2026-12-01", "piano": "Max 5x", "punti": 1, "durata_min": 10}
+    if problemi_piani([pro, dict(max5, stima=stima), {"piano": "Max 20x", "dal": "2026-12-01T18:00:00+01:00", "azzeramento": az, "stima": dict(stima, di="Max 5x")}], [lettura]):
+        male.append("piani.json: una stima su un piano che ha già una misura vera (anche se conserva la sua 'stima') non deve fermare il rilascio")
+    if problemi_piani([pro, dict(max5, stima=stima)], []):
+        male.append("piani.json: un piano con stima dichiarata (base, rapporto, motivo) non deve fermare il rilascio")
     if problemi_piani([pro, max5], [{"giorno": "2026-11-15", "piano": "Max", "punti": 1, "durata_min": 1, "escluso": "motivo"}]):
         male.append("taratura.json: una lettura dichiarata 'escluso' non deve fermare il rilascio")
     esito("Pannello: piani e taratura", not male, "; ".join(male)[:400] or
-          f"piani.json valido (nome, 'dal' con il fuso di Roma, in ordine), ogni lettura di taratura.json su un piano noto o dichiarata esclusa; {len(sbagliati) + 1} casi sbagliati fermati")
+          f"piani.json valido (nome, 'dal' con il fuso di Roma, in ordine, azzeramento confermato, stima con base e motivo), ogni lettura di taratura.json su un piano noto o dichiarata esclusa; {len(sbagliati) + 1} casi sbagliati fermati")
 
 
 def passo_sito():
@@ -1961,9 +2194,9 @@ def passo_lettori(copia):
     if "/regole.html" not in open(os.path.join(REPO, "assets", "lettori.js"), encoding="utf-8").read() or not os.path.exists(os.path.join(REPO, "regole.html")):
         male.append("regole.html manca o la sezione non la collega")
     esito("Lettori: codice e configurazione", not male, "; ".join(male)[:300] or "sintassi, nomi riservati, versione dei file, regole e configurazione in ordine")
-    # l'avviso a Paolo (segnalazioni.py, lanciato ogni ora da segnalazioni.yml), con un gh finto che registra le chiamate:
-    # una segnalazione per commento e mai il testo; riapre e aggiorna; al massimo 5 nuove per giro; un guasto fa fallire
-    # il giro solo alle 10 di Roma (o a mano), e nel flusso "| tee" non lo nasconde
+    # l'avviso a Paolo (segnalazioni.py, lanciato ogni 3 ore da segnalazioni.yml con l'orologio), con un gh finto che
+    # registra le chiamate: una segnalazione per commento e mai il testo; riapre e aggiorna; al massimo 5 nuove per giro;
+    # un guasto fa fallire il giro solo alle 11 di Roma (o a mano), e nel flusso "| tee" non lo nasconde
     male = []
     script = os.path.join(R, "sito", "segnalazioni.py")
     banco = os.path.join(copia, "_segnalazioni")
@@ -2007,13 +2240,15 @@ def passo_lettori(copia):
         male.append("otto commenti nuovi: 5 segnalazioni in questo giro e 3 al prossimo")
     for righe, esce, cosa in ((None, "0", "elenco illeggibile"), ([s(300)], "1", "GitHub che rifiuta")):
         rc15, out15, gh15 = giro(righe, [], ora="15", esce=esce)
-        rc10, _, _ = giro(righe, [], ora="10", esce=esce)
+        rc10, _, _ = giro(righe, [], ora="11", esce=esce)
+        rc12, _, _ = giro(righe, [], ora="12", esce=esce)     # la riserva di GitHub d'estate passa alle 12:15
+        rc14, _, _ = giro(righe, [], ora="14", esce=esce)
         rcm, _, _ = giro(righe, [], ora="15", esce=esce, a_mano="true")
-        if rc15 != 0 or rc10 != 1 or rcm != 1 or "::warning::" not in out15:
-            male.append(f"{cosa}: avviso nel riepilogo, giro fallito solo alle 10 o a mano (uscite {rc15}, {rc10}, {rcm})")
+        if rc15 != 0 or rc10 != 1 or rc12 != 1 or rc14 != 0 or rcm != 1 or "::warning::" not in out15:
+            male.append(f"{cosa}: avviso nel riepilogo, giro fallito solo tra le 11 e le 14 o a mano (uscite {rc15}, {rc10}, {rc12}, {rc14}, {rcm})")
     flusso = open(os.path.join(REPO, ".github", "workflows", "segnalazioni.yml"), encoding="utf-8").read()
-    if "redazione/sito/segnalazioni.py" not in flusso or "issues: write" not in flusso or not re.search(r'cron: "\d+ \* \* \* \*"', flusso):
-        male.append("segnalazioni.yml: non lancia lo script ogni ora o non può aprire segnalazioni")
+    if "redazione/sito/segnalazioni.py" not in flusso or "issues: write" not in flusso or "orologio:" not in flusso:
+        male.append("segnalazioni.yml: non lancia lo script, non lo può lanciare l'orologio o non può aprire segnalazioni")
     if not re.search(r"defaults:\s*\n\s*run:\s*\n\s*shell: bash", flusso) or "A_MANO" not in flusso:
         male.append("segnalazioni.yml: senza 'shell: bash' un giro fallito resta verde; manca A_MANO")
     shutil.rmtree(banco, ignore_errors=True)
@@ -2153,6 +2388,181 @@ def passo_impara(copia):
           f"un ingresso rotto ferma il passaggio senza scrivere e non ferma l'edizione")
 
 
+# ---------------------------------------------------------------- l'orologio dei controlli e i minuti (G-58, G-12)
+def passo_orologio():
+    """L'orologio dei controlli (redazione/sito/orologio.js, il cron del Worker che lancia i flussi di GitHub) con un
+    GitHub finto che accetta, rifiuta e tace, a orari d'inverno e d'estate; la lettura del suo stato (orologio.py: la
+    guardia delle sveglie di riserva e la riga del controllo del mattino); i flussi che lancia; la stima dei minuti di
+    GitHub (minuti.py) con un GitHub finto; la mappa in ARCHITETTURA.md."""
+    node = shutil.which("node")
+    if not node:
+        return esito("Orologio: partenze dei controlli", False, "manca Node (serve la 22.5 o più): l'orologio non è collaudato")
+    rc, out = esegui([node, "--no-warnings", os.path.join(R, "sito", "prova_orologio.mjs")])
+    esito("Orologio: partenze dei controlli", rc == 0, (out.strip().splitlines() or [f"uscita {rc}"])[-1][:200] if rc == 0 else out.strip()[-300:])
+
+    male = []
+    rc, out = esegui([node, "--input-type=module", "-e", "import { SVEGLIE } from " + json.dumps("file://" + os.path.join(R, "sito", "orologio.js")) + "; console.log(JSON.stringify(SVEGLIE))"])
+    try:
+        sveglie = json.loads(out.strip().splitlines()[-1])
+    except (ValueError, IndexError):
+        sveglie = []
+        male.append("SVEGLIE di orologio.js non leggibili")
+    try:
+        import yaml
+    except ImportError:
+        yaml = None
+        NOTE.append("flussi dell'orologio non letti (manca PyYAML)")
+    cartella = os.path.join(REPO, ".github", "workflows")
+    flussi = {}
+    for f in sorted(glob.glob(os.path.join(cartella, "*.yml"))) if yaml else []:
+        d = yaml.safe_load(open(f, encoding="utf-8"))
+        flussi[os.path.basename(f)] = (d, open(f, encoding="utf-8").read())
+    lanciati = {x["flusso"] for x in sveglie}
+    for x in sveglie if yaml else []:
+        if x["flusso"] not in flussi:
+            male.append(f"l'orologio lancia {x['flusso']}, che non esiste")
+            continue
+        d = flussi[x["flusso"]][0]
+        su = d.get("on", d.get(True)) or {}
+        inp = ((su.get("workflow_dispatch") or {}).get("inputs") or {}) if isinstance(su, dict) else {}
+        for k, v in x["inputs"].items():
+            if k not in inp:
+                male.append(f"{x['flusso']}: l'orologio passa '{k}', che il flusso non dichiara (GitHub rifiuterebbe con 422)")
+            elif inp[k].get("type") == "choice" and v not in inp[k].get("options", []):
+                male.append(f"{x['flusso']}: '{k}={v}' non è tra le scelte del flusso")
+    for nome, (d, testo) in flussi.items():
+        su = d.get("on", d.get(True)) or {}
+        if isinstance(su, dict) and "schedule" in su:
+            # una sveglia di GitHub resta solo come riserva: la copre l'orologio e ogni job la salta quando l'orologio è sano
+            if nome not in lanciati:
+                male.append(f"{nome}: sveglia di GitHub che l'orologio non copre")
+            for job, j in (d.get("jobs") or {}).items():
+                passi = j.get("steps") or []
+                if not any(f"orologio.py --guardia {nome}" in str(p.get("run", "")) for p in passi):
+                    male.append(f"{nome}, job {job}: sveglia di riserva senza la guardia dell'orologio sul proprio flusso (partirebbe due volte)")
+    for nome in ("mattino.yml", "segnalazioni.yml", "dem.yml", "newsletter.yml"):
+        for job, j in ((flussi.get(nome) or [{}])[0].get("jobs") or {}).items():
+            if j.get("runs-on") != "ubuntu-slim" or int(j.get("timeout-minutes", 99)) > 15:
+                male.append(f"{nome}, job {job}: un controllo leggero va su ubuntu-slim con al massimo 15 minuti (G-12)")
+        if yaml and nome in flussi and not re.search(r"Minuti di GitHub", flussi[nome][1]):
+            male.append(f"{nome}: non dichiara quanti minuti di GitHub costa al mese")
+    for job in ("controllo", "gomm"):
+        if yaml and "mattino.yml" in flussi and not (((flussi["mattino.yml"][0].get("jobs") or {}).get(job) or {}).get("concurrency") or {}).get("group"):
+            male.append(f"mattino.yml, job {job}: senza coda d'attesa (concurrency) due partenze vicine lavorerebbero insieme")
+    cfg = json.loads(re.sub(r"^\s*//.*$", "", open(os.path.join(R, "sito", "wrangler.jsonc"), encoding="utf-8").read(), flags=re.M))
+    if (cfg.get("triggers") or {}).get("crons") != ["*/15 * * * *"]:
+        male.append("wrangler.jsonc: il cron dell'orologio non è un solo '*/15 * * * *'")
+    if "GITHUB_REPOSITORY" in json.dumps(cfg.get("vars", {})):
+        male.append("wrangler.jsonc: GITHUB_REPOSITORY scritto a mano (lo passa sito.yml)")
+    sito = open(os.path.join(cartella, "sito.yml"), encoding="utf-8").read()
+    if '--var "GITHUB_REPOSITORY:$REPOSITORY"' not in sito or "REPOSITORY: ${{ github.repository }}" not in sito or '"triggers"' not in sito:
+        male.append("sito.yml: non passa il nome del repository all'orologio, o la configurazione di riserva tiene il cron")
+    js = open(os.path.join(R, "sito", "orologio.js"), encoding="utf-8").read()
+    if re.search(r"PaoloGom|gommberg-terminal-daily", js, re.I):
+        male.append("orologio.js: nome del repository scritto nel codice (deve venire da GITHUB_REPOSITORY)")
+    esito("Orologio: flussi, cron e configurazione", not male, "; ".join(male)[:400] or
+          f"{len(sveglie)} sveglie, ognuna su un flusso che accetta i suoi inputs; ogni sveglia di GitHub rimasta ha la guardia; controlli leggeri su ubuntu-slim; nome del repository solo da sito.yml")
+
+    # la lettura dello stato: la guardia delle sveglie di riserva e la riga del controllo del mattino
+    male = []
+    banco = os.path.join(TMP, "_orologio")
+    os.makedirs(banco, exist_ok=True)
+    stato_f = os.path.join(banco, "stato.json")
+    sv = [{"flusso": "mattino.yml", "dovuta": "2026-12-07T10:15", "ok": True, "esito": {"stato": "ok", "dettaglio": "GitHub 200"}},
+          {"flusso": "dem.yml", "dovuta": "2026-12-06T19:30", "ok": True, "esito": {"stato": "ok", "dettaglio": "GitHub 200"}}]
+    dem_ko = [sv[0], dict(sv[1], ok=False, esito={"stato": "errore", "dettaglio": "GitHub risponde 401: Bad credentials"})]
+    base = {"sano": False, "segreto": True, "repository": True, "provato": True, "avvio": "2026-12-01T15:00:00Z"}
+    # (stato, guardie {flusso: SALTA atteso}, uscita del controllo, frase, prefisso della riga)
+    casi = [(dict(base, sano=True, sveglie=sv), {"mattino.yml": "si", "dem.yml": "si", "segnalazioni.yml": "no"}, 0, "partenze puntuali", "OK"),
+            (dict(base, sveglie=dem_ko), {"mattino.yml": "si", "dem.yml": "no"}, 1, "401: Bad credentials", "NO"),
+            (dict(base, segreto=False, provato=False, avvio=None, sveglie=sv), {"mattino.yml": "no"}, 1, "in attesa del token", "NOTA"),
+            (dict(base, segreto=False, sveglie=sv), {"mattino.yml": "no"}, 1, "manca il segreto GITHUB_ACTIONS_TOKEN", "NO"),
+            (dict(base, provato=False, sveglie=sv), {"mattino.yml": "no"}, 1, "ancora nessuna partenza riuscita", "NO"),
+            (dict(base, sano=True, sveglie=sv, errore="stato non leggibile: D1"), {"mattino.yml": "no"}, 0, "partenze puntuali", "OK"),
+            ("non è uno stato", {"mattino.yml": "no"}, 1, "non risponde", "NO"),
+            (None, {"mattino.yml": "no"}, 1, "non risponde", "NO")]
+    script = os.path.join(R, "sito", "orologio.py")
+    for j, guardie, uscita, frase, prefisso in casi:
+        if j is None:
+            amb = {"GTD_OROLOGIO": os.path.join(banco, "manca.json")}
+        else:
+            json.dump(j, open(stato_f, "w", encoding="utf-8"))
+            amb = {"GTD_OROLOGIO": stato_f}
+        for flusso, salta in guardie.items():
+            rc, out = esegui([sys.executable, script, "--guardia", flusso], env=amb)
+            if rc != 0 or out.strip().splitlines()[0] != "SALTA=" + salta:
+                male.append(f"guardia di {flusso}: con {str(j)[:50]} doveva dire SALTA={salta} ({out.strip()[:60]})")
+        rc, out = esegui([sys.executable, script], env=amb)
+        if rc != uscita or frase not in out or not out.startswith(prefisso):
+            male.append(f"controllo: con {str(j)[:40]} doveva uscire {uscita} con '{prefisso} ... {frase}' ({out.strip()[:80]})")
+    # il controllo del mattino: in attesa del token una nota, non una riga rossa (niente segnalazione falsa ogni giorno);
+    # la riserva di GitHub arrivata tardi controlla lo stesso l'edizione non uscita
+    json.dump(dict(base, segreto=False, provato=False, avvio=None, sveglie=sv), open(stato_f, "w", encoding="utf-8"))
+    prova = ("import datetime, mattino as m; m.macchina(datetime.date(2026, 12, 7)); "
+             "print('NO=' + '|'.join(m.NO)); print('NOTE=' + '|'.join(m.NOTE)); "
+             "print('FASCIA=' + ','.join(str(m.in_fascia(o, p)) for o, p in ((10, 'orologio'), (15, 'orologio'), (15, 'schedule'), (22, 'schedule'), (9, 'schedule'), (11, 'workflow_dispatch'))))")
+    rc, out = esegui([sys.executable, "-c", prova], cwd=R, env={"GTD_OROLOGIO": stato_f, "GTD_MINUTI": os.path.join(banco, "manca.json")})
+    if "NO=\n" not in out + "\n" or "in attesa del token" not in out:
+        male.append(f"controllo del mattino: in attesa del token deve essere una nota, non una riga rossa ({out.strip()[-120:]})")
+    if "FASCIA=True,False,True,True,False,True" not in out:
+        male.append(f"controllo del mattino: la riserva di GitHub in ritardo deve controllare a qualunque ora dalle 10 ({out.strip()[-80:]})")
+    json.dump(dict(base, segreto=False, sveglie=sv), open(stato_f, "w", encoding="utf-8"))
+    rc, out = esegui([sys.executable, "-c", prova], cwd=R, env={"GTD_OROLOGIO": stato_f, "GTD_MINUTI": os.path.join(banco, "manca.json")})
+    if "NO=Orologio dei controlli" not in out:
+        male.append("controllo del mattino: segreto visto e poi sparito deve essere una riga rossa")
+    esito("Orologio: guardia e controllo del mattino", not male, "; ".join(male)[:400] or
+          "ogni riserva guarda solo il suo flusso e lavora a ogni dubbio; in attesa del token una nota, dopo un guasto una riga rossa; la riserva tardiva controlla a qualunque ora dalle 10")
+
+    # la stima dei minuti, con un GitHub finto: arrotondamento, ubuntu-slim a un terzo, job saltati, giri in corso, giri già contati
+    male = []
+    gh = os.path.join(banco, "github")
+    os.makedirs(gh, exist_ok=True)
+
+    def job(nome, inizio, fine, etichetta="ubuntu-24.04", fine_stato="success"):
+        return {"name": nome, "started_at": inizio, "completed_at": fine, "conclusion": fine_stato, "labels": [etichetta]}
+    json.dump({"workflow_runs": [
+        {"id": 1, "path": ".github/workflows/collaudo.yml", "status": "completed"},
+        {"id": 2, "path": ".github/workflows/segnalazioni.yml", "status": "completed"},
+        {"id": 3, "path": ".github/workflows/mattino.yml", "status": "completed"},
+        {"id": 4, "path": ".github/workflows/sito.yml", "status": "in_progress"}]}, open(os.path.join(gh, "runs.json"), "w"))
+    json.dump({"jobs": [job("kit", "2026-12-07T10:00:00Z", "2026-12-07T10:04:01Z"), job("sito", "2026-12-07T10:00:00Z", "2026-12-07T10:00:20Z")]}, open(os.path.join(gh, "jobs_1.json"), "w"))
+    json.dump({"jobs": [job("avviso", "2026-12-07T10:00:00Z", "2026-12-07T10:00:09Z", "ubuntu-slim")]}, open(os.path.join(gh, "jobs_2.json"), "w"))
+    json.dump({"jobs": [job("controllo", "2026-12-07T10:00:00Z", "2026-12-07T10:02:30Z", "ubuntu-slim"), job("gomm", None, None, "ubuntu-slim", "skipped")]}, open(os.path.join(gh, "jobs_3.json"), "w"))
+    json.dump({"private": True}, open(os.path.join(gh, "repo.json"), "w"))
+    mf = os.path.join(banco, "minuti.json")
+    amb = {"GTD_GITHUB": gh, "GTD_MINUTI": mf, "GTD_ADESSO": "2026-12-07T11:00"}
+    rc, out = esegui([sys.executable, os.path.join(R, "minuti.py"), "--scrivi"], env=amb)
+    try:
+        m = json.load(open(mf, encoding="utf-8"))
+    except (OSError, ValueError):
+        m = {}
+    # collaudo: 5 + 1 = 6; segnalazioni: 1/3; mattino: 3/3 = 1; sito in corso: non ancora
+    if rc or m.get("minuti") != round(6 + 1 / 3 + 1, 1) or m.get("privato") is not True or set(m.get("giri", {})) != {"1", "2", "3"} or m.get("quota") != 2000:
+        male.append(f"stima: attesi 7,3 minuti su 2.000 dai giri 1-3 ({str(m)[:120]}; {out.strip()[:80]})")
+    os.remove(os.path.join(gh, "jobs_1.json"))
+    rc, out = esegui([sys.executable, os.path.join(R, "minuti.py"), "--scrivi"], env=amb)
+    if rc or json.load(open(mf, encoding="utf-8")).get("minuti") != m.get("minuti"):
+        male.append("stima: il giorno dopo richiede di nuovo a GitHub i giri già contati")
+    import minuti as MIN
+    import datetime as _dt
+    oggi = _dt.date(2026, 12, 7)
+    for caso, atteso in ((dict(m, percentuale=80.0), False), (dict(m, percentuale=74.9), True), (dict(m, percentuale=80.0, privato=False), True),
+                         (dict(m, mese="2026-11"), None), ({}, None)):
+        if MIN.giudizio(caso, oggi)[0] is not atteso:
+            male.append(f"giudizio dei minuti: {str(caso)[:50]} doveva dare {atteso}")
+    rc, out = esegui([sys.executable, os.path.join(R, "minuti.py")], env={"GTD_GITHUB": os.path.join(banco, "non-esiste"), "GTD_MINUTI": mf})
+    if rc != 0 or "::warning::" not in out:
+        male.append("stima: GitHub che non risponde deve dare un avviso, mai un errore")
+    esito("Minuti di GitHub: stima e allarme al 75%", not male, "; ".join(male)[:400] or
+          "ogni job arrotondato al minuto, ubuntu-slim a un terzo, saltati e in corso esclusi; allarme solo da privato oltre il 75%; i giri contati restano")
+
+    # la mappa: ogni flusso e ogni file dell'orologio stanno in ARCHITETTURA.md
+    mappa = open(os.path.join(R, "ARCHITETTURA.md"), encoding="utf-8").read()
+    manca = [f for f in sorted(os.listdir(cartella)) if f.endswith(".yml") and f not in mappa]
+    manca += [f for f in ("sito/orologio.js", "sito/orologio.py", "minuti.py", "pannello/minuti.json", "GITHUB_ACTIONS_TOKEN", "/api/orologio") if f not in mappa]
+    esito("Orologio: mappa in ARCHITETTURA.md", not manca, "mancano: " + ", ".join(manca) if manca else "ogni flusso di GitHub e ogni pezzo dell'orologio è nella mappa")
+
+
 def passo_pubblicazione(copia):
     voci = json.load(open(os.path.join(copia, "edizioni.json"), encoding="utf-8"))
     v = max(voci, key=lambda x: x["numero"])
@@ -2241,6 +2651,7 @@ def main():
         passo_dem()
         passo_rete()
         passo_pannello()
+        passo_orologio()
         copia = passo_sito()
         if isinstance(copia, str):
             passo_lettori(copia)

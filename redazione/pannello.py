@@ -21,9 +21,11 @@ Tre file in pannello/ (più invii.json, di dem.py):
   piani.json      a mano, non lo scrive questo file: i piani di Claude in uso, ognuno con "piano" (il nome, lo stesso delle
                   letture di taratura), "dal" (inizio, ISO 8601 con il fuso di Roma, AAAA-MM-GGTHH:MM:SS+01:00; assente nel primo; il collaudo ferma il rilascio se manca,
                   è illeggibile o fuori ordine) e "azzeramento"
-                  ({giorno, ora, da_confermare}: dato per chi lo usa, la pagina non lo mostra). Un'edizione è rapportata al
-                  piano in vigore quando è uscita; un piano senza letture di taratura mostra i token e il rapporto "in
-                  taratura". Cambiare piano = una riga in più, mai una modifica alla pagina.
+                  ({giorno, ora}: venerdì 18:00, ora di Roma, confermato da Paolo il 25/11; la scheda "Quanto pesa il Gommberg su ogni piano"
+                  lo scrive). Un'edizione è rapportata al piano in vigore quando è uscita; un piano senza letture di taratura mostra
+                  i token e i punti a edizione "da misurare". Un piano può avere una "stima" ({di, rapporto, motivo}: quota = quella
+                  del piano "di" per il rapporto): la scheda la scrive come stima finché non ci sono letture vere, poi vince la misura.
+                  Cambiare piano = una riga in più, mai una modifica alla pagina.
 
 Uso:
   pannello.py --indici <N> <AAAA-MM-GG> [fatti.json]             riga dell'edizione appena pubblicata (lo chiama pubblica.sh)
