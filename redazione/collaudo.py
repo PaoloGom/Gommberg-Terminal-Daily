@@ -745,6 +745,11 @@ def passo_scrittura():
         and bool(T.connettivi("Secondo la stampa coreana il Kospi sale perché arriva il fondo. A. B. C. D.")) \
         and not T.connettivi("Secondo Goldman Sachs il Kospi sale perché arriva il fondo. A. B. C. D.")
     fonti_ok = fonti_ok and anon_ok
+    # agenda (G-46): istruzioni e modello dicono la stessa cosa sull'evento senza un numero atteso, che non usa "Sopra/Sotto"
+    senza_numero = re.compile(r"(?:senza|non ha) un numero atteso")
+    agenda_ok = all(senza_numero.search(open(os.path.join(R, f), encoding="utf-8").read())
+                    for f in ("ISTRUZIONI.md", "edizione_modello_v6.py"))
+    fonti_ok = fonti_ok and agenda_ok
     ok = not sfuggiti and not fermate and sigla and fonti_ok and coperta and voce and sigle_ok
     esito("Scrittura: lessico di casa, fonti e sigle", ok,
           f"{len(calchi)} calchi fermati, {len(giuste)} frasi giuste passate, testate tra parentesi fermate (anche una nuova), "
@@ -752,7 +757,7 @@ def passo_scrittura():
           "contate, chi parla senza nome fermato, \"l'oro vende\" fermato, causa coperta da chi la dà o dalla lettura dichiarata, sigle dette in parole" if ok else
           "; ".join(x for x in (f"calchi non fermati: {sfuggiti}" if sfuggiti else "", f"frasi giuste fermate: {fermate}" if fermate else "",
                                 "" if sigla else "guidance è ancora una sigla da spiegare",
-                                "" if fonti_ok else f"testate tra parentesi: {par}; conteggio: {conta}; fuori dalle Fonti: {fuori}; domande: {domande}; senza nome: {anon}",
+                                "" if fonti_ok else f"testate tra parentesi: {par}; conteggio: {conta}; fuori dalle Fonti: {fuori}; domande: {domande}; senza nome: {anon}; agenda senza numero atteso nelle istruzioni: {agenda_ok}",
                                 "" if sigle_ok else f"sigle: {[s1, s2, s3, s4, s5, s6]}",
                                 "" if coperta else "chi dà la causa non copre il suo paragrafo, o una causa nuda passa",
                                 "" if voce else "la lettura dichiarata non copre il suo paragrafo, o una causa nuda passa") if x)[:300])
