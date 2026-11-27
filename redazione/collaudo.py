@@ -1517,6 +1517,51 @@ def passo_pubblicazione(copia):
           "comandi git stampati e non eseguiti, sorgenti archiviati" if ok else out.strip().splitlines()[-1][:160])
 
 
+def passo_pubblicazione_ramo(copia):
+    """Si pubblica dal ramo principale anche quando la sessione parte senza ramo (un lancio a mano dell'attività: il
+    27/11/2026 la #035, pronta e verde, è rimasta fuori così); da un commit fuori dalla linea del ramo principale mai."""
+    voci = json.load(open(os.path.join(copia, "edizioni.json"), encoding="utf-8"))
+    v = max(voci, key=lambda x: x["numero"])
+    base = os.path.join(TMP, "ramo")
+    orig, finto, lav = os.path.join(base, "origine.git"), os.path.join(base, "finto"), os.path.join(base, "lavoro")
+    os.makedirs(lav)
+    shutil.copytree(copia, finto, ignore=shutil.ignore_patterns(".git", "__pycache__", "node_modules", "collaudi", "rete"))
+    pdf = os.path.join(lav, "copia.pdf")
+    shutil.move(os.path.join(finto, v["file"]), pdf)                # l'edizione di oggi non è ancora nel repository
+    fatti = os.path.join(finto, "redazione", "fatti", v["data"] + ".json")
+    if os.path.exists(fatti):
+        shutil.copy(fatti, os.path.join(lav, "fatti.json"))
+    g = lambda *a, dove=finto: esegui(["git", "-c", "user.name=collaudo", "-c", "user.email=collaudo@example.invalid",
+                                       "-c", "init.defaultBranch=main", "-c", "advice.detachedHead=false", *a], cwd=dove)
+    pubblica = lambda: esegui(["bash", os.path.join(finto, "redazione", "pubblica.sh"), pdf, str(v["numero"]), v["data"],
+                               os.path.join(lav, "fatti.json")], env={"GTD_REPO": finto})
+    remoto = lambda: g("ls-remote", "origin", "refs/heads/main")[1].split("\t")[0].strip()
+    esegui(["git", "-c", "init.defaultBranch=main", "init", "-q", "--bare", orig])
+    passi = [g("init", "-q"), g("checkout", "-q", "-B", "main"), g("commit", "-q", "--allow-empty", "-m", "vecchia"),
+             g("add", "-A"), g("commit", "-q", "-m", "prima"), g("remote", "add", "origin", orig), g("push", "-q", "origin", "main")]
+    if any(rc for rc, _ in passi):
+        return esito("Pubblicazione: ramo", False, "repository finto non creato: " + next(o for rc, o in passi if rc).strip()[:120])
+    prima = remoto()
+    male = []
+    # 1. un commit fuori dalla linea del ramo principale, senza ramo: prova forzata, niente sul remoto
+    g("checkout", "-q", "--detach"); g("commit", "-q", "--allow-empty", "-m", "fuori linea")
+    rc, out = pubblica()
+    if rc or "modalità prova forzata" not in out or remoto() != prima:
+        male.append("da un commit fuori linea doveva restare in prova (" + (out.strip().splitlines() or ["nessuna uscita"])[-1][:80] + ")")
+    g("checkout", "-q", "--", "."); g("clean", "-q", "-fd")
+    # 2. senza ramo sul commit del ramo principale, con il main locale rimasto indietro: pubblica davvero
+    g("checkout", "-q", "--detach", prima); g("branch", "-q", "-f", "main", prima + "~1")
+    rc, out = pubblica()
+    testa = g("rev-parse", "HEAD")[1].strip()
+    if rc or "PUSH_OK" not in out or "Sito: aggiornato" not in out or remoto() != testa or testa == prima \
+            or g("rev-parse", "--abbrev-ref", "HEAD")[1].strip() != "main":
+        male.append("senza ramo sul commit del ramo principale doveva pubblicare (" + (out.strip().splitlines() or ["nessuna uscita"])[-1][:100] + ")")
+    elif v["file"] not in g("show", "--name-only", "--format=", "HEAD")[1]:
+        male.append("il commit pubblicato non contiene il PDF dell'edizione")
+    esito("Pubblicazione: ramo (sessione senza ramo)", not male,
+          "; ".join(male) or "fuori linea resta in prova; sul commit del ramo principale pubblica, con PUSH_OK verificato sul remoto")
+
+
 def main():
     if "--campione" in sys.argv:
         try:
@@ -1540,6 +1585,7 @@ def main():
         copia = passo_sito()
         if isinstance(copia, str):
             passo_lettori(copia)
+            passo_pubblicazione_ramo(copia)
             passo_pubblicazione(copia)
     finally:
         if "--tieni" in sys.argv:
