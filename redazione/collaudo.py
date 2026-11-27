@@ -2,7 +2,7 @@
 """Collaudo del kit: in un paio di minuti, senza rete e senza modelli, dice se una modifica ha rotto qualcosa, anche lontano
 da dove si è messo mano. Si lancia dopo OGNI modifica, prima del commit:   python3 redazione/collaudo.py
 È il cancello del rilascio: redazione/rilascia.sh porta il lavoro sul ramo principale solo se esce con 0, e GitHub lo
-rilancia a ogni push sul ramo di rilascio (.github/workflows/collaudo.yml). Non fa parte del lavoro del mattino e non
+rilancia come cancello finale di pubblica (.github/workflows/collaudo.yml, ramo cancello). Non fa parte del lavoro del mattino e non
 scrive nulla nel repository (lavora in una cartella temporanea), salvo con --atteso e --campione.
 
 Nato il 14/11/2026: la v8.4 aveva lasciato la pagina di riferimento mezza vuota (5 moduli sotto il 90%) e la v8.5 aveva
@@ -1877,6 +1877,25 @@ def anteprima_chrome(copia):
           "sito servito in locale, due larghezze in redazione/collaudi/<data>/g<NN>/; senza Chrome si ferma")
 
 
+def collaudo_github_cancello():
+    """8. Il collaudo di GitHub solo come cancello finale (G-12, leva 2): collaudo.yml parte solo dal ramo su cui
+    rilascia.sh pubblica porta il rilascio, e pubblica aspetta proprio quel flusso sullo stesso commit."""
+    male = []
+    flusso = open(os.path.join(REPO, ".github", "workflows", "collaudo.yml"), encoding="utf-8").read()
+    script = open(os.path.join(R, "rilascia.sh"), encoding="utf-8").read()
+    m = re.search(r'CANCELLO="([^"]+)"', script)
+    rami = re.search(r"\n  push:\s*\n\s*branches:\s*\[([^\]]*)\]", flusso)
+    rami = [x.strip().strip("'\"") for x in rami.group(1).split(",")] if rami else []
+    if not m or rami != [m.group(1)]:
+        male.append(f"collaudo.yml deve partire solo dal ramo del cancello ({m.group(1) if m else '?'}), parte da {rami}")
+    if "pull_request" in flusso or "schedule:" in flusso:
+        male.append("collaudo.yml ha altri inneschi oltre al cancello e al lancio a mano")
+    if "gh run list --workflow collaudo.yml --commit" not in script:
+        male.append("pubblica non aspetta più collaudo.yml sullo stesso commit (cancello 5)")
+    esito("Rilascio: il collaudo di GitHub solo come cancello finale", not male, "; ".join(male) or
+          "collaudo.yml parte solo dal ramo cancello (e a mano); pubblica lo aspetta sullo stesso commit")
+
+
 def passo_rilascio():
     rilascio_avanti()
     avvia_sporco()
@@ -1884,6 +1903,7 @@ def passo_rilascio():
     catena_livello()
     commit_approvato()
     prova_automatica()
+    collaudo_github_cancello()
 
 
 def main():

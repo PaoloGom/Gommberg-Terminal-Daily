@@ -8,7 +8,7 @@
        pagine che non esistono, come su gommberg.com) e la confronta con il sito vero. Con --rilascio le differenze di
        testo e le pagine nuove non sono problemi: si elencano come CAMBIA, ed è l'elenco di ciò che il lettore vedrà
        cambiare con il rilascio. Restano problemi gli errori veri (stato, JavaScript, risorse mancanti, pagine vuote).
-       Lo lancia .github/workflows/collaudo.yml a ogni push sul ramo di rilascio.
+       Lo lancia .github/workflows/collaudo.yml come cancello finale del rilascio (ramo cancello, rilascia.sh pubblica).
   python3 redazione/sito/collaudo_sito.py <sito> --veloce <cartella>   solo HTTP e libreria standard, dopo ogni pubblicazione:
        le pagine principali e l'ultima edizione online sono identiche ai file della cartella pubblicata (con qualche
        tentativo, il tempo che Cloudflare le distribuisca), la redazione non è raggiungibile
