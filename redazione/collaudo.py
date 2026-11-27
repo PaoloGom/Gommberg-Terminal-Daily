@@ -748,10 +748,13 @@ def passo_scrittura():
                      pezzo("n", "Secondo indiscrezioni di stampa il gruppo tratta.", "Secondo Reuters il Brent sale.", ""),
                      pezzo("o", "Le banche salgono, trascinate dal Nikkei, mentre la stampa giapponese parla di una stretta.", "Di solito decide la Fed.", ""),
                      pezzo("p", "L'indagine è stata riportata dalla stampa americana. A rivelarla per primo è stato il Wall Street Journal.",
-                           "Il ministero ha convocato i media stranieri per spiegare le sanzioni.", "")]}
-    anon = sorted(d for d, _ in getattr(T, "senza_testata", lambda *a: [])(T.testi(Ca), nomi + ["Nvidia", "Korea Times"]))
-    anon_ok = anon == ["moduli.1.perche", "moduli.1.testo.0", "moduli.5.testo.0", "moduli.6.testo.0", "moduli.7.testo.0",
-                    "moduli.8.testo.0", "notizie.0.titolo", "notizie.3.testo", "top.dek"] \
+                           "Il ministero ha convocato i media stranieri per spiegare le sanzioni.", ""),
+                     pezzo("q", "I media iraniani hanno parlato di un attacco.", "Circolano indiscrezioni su un'offerta. Lo ha scritto Bloomberg.", ""),
+                     pezzo("r", "Secondo il Wall Street Journal la BoJ prepara il rialzo. Il governo ha smentito le indiscrezioni.",
+                           "Secondo tre fonti citate da Reuters, Tokyo interverrà. Circolano indiscrezioni su un'offerta per Mps.", "")]}
+    anon = sorted(d for d, _ in getattr(T, "senza_testata", lambda *a: [])(T.testi(Ca), nomi + ["Nvidia", "Korea Times"], ["Fonti: Nikkei, Korea Times."]))
+    anon_ok = anon == sorted(["moduli.1.perche", "moduli.1.testo.0", "moduli.5.testo.0", "moduli.6.testo.0", "moduli.7.testo.0",
+                    "moduli.8.testo.0", "moduli.10.testo.0", "moduli.11.perche", "notizie.0.titolo", "notizie.3.testo", "top.dek"]) \
         and bool(T.connettivi("Secondo la stampa coreana il Kospi sale perché arriva il fondo. A. B. C. D.")) \
         and not T.connettivi("Secondo Goldman Sachs il Kospi sale perché arriva il fondo. A. B. C. D.")
     fonti_ok = fonti_ok and anon_ok

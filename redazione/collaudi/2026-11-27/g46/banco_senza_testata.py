@@ -39,6 +39,14 @@ GIUSTE = [
     "I tassi restano fermi, come spiegato dalla BCE nella riunione.",
     "Il governo ha invitato la stampa estera alla conferenza.",
     "I giornali italiani hanno perso copie anche nel 2026.",
+    "Circolano indiscrezioni su un'offerta. Lo ha scritto Bloomberg.",
+    "Circolano indiscrezioni su un rinvio. Ne ha dato notizia per primo il Financial Times.",
+    "Circolano indiscrezioni su un rinvio. L'aveva rivelato ieri il Korea Herald.",
+    "Secondo il Wall Street Journal la BoJ prepara il rialzo. Il governo ha smentito le indiscrezioni.",
+    "Fonti vicine al governo parlano di un rinvio. La notizia è stata data da Reuters.",
+    "I media legati al governo chiudono le edizioni locali.",
+    "La stampa parlamentare ha seguito il voto in aula.",
+    "Voci di mercato danno per vicina l'offerta, scrisse Bloomberg.",
 ]
 SBAGLIATE = [
     "La SEC indaga sui conti di Nvidia, riferisce la stampa americana.",
@@ -72,6 +80,14 @@ SBAGLIATE = [
     "Secondo diversi media il piano è pronto.",
     "Un'indiscrezione dà per vicino l'accordo.",
     "Molti giornali scrivono di un rimpasto.",
+    "I media iraniani hanno parlato di un attacco.",
+    "La stampa americana aveva anticipato la decisione.",
+    "Secondo tre fonti citate da Reuters, Tokyo interverrà. Circolano indiscrezioni su un'offerta per Mps.",
+    "Circolano indiscrezioni su un'offerta. La notizia arriva mentre Reuters scrive che il petrolio sale.",
+    "Il governo ha smentito le indiscrezioni.",
+    "Circolano indiscrezioni su un'offerta. Lo ha detto il ministro, mentre Bloomberg segue il titolo.",
+    "Voci di mercato danno per vicina l'offerta. Intanto Reuters ha scritto del petrolio.",
+    "I giornali tedeschi riportarono il piano già a ottobre.",
 ]
 nomi = T.NOMI_BASE + [n for n in T.nomi_da_righe(RIGHE) if n not in T.NOMI_BASE]
 ferma = lambda t: bool(T.senza_testata({"moduli.0.testo.0": t}, nomi, RIGHE))   # noqa: E731

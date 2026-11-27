@@ -49,9 +49,16 @@ VOCI_GENERICHE = (r"\b(?:(la|le|lo|i|gli|il|dalla|dalle|dai|dagli|dal|della|dell
                   r"(?:(?:alcun[ie]|divers[ie]|molt[ie]|vari[e]?|cert[ie]|altr[ie])\s+)?(stampa|media|giornali)\b")
 INDISCREZIONI = (r"\bindiscrezion[ei]\b|\bfont[ei] anonim[ae]\b|\bfont[ei] vicin[ae]\b|\bvoci di mercato\b|\bresoconto anonimo\b|"
                  r"\bnotizie secondo cui\b")
-# verbo del dire coniugato (un infinito, "per spiegare", ha un altro soggetto)
-_DIRE = (r"(?:(?:riport|parl|rivel|indic|leg|spieg|raccont|anticip)(?:a|ano)|(?:riferisc|attribuisc)(?:e|ono)|scriv(?:e|ono)|dic(?:e|ono)|"
-         r"sostien[e]|sostengono|danno|dà|ved(?:e|ono)|ha(?:nno)? (?:scritto|riferito|riportato|rivelato|detto))\b")
+# verbo del dire coniugato, in qualunque tempo (presente, imperfetto, passato remoto, tempi composti con l'ausiliare e un
+# avverbio in mezzo); un infinito ("per spiegare") o un gerundio hanno un altro soggetto e non contano
+_DIRE_FINITO = (r"(?:riport|parl|rivel|indic|spieg|raccont|anticip|conferm)(?:a|ano|ava|avano|ò|arono)|(?:riferisc|attribuisc)(?:e|ono)|"
+                r"(?:rifer|attribu)(?:iva|ivano|ì|irono)|scriv(?:e|ono|eva|evano)|scriss(?:e|ero)|dic(?:e|ono|eva|evano)|diss(?:e|ero)|"
+                r"sostien[e]|sostengono|sostenev(?:a|ano)|sostenn(?:e|ero)|leg(?:a|ano|ava|avano|ò)|dà|danno|dava|davano|diede|diedero")
+_DIRE_PARTICIPIO = (r"(?:riport|parl|rivel|indic|spieg|raccont|anticip|conferm)at[oaie]|(?:rifer|attribu)it[oaie]|scritt[oaie]|"
+                    r"dett[oaie]|sostenut[oaie]|legat[oaie]|dat[oaie]")
+_VERBO_DIRE = (r"(?:(?:ha|hanno|aveva|avevano|avrebbe|avrebbero|ebbe|è|sono|era|erano|è stat[oa]|sono stat[ie])\s+"
+               r"(?:[a-zà-ù]+\s+){0,2}?(?:" + _DIRE_PARTICIPIO + r")|" + _DIRE_FINITO + r")\b")
+_DIRE = _VERBO_DIRE
 _FA_DA_FONTE_PRIMA = re.compile(r"(?:\bsecondo|\bper|\bstando|\briport\w*|\briferit\w*|\briferisc\w*|\bscritt\w*|\bscriv\w*|"
                                 r"\bha(?:nno)? scritto|\bcitat\w*|\bappres\w*|\bdiffus\w*|\brilanciat\w*|\banticipat\w*|\bdic(?:e|ono))"
                                 r"(?:\s+(?:quanto|a|ad|da))?\s*$", re.I)
@@ -369,7 +376,7 @@ def fuori_dalle_fonti(C, nomi=None):
 
 # una testata detta come fonte: dopo "secondo/per/scrive/citate da/tra cui/che cita...", dopo una parola di cronaca con
 # di/del/dal ("le indiscrezioni del X"), dopo un participio con "da" ("pubblicate dal X"), o prima di un verbo del dire
-_CITA_FORTE = (r"\bsecondo|\bstando a\w*|\bscriv\w+|\bha(?:nno)? scritto|\briferisc\w+|\bha riferito|\briport\w+|\bdic(?:e|ono)|"
+_CITA_FORTE = (r"\b(?:" + _VERBO_DIRE[3:-3] + r")|\bsecondo|\bstando a\w*|\bscriv\w+|\bha(?:nno)? scritto|\briferisc\w+|\bha riferito|\briport\w+|\bdic(?:e|ono)|"
                r"\bcitat[oaie] da\w*|\bpubblicat\w* da\w*|\btra cui|\bche cita|\bcitando|\bcome scriv\w+|"
                r"\b(?:indiscrezion\w*|notizi\w+|articol\w+|scoop|resoconto|rivelazion\w+|anticipazion\w+|servizio|inchiesta)"
                r"(?:\s+[\w']+){0,2}?\s+(?:di|del|dello|della|dei|degli|delle|dell'|dal|dalla|dallo|dai)")
@@ -378,13 +385,21 @@ _CITA_PRIMA = re.compile(r"(?:" + _CITA_FORTE + r"|\bper|\bspieg\w+|\bsentit[oai
 _CITA_SIGLA = re.compile(r"(?:" + _CITA_FORTE + r")" + _FINE, re.I)
 _GEN_A = re.compile(r"^[\s,]*(?:[\w'-]+\s+){0,2}?(?:la |le |i |gli |dalla |dai |della |dei )?(?:stampa|media|giornali)\b", re.I)
 # la frase dopo vale solo se riprende la notizia di quella prima: "Lo scrive X", "A rivelarlo è stato X", "L'ha riferito X"
-_RIPRESA = re.compile(r"^(?:A (?:rivelar|riferir|scriver|riportar|anticipar|dar|diffonder|pubblicar)\w*|L[oaie] (?:scriv|riport|rivel|"
-                      r"riferisc|dic|anticip|conferm)\w*|L'ha(?:nno)? |Ne (?:scriv|parl|d[àa])\w*|(?:La notizia|Lo scoop|L'indiscrezione)\b)")
+# la frase dopo riprende la notizia di quella prima con un pronome e un verbo del dire ("Lo ha scritto X", "Ne ha dato
+# notizia X", "L'ha rivelato X"), con "A rivelarlo è stato X", o con "La notizia..." di cui la testata è soggetto o agente
+_RIPRESA_PRONOME = re.compile(r"^(?:A (?:rivelar|riferir|scriver|riportar|anticipar|dar|diffonder|pubblicar)\w*|(?:L[oaie] |L'|Ne )"
+                              + _VERBO_DIRE + r")", re.I)
+_RIPRESA_NOTIZIA = re.compile(r"^(?:La notizia|Lo scoop|L'indiscrezione)\b", re.I)
+# richiamo di un'indiscrezione già detta: articolo determinativo e nessun complemento che porti un fatto nuovo
+_RICHIAMO = re.compile(r"\b(?:le |l'|la |queste |quelle |tali )(?:indiscrezion[ei]|voc[ei])\b(?!\s+(?:su|sul|sulla|sullo|sui|sugli|sulle|"
+                       r"di|del|della|dei|delle|che|secondo|da|dal|dalla|dai|danno|dà|indicano|parlano)\b)", re.I)
 def senza_testata(tt, nomi=None, righe=()):
     """§3.5: chi parla senza nome. Una voce generica (stampa, media, giornali) che fa da fonte, o un'indiscrezione (fonti
     anonime o vicine, voci di mercato, "notizie secondo cui"), è un errore se la sua frase non cita una testata come fonte, né
-    la frase dopo riprendendo la stessa notizia ("Lo scrive X", "A rivelarlo è stato X"); un'indiscrezione richiamata in un
-    pezzo che l'ha già attribuita a una testata ("secondo tre fonti citate da X") è coperta. Una testata solo nominata (il
+    la frase dopo riprendendo la stessa notizia ("Lo ha scritto X", "A rivelarlo è stato X"). Il richiamo di
+    un'indiscrezione già detta ("le indiscrezioni", con l'articolo e senza un fatto nuovo) è coperto se la frase prima la
+    attribuisce a una testata, o se il pezzo l'ha attribuita ("secondo tre fonti citate da X"); un'indiscrezione nuova vuole
+    la sua testata nella stessa frase. Una testata solo nominata (il
     soggetto della notizia) non basta; una sigla del glossario copre solo se è una testata dell'edizione (scritta nelle sue
     righe Fonti: il Nikkei giornale, non l'indice) e solo da fonte dichiarata ("secondo il Nikkei"). Torna [(dove, frase)]."""
     nome = nome_fonte(list(nomi or NOMI))
@@ -395,13 +410,25 @@ def senza_testata(tt, nomi=None, righe=()):
 
     def citata(t):      # "Nvidia, riferisce la stampa americana" non cita Nvidia: il verbo ha per soggetto la stampa
         def dopo(m):
-            d = _DICE_DOPO.search(t[m.end():m.end() + 25])
+            d = _DICE_DOPO.search(t[m.end():m.end() + 25]) or re.match(r",?\s+" + _VERBO_DIRE, t[m.end():m.end() + 40], re.I)
             return d and not _GEN_A.search(t[m.end():m.end() + 60][d.end():])
         return any(_CITA_PRIMA.search(t[max(0, m.start() - 45):m.start()]) or dopo(m) for m in nome.finditer(t)) or \
             bool(sigla and any(_CITA_SIGLA.search(t[max(0, m.start() - 45):m.start()]) for m in sigla.finditer(t)))
 
-    def ripresa(f):     # "A rivelarla è stato il Wall Street Journal": basta la testata nominata
-        return bool(_RIPRESA.search(f)) and (citata(f) or bool(nome.search(f)))
+    def soggetto(resto):    # la testata subito dopo il verbo, al più con qualche parola in mezzo ("per primo è stato il X")
+        n = nome.search(resto)
+        return bool(n) and bool(re.fullmatch(r"(?:\s+[a-zà-ù]+){0,4}?\s+(?:il |la |lo |l')?", resto[:n.start()], re.I))
+
+    def ripresa(f):
+        m = _RIPRESA_PRONOME.search(f)
+        if m:               # la testata è il soggetto: "A rivelarla è stato il X", "Lo ha scritto per primo il X"
+            return soggetto(f[m.end():])
+        m = _RIPRESA_NOTIZIA.search(f)
+        if m:               # la testata è l'agente o l'autrice della notizia: "La notizia è stata data da X", "è del X"
+            n = nome.search(f)
+            return bool(n) and bool(re.search(r"\b(?:da|dal|dalla|dallo|dai|di|del|della|dello)\s+(?:il |la |lo |l')?$",
+                                              f[:n.start()])) and not re.search(r",|\bmentre\b|\be\b", f[m.end():n.start()])
+        return False
 
     def da_fonte(f):    # la voce generica fa da fonte, non è il fatto ("i media di Stato chiudono", "la media mobile")
         for m in gen.finditer(f):
@@ -422,7 +449,8 @@ def senza_testata(tt, nomi=None, righe=()):
         for i, f in enumerate(ff):
             if citata(f) or (i + 1 < len(ff) and ripresa(ff[i + 1])):
                 continue
-            if da_fonte(f) or (ind.search(f) and not (pezzo(dove) in attribuita and not re.search(r"\bnotizie secondo cui\b", f, re.I))):
+            richiamo = _RICHIAMO.search(f) and ((i > 0 and citata(ff[i - 1])) or pezzo(dove) in attribuita)
+            if da_fonte(f) or (ind.search(f) and not richiamo):
                 out.append((dove, f.strip()[:120]))
     return out
 
