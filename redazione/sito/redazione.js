@@ -19,17 +19,20 @@
 // Accanto c'è il cookie gtd_red=1, leggibile dagli script e senza segreti: dice solo alle pagine del sito che vale la
 // pena chiedere se c'è una sessione (così i lettori non fanno mai quella richiesta).
 //
-// Tentativi. Per rete (impronta dell'indirizzo IP): 5 errori in 24 ore liberi, poi un'attesa che raddoppia a ogni
-// errore (1, 2, 4... minuti, al massimo 60). Per tutto il sito: oltre 50 errori in 15 minuti l'accesso si sospende
-// finché non scendono. Utente inesistente e password sbagliata danno la stessa risposta, e lo stesso lavoro.
+// Tentativi. Per rete (impronta della rete): 5 errori in 24 ore liberi, poi un'attesa che raddoppia a ogni errore (1, 2,
+// 4... minuti, al massimo 60). Ogni tentativo si prenota prima di provare la password (una riga "errore" inserita solo se
+// nessun altro tentativo della stessa rete è passato nel frattempo): cento richieste insieme non ne provano più di una.
+// Nessun blocco per tutto il sito (chiunque lo farebbe scattare chiudendo fuori Paolo): con una password di almeno 16
+// caratteri non serve; i tentativi falliti delle ultime 24 ore si vedono nell'area. Utente inesistente e password
+// sbagliata danno la stessa risposta, e lo stesso lavoro.
 import { prepara, firma, impronta, sitoDi, pulisciTesto, controllaTesto, chiaveNome, edizione, ultima, iso, prima, LIMITI } from "./lettori.js";
 
 export const AREA = {
   iterazioni: 50000,           // PBKDF2-SHA256: ~6 ms di CPU (piano gratuito: 10 ms per richiesta; il massimo dei Workers è 100.000)
   password_min: 16, password_max: 200, utente_max: 100,
   resta_giorni: 90, breve_ore: 12, rinnovo_min: 60,
-  errori_liberi: 5, attesa_max_min: 60, errori_sito_15min: 50,
-  accessi_giorni: 90, blocco_rete_giorni: 30,
+  errori_liberi: 5, attesa_max_min: 60,
+  accessi_giorni: 30, blocco_rete_giorni: 30,   // 30 giorni: privacy.html promette l'impronta della rete cancellata dopo 30 giorni
   pagina: 50,
 };
 export const COOKIE = "__Host-gtd_sessione";
@@ -290,13 +293,13 @@ async function accesso(c, corpo) {
     const resta = Date.parse(errori[0].quando) + attesa - Date.now();
     if (resta > 0) return json(url, { errore: "Troppi tentativi da questa rete: riprova tra " + Math.ceil(resta / 60000) + " " + (Math.ceil(resta / 60000) === 1 ? "minuto" : "minuti") + ".", attesa: Math.ceil(resta / 1000) }, 429);
   }
-  const tutti = await c.db.prepare("SELECT COUNT(*) AS n FROM accessi WHERE esito = 'errore' AND quando > ?").bind(prima(900)).first();
-  if (tutti && tutti.n >= AREA.errori_sito_15min) return json(url, { errore: "Troppi tentativi in questo momento: l'accesso riapre tra qualche minuto.", attesa: 900 }, 429);
-  if (!(await controllaCredenziali(c, cred, utente.trim(), password))) {
-    await registra(c, "errore");
-    return no(url, "Nome utente o password non corretti.", 401);
-  }
+  // la prenotazione: il conteggio sta dentro l'inserimento, come per i commenti dei lettori (lettori.js)
   const t = b64u(casuale(32)), adesso = iso(new Date(Date.now())), d = dispositivo(c.request.headers.get("user-agent"));
+  const pren = await c.db.prepare(`INSERT INTO accessi (quando, esito, dispositivo, luogo, ip) SELECT ?1, 'errore', ?2, ?3, ?4
+      WHERE (SELECT COUNT(*) FROM accessi WHERE ip = ?4 AND esito = 'errore' AND quando > ?5) = ?6 RETURNING id`)
+    .bind(adesso, d.testo + "|" + d.tipo, luogo(c.request), c.ip, prima(86400), errori.length).first();
+  if (!pren) return json(url, { errore: "Un tentativo alla volta: riprova tra qualche secondo.", attesa: 5 }, 429);
+  if (!(await controllaCredenziali(c, cred, utente.trim(), password))) return no(url, "Nome utente o password non corretti.", 401);
   await c.db.batch([
     c.db.prepare("DELETE FROM accessi WHERE ip = ? AND esito = 'errore'").bind(c.ip),
     c.db.prepare("INSERT INTO sessioni (id, csrf, cred, creata, usata, resta, dispositivo, luogo, ip) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")
@@ -343,20 +346,31 @@ async function cambiaPassword(c, corpo) {
 
 // ------------------------------------------------------------------ scheda Sicurezza
 async function sicurezza(c) {
-  const acc = (await c.db.prepare("SELECT quando, esito, dispositivo, luogo, ip FROM accessi WHERE quando > ? ORDER BY id DESC LIMIT 40")
+  // gli accessi riusciti e le uscite sempre visibili; gli errori raggruppati per rete (50 errori non nascondono nulla)
+  const acc = (await c.db.prepare("SELECT quando, esito, dispositivo, luogo, ip FROM accessi WHERE esito != 'errore' AND quando > ? ORDER BY id DESC LIMIT 30")
     .bind(prima(30 * 86400)).all()).results || [];
+  const err = (await c.db.prepare(`SELECT ip, COUNT(*) AS n, MIN(quando) AS primo, MAX(quando) AS ultimo, MAX(dispositivo) AS dispositivo, MAX(luogo) AS luogo
+      FROM accessi WHERE esito = 'errore' AND quando > ? GROUP BY ip ORDER BY ultimo DESC, MAX(id) DESC LIMIT 20`).bind(prima(30 * 86400)).all()).results || [];
   const ses = (await c.db.prepare("SELECT id, creata, usata, resta, dispositivo, luogo FROM sessioni ORDER BY usata DESC LIMIT 20").all()).results || [];
   const pw = await c.db.prepare("SELECT v FROM config WHERE k = 'password'").first();
   let cambiata = null; try { cambiata = pw ? JSON.parse(pw.v).quando : null; } catch (e) { cambiata = null; }
   const dv = (x) => { const [testo, tipo] = String(x || "|").split("|"); return { testo: testo || "Sconosciuto", tipo: tipo || "altro" }; };
   return json(c.url, {
     accessi: acc.map((a) => ({ quando: a.quando, esito: a.esito, dispositivo: dv(a.dispositivo), luogo: a.luogo, questa_rete: a.ip === c.ip })),
+    errori: err.map((e) => ({ n: e.n, primo: e.primo, ultimo: e.ultimo, dispositivo: dv(e.dispositivo), luogo: e.luogo, questa_rete: e.ip === c.ip })),
+    tentativi: await tentativi(c),
     sessioni: ses.map((s) => ({ id: s.id.slice(0, 12), questa: s.id === c.s.id, creata: s.creata, usata: s.usata, resta: !!s.resta,
       scade: iso(new Date(Date.parse(s.usata) + (s.resta ? AREA.resta_giorni * 86400000 : AREA.breve_ore * 3600000))), dispositivo: dv(s.dispositivo), luogo: s.luogo })),
     password: { origine: c.s.credenziale.rec ? "area" : "segreto", cambiata, minimo: AREA.password_min },
-    regole: { errori_liberi: AREA.errori_liberi, attesa_max_min: AREA.attesa_max_min, errori_sito_15min: AREA.errori_sito_15min,
+    regole: { errori_liberi: AREA.errori_liberi, attesa_max_min: AREA.attesa_max_min,
       resta_giorni: AREA.resta_giorni, breve_ore: AREA.breve_ore, iterazioni: AREA.iterazioni },
   });
+}
+
+// i tentativi di accesso falliti delle ultime 24 ore, e da quante reti: l'avviso nella Panoramica e in Sicurezza
+async function tentativi(c) {
+  const r = await c.db.prepare("SELECT COUNT(*) AS n, COUNT(DISTINCT ip) AS reti FROM accessi WHERE esito = 'errore' AND quando > ?").bind(prima(86400)).first() || {};
+  return { n: r.n || 0, reti: r.reti || 0 };
 }
 
 // ------------------------------------------------------------------ Gommunity: lettura
@@ -372,7 +386,7 @@ async function riepilogo(c) {
   const u = (await c.db.prepare(`SELECT c.nome, c.testo, c.creato, c.redazione, (SELECT v.voto FROM voti v WHERE v.sito = c.sito AND v.ed = c.ed AND v.autore = c.autore) AS voto
       FROM commenti c WHERE c.sito = ? AND c.ed = ? AND c.nascosto = 0 ORDER BY c.id DESC LIMIT 3`).bind(c.sito, n).all()).results || [];
   return json(c.url, { edizione: n, guardare: r.guardare || 0, auto: r.auto || 0, commenti_oggi: r.oggi || 0, voti_oggi: (v.toro || 0) + (v.orso || 0),
-    toro: v.toro || 0, orso: v.orso || 0, chiusa: !!ch, database_ms: ms,
+    toro: v.toro || 0, orso: v.orso || 0, chiusa: !!ch, database_ms: ms, tentativi: await tentativi(c),
     ultimi: u.map((x) => ({ nome: x.nome, testo: x.testo, quando: x.creato, redazione: !!x.redazione, voto: x.voto || null })) });
 }
 

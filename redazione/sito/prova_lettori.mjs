@@ -550,13 +550,25 @@ async function areaRiservata() {
   r = await sbaglia(ipB);
   verifica("tentativi: l'attesa non supera mai i 60 minuti", r.s === 429 ? r.j.attesa <= 3600 : r.s === 401, r.j);
   avanti(24 * 3600);
-  for (let i = 0; i < AREA.errori_sito_15min; i++) await sbaglia(nuovoIp());
-  r = await red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: PW }, ip: nuovoIp() });
-  verifica("tentativi: oltre 50 errori in 15 minuti da tutte le reti l'accesso si sospende", r.s === 429, r.s);
-  avanti(15 * 60 + 1);
+  // nessun blocco per tutti: 60 errori da 60 reti in un attimo non chiudono fuori Paolo (prima: 429 per 15 minuti)
+  await Promise.all(Array.from({ length: 60 }, () => sbaglia(nuovoIp())));
   const e3 = await entra();
-  verifica("tentativi: passati 15 minuti si rientra", e3.r.s === 200, e3.r.s);
-
+  verifica("tentativi: 60 errori da 60 reti diverse non chiudono fuori chi ha le credenziali giuste", e3.r.s === 200, e3.r.s);
+  r = await red("GET", "/api/redazione/riepilogo", { cookie: e3.cookie });
+  verifica("tentativi: la Panoramica dice quanti tentativi falliti e da quante reti, nelle ultime 24 ore", r.j.tentativi && r.j.tentativi.n >= 60 && r.j.tentativi.reti >= 60, r.j.tentativi);
+  const ipC = nuovoIp();
+  for (let i = 0; i < AREA.errori_liberi; i++) await sbaglia(ipC);
+  r = await red("GET", "/api/redazione/sicurezza", { cookie: e3.cookie });
+  const grC = (r.j.errori || []).filter((x) => x.n === AREA.errori_liberi);
+  verifica("sicurezza: gli errori sono raggruppati per rete, con il conto, e gli accessi riusciti restano visibili", grC.length >= 1 && r.j.accessi.every((a) => a.esito !== "errore") && r.j.accessi.some((a) => a.esito === "ok") && r.j.tentativi.n >= 65, [r.j.errori && r.j.errori.length, r.j.tentativi]);
+  // la corsa: 300 tentativi insieme dalla stessa rete non passano oltre i 5 liberi (prima ne passavano 11)
+  avanti(16 * 60);
+  const ipD = nuovoIp();
+  env.DB.latenza = 4;
+  await Promise.all(Array.from({ length: 300 }, () => sbaglia(ipD)));
+  env.DB.latenza = 0;
+  const provati = q("SELECT COUNT(*) AS n FROM accessi WHERE esito = 'errore' AND ip = (SELECT ip FROM accessi WHERE esito = 'errore' ORDER BY id DESC LIMIT 1)")[0].n;
+  verifica("tentativi: 300 richieste in parallelo dalla stessa rete, al massimo 5 tentativi provati", provati <= AREA.errori_liberi, provati);
   // ------------------------------------------------- esci, esci da tutti, una sessione alla volta
   const e4 = await entra(), e5 = await entra();
   r = await red("POST", "/api/redazione/esci", { corpo: {}, cookie: e4.cookie, csrf: e4.csrf });
@@ -567,7 +579,7 @@ async function areaRiservata() {
   verifica("esci: le altre sessioni restano", r.s === 200, r.s);
   r = await red("GET", "/api/redazione/sicurezza", { cookie: e5.cookie });
   const corto = r.j.sessioni.find((x) => !x.questa).id;
-  verifica("sicurezza: ultimi accessi, sessioni e regole, senza impronte né gettoni", r.s === 200 && r.j.accessi.length > 0 && r.j.accessi.some((a) => a.esito === "errore") && r.j.sessioni.some((x) => x.questa)
+  verifica("sicurezza: ultimi accessi, sessioni e regole, senza impronte né gettoni", r.s === 200 && r.j.accessi.length > 0 && r.j.errori.length > 0 && r.j.sessioni.some((x) => x.questa)
     && !JSON.stringify(r.j).includes(e5.t) && !("ip" in r.j.accessi[0]) && r.j.regole.iterazioni === AREA.iterazioni, r.j.sessioni);
   verifica("sicurezza: il dispositivo in parole", dispositivo("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit Version/18.0 Mobile/15E148 Safari/604.1").testo === "Safari su iPhone"
     && dispositivo("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130.0 Safari/537.36 Edg/130.0").testo === "Edge su Windows" && dispositivo("curl/8").tipo === "altro");
@@ -742,6 +754,11 @@ async function areaRiservata() {
   verifica("redazione: indirizzo sconosciuto: 404", r.s === 404, r.s);
   r = await red("PUT", "/api/redazione/commenti", S1);
   verifica("redazione: metodo non ammesso: 405", r.s === 405, r.s);
+  // privacy: gli accessi (con l'impronta della rete) si cancellano dopo 30 giorni, come promette privacy.html
+  env.DB._db.exec("INSERT INTO accessi (quando, esito, dispositivo, luogo, ip) VALUES ('" + new Date(adesso - 31 * 86400000).toISOString().replace(/\.\d{3}Z$/, "Z") + "', 'ok', 'x|pc', NULL, 'vecchia-impronta')");
+  avanti(86400);
+  await chiama("GET", "/api/lettori/031");
+  verifica("privacy: gli accessi oltre i 30 giorni si cancellano con la pulizia di ogni giorno", q("SELECT COUNT(*) AS n FROM accessi WHERE ip = 'vecchia-impronta'")[0].n === 0);
   // il database già in linea, senza le colonne nuove: si aggiornano da sole alla prima richiesta
   const vecchio = d1();
   vecchio._db.exec(`CREATE TABLE commenti (id INTEGER PRIMARY KEY AUTOINCREMENT, sito TEXT NOT NULL, ed INTEGER NOT NULL, padre INTEGER, nome TEXT NOT NULL,
