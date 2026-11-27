@@ -1,0 +1,25 @@
+# La catena del mattino: i file che, cambiati, possono cambiare l'edizione, ciò che i lettori ricevono o i cancelli che
+# li proteggono. È l'unica definizione: redazione/rilascia.sh la legge dal ramo principale (pubblica rifiuta da sé un
+# rilascio che tocca la catena senza l'Ok di Paolo sul commit esatto) e ARCHITETTURA.md §5 la cita. Il collaudo
+# controlla che dentro ci siano motore, controlli, pubblicazione, newsletter, flussi di GitHub e i cancelli stessi.
+# Una regola per riga: <tipo> <espressione regolare estesa sul percorso dalla radice del repository>, senza spazi.
+#   catena  nella catena: vuole l'Ok sul commit esatto
+#   prova   nella catena, e cambia ciò che la redazione del mattino legge per scrivere: vuole anche l'edizione di prova
+#   fuori   eccezione: non è nella catena anche se una regola sopra lo prende
+# Questo file è nella catena: cambiarlo vuole l'Ok, e vale dal rilascio dopo quello che lo cambia.
+
+catena ^redazione/
+catena ^\.github/workflows/
+catena ^edizioni\.json$
+catena ^dati/
+catena ^pannello/
+
+prova ^redazione/(ISTRUZIONI|APP_[A-Z]+|NOTA_DEL_GIORNO)\.md$
+prova ^redazione/edizione_modello_v[0-9]+\.py$
+prova ^redazione/(glossario|meccanismi|fonti)\.json$
+prova ^redazione/(prepara\.sh|controlli_tutti\.sh|scommessa_giorno\.sh|desk\.py|contesto\.py|gancio_token\.py|controlli[a-z_]*\.py)$
+prova ^redazione/scommessa/(metodo\.json|[a-z0-9_]+\.py)$
+prova ^\.claude/settings\.json$
+
+fuori ^redazione/(STATO|PROGETTO|AZIONI)\.md$
+fuori ^redazione/collaudi/

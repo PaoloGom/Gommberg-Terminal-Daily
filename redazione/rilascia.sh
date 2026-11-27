@@ -21,13 +21,14 @@
 #
 # I cancelli di "pubblica", nell'ordine: 1) niente modifiche non salvate; 2) il ramo contiene l'ultimo ramo principale;
 # 3) redazione/collaudo.py esce con 0 (rete di non regressione compresa); 4) se il rilascio cambia ciò che il lettore
-# vede (file pubblici del sito, testo del PDF o email dei campioni della rete, modello della newsletter) serve
-# --ok-di-paolo, che chi guida il rilascio aggiunge solo dopo il sì di Paolo al resoconto; 5) il collaudo di GitHub
-# (.github/workflows/collaudo.yml: stesso collaudo su un'altra macchina, più il sito aperto in un browser vero) è verde
-# sullo stesso albero di file: pubblica lo porta sul ramo "cancello" (lo legge solo collaudo.yml) e aspetta l'esito.
+# vede (file pubblici del sito, testo del PDF o email dei campioni della rete, modello della newsletter) o tocca la
+# catena del mattino (redazione/catena.txt) serve --ok-di-paolo, che chi guida il rilascio aggiunge solo dopo il sì di
+# Paolo al resoconto; 5) il collaudo di GitHub (.github/workflows/collaudo.yml: stesso collaudo su un'altra macchina,
+# più il sito aperto in un browser vero) è verde sullo stesso albero di file: pubblica lo porta sul ramo "cancello" (lo legge solo collaudo.yml) e aspetta l'esito.
 # --senza-github salta solo il 5, quando GitHub non si può leggere da questa sessione.
-# Tra il 3 e il 4, la prova: se il rilascio cambia le regole di scrittura o un'edizione campione serve --dopo-la-prova,
-# che chi guida il rilascio aggiunge solo quando l'edizione di prova del ramo con-prova è andata bene (dopo.prova ok).
+# Tra il 3 e il 4, la prova: se il rilascio cambia le regole di scrittura (le righe "prova" di catena.txt) o un'edizione
+# campione serve --dopo-la-prova, che chi guida il rilascio aggiunge solo quando l'edizione di prova del ramo con-prova
+# è andata bene (dopo.prova ok).
 # Prima dei cancelli, l'orario: dal lunedì al venerdì tra le 8:30 e le 10:30 di Roma l'edizione sta uscendo e il ramo
 # principale non si tocca; --guasto lo permette solo per un guasto che blocca l'uscita dell'edizione. Vale anche per annulla.
 # Il resoconto dice anche la FINESTRA del rilascio (ARCHITETTURA.md §5): ogni giorno, con prova, con Paolo.
@@ -81,7 +82,9 @@ dentro() {  # porta nel ramo dove sono le novità del ramo principale (edizioni 
   fi
 }
 
-# Che cosa cambia rispetto al ramo principale, e per chi. Riempie PUBBLICI, CAMPIONI, MODELLO, SCRITTURA, SERVE_OK.
+# Che cosa cambia rispetto al ramo principale, e per chi. Riempie PUBBLICI, CAMPIONI, MODELLO, SCRITTURA, CATENA,
+# LETTORE e SERVE_OK.
+regola() { echo "$1" | awk -v t="$2" '$1 == t && NF >= 2 {print $2}' | paste -sd'|'; }
 cambia() {
   local tutti; tutti=$(git diff --name-only "origin/$PRINC" HEAD)
   # pubblico = ciò che costruisci.py copia sul sito: tutto tranne redazione (salvo i quattro file letti dal sito),
@@ -91,10 +94,19 @@ cambia() {
   # solo l'atteso MODIFICATO: un campione nuovo non cambia nulla per il lettore, un campione che esce diverso sì
   CAMPIONI=$(git diff --no-renames --name-only --diff-filter=MD "origin/$PRINC" HEAD | grep -E '^redazione/rete/[^/]+/atteso/(pdf\.txt|email\.html)$')
   MODELLO=$(echo "$tutti" | grep -E '^redazione/newsletter_(modello|cornice)\.html$')
-  # ciò che la redazione del mattino legge o che decide che cosa resta in pagina: regole, modello, lessico, l'avvio,
-  # i controlli, il desk, il metodo della scommessa, il gancio della sessione
-  SCRITTURA=$(echo "$tutti" | grep -E '^redazione/(ISTRUZIONI|APP_[A-Z]+|NOTA_DEL_GIORNO)\.md$|^redazione/edizione_modello_v[0-9]+\.py$|^redazione/(glossario|meccanismi|fonti)\.json$|^redazione/(prepara\.sh|controlli_tutti\.sh|scommessa_giorno\.sh|desk\.py|contesto\.py|gancio_token\.py|controlli[a-z_]*\.py)$|^redazione/scommessa/(metodo\.json|[a-z0-9_]+\.py)$|^\.claude/settings\.json$')
-  SERVE_OK=0; [ -n "$PUBBLICI$CAMPIONI$MODELLO" ] && SERVE_OK=1
+  # la catena e, dentro, ciò che la redazione del mattino legge per scrivere: un file solo, redazione/catena.txt, letto
+  # dal ramo principale (un rilascio non allenta le regole con cui lui stesso viene giudicato); se lì non c'è ancora,
+  # da questo ramo
+  local cat c p f
+  cat=$(git show "origin/$PRINC:redazione/catena.txt" 2>/dev/null || cat redazione/catena.txt 2>/dev/null)
+  c=$(regola "$cat" catena); p=$(regola "$cat" prova); f=$(regola "$cat" fuori)
+  [ -n "$c" ] && [ -n "$p" ] || fermo "redazione/catena.txt manca o non ha regole: senza l'elenco della catena non si rilascia"
+  SCRITTURA=$(echo "$tutti" | grep -E "$p" | grep -vE "${f:-^$}")
+  CATENA=$(echo "$tutti" | grep -E "$c|$p" | grep -vE "${f:-^$}")
+  LETTORE=0; [ -n "$PUBBLICI$CAMPIONI$MODELLO" ] && LETTORE=1
+  # il livello della voce (sola, via, visto) lo script non lo legge: lo ricava dai file. Ciò che tocca la catena o i
+  # lettori vuole sempre l'Ok di Paolo; senza Ok può andare solo il resto
+  SERVE_OK=0; [ "$LETTORE" = 1 ] || [ -n "$CATENA" ] && SERVE_OK=1
   TUTTI="$tutti"
 }
 # La finestra del rilascio (G-57): la decide questo resoconto, non la chat. Soldi, terzi e irreversibile lo script non li
@@ -102,7 +114,7 @@ cambia() {
 finestra() {
   local f=""
   [ -n "$SCRITTURA$CAMPIONI" ] && f="CON PROVA (prima un'edizione di prova dal ramo con-prova, PROVA.md)"
-  [ "$SERVE_OK" = 1 ] && f="${f:+$f + }CON PAOLO (il suo ok, nel riassunto DOPO)"
+  [ "$LETTORE" = 1 ] && f="${f:+$f + }CON PAOLO (il suo ok, nel riassunto DOPO)"
   local d="OGNI GIORNO (in linea la sera stessa, dopo l'edizione e il controllo del mattino)"
   echo "${f:-$d}"
 }
@@ -125,7 +137,9 @@ resoconto() {
   else echo "  PDF ed email: le edizioni campione escono identiche a prima"; fi
   [ -n "$MODELLO" ] && echo "  Newsletter: cambia il modello (va ricaricato in Kit)"
   if [ -n "$SCRITTURA" ]; then echo "  Scrittura: cambiano regole o lessico della redazione, si vede solo su un'edizione di prova (PROVA.md):"; elenco "$SCRITTURA"; fi
-  echo "Ok di Paolo: $([ "$SERVE_OK" = 1 ] && echo "SERVE (cambia ciò che il lettore vede)" || echo "non serve (niente di visibile ai lettori)")"
+  if [ -n "$CATENA" ]; then echo "Catena del mattino (redazione/catena.txt): $(echo "$CATENA" | wc -l) file"; elenco "$CATENA" 6; fi
+  local perche=""; [ "$LETTORE" = 1 ] && perche="cambia ciò che il lettore vede"; [ -n "$CATENA" ] && perche="${perche:+$perche; }tocca la catena del mattino"
+  echo "Ok di Paolo: $([ "$SERVE_OK" = 1 ] && echo "SERVE ($perche)" || echo "non serve (niente di visibile ai lettori, niente della catena)")"
   echo "Finestra: $(finestra)"
   echo "Collaudo: $ESITO_COLLAUDO"
 }
@@ -234,7 +248,7 @@ pubblica)
     fermo "questo rilascio cambia le regole di scrittura o un'edizione campione: vuole l'edizione di prova. Il lavoro sta sul ramo $ATTESA fino alla prova; dopo la prova andata bene rilancia con --dopo-la-prova"
   fi
   if [ "$SERVE_OK" = 1 ] && [ "$OK_PAOLO" != 1 ]; then
-    fermo "questo rilascio cambia ciò che il lettore vede: mostra a Paolo il resoconto qui sopra e, dopo il suo sì, rilancia con --ok-di-paolo"
+    fermo "questo rilascio cambia ciò che il lettore vede o tocca la catena del mattino (redazione/catena.txt): mostra a Paolo il resoconto qui sopra e, dopo il suo sì, rilancia con --ok-di-paolo"
   fi
   firma
   if [ "$SENZA_GITHUB" = 1 ]; then echo "Collaudo di GitHub: saltato (--senza-github)"; else al_cancello; github_verde "$G"; fi

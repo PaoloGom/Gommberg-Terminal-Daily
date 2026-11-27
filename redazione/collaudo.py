@@ -1749,10 +1749,55 @@ def annulla_cancelli():
           "fermo nella fascia dell'uscita; toglie il rilascio e lascia l'edizione; rilascio = main; il secondo di fila si ferma")
 
 
+def leggi_catena(testo):
+    """Le regole di redazione/catena.txt come le legge rilascia.sh: {tipo: [espressioni]}."""
+    reg = {}
+    for riga in testo.splitlines():
+        p = riga.split()
+        if len(p) >= 2 and p[0] in ("catena", "prova", "fuori"):
+            reg.setdefault(p[0], []).append(p[1])
+    return reg
+
+
+def in_catena(reg, f, tipi=("catena", "prova")):
+    return any(re.search(x, f) for t in tipi for x in reg.get(t, [])) and not any(re.search(x, f) for x in reg.get("fuori", []))
+
+
+def catena_livello():
+    """4. La catena in un file solo, che copre motore, controlli, pubblicazione, newsletter, flussi di GitHub e i
+    cancelli stessi; pubblica rifiuta da sé un rilascio che la tocca senza l'Ok di Paolo."""
+    male = []
+    p = os.path.join(R, "catena.txt")
+    reg = leggi_catena(open(p, encoding="utf-8").read()) if os.path.exists(p) else {}
+    dentro = ["redazione/gommberg_engine.py", "redazione/controlli_testo.py", "redazione/pubblica.sh", "redazione/newsletter.py",
+              "redazione/newsletter_cornice.html", "redazione/rilascia.sh", "redazione/collaudo.py", "redazione/prova.sh",
+              "redazione/catena.txt", "redazione/rete/x/atteso/pdf.txt", "redazione/registro/CAPO.md", "redazione/ATTIVITA.md",
+              "redazione/ISTRUZIONI.md", ".github/workflows/sito.yml", ".github/workflows/collaudo.yml", ".claude/settings.json",
+              "edizioni.json", "dati/recenti.json", "pannello/registro.json"]
+    dentro += [os.path.relpath(f, REPO) for f in glob.glob(os.path.join(R, "**", "*.py"), recursive=True) + glob.glob(os.path.join(R, "*.sh"))]
+    fuori = ["redazione/STATO.md", "redazione/PROGETTO.md", "redazione/AZIONI.md", "redazione/collaudi/2026-11-27/g66/a.png", "index.html"]
+    male += ["fuori dalla catena: " + f for f in sorted(set(dentro)) if not in_catena(reg, f) and not f.startswith("redazione/collaudi/")][:5]
+    male += ["nella catena per sbaglio: " + f for f in fuori if in_catena(reg, f)]
+    male += ["non vuole la prova: " + f for f in ("redazione/ISTRUZIONI.md", "redazione/controlli_testo.py", "redazione/glossario.json")
+             if not in_catena(reg, f, ("prova",))]
+    b = Banco("catena")
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    b.commit("redazione/gommberg_engine.py", "# motore cambiato\n", "G-00: motore")
+    rc, out = b.rilascia("pubblica")
+    if rc == 0 or "catena" not in out.splitlines()[-1] or b.remoto("main") != b.inizio:
+        male.append("un rilascio del motore senza Ok doveva fermarsi (" + ultima(out) + ")")
+    rc, out = b.rilascia("pubblica", "--ok-di-paolo")
+    if rc or b.remoto("main") == b.inizio:
+        male.append("con l'Ok doveva pubblicare (" + ultima(out) + ")")
+    esito("Rilascio: la catena in un file e il cancello dell'Ok", not male, "; ".join(male) or
+          f"catena.txt copre {len(set(dentro))} file del kit e dei cancelli, non i file di stato; il motore senza Ok si ferma")
+
+
 def passo_rilascio():
     rilascio_avanti()
     avvia_sporco()
     annulla_cancelli()
+    catena_livello()
 
 
 def main():
