@@ -1782,15 +1782,39 @@ def catena_livello():
              if not in_catena(reg, f, ("prova",))]
     b = Banco("catena")
     b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
-    b.commit("redazione/gommberg_engine.py", "# motore cambiato\n", "G-00: motore")
+    approvato = b.commit("redazione/gommberg_engine.py", "# motore cambiato\n", "G-00: motore")
     rc, out = b.rilascia("pubblica")
     if rc == 0 or "catena" not in out.splitlines()[-1] or b.remoto("main") != b.inizio:
         male.append("un rilascio del motore senza Ok doveva fermarsi (" + ultima(out) + ")")
-    rc, out = b.rilascia("pubblica", "--ok-di-paolo")
+    rc, out = b.rilascia("pubblica", "--commit", approvato)
     if rc or b.remoto("main") == b.inizio:
         male.append("con l'Ok doveva pubblicare (" + ultima(out) + ")")
     esito("Rilascio: la catena in un file e il cancello dell'Ok", not male, "; ".join(male) or
           f"catena.txt copre {len(set(dentro))} file del kit e dei cancelli, non i file di stato; il motore senza Ok si ferma")
+
+
+def commit_approvato():
+    """5. pubblica --commit: unisce da sé il commit approvato e pubblica esattamente il ramo principale più quello; con
+    lavoro non approvato accanto si ferma senza toccare il ramo principale."""
+    b, male = Banco("commit"), []
+    b.g("checkout", "-q", "-B", "g01", "origin/main")
+    approvato = b.commit("redazione/gommberg_engine.py", "# motore approvato\n", "G-01: motore")
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    b.g("merge", "-q", "--no-ff", "--no-edit", approvato)
+    b.commit("redazione/newsletter.py", "# mai approvato\n", "G-02: di passaggio")
+    rc, out = b.rilascia("pubblica", "--commit", approvato[:10])
+    if rc == 0 or "esattamente" not in out or b.remoto("main") != b.inizio:
+        male.append("con lavoro non approvato accanto doveva fermarsi (" + ultima(out) + ")")
+    b.g("reset", "-q", "--hard", "origin/rilascio")
+    rc, out = b.rilascia("pubblica", "--commit", approvato[:10])
+    princ = b.remoto("main")
+    atteso = esegui(["git", "merge-tree", "--write-tree", b.inizio, approvato], cwd=b.rep)[1].split()[0]
+    if rc or princ == b.inizio or b.g("rev-parse", princ + "^{tree}") != atteso:
+        male.append("da rilascio pulito doveva unire e pubblicare esattamente il commit approvato (" + ultima(out) + ")")
+    elif approvato not in b.g("log", "-1", "--format=%B", princ):
+        male.append("il merge non nomina il commit approvato")
+    esito("Rilascio: pubblica --commit, esattamente il commit approvato", not male, "; ".join(male) or
+          "con un commit non approvato accanto si ferma; da rilascio pulito unisce e pubblica main più il commit, e lo nomina")
 
 
 def passo_rilascio():
@@ -1798,6 +1822,7 @@ def passo_rilascio():
     avvia_sporco()
     annulla_cancelli()
     catena_livello()
+    commit_approvato()
 
 
 def main():
