@@ -206,22 +206,30 @@ async function leggiCorpo(request, max) {
 }
 
 // ------------------------------------------------------------------ ingresso
+// _privato/pannello.js (costruisci.py): i file di pannello/ e PUBBLICI, i file pubblici sotto i percorsi del Worker
 let privatoProva = null;
-export const usaPrivato = (x) => { privatoProva = x; };   // solo per il collaudo (prova_lettori.mjs): i file del pannello finti
+export const usaPrivato = (file, pubblici = []) => { privatoProva = { file, pubblici }; };   // solo per il collaudo: file finti
 async function privato() {
   if (privatoProva) return privatoProva;
-  try { return (await import("../../_privato/pannello.js")).default; } catch (e) { return null; }
+  try { const m = await import("../../_privato/pannello.js"); return { file: m.default, pubblici: m.PUBBLICI || [] }; } catch (e) { return { file: null, pubblici: [] }; }
 }
+const NOME_DATI = /^[a-z0-9_-]+\.json$/;
 
 export async function area(request, env, url) {
   try {
+    // Prima di aprire il database: ciò che non è dell'area va ai file statici. I file pubblici sotto /redazione/
+    // (PUBBLICI) di norma non arrivano nemmeno qui (wrangler.pubblica.json li esclude), ma se arrivassero non devono
+    // dipendere da D1. Sulle anteprime e sugli altri indirizzi l'area non c'è.
+    const fuori = sitoDi(url) !== "gommberg" && env.AREA_LOCALE !== "si";
+    if (!url.pathname.startsWith("/api/")) {
+      const nome = url.pathname.slice("/redazione/".length) || "index.html", m = await privato();
+      const candidato = url.pathname === "/redazione" || nome === "index.html" || nome === "accesso.html" || NOME_DATI.test(nome);
+      if (fuori || m.pubblici.includes(url.pathname) || !candidato || (request.method !== "GET" && request.method !== "HEAD")) return env.ASSETS.fetch(request);
+    } else if (fuori) return no(url, "Indirizzo sconosciuto.", 404);
     let cfg;
     try { cfg = await prepara(env); } catch (e) { cfg = await prepara(env); }
     const ip = await impronta(cfg.segreto, "ip", chiaveRete(request.headers.get("cf-connecting-ip") || "locale"));
     const c = { request, env, url, cfg, ip, db: env.DB, sito: sitoDi(url) };
-    // l'area c'è solo sul sito vero (e in locale con AREA_LOCALE=si, per le prove): sulle anteprime di workers.dev "Esci
-    // da tutti" o il cambio password varrebbero per il sito vero, che usa lo stesso database
-    if (c.sito !== "gommberg" && env.AREA_LOCALE !== "si") return url.pathname.startsWith("/api/") ? no(url, "Indirizzo sconosciuto.", 404) : env.ASSETS.fetch(request);
     if (url.pathname.startsWith("/api/")) return await api(c);
     return await pagina(c);
   } catch (e) {
@@ -233,18 +241,14 @@ export async function area(request, env, url) {
 // /redazione/: l'area se c'è una sessione, la schermata di accesso se no; /redazione/<file>.json: i dati del pannello
 async function pagina(c) {
   const { url, request } = c;
-  if (url.pathname === "/redazione" && (request.method === "GET" || request.method === "HEAD"))
-    return new Response(null, { status: 301, headers: intestazioni(url, { location: "/redazione/" + url.search }) });
+  if (url.pathname === "/redazione") return new Response(null, { status: 301, headers: intestazioni(url, { location: "/redazione/" + url.search }) });
   const nome = url.pathname.slice("/redazione/".length) || "index.html";
-  const P = await privato();
-  const pagine = nome === "index.html" || nome === "accesso.html";
-  const dati = !!P && /^[a-z0-9_-]+\.json$/.test(nome) && Object.prototype.hasOwnProperty.call(P, nome);
-  // Tutto il resto passa ai file statici: sotto /redazione/ vivono anche i file pubblici che il sito legge (glossario,
-  // meccanismi, pagella della scommessa: LETTI in costruisci.py) e la pagina 404 del sito per ciò che non esiste.
-  if ((!pagine && !dati) || (request.method !== "GET" && request.method !== "HEAD")) return c.env.ASSETS.fetch(request);
+  const P = (await privato()).file;
   if (!P) return no(url, "L'area non è disponibile in questa pubblicazione.", 503);
+  // stesso lavoro per ogni nome che potrebbe essere un file del pannello: la sessione si controlla sempre, poi un file
+  // che c'è ma senza sessione risponde come uno che non c'è (i nomi non si scoprono, nemmeno dai tempi)
   const s = await sessione(c);
-  if (pagine) {
+  if (nome === "index.html" || nome === "accesso.html") {
     const file = s ? "index.html" : "accesso.html";
     if (!P[file]) return no(url, "Pagina non trovata.", 404);
     const nonce = b64u(casuale(16));
@@ -257,8 +261,7 @@ async function pagina(c) {
     if (s && s.rinnova) for (const x of cookieSessione(s.token, s.resta, url)) h.append("set-cookie", x);
     return new Response(request.method === "HEAD" ? null : corpo, { status: 200, headers: h });
   }
-  // senza sessione un file del pannello risponde esattamente come un file che non esiste: i nomi non si scoprono
-  if (!s) return c.env.ASSETS.fetch(request);
+  if (!s || !Object.prototype.hasOwnProperty.call(P, nome)) return c.env.ASSETS.fetch(request);
   return new Response(request.method === "HEAD" ? null : P[nome], { status: 200, headers: intestazioni(url, { "content-type": "application/json; charset=utf-8" }) });
 }
 

@@ -75,7 +75,12 @@ jobs:
           if grep -q '"DA-CREARE"' redazione/sito/wrangler.jsonc; then
             echo "::notice::Database dei lettori non ancora creato (database_id DA-CREARE in wrangler.jsonc): si pubblicano i soli file statici."
             echo "CONFIG=redazione/sito/wrangler.statico.json" >> "$GITHUB_ENV"
+          elif [ -f redazione/sito/wrangler.pubblica.json ]; then
+            # wrangler.jsonc più i file pubblici sotto i percorsi del Worker in negativo (G-51: Impara, Numeri e la
+            # Scommessa leggono redazione/*.json senza passare dal Worker); la scrive costruisci.py nel passo sopra
+            echo "CONFIG=redazione/sito/wrangler.pubblica.json" >> "$GITHUB_ENV"
           else
+            echo "::warning::wrangler.pubblica.json non c'è (costruisci.py non l'ha scritta): pubblico con wrangler.jsonc."
             echo "CONFIG=redazione/sito/wrangler.jsonc" >> "$GITHUB_ENV"
           fi
       - name: Pubblicazione su Cloudflare

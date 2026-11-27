@@ -132,9 +132,37 @@ def ritocchi(uscita: Path, file, anteprima: bool):
                 f.write_text(n, encoding="utf-8")
 
 
-def privato(cartella: Path):
+CONFIG = Path(__file__).resolve().parent / "wrangler.jsonc"
+CONFIG_PUBBLICA = Path(__file__).resolve().parent / "wrangler.pubblica.json"
+
+
+def schemi_worker():
+    """I percorsi che wrangler.jsonc manda al Worker (run_worker_first), tranne /api/*, come espressioni regolari."""
+    import json
+    c = json.loads(re.sub(r"^\s*//.*$", "", CONFIG.read_text(encoding="utf-8"), flags=re.M))
+    return c, [re.compile("^" + re.escape(x).replace("\\*", ".*") + "$") for x in c["assets"]["run_worker_first"]
+               if not x.startswith("/api/") and not x.startswith("!")]
+
+
+def configurazione(uscita: Path, file):
+    """Un'unica definizione dei file pubblici sotto i percorsi del Worker: quelli che questo script pubblica davvero
+    (per esempio redazione/glossario.json, da LETTI). Diventano percorsi in negativo ("!/redazione/glossario.json") nella
+    configurazione con cui sito.yml pubblica, wrangler.pubblica.json: Cloudflare li serve come file statici senza
+    invocare il Worker (niente database, niente richieste consumate). Lo stesso elenco va al Worker (PUBBLICI in
+    _privato/pannello.js) come difesa. Torna l'elenco."""
+    import json
+    c, schemi = schemi_worker()
+    pubblici = sorted("/" + str(f) for f in file if any(r.match("/" + str(f)) for r in schemi))
+    c["assets"]["run_worker_first"] = [x for x in c["assets"]["run_worker_first"] if not x.startswith("!")] + ["!" + u for u in pubblici]
+    # JSON puro (niente commenti): la scrive questo script a ogni costruzione, dalla base wrangler.jsonc; non va nel repository
+    CONFIG_PUBBLICA.write_text(json.dumps(c, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    return pubblici
+
+
+def privato(cartella: Path, pubblici=()):
     """I file di pannello/ (area riservata e dati del pannello) in un modulo per il Worker: _privato/pannello.js.
-    Solo file di testo tracciati da git e direttamente in pannello/; mai nella cartella del sito."""
+    Solo file di testo tracciati da git e direttamente in pannello/; mai nella cartella del sito. Con PUBBLICI, i file
+    pubblici sotto i percorsi del Worker, che il Worker passa ai file statici prima di aprire il database."""
     dati = {}
     for rel in tracciati():
         if len(rel.parts) == 2 and rel.parts[0] == "pannello" and rel.suffix in (".html", ".json"):
@@ -148,7 +176,11 @@ def privato(cartella: Path):
     cartella.mkdir(parents=True, exist_ok=True)
     import json
     (cartella / "pannello.js").write_text("// Scritto da redazione/sito/costruisci.py: non modificare a mano. I file di pannello/ per il Worker (G-51).\n"
-                                           "export default " + json.dumps(dati, ensure_ascii=False) + ";\n", encoding="utf-8")
+                                           "export default " + json.dumps(dati, ensure_ascii=False) + ";\n"
+                                           "export const PUBBLICI = " + json.dumps(list(pubblici)) + ";\n", encoding="utf-8")
+    for u in pubblici:
+        if u.startswith("/redazione/") and u[len("/redazione/"):] in dati:
+            sys.exit(f"ERRORE: pannello/{u[len('/redazione/'):]} ha lo stesso nome di un file pubblico sotto /redazione/")
     return sorted(dati)
 
 
@@ -212,7 +244,8 @@ def main():
     file += [PurePosixPath(f) for f in statico.scrivi_tutto(uscita)]
     n = reindirizzamenti(uscita, file)
     ritocchi(uscita, file, anteprima)
-    riservati = privato(REPO / "_privato")
+    pubblici = configurazione(uscita, file)
+    riservati = privato(REPO / "_privato", pubblici)
     # ultima difesa: nel sito solo file pubblici, i file di LETTI, _redirects e _headers
     for p in uscita.rglob("*"):
         rel = PurePosixPath(p.relative_to(uscita).as_posix())
@@ -221,7 +254,8 @@ def main():
     tot = sum((uscita / f).stat().st_size for f in file)
     print(f"Sito pubblico: {len(file)} file, {tot / 1e6:.1f} MB{' (anteprima: senza statistiche, noindex)' if anteprima else ''}")
     print(f"Dalla redazione: {', '.join(l for l in LETTI if l not in mancano)}; cartelle con indirizzo proprio: {n}")
-    print(f"Area riservata (solo dal Worker, dopo l'accesso): {len(riservati)} file di pannello/ in _privato/pannello.js")
+    print(f"Area riservata (solo dal Worker, dopo l'accesso): {len(riservati)} file di pannello/ in _privato/pannello.js; "
+          f"{len(pubblici)} file pubblici sotto i percorsi del Worker serviti senza Worker (wrangler.pubblica.json)")
     for x in mancano:
         print(f"AVVISO: {x} è in LETTI ma non esiste nel repository")
     for x in saltati:

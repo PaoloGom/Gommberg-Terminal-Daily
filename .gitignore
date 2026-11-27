@@ -3,3 +3,5 @@ redazione/PROVA_DATA
 /_*/
 .wrangler/
 redazione/sito/wrangler.statico.json
+.dev.vars
+redazione/sito/wrangler.pubblica.json

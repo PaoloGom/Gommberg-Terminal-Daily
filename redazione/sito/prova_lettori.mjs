@@ -401,7 +401,7 @@ async function areaRiservata() {
   const FILE = { "index.html": "<!doctype html><title>Area</title><script>var a=1</script><p>AREA-RISERVATA</p>",
                  "accesso.html": "<!doctype html><title>Accesso</title><script>var b=2</script><p>SCHERMATA-DI-ACCESSO</p>",
                  "registro.json": '[{"n":31,"d":"2026-11-23"}]', "invii.json": '{"invii":[]}' };
-  usaPrivato(FILE);
+  usaPrivato(FILE, Object.keys(PUBBLICI_RED));
   verifica("il punto d'ingresso del Worker esporta solo il gestore (Cloudflare rifiuta le costanti)", servizio === worker && typeof servizio.fetch === "function");
   let numIp = 0;
   const nuovoIp = () => "203.0." + Math.floor(++numIp / 250) + "." + (numIp % 250 + 1);
@@ -446,6 +446,22 @@ async function areaRiservata() {
     r = await red("GET", x);
     verifica("file pubblici: " + x + " passa dal Worker ai file statici (Impara, Numeri, Scommessa)", r.s === 200 && JSON.stringify(r.j) === PUBBLICI_RED[x], r.s);
   }
+  // difesa: i file pubblici e ciò che non è dell'area vanno ai file statici prima di aprire il database (se D1 è giù,
+  // Impara, Numeri e Scommessa funzionano lo stesso)
+  const rotto = { ...env, DB: { prepare() { throw new Error("D1 giù"); }, batch() { throw new Error("D1 giù"); } } };
+  for (const x of [...Object.keys(PUBBLICI_RED), "/redazione/cartella/che/non-esiste.png"]) {
+    L_.nuovaIstanza && L_.nuovaIstanza();
+    const rr = await worker.fetch(new Request(BASE + x, { headers: { "cf-connecting-ip": "8.8.8.8" } }), rotto);
+    verifica("difesa: " + x + " con il database giù va ai file statici", rr.status === (PUBBLICI_RED[x] ? 200 : 404), rr.status);
+  }
+  L_.nuovaIstanza && L_.nuovaIstanza();
+  // con un cookie finto, un file del pannello e un nome inesistente fanno lo stesso lavoro (stesse chiamate a D1)
+  let chiamate = 0;
+  const contato = { ...env, DB: { prepare: (sql) => { chiamate++; return env.DB.prepare(sql); }, batch: (l) => env.DB.batch(l) } };
+  const lavoro = async (u) => { chiamate = 0; const rr = await worker.fetch(new Request(BASE + u, { headers: { cookie: COOKIE + "=" + "A".repeat(43), "cf-connecting-ip": "8.8.8.8" } }), contato); return [rr.status, chiamate]; };
+  await lavoro("/redazione/registro.json");
+  const [sP, cP] = await lavoro("/redazione/registro.json"), [sN, cN] = await lavoro("/redazione/nome-che-non-esiste.json");
+  verifica("tempi: senza sessione, file del pannello e file inesistente fanno lo stesso lavoro", sP === 404 && sN === 404 && cP === cN && cP > 0, [sP, cP, sN, cN]);
   for (const x of ["/redazione/segreti.json", "/redazione/../pannello/registro.json", "/redazione/%2e%2e/redazione.js", "/redazione/index.html.bak", "/redazione/REGISTRO.json"]) {
     r = await red("GET", x);
     verifica("pannello: " + x + " non esiste", r.s === 404 || (r.s === 200 && typeof r.j === "string" && r.j.includes("SCHERMATA-DI-ACCESSO")) || r.j === "statico", [x, r.s]);

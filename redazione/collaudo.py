@@ -1854,6 +1854,13 @@ def passo_area():
         esito("Area riservata: i file pubblici che passano dal Worker", rc == 0, (out.strip().splitlines() or [f"uscita {rc}"])[-1][:200] if rc == 0 else out.strip()[-300:])
         rc, out = esegui([node, "--no-warnings", os.path.join(R, "sito", "prova_area_html.mjs")])
         esito("Area riservata: nessun valore del database senza escape", rc == 0, (out.strip().splitlines() or [f"uscita {rc}"])[-1][:200] if rc == 0 else out.strip()[-300:])
+    flusso = open(os.path.join(REPO, ".github", "workflows", "sito.yml"), encoding="utf-8").read()
+    if "CONFIG=redazione/sito/wrangler.pubblica.json" not in flusso or 'c["assets"].pop(k, None)' not in flusso:
+        male.append("sito.yml: non pubblica con wrangler.pubblica.json (i file pubblici sotto /redazione/ passerebbero dal Worker) o la riserva non toglie run_worker_first")
+    gi = open(os.path.join(REPO, ".gitignore"), encoding="utf-8").read().split()
+    for x in (".dev.vars", "redazione/sito/wrangler.pubblica.json"):
+        if x not in gi:
+            male.append(f".gitignore senza {x}")
     esito("Area riservata: pannello fuori dal sito pubblico, barra, segreti, avvisi", not male, "; ".join(male)[:400] or
           f"pannello solo nel modulo del Worker, barra Redazione in {len(pagine)} pagine, nessuna credenziale nel repository, avviso e mappa in ordine")
 

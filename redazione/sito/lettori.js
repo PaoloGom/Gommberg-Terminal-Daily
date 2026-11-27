@@ -72,6 +72,7 @@ export const iso = (d) => d.toISOString().replace(/\.\d{3}Z$/, "Z");
 export const prima = (secondi) => iso(new Date(Date.now() - secondi * 1000));
 
 let pronto = null;                                  // schema e segreto, una volta per istanza
+export const nuovaIstanza = () => { pronto = null; };   // solo per il collaudo: come un'istanza appena nata, schema da preparare
 export async function prepara(env) {
   if (!pronto) pronto = (async () => {
     await env.DB.batch(SCHEMA.map((s) => env.DB.prepare(s)));
