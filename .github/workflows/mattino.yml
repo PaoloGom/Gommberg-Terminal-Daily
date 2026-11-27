@@ -6,15 +6,13 @@
 # la dà l'orologio di Cloudflare (redazione/sito/orologio.js, workflow_dispatch con orologio=cloudflare), perché le
 # sveglie di GitHub saltano (il 23/11 non è partita nessuna delle due). Se l'edizione è già stata controllata alla
 # pubblicazione, la sveglia non rifà nulla.
-# Le due sveglie "schedule" qui sotto sono la riserva del passo 1 di G-58: finché l'orologio di Cloudflare non è sano
-# (segreto mancante, GitHub che rifiuta) lavorano come prima; quando è sano non fanno nulla (passo "Ci pensa l'orologio?").
-# Il passo 2 di G-58 le toglie, dopo una settimana di partenze puntuali dell'orologio.
 # Con la sveglia (non dopo la pubblicazione, per non toccare main mentre l'edizione esce) il job "gomm" aggiunge a
 # dati/gomm.json le visite dei giorni completi (G-14, redazione/gomm.py) e aggiorna la stima dei minuti di GitHub in
 # pannello/minuti.json (G-12, redazione/minuti.py): un commit su main che ripubblica il sito. Se non riesce non segnala
 # nulla: le pagine chiedono da sole al contatore i giorni che mancano, e la stima resta quella del giorno prima.
 # Minuti di GitHub (ubuntu-slim, un terzo di un minuto standard): circa 22 giri dalla pubblicazione + 22 dalla sveglia
-# con due job = circa 66 minuti slim al mese, 22 minuti standard (prima: circa 110 minuti standard con le due sveglie).
+# con due job = circa 66 minuti slim al mese, 22 minuti standard (prima di G-58: circa 110 minuti standard con le due
+# sveglie di GitHub, tolte nel passo 2 di G-58).
 name: Controllo del mattino
 
 on:
@@ -22,9 +20,6 @@ on:
     workflows: ["Sito gommberg.com"]
     types: [completed]
     branches: [main]
-  schedule:                        # riserva del passo 1 di G-58 (vedi sopra). GitHub conta in UTC e non conosce l'ora
-    - cron: "15 9 * * 1-5"         # legale: due sveglie, mattino.py lavora solo nella fascia 10-12 di Roma (10:15 con l'ora solare)
-    - cron: "15 8 * * 1-5"         # (10:15 con l'ora legale)
   workflow_dispatch:
     inputs:
       orologio:
@@ -50,11 +45,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Ci pensa l'orologio?
-        if: github.event_name == 'schedule'
-        run: python3 redazione/sito/orologio.py --guardia >> "$GITHUB_ENV"
       - name: Edizione di oggi?
-        if: env.SALTA != 'si'
         id: quale
         env:
           PARTENZA: ${{ github.event_name }}
@@ -98,11 +89,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
-      - name: Ci pensa l'orologio?
-        if: github.event_name == 'schedule'
-        run: python3 redazione/sito/orologio.py --guardia >> "$GITHUB_ENV"
       - name: Visite dei giorni completi in dati/gomm.json, minuti di GitHub in pannello/minuti.json
-        if: env.SALTA != 'si'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
