@@ -1,4 +1,5 @@
-# Il collaudo del rilascio su una macchina di GitHub, a ogni push sul ramo "rilascio": lo stesso redazione/collaudo.py che
+# Il collaudo del rilascio su una macchina di GitHub, a ogni push sul ramo "cancello" (lo spinge solo rilascia.sh pubblica,
+# dopo i cancelli locali) e sul ramo "rilascio": lo stesso redazione/collaudo.py che
 # si lancia a mano (kit e rete di non regressione), più il sito di quel ramo aperto pagina per pagina in un browser vero
 # e confrontato con gommberg.com. redazione/rilascia.sh porta il lavoro sul ramo principale solo se questo è verde
 # sullo stesso commit. Non usa token del modello né segreti. Mappa e regole: redazione/ARCHITETTURA.md.
@@ -6,7 +7,7 @@ name: Collaudo
 
 on:
   push:
-    branches: [rilascio, 'anteprima-*']
+    branches: [cancello, rilascio, 'anteprima-*']
   workflow_dispatch:
 
 permissions:

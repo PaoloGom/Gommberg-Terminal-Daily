@@ -1611,6 +1611,91 @@ def passo_pubblicazione_ramo(copia):
           "; ".join(male) or "fuori linea resta in prova; sul commit del ramo principale pubblica, con PUSH_OK verificato sul remoto")
 
 
+# ---------------------------------------------------------------- 7. i cancelli del rilascio (G-66)
+class Banco:
+    """Un repository finto con un remoto finto (cartella nuda) in TMP, per provare redazione/rilascia.sh di OGGI senza
+    toccare GitHub. Il collaudo dentro il banco è finto (stampa COLLAUDO: OK: il vero è questo); gh è finto e risponde
+    con l'esito scritto in self.gh. Sabato sera di default: l'orario non ferma, salvo dove lo si prova."""
+    def __init__(self, nome):
+        self.base = os.path.join(TMP, "banco_" + nome)
+        self.orig, self.rep, self.bin = (os.path.join(self.base, x) for x in ("origine.git", "rep", "bin"))
+        self.gh, self.ora, self.log = "success", "6 2000", os.path.join(self.base, "gh.log")
+        for d in (self.rep, self.bin):
+            os.makedirs(d)
+        esegui(["git", "init", "-q", "--bare", "-b", "main", self.orig])
+        open(os.path.join(self.bin, "gh"), "w").write('#!/bin/sh\necho "$*" >> "$FINTO_GH_LOG"\necho "completed $FINTO_GH"\n')
+        os.chmod(os.path.join(self.bin, "gh"), 0o755)
+        self.g("init", "-q", "-b", "main")
+        self.g("config", "user.name", "collaudo"); self.g("config", "user.email", "collaudo@example.invalid")
+        self.g("config", "advice.detachedHead", "false")
+        for rel in ("rilascia.sh", "catena.txt", "prova.sh"):
+            if os.path.exists(os.path.join(R, rel)):
+                self.scrivi("redazione/" + rel, open(os.path.join(R, rel), encoding="utf-8").read())
+        self.scrivi("redazione/collaudo.py", 'print("COLLAUDO: OK")\n')
+        self.scrivi("redazione/STATO.md", "stato\n"); self.scrivi("index.html", "<p>sito</p>\n")
+        self.scrivi("redazione/gommberg_engine.py", "# motore finto\n")
+        self.g("add", "-A"); self.g("commit", "-q", "-m", "inizio")
+        self.g("remote", "add", "origin", self.orig)
+        self.g("push", "-q", "origin", "main", "main:rilascio")
+        self.inizio = self.remoto("main")
+
+    def g(self, *a):
+        return esegui(["git", *a], cwd=self.rep)[1].strip()
+
+    def scrivi(self, rel, testo):
+        p = os.path.join(self.rep, rel)
+        os.makedirs(os.path.dirname(p), exist_ok=True)
+        open(p, "w", encoding="utf-8").write(testo)
+
+    def commit(self, rel, testo, msg):
+        self.scrivi(rel, testo); self.g("add", "-A"); self.g("commit", "-q", "-m", msg)
+        return self.g("rev-parse", "HEAD")
+
+    def remoto(self, ramo):
+        return esegui(["git", "rev-parse", "-q", "--verify", "refs/heads/" + ramo], cwd=self.orig)[1].strip()
+
+    def rilascia(self, *a, prova=False):
+        env = {"PATH": self.bin + os.pathsep + os.environ.get("PATH", ""), "GTD_ORA": self.ora, "FINTO_GH": self.gh,
+               "FINTO_GH_LOG": self.log}
+        if prova:
+            env["GTD_PROVA"] = "1"
+        return esegui(["bash", "redazione/rilascia.sh", *a], cwd=self.rep, env=env, timeout=120)
+
+
+def ultima(out):
+    return (out.strip().splitlines() or ["nessuna uscita"])[-1][:140]
+
+
+def rilascio_avanti():
+    """1. pubblica fermata dal collaudo di GitHub: su GitHub il ramo rilascio resta com'era (non avanti al ramo
+    principale), il ramo principale non si tocca, GitHub ha collaudato proprio quell'albero; verde: pubblica e riallinea."""
+    b, male = Banco("avanti"), []
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    lavoro = b.commit("redazione/STATO.md", "stato nuovo\n", "G-00: lavoro")
+    b.gh = "failure"
+    rc, out = b.rilascia("pubblica")
+    if rc == 0 or "RILASCIO: FERMO" not in out:
+        male.append("con GitHub rosso doveva fermarsi (" + ultima(out) + ")")
+    if b.remoto("rilascio") != b.inizio or b.remoto("main") != b.inizio:
+        male.append("fermo dopo il push: su GitHub il ramo rilascio è andato avanti al ramo principale")
+    cancello = b.remoto("cancello")
+    if b.g("rev-parse", cancello + "^{tree}") != b.g("rev-parse", "HEAD^{tree}") or cancello not in open(b.log).read():
+        male.append("GitHub non ha collaudato l'albero del rilascio (ramo cancello)")
+    b.gh = "success"
+    rc, out = b.rilascia("pubblica")
+    princ = b.remoto("main")
+    if rc or princ == b.inizio or b.g("rev-parse", princ + "^{tree}") != b.g("rev-parse", lavoro + "^{tree}"):
+        male.append("con GitHub verde doveva pubblicare l'albero collaudato (" + ultima(out) + ")")
+    elif b.remoto("rilascio") != princ:
+        male.append("dopo il push sul ramo principale il ramo rilascio non è stato riallineato")
+    esito("Rilascio: pubblica non lascia rilascio avanti al ramo principale", not male, "; ".join(male) or
+          "GitHub rosso: rilascio e main fermi, collaudato l'albero sul ramo cancello; verde: un merge e rilascio = main")
+
+
+def passo_rilascio():
+    rilascio_avanti()
+
+
 def main():
     if "--campione" in sys.argv:
         try:
@@ -1631,6 +1716,7 @@ def main():
         passo_dem()
         passo_rete()
         passo_pannello()
+        passo_rilascio()
         copia = passo_sito()
         if isinstance(copia, str):
             passo_lettori(copia)

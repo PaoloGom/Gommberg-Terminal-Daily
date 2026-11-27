@@ -20,19 +20,22 @@
 # vede (file pubblici del sito, testo del PDF o email dei campioni della rete, modello della newsletter) serve
 # --ok-di-paolo, che chi guida il rilascio aggiunge solo dopo il sì di Paolo al resoconto; 5) il collaudo di GitHub
 # (.github/workflows/collaudo.yml: stesso collaudo su un'altra macchina, più il sito aperto in un browser vero) è verde
-# sullo stesso commit. --senza-github salta solo il 5, quando GitHub non si può leggere da questa sessione.
+# sullo stesso albero di file: pubblica lo porta sul ramo "cancello" (lo legge solo collaudo.yml) e aspetta l'esito.
+# --senza-github salta solo il 5, quando GitHub non si può leggere da questa sessione.
 # Tra il 3 e il 4, la prova: se il rilascio cambia le regole di scrittura o un'edizione campione serve --dopo-la-prova,
 # che chi guida il rilascio aggiunge solo quando l'edizione di prova del ramo con-prova è andata bene (dopo.prova ok).
 # Prima dei cancelli, l'orario: dal lunedì al venerdì tra le 8:30 e le 10:30 di Roma l'edizione sta uscendo e il ramo
 # principale non si tocca; --guasto lo permette solo per un guasto che blocca l'uscita dell'edizione.
 # Il resoconto dice anche la FINESTRA del rilascio (ARCHITETTURA.md §5): ogni giorno, con prova, con Paolo.
 # Il merge ha come contenuto esatto quello collaudato (stesso albero di file). Si può sempre tornare indietro: annulla.
+# Il ramo rilascio su GitHub non va mai avanti al ramo principale: unisci e pubblica non lo spingono; pubblica lo
+# riallinea solo dopo il push sul ramo principale. Se pubblica si ferma, su GitHub rilascio resta com'era.
 # GTD_PROVA=1: pubblica e annulla fanno tutto tranne i push sul ramo principale, che stampano.
 set -u
 {   # tra graffe: bash legge tutto lo script prima di eseguirlo ("annulla" cambia i file del repository mentre gira)
 REPO="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "RILASCIO: FERMO - non sono dentro il repository"; exit 1; }
 cd "$REPO" || exit 1
-RAMO="rilascio"; ATTESA="con-prova"; PRINC="main"; PROVA="${GTD_PROVA:-0}"; FONDO=300
+RAMO="rilascio"; ATTESA="con-prova"; PRINC="main"; CANCELLO="cancello"; PROVA="${GTD_PROVA:-0}"; FONDO=300
 AZIONE="${1:-}"; shift 2>/dev/null || true
 OK_PAOLO=0; SENZA_GITHUB=0; GUASTO=0; DOPO_PROVA=0; SU="$RAMO"; PROVATO=""
 for a in "$@"; do
@@ -133,6 +136,17 @@ collauda() {
   return $rc
 }
 
+al_cancello() {  # l'albero collaudato sul ramo cancello, senza forzare; G = il commit che GitHub collauda (stesso albero di HEAD)
+  git fetch -q --depth="$FONDO" origin "+refs/heads/$CANCELLO:refs/remotes/origin/$CANCELLO" 2>/dev/null
+  if ! git rev-parse -q --verify "refs/remotes/origin/$CANCELLO" >/dev/null || git merge-base --is-ancestor "origin/$CANCELLO" HEAD; then
+    G=$(git rev-parse HEAD)
+  elif [ "$(git rev-parse "origin/$CANCELLO^{tree}")" = "$(git rev-parse "HEAD^{tree}")" ]; then
+    G=$(git rev-parse "origin/$CANCELLO")
+  else
+    G=$(git commit-tree "HEAD^{tree}" -p "origin/$CANCELLO" -p HEAD -m "Cancello: $(git rev-parse --short HEAD) da collaudare") || fermo "commit del cancello"
+  fi
+  spingi "$G" "$CANCELLO" || fermo "push del ramo $CANCELLO rifiutato (il ramo principale e il ramo $RAMO su GitHub non sono stati toccati)"
+}
 github_verde() {  # il collaudo di GitHub sullo stesso commit: aspetta fino a 20 minuti
   local sha="$1" i riga stato esito
   command -v gh >/dev/null || fermo "non posso leggere GitHub da qui (manca gh): guarda tu la pagina Actions e rilancia con --senza-github"
@@ -188,8 +202,7 @@ unisci)
     git merge --abort >/dev/null 2>&1
     fermo "il ramo $ATTESA non si unisce al ramo $RAMO: conflitto in $f (prima si pubblica ciò che è su $RAMO; poi 'avvia $ATTESA' porta dentro il ramo principale e il conflitto si risolve lì, con una nuova prova se tocca la scrittura)"
   fi
-  spingi HEAD "$RAMO" || fermo "push del ramo $RAMO rifiutato"
-  echo "RILASCIO: il lavoro provato di $ATTESA ($(git rev-parse --short "$PROVATO")) è nel ramo $RAMO. Ora, subito: 'pubblica --dopo-la-prova' (si unisce solo al Rilascia di Paolo, mai prima)."
+  echo "RILASCIO: il lavoro provato di $ATTESA ($(git rev-parse --short "$PROVATO")) è nel ramo $RAMO di questa sessione (non spinto: su GitHub $RAMO non va mai avanti al ramo principale). Ora, nella stessa sessione: 'pubblica --dopo-la-prova' (si unisce solo al Rilascia di Paolo, mai prima)."
   ;;
 pubblica)
   if fuori_orario && [ "$GUASTO" != 1 ]; then
@@ -204,8 +217,7 @@ pubblica)
     fermo "questo rilascio cambia ciò che il lettore vede: mostra a Paolo il resoconto qui sopra e, dopo il suo sì, rilancia con --ok-di-paolo"
   fi
   firma
-  spingi HEAD "$RAMO" || fermo "push del ramo $RAMO rifiutato"
-  [ "$SENZA_GITHUB" = 1 ] && echo "Collaudo di GitHub: saltato (--senza-github)" || github_verde "$(git rev-parse HEAD)"
+  if [ "$SENZA_GITHUB" = 1 ]; then echo "Collaudo di GitHub: saltato (--senza-github)"; else al_cancello; github_verde "$G"; fi
   # il merge: un commit sul ramo principale con ESATTAMENTE l'albero collaudato (il ramo contiene già il ramo principale)
   VOCI=$(git log --no-merges --format=%s "origin/$PRINC..HEAD" | grep -oE 'G-[0-9]+' | sort -u | tr '\n' ' ' | sed 's/ $//')
   N=$(git rev-list --no-merges --count "origin/$PRINC..HEAD")
@@ -219,6 +231,7 @@ $(git log --no-merges --reverse --format='- %s' "origin/$PRINC..HEAD" | cut -c1-
   # l'orario di nuovo, subito prima del merge: collaudo e attesa di GitHub possono averlo portato dentro la fascia
   if fuori_orario && [ "$GUASTO" != 1 ]; then fermo "nel frattempo sono le 8:30 passate: il ramo principale non si tocca fino alle 10:30, rilancia dopo (nulla è stato pubblicato)"; fi
   spingi "$M" "$PRINC" || fermo "push sul ramo principale rifiutato (è cambiato nel frattempo? rilancia: nulla è stato pubblicato)"
+  # solo ora, con il ramo principale già aggiornato, il ramo rilascio su GitHub: uguale al ramo principale
   git merge -q --ff-only "$M" && spingi HEAD "$RAMO" || echo "AVVISO: ramo $RAMO non riallineato al ramo principale (lo farà il prossimo 'avvia')"
   echo "RILASCIO: PUBBLICATO - merge $(git rev-parse --short "$M") sul ramo principale ($N commit${VOCI:+, $VOCI})."
   echo "Ora GitHub ripubblica gommberg.com e lo verifica dal vivo: gh run list --workflow sito.yml -L 1"
