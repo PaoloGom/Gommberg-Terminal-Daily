@@ -24,10 +24,10 @@ concurrency:
 jobs:
   invio:
     runs-on: ubuntu-latest
-    # Caso peggiore (G-69), da newsletter.py: kit() ha timeout 30 s; ogni lettura si prova 4 volte con 15 s di attesa.
-    # Una pagina: 3x(30+15)+30 = 165 s; elenco invii al tetto di 10 pagine = 1650 s; modelli 165 s; creazione (mai ritentata) 30 s;
-    # avvio, checkout e python circa 60 s. Totale 1905 s = 31,75 minuti: 35.
-    timeout-minutes: 35
+    # G-69: newsletter.py ha una scadenza propria di 8 minuti per parlare con Kit (letture, rilletture, attese; la creazione
+    # parte solo con almeno 30 s rimasti e non si ritenta). Oltre: nessun invio e un avviso chiaro. Qui 12 minuti sono la rete di
+    # sicurezza: 8 + 30 s di creazione + circa 1 minuto di avvio e checkout, con margine.
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - name: Email dell'edizione
