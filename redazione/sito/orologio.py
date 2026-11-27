@@ -2,13 +2,16 @@
 """L'orologio dei controlli (G-58), visto da GitHub: legge da gommberg.com/api/orologio lo stato che scrive il Worker
 (redazione/sito/orologio.js: le Cron Triggers di Cloudflare che fanno partire i flussi a un'ora precisa).
 
-Lo usa mattino.py (controllo del mattino): una riga "Orologio dei controlli", rossa se l'orologio non è sano. Le
-sveglie di riserva di GitHub, che con --guardia lo chiedevano prima di lavorare, le ha tolte il passo 2 di G-58.
+Lo usano:
+  - mattino.py (controllo del mattino): una riga "Orologio dei controlli", rossa se l'orologio non è sano;
+  - le sveglie di riserva di GitHub, finché esistono (passo 1 di G-58): con --guardia scrive SALTA=si in $GITHUB_ENV
+    quando l'orologio è sano e ha già dimostrato di funzionare, così la sveglia di GitHub non rifà ciò che fa l'orologio.
+    Se l'orologio non risponde o non è sano, SALTA=no: la sveglia di GitHub lavora come prima. Nessun periodo senza orologio.
 
 "sano" (lo decide il Worker): il segreto GITHUB_ACTIONS_TOKEN c'è, almeno una partenza è riuscita, e l'ultima partenza
 dovuta di ogni flusso è andata bene. Nessun segreto passa di qui.
 
-Uso:  python3 redazione/sito/orologio.py
+Uso:  python3 redazione/sito/orologio.py [--guardia]
 Solo per le prove: GTD_OROLOGIO (un file JSON al posto di gommberg.com/api/orologio) e GTD_BASE (il sito)."""
 import json
 import os
@@ -57,6 +60,11 @@ def giudizio(j):
 def main():
     j = leggi()
     sano, frase = giudizio(j)
+    if "--guardia" in sys.argv:
+        # per $GITHUB_ENV: SALTA=si solo se l'orologio è sano; ogni dubbio fa lavorare la sveglia di GitHub
+        print("SALTA=" + ("si" if sano else "no"))
+        print(("Ci pensa l'orologio di Cloudflare: " if sano else "L'orologio di Cloudflare non è pronto, lavora la sveglia di GitHub: ") + frase, file=sys.stderr)
+        return 0
     print(("OK   " if sano else "NO   ") + "Orologio dei controlli: " + frase)
     return 0 if sano else 1
 

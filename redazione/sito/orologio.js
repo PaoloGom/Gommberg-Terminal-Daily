@@ -21,7 +21,8 @@
 // non crea doppie segnalazioni né doppie mail.
 //
 // Il guasto si vede: /api/orologio dice, senza rivelare nulla, se il segreto c'è e com'è andata l'ultima partenza dovuta
-// di ogni flusso ("sano"). Lo leggono il controllo del mattino (mattino.py, con redazione/sito/orologio.py) e il pannello.
+// di ogni flusso ("sano"). Lo leggono il controllo del mattino (mattino.py, con redazione/sito/orologio.py), il pannello
+// e, finché esistono, le sveglie di riserva di GitHub (che non fanno nulla quando l'orologio è sano).
 
 // I giorni sono quelli di Date.getUTCDay() sull'ora di Roma: 0 domenica ... 6 sabato.
 const TUTTI = [0, 1, 2, 3, 4, 5, 6];
