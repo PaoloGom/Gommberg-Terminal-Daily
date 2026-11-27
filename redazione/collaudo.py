@@ -121,9 +121,9 @@ def impagina(lav, ed, pdf, reg, repo=None):
     return esegui([sys.executable, ed, lav, pdf], cwd=lav, env=env)
 
 
-def controlli(lav, pdf, n, extra=(), senza_indice=True, repo=None):
+def controlli(lav, pdf, n, extra=(), senza_indice=True, repo=None, env_extra=None):
     repo = repo or REPO
-    env = {"GTD_REPO": repo, "GTD_LAVORO": lav}
+    env = {"GTD_REPO": repo, "GTD_LAVORO": lav, **(env_extra or {})}
     if senza_indice:
         env["GTD_SENZA_INDICE"] = "1"
     rc, out = esegui(["bash", os.path.join(repo, "redazione", "controlli_tutti.sh"), pdf, str(n), *extra], cwd=lav, env=env)
@@ -298,9 +298,9 @@ def passo_modello():
 # Seng a -1,9%); poi i rifiuti persi con e9391e8 (preposizione dentro il soggetto, soggetto doppio), la cifra prima del
 # soggetto o dopo i due punti, gli scambi e i casi scritti il 25/11 prima di provare la regola. In DESK_PASSA riordini e
 # riscritture nominali buone, tra cui l'oro della #032 e "il rimbalzo dell'oro" -> "l'oro rimbalza". Scoperti, perché la
-# regola guarda la testa del soggetto e non i suoi complementi: "le vendite di auto elettriche (+25%)" -> "le vendite di
-# auto salgono del 25%", "-0,8% per l'euro contro lo yen" -> "l'euro perde lo 0,8% contro il dollaro", "il listino
-# tecnologico di Hong Kong (-3,8%)" -> "il listino tecnologico (-3,8%)" (il complemento sparisce, la testa resta).
+# regola guarda la testa del soggetto, i nomi propri e la proposizione, non i complementi in nomi comuni: "le vendite di
+# auto elettriche (+25%)" -> "le vendite di auto salgono del 25%" (un aggettivo che sparisce dopo un complemento),
+# "-0,8% per l'euro contro lo yen" -> "l'euro perde lo 0,8% contro il dollaro" (un complemento in minuscolo cambiato).
 DESK_NO = [
     ("Nuove strette USA sulla tecnologia per la Cina fanno scendere il listino tecnologico di Hong Kong (-3,8%)",
      "Hong Kong perde il 3,8% per le strette USA sulla tecnologia per la Cina"),
@@ -376,6 +376,17 @@ DESK_NO = [
     ("Il dollaro australiano scende a 0,64 e quello neozelandese a 0,58.", "Il dollaro neozelandese scende a 0,64 e quello australiano a 0,58."),
     ("L'oro sale del 2% e tocca i 4.100 dollari, mentre l'argento resta a 48 dollari.", "L'oro sale del 2% e resta a 48 dollari, mentre l'argento tocca i 4.100 dollari."),
     ("Le vendite al dettaglio americane salgono dello 0,6%, la fiducia scende a 98,2.", "La fiducia americana sale dello 0,6%, le vendite al dettaglio scendono a 98,2."),
+    # quarto collaudo indipendente (27/11): la cifra che si allarga a un secondo soggetto (caso della #034) e le due forme
+    # che erano scoperte (il complemento che sparisce dopo la testa, il complemento cambiato dopo la cifra); poi i miei
+    ("Il 10 anni scende di 6 pb, il 2 anni scende meno.", "Il 10 anni e il 2 anni scendono di 6 pb."),
+    ("Ieri il 2 anni è sceso comunque, e il 10 anni di 6 pb.", "Ieri il 2 anni è sceso comunque, come il 10 anni, di 6 pb."),
+    ("Il listino tecnologico di Hong Kong perde il 3,8% per le strette.", "Il listino tecnologico perde il 3,8% per le strette."),
+    ("Le banche perdono il 2,4% a Milano dopo la BCE, meno che a Francoforte.", "Le banche perdono il 2,4% a Francoforte dopo la BCE, più che a Milano."),
+    ("Il Nasdaq perde il 2%, Wall Street meno.", "Il Nasdaq e Wall Street perdono il 2%."),
+    ("L'oro sale dell'1%, l'argento è fermo.", "L'oro e l'argento salgono dell'1%."),
+    ("Il Kospi sale del 4% e Samsung tiene.", "Il Kospi e Samsung salgono del 4%."),
+    ("Samsung sale del 4,5% a Seul, meno che a Tokyo.", "Samsung sale del 4,5% a Tokyo, più che a Seul."),
+    ("Le azioni di Kering a Parigi perdono il 6%.", "Le azioni di Kering perdono il 6%."),
 ]
 DESK_PASSA = [
     ("Ci leggiamo anche il rimbalzo dell'oro (+3,9%): finiscono le vendite per far cassa.",
@@ -462,6 +473,18 @@ DESK_PASSA = [
     ("Il petrolio WTI è frenato dalle scorte americane: -1,2%.", "Frenato dalle scorte americane, il WTI cede l'1,2%."),
     ("Il 4% guadagnato da Ferrari arriva dopo i conti.", "Ferrari guadagna il 4% dopo i conti."),
     ("Il rendimento del Bund a 10 anni cala al 2,61%, il livello più basso da ottobre.", "Il Bund a 10 anni rende il 2,61%, il livello più basso da ottobre."),
+    # quarto collaudo indipendente (27/11): un aggettivo o un participio dopo il nome della misura, il tempo e la fonte
+    # davanti (riscritture vere della #034 e varianti delle edizioni del 26-27/11); poi i miei
+    ("Per la Cina il rialzo è di 20 punti sopra il 25% già in vigore.", "Per la Cina il rialzo proposto è di 20 punti sopra il 25% già in vigore."),
+    ("Mercoledì il calo del 6,16% è arrivato dopo la vendita a Wall Street.", "Mercoledì il calo complessivo del 6,16% è arrivato dopo la vendita a Wall Street."),
+    ("Per Bloomberg il rialzo del 25/11 (+3,5% a 94,61 dollari) viene dagli attacchi in Medio Oriente.",
+     "Per Bloomberg il rialzo complessivo del 25/11 (+3,5% a 94,61 dollari) viene dagli attacchi in Medio Oriente."),
+    ("Per la BCE il taglio è di 25 pb a dicembre, dicono i mercati.", "Per la BCE il taglio atteso è di 25 pb a dicembre, dicono i mercati."),
+    ("Il calo del Nasdaq è del 10% in una settimana.", "Il calo settimanale del Nasdaq è del 10%."),
+    ("Samsung perde il 7% a Seul e SK hynix quasi il 6%.", "A Seul Samsung perde il 7% e SK hynix quasi il 6%."),
+    ("Il 2 anni scende di 4 pb e il 10 anni di 6 pb.", "Il 10 anni scende di 6 pb e il 2 anni di 4 pb."),
+    ("Il Nikkei perde il 2% secondo Reuters.", "Secondo Reuters il Nikkei perde il 2%."),
+    ("Il rame e l'argento salgono del 2%.", "L'argento e il rame salgono del 2%."),
 ]
 
 
@@ -482,7 +505,18 @@ def passo_coerenza():
              "oro2": "La paura ha preso il posto dell'inflazione. L'oro cede più del 2% e il dollaro quasi non si muove.",
              "brent": "Il Brent scende con le scorte USA, ma il rischio Hormuz lo sostiene",
              "oro_su": "Nel giorno della paura l'oro sale e fa da rifugio.",
-             "nikkei": "Il Nikkei chiude a 56.000 punti, il livello più basso da aprile."}
+             "nikkei": "Il Nikkei chiude a 56.000 punti, il livello più basso da aprile.",
+             # quarto collaudo (27/11): la data o il giorno della settimana della seduta si confrontano
+             "data_stessa": "Il 23/11 il Kospi è salito del 6,3%.",
+             "giorno_stesso": "Lunedì il Kospi sale del 6,3%.",
+             # ricollaudo del quarto giro (27/11): l'esenzione vale solo per la proposizione della cifra
+             "relativa": "Il Kospi, che ieri aveva chiuso in calo, sale del 6,3%.",
+             "confronto": "Il Kospi sale del 6,3% e recupera quasi tutto il crollo di venerdì.",
+             "mese_stesso": "Il Kospi sale del 6,3% e torna ai livelli di novembre.",
+             "chiude_dopo_aver": "Il Kospi chiude in rialzo del 6,3% dopo aver aperto in calo.",
+             "arrivata_a": "Il Kospi sale del 6,3% sulla notizia arrivata a mercati aperti.",
+             "verso_imperfetto": "Il Kospi sale mentre gli investitori aspettavano il fondo.",
+             "verso_dopo_aver": "Il Kospi sale dopo aver aperto in calo."}
     passa = {"hk_tech": "Nuove strette USA sulla tecnologia per la Cina fanno scendere il listino tecnologico di Hong Kong (-3,8%)",
              "nikkei": "Il Nikkei chiude a 56.436,65 punti (-5,06%), il livello più basso dal 13 aprile.",
              "vix": "Il VIX (volatilità attesa sull'S&P 500) sale del 26,2%.",
@@ -494,7 +528,14 @@ def passo_coerenza():
              "seduta": "Il FTSE MIB chiude a -2,5% dopo aver perso quasi il 3%.",
              "crisi": "La differenza con le crisi in cui l'oro sale sta nell'origine della paura.",
              "nasdaq100": "Il Nasdaq 100 perde il 5,6%.",
-             "europa": "L'Europa perde il 7% in cinque sedute."}
+             "europa": "L'Europa perde il 7% in cinque sedute.",
+             # quarto collaudo (27/11): falsi allarmi sulle edizioni vere del 26 e 27/11. Una cifra che la frase colloca in
+             # un altro giorno, in un altro momento della seduta, o che è un livello, non è la chiusura del giorno
+             "minimo": "Il Nasdaq è arrivato a perdere il 7,5% e l'S&P 500 il 6,1%, poi gli acquisti hanno ridotto il calo.",
+             "altra_data": "A nostro avviso conta l'attesa: il 24/11 il Kospi era salito del 6,3% e il giorno dopo aveva restituito tutto.",
+             "giorno_prima": "Il giorno prima il Kospi è salito del 2%.",
+             "altro_giorno": "Giovedì il Nasdaq ha perso il 2%.",
+             "punti": "Per KED Global il Kospi si avvicina ai 5.000 punti sulla speranza di un accordo."}
     sfuggiti = [k for k, t in ferma.items() if not K.cifre_e_direzioni({k: t}, M)]
     falsi = [f"{k}: {K.cifre_e_direzioni({k: t}, M)[0][:90]}" for k, t in passa.items() if K.cifre_e_direzioni({k: t}, M)]
     fed = {"chiave": "fed", "titolo": "La Fed ha l'inflazione contro e non può soccorrere la borsa",
@@ -502,6 +543,10 @@ def passo_coerenza():
     C = {"top": {"titolo": "Wall Street crolla", "dek": ""}, "moduli": [fed], "notizie": [],
          "ieri": [("Gio 19, 14:30", "Indice Philadelphia Fed (novembre)", "6,3 (atteso 20,0)", "-", "[[fed]]")],
          "agenda": [("Mer 25, 14:30", "Prezzi al consumo USA (ottobre)", "+0,3%", "Inflazione", "[[fed]]")]}
+    # i mercati e la chiave del pezzo contano come nomi: "→ [[oro]]" da una frase sull'oro porta al pezzo sull'oro (27/11)
+    C["moduli"].append({"chiave": "oro", "titolo": "L'oro recupera metà della caduta ma resta lontano dai massimi",
+                        "testo": ["Il metallo torna a fare da rifugio."]})
+    C["in30"] = ["L'oro ha già riconquistato metà della caduta di questa settimana. [[oro]]"]
     rim = K.rimandi(C)
     rim_ok = len(rim) == 1 and "ieri.0" in rim[0]
     tit_no = K.titoli({"top": {"titolo": "L'oro cala nel giorno della paura, forse per fare cassa"}})
@@ -524,29 +569,56 @@ def passo_coerenza():
     # confronto con dati.json ferma ciò che Coerenza fermerebbe nell'edizione (il desk non deve mai poterla bloccare).
     sbagliati = [f"passa respinta: {o[:50]}" for o, n in DESK_PASSA if desk.controlla(o, n, set())] + \
         [f"cattiva passata: {o[:50]}" for o, n in DESK_NO if not desk.controlla(o, n, set())]
-    # le vere lungo il percorso intero di `desk.py verifica`: i nomi dell'edizione e gli altri campi, poi il confronto con
-    # Coerenza sul dati.json del giorno (solo dove l'edizione ha ancora il testo che il desk ha letto)
+    # Le riscritture vere: un elenco fisso e versionato (rete/desk_vere.json), ognuna con il suo giudizio, lungo il percorso
+    # intero di `desk.py verifica` (i nomi dell'edizione, gli altri campi, poi il confronto con Coerenza sul dati.json del
+    # giorno, solo dove l'edizione ha ancora il testo che il desk ha letto). Le "buona" passano, le "sbagliata" si
+    # respingono. Le riscritture delle edizioni arrivate dopo (sorgenti/*/desk_ok.json fuori dall'elenco) le ha accettate
+    # il desk di allora e nessuno le ha giudicate: se il desk di oggi ne respinge una è da leggere, non un rosso (quarto
+    # collaudo, 27/11: il glob su tutte le edizioni faceva tornare rosso il cancello del rilascio a ogni edizione nuova).
     import contextlib
     import io
-    vere = []
+    elenco = json.load(open(os.path.join(RETE, "desk_vere.json"), encoding="utf-8"))
+    giudicate = {(e["data"], e["campo"], e["originale"]) for e in elenco}
+    edizioni, da_leggere, nuove = {}, [], []
     for f in sorted(glob.glob(os.path.join(R, "sorgenti", "*", "desk_ok.json"))):
-        cart, qui = os.path.dirname(f), os.getcwd()
+        data = os.path.basename(os.path.dirname(f))
         try:
-            os.chdir(cart)
-            with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
-                Ce = desk._carica(os.path.join(cart, "edizione.py"))
-        finally:
-            os.chdir(qui)
-        att = desk.campi(Ce)
-        tutto = set().union(*[desk._nomi(v) for v in att.values()])
-        Me = desk._mercati_del_giorno(cart)
-        for e in json.load(open(f, encoding="utf-8")):
-            vere.append(e)
-            altri = " ".join(v for k, v in att.items() if k != e["campo"])
-            motivo = desk.controlla(e["originale"], e["testo"], tutto, e["campo"], altri) or \
-                (desk.coerenza_peggiora(Ce, e["campo"], e["testo"], Me) if att.get(e["campo"]) == e["originale"] else None)
-            if motivo:
-                sbagliati.append(f"vera respinta {cart.split(os.sep)[-1]} {e['campo']}: {motivo[:60]}")
+            voci = json.load(open(f, encoding="utf-8"))
+        except ValueError:
+            voci = None
+        for e in voci if isinstance(voci, list) else [None]:
+            if not isinstance(e, dict) or not all(isinstance(e.get(k), str) for k in ("campo", "originale", "testo")):
+                da_leggere.append(f"{data}: voce di desk_ok.json incompleta o illeggibile, saltata"); continue
+            if (data, e["campo"], e["originale"]) not in giudicate:
+                nuove.append(dict(e, data=data, giudizio=""))
+
+    def verifica(e):
+        cart = os.path.join(R, "sorgenti", e["data"])
+        if cart not in edizioni:
+            qui = os.getcwd()
+            try:
+                os.chdir(cart)
+                with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                    Ce = desk._carica(os.path.join(cart, "edizione.py"))
+            finally:
+                os.chdir(qui)
+            att = desk.campi(Ce)
+            edizioni[cart] = (Ce, att, set().union(*[desk._nomi(v) for v in att.values()]), desk._mercati_del_giorno(cart))
+        Ce, att, tutto, Me = edizioni[cart]
+        altri = " ".join(v for k, v in att.items() if k != e["campo"])
+        return desk.controlla(e["originale"], e["testo"], tutto, e["campo"], altri) or \
+            (desk.coerenza_peggiora(Ce, e["campo"], e["testo"], Me) if att.get(e["campo"]) == e["originale"] else None)
+    for e in elenco:
+        motivo = verifica(e)
+        if e["giudizio"] == "buona" and motivo:
+            sbagliati.append(f"vera buona respinta {e['data']} {e['campo']}: {motivo[:60]}")
+        elif e["giudizio"] == "sbagliata" and not motivo:
+            sbagliati.append(f"vera sbagliata accettata {e['data']} {e['campo']}")
+    for e in nuove:
+        motivo = verifica(e)
+        if motivo:
+            da_leggere.append(f"{e['data']} {e['campo']}: {motivo[:90]}")
+    vere = elenco
     # una proposta malformata è un rifiuto pulito, e un campo fuori misura si respinge subito
     if not desk.controlla("Il Bund rende il 2,3%.", ["x"], set()) or not desk.controlla(5, "x", set()):
         sbagliati.append("proposta malformata accettata")
@@ -572,7 +644,8 @@ def passo_coerenza():
     det = (f"{len(ferma)} frasi sbagliate fermate, {len(passa)} giuste passate (cifra che cambia soggetto, \"più del\", verso, "
            "periodo, ipotesi, parentesi); rimando a un pezzo che non ne parla; ipotesi nel titolo; il ragionamento dell'oro della "
            f"#031 fermato finché resta e liberato quando cambia; desk: {len(DESK_NO)} cifre spostate respinte, {len(DESK_PASSA)} "
-           f"riscritture buone e {len(vere)} vere passate lungo il percorso intero di verifica, verso/ipotesi/cifra contro dati.json "
+           f"riscritture buone, {sum(e['giudizio'] == 'buona' for e in vere)} vere buone passate e "
+           f"{sum(e['giudizio'] == 'sbagliata' for e in vere)} sbagliate respinte lungo il percorso intero di verifica, verso/ipotesi/cifra contro dati.json "
            "fermati, un fatto unico respinto, un'eco passata, proposte malformate o fuori misura respinte")
     if not ok:
         det = "; ".join(x for x in [
@@ -581,6 +654,12 @@ def passo_coerenza():
             "" if ragiona else f"ragionamento (id {rid}, EUR/USD fermo {eur}, manca {bool(manca)}, resta {resta[:1]}, corretta {corretta[:1]})",
             "" if desk_ok else f"desk ({len(sbagliati)} sbagliati: {sbagliati[:3]}, tolto {tolto}, eco {eco})"] if x)
     esito("Coerenza: il testo regge contro i dati", ok, det)
+    if da_leggere:
+        print(f"[leggi] Coerenza: {len(da_leggere)} riscritture di edizioni fuori da rete/desk_vere.json respinte dal desk di "
+              "oggi o incomplete (giudicale e mettile nell'elenco):")
+        for x in da_leggere[:8]:
+            print("        " + x)
+        NOTE.append(f"desk: {len(da_leggere)} riscritture di edizioni nuove respinte dal desk di oggi, da giudicare")
 
 
 # ---------------------------------------------------------------- 3a. scrittura: lessico di casa e fonti tra parentesi
@@ -1542,7 +1621,13 @@ def passo_ultima_edizione(gia_campioni):
     esito(f"Ultima edizione ({data}): impaginazione con il kit di oggi", r["pagine"] == 6, f"{r['pagine']} pagine")
     voci = json.load(open(os.path.join(REPO, "edizioni.json"), encoding="utf-8"))
     n = next((v["numero"] for v in voci if v["data"] == data), G.numero(dt.date.fromisoformat(data)))
-    stato, out = controlli(lav, r["pdf"], n, senza_indice=not any(v["data"] == data for v in voci))
+    # un'edizione scritta prima di G-45 non ha l'incarico del ragionamento tra i sorgenti: il ragionamento si salta con un
+    # avviso (pubblica.sh archivia coerenza_incarico.json e coerenza.json dal quarto giro di G-45, 27/11)
+    prima_g45 = not os.path.exists(os.path.join(src, "coerenza_incarico.json"))
+    stato, out = controlli(lav, r["pdf"], n, senza_indice=not any(v["data"] == data for v in voci),
+                           env_extra={"GTD_SENZA_RAGIONAMENTO": "1"} if prima_g45 else None)
+    if prima_g45:
+        print(f"[avviso] Ultima edizione ({data}): scritta senza coerenza_incarico.json (prima di G-45), ragionamento non giudicato")
     rossi = [k for k, v in stato.items() if v == "ROSSO"]
     if rossi:
         print(f"[leggi] Ultima edizione ({data}): le regole di oggi fermerebbero {', '.join(rossi)}:")
@@ -1897,7 +1982,8 @@ def passo_pubblicazione(copia):
     fatti = os.path.join(copia, "redazione", "fatti", v["data"] + ".json")
     if os.path.exists(fatti):
         shutil.copy(fatti, os.path.join(lav, "fatti.json"))
-    for nome in (f"edizione_{v['data']}.py", "dati.json"):       # finti sorgenti: devono finire in redazione/sorgenti/
+    # finti sorgenti: devono finire in redazione/sorgenti/, anche incarico e risposta del ragionamento (G-45)
+    for nome in (f"edizione_{v['data']}.py", "dati.json", "coerenza_incarico.json", "coerenza.json"):
         open(os.path.join(lav, nome), "w").write("{}")
     pdf = os.path.join(lav, "copia.pdf")
     shutil.copy(os.path.join(copia, v["file"]), pdf)
@@ -1905,7 +1991,7 @@ def passo_pubblicazione(copia):
                       os.path.join(lav, "fatti.json")], env={"GTD_REPO": copia, "GTD_PROVA": "1"})
     srg = os.path.join(copia, "redazione", "sorgenti", v["data"])
     ok = rc == 0 and "Sito: PROVA - nessun push" in out and "git push origin main" in out \
-        and os.path.exists(os.path.join(srg, "edizione.py")) and os.path.exists(os.path.join(srg, "dati.json"))
+        and all(os.path.exists(os.path.join(srg, f)) for f in ("edizione.py", "dati.json", "coerenza_incarico.json", "coerenza.json"))
     esito("Pubblicazione a secco (pubblica.sh in prova)", ok,
           "comandi git stampati e non eseguiti, sorgenti archiviati" if ok else out.strip().splitlines()[-1][:160])
 
