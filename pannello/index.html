@@ -415,13 +415,15 @@ function cento(v){var t=v.map(Math.floor),r=100-t.reduce(function(a,b){return a+
 function plur(n,a,b){return n==1?a:b}
 
 /* ============ Stato ============ */
-var D=null,ED={},INV={invii:[],regole:{}},app=document.getElementById("app"),tip=document.getElementById("tip"),LIM=mi(S.uscita);
+var D=null,ED={},INV={invii:[],regole:{}},MIN=null,ORO=null,app=document.getElementById("app"),tip=document.getElementById("tip"),LIM=mi(S.uscita);
 var st0={p:"panoramica",per:10,v:"",un:"",mq:"",ev:"ed",sort:{k:"n",dir:-1},sortv:{k:"v",dir:-1},sel:null};
 function leggiHash(){var h=(location.hash||"").slice(1).toLowerCase();var met=h=="metodo";if(h=="versioni")st0.ev="ve";h=ALIAS[h]||h;st0.p=PAG.some(function(p){return p.id==h})?h:"panoramica";return met}
 var apriMetodo=leggiHash();
 function leggi(u){return fetch(u,{cache:"no-store"}).then(function(r){return r.ok?r.json():[]}).catch(function(){return []})}
-Promise.all([leggi("registro.json"),leggi("taratura.json"),leggi("../edizioni.json"),leggi("invii.json"),leggi("piani.json")]).then(function(r){
+Promise.all([leggi("registro.json"),leggi("taratura.json"),leggi("../edizioni.json"),leggi("invii.json"),leggi("piani.json"),leggi("minuti.json"),leggi("../api/orologio")]).then(function(r){
   if(r[3]&&Array.isArray(r[3].invii))INV=r[3];
+  /* la macchina (G-58, G-12): minuti di GitHub stimati da redazione/minuti.py, stato dell'orologio dei controlli dal Worker */
+  if(r[5]&&typeof r[5].percentuale=="number")MIN=r[5];ORO=(r[6]&&typeof r[6].sano=="boolean")?r[6]:false;
   (Array.isArray(r[2])?r[2]:[]).forEach(function(e){if(e&&e.numero)ED[e.numero]=e});
   if(!Array.isArray(r[0])||!r[0].length){document.getElementById("sottotitolo").textContent="";app.innerHTML='<div class="card vuoto">Nessuna edizione registrata. La prima riga arriva con la prossima uscita.</div>';return}
   prepara(r[0],Array.isArray(r[1])?r[1]:[],Array.isArray(r[4])?r[4]:[]);disegna();if(apriMetodo)metodo()});
@@ -622,7 +624,16 @@ function listaAllarmi(w){var a=w.a,F=w.F,L=[];
   var sc=st(a.sett,S.consumo,1);if(sc&&sc!="ok")L.push({s:sc,t:"Consumo sopra la soglia",d:"≈ "+it(a.sett,0)+" punti "+esc(piano(a).nome)+" a settimana, soglia "+S.consumo[0],go:"consumo"});
   MISURE.forEach(function(m){if(!m.s)return;var s=st(a[m.k],m.s,m.basso);if(s&&s!="ok"){var ul=F[F.length-1][m.k];
     L.push({s:s,t:m.n+(m.basso?" sopra la soglia":" sotto la soglia"),d:"Media "+fv(a[m.k],m.d,m.u)+", soglia "+it(m.s[0],0)+m.u+(isn(ul)?" · ultima "+fv(ul,m.d,m.u):""),go:"qualita",mq:m.k})}});
+  macchina().forEach(function(x){L.push(x)});
   var o={ko:0,att:1};L.sort(function(x,y){return o[x.s]-o[y.s]});return L}
+/* La macchina: l'orologio dei controlli (../api/orologio, G-58) e i minuti di GitHub (minuti.json, G-12: allarme al 75%
+   della quota; finché il repository è pubblico non si pagano, quindi solo "da guardare"). Valgono oggi, non nel periodo. */
+function macchina(){var L=[];
+  if(ORO===false)L.push({s:"att",t:"Orologio dei controlli: nessuna risposta",d:"gommberg.com/api/orologio non risponde: le sveglie dei controlli non si possono verificare",go:"panoramica"});
+  else if(ORO&&!ORO.sano){var m=!ORO.segreto?"manca il segreto GITHUB_ACTIONS_TOKEN su Cloudflare":(ORO.errore||(ORO.sveglie||[]).filter(function(x){return !x.ok}).map(function(x){return x.flusso+" "+String(x.dovuta||"").slice(11)+": "+(x.esito?x.esito.stato:"?")}).join(" · ")||"acceso, ancora nessuna partenza riuscita");
+    L.push({s:"ko",t:"Orologio dei controlli fermo",d:esc(m),go:"panoramica"})}
+  if(MIN&&MIN.percentuale>=(MIN.allarme||75))L.push({s:MIN.privato?"ko":"att",t:"Minuti di GitHub: "+it(MIN.percentuale,0)+"% della quota",d:"stima dai giri: "+it(MIN.minuti,0)+" su "+MIN.quota+" a "+esc(MIN.mese)+(MIN.privato?" · finita la quota i flussi si fermano":" · repository pubblico: per ora non si pagano"),go:"panoramica"});
+  return L}
 
 /* ================= PANORAMICA ================= */
 function panoramica(w,allarmi){var a=w.a,b=w.b||{},F=w.F,Q=piano(a),P=Q.nome,u=F[F.length-1];

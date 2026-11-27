@@ -10,7 +10,8 @@ La colonna accanto all'edizione (homepage) e la sezione nelle pagine `e/NNN.html
 | Database | D1 `gommberg-lettori` (Cloudflare) | Tabelle `commenti`, `piaciuti`, `segnalazioni`, `voti`, `nomi`, `config` (il segreto delle firme). Le crea il servizio al primo uso |
 | Sezione | `assets/lettori.js`, `assets/lettori.css` | La stessa in homepage e nelle edizioni: `LETTORI.monta(elemento, edizione)` |
 | Regole | `regole.html` | La pagina che la sezione collega accanto a Privacy: come funziona, il nome, che cosa si scrive, le segnalazioni |
-| Avviso | `redazione/sito/segnalazioni.py`, `.github/workflows/segnalazioni.yml` | Ogni ora legge i commenti segnalati e apre una segnalazione di GitHub assegnata a Paolo |
+| Avviso | `redazione/sito/segnalazioni.py`, `.github/workflows/segnalazioni.yml` | Ogni 3 ore tra le 8 e le 23 (sveglia dell'orologio dei controlli, `orologio.js`, G-58) legge i commenti segnalati e apre una segnalazione di GitHub assegnata a Paolo |
+| Orologio | `redazione/sito/orologio.js` (nello stesso Worker), `orologio.py`, `prova_orologio.mjs` | Il cron del Worker lancia i controlli a orario; lo stato è su `/api/orologio`. Mappa e passaggio: `ARCHITETTURA.md` §1 |
 | Collaudo | `redazione/sito/prova_lettori.mjs`, `d1_finto.mjs`, `collaudo.py` (`passo_lettori`) | Il servizio vero contro un D1 finto, la sintassi, la configurazione e l'avviso |
 | Prova in locale | `redazione/sito/servi_lettori.mjs` | Il sito in locale con il servizio vero e il D1 finto, per provare e fotografare la sezione senza pubblicare |
 
@@ -44,12 +45,13 @@ Gettone firmato dal servizio (niente invii da programmi che non hanno aperto la 
 
 ## Segnalazioni: come lo viene a sapere Paolo
 
-Quando un lettore tocca Segnala, entro un'ora GitHub manda a Paolo un'email: `segnalazioni.yml` legge `/api/lettori/segnalazioni` (numero del commento, edizione, quante reti, se è già nascosto; mai il testo) e `segnalazioni.py` tiene una segnalazione di GitHub per commento, assegnata a lui, con l'etichetta `gommunity`. Dentro ci sono i tre comandi pronti: leggere il commento, toglierlo, oppure lasciarlo azzerando le segnalazioni. Il testo non è mai nella segnalazione perché il repository è pubblico. Nessun segreto: basta il token del giro.
+Quando un lettore tocca Segnala, al giro successivo (ogni 3 ore tra le 8 e le 23 di Roma: 8:15, 11:15, 14:15, 17:15, 20:15, 23:15; una segnalazione fatta di notte arriva alle 8:15) GitHub manda a Paolo un'email: `segnalazioni.yml` legge `/api/lettori/segnalazioni` (numero del commento, edizione, quante reti, se è già nascosto; mai il testo) e `segnalazioni.py` tiene una segnalazione di GitHub per commento, assegnata a lui, con l'etichetta `gommunity`. Dentro ci sono i tre comandi pronti: leggere il commento, toglierlo, oppure lasciarlo azzerando le segnalazioni. Il testo non è mai nella segnalazione perché il repository è pubblico. Nessun segreto: basta il token del giro.
 
 - Un commento resta nell'elenco per 14 giorni dall'ultima segnalazione, finché la redazione non lo toglie o non azzera le segnalazioni. L'elenco mette prima i commenti già nascosti, poi dalla segnalazione più recente.
 - Se dopo l'avviso altri lettori lo segnalano e si nasconde, la segnalazione di GitHub riceve una riga e il titolo finisce con "- nascosto". Se Paolo l'aveva chiusa e il commento viene segnalato di nuovo, si riapre.
 - Contro le raffiche: una rete manda al massimo 5 segnalazioni al giorno (`segnala_giorno`) e un giro apre al massimo 5 segnalazioni nuove; le altre al giro dopo.
-- Se l'avviso stesso non funziona (il sito non dà l'elenco, GitHub rifiuta), lo scrive nel riepilogo del giro e riprova; il giro fallisce, e GitHub scrive a Paolo, solo una volta al giorno (il giro delle 10 di Roma) o se è lanciato a mano.
+- Se l'avviso stesso non funziona (il sito non dà l'elenco, GitHub rifiuta), lo scrive nel riepilogo del giro e riprova; il giro fallisce, e GitHub scrive a Paolo, solo una volta al giorno (il giro tra le 11 e le 14 di Roma: alle 11:15 con l'orologio, alle 12:15 con la riserva di GitHub d'estate) o se è lanciato a mano.
+- Se è l'orologio a fermarsi (segreto mancante o scaduto, GitHub che rifiuta), lo dicono il controllo del mattino e il pannello (`/api/orologio`).
 
 Il flusso gira solo dal ramo principale. **Alla prima messa in linea va provato a mano**: Actions, Segnalazioni della Gommunity, Run workflow (verde con "Nessun commento segnalato"); poi una segnalazione vera su un commento di prova, per vedere arrivare l'email. In locale: `python3 redazione/sito/segnalazioni.py --prova` (stampa senza toccare GitHub).
 

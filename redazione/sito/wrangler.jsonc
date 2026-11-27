@@ -1,5 +1,6 @@
 // gommberg.com su Cloudflare Workers (piano gratuito): i file statici del sito, più un solo pezzo di codice,
-// redazione/sito/lettori.js (La Gommunity, G-13), che Cloudflare chiama solo per gli indirizzi /api/*.
+// redazione/sito/lettori.js (La Gommunity, G-13, con orologio.js: l'orologio dei controlli, G-58), che Cloudflare
+// chiama solo per gli indirizzi /api/* e per il cron qui sotto.
 // Lo usa .github/workflows/sito.yml; la cartella _sito la prepara redazione/sito/costruisci.py.
 // Se la pubblicazione con il codice non riesce, sito.yml ripubblica i soli file statici (senza "main" e senza database):
 // l'edizione esce comunque, la Gommunity dice che la discussione non si carica.
@@ -30,6 +31,11 @@
   "routes": [
     { "pattern": "gommberg.com", "custom_domain": true }
   ],
+  // l'orologio dei controlli (G-58, orologio.js): un solo cron, in UTC, ogni quarto d'ora; che cosa far partire e
+  // quando lo decide il codice sull'ora di Roma. Piano gratuito: 5 cron per account, qui se ne usa uno. Ogni
+  // pubblicazione sostituisce i cron con questi (non si cambiano dal pannello di Cloudflare). Il segreto
+  // GITHUB_ACTIONS_TOKEN lo mette Paolo dal pannello e nessun deploy lo cancella; GITHUB_REPOSITORY lo passa sito.yml.
+  "triggers": { "crons": ["*/15 * * * *"] },
   // i log del codice (errori del servizio dei lettori) si leggono da Cloudflare, Workers, gommberg, Observability
   "observability": { "enabled": true }
 }
