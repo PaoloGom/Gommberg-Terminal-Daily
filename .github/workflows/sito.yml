@@ -1,5 +1,5 @@
 # gommberg.com. A ogni push su main la parte pubblica del sito va su Cloudflare (Workers, piano gratuito: file statici
-# più il servizio dei lettori, redazione/sito/lettori.js, solo per /api/*); a ogni push su prova o su un ramo
+# più il servizio dei lettori, redazione/sito/lettori.js, solo per /api/*, e l'orologio dei controlli, orologio.js); a ogni push su prova o su un ramo
 # anteprima-<nome> va all'anteprima <ramo>-gommberg.<sottodominio>.workers.dev (senza statistiche, noindex).
 # Se la pubblicazione con il servizio dei lettori non riesce (o il database D1 non è ancora stato creato), si pubblicano
 # i soli file statici: l'edizione esce sempre, la colonna dei lettori dice che la discussione non si carica.
@@ -56,13 +56,17 @@ jobs:
         run: |
           if [ "$PRINCIPALE" = true ]; then python3 redazione/sito/costruisci.py _sito; else python3 redazione/sito/costruisci.py _sito --anteprima; fi | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Configurazione di riserva (soli file statici)
-        # la stessa di wrangler.jsonc senza il codice dei lettori e senza il database: serve se la pubblicazione
-        # completa non riesce, perché l'edizione del giorno deve arrivare comunque su gommberg.com
+        # la stessa di wrangler.jsonc senza il codice dei lettori, senza il database e senza il cron dell'orologio: serve
+        # se la pubblicazione completa non riesce, perché l'edizione del giorno deve arrivare comunque su gommberg.com.
+        # Senza "triggers" Cloudflare lascia attivo il cron già pubblicato (lo dice la sua documentazione), che però gira
+        # senza codice e non fa partire nulla: l'orologio dei controlli è fermo, /api/orologio non risponde e il controllo
+        # del mattino lo segnala. Non si scrive "crons": [] di proposito: la riserva deve solo far uscire l'edizione, e un
+        # cambio di cron in più è un modo in più di fallire; il cron torna con la prima pubblicazione completa.
         run: |
           python3 - <<'PY'
           import json, re
           c = json.loads(re.sub(r"^\s*//.*$", "", open("redazione/sito/wrangler.jsonc", encoding="utf-8").read(), flags=re.M))
-          for k in ("main", "d1_databases", "observability"):
+          for k in ("main", "d1_databases", "observability", "triggers"):
               c.pop(k, None)
           for k in ("run_worker_first", "binding"):
               c["assets"].pop(k, None)
@@ -80,6 +84,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           RAMO: ${{ github.ref_name }}
+          REPOSITORY: ${{ github.repository }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
             echo "::notice::Segreti di Cloudflare non ancora impostati: niente pubblicazione su gommberg.com."
@@ -91,7 +96,9 @@ jobs:
             # Se con il servizio dei lettori non riesce due volte, il terzo tentativo pubblica i soli file statici.
             for N in 1 2 3; do
               C="$CONFIG"; [ "$N" = 3 ] && C="$RISERVA"
-              if npx --yes wrangler@4.165.0 deploy -c "$C"; then
+              # GITHUB_REPOSITORY: il nome del repository per l'orologio dei controlli (orologio.js), l'unico posto dove
+              # sta; se il repository cambia nome (G-12), questa pubblicazione lo aggiorna da sola
+              if npx --yes wrangler@4.165.0 deploy -c "$C" --var "GITHUB_REPOSITORY:$REPOSITORY"; then
                 [ "$C" = "$RISERVA" ] && [ "$CONFIG" != "$RISERVA" ] && echo "::warning::Pubblicati i soli file statici: il servizio dei lettori non è in linea (vedi i tentativi sopra)."
                 break
               fi
