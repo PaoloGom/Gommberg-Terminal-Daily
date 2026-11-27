@@ -36,9 +36,12 @@ L'ordine, e perché (mai due mail allo stesso iscritto):
   - nel dubbio non si invia: risposta fuori forma, filtro per data ignorato, troppi nuovi (oltre MAX_NUOVI), elenco
     non letto per intero, tempo del giro quasi finito: errore, nessun invio.
   - orari: si spedisce tra le 8:00 e le 20:59 (regole di dem.py) e mai nella fascia dell'edizione (da 75 minuti prima a
-    45 minuti dopo giorni.ORA_USCITA: 8:30-10:30 con l'uscita alle 9:45). Fuori orario il giro lo scrive nel log e non
-    spedisce: ci pensa il giro dopo. Per accorgersi di due sere saltate di fila lascia in Kit un'etichetta vuota
-    "gommberg-benvenuto-saltato-AAAA-MM-GG": se c'è già quella di ieri, il giro esce con 1 e dem.yml apre la segnalazione.
+    45 minuti dopo giorni.ORA_USCITA: 8:30-10:30 con l'uscita alle 9:45). Fuori orario il giro lo scrive nel registro
+    del giro e non spedisce: ci pensa il giro dopo (con la finestra di 7 giorni una sera saltata non fa perdere nessuno).
+    Se un iscritto confermato riceve il benvenuto più di ATTESA_AVVISO (3) giorni dopo l'iscrizione, il giro spedisce
+    e poi esce con 1 (Avviso): dem.yml apre la segnalazione, perché vuol dire giri saltati (o una conferma tardiva).
+  - tempo: la programmazione parte solo se nel passo di dem.yml restano RISERVA secondi, il tempo di rileggere e, se
+    serve, togliere l'invio: la pulizia di un invio sbagliato viene prima della scadenza del passo.
 
 Uso:   python3 redazione/benvenuto.py controlla        il testo e la mail composta, senza rete (lo fa il collaudo)
        python3 redazione/benvenuto.py anteprima        scrive _benvenuto/benvenuto.html, la mail come la vedrà il lettore
@@ -82,26 +85,36 @@ UTC = timezone.utc
 
 FATTO = "gommberg-benvenuto"       # etichetta permanente: benvenuto già fatto (o iscritto segnato senza mail)
 PROVA = FATTO + "-prova-"          # gruppi e invii della prova dal vivo
-SALTATO = FATTO + "-saltato-"      # etichetta vuota: il giro di quel giorno è saltato per l'orario
 ACCESO_DAL = "2026-11-28"          # accensione (ora di Roma, dalla mezzanotte): solo chi si iscrive da qui riceve il benvenuto
 FINESTRA_GIORNI = 7                # iscritti arrivati negli ultimi 7 giorni (chi conferma tardi, giri persi)
+ATTESA_AVVISO = 3                  # chi riceve il benvenuto oltre 3 giorni dopo l'iscrizione: avviso (giri saltati?)
 MAX_NUOVI = 100                    # oltre, qualcosa non va (un filtro ignorato da Kit?): nessun invio
 ATTESA_MINUTI = 10                 # l'invio parte dopo: il tempo di toglierlo se Kit lo registra male
 ATTESA_PROVA = 2
 FASCIA = (75, 45)                  # minuti prima e dopo l'uscita in cui non si spedisce
 LETTURE = 3                        # tentativi per ogni lettura su un guasto momentaneo (429, 5xx, rete)
 ATTESA_LETTURE = 10                # secondi tra un tentativo e l'altro (il collaudo la azzera)
-SCADENZA = 150                     # secondi per tutto il giro (il job di dem.yml ha 5 minuti in tutto)
+SCADENZA = 80                      # secondi per il lavoro normale del giro (letture, etichette, bozza)
+PASSO = 230                        # secondi del passo "Benvenuto" di dem.yml (timeout-minutes: 4), contati dall'avvio
+TEMPO_CHIAMATA = 30                # tetto di una chiamata a Kit (il timeout di newsletter.kit)
+RISERVA = 7 * TEMPO_CHIAMATA       # programmazione + 2 riletture + pulizia (2 DELETE, 1 PUT in bozza, 1 rilettura):
+                                   # la PUT parte solo se nel passo restano questi secondi, così la pulizia di un
+                                   # invio sbagliato finisce sempre prima della scadenza del passo
 MARGINE = 35                       # sotto questi secondi rimasti non si scrive più nulla in Kit
 MAX_PAGINE = 20
 PER_PAGINA = 500
 TRATTINI_LUNGHI = re.compile("[–—]")
 orologio = time.monotonic          # il collaudo lo sostituisce
 _scadenza = None
+_avvio = None
 
 
 class Fermo(Exception):
     """Il giro si ferma senza inviare nulla. Il messaggio dice perché e che cosa è già stato fatto."""
+
+
+class Avviso(Exception):
+    """Il giro ha fatto il suo lavoro, ma c'è qualcosa da guardare (esce con 1: segnalazione)."""
 
 
 # ------------------------------------------------------------------ orari
@@ -164,8 +177,13 @@ def problemi_testo():
 
 # ------------------------------------------------------------------ Kit
 def avvia_scadenza():
-    global _scadenza
-    _scadenza = orologio() + SCADENZA
+    global _scadenza, _avvio
+    _avvio = orologio()
+    _scadenza = _avvio + SCADENZA
+
+
+def resta_nel_passo():
+    return float("inf") if _avvio is None else PASSO - (orologio() - _avvio)
 
 
 def rimasto():
@@ -329,12 +347,16 @@ def broadcast_di(risposta):
     return b if isinstance(b, dict) else None
 
 
-def rileggi(bid):
-    """L'invio come lo vede Kit ora (GET /broadcasts/{id}), o None se non si legge. Lettura di pulizia: anche a tempo scaduto."""
-    try:
-        return broadcast_di(leggi(f"/broadcasts/{bid}", pulizia=True))
-    except Fermo:
-        return None
+def rileggi(bid, tentativi=2):
+    """L'invio come lo vede Kit ora (GET /broadcasts/{id}), o None se non si legge. Lettura di pulizia: anche a tempo
+    scaduto, al massimo `tentativi` chiamate (il tempo della pulizia è contato in RISERVA)."""
+    for _ in range(tentativi):
+        stato, corpo = kit_sicuro("GET", f"/broadcasts/{bid}")
+        if stato == 200:
+            return broadcast_di(corpo)
+        if not (stato == 0 or stato == 429 or stato >= 500):
+            return None
+    return None
 
 
 def com_e(b, gruppo, invio):
@@ -351,19 +373,17 @@ def com_e(b, gruppo, invio):
 def togli(bid, dati=None):
     """Toglie l'invio. Se Kit non lo toglie, ripiego: lo riporta in bozza (PUT con send_at null) e verifica rileggendo.
     Torna "tolto", "in bozza" o "" (né l'uno né l'altro: URGENTE). Lavora anche a tempo scaduto."""
-    for _ in range(LETTURE):
+    for _ in range(2):
         stato, _ = kit_sicuro("DELETE", f"/broadcasts/{bid}")
         if stato in (200, 204, 404):
             return "tolto"
         if not (stato == 0 or stato == 429 or stato >= 500):
             break
     if dati is not None:
-        ferma = dict(dati, send_at=None)
-        for _ in range(2):
-            kit_sicuro("PUT", f"/broadcasts/{bid}", ferma)
-            b = rileggi(bid)
-            if b is not None and not b.get("send_at"):
-                return "in bozza"
+        kit_sicuro("PUT", f"/broadcasts/{bid}", dict(dati, send_at=None))
+        b = rileggi(bid, tentativi=1)
+        if b is not None and not b.get("send_at"):
+            return "in bozza"
     return ""
 
 
@@ -426,6 +446,8 @@ def programma(bid, gruppo_id, dati, invio, senza):
     """Programma la bozza (già verificata) e la rilegge: qualunque risposta alla PUT (anche nessuna) si chiarisce con
     la rilettura. Se non è esattamente come voluta, si toglie (o si riporta in bozza)."""
     voluti = dict(dati, send_at=invio.astimezone(UTC).isoformat(timespec="seconds"))
+    if resta_nel_passo() < RISERVA:      # non c'è più il tempo per rimediare a una programmazione sbagliata
+        raise Fermo(f"tempo del passo insufficiente per programmare in sicurezza: {esito_tolto(bid, dati)}, nessun invio, {senza}")
     stato, risposta = kit_sicuro("PUT", f"/broadcasts/{bid}", voluti)      # anche a tempo scaduto: poi si rilegge
     riletta = rileggi(bid)
     risposta_b = broadcast_di(risposta)
@@ -440,21 +462,10 @@ def programma(bid, gruppo_id, dati, invio, senza):
 
 # ------------------------------------------------------------------ i giri
 def salto(adesso):
-    """Il giro salta per l'orario: lo scrive e lascia in Kit un'etichetta vuota del giorno. Se c'è quella di ieri, due
-    sere di fila: Fermo (dem.yml apre la segnalazione). Se Kit non risponde, solo la riga nel registro."""
+    """Il giro salta per l'orario: lo scrive nel registro del giro e basta. Con la finestra di 7 giorni una sera saltata
+    non fa perdere nessuno; chi aspetta da più di ATTESA_AVVISO giorni lo dice il giro dopo (Avviso)."""
     print(f"Benvenuto: giro saltato per l'orario alle {adesso:%H:%M} (si spedisce tra le {dem.ORA_DA}:00 e le "
           f"{dem.ORA_A - 1}:59, mai nella fascia dell'edizione): ci pensa il prossimo giro")
-    try:
-        nomi = {str(x.get("name") or "").lower() for x in leggi_tutto(f"/tags?per_page={PER_PAGINA}", "tags")}
-        ieri = SALTATO + (adesso.date() - timedelta(days=1)).isoformat()
-        oggi = SALTATO + adesso.date().isoformat()
-        if oggi not in nomi:
-            chiama("POST", "/tags", {"name": oggi})
-    except Fermo:
-        return 0
-    if ieri in nomi:
-        raise Fermo(f"il giro del benvenuto è saltato per l'orario anche ieri ({ieri}): due sere di fila senza benvenuto. "
-                    "Guarda a che ora parte dem.yml")
     return 0
 
 
@@ -476,6 +487,13 @@ def giro(esegui=True, adesso=None):
     nuovi = [s for s in candidati if s["id"] not in gia and FATTO not in s["etichette"]]
     print(f"Benvenuto: {len(candidati)} iscritti confermati arrivati negli ultimi {FINESTRA_GIORNI} giorni (dal {ACCESO_DAL}), "
           f"{len(candidati) - len(nuovi)} già salutati, {len(nuovi)} da salutare")
+    soglia = adesso.astimezone(UTC) - timedelta(days=ATTESA_AVVISO)
+    in_attesa = [s for s in nuovi if s["creato"] < soglia]
+    tardi = (f"{len(in_attesa)} iscritt{'o' if len(in_attesa) == 1 else 'i'} confermat{'o' if len(in_attesa) == 1 else 'i'} "
+             f"aspettava{'' if len(in_attesa) == 1 else 'no'} il benvenuto da più di {ATTESA_AVVISO} giorni dall'iscrizione "
+             "(giri saltati, o conferma arrivata tardi): guarda che dem.yml parta ogni sera") if in_attesa else ""
+    if tardi:
+        print(f"AVVISO: {tardi}")
     if not nuovi:
         return 0
     if len(nuovi) > MAX_NUOVI:
@@ -502,6 +520,8 @@ def giro(esegui=True, adesso=None):
     programma(bid, gruppo, dati, invio, f"{len(attesi)} iscritti segnati senza mail")
     print(f"OK: benvenuto programmato (invio {bid}) alle {invio.astimezone(ROMA):%H:%M} per {len(attesi)} "
           f"iscritt{'o' if len(attesi) == 1 else 'i'}, gruppo {nome}")
+    if tardi:
+        raise Avviso(tardi)
     return 0
 
 
@@ -595,7 +615,7 @@ def main():
             prova(sys.argv[2])
         else:
             giro(esegui=modo == "invia")
-    except Fermo as e:
+    except (Fermo, Avviso) as e:
         print(f"DA GUARDARE: benvenuto - {e}")
         sys.exit(1)
 

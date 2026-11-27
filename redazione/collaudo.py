@@ -1246,6 +1246,8 @@ def passo_benvenuto():
                 return BV.giro(esegui=True, adesso=adesso), o.getvalue()
         except BV.Fermo as e:
             return "fermo", str(e)
+        except BV.Avviso as e:
+            return "avviso", str(e)
         except Interrotto:
             return "interrotto", ""
         except Exception as e:  # noqa: BLE001
@@ -1290,8 +1292,7 @@ def passo_benvenuto():
         # 3. punto 6: chi si iscrive e conferma giorni dopo, o perde giri, lo riceve entro 7 giorni; dopo 7 giorni no
         DOPO = SERA + timedelta(days=20)
         k = KitFinto([iscritto(1, 24 * 6, quando_=DOPO), iscritto(2, 24 * 8, quando_=DOPO)])
-        giro(k, DOPO)
-        if k.posta() != {1: 1, 2: 0}:
+        if giro(k, DOPO)[0] != "avviso" or k.posta() != {1: 1, 2: 0}:
             male.append(f"finestra di 7 giorni: posta {k.posta()} (attesa: 6 giorni fa sì, 8 giorni fa no)")
         # 4. zero nuovi iscritti: nessuna scrittura in Kit
         k = KitFinto(vecchi())
@@ -1457,11 +1458,19 @@ def passo_benvenuto():
             r, msg = giro(k, quando_)
             if r != 0 or k.invii_scritti() or any("/subscribers/" in c[1] for c in k.scritture()) or "saltato per l'orario" not in msg:
                 male.append(f"alle {nome}: il giro ha scritto un invio o un'etichetta a un iscritto, o non lo dice nel registro")
-        k = KitFinto([iscritto(1, 1)])
+        #     due sere saltate: solo la riga nel registro, nessuna scrittura in Kit; il giro dopo spedisce e avvisa chi
+        #     aspettava da più di 3 giorni (segnalazione), non chi aspetta da 3 giorni o meno
+        k = KitFinto([iscritto(1, 24 * 3 - 1), iscritto(2, 24 * 2)])
         r1, _ = giro(k, SERA.replace(hour=23, minute=0))
-        r2, msg = giro(k, (SERA + timedelta(days=1)).replace(hour=23, minute=0))
-        if r1 != 0 or r2 != "fermo" or "due sere" not in msg:
-            male.append("due sere di fila saltate per l'orario: il giro non lo segnala")
+        r2, _ = giro(k, (SERA + timedelta(days=1)).replace(hour=23, minute=0))
+        if r1 != 0 or r2 != 0 or k.scritture():
+            male.append("giri saltati per l'orario: scritture in Kit o uscita diversa da 0")
+        r3, msg = giro(k, SERA + timedelta(days=2))
+        if r3 != "avviso" or "più di 3 giorni" not in msg or k.posta() != {1: 1, 2: 1}:
+            male.append(f"chi aspetta da più di 3 giorni: benvenuto non spedito o nessun avviso ({r3}, {k.posta()})")
+        k = KitFinto([iscritto(1, 24 * 3 - 1)])
+        if giro(k)[0] != 0:
+            male.append("avviso per chi aspetta da meno di 3 giorni")
         k = KitFinto([iscritto(1, 1)])
         if giro(k, SERA.replace(hour=10, minute=31))[0] != 0 or k.posta() != {1: 1}:
             male.append("alle 10:31 (fuori dalla fascia) il benvenuto non parte")
@@ -1481,6 +1490,23 @@ def passo_benvenuto():
             if k.scritture():
                 male.append("tempo quasi finito: scritture in Kit")
         BV.orologio, BV._scadenza = vero_orologio, None
+        #     e la programmazione parte solo se nel passo resta il tempo per rimediare: altrimenti la bozza si toglie
+        k = KitFinto([iscritto(1, 2)])
+        orologio_finto = {"t": 0.0}
+
+        def kit_lento(metodo, percorso, dati=None, _k=k):
+            orologio_finto["t"] += 3.0                    # ogni chiamata 3 secondi: alla PUT ne sono passati più di 20
+            return _k(metodo, percorso, dati)
+        BV.nl.kit, BV.orologio = kit_lento, (lambda: orologio_finto["t"])
+        BV.avvia_scadenza()
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                BV.giro(esegui=True, adesso=SERA)
+            male.append("passo quasi finito: la programmazione è partita lo stesso")
+        except BV.Fermo:
+            if any(c[0] == "PUT" for c in k.chiamate) or k.invii:
+                male.append("passo quasi finito: PUT fatta o bozza rimasta")
+        BV.orologio, BV._scadenza, BV._avvio = vero_orologio, None, None
         # 16. il piano non scrive nulla
         k = KitFinto([iscritto(1, 2), iscritto(2, 3)])
         BV.nl.kit = k
@@ -1529,13 +1555,13 @@ def passo_benvenuto():
         if k.invii or max(k.posta().values()) > 0:
             male.append("bozza di prova registrata a tutti: non tolta, o programmata da prova")
     finally:
-        BV.nl.kit, BV.ATTESA_LETTURE, BV.orologio, BV._scadenza = vero, vera_attesa, vero_orologio, None
+        BV.nl.kit, BV.ATTESA_LETTURE, BV.orologio, BV._scadenza, BV._avvio = vero, vera_attesa, vero_orologio, None, None
 
     # il passo nel giro della sera, l'urgenza con la sua segnalazione, il postino delle mail straordinarie che non tocca i benvenuti
     flusso = open(os.path.join(REPO, ".github", "workflows", "dem.yml"), encoding="utf-8").read()
     if "redazione/benvenuto.py" not in flusso or "github.event_name != 'push'" not in flusso:
         male.append("dem.yml: manca il passo Benvenuto (solo nel giro della sera)")
-    if "grep -q URGENTE esito.txt" not in flusso:
+    if "grep -q URGENTE benvenuto.txt" not in flusso:
         male.append("dem.yml: l'URGENTE del benvenuto non apre una segnalazione sua")
     import dem as DM
     if "gommberg-benvenuto-x".startswith(DM.ETICHETTA):
@@ -1557,7 +1583,8 @@ def passo_benvenuto():
           "giro normale con accensione e finestra di 7 giorni, giri successivi, zero nuovi, già etichettato, 5xx, rete muta, "
           "risposte illeggibili e fuori forma, filtro per data ignorato, troppi, bozza a tutti (anche con risposta che mente) "
           "tolta, creazione incerta cercata e tolta, programmazione sbagliata/incerta riletta e tolta, ripiego in bozza e "
-          "URGENTE, giro interrotto in due punti, orari e due sere saltate, tempo scaduto, piano, bozza e prova dal vivo")
+          "URGENTE, giro interrotto in due punti, orari e avviso per chi aspetta da più di 3 giorni, tempo scaduto e riserva per la "
+          "pulizia, piano, bozza e prova dal vivo")
 
 
 # ---------------------------------------------------------------- 4. rete di non regressione

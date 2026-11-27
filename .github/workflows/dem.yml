@@ -52,10 +52,12 @@ jobs:
       # automazioni). Solo nel giro della sera (sveglia o lancio a mano), mai sui push; gira anche se il passo di sopra
       # è fallito (sono due lavori diversi); da un ramo che non è main solo il controllo del testo, senza rete.
       # Minuti di GitHub: qualche secondo per giro dentro un job che c'è già (circa 30 giri al mese): da 0 a 30 minuti al
-      # mese in più, 0 finché il job resta sotto il minuto (un job conta almeno un minuto).
+      # mese in più, 0 finché il job resta sotto il minuto (un job conta almeno un minuto). Il limite di 4 minuti serve
+      # solo a Kit che non risponde: benvenuto.py programma un invio solo se restano i secondi per rileggerlo e
+      # toglierlo, così la pulizia finisce prima della scadenza; un giro così costa al massimo 4 minuti in più.
       - name: Benvenuto
         if: ${{ !cancelled() && github.event_name != 'push' && env.SALTA != 'si' }}
-        timeout-minutes: 3
+        timeout-minutes: 4
         env:
           KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
           SCELTO: ${{ github.event.inputs.modo || 'sincronizza' }}
@@ -63,7 +65,7 @@ jobs:
           case "$SCELTO" in sincronizza) MODO=invia ;; piano) MODO=piano ;; *) MODO=controlla ;; esac
           [ "$GITHUB_REF" = "refs/heads/main" ] || MODO=controlla
           echo "Benvenuto, modo: $MODO"
-          python3 redazione/benvenuto.py "$MODO" 2>&1 | tee -a esito.txt | tee -a "$GITHUB_STEP_SUMMARY"
+          python3 redazione/benvenuto.py "$MODO" 2>&1 | tee benvenuto.txt | tee -a esito.txt | tee -a "$GITHUB_STEP_SUMMARY"
           exit "${PIPESTATUS[0]}"
       - name: Segnalazione a Paolo
         if: failure() && github.ref == 'refs/heads/main'
@@ -86,8 +88,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if [ -f esito.txt ] && grep -q URGENTE esito.txt; then
-            grep URGENTE esito.txt > urgente.txt
+          if [ -f benvenuto.txt ] && grep -q URGENTE benvenuto.txt; then
+            grep URGENTE benvenuto.txt > urgente.txt
             gh issue create --title "URGENTE: invio del benvenuto da fermare a mano in Kit" \
               --assignee "${{ github.repository_owner }}" --body-file urgente.txt \
               || echo "::error::URGENTE: invio del benvenuto da fermare a mano in Kit (segnalazione non creata)"
