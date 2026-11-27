@@ -79,3 +79,16 @@ jobs:
             gh issue create --title "$T" --assignee "${{ github.repository_owner }}" --body-file esito.txt \
               || echo "::warning::Segnalazione non creata: resta l'avviso di GitHub per il giro fallito."
           fi
+      # G-43: un invio del benvenuto che non si è potuto né togliere né riportare in bozza può partire con destinatari
+      # sbagliati. Questa segnalazione si apre SEMPRE, anche se ce n'è già una aperta, perché è da fare subito.
+      - name: Urgenza benvenuto
+        if: failure() && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -f esito.txt ] && grep -q URGENTE esito.txt; then
+            grep URGENTE esito.txt > urgente.txt
+            gh issue create --title "URGENTE: invio del benvenuto da fermare a mano in Kit" \
+              --assignee "${{ github.repository_owner }}" --body-file urgente.txt \
+              || echo "::error::URGENTE: invio del benvenuto da fermare a mano in Kit (segnalazione non creata)"
+          fi

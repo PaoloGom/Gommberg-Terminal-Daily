@@ -1069,14 +1069,16 @@ def passo_dem():
 # ---------------------------------------------------------------- 3g. benvenuto ai nuovi iscritti (G-43)
 def passo_benvenuto():
     """La mail di benvenuto: testo in regola e ora di uscita in un posto solo; il giro con un Kit finto che risponde bene,
-    che sbaglia (5xx, rete muta, risposta fuori forma, filtro ignorato, invio registrato male) e nei casi difficili
-    (zero nuovi, già salutati, uno arrivato 3 giorni fa, due giri nello stesso giorno, giro interrotto a metà): mai due
-    mail allo stesso iscritto, mai un invio senza il filtro sul gruppo, nel dubbio nessun invio (senza rete)."""
+    che sbaglia (5xx, rete muta, risposte illeggibili o fuori forma, filtro ignorato o cambiato, risposte che mentono,
+    invii che non si tolgono) e nei casi difficili (zero nuovi, già salutati, finestra di 7 giorni e accensione, due giri
+    nello stesso giorno, giro interrotto a metà, sere saltate per l'orario): mai due mail allo stesso iscritto, mai un
+    invio che parte con destinatari diversi dal gruppo, nel dubbio nessun invio (senza rete)."""
     rc, out = esegui([sys.executable, os.path.join(R, "benvenuto.py"), "controlla"])
     esito("Benvenuto: testo della mail", rc == 0, out.strip().splitlines()[-1][:200] if out.strip() else "nessuna uscita")
 
     sys.path.insert(0, R)
     import contextlib
+    import copy
     import io
     from datetime import datetime, timedelta, timezone
     from urllib.parse import parse_qs, urlsplit
@@ -1084,24 +1086,24 @@ def passo_benvenuto():
     import benvenuto as BV
     import giorni as GG
     ROMA, UTC = ZoneInfo("Europe/Rome"), timezone.utc
-    SERA = datetime(2026, 12, 2, 19, 30, tzinfo=ROMA)          # un mercoledì, alle 19:30
+    SERA = datetime(2026, 12, 2, 19, 30, tzinfo=ROMA)          # un mercoledì alle 19:30, 4 giorni dopo l'accensione
+    TUTTI = [{"all": [{"type": "all_subscribers"}], "any": None, "none": None}]
     male = []
 
-    class Interrotto(Exception):
+    class Interrotto(BaseException):        # come un giro ucciso: nessuno strato la intercetta
         pass
 
     class KitFinto:
-        """Kit in memoria: iscritti, etichette, invii. guasti: {chiave: risposta o eccezione} per sbagliare a comando,
-        con chiave "METODO /percorso" (senza query) o "METODO /prefisso*"."""
+        """Kit in memoria. Ogni invio ha il filtro VERO (a chi partirebbe) e quello DETTO nelle risposte alle scritture;
+        GET /broadcasts/{id} dice il vero. guasti: {"METODO /percorso" (o "/prefisso*"): risposta | eccezione |
+        ("dopo", stato, corpo) = l'operazione avviene ma la risposta è quella | lista di questi, uno per chiamata}."""
         def __init__(self, iscritti=(), etichette=(), modelli=((7, "Gommberg"), (5, "Gommberg cornice")), ignora_data=False,
                      nascondi_tag=False):
             self.iscritti = {s["id"]: dict(s) for s in iscritti}
-            self.tag = {}                     # id -> nome
-            self.membri = {}                  # id etichetta -> set di iscritti
-            self.invii = {}
-            self.modelli = list(modelli)
-            self.ignora_data, self.nascondi_tag = ignora_data, nascondi_tag
+            self.tag, self.membri, self.invii = {}, {}, {}
+            self.modelli, self.ignora_data, self.nascondi_tag = list(modelli), ignora_data, nascondi_tag
             self.guasti, self.chiamate, self.prossimo = {}, [], 100
+            self.crea_a_tutti = self.crea_mente = self.put_a_tutti = self.put_mente = self.delete_rotto = self.put_rotto = False
             for nome, chi in etichette:
                 i = self.nuovo_id()
                 self.tag[i], self.membri[i] = nome, set(chi)
@@ -1120,14 +1122,23 @@ def passo_benvenuto():
             return None
 
         def __call__(self, metodo, percorso, dati=None):
-            self.chiamate.append((metodo, percorso, dict(dati) if isinstance(dati, dict) else dati))
+            self.chiamate.append((metodo, percorso, copy.deepcopy(dati)))
+            via = urlsplit(percorso).path
+            g = self.guasto(metodo, via)
+            if isinstance(g, BaseException):
+                raise g
+            if g is not None and g[0] != "dopo":
+                return g
+            r = self.esegui(metodo, percorso, copy.deepcopy(dati))
+            if g is not None:
+                if isinstance(g[1], BaseException):
+                    raise g[1]
+                return g[1], g[2]
+            return r
+
+        def esegui(self, metodo, percorso, dati):
             u = urlsplit(percorso)
             via, q = u.path, {k: v[0] for k, v in parse_qs(u.query).items()}
-            g = self.guasto(metodo, via)
-            if isinstance(g, Exception):
-                raise g
-            if g is not None:
-                return g
             pg = {"has_previous_page": False, "has_next_page": False, "start_cursor": "a", "end_cursor": "b", "per_page": 500}
             if metodo == "GET" and via == "/email_templates":
                 return 200, {"email_templates": [{"id": i, "name": n} for i, n in self.modelli]}
@@ -1168,35 +1179,49 @@ def passo_benvenuto():
                     return 200, {"subscriber": {"id": s}}
                 self.membri[t].add(s)
                 return 201, {"subscriber": {"id": s}}
+            if metodo == "GET" and via == "/broadcasts":
+                return 200, {"broadcasts": [self.vista(b) for b in self.invii.values()], "pagination": pg}
             if metodo == "POST" and via == "/broadcasts":
                 i = self.nuovo_id()
+                chiesto = dati.get("subscriber_filter")
                 b = {"id": i, "subject": dati["subject"], "description": dati["description"], "send_at": dati["send_at"],
                      "email_template": {"id": dati["email_template_id"], "name": "Gommberg cornice"},
-                     "subscriber_filter": dati.get("subscriber_filter") or [{"all": [{"type": "all_subscribers"}]}], "status": "draft"}
+                     "vero": TUTTI if (self.crea_a_tutti or self.crea_mente or not chiesto) else chiesto}
                 self.invii[i] = b
-                return 201, {"broadcast": dict(b)}
+                return 201, {"broadcast": dict(self.vista(b), subscriber_filter=chiesto if self.crea_mente else b["vero"])}
             m = re.match(r"^/broadcasts/(\d+)$", via)
             if m and int(m.group(1)) in self.invii:
                 b = self.invii[int(m.group(1))]
+                if metodo == "GET":
+                    return 200, {"broadcast": self.vista(b)}
                 if metodo == "DELETE":
+                    if self.delete_rotto:
+                        return 500, {}
                     del self.invii[b["id"]]
                     return 204, {}
                 if metodo == "PUT":
-                    b.update({"send_at": dati["send_at"], "subscriber_filter": dati.get("subscriber_filter") or [{"all": [{"type": "all_subscribers"}]}],
-                              "status": "scheduled" if dati["send_at"] else "draft"})
-                    return 200, {"broadcast": dict(b)}
-            if m and metodo == "DELETE":
+                    if self.put_rotto:
+                        return 500, {}
+                    chiesto = dati.get("subscriber_filter")
+                    b["send_at"] = dati.get("send_at")
+                    b["vero"] = TUTTI if (self.put_a_tutti or self.put_mente or not chiesto) else chiesto
+                    return 200, {"broadcast": dict(self.vista(b), subscriber_filter=chiesto if self.put_mente else b["vero"])}
+            if m:
                 return 404, {}
             return 404, {"errors": ["percorso sconosciuto"]}
 
+        def vista(self, b):
+            return {"id": b["id"], "subject": b["subject"], "description": b["description"], "send_at": b["send_at"],
+                    "status": "scheduled" if b["send_at"] else "draft", "email_template": b["email_template"],
+                    "subscriber_filter": copy.deepcopy(b["vero"])}
+
         def posta(self):
-            """Quante mail riceve ogni iscritto: per ogni invio programmato, i membri dell'etichetta del suo filtro
-            (o tutti gli attivi se il filtro non è su un'etichetta)."""
+            """Quante mail riceve ogni iscritto: ogni invio programmato parte con il suo filtro VERO."""
             conto = {i: 0 for i in self.iscritti}
             for b in self.invii.values():
                 if not b.get("send_at"):
                     continue
-                voci = (b["subscriber_filter"] or [{}])[0].get("all") or []
+                voci = (b["vero"] or [{}])[0].get("all") or []
                 chi = (self.membri.get(voci[0]["ids"][0], set()) if voci and voci[0].get("type") == "tag"
                        else {i for i, s in self.iscritti.items() if s["state"] == "active"})
                 for i in chi:
@@ -1206,76 +1231,90 @@ def passo_benvenuto():
         def scritture(self):
             return [c for c in self.chiamate if c[0] != "GET"]
 
-    def iscritto(i, ore_fa, stato="active"):
-        return {"id": i, "state": stato, "created_at": (SERA - timedelta(hours=ore_fa)).astimezone(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")}
+        def invii_scritti(self):
+            return [c for c in self.chiamate if c[0] != "GET" and c[1].startswith("/broadcasts")]
 
-    def giro(kit, adesso=SERA, attese=None):
-        """Un giro di benvenuto.py invia con il Kit finto: (uscita, messaggio). uscita: 0, 'fermo' o 'interrotto'."""
+    def iscritto(i, ore_fa, stato="active", quando_=None):
+        return {"id": i, "state": stato, "created_at": ((quando_ or SERA) - timedelta(hours=ore_fa)).astimezone(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")}
+
+    def giro(kit, adesso=SERA):
+        """Un giro di benvenuto.py invia con il Kit finto: (uscita, messaggio). uscita: 0, 'fermo', 'interrotto', 'eccezione'."""
         BV.nl.kit, BV._scadenza = kit, None
+        o = io.StringIO()
         try:
-            with contextlib.redirect_stdout(io.StringIO()) as o:
+            with contextlib.redirect_stdout(o):
                 return BV.giro(esegui=True, adesso=adesso), o.getvalue()
         except BV.Fermo as e:
             return "fermo", str(e)
         except Interrotto:
             return "interrotto", ""
+        except Exception as e:  # noqa: BLE001
+            return "eccezione", f"{type(e).__name__}: {e}"
+
+    def vecchi():
+        return [iscritto(i, 24 * (40 + i)) for i in range(50, 55)]      # i lettori di prima: mai il benvenuto
 
     vero, vera_attesa, vero_orologio = BV.nl.kit, BV.ATTESA_LETTURE, BV.orologio
     BV.ATTESA_LETTURE = 0
     try:
-        # 1. Kit che risponde bene: 3 iscritti, uno arrivato 3 giorni fa; uno non ancora confermato
-        k = KitFinto([iscritto(1, 2), iscritto(2, 30), iscritto(3, 72), iscritto(4, 1, "inactive")])
+        # 1. Kit che risponde bene: 2 h, 30 h, 3 giorni fa (dopo l'accensione) ricevono; 5 giorni fa (prima
+        #    dell'accensione), i lettori di prima e il non confermato no
+        k = KitFinto([iscritto(1, 2), iscritto(2, 30), iscritto(3, 72), iscritto(4, 1, "inactive"), iscritto(5, 24 * 5)] + vecchi())
         r, msg = giro(k)
+        attesa = {1: 1, 2: 1, 3: 1, 4: 0, 5: 0, **{i: 0 for i in range(50, 55)}}
         b = list(k.invii.values())
-        if r != 0 or len(b) != 1 or k.posta() != {1: 1, 2: 1, 3: 0, 4: 0}:
-            male.append(f"3 iscritti, uno di 3 giorni fa: attese mail a 1 e 2 sole, trovato {k.posta()} ({msg[:80]})")
-        elif not BV.filtro_giusto(b[0]["subscriber_filter"], b[0]["subscriber_filter"][0]["all"][0]["ids"][0]) \
-                or b[0]["email_template"]["id"] != 5 or not b[0]["description"].startswith("gommberg-benvenuto-2026-12-02-1930"):
-            male.append("invio senza filtro sul gruppo, senza la cornice o con l'etichetta sbagliata")
+        if r != 0 or len(b) != 1 or k.posta() != attesa:
+            male.append(f"giro normale: attese mail a 1, 2 e 3 soli, trovato {k.posta()} ({msg[:80]})")
         else:
             t = datetime.fromisoformat(b[0]["send_at"].replace("Z", "+00:00"))
-            if abs((t - SERA - timedelta(minutes=BV.ATTESA_MINUTI)).total_seconds()) > 60:
-                male.append("invio non programmato ATTESA_MINUTI dopo il giro")
+            if abs((t - SERA - timedelta(minutes=BV.ATTESA_MINUTI)).total_seconds()) > 60 or b[0]["email_template"]["id"] != 5 \
+                    or not b[0]["description"].startswith("gommberg-benvenuto-2026-12-02-1930"):
+                male.append("invio: ora, cornice o etichetta sbagliate")
         posts = [c for c in k.chiamate if c[0] == "POST" and c[1] == "/broadcasts"]
-        if len(posts) != 1 or posts[0][2]["send_at"] is not None or not posts[0][2].get("subscriber_filter"):
-            male.append("l'invio non nasce in bozza con il filtro (creazione unica, poi programmazione)")
+        if len(posts) != 1 or posts[0][2]["send_at"] is not None:
+            male.append("l'invio non nasce in bozza (creazione unica, poi programmazione)")
+        elif posts[0][2]["subscriber_filter"] != [{"all": [{"type": "tag", "ids": posts[0][2]["subscriber_filter"][0]["all"][0]["ids"]}], "any": None, "none": None}]:
+            male.append("subscriber_filter non nella forma della documentazione (all, any: null, none: null)")      # punto 5
         if posts and (f"alle {GG.ORA_USCITA}" not in posts[0][2]["content"] or "[[" in posts[0][2]["content"]):
             male.append("il testo spedito non ha l'ora di giorni.ORA_USCITA")
-        # 2. secondo giro nello stesso giorno: nessuno riceve due volte, nessun invio nuovo
-        r, msg = giro(k, SERA + timedelta(minutes=40))
-        if r != 0 or len(k.invii) != 1 or max(k.posta().values()) > 1:
-            male.append(f"due giri nello stesso giorno: {len(k.invii)} invii, posta {k.posta()}")
-        # ... e il giro della sera dopo (la finestra di 48 ore li vede ancora): niente
-        r, msg = giro(k, SERA + timedelta(days=1))
+        i_post = [n for n, c in enumerate(k.chiamate) if c[0] == "POST" and c[1] == "/broadcasts"]
+        i_put = [n for n, c in enumerate(k.chiamate) if c[0] == "PUT"]
+        letture = [n for n, c in enumerate(k.chiamate) if c[0] == "GET" and re.match(r"^/broadcasts/\d+$", c[1])]
+        if not (i_post and i_put and any(i_post[0] < n < i_put[0] for n in letture) and any(n > i_put[0] for n in letture)):
+            male.append("manca la rilettura (GET) della bozza prima della programmazione o dell'invio dopo")          # punto 4
+        # 2. secondo giro nello stesso giorno, e le sere dopo (la finestra di 7 giorni li vede ancora): nessun doppione
+        for adesso in (SERA + timedelta(minutes=40), SERA + timedelta(days=1), SERA + timedelta(days=5)):
+            giro(k, adesso)
         if len(k.invii) != 1 or max(k.posta().values()) > 1:
-            male.append("giro della sera dopo: un iscritto già salutato riceve di nuovo")
-        # 3. zero nuovi iscritti: nessuna scrittura in Kit
-        k = KitFinto([iscritto(3, 72)])
+            male.append(f"giri successivi: {len(k.invii)} invii, posta {k.posta()}")
+        # 3. punto 6: chi si iscrive e conferma giorni dopo, o perde giri, lo riceve entro 7 giorni; dopo 7 giorni no
+        DOPO = SERA + timedelta(days=20)
+        k = KitFinto([iscritto(1, 24 * 6, quando_=DOPO), iscritto(2, 24 * 8, quando_=DOPO)])
+        giro(k, DOPO)
+        if k.posta() != {1: 1, 2: 0}:
+            male.append(f"finestra di 7 giorni: posta {k.posta()} (attesa: 6 giorni fa sì, 8 giorni fa no)")
+        # 4. zero nuovi iscritti: nessuna scrittura in Kit
+        k = KitFinto(vecchi())
         r, msg = giro(k)
         if r != 0 or k.scritture():
             male.append(f"zero nuovi: {len(k.scritture())} scritture in Kit")
-        # 4. un iscritto nuovo ma già etichettato (salutato da un giro di ieri): niente per lui
-        k = KitFinto([iscritto(1, 30), iscritto(2, 3)], etichette=[("gommberg-benvenuto", {1})])
-        r, msg = giro(k)
-        if r != 0 or k.posta() != {1: 0, 2: 1}:
-            male.append(f"iscritto già etichettato: posta {k.posta()}")
-        #    ... anche se l'elenco degli iscritti non mostra le etichette: conta l'elenco letto dalla parte dell'etichetta
-        k = KitFinto([iscritto(1, 30), iscritto(2, 3)], etichette=[("gommberg-benvenuto", {1})], nascondi_tag=True)
-        r, msg = giro(k)
-        if r != 0 or k.posta() != {1: 0, 2: 1}:
-            male.append(f"iscritto già etichettato, etichette non mostrate nell'elenco: posta {k.posta()}")
-        # 5. Kit che sbaglia sempre (5xx) o non risponde (rete): fermo, nessuna scrittura, letture ritentate
-        for nome, risposta in (("risponde 503", (503, {})), ("rete muta", (0, {"errore": "rete: timeout"}))):
+        # 5. un iscritto nuovo ma già etichettato, anche se l'elenco non mostra le etichette
+        for nascondi in (False, True):
+            k = KitFinto([iscritto(1, 30), iscritto(2, 3)], etichette=[("gommberg-benvenuto", {1})], nascondi_tag=nascondi)
+            r, msg = giro(k)
+            if r != 0 or k.posta() != {1: 0, 2: 1}:
+                male.append(f"iscritto già etichettato (etichette {'nascoste' if nascondi else 'visibili'}): posta {k.posta()}")
+        # 6. Kit che sbaglia sempre (5xx), non risponde (rete) o risponde in modo illeggibile: fermo, nessuna scrittura
+        for nome, risposta in (("risponde 503", (503, {})), ("rete muta", (0, {"errore": "rete: timeout"})),
+                               ("200 non JSON", ValueError("Expecting value"))):
             k = KitFinto([iscritto(1, 2)])
             k.guasti["GET /*"] = risposta
             r, msg = giro(k)
             if r != "fermo" or k.scritture() or len(k.chiamate) != BV.LETTURE:
                 male.append(f"Kit che {nome}: esito {r}, {len(k.scritture())} scritture, {len(k.chiamate)} chiamate")
-        # 6. guasto momentaneo: due 503 e poi risponde: il giro va
         k = KitFinto([iscritto(1, 2)])
         k.guasti["GET /subscribers"] = [(503, {}), (502, {})]
-        r, msg = giro(k)
-        if r != 0 or k.posta() != {1: 1}:
+        if giro(k)[0] != 0 or k.posta() != {1: 1}:
             male.append("due guasti momentanei sull'elenco degli iscritti: il giro non si riprende")
         # 7. risposte fuori forma: fermo prima di scrivere
         for nome, via, risposta in (("elenco senza paginazione", "GET /subscribers", (200, {"subscribers": []})),
@@ -1289,45 +1328,106 @@ def passo_benvenuto():
             r, msg = giro(k)
             if r != "fermo" or k.scritture():
                 male.append(f"risposta fuori forma ({nome}): esito {r}, {len(k.scritture())} scritture")
-        # 8. Kit che ignora il filtro per data (restituisce anche chi è iscritto da mesi): fermo, nessuna scrittura
-        k = KitFinto([iscritto(1, 2), iscritto(2, 24 * 90)], ignora_data=True)
-        r, msg = giro(k)
-        if r != "fermo" or k.scritture():
+        # 8. filtro per data ignorato, troppi nuovi, cornice mancante, gruppo già esistente o con un iscritto in più
+        k = KitFinto([iscritto(1, 2)] + vecchi(), ignora_data=True)
+        if giro(k)[0] != "fermo" or k.scritture():
             male.append("filtro per data ignorato da Kit: il giro non si ferma")
-        # 9. troppi nuovi: fermo
         k = KitFinto([iscritto(i, 5) for i in range(1, BV.MAX_NUOVI + 2)])
-        r, msg = giro(k)
-        if r != "fermo" or k.scritture():
+        if giro(k)[0] != "fermo" or k.scritture():
             male.append("oltre MAX_NUOVI iscritti nuovi: il giro non si ferma")
-        # 10. la bozza registrata con un altro filtro (a tutti): tolta, mai programmata
-        k = KitFinto([iscritto(1, 2), iscritto(2, 24 * 90)])
-        k.guasti["POST /broadcasts"] = (201, {"broadcast": {"id": 999, "send_at": None, "subscriber_filter": [{"all": [{"type": "all_subscribers"}]}]}})
-        k.invii[999] = {"id": 999, "send_at": None, "subscriber_filter": [{"all": [{"type": "all_subscribers"}]}]}
-        r, msg = giro(k)
-        if r != "fermo" or 999 in k.invii or any(c[0] == "PUT" for c in k.chiamate) or max(k.posta().values()) > 0:
-            male.append("bozza registrata a tutti gli iscritti: non tolta o programmata lo stesso")
-        # 11. la creazione che non risponde (tempo scaduto): mai ritentata, nessuna programmazione; il giro dopo non rimanda
-        k = KitFinto([iscritto(1, 2)])
-        k.guasti["POST /broadcasts"] = (0, {"errore": "rete: timeout"})
-        r, msg = giro(k)
-        n_post = len([c for c in k.chiamate if c[0] == "POST" and c[1] == "/broadcasts"])
-        if r != "fermo" or "incerto" not in msg or n_post != 1 or any(c[0] == "PUT" for c in k.chiamate):
-            male.append(f"creazione senza risposta: esito {r}, {n_post} creazioni, programmazione {'sì' if any(c[0] == 'PUT' for c in k.chiamate) else 'no'}")
-        del k.guasti["POST /broadcasts"]
-        giro(k, SERA + timedelta(minutes=30))
-        if any(c[0] == "POST" and c[1] == "/broadcasts" for c in k.chiamate[-20:]) and len(k.invii) > 0:
-            male.append("dopo una creazione incerta il giro seguente crea un altro invio per lo stesso iscritto")
-        # 12. la programmazione rifiutata (422) o registrata con un altro filtro: invio tolto
-        for nome, risposta in (("422", (422, {"errors": ["no"]})),
-                               ("filtro cambiato", (200, {"broadcast": {"id": 0, "send_at": (SERA + timedelta(minutes=10)).astimezone(UTC).isoformat(),
-                                                                        "subscriber_filter": [{"all": [{"type": "all_subscribers"}]}]}}))):
-            k = KitFinto([iscritto(1, 2), iscritto(2, 24 * 90)])
-            k.guasti["PUT /broadcasts*"] = risposta
+        k = KitFinto([iscritto(1, 2)], modelli=((7, "Gommberg"),))
+        if giro(k)[0] != "fermo" or k.scritture():
+            male.append("senza la cornice in Kit: il giro non si ferma")
+        k = KitFinto([iscritto(1, 2)], etichette=[("gommberg-benvenuto-2026-12-02-1930", {50})])
+        if giro(k)[0] != "fermo" or k.invii:
+            male.append("etichetta del gruppo già esistente: il giro non si ferma")
+        k = KitFinto([iscritto(1, 2)] + vecchi())
+
+        def gruppo_in_piu(metodo, percorso, dati=None, _k=k):
+            st, corpo = _k(metodo, percorso, dati)
+            if metodo == "GET" and re.match(r"^/tags/\d+/subscribers\?", percorso) and "-2026-" in _k.tag.get(int(percorso.split("/")[2]), ""):
+                corpo = dict(corpo, subscribers=corpo["subscribers"] + [{"id": 50}])
+            return st, corpo
+        if giro(gruppo_in_piu)[0] != "fermo" or k.invii:
+            male.append("gruppo in Kit con un iscritto in più del voluto: invio creato lo stesso")
+        # 9. la bozza: Kit la registra a tutti (risposta onesta, o risposta che ripete il filtro chiesto: lo dice la
+        #    rilettura) -> tolta, mai programmata (punto 4)
+        for nome, attr in (("risposta onesta", "crea_a_tutti"), ("risposta che mente", "crea_mente")):
+            k = KitFinto([iscritto(1, 2)] + vecchi())
+            setattr(k, attr, True)
             r, msg = giro(k)
-            if r != "fermo" or k.invii or max(k.posta().values()) > 0:
-                male.append(f"programmazione ({nome}): invio non tolto")
+            if r != "fermo" or k.invii or any(c[0] == "PUT" for c in k.chiamate) or max(k.posta().values()) > 0:
+                male.append(f"bozza registrata a tutti ({nome}): non tolta o programmata lo stesso")
+        # 10. la creazione dall'esito incerto (nasce ma risponde 0, 500, 200 fuori forma o illeggibile): mai ritentata,
+        #     la bozza si trova per etichetta e si toglie; il giro dopo non rimanda
+        for nome, g in (("timeout", ("dopo", 0, {"errore": "rete"})), ("500", ("dopo", 500, {})), ("200 fuori forma", ("dopo", 200, {"ok": 1})),
+                        ("200 non JSON", ("dopo", ValueError("Expecting value"), None))):
+            k = KitFinto([iscritto(1, 2)] + vecchi())
+            k.guasti["POST /broadcasts"] = g
+            r, msg = giro(k)
+            n_post = len([c for c in k.chiamate if c[0] == "POST" and c[1] == "/broadcasts"])
+            if r != "fermo" or n_post != 1 or k.invii or any(c[0] == "PUT" for c in k.chiamate):
+                male.append(f"creazione con esito incerto ({nome}): esito {r}, {n_post} creazioni, {len(k.invii)} invii rimasti")
+            del k.guasti["POST /broadcasts"]
+            giro(k, SERA + timedelta(minutes=30))
+            if k.invii or max(k.posta().values()) > 0:
+                male.append(f"dopo una creazione incerta ({nome}) il giro seguente crea un altro invio")
+        # 11. la programmazione (punti 1, 2, 4): rifiutata, a tutti con risposta onesta o che mente, in timeout con Kit
+        #     che cambia il filtro, illeggibile: l'invio si toglie. In timeout ma applicata giusta: parte, una volta
+        for nome, prepara, parte in (
+                ("422", lambda k: k.guasti.__setitem__("PUT /broadcasts*", (422, {"errors": ["no"]})), False),
+                ("a tutti, risposta onesta", lambda k: setattr(k, "put_a_tutti", True), False),
+                ("a tutti, risposta che mente", lambda k: setattr(k, "put_mente", True), False),
+                ("timeout e filtro cambiato", lambda k: (setattr(k, "put_a_tutti", True), k.guasti.__setitem__("PUT /broadcasts*", ("dopo", 0, {}))), False),
+                ("200 non JSON e filtro cambiato", lambda k: (setattr(k, "put_a_tutti", True),
+                                                             k.guasti.__setitem__("PUT /broadcasts*", ("dopo", ValueError("x"), None))), False),
+                ("200 fuori forma, applicata giusta", lambda k: k.guasti.__setitem__("PUT /broadcasts*", ("dopo", 200, {"x": 1})), True),
+                ("timeout, applicata giusta", lambda k: k.guasti.__setitem__("PUT /broadcasts*", ("dopo", 0, {})), True),
+                ("timeout e rilettura impossibile", lambda k: k.guasti.__setitem__("PUT /broadcasts*", ("dopo", 0, {})), False)):
+            k = KitFinto([iscritto(1, 2)] + vecchi())
+            prepara(k)
+            if nome == "timeout e rilettura impossibile":     # la prima rilettura (della bozza) va, poi Kit non risponde più
+                letture = {"n": 0}
+
+                def rilettura(metodo, percorso, dati=None, _k=k):
+                    if metodo == "GET" and re.match(r"^/broadcasts/\d+$", percorso):
+                        letture["n"] += 1
+                        if letture["n"] > 1:
+                            _k.chiamate.append((metodo, percorso, None))
+                            return 503, {}
+                    return _k(metodo, percorso, dati)
+                r, msg = giro(rilettura)
+            else:
+                r, msg = giro(k)
+            atteso = {1: 1 if parte else 0, **{i: 0 for i in range(50, 55)}}
+            if k.posta() != atteso or (r == 0) != parte or r == "eccezione":
+                male.append(f"programmazione ({nome}): esito {r}, posta {k.posta()} ({msg[:70]})")
+        # 12. punto 3: l'invio sbagliato che non si toglie si riporta in bozza; se non si può, URGENTE
+        k = KitFinto([iscritto(1, 2)] + vecchi())
+        k.put_a_tutti, k.delete_rotto = True, True
+        orig = k.esegui
+
+        def put_bozza_giusta(metodo, percorso, dati, _o=orig, _k=k):          # la PUT di ripiego (send_at null) riesce
+            if metodo == "PUT" and dati.get("send_at") is None:
+                _k.put_a_tutti = False
+            return _o(metodo, percorso, dati)
+        k.esegui = put_bozza_giusta
+        r, msg = giro(k)
+        if r != "fermo" or max(k.posta().values()) > 0 or "riportato in bozza" not in msg or "URGENTE" in msg:
+            male.append(f"invio sbagliato non tolto: non riportato in bozza ({msg[:80]})")
+        k = KitFinto([iscritto(1, 2)] + vecchi())
+        k.put_a_tutti, k.delete_rotto = True, True
+        orig = k.esegui
+
+        def put_rotta_dopo(metodo, percorso, dati, _o=orig, _k=k):            # anche la PUT di ripiego fallisce
+            if metodo == "PUT" and dati.get("send_at") is None:
+                return 500, {}
+            return _o(metodo, percorso, dati)
+        k.esegui = put_rotta_dopo
+        r, msg = giro(k)
+        if r != "fermo" or "URGENTE" not in msg or "FERMALO A MANO" not in msg:
+            male.append(f"invio sbagliato né tolto né in bozza: manca l'URGENTE ({msg[:80]})")
         # 13. giro interrotto a metà, nei due punti: mai due mail
-        #   a) dopo il gruppo e prima dell'etichetta permanente del secondo iscritto
         k = KitFinto([iscritto(1, 2), iscritto(2, 3)])
 
         def a_meta(metodo, percorso, dati=None, _k=k):
@@ -1335,10 +1435,9 @@ def passo_benvenuto():
                 raise Interrotto()
             return _k(metodo, percorso, dati)
         r, _ = giro(a_meta)
-        r2, msg = giro(k, SERA + timedelta(minutes=30))
+        giro(k, SERA + timedelta(minutes=30))
         if r != "interrotto" or k.posta() != {1: 0, 2: 1}:
             male.append(f"interrotto tra gruppo ed etichetta permanente: posta {k.posta()} (atteso: 1 segnato senza mail, 2 una mail)")
-        #   b) dopo tutte le etichette e prima dell'invio: nessuno riceve due volte (chi è segnato perde la guida)
         k = KitFinto([iscritto(1, 2)])
 
         def prima_invio(metodo, percorso, dati=None, _k=k):
@@ -1349,41 +1448,31 @@ def passo_benvenuto():
         giro(k, SERA + timedelta(minutes=30))
         if max(k.posta().values()) > 1 or k.invii:
             male.append("interrotto prima dell'invio: il giro dopo crea un invio per chi è già segnato")
-        # 14. orari: mai tra le 21 e le 8, mai nella fascia dell'edizione, nemmeno con l'invio che ci cadrebbe
+        # 14. orari (punto 7): mai tra le 21 e le 8 né nella fascia dell'edizione; il salto si scrive nel registro e due
+        #     sere di fila fermano il giro (segnalazione); un salto sola non è un errore
         for nome, quando_ in (("20:55 (invio alle 21:05)", SERA.replace(hour=20, minute=55)), ("7:30", SERA.replace(hour=7, minute=30)),
                               ("9:00, fascia dell'edizione", SERA.replace(hour=9, minute=0)), ("8:25 (invio alle 8:35)", SERA.replace(hour=8, minute=25)),
                               ("23:00", SERA.replace(hour=23, minute=0))):
             k = KitFinto([iscritto(1, 1)])
             r, msg = giro(k, quando_)
-            if r != 0 or k.chiamate:
-                male.append(f"alle {nome}: il giro ha chiamato Kit")
+            if r != 0 or k.invii_scritti() or any("/subscribers/" in c[1] for c in k.scritture()) or "saltato per l'orario" not in msg:
+                male.append(f"alle {nome}: il giro ha scritto un invio o un'etichetta a un iscritto, o non lo dice nel registro")
+        k = KitFinto([iscritto(1, 1)])
+        r1, _ = giro(k, SERA.replace(hour=23, minute=0))
+        r2, msg = giro(k, (SERA + timedelta(days=1)).replace(hour=23, minute=0))
+        if r1 != 0 or r2 != "fermo" or "due sere" not in msg:
+            male.append("due sere di fila saltate per l'orario: il giro non lo segnala")
         k = KitFinto([iscritto(1, 1)])
         if giro(k, SERA.replace(hour=10, minute=31))[0] != 0 or k.posta() != {1: 1}:
             male.append("alle 10:31 (fuori dalla fascia) il benvenuto non parte")
         h, m = GG.ora_uscita()
         da, a = BV.fascia_edizione(SERA.date())
-        if (da.hour, da.minute, a.hour, a.minute) != ((h * 60 + m - 75) // 60, (h * 60 + m - 75) % 60, (h * 60 + m + 45) // 60, (h * 60 + m + 45) % 60):
+        if (da.hour * 60 + da.minute, a.hour * 60 + a.minute) != (h * 60 + m - 75, h * 60 + m + 45):
             male.append("la fascia dell'edizione non segue giorni.ORA_USCITA")
-        # 15. cornice mancante, gruppo già esistente, gruppo con un iscritto in più: fermo senza invio
-        k = KitFinto([iscritto(1, 2)], modelli=((7, "Gommberg"),))
-        if giro(k)[0] != "fermo" or k.scritture():
-            male.append("senza la cornice in Kit: il giro non si ferma")
-        k = KitFinto([iscritto(1, 2)], etichette=[("gommberg-benvenuto-2026-12-02-1930", set())])
-        if giro(k)[0] != "fermo" or k.invii:
-            male.append("etichetta del gruppo già esistente: il giro non si ferma")
-        k = KitFinto([iscritto(1, 2), iscritto(9, 24 * 90)])
-
-        def gruppo_in_piu(metodo, percorso, dati=None, _k=k):
-            st, corpo = _k(metodo, percorso, dati)
-            if metodo == "GET" and re.match(r"^/tags/\d+/subscribers\?", percorso) and "-2026-" in _k.tag.get(int(percorso.split("/")[2]), ""):
-                corpo = dict(corpo, subscribers=corpo["subscribers"] + [{"id": 9}])
-            return st, corpo
-        if giro(gruppo_in_piu)[0] != "fermo" or k.invii:
-            male.append("gruppo in Kit con un iscritto in più del voluto: invio creato lo stesso")
-        # 16. tempo del giro scaduto: nessuna scrittura
+        # 15. tempo del giro scaduto: nessuna scrittura
         k = KitFinto([iscritto(1, 2)])
         BV.nl.kit, BV.orologio = k, (lambda: 1000.0)
-        BV._scadenza = 1000.0 + BV.MARGINE      # restano 35 secondi: non bastano per etichette e invio
+        BV._scadenza = 1000.0 + BV.MARGINE
         try:
             with contextlib.redirect_stdout(io.StringIO()):
                 BV.giro(esegui=True, adesso=SERA)
@@ -1392,29 +1481,69 @@ def passo_benvenuto():
             if k.scritture():
                 male.append("tempo quasi finito: scritture in Kit")
         BV.orologio, BV._scadenza = vero_orologio, None
-        # 17. il piano non scrive nulla; la prova dal vivo tocca un solo iscritto e non mette l'etichetta permanente
+        # 16. il piano non scrive nulla
         k = KitFinto([iscritto(1, 2), iscritto(2, 3)])
         BV.nl.kit = k
         with contextlib.redirect_stdout(io.StringIO()):
             BV.giro(esegui=False, adesso=SERA)
         if k.scritture():
             male.append("il piano scrive in Kit")
-        k = KitFinto([dict(iscritto(1, 24 * 90), email_address="casa@prova.it"), iscritto(2, 3)])
+        # 17. punto 8: la prova dal vivo in due passi. bozza: solo una bozza, mai programmata; prova: programma solo la
+        #     bozza verificata, al solo indirizzo dato; con Kit che ignora il filtro la bozza si toglie e prova non parte
+        casa = dict(iscritto(1, 24 * 90), email_address="casa@prova.it")
+        k = KitFinto([casa, iscritto(2, 3)] + vecchi())
         BV.nl.kit = k
-        with contextlib.redirect_stdout(io.StringIO()):
-            BV.prova("casa@prova.it", adesso=SERA)
-        if k.posta() != {1: 1, 2: 0} or any(n == "gommberg-benvenuto" for n in k.tag.values()):
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                BV.prova("casa@prova.it", adesso=SERA)
+            male.append("prova senza bozza: è andata avanti")
+        except BV.Fermo:
+            pass
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                BV.bozza("casa@prova.it", adesso=SERA)
+        except BV.Fermo as e:
+            male.append(f"bozza di prova fermata: {str(e)[:60]}")
+        if len(k.invii) != 1 or any(c[0] == "PUT" for c in k.chiamate) or max(k.posta().values()) > 0:
+            male.append("bozza: non una sola bozza, o programmata")
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                BV.prova("casa@prova.it", adesso=SERA)
+        except BV.Fermo as e:
+            male.append(f"prova dopo la bozza fermata: {str(e)[:60]}")
+        if k.posta() != {1: 1, 2: 0, **{i: 0 for i in range(50, 55)}} or any(n == "gommberg-benvenuto" for n in k.tag.values()):
             male.append(f"prova dal vivo: posta {k.posta()} o etichetta permanente messa")
+        k = KitFinto([casa] + vecchi())
+        k.crea_mente = True
+        BV.nl.kit = k
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                BV.bozza("casa@prova.it", adesso=SERA)
+        except BV.Fermo:
+            pass
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                BV.prova("casa@prova.it", adesso=SERA)
+        except BV.Fermo:
+            pass
+        if k.invii or max(k.posta().values()) > 0:
+            male.append("bozza di prova registrata a tutti: non tolta, o programmata da prova")
     finally:
         BV.nl.kit, BV.ATTESA_LETTURE, BV.orologio, BV._scadenza = vero, vera_attesa, vero_orologio, None
 
-    # il passo nel giro della sera e il postino delle mail straordinarie che non tocca i benvenuti
+    # il passo nel giro della sera, l'urgenza con la sua segnalazione, il postino delle mail straordinarie che non tocca i benvenuti
     flusso = open(os.path.join(REPO, ".github", "workflows", "dem.yml"), encoding="utf-8").read()
     if "redazione/benvenuto.py" not in flusso or "github.event_name != 'push'" not in flusso:
         male.append("dem.yml: manca il passo Benvenuto (solo nel giro della sera)")
+    if "grep -q URGENTE esito.txt" not in flusso:
+        male.append("dem.yml: l'URGENTE del benvenuto non apre una segnalazione sua")
     import dem as DM
     if "gommberg-benvenuto-x".startswith(DM.ETICHETTA):
         male.append("dem.py toccherebbe gli invii del benvenuto")
+    # punto 9: l'invito all'iscrizione dice come iscriviti.html
+    import pagine as PG
+    if "La prima pagina" in PG.invito() or "La prima pagina" in open(os.path.join(REPO, "iscriviti.html"), encoding="utf-8").read():
+        male.append("l'invito all'iscrizione descrive ancora l'email di prima ('La prima pagina')")
     # l'ora di uscita in un posto solo: nelle pagine fisse ogni "alle H:MM" è segnato (pagine.py lo riscrive da giorni.ORA_USCITA)
     for f in sorted(os.listdir(REPO)):
         if f.endswith(".html"):
@@ -1424,10 +1553,11 @@ def passo_benvenuto():
                 male.append(f"{f}: un'ora di uscita scritta a mano (segnala con <span data-ora-uscita>)")
     if re.search(r"\d{1,2}:\d{2}", open(os.path.join(R, "benvenuto_mail.html"), encoding="utf-8").read()):
         male.append("benvenuto_mail.html: un orario scritto a mano (si usa [[ORA_USCITA]])")
-    esito("Benvenuto: giro con Kit finto, mai due mail", not male, "; ".join(male)[:600] or
-          "3 iscritti di cui uno di 3 giorni fa, due giri nello stesso giorno, zero nuovi, già etichettato, 5xx, rete muta, "
-          "fuori forma, filtro per data ignorato, troppi, bozza a tutti tolta, creazione incerta mai ritentata, programmazione "
-          "sbagliata tolta, giro interrotto in due punti, orari e fascia dell'edizione, tempo scaduto, piano e prova dal vivo")
+    esito("Benvenuto: giro con Kit finto, mai due mail, mai a tutti", not male, "; ".join(male)[:700] or
+          "giro normale con accensione e finestra di 7 giorni, giri successivi, zero nuovi, già etichettato, 5xx, rete muta, "
+          "risposte illeggibili e fuori forma, filtro per data ignorato, troppi, bozza a tutti (anche con risposta che mente) "
+          "tolta, creazione incerta cercata e tolta, programmazione sbagliata/incerta riletta e tolta, ripiego in bozza e "
+          "URGENTE, giro interrotto in due punti, orari e due sere saltate, tempo scaduto, piano, bozza e prova dal vivo")
 
 
 # ---------------------------------------------------------------- 4. rete di non regressione

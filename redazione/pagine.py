@@ -297,7 +297,8 @@ def invito(root=""):
     Il modulo vero sta in una pagina sola, iscriviti.html: qui c'è soltanto il rimando."""
     return ('<aside class="gi" aria-labelledby="gi-h"><div class="gi-t"><p class="gi-k">Via email</p>'
             '<h2 class="gi-h" id="gi-h">Il Gommberg nella tua casella, ogni mattina</h2>'
-            f'<p class="gi-p">La prima pagina dell\'edizione alle {giorni.ORA_USCITA}, dal lunedì al venerdì. Gratis.</p></div>'
+            f'<p class="gi-p">L\'edizione alle {giorni.ORA_USCITA}, dal lunedì al venerdì: la notizia del giorno e che cosa c\'è '
+            'in ognuna delle 6 pagine. Gratis.</p></div>'
             f'<a class="gi-b" href="{root}iscriviti.html" data-goatcounter-click="invito-iscrizione" '
             'data-goatcounter-title="Invito all\'iscrizione (clic)">Ricevila via email</a></aside>')
 
