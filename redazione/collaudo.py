@@ -750,7 +750,7 @@ def passo_scrittura():
         and not T.connettivi("Secondo Goldman Sachs il Kospi sale perché arriva il fondo. A. B. C. D.")
     fonti_ok = fonti_ok and anon_ok
     # agenda (G-46): istruzioni e modello dicono la stessa cosa sull'evento senza un numero atteso, che non usa "Sopra/Sotto"
-    senza_numero = re.compile(r"(?:senza|non ha) un numero atteso")
+    senza_numero = re.compile(r"senza (?:un )?numero atteso|non ha un numero atteso")
     agenda_ok = all(senza_numero.search(open(os.path.join(R, f), encoding="utf-8").read())
                     for f in ("ISTRUZIONI.md", "edizione_modello_v6.py"))
     fonti_ok = fonti_ok and agenda_ok
