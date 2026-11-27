@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Pannello di controllo - Gommberg Terminal Daily</title>
+<title>Redazione - Gommberg Terminal Daily</title>
+<meta name="apple-mobile-web-app-title" content="Redazione">
 <meta name="theme-color" content="#0E0E0E">
 <link rel="icon" href="../assets/icona.svg?v=2" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../assets/icona-180.png">
@@ -329,17 +330,164 @@ td.na{color:var(--muted)}
 @media (max-width:400px){.kpi .kd{font-size:11.5px}.kpi .kv{font-size:23px}}
 @media (prefers-reduced-motion:reduce){.drawer,.scrim{transition:none}}
 @media print{.side,.slicers,.info{display:none}.app{display:block}.card{box-shadow:none}}
+/* ---------- area riservata (G-51): striscia di oggi, Gommunity, Sicurezza ---------- */
+.nav .grp{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6F6860;padding:14px 10px 6px}
+.side-foot .who{display:flex;align-items:center;gap:9px;color:var(--side-ink);font-size:13px}
+.side-foot .who img{width:26px;height:26px;border-radius:50%}
+.side-foot .who small{display:block;color:var(--side-muted);font-size:11.5px}
+.lnk.esci{color:#F2A27A}
+.ora{font-variant-numeric:tabular-nums}
+
+/* Striscia "Oggi": cosa chiede attenzione */
+.oggi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:14px}
+.att4{display:flex;flex-direction:column;gap:6px;padding:14px 16px 14px;position:relative;overflow:hidden;text-decoration:none;color:inherit}
+.att4::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent}
+.att4.ok::after{background:var(--good)}.att4.att::after{background:var(--warn)}.att4.ko::after{background:var(--bad)}.att4.neu::after{background:var(--deemph)}
+.att4 .kl{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--ink2)}
+.att4 .kv{font-size:22px;font-weight:600;line-height:1.2;letter-spacing:-.01em}
+.att4 .kv small{font-size:13px;font-weight:500;color:var(--muted);margin-left:4px;letter-spacing:0}
+.att4 .ks{font-size:12.5px;color:var(--muted);line-height:1.4}
+.att4 .acts{margin:4px 0 0}
+.btn.sm{padding:4px 9px;font-size:12.5px}
+.btn.ko{color:var(--bad);border-color:#EBC3BE}
+.btn.ok{color:var(--good)}
+.btn.acc{background:var(--accent);color:#fff;border-color:var(--accent)}
+.si.neu{color:var(--muted);background:var(--hover)}
+.sem{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.verdetto{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:19px;line-height:1.1}
+.verdetto em{font-style:normal;color:var(--accent)}
+
+/* Gommunity: elenco dei commenti */
+.flt{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.cerca{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px 11px;box-shadow:var(--shadow);font-size:13px;color:var(--muted);min-width:190px}
+.cerca svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.seg .n{font-size:11.5px;font-weight:600;margin-left:5px;opacity:.75}
+.seg button[aria-pressed=true] .n{opacity:.8}
+.seg button .n.r{color:var(--bad);opacity:1}
+.seg button[aria-pressed=true] .n.r{color:#FF9C90}
+.cl{list-style:none;margin:0;padding:0}
+.cl>li{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:12px;padding:13px 16px;border-top:1px solid var(--grid);align-items:start}
+.cl>li:first-child{border-top:0}
+.cl>li.sel{background:var(--accent-wash);box-shadow:inset 3px 0 0 var(--accent)}
+.cl>li.via{background:repeating-linear-gradient(135deg,transparent 0 8px,rgba(0,0,0,.018) 8px 16px)}
+.cl>li.via .tx{color:var(--muted)}
+.cl .av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:600;color:#141414}
+.cl .av img{width:34px;height:34px;border-radius:50%;display:block}
+.cl .mt{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:13px;line-height:1.3}
+.cl .mt b{font-weight:600}
+.cl .mt .q{color:var(--muted);font-size:12.5px;font-variant-numeric:tabular-nums}
+.cl .tx{margin:4px 0 0;font-size:14px;line-height:1.45;color:var(--ink);max-width:78ch}
+.cl .re{font-size:12.5px;color:var(--muted);margin:0 0 2px}
+.cl .nums{display:flex;gap:14px;font-size:12.5px;color:var(--muted);margin-top:6px;font-variant-numeric:tabular-nums}
+.cl .nums b{color:var(--bad);font-weight:600}
+.cl .az{display:flex;gap:6px;flex-wrap:nowrap;align-items:center;justify-content:flex-end}
+.tg{font-size:11px;font-weight:600;padding:1px 6px;border-radius:4px;white-space:nowrap;line-height:1.5}
+.tg.up{color:var(--good);background:var(--good-bg)}.tg.down{color:var(--bad);background:var(--bad-bg)}
+.badge-red{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#0E0E0E;color:#F26B1D;padding:1px 6px;border-radius:3px;line-height:1.6}
+.pin{display:inline-flex;align-items:center;gap:3px;font-size:11.5px;font-weight:600;color:var(--oink)}
+.pin svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mn3{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;color:var(--ink2);font-weight:700;letter-spacing:1px;font-size:13px;line-height:1}
+.piu{position:relative}
+.menu{position:absolute;right:0;top:36px;z-index:5;background:var(--card);border:1px solid var(--line);border-radius:9px;box-shadow:0 8px 24px rgba(30,22,12,.14);padding:5px;min-width:230px}
+.menu a{display:flex;justify-content:space-between;gap:10px;padding:7px 10px;border-radius:6px;font-size:13px;text-decoration:none;color:var(--ink)}
+.menu a:hover,.menu a.on{background:var(--hover)}
+.menu a span{color:var(--muted);font-size:12px}
+.menu hr{border:0;border-top:1px solid var(--grid);margin:4px 0}
+.menu a.ko{color:var(--bad)}
+.disc{list-style:none;margin:0;padding:0}
+.disc li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--grid);font-size:13px}
+.disc li:last-child{border-bottom:0}
+.disc li em{font-style:normal;color:var(--muted);font-size:12px;grid-column:1}
+.disc li .sw{grid-row:1/span 2;grid-column:2}
+.sw{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--ink2);font-weight:500}
+.sw i{width:30px;height:18px;border-radius:9px;background:var(--deemph);position:relative;display:inline-block}
+.sw i::after{content:"";position:absolute;left:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.sw.on i{background:var(--good)}.sw.on i::after{left:14px}
+.who2{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+.who2 .av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:13px;color:#141414}
+.who2 b{display:block;font-size:15px}
+.who2 span{display:block;font-size:12.5px;color:var(--muted)}
+.kv2{display:grid;grid-template-columns:minmax(0,1fr) auto;font-size:13px}
+.kv2>span{padding:6px 0;border-bottom:1px solid var(--grid)}
+.kv2>span:nth-child(2n){text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.nomi{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 2px}
+.nomi span{font-size:12.5px;border:1px solid var(--line);border-radius:14px;padding:2px 9px;background:var(--hover)}
+.hint{font-size:12px;color:var(--muted);margin:8px 0 0;line-height:1.45}
+
+/* Sicurezza */
+.accessi{width:100%}
+.accessi td,.accessi th{text-align:left}
+.accessi td.ok-c{color:var(--good);font-weight:600}.accessi td.ko-c{color:var(--bad);font-weight:600}
+.dev{display:flex;align-items:center;gap:10px}
+.dev svg{width:20px;height:20px;stroke:var(--ink2);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.dev small{display:block;color:var(--muted);font-size:12px}
+.fld{display:grid;gap:5px;margin-bottom:12px}
+.fld label{font-size:12.5px;font-weight:600;color:var(--ink2)}
+.fld .in{border:1px solid var(--line);border-radius:8px;padding:8px 11px;font-size:14px;background:var(--card);color:var(--muted);letter-spacing:2px}
+.fld .in.ok{border-color:var(--good)}
+.reg{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:13px}
+.reg li{display:flex;gap:9px;align-items:flex-start}
+.reg .si{margin-top:1px}
+
+@media (max-width:1100px){.oggi{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .nav .grp{display:none}
+  .side-foot .who{display:none}}
+@media (max-width:760px){
+  .oggi{grid-template-columns:minmax(0,1fr);gap:10px;margin-bottom:10px}
+  .att4{padding:12px 12px 12px 14px}
+  .att4 .kv{font-size:19px}
+  .cl>li{grid-template-columns:30px minmax(0,1fr);padding:12px}
+  .cl .av,.cl .av img{width:30px;height:30px}
+  .cl>li .az{grid-column:2;justify-content:flex-start;flex-wrap:wrap}
+  .flt{width:100%}.flt .seg{width:100%;overflow-x:auto}.flt .seg button{flex:1}.cerca{flex:1;min-width:0}
+  .hide-m{display:none}
+}
+@media (max-width:1100px){.r21.dopo>.stack{order:0}}
+.sentbar{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;margin:4px 0 4px}
+.sentbar .b{flex:1;display:flex;gap:2px;height:8px}.sentbar .b i{display:block;height:100%;border-radius:2px}
+.mini{list-style:none;margin:6px 0 0;padding:0}
+.mini li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:9px;padding:9px 0;border-top:1px solid var(--grid)}
+.mini .av{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:600;color:#141414}
+.mini .av img{width:26px;height:26px;border-radius:50%}
+.mini p{margin:0;font-size:13px;line-height:1.4}
+.mini .mt{font-size:12.5px;color:var(--muted);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.mini .mt b{color:var(--ink);font-weight:600}
+.lnk2{font-size:13px;color:var(--oink);text-decoration:underline;text-underline-offset:3px}
+.att4 .acts{margin-top:auto;padding-top:4px}
+.menu{min-width:280px}
+@media (max-width:760px){.menu{left:-90px;right:auto}.oggi .ks{font-size:12px}}
+.lnk.esci{color:#F2A27A}
+.cl>li{cursor:pointer}
+.cl>li .az,.cl>li .menu,.cl>li textarea{cursor:auto}
+.cl .rbox{margin-top:8px;display:grid;gap:6px}
+.cl .rbox textarea{width:100%;min-height:70px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:14px/1.45 var(--body);background:var(--card);color:var(--ink);resize:vertical}
+.cl .rbox .acts{margin:0}
+.menu button{display:flex;justify-content:space-between;gap:10px;width:100%;padding:7px 10px;border-radius:6px;font-size:13px;background:none;border:0;cursor:pointer;color:var(--ink);text-align:left}
+.menu button:hover{background:var(--hover)}.menu button span{color:var(--muted);font-size:12px}.menu button.ko{color:var(--bad)}
+button.btn{cursor:pointer;font-family:inherit}
+button.btn:disabled{opacity:.5;cursor:default}
+.fld input{border:1px solid var(--line);border-radius:8px;padding:8px 11px;font:14px var(--body);background:var(--card);color:var(--ink);width:100%}
+.fld input:focus{outline:2px solid var(--accent);outline-offset:0}
+.msg{font-size:13px;margin:8px 0 0}.msg.ko{color:var(--bad)}.msg.ok{color:var(--good)}
+.cerca input{border:0;background:none;font:13px var(--body);color:var(--ink);outline:0;width:100%;min-width:0}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:40;background:#141312;color:#F5F3EF;font-size:13px;padding:9px 12px 9px 14px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.25);display:flex;gap:14px;align-items:center;max-width:calc(100% - 24px)}
+.toast button{background:none;border:0;color:#F7A06B;font:600 13px var(--body);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.idf{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;background:var(--accent-wash);color:var(--oink);border-radius:14px;padding:3px 6px 3px 10px;margin:0 0 10px}
+.idf button{border:0;background:none;color:inherit;cursor:pointer;font-weight:700}
 </style>
 </head>
 <body>
 <div class="app">
   <aside class="side" aria-label="Pagine del pannello">
-    <a class="brand" href="../" title="Torna al sito"><img src="../assets/avatar.png" alt=""><div><b>GOMMBERG</b><span>Pannello di controllo</span></div></a>
+    <a class="brand" href="../" title="Torna al sito"><img src="../assets/avatar.png" alt=""><div><b>GOMMBERG</b><span>Redazione</span></div></a>
     <nav class="nav" id="nav"></nav>
     <div class="side-foot">
       <div class="ult" id="ult"></div>
       <button class="lnk" type="button" data-metodo=""><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></svg><span>Metodo e soglie</span></button>
+      <!-- Posta: la cartella del Gommberg in Gmail (etichetta "Gommberg"); con un'etichetta di altro nome si cambia qui e in assets/redazione.js -->
+      <a class="lnk" href="https://mail.google.com/mail/u/0/#label/Gommberg" id="posta" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg><span>Posta</span></a>
       <a class="lnk" href="../"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg><span>Torna al sito</span></a>
+      <a class="lnk esci" href="/redazione/" data-esci><svg viewBox="0 0 24 24"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg><span>Esci</span></a>
     </div>
   </aside>
   <main class="work" id="work">
@@ -381,8 +529,11 @@ var PAG=[
   {id:"consumo",n:"Consumo",ic:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'},
   {id:"qualita",n:"Qualità",ic:'<path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/>'},
   {id:"edizioni",n:"Edizioni",ic:'<path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/>'},
-  {id:"invii",n:"Invii",ic:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/>'}
+  {id:"invii",n:"Invii",ic:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/>'},
+  {id:"gommunity",n:"Gommunity",g:"Lettori",ic:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14.5h4.5"/>'},
+  {id:"sicurezza",n:"Sicurezza",g:"Account",ic:'<path d="M12 3l7 3v5.5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5V6z"/><path d="M9 12l2.2 2.2L15.5 10"/>'}
 ];
+PAG[0].g="Pannello";
 var ALIAS={operativita:"puntualita",versioni:"edizioni",metodo:"panoramica"};
 
 /* ============ Formati ============ */
@@ -413,10 +564,13 @@ function plur(n,a,b){return n==1?a:b}
 /* ============ Stato ============ */
 var D=null,ED={},INV={invii:[],regole:{}},MIN=null,ORO=null,app=document.getElementById("app"),tip=document.getElementById("tip"),LIM=mi(S.uscita);
 var st0={p:"panoramica",per:10,v:"",un:"",mq:"",ev:"ed",sort:{k:"n",dir:-1},sortv:{k:"v",dir:-1},sel:null};
-function leggiHash(){var h=(location.hash||"").slice(1).toLowerCase();var met=h=="metodo";if(h=="versioni")st0.ev="ve";h=ALIAS[h]||h;st0.p=PAG.some(function(p){return p.id==h})?h:"panoramica";return met}
+function leggiHash(){var h=(location.hash||"").slice(1).toLowerCase().split("/")[0];var met=h=="metodo";if(h=="versioni")st0.ev="ve";h=ALIAS[h]||h;st0.p=PAG.some(function(p){return p.id==h})?h:"panoramica";return met}
 var apriMetodo=leggiHash();
-function leggi(u){return fetch(u,{cache:"no-store"}).then(function(r){return r.ok?r.json():[]}).catch(function(){return []})}
-Promise.all([leggi("registro.json"),leggi("taratura.json"),leggi("../edizioni.json"),leggi("invii.json"),leggi("piani.json"),leggi("minuti.json"),leggi("../api/orologio")]).then(function(r){
+function leggi(u){return fetch(u,{cache:"no-store",credentials:"same-origin"}).then(function(r){if(r.status==401){location.replace("/redazione/"+location.hash);return []}return r.ok?r.json():[]}).catch(function(){return []})}
+Promise.all([leggi("registro.json"),leggi("taratura.json"),leggi("../edizioni.json"),leggi("invii.json"),leggi("piani.json"),leggi("minuti.json"),leggi("../api/orologio"),
+             forse(rapi("GET","sessione")),forse(rapi("GET","riepilogo")),forse(rapi("GET","discussioni"))]).then(function(r){
+  /* l'area (G-51): il gettone anti-CSRF della sessione, la Gommunity di oggi, le discussioni per edizione */
+  if(r[7])RED.csrf=r[7].csrf;RED.riep=r[8];RED.disc=r[9];
   if(r[3]&&Array.isArray(r[3].invii))INV=r[3];
   /* la macchina (G-58, G-12): minuti di GitHub stimati da redazione/minuti.py, stato dell'orologio dei controlli dal Worker */
   if(r[5]&&typeof r[5].percentuale=="number")MIN=r[5];ORO=(r[6]&&typeof r[6].sano=="boolean")?r[6]:false;
@@ -578,14 +732,15 @@ function spark(F,val,W,H,lim,basso){var v=F.map(val),ok=v.filter(isn);if(ok.leng
 /* Dopo ogni ridisegno il fuoco torna sul controllo che lo aveva (tastiera e lettori di schermo) */
 var CHIAVI=["data-per","data-un","data-ev","data-vf","data-mq","data-sort","data-go"];
 function chiaveFuoco(el){if(!el||el==document.body||drawer.contains(el))return null;if(el.id)return "#"+el.id;for(var i=0;i<CHIAVI.length;i++){var v=el.getAttribute&&el.getAttribute(CHIAVI[i]);if(v!=null)return el.tagName.toLowerCase()+"["+CHIAVI[i]+'="'+v.replace(/"/g,'\\"')+'"]'}return null}
-function disegna(){var fk=chiaveFuoco(document.activeElement);disegna0();if(fk){var el=document.querySelector(fk);if(el&&el.focus)try{el.focus({preventScroll:true})}catch(e){}}}
+function disegna(){var fk=chiaveFuoco(document.activeElement);disegna0();if(fk){var el=document.querySelector(fk);if(el&&el.focus)try{el.focus({preventScroll:true});if(el.id=="gq")el.setSelectionRange(el.value.length,el.value.length)}catch(e){}}}
 function disegna0(){
   var w=finestra(),F=w.F,a=w.a,b=w.b;D.reg.forEach(function(x){x.ultimo=false});if(F.length)F[F.length-1].ultimo=true;vsTxt=w.labS?' <span>vs '+esc(w.labS)+"</span>":"";
   /* barra laterale */
   var allarmi=listaAllarmi(w);
   var dg=daGuardareInvii().length;
-  document.getElementById("nav").innerHTML=PAG.map(function(p){var bd="";if(p.id=="invii"&&dg)bd='<span class="badge att" title="Da guardare">'+dg+'<span class="sr"> da guardare</span></span>';if(p.id=="panoramica"&&allarmi.length){var ko=allarmi.filter(function(x){return x.s=="ko"}).length;bd='<span class="badge'+(ko?"":" att")+'" title="Da guardare">'+allarmi.length+'<span class="sr"> da guardare</span></span>'}
-    return '<button type="button" data-go="'+p.id+'"'+(st0.p==p.id?' aria-current="page"':"")+'><svg viewBox="0 0 24 24">'+p.ic+"</svg>"+p.n+bd+"</button>"}).join("");
+  var gr0="";
+  document.getElementById("nav").innerHTML=PAG.map(function(p){var bd="",gh="";if(p.g&&p.g!=gr0){gr0=p.g;gh='<div class="grp">'+p.g+"</div>"}if(p.id=="gommunity"&&RED.riep&&RED.riep.guardare)bd='<span class="badge" title="Da guardare">'+RED.riep.guardare+'<span class="sr"> da guardare</span></span>';if(p.id=="invii"&&dg)bd='<span class="badge att" title="Da guardare">'+dg+'<span class="sr"> da guardare</span></span>';if(p.id=="panoramica"&&allarmi.length){var ko=allarmi.filter(function(x){return x.s=="ko"}).length;bd='<span class="badge'+(ko?"":" att")+'" title="Da guardare">'+allarmi.length+'<span class="sr"> da guardare</span></span>'}
+    return gh+'<button type="button" data-go="'+p.id+'"'+(st0.p==p.id?' aria-current="page"':"")+'><svg viewBox="0 0 24 24">'+p.ic+"</svg>"+p.n+bd+"</button>"}).join("");
   var cur=document.querySelector("#nav [aria-current]");if(cur&&innerWidth<=1100){var sd=document.querySelector(".side"),r=cur.getBoundingClientRect();if(r.right>innerWidth-8||r.left<0)sd.scrollLeft+=r.left-(innerWidth-r.width)/2}
   var u=D.reg[D.reg.length-1];
   document.getElementById("ult").innerHTML='Ultima edizione<br><b>'+num(u.n)+"</b> · "+data(u.d)+(u.ora?" · "+u.ora:"");
@@ -594,7 +749,8 @@ function disegna0(){
   document.getElementById("slicers").innerHTML='<span class="slab">Periodo</span><div class="seg" role="group" aria-label="Periodo">'+[[10,"Ultime 10"],[30,"Ultime 30"],[9999,"Tutte"]].map(function(o){return '<button type="button" data-per="'+o[0]+'" aria-pressed="'+(st0.per==o[0])+'">'+o[1]+"</button>"}).join("")+"</div>"
     +'<label class="dd"><span class="sr">Versione</span><select id="selv" aria-label="Versione delle istruzioni"><option value="">Tutte le versioni</option>'+vv.map(function(g){return '<option value="'+esc(g.v)+'"'+(st0.v==g.v?" selected":"")+">"+esc(g.v)+" · "+g.r.length+" "+plur(g.r.length,"edizione","edizioni")+"</option>"}).join("")+"</select></label>";
   var pag=PAG.filter(function(p){return p.id==st0.p})[0];
-  document.getElementById("titolo").textContent=pag.n;document.title=pag.n+" - Pannello di controllo - Gommberg Terminal Daily";
+  document.getElementById("titolo").textContent=pag.n;document.title=pag.n+" - Redazione - Gommberg Terminal Daily";
+  if(st0.p=="gommunity"||st0.p=="sicurezza"){vsTxt="";document.getElementById("slicers").innerHTML="";app.innerHTML=st0.p=="gommunity"?gommunity():sicurezza();return}
   if(st0.p=="invii"){vsTxt="";document.getElementById("slicers").innerHTML="";var iv=invii();document.getElementById("sottotitolo").innerHTML=iv[0];app.innerHTML=iv[1];return}
   if(!F.length){document.getElementById("sottotitolo").textContent="Nessuna edizione con questi filtri.";app.innerHTML='<div class="card vuoto">Nessuna edizione con questi filtri.</div>';return}
   document.getElementById("sottotitolo").innerHTML=F.length+" "+plur(F.length,"edizione","edizioni")+(st0.v?" della "+esc(st0.v):"")+" · dal "+breve(F[0].d)+" al "+breve(F[F.length-1].d)+(w.lab?" · confronto con "+esc(w.lab):"");
@@ -629,7 +785,7 @@ function macchina(){var L=[];
 
 /* ================= PANORAMICA ================= */
 function panoramica(w,allarmi){var a=w.a,b=w.b||{},F=w.F,Q=piano(a),P=Q.nome,u=F[F.length-1];
-  var h='<div class="row r5">'
+  var h=oggi()+'<div class="row r5">'
    +kpi({go:"puntualita",l:"Puntualità",s:st(a.punt,S.punt),v:it(a.punt,0)+"%",d:delta(a.punt,b.punt,0,0," pt"),n:(F.length-a.tardi.length)+" su "+F.length+" entro le "+S.uscita,spark:striscia(F)})
    +kpi({go:"puntualita",l:"Uscita mediana",s:isn(a.uscMed)?(a.uscMed<=LIM?"ok":"ko"):"",v:isn(a.uscMed)?ora(a.uscMed):"-",d:dMin(a.uscMed,b.uscMed),n:"obiettivo "+S.uscita+" · ultima "+(u.ora||"-"),spark:spark(F,function(x){return x.fine!=null?Math.min(x.fine,615):null},200,34,LIM)})
    +kpi({go:"consumo",l:"Consumo",s:st(a.sett,S.consumo,1),v:isn(a.sett)?"≈ "+it(a.sett,0):"-",u:isn(a.sett)?"su 100":"",d:delta(a.sett,b.sett,1,0,""),n:"punti "+esc(P)+(Q.tasso?" a settimana · soglia "+S.consumo[0]:" · in taratura"),spark:spark(F,function(x){return x.pn==a.pn?x.pt:null},200,34,null)})
@@ -638,6 +794,7 @@ function panoramica(w,allarmi){var a=w.a,b=w.b||{},F=w.F,Q=piano(a),P=Q.nome,u=F
    +"</div>";
   /* matrice delle ultime edizioni */
   var R=F.slice(-10).reverse(),cols=[["ora","Uscita"],["durata_min","Durata"],["pt","Punti"],["fr","Parole/frase"],["lunghe","Frasi lunghe"],["prim","Fonti prim."],["schede","Schede"],["ricerche","Ricerche"]];
+  if(RED.disc){var pe={};RED.disc.edizioni.forEach(function(x){pe[x.ed]=x});D.reg.forEach(function(x){var q=pe[x.n];x.cm=q?q.commenti:0;var t=q?(q.toro||0)+(q.orso||0):0;x.sent=t?Math.round(q.toro/t*100):null});cols=cols.filter(function(c){return c[0]!="lunghe"&&c[0]!="ricerche"}).concat([["cm","Commenti"],["sent","Toro"]])}
   var tb='<div class="tw"><table><thead><tr><th>Edizione</th>'+cols.map(function(c){return "<th>"+c[1]+"</th>"}).join("")+"</tr></thead><tbody>"+R.map(function(x){return riga(x,cols)}).join("")+"</tbody></table></div>";
   var mat=card("Le ultime edizioni",R.length<F.length?"Le 10 più recenti del periodo · clic su una riga per il dettaglio":"Clic su una riga per il dettaglio",tb,{flush:true,info:"soglie"});
   /* da guardare */
@@ -648,7 +805,7 @@ function panoramica(w,allarmi){var a=w.a,b=w.b||{},F=w.F,Q=piano(a),P=Q.nome,u=F
   if(pv){var rr=[["Entro le "+S.uscita,vu.punt,pv.punt,0,0,"%"," pt"],["Durata",vu.dur,pv.dur,1,0," min"," min"],["Punti "+esc(piano(vu).nome)+" a edizione",vu.pt,vu.pn==pv.pn?pv.pt:null,1,1,"",""],["Parole per frase",vu.fr,pv.fr,1,1,"",""],["Frasi oltre 30 parole",vu.lunghe,pv.lunghe,1,0,"%"," pt"],["Fonti primarie",vu.prim,pv.prim,0,0,"%"," pt"]];
     rr=rr.filter(function(r){return isn(r[1])||isn(r[2])});
     cv='<div class="cmp">'+rr.map(function(r){return "<div><span>"+r[0]+"</span><em>"+fv(r[1],r[4],r[5])+" · "+fv(r[2],r[4],r[5])+"</em>"+(delta(r[1],r[2],r[3],r[4],r[6])||"<em>-</em>")+"</div>"}).join("")+"</div>"}
-  var side='<div class="stack">'+card("Da guardare",allarmi.length?allarmi.length+" "+plur(allarmi.length,"punto","punti")+" nel periodo · clic per il dettaglio":"Nel periodo scelto",al,{})
+  var side='<div class="stack">'+gommunityOggi()+card("Da guardare",allarmi.length?allarmi.length+" "+plur(allarmi.length,"punto","punti")+" nel periodo · clic per il dettaglio":"Nel periodo scelto",al,{})
     +(cv?card("Le istruzioni "+esc(vu.v)+" contro le "+esc(pv.v),vu.n+" contro "+pv.n+" edizioni · medie per versione",cv,{info:"confronto"}):"")+"</div>";
   return h+'<div class="row r21">'+mat+side+"</div>"}
 
@@ -660,6 +817,8 @@ function cella(x,k){var v=x[k],s="",t;
   else if(k=="durata_min"){t=isn(v)?v+" min":"-"}
   else if(k=="pt"){t=isn(v)?(x.misurata?"":"≈ ")+it(v,1):D.P[x.pn]&&!D.P[x.pn].tasso?"in taratura":"-"}
   else if(k=="tok"){t=isn(v)?mln(v):"-"}
+  else if(k=="cm"){t=isn(v)?String(v):"-"}
+  else if(k=="sent"){t=isn(v)?'<i style="display:inline-flex;width:36px;height:6px;gap:2px;vertical-align:middle;margin-right:6px"><i style="width:'+v+'%;background:var(--good);border-radius:2px"></i><i style="flex:1;background:var(--bad);border-radius:2px"></i></i>'+v+"%":"-"}
   else{var m=MISURE.filter(function(z){return z.k==k})[0]||{d:0,u:""};t=fv(v,m.d,m.u);if(SOG[k])s=st(v,SOG[k][0],SOG[k][1]);if(s=="ok")s=""}
   return '<td class="c '+(t=="-"||t=="in taratura"?"na ":"")+s+'"><span>'+t+"</span></td>"}
 function riga(x,cols){return '<tr class="cl'+(st0.sel==x.n?" on":"")+'" data-ed="'+x.n+'" tabindex="0"><td><span class="e">'+num(x.n)+'</span><span class="dt">'+data(x.d)+"</span></td>"+cols.map(function(c){return cella(x,c[0])}).join("")+"</tr>"}
@@ -816,6 +975,188 @@ function edizione(n){var w=finestra(),reg=w.F,i=-1;reg.forEach(function(x,j){if(
   if(x.ricostruita)h+='<p class="note" style="font-size:12.5px;color:var(--muted)">Orari ricostruiti dalla cronologia dell\'attività.</p>';
   apri(h+"</div>")}
 
+/* ================= AREA RISERVATA (G-51) =================
+   Il pannello è la prima scheda dell'area della redazione, servita dal Worker su /redazione/ solo dopo l'accesso
+   (redazione/sito/redazione.js). Qui: la striscia di oggi in Panoramica, le schede Gommunity e Sicurezza, Esci.
+   Ogni testo che viene dai lettori passa da esc(): mai HTML dei lettori nella pagina. */
+var CLOUDFLARE_ERRORI="https://dash.cloudflare.com/?to=/:account/workers/services/view/gommberg/production/observability";
+var RED={csrf:null,riep:null,disc:null,sic:null,g:{filtro:"tutti",ed:"",q:"",id:0,da:0,dati:null,sel:null,menu:null,lett:null,scrivi:null,carica:0}};
+function rapi(metodo,perc,corpo){var h={};if(metodo=="POST"){h["content-type"]="application/json";h["x-csrf"]=RED.csrf||""}
+  return fetch("/api/redazione/"+perc,{method:metodo,headers:h,body:metodo=="POST"?JSON.stringify(corpo||{}):undefined,cache:"no-store",credentials:"same-origin"}).then(function(r){
+    if(r.status==401){location.replace("/redazione/"+location.hash);throw new Error("Accesso scaduto: entra di nuovo.")}
+    return r.json().catch(function(){return {}}).then(function(j){if(!r.ok)throw new Error(j.errore||"Il servizio non risponde: riprova tra poco.");return j})})}
+function forse(p){return p.then(function(x){return x},function(){return null})}
+var AVC=["#F6D7C3","#D9E8DE","#DCE3F0","#EADCF0","#F0E6C8","#E3DED7"];
+function avc(n){var h=0;for(var i=0;i<n.length;i++)h=(h*31+n.charCodeAt(i))>>>0;return AVC[h%AVC.length]}
+function iniz(n){var p=String(n).replace(/[_.]/g," ").trim().split(/\s+/).filter(function(w,i){return i==0||!/^(di|de|del|della|delle|dei|da|e|il|la|le|in|con)$/i.test(w)});return ((p[0]||"?").charAt(0)+(p.length>1?p[1].charAt(0):"")).toUpperCase()}
+function avatar(c,cls){return c.redazione?'<span class="'+cls+'"><img src="../assets/avatar.png" alt=""></span>':'<span class="'+cls+'" style="background:'+avc(c.nome)+'">'+esc(iniz(c.nome))+"</span>"}
+function quando(iso){if(!iso)return "-";var d=new Date(iso),m=Math.floor((Date.now()-d)/60000),oggi=new Date();if(m<1)return "adesso";if(m<60)return m+" min fa";
+  var hh=("0"+d.getHours()).slice(-2)+":"+("0"+d.getMinutes()).slice(-2);if(d.toDateString()==oggi.toDateString())return "oggi "+hh;var ieri=new Date(oggi-864e5);if(d.toDateString()==ieri.toDateString())return "ieri "+hh;return d.getDate()+" "+M[d.getMonth()]+" "+hh}
+function durata(s){if(!isn(s))return "-";if(s<3600)return Math.max(1,Math.round(s/60))+" min";var h=Math.floor(s/3600),m=Math.round((s%3600)/60);return h+" h"+(m?" "+m:"")}
+function tg(v){return v?'<span class="tg '+(v=="toro"?"up":"down")+'">'+(v=="toro"?"▲ Toro":"▼ Orso")+"</span>":""}
+var toastT=null;
+function toast(msg,annulla){var t=document.getElementById("toast");if(!t){t=document.createElement("div");t.id="toast";t.className="toast";t.setAttribute("role","status");document.body.appendChild(t)}
+  t.innerHTML="<span>"+esc(msg)+"</span>"+(annulla?'<button type="button" data-annulla>Annulla</button>':"");t.hidden=false;t._annulla=annulla||null;clearTimeout(toastT);toastT=setTimeout(function(){t.hidden=true;t._annulla=null},annulla?10000:3500)}
+
+/* --- la striscia di oggi: le quattro cose che possono chiedere attenzione --- */
+function att4(s,lab,kv,ks,acts){return '<div class="card att4 '+s+'"><div class="kl"><span>'+lab+"</span>"+stato(s=="neu"?"":s)+'</div><div class="kv">'+kv+'</div><div class="ks">'+ks+'</div><div class="acts">'+(acts||"")+"</div></div>"}
+function oggi(){var u=D.reg[D.reg.length-1],e=ED[u.n]||{},h="";
+  var fuori=MISURE.filter(function(m){return m.s&&st(u[m.k],m.s,m.basso)=="ko"});
+  var mat=ORO&&ORO.sveglie?ORO.sveglie.filter(function(x){return x.flusso=="mattino.yml"})[0]:null;
+  var se=u.tardi||fuori.length?"att":"ok";
+  var ks=(u.tardi?Math.round(u.fine-LIM)+" min dopo le "+S.uscita:"entro le "+S.uscita)+" · "+(fuori.length?fuori.map(function(m){return esc(m.n)+" "+fv(u[m.k],m.d,m.u)}).join(", ")+" fuori soglia":"misure in soglia")
+    +(mat&&mat.esito?" · controllo del mattino "+(mat.ok?"riuscito":"da guardare"):"");
+  h+=att4(se,"Edizione di oggi",num(u.n)+" <small>"+(u.ora?"uscita alle "+u.ora:"uscita")+" · "+data(u.d)+"</small>",ks,
+    (e.numero?'<a class="btn sm" href="../e/'+("00"+u.n).slice(-3)+'.html">Apri l\'edizione</a>':"")+'<button class="btn sm" type="button" data-ed="'+u.n+'">Dettaglio</button>');
+  var R=RED.riep;
+  if(!R)h+=att4("ko","Segnalazioni aperte","-","Il servizio dei commenti non ha risposto: le segnalazioni non si possono leggere.","");
+  else h+=att4(R.guardare?"ko":"ok","Segnalazioni aperte",R.guardare+" <small>"+plur(R.guardare,"commento","commenti")+"</small>",
+    R.guardare?(R.auto?R.auto+" già "+plur(R.auto,"nascosto","nascosti")+" in automatico (3 reti)":"ancora visibili: decidi tu")+" · avviso anche per email":"Nessun commento in attesa di una decisione.",
+    '<button class="btn sm'+(R.guardare?" pri":"")+'" type="button" data-go="gommunity" data-gf="'+(R.guardare?"guardare":"tutti")+'">'+(R.guardare?"Guarda e decidi":"Apri la Gommunity")+"</button>");
+  if(!R)h+=att4("ko","Servizio dei commenti","Non risponde","La Gommunity sul sito dice che la discussione non si carica. Gli errori si leggono su Cloudflare.",'<a class="btn sm" href="'+CLOUDFLARE_ERRORI+'" target="_blank" rel="noopener">Errori su Cloudflare</a>');
+  else h+=att4("ok","Servizio dei commenti","Attivo <small>database in "+R.database_ms+" ms</small>",R.commenti_oggi+" "+plur(R.commenti_oggi,"commento","commenti")+" e "+R.voti_oggi+" "+plur(R.voti_oggi,"voto","voti")+" su "+num(R.edizione)+(R.chiusa?" · discussione chiusa":""),
+    '<a class="btn sm" href="'+CLOUDFLARE_ERRORI+'" target="_blank" rel="noopener">Errori su Cloudflare</a>');
+  var ora0=new Date(),fut=INV.invii.filter(function(r){return tInvio(r)>ora0&&r.stato!="annullata"}).sort(function(a,b){return tInvio(a)-tInvio(b)}),p0=fut[0];
+  if(!p0)h+=att4("neu","Prossima mail straordinaria","-","Nessuna mail straordinaria in calendario.",'<button class="btn sm" type="button" data-go="invii">Invii</button>');
+  else{var si0=statoInvio(p0,ora0),ent=new Date(tInvio(p0)-(INV.regole.promemoria_giorni||10)*864e5);
+    h+=att4(p0.stato=="bozza"?(si0.g?"att":"neu"):"ok","Prossima mail straordinaria",esc(data(p0.invio.slice(0,10)))+" <small>"+p0.invio.slice(11,16)+"</small>",
+      "«"+esc(p0.oggetto)+"» · "+(p0.stato=="bozza"?"bozza · l'ok si dà in chat, entro il "+ent.getDate()+"/"+(ent.getMonth()+1):"approvata: parte da sola"),
+      '<button class="btn sm" type="button" data-go="invii">Anteprima</button>')}
+  return '<div class="oggi">'+h+"</div>"}
+function gommunityOggi(){var R=RED.riep;if(!R)return "";var t=(R.toro||0)+(R.orso||0),pt=t?Math.round(R.toro/t*100):0;
+  var h=t?'<div class="sentbar"><span style="color:var(--good)">▲ Toro '+pt+'%</span><span class="b"><i style="width:'+pt+'%;background:var(--good)"></i><i style="flex:1;background:var(--bad)"></i></span><span style="color:var(--bad)">'+(100-pt)+'% Orso ▼</span></div>':'<p class="note" style="margin:0">Ancora nessun voto sul sentiment di oggi.</p>';
+  h+=(R.ultimi&&R.ultimi.length?'<ul class="mini">'+R.ultimi.map(function(c){return "<li>"+avatar(c,"av")+'<div><div class="mt"><b>'+esc(c.nome)+"</b>"+(c.redazione?'<span class="badge-red">Redazione</span>':"")+tg(c.voto)+"<span>"+quando(c.quando)+"</span></div><p>"+esc(c.testo.length>160?c.testo.slice(0,157)+"…":c.testo)+"</p></div></li>"}).join("")+"</ul>":"");
+  h+='<button class="lnk2" type="button" data-go="gommunity" style="background:none;border:0;padding:0;cursor:pointer;margin-top:8px">Tutti i commenti e le segnalazioni</button>';
+  return card("Gommunity oggi",num(R.edizione)+" · "+t+" "+plur(t,"voto","voti")+" · "+R.commenti_oggi+" "+plur(R.commenti_oggi,"commento","commenti"),h,{})}
+
+/* --- scheda Gommunity --- */
+function gCarica(piu){var g=RED.g,k=++g.carica;if(!piu)g.da=0;g.attesa=1;
+  var q="filtro="+encodeURIComponent(g.filtro)+(g.ed?"&ed="+encodeURIComponent(g.ed):"")+(g.q?"&q="+encodeURIComponent(g.q):"")+(g.id?"&id="+g.id:"")+"&da="+g.da;
+  return Promise.all([rapi("GET","commenti?"+q),RED.disc?Promise.resolve(RED.disc):forse(rapi("GET","discussioni"))]).then(function(r){if(k!=g.carica)return;g.attesa=0;
+    if(piu&&g.dati){g.dati.commenti=g.dati.commenti.concat(r[0].commenti);g.dati.altri=r[0].altri}else g.dati=r[0];
+    RED.disc=r[1];if(g.sel&&!g.dati.commenti.some(function(c){return c.id==g.sel}))g.sel=null;
+    if(!g.sel&&g.dati.commenti.length){var p=g.dati.commenti.filter(function(c){return !c.redazione})[0];if(p)gSel(p.id,true)}
+    if(st0.p=="gommunity")disegna()},function(e){if(k!=g.carica)return;g.attesa=0;g.dati={errore:e.message};if(st0.p=="gommunity")disegna()})}
+function gSel(id,quieto){var g=RED.g;g.sel=id;g.lett=null;rapi("GET","lettore?commento="+id).then(function(j){if(g.sel==id){g.lett=j;if(st0.p=="gommunity")disegna()}},function(){});if(!quieto)disegna()}
+function gommunity(){var g=RED.g,d=g.dati;
+  var conti=d&&d.conti||{tutti:0,guardare:0,nascosti:0,redazione:0,edizioni:0};
+  document.getElementById("sottotitolo").textContent=d&&d.conti?conti.tutti+" "+plur(conti.tutti,"commento","commenti")+" su "+conti.edizioni+" "+plur(conti.edizioni,"edizione","edizioni")+" · "+conti.guardare+" da guardare · "+conti.nascosti+" "+plur(conti.nascosti,"nascosto","nascosti"):"Caricamento…";
+  var eds=(RED.disc&&RED.disc.edizioni||[]).map(function(x){return x.ed});
+  document.getElementById("slicers").innerHTML='<div class="flt"><div class="seg" role="group" aria-label="Quali commenti">'+[["tutti","Tutti",conti.tutti],["guardare","Da guardare",conti.guardare],["nascosti","Nascosti",conti.nascosti],["redazione","Redazione",conti.redazione]].map(function(o){return '<button type="button" data-gf="'+o[0]+'" aria-pressed="'+(g.filtro==o[0])+'">'+o[1]+'<span class="n'+(o[0]=="guardare"&&o[2]?" r":"")+'">'+o[2]+"</span></button>"}).join("")+"</div>"
+    +'<label class="dd"><span class="sr">Edizione</span><select id="ged" aria-label="Edizione"><option value="">Tutte le edizioni</option>'+eds.map(function(n){return '<option value="'+n+'"'+(String(g.ed)==String(n)?" selected":"")+">"+num(n)+(ED[n]?" · "+breve(ED[n].data):"")+"</option>"}).join("")+"</select></label>"
+    +'<label class="cerca"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg><span class="sr">Cerca</span><input id="gq" type="search" maxlength="60" placeholder="Cerca un nome o una parola" value="'+esc(g.q)+'" autocomplete="off"></label></div>';
+  if(!d){if(!g.attesa)gCarica();return '<div class="card vuoto">Caricamento dei commenti…</div>'}
+  if(d.errore)return '<div class="card vuoto">'+esc(d.errore)+"</div>";
+  var m=d.misure,h='<div class="row r4">'
+   +kpi({go:"gommunity",l:"Commenti, ultimi 7 giorni",v:String(m.commenti_7),d:delta(m.commenti_7,m.commenti_7_prima,0,0,"")+"<span>vs 7 prec.</span>",n:(RED.riep?RED.riep.commenti_oggi+" su "+num(RED.riep.edizione):"")})
+   +kpi({go:"gommunity",l:"Lettori che scrivono",v:String(m.lettori_7),d:delta(m.lettori_7,m.lettori_7_prima,0,0,"")+"<span>vs 7 prec.</span>",n:"in 7 giorni · un codice per browser"})
+   +kpi({go:"gommunity",l:"Da guardare",s:conti.guardare?"ko":"ok",v:String(conti.guardare),d:false,n:m.auto?m.auto+" "+plur(m.auto,"nascosto","nascosti")+" in automatico (3 reti)":"nessuno nascosto in automatico"})
+   +kpi({go:"gommunity",l:"Tempo di decisione",s:isn(m.decisione_s)?(m.decisione_s<=86400?"ok":"att"):"",v:durata(m.decisione_s),d:false,n:m.decisioni?"mediana di "+m.decisioni+" "+plur(m.decisioni,"decisione","decisioni")+" in 30 giorni":"dalla segnalazione alla tua scelta"})
+   +"</div>";
+  var lista=d.commenti.map(gRiga).join("");
+  var titolo=g.filtro=="guardare"?"Da guardare":g.filtro=="nascosti"?"Nascosti e tolti":g.filtro=="redazione"?"Della redazione":"Commenti da guardare e recenti";
+  var corpo=(g.id?'<div style="padding:12px 16px 0"><span class="idf">Solo il commento n. '+g.id+' <button type="button" data-gid="0" aria-label="Mostra tutti">×</button></span></div>':"")
+    +(lista?'<ul class="cl">'+lista+"</ul>":'<div class="vuoto">Nessun commento con questi filtri.</div>')
+    +(d.altri?'<div style="padding:4px 16px 14px"><button class="btn sm" type="button" data-gpiu>Altri commenti</button></div>':"")
+    +'<p class="hint" style="padding:0 16px 14px">Prima i commenti da guardare, poi i più recenti. Clic su un commento: a destra chi l\'ha scritto. Togli e Rimetti si annullano per 10 secondi.</p>';
+  return h+'<div class="row r21 dopo">'+card(titolo,"Testo completo · un clic per decidere",corpo,{flush:true})+'<div class="stack">'+gLettore()+gDiscussioni()+"</div></div>"}
+function gRiga(c){var g=RED.g,B=function(t,act,cls){return '<button class="btn sm'+(cls?" "+cls:"")+'" type="button" data-ga="'+act+'" data-id="'+c.id+'">'+t+"</button>"};
+  var chipS={nascosto:chip("ko","Nascosto dalle segnalazioni"),segnalato:chip("att","Segnalato"),tolto:'<span class="chip neu">Tolto'+(c.deciso?" il "+new Date(c.deciso).getDate()+"/"+(new Date(c.deciso).getMonth()+1):"")+"</span>"}[c.stato]||"";
+  var az="";
+  if(c.stato=="tolto")az=B("Rimetti","rimetti");
+  else if(c.stato=="nascosto")az=B("Togli","togli","ko")+B("Rimetti","rimetti");
+  else if(c.stato=="segnalato")az=B("Togli","togli","ko")+B("Azzera","azzera");
+  else if(c.redazione)az=B("Modifica","modifica-apri")+(c.padre?"":B(c.fissato?"Sgancia":"Fissa",c.fissato?"sgancia":"fissa"));
+  else az=B("Togli","togli","ko")+(c.padre?"":B(c.fissato?"Sgancia":"Fissa",c.fissato?"sgancia":"fissa"));
+  var ch=RED.disc&&RED.disc.edizioni?RED.disc.edizioni.filter(function(x){return x.ed==c.ed})[0]:null;
+  var menu=g.menu==c.id?'<div class="menu" role="menu">'
+    +(c.stato!="tolto"?'<button type="button" data-ga="rispondi-apri" data-id="'+c.id+'">Rispondi come Gommberg</button>':"")
+    +(!c.padre&&c.stato=="visibile"?'<button type="button" data-ga="'+(c.fissato?"sgancia":"fissa")+'" data-id="'+c.id+'">'+(c.fissato?"Sgancia dall'alto":"Fissa in alto")+"</button>":"")
+    +(c.segnalazioni?'<button type="button" data-ga="azzera" data-id="'+c.id+'">Azzera le segnalazioni</button>':"")
+    +(c.redazione?"":"<hr>"+(c.bloccato?'<button type="button" data-ga="sblocca" data-id="'+c.id+'">Sblocca il lettore</button>':'<button type="button" class="ko" data-ga="blocca" data-id="'+c.id+'">Blocca il lettore <span>browser e rete</span></button>')
+      +'<button type="button" data-ga="libera" data-id="'+c.id+'" data-nome="'+esc(c.nome)+'">Libera il nome «'+esc(c.nome)+"»</button>")
+    +"<hr>"+'<button type="button" data-ga="'+(ch&&ch.chiusa?"riapri":"chiudi")+'" data-ed="0" data-n="'+c.ed+'">'+(ch&&ch.chiusa?"Riapri":"Chiudi")+" la discussione di "+num(c.ed)+"</button></div>":"";
+  var box="";
+  if(g.scrivi&&g.scrivi.id==c.id)box='<div class="rbox"><label class="sr" for="gtesto">'+(g.scrivi.tipo=="modifica"?"Modifica il commento":"Risposta come Gommberg")+'</label><textarea id="gtesto" maxlength="600">'+esc(g.scrivi.tipo=="modifica"?c.testo:"")+'</textarea><div class="acts"><button class="btn sm pri" type="button" data-ga="'+(g.scrivi.tipo=="modifica"?"modifica":"rispondi")+'" data-id="'+c.id+'">'+(g.scrivi.tipo=="modifica"?"Salva":"Pubblica come Gommberg")+'</button><button class="btn sm" type="button" data-ga="annulla" data-id="'+c.id+'">Annulla</button></div></div>';
+  return '<li data-gc="'+c.id+'" class="'+(g.sel==c.id?"sel ":"")+(c.stato=="tolto"?"via":"")+'">'+avatar(c,"av")+"<div>"+(c.padre_nome?'<p class="re">in risposta a '+esc(c.padre_nome)+"</p>":"")
+    +'<div class="mt"><b>'+esc(c.nome)+"</b>"+(c.redazione?'<span class="badge-red">Redazione</span>':"")+(c.fissato?'<span class="pin"><svg viewBox="0 0 24 24"><path d="M9 4h6l-1 5 3 3H7l3-3zM12 12v8"/></svg>Fissato in alto</span>':"")+tg(c.voto)
+    +'<span class="q">'+num(c.ed)+" · "+quando(c.quando)+(c.modificato?" · modificato":"")+"</span>"+chipS+(c.bloccato?'<span class="chip ko">Lettore bloccato</span>':"")+"</div>"
+    +'<p class="tx">'+esc(c.testo)+'</p><div class="nums"><span>♥ '+c.piace+"</span><span>Segnalazioni "+(c.segnalazioni?"<b>"+c.segnalazioni+"</b>":"0")+"</span></div>"+box+"</div>"
+    +'<div class="az">'+az+'<div class="piu"><button class="mn3" type="button" data-ga="menu" data-id="'+c.id+'" aria-label="Altre azioni" aria-expanded="'+(g.menu==c.id)+'">···</button>'+menu+"</div></div></li>"}
+function gLettore(){var g=RED.g,c=g.dati&&g.dati.commenti.filter(function(x){return x.id==g.sel})[0];
+  if(!c)return card("Chi l'ha scritto","Scegli un commento",'<p class="hint" style="margin:0">Clic su un commento dell\'elenco.</p>',{});
+  var L=g.lett;if(!L)return card("Chi l'ha scritto","Il commento selezionato",'<p class="hint" style="margin:0">Caricamento…</p>',{});
+  if(L.redazione)return card("Chi l'ha scritto","Il commento selezionato",'<div class="who2">'+avatar(c,"av")+"<div><b>Gommberg</b><span>la redazione: firma con il badge, nessun lettore la può usare</span></div></div>",{});
+  var bl=L.bloccato&&L.bloccato.length;
+  var h='<div class="who2">'+avatar(c,"av")+"<div><b>"+esc(L.nome)+"</b><span>Primo commento "+(L.primo?quando(L.primo):"-")+(L.rete_nota?"":" · rete non più nota (oltre 30 giorni)")+"</span></div></div>"
+    +'<div class="kv2"><span>Commenti</span><span>'+L.commenti+'</span><span>Segnalati</span><span'+(L.segnalati?' style="color:var(--bad)"':"")+">"+L.segnalati+"</span><span>Tolti da te</span><span>"+L.tolti+"</span><span>Like ricevuti</span><span>"+L.like+"</span></div>"
+    +'<p class="hint" style="margin-top:10px">I suoi nomi (al massimo tre)</p><div class="nomi">'+(L.nomi.length?L.nomi.map(function(n){return "<span>"+esc(n.nome)+"</span>"}).join(""):"<span>nessuno: già liberati</span>")+"</div>"
+    +'<div class="acts" style="margin-top:12px">'+(bl?'<button class="btn sm" type="button" data-ga="sblocca" data-id="'+c.id+'">Sblocca il lettore</button>':'<button class="btn sm ko" type="button" data-ga="blocca" data-id="'+c.id+'">Blocca il lettore</button>')
+    +(L.nomi.length?'<button class="btn sm" type="button" data-ga="libera-tutti" data-id="'+c.id+'">Libera i nomi</button>':"")+"</div>"
+    +'<p class="hint">'+(bl?"Bloccato: non scrive, non vota, non segnala. ":"")+"Bloccare ferma il browser per sempre e la rete per 30 giorni: i commenti già scritti restano finché non li togli.</p>";
+  return card("Chi l'ha scritto","Il commento selezionato",h,{})}
+function gDiscussioni(){var D2=RED.disc;if(!D2)return "";
+  var h='<ul class="disc">'+D2.edizioni.slice(0,8).map(function(x){return '<li><b style="font-weight:600">'+num(x.ed)+(ED[x.ed]?" · "+esc(data(ED[x.ed].data)):"")+'</b><button type="button" class="sw'+(x.chiusa?"":" on")+'" data-ga="'+(x.chiusa?"riapri":"chiudi")+'" data-n="'+x.ed+'" aria-pressed="'+!x.chiusa+'" style="background:none;border:0;cursor:pointer;padding:0"><i></i>'+(x.chiusa?"Chiusa":"Aperta")+"</button><em>"+x.commenti+" "+plur(x.commenti,"commento","commenti")+(x.ed==D2.ultima?" · edizione di oggi":"")+(x.chiusa?" · chiusa il "+new Date(x.chiusa).getDate()+"/"+(new Date(x.chiusa).getMonth()+1):"")+"</em></li>"}).join("")+"</ul>";
+  return card("Discussioni","Aperte o chiuse, per edizione",h,{})}
+var INVERSA={togli:"rimetti",rimetti:"togli"};
+function gAzione(act,id,el){var g=RED.g,c=g.dati&&g.dati.commenti.filter(function(x){return x.id==id})[0];g.menu=null;
+  if(act=="menu"){g.menu=el.getAttribute("aria-expanded")=="true"?null:id;disegna();return}
+  if(act=="rispondi-apri"||act=="modifica-apri"){g.scrivi={id:id,tipo:act=="modifica-apri"?"modifica":"rispondi"};disegna();var ta=document.getElementById("gtesto");if(ta)ta.focus();return}
+  if(act=="annulla"){g.scrivi=null;disegna();return}
+  var p;
+  if(act=="chiudi"||act=="riapri"){var n=+el.getAttribute("data-n");p=rapi("POST","edizioni/"+n+"/"+act).then(function(){RED.disc=null;toast("Discussione di "+num(n)+(act=="chiudi"?" chiusa":" riaperta"))})}
+  else if(act=="blocca"||act=="sblocca"){if(act=="blocca"&&!confirm("Bloccare chi ha scritto questo commento? Non potrà più scrivere, votare né segnalare."))return;
+    p=rapi("POST","lettori/"+act,{commento:id}).then(function(j){toast(act=="blocca"?"Lettore bloccato"+(j.rete?" (browser e rete)":" (browser)"):"Lettore sbloccato")})}
+  else if(act=="libera"||act=="libera-tutti"){p=rapi("POST","nomi/libera",act=="libera"?{commento:id,nome:el.getAttribute("data-nome")}:{commento:id}).then(function(j){toast(j.liberati?(j.liberati==1?"Nome liberato":j.liberati+" nomi liberati"):"Nessun nome da liberare")})}
+  else if(act=="rispondi"||act=="modifica"){var ta=document.getElementById("gtesto"),tx=ta?ta.value:"";if(!tx.trim()){ta&&ta.focus();return}
+    p=(act=="rispondi"?rapi("POST","commenti",{ed:c.ed,testo:tx,padre:id}):rapi("POST","commenti/"+id+"/modifica",{testo:tx})).then(function(){g.scrivi=null;toast(act=="rispondi"?"Risposta pubblicata come Gommberg":"Commento modificato")})}
+  else{p=rapi("POST","commenti/"+id+"/"+act).then(function(){var inv=INVERSA[act];toast({togli:"Commento tolto",rimetti:"Commento rimesso",azzera:"Segnalazioni azzerate",fissa:"Fissato in alto",sgancia:"Non più fissato"}[act]||"Fatto",inv?function(){rapi("POST","commenti/"+id+"/"+inv).then(function(){RED.riep=null;aggiorna()})}:null)})}
+  if(el)el.disabled=true;
+  p.then(function(){aggiorna()},function(e){if(el)el.disabled=false;toast(e.message)})}
+function aggiorna(){forse(rapi("GET","riepilogo")).then(function(r){if(r)RED.riep=r;if(st0.p=="gommunity")gCarica();else disegna()})}
+
+/* --- scheda Sicurezza --- */
+var ESITO={ok:["Entrato","ok-c"],errore:["Nome o password sbagliati","ko-c"],uscita:["Uscito",""],"esci-tutti":["Uscito da tutti i dispositivi",""],password:["Password cambiata","ok-c"]};
+var IDV={pc:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>',telefono:'<svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></svg>',tablet:'<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M11 18h2"/></svg>',altro:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 17h.01"/></svg>'};
+function sicurezza(){var S2=RED.sic;
+  if(!S2){forse(rapi("GET","sicurezza")).then(function(j){RED.sic=j||{errore:"La scheda non si è caricata: riprova."};if(st0.p=="sicurezza")disegna()});document.getElementById("sottotitolo").textContent="Caricamento…";return '<div class="card vuoto">Caricamento…</div>'}
+  if(S2.errore){document.getElementById("sottotitolo").textContent="";return '<div class="card vuoto">'+esc(S2.errore)+"</div>"}
+  var ok=S2.accessi.filter(function(a){return a.esito=="ok"})[0],err2=S2.accessi.filter(function(a){return a.esito=="errore"&&Date.now()-new Date(a.quando)<2*864e5}).length;
+  document.getElementById("sottotitolo").textContent=(ok?"Ultimo accesso "+quando(ok.quando)+" da "+ok.dispositivo.testo:"Nessun accesso registrato")+" · "+(err2?err2+" "+plur(err2,"tentativo sbagliato","tentativi sbagliati")+" in 2 giorni":"nessun tentativo sbagliato in 2 giorni");
+  var tr=S2.accessi.map(function(a){var e=ESITO[a.esito]||[a.esito,""];return "<tr><td>"+quando(a.quando)+'</td><td><div class="dev">'+(IDV[a.dispositivo.tipo]||IDV.altro)+"<div>"+esc(a.dispositivo.testo)+"<small>"+(a.questa_rete?"da questa rete":"da un'altra rete")+'</small></div></div></td><td class="hide-m">'+esc(a.luogo||"-")+'</td><td class="'+e[1]+'">'+e[0]+"</td></tr>"}).join("");
+  var acc=card("Ultimi accessi","Gli ultimi 30 giorni, anche i tentativi sbagliati",tr?'<div class="tw"><table class="accessi"><thead><tr><th>Quando</th><th>Dispositivo</th><th class="hide-m">Da dove</th><th>Esito</th></tr></thead><tbody>'+tr+"</tbody></table></div>":'<div class="vuoto">Nessun accesso negli ultimi 30 giorni.</div>',{flush:true});
+  var g=S2.regole,prot=card("Protezioni attive","Si leggono, non si toccano",'<ul class="reg">'+["Dopo "+g.errori_liberi+" errori da una rete, un'attesa che raddoppia a ogni errore (fino a "+g.attesa_max_min+" minuti)","Oltre "+g.errori_sito_15min+" errori in 15 minuti da tutte le reti, l'accesso si sospende","Cookie di sessione che le pagine non possono leggere e che gli altri siti non mandano","Pannello, dati e azioni controllati sul server: senza accesso non si aprono","Password mai nel repository né nelle pagine: "+(S2.password.origine=="area"?"in D1 solo la sua impronta (PBKDF2, "+it(g.iterazioni,0)+" passaggi), cambiata "+quando(S2.password.cambiata):"per ora è il segreto REDAZIONE_PASSWORD su Cloudflare")].map(function(t){return "<li>"+stato("ok")+"<span>"+t+"</span></li>"}).join("")+"</ul>",{});
+  var ses=S2.sessioni.map(function(s){return '<span><span class="dev">'+(IDV[s.dispositivo.tipo]||IDV.altro)+"<span>"+esc(s.dispositivo.testo)+"<small>"+(s.questa?"questo dispositivo · ":"")+"usato "+quando(s.usata)+" · "+(s.resta?"resta collegato fino al "+new Date(s.scade).getDate()+"/"+(new Date(s.scade).getMonth()+1)+" senza uso":"fino alla chiusura del browser")+'</small></span></span></span><span><button class="btn sm" type="button" data-sesci="'+s.id+'">Esci</button></span>'}).join("");
+  var dev=card("Dispositivi collegati",S2.sessioni.length+" "+plur(S2.sessioni.length,"sessione aperta","sessioni aperte"),'<div class="kv2">'+ses+'</div><div class="acts" style="margin-top:12px"><button class="btn ko" type="button" data-esci-tutti>Esci da tutti i dispositivi</button></div><p class="hint">Chiude ogni sessione sul server, anche questa: poi la password serve di nuovo ovunque. Senza uso, si esce da soli dopo '+g.resta_giorni+" giorni (o dopo "+g.breve_ore+" ore senza «Resta collegato»).</p>",{});
+  var pw=card("Cambia la password","Dopo il cambio si esce da tutti gli altri dispositivi",'<form id="fpw" autocomplete="on"><input type="text" name="username" autocomplete="username" value="" hidden>'
+    +'<div class="fld"><label for="pw0">Password attuale</label><input id="pw0" type="password" autocomplete="current-password" maxlength="200" required></div>'
+    +'<div class="fld"><label for="pw1">Nuova password</label><input id="pw1" type="password" autocomplete="new-password" minlength="'+S2.password.minimo+'" maxlength="200" required></div>'
+    +'<div class="fld"><label for="pw2">Ripeti la nuova password</label><input id="pw2" type="password" autocomplete="new-password" maxlength="200" required></div>'
+    +'<ul class="reg"><li>'+stato("ok")+"Almeno "+S2.password.minimo+' caratteri: meglio una frase di 4-5 parole</li><li>'+stato("ok")+'Se la dimentichi: cambi il segreto REDAZIONE_PASSWORD su Cloudflare e vale quello</li></ul>'
+    +'<div class="acts" style="margin-top:14px"><button class="btn pri" type="submit">Cambia la password</button></div><p class="msg" id="pwmsg" hidden></p></form>',{});
+  return '<div class="row r21 dopo"><div class="stack">'+acc+prot+'</div><div class="stack">'+dev+pw+"</div></div>"}
+function esci(tutti){rapi("POST",tutti?"esci-tutti":"esci").then(function(){location.replace("/redazione/")},function(){location.replace("/redazione/")})}
+document.addEventListener("submit",function(e){if(e.target.id!="fpw")return;e.preventDefault();var m=document.getElementById("pwmsg"),b=e.target.querySelector("button[type=submit]");
+  var v=function(i){return document.getElementById(i).value};m.hidden=true;b.disabled=true;
+  rapi("POST","password",{attuale:v("pw0"),nuova:v("pw1"),conferma:v("pw2")}).then(function(){e.target.reset();m.className="msg ok";m.textContent="Password cambiata. Gli altri dispositivi sono stati scollegati.";m.hidden=false;b.disabled=false;RED.sic=null;setTimeout(function(){if(st0.p=="sicurezza")disegna()},2500)},
+    function(err){m.className="msg ko";m.textContent=err.message;m.hidden=false;b.disabled=false})});
+var gqT=null;
+document.addEventListener("input",function(e){if(e.target.id!="gq")return;clearTimeout(gqT);var v=e.target.value;gqT=setTimeout(function(){RED.g.q=v.trim().slice(0,60);RED.g.id=0;gCarica()},400)});
+document.addEventListener("click",function(e){var t=e.target.closest?e.target:null;if(!t)return;var el;
+  if(el=t.closest("[data-annulla]")){var tt=document.getElementById("toast");if(tt&&tt._annulla){tt._annulla();tt.hidden=true}return}
+  if(el=t.closest("[data-esci]")){e.preventDefault();esci(false);return}
+  if(el=t.closest("[data-esci-tutti]")){if(confirm("Uscire da tutti i dispositivi, compreso questo?"))esci(true);return}
+  if(el=t.closest("[data-sesci]")){var sid=el.getAttribute("data-sesci");el.disabled=true;rapi("POST","sessioni/"+sid+"/esci").then(function(j){if(j.questa)location.replace("/redazione/");else{RED.sic=null;disegna()}},function(er){el.disabled=false;toast(er.message)});return}
+  if(el=t.closest("[data-gf]")){var f=el.getAttribute("data-gf");if(RED.g.filtro!=f||RED.g.id){RED.g.filtro=f;RED.g.id=0;RED.g.dati=null;gCarica()}if(st0.p!="gommunity")return;disegna();return}
+  if(el=t.closest("[data-gid]")){RED.g.id=0;RED.g.dati=null;gCarica();disegna();return}
+  if(el=t.closest("[data-gpiu]")){RED.g.da+=50;el.disabled=true;gCarica(true);return}
+  if(el=t.closest("[data-ga]")){gAzione(el.getAttribute("data-ga"),+el.getAttribute("data-id"),el);return}
+  if(el=t.closest("[data-gc]")){if(t.closest("textarea,.menu,.az"))return;var id=+el.getAttribute("data-gc");if(RED.g.sel!=id)gSel(id);return}
+  if(RED.g.menu&&!t.closest(".menu")){RED.g.menu=null;if(st0.p=="gommunity")disegna()}
+},true);
+document.addEventListener("change",function(e){if(e.target.id=="ged"){RED.g.ed=e.target.value;RED.g.id=0;gCarica()}});
+
+var m0=/^#gommunity\/c(\d{1,9})$/i.exec(location.hash);if(m0)RED.g.id=+m0[1];
 /* ================= METODO ================= */
 function metodo(sez){var Q=D?piano({pn:D.reg[D.reg.length-1].pn}):{nome:"-",tasso:null},t=D?D.tar.slice().reverse():[];
   var rows=[["Uscita","entro le "+S.uscita,"dopo le "+S.uscita],["Puntualità","almeno "+S.punt[0]+"%","sotto "+S.punt[1]+"%"],["Consumo a settimana","fino a "+S.consumo[0]+" punti","oltre "+S.consumo[1]]];

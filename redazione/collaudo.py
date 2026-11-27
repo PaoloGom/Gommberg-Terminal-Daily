@@ -1478,13 +1478,19 @@ def passo_lettori(copia):
     cfg = re.sub(r"^\s*//.*$", "", open(os.path.join(R, "sito", "wrangler.jsonc"), encoding="utf-8").read(), flags=re.M)
     try:
         c = json.loads(cfg)
-        if c.get("main") != "lettori.js" or c["assets"].get("run_worker_first") != ["/api/*"] or c["d1_databases"][0]["binding"] != "DB":
-            male.append("wrangler.jsonc: main, run_worker_first o il database non sono quelli di lettori.js")
+        if c.get("main") != "servizio.js" or c["assets"].get("run_worker_first") != ["/api/*", "/redazione", "/redazione/*"] or c["d1_databases"][0]["binding"] != "DB":
+            male.append("wrangler.jsonc: main (servizio.js), run_worker_first (/api/* e /redazione) o il database non sono quelli giusti")
+        if any(k.startswith("REDAZIONE") for k in (c.get("vars") or {})):
+            male.append("wrangler.jsonc: le credenziali della redazione non vanno mai tra le variabili (solo segreti su Cloudflare)")
     except Exception as e:  # noqa: BLE001
         male.append(f"wrangler.jsonc: {e}"[:90])
     # la pagina delle regole che la sezione collega esiste
     if "/regole.html" not in open(os.path.join(REPO, "assets", "lettori.js"), encoding="utf-8").read() or not os.path.exists(os.path.join(REPO, "regole.html")):
         male.append("regole.html manca o la sezione non la collega")
+    # il punto d'ingresso esporta solo il gestore: Cloudflare rifiuta un modulo principale che esporta costanti
+    ing = open(os.path.join(R, "sito", "servizio.js"), encoding="utf-8").read()
+    if re.findall(r"^export (?!default)", ing, re.M) or "export default" not in ing:
+        male.append("servizio.js: deve esportare solo il gestore (export default)")
     esito("Lettori: codice e configurazione", not male, "; ".join(male)[:300] or "sintassi, nomi riservati, versione dei file, regole e configurazione in ordine")
     # l'avviso a Paolo (segnalazioni.py, lanciato ogni 3 ore da segnalazioni.yml con l'orologio), con un gh finto che
     # registra le chiamate: una segnalazione per commento e mai il testo; riapre e aggiorna; al massimo 5 nuove per giro;
@@ -1545,6 +1551,59 @@ def passo_lettori(copia):
         male.append("segnalazioni.yml: senza 'shell: bash' un giro fallito resta verde; manca A_MANO")
     shutil.rmtree(banco, ignore_errors=True)
     esito("Lettori: avviso sulle segnalazioni", not male, "; ".join(male)[:300] or "una segnalazione per commento e mai il testo; riapre e aggiorna; 5 nuove per giro; un guasto avvisa una volta al giorno")
+
+
+# ---------------------------------------------------------------- l'area riservata della redazione (G-51)
+def passo_area():
+    """L'area riservata: il pannello non finisce mai tra i file pubblici e sta nel modulo del Worker; ogni pagina ha la
+    barra Redazione; le pagine dell'area non hanno attributi on...= (la CSP con il nonce li bloccherebbe) né segreti; i
+    segreti non stanno nel repository; l'avviso delle segnalazioni porta alla scheda Gommunity; il controllo del mattino
+    guarda che il pannello resti chiuso; la mappa in ARCHITETTURA.md. Accesso, sessioni e azioni li prova prova_lettori.mjs."""
+    male = []
+    sito = os.path.join(TMP, "_sito")
+    if not os.path.isdir(sito):
+        return esito("Area riservata: pannello fuori dal sito pubblico", False, "manca la cartella del sito (costruisci.py non è girato)")
+    for x in ("pannello", "consumi"):
+        if os.path.exists(os.path.join(sito, x)):
+            male.append(f"{x}/ è nel sito pubblico")
+    pagine = [os.path.join(d, f) for d, _, ff in os.walk(sito) for f in ff if f.endswith(".html")]
+    senza = [os.path.relpath(f, sito) for f in pagine if "/assets/redazione.js" not in open(f, encoding="utf-8", errors="replace").read()]
+    if senza:
+        male.append(f"{len(senza)} pagine senza la barra Redazione: " + ", ".join(senza[:3]))
+    mod = os.path.join(REPO, "_privato", "pannello.js")
+    try:
+        t = open(mod, encoding="utf-8").read()
+        dati = json.loads(t[t.index("export default ") + 15:].rstrip().rstrip(";"))
+        for f in ("index.html", "accesso.html", "registro.json", "invii.json"):
+            if f not in dati:
+                male.append(f"_privato/pannello.js senza {f}")
+    except Exception as e:  # noqa: BLE001
+        male.append(f"_privato/pannello.js illeggibile: {e}"[:120])
+    for f in glob.glob(os.path.join(REPO, "pannello", "*.html")):
+        h = open(f, encoding="utf-8").read()
+        if re.search(r"<[a-z][^>]*\son[a-z]+\s*=", h, re.I):
+            male.append(f"pannello/{os.path.basename(f)}: attributi on...= (la CSP dell'area li blocca)")
+        if re.search(r"<script[^>]+src=[\"'](https?:)?//", h):
+            male.append(f"pannello/{os.path.basename(f)}: script da un altro sito (la CSP dell'area li blocca)")
+    rc, out = esegui(["git", "ls-files"], cwd=REPO)
+    tracciati = out.split()
+    if any(x.endswith(".dev.vars") or x.startswith("_privato/") for x in tracciati):
+        male.append("nel repository c'è .dev.vars o _privato/")
+    rc, out = esegui(["git", "grep", "-n", "-E", r"REDAZIONE_(PASSWORD|UTENTE)[\"']?\s*[:=]\s*[\"'][^\"']{6,}"], cwd=REPO)
+    sospetti = [x for x in out.splitlines() if "prova_lettori.mjs" not in x and "collaudo.py" not in x]
+    if sospetti:
+        male.append("una credenziale della redazione sembra scritta nel repository: " + sospetti[0][:80])
+    if "redazione/#gommunity/c" not in open(os.path.join(R, "sito", "segnalazioni.py"), encoding="utf-8").read():
+        male.append("segnalazioni.py: l'avviso non porta alla scheda Gommunity")
+    m = open(os.path.join(R, "mattino.py"), encoding="utf-8").read()
+    if "redazione/registro.json" not in m or "401" not in m:
+        male.append("mattino.py: non controlla che il pannello resti chiuso senza accesso")
+    mappa = open(os.path.join(R, "ARCHITETTURA.md"), encoding="utf-8").read()
+    manca = [x for x in ("sito/redazione.js", "sito/servizio.js", "pannello/accesso.html", "assets/redazione.js", "_privato/pannello.js", "REDAZIONE_PASSWORD", "REDAZIONE_UTENTE", "/redazione/") if x not in mappa]
+    if manca:
+        male.append("ARCHITETTURA.md senza " + ", ".join(manca))
+    esito("Area riservata: pannello fuori dal sito pubblico, barra, segreti, avvisi", not male, "; ".join(male)[:400] or
+          f"pannello solo nel modulo del Worker, barra Redazione in {len(pagine)} pagine, nessuna credenziale nel repository, avviso e mappa in ordine")
 
 
 # ---------------------------------------------------------------- l'orologio dei controlli e i minuti (G-58, G-12)
@@ -1812,6 +1871,7 @@ def main():
         copia = passo_sito()
         if isinstance(copia, str):
             passo_lettori(copia)
+            passo_area()
             passo_pubblicazione_ramo(copia)
             passo_pubblicazione(copia)
     finally:

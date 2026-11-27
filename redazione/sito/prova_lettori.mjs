@@ -4,6 +4,8 @@
 import { readFileSync } from "node:fs";
 import { d1 } from "./d1_finto.mjs";
 import worker, { controllaTesto, controllaNome, chiaveNome, pulisciNome, pulisciTesto, sitoDi, LIMITI, NOMI_UNICI } from "./lettori.js";
+import servizio from "./servizio.js";
+import { AREA, COOKIE, SPIA, usaPrivato, uguali, improntaPassword, verificaImpronta, dispositivo } from "./redazione.js";
 
 // ------------------------------------------------------------- orologio finto, edizioni finte
 let adesso = Date.parse("2026-11-23T09:00:00Z");
@@ -379,5 +381,359 @@ r = await chiama("GET", "/api/lettori/032");
 verifica("edizione di test: dal suo giorno i commenti di prova non ci sono più", r.s === 200 && r.j.commenti.length === 0 && conta("SELECT COUNT(*) AS n FROM commenti WHERE ed = 32") === 0, r.j);
 verifica("la pulizia delle prove non tocca le altre edizioni", conta("SELECT COUNT(*) AS n FROM commenti WHERE ed = 31") > 0);
 
-console.log(ko ? `Lettori: ${ko} NO su ${ok + ko} prove` : `Lettori: ${ok} prove superate`);
+await areaRiservata();
+console.log(ko ? `Lettori e redazione: ${ko} NO su ${ok + ko} prove` : `Lettori e redazione: ${ok} prove superate`);
 process.exit(ko ? 1 : 0);
+
+// ============================================================= l'area riservata della redazione (G-51)
+// Accesso, sessioni, tentativi, CSRF, password, pannello protetto, moderazione e firma della redazione; con gli attacchi:
+// senza sessione, sessione scaduta o chiusa, cookie manomesso, CSRF mancante o di un'altra sessione, forza bruta, iniezioni
+// nei filtri, un lettore che si firma Gommberg o chiama le azioni della redazione.
+async function areaRiservata() {
+  const UT = "direttore-prova", PW = "una frase lunga di prova per il collaudo";
+  env.REDAZIONE_UTENTE = UT; env.REDAZIONE_PASSWORD = PW;
+  const FILE = { "index.html": "<!doctype html><title>Area</title><script>var a=1</script><p>AREA-RISERVATA</p>",
+                 "accesso.html": "<!doctype html><title>Accesso</title><script>var b=2</script><p>SCHERMATA-DI-ACCESSO</p>",
+                 "registro.json": '[{"n":31,"d":"2026-11-23"}]', "invii.json": '{"invii":[]}' };
+  usaPrivato(FILE);
+  verifica("il punto d'ingresso del Worker esporta solo il gestore (Cloudflare rifiuta le costanti)", servizio === worker && typeof servizio.fetch === "function");
+  let numIp = 0;
+  const nuovoIp = () => "203.0." + Math.floor(++numIp / 250) + "." + (numIp % 250 + 1);
+  async function red(metodo, percorso, { corpo, crudo, cookie, csrf, origine = BASE, ip = "9.9.9.9", ua = "Mozilla/5.0 (Windows NT 10.0) Chrome/130", lettore } = {}) {
+    const h = { "cf-connecting-ip": ip, "user-agent": ua };
+    if (origine) h.origin = origine;
+    if (cookie) h.cookie = cookie;
+    if (csrf) h["x-csrf"] = csrf;
+    if (lettore) h["x-lettore"] = lettore;
+    if (corpo || crudo) h["content-type"] = "application/json";
+    const r = await worker.fetch(new Request(BASE + percorso, { method: metodo, headers: h, body: crudo != null ? crudo : corpo ? JSON.stringify(corpo) : undefined, redirect: "manual" }), env);
+    const testo = await r.text();
+    let j = null; try { j = JSON.parse(testo); } catch (e) { j = testo; }
+    return { s: r.status, j, h: r.headers, set: r.headers.getSetCookie() };
+  }
+  const tokenDa = (set) => { const c = set.find((x) => x.startsWith(COOKIE + "=")); return c ? c.split(";")[0].slice(COOKIE.length + 1) : ""; };
+  async function entra(o = {}) {
+    const r = await red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: o.password || PW, resta: o.resta !== false }, ip: o.ip || nuovoIp(), ua: o.ua });
+    const t = tokenDa(r.set);
+    const s = t ? await red("GET", "/api/redazione/sessione", { cookie: COOKIE + "=" + t }) : null;
+    return { r, t, cookie: COOKIE + "=" + t, csrf: s && s.j && s.j.csrf };
+  }
+  const q = (sql) => env.DB._db.prepare(sql).all();
+
+  // ------------------------------------------------- pagine e dati del pannello
+  let r = await red("GET", "/redazione");
+  verifica("area: /redazione porta a /redazione/", r.s === 301 && r.h.get("location") === "/redazione/", r.s);
+  r = await red("GET", "/redazione/");
+  verifica("area: senza sessione la schermata di accesso, mai l'area", r.s === 200 && r.j.includes("SCHERMATA-DI-ACCESSO") && !r.j.includes("AREA-RISERVATA"), r.j);
+  const csp = r.h.get("content-security-policy") || "", nonce = (/'nonce-([^']+)'/.exec(csp) || [])[1];
+  verifica("area: CSP con nonce, e il nonce sugli script della pagina", !!nonce && r.j.includes(`<script nonce="${nonce}">`) && /frame-ancestors 'none'/.test(csp) && /default-src 'none'/.test(csp), csp);
+  verifica("area: intestazioni di sicurezza e nessuna cache", r.h.get("cache-control").includes("no-store") && r.h.get("x-frame-options") === "DENY" && r.h.get("x-content-type-options") === "nosniff" && r.h.get("referrer-policy") === "no-referrer" && !!r.h.get("strict-transport-security"));
+  const r2 = await red("GET", "/redazione/");
+  verifica("area: un nonce nuovo a ogni pagina", !r2.h.get("content-security-policy").includes(nonce));
+  for (const x of ["/redazione/registro.json", "/redazione/invii.json"]) {
+    r = await red("GET", x);
+    verifica("pannello: " + x + " senza sessione: 401", r.s === 401 && !JSON.stringify(r.j).includes("2026-11-23"), r);
+  }
+  for (const x of ["/redazione/segreti.json", "/redazione/../pannello/registro.json", "/redazione/%2e%2e/redazione.js", "/redazione/index.html.bak", "/redazione/REGISTRO.json"]) {
+    r = await red("GET", x);
+    verifica("pannello: " + x + " non esiste", r.s === 404 || (r.s === 200 && typeof r.j === "string" && r.j.includes("SCHERMATA-DI-ACCESSO")) || r.j === "statico", [x, r.s]);
+  }
+  r = await red("POST", "/redazione/registro.json", { corpo: {} });
+  verifica("pannello: niente POST sulle pagine", r.s === 405, r.s);
+
+  // ------------------------------------------------- accesso
+  const utenteVecchio = env.REDAZIONE_UTENTE;
+  delete env.REDAZIONE_UTENTE;
+  r = await red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: PW }, ip: nuovoIp() });
+  verifica("accesso: senza i segreti su Cloudflare è spento", r.s === 503 && /configurato/.test(r.j.errore), r);
+  env.REDAZIONE_UTENTE = utenteVecchio; env.REDAZIONE_PASSWORD = "corta";
+  r = await red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: "corta" }, ip: nuovoIp() });
+  verifica("accesso: con una password del segreto sotto i 16 caratteri è spento", r.s === 503, r);
+  env.REDAZIONE_PASSWORD = PW;
+  const ipA = nuovoIp();
+  const a1 = await red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: "sbagliata-ma-lunga-123" }, ip: ipA });
+  const a2 = await red("POST", "/api/redazione/accesso", { corpo: { utente: "chi-non-esiste", password: PW }, ip: ipA });
+  const a3 = await red("POST", "/api/redazione/accesso", { corpo: { utente: "", password: "" }, ip: ipA });
+  verifica("accesso: utente inesistente e password sbagliata danno la stessa risposta", a1.s === 401 && a2.s === 401 && JSON.stringify(a1.j) === JSON.stringify(a2.j) && a3.s === 401 && !a1.set.length, [a1, a2]);
+  r = await red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: PW }, origine: null, ip: nuovoIp() });
+  verifica("accesso: senza origine rifiutato", r.s === 403 && !r.set.length, r.s);
+  r = await red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: PW }, origine: "https://gommberg.com.attacco.example", ip: nuovoIp() });
+  verifica("accesso: da un altro sito rifiutato", r.s === 403 && !r.set.length, r.s);
+  for (const [crudo, atteso] of [["non json", 400], ["[1,2]", 400], ["null", 400], ['{"utente":' + JSON.stringify("x".repeat(9000)) + "}", 413]]) {
+    r = await red("POST", "/api/redazione/accesso", { crudo, ip: nuovoIp() });
+    verifica("accesso: corpo " + crudo.slice(0, 12) + " rifiutato con " + atteso, r.s === atteso, r.s);
+  }
+  r = await red("POST", "/api/redazione/accesso", { corpo: { utente: [UT], password: { p: PW } }, ip: nuovoIp() });
+  verifica("accesso: campi che non sono testo non passano", r.s === 401, r.s);
+  const e1 = await entra();
+  const ck = e1.r.set.find((x) => x.startsWith(COOKIE + "=")) || "", spia = e1.r.set.find((x) => x.startsWith(SPIA + "=")) || "";
+  verifica("accesso: entra con nome utente e password", e1.r.s === 200 && e1.t.length === 43 && !!e1.csrf, e1.r);
+  verifica("accesso: cookie __Host-, HttpOnly, Secure, SameSite=Strict, Path=/, 90 giorni con Resta collegato",
+    /; Path=\/;/.test(ck) && /HttpOnly/.test(ck) && /Secure/.test(ck) && /SameSite=Strict/.test(ck) && /Max-Age=7776000/.test(ck) && !/Domain=/i.test(ck), ck);
+  verifica("accesso: il cookie spia per le pagine non è HttpOnly e non contiene segreti", spia.startsWith(SPIA + "=1;") && !/HttpOnly/.test(spia), spia);
+  const e2 = await entra({ resta: false, ua: "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) Mobile/15E148 Safari/604.1" });
+  verifica("accesso: senza Resta collegato il cookie sparisce alla chiusura del browser", e2.r.s === 200 && !e2.r.set.some((x) => /Max-Age/.test(x)), e2.r.set);
+  const dump = JSON.stringify(q("SELECT * FROM sessioni")) + JSON.stringify(q("SELECT * FROM config")) + JSON.stringify(q("SELECT * FROM accessi"));
+  verifica("accesso: in D1 né il gettone di sessione né la password", !dump.includes(e1.t) && !dump.includes(e2.t) && !dump.includes(PW) && !dump.includes(UT), "");
+  r = await red("GET", "/redazione/", { cookie: e1.cookie });
+  verifica("area: con la sessione, allo stesso indirizzo, l'area", r.s === 200 && r.j.includes("AREA-RISERVATA"), r.s);
+  r = await red("GET", "/redazione/registro.json", { cookie: e1.cookie });
+  verifica("pannello: con la sessione i dati", r.s === 200 && Array.isArray(r.j) && r.j[0].n === 31 && r.h.get("cache-control").includes("no-store"), r);
+  r = await red("GET", "/redazione/registro.json", { cookie: "gtd_sessione=" + e1.t });
+  verifica("pannello: il gettone giusto con il nome di cookie sbagliato non vale", r.s === 401, r.s);
+
+  // ------------------------------------------------- cookie manomesso, sessione scaduta, CSRF
+  const altro = e1.t.slice(0, 42) + (e1.t[42] === "A" ? "B" : "A");
+  for (const [nome, c] of [["un carattere cambiato", COOKIE + "=" + altro], ["troppo corto", COOKIE + "=" + e1.t.slice(0, 20)], ["con caratteri strani", COOKIE + "=" + e1.t.slice(0, 40) + "%27--"],
+                           ["solo la spia", SPIA + "=1"], ["doppio, il primo falso", COOKIE + "=" + altro + "; " + e1.cookie]]) {
+    r = await red("GET", "/api/redazione/sessione", { cookie: c });
+    verifica("sessione: cookie " + nome + ": nessun accesso", r.s === 401, r.s);
+  }
+  r = await red("GET", "/api/redazione/commenti", { lettore: "lettore-aaaaaaaaaaaaaaaa" });
+  verifica("redazione: un lettore senza sessione non legge l'elenco", r.s === 401, r.s);
+  for (const [percorso, corpo] of [["commenti/1/togli", {}], ["commenti", { ed: 31, testo: "Sono la redazione, giuro" }], ["lettori/blocca", { commento: 1 }], ["edizioni/31/chiudi", {}], ["esci-tutti", {}], ["password", { attuale: "x", nuova: "y".repeat(20), conferma: "y".repeat(20) }]]) {
+    r = await red("POST", "/api/redazione/" + percorso, { corpo, lettore: "lettore-aaaaaaaaaaaaaaaa" });
+    verifica("redazione: un lettore non può " + percorso, r.s === 401, r.s);
+    r = await red("POST", "/api/redazione/" + percorso, { corpo, cookie: e1.cookie });
+    verifica("CSRF: " + percorso + " senza gettone rifiutato", r.s === 403, r.s);
+    r = await red("POST", "/api/redazione/" + percorso, { corpo, cookie: e1.cookie, csrf: e2.csrf });
+    verifica("CSRF: " + percorso + " con il gettone di un'altra sessione rifiutato", r.s === 403, r.s);
+    r = await red("POST", "/api/redazione/" + percorso, { corpo, cookie: e1.cookie, csrf: e1.csrf, origine: "https://altro.example" });
+    verifica("CSRF: " + percorso + " da un altro sito rifiutato", r.s === 403, r.s);
+  }
+  // senza Resta collegato: 12 ore senza uso e la sessione non vale più; con Resta collegato vale, e si rinnova usandola
+  avanti(AREA.breve_ore * 3600 + 5);
+  r = await red("GET", "/api/redazione/sessione", { cookie: e2.cookie });
+  verifica("sessione: senza Resta collegato scade dopo 12 ore senza uso", r.s === 401, r.s);
+  r = await red("GET", "/api/redazione/sessione", { cookie: e1.cookie });
+  verifica("sessione: con Resta collegato vale ancora, e il cookie si rinnova", r.s === 200 && r.set.some((x) => x.startsWith(COOKIE + "=" + e1.t)), r.s);
+  for (let i = 0; i < 4; i++) { avanti(30 * 86400); r = await red("GET", "/api/redazione/sessione", { cookie: e1.cookie }); }
+  verifica("sessione: usata ogni mese resta valida anche oltre i 90 giorni dall'accesso", r.s === 200, r.s);
+  avanti(AREA.resta_giorni * 86400 + 60);
+  r = await red("GET", "/api/redazione/sessione", { cookie: e1.cookie });
+  verifica("sessione: 90 giorni senza uso e si esce da soli (anche dal server)", r.s === 401 && q("SELECT COUNT(*) AS n FROM sessioni WHERE usata < '" + new Date(adesso - 90 * 86400000).toISOString() + "'")[0].n === 0, r.s);
+
+  // ------------------------------------------------- forza bruta
+  const ipB = nuovoIp(), sbaglia = (ip) => red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: "tentativo-" + Math.random() }, ip });
+  for (let i = 0; i < AREA.errori_liberi; i++) await sbaglia(ipB);
+  r = await red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: PW }, ip: ipB });
+  verifica("tentativi: dopo 5 errori da una rete si aspetta, anche con la password giusta", r.s === 429 && r.j.attesa > 0 && r.j.attesa <= 60 && !r.set.length, r);
+  const righe0 = q("SELECT COUNT(*) AS n FROM accessi")[0].n;
+  for (let i = 0; i < 20; i++) await sbaglia(ipB);
+  verifica("tentativi: chi aspetta non costa scritture (nessuna riga per ogni tentativo fermato)", q("SELECT COUNT(*) AS n FROM accessi")[0].n === righe0);
+  r = await red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: PW }, ip: nuovoIp() });
+  verifica("tentativi: le altre reti non sono ferme", r.s === 200, r.s);
+  avanti(61); await sbaglia(ipB);
+  r = await sbaglia(ipB);
+  verifica("tentativi: l'attesa raddoppia a ogni errore (2 minuti dopo il sesto)", r.s === 429 && r.j.attesa > 60 && r.j.attesa <= 120, r.j);
+  avanti(121);
+  r = await red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: PW }, ip: ipB });
+  verifica("tentativi: finita l'attesa la password giusta entra e azzera gli errori della rete", r.s === 200 && q("SELECT COUNT(*) AS n FROM accessi WHERE esito = 'errore' AND ip IN (SELECT ip FROM accessi WHERE esito = 'ok' ORDER BY id DESC LIMIT 1)")[0].n === 0, r.s);
+  for (let i = 0; i < 12; i++) await sbaglia(ipB);
+  avanti(30 * 60); r = await sbaglia(ipB); avanti(30 * 60 + 1);
+  r = await sbaglia(ipB);
+  verifica("tentativi: l'attesa non supera mai i 60 minuti", r.s === 429 ? r.j.attesa <= 3600 : r.s === 401, r.j);
+  avanti(24 * 3600);
+  for (let i = 0; i < AREA.errori_sito_15min; i++) await sbaglia(nuovoIp());
+  r = await red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: PW }, ip: nuovoIp() });
+  verifica("tentativi: oltre 50 errori in 15 minuti da tutte le reti l'accesso si sospende", r.s === 429, r.s);
+  avanti(15 * 60 + 1);
+  const e3 = await entra();
+  verifica("tentativi: passati 15 minuti si rientra", e3.r.s === 200, e3.r.s);
+
+  // ------------------------------------------------- esci, esci da tutti, una sessione alla volta
+  const e4 = await entra(), e5 = await entra();
+  r = await red("POST", "/api/redazione/esci", { corpo: {}, cookie: e4.cookie, csrf: e4.csrf });
+  verifica("esci: chiude la sessione sul server e cancella i cookie", r.s === 200 && r.set.some((x) => x.startsWith(COOKIE + "=;") && /Max-Age=0/.test(x)) && r.set.some((x) => x.startsWith(SPIA + "=;")), r.set);
+  r = await red("GET", "/redazione/registro.json", { cookie: e4.cookie });
+  verifica("esci: il vecchio cookie non vale più (sessione di un altro rubata dopo l'uscita)", r.s === 401, r.s);
+  r = await red("GET", "/api/redazione/sessione", { cookie: e5.cookie });
+  verifica("esci: le altre sessioni restano", r.s === 200, r.s);
+  r = await red("GET", "/api/redazione/sicurezza", { cookie: e5.cookie });
+  const corto = r.j.sessioni.find((x) => !x.questa).id;
+  verifica("sicurezza: ultimi accessi, sessioni e regole, senza impronte né gettoni", r.s === 200 && r.j.accessi.length > 0 && r.j.accessi.some((a) => a.esito === "errore") && r.j.sessioni.some((x) => x.questa)
+    && !JSON.stringify(r.j).includes(e5.t) && !("ip" in r.j.accessi[0]) && r.j.regole.iterazioni === AREA.iterazioni, r.j.sessioni);
+  verifica("sicurezza: il dispositivo in parole", dispositivo("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit Version/18.0 Mobile/15E148 Safari/604.1").testo === "Safari su iPhone"
+    && dispositivo("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130.0 Safari/537.36 Edg/130.0").testo === "Edge su Windows" && dispositivo("curl/8").tipo === "altro");
+  r = await red("POST", "/api/redazione/sessioni/" + corto + "/esci", { corpo: {}, cookie: e5.cookie, csrf: e5.csrf });
+  verifica("sicurezza: Esci su un altro dispositivo chiude solo quello", r.s === 200 && !r.j.questa && (await red("GET", "/api/redazione/sessione", { cookie: e5.cookie })).s === 200, r);
+  const e6 = await entra();
+  r = await red("POST", "/api/redazione/esci-tutti", { corpo: {}, cookie: e6.cookie, csrf: e6.csrf });
+  const dopo = await Promise.all([e5, e6, e3].map((x) => red("GET", "/api/redazione/sessione", { cookie: x.cookie })));
+  verifica("esci da tutti: nessuna sessione vale più, nemmeno questa", r.s === 200 && dopo.every((x) => x.s === 401) && q("SELECT COUNT(*) AS n FROM sessioni")[0].n === 0, dopo.map((x) => x.s));
+
+  // ------------------------------------------------- cambio password e recupero dal segreto
+  const NUOVA = "un'altra frase lunga, scelta dall'area";
+  const p1 = await entra(), p2 = await entra();
+  for (const [corpo, atteso, nome] of [[{ attuale: PW, nuova: "corta", conferma: "corta" }, 400, "troppo corta"],
+                                       [{ attuale: PW, nuova: NUOVA, conferma: NUOVA + "x" }, 400, "conferma diversa"],
+                                       [{ attuale: PW, nuova: PW, conferma: PW }, 400, "uguale all'attuale"],
+                                       [{ attuale: "non è questa la password", nuova: NUOVA, conferma: NUOVA }, 401, "attuale sbagliata"]]) {
+    r = await red("POST", "/api/redazione/password", { corpo, cookie: p1.cookie, csrf: p1.csrf });
+    verifica("password: " + nome + ": rifiutata", r.s === atteso, r);
+  }
+  r = await red("POST", "/api/redazione/password", { corpo: { attuale: PW, nuova: NUOVA, conferma: NUOVA }, cookie: p1.cookie, csrf: p1.csrf });
+  const cfgPw = JSON.parse(q("SELECT v FROM config WHERE k = 'password'")[0].v);
+  verifica("password: cambiata, in D1 solo l'impronta PBKDF2 con sale", r.s === 200 && /^pbkdf2-sha256\$50000\$[A-Za-z0-9_-]{22}\$[A-Za-z0-9_-]{43}$/.test(cfgPw.h) && !JSON.stringify(cfgPw).includes(NUOVA), cfgPw);
+  verifica("password: questa sessione resta, le altre si chiudono", (await red("GET", "/api/redazione/sessione", { cookie: p1.cookie })).s === 200 && (await red("GET", "/api/redazione/sessione", { cookie: p2.cookie })).s === 401);
+  verifica("password: la vecchia non entra più, la nuova sì", (await entra()).r.s === 401 && (await entra({ password: NUOVA })).r.s === 200);
+  verifica("password: verifica dell'impronta", await verificaImpronta(NUOVA, cfgPw.h) && !(await verificaImpronta(NUOVA + " ", cfgPw.h)) && !(await verificaImpronta(NUOVA, "pbkdf2-sha256$900000$" + cfgPw.h.split("$").slice(2).join("$"))));
+  verifica("password: due impronte della stessa password sono diverse (sale)", (await improntaPassword("stessa password lunga", 1000)) !== (await improntaPassword("stessa password lunga", 1000)));
+  verifica("confronto a tempo costante: uguali solo se identici", uguali("abc", "abc") && !uguali("abc", "abd") && !uguali("abc", "abcd") && !uguali("", "a"));
+  // Paolo dimentica la password: cambia il segreto REDAZIONE_PASSWORD su Cloudflare, e vince il segreto
+  const p3 = await entra({ password: NUOVA });
+  env.REDAZIONE_PASSWORD = "il segreto nuovo, messo da Cloudflare";
+  r = await red("GET", "/api/redazione/sessione", { cookie: p3.cookie });
+  verifica("recupero: cambiato il segreto, le sessioni di prima non valgono più", r.s === 401, r.s);
+  verifica("recupero: la password dell'area non entra più, il segreto nuovo sì", (await entra({ password: NUOVA })).r.s === 401 && (await entra({ password: env.REDAZIONE_PASSWORD })).r.s === 200
+    && q("SELECT COUNT(*) AS n FROM config WHERE k = 'password'")[0].n === 0);
+  env.REDAZIONE_PASSWORD = PW;
+  const R1 = await entra();
+  verifica("recupero: tornando al segreto di prima si entra con quello (l'impronta vecchia non torna)", R1.r.s === 200);
+  const S1 = { cookie: R1.cookie, csrf: R1.csrf };
+
+  // ------------------------------------------------- la Gommunity dalla redazione
+  avanti(10);
+  const g5 = (await chiama("GET", "/api/lettori/031")).j.gettone; avanti(5);
+  const L1 = { lettore: "lettore-redaz-111111111", ip: "21.1.1.1" }, L2 = { lettore: "lettore-redaz-222222222", ip: "21.2.2.2" }, L3 = { lettore: "lettore-redaz-333333333", ip: "21.3.3.3" };
+  const scriviL = async (L, nome, testo, extra = {}) => chiama("POST", "/api/lettori/031/commenti", { ...L, corpo: { nome, testo, gettone: g5, ...extra } });
+  r = await scriviL(L1, "Wanda Plusvalenza", "Comprate tutto, info su borsa-facile punto xyz 100% garantito");
+  const idW = r.j.commento.id;
+  r = await scriviL(L2, "Ted Spread", "Rimbalzo su volumi sottili: lo prendo con le pinze. Anche l'_underscore_ e il 50% contano");
+  const idT = r.j.commento.id;
+  for (const nome of ["Gommberg", "GOMMBERG", "G0mmberg", "Gornmberg", "Gommberg!", "La Redazione", "gommberg.com"]) {
+    r = await scriviL(L3, nome, "Mi firmo come la redazione " + nome);
+    verifica("firma: un lettore non può firmarsi " + JSON.stringify(nome), r.s === 400 && /riservato/.test(r.j.errore), r);
+  }
+  r = await scriviL(L3, "Lettore Furbo", "Provo a mettere il badge", { redazione: 1, fissato: "2026-01-01T00:00:00Z" });
+  const idF = r.j.commento && r.j.commento.id;
+  let pubblica = (await chiama("GET", "/api/lettori/031")).j;
+  verifica("firma: i campi redazione e fissato mandati da un lettore non contano", r.s === 201 && pubblica.commenti.find((x) => x.id === idF).redazione === false && !pubblica.commenti.find((x) => x.id === idF).fissato);
+  r = await red("POST", "/api/redazione/commenti", { corpo: { ed: 31, testo: "Buongiorno a tutti: oggi Wall Street chiude alle 19." }, ...S1 });
+  const idG = r.j.commento.id;
+  verifica("firma: la redazione scrive come Gommberg, con il badge", r.s === 201 && r.j.commento.nome === "Gommberg" && r.j.commento.redazione === true);
+  r = await red("POST", "/api/redazione/commenti", { corpo: { ed: 31, testo: "Giusto, guardiamo i volumi.", padre: idT }, ...S1 });
+  verifica("firma: la redazione risponde a un lettore", r.s === 201 && r.j.commento.padre === idT);
+  r = await red("POST", "/api/redazione/commenti", { corpo: { ed: 99, testo: "Edizione che non c'è" }, ...S1 });
+  verifica("firma: su un'edizione inesistente no", r.s === 404, r.s);
+  pubblica = (await chiama("GET", "/api/lettori/031")).j;
+  const gp = pubblica.commenti.find((x) => x.id === idG);
+  verifica("firma: i lettori vedono il commento di Gommberg con redazione: true, i loro con false", gp && gp.redazione === true && gp.nome === "Gommberg" && pubblica.commenti.filter((x) => x.redazione).every((x) => x.nome === "Gommberg"));
+  r = await chiama("POST", "/api/lettori/commenti/" + idG + "/segnala", { ...L2, corpo: { gettone: g5 } });
+  verifica("firma: i commenti della redazione non si nascondono con le segnalazioni", r.s === 200 && r.j.nascosto === false && q("SELECT segnalazioni FROM commenti WHERE id = " + idG)[0].segnalazioni === 0, r);
+  // modifica: solo i suoi
+  r = await red("POST", "/api/redazione/commenti/" + idT + "/modifica", { corpo: { testo: "Testo cambiato dalla redazione" }, ...S1 });
+  verifica("modifica: i commenti dei lettori non si modificano", r.s === 403 && q("SELECT testo FROM commenti WHERE id = " + idT)[0].testo.startsWith("Rimbalzo"), r);
+  r = await red("POST", "/api/redazione/commenti/" + idG + "/modifica", { corpo: { testo: "Buongiorno: oggi Wall Street chiude alle 19:00." }, ...S1 });
+  verifica("modifica: la redazione modifica i suoi, con la data della modifica", r.s === 200 && r.j.testo.endsWith("19:00.") && !!r.j.modificato);
+  r = await red("POST", "/api/redazione/commenti/" + idG + "/modifica", { corpo: { testo: "x".repeat(700) }, ...S1 });
+  verifica("modifica: le stesse regole dei commenti (lunghezza)", r.s === 400, r.s);
+  // segnalazioni, elenco e filtri
+  for (const L of [L2, L3, { lettore: "lettore-redaz-444444444", ip: "21.4.4.4" }]) await chiama("POST", "/api/lettori/commenti/" + idW + "/segnala", { ...L, corpo: { gettone: g5 } });
+  verifica("segnalazioni: tre reti nascondono il commento", q("SELECT nascosto FROM commenti WHERE id = " + idW)[0].nascosto === 1);
+  r = await red("GET", "/api/redazione/commenti?filtro=guardare", S1);
+  verifica("Gommunity: Da guardare mostra il commento nascosto dalle segnalazioni, con il testo", r.s === 200 && r.j.commenti.length >= 1 && r.j.commenti[0].id === idW && r.j.commenti[0].testo.includes("borsa-facile") && r.j.commenti[0].stato === "nascosto", r.j.commenti);
+  const tutto = JSON.stringify(r.j) + JSON.stringify((await red("GET", "/api/redazione/commenti", S1)).j);
+  const impronte = q("SELECT autore, ip FROM commenti WHERE ip IS NOT NULL LIMIT 5");
+  verifica("Gommunity: l'elenco non contiene mai le impronte dei lettori né le reti", impronte.every((x) => !tutto.includes(x.autore) && !tutto.includes(x.ip)));
+  r = await red("GET", "/api/redazione/commenti", S1);
+  verifica("Gommunity: tutti i commenti, i da guardare per primi, e i conteggi", r.j.commenti[0].id === idW && r.j.conti.tutti >= 5 && r.j.conti.guardare >= 1 && r.j.conti.redazione === 2 && typeof r.j.misure.commenti_7 === "number", r.j.conti);
+  r = await red("GET", "/api/redazione/commenti?filtro=redazione", S1);
+  verifica("Gommunity: filtro Redazione", r.j.commenti.length === 2 && r.j.commenti.every((x) => x.redazione));
+  r = await red("GET", "/api/redazione/commenti?ed=30", S1);
+  verifica("Gommunity: filtro per edizione", r.j.commenti.every((x) => x.ed === 30));
+  r = await red("GET", "/api/redazione/commenti?q=" + encodeURIComponent("ted"), S1);
+  verifica("Gommunity: cerca per nome", r.j.commenti.some((x) => x.id === idT) && r.j.commenti.every((x) => /ted/i.test(x.nome + x.testo)));
+  for (const [qq, nome] of [["50%", "il segno %"], ["_underscore_", "il segno _"], ["' OR 1=1 --", "un'iniezione SQL"], ['"); DROP TABLE commenti; --', "un DROP"], ["%", "solo %"], ["\\", "una barra"]]) {
+    r = await red("GET", "/api/redazione/commenti?q=" + encodeURIComponent(qq), S1);
+    verifica("Gommunity: cerca " + nome + " senza errori e alla lettera", r.s === 200 && r.j.commenti.every((x) => (x.nome + x.testo).toLowerCase().includes(qq.toLowerCase())), [r.s, r.j.commenti && r.j.commenti.length]);
+  }
+  verifica("Gommunity: dopo le iniezioni la tabella c'è ancora", q("SELECT COUNT(*) AS n FROM commenti")[0].n > 5);
+  for (const x of ["filtro=tutto", "ed=1;DROP", "ed=99999", "q=" + "x".repeat(61), "da=-1", "id=abc", "filtro=guardare%27"]) {
+    r = await red("GET", "/api/redazione/commenti?" + x, S1);
+    verifica("Gommunity: filtro non valido " + x.slice(0, 20) + ": 400", r.s === 400, r.s);
+  }
+  r = await red("GET", "/api/redazione/commenti?id=" + idW, S1);
+  verifica("Gommunity: il link dell'avviso apre un commento solo", r.j.commenti.length === 1 && r.j.commenti[0].id === idW);
+  r = await red("GET", "/api/redazione/lettore?commento=" + idW, S1);
+  verifica("Gommunity: chi l'ha scritto, con i suoi nomi e senza impronte", r.s === 200 && r.j.nome === "Wanda Plusvalenza" && r.j.nomi.some((x) => x.nome === "Wanda Plusvalenza") && !JSON.stringify(r.j).includes(impronte[0].autore), r.j);
+  // azioni
+  r = await red("POST", "/api/redazione/commenti/" + idW + "/rimetti", { corpo: {}, ...S1 });
+  verifica("rimetti: torna visibile e le segnalazioni si azzerano", r.s === 200 && r.j.stato === "visibile" && (await chiama("GET", "/api/lettori/031")).j.commenti.some((x) => x.id === idW) && q("SELECT COUNT(*) AS n FROM segnalazioni WHERE commento = " + idW)[0].n === 0);
+  r = await red("POST", "/api/redazione/commenti/" + idW + "/rimetti", { corpo: {}, ...S1 });
+  verifica("rimetti: su un commento già visibile non fa nulla", r.s === 409, r.s);
+  r = await red("POST", "/api/redazione/commenti/" + idW + "/togli", { corpo: {}, ...S1 });
+  verifica("togli: sparisce per i lettori, resta per la redazione", r.s === 200 && r.j.stato === "tolto" && !(await chiama("GET", "/api/lettori/031")).j.commenti.some((x) => x.id === idW) && (await red("GET", "/api/redazione/commenti?filtro=nascosti", S1)).j.commenti.some((x) => x.id === idW));
+  await chiama("POST", "/api/lettori/commenti/" + idT + "/segnala", { ...L3, corpo: { gettone: g5 } });
+  r = await red("POST", "/api/redazione/commenti/" + idT + "/azzera", { corpo: {}, ...S1 });
+  verifica("azzera: le segnalazioni di un commento visibile si azzerano e lo dice il tempo di decisione", r.s === 200 && q("SELECT segnalazioni, deciso, attesa FROM commenti WHERE id = " + idT)[0].segnalazioni === 0 && q("SELECT attesa FROM commenti WHERE id = " + idT)[0].attesa !== null
+    && (await red("GET", "/api/redazione/commenti", S1)).j.misure.decisioni >= 1);
+  r = await red("POST", "/api/redazione/commenti/" + idT + "/fissa", { corpo: {}, ...S1 });
+  pubblica = (await chiama("GET", "/api/lettori/031")).j;
+  verifica("fissa: il commento esce fissato in alto per tutti", r.s === 200 && !!pubblica.commenti.find((x) => x.id === idT).fissato);
+  const risposta = pubblica.commenti.find((x) => x.padre === idT);
+  r = await red("POST", "/api/redazione/commenti/" + risposta.id + "/fissa", { corpo: {}, ...S1 });
+  verifica("fissa: le risposte no", r.s === 400, r.s);
+  r = await red("POST", "/api/redazione/commenti/" + idT + "/sgancia", { corpo: {}, ...S1 });
+  verifica("sgancia: non più fissato", r.s === 200 && !(await chiama("GET", "/api/lettori/031")).j.commenti.find((x) => x.id === idT).fissato);
+  r = await red("POST", "/api/redazione/commenti/999999/togli", { corpo: {}, ...S1 });
+  verifica("azioni: su un commento che non c'è, 404", r.s === 404, r.s);
+  r = await red("POST", "/api/redazione/commenti/" + idT + "/cancella", { corpo: {}, ...S1 });
+  verifica("azioni: un'azione sconosciuta non fa nulla", r.s === 404, r.s);
+  // blocco di un lettore: codice del browser e rete
+  r = await red("POST", "/api/redazione/lettori/blocca", { corpo: { commento: idW }, ...S1 });
+  verifica("blocca: browser e rete", r.s === 200 && r.j.bloccato && r.j.rete, r.j);
+  const g6 = (await chiama("GET", "/api/lettori/031", L1)).j.gettone; avanti(5);
+  for (const [nome, chi] of [["dal suo browser", L1], ["dalla sua rete, con un altro browser", { lettore: "lettore-redaz-555555555", ip: L1.ip }], ["con il suo browser da un'altra rete", { lettore: L1.lettore, ip: "21.9.9.9" }]]) {
+    r = await chiama("POST", "/api/lettori/031/commenti", { ...chi, corpo: { nome: "Nuovo Nome " + nome.length, testo: "Riprovo " + nome, gettone: g6 } });
+    verifica("blocca: niente commenti " + nome, r.s === 403, r);
+  }
+  r = await chiama("POST", "/api/lettori/031/voto", { ...L1, corpo: { voto: "toro", gettone: g6 } });
+  const r3 = await chiama("POST", "/api/lettori/commenti/" + idT + "/piace", { ...L1, corpo: { gettone: g6 } });
+  const r4 = await chiama("POST", "/api/lettori/commenti/" + idT + "/segnala", { ...L1, corpo: { gettone: g6 } });
+  verifica("blocca: niente voti, like e segnalazioni", r.s === 403 && r3.s === 403 && r4.s === 403, [r.s, r3.s, r4.s]);
+  r = await chiama("POST", "/api/lettori/031/commenti", { lettore: "lettore-redaz-666666666", ip: "21.6.6.6", corpo: { nome: "Lettrice Libera", testo: "Io scrivo", gettone: g6 } });
+  verifica("blocca: gli altri lettori scrivono", r.s === 201, r);
+  avanti(AREA.blocco_rete_giorni * 86400 + 60);
+  const g7 = (await chiama("GET", "/api/lettori/031", L1)).j.gettone; avanti(5);
+  r = await chiama("POST", "/api/lettori/031/commenti", { lettore: "lettore-redaz-777777777", ip: L1.ip, corpo: { nome: "Dopo Un Mese", testo: "Stessa rete, un mese dopo", gettone: g7 } });
+  const r5 = await chiama("POST", "/api/lettori/031/commenti", { ...L1, ip: "21.8.8.8", corpo: { nome: "Wanda Plusvalenza", testo: "Il browser bloccato resta bloccato", gettone: g7 } });
+  verifica("blocca: la rete si libera dopo 30 giorni, il browser no", r.s === 201 && r5.s === 403, [r.s, r5.s]);
+  r = await red("POST", "/api/redazione/lettori/sblocca", { corpo: { commento: idW }, ...S1 });
+  const r6 = await chiama("POST", "/api/lettori/031/commenti", { ...L1, ip: "21.8.8.8", corpo: { nome: "Wanda Plusvalenza", testo: "Sbloccata, torno a scrivere", gettone: g7 } });
+  verifica("sblocca: il lettore torna a scrivere", r.s === 200 && r6.s === 201, [r.s, r6]);
+  r = await red("POST", "/api/redazione/lettori/blocca", { corpo: { commento: idG }, ...S1 });
+  verifica("blocca: la redazione non si blocca", r.s === 400, r.s);
+  // libera un nome
+  r = await red("POST", "/api/redazione/nomi/libera", { corpo: { commento: idW, nome: "wanda  plusvalenza" }, ...S1 });
+  const r7 = await chiama("POST", "/api/lettori/031/commenti", { ...L2, corpo: { nome: "Wanda Plusvalenza", testo: "Il nome adesso è mio", gettone: g7 } });
+  verifica("libera: il nome torna libero e un altro lettore lo prende", r.s === 200 && r.j.liberati === 1 && r7.s === 201, [r.j, r7.s]);
+  // chiudere e riaprire una discussione
+  r = await red("POST", "/api/redazione/edizioni/31/chiudi", { corpo: {}, ...S1 });
+  pubblica = (await chiama("GET", "/api/lettori/031")).j;
+  const r8 = await chiama("POST", "/api/lettori/031/commenti", { ...L3, corpo: { nome: "Lettore Furbo", testo: "Scrivo lo stesso", gettone: g7 } });
+  const r9 = await red("POST", "/api/redazione/commenti", { corpo: { ed: 31, testo: "La redazione scrive anche a discussione chiusa." }, ...S1 });
+  verifica("chiudi: i lettori leggono e non scrivono, la redazione sì", r.s === 200 && pubblica.chiusa === true && r8.s === 409 && r9.s === 201, [pubblica.chiusa, r8.s, r9.s]);
+  r = await red("GET", "/api/redazione/discussioni", S1);
+  verifica("discussioni: l'elenco per edizione dice quale è chiusa", r.s === 200 && r.j.edizioni.find((x) => x.ed === 31).chiusa && r.j.ultima === 31);
+  r = await red("POST", "/api/redazione/edizioni/31/riapri", { corpo: {}, ...S1 });
+  const r10 = await chiama("POST", "/api/lettori/031/commenti", { ...L3, corpo: { nome: "Lettore Furbo", testo: "Adesso sì", gettone: g7 } });
+  verifica("riapri: i lettori tornano a scrivere", r.s === 200 && r10.s === 201 && (await chiama("GET", "/api/lettori/031")).j.chiusa === false, r10);
+  r = await red("GET", "/api/redazione/riepilogo", S1);
+  verifica("riepilogo: segnalazioni, commenti e voti di oggi, ultimi commenti", r.s === 200 && r.j.edizione === 31 && typeof r.j.guardare === "number" && r.j.commenti_oggi > 0 && Array.isArray(r.j.ultimi) && r.j.ultimi.length === 3, r.j);
+  // una lettura che non va: la pagina dice "accesso richiesto", mai un errore del server con dettagli
+  r = await red("GET", "/api/redazione/inesistente", S1);
+  verifica("redazione: indirizzo sconosciuto: 404", r.s === 404, r.s);
+  r = await red("PUT", "/api/redazione/commenti", S1);
+  verifica("redazione: metodo non ammesso: 405", r.s === 405, r.s);
+  // il database già in linea, senza le colonne nuove: si aggiornano da sole alla prima richiesta
+  const vecchio = d1();
+  vecchio._db.exec(`CREATE TABLE commenti (id INTEGER PRIMARY KEY AUTOINCREMENT, sito TEXT NOT NULL, ed INTEGER NOT NULL, padre INTEGER, nome TEXT NOT NULL,
+    testo TEXT NOT NULL, creato TEXT NOT NULL, autore TEXT NOT NULL, ip TEXT, piace INTEGER NOT NULL DEFAULT 0, segnalazioni INTEGER NOT NULL DEFAULT 0, nascosto INTEGER NOT NULL DEFAULT 0)`);
+  vecchio._db.exec("INSERT INTO commenti (sito, ed, nome, testo, creato, autore) VALUES ('gommberg', 30, 'Lettore di prima', 'Scritto prima di G-51', '2026-11-20T10:00:00Z', 'x')");
+  const nuovo = await import("./lettori.js?schema-vecchio");
+  r = await nuovo.default.fetch(new Request(BASE + "/api/lettori/030", { headers: { "x-lettore": "lettore-aaaaaaaaaaaaaaaa", "cf-connecting-ip": "1.1.1.1" } }), { ...env, DB: vecchio });
+  const col = vecchio._db.prepare("PRAGMA table_info(commenti)").all().map((x) => x.name);
+  const jv = await r.json();
+  verifica("schema: sul database già in linea le colonne nuove si aggiungono e i commenti restano", r.status === 200 && ["redazione", "fissato", "modificato", "deciso", "attesa"].every((x) => col.includes(x)) && jv.commenti.length === 1 && jv.commenti[0].redazione === false, col);
+}

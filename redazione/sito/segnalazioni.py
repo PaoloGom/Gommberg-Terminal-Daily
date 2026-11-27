@@ -91,19 +91,9 @@ def testo(s):
 
 Il testo non è riportato qui di proposito: questa pagina è pubblica.
 
-**Per leggerlo**: Cloudflare, Storage e database, D1, `gommberg-lettori`, Console (https://dash.cloudflare.com/?to=/:account/workers/d1):
-```sql
-SELECT nome, testo, creato, nascosto FROM commenti WHERE id = {n};
-```
-**Se va tolto** (offese, diffamazione, pubblicità, consigli di acquisto, dati personali):
-```sql
-UPDATE commenti SET nascosto = 2 WHERE id = {n};
-```
-**Se può restare**, le segnalazioni si azzerano e il commento torna visibile:
-```sql
-DELETE FROM segnalazioni WHERE commento = {n};
-UPDATE commenti SET nascosto = 0, segnalazioni = 0 WHERE id = {n};
-```
+**Per leggerlo e decidere**, con un clic (togli, rimetti, azzera le segnalazioni, blocca): la scheda Gommunity dell'area
+riservata, {BASE}redazione/#gommunity/c{n}
+
 Poi chiudi questa segnalazione. Regole e procedura: `redazione/sito/LETTORI.md`.
 """
 
@@ -160,11 +150,11 @@ def esegui(azione, s, i):
         r = gh(*arg)
     elif azione == "riapri":
         r = gh("issue", "reopen", str(i["number"]), "--comment",
-               f"Segnalato di nuovo il {quando(s.get('ultima'))} (ora di Roma). Ora è {stato(s)}. I comandi sono qui sopra.")
+               f"Segnalato di nuovo il {quando(s.get('ultima'))} (ora di Roma). Ora è {stato(s)}. Si decide dalla scheda Gommunity: {BASE}redazione/#gommunity/c{s['id']}")
         if r.returncode == 0:
             gh("issue", "edit", str(i["number"]), "--title", titolo(s))
     else:
-        r = gh("issue", "comment", str(i["number"]), "--body", f"Altri lettori l'hanno segnalato: ora è {stato(s)}. I comandi sono qui sopra.")
+        r = gh("issue", "comment", str(i["number"]), "--body", f"Altri lettori l'hanno segnalato: ora è {stato(s)}. Si decide dalla scheda Gommunity: {BASE}redazione/#gommunity/c{s['id']}")
         if r.returncode == 0:
             r = gh("issue", "edit", str(i["number"]), "--title", titolo(s))
     if r.returncode != 0:

@@ -14,11 +14,12 @@
 // al massimo due link (che il sito non rende cliccabili), Segnala che nasconde un commento dopo 3 segnalazioni da
 // indirizzi diversi. Le segnalazioni aperte escono, senza testi, da /api/lettori/segnalazioni: le legge ogni tre ore
 // .github/workflows/segnalazioni.yml (lanciato dall'orologio), che avvisa Paolo.
-// Togliere un commento (finché non c'è G-51): da Cloudflare, D1, gommberg-lettori, Console:
-//   UPDATE commenti SET nascosto = 2 WHERE id = <numero>;      (2 = tolto dalla redazione, 1 = nascosto dalle segnalazioni)
+// La redazione (G-51, redazione.js) toglie, rimette, fissa e blocca dalla scheda Gommunity di gommberg.com/redazione/,
+// e scrive come "Gommberg" con il badge Redazione: nascosto = 2 è tolto dalla redazione, 1 nascosto dalle segnalazioni.
 // Regole e procedura: redazione/sito/LETTORI.md.
 
 import { giro, stato } from "./orologio.js";
+import { area, SCHEMA_AREA, bloccato, chiusa, puliziaArea } from "./redazione.js";
 
 export const LIMITI = {
   nome: [2, 24], testo: 600, link: 2,
@@ -43,7 +44,8 @@ export const RISERVATI = /redazion|redatt|gommberg|gommellini|amministra|admin|m
 const SCHEMA = [
   `CREATE TABLE IF NOT EXISTS commenti (id INTEGER PRIMARY KEY AUTOINCREMENT, sito TEXT NOT NULL, ed INTEGER NOT NULL,
      padre INTEGER, nome TEXT NOT NULL, testo TEXT NOT NULL, creato TEXT NOT NULL, autore TEXT NOT NULL, ip TEXT,
-     piace INTEGER NOT NULL DEFAULT 0, segnalazioni INTEGER NOT NULL DEFAULT 0, nascosto INTEGER NOT NULL DEFAULT 0)`,
+     piace INTEGER NOT NULL DEFAULT 0, segnalazioni INTEGER NOT NULL DEFAULT 0, nascosto INTEGER NOT NULL DEFAULT 0,
+     redazione INTEGER NOT NULL DEFAULT 0, fissato TEXT, modificato TEXT, deciso TEXT, attesa INTEGER)`,
   `CREATE INDEX IF NOT EXISTS commenti_ed ON commenti (sito, ed)`,
   `CREATE INDEX IF NOT EXISTS commenti_ip ON commenti (ip, creato)`,
   `CREATE TABLE IF NOT EXISTS piaciuti (commento INTEGER NOT NULL, autore TEXT NOT NULL, ip TEXT, creato TEXT NOT NULL,
@@ -56,19 +58,31 @@ const SCHEMA = [
   `CREATE TABLE IF NOT EXISTS nomi (sito TEXT NOT NULL, chiave TEXT NOT NULL, nome TEXT NOT NULL, autore TEXT NOT NULL,
      creato TEXT NOT NULL, usato TEXT NOT NULL, PRIMARY KEY (sito, chiave))`,
   `CREATE INDEX IF NOT EXISTS nomi_autore ON nomi (sito, autore, usato)`,
+  ...SCHEMA_AREA,
 ];
+// Le colonne aggiunte dopo la nascita della tabella (G-51): sul database già in linea si aggiungono una volta sola
+// (versione 2 dello schema in config). Su un database nuovo ci sono già: l'errore "duplicate column" non conta.
+const COLONNE_2 = ["redazione INTEGER NOT NULL DEFAULT 0", "fissato TEXT", "modificato TEXT", "deciso TEXT", "attesa INTEGER"];
 
 const JSON_H = { "content-type": "application/json; charset=utf-8", "cache-control": "no-store", "x-content-type-options": "nosniff" };
 const risposta = (dati, stato = 200) => new Response(JSON.stringify(dati), { status: stato, headers: JSON_H });
 const errore = (msg, stato = 400) => risposta({ errore: msg }, stato);
 const ora = () => new Date(Date.now());
-const iso = (d) => d.toISOString().replace(/\.\d{3}Z$/, "Z");
-const prima = (secondi) => iso(new Date(Date.now() - secondi * 1000));
+export const iso = (d) => d.toISOString().replace(/\.\d{3}Z$/, "Z");
+export const prima = (secondi) => iso(new Date(Date.now() - secondi * 1000));
 
 let pronto = null;                                  // schema e segreto, una volta per istanza
-async function prepara(env) {
+export async function prepara(env) {
   if (!pronto) pronto = (async () => {
     await env.DB.batch(SCHEMA.map((s) => env.DB.prepare(s)));
+    const v = await env.DB.prepare("SELECT v FROM config WHERE k = 'schema'").first();
+    if (!v || +v.v < 2) {
+      for (const col of COLONNE_2) {
+        try { await env.DB.prepare("ALTER TABLE commenti ADD COLUMN " + col).run(); }
+        catch (e) { if (!/duplicate column/i.test(String((e && e.message) || e))) throw e; }
+      }
+      await env.DB.prepare("INSERT INTO config (k, v) VALUES ('schema', '2') ON CONFLICT (k) DO UPDATE SET v = '2'").run();
+    }
     let r = await env.DB.prepare("SELECT v FROM config WHERE k = 'segreto'").first();
     if (!r) {
       const b = new Uint8Array(32); crypto.getRandomValues(b);
@@ -81,18 +95,18 @@ async function prepara(env) {
 }
 
 const esa = (buf) => [...new Uint8Array(buf)].map((x) => x.toString(16).padStart(2, "0")).join("");
-async function firma(segreto, testo) {
+export async function firma(segreto, testo) {
   const k = await crypto.subtle.importKey("raw", new TextEncoder().encode(segreto), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
   return esa(await crypto.subtle.sign("HMAC", k, new TextEncoder().encode(testo)));
 }
-const impronta = async (segreto, tipo, valore) => (await firma(segreto, tipo + ":" + valore)).slice(0, 32);
+export const impronta = async (segreto, tipo, valore) => (await firma(segreto, tipo + ":" + valore)).slice(0, 32);
 
 // il sito che scrive: gommberg.com, oppure "prova" per anteprime e prove in locale
 export const sitoDi = (url) => /^(www\.)?gommberg\.com\.?$/.test(url.hostname) ? "gommberg" : "prova";
 
 // L'edizione: il server non si fida del browser, controlla che esista la scheda pubblica e/NNN.json
 const edizioni = new Map();
-async function edizione(env, url, n) {
+export async function edizione(env, url, n) {
   const k = url.host + "/" + n, c = edizioni.get(k);
   if (c && c.t > Date.now() - 300000) return c.ed;
   let ed = null;
@@ -107,7 +121,7 @@ async function edizione(env, url, n) {
 // Il sentiment (Toro/Orso) è quello di oggi: si vota sull'edizione più recente, tutto il giorno, e si può cambiare finché
 // non esce l'edizione dopo. Le edizioni precedenti mostrano il loro risultato, senza voto. Nelle anteprime è sempre aperto.
 let recente = { t: 0, n: 0 };
-async function ultima(env, url) {
+export async function ultima(env, url) {
   if (recente.t > Date.now() - 300000) return recente.n;
   try {
     const r = await env.ASSETS.fetch(new Request(new URL("/dati/recenti.json", url)));
@@ -161,6 +175,8 @@ let oroCache = { t: 0, dati: null };
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    // l'area riservata (G-51): la pagina /redazione/, i dati del pannello e le azioni della redazione
+    if (/^\/redazione(\/|$)|^\/api\/redazione(\/|$)/.test(url.pathname)) return area(request, env, url);
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
     if (url.pathname.replace(/\/+$/, "") === "/api/orologio") {
       if (request.method !== "GET") return errore("Metodo non ammesso.", 405);
@@ -212,6 +228,7 @@ async function instrada(request, env, url) {
   if (!corpo || typeof corpo !== "object" || Array.isArray(corpo)) return errore("Richiesta non valida.", 400);
   if (!(await gettoneValido(cfg.segreto, corpo.gettone))) return errore("Ricarica la pagina e riprova.", 400);
   if (corpo.sito) return risposta({ ok: true });                    // campo trappola riempito: un programma, non una persona
+  if (await bloccato(c)) return errore("Da qui non si può più partecipare alla Gommunity.", 403);   // bloccato dalla redazione (G-51)
 
   if (/^\d{1,4}$/.test(p[1] || "") && p[2] === "commenti" && p.length === 3) return scrivi(c, +p[1], corpo);
   if (/^\d{1,4}$/.test(p[1] || "") && p[2] === "voto" && p.length === 3) return vota(c, +p[1], corpo);
@@ -260,11 +277,11 @@ async function leggi(c, n) {
   const ed = await edizione(c.env, c.url, n);
   if (!ed) return errore("Edizione non trovata.", 404);
   await toglieProve(c, n, ed);
-  const out = { n, gettone: await gettone(c.cfg.segreto), voto: await statoVoto(c, n) };
+  const out = { n, gettone: await gettone(c.cfg.segreto), voto: await statoVoto(c, n), chiusa: await chiusa(c, n) };
   // "23 lettori oggi": chi ha votato o scritto su questa edizione, contato una volta
   out.lettori = await conteggio(c.db, "SELECT COUNT(*) FROM (SELECT autore FROM voti WHERE sito = ?1 AND ed = ?2 UNION SELECT autore FROM commenti WHERE sito = ?1 AND ed = ?2)", c.sito, n);
   const righe = await c.db.prepare(
-    `SELECT c.id, c.padre, c.nome, c.testo, c.creato, c.piace, c.autore = ?2 AS mio,
+    `SELECT c.id, c.padre, c.nome, c.testo, c.creato, c.piace, c.autore = ?2 AS mio, c.redazione, c.fissato, c.modificato,
             EXISTS (SELECT 1 FROM piaciuti p WHERE p.commento = c.id AND p.autore = ?2) AS piaciuto,
             EXISTS (SELECT 1 FROM segnalazioni s WHERE s.commento = c.id AND s.autore = ?2) AS segnalato,
             (SELECT v.voto FROM voti v WHERE v.sito = c.sito AND v.ed = c.ed AND v.autore = c.autore) AS voto
@@ -274,8 +291,10 @@ async function leggi(c, n) {
   out.commenti = (righe.results || []).map(pubblico);
   return risposta(out);
 }
+// redazione: il commento è della redazione (firma "Gommberg" con il badge): lo dice solo il server, nessun lettore lo imita
 const pubblico = (r) => ({ id: r.id, padre: r.padre || null, nome: r.nome, testo: r.testo, quando: r.creato, piace: r.piace,
-  mio: !!r.mio, piaciuto: !!r.piaciuto, segnalato: !!r.segnalato, voto: r.voto || null });
+  mio: !!r.mio, piaciuto: !!r.piaciuto, segnalato: !!r.segnalato, voto: r.voto || null,
+  redazione: !!r.redazione, fissato: r.fissato || null, modificato: r.modificato || null });
 
 async function totali(c, n) {
   const r = await c.db.prepare("SELECT SUM(voto = 'toro') AS toro, SUM(voto = 'orso') AS orso FROM voti WHERE sito = ? AND ed = ?").bind(c.sito, n).first();
@@ -305,6 +324,7 @@ async function pulizia(c) {
       c.db.prepare("INSERT INTO config (k, v) VALUES ('pulizia', ?1) ON CONFLICT (k) DO UPDATE SET v = ?1").bind(oggi),
       ...["commenti", "piaciuti", "segnalazioni", "voti"].map((t) => c.db.prepare(`UPDATE ${t} SET ip = NULL WHERE ip IS NOT NULL AND creato < ?`).bind(lim)),
       c.db.prepare("DELETE FROM nomi WHERE usato < ?").bind(prima(LIMITI.nome_giorni * 86400)),
+      ...puliziaArea(c.db),
     ]);
   }
   pulito = oggi;
@@ -313,6 +333,7 @@ async function pulizia(c) {
 async function scrivi(c, n, corpo) {
   const ed = await edizione(c.env, c.url, n);
   if (!ed) return errore("Edizione non trovata.", 404);
+  if (await chiusa(c, n)) return errore("La discussione di questa edizione è chiusa.", 409);
   if (String(corpo.nome == null ? "" : corpo.nome).length > LIMITI.grezzo[0] || String(corpo.testo == null ? "" : corpo.testo).length > LIMITI.grezzo[1])
     return errore("Al massimo " + LIMITI.testo + " caratteri.");
   const nome = pulisciNome(corpo.nome), testo = pulisciTesto(corpo.testo);
@@ -421,7 +442,7 @@ async function vota(c, n, corpo) {
 }
 
 async function commento(c, id) {
-  return c.db.prepare("SELECT id, ed, piace, segnalazioni, autore FROM commenti WHERE id = ? AND sito = ? AND nascosto = 0").bind(id, c.sito).first();
+  return c.db.prepare("SELECT id, ed, piace, segnalazioni, autore, redazione FROM commenti WHERE id = ? AND sito = ? AND nascosto = 0").bind(id, c.sito).first();
 }
 
 async function piace(c, id) {
@@ -445,6 +466,7 @@ async function segnala(c, id) {
   const cm = await commento(c, id);
   if (!cm) return risposta({ ok: true, nascosto: true });
   if (cm.autore === c.autore) return errore("Non puoi segnalare un tuo commento.");
+  if (cm.redazione) return risposta({ ok: true, nascosto: false });   // i commenti della redazione non si nascondono con le segnalazioni
   if ((await conteggio(c.db, "SELECT COUNT(*) FROM segnalazioni WHERE ip = ? AND creato > ?", c.ip, prima(86400))) >= LIMITI.segnala_giorno)
     return errore("Hai già segnalato molti commenti oggi.", 429);
   await c.db.prepare("INSERT OR IGNORE INTO segnalazioni (commento, autore, ip, creato) VALUES (?, ?, ?, ?)").bind(id, c.autore, c.ip, iso(ora())).run();

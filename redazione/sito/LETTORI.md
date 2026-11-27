@@ -31,7 +31,7 @@ Un nome resta di chi l'ha usato per primo (Paolo, 22/11): dal primo commento è 
 - Mentre il lettore sceglie il nome la sezione chiede al servizio se è libero (`/api/lettori/nome?n=`).
 - **Il dado** propone sempre un "Nome Cognome" di finanza (Paolo, 22/11) e non va mai toccato, perché ha tre livelli che si attivano da soli (`assets/lettori.js`): 1) il mazzo di 123 giochi di parole scritti a mano ("Massimo Rischio", "Tito Lare"), in ordine casuale e senza ripetizioni; 2) un nome vero più un cognome finanziario ("Wanda Plusvalenza"), 5.040 combinazioni; 3) quando una decina intera di combinati risulta presa, il numero romano ("Gino Spread II", poi III...), senza fine. Il dado chiede al servizio dieci nomi per volta (`/api/lettori/nome?n=...&n=...`) e propone solo quelli liberi; tiene una piccola coda, così il clic risponde subito. Le liste si possono allungare aggiungendo parole (il collaudo controlla che il servizio le accetti tutte), ma non serve.
 
-I limiti veri: il nome non segue il lettore su un altro dispositivo o dopo che ha cancellato i dati del browser, lì ne serve un altro (lo risolve solo un accesso vero: G-51 per la redazione); e una rete sola, cambiando codice a ogni commento, può occupare fino a 40 nomi al giorno (il tetto dei commenti per rete). Per spegnere i nomi unici: `NOMI_UNICI = false` in `lettori.js`.
+I limiti veri: il nome non segue il lettore su un altro dispositivo o dopo che ha cancellato i dati del browser, lì ne serve un altro (per la redazione c'è l'accesso vero dell'area riservata, G-51); e una rete sola, cambiando codice a ogni commento, può occupare fino a 40 nomi al giorno (il tetto dei commenti per rete). Per spegnere i nomi unici: `NOMI_UNICI = false` in `lettori.js`.
 
 Per liberare i nomi di chi ha scritto un commento (per esempio dopo averlo tolto): `DELETE FROM nomi WHERE sito = 'gommberg' AND autore = (SELECT autore FROM commenti WHERE id = <numero>);`
 
@@ -45,7 +45,7 @@ Gettone firmato dal servizio (niente invii da programmi che non hanno aperto la 
 
 ## Segnalazioni: come lo viene a sapere Paolo
 
-Quando un lettore tocca Segnala, al giro successivo (ogni 3 ore tra le 8 e le 23 di Roma: 8:15, 11:15, 14:15, 17:15, 20:15, 23:15; una segnalazione fatta di notte arriva alle 8:15) GitHub manda a Paolo un'email: `segnalazioni.yml` legge `/api/lettori/segnalazioni` (numero del commento, edizione, quante reti, se è già nascosto; mai il testo) e `segnalazioni.py` tiene una segnalazione di GitHub per commento, assegnata a lui, con l'etichetta `gommunity`. Dentro ci sono i tre comandi pronti: leggere il commento, toglierlo, oppure lasciarlo azzerando le segnalazioni. Il testo non è mai nella segnalazione perché il repository è pubblico. Nessun segreto: basta il token del giro.
+Quando un lettore tocca Segnala, al giro successivo (ogni 3 ore tra le 8 e le 23 di Roma: 8:15, 11:15, 14:15, 17:15, 20:15, 23:15; una segnalazione fatta di notte arriva alle 8:15) GitHub manda a Paolo un'email: `segnalazioni.yml` legge `/api/lettori/segnalazioni` (numero del commento, edizione, quante reti, se è già nascosto; mai il testo) e `segnalazioni.py` tiene una segnalazione di GitHub per commento, assegnata a lui, con l'etichetta `gommunity`. Dentro c'è il link alla scheda Gommunity dell'area riservata, aperta su quel commento (G-51). Il testo non è mai nella segnalazione perché il repository è pubblico. Nessun segreto: basta il token del giro.
 
 - Un commento resta nell'elenco per 14 giorni dall'ultima segnalazione, finché la redazione non lo toglie o non azzera le segnalazioni. L'elenco mette prima i commenti già nascosti, poi dalla segnalazione più recente.
 - Se dopo l'avviso altri lettori lo segnalano e si nasconde, la segnalazione di GitHub riceve una riga e il titolo finisce con "- nascosto". Se Paolo l'aveva chiusa e il commento viene segnalato di nuovo, si riapre.
@@ -55,16 +55,31 @@ Quando un lettore tocca Segnala, al giro successivo (ogni 3 ore tra le 8 e le 23
 
 Il flusso gira solo dal ramo principale. **Alla prima messa in linea va provato a mano**: Actions, Segnalazioni della Gommunity, Run workflow (verde con "Nessun commento segnalato"); poi una segnalazione vera su un commento di prova, per vedere arrivare l'email. In locale: `python3 redazione/sito/segnalazioni.py --prova` (stampa senza toccare GitHub).
 
-## Togliere un commento (finché non c'è G-51)
+## Togliere un commento: la scheda Gommunity
 
-Per l'ordinanza 22999/2026 della Cassazione il gestore risponde se, saputo di un commento diffamatorio, non lo rimuove in fretta: quando arriva l'avviso di una segnalazione, o un'email a redazione@gommberg.com, si guarda e se serve si toglie subito.
+Per l'ordinanza 22999/2026 della Cassazione il gestore risponde se, saputo di un commento diffamatorio, non lo rimuove in fretta: quando arriva l'avviso di una segnalazione, o un'email a redazione@gommberg.com, si guarda e se serve si toglie subito. Dal 5/12 (G-51) si fa dalla scheda Gommunity dell'area riservata (gommberg.com/redazione/, vedi sotto): l'avviso di GitHub porta dritto al commento. Lì: **Togli** (nascosto = 2), **Rimetti** (torna visibile e azzera le segnalazioni, se no alla prossima si nasconderebbe di nuovo), **Azzera** (le segnalazioni di un commento ancora visibile), **Fissa in alto**, **Blocca il lettore** (il codice del browser per sempre, la rete per 30 giorni: non scrive, non vota, non segnala), **Libera il nome**, **Chiudi o riapri la discussione** di un'edizione (i lettori leggono ma non scrivono; la redazione sì). Togli e Rimetti si annullano per 10 secondi. Da collegato, sul sito c'è anche "Togli" sotto ogni commento.
 
-1. Cloudflare, Storage e database, D1, `gommberg-lettori`, Console.
-2. Trovare il commento: `SELECT id, ed, nome, testo, creato FROM commenti WHERE sito = 'gommberg' AND testo LIKE '%parola%';`
-3. Toglierlo: `UPDATE commenti SET nascosto = 2 WHERE id = <numero>;` (2 = tolto dalla redazione; 1 = nascosto dalle segnalazioni; 0 = visibile).
-4. Se invece può restare: `DELETE FROM segnalazioni WHERE commento = <numero>;` e `UPDATE commenti SET nascosto = 0, segnalazioni = 0 WHERE id = <numero>;` (senza azzerare le segnalazioni, alla prossima si nasconderebbe di nuovo).
+Solo se l'area non risponde, dalla console di D1 (Cloudflare, Storage e database, D1, `gommberg-lettori`, Console): `UPDATE commenti SET nascosto = 2 WHERE id = <numero>;` per toglierlo; `DELETE FROM segnalazioni WHERE commento = <numero>;` e `UPDATE commenti SET nascosto = 0, segnalazioni = 0 WHERE id = <numero>;` per rimetterlo.
 
 I commenti delle anteprime hanno `sito = 'prova'` e non compaiono mai su gommberg.com; si possono cancellare con `DELETE FROM commenti WHERE sito = 'prova';` (e lo stesso per `voti` e `nomi`).
+
+## L'area riservata della redazione (G-51)
+
+Un solo posto per Paolo: **gommberg.com/redazione/**, non collegato da nessuna pagina. Il codice è `redazione.js` (nel Worker, con `lettori.js`); le pagine sono `pannello/accesso.html` (l'accesso) e `pannello/index.html` (l'area: il pannello di controllo con la striscia di oggi in Panoramica, più le schede Gommunity e Sicurezza). La cartella `pannello/` non è mai tra i file pubblici: `costruisci.py` la mette in `_privato/pannello.js`, che entra nel codice del Worker, e il Worker la serve solo dopo l'accesso. I vecchi indirizzi `/pannello/` e `/consumi/` danno 404.
+
+**Le credenziali** le sceglie Paolo e le mette lui, una volta, tra i segreti del Worker: Cloudflare, Workers e Pages, `gommberg`, Impostazioni, Variabili e segreti, Aggiungi, tipo **Segreto**: `REDAZIONE_UTENTE` (il nome utente) e `REDAZIONE_PASSWORD` (almeno 16 caratteri: meglio una frase di quattro o cinque parole). Nessun deploy li cancella e nessuno li rilegge. Senza, la schermata di accesso dice "non ancora configurato". Claude non li vede mai.
+
+**Il cambio password** dalla scheda Sicurezza salva in D1 solo l'impronta della nuova (PBKDF2-SHA256, 50.000 passaggi, sale casuale) e chiude le altre sessioni. **Chi vince**: l'ultima cambiata. L'impronta salvata vale finché il segreto `REDAZIONE_PASSWORD` resta quello di quando è stata salvata; se Paolo cambia il segreto su Cloudflare, vince il segreto, l'impronta si cancella e tutte le sessioni si chiudono. **Password dimenticata**: si cambia il segreto `REDAZIONE_PASSWORD` su Cloudflare (anche dal telefono) e si entra con quello.
+
+**Sessioni**: cookie `__Host-gtd_sessione` (HttpOnly, Secure, SameSite=Strict), in D1 solo la sua impronta. "Resta collegato" (acceso di base, da spegnere sui PC condivisi): 90 giorni senza uso; senza, fino alla chiusura del browser e al massimo 12 ore senza uso. Esci chiude la sessione sul server; "Esci da tutti i dispositivi" e l'Esci di ogni dispositivo stanno nella scheda Sicurezza, con gli ultimi accessi (anche quelli sbagliati) degli ultimi 30 giorni. Il cookie `gtd_red=1`, leggibile dalle pagine e senza segreti, serve solo a dire alle pagine del sito che vale la pena chiedere la sessione: così la barra Redazione (`assets/redazione.js`, in ogni pagina) e la firma della redazione nella Gommunity non costano nulla ai lettori.
+
+**Tentativi**: per rete, 5 errori in 24 ore liberi, poi un'attesa che raddoppia a ogni errore (1, 2, 4... minuti, al massimo 60); per tutto il sito, oltre 50 errori in 15 minuti l'accesso si sospende finché non scendono (vale anche per Paolo: è il prezzo contro un attacco da molte reti). Nome utente sbagliato e password sbagliata danno la stessa risposta. Ogni azione che cambia qualcosa vuole lo stesso sito d'origine e il gettone anti-CSRF della sessione; le pagine dell'area hanno una CSP con nonce, niente cache e niente cornici.
+
+**La firma "Gommberg"**: i commenti della redazione hanno `redazione = 1` (autore `redazione`, mai un'impronta di lettore) ed escono con il logo e il badge Redazione; il nome è riservato (`RISERVATI`), quindi nessun lettore può firmarsi così, e il badge lo decide solo il servizio. I commenti della redazione si modificano (con "modificato"), non si nascondono con le segnalazioni, e si scrivono anche a discussione chiusa; quelli dei lettori si tolgono, mai si modificano.
+
+**Costi sul piano gratuito**: la derivazione della password (circa 6 ms di CPU, misurati) si fa solo quando c'è un'impronta salvata, una volta per accesso; il cambio password ne fa due (raro: Cloudflare tollera i superamenti occasionali dei 10 ms). Ogni pagina dell'area legge la sessione in D1 e la rinnova al massimo una volta l'ora.
+
+**Primo accesso** (Paolo, dopo il rilascio): 1) i due segreti su Cloudflare; 2) gommberg.com/redazione/ dal PC, "Resta collegato" acceso, e il preferito; 3) dal telefono, stesso indirizzo, poi Condividi, Aggiungi alla schermata Home (l'icona si chiama "Redazione"); 4) Esci e rientro per provare.
 
 ## Il database
 

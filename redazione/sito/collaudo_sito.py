@@ -80,8 +80,9 @@ else:
     RIF = ARG[1].rstrip("/") + "/" if len(ARG) > 1 else None
 N = int(sys.argv[sys.argv.index("--pagine") + 1]) if "--pagine" in sys.argv else 5
 FISSE = ["", "index.html", "archivio.html", "glossario.html", "scommessa.html", "numeri.html", "progetto.html",
-         "iscriviti.html", "benvenuto.html", "grazie.html", "regole.html", "privacy.html", "basi.html", "ultima/", "pannello/", "consumi/"]
-PRIVATI = ["redazione/ISTRUZIONI.md", "redazione/CARTA.md", "redazione/gommberg_engine.py", "redazione/fonti.json",
+         "iscriviti.html", "benvenuto.html", "grazie.html", "regole.html", "privacy.html", "basi.html", "ultima/"]
+# pannello/ e consumi/: dal 5/12 (G-51) il pannello non è un file pubblico, si apre solo da /redazione/ dopo l'accesso
+PRIVATI = ["pannello/", "pannello/registro.json", "pannello/index.html", "consumi/", "redazione/registro.json", "redazione/ISTRUZIONI.md", "redazione/CARTA.md", "redazione/gommberg_engine.py", "redazione/fonti.json",
            "redazione/STATO.md", ".github/workflows/newsletter.yml", ".claude/settings.json", "README.md", "_redirects"]
 BLOCCO = re.compile(r"goatcounter\.com|gc\.zgo\.at")
 
@@ -164,7 +165,7 @@ def veloce(cartella):
         if not diversi:
             break
         time.sleep(15)
-    privati = [f"{x}: {s}" for x in PRIVATI for s in [get(PROVA + x)[0]] if s != 404]
+    privati = [f"{x}: {s}" for x in PRIVATI for s in [get(PROVA + x)[0]] if s not in (401, 404)]   # 401: dietro l'accesso (G-51)
     for x in diversi:
         print("NO   online diverso da quanto pubblicato:", x)
     for x in privati:
@@ -220,7 +221,7 @@ async def main():
         await b.close()
     for x in PRIVATI:
         s, _ = get(PROVA + x)
-        ok = s == 404
+        ok = s in (401, 404)          # 401: dietro l'accesso dell'area riservata (G-51)
         print(("OK   " if ok else "NO   ") + f"privato {x}: {s}")
         problemi += not ok
     for x in ("redazione/glossario.json", "redazione/meccanismi.json", "redazione/glossario_sito.json",

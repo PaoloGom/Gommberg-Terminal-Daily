@@ -15,7 +15,7 @@ Cosa guarda, nell'ordine in cui l'edizione viaggia (mappa: redazione/ARCHITETTUR
   3. Pubblicazione  l'ultimo giro di sito.yml sul ramo principale è di oggi ed è verde
   4. Newsletter  l'ultimo giro di newsletter.yml è di oggi ed è verde, l'invio di oggi esiste in Kit, e il link
                  dell'email (la homepage ferma su questa edizione) si apre
-  5. Pannello    la riga dell'edizione è nel registro del pannello, anche online
+  5. Pannello    la riga dell'edizione è nel registro del pannello; online il pannello non si apre senza accesso (G-51)
   6. Macchina    l'orologio dei controlli è sano (gommberg.com/api/orologio, G-58) e i minuti di GitHub del mese sono
                  sotto il 75% della quota (stima dai giri in pannello/minuti.json, G-12; conta solo da privato)
 Nei giorni senza borsa non c'è niente da controllare ed esce con 0.
@@ -218,10 +218,14 @@ def main():
             return any(x.get("n") == n for x in json.loads(testo))
         except Exception:  # noqa: BLE001
             return False
+    # dal 5/12 (G-51) il pannello si apre solo dopo l'accesso: online si controlla che resti chiuso a chi non è entrato
+    # (i dati sono nel codice del Worker, pubblicato con lo stesso commit che ha scritto la riga nel repository)
     p = os.path.join(REPO, "pannello", "registro.json")
-    s, corpo = get(BASE + "pannello/registro.json")
-    riga(os.path.exists(p) and nel_registro(open(p, encoding="utf-8").read()) and s == 200 and nel_registro(corpo),
-         "Pannello: riga dell'edizione", f"nel repository e online ({s})")
+    s, _ = get(BASE + "redazione/registro.json")
+    s_vecchio, _ = get(BASE + "pannello/registro.json")
+    riga(os.path.exists(p) and nel_registro(open(p, encoding="utf-8").read()), "Pannello: riga dell'edizione", "nel repository")
+    riga(s == 401 and s_vecchio == 404, "Pannello: chiuso a chi non è entrato",
+         f"/redazione/registro.json senza accesso: {s} (atteso 401); vecchio indirizzo /pannello/: {s_vecchio} (atteso 404)")
     macchina(oggi)
 
 

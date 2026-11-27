@@ -1,5 +1,5 @@
 // gommberg.com su Cloudflare Workers (piano gratuito): i file statici del sito, più un solo pezzo di codice,
-// redazione/sito/lettori.js (La Gommunity, G-13, con orologio.js: l'orologio dei controlli, G-58), che Cloudflare
+// redazione/sito/servizio.js che chiama lettori.js (La Gommunity, G-13, con redazione.js: l'area riservata, G-51, e orologio.js: l'orologio dei controlli, G-58), che Cloudflare
 // chiama solo per gli indirizzi /api/* e per il cron qui sotto.
 // Lo usa .github/workflows/sito.yml; la cartella _sito la prepara redazione/sito/costruisci.py.
 // Se la pubblicazione con il codice non riesce, sito.yml ripubblica i soli file statici (senza "main" e senza database):
@@ -7,12 +7,14 @@
 {
   "name": "gommberg",
   "compatibility_date": "2026-11-20",
-  "main": "lettori.js",
+  "main": "servizio.js",
   "assets": {
     "directory": "../../_sito",
     "binding": "ASSETS",
-    // solo /api/* passa dal codice; ogni altra richiesta va dritta ai file statici, come prima di G-13
-    "run_worker_first": ["/api/*"],
+    // passano dal codice solo /api/* e l'area riservata /redazione (G-51: accesso, pannello, moderazione); ogni altra
+    // richiesta va dritta ai file statici, come prima di G-13. Il pannello non è tra i file statici: sta nel codice
+    // (_privato/pannello.js, scritto da costruisci.py) e si apre solo dopo l'accesso.
+    "run_worker_first": ["/api/*", "/redazione", "/redazione/*"],
     // indirizzi identici a GitHub Pages: /e/030.html resta /e/030.html (le altre modalità lo accorciano)
     "html_handling": "none",
     // le pagine che non esistono aprono 404.html con stato 404
@@ -31,6 +33,9 @@
   "routes": [
     { "pattern": "gommberg.com", "custom_domain": true }
   ],
+  // L'area riservata (G-51, redazione.js) vuole due segreti che Paolo mette dal pannello di Cloudflare (Workers,
+  // gommberg, Impostazioni, Variabili e segreti) e che nessun deploy cancella: REDAZIONE_UTENTE e REDAZIONE_PASSWORD
+  // (almeno 16 caratteri). Senza, l'accesso risponde "non ancora configurato". Procedura: redazione/sito/LETTORI.md.
   // l'orologio dei controlli (G-58, orologio.js): un solo cron, in UTC, ogni quarto d'ora; che cosa far partire e
   // quando lo decide il codice sull'ora di Roma. Piano gratuito: 5 cron per account, qui se ne usa uno. Ogni
   // pubblicazione sostituisce i cron con questi (non si cambiano dal pannello di Cloudflare). Il segreto

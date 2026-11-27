@@ -18,6 +18,12 @@ siti, per esempio da un artifact) e _redirects (Cloudflare): "/" e ogni cartella
 in radice si aprono anche senza ".html", come su GitHub Pages. Senza, con html_handling "none" (che lascia gli
 indirizzi .html come sono), "/" darebbe 404.
 
+Il pannello di controllo e l'area riservata della redazione (cartella pannello/, G-51) non sono file pubblici: lo script
+li mette in _privato/pannello.js, un modulo che entra nel codice del Worker (redazione/sito/redazione.js) e che il
+Worker serve su /redazione/ solo dopo l'accesso. Nella cartella del sito non c'è nessun loro file, quindi neanche la
+pubblicazione di riserva (soli file statici) li può mostrare. In ogni pagina aggiunge assets/redazione.js: la barra
+"Redazione" che vede solo Paolo quando è collegato (per i lettori non fa nulla, nemmeno una richiesta).
+
 Controlla infine che ogni link interno delle pagine porti a un file pubblicato. Non blocca mai la pubblicazione per
 un link (AVVISO ed esce con 0); si ferma solo se un file privato stesse per finire nel sito.
 
@@ -41,13 +47,15 @@ LETTI = ["redazione/glossario.json", "redazione/glossario_sito.json", "redazione
          "redazione/scommessa/pagella.json"]
 FIRMA = "# Scritto da redazione/sito/costruisci.py: non modificare a mano."
 NOMINATI = re.compile(r"""(?:^|[^A-Za-z0-9_])(redazione/[A-Za-z0-9_./-]+\.[a-z]{2,4})""")
+PRIVATE = ("pannello", "consumi")      # cartelle mai pubbliche: il pannello si apre solo da /redazione/ dopo l'accesso (G-51)
+BARRA = '<script src="/assets/redazione.js?v=2026-12-05" defer></script>'
 STATISTICHE = re.compile(r'<script[^>]*data-goatcounter=[^>]*>\s*</script>\s*', re.I)
 
 
 def pubblico(rel: PurePosixPath) -> bool:
     if any(p.startswith(".") for p in rel.parts) or "__pycache__" in rel.parts:
         return False
-    return not (rel.parts[0].startswith("_") or rel.parts[0] == "redazione" or str(rel) == "README.md")
+    return not (rel.parts[0].startswith("_") or rel.parts[0] in ("redazione",) + PRIVATE or str(rel) == "README.md")
 
 
 def tracciati():
@@ -102,14 +110,38 @@ def reindirizzamenti(uscita: Path, file):
 
 
 def ritocchi(uscita: Path, file, anteprima: bool):
-    if anteprima:
-        for rel in file:
-            if rel.suffix == ".html":
-                f = uscita / rel
-                t = f.read_text(encoding="utf-8")
-                n = STATISTICHE.sub("", t).replace("<head>", '<head>\n<meta name="robots" content="noindex">', 1)
-                if n != t:
-                    f.write_text(n, encoding="utf-8")
+    for rel in file:
+        if rel.suffix == ".html":
+            f = uscita / rel
+            t = f.read_text(encoding="utf-8")
+            n = t
+            if anteprima:
+                n = STATISTICHE.sub("", n).replace("<head>", '<head>\n<meta name="robots" content="noindex">', 1)
+            if BARRA not in n and "</body>" in n:
+                i = n.rindex("</body>")
+                n = n[:i] + BARRA + "\n" + n[i:]
+            if n != t:
+                f.write_text(n, encoding="utf-8")
+
+
+def privato(cartella: Path):
+    """I file di pannello/ (area riservata e dati del pannello) in un modulo per il Worker: _privato/pannello.js.
+    Solo file di testo tracciati da git e direttamente in pannello/; mai nella cartella del sito."""
+    dati = {}
+    for rel in tracciati():
+        if len(rel.parts) == 2 and rel.parts[0] == "pannello" and rel.suffix in (".html", ".json"):
+            sorgente = REPO / rel
+            if sorgente.is_symlink() or not sorgente.is_file():
+                continue
+            dati[rel.name] = sorgente.read_text(encoding="utf-8")
+    for nome in ("index.html", "accesso.html"):
+        if nome not in dati:
+            sys.exit(f"ERRORE: pannello/{nome} manca: l'area riservata non si può pubblicare")
+    cartella.mkdir(parents=True, exist_ok=True)
+    import json
+    (cartella / "pannello.js").write_text("// Scritto da redazione/sito/costruisci.py: non modificare a mano. I file di pannello/ per il Worker (G-51).\n"
+                                           "export default " + json.dumps(dati, ensure_ascii=False) + ";\n", encoding="utf-8")
+    return sorted(dati)
 
 
 class Link(html.parser.HTMLParser):
@@ -172,6 +204,7 @@ def main():
     file += [PurePosixPath(f) for f in statico.scrivi_tutto(uscita)]
     n = reindirizzamenti(uscita, file)
     ritocchi(uscita, file, anteprima)
+    riservati = privato(REPO / "_privato")
     # ultima difesa: nel sito solo file pubblici, i file di LETTI, _redirects e _headers
     for p in uscita.rglob("*"):
         rel = PurePosixPath(p.relative_to(uscita).as_posix())
@@ -180,6 +213,7 @@ def main():
     tot = sum((uscita / f).stat().st_size for f in file)
     print(f"Sito pubblico: {len(file)} file, {tot / 1e6:.1f} MB{' (anteprima: senza statistiche, noindex)' if anteprima else ''}")
     print(f"Dalla redazione: {', '.join(l for l in LETTI if l not in mancano)}; cartelle con indirizzo proprio: {n}")
+    print(f"Area riservata (solo dal Worker, dopo l'accesso): {len(riservati)} file di pannello/ in _privato/pannello.js")
     for x in mancano:
         print(f"AVVISO: {x} è in LETTI ma non esiste nel repository")
     for x in saltati:

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Redazione - Gommberg Terminal Daily</title>
+<meta name="theme-color" content="#0E0E0E">
+<meta name="apple-mobile-web-app-title" content="Redazione">
+<link rel="icon" href="/assets/icona.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/icona-180.png">
+<link rel="stylesheet" href="/assets/sito.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!-- La schermata di accesso dell'area riservata (G-51). La serve il Worker (redazione/sito/redazione.js) su /redazione/
+     a chi non ha una sessione; dopo l'accesso, allo stesso indirizzo, c'è l'area (pannello/index.html). Nessun dato qui. -->
+<style>
+:root{--paper:#FAF8F4;--ink:#141414;--muted:#6B655E;--rule:#DEDAD4;--panel:#F1EEE9;--orange:#F26B1D;--orange-ink:#B84A0C;
+--bar:#0E0E0E;--bar-ink:#F5F3EF;--bar-muted:#A39C93;--up:#12753D;--down:#C0261C;
+--display:"Archivo","Arial Narrow","Helvetica Neue",Arial,sans-serif;--body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
+.gn-top{align-items:center}
+.gn-tag{margin:0;font-family:var(--mono);font-size:13px;color:var(--bar-muted);display:flex;align-items:center;gap:8px}
+.gn-tag i{width:7px;height:7px;border-radius:50%;background:var(--orange)}
+main{flex:1;display:grid;place-items:center;padding:56px 20px 64px}
+.box{width:100%;max-width:420px;background:#fff;border:1px solid var(--rule);border-top:3px solid var(--orange);padding:30px 30px 26px}
+.kicker{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink);margin:0 0 6px}
+h1{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:36px;line-height:1.05;margin:0 0 6px;letter-spacing:-.01em}
+.sub{margin:0 0 24px;color:var(--muted);font-size:15px}
+.f{display:grid;gap:6px;margin-bottom:16px}
+.f label{font-size:13px;font-weight:600}
+.in{position:relative}
+.in input{width:100%;height:46px;border:1px solid #C9C4BC;background:var(--paper);padding:0 12px;font:16px var(--body);color:var(--ink);border-radius:0}
+.in input:focus{border-color:var(--ink);outline:2px solid var(--orange);outline-offset:-2px;background:#fff}
+.in input#password{padding-right:74px}
+.eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:0;font-family:var(--mono);font-size:12px;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px}
+.chk{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;margin:4px 0 22px;cursor:pointer}
+.chk input{width:20px;height:20px;margin:1px 0 0;accent-color:#141414}
+.chk b{display:block;font-size:15px;font-weight:600}
+.chk span{display:block;font-size:13px;color:var(--muted);line-height:1.4;margin-top:1px}
+.go{width:100%;height:48px;border:0;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:14px;letter-spacing:.04em;cursor:pointer}
+.go:hover{background:var(--orange);color:var(--ink)}
+.go:disabled{opacity:.6;cursor:default}
+.err{margin:12px 0 0;padding:9px 12px;background:#FAE5E2;color:#9E1F16;font-size:14px;line-height:1.4}
+.pie{margin:18px 0 0;padding-top:14px;border-top:1px solid var(--rule);font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.5;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.pie a{color:var(--ink)}
+.url{margin-top:16px;text-align:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
+[hidden]{display:none!important}
+@media (max-width:520px){main{place-items:start center;padding:28px 16px 40px}.box{padding:24px 20px 20px}h1{font-size:32px}.gn-tag span{display:none}}
+</style>
+</head>
+<body>
+<header class="gn-mast"><div class="gn-top"><div class="gn-brand"><p class="gn-logo"><a href="/"><b>GOMMBERG</b> <span>TERMINAL DAILY</span></a></p></div><p class="gn-tag"><i></i>REDAZIONE<span> · area riservata</span></p></div></header>
+<main>
+<div>
+<form class="box" id="accesso" novalidate>
+<p class="kicker">Area riservata</p>
+<h1>Redazione</h1>
+<p class="sub">Pannello, Gommunity e firma della redazione.</p>
+<div class="f"><label for="utente">Nome utente</label><div class="in"><input id="utente" name="username" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="100" required></div></div>
+<div class="f"><label for="password">Password</label><div class="in"><input id="password" name="password" type="password" autocomplete="current-password" maxlength="200" required><button class="eye" type="button" id="mostra" aria-pressed="false">mostra</button></div></div>
+<label class="chk"><input type="checkbox" id="resta" checked><div><b>Resta collegato</b><span>Su questo dispositivo, fino a 90 giorni senza uso. Spegnila sui PC condivisi.</span></div></label>
+<button class="go" type="submit" id="entra">Entra</button>
+<p class="err" id="errore" role="alert" hidden></p>
+<p class="pie"><span>Tentativi limitati</span><a href="/">‹ Torna al sito</a></p>
+</form>
+<p class="url">gommberg.com/redazione/</p>
+</div>
+</main>
+<script>
+(function () {
+  "use strict";
+  var f = document.getElementById("accesso"), err = document.getElementById("errore"), entra = document.getElementById("entra");
+  var pw = document.getElementById("password"), mostra = document.getElementById("mostra");
+  // Arrivando da un link di un altro sito (l'email di GitHub, per esempio) il browser non manda il cookie di sessione
+  // (SameSite=Strict): se la sessione c'è, si riapre l'area da qui, che è lo stesso sito.
+  fetch("/api/redazione/sessione", { cache: "no-store", credentials: "same-origin" }).then(function (r) {
+    if (r.ok) location.replace("/redazione/" + location.hash);
+  }, function () {});
+  mostra.addEventListener("click", function () {
+    var v = pw.type === "password"; pw.type = v ? "text" : "password"; mostra.textContent = v ? "nascondi" : "mostra"; mostra.setAttribute("aria-pressed", String(v)); pw.focus();
+  });
+  function dici(msg) { err.textContent = msg; err.hidden = !msg; }
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var u = document.getElementById("utente").value.trim(), p = pw.value;
+    if (!u || !p) { dici("Scrivi nome utente e password."); (u ? pw : document.getElementById("utente")).focus(); return; }
+    dici(""); entra.disabled = true; entra.textContent = "Accesso…";
+    fetch("/api/redazione/accesso", { method: "POST", headers: { "content-type": "application/json" }, credentials: "same-origin", cache: "no-store",
+      body: JSON.stringify({ utente: u, password: p, resta: document.getElementById("resta").checked }) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (x) {
+        if (x.ok) { location.replace("/redazione/" + location.hash); return; }
+        entra.disabled = false; entra.textContent = "Entra"; pw.value = ""; pw.focus();
+        dici((x.j && x.j.errore) || "Accesso non riuscito: riprova tra poco.");
+      }, function () { entra.disabled = false; entra.textContent = "Entra"; dici("Connessione assente: riprova tra poco."); });
+  });
+  document.getElementById("utente").focus();
+})();
+</script>
+</body>
+</html>
