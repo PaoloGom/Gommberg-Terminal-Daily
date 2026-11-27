@@ -5,7 +5,7 @@ R = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.abspath(os.pa
 sys.path.insert(0, R)
 import controlli_testo as T
 
-RIGHE = ["Fonti: Reuters, Bloomberg, Yonhap, Handelsblatt, Korea Times, Korea Herald, Financial Times."]
+RIGHE = ["Fonti: Reuters, Bloomberg, Yonhap, Handelsblatt, Korea Times, Korea Herald, Financial Times, Nikkei, Wall Street Journal."]
 GIUSTE = [
     "Secondo le indiscrezioni del Financial Times il gruppo valuta un'offerta.",
     "Un'indiscrezione di Bloomberg dà per vicino l'accordo.",
@@ -29,6 +29,16 @@ GIUSTE = [
     "I giornali di carta perdono lettori da anni.",
     "Il governo, scrive il Korea Times, prepara il fondo, e per la stampa locale conta l'ampliamento.",
     "Le voci di mercato raccolte da Bloomberg indicano un'offerta.",
+    "Il bersaglio resta Nvidia, dopo l'indagine riportata dalla stampa americana. A rivelarla per primo è stato il Wall Street Journal.",
+    "Il ministero ha convocato i media stranieri per spiegare le sanzioni.",
+    "Secondo indiscrezioni di stampa riportate da Bloomberg, il gruppo tratta.",
+    "I media americani parlano di un accordo. Lo scrive il Wall Street Journal, citando fonti vicine.",
+    "Fonti vicine al dossier danno per certa l'offerta, secondo Reuters.",
+    "La stampa tedesca anticipa il piano. L'ha rivelato lo Handelsblatt per primo.",
+    "Le banche giapponesi salgono, trascinate dal Nikkei e da un dollaro forte.",
+    "I tassi restano fermi, come spiegato dalla BCE nella riunione.",
+    "Il governo ha invitato la stampa estera alla conferenza.",
+    "I giornali italiani hanno perso copie anche nel 2026.",
 ]
 SBAGLIATE = [
     "La SEC indaga sui conti di Nvidia, riferisce la stampa americana.",
@@ -52,9 +62,19 @@ SBAGLIATE = [
     "Stando alla stampa tedesca il governo prepara aiuti.",
     "Secondo quanto riportato dai media locali, l'impianto è fermo.",
     "I media scrivono che Nvidia valuta un'offerta.",
+    "Secondo alcuni giornali, il governo prepara un decreto.",
+    "Secondo indiscrezioni di stampa il gruppo valuta un'offerta. Il titolo sale del 3% secondo Reuters.",
+    "Secondo la stampa americana la SEC indaga. Secondo Reuters il Brent sale.",
+    "Le banche cedono, trascinate dal Nikkei, mentre la stampa giapponese parla di una stretta.",
+    "Secondo i media la BCE alzerà i tassi, come spiegato dalla BCE stessa a ottobre.",
+    "Fonti vicine al governo parlano di un rinvio. Intanto Bloomberg scrive che il petrolio sale.",
+    "Voci di mercato indicano un'offerta. Il gruppo, secondo il bilancio, ha liquidità.",
+    "Secondo diversi media il piano è pronto.",
+    "Un'indiscrezione dà per vicino l'accordo.",
+    "Molti giornali scrivono di un rimpasto.",
 ]
 nomi = T.NOMI_BASE + [n for n in T.nomi_da_righe(RIGHE) if n not in T.NOMI_BASE]
-ferma = lambda t: bool(T.senza_testata({"moduli.0.testo.0": t}, nomi))   # noqa: E731
+ferma = lambda t: bool(T.senza_testata({"moduli.0.testo.0": t}, nomi, RIGHE))   # noqa: E731
 falsi = [t for t in GIUSTE if ferma(t)]
 mancati = [t for t in SBAGLIATE if not ferma(t)]
 print(f"giuste {len(GIUSTE)}, falsi allarmi {len(falsi)}; sbagliate {len(SBAGLIATE)}, mancati {len(mancati)}")

@@ -736,16 +736,22 @@ def passo_scrittura():
     Ca = {"top": {"dek": "Il bersaglio resta Nvidia, dopo l'indagine riportata dalla stampa americana."},
           "notizie": [{"titolo": "La SEC indaga sui conti di Nvidia, riferisce la stampa americana"},
                       {"titolo": "La BCE discute la riserva", "testo": "Secondo Reuters i vertici ne avrebbero parlato; un resoconto anonimo dà la decisione a dicembre."},
-                      {"titolo": "Il Brent sale", "testo": "Media iraniani riferiscono di mine, ma Bloomberg scrive di non avere conferme."}],
+                      {"titolo": "Il Brent sale", "testo": "Media iraniani riferiscono di mine, ma Bloomberg scrive di non avere conferme."},
+                      {"titolo": "La SEC indaga", "testo": "Secondo la stampa americana la SEC indaga. Secondo Reuters il Brent sale."}],
           "moduli": [pezzo("e", "Le indiscrezioni dicono solo che i risultati sono pronti.", "Secondo tre fonti citate da Reuters i dazi sono pronti.", "Fonti: Reuters."),
                      pezzo("f", "Dopo le dimissioni sono arrivate notizie secondo cui era nel mirino.", "La stampa coreana lo lega al fondo.", "Fonti: Korea Times."),
                      pezzo("g", "Il governo prepara il fondo, scrive il Korea Times.", "Per la stampa locale, come scrive Reuters, conta il fondo.", "Fonti: Korea Times, Reuters."),
                      pezzo("h", "Secondo le indiscrezioni del Financial Times il gruppo valuta un'offerta.", "Secondo il Nikkei fonti vicine al governo parlano di un rinvio.", ""),
                      pezzo("i", "L'azienda ha presentato il prodotto alla stampa specializzata.", "La media mobile passa sotto il prezzo.", ""),
                      pezzo("l", "I media scrivono che il gruppo valuta un'offerta.", "Di solito decide la Fed.", ""),
-                     pezzo("m", "Voci di mercato indicano un'offerta imminente.", "Di solito decide la Fed.", "")]}
+                     pezzo("m", "Voci di mercato indicano un'offerta imminente.", "Di solito decide la Fed.", ""),
+                     pezzo("n", "Secondo indiscrezioni di stampa il gruppo tratta.", "Secondo Reuters il Brent sale.", ""),
+                     pezzo("o", "Le banche salgono, trascinate dal Nikkei, mentre la stampa giapponese parla di una stretta.", "Di solito decide la Fed.", ""),
+                     pezzo("p", "L'indagine è stata riportata dalla stampa americana. A rivelarla per primo è stato il Wall Street Journal.",
+                           "Il ministero ha convocato i media stranieri per spiegare le sanzioni.", "")]}
     anon = sorted(d for d, _ in getattr(T, "senza_testata", lambda *a: [])(T.testi(Ca), nomi + ["Nvidia", "Korea Times"]))
-    anon_ok = anon == ["moduli.1.perche", "moduli.1.testo.0", "moduli.5.testo.0", "moduli.6.testo.0", "notizie.0.titolo", "top.dek"] \
+    anon_ok = anon == ["moduli.1.perche", "moduli.1.testo.0", "moduli.5.testo.0", "moduli.6.testo.0", "moduli.7.testo.0",
+                    "moduli.8.testo.0", "notizie.0.titolo", "notizie.3.testo", "top.dek"] \
         and bool(T.connettivi("Secondo la stampa coreana il Kospi sale perché arriva il fondo. A. B. C. D.")) \
         and not T.connettivi("Secondo Goldman Sachs il Kospi sale perché arriva il fondo. A. B. C. D.")
     fonti_ok = fonti_ok and anon_ok
