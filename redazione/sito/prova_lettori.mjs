@@ -4,6 +4,7 @@
 import { readFileSync } from "node:fs";
 import { d1 } from "./d1_finto.mjs";
 import worker, { controllaTesto, controllaNome, chiaveNome, pulisciNome, pulisciTesto, sitoDi, LIMITI, NOMI_UNICI } from "./lettori.js";
+import * as L_ from "./lettori.js";
 import servizio from "./servizio.js";
 import { AREA, COOKIE, SPIA, usaPrivato, uguali, improntaPassword, verificaImpronta, dispositivo } from "./redazione.js";
 
@@ -754,6 +755,20 @@ async function areaRiservata() {
   verifica("redazione: indirizzo sconosciuto: 404", r.s === 404, r.s);
   r = await red("PUT", "/api/redazione/commenti", S1);
   verifica("redazione: metodo non ammesso: 405", r.s === 405, r.s);
+  // la rete è l'IPv4 intero o i primi 64 bit dell'IPv6: con IPv6 ogni casa ha 2^64 indirizzi, e cambiarli non deve
+  // aggirare né l'attesa dei tentativi né "Blocca il lettore (browser e rete)"
+  const cr = L_.chiaveRete || (() => null);
+  verifica("rete: due indirizzi IPv6 della stessa /64 sono la stessa rete, di un'altra /64 no; IPv4 intero",
+    cr("2001:db8:1:2:aaaa::1") === cr("2001:0db8:0001:0002:ffff:ffff:ffff:ffff") && cr("2001:db8:1:2::9") !== cr("2001:db8:1:3::9")
+    && cr("::ffff:192.0.2.7") === cr("192.0.2.7") && cr("192.0.2.7") !== cr("192.0.2.8") && cr("2001:DB8:1:2::1%eth0") === cr("2001:db8:1:2::1"), [cr("2001:db8:1:2:aaaa::1"), cr("::ffff:192.0.2.7")]);
+  for (let i = 0; i < AREA.errori_liberi; i++) await red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: "sbagliata " + i }, ip: "2001:db8:77:1::" + (i + 1).toString(16) });
+  r = await red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: PW }, ip: "2001:db8:77:1:dead:beef:0:1" });
+  verifica("rete: cambiare indirizzo dentro la stessa /64 non azzera l'attesa dei tentativi", r.s === 429, r.s);
+  const g8 = (await chiama("GET", "/api/lettori/031")).j.gettone; avanti(5);
+  r = await chiama("POST", "/api/lettori/031/commenti", { lettore: "lettore-ipv6-aaaaaaaaa", ip: "2001:db8:99:5::1", corpo: { nome: "Sei Bit", testo: "Scrivo da IPv6", gettone: g8 } });
+  await red("POST", "/api/redazione/lettori/blocca", { corpo: { commento: r.j.commento.id }, ...S1 });
+  r = await chiama("POST", "/api/lettori/031/commenti", { lettore: "lettore-ipv6-bbbbbbbbb", ip: "2001:db8:99:5:1234:5678:9abc:def0", corpo: { nome: "Altro Browser", testo: "Stessa casa, indirizzo nuovo", gettone: g8 } });
+  verifica("rete: un lettore bloccato non rientra cambiando indirizzo IPv6 e browser nella stessa /64", r.s === 403, r);
   // privacy: gli accessi (con l'impronta della rete) si cancellano dopo 30 giorni, come promette privacy.html
   env.DB._db.exec("INSERT INTO accessi (quando, esito, dispositivo, luogo, ip) VALUES ('" + new Date(adesso - 31 * 86400000).toISOString().replace(/\.\d{3}Z$/, "Z") + "', 'ok', 'x|pc', NULL, 'vecchia-impronta')");
   avanti(86400);

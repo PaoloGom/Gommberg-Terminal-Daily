@@ -101,6 +101,22 @@ export async function firma(segreto, testo) {
 }
 export const impronta = async (segreto, tipo, valore) => (await firma(segreto, tipo + ":" + valore)).slice(0, 32);
 
+// La rete di chi scrive (G-51): l'IPv4 intero, o i primi 64 bit dell'IPv6. Con IPv6 una casa o un telefono hanno 2^64
+// indirizzi nella stessa /64: contare l'indirizzo intero lascerebbe aggirare limiti, attese e blocchi cambiandolo.
+// La usano i limiti dei lettori (qui) e l'area riservata (redazione.js). Le impronte già in D1 di indirizzi IPv6 interi
+// non coincidono più: i limiti guardano al massimo 24 ore indietro e i blocchi di rete scadono da soli entro 30 giorni.
+export function chiaveRete(ip) {
+  ip = String(ip == null ? "" : ip).trim().toLowerCase().replace(/%.*$/, "");
+  const v4 = /^(?:::ffff:)?(\d{1,3}(?:\.\d{1,3}){3})$/.exec(ip);
+  if (v4) return v4[1];
+  if (!ip.includes(":")) return ip || "locale";
+  const parti = ip.split("::");
+  if (parti.length > 2) return ip;
+  const a = parti[0] ? parti[0].split(":") : [], b = parti.length === 2 && parti[1] ? parti[1].split(":") : [];
+  const gruppi = parti.length === 2 ? [...a, ...Array(Math.max(0, 8 - a.length - b.length)).fill("0"), ...b] : a;
+  return gruppi.slice(0, 4).map((g) => (parseInt(g, 16) || 0).toString(16)).join(":") + "::/64";
+}
+
 // il sito che scrive: gommberg.com, oppure "prova" per anteprime e prove in locale
 export const sitoDi = (url) => /^(www\.)?gommberg\.com\.?$/.test(url.hostname) ? "gommberg" : "prova";
 
@@ -208,7 +224,7 @@ async function instrada(request, env, url) {
   const sito = sitoDi(url);
   const lettore = String(request.headers.get("x-lettore") || "");
   const autore = /^[a-z0-9-]{16,64}$/i.test(lettore) ? await impronta(cfg.segreto, "lettore", lettore) : "";
-  const ip = await impronta(cfg.segreto, "ip", request.headers.get("cf-connecting-ip") || "locale");
+  const ip = await impronta(cfg.segreto, "ip", chiaveRete(request.headers.get("cf-connecting-ip") || "locale"));
   const c = { env, url, sito, autore, ip, cfg, db: env.DB };
   await pulizia(c);
 

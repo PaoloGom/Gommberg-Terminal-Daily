@@ -19,13 +19,13 @@
 // Accanto c'è il cookie gtd_red=1, leggibile dagli script e senza segreti: dice solo alle pagine del sito che vale la
 // pena chiedere se c'è una sessione (così i lettori non fanno mai quella richiesta).
 //
-// Tentativi. Per rete (impronta della rete): 5 errori in 24 ore liberi, poi un'attesa che raddoppia a ogni errore (1, 2,
+// Tentativi. Per rete (impronta della rete: l'IPv4 intero o i primi 64 bit dell'IPv6, chiaveRete in lettori.js): 5 errori in 24 ore liberi, poi un'attesa che raddoppia a ogni errore (1, 2,
 // 4... minuti, al massimo 60). Ogni tentativo si prenota prima di provare la password (una riga "errore" inserita solo se
 // nessun altro tentativo della stessa rete è passato nel frattempo): cento richieste insieme non ne provano più di una.
 // Nessun blocco per tutto il sito (chiunque lo farebbe scattare chiudendo fuori Paolo): con una password di almeno 16
 // caratteri non serve; i tentativi falliti delle ultime 24 ore si vedono nell'area. Utente inesistente e password
 // sbagliata danno la stessa risposta, e lo stesso lavoro.
-import { prepara, firma, impronta, sitoDi, pulisciTesto, controllaTesto, chiaveNome, edizione, ultima, iso, prima, LIMITI } from "./lettori.js";
+import { prepara, firma, impronta, chiaveRete, sitoDi, pulisciTesto, controllaTesto, chiaveNome, edizione, ultima, iso, prima, LIMITI } from "./lettori.js";
 
 export const AREA = {
   iterazioni: 50000,           // PBKDF2-SHA256: ~6 ms di CPU (piano gratuito: 10 ms per richiesta; il massimo dei Workers è 100.000)
@@ -193,7 +193,7 @@ export async function area(request, env, url) {
   try {
     let cfg;
     try { cfg = await prepara(env); } catch (e) { cfg = await prepara(env); }
-    const ip = await impronta(cfg.segreto, "ip", request.headers.get("cf-connecting-ip") || "locale");
+    const ip = await impronta(cfg.segreto, "ip", chiaveRete(request.headers.get("cf-connecting-ip") || "locale"));
     const c = { request, env, url, cfg, ip, db: env.DB, sito: sitoDi(url) };
     // l'area c'è solo sul sito vero (e in locale con AREA_LOCALE=si, per le prove): sulle anteprime di workers.dev "Esci
     // da tutti" o il cambio password varrebbero per il sito vero, che usa lo stesso database
