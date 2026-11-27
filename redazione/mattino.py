@@ -125,6 +125,38 @@ def controllato_alla_pubblicazione(oggi):
     return None
 
 
+def analisi_di_oggi(voce, n):
+    """(ok, cosa, dettaglio) per le pagine delle analisi dell'edizione di oggi: attese = le analisi in edizioni.json;
+    presenti = quelle con la pagina nel repository (redazione/sorgenti/<data>/analisi.json, e/NNN/<chiave>.html), e la
+    prima si apre online. Un sorgente non archiviato o rotto lo dice qui: l'edizione è uscita, le pagine no."""
+    cosa = "Sito: pagine delle analisi"
+    attese = len(voce.get("approfondimenti") or [])
+    src = os.path.join(REPO, "redazione", "sorgenti", voce["data"])
+    if not attese:
+        return True, cosa, "nessuna analisi nell'edizione"
+    if not os.path.isfile(os.path.join(src, "edizione.py")):
+        return False, cosa, f"0 su {attese}: sorgenti non archiviati (redazione/sorgenti/{voce['data']}/)"
+    try:
+        d = json.load(open(os.path.join(src, "analisi.json"), encoding="utf-8"))
+    except (OSError, ValueError):
+        return False, cosa, f"0 su {attese}: analisi.json assente (l'estrazione non è partita o l'ambiente ha un guasto)"
+    if d.get("errore"):
+        return False, cosa, f"0 su {attese}: {d['errore'][:100]} (python3 redazione/analisi_sito.py ritenta {voce['data']})"
+    try:
+        scheda = json.load(open(os.path.join(REPO, "e", f"{n:03d}.json"), encoding="utf-8"))
+    except (OSError, ValueError):
+        scheda = {}
+    pagine = [a["pagina"] for a in scheda.get("approfondimenti") or [] if isinstance(a, dict) and a.get("pagina")
+              and os.path.isfile(os.path.join(REPO, a["pagina"]))]
+    online = ""
+    if pagine:
+        s, corpo = get(BASE + pagine[0])
+        online = f"; online {pagine[0]}: {s}"
+        if s != 200:
+            return False, cosa, f"{len(pagine)} su {attese} nel repository{online}"
+    return len(pagine) == attese, cosa, f"{len(pagine)} su {attese}{online}"
+
+
 def main():
     adesso = dt.datetime.now(ROMA)
     oggi = dt.date.fromisoformat(os.environ["GTD_OGGI"]) if os.environ.get("GTD_OGGI") else adesso.date()
@@ -169,6 +201,8 @@ def main():
     for cosa, url in (("Sito: pagina dell'edizione", f"e/{n:03d}.html"), ("Sito: PDF", voce["file"])):
         s, corpo = get(BASE + url)
         riga(s == 200 and len(corpo) > 1000, cosa, f"{url}: {s}, {len(corpo) // 1024} KB")
+    # Le pagine delle analisi (G-64): quante attese (le analisi dell'edizione), quante nate nel repository e online
+    riga(*analisi_di_oggi(voce, n))
     # La Gommunity (G-13): il servizio dei lettori risponde per l'edizione di oggi
     s, corpo = get(BASE + f"api/lettori/{n:03d}")
     try:

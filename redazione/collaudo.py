@@ -1528,12 +1528,18 @@ def passo_analisi(copia):
     shutil.copytree(copia, prova, ignore=shutil.ignore_patterns("__pycache__"))
     con_src = [e for e in voci if os.path.isfile(os.path.join(prova, "redazione", "sorgenti", e["data"], "edizione.py"))]
     male = []
-    if len(con_src) < 3:
-        return esito("Analisi: un sorgente rotto non ferma l'edizione", False, "servono almeno 3 edizioni con sorgenti")
-    rotta, rifatta, storta = con_src[-1], con_src[-2], con_src[-3]
-    nr, nf, ns = (f"{e['numero']:03d}" for e in (rotta, rifatta, storta))
+    if len(con_src) < 4:
+        return esito("Analisi: un sorgente rotto non ferma l'edizione", False, "servono almeno 4 edizioni con sorgenti")
+    rotta, rifatta, storta, guasta = con_src[-1], con_src[-2], con_src[-3], con_src[-4]
+    nr, nf, ns, ng = (f"{e['numero']:03d}" for e in (rotta, rifatta, storta, guasta))
     sr = os.path.join(prova, "redazione", "sorgenti", rotta["data"])
+    originale = open(os.path.join(sr, "edizione.py"), encoding="utf-8").read()
     open(os.path.join(sr, "edizione.py"), "a", encoding="utf-8").write("\nC = {\n")      # errore di sintassi
+    # un guasto dell'ambiente (una libreria che manca) non si salva come errore: si riprova alla volta successiva
+    sg = os.path.join(prova, "redazione", "sorgenti", guasta["data"])
+    eg = open(os.path.join(sg, "edizione.py"), encoding="utf-8").read()
+    open(os.path.join(sg, "edizione.py"), "w", encoding="utf-8").write("import libreria_che_non_ce_g64  # noqa\n" + eg)
+    os.remove(os.path.join(sg, A.FILE))
     os.remove(os.path.join(sr, A.FILE))
     sf = os.path.join(prova, "redazione", "sorgenti", rifatta["data"])
     os.remove(os.path.join(sf, A.FILE))
@@ -1558,21 +1564,32 @@ def passo_analisi(copia):
         if f"e/{nr}/" in open(os.path.join(prova, "sitemap.xml"), encoding="utf-8").read():
             male.append(f"la sitemap ha ancora le pagine del n. {nr}")
         primo = json.load(open(os.path.join(copia, "redazione", "sorgenti", storta["data"], A.FILE), encoding="utf-8"))["moduli"][0]["pagina"]
-        if os.path.exists(os.path.join(prova, "e", ns, primo + ".html")):
+        if os.path.exists(os.path.join(prova, "e", ns, primo + ".html")) or \
+                any(f.startswith(primo + "-") for f in os.listdir(os.path.join(prova, "e", ns))):
             male.append(f"e/{ns}/{primo}.html è nata con un titolo diverso da edizioni.json")
         if len([f for f in os.listdir(os.path.join(prova, "e", ns)) if f.endswith(".html")]) != len(storta["approfondimenti"]) - 1:
             male.append(f"n. {ns}: con un titolo diverso devono restare le altre pagine")
+        if os.path.exists(os.path.join(sg, A.FILE)) or "guasto dell'ambiente" not in out:
+            male.append(f"n. {ng}: un guasto dell'ambiente è stato salvato come errore del sorgente, o non ha dato l'avviso")
         import filecmp
         for f in [A.FILE]:
             if not filecmp.cmp(os.path.join(sf, f), os.path.join(copia, "redazione", "sorgenti", rifatta["data"], f), shallow=False):
                 male.append(f"n. {nf}: {A.FILE} rifatto da zero diverso da quello nel repository")
         for f in sorted(os.listdir(os.path.join(copia, "e", nf))):
             a, b = os.path.join(prova, "e", nf, f), os.path.join(copia, "e", nf, f)
-            if not os.path.exists(a) or (f.endswith(".html") and not filecmp.cmp(a, b, shallow=False)):
+            if not os.path.exists(a) or not filecmp.cmp(a, b, shallow=False):
                 male.append(f"n. {nf}: e/{nf}/{f} rifatto da zero diverso o mancante")
+        # il sorgente rotto si corregge: alla pubblicazione dopo l'errore salvato si riprova da solo e le pagine tornano
+        open(os.path.join(sr, "edizione.py"), "w", encoding="utf-8").write(originale)
+        rc, out = esegui([sys.executable, os.path.join(prova, "redazione", "pagine.py"), prova], timeout=900)
+        n_ok = len(json.load(open(os.path.join(copia, "redazione", "sorgenti", rotta["data"], A.FILE), encoding="utf-8"))["moduli"])
+        if rc or not os.path.isdir(os.path.join(prova, "e", nr)) or \
+                len([f for f in os.listdir(os.path.join(prova, "e", nr)) if f.endswith(".html")]) != n_ok:
+            male.append(f"n. {nr}: corretto il sorgente, le pagine non sono tornate da sole")
     esito("Analisi: un sorgente rotto non ferma l'edizione", not male, "; ".join(male)[:400] or
-          f"n. {nr} rotto: avviso, nessuna pagina né link né riga nella sitemap, il resto esce; n. {ns} con un titolo diverso: "
-          f"quella pagina non nasce, le altre sì; n. {nf} rifatto da zero con il kit di oggi: stessi file")
+          f"n. {nr} rotto: avviso, nessuna pagina né link né riga nella sitemap, il resto esce, e corretto il sorgente le pagine "
+          f"tornano da sole; n. {ng} con un guasto dell'ambiente: avviso, nessun errore salvato; n. {ns} con un titolo diverso: "
+          f"quella pagina e i suoi grafici non restano, le altre sì; n. {nf} rifatto da zero con il kit di oggi: stessi file, grafici compresi")
 
 
 def passo_lettori(copia):

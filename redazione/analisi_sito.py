@@ -14,13 +14,18 @@ Indirizzi: e/NNN/<chiave>.html, dove NNN è il numero dell'edizione e <chiave> l
 titolo, quindi non cambia se il titolo si corregge; la cartella dell'edizione esclude le collisioni tra giorni.
 
 Non blocca mai: sorgente assente = nessuna pagina (le edizioni fino alla n. 025 restano con il solo PDF); sorgente
-rotto = analisi.json con "errore" (non si riprova a ogni pubblicazione; si rifà cancellando il file) e un AVVISO;
+rotto (errore del sorgente, o estrazione oltre TEMPO secondi) = analisi.json con "errore" e un AVVISO: non si riprova
+a ogni pubblicazione, ma si riprova da solo se edizione.py o desk_ok.json cambiano, o con il comando ritenta; un guasto
+dell'ambiente (una libreria che manca) non si salva: si riprova alla pubblicazione successiva;
 un'analisi che non corrisponde a edizioni.json (titolo diverso) = quella pagina non nasce, le altre sì.
 
 Uso diretto:
   python3 redazione/analisi_sito.py estrai <cartella sorgenti> <repo> <NNN>   (lo lancia pagine.py)
   python3 redazione/analisi_sito.py disegna <analisi.json> <cartella dei grafici>
+  python3 redazione/analisi_sito.py ritenta [AAAA-MM-GG ...]   toglie gli errori salvati (tutti, senza date) e rifà le
+                                                               pagine con pagine.py
 """
+import hashlib
 import datetime as dt
 import html
 import json
@@ -30,8 +35,10 @@ import subprocess
 import sys
 
 FORMATO = 1                 # cambia se cambia la forma di analisi.json: le estrazioni si rifanno da sole
-CSS_V = "2026-11-28"        # cambia quando cambia assets/analisi.css (il browser riprende il file nuovo)
+CSS_V = "2026-11-28b"       # cambia quando cambia assets/analisi.css (il browser riprende il file nuovo)
 FILE = "analisi.json"
+TEMPO = 60                  # secondi al massimo per estrarre un'edizione (di solito 3-4)
+AMBIENTE = 3                # uscita dell'estrazione per un guasto dell'ambiente: non si salva, si riprova
 # misure dei grafici (pollici, scala 1:1 come nel PDF): PC a tutta colonna, telefono più stretto con le scritte leggibili
 MISURE = (("", 5.6, 2.45), ("-m", 3.5, 2.4))
 CAMPI = ("tema", "titolo", "perche", "quindi", "numero", "testo", "guardare", "fonte", "punti", "righe", "misura")
@@ -149,10 +156,31 @@ def _cli():
     if len(sys.argv) >= 5 and sys.argv[1] == "estrai":
         src, repo, n = sys.argv[2], os.path.abspath(sys.argv[3]), sys.argv[4]
         out = os.path.join(src, FILE)
-        d = estrai(os.path.abspath(src), repo)
-        d = disegna(d, os.path.join(repo, "e", n), repo)
+        try:
+            d = estrai(os.path.abspath(src), repo)
+        except ImportError as e:      # manca una libreria (o il motore non si carica): colpa dell'ambiente, non del sorgente
+            print(f"ambiente: {type(e).__name__}: {e}", file=sys.stderr)
+            sys.exit(AMBIENTE)
+        try:
+            d = disegna(d, os.path.join(repo, "e", n), repo)
+        except ImportError as e:
+            print(f"ambiente: {type(e).__name__}: {e}", file=sys.stderr)
+            sys.exit(AMBIENTE)
         _scrivi_json(os.path.abspath(out), d)
         print(f"analisi: {len(d['moduli'])} da {src}")
+    elif len(sys.argv) >= 2 and sys.argv[1] == "ritenta":
+        repo = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+        tolti = 0
+        for data in sorted(os.listdir(os.path.join(repo, "redazione", "sorgenti"))):
+            p = os.path.join(repo, "redazione", "sorgenti", data, FILE)
+            if (len(sys.argv) == 2 or data in sys.argv[2:]) and os.path.isfile(p):
+                try:
+                    if json.load(open(p, encoding="utf-8")).get("errore"):
+                        os.remove(p); tolti += 1
+                except ValueError:
+                    os.remove(p); tolti += 1
+        print(f"errori tolti: {tolti}")
+        subprocess.run([sys.executable, os.path.join(repo, "redazione", "pagine.py"), repo])
     elif len(sys.argv) >= 4 and sys.argv[1] == "disegna":
         d = json.load(open(sys.argv[2], encoding="utf-8"))
         repo = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -182,19 +210,30 @@ def prepara(repo, ed):
         d = json.load(open(path, encoding="utf-8"))
     except (OSError, ValueError):
         pass
+    impronta = _impronta(src)
+    if d and d.get("errore") and d.get("impronta") != impronta:
+        d = None                        # il sorgente è cambiato dopo l'errore: si riprova
     if not d or d.get("formato") != FORMATO:
         try:
             r = subprocess.run([sys.executable, os.path.abspath(__file__), "estrai", src, repo, n],
-                               capture_output=True, text=True, timeout=300)
+                               capture_output=True, text=True, timeout=TEMPO)
+            if r.returncode == AMBIENTE:
+                riga = (r.stderr.strip().splitlines() or ["?"])[-1]
+                print(f"AVVISO analisi n. {n}: guasto dell'ambiente ({riga[:160]}): nessuna pagina oggi, si riprova alla prossima pubblicazione")
+                return None
             if r.returncode:
                 riga = (r.stderr.strip().splitlines() or ["uscita " + str(r.returncode)])[-1]
-                _scrivi_json(path, {"formato": FORMATO, "errore": riga[:300]})
+                _scrivi_json(path, {"formato": FORMATO, "errore": riga[:300], "impronta": impronta})
             d = json.load(open(path, encoding="utf-8"))
+        except subprocess.TimeoutExpired:
+            d = {"formato": FORMATO, "errore": f"estrazione oltre {TEMPO} secondi", "impronta": impronta}
+            _scrivi_json(path, d)
         except Exception as e:  # noqa: BLE001
-            d = {"formato": FORMATO, "errore": str(e)[:300]}
+            print(f"AVVISO analisi n. {n}: estrazione non partita ({str(e)[:160]}): si riprova alla prossima pubblicazione")
+            return None
     if d.get("errore"):
         print(f"AVVISO analisi n. {n}: sorgente non leggibile ({d['errore'][:160]}): nessuna pagina di analisi; "
-              f"per riprovare cancella {os.path.relpath(path, repo)}")
+              f"si riprova da solo se il sorgente cambia, o con: python3 redazione/analisi_sito.py ritenta {ed['data']}")
         return None
     mancano = [g["file"] for m in d.get("moduli") or [] for g in m.get("grafici") or []
                if not os.path.exists(os.path.join(repo, "e", n, g["file"] + ".svg"))]
@@ -205,6 +244,15 @@ def prepara(repo, ed):
         except Exception as e:  # noqa: BLE001
             print(f"AVVISO analisi n. {n}: grafici non ridisegnati ({str(e)[:120]})")
     return d
+
+
+def _impronta(src):
+    """Impronta di ciò che l'estrazione legge (edizione.py, desk_ok.json): se cambia, un errore salvato si riprova."""
+    h = hashlib.sha256()
+    for f in ("edizione.py", "desk_ok.json"):
+        p = os.path.join(src, f)
+        h.update(open(p, "rb").read() if os.path.exists(p) else b"-")
+    return h.hexdigest()[:16]
 
 
 def collega(ed, d):
@@ -240,8 +288,16 @@ def _t(P, s):
     return re.sub(r"\s+", " ", "".join(out)).strip()
 
 
-def _descrizione(t, n=158):
+def _descrizione(t, n=158, seguito=()):
+    """Una o più frasi intere entro n caratteri. Se la frase di partenza è corta (sotto i 100 caratteri), si aggiungono
+    le frasi che seguono nel testo (seguito), finché ci stanno; se le frasi intere fanno meno di 100 caratteri, il testo
+    si taglia a una parola intera con i puntini."""
     t = _piano(t)
+    if len(t) < 100:
+        for f in re.split(r"(?<=[.!?])\s+", " ".join(_piano(x) for x in seguito)):
+            if not f or len(t) + len(f) + 1 > n:
+                break
+            t = (t + " " + f).strip()
     if len(t) <= n:
         return t
     out = ""
@@ -249,7 +305,9 @@ def _descrizione(t, n=158):
         if len(out) + len(f) + 1 > n:
             break
         out = (out + " " + f).strip()
-    return out or t[:n - 1].rsplit(" ", 1)[0] + "…"
+    if len(out) < 100:      # la prima frase da sola dice poco: si taglia la seconda a una parola intera
+        out = t[:n - 1].rsplit(" ", 1)[0].rstrip(",;:(") + "…"
+    return out
 
 
 def _figura(P, g, n):
@@ -269,7 +327,9 @@ def _numero(P, t):
     v, sep, r = t.partition(":")
     if not sep or len(v) > 24:
         return f'<div class="an-num solo"><small>Il numero</small><span>{P.colora(t)}</span></div>'
-    return f'<div class="an-num"><small>Il numero</small><b>{P.colora(v)}</b><span>{P.colora(r.strip())}</span></div>'
+    # una cifra corta ("-1,8%") sta accanto alla frase; una lunga ("1.384 miliardi di won") sopra, a tutta riga
+    lunga = " lunga" if len(v.strip()) > 9 else ""
+    return f'<div class="an-num{lunga}"><small>Il numero</small><b>{P.colora(v)}</b><span>{P.colora(r.strip())}</span></div>'
 
 
 def _tabella(P, righe):
@@ -326,7 +386,7 @@ def pagina(P, ed, m, i, altre):
     pdf = "../../" + ed["file"]
     pdf_pg = pdf + (f"#page={pg}" if pg else "")
     titolo, tema = _piano(m.get("titolo")), _piano(m.get("tema"))
-    desc = _descrizione(m.get("perche"))
+    desc = _descrizione(m.get("perche"), seguito=m.get("testo") or [])
     data = P.data_lunga(ed["data"])
     quando = ed["data"] + "T08:00:00+01:00"
     ld = {"@context": "https://schema.org", "@type": "NewsArticle", "headline": titolo[:110], "description": desc,
@@ -407,9 +467,10 @@ def pagine_edizione(P, repo, ed):
         coppie = collega(ed, d)
         cartella = os.path.join(repo, "e", f"{int(ed['numero']):03d}")
         vive = {f"{m['pagina']}.html" for _, m in coppie}
-        if os.path.isdir(cartella):     # una pagina che non nasce più (titolo cambiato, sorgente rotto) non resta in linea
-            for f in os.listdir(cartella):
-                if f.endswith(".html") and f not in vive:
+        vive |= {g["file"] + suff + ".svg" for _, m in coppie for g in m.get("grafici") or [] for suff, _, _ in MISURE}
+        if os.path.isdir(cartella):     # una pagina che non nasce più (titolo cambiato, sorgente rotto) non resta in linea,
+            for f in os.listdir(cartella):   # e nemmeno i suoi grafici
+                if f.endswith((".html", ".svg")) and f not in vive:
                     os.remove(os.path.join(cartella, f))
         if not coppie:
             return {}
