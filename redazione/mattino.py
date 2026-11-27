@@ -3,8 +3,8 @@
 
 Lo lancia GitHub (.github/workflows/mattino.yml) appena finisce la pubblicazione del sito per il commit dell'edizione
 (PARTENZA=workflow_run); la sveglia delle 10:15 di Roma resta per il caso in cui l'edizione non esce (dal G-58 la dà
-l'orologio di Cloudflare: PARTENZA=orologio; finché c'è, la riserva di GitHub: PARTENZA=schedule), e se l'edizione è già
-stata controllata alla pubblicazione non rifà nulla (G-57). Nessun modello, nessun token: solo il repository,
+l'orologio di Cloudflare: PARTENZA=orologio), e se l'edizione è già stata controllata alla pubblicazione non rifà
+nulla (G-57). Nessun modello, nessun token: solo il repository,
 gommberg.com e gli esiti di GitHub. Se tutto va bene non scrive a nessuno; se qualcosa non va esce con 1, e GitHub
 avvisa Paolo.
 
@@ -21,9 +21,9 @@ Cosa guarda, nell'ordine in cui l'edizione viaggia (mappa: redazione/ARCHITETTUR
 Nei giorni senza borsa non c'è niente da controllare ed esce con 0.
 
 Uso:  python3 redazione/mattino.py [--adesso]
-  --adesso  controlla subito (senza, fuori dalla fascia 10-12 di Roma non fa nulla: GitHub lo sveglia due volte, una
-            per l'ora solare e una per l'ora legale, e lavora solo quella giusta)
-Variabili: PARTENZA (workflow_run, orologio, schedule o workflow_dispatch: chi l'ha lanciato; un'edizione di prova con un'altra
+  --adesso  controlla subito (senza, fuori dalla fascia 10-12 di Roma non fa nulla: la sveglia dell'orologio arriva
+            alle 10:15, e una partenza fuori ora non controlla un'edizione che non può ancora essere uscita)
+Variabili: PARTENZA (workflow_run, orologio o workflow_dispatch: chi l'ha lanciato; un'edizione di prova con un'altra
 data la scarta prima mattino.yml, passo "Edizione di oggi?"), GITHUB_REPOSITORY e GH_TOKEN (esiti di GitHub: senza, quel controllo si salta e lo dice), KIT_API_KEY
 (senza, l'invio in Kit non si guarda). Solo per le prove: GTD_BASE (il sito da controllare al posto di
 https://gommberg.com/) e GTD_OGGI (AAAA-MM-GG, il giorno da controllare al posto di oggi)."""
@@ -131,13 +131,6 @@ def controllato_alla_pubblicazione(oggi):
     return None
 
 
-def in_fascia(ora, partenza):
-    """La sveglia controlla tra le 10 e le 12 di Roma. La riserva di GitHub (PARTENZA=schedule, lavora solo se
-    l'orologio non è sano) arriva anche ore dopo: per lei vale qualunque ora dalle 10 in poi, o l'edizione non uscita
-    resterebbe senza avviso."""
-    return 10 <= ora < 12 or (partenza == "schedule" and ora >= 10)
-
-
 def main():
     adesso = dt.datetime.now(ROMA)
     oggi = dt.date.fromisoformat(os.environ["GTD_OGGI"]) if os.environ.get("GTD_OGGI") else adesso.date()
@@ -145,13 +138,13 @@ def main():
     a_mano = "--adesso" in sys.argv or os.environ.get("A_MANO") == "true"
     if partenza == "workflow_run":
         a_mano = True
-    if not a_mano and not in_fascia(adesso.hour, partenza):
+    if not a_mano and not 10 <= adesso.hour < 12:
         print(f"Sono le {adesso:%H:%M} di Roma: fuori dalla fascia 10-12 non controllo nulla.")
         return
     if not G.uscita(oggi):
         print(f"{oggi:%d/%m/%Y}: borse chiuse, oggi niente edizione e niente da controllare.")
         return
-    if partenza in ("schedule", "orologio"):
+    if partenza == "orologio":
         gia = controllato_alla_pubblicazione(oggi)
         if gia:
             print(f"Edizione di oggi già controllata alla pubblicazione, alle {gia:%H:%M}: la sveglia non rifà nulla.")

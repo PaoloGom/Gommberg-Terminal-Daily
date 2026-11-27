@@ -24,7 +24,7 @@
 //
 // Il guasto si vede: /api/orologio dice, senza rivelare nulla, se il segreto c'è e com'è andata l'ultima partenza dovuta
 // di ogni flusso ("sano"). Lo leggono il controllo del mattino (mattino.py, con redazione/sito/orologio.py), il pannello
-// e, finché esistono, le sveglie di riserva di GitHub (che non fanno nulla quando l'orologio è sano).
+// e la sentinella di GitHub (.github/workflows/orologio.yml, una volta al giorno).
 
 // I giorni sono quelli di Date.getUTCDay() sull'ora di Roma: 0 domenica ... 6 sabato.
 const TUTTI = [0, 1, 2, 3, 4, 5, 6];
@@ -102,8 +102,8 @@ const haSegreto = (env) => typeof env.GITHUB_ACTIONS_TOKEN === "string" && env.G
 const repoValido = (env) => /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(env.GITHUB_REPOSITORY || "");
 
 // Prende la partenza (una sola istanza la fa): nuova, oppure da riprovare dopo un errore o un giro rimasto a metà.
-// Una partenza "senza-segreto" non si riprova quando il segreto arriva: in quell'ora ha lavorato la sveglia di riserva
-// di GitHub (passo 1), e riprovarla farebbe partire due volte lo stesso controllo.
+// Una partenza "senza-segreto" non si riprova quando il segreto arriva (nel passo 1 di G-58 in quell'ora lavorava la
+// sveglia di riserva di GitHub): resta scritta, e la sentinella la vede.
 async function prendi(db, d, adesso) {
   const chiave = d.sveglia.flusso + "@" + d.slot;
   const r = await db.prepare("INSERT OR IGNORE INTO orologio (chiave, flusso, slot, stato, tentativi, quando, dettaglio) VALUES (?1, ?2, ?3, 'in corso', 1, ?4, '')")
