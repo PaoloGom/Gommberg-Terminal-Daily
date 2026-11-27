@@ -883,6 +883,68 @@ def passo_newsletter():
             pass
         if len(chiamate) != 1:
             male.append("elenco degli invii con 401: riletto senza motivo")
+        # l'elenco degli invii ha più pagine: l'invio di oggi nella seconda si vede, l'email non parte due volte (G-69)
+        def kit_pagine(pagine, guasti=None):
+            """Kit finto a pagine: pagine = {cursore o None: (invii, cursore successivo o None)}; guasti = {cursore: [risposte]}
+            date una alla volta prima della pagina vera (per i guasti momentanei a metà elenco)."""
+            guasti = {k: list(v) for k, v in (guasti or {}).items()}
+
+            def k(metodo, percorso, dati=None):
+                chiamate.append((metodo, percorso, dati))
+                if percorso.startswith("/broadcasts") and metodo == "GET":
+                    cursore = percorso.split("after=")[1] if "after=" in percorso else None
+                    if guasti.get(cursore):
+                        return guasti[cursore].pop(0)
+                    invii, dopo = pagine[cursore]
+                    return 200, {"broadcasts": invii, "pagination": {"has_next_page": bool(dopo), "end_cursor": dopo}}
+                if percorso == "/email_templates":
+                    return 200, {"email_templates": [{"id": 5, "name": "Gommberg cornice"}]}
+                return 201, {"broadcast": {"id": 1, "email_template": {"name": "x"}}}
+            return k
+        altri = [{"id": i, "description": f"altro-{i}"} for i in range(3)]
+        oggi_kit = {"id": 9, "description": NL.etichetta(ed), "status": "scheduled"}
+        due_pagine = {None: (altri, "c1"), "c1": ([{"id": 7, "description": "altro-7"}, oggi_kit], None)}
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine)
+        trovati = NL.invii_esistenti()
+        if NL.etichetta(ed) not in trovati or len(trovati) != 5 or len([c for c in chiamate if c[0] == "GET"]) != 2:
+            male.append("elenco degli invii su due pagine: l'invio di oggi nella seconda pagina non si vede")
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine)
+        if NL.etichetta(ed) not in NL.invii_esistenti():      # stessa sequenza di main() in modo auto
+            with contextlib.redirect_stdout(io.StringIO()):
+                NL.crea(ed, None, prova=False)
+        if any(c[0] == "POST" for c in chiamate):
+            male.append("invio di oggi nella seconda pagina: l'email è partita una seconda volta")
+        # guasto momentaneo a metà della seconda pagina: si rilegge quella pagina, la prima non si rilegge, nessun doppione
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine, {"c1": [(503, {}), (0, {"errore": "rete: timeout"})]})
+        if NL.etichetta(ed) not in NL.invii_esistenti():
+            male.append("guasto a metà della seconda pagina: l'invio di oggi non si vede dopo la rilettura")
+        letti = [c[1] for c in chiamate]
+        if len(letti) != 4 or letti.count("/broadcasts?per_page=100") != 1 or any(c[0] != "GET" for c in chiamate):
+            male.append("guasto a metà della seconda pagina: riletture diverse da quelle attese (pagina 1 una volta, pagina 2 tre)")
+        # la seconda pagina muta (sempre 503): errore, nessun invio, mai un elenco a metà preso per completo
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine, {"c1": [(503, {})] * 9})
+        try:
+            NL.invii_esistenti()
+            male.append("seconda pagina sempre in errore: non si ferma")
+        except SystemExit as e:
+            if not str(e).startswith("ERRORE"):
+                male.append("seconda pagina sempre in errore: l'uscita non è un errore")
+        if len(chiamate) != 1 + NL.LETTURE:
+            male.append(f"seconda pagina sempre in errore: chiamate diverse da 1 + {NL.LETTURE}")
+        # troppe pagine: ci si ferma con errore, il caso peggiore resta limitato
+        chiamate.clear()
+        NL.kit = kit_pagine({None: ([], "x"), "x": ([], "x")})
+        try:
+            NL.invii_esistenti()
+            male.append("elenco di pagine senza fine: non si ferma")
+        except SystemExit:
+            pass
+        if len(chiamate) != NL.MAX_PAGINE:
+            male.append(f"elenco di pagine senza fine: pagine lette diverse da {NL.MAX_PAGINE}")
         # un errore di rete in kit() è una risposta gestita, non un traceback
         import urllib.error
         import urllib.request

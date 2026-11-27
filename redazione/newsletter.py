@@ -55,6 +55,7 @@ API = "https://api.kit.com/v4"
 ATTESA_MINUTI = 4          # tempo lasciato al sito per pubblicare la pagina dell'edizione
 CORNICE = "Gommberg cornice"    # il modello di Kit per le edizioni: cornice e piè di pagina, la testata la mette lo script
 LETTURE = 4                # tentativi per leggere gli elenchi di Kit (modelli e invii già creati) (guasto momentaneo: 429, 5xx, rete)
+MAX_PAGINE = 10            # pagine dell'elenco degli invii (100 l'una): oltre, l'invio non parte (il tetto fa calcolabile il caso peggiore)
 ATTESA_LETTURE = 15        # secondi tra un tentativo e l'altro (il collaudo la azzera)
 ORA_MINIMA = 8             # prima di quest'ora (Roma) l'invio automatico non parte
 GIORNI = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"]
@@ -272,20 +273,47 @@ def kit(metodo, percorso, dati=None):
         return 0, {"errore": f"rete: {getattr(errore, 'reason', errore)}"[:300]}
 
 
+class ElencoNonLeggibile(Exception):
+    """L'elenco degli invii di Kit non si è letto fino in fondo: stato e corpo dell'ultima risposta, tentativi fatti."""
+    def __init__(self, stato, corpo, tentativi, troppo_lungo=False):
+        super().__init__(stato)
+        self.stato, self.corpo, self.tentativi, self.troppo_lungo = stato, corpo, tentativi, troppo_lungo
+
+
+def leggi_invii(letture=1, attesa=0, massimo=MAX_PAGINE):
+    """Tutti gli invii di Kit, pagina per pagina (per_page=100, cursore `after` dalla paginazione): la lista dei broadcast.
+    È solo lettura. Ogni pagina si riprova fino a `letture` volte, con `attesa` secondi tra i tentativi, solo su un guasto
+    momentaneo (429, 5xx, rete); gli altri errori fermano subito. Se una pagina non si legge o le pagine superano
+    `massimo`, solleva ElencoNonLeggibile: mai un elenco parziale preso per completo. Lo usano newsletter.py e dem.py."""
+    invii, dopo = [], None
+    for _ in range(massimo):
+        for tentativo in range(1, max(1, letture) + 1):
+            stato, corpo = kit("GET", "/broadcasts?per_page=100" + (f"&after={dopo}" if dopo else ""))
+            if stato == 200:
+                break
+            transitorio = stato == 0 or stato == 429 or stato >= 500
+            if not transitorio or tentativo >= letture:
+                raise ElencoNonLeggibile(stato, corpo, tentativo)
+            time.sleep(attesa)
+        invii.extend(corpo.get("broadcasts", []))
+        pg = corpo.get("pagination") or {}
+        if not pg.get("has_next_page") or not pg.get("end_cursor"):
+            return invii
+        dopo = pg["end_cursor"]
+    raise ElencoNonLeggibile(200, {}, 1, troppo_lungo=True)
+
+
 def invii_esistenti():
-    """Le etichette (description) degli invii già presenti in Kit, per non rifare mai lo stesso numero. È una lettura:
-    su un guasto momentaneo di Kit (429, 5xx, rete) si riprova a distanza, LETTURE volte, come per i modelli. Se dopo i
-    tentativi l'elenco non si legge, esce con errore e l'invio non parte (mai un doppione al buio)."""
-    for tentativo in range(1, LETTURE + 1):
-        stato, corpo = kit("GET", "/broadcasts?per_page=100")
-        if stato == 200:
-            return {b.get("description"): b for b in corpo.get("broadcasts", [])}
-        transitorio = stato == 0 or stato == 429 or stato >= 500
-        if not transitorio or tentativo == LETTURE:
-            break
-        time.sleep(ATTESA_LETTURE)
-    sys.exit(f"ERRORE: elenco degli invii non leggibile (HTTP {stato}) dopo {tentativo} tentativ{'o' if tentativo == 1 else 'i'}: "
-             f"{json.dumps(corpo, ensure_ascii=False)[:300]}")
+    """Le etichette (description) degli invii già presenti in Kit, per non rifare mai lo stesso numero: legge TUTTE le
+    pagine dell'elenco (G-69). Su un guasto momentaneo di Kit (429, 5xx, rete) ogni pagina si rilegge a distanza, LETTURE
+    volte, come per i modelli. Se l'elenco non si legge per intero, esce con errore e l'invio non parte (mai un doppione al buio)."""
+    try:
+        return {b.get("description"): b for b in leggi_invii(LETTURE, ATTESA_LETTURE)}
+    except ElencoNonLeggibile as e:
+        if e.troppo_lungo:
+            sys.exit(f"ERRORE: elenco degli invii di Kit troppo lungo (oltre {MAX_PAGINE} pagine): fermo per prudenza, invio non fatto")
+        sys.exit(f"ERRORE: elenco degli invii non leggibile (HTTP {e.stato}) dopo {e.tentativi} tentativ{'o' if e.tentativi == 1 else 'i'}: "
+                 f"{json.dumps(e.corpo, ensure_ascii=False)[:300]}")
 
 
 def modello_edizione():
