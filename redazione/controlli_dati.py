@@ -43,6 +43,14 @@ for nome, s in d["serie"].items():
     u = s["ultimi"]
     if not u and s.get("nd"):
         avvisi.append(f"{nome}: non verificato ({s['nd']}): la riga non entra nella tabella di pag. 5; nel PDF mai \"n.d.\""); continue
+    futuri = [str(r[0])[:10] for r in u if str(r[0])[:10] > d["oggi"]]
+    if futuri:
+        problemi.append(f"{nome}: in \"ultimi\" una data dopo oggi ({futuri[0]}): una chiusura non può venire dal futuro, correggi la data")
+    chiusa = [str(r[0])[:10] for r in u if str(r[0])[:10] <= d["oggi"] and dt.date.fromisoformat(str(r[0])[:10]).weekday() < 5
+              and G.borsa_il(s.get("mercato"), r[0]) == "festa"]
+    if chiusa:
+        problemi.append(f"{nome}: riga del {chiusa[0]}, ma quel giorno la borsa era chiusa (giorni.py, FESTE_BORSE): non è una "
+                        "seduta (EODHD scrive righe anche a indice fermo), toglila")
     if s.get("var") is not None and not (u and str(u[0][0])[:10] >= d["oggi"]):    # stamattina solo la variazione
         base = N.ultima_seduta(nome, s, d["oggi"])
         if not (s.get("fonte") and s.get("ora")):
@@ -52,8 +60,13 @@ for nome, s in d["serie"].items():
         elif not base:
             problemi.append(f"{nome}: solo la variazione di stamattina e {N.manca_base(nome, s, d['oggi'])}, così la riga entra in tabella")
         elif base[0] < N._ieri(d["oggi"]):
-            avvisi.append(f"{nome}: livello ricavato dall'ultima seduta, del {base[0]} (borsa chiusa in mezzo per festività? "
-                          "verificalo e dillo nel testo: APP_FESTIVI §2)")
+            feste = [x for x in N._feriali_tra(base[0], d["oggi"])]
+            avvisi.append(f"{nome}: livello ricavato dall'ultima seduta, del {base[0]}: borsa chiusa per festa il "
+                          f"{', '.join(feste)} (giorni.py, FESTE_BORSE): dillo nel testo (APP_FESTIVI §2)")
+        prec = [r for r in u if str(r[0])[:10] < d["oggi"]]
+        if len(prec) >= 2 and prec[0][1] == prec[1][1] and (len(prec[0]) < 3 or prec[0][2] in (None, 0)):
+            problemi.append(f"{nome}: chiusura del {prec[0][0]} identica a quella del {prec[1][0]}, senza volume: probabilmente una "
+                            "riga a indice fermo, non una seduta (APP_DATI §2b): toglila se quel giorno la borsa era chiusa")
         continue
     if len(u) == 1:
         u = N.completa(nome, s)        # la chiusura precedente la conosce l'archivio (chiusure.csv, scommessa/dati)
@@ -107,7 +120,7 @@ for nome, (ammesse, api, due_fonti) in FONTI_AMMESSE.items():
     s = d["serie"].get(nome)
     if not s or s.get("nd"):
         continue
-    fonte = str(s.get("fonte") or "").lower()
+    fonte = str(s.get("fonte") or "").lower().replace(api + "_nd", "")      # "eodhd_nd" scritto in fonte non è EODHD
     if ammesse and (not any(a in fonte for a in ammesse) or "fmp" in fonte or "modeling" in fonte):
         problemi.append(f"{nome}: \"fonte\" deve nominare le fonti usate, tra {', '.join(ammesse)} (APP_DATI §6): mai FMP né "
                         "le quotazioni nei riquadri delle pagine")
@@ -117,6 +130,10 @@ for nome, (ammesse, api, due_fonti) in FONTI_AMMESSE.items():
                         "\"<motivo>\" e il ripiego di APP_DATI §6")
     if not s.get("ultimi"):
         continue
+    altre = fonte.replace(api, "").replace("+", " ").replace(",", " ").replace("_nd", "").strip()
+    if not due_fonti and str(s["ultimi"][0][0])[:10] == d["oggi"] and not altre:
+        problemi.append(f"{nome}: riga di oggi con la sola fonte {api.upper()}: da {api.upper()} valgono solo le chiusure prima di oggi "
+                        "(APP_DATI §2b); la seduta di stamattina viene da APP_DATI §6, con la sua fonte in \"fonte\"")
     if due_fonti:
         sf = s.get("seconda_fonte")
         if not sf and not s.get("fonte_singola"):

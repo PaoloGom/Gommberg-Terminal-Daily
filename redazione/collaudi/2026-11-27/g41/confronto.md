@@ -100,5 +100,5 @@ Regola di APP_DATI §2b: un nuovo uso di EODHD si prova prima con un confronto s
 - **Kospi**: 34 sedute; sedute concordi entro lo 0,05%: 33, scarto massimo tra quelle 0,0000% (arrotondamento al centesimo). Scarto massimo assoluto 0,1639% (26/10, vedi sotto).
 - **Hang Seng**: 33 sedute; sedute concordi entro lo 0,05%: 33, scarto massimo tra quelle 0,0000% (arrotondamento al centesimo). Scarto massimo assoluto 0,0000%.
 - **Seduta discorde: Kospi 26/10.** EODHD 5.469,47, Investing 5.460,52 (+0,16%). Le due cronache di chiusura del giorno (JoongAng Daily, Money Today) danno 5.469,47: ha ragione EODHD; il valore di Investing è con ogni probabilità un dato di seduta in corso mai corretto.
-- **Archivio** (`redazione/chiusure.csv`): tutte le chiusure di Kospi e Hang Seng dal 20/10 al 27/11 coincidono con EODHD entro un centesimo.
+- **Archivio** (`redazione/chiusure.csv`): le chiusure del Kospi dal 5/11 al 27/11 e quelle dell'Hang Seng del 20/10 e dal 5/11 al 27/11 (le sole che l'archivio ha nel periodo) coincidono con EODHD entro un centesimo.
 - **Conclusione:** su 34 + 33 sedute EODHD dà la chiusura ufficiale, con la data giusta e senza righe nei giorni di festa locale del periodo. Il metodo dell'Euro Stoxx 50 (§2b) si può estendere a Kospi e Hang Seng.

@@ -60,6 +60,8 @@ import os as _os
 import sys as _sys
 
 _QUI = _os.path.dirname(_os.path.abspath(__file__))
+_sys.path.insert(0, _QUI)
+import giorni as _G  # noqa: E402  calendario delle feste delle borse
 ARCHIVIO = _os.path.join(_QUI, "chiusure.csv")          # serie,data,valore
 # le serie che hanno già il loro archivio giornaliero nella scommessa (scommessa_giorno.sh lo aggiorna)
 SCOMMESSA = {"S&P 500": "spx", "Euro Stoxx 50": "sx5e", "Treasury 10 anni": "ust10", "Treasury 2 anni": "ust2",
@@ -155,29 +157,54 @@ def completa(nome, s, archivio=None):
     return u
 
 
+def _feriali_tra(a, b):
+    """I giorni feriali strettamente tra a e b (AAAA-MM-GG)."""
+    x, fine, out = _dt.date.fromisoformat(a) + _dt.timedelta(days=1), _dt.date.fromisoformat(b), []
+    while x < fine:
+        if x.weekday() < 5:
+            out.append(x.isoformat())
+        x += _dt.timedelta(days=1)
+    return out
+
+
+def _sedute(nome, s, oggi, archivio=None):
+    """Le chiusure note prima di oggi, senza le righe dei giorni in cui quella borsa era chiusa (EODHD le scrive a indice
+    fermo: non sono sedute); poi l'ultima e i giorni feriali in mezzo che non sono feste certe di quella borsa."""
+    m = (s or {}).get("mercato")
+    st = {d: v for d, v in storia(nome, s, archivio).items() if d < str(oggi)[:10] and _G.borsa_il(m, d) != "festa"}
+    if not st:
+        return st, None, []
+    d = max(st)
+    return st, d, [x for x in _feriali_tra(d, str(oggi)[:10]) if _G.borsa_il(m, x) != "festa"]
+
+
 def ultima_seduta(nome, s, oggi, archivio=None):
     """L'ultima seduta vera di quella borsa prima di oggi: (data, chiusura) o None. Il giorno feriale prima non basta: il
     giorno dopo una festa di quella borsa (qualunque borsa, qualunque festa) l'ultima chiusura è più vecchia. Vale la
-    chiusura più recente prima di oggi che il kit conosce (archivio, "rif", "ultimi"), purché sia certa: quella del giorno
-    feriale prima, oppure una più vecchia scritta in "ultimi" con la sua data (l'ultima chiusura ufficiale data da EODHD,
-    APP_DATI §2b). Una chiusura più vecchia trovata solo in archivio non basta: può mancare la seduta dopo, perché
-    l'archivio non prende mai il livello ricavato di stamattina. Oltre due settimane non è più l'ultima seduta."""
-    oggi = str(oggi)[:10]
-    st = storia(nome, s, archivio)
-    prima = [d for d in st if d < oggi]
-    if not prima:
-        return None
-    d = max(prima)
-    scritte = {str(r[0])[:10] for r in (s or {}).get("ultimi") or [] if len(r) >= 2}
-    vicina = (_dt.date.fromisoformat(oggi) - _dt.date.fromisoformat(d)).days <= 14
-    return (d, st[d]) if d >= _ieri(oggi) or (d in scritte and vicina) else None
+    chiusura più recente che il kit conosce (archivio, "rif", "ultimi") solo se ogni giorno feriale in mezzo è una festa
+    certa di quella borsa (giorni.FESTE_BORSE, nell'intervallo verificato). Se in mezzo c'è un giorno di borsa, o un giorno
+    che il calendario non copre, la base non è certa (la fonte non ha ancora quella chiusura, o l'archivio non ha preso il
+    livello ricavato di quel giorno): None, e la riga non entra con un livello sbagliato."""
+    st, d, buchi = _sedute(nome, s, oggi, archivio)
+    return (d, st[d]) if d and not buchi else None
 
 
-def ultima_nota(nome, s, oggi, archivio=None):
-    """La chiusura più recente prima di oggi che il kit conosce, anche se non è certa: (data, valore) o None (per i messaggi)."""
-    st = storia(nome, s, archivio)
-    prima = [d for d in st if d < str(oggi)[:10]]
-    return (max(prima), st[max(prima)]) if prima else None
+def manca_base(nome, s, oggi, archivio=None):
+    """Che cosa chiedere quando il livello non si può ricavare: la chiusura che manca davvero, con la sua data, e da dove."""
+    st, d, buchi = _sedute(nome, s, oggi, archivio)
+    giu = bool((s or {}).get("eodhd_nd"))
+    da = "dal ripiego di APP_DATI §6 (connettore EODHD giù)" if giu else "da EODHD (APP_DATI §2b)"
+    if not d:
+        return f"manca l'ultima chiusura prima di oggi: scrivila in \"ultimi\" con la sua data, {da}"
+    b = buchi[0]
+    if _G.borsa_il((s or {}).get("mercato"), b) == "seduta":
+        return (f"manca la chiusura {_al('de', b)}, giorno di borsa per quel mercato (l'ultima nota è {_al('de', d)}): "
+                + ("cercala come in APP_DATI §3" if giu else "EODHD non ce l'ha ancora: cercala come in APP_DATI §3")
+                + " e scrivila in \"ultimi\" con la sua data; se non si trova, \"nd\"")
+    return (f"l'ultima chiusura nota è {_al('de', d)} e il calendario delle feste di quella borsa (giorni.py, FESTE_BORSE) non "
+            f"dice se {_art(b)} era una seduta: "
+            f"cerca la chiusura {_al('de', b)} (APP_DATI §3) e scrivila in \"ultimi\" con la "
+            "sua data; se quel giorno la borsa era chiusa, o non si trova, \"nd\"")
 
 
 def solo_variazione(s, oggi):
@@ -185,14 +212,6 @@ def solo_variazione(s, oggi):
     u = (s or {}).get("ultimi") or []
     return (s or {}).get("tipo") == "intraday" and isinstance((s or {}).get("var"), (int, float)) \
         and not (u and str(u[0][0])[:10] >= str(oggi)[:10])
-
-
-def manca_base(nome, s, oggi, archivio=None):
-    """Che cosa chiedere quando il livello non si può ricavare: l'ultima chiusura con la sua data, mai un giorno preciso."""
-    nota = ultima_nota(nome, s, oggi, archivio)
-    return ("manca l'ultima chiusura prima di oggi (l'ultima seduta vera di quella borsa, che dopo una sua festa è più "
-            "vecchia del giorno feriale prima): scrivila in \"ultimi\" con la sua data, da EODHD (APP_DATI §2b)"
-            + (f"; l'archivio arriva al {_gm(nota[0])}: se è quella, scrivila in \"ultimi\"" if nota else ""))
 
 
 def ricavato(nome, s, oggi, archivio=None):
@@ -221,6 +240,11 @@ def _al(prep, d):
     """ "sul 19/10", "sull'11/9", "del 26/11", "dell'8/12": la preposizione articolata davanti a una data (prep = "su", "de")."""
     x = _dt.date.fromisoformat(str(d)[:10])
     return prep + ("ll'" if x.day in (1, 8, 11) else "l ") + _gm(d)
+
+
+def _art(d):
+    """ "il 5/2", "l'8/2": l'articolo davanti a una data."""
+    return ("l'" if _dt.date.fromisoformat(str(d)[:10]).day in (1, 8, 11) else "il ") + _gm(d)
 
 
 def _piu_usato(date):
