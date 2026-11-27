@@ -1,0 +1,502 @@
+{
+ "formato": 1,
+ "data": "2026-11-18",
+ "moduli": [
+  {
+   "chiave": "chip",
+   "pagina": "chip",
+   "tema": "Chip",
+   "titolo": "Per Nvidia la sorpresa sui conti non basta: pesano vertice e indagine",
+   "perche": "Gli investitori avevano già messo nel prezzo conti ottimi: Nvidia ha battuto le attese di ricavi per 17 trimestri di fila. Non c'era nel prezzo il rischio su chi la guida e sulle verifiche in corso. Il consiglio ha escluso il ritorno di Huang e il Wall Street Journal riferisce un'indagine della SEC sulle comunicazioni (Reuters). Ieri le vendite hanno colpito soprattutto la tecnologia, e il Nasdaq arretra da giorni.",
+   "quindi": "Alle 15:30 si vede se Nvidia apre sopra i 155,46 $ di ieri: se sì, il calo del dopo-chiusura è riassorbito.",
+   "numero": "-17%: il calo di Nvidia da inizio anno a fine martedì (Reuters).",
+   "testo": [
+    "Come può scendere un'azienda che batte tutte le stime? Il prezzo di un titolo non misura quanto è andata bene l'ultima trimestrale, ma quanto gli investitori si aspettano dai prossimi anni. Se tutti aspettavano conti ottimi, i conti ottimi non cambiano nulla: muove il prezzo solo ciò che nessuno aveva messo nel conto. Per Nvidia, ieri sera, erano il vertice dell'azienda e le verifiche in corso (Reuters).",
+    "Il caso pesa più di quello di una società qualsiasi perché Nvidia vale circa 3.800 miliardi di dollari (Reuters). In indici come il Nasdaq e l'S&amp;P 500, che pesano le società per dimensione, di solito pochi titoli grandi muovono molto l'indice. Per questo il destino di Nvidia conta anche per chi non la possiede.",
+    "La settimana è stata una sequenza: dimissioni di Huang il 12 novembre, vendite sui chip lunedì, conti martedì sera. Ieri le vendite hanno colpito la tecnologia più degli altri settori: in media i titoli tecnologici del Nyse perdono il 2,8%, mentre nessun altro settore supera il 2%."
+   ],
+   "guardare": "Se Nvidia apre sopra i 155 $ e i fornitori europei recuperano, le vendite di ieri erano eccessive. Se le notizie sulla SEC pesano più dei conti, i chip restano sotto pressione anche con una guidance sopra le attese.",
+   "fonte": "Fonti: Reuters, Yahoo Finance; dati FMP (Nasdaq e settori).",
+   "punti": [
+    "<b>La guidance.</b> Nvidia indica 130 miliardi di ricavi per il trimestre in corso, contro i 125,25 attesi dagli analisti, e non conta alcuna vendita di chip per data center in Cina (Reuters).",
+    "<b>Il vertice.</b> Colette Kress guida Nvidia ad interim: il consiglio valuta candidati interni ed esterni.",
+    "<b>Chi scommette contro.</b> Muddy Waters Research è ribassista sul titolo."
+   ],
+   "righe": [
+    [
+     "Nvidia, terzo trimestre fiscale",
+     "Risultato",
+     "Attese"
+    ],
+    [
+     "Ricavi (mld di dollari)",
+     "115,8",
+     "109,15"
+    ],
+    [
+     "Utile per azione (dollari)",
+     "2,68",
+     "2,47"
+    ],
+    [
+     "Ricavi da data center (mld di dollari)",
+     "107,6",
+     "101,85"
+    ]
+   ],
+   "misura": "doppio",
+   "grafici": [
+    {
+     "file": "chip-1",
+     "dati": {
+      "tipo": "barre",
+      "dati": [
+       [
+        "Tecnologia",
+        -2.83
+       ],
+       [
+        "Energia",
+        -1.01
+       ],
+       [
+        "Comunicazioni",
+        -0.96
+       ],
+       [
+        "Servizi di pubblica utilità",
+        -0.63
+       ],
+       [
+        "Immobiliare",
+        -0.48
+       ],
+       [
+        "Finanza",
+        -0.47
+       ],
+       [
+        "Materiali di base",
+        -0.38
+       ],
+       [
+        "Industria",
+        -0.32
+       ]
+      ],
+      "ordina": false,
+      "dec": 1,
+      "unita": "%",
+      "titolo": "In media i titoli tecnologici perdono il 2,8%, gli altri settori meno",
+      "sottotitolo": "Variazione media dei titoli quotati al Nyse, 17/11 (%)"
+     },
+     "misure": [
+      538,
+      248
+     ]
+    },
+    {
+     "file": "chip-2",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       }
+      ],
+      "serie": [
+       [
+        "Nasdaq",
+        [
+         24315.0,
+         24579.42,
+         25253.14,
+         25065.87,
+         25466.19,
+         25366.09,
+         25136.27,
+         24509.76,
+         24328.38
+        ],
+        "#111111"
+       ]
+      ],
+      "titolo": "Il Nasdaq perde il 4,5% dal massimo dell'11 novembre",
+      "sottotitolo": "Nasdaq Composite, chiusure (punti)",
+      "eventi": [
+       [
+        {
+         "$d": "2026-11-12"
+        },
+        "Dimissioni di Huang"
+       ]
+      ],
+      "note": [
+       [
+        {
+         "$d": "2026-11-11"
+        },
+        25466.19,
+        "11/11"
+       ],
+       [
+        {
+         "$d": "2026-11-17"
+        },
+        24328.38,
+        "17/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "tassi",
+   "pagina": "tassi",
+   "tema": "Tassi USA",
+   "titolo": "Con Wall Street giù i Treasury si fermano: il mercato aspetta la Fed",
+   "perche": "Il 2 anni segue le attese sulla Fed. Per la riunione dell'8-9 dicembre il mercato prezza un rialzo quasi certo. Un rialzo da 50 pb a dicembre ha circa il 9% di probabilità, secondo i future (CME FedWatch, Reuters): c'è poco da scontare ancora. Per questo ieri il rifugio si è fermato a metà, con il 2 anni a -3 pb contro i -5 di lunedì.",
+   "quindi": "Stasera alle 20:00 i verbali: se mostrano molti membri pronti a un rialzo da 50 pb, di solito il 2 anni sale anche con Wall Street in calo.",
+   "numero": "+12 pb: la salita del 10 anni in una settimana, da 4,98% a 5,10%. Due sedute di rifugio non hanno cancellato il rialzo di novembre.",
+   "testo": [
+    "Quando la borsa cala molti comprano titoli di Stato per proteggersi: il loro prezzo sale e il rendimento, che si muove al contrario, scende. Il rendimento a 2 anni però segue soprattutto le attese sulla Fed, e se il rialzo è già nel prezzo la paura da sola lo muove poco.",
+    "Non è detto che il rifugio sia finito. Di solito i titoli di Stato fanno da riparo quando la paura riguarda la crescita. Lo fanno meno quando l'inflazione tiene alta la banca centrale: ieri il petrolio è calato, ma i rendimenti restano ai livelli più alti di novembre. Per chi ha un mutuo o compra casa il segnale conta: i tassi a lunga scadenza, non quelli della Fed, guidano il costo dei finanziamenti."
+   ],
+   "fonte": "Fonti: curva par del Tesoro via FMP; Reuters.",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "tassi-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-10-19"
+       },
+       {
+        "$d": "2026-10-20"
+       },
+       {
+        "$d": "2026-10-21"
+       },
+       {
+        "$d": "2026-10-22"
+       },
+       {
+        "$d": "2026-10-23"
+       },
+       {
+        "$d": "2026-10-26"
+       },
+       {
+        "$d": "2026-10-27"
+       },
+       {
+        "$d": "2026-10-28"
+       },
+       {
+        "$d": "2026-10-29"
+       },
+       {
+        "$d": "2026-10-30"
+       },
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-03"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       }
+      ],
+      "serie": [
+       [
+        "10 anni",
+        [
+         5.15,
+         5.12,
+         5.13,
+         4.96,
+         5.0,
+         5.0,
+         4.99,
+         5.05,
+         4.98,
+         4.94,
+         4.91,
+         4.95,
+         4.9,
+         4.84,
+         4.86,
+         4.88,
+         4.98,
+         5.1,
+         5.15,
+         5.12,
+         5.1
+        ],
+        "#F26B1D"
+       ],
+       [
+        "2 anni",
+        [
+         4.77,
+         4.79,
+         4.81,
+         4.65,
+         4.69,
+         4.68,
+         4.7,
+         4.67,
+         4.61,
+         4.56,
+         4.59,
+         4.61,
+         4.58,
+         4.46,
+         4.51,
+         4.56,
+         4.73,
+         4.86,
+         4.88,
+         4.83,
+         4.8
+        ],
+        "#111111"
+       ]
+      ],
+      "titolo": "I rendimenti salgono da inizio novembre e restano alti",
+      "sottotitolo": "Treasury 2 e 10 anni, chiusure (%)",
+      "livello": true
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "europa",
+   "pagina": "europa",
+   "tema": "Europa",
+   "titolo": "L'Europa perde il doppio di Wall Street: il calo viene dai titoli tecnologici",
+   "perche": "Per noi il calo parte dal settore tecnologico: l'indice europeo dei titoli tecnologici perde il 3,9% (dpa-AFX), con ASML tra i peggiori. Quando New York vende i chip i fornitori europei seguono, e pesano molto nell'indice, mentre petrolio e gas tengono meglio (dpa-AFX).",
+   "quindi": "Alle 15:30 si vede se Wall Street apre sopra la chiusura di ieri: se il Nasdaq recupera, i fornitori europei di chip possono seguirlo.",
+   "numero": "1 su 28: la frequenza con cui l'Euro Stoxx 50 perde più del 2,1% in una seduta, sulla nostra serie storica. Il calo di ieri è il più forte dal 3 marzo.",
+   "testo": [
+    "Un indice pesa le società per la loro dimensione: se poche grandi aziende cadono molto, trascinano tutto. Quando New York vende i chip, di solito i fornitori europei del settore seguono, e il loro peso nell'indice fa il resto (dpa-AFX).",
+    "Milano segue con il Ftse Mib a -1,31%. Lo spread tra Btp e Bund chiude in lieve calo a 105 punti (ANSA). Per noi il rischio sull'Italia non sale, a differenza dei titoli."
+   ],
+   "fonte": "Fonti: dpa-AFX (Euro Stoxx 50 e tecnologici), ANSA (Milano e spread); chiusure FMP.",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "europa-1",
+     "dati": {
+      "tipo": "barre",
+      "dati": [
+       [
+        "ASML",
+        -5.3
+       ],
+       [
+        "Tecnologia Europa",
+        -3.9
+       ],
+       [
+        "STMicroelectronics",
+        -3.1
+       ],
+       [
+        "Euro Stoxx 50",
+        -2.15
+       ],
+       [
+        "FTSE MIB",
+        -1.31
+       ],
+       [
+        "S&P 500",
+        -1.03
+       ],
+       [
+        "Petrolio e gas Europa",
+        -0.8
+       ],
+       [
+        "Nasdaq",
+        -0.74
+       ]
+      ],
+      "ordina": false,
+      "dec": 1,
+      "unita": "%",
+      "titolo": "Il calo è più forte dove sono i chip",
+      "sottotitolo": "Variazioni del 17/11 (%)"
+     },
+     "misure": [
+      538,
+      248
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "petrolio",
+   "pagina": "petrolio",
+   "tema": "Petrolio",
+   "titolo": "Il Brent scende con le scorte USA, ma il rischio Hormuz lo sostiene",
+   "perche": "A pesare sono le scorte americane: nella settimana al 13 novembre c'è stato un aumento di 5,28 milioni di barili di greggio (Reuters). A sostenere il prezzo restano i rischi sul Golfo: per LSEG la normalizzazione dei flussi da Hormuz non è ancora possibile.",
+   "quindi": "Se un attacco ferma l'oleodotto saudita che porta il greggio al Mar Rosso evitando Hormuz, di solito il Brent torna sopra i 100 $. Se invece Hormuz riapre e le scorte salgono ancora, il prezzo tende a scendere verso il minimo del 10 novembre, a 91,49 $.",
+   "testo": [
+    "Il prezzo del petrolio dice quanto ne serve e quanto ce n'è. Se le scorte americane crescono, ce n'è più del necessario e il prezzo tende a scendere; se le navi non passano da Hormuz, ce n'è meno e tende a salire. Le due spinte si contrastano da giorni.",
+    "Per l'Europa è la combinazione migliore: di solito soffre quando il greggio sale per carenza di offerta. Dal petrolio all'inflazione, inoltre, il passaggio è corto, perché il greggio diventa benzina e gasolio in poche settimane. Un Brent sceso del 15% in un mese toglie quindi un po' di pressione sui prezzi che la Fed guarda con più attenzione."
+   ],
+   "fonte": "Fonti: Reuters; chiusure FMP del Brent future.",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "petrolio-1",
+     "dati": {
+      "tipo": "barre",
+      "dati": [
+       [
+        "09/11",
+        -5.8
+       ],
+       [
+        "10/11",
+        -1.2
+       ],
+       [
+        "11/11",
+        1.4
+       ],
+       [
+        "12/11",
+        3.3
+       ],
+       [
+        "13/11",
+        0.0
+       ],
+       [
+        "16/11",
+        -3.6
+       ],
+       [
+        "17/11",
+        0.8
+       ]
+      ],
+      "ordina": false,
+      "dec": 1,
+      "unita": "%",
+      "titolo": "Il Brent si muove di oltre il 3% in tre sedute su sette, senza direzione",
+      "sottotitolo": "Brent future, variazione giornaliera, dal 9 al 17 novembre (%)"
+     },
+     "misure": [
+      538,
+      223
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "anthropic",
+   "pagina": "anthropic",
+   "tema": "Tecnologia",
+   "titolo": "Il debutto di Anthropic mette alla prova la liquidità del Nasdaq",
+   "perche": "Secondo Bloomberg, riportato da Reuters, il prezzo sarebbe in cima alla forchetta o sopra, con una valutazione fino a 1.400 miliardi di dollari. La domanda dunque c'è: resta da vedere se basta mentre l'Euro Stoxx 50 perde per il terzo giorno di fila.",
+   "quindi": "Al debutto, se il titolo apre sotto il prezzo di collocamento il test di liquidità è fallito; sopra i 78 $ la domanda regge.",
+   "numero": "64 mld $: l'incasso massimo se tutte le 825 milioni di azioni si vendono a 78 $ (calcolo su dati RTTNews).",
+   "testo": [
+    "Venderne 825 milioni in una volta chiede soldi freschi al mercato. Per noi un'IPO così grande, in una settimana di vendite sulla tecnologia, si legge prima come test di liquidità e poi come voto sull'AI.",
+    "Non c'è una regola sul primo giorno: un titolo può salire in un mercato debole e scendere in uno forte. Conta il confronto con il prezzo di collocamento, quello a cui hanno comprato i primi investitori."
+   ],
+   "fonte": "Fonti: Reuters, RTTNews.",
+   "righe": [
+    [
+     "IPO di Anthropic",
+     "Dato"
+    ],
+    [
+     "Forchetta di prezzo",
+     "70-78 $ per azione"
+    ],
+    [
+     "Azioni offerte",
+     "825 milioni (801,35 dalla società, 23,65 da azionisti)"
+    ],
+    [
+     "Opzione dei collocatori",
+     "fino a 123,75 milioni di azioni in più"
+    ],
+    [
+     "Valutazione indicata",
+     "fino a 1.400 miliardi di dollari"
+    ],
+    [
+     "Quotazione",
+     "Nasdaq, simbolo ANT"
+    ]
+   ],
+   "misura": "mezzo"
+  }
+ ]
+}
