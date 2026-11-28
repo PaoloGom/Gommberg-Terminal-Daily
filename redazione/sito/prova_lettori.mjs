@@ -658,6 +658,8 @@ async function areaRiservata() {
     && !JSON.stringify(r.j).includes(e5.t) && !("ip" in r.j.accessi[0]) && r.j.regole.iterazioni === AREA.iterazioni, r.j.sessioni);
   verifica("sicurezza: il dispositivo in parole", dispositivo("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit Version/18.0 Mobile/15E148 Safari/604.1").testo === "Safari su iPhone"
     && dispositivo("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130.0 Safari/537.36 Edg/130.0").testo === "Edge su Windows" && dispositivo("curl/8").tipo === "altro");
+  const ss = r.j.sessioni.find((x) => x.questa);
+  verifica("sicurezza: la scadenza mostrata è la prima delle due (senza uso e dall'accesso)", Date.parse(ss.scade) <= Date.parse(ss.creata) + AREA.resta_giorni * 86400000, ss);
   r = await red("POST", "/api/redazione/sessioni/" + corto + "/esci", { corpo: {}, cookie: e5.cookie, csrf: e5.csrf });
   verifica("sicurezza: Esci su un altro dispositivo chiude solo quello", r.s === 200 && !r.j.questa && (await red("GET", "/api/redazione/sessione", { cookie: e5.cookie })).s === 200, r);
   const e6 = await entra();

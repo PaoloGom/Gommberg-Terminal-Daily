@@ -442,7 +442,8 @@ async function sicurezza(c) {
     errori: err.map((e) => ({ n: e.n, primo: e.primo, ultimo: e.ultimo, dispositivo: dv(e.dispositivo), luogo: e.luogo, questa_rete: e.ip === c.ip })),
     tentativi: await tentativi(c),
     sessioni: ses.map((s) => ({ id: s.id.slice(0, 12), questa: s.id === c.s.id, creata: s.creata, usata: s.usata, resta: !!s.resta,
-      scade: iso(new Date(Date.parse(s.usata) + (s.resta ? AREA.resta_giorni * 86400000 : AREA.breve_ore * 3600000))), dispositivo: dv(s.dispositivo), luogo: s.luogo })),
+      // la prima delle due scadenze: senza uso dall'ultimo uso, e comunque la stessa durata dall'accesso
+      scade: iso(new Date(Math.min(Date.parse(s.usata), Date.parse(s.creata)) + (s.resta ? AREA.resta_giorni * 86400000 : AREA.breve_ore * 3600000))), dispositivo: dv(s.dispositivo), luogo: s.luogo })),
     password: { origine: c.s.credenziale.rec ? "area" : "segreto", cambiata, minimo: AREA.password_min },
     regole: { errori_liberi: AREA.errori_liberi, attesa_max_min: AREA.attesa_max_min,
       resta_giorni: AREA.resta_giorni, breve_ore: AREA.breve_ore, iterazioni: AREA.iterazioni },
