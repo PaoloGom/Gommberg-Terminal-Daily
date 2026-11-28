@@ -781,7 +781,9 @@ def passo_scrittura():
               ("brent", "Le scorte americane in aumento tengono basso il greggio"),
               ("oro", "Un rialzo della Fed a dicembre sempre più probabile pesa sull'oro"),
               ("acwi", "Rimbalza dopo la caduta di venerdì, la peggiore da mesi"),
-              ("fed", "Con un rialzo già scontato il rendimento a due anni resta fermo")]
+              ("fed", "Con un rialzo già scontato il rendimento a due anni resta fermo"),
+              ("vix", "Direzione debole: nessuna causa nelle notizie, poggia solo sulla tendenza di fondo"),
+              ("nikkei", "Direzione debole: poggia solo sulla tendenza di fondo dopo il rimbalzo")]
     vuoti = [n for n, *_ in getattr(T, "perche_vuoti", lambda m: [])(motivi)]
     lunedi_ok = vuoti == ["sx5e", "oro", "acwi"]
     fonti_ok = fonti_ok and lunedi_ok

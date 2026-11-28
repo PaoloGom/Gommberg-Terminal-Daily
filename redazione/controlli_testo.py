@@ -465,11 +465,18 @@ _GIA_FATTO = re.compile(r"\b(?:rimbalz|recuper|risal)\w*\b[^.;:]*\bdopo\b|\bdopo
                         r"\btendenz\w*|\bdi fila\b", re.I)
 
 
+# un perché che dichiara di non avere una causa (la direzione è debole, poggia solo su qualcosa) è onesto e passa
+_DEBOLE = re.compile(r"\bdirezione debole\b|\bpoggia solo\b|\bnessun[ao]? (?:causa|motivo|notizia)\b|"
+                     r"\bsenza (?:una |un )?(?:causa|motivo|notizia)\b", re.I)
+
+
 def perche_vuoti(motivi):
     """motivi = [(mercato, perché)] nell'ordine di pag. 6. Torna [(mercato, perché, che cosa manca)]."""
     out, visti = [], []
     for nome, m in motivi:
         m = str(m or "")
+        if _DEBOLE.search(m):
+            continue
         parole = re.findall(r"[a-zà-ù0-9]+", m.lower())
         quattro = {" ".join(parole[i:i + 4]) for i in range(len(parole) - 3)}
         doppio = next((n for n, q in visti if quattro & q), None)
