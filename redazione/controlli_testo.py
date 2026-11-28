@@ -17,6 +17,8 @@ Uso: python3 controlli_testo.py <pdf> [--json uscita.json]
   pezzo (per pag. 1 e 5: in una delle righe Fonti del numero): altrimenti ERRORE. Chi parla senza nome ("la stampa
   americana", "i media", "notizie secondo cui") non copre una causa ed è un ERRORE se la frase non nomina la testata;
   un'indiscrezione è un ERRORE se il pezzo non dice da quale testata viene.
+- Il lunedì, i perché della scommessa (dal registro della settimana): un'attesa, ciò che il mercato ha già fatto o la stessa
+  causa in due righe sono un ERRORE (APP_LUNEDI §3).
 - Aperture (ISTRUZIONI §1): il testo di un approfondimento apre con un dubbio, ma con la domanda esplicita in due pezzi
   al massimo: oltre, ERRORE (nella #030 erano 5 su 5, nella prova del 21/11 4 su 4).
 - Lessico di casa (glossario.json, "lessico"): avviso, errore per le voci con "blocca" (termini che restano in inglese,
@@ -455,6 +457,45 @@ def senza_testata(tt, nomi=None, righe=()):
     return out
 
 
+# Perché della scommessa del lunedì (APP_LUNEDI §3): un motivo è il meccanismo che spinge quel mercato nella direzione scelta.
+# Forme vuote riconosciute in generale: un verbo d'attesa ("aspetta"), ciò che il mercato ha già fatto (un rimbalzo o una
+# ripresa "dopo" un calo, una tendenza, "di fila"), la stessa causa ripetuta in due righe (quattro parole uguali di fila).
+_ATTESA = re.compile(r"\baspett\w*|\battend\w*|\bin attesa\b", re.I)
+_GIA_FATTO = re.compile(r"\b(?:rimbalz|recuper|risal)\w*\b[^.;:]*\bdopo\b|\bdopo\b[^.;:]*\b(?:rimbalz|recuper|risal)\w*|"
+                        r"\btendenz\w*|\bdi fila\b", re.I)
+
+
+def perche_vuoti(motivi):
+    """motivi = [(mercato, perché)] nell'ordine di pag. 6. Torna [(mercato, perché, che cosa manca)]."""
+    out, visti = [], []
+    for nome, m in motivi:
+        m = str(m or "")
+        parole = re.findall(r"[a-zà-ù0-9]+", m.lower())
+        quattro = {" ".join(parole[i:i + 4]) for i in range(len(parole) - 3)}
+        doppio = next((n for n, q in visti if quattro & q), None)
+        if _ATTESA.search(m):
+            out.append((nome, m, "dice che il mercato aspetta, non che cosa lo spinge"))
+        elif _GIA_FATTO.search(m):
+            out.append((nome, m, "dice che cosa il mercato ha già fatto, non che cosa lo spinge"))
+        elif doppio:
+            out.append((nome, m, f"ripete la causa già data a {doppio}"))
+        visti.append((nome, quattro))
+    return out
+
+
+def motivi_del_lunedi(ed):
+    """I sei perché di pag. 6 se l'edizione è quella del lunedì: dal registro della settimana (REG del file dell'edizione)."""
+    try:
+        src = open(ed, encoding="utf-8").read()
+        reg = re.search(r'^REG = "([^"]+)"', src, re.M)
+        if not reg or not re.search(r'["\']lunedi["\']\s*:\s*True', src):
+            return []
+        R = json.load(open(os.path.join(QUI, "pronostici", reg.group(1)), encoding="utf-8"))
+        return [(v.get("nome", k), v.get("motivo_redazione", "")) for k, v in R.get("strumenti", {}).items()]
+    except (OSError, ValueError):
+        return []
+
+
 def fonti_nei_testi(tt, nomi=None):
     """§3.5: una testata tra parentesi senza l'orario di un livello del mattino: [(dove, "(Testata)")]."""
     return [(dove, par) for dove, t in tt.items() for par in fonti_tra_parentesi(t, nomi)]
@@ -532,6 +573,11 @@ def main():
                           "frase (e nella riga Fonti); \"la stampa\", \"i media\", \"notizie\" non sono un nome. Cerca nelle schede "
                           "del fatto la testata che lo scrive e mettila nella frase; togli la frase solo se nelle schede la fonte non "
                           "c'è davvero. Sono: " + "; ".join(f"{dove} «{f}»" for dove, f in anonime))
+        vuoti = perche_vuoti(motivi_del_lunedi(ed))
+        if vuoti:
+            errori.append("perché della scommessa che non sono un motivo (APP_LUNEDI §3): scrivi il meccanismo che questa settimana "
+                          "spinge quel mercato nella direzione scelta, correggi redazione.json e rilancia pronostico.py con --forza "
+                          "(direzioni e numeri restano). Sono: " + "; ".join(f"{n} «{m}» ({c})" for n, m, c in vuoti))
         domande = aperture_con_domanda(C)
         if len(domande) > MAX_DOMANDE:
             errori.append(f"{len(domande)} approfondimenti aprono con una domanda esplicita (massimo {MAX_DOMANDE}): tienila dove rende di "

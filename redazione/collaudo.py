@@ -773,6 +773,18 @@ def passo_scrittura():
     lun = open(os.path.join(R, "APP_LUNEDI.md"), encoding="utf-8").read() + open(os.path.join(R, "scommessa", "pronostico.py"), encoding="utf-8").read()
     lunedi_ok = "Non è un motivo" in lun and not re.search(r"che cosa aspetta", lun)
     fonti_ok = fonti_ok and lunedi_ok
+    # perché della scommessa: le forme vuote si fermano, i motivi veri passano (casi dei lunedì 16/11 e 23/11)
+    motivi = [("spx", "I future perdono terreno dopo il crollo dei chip asiatici"),
+              ("sx5e", "Dopo il minimo da maggio aspetta di capire se Wall Street tiene"),
+              ("ust10", "Se la paura cala i Treasury smettono di fare da rifugio e il rendimento risale"),
+              ("eurusd", "Un rialzo della Fed a dicembre sempre più probabile sostiene il dollaro"),
+              ("brent", "Le scorte americane in aumento tengono basso il greggio"),
+              ("oro", "Un rialzo della Fed a dicembre sempre più probabile pesa sull'oro"),
+              ("acwi", "Rimbalza dopo la caduta di venerdì, la peggiore da mesi"),
+              ("fed", "Con un rialzo già scontato il rendimento a due anni resta fermo")]
+    vuoti = [n for n, *_ in getattr(T, "perche_vuoti", lambda m: [])(motivi)]
+    lunedi_ok = vuoti == ["sx5e", "oro", "acwi"]
+    fonti_ok = fonti_ok and lunedi_ok
     ok = not sfuggiti and not fermate and sigla and fonti_ok and coperta and voce and sigle_ok
     esito("Scrittura: lessico di casa, fonti e sigle", ok,
           f"{len(calchi)} calchi fermati, {len(giuste)} frasi giuste passate, testate tra parentesi fermate (anche una nuova), "
