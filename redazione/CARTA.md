@@ -1,6 +1,6 @@
 # Carta del Gommberg
 
-BOZZA del 16/11/2026, da approvare (già approvati da Paolo: l'obiettivo primario, 23/11, e la riga sui piani nei Confini, 25/11): la cambia solo Paolo. Una pagina, niente storia: la storia sta in `PROGETTO.md`.
+BOZZA del 16/11/2026, da approvare (già approvati da Paolo: l'obiettivo primario, 23/11, la riga sui piani nei Confini, 25/11, e la riga sul modello delle attività, 28/11): la cambia solo Paolo. Una pagina, niente storia: la storia sta in `PROGETTO.md`.
 
 ## Perché esiste
 In Italia manca un modo semplice e serio per capire la finanza ogni giorno. Il Gommberg è il primo mattoncino di una community italiana di educazione finanziaria.
@@ -29,7 +29,7 @@ Prodotto stabile e primi lettori. Obiettivo: 1.000 lettori entro marzo 2027. Can
 ## Confini
 - Firma e responsabilità editoriale di Paolo Gommellini; i testi sono generati con l'AI e pubblicati in automatico.
 - L'edizione esce da sola: nessuna approvazione manuale, mai bloccata.
-- Attività automatica solo su Sonnet. Le edizioni devono sempre stare nel piano Pro; lo sviluppo usa il margine del piano in uso.
+- L'edizione gira solo su Sonnet; le altre attività usano il modello adatto al lavoro. Le edizioni devono sempre stare nel piano Pro; lo sviluppo usa il margine del piano in uso.
 - Strumenti gratuiti e scalabili; ogni spesa la approva Paolo (oggi: solo il dominio gommberg.com).
 - Testata di finanza ed economia, non generalista.
 - Dati degli iscritti trattati con riservatezza (pagina privacy).
