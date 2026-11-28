@@ -43,30 +43,54 @@ L'ordine, e perché (mai due mail allo stesso iscritto):
   - tempo: la programmazione parte solo se nel passo di dem.yml restano RISERVA secondi, il tempo di rileggere e, se
     serve, togliere l'invio: la pulizia di un invio sbagliato viene prima della scadenza del passo.
 
-Uso:   python3 redazione/benvenuto.py controlla        il testo e la mail composta, senza rete (lo fa il collaudo)
-       python3 redazione/benvenuto.py anteprima        scrive _benvenuto/benvenuto.html, la mail come la vedrà il lettore
-       python3 redazione/benvenuto.py piano            legge Kit e dice a quanti iscritti partirebbe, senza scrivere nulla
-       python3 redazione/benvenuto.py invia            il giro vero (lo fa dem.yml, solo da main)
-       python3 redazione/benvenuto.py bozza INDIRIZZO  prova dal vivo, passo 2: SOLO una bozza per un gruppo con dentro
-                                                       quel solo indirizzo (iscritto e confermato); la rilegge, stampa
-                                                       filtro e stato e si ferma. Non spedisce nulla
-       python3 redazione/benvenuto.py prova INDIRIZZO  prova dal vivo, passo 3: programma tra ATTESA_PROVA minuti l'ultima
-                                                       bozza di prova di quell'indirizzo, solo se la rilettura conferma
-                                                       il filtro sul gruppo con dentro lui solo
+Uso:   python3 redazione/benvenuto.py controlla          il testo e la mail composta, senza rete (lo fa il collaudo)
+       python3 redazione/benvenuto.py anteprima          scrive _benvenuto/benvenuto.html, la mail come la vedrà il lettore
+       python3 redazione/benvenuto.py piano              legge Kit e dice a quanti iscritti partirebbe, senza scrivere nulla
+       python3 redazione/benvenuto.py invia              il giro vero (lo fa dem.yml, solo da main)
+       python3 redazione/benvenuto.py impronta           legge un indirizzo dallo standard input e ne stampa l'impronta: i
+                                                         primi 16 caratteri esadecimali di SHA-256 dell'indirizzo in
+                                                         minuscolo e senza spazi. Non scrive e non chiama nessuno
+       python3 redazione/benvenuto.py bozza impronta:X   prova dal vivo, passo 2: SOLO una bozza per un gruppo nuovo con
+                                                         dentro il solo iscritto attivo (confermato) che ha quell'impronta;
+                                                         la rilegge, conta il gruppo prima e dopo e si ferma. Non spedisce
+       python3 redazione/benvenuto.py prova impronta:X   prova dal vivo, passo 3: programma tra ATTESA_MINUTI minuti l'ultima
+                                                         bozza di prova, solo se riletta ha il filtro su un gruppo di prova
+                                                         con dentro lui solo; poi rilegge l'invio e riconta il gruppo
 
-LA PROVA DAL VIVO, prima di accendere (dal PC, con KIT_API_KEY nell'ambiente; mai indirizzi nel registro):
-  1. python3 redazione/benvenuto.py piano            sole letture: quanti iscritti riceverebbero il benvenuto stasera
-  2. python3 redazione/benvenuto.py bozza CASA       poi in Kit, Broadcasts, la bozza gommberg-benvenuto-prova-...:
-                                                     i destinatari stimati devono essere 1. Se non è 1: togli la bozza
-                                                     a mano e fermati
-  3. python3 redazione/benvenuto.py prova CASA       tra le 10:30 e le 20:45; la mail arriva solo a CASA dopo 2 minuti
+L'iscritto di prova si indica SOLO con l'impronta, mai con l'indirizzo: il repository è pubblico e chiunque legge gli
+input e i registri dei giri. Lo script legge da Kit gli iscritti attivi e sceglie quello la cui impronta coincide; zero o
+più di uno: errore, e non fa nulla. Non stampa mai un indirizzo né un dato letto da Kit che non abbia prima controllato
+(numeri, nomi di gruppi che ha creato lui): nemmeno negli errori, e mai un tracciato. L'impronta non è un segreto: chi
+conosce o indovina l'indirizzo la può ricalcolare; serve a non scriverlo in chiaro.
+
+LA PROVA DAL VIVO, prima di accendere. Si fa da GitHub, dove sta la chiave di Kit (il segreto KIT_API_KEY: non la legge
+nessuna chat e nessun PC), lanciando a mano dem.yml dal ramo da provare. I tre modi "prova-" fanno girare solo questo
+script, mai dem.py e mai "invia"; l'esito si legge nel riepilogo del giro.
+  0. l'impronta, in una sessione (l'indirizzo non finisce in nessun file):
+       X=$(printf '%s' 'INDIRIZZO' | python3 redazione/benvenuto.py impronta)
+  1. gh workflow run dem.yml --ref RAMO -f modo=prova-piano
+       sole letture: quanti iscritti riceverebbero il benvenuto stasera
+  2. gh workflow run dem.yml --ref RAMO -f modo=prova-bozza -f impronta="$X"
+       il riepilogo deve dire: gruppo di prova con 1 iscritto, bozza riletta con il filtro sul solo gruppo. Poi in Kit,
+       Broadcasts, la bozza gommberg-benvenuto-prova-...: i destinatari devono essere 1. Se non è 1: togli la bozza a
+       mano e fermati
+  3. gh workflow run dem.yml --ref RAMO -f modo=prova-invio -f impronta="$X"
+       tra le 8:00 e le 8:20 o tra le 10:30 e le 20:49 (le stesse fasce del giro); la mail arriva al solo iscritto di
+       prova dopo ATTESA_MINUTI minuti. L'attesa è la stessa del giro vero e supera la durata del passo: un invio
+       registrato male si toglie sempre prima che parta
+Che cosa resta in Kit dopo la prova, e si toglie solo a mano: l'etichetta del gruppo gommberg-benvenuto-prova-AAAA-MM-GG-HHMM
+sull'iscritto di prova (Subscribers, Tags), una per ogni bozza creata; l'invio di prova tra i Broadcasts, spedito a 1, o
+ancora in bozza se ci si è fermati al passo 2. La prova NON dà l'etichetta permanente "gommberg-benvenuto": l'iscritto di
+prova resta com'era. Se è un lettore di prima dell'accensione il benvenuto vero non lo riceve mai (non è nella finestra);
+se invece si è iscritto da ACCESO_DAL in poi e da meno di 7 giorni, il giro della sera gli manda anche quello vero.
 Esce con 1 quando qualcosa va guardato: dem.yml apre allora la segnalazione a Paolo. La chiave è KIT_API_KEY, mai stampata.
 """
+import hashlib
 import html
-import json
 import re
 import sys
 import time
+import traceback
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -85,12 +109,14 @@ UTC = timezone.utc
 
 FATTO = "gommberg-benvenuto"       # etichetta permanente: benvenuto già fatto (o iscritto segnato senza mail)
 PROVA = FATTO + "-prova-"          # gruppi e invii della prova dal vivo
+NOME_PROVA = re.compile(re.escape(PROVA) + r"\d{4}-\d{2}-\d{2}-\d{4}")      # il nome intero di un gruppo di prova
+IMPRONTA = re.compile(r"impronta:([0-9a-f]{16})")                           # come si indica l'iscritto di prova
 ACCESO_DAL = "2026-11-28"          # accensione (ora di Roma, dalla mezzanotte): solo chi si iscrive da qui riceve il benvenuto
 FINESTRA_GIORNI = 7                # iscritti arrivati negli ultimi 7 giorni (chi conferma tardi, giri persi)
 ATTESA_AVVISO = 3                  # chi riceve il benvenuto oltre 3 giorni dopo l'iscrizione: avviso (giri saltati?)
 MAX_NUOVI = 100                    # oltre, qualcosa non va (un filtro ignorato da Kit?): nessun invio
-ATTESA_MINUTI = 10                 # l'invio parte dopo: il tempo di toglierlo se Kit lo registra male
-ATTESA_PROVA = 2
+ATTESA_MINUTI = 10                 # l'invio parte dopo: il tempo di toglierlo se Kit lo registra male (più di PASSO,
+                                   # così la pulizia finisce sempre prima della partenza). Vale anche per la prova
 FASCIA = (75, 45)                  # minuti prima e dopo l'uscita in cui non si spedisce
 LETTURE = 3                        # tentativi per ogni lettura su un guasto momentaneo (429, 5xx, rete)
 ATTESA_LETTURE = 10                # secondi tra un tentativo e l'altro (il collaudo la azzera)
@@ -100,6 +126,7 @@ TEMPO_CHIAMATA = 30                # tetto di una chiamata a Kit (il timeout di 
 RISERVA = 7 * TEMPO_CHIAMATA       # programmazione + 2 riletture + pulizia (2 DELETE, 1 PUT in bozza, 1 rilettura):
                                    # la PUT parte solo se nel passo restano questi secondi, così la pulizia di un
                                    # invio sbagliato finisce sempre prima della scadenza del passo
+RISERVA_GRUPPO = 5 * TEMPO_CHIAMATA  # prova: ricontare il gruppo dopo la programmazione (1 lettura) + pulizia (4 chiamate)
 MARGINE = 35                       # sotto questi secondi rimasti non si scrive più nulla in Kit
 MAX_PAGINE = 20
 PER_PAGINA = 500
@@ -206,27 +233,27 @@ def chiama(metodo, percorso, dati=None):
     return kit_sicuro(metodo, percorso, dati)
 
 
-def leggi(percorso, pulizia=False):
-    """Una lettura di Kit: su un guasto momentaneo (rete, risposta illeggibile, 429, 5xx) si riprova, LETTURE volte.
+def leggi(percorso, pulizia=False, tentativi=LETTURE):
+    """Una lettura di Kit: su un guasto momentaneo (rete, risposta illeggibile, 429, 5xx) si riprova, `tentativi` volte.
     Torna il corpo (dict). pulizia=True: lettura per controllare o togliere un invio, anche a tempo scaduto."""
-    for tentativo in range(1, LETTURE + 1):
+    for tentativo in range(1, tentativi + 1):
         stato, corpo = (kit_sicuro if pulizia else chiama)("GET", percorso)
         if stato == 200 and isinstance(corpo, dict):
             return corpo
         if stato == 200:
             raise Fermo(f"risposta di Kit fuori forma a GET {percorso.split('?')[0]}")
-        if not (stato == 0 or stato == 429 or stato >= 500) or tentativo == LETTURE:
+        if not (stato == 0 or stato == 429 or stato >= 500) or tentativo == tentativi:
             raise Fermo(f"Kit non ha risposto a GET {percorso.split('?')[0]} (HTTP {stato}, {tentativo} tentativ"
                         f"{'o' if tentativo == 1 else 'i'})")
         time.sleep(max(0, min(ATTESA_LETTURE, rimasto())) if not pulizia else min(ATTESA_LETTURE, 2))
 
 
-def leggi_tutto(percorso, chiave, pulizia=False):
+def leggi_tutto(percorso, chiave, pulizia=False, tentativi=LETTURE, pagine=MAX_PAGINE):
     """Tutte le pagine di un elenco di Kit (cursore after). Ogni pagina deve avere la lista e la paginazione: un
     elenco parziale non vale mai per completo."""
     out, dopo = [], None
-    for _ in range(MAX_PAGINE):
-        corpo = leggi(percorso + (f"&after={dopo}" if dopo else ""), pulizia)
+    for _ in range(pagine):
+        corpo = leggi(percorso + (f"&after={dopo}" if dopo else ""), pulizia, tentativi)
         lista, pg = corpo.get(chiave), corpo.get("pagination")
         if not isinstance(lista, list) or not isinstance(pg, dict) or not isinstance(pg.get("has_next_page"), bool):
             raise Fermo(f"risposta di Kit fuori forma a GET {percorso.split('?')[0]} (manca '{chiave}' o la paginazione)")
@@ -238,7 +265,7 @@ def leggi_tutto(percorso, chiave, pulizia=False):
         dopo = pg.get("end_cursor")
         if not dopo:
             raise Fermo(f"risposta di Kit fuori forma a GET {percorso.split('?')[0]} (pagina dopo senza cursore)")
-    raise Fermo(f"elenco di Kit troppo lungo (oltre {MAX_PAGINE} pagine): fermo per prudenza")
+    raise Fermo(f"elenco di Kit troppo lungo (oltre {pagine} pagin{'a' if pagine == 1 else 'e'}): fermo per prudenza")
 
 
 def quando(s):
@@ -304,10 +331,11 @@ def nuovi_iscritti(adesso):
     return out
 
 
-def iscritti_con(tag_id, dal=None, pulizia=False):
+def iscritti_con(tag_id, dal=None, pulizia=False, tentativi=LETTURE, pagine=MAX_PAGINE):
     """Gli id degli iscritti (di ogni stato) che hanno l'etichetta, letti dalla parte dell'etichetta."""
     filtro = f"&created_after={dal}" if dal else ""
-    lista = leggi_tutto(f"/tags/{tag_id}/subscribers?status=all&per_page={PER_PAGINA}{filtro}", "subscribers", pulizia)
+    lista = leggi_tutto(f"/tags/{tag_id}/subscribers?status=all&per_page={PER_PAGINA}{filtro}", "subscribers", pulizia,
+                        tentativi, pagine)
     ids = {intero(s.get("id")) for s in lista}
     if None in ids:
         raise Fermo(f"risposta di Kit fuori forma a GET /tags/{tag_id}/subscribers (iscritto senza id)")
@@ -411,13 +439,12 @@ def dati_invio(gruppo_id, descrizione, modello):
             "subscriber_filter": [{"all": [{"type": "tag", "ids": [gruppo_id]}], "any": None, "none": None}]}
 
 
-def crea_bozza(gruppo_id, nome_gruppo, modello, attesi):
+def crea_bozza(gruppo_id, nome_gruppo, modello, attesi, senza):
     """Crea la bozza per il gruppo (mai ritentata) e la rilegge. Torna (id, dati) solo se Kit, riletto, ha la bozza con
-    il filtro sul solo gruppo; altrimenti la toglie e si ferma."""
+    il filtro sul solo gruppo; altrimenti la toglie e si ferma. senza: che cosa è già stato fatto, per i messaggi."""
     dati = dati_invio(gruppo_id, nome_gruppo, modello)
-    senza = f"{len(attesi)} iscritti segnati senza mail" if attesi is not None else "nessun iscritto segnato"
     nel_gruppo = iscritti_con(gruppo_id)                         # ultimo controllo: nel gruppo i soli voluti
-    if attesi is not None and nel_gruppo != set(attesi):
+    if nel_gruppo != set(attesi):
         raise Fermo(f"l'etichetta {nome_gruppo} in Kit ha {len(nel_gruppo)} iscritti invece di {len(attesi)}: nessun invio ({senza})")
     if rimasto() < MARGINE:
         raise Fermo(f"tempo del giro quasi finito: nessun invio creato ({senza})")
@@ -516,8 +543,9 @@ def giro(esegui=True, adesso=None):
                         f"{segnati} iscritti segnati senza mail, gli altri riprovano al prossimo giro")
         segnati += 1
     attesi = [s["id"] for s in nuovi]
-    bid, dati = crea_bozza(gruppo, nome, modello, attesi)
-    programma(bid, gruppo, dati, invio, f"{len(attesi)} iscritti segnati senza mail")
+    senza = f"{len(attesi)} iscritti segnati senza mail"
+    bid, dati = crea_bozza(gruppo, nome, modello, attesi, senza)
+    programma(bid, gruppo, dati, invio, senza)
     print(f"OK: benvenuto programmato (invio {bid}) alle {invio.astimezone(ROMA):%H:%M} per {len(attesi)} "
           f"iscritt{'o' if len(attesi) == 1 else 'i'}, gruppo {nome}")
     if tardi:
@@ -535,59 +563,123 @@ def nuovo_gruppo(nome):
     return t["id"]
 
 
-def iscritto_di_prova(indirizzo):
-    from urllib.parse import quote
-    trovati = leggi_tutto(f"/subscribers?status=active&email_address={quote(indirizzo.strip())}&per_page=10", "subscribers")
-    if len(trovati) != 1 or not intero(trovati[0].get("id")) or str(trovati[0].get("email_address", "")).lower() != indirizzo.strip().lower():
-        raise Fermo(f"l'indirizzo di prova non è un iscritto attivo (trovati {len(trovati)}): iscriviti e conferma prima")
-    return trovati[0]["id"]
+# ------------------------------------------------------------------ la prova dal vivo
+RESTA = ("Che cosa resta in Kit, e si toglie solo a mano: l'etichetta del gruppo di prova sull'iscritto di prova (Subscribers, "
+         "Tags) e l'invio di prova tra i Broadcasts (in bozza, poi spedito a 1). La prova non dà l'etichetta permanente "
+         + FATTO + ": l'iscritto di prova resta com'era (un lettore di prima dell'accensione non riceve il benvenuto vero; chi "
+         f"si è iscritto dal {ACCESO_DAL} in poi e da meno di {FINESTRA_GIORNI} giorni riceve anche quello vero dal giro della sera)")
+RESTA_FERMO = ("Che cosa può essere rimasto in Kit: l'etichetta di un gruppo di prova (" + PROVA + "...) sull'iscritto di prova, "
+               "da togliere a mano (Subscribers, Tags); un invio di prova solo se il messaggio qui sopra dice che non è stato tolto")
 
 
-def bozza(indirizzo, adesso=None):
-    """Prova dal vivo, passo 2: la sola bozza per un gruppo con dentro solo l'indirizzo di casa, riletta. Non spedisce."""
+def impronta_di(indirizzo):
+    """L'impronta di un indirizzo: i primi 16 caratteri esadecimali di SHA-256 dell'indirizzo in minuscolo e senza spazi."""
+    return hashlib.sha256("".join(str(indirizzo).split()).lower().encode("utf-8")).hexdigest()[:16]
+
+
+def iscritto_di_prova(chi):
+    """L'id del solo iscritto attivo (confermato) con quell'impronta. Zero o più di uno: fermo. Mai un indirizzo in un
+    messaggio: degli iscritti letti da Kit escono di qui solo un id e un conto."""
+    m = IMPRONTA.fullmatch(str(chi).strip().lower())
+    if not m:
+        raise Fermo("l'iscritto di prova si indica con impronta: seguito da 16 caratteri esadecimali (benvenuto.py impronta), "
+                    "mai con l'indirizzo: nulla di fatto")
+    trovati = []
+    for s in leggi_tutto(f"/subscribers?status=active&per_page={PER_PAGINA}", "subscribers"):
+        posta = s.get("email_address")
+        if not intero(s.get("id")) or s.get("state") != "active" or not isinstance(posta, str) or "@" not in posta:
+            raise Fermo("risposta di Kit fuori forma a GET /subscribers (iscritto senza id, stato attivo o indirizzo): nulla di fatto")
+        if impronta_di(posta) == m.group(1):
+            trovati.append(s["id"])
+    if len(trovati) != 1:
+        raise Fermo(f"l'impronta corrisponde a {len(trovati)} iscritti attivi, ne serve esattamente 1"
+                    + (" (l'indirizzo di prova deve essere iscritto e confermato, e l'impronta calcolata con benvenuto.py impronta)"
+                       if not trovati else "") + ": nulla di fatto")
+    return trovati[0]
+
+
+def solo_lui(gruppo, chi, tentativi=LETTURE):
+    """True se in Kit il gruppo ha dentro il solo iscritto di prova (di ogni stato), riletto ora. Lettura di pulizia:
+    anche a tempo scaduto. Un elenco che non si legge vale come no."""
+    try:
+        return iscritti_con(gruppo, pulizia=True, tentativi=tentativi, pagine=1) == {chi}
+    except Fermo:
+        return False
+
+
+def bozza(chi, adesso=None):
+    """Prova dal vivo, passo 2: la sola bozza per un gruppo nuovo con dentro il solo iscritto di prova, riletta; il gruppo
+    contato prima e dopo. Non spedisce."""
     adesso = (adesso or datetime.now(ROMA)).astimezone(ROMA)
+    print("Prova del benvenuto, bozza (non spedisce nulla):")
     male = problemi_testo()
     if male:
         raise Fermo("testo della mail: " + "; ".join(male))
     modello = modello_cornice()
-    chi = iscritto_di_prova(indirizzo)
+    chi = iscritto_di_prova(chi)
+    print("- iscritto di prova: trovato per impronta, 1 solo iscritto attivo corrisponde")
     nome = f"{PROVA}{adesso:%Y-%m-%d-%H%M}"
     gruppo = nuovo_gruppo(nome)
     if not metti(gruppo, chi):
-        raise Fermo("etichetta di prova non data all'indirizzo: nessuna bozza")
-    bid, _ = crea_bozza(gruppo, nome, modello, [chi])
-    b = rileggi(bid) or {}
-    print(f"Bozza di prova {bid} ({nome}): filtro {json.dumps(b.get('subscriber_filter'))}, stato {b.get('status')}, "
-          f"send_at {b.get('send_at')}. Guarda in Kit (Broadcasts): i destinatari stimati devono essere 1. Poi: prova INDIRIZZO")
+        raise Fermo(f"etichetta del gruppo di prova {nome} creata ma non data all'iscritto di prova: nessuna bozza")
+    bid, dati = crea_bozza(gruppo, nome, modello, [chi], "nessun iscritto segnato")      # conta il gruppo prima di creare
+    print(f"- gruppo di prova {nome}: creato nuovo, iscritti nel gruppo 1")
+    print(f"- bozza {bid}: creata e riletta da Kit, filtro sul solo gruppo di prova, stato bozza, non programmata")
+    if not solo_lui(gruppo, chi):
+        raise Fermo(f"dopo la creazione il gruppo di prova {nome} non ha dentro il solo iscritto di prova (o non si rilegge): "
+                    f"{esito_tolto(bid, dati)}")
+    print("- gruppo riletto dopo la bozza: iscritti nel gruppo 1")
+    print(f"- {RESTA}\n")
+    print(f"OK: bozza di prova {bid} pronta. In Kit (Broadcasts, {nome}) i destinatari devono essere 1: se non è 1 togli la "
+          "bozza a mano e fermati. Poi: prova-invio")
     return bid
 
 
-def prova(indirizzo, adesso=None):
-    """Prova dal vivo, passo 3: programma l'ultima bozza di prova, solo se riletta è ancora per il gruppo dell'indirizzo
-    e il gruppo ha dentro lui solo."""
+def prova(chi, adesso=None):
+    """Prova dal vivo, passo 3: programma l'ultima bozza di prova, solo se riletta è ancora una bozza con il filtro su un
+    gruppo di prova (l'etichetta che porta il suo stesso nome) e il gruppo ha dentro il solo iscritto di prova. Dopo la
+    programmazione riconta il gruppo: se non torna, o non c'è il tempo per ricontare e rimediare, l'invio si toglie."""
     adesso = (adesso or datetime.now(ROMA)).astimezone(ROMA)
-    invio = adesso + timedelta(minutes=ATTESA_PROVA)
+    invio = adesso + timedelta(minutes=ATTESA_MINUTI)
+    print("Prova del benvenuto, invio al solo iscritto di prova:")
     if not (orario_ammesso(adesso) and orario_ammesso(invio)):
-        raise Fermo(f"fuori orario ({adesso:%H:%M}): si prova tra le {dem.ORA_DA}:00 e le {dem.ORA_A - 1}:59, fuori dalla fascia dell'edizione")
+        raise Fermo(f"fuori orario ({adesso:%H:%M}, l'invio partirebbe alle {invio:%H:%M}): si spedisce tra le {dem.ORA_DA}:00 e le "
+                    f"{dem.ORA_A - 1}:59, mai nella fascia dell'edizione. Nulla di fatto: la bozza resta in Kit")
     modello = modello_cornice()
-    chi = iscritto_di_prova(indirizzo)
+    chi = iscritto_di_prova(chi)
+    print("- iscritto di prova: trovato per impronta, 1 solo iscritto attivo corrisponde")
     bozze = [b for b in leggi_tutto(f"/broadcasts?per_page={PER_PAGINA}", "broadcasts")
-             if str(b.get("description") or "").startswith(PROVA) and intero(b.get("id")) and not b.get("send_at")]
+             if NOME_PROVA.fullmatch(str(b.get("description") or "")) and intero(b.get("id")) and not b.get("send_at")]
     if not bozze:
-        raise Fermo("nessuna bozza di prova in Kit: lancia prima 'bozza INDIRIZZO'")
-    b = rileggi(max(x["id"] for x in bozze))
+        raise Fermo("nessuna bozza di prova in Kit: lancia prima prova-bozza. Nulla di fatto")
+    bid = max(x["id"] for x in bozze)
+    b = rileggi(bid)
+    nome = str((b or {}).get("description") or "")
     try:
         gruppo = intero(b["subscriber_filter"][0]["all"][0]["ids"][0])
     except (TypeError, KeyError, IndexError):
         gruppo = None
-    if not b or not gruppo or not com_e(b, gruppo, None):
-        raise Fermo("l'ultima bozza di prova, riletta, non è una bozza con il filtro su un solo gruppo: non si programma")
+    if not b or not gruppo or not com_e(b, gruppo, None) or not NOME_PROVA.fullmatch(nome):
+        raise Fermo(f"l'ultima bozza di prova ({bid}), riletta, non è una bozza con il filtro su un solo gruppo di prova: non si programma")
+    if etichetta(nome) != gruppo:       # il gruppo del filtro è l'etichetta di prova che porta il nome della bozza, non un'altra
+        raise Fermo(f"il filtro della bozza di prova {bid} non è sull'etichetta {nome}: non si programma")
+    print(f"- bozza {bid} ({nome}): riletta da Kit, filtro sul solo gruppo di prova, stato bozza")
     if iscritti_con(gruppo) != {chi}:
-        raise Fermo("il gruppo della bozza di prova non contiene solo l'indirizzo dato: non si programma")
-    dati = dati_invio(gruppo, str(b.get("description")), modello)
-    programma(b["id"], gruppo, dati, invio, "nessun iscritto segnato")
-    print(f"OK: prova programmata (invio {b['id']}) alle {invio:%H:%M}, al solo indirizzo dato")
-    return b["id"]
+        raise Fermo(f"il gruppo di prova {nome} non ha dentro il solo iscritto di questa impronta: non si programma")
+    print("- gruppo di prova: iscritti nel gruppo 1, l'iscritto di prova")
+    dati = dati_invio(gruppo, nome, modello)
+    programma(bid, gruppo, dati, invio, "nessun iscritto segnato")
+    print(f"- invio {bid}: programmato per le {invio:%H:%M} (ora di Roma) e riletto da Kit, filtro sul solo gruppo di prova")
+    voluti = dict(dati, send_at=invio.astimezone(UTC).isoformat(timespec="seconds"))
+    if resta_nel_passo() < RISERVA_GRUPPO:
+        raise Fermo(f"non resta il tempo per ricontare il gruppo dopo la programmazione e rimediare: {esito_tolto(bid, voluti, invio)}")
+    if not solo_lui(gruppo, chi, tentativi=1):
+        raise Fermo(f"dopo la programmazione il gruppo di prova {nome} non ha dentro il solo iscritto di prova (o non si rilegge): "
+                    f"{esito_tolto(bid, voluti, invio)}")
+    print("- gruppo riletto dopo la programmazione: iscritti nel gruppo 1")
+    print(f"- {RESTA}\n")
+    print(f"OK: prova programmata (invio {bid}) per le {invio:%H:%M}, al solo iscritto di prova")
+    return bid
 
 
 def main():
@@ -605,7 +697,13 @@ def main():
         (ANTEPRIME / "benvenuto.html").write_text(nl.anteprima_locale(corpo), encoding="utf-8")
         print(f"Anteprima: _benvenuto/benvenuto.html - {oggetto} | {anteprima}")
         return
-    if modo not in ("piano", "invia", "bozza", "prova") or (modo in ("bozza", "prova") and len(sys.argv) < 3):
+    if modo == "impronta":
+        indirizzo = "".join(sys.stdin.readline().split())
+        if indirizzo.count("@") != 1 or indirizzo.startswith("@") or indirizzo.endswith("@"):
+            sys.exit("Impronta: sullo standard input serve un indirizzo (non lo ripeto qui)")
+        print(impronta_di(indirizzo))
+        return
+    if modo not in ("piano", "invia", "bozza", "prova") or (modo in ("bozza", "prova") and len(sys.argv) != 3):
         sys.exit(__doc__)
     avvia_scadenza()
     try:
@@ -616,7 +714,15 @@ def main():
         else:
             giro(esegui=modo == "invia")
     except (Fermo, Avviso) as e:
-        print(f"DA GUARDARE: benvenuto - {e}")
+        print(f"{chr(10) if modo in ('bozza', 'prova') else ''}DA GUARDARE: benvenuto - {e}")
+        if modo in ("bozza", "prova"):
+            print(f"\n{RESTA_FERMO}")
+        sys.exit(1)
+    except Exception as e:  # noqa: BLE001
+        # mai un tracciato né il testo dell'errore: dentro può esserci una risposta di Kit, cioè indirizzi. Solo dove
+        dove = traceback.extract_tb(e.__traceback__)[-1]
+        print(f"\nDA GUARDARE: benvenuto - errore imprevisto ({type(e).__name__}, {Path(dove.filename).name} riga {dove.lineno}): "
+              "il giro si è fermato a metà, guarda in Kit (Broadcasts) se è rimasto un invio del benvenuto da togliere")
         sys.exit(1)
 
 

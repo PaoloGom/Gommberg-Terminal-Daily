@@ -1258,14 +1258,18 @@ def passo_benvenuto():
     che sbaglia (5xx, rete muta, risposte illeggibili o fuori forma, filtro ignorato o cambiato, risposte che mentono,
     invii che non si tolgono) e nei casi difficili (zero nuovi, già salutati, finestra di 7 giorni e accensione, due giri
     nello stesso giorno, giro interrotto a metà, sere saltate per l'orario): mai due mail allo stesso iscritto, mai un
-    invio che parte con destinatari diversi dal gruppo, nel dubbio nessun invio (senza rete)."""
+    invio che parte con destinatari diversi dal gruppo, nel dubbio nessun invio (senza rete). Poi la prova dal vivo
+    (bozza e prova, con l'iscritto indicato per impronta) dalla riga di comando e dai passi di dem.yml eseguiti qui: mai
+    un invio a qualcuno che non sia il solo iscritto dell'impronta, mai un indirizzo in ciò che lo script stampa."""
     rc, out = esegui([sys.executable, os.path.join(R, "benvenuto.py"), "controlla"])
     esito("Benvenuto: testo della mail", rc == 0, out.strip().splitlines()[-1][:200] if out.strip() else "nessuna uscita")
 
     sys.path.insert(0, R)
     import contextlib
     import copy
+    import hashlib
     import io
+    import traceback
     from datetime import datetime, timedelta, timezone
     from urllib.parse import parse_qs, urlsplit
     from zoneinfo import ZoneInfo
@@ -1274,7 +1278,7 @@ def passo_benvenuto():
     ROMA, UTC = ZoneInfo("Europe/Rome"), timezone.utc
     SERA = datetime(2026, 12, 2, 19, 30, tzinfo=ROMA)          # un mercoledì alle 19:30, 4 giorni dopo l'accensione
     TUTTI = [{"all": [{"type": "all_subscribers"}], "any": None, "none": None}]
-    male = []
+    male, viva, uscite = [], [], []       # viva: la prova dal vivo; uscite: tutto ciò che lo script ha stampato
 
     class Interrotto(BaseException):        # come un giro ucciso: nessuno strato la intercetta
         pass
@@ -1431,13 +1435,17 @@ def passo_benvenuto():
             with contextlib.redirect_stdout(o):
                 return BV.giro(esegui=True, adesso=adesso), o.getvalue()
         except BV.Fermo as e:
+            uscite.append(str(e))
             return "fermo", str(e)
         except BV.Avviso as e:
+            uscite.append(str(e))
             return "avviso", str(e)
         except Interrotto:
             return "interrotto", ""
         except Exception as e:  # noqa: BLE001
             return "eccezione", f"{type(e).__name__}: {e}"
+        finally:
+            uscite.append(o.getvalue())
 
     def vecchi():
         return [iscritto(i, 24 * (40 + i)) for i in range(50, 55)]      # i lettori di prima: mai il benvenuto
@@ -1700,46 +1708,367 @@ def passo_benvenuto():
             BV.giro(esegui=False, adesso=SERA)
         if k.scritture():
             male.append("il piano scrive in Kit")
-        # 17. punto 8: la prova dal vivo in due passi. bozza: solo una bozza, mai programmata; prova: programma solo la
-        #     bozza verificata, al solo indirizzo dato; con Kit che ignora il filtro la bozza si toglie e prova non parte
-        casa = dict(iscritto(1, 24 * 90), email_address="casa@prova.it")
-        k = KitFinto([casa, iscritto(2, 3)] + vecchi())
-        BV.nl.kit = k
+        # 17. la prova dal vivo (bozza e prova), dalla riga di comando come la lancia dem.yml, con l'iscritto di prova
+        #     indicato per impronta: mai un invio a destinatari diversi dal solo iscritto dell'impronta, mai un indirizzo
+        #     in ciò che lo script stampa o chiede a Kit
+        CASA = "casa@prova.it"
+        IMPR = "impronta:" + hashlib.sha256(CASA.encode("utf-8")).hexdigest()[:16]
+        NESSUNO = {1: 0, 2: 0, **{i: 0 for i in range(50, 55)}}
+        SOLO_LUI = {**NESSUNO, 1: 1}
+
+        class OraFerma(datetime):
+            ferma = SERA
+
+            @classmethod
+            def now(cls, tz=None):
+                return cls.ferma.astimezone(tz) if tz else cls.ferma
+
+        def mondo(stato="active", in_piu=()):
+            return KitFinto([dict(iscritto(1, 24 * 90, stato), email_address="Casa@Prova.it"), iscritto(2, 3)] + vecchi() + list(in_piu))
+
+        def comando(k, *argomenti, adesso=SERA, via=None, orologio=None, entra=""):
+            """benvenuto.py dalla riga di comando (main), con il Kit finto e l'ora ferma: (uscita, tutto ciò che stampa)."""
+            BV.nl.kit, BV._scadenza, BV._avvio = (via or k), None, None
+            OraFerma.ferma = adesso
+            BV.datetime, BV.orologio = OraFerma, (orologio or vero_orologio)
+            o, argv, stdin = io.StringIO(), sys.argv, sys.stdin
+            sys.argv, sys.stdin = ["benvenuto.py", *argomenti], io.StringIO(entra)
+            try:
+                with contextlib.redirect_stdout(o), contextlib.redirect_stderr(o):
+                    try:
+                        BV.main()
+                        rc = 0
+                    except SystemExit as e:
+                        rc = e.code if isinstance(e.code, int) else (0 if e.code is None else 1)
+                        o.write(e.code if isinstance(e.code, str) else "")
+                    except Exception:  # noqa: BLE001
+                        rc = "tracciato"
+                        o.write(traceback.format_exc())
+            finally:
+                sys.argv, sys.stdin, BV.datetime, BV.orologio, BV._scadenza, BV._avvio = argv, stdin, datetime, vero_orologio, None, None
+            uscite.append(o.getvalue())
+            if k is not None and any("@" in c[1] or "%40" in c[1] or "email_address" in c[1] for c in k.chiamate):
+                viva.append(f"{' '.join(argomenti[:1])}: un indirizzo in una richiesta a Kit")
+            return rc, o.getvalue()
+
+        def con_bozza(k=None):
+            """Un mondo con la bozza di prova già fatta e in ordine: (kit, id del gruppo di prova, id della bozza)."""
+            k = k or mondo()
+            rc, out = comando(k, "bozza", IMPR)
+            g = [i for i, n in k.tag.items() if n == "gommberg-benvenuto-prova-2026-12-02-1930"]
+            if rc != 0 or len(g) != 1 or len(k.invii) != 1:
+                viva.append(f"bozza di prova non riuscita ({out[-120:]})")
+                return k, None, None
+            return k, g[0], list(k.invii)[0]
+
+        def fermo_pulito(nome, k, rc, out, atteso="DA GUARDARE", invii=0):
+            """Il caso deve finire fermo: uscita 1, nessuna mail a nessuno, nessun invio programmato, gli invii rimasti attesi."""
+            if rc != 1 or atteso not in out or any(k.posta().values()) or len(k.invii) != invii or any(b["send_at"] for b in k.invii.values()):
+                viva.append(f"{nome}: uscita {rc}, posta {k.posta()}, {len(k.invii)} invii rimasti ({out.strip()[-100:]})")
+
+        #    il piano dalla riga di comando (prova-piano): solo letture, solo conti
+        k = KitFinto([dict(iscritto(1, 2), email_address=CASA), iscritto(2, 3)] + vecchi())
+        rc, out = comando(k, "piano")
+        if rc != 0 or k.scritture() or "2 da salutare" not in out or "Piano: etichetta del gruppo e invio alle 19:40 per 2 iscritti" not in out:
+            viva.append(f"piano dalla riga di comando: uscita {rc}, {len(k.scritture())} scritture ({out.strip()[-80:]})")
+        # a. l'impronta: la stessa per maiuscole e spazi, calcolata senza ripetere l'indirizzo; senza indirizzo, errore
+        rc, out = comando(None, "impronta", entra="  Casa@Prova.IT \n")
+        if rc != 0 or out.strip() != IMPR.split(":")[1]:
+            viva.append(f"impronta: attesa {IMPR.split(':')[1]}, trovato {out.strip()[:40]}")
+        rc, out = comando(None, "impronta", entra="casa\n")
+        if rc != 1 or "casa" in out.lower().replace("caso", ""):
+            viva.append("impronta senza indirizzo: non si ferma, o ripete ciò che ha letto")
+        # b. l'iscritto di prova si indica solo con l'impronta: un indirizzo in chiaro o un'impronta storta non fanno nulla
+        for modo in ("bozza", "prova"):
+            for nome, chi in (("indirizzo in chiaro", CASA), ("impronta corta", "impronta:3b0d06"), ("impronta vuota", "impronta:"),
+                              ("senza prefisso", IMPR.split(":")[1]), ("impronta di nessuno", "impronta:" + "0" * 16)):
+                k = mondo()
+                rc, out = comando(k, modo, chi)
+                fermo_pulito(f"{modo}, {nome}", k, rc, out)
+                if k.scritture() or (nome != "impronta di nessuno" and k.chiamate and modo == "bozza" and len(k.chiamate) > 1):
+                    viva.append(f"{modo}, {nome}: scritture in Kit o letture oltre la cornice")
+            # c. due iscritti attivi con la stessa impronta; l'iscritto non confermato; Kit che ignora il filtro sullo stato
+            k = mondo(in_piu=[dict(iscritto(9, 5), email_address="casa@prova.it")])
+            rc, out = comando(k, modo, IMPR)
+            fermo_pulito(f"{modo}, impronta di due iscritti", k, rc, out, "corrisponde a 2 iscritti")
+            k = mondo(stato="inactive")
+            rc, out = comando(k, modo, IMPR)
+            fermo_pulito(f"{modo}, iscritto non confermato", k, rc, out, "corrisponde a 0 iscritti")
+            k2 = mondo()
+            k2.guasti["GET /subscribers"] = (200, {"subscribers": [{"id": 1, "state": "inactive", "email_address": CASA, "created_at": "2026-09-01T00:00:00Z"}],
+                                                   "pagination": {"has_next_page": False}})
+            rc2, out2 = comando(k2, modo, IMPR)
+            fermo_pulito(f"{modo}, non confermato restituito lo stesso da Kit", k2, rc2, out2, "fuori forma")
+            if k.scritture() or k2.scritture():
+                viva.append(f"{modo}: scritture in Kit senza un iscritto di prova certo")
+            # d. Kit che non dice gli indirizzi, o risponde con un errore che ne contiene uno: fermo, e l'indirizzo non esce
+            for nome, risposta in (("elenco senza indirizzi", (200, {"subscribers": [{"id": 1, "state": "active", "created_at": "x"}], "pagination": {"has_next_page": False}})),
+                                   ("errore con un indirizzo", (500, {"errore": f"{CASA} non valido"})),
+                                   ("risposta illeggibile con un indirizzo", ValueError(f"Expecting value: {CASA}")),
+                                   ("elenco troncato", (200, {"subscribers": [{"id": 1, "state": "active", "email_address": CASA}]}))):
+                k = mondo()
+                k.guasti["GET /subscribers"] = risposta
+                rc, out = comando(k, modo, IMPR)
+                fermo_pulito(f"{modo}, {nome}", k, rc, out)
+                if k.scritture():
+                    viva.append(f"{modo}, {nome}: scritture in Kit")
+        # e. un errore imprevisto con dentro un indirizzo: mai un tracciato, mai il testo dell'errore
+        vera_impronta = BV.impronta_di
+
+        def impronta_rotta(_):
+            raise RuntimeError(f"risposta di Kit: {CASA}")
+        BV.impronta_di = impronta_rotta
         try:
-            with contextlib.redirect_stdout(io.StringIO()):
-                BV.prova("casa@prova.it", adesso=SERA)
-            male.append("prova senza bozza: è andata avanti")
-        except BV.Fermo:
-            pass
-        try:
-            with contextlib.redirect_stdout(io.StringIO()):
-                BV.bozza("casa@prova.it", adesso=SERA)
-        except BV.Fermo as e:
-            male.append(f"bozza di prova fermata: {str(e)[:60]}")
-        if len(k.invii) != 1 or any(c[0] == "PUT" for c in k.chiamate) or max(k.posta().values()) > 0:
-            male.append("bozza: non una sola bozza, o programmata")
-        try:
-            with contextlib.redirect_stdout(io.StringIO()):
-                BV.prova("casa@prova.it", adesso=SERA)
-        except BV.Fermo as e:
-            male.append(f"prova dopo la bozza fermata: {str(e)[:60]}")
-        if k.posta() != {1: 1, 2: 0, **{i: 0 for i in range(50, 55)}} or any(n == "gommberg-benvenuto" for n in k.tag.values()):
-            male.append(f"prova dal vivo: posta {k.posta()} o etichetta permanente messa")
-        k = KitFinto([casa] + vecchi())
-        k.crea_mente = True
-        BV.nl.kit = k
-        try:
-            with contextlib.redirect_stdout(io.StringIO()):
-                BV.bozza("casa@prova.it", adesso=SERA)
-        except BV.Fermo:
-            pass
-        try:
-            with contextlib.redirect_stdout(io.StringIO()):
-                BV.prova("casa@prova.it", adesso=SERA)
-        except BV.Fermo:
-            pass
-        if k.invii or max(k.posta().values()) > 0:
-            male.append("bozza di prova registrata a tutti: non tolta, o programmata da prova")
+            k = mondo()
+            rc, out = comando(k, "bozza", IMPR)
+        finally:
+            BV.impronta_di = vera_impronta
+        if rc != 1 or not re.search(r"errore imprevisto \(RuntimeError, \w+\.py riga \d+\)", out) or "Traceback" in out or k.scritture():
+            viva.append(f"errore imprevisto: uscita {rc} ({out.strip()[-100:]})")
+        # f. la bozza: una sola, per un gruppo di prova nuovo con dentro lui solo, mai programmata; niente etichetta permanente
+        k, g, bid = con_bozza()
+        out = uscite[-1]
+        if g is not None and (k.membri[g] != {1} or k.posta() != NESSUNO or any(c[0] == "PUT" for c in k.chiamate)
+                              or any(n == "gommberg-benvenuto" for n in k.tag.values()) or k.invii[bid]["vero"] != [{"all": [{"type": "tag", "ids": [g]}], "any": None, "none": None}]):
+            viva.append("bozza: gruppo, filtro o stato diversi dal voluto, o etichetta permanente messa")
+        for frase in ("trovato per impronta", "iscritti nel gruppo 1", f"bozza {bid}: creata e riletta da Kit, filtro sul solo gruppo di prova, stato bozza",
+                      "gruppo riletto dopo la bozza: iscritti nel gruppo 1", "Che cosa resta in Kit", "non dà l'etichetta permanente", "OK: bozza di prova"):
+            if g is not None and frase not in out:
+                viva.append(f"riepilogo della bozza senza '{frase}'")
+        letture_gruppo = [n for n, c in enumerate(k.chiamate) if g is not None and c[0] == "GET" and c[1].startswith(f"/tags/{g}/subscribers")]
+        i_post = [n for n, c in enumerate(k.chiamate) if c[0] == "POST" and c[1] == "/broadcasts"]
+        if g is not None and not (len(i_post) == 1 and any(n < i_post[0] for n in letture_gruppo) and any(n > i_post[0] for n in letture_gruppo)):
+            viva.append("bozza: il gruppo non è contato in Kit prima e dopo la creazione")
+        #    due bozze nello stesso minuto: la seconda non riusa il gruppo
+        rc, out = comando(k, "bozza", IMPR)
+        if g is not None and (rc != 1 or len(k.invii) != 1):
+            viva.append("seconda bozza nello stesso minuto: gruppo riusato o seconda bozza creata")
+        # g. Kit che risponde male alla creazione (nasce ma risponde 0, 500, fuori forma, illeggibile; registra a tutti,
+        #    anche mentendo) e alla rilettura: la bozza si toglie, e prova dopo non trova nulla da programmare
+        for nome, prepara in (("timeout", lambda k: k.guasti.__setitem__("POST /broadcasts", ("dopo", 0, {"errore": "rete"}))),
+                              ("500", lambda k: k.guasti.__setitem__("POST /broadcasts", ("dopo", 500, {}))),
+                              ("200 fuori forma", lambda k: k.guasti.__setitem__("POST /broadcasts", ("dopo", 200, {"ok": 1}))),
+                              ("200 non JSON", lambda k: k.guasti.__setitem__("POST /broadcasts", ("dopo", ValueError(CASA), None))),
+                              ("rifiuto 422", lambda k: k.guasti.__setitem__("POST /broadcasts", (422, {"errors": [CASA]}))),
+                              ("a tutti, risposta onesta", lambda k: setattr(k, "crea_a_tutti", True)),
+                              ("a tutti, risposta che mente", lambda k: setattr(k, "crea_mente", True)),
+                              ("rilettura muta", lambda k: k.guasti.__setitem__("GET /broadcasts/*", (503, {}))),
+                              ("rilettura illeggibile", lambda k: k.guasti.__setitem__("GET /broadcasts/*", ValueError(CASA))),
+                              ("rilettura fuori forma", lambda k: k.guasti.__setitem__("GET /broadcasts/*", (200, {"broadcast": [CASA]})))):
+            k = mondo()
+            prepara(k)
+            rc, out = comando(k, "bozza", IMPR)
+            fermo_pulito(f"bozza, creazione ({nome})", k, rc, out)
+            if len([c for c in k.chiamate if c[0] == "POST" and c[1] == "/broadcasts"]) != 1 or "può essere rimasto in Kit" not in out:
+                viva.append(f"bozza, creazione ({nome}): creazione ritentata, o il riepilogo non dice che cosa può essere rimasto")
+            k.guasti.clear()
+            rc, out = comando(k, "prova", IMPR)
+            fermo_pulito(f"prova dopo una bozza fallita ({nome})", k, rc, out, "nessuna bozza di prova")
+        # h. il gruppo che in Kit risulta di 2: prima della bozza (nessuna bozza), dopo la bozza (tolta), prima della
+        #    programmazione (non si programma), dopo la programmazione (l'invio si toglie)
+        def gruppo_di_due(k, dalla=1, dopo_put=False):
+            visto = {"n": 0}
+
+            def kit(metodo, percorso, dati=None):
+                st, corpo = k(metodo, percorso, dati)
+                di_prova = metodo == "GET" and re.match(r"^/tags/\d+/subscribers\?", percorso) and "-prova-" in k.tag.get(int(percorso.split("/")[2]), "")
+                if di_prova and (any(c[0] == "PUT" for c in k.chiamate) if dopo_put else True):
+                    visto["n"] += 1
+                    if visto["n"] >= dalla and st == 200:
+                        corpo = dict(corpo, subscribers=corpo["subscribers"] + [{"id": 2}])
+                return st, corpo
+            return kit
+        k = mondo()
+        rc, out = comando(k, "bozza", IMPR, via=gruppo_di_due(k))
+        fermo_pulito("bozza, gruppo di 2 prima della creazione", k, rc, out, "ha 2 iscritti invece di 1")
+        if k.invii_scritti():
+            viva.append("bozza, gruppo di 2 prima della creazione: la bozza è stata creata lo stesso")
+        k = mondo()
+        rc, out = comando(k, "bozza", IMPR, via=gruppo_di_due(k, dalla=2))
+        fermo_pulito("bozza, gruppo di 2 dopo la creazione", k, rc, out, "tolto")
+        k, g, bid = con_bozza()
+        if g is not None:
+            k.membri[g].add(2)
+            rc, out = comando(k, "prova", IMPR)
+            fermo_pulito("prova, gruppo di 2 prima della programmazione", k, rc, out, "non ha dentro il solo iscritto", invii=1)
+            if any(c[0] == "PUT" for c in k.chiamate):
+                viva.append("prova, gruppo di 2: programmata lo stesso")
+        k, g, bid = con_bozza()
+        if g is not None:
+            orig = k.esegui
+
+            def cresce_dopo(metodo, percorso, dati, _o=orig, _k=k, _g=g):          # un secondo iscritto entra nel gruppo dopo la programmazione
+                r = _o(metodo, percorso, dati)
+                if metodo == "PUT" and dati.get("send_at"):
+                    _k.membri[_g].add(2)
+                return r
+            k.esegui = cresce_dopo
+            rc, out = comando(k, "prova", IMPR)
+            fermo_pulito("prova, gruppo di 2 dopo la programmazione", k, rc, out, "tolto")
+        k, g, bid = con_bozza()
+        if g is not None:                                                      # il gruppo che dopo la programmazione non si rilegge
+            n0 = len(k.chiamate)
+            rc, out = comando(k, "prova", IMPR, via=(lambda m, p, d=None, _k=k, _g=g: (_k.chiamate.append((m, p, None)) or (503, {}))
+                                                     if m == "GET" and p.startswith(f"/tags/{_g}/subscribers") and any(c[0] == "PUT" for c in _k.chiamate) else _k(m, p, d)))
+            fermo_pulito("prova, gruppo non riletto dopo la programmazione", k, rc, out, "tolto")
+            dopo_put = [c for c in k.chiamate[n0:] if c[0] == "GET" and c[1].startswith(f"/tags/{g}/subscribers")]
+            if len(dopo_put) != 2:                                             # una prima e una sola dopo: il tempo della pulizia è contato
+                viva.append(f"prova: il gruppo dopo la programmazione va letto una volta sola, lette {len(dopo_put) - 1}")
+        # i. la prova: senza bozza nulla; con la bozza in ordine programma, rilegge, riconta e la mail va a lui solo
+        k = mondo()
+        rc, out = comando(k, "prova", IMPR)
+        fermo_pulito("prova senza bozza", k, rc, out, "nessuna bozza di prova")
+        if k.scritture():
+            viva.append("prova senza bozza: scritture in Kit")
+        k, g, bid = con_bozza()
+        if g is not None:
+            n0 = len(k.chiamate)
+            rc, out = comando(k, "prova", IMPR)
+            t = datetime.fromisoformat((k.invii[bid]["send_at"] or "2000-01-01T00:00:00+00:00").replace("Z", "+00:00")) if bid in k.invii else None
+            if rc != 0 or k.posta() != SOLO_LUI or len(k.invii) != 1 or not t or abs((t - SERA - timedelta(minutes=BV.ATTESA_MINUTI)).total_seconds()) > 60 \
+                    or any(n == "gommberg-benvenuto" for n in k.tag.values()):
+                viva.append(f"prova: uscita {rc}, posta {k.posta()} (attesa: una mail al solo iscritto di prova, {BV.ATTESA_MINUTI} minuti dopo)")
+            giro_k = k.chiamate[n0:]
+            i_put = [n for n, c in enumerate(giro_k) if c[0] == "PUT"]
+            if len(i_put) != 1 or giro_k[i_put[0]][2]["subscriber_filter"] != [{"all": [{"type": "tag", "ids": [g]}], "any": None, "none": None}] \
+                    or not any(c[0] == "GET" and c[1] == f"/broadcasts/{bid}" for c in giro_k[i_put[0]:]) \
+                    or not any(c[0] == "GET" and c[1].startswith(f"/tags/{g}/subscribers") for c in giro_k[:i_put[0]]) \
+                    or not any(c[0] == "GET" and c[1].startswith(f"/tags/{g}/subscribers") for c in giro_k[i_put[0]:]) \
+                    or [c for c in giro_k if c[0] not in ("GET", "PUT")]:
+                viva.append("prova: programmazione senza filtro sul gruppo, senza rilettura, senza il gruppo contato prima e dopo, o con altre scritture")
+            for frase in ("trovato per impronta", "riletta da Kit, filtro sul solo gruppo di prova, stato bozza", "iscritti nel gruppo 1, l'iscritto di prova",
+                          f"invio {bid}: programmato per le 19:40 (ora di Roma) e riletto da Kit", "gruppo riletto dopo la programmazione: iscritti nel gruppo 1",
+                          "Che cosa resta in Kit", "OK: prova programmata"):
+                if frase not in out:
+                    viva.append(f"riepilogo della prova senza '{frase}'")
+            #    una seconda prova non trova più bozze: nessuna seconda mail
+            rc, out = comando(k, "prova", IMPR)
+            if rc != 1 or k.posta() != SOLO_LUI:
+                viva.append("seconda prova: una seconda mail, o nessun fermo")
+        # l. la prova con l'impronta di un altro iscritto, e bozze che non sono di un gruppo di prova con lui solo
+        k, g, bid = con_bozza()
+        if g is not None:
+            rc, out = comando(k, "prova", "impronta:" + hashlib.sha256(b"x2@prova.it").hexdigest()[:16])
+            fermo_pulito("prova con l'impronta di un altro iscritto", k, rc, out, "non ha dentro il solo iscritto di questa impronta", invii=1)
+            if any(c[0] == "PUT" for c in k.chiamate):
+                viva.append("prova con l'impronta di un altro iscritto: programmata lo stesso")
+        k, g, bid = con_bozza()
+        if g is not None:                    # la bozza di prova che Kit ora mostra con un secondo gruppo nel filtro
+            k.invii[bid]["vero"] = [{"all": [{"type": "tag", "ids": [g, g + 1000]}], "any": None, "none": None}]
+            rc, out = comando(k, "prova", IMPR)
+            fermo_pulito("prova, bozza con due gruppi nel filtro", k, rc, out, "non si programma", invii=1)
+            if any(c[0] == "PUT" for c in k.chiamate):
+                viva.append("prova, bozza con due gruppi nel filtro: programmata lo stesso")
+        k, g, bid = con_bozza()
+        if g is not None:                    # una bozza più recente che non è di prova non conta: si programma quella di prova
+            i = k.nuovo_id()
+            k.invii[i] = {"id": i, "subject": "x", "description": "gommberg-dem-2026-12-03", "send_at": None, "email_template": {"id": 5, "name": "Gommberg cornice"}, "vero": TUTTI}
+            rc, out = comando(k, "prova", IMPR)
+            if rc != 0 or k.posta() != SOLO_LUI or k.invii[i]["send_at"]:
+                viva.append(f"prova con una bozza più recente non di prova: uscita {rc}, posta {k.posta()}")
+        for nome, etichette, descrizione, filtro in (
+                ("bozza sul gruppo permanente", [("gommberg-benvenuto", {1})], "gommberg-benvenuto-prova-2026-12-02-1930", "tag"),
+                ("bozza su un'etichetta di prova con un altro nome", [("gommberg-benvenuto-prova-2026-12-01-1200", {1}), ("gommberg-benvenuto-prova-2026-12-02-1930", {1})],
+                 "gommberg-benvenuto-prova-2026-12-02-1930", "tag"),
+                ("bozza a tutti", [("gommberg-benvenuto-prova-2026-12-02-1930", {1})], "gommberg-benvenuto-prova-2026-12-02-1930", "tutti"),
+                ("bozza con un nome che non è di prova", [("gommberg-benvenuto-prova-x", {1})], "gommberg-benvenuto-prova-x", "tag"),
+                ("bozza di una mail straordinaria", [("gommberg-dem-2026-12-02", {1})], "gommberg-dem-2026-12-02", "tag")):
+            k = mondo()
+            for n, chi in etichette:
+                i = k.nuovo_id()
+                k.tag[i], k.membri[i] = n, set(chi)
+            primo = min(k.tag)
+            i = k.nuovo_id()
+            k.invii[i] = {"id": i, "subject": "x", "description": descrizione, "send_at": None, "email_template": {"id": 5, "name": "Gommberg cornice"},
+                          "vero": TUTTI if filtro == "tutti" else [{"all": [{"type": "tag", "ids": [primo]}], "any": None, "none": None}]}
+            rc, out = comando(k, "prova", IMPR)
+            fermo_pulito(f"prova, {nome}", k, rc, out, invii=1)
+            if k.scritture():
+                viva.append(f"prova, {nome}: scritture in Kit")
+        # m. Kit che risponde male alla programmazione e alla rilettura: l'invio si toglie (o torna in bozza, o URGENTE);
+        #    in timeout ma applicata giusta: parte, a lui solo
+        for nome, prepara, parte, atteso in (
+                ("422", lambda k: k.guasti.__setitem__("PUT /broadcasts*", (422, {"errors": [CASA]})), False, "tolto"),
+                ("a tutti, risposta onesta", lambda k: setattr(k, "put_a_tutti", True), False, "tolto"),
+                ("a tutti, risposta che mente", lambda k: setattr(k, "put_mente", True), False, "tolto"),
+                ("timeout e filtro cambiato", lambda k: (setattr(k, "put_a_tutti", True), k.guasti.__setitem__("PUT /broadcasts*", ("dopo", 0, {}))), False, "tolto"),
+                ("200 non JSON e filtro cambiato", lambda k: (setattr(k, "put_a_tutti", True), k.guasti.__setitem__("PUT /broadcasts*", ("dopo", ValueError(CASA), None))), False, "tolto"),
+                ("rilettura muta dopo la programmazione", lambda k: k.guasti.__setitem__("GET /broadcasts/*", [None, (503, {}), (503, {})]), False, "tolto"),
+                ("rilettura della bozza muta", lambda k: k.guasti.__setitem__("GET /broadcasts/*", (503, {})), False, "non si programma"),
+                ("elenco degli invii illeggibile", lambda k: k.guasti.__setitem__("GET /broadcasts", ValueError(CASA)), False, "DA GUARDARE"),
+                ("timeout, applicata giusta", lambda k: k.guasti.__setitem__("PUT /broadcasts*", ("dopo", 0, {})), True, "OK: prova programmata"),
+                ("200 fuori forma, applicata giusta", lambda k: k.guasti.__setitem__("PUT /broadcasts*", ("dopo", 200, {"x": 1})), True, "OK: prova programmata")):
+            k, g, bid = con_bozza()
+            if g is None:
+                continue
+            prepara(k)
+            rc, out = comando(k, "prova", IMPR)
+            resta_bozza = nome in ("rilettura della bozza muta", "elenco degli invii illeggibile")
+            if parte:
+                if rc != 0 or k.posta() != SOLO_LUI or atteso not in out:
+                    viva.append(f"prova, programmazione ({nome}): uscita {rc}, posta {k.posta()}")
+            else:
+                fermo_pulito(f"prova, programmazione ({nome})", k, rc, out, atteso, invii=1 if resta_bozza else 0)
+        k, g, bid = con_bozza()
+        if g is not None:                    # l'invio sbagliato che non si toglie torna in bozza; se non si può, URGENTE
+            k.put_a_tutti, k.delete_rotto = True, True
+            orig = k.esegui
+
+            def ripiego_riesce(metodo, percorso, dati, _o=orig, _k=k):
+                if metodo == "PUT" and dati.get("send_at") is None:
+                    _k.put_a_tutti = False
+                return _o(metodo, percorso, dati)
+            k.esegui = ripiego_riesce
+            rc, out = comando(k, "prova", IMPR)
+            fermo_pulito("prova, invio sbagliato non tolto", k, rc, out, "riportato in bozza", invii=1)
+        k, g, bid = con_bozza()
+        if g is not None:
+            k.put_a_tutti, k.delete_rotto = True, True
+            orig = k.esegui
+            k.esegui = lambda metodo, percorso, dati, _o=orig: (500, {}) if metodo == "PUT" and dati.get("send_at") is None else _o(metodo, percorso, dati)
+            rc, out = comando(k, "prova", IMPR)
+            if rc != 1 or "URGENTE" not in out or "FERMALO A MANO" not in out or "19:40" not in out:
+                viva.append(f"prova, invio sbagliato né tolto né in bozza: manca l'URGENTE con l'ora ({out.strip()[-80:]})")
+        # n. orari: le stesse fasce del giro (mai prima delle 8, nella fascia dell'edizione, o con l'invio dopo le 20:59);
+        #    fuori orario nemmeno una chiamata a Kit
+        for nome, quando_, parte in (("7:55", SERA.replace(hour=7, minute=55), False), ("8:21 (invio alle 8:31)", SERA.replace(hour=8, minute=21), False),
+                                     ("9:00", SERA.replace(hour=9, minute=0), False), ("10:29", SERA.replace(hour=10, minute=29), False),
+                                     ("20:50 (invio alle 21:00)", SERA.replace(hour=20, minute=50), False), ("23:00", SERA.replace(hour=23, minute=0), False),
+                                     ("8:05", SERA.replace(hour=8, minute=5), True), ("10:30", SERA.replace(hour=10, minute=30), True),
+                                     ("20:49 (invio alle 20:59)", SERA.replace(hour=20, minute=49), True)):
+            k, g, bid = con_bozza()
+            if g is None:
+                continue
+            n0 = len(k.chiamate)
+            rc, out = comando(k, "prova", IMPR, adesso=quando_)
+            if parte and (rc != 0 or k.posta() != SOLO_LUI):
+                viva.append(f"prova alle {nome}: non parte ({out.strip()[-80:]})")
+            if not parte and (rc != 1 or "fuori orario" not in out or len(k.chiamate) != n0 or k.posta() != NESSUNO):
+                viva.append(f"prova alle {nome}: non si ferma per l'orario, o chiama Kit lo stesso")
+        # o. tempo: la programmazione parte solo se resta il tempo per rimediare (altrimenti la bozza si toglie), e dopo
+        #    la programmazione il gruppo si riconta solo se resta il tempo per ricontare e togliere (altrimenti si toglie)
+        for nome, lenta, atteso in (("Kit lento prima della programmazione", lambda m: 5.0, "tempo del passo insufficiente"),
+                                    ("Kit lento alla programmazione", lambda m: 90.0 if m == "PUT" else 0.1, "non resta il tempo per ricontare")):
+            k, g, bid = con_bozza()
+            if g is None:
+                continue
+            finto = {"t": 0.0}
+
+            def kit_lento(metodo, percorso, dati=None, _k=k, _l=lenta):
+                finto["t"] += _l(metodo)
+                return _k(metodo, percorso, dati)
+            rc, out = comando(k, "prova", IMPR, via=kit_lento, orologio=lambda: finto["t"])
+            fermo_pulito(f"prova, {nome}", k, rc, out, atteso)
+        #    i conti del tempo: l'invio parte dopo la scadenza del passo (la pulizia finisce sempre prima della partenza);
+        #    dopo programmazione e 2 riletture restano le 4 chiamate della pulizia; ricontare il gruppo ne chiede una in più
+        T = BV.TEMPO_CHIAMATA
+        if BV.ATTESA_MINUTI * 60 <= BV.PASSO or hasattr(BV, "ATTESA_PROVA") or not 7 * T <= BV.RISERVA <= BV.PASSO or BV.RISERVA_GRUPPO < 5 * T:
+            viva.append("tempi: l'invio deve partire dopo la scadenza del passo, con il tempo per rileggere, ricontare e togliere")
+        # p. nessun indirizzo in ciò che lo script ha stampato in tutti i casi qui sopra (e nei giri di prima)
+        for u in uscite:
+            if "@" in u or "prova.it" in u.lower() or "Traceback" in u:
+                viva.append(f"un indirizzo o un tracciato in ciò che lo script stampa: ...{u[max(0, u.find('@') - 60):u.find('@') + 20].strip()[:100]}")
+                break
     finally:
         BV.nl.kit, BV.ATTESA_LETTURE, BV.orologio, BV._scadenza, BV._avvio = vero, vera_attesa, vero_orologio, None, None
 
@@ -1770,7 +2099,123 @@ def passo_benvenuto():
           "risposte illeggibili e fuori forma, filtro per data ignorato, troppi, bozza a tutti (anche con risposta che mente) "
           "tolta, creazione incerta cercata e tolta, programmazione sbagliata/incerta riletta e tolta, ripiego in bozza e "
           "URGENTE, giro interrotto in due punti, orari e avviso per chi aspetta da più di 3 giorni, tempo scaduto e riserva per la "
-          "pulizia, piano, bozza e prova dal vivo")
+          "pulizia, piano")
+
+    # la prova dal vivo lanciata a mano da un ramo (dem.yml, modi "prova-"): i passi del flusso eseguiti qui con un
+    # python3 finto che registra come viene chiamato. Solo benvenuto.py piano, bozza o prova; l'impronta arriva da una
+    # variabile d'ambiente e non può diventare un comando; gli altri passi restano com'erano
+    def passo_del_flusso(nome):
+        """(testa, comandi) del passo con quel nome: le righe prima di "run:" e lo script di "run: |"."""
+        m = re.search(r"^      - name: " + re.escape(nome) + r"\n((?:        .*\n|\n)*)", flusso, re.M)
+        corpo = m.group(1) if m else ""
+        r = re.search(r"^        run: \|\n((?:          .*\n|\n)*)", corpo, re.M)
+        return (corpo[:r.start()] if r else corpo), "".join(x[10:] if x.strip() else "\n" for x in (r.group(1) if r else "").splitlines(True))
+
+    lav = os.path.join(TMP, "flusso_dem")
+    os.makedirs(os.path.join(lav, "bin"), exist_ok=True)
+    finto = os.path.join(lav, "bin", "python3")
+    with open(finto, "w", encoding="utf-8") as f:
+        f.write('#!/bin/sh\nprintf \'%s\\n\' "$#" "$@" >> "$REGISTRO"\necho "uscita del python finto"\nexit "${FINTO_RC:-0}"\n')
+    os.chmod(finto, 0o755)
+
+    def lancia(nome, finto_python=True, **amb):
+        """Esegue lo script del passo come fa GitHub (bash -e): (uscita, ciò che stampa, come è stato chiamato python3)."""
+        d = tempfile.mkdtemp(dir=lav)
+        reg, script = os.path.join(d, "registro.txt"), os.path.join(d, "passo.sh")
+        open(script, "w", encoding="utf-8").write(passo_del_flusso(nome)[1])
+        e = {"PATH": (os.path.join(lav, "bin") + os.pathsep if finto_python else "") + os.environ["PATH"], "REGISTRO": reg,
+             "GITHUB_STEP_SUMMARY": os.path.join(d, "riepilogo.md"), "GITHUB_REF": "refs/heads/g43", "GITHUB_EVENT_NAME": "workflow_dispatch"}
+        e.update(amb)
+        q = subprocess.run(["bash", "-e", script], cwd=d, env=e, capture_output=True, text=True, timeout=60)
+        chiamate = open(reg, encoding="utf-8").read().split("\n")[:-1] if os.path.exists(reg) else []
+        return q.returncode, q.stdout + q.stderr, chiamate, d
+
+    testa_prova, comandi_prova = passo_del_flusso("Prova del benvenuto")
+    if not comandi_prova:
+        viva.append("dem.yml: manca il passo 'Prova del benvenuto'")
+    else:
+        IMP = "3b0d0604b4c1c885"
+        for scelto, atteso in (("prova-piano", ["2", "redazione/benvenuto.py", "piano"]),
+                               ("prova-bozza", ["3", "redazione/benvenuto.py", "bozza", "impronta:" + IMP]),
+                               ("prova-invio", ["3", "redazione/benvenuto.py", "prova", "impronta:" + IMP])):
+            for ramo in ("refs/heads/g43", "refs/heads/main"):
+                rc, out, chiamate, d = lancia("Prova del benvenuto", SCELTO=scelto, IMPRONTA=IMP, GITHUB_REF=ramo)
+                if rc != 0 or chiamate != atteso or "uscita del python finto" not in open(os.path.join(d, "riepilogo.md"), encoding="utf-8").read():
+                    viva.append(f"dem.yml, {scelto} da {ramo}: python3 chiamato con {chiamate[1:]} (uscita {rc}), o riepilogo vuoto")
+        #  l'uscita dello script è quella del passo; ogni altro modo e ogni altro evento non chiamano nulla
+        if lancia("Prova del benvenuto", SCELTO="prova-invio", IMPRONTA=IMP, FINTO_RC="1")[0] != 1:
+            viva.append("dem.yml: lo script esce con 1 e il passo di prova resta verde")
+        for scelto in ("sincronizza", "piano", "controlla", "invia", "prova", "prova-", "prova-tutti", "bozza", ""):
+            rc, out, chiamate, d = lancia("Prova del benvenuto", SCELTO=scelto, IMPRONTA=IMP)
+            if rc == 0 or chiamate:
+                viva.append(f"dem.yml: il passo di prova con modo '{scelto}' chiama python3 o resta verde")
+        for evento in ("push", "schedule", "pull_request", ""):
+            rc, out, chiamate, d = lancia("Prova del benvenuto", SCELTO="prova-invio", IMPRONTA=IMP, GITHUB_EVENT_NAME=evento)
+            if rc == 0 or chiamate:
+                viva.append(f"dem.yml: il passo di prova lavora anche con l'evento '{evento}'")
+        #  l'impronta non può diventare un comando né un argomento in più, qualunque cosa contenga
+        for cattiva in ('x"; touch INIETTATO; echo "', "$(touch INIETTATO)", "`touch INIETTATO`", "a b; touch INIETTATO", "x' -c 'import os", "--help", "x\ninvia"):
+            rc, out, chiamate, d = lancia("Prova del benvenuto", SCELTO="prova-invio", IMPRONTA=cattiva)
+            if os.path.exists(os.path.join(d, "INIETTATO")) or chiamate[:3] != ["3", "redazione/benvenuto.py", "prova"] \
+                    or "\n".join(chiamate[3:]) != "impronta:" + cattiva:
+                viva.append(f"dem.yml: l'impronta '{cattiva[:20]}' cambia il comando ({chiamate[:5]})")
+        if "${{" in comandi_prova or re.search(r"dem\.py|invia|sincronizza", comandi_prova) \
+                or len(re.findall(r"^\s*python3 ", comandi_prova, re.M)) != 1 or "tee -a \"$GITHUB_STEP_SUMMARY\"" not in comandi_prova:
+            viva.append("dem.yml: nel passo di prova un valore scritto dentro il comando, un altro script, o nessun riepilogo")
+        if "if: env.PROVA_BENVENUTO == 'true'" not in testa_prova or "KIT_API_KEY: ${{ secrets.KIT_API_KEY }}" not in testa_prova \
+                or "IMPRONTA: ${{ github.event.inputs.impronta }}" not in testa_prova or "timeout-minutes: 4" not in testa_prova:
+            viva.append("dem.yml: il passo di prova non è legato a PROVA_BENVENUTO, o non riceve chiave e impronta dall'ambiente, o non ha i 4 minuti di PASSO")
+    #  PROVA_BENVENUTO: solo lanciando a mano; allora gli altri due lavori non partono, e l'urgenza si segnala anche da un ramo
+    if "PROVA_BENVENUTO: ${{ github.event_name == 'workflow_dispatch' && startsWith(github.event.inputs.modo, 'prova-') }}" not in flusso:
+        viva.append("dem.yml: PROVA_BENVENUTO non è 'lanciato a mano con un modo prova-'")
+    for nome in ("Mail straordinarie", "Benvenuto"):
+        if not re.search(r"^        if: .*env\.PROVA_BENVENUTO != 'true'", passo_del_flusso(nome)[0], re.M):
+            viva.append(f"dem.yml: il passo '{nome}' parte anche durante la prova del benvenuto")
+    if not re.search(r"^        if: failure\(\) && \(github\.ref == 'refs/heads/main' \|\| env\.PROVA_BENVENUTO == 'true'\)", passo_del_flusso("Urgenza benvenuto")[0], re.M):
+        viva.append("dem.yml: l'URGENTE di una prova lanciata da un ramo non apre la segnalazione")
+    scelte = re.search(r"^        options: \[(.*)\]", flusso, re.M)
+    if not scelte or [x.strip() for x in scelte.group(1).split(",")] != ["piano", "sincronizza", "controlla", "prova-piano", "prova-bozza", "prova-invio"] \
+            or not re.search(r"^      impronta:\n(?:        .*\n)*?        type: string", flusso, re.M):
+        viva.append("dem.yml: i modi di workflow_dispatch non sono piano, sincronizza, controlla e i tre prova-, o manca l'input impronta")
+    #  gli altri passi restano com'erano: da un ramo solo il controllo, e un modo di prova non diventa mai un invio
+    for nome, script, casi in (("Benvenuto", "redazione/benvenuto.py", (("sincronizza", "refs/heads/main", "invia"), ("piano", "refs/heads/main", "piano"),
+                                                                         ("controlla", "refs/heads/main", "controlla"), ("sincronizza", "refs/heads/g43", "controlla"),
+                                                                         ("piano", "refs/heads/g43", "controlla"), ("prova-invio", "refs/heads/main", "controlla"),
+                                                                         ("prova-bozza", "refs/heads/g43", "controlla"))),
+                               ("Mail straordinarie", "redazione/dem.py", (("sincronizza", "refs/heads/main", "sincronizza"), ("piano", "refs/heads/main", "piano"),
+                                                                           ("sincronizza", "refs/heads/g43", "controlla"), ("piano", "refs/heads/g43", "controlla"),
+                                                                           ("prova-invio", "refs/heads/g43", "controlla")))):
+        for scelto, ramo, atteso in casi:
+            rc, out, chiamate, d = lancia(nome, SCELTO=scelto, GITHUB_REF=ramo)
+            if chiamate != ["2", script, atteso]:
+                viva.append(f"dem.yml, passo '{nome}' con {scelto} da {ramo}: python3 chiamato con {chiamate[1:]}, atteso {atteso}")
+    #  l'impronta fuori dal registro: mascherata prima del passo che la riceve, letta dal file dell'evento
+    ordine = re.findall(r"^      - name: (.*)$", flusso, re.M)
+    if "Impronta fuori dal registro" not in ordine or ordine.index("Impronta fuori dal registro") > ordine.index("Prova del benvenuto") \
+            or "${{" in passo_del_flusso("Impronta fuori dal registro")[1] or "env:" in passo_del_flusso("Impronta fuori dal registro")[0]:
+        viva.append("dem.yml: l'impronta non è mascherata prima del passo di prova, o il passo che la maschera la riceve in chiaro")
+    else:
+        for nome, evento, attesa in (("un'impronta", {"inputs": {"modo": "prova-bozza", "impronta": "3b0d0604b4c1c885"}}, ["::add-mask::3b0d0604b4c1c885"]),
+                                     ("un indirizzo per errore", {"inputs": {"impronta": "casa@prova.it"}}, ["::add-mask::casa@prova.it"]),
+                                     ("nessuna impronta", {"inputs": {"modo": "prova-piano", "impronta": ""}}, []), ("nessun input", {}, []), ("file illeggibile", None, [])):
+            d = tempfile.mkdtemp(dir=lav)
+            ev = os.path.join(d, "evento.json")
+            open(ev, "w", encoding="utf-8").write(json.dumps(evento) if evento is not None else "{rotto")
+            rc, out, _, _ = lancia("Impronta fuori dal registro", finto_python=False, GITHUB_EVENT_PATH=ev)
+            if rc != 0 or sorted(out.split()) != attesa:
+                viva.append(f"dem.yml, impronta fuori dal registro ({nome}): uscita {rc}, stampa {out.strip()[:60]}")
+    intestazione = BV.__doc__
+    for frase in ("gh workflow run dem.yml --ref RAMO -f modo=prova-piano", "-f modo=prova-bozza -f impronta=", "-f modo=prova-invio -f impronta=",
+                  "Che cosa resta in Kit dopo la prova", "benvenuto.py impronta"):
+        if frase not in intestazione:
+            viva.append(f"benvenuto.py: l'intestazione non dice '{frase}'")
+    if re.search(r"dal PC|INDIRIZZO\s+prova dal vivo|KIT_API_KEY nell'ambiente", intestazione):
+        viva.append("benvenuto.py: l'intestazione parla ancora di una prova dal PC con l'indirizzo")
+    esito("Benvenuto: prova dal vivo per impronta, da GitHub", not viva, "; ".join(viva)[:700] or
+          "impronta (maiuscole e spazi), indirizzo in chiaro rifiutato, impronta di nessuno, di due, del non confermato; Kit che "
+          "risponde male a elenco, creazione, rilettura e programmazione; gruppo di 2 prima e dopo bozza e programmazione; bozze non "
+          "di prova; orari; tempo per rimediare; URGENTE; nessun indirizzo né tracciato in ciò che stampa o chiede a Kit; in dem.yml "
+          "i tre modi prova- chiamano solo benvenuto.py piano, bozza, prova, solo a mano, e l'impronta non diventa un comando")
 
 
 # ---------------------------------------------------------------- 4. rete di non regressione
