@@ -26,7 +26,10 @@ jobs:
   kit:
     name: Kit e rete di non regressione
     runs-on: ubuntu-24.04          # fisso: il testo dei PDF campione si confronta riga per riga (stessi caratteri e stesso pdftotext)
-    timeout-minutes: 15
+    # Tempo massimo (G-12): un job bloccato non deve bruciare minuti. Su 119 giri riusciti la mediana è 1,7 minuti e il
+    # più lento 5,7 (23/11: 4,6 minuti a scaricare gli strumenti). Oggi il collaudo dura fino a 1,7 minuti e da privato
+    # le macchine hanno 2 CPU invece di 4: lo stesso giorno storto farebbe da 7 a 8,5 minuti. 10 lo lascia finire.
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -43,7 +46,10 @@ jobs:
   sito:
     name: Sito nel browser, contro gommberg.com
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    # Tempo massimo (G-12): su 116 giri riusciti la mediana è 1,9 minuti e il più lento 7,9 (23/11: 6,5 minuti a scaricare
+    # il browser). Oggi le pagine si aprono in 1,5 minuti; con 2 CPU lo stesso giorno storto farebbe da 8,5 a 10 minuti.
+    # 12 lo lascia finire, e rilascia.sh pubblica aspetta questo flusso fino a 20.
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

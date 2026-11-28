@@ -2225,8 +2225,8 @@ def passo_orologio():
                     male.append(f"{nome}, job {job}: sveglia di riserva senza la guardia dell'orologio sul proprio flusso (partirebbe due volte)")
     for nome in ("mattino.yml", "segnalazioni.yml", "dem.yml", "newsletter.yml"):
         for job, j in ((flussi.get(nome) or [{}])[0].get("jobs") or {}).items():
-            if j.get("runs-on") != "ubuntu-slim" or int(j.get("timeout-minutes", 99)) > 15:
-                male.append(f"{nome}, job {job}: un controllo leggero va su ubuntu-slim con al massimo 15 minuti (G-12)")
+            if j.get("runs-on") != "ubuntu-slim":
+                male.append(f"{nome}, job {job}: un controllo leggero va su ubuntu-slim (G-12)")
         if yaml and nome in flussi and not re.search(r"Minuti di GitHub", flussi[nome][1]):
             male.append(f"{nome}: non dichiara quanti minuti di GitHub costa al mese")
     for job in ("controllo", "gomm"):
@@ -2249,8 +2249,9 @@ def passo_orologio():
     # i minuti di GitHub (G-12), regole che valgono per ogni flusso della cartella, anche per quelli che verranno.
     # Chi parte da un push: solo dai rami che pubblicano o fanno da cancello. Su ogni altro ramo (g<NN>, rilascio,
     # con-prova) un push non accende nulla: lì si collauda in locale, e un flusso senza 'branches' partirebbe da tutti.
+    # Ogni job ha un tempo massimo, al più TETTO minuti: senza, un job bloccato ne brucia 360 (il tetto di GitHub).
     male = []
-    RAMI_DEI_FLUSSI = {"main", "cancello", "prova", "anteprima-*"}
+    RAMI_DEI_FLUSSI, TETTO = {"main", "cancello", "prova", "anteprima-*"}, 15
 
     def combacia(modelli, nome):
         """Come GitHub legge 'branches' e 'paths': * non passa le barre, ** sì, decide l'ultimo modello che combacia
@@ -2296,6 +2297,9 @@ def passo_orologio():
                 rami = [rami] if isinstance(rami, str) else rami
                 if not rami or set(rami) - RAMI_DEI_FLUSSI:
                     male.append(f"{nome}: parte da un push su {', '.join(rami) if rami else 'qualunque ramo'}; un flusso parte da push solo da {', '.join(sorted(RAMI_DEI_FLUSSI))}")
+            for job, j in (d.get("jobs") or {}).items():
+                if type(j.get("timeout-minutes")) is not int or not 0 < j["timeout-minutes"] <= TETTO:
+                    male.append(f"{nome}, job {job}: tempo massimo {j.get('timeout-minutes', 'non dichiarato')}; ogni job dichiara timeout-minutes, al più {TETTO}")
         mail = ("redazione/dem/2026-12-24-auguri.md", "redazione/dem.py", "pannello/invii.json", ".github/workflows/dem.yml")
         # (ramo, file del push, flussi che devono partire): i rami di lavoro mai; le mail solo da main; l'edizione come sempre
         for ramo, file, attesi in ([(r, mail + ("index.html", "edizioni.json", "redazione/collaudo.py"), []) for r in ("g51", "g12", "rilascio", "con-prova")]
@@ -2314,7 +2318,8 @@ def passo_orologio():
     except ValueError as e:
         male.append(str(e))
     esito("Minuti di GitHub: regole di ogni flusso", not male, "; ".join(male)[:500] or
-          f"{len(flussi)} flussi: da un push si parte solo da {', '.join(sorted(RAMI_DEI_FLUSSI))}, mai dai rami di lavoro; le mail straordinarie solo da main")
+          f"{len(flussi)} flussi: da un push si parte solo da {', '.join(sorted(RAMI_DEI_FLUSSI))}, mai dai rami di lavoro; le mail straordinarie solo da main; "
+          f"ogni job ha un tempo massimo, al più {TETTO} minuti")
 
     # la lettura dello stato: la guardia delle sveglie di riserva e la riga del controllo del mattino
     male = []

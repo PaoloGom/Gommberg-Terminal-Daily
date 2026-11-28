@@ -41,7 +41,11 @@ jobs:
   pubblica:
     if: (github.event_name == 'push' || github.event.inputs.modo == 'pubblica') && (github.ref_name == 'main' || github.ref_name == 'prova' || startsWith(github.ref_name, 'anteprima-'))
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # Tempo massimo (G-12): un job bloccato non deve bruciare minuti. Su 44 giri riusciti la mediana è 28 secondi e il
+    # più lento 57; i tre falliti, con la verifica dal vivo arrivata in fondo ai suoi 12 tentativi, 3,7 minuti. Il caso
+    # sano più lungo (tre tentativi di pubblicazione di 23 secondi, due attese di 30, la verifica fino in fondo) sta in
+    # 5,5 minuti, e l'edizione è in linea già dopo i primi 2,5. 8 lo lascia finire.
+    timeout-minutes: 8
     concurrency:
       group: sito-${{ github.ref }}
       cancel-in-progress: true     # due push ravvicinati: conta solo l'ultimo
@@ -133,7 +137,9 @@ jobs:
   collaudo:
     if: github.event.inputs.modo == 'collaudo'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # Tempo massimo (G-12): solo a mano, due giri misurati (2,2 e 3,2 minuti). Lo stesso lavoro del job "sito" di
+    # collaudo.yml (scaricare il browser, fino a 6,5 minuti in un giorno storto, e aprire le pagine): lo stesso tetto.
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
