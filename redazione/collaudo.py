@@ -927,6 +927,17 @@ def passo_fonti():
     male += [f"{i}: va cercata ma sta in DA_TOGLIERE" for i in sorted(cerca & togliere)]
     male += [f"riga oltre 200 byte: {r[:40]}" for r in righe if r.startswith("- CERCA") and len(r.encode()) > 200]
     male += ["eccezione nel controllo"] if "Traceback" in out else []
+    # fonte riconoscibile sotto ogni approfondimento (G-46, punto 7): comunque sia scritta, un'agenzia, un comunicato o una
+    # grande testata bastano; soli siti minori no (casi delle edizioni #028-#035)
+    sys.path.insert(0, R)
+    import autori as A
+    senza = getattr(A, "approfondimenti_senza_riconoscibile", lambda r, f=(): [(p, []) for p, _ in r])
+    righe = [("a", "Fonti: Reuters (Business Day), Newsquawk."), ("b", "Fonti: Rigzone (Bloomberg); chiusure del Brent future (FMP)."),
+             ("c", "Fonti: SoldiOnline (testo ANSA)."), ("d", "Fonti: comunicato Nvidia (SEC), Aju Press."), ("e", "Fonti: Il Sole 24 Ore."),
+             ("f", "Fonti: MF, Kitco."), ("g", "Fonti: Investrade, Schwab."), ("h", "Fonte: FINANCIAL (finchannel)."),
+             ("i", "Fonti: FMP (oro future), Alpha Vantage (EUR/USD)."), ("l", "Fonti: The Company Chronicle; chiusure dell'oro future da FMP.")]
+    trovati = [p for p, _ in senza(righe)]
+    male += [] if trovati == ["g", "h", "l"] else [f"fonte riconoscibile: senza fonte riconoscibile {trovati} (attesi g, h, l)"]
     # molte schede insieme: le righe restano sotto il taglio di controlli_tutti.sh e nessun id si perde
     molte = [{**schede[5], "id": f"N{k:02d}-con-un-nome-lungo"} for k in range(30)]
     json.dump(molte, open(os.path.join(lav, "molte.json"), "w", encoding="utf-8"), ensure_ascii=False)

@@ -103,6 +103,7 @@
   "treasurydirect.gov"
  ],
  "livello_1": [
+  "milanofinanza.it",
   "reuters.com",
   "apnews.com",
   "bloomberg.com",
@@ -218,8 +219,7 @@
   "firstonline.info",
   "marketscreener.com",
   "euronews.com",
-  "kiplinger.com",
-  "milanofinanza.it"
+  "kiplinger.com"
  ],
  "vietate": [
   "riotimesonline.com",
@@ -334,6 +334,8 @@
  ],
  "nota_stesso_autore": "Nomi e siti che sono un autore solo (il primo nome lo rappresenta): un'agenzia o una testata conta una volta, sul suo sito e ovunque sia ripresa. Qui vanno solo i casi in cui il nome non coincide con il sito (ft.com e Financial Times): Fortune e fortune.com si riconoscono da soli. Lo legge autori.py.",
  "stesso_autore": [
+  ["Milano Finanza", "MF", "milanofinanza.it"],
+  ["Nikkei Asia", "Nikkei", "asia.nikkei.com", "nikkei.com"],
   ["Reuters", "reuters.com"],
   ["AP", "Associated Press", "AP News", "apnews.com"],
   ["AFP", "Agence France-Presse", "afp.com"],

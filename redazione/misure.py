@@ -74,10 +74,8 @@ def misura_fatti(fatti):
     prim = l1 = 0
     for f in schede:
         fonti = [x for x in f["fonti"] if isinstance(x, dict)]
-        p = any(autori.primaria(x) for x in fonti)
-        a = any(autori.affidabile(x) for x in fonti)
-        prim += p
-        l1 += p or a
+        prim += any(autori.primaria(x) for x in fonti)
+        l1 += any(autori.riconoscibile(x) for x in fonti)
     n = len(schede) or 1
     return {"sch": len(schede), "dd": sum(1 for f in schede if f.get("sezione") == "deep_dive"),
             "prim": round(100 * prim / n), "l1": round(100 * l1 / n)}

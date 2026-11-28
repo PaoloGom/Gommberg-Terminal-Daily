@@ -211,6 +211,56 @@ def affidabile(fonte):
     return lv == 1 or (lv > 1 and agenzia(fonte) is not None)
 
 
+def riconoscibile(fonte):
+    """Una fonte che il lettore riconosce (decisione di Paolo del 28/11/2026): il documento di chi è parte del fatto o di un
+    ente ufficiale, un lancio d'agenzia, o una grande testata (livello_1 di fonti.json). Una definizione sola: la usano
+    l'avviso sugli approfondimenti (controlli_fatti.py, pannello) e la misura "l1" di misure.py."""
+    return primaria(fonte) or affidabile(fonte)
+
+
+_DATI_DI_MERCATO = re.compile(r"\b(?:FMP|EODHD|Alpha Vantage|chiusur\w*|curva|livell\w*|volum\w*|serie)\b", re.I)
+_TLD = (".com", ".it", ".co.uk", ".co.kr", ".co.jp", ".de", ".fr", ".net", ".org", ".info")
+
+
+def nome_riconoscibile(nome, fatti=()):
+    """Un nome della riga Fonti è una fonte riconoscibile? Lo dicono, in quest'ordine: un'agenzia (fonti.json "agenzie"), la
+    parola comunicato o documento, le schede del giorno con quella testata (la fonte vale se riconoscibile), i nomi di
+    fonti.json "stesso_autore" e il sito ricavato dal nome ("CNBC" -> cnbc.com) nel livello_1. Maiuscole, articoli e
+    "The" non contano."""
+    n = re.sub(r"^(?:il|la|lo|l'|the)\s+", "", _s(nome).strip(" .").lower())
+    if not n:
+        return False
+    if agenzia({"testata": nome}) or any(agenzia({"testata": w}) for w in re.findall(r"[\w-]+", _s(nome))) \
+            or re.search(r"\b(?:comunicat\w*|document\w*|deposito)\b", n):
+        return True
+    for f in fatti:
+        for x in (f.get("fonti") or []) if isinstance(f, dict) else []:
+            t = re.sub(r"^(?:il|la|lo|l'|the)\s+", "", _s(x.get("testata") if isinstance(x, dict) else "").lower())
+            if isinstance(x, dict) and (t == n or t.split(" (")[0] == n) and riconoscibile(x):
+                return True
+    for gruppo in F.get("stesso_autore", []):
+        if n in {g.lower() for g in gruppo} and any(livello("https://" + g) == 1 for g in gruppo if "." in g):
+            return True
+    compatto = re.sub(r"[^a-z0-9]", "", n)
+    return bool(compatto) and any(livello("https://" + compatto + t) == 1 for t in _TLD)
+
+
+def approfondimenti_senza_riconoscibile(righe, fatti=()):
+    """righe = [(pezzo, riga Fonti)] degli approfondimenti. Torna [(pezzo, [nomi])] per quelli che nella riga Fonti non hanno
+    nemmeno una fonte riconoscibile: ogni nome si spezza anche dentro parentesi e "via"/"tramite"/"ripresa da", e le fonti
+    dei dati di mercato non contano né in un senso né nell'altro."""
+    out = []
+    for pezzo, riga in righe:
+        testo = re.sub(r"<[^>]+>", "", _s(riga))
+        testo = re.sub(r"^\s*Font[ei]:\s*", "", testo)
+        pezzi = [x for x in re.split(r"[,;]", testo) if not _DATI_DI_MERCATO.search(x)]      # "FMP (oro future)" esce intero
+        nomi = [x.strip(" .") for p in pezzi for x in re.split(r"[()]|\s+(?:via|tramite|e|ripres[oa] da|da)\s+", p)
+                if x and x.strip(" .")]
+        if nomi and not any(nome_riconoscibile(x, fatti) for x in nomi):
+            out.append((pezzo, nomi))
+    return out
+
+
 def sezione(scheda):
     s = _s(scheda.get("sezione"))
     return ALIAS.get(s, s)
