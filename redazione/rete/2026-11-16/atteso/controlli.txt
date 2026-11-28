@@ -24,6 +24,7 @@ ERRORE: agenda: primo giorno della settimana ma "In arrivo" si ferma a mercoled�
 AVVISO: aperture: servono 2 resoconti d'agenzia o testate globali (Reuters, AP, AFP, Bloomberg, CNBC...) e 1 italiana (Radiocor/Sole 24 Ore, Milano Finanza)
 [ROSSO] Coerenza (testo contro dati):
 ERRORE: ragionamento: manca coerenza_incarico.json: lo scrive controlli_tutti.sh --prima-della-revisione
+[ok] Grafici (serie delle linee): Grafici a linea: 4 | chiusure confrontate: 25 punti di 3 serie | periodi 1, note e soglie 8, cifre del titolo 2 | errori: 0
 [ok] Ripetizioni: Ripetizioni: punteggio 7 (6 cifre in 2+ sezioni)
 AVVISO: 0,9% in 3 sezioni: 6-13/11                                                                                                           PERCHÉ, A
 AVVISO: 0,1% in 2 sezioni: 6-13/11                                                                                                           PERCHÉ, T

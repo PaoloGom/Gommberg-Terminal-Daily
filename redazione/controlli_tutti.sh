@@ -6,8 +6,9 @@
 # controlli_numeri.py (PDF contro dati.json) | controlli_testo.py (righe →, connettivi, sigle) | controlli_temi.py
 # (temi di pag. 1) | controlli_contenuti.py (estremi, perché/quindi, probabilità, record, anomalie, Stamattina, moduli,
 # quadro) | controlli_coerenza.py (il testo contro dati.json: cifre, direzioni, rimandi, titoli; con --prima-della-revisione
-# scrive coerenza_incarico.json per il revisore, dopo esige coerenza.json) | controlli_ripetizioni.py (cifra distintiva
-# oltre 2 volte) | anteprima.py (una sola immagine).
+# scrive coerenza_incarico.json per il revisore, dopo esige coerenza.json) | controlli_grafici.py (le serie dei grafici a
+# linea: date, periodo del sottotitolo, chiusure, note) | controlli_ripetizioni.py (cifra distintiva oltre 2 volte) |
+# anteprima.py (una sola immagine).
 # Uscite in $GTD_LAVORO (default /home/claude/lavoro): anteprima.png, testo.json (sigle spiegate), ripetizioni.json.
 # Prima di edizioni_voce.py (edizione non ancora in edizioni.json) usa GTD_SENZA_INDICE=1: salta il controllo dell'indice.
 set -u
@@ -70,6 +71,7 @@ passo "Contenuti (estremi, perché, anomalie...)" 1 python3 "$R/controlli_conten
   --dati "$L/dati.json" --fatti "$FATTI" --repo "$REPO"
 if [ -n "$ED" ]; then
   passo "Coerenza (testo contro dati)" 1 python3 "$R/controlli_coerenza.py" "$ED" --dati "$L/dati.json" $FASE
+  passo "Grafici (serie delle linee)" 1 python3 "$R/controlli_grafici.py" "$ED" --dati "$L/dati.json"
 else
   echo "[ROSSO] Coerenza: manca $L/edizione_AAAA-MM-GG.py"; ROSSI+=("Coerenza")
 fi

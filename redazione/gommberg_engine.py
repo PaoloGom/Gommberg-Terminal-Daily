@@ -756,7 +756,7 @@ def titolo_grafico(spec):
     sub = spec.get("sottotitolo", "") if isinstance(spec, dict) else ""
     if not tit:
         return []
-    testo = signcol(tit) + (f' <font name="Body" color="#666666" size="7">{sub}</font>' if sub else "")
+    testo = signcol(tit) + (f' <font name="Body" color="#666666" size="7">{amp(sub)}</font>' if sub else "")
     return [Paragraph(testo, S["chart_t"])]
 
 
@@ -930,6 +930,23 @@ def _colore_linea(c, i, n):
     return c
 
 
+def _in_ordine(path, nome, xs, ys):
+    """G-72: una linea nel tempo si disegna solo con un valore per data e date strettamente crescenti. Con date ripetute
+    o che tornano indietro (due periodi o due anni nella stessa serie) la linea si sovrappone a sé stessa e l'asse, che va
+    dalla prima all'ultima data, ne mostra un pezzo: meglio fermarsi che disegnarlo (prova #036, 28/11/2026)."""
+    import datetime as _dt
+    f = str(path).replace("\\", "/").rsplit("/", 1)[-1]
+    if len(xs) != len(ys):
+        raise ValueError(f"grafico {f}, serie {_testo(nome)}: {len(ys)} valori per {len(xs)} date. Un valore per ogni data: "
+                         "correggi la serie oppure togli il grafico (il modulo esce senza)")
+    if xs and all(type(a) is _dt.date for a in xs) or xs and all(isinstance(a, _dt.datetime) for a in xs):
+        j = next((i for i in range(1, len(xs)) if xs[i] <= xs[i - 1]), None)
+        if j is not None:
+            raise ValueError(f"grafico {f}, serie {_testo(nome)}: le date non sono in ordine crescente ({xs[j]} dopo "
+                             f"{xs[j - 1]}, punto {j + 1} di {len(xs)}). Una riga per seduta, con l'anno, in ordine di "
+                             "data: correggi la serie oppure togli il grafico (il modulo esce senza)")
+
+
 def linee(path, x, serie, titolo="", unita="", alto=2.2, largo=3.55, zero=False, note=(), dec=None, soglie=(),
           eventi=(), **_):
     """Linee nel tempo o per categoria. x = lista di date/etichette; serie = [(nome, [valori], colore)];
@@ -944,6 +961,7 @@ def linee(path, x, serie, titolo="", unita="", alto=2.2, largo=3.55, zero=False,
     for i, (nome, v, c) in enumerate(serie):
         c = _colore_linea(c, i, len(serie))
         xs, ys = ([a for a, _ in v], [b for _, b in v]) if v and isinstance(v[0], tuple) else (x, v)
+        _in_ordine(path, nome, xs, ys)
         ax.plot(xs, ys, color=c, lw=1.5, label=nome)
         punto = ORANGE_HEX if len(serie) == 1 else c
         ax.plot([xs[-1]], [ys[-1]], "o", color=punto, ms=3.2, zorder=4)

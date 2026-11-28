@@ -17,6 +17,9 @@ Cosa controlla:
                    Pag. 6 non si giudica sul riempimento: dipende dal registro della scommessa di quella settimana.
      Coerenza      il testo contro dati.json (controlli_coerenza.py) e il desk (desk.py) su frasi vere della prova del 23/11 e
                    delle #031-#032: cifre che cambiano soggetto, versi contrari, rimandi vuoti, ipotesi nei titoli, ragionamento.
+     Grafici       le serie dei grafici a linea (controlli_grafici.py e il motore) sulle due serie della prova #036 e su
+                   altre costruite: date ripetute o non in ordine, periodo del sottotitolo, ultima chiusura, note e soglie
+                   si fermano; festa in mezzo, serie corta, mensile, curva per scadenza e base 100 passano.
      Fonti         la regola dei fatti (autori.py, applicata da controlli_fatti.py) su schede costruite apposta: la
                    primaria basta, un'agenzia ripresa da tre siti è un autore solo, l'ultima scelta va dichiarata; e il
                    gancio (gancio_token.py) su una trascrizione costruita: ricerche, pagine aperte, pagine non raggiunte.
@@ -244,7 +247,9 @@ SERIE = {"ACWI": ("acwi", "USA"), "S&P 500": ("spx", "USA"), "Euro Stoxx 50": ("
 # chiusura precedente e quella di una settimana prima ricavate dalle variazioni stampate allora. Valori di prova: servono solo a impaginare il modello,
 # le cui tabelle di pag. 5 le calcola numeri.py dal dati.json, come ogni mattina. Il Kospi ha la sola variazione: la riga non entra.
 MODELLO_ALTRE = {
-    "Nasdaq": ("USA", "chiusura", [["2026-10-14", 26692.87], ["2026-10-13", 27209.86]], {"2026-10-07": 27377.30}),
+    # Nasdaq: le chiusure del 13/10 e del 7/10 sono quelle del grafico del modello (c_nasdaq.png): il controllo dei grafici
+    # confronta la serie con dati.json, e i valori ricavati dalle variazioni stampate (27.209,86 e 27.377,30) non coincidevano
+    "Nasdaq": ("USA", "chiusura", [["2026-10-14", 26692.87], ["2026-10-13", 27204.38]], {"2026-10-07": 27538.69}),
     "Russell 2000": ("USA", "chiusura", [["2026-10-14", 2729.53], ["2026-10-13", 2782.40]], {"2026-10-07": 2808.16}),
     "FTSE MIB": ("EU", "chiusura", [["2026-10-14", 49753], ["2026-10-13", 50053]], {"2026-10-07": 49753}),
     "Nikkei 225": ("JP", "intraday", [["2026-10-15", 64425.95], ["2026-10-14", 67745.48]], {"2026-10-08": 69052.47}),
@@ -255,7 +260,7 @@ MODELLO_ALTRE = {
 # mercati con il nastro di prima pagina (il 14/11 il modello aveva l'Euro Stoxx 50 a 6.190,37 nel nastro e 6.162,90 in tabella)
 ETICHETTE = {"ACWI": "MSCI ACWI (ETF, $)", "S&P 500": "S&P 500", "Euro Stoxx 50": "Euro Stoxx 50", "Treasury 10 anni": "Treasury 10 anni",
              "EUR/USD": "EUR/USD", "Brent future": "Brent future", "Oro future": "Oro (future, $/oncia)"}
-INDIPENDENTI = ["PDF e indice", "Numeri contro dati.json", "Scrittura", "Temi di prima pagina", "Coerenza", "Ripetizioni", "Anteprima"]
+INDIPENDENTI = ["PDF e indice", "Numeri contro dati.json", "Scrittura", "Temi di prima pagina", "Coerenza", "Grafici", "Ripetizioni", "Anteprima"]
 
 
 def passo_modello():
@@ -669,6 +674,227 @@ def passo_coerenza():
         for x in da_leggere[:8]:
             print("        " + x)
         NOTE.append(f"desk: {len(da_leggere)} riscritture di edizioni nuove respinte dal desk di oggi, da giudicare")
+
+
+# ---------------------------------------------------------------- 3a-ter. le serie dei grafici a linea (G-72)
+def casi_serie():
+    """I casi di passo_serie: [(nome, grafico, giorno dell'edizione, None se deve passare | parola dell'errore atteso,
+    chiusure note quel giorno, data dell'ultima chiusura di ogni mercato)]. Le chiusure sono vere (S&P 500 e VIX dal 1/10
+    al 27/11/2026, rete/grafici/prova_036.json), le altre serie costruite."""
+    F = json.load(open(os.path.join(RETE, "grafici", "prova_036.json"), encoding="utf-8"))
+    D = dt.date.fromisoformat
+    SPX, VIX = ([(D(a), v) for a, v in F["chiusure"][k]] for k in ("S&P 500", "VIX"))
+    d26 = lambda s: dt.date(2026, int(s[:2]), int(s[3:]))        # noqa: E731  la riga "MM-GG" -> data del modello di allora
+    dal = lambda righe, a, b="2099-01-01": [r for r in righe if D(a) <= r[0] <= D(b)]   # noqa: E731
+
+    def g(serie, x, tit="", sub="", **k):
+        return {"tipo": "linee", "file": "c_caso.png", "x": x, "serie": serie, "titolo": tit, "sottotitolo": sub, **k}
+
+    def una(nome, righe, tit="", sub="", **k):
+        return g([(nome, [v for _, v in righe], "#111111")], [a for a, _ in righe], tit, sub, **k)
+    feriali = lambda a, n: [x for x in (D(a) + dt.timedelta(days=i) for i in range(3 * n)) if x.weekday() < 5][:n]   # noqa: E731
+    onda = lambda base, passo, n: [round(base + passo * ((i * 7) % 5 - 2), 2) for i in range(n)]   # noqa: E731
+    storie = {"S&P 500": {a.isoformat(): v for a, v in SPX}, "VIX": {a.isoformat(): v for a, v in VIX},
+              "EUR/USD": {a.isoformat(): v for a, v in zip(feriali("2026-11-02", 20), onda(1.09, 0.003, 20))},
+              "Treasury 10 anni": {a.isoformat(): v for a, v in zip(feriali("2026-11-02", 20), onda(4.9, 0.03, 20))},
+              "Treasury 2 anni": {a.isoformat(): v for a, v in zip(feriali("2026-11-02", 20), onda(4.6, 0.02, 20))},
+              "Oro future": {a.isoformat(): v for a, v in zip(feriali("2026-11-02", 20), onda(3700, 40, 20))},
+              "Nikkei 225": {a.isoformat(): v for a, v in zip(feriali("2026-11-02", 21), onda(58000, 600, 21))}}
+
+    def mondo(oggi):      # ciò che dati.json e l'archivio sanno la mattina dell'edizione: le chiusure dei giorni prima,
+        # e per Tokyo anche quella di stamattina (chiude prima che il giornale esca)
+        st = {k: {a: v for a, v in h.items() if a < oggi.isoformat() or (k == "Nikkei 225" and a == oggi.isoformat())}
+              for k, h in storie.items()}
+        return st, {k: max(h) for k, h in st.items() if h}
+    lun = D("2026-11-30")
+    P = {k: [(d26(a), v) for a, v in F["prova_036"][k]] for k in ("S&P 500", "VIX")}
+    eur = sorted(storie["EUR/USD"].items())
+    eur_sab = sorted(eur + [("2026-11-07", 1.0911), ("2026-11-08", 1.0911)])
+    note = [(D("2026-11-20"), 6910.39, "20/11"), (D("2026-11-27"), 7297.49, "27/11")]
+    rossi = [
+        # la prova #036: un anno di chiusure ridotto a mese-giorno e filtrato "dal 6 ottobre" (anche novembre-dicembre 2025)
+        ("prova #036, S&P 500", una("S&P 500", P["S&P 500"], "L'S&P 500 ha ripreso poco più di due quinti del calo dal massimo",
+                                    "S&P 500, chiusure dal 6 ottobre (punti)", note=note), lun, "date ripetute"),
+        ("prova #036, VIX", una("VIX", P["VIX"], "Il VIX scende da 35,9 a 23,8, ma resta sopra i 16,6 del 4 novembre",
+                                "VIX, chiusure dal 2 novembre"), lun, "date ripetute"),
+        ("la stessa serie messa in ordine", una("S&P 500", sorted(P["S&P 500"]), "", "S&P 500, chiusure dal 6 ottobre (punti)"), lun, "date ripetute"),
+        ("righe di due simboli", g([("S&P 500", [v for a in dal(SPX, "2026-11-16") for v in (a[1], storie["VIX"][a[0].isoformat()])], "#111111")],
+                                   [a for a, _ in dal(SPX, "2026-11-16") for _ in (0, 1)], "", "S&P 500, chiusure (punti)"), lun, "date ripetute"),
+        ("dalla più recente alla più vecchia", una("S&P 500", dal(SPX, "2026-11-02")[::-1], "", "S&P 500, chiusure (punti)"), lun, "dalla più recente"),
+        ("due periodi con gli anni veri", una("S&P 500", [(a.replace(year=2025), v) for a, v in P["S&P 500"][:32]] + dal(SPX, "2026-10-06"),
+                                              "", "S&P 500, chiusure (punti)"), lun, "buco di"),
+        ("le date di un anno prima", una("S&P 500", [(a.replace(year=2025), v) for a, v in dal(SPX, "2026-10-06")], "",
+                                         "S&P 500, chiusure dal 6 ottobre (punti)"), lun, "il sottotitolo dice"),
+        ("valori sfasati di una seduta", una("S&P 500", [(b[0], a[1]) for a, b in zip(dal(SPX, "2026-10-30"), dal(SPX, "2026-11-02"))], "",
+                                             "S&P 500, chiusure (punti)"), lun, "l'ultimo valore"),
+        ("cinque sedute con i valori di un altro anno", una("S&P 500", [(a, v if not D("2026-11-16") <= a <= D("2026-11-20") else v - 700)
+                                                                    for a, v in dal(SPX, "2026-11-02")], "", "S&P 500, chiusure (punti)"), lun,
+         "5 punti su 19 diversi dalle chiusure"),
+        ("la riga di oggi, in corso di seduta", una("S&P 500", dal(SPX, "2026-11-02") + [(lun, 7310.2)], "", "S&P 500, chiusure (punti)"), lun,
+         "dopo l'ultima chiusura"),
+        ("si ferma una seduta prima", una("S&P 500", dal(SPX, "2026-11-02", "2026-11-25"), "", "S&P 500, chiusure (punti)"), lun, "manca l'ultima seduta"),
+        ("ultimo valore con due cifre scambiate", una("S&P 500", dal(SPX, "2026-11-02")[:-1] + [(D("2026-11-27"), 7279.49)], "",
+                                                      "S&P 500, chiusure (punti)"), lun, "l'ultimo valore"),
+        ("sottotitolo dal 6 ottobre, serie dal 16 novembre", una("S&P 500", dal(SPX, "2026-11-16"), "", "S&P 500, chiusure dal 6 ottobre (punti)"),
+         lun, "il sottotitolo dice"),
+        ("nota fuori dalla linea", una("S&P 500", dal(SPX, "2026-11-02"), "", "S&P 500, chiusure (punti)",
+                                       note=[(D("2026-11-20"), 6190.39, "20/11")]), lun, "non sta sulla linea"),
+        ("nota con l'etichetta di un altro giorno", una("S&P 500", dal(SPX, "2026-11-02"), "", "S&P 500, chiusure (punti)",
+                                                        note=[(D("2026-11-20"), 6910.39, "19/11")]), lun, "giorno diverso"),
+        ("da 35,9 a 23,8 che la serie non fa", una("VIX", dal(VIX, "2026-11-23"), "Il VIX scende da 35,9 a 23,8", "VIX, chiusure"), lun,
+         "nessuna serie passa da"),
+        ("percentuale dal massimo sbagliata", una("S&P 500", dal(SPX, "2026-10-01"), "L'S&P 500 perde il 15% dal massimo del 6 ottobre",
+                                                  "S&P 500, chiusure (punti)"), lun, "fa 6,67%"),
+        ("scende a 18 con l'ultimo a 23,8", una("VIX", dal(VIX, "2026-11-02"), "Il VIX scende a 18", "VIX, chiusure"), lun, "l'ultimo valore è"),
+        ("punti di sabato e domenica", una("EUR/USD", [(D(a), v) for a, v in eur_sab], "", "EUR/USD, chiusure"), lun, "sabato o domenica"),
+        ("un valore in meno delle date", g([("S&P 500", [v for _, v in dal(SPX, "2026-11-02")][:-1], "#111111")],
+                                           [a for a, _ in dal(SPX, "2026-11-02")], "", "S&P 500, chiusure (punti)"), lun, "un valore per ogni data"),
+        ("date scritte come testi", g([("S&P 500", [v for _, v in dal(SPX, "2026-11-16")], "#111111")],
+                                      [f"{a.day}/{a.month}" for a, _ in dal(SPX, "2026-11-16")], "", "S&P 500, chiusure (punti)"), lun, "sembrano date"),
+        ("base 100 in un giorno che non c'è", una("S&P 500", [(a, round(100 * v / 7416.59, 1)) for a, v in dal(SPX, "2026-11-17")], "",
+                                                  "S&P 500, 16/11 = 100"), lun, "non è nella serie"),
+        ("base 100 calcolata male", una("S&P 500", [(a, round(100 * v / 7416.59, 1) if i < 4 else round(100 * v / 7561.67, 1))
+                                                    for i, (a, v) in enumerate(dal(SPX, "2026-11-16"))], "", "S&P 500, 16/11 = 100"), lun, "a base 100"),
+        ("soglia con l'etichetta di un altro livello", una("S&P 500", dal(SPX, "2026-11-02"), "", "S&P 500, chiusure (punti)",
+                                                           soglie=[(700, "7.000")]), lun, "l'etichetta dice"),
+        ("evento fuori dal periodo", una("S&P 500", dal(SPX, "2026-11-16"), "", "S&P 500, chiusure (punti)",
+                                         eventi=[(D("2026-10-28"), "Fed")]), lun, "fuori dal periodo"),
+        ("una data dopo l'edizione", una("Bund 10 anni", dal(SPX, "2026-11-16"), "", "Bund a 10 anni (%)"), D("2026-11-25"), "dopo il giorno dell'edizione"),
+        ("ultimo mese su due settimane", una("S&P 500", dal(SPX, "2026-11-16"), "", "S&P 500, ultimo mese (punti)"), lun, "ultimo mese"),
+    ]
+    mesi = [("2025-12-31", 6845.5), ("2026-01-30", 6939.0), ("2026-02-27", 6878.9), ("2026-03-31", 7001.2), ("2026-04-30", 7120.4),
+            ("2026-05-29", 7230.8), ("2026-06-30", 7340.1), ("2026-07-31", 7455.6), ("2026-08-31", 7512.3), ("2026-09-30", 7640.0),
+            ("2026-10-30", 7580.07), ("2026-11-27", 7297.49)]
+    ven = [a for a in SPX if a[0].weekday() == 4 and a[0] <= D("2026-11-20")]
+    pb = [71, 70, 72, 69, 70, 68, 69, 67, 68, 66, 67, 65, 66, 64, 65, 63, 64, 62, 63, 62, 61, 61]
+    nik = sorted(storie["Nikkei 225"].items())
+    capodanno = [a for a in feriali("2026-12-15", 19) if a not in (D("2026-12-25"), D("2027-01-01"))]
+    verdi = [
+        ("festa in mezzo (Ringraziamento)", una("S&P 500", dal(SPX, "2026-11-16"), "L'S&P 500 risale a 7.297 dopo il minimo del 20 novembre",
+                                                "S&P 500, chiusure dal 16 novembre (punti)", note=note), lun),
+        ("cinque sedute", una("VIX", dal(VIX, "2026-11-16", "2026-11-20"), "Il VIX sale da 22,9 a 35,9 in cinque sedute", "VIX, ultime 5 sedute",
+                              note=[(D("2026-11-20"), 35.89, "20/11")]), D("2026-11-23")),
+        ("due serie con scale diverse", g([("S&P 500", [v for _, v in dal(SPX, "2026-11-02")], "#111111"),
+                                           ("VIX", [v for _, v in dal(VIX, "2026-11-02")], "#F26B1D")],
+                                          [a for a, _ in dal(SPX, "2026-11-02")], "Borsa giù e paura su", "S&P 500 (punti) e VIX, chiusure"), lun),
+        ("serie mensile", una("S&P 500", [(D(a), v) for a, v in mesi], "L'S&P 500 chiude il primo mese in calo da marzo",
+                              "S&P 500, fine mese, ultimo anno (punti)"), lun),
+        ("serie settimanale a metà settimana", una("S&P 500", ven, "", "S&P 500, chiusure del venerdì (punti)"), D("2026-11-25")),
+        ("curva per scadenza: categorie, non date", g([("14 ottobre", [4.11, 4.28, 4.37, 4.53, 4.82, 4.92, 5.0, 5.09, 5.19, 5.57, 5.52], "#F26B1D"),
+                                                       ("13 ottobre", [4.1, 4.26, 4.34, 4.48, 4.79, 4.9, 5.0, 5.11, 5.21, 5.6, 5.56], "#111111")],
+                                                      ["1M", "3M", "6M", "1A", "2A", "3A", "5A", "7A", "10A", "20A", "30A"],
+                                                      "La curva scende sulle scadenze lunghe", "Rendimenti dei Treasury per scadenza (%)"), lun),
+        ("base 100 giusta", g([("S&P 500", [round(100 * v / 7416.59, 1) for _, v in dal(SPX, "2026-11-16")], "#111111"),
+                               ("VIX", [round(100 * v / 22.91, 1) for _, v in dal(VIX, "2026-11-16")], "#F26B1D")],
+                              [a for a, _ in dal(SPX, "2026-11-16")], "", "S&P 500 e VIX, 16/11 = 100"), lun),
+        ("serie a coppie con date diverse", g([("S&P 500", dal(SPX, "2026-11-16"), "#111111"),
+                                               ("Indice di Taipei", [(a, 100 + i) for i, (a, _) in enumerate(dal(SPX, "2026-11-16")) if i != 3], "#F26B1D")],
+                                              [], "", "Chiusure (punti)"), lun),
+        ("differenza tra due scadenze", una("10 anni meno 2 anni", list(zip(feriali("2026-10-28", 22), pb)),
+                                            "La distanza tra 10 e 2 anni scende da 71 a 61 punti base in un mese", "10 anni meno 2 anni, ultimo mese (pb)"), lun),
+        ("minimo dal 3 marzo con un mese di serie", una("Oro future", [(D(a), v) for a, v in sorted(storie["Oro future"].items())],
+                                                        "L'oro tocca il minimo dal 3 marzo", "Oro future, chiusure ($)"), lun),
+        ("a cavallo dell'anno", una("Bund 10 anni", list(zip(capodanno, onda(2.6, 0.02, len(capodanno)))), "",
+                                    "Bund a 10 anni, chiusure dal 15 dicembre (%)"), D("2027-01-11")),
+        ("cifre tonde e Tokyo chiusa stamattina", una("Nikkei", [(D(a), v) for a, v in nik], "Il Nikkei torna sotto 60.000 dopo una risalita da 57.400",
+                                       "Nikkei 225, chiusure (punti)", soglie=[(60000, "60.000")]), lun),
+        ("10 e 2 anni che non sono Treasury", g([("10 anni", onda(2.6, 0.02, 10), "#111111"), ("2 anni", onda(2.1, 0.02, 10), "#F26B1D")],
+                                                feriali("2026-11-16", 10), "", "Rendimenti dei Bund, chiusure (%)"), lun),
+        ("un mercato aperto anche il fine settimana", una("Bitcoin", [(D("2026-11-16") + dt.timedelta(days=i), 90000 + 500 * (i % 4)) for i in range(12)],
+                                                          "", "Bitcoin, chiusure ($)"), lun),
+        ("oro spot, non il future", una("Oro", [(D(a), v - 12.5) for a, v in sorted(storie["Oro future"].items())], "", "Oro spot, chiusure ($ l'oncia)"), lun),
+        ("date con l'ora a mezzanotte", una("S&P 500", [(dt.datetime(a.year, a.month, a.day), v) for a, v in dal(SPX, "2026-11-16")], "",
+                                            "S&P 500, chiusure (punti)"), lun),
+        ("soglie: il livello di un giorno e una cifra tonda", una("S&P 500", dal(SPX, "2026-11-02"), "", "S&P 500, chiusure (punti)",
+                                                                 soglie=[(6910.39, "20/11"), (7000, "7.000")],
+                                                                 eventi=[(D("2026-11-12"), "dimissioni")]), lun),
+        ("una chiusura rivista in mezzo: avviso, non errore", una("S&P 500", [(a, v + 3 if a == D("2026-11-10") else v) for a, v in dal(SPX, "2026-11-02")],
+                                                                  "", "S&P 500, chiusure (punti)"), lun),
+        ("una distanza non è un livello", una("S&P 500", dal(SPX, "2026-11-16"), "L'S&P 500 torna a 521 punti dal massimo", "S&P 500, chiusure (punti)"), lun),
+        ("percentuale dal massimo giusta", una("S&P 500", dal(SPX, "2026-10-01"), "L'S&P 500 è a -6,7% dal massimo del 6 ottobre",
+                                               "S&P 500, chiusure (punti)"), lun),
+        ("ottobre, un mese dopo: grafico storico", una("S&P 500", dal(SPX, "2026-10-01", "2026-10-30"), "", "S&P 500, chiusure di ottobre (punti)"), lun),
+        ("da oltre A a meno di B", una("VIX", dal(VIX, "2026-11-20"), "In una settimana il VIX scende da oltre 35 a meno di 24", "VIX, chiusure"), lun),
+    ]
+    return [(n, gg, o, parola, *mondo(o)) for n, gg, o, parola in rossi] + [(n, gg, o, None, *mondo(o)) for n, gg, o in verdi]
+
+
+def passo_serie():
+    """Le serie dei grafici a linea (G-72). Nella prova del 28/11 (#036, pag. 2) due grafici avevano tre tratti
+    sovrapposti su due settimane: un anno di chiusure ridotto a mese-giorno e filtrato "dal 6 ottobre" portava dentro anche
+    novembre e dicembre 2025, e nessun controllo guardava le serie. Qui: (1) controlli_grafici.py ferma quelle due serie e
+    altre sbagliate in modi diversi, ognuna con il suo errore, e lascia passare le giuste difficili (festa in mezzo,
+    cinque sedute, due scale, mensile, settimanale, curva per scadenza, base 100, cavallo d'anno); (2) il motore non
+    disegna date non crescenti e continua a disegnare le serie giuste; (3) il controllo gira da riga di comando su
+    un'edizione, come lo lancia controlli_tutti.sh, e dice il rimedio."""
+    import contextlib
+    import io
+    import controlli_grafici as K
+    import gommberg_engine as E
+    casi = casi_serie()
+    male = []
+    for nome, gr, oggi, parola, storie, ultime in casi:
+        try:
+            err = K.controlla_grafico(gr, oggi, storie, ultime)
+        except Exception as e:  # noqa: BLE001
+            err = [f"ECCEZIONE {type(e).__name__}: {e}"]
+        if parola is None and err:
+            male.append(f"falso allarme su \"{nome}\": {err[0][:90]}")
+        elif parola is not None and not any(parola in e for e in err):
+            male.append(f"\"{nome}\" doveva fermarsi con \"{parola}\"" + (f", ha detto: {err[0][:70]}" if err else ", è passata"))
+    # un punto diverso dall'archivio prima dell'ultimo non ferma, ma si dice
+    rivista, avv = next(c for c in casi if c[0].startswith("una chiusura rivista")), []
+    K.controlla_grafico(rivista[1], rivista[2], rivista[4], rivista[5], None, avv)
+    if len(avv) != 1 or "1 punti su 19" not in avv[0]:
+        male.append(f"una chiusura rivista doveva dare un avviso ({avv[:1]})")
+    # il motore: la serie della prova non si disegna, quella giusta sì
+    tmp = os.path.join(TMP, "serie")
+    os.makedirs(tmp, exist_ok=True)
+    prova, buona, corta, curva = (next(c[1] for c in casi if c[0].startswith(n)) for n in
+                                  ("prova #036, S&P 500", "festa in mezzo", "un valore in meno delle date", "curva per scadenza"))
+    for nome, gr, deve in (("prova #036", prova, "non sono in ordine crescente"), ("un valore in meno", corta, "Un valore per ogni data"),
+                           ("festa in mezzo", buona, None), ("curva per scadenza", curva, None)):
+        k = {a: b for a, b in gr.items() if a not in ("tipo", "file", "sottotitolo")}
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                E.linee(os.path.join(tmp, "c.png"), **k)
+            detto = None
+        except ValueError as e:
+            detto = str(e)
+        if (deve is None) != (detto is None) or (deve and deve not in detto) or (detto and "togli il grafico" not in detto):
+            male.append(f"motore, {nome}: " + ("doveva fermarsi" if deve else "doveva disegnare") + f" ({str(detto)[:80]})")
+    # il sottotitolo di un grafico passa per le "&" come il titolo (#029 e #032 uscite con "S&P; 500" in grigio)
+    if E.titolo_grafico({"titolo": "Wall Street", "sottotitolo": "S&P 500, chiusure"})[0].getPlainText() != "Wall Street S&P 500, chiusure":
+        male.append("motore: una & nel sottotitolo di un grafico esce storpiata")
+    # da riga di comando, come in controlli_tutti.sh: un'edizione con un grafico che il motore disegna ma che non regge
+    ed = os.path.join(tmp, "edizione_2026-11-30.py")
+    righe = [(a.isoformat(), v) for a, v in zip(buona["x"], buona["serie"][0][1])]
+    sorgente = ("import datetime as dt\nS = " + repr(righe) + "\n"
+                "C = {\"data\": dt.date(2026, 11, 30), \"moduli\": [{\"chiave\": \"wall\", \"grafico\": {\"tipo\": \"linee\", \"file\": \"c_spx.png\", "
+                "\"x\": [dt.date.fromisoformat(a) for a, _ in S], \"serie\": [(\"S&P 500\", [v for _, v in S], \"#111111\")], "
+                "\"titolo\": \"L'S&P 500 risale\", \"sottotitolo\": \"%s\"}}]}\n")
+    dati = {"oggi": "2026-11-30", "serie": {"S&P 500": {"mercato": "USA", "tipo": "chiusura",
+                                                         "ultimi": [[a, v, None] for a, v in reversed(righe[-3:])]}}}
+    json.dump(dati, open(os.path.join(tmp, "dati.json"), "w", encoding="utf-8"))
+    esiti = []
+    for sub in ("S&P 500, chiusure dal 6 ottobre (punti)", "S&P 500, chiusure dal 16 novembre (punti)"):
+        open(ed, "w", encoding="utf-8").write(sorgente % sub)
+        esiti.append(esegui([sys.executable, os.path.join(R, "controlli_grafici.py"), ed, "--dati", os.path.join(tmp, "dati.json")], cwd=tmp))
+    (rc1, o1), (rc2, o2) = esiti
+    if rc1 != 1 or "ERRORE: wall, c_spx.png: il sottotitolo dice" not in o1 or "togli il grafico" not in o1:
+        male.append("riga di comando: il sottotitolo sbagliato doveva fermarsi con il rimedio (" + ultima(o1) + ")")
+    # quanti punti si confrontano dipende dall'archivio delle chiusure, che scorre: qui conta che la serie giusta passi
+    if rc2 != 0 or not o2.startswith("Grafici a linea: 1 | chiusure confrontate: ") or "errori: 0" not in o2:
+        male.append("riga di comando: l'edizione giusta doveva passare, con il riepilogo in prima riga (" + ultima(o2) + ")")
+    if "controlli_grafici.py" not in open(os.path.join(R, "controlli_tutti.sh"), encoding="utf-8").read():
+        male.append("controlli_tutti.sh non lancia controlli_grafici.py")
+    rossi, verdi = sum(c[3] is not None for c in casi), sum(c[3] is None for c in casi)
+    esito("Grafici: le serie delle linee reggono", not male, "; ".join(male)[:600] or
+          f"{rossi} serie sbagliate fermate ognuna con il suo errore (le due della prova #036, date ripetute o al contrario, due periodi, "
+          f"anno sbagliato, riga di oggi, ultima chiusura, sottotitolo, note, soglie, cifre del titolo) e {verdi} giuste difficili passate "
+          "(festa in mezzo, cinque sedute, due scale, mensile, settimanale, curva per scadenza, base 100, cavallo d'anno); il motore "
+          "non disegna date non crescenti né serie con un valore in meno e scrive bene una & nel sottotitolo; da riga di comando "
+          "l'errore porta il rimedio")
 
 
 # ---------------------------------------------------------------- 3a. scrittura: lessico di casa e fonti tra parentesi
@@ -3449,6 +3675,7 @@ def main():
         passo_modello()
         passo_scrittura()
         passo_coerenza()
+        passo_serie()
         passo_fonti()
         passo_dati()
         passo_tabelle()

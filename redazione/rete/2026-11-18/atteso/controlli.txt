@@ -29,6 +29,7 @@ ERRORE: direzioni: quadro: "petrolio cala con le scorte americane." dice giù, m
 ERRORE: direzioni: moduli.petrolio.titolo: "Brent scende con le scorte USA," dice giù, ma nella seduta Brent future fa +0,76%
 ERRORE: rimandi: ieri.0 rimanda a "Con Wall Street giù i Treasury si fermano: il mercato aspett", che non ne parla (nessun nome e meno di due parole in comune): il rimando va al pezzo che racconta qu
 ERRORE: ragionamento: manca coerenza_incarico.json: lo scrive controlli_tutti.sh --prima-della-revisione
+[ok] Grafici (serie delle linee): Grafici a linea: 2 | chiusure confrontate: 50 punti di 3 serie | periodi 1, note e soglie 3, cifre del titolo 1 | errori: 0
 [ok] Ripetizioni: Ripetizioni: punteggio 1 (1 cifre in 2+ sezioni)
 AVVISO: 2,1% in 2 sezioni: APPROFONDIMENTO EUROPA, TOP STORY
 AVVISO: eco "curva par tesoro via" in 2 punti
