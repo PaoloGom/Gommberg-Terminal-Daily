@@ -128,6 +128,26 @@ export function chiaveRete(ip) {
   return gruppi.slice(0, 4).map((g) => (parseInt(g, 16) || 0).toString(16)).join(":") + "::/64";
 }
 
+// Il corpo di una richiesta, al massimo max byte: si rifiuta prima di leggerlo se la lunghezza dichiarata è troppa, e si
+// smette di leggerlo appena supera il limite se non è dichiarata. null = troppo grande.
+export async function leggiCorpo(request, max) {
+  const cl = request.headers.get("content-length");
+  if (cl !== null && (!/^\d{1,12}$/.test(cl) || +cl > max)) return null;
+  if (!request.body) return "";
+  const r = request.body.getReader(), pezzi = [];
+  let n = 0;
+  for (;;) {
+    const { done, value } = await r.read();
+    if (done) break;
+    n += value.byteLength;
+    if (n > max) { try { await r.cancel(); } catch (e) { /* già chiuso */ } return null; }
+    pezzi.push(value);
+  }
+  const tutto = new Uint8Array(n); let i = 0;
+  for (const p of pezzi) { tutto.set(p, i); i += p.byteLength; }
+  return new TextDecoder().decode(tutto);
+}
+
 // il sito che scrive: gommberg.com, oppure "prova" per anteprime e prove in locale
 export const sitoDi = (url) => /^(www\.)?gommberg\.com\.?$/.test(url.hostname) ? "gommberg" : "prova";
 
@@ -251,7 +271,9 @@ async function instrada(request, env, url) {
   if (!origine || origine !== url.origin) return errore("Richiesta non ammessa.", 403);   // l'origine intera, schema compreso
   if (!autore) return errore("Ricarica la pagina e riprova.", 400);
   let corpo = {};
-  try { corpo = await request.json(); } catch (e) { return errore("Richiesta non valida.", 400); }
+  const grezzo = await leggiCorpo(request, 32000);                 // 413 prima di leggere un corpo troppo grande (un commento ne usa pochi KB)
+  if (grezzo === null) return errore("Richiesta troppo grande.", 413);
+  try { corpo = JSON.parse(grezzo); } catch (e) { return errore("Richiesta non valida.", 400); }
   if (!corpo || typeof corpo !== "object" || Array.isArray(corpo)) return errore("Richiesta non valida.", 400);
   if (!(await gettoneValido(cfg.segreto, corpo.gettone))) return errore("Ricarica la pagina e riprova.", 400);
   if (corpo.sito) return risposta({ ok: true });                    // campo trappola riempito: un programma, non una persona

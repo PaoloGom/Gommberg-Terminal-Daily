@@ -57,6 +57,13 @@ r = await chiama("GET", "/api/altro");
 verifica("indirizzo sconosciuto: 404", r.s === 404, r);
 
 // ------------------------------------------------------------- 2. difese
+{
+  let pezzi = 0;
+  const flussoL = new ReadableStream({ pull(ctrl) { pezzi++; ctrl.enqueue(new TextEncoder().encode("x".repeat(4096))); } });
+  const rl = await worker.fetch(new Request(BASE + "/api/lettori/031/commenti", { method: "POST", duplex: "half", body: flussoL,
+    headers: { origin: BASE, "content-type": "application/json", "content-length": "20000000", "x-lettore": "lettore-aaaaaaaaaaaaaaaa", "cf-connecting-ip": "1.1.1.1" } }), env);
+  verifica("lettori: un corpo dichiarato di 20 MB si rifiuta con 413 prima di leggerlo", rl.status === 413 && pezzi <= 2, [rl.status, pezzi]);
+}
 const testo = (x) => ({ nome: "Giulia T.", testo: x, gettone: g0 });
 r = await chiama("POST", "/api/lettori/031/commenti", { corpo: testo("Troppo presto") });
 verifica("gettone di meno di 3 secondi: rifiutato", r.s === 400, r);
@@ -290,7 +297,7 @@ const F = { lettore: "lettore-llllllllllllllll", ip: "9.9.9.9" }, G = { lettore:
 // testi enormi: rifiutati prima di ripulirli (la pulizia di 150.000 spazi teneva occupato il servizio per 20 secondi)
 let t0 = performance.now();
 r = await chiama("POST", "/api/lettori/031/commenti", { ...F, corpo: { nome: "Grande", testo: " ".repeat(150000) + "x", gettone: g4 } });
-verifica("testo enorme: rifiutato subito", r.s === 400 && performance.now() - t0 < 500, [r.s, Math.round(performance.now() - t0)]);
+verifica("testo enorme: rifiutato subito (400, o 413 se il corpo supera i 32 KB)", (r.s === 400 || r.s === 413) && performance.now() - t0 < 500, [r.s, Math.round(performance.now() - t0)]);
 t0 = performance.now(); pulisciTesto(" ".repeat(5000) + "x");
 verifica("la pulizia del testo più lungo ammesso è immediata", performance.now() - t0 < 200, Math.round(performance.now() - t0));
 r = await chiama("GET", "/api/lettori/nome?n=" + "a".repeat(5000), F);
@@ -729,7 +736,20 @@ async function areaRiservata() {
   env.REDAZIONE_PASSWORD = PW;
   const R1 = await entra();
   verifica("recupero: tornando al segreto di prima si entra con quello (l'impronta vecchia non torna)", R1.r.s === 200);
-  const S1 = { cookie: R1.cookie, csrf: R1.csrf };
+  // cambia solo il nome utente: le sessioni si chiudono, la password dell'area resta (non torna valido il segreto vecchio)
+  const NUOVA3 = "la password scelta dall'area, prima del nome";
+  r = await cambia(R1, PW, NUOVA3);
+  const pU = await entra({ password: NUOVA3 });
+  env.REDAZIONE_UTENTE = "nome-nuovo-di-paolo";
+  const rU1 = await red("GET", "/api/redazione/sessione", { cookie: pU.cookie });
+  const rU2 = await red("POST", "/api/redazione/accesso", { corpo: { utente: "nome-nuovo-di-paolo", password: PW }, ip: nuovoIp() });
+  const rU3 = await red("POST", "/api/redazione/accesso", { corpo: { utente: "nome-nuovo-di-paolo", password: NUOVA3 }, ip: nuovoIp() });
+  verifica("utente: cambiato solo il nome, le sessioni si chiudono, la password dell'area resta e il segreto vecchio non torna",
+    r.s === 200 && rU1.s === 401 && rU2.s === 401 && rU3.s === 200, [r.s, rU1.s, rU2.s, rU3.s]);
+  env.REDAZIONE_UTENTE = UT;
+  env.DB._db.exec("DELETE FROM config WHERE k = 'password'"); env.DB._db.exec("DELETE FROM sessioni");
+  const R1b = await entra();
+  const S1 = { cookie: R1b.cookie, csrf: R1b.csrf };
 
   // ------------------------------------------------- la Gommunity dalla redazione
   avanti(10);
@@ -845,6 +865,12 @@ async function areaRiservata() {
   verifica("sblocca: il lettore torna a scrivere", r.s === 200 && r6.s === 201, [r.s, r6]);
   r = await red("POST", "/api/redazione/lettori/blocca", { corpo: { commento: idG }, ...S1 });
   verifica("blocca: la redazione non si blocca", r.s === 400, r.s);
+  // un commento di prima che le reti fossero IPv4 o /64: l'impronta salvata è dell'indirizzo intero, il blocco di rete è incerto
+  env.DB._db.exec("INSERT INTO config (k, v) VALUES ('rete64', '" + new Date(adesso).toISOString().replace(/\.\d{3}Z$/, "Z") + "') ON CONFLICT (k) DO UPDATE SET v = excluded.v");
+  env.DB._db.exec("INSERT INTO commenti (sito, ed, nome, testo, creato, autore, ip) VALUES ('gommberg', 31, 'Vecchio Commento', 'Scritto prima', '" + new Date(adesso - 3600000).toISOString().replace(/\.\d{3}Z$/, "Z") + "', 'autore-vecchio', 'impronta-vecchia')");
+  const idV = q("SELECT id FROM commenti WHERE autore = 'autore-vecchio'")[0].id;
+  r = await red("POST", "/api/redazione/lettori/blocca", { corpo: { commento: idV }, ...S1 });
+  verifica("blocca: per un commento di prima della regola /64 la rete è dichiarata incerta, non bloccata", r.s === 200 && r.j.rete === "incerta", r.j);
   // libera un nome
   r = await red("POST", "/api/redazione/nomi/libera", { corpo: { commento: idW, nome: "wanda  plusvalenza" }, ...S1 });
   const r7 = await chiama("POST", "/api/lettori/031/commenti", { ...L2, corpo: { nome: "Wanda Plusvalenza", testo: "Il nome adesso è mio", gettone: g7 } });

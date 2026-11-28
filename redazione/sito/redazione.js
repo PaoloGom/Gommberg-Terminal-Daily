@@ -25,7 +25,7 @@
 // Nessun blocco per tutto il sito (chiunque lo farebbe scattare chiudendo fuori Paolo): con una password di almeno 16
 // caratteri non serve; i tentativi falliti delle ultime 24 ore si vedono nell'area. Utente inesistente e password
 // sbagliata danno la stessa risposta, e lo stesso lavoro.
-import { prepara, firma, impronta, chiaveRete, sitoDi, pulisciTesto, controllaTesto, chiaveNome, edizione, ultima, iso, prima, LIMITI } from "./lettori.js";
+import { prepara, firma, impronta, chiaveRete, leggiCorpo, sitoDi, pulisciTesto, controllaTesto, chiaveNome, edizione, ultima, iso, prima, LIMITI } from "./lettori.js";
 
 export const AREA = {
   iterazioni: 50000,           // PBKDF2-SHA256: ~6 ms di CPU (piano gratuito: 10 ms per richiesta; il massimo dei Workers è 100.000)
@@ -127,7 +127,8 @@ const testoBreve = (s, n) => String(s == null ? "" : s).slice(0, n);
 async function credenziale(c) {
   const utente = String(c.env.REDAZIONE_UTENTE || ""), segreto = String(c.env.REDAZIONE_PASSWORD || "");
   if (!utente || segreto.length < AREA.password_min) return null;
-  const firmaSegreto = await firma(c.cfg.segreto, "segreto:" + utente + "\n" + segreto);
+  // la firma del segreto dipende solo dalla password: cambiare il nome utente non cancella la password dell'area
+  const firmaSegreto = await firma(c.cfg.segreto, "segreto:" + segreto);
   let rec = null;
   const r = await c.db.prepare("SELECT v FROM config WHERE k = 'password'").first();
   if (r) {
@@ -138,7 +139,9 @@ async function credenziale(c) {
       rec = null;
     }
   }
-  const versione = (await firma(c.cfg.segreto, "cred:" + (rec ? rec.h : firmaSegreto))).slice(0, 24);
+  // la versione delle credenziali (vale per le sessioni): la password attiva e il nome utente. Cambiare solo il nome
+  // chiude le sessioni ma lascia la password dell'area
+  const versione = (await firma(c.cfg.segreto, "cred:" + (rec ? rec.h : firmaSegreto) + "\nu:" + utente)).slice(0, 24);
   return { utente, segreto, rec, firmaSegreto, versione };
 }
 // Nome utente e password: stesso lavoro e stessa risposta se sbaglia il nome, la password o entrambi
@@ -188,25 +191,6 @@ function stessoSito(c) {
   let o = "";
   try { o = new URL(c.request.headers.get("origin") || "").origin; } catch (e) { o = ""; }
   return !!o && o !== "null" && o === c.url.origin;      // l'origine intera: schema, nome e porta
-}
-// Il corpo di una richiesta, al massimo max byte: si rifiuta prima di leggerlo se la lunghezza dichiarata è troppa, e si
-// smette di leggerlo appena supera il limite se non è dichiarata. null = troppo grande.
-async function leggiCorpo(request, max) {
-  const cl = request.headers.get("content-length");
-  if (cl !== null && (!/^\d{1,12}$/.test(cl) || +cl > max)) return null;
-  if (!request.body) return "";
-  const r = request.body.getReader(), pezzi = [];
-  let n = 0;
-  for (;;) {
-    const { done, value } = await r.read();
-    if (done) break;
-    n += value.byteLength;
-    if (n > max) { try { await r.cancel(); } catch (e) { /* già chiuso */ } return null; }
-    pezzi.push(value);
-  }
-  const tutto = new Uint8Array(n); let i = 0;
-  for (const p of pezzi) { tutto.set(p, i); i += p.byteLength; }
-  return new TextDecoder().decode(tutto);
 }
 
 // ------------------------------------------------------------------ ingresso
@@ -432,7 +416,7 @@ async function cambiaPassword(c, corpo) {
   if (!m || Date.now() / 1000 - +m[1] > PROVA_S || Date.now() / 1000 < +m[1] - 5 || !uguali(await prova(c, +m[1], nuova), corpo.prova))
     return no(url, "Prima conferma la password attuale (o rifallo: sono passati più di 5 minuti).", 403);
   const h = await improntaPassword(nuova);
-  const versione = (await firma(c.cfg.segreto, "cred:" + h)).slice(0, 24), d = dispositivo(c.request.headers.get("user-agent"));
+  const versione = (await firma(c.cfg.segreto, "cred:" + h + "\nu:" + cred.utente)).slice(0, 24), d = dispositivo(c.request.headers.get("user-agent"));
   await c.db.batch([
     c.db.prepare("INSERT INTO config (k, v) VALUES ('password', ?1) ON CONFLICT (k) DO UPDATE SET v = ?1").bind(JSON.stringify({ h, s: cred.firmaSegreto, quando: iso(new Date(Date.now())) })),
     c.db.prepare("DELETE FROM sessioni WHERE id != ?").bind(c.s.id),
@@ -653,7 +637,11 @@ async function blocca(c, corpo, si) {
   } else {
     await c.db.prepare("DELETE FROM bloccati WHERE sito = ? AND ((tipo = 'lettore' AND valore = ?) OR (tipo = 'ip' AND valore = ?))").bind(c.sito, cm.autore, cm.ip || "-").run();
   }
-  return json(url, { ok: true, bloccato: si, rete: si && !!cm.ip && Date.parse(cm.creato) + AREA.blocco_rete_giorni * 86400000 > Date.now() });
+  // un commento di prima della regola delle reti (IPv4 o /64, schema 3) ha l'impronta dell'indirizzo intero: per l'IPv4
+  // è la stessa, per l'IPv6 no. Non sapendo quale, il blocco di rete si dichiara incerto
+  const r64 = await c.db.prepare("SELECT v FROM config WHERE k = 'rete64'").first();
+  const viva = si && !!cm.ip && Date.parse(cm.creato) + AREA.blocco_rete_giorni * 86400000 > Date.now();
+  return json(url, { ok: true, bloccato: si, rete: !viva ? false : r64 && cm.creato < r64.v ? "incerta" : true });
 }
 // Liberare un nome: torna disponibile per tutti (per esempio dopo aver tolto i commenti di chi lo usava)
 async function liberaNome(c, corpo) {

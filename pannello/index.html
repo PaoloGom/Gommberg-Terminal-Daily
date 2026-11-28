@@ -1125,7 +1125,7 @@ function gAzione(act,id,el){var g=RED.g,c=g.dati&&g.dati.commenti.filter(functio
   var p;
   if(act=="chiudi"||act=="riapri"){var n=+el.getAttribute("data-n");p=rapi("POST","edizioni/"+n+"/"+act).then(function(){RED.disc=null;toast("Discussione di "+num(n)+(act=="chiudi"?" chiusa":" riaperta"))})}
   else if(act=="blocca"||act=="sblocca"){if(act=="blocca"&&!confirm("Bloccare chi ha scritto questo commento? Non potrà più scrivere, votare né segnalare."))return;
-    p=rapi("POST","lettori/"+act,{commento:id}).then(function(j){toast(act=="blocca"?"Lettore bloccato"+(j.rete?" (browser e rete)":" (browser)"):"Lettore sbloccato")})}
+    p=rapi("POST","lettori/"+act,{commento:id}).then(function(j){toast(act=="blocca"?"Lettore bloccato"+(j.rete=="incerta"?" (browser; la rete solo se il commento è stato scritto da IPv4: è di prima della regola sulle reti)":j.rete?" (browser e rete)":" (browser)"):"Lettore sbloccato")})}
   else if(act=="libera"||act=="libera-tutti"){p=rapi("POST","nomi/libera",act=="libera"?{commento:id,nome:el.getAttribute("data-nome")}:{commento:id}).then(function(j){toast(j.liberati?(j.liberati==1?"Nome liberato":j.liberati+" nomi liberati"):"Nessun nome da liberare")})}
   else if(act=="rispondi"||act=="modifica"){var ta=document.getElementById("gtesto"),tx=ta?ta.value:"";if(!tx.trim()){ta&&ta.focus();return}
     p=(act=="rispondi"?rapi("POST","commenti",{ed:c.ed,testo:tx,padre:id}):rapi("POST","commenti/"+id+"/modifica",{testo:tx})).then(function(){g.scrivi=null;toast(act=="rispondi"?"Risposta pubblicata come Gommberg":"Commento modificato")})}
