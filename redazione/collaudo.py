@@ -1861,6 +1861,13 @@ def passo_area():
     for f in glob.glob(os.path.join(REPO, "pannello", "*.html")) + [os.path.join(R, "sito", "LETTORI.md")]:
         if re.search(r"nessuno ti può chiudere fuori|nessuno può chiudere fuori", open(f, encoding="utf-8").read(), re.I):
             male.append(f"{os.path.relpath(f, REPO)}: promette che nessuno può chiudere fuori Paolo (falso: quota di Cloudflare e di D1)")
+    # pdf.js 3.11.174 ha una falla nota nei font (codice eseguito da un PDF costruito ad arte), neutralizzata solo da
+    # isEvalSupported: false: ogni getDocument del sito la deve avere finché il visore non passa a una versione corretta
+    for f in pagine:
+        t = open(f, encoding="utf-8", errors="replace").read()
+        for m in re.finditer(r"getDocument\(([^)]*)\)", t):
+            if not re.search(r"isEvalSupported\s*:\s*false", m.group(1)):
+                male.append(f"{os.path.relpath(f, sito)}: getDocument senza isEvalSupported: false (pdf.js 3.11.174 resterebbe esposto alla falla dei font)")
     gi = open(os.path.join(REPO, ".gitignore"), encoding="utf-8").read().split()
     for x in (".dev.vars", "redazione/sito/wrangler.pubblica.json"):
         if x not in gi:
