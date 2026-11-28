@@ -10,8 +10,10 @@ AVVISO: T01: numeri del testo che né la citazione né il revisore riportano: [3
 [ok] Numeri contro dati.json: Numeri confrontati con dati.json: 39 | scarti: 0
 [ROSSO] Scrittura (→, cause, sigle, ritmo):
 ERRORE: chi parla senza nome (§3.5): un'indiscrezione o la spiegazione di qualcuno vogliono il nome della testata nella frase (e nella riga Fonti); "la stampa", "i media", "notizie" non sono un nome.
-ERRORE: perché della scommessa che non sono un motivo (APP_LUNEDI §3): scrivi il meccanismo che questa settimana spinge quel mercato nella direzione scelta, correggi redazione.json e rilancia pronos
 AVVISO: lessico: "spread tra BTP e Bund" (1 volte): scrivi spread BTP-Bund
+AVVISO: perché della scommessa da rileggere (APP_LUNEDI §3): Euro Stoxx 50 «Dopo il minimo da maggio aspetta di capire se Wall Street tiene»: sembra un'attesa: c'è il verso in cui spinge il merca
+AVVISO: perché della scommessa da rileggere (APP_LUNEDI §3): EUR/USD «L'euro recupera un po' dopo una settimana di dollaro forte»: sembra ciò che il mercato ha già fatto: c'è una causa per ques
+AVVISO: perché della scommessa da rileggere (APP_LUNEDI §3): Oro future «Rimbalza dopo la caduta di venerdì, la peggiore da mesi»: sembra ciò che il mercato ha già fatto: c'è una causa per que
 [ok] Temi di prima pagina: Temi di prima pagina: 0 errori, 1 avvisi lessicali
 AVVISO: Notizia 01 "La SEC indaga sui conti di Nvidia, riferisce la stampa ameri": riprende la top story (stampa americana)
 [ok] Contenuti (estremi, perché, anomalie...): Contenuti: 0 errori, 1 avvisi

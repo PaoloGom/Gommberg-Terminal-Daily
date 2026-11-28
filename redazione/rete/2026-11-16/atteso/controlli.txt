@@ -14,9 +14,9 @@ ERRORE: pag. 5, Hang Seng: nel PDF non c'è la riga calcolata (23.753,84 | +0,5%
 ERRORE: pag. 5, Kospi: nel PDF non c'è la riga calcolata (5.100,50 | -3,6% | +1,6% | +21,0%): le tabelle vengono da TAB = tabelle_da_dati("dati.json"), come nel modello, mai scritte a mano
 [ROSSO] Scrittura (→, cause, sigle, ritmo):
 ERRORE: 21 testate tra parentesi (§3.5): toglile, stanno nella riga Fonti del pezzo; se il nome è parte della notizia (accusa, indiscrezione, stima, opinione, spiegazione di qualcuno) dillo nella fr
-ERRORE: perché della scommessa che non sono un motivo (APP_LUNEDI §3): scrivi il meccanismo che questa settimana spinge quel mercato nella direzione scelta, correggi redazione.json e rilancia pronos
 ERRORE: lessico: "La vendita colpisce" (4 volte): scrivi le vendite, l'ondata di vendite, il ribasso (se è la cessione di un bene: "la cessione")
 AVVISO: lessico: "spread tra Btp e Bund" (1 volte): scrivi spread BTP-Bund
+AVVISO: perché della scommessa da rileggere (APP_LUNEDI §3): Euro Stoxx 50 «L'Europa aspetta i conti di Nvidia dopo una settimana forte»: sembra un'attesa: c'è il verso in cui spinge il mercato?
 AVVISO: sigle spiegate più di una volta: VIX
 AVVISO: sigle definite tra parentesi (§3.4: la cosa si dice in parole dentro la frase): VIX
 [ok] Temi di prima pagina: Temi di prima pagina: 0 errori, 0 avvisi lessicali

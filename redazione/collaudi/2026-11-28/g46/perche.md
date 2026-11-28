@@ -62,11 +62,24 @@ Dopo (454 caratteri):
 
 La frase si allunga di 51 caratteri, ma la sezione si accorcia di 140: escono i due perché d'esempio nel modello di `redazione.json` (erano esempi concreti, con nomi veri: ora "..."), ed esce dalla "Una settimana sola" la frase sulla causa ripetuta, che ora sta nella regola. L'incarico del revisore (§4) chiede di segnalare "una riga che non è un motivo (§3)" al posto di "una causa già scritta". Il messaggio di `pronostico.py` non dice più "che cosa aspetta". L'istruzione `fondo` che chiedeva proprio l'attesa era la causa delle due righe "aspetta".
 
-## 3. Il controllo (controlli_testo.py, passo Scrittura del lunedì)
+## 3. Il controllo: un avviso per il revisore (controlli_testo.py, passo Scrittura del lunedì)
 
-Legge i sei perché dal registro della settimana (REG del file dell'edizione) e ferma tre forme vuote, in generale e senza elenchi di frasi: un verbo d'attesa (aspettare, attendere, "in attesa"); ciò che il mercato ha già fatto (un rimbalzo, una ripresa o una risalita legati a "dopo", una tendenza, "di fila"); la stessa causa in due righe (quattro parole uguali di fila). È un errore di Scrittura che chiede di correggere `redazione.json` e rilanciare `pronostico.py --forza` (direzioni e numeri restano): dopo tre giri l'edizione esce com'è.
+Dopo il collaudo indipendente (8 falsi allarmi su 35 perché buoni del suo banco quando era un errore), il controllo è un
+AVVISO per il revisore, che già rilegge i perché (APP_LUNEDI §4): distinguere un meccanismo da un'attesa è un giudizio di
+lettura. Legge i sei perché dal registro della settimana e segnala, con la domanda da farsi:
+- un perché senza un verbo di causa coniugato con il suo oggetto (la forma causa -> effetto, o un "se ...") che somiglia a
+  un'attesa ("aspetta", "guarda al", "in vista di", "occhi puntati", "dipende da") o a ciò che il mercato ha già fatto
+  ("rimbalza", "recupera", "riparte", "prosegue", "consolida", "torna a", "di fila", "consecutive", "sulla scia", "fiato");
+- la stessa causa in due righe (quattro parole uguali di fila);
+- più di due righe su sei che dichiarano la direzione debole ("la scommessa sembra fatta a caso"). La dichiarazione esce
+  dal giudizio, il resto della frase no.
+Le correzioni del revisore si fanno con `pronostico.py --solo-parole`, che riscrive nel registro solo scenario e perché:
+direzioni, livelli e forchette non si toccano per costruzione (prima il rimando era a `--forza`, che riscrive tutto).
 
-Sui 39 perché usciti: **12 fermati, tutti tra i 21 non motivi; 0 falsi allarmi sui 18 motivi veri.** Mancati (9), dichiarati e lasciati alla rilettura del revisore: il mattino descritto senza la causa (19/10 S&P 500, Euro Stoxx 50, Treasury; 26/10 ACWI; 23/11 S&P 500), la causa ripetuta con parole diverse (26/10 EUR/USD), i tre perché contro la tesi (16/11 Treasury e EUR/USD, 23/11 Brent). Riconoscerli dal codice vorrebbe capire il senso della frase: falsi allarmi sicuri.
+Misure (`banco_perche.py`): sui 39 perché usciti 12 avvisi, tutti su non motivi, 0 sui 18 motivi veri; banco con le frasi
+del collaudatore, 15 perché buoni e 16 vuoti: 0 avvisi sui buoni, 0 mancati; sei righe "Direzione debole: poggia solo sul
+mattino": un avviso. Restano senza avviso, e alla sola rilettura: il mattino descritto senza la causa, la causa ripetuta
+con altre parole, il perché contro la tesi.
 
 ## 4. Prima e dopo su due scommesse uscite
 
@@ -77,7 +90,7 @@ Riscritti a mano solo con i fatti delle schede di quel giorno (`redazione/fatti/
 | Mercato | Prima | Dopo |
 |---|---|---|
 | S&P 500 su | I future salgono di oltre il 2% dopo il crollo di venerdì | **Nessun motivo nelle schede.** I future rimbalzano (T01) ma nessuna scheda dice perché. La regola costringe a cercarlo o a dichiarare che la direzione poggia solo sul mattino. |
-| Euro Stoxx 50 su | Dopo il minimo da maggio aspetta di capire se Wall Street tiene | Il rimbalzo dei future americani riporta su i chip europei, i più colpiti venerdì (T01, N05) |
+| Euro Stoxx 50 su | Dopo il minimo da maggio aspetta di capire se Wall Street tiene | **Nessun motivo nelle schede per l'indice.** Le schede parlano di due titoli di Milano (N05) e del livello dell'indice (N06), non di che cosa lo spinge su. Direzione debole. |
 | Treasury 10 anni su | Se la paura cala i Treasury smettono di fare da rifugio e il rendimento risale | invariato: è già un motivo (D01) |
 | EUR/USD su | L'euro recupera un po' dopo una settimana di dollaro forte | **Nessun motivo nelle schede.** Le schede spiegano solo il dollaro forte (Waller, MEM-1120-MEM-1119-N12), che spinge nel verso opposto. Direzione debole: va detto o cercato. |
 | Brent giù | Con meno fiducia nella crescita e più offerta il greggio ha poca spinta | Le scorte americane salite di oltre 5 milioni di barili tengono basso il greggio (MEM-1118-D05) |
@@ -88,13 +101,13 @@ Riscritti a mano solo con i fatti delle schede di quel giorno (`redazione/fatti/
 | Mercato | Prima | Dopo |
 |---|---|---|
 | S&P 500 giù | I future perdono terreno dopo il crollo dei chip asiatici | invariato: è già un motivo (T01, D02) |
-| Euro Stoxx 50 su | L'Europa aspetta i conti di Nvidia dopo una settimana forte | Con meno tecnologia nel listino, l'Europa regge meglio se il timore sull'intelligenza artificiale cresce (D08) |
+| Euro Stoxx 50 su | L'Europa aspetta i conti di Nvidia dopo una settimana forte | Per un analista di Bankhaus Merck Finck, se l'intelligenza artificiale si indebolisce le borse europee vanno meglio di quelle americane (D08) |
 | Treasury 10 anni su | La Fed parla oggi e mercoledì: un tono duro tiene alti i rendimenti | Waller e Logan chiedono già rialzi a dicembre: il rendimento resta spinto in su anche senza toni nuovi (MEM-1113-D04) |
 | EUR/USD giù | Con rialzi Fed attesi il dollaro resta il rifugio contro l'euro | **Nessun motivo che non sia la Fed già data al Treasury.** Le schede dicono solo "dollaro in rafforzamento" (N12). Direzione debole. |
 | Brent su | Gli attacchi nel Golfo e nel Mar Rosso tengono il rischio sulle forniture | Lo stretto di Hormuz resta chiuso: il rischio sulle forniture tiene alto il prezzo (D11, N07) |
 | Oro giù | Il dollaro forte e i tassi alti pesano sull'oro | invariato: è già un motivo (N12) |
 
-Che cosa vede il lettore: nelle due settimane si passa da 4 motivi veri su 12 a 8 su 12. Per gli altri 4 le schede del giorno non avevano un motivo: la regola non lo inventa, obbliga a cercarlo al passo delle prove. Da decidere con Paolo: se la ricerca non lo trova, che cosa si stampa. La regola di oggi non lo dice; una forma onesta sarebbe dire che la direzione segue solo il mattino o la tendenza di fondo, ma sarebbe una regola in più.
+Che cosa vede il lettore: nelle due settimane si passa da 4 motivi veri su 12 a 7 su 12. Per gli altri 5 le schede del giorno non avevano un motivo: la regola non lo inventa, obbliga a cercarlo al passo delle prove. Se la ricerca non lo trova, la regola chiede di dire che la direzione è debole e su che cosa poggia (al più due righe su sei senza avviso).
 
 ## Non verificato
 

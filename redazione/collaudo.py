@@ -785,7 +785,25 @@ def passo_scrittura():
               ("vix", "Direzione debole: nessuna causa nelle notizie, poggia solo sulla tendenza di fondo"),
               ("nikkei", "Direzione debole: poggia solo sulla tendenza di fondo dopo il rimbalzo")]
     vuoti = [n for n, *_ in getattr(T, "perche_vuoti", lambda m: [])(motivi)]
-    lunedi_ok = vuoti == ["sx5e", "oro", "acwi"]
+    # la dichiarazione di direzione debole non esenta il resto della frase, e più di due su sei sono un avviso
+    pv = getattr(T, "perche_vuoti", lambda m: [])
+    deboli = pv([("a", "Direzione debole, il mercato aspetta la Fed")]) and \
+        any("deboli" in c for *_, c in pv([(k, "Direzione debole: poggia solo sul mattino") for k in "abc"])) and \
+        not pv([("a", "La tendenza al rialzo dei salari tiene alta l'inflazione e i rendimenti"),
+                ("b", "Gli investitori che attendono un taglio comprano Treasury e il rendimento scende")])
+    lunedi_ok = vuoti == ["sx5e", "oro", "acwi"] and bool(deboli)
+    # --solo-parole cambia i perché e non i numeri del registro già scritto
+    sp = os.path.join(TMP, "solo_parole")
+    shutil.rmtree(sp, ignore_errors=True); os.makedirs(sp)
+    shutil.copy(os.path.join(R, "pronostici", "2026-11-23-settimana.json"), sp)
+    json.dump({"sx5e": {"motivo": "I chip europei ripartono con i future americani", "previsione": 9999}},
+              open(os.path.join(sp, "red.json"), "w", encoding="utf-8"))
+    esegui([sys.executable, os.path.join(R, "scommessa", "pronostico.py"), "--origine", "2026-11-20", "--redazione",
+            os.path.join(sp, "red.json"), "--uscita", sp, "--solo-parole"], cwd=os.path.join(R, "scommessa"))
+    nuovo = json.load(open(os.path.join(sp, "2026-11-23-settimana.json"), encoding="utf-8"))["strumenti"]["sx5e"]
+    vecchio = json.load(open(os.path.join(R, "pronostici", "2026-11-23-settimana.json"), encoding="utf-8"))["strumenti"]["sx5e"]
+    lunedi_ok = lunedi_ok and nuovo["motivo_redazione"].startswith("I chip europei") and \
+        all(nuovo[k] == vecchio[k] for k in ("previsione_redazione", "range", "base", "tipo_motivo"))
     fonti_ok = fonti_ok and lunedi_ok
     ok = not sfuggiti and not fermate and sigla and fonti_ok and coperta and voce and sigle_ok
     esito("Scrittura: lessico di casa, fonti e sigle", ok,

@@ -189,6 +189,31 @@ def prova(origine, variabile=None):
               " / ".join(f"{x:.4f}" for x in liv[3:]) + f"   |   mattino: conta da +-{so}")
 
 
+def solo_parole(origine, a):
+    """La correzione delle parole dopo la rilettura: dal registro già scritto cambiano solo "scenario" e "motivo_redazione";
+    direzioni, livelli, forchette e tipi restano quelli scritti la mattina (non li ricalcola nessuno)."""
+    if not a.redazione:
+        raise SystemExit("--solo-parole vuole --redazione con le parole corrette")
+    lun = (origine + pd.Timedelta(days=3)).date()
+    nome = os.path.join(a.uscita, f"{lun}-settimana.json")
+    if not os.path.exists(nome):
+        raise SystemExit(f"{nome} non c'è: --solo-parole corregge un registro già scritto")
+    reg = json.load(open(nome, encoding="utf-8"))
+    red = json.load(open(a.redazione, encoding="utf-8"))
+    if "_scenario" in red:
+        reg["scenario"] = " ".join(str(red["_scenario"]).split())
+        controlla_scenario(reg["scenario"])
+    for k, v in reg.get("strumenti", {}).items():
+        m = (red.get(k) or {}).get("motivo") if isinstance(red.get(k), dict) else None
+        if m and str(m).strip():
+            v["motivo_redazione"] = str(m).strip()
+    motivi = [v["motivo_redazione"].strip().lower() for v in reg["strumenti"].values()]
+    if len(set(motivi)) < len(motivi):
+        raise SystemExit("due mercati hanno lo stesso motivo: ogni riga dice che cosa spinge QUEL mercato nella sua direzione")
+    salva_json(reg, nome)
+    print("parole corrette in", nome, "(direzioni e numeri invariati)")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--origine", required=True)
@@ -197,8 +222,12 @@ def main():
     ap.add_argument("--prova", action="store_true", help="stampa sigma e livelli possibili senza scrivere nulla")
     ap.add_argument("--forza", action="store_true", help="sovrascrive un registro esistente (solo per correggere un errore)")
     ap.add_argument("--variabile", help="lo strumento della settimana (var_<chiave>, preparato con variabile.py)")
+    ap.add_argument("--solo-parole", action="store_true", help="riscrive nel registro già scritto solo lo scenario e i "
+                    "perché da --redazione: direzioni e numeri non si toccano (correzioni del revisore)")
     a = ap.parse_args()
     origine = pd.Timestamp(a.origine)
+    if a.solo_parole:
+        return solo_parole(origine, a)
     if origine.dayofweek != 4:
         raise SystemExit("--origine deve essere un venerdì (l'ultima chiusura della settimana precedente)")
     if a.variabile and os.environ.get("GTD_STRUMENTO_SETTIMANA") != "1":

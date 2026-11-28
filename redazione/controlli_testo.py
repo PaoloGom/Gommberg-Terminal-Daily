@@ -17,8 +17,8 @@ Uso: python3 controlli_testo.py <pdf> [--json uscita.json]
   pezzo (per pag. 1 e 5: in una delle righe Fonti del numero): altrimenti ERRORE. Chi parla senza nome ("la stampa
   americana", "i media", "notizie secondo cui") non copre una causa ed è un ERRORE se la frase non nomina la testata;
   un'indiscrezione è un ERRORE se il pezzo non dice da quale testata viene.
-- Il lunedì, i perché della scommessa (dal registro della settimana): un'attesa, ciò che il mercato ha già fatto o la stessa
-  causa in due righe sono un ERRORE (APP_LUNEDI §3).
+- Il lunedì, i perché della scommessa (dal registro della settimana): un perché senza causa -> effetto che sembra un'attesa
+  o ciò che il mercato ha già fatto, la stessa causa in due righe, più di due direzioni deboli: AVVISO per il revisore.
 - Aperture (ISTRUZIONI §1): il testo di un approfondimento apre con un dubbio, ma con la domanda esplicita in due pezzi
   al massimo: oltre, ERRORE (nella #030 erano 5 su 5, nella prova del 21/11 4 su 4).
 - Lessico di casa (glossario.json, "lessico"): avviso, errore per le voci con "blocca" (termini che restano in inglese,
@@ -458,35 +458,46 @@ def senza_testata(tt, nomi=None, righe=()):
 
 
 # Perché della scommessa del lunedì (APP_LUNEDI §3): un motivo è il meccanismo che spinge quel mercato nella direzione scelta.
-# Forme vuote riconosciute in generale: un verbo d'attesa ("aspetta"), ciò che il mercato ha già fatto (un rimbalzo o una
-# ripresa "dopo" un calo, una tendenza, "di fila"), la stessa causa ripetuta in due righe (quattro parole uguali di fila).
-_ATTESA = re.compile(r"\baspett\w*|\battend\w*|\bin attesa\b", re.I)
-_GIA_FATTO = re.compile(r"\b(?:rimbalz|recuper|risal)\w*\b[^.;:]*\bdopo\b|\bdopo\b[^.;:]*\b(?:rimbalz|recuper|risal)\w*|"
-                        r"\btendenz\w*|\bdi fila\b", re.I)
-
-
-# un perché che dichiara di non avere una causa (la direzione è debole, poggia solo su qualcosa) è onesto e passa
-_DEBOLE = re.compile(r"\bdirezione debole\b|\bpoggia solo\b|\bnessun[ao]? (?:causa|motivo|notizia)\b|"
-                     r"\bsenza (?:una |un )?(?:causa|motivo|notizia)\b", re.I)
+# Distinguerlo da un'attesa è un giudizio di lettura: qui solo un AVVISO per il revisore, largo, su un perché che non ha un
+# verbo di causa con il suo oggetto (la forma causa -> effetto) e somiglia a un'attesa o a ciò che il mercato ha già fatto,
+# o ripete la causa di un'altra riga (quattro parole uguali di fila); e se più di due righe dichiarano la direzione debole.
+_ATTESA = re.compile(r"\baspett\w*|\battend\w*|\bin attesa\b|\bguard(?:a|ano) (?:a|al|alla|ai|agli|alle|all')\b|\bin vista d|"
+                     r"\bocchi puntati\b|\bdipende da|\bsi chiede\b|\bsospes[oai]\b", re.I)
+_GIA_FATTO = re.compile(r"\b(?:rimbalz|recuper|risal|ripart|riprend|prosegu|consolid|torn[ao] a)\w*|\btendenz\w*|\bdi fila\b|"
+                        r"\bconsecutiv\w*|\bsulla scia\b|\brally\b|\bfiato\b", re.I)
+_CAUSA = re.compile(r"\b(?:sping(?:e|ono)|sostien[e]|sostengono|pes(?:a|ano)|tien[e]|tengono|fren(?:a|ano)|alz(?:a|ano)|"
+                    r"abbass(?:a|ano)|togli(?:e)|tolgono|port(?:a|ano)|aiut(?:a|ano)|favorisc(?:e|ono)|penalizz(?:a|ano)|"
+                    r"compr(?:a|ano)|vend(?:e|ono)|riduc(?:e|ono)|aument(?:a|ano)|spost(?:a|ano)|indebolisc(?:e|ono)|"
+                    r"rafforz(?:a|ano)|perd(?:e|ono))\s+(?:\w+\s+){0,2}?\w{2,}|"
+                    r"\b(?:niente|nessuna|più|meno) spinta\b|\bsostegno\b|^\s*se\b|[,:]\s*se\b", re.I)
+# la riga che dichiara di non avere una causa: la dichiarazione e ciò su cui poggia escono dal giudizio, il resto no
+_DEBOLE = re.compile(r"\bdirezione debole\b[:,]?|\bpoggia solo su\w*\s+[^,;:.]*|\bnessun[ao]? (?:causa|motivo|notizia)\b[^,;:.]*|"
+                     r"\bsenza (?:una |un )?(?:causa|motivo|notizia)\b[^,;:.]*", re.I)
+MAX_DEBOLI = 2
 
 
 def perche_vuoti(motivi):
-    """motivi = [(mercato, perché)] nell'ordine di pag. 6. Torna [(mercato, perché, che cosa manca)]."""
-    out, visti = [], []
+    """motivi = [(mercato, perché)] nell'ordine di pag. 6. Torna [(mercato, perché, che cosa guardare)]: un AVVISO per il
+    revisore, che rilegge e decide; mai una riscrittura imposta."""
+    out, visti, deboli = [], [], []
     for nome, m in motivi:
         m = str(m or "")
-        if _DEBOLE.search(m):
-            continue
-        parole = re.findall(r"[a-zà-ù0-9]+", m.lower())
+        resto = _DEBOLE.sub(" ", m)
+        if resto != m:
+            deboli.append(nome)
+        parole = re.findall(r"[a-zà-ù0-9]+", resto.lower())
         quattro = {" ".join(parole[i:i + 4]) for i in range(len(parole) - 3)}
         doppio = next((n for n, q in visti if quattro & q), None)
-        if _ATTESA.search(m):
-            out.append((nome, m, "dice che il mercato aspetta, non che cosa lo spinge"))
-        elif _GIA_FATTO.search(m):
-            out.append((nome, m, "dice che cosa il mercato ha già fatto, non che cosa lo spinge"))
+        causa = bool(_CAUSA.search(resto))
+        if _ATTESA.search(resto) and not causa:
+            out.append((nome, m, "sembra un'attesa: c'è il verso in cui spinge il mercato?"))
+        elif _GIA_FATTO.search(resto) and not causa:
+            out.append((nome, m, "sembra ciò che il mercato ha già fatto: c'è una causa per questa settimana?"))
         elif doppio:
-            out.append((nome, m, f"ripete la causa già data a {doppio}"))
+            out.append((nome, m, f"ripete la causa data a {doppio}: che cosa aggiunge per questo mercato?"))
         visti.append((nome, quattro))
+    if len(deboli) > MAX_DEBOLI:
+        out.append((", ".join(deboli), "", f"{len(deboli)} direzioni dichiarate deboli (al più {MAX_DEBOLI}): la scommessa sembra fatta a caso"))
     return out
 
 
@@ -559,7 +570,7 @@ def main():
     print(f"Righe →: {len(fr)} (max {MAX_FRECCE}) | cause senza chi le dà: {len(sos)} | sigle non dette in parole: {len(mai)} | "
           f"testate tra parentesi: {n_fonti} (max 0)" + (": " + ", ".join(f"{n} {k}" for n, k in sorted(
               testate.items(), key=lambda x: (-x[1], x[0])))[:90] if testate else ""))
-    errori = []
+    errori, avvisi_perche = [], []
     if len(fr) > MAX_FRECCE:
         errori.append(f"{len(fr)} righe → (massimo {MAX_FRECCE}): tieni solo quelle dove il perché non è ovvio")
     errori += [f"riga → oltre 20 parole: {f[:100]}" for f in lunghe]
@@ -580,11 +591,8 @@ def main():
                           "frase (e nella riga Fonti); \"la stampa\", \"i media\", \"notizie\" non sono un nome. Cerca nelle schede "
                           "del fatto la testata che lo scrive e mettila nella frase; togli la frase solo se nelle schede la fonte non "
                           "c'è davvero. Sono: " + "; ".join(f"{dove} «{f}»" for dove, f in anonime))
-        vuoti = perche_vuoti(motivi_del_lunedi(ed))
-        if vuoti:
-            errori.append("perché della scommessa che non sono un motivo (APP_LUNEDI §3): scrivi il meccanismo che questa settimana "
-                          "spinge quel mercato nella direzione scelta, correggi redazione.json e rilancia pronostico.py con --forza "
-                          "(direzioni e numeri restano). Sono: " + "; ".join(f"{n} «{m}» ({c})" for n, m, c in vuoti))
+        for n, m, c in perche_vuoti(motivi_del_lunedi(ed)):      # avviso per il revisore (APP_LUNEDI §4), non un errore
+            avvisi_perche.append(f"perché della scommessa da rileggere (APP_LUNEDI §3): {n}" + (f" «{m}»" if m else "") + f": {c}")
         domande = aperture_con_domanda(C)
         if len(domande) > MAX_DOMANDE:
             errori.append(f"{len(domande)} approfondimenti aprono con una domanda esplicita (massimo {MAX_DOMANDE}): tienila dove rende di "
@@ -633,6 +641,8 @@ def main():
         print("ERRORE: " + (e if "Sono: " in e else e[:155]))
     for a in avvisi:
         print("AVVISO: " + a[:155])
+    for a in avvisi_perche:
+        print("AVVISO: " + a[:230])
     if doppie:
         print("AVVISO: sigle spiegate più di una volta: " + ", ".join(doppie)[:140])
     if sigle_par:
