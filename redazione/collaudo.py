@@ -2197,7 +2197,7 @@ def passo_orologio():
         NOTE.append("flussi dell'orologio non letti (manca PyYAML)")
     cartella = os.path.join(REPO, ".github", "workflows")
     flussi = {}
-    for f in sorted(glob.glob(os.path.join(cartella, "*.yml"))) if yaml else []:
+    for f in sorted(glob.glob(os.path.join(cartella, "*.y*ml"))) if yaml else []:
         d = yaml.safe_load(open(f, encoding="utf-8"))
         flussi[os.path.basename(f)] = (d, open(f, encoding="utf-8").read())
     lanciati = {x["flusso"] for x in sveglie}
@@ -2245,6 +2245,76 @@ def passo_orologio():
         male.append("orologio.js: nome del repository scritto nel codice (deve venire da GITHUB_REPOSITORY)")
     esito("Orologio: flussi, cron e configurazione", not male, "; ".join(male)[:400] or
           f"{len(sveglie)} sveglie, ognuna su un flusso che accetta i suoi inputs; ogni sveglia di GitHub rimasta ha la guardia; controlli leggeri su ubuntu-slim; nome del repository solo da sito.yml")
+
+    # i minuti di GitHub (G-12), regole che valgono per ogni flusso della cartella, anche per quelli che verranno.
+    # Chi parte da un push: solo dai rami che pubblicano o fanno da cancello. Su ogni altro ramo (g<NN>, rilascio,
+    # con-prova) un push non accende nulla: lì si collauda in locale, e un flusso senza 'branches' partirebbe da tutti.
+    male = []
+    RAMI_DEI_FLUSSI = {"main", "cancello", "prova", "anteprima-*"}
+
+    def combacia(modelli, nome):
+        """Come GitHub legge 'branches' e 'paths': * non passa le barre, ** sì, decide l'ultimo modello che combacia
+        e un ! davanti toglie. Un modello con altri segni (?, +, [ ]) qui non si sa leggere: meglio fermarsi che simulare male."""
+        dentro = False
+        for m in [modelli] if isinstance(modelli, str) else modelli:
+            if re.search(r"[?+\[\]]", m):
+                raise ValueError(f"modello '{m}' che il collaudo non sa leggere")
+            pezzi = re.split(r"(\*\*/|\*\*|\*)", m[1:] if m.startswith("!") else m)
+            if re.fullmatch("".join({"**/": "(?:.*/)?", "**": ".*", "*": "[^/]*"}.get(x, re.escape(x)) for x in pezzi), nome):
+                dentro = not m.startswith("!")
+        return dentro
+
+    def inneschi(d):
+        su = d.get("on", d.get(True)) or {}             # PyYAML legge la chiave 'on' come True
+        return {su: None} if isinstance(su, str) else {x: None for x in su} if isinstance(su, list) else su
+
+    def parte_da_push(su, ramo, file):
+        """Se un flusso con questi inneschi parte per un push di questi file su questo ramo."""
+        if "push" not in su:
+            return False
+        p = su["push"] or {}
+        if "branches" in p:
+            if not combacia(p["branches"], ramo):
+                return False
+        elif "branches-ignore" in p:
+            if combacia(p["branches-ignore"], ramo):
+                return False
+        elif "tags" in p or "tags-ignore" in p:
+            return False
+        if "paths" in p:
+            return any(combacia(p["paths"], f) for f in file)
+        if "paths-ignore" in p:
+            return any(not combacia(p["paths-ignore"], f) for f in file)
+        return True
+
+    def partono(ramo, *file, tra=None):
+        return sorted(n for n, (d, _) in (tra or flussi).items() if parte_da_push(inneschi(d), ramo, file))
+    try:
+        for nome, (d, testo) in flussi.items():
+            if "push" in inneschi(d):
+                rami = (inneschi(d)["push"] or {}).get("branches")
+                rami = [rami] if isinstance(rami, str) else rami
+                if not rami or set(rami) - RAMI_DEI_FLUSSI:
+                    male.append(f"{nome}: parte da un push su {', '.join(rami) if rami else 'qualunque ramo'}; un flusso parte da push solo da {', '.join(sorted(RAMI_DEI_FLUSSI))}")
+        mail = ("redazione/dem/2026-12-24-auguri.md", "redazione/dem.py", "pannello/invii.json", ".github/workflows/dem.yml")
+        # (ramo, file del push, flussi che devono partire): i rami di lavoro mai; le mail solo da main; l'edizione come sempre
+        for ramo, file, attesi in ([(r, mail + ("index.html", "edizioni.json", "redazione/collaudo.py"), []) for r in ("g51", "g12", "rilascio", "con-prova")]
+                                   + [("main", mail[:1], ["dem.yml"]), ("main", mail[1:2], ["dem.yml"]), ("main", mail[2:3], ["dem.yml", "sito.yml"]),
+                                      ("main", mail[3:], ["dem.yml", "sito.yml"]), ("main", ("redazione/STATO.md",), []),
+                                      ("main", ("edizioni.json", "pdf/x.pdf"), ["newsletter.yml", "sito.yml"]),
+                                      ("cancello", ("redazione/collaudo.py",), ["collaudo.yml"]), ("prova", ("index.html",), ["sito.yml"]),
+                                      ("anteprima-x", ("redazione/sito/lettori.js",), ["sito.yml"])] if yaml else []):
+            if partono(ramo, *file) != attesi:
+                male.append(f"un push su {ramo} di {', '.join(file)[:60]} fa partire {partono(ramo, *file) or 'nessun flusso'}, non {attesi or 'nessun flusso'}")
+        # la regola vede i casi sbagliati: un flusso nuovo senza 'branches', o con un modello che prende i rami di lavoro
+        finti = {"senza-rami.yml": ({"on": {"push": {"paths": ["redazione/dem/**"]}}}, ""), "tutti.yml": ({"on": ["push"]}, ""),
+                 "g.yml": ({"on": {"push": {"branches": ["g*"]}}}, ""), "solo-a-mano.yml": ({"on": "workflow_dispatch"}, "")}
+        if partono("g51", "redazione/dem/x.md", tra=finti) != ["g.yml", "senza-rami.yml", "tutti.yml"] or partono("main", "redazione/dem.py", tra=finti) != ["tutti.yml"]:
+            male.append("la simulazione dei push non riconosce un flusso senza 'branches' o con un modello di rami")
+    except ValueError as e:
+        male.append(str(e))
+    esito("Minuti di GitHub: regole di ogni flusso", not male, "; ".join(male)[:500] or
+          f"{len(flussi)} flussi: da un push si parte solo da {', '.join(sorted(RAMI_DEI_FLUSSI))}, mai dai rami di lavoro; le mail straordinarie solo da main")
 
     # la lettura dello stato: la guardia delle sveglie di riserva e la riga del controllo del mattino
     male = []

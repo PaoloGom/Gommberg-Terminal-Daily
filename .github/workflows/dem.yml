@@ -14,6 +14,9 @@ name: Mail straordinarie
 
 on:
   push:
+    # Solo dal ramo principale (G-12). Sui rami di lavoro un push non lo fa più partire: lì faceva solo il controllo
+    # delle regole, che redazione/collaudo.py fa già a ogni collaudo senza spendere minuti. A mano si lancia da ogni ramo.
+    branches: [main]
     paths:
       - 'redazione/dem/**'
       - 'redazione/dem.py'
