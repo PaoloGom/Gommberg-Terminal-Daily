@@ -2448,7 +2448,7 @@ class Banco:
             if os.path.exists(os.path.join(R, rel)):
                 self.scrivi("redazione/" + rel, open(os.path.join(R, rel), encoding="utf-8").read())
         self.scrivi("redazione/collaudo.py", 'print("COLLAUDO: OK")\n')
-        self.scrivi("redazione/STATO.md", "stato\n"); self.scrivi("index.html", "<p>sito</p>\n")
+        self.scrivi("redazione/STATO.md", "stato\n"); self.scrivi("index.html", "<p>sito</p>\n"); self.scrivi("edizioni.json", "[]\n")
         self.scrivi(".gitignore", "__pycache__/\nredazione/PROVA_DATA\n")
         self.scrivi("redazione/gommberg_engine.py", "# motore finto\n")
         self.g("add", "-A"); self.g("commit", "-q", "-m", "inizio")
@@ -2704,6 +2704,7 @@ def prova_automatica():
     if rc != 2 or e.get("esito") != "in-corso" or e.get("commit") != provato:
         male.append(f"a prova avviata l'esito doveva dire in-corso sul commit provato ({e})")
     pdf = os.path.join(b.base, "prova.pdf"); open(pdf, "w").write("%PDF finto")
+    mattino_finto(b, lav, "2026-11-30")
     rc, out = prova("chiudi", pdf)
     rc2, e = leggi()
     if rc or rc2 != 0 or e.get("esito") != "chiusa" or e.get("commit") != provato or e.get("data") != "2026-11-30" or "prova.pdf" not in e.get("file", []):
@@ -2717,6 +2718,116 @@ def prova_automatica():
     esito("Prova automatica: prova.sh da una sessione", not male, "; ".join(male) or
           "argomenti sbagliati non toccano il ramo; avvio --ramo lo prende da sé; prova.sh esito dice in JSON in-corso e poi "
           "chiusa, con il commit provato; pubblica --dopo-la-prova su quel commit pubblica")
+
+
+def mattino_finto(b, lav, data, numero=36):
+    """Ciò che il lavoro del mattino lascia prima di chiudere una prova: il testo scritto nella cartella di lavoro e la voce
+    dell'edizione in edizioni.json (edizioni_voce.py), non committata."""
+    open(os.path.join(lav, f"edizione_{data}.py"), "w").write("# testo finto\n")
+    b.scrivi("edizioni.json", json.dumps([{"numero": numero, "data": data, "titolo": "prova", "file": f"pdf/{data}-gommberg-{numero:03d}.pdf"}]))
+
+
+def prova_da_fuori():
+    """G-71. prova.sh trova il repository dal proprio percorso, seguendo i collegamenti, non dalla cartella da cui lo si
+    lancia: la sessione lancia chiudi dalla cartella di lavoro come /home/claude/gtd/redazione/prova.sh, e il 28/11/2026 la
+    prima prova con lo script nuovo ha scritto il PDF senza salvare nulla, restando in corso. E chiudi non passa mai per
+    riuscito quando non salva: una riga PROVA NON SALVATA e uscita con errore; --non-riuscita chiude la prova in corso
+    letta da GitHub, anche da un altro clone; esito legge senza accorciare la storia del clone (fetch senza profondità)."""
+    b, male = Banco("fuori"), []
+    lav, link, altro = os.path.join(b.base, "lavoro"), os.path.join(b.base, "gtd"), os.path.join(b.base, "altro")
+    env = {"GTD_LAVORO": lav, "GTD_LINK": link}
+    b.g("checkout", "-q", "-B", "con-prova", "origin/main")
+    provato = b.commit("redazione/ISTRUZIONI.md", "regole nuove\n", "G-03: regole")
+    b.g("push", "-q", "origin", "con-prova"); b.g("checkout", "-q", "main")
+    fuori = lambda *a: esegui(["bash", os.path.join(link, "redazione", "prova.sh"), *a], cwd=lav, env=env, timeout=60)
+    def leggi(prova=fuori):
+        rc, out = prova("esito")
+        try:
+            return rc, json.loads(out)
+        except Exception:  # noqa: BLE001
+            return rc, {"uscita": out.strip()[-120:]}
+    def non_salvata(rc, out, cosa, parola):
+        righe = out.strip().splitlines()
+        rc2, e = leggi()
+        if rc == 0 or len(righe) != 1 or not righe[0].startswith("PROVA NON SALVATA: ") or parola not in righe[0] \
+                or "--non-riuscita" not in righe[0] or rc2 != 2 or e.get("esito") != "in-corso":
+            male.append(f"chiudi {cosa} doveva uscire con errore e una sola riga, PROVA NON SALVATA, che dice che cosa manca e "
+                        f"che cosa fare, lasciando la prova in corso ({ultima(out)}; esito {e})")
+    # 1. come dice PROVA.md: avvio dal clone (crea il collegamento), poi tutto dalla cartella di lavoro attraverso il collegamento
+    rc, out = esegui(["bash", "redazione/prova.sh", "avvio", "2026-11-30", "--ramo", "con-prova"], cwd=b.rep, env=env, timeout=60)
+    if rc or os.path.realpath(link) != os.path.realpath(b.rep):
+        male.append("avvio dal clone doveva riuscire e creare il collegamento al repository (" + ultima(out) + ")")
+    rc, e = leggi()
+    if rc != 2 or e.get("esito") != "in-corso" or e.get("commit") != provato:
+        male.append(f"esito lanciato da fuori doveva dire in-corso sul commit provato ({e})")
+    # 2. chiudi senza nulla da salvare: mai un successo, mai file lasciati nella cartella da cui lo si lancia
+    pdf = os.path.join(lav, "edizione.pdf")
+    non_salvata(*fuori("chiudi", pdf), "con un PDF che non esiste", "PDF")
+    open(pdf, "w").write("%PDF finto")
+    non_salvata(*fuori("chiudi", pdf), "senza il testo scritto nella cartella di lavoro", "edizione_2026-11-30.py")
+    mattino_finto(b, lav, "2026-11-30"); b.scrivi("edizioni.json", "[]\n")
+    non_salvata(*fuori("chiudi", pdf), "senza la voce dell'edizione in edizioni.json", "edizioni.json")
+    vuota = os.path.join(b.base, "vuota"); os.makedirs(vuota)
+    non_salvata(*esegui(["bash", os.path.join(link, "redazione", "prova.sh"), "chiudi", pdf], cwd=lav,
+                        env=dict(env, GTD_LAVORO=vuota), timeout=60), "con la cartella di lavoro vuota", "_prova_commit")
+    mattino_finto(b, lav, "2026-11-30")
+    os.rename(b.orig, b.orig + ".via")                                # GitHub che non risponde: il push è rifiutato
+    try:
+        rc, out = fuori("chiudi", "edizione.pdf")
+    finally:
+        os.rename(b.orig + ".via", b.orig)
+    non_salvata(rc, out, "con il push rifiutato", "GitHub")
+    if os.path.exists(os.path.join(lav, "redazione")):
+        male.append("chiudi lanciato da fuori ha scritto nella cartella di lavoro invece che nel repository")
+    # 3. chiudi da fuori, PDF con il percorso relativo alla cartella di lavoro (e dopo un push rifiutato: si rilancia e basta)
+    rc, out = fuori("chiudi", "edizione.pdf")
+    rc2, e = leggi()
+    if rc or rc2 != 0 or e.get("esito") != "chiusa" or e.get("commit") != provato or e.get("data") != "2026-11-30" \
+            or not {"prova.pdf", "edizione.py", "voce_sito.json"} <= set(e.get("file", [])):
+        male.append(f"chiudi lanciato da fuori doveva salvare la prova: chiusa, con data, commit provato, PDF, testo e scheda ({ultima(out)}; {e})")
+    if b.g("status", "--porcelain", "--untracked-files=no"):
+        male.append("dopo chiudi la voce della prova è rimasta in edizioni.json")
+    rc, out = fuori("chiudi", "--non-riuscita", "ripensamento")
+    rc2, e = leggi()
+    if rc == 0 or "PROVA NON SALVATA: " not in out or e.get("esito") != "chiusa":
+        male.append(f"--non-riuscita non deve riscrivere una prova già chiusa ({ultima(out)}; {e})")
+    # 4. avvio da fuori attraverso il collegamento; poi la sessione cade e la prova la chiude un altro clone, senza i suoi file
+    b.g("checkout", "-q", "main")
+    for k in range(8):                                               # un po' di storia sul ramo principale, che entra nella prova
+        b.g("commit", "-q", "--allow-empty", "-m", f"storia {k}")
+    b.g("push", "-q", "origin", "main")
+    rc, out = fuori("avvio", "2026-12-01", "--ramo", "con-prova")
+    rc2, e = leggi()
+    if rc or rc2 != 2 or e.get("data") != "2026-12-01" or b.g("rev-parse", "--abbrev-ref", "HEAD") != "con-prova":
+        male.append(f"avvio lanciato da fuori doveva avviare la prova nel repository dello script ({ultima(out)}; {e})")
+    esegui(["git", "clone", "-q", "file://" + b.orig, altro])
+    testa = esegui(["git", "rev-parse", "HEAD"], cwd=altro)[1]
+    storia = lambda: esegui(["git", "rev-list", "--count", "origin/main"], cwd=altro)[1].strip()
+    lunga = storia()
+    da_altro = lambda *a: esegui(["bash", "redazione/prova.sh", *a], cwd=altro, env={"GTD_LAVORO": vuota, "GTD_LINK": link}, timeout=60)
+    rc, e = leggi(da_altro)
+    if rc != 2 or storia() != lunga or esegui(["git", "rev-parse", "--is-shallow-repository"], cwd=altro)[1].strip() != "false":
+        male.append(f"esito deve leggere senza accorciare la storia del clone da cui lo si lancia (commit del ramo principale: {lunga} prima, {storia()} dopo)")
+    rc, out = da_altro("chiudi", "--non-riuscita", "sessione caduta")
+    rc2, e = leggi(da_altro)
+    if rc or rc2 != 1 or e.get("esito") != "non-riuscita" or e.get("commit") != provato or e.get("data") != "2026-12-01" \
+            or e.get("ramo") != "con-prova" or e.get("motivo") != "sessione caduta":
+        male.append(f"--non-riuscita da un altro clone doveva chiudere la prova in corso, con la sua data, il suo ramo e il suo commit ({ultima(out)}; {e})")
+    if esegui(["git", "rev-parse", "HEAD"], cwd=altro)[1] != testa or esegui(["git", "status", "--porcelain"], cwd=altro)[1].strip():
+        male.append("--non-riuscita ha toccato il ramo o i file del clone da cui è stato lanciato")
+    # 5. il collegamento che porta a un altro repository ferma l'avvio; lo script fuori da un repository lo dice in una riga
+    rc, out = da_altro("avvio", "2026-12-01", "--ramo", "con-prova")
+    if rc == 0 or "PROVA NON POSSIBILE: " not in ultima(out) or "altro repository" not in out:
+        male.append("avvio con il collegamento che porta a un altro repository doveva fermarsi (" + ultima(out) + ")")
+    shutil.copy(os.path.join(R, "prova.sh"), os.path.join(vuota, "prova.sh"))
+    for azione in (["esito"], ["chiudi", pdf], ["avvio"]):
+        rc, out = esegui(["bash", os.path.join(vuota, "prova.sh"), *azione], cwd=b.rep, env=env, timeout=60)
+        if rc == 0 or len(out.strip().splitlines()) != 1 or not out.startswith("PROVA NON POSSIBILE: "):
+            male.append(f"prova.sh {azione[0]} fuori da un repository doveva dirlo in una riga e uscire con errore (" + ultima(out) + ")")
+    esito("Prova: prova.sh lanciato da fuori del repository, e chiudi che non salva", not male, "; ".join(male) or
+          "avvio, esito e chiudi trovano il repository dal percorso dello script, attraverso il collegamento; chiudi senza PDF, "
+          "testo, voce, avvio o push esce con errore e PROVA NON SALVATA; --non-riuscita chiude la prova in corso anche da un altro "
+          "clone, senza toccarlo; esito non accorcia la storia del clone")
 
 
 def anteprima_chrome(copia):
@@ -2822,6 +2933,7 @@ def passo_rilascio():
     catena_livello()
     commit_approvato()
     prova_automatica()
+    prova_da_fuori()
     collaudo_github_cancello()
     rientro_e_messaggi()
 
