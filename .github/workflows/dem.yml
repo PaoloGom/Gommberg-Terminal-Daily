@@ -3,7 +3,7 @@
 # in Kit. Sugli altri rami, anche lanciando a mano, controlla solo le regole e non tocca Kit. Nessun token del modello.
 # La sola eccezione sono i modi "prova-" (G-43): la prova dal vivo del benvenuto prima di accenderlo, lanciata a
 # mano dal ramo da provare perché la chiave di Kit sta solo qui. Fanno girare soltanto redazione/benvenuto.py piano,
-# bozza o prova (mai dem.py, mai "invia") e l'iscritto di prova si indica con la sua impronta, mai con
+# bozza, prova o pulizia (mai dem.py, mai "invia") e l'iscritto di prova si indica con la sua impronta, mai con
 # l'indirizzo: il repository è pubblico e input e registri li legge chiunque. Come si fa: in testa a benvenuto.py.
 # La sveglia della sera la dà l'orologio di Cloudflare (G-58, redazione/sito/orologio.js: workflow_dispatch con
 # modo=sincronizza e orologio=cloudflare). Il cron "schedule" è la riserva del passo 1 di G-58: lavora solo se
@@ -12,7 +12,7 @@
 # Minuti di GitHub: circa 30 giri della sera + 15 da push, su ubuntu-slim = circa 45-60 minuti slim al mese, 15-20
 # minuti standard (prima: circa 45-60 minuti standard). Le sere con nuovi iscritti il benvenuto aspetta che Kit
 # aggiorni l'elenco del gruppo (di solito mezzo minuto, al massimo due): 1-3 minuti slim in più quelle sere. I modi
-# "prova-" partono solo a mano: 0 minuti al mese; una prova intera sono 3 giri, in tutto 3-6 minuti slim (1-2 standard).
+# "prova-" partono solo a mano: 0 minuti al mese; una prova intera sono 4 giri, in tutto 4-8 minuti slim (2-3 standard).
 # Il tetto di un giro, se Kit non risponde, sono i 14 minuti del job (5 delle mail straordinarie, 8 del benvenuto).
 # Se va tutto bene non scrive a nessuno. Se qualcosa va guardato (una bozza vicina alla data senza ok, una mail approvata
 # non partita, Kit che rifiuta un'operazione) il giro fallisce e apre una segnalazione assegnata a Paolo: GitHub gli
@@ -31,9 +31,9 @@ on:
   workflow_dispatch:
     inputs:
       modo:
-        description: "piano = legge Kit e dice che cosa farebbe; sincronizza = allinea Kit ai file (solo da main); controlla = solo le regole; prova-piano, prova-bozza, prova-invio = la prova dal vivo del benvenuto, da qualsiasi ramo (vedi benvenuto.py)"
+        description: "piano = legge Kit e dice che cosa farebbe; sincronizza = allinea Kit ai file (solo da main); controlla = solo le regole; prova-piano, prova-bozza, prova-invio, prova-pulizia = la prova dal vivo del benvenuto, da qualsiasi ramo (vedi benvenuto.py)"
         type: choice
-        options: [piano, sincronizza, controlla, prova-piano, prova-bozza, prova-invio]
+        options: [piano, sincronizza, controlla, prova-piano, prova-bozza, prova-invio, prova-pulizia]
         default: piano
       impronta:
         description: "solo per prova-bozza e prova-invio: l'impronta dell'iscritto di prova (16 caratteri esadecimali, da benvenuto.py impronta). MAI un indirizzo: il repository è pubblico"
@@ -123,9 +123,9 @@ jobs:
           python3 redazione/benvenuto.py "$MODO" 2>&1 | tee benvenuto.txt | tee -a esito.txt | tee -a "$GITHUB_STEP_SUMMARY"
           exit "${PIPESTATUS[0]}"
       # G-43: la prova dal vivo del benvenuto, da qualsiasi ramo ma solo lanciata a mano. Solo benvenuto.py: piano (sole
-      # letture), bozza (una bozza per un gruppo di prova con dentro il solo iscritto dell'impronta, niente parte) o
-      # prova (programma l'ultima bozza di prova, solo se riletta è per quel gruppo e il gruppo ha dentro lui solo).
-      # L'impronta arriva dal
+      # letture), bozza (una bozza per un gruppo di prova con dentro il solo iscritto dell'impronta, niente parte),
+      # prova (programma l'ultima bozza di prova, solo se riletta è per quel gruppo e il gruppo ha dentro lui solo) o
+      # pulizia (toglie le bozze di prova non programmate e le etichette dei gruppi di prova). L'impronta arriva dal
       # passo "Impronta fuori dal registro", già controllata e mascherata, in una variabile d'ambiente: mai scritta
       # dentro il comando. Il riepilogo del giro dice che cosa è successo, che cosa ha risposto Kit e che cosa resta in
       # Kit, senza indirizzi. Se un invio di prova non si riesce né a togliere né a riportare in bozza, il passo
@@ -142,6 +142,7 @@ jobs:
             prova-piano) set -- piano ;;
             prova-bozza) set -- bozza "impronta:${IMPRONTA:-}" ;;
             prova-invio) set -- prova "impronta:${IMPRONTA:-}" ;;
+            prova-pulizia) set -- pulizia ;;
             *) echo "Prova del benvenuto: modo non previsto. Nulla di fatto"; exit 1 ;;
           esac
           echo "Prova del benvenuto, comando: $1"

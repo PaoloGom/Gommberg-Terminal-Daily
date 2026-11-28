@@ -79,6 +79,9 @@ Uso:   python3 redazione/benvenuto.py controlla          il testo e la mail comp
                                                          invio di prova, solo se è una bozza con il filtro su un gruppo di
                                                          prova con dentro lui solo; poi rilegge l'invio e riconta il gruppo.
                                                          Le bozze di prova più vecchie non le programma mai: le dice
+       python3 redazione/benvenuto.py pulizia            toglie da Kit ciò che le prove lasciano: le bozze di prova non
+                                                         programmate e le etichette dei gruppi di prova. Mai un invio
+                                                         programmato o spedito, mai un'etichetta che non sia di prova
 
 L'iscritto di prova si indica SOLO con l'impronta, mai con l'indirizzo: il repository è pubblico e chiunque legge gli
 input e i registri dei giri. Lo script legge da Kit gli iscritti attivi e sceglie quello la cui impronta coincide; zero o
@@ -100,14 +103,18 @@ script, mai dem.py e mai "invia"; l'esito si legge nel riepilogo del giro.
   2. gh workflow run dem.yml --ref RAMO -f modo=prova-bozza -f impronta="$X"
        il riepilogo deve dire: gruppo di prova con 1 iscritto, bozza riletta con il filtro sul solo gruppo. Il giro può
        durare fino a un paio di minuti: aspetta che Kit aggiorni l'elenco del gruppo. Poi in Kit, Broadcasts, la bozza
-       gommberg-benvenuto-prova-...: i destinatari devono essere 1. Se non è 1: togli la bozza a mano e fermati
+       gommberg-benvenuto-prova-...: i destinatari devono essere 1. Se non è 1: lancia prova-pulizia e fermati
   3. gh workflow run dem.yml --ref RAMO -f modo=prova-invio -f impronta="$X"
        tra le 8:00 e le 8:20 o tra le 10:30 e le 20:49 (le stesse fasce del giro); la mail arriva al solo iscritto di
        prova dopo ATTESA_MINUTI minuti. L'attesa è la stessa del giro vero e supera la durata del passo: un invio
        registrato male si toglie sempre prima che parta
-Che cosa resta in Kit dopo la prova, e si toglie solo a mano: l'etichetta del gruppo
+  4. gh workflow run dem.yml --ref RAMO -f modo=prova-pulizia
+       dopo che la mail è arrivata (o dopo una prova fermata): toglie le bozze di prova non programmate e le etichette
+       dei gruppi di prova, e dice che cosa ha tolto. Finché l'invio di prova è programmato e non ancora partito non
+       tocca né lui né la sua etichetta: si rilancia dopo
+Che cosa resta in Kit dopo la prova, finché non si lancia prova-pulizia: l'etichetta del gruppo
 gommberg-benvenuto-prova-AAAA-MM-GG-HHMM sull'iscritto di prova, una per ogni bozza tentata; l'invio di prova tra i
-Broadcasts, spedito a 1, o ancora in bozza se ci si è fermati al
+Broadcasts, spedito a 1 (quello resta nello storico anche dopo la pulizia), o ancora in bozza se ci si è fermati al
 passo 2. La prova NON dà l'etichetta permanente "gommberg-benvenuto": l'iscritto di prova resta com'era. Se è un lettore
 di prima dell'accensione il benvenuto vero non lo riceve mai (non è nella finestra); se invece si è iscritto da
 ACCESO_DAL in poi e da meno di 7 giorni, il giro della sera gli manda anche quello vero.
@@ -762,12 +769,12 @@ def nuovo_gruppo(nome):
 
 
 # ------------------------------------------------------------------ la prova dal vivo
-RESTA = ("Che cosa resta in Kit, e si toglie solo a mano: l'etichetta del gruppo di prova sull'iscritto di prova e "
+RESTA = ("Che cosa resta in Kit finché non lanci prova-pulizia: l'etichetta del gruppo di prova sull'iscritto di prova e "
          "l'invio di prova tra i Broadcasts (in bozza, poi spedito a 1). La prova non dà l'etichetta permanente "
          + FATTO + ": l'iscritto di prova resta com'era (un lettore di prima dell'accensione non riceve il benvenuto vero; chi "
          f"si è iscritto dal {ACCESO_DAL} in poi e da meno di {FINESTRA_GIORNI} giorni riceve anche quello vero dal giro della sera)")
 RESTA_FERMO = ("Che cosa può essere rimasto in Kit: l'etichetta di un gruppo di prova (" + PROVA + "...) sull'iscritto di prova, "
-               "e un invio di prova solo se il messaggio qui sopra dice che non è stato tolto. Si tolgono a mano")
+               "e un invio di prova solo se il messaggio qui sopra dice che non è stato tolto. Li toglie prova-pulizia")
 
 
 def impronta_di(indirizzo):
@@ -860,7 +867,7 @@ def prova(chi, adesso=None):
         raise Fermo("nessuna bozza di prova in Kit: lancia prima prova-bozza. Nulla di fatto")
     bid = prove[-1]["id"]
     vecchie = [x["id"] for x in prove[:-1] if not x.get("send_at")]
-    altre = (f" Le bozze di prova più vecchie ({', '.join(str(x) for x in vecchie)}) non si programmano mai: toglile a mano"
+    altre = (f" Le bozze di prova più vecchie ({', '.join(str(x) for x in vecchie)}) non si programmano mai: le toglie prova-pulizia"
              if vecchie else "")
     b = rileggi(bid)
     nome = str((b or {}).get("description") or "")
@@ -878,7 +885,7 @@ def prova(chi, adesso=None):
         raise Fermo(f"il filtro della bozza di prova {bid} non è sull'etichetta {nome}: non si programma.{altre}")
     print(f"- bozza {bid} ({nome}): riletta da Kit, filtro sul solo gruppo di prova, stato bozza")
     if vecchie:
-        print(f"- altre bozze di prova più vecchie, non toccate: {', '.join(str(x) for x in vecchie)} (si tolgono a mano)")
+        print(f"- altre bozze di prova più vecchie, non toccate: {', '.join(str(x) for x in vecchie)} (le toglie prova-pulizia)")
     try:
         conti = gruppo_in_kit(gruppo, {chi}, nome)
     except Fermo as e:
@@ -899,6 +906,57 @@ def prova(chi, adesso=None):
     print(f"- {RESTA}\n")
     print(f"OK: prova programmata (invio {bid}) per le {invio:%H:%M}, al solo iscritto di prova")
     return bid
+
+
+def pulisci():
+    """Toglie da Kit ciò che le prove dal vivo lasciano: le bozze di prova NON programmate e le etichette dei gruppi di
+    prova. Di prova è solo ciò che porta il nome intero di un gruppo di prova (NOME_PROVA): mai l'etichetta permanente,
+    mai un gruppo o un invio del giro della sera, mai una mail straordinaria. Un invio programmato o spedito non si tocca
+    mai; e finché un invio di prova è in Kit senza essere stato spedito, la sua etichetta resta (è il suo filtro). Chi
+    aveva un'etichetta tolta resta iscritto: perde solo quella."""
+    print("Prova del benvenuto, pulizia (solo bozze ed etichette di prova):")
+    tolti, male, occupate = 0, [], set()
+    for x in di_prova(elenco_invii()):
+        bid, nome = x["id"], str(x["description"])
+        b = rileggi(bid)                                  # per id, nella forma intera: fa fede questa
+        stato = str((b or {}).get("status") or "").lower()
+        if not b or not NOME_PROVA.fullmatch(str(b.get("description") or "")) or str(b.get("description")) != nome:
+            occupate.add(nome)
+            male.append(f"invio {bid} ({nome}) non riletto o cambiato: non toccato, e la sua etichetta resta")
+        elif not b.get("send_at") and stato in ("draft", ""):
+            if togli(bid) == "tolto":
+                tolti += 1
+                print(f"- bozza {bid} ({nome}): tolta")
+            else:
+                occupate.add(nome)
+                male.append(f"bozza {bid} ({nome}): Kit non l'ha tolta, e la sua etichetta resta")
+        elif stato == "completed":
+            print(f"- invio {bid} ({nome}): spedito, resta nello storico di Kit")
+        else:
+            occupate.add(nome)
+            detto = stato if re.fullmatch(r"[a-z_]{1,20}", stato) else "non detto"
+            print(f"- invio {bid} ({nome}): " + ("programmato e non ancora spedito" if stato in ("scheduled", "sending") else "non risulta spedito")
+                  + f" (stato {detto}): non si tocca, e la sua etichetta resta finché non è partito. Rilancia prova-pulizia dopo")
+    for t in leggi_tutto(f"/tags?per_page={PER_PAGINA}", "tags"):
+        nome = str(t.get("name") or "")
+        if not NOME_PROVA.fullmatch(nome):
+            continue
+        if not intero(t.get("id")):
+            male.append(f"etichetta {nome}: senza id nella risposta di Kit, non toccata")
+        elif nome in occupate:
+            print(f"- etichetta {nome}: resta (il suo invio è ancora in Kit e non è spedito)")
+        else:
+            stato, _ = chiama("DELETE", f"/tags/{t['id']}")
+            if stato in (200, 204):
+                tolti += 1
+                print(f"- etichetta {nome}: tolta (chi l'aveva resta iscritto, perde solo questa etichetta)")
+            else:
+                male.append(f"etichetta {nome}: Kit non l'ha tolta (HTTP {stato})")
+    if male:
+        raise Fermo("; ".join(male))
+    print(f"\nOK: pulizia fatta, {tolti} tra bozze ed etichette di prova tolt{'a' if tolti == 1 else 'e'}"
+          + ("" if tolti else " (non c'era nulla da togliere)"))
+    return tolti
 
 
 def scaduto():
@@ -936,8 +994,8 @@ def main():
             sys.exit("Impronta: sullo standard input serve un indirizzo (non lo ripeto qui)")
         print(impronta_di(indirizzo))
         return
-    di_prova_ = modo in ("bozza", "prova")
-    if modo not in ("piano", "invia", "bozza", "prova") or len(sys.argv) != (3 if modo in ("bozza", "prova") else 2):
+    di_prova_ = modo in ("bozza", "prova", "pulizia")
+    if modo not in ("piano", "invia", "bozza", "prova", "pulizia") or len(sys.argv) != (3 if modo in ("bozza", "prova") else 2):
         sys.exit(__doc__)
     a_capo, uscita = ("\n" if di_prova_ else ""), 1
     avvia_scadenza()
@@ -947,6 +1005,8 @@ def main():
                 bozza(sys.argv[2])
             elif modo == "prova":
                 prova(sys.argv[2])
+            elif modo == "pulizia":
+                pulisci()
             else:
                 giro(esegui=modo == "invia")
             uscita = 0

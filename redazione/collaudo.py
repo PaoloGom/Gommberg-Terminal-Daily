@@ -2285,6 +2285,65 @@ def passo_benvenuto():
         rc, out = comando(k, "invia")
         if rc != 0 or "rimandato al prossimo giro, nessuno è stato segnato" not in out or k.invii:
             viva.append(f"giro rimandato dalla riga di comando: uscita {rc} ({out.strip()[-120:]})")
+        # u. la pulizia (3): toglie le bozze di prova non programmate e le etichette di prova; mai un invio programmato o
+        #    spedito, mai un'etichetta o un invio che non sia di prova; finché un invio di prova non è spedito la sua
+        #    etichetta resta; nessun iscritto viene tolto
+        def mondo_sporco():
+            k = mondo()
+            cose = {}
+            for chiave, nome, chi in (("bozza", "gommberg-benvenuto-prova-2026-12-01-1000", {1}), ("programmato", "gommberg-benvenuto-prova-2026-12-01-1100", {1}),
+                                      ("spedito", "gommberg-benvenuto-prova-2026-12-01-1200", {1}), ("orfana", "gommberg-benvenuto-prova-2026-11-28-0956", {1}),
+                                      ("permanente", "gommberg-benvenuto", {2}), ("sera", "gommberg-benvenuto-2026-12-01-1930", {2}),
+                                      ("quasi", "gommberg-benvenuto-prova-x", {1}), ("quasi2", "gommberg-benvenuto-prova-2026-12-01-1000-bis", {1}),
+                                      ("dem", "gommberg-dem-2026-12-02", {1, 2})):
+                i = k.nuovo_id()
+                k.tag[i], k.membri[i], k.lette[i] = nome, set(chi), 10 ** 9
+                cose[chiave] = i
+            for chiave, quando_, stato in (("bozza", None, None), ("programmato", "2026-12-02T18:45:00Z", "scheduled"), ("spedito", "2026-12-01T11:10:00Z", "completed"),
+                                           ("sera", "2026-12-01T18:40:00Z", "completed"), ("dem", None, None), ("quasi", None, None)):
+                i = k.nuovo_id()
+                k.invii[i] = {"id": i, "subject": "x", "description": k.tag[cose[chiave]], "send_at": quando_, "status": stato,
+                              "email_template": {"id": 5, "name": "Gommberg cornice"},
+                              "vero": [{"all": [{"type": "tag", "ids": [cose[chiave]]}], "any": None, "none": None}]}
+                cose["invio " + chiave] = i
+            return k, cose
+        k, cose = mondo_sporco()
+        iscritti_prima = dict(k.iscritti)
+        rc, out = comando(k, "pulizia")
+        tolte = {c for c in ("bozza", "programmato", "spedito", "orfana", "permanente", "sera", "quasi", "quasi2", "dem") if cose[c] not in k.tag}
+        invii_tolti = {c for c in ("bozza", "programmato", "spedito", "sera", "dem", "quasi") if cose["invio " + c] not in k.invii}
+        if rc != 0 or tolte != {"bozza", "spedito", "orfana"} or invii_tolti != {"bozza"} or k.iscritti != iscritti_prima \
+                or [c for c in k.scritture() if c[0] != "DELETE"]:
+            viva.append(f"pulizia: uscita {rc}, etichette tolte {sorted(tolte)}, invii tolti {sorted(invii_tolti)} (attese: bozza, spedito, orfana; bozza)")
+        for frase in (f"bozza {cose['invio bozza']} (gommberg-benvenuto-prova-2026-12-01-1000): tolta", "programmato e non ancora spedito (stato scheduled)",
+                      "etichetta gommberg-benvenuto-prova-2026-12-01-1100: resta", "etichetta gommberg-benvenuto-prova-2026-11-28-0956: tolta",
+                      "spedito, resta nello storico", "resta iscritto", "OK: pulizia fatta, 4 tra bozze ed etichette"):
+            if frase not in out:
+                viva.append(f"riepilogo della pulizia senza '{frase}'")
+        rc, out = comando(k, "pulizia")              # rilanciata: non c'è più nulla da togliere, e l'invio programmato è ancora lì
+        if rc != 0 or cose["programmato"] not in k.tag or cose["invio programmato"] not in k.invii or "OK: pulizia fatta, 0 " not in out:
+            viva.append(f"pulizia rilanciata: uscita {rc}, o ha toccato l'invio programmato")
+        if cose["invio programmato"] in k.invii:
+            k.invii[cose["invio programmato"]]["status"] = "completed"      # la mail di prova è partita: ora la sua etichetta si toglie
+            rc, out = comando(k, "pulizia")
+            if rc != 0 or cose["programmato"] in k.tag or cose["invio programmato"] not in k.invii:
+                viva.append("pulizia dopo la partenza della mail di prova: l'etichetta non si toglie, o l'invio spedito è stato toccato")
+        #    Kit che risponde male: l'elenco degli invii non letto = nessuna scrittura; una bozza che non si toglie tiene la
+        #    sua etichetta; un'etichetta che Kit non toglie: lo dice ed esce con 1; un invio senza stato non si tocca
+        for nome, prepara, verifica in (
+                ("elenco degli invii non letto", lambda k, c: k.guasti.__setitem__("GET /broadcasts", (503, {})), lambda k, c: not k.scritture()),
+                ("elenco delle etichette non letto", lambda k, c: k.guasti.__setitem__("GET /tags", (503, {})), lambda k, c: len(k.tag) == len(c) - 6),
+                ("bozza che non si toglie", lambda k, c: setattr(k, "delete_rotto", True), lambda k, c: c["bozza"] in k.tag and c["invio bozza"] in k.invii),
+                ("rilettura muta", lambda k, c: k.guasti.__setitem__("GET /broadcasts/*", (503, {})), lambda k, c: c["bozza"] in k.tag and c["spedito"] in k.tag and c["invio bozza"] in k.invii),
+                ("etichetta che Kit non toglie", lambda k, c: k.guasti.__setitem__("DELETE /tags/*", (500, {"errore": CASA})), lambda k, c: c["orfana"] in k.tag and c["invio bozza"] not in k.invii),
+                ("invio programmato senza stato", lambda k, c: k.invii[c["invio spedito"]].__setitem__("status", "boh"), lambda k, c: c["spedito"] in k.tag)):
+            k, cose = mondo_sporco()
+            prepara(k, cose)
+            rc, out = comando(k, "pulizia")
+            intatti = all(cose[c] in k.tag for c in ("programmato", "permanente", "sera", "quasi", "quasi2", "dem")) \
+                and all(cose["invio " + c] in k.invii for c in ("programmato", "spedito", "sera", "dem", "quasi"))
+            if (rc != 1 and nome != "invio programmato senza stato") or not intatti or not verifica(k, cose):
+                viva.append(f"pulizia, {nome}: uscita {rc}, intatti {intatti} ({out.strip()[-120:]})")
         # p. nessun indirizzo in ciò che lo script ha stampato in tutti i casi qui sopra (e nei giri di prima)
         for u in uscite:
             if "@" in u or "prova.it" in u.lower() or "Traceback" in u:
@@ -2360,7 +2419,8 @@ def passo_benvenuto():
         IMP = "3b0d0604b4c1c885"
         for scelto, atteso in (("prova-piano", ["2", "redazione/benvenuto.py", "piano"]),
                                ("prova-bozza", ["3", "redazione/benvenuto.py", "bozza", "impronta:" + IMP]),
-                               ("prova-invio", ["3", "redazione/benvenuto.py", "prova", "impronta:" + IMP])):
+                               ("prova-invio", ["3", "redazione/benvenuto.py", "prova", "impronta:" + IMP]),
+                               ("prova-pulizia", ["2", "redazione/benvenuto.py", "pulizia"])):
             for ramo in ("refs/heads/g43", "refs/heads/main"):
                 rc, out, chiamate, d = lancia("Prova del benvenuto", SCELTO=scelto, IMPRONTA=IMP, GITHUB_REF=ramo)
                 if rc != 0 or chiamate != atteso or "uscita del python finto" not in open(os.path.join(d, "riepilogo.md"), encoding="utf-8").read():
@@ -2372,7 +2432,7 @@ def passo_benvenuto():
         #  l'uscita dello script è quella del passo; ogni altro modo e ogni altro evento non chiamano nulla
         if lancia("Prova del benvenuto", SCELTO="prova-invio", IMPRONTA=IMP, FINTO_RC="1")[0] != 1:
             viva.append("dem.yml: lo script esce con 1 e il passo di prova resta verde")
-        for scelto in ("sincronizza", "piano", "controlla", "invia", "prova", "prova-", "prova-tutti", "bozza", "pulizia", "prova-pulizia", ""):
+        for scelto in ("sincronizza", "piano", "controlla", "invia", "prova", "prova-", "prova-tutti", "bozza", "pulizia", ""):
             rc, out, chiamate, d = lancia("Prova del benvenuto", SCELTO=scelto, IMPRONTA=IMP)
             if rc == 0 or chiamate:
                 viva.append(f"dem.yml: il passo di prova con modo '{scelto}' chiama python3 o resta verde")
@@ -2428,14 +2488,14 @@ def passo_benvenuto():
         if q.returncode != 0 or os.path.exists(reg) != apre or (apre and "URGENTE" not in open(os.path.join(d, "urgente.txt"), encoding="utf-8").read()):
             viva.append(f"dem.yml, urgenza del benvenuto: con {'URGENTE' if apre else 'nessun URGENTE'} la segnalazione {'non nasce' if apre else 'nasce lo stesso'}")
     scelte = re.search(r"^        options: \[(.*)\]", flusso, re.M)
-    if not scelte or [x.strip() for x in scelte.group(1).split(",")] != ["piano", "sincronizza", "controlla", "prova-piano", "prova-bozza", "prova-invio"] \
+    if not scelte or [x.strip() for x in scelte.group(1).split(",")] != ["piano", "sincronizza", "controlla", "prova-piano", "prova-bozza", "prova-invio", "prova-pulizia"] \
             or not re.search(r"^      impronta:\n(?:        .*\n)*?        type: string", flusso, re.M):
-        viva.append("dem.yml: i modi di workflow_dispatch non sono piano, sincronizza, controlla e i tre prova-, o manca l'input impronta")
+        viva.append("dem.yml: i modi di workflow_dispatch non sono piano, sincronizza, controlla e i quattro prova-, o manca l'input impronta")
     #  gli altri passi restano com'erano: da un ramo solo il controllo, e un modo di prova non diventa mai un invio
     for nome, script, casi in (("Benvenuto", "redazione/benvenuto.py", (("sincronizza", "refs/heads/main", "invia"), ("piano", "refs/heads/main", "piano"),
                                                                          ("controlla", "refs/heads/main", "controlla"), ("sincronizza", "refs/heads/g43", "controlla"),
                                                                          ("piano", "refs/heads/g43", "controlla"), ("prova-invio", "refs/heads/main", "controlla"),
-                                                                         ("prova-bozza", "refs/heads/g43", "controlla"))),
+                                                                         ("prova-pulizia", "refs/heads/main", "controlla"), ("prova-bozza", "refs/heads/g43", "controlla"))),
                                ("Mail straordinarie", "redazione/dem.py", (("sincronizza", "refs/heads/main", "sincronizza"), ("piano", "refs/heads/main", "piano"),
                                                                            ("sincronizza", "refs/heads/g43", "controlla"), ("piano", "refs/heads/g43", "controlla"),
                                                                            ("prova-invio", "refs/heads/g43", "controlla")))):
@@ -2460,6 +2520,7 @@ def passo_benvenuto():
                                     ("un valore sbagliato con prova-piano", {"inputs": {"modo": "prova-piano", "impronta": "casa@prova.it"}}, None),
                                     ("nessuna impronta con prova-bozza", {"inputs": {"modo": "prova-bozza", "impronta": ""}}, None),
                                     ("nessuna impronta con prova-piano", {"inputs": {"modo": "prova-piano", "impronta": ""}}, ""),
+                                    ("nessuna impronta con prova-pulizia", {"inputs": {"modo": "prova-pulizia"}}, ""),
                                     ("file dell'evento illeggibile", None, "")):
             d = tempfile.mkdtemp(dir=lav)
             ev, amb = os.path.join(d, "evento.json"), os.path.join(d, "ambiente.txt")
@@ -2506,7 +2567,7 @@ def passo_benvenuto():
         q.wait()
     intestazione = BV.__doc__
     for frase in ("gh workflow run dem.yml --ref RAMO -f modo=prova-piano", "-f modo=prova-bozza -f impronta=", "-f modo=prova-invio -f impronta=",
-                  "Che cosa resta in Kit dopo la prova", "benvenuto.py impronta", "eventual-consistency"):
+                  "-f modo=prova-pulizia", "Che cosa resta in Kit dopo la prova", "benvenuto.py impronta", "eventual-consistency"):
         if frase not in intestazione:
             viva.append(f"benvenuto.py: l'intestazione non dice '{frase}'")
     if re.search(r"dal PC|INDIRIZZO\s+prova dal vivo|KIT_API_KEY nell'ambiente", intestazione):
@@ -2515,9 +2576,9 @@ def passo_benvenuto():
           "impronta (maiuscole e spazi), indirizzo in chiaro rifiutato, impronta di nessuno, di due, del non confermato; Kit che "
           "risponde male a elenco, creazione, rilettura e programmazione; gruppo di 2 prima e dopo bozza e programmazione; bozze non "
           "di prova; due bozze (solo l'ultima); elenco del gruppo in ritardo; orari; tempo per rimediare; limite netto del passo e "
-          "URGENTE; elenco degli invii leggero; "
-          "nessun indirizzo né tracciato in ciò che stampa o chiede a Kit; in dem.yml i tre modi prova- chiamano solo "
-          "benvenuto.py piano, bozza, prova, solo a mano; l'impronta passa solo se di 16 esadecimali e non diventa un comando")
+          "URGENTE; pulizia (solo bozze ed etichette di prova, mai un invio programmato o spedito); elenco degli invii leggero; "
+          "nessun indirizzo né tracciato in ciò che stampa o chiede a Kit; in dem.yml i quattro modi prova- chiamano solo "
+          "benvenuto.py piano, bozza, prova, pulizia, solo a mano; l'impronta passa solo se di 16 esadecimali e non diventa un comando")
 
 
 # ---------------------------------------------------------------- 4. rete di non regressione
