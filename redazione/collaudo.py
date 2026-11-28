@@ -1817,7 +1817,8 @@ def passo_area():
     mod = os.path.join(REPO, "_privato", "pannello.js")
     try:
         t = open(mod, encoding="utf-8").read()
-        dati = json.loads(t[t.index("export default ") + 15:].rstrip().rstrip(";"))
+        riga = next(x for x in t.splitlines() if x.startswith("export default "))
+        dati = json.loads(riga[15:].rstrip().rstrip(";"))
         for f in ("index.html", "accesso.html", "registro.json", "invii.json"):
             if f not in dati:
                 male.append(f"_privato/pannello.js senza {f}")
