@@ -1,0 +1,692 @@
+{
+ "formato": 1,
+ "data": "2026-11-24",
+ "moduli": [
+  {
+   "chiave": "chip",
+   "pagina": "chip",
+   "tema": "Chip e Asia",
+   "titolo": "Il rimbalzo di Nvidia: si vendeva per sfiducia, non per i conti",
+   "perche": "A nostro avviso si vendeva per sfiducia in Nvidia, non per gli utili, e il rimbalzo di ieri lo conferma. Quando il consiglio ha riportato Huang, un solo comunicato ha recuperato gran parte di un calo durato undici giorni.",
+   "quindi": "Il primo test è l'apertura di Wall Street oggi alle 15:30: se i chip americani tornano a scendere, il rimbalzo di ieri è stato uno sfogo di un giorno.",
+   "numero": "25%: il calo circa di Nvidia tra le dimissioni di Huang del 12 novembre e venerdì, secondo Aju Press.",
+   "testo": [
+    "Se i conti di Nvidia non sono cambiati in undici giorni, perché il titolo ha perso circa un quarto e ieri ne ha ripreso gran parte in una seduta? Perché a muovere il prezzo non erano i conti ma la persona che guida l'azienda. Chi compra Nvidia compra la storia dell'intelligenza artificiale, e quella storia aveva un protagonista. Dopo le dimissioni di Huang sono arrivate notizie secondo cui sarebbe stato nel mirino di un'operazione di intelligence straniera. Il mercato ha cominciato a chiedersi chi avrebbe deciso e se l'azienda poteva ancora vendere le sue macchine.",
+    "Un solo titolo può muovere un intero indice quando pesa tanto. Gli indici contano ogni società per il suo valore in borsa, e quando le più grandi di un settore cadono insieme l'indice perde molto più della media dei titoli. Per questo il Nasdaq ha perso il 10% in una settimana e ne ha guadagnato il 6,5% in un giorno.",
+    "Il rimbalzo non ha riguardato solo Nvidia. Intel sale del 16,3% e il Nasdaq 100 del 6,9%, il maggior rialzo giornaliero dall'aprile 2025. Sono titoli che di solito dipendono dalla stessa domanda di chip per i centri di calcolo: quando il timore passa, i compratori tornano su tutta la filiera.",
+    "Stamattina l'Asia ha seguito Wall Street. Il Kospi di Seul chiude a 5.006,03. In mattinata la borsa coreana ha sospeso per cinque minuti gli ordini d'acquisto automatici, una misura che scatta quando i future salgono troppo in fretta. Seul tende a salire più di Tokyo quando i chip rimbalzano, perché due soli produttori, Samsung Electronics e SK hynix, valgono circa metà dell'indice.",
+    "Non tutti sono convinti. A Seul i piccoli risparmiatori vendono per circa 2.000 miliardi di won mentre stranieri e istituzioni comprano, e un professore giudica il rimbalzo temporaneo. Anche per Nvidia il rischio resta aperto."
+   ],
+   "guardare": "Contano i chip americani all'apertura di oggi: un nuovo calo farebbe del rimbalzo uno sfogo, una seduta in rialzo darebbe ragione a chi compra.",
+   "fonte": "Fonti: comunicato Nvidia (SEC), Aju Press, JKN, Korea Herald, City AM.",
+   "misura": "doppio",
+   "grafici": [
+    {
+     "file": "chip-1",
+     "dati": {
+      "tipo": "barre",
+      "dati": [
+       [
+        "Nvidia",
+        31.48
+       ],
+       [
+        "Micron",
+        19.04
+       ],
+       [
+        "Intel",
+        16.3
+       ],
+       [
+        "Nasdaq 100",
+        6.9
+       ],
+       [
+        "Nasdaq",
+        6.51
+       ],
+       [
+        "Kospi (24/11)",
+        6.32
+       ],
+       [
+        "S&P 500",
+        4.73
+       ],
+       [
+        "Dow Jones",
+        3.01
+       ]
+      ],
+      "ordina": false,
+      "dec": 1,
+      "unita": "%",
+      "titolo": "Il rialzo è più forte dove pesano di più i chip",
+      "sottotitolo": "variazioni % del 23/11 (Kospi: 24/11)"
+     },
+     "misure": [
+      538,
+      248
+     ]
+    },
+    {
+     "file": "chip-2",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-10-26"
+       },
+       {
+        "$d": "2026-10-27"
+       },
+       {
+        "$d": "2026-10-28"
+       },
+       {
+        "$d": "2026-10-29"
+       },
+       {
+        "$d": "2026-10-30"
+       },
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-03"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       },
+       {
+        "$d": "2026-11-19"
+       },
+       {
+        "$d": "2026-11-20"
+       },
+       {
+        "$d": "2026-11-23"
+       }
+      ],
+      "serie": [
+       [
+        "S&P 500",
+        [
+         7676.77,
+         7722.6,
+         7743.98,
+         7720.39,
+         7580.07,
+         7541.4,
+         7568.92,
+         7688.62,
+         7353.73,
+         7376.86,
+         7549.94,
+         7520.93,
+         7619.38,
+         7592.4,
+         7561.67,
+         7416.59,
+         7340.53,
+         7323.63,
+         7175.83,
+         6910.39,
+         7237.17
+        ],
+        "#111111"
+       ]
+      ],
+      "titolo": "In sei sedute l'S&P 500 aveva perso quasi il 9% e ne ha ripreso metà",
+      "sottotitolo": "S&P 500, chiusure (punti)",
+      "soglie": [
+       [
+        7000,
+        "7.000"
+       ]
+      ],
+      "eventi": [
+       [
+        {
+         "$d": "2026-11-12"
+        },
+        "dimissioni di Huang"
+       ]
+      ],
+      "note": [
+       [
+        {
+         "$d": "2026-11-12"
+        },
+        7592.4,
+        "12/11"
+       ],
+       [
+        {
+         "$d": "2026-11-20"
+        },
+        6910.39,
+        "20/11"
+       ],
+       [
+        {
+         "$d": "2026-11-23"
+        },
+        7237.17,
+        "23/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "treasury",
+   "pagina": "treasury",
+   "tema": "Tassi USA",
+   "titolo": "Le borse rimbalzano ma il 10 anni resta fermo: pesa la Fed",
+   "perche": "Meno paura dovrebbe far salire i rendimenti, perché si comprano meno titoli di Stato come rifugio. Ma il petrolio in calo e le attese di inflazione più basse spingono nel verso opposto, e a nostro avviso le due forze si annullano.",
+   "quindi": "Mercoledì alle 14:30 escono i prezzi PCE: un dato di fondo, senza energia e alimentari, sopra il +0,3% atteso sul mese toglierebbe ogni dubbio al rialzo di dicembre.",
+   "numero": "29 punti base: di quanto il 10 anni, al 4,92%, rende più del 2 anni, al 4,63%. A nostro avviso non è il segno di un mercato che scommette su una recessione vicina.",
+   "testo": [
+    "Se la paura cala, perché il 10 anni non sale? Perché oggi due cose lo spingono in direzioni opposte. Chi ha paura compra titoli di Stato americani per mettere i soldi al sicuro: il prezzo sale e il rendimento, che si muove al contrario, scende. Quando la paura passa quella domanda si ferma e il rendimento tende a risalire. Ma con la paura è calato anche il petrolio. Un greggio più basso di solito abbassa l'inflazione che gli investitori si aspettano, cioè il rendimento che pretendono per prestare a dieci anni.",
+    "Lo scenario Fed non è cambiato. Secondo il CME FedWatch i future danno circa il 94% di probabilità a un rialzo di 25 punti base a dicembre. Secondo Kitco una parte degli operatori ha ridotto quella probabilità dopo indicatori più deboli. Il 2 anni, che segue la banca centrale più da vicino, resta a 4,63% come venerdì. Per questo il dato di mercoledì conta più del rimbalzo.",
+    "Il petrolio spiega anche la discesa dei dieci giorni scorsi. Dal 13 novembre, quando il 10 anni era al 5,15%, il Brent è passato da 95,84 a meno di 90 $. Con lui, secondo Kitco, sono scese le attese di inflazione. Se il rendimento si muove insieme al barile, il mercato lo usa come termometro dei prezzi futuri."
+   ],
+   "fonte": "Fonti: Kitco, Fox Business, Milano Finanza, CME; curva par del Tesoro USA via FMP.",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "treasury-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-10-26"
+       },
+       {
+        "$d": "2026-10-27"
+       },
+       {
+        "$d": "2026-10-28"
+       },
+       {
+        "$d": "2026-10-29"
+       },
+       {
+        "$d": "2026-10-30"
+       },
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-03"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       },
+       {
+        "$d": "2026-11-19"
+       },
+       {
+        "$d": "2026-11-20"
+       },
+       {
+        "$d": "2026-11-23"
+       }
+      ],
+      "titolo": "In dieci giorni il 10 anni è sceso di oltre 20 punti base",
+      "sottotitolo": "Rendimenti dei Treasury, chiusure (%)",
+      "serie": [
+       [
+        "10 anni",
+        [
+         5.0,
+         4.99,
+         5.05,
+         4.98,
+         4.94,
+         4.91,
+         4.95,
+         4.9,
+         4.84,
+         4.86,
+         4.88,
+         4.98,
+         5.1,
+         5.15,
+         5.12,
+         5.1,
+         5.07,
+         5.04,
+         4.92,
+         4.92
+        ],
+        "#F26B1D"
+       ],
+       [
+        "2 anni",
+        [
+         4.68,
+         4.7,
+         4.67,
+         4.61,
+         4.56,
+         4.59,
+         4.61,
+         4.58,
+         4.46,
+         4.51,
+         4.56,
+         4.73,
+         4.86,
+         4.88,
+         4.83,
+         4.8,
+         4.8,
+         4.76,
+         4.63,
+         4.63
+        ],
+        "#111111"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "petrolio",
+   "pagina": "petrolio",
+   "tema": "Petrolio",
+   "titolo": "Il petrolio scende guardando al surplus, non alla guerra",
+   "perche": "Per Bloomberg gli investitori chiudono le coperture contro un'escalation, perché Trump ha lasciato più tempo ai colloqui con l'Iran. Dietro c'è un mercato che, secondo l'Aie, avrà un surplus di circa 2 milioni di barili al giorno in questo trimestre.",
+   "quindi": "Un nuovo attacco alle petroliere nello Stretto di Hormuz, o il fallimento dei colloqui, è ciò che può riportare il Brent sopra i 100 $.",
+   "numero": "-23%: il calo del Brent dal 26 ottobre, da 115,81 a 89,37 $.",
+   "testo": [
+    "Le petroliere continuano a essere colpite e il greggio scende lo stesso. Il prezzo di un barile dipende da quanti ne arrivano e da quanti ne servono, non dal numero delle notizie di guerra. I flussi dal Golfo, scrive Bloomberg, sembrano continuare. Le previsioni dicono che ne arriveranno più del necessario: Bernstein vede un surplus per tre anni e Goldman Sachs segnala il rischio di troppa offerta l'anno prossimo.",
+    "Per l'inflazione la differenza conta. Un petrolio che sale per timore sulle forniture pesa di solito su Europa e Giappone, che lo importano. Uno che scende per l'abbondanza alleggerisce i costi di trasporti e carburanti. Secondo Saxo Bank il calo del diesel può attenuare i timori sui prezzi e su ulteriori rialzi dei tassi."
+   ],
+   "fonte": "Fonti: Bloomberg (Rigzone), Kitco; chiusure del Brent future.",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "petrolio-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-10-26"
+       },
+       {
+        "$d": "2026-10-27"
+       },
+       {
+        "$d": "2026-10-28"
+       },
+       {
+        "$d": "2026-10-29"
+       },
+       {
+        "$d": "2026-10-30"
+       },
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-03"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       },
+       {
+        "$d": "2026-11-19"
+       },
+       {
+        "$d": "2026-11-20"
+       },
+       {
+        "$d": "2026-11-23"
+       }
+      ],
+      "serie": [
+       [
+        "Brent",
+        [
+         115.81,
+         113.88,
+         115.32,
+         110.8,
+         113.43,
+         104.77,
+         103.6,
+         94.62,
+         98.29,
+         98.32,
+         92.57,
+         91.49,
+         92.76,
+         95.82,
+         95.84,
+         92.44,
+         93.14,
+         91.95,
+         91.98,
+         92.57,
+         89.37
+        ],
+        "#F26B1D"
+       ]
+      ],
+      "titolo": "In un mese il Brent è sceso da oltre 115 a meno di 90 dollari",
+      "sottotitolo": "Brent future, chiusure ($)",
+      "soglie": [
+       [
+        100,
+        "100 $"
+       ]
+      ],
+      "note": [
+       [
+        {
+         "$d": "2026-10-26"
+        },
+        115.81,
+        "26/10"
+       ],
+       [
+        {
+         "$d": "2026-11-23"
+        },
+        89.37,
+        "23/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "oro",
+   "pagina": "oro",
+   "tema": "Materie prime",
+   "titolo": "L'oro è sceso e risalito con le borse, non contro di loro",
+   "perche": "Secondo Kitco, nel ribasso di venerdì l'oro ha subito spinte opposte: la domanda da rifugio da un lato, le vendite per fare cassa e coprire le richieste di garanzie dall'altro. A nostro avviso hanno prevalso le seconde, e il rimbalzo di ieri insieme alle azioni lo suggerisce.",
+   "quindi": "Una ricaduta sotto i 3.500 $, il minimo di venerdì, segnerebbe il fallimento del rimbalzo.",
+   "numero": "-9,5%: il calo dell'oro future dal 13 al 20 novembre, da 3.886,30 a 3.515,40 $.",
+   "testo": [
+    "L'oro, il rifugio per eccellenza, è caduto proprio nella settimana della paura. In una giornata di panico chi ha perdite su azioni o su titoli comprati a debito deve rimettere soldi sul conto. Vende allora ciò che si vende bene, oro compreso. Sono vendite forzate. Non dicono nulla sul valore dell'oro.",
+    "Quando le azioni risalgono, quella pressione si allenta e l'oro recupera, mentre il VIX, l'indice che misura la paura a Wall Street, scende da 35,89 a 26,62. Natixis avverte che il rimbalzo può durare poco e vede il rischio di un ritorno verso i 3.340 $. Pesano anche i rendimenti, ancora vicini al 5%: più sono alti, più costa tenere un oro che non rende."
+   ],
+   "fonte": "Fonti: Kitco, Nation Thailand; chiusure dell'oro future.",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "oro-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-10-26"
+       },
+       {
+        "$d": "2026-10-27"
+       },
+       {
+        "$d": "2026-10-28"
+       },
+       {
+        "$d": "2026-10-29"
+       },
+       {
+        "$d": "2026-10-30"
+       },
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-03"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       },
+       {
+        "$d": "2026-11-19"
+       },
+       {
+        "$d": "2026-11-20"
+       },
+       {
+        "$d": "2026-11-23"
+       }
+      ],
+      "serie": [
+       [
+        "Oro future",
+        [
+         4038.4,
+         4074.6,
+         4051.6,
+         4031.4,
+         3898.9,
+         3969.6,
+         3940.4,
+         4073.0,
+         4113.5,
+         4074.9,
+         4114.5,
+         4030.2,
+         4000.5,
+         3885.3,
+         3886.3,
+         3853.0,
+         3864.2,
+         3741.9,
+         3685.5,
+         3515.4,
+         3651.4
+        ],
+        "#F26B1D"
+       ]
+      ],
+      "titolo": "L'oro ha perso quasi un decimo in una settimana e ne ha recuperato più di un terzo",
+      "sottotitolo": "Oro future, chiusure ($ l'oncia)",
+      "soglie": [
+       [
+        3500,
+        "3.500 $"
+       ]
+      ],
+      "note": [
+       [
+        {
+         "$d": "2026-11-09"
+        },
+        4114.5,
+        "9/11"
+       ],
+       [
+        {
+         "$d": "2026-11-20"
+        },
+        3515.4,
+        "20/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "europa",
+   "pagina": "europa",
+   "tema": "Europa e Italia",
+   "titolo": "L'Europa sale con i chip americani, mentre Germania e Francia divergono",
+   "perche": "Per l'agenzia dpa-AFX la tecnologia è di gran lunga il settore migliore e porta l'Euro Stoxx 50 a +2,2%, con ASML a +8,9% e Infineon a +6,6%. Per Salah-Eddine Bouhmidi di IG Markets la fiducia torna ben oltre Nvidia e il settore dell'intelligenza artificiale.",
+   "quindi": "Oggi parte il periodo di adesione all'offerta di Intesa Sanpaolo su Mps: per le banche che ieri hanno guidato Milano è il primo test.",
+   "testo": [
+    "I chip sono americani, eppure l'Europa sale. L'Euro Stoxx 50 ha dentro ASML e Infineon, che vendono macchine e componenti agli stessi centri di calcolo. Quando Wall Street compra i chip, di riflesso compra chi li rende possibili. Per l'economia europea nel suo insieme conta però altro.",
+    "Lo mostrano i PMI, gli indici mensili sul clima d'affari delle imprese: l'area euro cresce come prima, ma la media nasconde due economie. Per Chris Williamson di S&amp;P Global la Germania accelera al ritmo più rapido in quattro anni e mezzo. La Francia si contrae più che negli ultimi sei mesi e il divario tra i due è il più ampio in sei anni.",
+    "A Milano lo stacco dei dividendi di undici titoli, secondo ANSA, pesava circa l'1,4% sull'indice, e in mattinata il FTSE MIB perdeva quasi l'1%. A nostro avviso è stata l'apertura di Wall Street nel pomeriggio a ribaltare la seduta, con le banche in testa: Intesa Sanpaolo +2,8%, Banco BPM +2,5% e UniCredit +2%."
+   ],
+   "fonte": "Fonti: dpa-AFX, Reuters, investingLive, ANSA, Milano Finanza, Teleborsa.",
+   "righe": [
+    [
+     "Clima d'affari area euro, novembre",
+     "Dato",
+     "Atteso"
+    ],
+    [
+     "Composito",
+     "51,7",
+     "51,9"
+    ],
+    [
+     "Servizi",
+     "51,2",
+     "51,8"
+    ],
+    [
+     "Manifattura",
+     "52,9",
+     "52,8"
+    ]
+   ],
+   "misura": "mezzo"
+  }
+ ]
+}

@@ -224,6 +224,9 @@ rect.na { fill: transparent; stroke: var(--rule); stroke-dasharray: 2 2; }
 .ax-rows .t { font-family: var(--display); font-stretch: 88%; font-weight: 700; font-size: 18px; line-height: 1.28; }
 .ax-rows .hit { display: block; margin-top: 4px; font-size: 14px; line-height: 1.45; color: var(--muted); }
 .ax-rows .hit mark { background: #FCE2D0; color: var(--ink); padding: 0 1px; }
+.ax-rows .ax-an { margin: -6px 0 0; padding: 0 0 11px 136px; font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+.ax-rows .ax-an a { display: inline; padding: 0; border: 0; color: var(--orange-ink); text-decoration: none; border-bottom: 1px solid var(--rule); }
+.ax-rows .ax-an a:hover { color: var(--ink); }
 .ax-rows .v { font-family: var(--mono); font-size: 13px; text-align: right; }
 .ax-rows .v.up { color: var(--up); } .ax-rows .v.down { color: var(--down); } .ax-rows .v.na { color: var(--muted); }
 .ax-empty { padding: 40px 0; color: var(--muted); }
@@ -235,6 +238,7 @@ rect.na { fill: transparent; stroke: var(--rule); stroke-dasharray: 2 2; }
   .ax-month .mc { display: none; }
   .ax-rows a { grid-template-columns: minmax(0, 1fr) 56px; gap: 4px 12px; }
   .ax-rows .dd { grid-column: 1 / -1; }
+  .ax-rows .ax-an { padding-left: 0; }
   .ax-rows .t { font-size: 17px; }
   .ax-stats b { font-size: 24px; }
 }
@@ -441,7 +445,14 @@ rect.na.fut { stroke: var(--rule); opacity: .5; }
       if (f) { const p = el("span", "hit"); p.append(f[0]); p.appendChild(el("mark", "", f[1])); p.append(f[2]); t.appendChild(p); }
       a.appendChild(t);
       a.appendChild(el("span", "v " + (g(e) == null || Math.abs(g(e)) < 0.05 ? "na" : g(e) > 0 ? "up" : "down"), g(e) == null ? "=" : sgn(g(e), 1)));
-      li.appendChild(a); ul.appendChild(li);
+      li.appendChild(a);
+      // G-64: le analisi dell'edizione che hanno la loro pagina, per tema
+      if (Array.isArray(e.a) && e.a.length) {
+        const an = el("p", "ax-an"); an.appendChild(el("span", "", "Le analisi: "));
+        e.a.forEach(([k, t], j) => { if (j) an.append(" | "); const x = el("a", "", t || k); x.href = "e/" + pad(e.n) + "/" + k + ".html"; an.appendChild(x); });
+        li.appendChild(an);
+      }
+      ul.appendChild(li);
     }
   }
   function elenco() {

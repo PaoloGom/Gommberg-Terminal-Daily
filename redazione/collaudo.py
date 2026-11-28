@@ -33,8 +33,13 @@ Cosa controlla:
                    falso allarme da correggere).
   5. Sito          pagine.py su una copia: file JSON e XML validi, ultima edizione in testa, nessun link interno rotto;
                    le pagine generate sono identiche a quelle nel repository (se pagine.py cambia, le pagine si
-                   rigenerano nello stesso commit); costruisci.py prepara il sito pubblico senza avvisi
-  6. Pubblicazione pubblica.sh in modalità prova sulla copia (nessun commit, nessun push)
+                   rigenerano nello stesso commit); costruisci.py prepara il sito pubblico senza avvisi; le pagine
+                   delle analisi (analisi_sito.py): una per analisi, testo uguale al PDF, link e sitemap, un sorgente
+                   rotto che non ferma l'edizione, e un'edizione rifatta da zero che ridà gli stessi file. I grafici
+                   si confrontano in ciò che mostrano e non nei byte, che cambiano con la versione di matplotlib: lo
+                   stesso verdetto in locale e su GitHub (stesso_grafico, provato da passo_grafici)
+  6. Pubblicazione pubblica.sh in modalità prova sulla copia (nessun commit, nessun push); se pagine.py cade l'avviso
+                   esce e la pubblicazione prosegue
 Esce con 1 se un passo fallisce. --tieni lascia la cartella temporanea per guardare PDF e anteprime.
 
 La rete (redazione/rete/). Un campione è un'edizione vera congelata: sorgenti/ (il testo scritto e i dati di quel
@@ -1684,6 +1689,392 @@ def passo_sito():
     return copia
 
 
+# --- Lo stesso grafico, da qualunque macchina sia stato disegnato ---
+# Un SVG di matplotlib cambia nei byte da una versione all'altra anche quando il disegno è lo stesso: gli id dei
+# caratteri e dei ritagli, e il riquadro che si sposta di qualche decimo di punto perché le scritte si misurano un filo
+# diverse. Per questo due grafici non si confrontano nei byte ma in ciò che mostrano, e il verdetto è lo stesso su ogni
+# macchina: stesse dimensioni; stesse scritte, nello stesso ordine, con gli stessi caratteri (i contorni delle lettere,
+# non il loro nome), colore e corpo; stessi segni (linee, barre, punti, tacche, griglia) con la stessa forma, colore e
+# tratto; e ogni punto allo stesso posto RISPETTO AGLI ALTRI SEGNI DELLO STESSO ASSE, tacche comprese, cioè allo stesso
+# valore: per ogni asse una sola retta deve portare tutti i punti di un disegno su quelli dell'altro. Così un riquadro
+# che si sposta o si stringe non conta, e un dato che si sposta rispetto alle tacche sì.
+TOL_DATI = 0.1      # punti tipografici: quanto può scostarsi un punto dagli altri (due decimali nell'SVG; visti al più 0,02 pt)
+TOL_CORNICE = 2.0   # quanto possono spostarsi riquadro, scritte e legenda (0,7 mm; da matplotlib 3.6 a 3.11 visti al più 0,7 pt)
+_NUM = r"[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?"
+
+
+def _stile(s):
+    return dict(tuple(x.strip() for x in p.split(":", 1)) for p in (s or "").split(";") if ":" in p)
+
+
+def _percorso(d):
+    """Un attributo d: (le lettere dei comandi, i numeri)."""
+    return "".join(re.findall(r"[A-Za-z]", d or "")), [float(x) for x in re.findall(_NUM, re.sub(r"[A-Za-z]", " ", d or ""))]
+
+
+def disegno_svg(testo):
+    """Ciò che un SVG di matplotlib mostra: misure, segni nell'ordine in cui sono disegnati e i bordi di ogni riquadro
+    (axes_N). Un segno è una scritta (il commento che matplotlib lascia con il testo, i contorni dei caratteri, colore,
+    posto e corpo), un percorso (comandi, punti, stile) o un simbolo ripetuto (use: posto, forma e stile del simbolo).
+    Id, ritagli e definizioni non entrano."""
+    import xml.etree.ElementTree as ET
+    radice = ET.fromstring(testo, parser=ET.XMLParser(target=ET.TreeBuilder(insert_comments=True)))
+    nome = lambda e: e.tag.rsplit("}", 1)[-1] if isinstance(e.tag, str) else "!"
+    forme = {e.get("id"): e for e in radice.iter() if nome(e) == "path" and e.get("id")}
+
+    def forma(e):       # la forma a cui rimanda un <use>
+        f = forme.get(next((v for k, v in e.attrib.items() if k.endswith("href")), "").lstrip("#"))
+        return None if f is None else _percorso(f.get("d")) + (_stile(f.get("style")),)
+
+    d = {"misure": (radice.get("width"), radice.get("height"), radice.get("viewBox")), "segni": [], "bordi": {}}
+
+    def visita(e, dove, asse):
+        n, gid = nome(e), e.get("id") or ""
+        if n in ("defs", "metadata", "clipPath", "style"):
+            return
+        if n == "g" and gid.startswith("text_"):
+            g = next((c for c in e if nome(c) == "g"), None)
+            tr = re.findall(r"(\w+)\(([^)]*)\)", (g.get("transform") or "") if g is not None else "")
+            d["segni"].append({"tipo": "scritta", "dove": dove, "asse": asse, "comandi": "",
+                               "testo": next((c.text.strip() for c in e if nome(c) == "!"), ""),
+                               "stile": _stile(g.get("style")) if g is not None else {},
+                               "punti": [float(x) for k, v in tr if k == "translate" for x in re.findall(_NUM, v)],
+                               "corpo": [(k, [float(x) for x in re.findall(_NUM, v)]) for k, v in tr if k != "translate"],
+                               "forma": [f[:2] for f in (forma(u) for u in (g.iter() if g is not None else ()) if nome(u) == "use")
+                                         if f and f[0]]})          # i contorni dei caratteri (lo spazio non ne ha)
+            return
+        if n == "g" and gid.startswith("axes_"):
+            dove = asse = gid
+        elif n == "g" and gid.startswith("legend_"):
+            dove = "legenda"
+        elif n in ("path", "use"):
+            s = {"tipo": n, "dove": dove, "asse": asse, "stile": _stile(e.get("style")), "ritaglio": bool(e.get("clip-path"))}
+            if n == "path":
+                s["comandi"], s["punti"] = _percorso(e.get("d"))
+            else:
+                s.update(comandi="", punti=[float(e.get("x") or 0), float(e.get("y") or 0)], forma=forma(e))
+            d["segni"].append(s)
+            if asse and asse not in d["bordi"] and n == "path" and len(s["punti"]) >= 4:      # il fondo del riquadro
+                d["bordi"][asse] = [(min(s["punti"][j::2]), max(s["punti"][j::2])) for j in (0, 1)]
+            return
+        for c in e:
+            visita(c, dove, asse)
+
+    visita(radice, "figura", None)
+    return d
+
+
+def _retta(coppie):
+    """La retta x = m*y + c che porta al meglio le y sulle x (minimi quadrati); se i posti stanno tutti in un punto,
+    il solo spostamento."""
+    n = len(coppie)
+    if not n:
+        return 1.0, 0.0
+    mx, my = sum(x for x, _ in coppie) / n, sum(y for _, y in coppie) / n
+    v = sum((y - my) ** 2 for _, y in coppie)
+    m = sum((x - mx) * (y - my) for x, y in coppie) / v if v > 1 else 1.0
+    return m, mx - m * my
+
+
+def differenze_svg(a, b, misura=None):
+    """Che cosa il disegno b (testo SVG) mostra di diverso dal disegno a; [] se mostrano la stessa cosa.
+    misura: se è una lista, riceve gli scarti in punti (scarto, "dati" o "cornice") di ogni coordinata."""
+    try:
+        A, B = disegno_svg(a), disegno_svg(b)
+    except Exception as e:  # noqa: BLE001
+        return [f"SVG illeggibile ({type(e).__name__}: {str(e)[:60]})"]
+    if A["misure"] != B["misure"]:
+        return [f"dimensioni {B['misure'][0]} x {B['misure'][1]} invece di {A['misure'][0]} x {A['misure'][1]}"]
+    ta, tb = ([s["testo"] for s in X["segni"] if s["tipo"] == "scritta"] for X in (A, B))
+    if ta != tb:
+        piu, meno = [f"'{x}'" for x in tb if x not in ta], [f"'{x}'" for x in ta if x not in tb]
+        return ["scritte diverse: " + ("; ".join((["in più " + ", ".join(piu[:4])] if piu else []) +
+                                                 (["in meno " + ", ".join(meno[:4])] if meno else []))
+                                       or "le stesse, in un altro numero o in un altro ordine")]
+    firma = lambda s: (s["tipo"], s["dove"], s["asse"], s["comandi"], len(s["punti"]), s["stile"], s.get("ritaglio"))
+    if len(A["segni"]) != len(B["segni"]):
+        return [f"{len(B['segni'])} segni (linee, barre, punti, tacche, scritte) invece di {len(A['segni'])}"]
+    for i, (s, t) in enumerate(zip(A["segni"], B["segni"])):
+        if firma(s) != firma(t):
+            return [f"il segno n. {i + 1} è un altro per forma, colore o tratto: {t['tipo']} {t['stile']} con {len(t['punti']) // 2} "
+                    f"punti invece di {s['tipo']} {s['stile']} con {len(s['punti']) // 2}"]
+    if set(A["bordi"]) != {s["asse"] for s in A["segni"] if s["asse"]} or set(B["bordi"]) != set(A["bordi"]):
+        return ["riquadro non riconosciuto"]
+    out, coppie = [], list(zip(A["segni"], B["segni"]))
+    largo = lambda s: s["tipo"] == "scritta" or s["dove"] == "legenda"      # stanno dove le mette la misura delle scritte
+    # sul bordo del riquadro in tutti e due i disegni (assi, griglia, soglie da un lato all'altro): segue il bordo
+    fermo = lambda k, j, x, y: any(abs(x - p) <= TOL_DATI and abs(y - r) <= TOL_DATI for p, r in zip(A["bordi"][k][j], B["bordi"][k][j]))
+    porta = {}
+    for k in A["bordi"]:
+        sposta = max(abs(x - y) for j in (0, 1) for x, y in zip(A["bordi"][k][j], B["bordi"][k][j]))
+        if sposta > TOL_CORNICE:
+            out.append(f"il riquadro è spostato di {sposta:.2f} pt")
+        for j in (0, 1):    # per ogni asse, la retta che porta su a tutti i segni di b: tacche, griglia, linee, barre, punti
+            porta[k, j] = _retta([(x, y) for s, t in coppie if s["asse"] == k and not largo(s)
+                                  for x, y in zip(s["punti"][j::2], t["punti"][j::2]) if not fermo(k, j, x, y)])
+    stesso = lambda x, y, tol: len(x) == len(y) and all(abs(p - q) <= tol for p, q in zip(x, y))
+    peggio = {}
+    for i, (s, t) in enumerate(coppie):
+        if s["tipo"] == "scritta":
+            if [k for k, _ in s["corpo"]] != [k for k, _ in t["corpo"]] or not all(stesso(x, y, 1e-3) for (_, x), (_, y) in zip(s["corpo"], t["corpo"])):
+                out.append(f"la scritta '{s['testo']}' ha un altro corpo")
+            if [c for c, _ in s["forma"]] != [c for c, _ in t["forma"]] or not all(stesso(x, y, 0.5) for (_, x), (_, y) in zip(s["forma"], t["forma"])):
+                out.append(f"la scritta '{s['testo']}' è disegnata con altri caratteri")
+        elif s["tipo"] == "use":
+            fa, fb = s["forma"], t["forma"]
+            if (fa is None) != (fb is None) or (fa and (fa[0] != fb[0] or fa[2] != fb[2] or not stesso(fa[1], fb[1], 0.02))):
+                out.append(f"il segno n. {i + 1} (punto o tacca) ha un'altra forma o un'altra misura")
+        for q, (x, y) in enumerate(zip(s["punti"], t["punti"])):
+            m, c = porta[s["asse"], q % 2] if s["asse"] else (1.0, 0.0)       # fuori dai riquadri c'è solo il fondo della figura
+            tol = TOL_CORNICE if largo(s) else TOL_DATI
+            scarto = 0.0 if s["asse"] and not largo(s) and fermo(s["asse"], q % 2, x, y) else abs(m * y + c - x)
+            if misura is not None:
+                misura.append((scarto, "cornice" if largo(s) else "dati"))
+            if scarto > tol and scarto > peggio.get(i, (0, None))[0]:
+                peggio[i] = (scarto, s)
+    for i, (scarto, s) in sorted(peggio.items())[:4]:
+        che = f"la scritta '{s['testo']}'" if s["tipo"] == "scritta" else \
+            f"il segno n. {i + 1} ({'punto o tacca' if s['tipo'] == 'use' else 'linea o barra'} {s['stile'].get('stroke') or s['stile'].get('fill') or ''})"
+        out.append(f"{che} è a {scarto:.2f} pt da dove lo vogliono gli altri segni")
+    if len(peggio) > 4:
+        out.append(f"e altri {len(peggio) - 4} segni spostati")
+    return out
+
+
+def stesso_grafico(a, b):
+    """'' se il file SVG b mostra lo stesso grafico del file a, altrimenti che cosa cambia."""
+    if not os.path.isfile(b):
+        return "manca"
+    return "; ".join(differenze_svg(open(a, encoding="utf-8").read(), open(b, encoding="utf-8").read())[:3])
+
+
+def passo_analisi(copia):
+    """Le pagine delle analisi (G-64, analisi_sito.py) sulla copia di passo_sito: una pagina per ogni analisi delle
+    edizioni con sorgenti e nessuna per le altre, testo identico a quello stampato nel PDF, link e mappa del sito; poi,
+    su una seconda copia, un sorgente rotto e un titolo che non corrisponde non fermano pagine.py, e un'estrazione
+    rifatta da zero con il kit di oggi ridà gli stessi dati, le stesse pagine e gli stessi grafici (questi confrontati
+    in ciò che mostrano, non nei byte: stesso_grafico, che passo_grafici mette alla prova)."""
+    import html as H
+    sys.path.insert(0, os.path.join(copia, "redazione"))
+    import analisi_sito as A
+    base = "https://gommberg.com/"
+    piano = lambda t: re.sub(r"\s+", " ", H.unescape(re.sub(r"<[^>]+>", " ", re.sub(r"</?(?:span|b|i|a|em)\b[^>]*>", "", t)))).strip()
+    testo_pdf = lambda f: re.sub(r"\s+", " ", esegui(["pdftotext", f, "-"])[1].replace("­", "")).strip()
+    voci = sorted(json.load(open(os.path.join(copia, "edizioni.json"), encoding="utf-8")), key=lambda e: e["numero"])
+    mappa = open(os.path.join(copia, "sitemap.xml"), encoding="utf-8").read()
+    male, uguali, pezzi, nate, con = [], [], 0, 0, 0
+    for ed in voci:
+        n = f"{ed['numero']:03d}"
+        src = os.path.join(copia, "redazione", "sorgenti", ed["data"])
+        cart = os.path.join(copia, "e", n)
+        if not os.path.isfile(os.path.join(src, "edizione.py")):
+            if os.path.isdir(cart):
+                male.append(f"e/{n}/ esiste ma l'edizione non ha sorgenti")
+            continue
+        con += 1
+        try:
+            d = json.load(open(os.path.join(src, A.FILE), encoding="utf-8"))
+        except Exception as e:  # noqa: BLE001
+            male.append(f"n. {n}: {A.FILE} illeggibile ({e})"[:90]); continue
+        if d.get("errore"):
+            male.append(f"n. {n}: estrazione fallita ({d['errore'][:60]})"); continue
+        pagina_ed = open(os.path.join(copia, "e", n + ".html"), encoding="utf-8").read()
+        pdf = testo_pdf(os.path.join(copia, ed["file"]))
+        for i, m in A.collega(ed, d):
+            rel = A.indirizzo(ed, m)
+            f = os.path.join(copia, rel)
+            if not os.path.isfile(f):
+                male.append(f"manca {rel}"); continue
+            nate += 1
+            h = open(f, encoding="utf-8").read()
+            vis = piano(re.sub(r"<(script|style)\b.*?</\1>", " ", h, flags=re.S))   # quello che legge chi non esegue il JavaScript
+            campi = ([m.get(k) for k in ("titolo", "perche", "quindi", "numero", "guardare", "fonte")] + list(m.get("testo") or [])
+                     + list(m.get("punti") or [])[:3] + [c for r in m.get("righe") or [] for c in r])
+            for c in [A._piano(x) for x in campi if x]:
+                pezzi += 1
+                if c not in pdf:
+                    male.append(f"{rel}: testo che non è nel PDF: '{c[:40]}'")
+                # "Il numero" va in pagina in due pezzi (la cifra grande, poi la frase): i due pezzi, senza i due punti
+                if c not in vis and not (c == A._piano(m.get("numero")) and all(x.strip() in vis for x in c.split(":", 1))):
+                    male.append(f"{rel}: testo che manca nella pagina: '{c[:40]}'")
+            try:
+                ld = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', h, re.S).group(1))
+                assert ld["@type"] == "NewsArticle" and ld["headline"] and ld["datePublished"].startswith(ed["data"]) and ld["url"] == base + rel
+            except Exception:  # noqa: BLE001
+                male.append(f"{rel}: dati strutturati mancanti o sbagliati")
+            if f'<link rel="canonical" href="{base + rel}">' not in h:
+                male.append(f"{rel}: canonico sbagliato")
+            if f"<url><loc>{base + rel}</loc><lastmod>{ed['data']}</lastmod>" not in mappa:
+                male.append(f"{rel}: non è nella sitemap con il giorno dell'edizione")
+            if f'href="{n}/{m["pagina"]}.html"' not in pagina_ed:
+                male.append(f"e/{n}.html non porta a {rel}")
+            if "Testi generati con l'intelligenza artificiale" not in h or 'href="../../' + ed["file"] not in h:
+                male.append(f"{rel}: manca la riga AI o il rimando al giornale")
+            for u in re.findall(r"""(?:href|src|srcset)=["']([^"'#?]+)""", re.sub(r"<script\b.*?</script>", "", h, flags=re.S)):
+                if not re.match(r"(?:[a-z]+:|//)", u) and not os.path.exists(os.path.normpath(os.path.join(os.path.dirname(f), u))):
+                    male.append(f"{rel} -> {u}: link rotto")
+    for loc in re.findall(r"<loc>https://gommberg\.com/(e/\d{3}/[^<]+)</loc>", mappa):
+        if not os.path.isfile(os.path.join(copia, loc)):
+            male.append(f"sitemap: {loc} non esiste")
+    esito("Analisi: una pagina per analisi, testo uguale al PDF", not male and nate > 0,
+          "; ".join(dict.fromkeys(male))[:400] or f"{nate} pagine da {con} edizioni con sorgenti, {pezzi} testi uguali nel PDF e nella pagina "
+          "(anche senza JavaScript); dati strutturati, canonico, sitemap, link")
+    # seconda copia: un sorgente rotto, un titolo che non corrisponde e un'estrazione da rifare da zero
+    prova = os.path.join(TMP, "sito_analisi")
+    shutil.copytree(copia, prova, ignore=shutil.ignore_patterns("__pycache__"))
+    con_src = [e for e in voci if os.path.isfile(os.path.join(prova, "redazione", "sorgenti", e["data"], "edizione.py"))]
+    male = []
+    if len(con_src) < 4:
+        return esito("Analisi: un sorgente rotto non ferma l'edizione", False, "servono almeno 4 edizioni con sorgenti")
+    rotta, rifatta, storta, guasta = con_src[-1], con_src[-2], con_src[-3], con_src[-4]
+    nr, nf, ns, ng = (f"{e['numero']:03d}" for e in (rotta, rifatta, storta, guasta))
+    sr = os.path.join(prova, "redazione", "sorgenti", rotta["data"])
+    originale = open(os.path.join(sr, "edizione.py"), encoding="utf-8").read()
+    open(os.path.join(sr, "edizione.py"), "a", encoding="utf-8").write("\nC = {\n")      # errore di sintassi
+    # un guasto dell'ambiente (una libreria che manca) non si salva come errore: si riprova alla volta successiva
+    sg = os.path.join(prova, "redazione", "sorgenti", guasta["data"])
+    eg = open(os.path.join(sg, "edizione.py"), encoding="utf-8").read()
+    open(os.path.join(sg, "edizione.py"), "w", encoding="utf-8").write("import libreria_che_non_ce_g64  # noqa\n" + eg)
+    os.remove(os.path.join(sg, A.FILE))
+    os.remove(os.path.join(sr, A.FILE))
+    sf = os.path.join(prova, "redazione", "sorgenti", rifatta["data"])
+    os.remove(os.path.join(sf, A.FILE))
+    shutil.rmtree(os.path.join(prova, "e", nf))
+    ed_json = json.load(open(os.path.join(prova, "edizioni.json"), encoding="utf-8"))
+    for e in ed_json:
+        if e["numero"] == storta["numero"]:
+            e["approfondimenti"][0]["titolo"] += " (corretto)"
+    json.dump(ed_json, open(os.path.join(prova, "edizioni.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    rc, out = esegui([sys.executable, os.path.join(prova, "redazione", "pagine.py"), prova], timeout=900)
+    if rc:
+        male.append("pagine.py si è fermato: " + out.strip().splitlines()[-1][:120])
+    else:
+        if f"AVVISO analisi n. {nr}" not in out:
+            male.append(f"nessun avviso per il sorgente rotto del n. {nr}")
+        if not json.load(open(os.path.join(sr, A.FILE), encoding="utf-8")).get("errore"):
+            male.append("il sorgente rotto non ha lasciato l'errore in analisi.json")
+        if os.path.isdir(os.path.join(prova, "e", nr)) and any(f.endswith(".html") for f in os.listdir(os.path.join(prova, "e", nr))):
+            male.append(f"e/{nr}/ ha ancora pagine di analisi con il sorgente rotto")
+        if "Leggi il testo qui" in open(os.path.join(prova, "e", nr + ".html"), encoding="utf-8").read():
+            male.append(f"e/{nr}.html porta a pagine che non esistono")
+        if f"e/{nr}/" in open(os.path.join(prova, "sitemap.xml"), encoding="utf-8").read():
+            male.append(f"la sitemap ha ancora le pagine del n. {nr}")
+        primo = json.load(open(os.path.join(copia, "redazione", "sorgenti", storta["data"], A.FILE), encoding="utf-8"))["moduli"][0]["pagina"]
+        if os.path.exists(os.path.join(prova, "e", ns, primo + ".html")) or \
+                any(f.startswith(primo + "-") for f in os.listdir(os.path.join(prova, "e", ns))):
+            male.append(f"e/{ns}/{primo}.html è nata con un titolo diverso da edizioni.json")
+        if len([f for f in os.listdir(os.path.join(prova, "e", ns)) if f.endswith(".html")]) != len(storta["approfondimenti"]) - 1:
+            male.append(f"n. {ns}: con un titolo diverso devono restare le altre pagine")
+        if os.path.exists(os.path.join(sg, A.FILE)) or "guasto dell'ambiente" not in out:
+            male.append(f"n. {ng}: un guasto dell'ambiente è stato salvato come errore del sorgente, o non ha dato l'avviso")
+        # rifatto da zero: i dati estratti e le pagine non dipendono dalla macchina e si confrontano byte per byte; i
+        # grafici li disegna matplotlib, e si confrontano in ciò che mostrano (stesso_grafico)
+        import filecmp
+        if not filecmp.cmp(os.path.join(sf, A.FILE), os.path.join(copia, "redazione", "sorgenti", rifatta["data"], A.FILE), shallow=False):
+            male.append(f"n. {nf}: {A.FILE} rifatto da zero diverso da quello nel repository")
+        ca, cb = os.path.join(copia, "e", nf), os.path.join(prova, "e", nf)
+        for f in sorted(set(os.listdir(ca)) | set(os.listdir(cb) if os.path.isdir(cb) else ())):
+            a, b = os.path.join(ca, f), os.path.join(cb, f)
+            if not os.path.exists(a):
+                male.append(f"n. {nf}: e/{nf}/{f} rifatto da zero è un file in più")
+            elif not os.path.exists(b):
+                male.append(f"n. {nf}: e/{nf}/{f} rifatto da zero manca")
+            elif f.endswith(".svg"):
+                altro = stesso_grafico(a, b)
+                if altro:
+                    male.append(f"n. {nf}: e/{nf}/{f} rifatto da zero è un altro grafico ({altro})")
+            elif not filecmp.cmp(a, b, shallow=False):
+                male.append(f"n. {nf}: e/{nf}/{f} rifatto da zero diverso da quello nel repository")
+        # il sorgente rotto si corregge: alla pubblicazione dopo l'errore salvato si riprova da solo e le pagine tornano
+        open(os.path.join(sr, "edizione.py"), "w", encoding="utf-8").write(originale)
+        rc, out = esegui([sys.executable, os.path.join(prova, "redazione", "pagine.py"), prova], timeout=900)
+        n_ok = len(json.load(open(os.path.join(copia, "redazione", "sorgenti", rotta["data"], A.FILE), encoding="utf-8"))["moduli"])
+        if rc or not os.path.isdir(os.path.join(prova, "e", nr)) or \
+                len([f for f in os.listdir(os.path.join(prova, "e", nr)) if f.endswith(".html")]) != n_ok:
+            male.append(f"n. {nr}: corretto il sorgente, le pagine non sono tornate da sole")
+    esito("Analisi: un sorgente rotto non ferma l'edizione", not male, "; ".join(male)[:400] or
+          f"n. {nr} rotto: avviso, nessuna pagina né link né riga nella sitemap, il resto esce, e corretto il sorgente le pagine "
+          f"tornano da sole; n. {ng} con un guasto dell'ambiente: avviso, nessun errore salvato; n. {ns} con un titolo diverso: "
+          f"quella pagina e i suoi grafici non restano, le altre sì; n. {nf} rifatto da zero con il kit di oggi: stessi dati e stesse "
+          "pagine byte per byte, stessi grafici nel contenuto")
+
+
+def _grafici_di_prova():
+    """Due grafici costruiti come quelli delle analisi (linee con due serie e una soglia, barre) e, per ciascuno, le
+    copie sbagliate che il confronto deve vedere: {nome: dati}, [(nome del giusto, nome dello sbagliato, che cosa cambia)]."""
+    giorni = [g for g in (dt.date(2026, 11, 2) + dt.timedelta(days=i) for i in range(19)) if g.weekday() < 5]
+    linee = {"tipo": "linee", "x": [{"$d": g.isoformat()} for g in giorni], "unita": "%", "soglie": [[5.0, "5%"]],
+             "serie": [["10 anni", [5.15, 5.12, 5.13, 4.96, 5.0, 5.0, 4.99, 5.05, 4.98, 4.94, 4.91, 4.95, 4.9, 4.84, 4.86], "#F26B1D"],
+                       ["2 anni", [4.77, 4.79, 4.81, 4.65, 4.69, 4.68, 4.7, 4.75, 4.66, 4.62, 4.6, 4.63, 4.58, 4.5, 4.52], "#111111"]]}
+    barre = {"tipo": "barre", "ordina": False, "dec": 1, "unita": "%",
+             "dati": [["Taiwan (Taiex)", -6.0], ["Corea (Kospi)", -3.6], ["Giappone (Nikkei)", -2.4], ["Cina (Shanghai)", -0.9],
+                      ["Hong Kong (Hang Seng)", 0.5]]}
+    copia = lambda g: json.loads(json.dumps(g))
+    grafici, casi = {"linee": linee, "barre": barre}, []
+
+    def caso(base, nome, che, cambia):
+        g = copia(grafici[base]); cambia(g)
+        grafici[nome] = g; casi.append((base, nome, che))
+
+    caso("linee", "linee-dato", "un dato a metà serie spostato di 0,002 (da 5,05 a 5,052)", lambda g: g["serie"][0][1].__setitem__(7, 5.052))
+    caso("linee", "linee-serie", "una serie tolta", lambda g: g["serie"].pop())
+    caso("linee", "linee-nome", "il nome di una serie cambiato", lambda g: g["serie"][1].__setitem__(0, "3 anni"))
+    caso("linee", "linee-colore", "il colore di una serie cambiato", lambda g: g["serie"][1].__setitem__(2, "#1F5FA8"))
+    caso("linee", "linee-soglia", "la soglia spostata da 5 a 5,01 con la stessa scritta", lambda g: g["soglie"][0].__setitem__(0, 5.01))
+    caso("linee", "linee-unita", "l'unità di misura tolta", lambda g: g.pop("unita"))
+    caso("barre", "barre-dato", "una barra allungata di 0,02 senza cambiare la sua etichetta (-3,6%)", lambda g: g["dati"][1].__setitem__(1, -3.62))
+    caso("barre", "barre-nome", "il nome di una barra cambiato", lambda g: g["dati"][1].__setitem__(0, "Corea (Kosdaq)"))
+    caso("barre", "barre-meno", "una barra tolta", lambda g: g["dati"].pop())
+    return grafici, casi
+
+
+def passo_grafici(copia):
+    """Il confronto dei grafici (stesso_grafico) dà lo stesso verdetto su ogni macchina ed è un controllo vero.
+    1. Verde dove deve: in redazione/rete/grafici/ ogni grafico c'è due volte, <nome>.<versione>.svg, disegnato dagli
+       stessi dati con due versioni di matplotlib (diverso nei byte): il confronto deve dirli uguali. Sono file fermi,
+       come i campioni della rete: se il confronto torna a dipendere dalla versione, diventa rosso anche in locale.
+    2. Rosso dove deve: due grafici costruiti e le loro copie con un dato, una serie, una scritta, un colore cambiati,
+       disegnati adesso da analisi_sito.py; più il grafico del telefono al posto di quello per PC e un file che manca."""
+    male, gruppi = [], {}
+    for f in sorted(glob.glob(os.path.join(RETE, "grafici", "*.svg"))):
+        gruppi.setdefault(os.path.basename(f).split(".", 1)[0], []).append(f)
+    for ff in gruppi.values():
+        for f in ff[1:]:
+            altro = stesso_grafico(ff[0], f)
+            if open(f, "rb").read() == open(ff[0], "rb").read():
+                male.append(f"{os.path.basename(f)} è identico a {os.path.basename(ff[0])}: il campione non prova nulla")
+            elif altro:
+                male.append(f"{os.path.basename(f)} è {os.path.basename(ff[0])} disegnato da un'altra matplotlib, ma risulta diverso: {altro}")
+    if len(gruppi) < 3 or any(len(ff) < 2 for ff in gruppi.values()):
+        male.append("in redazione/rete/grafici/ servono almeno tre grafici, ognuno disegnato da due versioni di matplotlib")
+    grafici, casi = _grafici_di_prova()
+    cart = os.path.join(TMP, "grafici")
+    os.makedirs(cart)
+    json.dump({"moduli": [{"grafici": [{"file": k, "dati": v} for k, v in grafici.items()]}]},
+              open(os.path.join(cart, "grafici.json"), "w", encoding="utf-8"), ensure_ascii=False)
+    rc, out = esegui([sys.executable, os.path.join(copia, "redazione", "analisi_sito.py"), "disegna", os.path.join(cart, "grafici.json"), cart])
+    if rc:
+        return esito("Analisi: il confronto dei grafici", False, "i grafici di prova non si disegnano: " + (out.strip().splitlines() or ["?"])[-1][:200])
+    svg = lambda nome, suff="": os.path.join(cart, nome + suff + ".svg")
+    for base in ("linee", "barre"):
+        for suff in ("", "-m"):
+            if stesso_grafico(svg(base, suff), svg(base, suff)):
+                male.append(f"{base}{suff}: un grafico risulta diverso da se stesso ({stesso_grafico(svg(base, suff), svg(base, suff))})")
+        if not stesso_grafico(svg(base), svg(base, "-m")):
+            male.append(f"{base}: il grafico del telefono al posto di quello per PC non è visto")
+        if not stesso_grafico(svg(base), svg(base + "-che-non-esiste")):
+            male.append(f"{base}: un grafico che manca non è visto")
+    for base, nome, che in casi:
+        for suff in ("", "-m"):
+            if not stesso_grafico(svg(base, suff), svg(nome, suff)):
+                male.append(f"{base}{suff}: non è visto {che}")
+    versioni = sorted({os.path.basename(f).split(".", 1)[1][:-4] for ff in gruppi.values() for f in ff})
+    esito("Analisi: il confronto dei grafici", not male, "; ".join(male)[:500] or
+          f"{len(gruppi)} grafici disegnati da matplotlib {', '.join(versioni)}: stesso contenuto con byte diversi; "
+          f"{len(casi) + 2} grafici sbagliati apposta visti tutti, su PC e telefono: " + "; ".join(c for _, _, c in casi) +
+          "; il grafico del telefono al posto di quello per PC; un file che manca")
+
+
 def passo_lettori(copia):
     """La Gommunity (G-13): il servizio vero contro un D1 finto (redazione/sito/prova_lettori.mjs, Node 22.5+),
     la sintassi del codice che gira nel browser, la configurazione e l'avviso a Paolo sulle segnalazioni."""
@@ -1974,6 +2365,19 @@ def passo_pubblicazione(copia):
         and os.path.exists(os.path.join(srg, "edizione.py")) and os.path.exists(os.path.join(srg, "dati.json"))
     esito("Pubblicazione a secco (pubblica.sh in prova)", ok,
           "comandi git stampati e non eseguiti, sorgenti archiviati" if ok else out.strip().splitlines()[-1][:160])
+    # pagine.py che cade non ferma la pubblicazione, ma l'avviso deve uscire (prima lo copriva l'esito di awk)
+    pg = os.path.join(copia, "redazione", "pagine.py")
+    buono = open(pg, encoding="utf-8").read()
+    open(pg, "w", encoding="utf-8").write("import sys\nsys.exit('pagine.py rotto apposta dal collaudo')\n")
+    try:
+        rc, out = esegui(["bash", os.path.join(copia, "redazione", "pubblica.sh"), pdf, str(v["numero"]), v["data"],
+                          os.path.join(lav, "fatti.json")], env={"GTD_REPO": copia, "GTD_PROVA": "1"})
+    finally:
+        open(pg, "w", encoding="utf-8").write(buono)
+    ok = rc == 0 and "AVVISO: pagine.py non riuscito" in out and "Sito: PROVA - nessun push" in out
+    esito("Pubblicazione: pagine.py che cade", ok, "avviso stampato, la pubblicazione prosegue" if ok else
+          ("manca l'avviso" if rc == 0 else "la pubblicazione si è fermata") + ": " +
+          ([x for x in out.splitlines() if x.startswith(("Sito:", "AVVISO"))] or ["nessuna riga Sito: né AVVISO"])[-1][:160])
 
 
 def passo_pubblicazione_ramo(copia):
@@ -2044,6 +2448,8 @@ def main():
         passo_orologio()
         copia = passo_sito()
         if isinstance(copia, str):
+            passo_analisi(copia)
+            passo_grafici(copia)
             passo_lettori(copia)
             passo_pubblicazione_ramo(copia)
             passo_pubblicazione(copia)
