@@ -4,6 +4,9 @@
 # rete di non regressione), più il sito di quel commit aperto pagina per pagina in un browser vero e confrontato con
 # gommberg.com. rilascia.sh porta il lavoro sul ramo principale solo se questo è verde sullo stesso commit (cancello 5).
 # A mano: workflow_dispatch. Non usa token del modello né segreti. Mappa e regole: redazione/ARCHITETTURA.md.
+# Minuti di GitHub: circa 120 al mese in un mese normale (12 rilasci), 400 in uno pesante (40). Ogni rilascio conta 8
+# minuti standard (i due job, con le 2 CPU del privato) per 1,25 giri (i rossi e i rilanci). Misura e conti:
+# redazione/collaudi/2026-11-28/g12/piano.md.
 name: Collaudo
 
 on:

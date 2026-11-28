@@ -2198,7 +2198,7 @@ def passo_orologio():
     cartella = os.path.join(REPO, ".github", "workflows")
     flussi = {}
     for f in sorted(glob.glob(os.path.join(cartella, "*.y*ml"))) if yaml else []:
-        d = yaml.safe_load(open(f, encoding="utf-8"))
+        d = yaml.safe_load(open(f, encoding="utf-8")) or {}
         flussi[os.path.basename(f)] = (d, open(f, encoding="utf-8").read())
     lanciati = {x["flusso"] for x in sveglie}
     for x in sveglie if yaml else []:
@@ -2227,8 +2227,6 @@ def passo_orologio():
         for job, j in ((flussi.get(nome) or [{}])[0].get("jobs") or {}).items():
             if j.get("runs-on") != "ubuntu-slim":
                 male.append(f"{nome}, job {job}: un controllo leggero va su ubuntu-slim (G-12)")
-        if yaml and nome in flussi and not re.search(r"Minuti di GitHub", flussi[nome][1]):
-            male.append(f"{nome}: non dichiara quanti minuti di GitHub costa al mese")
     for job in ("controllo", "gomm"):
         if yaml and "mattino.yml" in flussi and not (((flussi["mattino.yml"][0].get("jobs") or {}).get(job) or {}).get("concurrency") or {}).get("group"):
             male.append(f"mattino.yml, job {job}: senza coda d'attesa (concurrency) due partenze vicine lavorerebbero insieme")
@@ -2250,8 +2248,20 @@ def passo_orologio():
     # Chi parte da un push: solo dai rami che pubblicano o fanno da cancello. Su ogni altro ramo (g<NN>, rilascio,
     # con-prova) un push non accende nulla: lì si collauda in locale, e un flusso senza 'branches' partirebbe da tutti.
     # Ogni job ha un tempo massimo, al più TETTO minuti: senza, un job bloccato ne brucia 360 (il tetto di GitHub).
+    # Ogni flusso dichiara in testa quanti minuti costa al mese (ARCHITETTURA.md, 1): chi ne aggiunge uno fa il conto.
     male = []
     RAMI_DEI_FLUSSI, TETTO = {"main", "cancello", "prova", "anteprima-*"}, 15
+
+    def dichiara_i_minuti(testo):
+        """Nei commenti in testa al flusso, prima di ogni altra riga, c'è 'Minuti di GitHub' con almeno un numero."""
+        testa = re.match(r"(?:#.*\n?)*", testo).group()
+        return bool(re.search(r"^# Minuti di GitHub\b.*\d", testa, re.M))
+    for f in sorted(os.listdir(cartella)):
+        if f.endswith((".yml", ".yaml")) and not dichiara_i_minuti(open(os.path.join(cartella, f), encoding="utf-8").read()):
+            male.append(f"{f}: non dichiara in testa quanti minuti di GitHub costa al mese")
+    if [dichiara_i_minuti(x) for x in ("# Un flusso nuovo.\nname: Nuovo\n", "# Un flusso.\nname: X\njobs:\n  a:\n    # Minuti di GitHub: 3 al mese\n",
+                                       "# Minuti di GitHub: pochi.\nname: X\n", "# Un flusso.\n# Minuti di GitHub: circa 30 al mese.\nname: X\n")] != [False, False, False, True]:
+        male.append("la regola dei minuti dichiarati non riconosce un flusso che non li dichiara in testa")
 
     def combacia(modelli, nome):
         """Come GitHub legge 'branches' e 'paths': * non passa le barre, ** sì, decide l'ultimo modello che combacia
@@ -2319,7 +2329,7 @@ def passo_orologio():
         male.append(str(e))
     esito("Minuti di GitHub: regole di ogni flusso", not male, "; ".join(male)[:500] or
           f"{len(flussi)} flussi: da un push si parte solo da {', '.join(sorted(RAMI_DEI_FLUSSI))}, mai dai rami di lavoro; le mail straordinarie solo da main; "
-          f"ogni job ha un tempo massimo, al più {TETTO} minuti")
+          f"ogni job ha un tempo massimo, al più {TETTO} minuti; ogni flusso dichiara in testa i suoi minuti al mese")
 
     # la lettura dello stato: la guardia delle sveglie di riserva e la riga del controllo del mattino
     male = []
@@ -2416,7 +2426,7 @@ def passo_orologio():
 
     # la mappa: ogni flusso e ogni file dell'orologio stanno in ARCHITETTURA.md
     mappa = open(os.path.join(R, "ARCHITETTURA.md"), encoding="utf-8").read()
-    manca = [f for f in sorted(os.listdir(cartella)) if f.endswith(".yml") and f not in mappa]
+    manca = [f for f in sorted(os.listdir(cartella)) if f.endswith((".yml", ".yaml")) and f not in mappa]
     manca += [f for f in ("sito/orologio.js", "sito/orologio.py", "minuti.py", "pannello/minuti.json", "GITHUB_ACTIONS_TOKEN", "/api/orologio") if f not in mappa]
     esito("Orologio: mappa in ARCHITETTURA.md", not manca, "mancano: " + ", ".join(manca) if manca else "ogni flusso di GitHub e ogni pezzo dell'orologio è nella mappa")
 

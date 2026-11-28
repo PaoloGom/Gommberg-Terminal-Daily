@@ -11,6 +11,9 @@
 # zona) e CLOUDFLARE_ACCOUNT_ID. Senza segreti si ferma con un avviso, senza errore. La prima pubblicazione va fatta
 # da main: prima che il Worker esista Cloudflare rifiuta l'anteprima (qui diventa un avviso). Attenzione: da qui wrangler
 # non fa domande, quindi se sul dominio ci fosse già un record A/AAAA/CNAME o un altro Worker, lo sostituirebbe.
+# Minuti di GitHub: circa 60 al mese in un mese normale, 92 in uno pesante, un minuto standard a giro: 22 edizioni, 22
+# ripubblicazioni del GOMM (job gomm di mattino.yml), da 10 a 32 dopo un rilascio, da 6 a 16 da prova e anteprima-*.
+# Misura e conti: redazione/collaudi/2026-11-28/g12/piano.md.
 name: Sito gommberg.com
 
 on:
