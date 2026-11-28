@@ -29,9 +29,13 @@ Il ritardo di Kit (dichiarato da Kit: developers.kit.com/api-reference/eventual-
 gli iscritti di un'etichetta, i filtri) sono aggiornati in ritardo rispetto alle scritture: di solito 30 secondi, fino a
 5 minuti. Le scritture e le letture per id no: la risposta di Kit a una scrittura fa fede. Quindi:
   - che l'etichetta sia stata data lo dice la risposta alla scrittura (201 con lo stesso iscritto), non l'elenco;
-  - l'elenco del gruppo si rilegge ogni PAUSA_GRUPPO secondi per al massimo ATTESA_GRUPPO (120): finché ha meno iscritti
-    degli attesi è ritardo, e si aspetta; un iscritto che non è tra gli attesi non è ritardo, è un errore, e ferma subito;
-  - se dopo ATTESA_GRUPPO l'elenco non è ancora completo, nessun invio. Nel giro della sera nessuno è ancora segnato:
+  - l'elenco del gruppo si rilegge ogni PAUSA_GRUPPO secondi finché il passo lascia tempo (con pochi iscritti più di
+    tre minuti; ATTESA_GRUPPO, 120 secondi, è il tempo che il giro tiene comunque da parte per questa attesa quando
+    decide quanti iscritti servire): finché ha meno iscritti degli attesi è ritardo, e si aspetta; un iscritto che non
+    è tra gli attesi non è ritardo, è un errore, e ferma subito. L'elenco si legge in due modi (con status=all e con lo
+    stato predefinito, i soli attivi) e il gruppo è l'unione dei due; in più, per dire i fatti nel riepilogo, l'etichetta
+    si legge per id dalla parte dell'iscritto (GET /subscribers/{id}/tags);
+  - se quando il tempo finisce l'elenco non è ancora completo, nessun invio. Nel giro della sera nessuno è ancora segnato:
     il giro si rimanda da sé alla sera dopo (esce con 0, lo scrive nel registro); se qualcuno aspetta da più di
     ATTESA_AVVISO giorni esce con 1. Nella prova dal vivo è un fermo, e si rilancia;
   - l'invio parte ATTESA_MINUTI (10) minuti dopo: più del ritardo massimo dichiarato.
@@ -89,9 +93,11 @@ più di uno: errore, e non fa nulla. Non stampa mai un indirizzo né un dato let
 (numeri, nomi di gruppi che ha creato lui): nemmeno negli errori, e mai un tracciato. L'impronta non è un segreto: chi
 conosce o indovina l'indirizzo la può ricalcolare; serve a non scriverlo in chiaro.
 
-Che cosa dice ogni giro, senza indirizzi: i passi fatti, i conti del gruppo letti in Kit uno dopo l'altro (per esempio
-"0 x3, 1": tre letture a zero, poi uno) e, in fondo, il registro delle chiamate a Kit con il codice HTTP di ognuna
-(metodo e percorso, senza parametri e senza l'id dell'iscritto; 0 = nessuna risposta leggibile).
+Che cosa dice ogni giro, senza indirizzi: i passi fatti; a ogni rilettura del gruppo quanti elementi ha restituito Kit
+e quanti di questi sono tra gli attesi, per l'elenco con status=all e per quello con lo stato predefinito; e, in fondo,
+il registro delle chiamate a Kit con il codice HTTP di ognuna (metodo, percorso senza l'id dell'iscritto, e i nomi dei
+parametri: il valore solo per stati, date e formati; 0 = nessuna risposta leggibile). La pulizia, prima di togliere,
+dice per ogni etichetta di prova quanti iscritti Kit le attribuisce in quel momento.
 
 LA PROVA DAL VIVO, prima di accendere. Si fa da GitHub, dove sta la chiave di Kit (il segreto KIT_API_KEY: non la legge
 nessuna chat e nessun PC), lanciando a mano dem.yml dal ramo da provare. I modi "prova-" fanno girare solo questo
@@ -102,7 +108,7 @@ script, mai dem.py e mai "invia"; l'esito si legge nel riepilogo del giro.
        sole letture: quanti iscritti riceverebbero il benvenuto stasera
   2. gh workflow run dem.yml --ref RAMO -f modo=prova-bozza -f impronta="$X"
        il riepilogo deve dire: gruppo di prova con 1 iscritto, bozza riletta con il filtro sul solo gruppo. Il giro può
-       durare fino a un paio di minuti: aspetta che Kit aggiorni l'elenco del gruppo. Poi in Kit, Broadcasts, la bozza
+       durare fino a quattro minuti: aspetta che Kit aggiorni l'elenco del gruppo. Poi in Kit, Broadcasts, la bozza
        gommberg-benvenuto-prova-...: i destinatari devono essere 1. Se non è 1: lancia prova-pulizia e fermati
   3. gh workflow run dem.yml --ref RAMO -f modo=prova-invio -f impronta="$X"
        tra le 8:00 e le 8:20 o tra le 10:30 e le 20:49 (le stesse fasce del giro); la mail arriva al solo iscritto di
@@ -164,13 +170,14 @@ TEMPO_CHIAMATA = 30                # tetto di una chiamata a Kit (il timeout di 
 RISERVA = 7 * TEMPO_CHIAMATA       # programmazione + 2 riletture + pulizia (2 DELETE, 1 PUT in bozza, 1 rilettura):
                                    # la PUT parte solo se nel passo restano questi secondi, così la pulizia di un
                                    # invio sbagliato finisce sempre prima della scadenza del passo
-RISERVA_GRUPPO = 5 * TEMPO_CHIAMATA  # prova: ricontare il gruppo dopo la programmazione (1 lettura) + pulizia (4 chiamate)
+RISERVA_GRUPPO = 6 * TEMPO_CHIAMATA  # prova: ricontare il gruppo dopo la programmazione (2 letture) + pulizia (4 chiamate)
 LAVORO = PASSO - RISERVA           # secondi per tutto ciò che viene prima della programmazione (letture, etichette,
                                    # attesa del gruppo, bozza): 240
 ATTESA_GRUPPO = 120                # Kit aggiorna gli elenchi con ritardo, e lo dichiara (di solito 30 secondi, fino a 5
-                                   # minuti): l'elenco del gruppo si rilegge per al massimo questi secondi
-PAUSA_GRUPPO = 5                   # secondi tra una rilettura del gruppo e l'altra (il collaudo la azzera)
-LETTURE_GRUPPO = ATTESA_GRUPPO // PAUSA_GRUPPO
+                                   # minuti). È il solo parametro dell'attesa: i secondi che il giro tiene da parte per
+                                   # aspettare l'elenco del gruppo quando decide quanti iscritti servire. Poi l'attesa
+                                   # vera dura finché il passo lascia tempo (con pochi iscritti, oltre tre minuti)
+PAUSA_GRUPPO = 5                   # secondi tra una rilettura del gruppo e l'altra
 STIMA_MINIMA, STIMA_FATTORE = 1.0, 2   # il costo stimato di una chiamata: il doppio della media misurata in questo giro,
                                    # mai meno di un secondo. Serve a decidere quanti iscritti si riesce a servire
 MARGINE = 35                       # sotto questi secondi di lavoro rimasti non si scrive più nulla in Kit
@@ -178,6 +185,9 @@ MAX_PAGINE = 20
 PER_PAGINA = 500
 TRATTINI_LUNGHI = re.compile("[–—]")
 VIA_ISCRITTO = re.compile(r"(/subscribers/)\d+")
+# i parametri di cui il registro delle chiamate scrive anche il valore (stati, date, formati); degli altri solo il nome
+IN_CHIARO = ("status", "created_after", "created_before", "tagged_after", "tagged_before", "sent_after", "sent_before",
+             "per_page", "slim", "include", "include_total_count")
 orologio = time.monotonic          # il collaudo lo sostituisce
 pausa = time.sleep                 # il collaudo la sostituisce
 _avvio = None                      # istante dell'avvio (orologio), o None se nessuna scadenza è partita
@@ -315,8 +325,19 @@ def kit_sicuro(metodo, percorso, dati=None):
     return stato, corpo
 
 
+def via_di(percorso):
+    """Il percorso come va nel registro: senza l'id dell'iscritto, e dei parametri il nome; il valore solo per stati,
+    date e formati (IN_CHIARO), mai per un parametro che può portare un dato personale o un cursore."""
+    via, _, coda = str(percorso).partition("?")
+    nomi = []
+    for pezzo in coda.split("&") if coda else []:
+        nome, _, valore = pezzo.partition("=")
+        nomi.append(f"{nome}={valore}" if nome in IN_CHIARO and re.fullmatch(r"[A-Za-z0-9_,:.-]{1,40}", valore) else nome)
+    return VIA_ISCRITTO.sub(r"\1*", via) + ("?" + "&".join(nomi) if nomi else "")
+
+
 def annota(metodo, percorso, stato, t0):
-    _chiamate.append((metodo, VIA_ISCRITTO.sub(r"\1*", str(percorso).split("?")[0]), intero(stato) or 0, max(0.0, orologio() - t0)))
+    _chiamate.append((metodo, via_di(percorso), intero(stato) or 0, max(0.0, orologio() - t0)))
 
 
 def stima_chiamata():
@@ -326,17 +347,14 @@ def stima_chiamata():
 
 
 def registro_kit():
-    """Che cosa ha risposto Kit, chiamata per chiamata, in una riga: metodo, percorso, codice HTTP (0 = nessuna risposta
-    leggibile). Le chiamate uguali di fila sono contate. Mai un dato degli iscritti."""
+    """Che cosa ha risposto Kit, in una riga: metodo, percorso con i suoi parametri, codice HTTP (0 = nessuna risposta
+    leggibile). Le chiamate uguali sono contate una volta, nell'ordine in cui sono comparse. Mai un dato degli iscritti."""
     if not _chiamate:
         return "Kit: nessuna chiamata"
-    voci, tot = [], sum(c[3] for c in _chiamate)
+    conti, tot = {}, sum(c[3] for c in _chiamate)
     for metodo, via, stato, _ in _chiamate:
-        voce = f"{metodo} {via} {stato}"
-        if voci and voci[-1][0] == voce:
-            voci[-1][1] += 1
-        else:
-            voci.append([voce, 1])
+        conti[f"{metodo} {via} {stato}"] = conti.get(f"{metodo} {via} {stato}", 0) + 1
+    voci = list(conti.items())
     tempi = f"{len(_chiamate)} chiamate in {tot:.1f} secondi (media {tot / len(_chiamate):.2f})".replace(".", ",")
     return f"Kit, {tempi}, con il codice HTTP di ognuna: " + "; ".join(v + (f" x{n}" if n > 1 else "") for v, n in voci)
 
@@ -445,48 +463,69 @@ def nuovi_iscritti(adesso):
     return out
 
 
-def iscritti_con(tag_id, dal=None, pulizia=False, tentativi=LETTURE, pagine=MAX_PAGINE):
-    """Gli id degli iscritti (di ogni stato) che hanno l'etichetta, letti dalla parte dell'etichetta."""
-    filtro = f"&created_after={dal}" if dal else ""
-    lista = leggi_tutto(f"/tags/{tag_id}/subscribers?status=all&per_page={PER_PAGINA}{filtro}", "subscribers", pulizia,
-                        tentativi, pagine)
+def iscritti_con(tag_id, dal=None, pulizia=False, tentativi=LETTURE, pagine=MAX_PAGINE, stato="all"):
+    """Gli id degli iscritti che hanno l'etichetta, letti dalla parte dell'etichetta: di ogni stato (status=all) o, con
+    stato=None, come li dà Kit senza dirgli nulla (lo stato predefinito: i soli attivi). `dal`: solo gli iscritti
+    arrivati da quel giorno (lo usa il giro per l'etichetta permanente, mai il conto di un gruppo)."""
+    parametri = (f"status={stato}&" if stato else "") + f"per_page={PER_PAGINA}" + (f"&created_after={dal}" if dal else "")
+    lista = leggi_tutto(f"/tags/{tag_id}/subscribers?{parametri}", "subscribers", pulizia, tentativi, pagine)
     ids = {intero(s.get("id")) for s in lista}
     if None in ids:
         raise Fermo(f"risposta di Kit fuori forma a GET /tags/{tag_id}/subscribers (iscritto senza id)")
     return ids
 
 
-def gruppo_in_kit(tag_id, attesi, nome):
-    """Rilegge l'elenco del gruppo finché ha dentro esattamente gli attesi, e torna i conti letti. Kit aggiorna gli
-    elenchi con ritardo (lo dichiara: di solito 30 secondi, fino a 5 minuti), quindi un elenco ancora corto si rilegge
-    ogni PAUSA_GRUPPO secondi, per al massimo ATTESA_GRUPPO; poi Ritardo. Un iscritto che non è tra gli attesi non è un
-    ritardo: fermo subito."""
-    attesi, conti, t0 = set(attesi), [], orologio()
+def ha_etichetta(iscritto, tag_id):
+    """L'iscritto ha l'etichetta? Letto per id dalla parte dell'iscritto (GET /subscribers/{id}/tags), che non passa
+    dagli elenchi in ritardo. Torna "c'è", "non c'è" o "non si legge": serve a dire i fatti nel riepilogo, non decide."""
+    try:
+        tags = leggi_tutto(f"/subscribers/{iscritto}/tags?per_page={PER_PAGINA}", "tags", pulizia=True, tentativi=1, pagine=2)
+    except Fermo:
+        return "non si legge"
+    return "c'è" if any(intero(t.get("id")) == tag_id for t in tags) else "non c'è"
+
+
+def gruppo_in_kit(tag_id, attesi, nome, dopo=0.0):
+    """Rilegge l'elenco del gruppo finché ha dentro esattamente gli attesi, e torna ciò che ha letto ogni volta. Kit
+    aggiorna gli elenchi con ritardo (lo dichiara: di solito 30 secondi, fino a 5 minuti), quindi un elenco ancora corto
+    si rilegge ogni PAUSA_GRUPPO secondi finché il passo lascia tempo (tolti il margine e `dopo`, i secondi che servono
+    dopo l'attesa); poi Ritardo. L'elenco si legge in due modi, con status=all e con lo stato predefinito (i soli
+    attivi), e il gruppo è l'unione: gli attesi devono esserci tutti, e in nessuno dei due deve esserci un iscritto che
+    non è tra gli attesi (quello non è un ritardo: fermo subito)."""
+    attesi, letture, t0 = set(attesi), [], orologio()
     while True:
-        ids = iscritti_con(tag_id)
-        conti.append(len(ids))
-        if ids == attesi:
-            return conti
-        letti = conti_letti(conti)
-        if ids - attesi:
-            raise Fermo(f"l'etichetta {nome} in Kit ha {len(ids)} iscritti invece di {len(attesi)}, e {len(ids - attesi)} non "
-                        f"glieli ho dati io (conti letti: {letti}): nessun invio")
-        if len(conti) >= LETTURE_GRUPPO or orologio() - t0 + PAUSA_GRUPPO > ATTESA_GRUPPO or rimasto() < MARGINE + PAUSA_GRUPPO:
-            raise Ritardo(f"l'etichetta {nome} in Kit ha {len(ids)} iscritti invece di {len(attesi)} dopo {len(conti)} letture in "
-                          f"{orologio() - t0:.0f} secondi (conti letti: {letti}): Kit aggiorna gli elenchi con ritardo, di solito 30 "
-                          "secondi e fino a 5 minuti; nessun invio")
+        tutti, attivi = iscritti_con(tag_id), iscritti_con(tag_id, stato=None)
+        letture.append((len(tutti), len(tutti & attesi), len(attivi), len(attivi & attesi)))
+        visti = tutti | attivi
+        if visti == attesi:
+            return letture
+        letti = conti_letti(letture)
+        if visti - attesi:
+            raise Fermo(f"l'etichetta {nome} in Kit ha {len(visti)} iscritti invece di {len(attesi)}, e {len(visti - attesi)} non "
+                        f"glieli ho dati io ({letti}): nessun invio")
+        resta = rimasto() - MARGINE - dopo
+        if resta == float("inf"):          # nessuna scadenza partita: vale il solo tempo dichiarato
+            resta = ATTESA_GRUPPO - (orologio() - t0)
+        if resta < PAUSA_GRUPPO:
+            per_id = ha_etichetta(min(attesi), tag_id) if attesi else "non si legge"
+            raise Ritardo(f"l'etichetta {nome} in Kit ha {len(visti)} iscritti invece di {len(attesi)} dopo {len(letture)} riletture in "
+                          f"{orologio() - t0:.0f} secondi ({letti}); letta per id dalla parte di un iscritto atteso, l'etichetta "
+                          f"{per_id}. Kit dichiara che gli elenchi arrivano in ritardo, di solito 30 secondi e fino a 5 minuti; nessun invio")
         pausa(PAUSA_GRUPPO)
 
 
-def conti_letti(conti):
-    """I conti di un gruppo letti uno dopo l'altro, in breve: "0 x3, 1"."""
+def conti_letti(letture):
+    """Ciò che Kit ha restituito a ogni rilettura del gruppo, in breve e senza dati degli iscritti: per l'elenco con
+    status=all e per quello con lo stato predefinito, quanti elementi e quanti di questi sono tra gli attesi."""
     voci = []
-    for c in conti:
-        if voci and voci[-1][0] == c:
+    for tutti, tutti_attesi, attivi, attivi_attesi in letture:
+        voce = (f"con status=all {tutti} element{'o' if tutti == 1 else 'i'} di cui {tutti_attesi} tra gli attesi, "
+                f"con lo stato predefinito {attivi} di cui {attivi_attesi} tra gli attesi")
+        if voci and voci[-1][0] == voce:
             voci[-1][1] += 1
         else:
-            voci.append([c, 1])
-    return ", ".join(f"{c}" + (f" x{n}" if n > 1 else "") for c, n in voci)
+            voci.append([voce, 1])
+    return "elenchi letti: " + "; poi ".join(v + (f" (x{n})" if n > 1 else "") for v, n in voci)
 
 
 def metti(tag_id, iscritto):
@@ -579,6 +618,9 @@ def esito_tolto(bid, dati, invio=None):
     return f"URGENTE: invio {bid} né tolto né riportato in bozza, può partire con destinatari sbagliati: FERMALO A MANO in Kit{ora}"
 
 
+ELENCO_INVII = f"/broadcasts?per_page={nl.PER_PAGINA}&slim=true&after"      # come lo chiede newsletter.leggi_invii, pagina per pagina
+
+
 def elenco_invii():
     """Tutti gli invii di Kit nella forma leggera (id, description, send_at, status: senza contenuto, filtro e modello).
     È newsletter.leggi_invii, la lettura a pagine che newsletter.py usa per le edizioni (G-69): una sola logica. Se
@@ -587,13 +629,13 @@ def elenco_invii():
     try:
         invii = nl.leggi_invii(LETTURE, ATTESA_LETTURE, rigoroso=True)
     except nl.ElencoNonLeggibile as e:
-        annota("GET", "/broadcasts (elenco leggero)", e.stato, t0)
+        annota("GET", ELENCO_INVII, e.stato, t0)
         raise Fermo(f"elenco degli invii di Kit non leggibile (HTTP {intero(e.stato) or 0}"
                     + (", troppo lungo" if e.troppo_lungo else "") + (f", {e.motivo}" if e.motivo else "") + ")")
     except Exception as e:  # noqa: BLE001
-        annota("GET", "/broadcasts (elenco leggero)", 0, t0)
+        annota("GET", ELENCO_INVII, 0, t0)
         raise Fermo(f"elenco degli invii di Kit non leggibile ({type(e).__name__})")
-    annota("GET", "/broadcasts (elenco leggero)", 200, t0)
+    annota("GET", ELENCO_INVII, 200, t0)
     return invii
 
 
@@ -609,13 +651,14 @@ def dati_invio(gruppo_id, descrizione, modello):
             "subscriber_filter": [{"all": [{"type": "tag", "ids": [gruppo_id]}], "any": None, "none": None}]}
 
 
-def crea_bozza(gruppo_id, nome_gruppo, modello, attesi, senza):
+def crea_bozza(gruppo_id, nome_gruppo, modello, attesi, senza, dopo=0.0):
     """Crea la bozza per il gruppo (mai ritentata) e la rilegge. Torna (id, dati) solo se Kit, riletto, ha la bozza con
     il filtro sul solo gruppo; altrimenti la toglie e si ferma. Prima aspetta che l'elenco del gruppo in Kit abbia dentro
-    esattamente gli attesi (gruppo_in_kit). senza: che cosa è già stato fatto, per i messaggi. Torna anche i conti letti."""
+    esattamente gli attesi (gruppo_in_kit), finché restano i secondi che servono dopo (`dopo`). senza: che cosa è già
+    stato fatto, per i messaggi. Torna anche ciò che ha letto degli elenchi."""
     dati = dati_invio(gruppo_id, nome_gruppo, modello)
     try:
-        conti = gruppo_in_kit(gruppo_id, attesi, nome_gruppo)    # ultimo controllo: nel gruppo i soli voluti
+        conti = gruppo_in_kit(gruppo_id, attesi, nome_gruppo, dopo)    # ultimo controllo: nel gruppo i soli voluti
     except Ritardo as e:
         raise Ritardo(f"{e} ({senza})")
     except Fermo as e:
@@ -732,12 +775,12 @@ def giro(esegui=True, adesso=None):
             raise Fermo(f"etichetta del gruppo non data a un iscritto: nessun invio creato, {nessuno}")
     attesi = [s["id"] for s in presi]
     try:
-        bid, dati, conti = crea_bozza(gruppo, nome, modello, attesi, nessuno)
+        bid, dati, conti = crea_bozza(gruppo, nome, modello, attesi, nessuno, dopo=(3 + len(attesi)) * stima_chiamata())
     except Ritardo as e:                   # nessuno è segnato: non è un errore, è Kit che non ha ancora aggiornato l'elenco
         if tardi:
             raise Avviso(f"{tardi}. E stasera: {e}")
         raise Rimando(str(e))
-    print(f"Benvenuto: gruppo {nome} di {len(attesi)} iscritt{'o' if len(attesi) == 1 else 'i'}, conti letti in Kit: {conti_letti(conti)}")
+    print(f"Benvenuto: gruppo {nome} di {len(attesi)} iscritt{'o' if len(attesi) == 1 else 'i'}, {conti_letti(conti)}")
     # la bozza c'è ed è giusta: solo ora, e solo se resta il tempo per tutte e per programmare, le etichette permanenti
     segnati = 0
     try:
@@ -804,10 +847,11 @@ def iscritto_di_prova(chi):
 
 
 def solo_lui(gruppo, chi, tentativi=LETTURE):
-    """True se in Kit il gruppo ha dentro il solo iscritto di prova (di ogni stato), riletto ora. Lettura di pulizia:
-    anche a tempo scaduto. Un elenco che non si legge vale come no."""
+    """True se in Kit il gruppo ha dentro il solo iscritto di prova, riletto ora nei due modi dell'elenco (status=all e
+    stato predefinito). Lettura di pulizia: anche a tempo scaduto. Un elenco che non si legge vale come no."""
     try:
-        return iscritti_con(gruppo, pulizia=True, tentativi=tentativi, pagine=1) == {chi}
+        return (iscritti_con(gruppo, pulizia=True, tentativi=tentativi, pagine=1)
+                | iscritti_con(gruppo, pulizia=True, tentativi=tentativi, pagine=1, stato=None)) == {chi}
     except Fermo:
         return False
 
@@ -828,8 +872,9 @@ def bozza(chi, adesso=None):
     if not metti(gruppo, chi):
         raise Fermo(f"etichetta del gruppo di prova {nome} creata ma non data all'iscritto di prova: nessuna bozza")
     print(f"- gruppo di prova {nome}: creato nuovo, e Kit ha confermato l'etichetta all'iscritto di prova")
-    bid, dati, conti = crea_bozza(gruppo, nome, modello, [chi], "nessun iscritto segnato")
-    print(f"- gruppo riletto da Kit prima della bozza: iscritti nel gruppo 1 (conti letti: {conti_letti(conti)})")
+    print(f"- letta per id dalla parte dell'iscritto di prova, l'etichetta del gruppo {ha_etichetta(chi, gruppo)}")
+    bid, dati, conti = crea_bozza(gruppo, nome, modello, [chi], "nessun iscritto segnato", dopo=4 * stima_chiamata())
+    print(f"- gruppo riletto da Kit prima della bozza: iscritti nel gruppo 1 ({conti_letti(conti)})")
     print(f"- bozza {bid}: creata e riletta da Kit, filtro sul solo gruppo di prova, stato bozza, non programmata")
     if not solo_lui(gruppo, chi):
         raise Fermo(f"dopo la creazione il gruppo di prova {nome} non ha dentro il solo iscritto di prova (o non si rilegge): "
@@ -890,7 +935,7 @@ def prova(chi, adesso=None):
         conti = gruppo_in_kit(gruppo, {chi}, nome)
     except Fermo as e:
         raise Fermo(f"il gruppo di prova non ha dentro il solo iscritto di questa impronta ({e}): non si programma")
-    print(f"- gruppo di prova: iscritti nel gruppo 1, l'iscritto di prova (conti letti: {conti_letti(conti)})")
+    print(f"- gruppo di prova: iscritti nel gruppo 1, l'iscritto di prova ({conti_letti(conti)})")
     dati = dati_invio(gruppo, nome, modello)
     programma(bid, gruppo, dati, invio, "nessun iscritto segnato")
     print(f"- invio {bid}: programmato per le {invio:%H:%M} (ora di Roma) e riletto da Kit, filtro sul solo gruppo di prova")
@@ -908,6 +953,21 @@ def prova(chi, adesso=None):
     return bid
 
 
+def iscritti_di(tag_id):
+    """Quanti iscritti Kit attribuisce a un'etichetta in questo momento, letti in tre modi e detti in una frase: l'elenco
+    con status=all, l'elenco con lo stato predefinito, e il totale che Kit dichiara (include_total_count). Solo conti."""
+    def conto(stato):
+        try:
+            return str(len(iscritti_con(tag_id, stato=stato)))
+        except Fermo:
+            return "non letto"
+    stato, corpo = chiama("GET", f"/tags/{tag_id}/subscribers?status=all&include_total_count=true&per_page=1")
+    pg = corpo.get("pagination") if isinstance(corpo, dict) and isinstance(corpo.get("pagination"), dict) else {}
+    totale = intero(pg.get("total_count")) if intero(pg.get("total_count")) is not None else intero(corpo.get("total_count")) if isinstance(corpo, dict) else None
+    return (f"Kit le attribuisce {conto('all')} iscritti con status=all, {conto(None)} con lo stato predefinito, "
+            f"totale dichiarato {totale if stato == 200 and totale is not None else 'non dato'}")
+
+
 def pulisci():
     """Toglie da Kit ciò che le prove dal vivo lasciano: le bozze di prova NON programmate e le etichette dei gruppi di
     prova. Di prova è solo ciò che porta il nome intero di un gruppo di prova (NOME_PROVA): mai l'etichetta permanente,
@@ -916,6 +976,10 @@ def pulisci():
     aveva un'etichetta tolta resta iscritto: perde solo quella."""
     print("Prova del benvenuto, pulizia (solo bozze ed etichette di prova):")
     tolti, male, occupate = 0, [], set()
+    etichette = [t for t in leggi_tutto(f"/tags?per_page={PER_PAGINA}", "tags") if NOME_PROVA.fullmatch(str(t.get("name") or ""))]
+    for t in etichette:                # i fatti, prima di togliere qualcosa: quanti iscritti Kit attribuisce a ogni etichetta
+        if intero(t.get("id")):
+            print(f"- etichetta {t['name']}, prima di toccarla: {iscritti_di(t['id'])}")
     for x in di_prova(elenco_invii()):
         bid, nome = x["id"], str(x["description"])
         b = rileggi(bid)                                  # per id, nella forma intera: fa fede questa
@@ -937,10 +1001,8 @@ def pulisci():
             detto = stato if re.fullmatch(r"[a-z_]{1,20}", stato) else "non detto"
             print(f"- invio {bid} ({nome}): " + ("programmato e non ancora spedito" if stato in ("scheduled", "sending") else "non risulta spedito")
                   + f" (stato {detto}): non si tocca, e la sua etichetta resta finché non è partito. Rilancia prova-pulizia dopo")
-    for t in leggi_tutto(f"/tags?per_page={PER_PAGINA}", "tags"):
+    for t in etichette:
         nome = str(t.get("name") or "")
-        if not NOME_PROVA.fullmatch(nome):
-            continue
         if not intero(t.get("id")):
             male.append(f"etichetta {nome}: senza id nella risposta di Kit, non toccata")
         elif nome in occupate:

@@ -1295,11 +1295,13 @@ def passo_benvenuto():
             self.modelli, self.ignora_data, self.nascondi_tag = list(modelli), ignora_data, nascondi_tag
             self.guasti, self.chiamate, self.prossimo = {}, [], 100
             self.crea_a_tutti = self.crea_mente = self.put_a_tutti = self.put_mente = self.delete_rotto = self.put_rotto = False
-            # ritardo: come Kit vero, l'elenco di un'etichetta mostra un'assegnazione solo dopo `ritardo` letture
-            self.ritardo, self.lette = 0, {}
+            # ritardo: come Kit vero, l'elenco di un'etichetta mostra un'assegnazione solo `ritardo` secondi dopo (sull'orologio
+            # dello script); tutti_vuoto: l'elenco con status=all non restituisce mai nulla; per_id: le etichette lette per id
+            # dalla parte dell'iscritto si vedono subito (True) o mai (False)
+            self.ritardo, self.dato, self.tutti_vuoto, self.per_id = 0, {}, False, True
             for nome, chi in etichette:
                 i = self.nuovo_id()
-                self.tag[i], self.membri[i], self.lette[i] = nome, set(chi), 10 ** 9
+                self.tag[i], self.membri[i] = nome, set(chi)
 
         def nuovo_id(self):
             self.prossimo += 1
@@ -1363,8 +1365,11 @@ def passo_benvenuto():
                 if t not in self.tag:
                     return 404, {"errors": ["no"]}
                 if metodo == "GET":
-                    self.lette[t] = self.lette.get(t, 0) + 1
-                    visti = sorted(self.membri[t]) if self.lette[t] > self.ritardo else []
+                    stato = q.get("status", "active")
+                    visti = [i for i in sorted(self.membri[t]) if (not self.ritardo or BV.orologio() - self.dato.get((t, i), -10 ** 9) >= self.ritardo)
+                             and (stato == "all" or self.iscritti[i]["state"] == stato) and not (stato == "all" and self.tutti_vuoto)]
+                    if "include_total_count" in q:
+                        pg = dict(pg, total_count=len(visti))
                     return 200, {"subscribers": [{"id": i, "state": self.iscritti[i]["state"], "created_at": self.iscritti[i]["created_at"],
                                                   "tagged_at": "x"} for i in visti], "pagination": pg}
                 s = int(m.group(2))
@@ -1373,8 +1378,12 @@ def passo_benvenuto():
                 if s in self.membri[t]:
                     return 200, {"subscriber": {"id": s}}
                 self.membri[t].add(s)
-                self.lette[t] = 0
+                self.dato[(t, s)] = BV.orologio()
                 return 201, {"subscriber": {"id": s}}
+            m = re.match(r"^/subscribers/(\d+)/tags$", via)
+            if m and metodo == "GET":
+                return 200, {"tags": [{"id": i, "name": self.tag[i], "tagged_at": "x"} for i, chi in self.membri.items()
+                                      if int(m.group(1)) in chi and self.per_id], "pagination": pg}
             m = re.match(r"^/tags/(\d+)$", via)
             if m and metodo == "DELETE":
                 if int(m.group(1)) not in self.tag:
@@ -1467,8 +1476,18 @@ def passo_benvenuto():
     def vecchi():
         return [iscritto(i, 24 * (40 + i)) for i in range(50, 55)]      # i lettori di prima: mai il benvenuto
 
-    vero, vera_attesa, vero_orologio, vera_pausa, vera_pausa_gruppo = BV.nl.kit, BV.ATTESA_LETTURE, BV.orologio, BV.pausa, BV.PAUSA_GRUPPO
-    BV.ATTESA_LETTURE = BV.PAUSA_GRUPPO = 0
+    # l'orologio di prova: quello vero più il tempo "passato" nelle pause, che qui non aspettano (un'attesa di minuti
+    # dura un istante, ma lo script la vede tutta)
+    passato = {"t": 0.0}
+    orologio_vero, pausa_vera = BV.orologio, BV.pausa
+
+    def vero_orologio():
+        return orologio_vero() + passato["t"]
+
+    def vera_pausa(secondi):
+        passato["t"] += max(0, secondi)
+    vero, vera_attesa = BV.nl.kit, BV.ATTESA_LETTURE
+    BV.ATTESA_LETTURE, BV.orologio, BV.pausa = 0, vero_orologio, vera_pausa
     try:
         # 1. Kit che risponde bene: 2 h, 30 h, 3 giorni fa (dopo l'accensione) ricevono; 5 giorni fa (prima
         #    dell'accensione), i lettori di prima e il non confermato no
@@ -1780,19 +1799,22 @@ def passo_benvenuto():
         #     i conti: lo script si arrende prima che GitHub chiuda il passo, e l'invio parte dopo
         if not (BV.RISERVA + BV.ATTESA_GRUPPO + BV.MARGINE < BV.PASSO < BV.ALLARME < BV.ATTESA_MINUTI * 60) or BV.LAVORO != BV.PASSO - BV.RISERVA:
             male.append("tempi: PASSO deve contenere riserva, attesa del gruppo e margine, e l'invio deve partire dopo l'allarme")
-        # 15b. il ritardo di Kit (1): l'elenco del gruppo arriva dopo qualche lettura; il giro aspetta, poi spedisce.
-        #      Se non arriva nel tempo dichiarato: rimandato, nessuno segnato, e il giro dopo serve tutti
+        # 15b. il ritardo di Kit (1): l'elenco del gruppo arriva dopo un po'; il giro aspetta, poi spedisce.
+        #      Se non arriva nel tempo che il passo lascia: rimandato, nessuno segnato, e il giro dopo serve tutti
+        def letture_gruppo(k):
+            return len([c for c in k.chiamate if c[0] == "GET" and re.match(r"^/tags/\d+/subscribers\?status=all&per_page=\d+$", c[1])
+                        and "-2026-" in k.tag.get(int(c[1].split("/")[2]), "")])
         k = KitFinto([iscritto(1, 2), iscritto(2, 3)])
-        k.ritardo = 4
+        k.ritardo = 18
         r, msg = giro(k)
-        if r != 0 or k.posta() != {1: 1, 2: 1} or "conti letti in Kit: 0 x4, 2" not in msg:
-            male.append(f"elenco del gruppo in ritardo: esito {r}, posta {k.posta()} ({msg[-100:]})")
+        if r != 0 or k.posta() != {1: 1, 2: 1} or "con status=all 0 elementi di cui 0 tra gli attesi, con lo stato predefinito 0 di cui 0 tra gli attesi (x4); poi con status=all 2 elementi di cui 2 tra gli attesi" not in msg:
+            male.append(f"elenco del gruppo in ritardo: esito {r}, posta {k.posta()} ({msg[-160:]})")
         k = KitFinto([iscritto(1, 2), iscritto(2, 3)])
         k.ritardo = 10 ** 6
         r, msg = giro(k)
-        letture = len([c for c in k.chiamate if c[0] == "GET" and re.match(r"^/tags/\d+/subscribers\?", c[1])])
-        if r != "rimando" or segnati(k) or k.invii or letture != BV.LETTURE_GRUPPO or "ritardo" not in msg:
-            male.append(f"elenco del gruppo che non arriva: esito {r}, segnati {sorted(segnati(k))}, {len(k.invii)} invii, {letture} letture ({msg[-80:]})")
+        if r != "rimando" or segnati(k) or k.invii or letture_gruppo(k) not in (BV.ATTESA_GRUPPO // BV.PAUSA_GRUPPO, BV.ATTESA_GRUPPO // BV.PAUSA_GRUPPO + 1) or "in ritardo" not in msg \
+                or "letta per id dalla parte di un iscritto atteso, l'etichetta c'è" not in msg:
+            male.append(f"elenco del gruppo che non arriva: esito {r}, segnati {sorted(segnati(k))}, {len(k.invii)} invii, {letture_gruppo(k)} letture ({msg[-80:]})")
         k.ritardo = 0
         r, msg = giro(k, SERA + timedelta(days=1))
         if r != 0 or k.posta() != {1: 1, 2: 1}:
@@ -1803,21 +1825,43 @@ def passo_benvenuto():
         r, msg = giro(k, SERA + timedelta(days=2))
         if r != "avviso" or segnati(k) or k.invii or "più di 3 giorni" not in msg:
             male.append(f"rimandato con chi aspetta da più di 3 giorni: esito {r} ({msg[-80:]})")
-        #      con l'orologio: aspetta al massimo ATTESA_GRUPPO secondi, una lettura ogni PAUSA_GRUPPO
+        #      con l'orologio del passo: l'attesa non è di 120 secondi fissi, dura finché il passo lascia tempo (E3). Con
+        #      un iscritto e Kit svelto sono più di tre minuti; un elenco che arriva dopo 170 secondi viene aspettato
         k = KitFinto([iscritto(1, 2)])
         k.ritardo = 10 ** 6
-        BV.PAUSA_GRUPPO = vera_pausa_gruppo
-        r, msg = giro_lento(k, lambda m, p: 0.4)
-        BV.PAUSA_GRUPPO = 0
-        letture = len([c for c in k.chiamate if c[0] == "GET" and re.match(r"^/tags/\d+/subscribers\?", c[1])])
-        if r != "rimando" or not BV.ATTESA_GRUPPO * 0.8 / (vera_pausa_gruppo + 0.4) <= letture <= BV.LETTURE_GRUPPO or segnati(k):
-            male.append(f"attesa del gruppo con l'orologio: esito {r}, {letture} letture")
+        r, msg = giro_lento(k, lambda m, p: 0.2)
+        attesa = re.search(r"riletture in (\d+) secondi", msg)
+        if r != "rimando" or segnati(k) or not attesa or not 180 <= int(attesa.group(1)) <= BV.LAVORO:
+            male.append(f"attesa del gruppo con l'orologio del passo: esito {r}, attesa {attesa.group(1) if attesa else '?'} secondi")
+        k = KitFinto([iscritto(1, 2)])
+        k.ritardo = 170
+        r, msg = giro_lento(k, lambda m, p: 0.2)
+        if r != 0 or k.posta() != {1: 1}:
+            male.append(f"elenco del gruppo che arriva dopo 170 secondi: esito {r}, posta {k.posta()} ({msg[-100:]})")
+        #      l'elenco con status=all che non restituisce mai nulla, mentre quello con lo stato predefinito sì: il gruppo
+        #      si riconosce lo stesso, e il riepilogo dice che cosa ha dato ciascuno
+        k = KitFinto([iscritto(1, 2), iscritto(2, 3)])
+        k.tutti_vuoto = True
+        r, msg = giro(k)
+        if r != 0 or k.posta() != {1: 1, 2: 1} or "con status=all 0 elementi di cui 0 tra gli attesi, con lo stato predefinito 2 di cui 2 tra gli attesi" not in msg:
+            male.append(f"elenco con status=all sempre vuoto: esito {r}, posta {k.posta()} ({msg[-160:]})")
+        #      un estraneo visto solo con lo stato predefinito, o solo con status=all, ferma lo stesso
+        for solo in ("all", None):
+            k = KitFinto([iscritto(1, 2)] + vecchi())
+
+            def estraneo_in_un_elenco(metodo, percorso, dati=None, _k=k, _solo=solo):
+                st, corpo = _k(metodo, percorso, dati)
+                if metodo == "GET" and re.match(r"^/tags/\d+/subscribers\?", percorso) and "-2026-" in _k.tag.get(int(percorso.split("/")[2]), "") \
+                        and ("status=all" in percorso) == (_solo == "all"):
+                    corpo = dict(corpo, subscribers=corpo["subscribers"] + [{"id": 50}])
+                return st, corpo
+            if giro(estraneo_in_un_elenco)[0] != "fermo" or k.invii or segnati(k):
+                male.append(f"iscritto estraneo visto solo nell'elenco {'con status=all' if solo else 'con lo stato predefinito'}: il giro non si ferma")
         #      un iscritto nel gruppo che non gli è stato dato non è un ritardo: fermo subito, senza aspettare
         k = KitFinto([iscritto(1, 2)] + vecchi())
         r, msg = giro(gruppo_in_piu_di(k))
-        letture = len([c for c in k.chiamate if c[0] == "GET" and re.match(r"^/tags/\d+/subscribers\?", c[1])])
-        if r != "fermo" or letture != 1 or segnati(k) or k.invii:
-            male.append(f"iscritto estraneo nel gruppo: esito {r}, {letture} letture")
+        if r != "fermo" or letture_gruppo(k) != 1 or segnati(k) or k.invii:
+            male.append(f"iscritto estraneo nel gruppo: esito {r}, {letture_gruppo(k)} riletture")
         #      l'etichetta data ma con una risposta che parla di un altro iscritto: non vale
         k = KitFinto([iscritto(1, 2)] + vecchi())
         k.guasti["POST /tags/*"] = [("dopo", 201, {"subscriber": {"id": 50}})]
@@ -2049,7 +2093,7 @@ def passo_benvenuto():
             rc, out = comando(k, "prova", IMPR, via=(lambda m, p, d=None, _k=k, _g=g: (_k.chiamate.append((m, p, None)) or (503, {}))
                                                      if m == "GET" and p.startswith(f"/tags/{_g}/subscribers") and any(c[0] == "PUT" for c in _k.chiamate) else _k(m, p, d)))
             fermo_pulito("prova, gruppo non riletto dopo la programmazione", k, rc, out, "tolto")
-            dopo_put = [c for c in k.chiamate[n0:] if c[0] == "GET" and c[1].startswith(f"/tags/{g}/subscribers")]
+            dopo_put = [c for c in k.chiamate[n0:] if c[0] == "GET" and c[1].startswith(f"/tags/{g}/subscribers?status=all")]
             if len(dopo_put) != 2:                                             # una prima e una sola dopo: il tempo della pulizia è contato
                 viva.append(f"prova: il gruppo dopo la programmazione va letto una volta sola, lette {len(dopo_put) - 1}")
         # i. la prova: senza bozza nulla; con la bozza in ordine programma, rilegge, riconta e la mail va a lui solo
@@ -2187,7 +2231,7 @@ def passo_benvenuto():
         #    la programmazione il gruppo si riconta solo se resta il tempo per ricontare e togliere (altrimenti si toglie)
         for nome, lenta, atteso, invii in (
                 ("Kit sempre lento", lambda m, p: 50.0, "tempo del giro scaduto", 1),
-                ("Kit lento al conto del gruppo", lambda m, p: 245.0 if m == "GET" and re.match(r"^/tags/\d+/subscribers", p) else 0.1, "tempo del passo insufficiente", 0),
+                ("Kit lento al conto del gruppo", lambda m, p: 122.0 if m == "GET" and re.match(r"^/tags/\d+/subscribers", p) else 0.1, "tempo del passo insufficiente", 0),
                 ("Kit lento alla programmazione", lambda m, p: 320.0 if m == "PUT" else 0.1, "non resta il tempo per ricontare", 0)):
             k, g, bid = con_bozza()
             if g is None:
@@ -2204,29 +2248,50 @@ def passo_benvenuto():
         T = BV.TEMPO_CHIAMATA
         if BV.ATTESA_MINUTI * 60 <= BV.PASSO or hasattr(BV, "ATTESA_PROVA") or not 7 * T <= BV.RISERVA <= BV.PASSO or BV.RISERVA_GRUPPO < 5 * T:
             viva.append("tempi: l'invio deve partire dopo la scadenza del passo, con il tempo per rileggere, ricontare e togliere")
-        # q. il ritardo di Kit nella prova (1): l'elenco del gruppo arriva dopo qualche lettura, la bozza aspetta e lo
-        #    dice; se non arriva nel tempo dichiarato nessuna bozza; il riepilogo dice i codici HTTP di ogni chiamata
+        # q. il ritardo di Kit nella prova (1): l'elenco del gruppo arriva dopo un po', la bozza aspetta e dice che cosa
+        #    ha letto ogni volta (quanti elementi ha restituito Kit e quanti sono tra gli attesi, nei due modi, e l'etichetta
+        #    letta per id); se non arriva finché il passo lascia tempo nessuna bozza; nel registro ogni chiamata ha i nomi
+        #    dei suoi parametri
         k = mondo()
-        k.ritardo = 3
+        k.ritardo = 12
         rc, out = comando(k, "bozza", IMPR)
-        if rc != 0 or len(k.invii) != 1 or "conti letti: 0 x3, 1" not in out:
+        if rc != 0 or len(k.invii) != 1 or "con status=all 0 elementi di cui 0 tra gli attesi, con lo stato predefinito 0 di cui 0 tra gli attesi (x3); poi con status=all 1 elemento di cui 1 tra gli attesi, con lo stato predefinito 1 di cui 1 tra gli attesi" not in out \
+                or "letta per id dalla parte dell'iscritto di prova, l'etichetta del gruppo c'è" not in out:
             viva.append(f"bozza con l'elenco del gruppo in ritardo: uscita {rc}, {len(k.invii)} bozze ({out.strip()[-120:]})")
-        for frase in ("POST /tags 201", "POST /tags/101/subscribers/* 201", "GET /tags/101/subscribers 200 x4", "POST /broadcasts 201", "con il codice HTTP di ognuna"):
+        for frase in ("POST /tags 201", "POST /tags/101/subscribers/* 201", "GET /subscribers/*/tags?per_page=500 200", "GET /tags/101/subscribers?status=all&per_page=500 200 x5",
+                      "GET /tags/101/subscribers?per_page=500 200 x5", "GET /subscribers?status=active&per_page=500 200", "POST /broadcasts 201", "con il codice HTTP di ognuna"):
             if frase not in out:
                 viva.append(f"riepilogo della bozza: nel registro delle chiamate manca '{frase}'")
         k = mondo()
         k.ritardo = 10 ** 6
         rc, out = comando(k, "bozza", IMPR)
-        fermo_pulito("bozza con l'elenco del gruppo che non arriva", k, rc, out, "Kit aggiorna gli elenchi con ritardo")
-        if k.invii_scritti() or f"conti letti: 0 x{BV.LETTURE_GRUPPO}" not in out:
-            viva.append("bozza con l'elenco del gruppo che non arriva: bozza creata lo stesso, o i conti letti non sono nel riepilogo")
+        fermo_pulito("bozza con l'elenco del gruppo che non arriva", k, rc, out, "gli elenchi arrivano in ritardo")
+        attesa = re.search(r"dopo (\d+) riletture in (\d+) secondi", out)
+        if k.invii_scritti() or not attesa or not 180 <= int(attesa.group(2)) <= BV.LAVORO or "letta per id dalla parte di un iscritto atteso, l'etichetta c'è" not in out:
+            viva.append(f"bozza con l'elenco del gruppo che non arriva: bozza creata lo stesso, o non ha aspettato finché il passo lasciava tempo ({attesa.group(0) if attesa else '?'})")
+        for nome, prepara, frasi in (
+                ("status=all sempre vuoto", lambda k: setattr(k, "tutti_vuoto", True), ("con status=all 0 elementi di cui 0 tra gli attesi, con lo stato predefinito 1 di cui 1 tra gli attesi",)),
+                ("etichetta non visibile per id", lambda k: setattr(k, "per_id", False), ("l'etichetta del gruppo non c'è",)),
+                ("lettura per id muta", lambda k: k.guasti.__setitem__("GET /subscribers/*", (503, {})), ("l'etichetta del gruppo non si legge",))):
+            k = mondo()
+            prepara(k)
+            rc, out = comando(k, "bozza", IMPR)
+            if rc != 0 or len(k.invii) != 1 or any(f not in out for f in frasi):
+                viva.append(f"bozza, {nome}: uscita {rc}, {len(k.invii)} bozze, o il riepilogo non lo dice")
         k, g, bid = con_bozza()
-        if g is not None:                    # alla prova l'elenco torna indietro (0): si aspetta, poi niente programmazione
-            k.ritardo, k.lette[g] = 10 ** 6, 0
+        if g is not None:                    # alla prova l'elenco torna vuoto: si aspetta finché c'è tempo, poi niente programmazione
+            k.ritardo = 10 ** 6
+            k.dato[(g, 1)] = BV.orologio()
             rc, out = comando(k, "prova", IMPR)
             fermo_pulito("prova con l'elenco del gruppo vuoto", k, rc, out, "non si programma", invii=1)
             if any(c[0] == "PUT" for c in k.chiamate):
                 viva.append("prova con l'elenco del gruppo vuoto: programmata lo stesso")
+        #    il registro non scrive mai il valore di un parametro che non sia uno stato, una data o un formato
+        for percorso, atteso in (("/subscribers?status=active&email_address=casa%40prova.it&per_page=10", "/subscribers?status=active&email_address&per_page=10"),
+                                 ("/tags/7/subscribers/123?x=1", "/tags/7/subscribers/*?x"), ("/broadcasts?per_page=1000&slim=true&after=WzZd", "/broadcasts?per_page=1000&slim=true&after"),
+                                 ("/tags/7/subscribers?status=casa@prova.it&created_after=2026-11-28", "/tags/7/subscribers?status&created_after=2026-11-28")):
+            if BV.via_di(percorso) != atteso:
+                viva.append(f"registro delle chiamate: {percorso.split('?')[0]} scritto come {BV.via_di(percorso)}")
         # r. D2: l'elenco degli invii si chiede solo nella forma leggera (senza il contenuto delle email)
         if not ELENCHI or any("slim=true" not in e for e in ELENCHI):
             viva.append(f"elenco degli invii chiesto senza slim=true ({len([e for e in ELENCHI if 'slim=true' not in e])} volte su {len(ELENCHI)})")
@@ -2297,7 +2362,7 @@ def passo_benvenuto():
                                       ("quasi", "gommberg-benvenuto-prova-x", {1}), ("quasi2", "gommberg-benvenuto-prova-2026-12-01-1000-bis", {1}),
                                       ("dem", "gommberg-dem-2026-12-02", {1, 2})):
                 i = k.nuovo_id()
-                k.tag[i], k.membri[i], k.lette[i] = nome, set(chi), 10 ** 9
+                k.tag[i], k.membri[i] = nome, set(chi)
                 cose[chiave] = i
             for chiave, quando_, stato in (("bozza", None, None), ("programmato", "2026-12-02T18:45:00Z", "scheduled"), ("spedito", "2026-12-01T11:10:00Z", "completed"),
                                            ("sera", "2026-12-01T18:40:00Z", "completed"), ("dem", None, None), ("quasi", None, None)):
@@ -2317,7 +2382,8 @@ def passo_benvenuto():
             viva.append(f"pulizia: uscita {rc}, etichette tolte {sorted(tolte)}, invii tolti {sorted(invii_tolti)} (attese: bozza, spedito, orfana; bozza)")
         for frase in (f"bozza {cose['invio bozza']} (gommberg-benvenuto-prova-2026-12-01-1000): tolta", "programmato e non ancora spedito (stato scheduled)",
                       "etichetta gommberg-benvenuto-prova-2026-12-01-1100: resta", "etichetta gommberg-benvenuto-prova-2026-11-28-0956: tolta",
-                      "spedito, resta nello storico", "resta iscritto", "OK: pulizia fatta, 4 tra bozze ed etichette"):
+                      "spedito, resta nello storico", "resta iscritto", "OK: pulizia fatta, 4 tra bozze ed etichette",
+                      "etichetta gommberg-benvenuto-prova-2026-11-28-0956, prima di toccarla: Kit le attribuisce 1 iscritti con status=all, 1 con lo stato predefinito, totale dichiarato 1"):
             if frase not in out:
                 viva.append(f"riepilogo della pulizia senza '{frase}'")
         rc, out = comando(k, "pulizia")              # rilanciata: non c'è più nulla da togliere, e l'invio programmato è ancora lì
@@ -2351,7 +2417,7 @@ def passo_benvenuto():
                 break
     finally:
         BV.ferma_scadenza()
-        BV.nl.kit, BV.ATTESA_LETTURE, BV.orologio, BV.pausa, BV.PAUSA_GRUPPO = vero, vera_attesa, vero_orologio, vera_pausa, vera_pausa_gruppo
+        BV.nl.kit, BV.ATTESA_LETTURE, BV.orologio, BV.pausa = vero, vera_attesa, orologio_vero, pausa_vera
 
     # il passo nel giro della sera, l'urgenza con la sua segnalazione, il postino delle mail straordinarie che non tocca i benvenuti
     flusso = open(os.path.join(REPO, ".github", "workflows", "dem.yml"), encoding="utf-8").read()
