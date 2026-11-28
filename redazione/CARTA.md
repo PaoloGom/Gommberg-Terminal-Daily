@@ -1,6 +1,6 @@
 # Carta del Gommberg
 
-BOZZA del 16/11/2026, da approvare (già approvati da Paolo: l'obiettivo primario, 23/11, la riga sui piani nei Confini, 25/11, e la riga sul modello delle attività, 28/11): la cambia solo Paolo. Una pagina, niente storia: la storia sta in `PROGETTO.md`.
+Approvata da Paolo il 28/11/2026 (bozza del 16/11): la cambia solo Paolo. Una pagina, niente storia: la storia sta in `PROGETTO.md`.
 
 ## Perché esiste
 In Italia manca un modo semplice e serio per capire la finanza ogni giorno. Il Gommberg è il primo mattoncino di una community italiana di educazione finanziaria.
