@@ -8,14 +8,17 @@ redazione/collaudi/2026-11-25/g43/ricerca.md). Allora la fa la macchina, a zero 
      ACCESO_DAL (vedi sotto);
   2. toglie chi ha già l'etichetta (tag) "gommberg-benvenuto": è il segno "benvenuto già fatto", e per questo nessuno
      riceve la guida due volte, anche con due giri nello stesso giorno;
-  3. prende in carico quanti iscritti stanno nel tempo del passo (vedi "tempo"), chi aspetta da più tempo per primo, e
-     dà loro l'etichetta del gruppo di stasera ("gommberg-benvenuto-AAAA-MM-GG-HHMM"); gli altri non li tocca;
+  3. se un giro di prima ha lasciato un gruppo in sospeso (etichetta data, invio non programmato) riprende quello;
+     altrimenti prende in carico quanti iscritti stanno nel tempo del passo (vedi "tempo"), chi aspetta da più tempo per
+     primo, e dà loro l'etichetta del gruppo di stasera ("gommberg-benvenuto-AAAA-MM-GG-HHMM"); gli altri non li tocca;
   4. aspetta che il gruppo in Kit abbia dentro esattamente quegli iscritti (vedi "il ritardo di Kit");
   5. crea l'invio in BOZZA solo per il gruppo (subscriber_filter sull'etichetta del gruppo, modello "Gommberg cornice")
      e lo RILEGGE da Kit (GET, indipendente dalla risposta alla creazione);
   6. solo ora dà a quegli iscritti l'etichetta permanente, e subito dopo programma l'invio tra ATTESA_MINUTI minuti;
      poi lo rilegge di nuovo. Se qualcosa non torna l'invio si toglie; se non si riesce a toglierlo si riporta in bozza
      (send_at null); se non riesce nemmeno quello, il messaggio dice URGENTE e dem.yml apre una segnalazione apposta.
+     Quando l'invio di sicuro non parte, l'etichetta permanente si toglie a chi l'ha avuta da questo giro: torna
+     candidato per il giro dopo.
 Testo: redazione/benvenuto_mail.html (approvato da Paolo il 25/11/2026). Chiamate a Kit: newsletter.kit, una sola logica
 (qui sopra c'è solo uno strato che trasforma ogni risposta illeggibile in "esito incerto" e tiene il registro delle
 chiamate del giro); l'elenco degli invii è newsletter.leggi_invii, la lettura leggera a pagine delle edizioni.
@@ -27,26 +30,49 @@ iscrizione, non di conferma) e a chi perde qualche giro: i doppioni li impedisce
 
 Il ritardo di Kit (dichiarato da Kit: developers.kit.com/api-reference/eventual-consistency). Gli elenchi (gli iscritti,
 gli iscritti di un'etichetta, i filtri) sono aggiornati in ritardo rispetto alle scritture: di solito 30 secondi, fino a
-5 minuti. Le scritture e le letture per id no: la risposta di Kit a una scrittura fa fede. Quindi:
+5 minuti; misurato qui il 28/11/2026 sull'elenco di un'etichetta appena data: circa 150 secondi, e un'altra volta più
+di 119. Le scritture e le letture per id no (verificato lo stesso giorno): la risposta di Kit a una scrittura fa fede.
+Quindi:
   - che l'etichetta sia stata data lo dice la risposta alla scrittura (201 con lo stesso iscritto), non l'elenco;
+  - MAI programmare prima che l'elenco del gruppo sia completo: Kit sceglie i destinatari di un invio dall'elenco
+    dell'etichetta, e un invio programmato su un elenco che non ha ancora dentro tutti partirebbe senza qualcuno;
   - l'elenco del gruppo si rilegge ogni PAUSA_GRUPPO secondi finché il passo lascia tempo (con pochi iscritti più di
-    tre minuti; ATTESA_GRUPPO, 120 secondi, è il tempo che il giro tiene comunque da parte per questa attesa quando
+    quattro minuti; ATTESA_GRUPPO, 180 secondi, è il tempo che il giro tiene comunque da parte per questa attesa quando
     decide quanti iscritti servire): finché ha meno iscritti degli attesi è ritardo, e si aspetta; un iscritto che non
     è tra gli attesi non è ritardo, è un errore, e ferma subito. L'elenco si legge in due modi (con status=all e con lo
     stato predefinito, i soli attivi) e il gruppo è l'unione dei due; in più, per dire i fatti nel riepilogo, l'etichetta
     si legge per id dalla parte dell'iscritto (GET /subscribers/{id}/tags);
-  - se quando il tempo finisce l'elenco non è ancora completo, nessun invio. Nel giro della sera nessuno è ancora segnato:
-    il giro si rimanda da sé alla sera dopo (esce con 0, lo scrive nel registro); se qualcuno aspetta da più di
-    ATTESA_AVVISO giorni esce con 1. Nella prova dal vivo è un fermo, e si rilancia;
-  - l'invio parte ATTESA_MINUTI (10) minuti dopo: più del ritardo massimo dichiarato.
+  - il giro in due tempi: se quando il tempo finisce l'elenco non è ancora completo, nessun invio, e il gruppo resta
+    IN SOSPESO in Kit: l'etichetta del gruppo è data, nessuno ha l'etichetta permanente, nessun invio è programmato.
+    Lo stato sta tutto in Kit. Il giro dopo (la sera dopo, o rilanciando dopo mezz'ora) lo riprende: stesse persone,
+    nessun gruppo nuovo, e a quel punto l'elenco è completo. Chi si è iscritto nel frattempo va al giro ancora dopo.
+    Vale per ogni giro fermato o interrotto prima della programmazione. Un gruppo in sospeso che non si può più
+    riprendere (vuoto, o con dentro qualcuno che non è più da salutare, per esempio già segnato da un giro morto a
+    metà) si toglie, e chi resta da salutare rientra in un gruppo nuovo. Il giro rimandato esce con 0 e lo scrive nel
+    registro; se qualcuno aspetta da più di ATTESA_AVVISO giorni esce con 1. Nella prova dal vivo è un fermo;
+  - mai due giri che scrivono a meno di ELENCHI_SICURI (30) minuti l'uno dall'altro: l'ora di nascita di un gruppo è
+    nel suo nome, e finché un gruppo è più giovane gli elenchi di Kit possono non dire ancora che cosa ha fatto il suo
+    giro. Il secondo giro non scrive nulla e lo dice;
+  - l'invio parte ATTESA_MINUTI (10) minuti dopo l'avvio del giro: dopo la fine del passo.
 
 L'ordine, e perché (mai due mail allo stesso iscritto, e nessuno segnato senza mail finché si può evitare):
   - l'etichetta permanente PRIMA della programmazione, ma DOPO la bozza riletta: è l'ultima cosa prima di programmare.
     Un giro interrotto o fermato in qualunque punto prima (etichette del gruppo, attesa del gruppo, bozza) non ha segnato
-    nessuno: tutti tornano candidati al giro dopo, in un gruppo nuovo, e ricevono la guida una volta. Un giro interrotto
-    tra le etichette permanenti e la programmazione: chi è stato segnato perde la guida (riceve comunque l'edizione e la
-    pagina benvenuto.html gli ha già detto tutto), ma nessuno la riceve due volte. L'inverso (invio programmato ed
-    etichetta permanente non data) non può succedere: la programmazione viene per ultima.
+    nessuno: tutti tornano candidati al giro dopo, in un gruppo nuovo, e ricevono la guida una volta.
+  - "mai due mail" non dipende da nulla che possa mancare: un invio parte solo dopo che Kit ha risposto 201 ("data
+    adesso") all'etichetta permanente di ognuno dei suoi destinatari. Un 200 ("l'aveva già") non prova mai che l'abbia
+    data questo giro, nemmeno dopo un tentativo senza risposta: può averla data un altro giro pochi minuti prima, che
+    gli elenchi di Kit non mostrano ancora. Allora il giro si ritira: toglie la bozza e de-segna chi aveva segnato lui.
+    (La documentazione di Kit non dice che cosa significhi la data dell'etichetta in una risposta 200, né che la
+    lettura per id delle etichette di un iscritto sia subito coerente: non c'è un modo certo di distinguere, quindi
+    non si distingue.) Per questo l'etichetta permanente resta prima della programmazione: darla dopo lascerebbe, se
+    il giro muore in quei secondi, un invio che parte verso iscritti non segnati, cioè due mail la sera dopo.
+  - "nessuno segnato senza mail": la programmazione si ritenta su un guasto momentaneo, ma solo se la rilettura per id
+    mostra che l'invio non è programmato; e se alla fine l'invio non parte (tolto, o riportato in bozza), l'etichetta
+    permanente si toglie a chi l'ha avuta da questo giro. Resta segnato senza mail solo: chi è stato segnato da un giro
+    che muore (macchina spenta, passo chiuso) nei pochi secondi tra la prima etichetta permanente e la programmazione
+    riletta; chi Kit non lascia de-segnare; e l'iscritto la cui etichetta è "dubbia" (Kit l'ha data ma la risposta si
+    è persa). Riceve comunque l'edizione, e la pagina benvenuto.html gli ha già detto tutto.
   - la creazione dell'invio non si ritenta mai. Ogni esito incerto (nessuna risposta, risposta illeggibile o fuori
     forma) si chiarisce rileggendo da Kit: l'invio si cerca per id o per etichetta (description) e, se non è
     esattamente come voluto, si toglie. Mai un ripiego su un invio a tutti gli iscritti (che è ciò che Kit fa con un
@@ -58,16 +84,19 @@ L'ordine, e perché (mai due mail allo stesso iscritto, e nessuno segnato senza 
     del giro e non spedisce: ci pensa il giro dopo (con la finestra di 7 giorni una sera saltata non fa perdere nessuno).
     Se un iscritto confermato riceve il benvenuto più di ATTESA_AVVISO (3) giorni dopo l'iscrizione, il giro spedisce
     e poi esce con 1 (Avviso): dem.yml apre la segnalazione, perché vuol dire giri saltati (o una conferma tardiva).
-  - tempo. Lo script si dà PASSO (450) secondi, 30 meno del passo di dem.yml (8 minuti), e ogni chiamata a Kit sta nel
-    tempo rimasto: si arrende da sé, con il suo messaggio, prima che GitHub chiuda il passo (e a 465 secondi un allarme
+  - tempo. Lo script si dà PASSO (510) secondi, 30 meno del passo di dem.yml (9 minuti), e ogni chiamata a Kit sta nel
+    tempo rimasto: si arrende da sé, con il suo messaggio, prima che GitHub chiuda il passo (e a 525 secondi un allarme
     lo ferma comunque: se in quel momento un invio è programmato e non verificato, il messaggio è URGENTE). Gli ultimi
     RISERVA (210) secondi sono della programmazione: la PUT parte solo se restano, il tempo di rileggere e, se serve,
-    togliere l'invio. I primi LAVORO (240) sono per tutto il resto. Il giro prende in carico solo gli iscritti che
+    togliere l'invio. I primi LAVORO (300) sono per tutto il resto. Il giro prende in carico solo gli iscritti che
     stanno in quel tempo: ogni iscritto costa due chiamate, e una chiamata è stimata il doppio della media misurata
-    sulle letture dello stesso giro (mai meno di un secondo); tolti l'attesa del gruppo e il margine, con Kit a mezzo
-    secondo a chiamata sono circa 40 iscritti a sera, con Kit a 2 secondi circa 7. Gli altri restano candidati per la
-    sera dopo, senza nessuna etichetta. E l'etichetta permanente non si dà a nessuno se non resta il tempo per darla a
-    tutti i presi in carico e programmare.
+    sulle letture dello stesso giro (mai meno di un secondo; misurato: un quarto di secondo); tolti i 180 secondi
+    dell'attesa del gruppo e il margine, con Kit sotto il mezzo secondo a chiamata sono circa 40 iscritti a sera, con
+    Kit a un secondo circa 18, a 2 secondi circa 7. Gli altri restano candidati per la sera dopo, senza nessuna
+    etichetta. E l'etichetta permanente non si dà a nessuno se non resta il tempo per darla a tutti i presi in carico
+    e programmare.
+  - seconda difesa: è "già salutato" anche chi non ha l'etichetta permanente ma sta in un gruppo il cui invio risulta
+    programmato o spedito.
 
 Uso:   python3 redazione/benvenuto.py controlla          il testo e la mail composta, senza rete (lo fa il collaudo)
        python3 redazione/benvenuto.py anteprima          scrive _benvenuto/benvenuto.html, la mail come la vedrà il lettore
@@ -79,13 +108,15 @@ Uso:   python3 redazione/benvenuto.py controlla          il testo e la mail comp
        python3 redazione/benvenuto.py bozza impronta:X   prova dal vivo, passo 2: SOLO una bozza per un gruppo nuovo con
                                                          dentro il solo iscritto attivo (confermato) che ha quell'impronta;
                                                          la rilegge, conta il gruppo prima e dopo e si ferma. Non spedisce
-       python3 redazione/benvenuto.py prova impronta:X   prova dal vivo, passo 3: programma tra ATTESA_MINUTI minuti l'ULTIMO
-                                                         invio di prova, solo se è una bozza con il filtro su un gruppo di
-                                                         prova con dentro lui solo; poi rilegge l'invio e riconta il gruppo.
-                                                         Le bozze di prova più vecchie non le programma mai: le dice
-       python3 redazione/benvenuto.py pulizia            toglie da Kit ciò che le prove lasciano: le bozze di prova non
-                                                         programmate e le etichette dei gruppi di prova. Mai un invio
-                                                         programmato o spedito, mai un'etichetta che non sia di prova
+       python3 redazione/benvenuto.py prova impronta:X bozza:N
+                                                         prova dal vivo, passo 3: programma tra ATTESA_MINUTI minuti la
+                                                         bozza di prova numero N (lo scrive "bozza"), letta per id: solo se
+                                                         è una bozza con il filtro su un gruppo di prova con dentro lui
+                                                         solo; poi rilegge l'invio e riconta il gruppo
+       python3 redazione/benvenuto.py pulizia [bozza:N]  toglie da Kit ciò che le prove lasciano: le bozze di prova non
+                                                         programmate e le etichette dei gruppi di prova più vecchie di 30
+                                                         minuti. Mai un invio programmato o spedito, mai un'etichetta che
+                                                         non sia di prova. bozza:N: guarda anche quell'invio, letto per id
 
 L'iscritto di prova si indica SOLO con l'impronta, mai con l'indirizzo: il repository è pubblico e chiunque legge gli
 input e i registri dei giri. Lo script legge da Kit gli iscritti attivi e sceglie quello la cui impronta coincide; zero o
@@ -109,21 +140,24 @@ script, mai dem.py e mai "invia"; l'esito si legge nel riepilogo del giro.
   2. gh workflow run dem.yml --ref RAMO -f modo=prova-bozza -f impronta="$X"
        il riepilogo deve dire: gruppo di prova con 1 iscritto, bozza riletta con il filtro sul solo gruppo. Il giro può
        durare fino a quattro minuti: aspetta che Kit aggiorni l'elenco del gruppo. Poi in Kit, Broadcasts, la bozza
-       gommberg-benvenuto-prova-...: i destinatari devono essere 1. Se non è 1: lancia prova-pulizia e fermati
-  3. gh workflow run dem.yml --ref RAMO -f modo=prova-invio -f impronta="$X"
+       gommberg-benvenuto-prova-...: i destinatari devono essere 1. Se non è 1: lancia prova-pulizia e fermati.
+       L'ultima riga dice il numero della bozza (N)
+  3. gh workflow run dem.yml --ref RAMO -f modo=prova-invio -f impronta="$X" -f bozza=N
        tra le 8:00 e le 8:20 o tra le 10:30 e le 20:49 (le stesse fasce del giro); la mail arriva al solo iscritto di
        prova dopo ATTESA_MINUTI minuti. L'attesa è la stessa del giro vero e supera la durata del passo: un invio
        registrato male si toglie sempre prima che parta
-  4. gh workflow run dem.yml --ref RAMO -f modo=prova-pulizia
+  4. gh workflow run dem.yml --ref RAMO -f modo=prova-pulizia [-f bozza=N]
        dopo che la mail è arrivata (o dopo una prova fermata): toglie le bozze di prova non programmate e le etichette
        dei gruppi di prova, e dice che cosa ha tolto. Finché l'invio di prova è programmato e non ancora partito non
-       tocca né lui né la sua etichetta: si rilancia dopo
+       tocca né lui né la sua etichetta, e non tocca un'etichetta nata da meno di 30 minuti: si rilancia dopo
 Che cosa resta in Kit dopo la prova, finché non si lancia prova-pulizia: l'etichetta del gruppo
 gommberg-benvenuto-prova-AAAA-MM-GG-HHMM sull'iscritto di prova, una per ogni bozza tentata; l'invio di prova tra i
 Broadcasts, spedito a 1 (quello resta nello storico anche dopo la pulizia), o ancora in bozza se ci si è fermati al
 passo 2. La prova NON dà l'etichetta permanente "gommberg-benvenuto": l'iscritto di prova resta com'era. Se è un lettore
 di prima dell'accensione il benvenuto vero non lo riceve mai (non è nella finestra); se invece si è iscritto da
 ACCESO_DAL in poi e da meno di 7 giorni, il giro della sera gli manda anche quello vero.
+Gli altri resti in Kit (non li tocca nessuno, si tolgono a mano se danno fastidio): le etichette dei gruppi della sera già
+spediti, e quelle dei gruppi in sospeso più vecchi di 7 giorni.
 Esce con 1 quando qualcosa va guardato: dem.yml apre allora la segnalazione a Paolo. La chiave è KIT_API_KEY, mai stampata.
 """
 import hashlib
@@ -153,6 +187,11 @@ FATTO = "gommberg-benvenuto"       # etichetta permanente: benvenuto già fatto 
 PROVA = FATTO + "-prova-"          # gruppi e invii della prova dal vivo
 NOME_PROVA = re.compile(re.escape(PROVA) + r"\d{4}-\d{2}-\d{2}-\d{4}")      # il nome intero di un gruppo di prova
 IMPRONTA = re.compile(r"impronta:([0-9a-f]{16})")                           # come si indica l'iscritto di prova
+BOZZA = re.compile(r"bozza:([0-9]{1,20})")                                  # come si indica la bozza di prova: il suo id in Kit
+NOME_SERA = re.compile(re.escape(FATTO) + r"-\d{4}-\d{2}-\d{2}-\d{4}")       # il nome intero di un gruppo del giro della sera
+ELENCHI_SICURI = 30                # minuti dopo i quali gli elenchi di Kit dicono di sicuro ciò che un giro ha fatto (Kit
+                                   # dichiara un ritardo fino a 5). Prima: un altro giro non scrive nulla, e la pulizia non
+                                   # tocca un'etichetta (l'ora di nascita di un gruppo è nel suo nome)
 ACCESO_DAL = "2026-11-28"          # accensione (ora di Roma, dalla mezzanotte): solo chi si iscrive da qui riceve il benvenuto
 FINESTRA_GIORNI = 7                # iscritti arrivati negli ultimi 7 giorni (chi conferma tardi, giri persi)
 ATTESA_AVVISO = 3                  # chi riceve il benvenuto oltre 3 giorni dopo l'iscrizione: avviso (giri saltati?)
@@ -162,8 +201,8 @@ ATTESA_MINUTI = 10                 # l'invio parte dopo: il tempo di toglierlo s
 FASCIA = (75, 45)                  # minuti prima e dopo l'uscita in cui non si spedisce
 LETTURE = 3                        # tentativi per ogni lettura su un guasto momentaneo (429, 5xx, rete)
 ATTESA_LETTURE = 10                # secondi tra un tentativo e l'altro (il collaudo la azzera)
-PASSO = 450                        # secondi che lo script si dà, contati dall'avvio: 30 meno del passo di dem.yml
-                                   # (timeout-minutes: 8), così si arrende da sé, con il suo messaggio, prima che GitHub lo chiuda
+PASSO = 510                        # secondi che lo script si dà, contati dall'avvio: 30 meno del passo di dem.yml
+                                   # (timeout-minutes: 9), così si arrende da sé, con il suo messaggio, prima che GitHub lo chiuda
 ALLARME = PASSO + 15               # limite netto (SIGALRM): una chiamata appesa oltre il suo tempo non porta il passo alla
                                    # chiusura di GitHub senza che lo script abbia detto com'è finita
 TEMPO_CHIAMATA = 30                # tetto di una chiamata a Kit (il timeout di newsletter.kit, che si accorcia col tempo rimasto)
@@ -172,11 +211,13 @@ RISERVA = 7 * TEMPO_CHIAMATA       # programmazione + 2 riletture + pulizia (2 D
                                    # invio sbagliato finisce sempre prima della scadenza del passo
 RISERVA_GRUPPO = 6 * TEMPO_CHIAMATA  # prova: ricontare il gruppo dopo la programmazione (2 letture) + pulizia (4 chiamate)
 LAVORO = PASSO - RISERVA           # secondi per tutto ciò che viene prima della programmazione (letture, etichette,
-                                   # attesa del gruppo, bozza): 240
-ATTESA_GRUPPO = 120                # Kit aggiorna gli elenchi con ritardo, e lo dichiara (di solito 30 secondi, fino a 5
-                                   # minuti). È il solo parametro dell'attesa: i secondi che il giro tiene da parte per
-                                   # aspettare l'elenco del gruppo quando decide quanti iscritti servire. Poi l'attesa
-                                   # vera dura finché il passo lascia tempo (con pochi iscritti, oltre tre minuti)
+                                   # attesa del gruppo, bozza): 300
+ATTESA_GRUPPO = 180                # Kit aggiorna gli elenchi con ritardo, e lo dichiara (di solito 30 secondi, fino a 5
+                                   # minuti; misurato il 28/11/2026 su un'etichetta appena data: circa 150 secondi, e
+                                   # un'altra volta più di 119). È il solo parametro dell'attesa: i secondi che il giro
+                                   # tiene da parte per aspettare l'elenco del gruppo quando decide quanti iscritti
+                                   # servire. Poi l'attesa vera dura finché il passo lascia tempo (con pochi iscritti,
+                                   # più di quattro minuti); e se non basta il gruppo resta in sospeso per il giro dopo
 PAUSA_GRUPPO = 5                   # secondi tra una rilettura del gruppo e l'altra
 STIMA_MINIMA, STIMA_FATTORE = 1.0, 2   # il costo stimato di una chiamata: il doppio della media misurata in questo giro,
                                    # mai meno di un secondo. Serve a decidere quanti iscritti si riesce a servire
@@ -201,6 +242,10 @@ class Fermo(Exception):
 
 class Ritardo(Fermo):
     """L'elenco di un gruppo in Kit non è ancora quello atteso dopo ATTESA_GRUPPO secondi (Kit lo aggiorna con ritardo)."""
+
+
+class NonParte(Fermo):
+    """La programmazione non è riuscita e l'invio di sicuro non parte: tolto, o riportato in bozza, o mai programmato."""
 
 
 class Rimando(Exception):
@@ -544,6 +589,49 @@ def metti(tag_id, iscritto):
         pausa(max(0, min(ATTESA_LETTURE, rimasto())))
 
 
+def segna(tag_id, iscritto):
+    """L'etichetta permanente a un iscritto, e come è andata:
+      "data"    Kit ha risposto 201 con lo stesso iscritto: l'ha data questo giro, ed è la sola risposta che lo prova;
+      "c'era"   200 al primo colpo: l'aveva già, data da un altro giro (gli elenchi di Kit non la mostravano ancora);
+      "dubbia"  200 dopo un tentativo senza risposta, o 201 che parla di un altro iscritto: l'etichetta c'è, ma non si
+                può sapere se l'ha data questo giro o un altro. Non vale mai come data;
+      "no"      Kit non l'ha data.
+    Si ritenta solo un guasto momentaneo. Mai due mail: si spedisce solo a chi ha "data"."""
+    for tentativo in range(1, LETTURE + 1):
+        stato, corpo = chiama("POST", f"/tags/{tag_id}/subscribers/{iscritto}", {})
+        if stato == 201:
+            chi = corpo.get("subscriber") if isinstance(corpo, dict) else None
+            return "data" if isinstance(chi, dict) and intero(chi.get("id")) == iscritto else "dubbia"
+        if stato == 200:
+            return "c'era" if tentativo == 1 else "dubbia"
+        if not (stato == 0 or stato == 429 or stato >= 500) or tentativo == LETTURE:
+            return "no"
+        pausa(max(0, min(ATTESA_LETTURE, rimasto())))
+
+
+def desegna(tag_id, iscritti):
+    """Toglie l'etichetta permanente agli iscritti a cui l'ha data QUESTO giro (201), quando l'invio non parte: tornano
+    candidati per il giro dopo invece di restare segnati senza mail. Lavora anche a tempo di lavoro scaduto, finché il
+    passo lascia una chiamata. Torna quanti non è riuscito a togliere."""
+    restano = 0
+    for i in iscritti:
+        tolta = False
+        for _ in range(2):
+            if resta_nel_passo() < TEMPO_CHIAMATA + 5:
+                break
+            stato, _ = kit_sicuro("DELETE", f"/tags/{tag_id}/subscribers/{i}")
+            if stato in (200, 204):
+                tolta = True
+            if not (stato == 0 or stato == 429 or stato >= 500):
+                break
+        restano += 0 if tolta else 1
+    return restano
+
+
+def iscritti_n(n):
+    return f"{n} iscritt{'o' if n == 1 else 'i'}"
+
+
 def filtro_giusto(filtro, gruppo):
     """Il filtro registrato da Kit è esattamente "tutti quelli con l'etichetta del gruppo"? Ogni altra forma (vuoto,
     all_subscribers, un segmento, un'altra etichetta, più gruppi) è no."""
@@ -607,15 +695,23 @@ def togli(bid, dati=None):
     return ""
 
 
-def esito_tolto(bid, dati, invio=None):
-    """Toglie (o riporta in bozza) e dice come è andata, in parole per il registro e la segnalazione."""
+def togli_e_di(bid, dati, invio=None):
+    """Toglie (o riporta in bozza) e dice come è andata: ("tolto" | "in bozza" | "", parole per il registro). `invio` è
+    l'ora per cui l'invio può essere stato programmato; None = è una bozza mai programmata, che non parte da sola: se Kit
+    non la lascia togliere va tolta a mano, ma non è urgente."""
     come = togli(bid, dati)
     if come == "tolto":
-        return f"invio {bid} tolto"
+        return come, f"invio {bid} tolto"
     if come == "in bozza":
-        return f"invio {bid} NON tolto ma riportato in bozza (non parte): toglilo a mano in Kit"
-    ora = f" prima delle {invio.astimezone(ROMA):%H:%M}" if invio else ""
-    return f"URGENTE: invio {bid} né tolto né riportato in bozza, può partire con destinatari sbagliati: FERMALO A MANO in Kit{ora}"
+        return come, f"invio {bid} NON tolto ma riportato in bozza (non parte): toglilo a mano in Kit"
+    if invio is None:
+        return come, f"bozza {bid} NON tolta (Kit non risponde): non è programmata e non parte da sola, toglila a mano in Kit"
+    return come, (f"URGENTE: invio {bid} né tolto né riportato in bozza, può partire con destinatari sbagliati: FERMALO A MANO in Kit "
+                  f"prima delle {invio.astimezone(ROMA):%H:%M}")
+
+
+def esito_tolto(bid, dati, invio=None):
+    return togli_e_di(bid, dati, invio)[1]
 
 
 ELENCO_INVII = f"/broadcasts?per_page={nl.PER_PAGINA}&slim=true&after"      # come lo chiede newsletter.leggi_invii, pagina per pagina
@@ -686,25 +782,37 @@ def crea_bozza(gruppo_id, nome_gruppo, modello, attesi, senza, dopo=0.0):
     return bid, dati, conti
 
 
-def programma(bid, gruppo_id, dati, invio, senza):
-    """Programma la bozza (già verificata) e la rilegge: qualunque risposta alla PUT (anche nessuna) si chiarisce con
-    la rilettura. Se non è esattamente come voluta, si toglie (o si riporta in bozza)."""
+def programma(bid, gruppo_id, dati, invio):
+    """Programma la bozza (già verificata) e la rilegge per id: qualunque risposta alla PUT (anche nessuna) si chiarisce
+    con la rilettura. Un guasto momentaneo (nessuna risposta, 429, 5xx) si ritenta, ma solo se la rilettura mostra che
+    l'invio è ancora la bozza giusta e NON è programmato, e solo se nel passo resta la riserva. Se alla fine non è
+    esattamente come voluto si toglie (o si riporta in bozza): NonParte se di sicuro non parte, altrimenti Fermo con
+    URGENTE."""
     global _in_volo
     voluti = dict(dati, send_at=invio.astimezone(UTC).isoformat(timespec="seconds"))
-    if resta_nel_passo() < RISERVA:      # non c'è più il tempo per rimediare a una programmazione sbagliata
-        raise Fermo(f"tempo del passo insufficiente per programmare in sicurezza: {esito_tolto(bid, dati)}, nessun invio, {senza}")
-    _in_volo = (bid, invio)              # da qui l'invio può partire: se il passo scade prima della verifica, URGENTE
-    stato, risposta = kit_sicuro("PUT", f"/broadcasts/{bid}", voluti)
-    riletta = rileggi(bid)
-    risposta_b = broadcast_di(risposta)
-    # la risposta conta solo se si legge: una risposta illeggibile (0, o 200 senza l'invio) la chiarisce la rilettura;
-    # un rifiuto (4xx, 5xx) o una risposta leggibile diversa dal voluto bastano per togliere
-    risposta_ok = stato == 0 or (stato == 200 and (risposta_b is None or com_e(risposta_b, gruppo_id, invio)))
-    if com_e(riletta, gruppo_id, invio) and risposta_ok:
-        _in_volo = None
-        return
-    raise Fermo(f"Kit non ha programmato l'invio come voluto (HTTP {stato}, rilettura "
-                f"{'non leggibile' if riletta is None else 'diversa'}): {esito_tolto(bid, voluti, invio)}, {senza}")
+    stato, riletta, tentativo = None, None, 0
+    while True:
+        if resta_nel_passo() < RISERVA:      # non c'è più il tempo per rimediare a una programmazione sbagliata
+            come, testo = togli_e_di(bid, dati, invio if tentativo else None)
+            raise (NonParte if come or not tentativo else Fermo)(f"tempo del passo insufficiente per programmare in sicurezza: {testo}, nessun invio")
+        tentativo += 1
+        _in_volo = (bid, invio)              # da qui l'invio può partire: se il passo scade prima della verifica, URGENTE
+        stato, risposta = kit_sicuro("PUT", f"/broadcasts/{bid}", voluti)
+        riletta = rileggi(bid)
+        risposta_b = broadcast_di(risposta)
+        # la risposta conta solo se si legge: una risposta illeggibile (0, o 200 senza l'invio) la chiarisce la rilettura;
+        # un rifiuto (4xx, 5xx) o una risposta leggibile diversa dal voluto bastano per non fidarsi
+        risposta_ok = stato == 0 or (stato == 200 and (risposta_b is None or com_e(risposta_b, gruppo_id, invio)))
+        if com_e(riletta, gruppo_id, invio) and risposta_ok:
+            _in_volo = None
+            return tentativo
+        if not ((stato == 0 or stato == 429 or stato >= 500) and com_e(riletta, gruppo_id, None) and tentativo < LETTURE):
+            break
+        pausa(max(0, min(ATTESA_LETTURE, resta_nel_passo() - RISERVA)))
+    come, testo = togli_e_di(bid, voluti, invio)
+    raise (NonParte if come else Fermo)(
+        f"Kit non ha programmato l'invio come voluto (HTTP {stato}, rilettura {'non leggibile' if riletta is None else 'diversa'}, "
+        f"{tentativo} tentativ{'o' if tentativo == 1 else 'i'}): {testo}")
 
 
 # ------------------------------------------------------------------ i giri
@@ -726,6 +834,14 @@ def posti(nuovi):
     return max(0, min(len(nuovi), int((tempo - 4 * costo) // (2 * costo))))
 
 
+def nato(nome, prefisso):
+    """L'ora di nascita di un gruppo, scritta nel suo nome dopo il prefisso (ora di Roma), o None."""
+    try:
+        return datetime.strptime(nome[len(prefisso):], "%Y-%m-%d-%H%M").replace(tzinfo=ROMA)
+    except ValueError:
+        return None
+
+
 def giro(esegui=True, adesso=None):
     """Il giro della sera. Torna 0 (fatto o niente da fare) o solleva Fermo, Rimando o Avviso."""
     adesso = (adesso or datetime.now(ROMA)).astimezone(ROMA)
@@ -736,12 +852,22 @@ def giro(esegui=True, adesso=None):
     if male:
         raise Fermo("testo della mail: " + "; ".join(male))
     modello = modello_cornice()
-    fatto = etichetta(FATTO)
+    etichette = leggi_tutto(f"/tags?per_page={PER_PAGINA}", "tags")
+    fatto = next((t["id"] for t in etichette if str(t.get("name") or "").strip().lower() == FATTO and intero(t.get("id"))), None)
+    # i gruppi dei giri di prima, dalla finestra in qua: lo stato del lavoro sta in Kit, nelle etichette e negli invii
+    gruppi = sorted((n, str(t["name"]), t["id"]) for t in etichette if NOME_SERA.fullmatch(str(t.get("name") or "")) and intero(t.get("id"))
+                    for n in [nato(str(t["name"]), FATTO + "-")] if n and n > adesso - timedelta(days=FINESTRA_GIORNI))
+    invii = elenco_invii() if gruppi else []
+    chiusi = {str(b.get("description")) for b in invii if b.get("send_at")}        # gruppi con l'invio programmato o spedito
+    sospesi = [g for g in gruppi if g[1] not in chiusi]
+    recente = next((g for g in reversed(gruppi) if g[0] > adesso - timedelta(minutes=ELENCHI_SICURI)), None)
     candidati = nuovi_iscritti(adesso)
     gia = set()
     if fatto:
         gia = iscritti_con(fatto, dal=(adesso.astimezone(UTC) - timedelta(days=FINESTRA_GIORNI + 1)).date().isoformat())
-    nuovi = sorted((s for s in candidati if s["id"] not in gia and FATTO not in s["etichette"]), key=lambda s: (s["creato"], s["id"]))
+    # già salutato: ha l'etichetta permanente, o è in un gruppo il cui invio è programmato o spedito (seconda difesa)
+    nuovi = sorted((s for s in candidati if s["id"] not in gia and FATTO not in s["etichette"] and not s["etichette"] & chiusi),
+                   key=lambda s: (s["creato"], s["id"]))
     print(f"Benvenuto: {len(candidati)} iscritti confermati arrivati negli ultimi {FINESTRA_GIORNI} giorni (dal {ACCESO_DAL}), "
           f"{len(candidati) - len(nuovi)} già salutati, {len(nuovi)} da salutare")
     soglia = adesso.astimezone(UTC) - timedelta(days=ATTESA_AVVISO)
@@ -751,12 +877,51 @@ def giro(esegui=True, adesso=None):
              "(giri saltati o rimandati, o conferma arrivata tardi): guarda che dem.yml parta ogni sera") if in_attesa else ""
     if tardi:
         print(f"AVVISO: {tardi}")
-    if not nuovi:
+
+    def rimanda(perche):
+        if tardi:
+            raise Avviso(f"{tardi}. E stasera: {perche}")
+        raise Rimando(perche)
+    if sospesi:
+        print(f"Benvenuto: {len(sospesi)} grupp{'o' if len(sospesi) == 1 else 'i'} in sospeso da un giro di prima "
+              f"({', '.join(g[1] for g in sospesi)}): etichetta data, invio non programmato")
+    if not nuovi and not sospesi:
         return 0
     if len(nuovi) > MAX_NUOVI:
         raise Fermo(f"{len(nuovi)} iscritti nuovi in {FINESTRA_GIORNI} giorni (oltre {MAX_NUOVI}): troppi per essere veri, nessun invio")
     if not esegui:
-        print(f"Piano: etichetta del gruppo e invio alle {invio:%H:%M} per {len(nuovi)} iscritt{'o' if len(nuovi) == 1 else 'i'}")
+        print("Piano: " + (f"riprendere il gruppo in sospeso {sospesi[0][1]}" if sospesi else "etichetta del gruppo") + f" e invio alle {invio:%H:%M}"
+              + ("" if sospesi else f" per {iscritti_n(len(nuovi))}")
+              + (f"; ma un giro ha lavorato alle {recente[0]:%H:%M}, meno di {ELENCHI_SICURI} minuti fa: adesso non scriverebbe nulla" if recente else ""))
+        return 0
+    if recente:        # gli elenchi di Kit possono non dire ancora che cosa ha fatto quel giro: mai due giri che scrivono vicini
+        rimanda(f"un giro del benvenuto ha lavorato alle {recente[0]:%H:%M}, meno di {ELENCHI_SICURI} minuti fa, e gli elenchi di Kit "
+                "possono non mostrare ancora che cosa ha fatto: questo giro non scrive nulla. Si può rilanciare dopo le "
+                f"{recente[0] + timedelta(minutes=ELENCHI_SICURI):%H:%M}")
+    da_salutare = {s["id"] for s in nuovi}
+    for _, nome, gruppo in sospesi:        # dal più vecchio: uno si riprende, quelli che non si possono riprendere si tolgono
+        membri = iscritti_con(gruppo) | iscritti_con(gruppo, stato=None)
+        bozze = [b["id"] for b in invii if str(b.get("description") or "") == nome and intero(b.get("id"))]
+        if membri and membri <= da_salutare:
+            for b in bozze:                # la bozza di un giro interrotto non si riusa: si toglie e si rifà
+                come, detto = togli_e_di(b, None)
+                if come != "tolto":
+                    raise Fermo(f"del gruppo in sospeso {nome} è rimasta una bozza che Kit non toglie ({detto}): nessun invio")
+            print(f"Benvenuto: riprendo il gruppo in sospeso {nome}, {iscritti_n(len(membri))}"
+                  + (f"; gli altri {len(da_salutare - membri)} da salutare restano per il prossimo giro" if da_salutare - membri else ""))
+            fatto = fatto or etichetta(FATTO, crea=True)
+            return servi(gruppo, nome, modello, fatto, sorted(membri), invio, rimanda, tardi)
+        # vuoto, o con dentro qualcuno che non è più da salutare (già segnato, non più iscritto, fuori dalla finestra): non
+        # si può spedire a quel gruppo così com'è. Si toglie (chi resta da salutare rientra nel gruppo nuovo, qui sotto)
+        for b in bozze:
+            togli(b)
+        stato, _ = chiama("DELETE", f"/tags/{gruppo}")
+        if stato not in (200, 204, 404):
+            raise Fermo(f"il gruppo in sospeso {nome} non si può riprendere ({iscritti_n(len(membri))}, di cui {len(membri - da_salutare)} non più "
+                        f"da salutare) e Kit non lascia togliere la sua etichetta (HTTP {stato}): nessun invio")
+        print(f"Benvenuto: gruppo in sospeso {nome} tolto (" + ("vuoto" if not membri else
+              f"{len(membri - da_salutare)} dei suoi {len(membri)} iscritti non sono più da salutare") + ")")
+    if not nuovi:
         return 0
     quanti = posti(nuovi)
     if not quanti:
@@ -767,35 +932,79 @@ def giro(esegui=True, adesso=None):
         print(f"Benvenuto: in questo giro {quanti} iscritti su {len(nuovi)}, quanti ne stanno nel tempo del passo (stima di "
               f"{stima_chiamata():.0f} secondi a chiamata); gli altri {len(nuovi) - quanti} restano candidati per il prossimo giro")
     nome = f"{FATTO}-{adesso:%Y-%m-%d-%H%M}"
-    nessuno = "nessuna etichetta permanente data, tutti restano candidati per il prossimo giro"
     fatto = fatto or etichetta(FATTO, crea=True)
     gruppo = nuovo_gruppo(nome)
     for s in presi:
         if not metti(gruppo, s["id"]):
-            raise Fermo(f"etichetta del gruppo non data a un iscritto: nessun invio creato, {nessuno}")
-    attesi = [s["id"] for s in presi]
+            raise Fermo("etichetta del gruppo non data a un iscritto: nessun invio creato, nessuna etichetta permanente data; il gruppo "
+                        f"{nome} resta in sospeso e lo riprende il prossimo giro")
+    return servi(gruppo, nome, modello, fatto, [s["id"] for s in presi], invio, rimanda, tardi)
+
+
+def servi(gruppo, nome, modello, fatto, attesi, invio, rimanda, tardi):
+    """La coda del giro, per un gruppo appena etichettato o ripreso: aspetta l'elenco del gruppo, crea e rilegge la
+    bozza, dà le etichette permanenti e programma. MAI programmare prima che l'elenco del gruppo sia completo: Kit
+    sceglie i destinatari dall'elenco, che arriva in ritardo. Se il giro si ferma prima della programmazione il gruppo
+    resta in sospeso in Kit (etichetta data, nessun invio programmato) e lo riprende il giro dopo."""
+    sospeso = f"nessuna etichetta permanente data; il gruppo {nome} resta in sospeso e lo riprende il prossimo giro"
     try:
-        bid, dati, conti = crea_bozza(gruppo, nome, modello, attesi, nessuno, dopo=(3 + len(attesi)) * stima_chiamata())
+        bid, dati, conti = crea_bozza(gruppo, nome, modello, attesi, sospeso, dopo=(3 + len(attesi)) * stima_chiamata())
     except Ritardo as e:                   # nessuno è segnato: non è un errore, è Kit che non ha ancora aggiornato l'elenco
-        if tardi:
-            raise Avviso(f"{tardi}. E stasera: {e}")
-        raise Rimando(str(e))
-    print(f"Benvenuto: gruppo {nome} di {len(attesi)} iscritt{'o' if len(attesi) == 1 else 'i'}, {conti_letti(conti)}")
-    # la bozza c'è ed è giusta: solo ora, e solo se resta il tempo per tutte e per programmare, le etichette permanenti
-    segnati = 0
+        rimanda(str(e))
+    print(f"Benvenuto: gruppo {nome} di {iscritti_n(len(attesi))}, {conti_letti(conti)}")
+    # la bozza c'è ed è giusta: solo ora, e solo se resta il tempo per tutte e per programmare, le etichette permanenti.
+    # Vale solo l'etichetta che Kit dice di aver dato adesso (201): miei = chi è stato segnato da QUESTO giro
+    miei, altrui, dubbia, guasto = [], 0, False, ""
+    if rimasto() < len(attesi) * stima_chiamata() + MARGINE:
+        guasto = "non resta il tempo per segnare gli iscritti e programmare l'invio"
+    else:
+        try:
+            for i in attesi:
+                come = segna(fatto, i)
+                if come == "data":
+                    miei.append(i)
+                    continue
+                if come == "c'era":
+                    altrui = 1
+                elif come == "dubbia":
+                    dubbia = True
+                    guasto = ("l'etichetta permanente di un iscritto risulta data, ma dopo un tentativo senza risposta: non si può "
+                              "sapere se l'ha data questo giro o un altro, quindi a lui non si spedisce (se l'aveva segnato un altro "
+                              "giro ha già la sua guida; se era questo, resta segnato senza)")
+                else:
+                    guasto = "Kit non ha dato l'etichetta permanente a un iscritto"
+                break
+        except Fermo as e:
+            guasto = str(e)
+    if altrui or guasto:
+        come, tolta = togli_e_di(bid, dati)
+        restano = desegna(fatto, miei)
+        # un iscritto del gruppo ha già l'etichetta permanente (di un altro giro, o dubbia): a questo gruppo non si potrà
+        # mai spedire. Si toglie la sua etichetta, così chi resta da salutare rientra in un gruppo nuovo al prossimo giro
+        if altrui or dubbia:
+            stato, _ = kit_sicuro("DELETE", f"/tags/{gruppo}")
+            gruppo_ora = (f"gruppo {nome} tolto" if stato in (200, 204, 404)
+                          else f"l'etichetta del gruppo {nome} NON si è tolta (HTTP {stato}): toglila a mano in Kit")
+        else:
+            stato, gruppo_ora = 204, f"il gruppo {nome} resta in sospeso e lo riprende il prossimo giro"
+        miei_ora = (f"nessuno resta segnato da questo giro ({iscritti_n(len(miei))} de-segnat{'o' if len(miei) == 1 else 'i'})" if miei and not restano
+                    else "nessuno è stato segnato da questo giro" if not miei
+                    else f"{iscritti_n(restano)} restano segnati senza mail (Kit non ha tolto l'etichetta)")
+        if altrui and not guasto and come == "tolto" and not restano and stato in (200, 204, 404):
+            rimanda("un iscritto ha già l'etichetta permanente, data da un altro giro (gli elenchi di Kit non la mostravano "
+                    f"ancora): questo giro si ritira senza spedire, {tolta}, {gruppo_ora}, {miei_ora}; gli altri restano candidati "
+                    "per il prossimo giro")
+        raise Fermo((guasto or "un iscritto ha già l'etichetta permanente, data da un altro giro") + f": {tolta}, nessun invio; {miei_ora}; {gruppo_ora}")
     try:
-        if rimasto() < len(presi) * stima_chiamata() + MARGINE:
-            raise Fermo("non resta il tempo per segnare gli iscritti e programmare l'invio")
-        for s in presi:
-            if not metti(fatto, s["id"]):  # anche "l'aveva già": salutato da un altro giro, e ora è nel gruppo. Fermo
-                raise Fermo("etichetta permanente non data a un iscritto (o l'aveva già)")
-            segnati += 1
-    except Fermo as e:
-        raise Fermo(f"{e}: {esito_tolto(bid, dati)}, nessun invio; "
-                    + (f"{segnati} iscritti segnati senza mail, gli altri restano candidati per il prossimo giro" if segnati else nessuno))
-    programma(bid, gruppo, dati, invio, f"{len(attesi)} iscritti segnati senza mail")
-    print(f"OK: benvenuto programmato (invio {bid}) alle {invio.astimezone(ROMA):%H:%M} per {len(attesi)} "
-          f"iscritt{'o' if len(attesi) == 1 else 'i'}, gruppo {nome}")
+        tentativi = programma(bid, gruppo, dati, invio)
+    except NonParte as e:                  # l'invio di sicuro non parte: chi è stato segnato torna candidato
+        restano = desegna(fatto, miei)
+        raise Fermo(f"{e}; " + (f"{iscritti_n(len(miei))} de-segnat{'o' if len(miei) == 1 else 'i'}, tornano candidati: il gruppo {nome} resta in sospeso e lo riprende il prossimo giro"
+                                if not restano else f"{iscritti_n(restano)} restano segnati senza mail (Kit non ha tolto l'etichetta)"))
+    except Fermo as e:                     # URGENTE: l'invio può partire, quindi chi è segnato resta segnato
+        raise Fermo(f"{e}; {iscritti_n(len(miei))} restano segnati: se l'invio parte hanno la loro guida, se lo fermi a mano no")
+    print(f"OK: benvenuto programmato (invio {bid}) alle {invio.astimezone(ROMA):%H:%M} per {iscritti_n(len(attesi))}, gruppo {nome}"
+          + (f" (programmazione riuscita al tentativo {tentativi})" if tentativi > 1 else ""))
     if tardi:
         raise Avviso(tardi)
     return 0
@@ -881,8 +1090,8 @@ def bozza(chi, adesso=None):
                     f"{esito_tolto(bid, dati)}")
     print("- gruppo riletto dopo la bozza: iscritti nel gruppo 1")
     print(f"- {RESTA}\n")
-    print(f"OK: bozza di prova {bid} pronta. In Kit (Broadcasts, {nome}) i destinatari devono essere 1: se non è 1 togli la "
-          "bozza a mano e fermati. Poi: prova-invio")
+    print(f"OK: bozza di prova {bid} pronta. In Kit (Broadcasts, {nome}) i destinatari devono essere 1: se non è 1 lancia "
+          f"prova-pulizia e fermati. Poi: prova-invio con bozza={bid}")
     return bid
 
 
@@ -892,53 +1101,53 @@ def di_prova(invii):
                   key=lambda b: b["id"])
 
 
-def prova(chi, adesso=None):
-    """Prova dal vivo, passo 3: programma l'ULTIMO invio di prova, solo se riletto è ancora una bozza con il filtro su un
-    gruppo di prova (l'etichetta che porta il suo stesso nome) e il gruppo ha dentro il solo iscritto di prova. Le bozze
-    di prova più vecchie non si toccano mai: le dice. Dopo la programmazione riconta il gruppo: se non torna, o non c'è
-    il tempo per ricontare e rimediare, l'invio si toglie."""
+def prova(chi, quale, adesso=None):
+    """Prova dal vivo, passo 3: programma la bozza di prova indicata per id (bozza:<id>, l'id che scrive prova-bozza), letta
+    per id e non cercata nell'elenco degli invii, che Kit aggiorna in ritardo. Solo se è ancora una bozza con il filtro
+    su un gruppo di prova (l'etichetta che porta il suo stesso nome) e il gruppo ha dentro il solo iscritto di prova. Dopo
+    la programmazione riconta il gruppo: se non torna, o non c'è il tempo per ricontare e rimediare, l'invio si toglie."""
     global _in_volo
     adesso = (adesso or datetime.now(ROMA)).astimezone(ROMA)
     invio = adesso + timedelta(minutes=ATTESA_MINUTI)
     print("Prova del benvenuto, invio al solo iscritto di prova:")
+    m = BOZZA.fullmatch(str(quale).strip().lower())
+    if not m:
+        raise Fermo("la bozza da programmare si indica con bozza: seguito dal suo numero (lo scrive prova-bozza nell'ultima riga): "
+                    "nulla di fatto")
+    bid = int(m.group(1))
     if not (orario_ammesso(adesso) and orario_ammesso(invio)):
         raise Fermo(f"fuori orario ({adesso:%H:%M}, l'invio partirebbe alle {invio:%H:%M}): si spedisce tra le {dem.ORA_DA}:00 e le "
                     f"{dem.ORA_A - 1}:59, mai nella fascia dell'edizione. Nulla di fatto: la bozza resta in Kit")
     modello = modello_cornice()
     chi = iscritto_di_prova(chi)
     print("- iscritto di prova: trovato per impronta, 1 solo iscritto attivo corrisponde")
-    prove = di_prova(elenco_invii())
-    if not prove:
-        raise Fermo("nessuna bozza di prova in Kit: lancia prima prova-bozza. Nulla di fatto")
-    bid = prove[-1]["id"]
-    vecchie = [x["id"] for x in prove[:-1] if not x.get("send_at")]
-    altre = (f" Le bozze di prova più vecchie ({', '.join(str(x) for x in vecchie)}) non si programmano mai: le toglie prova-pulizia"
-             if vecchie else "")
     b = rileggi(bid)
-    nome = str((b or {}).get("description") or "")
+    if b is None:
+        raise Fermo(f"la bozza {bid} non si legge in Kit (non c'è, o Kit non risponde): nulla di fatto")
+    nome = str(b.get("description") or "")
     try:
         gruppo = intero(b["subscriber_filter"][0]["all"][0]["ids"][0])
     except (TypeError, KeyError, IndexError):
         gruppo = None
-    if b and (b.get("send_at") or str(b.get("status") or "draft").lower() not in ("draft", "")):
-        raise Fermo(f"l'ultimo invio di prova ({bid}) è già programmato o spedito: non si programma nulla. Per un'altra prova "
-                    f"lancia prima prova-bozza.{altre}")
-    if not b or not gruppo or not com_e(b, gruppo, None) or not NOME_PROVA.fullmatch(nome):
-        raise Fermo(f"l'ultima bozza di prova ({bid}), riletta, non è una bozza con il filtro su un solo gruppo di prova: non si "
-                    f"programma.{altre}")
+    if not NOME_PROVA.fullmatch(nome):
+        raise Fermo(f"l'invio {bid} non è una bozza di prova (non porta il nome di un gruppo di prova): non si programma")
+    if b.get("send_at") or str(b.get("status") or "draft").lower() not in ("draft", ""):
+        raise Fermo(f"l'invio di prova {bid} è già programmato o spedito: non si programma nulla. Per un'altra prova lancia prima "
+                    "prova-bozza")
+    if not gruppo or not com_e(b, gruppo, None):
+        raise Fermo(f"la bozza di prova {bid}, riletta, non ha il filtro su un solo gruppo di prova: non si programma")
     if etichetta(nome) != gruppo:       # il gruppo del filtro è l'etichetta di prova che porta il nome della bozza, non un'altra
-        raise Fermo(f"il filtro della bozza di prova {bid} non è sull'etichetta {nome}: non si programma.{altre}")
-    print(f"- bozza {bid} ({nome}): riletta da Kit, filtro sul solo gruppo di prova, stato bozza")
-    if vecchie:
-        print(f"- altre bozze di prova più vecchie, non toccate: {', '.join(str(x) for x in vecchie)} (le toglie prova-pulizia)")
+        raise Fermo(f"il filtro della bozza di prova {bid} non è sull'etichetta {nome}: non si programma")
+    print(f"- bozza {bid} ({nome}): riletta da Kit per id, filtro sul solo gruppo di prova, stato bozza")
     try:
         conti = gruppo_in_kit(gruppo, {chi}, nome)
     except Fermo as e:
         raise Fermo(f"il gruppo di prova non ha dentro il solo iscritto di questa impronta ({e}): non si programma")
     print(f"- gruppo di prova: iscritti nel gruppo 1, l'iscritto di prova ({conti_letti(conti)})")
     dati = dati_invio(gruppo, nome, modello)
-    programma(bid, gruppo, dati, invio, "nessun iscritto segnato")
-    print(f"- invio {bid}: programmato per le {invio:%H:%M} (ora di Roma) e riletto da Kit, filtro sul solo gruppo di prova")
+    tentativi = programma(bid, gruppo, dati, invio)
+    print(f"- invio {bid}: programmato per le {invio:%H:%M} (ora di Roma) e riletto da Kit, filtro sul solo gruppo di prova"
+          + (f" (riuscito al tentativo {tentativi})" if tentativi > 1 else ""))
     voluti = dict(dati, send_at=invio.astimezone(UTC).isoformat(timespec="seconds"))
     _in_volo = (bid, invio)             # fino al conto del gruppo: se il passo scade qui, URGENTE
     if resta_nel_passo() < RISERVA_GRUPPO:
@@ -968,23 +1177,37 @@ def iscritti_di(tag_id):
             f"totale dichiarato {totale if stato == 200 and totale is not None else 'non dato'}")
 
 
-def pulisci():
+def pulisci(quale=None, adesso=None):
     """Toglie da Kit ciò che le prove dal vivo lasciano: le bozze di prova NON programmate e le etichette dei gruppi di
     prova. Di prova è solo ciò che porta il nome intero di un gruppo di prova (NOME_PROVA): mai l'etichetta permanente,
     mai un gruppo o un invio del giro della sera, mai una mail straordinaria. Un invio programmato o spedito non si tocca
-    mai; e finché un invio di prova è in Kit senza essere stato spedito, la sua etichetta resta (è il suo filtro). Chi
-    aveva un'etichetta tolta resta iscritto: perde solo quella."""
+    mai; e finché un invio di prova è in Kit senza essere stato spedito, la sua etichetta resta (è il suo filtro). Poiché
+    l'elenco degli invii di Kit può arrivare in ritardo e non mostrare ancora un invio appena creato, un'etichetta più
+    giovane di ELENCHI_SICURI minuti (l'ora è nel suo nome) non si tocca; e l'invio indicato con bozza:<id> si legge per id
+    anche se l'elenco non lo mostra. Chi aveva un'etichetta tolta resta iscritto: perde solo quella."""
+    adesso = (adesso or datetime.now(ROMA)).astimezone(ROMA)
     print("Prova del benvenuto, pulizia (solo bozze ed etichette di prova):")
     tolti, male, occupate = 0, [], set()
     etichette = [t for t in leggi_tutto(f"/tags?per_page={PER_PAGINA}", "tags") if NOME_PROVA.fullmatch(str(t.get("name") or ""))]
     for t in etichette:                # i fatti, prima di togliere qualcosa: quanti iscritti Kit attribuisce a ogni etichetta
         if intero(t.get("id")):
             print(f"- etichetta {t['name']}, prima di toccarla: {iscritti_di(t['id'])}")
-    for x in di_prova(elenco_invii()):
-        bid, nome = x["id"], str(x["description"])
+    invii = {x["id"]: str(x["description"]) for x in di_prova(elenco_invii())}
+    if quale is not None:              # l'invio indicato: letto per id, che l'elenco lo mostri o no
+        m = BOZZA.fullmatch(str(quale).strip().lower())
+        if not m:
+            raise Fermo("l'invio da guardare si indica con bozza: seguito dal suo numero: nulla di fatto")
+        b = rileggi(int(m.group(1)))
+        if b is None:
+            print(f"- invio {m.group(1)}, indicato: in Kit non si legge (già tolto?)")
+        elif NOME_PROVA.fullmatch(str(b.get("description") or "")):
+            invii.setdefault(int(m.group(1)), str(b["description"]))
+        else:
+            male.append(f"l'invio {m.group(1)}, indicato, non è di prova: non toccato")
+    for bid, nome in sorted(invii.items()):
         b = rileggi(bid)                                  # per id, nella forma intera: fa fede questa
         stato = str((b or {}).get("status") or "").lower()
-        if not b or not NOME_PROVA.fullmatch(str(b.get("description") or "")) or str(b.get("description")) != nome:
+        if not b or str(b.get("description") or "") != nome:
             occupate.add(nome)
             male.append(f"invio {bid} ({nome}) non riletto o cambiato: non toccato, e la sua etichetta resta")
         elif not b.get("send_at") and stato in ("draft", ""):
@@ -1003,10 +1226,18 @@ def pulisci():
                   + f" (stato {detto}): non si tocca, e la sua etichetta resta finché non è partito. Rilancia prova-pulizia dopo")
     for t in etichette:
         nome = str(t.get("name") or "")
+        try:
+            nata = datetime.strptime(nome[len(PROVA):], "%Y-%m-%d-%H%M").replace(tzinfo=ROMA)
+        except ValueError:
+            nata = None
         if not intero(t.get("id")):
             male.append(f"etichetta {nome}: senza id nella risposta di Kit, non toccata")
         elif nome in occupate:
             print(f"- etichetta {nome}: resta (il suo invio è ancora in Kit e non è spedito)")
+        elif nata is None or adesso - nata < timedelta(minutes=ELENCHI_SICURI):
+            dopo = f" dopo le {nata + timedelta(minutes=ELENCHI_SICURI):%H:%M}" if nata else ""
+            print(f"- etichetta {nome}: resta, ha meno di {ELENCHI_SICURI} minuti (l'elenco degli invii di Kit può non mostrare ancora "
+                  f"il suo invio). Rilancia prova-pulizia{dopo}")
         else:
             stato, _ = chiama("DELETE", f"/tags/{t['id']}")
             if stato in (200, 204):
@@ -1057,7 +1288,8 @@ def main():
         print(impronta_di(indirizzo))
         return
     di_prova_ = modo in ("bozza", "prova", "pulizia")
-    if modo not in ("piano", "invia", "bozza", "prova", "pulizia") or len(sys.argv) != (3 if modo in ("bozza", "prova") else 2):
+    if modo not in ("piano", "invia", "bozza", "prova", "pulizia") \
+            or len(sys.argv) not in {"bozza": (3,), "prova": (4,), "pulizia": (2, 3)}.get(modo, (2,)):
         sys.exit(__doc__)
     a_capo, uscita = ("\n" if di_prova_ else ""), 1
     avvia_scadenza()
@@ -1066,9 +1298,9 @@ def main():
             if modo == "bozza":
                 bozza(sys.argv[2])
             elif modo == "prova":
-                prova(sys.argv[2])
+                prova(sys.argv[2], sys.argv[3])
             elif modo == "pulizia":
-                pulisci()
+                pulisci(sys.argv[2] if len(sys.argv) > 2 else None)
             else:
                 giro(esegui=modo == "invia")
             uscita = 0

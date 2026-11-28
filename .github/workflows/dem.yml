@@ -11,9 +11,10 @@
 # (concurrency) e il secondo trova Kit già allineato.
 # Minuti di GitHub: circa 30 giri della sera + 15 da push, su ubuntu-slim = circa 45-60 minuti slim al mese, 15-20
 # minuti standard (prima: circa 45-60 minuti standard). Le sere con nuovi iscritti il benvenuto aspetta che Kit
-# aggiorni l'elenco del gruppo (di solito mezzo minuto, al massimo due): 1-3 minuti slim in più quelle sere. I modi
-# "prova-" partono solo a mano: 0 minuti al mese; una prova intera sono 4 giri, in tutto 4-8 minuti slim (2-3 standard).
-# Il tetto di un giro, se Kit non risponde, sono i 14 minuti del job (5 delle mail straordinarie, 8 del benvenuto).
+# aggiorni l'elenco del gruppo (misurato: due minuti e mezzo; al massimo quanto il passo lascia, circa quattro):
+# 3-5 minuti slim in più quelle sere. I modi "prova-" partono solo a mano: 0 minuti al mese; una prova intera sono 4
+# giri, in tutto 6-10 minuti slim (2-4 standard). Il tetto di un giro, se Kit non risponde, sono i 15 minuti del job
+# (5 delle mail straordinarie, 9 del benvenuto).
 # Se va tutto bene non scrive a nessuno. Se qualcosa va guardato (una bozza vicina alla data senza ok, una mail approvata
 # non partita, Kit che rifiuta un'operazione) il giro fallisce e apre una segnalazione assegnata a Paolo: GitHub gli
 # manda l'email. Una sola segnalazione aperta alla volta. La chiave di Kit è il segreto KIT_API_KEY e non viene mai stampata.
@@ -36,7 +37,11 @@ on:
         options: [piano, sincronizza, controlla, prova-piano, prova-bozza, prova-invio, prova-pulizia]
         default: piano
       impronta:
-        description: "solo per prova-bozza e prova-invio: l'impronta dell'iscritto di prova (16 caratteri esadecimali, da benvenuto.py impronta). MAI un indirizzo: il repository è pubblico"
+        description: "solo per prova-bozza e prova-invio: l'impronta dell'iscritto di prova (16 caratteri esadecimali, da benvenuto.py impronta). MAI un indirizzo: il repository è pubblico. Con gli altri modi lasciare vuoto"
+        type: string
+        default: ""
+      bozza:
+        description: "per prova-invio (obbligatorio) e prova-pulizia (facoltativo): il numero della bozza di prova, quello che prova-bozza scrive nell'ultima riga"
         type: string
         default: ""
       orologio:
@@ -55,17 +60,18 @@ concurrency:
 jobs:
   allinea:
     runs-on: ubuntu-slim             # controllo leggero (G-12): un terzo del costo di un minuto standard
-    timeout-minutes: 14              # 5 delle mail straordinarie + 8 del benvenuto + l'avvio: nessun passo viene chiuso dal job
+    timeout-minutes: 15              # 5 delle mail straordinarie + 9 del benvenuto + l'avvio: nessun passo viene chiuso dal job
     env:
       # la prova dal vivo del benvenuto (G-43): solo lanciata a mano, e allora il giro fa quella e nient'altro
       PROVA_BENVENUTO: ${{ github.event_name == 'workflow_dispatch' && startsWith(github.event.inputs.modo, 'prova-') }}
     steps:
       - uses: actions/checkout@v4
-      # G-43: l'impronta arriva al passo di prova solo se è fatta di 16 caratteri esadecimali, e già mascherata (il
-      # registro la mostra come ***: non è l'indirizzo, ma chi lo indovina la potrebbe verificare). Si legge dal file
-      # dell'evento: l'input non sta in nessun "env:" e in nessun comando, quindi un valore sbagliato (un indirizzo
-      # scritto per errore, un testo corto o su più righe) non finisce mai nel registro. Se non è valida, fermo qui.
-      - name: Impronta fuori dal registro
+      # G-43: gli input della prova arrivano al passo di prova solo se sono fatti come devono: l'impronta 16 caratteri
+      # esadecimali, e già mascherata (il registro la mostra come ***: non è l'indirizzo, ma chi lo indovina la potrebbe
+      # verificare); la bozza solo cifre. Si leggono dal file dell'evento: gli input non stanno in nessun "env:" e in
+      # nessun comando, quindi un valore sbagliato (un indirizzo scritto per errore, un testo corto o su più righe) non
+      # finisce mai nel registro. Se un valore non è valido il giro si ferma qui, con qualunque modo "prova-", e lo dice.
+      - name: Input della prova controllati
         if: env.PROVA_BENVENUTO == 'true'
         run: |
           python3 - <<'PY'
@@ -74,24 +80,37 @@ jobs:
               dati = json.load(open(os.environ["GITHUB_EVENT_PATH"], encoding="utf-8")).get("inputs") or {}
           except Exception:
               dati = {}
-          modo, impronta = str(dati.get("modo") or ""), str(dati.get("impronta") or "").strip().lower()
-          if re.fullmatch(r"[0-9a-f]{16}", impronta):
-              print(f"::add-mask::{impronta}")
-              with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as f:
-                  f.write(f"IMPRONTA={impronta}\n")
-          elif impronta or modo in ("prova-bozza", "prova-invio"):
-              no = "Prova del benvenuto: l'impronta deve essere di 16 caratteri esadecimali (benvenuto.py impronta), mai un indirizzo. Nulla di fatto."
-              print(no)
+          modo = str(dati.get("modo") or "")
+          impronta, bozza = str(dati.get("impronta") or "").strip().lower(), str(dati.get("bozza") or "").strip()
+          no = []
+          if impronta and not re.fullmatch(r"[0-9a-f]{16}", impronta):
+              no.append("il campo impronta contiene un valore che non è un'impronta (16 caratteri esadecimali, da benvenuto.py impronta; mai un indirizzo)"
+                        + (f": per sicurezza il giro si ferma anche con {modo}, che non la usa. Lascia vuoto il campo" if modo in ("prova-piano", "prova-pulizia") else ""))
+          elif not impronta and modo in ("prova-bozza", "prova-invio"):
+              no.append(f"manca l'impronta dell'iscritto di prova, che {modo} richiede (benvenuto.py impronta)")
+          if bozza and not re.fullmatch(r"[0-9]{1,20}", bozza):
+              no.append("il campo bozza deve contenere solo il numero della bozza di prova, quello che prova-bozza scrive nell'ultima riga")
+          elif not bozza and modo == "prova-invio":
+              no.append("manca bozza=<numero>: prova-invio programma solo la bozza indicata, quella che prova-bozza scrive nell'ultima riga")
+          if no:
+              testo = "Prova del benvenuto: " + "; ".join(no) + ". Nulla di fatto."
+              print(testo)
               with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
-                  f.write(no + "\n")
+                  f.write(testo + "\n")
               sys.exit(1)
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as f:
+              if impronta:
+                  print(f"::add-mask::{impronta}")
+                  f.write(f"IMPRONTA={impronta}\n")
+              if bozza:
+                  f.write(f"BOZZA={bozza}\n")
           PY
       - name: Ci pensa l'orologio?
         if: github.event_name == 'schedule'
         run: python3 redazione/sito/orologio.py --guardia dem.yml >> "$GITHUB_ENV"
       - name: Mail straordinarie
         if: env.SALTA != 'si' && env.PROVA_BENVENUTO != 'true'
-        timeout-minutes: 5           # quanto aveva prima (era il tetto del job): così al benvenuto restano i suoi 8
+        timeout-minutes: 5           # quanto aveva prima (era il tetto del job): così al benvenuto restano i suoi 9
         env:
           KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
           SCELTO: ${{ github.event.inputs.modo || 'sincronizza' }}
@@ -106,13 +125,14 @@ jobs:
       # anche se il passo di sopra è fallito (sono due lavori diversi); da un ramo che non è main solo il controllo del
       # testo, senza rete.
       # Minuti di GitHub: qualche secondo per giro dentro un job che c'è già, quando non ci sono nuovi iscritti (quasi
-      # tutte le sere); con nuovi iscritti aspetta che Kit aggiorni l'elenco del gruppo, di solito mezzo minuto, al
-      # massimo due (1-3 minuti slim in più quella sera). Gli 8 minuti servono solo a Kit che non risponde: benvenuto.py
-      # si dà 450 secondi e si arrende da sé prima, con il suo messaggio; programma un invio solo se restano i secondi
-      # per rileggerlo e toglierlo, e prende in carico solo gli iscritti che stanno nel tempo.
+      # tutte le sere); con nuovi iscritti aspetta che Kit aggiorni l'elenco del gruppo, di solito due minuti e mezzo, al
+      # massimo quanto il passo lascia (3-5 minuti slim in più quella sera); se non basta il gruppo resta in sospeso e lo
+      # riprende il giro dopo. I 9 minuti servono a questa attesa e a Kit che non risponde: benvenuto.py si dà 510
+      # secondi e si arrende da sé prima, con il suo messaggio; programma un invio solo se restano i secondi per
+      # rileggerlo e toglierlo, e prende in carico solo gli iscritti che stanno nel tempo.
       - name: Benvenuto
         if: ${{ !cancelled() && github.event_name != 'push' && env.SALTA != 'si' && env.PROVA_BENVENUTO != 'true' }}
-        timeout-minutes: 8
+        timeout-minutes: 9
         env:
           KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
           SCELTO: ${{ github.event.inputs.modo || 'sincronizza' }}
@@ -124,15 +144,15 @@ jobs:
           exit "${PIPESTATUS[0]}"
       # G-43: la prova dal vivo del benvenuto, da qualsiasi ramo ma solo lanciata a mano. Solo benvenuto.py: piano (sole
       # letture), bozza (una bozza per un gruppo di prova con dentro il solo iscritto dell'impronta, niente parte),
-      # prova (programma l'ultima bozza di prova, solo se riletta è per quel gruppo e il gruppo ha dentro lui solo) o
-      # pulizia (toglie le bozze di prova non programmate e le etichette dei gruppi di prova). L'impronta arriva dal
-      # passo "Impronta fuori dal registro", già controllata e mascherata, in una variabile d'ambiente: mai scritta
-      # dentro il comando. Il riepilogo del giro dice che cosa è successo, che cosa ha risposto Kit e che cosa resta in
+      # prova (programma la bozza di prova indicata per numero, solo se riletta è per quel gruppo e il gruppo ha dentro
+      # lui solo) o pulizia (toglie le bozze di prova non programmate e le etichette dei gruppi di prova). Impronta e
+      # numero della bozza arrivano dal passo "Input della prova controllati", già controllati (l'impronta anche
+      # mascherata), in variabili d'ambiente: mai scritti dentro il comando. Il riepilogo del giro dice che cosa è successo, che cosa ha risposto Kit e che cosa resta in
       # Kit, senza indirizzi. Se un invio di prova non si riesce né a togliere né a riportare in bozza, il passo
       # "Urgenza benvenuto" apre la segnalazione anche da un ramo.
       - name: Prova del benvenuto
         if: env.PROVA_BENVENUTO == 'true'
-        timeout-minutes: 8
+        timeout-minutes: 9
         env:
           KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
           SCELTO: ${{ github.event.inputs.modo }}
@@ -141,8 +161,8 @@ jobs:
           case "$SCELTO" in
             prova-piano) set -- piano ;;
             prova-bozza) set -- bozza "impronta:${IMPRONTA:-}" ;;
-            prova-invio) set -- prova "impronta:${IMPRONTA:-}" ;;
-            prova-pulizia) set -- pulizia ;;
+            prova-invio) set -- prova "impronta:${IMPRONTA:-}" "bozza:${BOZZA:-}" ;;
+            prova-pulizia) if [ -n "${BOZZA:-}" ]; then set -- pulizia "bozza:$BOZZA"; else set -- pulizia; fi ;;
             *) echo "Prova del benvenuto: modo non previsto. Nulla di fatto"; exit 1 ;;
           esac
           echo "Prova del benvenuto, comando: $1"
