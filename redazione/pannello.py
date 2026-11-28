@@ -163,6 +163,22 @@ def metti(riga):
     return len(reg)
 
 
+def senza_fonte(ed, fatti_p):
+    """Gli approfondimenti dell'edizione che nella riga Fonti non hanno una fonte riconoscibile (comunicato, agenzia, grande
+    testata: autori.py): {"senza_fonte": quanti, "senza_fonte_pezzi": [chiavi]}. Lo stesso avviso di controlli_fatti.py."""
+    sys.path.insert(0, QUI)
+    import autori, desk
+    qui = os.getcwd()
+    try:
+        os.chdir(os.path.dirname(os.path.abspath(ed)))
+        C = desk._carica(ed)
+    finally:
+        os.chdir(qui)
+    fatti = json.load(open(fatti_p, encoding="utf-8"))
+    pezzi = [p for p, _ in autori.approfondimenti_senza_riconoscibile(autori.righe_degli_approfondimenti(C), fatti)]
+    return {"senza_fonte": len(pezzi), "senza_fonte_pezzi": pezzi}
+
+
 def indici(n, data, fatti_p):
     riga = {"n": int(n), "d": data}
     ora = dt.datetime.now(ROMA)
@@ -175,6 +191,10 @@ def indici(n, data, fatti_p):
         riga["durata_min"] = None
     try:
         riga.update(conta(json.load(open(fatti_p, encoding="utf-8"))))
+    except Exception:
+        pass
+    try:                                             # approfondimenti con soli siti minori nella riga Fonti (avviso, G-46)
+        riga.update(senza_fonte(os.path.join(LAVORO, f"edizione_{data}.py"), fatti_p))
     except Exception:
         pass
     riga.update(qualita(ultime=1).get(int(n), {}))

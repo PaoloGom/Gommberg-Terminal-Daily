@@ -245,6 +245,12 @@ def nome_riconoscibile(nome, fatti=()):
     return bool(compatto) and any(livello("https://" + compatto + t) == 1 for t in _TLD)
 
 
+def righe_degli_approfondimenti(C):
+    """[(pezzo, riga Fonti)] degli approfondimenti di un'edizione (C["moduli"])."""
+    return [(_s(m.get("chiave")) or "?", " ".join(_s(m.get(k)) for k in ("fonte", "fonti", "fonte_sx", "fonte_dx") if m.get(k)))
+            for m in (C or {}).get("moduli") or [] if isinstance(m, dict)]
+
+
 def approfondimenti_senza_riconoscibile(righe, fatti=()):
     """righe = [(pezzo, riga Fonti)] degli approfondimenti. Torna [(pezzo, [nomi])] per quelli che nella riga Fonti non hanno
     nemmeno una fonte riconoscibile: ogni nome si spezza anche dentro parentesi e "via"/"tramite"/"ripresa da", e le fonti

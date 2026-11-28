@@ -938,6 +938,18 @@ def passo_fonti():
              ("i", "Fonti: FMP (oro future), Alpha Vantage (EUR/USD)."), ("l", "Fonti: The Company Chronicle; chiusure dell'oro future da FMP.")]
     trovati = [p for p, _ in senza(righe)]
     male += [] if trovati == ["g", "h", "l"] else [f"fonte riconoscibile: senza fonte riconoscibile {trovati} (attesi g, h, l)"]
+    # l'avviso nel controllo dei fatti, sull'edizione vera del 23/11 (oro con soli Investrade e Schwab): avviso, non errore
+    ed = os.path.join(lav, "ed23")
+    shutil.rmtree(ed, ignore_errors=True); os.makedirs(ed)
+    for f in ("edizione.py", "dati.json", "contesto.json"):
+        if os.path.exists(os.path.join(R, "sorgenti", "2026-11-23", f)):
+            shutil.copy(os.path.join(R, "sorgenti", "2026-11-23", f), ed)
+    shutil.copy(os.path.join(ed, "edizione.py"), os.path.join(ed, "edizione_2026-11-23.py"))
+    shutil.copy(os.path.join(R, "fatti", "2026-11-23.json"), os.path.join(ed, "fatti.json"))
+    rc, out23 = esegui([sys.executable, os.path.join(R, "controlli_fatti.py"), os.path.join(ed, "fatti.json"),
+                        os.path.join(REPO, "edizioni.json"), "2026-11-23"], cwd=ed)
+    avv = [l for l in out23.splitlines() if l.startswith("AVVISO: approfondimento")]
+    male += [] if len(avv) == 1 and " oro:" in avv[0] and rc == 0 else [f"avviso fonte riconoscibile: {avv} (uscita {rc})"]
     # molte schede insieme: le righe restano sotto il taglio di controlli_tutti.sh e nessun id si perde
     molte = [{**schede[5], "id": f"N{k:02d}-con-un-nome-lungo"} for k in range(30)]
     json.dump(molte, open(os.path.join(lav, "molte.json"), "w", encoding="utf-8"), ensure_ascii=False)

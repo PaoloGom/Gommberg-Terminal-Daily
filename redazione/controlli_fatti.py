@@ -51,21 +51,27 @@ fatti_p, indice_p, oggi_s = sys.argv[1], sys.argv[2], sys.argv[3]
 prima_revisione = "--prima-della-revisione" in sys.argv
 
 
-def _usciti():
-    """Le righe del calendario uscito dell'edizione (C["ieri"]: evento e dato), quando l'edizione è già scritta accanto a
-    fatti.json: servono a riconoscere i dati ufficiali di prima pagina. Prima della stesura non c'è: lista vuota."""
+def _edizione():
+    """L'edizione già scritta accanto a fatti.json (C), o None prima della stesura."""
     ed = os.path.join(os.path.dirname(os.path.abspath(fatti_p)), f"edizione_{oggi_s}.py")
     if not os.path.exists(ed):
-        return []
+        return None
     qui = os.getcwd()
     try:
         import desk
-        C = desk._carica(ed)
-        return [(r[1], r[2]) for r in C.get("ieri") or [] if isinstance(r, (list, tuple)) and len(r) > 2]
+        os.chdir(os.path.dirname(ed))
+        return desk._carica(ed)
     except Exception:  # noqa: BLE001
-        return []
+        return None
     finally:
         os.chdir(qui)
+
+
+def _usciti():
+    """Le righe del calendario uscito dell'edizione (C["ieri"]: evento e dato): servono a riconoscere i dati ufficiali di
+    prima pagina. Prima della stesura non c'è: lista vuota."""
+    C = _edizione() or {}
+    return [(r[1], r[2]) for r in C.get("ieri") or [] if isinstance(r, (list, tuple)) and len(r) > 2]
 
 
 USCITI = _usciti()
@@ -307,15 +313,19 @@ else:
 # Notizie: top story + 6-8 in prima pagina + riserve. Approfondimenti: fatti propri, oltre ai dati di mercato.
 if prima_revisione:
     n_not = sum(1 for f in fatti if ALIAS.get(f.get("sezione", ""), f.get("sezione", "")) in ("top_story", "top_news"))
-    n_app = sum(1 for f in fatti if ALIAS.get(f.get("sezione", ""), f.get("sezione", "")) == "deep_dive")
     if n_not < 10:
         problemi.append(f"RICERCA: {n_not} schede di notizie, ne servono almeno 10 (top story, 6-8 in prima pagina, riserve): "
                         "cerca ancora nel flusso dall'ultima edizione (il lunedì anche sabato e domenica) e nei "
                         "resoconti di fine seduta delle agenzie (ISTRUZIONI §6.2)")
-    if n_app < 6:
-        problemi.append(f"RICERCA: {n_app} schede per gli approfondimenti (sezione \"deep_dive\"), ne servono almeno 6: "
-                        "per ogni tesi i fatti che la provano (causa, contesto, chi lo dice, cosa succede dopo), "
-                        "non solo i prezzi (ISTRUZIONI §2, \"Un approfondimento = una tesi\")")
+# Fonte riconoscibile sotto ogni approfondimento (decisione di Paolo del 28/11/2026, al posto del minimo di 6 schede di
+# approfondimento per edizione, che contava il numero e non chi parla): un pezzo che nella riga Fonti ha soltanto siti minori
+# è un AVVISO, che va anche nel pannello; il pezzo esce lo stesso.
+_C = _edizione()
+if _C:
+    from autori import approfondimenti_senza_riconoscibile, righe_degli_approfondimenti
+    for _p, _nomi in approfondimenti_senza_riconoscibile(righe_degli_approfondimenti(_C), tutte):
+        avvisi.append(f"approfondimento {_p}: nella riga Fonti nessuna fonte riconoscibile (comunicato, agenzia, grande testata), "
+                      f"solo {', '.join(_nomi)[:80]}")
 
 # Lettura del mondo (v8.2, prova del 13/11: lette solo Yahoo Finance, TheStreet e Milano Finanza, apertura sbagliata,
 # mancati gli attacchi ai siti sauditi e il dollaro a 160 yen). Si controlla prima della scaletta, quando cercare costa poco.
