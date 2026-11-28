@@ -2381,7 +2381,8 @@ def passo_orologio():
     esito("Orologio: guardia e controllo del mattino", not male, "; ".join(male)[:400] or
           "ogni riserva guarda solo il suo flusso e lavora a ogni dubbio; in attesa del token una nota, dopo un guasto una riga rossa; la riserva tardiva controlla a qualunque ora dalle 10")
 
-    # la stima dei minuti, con un GitHub finto: arrotondamento, ubuntu-slim a un terzo, job saltati, giri in corso, giri già contati
+    # la stima dei minuti, con un GitHub finto: arrotondamento, ubuntu-slim a un terzo, job saltati, giri in corso, giri già
+    # contati, e i giri che non sono di un flusso del repository (GitHub Pages: gratuito), che non si contano ma si dicono
     male = []
     gh = os.path.join(banco, "github")
     os.makedirs(gh, exist_ok=True)
@@ -2392,21 +2393,27 @@ def passo_orologio():
         {"id": 1, "path": ".github/workflows/collaudo.yml", "status": "completed"},
         {"id": 2, "path": ".github/workflows/segnalazioni.yml", "status": "completed"},
         {"id": 3, "path": ".github/workflows/mattino.yml", "status": "completed"},
-        {"id": 4, "path": ".github/workflows/sito.yml", "status": "in_progress"}]}, open(os.path.join(gh, "runs.json"), "w"))
+        {"id": 4, "path": ".github/workflows/sito.yml", "status": "in_progress"},
+        {"id": 5, "path": "dynamic/pages/pages-build-deployment", "name": "pages build and deployment", "status": "completed"}]}, open(os.path.join(gh, "runs.json"), "w"))
     json.dump({"jobs": [job("kit", "2026-12-07T10:00:00Z", "2026-12-07T10:04:01Z"), job("sito", "2026-12-07T10:00:00Z", "2026-12-07T10:00:20Z")]}, open(os.path.join(gh, "jobs_1.json"), "w"))
     json.dump({"jobs": [job("avviso", "2026-12-07T10:00:00Z", "2026-12-07T10:00:09Z", "ubuntu-slim")]}, open(os.path.join(gh, "jobs_2.json"), "w"))
     json.dump({"jobs": [job("controllo", "2026-12-07T10:00:00Z", "2026-12-07T10:02:30Z", "ubuntu-slim"), job("gomm", None, None, "ubuntu-slim", "skipped")]}, open(os.path.join(gh, "jobs_3.json"), "w"))
+    json.dump({"jobs": [job("build", "2026-12-07T10:00:00Z", "2026-12-07T10:00:15Z"), job("deploy", "2026-12-07T10:00:15Z", "2026-12-07T10:02:30Z")]}, open(os.path.join(gh, "jobs_5.json"), "w"))
     json.dump({"private": True}, open(os.path.join(gh, "repo.json"), "w"))
     mf = os.path.join(banco, "minuti.json")
+    # il file di ieri è di prima, quando si contava anche Pages: va ricontato da capo, non corretto a metà
+    json.dump({"mese": "2026-12", "minuti": 384.0, "flussi": {"pages-build-deployment": 384.0}, "giri": {"99": 384.0}}, open(mf, "w"))
     amb = {"GTD_GITHUB": gh, "GTD_MINUTI": mf, "GTD_ADESSO": "2026-12-07T11:00"}
     rc, out = esegui([sys.executable, os.path.join(R, "minuti.py"), "--scrivi"], env=amb)
     try:
         m = json.load(open(mf, encoding="utf-8"))
     except (OSError, ValueError):
         m = {}
-    # collaudo: 5 + 1 = 6; segnalazioni: 1/3; mattino: 3/3 = 1; sito in corso: non ancora
+    # collaudo: 5 + 1 = 6; segnalazioni: 1/3; mattino: 3/3 = 1; sito in corso: non ancora; Pages: non è un flusso nostro
     if rc or m.get("minuti") != round(6 + 1 / 3 + 1, 1) or m.get("privato") is not True or set(m.get("giri", {})) != {"1", "2", "3"} or m.get("quota") != 2000:
         male.append(f"stima: attesi 7,3 minuti su 2.000 dai giri 1-3 ({str(m)[:120]}; {out.strip()[:80]})")
+    if set(m.get("flussi", {})) != {"collaudo.yml", "segnalazioni.yml", "mattino.yml"} or m.get("non_contati") != {"pages-build-deployment": 1} or "pages-build-deployment (1 giro)" not in out:
+        male.append(f"stima: i giri di GitHub Pages non si contano, ma si dicono in una riga ({str(m.get('flussi'))[:80]}; {str(m.get('non_contati'))[:60]}; {out.strip()[-120:]})")
     os.remove(os.path.join(gh, "jobs_1.json"))
     rc, out = esegui([sys.executable, os.path.join(R, "minuti.py"), "--scrivi"], env=amb)
     if rc or json.load(open(mf, encoding="utf-8")).get("minuti") != m.get("minuti"):
@@ -2422,7 +2429,8 @@ def passo_orologio():
     if rc != 0 or "::warning::" not in out:
         male.append("stima: GitHub che non risponde deve dare un avviso, mai un errore")
     esito("Minuti di GitHub: stima e allarme al 75%", not male, "; ".join(male)[:400] or
-          "ogni job arrotondato al minuto, ubuntu-slim a un terzo, saltati e in corso esclusi; allarme solo da privato oltre il 75%; i giri contati restano")
+          "ogni job arrotondato al minuto, ubuntu-slim a un terzo, saltati e in corso esclusi; solo i flussi di .github/workflows/, gli altri (GitHub Pages) detti in una riga; "
+          "allarme solo da privato oltre il 75%; i giri contati restano")
 
     # la mappa: ogni flusso e ogni file dell'orologio stanno in ARCHITETTURA.md
     mappa = open(os.path.join(R, "ARCHITETTURA.md"), encoding="utf-8").read()

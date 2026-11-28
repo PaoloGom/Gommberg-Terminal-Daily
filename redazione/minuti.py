@@ -8,6 +8,10 @@ non hanno: il token del giro (GITHUB_TOKEN) non è tra quelli ammessi. Per non c
   - la quota del privato gratuito: 12 dollari al mese = 2.000 minuti Linux standard (QUOTA).
 È una stima prudente (arrotonda per eccesso); i job saltati non contano, come per GitHub. Finché il repository è
 pubblico i minuti non si pagano: la stima serve a sapere che cosa succederà da privato.
+Si contano solo i giri dei flussi del repository (quelli il cui file sta in .github/workflows/). Gli altri li lancia
+GitHub per conto suo e non consumano la quota: GitHub Pages ("pages-build-deployment") e Dependabot sono gratuiti
+(docs.github.com, Billing, GitHub Actions). Non spariscono in silenzio: quanti sono, nome per nome, sta in
+"non_contati" e in una riga dell'uscita. Se lì compare un nome nuovo, va guardato se è gratuito anche quello.
 
 Scrive pannello/minuti.json (lo legge il pannello, che mostra l'allarme al 75%, e lo legge mattino.py). I giri già
 contati restano nel file ("giri": id -> minuti), così ogni giorno si chiedono a GitHub solo i giri nuovi.
@@ -30,6 +34,7 @@ FILE = os.environ.get("GTD_MINUTI") or os.path.join(os.path.dirname(QUI), "panne
 QUOTA = 2000                     # minuti Linux standard al mese del privato gratuito (12 dollari a 0,006)
 ALLARME = 75                     # percentuale della quota oltre cui il controllo del mattino e il pannello avvisano
 PESO = {"ubuntu-slim": 1 / 3}    # rispetto a un minuto Linux standard (prezzi di GitHub: 0,002 contro 0,006 dollari)
+NOSTRI = ".github/workflows/"     # dove stanno i flussi del repository: solo i loro giri consumano la quota
 
 
 def api(percorso):
@@ -59,20 +64,29 @@ def minuti_job(job):
 
 def stima(precedente, adesso):
     mese = adesso.strftime("%Y-%m")
-    giri = dict(precedente.get("giri", {})) if precedente.get("mese") == mese else {}
-    flussi = dict(precedente.get("flussi", {})) if precedente.get("mese") == mese else {}
+    # si riparte da zero a ogni mese, e anche da un file scritto quando si contavano tutti i giri (senza "non_contati")
+    continua = precedente.get("mese") == mese and "non_contati" in precedente
+    giri = dict(precedente.get("giri", {})) if continua else {}
+    flussi = dict(precedente.get("flussi", {})) if continua else {}
+    non_contati, visti = {}, set()   # nome -> giri del mese, riletto ogni giorno dall'elenco
     pagina = 1
     while True:
         j = api(f"/actions/runs?created=%3E%3D{mese}-01&per_page=100&page={pagina}")
         runs = j.get("workflow_runs", [])
         for run in runs:
             k = str(run["id"])
+            percorso = (run.get("path") or "").split("@")[0]
+            if not percorso.startswith(NOSTRI):
+                nome = os.path.basename(percorso) or run.get("name") or "senza nome"
+                non_contati[nome] = non_contati.get(nome, 0) + (k not in visti)
+                visti.add(k)
+                continue
             if k in giri or run.get("status") != "completed":
                 continue
             jobs = api(f"/actions/runs/{run['id']}/jobs?per_page=100").get("jobs", [])
             m = sum(x for x in (minuti_job(job) for job in jobs) if x is not None)
             giri[k] = round(m, 2)
-            nome = os.path.basename(run.get("path") or run.get("name") or "altro").split("@")[0]
+            nome = os.path.basename(percorso)
             flussi[nome] = round(flussi.get(nome, 0) + m, 2)
         if len(runs) < 100 or pagina >= 20:
             break
@@ -81,8 +95,8 @@ def stima(precedente, adesso):
     privato = bool(api("").get("private"))
     return {"mese": mese, "aggiornato": adesso.strftime("%Y-%m-%dT%H:%MZ"), "quota": QUOTA, "allarme": ALLARME,
             "minuti": totale, "percentuale": round(100 * totale / QUOTA, 1), "privato": privato,
-            "metodo": "stima dai giri: ogni job arrotondato per eccesso al minuto, ubuntu-slim a un terzo; il consumo vero vuole il permesso Plan, che i flussi non hanno",
-            "flussi": dict(sorted(flussi.items(), key=lambda x: -x[1])), "giri": giri}
+            "metodo": "stima dai giri dei flussi di .github/workflows/: ogni job arrotondato per eccesso al minuto, ubuntu-slim a un terzo; il consumo vero vuole il permesso Plan, che i flussi non hanno",
+            "flussi": dict(sorted(flussi.items(), key=lambda x: -x[1])), "non_contati": dict(sorted(non_contati.items())), "giri": giri}
 
 
 def leggi():
@@ -116,8 +130,11 @@ def main():
         return 0
     print(f"Minuti di GitHub a {m['mese']} (stima dai giri): {m['minuti']:g} su {m['quota']}, {m['percentuale']:g}%"
           + ("" if m["privato"] else " - repository pubblico, per ora non si pagano"))
-    for k, v in list(m["flussi"].items())[:8]:
+    for k, v in m["flussi"].items():
         print(f"  {k}: {v:g}")
+    if m["non_contati"]:
+        print("  non contati, perché non sono flussi di " + NOSTRI + " (GitHub Pages e Dependabot sono gratuiti): "
+              + ", ".join(f"{k} ({v} gir{'o' if v == 1 else 'i'})" for k, v in m["non_contati"].items()))
     if "--scrivi" in sys.argv:
         os.makedirs(os.path.dirname(FILE), exist_ok=True)
         with open(FILE, "w", encoding="utf-8") as f:
