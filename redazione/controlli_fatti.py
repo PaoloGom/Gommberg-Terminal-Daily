@@ -317,15 +317,20 @@ if prima_revisione:
         problemi.append(f"RICERCA: {n_not} schede di notizie, ne servono almeno 10 (top story, 6-8 in prima pagina, riserve): "
                         "cerca ancora nel flusso dall'ultima edizione (il lunedì anche sabato e domenica) e nei "
                         "resoconti di fine seduta delle agenzie (ISTRUZIONI §6.2)")
-# Fonte riconoscibile sotto ogni approfondimento (decisione di Paolo del 28/11/2026, al posto del minimo di 6 schede di
-# approfondimento per edizione, che contava il numero e non chi parla): un pezzo che nella riga Fonti ha soltanto siti minori
-# è un AVVISO, che va anche nel pannello; il pezzo esce lo stesso.
+if sum(1 for f in fatti if ALIAS.get(f.get("sezione", ""), f.get("sezione", "")) == "deep_dive") < 6:
+    avvisi.append("approfondimenti con meno di 6 schede (sezione \"deep_dive\"): per ogni tesi i fatti che la provano, non solo "
+                  "i prezzi (ISTRUZIONI §2)")
+
+# Fonte riconoscibile sotto ogni approfondimento (decisione di Paolo del 28/11/2026): un pezzo che nella riga Fonti non ha
+# una fonte riconoscibile di una scheda del giorno (soli siti minori, riga vuota o di soli dati di mercato, tesi senza schede)
+# è un AVVISO, che va anche nel pannello e nel riepilogo dei controlli; il pezzo esce lo stesso. Il minimo di 6 schede di
+# approfondimento resta come avviso (protezione per un'edizione con approfondimenti quasi senza schede).
 _C = _edizione()
 if _C:
     from autori import approfondimenti_senza_riconoscibile, righe_degli_approfondimenti
     for _p, _nomi in approfondimenti_senza_riconoscibile(righe_degli_approfondimenti(_C), tutte):
-        avvisi.append(f"approfondimento {_p}: nella riga Fonti nessuna fonte riconoscibile (comunicato, agenzia, grande testata), "
-                      f"solo {', '.join(_nomi)[:80]}")
+        avvisi.append(f"approfondimento {_p}: nella riga Fonti nessuna fonte riconoscibile (comunicato, agenzia, grande testata): "
+                      + (", ".join(_nomi)[:80] if not _nomi[0].startswith("(") else _nomi[0][1:-1]))
 
 # Lettura del mondo (v8.2, prova del 13/11: lette solo Yahoo Finance, TheStreet e Milano Finanza, apertura sbagliata,
 # mancati gli attacchi ai siti sauditi e il dollaro a 160 yen). Si controlla prima della scaletta, quando cercare costa poco.

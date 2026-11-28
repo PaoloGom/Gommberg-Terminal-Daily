@@ -33,4 +33,5 @@ AVVISO: 4,8% in 2 sezioni: APPROFONDIMENTO CHIP E ASIA, TOP NEWS
 AVVISO: 5,15% in 2 sezioni: APPROFONDIMENTO TASSI USA, TOP STORY
 AVVISO: eco "afp seoul economic daily" in 2 punti
 [ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
+AVVISI PER PAOLO E IL REVISORE: perché della scommessa da rileggere: Euro Stoxx 50
 ESITO: ERRORI in PDF e indice Fatti Numeri contro dati.json Scrittura (→, cause, sigle, ritmo) Contenuti (estremi, perché, anomalie...) Coerenza (testo contro dati) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia

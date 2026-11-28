@@ -15,7 +15,7 @@ PDF="${1:?pdf}"; N="${2:?numero}"; FATTI="${3:-}"; FASE="${4:-}"
 [ "$FATTI" = "--prima-della-revisione" ] && { FASE="$FATTI"; FATTI=""; }
 REPO="${GTD_REPO:-/home/claude/gtd}"; R="$REPO/redazione"; L="${GTD_LAVORO:-/home/claude/lavoro}"
 FATTI="${FATTI:-$L/fatti.json}"; mkdir -p "$L"
-ROSSI=(); TMP=$(mktemp)
+ROSSI=(); TMP=$(mktemp); RIEP=$(mktemp)
 
 passo() {  # passo <nome> <bloccante 1/0> <comando...>
   local nome="$1" blocca="$2"; shift 2
@@ -27,6 +27,8 @@ passo() {  # passo <nome> <bloccante 1/0> <comando...>
   # le schede da togliere per prime (se ce ne sono): con molte righe problema non devono uscire dalle 6 mostrate
   { grep -E "^DA_TOGLIERE: ." "$TMP"; grep -E "^(ERRORE|- )" "$TMP"; grep -E "^AVVISO" "$TMP"; } | head -6 | cut -c1-200
   if [ $rc -ne 0 ] && ! grep -qE "^(- |ERRORE)" "$TMP"; then tail -1 "$TMP" | cut -c1-160; fi
+  # gli avvisi per Paolo e per il revisore non si perdono nel taglio delle 6 righe: vanno nel riepilogo in fondo
+  grep -E "^AVVISO: (approfondiment|perché della scommessa)" "$TMP" >>"$RIEP" || true
 }
 
 if [ "${GTD_SENZA_INDICE:-0}" = "1" ]; then
@@ -76,6 +78,20 @@ fi
 passo "Ripetizioni" 1 python3 "$R/controlli_ripetizioni.py" "$PDF" --json "$L/ripetizioni.json"
 passo "Anteprima" 1 python3 "$R/anteprima.py" "$PDF" "$L/anteprima.png"
 rm -f "$TMP"
+if [ -s "$RIEP" ]; then   # una riga di riepilogo: quali approfondimenti senza fonte riconoscibile, quali perché rileggere
+  python3 - "$RIEP" <<'EOF'
+import re, sys
+r = open(sys.argv[1], encoding="utf-8").read().splitlines()
+app = [m.group(1) for x in r for m in [re.match(r"AVVISO: approfondimento (\S+):", x)] if m]
+pochi = any(x.startswith("AVVISO: approfondimenti con meno") for x in r)
+per = [m.group(1).strip() for x in r for m in [re.match(r"AVVISO: perché della scommessa da rileggere \(APP_LUNEDI §3\): ([^«:]+)", x)] if m]
+pezzi = ([f"{len(app)} approfondimenti senza fonte riconoscibile ({', '.join(app)})"] if app else []) + \
+        (["approfondimenti con meno di 6 schede"] if pochi else []) + \
+        ([f"perché della scommessa da rileggere: {', '.join(per)}"] if per else [])
+print("AVVISI PER PAOLO E IL REVISORE: " + "; ".join(pezzi))
+EOF
+fi
+rm -f "$RIEP"
 if [ ${#ROSSI[@]} -eq 0 ]; then
   echo "ESITO: OK - guarda $L/anteprima.png con Read (una sola immagine)"
 else

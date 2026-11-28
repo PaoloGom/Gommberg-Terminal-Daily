@@ -32,4 +32,5 @@ AVVISO: 4.586,80 in 2 sezioni: APPROFONDIMENTO CHIP E ASIA, TOP STORY
 AVVISO: eco "alza tre punti l'ires" in 2 punti
 AVVISO: eco "avviso pesa dollaro forte" in 2 punti
 [ok] Anteprima: 6 pagine -> <lavoro>/anteprima.png (1135x1062)
+AVVISI PER PAOLO E IL REVISORE: 1 approfondimenti senza fonte riconoscibile (oro); perché della scommessa da rileggere: Euro Stoxx 50, EUR/USD, Oro future
 ESITO: ERRORI in Scrittura (→, cause, sigle, ritmo) Coerenza (testo contro dati) - correggi tutto in un giro (APP_ERRORI.md), rigenera, rilancia

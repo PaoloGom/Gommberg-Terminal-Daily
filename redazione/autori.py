@@ -211,38 +211,16 @@ def affidabile(fonte):
     return lv == 1 or (lv > 1 and agenzia(fonte) is not None)
 
 
+GRANDI = set(F.get("grandi_testate", []))
+
+
 def riconoscibile(fonte):
     """Una fonte che il lettore riconosce (decisione di Paolo del 28/11/2026): il documento di chi è parte del fatto o di un
-    ente ufficiale, un lancio d'agenzia, o una grande testata (livello_1 di fonti.json). Una definizione sola: la usano
-    l'avviso sugli approfondimenti (controlli_fatti.py, pannello) e la misura "l1" di misure.py."""
-    return primaria(fonte) or affidabile(fonte)
-
-
-_DATI_DI_MERCATO = re.compile(r"\b(?:FMP|EODHD|Alpha Vantage|chiusur\w*|curva|livell\w*|volum\w*|serie)\b", re.I)
-_TLD = (".com", ".it", ".co.uk", ".co.kr", ".co.jp", ".de", ".fr", ".net", ".org", ".info")
-
-
-def nome_riconoscibile(nome, fatti=()):
-    """Un nome della riga Fonti è una fonte riconoscibile? Lo dicono, in quest'ordine: un'agenzia (fonti.json "agenzie"), la
-    parola comunicato o documento, le schede del giorno con quella testata (la fonte vale se riconoscibile), i nomi di
-    fonti.json "stesso_autore" e il sito ricavato dal nome ("CNBC" -> cnbc.com) nel livello_1. Maiuscole, articoli e
-    "The" non contano."""
-    n = re.sub(r"^(?:il|la|lo|l'|the)\s+", "", _s(nome).strip(" .").lower())
-    if not n:
-        return False
-    if agenzia({"testata": nome}) or any(agenzia({"testata": w}) for w in re.findall(r"[\w-]+", _s(nome))) \
-            or re.search(r"\b(?:comunicat\w*|document\w*|deposito)\b", n):
+    ente ufficiale, un lancio d'agenzia, o una grande testata (fonti.json "grandi_testate"). Una definizione sola, per
+    l'avviso sugli approfondimenti; non tocca livelli, regola dei fatti né la misura "l1"."""
+    if primaria(fonte) or agenzia(fonte):
         return True
-    for f in fatti:
-        for x in (f.get("fonti") or []) if isinstance(f, dict) else []:
-            t = re.sub(r"^(?:il|la|lo|l'|the)\s+", "", _s(x.get("testata") if isinstance(x, dict) else "").lower())
-            if isinstance(x, dict) and (t == n or t.split(" (")[0] == n) and riconoscibile(x):
-                return True
-    for gruppo in F.get("stesso_autore", []):
-        if n in {g.lower() for g in gruppo} and any(livello("https://" + g) == 1 for g in gruppo if "." in g):
-            return True
-    compatto = re.sub(r"[^a-z0-9]", "", n)
-    return bool(compatto) and any(livello("https://" + compatto + t) == 1 for t in _TLD)
+    return any(d in GRANDI for d in _suffissi(fonte.get("url")))
 
 
 def righe_degli_approfondimenti(C):
@@ -251,19 +229,55 @@ def righe_degli_approfondimenti(C):
             for m in (C or {}).get("moduli") or [] if isinstance(m, dict)]
 
 
+_DATI_DI_MERCATO = re.compile(r"\b(?:FMP|EODHD|Alpha Vantage|chiusur\w*|curva|livell\w*|volum\w*|serie)\b", re.I)
+
+
+def _norma(x):      # "Il Sole 24 Ore" -> "sole24ore"; "comunicato Nvidia" -> "nvidia" (il nome, non il tipo di documento)
+    x = re.sub(r"^(?:il|la|lo|l'|the)\s+", "", _s(x).strip(" .").lower())
+    x = re.sub(r"^(?:comunicat\w*|nota|document\w*|deposito)\s+(?:di |della |del |dell')?", "", x)
+    return re.sub(r"[^a-z0-9]", "", x)
+
+
+def _alias(fonte):
+    """I nomi con cui una fonte può comparire nella riga Fonti: la testata, l'agenzia, l'autore e i suoi nomi in
+    fonti.json "stesso_autore"."""
+    nomi = {_s(fonte.get("testata")).split(" (")[0], agenzia(fonte) or "", nome(autore(fonte))}
+    for g in F.get("stesso_autore", []):
+        if {_norma(n) for n in nomi} & {_norma(x) for x in g}:
+            nomi |= set(g)
+    return {_norma(n) for n in nomi} - {""}
+
+
+def _nomi_della_riga(riga):
+    testo = re.sub(r"^\s*Font[ei]:\s*", "", re.sub(r"<[^>]+>", "", _s(riga)))
+    pezzi = [x for x in re.split(r"[,;]", testo) if not _DATI_DI_MERCATO.search(x)]      # "FMP (oro future)" esce intero
+    return [x.strip(" .") for p in pezzi for x in re.split(r"[()]|\s+(?:via|tramite|e|ripres[oa] da|da)\s+", p) if x and x.strip(" .")]
+
+
 def approfondimenti_senza_riconoscibile(righe, fatti=()):
-    """righe = [(pezzo, riga Fonti)] degli approfondimenti. Torna [(pezzo, [nomi])] per quelli che nella riga Fonti non hanno
-    nemmeno una fonte riconoscibile: ogni nome si spezza anche dentro parentesi e "via"/"tramite"/"ripresa da", e le fonti
-    dei dati di mercato non contano né in un senso né nell'altro."""
+    """righe = [(pezzo, riga Fonti)]. Un approfondimento ha una fonte riconoscibile se un nome della sua riga Fonti è una
+    fonte riconoscibile di una scheda del giorno (prima quelle della sua tesi nel registro "scaletta", che non le elenca
+    sempre tutte): la testata della fonte, la sua agenzia o il suo autore. Il nome da solo non basta, la scheda sì. Torna
+    [(pezzo, [nomi])] per gli altri, anche con la riga vuota o di soli dati di mercato, o senza schede."""
+    fatti = [f for f in fatti if isinstance(f, dict)]
+    per_id = {_s(f.get("id")): f for f in fatti}
+    tesi = {_s(m.get("chiave")): [per_id[i] for i in m.get("schede") or [] if isinstance(i, str) and i in per_id]
+            for r in fatti if r.get("sezione") == "scaletta" and isinstance(r.get("moduli"), list)
+            for m in r["moduli"] if isinstance(m, dict)}
     out = []
     for pezzo, riga in righe:
-        testo = re.sub(r"<[^>]+>", "", _s(riga))
-        testo = re.sub(r"^\s*Font[ei]:\s*", "", testo)
-        pezzi = [x for x in re.split(r"[,;]", testo) if not _DATI_DI_MERCATO.search(x)]      # "FMP (oro future)" esce intero
-        nomi = [x.strip(" .") for p in pezzi for x in re.split(r"[()]|\s+(?:via|tramite|e|ripres[oa] da|da)\s+", p)
-                if x and x.strip(" .")]
-        if nomi and not any(nome_riconoscibile(x, fatti) for x in nomi):
-            out.append((pezzo, nomi))
+        nomi = _nomi_della_riga(riga)
+        # le schede della sua tesi, poi quelle del giorno: il registro "scaletta" non elenca sempre tutte le schede usate
+        schede = tesi.get(pezzo, []) + [f for f in fatti if f.get("fonti")]
+        chi = set()
+        for f in schede:
+            for x in f.get("fonti") or []:
+                if isinstance(x, dict) and riconoscibile(x):
+                    chi |= _alias(x)
+        if not tesi.get(pezzo):
+            out.append((pezzo, ["(nessuna scheda della sua tesi nel registro \"scaletta\")"]))
+        elif not any(_norma(n) in chi for n in nomi):
+            out.append((pezzo, nomi or ["(nessuna fonte oltre ai dati di mercato)"]))
     return out
 
 

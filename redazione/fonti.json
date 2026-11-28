@@ -103,7 +103,6 @@
   "treasurydirect.gov"
  ],
  "livello_1": [
-  "milanofinanza.it",
   "reuters.com",
   "apnews.com",
   "bloomberg.com",
@@ -219,7 +218,8 @@
   "firstonline.info",
   "marketscreener.com",
   "euronews.com",
-  "kiplinger.com"
+  "kiplinger.com",
+  "milanofinanza.it"
  ],
  "vietate": [
   "riotimesonline.com",
@@ -331,11 +331,12 @@
   "Yonhap",
   "Kyodo",
   "Agence France-Presse"
- ],
+ , "AWP", "Xinhua", "EFE", "Adnkronos", "AGI", "Askanews"],
+ "nota_grandi_testate": "Grandi testate che il lettore riconosce (decisione di Paolo del 28/11/2026: Financial Times, Wall Street Journal, Sole 24 Ore, MF, Reuters, Bloomberg e simili). Valgono solo per l'avviso sugli approfondimenti (autori.riconoscibile): non toccano livelli, regola dei fatti né misura l1. Le agenzie stanno in agenzie, i documenti ufficiali in ufficiali e nel campo primaria della scheda.",
+ "grandi_testate": ["ft.com", "wsj.com", "ilsole24ore.com", "radiocor.ilsole24ore.com", "milanofinanza.it", "reuters.com", "bloomberg.com", "nytimes.com", "economist.com", "cnbc.com", "nikkei.com", "asia.nikkei.com", "corriere.it", "repubblica.it", "handelsblatt.com", "faz.net", "lesechos.fr", "lemonde.fr", "barrons.com", "marketwatch.com", "scmp.com", "aljazeera.com", "koreatimes.co.kr", "koreaherald.com", "afp.com", "apnews.com"],
  "nota_stesso_autore": "Nomi e siti che sono un autore solo (il primo nome lo rappresenta): un'agenzia o una testata conta una volta, sul suo sito e ovunque sia ripresa. Qui vanno solo i casi in cui il nome non coincide con il sito (ft.com e Financial Times): Fortune e fortune.com si riconoscono da soli. Lo legge autori.py.",
  "stesso_autore": [
   ["Milano Finanza", "MF", "milanofinanza.it"],
-  ["Nikkei Asia", "Nikkei", "asia.nikkei.com", "nikkei.com"],
   ["Reuters", "reuters.com"],
   ["AP", "Associated Press", "AP News", "apnews.com"],
   ["AFP", "Agence France-Presse", "afp.com"],

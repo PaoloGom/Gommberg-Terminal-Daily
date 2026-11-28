@@ -949,13 +949,27 @@ def passo_fonti():
     # grande testata bastano; soli siti minori no (casi delle edizioni #028-#035)
     sys.path.insert(0, R)
     import autori as A
-    senza = getattr(A, "approfondimenti_senza_riconoscibile", lambda r, f=(): [(p, []) for p, _ in r])
+    senza = getattr(A, "approfondimenti_senza_riconoscibile", None)
+    sch = lambda i, t, u, **k: {"id": i, "sezione": "deep_dive", "testo": "x", "fonti": [dict({"testata": t, "url": u}, **k)]}   # noqa: E731
+    fx = [sch("A1", "Reuters (Business Day)", "https://businessday.ng/a", agenzia="Reuters"),
+          sch("B1", "Bloomberg (Rigzone)", "https://www.rigzone.com/a", agenzia="Bloomberg"),
+          sch("C1", "SoldiOnline (testo ANSA)", "https://www.soldionline.it/a", agenzia="ANSA"),
+          sch("D1", "NVIDIA (comunicato, SEC)", "https://www.sec.gov/a", primaria=True),
+          sch("E1", "Il Sole 24 Ore", "https://www.ilsole24ore.com/a"), sch("F1", "Milano Finanza", "https://www.milanofinanza.it/a"),
+          sch("G1", "Investrade", "https://investrade.com/a"), sch("H1", "FINANCIAL", "https://finchannel.com/a"),
+          sch("L1", "The Company Chronicle", "https://companychronicle.com/a"),
+          sch("N1", "Substack", "https://x.substack.com/a"), sch("O1", "Reuters Connect partner site Foo", "https://foo.com/a")]
+    chiavi = {"a": "A1", "b": "B1", "c": "C1", "d": "D1", "e": "E1", "f": "F1", "g": "G1", "h": "H1", "i": "G1", "l": "L1",
+              "m": "G1", "n": "N1", "o": "O1"}
+    fx.append({"id": "S1", "sezione": "scaletta", "moduli": [{"chiave": k, "schede": [v]} for k, v in chiavi.items()]})
     righe = [("a", "Fonti: Reuters (Business Day), Newsquawk."), ("b", "Fonti: Rigzone (Bloomberg); chiusure del Brent future (FMP)."),
              ("c", "Fonti: SoldiOnline (testo ANSA)."), ("d", "Fonti: comunicato Nvidia (SEC), Aju Press."), ("e", "Fonti: Il Sole 24 Ore."),
              ("f", "Fonti: MF, Kitco."), ("g", "Fonti: Investrade, Schwab."), ("h", "Fonte: FINANCIAL (finchannel)."),
-             ("i", "Fonti: FMP (oro future), Alpha Vantage (EUR/USD)."), ("l", "Fonti: The Company Chronicle; chiusure dell'oro future da FMP.")]
-    trovati = [p for p, _ in senza(righe)]
-    male += [] if trovati == ["g", "h", "l"] else [f"fonte riconoscibile: senza fonte riconoscibile {trovati} (attesi g, h, l)"]
+             ("i", "Fonti: FMP (oro future), Alpha Vantage (EUR/USD)."), ("l", "Fonti: The Company Chronicle; chiusure dell'oro future da FMP."),
+             ("m", "Fonti: Financial Times."), ("n", "Fonti: Documento di un analista su Substack."), ("o", "Fonti: Reuters Connect partner site Foo.")]
+    trovati = [p for p, _ in senza(righe, fx)] if senza else "assente"
+    attesi = ["g", "h", "i", "l", "m", "n", "o"]
+    male += [] if trovati == attesi else [f"fonte riconoscibile: senza fonte riconoscibile {trovati} (attesi {attesi})"]
     # l'avviso nel controllo dei fatti, sull'edizione vera del 23/11 (oro con soli Investrade e Schwab): avviso, non errore
     ed = os.path.join(lav, "ed23")
     shutil.rmtree(ed, ignore_errors=True); os.makedirs(ed)
