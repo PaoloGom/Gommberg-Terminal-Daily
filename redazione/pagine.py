@@ -4,6 +4,7 @@
 Crea, per ogni edizione:
   e/NNN.html  pagina dell'edizione: prima pagina in testo, link al PDF, anteprima ricca su WhatsApp
   e/NNN.png   immagine di anteprima 1200x630 (titolo e chiusure, colori per segno)
+  e/NNN/<chiave>.html  una pagina per ogni analisi di "Analisi e storie", dai sorgenti archiviati (analisi_sito.py, G-64)
 e inoltre:
   e/pagine.json  numeri delle edizioni con pagina (il sito la usa per i link da condividere)
   feed.xml       feed RSS delle ultime 30 edizioni
@@ -145,7 +146,8 @@ ol.news li{counter-increment:n;display:grid;grid-template-columns:40px 1fr;gap:6
 ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--display);font-weight:800;color:var(--orange);font-size:20px}
 .inside{display:grid;gap:10px}.inside div{background:var(--panel);padding:12px 14px}
 .inside small{display:block;font-family:var(--mono);font-size:12px;color:var(--orange-ink);text-transform:uppercase;letter-spacing:.04em}
-.inside b{font-weight:600}.inside a{display:block;text-decoration:none}.inside small i{float:right;font-style:normal;color:var(--muted);text-transform:none;letter-spacing:0}
+.inside b{font-weight:600}.inside a{display:block;text-decoration:none}
+.inside a.txt{display:inline-block;margin-top:6px;font-family:var(--mono);font-size:13px;color:var(--orange-ink);border-bottom:1px solid var(--orange)}.inside a.txt:hover{color:var(--ink)}.inside small i{float:right;font-style:normal;color:var(--muted);text-transform:none;letter-spacing:0}
 .ag{list-style:none;margin:0;padding:0}.ag li{padding:12px 0;border-bottom:1px solid var(--rule)}
 .ag li.key{background:var(--panel);box-shadow:inset 3px 0 0 var(--orange);padding-inline:14px 10px}
 .ag small{display:block;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
@@ -171,8 +173,9 @@ ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--disp
 # home e nelle pagine di Impara): una chiusura sola in tre schede uguali, perché anche chi si iscrive fa salire il GOMM. I numeri li calcola assets/gomm.js, lo stesso de I numeri e della homepage;
 # senza dati resta solo l'invito.
 GOMM_V = "2026-11-22"   # cambia quando cambia assets/gomm.js (il browser riprende il file nuovo)
-GOMM_JS = """<script src="../assets/gomm.js?v=""" + GOMM_V + """"></script>
-<script>if (window.GOMM) GOMM.fascia(document.getElementById("gb"));</script>"""
+def gomm_js(root="../"):
+    return (f'<script src="{root}assets/gomm.js?v={GOMM_V}"></script>\n'
+            '<script>if (window.GOMM) GOMM.fascia(document.getElementById("gb"));</script>')
 
 
 # La Gommunity (G-13) in ogni edizione, dopo "In 30 secondi": lo stesso sentiment e la stessa discussione della homepage
@@ -190,20 +193,20 @@ def lettori_js(ed):
 SVG_MAIL = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>'
 
 
-def gomm_box(url, titolo):
+def gomm_box(url, titolo, root="../"):
     """La fascia "Fai salire il GOMM" (stile in assets/sito.css, .gb; la stessa sta a mano in index.html): titolo e valore,
     il grafico degli ultimi 30 giorni che porta a I numeri, poi inoltra e iscriviti affiancati."""
     return ('<section class="gb vuoto" id="gb" aria-labelledby="gb-h">'
             '<div class="gb-top"><div><h2 class="gb-h" id="gb-h">Fai salire il GOMM</h2>'
             '<p class="gb-s">La quotazione del Gommberg sale con ogni lettore nuovo.</p></div>'
             '<p class="gb-v" data-gomm-q><span class="gb-tag">GOMM</span><b data-gomm="v"></b><span class="c" data-gomm="c"></span></p></div>'
-            '<a class="gb-ch" href="../numeri.html" data-gomm-q><span class="gb-m" data-gomm="barre" aria-hidden="true"></span>'
+            f'<a class="gb-ch" href="{root}numeri.html" data-gomm-q><span class="gb-m" data-gomm="barre" aria-hidden="true"></span>'
             '<span class="gb-ax" data-gomm="ax"></span></a>'
             '<div class="gb-bar"><div><p class="gb-t">Inoltrala a chi vuole capire i mercati</p><div class="gb-r">'
             f'<a class="gb-b pr" href="https://wa.me/?text={quote(titolo + " " + url)}" target="_blank" rel="noopener">{SVG_WA}<span>WhatsApp</span></a>'
             f'<button type="button" class="gb-b gh" data-copy="{esc(url)}">{SVG_LINK}<span>Copia link</span></button></div></div>'
             '<div><p class="gb-t">Ricevila ogni mattina alle 9:45. Gratis.</p><div class="gb-r">'
-            '<a class="gb-b pr" href="../iscriviti.html" data-goatcounter-click="invito-iscrizione" '
+            f'<a class="gb-b pr" href="{root}iscriviti.html" data-goatcounter-click="invito-iscrizione" '
             f'data-goatcounter-title="Invito all\'iscrizione (clic)">{SVG_MAIL}<span>Iscriviti via email</span></a></div></div></div></section>')
 
 
@@ -389,7 +392,10 @@ def pagina(ed, prec, succ):
             pg = pp[i] if i < len(pp) else None
             dentro = (f'<small>{esc(x.get("tema", ""))}{f"<i>pag. {pg}</i>" if pg else ""}</small>'
                       f'<b>{colora(x.get("titolo", ""))}</b>')
-            riga.append(f'<div><a data-pdf="letta" href="{esc(pdf)}#page={pg}">{dentro}</a></div>' if pg else f"<div>{dentro}</div>")
+            # il titolo porta al giornale, come sempre (il PDF resta la lettura principale); se l'analisi ha la sua
+            # pagina (G-64), sotto c'è il rimando al testo da leggere qui
+            testo = (f'<a class="txt" href="{esc(x["pagina"][2:])}">Leggi il testo qui &rsaquo;</a>' if x.get("pagina") else "")
+            riga.append(f'<div><a data-pdf="letta" href="{esc(pdf)}#page={pg}">{dentro}</a>{testo}</div>' if pg else f"<div>{dentro}{testo}</div>")
         a(f'<section><h2>{"Analisi e storie" if pp else "Gli approfondimenti"}</h2><div class="inside">' + "".join(riga) + "</div></section>")
     if ed.get("agenda"):   # il calendario: quando, cosa, attese, perché conta e (struttura v9) come può muovere i mercati
         righe = []
@@ -422,7 +428,7 @@ def pagina(ed, prec, succ):
     a(f'<div class="pn">{"".join(nav)}</div>')
     a("</main>")
     a(VOTO_JS.replace("NNN", n))
-    a(GOMM_JS)
+    a(gomm_js())
     a(lettori_js(ed))
     a(piede("../"))
     a("</body>\n</html>\n")
@@ -453,13 +459,17 @@ FISSE = (("", "daily", "1.0"), ("archivio.html", "daily", "0.8"), ("glossario.ht
 
 
 def mappa_sito(eds):
-    """sitemap.xml: le pagine fisse e una riga per edizione (e/NNN.html), da dare a Google Search Console."""
+    """sitemap.xml: le pagine fisse, una riga per edizione (e/NNN.html) e una per analisi con pagina (e/NNN/<chiave>.html),
+    da dare a Google Search Console. lastmod: il giorno dell'edizione (il testo non cambia dopo l'uscita)."""
     oggi = eds[0]["data"] if eds else ""
     r = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for h, f, pr in FISSE:
         r.append(f"<url><loc>{BASE}{h}</loc><lastmod>{oggi}</lastmod><changefreq>{f}</changefreq><priority>{pr}</priority></url>")
     for e in eds:
         r.append(f"<url><loc>{BASE}e/{nnn(e['numero'])}.html</loc><lastmod>{e['data']}</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>")
+        for x in e.get("approfondimenti") or []:   # le pagine delle analisi (G-64): il testo è quello del giorno
+            if isinstance(x, dict) and x.get("pagina"):
+                r.append(f"<url><loc>{BASE}{x['pagina']}</loc><lastmod>{e['data']}</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>")
     r.append("</urlset>")
     return "\n".join(r) + "\n"
 
@@ -516,7 +526,11 @@ def dati_sito(repo, rec):
     for ed in rec:
         scrivi(os.path.join(repo, "e", nnn(ed["numero"]) + ".json"), js(ed))
     indice = [{"n": e["numero"], "d": e["data"], "al": e.get("ticker_al") or e["data"], "t": e["titolo"],
-               "temi": e.get("temi") or [], "m": mondo(e)} for e in rec]
+               "temi": e.get("temi") or [], "m": mondo(e),
+               # le analisi con pagina (G-64): [chiave, tema]; l'indirizzo è e/NNN/<chiave>.html
+               **({"a": [[x["pagina"].rsplit("/", 1)[1][:-5], x.get("tema") or ""] for x in e.get("approfondimenti") or []
+                         if isinstance(x, dict) and x.get("pagina")]} if any(isinstance(x, dict) and x.get("pagina") for x in e.get("approfondimenti") or []) else {})}
+              for e in rec]
     cerca = {str(e["numero"]): " | ".join(x for x in [e.get("dek") or "", *(e.get("sommario") or []), *(e.get("notizie") or []),
                                                     *[a.get("titolo", "") for a in e.get("approfondimenti") or [] if isinstance(a, dict)],
                                                     " ".join(e.get("glossario") or [])] if x) for e in rec}
@@ -570,6 +584,16 @@ def main():
     except (OSError, ValueError, KeyError):
         pass
     os.makedirs(os.path.join(repo, "e"), exist_ok=True)
+    # le pagine delle analisi (G-64) prima delle pagine delle edizioni, che le collegano: ogni approfondimento che ha
+    # la sua pagina riceve "pagina" (e/NNN/<chiave>.html) nella copia per il sito (e/NNN.json, dati/); edizioni.json non cambia
+    import analisi_sito
+    me, analisi = sys.modules[__name__], 0
+    for k, ed in enumerate(eds):
+        fatte = analisi_sito.pagine_edizione(me, repo, ed)
+        analisi += len(fatte)
+        if fatte:
+            ed = eds[k] = dict(ed, approfondimenti=[dict(x, pagina=fatte[j]) if j in fatte and isinstance(x, dict) else x
+                                                    for j, x in enumerate(ed.get("approfondimenti") or [])])
     cambiati = 0
     for i, ed in enumerate(eds):
         prec = eds[i - 1] if i > 0 else None
@@ -585,7 +609,7 @@ def main():
     dati_sito(repo, rec)
     if piede_fisse(repo):
         print("Pagine fisse: piè di pagina riallineato")
-    print(f"Pagine: {len(eds)} edizioni ({cambiati} pagine aggiornate), feed.xml, ultima/, dati/")
+    print(f"Pagine: {len(eds)} edizioni ({cambiati} pagine aggiornate), {analisi} analisi, feed.xml, ultima/, dati/")
 
 
 if __name__ == "__main__":

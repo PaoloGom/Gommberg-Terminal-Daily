@@ -56,7 +56,8 @@ ol.news li{counter-increment:n;display:grid;grid-template-columns:40px 1fr;gap:6
 ol.news li:before{content:counter(n,decimal-leading-zero);font-family:var(--display);font-weight:800;color:var(--orange);font-size:20px}
 .inside{display:grid;gap:10px}.inside div{background:var(--panel);padding:12px 14px}
 .inside small{display:block;font-family:var(--mono);font-size:12px;color:var(--orange-ink);text-transform:uppercase;letter-spacing:.04em}
-.inside b{font-weight:600}.inside a{display:block;text-decoration:none}.inside small i{float:right;font-style:normal;color:var(--muted);text-transform:none;letter-spacing:0}
+.inside b{font-weight:600}.inside a{display:block;text-decoration:none}
+.inside a.txt{display:inline-block;margin-top:6px;font-family:var(--mono);font-size:13px;color:var(--orange-ink);border-bottom:1px solid var(--orange)}.inside a.txt:hover{color:var(--ink)}.inside small i{float:right;font-style:normal;color:var(--muted);text-transform:none;letter-spacing:0}
 .ag{list-style:none;margin:0;padding:0}.ag li{padding:12px 0;border-bottom:1px solid var(--rule)}
 .ag li.key{background:var(--panel);box-shadow:inset 3px 0 0 var(--orange);padding-inline:14px 10px}
 .ag small{display:block;font-family:var(--mono);font-size:12.5px;color:var(--muted)}

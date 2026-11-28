@@ -1,0 +1,480 @@
+{
+ "formato": 1,
+ "data": "2026-11-26",
+ "moduli": [
+  {
+   "chiave": "wall",
+   "pagina": "wall",
+   "tema": "Wall Street",
+   "titolo": "A Wall Street le azioni risalgono, ma la paura sale ancora",
+   "perche": "Le azioni sono risalite e il VIX è salito lo stesso: per l'AP i dubbi riguardano il ritmo degli investimenti in intelligenza artificiale, per Yahoo Finance i costi di finanziamento. A nostro avviso la paura è passata dalle azioni al debito.",
+   "quindi": "Venerdì: VIX sotto 25, il recupero regge; sopra 28, era calma apparente.",
+   "numero": "15,34%: il costo annuo dell'assicurazione sul debito a 5 anni di CoreWeave.",
+   "testo": [
+    "Un Nasdaq che perde lo 0,6% sembra una giornata qualsiasi, ma in mezzo c'è stato un crollo del 4,6%, poi riassorbito dagli acquisti. Chi compra e chi vende non si fidano l'uno dell'altro, e cambiano idea in poche ore.",
+    "Lo si vede nel VIX, che misura quanto gli operatori si aspettano che l'S&P 500 si muova nel prossimo mese, ricavandolo dal prezzo delle polizze di protezione. Ieri è salito del 7% con la borsa quasi ferma: chi si protegge paga caro anche dopo il rimbalzo.",
+    "Un secondo termometro è il costo di assicurarsi contro il fallimento di un'azienda, i cosiddetti CDS. Per i debiti a cinque anni di CoreWeave è arrivato, secondo Bloomberg, al 15,34% annuo. Record analoghi hanno toccato i contratti su Nvidia, Alphabet e Oracle. Chi presta soldi a queste società chiede di più per il rischio. A nostro avviso il nodo di mercoledì non è il prezzo dei titoli. È la capacità di queste imprese di finanziare, a tassi sostenibili, i data center che hanno promesso di costruire.",
+    "Nvidia ha poi un problema suo: S&P Global Ratings ha messo sotto osservazione il rating AA per questioni di governance e non di conti. L'agenzia indica l'indipendenza del consiglio, la dipendenza da Jensen Huang, dimesso il 12 novembre e rientrato lunedì, e l'esposizione alla Cina. Un taglio del rating alzerebbe il costo con cui Nvidia si indebita. In un momento in cui il mercato dubita già del debito dell'intelligenza artificiale, darebbe un segnale a tutto il settore."
+   ],
+   "guardare": "Da seguire il costo di quelle assicurazioni: se resta ai massimi mentre le azioni risalgono, il rimbalzo ha le gambe corte. Per Nvidia la decisione di S&P arriva entro circa 90 giorni. Venerdì, con la seduta ridotta, è il primo banco di prova. Se i prezzi tengono anche con pochi scambi, il rimbalzo regge meglio di quanto sembri.",
+   "fonte": "Fonti: AP, Yahoo Finance, Bloomberg, S&P Global Ratings tramite StockAnalysis.com; livelli del VIX da FMP.",
+   "misura": "doppio",
+   "grafici": [
+    {
+     "file": "wall-1",
+     "dati": {
+      "tipo": "barre",
+      "dati": [
+       [
+        "S&P 500, minimo",
+        -3.2
+       ],
+       [
+        "S&P 500, chiusura",
+        -0.25
+       ],
+       [
+        "Nasdaq, minimo",
+        -4.6
+       ],
+       [
+        "Nasdaq, chiusura",
+        -0.62
+       ]
+      ],
+      "ordina": false,
+      "dec": 2,
+      "unita": "%",
+      "titolo": "A fine seduta il recupero ha cancellato quasi tutta la perdita",
+      "sottotitolo": "variazioni % del 25/11: minimo di giornata e chiusura"
+     },
+     "misure": [
+      538,
+      148
+     ]
+    },
+    {
+     "file": "wall-2",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       },
+       {
+        "$d": "2026-11-19"
+       },
+       {
+        "$d": "2026-11-20"
+       },
+       {
+        "$d": "2026-11-23"
+       },
+       {
+        "$d": "2026-11-24"
+       },
+       {
+        "$d": "2026-11-25"
+       }
+      ],
+      "serie": [
+       [
+        "VIX",
+        [
+         17.49,
+         18.7,
+         19.3,
+         22.91,
+         25.46,
+         24.56,
+         28.44,
+         35.89,
+         26.62,
+         26.36,
+         28.29
+        ],
+        "#111111"
+       ]
+      ],
+      "titolo": "Il VIX non scende sotto 26 da cinque sedute",
+      "sottotitolo": "VIX, chiusure",
+      "note": [
+       [
+        {
+         "$d": "2026-11-20"
+        },
+        35.89,
+        "20/11"
+       ],
+       [
+        {
+         "$d": "2026-11-25"
+        },
+        28.29,
+        "25/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "tassi",
+   "pagina": "tassi",
+   "tema": "Tassi USA",
+   "titolo": "Inflazione sopra le attese, ma il mercato guarda alla crescita",
+   "perche": "A nostro avviso il mercato ha pesato più il rischio per la crescita che l'inflazione. L'indice dei prezzi dei consumi al netto di energia e alimentari (core PCE) sale al 3,3%, un decimo sopra le attese. Di solito un dato così alza i rendimenti a breve, e infatti ieri il 2 anni è sceso comunque, come il 10 anni, di 6 pb.",
+   "quindi": "Un 10 anni che torna sopra il 4,92% di lunedì e martedì direbbe che l'inflazione è tornata a contare più della paura. Oggi i mercati americani sono chiusi: nessun nuovo dato. Ne darebbe un primo segnale la seduta di venerdì, a Wall Street, che chiude alle 13:00 di New York.",
+   "testo": [
+    "Perché un dato che alza le attese sulla Fed ha fatto scendere il rendimento a 10 anni? Perché il 10 anni non guarda solo alla Fed. Segue anche la crescita e i prezzi dei prossimi anni, mentre il 2 anni è più legato alle mosse immediate della banca centrale. Così un'inflazione alta spinge su il breve, e il lungo può scendere se si teme che dazi e borse in calo frenino l'economia. Quando si comprano titoli di Stato per metterli al riparo il prezzo sale, e il rendimento, che si muove al contrario, scende.",
+    "Il rialzo di dicembre, intanto, è già scontato dai mercati. Secondo Reuters, il CME FedWatch, che ricava le probabilità dai future sui tassi, prezza 25 pb alla riunione dell'8-9 dicembre, con il tasso ufficiale tra 3,75% e 4,00%."
+   ],
+   "fonte": "Fonti: Reuters, Yahoo Finance, Longbridge; curva dei Treasury da FMP.",
+   "righe": [
+    [
+     "Dato di ottobre/Q3",
+     "Uscito",
+     "Atteso"
+    ],
+    [
+     "Prezzi di fondo (core PCE), annuo",
+     "3,3%",
+     "3,2%"
+    ],
+    [
+     "Prezzi dei consumi (PCE), annuo",
+     "3,8%",
+     "in linea"
+    ]
+   ],
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "tassi-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       },
+       {
+        "$d": "2026-11-19"
+       },
+       {
+        "$d": "2026-11-20"
+       },
+       {
+        "$d": "2026-11-23"
+       },
+       {
+        "$d": "2026-11-24"
+       },
+       {
+        "$d": "2026-11-25"
+       }
+      ],
+      "serie": [
+       [
+        "10 anni",
+        [
+         5.12,
+         5.1,
+         5.07,
+         5.04,
+         4.92,
+         4.92,
+         4.91,
+         4.85
+        ],
+        "#F26B1D"
+       ],
+       [
+        "2 anni",
+        [
+         4.83,
+         4.8,
+         4.8,
+         4.76,
+         4.63,
+         4.63,
+         4.63,
+         4.61
+        ],
+        "#111111"
+       ]
+      ],
+      "titolo": "Rendimenti in flessione da una settimana, anche dopo il dato",
+      "sottotitolo": "Treasury 10 e 2 anni, chiusure (%)"
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "dazi",
+   "pagina": "dazi",
+   "tema": "Dazi",
+   "titolo": "I dazi sono ancora una proposta, ma l'Europa li ha già messi nei prezzi",
+   "perche": "Washington ha proposto nuovi dazi su 14 economie, ma per ABC News e Yahoo Finance non entreranno in vigore prima di gennaio. A nostro avviso il mercato non aspetta: chi vende ora paga in anticipo l'incertezza su quanto toccherà, nei prossimi mesi, alle imprese che esportano negli Stati Uniti.",
+   "quindi": "Gli indici europei di oggi mostrano se l'ondata di vendite è finita. L'Euro Stoxx 50 riparte dal livello più basso da maggio. Un nuovo calo direbbe che il mercato sta ancora prezzando i dazi. Conta anche se arrivano risposte dall'Unione europea.",
+   "testo": [
+    "Per la Cina il rialzo proposto è di 20 punti sopra il circa 25% già in vigore. Per Unione europea, Giappone, Corea e Taiwan le aliquote restano coerenti con il tetto del 15% degli accordi.",
+    "Perché le borse reagiscono a una norma che non c'è? Un dazio è un costo in più sui beni importati. Il peso si divide tra chi compra, chi importa e chi esporta. Le proporzioni cambiano da settore a settore. Le imprese europee non sanno ancora quale parte toccherà a loro. Per dpa-AFX sul calo di mercoledì hanno pesato insieme la fuga dai titoli dell'intelligenza artificiale, i nuovi dazi e le perdite delle banche europee. Per questo oggi conta capire se l'ondata di vendite è finita o se i listini cercano ancora un prezzo."
+   ],
+   "fonte": "Fonti: ABC News, Yahoo Finance, AP, Al Jazeera, RTE (AFP e Reuters), dpa-AFX, ANSA; livelli di FMP ed EODHD.",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "dazi-1",
+     "dati": {
+      "tipo": "barre",
+      "dati": [
+       [
+        "Euro Stoxx 50",
+        -1.82
+       ],
+       [
+        "FTSE MIB",
+        -1.81
+       ],
+       [
+        "DAX",
+        -1.26
+       ],
+       [
+        "Nasdaq",
+        -0.62
+       ],
+       [
+        "S&P 500",
+        -0.25
+       ]
+      ],
+      "ordina": false,
+      "dec": 2,
+      "unita": "%",
+      "titolo": "Le borse europee perdono più di quelle americane",
+      "sottotitolo": "variazioni % del 25/11"
+     },
+     "misure": [
+      538,
+      173
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "corea",
+   "pagina": "corea",
+   "tema": "Asia",
+   "titolo": "La Corea alza i tassi il giorno dopo il crollo della borsa",
+   "perche": "La Bank of Korea ha alzato il tasso per un'inflazione persistente e una crescita più forte del previsto, scrive il Korea Times. A nostro avviso guarda all'economia e non al Kospi: l'export di chip sostiene la crescita anche mentre i prezzi dei titoli crollano.",
+   "quindi": "Il livello da guardare è 4.697,51, la chiusura più bassa di mercoledì. Sotto, il rimbalzo di giovedì sarebbe cancellato. Il rialzo dei tassi peserebbe di più sulle banche e sugli investitori che comprano a credito, con effetti anche sui fondi esteri. Conta anche se gli stranieri tornano a comprare dopo le vendite di giovedì.",
+   "testo": [
+    "Una banca centrale che stringe mentre la borsa perde il 6% sembra un controsenso. Non lo è: il suo compito sono i prezzi al consumo, e non può aspettare che la borsa si calmi.",
+    "Il Kospi e la borsa di Taiwan pesano molto sui semiconduttori, perciò di solito seguono i chip americani della sera prima. Mercoledì il calo del 6,16% è arrivato dopo la vendita a Wall Street e, per il Korea Daily, con i timori sui dazi. Giovedì l'indice ha guadagnato oltre il 2% in seduta ma ha chiuso a +0,29%. Gli istituzionali hanno comprato per 750,9 miliardi di won e il retail ne ha venduti per 1.040. Gli stranieri hanno venduto per 113,6 miliardi: a comprare, nel giorno del rimbalzo, sono stati soprattutto i fondi coreani."
+   ],
+   "fonte": "Fonti: Korea Times, Seoul Economic Daily, Korea Daily, Al Jazeera; chiusure di FMP.",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "corea-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       },
+       {
+        "$d": "2026-11-19"
+       },
+       {
+        "$d": "2026-11-20"
+       },
+       {
+        "$d": "2026-11-23"
+       },
+       {
+        "$d": "2026-11-24"
+       },
+       {
+        "$d": "2026-11-25"
+       },
+       {
+        "$d": "2026-11-26"
+       }
+      ],
+      "serie": [
+       [
+        "Kospi",
+        [
+         5239.13,
+         5375.36,
+         5342.73,
+         5290.53,
+         5100.5,
+         4968.48,
+         5067.44,
+         5137.89,
+         4869.96,
+         4708.54,
+         5006.03,
+         4697.51,
+         4711.21
+        ],
+        "#111111"
+       ]
+      ],
+      "titolo": "Il Kospi ha perso quasi il 13% dal massimo dell'11 novembre",
+      "sottotitolo": "Kospi, chiusure (punti)",
+      "note": [
+       [
+        {
+         "$d": "2026-11-11"
+        },
+        5375.36,
+        "11/11"
+       ],
+       [
+        {
+         "$d": "2026-11-25"
+        },
+        4697.51,
+        "25/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "petrolio",
+   "pagina": "petrolio",
+   "tema": "Petrolio",
+   "titolo": "Il Brent sale su voci di mine a Hormuz che nessuno conferma",
+   "perche": "Per Bloomberg il rialzo nasce dall'escalation in Medio Oriente e dai report iraniani di petroliere finite su mine nello Stretto di Hormuz, notizie senza conferma indipendente.",
+   "quindi": "Il livello da guardare è 94,61 dollari, la chiusura di mercoledì: sopra, il rialzo regge; sotto, rientra. Domenica 29 si riunisce l'OPEC+.",
+   "numero": "+1,1 milioni di barili: l'aumento delle scorte USA di greggio, contro i +1,5 milioni attesi.",
+   "testo": [
+    "Il petrolio sale per una notizia che nessuno ha verificato. Eppure il Brent ha chiuso a 94,61 dollari, in scambi sottili per la pausa americana del Ringraziamento.",
+    "Un rialzo che nasce da un rischio sulle forniture, e non da una domanda forte, di solito pesa sulla crescita. Pesa anche sulle borse dei paesi che importano, come Europa e Giappone. Arriva poi presto alla benzina e al gasolio, quindi all'inflazione complessiva, mentre sui prezzi di fondo ci mette più tempo."
+   ],
+   "fonte": "Fonti: Bloomberg tramite Rigzone, OilPrice.com, Reuters; chiusure del Brent future da FMP.",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "petrolio-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-18"
+       },
+       {
+        "$d": "2026-11-19"
+       },
+       {
+        "$d": "2026-11-20"
+       },
+       {
+        "$d": "2026-11-23"
+       },
+       {
+        "$d": "2026-11-24"
+       },
+       {
+        "$d": "2026-11-25"
+       }
+      ],
+      "serie": [
+       [
+        "Brent",
+        [
+         91.95,
+         91.98,
+         92.57,
+         89.37,
+         91.4,
+         94.61
+        ],
+        "#F26B1D"
+       ]
+      ],
+      "titolo": "Il Brent riparte dal minimo di lunedì",
+      "sottotitolo": "Brent future, chiusure ($)",
+      "note": [
+       [
+        {
+         "$d": "2026-11-23"
+        },
+        89.37,
+        "23/11"
+       ],
+       [
+        {
+         "$d": "2026-11-25"
+        },
+        94.61,
+        "25/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  }
+ ]
+}

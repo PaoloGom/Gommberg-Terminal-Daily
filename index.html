@@ -207,7 +207,10 @@ main { padding-block: 44px 24px; }
    sulla pagina larga (una sola sotto i 536 px di colonna); con un numero
    dispari di analisi la prima (quella di pag. 2) prende tutta la riga, così non resta mai una casella vuota. */
 .an-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(max(250px, calc(50% - 18px)), 1fr)); column-gap: 36px; }
-.an-list li { display: flex; }
+.an-list li { display: flex; flex-direction: column; }
+/* G-64: sotto il titolo, il testo dell'analisi da leggere sul sito (la riga resta il rimando alla pagina del giornale) */
+.an-list .an-txt { align-self: flex-start; margin: -12px 0 18px; font-family: var(--mono); font-size: 12.5px; color: var(--orange-ink); text-decoration: none; border-bottom: 1px solid var(--orange); }
+.an-list .an-txt:hover { color: var(--ink); }
 .an-list li.apre { grid-column: 1 / -1; }
 .an-row { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto 1fr; gap: 6px 16px; width: 100%; padding: 16px 0 20px; border: 0; border-top: 1px solid var(--ink); text-align: left; background: none; color: inherit; font: inherit; text-decoration: none; }
 button.an-row, a.an-row { cursor: pointer; }
@@ -690,7 +693,9 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       r.appendChild(g);
       r.appendChild(el("span", "t", a.titolo));
       if (p) { r.type = "button"; r.addEventListener("click", () => apriPagina(p)); }
-      li.appendChild(r); list.appendChild(li);
+      li.appendChild(r);
+      if (a.pagina) { const tx = el("a", "an-txt", "Leggi il testo qui \u203a"); tx.href = a.pagina; li.appendChild(tx); }
+      list.appendChild(li);
     });
   }
   // La colonna "Da tenere d'occhio" sparisce solo se non ha né agenda né scommessa: allora "Da leggere" prende tutta la larghezza
@@ -1037,7 +1042,7 @@ footer .legal { color: var(--muted); font-size: 12.5px; }
       if (!editions.length) { fail("Ancora nessuna edizione in archivio.", false); return; }
       showEdition(editions.find((e) => e.numero === want) || editions[0], false);
       // ?leggi=1 (dalla pagina dell'edizione, da PC): apre subito la lettura a schermo intero
-      if (params.get("leggi") === "1" && desktop()) { let t = 0; const iv = setInterval(() => { if (pdf) { clearInterval(iv); apriLettura(1); } else if (++t > 60) clearInterval(iv); }, 250); }
+      if (params.get("leggi") === "1" && desktop()) { let t = 0; const iv = setInterval(() => { if (pdf) { clearInterval(iv); apriLettura(parseInt(params.get("p"), 10) || 1); } else if (++t > 60) clearInterval(iv); }, 250); }
       conta({ path: location.pathname + (want ? "?n=" + want : ""), title: document.title });
     })
     .catch(() => fail("Archivio non raggiungibile. Riprova tra qualche minuto.", true));

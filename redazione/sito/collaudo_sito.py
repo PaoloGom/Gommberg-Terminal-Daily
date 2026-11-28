@@ -8,7 +8,7 @@
        pagine che non esistono, come su gommberg.com) e la confronta con il sito vero. Con --rilascio le differenze di
        testo e le pagine nuove non sono problemi: si elencano come CAMBIA, ed è l'elenco di ciò che il lettore vedrà
        cambiare con il rilascio. Restano problemi gli errori veri (stato, JavaScript, risorse mancanti, pagine vuote).
-       Lo lancia .github/workflows/collaudo.yml a ogni push sul ramo di rilascio.
+       Lo lancia .github/workflows/collaudo.yml come cancello finale del rilascio (ramo cancello, rilascia.sh pubblica).
   python3 redazione/sito/collaudo_sito.py <sito> --veloce <cartella>   solo HTTP e libreria standard, dopo ogni pubblicazione:
        le pagine principali e l'ultima edizione online sono identiche ai file della cartella pubblicata (con qualche
        tentativo, il tempo che Cloudflare le distribuisca), la redazione non è raggiungibile
@@ -185,6 +185,13 @@ async def main():
     elenco = ed if isinstance(ed, list) else ed.get("edizioni", [])
     numeri = sorted({int(e["numero"]) for e in elenco if isinstance(e, dict) and e.get("numero")})[-N:]
     pagine = FISSE + [f"e/{n:03d}.html" for n in numeri] + [f"?n={numeri[0]}&leggi=1", "pagina-che-non-esiste.html"]
+    # le pagine delle analisi dell'ultima edizione (G-64): la scheda e/NNN.json porta "pagina" per ogni analisi che ce l'ha
+    s2, c2 = get(PROVA + f"e/{numeri[-1]:03d}.json")
+    if s2 == 200:
+        try:
+            pagine += [a["pagina"] for a in json.loads(c2).get("approfondimenti") or [] if isinstance(a, dict) and a.get("pagina")]
+        except ValueError:
+            pass
     from playwright.async_api import async_playwright   # solo qui: il --veloce gira senza Playwright
     problemi, cambia = 0, 0
     async with async_playwright() as p:

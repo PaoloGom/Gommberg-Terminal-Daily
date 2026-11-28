@@ -1,0 +1,63 @@
+/* G-64 mockup: il testo di un'analisi sul sito. Stessi colori e caratteri del sito (variabili di e/NNN.html). */
+.an { margin: 0 0 8px; padding: 34px 0 30px; border-top: 3px solid var(--ink); }
+.an:first-of-type { border-top-width: 3px; }
+.an-k { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; margin: 0 0 10px; font-family: var(--body); font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--orange-ink); }
+.an-k a { font-family: var(--mono); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--muted); text-decoration: none; }
+.an-k a:hover { color: var(--ink); }
+.an-t { font-family: var(--display); font-stretch: 88%; font-weight: 800; font-size: clamp(26px, 4.6vw, 34px); line-height: 1.1; letter-spacing: -.01em; margin: 0 0 14px; text-wrap: balance; }
+.an-dek { font-size: 19px; line-height: 1.5; color: var(--muted); margin: 0 0 24px; max-width: 38em; }
+.an-body p { font-size: 18px; line-height: 1.68; margin: 0 0 18px; max-width: 38em; }
+.an-fig { margin: 6px 0 28px; }
+.an-fig figcaption { margin: 0 0 8px; }
+.an-fig figcaption b { display: block; font-family: var(--display); font-stretch: 90%; font-weight: 700; font-size: 17px; line-height: 1.3; }
+.an-fig figcaption span { display: block; font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.an-fig .tela { background: #fff; padding: 12px 10px 6px; border: 1px solid var(--rule); }
+.an-fig img { display: block; width: 100%; height: auto; }
+:root[data-theme="dark"] .an-fig .tela { filter: brightness(.9); border-color: transparent; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .an-fig .tela { filter: brightness(.9); border-color: transparent; } }
+.an-num { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 4px 18px; margin: 4px 0 26px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.an-num small { grid-column: 1 / -1; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.an-num b { font-family: var(--display); font-stretch: 80%; font-weight: 900; font-size: 46px; line-height: 1; }
+.an-num > span { font-size: 16px; line-height: 1.45; }
+.an-num b span { font: inherit; }
+.an-box { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 8px 0 22px; }
+.an-box > div { background: var(--panel); padding: 16px 18px 18px; }
+.an-box > div.g { box-shadow: inset 4px 0 0 var(--orange); }
+.an-box h4 { margin: 0 0 6px; font-family: var(--body); font-size: 12.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--orange-ink); }
+.an-box p { margin: 0; font-size: 16px; line-height: 1.55; }
+.an-src { font-family: var(--mono); font-size: 12.5px; line-height: 1.5; color: var(--muted); margin: 0 0 18px; }
+.an-pdf { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 14px; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--orange); padding-bottom: 2px; }
+.an-pdf:hover { color: var(--orange-ink); }
+.an-pdf i { font-style: normal; color: var(--orange-ink); }
+/* Il rimando al giornale */
+.giornale { display: grid; grid-template-columns: 220px 1fr; gap: 22px; align-items: center; background: var(--bar); color: var(--bar-ink); padding: 22px; margin: 10px 0 34px; border-bottom: 3px solid var(--orange); }
+.giornale img { display: block; width: 100%; height: auto; border: 1px solid #2a2a2a; }
+.giornale small { display: block; font-family: var(--mono); font-size: 12px; color: var(--bar-muted); letter-spacing: .04em; text-transform: uppercase; }
+.giornale b { display: block; font-family: var(--display); font-stretch: 88%; font-weight: 800; font-size: 24px; line-height: 1.15; margin: 6px 0 8px; }
+.giornale p { margin: 0 0 14px; font-size: 15px; line-height: 1.5; color: #D6D1C9; }
+.giornale .btn.lead { background: var(--orange); border-color: var(--orange); color: #111; }
+.giornale .btn.ghost { color: var(--bar-ink); border-color: #5a554f; }
+.giornale .riga { display: flex; flex-wrap: wrap; gap: 10px; }
+/* Indice delle analisi in cima (A) */
+.an-indice { list-style: none; margin: 0 0 30px; padding: 0; counter-reset: a; }
+.an-indice li { counter-increment: a; border-bottom: 1px solid var(--rule); }
+.an-indice a { display: grid; grid-template-columns: 34px 1fr auto; gap: 4px 10px; align-items: baseline; padding: 11px 0; text-decoration: none; }
+.an-indice a::before { content: counter(a); font-family: var(--display); font-weight: 800; font-size: 20px; color: var(--orange); }
+.an-indice b { font-family: var(--display); font-stretch: 90%; font-weight: 700; font-size: 18px; line-height: 1.3; }
+.an-indice small { font-family: var(--mono); font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+.an-indice a:hover b { color: var(--orange-ink); }
+.intro { color: var(--muted); font-size: 15.5px; margin: -2px 0 16px; }
+@media (max-width: 600px) {
+  .an { padding: 26px 0 24px; }
+  .an-dek { font-size: 17.5px; }
+  .an-body p { font-size: 17px; line-height: 1.65; }
+  .an-box { grid-template-columns: 1fr; }
+  .an-num b { font-size: 38px; }
+  .an-fig .tela { padding: 8px 4px 4px; }
+  .giornale { grid-template-columns: 1fr; padding: 18px; }
+  .giornale img { max-width: 320px; }
+  .giornale .btn.ghost { width: auto; padding: 0 16px; }
+  .giornale .btn.lead { flex: 1 1 auto; justify-content: center; }
+  .an-indice a { grid-template-columns: 28px 1fr; }
+  .an-indice small { grid-column: 2; }
+}

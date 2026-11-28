@@ -71,7 +71,10 @@ EOF2
 # Nessun modello, nessuna rete; non ferma mai la pubblicazione.
 [ "$PROVA" = "1" ] || python3 "$REPO/redazione/pannello.py" --indici "$N" "$DATA" "$FATTI" 2>/dev/null | tail -1 || true
 if [ -f "$REPO/redazione/pagine.py" ]; then
-  python3 "$REPO/redazione/pagine.py" "$REPO" | tail -1 || echo "AVVISO: pagine.py non riuscito, il sito ripiega su ?n=N"
+  # oltre al riepilogo, le righe AVVISO (per esempio un'analisi senza pagina, G-64): finiscono nel resoconto del mattino.
+  # L'esito che conta è quello di pagine.py, non di awk (che riesce sempre): se pagine.py cade l'avviso esce, e si prosegue.
+  python3 "$REPO/redazione/pagine.py" "$REPO" | awk '/AVVISO/ || /^Pagine:/'
+  [ "${PIPESTATUS[0]}" = "0" ] || echo "AVVISO: pagine.py non riuscito, il sito ripiega su ?n=N"
 fi
 run git -C "$REPO" config user.name "PaoloGom"
 run git -C "$REPO" config user.email "PaoloGom@users.noreply.github.com"
