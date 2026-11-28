@@ -1857,6 +1857,10 @@ def passo_area():
     flusso = open(os.path.join(REPO, ".github", "workflows", "sito.yml"), encoding="utf-8").read()
     if "CONFIG=redazione/sito/wrangler.pubblica.json" not in flusso or 'c["assets"].pop(k, None)' not in flusso:
         male.append("sito.yml: non pubblica con wrangler.pubblica.json (i file pubblici sotto /redazione/ passerebbero dal Worker) o la riserva non toglie run_worker_first")
+    # promesse false nell'area: nessuno è al riparo dalla quota gratuita di Cloudflare (richieste e righe scritte di D1)
+    for f in glob.glob(os.path.join(REPO, "pannello", "*.html")) + [os.path.join(R, "sito", "LETTORI.md")]:
+        if re.search(r"nessuno ti può chiudere fuori|nessuno può chiudere fuori", open(f, encoding="utf-8").read(), re.I):
+            male.append(f"{os.path.relpath(f, REPO)}: promette che nessuno può chiudere fuori Paolo (falso: quota di Cloudflare e di D1)")
     gi = open(os.path.join(REPO, ".gitignore"), encoding="utf-8").read().split()
     for x in (".dev.vars", "redazione/sito/wrangler.pubblica.json"):
         if x not in gi:

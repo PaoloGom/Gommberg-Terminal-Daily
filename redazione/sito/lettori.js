@@ -84,6 +84,16 @@ export async function prepara(env) {
       }
       await env.DB.prepare("INSERT INTO config (k, v) VALUES ('schema', '2') ON CONFLICT (k) DO UPDATE SET v = '2'").run();
     }
+    // versione 3 (G-51): un solo indice sugli accessi (ogni indice è una riga scritta in più a ogni tentativo) e il
+    // momento da cui le reti sono IPv4 o /64 (chiaveRete): i commenti di prima hanno l'impronta dell'indirizzo intero
+    const v3 = await env.DB.prepare("SELECT v FROM config WHERE k = 'schema'").first();
+    if (!v3 || +v3.v < 3) {
+      await env.DB.batch([
+        env.DB.prepare("DROP INDEX IF EXISTS accessi_quando"),
+        env.DB.prepare("INSERT OR IGNORE INTO config (k, v) VALUES ('rete64', ?)").bind(iso(ora())),
+        env.DB.prepare("INSERT INTO config (k, v) VALUES ('schema', '3') ON CONFLICT (k) DO UPDATE SET v = '3'"),
+      ]);
+    }
     let r = await env.DB.prepare("SELECT v FROM config WHERE k = 'segreto'").first();
     if (!r) {
       const b = new Uint8Array(32); crypto.getRandomValues(b);

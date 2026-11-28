@@ -32,6 +32,8 @@ export const AREA = {
   password_min: 16, password_max: 200, utente_max: 100,
   resta_giorni: 90, breve_ore: 12, rinnovo_min: 60,
   errori_liberi: 5, attesa_max_min: 60,
+  errori_giorno: 2000,          // righe di errori al giorno (UTC); oltre, le reti nuove si contano insieme (D1 gratuito: 100.000 righe scritte al giorno)
+  conta_ogni_ms: 60000,         // oltre il tetto, il conto aggregato si scrive al massimo una volta al minuto per istanza
   accessi_giorni: 30, blocco_rete_giorni: 30,   // 30 giorni: privacy.html promette l'impronta della rete cancellata dopo 30 giorni
   pagina: 50,
 };
@@ -45,8 +47,10 @@ export const SCHEMA_AREA = [
      usata TEXT NOT NULL, resta INTEGER NOT NULL, dispositivo TEXT, luogo TEXT, ip TEXT)`,
   `CREATE TABLE IF NOT EXISTS accessi (id INTEGER PRIMARY KEY AUTOINCREMENT, quando TEXT NOT NULL, esito TEXT NOT NULL,
      dispositivo TEXT, luogo TEXT, ip TEXT)`,
+  // un solo indice: ogni indice è una riga scritta in più a ogni tentativo (D1 conta le righe scritte, anche degli indici)
   `CREATE INDEX IF NOT EXISTS accessi_ip ON accessi (ip, esito, quando)`,
-  `CREATE INDEX IF NOT EXISTS accessi_quando ON accessi (esito, quando)`,
+  // oltre il tetto giornaliero, i tentativi falliti di reti nuove contati per ora, senza una riga ciascuno
+  `CREATE TABLE IF NOT EXISTS tentativi_ora (ora TEXT PRIMARY KEY, n INTEGER NOT NULL)`,
   `CREATE TABLE IF NOT EXISTS bloccati (sito TEXT NOT NULL, tipo TEXT NOT NULL, valore TEXT NOT NULL, creato TEXT NOT NULL,
      scade TEXT, commento INTEGER, PRIMARY KEY (sito, tipo, valore))`,
   `CREATE TABLE IF NOT EXISTS discussioni (sito TEXT NOT NULL, ed INTEGER NOT NULL, chiusa TEXT NOT NULL, PRIMARY KEY (sito, ed))`,
@@ -314,20 +318,18 @@ async function accesso(c, corpo) {
   const utente = typeof corpo.utente === "string" ? corpo.utente : "", password = typeof corpo.password === "string" ? corpo.password : "";
   if (!utente || !password || utente.length > AREA.utente_max || password.length > AREA.password_max) return no(url, "Nome utente o password non corretti.", 401);
   // i tentativi, prima di ogni calcolo: chi aspetta non costa CPU
-  const errori = (await c.db.prepare("SELECT quando FROM accessi WHERE ip = ? AND esito = 'errore' AND quando > ? ORDER BY quando DESC LIMIT 60")
-    .bind(c.ip, prima(86400)).all()).results || [];
-  if (errori.length >= AREA.errori_liberi) {
-    const attesa = Math.min(2 ** (errori.length - AREA.errori_liberi), AREA.attesa_max_min) * 60000;
-    const resta = Date.parse(errori[0].quando) + attesa - Date.now();
-    if (resta > 0) return json(url, { errore: "Troppi tentativi da questa rete: riprova tra " + Math.ceil(resta / 60000) + " " + (Math.ceil(resta / 60000) === 1 ? "minuto" : "minuti") + ".", attesa: Math.ceil(resta / 1000) }, 429);
-  }
-  // la prenotazione: il conteggio sta dentro l'inserimento, come per i commenti dei lettori (lettori.js)
+  const f = await freno(c);
+  if (f.attesa) return f.risposta;
   const t = b64u(casuale(32)), adesso = iso(new Date(Date.now())), d = dispositivo(c.request.headers.get("user-agent"));
-  const pren = await c.db.prepare(`INSERT INTO accessi (quando, esito, dispositivo, luogo, ip) SELECT ?1, 'errore', ?2, ?3, ?4
-      WHERE (SELECT COUNT(*) FROM accessi WHERE ip = ?4 AND esito = 'errore' AND quando > ?5) = ?6 RETURNING id`)
-    .bind(adesso, d.testo + "|" + d.tipo, luogo(c.request), c.ip, prima(86400), errori.length).first();
-  if (!pren) return json(url, { errore: "Un tentativo alla volta: riprova tra qualche secondo.", attesa: 5 }, 429);
-  if (!(await controllaCredenziali(c, cred, utente.trim(), password))) return no(url, "Nome utente o password non corretti.", 401);
+  // Oltre il tetto giornaliero delle righe di errori, una rete mai vista nelle ultime 24 ore non ha più una riga sua:
+  // il suo tentativo si conta nel totale dell'ora (si perde l'attesa che raddoppia per le reti nuove; resta per quelle
+  // già viste, e resta la password di almeno 16 caratteri). Sotto il tetto, ogni tentativo si prenota.
+  const aggregato = f.n === 0 && (await righeOggi(c)) >= AREA.errori_giorno;
+  if (!aggregato && !(await prenota(c, f.n))) return json(url, { errore: "Un tentativo alla volta: riprova tra qualche secondo.", attesa: 5 }, 429);
+  if (!(await controllaCredenziali(c, cred, utente.trim(), password))) {
+    if (aggregato) await contaAggregato(c);
+    return no(url, "Nome utente o password non corretti.", 401);
+  }
   await c.db.batch([
     c.db.prepare("DELETE FROM accessi WHERE ip = ? AND esito = 'errore'").bind(c.ip),
     c.db.prepare("INSERT INTO sessioni (id, csrf, cred, creata, usata, resta, dispositivo, luogo, ip) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")
@@ -335,6 +337,49 @@ async function accesso(c, corpo) {
   ]);
   await registra(c, "ok");
   return json(url, { ok: true }, 200, { "set-cookie": cookieSessione(t, corpo.resta === true, url) });
+}
+
+// Il freno per rete: quanti errori nelle ultime 24 ore (senza tetto alla lettura) e, oltre 5, l'attesa che raddoppia
+async function freno(c) {
+  const r = await c.db.prepare("SELECT COUNT(*) AS n, MAX(quando) AS ultimo FROM accessi WHERE ip = ? AND esito = 'errore' AND quando > ?").bind(c.ip, prima(86400)).first() || {};
+  const n = r.n || 0;
+  if (n >= AREA.errori_liberi) {
+    const resta = Date.parse(r.ultimo) + Math.min(2 ** (n - AREA.errori_liberi), AREA.attesa_max_min) * 60000 - Date.now();
+    if (resta > 0) {
+      const min = Math.ceil(resta / 60000);
+      return { n, attesa: true, risposta: json(c.url, { errore: "Troppi tentativi da questa rete: riprova tra " + min + " " + (min === 1 ? "minuto" : "minuti")
+        + ", oppure da un'altra rete (per esempio i dati del telefono).", attesa: Math.ceil(resta / 1000) }, 429) };
+    }
+  }
+  return { n, attesa: false };
+}
+// La prenotazione di un tentativo: una riga "errore" inserita solo se nessun altro tentativo della stessa rete è passato
+// nel frattempo (il conteggio dentro l'inserimento, come per i commenti dei lettori); se la password è giusta si cancella
+async function prenota(c, n) {
+  const d = dispositivo(c.request.headers.get("user-agent"));
+  return !!(await c.db.prepare(`INSERT INTO accessi (quando, esito, dispositivo, luogo, ip) SELECT ?1, 'errore', ?2, ?3, ?4
+      WHERE (SELECT COUNT(*) FROM accessi WHERE ip = ?4 AND esito = 'errore' AND quando > ?5) = ?6 RETURNING id`)
+    .bind(iso(new Date(Date.now())), d.testo + "|" + d.tipo, luogo(c.request), c.ip, prima(86400), n).first());
+}
+// Le righe scritte oggi negli accessi (giorno UTC, come la quota di D1): dall'id massimo e dall'id di inizio giornata,
+// salvato in config la prima volta del giorno. Due letture di una riga, nessuna scansione.
+async function righeOggi(c) {
+  const k = "accessi-dal:" + iso(new Date(Date.now())).slice(0, 10);
+  const r = await c.db.prepare("SELECT (SELECT COALESCE(MAX(id), 0) FROM accessi) AS ultimo, (SELECT v FROM config WHERE k = ?) AS dal").bind(k).first() || {};
+  if (r.dal == null) {
+    await c.db.prepare("INSERT OR IGNORE INTO config (k, v) VALUES (?, ?)").bind(k, String(r.ultimo || 0)).run();
+    return 0;
+  }
+  return (r.ultimo || 0) - (+r.dal || 0);
+}
+// Il conto aggregato, in memoria e scritto al massimo una volta al minuto per istanza: si perde ciò che un'istanza conta
+// nell'ultimo minuto prima di chiudersi
+let aggr = { n: 0, scritto: 0 };
+async function contaAggregato(c) {
+  aggr.n++;
+  if (Date.now() - aggr.scritto < AREA.conta_ogni_ms) return;
+  const n = aggr.n; aggr = { n: 0, scritto: Date.now() };
+  await c.db.prepare("INSERT INTO tentativi_ora (ora, n) VALUES (?1, ?2) ON CONFLICT (ora) DO UPDATE SET n = n + ?2").bind(iso(new Date(Date.now())).slice(0, 13), n).run();
 }
 
 async function esci(c, tutti) {
@@ -370,9 +415,12 @@ async function verificaPassword(c, corpo) {
   if (sbaglio) return no(url, sbaglio);
   if (nuova === attuale) return no(url, "La nuova password deve essere diversa da quella attuale.");
   // anche qui i tentativi contano: chi ha rubato una sessione non prova le password all'infinito
-  const errori = await c.db.prepare("SELECT COUNT(*) AS n FROM accessi WHERE ip = ? AND esito = 'errore' AND quando > ?").bind(c.ip, prima(86400)).first();
-  if (errori && errori.n >= AREA.errori_liberi) return no(url, "Troppi tentativi sbagliati: riprova più tardi.", 429);
-  if (!attuale || !(await controllaCredenziali(c, cred, cred.utente, attuale))) { await registra(c, "errore"); return no(url, "La password attuale non è corretta.", 403); }
+  // con la stessa prenotazione dell'accesso: 300 verifiche insieme non provano 300 password
+  const f = await freno(c);
+  if (f.attesa) return f.risposta;
+  if (!(await prenota(c, f.n))) return json(url, { errore: "Un tentativo alla volta: riprova tra qualche secondo.", attesa: 5 }, 429);
+  if (!attuale || !(await controllaCredenziali(c, cred, cred.utente, attuale))) return no(url, "La password attuale non è corretta.", 403);
+  await c.db.prepare("DELETE FROM accessi WHERE ip = ? AND esito = 'errore'").bind(c.ip).run();
   return json(url, { prova: await prova(c, Math.floor(Date.now() / 1000), nuova) });
 }
 async function cambiaPassword(c, corpo) {
@@ -420,7 +468,8 @@ async function sicurezza(c) {
 // i tentativi di accesso falliti delle ultime 24 ore, e da quante reti: l'avviso nella Panoramica e in Sicurezza
 async function tentativi(c) {
   const r = await c.db.prepare("SELECT COUNT(*) AS n, COUNT(DISTINCT ip) AS reti FROM accessi WHERE esito = 'errore' AND quando > ?").bind(prima(86400)).first() || {};
-  return { n: r.n || 0, reti: r.reti || 0 };
+  const a = await c.db.prepare("SELECT COALESCE(SUM(n), 0) AS n FROM tentativi_ora WHERE ora >= ?").bind(prima(86400).slice(0, 13)).first() || {};
+  return { n: (r.n || 0) + (a.n || 0), reti: r.reti || 0, aggregati: a.n || 0 };
 }
 
 // ------------------------------------------------------------------ Gommunity: lettura
@@ -636,6 +685,8 @@ export async function chiusa(c, n) {
 export function puliziaArea(db) {
   return [
     db.prepare("DELETE FROM accessi WHERE quando < ?").bind(prima(AREA.accessi_giorni * 86400)),
+    db.prepare("DELETE FROM tentativi_ora WHERE ora < ?").bind(prima(AREA.accessi_giorni * 86400).slice(0, 13)),
+    db.prepare("DELETE FROM config WHERE k LIKE 'accessi-dal:%' AND k < ?").bind("accessi-dal:" + prima(2 * 86400).slice(0, 10)),
     db.prepare("DELETE FROM sessioni WHERE usata < ?").bind(prima(AREA.resta_giorni * 86400)),
     db.prepare("DELETE FROM bloccati WHERE scade IS NOT NULL AND scade < ?").bind(iso(new Date(Date.now()))),
   ];

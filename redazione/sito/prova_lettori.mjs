@@ -606,6 +606,37 @@ async function areaRiservata() {
   env.DB.latenza = 0;
   const provati = q("SELECT COUNT(*) AS n FROM accessi WHERE esito = 'errore' AND ip = (SELECT ip FROM accessi WHERE esito = 'errore' ORDER BY id DESC LIMIT 1)")[0].n;
   verifica("tentativi: 300 richieste in parallelo dalla stessa rete, al massimo 5 tentativi provati", provati <= AREA.errori_liberi, provati);
+  // il messaggio del 429 dice che cosa fare se la rete è condivisa (ufficio, stessa /64)
+  const ipM = nuovoIp();
+  for (let i = 0; i < AREA.errori_liberi; i++) await sbaglia(ipM);
+  r = await sbaglia(ipM);
+  verifica("tentativi: il 429 suggerisce un'altra rete (per esempio i dati del telefono)", r.s === 429 && /altra rete/.test(r.j.errore) && /telefono/.test(r.j.errore), r.j);
+  // oltre 60 errori da una rete la password giusta entra lo stesso, finita l'attesa (prima: 429 per 24 ore)
+  const ipN = nuovoIp(), impN = (await L_.impronta(q("SELECT v FROM config WHERE k = 'segreto'")[0].v, "ip", L_.chiaveRete(ipN)));
+  for (let i = 0; i < 70; i++) env.DB._db.exec(`INSERT INTO accessi (quando, esito, dispositivo, luogo, ip) VALUES ('${new Date(adesso - (180 - i) * 60000).toISOString().replace(/\.\d{3}Z$/, "Z")}', 'errore', 'x|pc', NULL, '${impN}')`);
+  avanti(61 * 60);
+  r = await red("POST", "/api/redazione/accesso", { corpo: { utente: UT, password: PW }, ip: ipN });
+  verifica("tentativi: oltre 60 errori da una rete, finita l'attesa (60 minuti) la password giusta entra", r.s === 200, r.s);
+  // quanto costa a D1 un tentativo fallito: un indice solo sugli accessi (ogni indice è una riga scritta in più)
+  const indici = env.DB._db.prepare("PRAGMA index_list(accessi)").all().map((x) => x.name).filter((x) => !x.startsWith("sqlite_"));
+  verifica("D1: sugli accessi un solo indice (ogni indice è una riga scritta in più a ogni tentativo)", indici.length === 1 && indici[0] === "accessi_ip", indici);
+  // oltre il tetto giornaliero delle righe di errori, le reti nuove si contano insieme, senza una riga ciascuna
+  const tettoVero = AREA.errori_giorno;
+  const righeErr = () => q("SELECT COUNT(*) AS n FROM accessi WHERE esito = 'errore'")[0].n;
+  if (typeof tettoVero === "number") AREA.errori_giorno = 0;
+  const primaR = righeErr(), primaT = (await red("GET", "/api/redazione/riepilogo", { cookie: r.set.length ? COOKIE + "=" + tokenDa(r.set) : "" })).j;
+  const reti50 = Array.from({ length: 50 }, () => nuovoIp());
+  for (const ip of reti50) await sbaglia(ip);
+  avanti(61); await sbaglia(nuovoIp());
+  const dopoR = righeErr();
+  const sessN = COOKIE + "=" + tokenDa(r.set);
+  const dopoT = (await red("GET", "/api/redazione/riepilogo", { cookie: sessN })).j;
+  verifica("D1: oltre il tetto, 51 tentativi da 51 reti nuove non scrivono 51 righe (si contano insieme)", dopoR - primaR === 0 && q("SELECT COUNT(*) AS n FROM tentativi_ora")[0].n <= 2, [dopoR - primaR]);
+  verifica("D1: oltre il tetto i tentativi si contano lo stesso nella Panoramica", dopoT.tentativi && dopoT.tentativi.n - (primaT.tentativi ? primaT.tentativi.n : 0) >= 51, [primaT.tentativi, dopoT.tentativi]);
+  await sbaglia(ipM); r = await sbaglia(ipM);
+  verifica("D1: oltre il tetto le reti già viste restano frenate (attesa che raddoppia)", r.s === 429, r.s);
+  if (typeof tettoVero === "number") AREA.errori_giorno = tettoVero;
+
   // ------------------------------------------------- esci, esci da tutti, una sessione alla volta
   const e4 = await entra(), e5 = await entra();
   r = await red("POST", "/api/redazione/esci", { corpo: {}, cookie: e4.cookie, csrf: e4.csrf });
@@ -656,6 +687,12 @@ async function areaRiservata() {
   avanti(301);
   r = await red("POST", "/api/redazione/password", { corpo: { prova: vVecchia.j.prova, nuova: NUOVA, conferma: NUOVA }, cookie: p1.cookie, csrf: p1.csrf });
   verifica("password: la prova scade dopo 5 minuti", r.s === 403, r);
+  const pPar = await entra({ ip: "77.7.7.7" });
+  env.DB.latenza = 4;
+  await Promise.all(Array.from({ length: 300 }, (x, i) => red("POST", "/api/redazione/password/verifica", { corpo: { attuale: "tentativo " + i, nuova: NUOVA }, cookie: pPar.cookie, csrf: pPar.csrf, ip: "77.7.7.7" })));
+  env.DB.latenza = 0;
+  const provateV = q("SELECT COUNT(*) AS n FROM accessi WHERE esito = 'errore' AND quando = (SELECT MAX(quando) FROM accessi)")[0].n;
+  verifica("password: 300 verifiche insieme con una sessione valida provano al massimo 5 password", provateV <= AREA.errori_liberi, provateV);
   const lotti = [], batchVero = env.DB.batch;
   env.DB.batch = async (lista) => { lotti.push(lista.map((x) => x._sql || "")); return batchVero(lista); };
   r = await cambia(p1, PW, NUOVA);
