@@ -2,7 +2,7 @@
 """Collaudo del kit: in un paio di minuti, senza rete e senza modelli, dice se una modifica ha rotto qualcosa, anche lontano
 da dove si è messo mano. Si lancia dopo OGNI modifica, prima del commit:   python3 redazione/collaudo.py
 È il cancello del rilascio: redazione/rilascia.sh porta il lavoro sul ramo principale solo se esce con 0, e GitHub lo
-rilancia a ogni push sul ramo di rilascio (.github/workflows/collaudo.yml). Non fa parte del lavoro del mattino e non
+rilancia come cancello finale di pubblica (.github/workflows/collaudo.yml, ramo cancello). Non fa parte del lavoro del mattino e non
 scrive nulla nel repository (lavora in una cartella temporanea), salvo con --atteso e --campione.
 
 Nato il 14/11/2026: la v8.4 aveva lasciato la pagina di riferimento mezza vuota (5 moduli sotto il 90%) e la v8.5 aveva
@@ -2425,6 +2425,407 @@ def passo_pubblicazione_ramo(copia):
           "; ".join(male) or "fuori linea resta in prova; sul commit del ramo principale pubblica, con PUSH_OK verificato sul remoto")
 
 
+# ---------------------------------------------------------------- 7. i cancelli del rilascio (G-66)
+class Banco:
+    """Un repository finto con un remoto finto (cartella nuda) in TMP, per provare redazione/rilascia.sh di OGGI senza
+    toccare GitHub. Il collaudo dentro il banco è finto (stampa COLLAUDO: OK: il vero è questo); gh è finto e risponde
+    con l'esito scritto in self.gh. Sabato sera di default: l'orario non ferma, salvo dove lo si prova."""
+    def __init__(self, nome):
+        self.base = os.path.join(TMP, "banco_" + nome)
+        self.orig, self.rep, self.bin = (os.path.join(self.base, x) for x in ("origine.git", "rep", "bin"))
+        self.gh, self.ora, self.log = "success", "6 2000", os.path.join(self.base, "gh.log")
+        for d in (self.rep, self.bin):
+            os.makedirs(d)
+        esegui(["git", "init", "-q", "--bare", "-b", "main", self.orig])
+        open(os.path.join(self.bin, "gh"), "w").write('#!/bin/sh\necho "$*" >> "$FINTO_GH_LOG"\n'
+                                                       '[ "$FINTO_GH" = rotto ] && { echo "non autenticato" >&2; exit 4; }\n'
+                                                       'echo "completed $FINTO_GH 4242"\n')
+        os.chmod(os.path.join(self.bin, "gh"), 0o755)
+        self.g("init", "-q", "-b", "main")
+        self.g("config", "user.name", "collaudo"); self.g("config", "user.email", "collaudo@example.invalid")
+        self.g("config", "advice.detachedHead", "false")
+        for rel in ("rilascia.sh", "catena.txt", "prova.sh", "sito/costruisci.py"):
+            if os.path.exists(os.path.join(R, rel)):
+                self.scrivi("redazione/" + rel, open(os.path.join(R, rel), encoding="utf-8").read())
+        self.scrivi("redazione/collaudo.py", 'print("COLLAUDO: OK")\n')
+        self.scrivi("redazione/STATO.md", "stato\n"); self.scrivi("index.html", "<p>sito</p>\n")
+        self.scrivi(".gitignore", "__pycache__/\nredazione/PROVA_DATA\n")
+        self.scrivi("redazione/gommberg_engine.py", "# motore finto\n")
+        self.g("add", "-A"); self.g("commit", "-q", "-m", "inizio")
+        self.g("remote", "add", "origin", self.orig)
+        self.g("push", "-q", "origin", "main", "main:rilascio")
+        self.inizio = self.remoto("main")
+
+    def g(self, *a):
+        return esegui(["git", *a], cwd=self.rep)[1].strip()
+
+    def scrivi(self, rel, testo):
+        p = os.path.join(self.rep, rel)
+        os.makedirs(os.path.dirname(p), exist_ok=True)
+        open(p, "w", encoding="utf-8").write(testo)
+
+    def commit(self, rel, testo, msg):
+        self.scrivi(rel, testo); self.g("add", "-A"); self.g("commit", "-q", "-m", msg)
+        return self.g("rev-parse", "HEAD")
+
+    def remoto(self, ramo):
+        return esegui(["git", "rev-parse", "-q", "--verify", "refs/heads/" + ramo], cwd=self.orig)[1].strip()
+
+    def rilascia(self, *a, prova=False):
+        env = {"PATH": self.bin + os.pathsep + os.environ.get("PATH", ""), "GTD_ORA": self.ora, "FINTO_GH": self.gh,
+               "FINTO_GH_LOG": self.log}
+        if prova:
+            env["GTD_PROVA"] = "1"
+        try:
+            return esegui(["bash", "redazione/rilascia.sh", *a], cwd=self.rep, env=env, timeout=120)
+        except subprocess.TimeoutExpired:
+            return 124, "rilascia.sh " + " ".join(a) + ": nessuna risposta in 120 secondi"
+
+
+def ultima(out):
+    return (out.strip().splitlines() or ["nessuna uscita"])[-1][:140]
+
+
+def rilascio_avanti():
+    """1. pubblica fermata dal collaudo di GitHub: su GitHub il ramo rilascio resta com'era (non avanti al ramo
+    principale), il ramo principale non si tocca, GitHub ha collaudato proprio quell'albero; verde: pubblica e riallinea."""
+    b, male = Banco("avanti"), []
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    lavoro = b.commit("redazione/STATO.md", "stato nuovo\n", "G-00: lavoro")
+    b.gh = "failure"
+    rc, out = b.rilascia("pubblica")
+    if rc == 0 or "RILASCIO: FERMO" not in out:
+        male.append("con GitHub rosso doveva fermarsi (" + ultima(out) + ")")
+    if b.remoto("rilascio") != b.inizio or b.remoto("main") != b.inizio:
+        male.append("fermo dopo il push: su GitHub il ramo rilascio è andato avanti al ramo principale")
+    cancello = b.remoto("cancello")
+    if b.g("rev-parse", cancello + "^{tree}") != b.g("rev-parse", "HEAD^{tree}") or cancello not in open(b.log).read():
+        male.append("GitHub non ha collaudato l'albero del rilascio (ramo cancello)")
+    b.gh = "success"
+    rc, out = b.rilascia("pubblica")
+    princ = b.remoto("main")
+    if rc or princ == b.inizio or b.g("rev-parse", princ + "^{tree}") != b.g("rev-parse", lavoro + "^{tree}"):
+        male.append("con GitHub verde doveva pubblicare l'albero collaudato (" + ultima(out) + ")")
+    elif b.remoto("rilascio") != princ:
+        male.append("dopo il push sul ramo principale il ramo rilascio non è stato riallineato")
+    esito("Rilascio: pubblica non lascia rilascio avanti al ramo principale", not male, "; ".join(male) or
+          "GitHub rosso: rilascio e main fermi, collaudato l'albero sul ramo cancello; verde: un merge e rilascio = main")
+
+
+def avvia_sporco():
+    """2. avvia rifiuta un ramo rilascio con lavoro che il ramo principale non ha; --ripulisci lo riporta uguale al
+    ramo principale senza forzare; con-prova, che il lavoro lo porta apposta, si avvia."""
+    b, male = Banco("avvia"), []
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    b.commit("redazione/gommberg_engine.py", "# lavoro rimasto\n", "G-00: rimasto")
+    b.g("push", "-q", "origin", "rilascio")
+    b.g("checkout", "-q", "-B", "con-prova", "origin/main"); b.commit("redazione/STATO.md", "attesa\n", "G-01: attesa")
+    b.g("push", "-q", "origin", "con-prova"); b.g("checkout", "-q", "main")
+    sporco = b.remoto("rilascio")
+    rc, out = b.rilascia("avvia")
+    if rc == 0 or "RILASCIO: FERMO" not in out or "--ripulisci" not in out or b.remoto("rilascio") != sporco:
+        male.append("doveva fermarsi su un rilascio con lavoro non in linea (" + ultima(out) + ")")
+    b.g("checkout", "-q", "main")
+    rc, out = b.rilascia("avvia", "--ripulisci")
+    pulito = b.remoto("rilascio")
+    if rc or b.g("rev-parse", pulito + "^{tree}") != b.g("rev-parse", "origin/main^{tree}"):
+        male.append("--ripulisci doveva riportare rilascio uguale al ramo principale (" + ultima(out) + ")")
+    elif esegui(["git", "merge-base", "--is-ancestor", sporco, pulito], cwd=b.rep)[0]:
+        male.append("--ripulisci ha riscritto la storia di rilascio (push forzato)")
+    rc, out = b.rilascia("avvia", "con-prova")
+    if rc:
+        male.append("con-prova porta lavoro apposta e doveva avviarsi (" + ultima(out) + ")")
+    # un pubblica fermato dopo aver unito il commit: rilascio locale avanti, mai da spingere
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio"); b.commit("redazione/STATO.md", "unito\n", "G-04: unito in locale")
+    su_github = b.remoto("rilascio")
+    rc, out = b.rilascia("avvia")
+    if rc == 0 or "--ripulisci" not in out or "git push" in out or b.remoto("rilascio") != su_github:
+        male.append("con commit solo locali su rilascio doveva fermarsi proponendo --ripulisci, mai il push (" + ultima(out) + ")")
+    rc, out = b.rilascia("avvia", "--ripulisci")
+    if rc or b.g("rev-parse", "rilascio^{tree}") != b.g("rev-parse", "origin/main^{tree}") or "G-04" in b.g("log", "--format=%s", "origin/rilascio"):
+        male.append("--ripulisci doveva ripartire dal rilascio di GitHub senza spingere i commit locali (" + ultima(out) + ")")
+    esito("Rilascio: avvia rifiuta un rilascio sporco", not male, "; ".join(male) or
+          "rilascio con lavoro non in linea fermato; --ripulisci lo riporta uguale a main senza forzare; con-prova si avvia; "
+          "commit solo locali: propone --ripulisci, mai il push")
+
+
+def annulla_cancelli():
+    """3. annulla: mai nella fascia dell'uscita (lun-ven 8:30-10:30 di Roma), mai due volte lo stesso rilascio; dopo,
+    il ramo rilascio torna uguale al ramo principale. Un'edizione uscita dopo il rilascio resta."""
+    b, male = Banco("annulla"), []
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    b.commit("redazione/STATO.md", "rilasciato\n", "G-00: da togliere")
+    rc, out = b.rilascia("pubblica")
+    if rc:
+        return esito("Rilascio: annulla", False, "il rilascio da annullare non è partito: " + ultima(out))
+    b.g("checkout", "-q", "-B", "main", "origin/main"); b.commit("edizione.txt", "#036\n", "Edizione #036 - 2026-11-30")
+    b.g("push", "-q", "origin", "main"); b.g("checkout", "-q", "rilascio")
+    prima = b.remoto("main")
+    b.ora = "1 0915"
+    rc, out = b.rilascia("annulla")
+    if rc == 0 or "RILASCIO: FERMO" not in out or b.remoto("main") != prima:
+        male.append("lunedì alle 9:15 doveva fermarsi senza toccare il ramo principale (" + ultima(out) + ")")
+    b.ora = "6 2000"
+    rc, out = b.rilascia("annulla")
+    dopo = b.remoto("main")
+    if rc or dopo == prima or b.g("show", dopo + ":redazione/STATO.md") != "stato" or "#036" not in b.g("show", dopo + ":edizione.txt"):
+        male.append("di sabato doveva togliere il rilascio e lasciare l'edizione (" + ultima(out) + ")")
+    elif b.remoto("rilascio") != dopo or b.g("rev-parse", "rilascio") != dopo:
+        male.append("dopo l'annullamento il ramo rilascio non è tornato uguale al ramo principale")
+    rc, out = b.rilascia("annulla")
+    if rc == 0 or "già annullato" not in out or b.remoto("main") != dopo:
+        male.append("un secondo annullamento di fila doveva fermarsi (" + ultima(out) + ")")
+    esito("Rilascio: annulla", not male, "; ".join(male) or
+          "fermo nella fascia dell'uscita; toglie il rilascio e lascia l'edizione; rilascio = main; il secondo di fila si ferma")
+
+
+def leggi_catena(testo):
+    """Le regole di redazione/catena.txt come le legge rilascia.sh: {tipo: [espressioni]}."""
+    reg = {}
+    for riga in testo.splitlines():
+        p = riga.split()
+        if len(p) >= 2 and p[0] in ("catena", "prova", "fuori"):
+            reg.setdefault(p[0], []).append(p[1])
+    return reg
+
+
+def in_catena(reg, f, tipi=("catena", "prova")):
+    return any(re.search(x, f) for t in tipi for x in reg.get(t, [])) and not any(re.search(x, f) for x in reg.get("fuori", []))
+
+
+def catena_livello():
+    """4. La catena in un file solo, che copre motore, controlli, pubblicazione, newsletter, flussi di GitHub e i
+    cancelli stessi; pubblica rifiuta da sé un rilascio che la tocca senza l'Ok di Paolo."""
+    male = []
+    p = os.path.join(R, "catena.txt")
+    reg = leggi_catena(open(p, encoding="utf-8").read()) if os.path.exists(p) else {}
+    dentro = ["redazione/gommberg_engine.py", "redazione/controlli_testo.py", "redazione/pubblica.sh", "redazione/newsletter.py",
+              "redazione/newsletter_cornice.html", "redazione/rilascia.sh", "redazione/collaudo.py", "redazione/prova.sh",
+              "redazione/catena.txt", "redazione/rete/x/atteso/pdf.txt", "redazione/registro/CAPO.md", "redazione/ATTIVITA.md",
+              "redazione/ISTRUZIONI.md", ".github/workflows/sito.yml", ".github/workflows/collaudo.yml", ".claude/settings.json",
+              "edizioni.json", "dati/recenti.json", "pannello/registro.json"]
+    dentro += [os.path.relpath(f, REPO) for f in glob.glob(os.path.join(R, "**", "*.py"), recursive=True) + glob.glob(os.path.join(R, "*.sh"))]
+    fuori = ["redazione/STATO.md", "redazione/PROGETTO.md", "redazione/AZIONI.md", "redazione/collaudi/2026-11-27/g66/a.png", "index.html"]
+    male += ["fuori dalla catena: " + f for f in sorted(set(dentro)) if not in_catena(reg, f) and not f.startswith("redazione/collaudi/")][:5]
+    male += ["nella catena per sbaglio: " + f for f in fuori if in_catena(reg, f)]
+    male += ["non vuole la prova: " + f for f in ("redazione/ISTRUZIONI.md", "redazione/controlli_testo.py", "redazione/glossario.json")
+             if not in_catena(reg, f, ("prova",))]
+    male += ["nascosto fuori dalla catena: " + f for f in (".gitignore", ".mcp.json", ".claude/agents/x.md", ".nojekyll", ".github/dependabot.yml")
+             if not in_catena(reg, f)]
+    # rilascia.sh le legge con grep -E: una regola che solo Python capisce lo farebbe sbagliare in silenzio
+    for t in reg.values():
+        for x in t:
+            # grep -E esce con 2, oppure sintassi solo di Python ((?..), \d, \s, \w) che grep legge in un altro modo
+            if subprocess.run(["grep", "-qE", "--", x], input="x", capture_output=True, text=True).returncode == 2 \
+                    or re.search(r"\(\?|\\[dswb]", x):
+                male.append("regola non valida per grep -E: " + x)
+    b = Banco("catena")
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    approvato = b.commit("redazione/gommberg_engine.py", "# motore cambiato\n", "G-00: motore")
+    rc, out = b.rilascia("pubblica")
+    if rc == 0 or "catena" not in out.splitlines()[-1] or b.remoto("main") != b.inizio:
+        male.append("un rilascio del motore senza Ok doveva fermarsi (" + ultima(out) + ")")
+    rc, out = b.rilascia("pubblica", "--commit", approvato)
+    if rc or b.remoto("main") == b.inizio:
+        male.append("con l'Ok doveva pubblicare (" + ultima(out) + ")")
+    # senza Ok: un rinomino fuori dalla catena, un file nascosto, un file pubblico con _ in una sottocartella
+    for nome, fai in (("rinomino di ISTRUZIONI.md in collaudi/", lambda: (b.g("mv", "redazione/ISTRUZIONI.md", "redazione/collaudi/ISTRUZIONI.md"), b.g("commit", "-q", "-m", "G-00: sposta"))),
+                      (".gitignore", lambda: b.commit(".gitignore", "__pycache__/\nredazione/PROVA_DATA\npdf/\n", "G-00: ignora")),
+                      ("assets/_x.js (pubblico per costruisci.py)", lambda: b.commit("assets/_x.js", "x\n", "G-00: script"))):
+        b.g("checkout", "-q", "-B", "main", "origin/main")
+        if nome.startswith("rinomino"):
+            b.commit("redazione/ISTRUZIONI.md", "regole\n", "regole"); b.g("push", "-q", "origin", "main")
+        b.g("checkout", "-q", "-B", "rilascio", "origin/main"); prima = b.remoto("main")
+        fai()
+        rc, out = b.rilascia("pubblica")
+        if rc == 0 or b.remoto("main") != prima:
+            male.append(f"{nome} senza Ok doveva fermarsi (" + ultima(out) + ")")
+    # una regola che grep non capisce sul ramo principale: si ferma, non passa con la catena vuota
+    b.g("checkout", "-q", "-B", "main", "origin/main")
+    b.commit("redazione/catena.txt", open(os.path.join(b.rep, "redazione/catena.txt")).read() + "catena [[:foo:]]\n", "catena rotta")
+    b.g("push", "-q", "origin", "main"); b.g("checkout", "-q", "-B", "rilascio", "origin/main"); prima = b.remoto("main")
+    b.commit("redazione/gommberg_engine.py", "# motore di nuovo\n", "G-00: motore")
+    rc, out = b.rilascia("pubblica")
+    if rc == 0 or "regola non valida" not in out or b.remoto("main") != prima:
+        male.append("con una regola non valida in catena.txt doveva fermarsi (" + ultima(out) + ")")
+    esito("Rilascio: la catena in un file e il cancello dell'Ok", not male, "; ".join(male) or
+          f"catena.txt copre {len(set(dentro))} file del kit, i cancelli e i file nascosti, non i file di stato, regole valide per grep; "
+          "senza Ok si fermano motore, rinomino fuori dalla catena, .gitignore, assets/_x.js; regola non valida: fermo")
+
+
+def commit_approvato():
+    """5. pubblica --commit: unisce da sé il commit approvato e pubblica esattamente il ramo principale più quello; con
+    lavoro non approvato accanto si ferma senza toccare il ramo principale."""
+    b, male = Banco("commit"), []
+    b.g("checkout", "-q", "-B", "g01", "origin/main")
+    approvato = b.commit("redazione/gommberg_engine.py", "# motore approvato\n", "G-01: motore")
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    b.g("merge", "-q", "--no-ff", "--no-edit", approvato)
+    b.commit("redazione/newsletter.py", "# mai approvato\n", "G-02: di passaggio")
+    rc, out = b.rilascia("pubblica", "--commit", approvato[:10])
+    if rc == 0 or "esattamente" not in out or b.remoto("main") != b.inizio:
+        male.append("con lavoro non approvato accanto doveva fermarsi (" + ultima(out) + ")")
+    b.g("reset", "-q", "--hard", "origin/rilascio")
+    rc, out = b.rilascia("pubblica", "--commit", approvato[:10])
+    princ = b.remoto("main")
+    atteso = esegui(["git", "merge-tree", "--write-tree", b.inizio, approvato], cwd=b.rep)[1].split()[0]
+    if rc or princ == b.inizio or b.g("rev-parse", princ + "^{tree}") != atteso:
+        male.append("da rilascio pulito doveva unire e pubblicare esattamente il commit approvato (" + ultima(out) + ")")
+    elif approvato not in b.g("log", "-1", "--format=%B", princ):
+        male.append("il merge non nomina il commit approvato")
+    esito("Rilascio: pubblica --commit, esattamente il commit approvato", not male, "; ".join(male) or
+          "con un commit non approvato accanto si ferma; da rilascio pulito unisce e pubblica main più il commit, e lo nomina")
+
+
+def prova_automatica():
+    """6. prova.sh lanciabile da una sessione: avvio prende da solo il ramo da GitHub, e il ramo prova dice in JSON
+    l'esito e il commit provato (in corso, poi chiusa)."""
+    b, male = Banco("prova"), []
+    lav, link = os.path.join(b.base, "lavoro"), os.path.join(b.base, "gtd")
+    b.g("checkout", "-q", "-B", "con-prova", "origin/main")
+    provato = b.commit("redazione/ISTRUZIONI.md", "regole nuove\n", "G-03: regole")
+    b.g("push", "-q", "origin", "con-prova"); b.g("checkout", "-q", "-B", "con-prova", "origin/main"); b.g("checkout", "-q", "main")
+    prova = lambda *a: esegui(["bash", "redazione/prova.sh", *a], cwd=b.rep, env={"GTD_LAVORO": lav, "GTD_LINK": link}, timeout=60)
+    def leggi():
+        rc, out = prova("esito")
+        try:
+            return rc, json.loads(out)
+        except Exception:  # noqa: BLE001
+            return rc, {"uscita": out.strip()[-120:]}
+    b.g("checkout", "-q", "con-prova"); locale = b.commit("redazione/STATO.md", "locale\n", "lavoro locale")
+    rc, out = prova("avvio", "30/11", "--ramo", "con-prova")
+    if rc == 0 or b.g("rev-parse", "con-prova") != locale:
+        male.append("un avvio con argomenti sbagliati doveva fermarsi prima di toccare il ramo (" + ultima(out) + ")")
+    b.g("checkout", "-q", "main")
+    rc, out = prova("avvio", "2026-11-30", "--ramo", "con-prova")
+    if rc or b.g("rev-parse", "--abbrev-ref", "HEAD") != "con-prova":
+        male.append("avvio --ramo doveva prendere il ramo da GitHub (" + ultima(out) + ")")
+    rc, e = leggi()
+    if rc != 2 or e.get("esito") != "in-corso" or e.get("commit") != provato:
+        male.append(f"a prova avviata l'esito doveva dire in-corso sul commit provato ({e})")
+    pdf = os.path.join(b.base, "prova.pdf"); open(pdf, "w").write("%PDF finto")
+    rc, out = prova("chiudi", pdf)
+    rc2, e = leggi()
+    if rc or rc2 != 0 or e.get("esito") != "chiusa" or e.get("commit") != provato or e.get("data") != "2026-11-30" or "prova.pdf" not in e.get("file", []):
+        male.append(f"a prova chiusa l'esito doveva dire chiusa, con data, commit provato e PDF ({ultima(out)}; {e})")
+    # dopo la prova: unisci e pubblica --dopo-la-prova sul commit provato (lo script legge prova.sh esito)
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    rc, out = b.rilascia("unisci", provato)
+    rc2, out2 = b.rilascia("pubblica", "--commit", provato, "--dopo-la-prova")
+    if rc or rc2 or b.remoto("main") == b.inizio:
+        male.append("dopo la prova chiusa sul commit provato, pubblica --dopo-la-prova doveva pubblicare (" + ultima(out + out2) + ")")
+    esito("Prova automatica: prova.sh da una sessione", not male, "; ".join(male) or
+          "argomenti sbagliati non toccano il ramo; avvio --ramo lo prende da sé; prova.sh esito dice in JSON in-corso e poi "
+          "chiusa, con il commit provato; pubblica --dopo-la-prova su quel commit pubblica")
+
+
+def anteprima_chrome(copia):
+    """7. L'anteprima in uno script: serve il sito in locale, Chrome (qui finto: scarica la pagina servita e la salva come
+    immagine) in due larghezze, immagini in redazione/collaudi/AAAA-MM-GG/g<NN>/; senza Chrome si ferma."""
+    male, base = [], os.path.join(TMP, "anteprima")
+    os.makedirs(base)
+    finto = os.path.join(base, "chrome")
+    open(finto, "w").write("#!/usr/bin/env python3\nimport sys, urllib.request\n"
+                           "out = [a.split('=', 1)[1] for a in sys.argv if a.startswith('--screenshot=')][0]\n"
+                           "w = [a.split('=', 1)[1] for a in sys.argv if a.startswith('--window-size=')][0]\n"
+                           "open(out, 'wb').write(w.encode() + b' ' + urllib.request.urlopen(sys.argv[-1]).read())\n")
+    os.chmod(finto, 0o755)
+    script = os.path.join(copia, "redazione", "anteprima_chrome.sh")
+    rc, out = esegui(["bash", script, "g00", "index.html", "--sito", copia], env={"GTD_CHROME": finto}, timeout=120) \
+        if os.path.exists(script) else (1, "manca redazione/anteprima_chrome.sh")
+    oggi = subprocess.run(["date", "+%F"], env=dict(os.environ, TZ="Europe/Rome"), capture_output=True, text=True).stdout.strip()
+    d = os.path.join(copia, "redazione", "collaudi", oggi, "g00")
+    pagina = open(os.path.join(copia, "index.html"), "rb").read()
+    for w in ("1280", "390"):
+        f = os.path.join(d, f"index-{w}.png")
+        if rc or not os.path.exists(f) or open(f, "rb").read() != f"{w},2400 ".encode() + pagina:
+            male.append(f"immagine a {w} non salvata dalla pagina servita (" + ultima(out) + ")")
+            break
+    rc, out = esegui(["bash", script, "g00", "--sito", copia], env={"GTD_CHROME": os.path.join(base, "manca")}, timeout=60)
+    if rc == 0 or "ANTEPRIMA: FERMO" not in out:
+        male.append("senza Chrome doveva fermarsi (" + ultima(out) + ")")
+    shutil.rmtree(d, ignore_errors=True)
+    esito("Anteprima con Chrome in uno script", not male, "; ".join(male) or
+          "sito servito in locale, due larghezze in redazione/collaudi/<data>/g<NN>/; senza Chrome si ferma")
+
+
+def rientro_e_messaggi():
+    """Dopo annulla la voce rientra così: sul ramo della voce, da main nuovo, revert dell'annullamento più correzione,
+    un Ok nuovo, pubblica --commit. E i messaggi che dicono che cosa fare: --ok-di-paolo vecchio, gh rotto (subito, non
+    dopo 20 minuti), rosso di GitHub (gh run rerun), --dopo-la-prova senza una prova chiusa su quel commit."""
+    b, male = Banco("rientro"), []
+    b.g("checkout", "-q", "-B", "g01", "origin/main")
+    a = b.commit("redazione/gommberg_engine.py", "# motore con un errore\n", "G-01: motore")
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    rc, out = b.rilascia("pubblica", "--ok-di-paolo")
+    if rc == 0 or "--commit" not in out.splitlines()[-1]:
+        male.append("--ok-di-paolo doveva dire di usare --commit (" + ultima(out) + ")")
+    b.gh = "rotto"
+    rc, out = b.rilascia("pubblica", "--commit", a)
+    if rc == 0 or "gh non risponde" not in out or b.remoto("main") != b.inizio:
+        male.append("con gh rotto doveva fermarsi subito con la causa (" + ultima(out) + ")")
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio"); b.gh = "failure"
+    rc, out = b.rilascia("pubblica", "--commit", a)
+    if rc == 0 or "gh run rerun 4242" not in out:
+        male.append("con GitHub rosso doveva suggerire gh run rerun (" + ultima(out) + ")")
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio"); b.gh = "success"
+    rc, out = esegui(["bash", "redazione/rilascia.sh", "pubblica", "--commit", a], cwd=b.rep,
+                     env={"TZDIR": os.path.join(b.base, "nessun_fuso"), "PATH": b.bin + os.pathsep + os.environ.get("PATH", ""),
+                          "FINTO_GH": "success", "FINTO_GH_LOG": b.log})
+    if rc == 0 or "fuso" not in out or b.remoto("main") != b.inizio:
+        male.append("senza il fuso di Roma doveva fermarsi (" + ultima(out) + ")")
+    rc, out = b.rilascia("pubblica", "--commit", a, "--dopo-la-prova")
+    if rc == 0 or "prova" not in out.splitlines()[-1] or b.remoto("main") != b.inizio:
+        male.append("--dopo-la-prova senza una prova chiusa su quel commit doveva fermarsi (" + ultima(out) + ")")
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    rc, out = b.rilascia("pubblica", "--commit", a)
+    rc2, out2 = b.rilascia("annulla")
+    if rc or rc2:
+        return esito("Rilascio: rientro dopo annulla e messaggi", False, "; ".join(male + ["rilascio o annullamento non riusciti: " + ultima(out + out2)]))
+    annullamento = b.remoto("main")
+    b.g("fetch", "-q", "origin")
+    b.g("checkout", "-q", "-B", "g01", "origin/main"); b.g("revert", "--no-edit", annullamento)
+    nuovo = b.commit("redazione/gommberg_engine.py", "# motore corretto\n", "G-01: correzione")
+    rc, out = b.rilascia("avvia")
+    rc2, out2 = b.rilascia("pubblica", "--commit", nuovo)
+    princ = b.remoto("main")
+    if rc or rc2 or princ == annullamento or b.g("show", princ + ":redazione/gommberg_engine.py") != "# motore corretto":
+        male.append("la voce riproposta (revert dell'annullamento più correzione, Ok nuovo) doveva rientrare (" + ultima(out + out2) + ")")
+    esito("Rilascio: rientro dopo annulla e messaggi", not male, "; ".join(male) or
+          "--ok-di-paolo indica --commit; senza fuso di Roma fermo; gh rotto ferma subito; rosso: gh run rerun; --dopo-la-prova vuole la prova chiusa; "
+          "dopo annulla la voce rientra con revert dell'annullamento, correzione e --commit")
+
+
+def collaudo_github_cancello():
+    """8. Il collaudo di GitHub solo come cancello finale (G-12, leva 2): collaudo.yml parte solo dal ramo su cui
+    rilascia.sh pubblica porta il rilascio, e pubblica aspetta proprio quel flusso sullo stesso commit."""
+    male = []
+    flusso = open(os.path.join(REPO, ".github", "workflows", "collaudo.yml"), encoding="utf-8").read()
+    script = open(os.path.join(R, "rilascia.sh"), encoding="utf-8").read()
+    m = re.search(r'CANCELLO="([^"]+)"', script)
+    rami = re.search(r"\n  push:\s*\n\s*branches:\s*\[([^\]]*)\]", flusso)
+    rami = [x.strip().strip("'\"") for x in rami.group(1).split(",")] if rami else []
+    if not m or rami != [m.group(1)]:
+        male.append(f"collaudo.yml deve partire solo dal ramo del cancello ({m.group(1) if m else '?'}), parte da {rami}")
+    if "pull_request" in flusso or "schedule:" in flusso:
+        male.append("collaudo.yml ha altri inneschi oltre al cancello e al lancio a mano")
+    if "gh run list --workflow collaudo.yml --commit" not in script:
+        male.append("pubblica non aspetta più collaudo.yml sullo stesso commit (cancello 5)")
+    esito("Rilascio: il collaudo di GitHub solo come cancello finale", not male, "; ".join(male) or
+          "collaudo.yml parte solo dal ramo cancello (e a mano); pubblica lo aspetta sullo stesso commit")
+
+
+def passo_rilascio():
+    rilascio_avanti()
+    avvia_sporco()
+    annulla_cancelli()
+    catena_livello()
+    commit_approvato()
+    prova_automatica()
+    collaudo_github_cancello()
+    rientro_e_messaggi()
+
+
 def main():
     if "--campione" in sys.argv:
         try:
@@ -2446,11 +2847,13 @@ def main():
         passo_rete()
         passo_pannello()
         passo_orologio()
+        passo_rilascio()
         copia = passo_sito()
         if isinstance(copia, str):
             passo_analisi(copia)
             passo_grafici(copia)
             passo_lettori(copia)
+            anteprima_chrome(copia)
             passo_pubblicazione_ramo(copia)
             passo_pubblicazione(copia)
     finally:

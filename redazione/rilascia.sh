@@ -6,45 +6,65 @@
 # Mappa del sistema e regole: redazione/ARCHITETTURA.md §5.
 #
 #   bash redazione/rilascia.sh avvia [con-prova]   mette la sessione sul ramo rilascio (o con-prova), allineato al ramo
-#                                         principale (lo crea se manca)
+#                                         principale (lo crea se manca). Si ferma se rilascio porta lavoro che il ramo
+#                                         principale non ha (un rilascio fermato a metà, lavoro mai approvato)
+#   bash redazione/rilascia.sh avvia --ripulisci   solo per la chat che decide di buttarlo: un commit riporta rilascio
+#                                         uguale al ramo principale (nessun push forzato; il lavoro resta nella storia)
 #   bash redazione/rilascia.sh collauda   sul ramo dove sei: porta dentro le novità del ramo principale, lancia il
 #                                         collaudo, stampa il resoconto
 #   bash redazione/rilascia.sh unisci <commit>   dopo la prova andata bene: porta nel ramo rilascio il lavoro di con-prova
 #                                         fino al commit su cui è stata fatta la prova (dopo.prova.commit), non oltre
-#   bash redazione/rilascia.sh pubblica [--ok-di-paolo] [--dopo-la-prova] [--senza-github] [--guasto]
-#                                         collauda; se è verde qui e su GitHub, un solo merge sul ramo principale
-#   bash redazione/rilascia.sh annulla    toglie dal ramo principale l'ultimo rilascio (revert del suo merge)
+#   bash redazione/rilascia.sh pubblica [--commit <ok.commit>] [--dopo-la-prova] [--senza-github] [--guasto]
+#                                         unisce il commit approvato e verifica che il rilascio sia esattamente il ramo
+#                                         principale più quel commit; collauda; se è verde qui e su GitHub, un solo
+#                                         merge sul ramo principale
+#   bash redazione/rilascia.sh annulla [--guasto]   toglie dal ramo principale l'ultimo rilascio (revert del suo merge),
+#                                         mai due volte lo stesso; poi riallinea il ramo rilascio al ramo principale
 #
 # I cancelli di "pubblica", nell'ordine: 1) niente modifiche non salvate; 2) il ramo contiene l'ultimo ramo principale;
 # 3) redazione/collaudo.py esce con 0 (rete di non regressione compresa); 4) se il rilascio cambia ciò che il lettore
-# vede (file pubblici del sito, testo del PDF o email dei campioni della rete, modello della newsletter) serve
-# --ok-di-paolo, che chi guida il rilascio aggiunge solo dopo il sì di Paolo al resoconto; 5) il collaudo di GitHub
-# (.github/workflows/collaudo.yml: stesso collaudo su un'altra macchina, più il sito aperto in un browser vero) è verde
-# sullo stesso commit. --senza-github salta solo il 5, quando GitHub non si può leggere da questa sessione.
-# Tra il 3 e il 4, la prova: se il rilascio cambia le regole di scrittura o un'edizione campione serve --dopo-la-prova,
-# che chi guida il rilascio aggiunge solo quando l'edizione di prova del ramo con-prova è andata bene (dopo.prova ok).
+# vede (file pubblici del sito, testo del PDF o email dei campioni della rete, modello della newsletter) o tocca la
+# catena del mattino (redazione/catena.txt) serve l'Ok di Paolo, cioè --commit con il commit che ha approvato (ok.commit
+# nel Registro): il rilascio deve essere esattamente il ramo principale più quel commit, niente in più né in meno; 5) il collaudo di GitHub (.github/workflows/collaudo.yml: stesso collaudo su un'altra macchina,
+# più il sito aperto in un browser vero) è verde sullo stesso albero di file: pubblica lo porta sul ramo "cancello" (lo legge solo collaudo.yml) e aspetta l'esito.
+# --senza-github salta solo il 5, quando GitHub non si può leggere da questa sessione.
+# Tra il 3 e il 4, la prova: se il rilascio cambia le regole di scrittura (le righe "prova" di catena.txt) o un'edizione
+# campione serve --dopo-la-prova con --commit <prova.commit>: lo script controlla con prova.sh esito che l'ultima prova sia
+# chiusa su quel commit; che sia andata bene (prova.esito ok nel Registro) lo dichiara chi guida il rilascio.
 # Prima dei cancelli, l'orario: dal lunedì al venerdì tra le 8:30 e le 10:30 di Roma l'edizione sta uscendo e il ramo
-# principale non si tocca; --guasto lo permette solo per un guasto che blocca l'uscita dell'edizione.
+# principale non si tocca; --guasto lo permette solo per un guasto che blocca l'uscita dell'edizione. Vale anche per annulla.
 # Il resoconto dice anche la FINESTRA del rilascio (ARCHITETTURA.md §5): ogni giorno, con prova, con Paolo.
 # Il merge ha come contenuto esatto quello collaudato (stesso albero di file). Si può sempre tornare indietro: annulla.
+# Il ramo rilascio su GitHub non va mai avanti al ramo principale: unisci e pubblica non lo spingono; pubblica lo
+# riallinea solo dopo il push sul ramo principale. Se pubblica si ferma, su GitHub rilascio resta com'era.
 # GTD_PROVA=1: pubblica e annulla fanno tutto tranne i push sul ramo principale, che stampano.
 set -u
 {   # tra graffe: bash legge tutto lo script prima di eseguirlo ("annulla" cambia i file del repository mentre gira)
 REPO="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "RILASCIO: FERMO - non sono dentro il repository"; exit 1; }
 cd "$REPO" || exit 1
-RAMO="rilascio"; ATTESA="con-prova"; PRINC="main"; PROVA="${GTD_PROVA:-0}"; FONDO=300
+RAMO="rilascio"; ATTESA="con-prova"; PRINC="main"; CANCELLO="cancello"; PROVA="${GTD_PROVA:-0}"; FONDO=300
 AZIONE="${1:-}"; shift 2>/dev/null || true
-OK_PAOLO=0; SENZA_GITHUB=0; GUASTO=0; DOPO_PROVA=0; SU="$RAMO"; PROVATO=""
+APPROVATO=""; ASPETTA_SHA=0; SENZA_GITHUB=0; GUASTO=0; DOPO_PROVA=0; RIPULISCI=0; SU="$RAMO"; PROVATO=""
 for a in "$@"; do
   # le opzioni valgono solo per l'azione che le usa: un'opzione fuori posto ferma, non passa in silenzio
   if [ "$AZIONE" = "avvia" ] && [ "$a" = "$ATTESA" ]; then SU="$ATTESA"; continue; fi
+  if [ "$AZIONE" = "avvia" ] && [ "$a" = "--ripulisci" ]; then RIPULISCI=1; continue; fi
   if [ "$AZIONE" = "unisci" ] && echo "$a" | grep -qiE '^[0-9a-f]{7,40}$'; then
     [ -z "$PROVATO" ] || { echo "RILASCIO: FERMO - unisci vuole un solo commit, quello della prova"; exit 1; }
     PROVATO="$a"; continue
   fi
+  if [ "$AZIONE" = "annulla" ] && [ "$a" = "--guasto" ]; then GUASTO=1; continue; fi
   [ "$AZIONE" = "pubblica" ] || { echo "RILASCIO: FERMO - opzione sconosciuta per '$AZIONE': $a"; exit 1; }
-  case "$a" in --ok-di-paolo) OK_PAOLO=1;; --dopo-la-prova) DOPO_PROVA=1;; --senza-github) SENZA_GITHUB=1;; --guasto) GUASTO=1;; *) echo "RILASCIO: FERMO - opzione sconosciuta: $a"; exit 1;; esac
+  if [ "$ASPETTA_SHA" = 1 ]; then
+    echo "$a" | grep -qiE '^[0-9a-f]{7,40}$' || { echo "RILASCIO: FERMO - --commit vuole il commit approvato (ok.commit), non '$a'"; exit 1; }
+    APPROVATO="$a"; ASPETTA_SHA=0; continue
+  fi
+  case "$a" in --commit) [ -z "$APPROVATO" ] || { echo "RILASCIO: FERMO - un solo --commit per rilascio"; exit 1; }; ASPETTA_SHA=1;; --dopo-la-prova) DOPO_PROVA=1;; --senza-github) SENZA_GITHUB=1;; --guasto) GUASTO=1;;
+    --ok-di-paolo) echo "RILASCIO: FERMO - --ok-di-paolo non c'è più: l'Ok è il commit approvato, --commit <ok.commit> (dal Registro)"; exit 1;;
+    *) echo "RILASCIO: FERMO - opzione sconosciuta: $a"; exit 1;; esac
 done
+[ "$ASPETTA_SHA" = 0 ] || { echo "RILASCIO: FERMO - --commit senza il commit approvato"; exit 1; }
+[ "$RIPULISCI" = 1 ] && [ "$SU" = "$ATTESA" ] && { echo "RILASCIO: FERMO - --ripulisci vale solo per il ramo $RAMO: il lavoro di $ATTESA aspetta la prova"; exit 1; }
 
 fermo() { echo "RILASCIO: FERMO - $1"; exit 1; }
 pulito() { [ -z "$(git status --porcelain)" ] || fermo "ci sono modifiche non salvate (git status): prima commit, o scartale"; }
@@ -72,20 +92,36 @@ dentro() {  # porta nel ramo dove sono le novità del ramo principale (edizioni 
   fi
 }
 
-# Che cosa cambia rispetto al ramo principale, e per chi. Riempie PUBBLICI, CAMPIONI, MODELLO, SCRITTURA, SERVE_OK.
+# Che cosa cambia rispetto al ramo principale, e per chi. Riempie PUBBLICI, CAMPIONI, MODELLO, SCRITTURA, CATENA,
+# LETTORE e SERVE_OK.
+regola() { echo "$1" | awk -v t="$2" '$1 == t && NF >= 2 {print $2}' | paste -sd'|'; }
 cambia() {
-  local tutti; tutti=$(git diff --name-only "origin/$PRINC" HEAD)
-  # pubblico = ciò che costruisci.py copia sul sito: tutto tranne redazione (salvo i quattro file letti dal sito),
-  # file e cartelle nascosti, cartelle di lavoro con _ e README
-  PUBBLICI=$(echo "$tutti" | grep -vE '^(redazione/|README)|(^|/)[._]' ; echo "$tutti" | grep -E '^redazione/(glossario|glossario_sito|meccanismi)\.json$|^redazione/scommessa/pagella\.json$')
-  PUBBLICI=$(echo "$PUBBLICI" | sed '/^$/d')
+  # senza rinomini: un file spostato conta con il nome vecchio (tolto) e con quello nuovo (aggiunto)
+  local tutti; tutti=$(git diff --no-renames --name-only "origin/$PRINC" HEAD)
+  # pubblico = ciò che costruisci.py copia sul sito: la definizione è una sola, la sua (costruisci.py --pubblici)
+  PUBBLICI=$(echo "$tutti" | python3 redazione/sito/costruisci.py --pubblici) \
+    || fermo "redazione/sito/costruisci.py --pubblici non risponde: senza l'elenco dei file pubblici non si rilascia"
   # solo l'atteso MODIFICATO: un campione nuovo non cambia nulla per il lettore, un campione che esce diverso sì
   CAMPIONI=$(git diff --no-renames --name-only --diff-filter=MD "origin/$PRINC" HEAD | grep -E '^redazione/rete/[^/]+/atteso/(pdf\.txt|email\.html)$')
   MODELLO=$(echo "$tutti" | grep -E '^redazione/newsletter_(modello|cornice)\.html$')
-  # ciò che la redazione del mattino legge o che decide che cosa resta in pagina: regole, modello, lessico, l'avvio,
-  # i controlli, il desk, il metodo della scommessa, il gancio della sessione
-  SCRITTURA=$(echo "$tutti" | grep -E '^redazione/(ISTRUZIONI|APP_[A-Z]+|NOTA_DEL_GIORNO)\.md$|^redazione/edizione_modello_v[0-9]+\.py$|^redazione/(glossario|meccanismi|fonti)\.json$|^redazione/(prepara\.sh|controlli_tutti\.sh|scommessa_giorno\.sh|desk\.py|contesto\.py|gancio_token\.py|controlli[a-z_]*\.py)$|^redazione/scommessa/(metodo\.json|[a-z0-9_]+\.py)$|^\.claude/settings\.json$')
-  SERVE_OK=0; [ -n "$PUBBLICI$CAMPIONI$MODELLO" ] && SERVE_OK=1
+  # la catena e, dentro, ciò che la redazione del mattino legge per scrivere: un file solo, redazione/catena.txt, letto
+  # dal ramo principale (un rilascio non allenta le regole con cui lui stesso viene giudicato); se lì non c'è ancora,
+  # da questo ramo
+  local cat c p f
+  cat=$(git show "origin/$PRINC:redazione/catena.txt" 2>/dev/null || cat redazione/catena.txt 2>/dev/null)
+  c=$(regola "$cat" catena); p=$(regola "$cat" prova); f=$(regola "$cat" fuori)
+  [ -n "$c" ] && [ -n "$p" ] || fermo "redazione/catena.txt manca o non ha regole: senza l'elenco della catena non si rilascia"
+  # una regola che grep non capisce lo farebbe sbagliare in silenzio, con la catena vuota: si ferma
+  local r; while IFS= read -r r; do
+    [ -z "$r" ] && continue
+    echo x | grep -qE -- "$r" 2>/dev/null; [ $? -le 1 ] || fermo "regola non valida in redazione/catena.txt: $r"
+  done <<< "$(echo "$cat" | awk '($1 == "catena" || $1 == "prova" || $1 == "fuori") && NF >= 2 {print $2}')"
+  SCRITTURA=$(echo "$tutti" | grep -E "$p" | grep -vE "${f:-^$}")
+  CATENA=$(echo "$tutti" | grep -E "$c|$p" | grep -vE "${f:-^$}")
+  LETTORE=0; [ -n "$PUBBLICI$CAMPIONI$MODELLO" ] && LETTORE=1
+  # il livello della voce (sola, via, visto) lo script non lo legge: lo ricava dai file. Ciò che tocca la catena o i
+  # lettori vuole sempre l'Ok di Paolo; senza Ok può andare solo il resto
+  SERVE_OK=0; [ "$LETTORE" = 1 ] || [ -n "$CATENA" ] && SERVE_OK=1
   TUTTI="$tutti"
 }
 # La finestra del rilascio (G-57): la decide questo resoconto, non la chat. Soldi, terzi e irreversibile lo script non li
@@ -93,12 +129,17 @@ cambia() {
 finestra() {
   local f=""
   [ -n "$SCRITTURA$CAMPIONI" ] && f="CON PROVA (prima un'edizione di prova dal ramo con-prova, PROVA.md)"
-  [ "$SERVE_OK" = 1 ] && f="${f:+$f + }CON PAOLO (il suo ok, nel riassunto DOPO)"
+  [ "$LETTORE" = 1 ] && f="${f:+$f + }CON PAOLO (il suo ok, nel riassunto DOPO)"
   local d="OGNI GIORNO (in linea la sera stessa, dopo l'edizione e il controllo del mattino)"
   echo "${f:-$d}"
 }
 fuori_orario() {  # vero tra le 8:30 e le 10:30 di Roma dal lunedì al venerdì (GTD_ORA="u HHMM" solo per le prove)
-  local o g h; o="${GTD_ORA:-$(TZ=Europe/Rome date '+%u %H%M')}"; g="${o%% *}"; h="${o##* }"; h=$((10#$h))
+  local o g h
+  # senza il fuso di Roma (tzdata) date userebbe l'ora UTC in silenzio: un'ora indietro, dentro la fascia senza saperlo
+  if [ -z "${GTD_ORA:-}" ]; then
+    case "$(TZ=Europe/Rome date +%Z)" in CET|CEST) ;; *) fermo "il fuso orario di Roma non c'è su questa macchina (tzdata): non so se è la fascia dell'uscita";; esac
+  fi
+  o="${GTD_ORA:-$(TZ=Europe/Rome date '+%u %H%M')}"; g="${o%% *}"; h="${o##* }"; h=$((10#$h))
   [ "$g" -le 5 ] && [ "$h" -ge 830 ] && [ "$h" -lt 1030 ]
 }
 elenco() { echo "$1" | sed '/^$/d' | head -"${2:-12}" | sed 's/^/    /'; local n; n=$(echo "$1" | sed '/^$/d' | wc -l); [ "$n" -gt "${2:-12}" ] && echo "    ... e altri $((n - ${2:-12}))"; return 0; }
@@ -116,7 +157,9 @@ resoconto() {
   else echo "  PDF ed email: le edizioni campione escono identiche a prima"; fi
   [ -n "$MODELLO" ] && echo "  Newsletter: cambia il modello (va ricaricato in Kit)"
   if [ -n "$SCRITTURA" ]; then echo "  Scrittura: cambiano regole o lessico della redazione, si vede solo su un'edizione di prova (PROVA.md):"; elenco "$SCRITTURA"; fi
-  echo "Ok di Paolo: $([ "$SERVE_OK" = 1 ] && echo "SERVE (cambia ciò che il lettore vede)" || echo "non serve (niente di visibile ai lettori)")"
+  if [ -n "$CATENA" ]; then echo "Catena del mattino (redazione/catena.txt): $(echo "$CATENA" | wc -l) file"; elenco "$CATENA" 6; fi
+  local perche=""; [ "$LETTORE" = 1 ] && perche="cambia ciò che il lettore vede"; [ -n "$CATENA" ] && perche="${perche:+$perche; }tocca la catena del mattino"
+  echo "Ok di Paolo: $([ "$SERVE_OK" = 1 ] && echo "SERVE ($perche)" || echo "non serve (niente di visibile ai lettori, niente della catena)")"
   echo "Finestra: $(finestra)"
   echo "Collaudo: $ESITO_COLLAUDO"
 }
@@ -133,15 +176,28 @@ collauda() {
   return $rc
 }
 
+al_cancello() {  # l'albero collaudato sul ramo cancello, senza forzare; G = il commit che GitHub collauda (stesso albero di HEAD)
+  git fetch -q --depth="$FONDO" origin "+refs/heads/$CANCELLO:refs/remotes/origin/$CANCELLO" 2>/dev/null
+  if ! git rev-parse -q --verify "refs/remotes/origin/$CANCELLO" >/dev/null || git merge-base --is-ancestor "origin/$CANCELLO" HEAD; then
+    G=$(git rev-parse HEAD)
+  elif [ "$(git rev-parse "origin/$CANCELLO^{tree}")" = "$(git rev-parse "HEAD^{tree}")" ]; then
+    G=$(git rev-parse "origin/$CANCELLO")
+  else
+    G=$(git commit-tree "HEAD^{tree}" -p "origin/$CANCELLO" -p HEAD -m "Cancello: $(git rev-parse --short HEAD) da collaudare") || fermo "commit del cancello"
+  fi
+  spingi "$G" "$CANCELLO" || fermo "push del ramo $CANCELLO rifiutato (il ramo principale e il ramo $RAMO su GitHub non sono stati toccati)"
+}
 github_verde() {  # il collaudo di GitHub sullo stesso commit: aspetta fino a 20 minuti
-  local sha="$1" i riga stato esito
+  local sha="$1" i riga stato esito id rc err; err=$(mktemp)
   command -v gh >/dev/null || fermo "non posso leggere GitHub da qui (manca gh): guarda tu la pagina Actions e rilancia con --senza-github"
   for i in $(seq 1 60); do
-    riga=$(gh run list --workflow collaudo.yml --commit "$sha" -L 1 --json status,conclusion -q '.[0] | "\(.status) \(.conclusion)"' 2>/dev/null)
-    stato="${riga%% *}"; esito="${riga##* }"
+    # gh che non risponde o non è autenticato si ferma subito, con la causa: non si aspetta 20 minuti per niente
+    riga=$(timeout 60 gh run list --workflow collaudo.yml --commit "$sha" -L 1 --json status,conclusion,databaseId -q '.[0] | "\(.status) \(.conclusion) \(.databaseId)"' 2>"$err"); rc=$?
+    [ $rc -eq 0 ] || fermo "gh non risponde o non è autenticato ($(head -c 160 "$err" | tr '\n' ' ')): guarda tu la pagina Actions, oppure rilancia quando gh funziona"
+    read -r stato esito id <<< "$riga"
     if [ "$stato" = "completed" ]; then
       [ "$esito" = "success" ] && { echo "Collaudo di GitHub: verde su $(git rev-parse --short "$sha")"; return 0; }
-      fermo "il collaudo di GitHub è $esito su $(git rev-parse --short "$sha"): gh run list --workflow collaudo.yml -L 1, poi gh run view <id> --log-failed"
+      fermo "il collaudo di GitHub è $esito su $(git rev-parse --short "$sha"): gh run view ${id:-<id>} --log-failed. Se è un rosso occasionale (non dipende dal rilascio): gh run rerun ${id:-<id>}, poi rilancia pubblica (lo stesso albero ritrova lo stesso collaudo)"
     fi
     [ "$i" = 1 ] && echo "Aspetto il collaudo di GitHub su $(git rev-parse --short "$sha") (fino a 20 minuti)..."
     sleep 20
@@ -152,24 +208,52 @@ github_verde() {  # il collaudo di GitHub sullo stesso commit: aspetta fino a 20
 case "$AZIONE" in
 avvia)
   pulito; prendi "$PRINC"
-  # avvia non cancella mai lavoro: se il ramo locale ha commit che origin non ha, si ferma (o, se origin non ha ancora
-  # il ramo, parte da quello locale)
+  # commit solo locali: su con-prova sono lavoro da spingere; su rilascio sono un pubblica fermato a metà (il commit
+  # approvato unito in locale), che non si spinge mai: si riparte dal rilascio di GitHub, il lavoro resta sul ramo della voce
+  BASE_SU=""
   if git ls-remote --exit-code --heads origin "$SU" >/dev/null 2>&1; then
     git fetch -q --depth="$FONDO" origin "+refs/heads/$SU:refs/remotes/origin/$SU" 2>/dev/null || fermo "git fetch di $SU non riuscito"
-    if git show-ref --verify --quiet "refs/heads/$SU" && [ "$(git rev-list --count "origin/$SU..$SU")" -gt 0 ]; then
-      fermo "il ramo locale $SU ha $(git rev-list --count "origin/$SU..$SU") commit che origin non ha: prima 'git push origin $SU', poi rilancia (avvia non li cancella)"
+    BASE_SU="origin/$SU"
+  fi
+  LOCALI=0
+  git show-ref --verify --quiet "refs/heads/$SU" && LOCALI=$(git rev-list --count "${BASE_SU:-origin/$PRINC}..$SU")
+  if [ "$SU" = "$ATTESA" ]; then
+    if [ -n "$BASE_SU" ]; then
+      [ "$LOCALI" -eq 0 ] || fermo "il ramo locale $SU ha $LOCALI commit che GitHub non ha: prima 'git push origin $SU', poi rilancia (avvia non li cancella)"
+      git checkout -q -B "$SU" "$BASE_SU" || fermo "checkout del ramo $SU"
+    elif [ "$LOCALI" -gt 0 ]; then
+      git checkout -q "$SU" || fermo "checkout del ramo $SU"
+    else
+      git checkout -q -B "$SU" "origin/$PRINC" || fermo "creazione del ramo $SU"
     fi
-    git checkout -q -B "$SU" "origin/$SU" || fermo "checkout del ramo $SU"
-  elif git show-ref --verify --quiet "refs/heads/$SU" && [ "$(git rev-list --count "origin/$PRINC..$SU")" -gt 0 ]; then
-    git checkout -q "$SU" || fermo "checkout del ramo $SU"
   else
-    git checkout -q -B "$SU" "origin/$PRINC" || fermo "creazione del ramo $SU"
+    if [ "$LOCALI" -gt 0 ] && [ "$RIPULISCI" != 1 ]; then
+      fermo "il ramo $RAMO locale ha $LOCALI commit che GitHub non ha (un pubblica fermato a metà?): non si spingono mai. Per ripartire: 'avvia --ripulisci' (git checkout -B $RAMO ${BASE_SU:-origin/$PRINC}; il lavoro resta sul ramo della voce)"
+    fi
+    [ "$LOCALI" -gt 0 ] && { echo "Tolgo dal ramo $RAMO locale i commit che GitHub non ha (restano sul ramo della voce):"; elenco "$(git log --no-merges --format='%h %s' "${BASE_SU:-origin/$PRINC}..$SU")"; }
+    git checkout -q -B "$SU" "${BASE_SU:-origin/$PRINC}" || fermo "checkout del ramo $SU"
+  fi
+  # rilascio porta solo ciò che si sta rilasciando adesso: lavoro che il ramo principale non ha (cambiato dal punto in
+  # cui i due rami si sono separati) è un rilascio fermato a metà o lavoro mai approvato, e partirebbe con la voce nuova
+  if [ "$SU" = "$RAMO" ] && ! git diff --quiet "origin/$PRINC...HEAD"; then
+    if [ "$RIPULISCI" = 1 ]; then
+      echo "Tolgo dal ramo $RAMO (resta nella storia, non va in linea):"; elenco "$(git log --no-merges --format='%h %s' "origin/$PRINC..HEAD")"
+      C=$(git commit-tree "origin/$PRINC^{tree}" -p HEAD -p "origin/$PRINC" -m "Ripulisce $RAMO: torna uguale al ramo principale $(git rev-parse --short "origin/$PRINC")") || fermo "commit della pulizia"
+      git merge -q --ff-only "$C" || fermo "pulizia del ramo $RAMO"
+    else
+      fermo "il ramo $RAMO porta lavoro che il ramo principale non ha (file: $(git diff --name-only "origin/$PRINC...HEAD" | head -5 | tr '\n' ' ')): un rilascio fermato a metà o lavoro mai approvato. Va capito prima; se va buttato: 'avvia --ripulisci' (un commit lo riporta uguale al ramo principale, senza push forzati)"
+    fi
+  elif [ "$RIPULISCI" = 1 ] && [ "$LOCALI" -eq 0 ]; then
+    echo "Il ramo $RAMO su GitHub era già pulito: niente da togliere."
   fi
   dentro
   spingi HEAD "$SU" || fermo "push del ramo $SU rifiutato"
   echo "RILASCIO: ramo $SU pronto su $(git rev-parse --short "origin/$PRINC") del ramo principale, $(git rev-list --no-merges --count "origin/$PRINC..HEAD") commit avanti."
-  echo "Da qui: lavoro e commit su questo ramo, python3 redazione/collaudo.py dopo ogni modifica, git push origin $SU."
-  [ "$SU" = "$ATTESA" ] && echo "Questo ramo aspetta l'edizione di prova del venerdì: in linea ci va con 'avvia', 'unisci' e 'pubblica --dopo-la-prova'."
+  if [ "$SU" = "$ATTESA" ]; then
+    echo "Da qui: merge --no-ff degli ok.commit delle voci con prova, git push origin $SU. In linea ci va dopo l'edizione di prova: 'avvia', 'unisci <prova.commit>', 'pubblica --commit <prova.commit> --dopo-la-prova'."
+  else
+    echo "Da qui: 'pubblica --commit <ok.commit>' (unisce lui il commit approvato). Il ramo $RAMO non si spinge a mano: lo riallinea pubblica dopo il merge."
+  fi
   ;;
 collauda)
   collauda; rc=$?
@@ -188,30 +272,58 @@ unisci)
     git merge --abort >/dev/null 2>&1
     fermo "il ramo $ATTESA non si unisce al ramo $RAMO: conflitto in $f (prima si pubblica ciò che è su $RAMO; poi 'avvia $ATTESA' porta dentro il ramo principale e il conflitto si risolve lì, con una nuova prova se tocca la scrittura)"
   fi
-  spingi HEAD "$RAMO" || fermo "push del ramo $RAMO rifiutato"
-  echo "RILASCIO: il lavoro provato di $ATTESA ($(git rev-parse --short "$PROVATO")) è nel ramo $RAMO. Ora, subito: 'pubblica --dopo-la-prova' (si unisce solo al Rilascia di Paolo, mai prima)."
+  echo "RILASCIO: il lavoro provato di $ATTESA ($(git rev-parse --short "$PROVATO")) è nel ramo $RAMO di questa sessione (non spinto: su GitHub $RAMO non va mai avanti al ramo principale). Ora, nella stessa sessione: 'pubblica --commit $(git rev-parse --short "$PROVATO") --dopo-la-prova' (si unisce solo al Rilascia di Paolo, mai prima)."
   ;;
 pubblica)
   if fuori_orario && [ "$GUASTO" != 1 ]; then
     fermo "tra le 8:30 e le 10:30 dei giorni di edizione il ramo principale non si tocca: riprova dopo le 10:30 (--guasto solo per un guasto che blocca l'uscita)"
   fi
-  solo_rilascio
+  solo_rilascio; pulito
+  # il commit approvato, esattamente: lo unisce se non c'è, poi il ramo deve essere il ramo principale di adesso più
+  # quel commit (stesso albero di file), niente in più né in meno
+  if [ -n "$APPROVATO" ]; then
+    git cat-file -e "$APPROVATO^{commit}" 2>/dev/null || git fetch -q origin "$APPROVATO" 2>/dev/null
+    git cat-file -e "$APPROVATO^{commit}" 2>/dev/null || fermo "il commit approvato $APPROVATO non c'è in questa copia: git fetch origin g<NN>, poi rilancia"
+    APPROVATO=$(git rev-parse "$APPROVATO^{commit}")
+    if ! git merge-base --is-ancestor "$APPROVATO" HEAD; then
+      firma
+      if ! git merge -q --no-ff --no-edit "$APPROVATO" >/dev/null 2>&1; then
+        git merge --abort >/dev/null 2>&1; fermo "il commit approvato $(git rev-parse --short "$APPROVATO") non si unisce al ramo $RAMO (conflitto): va ripreparato sul ramo della voce, con un Ok nuovo"
+      fi
+    fi
+    dentro
+    ATTESO=$(git merge-tree --write-tree "origin/$PRINC" "$APPROVATO" 2>/dev/null) && ATTESO=$(echo "$ATTESO" | head -1) && [ -n "$ATTESO" ] || fermo "il commit approvato non si unisce al ramo principale di adesso senza conflitti: va ripreparato sul ramo della voce, con un Ok nuovo"
+    [ "$ATTESO" = "$(git rev-parse "HEAD^{tree}")" ] || fermo "il ramo $RAMO non è esattamente il ramo principale più il commit approvato $(git rev-parse --short "$APPROVATO"): diverso in $(git diff --name-only "$ATTESO" HEAD | head -5 | tr '\n' ' ')(lavoro non approvato? 'avvia', poi rilancia)"
+    echo "Commit approvato: $(git rev-parse --short "$APPROVATO"), e il ramo è esattamente il ramo principale più quello."
+  fi
   collauda || fermo "collaudo rosso: il ramo principale non si tocca"
   if [ -n "$SCRITTURA$CAMPIONI" ] && [ "$DOPO_PROVA" != 1 ]; then
-    fermo "questo rilascio cambia le regole di scrittura o un'edizione campione: vuole l'edizione di prova. Il lavoro sta sul ramo $ATTESA fino alla prova; dopo la prova andata bene rilancia con --dopo-la-prova"
+    fermo "questo rilascio cambia le regole di scrittura o un'edizione campione: vuole l'edizione di prova. Il lavoro sta sul ramo $ATTESA fino alla prova; dopo la prova andata bene rilancia con --commit <prova.commit> --dopo-la-prova"
   fi
-  if [ "$SERVE_OK" = 1 ] && [ "$OK_PAOLO" != 1 ]; then
-    fermo "questo rilascio cambia ciò che il lettore vede: mostra a Paolo il resoconto qui sopra e, dopo il suo sì, rilancia con --ok-di-paolo"
+  # --dopo-la-prova: lo script controlla che l'ultima prova (prova.sh esito) sia chiusa proprio sul commit che si unisce;
+  # che l'edizione sia andata bene (prova.esito ok nel Registro) lo dichiara chi guida il rilascio
+  if [ "$DOPO_PROVA" = 1 ]; then
+    [ -n "$APPROVATO" ] || fermo "--dopo-la-prova vuole anche --commit <prova.commit>, il commit su cui è stata fatta la prova"
+    PE=$(bash redazione/prova.sh esito 2>/dev/null); rc=$?
+    [ $rc -eq 0 ] && echo "$PE" | grep -q "\"commit\": \"$APPROVATO\"" \
+      || fermo "l'ultima edizione di prova non è chiusa sul commit $(git rev-parse --short "$APPROVATO") (bash redazione/prova.sh esito): senza la prova su questo commit non si va in linea"
+    echo "Prova: chiusa sul commit $(git rev-parse --short "$APPROVATO") (che sia andata bene lo dice prova.esito nel Registro)."
+  fi
+  if [ "$SERVE_OK" = 1 ] && [ -z "$APPROVATO" ]; then
+    fermo "questo rilascio cambia ciò che il lettore vede o tocca la catena del mattino (redazione/catena.txt): vuole l'Ok di Paolo sul commit esatto. Rilancia con --commit <ok.commit> (dal Registro); senza Ok, mostra a Paolo il resoconto qui sopra"
   fi
   firma
-  spingi HEAD "$RAMO" || fermo "push del ramo $RAMO rifiutato"
-  [ "$SENZA_GITHUB" = 1 ] && echo "Collaudo di GitHub: saltato (--senza-github)" || github_verde "$(git rev-parse HEAD)"
-  # il merge: un commit sul ramo principale con ESATTAMENTE l'albero collaudato (il ramo contiene già il ramo principale)
-  VOCI=$(git log --no-merges --format=%s "origin/$PRINC..HEAD" | grep -oE 'G-[0-9]+' | sort -u | tr '\n' ' ' | sed 's/ $//')
-  N=$(git rev-list --no-merges --count "origin/$PRINC..HEAD")
+  if [ "$SENZA_GITHUB" = 1 ]; then echo "Collaudo di GitHub: saltato (--senza-github)"; else al_cancello; github_verde "$G"; fi
+  # il merge: un commit sul ramo principale con ESATTAMENTE l'albero collaudato (il ramo contiene già il ramo principale);
+  # nel messaggio i commit del lavoro approvato (con --commit, quelli che portano a lui)
+  DA="${APPROVATO:-HEAD}"
+  VOCI=$(git log --no-merges --format=%s "origin/$PRINC..$DA" | grep -oE 'G-[0-9]+' | sort -u | tr '\n' ' ' | sed 's/ $//')
+  N=$(git rev-list --no-merges --count "origin/$PRINC..$DA")
   M=$(git commit-tree "HEAD^{tree}" -p "origin/$PRINC" -p HEAD -m "Rilascio $(TZ=Europe/Rome date +%F): $N commit${VOCI:+ ($VOCI)}
 
-$(git log --no-merges --reverse --format='- %s' "origin/$PRINC..HEAD" | cut -c1-140 | head -40)") || fermo "commit del merge"
+$(git log --no-merges --reverse --format='- %s' "origin/$PRINC..$DA" | cut -c1-140 | head -40)${APPROVATO:+
+
+Commit approvato: $APPROVATO}") || fermo "commit del merge"
   if [ "$PROVA" = "1" ]; then
     echo "[prova] git push origin $M:refs/heads/$PRINC   (merge \"$(git log -1 --format=%s "$M")\")"
     echo "RILASCIO: PROVA - tutto verde, nessun push sul ramo principale."; exit 0
@@ -219,15 +331,22 @@ $(git log --no-merges --reverse --format='- %s' "origin/$PRINC..HEAD" | cut -c1-
   # l'orario di nuovo, subito prima del merge: collaudo e attesa di GitHub possono averlo portato dentro la fascia
   if fuori_orario && [ "$GUASTO" != 1 ]; then fermo "nel frattempo sono le 8:30 passate: il ramo principale non si tocca fino alle 10:30, rilancia dopo (nulla è stato pubblicato)"; fi
   spingi "$M" "$PRINC" || fermo "push sul ramo principale rifiutato (è cambiato nel frattempo? rilancia: nulla è stato pubblicato)"
+  # solo ora, con il ramo principale già aggiornato, il ramo rilascio su GitHub: uguale al ramo principale
   git merge -q --ff-only "$M" && spingi HEAD "$RAMO" || echo "AVVISO: ramo $RAMO non riallineato al ramo principale (lo farà il prossimo 'avvia')"
   echo "RILASCIO: PUBBLICATO - merge $(git rev-parse --short "$M") sul ramo principale ($N commit${VOCI:+, $VOCI})."
   echo "Ora GitHub ripubblica gommberg.com e lo verifica dal vivo: gh run list --workflow sito.yml -L 1"
   echo "Per tornare indietro: bash redazione/rilascia.sh annulla"
   ;;
 annulla)
+  if fuori_orario && [ "$GUASTO" != 1 ]; then
+    fermo "tra le 8:30 e le 10:30 dei giorni di edizione il ramo principale non si tocca: riprova dopo le 10:30 (--guasto solo se è il rilascio a bloccare l'uscita)"
+  fi
   pulito; prendi "$PRINC"; firma
   M=$(git log "origin/$PRINC" --merges --grep='^Rilascio ' -1 --format=%H)
   [ -n "$M" ] || fermo "nessun rilascio da annullare negli ultimi $FONDO commit del ramo principale"
+  # mai due volte di fila: l'ultimo rilascio già tolto non si ritoglie, e quello prima non si tocca senza una scelta
+  GIA=$(git log "origin/$PRINC" --format=%h --grep="This reverts commit $M" -1)
+  [ -z "$GIA" ] || fermo "l'ultimo rilascio ($(git log -1 --format=%s "$M" | cut -c1-80)) è già annullato dal commit $GIA: un secondo annullamento di fila non si fa (per togliere anche quello prima, git revert a mano con Paolo)"
   PRIMA=$(git rev-parse --abbrev-ref HEAD)
   git checkout -q --detach "origin/$PRINC" || fermo "checkout del ramo principale"
   if ! git revert -m 1 --no-edit "$M" >/dev/null 2>&1; then
@@ -241,12 +360,23 @@ annulla)
   if [ $rc -ne 0 ]; then git checkout -q "$PRIMA"; fermo "senza il rilascio il collaudo è rosso: non tolgo nulla, va guardato a mano"; fi
   R=$(git rev-parse HEAD)
   if [ "$PROVA" = "1" ]; then echo "[prova] git push origin $R:refs/heads/$PRINC   (\"$(git log -1 --format=%s "$R")\")"; git checkout -q "$PRIMA"; echo "RILASCIO: PROVA - annullamento pronto, nessun push."; exit 0; fi
+  if fuori_orario && [ "$GUASTO" != 1 ]; then git checkout -q "$PRIMA"; fermo "nel frattempo sono le 8:30 passate: il ramo principale non si tocca fino alle 10:30, rilancia dopo (nulla è cambiato)"; fi
   spingi "$R" "$PRINC" || { git checkout -q "$PRIMA"; fermo "push dell'annullamento rifiutato: nulla è cambiato"; }
   git checkout -q "$PRIMA"
   echo "RILASCIO: ANNULLATO - il ramo principale è tornato a prima del rilascio $(git rev-parse --short "$M") (commit $(git rev-parse --short "$R"))."
-  echo "Il lavoro resta sul ramo $RAMO. Per riproporlo dopo la correzione: 'avvia', poi git revert $(git rev-parse --short "$R") sul ramo $RAMO (riporta dentro il lavoro), correzione, 'pubblica'."
+  # il ramo rilascio torna uguale al ramo principale (senza forzare: solo se è indietro sulla stessa linea)
+  git fetch -q --depth="$FONDO" origin "+refs/heads/$RAMO:refs/remotes/origin/$RAMO" 2>/dev/null
+  if ! git rev-parse -q --verify "refs/remotes/origin/$RAMO" >/dev/null || git merge-base --is-ancestor "origin/$RAMO" "$R"; then
+    spingi "$R" "$RAMO" && echo "Ramo $RAMO riallineato al ramo principale." || echo "AVVISO: ramo $RAMO non riallineato (push rifiutato): lo dirà il prossimo 'avvia'"
+  else
+    echo "AVVISO: il ramo $RAMO su GitHub ha lavoro fuori dalla linea del ramo principale: non riallineato, lo fermerà il prossimo 'avvia'"
+  fi
+  if git show-ref --verify --quiet "refs/heads/$RAMO" && git merge-base --is-ancestor "$RAMO" "$R"; then
+    if [ "$PRIMA" = "$RAMO" ]; then git merge -q --ff-only "$R"; else git branch -q -f "$RAMO" "$R"; fi
+  fi
+  echo "Il lavoro resta nella storia e sul ramo della voce. Per riproporlo: sul ramo della voce, da main nuovo, git checkout -B g<NN> origin/$PRINC && git revert --no-edit $(git rev-parse --short "$R") (riporta dentro il lavoro), poi la correzione, collaudo e un Ok nuovo su quel commit; poi 'avvia' e 'pubblica --commit <ok.commit nuovo>'."
   ;;
-*) echo "uso: rilascia.sh avvia [con-prova] | collauda | unisci <commit provato> | pubblica [--ok-di-paolo] [--dopo-la-prova] [--senza-github] [--guasto] | annulla"; exit 1;;
+*) echo "uso: rilascia.sh avvia [con-prova | --ripulisci] | collauda | unisci <commit provato> | pubblica [--commit <ok.commit>] [--dopo-la-prova] [--senza-github] [--guasto] | annulla [--guasto]"; exit 1;;
 esac
 exit 0
 }
