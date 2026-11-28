@@ -42,6 +42,14 @@ AMBIENTE = 3                # uscita dell'estrazione per un guasto dell'ambiente
 # misure dei grafici (pollici, scala 1:1 come nel PDF): PC a tutta colonna, telefono più stretto con le scritte leggibili
 MISURE = (("", 5.6, 2.45), ("-m", 3.5, 2.4))
 CAMPI = ("tema", "titolo", "perche", "quindi", "numero", "testo", "guardare", "fonte", "punti", "righe", "misura")
+# Il disegno non dipende dalla macchina: gli id dell'SVG nascono da un seme fisso, e le due impostazioni di matplotlib
+# da cui dipende la misura delle scritte (e quindi margini e riquadro) sono dichiarate qui invece di essere quelle che
+# la macchina si trova. I valori sono quelli con cui sono nati i grafici pubblicati: la macchina della redazione ha una
+# matplotlib che parte da 200 e "no_hinting", una matplotlib appena installata (il collaudo su GitHub) parte da 100 e
+# "default", e con la stessa versione disegnava il riquadro fino a 2,6 punti più in là. Con questi valori la stessa
+# versione ridà gli stessi byte ovunque; tra versioni diverse cambiano solo id e decimi di punto (collaudo.py,
+# stesso_grafico). "no_hinting" misura le scritte con le misure del carattere, senza l'arrotondamento ai pixel.
+DISEGNO = {"svg.hashsalt": "gommberg", "figure.dpi": 200, "text.hinting": "no_hinting"}
 
 
 # ---------------------------------------------------------------- 1. estrazione (processo a parte)
@@ -118,7 +126,7 @@ def disegna(dati, cartella, repo):
     sys.path.insert(0, os.path.join(repo, "redazione"))
     import matplotlib
     matplotlib.use("Agg")
-    matplotlib.rcParams["svg.hashsalt"] = "gommberg"
+    matplotlib.rcParams.update(DISEGNO)
     import gommberg_engine as G
     os.makedirs(cartella, exist_ok=True)
     tmp = tempfile.mkdtemp(prefix="grafici-")
