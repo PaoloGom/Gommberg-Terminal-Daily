@@ -216,7 +216,7 @@ def main():
     st = pronostica(origine, red, a.variabile)
     motivi = [v["motivo_redazione"].strip().lower() for v in st.values()]
     if METODO["redazione"].get("tipi_motivo") and len(set(motivi)) < len(motivi):
-        raise SystemExit("due mercati hanno lo stesso motivo: ogni riga dice che cosa muove o che cosa aspetta QUEL mercato")
+        raise SystemExit("due mercati hanno lo stesso motivo: ogni riga dice che cosa spinge QUEL mercato nella sua direzione")
     lun = (origine + pd.Timedelta(days=3)).date()
     ven = (origine + pd.Timedelta(days=7)).date()
     # schema 3 (21/11/2026): lo scenario è il testo che pagina6.py stampa il lunedì nel riquadro "La nostra tesi"
