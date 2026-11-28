@@ -73,6 +73,10 @@ def dati():
     M = leggi("redazione/meccanismi.json", {})
     E = [e for e in leggi("edizioni.json", []) if isinstance(e, dict) and e.get("numero") and e.get("data") and e.get("titolo")]
     E.sort(key=lambda e: e["numero"], reverse=True)
+    # le analisi con pagina (G-64): pagine.py le segna in dati/indice.json ("a" = [chiave, tema]), da lì l'indirizzo
+    AN = {r.get("n"): r.get("a") for r in leggi("dati/indice.json", []) if isinstance(r, dict) and r.get("a")}
+    for e in E:
+        e["_analisi"] = [(t or k, f"e/{pagine.nnn(e['numero'])}/{k}.html") for k, t in AN.get(e["numero"]) or []]
     SV, SM = S.get("voci") or {}, S.get("meccanismi") or {}
     base = [v for v in G.get("voci") or [] if v.get("sigla") and v.get("breve")]
     note = {v["sigla"] for v in base}
@@ -284,12 +288,16 @@ def riserva_home(t, eds):
     t = sostituisci(t, "brief", "".join(f"<li>{esc(s)}</li>" for s in ed.get("sommario") or []))
     # Analisi e storie: le stesse righe che disegna index.html (al massimo 7; se dispari la prima apre a tutta riga), come link al PDF
     an, pp = (ed.get("approfondimenti") or [])[:7], (ed.get("dove") or {}).get("approfondimenti") or []
+    scheda = leggi(f"e/{pagine.nnn(ed['numero'])}.json", {})   # la copia per il sito: ogni analisi con pagina ha "pagina"
+    pagine_an = [x.get("pagina") if isinstance(x, dict) else None for x in scheda.get("approfondimenti") or []]
     def riga(i, x):
         pg = pp[i] if i < len(pp) and pp[i] else None
         corpo = (f'<span class="k">{esc(x.get("tema") or "")}</span><span class="go">{pg or ""}</span><span class="t">{esc(x.get("titolo") or "")}</span>')
         apre = ' class="apre"' if i == 0 and len(an) % 2 else ""
-        return (f'<li{apre}><a class="an-row" href="{esc(ed["file"])}#page={pg}">{corpo}</a></li>' if pg
-                else f'<li{apre}><div class="an-row">{corpo}</div></li>')
+        # il testo sul sito (G-64): stesso ordine delle analisi; vale solo se tutte le analisi hanno la pagina
+        testo = f'<a class="an-txt" href="{esc(pagine_an[i])}">Leggi il testo qui &rsaquo;</a>' if i < len(pagine_an) and pagine_an[i] else ""
+        return (f'<li{apre}><a class="an-row" href="{esc(ed["file"])}#page={pg}">{corpo}</a>{testo}</li>' if pg
+                else f'<li{apre}><div class="an-row">{corpo}</div>{testo}</li>')
     t = sostituisci(t, "anList", "".join(riga(i, x) for i, x in enumerate(an)))
     righe = []
     for e in eds[1:6]:
@@ -319,7 +327,10 @@ def riserva_impara(t, parole):
 def riserva_archivio(t, eds):
     if not eds:
         return t
-    righe = "".join(f'<li><a href="e/{pagine.nnn(e["numero"])}.html">N. {pagine.nnn(e["numero"])} | {quando(e)}: {esc(e["titolo"])}</a></li>' for e in eds)
+    def an(e):
+        p = e.get("_analisi") or []
+        return ('<p class="ax-an"><span>Le analisi: </span>' + " | ".join(f'<a href="{esc(u)}">{esc(t)}</a>' for t, u in p) + "</p>") if p else ""
+    righe = "".join(f'<li><a href="e/{pagine.nnn(e["numero"])}.html">N. {pagine.nnn(e["numero"])} | {quando(e)}: {esc(e["titolo"])}</a>{an(e)}</li>' for e in eds)
     return sostituisci(t, "axList", f'<ul class="ax-rows">{righe}</ul>')
 
 

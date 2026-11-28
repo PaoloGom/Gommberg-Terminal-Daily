@@ -23,6 +23,8 @@ un link (AVVISO ed esce con 0); si ferma solo se un file privato stesse per fini
 
 Uso:  python3 redazione/sito/costruisci.py <cartella di uscita> [--anteprima]
       --anteprima  per gli indirizzi di prova: niente statistiche (le visite di prova non si contano) e noindex
+      python3 redazione/sito/costruisci.py --pubblici < elenco   stampa i percorsi dell'elenco che sarebbero pubblici
+                   (lo usa rilascia.sh per dire che cosa cambia per i lettori)
 La cartella di uscita è nuova o vuota; si riscrive solo se il nome comincia con _ (es. _sito) e l'ha scritta questo
 script (la riconosce dalla firma del suo _redirects). Non cancella mai nient'altro.
 Lo lancia .github/workflows/sito.yml a ogni push su main (gommberg.com) e su prova (anteprima). Zero token.
@@ -158,6 +160,12 @@ def controlla(uscita: Path, file):
 
 
 def main():
+    if "--pubblici" in sys.argv:
+        # una sola definizione di "pubblico": rilascia.sh passa qui i file cambiati e riceve quelli che finirebbero sul sito
+        for riga in sys.stdin.read().splitlines():
+            if riga and (pubblico(PurePosixPath(riga)) or riga in LETTI):
+                print(riga)
+        return
     arg = [a for a in sys.argv[1:] if not a.startswith("--")]
     if not arg:
         sys.exit(__doc__)

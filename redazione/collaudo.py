@@ -2,7 +2,7 @@
 """Collaudo del kit: in un paio di minuti, senza rete e senza modelli, dice se una modifica ha rotto qualcosa, anche lontano
 da dove si è messo mano. Si lancia dopo OGNI modifica, prima del commit:   python3 redazione/collaudo.py
 È il cancello del rilascio: redazione/rilascia.sh porta il lavoro sul ramo principale solo se esce con 0, e GitHub lo
-rilancia a ogni push sul ramo di rilascio (.github/workflows/collaudo.yml). Non fa parte del lavoro del mattino e non
+rilancia come cancello finale di pubblica (.github/workflows/collaudo.yml, ramo cancello). Non fa parte del lavoro del mattino e non
 scrive nulla nel repository (lavora in una cartella temporanea), salvo con --atteso e --campione.
 
 Nato il 14/11/2026: la v8.4 aveva lasciato la pagina di riferimento mezza vuota (5 moduli sotto il 90%) e la v8.5 aveva
@@ -40,8 +40,14 @@ Cosa controlla:
                    rigenerano nello stesso commit); costruisci.py prepara il sito pubblico senza avvisi; Impara cresce
                    con le edizioni (impara.py su casi costruiti: una volta sola aspetta, due volte è pronta ma entra solo
                    confermata a mano, la frase del giorno resta fuori, la scheda scritta a mano vince, fuori vale per
-                   ogni nome, i doppioni si segnalano, un ingresso rotto ferma il passaggio e lascia dati/parole.json com'era)
-  6. Pubblicazione pubblica.sh in modalità prova sulla copia (nessun commit, nessun push)
+                   ogni nome, i doppioni si segnalano, un ingresso rotto ferma il passaggio e lascia dati/parole.json com'era);
+                   le pagine
+                   delle analisi (analisi_sito.py): una per analisi, testo uguale al PDF, link e sitemap, un sorgente
+                   rotto che non ferma l'edizione, e un'edizione rifatta da zero che ridà gli stessi file. I grafici
+                   si confrontano in ciò che mostrano e non nei byte, che cambiano con la versione di matplotlib: lo
+                   stesso verdetto in locale e su GitHub (stesso_grafico, provato da passo_grafici)
+  6. Pubblicazione pubblica.sh in modalità prova sulla copia (nessun commit, nessun push); se pagine.py cade l'avviso
+                   esce e la pubblicazione prosegue
 Esce con 1 se un passo fallisce. --tieni lascia la cartella temporanea per guardare PDF e anteprime.
 
 La rete (redazione/rete/). Un campione è un'edizione vera congelata: sorgenti/ (il testo scritto e i dati di quel
@@ -1397,7 +1403,7 @@ def passo_newsletter():
                     return 200, {"email_templates": [{"id": 5, "name": "Gommberg cornice"}]}
                 return 201, {"broadcast": {"id": 1, "email_template": {"name": "x"}}}
             return k
-        vuoto = (200, {"broadcasts": []})
+        vuoto = (200, {"broadcasts": [], "pagination": {"has_next_page": False}})
         chiamate.clear()
         NL.kit = kit_invii([(503, {}), (503, {}), vuoto])
         if NL.invii_esistenti() != {} or len([c for c in chiamate if c[0] == "GET"]) != 3:
@@ -1410,7 +1416,7 @@ def passo_newsletter():
         if len([c for c in chiamate if c[0] == "POST"]) != 1:
             male.append("elenco degli invii che sbaglia due volte: l'email non parte una volta sola")
         chiamate.clear()
-        NL.kit = kit_invii([(503, {}), (200, {"broadcasts": [{"id": 9, "description": NL.etichetta(ed)}]})])
+        NL.kit = kit_invii([(503, {}), (200, {"broadcasts": [{"id": 9, "description": NL.etichetta(ed)}], "pagination": {"has_next_page": False}})])
         if NL.etichetta(ed) not in NL.invii_esistenti():
             male.append("elenco degli invii riletto: l'invio già presente non si vede")
         for nome, risposta in (("risponde sempre 503", (503, {})), ("errore di rete", (0, {"errore": "rete: timeout"}))):
@@ -1433,6 +1439,187 @@ def passo_newsletter():
             pass
         if len(chiamate) != 1:
             male.append("elenco degli invii con 401: riletto senza motivo")
+        # l'elenco degli invii ha più pagine: l'invio di oggi nella seconda si vede, l'email non parte due volte (G-69)
+        def kit_pagine(pagine, guasti=None):
+            """Kit finto a pagine: pagine = {cursore o None: (invii, cursore successivo o None)}; guasti = {cursore: [risposte]}
+            date una alla volta prima della pagina vera (per i guasti momentanei a metà elenco)."""
+            guasti = {k: list(v) for k, v in (guasti or {}).items()}
+
+            def k(metodo, percorso, dati=None):
+                chiamate.append((metodo, percorso, dati))
+                if percorso.startswith("/broadcasts") and metodo == "GET":
+                    cursore = percorso.split("after=")[1] if "after=" in percorso else None
+                    if guasti.get(cursore):
+                        return guasti[cursore].pop(0)
+                    invii, dopo = pagine[cursore]
+                    return 200, {"broadcasts": invii, "pagination": {"has_next_page": bool(dopo), "end_cursor": dopo}}
+                if percorso == "/email_templates":
+                    return 200, {"email_templates": [{"id": 5, "name": "Gommberg cornice"}]}
+                return 201, {"broadcast": {"id": 1, "email_template": {"name": "x"}}}
+            return k
+        altri = [{"id": i, "description": f"altro-{i}"} for i in range(3)]
+        oggi_kit = {"id": 9, "description": NL.etichetta(ed), "status": "scheduled"}
+        due_pagine = {None: (altri, "c1"), "c1": ([{"id": 7, "description": "altro-7"}, oggi_kit], None)}
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine)
+        trovati = NL.invii_esistenti()
+        if NL.etichetta(ed) not in trovati or len(trovati) != 5 or len([c for c in chiamate if c[0] == "GET"]) != 2:
+            male.append("elenco degli invii su due pagine: l'invio di oggi nella seconda pagina non si vede")
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine)
+        if NL.etichetta(ed) not in NL.invii_esistenti():      # stessa sequenza di main() in modo auto
+            with contextlib.redirect_stdout(io.StringIO()):
+                NL.crea(ed, None, prova=False)
+        if any(c[0] == "POST" for c in chiamate):
+            male.append("invio di oggi nella seconda pagina: l'email è partita una seconda volta")
+        # guasto momentaneo a metà della seconda pagina: si rilegge quella pagina, la prima non si rilegge, nessun doppione
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine, {"c1": [(503, {}), (0, {"errore": "rete: timeout"})]})
+        if NL.etichetta(ed) not in NL.invii_esistenti():
+            male.append("guasto a metà della seconda pagina: l'invio di oggi non si vede dopo la rilettura")
+        letti = [c[1] for c in chiamate]
+        if len(letti) != 4 or letti.count("/broadcasts?per_page=1000&slim=true") != 1 or any(c[0] != "GET" for c in chiamate):
+            male.append("guasto a metà della seconda pagina: riletture diverse da quelle attese (pagina 1 una volta, pagina 2 tre)")
+        # la seconda pagina muta (sempre 503): errore, nessun invio, mai un elenco a metà preso per completo
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine, {"c1": [(503, {})] * 9})
+        try:
+            NL.invii_esistenti()
+            male.append("seconda pagina sempre in errore: non si ferma")
+        except SystemExit as e:
+            if not str(e).startswith("ERRORE"):
+                male.append("seconda pagina sempre in errore: l'uscita non è un errore")
+        if len(chiamate) != 1 + NL.LETTURE:
+            male.append(f"seconda pagina sempre in errore: chiamate diverse da 1 + {NL.LETTURE}")
+        # troppe pagine: ci si ferma con errore, il caso peggiore resta limitato
+        chiamate.clear()
+        NL.kit = kit_pagine({None: ([], "x"), "x": ([], "x")})
+        try:
+            NL.invii_esistenti()
+            male.append("elenco di pagine senza fine: non si ferma")
+        except SystemExit:
+            pass
+        if len(chiamate) != NL.MAX_PAGINE:
+            male.append(f"elenco di pagine senza fine: pagine lette diverse da {NL.MAX_PAGINE}")
+        # risposte fuori forma: "non so" non diventa "non c'è" (collaudo indipendente di G-69): nessun invio, nessun traceback
+        pieno = [{"id": 9, "description": NL.etichetta(ed)}]
+        fuori_forma = [
+            ("corpo vuoto", {None: ({}, None)}),
+            ("senza broadcasts", {None: ({"pagination": {"has_next_page": False}}, None)}),
+            ("broadcasts null", {None: ({"broadcasts": None, "pagination": {"has_next_page": False}}, None)}),
+            ("corpo a lista", {None: ([], None)}),
+            ("senza paginazione", {None: ({"broadcasts": []}, None)}),
+            ("has_next_page senza cursore", {None: ({"broadcasts": [], "pagination": {"has_next_page": True}}, None)}),
+            ("pagina 2 senza broadcasts", {None: ({"broadcasts": [], "pagination": {"has_next_page": True, "end_cursor": "c1"}}, None),
+                                            "c1": ({"pagination": {"has_next_page": False}}, None)}),
+        ]
+        for nome, risposte in fuori_forma:
+            chiamate.clear()
+
+            def k_storto(metodo, percorso, dati=None, _r=risposte):
+                chiamate.append((metodo, percorso, dati))
+                if percorso.startswith("/broadcasts") and metodo == "GET":
+                    return 200, _r["c1" if "after=c1" in percorso else None][0]
+                return 201, {"broadcast": {"id": 1}}
+            NL.kit = k_storto
+            try:
+                NL.invii_esistenti()
+                male.append(f"elenco degli invii ({nome}): preso per leggibile")
+            except SystemExit as e:
+                if not str(e).startswith("ERRORE"):
+                    male.append(f"elenco degli invii ({nome}): uscita non chiara")
+            except Exception as e:
+                male.append(f"elenco degli invii ({nome}): traceback {type(e).__name__}")
+            if any(c[0] == "POST" for c in chiamate):
+                male.append(f"elenco degli invii ({nome}): l'email è partita")
+        # invii senza la chiave description: "non so", nessun invio; con description null (invio a mano) si legge e si ignora
+        def k_desc(elenco):
+            def k(metodo, percorso, dati=None):
+                chiamate.append((metodo, percorso, dati))
+                if percorso.startswith("/broadcasts") and metodo == "GET":
+                    return 200, {"broadcasts": elenco, "pagination": {"has_next_page": False}}
+                if percorso == "/email_templates":
+                    return 200, {"email_templates": [{"id": 5, "name": "Gommberg cornice"}]}
+                return 201, {"broadcast": {"id": 1, "email_template": {"name": "x"}}}
+            return k
+        for nome, elenco, parte in (("senza la chiave description", [{"id": 9, "status": "scheduled"}], False),
+                                    ("elemento non dizionario", ["x"], False),
+                                    ("description null accanto all'invio di oggi", [{"id": 3, "description": None}, {"id": 9, "description": NL.etichetta(ed)}], False),
+                                    ("description null e vuota senza l'invio di oggi", [{"id": 3, "description": None}, {"id": 4, "description": ""}], True)):
+            chiamate.clear()
+            NL.kit = k_desc(elenco)
+            try:
+                if NL.etichetta(ed) not in NL.invii_esistenti():      # stessa sequenza di main() in modo auto
+                    with contextlib.redirect_stdout(io.StringIO()):
+                        NL.crea(ed, None, prova=False)
+            except SystemExit as e:
+                if not str(e).startswith("ERRORE"):
+                    male.append(f"invii {nome}: uscita non chiara")
+            posts = len([c for c in chiamate if c[0] == "POST"])
+            if posts != (1 if parte else 0):
+                male.append(f"invii {nome}: {posts} invii creati invece di {1 if parte else 0}")
+        # l'allarme del limite netto, se chiamato, esce con un avviso chiaro
+        try:
+            NL._tempo_scaduto()
+            male.append("allarme del giro: non esce")
+        except SystemExit as e:
+            if "esito è incerto" not in str(e):
+                male.append("allarme del giro: l'avviso non dice dell'esito incerto")
+        # dem.py non cambia: la sua lettura resta quella di prima (100 per pagina, nessuna verifica in più)
+        chiamate.clear()
+        NL.kit = kit_pagine(due_pagine)
+        NL.leggi_invii(1, 0)
+        if chiamate[0][1] != "/broadcasts?per_page=100":
+            male.append("lettura degli invii di dem.py: l'indirizzo è cambiato")
+        # la scadenza del giro, con l'orologio finto: nessuna chiamata dopo, nessun invio, la creazione mai
+        vero_orologio, vera_scadenza = NL.orologio, NL._scadenza
+        try:
+            ora = [1000.0]
+            NL.orologio = lambda: ora[0]
+            NL.avvia_scadenza()
+            chiamate.clear()
+            base = kit_pagine({None: ([], "c1"), "c1": ([], "c2"), "c2": (pieno, None)})
+
+            def k_lento(metodo, percorso, dati=None):
+                if NL.tempo_rimasto() <= 0:      # come kit(): a tempo scaduto non si chiama
+                    return 0, {"errore": "scadenza del giro superata", "scaduta": True}
+                ora[0] += 300           # ogni lettura costa 5 minuti: la seconda arriva a giro scaduto
+                return base(metodo, percorso, dati)
+            NL.kit = k_lento
+            try:
+                NL.invii_esistenti()
+                male.append("scadenza del giro: elenco letto oltre il tempo")
+            except SystemExit as e:
+                if "minuti" not in str(e):
+                    male.append(f"scadenza del giro: avviso non chiaro ({str(e)[:80]})")
+            # con kit() vero e il tempo finito: nessuna chiamata di rete, stato 0 con "scaduta"
+            NL.kit, os.environ["KIT_API_KEY"] = vero, "kit_prova"
+            ora[0] = 1000.0 + NL.SCADENZA + 1
+            import urllib.request as _ur
+            vera_ap = _ur.urlopen
+            _ur.urlopen = lambda *a, **k: (_ for _ in ()).throw(AssertionError("chiamata dopo la scadenza"))
+            try:
+                if NL.kit("POST", "/broadcasts", {})[0] != 0:
+                    male.append("scadenza del giro: la creazione dopo la scadenza non è fermata")
+            except AssertionError:
+                male.append("scadenza del giro: Kit chiamato a tempo scaduto")
+            finally:
+                _ur.urlopen = vera_ap
+            # a tempo quasi finito (meno di 30 s) la creazione non parte
+            ora[0] = 1000.0 + NL.SCADENZA - 10
+            chiamate.clear()
+            NL.kit = kit_pagine(due_pagine)
+            try:
+                NL.crea(ed, None, prova=False)
+                male.append("scadenza del giro: creazione partita con meno di 30 s rimasti")
+            except SystemExit:
+                pass
+            if any(c[0] == "POST" for c in chiamate):
+                male.append("scadenza del giro: POST fatto con meno di 30 s rimasti")
+        finally:
+            NL.orologio, NL._scadenza = vero_orologio, vera_scadenza
+            import signal as _sg
+            _sg.alarm(0)       # l'allarme di avvia_scadenza() non deve restare armato nel collaudo
         # un errore di rete in kit() è una risposta gestita, non un traceback
         import urllib.error
         import urllib.request
@@ -1857,8 +2044,8 @@ def problemi_piani(piani, tarature):
         if not isinstance(nome, str) or not nome.strip():
             guasti.append(f"piani.json, voce {i + 1}: manca il nome del piano")
             continue
-        if nome in nomi:
-            guasti.append(f"piani.json: il piano '{nome}' compare due volte")
+        if nomi and nomi[-1] == nome:                      # un piano che ritorna (Pro, Max 5x, Pro) è una riga nuova con il suo "dal"
+            guasti.append(f"piani.json: il piano '{nome}' compare due volte di fila (una riga nuova serve solo se il piano cambia)")
         nomi.append(nome)
         dal = x.get("dal")
         if dal is None and i == 0:
@@ -1877,6 +2064,35 @@ def problemi_piani(piani, tarature):
         if vecchio is not None and t <= vecchio:
             guasti.append(f"piani.json, '{nome}': i piani non sono in ordine di data")
         vecchio = t
+    # azzeramento settimanale: giorno e ora scritti bene e confermati (la scheda del pannello li dice a Paolo)
+    for i, x in enumerate(piani):
+        if not isinstance(x, dict) or not isinstance(x.get("piano"), str):
+            continue
+        nome, az = x["piano"], x.get("azzeramento")
+        if not isinstance(az, dict) or az.get("giorno") not in ("lun", "mar", "mer", "gio", "ven", "sab", "dom") \
+                or not isinstance(az.get("ora"), str) or not re.fullmatch(r"([01]\d|2[0-3]):[0-5]\d", az["ora"]):
+            guasti.append(f"piani.json, '{nome}': 'azzeramento' deve avere giorno (lun..dom) e ora (HH:MM)")
+        elif az.get("da_confermare"):
+            guasti.append(f"piani.json, '{nome}': l'azzeramento è ancora 'da_confermare': la scheda scriverebbe un orario non confermato")
+        # stima dichiarata: un rapporto con la sua base e il suo motivo, mai un fattore senza spiegazione, mai a catena
+        st = x.get("stima")
+        if st is None:
+            continue
+        di = st.get("di") if isinstance(st, dict) else None
+        r = st.get("rapporto") if isinstance(st, dict) else None
+        if not isinstance(st, dict) or di not in nomi or di == nome:
+            guasti.append(f"piani.json, '{nome}': la 'stima' deve dire su quale altro piano di piani.json si basa ('di')")
+        else:
+            # catena: la base che è a sua volta una stima è un guasto solo se non ha una misura vera (lettura non esclusa);
+            # con una misura la pagina usa quella e il campo "stima" della base resta inerte
+            misurato = any(isinstance(t, dict) and t.get("piano") == di and not t.get("escluso") and (t.get("punti") or 0) > 0
+                           and (t.get("durata_min") or 0) > 0 for t in (tarature if isinstance(tarature, list) else []))
+            if not misurato and any(isinstance(y, dict) and y.get("piano") == di and y.get("stima") is not None for y in piani):
+                guasti.append(f"piani.json, '{nome}': la stima si basa su '{di}', che è a sua volta una stima senza misura vera (niente catene)")
+        if isinstance(r, bool) or not isinstance(r, (int, float)) or not 0 < r <= 10:
+            guasti.append(f"piani.json, '{nome}': il 'rapporto' della stima ({r!r}) non è un numero tra 0 e 10")
+        if not isinstance(st, dict) or not isinstance(st.get("motivo"), str) or len(st["motivo"].strip()) < 10:
+            guasti.append(f"piani.json, '{nome}': la stima non dice il motivo (perché è una stima, finché cosa vale)")
     for x in tarature if isinstance(tarature, list) else []:
         if isinstance(x, dict) and x.get("piano") not in nomi and not x.get("escluso"):
             guasti.append(f"taratura.json: lettura del {x.get('giorno')} sul piano '{x.get('piano')}', che piani.json non conosce "
@@ -1893,8 +2109,10 @@ def passo_pannello():
         male += problemi_piani(piani, tarature)
     except (OSError, ValueError) as e:      # file mancante o JSON rotto
         male.append(f"pannello/piani.json o taratura.json: {e}"[:160])
-    pro = {"piano": "Pro"}
-    max5 = {"piano": "Max 5x", "dal": "2026-11-24T18:00:00+01:00"}
+    az = {"giorno": "ven", "ora": "18:00"}
+    pro = {"piano": "Pro", "azzeramento": az}
+    max5 = {"piano": "Max 5x", "dal": "2026-11-24T18:00:00+01:00", "azzeramento": az}
+    stima = {"di": "Pro", "rapporto": 0.2, "motivo": "un quinto del Pro, finché non c'è una misura"}
     sbagliati = [("senza nome", [pro, {"dal": "2026-11-24T18:00:00+01:00"}], []),
                  ("ora senza zero", [pro, dict(max5, dal="2026-11-24T9:24:00+01:00")], []),
                  ("senza fuso", [pro, dict(max5, dal="2026-11-24T18:00")], []),
@@ -1904,14 +2122,35 @@ def passo_pannello():
                  ("fuori ordine", [pro, max5, {"piano": "Max 20x", "dal": "2026-11-20T18:00:00+01:00"}], []),
                  ("il secondo senza 'dal'", [pro, {"piano": "Max 5x"}], []),
                  ("lettura di un piano ignoto", [pro, max5], [{"giorno": "2026-11-15", "piano": "Max", "punti": 1, "durata_min": 1}]),
-                 ("non è un elenco", {"piano": "Pro"}, [])]
+                 ("non è un elenco", {"piano": "Pro"}, []),
+                 ("senza azzeramento", [pro, {"piano": "Max 5x", "dal": max5["dal"]}], []),
+                 ("azzeramento con giorno sbagliato", [pro, dict(max5, azzeramento={"giorno": "venerdi", "ora": "18:00"})], []),
+                 ("azzeramento con ora sbagliata", [pro, dict(max5, azzeramento={"giorno": "ven", "ora": "6pm"})], []),
+                 ("azzeramento ancora da confermare", [pro, dict(max5, azzeramento=dict(az, da_confermare=True))], []),
+                 ("stima senza motivo", [pro, dict(max5, stima={"di": "Pro", "rapporto": 0.2})], []),
+                 ("stima su un piano che non c'è", [pro, dict(max5, stima=dict(stima, di="Max 20x"))], []),
+                 ("stima su se stessa", [pro, dict(max5, stima=dict(stima, di="Max 5x"))], []),
+                 ("stima con rapporto zero", [pro, dict(max5, stima=dict(stima, rapporto=0))], []),
+                 ("stima con rapporto scritto a parole", [pro, dict(max5, stima=dict(stima, rapporto="un quinto"))], []),
+                 ("stima a catena", [dict(pro, stima=dict(stima, di="Max 5x")), dict(max5, stima=stima)], []),
+                 ("lo stesso piano due volte di fila", [pro, dict(pro, dal="2026-11-20T18:00:00+01:00")], []),
+                 ("piano che ritorna senza 'dal'", [pro, max5, dict(pro)], []),
+                 ("piano che ritorna fuori ordine", [pro, max5, dict(pro, dal="2026-11-20T18:00:00+01:00")], [])]
     for nome, p, t in sbagliati:
         if not problemi_piani(p, t):
             male.append(f"piani.json: il caso '{nome}' non è fermato")
+    ritorno = [pro, dict(max5, stima=stima), dict(pro, dal="2027-01-12T18:00:00+01:00")]
+    if problemi_piani(ritorno, []):
+        male.append("piani.json: un piano che ritorna (Pro, Max 5x, Pro) con 'dal' in ordine non deve fermare il rilascio")
+    lettura = {"giorno": "2026-12-01", "piano": "Max 5x", "punti": 1, "durata_min": 10}
+    if problemi_piani([pro, dict(max5, stima=stima), {"piano": "Max 20x", "dal": "2026-12-01T18:00:00+01:00", "azzeramento": az, "stima": dict(stima, di="Max 5x")}], [lettura]):
+        male.append("piani.json: una stima su un piano che ha già una misura vera (anche se conserva la sua 'stima') non deve fermare il rilascio")
+    if problemi_piani([pro, dict(max5, stima=stima)], []):
+        male.append("piani.json: un piano con stima dichiarata (base, rapporto, motivo) non deve fermare il rilascio")
     if problemi_piani([pro, max5], [{"giorno": "2026-11-15", "piano": "Max", "punti": 1, "durata_min": 1, "escluso": "motivo"}]):
         male.append("taratura.json: una lettura dichiarata 'escluso' non deve fermare il rilascio")
     esito("Pannello: piani e taratura", not male, "; ".join(male)[:400] or
-          f"piani.json valido (nome, 'dal' con il fuso di Roma, in ordine), ogni lettura di taratura.json su un piano noto o dichiarata esclusa; {len(sbagliati) + 1} casi sbagliati fermati")
+          f"piani.json valido (nome, 'dal' con il fuso di Roma, in ordine, azzeramento confermato, stima con base e motivo), ogni lettura di taratura.json su un piano noto o dichiarata esclusa; {len(sbagliati) + 1} casi sbagliati fermati")
 
 
 def passo_sito():
@@ -2007,6 +2246,392 @@ def passo_sito():
     return copia
 
 
+# --- Lo stesso grafico, da qualunque macchina sia stato disegnato ---
+# Un SVG di matplotlib cambia nei byte da una versione all'altra anche quando il disegno è lo stesso: gli id dei
+# caratteri e dei ritagli, e il riquadro che si sposta di qualche decimo di punto perché le scritte si misurano un filo
+# diverse. Per questo due grafici non si confrontano nei byte ma in ciò che mostrano, e il verdetto è lo stesso su ogni
+# macchina: stesse dimensioni; stesse scritte, nello stesso ordine, con gli stessi caratteri (i contorni delle lettere,
+# non il loro nome), colore e corpo; stessi segni (linee, barre, punti, tacche, griglia) con la stessa forma, colore e
+# tratto; e ogni punto allo stesso posto RISPETTO AGLI ALTRI SEGNI DELLO STESSO ASSE, tacche comprese, cioè allo stesso
+# valore: per ogni asse una sola retta deve portare tutti i punti di un disegno su quelli dell'altro. Così un riquadro
+# che si sposta o si stringe non conta, e un dato che si sposta rispetto alle tacche sì.
+TOL_DATI = 0.1      # punti tipografici: quanto può scostarsi un punto dagli altri (due decimali nell'SVG; visti al più 0,02 pt)
+TOL_CORNICE = 2.0   # quanto possono spostarsi riquadro, scritte e legenda (0,7 mm; da matplotlib 3.6 a 3.11 visti al più 0,7 pt)
+_NUM = r"[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?"
+
+
+def _stile(s):
+    return dict(tuple(x.strip() for x in p.split(":", 1)) for p in (s or "").split(";") if ":" in p)
+
+
+def _percorso(d):
+    """Un attributo d: (le lettere dei comandi, i numeri)."""
+    return "".join(re.findall(r"[A-Za-z]", d or "")), [float(x) for x in re.findall(_NUM, re.sub(r"[A-Za-z]", " ", d or ""))]
+
+
+def disegno_svg(testo):
+    """Ciò che un SVG di matplotlib mostra: misure, segni nell'ordine in cui sono disegnati e i bordi di ogni riquadro
+    (axes_N). Un segno è una scritta (il commento che matplotlib lascia con il testo, i contorni dei caratteri, colore,
+    posto e corpo), un percorso (comandi, punti, stile) o un simbolo ripetuto (use: posto, forma e stile del simbolo).
+    Id, ritagli e definizioni non entrano."""
+    import xml.etree.ElementTree as ET
+    radice = ET.fromstring(testo, parser=ET.XMLParser(target=ET.TreeBuilder(insert_comments=True)))
+    nome = lambda e: e.tag.rsplit("}", 1)[-1] if isinstance(e.tag, str) else "!"
+    forme = {e.get("id"): e for e in radice.iter() if nome(e) == "path" and e.get("id")}
+
+    def forma(e):       # la forma a cui rimanda un <use>
+        f = forme.get(next((v for k, v in e.attrib.items() if k.endswith("href")), "").lstrip("#"))
+        return None if f is None else _percorso(f.get("d")) + (_stile(f.get("style")),)
+
+    d = {"misure": (radice.get("width"), radice.get("height"), radice.get("viewBox")), "segni": [], "bordi": {}}
+
+    def visita(e, dove, asse):
+        n, gid = nome(e), e.get("id") or ""
+        if n in ("defs", "metadata", "clipPath", "style"):
+            return
+        if n == "g" and gid.startswith("text_"):
+            g = next((c for c in e if nome(c) == "g"), None)
+            tr = re.findall(r"(\w+)\(([^)]*)\)", (g.get("transform") or "") if g is not None else "")
+            d["segni"].append({"tipo": "scritta", "dove": dove, "asse": asse, "comandi": "",
+                               "testo": next((c.text.strip() for c in e if nome(c) == "!"), ""),
+                               "stile": _stile(g.get("style")) if g is not None else {},
+                               "punti": [float(x) for k, v in tr if k == "translate" for x in re.findall(_NUM, v)],
+                               "corpo": [(k, [float(x) for x in re.findall(_NUM, v)]) for k, v in tr if k != "translate"],
+                               "forma": [f[:2] for f in (forma(u) for u in (g.iter() if g is not None else ()) if nome(u) == "use")
+                                         if f and f[0]]})          # i contorni dei caratteri (lo spazio non ne ha)
+            return
+        if n == "g" and gid.startswith("axes_"):
+            dove = asse = gid
+        elif n == "g" and gid.startswith("legend_"):
+            dove = "legenda"
+        elif n in ("path", "use"):
+            s = {"tipo": n, "dove": dove, "asse": asse, "stile": _stile(e.get("style")), "ritaglio": bool(e.get("clip-path"))}
+            if n == "path":
+                s["comandi"], s["punti"] = _percorso(e.get("d"))
+            else:
+                s.update(comandi="", punti=[float(e.get("x") or 0), float(e.get("y") or 0)], forma=forma(e))
+            d["segni"].append(s)
+            if asse and asse not in d["bordi"] and n == "path" and len(s["punti"]) >= 4:      # il fondo del riquadro
+                d["bordi"][asse] = [(min(s["punti"][j::2]), max(s["punti"][j::2])) for j in (0, 1)]
+            return
+        for c in e:
+            visita(c, dove, asse)
+
+    visita(radice, "figura", None)
+    return d
+
+
+def _retta(coppie):
+    """La retta x = m*y + c che porta al meglio le y sulle x (minimi quadrati); se i posti stanno tutti in un punto,
+    il solo spostamento."""
+    n = len(coppie)
+    if not n:
+        return 1.0, 0.0
+    mx, my = sum(x for x, _ in coppie) / n, sum(y for _, y in coppie) / n
+    v = sum((y - my) ** 2 for _, y in coppie)
+    m = sum((x - mx) * (y - my) for x, y in coppie) / v if v > 1 else 1.0
+    return m, mx - m * my
+
+
+def differenze_svg(a, b, misura=None):
+    """Che cosa il disegno b (testo SVG) mostra di diverso dal disegno a; [] se mostrano la stessa cosa.
+    misura: se è una lista, riceve gli scarti in punti (scarto, "dati" o "cornice") di ogni coordinata."""
+    try:
+        A, B = disegno_svg(a), disegno_svg(b)
+    except Exception as e:  # noqa: BLE001
+        return [f"SVG illeggibile ({type(e).__name__}: {str(e)[:60]})"]
+    if A["misure"] != B["misure"]:
+        return [f"dimensioni {B['misure'][0]} x {B['misure'][1]} invece di {A['misure'][0]} x {A['misure'][1]}"]
+    ta, tb = ([s["testo"] for s in X["segni"] if s["tipo"] == "scritta"] for X in (A, B))
+    if ta != tb:
+        piu, meno = [f"'{x}'" for x in tb if x not in ta], [f"'{x}'" for x in ta if x not in tb]
+        return ["scritte diverse: " + ("; ".join((["in più " + ", ".join(piu[:4])] if piu else []) +
+                                                 (["in meno " + ", ".join(meno[:4])] if meno else []))
+                                       or "le stesse, in un altro numero o in un altro ordine")]
+    firma = lambda s: (s["tipo"], s["dove"], s["asse"], s["comandi"], len(s["punti"]), s["stile"], s.get("ritaglio"))
+    if len(A["segni"]) != len(B["segni"]):
+        return [f"{len(B['segni'])} segni (linee, barre, punti, tacche, scritte) invece di {len(A['segni'])}"]
+    for i, (s, t) in enumerate(zip(A["segni"], B["segni"])):
+        if firma(s) != firma(t):
+            return [f"il segno n. {i + 1} è un altro per forma, colore o tratto: {t['tipo']} {t['stile']} con {len(t['punti']) // 2} "
+                    f"punti invece di {s['tipo']} {s['stile']} con {len(s['punti']) // 2}"]
+    if set(A["bordi"]) != {s["asse"] for s in A["segni"] if s["asse"]} or set(B["bordi"]) != set(A["bordi"]):
+        return ["riquadro non riconosciuto"]
+    out, coppie = [], list(zip(A["segni"], B["segni"]))
+    largo = lambda s: s["tipo"] == "scritta" or s["dove"] == "legenda"      # stanno dove le mette la misura delle scritte
+    # sul bordo del riquadro in tutti e due i disegni (assi, griglia, soglie da un lato all'altro): segue il bordo
+    fermo = lambda k, j, x, y: any(abs(x - p) <= TOL_DATI and abs(y - r) <= TOL_DATI for p, r in zip(A["bordi"][k][j], B["bordi"][k][j]))
+    porta = {}
+    for k in A["bordi"]:
+        sposta = max(abs(x - y) for j in (0, 1) for x, y in zip(A["bordi"][k][j], B["bordi"][k][j]))
+        if sposta > TOL_CORNICE:
+            out.append(f"il riquadro è spostato di {sposta:.2f} pt")
+        for j in (0, 1):    # per ogni asse, la retta che porta su a tutti i segni di b: tacche, griglia, linee, barre, punti
+            porta[k, j] = _retta([(x, y) for s, t in coppie if s["asse"] == k and not largo(s)
+                                  for x, y in zip(s["punti"][j::2], t["punti"][j::2]) if not fermo(k, j, x, y)])
+    stesso = lambda x, y, tol: len(x) == len(y) and all(abs(p - q) <= tol for p, q in zip(x, y))
+    peggio = {}
+    for i, (s, t) in enumerate(coppie):
+        if s["tipo"] == "scritta":
+            if [k for k, _ in s["corpo"]] != [k for k, _ in t["corpo"]] or not all(stesso(x, y, 1e-3) for (_, x), (_, y) in zip(s["corpo"], t["corpo"])):
+                out.append(f"la scritta '{s['testo']}' ha un altro corpo")
+            if [c for c, _ in s["forma"]] != [c for c, _ in t["forma"]] or not all(stesso(x, y, 0.5) for (_, x), (_, y) in zip(s["forma"], t["forma"])):
+                out.append(f"la scritta '{s['testo']}' è disegnata con altri caratteri")
+        elif s["tipo"] == "use":
+            fa, fb = s["forma"], t["forma"]
+            if (fa is None) != (fb is None) or (fa and (fa[0] != fb[0] or fa[2] != fb[2] or not stesso(fa[1], fb[1], 0.02))):
+                out.append(f"il segno n. {i + 1} (punto o tacca) ha un'altra forma o un'altra misura")
+        for q, (x, y) in enumerate(zip(s["punti"], t["punti"])):
+            m, c = porta[s["asse"], q % 2] if s["asse"] else (1.0, 0.0)       # fuori dai riquadri c'è solo il fondo della figura
+            tol = TOL_CORNICE if largo(s) else TOL_DATI
+            scarto = 0.0 if s["asse"] and not largo(s) and fermo(s["asse"], q % 2, x, y) else abs(m * y + c - x)
+            if misura is not None:
+                misura.append((scarto, "cornice" if largo(s) else "dati"))
+            if scarto > tol and scarto > peggio.get(i, (0, None))[0]:
+                peggio[i] = (scarto, s)
+    for i, (scarto, s) in sorted(peggio.items())[:4]:
+        che = f"la scritta '{s['testo']}'" if s["tipo"] == "scritta" else \
+            f"il segno n. {i + 1} ({'punto o tacca' if s['tipo'] == 'use' else 'linea o barra'} {s['stile'].get('stroke') or s['stile'].get('fill') or ''})"
+        out.append(f"{che} è a {scarto:.2f} pt da dove lo vogliono gli altri segni")
+    if len(peggio) > 4:
+        out.append(f"e altri {len(peggio) - 4} segni spostati")
+    return out
+
+
+def stesso_grafico(a, b):
+    """'' se il file SVG b mostra lo stesso grafico del file a, altrimenti che cosa cambia."""
+    if not os.path.isfile(b):
+        return "manca"
+    return "; ".join(differenze_svg(open(a, encoding="utf-8").read(), open(b, encoding="utf-8").read())[:3])
+
+
+def passo_analisi(copia):
+    """Le pagine delle analisi (G-64, analisi_sito.py) sulla copia di passo_sito: una pagina per ogni analisi delle
+    edizioni con sorgenti e nessuna per le altre, testo identico a quello stampato nel PDF, link e mappa del sito; poi,
+    su una seconda copia, un sorgente rotto e un titolo che non corrisponde non fermano pagine.py, e un'estrazione
+    rifatta da zero con il kit di oggi ridà gli stessi dati, le stesse pagine e gli stessi grafici (questi confrontati
+    in ciò che mostrano, non nei byte: stesso_grafico, che passo_grafici mette alla prova)."""
+    import html as H
+    sys.path.insert(0, os.path.join(copia, "redazione"))
+    import analisi_sito as A
+    base = "https://gommberg.com/"
+    piano = lambda t: re.sub(r"\s+", " ", H.unescape(re.sub(r"<[^>]+>", " ", re.sub(r"</?(?:span|b|i|a|em)\b[^>]*>", "", t)))).strip()
+    testo_pdf = lambda f: re.sub(r"\s+", " ", esegui(["pdftotext", f, "-"])[1].replace("­", "")).strip()
+    voci = sorted(json.load(open(os.path.join(copia, "edizioni.json"), encoding="utf-8")), key=lambda e: e["numero"])
+    mappa = open(os.path.join(copia, "sitemap.xml"), encoding="utf-8").read()
+    male, uguali, pezzi, nate, con = [], [], 0, 0, 0
+    for ed in voci:
+        n = f"{ed['numero']:03d}"
+        src = os.path.join(copia, "redazione", "sorgenti", ed["data"])
+        cart = os.path.join(copia, "e", n)
+        if not os.path.isfile(os.path.join(src, "edizione.py")):
+            if os.path.isdir(cart):
+                male.append(f"e/{n}/ esiste ma l'edizione non ha sorgenti")
+            continue
+        con += 1
+        try:
+            d = json.load(open(os.path.join(src, A.FILE), encoding="utf-8"))
+        except Exception as e:  # noqa: BLE001
+            male.append(f"n. {n}: {A.FILE} illeggibile ({e})"[:90]); continue
+        if d.get("errore"):
+            male.append(f"n. {n}: estrazione fallita ({d['errore'][:60]})"); continue
+        pagina_ed = open(os.path.join(copia, "e", n + ".html"), encoding="utf-8").read()
+        pdf = testo_pdf(os.path.join(copia, ed["file"]))
+        for i, m in A.collega(ed, d):
+            rel = A.indirizzo(ed, m)
+            f = os.path.join(copia, rel)
+            if not os.path.isfile(f):
+                male.append(f"manca {rel}"); continue
+            nate += 1
+            h = open(f, encoding="utf-8").read()
+            vis = piano(re.sub(r"<(script|style)\b.*?</\1>", " ", h, flags=re.S))   # quello che legge chi non esegue il JavaScript
+            campi = ([m.get(k) for k in ("titolo", "perche", "quindi", "numero", "guardare", "fonte")] + list(m.get("testo") or [])
+                     + list(m.get("punti") or [])[:3] + [c for r in m.get("righe") or [] for c in r])
+            for c in [A._piano(x) for x in campi if x]:
+                pezzi += 1
+                if c not in pdf:
+                    male.append(f"{rel}: testo che non è nel PDF: '{c[:40]}'")
+                # "Il numero" va in pagina in due pezzi (la cifra grande, poi la frase): i due pezzi, senza i due punti
+                if c not in vis and not (c == A._piano(m.get("numero")) and all(x.strip() in vis for x in c.split(":", 1))):
+                    male.append(f"{rel}: testo che manca nella pagina: '{c[:40]}'")
+            try:
+                ld = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', h, re.S).group(1))
+                assert ld["@type"] == "NewsArticle" and ld["headline"] and ld["datePublished"].startswith(ed["data"]) and ld["url"] == base + rel
+            except Exception:  # noqa: BLE001
+                male.append(f"{rel}: dati strutturati mancanti o sbagliati")
+            if f'<link rel="canonical" href="{base + rel}">' not in h:
+                male.append(f"{rel}: canonico sbagliato")
+            if f"<url><loc>{base + rel}</loc><lastmod>{ed['data']}</lastmod>" not in mappa:
+                male.append(f"{rel}: non è nella sitemap con il giorno dell'edizione")
+            if f'href="{n}/{m["pagina"]}.html"' not in pagina_ed:
+                male.append(f"e/{n}.html non porta a {rel}")
+            if "Testi generati con l'intelligenza artificiale" not in h or 'href="../../' + ed["file"] not in h:
+                male.append(f"{rel}: manca la riga AI o il rimando al giornale")
+            for u in re.findall(r"""(?:href|src|srcset)=["']([^"'#?]+)""", re.sub(r"<script\b.*?</script>", "", h, flags=re.S)):
+                if not re.match(r"(?:[a-z]+:|//)", u) and not os.path.exists(os.path.normpath(os.path.join(os.path.dirname(f), u))):
+                    male.append(f"{rel} -> {u}: link rotto")
+    for loc in re.findall(r"<loc>https://gommberg\.com/(e/\d{3}/[^<]+)</loc>", mappa):
+        if not os.path.isfile(os.path.join(copia, loc)):
+            male.append(f"sitemap: {loc} non esiste")
+    esito("Analisi: una pagina per analisi, testo uguale al PDF", not male and nate > 0,
+          "; ".join(dict.fromkeys(male))[:400] or f"{nate} pagine da {con} edizioni con sorgenti, {pezzi} testi uguali nel PDF e nella pagina "
+          "(anche senza JavaScript); dati strutturati, canonico, sitemap, link")
+    # seconda copia: un sorgente rotto, un titolo che non corrisponde e un'estrazione da rifare da zero
+    prova = os.path.join(TMP, "sito_analisi")
+    shutil.copytree(copia, prova, ignore=shutil.ignore_patterns("__pycache__"))
+    con_src = [e for e in voci if os.path.isfile(os.path.join(prova, "redazione", "sorgenti", e["data"], "edizione.py"))]
+    male = []
+    if len(con_src) < 4:
+        return esito("Analisi: un sorgente rotto non ferma l'edizione", False, "servono almeno 4 edizioni con sorgenti")
+    rotta, rifatta, storta, guasta = con_src[-1], con_src[-2], con_src[-3], con_src[-4]
+    nr, nf, ns, ng = (f"{e['numero']:03d}" for e in (rotta, rifatta, storta, guasta))
+    sr = os.path.join(prova, "redazione", "sorgenti", rotta["data"])
+    originale = open(os.path.join(sr, "edizione.py"), encoding="utf-8").read()
+    open(os.path.join(sr, "edizione.py"), "a", encoding="utf-8").write("\nC = {\n")      # errore di sintassi
+    # un guasto dell'ambiente (una libreria che manca) non si salva come errore: si riprova alla volta successiva
+    sg = os.path.join(prova, "redazione", "sorgenti", guasta["data"])
+    eg = open(os.path.join(sg, "edizione.py"), encoding="utf-8").read()
+    open(os.path.join(sg, "edizione.py"), "w", encoding="utf-8").write("import libreria_che_non_ce_g64  # noqa\n" + eg)
+    os.remove(os.path.join(sg, A.FILE))
+    os.remove(os.path.join(sr, A.FILE))
+    sf = os.path.join(prova, "redazione", "sorgenti", rifatta["data"])
+    os.remove(os.path.join(sf, A.FILE))
+    shutil.rmtree(os.path.join(prova, "e", nf))
+    ed_json = json.load(open(os.path.join(prova, "edizioni.json"), encoding="utf-8"))
+    for e in ed_json:
+        if e["numero"] == storta["numero"]:
+            e["approfondimenti"][0]["titolo"] += " (corretto)"
+    json.dump(ed_json, open(os.path.join(prova, "edizioni.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    rc, out = esegui([sys.executable, os.path.join(prova, "redazione", "pagine.py"), prova], timeout=900)
+    if rc:
+        male.append("pagine.py si è fermato: " + out.strip().splitlines()[-1][:120])
+    else:
+        if f"AVVISO analisi n. {nr}" not in out:
+            male.append(f"nessun avviso per il sorgente rotto del n. {nr}")
+        if not json.load(open(os.path.join(sr, A.FILE), encoding="utf-8")).get("errore"):
+            male.append("il sorgente rotto non ha lasciato l'errore in analisi.json")
+        if os.path.isdir(os.path.join(prova, "e", nr)) and any(f.endswith(".html") for f in os.listdir(os.path.join(prova, "e", nr))):
+            male.append(f"e/{nr}/ ha ancora pagine di analisi con il sorgente rotto")
+        if "Leggi il testo qui" in open(os.path.join(prova, "e", nr + ".html"), encoding="utf-8").read():
+            male.append(f"e/{nr}.html porta a pagine che non esistono")
+        if f"e/{nr}/" in open(os.path.join(prova, "sitemap.xml"), encoding="utf-8").read():
+            male.append(f"la sitemap ha ancora le pagine del n. {nr}")
+        primo = json.load(open(os.path.join(copia, "redazione", "sorgenti", storta["data"], A.FILE), encoding="utf-8"))["moduli"][0]["pagina"]
+        if os.path.exists(os.path.join(prova, "e", ns, primo + ".html")) or \
+                any(f.startswith(primo + "-") for f in os.listdir(os.path.join(prova, "e", ns))):
+            male.append(f"e/{ns}/{primo}.html è nata con un titolo diverso da edizioni.json")
+        if len([f for f in os.listdir(os.path.join(prova, "e", ns)) if f.endswith(".html")]) != len(storta["approfondimenti"]) - 1:
+            male.append(f"n. {ns}: con un titolo diverso devono restare le altre pagine")
+        if os.path.exists(os.path.join(sg, A.FILE)) or "guasto dell'ambiente" not in out:
+            male.append(f"n. {ng}: un guasto dell'ambiente è stato salvato come errore del sorgente, o non ha dato l'avviso")
+        # rifatto da zero: i dati estratti e le pagine non dipendono dalla macchina e si confrontano byte per byte; i
+        # grafici li disegna matplotlib, e si confrontano in ciò che mostrano (stesso_grafico)
+        import filecmp
+        if not filecmp.cmp(os.path.join(sf, A.FILE), os.path.join(copia, "redazione", "sorgenti", rifatta["data"], A.FILE), shallow=False):
+            male.append(f"n. {nf}: {A.FILE} rifatto da zero diverso da quello nel repository")
+        ca, cb = os.path.join(copia, "e", nf), os.path.join(prova, "e", nf)
+        for f in sorted(set(os.listdir(ca)) | set(os.listdir(cb) if os.path.isdir(cb) else ())):
+            a, b = os.path.join(ca, f), os.path.join(cb, f)
+            if not os.path.exists(a):
+                male.append(f"n. {nf}: e/{nf}/{f} rifatto da zero è un file in più")
+            elif not os.path.exists(b):
+                male.append(f"n. {nf}: e/{nf}/{f} rifatto da zero manca")
+            elif f.endswith(".svg"):
+                altro = stesso_grafico(a, b)
+                if altro:
+                    male.append(f"n. {nf}: e/{nf}/{f} rifatto da zero è un altro grafico ({altro})")
+            elif not filecmp.cmp(a, b, shallow=False):
+                male.append(f"n. {nf}: e/{nf}/{f} rifatto da zero diverso da quello nel repository")
+        # il sorgente rotto si corregge: alla pubblicazione dopo l'errore salvato si riprova da solo e le pagine tornano
+        open(os.path.join(sr, "edizione.py"), "w", encoding="utf-8").write(originale)
+        rc, out = esegui([sys.executable, os.path.join(prova, "redazione", "pagine.py"), prova], timeout=900)
+        n_ok = len(json.load(open(os.path.join(copia, "redazione", "sorgenti", rotta["data"], A.FILE), encoding="utf-8"))["moduli"])
+        if rc or not os.path.isdir(os.path.join(prova, "e", nr)) or \
+                len([f for f in os.listdir(os.path.join(prova, "e", nr)) if f.endswith(".html")]) != n_ok:
+            male.append(f"n. {nr}: corretto il sorgente, le pagine non sono tornate da sole")
+    esito("Analisi: un sorgente rotto non ferma l'edizione", not male, "; ".join(male)[:400] or
+          f"n. {nr} rotto: avviso, nessuna pagina né link né riga nella sitemap, il resto esce, e corretto il sorgente le pagine "
+          f"tornano da sole; n. {ng} con un guasto dell'ambiente: avviso, nessun errore salvato; n. {ns} con un titolo diverso: "
+          f"quella pagina e i suoi grafici non restano, le altre sì; n. {nf} rifatto da zero con il kit di oggi: stessi dati e stesse "
+          "pagine byte per byte, stessi grafici nel contenuto")
+
+
+def _grafici_di_prova():
+    """Due grafici costruiti come quelli delle analisi (linee con due serie e una soglia, barre) e, per ciascuno, le
+    copie sbagliate che il confronto deve vedere: {nome: dati}, [(nome del giusto, nome dello sbagliato, che cosa cambia)]."""
+    giorni = [g for g in (dt.date(2026, 11, 2) + dt.timedelta(days=i) for i in range(19)) if g.weekday() < 5]
+    linee = {"tipo": "linee", "x": [{"$d": g.isoformat()} for g in giorni], "unita": "%", "soglie": [[5.0, "5%"]],
+             "serie": [["10 anni", [5.15, 5.12, 5.13, 4.96, 5.0, 5.0, 4.99, 5.05, 4.98, 4.94, 4.91, 4.95, 4.9, 4.84, 4.86], "#F26B1D"],
+                       ["2 anni", [4.77, 4.79, 4.81, 4.65, 4.69, 4.68, 4.7, 4.75, 4.66, 4.62, 4.6, 4.63, 4.58, 4.5, 4.52], "#111111"]]}
+    barre = {"tipo": "barre", "ordina": False, "dec": 1, "unita": "%",
+             "dati": [["Taiwan (Taiex)", -6.0], ["Corea (Kospi)", -3.6], ["Giappone (Nikkei)", -2.4], ["Cina (Shanghai)", -0.9],
+                      ["Hong Kong (Hang Seng)", 0.5]]}
+    copia = lambda g: json.loads(json.dumps(g))
+    grafici, casi = {"linee": linee, "barre": barre}, []
+
+    def caso(base, nome, che, cambia):
+        g = copia(grafici[base]); cambia(g)
+        grafici[nome] = g; casi.append((base, nome, che))
+
+    caso("linee", "linee-dato", "un dato a metà serie spostato di 0,002 (da 5,05 a 5,052)", lambda g: g["serie"][0][1].__setitem__(7, 5.052))
+    caso("linee", "linee-serie", "una serie tolta", lambda g: g["serie"].pop())
+    caso("linee", "linee-nome", "il nome di una serie cambiato", lambda g: g["serie"][1].__setitem__(0, "3 anni"))
+    caso("linee", "linee-colore", "il colore di una serie cambiato", lambda g: g["serie"][1].__setitem__(2, "#1F5FA8"))
+    caso("linee", "linee-soglia", "la soglia spostata da 5 a 5,01 con la stessa scritta", lambda g: g["soglie"][0].__setitem__(0, 5.01))
+    caso("linee", "linee-unita", "l'unità di misura tolta", lambda g: g.pop("unita"))
+    caso("barre", "barre-dato", "una barra allungata di 0,02 senza cambiare la sua etichetta (-3,6%)", lambda g: g["dati"][1].__setitem__(1, -3.62))
+    caso("barre", "barre-nome", "il nome di una barra cambiato", lambda g: g["dati"][1].__setitem__(0, "Corea (Kosdaq)"))
+    caso("barre", "barre-meno", "una barra tolta", lambda g: g["dati"].pop())
+    return grafici, casi
+
+
+def passo_grafici(copia):
+    """Il confronto dei grafici (stesso_grafico) dà lo stesso verdetto su ogni macchina ed è un controllo vero.
+    1. Verde dove deve: in redazione/rete/grafici/ ogni grafico c'è due volte, <nome>.<versione>.svg, disegnato dagli
+       stessi dati con due versioni di matplotlib (diverso nei byte): il confronto deve dirli uguali. Sono file fermi,
+       come i campioni della rete: se il confronto torna a dipendere dalla versione, diventa rosso anche in locale.
+    2. Rosso dove deve: due grafici costruiti e le loro copie con un dato, una serie, una scritta, un colore cambiati,
+       disegnati adesso da analisi_sito.py; più il grafico del telefono al posto di quello per PC e un file che manca."""
+    male, gruppi = [], {}
+    for f in sorted(glob.glob(os.path.join(RETE, "grafici", "*.svg"))):
+        gruppi.setdefault(os.path.basename(f).split(".", 1)[0], []).append(f)
+    for ff in gruppi.values():
+        for f in ff[1:]:
+            altro = stesso_grafico(ff[0], f)
+            if open(f, "rb").read() == open(ff[0], "rb").read():
+                male.append(f"{os.path.basename(f)} è identico a {os.path.basename(ff[0])}: il campione non prova nulla")
+            elif altro:
+                male.append(f"{os.path.basename(f)} è {os.path.basename(ff[0])} disegnato da un'altra matplotlib, ma risulta diverso: {altro}")
+    if len(gruppi) < 3 or any(len(ff) < 2 for ff in gruppi.values()):
+        male.append("in redazione/rete/grafici/ servono almeno tre grafici, ognuno disegnato da due versioni di matplotlib")
+    grafici, casi = _grafici_di_prova()
+    cart = os.path.join(TMP, "grafici")
+    os.makedirs(cart)
+    json.dump({"moduli": [{"grafici": [{"file": k, "dati": v} for k, v in grafici.items()]}]},
+              open(os.path.join(cart, "grafici.json"), "w", encoding="utf-8"), ensure_ascii=False)
+    rc, out = esegui([sys.executable, os.path.join(copia, "redazione", "analisi_sito.py"), "disegna", os.path.join(cart, "grafici.json"), cart])
+    if rc:
+        return esito("Analisi: il confronto dei grafici", False, "i grafici di prova non si disegnano: " + (out.strip().splitlines() or ["?"])[-1][:200])
+    svg = lambda nome, suff="": os.path.join(cart, nome + suff + ".svg")
+    for base in ("linee", "barre"):
+        for suff in ("", "-m"):
+            if stesso_grafico(svg(base, suff), svg(base, suff)):
+                male.append(f"{base}{suff}: un grafico risulta diverso da se stesso ({stesso_grafico(svg(base, suff), svg(base, suff))})")
+        if not stesso_grafico(svg(base), svg(base, "-m")):
+            male.append(f"{base}: il grafico del telefono al posto di quello per PC non è visto")
+        if not stesso_grafico(svg(base), svg(base + "-che-non-esiste")):
+            male.append(f"{base}: un grafico che manca non è visto")
+    for base, nome, che in casi:
+        for suff in ("", "-m"):
+            if not stesso_grafico(svg(base, suff), svg(nome, suff)):
+                male.append(f"{base}{suff}: non è visto {che}")
+    versioni = sorted({os.path.basename(f).split(".", 1)[1][:-4] for ff in gruppi.values() for f in ff})
+    esito("Analisi: il confronto dei grafici", not male, "; ".join(male)[:500] or
+          f"{len(gruppi)} grafici disegnati da matplotlib {', '.join(versioni)}: stesso contenuto con byte diversi; "
+          f"{len(casi) + 2} grafici sbagliati apposta visti tutti, su PC e telefono: " + "; ".join(c for _, _, c in casi) +
+          "; il grafico del telefono al posto di quello per PC; un file che manca")
+
+
 def passo_lettori(copia):
     """La Gommunity (G-13): il servizio vero contro un D1 finto (redazione/sito/prova_lettori.mjs, Node 22.5+),
     la sintassi del codice che gira nel browser, la configurazione e l'avviso a Paolo sulle segnalazioni."""
@@ -2042,9 +2667,9 @@ def passo_lettori(copia):
     if "/regole.html" not in open(os.path.join(REPO, "assets", "lettori.js"), encoding="utf-8").read() or not os.path.exists(os.path.join(REPO, "regole.html")):
         male.append("regole.html manca o la sezione non la collega")
     esito("Lettori: codice e configurazione", not male, "; ".join(male)[:300] or "sintassi, nomi riservati, versione dei file, regole e configurazione in ordine")
-    # l'avviso a Paolo (segnalazioni.py, lanciato ogni ora da segnalazioni.yml), con un gh finto che registra le chiamate:
-    # una segnalazione per commento e mai il testo; riapre e aggiorna; al massimo 5 nuove per giro; un guasto fa fallire
-    # il giro solo alle 10 di Roma (o a mano), e nel flusso "| tee" non lo nasconde
+    # l'avviso a Paolo (segnalazioni.py, lanciato ogni 3 ore da segnalazioni.yml con l'orologio), con un gh finto che
+    # registra le chiamate: una segnalazione per commento e mai il testo; riapre e aggiorna; al massimo 5 nuove per giro;
+    # un guasto fa fallire il giro solo alle 11 di Roma (o a mano), e nel flusso "| tee" non lo nasconde
     male = []
     script = os.path.join(R, "sito", "segnalazioni.py")
     banco = os.path.join(copia, "_segnalazioni")
@@ -2088,13 +2713,15 @@ def passo_lettori(copia):
         male.append("otto commenti nuovi: 5 segnalazioni in questo giro e 3 al prossimo")
     for righe, esce, cosa in ((None, "0", "elenco illeggibile"), ([s(300)], "1", "GitHub che rifiuta")):
         rc15, out15, gh15 = giro(righe, [], ora="15", esce=esce)
-        rc10, _, _ = giro(righe, [], ora="10", esce=esce)
+        rc10, _, _ = giro(righe, [], ora="11", esce=esce)
+        rc12, _, _ = giro(righe, [], ora="12", esce=esce)     # la riserva di GitHub d'estate passa alle 12:15
+        rc14, _, _ = giro(righe, [], ora="14", esce=esce)
         rcm, _, _ = giro(righe, [], ora="15", esce=esce, a_mano="true")
-        if rc15 != 0 or rc10 != 1 or rcm != 1 or "::warning::" not in out15:
-            male.append(f"{cosa}: avviso nel riepilogo, giro fallito solo alle 10 o a mano (uscite {rc15}, {rc10}, {rcm})")
+        if rc15 != 0 or rc10 != 1 or rc12 != 1 or rc14 != 0 or rcm != 1 or "::warning::" not in out15:
+            male.append(f"{cosa}: avviso nel riepilogo, giro fallito solo tra le 11 e le 14 o a mano (uscite {rc15}, {rc10}, {rc12}, {rc14}, {rcm})")
     flusso = open(os.path.join(REPO, ".github", "workflows", "segnalazioni.yml"), encoding="utf-8").read()
-    if "redazione/sito/segnalazioni.py" not in flusso or "issues: write" not in flusso or not re.search(r'cron: "\d+ \* \* \* \*"', flusso):
-        male.append("segnalazioni.yml: non lancia lo script ogni ora o non può aprire segnalazioni")
+    if "redazione/sito/segnalazioni.py" not in flusso or "issues: write" not in flusso or "orologio:" not in flusso:
+        male.append("segnalazioni.yml: non lancia lo script, non lo può lanciare l'orologio o non può aprire segnalazioni")
     if not re.search(r"defaults:\s*\n\s*run:\s*\n\s*shell: bash", flusso) or "A_MANO" not in flusso:
         male.append("segnalazioni.yml: senza 'shell: bash' un giro fallito resta verde; manca A_MANO")
     shutil.rmtree(banco, ignore_errors=True)
@@ -2234,6 +2861,181 @@ def passo_impara(copia):
           f"un ingresso rotto ferma il passaggio senza scrivere e non ferma l'edizione")
 
 
+# ---------------------------------------------------------------- l'orologio dei controlli e i minuti (G-58, G-12)
+def passo_orologio():
+    """L'orologio dei controlli (redazione/sito/orologio.js, il cron del Worker che lancia i flussi di GitHub) con un
+    GitHub finto che accetta, rifiuta e tace, a orari d'inverno e d'estate; la lettura del suo stato (orologio.py: la
+    guardia delle sveglie di riserva e la riga del controllo del mattino); i flussi che lancia; la stima dei minuti di
+    GitHub (minuti.py) con un GitHub finto; la mappa in ARCHITETTURA.md."""
+    node = shutil.which("node")
+    if not node:
+        return esito("Orologio: partenze dei controlli", False, "manca Node (serve la 22.5 o più): l'orologio non è collaudato")
+    rc, out = esegui([node, "--no-warnings", os.path.join(R, "sito", "prova_orologio.mjs")])
+    esito("Orologio: partenze dei controlli", rc == 0, (out.strip().splitlines() or [f"uscita {rc}"])[-1][:200] if rc == 0 else out.strip()[-300:])
+
+    male = []
+    rc, out = esegui([node, "--input-type=module", "-e", "import { SVEGLIE } from " + json.dumps("file://" + os.path.join(R, "sito", "orologio.js")) + "; console.log(JSON.stringify(SVEGLIE))"])
+    try:
+        sveglie = json.loads(out.strip().splitlines()[-1])
+    except (ValueError, IndexError):
+        sveglie = []
+        male.append("SVEGLIE di orologio.js non leggibili")
+    try:
+        import yaml
+    except ImportError:
+        yaml = None
+        NOTE.append("flussi dell'orologio non letti (manca PyYAML)")
+    cartella = os.path.join(REPO, ".github", "workflows")
+    flussi = {}
+    for f in sorted(glob.glob(os.path.join(cartella, "*.yml"))) if yaml else []:
+        d = yaml.safe_load(open(f, encoding="utf-8"))
+        flussi[os.path.basename(f)] = (d, open(f, encoding="utf-8").read())
+    lanciati = {x["flusso"] for x in sveglie}
+    for x in sveglie if yaml else []:
+        if x["flusso"] not in flussi:
+            male.append(f"l'orologio lancia {x['flusso']}, che non esiste")
+            continue
+        d = flussi[x["flusso"]][0]
+        su = d.get("on", d.get(True)) or {}
+        inp = ((su.get("workflow_dispatch") or {}).get("inputs") or {}) if isinstance(su, dict) else {}
+        for k, v in x["inputs"].items():
+            if k not in inp:
+                male.append(f"{x['flusso']}: l'orologio passa '{k}', che il flusso non dichiara (GitHub rifiuterebbe con 422)")
+            elif inp[k].get("type") == "choice" and v not in inp[k].get("options", []):
+                male.append(f"{x['flusso']}: '{k}={v}' non è tra le scelte del flusso")
+    for nome, (d, testo) in flussi.items():
+        su = d.get("on", d.get(True)) or {}
+        if isinstance(su, dict) and "schedule" in su:
+            # una sveglia di GitHub resta solo come riserva: la copre l'orologio e ogni job la salta quando l'orologio è sano
+            if nome not in lanciati:
+                male.append(f"{nome}: sveglia di GitHub che l'orologio non copre")
+            for job, j in (d.get("jobs") or {}).items():
+                passi = j.get("steps") or []
+                if not any(f"orologio.py --guardia {nome}" in str(p.get("run", "")) for p in passi):
+                    male.append(f"{nome}, job {job}: sveglia di riserva senza la guardia dell'orologio sul proprio flusso (partirebbe due volte)")
+    for nome in ("mattino.yml", "segnalazioni.yml", "dem.yml", "newsletter.yml"):
+        for job, j in ((flussi.get(nome) or [{}])[0].get("jobs") or {}).items():
+            if j.get("runs-on") != "ubuntu-slim" or int(j.get("timeout-minutes", 99)) > 15:
+                male.append(f"{nome}, job {job}: un controllo leggero va su ubuntu-slim con al massimo 15 minuti (G-12)")
+        if yaml and nome in flussi and not re.search(r"Minuti di GitHub", flussi[nome][1]):
+            male.append(f"{nome}: non dichiara quanti minuti di GitHub costa al mese")
+    for job in ("controllo", "gomm"):
+        if yaml and "mattino.yml" in flussi and not (((flussi["mattino.yml"][0].get("jobs") or {}).get(job) or {}).get("concurrency") or {}).get("group"):
+            male.append(f"mattino.yml, job {job}: senza coda d'attesa (concurrency) due partenze vicine lavorerebbero insieme")
+    cfg = json.loads(re.sub(r"^\s*//.*$", "", open(os.path.join(R, "sito", "wrangler.jsonc"), encoding="utf-8").read(), flags=re.M))
+    if (cfg.get("triggers") or {}).get("crons") != ["*/15 * * * *"]:
+        male.append("wrangler.jsonc: il cron dell'orologio non è un solo '*/15 * * * *'")
+    if "GITHUB_REPOSITORY" in json.dumps(cfg.get("vars", {})):
+        male.append("wrangler.jsonc: GITHUB_REPOSITORY scritto a mano (lo passa sito.yml)")
+    sito = open(os.path.join(cartella, "sito.yml"), encoding="utf-8").read()
+    if '--var "GITHUB_REPOSITORY:$REPOSITORY"' not in sito or "REPOSITORY: ${{ github.repository }}" not in sito or '"triggers"' not in sito:
+        male.append("sito.yml: non passa il nome del repository all'orologio, o la configurazione di riserva tiene il cron")
+    js = open(os.path.join(R, "sito", "orologio.js"), encoding="utf-8").read()
+    if re.search(r"PaoloGom|gommberg-terminal-daily", js, re.I):
+        male.append("orologio.js: nome del repository scritto nel codice (deve venire da GITHUB_REPOSITORY)")
+    esito("Orologio: flussi, cron e configurazione", not male, "; ".join(male)[:400] or
+          f"{len(sveglie)} sveglie, ognuna su un flusso che accetta i suoi inputs; ogni sveglia di GitHub rimasta ha la guardia; controlli leggeri su ubuntu-slim; nome del repository solo da sito.yml")
+
+    # la lettura dello stato: la guardia delle sveglie di riserva e la riga del controllo del mattino
+    male = []
+    banco = os.path.join(TMP, "_orologio")
+    os.makedirs(banco, exist_ok=True)
+    stato_f = os.path.join(banco, "stato.json")
+    sv = [{"flusso": "mattino.yml", "dovuta": "2026-12-07T10:15", "ok": True, "esito": {"stato": "ok", "dettaglio": "GitHub 200"}},
+          {"flusso": "dem.yml", "dovuta": "2026-12-06T19:30", "ok": True, "esito": {"stato": "ok", "dettaglio": "GitHub 200"}}]
+    dem_ko = [sv[0], dict(sv[1], ok=False, esito={"stato": "errore", "dettaglio": "GitHub risponde 401: Bad credentials"})]
+    base = {"sano": False, "segreto": True, "repository": True, "provato": True, "avvio": "2026-12-01T15:00:00Z"}
+    # (stato, guardie {flusso: SALTA atteso}, uscita del controllo, frase, prefisso della riga)
+    casi = [(dict(base, sano=True, sveglie=sv), {"mattino.yml": "si", "dem.yml": "si", "segnalazioni.yml": "no"}, 0, "partenze puntuali", "OK"),
+            (dict(base, sveglie=dem_ko), {"mattino.yml": "si", "dem.yml": "no"}, 1, "401: Bad credentials", "NO"),
+            (dict(base, segreto=False, provato=False, avvio=None, sveglie=sv), {"mattino.yml": "no"}, 1, "in attesa del token", "NOTA"),
+            (dict(base, segreto=False, sveglie=sv), {"mattino.yml": "no"}, 1, "manca il segreto GITHUB_ACTIONS_TOKEN", "NO"),
+            (dict(base, provato=False, sveglie=sv), {"mattino.yml": "no"}, 1, "ancora nessuna partenza riuscita", "NO"),
+            (dict(base, sano=True, sveglie=sv, errore="stato non leggibile: D1"), {"mattino.yml": "no"}, 0, "partenze puntuali", "OK"),
+            ("non è uno stato", {"mattino.yml": "no"}, 1, "non risponde", "NO"),
+            (None, {"mattino.yml": "no"}, 1, "non risponde", "NO")]
+    script = os.path.join(R, "sito", "orologio.py")
+    for j, guardie, uscita, frase, prefisso in casi:
+        if j is None:
+            amb = {"GTD_OROLOGIO": os.path.join(banco, "manca.json")}
+        else:
+            json.dump(j, open(stato_f, "w", encoding="utf-8"))
+            amb = {"GTD_OROLOGIO": stato_f}
+        for flusso, salta in guardie.items():
+            rc, out = esegui([sys.executable, script, "--guardia", flusso], env=amb)
+            if rc != 0 or out.strip().splitlines()[0] != "SALTA=" + salta:
+                male.append(f"guardia di {flusso}: con {str(j)[:50]} doveva dire SALTA={salta} ({out.strip()[:60]})")
+        rc, out = esegui([sys.executable, script], env=amb)
+        if rc != uscita or frase not in out or not out.startswith(prefisso):
+            male.append(f"controllo: con {str(j)[:40]} doveva uscire {uscita} con '{prefisso} ... {frase}' ({out.strip()[:80]})")
+    # il controllo del mattino: in attesa del token una nota, non una riga rossa (niente segnalazione falsa ogni giorno);
+    # la riserva di GitHub arrivata tardi controlla lo stesso l'edizione non uscita
+    json.dump(dict(base, segreto=False, provato=False, avvio=None, sveglie=sv), open(stato_f, "w", encoding="utf-8"))
+    prova = ("import datetime, mattino as m; m.macchina(datetime.date(2026, 12, 7)); "
+             "print('NO=' + '|'.join(m.NO)); print('NOTE=' + '|'.join(m.NOTE)); "
+             "print('FASCIA=' + ','.join(str(m.in_fascia(o, p)) for o, p in ((10, 'orologio'), (15, 'orologio'), (15, 'schedule'), (22, 'schedule'), (9, 'schedule'), (11, 'workflow_dispatch'))))")
+    rc, out = esegui([sys.executable, "-c", prova], cwd=R, env={"GTD_OROLOGIO": stato_f, "GTD_MINUTI": os.path.join(banco, "manca.json")})
+    if "NO=\n" not in out + "\n" or "in attesa del token" not in out:
+        male.append(f"controllo del mattino: in attesa del token deve essere una nota, non una riga rossa ({out.strip()[-120:]})")
+    if "FASCIA=True,False,True,True,False,True" not in out:
+        male.append(f"controllo del mattino: la riserva di GitHub in ritardo deve controllare a qualunque ora dalle 10 ({out.strip()[-80:]})")
+    json.dump(dict(base, segreto=False, sveglie=sv), open(stato_f, "w", encoding="utf-8"))
+    rc, out = esegui([sys.executable, "-c", prova], cwd=R, env={"GTD_OROLOGIO": stato_f, "GTD_MINUTI": os.path.join(banco, "manca.json")})
+    if "NO=Orologio dei controlli" not in out:
+        male.append("controllo del mattino: segreto visto e poi sparito deve essere una riga rossa")
+    esito("Orologio: guardia e controllo del mattino", not male, "; ".join(male)[:400] or
+          "ogni riserva guarda solo il suo flusso e lavora a ogni dubbio; in attesa del token una nota, dopo un guasto una riga rossa; la riserva tardiva controlla a qualunque ora dalle 10")
+
+    # la stima dei minuti, con un GitHub finto: arrotondamento, ubuntu-slim a un terzo, job saltati, giri in corso, giri già contati
+    male = []
+    gh = os.path.join(banco, "github")
+    os.makedirs(gh, exist_ok=True)
+
+    def job(nome, inizio, fine, etichetta="ubuntu-24.04", fine_stato="success"):
+        return {"name": nome, "started_at": inizio, "completed_at": fine, "conclusion": fine_stato, "labels": [etichetta]}
+    json.dump({"workflow_runs": [
+        {"id": 1, "path": ".github/workflows/collaudo.yml", "status": "completed"},
+        {"id": 2, "path": ".github/workflows/segnalazioni.yml", "status": "completed"},
+        {"id": 3, "path": ".github/workflows/mattino.yml", "status": "completed"},
+        {"id": 4, "path": ".github/workflows/sito.yml", "status": "in_progress"}]}, open(os.path.join(gh, "runs.json"), "w"))
+    json.dump({"jobs": [job("kit", "2026-12-07T10:00:00Z", "2026-12-07T10:04:01Z"), job("sito", "2026-12-07T10:00:00Z", "2026-12-07T10:00:20Z")]}, open(os.path.join(gh, "jobs_1.json"), "w"))
+    json.dump({"jobs": [job("avviso", "2026-12-07T10:00:00Z", "2026-12-07T10:00:09Z", "ubuntu-slim")]}, open(os.path.join(gh, "jobs_2.json"), "w"))
+    json.dump({"jobs": [job("controllo", "2026-12-07T10:00:00Z", "2026-12-07T10:02:30Z", "ubuntu-slim"), job("gomm", None, None, "ubuntu-slim", "skipped")]}, open(os.path.join(gh, "jobs_3.json"), "w"))
+    json.dump({"private": True}, open(os.path.join(gh, "repo.json"), "w"))
+    mf = os.path.join(banco, "minuti.json")
+    amb = {"GTD_GITHUB": gh, "GTD_MINUTI": mf, "GTD_ADESSO": "2026-12-07T11:00"}
+    rc, out = esegui([sys.executable, os.path.join(R, "minuti.py"), "--scrivi"], env=amb)
+    try:
+        m = json.load(open(mf, encoding="utf-8"))
+    except (OSError, ValueError):
+        m = {}
+    # collaudo: 5 + 1 = 6; segnalazioni: 1/3; mattino: 3/3 = 1; sito in corso: non ancora
+    if rc or m.get("minuti") != round(6 + 1 / 3 + 1, 1) or m.get("privato") is not True or set(m.get("giri", {})) != {"1", "2", "3"} or m.get("quota") != 2000:
+        male.append(f"stima: attesi 7,3 minuti su 2.000 dai giri 1-3 ({str(m)[:120]}; {out.strip()[:80]})")
+    os.remove(os.path.join(gh, "jobs_1.json"))
+    rc, out = esegui([sys.executable, os.path.join(R, "minuti.py"), "--scrivi"], env=amb)
+    if rc or json.load(open(mf, encoding="utf-8")).get("minuti") != m.get("minuti"):
+        male.append("stima: il giorno dopo richiede di nuovo a GitHub i giri già contati")
+    import minuti as MIN
+    import datetime as _dt
+    oggi = _dt.date(2026, 12, 7)
+    for caso, atteso in ((dict(m, percentuale=80.0), False), (dict(m, percentuale=74.9), True), (dict(m, percentuale=80.0, privato=False), True),
+                         (dict(m, mese="2026-11"), None), ({}, None)):
+        if MIN.giudizio(caso, oggi)[0] is not atteso:
+            male.append(f"giudizio dei minuti: {str(caso)[:50]} doveva dare {atteso}")
+    rc, out = esegui([sys.executable, os.path.join(R, "minuti.py")], env={"GTD_GITHUB": os.path.join(banco, "non-esiste"), "GTD_MINUTI": mf})
+    if rc != 0 or "::warning::" not in out:
+        male.append("stima: GitHub che non risponde deve dare un avviso, mai un errore")
+    esito("Minuti di GitHub: stima e allarme al 75%", not male, "; ".join(male)[:400] or
+          "ogni job arrotondato al minuto, ubuntu-slim a un terzo, saltati e in corso esclusi; allarme solo da privato oltre il 75%; i giri contati restano")
+
+    # la mappa: ogni flusso e ogni file dell'orologio stanno in ARCHITETTURA.md
+    mappa = open(os.path.join(R, "ARCHITETTURA.md"), encoding="utf-8").read()
+    manca = [f for f in sorted(os.listdir(cartella)) if f.endswith(".yml") and f not in mappa]
+    manca += [f for f in ("sito/orologio.js", "sito/orologio.py", "minuti.py", "pannello/minuti.json", "GITHUB_ACTIONS_TOKEN", "/api/orologio") if f not in mappa]
+    esito("Orologio: mappa in ARCHITETTURA.md", not manca, "mancano: " + ", ".join(manca) if manca else "ogni flusso di GitHub e ogni pezzo dell'orologio è nella mappa")
+
+
 def passo_pubblicazione(copia):
     voci = json.load(open(os.path.join(copia, "edizioni.json"), encoding="utf-8"))
     v = max(voci, key=lambda x: x["numero"])
@@ -2254,6 +3056,19 @@ def passo_pubblicazione(copia):
         and all(os.path.exists(os.path.join(srg, f)) for f in ("edizione.py", "dati.json", "coerenza_incarico.json", "coerenza.json"))
     esito("Pubblicazione a secco (pubblica.sh in prova)", ok,
           "comandi git stampati e non eseguiti, sorgenti archiviati" if ok else out.strip().splitlines()[-1][:160])
+    # pagine.py che cade non ferma la pubblicazione, ma l'avviso deve uscire (prima lo copriva l'esito di awk)
+    pg = os.path.join(copia, "redazione", "pagine.py")
+    buono = open(pg, encoding="utf-8").read()
+    open(pg, "w", encoding="utf-8").write("import sys\nsys.exit('pagine.py rotto apposta dal collaudo')\n")
+    try:
+        rc, out = esegui(["bash", os.path.join(copia, "redazione", "pubblica.sh"), pdf, str(v["numero"]), v["data"],
+                          os.path.join(lav, "fatti.json")], env={"GTD_REPO": copia, "GTD_PROVA": "1"})
+    finally:
+        open(pg, "w", encoding="utf-8").write(buono)
+    ok = rc == 0 and "AVVISO: pagine.py non riuscito" in out and "Sito: PROVA - nessun push" in out
+    esito("Pubblicazione: pagine.py che cade", ok, "avviso stampato, la pubblicazione prosegue" if ok else
+          ("manca l'avviso" if rc == 0 else "la pubblicazione si è fermata") + ": " +
+          ([x for x in out.splitlines() if x.startswith(("Sito:", "AVVISO"))] or ["nessuna riga Sito: né AVVISO"])[-1][:160])
 
 
 def passo_pubblicazione_ramo(copia):
@@ -2301,6 +3116,407 @@ def passo_pubblicazione_ramo(copia):
           "; ".join(male) or "fuori linea resta in prova; sul commit del ramo principale pubblica, con PUSH_OK verificato sul remoto")
 
 
+# ---------------------------------------------------------------- 7. i cancelli del rilascio (G-66)
+class Banco:
+    """Un repository finto con un remoto finto (cartella nuda) in TMP, per provare redazione/rilascia.sh di OGGI senza
+    toccare GitHub. Il collaudo dentro il banco è finto (stampa COLLAUDO: OK: il vero è questo); gh è finto e risponde
+    con l'esito scritto in self.gh. Sabato sera di default: l'orario non ferma, salvo dove lo si prova."""
+    def __init__(self, nome):
+        self.base = os.path.join(TMP, "banco_" + nome)
+        self.orig, self.rep, self.bin = (os.path.join(self.base, x) for x in ("origine.git", "rep", "bin"))
+        self.gh, self.ora, self.log = "success", "6 2000", os.path.join(self.base, "gh.log")
+        for d in (self.rep, self.bin):
+            os.makedirs(d)
+        esegui(["git", "init", "-q", "--bare", "-b", "main", self.orig])
+        open(os.path.join(self.bin, "gh"), "w").write('#!/bin/sh\necho "$*" >> "$FINTO_GH_LOG"\n'
+                                                       '[ "$FINTO_GH" = rotto ] && { echo "non autenticato" >&2; exit 4; }\n'
+                                                       'echo "completed $FINTO_GH 4242"\n')
+        os.chmod(os.path.join(self.bin, "gh"), 0o755)
+        self.g("init", "-q", "-b", "main")
+        self.g("config", "user.name", "collaudo"); self.g("config", "user.email", "collaudo@example.invalid")
+        self.g("config", "advice.detachedHead", "false")
+        for rel in ("rilascia.sh", "catena.txt", "prova.sh", "sito/costruisci.py"):
+            if os.path.exists(os.path.join(R, rel)):
+                self.scrivi("redazione/" + rel, open(os.path.join(R, rel), encoding="utf-8").read())
+        self.scrivi("redazione/collaudo.py", 'print("COLLAUDO: OK")\n')
+        self.scrivi("redazione/STATO.md", "stato\n"); self.scrivi("index.html", "<p>sito</p>\n")
+        self.scrivi(".gitignore", "__pycache__/\nredazione/PROVA_DATA\n")
+        self.scrivi("redazione/gommberg_engine.py", "# motore finto\n")
+        self.g("add", "-A"); self.g("commit", "-q", "-m", "inizio")
+        self.g("remote", "add", "origin", self.orig)
+        self.g("push", "-q", "origin", "main", "main:rilascio")
+        self.inizio = self.remoto("main")
+
+    def g(self, *a):
+        return esegui(["git", *a], cwd=self.rep)[1].strip()
+
+    def scrivi(self, rel, testo):
+        p = os.path.join(self.rep, rel)
+        os.makedirs(os.path.dirname(p), exist_ok=True)
+        open(p, "w", encoding="utf-8").write(testo)
+
+    def commit(self, rel, testo, msg):
+        self.scrivi(rel, testo); self.g("add", "-A"); self.g("commit", "-q", "-m", msg)
+        return self.g("rev-parse", "HEAD")
+
+    def remoto(self, ramo):
+        return esegui(["git", "rev-parse", "-q", "--verify", "refs/heads/" + ramo], cwd=self.orig)[1].strip()
+
+    def rilascia(self, *a, prova=False):
+        env = {"PATH": self.bin + os.pathsep + os.environ.get("PATH", ""), "GTD_ORA": self.ora, "FINTO_GH": self.gh,
+               "FINTO_GH_LOG": self.log}
+        if prova:
+            env["GTD_PROVA"] = "1"
+        try:
+            return esegui(["bash", "redazione/rilascia.sh", *a], cwd=self.rep, env=env, timeout=120)
+        except subprocess.TimeoutExpired:
+            return 124, "rilascia.sh " + " ".join(a) + ": nessuna risposta in 120 secondi"
+
+
+def ultima(out):
+    return (out.strip().splitlines() or ["nessuna uscita"])[-1][:140]
+
+
+def rilascio_avanti():
+    """1. pubblica fermata dal collaudo di GitHub: su GitHub il ramo rilascio resta com'era (non avanti al ramo
+    principale), il ramo principale non si tocca, GitHub ha collaudato proprio quell'albero; verde: pubblica e riallinea."""
+    b, male = Banco("avanti"), []
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    lavoro = b.commit("redazione/STATO.md", "stato nuovo\n", "G-00: lavoro")
+    b.gh = "failure"
+    rc, out = b.rilascia("pubblica")
+    if rc == 0 or "RILASCIO: FERMO" not in out:
+        male.append("con GitHub rosso doveva fermarsi (" + ultima(out) + ")")
+    if b.remoto("rilascio") != b.inizio or b.remoto("main") != b.inizio:
+        male.append("fermo dopo il push: su GitHub il ramo rilascio è andato avanti al ramo principale")
+    cancello = b.remoto("cancello")
+    if b.g("rev-parse", cancello + "^{tree}") != b.g("rev-parse", "HEAD^{tree}") or cancello not in open(b.log).read():
+        male.append("GitHub non ha collaudato l'albero del rilascio (ramo cancello)")
+    b.gh = "success"
+    rc, out = b.rilascia("pubblica")
+    princ = b.remoto("main")
+    if rc or princ == b.inizio or b.g("rev-parse", princ + "^{tree}") != b.g("rev-parse", lavoro + "^{tree}"):
+        male.append("con GitHub verde doveva pubblicare l'albero collaudato (" + ultima(out) + ")")
+    elif b.remoto("rilascio") != princ:
+        male.append("dopo il push sul ramo principale il ramo rilascio non è stato riallineato")
+    esito("Rilascio: pubblica non lascia rilascio avanti al ramo principale", not male, "; ".join(male) or
+          "GitHub rosso: rilascio e main fermi, collaudato l'albero sul ramo cancello; verde: un merge e rilascio = main")
+
+
+def avvia_sporco():
+    """2. avvia rifiuta un ramo rilascio con lavoro che il ramo principale non ha; --ripulisci lo riporta uguale al
+    ramo principale senza forzare; con-prova, che il lavoro lo porta apposta, si avvia."""
+    b, male = Banco("avvia"), []
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    b.commit("redazione/gommberg_engine.py", "# lavoro rimasto\n", "G-00: rimasto")
+    b.g("push", "-q", "origin", "rilascio")
+    b.g("checkout", "-q", "-B", "con-prova", "origin/main"); b.commit("redazione/STATO.md", "attesa\n", "G-01: attesa")
+    b.g("push", "-q", "origin", "con-prova"); b.g("checkout", "-q", "main")
+    sporco = b.remoto("rilascio")
+    rc, out = b.rilascia("avvia")
+    if rc == 0 or "RILASCIO: FERMO" not in out or "--ripulisci" not in out or b.remoto("rilascio") != sporco:
+        male.append("doveva fermarsi su un rilascio con lavoro non in linea (" + ultima(out) + ")")
+    b.g("checkout", "-q", "main")
+    rc, out = b.rilascia("avvia", "--ripulisci")
+    pulito = b.remoto("rilascio")
+    if rc or b.g("rev-parse", pulito + "^{tree}") != b.g("rev-parse", "origin/main^{tree}"):
+        male.append("--ripulisci doveva riportare rilascio uguale al ramo principale (" + ultima(out) + ")")
+    elif esegui(["git", "merge-base", "--is-ancestor", sporco, pulito], cwd=b.rep)[0]:
+        male.append("--ripulisci ha riscritto la storia di rilascio (push forzato)")
+    rc, out = b.rilascia("avvia", "con-prova")
+    if rc:
+        male.append("con-prova porta lavoro apposta e doveva avviarsi (" + ultima(out) + ")")
+    # un pubblica fermato dopo aver unito il commit: rilascio locale avanti, mai da spingere
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio"); b.commit("redazione/STATO.md", "unito\n", "G-04: unito in locale")
+    su_github = b.remoto("rilascio")
+    rc, out = b.rilascia("avvia")
+    if rc == 0 or "--ripulisci" not in out or "git push" in out or b.remoto("rilascio") != su_github:
+        male.append("con commit solo locali su rilascio doveva fermarsi proponendo --ripulisci, mai il push (" + ultima(out) + ")")
+    rc, out = b.rilascia("avvia", "--ripulisci")
+    if rc or b.g("rev-parse", "rilascio^{tree}") != b.g("rev-parse", "origin/main^{tree}") or "G-04" in b.g("log", "--format=%s", "origin/rilascio"):
+        male.append("--ripulisci doveva ripartire dal rilascio di GitHub senza spingere i commit locali (" + ultima(out) + ")")
+    esito("Rilascio: avvia rifiuta un rilascio sporco", not male, "; ".join(male) or
+          "rilascio con lavoro non in linea fermato; --ripulisci lo riporta uguale a main senza forzare; con-prova si avvia; "
+          "commit solo locali: propone --ripulisci, mai il push")
+
+
+def annulla_cancelli():
+    """3. annulla: mai nella fascia dell'uscita (lun-ven 8:30-10:30 di Roma), mai due volte lo stesso rilascio; dopo,
+    il ramo rilascio torna uguale al ramo principale. Un'edizione uscita dopo il rilascio resta."""
+    b, male = Banco("annulla"), []
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    b.commit("redazione/STATO.md", "rilasciato\n", "G-00: da togliere")
+    rc, out = b.rilascia("pubblica")
+    if rc:
+        return esito("Rilascio: annulla", False, "il rilascio da annullare non è partito: " + ultima(out))
+    b.g("checkout", "-q", "-B", "main", "origin/main"); b.commit("edizione.txt", "#036\n", "Edizione #036 - 2026-11-30")
+    b.g("push", "-q", "origin", "main"); b.g("checkout", "-q", "rilascio")
+    prima = b.remoto("main")
+    b.ora = "1 0915"
+    rc, out = b.rilascia("annulla")
+    if rc == 0 or "RILASCIO: FERMO" not in out or b.remoto("main") != prima:
+        male.append("lunedì alle 9:15 doveva fermarsi senza toccare il ramo principale (" + ultima(out) + ")")
+    b.ora = "6 2000"
+    rc, out = b.rilascia("annulla")
+    dopo = b.remoto("main")
+    if rc or dopo == prima or b.g("show", dopo + ":redazione/STATO.md") != "stato" or "#036" not in b.g("show", dopo + ":edizione.txt"):
+        male.append("di sabato doveva togliere il rilascio e lasciare l'edizione (" + ultima(out) + ")")
+    elif b.remoto("rilascio") != dopo or b.g("rev-parse", "rilascio") != dopo:
+        male.append("dopo l'annullamento il ramo rilascio non è tornato uguale al ramo principale")
+    rc, out = b.rilascia("annulla")
+    if rc == 0 or "già annullato" not in out or b.remoto("main") != dopo:
+        male.append("un secondo annullamento di fila doveva fermarsi (" + ultima(out) + ")")
+    esito("Rilascio: annulla", not male, "; ".join(male) or
+          "fermo nella fascia dell'uscita; toglie il rilascio e lascia l'edizione; rilascio = main; il secondo di fila si ferma")
+
+
+def leggi_catena(testo):
+    """Le regole di redazione/catena.txt come le legge rilascia.sh: {tipo: [espressioni]}."""
+    reg = {}
+    for riga in testo.splitlines():
+        p = riga.split()
+        if len(p) >= 2 and p[0] in ("catena", "prova", "fuori"):
+            reg.setdefault(p[0], []).append(p[1])
+    return reg
+
+
+def in_catena(reg, f, tipi=("catena", "prova")):
+    return any(re.search(x, f) for t in tipi for x in reg.get(t, [])) and not any(re.search(x, f) for x in reg.get("fuori", []))
+
+
+def catena_livello():
+    """4. La catena in un file solo, che copre motore, controlli, pubblicazione, newsletter, flussi di GitHub e i
+    cancelli stessi; pubblica rifiuta da sé un rilascio che la tocca senza l'Ok di Paolo."""
+    male = []
+    p = os.path.join(R, "catena.txt")
+    reg = leggi_catena(open(p, encoding="utf-8").read()) if os.path.exists(p) else {}
+    dentro = ["redazione/gommberg_engine.py", "redazione/controlli_testo.py", "redazione/pubblica.sh", "redazione/newsletter.py",
+              "redazione/newsletter_cornice.html", "redazione/rilascia.sh", "redazione/collaudo.py", "redazione/prova.sh",
+              "redazione/catena.txt", "redazione/rete/x/atteso/pdf.txt", "redazione/registro/CAPO.md", "redazione/ATTIVITA.md",
+              "redazione/ISTRUZIONI.md", ".github/workflows/sito.yml", ".github/workflows/collaudo.yml", ".claude/settings.json",
+              "edizioni.json", "dati/recenti.json", "pannello/registro.json"]
+    dentro += [os.path.relpath(f, REPO) for f in glob.glob(os.path.join(R, "**", "*.py"), recursive=True) + glob.glob(os.path.join(R, "*.sh"))]
+    fuori = ["redazione/STATO.md", "redazione/PROGETTO.md", "redazione/AZIONI.md", "redazione/collaudi/2026-11-27/g66/a.png", "index.html"]
+    male += ["fuori dalla catena: " + f for f in sorted(set(dentro)) if not in_catena(reg, f) and not f.startswith("redazione/collaudi/")][:5]
+    male += ["nella catena per sbaglio: " + f for f in fuori if in_catena(reg, f)]
+    male += ["non vuole la prova: " + f for f in ("redazione/ISTRUZIONI.md", "redazione/controlli_testo.py", "redazione/glossario.json")
+             if not in_catena(reg, f, ("prova",))]
+    male += ["nascosto fuori dalla catena: " + f for f in (".gitignore", ".mcp.json", ".claude/agents/x.md", ".nojekyll", ".github/dependabot.yml")
+             if not in_catena(reg, f)]
+    # rilascia.sh le legge con grep -E: una regola che solo Python capisce lo farebbe sbagliare in silenzio
+    for t in reg.values():
+        for x in t:
+            # grep -E esce con 2, oppure sintassi solo di Python ((?..), \d, \s, \w) che grep legge in un altro modo
+            if subprocess.run(["grep", "-qE", "--", x], input="x", capture_output=True, text=True).returncode == 2 \
+                    or re.search(r"\(\?|\\[dswb]", x):
+                male.append("regola non valida per grep -E: " + x)
+    b = Banco("catena")
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    approvato = b.commit("redazione/gommberg_engine.py", "# motore cambiato\n", "G-00: motore")
+    rc, out = b.rilascia("pubblica")
+    if rc == 0 or "catena" not in out.splitlines()[-1] or b.remoto("main") != b.inizio:
+        male.append("un rilascio del motore senza Ok doveva fermarsi (" + ultima(out) + ")")
+    rc, out = b.rilascia("pubblica", "--commit", approvato)
+    if rc or b.remoto("main") == b.inizio:
+        male.append("con l'Ok doveva pubblicare (" + ultima(out) + ")")
+    # senza Ok: un rinomino fuori dalla catena, un file nascosto, un file pubblico con _ in una sottocartella
+    for nome, fai in (("rinomino di ISTRUZIONI.md in collaudi/", lambda: (b.g("mv", "redazione/ISTRUZIONI.md", "redazione/collaudi/ISTRUZIONI.md"), b.g("commit", "-q", "-m", "G-00: sposta"))),
+                      (".gitignore", lambda: b.commit(".gitignore", "__pycache__/\nredazione/PROVA_DATA\npdf/\n", "G-00: ignora")),
+                      ("assets/_x.js (pubblico per costruisci.py)", lambda: b.commit("assets/_x.js", "x\n", "G-00: script"))):
+        b.g("checkout", "-q", "-B", "main", "origin/main")
+        if nome.startswith("rinomino"):
+            b.commit("redazione/ISTRUZIONI.md", "regole\n", "regole"); b.g("push", "-q", "origin", "main")
+        b.g("checkout", "-q", "-B", "rilascio", "origin/main"); prima = b.remoto("main")
+        fai()
+        rc, out = b.rilascia("pubblica")
+        if rc == 0 or b.remoto("main") != prima:
+            male.append(f"{nome} senza Ok doveva fermarsi (" + ultima(out) + ")")
+    # una regola che grep non capisce sul ramo principale: si ferma, non passa con la catena vuota
+    b.g("checkout", "-q", "-B", "main", "origin/main")
+    b.commit("redazione/catena.txt", open(os.path.join(b.rep, "redazione/catena.txt")).read() + "catena [[:foo:]]\n", "catena rotta")
+    b.g("push", "-q", "origin", "main"); b.g("checkout", "-q", "-B", "rilascio", "origin/main"); prima = b.remoto("main")
+    b.commit("redazione/gommberg_engine.py", "# motore di nuovo\n", "G-00: motore")
+    rc, out = b.rilascia("pubblica")
+    if rc == 0 or "regola non valida" not in out or b.remoto("main") != prima:
+        male.append("con una regola non valida in catena.txt doveva fermarsi (" + ultima(out) + ")")
+    esito("Rilascio: la catena in un file e il cancello dell'Ok", not male, "; ".join(male) or
+          f"catena.txt copre {len(set(dentro))} file del kit, i cancelli e i file nascosti, non i file di stato, regole valide per grep; "
+          "senza Ok si fermano motore, rinomino fuori dalla catena, .gitignore, assets/_x.js; regola non valida: fermo")
+
+
+def commit_approvato():
+    """5. pubblica --commit: unisce da sé il commit approvato e pubblica esattamente il ramo principale più quello; con
+    lavoro non approvato accanto si ferma senza toccare il ramo principale."""
+    b, male = Banco("commit"), []
+    b.g("checkout", "-q", "-B", "g01", "origin/main")
+    approvato = b.commit("redazione/gommberg_engine.py", "# motore approvato\n", "G-01: motore")
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    b.g("merge", "-q", "--no-ff", "--no-edit", approvato)
+    b.commit("redazione/newsletter.py", "# mai approvato\n", "G-02: di passaggio")
+    rc, out = b.rilascia("pubblica", "--commit", approvato[:10])
+    if rc == 0 or "esattamente" not in out or b.remoto("main") != b.inizio:
+        male.append("con lavoro non approvato accanto doveva fermarsi (" + ultima(out) + ")")
+    b.g("reset", "-q", "--hard", "origin/rilascio")
+    rc, out = b.rilascia("pubblica", "--commit", approvato[:10])
+    princ = b.remoto("main")
+    atteso = esegui(["git", "merge-tree", "--write-tree", b.inizio, approvato], cwd=b.rep)[1].split()[0]
+    if rc or princ == b.inizio or b.g("rev-parse", princ + "^{tree}") != atteso:
+        male.append("da rilascio pulito doveva unire e pubblicare esattamente il commit approvato (" + ultima(out) + ")")
+    elif approvato not in b.g("log", "-1", "--format=%B", princ):
+        male.append("il merge non nomina il commit approvato")
+    esito("Rilascio: pubblica --commit, esattamente il commit approvato", not male, "; ".join(male) or
+          "con un commit non approvato accanto si ferma; da rilascio pulito unisce e pubblica main più il commit, e lo nomina")
+
+
+def prova_automatica():
+    """6. prova.sh lanciabile da una sessione: avvio prende da solo il ramo da GitHub, e il ramo prova dice in JSON
+    l'esito e il commit provato (in corso, poi chiusa)."""
+    b, male = Banco("prova"), []
+    lav, link = os.path.join(b.base, "lavoro"), os.path.join(b.base, "gtd")
+    b.g("checkout", "-q", "-B", "con-prova", "origin/main")
+    provato = b.commit("redazione/ISTRUZIONI.md", "regole nuove\n", "G-03: regole")
+    b.g("push", "-q", "origin", "con-prova"); b.g("checkout", "-q", "-B", "con-prova", "origin/main"); b.g("checkout", "-q", "main")
+    prova = lambda *a: esegui(["bash", "redazione/prova.sh", *a], cwd=b.rep, env={"GTD_LAVORO": lav, "GTD_LINK": link}, timeout=60)
+    def leggi():
+        rc, out = prova("esito")
+        try:
+            return rc, json.loads(out)
+        except Exception:  # noqa: BLE001
+            return rc, {"uscita": out.strip()[-120:]}
+    b.g("checkout", "-q", "con-prova"); locale = b.commit("redazione/STATO.md", "locale\n", "lavoro locale")
+    rc, out = prova("avvio", "30/11", "--ramo", "con-prova")
+    if rc == 0 or b.g("rev-parse", "con-prova") != locale:
+        male.append("un avvio con argomenti sbagliati doveva fermarsi prima di toccare il ramo (" + ultima(out) + ")")
+    b.g("checkout", "-q", "main")
+    rc, out = prova("avvio", "2026-11-30", "--ramo", "con-prova")
+    if rc or b.g("rev-parse", "--abbrev-ref", "HEAD") != "con-prova":
+        male.append("avvio --ramo doveva prendere il ramo da GitHub (" + ultima(out) + ")")
+    rc, e = leggi()
+    if rc != 2 or e.get("esito") != "in-corso" or e.get("commit") != provato:
+        male.append(f"a prova avviata l'esito doveva dire in-corso sul commit provato ({e})")
+    pdf = os.path.join(b.base, "prova.pdf"); open(pdf, "w").write("%PDF finto")
+    rc, out = prova("chiudi", pdf)
+    rc2, e = leggi()
+    if rc or rc2 != 0 or e.get("esito") != "chiusa" or e.get("commit") != provato or e.get("data") != "2026-11-30" or "prova.pdf" not in e.get("file", []):
+        male.append(f"a prova chiusa l'esito doveva dire chiusa, con data, commit provato e PDF ({ultima(out)}; {e})")
+    # dopo la prova: unisci e pubblica --dopo-la-prova sul commit provato (lo script legge prova.sh esito)
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    rc, out = b.rilascia("unisci", provato)
+    rc2, out2 = b.rilascia("pubblica", "--commit", provato, "--dopo-la-prova")
+    if rc or rc2 or b.remoto("main") == b.inizio:
+        male.append("dopo la prova chiusa sul commit provato, pubblica --dopo-la-prova doveva pubblicare (" + ultima(out + out2) + ")")
+    esito("Prova automatica: prova.sh da una sessione", not male, "; ".join(male) or
+          "argomenti sbagliati non toccano il ramo; avvio --ramo lo prende da sé; prova.sh esito dice in JSON in-corso e poi "
+          "chiusa, con il commit provato; pubblica --dopo-la-prova su quel commit pubblica")
+
+
+def anteprima_chrome(copia):
+    """7. L'anteprima in uno script: serve il sito in locale, Chrome (qui finto: scarica la pagina servita e la salva come
+    immagine) in due larghezze, immagini in redazione/collaudi/AAAA-MM-GG/g<NN>/; senza Chrome si ferma."""
+    male, base = [], os.path.join(TMP, "anteprima")
+    os.makedirs(base)
+    finto = os.path.join(base, "chrome")
+    open(finto, "w").write("#!/usr/bin/env python3\nimport sys, urllib.request\n"
+                           "out = [a.split('=', 1)[1] for a in sys.argv if a.startswith('--screenshot=')][0]\n"
+                           "w = [a.split('=', 1)[1] for a in sys.argv if a.startswith('--window-size=')][0]\n"
+                           "open(out, 'wb').write(w.encode() + b' ' + urllib.request.urlopen(sys.argv[-1]).read())\n")
+    os.chmod(finto, 0o755)
+    script = os.path.join(copia, "redazione", "anteprima_chrome.sh")
+    rc, out = esegui(["bash", script, "g00", "index.html", "--sito", copia], env={"GTD_CHROME": finto}, timeout=120) \
+        if os.path.exists(script) else (1, "manca redazione/anteprima_chrome.sh")
+    oggi = subprocess.run(["date", "+%F"], env=dict(os.environ, TZ="Europe/Rome"), capture_output=True, text=True).stdout.strip()
+    d = os.path.join(copia, "redazione", "collaudi", oggi, "g00")
+    pagina = open(os.path.join(copia, "index.html"), "rb").read()
+    for w in ("1280", "390"):
+        f = os.path.join(d, f"index-{w}.png")
+        if rc or not os.path.exists(f) or open(f, "rb").read() != f"{w},2400 ".encode() + pagina:
+            male.append(f"immagine a {w} non salvata dalla pagina servita (" + ultima(out) + ")")
+            break
+    rc, out = esegui(["bash", script, "g00", "--sito", copia], env={"GTD_CHROME": os.path.join(base, "manca")}, timeout=60)
+    if rc == 0 or "ANTEPRIMA: FERMO" not in out:
+        male.append("senza Chrome doveva fermarsi (" + ultima(out) + ")")
+    shutil.rmtree(d, ignore_errors=True)
+    esito("Anteprima con Chrome in uno script", not male, "; ".join(male) or
+          "sito servito in locale, due larghezze in redazione/collaudi/<data>/g<NN>/; senza Chrome si ferma")
+
+
+def rientro_e_messaggi():
+    """Dopo annulla la voce rientra così: sul ramo della voce, da main nuovo, revert dell'annullamento più correzione,
+    un Ok nuovo, pubblica --commit. E i messaggi che dicono che cosa fare: --ok-di-paolo vecchio, gh rotto (subito, non
+    dopo 20 minuti), rosso di GitHub (gh run rerun), --dopo-la-prova senza una prova chiusa su quel commit."""
+    b, male = Banco("rientro"), []
+    b.g("checkout", "-q", "-B", "g01", "origin/main")
+    a = b.commit("redazione/gommberg_engine.py", "# motore con un errore\n", "G-01: motore")
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    rc, out = b.rilascia("pubblica", "--ok-di-paolo")
+    if rc == 0 or "--commit" not in out.splitlines()[-1]:
+        male.append("--ok-di-paolo doveva dire di usare --commit (" + ultima(out) + ")")
+    b.gh = "rotto"
+    rc, out = b.rilascia("pubblica", "--commit", a)
+    if rc == 0 or "gh non risponde" not in out or b.remoto("main") != b.inizio:
+        male.append("con gh rotto doveva fermarsi subito con la causa (" + ultima(out) + ")")
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio"); b.gh = "failure"
+    rc, out = b.rilascia("pubblica", "--commit", a)
+    if rc == 0 or "gh run rerun 4242" not in out:
+        male.append("con GitHub rosso doveva suggerire gh run rerun (" + ultima(out) + ")")
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio"); b.gh = "success"
+    rc, out = esegui(["bash", "redazione/rilascia.sh", "pubblica", "--commit", a], cwd=b.rep,
+                     env={"TZDIR": os.path.join(b.base, "nessun_fuso"), "PATH": b.bin + os.pathsep + os.environ.get("PATH", ""),
+                          "FINTO_GH": "success", "FINTO_GH_LOG": b.log})
+    if rc == 0 or "fuso" not in out or b.remoto("main") != b.inizio:
+        male.append("senza il fuso di Roma doveva fermarsi (" + ultima(out) + ")")
+    rc, out = b.rilascia("pubblica", "--commit", a, "--dopo-la-prova")
+    if rc == 0 or "prova" not in out.splitlines()[-1] or b.remoto("main") != b.inizio:
+        male.append("--dopo-la-prova senza una prova chiusa su quel commit doveva fermarsi (" + ultima(out) + ")")
+    b.g("checkout", "-q", "-B", "rilascio", "origin/rilascio")
+    rc, out = b.rilascia("pubblica", "--commit", a)
+    rc2, out2 = b.rilascia("annulla")
+    if rc or rc2:
+        return esito("Rilascio: rientro dopo annulla e messaggi", False, "; ".join(male + ["rilascio o annullamento non riusciti: " + ultima(out + out2)]))
+    annullamento = b.remoto("main")
+    b.g("fetch", "-q", "origin")
+    b.g("checkout", "-q", "-B", "g01", "origin/main"); b.g("revert", "--no-edit", annullamento)
+    nuovo = b.commit("redazione/gommberg_engine.py", "# motore corretto\n", "G-01: correzione")
+    rc, out = b.rilascia("avvia")
+    rc2, out2 = b.rilascia("pubblica", "--commit", nuovo)
+    princ = b.remoto("main")
+    if rc or rc2 or princ == annullamento or b.g("show", princ + ":redazione/gommberg_engine.py") != "# motore corretto":
+        male.append("la voce riproposta (revert dell'annullamento più correzione, Ok nuovo) doveva rientrare (" + ultima(out + out2) + ")")
+    esito("Rilascio: rientro dopo annulla e messaggi", not male, "; ".join(male) or
+          "--ok-di-paolo indica --commit; senza fuso di Roma fermo; gh rotto ferma subito; rosso: gh run rerun; --dopo-la-prova vuole la prova chiusa; "
+          "dopo annulla la voce rientra con revert dell'annullamento, correzione e --commit")
+
+
+def collaudo_github_cancello():
+    """8. Il collaudo di GitHub solo come cancello finale (G-12, leva 2): collaudo.yml parte solo dal ramo su cui
+    rilascia.sh pubblica porta il rilascio, e pubblica aspetta proprio quel flusso sullo stesso commit."""
+    male = []
+    flusso = open(os.path.join(REPO, ".github", "workflows", "collaudo.yml"), encoding="utf-8").read()
+    script = open(os.path.join(R, "rilascia.sh"), encoding="utf-8").read()
+    m = re.search(r'CANCELLO="([^"]+)"', script)
+    rami = re.search(r"\n  push:\s*\n\s*branches:\s*\[([^\]]*)\]", flusso)
+    rami = [x.strip().strip("'\"") for x in rami.group(1).split(",")] if rami else []
+    if not m or rami != [m.group(1)]:
+        male.append(f"collaudo.yml deve partire solo dal ramo del cancello ({m.group(1) if m else '?'}), parte da {rami}")
+    if "pull_request" in flusso or "schedule:" in flusso:
+        male.append("collaudo.yml ha altri inneschi oltre al cancello e al lancio a mano")
+    if "gh run list --workflow collaudo.yml --commit" not in script:
+        male.append("pubblica non aspetta più collaudo.yml sullo stesso commit (cancello 5)")
+    esito("Rilascio: il collaudo di GitHub solo come cancello finale", not male, "; ".join(male) or
+          "collaudo.yml parte solo dal ramo cancello (e a mano); pubblica lo aspetta sullo stesso commit")
+
+
+def passo_rilascio():
+    rilascio_avanti()
+    avvia_sporco()
+    annulla_cancelli()
+    catena_livello()
+    commit_approvato()
+    prova_automatica()
+    collaudo_github_cancello()
+    rientro_e_messaggi()
+
+
 def main():
     if "--campione" in sys.argv:
         try:
@@ -2323,10 +3539,15 @@ def main():
         passo_dem()
         passo_rete()
         passo_pannello()
+        passo_orologio()
+        passo_rilascio()
         copia = passo_sito()
         if isinstance(copia, str):
+            passo_analisi(copia)
+            passo_grafici(copia)
             passo_lettori(copia)
             passo_impara(copia)
+            anteprima_chrome(copia)
             passo_pubblicazione_ramo(copia)
             passo_pubblicazione(copia)
     finally:

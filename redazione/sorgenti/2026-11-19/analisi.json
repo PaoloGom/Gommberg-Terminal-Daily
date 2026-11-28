@@ -1,0 +1,578 @@
+{
+ "formato": 1,
+ "data": "2026-11-19",
+ "moduli": [
+  {
+   "chiave": "anthropic",
+   "pagina": "anthropic",
+   "tema": "Tecnologia",
+   "titolo": "Anthropic quota sopra la forchetta e mette alla prova un mercato che vende AI",
+   "perche": "Per noi il debutto misura quanto si paga ancora l'AI proprio mentre Wall Street la vende. Anthropic ha chiuso l'offerta sopra la forchetta (Reuters), e Nvidia ha perso il 13% in cinque sedute.",
+   "quindi": "Oggi alle 15:30 si vede il primo prezzo di ANT. Se chiude ben oltre i 100 $ e insieme salgono Nvidia e Nasdaq, la nostra lettura cade.",
+   "testo": [
+    "Perché un prezzo sopra la forchetta conta? Prima dell'offerta gli analisti fissano un intervallo, e chi compra dice quanto è disposto a pagare. Un prezzo sopra l'intervallo vuol dire che la domanda superava l'offerta, ed è il segnale che i grandi investitori credono ancora alla storia.",
+    "C'è un secondo effetto, meno visibile. Quando una sola società raccoglie 81 miliardi, chi compra deve trovare quei soldi altrove: di solito vende altri titoli, e per primi quelli che si scambiano di più, come Nvidia. Delle 980 milioni di azioni offerte, 956,35 milioni sono vendute dalla società (CBS News): quasi tutto il ricavato va quindi ad Anthropic. È una lettura nostra, non un fatto dichiarato: per questo conta guardare se oggi i titoli dell'AI salgono o scendono insieme ad Anthropic.",
+    "Ieri il quadro era diviso: il Dow Jones ha perso l'1,11% mentre il Nasdaq Composite saliva dello 0,42%. Di solito indici ponderati per capitalizzazione possono divergere, perché pochi grandi titoli ne decidono il movimento.",
+    "A Taipei l'effetto si sente di più: la borsa di Taiwan perde il 4,4% stamattina (Reuters). Di solito i suoi indici seguono i chip americani della sera prima, perché i produttori di semiconduttori pesano molto sull'indice."
+   ],
+   "guardare": "Il primo prezzo e la chiusura di ANT, e Nvidia: se tiene, la vendita è finita. Per noi un titolo che perde subito terreno sul prezzo dell'offerta dice che la domanda era già stata servita.",
+   "fonte": "Fonti: CBS News, Reuters (MarketScreener), ANSA.",
+   "punti": [
+    "<b>Chi compra.</b> Per Vanda Research i piccoli investitori hanno comprato 3 mld $ netti di Nvidia in dieci sedute. Su Anthropic la stima di acquisti netti è di 250 milioni, e per Vanda è prudente.",
+    "<b>I conti.</b> La società non è ancora in utile e ha 6,2 mld $ di debito (CBS News).",
+    "<b>Il record.</b> È la maggiore quotazione mai fatta in borsa (Reuters)."
+   ],
+   "righe": [
+    [
+     "Anthropic (ANT)",
+     "Valore",
+     "Nota"
+    ],
+    [
+     "Prezzo dell'offerta",
+     "83 $",
+     "Sopra la forchetta indicata"
+    ],
+    [
+     "Raccolta",
+     "circa 81 mld $",
+     "Maggiore offerta di sempre"
+    ],
+    [
+     "Valore atteso al debutto",
+     "fino a 1.500 mld $",
+     "Stima massima"
+    ],
+    [
+     "Ricavi del terzo trimestre",
+     "quasi 17 mld $",
+     "+45% sul secondo"
+    ],
+    [
+     "Valore diviso ricavi annualizzati",
+     "circa 22 volte",
+     "Calcolo nostro: 17 mld x 4 = 68 mld"
+    ]
+   ],
+   "misura": "doppio",
+   "grafici": [
+    {
+     "file": "anthropic-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-10-19"
+       },
+       {
+        "$d": "2026-10-20"
+       },
+       {
+        "$d": "2026-10-21"
+       },
+       {
+        "$d": "2026-10-22"
+       },
+       {
+        "$d": "2026-10-23"
+       },
+       {
+        "$d": "2026-10-26"
+       },
+       {
+        "$d": "2026-10-27"
+       },
+       {
+        "$d": "2026-10-28"
+       },
+       {
+        "$d": "2026-10-29"
+       },
+       {
+        "$d": "2026-10-30"
+       },
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-03"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       }
+      ],
+      "serie": [
+       [
+        "S&P 500",
+        [
+         7690.73,
+         7712.57,
+         7757.17,
+         7663.43,
+         7623.68,
+         7676.77,
+         7722.6,
+         7743.98,
+         7720.39,
+         7580.07,
+         7541.4,
+         7568.92,
+         7688.62,
+         7353.73,
+         7376.86,
+         7549.94,
+         7520.93,
+         7619.38,
+         7592.4,
+         7561.67,
+         7416.59,
+         7340.53,
+         7323.63
+        ],
+        "#111111"
+       ]
+      ],
+      "titolo": "Wall Street arriva al debutto dopo una settimana di vendite",
+      "sottotitolo": "S&P 500, chiusure (punti)",
+      "note": [
+       [
+        {
+         "$d": "2026-11-11"
+        },
+        7619.38,
+        "11/11"
+       ],
+       [
+        {
+         "$d": "2026-11-18"
+        },
+        7323.63,
+        "18/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "fed",
+   "pagina": "fed",
+   "tema": "Fed",
+   "titolo": "I verbali vedono altri rialzi e la curva dei Treasury si appiattisce",
+   "perche": "Di solito il rendimento a 2 anni segue le attese sulla Fed, e i verbali le hanno confermate: i funzionari della Fed vedono probabili nuovi rialzi. Il lungo scende e il breve resta fermo: per noi il mercato teme più la crescita che i prezzi oltre dicembre.",
+   "quindi": "Se il 30 anni risale sopra il 5,50% e il 10 anni sopra il 5,15%, la curva torna a dire inflazione.",
+   "numero": "90-95%: probabilità di un rialzo il 9 dicembre secondo i future sui tassi.",
+   "testo": [
+    "Il verbale è il resoconto di cosa si sono detti i membri della Fed all'ultima riunione. Il 28 ottobre i tassi erano stati lasciati al 3,75-4,00% (federalreserve.gov), e un rialzo a dicembre li porterebbe al 4,00-4,25%. Il verbale non cambia la decisione, che il mercato già dava per fatta: sposta la domanda su quanto sarà grande il rialzo. Quando i membri discutono di muoversi più di un quarto di punto, i prezzi se ne accorgono prima che arrivi la decisione.",
+    "L'inflazione è sopra l'obiettivo della Fed da quasi sei anni (CBS News). Un rialzo di dicembre non sorprende nessuno: a dividere è la dimensione.",
+    "Il rendimento a 2 anni, di solito, segue da vicino le attese sulla Fed. Quello a 30 dipende anche da crescita e inflazione di molti anni. Se il breve tiene e il lungo scende la curva si fa piatta: non è una previsione, ma di solito vuol dire tassi alti oggi e un'economia più fragile domani.",
+    "All'asta dei titoli a 20 anni la domanda diretta è stata forte e quella indiretta debole. Un'asta con poca domanda di solito spinge i rendimenti in su: ieri non è accaduto, e il lungo ha continuato a scendere."
+   ],
+   "guardare": "Il prossimo dato sui prezzi. Se l'inflazione dei servizi resta alta il rialzo di dicembre non basta, e si torna a parlare di mezzo punto. Se rallenta, il calo del lungo può essere l'inizio di un movimento più ampio, e di solito ne beneficiano anche le borse.",
+   "punti": [
+    "<b>Il voto.</b> A ottobre Cook e Hammack volevano già un rialzo di un quarto di punto (voto 10-2).",
+    "<b>La misura.</b> Per diversi membri dicembre è una «close call»; alcuni valutano più di un quarto di punto se l'inflazione peggiora.",
+    "<b>Il 30 anni.</b> Scende di 5 pb mentre il 2 anni resta fermo.",
+    "<b>L'AI.</b> I verbali citano la spesa in intelligenza artificiale tra ciò che alimenta i prezzi."
+   ],
+   "misura": "doppio",
+   "grafici": [
+    {
+     "file": "fed-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-10-19"
+       },
+       {
+        "$d": "2026-10-20"
+       },
+       {
+        "$d": "2026-10-21"
+       },
+       {
+        "$d": "2026-10-22"
+       },
+       {
+        "$d": "2026-10-23"
+       },
+       {
+        "$d": "2026-10-26"
+       },
+       {
+        "$d": "2026-10-27"
+       },
+       {
+        "$d": "2026-10-28"
+       },
+       {
+        "$d": "2026-10-29"
+       },
+       {
+        "$d": "2026-10-30"
+       },
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-03"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       }
+      ],
+      "titolo": "La distanza tra 30 e 2 anni scende da 71 a 61 punti base in un mese",
+      "sottotitolo": "30 anni meno 2 anni (pb)",
+      "serie": [
+       [
+        "30 anni meno 2 anni",
+        [
+         71,
+         63,
+         61,
+         64,
+         64,
+         63,
+         60,
+         70,
+         71,
+         75,
+         69,
+         71,
+         70,
+         79,
+         75,
+         70,
+         62,
+         57,
+         59,
+         63,
+         66,
+         61
+        ],
+        "#F26B1D"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    },
+    {
+     "file": "fed-2",
+     "dati": {
+      "tipo": "barre",
+      "dati": [
+       [
+        "3M",
+        1
+       ],
+       [
+        "6M",
+        2
+       ],
+       [
+        "1A",
+        2
+       ],
+       [
+        "2A",
+        0
+       ],
+       [
+        "3A",
+        0
+       ],
+       [
+        "5A",
+        -1
+       ],
+       [
+        "7A",
+        -3
+       ],
+       [
+        "10A",
+        -3
+       ],
+       [
+        "20A",
+        -6
+       ],
+       [
+        "30A",
+        -5
+       ]
+      ],
+      "titolo": "Salgono le scadenze brevi, scendono le lunghe",
+      "sottotitolo": "Curva Treasury, variazione del 18/11 (pb)",
+      "unita": " pb",
+      "dec": 0,
+      "ordina": false
+     },
+     "misure": [
+      538,
+      298
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "dollaro",
+   "pagina": "dollaro",
+   "tema": "Valute",
+   "titolo": "Neanche le tensioni nel Golfo fermano l'oro: pesa il dollaro",
+   "perche": "Per noi il dollaro attira più dei rifugi. L'indice del dollaro è a 103,92, massimo da 19 mesi, e i future danno oltre il 90% al rialzo Fed di dicembre. Per Kitco le tensioni nel Golfo non sostengono il metallo.",
+   "quindi": "Se l'oro risale sopra i 3.864 $ della chiusura del 17/11 mentre il dollaro resta forte, la sola Fed non basta a spiegarlo.",
+   "numero": "3.735 $: il minimo toccato dall'oro a pronti, il più basso da settembre 2025 (Reuters). Per l'oro in dollari conta anche il cambio: se il dollaro sale, di solito il prezzo in altre valute sale ancora meno.",
+   "testo": [
+    "L'oro non paga interessi: di solito soffre quando i tassi alti rendono più convenienti titoli che li pagano. Quando il dollaro sale, inoltre, diventa più caro per chi compra in altre valute. Nei momenti di paura molti comprano oro come rifugio, ma stavolta la spinta del dollaro è stata più forte.",
+    "L'indice del dollaro è salito a 103,92 dopo le parole di Waller, membro della Fed, su un'azione aggressiva contro l'inflazione.",
+    "Nelle fasi di forte paura, di solito, è il dollaro stesso a fare da rifugio: chi cerca liquidità compra dollari prima ancora dell'oro. È una seconda lettura possibile, e in quel caso oro e dollaro non salirebbero insieme.",
+    "In un mese l'oro ha perso più di 400 $: la discesa di ieri è l'ultimo gradino di un calo già lungo. Se i tassi americani restano alti, di solito il suo prezzo resta sotto pressione.",
+    "Lo stesso vale per l'euro: vicino ai minimi da aprile 2025, a 1,0973, perché di solito i tassi americani più alti rafforzano il dollaro sul cambio con la moneta europea."
+   ],
+   "fonte": "Fonti: Kitco, Bloomberg, Reuters.",
+   "punti": [
+    "<b>L'argento.</b> Perde il 3,4%, più dell'oro.",
+    "<b>Lo spot.</b> Il metallo a pronti scende sotto 3.800 $, ai minimi dal 2025."
+   ],
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "dollaro-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-10-19"
+       },
+       {
+        "$d": "2026-10-20"
+       },
+       {
+        "$d": "2026-10-21"
+       },
+       {
+        "$d": "2026-10-22"
+       },
+       {
+        "$d": "2026-10-23"
+       },
+       {
+        "$d": "2026-10-26"
+       },
+       {
+        "$d": "2026-10-27"
+       },
+       {
+        "$d": "2026-10-28"
+       },
+       {
+        "$d": "2026-10-29"
+       },
+       {
+        "$d": "2026-10-30"
+       },
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-03"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       },
+       {
+        "$d": "2026-11-17"
+       },
+       {
+        "$d": "2026-11-18"
+       }
+      ],
+      "serie": [
+       [
+        "Oro future",
+        [
+         4160.1,
+         4142.6,
+         4150.0,
+         4060.4,
+         4007.9,
+         4038.4,
+         4074.6,
+         4051.6,
+         4031.4,
+         3898.9,
+         3969.6,
+         3940.4,
+         4073.0,
+         4113.5,
+         4074.9,
+         4114.5,
+         4030.2,
+         4000.5,
+         3885.3,
+         3886.3,
+         3853.0,
+         3864.2,
+         3741.9
+        ],
+        "#F26B1D"
+       ]
+      ],
+      "titolo": "L'oro tocca il minimo da 14 mesi dopo un mese quasi sempre in calo",
+      "sottotitolo": "Oro future, chiusure ($)",
+      "note": [
+       [
+        {
+         "$d": "2026-10-19"
+        },
+        4160.1,
+        "19/10"
+       ],
+       [
+        {
+         "$d": "2026-11-18"
+        },
+        3741.9,
+        "18/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "sanita",
+   "pagina": "sanita",
+   "tema": "Macro",
+   "titolo": "I titoli sanitari scontano come legge una proposta che può ancora cambiare",
+   "perche": "Per noi il mercato prezza il caso peggiore. La proposta del CMS, l'ente che gestisce Medicare, estenderebbe a una platea più ampia di pagamenti l'esito dei controlli a campione, senza correzione per la spesa a pagamento (finchannel).",
+   "quindi": "I commenti pubblici restano aperti fino al 19 gennaio 2027 e non è una regola finale: finché il testo può cambiare, il prezzo scommette sul peggio.",
+   "testo": [
+    "Perché un titolo cade di un decimo per una proposta? Il prezzo di un'azione sconta ogni giorno gli utili futuri attesi. Se il testo diventasse regola, i recuperi chiesti agli assicuratori ridurrebbero quegli utili. Chi vende non aspetta la versione finale.",
+    "Una regola finale più morbida di solito fa recuperare il titolo. Un testo ancora in consultazione può cambiare, e finché non cambia il prezzo incorpora la versione più dura."
+   ],
+   "fonte": "Fonte: FINANCIAL (finchannel).",
+   "punti": [
+    "<b>Il metodo.</b> L'estrapolazione applicherebbe l'esito dei controlli su un campione a una platea più ampia di pagamenti.",
+    "<b>Chi è esposto.</b> Per Mizuho più controlli sono un fattore negativo per i margini, e le più esposte sono UnitedHealth e Humana."
+   ],
+   "righe": [
+    [
+     "Il punto",
+     "Dato"
+    ],
+    [
+     "UnitedHealth, 18/11",
+     "-10,2%, a circa 349,9 $"
+    ],
+    [
+     "Cosa propone il CMS",
+     "Estendere a più pagamenti l'esito dei controlli a campione"
+    ],
+    [
+     "Da quale anno",
+     "Dal 2018 di pagamento"
+    ],
+    [
+     "Recuperi stimati",
+     "Circa 9 mld $ per anno di pagamento"
+    ]
+   ],
+   "misura": "mezzo"
+  }
+ ]
+}

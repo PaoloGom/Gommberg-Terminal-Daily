@@ -1,0 +1,696 @@
+{
+ "formato": 1,
+ "data": "2026-11-17",
+ "moduli": [
+  {
+   "chiave": "chip",
+   "pagina": "chip",
+   "tema": "Chip e AI",
+   "titolo": "La vendita sull'AI si allarga e a Wall Street perdono i settori in blocco",
+   "perche": "Pesano insieme due dubbi: chi guiderà Nvidia dopo Huang e se la spesa in AI renderà abbastanza (Reuters). Nvidia ha la serie settimanale di perdite più lunga dall'ottobre 2012, e ieri sono arrivate anche le regole USA sull'accesso cinese ai chip.",
+   "quindi": "Alle 23:00 di stasera la conference call di Nvidia dice se la domanda di chip regge; giovedì il debutto di Anthropic al Nasdaq è il secondo test.",
+   "numero": "-735 miliardi di dollari: il valore che Nvidia ha perso dalle rivelazioni su Huang (AP). Per noi è il conto della fiducia, più che dei conti trimestrali.",
+   "testo": [
+    "Un titolo guarda avanti: chi compra Nvidia paga oggi gli utili che si aspetta tra qualche anno. Se cambia l'incertezza su chi la guida, o su quanto i clienti continueranno a spendere, il prezzo si rifà da capo, anche prima dei conti. Per questo la vendita non si ferma a Nvidia: chi fa memorie, server e servizi cloud per l'AI vive della stessa spesa, e il dubbio riguarda tutti.",
+    "In Asia l'effetto è più forte dove i chip pesano di più sull'indice. A Seul Samsung perde il 3,3% e SK hynix il 2%: pochi titoli muovono molto il Kospi, che chiude sotto 5.000, ai minimi da nove mesi.",
+    "A Wall Street la vendita è larga: in media i titoli del Nyse perdono in quasi tutti i settori. Più degli altri calano industriali e materiali, meno la finanza e le utility. Non è più solo una questione di chip: quando una spesa così grande viene messa in dubbio, il dubbio arriva anche a chi la sostiene. E finché non è chiaro chi guida Nvidia, per i mercati ogni notizia sul vertice pesa quanto un dato sui conti."
+   ],
+   "guardare": "Se i conti battono le attese ma il titolo cade lo stesso, la vendita non riguarda più i risultati. Se Nvidia recupera e i chip americani la seguono, quella di ieri può restare una tappa. Domattina l'Asia dice quale delle due.",
+   "fonte": "Fonti: Reuters, AP, Korea Herald, Radiocor.",
+   "punti": [
+    "<b>Il fornitore.</b> A Seul gli stranieri vendono 1.440 miliardi di won netti, mentre istituzionali e privati comprano.",
+    "<b>La regia.</b> Il Financial Times scrive che Huang lavora per rientrare, e Trump non si opporrebbe a un suo ritorno (Reuters)."
+   ],
+   "misura": "doppio",
+   "grafici": [
+    {
+     "file": "chip-1",
+     "dati": {
+      "tipo": "barre",
+      "dec": 1,
+      "ordina": false,
+      "unita": "%",
+      "dati": [
+       [
+        "Industriali",
+        -1.5
+       ],
+       [
+        "Materiali",
+        -1.4
+       ],
+       [
+        "Tecnologia",
+        -1.4
+       ],
+       [
+        "Energia",
+        -1.3
+       ],
+       [
+        "Sanità",
+        -1.2
+       ],
+       [
+        "Consumi ciclici",
+        -1.0
+       ],
+       [
+        "Comunicazioni",
+        -0.9
+       ],
+       [
+        "Immobiliare",
+        -0.7
+       ],
+       [
+        "Consumi difensivi",
+        -0.6
+       ],
+       [
+        "Finanza",
+        -0.1
+       ],
+       [
+        "Utility",
+        -0.1
+       ]
+      ],
+      "titolo": "La vendita sull'AI è larga: in media perdono i titoli di ogni settore",
+      "sottotitolo": "variazione media dei titoli del Nyse per settore, chiusura del 16/11 (%)"
+     },
+     "misure": [
+      538,
+      323
+     ]
+    },
+    {
+     "file": "chip-2",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-10-14"
+       },
+       {
+        "$d": "2026-10-15"
+       },
+       {
+        "$d": "2026-10-16"
+       },
+       {
+        "$d": "2026-10-19"
+       },
+       {
+        "$d": "2026-10-20"
+       },
+       {
+        "$d": "2026-10-21"
+       },
+       {
+        "$d": "2026-10-22"
+       },
+       {
+        "$d": "2026-10-23"
+       },
+       {
+        "$d": "2026-10-26"
+       },
+       {
+        "$d": "2026-10-27"
+       },
+       {
+        "$d": "2026-10-28"
+       },
+       {
+        "$d": "2026-10-29"
+       },
+       {
+        "$d": "2026-10-30"
+       },
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-03"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       }
+      ],
+      "serie": [
+       [
+        "Nasdaq",
+        [
+         26692.87,
+         26713.03,
+         26140.03,
+         26430.89,
+         26424.82,
+         26702.86,
+         26008.86,
+         25955.34,
+         26169.38,
+         26477.81,
+         26549.85,
+         26184.72,
+         25437.0,
+         25164.32,
+         25372.01,
+         25736.51,
+         24315.0,
+         24579.42,
+         25253.14,
+         25065.87,
+         25466.19,
+         25366.09,
+         25136.27,
+         24509.76
+        ],
+        "#111111"
+       ]
+      ],
+      "titolo": "Il Nasdaq perde il 7,7% dal massimo del 28 ottobre",
+      "sottotitolo": "Nasdaq Composite, punti",
+      "note": [
+       [
+        {
+         "$d": "2026-10-28"
+        },
+        26549.85,
+        "28/10"
+       ],
+       [
+        {
+         "$d": "2026-11-16"
+        },
+        24509.76,
+        "16/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "tassi",
+   "pagina": "tassi",
+   "tema": "Tassi USA",
+   "titolo": "Con la paura i Treasury tornano rifugio, anche con la Fed pronta ad alzare",
+   "perche": "Di solito chi ha paura compra Treasury: il loro prezzo sale e il rendimento scende. Lunedì è successo mentre i future sui tassi davano per fatto il rialzo di dicembre (Reuters), e per noi il rifugio pesa più della Fed.",
+   "quindi": "Mercoledì alle 20:00 i verbali dicono quanto la Fed è vicina al rialzo: se sono duri, il 2 anni può tornare sopra il 4,88% di venerdì.",
+   "numero": "+27 pb: di quanto il 2 anni è più alto di lunedì scorso, da 4,56% a 4,83%. Il rifugio di ieri ne ha cancellati solo 5.",
+   "testo": [
+    "Il 2 anni segue le attese sui tassi della Fed, il 10 anni guarda anche a crescita e prezzi. Lunedì il breve ha perso 5 pb e il lungo 3. Scende di più chi guarda alla Fed: è la mossa tipica di chi si mette al riparo e non di chi si aspetta tassi più bassi.",
+    "Il rialzo di dicembre è già nei prezzi: per i future sui tassi (CME FedWatch) è quasi certo. La probabilità di uno da 50 pb è circa il 9%. Quando una mossa è scontata, a muovere i rendimenti è ciò che la Fed dice sul dopo, non la mossa in sé.",
+    "In una settimana il rendimento a 10 anni è salito di 24 pb, da 4,88% a 5,12%, e il passo indietro di lunedì ne ha restituiti solo 3. Chi presta al governo americano per due anni chiede ancora molto di più di una settimana fa. È il segno che la Fed resta il tema di fondo anche nei giorni di paura."
+   ],
+   "guardare": "Se i verbali parlano di inflazione più larga, il rifugio può non bastare: rendimenti su anche con la borsa giù. Se parlano di rischi per la crescita, il 2 anni può scendere ancora.",
+   "fonte": "Fonti: curva par del Tesoro USA (FMP), Reuters.",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "tassi-1",
+     "dati": {
+      "tipo": "barre",
+      "dati": [
+       [
+        "1M",
+        0
+       ],
+       [
+        "2M",
+        1
+       ],
+       [
+        "3M",
+        2
+       ],
+       [
+        "6M",
+        0
+       ],
+       [
+        "1A",
+        -3
+       ],
+       [
+        "2A",
+        -5
+       ],
+       [
+        "3A",
+        -5
+       ],
+       [
+        "5A",
+        -5
+       ],
+       [
+        "7A",
+        -4
+       ],
+       [
+        "10A",
+        -3
+       ],
+       [
+        "20A",
+        -1
+       ],
+       [
+        "30A",
+        -1
+       ]
+      ],
+      "titolo": "Il breve scende più del lungo",
+      "sottotitolo": "Curva Treasury, variazione del 16/11 (pb)",
+      "unita": " pb",
+      "dec": 0,
+      "ordina": false
+     },
+     "misure": [
+      538,
+      348
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "oro",
+   "pagina": "oro",
+   "tema": "Dollaro e oro",
+   "titolo": "Con il dollaro forte l'oro non fa da rifugio",
+   "perche": "Per noi pesano tassi alti e dollaro forte: di solito un metallo che non paga interessi perde appeal quando i rendimenti salgono. Ieri l'euro è sceso a 1,0996, il livello più basso da almeno quattro mesi e mezzo. Quando la paura sale molti comprano prima dollari che oro: è la moneta in cui si tengono i titoli di Stato più sicuri, e ieri a guadagnare è stato lui.",
+   "quindi": "Se mercoledì i verbali Fed spingono ancora il dollaro, la soglia da guardare è il minimo di ieri sera, 3.853 $, la chiusura più bassa delle ultime cinque settimane.",
+   "testo": [
+    "L'oro non paga interessi: se un titolo di Stato americano rende il 5,12% senza rischi, tenere un metallo che non dà niente costa di più. Per questo l'oro tende a soffrire quando i rendimenti salgono e il dollaro si rafforza, anche nei giorni di paura. Ieri è successo di nuovo: la borsa scendeva e l'oro ha perso lo 0,9%.",
+    "In poche settimane il percorso si è rovesciato: il 16 ottobre l'oro valeva 4.181 dollari, ieri 3.853, il 7,8% in meno. Intanto il dollaro ha guadagnato sull'euro: in un mese l'EUR/USD è passato da 1,1239 a 1,0996, il 2,2% in meno. Un dollaro più caro rende l'oro più costoso per chi compra con altre valute, e di solito ne frena la domanda. È uno dei motivi per cui il metallo non ha tenuto il passo della paura."
+   ],
+   "guardare": "Un oro in recupero con il dollaro fermo direbbe che il rifugio è tornato. Un oro ancora in calo con la borsa che scende confermerebbe che a comandare sono i tassi.",
+   "fonte": "Fonti: FMP (oro future), Alpha Vantage (EUR/USD).",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "oro-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-10-14"
+       },
+       {
+        "$d": "2026-10-15"
+       },
+       {
+        "$d": "2026-10-16"
+       },
+       {
+        "$d": "2026-10-19"
+       },
+       {
+        "$d": "2026-10-20"
+       },
+       {
+        "$d": "2026-10-21"
+       },
+       {
+        "$d": "2026-10-22"
+       },
+       {
+        "$d": "2026-10-23"
+       },
+       {
+        "$d": "2026-10-26"
+       },
+       {
+        "$d": "2026-10-27"
+       },
+       {
+        "$d": "2026-10-28"
+       },
+       {
+        "$d": "2026-10-29"
+       },
+       {
+        "$d": "2026-10-30"
+       },
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-03"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       }
+      ],
+      "serie": [
+       [
+        "Oro",
+        [
+         4107.9,
+         4170.1,
+         4181.1,
+         4160.1,
+         4142.6,
+         4150.0,
+         4060.4,
+         4007.9,
+         4038.4,
+         4074.6,
+         4051.6,
+         4031.4,
+         3898.9,
+         3969.6,
+         3940.4,
+         4073.0,
+         4113.5,
+         4074.9,
+         4114.5,
+         4030.2,
+         4000.5,
+         3885.3,
+         3886.3,
+         3853.0
+        ],
+        "#F26B1D"
+       ]
+      ],
+      "titolo": "L'oro perde il 6,4% in una settimana",
+      "sottotitolo": "Oro future, chiusure ($)",
+      "note": [
+       [
+        {
+         "$d": "2026-11-09"
+        },
+        4114.5,
+        "9/11"
+       ],
+       [
+        {
+         "$d": "2026-11-16"
+        },
+        3853.0,
+        "16/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "europa",
+   "pagina": "europa",
+   "tema": "Europa",
+   "titolo": "Con meno AI nell'indice l'Europa perde meno di Wall Street",
+   "perche": "Per noi conta la composizione: gli indici americani sono più concentrati sulle grandi società tecnologiche, quindi un calo dell'AI li colpisce più di quelli europei. Alla chiusura europea il Nasdaq 100 perdeva l'1,5% e l'indice europeo dei titoli tecnologici l'1,3% (dpa-AFX). Per noi il banco di prova resta la serata di Nvidia, che dà il tono alla riapertura.",
+   "quindi": "Oggi il test è la riapertura di Wall Street alle 15:30. Se il Nasdaq continua a scendere, l'Europa difficilmente resta indietro, mentre la difesa che ieri ha sostenuto Milano è la prima cosa da controllare.",
+   "testo": [
+    "A Milano a pesare sono Stellantis, in calo del 3,9%, e Technoprobe, che perde il 4,2% per il pessimismo sull'AI; la difesa tiene, con Leonardo in rialzo dello 0,9%."
+   ],
+   "guardare": "Se Wall Street recupera dopo i conti Nvidia l'Europa dovrebbe seguire; se il Nasdaq continua a scendere, il vantaggio di ieri si riduce.",
+   "fonte": "Fonti: dpa-AFX, Radiocor, Teleborsa.",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "europa-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       }
+      ],
+      "serie": [
+       [
+        "S&amp;P 500",
+        [
+         100.0,
+         102.34,
+         101.96,
+         103.28,
+         102.92,
+         102.51,
+         100.54
+        ],
+        "#111111"
+       ],
+       [
+        "Euro Stoxx 50",
+        [
+         100.0,
+         101.94,
+         102.55,
+         103.61,
+         103.7,
+         103.51,
+         102.88
+        ],
+        "#F26B1D"
+       ]
+      ],
+      "titolo": "L'Europa tiene mentre Wall Street scende dal massimo dell'11 novembre",
+      "sottotitolo": "S&amp;P 500 e Euro Stoxx 50, chiusure, 6 novembre = 100"
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "chiave": "petrolio",
+   "pagina": "petrolio",
+   "tema": "Petrolio",
+   "titolo": "Il petrolio cade: il mercato guarda all'eccesso di offerta",
+   "perche": "Segnali di recupero dei flussi da Hormuz rafforzano l'idea di un eccesso di offerta. L'Agenzia internazionale dell'energia ora prevede per il quarto trimestre 1,7 milioni di barili al giorno di offerta in più della domanda (Reuters).",
+   "quindi": "Il minimo recente è 91,49 $ del 10/11: da lì il Brent è rimbalzato a 95,82 $ in due giorni, e ieri ci è tornato vicino.",
+   "numero": "-20,8%: il calo del Brent dal 23 ottobre a ieri sera. Il giorno più pesante è stato il 4 novembre, -8,7%.",
+   "testo": [
+    "Meno petrolio vuol dire meno inflazione, di solito con un po' di ritardo: i carburanti costano meno subito, i prezzi di trasporti e beni ci mettono più tempo. Per la Fed che deve decidere a dicembre un Brent più basso è un sollievo, anche se da solo non basta.",
+    "Intanto cambia anche la domanda: la lavorazione di greggio nelle raffinerie cinesi scende dell'8,1% su un anno e implica scorte in aumento di circa 492 mila barili al giorno. Goldman Sachs vede il Brent a 88 dollari in media il prossimo anno, ma avverte che gli attacchi alle navi tengono aperto il rischio di rialzo nel breve."
+   ],
+   "guardare": "Un nuovo attacco che blocchi davvero i flussi smentirebbe la tesi; più petroliere che passano da Hormuz la rafforzano.",
+   "fonte": "Fonti: Reuters, Radiocor; chiusure del Brent future (FMP).",
+   "misura": "mezzo",
+   "grafici": [
+    {
+     "file": "petrolio-1",
+     "dati": {
+      "tipo": "linee",
+      "x": [
+       {
+        "$d": "2026-10-14"
+       },
+       {
+        "$d": "2026-10-15"
+       },
+       {
+        "$d": "2026-10-16"
+       },
+       {
+        "$d": "2026-10-19"
+       },
+       {
+        "$d": "2026-10-20"
+       },
+       {
+        "$d": "2026-10-21"
+       },
+       {
+        "$d": "2026-10-22"
+       },
+       {
+        "$d": "2026-10-23"
+       },
+       {
+        "$d": "2026-10-26"
+       },
+       {
+        "$d": "2026-10-27"
+       },
+       {
+        "$d": "2026-10-28"
+       },
+       {
+        "$d": "2026-10-29"
+       },
+       {
+        "$d": "2026-10-30"
+       },
+       {
+        "$d": "2026-11-02"
+       },
+       {
+        "$d": "2026-11-03"
+       },
+       {
+        "$d": "2026-11-04"
+       },
+       {
+        "$d": "2026-11-05"
+       },
+       {
+        "$d": "2026-11-06"
+       },
+       {
+        "$d": "2026-11-09"
+       },
+       {
+        "$d": "2026-11-10"
+       },
+       {
+        "$d": "2026-11-11"
+       },
+       {
+        "$d": "2026-11-12"
+       },
+       {
+        "$d": "2026-11-13"
+       },
+       {
+        "$d": "2026-11-16"
+       }
+      ],
+      "serie": [
+       [
+        "Brent",
+        [
+         106.06,
+         105.92,
+         109.86,
+         109.55,
+         108.79,
+         108.82,
+         113.17,
+         116.72,
+         115.81,
+         113.88,
+         115.32,
+         110.8,
+         113.43,
+         104.77,
+         103.6,
+         94.62,
+         98.29,
+         98.32,
+         92.57,
+         91.49,
+         92.76,
+         95.82,
+         95.84,
+         92.44
+        ],
+        "#F26B1D"
+       ]
+      ],
+      "titolo": "Dal 23 ottobre il Brent ha perso più di un quinto",
+      "sottotitolo": "Brent future, chiusure ($)",
+      "soglie": [
+       [
+        100,
+        "100 $"
+       ]
+      ],
+      "note": [
+       [
+        {
+         "$d": "2026-10-23"
+        },
+        116.72,
+        "23/10"
+       ],
+       [
+        {
+         "$d": "2026-11-16"
+        },
+        92.44,
+        "16/11"
+       ]
+      ]
+     },
+     "misure": [
+      538,
+      235
+     ]
+    }
+   ]
+  }
+ ]
+}
