@@ -10,8 +10,10 @@ avvisa Paolo.
 
 Cosa guarda, nell'ordine in cui l'edizione viaggia (mappa: redazione/ARCHITETTURA.md):
   1. Uscita      edizioni.json del ramo principale ha l'edizione di oggi, con il suo PDF e la sua pagina
-  2. Sito        gommberg.com mostra quell'edizione (dati/recenti.json), la pagina e il PDF si aprono, La Gommunity
-                 risponde (il servizio dei lettori, /api/lettori/)
+  2. Sito        gommberg.com mostra quell'edizione (dati/recenti.json), la pagina e il PDF si aprono, le pagine
+                 delle analisi (G-64) sono nate tutte nel repository (una per analisi dell'edizione: un sorgente non
+                 archiviato o rotto si vede qui) e la prima si apre online, La Gommunity risponde (il servizio dei
+                 lettori, /api/lettori/)
   3. Pubblicazione  l'ultimo giro di sito.yml sul ramo principale è di oggi ed è verde
   4. Newsletter  l'ultimo giro di newsletter.yml è di oggi ed è verde, l'invio di oggi esiste in Kit, e il link
                  dell'email (la homepage ferma su questa edizione) si apre

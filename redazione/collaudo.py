@@ -38,7 +38,8 @@ Cosa controlla:
                    rotto che non ferma l'edizione, e un'edizione rifatta da zero che ridà gli stessi file. I grafici
                    si confrontano in ciò che mostrano e non nei byte, che cambiano con la versione di matplotlib: lo
                    stesso verdetto in locale e su GitHub (stesso_grafico, provato da passo_grafici)
-  6. Pubblicazione pubblica.sh in modalità prova sulla copia (nessun commit, nessun push)
+  6. Pubblicazione pubblica.sh in modalità prova sulla copia (nessun commit, nessun push); se pagine.py cade l'avviso
+                   esce e la pubblicazione prosegue
 Esce con 1 se un passo fallisce. --tieni lascia la cartella temporanea per guardare PDF e anteprime.
 
 La rete (redazione/rete/). Un campione è un'edizione vera congelata: sorgenti/ (il testo scritto e i dati di quel
@@ -2364,6 +2365,19 @@ def passo_pubblicazione(copia):
         and os.path.exists(os.path.join(srg, "edizione.py")) and os.path.exists(os.path.join(srg, "dati.json"))
     esito("Pubblicazione a secco (pubblica.sh in prova)", ok,
           "comandi git stampati e non eseguiti, sorgenti archiviati" if ok else out.strip().splitlines()[-1][:160])
+    # pagine.py che cade non ferma la pubblicazione, ma l'avviso deve uscire (prima lo copriva l'esito di awk)
+    pg = os.path.join(copia, "redazione", "pagine.py")
+    buono = open(pg, encoding="utf-8").read()
+    open(pg, "w", encoding="utf-8").write("import sys\nsys.exit('pagine.py rotto apposta dal collaudo')\n")
+    try:
+        rc, out = esegui(["bash", os.path.join(copia, "redazione", "pubblica.sh"), pdf, str(v["numero"]), v["data"],
+                          os.path.join(lav, "fatti.json")], env={"GTD_REPO": copia, "GTD_PROVA": "1"})
+    finally:
+        open(pg, "w", encoding="utf-8").write(buono)
+    ok = rc == 0 and "AVVISO: pagine.py non riuscito" in out and "Sito: PROVA - nessun push" in out
+    esito("Pubblicazione: pagine.py che cade", ok, "avviso stampato, la pubblicazione prosegue" if ok else
+          ("manca l'avviso" if rc == 0 else "la pubblicazione si è fermata") + ": " +
+          ([x for x in out.splitlines() if x.startswith(("Sito:", "AVVISO"))] or ["nessuna riga Sito: né AVVISO"])[-1][:160])
 
 
 def passo_pubblicazione_ramo(copia):
